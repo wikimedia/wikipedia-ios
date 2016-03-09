@@ -97,11 +97,13 @@
 }
 
 - (void)test_all_translated_languages_were_added_to_project_localizations {
-    // These lproj languages have translations (in "Localizable.strings") but are
-    // not yet bundled, so we will need to add these to the project's localizations.
-    
     NSMutableArray *files = [self.unbundledLprojFilesWithTranslations mutableCopy];
     [files removeObjectsInArray:[self languagesUnsureHowToMapToWikiCodes]];
+    
+    // Fails if any lproj languages have translations (in "Localizable.strings") but are
+    // not yet bundled in the project.
+    
+    // So, if this test fails, the languages listed will need to be added these to the project's localizations.
     
     assertThat(files, isEmpty());
 }
