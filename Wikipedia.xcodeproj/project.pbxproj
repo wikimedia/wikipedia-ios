@@ -768,6 +768,8 @@
 		B02B827A1C698FAB00B19309 /* WMFSettingsMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFSettingsMenuItem.h; path = Wikipedia/Code/WMFSettingsMenuItem.h; sourceTree = SOURCE_ROOT; };
 		B039D1991C8E7A6900C9F2E0 /* ksh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ksh; path = ksh.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B039D19A1C8E7A6900C9F2E0 /* ksh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ksh; path = ksh.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B048761A1C8FB32A008F8920 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B048761B1C8FB32A008F8920 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B063DE5E1C63FEE9002F2EDE /* UIToolbar+WMFStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIToolbar+WMFStyling.h"; path = "Wikipedia/Code/UIToolbar+WMFStyling.h"; sourceTree = SOURCE_ROOT; };
 		B063DE5F1C63FEE9002F2EDE /* UIToolbar+WMFStyling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIToolbar+WMFStyling.m"; path = "Wikipedia/Code/UIToolbar+WMFStyling.m"; sourceTree = SOURCE_ROOT; };
 		B065315E1C220921003BD7DC /* WMFArticlePreviewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticlePreviewDataSource.h; path = Wikipedia/Code/WMFArticlePreviewDataSource.h; sourceTree = SOURCE_ROOT; };
@@ -5163,6 +5165,7 @@
 				bto,
 				cs,
 				ksh,
+				af,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
@@ -6047,6 +6050,7 @@
 				BC45D5401C31D025007C72F3 /* yi */,
 				BC45D5411C31D029007C72F3 /* da */,
 				B039D19A1C8E7A6900C9F2E0 /* ksh */,
+				B048761B1C8FB32A008F8920 /* af */,
 			);
 			name = InfoPlist.strings;
 			path = Localizations;
@@ -6117,6 +6121,7 @@
 				BC45D5341C31CEE6007C72F3 /* yi */,
 				BC45D5351C31CEE9007C72F3 /* da */,
 				B039D1991C8E7A6900C9F2E0 /* ksh */,
+				B048761A1C8FB32A008F8920 /* af */,
 			);
 			name = Localizable.strings;
 			path = Localizations;
