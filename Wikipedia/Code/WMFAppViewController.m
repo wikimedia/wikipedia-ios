@@ -172,9 +172,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     //HAX: fix for "Unbalanced calls to begin/end appearance transitions" warning
     //We could put it in viewdidappear, but then we would have to wrap it in a dispatch_once to make sure it only runs once
-    dispatchOnMainQueue(^{
+    //Add a delay for iOS 8 (for iOS 9+ we can dispatch and that will be enough)
+    dispatchOnMainQueueAfterDelayInSeconds(0.35, ^{
         @weakify(self)
-        [self runDataMigrationIfNeededWithCompletion :^{
+        [self runDataMigrationIfNeededWithCompletion:^{
             @strongify(self)
             [self.imageMigration setupAndStart];
             [self.savedArticlesFetcher fetchAndObserveSavedPageList];
@@ -190,7 +191,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             }];
         }];
     });
-
 }
 
 #pragma mark - Start/Pause/Resume App
