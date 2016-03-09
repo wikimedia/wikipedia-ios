@@ -353,7 +353,7 @@
 "page-edit-history" = "Full edit history";
 
 "captcha-reload" = "Show another captcha";
-"captcha-prompt" = "Enter CAPTCHA text from image above";
+"captcha-prompt" = "Enter CAPTCHA text from the image";
 
 "mwk-empty-title-error" = "Unable to perform operation with empty title.";
 
