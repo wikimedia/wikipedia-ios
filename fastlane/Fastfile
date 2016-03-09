@@ -160,14 +160,14 @@ platform :ios do
       scheme: "Wikipedia Beta"
     )
 
-    changelog = default_changelog
+    # changelog = default_changelog
 
     hockey_beta_id = ENV["HOCKEY_BETA"]
     raise "Must specifiy HockeyApp public identifier." unless hockey_beta_id.length > 0
 
     hockey(
       public_identifier: hockey_beta_id,
-      notes: changelog,
+      # notes: changelog,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
     )
@@ -191,14 +191,11 @@ platform :ios do
       scheme: "Wikipedia"
     )
 
-    changelog = default_changelog
-
     hockey_prod_id = ENV["HOCKEY_PRODUCTION"]
     raise "Must specifiy HockeyApp public identifier." unless hockey_prod_id.length > 0
 
     hockey(
       public_identifier: hockey_prod_id,
-      notes: changelog,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
     )
