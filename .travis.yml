@@ -20,7 +20,7 @@ script:
   - bundle exec fastlane $FL_ARGS
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash) -J 'Wikipedia*'
 
 branches:
   only:
