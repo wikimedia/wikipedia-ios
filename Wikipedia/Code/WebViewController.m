@@ -489,6 +489,10 @@ NSString* const WMFLicenseTitleOnENWiki =
 - (void)tocScrollWebViewToPoint:(CGPoint)point
                        duration:(CGFloat)duration
                     thenHideTOC:(BOOL)hideTOC {
+    if(isnan(point.x) || isnan(point.y)){
+        return;
+        DDLogError(@"Attempted to scroll ToC to Nan value, ignoring");
+    }
     [UIView animateWithDuration:duration
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
