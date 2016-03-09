@@ -772,6 +772,8 @@
 		B048761B1C8FB32A008F8920 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B048761C1C8FB47B008F8920 /* as */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = as; path = as.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B048761D1C8FB47B008F8920 /* as */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = as; path = as.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B04876201C8FBA6A008F8920 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = eu.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B04876211C8FBA6B008F8920 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = eu.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B063DE5E1C63FEE9002F2EDE /* UIToolbar+WMFStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIToolbar+WMFStyling.h"; path = "Wikipedia/Code/UIToolbar+WMFStyling.h"; sourceTree = SOURCE_ROOT; };
 		B063DE5F1C63FEE9002F2EDE /* UIToolbar+WMFStyling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIToolbar+WMFStyling.m"; path = "Wikipedia/Code/UIToolbar+WMFStyling.m"; sourceTree = SOURCE_ROOT; };
 		B065315E1C220921003BD7DC /* WMFArticlePreviewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticlePreviewDataSource.h; path = Wikipedia/Code/WMFArticlePreviewDataSource.h; sourceTree = SOURCE_ROOT; };
@@ -5169,6 +5171,7 @@
 				ksh,
 				af,
 				as,
+				eu,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
@@ -6055,6 +6058,7 @@
 				B039D19A1C8E7A6900C9F2E0 /* ksh */,
 				B048761B1C8FB32A008F8920 /* af */,
 				B048761D1C8FB47B008F8920 /* as */,
+				B04876211C8FBA6B008F8920 /* eu */,
 			);
 			name = InfoPlist.strings;
 			path = Localizations;
@@ -6127,6 +6131,7 @@
 				B039D1991C8E7A6900C9F2E0 /* ksh */,
 				B048761A1C8FB32A008F8920 /* af */,
 				B048761C1C8FB47B008F8920 /* as */,
+				B04876201C8FBA6A008F8920 /* eu */,
 			);
 			name = Localizable.strings;
 			path = Localizations;
