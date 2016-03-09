@@ -170,27 +170,22 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     [self showSplashView];
 
-    //HAX: fix for "Unbalanced calls to begin/end appearance transitions" warning
-    //We could put it in viewdidappear, but then we would have to wrap it in a dispatch_once to make sure it only runs once
-    //Add a delay for iOS 8 (for iOS 9+ we can dispatch and that will be enough)
-    dispatchOnMainQueueAfterDelayInSeconds(0.35, ^{
-        @weakify(self)
-        [self runDataMigrationIfNeededWithCompletion:^{
+    @weakify(self)
+    [self runDataMigrationIfNeededWithCompletion :^{
+        @strongify(self)
+        [self.imageMigration setupAndStart];
+        [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+        if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+            self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
+        }
+        [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
             @strongify(self)
-            [self.imageMigration setupAndStart];
-            [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-            if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-                self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
-            }
-            [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-                @strongify(self)
-                [self loadMainUI];
-                [self hideSplashViewAnimated:!didShowOnboarding];
-                [self resumeApp];
-                [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
-            }];
+            [self loadMainUI];
+            [self hideSplashViewAnimated:!didShowOnboarding];
+            [self resumeApp];
+            [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
         }];
-    });
+    }];
 }
 
 #pragma mark - Start/Pause/Resume App
