@@ -86,7 +86,7 @@
         NSMutableSet* set = [activity.keywords mutableCopy];
         [set addObjectsFromArray:[article.title.text componentsSeparatedByString:@" "]];
         activity.keywords       = set;
-        activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60 * 60 * 24 * 30];
+        activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60 * 60 * 24 * 7];
 
         CSSearchableItemAttributeSet* attributes = [CSSearchableItemAttributeSet attributes:article];
         activity.contentAttributeSet = attributes;
