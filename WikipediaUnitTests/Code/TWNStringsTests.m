@@ -4,6 +4,7 @@
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
+#import <BlocksKit/BlocksKit.h>
 
 @interface TWNStringsTests : XCTestCase
 
@@ -78,15 +79,26 @@
     }
 }
 
--(NSArray *)unbundledLprojFiles {
+- (NSArray *)unbundledLprojFiles {
     NSMutableArray *files = [[self allLprogFiles] mutableCopy];
     [files removeObjectsInArray:[self bundledLprogFiles]];
     return files;
 }
 
+- (NSArray *)unbundledLprojFilesWithTranslations {
+    return
+    [self.unbundledLprojFiles bk_select:^BOOL (NSString* lprojFileName) {
+        BOOL isDirectory = NO;
+        NSString *localizableStringsFilePath =
+            [[LOCALIZATIONS_DIR stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"Localizable.strings"];
+        return [[NSFileManager defaultManager] fileExistsAtPath:localizableStringsFilePath isDirectory:&isDirectory];
+    }];
+}
+
 - (void)test_all_translated_languages_were_added_to_project_localizations {
-    // These languages will need to get added to the project localizations!
-    assertThat(self.unbundledLprojFiles, isEmpty());
+    // These lproj languages have translations (in "Localizable.strings") but are
+    // not yet bundled, so we will need to add these to the project's localizations.
+    assertThat(self.unbundledLprojFilesWithTranslations, isEmpty());
 }
 
 - (void)tearDown {
