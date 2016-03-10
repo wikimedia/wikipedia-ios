@@ -82,6 +82,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromBarButtonItem:(UIBarButtonItem*)item {
     self.snippet                 = [snippet copy];
+    NSParameterAssert(item);
+    NSParameterAssert(viewController);
     self.containerViewController = viewController;
     self.originButtonItem        = item;
     self.originView              = nil;
@@ -307,6 +309,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Activity View Controller
 
 - (void)presentActivityViewControllerWithImage:(nullable UIImage*)image title:(NSString*)title {
+    if (!self.originButtonItem) {
+        //bailing here because we will crash below in production.
+        //The asserion above will catch this in development/beta.
+        return;
+    }
     NSString* parameter = image ? @"wprov=sfii1" : @"wprov=sfti1";
 
     NSURL* url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
