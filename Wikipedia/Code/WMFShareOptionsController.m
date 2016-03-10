@@ -37,8 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, copy, nonatomic) NSString* snippet;
 @property (weak, nonatomic) UIViewController* containerViewController;
-@property (nullable, weak, nonatomic) UIBarButtonItem* originButtonItem;
 @property (nullable, weak, nonatomic) UIView* originView;
+@property (nullable, strong, nonatomic) UIBarButtonItem* originButtonItem;
 
 @property (nullable, strong, nonatomic) UIView* grayOverlay;
 @property (nullable, strong, nonatomic) WMFShareOptionsView* shareOptions;
