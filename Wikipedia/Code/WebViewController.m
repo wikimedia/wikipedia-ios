@@ -208,8 +208,8 @@ NSString* const WMFLicenseTitleOnENWiki =
 }
 
 - (void)showZeroBannerWithMessage:(WMFZeroMessage*)zeroMessage {
-    self.zeroStatusLabel.text = zeroMessage.message;
-    self.zeroStatusLabel.textColor = zeroMessage.foreground;
+    self.zeroStatusLabel.text            = zeroMessage.message;
+    self.zeroStatusLabel.textColor       = zeroMessage.foreground;
     self.zeroStatusLabel.backgroundColor = zeroMessage.background;
 }
 

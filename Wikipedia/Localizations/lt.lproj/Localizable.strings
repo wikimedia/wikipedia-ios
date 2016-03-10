@@ -8,11 +8,14 @@
 
 "article-languages-label" = "Pasirinkite kalbą";
 "article-languages-cancel" = "Atšaukti";
+// Fuzzy
 "article-languages-filter-placeholder" = "Kalbų filtras";
 "article-read-more-title" = "Skaityti daugiau";
 "info-box-title" = "Trumpi faktai";
 "info-box-close-text" = "Uždaryti";
 "table-title-other" = "Daugiau informacijos";
+"saved-clear-all" = "Išvalyti";
+"history-clear-all" = "Išvalyti";
 "history-label" = "Naujausi";
 "history-section-today" = "Šiandien";
 "history-section-yesterday" = "Vakar";
@@ -22,8 +25,7 @@
 "history-clear-confirmation-heading" = "Naikinti visus naujausius elementus?";
 "history-clear-confirmation-sub-heading" = "Šio veiksmo anuliuoti negalima!";
 "history-clear-cancel" = "Atšaukti";
-// Fuzzy
-"history-clear-delete-all" = "Naikinti viską";
+"history-clear-delete-all" = "Taip, ištrinti viską";
 "history-none" = "Naujausių puslapių nėra.";
 "zero-interstitial-continue" = "Išeiti";
 "zero-interstitial-cancel" = "Likti čia";
@@ -67,42 +69,38 @@
 "search-titles" = "Pavadinimai";
 "search-within-articles" = "Straipsniuose";
 "search-did-you-mean" = "Galbūt norėjote $1?";
-// Fuzzy
-"search-recent-title" = "Naujausios paieškos";
+"search-recent-title" = "Neseniai ieškota";
 "search-recent-clear-confirmation-heading" = "Naikinti visas naujausias paieškas?";
 "search-recent-clear-confirmation-sub-heading" = "Šio veiksmo anuliuoti negalima!";
 "search-recent-clear-cancel" = "Atšaukti";
 "search-recent-clear-delete-all" = "Naikinti viską";
 "settings-title" = "Nustatymai";
+"settings-support" = "Paremti Vikipediją";
 "main-menu-title" = "Daugiau";
 "main-menu-heading-about" = "Apie";
 "main-menu-language-title" = "Paieška $1 Vikipedijoje";
-// Fuzzy
-"main-menu-faq" = "DUK";
+"main-menu-faq" = "Dažniausiai užduodami klausimai";
 "main-menu-language-toggle-show" = "Rodyti kalbas";
 "main-menu-language-toggle-hide" = "Slėpti kalbas";
 "main-menu-language-selection-saved" = "Kalbos pasirinkimas įrašytas";
 "main-menu-account-title-logged-out" = "Paskyra";
 // Fuzzy
 "main-menu-account-title-logged-in" = "Prisijungta kaip: $1";
-// Fuzzy
-"main-menu-account-login" = "Prisijunkite prie Vikipedijos";
+"main-menu-account-login" = "Prisijungti";
 "main-menu-account-logout" = "Atsijungti";
+"main-menu-account-logout-cancel" = "Atšaukti";
 "main-menu-show-title" = "Rodyti man...";
 "main-menu-show-history" = "Naujausi";
 "main-menu-show-saved" = "Įrašyti puslapiai";
 "main-menu-random" = "Atsitiktinis";
 "main-menu-feedback-heading" = "Atsiliepimas";
-// Fuzzy
-"main-menu-send-feedback" = "Siųsti atsiliepimą apie programėlę";
+"main-menu-send-feedback" = "Parašykite mums";
 "main-menu-credits" = "Kreditai";
 // Fuzzy
 "main-menu-about" = "Apie Vikipedijos programėlę";
 "main-menu-zero-faq" = "Vikipedija Zero DUK";
 "main-menu-privacy-policy" = "Privatumo politika";
-// Fuzzy
-"main-menu-terms-of-use" = "Naudojimosi sąlygos";
-// Fuzzy
+"main-menu-terms-of-use" = "Naudojimo sąlygos";
 "main-menu-rate-app" = "Įvertinti programėlę";
 "main-menu-heading-zero" = "Vikipedija Zero";
 "main-menu-show-today" = "Šiandien";
@@ -114,8 +112,7 @@
 "saved-pages-clear-confirmation-heading" = "Naikinti visus įrašytus elementus?";
 "saved-pages-clear-confirmation-sub-heading" = "Šio veiksmo anuliuoti negalima!";
 "saved-pages-clear-cancel" = "Atšaukti";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Naikinti viską";
+"saved-pages-clear-delete-all" = "Taip, ištrinti viską";
 "saved-pages-refresh-cancel-alert-button" = "Supratau";
 "saved-pages-none" = "Įrašytų puslapių dar nėra.";
 // Fuzzy
@@ -140,23 +137,25 @@
 "article-pull-to-refresh-is-refreshing" = "Straipsnis naujinamas";
 "about-title" = "Apie";
 "about-wikipedia" = "Vikipedija";
-// Fuzzy
-"about-contributors" = "autoriai";
-// Fuzzy
-"about-testers" = "testuotojai";
-// Fuzzy
-"about-translators" = "vertėjai";
+"about-contributors" = "Autoriai";
+"about-testers" = "Testuotojai";
+"about-translators" = "Vertėjai";
 "about-translators-details" = "Išversta savanorių $1";
-// Fuzzy
-"about-libraries" = "naudotos bibliotekos";
+"about-libraries" = "Panaudotos bibliotekos";
 "about-libraries-license" = "Licencija";
-// Fuzzy
-"about-repositories" = "duomenų saugyklos";
+"about-libraries-licenses" = "Licencijos";
+"about-content-license" = "Turinio licencija";
+"about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike licencija";
+"about-libraries-licenses-title" = "Mes mylime atviro kodo programinę įrangą $1";
+"about-libraries-complete-list" = "Pilnas sąrašas";
+"about-repositories" = "Duomenų saugyklos";
+"about-repositories-app-source-license-mit" = "MIT licencija";
 "about-send-feedback" = "Siųsti atsiliepimą apie programėlę";
 "about-product-of" = "$1 produktas";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Įrašyti puslapį";
 "share-custom-menu-item" = "Dalintis";
+"share-a-fact-share-menu-item" = "Dalintis faktu";
 "share-as-image" = "Dalintis kaip vaizdu";
 "share-as-text" = "Dalintis kaip tekstu";
 "timestamp-just-now" = "tik ką";
@@ -178,6 +177,8 @@
 "license-footer-text" = "Turinys prieinamas pagal $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Turinys";
+"table-of-contents-close-accessibility-label" = "Uždaryti turinį";
+"table-of-contents-close-accessibility-hint" = "Uždaryti";
 "menu-edit-accessibility-label" = "Redaguoti";
 "menu-close-accessibility-label" = "Uždaryti";
 "menu-preview-accessibility-label" = "Peržiūra";
@@ -210,8 +211,20 @@
 "hockeyapp-alert-always-send" = "Visada siųsti";
 "hockeyapp-alert-do-not-send" = "Nesiųsti";
 "page-similar-titles" = "Panašūs puslapiai";
+"page-read-in-other-languages" = "Prieinama $1 kalbomis";
 "captcha-reload" = "Rodyti kitą saugos kodą";
-// Fuzzy
-"welcome-languages-title" = "Pasirink savo kalbas";
+"home-empty-section" = "Nėra rezultatų";
+"home-empty-section-check-again" = "Bandyti dar kartą";
+"home-nearby-location-footer" = "Daugiau netoliese $1";
+"welcome-explore-title" = "Tyrinėti";
+"welcome-explore-tell-me-more-done-button" = "Supratau";
+"welcome-explore-continue-button" = "Pradėti";
+"welcome-languages-title" = "Kalbos";
+"welcome-languages-add-button" = "+ Pridėti kitą";
+"welcome-languages-continue-button" = "Tęsti";
+"welcome-volunteer-title" = "Savanoris";
+"welcome-volunteer-send-usage-reports" = "Siųsti naudojimo ataskaitas";
+"welcome-volunteer-continue-button" = "Tęsti";
+"welcome-volunteer-thanks" = "$1 Ačiū!";
 "empty-no-feed-title" = "Nėra interneto ryšio";
 "alert-no-internet" = "Ten nėra interneto ryšio";

@@ -5,6 +5,7 @@
 "article-languages-label" = "Интихоби забон";
 "article-languages-cancel" = "Лағв";
 "article-languages-downloading" = "Кушодани забонҳои мақола...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Филтри Забон";
 "history-label" = "Охирин";
 "history-section-today" = "Имрӯз";

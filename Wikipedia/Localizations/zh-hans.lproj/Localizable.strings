@@ -16,6 +16,7 @@
 "article-languages-label" = "选择语言";
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "条目语言载入中...";
+// Fuzzy
 "article-languages-filter-placeholder" = "语言过滤器";
 "article-read-more-title" = "阅读更多";
 "article-about-title" = "关于此条目";
@@ -110,7 +111,6 @@
 "search-recent-clear-delete-all" = "删除全部";
 "search-result-redirected-from" = "重定向自：$1";
 "settings-title" = "设置";
-"settings-project" = "维基百科项目";
 "settings-support" = "支持维基百科";
 "settings-language-bar" = "在搜索时显示语言";
 "main-menu-title" = "更多";
@@ -196,21 +196,22 @@
 "credits-external-libraries" = "外部";
 "about-title" = "关于";
 "about-wikipedia" = "维基百科";
-// Fuzzy
 "about-contributors" = "贡献者";
-// Fuzzy
 "about-testers" = "测试者";
 "about-testers-details" = "问答已由$1测试";
-// Fuzzy
 "about-translators" = "译者";
 "about-translators-details" = "该应用程序是由$1的志愿翻译人员翻译的";
-// Fuzzy
 "about-libraries" = "使用的库";
 "about-libraries-license" = "授权协议";
 "about-libraries-licenses" = "许可协议";
+"about-content-license" = "内容许可协议";
+"about-content-license-details" = "除非另有声明，内容基于$1授权。";
+"about-content-license-details-share-alike-license" = "知识共享署名-相同方式共享许可协议";
 "about-libraries-licenses-title" = "我们爱开源软件$1";
-// Fuzzy
+"about-libraries-complete-list" = "完整列表";
 "about-repositories" = "存储库";
+"about-repositories-app-source-license" = "源代码依据$1授权。";
+"about-repositories-app-source-license-mit" = "MIT协议";
 "about-send-feedback" = "发送应用程序反馈信息";
 "about-product-of" = "$1的产品";
 "about-wikimedia-foundation" = "维基媒体基金会";
@@ -218,6 +219,8 @@
 "share-menu-page-saved" = "页面已保存";
 "share-menu-page-saved-access" = "提示：要访问您保存的页面，在上面轻触$1或在下面按住$2。";
 "share-custom-menu-item" = "分享";
+"share-a-fact-share-menu-item" = "分享预览";
+"share-on-twitter-sign-off" = "通过@Wikipedia";
 "share-article-name-on-wikipedia" = "“$1”在@Wikipedia：";
 "share-article-name-on-wikipedia-with-selected-text" = "“$1”在@Wikipedia：“$2”";
 "share-as-image" = "分享为图片";
@@ -346,6 +349,7 @@
 "welcome-explore-sub-title" = "每天发现有趣条目的新方式";
 "welcome-explore-tell-me-more" = "告诉我更多";
 "welcome-explore-tell-me-more-about-explore" = "更多有关探索";
+// Fuzzy
 "welcome-explore-tell-me-more-details" = "当您访问一个条目时，相关条目会自动添加至您的探索订阅源中。这不会更改我们收集您信息的方式，并且您的阅读历史仍然是私人的。";
 "welcome-explore-tell-me-more-done-button" = "明白了";
 "welcome-explore-continue-button" = "入门";
@@ -360,6 +364,7 @@
 "welcome-volunteer-thanks" = "$1感谢您！";
 "empty-no-feed-title" = "没有网络连接";
 "empty-no-feed-message" = "当您有网络连接时，您可以查看您推荐的条目";
+// Fuzzy
 "empty-no-feed-action-message" = "同时您可以阅读保存的页面";
 "empty-no-article-message" = "对不起，无法加载条目";
 "empty-no-search-results-message" = "找不到结果";
@@ -377,6 +382,7 @@
 "compass-direction" = "$1点钟";
 "explore-featured-article-heading" = "特色条目";
 "explore-continue-reading-heading" = "继续阅读";
+// Fuzzy
 "explore-nearby-heading" = "附近地点";
 "explore-continue-related-heading" = "因为您阅读";
 "explore-main-page-heading" = "维基百科今日";
@@ -385,4 +391,5 @@
 "explore-potd-heading" = "每日图片";
 "explore-most-read-heading" = "$1维基百科上的最多阅读";
 "explore-most-read-footer" = "所有最多阅读的条目";
+// Fuzzy
 "explore-most-read-more-list-title" = "最多阅读的条目";

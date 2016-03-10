@@ -17,6 +17,7 @@
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batal";
 "article-languages-downloading" = "Memuat bahasa artikel...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Saring Bahasa";
 "article-read-more-title" = "Baca lebih lanjut";
 "article-about-title" = "Mengenai berkas ini";
@@ -111,7 +112,6 @@
 "search-recent-clear-delete-all" = "Hapus Semua";
 "search-result-redirected-from" = "Dialihkan dari: $1";
 "settings-title" = "Pengaturan";
-"settings-project" = "Proyek Wikipedia";
 "settings-support" = "Dukung Wikipedia";
 "settings-language-bar" = "Tampilkan bahasa di pencarian";
 "main-menu-title" = "Lainnya";
@@ -197,21 +197,22 @@
 "credits-external-libraries" = "Penyimpanan eksternal";
 "about-title" = "Tentang";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"about-contributors" = "kontributor";
-// Fuzzy
-"about-testers" = "penguji";
+"about-contributors" = "Kontributor";
+"about-testers" = "Penguji";
 "about-testers-details" = "QA diuji oleh $1";
-// Fuzzy
-"about-translators" = "penerjemah";
+"about-translators" = "Penerjemah";
 "about-translators-details" = "Diterjemahkan oleh relawan pada $1";
-// Fuzzy
-"about-libraries" = "pustaka yang digunakan";
+"about-libraries" = "Pustaka yang digunakan";
 "about-libraries-license" = "Lisensi";
 "about-libraries-licenses" = "Lisensi";
+"about-content-license" = "Lisensi konten";
+"about-content-license-details" = "Kecuali ditentukan lain, konten tersedia di bawah $1.";
+"about-content-license-details-share-alike-license" = "Lisensi Atribusi-BerbagiSerupa Creative Commons";
 "about-libraries-licenses-title" = "Kami menyukai perangkat lunak sumber terbuka $1";
-// Fuzzy
-"about-repositories" = "penyimpanan";
+"about-libraries-complete-list" = "Daftar lengkap";
+"about-repositories" = "Penyimpanan";
+"about-repositories-app-source-license" = "Kode sumber tersedia di bawah $1.";
+"about-repositories-app-source-license-mit" = "Lisensi MIT";
 "about-send-feedback" = "Kirim umpan balik aplikasi";
 "about-product-of" = "Sebuah produk dari $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
@@ -219,6 +220,8 @@
 "share-menu-page-saved" = "Artikel Disimpan";
 "share-menu-page-saved-access" = "Tip: untuk mengakses halaman tersimpan Anda, ketuk $1 di atas atau tekan lebih lama $2 di bawah.";
 "share-custom-menu-item" = "Bagikan";
+"share-a-fact-share-menu-item" = "Bagikan-fakta";
+"share-on-twitter-sign-off" = "melalui @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" pada @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" pada @Wikipedia: \"$2\"";
 "share-as-image" = "Bagikan sebagai berkas";
@@ -347,6 +350,7 @@
 "welcome-explore-sub-title" = "Cara baru untuk menemukan artikel yang menarik setiap hari";
 "welcome-explore-tell-me-more" = "Beritahu saya lebih lanjut";
 "welcome-explore-tell-me-more-about-explore" = "Lebih lanjut mengenai Jelajah";
+// Fuzzy
 "welcome-explore-tell-me-more-details" = "Ketika Anda mengunjungi artikel, artikel yang terkait ditambahkan ke umpan Jelajah Anda. Hal ini tidak mengubah bagaimana mengumpulkan informasi Anda, dan riwayat bacaan Anda selalu tetap rahasia.";
 "welcome-explore-tell-me-more-done-button" = "Mengerti";
 "welcome-explore-continue-button" = "Memulai";
@@ -361,6 +365,7 @@
 "welcome-volunteer-thanks" = "Terima kasih! $1";
 "empty-no-feed-title" = "Tidak ada sambungan internet";
 "empty-no-feed-message" = "Anda bisa melihat artikel yang disarankan untuk Anda saat Anda mempunyai sambungan intenet";
+// Fuzzy
 "empty-no-feed-action-message" = "Anda masih bisa membaca laman tersimpan";
 "empty-no-article-message" = "Maaf, artikel tidak bisa dimuat";
 "empty-no-search-results-message" = "Tidak ada hasil yang ditemukan";
@@ -378,6 +383,7 @@
 "compass-direction" = "pada pukul $1 tepat";
 "explore-featured-article-heading" = "Artikel pilihan";
 "explore-continue-reading-heading" = "Lanjutkan membaca";
+// Fuzzy
 "explore-nearby-heading" = "Tempat sekitar";
 "explore-continue-related-heading" = "Karena Anda membaca";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
@@ -386,4 +392,5 @@
 "explore-potd-heading" = "Gambar pilihan";
 "explore-most-read-heading" = "Bacaan teratas di Wikipedia Bahasa $1";
 "explore-most-read-footer" = "Semua artikel bacaan teratas";
+// Fuzzy
 "explore-most-read-more-list-title" = "Artikel bacaan teratas";

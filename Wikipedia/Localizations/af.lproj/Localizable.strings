@@ -8,6 +8,7 @@
 "article-languages-label" = "Kies taal";
 "article-languages-cancel" = "Kanselleer";
 "article-languages-downloading" = "Laai artikel tale...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Taalfilter";
 "article-read-more-title" = "Lees meer";
 "article-unable-to-load-section" = "Kon nie hierdie seksie laai nie. Probeer die artikel herlaai om te sien of dit die probleem oplos.";

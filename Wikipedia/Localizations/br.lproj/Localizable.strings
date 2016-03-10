@@ -3,12 +3,14 @@
 // Author: Fohanno
 // Author: Fulup
 // Author: Gwenn-Ael
+// Author: Macofe
 // Author: Y-M D
 
 "languages-title" = "Yezhoù";
 "article-languages-label" = "Dibab ar yezh";
 "article-languages-cancel" = "Nullañ";
 "article-languages-downloading" = "O kargañ yezhoù ar pennad...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Sil yezh";
 "article-read-more-title" = "Lenn muioc'h";
 "article-unable-to-load-section" = "Ne c'haller ket kargañ ar rannskrid-se. Klaskit freskaat ar pennad evit gwelet hag-eñ e vo reizhet ar gudenn.";
@@ -189,8 +191,7 @@
 "about-wikipedia" = "Wikipedia";
 // Fuzzy
 "about-contributors" = "kenlabourerien";
-// Fuzzy
-"about-testers" = "prouaderioù";
+"about-testers" = "Prouaderioù";
 "about-testers-details" = "AQ prouet gant $1";
 // Fuzzy
 "about-translators" = "troerien";

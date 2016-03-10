@@ -11,6 +11,7 @@
 // Author: Fúlvio
 // Author: HenriqueCrang
 // Author: Luckas
+// Author: Macofe
 // Author: Mordecool
 // Author: Raphaelras
 // Author: Rodrigo codignoli
@@ -22,6 +23,7 @@
 "article-languages-label" = "Escolha um idioma";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "Carregando os idiomas do artigo...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filtro de idioma";
 "article-read-more-title" = "Leia mais";
 "article-about-title" = "Sobre este artigo";
@@ -207,19 +209,14 @@
 "credits-external-libraries" = "Externo";
 "about-title" = "Sobre";
 "about-wikipedia" = "Wikipédia";
-// Fuzzy
-"about-contributors" = "contribuidores";
-// Fuzzy
-"about-testers" = "testadores";
+"about-contributors" = "Contribuidores";
+"about-testers" = "Testadores";
 "about-testers-details" = "QA testada por $1";
-// Fuzzy
-"about-translators" = "tradutores";
+"about-translators" = "Tradutores";
 "about-translators-details" = "Esta aplicação foi traduzida por tradutores voluntários em $1";
-// Fuzzy
-"about-libraries" = "bibliotecas usadas";
+"about-libraries" = "Bibliotecas usadas";
 "about-libraries-license" = "Licença";
-// Fuzzy
-"about-repositories" = "repositórios";
+"about-repositories" = "Repositórios";
 "about-send-feedback" = "Enviar comentários sobre o aplicativo";
 "about-product-of" = "Um produto da $1";
 "about-wikimedia-foundation" = "Fundação Wikimedia";
@@ -351,6 +348,7 @@
 "welcome-languages-title" = "Procurar idioma";
 "empty-no-feed-title" = "Sem conexão com a internet";
 "empty-no-feed-message" = "Você pode ver os seus artigos recomendados quando houver conexão com a internet";
+// Fuzzy
 "empty-no-feed-action-message" = "Entretanto, você pode ver as páginas salvas";
 "empty-no-article-message" = "Desculpe, não foi possível carregar o artigo";
 // Fuzzy
@@ -369,6 +367,7 @@
 "compass-direction" = "às $1 horas";
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-continue-reading-heading" = "Continue lendo";
+// Fuzzy
 "explore-nearby-heading" = "Lugares próximos";
 "explore-continue-related-heading" = "Porque você leu";
 "explore-main-page-heading" = "Hoje na Wikipédia";

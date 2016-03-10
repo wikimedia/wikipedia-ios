@@ -96,7 +96,7 @@ NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     if ([self isSaved:entry.title]) {
         return;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidSaveNotification object:self userInfo:@{MWKTitleKey:entry.title}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidSaveNotification object:self userInfo:@{MWKTitleKey: entry.title}];
     [self insertEntry:entry atIndex:0];
 }
 
@@ -104,13 +104,13 @@ NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     if ([[listIndex text] length] == 0) {
         return;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidUnsaveNotification object:self userInfo:@{MWKTitleKey:listIndex}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidUnsaveNotification object:self userInfo:@{MWKTitleKey: listIndex}];
     [super removeEntryWithListIndex:listIndex];
 }
 
-- (void)removeAllEntries{
-    [self.entries enumerateObjectsUsingBlock:^(MWKSavedPageEntry * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidUnsaveNotification object:self userInfo:@{MWKTitleKey:obj.title}];
+- (void)removeAllEntries {
+    [self.entries enumerateObjectsUsingBlock:^(MWKSavedPageEntry* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidUnsaveNotification object:self userInfo:@{MWKTitleKey: obj.title}];
     }];
     [super removeAllEntries];
 }

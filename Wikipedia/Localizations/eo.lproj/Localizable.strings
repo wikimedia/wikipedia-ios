@@ -10,6 +10,7 @@
 "article-languages-label" = "Elekti lingvon";
 "article-languages-cancel" = "Nuligi";
 "article-languages-downloading" = "Ŝarĝante lingvojn de la artikolo...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Lingva filtrilo";
 "article-read-more-title" = "Legi plu";
 "article-unable-to-load-section" = "Ne eblas ŝuti tiun ĉi sekcion. Provu refreŝigi la artikolon, tio eble riparos la problemon.";
@@ -94,9 +95,9 @@
 "main-menu-account-title-logged-out" = "Konto";
 // Fuzzy
 "main-menu-account-title-logged-in" = "Ensalutinta kiel: $1";
-// Fuzzy
 "main-menu-account-login" = "Ensaluti";
 "main-menu-account-logout" = "Elsaluti";
+"main-menu-account-logout-cancel" = "Nuligi";
 "main-menu-show-title" = "Montru al mi...";
 "main-menu-show-history" = "Lastaj";
 "main-menu-show-saved" = "Konservitaj paĝoj";
@@ -158,24 +159,26 @@
 "credits-external-libraries" = "Eksteraj deponejoj";
 "about-title" = "Pri";
 "about-wikipedia" = "Vikipedio";
-// Fuzzy
 "about-contributors" = "Kontribuantoj";
-// Fuzzy
-"about-testers" = "provantoj";
-// Fuzzy
-"about-translators" = "tradukantoj";
+"about-testers" = "Provantoj";
+"about-translators" = "Tradukantoj";
 "about-translators-details" = "Tradukita de volontuloj ĉe $1";
-// Fuzzy
-"about-libraries" = "bibliotekoj uzataj";
+"about-libraries" = "Bibliotekoj uzataj";
 "about-libraries-license" = "Permesilo";
-// Fuzzy
-"about-repositories" = "deponejoj";
+"about-libraries-licenses" = "Permesiloj";
+"about-content-license" = "Enhavopermesilo";
+"about-content-license-details-share-alike-license" = "Creative Commons Atribuite-Samkondiĉe Permesilo";
+"about-libraries-licenses-title" = "Ni amas malfermitkodan programaron $1";
+"about-libraries-complete-list" = "Kompleta listo";
+"about-repositories" = "Deponejoj";
+"about-repositories-app-source-license-mit" = "MIT-permesilo";
 "about-send-feedback" = "Sendi rimarkojn pri la aplikaĵo";
 "about-product-of" = "Produkto de $1";
 "about-wikimedia-foundation" = "Fondaĵo Vikimedio";
 "share-menu-save-page" = "Konservi paĝon";
 "share-menu-page-saved" = "Konservita por legado senreta";
 "share-custom-menu-item" = "Kundividi";
+"share-on-twitter-sign-off" = "per @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" ĉe @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" ĉe @Wikipedia: \"$2\"";
 "share-as-image" = "Kundividi kiel bildo";
@@ -207,6 +210,7 @@
 "license-footer-text" = "Enhavo disponebla je $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Enhavaĵoj";
+"table-of-contents-close-accessibility-hint" = "Fermi";
 "abuse-filter-warning-caps" = "Skribi ĈION MAJUSKLE";
 "abuse-filter-warning-blanking" = "Malplenigi artikolon aŭ spamado";
 "abuse-filter-warning-repeat" = "Ripetaaaado de karakteroj";
@@ -245,3 +249,8 @@
 "hockeyapp-alert-do-not-send" = "Ne sendi";
 "page-issues" = "Problemoj pri paĝo";
 "page-similar-titles" = "Similaj paĝoj";
+"page-read-in-other-languages" = "Disponebla en $1 lingvoj";
+"home-empty-section-check-again" = "Reprovi";
+"welcome-languages-title" = "Lingvoj";
+"welcome-volunteer-title" = "Volontulo";
+"welcome-volunteer-thanks" = "$1 Dankon!";

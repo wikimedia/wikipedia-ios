@@ -12,6 +12,7 @@
 "article-languages-label" = "Вибрати мову";
 "article-languages-cancel" = "Скасувати";
 "article-languages-downloading" = "Завантаження мов статті...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Мовний фільтр";
 "article-read-more-title" = "Детальніше";
 "article-about-title" = "Про цю статтю";
@@ -341,6 +342,7 @@
 "welcome-languages-title" = "Мови для пошуку";
 "empty-no-feed-title" = "Не має з'єднання з інтернетом";
 "empty-no-feed-message" = "Ви можете побачити ваші рекомендовані статті, коли у вас є інтернет";
+// Fuzzy
 "empty-no-feed-action-message" = "Поки що можете почитати збережені статті";
 "empty-no-article-message" = "На жаль, не вдалося завантажити статтю";
 // Fuzzy
@@ -359,6 +361,7 @@
 "compass-direction" = "на $1 годину";
 "explore-featured-article-heading" = "Вибрана стаття";
 "explore-continue-reading-heading" = "Продовжити читання";
+// Fuzzy
 "explore-nearby-heading" = "Місця поблизу";
 "explore-continue-related-heading" = "Тому, що Ви читали";
 "explore-main-page-heading" = "Сьогодні у Вікіпедії";

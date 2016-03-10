@@ -9,6 +9,7 @@
 "article-languages-label" = "Tilni tanlang";
 "article-languages-cancel" = "Bekor qilish";
 "article-languages-downloading" = "Maqola tillari yuklanyapti...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Til filtri";
 "history-label" = "Soʻnggi";
 "history-section-today" = "Bugun";

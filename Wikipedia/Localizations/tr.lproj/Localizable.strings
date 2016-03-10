@@ -18,6 +18,7 @@
 "article-languages-label" = "Dil seçin";
 "article-languages-cancel" = "İptal";
 "article-languages-downloading" = "Madde dilleri yükleniyor...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Dil Süzgeci";
 "article-read-more-title" = "Devamı";
 "article-about-title" = "Bu madde hakkında";
@@ -112,7 +113,6 @@
 "search-recent-clear-delete-all" = "Tümünü Sil";
 "search-result-redirected-from" = "Şuradan yönlendirildi: $1";
 "settings-title" = "Ayarlar";
-"settings-project" = "Vikipedi projesi";
 "settings-support" = "Vikipedi'yi destekleyin";
 "settings-language-bar" = "Aramada dilleri göster";
 "main-menu-title" = "Diğer";
@@ -198,21 +198,22 @@
 "credits-external-libraries" = "Dış veri havuzları";
 "about-title" = "Hakkında";
 "about-wikipedia" = "Vikipedi";
-// Fuzzy
-"about-contributors" = "katkıda bulunanlar";
-// Fuzzy
-"about-testers" = "test";
+"about-contributors" = "Katkıda bulunanlar";
+"about-testers" = "Test edenler";
 "about-testers-details" = "QA $1 tarafından test edildi";
-// Fuzzy
-"about-translators" = "çevirmenler";
+"about-translators" = "Çevirmenler";
 "about-translators-details" = "$1'deki gönüllülerce tercüme edilmiştir";
-// Fuzzy
-"about-libraries" = "kullanılan kütüphaneler";
+"about-libraries" = "Kullanılan kütüphaneler";
 "about-libraries-license" = "Lisans";
 "about-libraries-licenses" = "Lisanslar";
+"about-content-license" = "İçerik lisansı";
+"about-content-license-details" = "Aksi belirtilmediği sürece, içeriğe $1 altında erişilebilir.";
+"about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike Lisansı";
 "about-libraries-licenses-title" = "Açık kaynak yazılımı seviyoruz $1";
-// Fuzzy
-"about-repositories" = "veri havuzları";
+"about-libraries-complete-list" = "Tam liste";
+"about-repositories" = "Veri havuzları";
+"about-repositories-app-source-license" = "Kaynak koduna $1 altında erişilebilir.";
+"about-repositories-app-source-license-mit" = "MIT Lisansı";
 "about-send-feedback" = "Uygulama geri bildirimi gönder";
 "about-product-of" = "Bir $1 ürünü";
 "about-wikimedia-foundation" = "Wikimedia Vakfı";
@@ -220,6 +221,8 @@
 "share-menu-page-saved" = "Makale Kaydedildi";
 "share-menu-page-saved-access" = "İpucu: Kaydedilen sayfalarınıza erişmek için, üstteki $1 tuşuna dokunun veya aşağıdaki $2 tuşuna uzun basın.";
 "share-custom-menu-item" = "Paylaş";
+"share-a-fact-share-menu-item" = "Bir bilgi paylaş";
+"share-on-twitter-sign-off" = "@Wikipedia aracılığıyla";
 "share-article-name-on-wikipedia" = "@Wikipedia üzerinde \"$1\":";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" @Wikipedia üzerinde: \"$2\"";
 "share-as-image" = "Resim olarak paylaş";
@@ -348,6 +351,7 @@
 "welcome-explore-sub-title" = "Her gün ilginç maddeler keşfetmek için yeni bir yol";
 "welcome-explore-tell-me-more" = "Daha fazla bilgi";
 "welcome-explore-tell-me-more-about-explore" = "Keşfet hakkında daha fazla bilgi";
+// Fuzzy
 "welcome-explore-tell-me-more-details" = "Bir maddeyi açtığınızda, ilgili maddeler otomatik olarak Keşfet bölümünüze eklenir. Bu, bizim bilgi toplama usullerimizi değiştirmez ve okuma geçmişiniz yine gizli kalır.";
 "welcome-explore-tell-me-more-done-button" = "Anladım";
 "welcome-explore-continue-button" = "Kullanmaya başla";
@@ -362,6 +366,7 @@
 "welcome-volunteer-thanks" = "$1 Teşekkürler!";
 "empty-no-feed-title" = "İnternet Bağlantısı Yok";
 "empty-no-feed-message" = "İnternet bağlantınız olduğunda, size önerilen makaleleri görebilirsiniz";
+// Fuzzy
 "empty-no-feed-action-message" = "Bu arada kayıtlı sayfaları okuyabilirsiniz";
 "empty-no-article-message" = "Üzgünüz, makale yüklenemedi";
 "empty-no-search-results-message" = "Sonuç bulunamadı";
@@ -379,6 +384,7 @@
 "compass-direction" = "saat $1 yönünde";
 "explore-featured-article-heading" = "Seçkin madde";
 "explore-continue-reading-heading" = "Okumaya devam et";
+// Fuzzy
 "explore-nearby-heading" = "Yakındaki yerler";
 "explore-continue-related-heading" = "Okuduklarına benzer";
 "explore-main-page-heading" = "Vikipedi'de Bugün";
@@ -387,4 +393,5 @@
 "explore-potd-heading" = "Günün resmi";
 "explore-most-read-heading" = "$1 Vikipedi'de en çok okunan maddeler";
 "explore-most-read-footer" = "Bütün en çok okunan maddeler";
+// Fuzzy
 "explore-most-read-more-list-title" = "En çok okunan maddeler";

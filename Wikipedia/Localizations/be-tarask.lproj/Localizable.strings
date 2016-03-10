@@ -7,6 +7,7 @@
 "article-languages-label" = "Выберыце мову";
 "article-languages-cancel" = "Скасаваць";
 "article-languages-downloading" = "Загрузка моваў артыкула...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Моўны фільтар";
 "article-read-more-title" = "Даведацца болей";
 "article-about-title" = "Пра гэты артыкул";
@@ -336,6 +337,7 @@
 "welcome-languages-title" = "Мовы пошуку";
 "empty-no-feed-title" = "Няма інтэрнэт-злучэньня";
 "empty-no-feed-message" = "Вы зможаце ўбачыць Вашыя рэкамэндааныя артыкулы, калі зьявіцца інтэрнэт-злучэньне";
+// Fuzzy
 "empty-no-feed-action-message" = "Пакуль Вы можаце пачытаць захаваныя старонкі";
 "empty-no-article-message" = "Прабачце, немагчыма загрузіць артыкул";
 // Fuzzy
@@ -354,6 +356,7 @@
 "compass-direction" = "на $1 гадзін(аў)";
 "explore-featured-article-heading" = "Абраны артыкул";
 "explore-continue-reading-heading" = "Працягваць чытаньне";
+// Fuzzy
 "explore-nearby-heading" = "Навакольныя мясьціны";
 "explore-continue-related-heading" = "Таму што Вы чыталі";
 "explore-main-page-heading" = "Сёньня ў Вікіпэдыі";

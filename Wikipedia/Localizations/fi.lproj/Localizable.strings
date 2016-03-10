@@ -14,6 +14,7 @@
 "article-languages-label" = "Valitse kieli";
 "article-languages-cancel" = "Peruuta";
 "article-languages-downloading" = "Ladataan artikkelin kieliä...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Kielisuodatin";
 "article-read-more-title" = "Lue lisää";
 "article-about-title" = "Tietoja tästä artikkelista";
@@ -108,7 +109,6 @@
 "search-recent-clear-delete-all" = "Poista kaikki";
 "search-result-redirected-from" = "Ohjattu sivulta: $1";
 "settings-title" = "Asetukset";
-"settings-project" = "Wikipedia-projekti";
 "settings-support" = "Tue Wikipediaa";
 "main-menu-title" = "Lisää";
 "main-menu-heading-about" = "Tietoja";
@@ -193,21 +193,20 @@
 "credits-external-libraries" = "Ulkoiset varannot";
 "about-title" = "Tietoja";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"about-contributors" = "tekijät";
-// Fuzzy
-"about-testers" = "testaajat";
+"about-contributors" = "Tekijät";
+"about-testers" = "Testaajat";
 "about-testers-details" = "QA:n testannut $1";
-// Fuzzy
-"about-translators" = "kääntäjät";
+"about-translators" = "Kääntäjät";
 "about-translators-details" = "Käännöstyön tehneet vapaaehtoiset sivustolla $1";
-// Fuzzy
-"about-libraries" = "käytetyt kirjastot";
+"about-libraries" = "Käytetyt kirjastot";
 "about-libraries-license" = "Lisenssi";
 "about-libraries-licenses" = "Lisenssit";
+"about-content-license" = "Sisältölisenssi";
 "about-libraries-licenses-title" = "Me rakastamme avoimen lähdekoodin ohjelmistoja $1";
-// Fuzzy
-"about-repositories" = "tietovarastot";
+"about-libraries-complete-list" = "Täydellinen luettelo";
+"about-repositories" = "Tietovarastot";
+"about-repositories-app-source-license" = "Lähdekoodi on saatavilla $1-lisenssin ehtojen mukaisesti.";
+"about-repositories-app-source-license-mit" = "MIT";
 "about-send-feedback" = "Lähetä palautetta sovelluksesta";
 "about-product-of" = "Tuote $1";
 "about-wikimedia-foundation" = "Wikimediasäätiö";
@@ -215,6 +214,7 @@
 "share-menu-page-saved" = "Artikkeli tallennettu";
 "share-menu-page-saved-access" = "Vihje: Päästäksesi tallentamillesi sivuille näpäytä kuvaketta $1 tai paina pitkään kuvaketta $2.";
 "share-custom-menu-item" = "Jaa";
+"share-a-fact-share-menu-item" = "Jaa fakta";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia'ssa:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" @Wikipedia'ssa: \"$2\"";
 "share-as-image" = "Jaa kuvana";
@@ -329,6 +329,7 @@
 "welcome-explore-title" = "Tutki";
 "welcome-explore-sub-title" = "Uusi tapa löytää kiinnostavia artikkeleita joka päivä";
 "welcome-explore-tell-me-more" = "Kerro lisää";
+"welcome-explore-tell-me-more-done-button" = "Selvä";
 "welcome-languages-title" = "Kielet";
 "welcome-languages-continue-button" = "Jatka";
 "welcome-volunteer-sub-title" = "Auta parantamaan Wikipedia-sovellusta jakamalla tietoja siitä, kuinka käytät sitä";
@@ -337,6 +338,7 @@
 "welcome-volunteer-thanks" = "$1 Kiitos!";
 "empty-no-feed-title" = "Ei Internet-yhteyttä";
 "empty-no-feed-message" = "Näet suositellut artikkelisi kun sinulla on Internet-yhteys";
+// Fuzzy
 "empty-no-feed-action-message" = "Voit lukea tallennettuja sivuja sillä välin";
 "empty-no-article-message" = "Pahoittelut, artikkelia ei voitu ladata";
 "empty-no-search-results-message" = "Tuloksia ei löytynyt";

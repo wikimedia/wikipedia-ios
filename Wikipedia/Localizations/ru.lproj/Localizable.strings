@@ -12,18 +12,20 @@
 // Author: Oashnic
 // Author: Okras
 // Author: WindEwriX
+// Author: Александр Сигачёв
 
 "languages-title" = "Языки";
 "article-languages-label" = "Выберите язык";
 "article-languages-cancel" = "Отмена";
 "article-languages-downloading" = "Загрузка языков статьи…";
+// Fuzzy
 "article-languages-filter-placeholder" = "Языковой фильтр";
 "article-read-more-title" = "Читать подробнее";
 "article-about-title" = "Об этой статье";
 "article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "article-unable-to-load-article" = "Не удается загрузить эту статью.";
 "article-related-articles-title" = "Статьи по теме";
-"info-box-title" = "Короткие факты";
+"info-box-title" = "Краткие факты";
 "info-box-close-text" = "Закрыть";
 "table-title-other" = "Подробнее";
 "saved-clear-all" = "Очистить";
@@ -112,6 +114,7 @@
 "search-result-redirected-from" = "Перенаправлено с: $1";
 "settings-title" = "Настройки";
 "settings-support" = "Поддержать Википедию";
+"settings-language-bar" = "Показывать языки при поиске";
 "main-menu-title" = "Ещё";
 "main-menu-heading-about" = "Про приложение";
 "main-menu-language-title" = "Поиск $1 Википедии";
@@ -195,21 +198,22 @@
 "credits-external-libraries" = "Сторонние";
 "about-title" = "О приложении";
 "about-wikipedia" = "Википедия";
-// Fuzzy
-"about-contributors" = "авторы";
-// Fuzzy
-"about-testers" = "тестеры";
+"about-contributors" = "Авторы";
+"about-testers" = "Тестеры";
 "about-testers-details" = "В/А, протестировано $1";
-// Fuzzy
-"about-translators" = "переводчики";
+"about-translators" = "Переводчики";
 "about-translators-details" = "Это приложение было переведено добровольцами на $1";
-// Fuzzy
-"about-libraries" = "использованые библиотеки";
+"about-libraries" = "Использованные библиотеки";
 "about-libraries-license" = "Лицензия";
 "about-libraries-licenses" = "Лицензии";
+"about-content-license" = "Лицензия содержимого";
+"about-content-license-details" = "Если не указано иное, содержимое доступно в соответствии с $1.";
+"about-content-license-details-share-alike-license" = "лицензией Creative Commons Attribution-ShareAlike";
 "about-libraries-licenses-title" = "Мы любим ПО с открытым исходным кодом $1";
-// Fuzzy
-"about-repositories" = "репозитории";
+"about-libraries-complete-list" = "Полный список";
+"about-repositories" = "Репозитории";
+"about-repositories-app-source-license" = "Исходный текст доступен под $1.";
+"about-repositories-app-source-license-mit" = "Лицензия MIT";
 "about-send-feedback" = "Отправить отзыв о приложении";
 "about-product-of" = "Продукт $1";
 "about-wikimedia-foundation" = "Фонд Викимедиа";
@@ -217,6 +221,8 @@
 "share-menu-page-saved" = "Статья сохранена";
 "share-menu-page-saved-access" = "Совет: чтобы получить доступ к вашим сохраненным страницам, нажмите на $1 выше или зажмите $2 ниже.";
 "share-custom-menu-item" = "Поделиться";
+"share-a-fact-share-menu-item" = "Поделитесь-фактом";
+"share-on-twitter-sign-off" = "через @Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "«$1» в @Wikipedia: «$2»";
 "share-as-image" = "Поделиться как изображением";
@@ -344,6 +350,7 @@
 "welcome-explore-sub-title" = "Новый способ открывать для себя интересные статьи каждый день";
 "welcome-explore-tell-me-more" = "Расскажите об этом подробнее";
 "welcome-explore-tell-me-more-about-explore" = "Подробнее об Исследовании";
+// Fuzzy
 "welcome-explore-tell-me-more-details" = "Когда вы посещаете статьи, связанные с ними статьи автоматически добавляются в вашу ленту «Исследуйте». Это не изменяет того, как мы собираем вашу информацию, так что ваша история чтения по-прежнему непублична.";
 "welcome-explore-tell-me-more-done-button" = "Понятно";
 "welcome-explore-continue-button" = "Начать";
@@ -356,6 +363,7 @@
 "welcome-volunteer-thanks" = "$1 Спасибо!";
 "empty-no-feed-title" = "Нет подключения к интернету";
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
+// Fuzzy
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
 "empty-no-article-message" = "К сожалению, не удалось загрузить статью";
 "empty-no-search-results-message" = "Ничего не найдено";
@@ -373,9 +381,13 @@
 "compass-direction" = "на $1 часов";
 "explore-featured-article-heading" = "Избранная статья";
 "explore-continue-reading-heading" = "Продолжить чтение";
+// Fuzzy
 "explore-nearby-heading" = "Места поблизости";
 "explore-continue-related-heading" = "Потому что вы читали";
 "explore-main-page-heading" = "Сегодня в Википедии";
 "explore-random-article-heading" = "Случайная статья";
 "explore-random-article-sub-heading" = "Английская Википедия";
 "explore-potd-heading" = "Изображение дня";
+"explore-most-read-footer" = "Все самые читаемые статьи";
+// Fuzzy
+"explore-most-read-more-list-title" = "Самые читаемые статьи";

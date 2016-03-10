@@ -6,6 +6,7 @@
 "article-languages-label" = "Sprooch eraussichen";
 "article-languages-cancel" = "Ofbriechen";
 "article-languages-downloading" = "Luede vun de Sprooche vum Artikel...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Sproochfilter";
 "article-read-more-title" = "Liest méi";
 "article-about-title" = "Iwwer dësen Artikel";
@@ -97,7 +98,6 @@
 "search-recent-clear-delete-all" = "All läschen";
 "search-result-redirected-from" = "Virugeleet vun: $1";
 "settings-title" = "Astellungen";
-"settings-project" = "Wikipedia Projet";
 "settings-support" = "Wikipedia ënnerstëtzen";
 "main-menu-title" = "Méi";
 "main-menu-heading-about" = "Iwwer";
@@ -179,19 +179,17 @@
 "credits-external-libraries" = "Extern";
 "about-title" = "Iwwer";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
 "about-contributors" = "Auteuren";
-// Fuzzy
 "about-testers" = "Benotzer déi testen";
 "about-testers-details" = "QA getest vum $1";
-// Fuzzy
 "about-translators" = "Iwwersetzer";
 "about-translators-details" = "Vu Fräiwëllegen op $1 iwwersat";
-// Fuzzy
 "about-libraries" = "Benotzt Bibliothéiken";
 "about-libraries-license" = "Lizenz";
 "about-libraries-licenses" = "Lizenzen";
 "about-libraries-licenses-title" = "Mir appreciéieren Open Source Software $1";
+"about-libraries-complete-list" = "Komplett Lëscht";
+"about-repositories-app-source-license-mit" = "MIT-Lizenz";
 "about-send-feedback" = "Feedback vun der App schécken";
 "about-product-of" = "E Produkt vun der $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
@@ -199,6 +197,7 @@
 "share-menu-page-saved" = "Säit gespäichert";
 "share-menu-page-saved-access" = "Tipp: fir op Är gespäichert Säiten ze goen, tippt $1 hei driwwer oder dréckt laang op $2 hei drënner.";
 "share-custom-menu-item" = "Deelen";
+"share-on-twitter-sign-off" = "iwwer @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" op @Wikipedia: \"$2\"";
 "share-as-image" = "Als Bild deelen";
@@ -324,10 +323,12 @@
 "welcome-languages-add-button" = "+ Eng aner derbäisetzen";
 "welcome-languages-continue-button" = "Virufueren";
 "welcome-volunteer-title" = "Fräiwëllegen";
+"welcome-volunteer-sub-title" = "Hëlleft d'Wikipedia-App ze verbesseren andeem Dir deelt wéi Dir se benotzt";
 "welcome-volunteer-continue-button" = "Virufueren";
 "welcome-volunteer-thanks" = "$1 Merci!";
 "empty-no-feed-title" = "Keng Internetverbindung";
 "empty-no-feed-message" = "Dir kënnt Är recommandéiert Artikele gesi wann Dir Internet hutt.";
+// Fuzzy
 "empty-no-feed-action-message" = "Dir kënnt an der Tëschenzäit gespäichert Säite liesen";
 "empty-no-article-message" = "Leider konnt den Artikel net geluede ginn";
 "empty-no-search-results-message" = "Näischt fonnt";
@@ -344,6 +345,7 @@
 "compass-direction" = "ëm $1 Auer";
 "explore-featured-article-heading" = "Recommandéierten Artikel";
 "explore-continue-reading-heading" = "Virufuere mat Liesen";
+// Fuzzy
 "explore-nearby-heading" = "Plazen nobäi";
 "explore-continue-related-heading" = "Well Dir liest";
 "explore-main-page-heading" = "Haut op Wikipedia";

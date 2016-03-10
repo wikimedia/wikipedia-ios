@@ -5,6 +5,7 @@
 // Author: Macofe
 // Author: MadriCR
 // Author: Mcervera
+// Author: Mgpena
 // Author: Rodm23
 // Author: VegaDark
 // Author: Vivaelcelta
@@ -15,6 +16,7 @@
 "article-languages-label" = "Elige un idioma";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "Cargando idiomas del artículo…";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filtro de idiomas";
 "article-read-more-title" = "Leer más";
 "article-about-title" = "Acerca de este artículo";
@@ -109,7 +111,6 @@
 "search-recent-clear-delete-all" = "Borrar todas";
 "search-result-redirected-from" = "Redirigido desde: $1";
 "settings-title" = "Configuración";
-"settings-project" = "Proyecto de Wikipedia";
 "settings-support" = "Apoya a Wikipedia";
 "settings-language-bar" = "Mostrar los idiomas al buscar";
 "main-menu-title" = "Más";
@@ -195,21 +196,22 @@
 "credits-external-libraries" = "Repositorios externos";
 "about-title" = "Acerca de";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"about-contributors" = "colaboradores";
-// Fuzzy
-"about-testers" = "probadores";
+"about-contributors" = "Colaboradores";
+"about-testers" = "Probadores";
 "about-testers-details" = "Probado por el grupo de QA $1";
-// Fuzzy
-"about-translators" = "traductores";
+"about-translators" = "Traductores";
 "about-translators-details" = "Traducido por voluntarios en $1";
-// Fuzzy
-"about-libraries" = "bibliotecas usadas";
+"about-libraries" = "Bibliotecas usadas";
 "about-libraries-license" = "Licencia";
 "about-libraries-licenses" = "Licencias";
+"about-content-license" = "Licencia del contenido";
+"about-content-license-details" = "A menos que se especifique lo contrario, el contenido está disponible bajo una $1.";
+"about-content-license-details-share-alike-license" = "Licencia Creative Commons Atribución-CompartirIgual";
 "about-libraries-licenses-title" = "Nos encanta el software de código abierto $1";
-// Fuzzy
-"about-repositories" = "repositorios";
+"about-libraries-complete-list" = "Lista completa";
+"about-repositories" = "Repositorios";
+"about-repositories-app-source-license" = "Código fuente disponible bajo la $1.";
+"about-repositories-app-source-license-mit" = "Licencia MIT";
 "about-send-feedback" = "Enviar comentarios sobre la aplicación";
 "about-product-of" = "Un producto de la $1";
 "about-wikimedia-foundation" = "Fundación Wikimedia";
@@ -217,6 +219,8 @@
 "share-menu-page-saved" = "Guardado para leer sin conexión.";
 "share-menu-page-saved-access" = "Consejo: para acceder a tus páginas guardadas, pulsa $1 arriba o mantén apretado $2 abajo.";
 "share-custom-menu-item" = "Compartir";
+"share-a-fact-share-menu-item" = "Comparte-un-hecho";
+"share-on-twitter-sign-off" = "vía @Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "«$1» en @Wikipedia: «$2»";
 "share-as-image" = "Compartir como imagen";
@@ -337,21 +341,30 @@
 "home-updating-label" = "Actualizando…";
 "home-hide-suggestion-prompt" = "Ocultar esta sugerencia";
 "home-hide-suggestion-cancel" = "Cancelar";
-"home-accessibility-label" = "Wikipedia, Explora";
+"home-accessibility-label" = "Wikipedia, Explorar";
 "home-button-accessibility-label" = "Botón se inicio";
 "potd-empty-error-description" = "No se pudo obtener la foto del día del $1";
 "potd-description-prefix" = "Foto del día del $1";
 "welcome-explore-title" = "Explorar";
+"welcome-explore-sub-title" = "Una forma nueva de descubrir artículos interesantes todos los días";
+"welcome-explore-tell-me-more" = "Más información";
+"welcome-explore-tell-me-more-about-explore" = "Más acerca de Explorar";
+// Fuzzy
+"welcome-explore-tell-me-more-details" = "Cuando visitas un artículo, los artículos relacionados se agregan automáticamente a tu canal de Explorar. Esto no cambia la manera en que recopilamos tu información, y tu historial de lectura sigue siendo privado.";
 "welcome-explore-tell-me-more-done-button" = "Entendido";
 "welcome-explore-continue-button" = "Empezar";
 "welcome-languages-title" = "Idiomas";
+"welcome-languages-sub-title" = "Selecciona tus idiomas preferidos para buscar en Wikipedia";
 "welcome-languages-add-button" = "+ Añadir otro";
 "welcome-languages-continue-button" = "Continuar";
 "welcome-volunteer-title" = "Voluntarios";
+"welcome-volunteer-sub-title" = "Ayuda a mejorar la aplicación de Wikipedia compartiendo cómo la usas";
+"welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
 "welcome-volunteer-continue-button" = "Continuar";
 "welcome-volunteer-thanks" = "$1 ¡Gracias!";
 "empty-no-feed-title" = "No hay conexión a Internet";
 "empty-no-feed-message" = "Puedes ver tus artículos recomendados cuando tengas Internet";
+// Fuzzy
 "empty-no-feed-action-message" = "Puedes leer páginas guardadas mientras tanto";
 "empty-no-article-message" = "Lo sentimos, no se pudo cargar el artículo";
 "empty-no-search-results-message" = "No se encontraron resultados";
@@ -369,6 +382,7 @@
 "compass-direction" = "a las $1 en punto";
 "explore-featured-article-heading" = "Artículo destacado";
 "explore-continue-reading-heading" = "Continuar leyendo";
+// Fuzzy
 "explore-nearby-heading" = "Lugares cercanos";
 "explore-continue-related-heading" = "Porque leíste";
 "explore-main-page-heading" = "Hoy en Wikipedia";
@@ -377,4 +391,5 @@
 "explore-potd-heading" = "Imagen del día";
 "explore-most-read-heading" = "Los más leídos en Wikipedia en $1";
 "explore-most-read-footer" = "Todos los artículos más leídos";
+// Fuzzy
 "explore-most-read-more-list-title" = "Los artículos más leídos";

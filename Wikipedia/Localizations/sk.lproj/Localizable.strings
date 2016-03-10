@@ -8,6 +8,7 @@
 "article-languages-label" = "Zvoliť jazyk";
 "article-languages-cancel" = "Zrušiť";
 "article-languages-downloading" = "Načítam zoznam jazykov...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Jazykový filter";
 "article-read-more-title" = "Ďalšie informácie";
 "article-about-title" = "O tomto článku";
@@ -302,6 +303,7 @@
 "welcome-volunteer-thanks" = "$1 Ďakujeme!";
 "empty-no-feed-title" = "Žiadne pripojenie na internet";
 "empty-no-feed-message" = "Odporúčané články uvidíte keď budete pripojení na internet";
+// Fuzzy
 "empty-no-feed-action-message" = "Medzitým si môžete čítať uložené stránky";
 "empty-no-article-message" = "Ospravedlňujeme sa, nebolo možné načítať článok";
 "empty-no-search-results-message" = "Neboli nájdené žiadne výsledky vyhľadávania";
@@ -316,6 +318,7 @@
 "back-button-accessibility-label" = "Späť";
 "explore-featured-article-heading" = "Odporúčaný článok";
 "explore-continue-reading-heading" = "Pokračovať v čítaní";
+// Fuzzy
 "explore-nearby-heading" = "Miesta v okolí";
 "explore-main-page-heading" = "Dnes na Wikipédii";
 "explore-random-article-heading" = "Náhodný článok";

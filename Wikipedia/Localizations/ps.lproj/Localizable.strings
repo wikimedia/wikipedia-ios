@@ -6,6 +6,7 @@
 "article-languages-label" = "ژبه ټاکل";
 "article-languages-cancel" = "ناگارل";
 "article-languages-downloading" = "د ليکنې د ژبو برسېرېدنې کې دی...";
+// Fuzzy
 "article-languages-filter-placeholder" = "د ژبې چاڼگر";
 "article-read-more-title" = "نور لوستل";
 "article-about-title" = "د دې ليکنې په اړه";
@@ -231,6 +232,7 @@
 "close-button-accessibility-label" = "تړل";
 "back-button-accessibility-label" = "پر شا کېدل";
 "explore-featured-article-heading" = "مخکښه ليکنه";
+// Fuzzy
 "explore-nearby-heading" = "نژدې ځايونه";
 "explore-continue-related-heading" = "ځکه چې تاسې لولی";
 "explore-main-page-heading" = "نن په ويکيپېډيا کې";

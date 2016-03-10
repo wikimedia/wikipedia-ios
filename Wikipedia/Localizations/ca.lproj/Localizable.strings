@@ -18,6 +18,7 @@
 "article-languages-label" = "Trieu un idioma";
 "article-languages-cancel" = "Cancel·la";
 "article-languages-downloading" = "Carregant els idiomes de l'article...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filtre d'idioma";
 "article-read-more-title" = "Més informació";
 "article-about-title" = "Sobre l'article";
@@ -203,19 +204,14 @@
 "credits-external-libraries" = "Repositoris externs";
 "about-title" = "Quant a";
 "about-wikipedia" = "Viquipèdia";
-// Fuzzy
-"about-contributors" = "col·laboradors";
-// Fuzzy
-"about-testers" = "provadors";
+"about-contributors" = "Col·laboradors";
+"about-testers" = "Provadors";
 "about-testers-details" = "Provat per $1";
-// Fuzzy
-"about-translators" = "traductors";
+"about-translators" = "Traductors";
 "about-translators-details" = "Traduït per voluntaris a $1";
-// Fuzzy
-"about-libraries" = "biblioteques utilitzades";
+"about-libraries" = "Biblioteques utilitzades";
 "about-libraries-license" = "Llicència";
-// Fuzzy
-"about-repositories" = "repositoris";
+"about-repositories" = "Repositoris";
 "about-send-feedback" = "Enviar comentaris sobre l'aplicació";
 "about-product-of" = "Un producte de la $1";
 "about-wikimedia-foundation" = "Fundació Wikimedia";
@@ -341,6 +337,7 @@
 "welcome-languages-title" = "Llengües per cercar";
 "empty-no-feed-title" = "Sense Connexió a Internet";
 "empty-no-feed-message" = "Podeu veure els vostres articles recomanats quan tingueu Internet";
+// Fuzzy
 "empty-no-feed-action-message" = "Mentrestant, podeu llegir les pàgines desades";
 "empty-no-article-message" = "Ho sentim, no s'ha pogut carregar l'article";
 // Fuzzy

@@ -1,5 +1,6 @@
 #import "WMFSearchViewController.h"
 #import "PiwikTracker+WMFExtensions.h"
+#import "NSMutableArray+WMFSafeAdd.h"
 
 #import "RecentSearchesViewController.h"
 #import "WMFSearchResultsTableViewController.h"
@@ -384,8 +385,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - Search
 
-- (void)setSearchTerm:(NSString*)searchTerm{
-    if(searchTerm.length == 0){
+- (void)setSearchTerm:(NSString*)searchTerm {
+    if (searchTerm.length == 0) {
         return;
     }
     [self setSearchFieldText:searchTerm];
@@ -547,14 +548,19 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (NSArray<MWKLanguageLink*>*)languages {
-    NSMutableArray* l = [NSMutableArray arrayWithObject:[self appLanguage]];
-    [l addObjectsFromArray:self.preferredLanguages];
-    return l;
+    NSMutableArray* languages = [NSMutableArray new];
+    [languages wmf_safeAddObject:[self appLanguage]];
+    [languages addObjectsFromArray:self.preferredLanguages];
+    return languages;
 }
 
-- (MWKLanguageLink*)appLanguage {
+- (nullable MWKLanguageLink*)appLanguage {
     MWKSite* site             = [[NSUserDefaults standardUserDefaults] wmf_appSite];
     MWKLanguageLink* language = [[MWKLanguageLinkController sharedInstance] languageForSite:site];
+    NSAssert(language, @"No language data found for site %@", site);
+    if (!language) {
+        DDLogError(@"No language data found for site %@", site);
+    }
     return language;
 }
 
@@ -562,10 +568,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     NSArray* languages           = [[MWKLanguageLinkController sharedInstance].preferredLanguages wmf_arrayByTrimmingToLength:3];
     MWKLanguageLink* appLanguage = [self appLanguage];
     languages = [languages bk_reject:^BOOL (MWKLanguageLink* obj) {
-        if ([obj isEqualToLanguageLink:appLanguage]) {
-            return YES;
-        }
-        return NO;
+        return [obj isEqualToLanguageLink:appLanguage];
     }];
     self.preferredLanguages = [languages wmf_arrayByTrimmingToLength:2];
 }

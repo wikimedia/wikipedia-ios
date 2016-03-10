@@ -120,4 +120,24 @@ static NSString* const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     return _dateFormatter;
 }
 
++ (instancetype)wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter {
+    static NSDateFormatter* _dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setLocalizedDateFormatFromTemplate:@"EEEMMMdd"];
+    });
+    return _dateFormatter;
+}
+
++ (instancetype)wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter {
+    static NSDateFormatter* _dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dateFormatter = [[self wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] copy];
+        _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+    });
+    return _dateFormatter;
+}
+
 @end

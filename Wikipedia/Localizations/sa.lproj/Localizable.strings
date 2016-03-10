@@ -6,6 +6,7 @@
 "article-languages-label" = "भाषां चिनोतु";
 "article-languages-cancel" = "निरस्यताम्";
 "article-languages-downloading" = "लेखस्यास्य भाषापरिसन्धिः अवारोपयति...";
+// Fuzzy
 "article-languages-filter-placeholder" = "भाषाशोधनी";
 "article-read-more-title" = "अधिकं पठ्यताम्";
 "article-unable-to-load-section" = "एनं विभागम् आरोपयितुं न शक्यते । पृष्ठं पुनरुपारोप्य दृश्यतां यत् दोषः व्यपगतः वा ।";

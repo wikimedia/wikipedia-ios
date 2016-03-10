@@ -15,6 +15,7 @@
 "article-languages-label" = "選擇語言";
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "正在讀取條目語言...";
+// Fuzzy
 "article-languages-filter-placeholder" = "語言篩選器";
 "article-read-more-title" = "閱讀更多";
 "article-about-title" = "關於此條目";
@@ -343,6 +344,7 @@
 "welcome-languages-title" = "搜尋語言";
 "empty-no-feed-title" = "無網際網路連線";
 "empty-no-feed-message" = "在有網際網路時，您可以看到推薦的條目";
+// Fuzzy
 "empty-no-feed-action-message" = "與此同時，您可以閱讀儲存的條目";
 "empty-no-article-message" = "很抱歉，無法載入條目";
 // Fuzzy
@@ -361,6 +363,7 @@
 "compass-direction" = "在 $1 時";
 "explore-featured-article-heading" = "特色條目";
 "explore-continue-reading-heading" = "繼續閱讀";
+// Fuzzy
 "explore-nearby-heading" = "附近地點";
 "explore-continue-related-heading" = "因為您閱讀";
 "explore-main-page-heading" = "維基百科今日";
