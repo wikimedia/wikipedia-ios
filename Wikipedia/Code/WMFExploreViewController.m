@@ -186,6 +186,10 @@ NS_ASSUME_NONNULL_BEGIN
         [sum addIndex:(NSUInteger)obj.section];
         return sum;
     }];
+    
+    if([visibleSectionIndexes count] == 0){
+        return @[];
+    }
 
     return [[self.schemaManager.sections objectsAtIndexes:visibleSectionIndexes] wmf_mapAndRejectNil:^id (WMFExploreSection* obj) {
         return [self sectionControllerForSection:obj];
