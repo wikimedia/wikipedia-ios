@@ -76,6 +76,27 @@ platform :ios do
     scan(opts)
   end
 
+  desc "Increment the app version patch"
+  lane :bumpPatch do
+    increment_version_number(
+      bump_type: "patch"
+    )
+  end
+
+  desc "Increment the app version minor"
+  lane :bumpMinor do
+    increment_version_number(
+      bump_type: "minor"
+    )
+  end
+
+  desc "Increment the app version major"
+  lane :bumpMajor do
+    increment_version_number(
+      bump_type: "major"
+    )
+  end
+
   desc "Increment the app's build number without committing the changes. Returns a string of the new, bumped version."
   lane :bump do |options|
     opt_build_num = options[:build_number] || ENV['BUILD_NUMBER']
