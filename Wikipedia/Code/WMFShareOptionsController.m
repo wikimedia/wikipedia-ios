@@ -1,10 +1,3 @@
-//
-//  ShareOptionsViewController.m
-//  Wikipedia
-//
-//  Created by Adam Baso on 2/6/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFShareOptionsController.h"
 
@@ -37,7 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, copy, nonatomic) NSString* snippet;
 @property (weak, nonatomic) UIViewController* containerViewController;
-@property (nullable, weak, nonatomic) UIView* originView;
 @property (nullable, strong, nonatomic) UIBarButtonItem* originButtonItem;
 
 @property (nullable, strong, nonatomic) UIView* grayOverlay;
@@ -54,7 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
     [[WMFImageController sharedInstance] cancelFetchForURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]];
     self.containerViewController = nil;
     self.originButtonItem        = nil;
-    self.originView              = nil;
     self.shareImage              = nil;
     self.snippet                 = nil;
 }
@@ -81,20 +72,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Public Presentation methods
 
 - (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromBarButtonItem:(UIBarButtonItem*)item {
-    self.snippet                 = [snippet copy];
     NSParameterAssert(item);
     NSParameterAssert(viewController);
+    self.snippet                 = snippet;
     self.containerViewController = viewController;
     self.originButtonItem        = item;
-    self.originView              = nil;
-    [self fetchImageThenShowShareCard];
-}
-
-- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromView:(UIView*)view {
-    self.snippet                 = [snippet copy];
-    self.containerViewController = viewController;
-    self.originButtonItem        = nil;
-    self.originView              = view;
     [self fetchImageThenShowShareCard];
 }
 
@@ -329,12 +311,7 @@ NS_ASSUME_NONNULL_BEGIN
         [[UIActivityViewController alloc] initWithActivityItems:activityItems
                                           applicationActivities:@[]];
     UIPopoverPresentationController* presenter = [shareActivityVC popoverPresentationController];
-    if (self.originButtonItem) {
-        presenter.barButtonItem = self.originButtonItem;
-    } else {
-        presenter.sourceView = self.originView;
-        presenter.sourceRect = [self.containerViewController.view convertRect:self.originView.frame fromView:self.originView.superview];
-    }
+    presenter.barButtonItem = self.originButtonItem;
 
     shareActivityVC.excludedActivityTypes = @[
         UIActivityTypePrint,
