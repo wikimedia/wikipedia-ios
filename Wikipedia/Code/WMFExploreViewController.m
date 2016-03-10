@@ -310,6 +310,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
+    for (UITableViewCell* cell in self.tableView.visibleCells) {
+        [cell setSelected:NO animated:NO];
+    }
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
