@@ -1,10 +1,3 @@
-//
-//  ShareOptionsViewController.h
-//  Wikipedia
-//
-//  Created by Adam Baso on 2/6/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 
@@ -28,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
                     shareFunnel:(WMFShareFunnel*)funnel NS_DESIGNATED_INITIALIZER;
 
 /**
- * Initialize a new instance with an article and an optional snippet.
+ * Present the share options with the specified snippet, in the given viewcontroller, from the given button item.
  *
  * @param snippet           The snippet to share.
  * @param viewController    The view controller that will present the menus.
@@ -37,11 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @note Truncating `snippet` is not necessary, as it's done internally by the share view's `UILabel`.
  */
 - (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromBarButtonItem:(UIBarButtonItem*)item;
-
-/**
- * Same as above, but presented from a view instead of a bar button item
- */
-- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromView:(UIView*)view;
 
 @end
 
