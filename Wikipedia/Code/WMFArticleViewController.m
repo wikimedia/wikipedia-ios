@@ -756,7 +756,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.article.title.desktopURL) {
         NSURL* url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
                                                     self.article.title.desktopURL.absoluteString,
-                                                    @"wprov=sfii1"]];
+                                                    @"wprov=sfsi1"]];
 
         [items addObject:url];
     }
