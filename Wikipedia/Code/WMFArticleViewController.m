@@ -290,7 +290,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)canShare {
-    return [self.article shareSnippet].length != 0;
+    return self.article != nil;
 }
 
 - (BOOL)hasLanguages {
