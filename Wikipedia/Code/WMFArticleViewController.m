@@ -290,7 +290,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)canShare {
-    return [self.article shareSnippet].length != 0;
+    return self.article != nil;
 }
 
 - (BOOL)hasLanguages {
@@ -756,7 +756,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.article.title.desktopURL) {
         NSURL* url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
                                                     self.article.title.desktopURL.absoluteString,
-                                                    @"wprov=sfii1"]];
+                                                    @"wprov=sfsi1"]];
 
         [items addObject:url];
     }

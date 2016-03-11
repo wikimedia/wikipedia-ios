@@ -225,7 +225,7 @@
 "about-repositories-app-source-license" = "Source code available under the $1.";
 "about-repositories-app-source-license-mit" = "MIT License";
 "about-send-feedback" = "Send app feedback";
-"about-product-of" = "A product of the $1";
+"about-product-of" = "Made by the $1 with the help of volunteers like you";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 
 "share-menu-save-page" = "Save page";
@@ -353,7 +353,7 @@
 "page-edit-history" = "Full edit history";
 
 "captcha-reload" = "Show another captcha";
-"captcha-prompt" = "Enter CAPTCHA text from the image";
+"captcha-prompt" = "Enter CAPTCHA text";
 
 "mwk-empty-title-error" = "Unable to perform operation with empty title.";
 

@@ -255,6 +255,13 @@ NS_ASSUME_NONNULL_BEGIN
     })
            .then(^NSArray<MWKSearchResult*>*(NSArray<MWKSearchResult*>* previews) {
         @strongify(self);
+               
+               // Now that we have preview data we can check for articleID. If articleID is zero
+               // it's not a regular article. Rejecting these hides most special pages.
+               previews = [previews bk_reject:^BOOL (MWKSearchResult* previews) {
+                   return (previews.articleID == 0);
+               }];
+               
         self.previews = previews;
         // only return first 5 previews to the section, store the rest internally for the full list view
         return [self.previews wmf_safeSubarrayWithRange:NSMakeRange(0, 5)];
