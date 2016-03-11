@@ -186,6 +186,10 @@ NS_ASSUME_NONNULL_BEGIN
         [sum addIndex:(NSUInteger)obj.section];
         return sum;
     }];
+    
+    if([visibleSectionIndexes count] == 0){
+        return @[];
+    }
 
     return [[self.schemaManager.sections objectsAtIndexes:visibleSectionIndexes] wmf_mapAndRejectNil:^id (WMFExploreSection* obj) {
         return [self sectionControllerForSection:obj];
@@ -306,6 +310,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
+    for (UITableViewCell* cell in self.tableView.visibleCells) {
+        [cell setSelected:NO animated:NO];
+    }
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {

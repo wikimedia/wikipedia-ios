@@ -150,6 +150,11 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
 }
 
 - (void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
+    NSParameterAssert(indexPath);
+    NSParameterAssert(cell);
+    if (!cell || !indexPath) {
+        return;
+    }
     if ([self shouldShowPlaceholderCell]) {
         return;
     } else if ([self shouldShowEmptyCell]) {

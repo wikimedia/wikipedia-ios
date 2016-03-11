@@ -40,7 +40,7 @@
                 @"<h1 class='section_heading' %@ sectionId='%d'>%@</h1>%@",
                 self.anchorAsElementId,
                 self.sectionId,
-                self.title.text,
+                self.article.displaytitle ? self.article.displaytitle : self.title.text,
                 [self articleEntityDescriptionAsParagraph]];
     } else {
         short headingTagSize = [self getHeadingTagSize];

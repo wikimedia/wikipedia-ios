@@ -385,7 +385,7 @@ NS_ASSUME_NONNULL_BEGIN
         _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                             handler:^(id sender){
             @strongify(self);
-            [self shareArticleWithTextSnippet:nil fromButton:sender];
+            [self shareArticleWithTextSnippet:nil fromButton:self->_shareToolbarItem];
         }];
     }
     return _shareToolbarItem;
@@ -741,6 +741,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(UIBarButtonItem*)button {
+    NSParameterAssert(button);
+    if(!button){
+        //If we get no button, we will crash below on iPad
+        //The assert above shoud help, but lets make sure we bail in prod
+        return;
+    }
     [self.shareFunnel logShareButtonTappedResultingInSelection:text];
 
     NSMutableArray* items = [NSMutableArray array];
