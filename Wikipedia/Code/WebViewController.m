@@ -901,6 +901,15 @@ NSString* const WMFLicenseTitleOnENWiki =
     [self presentViewController:nc animated:YES completion:nil];
 }
 
+- (void)rotateFontSize {
+    NSNumber* fontSize = [[NSUserDefaults standardUserDefaults] wmf_readingFontSize];
+    fontSize = @(fontSize.integerValue + 10);
+    if (fontSize.integerValue >= 160) {
+        fontSize = @(70);
+    }
+    [self setFontSize:fontSize];
+}
+
 - (void)increaseFontSize {
     NSNumber* fontSize = [[NSUserDefaults standardUserDefaults] wmf_readingFontSize];
     fontSize = @(fontSize.integerValue + 10);

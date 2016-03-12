@@ -104,6 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIBarButtonItem* saveToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* languagesToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
+@property (nonatomic, strong) UIBarButtonItem* fontSizeToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
 @property (nonatomic, strong) UIRefreshControl* pullToRefresh;
@@ -334,6 +335,7 @@ NS_ASSUME_NONNULL_BEGIN
         [NSArray arrayWithObjects:
          self.languagesToolbarItem,
          [self flexibleSpaceToolbarItem],
+         self.fontSizeToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:22.f],
          self.shareToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:24.f],
          self.saveToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.0],
          [self flexibleSpaceToolbarItem],
@@ -379,13 +381,26 @@ NS_ASSUME_NONNULL_BEGIN
                                                          action:NULL];
 }
 
+- (UIBarButtonItem*)fontSizeToolbarItem {
+    if (!_fontSizeToolbarItem) {
+        @weakify(self);
+        _fontSizeToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"font-size"]
+                                                                   style:UIBarButtonItemStylePlain
+                                                                 handler:^(id sender){
+            @strongify(self);
+            [self.webViewController rotateFontSize];
+        }];
+    }
+    return _fontSizeToolbarItem;
+}
+
 - (UIBarButtonItem*)shareToolbarItem {
     if (!_shareToolbarItem) {
         @weakify(self);
         _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                             handler:^(id sender){
             @strongify(self);
-            [self shareArticleWithTextSnippet:nil fromButton:self->_shareToolbarItem];                                                                                
+            [self shareArticleWithTextSnippet:nil fromButton:self->_shareToolbarItem];
         }];
     }
     return _shareToolbarItem;
@@ -742,7 +757,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(UIBarButtonItem*)button {
     NSParameterAssert(button);
-    if(!button){
+    if (!button) {
         //If we get no button, we will crash below on iPad
         //The assert above shoud help, but lets make sure we bail in prod
         return;
@@ -847,7 +862,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!self.article.isCached) {
         return;
     }
-    fullscreenGallery = [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article currentImage:nil];
+    fullscreenGallery             = [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article currentImage:nil];
     fullscreenGallery.currentPage = gallery.currentPage;
     // set delegate to ensure the header gallery is updated when the fullscreen gallery is dismissed
     fullscreenGallery.delegate = self;
