@@ -37,7 +37,8 @@ typedef NS_ENUM (NSUInteger, WMFImageWidth) {
 @implementation UIScreen (WMFImageWidth)
 
 - (NSUInteger)wmf_maxScale {
-    return MAX((NSUInteger)self.scale, 2);
+    // Reminder: "MIN" is intentional - we're setting scale multipler cap to 2.
+    return MIN((NSUInteger)self.scale, 2);
 }
 
 - (NSNumber*)wmf_listThumbnailWidthForScale {
