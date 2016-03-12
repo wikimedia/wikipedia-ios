@@ -176,11 +176,11 @@
 }
 
 + (instancetype)wmf_nearbyArrowColor {
-    return [UIColor blackColor];
+    return [UIColor wmf_colorWithHex:0x00AF89 alpha:1.0];
 }
 
 + (instancetype)wmf_nearbyTickColor {
-    return [UIColor wmf_999999Color];
+    return [UIColor wmf_colorWithHex:0x00AF89 alpha:0.8];
 }
 
 + (instancetype)wmf_nearbyTitleColor {
@@ -264,6 +264,36 @@
     CGFloat r, g, b, a;
     [self getRed:&r green:&g blue:&b alpha:&a];
     return [UIColor colorWithRed:r * amount green:g * amount blue:b * amount alpha:a];
+}
+
++ (instancetype)wmf_green {
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x00AF89 alpha:1.0];
+    });
+    return c;
+}
+
++ (instancetype)wmf_welcomeNextButtonBackgroundColor {
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0xE8F3FE alpha:1.0];
+    });
+    return c;
+}
+
++ (instancetype)wmf_welcomeNextButtonDividerBackgroundColor {
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0xC5D1EA alpha:1.0];
+    });
+    return c;
 }
 
 @end

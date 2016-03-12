@@ -3,6 +3,7 @@
 // Author: Andriykopanytsia
 // Author: Base
 // Author: NickK
+// Author: Piramidion
 // Author: Sir-nik
 // Author: Ата
 // Author: Дар'я Козлова
@@ -11,6 +12,7 @@
 "article-languages-label" = "Вибрати мову";
 "article-languages-cancel" = "Скасувати";
 "article-languages-downloading" = "Завантаження мов статті...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Мовний фільтр";
 "article-read-more-title" = "Детальніше";
 "article-about-title" = "Про цю статтю";
@@ -25,9 +27,11 @@
 "history-section-yesterday" = "Вчора";
 "history-section-lastweek" = "Минулого тижня";
 "history-section-lastmonth" = "Минулого місяця";
+// Fuzzy
 "history-clear-confirmation-heading" = "Видалити недавні елементи?";
 "history-clear-confirmation-sub-heading" = "Цю дію скасувати не можна!";
 "history-clear-cancel" = "Скасувати";
+// Fuzzy
 "history-clear-delete-all" = "Видалити усі";
 "history-description" = "Вірогідно, Ви їх усі видалили. Наступного разу, коли відвідаєте сторінку, Ви зможете повернутися до неї звідси.";
 "history-none" = "Тут немає нещодавніх сторінок.";
@@ -43,6 +47,7 @@
 "zero-learn-more-learn-more" = "Читати більше";
 "zero-learn-more-no-thanks" = "Відхилити";
 "zero-wikipedia-zero-heading" = "Вікіпедія Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Попередити, якщо залишити Вікіпедії Zero";
 "zero-settings-devmode" = "Режим разробника Zero";
 "account-creation-captcha-required" = "Потрібно перевірка CAPTCHA";
@@ -101,16 +106,20 @@
 "search-recent-clear-confirmation-sub-heading" = "Цю дію скасувати не можна!";
 "search-recent-clear-cancel" = "Скасувати";
 "search-recent-clear-delete-all" = "Вилучити всі";
+"search-result-redirected-from" = "Перенаправлено з: $1";
 "settings-title" = "Налаштування";
 "main-menu-title" = "Ще";
 "main-menu-heading-about" = "Про застосунок";
 "main-menu-language-title" = "$1 мова для пошуку на вікі";
+// Fuzzy
 "main-menu-faq" = "FAQ";
 "main-menu-language-toggle-show" = "Показати мови";
 "main-menu-language-toggle-hide" = "Приховати мови";
 "main-menu-language-selection-saved" = "Вибір мови збережено";
 "main-menu-account-title-logged-out" = "Обліковий запис";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Увійшов в систему як: $1";
+// Fuzzy
 "main-menu-account-login" = "Вхід у Вікіпедію";
 "main-menu-account-logout" = "Вихід";
 "main-menu-show-title" = "Показати мені...";
@@ -119,13 +128,17 @@
 "main-menu-current-article-save" = "Зберегти  $1  для читання в автономному режимі";
 "main-menu-random" = "Випадкова";
 "main-menu-feedback-heading" = "Зворотний зв'язок";
+// Fuzzy
 "main-menu-send-feedback" = "Надіслати відгук про додаток";
 "main-menu-show-page-history" = "Історія змін $1";
 "main-menu-credits" = "Кредити";
+// Fuzzy
 "main-menu-about" = "Про додаток Вікіпедії";
 "main-menu-zero-faq" = "ЧАП по Вікіпедія Zero";
 "main-menu-privacy-policy" = "Політика конфіденційності";
+// Fuzzy
 "main-menu-terms-of-use" = "Умови використання";
+// Fuzzy
 "main-menu-rate-app" = "Оцінити програму";
 "main-menu-heading-zero" = "Вікіпедія Zero";
 "main-menu-heading-legal" = "Приватність та умови";
@@ -134,11 +147,14 @@
 "main-menu-more" = "Більше…";
 "main-menu-heading-debug" = "Налагодження";
 "main-menu-debug-crash" = "Падіння";
+"main-menu-debug-tweaks" = "Налаштування для розробників";
 "saved-title" = "Збережено";
 "saved-pages-title" = "Збережені сторінки";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Видалити всі збережені елементи?";
 "saved-pages-clear-confirmation-sub-heading" = "Цю дію скасувати не можна!";
 "saved-pages-clear-cancel" = "Скасувати";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Вилучити всі";
 "saved-pages-refresh-cancel-alert-title" = "Оновлення скасоване";
 "saved-pages-refresh-cancel-alert-message" = "Статті Вікіпедії оновлюються весь час. Натисніть «оновити», щоб отримати найсвіжіші версії усіх статей.";
@@ -182,13 +198,18 @@
 "credits-external-libraries" = "Зовнішні";
 "about-title" = "Про";
 "about-wikipedia" = "Вікіпедія";
+// Fuzzy
 "about-contributors" = "співавтори";
+// Fuzzy
 "about-testers" = "тестери";
 "about-testers-details" = "QA-тестування від $1";
+// Fuzzy
 "about-translators" = "перекладачі";
 "about-translators-details" = "Перекладено волонтерами на $1";
+// Fuzzy
 "about-libraries" = "використовувані бібліотеки";
 "about-libraries-license" = "Ліцензія";
+// Fuzzy
 "about-repositories" = "репозиторії";
 "about-send-feedback" = "Надіслати відгук про програму";
 "about-product-of" = "Продукт $1";
@@ -201,6 +222,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "«$1» у @Wikipedia: «$2»";
 "share-as-image" = "Поширити як зображення";
 "share-as-text" = "Поширити як текст";
+"share-cancel" = "Скасувати";
 "timestamp-just-now" = "щойно";
 "timestamp-minutes" = "%d хв тому";
 "timestamp-hours" = "%d год тому";
@@ -230,6 +252,7 @@
 "license-footer-text" = "Вміст доступний згідно з $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Вміст";
+"table-of-contents-button-label" = "Зміст";
 "abuse-filter-warning-heading" = "Ця зміна виглядає руйнівною. Ви справді волієте її зберегти?";
 "abuse-filter-warning-subheading" = "Ваші зміни можуть містити одну із наступних дій:";
 "abuse-filter-warning-caps" = "Набір ВЕЛИКИМ ЛІТЕРАМИ";
@@ -289,6 +312,7 @@
 "hockeyapp-alert-privacy" = "Приватність $1";
 "page-issues" = "Проблеми сторінки";
 "page-similar-titles" = "Подібні сторінки";
+// Fuzzy
 "page-read-in-other-languages" = "Читати на $1 мовах";
 "page-last-edited" = "Відредаговано $1 днів тому";
 "page-edit-history" = "Повна історія редагування";
@@ -305,37 +329,42 @@
 "home-featured-article-heading" = "Вибрана стаття за $1";
 "home-main-page-heading" = "Сьогодні на Вікіпедії";
 "home-potd-heading" = "Зображення дня за $1";
+"home-last-update-label" = "Останнє оновлення: $1";
+"home-last-update-never-label" = "Останнє оновлення: ніколи";
+"home-updating-label" = "Оновлення...";
+"home-hide-suggestion-prompt" = "Приховати цю пропозицію";
+"home-hide-suggestion-cancel" = "Скасувати";
+"home-accessibility-label" = "Вікіпедія, Ознайомлення";
+"home-button-accessibility-label" = "Кнопка повернення на головну";
 "potd-empty-error-description" = "Не вдалося отримати зображення дня за $1";
 "potd-description-prefix" = "Зображення дня за $1";
-"welcome-whats-new-title" = "Ласкаво просимо до Вікіпедії";
-"welcome-whats-new-whats-new" = "ЩО НОВОГО";
-"welcome-whats-new-bullet-one-title" = "Новий шлях до ознайомлення";
-"welcome-whats-new-bullet-one-text" = "Відкрийте для себе нові і цікаві статті тільки для Вас на екрані Ознайомлення.";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Як це працює...";
-"welcome-whats-new-bullet-two-title" = "Розроблено для читання";
-"welcome-whats-new-bullet-two-text" = "Оновлений дизайн фокусується на наданні чудових вражень при читанні.";
-"welcome-whats-new-button-title" = "Розпочати";
-"welcome-whats-new-bullet-one-more-info-text" = "Коли ви відкриваєте статтю, пов'язані з нею статті автоматично додаються у вашу стрічку. Це не змінює те, як нами збирається ваша інформація, тому ваша історія читання залишається закритою.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Зрозуміло";
+// Fuzzy
 "welcome-languages-title" = "Мови для пошуку";
-"welcome-languages-more-info-button-text" = "Розкажіть мені більше";
-"welcome-languages-more-info-text" = "Статті Вікіпедії часто доступні на декількох мовах. Виберіть мови, які ви б хотіли використовувати під час пошуку. Пізніше зможете їх поміняти.";
-"welcome-languages-more-info-done-button" = "Зрозуміло";
-"welcome-languages-more-languages-button-title" = "Додати ще мови";
-"welcome-languages-button-title" = "Продовжити";
-"welcome-languages-footnote-text" = "Не хвилюйтеся, ви можете змінити це пізніше.";
-"welcome-usage-reports-title" = "Допоможіть нам зробити Вікіпедію кращою";
-"welcome-usage-reports-body-text" = "Ви можете допомогти нам зробити програму кращою, дозволивши збирати інформацію про те, як ви використовуєте програму.";
-"welcome-usage-reports-switch-text" = "Надсилати звіти про використання";
-"welcome-usage-reports-button-title" = "Початок роботи";
-"welcome-usage-reports-privacy-policy-button-text" = "Ваша конфіденційність важлива для нас";
 "empty-no-feed-title" = "Не має з'єднання з інтернетом";
 "empty-no-feed-message" = "Ви можете побачити ваші рекомендовані статті, коли у вас є інтернет";
+// Fuzzy
 "empty-no-feed-action-message" = "Поки що можете почитати збережені статті";
 "empty-no-article-message" = "На жаль, не вдалося завантажити статтю";
+// Fuzzy
 "empty-no-search-results-message" = "На жаль, не вдалося завантажити результати";
 "empty-no-saved-pages-title" = "Ще не має збережених сторінок";
 "empty-no-saved-pages-message" = "Зберігайте сторінки для перегляду їх пізніше, навіть в автономному режимі";
 "empty-no-history-title" = "Немає історії для відображення";
 "empty-no-history-message" = "Стежте за тим, що ви вже прочитали";
 "alert-no-internet" = "Не має з'єднання із інтернетом";
+"icon-shortcut-search-title" = "Пошук по Вікіпедії";
+"icon-shortcut-continue-reading-title" = "Продовжити читання";
+"icon-shortcut-random-title" = "Випадкова стаття";
+"icon-shortcut-nearby-title" = "Статті про місця неподалік";
+"close-button-accessibility-label" = "Закрити";
+"back-button-accessibility-label" = "Назад";
+"compass-direction" = "на $1 годину";
+"explore-featured-article-heading" = "Вибрана стаття";
+"explore-continue-reading-heading" = "Продовжити читання";
+// Fuzzy
+"explore-nearby-heading" = "Місця поблизу";
+"explore-continue-related-heading" = "Тому, що Ви читали";
+"explore-main-page-heading" = "Сьогодні у Вікіпедії";
+"explore-random-article-heading" = "Випадкова стаття";
+"explore-random-article-sub-heading" = "Англійська Вікіпедія";
+"explore-potd-heading" = "Зображення дня";

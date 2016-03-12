@@ -5,6 +5,7 @@
 "article-languages-label" = "भाषा चुनु";
 "article-languages-cancel" = "रद्द करु";
 "article-languages-downloading" = "लेख के भाषासभ लोड भ्यरहल अछि";
+// Fuzzy
 "article-languages-filter-placeholder" = "भाषा छनोट";
 "article-read-more-title" = "आर बेसी पढू";
 "article-unable-to-load-section" = "इ खंड के लोड करइ में असमर्थ । ई समस्या समाधान देखईके लेल लेख ताजा प्रयास कइर देखु।";
@@ -16,9 +17,11 @@
 "history-section-yesterday" = "काइल";
 "history-section-lastweek" = "अन्तिम सप्ताह";
 "history-section-lastmonth" = "अन्तिम मास";
+// Fuzzy
 "history-clear-confirmation-heading" = "हालके सब वस्तुसभ नस्टकरु?";
 "history-clear-confirmation-sub-heading" = "ई कार्य पूर्ववत नै भ्यसकई यऽ!";
 "history-clear-cancel" = "रद्द करु";
+// Fuzzy
 "history-clear-delete-all" = "सभटाकेँ मेटाउ";
 "zero-free-verbiage" = "अपन मोबाइल ऑपरेटर (डाटा शुल्क माफ) से विकिपिडिया के उपयोग मुफ्त में कइर सकेत छी।";
 "zero-charged-verbiage" = "शून्य विकिपिडिया बन्द भ्यगेल अछि";
@@ -91,13 +94,17 @@
 "main-menu-show-saved" = "रक्षण पृष्ठ";
 "main-menu-random" = "बेतरतीब";
 "main-menu-feedback-heading" = "प्रतिक्रिया";
+// Fuzzy
 "main-menu-send-feedback" = "अनुप्रयोग प्रतिक्रिया पठाबू";
 "main-menu-show-page-history" = "$१ करइ के लिय परिवर्तन के इतिहास";
 "main-menu-credits" = "आभार";
+// Fuzzy
 "main-menu-about" = "विकिपिडिया अनुप्रयोग बारे में";
 "main-menu-zero-faq" = "शून्य विकिपिडिया पुछल प्रश्नसभ";
 "main-menu-privacy-policy" = "गोपनीयताकऽ नियम";
+// Fuzzy
 "main-menu-terms-of-use" = "उपयोग कऽ शर्त सभ";
+// Fuzzy
 "main-menu-rate-app" = "अनुप्रयोग दर";
 "main-menu-heading-zero" = "शून्य विकिपिडिया";
 "main-menu-heading-legal" = "गोपनीयता आर नियम";
@@ -107,9 +114,11 @@
 "main-menu-heading-debug" = "दोषमार्जन";
 "main-menu-debug-crash" = "दुर्घटना";
 "saved-pages-title" = "पन्नाक रक्षण करू";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "हालके सब वस्तुसभ नस्टकरु?";
 "saved-pages-clear-confirmation-sub-heading" = "ई कार्य पूर्ववत नै भ्यसकई यऽ!";
 "saved-pages-clear-cancel" = "रद्द करु";
+// Fuzzy
 "saved-pages-clear-delete-all" = "सभटाकेँ मेटाउ";
 "saved-pages-refresh-cancel-alert-title" = "अद्यतन रद्द";
 "saved-pages-refresh-cancel-alert-message" = "विकिपिडिया लेख सब समय अद्यावधिक अछि। सब लेख के नवीनतम संस्करणसभ प्राप्त कईर ताजा ट्याप देखु।";
@@ -138,7 +147,9 @@
 "fetching-random-article" = "यादृच्छिक लेख लेल जा रहल अछि";
 "about-title" = "विवरण";
 "about-wikipedia" = "विकिपिडिया";
+// Fuzzy
 "about-contributors" = "योगदानकर्ता";
+// Fuzzy
 "about-translators" = "उल्था-केनहार सभ";
 "about-libraries-license" = "अधिकार";
 "about-wikimedia-foundation" = "विकिमेडिया फाउंडेशन";

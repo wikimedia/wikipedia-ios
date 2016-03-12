@@ -14,6 +14,7 @@
 
 - (instancetype)initWithPreviews:(NSArray<MWKSearchResult*>*)previews
                         fromSite:(MWKSite*)site
+                         forDate:date
                        dataStore:(MWKDataStore*)dataStore;
 
 @end

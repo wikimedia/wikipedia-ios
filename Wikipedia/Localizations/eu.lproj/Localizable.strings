@@ -10,6 +10,7 @@
 "article-languages-label" = "Hizkuntza aukeratu";
 "article-languages-cancel" = "Utzi";
 "article-languages-downloading" = "Artikuluaren hizkuntzak kargatzen...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Hizkuntza Iragazkia";
 "article-read-more-title" = "Irakurri gehiago";
 "article-about-title" = "Artikulu honi buruz";
@@ -23,8 +24,10 @@
 "history-section-yesterday" = "Atzo";
 "history-section-lastweek" = "Azken astea";
 "history-section-lastmonth" = "Azken hilabetea";
+// Fuzzy
 "history-clear-confirmation-heading" = "Ezabatu azken elementu guztiak?";
 "history-clear-cancel" = "Utzi";
+// Fuzzy
 "history-clear-delete-all" = "Denak ezabatu";
 "history-none" = "Ez dago azkenaldiko orririk hemen.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -74,11 +77,13 @@
 "main-menu-title" = "Gehiago";
 "main-menu-heading-about" = "Honi buruz";
 "main-menu-language-title" = "Bilatu $1 Wikipedia";
+// Fuzzy
 "main-menu-faq" = "Maiz egiten diren galderak";
 "main-menu-language-toggle-show" = "Erakutsi hizkuntzak";
 "main-menu-language-toggle-hide" = "Ezkutatu hizkuntzak";
 "main-menu-language-selection-saved" = "Hizkuntza hautaketa gordea";
 "main-menu-account-title-logged-out" = "Kontua";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Saioa $1 bezala hasia";
 // Fuzzy
 "main-menu-account-login" = "Saioa hasi";
@@ -89,21 +94,27 @@
 "main-menu-current-article-save" = "Gorde $1 offline irakurtzeko";
 "main-menu-random" = "Ausazkoa";
 "main-menu-feedback-heading" = "Feedback";
+// Fuzzy
 "main-menu-send-feedback" = "Aplikazioari buruzko feedbacka eman";
 "main-menu-credits" = "Kredituak";
+// Fuzzy
 "main-menu-about" = "Wikipediaren aplikazioari buruz";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-menu-privacy-policy" = "Pribatutasun politika";
+// Fuzzy
 "main-menu-terms-of-use" = "Erabilera-baldintzak";
+// Fuzzy
 "main-menu-rate-app" = "Baloratu aplikazioa";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-show-today" = "Gaur";
 "main-menu-nearby" = "Gertukoak";
 "main-menu-more" = "Gehiago...";
 "saved-pages-title" = "Gordetako orrialdeak";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Ezabatu gordetako elementu guztiak?";
 "saved-pages-clear-confirmation-sub-heading" = "Ekintza hau ezin da desegin!";
 "saved-pages-clear-cancel" = "Utzi";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Dena ezabatu";
 "saved-pages-none" = "Hizkuntzaren izena";
 "page-history-title" = "Artikuluaren historia";
@@ -128,8 +139,11 @@
 "edit-summary-choice-other" = "Beste";
 "about-title" = "Honi buruz";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "ekarleak";
+// Fuzzy
 "about-translators" = "itzultzaileak";
+// Fuzzy
 "about-libraries" = "Erabilitako liburutegiak";
 "about-libraries-license" = "Lizentzia";
 "about-wikimedia-foundation" = "Wikimedia Fundazioa";
@@ -190,6 +204,7 @@
 "hockeyapp-alert-privacy" = "$1 pribatutasuna";
 "page-issues" = "Orriaren arazoak";
 "page-similar-titles" = "Antzeko orriak";
+// Fuzzy
 "page-read-in-other-languages" = "Irakurri $1 hizkuntzatan";
 "captcha-reload" = "Erakutsi beste captcha bat";
 "home-title" = "Esploratu";
@@ -198,16 +213,11 @@
 "home-nearby-nothing" = "Ezer ez gertu";
 "home-nearby-check-again" = "Egiaztatu berriro";
 "home-main-page-heading" = "Gaur Wikipedian";
-"welcome-whats-new-title" = "Ongi etorri Wikipediara";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Esadazu gehiago";
 // Fuzzy
 "welcome-languages-title" = "Aukeratu zure hizkuntza";
-"welcome-languages-more-info-button-text" = "Esadazu gehiago";
-"welcome-languages-more-languages-button-title" = "Gehitu hizkuntza gehiago";
-"welcome-languages-button-title" = "Jarraitu";
-"welcome-usage-reports-title" = "Lagun gaitzazu Wikipedia hobetzen";
-"welcome-usage-reports-switch-text" = "Bidali erabilera-txostenak";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Egina";
-"welcome-usage-reports-privacy-policy-button-text" = "Zure pribatutasunak ardura digu";
 "empty-no-feed-title" = "Internet Konexiorik Ez";
+"icon-shortcut-nearby-title" = "Inguruko artikuluak";
+"close-button-accessibility-label" = "Itxi";
+// Fuzzy
+"explore-nearby-heading" = "Inguruko tokiak";
+"explore-random-article-heading" = "Ausazko artikulua";

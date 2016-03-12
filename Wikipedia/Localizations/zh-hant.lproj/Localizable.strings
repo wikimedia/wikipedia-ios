@@ -15,6 +15,7 @@
 "article-languages-label" = "選擇語言";
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "正在讀取條目語言...";
+// Fuzzy
 "article-languages-filter-placeholder" = "語言篩選器";
 "article-read-more-title" = "閱讀更多";
 "article-about-title" = "關於此條目";
@@ -29,9 +30,11 @@
 "history-section-yesterday" = "昨日";
 "history-section-lastweek" = "上週";
 "history-section-lastmonth" = "上月";
+// Fuzzy
 "history-clear-confirmation-heading" = "刪除所有近期項目？";
 "history-clear-confirmation-sub-heading" = "此操作不能還原！";
 "history-clear-cancel" = "取消";
+// Fuzzy
 "history-clear-delete-all" = "删除全部";
 "history-description" = "你可能全部清空了。下一次您進入到一個頁面時，可以從這裡返回。";
 "history-none" = "沒有近期頁面。";
@@ -47,6 +50,7 @@
 "zero-learn-more-learn-more" = "閱讀更多";
 "zero-learn-more-no-thanks" = "關閉";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "離開 Wikipedia Zero 時提示";
 "zero-settings-devmode" = "Zero 開發模式";
 "account-creation-captcha-required" = "需要使用驗証碼驗証。";
@@ -105,16 +109,20 @@
 "search-recent-clear-confirmation-sub-heading" = "此操作不能還原！";
 "search-recent-clear-cancel" = "取消";
 "search-recent-clear-delete-all" = "刪除所有";
+"search-result-redirected-from" = "重新導向自: $1";
 "settings-title" = "設定";
 "main-menu-title" = "更多";
 "main-menu-heading-about" = "關於";
 "main-menu-language-title" = "搜尋 $1 的維基百科";
+// Fuzzy
 "main-menu-faq" = "常見問題";
 "main-menu-language-toggle-show" = "顯示語言";
 "main-menu-language-toggle-hide" = "隱藏語言";
 "main-menu-language-selection-saved" = "已儲存語言選擇";
 "main-menu-account-title-logged-out" = "帳號";
+// Fuzzy
 "main-menu-account-title-logged-in" = "以 $1 的身分登入。";
+// Fuzzy
 "main-menu-account-login" = "登入至維基百科";
 "main-menu-account-logout" = "登出";
 "main-menu-show-title" = "告訴我...";
@@ -123,13 +131,17 @@
 "main-menu-current-article-save" = "儲存 $1 以離線閱讀";
 "main-menu-random" = "隨機";
 "main-menu-feedback-heading" = "意見回饋";
+// Fuzzy
 "main-menu-send-feedback" = "傳送應用程式意見回饋";
 "main-menu-show-page-history" = "$1 的修改歷史";
 "main-menu-credits" = "製作群";
+// Fuzzy
 "main-menu-about" = "關於維基百科應用程式";
 "main-menu-zero-faq" = "Wikipedia Zero 常見問題";
 "main-menu-privacy-policy" = "隱私政策";
+// Fuzzy
 "main-menu-terms-of-use" = "使用條款";
+// Fuzzy
 "main-menu-rate-app" = "付費應用程式";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "隱私與條款";
@@ -138,11 +150,14 @@
 "main-menu-more" = "更多...";
 "main-menu-heading-debug" = "除錯";
 "main-menu-debug-crash" = "錯誤";
+"main-menu-debug-tweaks" = "開發人員設定";
 "saved-title" = "已儲存";
 "saved-pages-title" = "已儲存的頁面";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "删除所有已儲存的项目？";
 "saved-pages-clear-confirmation-sub-heading" = "此操作不能還原！";
 "saved-pages-clear-cancel" = "取消";
+// Fuzzy
 "saved-pages-clear-delete-all" = "删除全部";
 "saved-pages-refresh-cancel-alert-title" = "已取消更新";
 "saved-pages-refresh-cancel-alert-message" = "維基百科的條目會隨時更新。輕觸重新整理以取得所有條目的最新版本。";
@@ -186,13 +201,18 @@
 "credits-external-libraries" = "外部儲存庫";
 "about-title" = "關於";
 "about-wikipedia" = "維基百科";
+// Fuzzy
 "about-contributors" = "貢獻者";
+// Fuzzy
 "about-testers" = "測試人員";
 "about-testers-details" = "已由 $1 完成 QA 測試";
+// Fuzzy
 "about-translators" = "翻譯人員";
 "about-translators-details" = "$1 由志工翻譯";
+// Fuzzy
 "about-libraries" = "使用的函式庫";
 "about-libraries-license" = "授權條款";
+// Fuzzy
 "about-repositories" = "儲存庫";
 "about-send-feedback" = "傳送應用程式意見回饋";
 "about-product-of" = "$1 出品";
@@ -205,6 +225,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = " \"$1\"  在 @Wikipedia： \"$2\"";
 "share-as-image" = "以圖片分享";
 "share-as-text" = "以文字分享";
+"share-cancel" = "取消";
 "timestamp-just-now" = "剛剛";
 "timestamp-minutes" = "%d 分鐘前";
 "timestamp-hours" = "%d 小時前";
@@ -234,6 +255,7 @@
 "license-footer-text" = "內容根據 $1 可用";
 "license-footer-name" = "創用 CC 姓名標示-相同方式分享 3.0";
 "table-of-contents-heading" = "內容";
+"table-of-contents-button-label" = "目錄";
 "abuse-filter-warning-heading" = "這可能是沒有建設性的編輯。你確定你想要儲存它？";
 "abuse-filter-warning-subheading" = "您的編輯可能包含下列情況之一：";
 "abuse-filter-warning-caps" = "全部輸入大寫字母";
@@ -293,6 +315,7 @@
 "hockeyapp-alert-privacy" = "$1 隱私";
 "page-issues" = "頁面問題";
 "page-similar-titles" = "相似頁面";
+// Fuzzy
 "page-read-in-other-languages" = "在 $1 語言中閱讀";
 "page-last-edited" = "$1 日前編輯";
 "page-edit-history" = "完整編輯歷史";
@@ -308,37 +331,42 @@
 "home-featured-article-heading" = "$1 的特色條目";
 "home-main-page-heading" = "維基百科今日";
 "home-potd-heading" = "$1 的每日圖片";
+"home-last-update-label" = "最後更新: $1";
+"home-last-update-never-label" = "最後更新: 從未";
+"home-updating-label" = "正在更新…";
+"home-hide-suggestion-prompt" = "隱藏此建議";
+"home-hide-suggestion-cancel" = "取消";
+"home-accessibility-label" = "維基百科，探索";
+"home-button-accessibility-label" = "首頁按鈕";
 "potd-empty-error-description" = "抓取 $1 的每日圖片失敗";
 "potd-description-prefix" = "$1 的每日圖片";
-"welcome-whats-new-title" = "歡迎來到維基百科";
-"welcome-whats-new-whats-new" = "新功能";
-"welcome-whats-new-bullet-one-title" = "探索的新方式";
-"welcome-whats-new-bullet-one-text" = "只為你在 \"探索\" 畫面上探索有趣的新條目。";
-"welcome-whats-new-bullet-one-more-info-button-text" = "如何運作...";
-"welcome-whats-new-bullet-two-title" = "為了閱讀而設計";
-"welcome-whats-new-bullet-two-text" = "更新的設計專注於提供超讚的閱讀體驗。";
-"welcome-whats-new-button-title" = "入門";
-"welcome-whats-new-bullet-one-more-info-text" = "在您造訪一篇條目時，相關條目會自動新增至您的摘要中。這不會變更我們收集資訊的方式，您的閱讀歷史仍是私人的。";
-"welcome-whats-new-bullet-one-more-info-done-button" = "知道了";
+// Fuzzy
 "welcome-languages-title" = "搜尋語言";
-"welcome-languages-more-info-button-text" = "告訴我更多";
-"welcome-languages-more-info-text" = "維基百科條目常常擁有多語言。選擇您想搜尋時使用的語言。稍後您可以變更。";
-"welcome-languages-more-info-done-button" = "明白了嗎？";
-"welcome-languages-more-languages-button-title" = "新增更多語言";
-"welcome-languages-button-title" = "繼續";
-"welcome-languages-footnote-text" = "日後您可以變更，無需擔心。";
-"welcome-usage-reports-title" = "協助我們使維基百科更佳";
-"welcome-usage-reports-body-text" = "透過允許我們收集關於您如何使用應用程式的資訊，您可以協助我們使應用程式更佳。";
-"welcome-usage-reports-switch-text" = "傳送使用情形報告";
-"welcome-usage-reports-button-title" = "入門";
-"welcome-usage-reports-privacy-policy-button-text" = "您的隱私對我們很重要";
 "empty-no-feed-title" = "無網際網路連線";
 "empty-no-feed-message" = "在有網際網路時，您可以看到推薦的條目";
+// Fuzzy
 "empty-no-feed-action-message" = "與此同時，您可以閱讀儲存的條目";
 "empty-no-article-message" = "很抱歉，無法載入條目";
+// Fuzzy
 "empty-no-search-results-message" = "很抱歉，無法載入結果";
 "empty-no-saved-pages-title" = "仍未儲存頁面";
 "empty-no-saved-pages-message" = "儲存頁面以便稍後檢視，甚至在離線時";
 "empty-no-history-title" = "無歷史可顯示";
 "empty-no-history-message" = "在此記錄您的閱讀歷程";
 "alert-no-internet" = "無網際網路連線";
+"icon-shortcut-search-title" = "搜尋維基百科";
+"icon-shortcut-continue-reading-title" = "繼續閱讀";
+"icon-shortcut-random-title" = "隨機條目";
+"icon-shortcut-nearby-title" = "附近條目";
+"close-button-accessibility-label" = "關閉";
+"back-button-accessibility-label" = "返回";
+"compass-direction" = "在 $1 時";
+"explore-featured-article-heading" = "特色條目";
+"explore-continue-reading-heading" = "繼續閱讀";
+// Fuzzy
+"explore-nearby-heading" = "附近地點";
+"explore-continue-related-heading" = "因為您閱讀";
+"explore-main-page-heading" = "維基百科今日";
+"explore-random-article-heading" = "隨機條目";
+"explore-random-article-sub-heading" = "英語維基百科";
+"explore-potd-heading" = "每日圖片";

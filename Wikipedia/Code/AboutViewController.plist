@@ -4,6 +4,10 @@
 <dict>
 	<key>urls</key>
 	<dict>
+		<key>sharealike</key>
+		<string>https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License</string>
+		<key>mit</key>
+		<string>https://raw.githubusercontent.com/wikimedia/wikipedia-ios/master/LICENSE.txt</string>
 		<key>tsg</key>
 		<string>http://specialistsguild.org</string>
 		<key>feedback</key>
@@ -16,7 +20,7 @@
 	<key>repositories</key>
 	<dict>
 		<key>GitHub</key>
-		<string>https://github.com/wikimedia/wikipedia.ios</string>
+		<string>https://github.com/wikimedia/wikipedia-ios</string>
 		<key>Gerrit</key>
 		<string>https://gerrit.wikimedia.org/r/#/q/project:apps/ios/wikipedia,n,z</string>
 	</dict>
@@ -180,6 +184,7 @@ THE SOFTWARE.</string>
 		<string>Hynek Hanke</string>
 		<string>Barbara Martina Rodeker</string>
 		<string>Boris Dušek</string>
+		<string>Jonatan Svensson Glad</string>
 	</array>
 </dict>
 </plist>

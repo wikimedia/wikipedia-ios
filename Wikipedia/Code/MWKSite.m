@@ -37,7 +37,7 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 }
 
 - (MWKSite* __nullable)initWithURL:(NSURL* __nonnull)url {
-    NSArray* hostComponents = [url.host componentsSeparatedByString:@"."];
+    NSMutableArray* hostComponents = [[url.host componentsSeparatedByString:@"."] mutableCopy];
     if (hostComponents.count < 3) {
         DDLogError(@"Can't form site from incomplete URL: %@", url);
         return nil;
@@ -47,6 +47,9 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
         DDLogError(@"Can't form site empty language URL component: %@", url);
         return nil;
     }
+    //strip mobile domain
+    [hostComponents removeObject:@"m"];
+
     NSString* domain =
         [[hostComponents subarrayWithRange:NSMakeRange(1, hostComponents.count - 1)] componentsJoinedByString:@"."];
     return [self initWithDomain:domain language:language];

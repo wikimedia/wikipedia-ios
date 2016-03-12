@@ -17,11 +17,13 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.0.0</string>
+	<string>5.0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>565</string>
+	<string>775</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -31,12 +33,24 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>org.wikimedia.wikipedia.explore</string>
+		<string>org.wikimedia.wikipedia.settings</string>
+		<string>org.wikimedia.wikipedia.saved</string>
+		<string>org.wikimedia.wikipedia.history</string>
+		<string>org.wikimedia.wikipedia.search</string>
+		<string>org.wikimedia.wikipedia.article</string>
+		<string>org.wikimedia.wikipedia.searchresults</string>
+	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>WikiFont-Glyphs.ttf</string>
 	</array>
 	<key>UIFileSharingEnabled</key>
 	<false/>
+	<key>UILaunchStoryboardName</key>
+	<string>Launch Screen</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -63,7 +77,11 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>WMFHockeyAppIdentifier</key>
-	<string>${WMF_HOCKEYAPP_IDENTIFIER}</string>
+	<string></string>
+	<key>WMFPiwikAppIdentifier</key>
+	<string></string>
+	<key>WMFPiwikURL</key>
+	<string></string>
 	<key>WMFShowDebugMenu</key>
 	<false/>
 </dict>

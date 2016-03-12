@@ -24,7 +24,7 @@ static WMFSearchViewController* _sharedSearchViewController = nil;
     _sharedSearchViewController = nil;
 }
 
-+ (WMFSearchViewController*)sharedSearchViewController {
++ (WMFSearchViewController*)wmf_sharedSearchViewController {
     return _sharedSearchViewController;
 }
 

@@ -53,11 +53,20 @@ static NSString* const WMFArticleImageProtocolHost               = @"upload.wiki
 
 - (void)startLoading {
     DDLogVerbose(@"Fetching image %@", self.request.URL);
+    @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:self.request.URL]
     .thenInBackground(^(WMFImageDownload* download) {
+        @strongify(self);
+        if(!self){
+            return;
+        }
         [self respondWithDataFromDownload:download];
     })
     .catch(^(NSError* err) {
+        @strongify(self);
+        if(!self){
+            return;
+        }
         [self respondWithError:err];
     });
 }

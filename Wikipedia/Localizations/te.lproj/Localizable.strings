@@ -11,6 +11,7 @@
 "article-languages-label" = "భాషని ఎంచుకోండి";
 "article-languages-cancel" = "రద్దుచేయి";
 "article-languages-downloading" = "వ్యాసపు భాషలు లోడవుతున్నాయి...";
+// Fuzzy
 "article-languages-filter-placeholder" = "భాష వడబోత";
 "article-read-more-title" = "మరింత చదవండి";
 "article-about-title" = "ఈ వ్యాసం గురించి";
@@ -23,9 +24,11 @@
 "history-section-yesterday" = "నిన్న";
 "history-section-lastweek" = "గత వారం";
 "history-section-lastmonth" = "గత నెల";
+// Fuzzy
 "history-clear-confirmation-heading" = "ఇటీవలి అంశాలన్నింటినీ తొలగించాలా?";
 "history-clear-confirmation-sub-heading" = "ఈ చర్యను తిరిగి రద్దుచేయలేము!";
 "history-clear-cancel" = "రద్దు";
+// Fuzzy
 "history-clear-delete-all" = "అన్నిటినీ తొలగించు";
 "history-none" = "ఇటీవలి పేజీలు ఏమీ లేవు.";
 "zero-charged-verbiage" = "వికీపీడియా జీరో అచేతనించబడింది";
@@ -34,6 +37,7 @@
 "zero-learn-more-learn-more" = "మరింత చదవండి";
 "zero-learn-more-no-thanks" = "రద్దుచేయి";
 "zero-wikipedia-zero-heading" = "వికీపీడియా సున్న";
+// Fuzzy
 "zero-warn-when-leaving" = "వికీపీడియా జీరో వదిలివెల్తుంటే హెచ్చరించు";
 "account-creation-captcha-required" = "కాప్చా ధృవీకరణ అవసరం.";
 "account-creation-captcha-obtaining" = "కొత్త కాప్చా పొందుతున్నాము.";
@@ -78,9 +82,11 @@
 "main-menu-random" = "యాదృచ్చికం";
 "main-menu-feedback-heading" = "ప్రతిస్పందన";
 "main-menu-credits" = "పరపతులు";
+// Fuzzy
 "main-menu-about" = "వికీపీడియా యాప్ గురించి";
 "main-menu-zero-faq" = "వికీపీడియా సున్నా ఎఫ్ఎక్యూ";
 "main-menu-privacy-policy" = "గోప్యతా విధానం";
+// Fuzzy
 "main-menu-terms-of-use" = "వాడుక నియమాలు";
 "main-menu-show-today" = "నేడు";
 "main-menu-nearby" = "దగ్గరలో";
@@ -98,6 +104,7 @@
 "navbar-title-mode-edit-wikitext-save" = "భద్రపరచు";
 "about-title" = "గురించి";
 "about-wikipedia" = "వికీపీడియా";
+// Fuzzy
 "about-translators" = "అనువాదకులు";
 "about-libraries-license" = "లైసెన్సు";
 "timestamp-just-now" = "ఇప్పుడే";
@@ -150,19 +157,10 @@
 "hockeyapp-alert-privacy" = "$1 గోప్యత";
 "page-issues" = "పేజి సమస్యలు";
 "page-similar-titles" = "పోలిన పేజీలు";
+// Fuzzy
 "page-read-in-other-languages" = "$1 భాషల్లో చదవండి";
 "page-last-edited" = "$1 రోజుల క్రితం మార్చబడింది";
 "page-edit-history" = "పూర్తి మార్పుల చరితం";
-"welcome-whats-new-title" = "వికీపీడియాకు స్వాగతం";
-"welcome-whats-new-whats-new" = "కొత్తవి ఏమిటి";
-"welcome-whats-new-bullet-one-more-info-button-text" = "ఇది ఎలా పనిచేస్తుంది…";
-"welcome-whats-new-button-title" = "మొదలుపెట్టండి";
-"welcome-whats-new-bullet-one-more-info-done-button" = "అర్థమయ్యింది";
+// Fuzzy
 "welcome-languages-title" = "వెతకవలసిన భాషలు";
-"welcome-languages-more-info-button-text" = "ఇంకా చెప్పు";
-"welcome-languages-more-info-done-button" = "అర్థమైంది";
-"welcome-languages-more-languages-button-title" = "మరిన్ని భాషలను చేర్చుకోండి";
-"welcome-languages-button-title" = "కొనసాగించు";
-"welcome-usage-reports-title" = "వికీపీడియాను మెరుగుపరచడంలో మాకు తోడ్పడండి";
-"welcome-usage-reports-button-title" = "ప్రారంభించండి";
 "empty-no-feed-title" = "అంతర్జాల అనుసంధానం లేదు";

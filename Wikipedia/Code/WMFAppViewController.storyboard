@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--App View Controller-->
@@ -20,8 +20,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N6E-ZW-sLh">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-onboarding" translatesAutoresizingMaskIntoConstraints="NO" id="5c5-u5-qnE">
-                                        <rect key="frame" x="195" y="204" width="210" height="192"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wikipedia-wordmark" translatesAutoresizingMaskIntoConstraints="NO" id="5c5-u5-qnE">
+                                        <rect key="frame" x="180.5" y="258.5" width="240" height="59"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="210" id="bR9-Sg-vRZ"/>
                                             <constraint firstAttribute="height" constant="192" id="nWb-XA-yli"/>
@@ -34,10 +34,10 @@
                                         </variation>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.93984729051589966" green="0.94005417823791504" blue="0.96060186624526978" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="5c5-u5-qnE" secondAttribute="centerX" id="EWH-nl-kuV"/>
-                                    <constraint firstAttribute="centerY" secondItem="5c5-u5-qnE" secondAttribute="centerY" id="oRv-kS-Ud7"/>
+                                    <constraint firstAttribute="centerY" secondItem="5c5-u5-qnE" secondAttribute="centerY" constant="12" id="oRv-kS-Ud7"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -59,6 +59,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo-onboarding" width="210" height="192"/>
+        <image name="wikipedia-wordmark" width="240" height="59"/>
     </resources>
 </document>

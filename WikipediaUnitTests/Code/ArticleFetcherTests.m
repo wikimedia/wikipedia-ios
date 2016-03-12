@@ -75,7 +75,7 @@
     __block MWKArticle* savedArticleAfterFirstFetch;
 
     WMFArticleFetcher* fetcher = self.articleFetcher;
-    expectResolutionWithTimeout(5, ^AnyPromise*{
+    expectResolutionWithTimeout(10, ^AnyPromise*{
         return [fetcher fetchArticleForPageTitle:dummyTitle progress:NULL].then(^id (MWKArticle* article){
             savedArticleAfterFirstFetch = [self.tempDataStore articleWithTitle:dummyTitle];
             firstFetchResult = article;

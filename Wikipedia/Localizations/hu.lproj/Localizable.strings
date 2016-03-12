@@ -2,16 +2,36 @@
 // Exported from translatewiki.net
 // Author: Csega
 // Author: Dj
+// Author: Máté
+// Author: R-Joe
 // Author: Tacsipacsi
 
+"languages-title" = "Nyelvek";
 "article-languages-label" = "Nyelvválasztás";
+"article-languages-cancel" = "Mégsem";
+"article-read-more-title" = "További információ";
+"article-unable-to-load-article" = "Nem sikerült betölteni a szócikket.";
+"article-related-articles-title" = "Kapcsolódó cikkek";
+"info-box-close-text" = "Bezárás";
+"table-title-other" = "További információk";
 "history-label" = "Legutóbbi";
 "history-section-today" = "Ma";
 "history-section-yesterday" = "Tegnap";
 "history-section-lastweek" = "Múlt héten";
 "history-section-lastmonth" = "Múlt hónapban";
+// Fuzzy
+"history-clear-confirmation-heading" = "Törölje az összes legutóbbi elemeket?";
+"history-clear-confirmation-sub-heading" = "Ez a művelet nem visszavonható!";
+"history-clear-cancel" = "Mégsem";
+// Fuzzy
+"history-clear-delete-all" = "Összes törlése";
+"history-none" = "Nincsenek korábbi lapok!";
 "zero-charged-verbiage" = "A Wikipédia Zero ki van kapcsolva";
+"zero-interstitial-continue" = "Elhagy";
+"zero-interstitial-cancel" = "Itt marad";
+"zero-learn-more-learn-more" = "További információ";
 "zero-wikipedia-zero-heading" = "Wikipédia Zéró";
+// Fuzzy
 "zero-warn-when-leaving" = "Figyelmeztet, ha elhagyom a Wikipédia Zérót";
 "zero-settings-devmode" = "Zéró fejlesztőmód";
 "account-creation-captcha-required" = "CAPTCHA ellenőrzés szükséges.";
@@ -24,35 +44,52 @@
 "account-creation-password-placeholder-text" = "Jelszó";
 "account-creation-password-confirm-placeholder-text" = "Jelszó megerősítése";
 "account-creation-email-placeholder-text" = "Email cím (opcionális)";
+"login-name-not-found" = "Felhasználói név szükséges a belépéshez.";
+"login-user-blocked" = "Felhasználó van tiltva.";
+"login-account-creation" = "Nincs még fiókod? Csatlakozz a Wikipédiához!";
+"login-username-placeholder-text" = "Felhasználónév";
+"login-password-placeholder-text" = "Jelszó";
 "wikitext-downloading" = "Tartalom betöltése...";
+"wikitext-download-success" = "A tartalom töltve.";
 "wikitext-upload-captcha-error" = "CAPTCHA ellenőrzési hiba.";
 "wikitext-upload-captcha-needed" = "CAPTCHA ellenőrzés szükséges.";
 "wikitext-upload-save" = "Mentés…";
 "wikitext-upload-save-sign-in" = "Bejelentkezés";
 "wikitext-upload-save-anonymously" = "Mentés névtelenül";
+"wikitext-upload-save-terms-name" = "Felhasználási feltételek";
+"wikitext-upload-save-license-name" = "CC-BY-SA 3.0";
+"open-link-title" = "Hivatkozás megnyitása";
 "open-link-cancel" = "Mégse";
+"search-title" = "Keresés";
+"search-searching" = "Keresés…";
+"search-no-matches" = "Nincs találat a keresési kifejezésre.";
+"search-field-placeholder-text" = "Keresés a Wikipédiában";
+"search-field-placeholder-text-zero" = "Keresés A Wikipédia Zero-ban";
 "search-loading-article-loaded" = "A cikk betöltve.";
 "search-cancel" = "Mégse";
 "search-titles" = "Címek";
 "search-within-articles" = "Cikkeken belül";
 "search-did-you-mean" = "Úgy érted: $1?";
-// Fuzzy
 "search-recent-title" = "Legutóbbi keresések";
 "search-recent-clear-confirmation-heading" = "Legfrissebb keresések törlése?";
 "search-recent-clear-confirmation-sub-heading" = "A művelet nem visszavonható!";
 "search-recent-clear-cancel" = "Mégse";
 "search-recent-clear-delete-all" = "Összes törlése";
+"search-result-redirected-from" = "$1 szócikkből átirányítva";
+"settings-title" = "Beállítások";
 "main-menu-title" = "Több";
 "main-menu-heading-about" = "Névjegy";
 "main-menu-language-title" = "Keresés a(z) $1 Wikipédiában";
+// Fuzzy
 "main-menu-faq" = "GyIK";
 "main-menu-language-toggle-show" = "Nyelvek mutatása";
 "main-menu-language-toggle-hide" = "Nyelvek elrejtése";
 "main-menu-language-selection-saved" = "Nyelvi választás elmentve";
 "main-menu-account-title-logged-out" = "Fiók";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Bejelentkezve mint: $1";
 // Fuzzy
-"main-menu-account-login" = "Bejelentkezés";
+"main-menu-account-login" = "Bejelentkezés a Wikipédiába";
 "main-menu-account-logout" = "Kijelentkezés";
 "main-menu-show-title" = "Mutasd...";
 "main-menu-show-history" = "Legutóbbi";
@@ -60,11 +97,16 @@
 "main-menu-current-article-save" = "$1 elmentése offline olvasásra";
 "main-menu-random" = "Véletlen lap";
 "main-menu-feedback-heading" = "Visszajelzés";
+// Fuzzy
 "main-menu-send-feedback" = "App visszajelzés küldése";
+"main-menu-show-page-history" = "$1 változásának története";
+// Fuzzy
 "main-menu-about" = "A Wikipédia appról";
 "main-menu-zero-faq" = "Wikipédia Zérő GYIK";
 "main-menu-privacy-policy" = "Adatvédelmi irányelvek";
+// Fuzzy
 "main-menu-terms-of-use" = "Felhasználási feltételek (angol)";
+// Fuzzy
 "main-menu-rate-app" = "App értékelése";
 "main-menu-heading-zero" = "Wikipédia Zéró";
 // Fuzzy
@@ -74,13 +116,18 @@
 "main-menu-more" = "Több...";
 "main-menu-heading-debug" = "Debug";
 "main-menu-debug-crash" = "Összeomlás";
+"main-menu-debug-tweaks" = "Fejlesztő beállítások";
+"saved-title" = "Elmentve";
 "saved-pages-title" = "Elmentett lapok";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Az összes mentett elem törlése?";
 "saved-pages-clear-confirmation-sub-heading" = "Ez a művelet nem visszavonható!";
 "saved-pages-clear-cancel" = "Mégse";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Összes törlése";
 "saved-pages-refresh-cancel-alert-title" = "Frissítése megszakítva";
 "saved-pages-refresh-cancel-alert-button" = "Értem";
+"history-title" = "Előzmények";
 "page-history-title" = "Cikk történet";
 "page-history-downloading" = "Cikk történek betöltése";
 "navbar-title-mode-edit-wikitext" = "Szerkesztés";
@@ -89,6 +136,7 @@
 "navbar-title-mode-create-account" = "Fiók létrehozása";
 "navbar-title-mode-create-account-and-save" = "Fiók létrehozása és mentés";
 "navbar-title-mode-edit-wikitext-warning" = "Szerkesztési kérdések";
+"navbar-title-mode-edit-wikitext-disallow" = "Szerkesztési kérdések";
 "navbar-title-mode-edit-wikitext-preview" = "Előnézet";
 "navbar-title-mode-edit-wikitext-captcha" = "Gyors ellenőrzés szükséges";
 "navbar-title-mode-edit-wikitext-summary" = "Írd le a szerkesztéses";
@@ -106,12 +154,17 @@
 "credits-external-libraries" = "Külső tárolók";
 "about-title" = "Névjegy";
 "about-wikipedia" = "Wikipédia";
+// Fuzzy
 "about-contributors" = "közreműködők";
+// Fuzzy
 "about-testers" = "tesztelők";
+// Fuzzy
 "about-translators" = "fordítók";
 "about-translators-details" = "A $1 önkéntesi fordították";
+// Fuzzy
 "about-libraries" = "felhasznált könyvtárak";
 "about-libraries-license" = "Licenc";
+// Fuzzy
 "about-repositories" = "tárolók";
 "about-send-feedback" = "App visszajelzés küldése";
 "about-wikimedia-foundation" = "Wikimédia Alapítvány";

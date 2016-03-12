@@ -4,6 +4,7 @@
 // Views
 #import "WMFSettingsTableViewCell.h"
 #import "Wikipedia-Swift.h"
+#import "NSUserActivity+WMFExtensions.h"
 
 // View Controllers
 #import "WMFSettingsViewController.h"
@@ -23,6 +24,7 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 @import Tweaks;
 @import SSDataSources;
+@import MessageUI;
 
 // Other
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -37,14 +39,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString* const WMFSettingsURLZeroFAQ = @"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
-static NSString* const WMFSettingsURLTerms   = @"https://m.wikimediafoundation.org/wiki/Terms_of_Use";
-static NSString* const WMFSettingsURLRate    = @"itms-apps://itunes.apple.com/app/id324715238";
-static NSString* const WMFSettingsURLFAQ     = @"https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ";
-static NSString* const WMFSettingsURLEmail   = @"mailto:mobile-ios-wikipedia@wikimedia.org?subject=Feedback:";
-static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
+static NSString* const WMFSettingsURLZeroFAQ   = @"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+static NSString* const WMFSettingsURLTerms     = @"https://m.wikimediafoundation.org/wiki/Terms_of_Use";
+static NSString* const WMFSettingsURLRate      = @"itms-apps://itunes.apple.com/app/id324715238";
+static NSString* const WMFSettingsURLFAQ       = @"https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ";
+static NSString* const WMFSettingsEmailAddress = @"mobile-ios-wikipedia@wikimedia.org";
+static NSString* const WMFSettingsEmailSubject = @"Feedback:";
+static NSString* const WMFSettingsURLSupport   = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
 
-@interface WMFSettingsViewController () <UITableViewDelegate, LanguageSelectionDelegate, FBTweakViewControllerDelegate>
+@interface WMFSettingsViewController () <UITableViewDelegate, LanguageSelectionDelegate, FBTweakViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) SSSectionedDataSource* elementDataSource;
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
@@ -74,6 +77,11 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                       block:^(WMFSettingsViewController* observer, id object, NSDictionary* change) {
         [observer reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
     }];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_settingsViewActivity]];
 }
 
 - (void)configureBackButton {
@@ -158,10 +166,19 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
             [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLZeroFAQ]];
             break;
         case WMFSettingsMenuItemType_RateApp:
-            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLRate]];
+            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLRate] useSafari:YES];
             break;
         case WMFSettingsMenuItemType_SendFeedback:
-            [self wmf_openExternalUrl:[self emailURL]];
+            if ([MFMailComposeViewController canSendMail]) {
+                MFMailComposeViewController* vc = [[MFMailComposeViewController alloc] init];
+                [vc setSubject:[WMFSettingsEmailSubject stringByAppendingString:[WikipediaAppUtils versionedUserAgent]]];
+                [vc setToRecipients:@[WMFSettingsEmailAddress]];
+                [vc setMessageBody:[NSString stringWithFormat:@"\n\n\n\nVersion: %@", [WikipediaAppUtils versionedUserAgent]] isHTML:NO];
+                vc.mailComposeDelegate = self;
+                [self presentViewController:vc animated:YES completion:NULL];
+            } else {
+                [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:MWLocalizedString(@"no-email-account-alert", nil) sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+            }
             break;
         case WMFSettingsMenuItemType_About:
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[AboutViewController wmf_initialViewControllerFromClassStoryboard]]
@@ -169,6 +186,7 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                              completion:nil];
             break;
         case WMFSettingsMenuItemType_FAQ:
+
             [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLFAQ]];
             break;
         case WMFSettingsMenuItemType_DebugCrash:
@@ -200,11 +218,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     url = [url stringByReplacingOccurrencesOfString:@"<app-version>" withString:appVersion];
 
     return [NSURL URLWithString:url];
-}
-
-- (NSURL*)emailURL {
-    NSString* mailURL = [WMFSettingsURLEmail stringByAppendingString:[WikipediaAppUtils versionedUserAgent]];
-    return [NSURL URLWithString:[mailURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 #pragma mark - Log in and out
@@ -269,6 +282,13 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error{
+    [controller dismissViewControllerAnimated:YES completion:NULL];
+}
+
 
 #pragma mark - Debugging
 

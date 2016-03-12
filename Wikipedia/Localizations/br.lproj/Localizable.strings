@@ -3,12 +3,14 @@
 // Author: Fohanno
 // Author: Fulup
 // Author: Gwenn-Ael
+// Author: Macofe
 // Author: Y-M D
 
 "languages-title" = "Yezhoù";
 "article-languages-label" = "Dibab ar yezh";
 "article-languages-cancel" = "Nullañ";
 "article-languages-downloading" = "O kargañ yezhoù ar pennad...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Sil yezh";
 "article-read-more-title" = "Lenn muioc'h";
 "article-unable-to-load-section" = "Ne c'haller ket kargañ ar rannskrid-se. Klaskit freskaat ar pennad evit gwelet hag-eñ e vo reizhet ar gudenn.";
@@ -21,9 +23,11 @@
 "history-section-yesterday" = "Dec'h";
 "history-section-lastweek" = "Er sizhun paseet";
 "history-section-lastmonth" = "Er miz paseet";
+// Fuzzy
 "history-clear-confirmation-heading" = "Lemel an holl elfennoù nevez ?";
 "history-clear-confirmation-sub-heading" = "Ne c'hall ket an ober-mañ bezañ nullet !";
 "history-clear-cancel" = "Nullañ";
+// Fuzzy
 "history-clear-delete-all" = "Lemel pep tra";
 "history-description" = "Lamet ho peus pep tra moarvat. Ar wech kentañ ma'z eot war ur bajenn e c'hallot distreiñ warni ac'halese.";
 "history-none" = "Pajenn nevez ebet aze.";
@@ -39,6 +43,7 @@
 "zero-learn-more-learn-more" = "Gouzout hiroc'h";
 "zero-learn-more-no-thanks" = "Disteurel";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Roit da c'houzout ma kuitait Wikipedia Zero";
 "zero-settings-devmode" = "Mod diorren zero";
 "account-creation-captcha-required" = "Rekis eo gwiriañ ar C'HAPTCHA";
@@ -101,11 +106,13 @@
 "main-menu-title" = "Muioc'h";
 "main-menu-heading-about" = "Diwar-benn";
 "main-menu-language-title" = "Furchal $1 Wikipedia";
+// Fuzzy
 "main-menu-faq" = "FAG";
 "main-menu-language-toggle-show" = "Diskouez ar yezhoù";
 "main-menu-language-toggle-hide" = "Kuzhat ar yezhoù";
 "main-menu-language-selection-saved" = "Enrollet eo bet an dibab eus ar yezh";
 "main-menu-account-title-logged-out" = "Kont";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Kevreañ evel : $1";
 // Fuzzy
 "main-menu-account-login" = "Kevreañ";
@@ -116,13 +123,17 @@
 "main-menu-current-article-save" = "Saveteiñ $1 evit lenn ezlinenn";
 "main-menu-random" = "Dre zegouezh";
 "main-menu-feedback-heading" = "Sonjoù";
+// Fuzzy
 "main-menu-send-feedback" = "Kasit hoc'h evezhiadennoù diwar-benn an arload";
 "main-menu-show-page-history" = "Istor ar c'hemmoù da $1";
 "main-menu-credits" = "Kredoù";
+// Fuzzy
 "main-menu-about" = "Diwar-benn an arload Wikipedia";
 "main-menu-zero-faq" = "FAG Wikipedia Zero";
 "main-menu-privacy-policy" = "Reolennoù prevezded";
+// Fuzzy
 "main-menu-terms-of-use" = "Termenoù implijout";
+// Fuzzy
 "main-menu-rate-app" = "Notañ an arload";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Prevezded ha Termenoù";
@@ -132,9 +143,11 @@
 "main-menu-heading-debug" = "Dizreinañ";
 "main-menu-debug-crash" = "Sac'hañ";
 "saved-pages-title" = "Pajennoù saveteet";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Lemel an holl elfennoù enrollet ?";
 "saved-pages-clear-confirmation-sub-heading" = "Ne c'hall ket an ober-mañ bezañ nullet !";
 "saved-pages-clear-cancel" = "Nullañ";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Lemel pep tra";
 "saved-pages-refresh-cancel-alert-title" = "Hizivadur nullet";
 "saved-pages-refresh-cancel-alert-message" = "Hizivaet e vez pennadoù Wikepedia dizehan. Pouezit war freskaat evit kaout doare diwezhañ an holl bennadoù.";
@@ -176,13 +189,17 @@
 "credits-external-libraries" = "Diavaez";
 "about-title" = "Diwar-benn";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "kenlabourerien";
-"about-testers" = "prouaderioù";
+"about-testers" = "Prouaderioù";
 "about-testers-details" = "AQ prouet gant $1";
+// Fuzzy
 "about-translators" = "troerien";
 "about-translators-details" = "Troet eo bet an arload-mañ gant troerien a-youl vat e $1";
+// Fuzzy
 "about-libraries" = "levraouegoù implijet";
 "about-libraries-license" = "Aotre-implijout";
+// Fuzzy
 "about-repositories" = "Reizhiadoù daveiñ";
 "about-send-feedback" = "Kas un ali diwar-benn an arload";
 "about-product-of" = "Ur produ eus an $1";

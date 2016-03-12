@@ -6,6 +6,7 @@ let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
 let WMFAppSiteKey = "Domain"
+let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
 
 extension NSUserDefaults {
@@ -103,11 +104,15 @@ extension NSUserDefaults {
     }
     
     public func wmf_appSite() -> MWKSite? {
-        if let data = self.objectForKey(WMFAppSiteKey) as? String{
-            return MWKSite.init(domain: WMFDefaultSiteDomain, language: data)
-        }else{
-            return nil
+        guard let data = self.objectForKey(WMFAppSiteKey) as? String else {
+            DDLogError("Site preference was empty! Falling back to device language")
+            let fallbackSite = MWKSite.siteWithCurrentLocale()
+            // NOTE: need to set defaults directly, otherwise we'd get into inf. loop
+            self.setObject(fallbackSite.language, forKey: WMFAppSiteKey)
+            self.synchronize()
+            return fallbackSite
         }
+        return MWKSite.init(domain: WMFDefaultSiteDomain, language: data)
     }
     
     public func wmf_setAppSite(site: MWKSite) {
@@ -145,6 +150,25 @@ extension NSUserDefaults {
             return false
         }
     }
+    
+    public func wmf_currentSearchLanguageSite() -> MWKSite? {
+        if let data = self.objectForKey(WMFSearchLanguageKey) as? String{
+            return MWKSite.init(domain: WMFDefaultSiteDomain, language: data)
+        }else{
+            return nil
+        }
+    }
+    
+    public func wmf_setCurrentSearchLanguageSite(site: MWKSite) {
+        if let searchLanguage = self.wmf_currentSearchLanguageSite() {
+            if searchLanguage.isEqualToSite(site){
+                return;
+            }
+        }
+        self.setObject(site.language, forKey: WMFSearchLanguageKey)
+        self.synchronize()
+    }
+
     
     public func wmf_setReadingFontSize(fontSize: NSNumber) {
         self.setObject(fontSize, forKey: "ReadingFontSize")

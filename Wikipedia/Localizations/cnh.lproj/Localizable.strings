@@ -6,6 +6,7 @@
 "article-languages-label" = "Holh thimpiak";
 "article-languages-cancel" = "Let than";
 "article-languages-downloading" = "Cabia holh pawl a langh lio";
+// Fuzzy
 "article-languages-filter-placeholder" = "Holh thimnak";
 "article-read-more-title" = "Tamdeuh in relnak";
 "article-unable-to-load-section" = "Zoh khawh a si lo. A that le that lo cabia kha vun hung than hmanh.";
@@ -18,9 +19,11 @@
 "history-section-yesterday" = "Nizaan";
 "history-section-lastweek" = "Kan hnu zarh";
 "history-section-lastmonth" = "Kan hnu thla";
+// Fuzzy
 "history-clear-confirmation-heading" = "tuandeuh ta vialte na hloh dih lai maw?";
 "history-clear-confirmation-sub-heading" = "Tuah khawh a si lo!";
 "history-clear-cancel" = "Let than";
+// Fuzzy
 "history-clear-delete-all" = "Hlo Dih";
 "history-description" = "Na hloh dih hna i si men lai. Voidang cu cahmai na kal khawhnak ah kal cang.";
 "history-none" = "Zohmi cahmai a um rih lo.";
@@ -36,6 +39,7 @@
 "zero-learn-more-learn-more" = "Tamdeuh in relnak";
 "zero-learn-more-no-thanks" = "Um seh";
 "zero-wikipedia-zero-heading" = "Wikipedia Alak";
+// Fuzzy
 "zero-warn-when-leaving" = "Wikipedia Alak in chuah tikah ka chim te";
 "zero-settings-devmode" = "Zero devmode";
 "account-creation-captcha-required" = "CAPTCHA zohfelnak a herh.";
@@ -97,11 +101,13 @@
 "main-menu-title" = "Tamdeuh";
 "main-menu-heading-about" = "Konglam";
 "main-menu-language-title" = "$1 Wikipedia ah kawl";
+// Fuzzy
 "main-menu-faq" = "Biahalnak";
 "main-menu-language-toggle-show" = "Holh pawl langhter";
 "main-menu-language-toggle-hide" = "Holh pawl thup";
 "main-menu-language-selection-saved" = "Holh thimnak khon cang";
 "main-menu-account-title-logged-out" = "Account";
+// Fuzzy
 "main-menu-account-title-logged-in" = "$1: in lut";
 // Fuzzy
 "main-menu-account-login" = "Luhnak";
@@ -112,13 +118,17 @@
 "main-menu-current-article-save" = "offline rel ding caah $1 khon lai";
 "main-menu-random" = "Duhmi paoh";
 "main-menu-feedback-heading" = "Ruahnak Cheuhnak";
+// Fuzzy
 "main-menu-send-feedback" = "App cung na ruahnak kuat ding";
 "main-menu-show-page-history" = "$1 thlenremhmi pawl";
 "main-menu-credits" = "Hngalhpinak";
+// Fuzzy
 "main-menu-about" = "Hi Wikipedia app konglam";
 "main-menu-zero-faq" = "Wikipedia Alak Biahalnak";
 "main-menu-privacy-policy" = "Pumpak Kilvenak Policy";
+// Fuzzy
 "main-menu-terms-of-use" = "Hmannak Hngalhawk Phung";
+// Fuzzy
 "main-menu-rate-app" = "App kha arfi vun pe";
 "main-menu-heading-zero" = "Wikipedia Alak";
 "main-menu-heading-legal" = "Pumpak Kilvennak le Zulhphung";
@@ -128,9 +138,11 @@
 "main-menu-heading-debug" = "Debug";
 "main-menu-debug-crash" = "A rawk";
 "saved-pages-title" = "Khonmi cahmai";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Khonmi thil vialte na hloh dih lai maw?";
 "saved-pages-clear-confirmation-sub-heading" = "Tuah khawh a si lo!";
 "saved-pages-clear-cancel" = "Let than";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Hlo Dih";
 "saved-pages-refresh-cancel-alert-title" = "Update a let than";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia cabia pawl hi tharchuah lengmang a si. Refresh kha hmeh piak law tharchuahmi pawl na rel khawh lai.";
@@ -172,13 +184,18 @@
 "credits-external-libraries" = "Aleng bukbau";
 "about-title" = "Konglam";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "Teltumtu pawl";
+// Fuzzy
 "about-testers" = "teptu pawl";
 "about-testers-details" = "$1 a biahalnak";
+// Fuzzy
 "about-translators" = "Holh Lettu";
 "about-translators-details" = "Zaanghleicawi nih $1 ah an leh.";
+// Fuzzy
 "about-libraries" = "Hmanmi caruuk";
 "about-libraries-license" = "License";
+// Fuzzy
 "about-repositories" = "bukbau";
 "about-send-feedback" = "App cung na ruahnak kuat ding";
 "about-product-of" = "$1 kutchuak";

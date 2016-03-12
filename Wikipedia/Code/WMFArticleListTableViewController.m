@@ -228,8 +228,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:nil];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:nil];
     [self wmf_hideKeyboard];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     MWKTitle* title = [self.dataSource titleForIndexPath:indexPath];
     if (self.delegate) {
         [self.delegate listViewContoller:self didSelectTitle:title];
@@ -254,7 +255,7 @@ NS_ASSUME_NONNULL_BEGIN
     if ([self conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
         contentType = (id<WMFAnalyticsContentTypeProviding>)self;
     }
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:contentType];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:contentType];
 
     if (self.delegate) {
         return [self.delegate listViewContoller:self viewControllerForPreviewingTitle:title];
@@ -265,7 +266,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UINavigationController*)viewControllerToCommit {
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:nil];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:nil];
     if (self.delegate) {
         [self.delegate listViewContoller:self didCommitToPreviewedViewController:viewControllerToCommit];
     } else {

@@ -116,7 +116,6 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 - (void)configureCell:(WMFNearbyArticleTableViewCell*)cell withItem:(MWKLocationSearchResult*)item atIndexPath:(nonnull NSIndexPath*)indexPath {
     NSParameterAssert([item isKindOfClass:[MWKLocationSearchResult class]]);
     NSParameterAssert([cell isKindOfClass:[WMFNearbyArticleTableViewCell class]]);
-
     cell.titleText       = item.displayTitle;
     cell.descriptionText = item.wikidataDescription;
     [cell setImageURL:item.thumbnailURL];
@@ -170,7 +169,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 #pragma mark - WMFMoreFooterProviding
 
 - (NSString*)footerText {
-    return MWLocalizedString(@"home-nearby-footer", nil);
+    return [MWLocalizedString(@"home-nearby-location-footer", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.placemark.name];
 }
 
 - (UIViewController*)moreViewController {

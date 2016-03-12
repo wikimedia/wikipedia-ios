@@ -12,8 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFArticleViewControllerDelegate <NSObject>
 
-- (void)articleControllerDidTapShareSelectedText:(WMFArticleViewController*)controller;
-
 - (void)articleController:(WMFArticleViewController*)controller didUpdateArticleLoadProgress:(CGFloat)progress animated:(BOOL)animated;
 
 - (void)articleControllerDidLoadArticle:(WMFArticleViewController*)controller;
@@ -59,7 +57,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchArticleIfNeeded;
 
-- (NSString*)shareText;
+- (void)shareArticleFromButton:(nullable UIBarButtonItem*)button;
+
 
 @end
 

@@ -9,6 +9,7 @@
 "article-languages-label" = "აირჩიეთ ენა";
 "article-languages-cancel" = "გაუქმება";
 "article-languages-downloading" = "სტატიის ენები იტვირთება...";
+// Fuzzy
 "article-languages-filter-placeholder" = "ენის ფილტრი";
 "article-read-more-title" = "წაიკითხეთ მეტი";
 "article-about-title" = "ამ სტატიის შესახებ";
@@ -23,9 +24,11 @@
 "history-section-yesterday" = "გუშინ";
 "history-section-lastweek" = "გასულ კვირას";
 "history-section-lastmonth" = "გასულ თვეს";
+// Fuzzy
 "history-clear-confirmation-heading" = "წავშალოთ ყველა ბოლო ელემენტი?";
 "history-clear-confirmation-sub-heading" = "ამ ქმედების გაუქმება შეუძლებელია!";
 "history-clear-cancel" = "გაუქმება";
+// Fuzzy
 "history-clear-delete-all" = "ყველას წაშლა";
 "history-description" = "შესაძლოა თქვენ ყველა მათგანი წაშალეთ. შემდეგში შეგიძლიათ გადახვიდეთ გვერდზე, სადაც გადასვლა აქედან შეგიძლიათ.";
 "history-none" = "ბოლო გვერდები ვერ მოიძებნა.";
@@ -38,6 +41,7 @@
 "zero-learn-more-learn-more" = "წაიკითხე მეტი";
 "zero-learn-more-no-thanks" = "დამალვა";
 "zero-wikipedia-zero-heading" = "ვიკიპედია ზერო";
+// Fuzzy
 "zero-warn-when-leaving" = "გამაფრთხილე ვიკიპედია ზეროს დატოვებისას";
 "zero-settings-devmode" = "Zero devmode";
 "account-creation-captcha-required" = "საჭიროა CAPTCHA-ს დადასტურება.";
@@ -100,12 +104,15 @@
 "main-menu-title" = "მეტი";
 "main-menu-heading-about" = "შესახებ";
 "main-menu-language-title" = "მოძებნე $1 ვიკიპედიაში";
+// Fuzzy
 "main-menu-faq" = "ხშირი შეკითხვები";
 "main-menu-language-toggle-show" = "ენების ჩვენება";
 "main-menu-language-toggle-hide" = "ენების დამალვა";
 "main-menu-language-selection-saved" = "ენის არჩევა დამახსოვრებულია";
 "main-menu-account-title-logged-out" = "ანგარიში";
+// Fuzzy
 "main-menu-account-title-logged-in" = "შესული ხართ როგორც $1.";
+// Fuzzy
 "main-menu-account-login" = "შესვლა";
 "main-menu-account-logout" = "გასვლა";
 "main-menu-show-title" = "მაჩვენე...";
@@ -114,13 +121,17 @@
 "main-menu-current-article-save" = "შეინახეთ $1 ოფლაინ რეჟიმში წასაკითხად";
 "main-menu-random" = "შემთხვევითი";
 "main-menu-feedback-heading" = "უკუკავშირი";
+// Fuzzy
 "main-menu-send-feedback" = "შეაფასეთ აპლიკაცია";
 "main-menu-show-page-history" = "ცვლილებათა ისტორია $1-სთვის";
 "main-menu-credits" = "შემქმნელები";
+// Fuzzy
 "main-menu-about" = "ვიკიპედიის აპლიკაციის შესახებ";
 "main-menu-zero-faq" = "ვიკიპედია ზეროს ხშირი შეკითხვები";
 "main-menu-privacy-policy" = "კონფიდენციალურობის პოლიტიკა";
+// Fuzzy
 "main-menu-terms-of-use" = "გამოყენების პირობები";
+// Fuzzy
 "main-menu-rate-app" = "შეაფასეთ აპლიკაცია";
 "main-menu-heading-zero" = "ვიკიპედია ზერო";
 "main-menu-heading-legal" = "კონფიდენციალურობა და პირობები";
@@ -131,9 +142,11 @@
 "main-menu-debug-crash" = "პრობლემა";
 "saved-title" = "შენახულია";
 "saved-pages-title" = "შენახული გვერდები";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "წავშალოთ ყველა დამასხოვვრებული ელემენტი?";
 "saved-pages-clear-confirmation-sub-heading" = "ამ ქმედების გაუქმება შეუძლებელია!";
 "saved-pages-clear-cancel" = "გაუქმება";
+// Fuzzy
 "saved-pages-clear-delete-all" = "ყველაფრის წაშლა";
 "saved-pages-refresh-cancel-alert-title" = "განახლება გაუქმდა";
 "saved-pages-refresh-cancel-alert-message" = "ვიკიპედიის სტატიები მუდმივად ახლდება. დააჭირეთ განახლებას, რათა ყველა სტატიის ბოლო ვერსია იხილოთ.";
@@ -177,13 +190,18 @@
 "credits-external-libraries" = "გარე";
 "about-title" = "შესახებ";
 "about-wikipedia" = "ვიკიპედია";
+// Fuzzy
 "about-contributors" = "ავტორები";
+// Fuzzy
 "about-testers" = "ტესტერები";
 "about-testers-details" = "QA დატესტილი $1-ის მიერ";
+// Fuzzy
 "about-translators" = "მთარგმნელები";
 "about-translators-details" = "ეს აპლიკაცია ნათარგმნია მოხალისეების მიერ $1-ზე";
+// Fuzzy
 "about-libraries" = "გამოყენებული მასალები";
 "about-libraries-license" = "ლიცენზია";
+// Fuzzy
 "about-repositories" = "რეპოზიტორები";
 "about-send-feedback" = "შეაფასეთ აპლიკაცია";
 "about-product-of" = "$1-ის პროდუქტი";
@@ -196,6 +214,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "„$1“ ვიკიპედიაზე: „$2“";
 "share-as-image" = "სურათად გაზიარება";
 "share-as-text" = "ტექსტად გაზიარება";
+"share-cancel" = "გაუქმება";
 "timestamp-just-now" = "ახლავე";
 "timestamp-minutes" = "% წუთის წინ";
 "timestamp-hours" = "% საათის წინ";
@@ -225,6 +244,7 @@
 "license-footer-text" = "კონტენტი ხელმისაწვდომია $1-ით";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "შინაარსი";
+"table-of-contents-button-label" = "სარჩევი";
 "abuse-filter-warning-heading" = "თქვენი რედაქტირება არაკონსტრუქციულს ჰგავს, დარწმუნებული ხართ, რომ მისი შენახვა გსურთ?";
 "abuse-filter-warning-subheading" = "თქვენი რედაქტირება შესაძლოა შეიცავდეს ერთ ან რამდენიმე შემდეგ ელემენტს:";
 "abuse-filter-warning-caps" = "იკრიფება დიდ ასოებზე";
@@ -284,6 +304,7 @@
 "hockeyapp-alert-privacy" = "$1 კონფიდენციალურობა";
 "page-issues" = "გვერდის საკითხები";
 "page-similar-titles" = "მსგავსი გვერდები";
+// Fuzzy
 "page-read-in-other-languages" = "წაიკითხეთ $1 ენებზე";
 "page-last-edited" = "რედაქტირებულია $1 დღის წინ";
 "page-edit-history" = "მთლიანი რედაქტირების ისტორია";
@@ -300,37 +321,36 @@
 "home-featured-article-heading" = "რჩეული სტატია $1-სთვის";
 "home-main-page-heading" = "დღეს ვიკიპედიაზე";
 "home-potd-heading" = "დღის სურათი $1-სთვის";
+"home-last-update-label" = "ბოლოს განახლდა: $1";
+"home-last-update-never-label" = "ბოლოს განახლდა: არასდროს";
+"home-updating-label" = "განახლება...";
+"home-hide-suggestion-cancel" = "გაუქმება";
+"home-button-accessibility-label" = "სახლის ღილაკი";
 "potd-empty-error-description" = "შეუძლებელია $1-სთვის დღის სურათის ჩატვირთვა";
 "potd-description-prefix" = "დღის სურათი $1-სთვის";
-"welcome-whats-new-title" = "კეთილი იყოს თქვენი მობრძანება ვიკიპედიაზე";
-"welcome-whats-new-whats-new" = "რა არის ახალი";
-"welcome-whats-new-bullet-one-title" = "ახალი გზა საკვლევად";
-"welcome-whats-new-bullet-one-text" = "აღმოაჩინე ახალი და საინტერესო სტატიები ეკრანზე.";
-"welcome-whats-new-bullet-one-more-info-button-text" = "მეტი";
-"welcome-whats-new-bullet-two-title" = "შექმნილია საკითხავად";
-"welcome-whats-new-bullet-two-text" = "განახლებული დიზაინი ხელს უწყობს უკეთ კითხვას.";
-"welcome-whats-new-button-title" = "დაიწყეთ";
-"welcome-whats-new-bullet-one-more-info-text" = "როდესაც სტატიას სტუმრობთ, დაკავშირებული სტატიები ავტომატურად ემატებიან თქვენ ფავორიტთა სიას. მიუხედავად ამისა, თქვენი წაკითხვის ისტორია სრულად დაცულია.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "გასაგებია";
+// Fuzzy
 "welcome-languages-title" = "ენების მოძებნა";
-"welcome-languages-more-info-button-text" = "მეტი";
-"welcome-languages-more-info-text" = "ვიკიპედიის სტატიები ხელმისაწვდომია სხვადასხვა ენაზე. აირჩიე ენა, რომელზეც გსურს ძებნა. მოგვიანებით შეგიძლიათ ენა შეცვალოთ.";
-"welcome-languages-more-info-done-button" = "გასაგებია";
-"welcome-languages-more-languages-button-title" = "ენების დამატება";
-"welcome-languages-button-title" = "გაგრძელება";
-"welcome-languages-footnote-text" = "არ ინერვიულოთ, შეგიძლიათ მოგვიანებით შეცვალოთ";
-"welcome-usage-reports-title" = "დაგვეხმარეთ, გავხადოთ ვიკიპედია უკეთესი";
-"welcome-usage-reports-body-text" = "თქვენ შეგიძლიათ აპლიკაციის გაუმჯობესებაში მონაწილეობის მიღება, თუ დაგვეხმარებით იმის გარკვევაში, როგორ იყენებთ მას.";
-"welcome-usage-reports-switch-text" = "გამოყენების ანგარიშის გაგზავნა";
-"welcome-usage-reports-button-title" = "დაიწყეთ";
-"welcome-usage-reports-privacy-policy-button-text" = "თქვენი პირადი ინფორმაციის დაცვა ჩვენთვის მნიშვნელოვანია";
 "empty-no-feed-title" = "ინტერნეტ-კავშირი არ არის";
 "empty-no-feed-message" = "თქვენ შეძლებთ რეკომენდებული სტატიების ნახვას, როდესაც გექნებათ ინტერნეტი";
+// Fuzzy
 "empty-no-feed-action-message" = "შეგიძლიათ იხილოთ შენახული გვერდები";
 "empty-no-article-message" = "უკაცრავად, სტატიის ჩატვირთვა ვერ მოხერხდა";
+// Fuzzy
 "empty-no-search-results-message" = "უკაცრავად, შედეგების ჩატვირთვა ვერ მოხერხდა";
 "empty-no-saved-pages-title" = "გვერდები არ არის შენახული";
 "empty-no-saved-pages-message" = "შეინახეთ გვერდები მათ მოგვიანებით სანახავად";
 "empty-no-history-title" = "სანახავი ისტორია არ არსებობს";
 "empty-no-history-message" = "შეინახეს ის, რასაც აქ კითხულობდით";
 "alert-no-internet" = "ინტერნეტ-კავშირი არ არის";
+"icon-shortcut-search-title" = "ძიება ვიკიპედიაში";
+"icon-shortcut-continue-reading-title" = "განაგრძეთ კითხვა";
+"icon-shortcut-random-title" = "შემთხვევითი სტატია";
+"close-button-accessibility-label" = "დახურვა";
+"back-button-accessibility-label" = "უკან";
+"explore-featured-article-heading" = "რჩეული სტატია";
+"explore-continue-reading-heading" = "განაგრძეთ კითხვა";
+"explore-continue-related-heading" = "იმიტომ, რომ თქვენ კითხულობდით";
+"explore-main-page-heading" = "დღეს ვიკიპედიაზე";
+"explore-random-article-heading" = "შემთხვევითი სტატია";
+"explore-random-article-sub-heading" = "ინგლისური ვიკიპედია";
+"explore-potd-heading" = "დღის სურათი";

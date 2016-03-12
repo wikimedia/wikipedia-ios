@@ -48,17 +48,16 @@ static NSString* const WMFMostReadFailingProjectUserInfoKey             = @"WMFM
  *  @note This must be called after @c [super initWithDictionary:error:] to ensure the receiver's @c site is already set.
  */
 - (void)sanitizeArticles {
-    NSArray* titleBlacklist =
-#if DEBUG
-        /*
-           Allow blacklisted titles to be changed "on the fly."  App must be restarted in order to filter results w/ updated
-           blacklist.
-         */
-        [FBTweakValue(@"Explore", @"Most Read", @"Title blacklist", @"-,Test_card,Web_scraping")
-         componentsSeparatedByString:@","];
-#else
-        @[@"-", @"Test_card", @"Web_scraping"];
-#endif
+    // Note: all titles must be denormalized ("_" instead of " ").
+    NSArray* titleBlacklist = @[
+        @"-",
+        @"Test_card",
+        @"Web_scraping",
+        @"XHamster",
+        @"Java_(programming_language)",
+        @"Images/upload/bel.jpg",
+        @"Superintelligence:_Paths,_Dangers,_Strategies"
+    ];
 
     _articles = [_articles bk_reject:^BOOL (WMFMostReadTitlesResponseItemArticle* article) {
         return [titleBlacklist containsObject:article.titleText] || [self isArticleTitleMainPage:article];

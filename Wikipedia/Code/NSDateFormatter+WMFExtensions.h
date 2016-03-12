@@ -49,4 +49,8 @@
 
 + (instancetype)wmf_englishUTCSlashDelimitedYearMonthDayFormatter;
 
++ (instancetype)wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter;
+
++ (instancetype)wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter;
+
 @end

@@ -51,7 +51,7 @@
         case WMFSettingsMenuItemType_SearchLanguage: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:MWLocalizedString(@"settings-project", nil)
+                                                    title:MWLocalizedString(@"settings-language", nil)
                                                  iconName:@"settings-project"
                                                 iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
@@ -63,7 +63,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:MWLocalizedString(@"settings-language-bar", nil)
                                                  iconName:@"settings-search"
-                                                iconColor:[UIColor colorWithRed:0.10f green:0.69f blue:0.54f alpha:1.0f]
+                                                iconColor:[UIColor wmf_green]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_Switch
                                            disclosureText:nil
                                                isSwitchOn:[[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]];
@@ -124,7 +124,7 @@
                                                     title:MWLocalizedString(@"main-menu-rate-app", nil)
                                                  iconName:@"settings-rate"
                                                 iconColor:[UIColor wmf_colorWithHex:0xFEA13D alpha:1.0]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
@@ -133,7 +133,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:MWLocalizedString(@"main-menu-send-feedback", nil)
                                                  iconName:@"settings-feedback"
-                                                iconColor:[UIColor wmf_colorWithHex:0x00B18D alpha:1.0]
+                                                iconColor:[UIColor wmf_green]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
                                                isSwitchOn:NO];

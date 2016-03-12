@@ -8,6 +8,8 @@
 #import "WMFAppViewController.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 #import "WMFDailyStatsLoggingFunnel.h"
+#import <Tweaks/FBTweakShakeWindow.h>
+#import "ZeroConfigState.h"
 
 @interface AppDelegate ()
 
@@ -29,9 +31,8 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
          @"CurrentArticleDomain": defaultLanguage,
          @"Domain": defaultLanguage,
-         @"ZeroWarnWhenLeaving": @YES,
-         @"ZeroOnDialogShownOnce": @NO,
-         @"FakeZeroOn": @NO,
+         ZeroWarnWhenLeaving: @YES,
+         ZeroOnDialogShownOnce: @NO,
          @"LastHousekeepingDate": [NSDate date],
          @"SendUsageReports": @NO,
          @"AccessSavedPagesMessageShown": @NO
@@ -42,7 +43,11 @@
 
 - (UIWindow*)window {
     if (!_window) {
-        _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        if ([[[NSProcessInfo processInfo] environment][@"FBTweakShakeWindowEnabled"] boolValue]) {
+            _window = [[FBTweakShakeWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        } else {
+            _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        }
     }
     return _window;
 }
@@ -95,8 +100,22 @@
     return YES;
 }
 
+- (void)applicationWillEnterForeground:(UIApplication*)application {
+    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [self.statsFunnel logAppNumberOfDaysSinceInstall];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication*)application {
+    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [[NSUserDefaults standardUserDefaults] wmf_setAppBecomeActiveDate:[NSDate date]];
+}
+
 - (void)application:(UIApplication*)application performActionForShortcutItem:(UIApplicationShortcutItem*)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     [self.appViewController processShortcutItem:shortcutItem completion:completionHandler];
+}
+
+- (BOOL)application:(UIApplication*)application continueUserActivity:(NSUserActivity*)userActivity restorationHandler:(void (^)(NSArray* restorableObjects))restorationHandler {
+    return [self.appViewController processUserActivity:userActivity];
 }
 
 - (void)applicationWillResignActive:(UIApplication*)application {
@@ -111,23 +130,9 @@
     [self updateDynamicIconShortcutItems];
 }
 
-- (void)applicationWillEnterForeground:(UIApplication*)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    [self.statsFunnel logAppNumberOfDaysSinceInstall];
-}
-
-- (void)applicationDidBecomeActive:(UIApplication*)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [[NSUserDefaults standardUserDefaults] wmf_setAppBecomeActiveDate:[NSDate date]];
-}
-
 - (void)applicationWillTerminate:(UIApplication*)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [self applicationDidEnterBackground:application];
 }
-
-// TODO: fetch saved pages in the background
-//- (void)application:(UIApplication *)application
-//    performFetchWithCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
-//}
 
 @end

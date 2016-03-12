@@ -1,6 +1,7 @@
 
 #import <UIKit/UIKit.h>
+#import "WMFWelcomeFadeInAndUpOnceViewController.h"
 
-@interface WMFWelcomeAnalyticsViewController : UIViewController
+@interface WMFWelcomeAnalyticsViewController : WMFWelcomeFadeInAndUpOnceViewController
 
 @end

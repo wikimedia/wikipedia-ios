@@ -6,6 +6,7 @@
 #import "MWKSavedPageEntry.h"
 #import "NSDate+Utilities.h"
 #import "WMFLocationManager.h"
+#import "CLLocation+WMFComparison.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite) NSDate* dateCreated;
 @property (nonatomic, strong, readwrite) CLLocation* location;
 @property (nonatomic, strong, readwrite) CLPlacemark* placemark;
+@property (nonatomic, strong, readwrite) NSDate* mostReadFetchDate;
 
 @end
 
@@ -34,11 +36,46 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super initWithCoder:coder];
     if (self) {
         //site was added after persistence. We need to provide a default value.
-        if (self.type == WMFExploreSectionTypeFeaturedArticle && self.site == nil) {
-            self.site = [MWKSite siteWithLanguage:@"en"];
+        switch (self.type) {
+            case WMFExploreSectionTypeFeaturedArticle: {
+                if (self.site == nil) {
+                    self.site = [MWKSite siteWithLanguage:@"en"];
+                }
+                break;
+            }
+
+            case WMFExploreSectionTypeMostRead: {
+                if (!self.mostReadFetchDate) {
+                    // fall back for legacy beta "most read" sections
+                    self.mostReadFetchDate = self.dateCreated;
+                }
+                break;
+            }
+            default:
+                break;
         }
     }
     return self;
+}
+
+- (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return YES;
+    } else if ([object isKindOfClass:[WMFExploreSection class]]) {
+        return [self isEqualToSection:object];
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL)isEqualToSection:(WMFExploreSection*)rhs {
+    return self.type == rhs.type
+           && WMF_RHS_PROP_EQUAL(dateCreated, isEqualToDate:)
+           && WMF_RHS_PROP_EQUAL(site, isEqualToSite:)
+           && WMF_RHS_PROP_EQUAL(title, isEqualToTitle:)
+           && WMF_RHS_PROP_EQUAL(mostReadFetchDate, isEqualToDate:)
+           && WMF_RHS_PROP_EQUAL(location, wmf_isEqual:)
+           && WMF_RHS_PROP_EQUAL(placemark, wmf_isEqual:);
 }
 
 /**
@@ -55,15 +92,14 @@ NS_ASSUME_NONNULL_BEGIN
             return 1;
         case WMFExploreSectionTypeMostRead:
             return 2;
-        case WMFExploreSectionTypeMainPage:
-            return 3;
         case WMFExploreSectionTypePictureOfTheDay:
+            return 3;
+        case WMFExploreSectionTypeMainPage:
             return 4;
         case WMFExploreSectionTypeRandom:
             return 5;
         case WMFExploreSectionTypeNearby:
             return 6;
-
         case WMFExploreSectionTypeSaved:
         case WMFExploreSectionTypeHistory:
             // Saved & History have identical same-day sorting behavior
@@ -104,15 +140,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)mostReadSectionForDate:(NSDate*)date site:(MWKSite*)site {
     WMFExploreSection* trending = [[WMFExploreSection alloc] init];
-    trending.type        = WMFExploreSectionTypeMostRead;
-    trending.dateCreated = date;
-    trending.site        = site;
+    trending.type              = WMFExploreSectionTypeMostRead;
+    trending.mostReadFetchDate = date;
+    trending.site              = site;
     return trending;
 }
 
-+ (instancetype)pictureOfTheDaySection {
++ (instancetype)pictureOfTheDaySectionWithDate:(NSDate*)date {
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
-    item.type = WMFExploreSectionTypePictureOfTheDay;
+    item.type        = WMFExploreSectionTypePictureOfTheDay;
+    item.dateCreated = date;
     return item;
 }
 
@@ -188,10 +225,10 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFExploreSectionTypeSaved:
         case WMFExploreSectionTypeFeaturedArticle:
         case WMFExploreSectionTypeMostRead:
+        case WMFExploreSectionTypeNearby:
+        case WMFExploreSectionTypePictureOfTheDay:
             return 10;
             break;
-        case WMFExploreSectionTypePictureOfTheDay:
-        case WMFExploreSectionTypeNearby:
         case WMFExploreSectionTypeContinueReading:
         case WMFExploreSectionTypeRandom:
         case WMFExploreSectionTypeMainPage:

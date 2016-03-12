@@ -9,6 +9,7 @@
 #import "WMFModalImageGalleryViewController.h"
 #import "UIScreen+WMFImageWidth.h"
 #import "NSDateFormatter+WMFExtensions.h"
+#import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,10 +27,10 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
 @implementation WMFPictureOfTheDaySectionController
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore date:(NSDate*)date {
     self = [super initWithDataStore:dataStore];
     if (self) {
-        self.fetchedDate = [NSDate date];
+        self.fetchedDate = date;
     }
     return self;
 }
@@ -109,10 +110,12 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     return [self.fetcher fetchPicOfTheDaySectionInfoForDate:self.fetchedDate
                                            metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]].then(^(MWKImageInfo* info) {
         @strongify(self);
+        if (!self) {
+            return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
+        }
         self.imageInfo = info;
-        return @[self.imageInfo];
-    })
-           .catch(^(NSError* error) {
+        return (id) @[info];
+    }).catch(^(NSError* error) {
         @strongify(self);
         self.imageInfo = nil;
         return error;

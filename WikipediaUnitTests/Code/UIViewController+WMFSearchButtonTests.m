@@ -16,8 +16,7 @@
 
 @interface UIViewController (WMFSharedTestAccess)
 
-+ (WMFSearchViewController*)sharedSearchViewController;
-+ (void)                    wmf_clearSearchViewController;
++ (void)wmf_clearSearchViewController;
 
 @end
 
@@ -31,13 +30,13 @@ QuickSpecBegin(UIViewController_WMFSearchButtonTests)
  *  The added wait is necessary because the view doesn't disappear synchronously even though the dismissal is not animated.
  */
 dispatch_block_t dismissSearchAndWait = ^{
-    [[UIViewController sharedSearchViewController] dismissViewControllerAnimated:NO completion:nil];
+    [[UIViewController wmf_sharedSearchViewController] dismissViewControllerAnimated:NO completion:nil];
 
     [self expectationForPredicate:
      [NSPredicate predicateWithBlock:
       ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
         return evaluatedObject.view.window == nil;
-    }]        evaluatedWithObject:[UIViewController sharedSearchViewController] handler:nil];
+    }]        evaluatedWithObject:[UIViewController wmf_sharedSearchViewController] handler:nil];
     [self waitForExpectationsWithTimeout:10 handler:nil];
 };
 
@@ -53,7 +52,7 @@ void (^ presentSearchFromVCAndWait)(UIViewController* presentingVC) = ^(UIViewCo
      [NSPredicate predicateWithBlock:
       ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
         return evaluatedObject.view.window != nil;
-    }]        evaluatedWithObject:[UIViewController sharedSearchViewController] handler:nil];
+    }]        evaluatedWithObject:[UIViewController wmf_sharedSearchViewController] handler:nil];
     [self waitForExpectationsWithTimeout:10 handler:nil];
 };
 
@@ -77,7 +76,7 @@ configureTempDataStoreForEach(tempDataStore, ^{
 
 afterEach(^{
     // tear down search
-    if ([UIViewController sharedSearchViewController].view.window) {
+    if ([UIViewController wmf_sharedSearchViewController].view.window) {
         dismissSearchAndWait();
     }
     [UIViewController wmf_clearSearchViewController];
@@ -90,7 +89,7 @@ describe(@"search button", ^{
     it(@"should be presentable from different view controllers", ^{
         presentSearchFromVCAndWait(testVC);
 
-        WMFSearchViewController* oldSearchVC = [UIViewController sharedSearchViewController];
+        WMFSearchViewController* oldSearchVC = [UIViewController wmf_sharedSearchViewController];
 
         dismissSearchAndWait();
 
@@ -100,7 +99,7 @@ describe(@"search button", ^{
 
         presentSearchFromVCAndWait(otherTestVC);
 
-        expect([UIViewController sharedSearchViewController]).to(equal(oldSearchVC));
+        expect([UIViewController wmf_sharedSearchViewController]).to(equal(oldSearchVC));
     });
 });
 
@@ -108,11 +107,11 @@ describe(@"global searchVC", ^{
     void (^ verifyGlobalVCOutOfWindowResetAfterNotificationNamed)(NSString*) = ^(NSString* notificationName) {
         presentSearchFromVCAndWait(testVC);
 
-        expect([UIViewController sharedSearchViewController]).toNot(beNil());
+        expect([UIViewController wmf_sharedSearchViewController]).toNot(beNil());
 
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 
-        expect([UIViewController sharedSearchViewController]).to(beNil());
+        expect([UIViewController wmf_sharedSearchViewController]).to(beNil());
     };
 
     it(@"should be reset on memory warnings when it is not in the window", ^{

@@ -20,12 +20,16 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The schema
  */
-+ (instancetype)schemaWithSite:(MWKSite*)site savedPages:(MWKSavedPageList*)savedPages history:(MWKHistoryList*)history blackList:(WMFRelatedSectionBlackList*)blackList;
++ (instancetype)schemaWithSite:(MWKSite*)site
+                    savedPages:(MWKSavedPageList*)savedPages
+                       history:(MWKHistoryList*)history
+                     blackList:(WMFRelatedSectionBlackList*)blackList;
 
 @property (nonatomic, strong, readonly) MWKSite* site;
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* historyPages;
 @property (nonatomic, strong, readonly) WMFRelatedSectionBlackList* blackList;
+@property (nonatomic, strong, readonly) NSURL* fileURL;
 
 @property (nonatomic, strong, readonly, nullable) NSDate* lastUpdatedAt;
 
@@ -54,12 +58,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param force If YES force an update
  */
 - (BOOL)update:(BOOL)force;
-
-/**
- *  Reset the schema - removes all items and restores back to the "startingSchema"
- *  Call this when you clear out the feed.
- */
-- (void)reset;
 
 @end
 

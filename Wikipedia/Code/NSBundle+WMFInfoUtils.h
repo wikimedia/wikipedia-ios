@@ -43,7 +43,17 @@
 
 - (BOOL)wmf_shouldShowDebugMenu;
 
+- (BOOL)wmf_isPiwikEnabledAndConfigured;
+
 /// @return HockeyApp ID for crash reports
 - (NSString*)wmf_hockeyappIdentifier;
+
+
+/// @return piwik url for analytics
+- (NSString*)wmf_piwikURL;
+
+
+/// @return piwik app ID for analytics
+- (NSString*)wmf_piwikAppID;
 
 @end

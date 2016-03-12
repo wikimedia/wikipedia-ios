@@ -6,6 +6,7 @@
 "article-languages-label" = "भाषां चिनोतु";
 "article-languages-cancel" = "निरस्यताम्";
 "article-languages-downloading" = "लेखस्यास्य भाषापरिसन्धिः अवारोपयति...";
+// Fuzzy
 "article-languages-filter-placeholder" = "भाषाशोधनी";
 "article-read-more-title" = "अधिकं पठ्यताम्";
 "article-unable-to-load-section" = "एनं विभागम् आरोपयितुं न शक्यते । पृष्ठं पुनरुपारोप्य दृश्यतां यत् दोषः व्यपगतः वा ।";
@@ -18,9 +19,11 @@
 "history-section-yesterday" = "ह्यः";
 "history-section-lastweek" = "गतसप्ताहः";
 "history-section-lastmonth" = "गतमासः";
+// Fuzzy
 "history-clear-confirmation-heading" = "रक्षितानि वस्तूनि अपाकरणीयानि ?";
 "history-clear-confirmation-sub-heading" = "एषा क्रिया अपूर्णा भवितुं शक्नोति !";
 "history-clear-cancel" = "निरस्यताम्";
+// Fuzzy
 "history-clear-delete-all" = "सर्वम् अपाक्रियताम्";
 "history-description" = "कदाचित् तानि सर्वाणि भवता/भवत्या अपाकृतानि । द्वितीयवारं यदा भवान्/भवती तत् पृष्ठं गच्छति, तदा इतः तत् पुनः प्राप्स्यति ।";
 "history-none" = "अत्र नवीनपृष्ठानि न सन्ति ।";
@@ -36,6 +39,7 @@
 "zero-learn-more-learn-more" = "अधिकं पठ्यताम्";
 "zero-learn-more-no-thanks" = "अपनीयताम्";
 "zero-wikipedia-zero-heading" = "विकिपीडिया शून्यम्";
+// Fuzzy
 "zero-warn-when-leaving" = "विकिपीडिया-शून्यस्य त्यागकाले सूच्यताम्";
 "zero-settings-devmode" = "शून्यं devmode";
 "account-creation-captcha-required" = "संभेपूस्वसाट्यूप (CAPTCHA) सत्यापनम् आवश्यकम् ।";
@@ -98,11 +102,13 @@
 "main-menu-title" = "अधिकम्";
 "main-menu-heading-about" = "विषये";
 "main-menu-language-title" = "विकिपीडिया-जाले $1 अन्विष्यताम्";
+// Fuzzy
 "main-menu-faq" = "सामान्यजिज्ञासाः (FAQ)";
 "main-menu-language-toggle-show" = "भाषाः दर्श्यन्ताम्";
 "main-menu-language-toggle-hide" = "भाषाः गोप्यन्ताम्";
 "main-menu-language-selection-saved" = "भाषाविभागः रक्षितः";
 "main-menu-account-title-logged-out" = "लेखा";
+// Fuzzy
 "main-menu-account-title-logged-in" = "$1-त्वेन प्रविश्यताम्";
 // Fuzzy
 "main-menu-account-login" = "प्रविश्यताम्";
@@ -113,13 +119,17 @@
 "main-menu-current-article-save" = "$1-लेखं वियुक्ततया पठितुं रक्ष्यताम्";
 "main-menu-random" = "यादृच्छिकम्";
 "main-menu-feedback-heading" = "प्रतिक्रिया";
+// Fuzzy
 "main-menu-send-feedback" = "अनुप्रयोगप्रतिक्रियां प्रेषयतु";
 "main-menu-show-page-history" = "$1-लेखस्य परिवर्तनानाम् इतिहासः";
 "main-menu-credits" = "श्रेयः";
+// Fuzzy
 "main-menu-about" = "विकिपीडिया-अनुप्रयोगस्य विवरणम्";
 "main-menu-zero-faq" = "विकिपीडिया-शून्यविषये सामान्यजिज्ञासाः";
 "main-menu-privacy-policy" = "गोपनीयतानीतिः";
+// Fuzzy
 "main-menu-terms-of-use" = "प्रयोगस्य नियमाः";
+// Fuzzy
 "main-menu-rate-app" = "अनुप्रयोगस्य मूल्याङ्कनम्";
 "main-menu-heading-zero" = "विकिपीडिया शून्यम्";
 "main-menu-heading-legal" = "गोपनीयता, नियमाः च";
@@ -129,9 +139,11 @@
 "main-menu-heading-debug" = "दोषानुसन्धानम्";
 "main-menu-debug-crash" = "ध्वसः";
 "saved-pages-title" = "रक्षितपृष्ठानि";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "रक्षितानि वस्तूनि अपाकरणीयानि ?";
 "saved-pages-clear-confirmation-sub-heading" = "एषा क्रिया अपूर्णा भवितुं शक्नोति !";
 "saved-pages-clear-cancel" = "निरस्यताम्";
+// Fuzzy
 "saved-pages-clear-delete-all" = "सर्वम् अपाक्रियताम्";
 "saved-pages-refresh-cancel-alert-title" = "निरस्तं नवीकरोतु";
 "saved-pages-refresh-cancel-alert-message" = "विकिपीडिया-जालस्य लेखाः सर्वदा परिवर्तनशीलाः भवति । लेखानाम् अत्याधुनिकं संस्करणं प्राप्तुं नवीकरोतु ।";
@@ -173,13 +185,18 @@
 "credits-external-libraries" = "बाह्यभाण्डागारः";
 "about-title" = "विवरणम्";
 "about-wikipedia" = "विकिपीडिया";
+// Fuzzy
 "about-contributors" = "योगदानानि";
+// Fuzzy
 "about-testers" = "परीक्षकाः";
 "about-testers-details" = "$1 द्वारा QA परीक्षितः";
+// Fuzzy
 "about-translators" = "अनुवादकाः";
 "about-translators-details" = "$1 अत्र अनुवादः स्वयंसेव्यनुवादकेन कृतः";
+// Fuzzy
 "about-libraries" = "प्रयुक्ताः सङ्ग्रहालयाः";
 "about-libraries-license" = "अनुज्ञापत्रम्";
+// Fuzzy
 "about-repositories" = "भण्डाराः";
 "about-send-feedback" = "अनुप्रयोगप्रतिक्रियां प्रेषयतु";
 "about-product-of" = "$1 इत्यस्य प्रकाशनम्";

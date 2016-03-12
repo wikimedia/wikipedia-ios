@@ -12,6 +12,10 @@
 @implementation UIViewController (WMFOpenExternalLinkDelegate)
 
 - (void)wmf_openExternalUrl:(NSURL*)url {
+    [self wmf_openExternalUrl:url useSafari:NO];
+}
+
+- (void)wmf_openExternalUrl:(NSURL*)url useSafari:(BOOL)useSafari {
     NSParameterAssert(url);
 
     //If zero rated, don't open any external (non-zero rated!) links until user consents!
@@ -21,17 +25,17 @@
                                                                message:messageWithHost];
         [zeroAlert bk_setCancelButtonWithTitle:MWLocalizedString(@"zero-interstitial-cancel", nil) handler:nil];
         [zeroAlert bk_addButtonWithTitle:MWLocalizedString(@"zero-interstitial-continue", nil) handler:^{
-            [self wmf_openExternalUrlModallyIfNeeded:url];
+            [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
         }];
         [zeroAlert show];
     } else {
-        [self wmf_openExternalUrlModallyIfNeeded:url];
+        [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
     }
 }
 
-- (void)wmf_openExternalUrlModallyIfNeeded:(NSURL*)url {
+- (void)wmf_openExternalUrlModallyIfNeeded:(NSURL*)url forceSafari:(BOOL)forceSafari {
     // iOS 9 and later just use UIApplication's openURL.
-    if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){9, 0, 0}]) {
+    if (forceSafari || [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){9, 0, 0}]) {
         [[UIApplication sharedApplication] openURL:url];
     } else {
         // pre iOS 9 use SVModalWebViewController.

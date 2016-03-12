@@ -8,6 +8,7 @@
 
 @import Quick;
 @import Nimble;
+@import NSDate_Extensions;
 #import <SSDataSources/SSDataSources.h>
 
 #import "WMFModalPOTDGalleryDataSource.h"
@@ -18,7 +19,6 @@
 #import "SSArrayDataSource+WMFReverseIfRTL.h"
 #import "MWKDataStore+TempDataStoreForEach.h"
 #import "NSDate+WMFDateRanges.h"
-#import "NSDate+Utilities.h"
 
 QuickConfigurationBegin(WMFGalleryDataSourceTestsConfiguration)
 

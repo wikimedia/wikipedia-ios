@@ -7,8 +7,10 @@
 "article-languages-label" = "קלויבן שפראך…";
 "article-languages-cancel" = "אַנולירן";
 "article-languages-downloading" = "לאדן ארטיקל שפראכן…";
+// Fuzzy
 "article-languages-filter-placeholder" = "שפראך־פֿילטער";
 "article-read-more-title" = "לייענט ווײטער";
+"article-about-title" = "וועגן דעם ארטיקל";
 "info-box-title" = "גיכע פאקטן";
 "info-box-close-text" = "פארמאכן";
 "table-title-other" = "נאך אינפארמאציע";
@@ -17,8 +19,10 @@
 "history-section-yesterday" = "נעכטן";
 "history-section-lastweek" = "פֿאריגע וואך";
 "history-section-lastmonth" = "פאריגן מאנאט";
+// Fuzzy
 "history-clear-confirmation-heading" = "אויסמעקן אלע לעצטיקע אביעקטן?";
 "history-clear-cancel" = "אַנולירן";
+// Fuzzy
 "history-clear-delete-all" = "אויסמעקן אלץ";
 "history-none" = "קיין לעצטיקע בלעטער נישט דא.";
 "zero-free-verbiage" = "אומזיסטער צוטריט פון אײַער מאביל־פארזארגער (אן באצאלן פאר דאטן)";
@@ -59,6 +63,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "עפענען לינק";
 "open-link-cancel" = "אַנולירן";
+"search-title" = "זוכן";
 "search-searching" = "זוכן…";
 "search-field-placeholder-text" = "זוכן וויקיפעדיע";
 "search-field-placeholder-text-zero" = "זוכן וויקיפעדיע נול";
@@ -71,16 +76,20 @@
 "search-recent-clear-confirmation-heading" = "אויסמעקן אלע לעצטיקע זוכן?";
 "search-recent-clear-cancel" = "אַנולירן";
 "search-recent-clear-delete-all" = "אויסמעקן אלץ";
+"search-result-redirected-from" = "אַריבערגעפֿירט פון $1";
 "settings-title" = "איינשטעלונגען";
 "main-menu-title" = "נאך";
 "main-menu-heading-about" = "וועגן";
 "main-menu-language-title" = "זוכן $1 וויקיפעדיע";
+// Fuzzy
 "main-menu-faq" = "מערסטע געפרעגטע פראגעס";
 "main-menu-language-toggle-show" = "ווײַזן שפראכן";
 "main-menu-language-toggle-hide" = "באהאלטן שפראכן";
 "main-menu-language-selection-saved" = "שפראך אויסקלייב געהיטן";
 "main-menu-account-title-logged-out" = "קאנטע";
+// Fuzzy
 "main-menu-account-title-logged-in" = "ארײַנלאגירט: $1";
+// Fuzzy
 "main-menu-account-login" = "אַרײַנלאגירן צו וויקיפעדיע";
 "main-menu-account-logout" = "אַרויסלאָגירן";
 "main-menu-show-title" = "ווײַז מיך…";
@@ -88,12 +97,15 @@
 "main-menu-show-saved" = "אײַנגעשפייכלערטע בלעטער";
 "main-menu-random" = "צופֿעליג";
 "main-menu-feedback-heading" = "פֿידבעק";
+// Fuzzy
 "main-menu-send-feedback" = "שיקן אפ־פידבעק";
 "main-menu-show-page-history" = "היסטאריע פון ענדערונגען צו $1";
 "main-menu-credits" = "קרעדיטן";
+// Fuzzy
 "main-menu-about" = "וועגן דעם וויקימעדיע־אפ";
 "main-menu-zero-faq" = "וויקיפעדיע נול שאלות ותשובות";
 "main-menu-privacy-policy" = "פּריוואַטקייט פּאליסי";
+// Fuzzy
 "main-menu-terms-of-use" = "ניצבאדינגונגען";
 "main-menu-heading-zero" = "וויקיפעדיע נול";
 "main-menu-heading-legal" = "פריוואטקייט און באדינגונגען";
@@ -102,12 +114,15 @@
 "main-menu-more" = "נאך…";
 "main-menu-debug-crash" = "איינפאלן";
 "saved-pages-title" = "אײַנגעשפייכלערטע בלעטער";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "אויסמעקן אלע געשפייכלערטע אביעקטן?";
 "saved-pages-clear-cancel" = "אנולירן";
+// Fuzzy
 "saved-pages-clear-delete-all" = "אויסמעקן אלץ";
 "saved-pages-refresh-cancel-alert-title" = "דערהיינטיקונג אנולירט";
 "saved-pages-refresh-cancel-alert-button" = "געכאפט";
 "saved-pages-none" = "נאך נישט קיין אויפגעהיטענע בלעטער.";
+"history-title" = "היסטאריע";
 "page-history-title" = "ארטיקל היסטאריע";
 "navbar-title-mode-edit-wikitext" = "רעדאַקטירן";
 "navbar-title-mode-login" = "אַרײַנלאגירן";
@@ -130,10 +145,14 @@
 "credits-github-mirror" = "אפ-שפיגל (גיטהאב)";
 "about-title" = "וועגן";
 "about-wikipedia" = "וויקיפעדיע";
+// Fuzzy
 "about-contributors" = "בײַשטײַערער";
+// Fuzzy
 "about-translators" = "איבערזעצער";
+// Fuzzy
 "about-libraries" = "געניצטע ביבליאטעקן";
 "about-libraries-license" = "ליצענץ";
+// Fuzzy
 "about-repositories" = "רעפאזיטאריעס";
 "about-send-feedback" = "שיקן אפ־פידבעק";
 "about-product-of" = "א פראדוקט פון $1";
@@ -144,6 +163,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" אויף @Wikipedia: \"$2\"";
 "share-as-image" = "טיילן אלס בילד";
 "share-as-text" = "טיילן אלס טעקסט";
+"share-cancel" = "אַנולירן";
 "timestamp-just-now" = "גראדע יעצט";
 "timestamp-minutes" = "פאר %d מינוט";
 "timestamp-hours" = "פאר %d שעה׳ן";
@@ -200,3 +220,13 @@
 "hockeyapp-alert-privacy" = "$1-פריוואטקייט";
 "page-issues" = "בלאט־פֿראגעס";
 "page-similar-titles" = "ענלעכע בלעטער";
+"home-main-page-heading" = "היינט אויף וויקיפעדיע";
+"home-potd-heading" = "בילד פונעם טאג פאר $1";
+"home-last-update-label" = "לעצט דערהײַנטיקט: $1";
+"home-hide-suggestion-cancel" = "אַנולירן";
+"icon-shortcut-search-title" = "זוכן וויקיפעדיע";
+"icon-shortcut-continue-reading-title" = "לייענען ווײַטער";
+"icon-shortcut-random-title" = "צופֿעליגער ארטיקל";
+"close-button-accessibility-label" = "פארמאכן";
+"back-button-accessibility-label" = "צוריק";
+"explore-random-article-sub-heading" = "ענגליש־וויקיפעדיע";

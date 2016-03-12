@@ -1,10 +1,13 @@
 #import "WMFSearchViewController.h"
 #import "PiwikTracker+WMFExtensions.h"
+#import "NSMutableArray+WMFSafeAdd.h"
 
 #import "RecentSearchesViewController.h"
 #import "WMFSearchResultsTableViewController.h"
 
 #import "SessionSingleton.h"
+
+#import "NSUserActivity+WMFExtensions.h"
 
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
@@ -41,7 +44,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
-@property (nonatomic, strong) NSArray* searchLanguages;
+@property (nonatomic, strong) NSArray* preferredLanguages;
 
 @property (nonatomic, strong) RecentSearchesViewController* recentSearchesViewController;
 @property (nonatomic, strong) WMFSearchResultsTableViewController* resultsListController;
@@ -59,7 +62,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (strong, nonatomic) IBOutlet UIButton* languageTwoButton;
 @property (strong, nonatomic) IBOutlet UIButton* languageThreeButton;
 @property (strong, nonatomic) IBOutlet UIButton* otherLanguagesButton;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *languageButtons;
+@property (strong, nonatomic)IBOutletCollection(UIButton) NSArray * languageButtons;
 
 @property (nonatomic, strong) WMFSearchFetcher* fetcher;
 
@@ -200,7 +203,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         [self.otherLanguagesButton setTitle:MWLocalizedString(@"main-menu-title", nil) forState:UIControlStateNormal];
         self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
 
-        [self.otherLanguagesButton sizeToFit];
         [self updateLanguageButtonsToPreferredLanguages];
     } else {
         [self.languageBarContainer removeFromSuperview];
@@ -217,8 +219,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     [self configureSearchField];
     [self configureLanguageButtons];
-    MWKLanguageLink* lang = [self.searchLanguages firstObject];
-    [self selectLanguageForSite:lang.site];
+    [self setSelectedLanguage:[self selectedLanguage]];
 
     // move search field offscreen, preparing for transition in viewWillAppear
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
@@ -250,7 +251,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[PiwikTracker sharedInstance] wmf_logView:self];
+    [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
+    [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchViewActivity]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -282,13 +284,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             [self.view layoutSubviews];
         } completion:nil];
     }
-}
-
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
-        [self resizeLanguageButtonsIfNeeded];
-    } completion:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
@@ -390,6 +385,14 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - Search
 
+- (void)setSearchTerm:(NSString*)searchTerm {
+    if (searchTerm.length == 0) {
+        return;
+    }
+    [self setSearchFieldText:searchTerm];
+    [self searchForSearchTerm:searchTerm];
+}
+
 - (MWKSite*)currentlySelectedSearchSite {
     if ([[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]) {
         NSUInteger index = [self.languageButtons indexOfObjectPassingTest:^BOOL (UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
@@ -404,7 +407,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             index = 0;
         }
 
-        MWKLanguageLink* lang = self.searchLanguages[index];
+        MWKLanguageLink* lang = [self languages][index];
         return [lang site];
     } else {
         return [[NSUserDefaults standardUserDefaults] wmf_appSite];
@@ -443,6 +446,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         self.resultsListController.dataSource = dataSource;
 
         [self updateUIWithResults:results];
+        [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSite:site searchTerm:results.searchTerm]];
 
         if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
             return [self.fetcher fetchArticlesForSearchTerm:searchTerm
@@ -526,61 +530,73 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - Languages
 
-- (void)updateLanguages {
-    NSArray* languages = [MWKLanguageLinkController sharedInstance].preferredLanguages;
-    self.searchLanguages = [languages wmf_arrayByTrimmingToLength:3];
+- (MWKLanguageLink*)selectedLanguage {
+    MWKSite* site         = [[NSUserDefaults standardUserDefaults] wmf_currentSearchLanguageSite];
+    MWKLanguageLink* lang = nil;
+    if (site) {
+        lang = [[MWKLanguageLinkController sharedInstance] languageForSite:site];
+    } else {
+        lang = [self appLanguage];
+    }
+    return lang;
+}
+
+- (void)setSelectedLanguage:(MWKLanguageLink*)language {
+    [[NSUserDefaults standardUserDefaults] wmf_setCurrentSearchLanguageSite:language.site];
+    [self updateLanguageButtonsToPreferredLanguages];
+    [self selectLanguageForSite:language.site];
+}
+
+- (NSArray<MWKLanguageLink*>*)languages {
+    NSMutableArray* languages = [NSMutableArray new];
+    [languages wmf_safeAddObject:[self appLanguage]];
+    [languages addObjectsFromArray:self.preferredLanguages];
+    return languages;
+}
+
+- (nullable MWKLanguageLink*)appLanguage {
+    MWKSite* site             = [[NSUserDefaults standardUserDefaults] wmf_appSite];
+    MWKLanguageLink* language = [[MWKLanguageLinkController sharedInstance] languageForSite:site];
+    NSAssert(language, @"No language data found for site %@", site);
+    if (!language) {
+        DDLogError(@"No language data found for site %@", site);
+    }
+    return language;
+}
+
+- (void)updatePreferredLanguages {
+    NSArray* languages           = [[MWKLanguageLinkController sharedInstance].preferredLanguages wmf_arrayByTrimmingToLength:3];
+    MWKLanguageLink* appLanguage = [self appLanguage];
+    languages = [languages bk_reject:^BOOL (MWKLanguageLink* obj) {
+        return [obj isEqualToLanguageLink:appLanguage];
+    }];
+    self.preferredLanguages = [languages wmf_arrayByTrimmingToLength:2];
 }
 
 - (void)updateLanguageButtonsToPreferredLanguages {
-    [self updateLanguages];
-    [self.searchLanguages enumerateObjectsUsingBlock:^(MWKLanguageLink*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if(idx >= [self.languageButtons count]){
+    [self updatePreferredLanguages];
+
+    [[self languages] enumerateObjectsUsingBlock:^(MWKLanguageLink* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+        if (idx >= [self.languageButtons count]) {
             *stop = YES;
         }
         UIButton* button = self.languageButtons[idx];
         [button setTitle:[obj localizedName] forState:UIControlStateNormal];
     }];
-    
-    [self.languageButtons enumerateObjectsUsingBlock:^(UIButton*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if(idx >= [self.searchLanguages count]){
+
+    [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+        if (idx >= [[self languages] count]) {
             obj.enabled = NO;
             obj.hidden = YES;
-        }else{
+        } else {
             obj.enabled = YES;
             obj.hidden = NO;
         }
     }];
-    [self resizeLanguageButtonsIfNeeded];
-}
-
-/**
- *  HACK: Auto layout is not possible in the tool bar.
- *  This truncates text of language buttons if they are larger than the display
- */
-- (void)resizeLanguageButtonsIfNeeded {
-    [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        [obj sizeToFit];
-        CGRect f = obj.frame;
-        f.size.height = 30.0f;
-        obj.frame = f;
-    }];
-    CGFloat buttonWidth = [[self.languageButtons bk_reduce:@0 withBlock:^id (NSNumber* sum, UIButton* obj) {
-        return @(obj.frame.size.width + [sum floatValue]);
-    }] floatValue];
-    buttonWidth += self.otherLanguagesButton.frame.size.width;
-
-    //6 leaves us 2 pixels between each button
-    if (buttonWidth > self.view.frame.size.width - 6) {
-        [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-            CGRect f = obj.frame;
-            f.size.width -= (buttonWidth - (self.view.frame.size.width - 6)) / 3;
-            obj.frame = f;
-        }];
-    }
 }
 
 - (void)selectLanguageForSite:(MWKSite*)site {
-    [self.searchLanguages enumerateObjectsUsingBlock:^(MWKLanguageLink* _Nonnull language, NSUInteger idx, BOOL* _Nonnull stop) {
+    [[self languages] enumerateObjectsUsingBlock:^(MWKLanguageLink* _Nonnull language, NSUInteger idx, BOOL* _Nonnull stop) {
         if ([[language site] isEqual:site]) {
             UIButton* buttonToSelect = self.languageButtons[idx];
             [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
@@ -600,8 +616,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     NSUInteger index = [self.languageButtons indexOfObject:button];
     NSAssert(index != NSNotFound, @"language button not found for language!");
     if (index != NSNotFound) {
-        MWKLanguageLink* lang = self.searchLanguages[index];
-        [self selectLanguageForSite:lang.site];
+        MWKLanguageLink* lang = [self languages][index];
+        [self setSelectedLanguage:lang];
     }
 }
 
@@ -661,8 +677,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
     [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
-    [self updateLanguageButtonsToPreferredLanguages];
-    [self selectLanguageForSite:language.site];
+    [self setSelectedLanguage:language];
     [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 

@@ -1,36 +1,59 @@
 
 #import "WMFWelcomeIntroductionViewController.h"
+#import "Wikipedia-Swift.h"
+
 @interface WMFWelcomeIntroductionViewController ()
 
 @property (strong, nonatomic) IBOutlet UILabel* titleLabel;
-@property (strong, nonatomic) IBOutlet UILabel* whatsNewLabel;
-@property (strong, nonatomic) IBOutlet UILabel* topBulletTitleLabel;
-@property (strong, nonatomic) IBOutlet UILabel* topBulletDetailLabel;
-@property (strong, nonatomic) IBOutlet UIButton* howThisWorksButton;
-@property (strong, nonatomic) IBOutlet UILabel* bottomBulletTitleLabel;
-@property (strong, nonatomic) IBOutlet UILabel* bottomBulletDetailLabel;
-@property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
+@property (strong, nonatomic) IBOutlet UILabel* subTitleLabel;
+@property (strong, nonatomic) IBOutlet UIButton* tellMeMoreButton;
+@property (strong, nonatomic) IBOutlet UIButton* nextButton;
+@property (strong, nonatomic) IBOutlet WelcomeIntroAnimationView* animationView;
 
 @end
-
 
 @implementation WMFWelcomeIntroductionViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.titleLabel.text              = MWLocalizedString(@"welcome-whats-new-title", nil);
-    self.whatsNewLabel.text           = MWLocalizedString(@"welcome-whats-new-whats-new", nil);
-    self.topBulletTitleLabel.text     = MWLocalizedString(@"welcome-whats-new-bullet-one-title", nil);
-    self.topBulletDetailLabel.text    = MWLocalizedString(@"welcome-whats-new-bullet-one-text", nil);
-    self.bottomBulletTitleLabel.text  = MWLocalizedString(@"welcome-whats-new-bullet-two-title", nil);
-    self.bottomBulletDetailLabel.text = MWLocalizedString(@"welcome-whats-new-bullet-two-text", nil);
-    [self.howThisWorksButton setTitle:MWLocalizedString(@"welcome-whats-new-bullet-one-more-info-button-text", nil) forState:UIControlStateNormal];
-    [self.nextStepButton setTitle:MWLocalizedString(@"welcome-whats-new-button-title", nil) forState:UIControlStateNormal];
+
+    self.titleLabel.text =
+        [MWLocalizedString(@"welcome-explore-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+
+    self.subTitleLabel.text =
+        MWLocalizedString(@"welcome-explore-sub-title", nil);
+
+    [self.tellMeMoreButton setTitle:MWLocalizedString(@"welcome-explore-tell-me-more", nil)
+                           forState:UIControlStateNormal];
+
+    [self.nextButton setTitle:[MWLocalizedString(@"welcome-explore-continue-button", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]
+                     forState:UIControlStateNormal];
+
+    [self.nextButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
+    self.animationView.backgroundColor = [UIColor clearColor];
 }
 
 - (IBAction)showHowThisWorksAlert:(id)sender {
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"welcome-whats-new-bullet-one-more-info-button-text", nil) message:MWLocalizedString(@"welcome-whats-new-bullet-one-more-info-text", nil) delegate:nil cancelButtonTitle:MWLocalizedString(@"welcome-whats-new-bullet-one-more-info-done-button", nil) otherButtonTitles:nil];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"welcome-explore-tell-me-more-about-explore", nil) message:[NSString stringWithFormat:@"%@\n\n%@", MWLocalizedString(@"welcome-explore-tell-me-more-related", nil), MWLocalizedString(@"welcome-explore-tell-me-more-privacy", nil)] delegate:nil cancelButtonTitle:MWLocalizedString(@"welcome-explore-tell-me-more-done-button", nil) otherButtonTitles:nil];
     [alert show];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    BOOL shouldAnimate = !self.hasAlreadyFaded;
+    [super viewDidAppear:animated];
+    if (shouldAnimate) {
+        [self.animationView beginAnimations];
+    }
 }
 
 @end

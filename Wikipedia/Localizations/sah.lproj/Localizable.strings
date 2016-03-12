@@ -1,11 +1,13 @@
 // Messages for Sakha (саха тыла)
 // Exported from translatewiki.net
 // Author: HalanTul
+// Author: Ай-Куо
 
 "languages-title" = "Тыллар";
 "article-languages-label" = "Тылгын тал";
 "article-languages-cancel" = "Таҕыс";
 "article-languages-downloading" = "Ыстатыйа тылларын хачайдааһын...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Тыл сиидэтэ";
 "article-read-more-title" = "Бу туһунан сиһилии";
 "article-about-title" = "Бу ыстатыйа туһунан";
@@ -20,9 +22,11 @@
 "history-section-yesterday" = "Бэҕэһээ";
 "history-section-lastweek" = "Бүтэһик нэдиэлэ";
 "history-section-lastmonth" = "Бүтэһик ый";
+// Fuzzy
 "history-clear-confirmation-heading" = "Сотортуааҥыны барытын сотоҕун дуо?";
 "history-clear-confirmation-sub-heading" = "Маны төннөрөр кыах суох!";
 "history-clear-cancel" = "Салҕаама";
+// Fuzzy
 "history-clear-delete-all" = "Барытын сот";
 "history-description" = "Арааһа барытын соппуккун быһыылаах. Аныгыскыга, ханнык эрэ сирэйгэ киирэ сылдьыбыт буоллаххына, ону мантан буолуоххун сөп буолуо.";
 "history-none" = "Соторутааҕыта көрүллүбүт сирэй суох эбит.";
@@ -38,6 +42,7 @@
 "zero-learn-more-learn-more" = "Эбии бу туһунан";
 "zero-learn-more-no-thanks" = "Сап";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Wikipedia Zero-ттан тахсаары гыннахпына сэрэтээр";
 "zero-settings-devmode" = "Zero тупсарааччы эрэсиимэ";
 "account-creation-captcha-required" = "Капча тургутуу ирдэнэр.";
@@ -96,16 +101,20 @@
 "search-recent-clear-confirmation-sub-heading" = "Маны төннөрөр кыах суох!";
 "search-recent-clear-cancel" = "Салҕаама";
 "search-recent-clear-delete-all" = "Барытын сот";
+"search-result-redirected-from" = "(Мантан: $1  утаарылынна)";
 "settings-title" = "Туруоруулар";
 "main-menu-title" = "Эбии";
 "main-menu-heading-about" = "Бу туһунан";
 "main-menu-language-title" = "$1 Бикипиэдьийэни көрдөөһүн";
+// Fuzzy
 "main-menu-faq" = "Ыйытыылар";
 "main-menu-language-toggle-show" = "Тыллары көрдөр";
 "main-menu-language-toggle-hide" = "Тыллары кистээ";
 "main-menu-language-selection-saved" = "Талбыт тылыҥ бигэргэннэ";
 "main-menu-account-title-logged-out" = "Бэлиэ-аат";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Маннык киирбиккин: $1";
+// Fuzzy
 "main-menu-account-login" = "Бикипиэдьийэҕэ киирии";
 "main-menu-account-logout" = "Тахсыы";
 "main-menu-show-title" = "Көрдөр...";
@@ -114,13 +123,17 @@
 "main-menu-current-article-save" = "Маны $1 ситимэ суох ааҕарга бэлэмнээ";
 "main-menu-random" = "Түбэспиччэ";
 "main-menu-feedback-heading" = "Ситимнэһии";
+// Fuzzy
 "main-menu-send-feedback" = "Дьибилгэт туһунан санааҕын ыыт";
 "main-menu-show-page-history" = "$1 уларыйыытын устуоруйата";
 "main-menu-credits" = "Ааптардар";
+// Fuzzy
 "main-menu-about" = "Бикипиэдьийэ дьибилгэтин туһунан";
 "main-menu-zero-faq" = "Wikipedia Zero туһунан ыйытыылар";
 "main-menu-privacy-policy" = "Кистээһин сиэрэ";
+// Fuzzy
 "main-menu-terms-of-use" = "Туһаныы сиэрэ";
+// Fuzzy
 "main-menu-rate-app" = "Дьибилгэти сыаналаа";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Бүк охсунуу";
@@ -129,11 +142,14 @@
 "main-menu-more" = "Эбии...";
 "main-menu-heading-debug" = "Нарылааһын";
 "main-menu-debug-crash" = "Охтуу";
+"main-menu-debug-tweaks" = "Оҥорооччу туруоруулара";
 "saved-title" = "Бигэргэннэ";
 "saved-pages-title" = "Хараллыбыт сирэйдэр";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Хараллыбыты барытын сотоҕун дуо?";
 "saved-pages-clear-confirmation-sub-heading" = "Маны төннөрөр кыах суох!";
 "saved-pages-clear-cancel" = "Салҕаама";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Барытын сот";
 "saved-pages-refresh-cancel-alert-title" = "Саҥардыы тохтотулунна";
 "saved-pages-refresh-cancel-alert-message" = "Бикипиэдьийэ ыстатытыйалара куруук уларыйа тураллар. Саҥарт диэни баттаатаххына тиһэх көннөрүүлэрин көрүөҥ.";
@@ -177,13 +193,18 @@
 "credits-external-libraries" = "Туора сирдэр";
 "about-title" = "Бу туһунан";
 "about-wikipedia" = "Бикипиэдьийэ";
+// Fuzzy
 "about-contributors" = "оҥорсооччулар";
+// Fuzzy
 "about-testers" = "тургутааччылар";
 "about-testers-details" = "Таһымын $1 тургуппут";
+// Fuzzy
 "about-translators" = "тылбаасчыттар";
 "about-translators-details" = "Бу дьибилгэт $1 дьон босхо тылбаастаабыта";
+// Fuzzy
 "about-libraries" = "туһаныллар бибилэтиэкэлэр";
 "about-libraries-license" = "Лиссиэнсийэ";
+// Fuzzy
 "about-repositories" = "харалта";
 "about-send-feedback" = "Дьибилгэт туһунан санааҕын ыыт";
 "about-product-of" = "$1 бородуукта";
@@ -196,6 +217,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "«$1» @Wikipedia: «$2»";
 "share-as-image" = "Ойуу быһыытынан тарҕат";
 "share-as-text" = "Тиэкис быһыытынан тарҕат";
+"share-cancel" = "Бигэргэтимэ";
 "timestamp-just-now" = "сибилигин";
 "timestamp-minutes" = "%d мүн. ынаараа өттүгэр";
 "timestamp-hours" = "%d чаас ынараа өттүгэр";
@@ -225,6 +247,7 @@
 "license-footer-text" = "Иһиниээҕитэ $1 лиссиэнсийэнэн тарҕанар";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Иһинээҕитэ";
+"table-of-contents-button-label" = "Иһинээҕитэ";
 "abuse-filter-warning-heading" = "Бу көннөрүү бөрүкүтэ суох көннөрүүгэ майгынныыр. Бигэргэтэҕин дуо?";
 "abuse-filter-warning-subheading" = "Көннөрүүҥ мантан бииригэр эбэтэр хаһыгар да сөп түбэһиэн сөп:";
 "abuse-filter-warning-caps" = "УЛАХАН БУУКУБАНАН суруллубут";
@@ -284,6 +307,7 @@
 "hockeyapp-alert-privacy" = "Бүк охсунуу $1";
 "page-issues" = "Сирэйгэ ыйытыылар";
 "page-similar-titles" = "Майгынныыр сирэйдэр";
+// Fuzzy
 "page-read-in-other-languages" = "Атын $1 тылынан ааҕыы";
 "page-last-edited" = "$1 күн ынараа өттүгэр уларыйбыт";
 "page-edit-history" = "Уларытыы толору устуоруйата";
@@ -297,37 +321,45 @@
 "home-nearby-footer" = "Эйигиттэн чугас эбии туох баарый";
 "home-nearby-nothing" = "Чугас туох да суох эбит";
 "home-nearby-check-again" = "Хат тургут";
+"home-featured-article-heading" = "$1 бастыҥ ыстатыйата";
 "home-main-page-heading" = "Бикипиэдьийэҕэ бүгүн";
 "home-potd-heading" = "Күннээҕи ойуу $1";
-"welcome-whats-new-title" = "Бикипиэдьийэҕэ киирбиккинэн";
-"welcome-whats-new-whats-new" = "ТУОХ САҤА";
-"welcome-whats-new-bullet-one-title" = "Билсии саҥа көрүҥэ";
-"welcome-whats-new-bullet-one-text" = "Тус бэйэҕэр туһалааҕы мантан бул - «Чинчий!».";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Хайдах үлэлиирий...";
-"welcome-whats-new-bullet-two-title" = "Ааҕарга анаммыт";
-"welcome-whats-new-bullet-two-text" = "Тас көстүүтэ ааҕарга анаан оҥоһулунна.";
-"welcome-whats-new-button-title" = "Саҕалаа";
-"welcome-whats-new-bullet-one-more-info-text" = "Ыстатыйаны арыйдаххына кинини кытта ситимнээх ыстатыйалар лиэнтэҕэр эбиллэллэр. Маны ханнык да туора киһи булан көрбөт.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Өйдөнөр";
+"home-last-update-label" = "Тиһэх саҥардыы: $1";
+"home-last-update-never-label" = "Тиһэх саҥардыы: Саҥардыллыбатах";
+"home-updating-label" = "Саҥардыы...";
+"home-hide-suggestion-prompt" = "бу этиини кистээ";
+"home-hide-suggestion-cancel" = "Бигэргэтимэ";
+"home-accessibility-label" = "Бикипиэдьийэ, Сирдьит";
+"home-button-accessibility-label" = "Дьиэлиир тимэх";
+"potd-empty-error-description" = "$1 күн ойуутун ылар сатаммата";
+"potd-description-prefix" = "Күннээҕи ойуу $1";
+// Fuzzy
 "welcome-languages-title" = "Көрдүүр тылым";
-"welcome-languages-more-info-button-text" = "Хайдах үлэлиирий...";
-"welcome-languages-more-info-text" = "Бикипиэдьийэ ыстатыйалара үксүн элбэх тылынан суруллубут буолаллар. Көрдүүргэр ханнык тыллартан булары талан кэбис. Кэлин да уларытыаххын сөп.";
-"welcome-languages-more-info-done-button" = "Өйдөнөр";
-"welcome-languages-more-languages-button-title" = "Атын тыллары эбии";
-"welcome-languages-button-title" = "Салгыы";
-"welcome-languages-footnote-text" = "Кэлин да уларытыаххын сөп, кыһаллыма";
-"welcome-usage-reports-title" = "Бикипиэдьийэни тупсарарга көмө буол";
-"welcome-usage-reports-body-text" = "Баайылы хайдах туһанарыҥ туһунан биһиэхэ кэпсээтэххинэ, тупсарарга табыгастаах буолуо этэ.";
-"welcome-usage-reports-switch-text" = "Туһаныы туһунан ыытар буол";
-"welcome-usage-reports-button-title" = "Саҕалаа";
-"welcome-usage-reports-privacy-policy-button-text" = "Эн тус эйгэҕин ытыктыыбыт";
 "empty-no-feed-title" = "Интэриниэти кытта ситим суох";
 "empty-no-feed-message" = "Сүбэлиир ыстатыйаларбытын ситим баар буоллаҕына көрүөххүн сөп";
+// Fuzzy
 "empty-no-feed-action-message" = "Билигин урут хаалларыллыбыт ыстатыйалары көрүөххүн сөп";
 "empty-no-article-message" = "Баалаама, ыстатыйа кыайан хачайдаммата";
+// Fuzzy
 "empty-no-search-results-message" = "Баалаама, түмүк хачайдыыр табыллыбата";
 "empty-no-saved-pages-title" = "Хараллыбыт сирэй суох эбит";
 "empty-no-saved-pages-message" = "Билигин хааллардаххына, кэлин ситимэ да суох ааҕыаххын сөп";
 "empty-no-history-title" = "Устуоруйата суох эбит";
 "empty-no-history-message" = "Манна аахпыккын кэтээ";
 "alert-no-internet" = "Интэриниэт ситимэ суох";
+"icon-shortcut-search-title" = "Бикипиэдьийэттэн булуу";
+"icon-shortcut-continue-reading-title" = "Салгыы ааҕыы";
+"icon-shortcut-random-title" = "Түбэспиччэ ыстатыйа";
+"icon-shortcut-nearby-title" = "чугас туох баарый";
+"close-button-accessibility-label" = "Сап";
+"back-button-accessibility-label" = "Төнүн";
+"compass-direction" = "$1 чааска";
+"explore-featured-article-heading" = "Бастыҥ ыстатыйалар";
+"explore-continue-reading-heading" = "Салгыы ааҕыы";
+// Fuzzy
+"explore-nearby-heading" = "чугастааҕы сирдэр";
+"explore-continue-related-heading" = "Тоҕо диэтэххэ ыстатыйаны аахпыккын";
+"explore-main-page-heading" = "Бикипиэдьийэҕэ бүгүн";
+"explore-random-article-heading" = "Түбэспиччэ ыстатыйа";
+"explore-random-article-sub-heading" = "Ааҥыл Бикипиэдьийэтэ";
+"explore-potd-heading" = "Күннээҕи ойуу";

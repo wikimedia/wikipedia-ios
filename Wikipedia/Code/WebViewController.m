@@ -31,6 +31,8 @@
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "NSURL+WMFExtras.h"
 
+#import "WMFZeroMessage.h"
+
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
     WMFWebViewAlertZeroCharged,
@@ -138,6 +140,16 @@ NSString* const WMFLicenseTitleOnENWiki =
     [self.webView.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateZeroStateWithNotification:)
+                                                 name:WMFZeroDispositionDidChange
+                                               object:nil];
+    // should happen in will appear to prevent bar from being incorrect during transitions
+    [self updateZeroState];
+}
+
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [self layoutWebViewSubviews];
@@ -145,6 +157,7 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroDispositionDidChange object:nil];
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection*)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -160,7 +173,16 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [[self.webView wmf_javascriptContext][@"setPreRotationRelativeScrollOffset"] callWithArguments:nil];
+    @try {
+        JSContext* context = [self.webView wmf_javascriptContext];
+        if (!context) {
+            return;
+        }
+        [context[@"setPreRotationRelativeScrollOffset"] callWithArguments:nil];
+    }@catch (NSException* exception) {
+        DDLogError(@"Expection when accessing the JS context during ize transition, %@: %@", exception.name, exception.reason);
+    }
+
     [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
         [self scrollToElementOnScreenBeforeRotate];
     } completion:nil];
@@ -178,6 +200,26 @@ NSString* const WMFLicenseTitleOnENWiki =
                                       block:^(WebViewController* observer, id object, NSDictionary* change) {
         [observer layoutWebViewSubviews];
     }];
+}
+
+#pragma mark - Zero
+
+- (void)updateZeroStateWithNotification:(NSNotification*)notification {
+    [self updateZeroState];
+}
+
+- (void)updateZeroState {
+    if ([[SessionSingleton sharedInstance] zeroConfigState].disposition) {
+        [self showZeroBannerWithMessage:[[[SessionSingleton sharedInstance] zeroConfigState] zeroMessage]];
+    } else {
+        self.zeroStatusLabel.text = @"";
+    }
+}
+
+- (void)showZeroBannerWithMessage:(WMFZeroMessage*)zeroMessage {
+    self.zeroStatusLabel.text            = zeroMessage.message;
+    self.zeroStatusLabel.textColor       = zeroMessage.foreground;
+    self.zeroStatusLabel.backgroundColor = zeroMessage.background;
 }
 
 #pragma mark - Headers & Footers
@@ -259,6 +301,7 @@ NSString* const WMFLicenseTitleOnENWiki =
     self.footerViewHeadersByIndex = [NSMutableDictionary dictionary];
     [self addFooterContainerView];
     [self addFooterContentViews];
+    [self.footerContainerView wmf_recursivelyDisableScrollsToTop];
 }
 
 - (void)addFooterContainerView {
@@ -324,6 +367,7 @@ NSString* const WMFLicenseTitleOnENWiki =
         [self addChildViewController:childVC];
         // didMoveToParent is called when they are added to the view
     }];
+
     [self addFooterView];
 }
 
@@ -454,6 +498,10 @@ NSString* const WMFLicenseTitleOnENWiki =
 - (void)tocScrollWebViewToPoint:(CGPoint)point
                        duration:(CGFloat)duration
                     thenHideTOC:(BOOL)hideTOC {
+    if (isnan(point.x) || isnan(point.y)) {
+        return;
+        DDLogError(@"Attempted to scroll ToC to Nan value, ignoring");
+    }
     [UIView animateWithDuration:duration
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
@@ -554,7 +602,7 @@ NSString* const WMFLicenseTitleOnENWiki =
             }
         }];
 
-        UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
+        UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
                                                               action:@selector(shareMenuItemTapped:)];
         [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 
@@ -906,6 +954,8 @@ NSString* const WMFLicenseTitleOnENWiki =
 @end
 
 
+
+
 @interface WMFWebView : UIWebView
 
 @end
@@ -922,3 +972,4 @@ NSString* const WMFLicenseTitleOnENWiki =
 }
 
 @end
+

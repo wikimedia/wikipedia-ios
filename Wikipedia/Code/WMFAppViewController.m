@@ -10,7 +10,7 @@
 //Utility
 #import "NSDate+Utilities.h"
 #import "MWKDataHousekeeping.h"
-
+#import "NSUserActivity+WMFExtensions.h"
 // Networking
 #import "SavedArticlesFetcher.h"
 #import "SessionSingleton.h"
@@ -84,6 +84,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic, strong) SavedArticlesFetcher* savedArticlesFetcher;
 @property (nonatomic, strong) WMFRandomArticleFetcher* randomFetcher;
 @property (nonatomic, strong) SessionSingleton* session;
+@property (nonatomic, strong) WMFSavedPageSpotlightManager* spotlightManager;
 
 @property (nonatomic) BOOL isPresentingOnboarding;
 
@@ -166,22 +167,30 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    
+
     [self showSplashView];
-    
-    @weakify(self)
-    [self runDataMigrationIfNeededWithCompletion :^{
-        @strongify(self)
-        [self.imageMigration setupAndStart];
-        [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-        [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+
+    //HAX: fix for "Unbalanced calls to begin/end appearance transitions" warning
+    //We could put it in viewdidappear, but then we would have to wrap it in a dispatch_once to make sure it only runs once
+    //Add a delay for iOS 8 (for iOS 9+ we can dispatch and that will be enough)
+    dispatchOnMainQueueAfterDelayInSeconds(0.35, ^{
+        @weakify(self)
+        [self runDataMigrationIfNeededWithCompletion:^{
             @strongify(self)
-            [self loadMainUI];
-            [self hideSplashViewAnimated:!didShowOnboarding];
-            [self resumeApp];
-            [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
+            [self.imageMigration setupAndStart];
+            [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+            if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+                self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
+            }
+            [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+                @strongify(self)
+                [self loadMainUI];
+                [self hideSplashViewAnimated:!didShowOnboarding];
+                [self resumeApp];
+                [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
+            }];
         }];
-    }];
+    });
 }
 
 #pragma mark - Start/Pause/Resume App
@@ -190,13 +199,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (self.isPresentingOnboarding) {
         return;
     }
-    
+
     if ([self shouldShowLastReadArticleOnLaunch]) {
         [self showLastReadArticleAnimated:YES];
     } else if ([self shouldShowExploreScreenOnLaunch]) {
         [self showExplore];
     }
-    
+
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
         [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
@@ -219,11 +228,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - Shortcut
 
 - (void)processShortcutItem:(UIApplicationShortcutItem*)item completion:(void (^)(BOOL))completion {
-    
-    if(!item){
+    if (!item) {
         return;
     }
-    
+
     if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
         [self showSearchAnimated:YES];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
@@ -233,10 +241,65 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
         [self showLastReadArticleAnimated:YES];
     }
-    
+
     if (completion) {
         completion(YES);
     }
+}
+
+#pragma mark - NSUserActivity
+
+- (BOOL)processUserActivity:(NSUserActivity*)activity {
+    switch ([activity wmf_type]) {
+        case WMFUserActivityTypeExplore:
+            [self dismissViewControllerAnimated:NO completion:NULL];
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            break;
+        case WMFUserActivityTypeSavedPages:
+            [self dismissViewControllerAnimated:NO completion:NULL];
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];
+            [[self navigationControllerForTab:WMFAppTabTypeSaved] popToRootViewControllerAnimated:NO];
+            break;
+        case WMFUserActivityTypeHistory:
+            [self dismissViewControllerAnimated:NO completion:NULL];
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeRecent];
+            [[self navigationControllerForTab:WMFAppTabTypeRecent] popToRootViewControllerAnimated:NO];
+            break;
+        case WMFUserActivityTypeSearch:
+            [self dismissViewControllerAnimated:NO completion:NULL];
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            [[self rootViewControllerForTab:WMFAppTabTypeExplore] wmf_showSearchAnimated:NO];
+            break;
+        case WMFUserActivityTypeSearchResults:
+            [self dismissViewControllerAnimated:NO completion:NULL];
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            [[self rootViewControllerForTab:WMFAppTabTypeExplore] wmf_showSearchAnimated:NO];
+            [[UIViewController wmf_sharedSearchViewController] setSearchTerm:[activity wmf_searchTerm]];
+            break;
+        case WMFUserActivityTypeArticle: {
+            MWKTitle* title = [[MWKTitle alloc] initWithURL:activity.webpageURL];
+            if (!title) {
+                return NO;
+            }
+            [self showArticleForTitle:title animated:NO];
+        }
+        break;
+        case WMFUserActivityTypeSettings:
+            [self dismissViewControllerAnimated:NO completion:NULL];
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            [self.exploreViewController showSettings];
+            break;
+        default:
+            return NO;
+            break;
+    }
+
+
+    return YES;
 }
 
 #pragma mark - Utilities
@@ -349,7 +412,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (BOOL)shouldShowOnboarding {
-    if (FBTweakValue(@"Welcome", @"General", @"Show on launch (requires force quit)", NO)) {
+    if (FBTweakValue(@"Welcome", @"General", @"Show on launch (requires force quit)", NO)
+        || [[NSProcessInfo processInfo] environment][@"WMFShowWelcomeView"].boolValue) {
         return YES;
     }
     NSNumber* didShow = [[NSUserDefaults standardUserDefaults] objectForKey:WMFDidShowOnboarding];
@@ -411,16 +475,20 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 #pragma mark - Last Read Article
 
+- (void)showArticleForTitle:(MWKTitle*)title animated:(BOOL)animated {
+    if (!title) {
+        return;
+    }
+    if ([[self onscreenTitle] isEqualToTitle:title]) {
+        return;
+    }
+    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    [[self exploreViewController] wmf_pushArticleWithTitle:title dataStore:self.session.dataStore restoreScrollPosition:YES animated:animated];
+}
+
 - (void)showLastReadArticleAnimated:(BOOL)animated {
     MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
-    if (lastRead) {
-        if ([[self onscreenTitle] isEqualToTitle:lastRead]) {
-            return;
-        }
-
-        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-        [[self exploreViewController] wmf_pushArticleWithTitle:lastRead dataStore:self.session.dataStore restoreScrollPosition:YES animated:YES];
-    }
+    [self showArticleForTitle:lastRead animated:animated];
 }
 
 - (WMFArticleBrowserViewController*)currentlyDisplayedArticleBrowser {

@@ -11,7 +11,7 @@
 #import "MWKSectionList.h"
 #import "WMFArticleBrowserViewController.h"
 #import "Wikipedia-Swift.h"
-#import "NSDate+Utilities.h"
+#import "NSDate+WMFRelativeDate.h"
 
 static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadingSectionIdentifier";
 
@@ -61,7 +61,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 
 - (NSAttributedString*)headerSubTitle {
     NSDate* resignActiveDate     = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
-    NSString* relativeTimeString = [resignActiveDate relativeTimestamp];
+    NSString* relativeTimeString = [resignActiveDate wmf_relativeTimestamp];
     return [[NSAttributedString alloc] initWithString:[relativeTimeString wmf_stringByCapitalizingFirstCharacter] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 

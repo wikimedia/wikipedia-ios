@@ -18,7 +18,7 @@ pod 'AFNetworking/NSURLConnection', '~> 2.6.0'
 pod 'Mantle', '~> 2.0.0'
 
 # Images
-pod 'SDWebImage', :git => 'https://github.com/wikimedia/SDWebImage.git', :commit => 'f4529eeac3da5bc5a5f43ec51ea142eba6c86999'
+pod 'SDWebImage', :git => 'https://github.com/wikimedia/SDWebImage.git', :commit => 'bb49df83e72f2231a191e9477a85f0effe13430a'
 pod 'AnimatedGIFImageSerialization'
 
 # Utilities
@@ -33,6 +33,9 @@ pod 'Tweaks', :head
 # KVO
 pod 'KVOController'
 
+# Dates
+pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'
+
 # Datasources
 pod 'SSDataSources', '~> 0.8.0'
 
@@ -44,6 +47,12 @@ pod 'OAStackView', :git => 'git@github.com:wikimedia/OAStackView.git'
 pod 'MGSwipeTableCell', :git => 'git@github.com:wikimedia/MGSwipeTableCell.git'
 pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git'
 
+# Activities
+pod 'TUSafariActivity'
+
+# Licenses
+pod 'VTAcknowledgementsViewController'
+
 # Diagnostics
 pod 'PiwikTracker', :head
 pod 'CocoaLumberjack/Swift', '~> 2.2'
@@ -54,7 +63,7 @@ target 'WikipediaUnitTests', :exclusive => true do
   pod 'OCHamcrest', '~> 4.2.0'
   pod 'Nocilla'
   pod 'FBSnapshotTestCase', :git => 'https://github.com/facebook/ios-snapshot-test-case', :commit => 'e42af8bbc032a61f93fa9b6ed748052272e522ec'
-  pod 'Quick', '~> 0.8.0'
+  pod 'Quick', '~> 0.9.0'
   pod 'Nimble', '~> 3.1.0'
   pod 'SSDataSources', '~> 0.8.0'
 end

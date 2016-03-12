@@ -7,6 +7,7 @@
 "article-languages-label" = "ভাষা নির্বাচন কৰক";
 "article-languages-cancel" = "বাতিল কৰক";
 "article-languages-downloading" = "প্ৰবন্ধৰ ভাষা ল'ড হৈ আছে...";
+// Fuzzy
 "article-languages-filter-placeholder" = "ভাষা ছাকনী";
 "article-read-more-title" = "আৰু পঢ়ক";
 "article-unable-to-load-section" = "এই অনুচ্ছেদটো ল'ড কৰাত অসমৰ্থ। সমস্যা সমাধানৰ বাবে প্ৰবন্ধটো সতেজ কৰি চাব পাৰে।";
@@ -19,9 +20,11 @@
 "history-section-yesterday" = "কালি";
 "history-section-lastweek" = "যোৱা সপ্তাহ";
 "history-section-lastmonth" = "যোৱা মাহ";
+// Fuzzy
 "history-clear-confirmation-heading" = "সকলো শেহতীয়া আইটেম বিলোপ কৰিব?";
 "history-clear-confirmation-sub-heading" = "এই কাৰ্য্য নোহোৱা কৰিব নোৱাৰি!";
 "history-clear-cancel" = "বাতিল কৰক";
+// Fuzzy
 "history-clear-delete-all" = "সকলো বিলোপ কৰক";
 "history-description" = "আপুনি হয়তো গোটেইবোৰ বিলোপ কৰিছে। ইয়াত পাছত আপুনি কোনো পৃষ্ঠালৈ গ'লে ইয়াতে পুনৰ চাব পাৰিব।";
 "history-none" = "ইয়াত কোনো শেহতীয়া পৃষ্ঠা নাই।";
@@ -37,6 +40,7 @@
 "zero-learn-more-learn-more" = "আৰু পঢ়ক";
 "zero-learn-more-no-thanks" = "বাতিল";
 "zero-wikipedia-zero-heading" = "ৱিকিপিডিয়া জিৰ'";
+// Fuzzy
 "zero-warn-when-leaving" = "ৱিকিপিডিয়া জিৰ' এৰিলে সতৰ্ক কৰিব";
 "zero-settings-devmode" = "জিৰ' ডেভম'ড";
 "account-creation-captcha-required" = "কেপ্‌চা সত্যাসত্য নিৰ্ণয়ৰ প্ৰয়োজন।";
@@ -91,11 +95,13 @@
 "main-menu-title" = "অধিক";
 "main-menu-heading-about" = "বিষয়ে";
 "main-menu-language-title" = "$1 ৱিকিপিডিয়াত সন্ধান কৰক";
+// Fuzzy
 "main-menu-faq" = "সততে উদিত প্ৰশ্নসমূহ (FAQ)";
 "main-menu-language-toggle-show" = "ভাষা দেখাওক";
 "main-menu-language-toggle-hide" = "ভাষা লুকুৱাওক";
 "main-menu-language-selection-saved" = "ভাষা নিৰ্বাচন সাঁচি থোৱা হৈছে";
 "main-menu-account-title-logged-out" = "একাউণ্ট";
+// Fuzzy
 "main-menu-account-title-logged-in" = "$1 নামেৰে প্ৰৱেশ কৰিলে";
 // Fuzzy
 "main-menu-account-login" = "প্ৰৱেশ";
@@ -106,13 +112,17 @@
 "main-menu-current-article-save" = "অফলাইন পঢ়িবলৈ $1 সাঁচি থওক";
 "main-menu-random" = "যিকোনো";
 "main-menu-feedback-heading" = "প্ৰতিক্ৰিয়া";
+// Fuzzy
 "main-menu-send-feedback" = "এপ্‌ প্ৰতিক্ৰিয়া জনাওক";
 "main-menu-show-page-history" = "$1ৰ পৰিৱৰ্তনৰ ইতিহাস";
 "main-menu-credits" = "কৃতিত্ব";
+// Fuzzy
 "main-menu-about" = "ৱিকিপিডিয়া এপ্‌টোৰ বিষয়ে";
 "main-menu-zero-faq" = "ৱিকিপিডিয়া জিৰ' FAQ";
 "main-menu-privacy-policy" = "গোপনীয়তা নীতি";
+// Fuzzy
 "main-menu-terms-of-use" = "ব্যৱহাৰৰ চৰ্তাৱলী";
+// Fuzzy
 "main-menu-rate-app" = "এপ্‌টো মূল্যায়ন কৰক";
 "main-menu-heading-zero" = "ৱিকিপিডিয়া জিৰ'";
 "main-menu-heading-legal" = "গোপনীয়তা আৰু চৰ্তাৱলী";
@@ -122,9 +132,11 @@
 "main-menu-heading-debug" = "ডিবাগ্‌";
 "main-menu-debug-crash" = "ক্ৰেশ্ব";
 "saved-pages-title" = "সঞ্চিত পৃষ্ঠাসমূহ";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "সকলো সঞ্চিত আইটেম বিলোপ কৰিব?";
 "saved-pages-clear-confirmation-sub-heading" = "এই কাৰ্য্য নোহোৱা কৰিব নোৱাৰি!";
 "saved-pages-clear-cancel" = "বাতিল";
+// Fuzzy
 "saved-pages-clear-delete-all" = "সকলো বিলোপ কৰক";
 "saved-pages-refresh-cancel-alert-title" = "আপডে'ট বাতিল হৈছে";
 "saved-pages-refresh-cancel-alert-message" = "ৱিকিপিডিয়াৰ প্ৰবন্ধবোৰ অনবৰতে আপডে'ট কৰা হয়। প্ৰবন্ধবোৰৰ শেহতীয়া সংস্কৰণ পাবলৈ ৰিফ্ৰেছ টিপক।";
@@ -159,13 +171,18 @@
 "credits-wikimedia-repos" = "ৱিকিমিডিয়া ভঁৰাল";
 "about-title" = "বিষয়ে";
 "about-wikipedia" = "ৱিকিপিডিয়া";
+// Fuzzy
 "about-contributors" = "অৱদানকাৰীসমূহ";
+// Fuzzy
 "about-testers" = "পৰীক্ষকসকল";
 "about-testers-details" = "$1ৰ দ্বাৰা QA পৰীক্ষিত";
+// Fuzzy
 "about-translators" = "অনুবাদকসকল";
 "about-translators-details" = "$1ত স্বেচ্ছাসেৱকৰ দ্বাৰা অনূদিত";
+// Fuzzy
 "about-libraries" = "ব্যৱহৃত পুথিভঁৰাল";
 "about-libraries-license" = "অনুজ্ঞাপত্ৰ";
+// Fuzzy
 "about-repositories" = "ভঁৰাল";
 "about-send-feedback" = "এপ্‌ প্ৰতিক্ৰিয়া জনাওক";
 "about-product-of" = "$1ৰ এক সামগ্ৰী";

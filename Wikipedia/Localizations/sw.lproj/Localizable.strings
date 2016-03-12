@@ -13,9 +13,11 @@
 "history-section-yesterday" = "Jana";
 "history-section-lastweek" = "Wiki iliyopita";
 "history-section-lastmonth" = "Mwezi iliopita";
+// Fuzzy
 "history-clear-confirmation-heading" = "Futa vifaa vyote vya hivi karibuni?";
 "history-clear-confirmation-sub-heading" = "Hii haiwezi kufanyuliwa";
 "history-clear-cancel" = "Ghairi";
+// Fuzzy
 "history-clear-delete-all" = "Futa Zote";
 "zero-charged-verbiage" = "Wikipedia Zero imezimwa";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -26,6 +28,7 @@
 "zero-learn-more-learn-more" = "Soma zaidi";
 "zero-learn-more-no-thanks" = "Futilia mbali";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Toa ilani kama natoka Wikipedia Zero";
 "account-creation-logging-in" = "Unaingia...";
 "account-creation-saving" = "Inahifadhi...";
@@ -63,6 +66,7 @@
 "main-menu-language-toggle-show" = "Onyesha lugha";
 "main-menu-language-toggle-hide" = "Ficha lugha";
 "main-menu-account-title-logged-out" = "Akaunti";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Umeingia kama: $1";
 // Fuzzy
 "main-menu-account-login" = "Ingia";
@@ -72,12 +76,15 @@
 "main-menu-show-saved" = "Kurasa zilizohifadhiwa";
 "main-menu-random" = "Bahatisha";
 "main-menu-feedback-heading" = "Maoni";
+// Fuzzy
 "main-menu-send-feedback" = "Toa maoni ya programu timizi";
 "main-menu-show-page-history" = "Historia ya mabadiliko kwa $1";
 "main-menu-credits" = "Shukrani kwa";
+// Fuzzy
 "main-menu-about" = "Kuhusu programu tumizi ya Wikimedia";
 "main-menu-zero-faq" = "Wikipedia Zero Maswali Yaulizwayo Mara kwa Mara";
 "main-menu-privacy-policy" = "Sera ya faragha";
+// Fuzzy
 "main-menu-terms-of-use" = "Masharti ya matumizi";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Faragha na Masharti";
@@ -86,6 +93,7 @@
 "main-menu-more" = "Zaidi...";
 "saved-pages-title" = "Kurasa zilizohifadhiwa";
 "saved-pages-clear-cancel" = "Ghairi";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Futa Zote";
 "saved-pages-refresh-cancel-alert-button" = "Nimeipata";
 "page-history-title" = "Historia ya makala";
@@ -107,7 +115,9 @@
 "edit-summary-choice-other" = "Nyingine";
 "about-title" = "Kuhusu";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "wachangiaji";
+// Fuzzy
 "about-translators" = "wafasiri";
 "about-libraries-license" = "Leseni";
 "about-send-feedback" = "Toa maoni ya programu timizi";

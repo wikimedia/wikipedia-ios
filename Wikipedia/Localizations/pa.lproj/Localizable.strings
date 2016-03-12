@@ -10,6 +10,7 @@
 "article-languages-label" = "ਬੋਲੀ ਚੁਣੋ";
 "article-languages-cancel" = "ਰੱਦ ਕਰੋ";
 "article-languages-downloading" = "ਲੇਖ ਦੀਆਂ ਬੋਲੀਆਂ ਲੱਦ ਰਿਹਾ ਹੈ...";
+// Fuzzy
 "article-languages-filter-placeholder" = "ਭਾਸ਼ਾਈ ਛਾਨਣੀ";
 "article-read-more-title" = "ਹੋਰ ਪੜ੍ਹੋ";
 "article-unable-to-load-section" = "ੲਿਹ ਭਾਗ ਨਹੀਂ ਆ ਰਿਹਾ। ਸਮੱਸਿਅਾ ਦੇ ਹੱਲ ਲੲੀ ਲੇਖ ਨੂੰ ਮੁੜ-ਤਾਜ਼ਾ ਕਰੋ।";
@@ -22,9 +23,11 @@
 "history-section-yesterday" = "ਬੀਤੇ ਕੱਲ੍ਹ";
 "history-section-lastweek" = "ਪਿਛਲੇ ਹਫ਼ਤੇ";
 "history-section-lastmonth" = "ਪਿਛਲੇ ਮਹੀਨੇ";
+// Fuzzy
 "history-clear-confirmation-heading" = "ਸਾਰੀਆਂ ਹਾਲੀਆ ਚੀਜ਼ਾਂ ਮਿਟਾਉਣੀਆਂ ਹਨ?";
 "history-clear-confirmation-sub-heading" = "ਇਹ ਕਾਰਵਾਈ ਅਣ-ਕੀਤੀ ਨਹੀਂ ਹੋ ਸਕਦੀ!";
 "history-clear-cancel" = "ਰੱਦ ਕਰੋ";
+// Fuzzy
 "history-clear-delete-all" = "ਸਾਰਾ ਕੁਝ ਮਿਟਾਉ";
 "history-none" = "ਕੋੲੀ ਹਾਲੀਅਾ ਸਫ਼ਾ ਨਹੀਂ";
 "zero-free-verbiage" = "ਤੁਹਾਡੇ ਮੋਬਾਈਲ ਚਾਲਕ ਵੱਲੋਂ ਵਿਕੀਪੀਡੀਆ ਤੱਕ ਮੁਫ਼ਤ ਪਹੁੰਚ (ਡਾਟਾ ਦਾ ਖ਼ਰਚਾ ਮਾਫ਼)";
@@ -39,6 +42,7 @@
 "zero-learn-more-learn-more" = "ਹੋਰ ਪੜ੍ਹੋ";
 "zero-learn-more-no-thanks" = "ਖ਼ਾਰਜ ਕਰੋ";
 "zero-wikipedia-zero-heading" = "ਵਿਕੀਪੀਡੀਆ ਜ਼ੀਰੋ";
+// Fuzzy
 "zero-warn-when-leaving" = "ਵਿਕੀਪੀਡੀਆ ਜ਼ੀਰੋ ਛੱਡਣ 'ਤੇ ਸਚੇਤ ਕਰੋ";
 "zero-settings-devmode" = "ਜ਼ੀਰੋ ਵਿਕਾਸ ਤੌਰ";
 "account-creation-captcha-required" = "ਕੈਪਚਾ ਤਸਦੀਕੀ ਲੁੜੀਂਦੀ।";
@@ -99,12 +103,15 @@
 "main-menu-title" = "ਹੋਰ";
 "main-menu-heading-about" = "ਸਾਡੇ ਬਾਰੇ";
 "main-menu-language-title" = "$1 ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਭਾਲੋ਼";
+// Fuzzy
 "main-menu-faq" = "ਅਕਸਰ ਪੁੱਛੇ ਜਾਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨ";
 "main-menu-language-toggle-show" = "ਬੋਲੀਆਂ ਵਿਖਾਉ";
 "main-menu-language-toggle-hide" = "ਬੋਲੀਆਂ ਲੁਕਾਉ";
 "main-menu-language-selection-saved" = "ਬੋਲੀ ਦੀ ਚੋਣ ਸਾਂਭੀ ਗਈ";
 "main-menu-account-title-logged-out" = "ਖਾਤਾ";
+// Fuzzy
 "main-menu-account-title-logged-in" = "$1 ਵਜੋਂ ਦਾਖ਼ਲ";
+// Fuzzy
 "main-menu-account-login" = "ਵਿਕੀਪੀਡੀਆ 'ਚ ਦਾਖ਼ਲ ਹੋਵੋ";
 "main-menu-account-logout" = "ਵਿਦਾਈ ਲਉ";
 "main-menu-show-title" = "ਮੈਨੂੰ ਵਿਖਾਉ...";
@@ -113,13 +120,17 @@
 "main-menu-current-article-save" = "ਲੀਹੋਂ ਲਹਿ ਕੇ ਪੜ੍ਹਨ ਵਾਸਤੇ $1 ਸਾਂਭੋ।";
 "main-menu-random" = "ਰਲ਼ਵਾਂ";
 "main-menu-feedback-heading" = "ਵਾਪਸੀ ਜਾਣਕਾਰੀ";
+// Fuzzy
 "main-menu-send-feedback" = "ਐਪ ਬਾਬਤ ਜਾਣਕਾਰੀ ਵਾਪਸ ਘੱਲੋ";
 "main-menu-show-page-history" = "$1 'ਚ ਹੋਈਆਂ ਤਬਦੀਲੀਆਂ ਦਾ ਅਤੀਤ";
 "main-menu-credits" = "ਕਰਜ਼";
+// Fuzzy
 "main-menu-about" = "ਵਿਕਪਪੀਡੀਆ ਐਪ ਬਾਰੇ";
 "main-menu-zero-faq" = "ਵਿਕੀਪੀਡੀਆ ਜ਼ੀਰੋ ਬਾਬਤ ਆਮ ਸੁਆਲ";
 "main-menu-privacy-policy" = "ਪਰਦਾ ਨੀਤੀ";
+// Fuzzy
 "main-menu-terms-of-use" = "ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ";
+// Fuzzy
 "main-menu-rate-app" = "ਐਪ ਨੂੰ ਦਰਜਾ ਦਿਉ";
 "main-menu-heading-zero" = "ਵਿਕੀਪੀਡੀਆ ਜ਼ੀਰੋ";
 "main-menu-heading-legal" = "ਪਰਦੇਦਾਰੀ ਅਤੇ ਸ਼ਰਤਾਂ";
@@ -128,9 +139,11 @@
 "main-menu-more" = "ਹੋਰ...";
 "main-menu-debug-crash" = "ਟੁੱਟ ਗਿਅਾ";
 "saved-pages-title" = "ਸਾਂਭੇ ਸਫ਼ੇ";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "ਸਾਰੀਆਂ ਸਾਂਭੀਆਂ ਚੀਜ਼ਾਂ ਮਿਟਾਉਣੀਆਂ ਹਨ?";
 "saved-pages-clear-confirmation-sub-heading" = "ਇਹ ਕਾਰਵਾਈ ਅਣ-ਕੀਤੀ ਨਹੀਂ ਹੋ ਸਕਦੀ!";
 "saved-pages-clear-cancel" = "ਰੱਦ ਕਰੋ";
+// Fuzzy
 "saved-pages-clear-delete-all" = "ਸਾਰਾ ਕੁਝ ਮਿਟਾਉ";
 "saved-pages-refresh-cancel-alert-title" = "ਨਵੀਨੀਕਰਨ ਰੱਦ ਕੀਤਾ ਗਿਅਾ ਹੈ";
 "saved-pages-refresh-cancel-alert-message" = "ਵਿਕੀਪੀਡੀਅਾ ਦੇ ਲੇਖਾਂ ਦਾ ਹਰ ਸਮੇਂ ਨਵੀਨੀਕਰਨ ਹੁੰਦਾ ਰਹਿੰਦਾ ਹੈ। ਲੇਖ ਦੇ ਨਵੇਂ ਸੰਸਕਰਨ ਲੲੀ ਮੁੜ-ਤਾਜ਼ਾ ਕਰੋ।";
@@ -171,9 +184,12 @@
 "credits-external-libraries" = "ਬਾਹਰੀ ਭੰਡਾਰ";
 "about-title" = "ਬਾਰੇ";
 "about-wikipedia" = "ਵਿਕੀਪੀਡੀਆ";
+// Fuzzy
 "about-contributors" = "ਯੋਗਦਾਨੀ";
+// Fuzzy
 "about-translators" = "ਅਨੁਵਾਦਕ";
 "about-libraries-license" = "ਲਸੰਸ";
+// Fuzzy
 "about-repositories" = "ਖਜ਼ਾਨਾਂ";
 "about-send-feedback" = "ਅੈਪ ਸੰਬੰਧੀ ਸਲਾਹ ਭੇਜੋ";
 "about-product-of" = "$1 ਦਾ ਸਾਮਾਨ";
@@ -269,22 +285,10 @@
 "captcha-reload" = "ਹੋਰ ਕੈਪਚਾ ਦਿਖਾਵੋ";
 "captcha-prompt" = "ੳੁੱਪਰ ਦਿੱਤੇ ਚਿੱਤਰ ਵਿੱਚੋਂ ਕੈਪਚਾ ਲਿਖਿ";
 "home-title" = "ਵਿਚਰੋ";
-"welcome-whats-new-title" = "ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ";
-"welcome-whats-new-whats-new" = "ਕੀ ਕੁਝ ਨਵਾਂ ਹੈ";
-"welcome-whats-new-bullet-one-title" = "ਵਿਚਰਨ ਦਾ ਨਵਾਂ ਤਰੀਕਾ";
-"welcome-whats-new-button-title" = "ਚਲੋ ਸ਼ੁਰੂ ਕਰੀਏ";
-"welcome-whats-new-bullet-one-more-info-done-button" = "ਮੈਂ ਜਾਣਦਾ ਹਾਂ";
 // Fuzzy
 "welcome-languages-title" = "ਆਪਣੀ ਭਾਸ਼ਾ ਚੁਣੋ";
-"welcome-languages-more-languages-button-title" = "ਹੋਰ ਭਾਸ਼ਾਵਾਂ ਸ਼ਾਮਿਲ ਕਰੋ";
-"welcome-languages-button-title" = "ਜਾਰੀ ਰੱਖੋ";
-"welcome-languages-footnote-text" = "ਚਿੰਤਾ ਨਾ ਕਰੋ, ਤੁਸੀਂ ਇਸਨੂੰ ਬਾਅਦ 'ਚ ਬਦਲ ਸਕਦੇ ਹੋ";
-"welcome-usage-reports-title" = "ਵਿਕੀਪੀਡੀਆ ਨੂੰ ਹੋਰ ਵਧੀਆ ਬਣਾਉਣ ਲਈ ਸਾਡੀ ਮਦਦ ਕਰੋ";
-"welcome-usage-reports-switch-text" = "ਵਰਤੋਂ ਦੀਆਂ ਰਿਪੋਰਟਾਂ ਭੇਜੋ";
-// Fuzzy
-"welcome-usage-reports-button-title" = "ਹੋ ਗਿਆ";
-"welcome-usage-reports-privacy-policy-button-text" = "ਤੁਹਾਡੀ ਨਿੱਜਤਾ ਸਾਡੇ ਲਈ ਜ਼ਰੂਰੀ ਹੈ";
 "empty-no-feed-title" = "ਕੋਈ ਅੰਤਰਜ਼ਾਲ ਜੋੜ ਨਹੀਂ";
 "empty-no-article-message" = "ਮੁਆਫ਼ ਕਰਨਾ, ਲੇਖ ਨਹੀਂ ਆ ਰਿਹਾ";
+// Fuzzy
 "empty-no-search-results-message" = "ਮੁਆਫ਼ ਕਰਨਾ, ਨਤੀਜੇ ਨਹੀਂ ਆ ਰਹੇ";
 "alert-no-internet" = "ਇੱਥੇ ਕੋਈ ਅੰਤਰਜ਼ਾਲ ਜੋੜ ਨਹੀਂ ਹੈ";

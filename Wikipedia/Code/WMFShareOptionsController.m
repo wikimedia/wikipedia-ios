@@ -1,10 +1,3 @@
-//
-//  ShareOptionsViewController.m
-//  Wikipedia
-//
-//  Created by Adam Baso on 2/6/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFShareOptionsController.h"
 
@@ -29,15 +22,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFShareOptionsController ()<UIPopoverControllerDelegate>
+@interface WMFShareOptionsController ()
 
 @property (strong, nonatomic, readwrite) MWKArticle* article;
 @property (strong, nonatomic, readwrite) WMFShareFunnel* shareFunnel;
+@property (nonatomic, readwrite) BOOL active;
 
 @property (nullable, copy, nonatomic) NSString* snippet;
 @property (weak, nonatomic) UIViewController* containerViewController;
-@property (nullable, weak, nonatomic) UIBarButtonItem* originButtonItem;
-@property (nullable, weak, nonatomic) UIView* originView;
+@property (nullable, strong, nonatomic) UIBarButtonItem* originButtonItem;
 
 @property (nullable, strong, nonatomic) UIView* grayOverlay;
 @property (nullable, strong, nonatomic) WMFShareOptionsView* shareOptions;
@@ -53,7 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
     [[WMFImageController sharedInstance] cancelFetchForURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]];
     self.containerViewController = nil;
     self.originButtonItem        = nil;
-    self.originView              = nil;
     self.shareImage              = nil;
     self.snippet                 = nil;
 }
@@ -73,21 +65,18 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-#pragma mark - Public Presentation methods
-
-- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromBarButtonItem:(nullable UIBarButtonItem*)item {
-    self.snippet                 = [snippet copy];
-    self.containerViewController = viewController;
-    self.originButtonItem        = item;
-    self.originView              = nil;
-    [self fetchImageThenShowShareCard];
+- (BOOL)isActive {
+    return self.containerViewController != nil;
 }
 
-- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromView:(nullable UIView*)view {
-    self.snippet                 = [snippet copy];
+#pragma mark - Public Presentation methods
+
+- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromBarButtonItem:(UIBarButtonItem*)item {
+    NSParameterAssert(item);
+    NSParameterAssert(viewController);
+    self.snippet                 = snippet;
     self.containerViewController = viewController;
-    self.originButtonItem        = nil;
-    self.originView              = view;
+    self.originButtonItem        = item;
     [self fetchImageThenShowShareCard];
 }
 
@@ -302,6 +291,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Activity View Controller
 
 - (void)presentActivityViewControllerWithImage:(nullable UIImage*)image title:(NSString*)title {
+    if (!self.originButtonItem) {
+        //bailing here because we will crash below in production.
+        //The asserion above will catch this in development/beta.
+        return;
+    }
     NSString* parameter = image ? @"wprov=sfii1" : @"wprov=sfti1";
 
     NSURL* url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
@@ -315,7 +309,9 @@ NS_ASSUME_NONNULL_BEGIN
 
     UIActivityViewController* shareActivityVC =
         [[UIActivityViewController alloc] initWithActivityItems:activityItems
-                                          applicationActivities:@[] /*shareMenuSavePageActivity*/ ];
+                                          applicationActivities:@[]];
+    UIPopoverPresentationController* presenter = [shareActivityVC popoverPresentationController];
+    presenter.barButtonItem = self.originButtonItem;
 
     shareActivityVC.excludedActivityTypes = @[
         UIActivityTypePrint,
@@ -332,36 +328,9 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }];
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        [self.containerViewController presentViewController:shareActivityVC animated:YES completion:nil];
-    } else {
-        self.popover          = [[UIPopoverController alloc] initWithContentViewController:shareActivityVC];
-        self.popover.delegate = self;
-
-        if (self.originButtonItem) {
-            [self.popover presentPopoverFromBarButtonItem:self.originButtonItem
-                                 permittedArrowDirections:UIPopoverArrowDirectionAny
-                                                 animated:YES];
-        } else {
-            CGRect frame = self.originView.frame;
-            if (CGRectIsNull(frame)) {
-                frame = self.containerViewController.view.frame;
-            } else {
-                frame = [self.containerViewController.view convertRect:frame fromView:self.originView.superview];
-            }
-
-            [self.popover presentPopoverFromRect:frame
-                                          inView:self.containerViewController.view
-                        permittedArrowDirections:UIPopoverArrowDirectionAny
-                                        animated:YES];
-        }
-    }
+    [self.containerViewController presentViewController:shareActivityVC animated:YES completion:nil];
 
     [self cleanup];
-}
-
-- (void)popoverControllerDidDismissPopover:(UIPopoverController*)popoverController {
-    self.popover = nil;
 }
 
 @end
