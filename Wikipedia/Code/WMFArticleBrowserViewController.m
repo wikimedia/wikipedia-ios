@@ -533,6 +533,20 @@ BOOL useSingleBrowserController() {
 
 @implementation UIViewController (WMFArticlePresentation)
 
+static UISplitViewController * _splitView;
+
++ (void)wmf_setSplitViewController:(UISplitViewController*)splitViewController {
+    _splitView = splitViewController;
+}
+
++ (UINavigationController*)wmf_navigationControllerForArticles {
+    if ([[[_splitView viewControllers] lastObject] isKindOfClass:[UINavigationController class]]) {
+        return [[_splitView viewControllers] lastObject];
+    } else {
+        return nil;
+    }
+}
+
 - (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated {
     WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:dataStore];
     vc.restoreScrollPositionOnArticleLoad = restoreScrollPosition;
@@ -559,9 +573,14 @@ BOOL useSingleBrowserController() {
             [self presentViewController:[WMFArticleBrowserViewController browserViewControllerWithArticleViewController:viewController] animated:animated completion:NULL];
         }
     } else {
-        if (self.navigationController != nil) {
+        if ([[self class] wmf_navigationControllerForArticles]) {
+            viewController.showsSearchButton = NO;
+            [[[self class] wmf_navigationControllerForArticles] pushViewController:viewController animated:animated];
+        } else if (self.navigationController == [[self class] wmf_navigationControllerForArticles]) {
             [self.navigationController pushViewController:viewController animated:animated];
-        } else if ([[self.childViewControllers firstObject] isKindOfClass:[UITabBarController class]]) {
+        } else if (self.navigationController != nil) {
+            [self.navigationController pushViewController:viewController animated:animated];
+        } else if ([[self.childViewControllers firstObject] isKindOfClass:[UISplitViewController class]]) {
             UITabBarController* tab     = (UITabBarController*)[self.childViewControllers firstObject];
             UINavigationController* nav = [tab selectedViewController];
             [nav pushViewController:viewController animated:animated];

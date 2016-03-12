@@ -71,10 +71,13 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
-@interface WMFAppViewController ()<UITabBarControllerDelegate, UINavigationControllerDelegate>
+@interface WMFAppViewController ()<UISplitViewControllerDelegate, UITabBarControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView* splashView;
-@property (nonatomic, strong) UITabBarController* rootTabBarController;
+
+@property (nonatomic, strong) UISplitViewController* splitViewController;
+@property (nonatomic, strong, readonly) UITabBarController* rootTabBarController;
+@property (nonatomic, strong, readonly) UINavigationController* articleNavigationController;
 
 @property (nonatomic, strong, readonly) WMFExploreViewController* exploreViewController;
 @property (nonatomic, strong, readonly) WMFArticleListTableViewController* savedArticlesViewController;
@@ -103,20 +106,66 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     return [self.presentedViewController isKindOfClass:[WMFWelcomeViewController class]];
 }
 
+- (BOOL)splitViewController:(UISplitViewController*)splitViewController collapseSecondaryViewController:(UIViewController*)secondaryViewController ontoPrimaryViewController:(UIViewController*)primaryViewController {
+    
+    NSArray<WMFArticleViewController*>* existingArticles = [(UINavigationController*)secondaryViewController viewControllers];
+    [existingArticles enumerateObjectsUsingBlock:^(WMFArticleViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.showsSearchButton = YES;
+    }];
+    
+    UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
+    NSMutableArray* existingTabStack = [[navVC viewControllers] mutableCopy];
+    [existingTabStack addObjectsFromArray:existingArticles];
+    [navVC setViewControllers:existingTabStack animated:YES];
+    return YES;
+}
+
+- (nullable UIViewController *)splitViewController:(UISplitViewController *)splitViewController separateSecondaryViewControllerFromPrimaryViewController:(UIViewController *)primaryViewController{
+    
+    UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
+    NSMutableArray* existingTabStack = [[navVC viewControllers] mutableCopy];
+    if([existingTabStack count] > 1){
+        [navVC popToRootViewControllerAnimated:NO];
+        [existingTabStack removeObjectAtIndex:0];
+        [existingTabStack enumerateObjectsUsingBlock:^(WMFArticleViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.showsSearchButton = NO;
+        }];
+        UINavigationController* nc = [[UINavigationController alloc] init];
+        nc.delegate  = self;
+        nc.toolbarHidden = NO;
+        [nc setViewControllers:existingTabStack];
+        return nc;
+    }else{
+        return nil;
+    }
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskAll;
+}
+
 #pragma mark - Setup
 
 - (void)loadMainUI {
     if (self.rootTabBarController) {
         return;
     }
-    UITabBarController* tabBar = [[UIStoryboard storyboardWithName:@"WMFTabBarUI" bundle:nil] instantiateInitialViewController];
-    [self addChildViewController:tabBar];
-    [self.view addSubview:tabBar.view];
-    [tabBar.view mas_makeConstraints:^(MASConstraintMaker* make) {
+    UISplitViewController* splitView = [[UIStoryboard storyboardWithName:@"WMFTabBarUI" bundle:nil] instantiateInitialViewController];
+    splitView.delegate = self;
+    [self addChildViewController:splitView];
+    [self.view addSubview:splitView.view];
+    [splitView.view mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.and.bottom.and.leading.and.trailing.equalTo(self.view);
     }];
-    [tabBar didMoveToParentViewController:self];
-    self.rootTabBarController = tabBar;
+    [splitView didMoveToParentViewController:self];
+
+    self.splitViewController = splitView;
+    [UIViewController wmf_setSplitViewController:splitView];
+
+    [self.rootTabBarController setSelectedIndex:0];
+    self.articleNavigationController.toolbarHidden = NO;
+    self.articleNavigationController.delegate = self;
+
     [self configureTabController];
     [self configureExploreViewController];
     [self configureArticleListController:self.savedArticlesViewController];
@@ -348,6 +397,18 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 #pragma mark - Accessors
+
+- (UITabBarController*)rootTabBarController {
+    return [[self.splitViewController viewControllers] firstObject];
+}
+
+- (nullable UINavigationController*)articleNavigationController {
+    UINavigationController* nc = [[self.splitViewController viewControllers] lastObject];
+    if (![nc isKindOfClass:[UINavigationController class]]) {
+        return nil;
+    }
+    return nc;
+}
 
 - (WMFLegacyImageDataMigration*)imageMigration {
     if (!_imageMigration) {

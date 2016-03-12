@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ebr-hF-Cp5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="No6-Iy-X5G">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
+        <!--Split View Controller-->
+        <scene sceneID="kbR-Bi-fgW">
+            <objects>
+                <splitViewController id="No6-Iy-X5G" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="ebr-hF-Cp5" kind="relationship" relationship="masterViewController" id="18x-Hl-VuZ"/>
+                        <segue destination="HtX-qP-ZO6" kind="relationship" relationship="detailViewController" id="wg3-aw-DSD"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jpF-zG-w0R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1323" y="614"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="QIm-OZ-D0P">
+            <objects>
+                <navigationController id="HtX-qP-ZO6" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ewq-Ln-yHs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WdL-mr-Wdc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2077" y="614"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="DIN-EW-PiF">
             <objects>

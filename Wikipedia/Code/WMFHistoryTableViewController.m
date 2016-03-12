@@ -32,6 +32,11 @@
     return self.dataStore.userDataStore.savedPageList;
 }
 
+- (void)setDataSource:(SSBaseDataSource<WMFTitleListDataSource> *)dataSource{
+    [super setDataSource:dataSource];
+    dataSource.rowAnimation = UITableViewRowAnimationNone;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 

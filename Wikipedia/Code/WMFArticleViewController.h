@@ -34,6 +34,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly, nullable) MWKArticle* article;
 
 /**
+ *  Show or hide the search button. Default is YES
+ */
+@property (nonatomic, assign) BOOL showsSearchButton;
+
+/**
  *  Set to YES to restore the scroll position
  */
 @property (nonatomic, assign) BOOL restoreScrollPositionOnArticleLoad;
