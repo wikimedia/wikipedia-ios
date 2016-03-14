@@ -177,7 +177,11 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     // uncomment when schema is bumped to perform migrations if necessary
 //    MWKArticleSchemaVersion schemaVersion = [dict[@"schemaVersion"] unsignedIntegerValue];
 
-    self.lastmodified   = [self requiredDate:@"lastmodified" dict:dict];
+    if (dict[@"lastmodified"]) {
+        self.lastmodified = [self requiredDate:@"lastmodified" dict:dict];
+    }else{
+        self.lastmodified = [NSDate date];
+    }
     self.lastmodifiedby = [self requiredUser:@"lastmodifiedby" dict:dict];
     self.articleId      = [[self requiredNumber:@"id" dict:dict] intValue];
     self.languagecount  = [[self requiredNumber:@"languagecount" dict:dict] intValue];
