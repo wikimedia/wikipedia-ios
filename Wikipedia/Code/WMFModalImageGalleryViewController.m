@@ -377,6 +377,9 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
         UIActivityViewController* vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
         vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
+        UIPopoverPresentationController* presenter = [vc popoverPresentationController];
+        presenter.sourceView = self.shareButton;
+        presenter.sourceRect = CGRectMake(0, 0, 60, 50);
 
         [self presentViewController:vc animated:YES completion:NULL];
     }).catch(^(NSError* error){

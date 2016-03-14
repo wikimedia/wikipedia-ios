@@ -20,8 +20,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N6E-ZW-sLh">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wikipedia-wordmark" translatesAutoresizingMaskIntoConstraints="NO" id="5c5-u5-qnE">
-                                        <rect key="frame" x="163" y="254.5" width="275" height="67"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wikipedia-wordmark" translatesAutoresizingMaskIntoConstraints="NO" id="5c5-u5-qnE">
+                                        <rect key="frame" x="180.5" y="258.5" width="240" height="59"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="210" id="bR9-Sg-vRZ"/>
                                             <constraint firstAttribute="height" constant="192" id="nWb-XA-yli"/>
@@ -59,6 +59,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="wikipedia-wordmark" width="275" height="67"/>
+        <image name="wikipedia-wordmark" width="240" height="59"/>
     </resources>
 </document>
