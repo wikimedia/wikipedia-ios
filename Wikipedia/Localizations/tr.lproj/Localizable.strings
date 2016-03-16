@@ -18,8 +18,7 @@
 "article-languages-label" = "Dil seçin";
 "article-languages-cancel" = "İptal";
 "article-languages-downloading" = "Madde dilleri yükleniyor...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Dil Süzgeci";
+"article-languages-filter-placeholder" = "Dil bul";
 "article-read-more-title" = "Devamı";
 "article-about-title" = "Bu madde hakkında";
 "article-unable-to-load-section" = "Bu bölüm yüklenemedi. Sorunu gidermek için sayfayı yenilemeyi deneyin.";
@@ -113,6 +112,7 @@
 "search-recent-clear-delete-all" = "Tümünü Sil";
 "search-result-redirected-from" = "Şuradan yönlendirildi: $1";
 "settings-title" = "Ayarlar";
+"settings-language" = "Vikipedi dili";
 "settings-support" = "Vikipedi'yi destekleyin";
 "settings-language-bar" = "Aramada dilleri göster";
 "main-menu-title" = "Diğer";
@@ -351,8 +351,9 @@
 "welcome-explore-sub-title" = "Her gün ilginç maddeler keşfetmek için yeni bir yol";
 "welcome-explore-tell-me-more" = "Daha fazla bilgi";
 "welcome-explore-tell-me-more-about-explore" = "Keşfet hakkında daha fazla bilgi";
-// Fuzzy
-"welcome-explore-tell-me-more-details" = "Bir maddeyi açtığınızda, ilgili maddeler otomatik olarak Keşfet bölümünüze eklenir. Bu, bizim bilgi toplama usullerimizi değiştirmez ve okuma geçmişiniz yine gizli kalır.";
+"welcome-explore-tell-me-more-details" = "Bir maddeyi okuduğunuzda, ilgili maddeler otomatik olarak Keşfet bölümünüze eklenir. Bu, bizim bilgi toplama usullerimizi değiştirmez ve okuma geçmişiniz yine gizli kalır.";
+"welcome-explore-tell-me-more-related" = "Keşfet bölümü, daha önce okuduğunuz maddelere ilgili maddeleri size sunar.";
+"welcome-explore-tell-me-more-privacy" = "Sunucularımızda herhangi bir okuma listesi veya profil kaydedilmez.";
 "welcome-explore-tell-me-more-done-button" = "Anladım";
 "welcome-explore-continue-button" = "Kullanmaya başla";
 "welcome-languages-title" = "Diller";
@@ -366,8 +367,7 @@
 "welcome-volunteer-thanks" = "$1 Teşekkürler!";
 "empty-no-feed-title" = "İnternet Bağlantısı Yok";
 "empty-no-feed-message" = "İnternet bağlantınız olduğunda, size önerilen makaleleri görebilirsiniz";
-// Fuzzy
-"empty-no-feed-action-message" = "Bu arada kayıtlı sayfaları okuyabilirsiniz";
+"empty-no-feed-action-message" = "Hala kayıtlı sayfaları okuyabilirsiniz";
 "empty-no-article-message" = "Üzgünüz, makale yüklenemedi";
 "empty-no-search-results-message" = "Sonuç bulunamadı";
 "empty-no-saved-pages-title" = "Henüz kaydedilmiş bir sayfa yok";
@@ -384,7 +384,6 @@
 "compass-direction" = "saat $1 yönünde";
 "explore-featured-article-heading" = "Seçkin madde";
 "explore-continue-reading-heading" = "Okumaya devam et";
-// Fuzzy
 "explore-nearby-heading" = "Yakındaki yerler";
 "explore-continue-related-heading" = "Okuduklarına benzer";
 "explore-main-page-heading" = "Vikipedi'de Bugün";
@@ -393,5 +392,4 @@
 "explore-potd-heading" = "Günün resmi";
 "explore-most-read-heading" = "$1 Vikipedi'de en çok okunan maddeler";
 "explore-most-read-footer" = "Bütün en çok okunan maddeler";
-// Fuzzy
 "explore-most-read-more-list-title" = "En çok okunan maddeler";

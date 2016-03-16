@@ -1,5 +1,6 @@
 #import "WMFSettingsTableViewCell.h"
 #import "UIColor+WMFHexColor.h"
+#import "UIImage+WMFStyle.h"
 
 @interface WMFSettingsTableViewCell ()
 
@@ -33,6 +34,24 @@
     self.titleIcon.tintColor       = [UIColor whiteColor];
 }
 
+- (UIImage *)backChevronImage {
+    static dispatch_once_t once;
+    static UIImage* image;
+    dispatch_once(&once, ^{
+        image = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    });
+    return image;
+}
+
+- (UIImage *)externalLinkImage {
+    static dispatch_once_t once;
+    static UIImage* image;
+    dispatch_once(&once, ^{
+        image = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"mini-external"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    });
+    return image;
+}
+
 - (void)setDisclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType {
     _disclosureType = disclosureType;
     switch (disclosureType) {
@@ -45,7 +64,7 @@
         case WMFSettingsMenuItemDisclosureType_ExternalLink:
             self.disclosureIcon.hidden   = NO;
             self.disclosureLabel.hidden  = YES;
-            self.disclosureIcon.image    = [[UIImage imageNamed:@"mini-external"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            self.disclosureIcon.image    = [self externalLinkImage];
             self.disclosureSwitch.hidden = YES;
             break;
         case WMFSettingsMenuItemDisclosureType_Switch:
@@ -57,13 +76,13 @@
         case WMFSettingsMenuItemDisclosureType_ViewController:
             self.disclosureIcon.hidden   = NO;
             self.disclosureLabel.hidden  = YES;
-            self.disclosureIcon.image    = [[UIImage imageNamed:@"chevron-right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            self.disclosureIcon.image    = [self backChevronImage];
             self.disclosureSwitch.hidden = YES;
             break;
         case WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText:
             self.disclosureIcon.hidden   = NO;
             self.disclosureLabel.hidden  = NO;
-            self.disclosureIcon.image    = [[UIImage imageNamed:@"chevron-right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            self.disclosureIcon.image    = [self backChevronImage];
             self.disclosureSwitch.hidden = YES;
             break;
         default:

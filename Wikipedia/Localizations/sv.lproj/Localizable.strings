@@ -9,14 +9,14 @@
 // Author: Lokal Profil
 // Author: Macofe
 // Author: Platinawolf
+// Author: Rockyfelle
 // Author: WikiPhoenix
 
 "languages-title" = "Språk";
 "article-languages-label" = "Välj språk";
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Läser in artikelspråk...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Språkfilter";
+"article-languages-filter-placeholder" = "Hitta språk";
 "article-read-more-title" = "Läs mer";
 "article-about-title" = "Om den här artikeln";
 "article-unable-to-load-section" = "Kunde inte hämta detta avsnitt. Prova att uppdatera artikeln för att kolla om det åtgärdar några problem.";
@@ -110,6 +110,7 @@
 "search-recent-clear-delete-all" = "Radera alla";
 "search-result-redirected-from" = "Omdirigerad från: $1";
 "settings-title" = "Inställningar";
+"settings-language" = "Wikipediaspråk";
 "settings-support" = "Stöd Wikipedia";
 "settings-language-bar" = "Visa språk vid sökfältet";
 "main-menu-title" = "Mer";
@@ -195,21 +196,22 @@
 "credits-external-libraries" = "Externa";
 "about-title" = "Om";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
 "about-contributors" = "Bidragsgivare";
-// Fuzzy
 "about-testers" = "Testare";
 "about-testers-details" = "Kvalitetssäkringstestad av $1";
-// Fuzzy
 "about-translators" = "Översättare";
 "about-translators-details" = "Denna app översattes av frivilliga översättare på $1";
-// Fuzzy
-"about-libraries" = "bibliotek som används";
+"about-libraries" = "Bibliotek som har använts";
 "about-libraries-license" = "Licens";
 "about-libraries-licenses" = "Licenser";
+"about-content-license" = "Innehållslicens";
+"about-content-license-details" = "Om inget annat anges är innehållet tillgängligt under $1.";
+"about-content-license-details-share-alike-license" = "Creative Commons Attribution-DelaLika";
 "about-libraries-licenses-title" = "Vi älskar öppen källkod $1";
-// Fuzzy
+"about-libraries-complete-list" = "Fullständig lista";
 "about-repositories" = "Förvar";
+"about-repositories-app-source-license" = "Källkoden är tillgänglig under $1.";
+"about-repositories-app-source-license-mit" = "MIT-licensen";
 "about-send-feedback" = "Skicka återkoppling om appen";
 "about-product-of" = "En produkt av $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
@@ -217,6 +219,8 @@
 "share-menu-page-saved" = "Sparade för offline-läsning.";
 "share-menu-page-saved-access" = "Tips: för att komma åt dina sparade sidor, klicka på $1 ovan eller tryck länge på $2 nedan.";
 "share-custom-menu-item" = "Dela";
+"share-a-fact-share-menu-item" = "Dela-ett-faktum";
+"share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" på @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" på @Wikipedia: \"$2\"";
 "share-as-image" = "Dela som bild";
@@ -345,8 +349,8 @@
 "welcome-explore-sub-title" = "Ett nytt sätt att upptäcka intressanta artiklar varje dag";
 "welcome-explore-tell-me-more" = "Berätta mer";
 "welcome-explore-tell-me-more-about-explore" = "Mer om Utforska";
-// Fuzzy
-"welcome-explore-tell-me-more-details" = "När du besöker en artikel läggs relaterade artiklar automatiskt till ditt Utforskningsflöde. Detta ändrar inte hur vi samlar in din information och din läsningshistorik är fortfarande privat.";
+"welcome-explore-tell-me-more-details" = "När du läser en artikel läggs relaterade artiklar automatiskt till ditt Utforskningsflöde. Detta ändrar inte hur vi samlar in din information och din läsningshistorik är fortfarande privat.";
+"welcome-explore-tell-me-more-privacy" = "Ingen läsningslista eller profil lagras i våra servrar.";
 "welcome-explore-tell-me-more-done-button" = "Jag förstår";
 "welcome-explore-continue-button" = "Kom igång";
 "welcome-languages-title" = "Språk";
@@ -360,8 +364,7 @@
 "welcome-volunteer-thanks" = "$1 Tack!";
 "empty-no-feed-title" = "Ingen internetanslutning";
 "empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har internetåtkomst";
-// Fuzzy
-"empty-no-feed-action-message" = "Du kan läsa sparade sidor under tiden";
+"empty-no-feed-action-message" = "Du kan fortfarande läsa sparade sidor";
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
 "empty-no-search-results-message" = "Inga resultat hittades";
 "empty-no-saved-pages-title" = "Inga sparade sidor ännu";
@@ -378,7 +381,6 @@
 "compass-direction" = "mot klockan $1";
 "explore-featured-article-heading" = "Utmärkt artikel";
 "explore-continue-reading-heading" = "Fortsätt läsa";
-// Fuzzy
 "explore-nearby-heading" = "Platser i närheten";
 "explore-continue-related-heading" = "Eftersom du läste";
 "explore-main-page-heading" = "Idag på Wikipedia";
