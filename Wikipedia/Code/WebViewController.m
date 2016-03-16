@@ -173,7 +173,16 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [[self.webView wmf_javascriptContext][@"setPreRotationRelativeScrollOffset"] callWithArguments:nil];
+    @try {
+        JSContext* context = [self.webView wmf_javascriptContext];
+        if (!context) {
+            return;
+        }
+        [context[@"setPreRotationRelativeScrollOffset"] callWithArguments:nil];
+    }@catch (NSException* exception) {
+        DDLogError(@"Expection when accessing the JS context during ize transition, %@: %@", exception.name, exception.reason);
+    }
+
     [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
         [self scrollToElementOnScreenBeforeRotate];
     } completion:nil];
@@ -489,6 +498,10 @@ NSString* const WMFLicenseTitleOnENWiki =
 - (void)tocScrollWebViewToPoint:(CGPoint)point
                        duration:(CGFloat)duration
                     thenHideTOC:(BOOL)hideTOC {
+    if (isnan(point.x) || isnan(point.y)) {
+        return;
+        DDLogError(@"Attempted to scroll ToC to Nan value, ignoring");
+    }
     [UIView animateWithDuration:duration
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState

@@ -6,8 +6,7 @@
 "article-languages-label" = "Sprooch eraussichen";
 "article-languages-cancel" = "Ofbriechen";
 "article-languages-downloading" = "Luede vun de Sprooche vum Artikel...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Sproochfilter";
+"article-languages-filter-placeholder" = "Sprooch fannen";
 "article-read-more-title" = "Liest méi";
 "article-about-title" = "Iwwer dësen Artikel";
 "article-unable-to-load-section" = "Dësen Abschnitt konnt net geluede ginn. Probéiert fir den Artikel z'aktualiséieren an ze kucken ob dat de Problem léist.";

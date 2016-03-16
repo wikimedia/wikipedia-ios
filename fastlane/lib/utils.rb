@@ -21,9 +21,18 @@ def get_version_string
   "#{get_version_number}.#{get_build_number}"
 end
 
+# Create a string of the build number for release
+# This adds a .1 to differentiate from the beta build number
+# Its a bit of a hack, but we cant use "b" to denote a beta (Testflight hates that)
+# Also test flight won't allow us to upload more than 1 build with the same build number
+# Must be invoked w/in fastlane
+def get_release_build_number
+  number = "#{get_build_number}.1"
+  number
+end
+
 # Parses JSON output of `plutil`
 def info_plist_to_hash(path)
   require 'json'
   JSON.parse! %x[plutil -convert json -o - #{path}]
 end
-

@@ -111,7 +111,7 @@
         .andReturn(200)
         .withBody([[self wmf_bundle] wmf_dataFromContentsOfFile:@"golden-gate" ofType:@".jpg"]);
 
-        expectResolutionWithTimeout(5, ^{
+        expectResolutionWithTimeout(10, ^{
             return [self.cell setImageURL:imageURL];
         });
     } else {
