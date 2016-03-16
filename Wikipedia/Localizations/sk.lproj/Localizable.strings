@@ -8,8 +8,7 @@
 "article-languages-label" = "Zvoliť jazyk";
 "article-languages-cancel" = "Zrušiť";
 "article-languages-downloading" = "Načítam zoznam jazykov...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Jazykový filter";
+"article-languages-filter-placeholder" = "Nájsť jazyk";
 "article-read-more-title" = "Ďalšie informácie";
 "article-about-title" = "O tomto článku";
 "article-unable-to-load-section" = "Túto sekciu sa nepodarilo načítať. Vyskúšajte obnoviť článok, problém sa tým možno odstráni.";
@@ -100,6 +99,7 @@
 "search-recent-clear-delete-all" = "Vymazať všetko";
 "search-result-redirected-from" = "Presmerované z: $1";
 "settings-title" = "Nastavenia";
+"settings-language" = "Jazyk Wikipédie";
 "settings-support" = "Podporte Wikipédiu";
 "main-menu-title" = "Viac";
 "main-menu-heading-about" = "O aplikácii";
@@ -160,6 +160,8 @@
 "navbar-title-mode-edit-wikitext-save" = "Uložiť";
 "edit-summary-choice-linked-words" = "Pridanie odkazov";
 "edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
+"edit-summary-choice-fixed-inaccuracy" = "Oprava nepresností";
+"edit-summary-choice-fixed-styling" = "Oprava štylizácie";
 "edit-summary-choice-fixed-typos" = "Oprava preklepu";
 "edit-summary-choice-added-category" = "Pridanie kategórie";
 "edit-summary-choice-added-missing-info" = "Pridanie chýbajúcich informácii";
@@ -173,19 +175,21 @@
 "credits-wikimedia-repos" = "Wikimédia";
 "about-title" = "O aplikácii";
 "about-wikipedia" = "Wikipédia";
-// Fuzzy
 "about-contributors" = "Prispievatelia";
-// Fuzzy
 "about-testers" = "Testeri";
-// Fuzzy
 "about-translators" = "Prekladatelia";
 "about-translators-details" = "Preložené dobrovoľníkmi na $1";
-// Fuzzy
 "about-libraries" = "Použité knižnice";
 "about-libraries-license" = "Licencia";
 "about-libraries-licenses" = "Licencie";
+"about-content-license" = "Licencia obsahu";
+"about-content-license-details" = "Pokiaľ nie je uvedené inak, je obsah dostupný pod licenciou $1.";
+"about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
 "about-libraries-licenses-title" = "Máme radi open source softvér $1";
+"about-libraries-complete-list" = "Úplný zoznam";
+"about-repositories-app-source-license-mit" = "Licencia MIT";
 "about-send-feedback" = "Odoslať spätnú väzbu";
+// Fuzzy
 "about-product-of" = "Produkt $1";
 "about-wikimedia-foundation" = "Nadácie Wikimédia";
 "share-menu-save-page" = "Uložiť článok";
@@ -275,6 +279,7 @@
 "page-last-edited" = "Upravené pred $1 dňami";
 "page-edit-history" = "Úplná história úprav";
 "captcha-reload" = "Zobraziť ďalšie captcha";
+// Fuzzy
 "captcha-prompt" = "Zadajte CAPTCHA text z obrázku vyššie";
 "home-empty-section" = "Žiadne výsledky";
 "home-empty-section-check-again" = "Skúsiť znova";
@@ -296,14 +301,15 @@
 "welcome-explore-tell-me-more-done-button" = "Rozumiem";
 "welcome-explore-continue-button" = "Začíname";
 "welcome-languages-title" = "Jazyky";
+"welcome-languages-sub-title" = "Zvoľte si jazyk, ktorý pri vyhľadávaní na Wikipédii uprednostňujete";
 "welcome-languages-add-button" = "+ Pridať ďalší";
 "welcome-languages-continue-button" = "Pokračovať";
+"welcome-volunteer-sub-title" = "Pomôžte nám skvalitňovať aplikáciu tým, že budete zdieľať informácie o jej používaní";
 "welcome-volunteer-send-usage-reports" = "Odosielať správu o používaní";
 "welcome-volunteer-continue-button" = "Pokračovať";
 "welcome-volunteer-thanks" = "$1 Ďakujeme!";
 "empty-no-feed-title" = "Žiadne pripojenie na internet";
 "empty-no-feed-message" = "Odporúčané články uvidíte keď budete pripojení na internet";
-// Fuzzy
 "empty-no-feed-action-message" = "Medzitým si môžete čítať uložené stránky";
 "empty-no-article-message" = "Ospravedlňujeme sa, nebolo možné načítať článok";
 "empty-no-search-results-message" = "Neboli nájdené žiadne výsledky vyhľadávania";

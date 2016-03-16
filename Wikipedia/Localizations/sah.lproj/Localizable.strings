@@ -207,6 +207,7 @@
 // Fuzzy
 "about-repositories" = "харалта";
 "about-send-feedback" = "Дьибилгэт туһунан санааҕын ыыт";
+// Fuzzy
 "about-product-of" = "$1 бородуукта";
 "about-wikimedia-foundation" = "Викимедиа пуондата";
 "share-menu-save-page" = "Сирэйи бигэргэт";
@@ -312,6 +313,7 @@
 "page-last-edited" = "$1 күн ынараа өттүгэр уларыйбыт";
 "page-edit-history" = "Уларытыы толору устуоруйата";
 "captcha-reload" = "Атын куоду көрдөр";
+// Fuzzy
 "captcha-prompt" = "Капча ойууттан тиэкиһин суруйан ыл";
 "mwk-empty-title-error" = "Ааттаматах буолан дьайыыны оҥорор табыллыбата.";
 "home-title" = "Чинчий!";

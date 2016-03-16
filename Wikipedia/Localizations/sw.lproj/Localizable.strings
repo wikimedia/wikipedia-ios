@@ -121,6 +121,7 @@
 "about-translators" = "wafasiri";
 "about-libraries-license" = "Leseni";
 "about-send-feedback" = "Toa maoni ya programu timizi";
+// Fuzzy
 "about-product-of" = "Bidhaa ya $1";
 "about-wikimedia-foundation" = "Wakfu wa Wikimedia";
 "share-menu-save-page" = "Hifadhi ukurasa";

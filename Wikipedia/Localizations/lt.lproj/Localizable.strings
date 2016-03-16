@@ -6,11 +6,14 @@
 // Author: Pofka
 // Author: Zygimantus
 
+"languages-title" = "Kalbos";
 "article-languages-label" = "Pasirinkite kalbą";
 "article-languages-cancel" = "Atšaukti";
-// Fuzzy
-"article-languages-filter-placeholder" = "Kalbų filtras";
+"article-languages-downloading" = "Įkeliamos straipsnio kalbos...";
+"article-languages-filter-placeholder" = "Rasti kalbą";
 "article-read-more-title" = "Skaityti daugiau";
+"article-about-title" = "Apie šį straipsnį";
+"article-related-articles-title" = "Susiję straipsniai";
 "info-box-title" = "Trumpi faktai";
 "info-box-close-text" = "Uždaryti";
 "table-title-other" = "Daugiau informacijos";
@@ -109,7 +112,9 @@
 "main-menu-show-today" = "Šiandien";
 "main-menu-nearby" = "Šalia";
 "main-menu-more" = "Daugiau...";
+"main-menu-heading-debug" = "Derinti";
 "main-menu-debug-crash" = "Užlūžo";
+"saved-title" = "Išsaugota";
 "saved-pages-title" = "Įrašyti puslapiai";
 // Fuzzy
 "saved-pages-clear-confirmation-heading" = "Naikinti visus įrašytus elementus?";
@@ -154,6 +159,7 @@
 "about-repositories" = "Duomenų saugyklos";
 "about-repositories-app-source-license-mit" = "MIT licencija";
 "about-send-feedback" = "Siųsti atsiliepimą apie programėlę";
+// Fuzzy
 "about-product-of" = "$1 produktas";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Įrašyti puslapį";
@@ -236,3 +242,4 @@
 "empty-no-search-results-message" = "Rezultatų nerasta";
 "alert-no-internet" = "Ten nėra interneto ryšio";
 "explore-most-read-more-list-title" = "Top straipsniai";
+"explore-most-read-more-list-title-for-date" = "Viršuje $1";
