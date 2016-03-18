@@ -11,6 +11,7 @@
 #import "_FBTweakCollectionViewController.h"
 #import "_FBTweakColorViewController.h"
 #import "_FBTweakColorViewControllerDataSource.h"
+#import "_FBTweakColorViewControllerHexDataSource.h"
 #import "_FBTweakColorViewControllerHSBDataSource.h"
 #import "_FBTweakColorViewControllerRGBDataSource.h"
 #import "_FBTweakDictionaryViewController.h"
