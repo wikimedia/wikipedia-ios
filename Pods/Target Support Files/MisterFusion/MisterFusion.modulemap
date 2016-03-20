@@ -1,0 +1,6 @@
+framework module MisterFusion {
+  umbrella header "MisterFusion-umbrella.h"
+
+  export *
+  module * { export * }
+}

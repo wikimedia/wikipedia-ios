@@ -38,6 +38,7 @@ PODS:
   - Mantle/extobjc (2.0.6)
   - Masonry (0.6.2)
   - MGSwipeTableCell (1.5.3)
+  - MisterFusion (1.0.0)
   - Nimble (3.1.0)
   - Nocilla (0.10.0)
   - NSDate-Extensions (0.0.1)
@@ -71,6 +72,8 @@ PODS:
   - PromiseKit/UIKit (3.0.0):
     - PromiseKit/CorePromise
   - Quick (0.9.1)
+  - SAHistoryNavigationViewController (2.3.0):
+    - MisterFusion
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
@@ -109,6 +112,7 @@ DEPENDENCIES:
   - PromiseKit/SystemConfiguration (from `https://github.com/mxcl/PromiseKit.git`,
     branch `swift-2.0-beta5`)
   - Quick (~> 0.9.0)
+  - SAHistoryNavigationViewController
   - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `bb49df83e72f2231a191e9477a85f0effe13430a`)
   - SSDataSources (~> 0.8.0)
   - SVWebViewController (~> 1.0)
@@ -173,6 +177,7 @@ SPEC CHECKSUMS:
   Mantle: 299966b00759634931699f69cb6a30b9239b944d
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   MGSwipeTableCell: 5ae3b9a15efda26b201adc8676b24040febe6ff6
+  MisterFusion: 8bed489f6c4cfb3572efaa660a353019a5b4dd61
   Nimble: 79d40f4d69d47314229bbabacaa02b8838c779b9
   Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
   NSDate-Extensions: 5bd64f8815dc6b3c9d08e1f620229567e2b4771c
@@ -183,6 +188,7 @@ SPEC CHECKSUMS:
   PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
   PromiseKit: 6810c48ec19990d3253dc8caf0e05519e7cd39ba
   Quick: a5221fc21788b6aeda934805e68b061839bc3165
+  SAHistoryNavigationViewController: 5ec66cabdd65fa1667cc7b8af182d78e3e24080e
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
   SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
