@@ -46,6 +46,7 @@
                 @"formatversion": @2,
                 @"action": @"query",
                 @"prop": @"revisions",
+                @"redirects": @1,
                 @"titles": title.text,
                 @"rvlimit": @(numberOfResults),
                 @"rvendid": @(revisionId),
