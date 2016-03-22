@@ -35,7 +35,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 // Metadata
 @property (readwrite, strong, nonatomic) MWKTitle* redirected;                // optional
-@property (readwrite, strong, nonatomic) NSDate* lastmodified;                // required
+@property (readwrite, strong, nonatomic) NSDate* lastmodified;                // optional
 @property (readwrite, strong, nonatomic) MWKUser* lastmodifiedby;             // required
 @property (readwrite, assign, nonatomic) int articleId;                       // required; -> 'id'
 @property (readwrite, assign, nonatomic) int languagecount;                   // required; int
@@ -177,11 +177,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     // uncomment when schema is bumped to perform migrations if necessary
 //    MWKArticleSchemaVersion schemaVersion = [dict[@"schemaVersion"] unsignedIntegerValue];
 
-    if (dict[@"lastmodified"]) {
-        self.lastmodified = [self requiredDate:@"lastmodified" dict:dict];
-    }else{
-        self.lastmodified = [NSDate date];
-    }
+    self.lastmodified   = [self optionalDate:@"lastmodified" dict:dict];
     self.lastmodifiedby = [self requiredUser:@"lastmodifiedby" dict:dict];
     self.articleId      = [[self requiredNumber:@"id" dict:dict] intValue];
     self.languagecount  = [[self requiredNumber:@"languagecount" dict:dict] intValue];
