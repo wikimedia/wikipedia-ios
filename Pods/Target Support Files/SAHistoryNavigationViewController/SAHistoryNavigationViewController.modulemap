@@ -1,0 +1,6 @@
+framework module SAHistoryNavigationViewController {
+  umbrella header "SAHistoryNavigationViewController-umbrella.h"
+
+  export *
+  module * { export * }
+}

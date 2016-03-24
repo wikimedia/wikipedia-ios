@@ -3124,8 +3124,8 @@
 			children = (
 				B0E802BF1C0CD27F0065EBC0 /* WMFAppViewController.h */,
 				B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */,
-				0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */,
 				0E26B0701C0F4F550004D687 /* WMFAppViewController.storyboard */,
+				0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */,
 			);
 			name = "Root View Controller";
 			sourceTree = "<group>";
