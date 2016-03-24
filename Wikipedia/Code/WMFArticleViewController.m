@@ -718,8 +718,17 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [self.readMoreListViewController fetchIfNeeded].then(^{
         @strongify(self);
+        if (!self) {
+            return;
+        }
         // update footers to include read more if there are results
-        [self updateWebviewFootersIfNeeded];
+        dispatchOnMainQueueAfterDelayInSeconds(0.3, ^{ // HAX: without delay footer often won't display
+            @strongify(self);
+            if (!self) {
+                return;
+            }
+            [self updateWebviewFootersIfNeeded];
+        });
     })
     .catch(^(NSError* error){
         DDLogError(@"Read More Fetch Error: %@", error);
