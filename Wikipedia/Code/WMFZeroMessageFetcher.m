@@ -7,15 +7,17 @@
 //
 
 #import "WMFZeroMessageFetcher.h"
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFZeroMessage.h"
 #import "WikipediaAppUtils.h"
 #import "FBTweak+WikipediaZero.h"
+#import "AFHTTPSessionManager+WMFCancelAll.h"
+
 
 @interface WMFZeroMessageFetcher ()
 
-@property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
 
 @end
 
@@ -24,7 +26,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.operationManager                    = [[AFHTTPRequestOperationManager alloc] init];
+        self.operationManager                    = [[AFHTTPSessionManager alloc] init];
         self.operationManager.responseSerializer =
             [WMFMantleJSONResponseSerializer serializerForInstancesOf:[WMFZeroMessage class]
                                                           fromKeypath:nil];
@@ -44,16 +46,17 @@
         }
         [self.operationManager GET:[[site mobileApiEndpoint] absoluteString]
                         parameters:params
-                           success:^(AFHTTPRequestOperation* _Nonnull _, id _Nonnull responseObject) {
+                          progress:NULL
+                           success:^(NSURLSessionDataTask* _Nonnull _, id _Nonnull responseObject) {
             resolve(responseObject);
-        } failure:^(AFHTTPRequestOperation* _Nullable _, NSError* _Nonnull error) {
+        } failure:^(NSURLSessionDataTask* _Nullable _, NSError* _Nonnull error) {
             resolve(error);
         }];
     }];
 }
 
 - (void)cancelAllFetches {
-    [self.operationManager.operationQueue cancelAllOperations];
+    [self.operationManager wmf_cancelAllTasks];
 }
 
 @end

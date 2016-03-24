@@ -10,7 +10,7 @@ typedef NS_ENUM (NSInteger, LoginErrorType) {
     LOGIN_ERROR_MISC    = 2
 };
 
-@class AFHTTPRequestOperationManager;
+@class AFHTTPSessionManager;
 
 @interface AccountLogin : FetcherBase
 
@@ -19,6 +19,6 @@ typedef NS_ENUM (NSInteger, LoginErrorType) {
                              userName:(NSString*)userName
                              password:(NSString*)password
                                 token:(NSString*)token
-                          withManager:(AFHTTPRequestOperationManager*)manager
+                          withManager:(AFHTTPSessionManager*)manager
                    thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 @end

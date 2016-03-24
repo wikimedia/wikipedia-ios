@@ -19,16 +19,16 @@ typedef NS_ENUM (NSInteger, LanguageLinksFetchErrorType) {
     LANGUAGE_LINKS_FETCH_ERROR_API     = 1
 };
 
-@class AFHTTPRequestOperationManager;
+@class AFHTTPSessionManager;
 
 @interface MWKLanguageLinkFetcher : FetcherBase
 
 /// Fetches the language links for the given page title.
 - (instancetype)initAndFetchLanguageLinksForPageTitle:(MWKTitle*)title
-                                          withManager:(AFHTTPRequestOperationManager*)manager
+                                          withManager:(AFHTTPSessionManager*)manager
                                    thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 
-- (instancetype)initWithManager:(AFHTTPRequestOperationManager*)manager
+- (instancetype)initWithManager:(AFHTTPSessionManager*)manager
                        delegate:(id<FetchFinishedDelegate>)delegate;
 
 - (void)fetchLanguageLinksForTitle:(MWKTitle*)title

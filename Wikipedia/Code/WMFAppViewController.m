@@ -43,6 +43,7 @@
 #import "WMFRandomSectionController.h"
 #import "WMFNearbySectionController.h"
 #import "WMFRandomArticleFetcher.h"
+#import "AFHTTPSessionManager+WMFCancelAll.h"
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -573,11 +574,13 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (void)downloadAssetsFilesIfNecessary {
     // Sync config/ios.json at most once per day.
-    [[QueuesSingleton sharedInstance].assetsFetchManager.operationQueue cancelAllOperations];
+    [[QueuesSingleton sharedInstance].assetsFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
+        (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFileOfType:WMFAssetsFileTypeConfig
+                                                          withManager:[QueuesSingleton sharedInstance].assetsFetchManager
+                                                               maxAge:kWMFMaxAgeDefault];
+        
+    }];
 
-    (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFileOfType:WMFAssetsFileTypeConfig
-                                                      withManager:[QueuesSingleton sharedInstance].assetsFetchManager
-                                                           maxAge:kWMFMaxAgeDefault];
 }
 
 #pragma mark - Migration

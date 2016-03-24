@@ -9,8 +9,8 @@
 #import "WMFMostReadTitleFetcher.h"
 
 #import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
+#import "AFHTTPSessionManager+WMFDesktopRetry.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFNetworkUtilities.h"
 #import "MWKSite.h"
 #import "NSDateFormatter+WMFExtensions.h"
@@ -22,7 +22,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFMostReadTitleFetcher ()
-@property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
 @end
 
 @implementation WMFMostReadTitleFetcher
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init {
     self = [super init];
     if (self) {
-        AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+        AFHTTPSessionManager* manager = [AFHTTPSessionManager wmf_createDefaultManager];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         self.operationManager      = manager;
     }
@@ -60,7 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
         [self.operationManager GET:requestURLString
                         parameters:nil
-                           success:^(AFHTTPRequestOperation* operation, NSDictionary* responseObject) {
+                          progress:NULL
+                           success:^(NSURLSessionDataTask* operation, NSDictionary* responseObject) {
             NSError* parseError;
             WMFMostReadTitlesResponse* titlesResponse = [MTLJSONAdapter modelOfClass:[WMFMostReadTitlesResponse class]
                                                                   fromJSONDictionary:responseObject
@@ -75,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 
             resolve(firstItem ? : parseError);
         }
-                           failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+                           failure:^(NSURLSessionDataTask* operation, NSError* error) {
             resolve(error);
         }];
     }].finally(^{

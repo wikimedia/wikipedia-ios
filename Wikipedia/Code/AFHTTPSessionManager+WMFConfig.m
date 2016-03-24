@@ -1,20 +1,20 @@
 //
-//  AFHTTPRequestOperationManager+WMFConfig.m
+//  AFHTTPSessionManager+WMFConfig.m
 //  Wikipedia
 //
 //  Created by Brian Gerstle on 2/4/15.
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
 #import "SessionSingleton.h"
 #import "ReadingActionFunnel.h"
 #import "WikipediaAppUtils.h"
 
-@implementation AFHTTPRequestOperationManager (WMFConfig)
+@implementation AFHTTPSessionManager (WMFConfig)
 
 + (instancetype)wmf_createDefaultManager {
-    AFHTTPRequestOperationManager* manager = [self manager];
+    AFHTTPSessionManager* manager = [self manager];
     [manager wmf_applyAppRequestHeaders];
     return manager;
 }
