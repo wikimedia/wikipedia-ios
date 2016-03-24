@@ -94,6 +94,7 @@ static void AFNetworkReachabilityCallback(SCNetworkReachabilityRef __unused targ
     AFPostReachabilityStatusChange(flags, (__bridge AFNetworkReachabilityStatusBlock)info);
 }
 
+
 static const void * AFNetworkReachabilityRetainCallback(const void *info) {
     return Block_copy(info);
 }
@@ -116,12 +117,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
     static AFNetworkReachabilityManager *_sharedManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        struct sockaddr_in address;
-        bzero(&address, sizeof(address));
-        address.sin_len = sizeof(address);
-        address.sin_family = AF_INET;
-
-        _sharedManager = [self managerForAddress:&address];
+        _sharedManager = [self manager];
     });
 
     return _sharedManager;
@@ -145,6 +141,22 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
     return manager;
 }
 #endif
+
++ (instancetype)manager
+{
+#if (defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && __IPHONE_OS_VERSION_MIN_REQUIRED >= 90000) || (defined(__MAC_OS_X_VERSION_MIN_REQUIRED) && __MAC_OS_X_VERSION_MIN_REQUIRED >= 101100)
+    struct sockaddr_in6 address;
+    bzero(&address, sizeof(address));
+    address.sin6_len = sizeof(address);
+    address.sin6_family = AF_INET6;
+#else
+    struct sockaddr_in address;
+    bzero(&address, sizeof(address));
+    address.sin_len = sizeof(address);
+    address.sin_family = AF_INET;
+#endif
+    return [self managerForAddress:&address];
+}
 
 - (instancetype)initWithReachability:(SCNetworkReachabilityRef)reachability {
     self = [super init];

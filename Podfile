@@ -14,7 +14,7 @@ xcodeproj 'Wikipedia'
 pod 'hpple', '~> 0.2'
 
 # Networking / Parsing
-pod 'AFNetworking/NSURLConnection', '~> 2.6.0'
+pod 'AFNetworking', '~> 3.0.0'
 pod 'Mantle', '~> 2.0.0'
 
 # Images
