@@ -40,7 +40,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         
         button.setImage(UIImage(named: "close"), forState: UIControlState.Normal)
         button.tintColor = UIColor.whiteColor()
-        button.addTarget(self, action: "didTap:", forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)), forControlEvents: .TouchUpInside)
         
         button.accessibilityHint = localizedStringForKeyFallingBackOnEnglish("table-of-contents-close-accessibility-hint")
         button.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("table-of-contents-close-accessibility-label")
@@ -54,7 +54,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         view.effect = UIBlurEffect(style: .Dark)
         view.alpha = 0.0
         let tap = UITapGestureRecognizer.init()
-        tap.addTarget(self, action: Selector("didTap:"))
+        tap.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)))
         view.addGestureRecognizer(tap)
         view.addSubview(self.statusBarBackground)
         view.addSubview(self.closeButton)
