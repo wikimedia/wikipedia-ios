@@ -152,14 +152,19 @@ class WMFImageControllerTests: XCTestCase {
 
     func testCancelCacheRequestCatchesWithCancellationError() throws {
         // copy some test fixture image to a temp location
-        let testFixtureDataPath = NSURL(string: wmf_bundle().resourcePath!)!.URLByAppendingPathComponent("golden-gate.jpg")
-        let tempPath = NSURL(string:WMFRandomTemporaryFileOfType("jpg"))!
+        var path = wmf_bundle().resourcePath!;
+        var lastPathComponent = "golden-gate.jpg";
+
+        var testFixtureDataPath = NSURL(fileURLWithPath: path)
+        testFixtureDataPath = testFixtureDataPath.URLByAppendingPathComponent(lastPathComponent)
+
+        let tempPath = NSURL(fileURLWithPath:WMFRandomTemporaryFileOfType("jpg"))
         try! NSFileManager.defaultManager().copyItemAtURL(testFixtureDataPath, toURL: tempPath)
         defer {
             // remove temporarily copied test data
             try! NSFileManager.defaultManager().removeItemAtURL(tempPath)
         }
-        let testURL = NSURL(string: "//foo/bar")!
+        let testURL = NSURL(fileURLWithPath: "//foo/bar")
 
         expectPromise(toReport(ErrorPolicy.AllErrors) as ImageDownloadPromiseErrorCallback,
         pipe: { (err: ErrorType) -> Void in
