@@ -21,9 +21,9 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     }
     
     deinit {
-        self.presentationGesture.view?.removeGestureRecognizer(self.presentationGesture)
-        self.presentationGesture.removeTarget(self, action: Selector("handlePanGesture:"))
         removeDismissalGestureRecognizer()
+        self.presentationGesture.removeTarget(self, action: #selector(WMFTableOfContentsAnimator.handlePresentationGesture(_:)))
+        self.presentationGesture.view?.removeGestureRecognizer(self.presentationGesture)
     }
     
     weak var presentingViewController: UIViewController?
@@ -155,7 +155,7 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     
     // MARK: - Gestures
     lazy var presentationGesture: UIScreenEdgePanGestureRecognizer = {
-        let gesture = UIScreenEdgePanGestureRecognizer.init(target: self, action: Selector("handlePresentationGesture:"))
+        let gesture = UIScreenEdgePanGestureRecognizer.init(target: self, action: #selector(WMFTableOfContentsAnimator.handlePresentationGesture(_:)))
         gesture.edges = UIApplication.sharedApplication().wmf_tocShouldBeOnLeft ? .Left : .Right
         return gesture
     }()
@@ -163,7 +163,7 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     var dismissalGesture: UIPanGestureRecognizer?
     
     func addDismissalGestureRecognizer(containerView: UIView) {
-        let gesture = UIPanGestureRecognizer.init(target: self, action: Selector("handleDismissalGesture:"))
+        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(WMFTableOfContentsAnimator.handleDismissalGesture(_:)))
         gesture.delegate = self
         containerView.addGestureRecognizer(gesture)
         self.dismissalGesture = gesture
@@ -172,7 +172,7 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     func removeDismissalGestureRecognizer() {
         if let dismissalGesture = self.dismissalGesture {
             dismissalGesture.view?.removeGestureRecognizer(dismissalGesture)
-            dismissalGesture.removeTarget(self, action: Selector("handleDismissalGesture:"))
+            dismissalGesture.removeTarget(self, action: #selector(WMFTableOfContentsAnimator.handleDismissalGesture(_:)))
         }
         self.dismissalGesture = nil
     }
