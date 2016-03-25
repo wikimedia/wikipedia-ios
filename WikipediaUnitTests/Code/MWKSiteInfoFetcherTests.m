@@ -16,7 +16,6 @@
 #import "NSArray+WMFShuffle.h"
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 #import "WMFTestFixtureUtilities.h"
-#import "AFHTTPRequestOperationManager+WMFUniqueRequests.h"
 
 #import <Nocilla/Nocilla.h>
 

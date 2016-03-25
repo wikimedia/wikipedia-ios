@@ -25,8 +25,8 @@ pod 'AnimatedGIFImageSerialization'
 pod 'libextobjc/EXTScope', '~> 0.4.1'
 pod 'BlocksKit/Core', '~> 2.2.0'
 pod 'BlocksKit/UIKit', '~> 2.2.0'
-pod 'PromiseKit', :git => 'https://github.com/mxcl/PromiseKit.git', :branch => 'swift-2.0-beta5'
-pod 'PromiseKit/SystemConfiguration', :git => 'https://github.com/mxcl/PromiseKit.git', :branch => 'swift-2.0-beta5'
+pod 'PromiseKit', :head
+pod 'PromiseKit/SystemConfiguration', :head
 
 pod 'Tweaks', :head
 
@@ -56,16 +56,16 @@ pod 'VTAcknowledgementsViewController'
 
 # Diagnostics
 pod 'PiwikTracker', :head
-pod 'CocoaLumberjack/Swift', '~> 2.2'
+pod 'CocoaLumberjack/Swift', :head
 pod 'HockeySDK', '~> 3.8.2'
 
 target 'WikipediaUnitTests', :exclusive => true do
   pod 'OCMockito', '~> 1.4.0'
   pod 'OCHamcrest', '~> 4.2.0'
   pod 'Nocilla'
-  pod 'FBSnapshotTestCase', :git => 'https://github.com/facebook/ios-snapshot-test-case', :commit => 'e42af8bbc032a61f93fa9b6ed748052272e522ec'
+  pod 'FBSnapshotTestCase', :head
   pod 'Quick', '~> 0.9.0'
-  pod 'Nimble', '~> 3.1.0'
+  pod 'Nimble', :head
 end
 
 

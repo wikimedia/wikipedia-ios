@@ -9,15 +9,15 @@
 */
 
 public extension FBSnapshotTestCase {
-  public func FBSnapshotVerifyView(view: UIView, identifier: String = "", suffixes: NSOrderedSet = FBSnapshotTestCaseDefaultSuffixes(), file: String = __FILE__, line: UInt = __LINE__) {
-    FBSnapshotVerifyViewOrLayer(view, identifier: identifier, suffixes: suffixes, file: file, line: line)
+  public func FBSnapshotVerifyView(view: UIView, identifier: String = "", suffixes: NSOrderedSet = FBSnapshotTestCaseDefaultSuffixes(), tolerance: CGFloat = 0, file: StaticString = #file, line: UInt = #line) {
+    FBSnapshotVerifyViewOrLayer(view, identifier: identifier, suffixes: suffixes, tolerance: tolerance, file: file, line: line)
   }
 
-  public func FBSnapshotVerifyLayer(layer: CALayer, identifier: String = "", suffixes: NSOrderedSet = FBSnapshotTestCaseDefaultSuffixes(), file: String = __FILE__, line: UInt = __LINE__) {
-    FBSnapshotVerifyViewOrLayer(layer, identifier: identifier, suffixes: suffixes, file: file, line: line)
+  public func FBSnapshotVerifyLayer(layer: CALayer, identifier: String = "", suffixes: NSOrderedSet = FBSnapshotTestCaseDefaultSuffixes(), tolerance: CGFloat = 0, file: StaticString = #file, line: UInt = #line) {
+    FBSnapshotVerifyViewOrLayer(layer, identifier: identifier, suffixes: suffixes, tolerance: tolerance, file: file, line: line)
   }
 
-  private func FBSnapshotVerifyViewOrLayer(viewOrLayer: AnyObject, identifier: String = "", suffixes: NSOrderedSet = FBSnapshotTestCaseDefaultSuffixes(), file: String = __FILE__, line: UInt = __LINE__) {
+  private func FBSnapshotVerifyViewOrLayer(viewOrLayer: AnyObject, identifier: String = "", suffixes: NSOrderedSet = FBSnapshotTestCaseDefaultSuffixes(), tolerance: CGFloat = 0, file: StaticString = #file, line: UInt = #line) {
     let envReferenceImageDirectory = self.getReferenceImageDirectoryWithDefault(FB_REFERENCE_IMAGE_DIR)
     var error: NSError?
     var comparisonSuccess = false
@@ -27,7 +27,7 @@ public extension FBSnapshotTestCase {
         let referenceImagesDirectory = "\(envReferenceImageDirectory)\(suffix)"
         if viewOrLayer.isKindOfClass(UIView) {
           do {
-            try compareSnapshotOfView(viewOrLayer as! UIView, referenceImagesDirectory: referenceImagesDirectory, identifier: identifier, tolerance: 0)
+            try compareSnapshotOfView(viewOrLayer as! UIView, referenceImagesDirectory: referenceImagesDirectory, identifier: identifier, tolerance: tolerance)
             comparisonSuccess = true
           } catch let error1 as NSError {
             error = error1
@@ -35,7 +35,7 @@ public extension FBSnapshotTestCase {
           }
         } else if viewOrLayer.isKindOfClass(CALayer) {
           do {
-            try compareSnapshotOfLayer(viewOrLayer as! CALayer, referenceImagesDirectory: referenceImagesDirectory, identifier: identifier, tolerance: 0)
+            try compareSnapshotOfLayer(viewOrLayer as! CALayer, referenceImagesDirectory: referenceImagesDirectory, identifier: identifier, tolerance: tolerance)
             comparisonSuccess = true
           } catch let error1 as NSError {
             error = error1
@@ -58,7 +58,7 @@ public extension FBSnapshotTestCase {
     }
   }
 
-  func assert(assertion: Bool, message: String, file: String, line: UInt) {
+  func assert(assertion: Bool, message: String, file: StaticString, line: UInt) {
     if !assertion {
       XCTFail(message, file: file, line: line)
     }
