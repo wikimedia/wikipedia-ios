@@ -9,7 +9,7 @@ typedef NS_ENUM (NSInteger, LoginTokenErrorType) {
     LOGIN_TOKEN_ERROR_API     = 1
 };
 
-@class AFHTTPRequestOperationManager;
+@class AFHTTPSessionManager;
 
 @interface LoginTokenFetcher : FetcherBase
 
@@ -22,6 +22,6 @@ typedef NS_ENUM (NSInteger, LoginTokenErrorType) {
 - (instancetype)initAndFetchTokenForDomain:(NSString*)domain
                                   userName:(NSString*)userName
                                   password:(NSString*)password
-                               withManager:(AFHTTPRequestOperationManager*)manager
+                               withManager:(AFHTTPSessionManager*)manager
                         thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 @end

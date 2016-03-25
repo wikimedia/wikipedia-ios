@@ -10,7 +10,7 @@ typedef NS_ENUM (NSInteger, ThumbnailFetchErrorType) {
     THUMBNAIL_FETCH_ERROR_NOT_FOUND = 2
 };
 
-@class AFHTTPRequestOperationManager;
+@class AFHTTPSessionManager;
 
 @interface ThumbnailFetcher : FetcherBase
 
@@ -18,6 +18,6 @@ typedef NS_ENUM (NSInteger, ThumbnailFetchErrorType) {
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
 - (instancetype)initAndFetchThumbnailFromURL:(NSString*)url
-                                 withManager:(AFHTTPRequestOperationManager*)manager
+                                 withManager:(AFHTTPSessionManager*)manager
                           thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 @end

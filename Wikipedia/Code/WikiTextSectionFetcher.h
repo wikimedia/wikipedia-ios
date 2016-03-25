@@ -12,7 +12,7 @@ typedef NS_ENUM (NSInteger, WikiTextFetcherErrorType) {
     WIKITEXT_FETCHER_ERROR_INCOMPLETE = 2
 };
 
-@class AFHTTPRequestOperationManager;
+@class AFHTTPSessionManager;
 
 @interface WikiTextSectionFetcher : FetcherBase
 
@@ -20,6 +20,6 @@ typedef NS_ENUM (NSInteger, WikiTextFetcherErrorType) {
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
 - (instancetype)initAndFetchWikiTextForSection:(MWKSection*)section
-                                   withManager:(AFHTTPRequestOperationManager*)manager
+                                   withManager:(AFHTTPSessionManager*)manager
                             thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 @end

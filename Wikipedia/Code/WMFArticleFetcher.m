@@ -9,7 +9,7 @@
 
 //AFNetworking
 #import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFArticleRequestSerializer.h"
 #import "WMFArticleResponseSerializer.h"
 
@@ -26,6 +26,8 @@
 #import "MWKSectionList.h"
 #import "MWKSection.h"
 #import "MWKArticle+HTMLImageImport.h"
+#import "AFHTTPSessionManager+WMFCancelAll.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,7 +37,7 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @interface WMFArticleBaseFetcher ()
 
-@property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
 @property (nonatomic, strong) NSMapTable* operationsKeyedByTitle;
 @property (nonatomic, strong) dispatch_queue_t operationsQueue;
 
@@ -49,7 +51,7 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         self.operationsKeyedByTitle = [NSMapTable strongToWeakObjectsMapTable];
         NSString* queueID = [NSString stringWithFormat:@"org.wikipedia.articlefetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
         self.operationsQueue = dispatch_queue_create([queueID cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
-        AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+        AFHTTPSessionManager* manager = [AFHTTPSessionManager wmf_createDefaultManager];
         self.operationManager = manager;
     }
     return self;
@@ -75,35 +77,23 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     NSURL* url = useDeskTopURL ? [pageTitle.site apiEndpoint] : [pageTitle.site mobileApiEndpoint];
 
-    AFHTTPRequestOperation* operation = [self.operationManager GET:url.absoluteString parameters:pageTitle success:^(AFHTTPRequestOperation* operation, id response) {
+    NSURLSessionDataTask* operation = [self.operationManager GET:url.absoluteString parameters:pageTitle progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+        if (progress) {
+            progress(downloadProgress.fractionCompleted);
+        }
+        
+    } success:^(NSURLSessionDataTask* operation, id response) {
         dispatchOnBackgroundQueue(^{
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve([self serializedArticleWithTitle:pageTitle response:response]);
         });
-    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+    } failure:^(NSURLSessionDataTask* operation, NSError* error) {
         if ([url isEqual:[pageTitle.site mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
             [self fetchArticleForPageTitle:pageTitle useDesktopURL:YES progress:progress resolver:resolve];
         } else {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve(error);
-        }
-    }];
-
-    __block CGFloat downloadProgress = 0.0;
-
-    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-        if (totalBytesExpectedToRead > 0) {
-            downloadProgress = (CGFloat)(totalBytesRead / totalBytesExpectedToRead);
-        } else {
-            downloadProgress += 0.02;
-        }
-
-        if (downloadProgress > 1.0) {
-            downloadProgress = 1.0;
-        }
-
-        if (progress) {
-            progress(downloadProgress);
         }
     }];
 
@@ -116,12 +106,12 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 #pragma mark - Operation Tracking / Cancelling
 
-- (AFHTTPRequestOperation*)trackedOperationForTitle:(MWKTitle*)title {
+- (NSURLSessionDataTask*)trackedOperationForTitle:(MWKTitle*)title {
     if ([title.text length] == 0) {
         return nil;
     }
 
-    __block AFHTTPRequestOperation* op = nil;
+    __block NSURLSessionDataTask* op = nil;
 
     dispatch_sync(self.operationsQueue, ^{
         op = [self.operationsKeyedByTitle objectForKey:title.text];
@@ -130,7 +120,7 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     return op;
 }
 
-- (void)trackOperation:(AFHTTPRequestOperation*)operation forTitle:(MWKTitle*)title {
+- (void)trackOperation:(NSURLSessionDataTask*)operation forTitle:(MWKTitle*)title {
     if ([title.text length] == 0) {
         return;
     }
@@ -149,7 +139,7 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         return;
     }
 
-    __block AFHTTPRequestOperation* op = nil;
+    __block NSURLSessionDataTask* op = nil;
 
     dispatch_sync(self.operationsQueue, ^{
         op = [self.operationsKeyedByTitle objectForKey:pageTitle];
@@ -159,7 +149,7 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 }
 
 - (void)cancelAllFetches {
-    [self.operationManager.operationQueue cancelAllOperations];
+    [self.operationManager wmf_cancelAllTasks];
 }
 
 @end

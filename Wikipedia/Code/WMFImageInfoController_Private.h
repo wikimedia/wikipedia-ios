@@ -13,9 +13,8 @@
 #import "MWKImageInfo+MWKImageComparison.h"
 
 // Networking
-#import <AFNetworking/AFHTTPRequestOperationManager.h>
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
-#import "AFHTTPRequestOperationManager+WMFUniqueRequests.h"
+#import <AFNetworking/AFNetworking.h>
+#import "AFHTTPSessionManager+WMFConfig.h"
 #import "MWKImageInfoFetcher.h"
 #import "MWKImageInfoResponseSerializer.h"
 

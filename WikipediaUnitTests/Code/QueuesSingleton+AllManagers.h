@@ -10,6 +10,6 @@
 
 @interface QueuesSingleton (AllManagers)
 
-- (NSArray<AFHTTPRequestOperationManager*>*)allManagers;
+- (NSArray<AFHTTPSessionManager*>*)allManagers;
 
 @end

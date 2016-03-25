@@ -2,7 +2,7 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "ThumbnailFetcher.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFHTTPSessionManager.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSObject+WMFExtras.h"
@@ -16,7 +16,7 @@
 @implementation ThumbnailFetcher
 
 - (instancetype)initAndFetchThumbnailFromURL:(NSString*)url
-                                 withManager:(AFHTTPRequestOperationManager*)manager
+                                 withManager:(AFHTTPSessionManager*)manager
                           thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
@@ -27,10 +27,10 @@
     return self;
 }
 
-- (void)fetchWithManager:(AFHTTPRequestOperationManager*)manager {
+- (void)fetchWithManager:(AFHTTPSessionManager*)manager {
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    [manager GET:self.url parameters:nil success:^(AFHTTPRequestOperation* operation, id responseObject) {
+    [manager GET:self.url parameters:nil progress:NULL success:^(NSURLSessionDataTask* operation, id responseObject) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
         NSError* error = nil;
@@ -49,7 +49,7 @@
 
         [self finishWithError:error
                   fetchedData:responseObject];
-    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+    } failure:^(NSURLSessionDataTask* operation, NSError* error) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
         [self finishWithError:error

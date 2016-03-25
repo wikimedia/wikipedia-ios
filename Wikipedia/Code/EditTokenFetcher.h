@@ -9,7 +9,7 @@ typedef NS_ENUM (NSInteger, EditTokenErrorType) {
     EDIT_TOKEN_ERROR_API     = 1
 };
 
-@class AFHTTPRequestOperationManager;
+@class AFHTTPSessionManager;
 
 @interface EditTokenFetcher : FetcherBase
 
@@ -32,7 +32,7 @@ typedef NS_ENUM (NSInteger, EditTokenErrorType) {
                                          summary:(NSString*)summary
                                        captchaId:(NSString*)captchaId
                                      captchaWord:(NSString*)captchaWord
-                                     withManager:(AFHTTPRequestOperationManager*)manager
+                                     withManager:(AFHTTPSessionManager*)manager
                               thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 
 @end

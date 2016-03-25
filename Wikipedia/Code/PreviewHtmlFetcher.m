@@ -2,7 +2,7 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "PreviewHtmlFetcher.h"
-#import "AFHTTPRequestOperationManager.h"
+#import <AFNetworking/AFNetworking.h>
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSObject+WMFExtras.h"
@@ -12,7 +12,7 @@
 
 - (instancetype)initAndFetchHtmlForWikiText:(NSString*)wikiText
                                       title:(MWKTitle*)title
-                                withManager:(AFHTTPRequestOperationManager*)manager
+                                withManager:(AFHTTPSessionManager*)manager
                          thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
@@ -24,7 +24,7 @@
 
 - (void)fetchPreviewForWikiText:(NSString*)wikiText
                           title:(MWKTitle*)title
-                    withManager:(AFHTTPRequestOperationManager*)manager {
+                    withManager:(AFHTTPSessionManager*)manager {
     NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:title.site.language];
 
     NSDictionary* params = [self getParamsForTitle:title wikiText:wikiText];
@@ -33,7 +33,7 @@
 
     // Note: "Preview should probably stay as a post, since the wikitext chunk may be
     // pretty long and there may or may not be a limit on URL length some" - Brion
-    [manager POST:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
+    [manager POST:url.absoluteString parameters:params progress:NULL success:^(NSURLSessionDataTask* operation, id responseObject) {
         //NSLog(@"JSON: %@", responseObject);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
@@ -59,7 +59,7 @@
 
         [self finishWithError:error
                   fetchedData:output];
-    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+    } failure:^(NSURLSessionDataTask* operation, NSError* error) {
         //NSLog(@"PREVIEW HTML FAIL = %@", error);
 
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
