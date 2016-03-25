@@ -20,17 +20,17 @@ PODS:
   - BlocksKit/UIKit (2.2.5):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
-  - CocoaLumberjack/Core (2.2.0)
-  - CocoaLumberjack/Default (2.2.0):
+  - CocoaLumberjack/Core (HEAD based on 2.2.0)
+  - CocoaLumberjack/Default (HEAD based on 2.2.0):
     - CocoaLumberjack/Core
-  - CocoaLumberjack/Extensions (2.2.0):
+  - CocoaLumberjack/Extensions (HEAD based on 2.2.0):
     - CocoaLumberjack/Default
-  - CocoaLumberjack/Swift (2.2.0):
+  - CocoaLumberjack/Swift (HEAD based on 2.2.0):
     - CocoaLumberjack/Extensions
-  - FBSnapshotTestCase (2.0.7):
-    - FBSnapshotTestCase/SwiftSupport (= 2.0.7)
-  - FBSnapshotTestCase/Core (2.0.7)
-  - FBSnapshotTestCase/SwiftSupport (2.0.7):
+  - FBSnapshotTestCase (HEAD based on 2.0.7):
+    - FBSnapshotTestCase/SwiftSupport (= HEAD based on 2.0.7)
+  - FBSnapshotTestCase/Core (HEAD based on 2.0.7)
+  - FBSnapshotTestCase/SwiftSupport (HEAD based on 2.0.7):
     - FBSnapshotTestCase/Core
   - HexColors (2.3.0)
   - HockeySDK (3.8.5):
@@ -46,7 +46,7 @@ PODS:
   - Mantle/extobjc (2.0.6)
   - Masonry (0.6.2)
   - MGSwipeTableCell (1.5.3)
-  - Nimble (3.1.0)
+  - Nimble (HEAD based on 3.2.0)
   - Nocilla (0.10.0)
   - NSDate-Extensions (0.0.1)
   - OAStackView (0.2.0):
@@ -54,29 +54,29 @@ PODS:
   - OCHamcrest (4.2.0)
   - OCMockito (1.4.0):
     - OCHamcrest (~> 4.0)
-  - OMGHTTPURLRQ (3.0.2):
-    - OMGHTTPURLRQ/RQ (= 3.0.2)
-  - OMGHTTPURLRQ/FormURLEncode (3.0.2)
-  - OMGHTTPURLRQ/RQ (3.0.2):
+  - OMGHTTPURLRQ (3.1.1):
+    - OMGHTTPURLRQ/RQ (= 3.1.1)
+  - OMGHTTPURLRQ/FormURLEncode (3.1.1)
+  - OMGHTTPURLRQ/RQ (3.1.1):
     - OMGHTTPURLRQ/FormURLEncode
     - OMGHTTPURLRQ/UserAgent
-  - OMGHTTPURLRQ/UserAgent (3.0.2)
+  - OMGHTTPURLRQ/UserAgent (3.1.1)
   - PiwikTracker (HEAD based on 3.3.0):
     - PiwikTracker/Core (= HEAD based on 3.3.0)
   - PiwikTracker/Core (HEAD based on 3.3.0)
-  - PromiseKit (3.0.0):
-    - PromiseKit/Foundation (= 3.0.0)
-    - PromiseKit/QuartzCore (= 3.0.0)
-    - PromiseKit/UIKit (= 3.0.0)
-  - PromiseKit/CorePromise (3.0.0)
-  - PromiseKit/Foundation (3.0.0):
-    - OMGHTTPURLRQ (~> 3.0.0)
+  - PromiseKit (HEAD based on 3.0.3):
+    - PromiseKit/Foundation (= HEAD based on 3.0.3)
+    - PromiseKit/QuartzCore (= HEAD based on 3.0.3)
+    - PromiseKit/UIKit (= HEAD based on 3.0.3)
+  - PromiseKit/CorePromise (HEAD based on 3.0.3)
+  - PromiseKit/Foundation (HEAD based on 3.0.3):
+    - OMGHTTPURLRQ (~> 3.1.0)
     - PromiseKit/CorePromise
-  - PromiseKit/QuartzCore (3.0.0):
+  - PromiseKit/QuartzCore (HEAD based on 3.0.3):
     - PromiseKit/CorePromise
-  - PromiseKit/SystemConfiguration (3.0.0):
+  - PromiseKit/SystemConfiguration (HEAD based on 3.0.3):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (3.0.0):
+  - PromiseKit/UIKit (HEAD based on 3.0.3):
     - PromiseKit/CorePromise
   - Quick (0.9.1)
   - SDWebImage (3.7.2):
@@ -96,9 +96,8 @@ DEPENDENCIES:
   - AnimatedGIFImageSerialization
   - BlocksKit/Core (~> 2.2.0)
   - BlocksKit/UIKit (~> 2.2.0)
-  - CocoaLumberjack/Swift (~> 2.2)
-  - FBSnapshotTestCase (from `https://github.com/facebook/ios-snapshot-test-case`,
-    commit `e42af8bbc032a61f93fa9b6ed748052272e522ec`)
+  - CocoaLumberjack/Swift (HEAD)
+  - FBSnapshotTestCase (HEAD)
   - HockeySDK (~> 3.8.2)
   - hpple (~> 0.2)
   - KVOController
@@ -106,16 +105,15 @@ DEPENDENCIES:
   - Mantle (~> 2.0.0)
   - Masonry (= 0.6.2)
   - MGSwipeTableCell (from `git@github.com:wikimedia/MGSwipeTableCell.git`)
-  - Nimble (~> 3.1.0)
+  - Nimble (HEAD)
   - Nocilla
   - NSDate-Extensions (from `git@github.com:wikimedia/NSDate-Extensions.git`)
   - OAStackView (from `git@github.com:wikimedia/OAStackView.git`)
   - OCHamcrest (~> 4.2.0)
   - OCMockito (~> 1.4.0)
   - PiwikTracker (HEAD)
-  - PromiseKit (from `https://github.com/mxcl/PromiseKit.git`, branch `swift-2.0-beta5`)
-  - PromiseKit/SystemConfiguration (from `https://github.com/mxcl/PromiseKit.git`,
-    branch `swift-2.0-beta5`)
+  - PromiseKit (HEAD)
+  - PromiseKit/SystemConfiguration (HEAD)
   - Quick (~> 0.9.0)
   - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `bb49df83e72f2231a191e9477a85f0effe13430a`)
   - SSDataSources (~> 0.8.0)
@@ -126,18 +124,12 @@ DEPENDENCIES:
   - VTAcknowledgementsViewController
 
 EXTERNAL SOURCES:
-  FBSnapshotTestCase:
-    :commit: e42af8bbc032a61f93fa9b6ed748052272e522ec
-    :git: https://github.com/facebook/ios-snapshot-test-case
   MGSwipeTableCell:
     :git: git@github.com:wikimedia/MGSwipeTableCell.git
   NSDate-Extensions:
     :git: git@github.com:wikimedia/NSDate-Extensions.git
   OAStackView:
     :git: git@github.com:wikimedia/OAStackView.git
-  PromiseKit:
-    :branch: swift-2.0-beta5
-    :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
@@ -145,9 +137,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/wikimedia/TSMessages.git
 
 CHECKOUT OPTIONS:
-  FBSnapshotTestCase:
-    :commit: e42af8bbc032a61f93fa9b6ed748052272e522ec
-    :git: https://github.com/facebook/ios-snapshot-test-case
   MGSwipeTableCell:
     :commit: 8ca85004bd7fcfe09a3b7938fb8c079a88481d45
     :git: git@github.com:wikimedia/MGSwipeTableCell.git
@@ -157,9 +146,6 @@ CHECKOUT OPTIONS:
   OAStackView:
     :commit: f2adee6f7b66bf1192a4bd551fa343abf6d5aa2d
     :git: git@github.com:wikimedia/OAStackView.git
-  PromiseKit:
-    :commit: c90cfc1c578ed09b5d3d21e0ac71aa5020be0899
-    :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
@@ -181,15 +167,15 @@ SPEC CHECKSUMS:
   Mantle: 299966b00759634931699f69cb6a30b9239b944d
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   MGSwipeTableCell: 5ae3b9a15efda26b201adc8676b24040febe6ff6
-  Nimble: 79d40f4d69d47314229bbabacaa02b8838c779b9
+  Nimble: 703854335d181df169bbca9c97117b5cf8c47c1d
   Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
   NSDate-Extensions: 5bd64f8815dc6b3c9d08e1f620229567e2b4771c
   OAStackView: 323757cd34a1bc5fcc9ed3c903b51dbfe192f355
   OCHamcrest: c14c0b3f4c4e99363e5b87d97bae38c4438b6d5d
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
-  OMGHTTPURLRQ: 8376dc887d76a5a7e2a67881dc788f917a2f437c
+  OMGHTTPURLRQ: 633f98ee745aeda02345935a52eec1784cddb589
   PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
-  PromiseKit: 6810c48ec19990d3253dc8caf0e05519e7cd39ba
+  PromiseKit: 00ec2a219bf5ad2833f95977698e921932b8dfd3
   Quick: a5221fc21788b6aeda934805e68b061839bc3165
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
