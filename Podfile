@@ -63,7 +63,7 @@ target 'WikipediaUnitTests', :exclusive => true do
   pod 'OCMockito', '~> 1.4.0'
   pod 'OCHamcrest', '~> 4.2.0'
   pod 'Nocilla'
-  pod 'FBSnapshotTestCase'
+  pod 'FBSnapshotTestCase', :head
   pod 'Quick', '~> 0.9.0'
   pod 'Nimble', '~> 3.1.0'
 end

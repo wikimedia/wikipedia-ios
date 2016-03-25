@@ -19,10 +19,10 @@ PODS:
     - CocoaLumberjack/Default
   - CocoaLumberjack/Swift (2.2.0):
     - CocoaLumberjack/Extensions
-  - FBSnapshotTestCase (2.0.7):
-    - FBSnapshotTestCase/SwiftSupport (= 2.0.7)
-  - FBSnapshotTestCase/Core (2.0.7)
-  - FBSnapshotTestCase/SwiftSupport (2.0.7):
+  - FBSnapshotTestCase (HEAD based on 2.0.7):
+    - FBSnapshotTestCase/SwiftSupport (= HEAD based on 2.0.7)
+  - FBSnapshotTestCase/Core (HEAD based on 2.0.7)
+  - FBSnapshotTestCase/SwiftSupport (HEAD based on 2.0.7):
     - FBSnapshotTestCase/Core
   - HexColors (2.3.0)
   - HockeySDK (3.8.5):
@@ -89,7 +89,7 @@ DEPENDENCIES:
   - BlocksKit/Core (~> 2.2.0)
   - BlocksKit/UIKit (~> 2.2.0)
   - CocoaLumberjack/Swift (~> 2.2)
-  - FBSnapshotTestCase
+  - FBSnapshotTestCase (HEAD)
   - HockeySDK (~> 3.8.2)
   - hpple (~> 0.2)
   - KVOController
