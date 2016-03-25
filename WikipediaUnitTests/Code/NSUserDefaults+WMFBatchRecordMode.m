@@ -11,7 +11,6 @@
 @implementation NSUserDefaults (WMFBatchRecordMode)
 
 - (BOOL)wmf_visualTestBatchRecordMode {
-    return YES;
     return [self boolForKey:@"WMFVisualTestBatchRecordMode"];
 }
 
