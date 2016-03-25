@@ -8,8 +8,8 @@
 
 @class MWKArticle;
 @class MWKSite;
-@class AFHTTPRequestOperation;
-@class AFHTTPRequestOperationManager;
+@class NSURLSessionDataTask;
+@class AFHTTPSessionManager;
 
 @protocol MWKImageInfoRequest <NSObject>
 

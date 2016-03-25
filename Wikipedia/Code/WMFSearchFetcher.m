@@ -6,7 +6,7 @@
 #import "MWKSearchResult.h"
 
 #import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFMantleJSONResponseSerializer.h"
 
 #import "UIScreen+WMFImageWidth.h"
@@ -35,7 +35,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+        AFHTTPSessionManager* manager = [AFHTTPSessionManager wmf_createDefaultManager];
         manager.requestSerializer  = [WMFSearchRequestSerializer serializer];
         manager.responseSerializer = [WMFSearchResults responseSerializer];
         self.operationManager      = manager;
@@ -78,7 +78,8 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 
     [self.operationManager GET:url.absoluteString
                     parameters:params
-                       success:^(AFHTTPRequestOperation* operation, id response) {
+                      progress:NULL
+                       success:^(NSURLSessionDataTask* operation, id response) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
         WMFSearchResults* searchResults = response;
@@ -93,7 +94,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 
         resolve(previousResults);
     }
-                       failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+                       failure:^(NSURLSessionDataTask* operation, NSError* error) {
         if ([url isEqual:[site mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
             [self fetchArticlesForSearchTerm:searchTerm site:site resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:previousResults useDesktopURL:YES resolver:resolve];
         } else {

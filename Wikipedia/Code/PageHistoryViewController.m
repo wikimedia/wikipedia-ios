@@ -15,6 +15,8 @@
 #import "PageHistoryFetcher.h"
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
+#import "AFHTTPSessionManager+WMFCancelAll.h"
+
 
 #define TABLE_CELL_ID @"PageHistoryResultCell"
 
@@ -39,7 +41,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [[QueuesSingleton sharedInstance].pageHistoryFetchManager.operationQueue cancelAllOperations];
+    [[QueuesSingleton sharedInstance].pageHistoryFetchManager wmf_cancelAllTasks];
 
     [super viewWillDisappear:animated];
 }

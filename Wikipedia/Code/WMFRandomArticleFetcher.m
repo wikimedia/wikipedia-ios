@@ -1,8 +1,8 @@
 
 #import "WMFRandomArticleFetcher.h"
 #import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
-#import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
+#import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "WMFApiJsonResponseSerializer.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFNumberOfExtractCharacters.h"
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFRandomArticleFetcher ()
 
 @property (nonatomic, strong) MWKSite* site;
-@property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
 
 @end
 
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init {
     self = [super init];
     if (self) {
-        AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+        AFHTTPSessionManager* manager = [AFHTTPSessionManager wmf_createDefaultManager];
         manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class]
                                                                                                 fromKeypath:@"query.pages"];
         self.operationManager = manager;
@@ -49,13 +49,13 @@ NS_ASSUME_NONNULL_BEGIN
         [self.operationManager wmf_GETWithSite:site
                                     parameters:params
                                          retry:NULL
-                                       success:^(AFHTTPRequestOperation* operation, NSArray* responseObject) {
+                                       success:^(NSURLSessionDataTask* operation, NSArray* responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
             MWKSearchResult* article = [self getBestRandomResultFromResults:responseObject];
 
             resolve(article);
-        } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+        } failure:^(NSURLSessionDataTask* operation, NSError* error) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve(error);
         }];
