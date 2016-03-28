@@ -214,8 +214,7 @@
 "about-repositories-app-source-license" = "Kode sumber tersedia di bawah $1.";
 "about-repositories-app-source-license-mit" = "Lisensi MIT";
 "about-send-feedback" = "Kirim umpan balik aplikasi";
-// Fuzzy
-"about-product-of" = "Sebuah produk dari $1";
+"about-product-of" = "Dibuat oleh $1 dengan bantuan dari beberapa relawan seperti Anda";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Simpan Artikel";
 "share-menu-page-saved" = "Artikel Disimpan";
@@ -323,8 +322,7 @@
 "page-last-edited" = "Disunting $1 hari yang lalu";
 "page-edit-history" = "Semua riwayat suntingan";
 "captcha-reload" = "Tampilkan captcha yang lain";
-// Fuzzy
-"captcha-prompt" = "Masukkan teks CAPTCHA dari gambar di atas";
+"captcha-prompt" = "Masukkan teks CAPTCHA";
 "mwk-empty-title-error" = "Tidak dapat melakukan operasi dengan judul yang kosong.";
 "home-title" = "Jelajah";
 "home-empty-section" = "Tidak ada hasil";
@@ -396,3 +394,4 @@
 "explore-most-read-footer-for-date" = "Baca semua artikel teratas di $1";
 "explore-most-read-more-list-title" = "Artikel teratas";
 "explore-most-read-more-list-title-for-date" = "Teratas di $1";
+"no-email-account-alert" = "Silakan menyiapkan sebuah akun surel di perangkat Anda dan coba lagi.";

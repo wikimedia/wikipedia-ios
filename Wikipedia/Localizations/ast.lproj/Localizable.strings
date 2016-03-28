@@ -205,13 +205,13 @@
 "about-repositories-app-source-license" = "Códigu fonte disponible baxo la $1.";
 "about-repositories-app-source-license-mit" = "Llicencia MIT";
 "about-send-feedback" = "Unviar comentariu sobro la app";
-// Fuzzy
-"about-product-of" = "Un productu de la $1";
+"about-product-of" = "Fecha pola $1 cola ayuda de voluntarios como tu";
 "about-wikimedia-foundation" = "Fundación Wikimedia";
 "share-menu-save-page" = "Guardar artículu";
 "share-menu-page-saved" = "Artículu guardáu";
 "share-menu-page-saved-access" = "Gabitu: pa tener accesu a les páxines guardaes, toca $1 arriba o fai un toque llargu en $2 abaxo.";
 "share-custom-menu-item" = "Compartir";
+"share-a-fact-share-menu-item" = "Comparte-un-fechu";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "«$1» en @Wikipedia: «$2»";
@@ -313,8 +313,7 @@
 "page-last-edited" = "Editáu fai $1 díes";
 "page-edit-history" = "Historial d'edición completu";
 "captcha-reload" = "Amosar otru «captcha»";
-// Fuzzy
-"captcha-prompt" = "Escribi'l testu CAPTCHA de la imaxe d'arriba";
+"captcha-prompt" = "Escribe'l testu del CAPTCHA";
 "mwk-empty-title-error" = "Nun pué facese la operación col títulu vacíu.";
 "home-title" = "Esplorar";
 "home-empty-section" = "Nun hai resultaos";
@@ -339,6 +338,9 @@
 "potd-empty-error-description" = "Nun pudo algamase la imaxe del día pal $1";
 "potd-description-prefix" = "Imaxe del día pal $1";
 "welcome-explore-title" = "Esplorar";
+"welcome-explore-sub-title" = "Una forma nueva de descubrir artículos interesantes caldía";
+"welcome-explore-tell-me-more" = "Cúntame más";
+"welcome-explore-tell-me-more-about-explore" = "Más sobre Esplorar";
 "welcome-languages-title" = "Llingües";
 "welcome-volunteer-continue-button" = "Siguir";
 "welcome-volunteer-thanks" = "¡Gracies!";

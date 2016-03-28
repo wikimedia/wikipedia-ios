@@ -146,7 +146,10 @@
 "edit-summary-choice-fixed-grammar" = "تم إصلاح النحو";
 "edit-summary-choice-fixed-typos" = "تم تصحيح خطأ مطبعي";
 "edit-summary-choice-added-category" = "تمت إضافة تصنيف";
+"edit-summary-choice-added-missing-info" = "إضافة معلومات ناقصة";
+"edit-summary-choice-added-clarification" = "إضافة توضيح";
 "edit-summary-choice-other" = "غير ذلك";
+"edit-summary-title" = "كيف حسنت المقالة؟";
 "credits-wikimedia-repos" = "مستودعات ويكيميديا";
 "about-title" = "عن";
 "about-wikipedia" = "ويكيبيديا";
@@ -171,6 +174,8 @@
 "button-next" = "التالي";
 "button-done" = "تم";
 "button-save" = "حفظ";
+"button-save-for-later" = "احفظها لوقت لاحق";
+"button-saved-for-later" = "احفظها لوقت لاحق";
 "onboarding-create-account" = "إنشاء حساب";
 "onboarding-login" = "تسجيل الدخول";
 "onboarding-already-have-account" = "لديك حساب بالفعل؟ $1";
@@ -187,6 +192,7 @@
 "license-footer-text" = "المحتوى متاح تحت رخصة $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "المحتويات";
+"table-of-contents-button-label" = "قائمة المحتويات";
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
 "table-of-contents-close-accessibility-hint" = "أغلق";
 "menu-edit-accessibility-label" = "عدل";
@@ -256,7 +262,8 @@
 "explore-random-article-heading" = "مقالة عشوائية";
 "explore-random-article-sub-heading" = "ويكيبيديا الإنجليزية";
 "explore-potd-heading" = "صورة اليوم";
+"explore-most-read-heading" = "الأعلى قراءة في ويكيبيديا $1";
+"explore-most-read-footer" = "كل المقالات الأكثر قراءة";
 "explore-most-read-footer-for-date" = "كل المقالات الأكثر قراءة في $1";
-// Fuzzy
-"explore-most-read-more-list-title" = "اكقر المقالات قراءة";
+"explore-most-read-more-list-title" = "أعلى المقالات";
 "explore-most-read-more-list-title-for-date" = "الأكثر قراءة في $1";

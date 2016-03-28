@@ -201,15 +201,21 @@
 "about-libraries-license" = "Lisens";
 "about-libraries-licenses" = "Lisenser";
 "about-content-license" = "Innholdslisens";
+"about-content-license-details" = "Om ikke annet er angitt, er innhold tilgjengelig under $1.";
+"about-content-license-details-share-alike-license" = "lisensen Creative Commons Navngivelse-DelPåSammeVilkår";
+"about-libraries-licenses-title" = "Vi elsker åpen kildekode-programvare $1";
+"about-libraries-complete-list" = "Fullstendig liste";
 "about-repositories" = "Lagre";
+"about-repositories-app-source-license" = "Kildekode tilgjengelig under $1.";
+"about-repositories-app-source-license-mit" = "MIT-lisensen";
 "about-send-feedback" = "Gi tilbakemelding på appen";
-// Fuzzy
-"about-product-of" = "Et produkt fra $1";
+"about-product-of" = "Laget av $1 med hjelp fra frivillige som deg";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Lagre artikkel";
 "share-menu-page-saved" = "Artikkelen ble lagret";
 "share-menu-page-saved-access" = "Tips: for å åpne lagrede sider, trykk på $1 over eller trykk lenge på $2 under.";
 "share-custom-menu-item" = "Del";
+"share-a-fact-share-menu-item" = "Del-et-faktum";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "«$1» på @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "«$1» på @Wikipedia: «$2»";
@@ -311,8 +317,7 @@
 "page-last-edited" = "Redigert for $1 dager siden";
 "page-edit-history" = "Fullstendig redigeringshistorikk";
 "captcha-reload" = "Vis en annen captcha";
-// Fuzzy
-"captcha-prompt" = "Fyll inn CAPTCHA-teksten fra bildet ovenfor";
+"captcha-prompt" = "Fyll inn CAPTCHA-teksten";
 "mwk-empty-title-error" = "Kunne ikke utføre operasjonen med en tom tittel.";
 "home-title" = "Utforsk";
 "home-empty-section" = "Ingen treff";
@@ -337,7 +342,15 @@
 "potd-empty-error-description" = "Klarte ikke hente dagens bilde $1";
 "potd-description-prefix" = "Dagens bilde $1";
 "welcome-explore-title" = "Utforsk";
+"welcome-explore-sub-title" = "En ny måte å oppdage interessante artikler hver dag";
+"welcome-explore-tell-me-more" = "Fortell mer";
+"welcome-explore-tell-me-more-about-explore" = "Mer om Utforsk";
+"welcome-explore-tell-me-more-done-button" = "Skjønner";
+"welcome-explore-continue-button" = "Kom igang";
 "welcome-languages-title" = "Språk";
+"welcome-languages-sub-title" = "Velg foretrukne språk å søke på i Wikipedia";
+"welcome-languages-add-button" = "+ Legg til";
+"welcome-languages-continue-button" = "Fortsett";
 "welcome-volunteer-continue-button" = "Fortsett";
 "welcome-volunteer-thanks" = "$1 Takk!";
 "empty-no-feed-title" = "Ingen internettforbindelse";

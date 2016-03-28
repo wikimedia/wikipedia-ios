@@ -187,11 +187,11 @@
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
 "about-libraries-licenses-title" = "Máme radi open source softvér $1";
 "about-libraries-complete-list" = "Úplný zoznam";
-"about-repositories-app-source-license-mit" = "Licencia MIT";
+"about-repositories-app-source-license" = "Zdrojový kód je dostupný pod $1.";
+"about-repositories-app-source-license-mit" = "licenciou MIT";
 "about-send-feedback" = "Odoslať spätnú väzbu";
-// Fuzzy
-"about-product-of" = "Produkt $1";
-"about-wikimedia-foundation" = "Nadácie Wikimédia";
+"about-product-of" = "Vytvorené $1 s pomocou dobrovoľníkov, ako ste vy";
+"about-wikimedia-foundation" = "Nadáciou Wikimedia";
 "share-menu-save-page" = "Uložiť článok";
 "share-menu-page-saved" = "Uložené pre offline čítanie.";
 "share-menu-page-saved-access" = "Tip: ak chcete otvoriť uložené stránky, ťuknite na položku $1 vyššie alebo dlho stlačte $2 nižšie.";
@@ -221,7 +221,7 @@
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "Slobodná encyklopédia";
 "preference_title_eventlogging_opt_in" = "Odoslať správu o používaní";
-"preference_summary_eventlogging_opt_in" = "Povoliť Wikimédii zbierať informácie o vašom používaní aplikácie. Pomáha nám to skvalitniť aplikáciu.";
+"preference_summary_eventlogging_opt_in" = "Povoliť Wikimedii zbierať informácie o vašom používaní aplikácie. Pomáha nám to skvalitniť aplikáciu.";
 "page_protected_autoconfirmed" = "Táto stránka je čiastočne zamknutá.";
 "page_protected_sysop" = "Táto stránka je zamknutá.";
 "page_protected_can_not_edit" = "Nemáte právo upraviť túto stránku";
@@ -279,8 +279,7 @@
 "page-last-edited" = "Upravené pred $1 dňami";
 "page-edit-history" = "Úplná história úprav";
 "captcha-reload" = "Zobraziť ďalšie captcha";
-// Fuzzy
-"captcha-prompt" = "Zadajte CAPTCHA text z obrázku vyššie";
+"captcha-prompt" = "Zadajte CAPTCHA text";
 "home-empty-section" = "Žiadne výsledky";
 "home-empty-section-check-again" = "Skúsiť znova";
 "home-continue-reading-heading" = "Pokračovať v čítaní";
@@ -324,8 +323,12 @@
 "back-button-accessibility-label" = "Späť";
 "explore-featured-article-heading" = "Odporúčaný článok";
 "explore-continue-reading-heading" = "Pokračovať v čítaní";
-// Fuzzy
 "explore-nearby-heading" = "Miesta v okolí";
 "explore-main-page-heading" = "Dnes na Wikipédii";
 "explore-random-article-heading" = "Náhodný článok";
 "explore-potd-heading" = "Obrázok dňa";
+"explore-most-read-footer" = "Všetky najčítanejšie články";
+"explore-most-read-footer-for-date" = "Všetky najčítanejšie články z $1";
+"explore-most-read-more-list-title" = "Najčítanejšie články";
+"explore-most-read-more-list-title-for-date" = "Najčítanejšie články z $1";
+"no-email-account-alert" = "Prosím, nastavte si na vašom zariadení e-mailový účet a skúste to znova.";

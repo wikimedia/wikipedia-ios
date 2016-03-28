@@ -241,5 +241,6 @@
 "empty-no-feed-title" = "Nėra interneto ryšio";
 "empty-no-search-results-message" = "Rezultatų nerasta";
 "alert-no-internet" = "Ten nėra interneto ryšio";
+"explore-nearby-heading" = "Artimos vietovės";
 "explore-most-read-more-list-title" = "Top straipsniai";
 "explore-most-read-more-list-title-for-date" = "Viršuje $1";
