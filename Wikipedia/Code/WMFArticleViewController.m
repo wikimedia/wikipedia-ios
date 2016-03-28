@@ -173,7 +173,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self updateToolbar];
     [self createTableOfContentsViewControllerIfNeeded];
-    [self fetchReadMoreIfNeeded];
     [self updateWebviewFootersIfNeeded];
     [self observeArticleUpdates];
 }
@@ -722,13 +721,7 @@ NS_ASSUME_NONNULL_BEGIN
             return;
         }
         // update footers to include read more if there are results
-        dispatchOnMainQueueAfterDelayInSeconds(0.3, ^{ // HAX: without delay footer often won't display
-            @strongify(self);
-            if (!self) {
-                return;
-            }
-            [self updateWebviewFootersIfNeeded];
-        });
+        [self updateWebviewFootersIfNeeded];
     })
     .catch(^(NSError* error){
         DDLogError(@"Read More Fetch Error: %@", error);
@@ -819,6 +812,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self completeAndHideProgress];
     [self scrollWebViewToRequestedPosition];
     [self.delegate articleControllerDidLoadArticle:self];
+    [self fetchReadMoreIfNeeded];    
 }
 
 - (void)webViewController:(WebViewController*)controller didTapEditForSection:(MWKSection*)section {
