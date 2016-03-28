@@ -89,6 +89,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 @property (nonatomic) BOOL isPresentingOnboarding;
 
+@property (nonatomic, strong) NSUserActivity* unprocessedUserActivity;
+
+
 /// Use @c rootTabBarController instead.
 - (UITabBarController*)tabBarController NS_UNAVAILABLE;
 
@@ -104,10 +107,18 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     return [self.presentedViewController isKindOfClass:[WMFWelcomeViewController class]];
 }
 
+- (BOOL)uiIsLoaded{
+    if (self.rootTabBarController) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
 #pragma mark - Setup
 
 - (void)loadMainUI {
-    if (self.rootTabBarController) {
+    if([self uiIsLoaded]){
         return;
     }
     UITabBarController* tabBar = [[UIStoryboard storyboardWithName:@"WMFTabBarUI" bundle:nil] instantiateInitialViewController];
@@ -200,8 +211,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (self.isPresentingOnboarding) {
         return;
     }
-
-    if ([self shouldShowLastReadArticleOnLaunch]) {
+    
+    if(self.unprocessedUserActivity){
+        [self processUserActivity:self.unprocessedUserActivity];
+    }else if ([self shouldShowLastReadArticleOnLaunch]) {
         [self showLastReadArticleAnimated:YES];
     } else if ([self shouldShowExploreScreenOnLaunch]) {
         [self showExplore];
@@ -250,7 +263,48 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - NSUserActivity
 
+- (BOOL)canProcessUserActivity:(NSUserActivity*)activity {
+    if(!activity){
+        return NO;
+    }
+    switch ([activity wmf_type]) {
+        case WMFUserActivityTypeExplore:
+        case WMFUserActivityTypeSavedPages:
+        case WMFUserActivityTypeHistory:
+        case WMFUserActivityTypeSearch:
+        case WMFUserActivityTypeSettings:
+            return YES;
+        case WMFUserActivityTypeSearchResults:
+            if([activity wmf_searchTerm]){
+                return YES;
+            }else{
+                return NO;
+            }
+            break;
+        case WMFUserActivityTypeArticle: {
+            if (![[MWKTitle alloc] initWithURL:activity.webpageURL]) {
+                return NO;
+            }else{
+                return YES;
+            }
+        }
+            break;
+        default:
+            return NO;
+            break;
+    }
+}
+
 - (BOOL)processUserActivity:(NSUserActivity*)activity {
+    if(![self uiIsLoaded]){
+        if([self canProcessUserActivity:activity]){
+            self.unprocessedUserActivity = activity;
+            return YES;
+        }else{
+            return NO;
+        }
+    }
+    self.unprocessedUserActivity = nil;
     switch ([activity wmf_type]) {
         case WMFUserActivityTypeExplore:
             [self dismissViewControllerAnimated:NO completion:NULL];
