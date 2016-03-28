@@ -212,6 +212,7 @@
 // Fuzzy
 "about-repositories" = "репозиторії";
 "about-send-feedback" = "Надіслати відгук про програму";
+// Fuzzy
 "about-product-of" = "Продукт $1";
 "about-wikimedia-foundation" = "Фонд Вікімедіа";
 "share-menu-save-page" = "Зберегти статтю";
@@ -317,6 +318,7 @@
 "page-last-edited" = "Відредаговано $1 днів тому";
 "page-edit-history" = "Повна історія редагування";
 "captcha-reload" = "Показати інший малюнок";
+// Fuzzy
 "captcha-prompt" = "Введіть текст з рисунку вище";
 "mwk-empty-title-error" = "Не вдається виконати операцію з порожнім заголовком.";
 "home-title" = "Ознайомлення";

@@ -18,8 +18,7 @@
 "article-languages-label" = "언어 선택";
 "article-languages-cancel" = "취소";
 "article-languages-downloading" = "문서 언어를 불러오는 중...";
-// Fuzzy
-"article-languages-filter-placeholder" = "언어 필터";
+"article-languages-filter-placeholder" = "언어 찾기";
 "article-read-more-title" = "더 읽어보기";
 "article-about-title" = "이 문서의 정보";
 "article-unable-to-load-section" = "섹션을 불러오지 못했습니다. 문제를 해결하기 위해 문서를 새로고침하십시오.";
@@ -205,20 +204,18 @@
 "credits-external-libraries" = "바깥";
 "about-title" = "정보";
 "about-wikipedia" = "위키백과";
-// Fuzzy
 "about-contributors" = "기여자";
-// Fuzzy
 "about-testers" = "테스터";
 "about-testers-details" = "$1에 의해 품질보증 테스트를 했습니다";
-// Fuzzy
-"about-translators" = "번역자";
+"about-translators" = "옮긴이";
 "about-translators-details" = "$1의 자원 번역자가 번역했습니다";
 // Fuzzy
 "about-libraries" = "사용된 라이브러리";
 "about-libraries-license" = "라이선스";
-// Fuzzy
 "about-repositories" = "저장소";
+"about-repositories-app-source-license-mit" = "MIT 라이선스";
 "about-send-feedback" = "앱 피드백 보내기";
+// Fuzzy
 "about-product-of" = "$1의 제품";
 "about-wikimedia-foundation" = "위키미디어 재단";
 "share-menu-save-page" = "문서 저장";
@@ -321,6 +318,7 @@
 "page-last-edited" = "$1일 전에 마지막으로 편집";
 "page-edit-history" = "전체 편집 내역";
 "captcha-reload" = "다른 캡챠 보이기";
+// Fuzzy
 "captcha-prompt" = "위 그림에 있는 캡챠 텍스트를 입력하세요";
 "home-title" = "찾아보기";
 "home-continue-reading-heading" = "계속 읽기";
@@ -354,7 +352,6 @@
 "compass-direction" = "$1시에";
 "explore-featured-article-heading" = "알찬 글";
 "explore-continue-reading-heading" = "계속 읽기";
-// Fuzzy
 "explore-nearby-heading" = "가까운 장소";
 "explore-continue-related-heading" = "읽었기 때문입니다";
 "explore-main-page-heading" = "오늘의 위키백과";

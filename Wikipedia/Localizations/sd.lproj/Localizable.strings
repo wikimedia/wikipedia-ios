@@ -190,6 +190,7 @@
 "about-libraries" = "استعمال ڪيل ڪتبخانا";
 "about-libraries-license" = "لائسنس";
 "about-send-feedback" = "ايپ جي پذيرائي موڪليو";
+// Fuzzy
 "about-product-of" = "$1 جي پيداوار";
 "about-wikimedia-foundation" = "وڪيميڊيا تنظيم";
 "share-menu-save-page" = "صفحو سانڍيو";
@@ -288,6 +289,7 @@
 "page-last-edited" = "$1 ڏينهن اڳ ترميم ڪيل";
 "page-edit-history" = "پوري ترميمي سوانح";
 "captcha-reload" = "ھڪ ٻيو  captcha ڏيکاريو";
+// Fuzzy
 "captcha-prompt" = "مٿين عڪس مان CAPTCHA لکت داخل ڪريو";
 "mwk-empty-title-error" = "خالي عنوان تي آپريشن پيش ڪرڻ ۾ ناڪام.";
 "home-title" = "تلاش ڪريو";
