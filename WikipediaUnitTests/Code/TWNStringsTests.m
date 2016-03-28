@@ -56,6 +56,16 @@
     }
 }
 
+- (void)test_incoming_translation_string_for_percent_s {
+    for (NSString* lprojFileName in self.lprojFiles) {
+        NSDictionary* stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+        for (NSString* key in stringsDict) {
+            NSString* localizedString = stringsDict[key];
+            assertThat(localizedString, isNot(containsSubstring(@"%s")));
+        }
+    }
+}
+
 - (void)test_incoming_translation_string_for_html {
     for (NSString* lprojFileName in self.lprojFiles) {
         NSDictionary* stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
