@@ -123,7 +123,8 @@
              @"sd.lproj",
              @"tl.lproj",
              @"vec.lproj",
-             @"xmf.lproj"
+             @"xmf.lproj",
+             @"ba.lproj"
              ];
 }
 
