@@ -359,6 +359,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Utilities
 
+- (void)showArticleForTitle:(MWKTitle*)title animated:(BOOL)animated {
+    if (!title) {
+        return;
+    }
+    if ([[self onscreenTitle] isEqualToTitle:title]) {
+        return;
+    }
+    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    [[self exploreViewController] wmf_pushArticleWithTitle:title dataStore:self.session.dataStore restoreScrollPosition:YES animated:animated];
+}
+
 - (BOOL)shouldShowExploreScreenOnLaunch {
     NSDate* resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
     if (!resignActiveDate) {
@@ -371,27 +382,30 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     return NO;
 }
 
-- (BOOL)shouldShowLastReadArticleOnLaunch {
-    if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
+- (BOOL)exploreViewControllerIsDisplayingContent {
+    return [self navigationControllerForTab:WMFAppTabTypeExplore].viewControllers.count > 1;
+}
+
+- (BOOL)articleBrowserIsBeingDisplayed {
+    UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
+    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[WMFArticleBrowserViewController class]]) {
         return YES;
     }
-
-    NSDate* resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
-    if (!resignActiveDate) {
-        return NO;
-    }
-
-    if (fabs([resignActiveDate timeIntervalSinceNow]) < WMFTimeBeforeRefreshingExploreScreen) {
-        if (![self exploreViewControllerIsDisplayingContent] && [self.rootTabBarController selectedIndex] == WMFAppTabTypeExplore) {
-            return YES;
-        }
-    }
-
+    
     return NO;
 }
 
-- (BOOL)exploreViewControllerIsDisplayingContent {
-    return [self navigationControllerForTab:WMFAppTabTypeExplore].viewControllers.count > 1;
+- (MWKTitle*)onscreenTitle {
+    UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
+    if ([navVC.topViewController isKindOfClass:[WMFArticleViewController class]]) {
+        return ((WMFArticleViewController*)navVC.topViewController).articleTitle;
+    }
+    
+    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[WMFArticleBrowserViewController class]]) {
+        WMFArticleBrowserViewController* vc = (id)navVC.presentedViewController;
+        return [vc titleOfCurrentArticle];
+    }
+    return nil;
 }
 
 - (UINavigationController*)navigationControllerForTab:(WMFAppTabType)tab {
@@ -530,15 +544,28 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 #pragma mark - Last Read Article
 
-- (void)showArticleForTitle:(MWKTitle*)title animated:(BOOL)animated {
-    if (!title) {
-        return;
+- (BOOL)shouldShowLastReadArticleOnLaunch {
+    MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
+    if(!lastRead){
+        return NO;
     }
-    if ([[self onscreenTitle] isEqualToTitle:title]) {
-        return;
+    
+    if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
+        return YES;
     }
-    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-    [[self exploreViewController] wmf_pushArticleWithTitle:title dataStore:self.session.dataStore restoreScrollPosition:YES animated:animated];
+    
+    NSDate* resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
+    if (!resignActiveDate) {
+        return NO;
+    }
+    
+    if (fabs([resignActiveDate timeIntervalSinceNow]) < WMFTimeBeforeRefreshingExploreScreen) {
+        if (![self exploreViewControllerIsDisplayingContent] && [self.rootTabBarController selectedIndex] == WMFAppTabTypeExplore) {
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 - (void)showLastReadArticleAnimated:(BOOL)animated {
@@ -551,28 +578,6 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[WMFArticleBrowserViewController class]]) {
         WMFArticleBrowserViewController* vc = (id)navVC.presentedViewController;
         return vc;
-    }
-    return nil;
-}
-
-- (BOOL)articleBrowserIsBeingDisplayed {
-    UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
-    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[WMFArticleBrowserViewController class]]) {
-        return YES;
-    }
-
-    return NO;
-}
-
-- (MWKTitle*)onscreenTitle {
-    UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
-    if ([navVC.topViewController isKindOfClass:[WMFArticleViewController class]]) {
-        return ((WMFArticleViewController*)navVC.topViewController).articleTitle;
-    }
-
-    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[WMFArticleBrowserViewController class]]) {
-        WMFArticleBrowserViewController* vc = (id)navVC.presentedViewController;
-        return [vc titleOfCurrentArticle];
     }
     return nil;
 }
