@@ -173,7 +173,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self updateToolbar];
     [self createTableOfContentsViewControllerIfNeeded];
-    [self fetchReadMoreIfNeeded];
     [self updateWebviewFootersIfNeeded];
     [self observeArticleUpdates];
 }
@@ -726,6 +725,9 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [self.readMoreListViewController fetchIfNeeded].then(^{
         @strongify(self);
+        if (!self) {
+            return;
+        }
         // update footers to include read more if there are results
         [self updateWebviewFootersIfNeeded];
     })
@@ -818,6 +820,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self completeAndHideProgress];
     [self scrollWebViewToRequestedPosition];
     [self.delegate articleControllerDidLoadArticle:self];
+    [self fetchReadMoreIfNeeded];    
 }
 
 - (void)webViewController:(WebViewController*)controller didTapEditForSection:(MWKSection*)section {
