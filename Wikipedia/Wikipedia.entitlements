@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:*wikipedia.org</string>
+		<string>applinks:*.wikipedia.org</string>
 		<string>applinks:de.wikipedia.org</string>
 		<string>applinks:en.wikipedia.org</string>
 		<string>applinks:es.wikipedia.org</string>
@@ -17,7 +17,7 @@
 		<string>applinks:fr.m.wikipedia.org</string>
 		<string>applinks:ja.m.wikipedia.org</string>
 		<string>applinks:ru.m.wikipedia.org</string>
-		<string>webcredentials:*wikipedia.org</string>
+		<string>webcredentials:*.wikipedia.org</string>
 		<string>webcredentials:de.wikipedia.org</string>
 		<string>webcredentials:en.wikipedia.org</string>
 		<string>webcredentials:es.wikipedia.org</string>
@@ -30,7 +30,7 @@
 		<string>webcredentials:fr.m.wikipedia.org</string>
 		<string>webcredentials:ja.m.wikipedia.org</string>
 		<string>webcredentials:ru.m.wikipedia.org</string>
-		<string>activitycontinuation:*wikipedia.org</string>
+		<string>activitycontinuation:*.wikipedia.org</string>
 		<string>activitycontinuation:de.wikipedia.org</string>
 		<string>activitycontinuation:en.wikipedia.org</string>
 		<string>activitycontinuation:es.wikipedia.org</string>
