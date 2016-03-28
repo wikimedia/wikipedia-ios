@@ -2,7 +2,7 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "PageHistoryFetcher.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFHTTPSessionManager.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSString+WMFExtras.h"
@@ -13,7 +13,7 @@
 @implementation PageHistoryFetcher
 
 - (instancetype)initAndFetchHistoryForTitle:(MWKTitle*)title
-                                withManager:(AFHTTPRequestOperationManager*)manager
+                                withManager:(AFHTTPSessionManager*)manager
                          thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
@@ -24,14 +24,14 @@
 }
 
 - (void)fetchPageHistoryForTitle:(MWKTitle*)title
-                     withManager:(AFHTTPRequestOperationManager*)manager {
+                     withManager:(AFHTTPSessionManager*)manager {
     NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:title.site.language];
 
     NSDictionary* params = [self getParamsForTitle:title];
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    [manager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
+    [manager GET:url.absoluteString parameters:params progress:NULL success:^(NSURLSessionDataTask* operation, id responseObject) {
         //NSLog(@"JSON: %@", responseObject);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
@@ -58,7 +58,7 @@
 
         [self finishWithError:error
                   fetchedData:output];
-    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+    } failure:^(NSURLSessionDataTask* operation, NSError* error) {
         //NSLog(@"PAGE HISTORY FAIL = %@", error);
 
         [[MWNetworkActivityIndicatorManager sharedManager] pop];

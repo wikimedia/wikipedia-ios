@@ -2,7 +2,7 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "LoginTokenFetcher.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFHTTPSessionManager.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSObject+WMFExtras.h"
@@ -21,7 +21,7 @@
 - (instancetype)initAndFetchTokenForDomain:(NSString*)domain
                                   userName:(NSString*)userName
                                   password:(NSString*)password
-                               withManager:(AFHTTPRequestOperationManager*)manager
+                               withManager:(AFHTTPSessionManager*)manager
                         thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
@@ -36,14 +36,14 @@
     return self;
 }
 
-- (void)fetchTokenWithManager:(AFHTTPRequestOperationManager*)manager {
+- (void)fetchTokenWithManager:(AFHTTPSessionManager*)manager {
     NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain];
 
     NSDictionary* params = [self getParams];
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    [manager POST:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
+    [manager POST:url.absoluteString parameters:params progress:NULL success:^(NSURLSessionDataTask* operation, id responseObject) {
         //NSLog(@"JSON: %@", responseObject);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
@@ -73,7 +73,7 @@
 
         [self finishWithError:error
                   fetchedData:output];
-    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+    } failure:^(NSURLSessionDataTask* operation, NSError* error) {
         //NSLog(@"LOGIN TOKEN FAIL = %@", error);
 
         [[MWNetworkActivityIndicatorManager sharedManager] pop];

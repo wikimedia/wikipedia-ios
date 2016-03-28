@@ -1,9 +1,9 @@
 
-#import <AFNetworking/AFHTTPRequestOperationManager.h>
+#import <AFNetworking/AFNetworking.h>
 
 @class MWKSite;
 
-@interface AFHTTPRequestOperationManager (WMFDesktopRetry)
+@interface AFHTTPSessionManager (WMFDesktopRetry)
 
 /**
  *  Executes a GET using a mobile url.
@@ -19,12 +19,12 @@
  *
  *  @return The operation
  */
-- (AFHTTPRequestOperation*)wmf_GETWithMobileURLString:(NSString*)mobileURLString
+- (NSURLSessionDataTask*)wmf_GETWithMobileURLString:(NSString*)mobileURLString
                                      desktopURLString:(NSString*)desktopURLString
                                            parameters:(id)parameters
-                                                retry:(void (^)(AFHTTPRequestOperation* retryOperation, NSError* error))retry
-                                              success:(void (^)(AFHTTPRequestOperation* operation, id responseObject))success
-                                              failure:(void (^)(AFHTTPRequestOperation* operation, NSError* error))failure;
+                                                retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
+                                              success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
+                                              failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure;
 
 
 /**
@@ -36,11 +36,11 @@
  *
  *  @return The operation which represents the state of the request.
  */
-- (AFHTTPRequestOperation*)wmf_GETWithSite:(MWKSite*)site
+- (NSURLSessionDataTask*)wmf_GETWithSite:(MWKSite*)site
                                 parameters:(id)parameters
-                                     retry:(void (^)(AFHTTPRequestOperation* retryOperation, NSError* error))retry
-                                   success:(void (^)(AFHTTPRequestOperation* operation, id responseObject))success
-                                   failure:(void (^)(AFHTTPRequestOperation* operation, NSError* error))failure;
+                                     retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
+                                   success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
+                                   failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure;
 
 
 /**

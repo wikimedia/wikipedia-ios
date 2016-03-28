@@ -34,6 +34,8 @@
 #import "WMFOpenExternalLinkDelegateProtocol.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import "AFHTTPSessionManager+WMFCancelAll.h"
+
 
 typedef NS_ENUM (NSInteger, WMFCannedSummaryChoices) {
     CANNED_SUMMARY_TYPOS,
@@ -656,32 +658,14 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 - (void)preview {
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-preview-changes", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
-    [[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager.operationQueue cancelAllOperations];
+    [[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
+        (void)[[PreviewHtmlFetcher alloc] initAndFetchHtmlForWikiText:self.wikiText
+                                                                title:self.section.article.title
+                                                          withManager:[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager
+                                                   thenNotifyDelegate:self];
+    }];
 
-    (void)[[PreviewHtmlFetcher alloc] initAndFetchHtmlForWikiText:self.wikiText
-                                                            title:self.section.article.title
-                                                      withManager:[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager
-                                               thenNotifyDelegate:self];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-   -(void)saveAutomaticallyIfNecessary
-   {
-    // Save automatically if user had tapped "sign in and save" previously and if
-    // the view is appearing and the user is now logged in.
-    if(self.saveAutomaticallyIfSignedIn){
-        self.saveAutomaticallyIfSignedIn = NO;
-        if([SessionSingleton sharedInstance].keychainCredentials.userName){
-            [self save];
-        }
-    }
-   }
- */
 
 - (void)save {
 //TODO: maybe? if we have credentials, yet the edit token retrieved for an edit
@@ -696,24 +680,27 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
         [self.savedPagesFunnel logEditAttempt];
     }
 
-    [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager.operationQueue cancelAllOperations];
+    [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{
+        
+        // If fromTitle was set, the section was transcluded, so use the title of the page
+        // it was transcluded from.
+        MWKTitle* editTitle = self.section.fromtitle ? self.section.fromtitle : self.section.article.title;
+        
+        // First try to get an edit token for the page's domain before trying to upload the changes.
+        // Only the domain is used to actually fetch the token, the other values are
+        // parked in EditTokenFetcher so the actual uploader can have quick read-only
+        // access to the exact params which kicked off the token request.
+        (void)[[EditTokenFetcher alloc] initAndFetchEditTokenForWikiText:self.wikiText
+                                                               pageTitle:editTitle
+                                                                 section:[NSString stringWithFormat:@"%d", self.section.sectionId]
+                                                                 summary:[self getSummary]
+                                                               captchaId:self.captchaId
+                                                             captchaWord:self.captchaViewController.captchaTextBox.text
+                                                             withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
+                                                      thenNotifyDelegate:self];
+    }];
 
-    // If fromTitle was set, the section was transcluded, so use the title of the page
-    // it was transcluded from.
-    MWKTitle* editTitle = self.section.fromtitle ? self.section.fromtitle : self.section.article.title;
-
-    // First try to get an edit token for the page's domain before trying to upload the changes.
-    // Only the domain is used to actually fetch the token, the other values are
-    // parked in EditTokenFetcher so the actual uploader can have quick read-only
-    // access to the exact params which kicked off the token request.
-    (void)[[EditTokenFetcher alloc] initAndFetchEditTokenForWikiText:self.wikiText
-                                                           pageTitle:editTitle
-                                                             section:[NSString stringWithFormat:@"%d", self.section.sectionId]
-                                                             summary:[self getSummary]
-                                                           captchaId:self.captchaId
-                                                         captchaWord:self.captchaViewController.captchaTextBox.text
-                                                         withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
-                                                  thenNotifyDelegate:self];
+    
 }
 
 - (void)showAbuseFilterAlertOfType:(AbuseFilterAlertType)alertType {
@@ -744,10 +731,12 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 - (void)reloadCaptchaPushed:(id)sender {
     self.captchaViewController.captchaTextBox.text = @"";
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-    [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager.operationQueue cancelAllOperations];
-    (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
-                                                    withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
-                                             thenNotifyDelegate:self];
+    [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{
+        (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
+                                                        withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
+                                                 thenNotifyDelegate:self];
+    }];
+ 
 }
 
 - (void)revealCaptcha {

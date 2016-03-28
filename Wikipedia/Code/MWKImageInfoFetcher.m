@@ -7,21 +7,23 @@
 
 #import "MWKImageInfoFetcher.h"
 #import "WMFNetworkUtilities.h"
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
 #import "MWKImageInfoResponseSerializer.h"
 #import "MWKArticle.h"
 #import "MWKImageList.h"
 #import "MediaWikiKit.h"
-#import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
+#import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "UIScreen+WMFImageWidth.h"
+#import "AFHTTPSessionManager+WMFCancelAll.h"
+
 
 @interface MWKImageInfoFetcher ()
 
-@property (nonatomic, strong, readonly) AFHTTPRequestOperationManager* manager;
+@property (nonatomic, strong, readonly) AFHTTPSessionManager* manager;
 
 // Designated initializer, can be used to inject a mock request manager while testing.
 - (instancetype)initWithDelegate:(id<FetchFinishedDelegate>)delegate
-                  requestManager:(AFHTTPRequestOperationManager*)requestManager;
+                  requestManager:(AFHTTPSessionManager*)requestManager;
 
 @end
 
@@ -32,13 +34,13 @@
 }
 
 - (instancetype)initWithDelegate:(id<FetchFinishedDelegate>)delegate {
-    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+    AFHTTPSessionManager* manager = [AFHTTPSessionManager wmf_createDefaultManager];
     manager.responseSerializer = [MWKImageInfoResponseSerializer serializer];
     return [self initWithDelegate:delegate requestManager:manager];
 }
 
 - (instancetype)initWithDelegate:(id<FetchFinishedDelegate>)delegate
-                  requestManager:(AFHTTPRequestOperationManager*)requestManager {
+                  requestManager:(AFHTTPSessionManager*)requestManager {
     NSParameterAssert(requestManager);
     self = [super init];
     if (self) {
@@ -133,18 +135,18 @@
     }
 
     @weakify(self);
-    AFHTTPRequestOperation* request =
+    NSURLSessionDataTask* request =
         [self.manager wmf_GETWithSite:site
                            parameters:params
                                 retry:nil
-                              success:^(AFHTTPRequestOperation* operation, NSArray* galleryItems) {
+                              success:^(NSURLSessionDataTask* operation, NSArray* galleryItems) {
         @strongify(self);
         [self finishWithError:nil fetchedData:galleryItems];
         if (success) {
             success(galleryItems);
         }
     }
-                              failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+                              failure:^(NSURLSessionDataTask* operation, NSError* error) {
         @strongify(self);
         [self finishWithError:error fetchedData:nil];
         if (failure) {
@@ -156,7 +158,7 @@
 }
 
 - (void)cancelAllFetches {
-    [self.manager.operationQueue cancelAllOperations];
+    [self.manager wmf_cancelAllTasks];
 }
 
 @end

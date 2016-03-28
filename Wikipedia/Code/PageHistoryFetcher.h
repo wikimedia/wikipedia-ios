@@ -4,13 +4,13 @@
 #import <Foundation/Foundation.h>
 #import "FetcherBase.h"
 
-@class AFHTTPRequestOperationManager;
+@class AFHTTPSessionManager;
 
 @interface PageHistoryFetcher : FetcherBase
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
 - (instancetype)initAndFetchHistoryForTitle:(MWKTitle*)title
-                                withManager:(AFHTTPRequestOperationManager*)manager
+                                withManager:(AFHTTPSessionManager*)manager
                          thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 
 @end
