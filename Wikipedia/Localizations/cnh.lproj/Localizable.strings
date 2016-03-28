@@ -198,6 +198,7 @@
 // Fuzzy
 "about-repositories" = "bukbau";
 "about-send-feedback" = "App cung na ruahnak kuat ding";
+// Fuzzy
 "about-product-of" = "$1 kutchuak";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Cahmai khon ding";
@@ -295,4 +296,5 @@
 "page-issues" = "Cahmai nambar";
 "page-similar-titles" = "Cahmai khatmi pawl";
 "captcha-reload" = "Adang captcha langhter";
+// Fuzzy
 "captcha-prompt" = "Hmanthlak cung i CAPTCHA ca kha tialpiak";

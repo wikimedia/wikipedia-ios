@@ -10,8 +10,7 @@
 "article-languages-label" = "Elekti lingvon";
 "article-languages-cancel" = "Nuligi";
 "article-languages-downloading" = "Ŝarĝante lingvojn de la artikolo...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Lingva filtrilo";
+"article-languages-filter-placeholder" = "Trovi lingvon";
 "article-read-more-title" = "Legi plu";
 "article-unable-to-load-section" = "Ne eblas ŝuti tiun ĉi sekcion. Provu refreŝigi la artikolon, tio eble riparos la problemon.";
 "info-box-title" = "Rapidaj faktoj";
@@ -22,12 +21,10 @@
 "history-section-yesterday" = "Hieraŭ";
 "history-section-lastweek" = "Lasta semajno";
 "history-section-lastmonth" = "Lasta monato";
-// Fuzzy
-"history-clear-confirmation-heading" = "Ĉu forigi ĉiujn lastajn erojn?";
+"history-clear-confirmation-heading" = "Ĉu vi certas, ke vi volas forigi ĉiujn viajn lastajn erojn?";
 "history-clear-confirmation-sub-heading" = "Tiu ĉi ago ne povas esti malfarita!";
 "history-clear-cancel" = "Nuligi";
-// Fuzzy
-"history-clear-delete-all" = "Forigi ĉion";
+"history-clear-delete-all" = "Jes, forigi ĉion";
 "zero-free-verbiage" = "Senpaga aliro al Vikipedio de via portebl-interreta operatoro (sen bezono pagi datum-ŝutadon)";
 "zero-charged-verbiage" = "Vikipedio Nulo estas malŝaltita";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -37,8 +34,7 @@
 "zero-learn-more-learn-more" = "Legi plu";
 "zero-learn-more-no-thanks" = "Elimini";
 "zero-wikipedia-zero-heading" = "Vikipedio Zero";
-// Fuzzy
-"zero-warn-when-leaving" = "Avertu kiam forlasi Vikipedio Zero";
+"zero-warn-when-leaving" = "Averti dum forlasado de Zero";
 "account-creation-logging-in" = "Ensalutante...";
 "account-creation-saving" = "Konservante...";
 "account-creation-login" = "Ĉu vi jam havas konton? Ensalutu.";
@@ -78,8 +74,7 @@
 "search-titles" = "Titoloj";
 "search-within-articles" = "En artikoloj";
 "search-did-you-mean" = "Ĉu vi celis $1?";
-// Fuzzy
-"search-recent-title" = "Lastaj serĉoj:";
+"search-recent-title" = "Laste serĉata";
 "search-recent-clear-confirmation-heading" = "Ĉu forigi ĉiujn lastajn serĉojn?";
 "search-recent-clear-confirmation-sub-heading" = "Tiu ĉi ago ne povas esti malfarita!";
 "search-recent-clear-cancel" = "Nuligi";
@@ -87,14 +82,12 @@
 "settings-title" = "Agordoj";
 "main-menu-title" = "Pli";
 "main-menu-heading-about" = "Pri";
-// Fuzzy
 "main-menu-faq" = "Oftaj demandoj";
 "main-menu-language-toggle-show" = "Montri lingvojn";
 "main-menu-language-toggle-hide" = "Kaŝu lingvojn";
 "main-menu-language-selection-saved" = "Lingvoelekto konservita";
 "main-menu-account-title-logged-out" = "Konto";
-// Fuzzy
-"main-menu-account-title-logged-in" = "Ensalutinta kiel: $1";
+"main-menu-account-title-logged-in" = "Ensalutinta kiel $1";
 "main-menu-account-login" = "Ensaluti";
 "main-menu-account-logout" = "Elsaluti";
 "main-menu-account-logout-cancel" = "Nuligi";
@@ -104,16 +97,12 @@
 "main-menu-current-article-save" = "Konservita $1 por legado senreta";
 "main-menu-random" = "Hazarda paĝo";
 "main-menu-feedback-heading" = "Rimarkoj";
-// Fuzzy
-"main-menu-send-feedback" = "Sendi rimarkojn pri ĉi tiu aplikaĵo";
+"main-menu-send-feedback" = "Skribu al ni";
 "main-menu-credits" = "Agnoskoj";
-// Fuzzy
-"main-menu-about" = "Pri la Vikipedia aplikaĵo";
+"main-menu-about" = "Pri la aplikaĵo";
 "main-menu-zero-faq" = "Oftaj demandoj pri Vikipedio Nulo";
 "main-menu-privacy-policy" = "Politiko pri privateco";
-// Fuzzy
 "main-menu-terms-of-use" = "Uzkondiĉoj";
-// Fuzzy
 "main-menu-rate-app" = "Taksi la aplikaĵon";
 "main-menu-heading-zero" = "Vikipedio Zero";
 "main-menu-heading-legal" = "Privateco kaj uzkondiĉoj";
@@ -123,12 +112,10 @@
 "main-menu-heading-debug" = "Sencimigi";
 "main-menu-debug-crash" = "Kraŝi";
 "saved-pages-title" = "Konservitaj paĝoj";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Ĉu forigi ĉiujn konservitajn erojn?";
+"saved-pages-clear-confirmation-heading" = "Ĉu vi certas, ke vi volas forigi ĉiujn viajn konservitajn erojn?";
 "saved-pages-clear-confirmation-sub-heading" = "Tiu ĉi ago ne povas esti malfarita!";
 "saved-pages-clear-cancel" = "Nuligi";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Forigi ĉiujn";
+"saved-pages-clear-delete-all" = "Jes, forigi ĉiujn";
 "saved-pages-refresh-cancel-alert-button" = "Komprenite";
 "page-history-title" = "Artikola historio";
 "page-history-downloading" = "Ŝutado de artikola historio...";
@@ -173,6 +160,7 @@
 "about-repositories" = "Deponejoj";
 "about-repositories-app-source-license-mit" = "MIT-permesilo";
 "about-send-feedback" = "Sendi rimarkojn pri la aplikaĵo";
+// Fuzzy
 "about-product-of" = "Produkto de $1";
 "about-wikimedia-foundation" = "Fondaĵo Vikimedio";
 "share-menu-save-page" = "Konservi paĝon";

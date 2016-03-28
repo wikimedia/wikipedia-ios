@@ -200,6 +200,7 @@
 // Fuzzy
 "about-repositories" = "kodebanke";
 "about-send-feedback" = "Stuur toep terugvoer";
+// Fuzzy
 "about-product-of" = "'n Produk van die $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Stoor bladsy";
@@ -297,4 +298,5 @@
 "page-issues" = "Bladprobleme";
 "page-similar-titles" = "Soortgelyke bladsye";
 "captcha-reload" = "Wys 'n ander captcha";
+// Fuzzy
 "captcha-prompt" = "Tik CAPTCHA-teks op die prentjie bó";

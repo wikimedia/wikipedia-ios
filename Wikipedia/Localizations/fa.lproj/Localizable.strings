@@ -89,7 +89,7 @@
 "wikitext-upload-save-sign-in-benefits" = "بنابراین ویرایشگران همکار می توانند با شما تماس برقرار کنند و شما می‌توانید ببنید چه مقالاتی ویرایش کرده‌اید.";
 "wikitext-upload-save-anonymously" = "ذخیره به صورت ناشناس";
 "wikitext-upload-save-anonymously-warning" = "ویرایش شما با آدرس آی‌پی دستگاه شما نمایش داده می‌شود. اگر شما  $1  باید حریم خصوصی بیشتری خواهید داشت.";
-"wikitext-upload-save-terms-and-license" = "با ذخیره‌کردن، می‌پذیرید که $1، و به طور جبران‌ناشدنی مشارکت‌هایتان را تحت پروانه $2 منتشر کنید.";
+"wikitext-upload-save-terms-and-license" = "با ذخیره کردن، می‌پذیرید که $1، و به طور جبران‌ناشدنی مشارکت‌هایتان را تحت پروانه $2 منتشر کنید.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "باز کردن پیوند";
@@ -216,6 +216,7 @@
 "about-repositories-app-source-license" = "سورس کد تحت $1 در دسترس است.";
 "about-repositories-app-source-license-mit" = "مجوز ام‌‌آی‌تی";
 "about-send-feedback" = "فرستادن بازخورد برنامه";
+// Fuzzy
 "about-product-of" = "محصول $1";
 "about-wikimedia-foundation" = "بنیاد ویکی‌مدیا";
 "share-menu-save-page" = "ذخیره مقاله";
@@ -324,6 +325,7 @@
 "page-last-edited" = "تغییر یافته در $1 روز پیش";
 "page-edit-history" = "تاریخچهٔ کامل ویرایش";
 "captcha-reload" = "نمایش کپچای دیگر";
+// Fuzzy
 "captcha-prompt" = "متن کپچا را از تصویر بالا وارد کنید";
 "mwk-empty-title-error" = "با عنوان خالی امکان انجام عملیات نیست.";
 "home-title" = "مرور";
@@ -393,4 +395,6 @@
 "explore-potd-heading" = "نگارهٔ برگزیدهٔ روز";
 "explore-most-read-heading" = "برای مطالعه در ویکی‌پدیای $1";
 "explore-most-read-footer" = "همهٔ مقالاتی که بیشترین بازدید را داشتند";
+"explore-most-read-footer-for-date" = "همهٔ مقالاتی که بیشترین بازدید را در $1 داشتند";
 "explore-most-read-more-list-title" = "بالاترین مقالات";
+"explore-most-read-more-list-title-for-date" = "بالاترین در $1";

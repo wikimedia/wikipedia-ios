@@ -203,6 +203,7 @@
 // Fuzzy
 "about-repositories" = "lagre";
 "about-send-feedback" = "Send tilbagemelding om app";
+// Fuzzy
 "about-product-of" = "Et produkt af $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Gem side";
@@ -300,5 +301,6 @@
 "page-issues" = "Problemer med siden";
 "page-similar-titles" = "Lignende sider";
 "captcha-reload" = "Vis en anden captcha";
+// Fuzzy
 "captcha-prompt" = "Indtast CAPTCHA teksten fra billedet ovenfor";
 "mwk-empty-title-error" = "Ude af stand til at udføre operationen med tom titel.";

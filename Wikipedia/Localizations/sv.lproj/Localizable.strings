@@ -213,6 +213,7 @@
 "about-repositories-app-source-license" = "Källkoden är tillgänglig under $1.";
 "about-repositories-app-source-license-mit" = "MIT-licensen";
 "about-send-feedback" = "Skicka återkoppling om appen";
+// Fuzzy
 "about-product-of" = "En produkt av $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Spara artikeln";
@@ -321,6 +322,7 @@
 "page-last-edited" = "Redigerad för $1 dagar sedan";
 "page-edit-history" = "Full redigeringshistorik";
 "captcha-reload" = "Visa en annan captcha";
+// Fuzzy
 "captcha-prompt" = "Ange captchatexten från bilden ovan";
 "mwk-empty-title-error" = "Det går inte att utföra åtgärden med tom titel.";
 "home-title" = "Utforska";
@@ -350,6 +352,7 @@
 "welcome-explore-tell-me-more" = "Berätta mer";
 "welcome-explore-tell-me-more-about-explore" = "Mer om Utforska";
 "welcome-explore-tell-me-more-details" = "När du läser en artikel läggs relaterade artiklar automatiskt till ditt Utforskningsflöde. Detta ändrar inte hur vi samlar in din information och din läsningshistorik är fortfarande privat.";
+"welcome-explore-tell-me-more-related" = "Utforskningsflödet visar artiklar som är relaterade till dem du har läst.";
 "welcome-explore-tell-me-more-privacy" = "Ingen läsningslista eller profil lagras i våra servrar.";
 "welcome-explore-tell-me-more-done-button" = "Jag förstår";
 "welcome-explore-continue-button" = "Kom igång";
@@ -389,5 +392,6 @@
 "explore-potd-heading" = "Dagens bild";
 "explore-most-read-heading" = "Mest lästa på $1 Wikipedia";
 "explore-most-read-footer" = "Alla mest lästa artiklar";
-// Fuzzy
-"explore-most-read-more-list-title" = "Mest lästa artiklar";
+"explore-most-read-footer-for-date" = "Alla mest lästa artiklar på $1";
+"explore-most-read-more-list-title" = "Populära artiklar";
+"explore-most-read-more-list-title-for-date" = "Populärt den $1";

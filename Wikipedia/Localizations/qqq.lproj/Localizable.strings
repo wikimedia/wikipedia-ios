@@ -199,7 +199,7 @@
 "about-wikipedia" = "Wikipedia\n{{Identical|Wikipedia}}";
 "about-contributors" = "Header text for contributors section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.\n{{Identical|Contributor}}";
 "about-testers" = "Header text for (software) testers section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.";
-"about-testers-details" = "Description of the QA testers. $1 is specialistsguild.org, the website of the testing group.";
+"about-testers-details" = "Description of the Quality Assurance (QA) testers. $1 is specialistsguild.org, the website of the testing group.";
 "about-translators" = "Header text for translators section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.\n{{Identical|Translator}}";
 "about-translators-details" = "Description of volunteer translation. $1 is translatewiki url.";
 "about-libraries" = "Header text for libraries section (as in a collection of subprograms used to develop software) of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.";
@@ -395,4 +395,3 @@
 "explore-most-read-more-list-title" = "Title for the view displaying longer list of top read articles.";
 "explore-most-read-more-list-title-for-date" = "Title with date for the view displaying longer list of top read articles. $1 will be substituted with the date";
 "no-email-account-alert" = "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device";
-

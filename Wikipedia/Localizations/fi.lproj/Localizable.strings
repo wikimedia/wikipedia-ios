@@ -208,6 +208,7 @@
 "about-repositories-app-source-license" = "Lähdekoodi on saatavilla $1-lisenssin ehtojen mukaisesti.";
 "about-repositories-app-source-license-mit" = "MIT";
 "about-send-feedback" = "Lähetä palautetta sovelluksesta";
+// Fuzzy
 "about-product-of" = "Tuote $1";
 "about-wikimedia-foundation" = "Wikimediasäätiö";
 "share-menu-save-page" = "Tallenna artikkeli";
@@ -313,6 +314,7 @@
 "page-last-edited" = "Muokattu $1 päivää sitten";
 "page-edit-history" = "Täysi muokkaushistoria";
 "captcha-reload" = "Näytä toinen CAPTCHA";
+// Fuzzy
 "captcha-prompt" = "Syötä CAPTCHA-teksti yllä olevasta kuvasta";
 "home-title" = "Tutki";
 "home-empty-section" = "Ei tuloksia";

@@ -199,6 +199,7 @@
 // Fuzzy
 "about-repositories" = "भण्डाराः";
 "about-send-feedback" = "अनुप्रयोगप्रतिक्रियां प्रेषयतु";
+// Fuzzy
 "about-product-of" = "$1 इत्यस्य प्रकाशनम्";
 "about-wikimedia-foundation" = "विकिमीडिया फाउण्डेशन्";
 "share-menu-save-page" = "पृष्ठं रक्ष्यताम्";
@@ -296,5 +297,6 @@
 "page-issues" = "पृष्ठस्य समस्याः";
 "page-similar-titles" = "समानपृष्ठानि";
 "captcha-reload" = "अन्यत् संभेपूस्वसाट्यूप प्रदर्शयतु";
+// Fuzzy
 "captcha-prompt" = "उक्तचित्रात् संभेपूस्वसाट्यूप-पाठं लिखतु";
 "mwk-empty-title-error" = "रिक्तशिर्षकेन एषा प्रकिया भवितुं नार्हति ।";
