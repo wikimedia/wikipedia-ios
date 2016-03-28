@@ -2,7 +2,7 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "AssetsFileFetcher.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFHTTPSessionManager.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "QueuesSingleton.h"
 #import "WMFAssetsFile.h"
@@ -12,7 +12,7 @@ NSTimeInterval const kWMFMaxAgeDefault = 60 * 60 * 24;
 @implementation AssetsFileFetcher
 
 - (instancetype)initAndFetchAssetsFileOfType:(WMFAssetsFileType)file
-                                 withManager:(AFHTTPRequestOperationManager*)manager
+                                 withManager:(AFHTTPSessionManager*)manager
                                       maxAge:(NSTimeInterval)maxAge {
     self = [super init];
     if (self) {
@@ -26,7 +26,7 @@ NSTimeInterval const kWMFMaxAgeDefault = 60 * 60 * 24;
 
 - (void)fetchAssetsFile:(WMFAssetsFileType)file
                  maxAge:(NSTimeInterval)maxAge
-            withManager:(AFHTTPRequestOperationManager*)manager;
+            withManager:(AFHTTPSessionManager*)manager;
 {
     WMFAssetsFile* assetsFile = [[WMFAssetsFile alloc] initWithFileType:file];
 
@@ -41,16 +41,12 @@ NSTimeInterval const kWMFMaxAgeDefault = 60 * 60 * 24;
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    [manager GET:url.absoluteString parameters:nil success:^(AFHTTPRequestOperation* operation, id responseObject) {
+    [manager GET:url.absoluteString parameters:nil progress:NULL success:^(NSURLSessionDataTask* operation, id responseObject) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-        if (operation.response.statusCode != 200) {
+        if([operation.response isKindOfClass:[NSHTTPURLResponse class]] && [(NSHTTPURLResponse*)operation.response statusCode] != 200) {
             return;
         }
-
-        //NSString *className = NSStringFromClass ([responseObject class]);
-        //NSLog(@"className = %@", className);
-        //NSLog(@"mimeType = %@", operation.response.MIMEType);
 
         if (![self isDataResponseValid:responseObject]) {
             return;
@@ -68,7 +64,7 @@ NSTimeInterval const kWMFMaxAgeDefault = 60 * 60 * 24;
                          atomically:YES
                            encoding:NSUTF8StringEncoding
                               error:&error];
-    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+    } failure:^(NSURLSessionDataTask* operation, NSError* error) {
         NSLog(@"Error: %@", error);
         //NSLog(@"Error URL: %@", operation.request.URL);
 

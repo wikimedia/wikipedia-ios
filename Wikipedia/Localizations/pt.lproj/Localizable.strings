@@ -1,5 +1,6 @@
 // Messages for Portuguese (português)
 // Exported from translatewiki.net
+// Author: Diniscoelho
 // Author: Fúlvio
 // Author: Imperadeiro98
 // Author: Jkb8
@@ -209,12 +210,14 @@
 "about-repositories-app-source-license" = "Código-fonte disponível sob a $1.";
 "about-repositories-app-source-license-mit" = "Licença MIT";
 "about-send-feedback" = "Enviar comentários sobre a aplicação";
+// Fuzzy
 "about-product-of" = "Um produto da $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Guardar página";
 "share-menu-page-saved" = "Página guardada";
 "share-menu-page-saved-access" = "Dica: Para aceder às suas páginas guardadas, toque em $1 acima ou pressione $2 abaixo.";
 "share-custom-menu-item" = "Partilhar";
+"share-a-fact-share-menu-item" = "Partilhar um fact";
 "share-on-twitter-sign-off" = "via @Wikipédia";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" na @Wikipédia: \"$2\"";
@@ -316,6 +319,7 @@
 "page-last-edited" = "Editado há $1 dias";
 "page-edit-history" = "Histórico completo";
 "captcha-reload" = "Mostrar outro código";
+// Fuzzy
 "captcha-prompt" = "Insira o código CAPTCHA da imagem acima";
 "mwk-empty-title-error" = "Não é possível executar a operação com o título vazio.";
 "home-title" = "Explorar";
@@ -346,6 +350,7 @@
 "welcome-explore-tell-me-more-about-explore" = "Mais sobre Explorar";
 "welcome-explore-tell-me-more-details" = "Quando ler um artigo, os relacionados são automaticamente adicionados ao seu feed Explorar. Isto não muda a forma como recolhemos a sua informação, e o seu histórico de leitura permanece privado.";
 "welcome-explore-tell-me-more-related" = "O feed Explorar mostra-lhe artigos relacionados com os que já leu.";
+"welcome-explore-tell-me-more-privacy" = "Nenhuma lista de leitura ou perfil é armazenado nos nossos servidores.";
 "welcome-explore-tell-me-more-done-button" = "Entendi";
 "welcome-explore-continue-button" = "Começar";
 "welcome-languages-title" = "Idiomas";
@@ -384,4 +389,6 @@
 "explore-potd-heading" = "Imagem do dia";
 "explore-most-read-heading" = "Os mais lidos na Wikipédia em $1";
 "explore-most-read-footer" = "Todos os artigos mais lidos";
+"explore-most-read-footer-for-date" = "Todos os artigos mais lidos em $1";
 "explore-most-read-more-list-title" = "Artigos mais lidos";
+"explore-most-read-more-list-title-for-date" = "Mais lidos em $1";

@@ -7,7 +7,7 @@
 ////
 
 #import <XCTest/XCTest.h>
-#import <AFNetworking/AFHTTPRequestOperationManager.h>
+#import <AFNetworking/AFHTTPSessionManager.h>
 #import "WMFSearchFetcher_Testing.h"
 #import "WMFSearchResults_Internal.h"
 #import "MWKSearchResult.h"

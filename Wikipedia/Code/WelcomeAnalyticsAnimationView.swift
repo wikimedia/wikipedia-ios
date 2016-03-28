@@ -233,7 +233,7 @@ public class WelcomeAnalyticsAnimationView : WelcomeAnimationView {
                 delay: (0.3 + (Double(barIndex) * 0.1)),
                 duration: 0.3
             )
-            barIndex++
+            barIndex+=1
         }
         
         _ = [

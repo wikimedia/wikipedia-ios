@@ -5,8 +5,8 @@
 
 // Networking
 #import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
-#import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
+#import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import <Mantle/Mantle.h>
 #import "WMFNumberOfExtractCharacters.h"
@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticlePreviewFetcher ()
 
-@property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
 
 @end
 
@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init {
     self = [super init];
     if (self) {
-        AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+        AFHTTPSessionManager* manager = [AFHTTPSessionManager wmf_createDefaultManager];
         manager.requestSerializer  = [WMFArticlePreviewRequestSerializer serializer];
         manager.responseSerializer =
             [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class]

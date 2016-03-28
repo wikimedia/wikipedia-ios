@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="wikipedia-wordmark" translatesAutoresizingMaskIntoConstraints="NO" id="fjV-9r-LpR">
-                                <rect key="frame" x="163" y="254" width="275" height="67"/>
+                                <rect key="frame" x="180.5" y="258" width="240" height="59"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -38,10 +38,10 @@
                                 <exclude reference="Lxi-AY-Mcn"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="LoA-U6-c1U"/>
                                 <exclude reference="AFa-g5-4es"/>
                                 <exclude reference="Z3f-uh-Bvx"/>
                                 <exclude reference="tIM-gE-sXh"/>
-                                <exclude reference="LoA-U6-c1U"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -49,10 +49,10 @@
                                 <include reference="Lxi-AY-Mcn"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="LoA-U6-c1U"/>
                                 <include reference="AFa-g5-4es"/>
                                 <include reference="Z3f-uh-Bvx"/>
                                 <include reference="tIM-gE-sXh"/>
-                                <include reference="LoA-U6-c1U"/>
                             </mask>
                         </variation>
                     </view>
@@ -64,6 +64,6 @@
     </scenes>
     <resources>
         <image name="splashscreen-background" width="414" height="736"/>
-        <image name="wikipedia-wordmark" width="275" height="67"/>
+        <image name="wikipedia-wordmark" width="240" height="59"/>
     </resources>
 </document>

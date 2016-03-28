@@ -77,7 +77,7 @@ describe(@"send usage reports", ^{
     it(@"should reset the global request managers", ^{
         NSArray* oldManagers = [[QueuesSingleton sharedInstance] allManagers];
         expect(oldManagers).toNot(beEmpty());
-        expect(oldManagers).to(allPass(beAKindOf([AFHTTPRequestOperationManager class])));
+        expect(oldManagers).to(allPass(beAKindOf([AFHTTPSessionManager class])));
 
         expectAllManagersToHaveExpectedAnalyticsHeaderForCurrentUsageReportsValue(oldManagers);
 
@@ -87,7 +87,7 @@ describe(@"send usage reports", ^{
         NSArray* newManagers = [[QueuesSingleton sharedInstance] allManagers];
         expect(newManagers).to(haveCount(@(oldManagers.count)));
         expect(newManagers).toNot(equal(oldManagers));
-        expect(newManagers).to(allPass(beAKindOf([AFHTTPRequestOperationManager class])));
+        expect(newManagers).to(allPass(beAKindOf([AFHTTPSessionManager class])));
 
         expectAllManagersToHaveExpectedAnalyticsHeaderForCurrentUsageReportsValue(newManagers);
     });
@@ -95,7 +95,7 @@ describe(@"send usage reports", ^{
     it(@"should be idempotent", ^{
         NSArray* oldManagers = [[QueuesSingleton sharedInstance] allManagers];
         expect(oldManagers).toNot(beEmpty());
-        expect(oldManagers).to(allPass(beAKindOf([AFHTTPRequestOperationManager class])));
+        expect(oldManagers).to(allPass(beAKindOf([AFHTTPSessionManager class])));
         expectAllManagersToHaveExpectedAnalyticsHeaderForCurrentUsageReportsValue(oldManagers);
 
         [testSession setShouldSendUsageReports:testSession.shouldSendUsageReports];

@@ -207,6 +207,7 @@
 // Fuzzy
 "about-repositories" = "рэпазыторыі";
 "about-send-feedback" = "Даслаць водгук пра дастасаваньне";
+// Fuzzy
 "about-product-of" = "Прадукт $1";
 "about-wikimedia-foundation" = "Фундацыя Вікімэдыя";
 "share-menu-save-page" = "Захаваць старонку";
@@ -312,6 +313,7 @@
 "page-last-edited" = "Рэдагаваны $1 дзён таму";
 "page-edit-history" = "Уся гісторыя рэдагаваньняў";
 "captcha-reload" = "Паказаць іншы тэкст CAPTCHA";
+// Fuzzy
 "captcha-prompt" = "Увядзіце тэкст CAPTCHA з выявы вышэй";
 "mwk-empty-title-error" = "Не атрымліваецца выканаць апэрацыю з пустой назвай.";
 "home-title" = "Дасьледаваньне";

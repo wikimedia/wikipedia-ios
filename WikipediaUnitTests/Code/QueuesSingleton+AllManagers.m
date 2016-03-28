@@ -11,7 +11,7 @@
 
 @implementation QueuesSingleton (AllManagers)
 
-- (NSArray<AFHTTPRequestOperationManager*>*)allManagers {
+- (NSArray<AFHTTPSessionManager*>*)allManagers {
     NSMutableArray<NSString*>* managerKeys = [NSMutableArray new];
     [QueuesSingleton wmf_enumeratePropertiesUntilSuperclass:[NSObject class] usingBlock:^(objc_property_t prop, BOOL* stop) {
         NSString* name = [NSString stringWithCString:property_getName(prop) encoding:NSUTF8StringEncoding];

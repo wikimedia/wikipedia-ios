@@ -213,6 +213,7 @@
 "about-repositories-app-source-license" = "Broncode is beschikbaar onder de $1.";
 "about-repositories-app-source-license-mit" = "MIT-licentie";
 "about-send-feedback" = "Terugkoppeling over app geven";
+// Fuzzy
 "about-product-of" = "Een product van de $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Pagina opslaan";
@@ -321,6 +322,7 @@
 "page-last-edited" = "$1 dagen geleden bewerkt";
 "page-edit-history" = "Volledige bewerkingsgeschiedenis";
 "captcha-reload" = "Andere CAPTCHA weergeven";
+// Fuzzy
 "captcha-prompt" = "Vul de CAPTCHA-tekst in";
 "mwk-empty-title-error" = "Het was niet mogelijk de bewerking uit de voeren zonder paginanaam.";
 "home-title" = "Verkennen";
@@ -390,4 +392,6 @@
 "explore-potd-heading" = "Afbeelding van de dag";
 "explore-most-read-heading" = "Meest gelezen op Wikipedia in het $1";
 "explore-most-read-footer" = "Alle meest gelezen pagina's";
+"explore-most-read-footer-for-date" = "Alle meest gelezen pagina's op $1";
 "explore-most-read-more-list-title" = "Meest gelezen pagina's";
+"explore-most-read-more-list-title-for-date" = "Populair op $1";

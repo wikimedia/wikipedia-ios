@@ -165,6 +165,7 @@
 "about-libraries" = "បណ្ណាល័យដែលបានប្រើ";
 "about-libraries-license" = "អាជ្ញាបណ្ណ";
 "about-send-feedback" = "ផ្ញើមតិយោបល់អំពីកម្មវិធីនេះ";
+// Fuzzy
 "about-product-of" = "ផលិតផលរបស់ $1";
 "about-wikimedia-foundation" = "មូលនិធិវិគីមេឌា";
 "share-menu-save-page" = "រក្សាទុកទំព័រ";

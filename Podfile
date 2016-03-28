@@ -14,7 +14,7 @@ xcodeproj 'Wikipedia'
 pod 'hpple', '~> 0.2'
 
 # Networking / Parsing
-pod 'AFNetworking/NSURLConnection', '~> 2.6.0'
+pod 'AFNetworking', '~> 3.0.0'
 pod 'Mantle', '~> 2.0.0'
 
 # Images
@@ -25,8 +25,8 @@ pod 'AnimatedGIFImageSerialization'
 pod 'libextobjc/EXTScope', '~> 0.4.1'
 pod 'BlocksKit/Core', '~> 2.2.0'
 pod 'BlocksKit/UIKit', '~> 2.2.0'
-pod 'PromiseKit', :git => 'https://github.com/mxcl/PromiseKit.git', :branch => 'swift-2.0-beta5'
-pod 'PromiseKit/SystemConfiguration', :git => 'https://github.com/mxcl/PromiseKit.git', :branch => 'swift-2.0-beta5'
+pod 'PromiseKit', :head
+pod 'PromiseKit/SystemConfiguration', :head
 
 pod 'Tweaks', :head
 
@@ -46,6 +46,7 @@ pod 'Masonry', '0.6.2'
 pod 'OAStackView', :git => 'git@github.com:wikimedia/OAStackView.git'
 pod 'MGSwipeTableCell', :git => 'git@github.com:wikimedia/MGSwipeTableCell.git'
 pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git'
+pod 'SVWebViewController', '~> 1.0'
 
 # Activities
 pod 'TUSafariActivity'
@@ -55,20 +56,18 @@ pod 'VTAcknowledgementsViewController'
 
 # Diagnostics
 pod 'PiwikTracker', :head
-pod 'CocoaLumberjack/Swift', '~> 2.2'
+pod 'CocoaLumberjack/Swift', :head
 pod 'HockeySDK', '~> 3.8.2'
 
 target 'WikipediaUnitTests', :exclusive => true do
   pod 'OCMockito', '~> 1.4.0'
   pod 'OCHamcrest', '~> 4.2.0'
   pod 'Nocilla'
-  pod 'FBSnapshotTestCase', :git => 'https://github.com/facebook/ios-snapshot-test-case', :commit => 'e42af8bbc032a61f93fa9b6ed748052272e522ec'
+  pod 'FBSnapshotTestCase', :head
   pod 'Quick', '~> 0.9.0'
-  pod 'Nimble', '~> 3.1.0'
-  pod 'SSDataSources', '~> 0.8.0'
+  pod 'Nimble', :head
 end
 
-pod 'SVWebViewController', '~> 1.0'
 
 post_install do |installer|
   plist_buddy = "/usr/libexec/PlistBuddy"

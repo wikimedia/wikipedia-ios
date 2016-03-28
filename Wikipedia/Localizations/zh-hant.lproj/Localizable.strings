@@ -215,6 +215,7 @@
 // Fuzzy
 "about-repositories" = "儲存庫";
 "about-send-feedback" = "傳送應用程式意見回饋";
+// Fuzzy
 "about-product-of" = "$1 出品";
 "about-wikimedia-foundation" = "維基媒體基金會";
 "share-menu-save-page" = "儲存本頁";
@@ -320,6 +321,7 @@
 "page-last-edited" = "$1 日前編輯";
 "page-edit-history" = "完整編輯歷史";
 "captcha-reload" = "顯示其他驗證碼";
+// Fuzzy
 "captcha-prompt" = "輸入上圖中的驗證碼文字";
 "mwk-empty-title-error" = "無法執行有空白標題的操作。";
 "home-title" = "探索";

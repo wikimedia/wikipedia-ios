@@ -173,7 +173,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self updateToolbar];
     [self createTableOfContentsViewControllerIfNeeded];
-    [self fetchReadMoreIfNeeded];
     [self updateWebviewFootersIfNeeded];
     [self observeArticleUpdates];
 }
@@ -290,7 +289,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)canShare {
-    return [self.article shareSnippet].length != 0;
+    return self.article != nil;
 }
 
 - (BOOL)hasLanguages {
@@ -597,9 +596,17 @@ NS_ASSUME_NONNULL_BEGIN
     [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
     [self removeProgressView];
-    if ([[[NSUserDefaults standardUserDefaults] wmf_openArticleTitle] isEqualToTitle:self.articleTitle]) {
-        [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
-    }
+    //HACK: we are dispatching this because viewWillDisappear is called even when the app is being terminated.
+    //We use the open article to restore the current article on launch, so doing this is not acceptable
+    //By dispatching we make sure the code in the block is never executed when the app closes (but is called otherwise)
+    //(it will not wait for a pending GCD call)
+    //We should move to the restoration APIs for restoring the open article to get aroudn this.
+    //NOTE: this method is not invoked when moving to the background
+    dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
+        if ([[[NSUserDefaults standardUserDefaults] wmf_openArticleTitle] isEqualToTitle:self.articleTitle]) {
+            [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
+        }
+    });
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
@@ -718,6 +725,9 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [self.readMoreListViewController fetchIfNeeded].then(^{
         @strongify(self);
+        if (!self) {
+            return;
+        }
         // update footers to include read more if there are results
         [self updateWebviewFootersIfNeeded];
     })
@@ -756,7 +766,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.article.title.desktopURL) {
         NSURL* url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
                                                     self.article.title.desktopURL.absoluteString,
-                                                    @"wprov=sfii1"]];
+                                                    @"wprov=sfsi1"]];
 
         [items addObject:url];
     }
@@ -810,6 +820,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self completeAndHideProgress];
     [self scrollWebViewToRequestedPosition];
     [self.delegate articleControllerDidLoadArticle:self];
+    [self fetchReadMoreIfNeeded];    
 }
 
 - (void)webViewController:(WebViewController*)controller didTapEditForSection:(MWKSection*)section {

@@ -22,6 +22,8 @@
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 #import "PaddedLabel.h"
+#import "AFHTTPSessionManager+WMFCancelAll.h"
+
 
 @interface AccountCreationViewController ()
 
@@ -341,11 +343,13 @@
 
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
 
-    [[QueuesSingleton sharedInstance].accountCreationFetchManager.operationQueue cancelAllOperations];
+    [[QueuesSingleton sharedInstance].accountCreationFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
+        (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
+                                                        withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
+                                                 thenNotifyDelegate:self];
+    }];
 
-    (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
-                                                    withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
-                                             thenNotifyDelegate:self];
+
 }
 
 - (void)login {
@@ -485,14 +489,16 @@
 
     // Save!
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-saving", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-    [[QueuesSingleton sharedInstance].accountCreationFetchManager.operationQueue cancelAllOperations];
+    [[QueuesSingleton sharedInstance].accountCreationFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
+        (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
+                                                                     userName:self.usernameField.text
+                                                                     password:self.passwordField.text
+                                                                        email:self.emailField.text
+                                                                  withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
+                                                           thenNotifyDelegate:self];
+    }];
 
-    (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
-                                                                 userName:self.usernameField.text
-                                                                 password:self.passwordField.text
-                                                                    email:self.emailField.text
-                                                              withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
-                                                       thenNotifyDelegate:self];
+    
 }
 
 - (void)didReceiveMemoryWarning {

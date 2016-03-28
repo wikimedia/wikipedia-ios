@@ -51,7 +51,7 @@
     window = [[UIApplication sharedApplication] fb_strictKeyWindow];
   }
 
-  if (!view.window) {
+  if (!view.window && view != window) {
     [window addSubview:view];
     removeFromSuperview = YES;
   }
