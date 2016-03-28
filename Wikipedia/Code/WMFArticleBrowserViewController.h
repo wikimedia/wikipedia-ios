@@ -71,6 +71,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (WMFArticlePresentation)
 
++ (void)wmf_setSplitViewController:(UISplitViewController*)splitViewController;
+
 - (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated;
 
 - (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore animated:(BOOL)animated;

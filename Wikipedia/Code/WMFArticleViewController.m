@@ -132,11 +132,17 @@ NS_ASSUME_NONNULL_BEGIN
         self.articleTitle             = title;
         self.dataStore                = dataStore;
         self.hidesBottomBarWhenPushed = YES;
+        _showsSearchButton = YES;
     }
     return self;
 }
 
 #pragma mark - Accessors
+
+- (void)setShowsSearchButton:(BOOL)showsSearchButton {
+    _showsSearchButton = showsSearchButton;
+    [self updateSearchButton];
+}
 
 - (WMFArticleFooterMenuViewController*)footerMenuViewController {
     if (!_footerMenuViewController && [self hasAboutThisArticle]) {
@@ -557,6 +563,14 @@ NS_ASSUME_NONNULL_BEGIN
     self.navigationItem.titleView.accessibilityTraits   |= UIAccessibilityTraitButton;
 }
 
+- (void)updateSearchButton {
+    if (self.showsSearchButton) {
+        self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+}
+
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
@@ -569,7 +583,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.view.clipsToBounds                   = NO;
     self.automaticallyAdjustsScrollViewInsets = YES;
 
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
+    [self updateSearchButton];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
 
@@ -742,7 +756,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(UIBarButtonItem*)button {
     NSParameterAssert(button);
-    if(!button){
+    if (!button) {
         //If we get no button, we will crash below on iPad
         //The assert above shoud help, but lets make sure we bail in prod
         return;
@@ -847,7 +861,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!self.article.isCached) {
         return;
     }
-    fullscreenGallery = [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article currentImage:nil];
+    fullscreenGallery             = [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article currentImage:nil];
     fullscreenGallery.currentPage = gallery.currentPage;
     // set delegate to ensure the header gallery is updated when the fullscreen gallery is dismissed
     fullscreenGallery.delegate = self;

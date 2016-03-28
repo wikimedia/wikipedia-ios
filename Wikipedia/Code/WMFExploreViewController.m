@@ -585,6 +585,7 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         [self presentViewController:vc animated:YES completion:nil];
     }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Refresh Control
