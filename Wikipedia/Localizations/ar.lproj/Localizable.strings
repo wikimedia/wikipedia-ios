@@ -186,7 +186,7 @@
 "preference_summary_eventlogging_opt_in" = "السماح لويكيميديا بجمع المعلومات حول كيفية استخدام التطبيق لتحسينه";
 "page_protected_autoconfirmed" = "تمت حماية هذه الصفحة جزئياً.";
 "page_protected_sysop" = "تمت حماية هذه الصفحة بالكامل.";
-"page_protected_other" = "تمت حماية هذه الصفحة إلى المستويات التالية: %s";
+"page_protected_other" = "تمت حماية هذه الصفحة إلى المستويات التالية: $1";
 "page_protected_can_not_edit" = "أنت لا تمتلك الصلاحيات اللازمة لتحرير هذه الصفحة";
 "page_protected_can_not_edit_title" = "هذه الصفحة محمية";
 "license-footer-text" = "المحتوى متاح تحت رخصة $1";

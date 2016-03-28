@@ -91,7 +91,7 @@
 "search-cancel" = "Zrušiť";
 "search-titles" = "Nadpis";
 "search-within-articles" = "V článkoch";
-"search-did-you-mean" = "Mali ste na mysli \"%s\"?";
+"search-did-you-mean" = "Mali ste na mysli \"$1\"?";
 "search-recent-title" = "Nedávno hľadané výrazy";
 "search-recent-clear-confirmation-heading" = "Vymazať nedávno hľadané výrazy?";
 "search-recent-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";

@@ -320,7 +320,7 @@
 "home-featured-article-heading" = " $1-гә һайланған мәҡәлә";
 "home-main-page-heading" = "Бөгөн Википедияла";
 "home-potd-heading" = " $1 - гә көн һүрәте";
-"home-last-update-label" = "Һуңғы яңыртыу %s";
+"home-last-update-label" = "Һуңғы яңыртыу $1";
 "home-last-update-never-label" = "Һуңғы яңыртыу:бер ҡасан да";
 "home-updating-label" = "Яңыртыу";
 "home-hide-suggestion-prompt" = "Был тәҡдимде йәшереү";
