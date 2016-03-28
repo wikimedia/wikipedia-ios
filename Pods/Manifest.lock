@@ -27,10 +27,10 @@ PODS:
     - CocoaLumberjack/Default
   - CocoaLumberjack/Swift (HEAD based on 2.2.0):
     - CocoaLumberjack/Extensions
-  - FBSnapshotTestCase (HEAD based on 2.0.7):
-    - FBSnapshotTestCase/SwiftSupport (= HEAD based on 2.0.7)
-  - FBSnapshotTestCase/Core (HEAD based on 2.0.7)
-  - FBSnapshotTestCase/SwiftSupport (HEAD based on 2.0.7):
+  - FBSnapshotTestCase (HEAD based on 2.1.0):
+    - FBSnapshotTestCase/SwiftSupport (= HEAD based on 2.1.0)
+  - FBSnapshotTestCase/Core (HEAD based on 2.1.0)
+  - FBSnapshotTestCase/SwiftSupport (HEAD based on 2.1.0):
     - FBSnapshotTestCase/Core
   - HexColors (2.3.0)
   - HockeySDK (3.8.5):
@@ -64,19 +64,19 @@ PODS:
   - PiwikTracker (HEAD based on 3.3.0):
     - PiwikTracker/Core (= HEAD based on 3.3.0)
   - PiwikTracker/Core (HEAD based on 3.3.0)
-  - PromiseKit (HEAD based on 3.0.3):
-    - PromiseKit/Foundation (= HEAD based on 3.0.3)
-    - PromiseKit/QuartzCore (= HEAD based on 3.0.3)
-    - PromiseKit/UIKit (= HEAD based on 3.0.3)
-  - PromiseKit/CorePromise (HEAD based on 3.0.3)
-  - PromiseKit/Foundation (HEAD based on 3.0.3):
+  - PromiseKit (HEAD based on 3.1.0):
+    - PromiseKit/Foundation (= HEAD based on 3.1.0)
+    - PromiseKit/QuartzCore (= HEAD based on 3.1.0)
+    - PromiseKit/UIKit (= HEAD based on 3.1.0)
+  - PromiseKit/CorePromise (HEAD based on 3.1.0)
+  - PromiseKit/Foundation (HEAD based on 3.1.0):
     - OMGHTTPURLRQ (~> 3.1.0)
     - PromiseKit/CorePromise
-  - PromiseKit/QuartzCore (HEAD based on 3.0.3):
+  - PromiseKit/QuartzCore (HEAD based on 3.1.0):
     - PromiseKit/CorePromise
-  - PromiseKit/SystemConfiguration (HEAD based on 3.0.3):
+  - PromiseKit/SystemConfiguration (HEAD based on 3.1.0):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (HEAD based on 3.0.3):
+  - PromiseKit/UIKit (HEAD based on 3.1.0):
     - PromiseKit/CorePromise
   - Quick (0.9.1)
   - SDWebImage (3.7.2):
@@ -158,7 +158,7 @@ SPEC CHECKSUMS:
   AnimatedGIFImageSerialization: b0f0cfe71eac1ee45a3d57ae533c23b8e6f29501
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
-  FBSnapshotTestCase: 7e85180d0d141a0cf472352edda7e80d7eaeb547
+  FBSnapshotTestCase: 366ecd378511d7716c79991cd8067d1eed23578d
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
   HockeySDK: dd11a2b9da3372fd025643bee5bc10c8c613d169
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
@@ -175,7 +175,7 @@ SPEC CHECKSUMS:
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
   OMGHTTPURLRQ: 633f98ee745aeda02345935a52eec1784cddb589
   PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
-  PromiseKit: 00ec2a219bf5ad2833f95977698e921932b8dfd3
+  PromiseKit: 7ed2a3fc5217695305a55a8c47cb3a17ff5fde0d
   Quick: a5221fc21788b6aeda934805e68b061839bc3165
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
