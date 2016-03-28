@@ -2,26 +2,31 @@
 // Exported from translatewiki.net
 // Author: EileenSanda
 
+"languages-title" = "Mál";
 "article-languages-label" = "Vel mál";
 "article-languages-cancel" = "Avbrýt";
 "article-languages-downloading" = "Innlesur greinamál...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Málsligt filtur";
+"article-languages-filter-placeholder" = "Finn mál";
 "article-read-more-title" = "Les meira";
+"article-about-title" = "Um hesa greinina";
+"article-unable-to-load-section" = "Tað bar ikki til at heinta hetta brotið. Royn og dagfør greinina fyri at vita um tað loysir trupulleikan.";
+"article-unable-to-load-article" = "Tað bar ikki til at innlesa greinina.";
+"article-related-articles-title" = "Líknandi greinir";
 "info-box-title" = "Skjót fakta";
 "info-box-close-text" = "Lat aftur";
 "table-title-other" = "Meira kunning";
+"saved-clear-all" = "Rudda";
+"history-clear-all" = "Rudda";
 "history-label" = "Nýliga";
 "history-section-today" = "Í dag";
 "history-section-yesterday" = "Í gjár";
 "history-section-lastweek" = "Í síðstu viku";
 "history-section-lastmonth" = "Í síðsta mánað";
-// Fuzzy
-"history-clear-confirmation-heading" = "Tøma loggin yvir seinast lutir?";
+"history-clear-confirmation-heading" = "Ert tú vís(ur) í at tú ynskir at strika allir tínir seinastu lutir?";
 "history-clear-confirmation-sub-heading" = "Tú kanst ikki angra hesa gerð!";
 "history-clear-cancel" = "Angra";
-// Fuzzy
-"history-clear-delete-all" = "Sletta alt";
+"history-clear-delete-all" = "Ja, strika alt";
+"history-description" = "Tú hevur mest sannlíkt strika alt. Næstu ferð tú vitjar eina síðu, so kanst tú finna hana aftur her.";
 "history-none" = "Ongar nýggjar síður her.";
 "zero-free-verbiage" = "Ókeypis Wikipedia atgongd frá tínum fartelefonveitara (krevur ikki gjald fyri dáta)";
 "zero-charged-verbiage" = "Wikipedia Zero er sløkt";
@@ -35,8 +40,8 @@
 "zero-learn-more-learn-more" = "Les meira";
 "zero-learn-more-no-thanks" = "Lat aftur";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
-// Fuzzy
-"zero-warn-when-leaving" = "Ávara meg um eg fari burtur frá Wikipedia Zero";
+"zero-warn-when-leaving" = "Ávara meg um eg fari burtur frá Zero";
+"zero-settings-devmode" = "Zero-menningarstøða";
 "account-creation-captcha-required" = "CAPTCHA váttan verður kravd.";
 "account-creation-captcha-obtaining" = "Heintar ein nýggjan CAPTCHA.";
 "account-creation-logging-in" = "Ritar inn...";
@@ -61,6 +66,7 @@
 "wikitext-downloading" = "Innlesur innihald...";
 "wikitext-download-failed" = "Tað ber ikki til at heinta seinast versjónina.";
 "wikitext-download-success" = "Innihaldið er innlisið.";
+"wikitext-preview-changes" = "Heintar undansýning av tínum broytingum...";
 "wikitext-preview-changes-none" = "Ongar broytingar vóru gjørdar sum kunnu undanskoðast.";
 "wikitext-upload-captcha-error" = "CAPTCHA váttanarfeilur.";
 "wikitext-upload-captcha-needed" = "CAPTCHA váttan krevst.";
@@ -74,6 +80,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Lat leinkju upp";
 "open-link-cancel" = "Avbrót";
+"search-title" = "Leita";
 "search-searching" = "Leitar...";
 "search-no-matches" = "Ongi leitiúrslit funnin fyri leitiorðið/leitiorðini.";
 "search-field-placeholder-text" = "Leita í Wikipedia";
@@ -85,40 +92,41 @@
 "search-titles" = "Titlar";
 "search-within-articles" = "Í greinum";
 "search-did-you-mean" = "Meinti tú $1?";
-// Fuzzy
 "search-recent-title" = "Seinastu leitingar";
 "search-recent-clear-confirmation-heading" = "Slætta allar seinastu leitingar?";
 "search-recent-clear-confirmation-sub-heading" = "Tú kanst ikki angra hesa gerð!";
 "search-recent-clear-cancel" = "Avbrót";
 "search-recent-clear-delete-all" = "Strika alt";
+"settings-title" = "Innstillingar";
+"settings-language" = "Wikipediamál";
+"settings-support" = "Stuðla Wikipedia";
+"settings-language-bar" = "Vís mál í leititeiginum";
 "main-menu-title" = "Meira";
+"main-menu-heading-about" = "Um";
 "main-menu-language-title" = "Leita eftir máli á wiki'ina $1";
+"main-menu-faq" = "Ofta spurdir spurningar";
 "main-menu-language-toggle-show" = "Vís mál";
 "main-menu-language-toggle-hide" = "Fjal mál";
 "main-menu-language-selection-saved" = "Val av máli er goymt";
 "main-menu-account-title-logged-out" = "Konta";
-// Fuzzy
-"main-menu-account-title-logged-in" = "Innritað/ur sum: $1";
-// Fuzzy
+"main-menu-account-title-logged-in" = "Innritað/ur sum $1";
 "main-menu-account-login" = "Rita inn";
 "main-menu-account-logout" = "Útrita";
+"main-menu-account-logout-are-you-sure" = "Ert tú vís(ur) í at tú ynskir at rita út?";
+"main-menu-account-logout-cancel" = "Angra";
 "main-menu-show-title" = "Vís mær...";
 "main-menu-show-history" = "Seinastu";
 "main-menu-show-saved" = "Goymdar síður";
 "main-menu-current-article-save" = "Goym $1 fyri offline lesing";
 "main-menu-random" = "Tilvildarlig";
 "main-menu-feedback-heading" = "Afturmeldingar";
-// Fuzzy
-"main-menu-send-feedback" = "Send afturmelding um appina";
+"main-menu-send-feedback" = "Skriva til okkum";
 "main-menu-show-page-history" = "Søgan yvir broytingar av $1";
 "main-menu-credits" = "Ognan";
-// Fuzzy
-"main-menu-about" = "Um Wikipedia appina";
+"main-menu-about" = "Um appina";
 "main-menu-zero-faq" = "Wikipedia Zero Ofta settir spurningar";
 "main-menu-privacy-policy" = "Handfaring av persónligum upplýsingum";
-// Fuzzy
 "main-menu-terms-of-use" = "Nýtslutreytir";
-// Fuzzy
 "main-menu-rate-app" = "Met um appina";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Privatlívsvernd og treytir";
@@ -127,18 +135,18 @@
 "main-menu-more" = "Meira...";
 "main-menu-heading-debug" = "Leita eftir feili";
 "main-menu-debug-crash" = "Krasj";
+"saved-title" = "Goymt";
 "saved-pages-title" = "Goymdar síður";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Strika allar goymdar síður?";
+"saved-pages-clear-confirmation-heading" = "Ert tú vís í at tú ynskir at strika allar tínar goymdu síður?";
 "saved-pages-clear-confirmation-sub-heading" = "Tú kanst ikki angra hesa gerð!";
 "saved-pages-clear-cancel" = "Angra";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Strika alt";
+"saved-pages-clear-delete-all" = "Ja, strika alt";
 "saved-pages-refresh-cancel-alert-title" = "Dagføring avbtotin";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia greinar verða dagførdar alla tíðina. Trýst á dagfør fyri at fáa tær nýggjastu versjónirnar av øllum greinunum.";
 "saved-pages-refresh-cancel-alert-button" = "Eg skilji";
 "saved-pages-description" = "Goymdar síður eru sera praktiskar. Hugsa um tær um bókamerki, sum tú kanst lesa, sjálvt tá ið tú ert offline.";
 "saved-pages-none" = "Ongar goymdar síður enn.";
+"history-title" = "Søga";
 "page-history-title" = "Søgan hjá greinini";
 "page-history-downloading" = "Innlesur søguna hjá greinini...";
 "navbar-title-mode-edit-wikitext" = "Rætta";
@@ -153,12 +161,22 @@
 "navbar-title-mode-edit-wikitext-summary" = "Skriva stutta frágreiðing um tína rættan";
 "navbar-title-mode-edit-wikitext-save" = "Goym";
 "edit-summary-choice-linked-words" = "Innsettar leinkjur";
+"edit-summary-choice-fixed-grammar" = "Rættaði mállæru";
+"edit-summary-choice-fixed-inaccuracy" = "Rættaði skeivleika";
 "edit-summary-choice-other" = "Annað";
+"edit-summary-title" = "Hvussu hevur tú betra greinina?";
+"fetching-random-article" = "Heintar tilvildarliga grein";
+"article-pull-to-refresh-prompt" = "Hála fyri at dagføra greinina";
 "article-pull-to-refresh-is-refreshing" = "Dagførir greinina";
 "credits-wikimedia-repos" = "Wikimedia";
-// Fuzzy
-"about-translators" = "týðarar";
+"about-title" = "Um";
+"about-wikipedia" = "Wikipedia";
+"about-contributors" = "Høvundar";
+"about-translators" = "Týðarar";
 "about-translators-details" = "Týtt av sjálvbodnum á $1";
+"about-libraries" = "Bókasøvn nýtt";
+"about-libraries-license" = "Lisensur";
+"about-libraries-licenses" = "Lisensir";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Goym síðu";
 "share-menu-page-saved" = "Síðan er goymd";
@@ -177,6 +195,8 @@
 "button-next" = "Næsta";
 "button-done" = "Liðugt";
 "button-save" = "Goym";
+"button-save-for-later" = "Goym til seinni";
+"button-saved-for-later" = "Goym til seinni";
 "onboarding-create-account" = "Stovna kontu";
 "onboarding-login" = "Rita inn";
 "onboarding-already-have-account" = "Hevur tú longu eina kontu? $1";
@@ -184,6 +204,10 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Hin frælsa alfrøðin";
 "preference_title_eventlogging_opt_in" = "Send frágreiðingar um nýtslu";
+"preference_summary_eventlogging_opt_in" = "Loyv Wikimedia at savna kunning um hvussu tú nýtir appina fyri at gera hana betri.";
+"page_protected_autoconfirmed" = "Henda síðan er blivin hálv-vard.";
+"page_protected_sysop" = "Henda síðan hevur fulla verju.";
+"table-of-contents-close-accessibility-hint" = "Lat aftur";
 "menu-edit-accessibility-label" = "Rætta";
 "menu-close-accessibility-label" = "Lat aftur";
 "menu-preview-accessibility-label" = "Forhåndsvis";
@@ -214,4 +238,5 @@
 "hockeyapp-alert-always-send" = "Send altíð";
 "hockeyapp-alert-do-not-send" = "Ikki senda";
 "page-similar-titles" = "Líknandi síður";
+// Fuzzy
 "captcha-prompt" = "Skriva CAPTCHA tekstin frá myndini omanfyri";

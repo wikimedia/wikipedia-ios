@@ -204,6 +204,7 @@
 // Fuzzy
 "about-repositories" = "depozite";
 "about-send-feedback" = "Trimiteți o părere despre aplicație";
+// Fuzzy
 "about-product-of" = "Un produs al $1";
 "about-wikimedia-foundation" = "Fundației Wikimedia";
 "share-menu-save-page" = "Salvare articol";
@@ -309,6 +310,7 @@
 "page-last-edited" = "Modificat acum $1 zi(le)";
 "page-edit-history" = "Istoric complet al modificărilor";
 "captcha-reload" = "Arată alt text captcha";
+// Fuzzy
 "captcha-prompt" = "Introduceți textul CAPTCHA din imaginea de mai sus";
 "mwk-empty-title-error" = "Imposibil de efectuat operațiunea cu un titlu gol.";
 "home-title" = "Explorare";

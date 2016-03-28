@@ -12,14 +12,14 @@
 // Author: Py64
 // Author: The Polish
 // Author: Ty221
+// Author: WTM
 // Author: Wiochman
 
 "languages-title" = "Języki";
 "article-languages-label" = "Wybierz język";
 "article-languages-cancel" = "Anuluj";
 "article-languages-downloading" = "Ładowanie języków artykułu...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtr językowy";
+"article-languages-filter-placeholder" = "Znajdź język";
 "article-read-more-title" = "Czytaj więcej";
 "article-about-title" = "O tym artykule";
 "article-unable-to-load-section" = "Nie można pobrać tej sekcji. Spróbuj odświeżyć stronę i zobaczyć, czy to pomogło rozwiązać problem.";
@@ -208,6 +208,7 @@
 "about-repositories-app-source-license" = "Kod źródłowy dostępny na licencji $1.";
 "about-repositories-app-source-license-mit" = "Licencja MIT";
 "about-send-feedback" = "Wyślij opinię o aplikacji";
+// Fuzzy
 "about-product-of" = "Produkt $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Zapisz stronę";
@@ -309,6 +310,7 @@
 "page-similar-titles" = "Podobne strony";
 "page-read-in-other-languages" = "Dostępne w $1 językach";
 "captcha-reload" = "Pokaż inny tekst CAPTCHA";
+// Fuzzy
 "captcha-prompt" = "Wpisz tekst CAPTCHA z obrazka powyżej";
 "mwk-empty-title-error" = "Nie można wykonać operacji, jeśli tytuł jest pusty.";
 "home-empty-section" = "Brak wyników";
@@ -331,4 +333,6 @@
 "icon-shortcut-search-title" = "Szukaj w Wikipedii";
 "icon-shortcut-random-title" = "Losowy artykuł";
 "close-button-accessibility-label" = "Zamknij";
+"explore-nearby-heading" = "Miejsca w pobliżu";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
+"explore-most-read-more-list-title" = "Najczęściej czytane artykuły";

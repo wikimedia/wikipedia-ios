@@ -213,6 +213,7 @@
 "about-libraries-license" = "Llicència";
 "about-repositories" = "Repositoris";
 "about-send-feedback" = "Enviar comentaris sobre l'aplicació";
+// Fuzzy
 "about-product-of" = "Un producte de la $1";
 "about-wikimedia-foundation" = "Fundació Wikimedia";
 "share-menu-save-page" = "Desa l'article";
@@ -318,6 +319,7 @@
 "page-last-edited" = "Modificat fa $1 dies";
 "page-edit-history" = "Historial complet";
 "captcha-reload" = "Mostra un altre captcha";
+// Fuzzy
 "captcha-prompt" = "Introduïu el text del CAPTCHA de la imatge de dalt";
 "mwk-empty-title-error" = "No es pot realitzar l'operació amb un títol buit.";
 "home-title" = "Exploreu!";
