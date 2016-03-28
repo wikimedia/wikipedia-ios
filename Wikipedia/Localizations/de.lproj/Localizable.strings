@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: BodminPill
 // Author: Metalhead64
+// Author: Purodha
 
 "languages-title" = "Sprachen";
 "article-languages-label" = "Sprache auswählen";
@@ -204,6 +205,7 @@
 "about-repositories-app-source-license" = "Der Quellcode ist verfügbar unter der $1.";
 "about-repositories-app-source-license-mit" = "MIT-Lizenz";
 "about-send-feedback" = "App-Rückmeldung senden";
+// Fuzzy
 "about-product-of" = "Ein Produkt der $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Seite speichern";
@@ -312,6 +314,7 @@
 "page-last-edited" = "Bearbeitet vor $1 Tagen";
 "page-edit-history" = "Vollständige Versionsgeschichte";
 "captcha-reload" = "Ein anderes Captcha anzeigen";
+// Fuzzy
 "captcha-prompt" = "CAPTCHA-Text von dem oben stehenden Bild eingeben";
 "mwk-empty-title-error" = "Operation kann nicht mit einem leeren Titel ausgeführt werden.";
 "home-title" = "Entdecken";
@@ -381,4 +384,6 @@
 "explore-potd-heading" = "Bild des Tages";
 "explore-most-read-heading" = "Meistgelesen in der Wikipedia auf $1";
 "explore-most-read-footer" = "Alle beliebtesten Artikel";
+"explore-most-read-footer-for-date" = "Alle beliebtesten Artikel auf $1";
 "explore-most-read-more-list-title" = "Beliebteste Artikel";
+"explore-most-read-more-list-title-for-date" = "Beliebt am $1";

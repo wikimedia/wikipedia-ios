@@ -214,6 +214,7 @@
 // Fuzzy
 "about-repositories" = "kho mã nguồn";
 "about-send-feedback" = "Gửi phản hồi về ứng dụng";
+// Fuzzy
 "about-product-of" = "Sản phẩm của $1";
 "about-wikimedia-foundation" = "Quỹ Wikimedia";
 "share-menu-save-page" = "Lưu Bài";
@@ -319,6 +320,7 @@
 "page-last-edited" = "Sửa đổi lần cuối $1 ngày trước";
 "page-edit-history" = "Toàn bộ lịch sử sửa đổi";
 "captcha-reload" = "Hiển thị CAPTCHA khác";
+// Fuzzy
 "captcha-prompt" = "Nhập văn bản CAPTCHA theo hình bên trên";
 "mwk-empty-title-error" = "Không thể thực hiện tác vụ đối với một tiêu đề trống.";
 "home-title" = "Thám hiểm";
@@ -340,8 +342,7 @@
 "home-button-accessibility-label" = "Nút Trang chủ";
 "potd-empty-error-description" = "Thất bại khi lấy hình trong ngày cho $1";
 "potd-description-prefix" = "Hình trong ngày cho $1";
-// Fuzzy
-"welcome-languages-title" = "Ngôn ngữ khi tìm kiếm";
+"welcome-languages-title" = "Ngôn ngữ";
 "empty-no-feed-title" = "Không có kết nối Internet";
 "empty-no-feed-message" = "Bạn có thể xem các bài được gợi ý cho bạn khi bạn có kết nối Internet";
 // Fuzzy

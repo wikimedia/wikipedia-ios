@@ -192,6 +192,7 @@
 // Fuzzy
 "about-repositories" = "ਖਜ਼ਾਨਾਂ";
 "about-send-feedback" = "ਅੈਪ ਸੰਬੰਧੀ ਸਲਾਹ ਭੇਜੋ";
+// Fuzzy
 "about-product-of" = "$1 ਦਾ ਸਾਮਾਨ";
 "about-wikimedia-foundation" = "ਵਿਕੀਮੀਡੀਆ ਫ਼ਾਊਂਡੇਸ਼ਨ";
 "share-menu-save-page" = "ਸਫ਼ਾ ਸਾਂਭੋ";
@@ -283,6 +284,7 @@
 "page-issues" = "ਸਫ਼ੇ ਸੰਬੰਧੀ ਮੁੱਦੇ";
 "page-similar-titles" = "ੲਿੱਕੋ ਜਿਹੇ ਪੰਨੇ";
 "captcha-reload" = "ਹੋਰ ਕੈਪਚਾ ਦਿਖਾਵੋ";
+// Fuzzy
 "captcha-prompt" = "ੳੁੱਪਰ ਦਿੱਤੇ ਚਿੱਤਰ ਵਿੱਚੋਂ ਕੈਪਚਾ ਲਿਖਿ";
 "home-title" = "ਵਿਚਰੋ";
 // Fuzzy

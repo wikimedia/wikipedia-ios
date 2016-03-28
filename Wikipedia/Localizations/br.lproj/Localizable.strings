@@ -202,6 +202,7 @@
 // Fuzzy
 "about-repositories" = "Reizhiadoù daveiñ";
 "about-send-feedback" = "Kas un ali diwar-benn an arload";
+// Fuzzy
 "about-product-of" = "Ur produ eus an $1";
 "about-wikimedia-foundation" = "Diazezadur Wikimedia";
 "share-menu-save-page" = "Enrollañ ar pennad";
@@ -299,4 +300,5 @@
 "page-issues" = "Kudennoù war ar bajenn";
 "page-similar-titles" = "Pajennoù damheñvel";
 "captcha-reload" = "Diskwel ur c'haptcha all";
+// Fuzzy
 "captcha-prompt" = "Ebarzhit an destenn CAPTCHA er skeudenn amañ a-us";

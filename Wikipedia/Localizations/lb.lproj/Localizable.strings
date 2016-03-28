@@ -97,6 +97,7 @@
 "search-recent-clear-delete-all" = "All läschen";
 "search-result-redirected-from" = "Virugeleet vun: $1";
 "settings-title" = "Astellungen";
+"settings-language" = "Wikipedia-Sprooch";
 "settings-support" = "Wikipedia ënnerstëtzen";
 "main-menu-title" = "Méi";
 "main-menu-heading-about" = "Iwwer";
@@ -190,6 +191,7 @@
 "about-libraries-complete-list" = "Komplett Lëscht";
 "about-repositories-app-source-license-mit" = "MIT-Lizenz";
 "about-send-feedback" = "Feedback vun der App schécken";
+// Fuzzy
 "about-product-of" = "E Produkt vun der $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Artikel späicheren";
@@ -294,6 +296,7 @@
 "page-last-edited" = "Viru(n) $1 Deeg geännert";
 "page-edit-history" = "All Versioune vun der Säit";
 "captcha-reload" = "En anere Captcha weisen";
+// Fuzzy
 "captcha-prompt" = "Gitt de Captcha-Text vum Bild heidriwwer an";
 "mwk-empty-title-error" = "Operatioun kann net mat engem eidelen Titel gemaach ginn.";
 "home-empty-section" = "Keng Resultater";
@@ -351,3 +354,4 @@
 "explore-random-article-heading" = "Zoufällegen Artikel";
 "explore-random-article-sub-heading" = "Wikipedia op Englesch";
 "explore-potd-heading" = "Bild vum Dag";
+"explore-most-read-more-list-title-for-date" = "Déi beléifst de(n) $1";

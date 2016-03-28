@@ -216,6 +216,7 @@
 "about-repositories-app-source-license" = "Исходный текст доступен под $1.";
 "about-repositories-app-source-license-mit" = "Лицензия MIT";
 "about-send-feedback" = "Отправить отзыв о приложении";
+// Fuzzy
 "about-product-of" = "Продукт $1";
 "about-wikimedia-foundation" = "Фонд Викимедиа";
 "share-menu-save-page" = "Сохранить статью";
@@ -324,6 +325,7 @@
 "page-last-edited" = "Отредактировано $1 д. назад";
 "page-edit-history" = "Полная история редактирования";
 "captcha-reload" = "Показать другой код";
+// Fuzzy
 "captcha-prompt" = "Введите текст капчи с изображения выше";
 "mwk-empty-title-error" = "Не удаётся выполнить операцию с пустым заголовком.";
 "home-title" = "Исследуйте!";
@@ -393,4 +395,6 @@
 "explore-potd-heading" = "Изображение дня";
 "explore-most-read-heading" = "Самое читаемое в $1 Википедии";
 "explore-most-read-footer" = "Все самые читаемые статьи";
+"explore-most-read-footer-for-date" = "Все самые читаемые статьи на $1";
 "explore-most-read-more-list-title" = "Самые читаемые статьи";
+"explore-most-read-more-list-title-for-date" = "Самое читаемое на $1";

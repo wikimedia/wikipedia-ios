@@ -208,6 +208,7 @@
 "about-repositories-app-source-license" = "উৎস কোড $1-এর অধীনে উপলব্ধ।";
 "about-repositories-app-source-license-mit" = "এমআইটি লাইসেন্স";
 "about-send-feedback" = "অ্যাপ সম্পর্কে প্রতিক্রিয়া জানান";
+// Fuzzy
 "about-product-of" = "$1-এর একটি পণ্য";
 "about-wikimedia-foundation" = "উইকিমিডিয়া ফাউন্ডেশন";
 "share-menu-save-page" = "পাতা সংরক্ষণ করুন";
@@ -302,6 +303,7 @@
 "page-last-edited" = "$1 দিন আগে সম্পাদিত";
 "page-edit-history" = "সম্পূর্ণ সম্পাদনা ইতিহাস";
 "captcha-reload" = "আরেকটি ক্যাপচা দেখান";
+// Fuzzy
 "captcha-prompt" = "উপরের ছবি থেকে ক্যাপচা টেক্সট লিখুন";
 "home-title" = "অন্বেষণ";
 "home-empty-section" = "কোন ফলাফল নেই";
