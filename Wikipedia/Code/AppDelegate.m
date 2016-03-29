@@ -111,7 +111,11 @@
 }
 
 - (void)application:(UIApplication*)application performActionForShortcutItem:(UIApplicationShortcutItem*)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
-    [self.appViewController processShortcutItem:shortcutItem completion:completionHandler];
+
+    // HAX: the delay below has to be longer than the HAX delay inside "launchAppInWindow:"
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        [self.appViewController processShortcutItem:shortcutItem completion:completionHandler];
+    });
 }
 
 - (BOOL)application:(UIApplication*)application continueUserActivity:(NSUserActivity*)userActivity restorationHandler:(void (^)(NSArray* restorableObjects))restorationHandler {
