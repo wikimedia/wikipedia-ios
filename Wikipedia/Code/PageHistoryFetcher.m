@@ -73,7 +73,7 @@
         @"action": @"query",
         @"prop": @"revisions",
         @"rvprop": @"ids|timestamp|user|size|parsedcomment",
-        @"rvlimit": @50,
+        @"rvlimit": @51,
         @"rvdir": @"older",
         @"titles": title.text,
         @"continue": @"",
@@ -124,6 +124,7 @@
 
             [self calculateCharacterDeltasForRevisions:revisionsByDaySorted
                                        fromParentSizes:parentSizes];
+            [self pruneIncompleteRevisionFromRevisions:revisionsByDaySorted];
 
             output = revisionsByDaySorted;
         }
@@ -148,6 +149,14 @@
                 }
             }
         }
+    }
+}
+
+- (void)pruneIncompleteRevisionFromRevisions:(NSMutableArray*)revisions {
+    //Unless the last item is the oldest, remove it since we don't know its characterDelta
+    NSNumber *parentId = revisions.lastObject[@"parentId"];
+    if (parentId == nil || parentId.integerValue != 0) {
+        [revisions removeLastObject];
     }
 }
 
