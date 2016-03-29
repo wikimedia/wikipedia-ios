@@ -215,8 +215,7 @@
 "about-repositories-app-source-license" = "Kaynak koduna $1 altında erişilebilir.";
 "about-repositories-app-source-license-mit" = "MIT Lisansı";
 "about-send-feedback" = "Uygulama geri bildirimi gönder";
-// Fuzzy
-"about-product-of" = "Bir $1 ürünü";
+"about-product-of" = "$1 tarafından, sizin gibi gönüllüler yardımıyla oluşturuldu";
 "about-wikimedia-foundation" = "Wikimedia Vakfı";
 "share-menu-save-page" = "Makaleyi Kaydet";
 "share-menu-page-saved" = "Makale Kaydedildi";
@@ -324,8 +323,7 @@
 "page-last-edited" = "$1 gün önce düzenlendi";
 "page-edit-history" = "Bütün düzenleme geçmişi";
 "captcha-reload" = "Başka bir captcha göster";
-// Fuzzy
-"captcha-prompt" = "Yukarıdaki resimdeki CAPTCHA metnini girin";
+"captcha-prompt" = "CAPTCHA metnini girin";
 "mwk-empty-title-error" = "Başlıksız işlem gerçekleştirilemiyor.";
 "home-title" = "Keşfet";
 "home-empty-section" = "Sonuç yok";
@@ -397,3 +395,4 @@
 "explore-most-read-footer-for-date" = "$1 tarihinde çok okunan bütün maddeler";
 "explore-most-read-more-list-title" = "En çok okunan maddeler";
 "explore-most-read-more-list-title-for-date" = "$1 tarihinde çok okunan maddeler";
+"no-email-account-alert" = "Lütfen cihazınızda bir e-posta hesabı kurulumu yapıp, yeniden deneyin.";

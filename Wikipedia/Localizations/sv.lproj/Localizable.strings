@@ -213,8 +213,7 @@
 "about-repositories-app-source-license" = "Källkoden är tillgänglig under $1.";
 "about-repositories-app-source-license-mit" = "MIT-licensen";
 "about-send-feedback" = "Skicka återkoppling om appen";
-// Fuzzy
-"about-product-of" = "En produkt av $1";
+"about-product-of" = "Skapad av $1 med hjälp från volontärer som du";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Spara artikeln";
 "share-menu-page-saved" = "Sparade för offline-läsning.";
@@ -322,8 +321,7 @@
 "page-last-edited" = "Redigerad för $1 dagar sedan";
 "page-edit-history" = "Full redigeringshistorik";
 "captcha-reload" = "Visa en annan captcha";
-// Fuzzy
-"captcha-prompt" = "Ange captchatexten från bilden ovan";
+"captcha-prompt" = "Ange CAPTCHA-texten";
 "mwk-empty-title-error" = "Det går inte att utföra åtgärden med tom titel.";
 "home-title" = "Utforska";
 "home-empty-section" = "Inga resultat";
@@ -395,3 +393,4 @@
 "explore-most-read-footer-for-date" = "Alla mest lästa artiklar på $1";
 "explore-most-read-more-list-title" = "Populära artiklar";
 "explore-most-read-more-list-title-for-date" = "Populärt den $1";
+"no-email-account-alert" = "Lägg in ett e-postkonto på din enhet och försök igen.";

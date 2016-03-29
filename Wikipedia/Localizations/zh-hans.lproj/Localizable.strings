@@ -213,8 +213,7 @@
 "about-repositories-app-source-license" = "源代码依据$1授权。";
 "about-repositories-app-source-license-mit" = "MIT协议";
 "about-send-feedback" = "发送应用程序反馈信息";
-// Fuzzy
-"about-product-of" = "$1的产品";
+"about-product-of" = "在像您一样的志愿者的帮助下由$1制作";
 "about-wikimedia-foundation" = "维基媒体基金会";
 "share-menu-save-page" = "保存条目";
 "share-menu-page-saved" = "页面已保存";
@@ -322,8 +321,7 @@
 "page-last-edited" = "编辑于$1天前";
 "page-edit-history" = "完整编辑历史";
 "captcha-reload" = "显示另一个验证码";
-// Fuzzy
-"captcha-prompt" = "输入上面图片的验证码文字";
+"captcha-prompt" = "输入验证码文字";
 "mwk-empty-title-error" = "无法执行带空标题的操作。";
 "home-title" = "探索";
 "home-empty-section" = "没有结果";
@@ -395,3 +393,4 @@
 "explore-most-read-footer-for-date" = "在$1所有最多阅读的条目";
 "explore-most-read-more-list-title" = "最多阅读的条目";
 "explore-most-read-more-list-title-for-date" = "在$1最多";
+"no-email-account-alert" = "请在您的设备上设置一个电子邮件地址，并重试。";

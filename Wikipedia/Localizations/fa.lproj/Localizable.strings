@@ -216,8 +216,7 @@
 "about-repositories-app-source-license" = "سورس کد تحت $1 در دسترس است.";
 "about-repositories-app-source-license-mit" = "مجوز ام‌‌آی‌تی";
 "about-send-feedback" = "فرستادن بازخورد برنامه";
-// Fuzzy
-"about-product-of" = "محصول $1";
+"about-product-of" = "شاید $1 با کمک داوطلبانی مانند شما";
 "about-wikimedia-foundation" = "بنیاد ویکی‌مدیا";
 "share-menu-save-page" = "ذخیره مقاله";
 "share-menu-page-saved" = "مقاله ذخیره شده";
@@ -325,8 +324,7 @@
 "page-last-edited" = "تغییر یافته در $1 روز پیش";
 "page-edit-history" = "تاریخچهٔ کامل ویرایش";
 "captcha-reload" = "نمایش کپچای دیگر";
-// Fuzzy
-"captcha-prompt" = "متن کپچا را از تصویر بالا وارد کنید";
+"captcha-prompt" = "متن کپچا را وارد کنید";
 "mwk-empty-title-error" = "با عنوان خالی امکان انجام عملیات نیست.";
 "home-title" = "مرور";
 "home-empty-section" = "هیچ نتیجه";
@@ -398,3 +396,4 @@
 "explore-most-read-footer-for-date" = "همهٔ مقالاتی که بیشترین بازدید را در $1 داشتند";
 "explore-most-read-more-list-title" = "بالاترین مقالات";
 "explore-most-read-more-list-title-for-date" = "بالاترین در $1";
+"no-email-account-alert" = "لطفاً حساب ایمیل را بر روی دستگاهتان تنظیم کنید و مجدداً تلاش کنید.";

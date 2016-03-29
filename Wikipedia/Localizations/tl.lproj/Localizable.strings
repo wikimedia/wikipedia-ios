@@ -103,7 +103,7 @@
 "preference_summary_eventlogging_opt_in" = "Pahintulutan ang Wikipedia na mangalap ng impormasyon tungkol sa kung paano mo ginagamit ang app upang maipabuti pa ang app";
 "page_protected_autoconfirmed" = "Bahagyang naipasanggalang ang pahinang ito.";
 "page_protected_sysop" = "Buong naipasanggalang ang pahinang ito.";
-"page_protected_other" = "Naka-protekta ang pahinang ito sa sumusunod na mga antas: %s";
+"page_protected_other" = "Naka-protekta ang pahinang ito sa sumusunod na mga antas: $1";
 "page_protected_can_not_edit" = "Wala kang karapatang baguhin ang pahinang ito";
 "page_protected_can_not_edit_title" = "Nakasanggalang ang pahinang ito";
 "table-of-contents-heading" = "Mga nilalaman";

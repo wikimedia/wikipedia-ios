@@ -80,6 +80,7 @@
 "search-recent-clear-cancel" = "Nuligi";
 "search-recent-clear-delete-all" = "Forigi ĉiujn";
 "settings-title" = "Agordoj";
+"settings-language" = "Lingvo de Vikipedio";
 "main-menu-title" = "Pli";
 "main-menu-heading-about" = "Pri";
 "main-menu-faq" = "Oftaj demandoj";
@@ -171,6 +172,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" ĉe @Wikipedia: \"$2\"";
 "share-as-image" = "Kundividi kiel bildo";
 "share-as-text" = "Kundividi kiel teksto";
+"share-cancel" = "Nuligi";
 "timestamp-just-now" = "ĵus nun";
 "timestamp-minutes" = "Antaŭ %d minutoj";
 "timestamp-hours" = "Antaŭ %d horoj";
@@ -239,6 +241,7 @@
 "page-similar-titles" = "Similaj paĝoj";
 "page-read-in-other-languages" = "Disponebla en $1 lingvoj";
 "home-empty-section-check-again" = "Reprovi";
+"home-hide-suggestion-cancel" = "Nuligi";
 "welcome-languages-title" = "Lingvoj";
 "welcome-volunteer-title" = "Volontulo";
 "welcome-volunteer-thanks" = "$1 Dankon!";
