@@ -88,6 +88,7 @@
 // Fuzzy
 "main-menu-account-login" = "Saioa hasi";
 "main-menu-account-logout" = "Saioa itxi";
+"main-menu-account-logout-cancel" = "Utzi";
 "main-menu-show-title" = "Erakutsi gehiago...";
 "main-menu-show-history" = "Berriak";
 "main-menu-show-saved" = "Gordetako orrialdeak";

@@ -209,6 +209,7 @@
 "page-last-edited" = "$1 ورځې مخکې سم کړی";
 "page-edit-history" = "د سمون بشپړ پېښليک";
 "captcha-reload" = "يو بل کپچا ښکاره کول";
+// Fuzzy
 "captcha-prompt" = "له پورته انځور څخه کپچا متن ورکړئ";
 "home-continue-related-heading" = "ځکه چې تاسې $1 لوستلی";
 "home-more-like-footer" = "د $1 په څېر نور";

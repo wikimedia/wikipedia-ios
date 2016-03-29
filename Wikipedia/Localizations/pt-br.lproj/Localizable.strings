@@ -218,6 +218,7 @@
 "about-libraries-license" = "Licença";
 "about-repositories" = "Repositórios";
 "about-send-feedback" = "Enviar comentários sobre o aplicativo";
+// Fuzzy
 "about-product-of" = "Um produto da $1";
 "about-wikimedia-foundation" = "Fundação Wikimedia";
 "share-menu-save-page" = "Salvar artigo";
@@ -323,6 +324,7 @@
 "page-last-edited" = "Editado $1 dias atrás";
 "page-edit-history" = "Histórico de edição completo";
 "captcha-reload" = "Mostrar outro código";
+// Fuzzy
 "captcha-prompt" = "Insira o código CAPTCHA da imagem acima";
 "mwk-empty-title-error" = "Não se pode realizar a operação com o título vazio.";
 "home-title" = "explorar";

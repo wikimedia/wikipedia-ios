@@ -10,7 +10,7 @@ typedef NS_ENUM (NSInteger, AccountCreationErrorType) {
     ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA = 2
 };
 
-@class AFHTTPRequestOperationManager;
+@class AFHTTPSessionManager;
 
 @interface AccountCreator : FetcherBase
 
@@ -23,6 +23,6 @@ typedef NS_ENUM (NSInteger, AccountCreationErrorType) {
                                       captchaId:(NSString*)captchaId
                                     captchaWord:(NSString*)captchaWord
                                           token:(NSString*)token
-                                    withManager:(AFHTTPRequestOperationManager*)manager
+                                    withManager:(AFHTTPSessionManager*)manager
                              thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 @end

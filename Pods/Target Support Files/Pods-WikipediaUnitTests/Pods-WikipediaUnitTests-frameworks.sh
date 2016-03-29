@@ -84,7 +84,6 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-WikipediaUnitTests/SSDataSources.framework"
   install_framework "Pods-WikipediaUnitTests/FBSnapshotTestCase.framework"
   install_framework "Pods-WikipediaUnitTests/Nimble.framework"
   install_framework "Pods-WikipediaUnitTests/Nocilla.framework"
@@ -93,7 +92,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-WikipediaUnitTests/Quick.framework"
 fi
 if [[ "$CONFIGURATION" == "AdHoc" ]]; then
-  install_framework "Pods-WikipediaUnitTests/SSDataSources.framework"
   install_framework "Pods-WikipediaUnitTests/FBSnapshotTestCase.framework"
   install_framework "Pods-WikipediaUnitTests/Nimble.framework"
   install_framework "Pods-WikipediaUnitTests/Nocilla.framework"
@@ -102,7 +100,6 @@ if [[ "$CONFIGURATION" == "AdHoc" ]]; then
   install_framework "Pods-WikipediaUnitTests/Quick.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-WikipediaUnitTests/SSDataSources.framework"
   install_framework "Pods-WikipediaUnitTests/FBSnapshotTestCase.framework"
   install_framework "Pods-WikipediaUnitTests/Nimble.framework"
   install_framework "Pods-WikipediaUnitTests/Nocilla.framework"
@@ -111,7 +108,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-WikipediaUnitTests/Quick.framework"
 fi
 if [[ "$CONFIGURATION" == "Beta" ]]; then
-  install_framework "Pods-WikipediaUnitTests/SSDataSources.framework"
   install_framework "Pods-WikipediaUnitTests/FBSnapshotTestCase.framework"
   install_framework "Pods-WikipediaUnitTests/Nimble.framework"
   install_framework "Pods-WikipediaUnitTests/Nocilla.framework"

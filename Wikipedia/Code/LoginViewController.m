@@ -22,6 +22,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
+#import "AFHTTPSessionManager+WMFCancelAll.h"
 
 @interface LoginViewController (){
 }
@@ -276,24 +277,13 @@
     self.successBlock = (!successBlock) ? ^(){} : successBlock;
     self.failBlock = (!failBlock) ? ^(){} : failBlock;
 
-    /*
-       void (^printCookies)() =  ^void(){
-        NSLog(@"\n\n\n\n\n\n\n\n\n\n");
-        for (NSHTTPCookie *cookie in [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies) {
-            NSLog(@"cookies = %@", cookie.properties);
-        }
-        NSLog(@"\n\n\n\n\n\n\n\n\n\n");
-       };
-     */
-
-    //[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-
-    [[QueuesSingleton sharedInstance].loginFetchManager.operationQueue cancelAllOperations];
-    (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
-                                                       userName:userName
-                                                       password:password
-                                                    withManager:[QueuesSingleton sharedInstance].loginFetchManager
-                                             thenNotifyDelegate:self];
+    [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
+        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
+                                                           userName:userName
+                                                           password:password
+                                                        withManager:[QueuesSingleton sharedInstance].loginFetchManager
+                                                 thenNotifyDelegate:self];
+    }];
 }
 
 - (void)cloneSessionCookies {

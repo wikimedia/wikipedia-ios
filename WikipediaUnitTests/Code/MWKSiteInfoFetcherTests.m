@@ -14,9 +14,8 @@
 #import "MWKSiteInfoFetcher.h"
 #import "XCTestCase+WMFLocaleTesting.h"
 #import "NSArray+WMFShuffle.h"
-#import <AFNetworking/AFHTTPRequestOperationManager.h>
+#import <AFNetworking/AFHTTPSessionManager.h>
 #import "WMFTestFixtureUtilities.h"
-#import "AFHTTPRequestOperationManager+WMFUniqueRequests.h"
 
 #import <Nocilla/Nocilla.h>
 

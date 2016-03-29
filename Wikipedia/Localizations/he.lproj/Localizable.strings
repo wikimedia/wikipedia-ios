@@ -208,6 +208,7 @@
 "about-repositories-app-source-license" = "קוד המקור זמין לפי תנאי $1.";
 "about-repositories-app-source-license-mit" = "רישיון MIT";
 "about-send-feedback" = "שליחת משוב על היישום";
+// Fuzzy
 "about-product-of" = "מוצר של $1";
 "about-wikimedia-foundation" = "קרן ויקימדיה";
 "share-menu-save-page" = "שמירת דף";
@@ -316,6 +317,7 @@
 "page-last-edited" = "נערך לפי $1 ימים";
 "page-edit-history" = "היסטוריית עריכה מלאה";
 "captcha-reload" = "להראות תמונת אימות אחרת";
+// Fuzzy
 "captcha-prompt" = "נא להזין את הטקסט מהתמונה לעיל";
 "mwk-empty-title-error" = "לא ניתן לבצע את הפעולה עם כותרת ריקה.";
 "home-title" = "לחקור";
@@ -385,4 +387,6 @@
 "explore-potd-heading" = "תמונת היום";
 "explore-most-read-heading" = "הכי נקרא בוויקיפדיה ה$1";
 "explore-most-read-footer" = "כל הערכים שנקראו הכי הרבה";
+"explore-most-read-footer-for-date" = "כל הערכים שנקראו הכי הרבה ב־$1";
 "explore-most-read-more-list-title" = "ערכים מובילים";
+"explore-most-read-more-list-title-for-date" = "מוביל ב־$1";

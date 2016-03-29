@@ -53,9 +53,9 @@ public class WMFSavedPageSpotlightManager: NSObject {
     public required init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
         super.init()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didSaveTitle:", name: MWKSavedPageListDidSaveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WMFSavedPageSpotlightManager.didSaveTitle(_:)), name: MWKSavedPageListDidSaveNotification, object: nil)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didUnsaveTitle:", name: MWKSavedPageListDidUnsaveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WMFSavedPageSpotlightManager.didUnsaveTitle(_:)), name: MWKSavedPageListDidUnsaveNotification, object: nil)
         
     }
     

@@ -58,14 +58,16 @@ NS_ASSUME_NONNULL_BEGIN
                                       nil, @"footer-switch-language")];
     }
 
+    NSDate *lastModified = article.lastmodified ? article.lastmodified : [NSDate date];
+    
     if (FBTweakValue(@"Article", @"Article Metadata Footer", @"Show last edit timestamp", NO)) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-                                      [article.lastmodified mediumString],
+                                      [lastModified mediumString],
                                       MWSiteLocalizedString(article.title.site, @"page-edit-history", nil),
                                       @"footer-edit-history")];
     } else {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-                                      [MWSiteLocalizedString(article.title.site, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] daysAfterDate:article.lastmodified]]],
+                                      [MWSiteLocalizedString(article.title.site, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] daysAfterDate:lastModified]]],
                                       MWSiteLocalizedString(article.title.site, @"page-edit-history", nil),
                                       @"footer-edit-history")];
     }

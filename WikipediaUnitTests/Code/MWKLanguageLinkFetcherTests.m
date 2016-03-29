@@ -11,7 +11,7 @@
 #import "WMFAsyncTestCase.h"
 #import "MWKLanguageLinkFetcher.h"
 #import "WMFNetworkUtilities.h"
-#import <AFNetworking/AFHTTPRequestOperationManager.h>
+#import <AFNetworking/AFHTTPSessionManager.h>
 
 #define MOCKITO_SHORTHAND 1
 #import "OCMockito.h"
@@ -20,7 +20,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 @interface MWKLanguageLinkFetcherTests : WMFAsyncTestCase
-@property (nonatomic, strong) AFHTTPRequestOperationManager* mockManager;
+@property (nonatomic, strong) AFHTTPSessionManager* mockManager;
 @property (nonatomic, strong) id<FetchFinishedDelegate> mockDelegate;
 @property (nonatomic, strong) MWKLanguageLinkFetcher* fetcher;
 @end
@@ -29,7 +29,7 @@
 
 - (void)setUp {
     self.mockDelegate = mockProtocol(@protocol(FetchFinishedDelegate));
-    self.mockManager  = MKTMock([AFHTTPRequestOperationManager class]);
+    self.mockManager  = MKTMock([AFHTTPSessionManager class]);
     self.fetcher      = [[MWKLanguageLinkFetcher alloc] initWithManager:self.mockManager
                                                                delegate:self.mockDelegate];
     [super setUp];
