@@ -216,7 +216,6 @@
 "hockeyapp-alert-privacy" = "Политика приватности $1";
 "page-issues" = "Недостаци странице";
 "page-similar-titles" = "Сличне странице";
-// Fuzzy
 "captcha-prompt" = "Унесите текст са слике изнад";
 "home-empty-section-check-again" = "Покушај поново";
 "home-hide-suggestion-cancel" = "Откажи";

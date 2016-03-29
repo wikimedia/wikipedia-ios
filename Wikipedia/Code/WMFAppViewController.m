@@ -90,6 +90,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic) BOOL isPresentingOnboarding;
 
 @property (nonatomic, strong) NSUserActivity* unprocessedUserActivity;
+@property (nonatomic, strong) UIApplicationShortcutItem* unprocessedShortcutItem;
 
 
 /// Use @c rootTabBarController instead.
@@ -108,11 +109,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (BOOL)uiIsLoaded{
-    if (self.rootTabBarController) {
-        return YES;
-    }else{
-        return NO;
-    }
+    return _rootTabBarController != nil;
 }
 
 #pragma mark - Setup
@@ -156,6 +153,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - Notifications
 
 - (void)appWillEnterForegroundWithNotification:(NSNotification*)note {
+    self.unprocessedUserActivity = nil;
+    self.unprocessedShortcutItem = nil;
     [self resumeApp];
 }
 
@@ -209,6 +208,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     
     if(self.unprocessedUserActivity){
         [self processUserActivity:self.unprocessedUserActivity];
+    }else if(self.unprocessedShortcutItem){
+        [self processShortcutItem:self.unprocessedShortcutItem completion:NULL];
     }else if ([self shouldShowLastReadArticleOnLaunch]) {
         [self showLastReadArticleAnimated:YES];
     } else if ([self shouldShowExploreScreenOnLaunch]) {
@@ -236,10 +237,39 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Shortcut
 
-- (void)processShortcutItem:(UIApplicationShortcutItem*)item completion:(void (^)(BOOL))completion {
+- (BOOL)canProcessShortcutItem:(UIApplicationShortcutItem*)item{
     if (!item) {
+        return NO;
+    }
+    if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
+        return YES;
+    } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
+        return YES;
+    } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
+        return YES;
+    } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
+- (void)processShortcutItem:(UIApplicationShortcutItem*)item completion:(void (^)(BOOL))completion {
+    if(![self canProcessShortcutItem:item]){
+        if (completion) {
+            completion(NO);
+        }
         return;
     }
+    
+    if(![self uiIsLoaded]){
+        self.unprocessedShortcutItem = item;
+        if (completion) {
+            completion(YES);
+        }
+        return;
+    }
+    self.unprocessedShortcutItem = nil;
 
     if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
         [self showSearchAnimated:YES];
@@ -250,7 +280,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
         [self showLastReadArticleAnimated:YES];
     }
-
     if (completion) {
         completion(YES);
     }
@@ -291,13 +320,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (BOOL)processUserActivity:(NSUserActivity*)activity {
+    if(![self canProcessUserActivity:activity]){
+        return NO;
+    }
     if(![self uiIsLoaded]){
-        if([self canProcessUserActivity:activity]){
-            self.unprocessedUserActivity = activity;
-            return YES;
-        }else{
-            return NO;
-        }
+        self.unprocessedUserActivity = activity;
+        return YES;
     }
     self.unprocessedUserActivity = nil;
     switch ([activity wmf_type]) {

@@ -314,8 +314,7 @@
 "page-last-edited" = "Muokattu $1 päivää sitten";
 "page-edit-history" = "Täysi muokkaushistoria";
 "captcha-reload" = "Näytä toinen CAPTCHA";
-// Fuzzy
-"captcha-prompt" = "Syötä CAPTCHA-teksti yllä olevasta kuvasta";
+"captcha-prompt" = "Syötä CAPTCHA-teksti";
 "home-title" = "Tutki";
 "home-empty-section" = "Ei tuloksia";
 "home-empty-section-check-again" = "Yritä uudelleen";

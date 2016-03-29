@@ -763,6 +763,8 @@
 		B00050131C52D73800515F70 /* UIApplication+RTL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+RTL.swift"; sourceTree = "<group>"; };
 		B01162E61C24D3B200C3B52B /* WMFPageIssuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFPageIssuesViewController.h; path = WikipediaUnitTests/Code/WMFPageIssuesViewController.h; sourceTree = SOURCE_ROOT; };
 		B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPageIssuesViewController.m; path = WikipediaUnitTests/Code/WMFPageIssuesViewController.m; sourceTree = SOURCE_ROOT; };
+		B02B76A01CA9ED4400EDB253 /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B02B76A11CA9ED4400EDB253 /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B02B82721C696ECA00B19309 /* WMFSettingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSettingsTableViewCell.h; path = Wikipedia/Code/WMFSettingsTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		B02B82731C696ECA00B19309 /* WMFSettingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSettingsTableViewCell.m; path = Wikipedia/Code/WMFSettingsTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		B02B82741C696ECA00B19309 /* WMFSettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFSettingsTableViewCell.xib; path = Wikipedia/Code/WMFSettingsTableViewCell.xib; sourceTree = SOURCE_ROOT; };
@@ -5200,6 +5202,7 @@
 				sq,
 				sw,
 				uz,
+				ckb,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
@@ -6096,6 +6099,7 @@
 				B04876351C8FC15D008F8920 /* sq */,
 				B04876371C8FC184008F8920 /* sw */,
 				B04876391C8FC248008F8920 /* uz */,
+				B02B76A11CA9ED4400EDB253 /* ckb */,
 			);
 			name = InfoPlist.strings;
 			path = Localizations;
@@ -6179,6 +6183,7 @@
 				B04876341C8FC15D008F8920 /* sq */,
 				B04876361C8FC184008F8920 /* sw */,
 				B04876381C8FC248008F8920 /* uz */,
+				B02B76A01CA9ED4400EDB253 /* ckb */,
 			);
 			name = Localizable.strings;
 			path = Localizations;
@@ -6247,7 +6252,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 800.1;
+				CURRENT_PROJECT_VERSION = 802;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
@@ -6362,7 +6367,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 800.1;
+				CURRENT_PROJECT_VERSION = 802;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
@@ -6595,7 +6600,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 800.1;
+				CURRENT_PROJECT_VERSION = 802;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
@@ -6632,7 +6637,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 800.1;
+				CURRENT_PROJECT_VERSION = 802;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
