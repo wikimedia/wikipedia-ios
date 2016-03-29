@@ -310,8 +310,7 @@
 "page-similar-titles" = "Podobne strony";
 "page-read-in-other-languages" = "Dostępne w $1 językach";
 "captcha-reload" = "Pokaż inny tekst CAPTCHA";
-// Fuzzy
-"captcha-prompt" = "Wpisz tekst CAPTCHA z obrazka powyżej";
+"captcha-prompt" = "Wpisz tekst CAPTCHA";
 "mwk-empty-title-error" = "Nie można wykonać operacji, jeśli tytuł jest pusty.";
 "home-empty-section" = "Brak wyników";
 "home-empty-section-check-again" = "Spróbuj ponownie";

@@ -205,8 +205,7 @@
 "about-repositories-app-source-license" = "Изворниот код е достапен под $1.";
 "about-repositories-app-source-license-mit" = "MIT-лиценца";
 "about-send-feedback" = "Испрати мислење за прилогот";
-// Fuzzy
-"about-product-of" = "Производ на $1";
+"about-product-of" = "Изработено од $1 со помош од доброволци како Вас";
 "about-wikimedia-foundation" = "Фондацијата Викимедија";
 "share-menu-save-page" = "Зачувај страница";
 "share-menu-page-saved" = "Страницата е зачувана";
@@ -314,8 +313,7 @@
 "page-last-edited" = "Изменето пред $1 дена";
 "page-edit-history" = "Цела историја на уредувања";
 "captcha-reload" = "Прикажи друга Captcha";
-// Fuzzy
-"captcha-prompt" = "Внесете CAPTCHA текст од сликата погоре";
+"captcha-prompt" = "Внесете го текстот од сликата";
 "mwk-empty-title-error" = "Не можам да извршам задача со празен наслов.";
 "home-title" = "Истражете";
 "home-empty-section" = "Нема исход";
@@ -387,3 +385,4 @@
 "explore-most-read-footer-for-date" = "Сите најчитани статии на $1";
 "explore-most-read-more-list-title" = "Најчитани статии";
 "explore-most-read-more-list-title-for-date" = "Најчитани на $1";
+"no-email-account-alert" = "Зададете е-пошта на вашиот уред и обидете се повторно.";

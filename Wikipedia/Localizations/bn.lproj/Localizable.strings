@@ -208,8 +208,7 @@
 "about-repositories-app-source-license" = "উৎস কোড $1-এর অধীনে উপলব্ধ।";
 "about-repositories-app-source-license-mit" = "এমআইটি লাইসেন্স";
 "about-send-feedback" = "অ্যাপ সম্পর্কে প্রতিক্রিয়া জানান";
-// Fuzzy
-"about-product-of" = "$1-এর একটি পণ্য";
+"about-product-of" = "আপনার মত স্বেচ্ছাসেবকের সাহায্য নিয়ে $1 সহকারে তৈরি করা হয়েছে";
 "about-wikimedia-foundation" = "উইকিমিডিয়া ফাউন্ডেশন";
 "share-menu-save-page" = "পাতা সংরক্ষণ করুন";
 "share-menu-page-saved" = "নিবন্ধ সংরক্ষিত";

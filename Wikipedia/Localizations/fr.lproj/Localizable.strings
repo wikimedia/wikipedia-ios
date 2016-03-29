@@ -213,8 +213,7 @@
 "about-repositories-app-source-license" = "Le code source est disponible sous les $1.";
 "about-repositories-app-source-license-mit" = "Licence MIT";
 "about-send-feedback" = "Envoyer un avis sur l’application";
-// Fuzzy
-"about-product-of" = "Un produit de la $1";
+"about-product-of" = "Fait par la $1 avec l’aide de volontaires tels que vous";
 "about-wikimedia-foundation" = "Fondation Wikimédia";
 "share-menu-save-page" = "Enregistrer la page";
 "share-menu-page-saved" = "Page enregistrée";
@@ -322,8 +321,7 @@
 "page-last-edited" = "Modifié il y a $1 jours";
 "page-edit-history" = "Historique complet des modifications";
 "captcha-reload" = "Afficher un autre captcha";
-// Fuzzy
-"captcha-prompt" = "Entrer le texte du CAPTCHA dans l’image ci-dessus";
+"captcha-prompt" = "Entrer le texte du CAPTCHA";
 "mwk-empty-title-error" = "Impossible d’effectuer l’opération avec un titre vide.";
 "home-title" = "Explorer";
 "home-empty-section" = "Aucun résultat";
@@ -395,3 +393,4 @@
 "explore-most-read-footer-for-date" = "Tous les articles les plus lus au $1";
 "explore-most-read-more-list-title" = "Meilleurs articles";
 "explore-most-read-more-list-title-for-date" = "Les plus lus au $1";
+"no-email-account-alert" = "Veuillez configurer un compte de messagerie sur votre appareil et réessayer.";

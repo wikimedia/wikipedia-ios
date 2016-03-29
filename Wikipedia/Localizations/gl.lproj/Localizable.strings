@@ -207,8 +207,7 @@
 "about-repositories-app-source-license" = "Código fonte dispoñible baixo a $1.";
 "about-repositories-app-source-license-mit" = "Licenza MIT";
 "about-send-feedback" = "Enviar comentarios sobre a aplicación";
-// Fuzzy
-"about-product-of" = "Un produto da $1";
+"about-product-of" = "Feito por $1 coa axuda de voluntarios coma vostede";
 "about-wikimedia-foundation" = "Fundación Wikimedia";
 "share-menu-save-page" = "Gardar a páxina";
 "share-menu-page-saved" = "Gardado para ler sen conexión.";
@@ -316,8 +315,7 @@
 "page-last-edited" = "Editado fai $1 días";
 "page-edit-history" = "Historial de edición completo";
 "captcha-reload" = "Mostrar outro «captcha»";
-// Fuzzy
-"captcha-prompt" = "Escriba o texto do CAPTCHA de arriba";
+"captcha-prompt" = "Escriba o texto do CAPTCHA";
 "mwk-empty-title-error" = "Non se pode realizar a operación cun título baleiro.";
 "home-title" = "Explorar";
 "home-empty-section" = "Sen resultados";
@@ -389,3 +387,4 @@
 "explore-most-read-footer-for-date" = "Todos os artigos máis lidos en $1";
 "explore-most-read-more-list-title" = "Os mellores artigos";
 "explore-most-read-more-list-title-for-date" = "Máis lidos en $1";
+"no-email-account-alert" = "Por favor, configure a súa conta de correo electrónico no seu dispositivo e inténteo de novo.";
