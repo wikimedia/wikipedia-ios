@@ -40,7 +40,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 };
 
 NSString* const WMFLicenseTitleOnENWiki =
-    @"Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License";
+    @"creativecommons:by-sa/3.0";
 
 @interface WebViewController () <ReferencesVCDelegate>
 
