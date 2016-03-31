@@ -273,7 +273,7 @@
 "page_protected_can_not_edit" = "You do not have the rights to edit this page";
 "page_protected_can_not_edit_title" = "This page is protected";
 
-"license-footer-text" = "Content is available under $1";
+"license-footer-text" = "Content is available under $1 unless otherwise noted.";
 "license-footer-name" = "CC BY-SA 3.0";
 
 "table-of-contents-heading" = "Contents";
