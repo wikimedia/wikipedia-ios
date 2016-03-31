@@ -39,8 +39,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroInterstitial
 };
 
-NSString* const WMFLicenseTitleOnENWiki =
-    @"creativecommons:by-sa/3.0";
+NSString* const WMFCCBySALicenseURL =
+    @"https://creativecommons.org/licenses/by-sa/3.0/";
 
 @interface WebViewController () <ReferencesVCDelegate>
 
@@ -290,8 +290,7 @@ NSString* const WMFLicenseTitleOnENWiki =
         @weakify(self);
         [_footerLicenseView.showLicenseButton bk_addEventHandler:^(id sender) {
             @strongify(self);
-            MWKSite* site = [[MWKSite alloc] initWithDomain:WMFDefaultSiteDomain language:@"en"];
-            [self.delegate webViewController:self didTapOnLinkForTitle:[site titleWithString:WMFLicenseTitleOnENWiki]];
+            [self wmf_openExternalUrl:[NSURL URLWithString:WMFCCBySALicenseURL]];
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _footerLicenseView;
