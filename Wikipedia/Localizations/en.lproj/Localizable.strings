@@ -370,8 +370,8 @@
 "home-featured-article-heading" = "Featured article for $1";
 "home-main-page-heading" = "Today on Wikipedia";
 "home-potd-heading" = "Picture of the day for $1";
-"home-last-update-label" = "Last Updated: $1";
-"home-last-update-never-label" = "Last Updated: Never";
+"home-last-update-label" = "Last updated: $1";
+"home-last-update-never-label" = "Last updated: Never";
 "home-updating-label" = "Updating…";
 "home-hide-suggestion-prompt" = "Hide this suggestion";
 "home-hide-suggestion-cancel" = "Cancel";
