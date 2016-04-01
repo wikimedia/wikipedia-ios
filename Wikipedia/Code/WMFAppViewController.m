@@ -501,7 +501,15 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - UIViewController
 
 - (BOOL)shouldAutorotate {
-    return YES;
+    return [self.rootTabBarController shouldAutorotate];
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    return [self.rootTabBarController supportedInterfaceOrientations];
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+    return UIInterfaceOrientationPortrait;
 }
 
 #pragma mark - Onboarding

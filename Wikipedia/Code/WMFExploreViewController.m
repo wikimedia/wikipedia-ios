@@ -235,6 +235,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UIViewController
 
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
