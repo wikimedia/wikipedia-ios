@@ -153,10 +153,16 @@
 }
 
 - (void)pruneIncompleteRevisionFromRevisions:(NSMutableArray*)revisions {
-    //Unless the last item is the oldest, remove it since we don't know its characterDelta
-    NSNumber *parentId = revisions.lastObject[@"parentId"];
-    if (parentId == nil || parentId.integerValue != 0) {
-        [revisions removeLastObject];
+    NSDictionary *lastDayRevisionsMeta = revisions.lastObject;
+    NSMutableArray *lastDayRevisions = lastDayRevisionsMeta[@"revisions"];
+    NSNumber *lastRevisionParentId = lastDayRevisions.lastObject[@"parentid"];
+
+    if (lastRevisionParentId == nil || lastRevisionParentId.integerValue != 0) {
+        if (lastDayRevisions.count <= 1) {
+            [revisions removeLastObject];
+        } else {
+            [lastDayRevisions removeLastObject];
+        }
     }
 }
 
