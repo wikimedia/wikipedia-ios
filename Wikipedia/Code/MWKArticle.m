@@ -382,6 +382,9 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (BOOL)hasMultipleLanguages {
+    if (self.isMain) {
+        return NO;
+    }
     return self.languagecount > 0;
 }
 
