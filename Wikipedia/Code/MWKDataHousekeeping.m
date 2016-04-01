@@ -58,7 +58,7 @@
         // Iterate through all articles and de-cache the ones that aren't on the keep list
         // Cached metadata, section text, and images will be removed along with their articles.
         [dataStore iterateOverArticles:^(MWKArticle* article) {
-            if (![articlesToSave containsObject:article.title]) {
+            if (![articlesToSave containsObject:article.title] || [article isMain]) {
                 DDLogInfo(@"Pruning unsaved article %@", article.title);
                 [article remove];
             }
