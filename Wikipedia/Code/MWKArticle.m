@@ -381,6 +381,10 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return _images;
 }
 
+- (BOOL)hasMultipleLanguages {
+    return self.languagecount > 0;
+}
+
 #pragma mark - protection status methods
 
 - (MWKProtectionStatus*)requiredProtectionStatus:(NSString*)key dict:(NSDictionary*)dict {
