@@ -75,14 +75,60 @@ extern NSString* const MWKArticleKey;
 - (NSString*)pathForTitleImageInfo:(MWKTitle*)title;
 
 // Raw save methods
+
+/**
+ *  Saves the article to the store
+ *  This is a non-op if the article is a main page
+ *
+ *  @param article the article to save
+ */
 - (void)saveArticle:(MWKArticle*)article;
+
+/**
+ *  Saves the section to the store
+ *  This is a non-op if the section.article is a main page
+ *
+ *  @param section the section to save
+ */
 - (void)saveSection:(MWKSection*)section;
+
+/**
+ *  Saves the section to the store
+ *  This is a non-op if the section.article is a main page
+ *
+ *  @param html    The text to save
+ *  @param section the section to save
+ */
 - (void)saveSectionText:(NSString*)html section:(MWKSection*)section;
+
+/**
+ *  Saves the image to the store
+ *  This is a non-op if the image.article is a main page
+ *
+ *  @param image The image to save
+ */
 - (void)saveImage:(MWKImage*)image;
+
+/**
+ *  Saves the image to the store
+ *  This is a non-op if the image.article is a main page
+ *
+ *  @param data  The data to save
+ *  @param image The image to save
+ */
 - (void)saveImageData:(NSData*)data image:(MWKImage*)image;
+
+
 - (BOOL)saveHistoryList:(MWKHistoryList*)list error:(NSError**)error;
 - (BOOL)saveSavedPageList:(MWKSavedPageList*)list error:(NSError**)error;
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList*)list error:(NSError**)error;
+
+/**
+ *  Saves the image list to the store
+ *  This is a non-op if the image.article is a main page
+ *
+ *  @param imageList The image list to save
+ */
 - (void)saveImageList:(MWKImageList*)imageList;
 
 - (void)deleteArticle:(MWKArticle*)article;

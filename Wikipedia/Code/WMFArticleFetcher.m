@@ -208,15 +208,18 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     }
 
     MWKArticle* cachedArticle = [self.dataStore existingArticleWithTitle:title];
-    if (!cachedArticle) {
-        DDLogInfo(@"No cached article found for %@, fetching immediately.", title);
-        return [self fetchArticleForPageTitle:title progress:progress];
-    }
 
     @weakify(self);
     AnyPromise* promisedArticle;
-    if (!cachedArticle.revisionId) {
-        DDLogInfo(@"Cached article for %@ doesn't have revision ID, fetching immediately.", title);
+    if (!cachedArticle || !cachedArticle.revisionId || [cachedArticle isMain]) {
+        if(!cachedArticle){
+            DDLogInfo(@"No cached article found for %@, fetching immediately.", title);
+        }else if (!cachedArticle.revisionId){
+            DDLogInfo(@"Cached article for %@ doesn't have revision ID, fetching immediately.", title);
+        }else{
+            //Main pages dont neccesarily have revisions every day. We can't rely on the revision check
+            DDLogInfo(@"Cached article for main page: %@, fetching immediately.", title);
+        }
         promisedArticle = [self fetchArticleForPageTitle:title progress:progress];
     } else {
         promisedArticle = [self.revisionFetcher fetchLatestRevisionsForTitle:title
