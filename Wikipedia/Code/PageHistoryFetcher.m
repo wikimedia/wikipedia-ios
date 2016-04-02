@@ -73,7 +73,7 @@
         @"action": @"query",
         @"prop": @"revisions",
         @"rvprop": @"ids|timestamp|user|size|parsedcomment",
-        @"rvlimit": @50,
+        @"rvlimit": @51,
         @"rvdir": @"older",
         @"titles": title.text,
         @"continue": @"",
@@ -124,6 +124,7 @@
 
             [self calculateCharacterDeltasForRevisions:revisionsByDaySorted
                                        fromParentSizes:parentSizes];
+            [self pruneIncompleteRevisionFromRevisions:revisionsByDaySorted];
 
             output = revisionsByDaySorted;
         }
@@ -147,6 +148,20 @@
                     revision[@"characterDelta"] = revision[@"size"];
                 }
             }
+        }
+    }
+}
+
+- (void)pruneIncompleteRevisionFromRevisions:(NSMutableArray*)revisions {
+    NSDictionary *lastDayRevisionsMeta = revisions.lastObject;
+    NSMutableArray *lastDayRevisions = lastDayRevisionsMeta[@"revisions"];
+    NSNumber *lastRevisionParentId = lastDayRevisions.lastObject[@"parentid"];
+
+    if (lastRevisionParentId == nil || lastRevisionParentId.integerValue != 0) {
+        if (lastDayRevisions.count <= 1) {
+            [revisions removeLastObject];
+        } else {
+            [lastDayRevisions removeLastObject];
         }
     }
 }
