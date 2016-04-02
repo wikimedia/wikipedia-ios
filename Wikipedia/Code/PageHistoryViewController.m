@@ -25,6 +25,7 @@
 @property (strong, nonatomic) __block NSMutableArray* pageHistoryDataArray;
 @property (strong, nonatomic) PageHistoryResultCell* offScreenSizingCell;
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
+@property (assign, nonatomic) BOOL loadInProgress;
 
 @end
 
@@ -79,6 +80,7 @@
                status:(FetchFinalStatus)status
                 error:(NSError*)error;
 {
+    self.loadInProgress = NO;
     if ([sender isKindOfClass:[PageHistoryFetcher class]]) {
         NSMutableArray* pageHistoryDataArray = (NSMutableArray*)fetchedData;
         switch (status) {
@@ -101,6 +103,7 @@
 }
 
 - (void)getPageHistoryData {
+    self.loadInProgress = YES;
     (void)[[PageHistoryFetcher alloc] initAndFetchHistoryForTitle:self.article.title
                                                       withManager:[QueuesSingleton sharedInstance].pageHistoryFetchManager
                                                thenNotifyDelegate:self];
@@ -189,6 +192,25 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)shouldLoadNewData {
+    
+    CGFloat maxY = self.tableView.contentOffset.y + self.tableView.frame.size.height;
+    BOOL shouldLoad = NO;
+    if (!self.loadInProgress && maxY >= self.tableView.contentSize.height) {
+        shouldLoad = YES;// allItemsLoaded]?;
+    }
+    return shouldLoad;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+
+    
+    // If we scroll to the end of the view new data should be loaded.
+    if ([self shouldLoadNewData]) {
+        [self getPageHistoryData];
+    }
 }
 
 @end
