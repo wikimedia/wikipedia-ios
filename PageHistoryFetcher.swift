@@ -38,7 +38,7 @@ class PageHistoryFetcher: NSObject {
             continueKey = continueInfo["continue"] as? String
             rvContinueKey = continueInfo["rvcontinue"] as? String
         }
-        if let _ = responseObject["batchComplete"] {
+        if let batchCompleteFlag = responseObject["batchcomplete"] where batchCompleteFlag != nil {
             batchComplete = true
         }
     }
@@ -57,7 +57,14 @@ class PageHistoryFetcher: NSObject {
         for (_, value) in pages {
             let transformer = MTLJSONAdapter.arrayTransformerWithModelClass(WMFPageHistoryRevision.self)
             
-            guard let revisions = transformer.transformedValue(value["revisions"]) as? [WMFPageHistoryRevision] else { return [] }
+            guard let revisions = transformer.transformedValue(value["revisions"]) as? [WMFPageHistoryRevision] else {
+                assertionFailure("couldn't parse page history revisions")
+                return []
+            }
+            if let earliestRevision = revisions.last where earliestRevision.parentID == 0 {
+                earliestRevision.revisionSize = earliestRevision.articleSizeAtRevision
+                update(revisionsByDay: &revisionsByDay, revision: earliestRevision)
+            }
             let reverseRevisions = Array(revisions.reverse())
             
             revisionsByDay = parse(revisions: reverseRevisions, existingRevisions: revisionsByDay)
@@ -67,7 +74,7 @@ class PageHistoryFetcher: NSObject {
     }
     
     private func parse(revisions revisions: [WMFPageHistoryRevision], existingRevisions: RevisionsByDay) -> RevisionsByDay {
-        return zip(revisions, revisions.dropFirst()).reduce(existingRevisions, combine: { (revisionsByDay, itemPair: RevisionCurrentPrevious) -> RevisionsByDay in
+        return zip(revisions.dropFirst(), revisions).reduce(existingRevisions, combine: { (revisionsByDay, itemPair: RevisionCurrentPrevious) -> RevisionsByDay in
             var revisionsByDay = revisionsByDay
             
             itemPair.current.revisionSize = itemPair.current.articleSizeAtRevision - itemPair.previous.articleSizeAtRevision
