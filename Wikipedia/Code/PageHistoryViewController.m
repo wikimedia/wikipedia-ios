@@ -23,7 +23,7 @@
 
 @interface PageHistoryViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) __block NSMutableArray* pageHistoryDataArray;
+@property (strong, nonatomic) __block NSMutableArray<NSArray<WMFRevision*>*>* pageHistoryDataArray;
 @property (strong, nonatomic) PageHistoryResultCell* offScreenSizingCell;
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
 @property (strong, nonatomic) PageHistoryFetcher* pageHistoryFetcher;
@@ -81,7 +81,7 @@
 - (void)getPageHistoryData {
     self.isLoadingData = YES;
     @weakify(self);
-    [self.pageHistoryFetcher fetchRevisionInfoForTitle:self.article.title].then(^(NSMutableArray* items){
+    [self.pageHistoryFetcher fetchRevisionInfoForTitle:self.article.title].then(^(NSArray<NSArray<WMFRevision*>*>* items){
         @strongify(self);
         [self.pageHistoryDataArray addObjectsFromArray:items];
         [[WMFAlertManager sharedInstance] dismissAlert];
