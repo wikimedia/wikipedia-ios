@@ -12,7 +12,6 @@
 #import "UITableView+DynamicCellHeight.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "PageHistoryFetcher.h"
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
@@ -82,7 +81,7 @@
 - (void)getPageHistoryData {
     self.isLoadingData = YES;
     @weakify(self);
-    [self.pageHistoryFetcher fetchRevisionInfoForTitle:self.article.title].then(^(NSArray<WMFPageHistorySection*>* items){
+    [self.pageHistoryFetcher fetchRevisionInfo:self.article.title].then(^(NSArray<WMFPageHistorySection*>* items){
         @strongify(self);
         [self.pageHistoryDataArray addObjectsFromArray:items];
         [[WMFAlertManager sharedInstance] dismissAlert];

@@ -18,6 +18,12 @@
 #import "UIColor+WMFStyle.h"
 #import "UIFont+WMFStyle.h"
 #import "NSError+WMFExtensions.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
+#import "WMFApiJsonResponseSerializer.h"
+#import "WMFPageHistorySection.h"
+#import "WMFPageHistoryRevision.h"
+#import "AFHTTPSessionManager+WMFDesktopRetry.h"
+#import "MWNetworkActivityIndicatorManager.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"
