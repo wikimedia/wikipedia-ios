@@ -42,31 +42,17 @@
                                     parameters:[self getParamsForTitle:title]
                                          retry:NULL
                                        success:^(NSURLSessionDataTask* operation, id responseObject) {
-                                           if (![responseObject isDict]) {
-                                               responseObject = @{@"error": @{@"info": @"History not found."}};
+                                           NSDictionary *continueInfo = responseObject[@"continue"];
+                                           if (continueInfo) {
+                                               self.continueKey = continueInfo[@"continue"];
+                                               self.rvcontinueKey = continueInfo[@"rvcontinue"];
                                            }
                                            
-                                           NSError* error = nil;
-                                           if (responseObject[@"error"]) {
-                                               NSMutableDictionary* errorDict = [responseObject[@"error"] mutableCopy];
-                                               errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
-                                               error = [NSError errorWithDomain:@"Page History Fetcher" code:001 userInfo:errorDict];
+                                           if (responseObject[@"batchcomplete"]) {
+                                               self.batchComplete = YES;
                                            }
-                                           if (error) {
-                                               resolve(error);
-                                           } else {
-                                               NSDictionary *continueInfo = responseObject[@"continue"];
-                                               if (continueInfo) {
-                                                   self.continueKey = continueInfo[@"continue"];
-                                                   self.rvcontinueKey = continueInfo[@"rvcontinue"];
-                                               }
-                                               
-                                               if (responseObject[@"batchcomplete"]) {
-                                                   self.batchComplete = YES;
-                                               }
-                                                   [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                                               resolve([self getSanitizedResponse:responseObject]);
-                                           }
+                                               [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                                           resolve([self getSanitizedResponse:responseObject]);
                                        }
                                        failure:^(NSURLSessionDataTask* operation, NSError* error) {
                                            [[MWNetworkActivityIndicatorManager sharedManager] pop];
