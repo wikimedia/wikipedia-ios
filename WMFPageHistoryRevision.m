@@ -20,7 +20,6 @@
     return [super initWithDictionary:dictionaryValue error:error];
 }
 
-
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
     return @{WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, user): @"user",
              WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, revisionDate): @"timestamp",

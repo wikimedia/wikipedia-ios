@@ -6,8 +6,12 @@
 //  Copyright © 2016 Wikimedia Foundation. All rights reserved.
 //
 
-#import <Mantle/Mantle.h>
+#import <Foundation/Foundation.h>
+@class WMFPageHistoryRevision;
 
-@interface WMFPageHistorySection : MTLModel
+@interface WMFPageHistorySection : NSObject
+
+@property (nonatomic, copy, readwrite) NSString* _Nullable sectionTitle;
+@property (nonatomic, strong, readwrite) NSMutableArray<WMFPageHistoryRevision*>* _Nullable items;
 
 @end

@@ -17,13 +17,14 @@
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WMFPageHistoryRevision.h"
+#import "WMFPageHistorySection.h"
 
 
 #define TABLE_CELL_ID @"PageHistoryResultCell"
 
 @interface PageHistoryViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) __block NSMutableArray<NSArray<WMFPageHistoryRevision*>*>* pageHistoryDataArray;
+@property (strong, nonatomic) __block NSMutableArray<WMFPageHistorySection*>* pageHistoryDataArray;
 @property (strong, nonatomic) PageHistoryResultCell* offScreenSizingCell;
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
 @property (strong, nonatomic) PageHistoryFetcher* pageHistoryFetcher;
@@ -81,7 +82,7 @@
 - (void)getPageHistoryData {
     self.isLoadingData = YES;
     @weakify(self);
-    [self.pageHistoryFetcher fetchRevisionInfoForTitle:self.article.title].then(^(NSArray<NSArray<WMFPageHistoryRevision*>*>* items){
+    [self.pageHistoryFetcher fetchRevisionInfoForTitle:self.article.title].then(^(NSArray<WMFPageHistorySection*>* items){
         @strongify(self);
         [self.pageHistoryDataArray addObjectsFromArray:items];
         [[WMFAlertManager sharedInstance] dismissAlert];
@@ -101,8 +102,8 @@
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    NSArray* sectionItems = self.pageHistoryDataArray[section];
-    return sectionItems.count;
+    WMFPageHistorySection* sectionItems = self.pageHistoryDataArray[section];
+    return sectionItems.items.count;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -115,15 +116,15 @@
 }
 
 - (void)updateViewsInCell:(PageHistoryResultCell*)cell forIndexPath:(NSIndexPath*)indexPath {
-    NSArray* section = self.pageHistoryDataArray[indexPath.section];
-    WMFPageHistoryRevision* row = section[indexPath.row];
+    WMFPageHistorySection* section = self.pageHistoryDataArray[indexPath.section];
+    WMFPageHistoryRevision* row = section.items[indexPath.row];
 
     [cell setName:row.user
              date:row.revisionDate
             delta:@(row.revisionSize)
              icon:row.authorIcon
           summary:row.parsedComment
-        separator:(section.count > 1)];
+        separator:(section.items.count > 1)];
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -149,10 +150,8 @@
     label.backgroundColor  = [UIColor clearColor];
 
     label.textAlignment = NSTextAlignmentNatural;
-
-    NSInteger daysAgo = [self.pageHistoryDataArray[section][0] daysFromToday];
-    NSDate* date      = [NSDate dateWithDaysBeforeNow:daysAgo];
-    label.text = [[NSDateFormatter wmf_longDateFormatter] stringFromDate:date];
+    
+    label.text = self.pageHistoryDataArray[section].sectionTitle;
 
     [view addSubview:label];
 

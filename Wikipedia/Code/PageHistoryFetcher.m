@@ -14,6 +14,8 @@
 #import "WMFApiJsonResponseSerializer.h"
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "AFHTTPSessionManager+WMFConfig.h"
+#import "WMFPageHistorySection.h"
+#import "NSDateFormatter+WMFExtensions.h"
 
 @interface PageHistoryFetcher ()
 @property (nonatomic, strong) AFHTTPSessionManager* operationManager;
@@ -82,7 +84,7 @@
 }
 
 - (NSArray*)getSanitizedResponse:(NSDictionary*)rawResponse {
-    NSMutableDictionary<NSNumber *, NSMutableArray<WMFPageHistoryRevision*>*>* revisionsByDay = @{}.mutableCopy;
+    NSMutableDictionary<NSNumber *, WMFPageHistorySection*>* revisionsByDay = @{}.mutableCopy;
 
     if (rawResponse.count > 0) {
         NSDictionary* pages = rawResponse[@"query"][@"pages"];
@@ -107,19 +109,21 @@
     }
     
     NSArray * sortedKeys = [[revisionsByDay allKeys] sortedArrayUsingSelector: @selector(compare:)];
-    NSArray<NSMutableArray<WMFPageHistoryRevision*>*>* objects = [revisionsByDay objectsForKeys: sortedKeys notFoundMarker: @[].mutableCopy];
+    NSArray<WMFPageHistorySection*>* objects = [revisionsByDay objectsForKeys: sortedKeys notFoundMarker: @[].mutableCopy];
     
     return objects;
 }
 
-- (void)updateRevisionsByDay:(NSMutableDictionary<NSNumber *, NSMutableArray<WMFPageHistoryRevision*>*>*)revisionsByDay withRevision:(WMFPageHistoryRevision*)revision {
+- (void)updateRevisionsByDay:(NSMutableDictionary<NSNumber *, WMFPageHistorySection*>*)revisionsByDay withRevision:(WMFPageHistoryRevision*)revision {
     NSInteger distanceInDaysToDate = [revision daysFromToday];
     if (!revisionsByDay[@(distanceInDaysToDate)]) {
-        revisionsByDay[@(distanceInDaysToDate)] = @[].mutableCopy;
+        WMFPageHistorySection* newSection = [WMFPageHistorySection new];
+        newSection.sectionTitle = [[NSDateFormatter wmf_longDateFormatter] stringFromDate:revision.revisionDate];
+        revisionsByDay[@(distanceInDaysToDate)] = newSection;
     }
     
-    NSMutableArray<WMFPageHistoryRevision*>* revisionRowArray = revisionsByDay[@(distanceInDaysToDate)];
-    [revisionRowArray insertObject:revision atIndex:0];
+    WMFPageHistorySection* section = revisionsByDay[@(distanceInDaysToDate)];
+    [section.items insertObject:revision atIndex:0];
 }
 
 @end

@@ -10,4 +10,12 @@
 
 @implementation WMFPageHistorySection
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.items = @[].mutableCopy;
+    }
+    return self;
+}
+
 @end
