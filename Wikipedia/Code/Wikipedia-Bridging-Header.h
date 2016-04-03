@@ -24,6 +24,7 @@
 #import "WMFPageHistoryRevision.h"
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "MWNetworkActivityIndicatorManager.h"
+#import "NSDateFormatter+WMFExtensions.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"

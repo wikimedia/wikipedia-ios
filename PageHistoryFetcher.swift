@@ -63,7 +63,7 @@ class PageHistoryFetcher: NSObject {
             revisionsByDay = parse(revisions: reverseRevisions, existingRevisions: revisionsByDay)
         }
         
-        return revisionsByDay.keys.sort(>).flatMap() { revisionsByDay[$0] }
+        return revisionsByDay.keys.sort(<).flatMap() { revisionsByDay[$0] }
     }
     
     private func parse(revisions revisions: [WMFPageHistoryRevision], existingRevisions: RevisionsByDay) -> RevisionsByDay {
@@ -85,7 +85,9 @@ class PageHistoryFetcher: NSObject {
         } else {
             let newSection = WMFPageHistorySection()
             newSection.items = [revision]
-            newSection.sectionTitle = "heyo"
+            if let revisionDate = revision.revisionDate {
+                newSection.sectionTitle = NSDateFormatter.wmf_longDateFormatter().stringFromDate(revisionDate)
+            }
             revisionsByDay[distanceToToday] = newSection
         }
     }
