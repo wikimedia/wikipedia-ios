@@ -16,14 +16,14 @@
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
-#import "WMFRevision.h"
+#import "WMFPageHistoryRevision.h"
 
 
 #define TABLE_CELL_ID @"PageHistoryResultCell"
 
 @interface PageHistoryViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) __block NSMutableArray<NSArray<WMFRevision*>*>* pageHistoryDataArray;
+@property (strong, nonatomic) __block NSMutableArray<NSArray<WMFPageHistoryRevision*>*>* pageHistoryDataArray;
 @property (strong, nonatomic) PageHistoryResultCell* offScreenSizingCell;
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
 @property (strong, nonatomic) PageHistoryFetcher* pageHistoryFetcher;
@@ -81,7 +81,7 @@
 - (void)getPageHistoryData {
     self.isLoadingData = YES;
     @weakify(self);
-    [self.pageHistoryFetcher fetchRevisionInfoForTitle:self.article.title].then(^(NSArray<NSArray<WMFRevision*>*>* items){
+    [self.pageHistoryFetcher fetchRevisionInfoForTitle:self.article.title].then(^(NSArray<NSArray<WMFPageHistoryRevision*>*>* items){
         @strongify(self);
         [self.pageHistoryDataArray addObjectsFromArray:items];
         [[WMFAlertManager sharedInstance] dismissAlert];
@@ -116,7 +116,7 @@
 
 - (void)updateViewsInCell:(PageHistoryResultCell*)cell forIndexPath:(NSIndexPath*)indexPath {
     NSArray* section = self.pageHistoryDataArray[indexPath.section];
-    WMFRevision* row = section[indexPath.row];
+    WMFPageHistoryRevision* row = section[indexPath.row];
 
     [cell setName:row.user
              date:row.revisionDate

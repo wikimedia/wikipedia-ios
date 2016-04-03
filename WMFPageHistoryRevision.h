@@ -8,7 +8,7 @@
 
 #import <Mantle/Mantle.h>
 
-@interface WMFRevision : MTLModel<MTLJSONSerializing>
+@interface WMFPageHistoryRevision : MTLModel<MTLJSONSerializing>
 
 @property (nonatomic, copy, readonly) NSString* _Nullable user;
 @property (nonatomic, copy, readonly) NSDate* _Nullable revisionDate;

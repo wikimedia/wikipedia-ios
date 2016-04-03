@@ -9,7 +9,7 @@
 #import "NSObject+WMFExtras.h"
 #import "NSDate+Utilities.h"
 #import "MediaWikiKit.h"
-#import "WMFRevision.h"
+#import "WMFPageHistoryRevision.h"
 #import <Mantle/Mantle.h>
 #import "WMFApiJsonResponseSerializer.h"
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
@@ -82,23 +82,23 @@
 }
 
 - (NSArray*)getSanitizedResponse:(NSDictionary*)rawResponse {
-    NSMutableDictionary<NSNumber *, NSMutableArray<WMFRevision*>*>* revisionsByDay = @{}.mutableCopy;
+    NSMutableDictionary<NSNumber *, NSMutableArray<WMFPageHistoryRevision*>*>* revisionsByDay = @{}.mutableCopy;
 
     if (rawResponse.count > 0) {
         NSDictionary* pages = rawResponse[@"query"][@"pages"];
         if (pages) {
             for (NSDictionary* page in pages) {
-                NSArray<WMFRevision*>* revisions = [[MTLJSONAdapter arrayTransformerWithModelClass:[WMFRevision class]] transformedValue:pages[page][@"revisions"]];
+                NSArray<WMFPageHistoryRevision*>* revisions = [[MTLJSONAdapter arrayTransformerWithModelClass:[WMFPageHistoryRevision class]] transformedValue:pages[page][@"revisions"]];
                 
-                WMFRevision* earliestRevision = revisions.lastObject;
+                WMFPageHistoryRevision* earliestRevision = revisions.lastObject;
                 if (earliestRevision.parentID == 0) {
                     earliestRevision.revisionSize = earliestRevision.articleSizeAtRevision;
                     [self updateRevisionsByDay:revisionsByDay withRevision:earliestRevision];
                 }
                 
                 for (NSInteger i = revisions.count - 2; i >= 0; i--) {
-                    WMFRevision* previous = revisions[i + 1];
-                    WMFRevision* current = revisions[i];
+                    WMFPageHistoryRevision* previous = revisions[i + 1];
+                    WMFPageHistoryRevision* current = revisions[i];
                     current.revisionSize = current.articleSizeAtRevision - previous.articleSizeAtRevision;
                     [self updateRevisionsByDay:revisionsByDay withRevision:current];
                 }
@@ -107,18 +107,18 @@
     }
     
     NSArray * sortedKeys = [[revisionsByDay allKeys] sortedArrayUsingSelector: @selector(compare:)];
-    NSArray<NSMutableArray<WMFRevision*>*>* objects = [revisionsByDay objectsForKeys: sortedKeys notFoundMarker: @[].mutableCopy];
+    NSArray<NSMutableArray<WMFPageHistoryRevision*>*>* objects = [revisionsByDay objectsForKeys: sortedKeys notFoundMarker: @[].mutableCopy];
     
     return objects;
 }
 
-- (void)updateRevisionsByDay:(NSMutableDictionary<NSNumber *, NSMutableArray<WMFRevision*>*>*)revisionsByDay withRevision:(WMFRevision*)revision {
+- (void)updateRevisionsByDay:(NSMutableDictionary<NSNumber *, NSMutableArray<WMFPageHistoryRevision*>*>*)revisionsByDay withRevision:(WMFPageHistoryRevision*)revision {
     NSInteger distanceInDaysToDate = [revision daysFromToday];
     if (!revisionsByDay[@(distanceInDaysToDate)]) {
         revisionsByDay[@(distanceInDaysToDate)] = @[].mutableCopy;
     }
     
-    NSMutableArray<WMFRevision*>* revisionRowArray = revisionsByDay[@(distanceInDaysToDate)];
+    NSMutableArray<WMFPageHistoryRevision*>* revisionRowArray = revisionsByDay[@(distanceInDaysToDate)];
     [revisionRowArray insertObject:revision atIndex:0];
 }
 
