@@ -9,10 +9,6 @@ class PageHistoryFetcher: NSObject {
         manager.responseSerializer = WMFApiJsonResponseSerializer()
         return manager
     }()
-    
-    private var continueKey: String?
-    private var rvContinueKey: String?
-    var batchComplete: Bool = false
 
     func fetchRevisionInfo(title: MWKTitle) -> AnyPromise {
         return AnyPromise(resolverBlock: { [weak self] (resolve) in
@@ -32,6 +28,11 @@ class PageHistoryFetcher: NSObject {
         })
     }
     
+    //Mark: Paging
+    private var continueKey: String?
+    private var rvContinueKey: String?
+    var batchComplete: Bool = false
+    
     private func updatePagingState(responseObject: AnyObject) {
         if let continueInfo = responseObject["continue"] as? [String: AnyObject] {
             continueKey = continueInfo["continue"] as? String
@@ -42,6 +43,7 @@ class PageHistoryFetcher: NSObject {
         }
     }
     
+    //Mark: Data Parsing
     private typealias RevisionCurrentPrevious = (current: WMFPageHistoryRevision, previous: WMFPageHistoryRevision)
     private typealias RevisionsByDay = [Int: WMFPageHistorySection]
 
@@ -56,19 +58,23 @@ class PageHistoryFetcher: NSObject {
             let transformer = MTLJSONAdapter.arrayTransformerWithModelClass(WMFPageHistoryRevision.self)
             
             guard let revisions = transformer.transformedValue(value["revisions"]) as? [WMFPageHistoryRevision] else { return [] }
-            let reverseRevisions = revisions.reverse()
+            let reverseRevisions = Array(revisions.reverse())
             
-            revisionsByDay = zip(reverseRevisions, reverseRevisions.dropFirst()).reduce(revisionsByDay, combine: { (revisionsByDay, itemPair: RevisionCurrentPrevious) -> RevisionsByDay in
-                    var revisionsByDay = revisionsByDay
-                
-                    itemPair.current.revisionSize = itemPair.current.articleSizeAtRevision - itemPair.previous.articleSizeAtRevision
-                    update(revisionsByDay:&revisionsByDay, revision: itemPair.current)
-                
-                    return revisionsByDay
-                })
+            revisionsByDay = parse(revisions: reverseRevisions, existingRevisions: revisionsByDay)
         }
         
         return revisionsByDay.keys.sort(>).flatMap() { revisionsByDay[$0] }
+    }
+    
+    private func parse(revisions revisions: [WMFPageHistoryRevision], existingRevisions: RevisionsByDay) -> RevisionsByDay {
+        return zip(revisions, revisions.dropFirst()).reduce(existingRevisions, combine: { (revisionsByDay, itemPair: RevisionCurrentPrevious) -> RevisionsByDay in
+            var revisionsByDay = revisionsByDay
+            
+            itemPair.current.revisionSize = itemPair.current.articleSizeAtRevision - itemPair.previous.articleSizeAtRevision
+            update(revisionsByDay:&revisionsByDay, revision: itemPair.current)
+            
+            return revisionsByDay
+        })
     }
     
     private func update(inout revisionsByDay revisionsByDay: RevisionsByDay, revision: WMFPageHistoryRevision) {
