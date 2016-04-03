@@ -9,6 +9,8 @@
 #import "NSObject+WMFExtras.h"
 #import "NSDate+Utilities.h"
 #import "MediaWikiKit.h"
+#import "WMFRevision.h"
+#import <Mantle/Mantle.h>
 
 @implementation PageHistoryFetcher
 
@@ -93,6 +95,8 @@
         if (pages) {
             for (NSDictionary* page in pages) {
                 NSString* title = pages[page][@"title"];
+                NSArray* revs = [[MTLJSONAdapter arrayTransformerWithModelClass:[WMFRevision class]] transformedValue:pages[page][@"revisions"]];
+                NSLog(revs.description);
                 for (NSDictionary* revision in pages[page][@"revisions"]) {
                     NSMutableDictionary* mutableRevision = revision.mutableCopy;
                     mutableRevision[@"title"] = title;
