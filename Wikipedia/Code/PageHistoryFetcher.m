@@ -92,19 +92,19 @@
         NSDictionary* pages = rawResponse[@"query"][@"pages"];
         if (pages) {
             for (NSDictionary* page in pages) {
-                NSArray* revs = [[MTLJSONAdapter arrayTransformerWithModelClass:[WMFRevision class]] transformedValue:pages[page][@"revisions"]];
+                NSArray<WMFRevision*>* revs = [[MTLJSONAdapter arrayTransformerWithModelClass:[WMFRevision class]] transformedValue:pages[page][@"revisions"]];
+                
+                WMFRevision* earliestRevision = revs.lastObject;
+                if (earliestRevision.parentID == 0) {
+                    earliestRevision.revisionSize = earliestRevision.articleSizeAtRevision;
+                    [self updateRevisionsByDay:revisionsByDay withRevision:earliestRevision];
+                }
                 
                 for (NSInteger i = revs.count - 2; i >= 0; i--) {
                     WMFRevision* previous = revs[i + 1];
                     WMFRevision* current = revs[i];
                     current.revisionSize = current.articleSizeAtRevision - previous.articleSizeAtRevision;
-                    NSInteger distanceInDaysToDate = [current daysFromToday];
-                    if (!revisionsByDay[@(distanceInDaysToDate)]) {
-                        revisionsByDay[@(distanceInDaysToDate)] = @[].mutableCopy;
-                    }
-                    
-                    NSMutableArray* revisionRowArray = revisionsByDay[@(distanceInDaysToDate)];
-                    [revisionRowArray addObject:current];
+                    [self updateRevisionsByDay:revisionsByDay withRevision:current];
                 }
             }
         }
@@ -114,6 +114,16 @@
     NSArray * objects = [revisionsByDay objectsForKeys: sortedKeys notFoundMarker: [NSNull null]];
     
     return objects;
+}
+
+- (void)updateRevisionsByDay:(NSMutableDictionary*)revisionsByDay withRevision:(WMFRevision*)revision {
+    NSInteger distanceInDaysToDate = [revision daysFromToday];
+    if (!revisionsByDay[@(distanceInDaysToDate)]) {
+        revisionsByDay[@(distanceInDaysToDate)] = @[].mutableCopy;
+    }
+    
+    NSMutableArray* revisionRowArray = revisionsByDay[@(distanceInDaysToDate)];
+    [revisionRowArray addObject:revision];
 }
 
 @end
