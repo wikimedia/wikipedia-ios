@@ -11,18 +11,46 @@
 #import "MediaWikiKit.h"
 #import "WMFRevision.h"
 #import <Mantle/Mantle.h>
+#import "WMFApiJsonResponseSerializer.h"
+#import "AFHTTPSessionManager+WMFDesktopRetry.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
+
+@interface PageHistoryFetcher ()
+@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
+@end
 
 @implementation PageHistoryFetcher
 
-- (instancetype)initAndFetchHistoryForTitle:(MWKTitle*)title
-                                withManager:(AFHTTPSessionManager*)manager
-                         thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
+- (instancetype)init {
     self = [super init];
     if (self) {
-        self.fetchFinishedDelegate = delegate;
-        [self fetchPageHistoryForTitle:title withManager:manager];
+        AFHTTPSessionManager* manager = [AFHTTPSessionManager wmf_createDefaultManager];
+        manager.responseSerializer = [WMFApiJsonResponseSerializer serializer];
+        self.operationManager      = manager;
     }
     return self;
+}
+
+- (BOOL)isFetching {
+    return [[self.operationManager operationQueue] operationCount] > 0;
+}
+
+- (AnyPromise*)fetchRevisionInfoForTitle:(MWKTitle*)title {
+    NSParameterAssert(title);
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+        
+        [self.operationManager wmf_GETWithSite:title.site
+                                    parameters:[self getParamsForTitle:title]
+                                         retry:NULL
+                                       success:^(NSURLSessionDataTask* operation, id responseObject) {
+                                           [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                                           resolve([self getSanitizedResponse:responseObject]);
+                                       }
+                                       failure:^(NSURLSessionDataTask* operation, NSError* error) {
+                                           [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                                           resolve(error);
+                                       }];
+    }];
 }
 
 - (void)fetchPageHistoryForTitle:(MWKTitle*)title
@@ -58,20 +86,20 @@
             output = [self getSanitizedResponse:responseObject];
         }
 
-        [self finishWithError:error
-                  fetchedData:output];
+        //[self finishWithError:error
+        //          fetchedData:output];
     } failure:^(NSURLSessionDataTask* operation, NSError* error) {
         //NSLog(@"PAGE HISTORY FAIL = %@", error);
 
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-        [self finishWithError:error
-                  fetchedData:nil];
+        //[self finishWithError:error
+        //          fetchedData:nil];
     }];
 }
 
 - (NSDictionary*)getParamsForTitle:(MWKTitle*)title {
-    NSMutableDictionary* params = @{
+    return @{
         @"action": @"query",
         @"prop": @"revisions",
         @"rvprop": @"ids|timestamp|user|size|parsedcomment",
@@ -81,8 +109,7 @@
         @"continue": @"",
         @"format": @"json"
         //,@"rvdiffto": @(-1) // Add this to fake out "error" api response.
-    }.mutableCopy;
-    return params;
+    };
 }
 
 - (NSArray*)getSanitizedResponse:(NSDictionary*)rawResponse {

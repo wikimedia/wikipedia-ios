@@ -27,6 +27,7 @@
 @property (strong, nonatomic) PageHistoryResultCell* offScreenSizingCell;
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
 @property (assign, nonatomic) BOOL loadInProgress;
+@property (strong, nonatomic) PageHistoryFetcher* pageHistoryFetcher;
 
 @end
 
@@ -105,9 +106,18 @@
 
 - (void)getPageHistoryData {
     self.loadInProgress = YES;
-    (void)[[PageHistoryFetcher alloc] initAndFetchHistoryForTitle:self.article.title
-                                                      withManager:[QueuesSingleton sharedInstance].pageHistoryFetchManager
-                                               thenNotifyDelegate:self];
+    self.pageHistoryFetcher = [PageHistoryFetcher new];
+    @weakify(self);
+    [self.pageHistoryFetcher fetchRevisionInfoForTitle:self.article.title].then(^(NSMutableArray* items){
+        @strongify(self);
+        self.pageHistoryDataArray = items;
+        [[WMFAlertManager sharedInstance] dismissAlert];
+        [self.tableView reloadData];
+    }).catch(^(NSError* error){
+        @strongify(self);
+        DDLogError(@"Failed to fetch items for section %@. %@", self, error);
+
+    });
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
@@ -186,11 +196,6 @@
     return 27.0 * MENUS_SCALE_MULTIPLIER;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (BOOL)shouldLoadNewData {
     
     CGFloat maxY = self.tableView.contentOffset.y + self.tableView.frame.size.height;
@@ -202,8 +207,6 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-
-    
     // If we scroll to the end of the view new data should be loaded.
     if ([self shouldLoadNewData]) {
         [self getPageHistoryData];

@@ -6,11 +6,9 @@
 
 @class AFHTTPSessionManager;
 
-@interface PageHistoryFetcher : FetcherBase
+@interface PageHistoryFetcher : NSObject
 
-// Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
-- (instancetype)initAndFetchHistoryForTitle:(MWKTitle*)title
-                                withManager:(AFHTTPSessionManager*)manager
-                         thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
+@property (nonatomic, assign, readonly) BOOL isFetching;
+- (AnyPromise*)fetchRevisionInfoForTitle:(MWKTitle*)title;
 
 @end
