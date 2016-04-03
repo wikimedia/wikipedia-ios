@@ -17,6 +17,6 @@
 @property (nonatomic, assign, readonly) NSInteger parentID;
 @property (nonatomic, assign, readonly) NSInteger revisionID;
 @property (nonatomic, assign, readonly) NSInteger articleSizeAtRevision;
-@property (nonatomic, assign, readonly) NSInteger revisionSize;
+@property (nonatomic, assign, readwrite) NSInteger revisionSize;
 
 @end

@@ -93,14 +93,18 @@
         if (pages) {
             for (NSDictionary* page in pages) {
                 NSArray* revs = [[MTLJSONAdapter arrayTransformerWithModelClass:[WMFRevision class]] transformedValue:pages[page][@"revisions"]];
-                for (WMFRevision* rev in revs) {
-                    NSInteger distanceInDaysToDate = [rev.revisionDate distanceInDaysToDate:[NSDate date]];
+                
+                for (NSInteger i = revs.count - 2; i >= 0; i--) {
+                    WMFRevision* previous = revs[i + 1];
+                    WMFRevision* current = revs[i];
+                    current.revisionSize = current.articleSizeAtRevision - previous.articleSizeAtRevision;
+                    NSInteger distanceInDaysToDate = [current.revisionDate distanceInDaysToDate:[NSDate date]];
                     if (!revisionsByDay[@(distanceInDaysToDate)]) {
                         revisionsByDay[@(distanceInDaysToDate)] = @[].mutableCopy;
                     }
                     
                     NSMutableArray* revisionRowArray = revisionsByDay[@(distanceInDaysToDate)];
-                    [revisionRowArray addObject:rev];
+                    [revisionRowArray addObject:current];
                 }
             }
         }
@@ -110,46 +114,5 @@
     NSArray * objects = [revisionsByDay objectsForKeys: sortedKeys notFoundMarker: [NSNull null]];
     return objects;
 }
-
-- (void)calculateCharacterDeltasForRevisions:(NSMutableArray*)revisions fromParentSizes:(NSDictionary*)parentSizes {
-    // Note: always retrieve one more than you're going to show so the oldest item
-    // shown can have it's characterDelta calculated.
-
-    for (NSDictionary* day in revisions) {
-        for (NSMutableDictionary* revision in day[@"revisions"]) {
-            NSNumber* parentId = revision[@"parentid"];
-            if (parentSizes[parentId]) {
-                NSNumber* parentSize   = parentSizes[parentId];
-                NSNumber* revisionSize = revision[@"size"];
-                revision[@"characterDelta"] = @(revisionSize.integerValue - parentSize.integerValue);
-            } else if (parentId) {
-                if (parentId.integerValue == 0) {
-                    revision[@"characterDelta"] = revision[@"size"];
-                }
-            }
-        }
-    }
-}
-
-- (void)pruneIncompleteRevisionFromRevisions:(NSMutableArray*)revisions {
-    NSDictionary *lastDayRevisionsMeta = revisions.lastObject;
-    NSMutableArray *lastDayRevisions = lastDayRevisionsMeta[@"revisions"];
-    NSNumber *lastRevisionParentId = lastDayRevisions.lastObject[@"parentid"];
-
-    if (lastRevisionParentId == nil || lastRevisionParentId.integerValue != 0) {
-        if (lastDayRevisions.count <= 1) {
-            [revisions removeLastObject];
-        } else {
-            [lastDayRevisions removeLastObject];
-        }
-    }
-}
-
-/*
-   -(void)dealloc
-   {
-    NSLog(@"DEALLOC'ING PAGE HISTORY FETCHER!");
-   }
- */
 
 @end

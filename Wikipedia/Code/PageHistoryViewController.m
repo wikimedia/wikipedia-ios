@@ -134,7 +134,7 @@
 
     [cell setName:row.user
              time:@"he"
-            delta:@(12)
+            delta:@(row.revisionSize)
              icon:row.authorIcon
           summary:row.parsedComment
         separator:(section.count > 1)];
