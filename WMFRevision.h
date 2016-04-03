@@ -19,4 +19,6 @@
 @property (nonatomic, assign, readonly) NSInteger articleSizeAtRevision;
 @property (nonatomic, assign, readwrite) NSInteger revisionSize;
 
+- (NSInteger)daysFromToday;
+
 @end

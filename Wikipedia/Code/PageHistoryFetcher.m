@@ -98,7 +98,7 @@
                     WMFRevision* previous = revs[i + 1];
                     WMFRevision* current = revs[i];
                     current.revisionSize = current.articleSizeAtRevision - previous.articleSizeAtRevision;
-                    NSInteger distanceInDaysToDate = [current.revisionDate distanceInDaysToDate:[NSDate date]];
+                    NSInteger distanceInDaysToDate = [current daysFromToday];
                     if (!revisionsByDay[@(distanceInDaysToDate)]) {
                         revisionsByDay[@(distanceInDaysToDate)] = @[].mutableCopy;
                     }
@@ -112,6 +112,7 @@
     
     NSArray * sortedKeys = [[revisionsByDay allKeys] sortedArrayUsingSelector: @selector(compare:)];
     NSArray * objects = [revisionsByDay objectsForKeys: sortedKeys notFoundMarker: [NSNull null]];
+    
     return objects;
 }
 

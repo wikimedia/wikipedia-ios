@@ -9,6 +9,8 @@
 #import "WMFRevision.h"
 #import "NSString+WMFExtras.h"
 #import "WikiGlyph_Chars.h"
+#import "NSDate+Utilities.h"
+
 
 @implementation WMFRevision
 
@@ -40,6 +42,10 @@
     return [MTLValueTransformer transformerUsingForwardBlock:^(NSString *anon, BOOL *success, NSError *__autoreleasing *error) {
         return WIKIGLYPH_USER_SLEEP;
     }];
+}
+
+- (NSInteger)daysFromToday {
+    return [self.revisionDate distanceInDaysToDate:[NSDate date]];
 }
 
 @end

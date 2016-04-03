@@ -133,7 +133,7 @@
     WMFRevision* row = section[indexPath.row];
 
     [cell setName:row.user
-             time:@"he"
+             date:row.revisionDate
             delta:@(row.revisionSize)
              icon:row.authorIcon
           summary:row.parsedComment
@@ -173,10 +173,8 @@
 
     label.textAlignment = NSTextAlignmentNatural;
 
-    //NSDictionary* sectionDict = self.pageHistoryDataArray[section];
-
-    NSNumber* daysAgo = @(1);//sectionDict[@"daysAgo"];
-    NSDate* date      = [NSDate dateWithDaysBeforeNow:daysAgo.integerValue];
+    NSInteger daysAgo = [self.pageHistoryDataArray[section][0] daysFromToday];
+    NSDate* date      = [NSDate dateWithDaysBeforeNow:daysAgo];
     label.text = [[NSDateFormatter wmf_longDateFormatter] stringFromDate:date];
 
     [view addSubview:label];
