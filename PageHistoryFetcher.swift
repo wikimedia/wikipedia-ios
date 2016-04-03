@@ -97,7 +97,7 @@ class PageHistoryFetcher: NSObject {
         var params: [String: AnyObject] = [
         "action": "query",
         "prop": "revisions",
-        "rvProp": "ids|timestamp|user|size|parsedcomment",
+        "rvprop": "ids|timestamp|user|size|parsedcomment",
         "rvlimit": 51,
         "rvdir": "older",
         "titles": title.text,
