@@ -21,13 +21,13 @@
 
 #define TABLE_CELL_ID @"PageHistoryResultCell"
 
-@interface PageHistoryViewController () <FetchFinishedDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface PageHistoryViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) __block NSMutableArray* pageHistoryDataArray;
 @property (strong, nonatomic) PageHistoryResultCell* offScreenSizingCell;
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
-@property (assign, nonatomic) BOOL loadInProgress;
 @property (strong, nonatomic) PageHistoryFetcher* pageHistoryFetcher;
+@property (assign, nonatomic) BOOL isLoadingData;
 
 @end
 
@@ -55,7 +55,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    self.pageHistoryFetcher = [PageHistoryFetcher new];
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
         @strongify(self)
@@ -77,46 +78,21 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
-- (void)fetchFinished:(id)sender
-          fetchedData:(id)fetchedData
-               status:(FetchFinalStatus)status
-                error:(NSError*)error;
-{
-    self.loadInProgress = NO;
-    if ([sender isKindOfClass:[PageHistoryFetcher class]]) {
-        NSMutableArray* pageHistoryDataArray = (NSMutableArray*)fetchedData;
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:
-
-                self.pageHistoryDataArray = pageHistoryDataArray;
-                [[WMFAlertManager sharedInstance] dismissAlert];
-                [self.tableView reloadData];
-
-                break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-                [[WMFAlertManager sharedInstance] dismissAlert];
-
-                break;
-            case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
-                break;
-        }
-    }
-}
-
 - (void)getPageHistoryData {
-    self.loadInProgress = YES;
-    self.pageHistoryFetcher = [PageHistoryFetcher new];
+    self.isLoadingData = YES;
     @weakify(self);
     [self.pageHistoryFetcher fetchRevisionInfoForTitle:self.article.title].then(^(NSMutableArray* items){
         @strongify(self);
-        self.pageHistoryDataArray = items;
+        [self.pageHistoryDataArray addObjectsFromArray:items];
         [[WMFAlertManager sharedInstance] dismissAlert];
         [self.tableView reloadData];
     }).catch(^(NSError* error){
         @strongify(self);
         DDLogError(@"Failed to fetch items for section %@. %@", self, error);
-
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
+    }).finally(^{
+        @strongify(self);
+        self.isLoadingData = NO;
     });
 }
 
@@ -158,15 +134,6 @@
     return [tableView heightForSizingCell:self.offScreenSizingCell];
 }
 
-- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-//    NSDictionary* sectionDict = self.pageHistoryDataArray[indexPath.section];
-//    NSArray* rows             = sectionDict[@"revisions"];
-//    NSDictionary* row         = rows[indexPath.row];
-//    NSLog(@"row = %@", row);
-
-// TODO: row contains a revisionid, make tap cause diff for that revision to open in Safari?
-}
-
 - (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     UIView* view = [[UIView alloc] initWithFrame:CGRectZero];
     view.backgroundColor     = CHROME_COLOR;
@@ -197,17 +164,15 @@
 }
 
 - (BOOL)shouldLoadNewData {
-    
     CGFloat maxY = self.tableView.contentOffset.y + self.tableView.frame.size.height;
     BOOL shouldLoad = NO;
-    if (!self.loadInProgress && maxY >= self.tableView.contentSize.height) {
-        shouldLoad = YES;// allItemsLoaded]?;
+    if (!self.pageHistoryFetcher.batchComplete && !self.isLoadingData && maxY >= self.tableView.contentSize.height) {
+        shouldLoad = YES;
     }
     return shouldLoad;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    // If we scroll to the end of the view new data should be loaded.
     if ([self shouldLoadNewData]) {
         [self getPageHistoryData];
     }

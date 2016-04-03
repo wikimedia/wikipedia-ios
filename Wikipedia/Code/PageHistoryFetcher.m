@@ -17,6 +17,9 @@
 
 @interface PageHistoryFetcher ()
 @property (nonatomic, strong) AFHTTPSessionManager* operationManager;
+@property (nonatomic, strong) NSString* continueKey;
+@property (nonatomic, strong) NSString* rvcontinueKey;
+@property (nonatomic, assign, readwrite) BOOL batchComplete;
 @end
 
 @implementation PageHistoryFetcher
@@ -31,10 +34,6 @@
     return self;
 }
 
-- (BOOL)isFetching {
-    return [[self.operationManager operationQueue] operationCount] > 0;
-}
-
 - (AnyPromise*)fetchRevisionInfoForTitle:(MWKTitle*)title {
     NSParameterAssert(title);
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
@@ -43,8 +42,31 @@
                                     parameters:[self getParamsForTitle:title]
                                          retry:NULL
                                        success:^(NSURLSessionDataTask* operation, id responseObject) {
-                                           [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                                           resolve([self getSanitizedResponse:responseObject]);
+                                           if (![responseObject isDict]) {
+                                               responseObject = @{@"error": @{@"info": @"History not found."}};
+                                           }
+                                           
+                                           NSError* error = nil;
+                                           if (responseObject[@"error"]) {
+                                               NSMutableDictionary* errorDict = [responseObject[@"error"] mutableCopy];
+                                               errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
+                                               error = [NSError errorWithDomain:@"Page History Fetcher" code:001 userInfo:errorDict];
+                                           }
+                                           if (error) {
+                                               resolve(error);
+                                           } else {
+                                               NSDictionary *continueInfo = responseObject[@"continue"];
+                                               if (continueInfo) {
+                                                   self.continueKey = continueInfo[@"continue"];
+                                                   self.rvcontinueKey = continueInfo[@"rvcontinue"];
+                                               }
+                                               
+                                               if (responseObject[@"batchcomplete"]) {
+                                                   self.batchComplete = YES;
+                                               }
+                                                   [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                                               resolve([self getSanitizedResponse:responseObject]);
+                                           }
                                        }
                                        failure:^(NSURLSessionDataTask* operation, NSError* error) {
                                            [[MWNetworkActivityIndicatorManager sharedManager] pop];
@@ -53,63 +75,24 @@
     }];
 }
 
-- (void)fetchPageHistoryForTitle:(MWKTitle*)title
-                     withManager:(AFHTTPSessionManager*)manager {
-    NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:title.site.language];
-
-    NSDictionary* params = [self getParamsForTitle:title];
-
-    [[MWNetworkActivityIndicatorManager sharedManager] push];
-
-    [manager GET:url.absoluteString parameters:params progress:NULL success:^(NSURLSessionDataTask* operation, id responseObject) {
-        //NSLog(@"JSON: %@", responseObject);
-        [[MWNetworkActivityIndicatorManager sharedManager] pop];
-
-        // Fake out an error if non-dictionary response received.
-        if (![responseObject isDict]) {
-            responseObject = @{@"error": @{@"info": @"History not found."}};
-        }
-
-        //NSLog(@"PAGE HISTORY DATA RETRIEVED = %@", responseObject);
-
-        // Handle case where response is received, but API reports error.
-        // Uncomment @"rvdiffto": @(-1) in the parameters to force API error for testing.
-        NSError* error = nil;
-        if (responseObject[@"error"]) {
-            NSMutableDictionary* errorDict = [responseObject[@"error"] mutableCopy];
-            errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
-            error = [NSError errorWithDomain:@"Page History Fetcher" code:001 userInfo:errorDict];
-        }
-
-        NSArray* output = @[];
-        if (!error) {
-            output = [self getSanitizedResponse:responseObject];
-        }
-
-        //[self finishWithError:error
-        //          fetchedData:output];
-    } failure:^(NSURLSessionDataTask* operation, NSError* error) {
-        //NSLog(@"PAGE HISTORY FAIL = %@", error);
-
-        [[MWNetworkActivityIndicatorManager sharedManager] pop];
-
-        //[self finishWithError:error
-        //          fetchedData:nil];
-    }];
-}
-
 - (NSDictionary*)getParamsForTitle:(MWKTitle*)title {
-    return @{
+    NSMutableDictionary *params = @{
         @"action": @"query",
         @"prop": @"revisions",
         @"rvprop": @"ids|timestamp|user|size|parsedcomment",
         @"rvlimit": @51,
         @"rvdir": @"older",
         @"titles": title.text,
-        @"continue": @"",
+        @"continue": self.continueKey ?: @"",
         @"format": @"json"
         //,@"rvdiffto": @(-1) // Add this to fake out "error" api response.
-    };
+    }.mutableCopy;
+    
+    if (self.rvcontinueKey) {
+        params[@"rvcontinue"] = self.rvcontinueKey;
+    }
+    
+    return params;
 }
 
 - (NSArray*)getSanitizedResponse:(NSDictionary*)rawResponse {

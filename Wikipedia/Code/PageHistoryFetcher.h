@@ -8,7 +8,7 @@
 
 @interface PageHistoryFetcher : NSObject
 
-@property (nonatomic, assign, readonly) BOOL isFetching;
+@property (nonatomic, assign, readonly) BOOL batchComplete;
 - (AnyPromise*)fetchRevisionInfoForTitle:(MWKTitle*)title;
 
 @end
