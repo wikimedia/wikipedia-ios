@@ -53,7 +53,7 @@
             error = [NSError errorWithDomain:@"Page History Fetcher" code:001 userInfo:errorDict];
         }
 
-        NSMutableArray* output = @[].mutableCopy;
+        NSArray* output = @[];
         if (!error) {
             output = [self getSanitizedResponse:responseObject];
         }
@@ -85,55 +85,30 @@
     return params;
 }
 
-- (NSMutableArray*)getSanitizedResponse:(NSDictionary*)rawResponse {
-    NSMutableArray* output           = @[].mutableCopy;
-    NSMutableDictionary* parentSizes = @{}.mutableCopy;
+- (NSArray*)getSanitizedResponse:(NSDictionary*)rawResponse {
     NSMutableDictionary* revisionsByDay = @{}.mutableCopy;
 
     if (rawResponse.count > 0) {
         NSDictionary* pages = rawResponse[@"query"][@"pages"];
         if (pages) {
             for (NSDictionary* page in pages) {
-                NSString* title = pages[page][@"title"];
                 NSArray* revs = [[MTLJSONAdapter arrayTransformerWithModelClass:[WMFRevision class]] transformedValue:pages[page][@"revisions"]];
-                NSLog(revs.description);
-                for (NSDictionary* revision in pages[page][@"revisions"]) {
-                    NSMutableDictionary* mutableRevision = revision.mutableCopy;
-                    mutableRevision[@"title"] = title;
-
-                    parentSizes[revision[@"revid"]] = revision[@"size"];
-
-                    NSString* timeStampString = mutableRevision[@"timestamp"];
-                    NSDate* timeStampDate     = [timeStampString wmf_iso8601Date];
-
-                    NSUInteger distanceInDaysToDate = [timeStampDate distanceInDaysToDate:[NSDate date]];
-
-                    //NSLog(@"distanceInDaysToDate = %d", [timeStampDate distanceInDaysToDate:[NSDate date]]);
+                for (WMFRevision* rev in revs) {
+                    NSInteger distanceInDaysToDate = [rev.revisionDate distanceInDaysToDate:[NSDate date]];
                     if (!revisionsByDay[@(distanceInDaysToDate)]) {
                         revisionsByDay[@(distanceInDaysToDate)] = @[].mutableCopy;
                     }
-
+                    
                     NSMutableArray* revisionRowArray = revisionsByDay[@(distanceInDaysToDate)];
-                    [revisionRowArray addObject:mutableRevision];
+                    [revisionRowArray addObject:rev];
                 }
             }
-
-            NSMutableArray* revisionsByDaySorted = @[].mutableCopy;
-            for (NSNumber* day in [revisionsByDay.allKeys sortedArrayUsingSelector: @selector(compare:)]) {
-                [revisionsByDaySorted addObject:@{
-                     @"daysAgo": day,
-                     @"revisions": revisionsByDay[day]
-                 }];
-            }
-
-            [self calculateCharacterDeltasForRevisions:revisionsByDaySorted
-                                       fromParentSizes:parentSizes];
-            [self pruneIncompleteRevisionFromRevisions:revisionsByDaySorted];
-
-            output = revisionsByDaySorted;
         }
     }
-    return output;
+    
+    NSArray * sortedKeys = [[revisionsByDay allKeys] sortedArrayUsingSelector: @selector(compare:)];
+    NSArray * objects = [revisionsByDay objectsForKeys: sortedKeys notFoundMarker: [NSNull null]];
+    return objects;
 }
 
 - (void)calculateCharacterDeltasForRevisions:(NSMutableArray*)revisions fromParentSizes:(NSDictionary*)parentSizes {

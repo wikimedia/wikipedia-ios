@@ -13,6 +13,7 @@
 @property (nonatomic, copy, readonly) NSString* user;
 @property (nonatomic, copy, readonly) NSDate* revisionDate;
 @property (nonatomic, copy, readonly) NSString* parsedComment;
+@property (nonatomic, copy, readonly) NSString* authorIcon;
 @property (nonatomic, assign, readonly) NSInteger parentID;
 @property (nonatomic, assign, readonly) NSInteger revisionID;
 @property (nonatomic, assign, readonly) NSInteger articleSizeAtRevision;

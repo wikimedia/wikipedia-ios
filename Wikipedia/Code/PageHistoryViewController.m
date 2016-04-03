@@ -16,6 +16,7 @@
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
+#import "WMFRevision.h"
 
 
 #define TABLE_CELL_ID @"PageHistoryResultCell"
@@ -114,9 +115,8 @@
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    NSDictionary* sectionDict = self.pageHistoryDataArray[section];
-    NSArray* rows             = sectionDict[@"revisions"];
-    return rows.count;
+    NSArray* sectionItems = self.pageHistoryDataArray[section];
+    return sectionItems.count;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -129,16 +129,15 @@
 }
 
 - (void)updateViewsInCell:(PageHistoryResultCell*)cell forIndexPath:(NSIndexPath*)indexPath {
-    NSDictionary* sectionDict = self.pageHistoryDataArray[indexPath.section];
-    NSArray* rows             = sectionDict[@"revisions"];
-    NSDictionary* row         = rows[indexPath.row];
+    NSArray* section = self.pageHistoryDataArray[indexPath.section];
+    WMFRevision* row = section[indexPath.row];
 
-    [cell setName:row[@"user"]
-             time:row[@"timestamp"]
-            delta:row[@"characterDelta"]
-             icon:row[@"anon"] ? WIKIGLYPH_USER_SLEEP : WIKIGLYPH_USER_SMILE
-          summary:row[@"parsedcomment"]
-        separator:(rows.count > 1)];
+    [cell setName:row.user
+             time:@"he"
+            delta:@(12)
+             icon:row.authorIcon
+          summary:row.parsedComment
+        separator:(section.count > 1)];
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -150,10 +149,10 @@
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    NSDictionary* sectionDict = self.pageHistoryDataArray[indexPath.section];
-    NSArray* rows             = sectionDict[@"revisions"];
-    NSDictionary* row         = rows[indexPath.row];
-    NSLog(@"row = %@", row);
+//    NSDictionary* sectionDict = self.pageHistoryDataArray[indexPath.section];
+//    NSArray* rows             = sectionDict[@"revisions"];
+//    NSDictionary* row         = rows[indexPath.row];
+//    NSLog(@"row = %@", row);
 
 // TODO: row contains a revisionid, make tap cause diff for that revision to open in Safari?
 }
@@ -174,9 +173,9 @@
 
     label.textAlignment = NSTextAlignmentNatural;
 
-    NSDictionary* sectionDict = self.pageHistoryDataArray[section];
+    //NSDictionary* sectionDict = self.pageHistoryDataArray[section];
 
-    NSNumber* daysAgo = sectionDict[@"daysAgo"];
+    NSNumber* daysAgo = @(1);//sectionDict[@"daysAgo"];
     NSDate* date      = [NSDate dateWithDaysBeforeNow:daysAgo.integerValue];
     label.text = [[NSDateFormatter wmf_longDateFormatter] stringFromDate:date];
 
