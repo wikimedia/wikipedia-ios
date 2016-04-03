@@ -133,7 +133,7 @@
     }
     
     NSMutableArray* revisionRowArray = revisionsByDay[@(distanceInDaysToDate)];
-    [revisionRowArray addObject:revision];
+    [revisionRowArray insertObject:revision atIndex:0];
 }
 
 @end
