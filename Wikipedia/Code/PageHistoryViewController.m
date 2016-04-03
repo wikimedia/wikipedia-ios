@@ -164,7 +164,7 @@
 }
 
 - (BOOL)shouldLoadNewData {
-    CGFloat maxY = self.tableView.contentOffset.y + self.tableView.frame.size.height;
+    CGFloat maxY = self.tableView.contentOffset.y + self.tableView.frame.size.height + 200.0;
     BOOL shouldLoad = NO;
     if (!self.pageHistoryFetcher.batchComplete && !self.isLoadingData && maxY >= self.tableView.contentSize.height) {
         shouldLoad = YES;
