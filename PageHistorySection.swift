@@ -11,13 +11,10 @@ import Foundation
 
 public class PageHistorySection: NSObject {
     public let sectionTitle: String
-    public private(set) var items = [WMFPageHistoryRevision]()
+    public let items: [WMFPageHistoryRevision]
     
-    public init(sectionTitle: String) {
+    public init(sectionTitle: String, items: [WMFPageHistoryRevision]) {
         self.sectionTitle = sectionTitle
-    }
-    
-    public func addItem(item: WMFPageHistoryRevision) {
-        items.append(item)
+        self.items = items
     }
 }

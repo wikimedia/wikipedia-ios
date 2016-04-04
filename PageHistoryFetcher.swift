@@ -95,12 +95,13 @@ public class PageHistoryFetcher: NSObject {
         let distanceToToday = revision.daysFromToday()
         
         if let existingRevisionsOnCurrentDay = revisionsByDay[distanceToToday] {
-            existingRevisionsOnCurrentDay.addItem(revision)
+            let sectionTitle = existingRevisionsOnCurrentDay.sectionTitle
+            let items = existingRevisionsOnCurrentDay.items + [revision]
+            revisionsByDay[distanceToToday] = PageHistorySection(sectionTitle: sectionTitle, items: items)
         } else {
             if let revisionDate = revision.revisionDate {
                 let sectionTitle = NSDateFormatter.wmf_longDateFormatter().stringFromDate(revisionDate)
-                let newSection = PageHistorySection(sectionTitle: sectionTitle)
-                newSection.addItem(revision)
+                let newSection = PageHistorySection(sectionTitle: sectionTitle, items: [revision])
                 revisionsByDay[distanceToToday] = newSection
             }
         }
