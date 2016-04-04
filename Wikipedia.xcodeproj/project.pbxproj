@@ -58,7 +58,7 @@
 		0EF5BB701C1628B100DE75E1 /* NSArray+WMFMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6F1C1628B100DE75E1 /* NSArray+WMFMapping.m */; };
 		0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */; };
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
-		2227E3591CB1B3E8001EF640 /* WMFPageHistorySection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2227E3581CB1B3E8001EF640 /* WMFPageHistorySection.m */; };
+		221644041CB3285F00EB1D89 /* PageHistorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221644031CB3285F00EB1D89 /* PageHistorySection.swift */; };
 		222B052ECD9AB4BCC885B932 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A04642A54B737002D28D70 /* Pods.framework */; };
 		2299518C1CB1C2E600545ED5 /* PageHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2299518B1CB1C2E600545ED5 /* PageHistoryFetcher.swift */; };
 		229C20DC1CB08FE100BC17AD /* WMFPageHistoryRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = 229C20DB1CB08FE100BC17AD /* WMFPageHistoryRevision.m */; };
@@ -763,8 +763,7 @@
 		0EF863501C19E4F100006D2D /* WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFEmptyView.m; path = Wikipedia/Code/WMFEmptyView.m; sourceTree = SOURCE_ROOT; };
 		17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		1BC5FB470144D2C10C55A037 /* Pods-WikipediaUnitTests.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.alpha.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.alpha.xcconfig"; sourceTree = "<group>"; };
-		2227E3571CB1B3E8001EF640 /* WMFPageHistorySection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFPageHistorySection.h; sourceTree = SOURCE_ROOT; };
-		2227E3581CB1B3E8001EF640 /* WMFPageHistorySection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFPageHistorySection.m; sourceTree = SOURCE_ROOT; };
+		221644031CB3285F00EB1D89 /* PageHistorySection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageHistorySection.swift; sourceTree = SOURCE_ROOT; };
 		2299518B1CB1C2E600545ED5 /* PageHistoryFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageHistoryFetcher.swift; sourceTree = SOURCE_ROOT; };
 		229C20DA1CB08FE100BC17AD /* WMFPageHistoryRevision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFPageHistoryRevision.h; sourceTree = SOURCE_ROOT; };
 		229C20DB1CB08FE100BC17AD /* WMFPageHistoryRevision.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFPageHistoryRevision.m; sourceTree = SOURCE_ROOT; };
@@ -3004,8 +3003,7 @@
 			children = (
 				229C20DA1CB08FE100BC17AD /* WMFPageHistoryRevision.h */,
 				229C20DB1CB08FE100BC17AD /* WMFPageHistoryRevision.m */,
-				2227E3571CB1B3E8001EF640 /* WMFPageHistorySection.h */,
-				2227E3581CB1B3E8001EF640 /* WMFPageHistorySection.m */,
+				221644031CB3285F00EB1D89 /* PageHistorySection.swift */,
 			);
 			name = PageHistory;
 			sourceTree = "<group>";
@@ -5930,7 +5928,6 @@
 				B0E806F91C0CEBC70065EBC0 /* SectionEditorViewController.m in Sources */,
 				BCA15AF41C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.m in Sources */,
 				B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */,
-				2227E3591CB1B3E8001EF640 /* WMFPageHistorySection.m in Sources */,
 				B0E807291C0CED530065EBC0 /* MWLanguageInfo.m in Sources */,
 				0E0361741C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m in Sources */,
 				B0E805961C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m in Sources */,
@@ -5945,6 +5942,7 @@
 				B0E804281C0CDF510065EBC0 /* WMFGeometry.c in Sources */,
 				B0E806491C0CE7F70065EBC0 /* AccountLogin.m in Sources */,
 				B0E806B91C0CEB160065EBC0 /* MWKLanguageLinkController.m in Sources */,
+				221644041CB3285F00EB1D89 /* PageHistorySection.swift in Sources */,
 				B0E802F51C0CD4C00065EBC0 /* WMFRandomArticleFetcher.m in Sources */,
 				B0E806B71C0CEB160065EBC0 /* LanguagesViewController.m in Sources */,
 				B0E805521C0CE0DC0065EBC0 /* UITableViewCell+WMFLayout.m in Sources */,

@@ -16,14 +16,13 @@
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WMFPageHistoryRevision.h"
-#import "WMFPageHistorySection.h"
 
 
 #define TABLE_CELL_ID @"PageHistoryResultCell"
 
 @interface PageHistoryViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) __block NSMutableArray<WMFPageHistorySection*>* pageHistoryDataArray;
+@property (strong, nonatomic) __block NSMutableArray<PageHistorySection*>* pageHistoryDataArray;
 @property (strong, nonatomic) PageHistoryResultCell* offScreenSizingCell;
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
 @property (strong, nonatomic) PageHistoryFetcher* pageHistoryFetcher;
@@ -81,7 +80,7 @@
 - (void)getPageHistoryData {
     self.isLoadingData = YES;
     @weakify(self);
-    [self.pageHistoryFetcher fetchRevisionInfo:self.article.title].then(^(NSArray<WMFPageHistorySection*>* items){
+    [self.pageHistoryFetcher fetchRevisionInfo:self.article.title].then(^(NSArray<PageHistorySection*>* items){
         @strongify(self);
         [self.pageHistoryDataArray addObjectsFromArray:items];
         [[WMFAlertManager sharedInstance] dismissAlert];
@@ -101,7 +100,7 @@
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    WMFPageHistorySection* sectionItems = self.pageHistoryDataArray[section];
+    PageHistorySection* sectionItems = self.pageHistoryDataArray[section];
     return sectionItems.items.count;
 }
 
@@ -115,7 +114,7 @@
 }
 
 - (void)updateViewsInCell:(PageHistoryResultCell*)cell forIndexPath:(NSIndexPath*)indexPath {
-    WMFPageHistorySection* section = self.pageHistoryDataArray[indexPath.section];
+    PageHistorySection* section = self.pageHistoryDataArray[indexPath.section];
     WMFPageHistoryRevision* row = section.items[indexPath.row];
 
     [cell setName:row.user

@@ -47,9 +47,9 @@ public class PageHistoryFetcher: NSObject {
     
     //Mark: Data Parsing
     private typealias RevisionCurrentPrevious = (current: WMFPageHistoryRevision, previous: WMFPageHistoryRevision)
-    private typealias RevisionsByDay = [Int: WMFPageHistorySection]
+    private typealias RevisionsByDay = [Int: PageHistorySection]
 
-    private func parseSections(responseDict: [String: AnyObject]) -> [WMFPageHistorySection] {
+    private func parseSections(responseDict: [String: AnyObject]) -> [PageHistorySection] {
         guard let pages = responseDict["query"]?["pages"] as? [String: AnyObject] else {
             assertionFailure("couldn't parse page history response")
             return []
@@ -95,14 +95,14 @@ public class PageHistoryFetcher: NSObject {
         let distanceToToday = revision.daysFromToday()
         
         if let existingRevisionsOnCurrentDay = revisionsByDay[distanceToToday] {
-            existingRevisionsOnCurrentDay.items?.addObject(revision)
+            existingRevisionsOnCurrentDay.addItem(revision)
         } else {
-            let newSection = WMFPageHistorySection()
-            newSection.items = [revision]
             if let revisionDate = revision.revisionDate {
-                newSection.sectionTitle = NSDateFormatter.wmf_longDateFormatter().stringFromDate(revisionDate)
+                let sectionTitle = NSDateFormatter.wmf_longDateFormatter().stringFromDate(revisionDate)
+                let newSection = PageHistorySection(sectionTitle: sectionTitle)
+                newSection.addItem(revision)
+                revisionsByDay[distanceToToday] = newSection
             }
-            revisionsByDay[distanceToToday] = newSection
         }
     }
     
