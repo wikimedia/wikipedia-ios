@@ -62,20 +62,20 @@ class PageHistoryFetcher: NSObject {
                 assertionFailure("couldn't parse page history revisions")
                 return []
             }
+            
+            revisionsByDay = parse(revisions: revisions, existingRevisions: revisionsByDay)
+            
             if let earliestRevision = revisions.last where earliestRevision.parentID == 0 {
                 earliestRevision.revisionSize = earliestRevision.articleSizeAtRevision
                 update(revisionsByDay: &revisionsByDay, revision: earliestRevision)
             }
-            let reverseRevisions = Array(revisions.reverse())
-            
-            revisionsByDay = parse(revisions: reverseRevisions, existingRevisions: revisionsByDay)
         }
         
         return revisionsByDay.keys.sort(<).flatMap() { revisionsByDay[$0] }
     }
     
     private func parse(revisions revisions: [WMFPageHistoryRevision], existingRevisions: RevisionsByDay) -> RevisionsByDay {
-        return zip(revisions.dropFirst(), revisions).reduce(existingRevisions, combine: { (revisionsByDay, itemPair: RevisionCurrentPrevious) -> RevisionsByDay in
+        return zip(revisions, revisions.dropFirst()).reduce(existingRevisions, combine: { (revisionsByDay, itemPair: RevisionCurrentPrevious) -> RevisionsByDay in
             var revisionsByDay = revisionsByDay
             
             itemPair.current.revisionSize = itemPair.current.articleSizeAtRevision - itemPair.previous.articleSizeAtRevision
@@ -89,7 +89,7 @@ class PageHistoryFetcher: NSObject {
         let distanceToToday = revision.daysFromToday()
         
         if let existingRevisionsOnCurrentDay = revisionsByDay[distanceToToday] {
-            existingRevisionsOnCurrentDay.items?.insertObject(revision, atIndex: 0)
+            existingRevisionsOnCurrentDay.items?.addObject(revision)
         } else {
             let newSection = WMFPageHistorySection()
             newSection.items = [revision]
