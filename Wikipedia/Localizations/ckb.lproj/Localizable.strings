@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Asoxor
 // Author: Diyariq
+// Author: Mhurd
 // Author: Sarchia
 
 "languages-title" = "زمانەکان";
@@ -177,6 +178,7 @@
 "page_protected_other" = "ئەم پەڕەیە پارێزراوە بۆ ئەم ئاستانە: $1";
 "page_protected_can_not_edit" = "تۆ مەفەکانی دەستکاریکردنی ئەم پەڕەیەت نییە.";
 "page_protected_can_not_edit_title" = "ئەم پەڕەیە پارێزراوە";
+// Fuzzy
 "license-footer-text" = "ناوەڕۆک بەردەستە لەژێر $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "ناوەڕۆکەکان";

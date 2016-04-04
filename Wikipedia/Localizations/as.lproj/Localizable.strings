@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Bishnu Saikia
 // Author: Gitartha.bordoloi
+// Author: Mhurd
 
 "languages-title" = "ভাষাসমূহ";
 "article-languages-label" = "ভাষা নির্বাচন কৰক";
@@ -214,6 +215,7 @@
 "page_protected_other" = "এই পৃষ্ঠাটো তলৰ স্তৰলৈ সুৰক্ষিত কৰা হৈছে: $1";
 "page_protected_can_not_edit" = "আপোনাৰ এই পৃষ্ঠা সম্পাদনা কৰাৰ অধিকাৰ নাই";
 "page_protected_can_not_edit_title" = "এই পৃষ্ঠাটো সুৰক্ষিত";
+// Fuzzy
 "license-footer-text" = "সমল $1ৰ আওতাত উপলব্ধ";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "সমল";

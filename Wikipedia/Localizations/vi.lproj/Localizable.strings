@@ -250,6 +250,7 @@
 "page_protected_other" = "Trang này đã bị khóa ở các mức độ sau: %1";
 "page_protected_can_not_edit" = "Bạn không có quyền sửa đổi trang này.";
 "page_protected_can_not_edit_title" = "Trang này bị khóa";
+// Fuzzy
 "license-footer-text" = "Nội dung được phát hành theo $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Mục lục";
@@ -334,7 +335,9 @@
 "home-featured-article-heading" = "Bài viết chọn lọc cho $1";
 "home-main-page-heading" = "Hôm nay tại Wikipedia";
 "home-potd-heading" = "Hình trong ngày cho $1";
+// Fuzzy
 "home-last-update-label" = "Cập nhật lần cuối: $1";
+// Fuzzy
 "home-last-update-never-label" = "Cập nhật lần cuối: Chưa bao giờ";
 "home-updating-label" = "Đang cập nhật…";
 "home-hide-suggestion-prompt" = "Ẩn gợi ý này";

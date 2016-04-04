@@ -4,6 +4,7 @@
 // Author: Hocinend1
 // Author: Maroen1990
 // Author: Meno25
+// Author: Mhurd
 // Author: Musab Moahmmed
 // Author: Omda4wady
 // Author: Shbib Al-Subaie
@@ -30,8 +31,7 @@
 "history-section-yesterday" = "الأمس";
 "history-section-lastweek" = "الأسبوع الماضي";
 "history-section-lastmonth" = "الشهر الماضي";
-// Fuzzy
-"history-clear-confirmation-heading" = "حذف جميع العناصر الجديدة؟";
+"history-clear-confirmation-heading" = "هل أنت متأكد من رغبتك في حذف جميع عناصرك الأخيرة؟";
 "history-clear-confirmation-sub-heading" = "هذا العمل لا يُمكن التراجع عنه.";
 "history-clear-cancel" = "إلغاء";
 "history-clear-delete-all" = "نعم، احذف الكل";
@@ -122,14 +122,15 @@
 "main-menu-more" = "المزيد...";
 "main-menu-debug-crash" = "تحطم";
 "main-menu-debug-tweaks" = "إعدادات المطور";
-"saved-title" = "حُفظ";
+"saved-title" = "المحفوظة";
 "saved-pages-title" = "الصفحات المحفوظة";
 "saved-pages-clear-confirmation-heading" = "هل أنت متأكد من رغبتك في حذف جميع الصفحات المحفوظة؟";
 "saved-pages-clear-confirmation-sub-heading" = "هذا العمل لا يُمكن التراجع عنه.";
 "saved-pages-clear-cancel" = "إلغاء";
 "saved-pages-clear-delete-all" = "نغم,احذف الكل";
 "saved-pages-refresh-cancel-alert-title" = "ألغي التحديث";
-"saved-pages-none" = "لا صفحات محفوظة بعد";
+"saved-pages-refresh-cancel-alert-button" = "حسنًا";
+"saved-pages-none" = "لا صفحات محفوظة بعد.";
 "history-title" = "التاريخ";
 "page-history-title" = "تاريخ المقالة";
 "page-history-downloading" = "جارٍ تحميل تاريخ المقالة...";
@@ -137,11 +138,12 @@
 "navbar-title-mode-login" = "سجّل الدخول";
 "navbar-title-mode-login-and-save" = "سجل الدخول واحفظ";
 "navbar-title-mode-create-account" = "إنشاء الحساب";
+"navbar-title-mode-create-account-and-save" = "أنشئ حسابًا واحفظ";
 "navbar-title-mode-edit-wikitext-warning" = "مشاكل في التعديل";
 "navbar-title-mode-edit-wikitext-disallow" = "مشاكل في التعديل";
 "navbar-title-mode-edit-wikitext-preview" = "معاينة";
 "navbar-title-mode-edit-wikitext-summary" = "صف تعديلك";
-"navbar-title-mode-edit-wikitext-save" = "حفظ";
+"navbar-title-mode-edit-wikitext-save" = "احفظ";
 "edit-summary-choice-linked-words" = "إضافة وصلات";
 "edit-summary-choice-fixed-grammar" = "تم إصلاح النحو";
 "edit-summary-choice-fixed-typos" = "تم تصحيح خطأ مطبعي";
@@ -149,7 +151,7 @@
 "edit-summary-choice-added-missing-info" = "إضافة معلومات ناقصة";
 "edit-summary-choice-added-clarification" = "إضافة توضيح";
 "edit-summary-choice-other" = "غير ذلك";
-"edit-summary-title" = "كيف حسنت المقالة؟";
+"edit-summary-title" = "كيف حسّنت المقالة؟";
 "credits-wikimedia-repos" = "مستودعات ويكيميديا";
 "about-title" = "عن";
 "about-wikipedia" = "ويكيبيديا";
@@ -189,6 +191,7 @@
 "page_protected_other" = "تمت حماية هذه الصفحة إلى المستويات التالية: $1";
 "page_protected_can_not_edit" = "أنت لا تمتلك الصلاحيات اللازمة لتحرير هذه الصفحة";
 "page_protected_can_not_edit_title" = "هذه الصفحة محمية";
+// Fuzzy
 "license-footer-text" = "المحتوى متاح تحت رخصة $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "المحتويات";
@@ -246,6 +249,7 @@
 "welcome-volunteer-thanks" = "شكرا لك!$1";
 "empty-no-feed-action-message" = "ما زال بالإمكان قراءة الصفحات المحفوظة";
 "empty-no-search-results-message" = "لا توجد نتائج";
+"empty-no-saved-pages-message" = "احفظ الصفحات لمطالعتها لاحقًا، حتى بدون اتصال بالإنترنت";
 "alert-no-internet" = "لا يوجد اتصال بالإنترنت";
 "icon-shortcut-search-title" = "البحث في ويكيبيديا";
 "icon-shortcut-continue-reading-title" = "مواصلة القراءة";
@@ -254,8 +258,7 @@
 "close-button-accessibility-label" = "أغلق";
 "back-button-accessibility-label" = "ارجع";
 "explore-featured-article-heading" = "مقالة مختارة";
-"explore-continue-reading-heading" = "مواصلة القراءة";
-// Fuzzy
+"explore-continue-reading-heading" = "واصل القراءة";
 "explore-nearby-heading" = "أماكن قريبة";
 "explore-continue-related-heading" = "لأنك قرأت";
 "explore-main-page-heading" = "اليوم في ويكيبيديا";

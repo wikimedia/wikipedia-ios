@@ -1,6 +1,7 @@
 // Messages for Slovak (slovenčina)
 // Exported from translatewiki.net
 // Author: Kusavica
+// Author: Mhurd
 // Author: Mikulas1
 // Author: Rudko
 
@@ -226,6 +227,7 @@
 "page_protected_sysop" = "Táto stránka je zamknutá.";
 "page_protected_can_not_edit" = "Nemáte právo upraviť túto stránku";
 "page_protected_can_not_edit_title" = "Táto stránka je zamknutá";
+// Fuzzy
 "license-footer-text" = "Obsah je k dispozícii v rámci $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Obsah";
@@ -289,7 +291,9 @@
 "home-featured-article-heading" = "Odporúčaný článok pre $1";
 "home-main-page-heading" = "Dnes na Wikipédii";
 "home-potd-heading" = "Obrázok dňa pre $1";
+// Fuzzy
 "home-last-update-label" = "Posledná aktualizácia: $1";
+// Fuzzy
 "home-last-update-never-label" = "Posledná aktualizácia: nikdy";
 "home-updating-label" = "Aktualizácia...";
 "home-hide-suggestion-prompt" = "Skryť túto radu";

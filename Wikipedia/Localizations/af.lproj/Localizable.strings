@@ -235,6 +235,7 @@
 "page_protected_other" = "Hierdie blad is beskerm tot die volgende vlakke: $1";
 "page_protected_can_not_edit" = "U het nie die regte om hierdie blad te wysig nie";
 "page_protected_can_not_edit_title" = "Hierdie blad is beskerm";
+// Fuzzy
 "license-footer-text" = "Inhoud is beskikbaar onder $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Inhoud";

@@ -247,6 +247,7 @@
 "page_protected_other" = "הדף הזה הוגן לרמות הבאות: $1";
 "page_protected_can_not_edit" = "אין לך הרשאה לערוך את הדף הזה";
 "page_protected_can_not_edit_title" = "הדף הזה מוגן";
+// Fuzzy
 "license-footer-text" = "התוכן זמין לפי תנאי $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "תוכן עניינים";
@@ -331,7 +332,9 @@
 "home-featured-article-heading" = "ערך מומלץ עבור $1";
 "home-main-page-heading" = "היום בוויקיפדיה";
 "home-potd-heading" = "תמונת היום עבור $1";
+// Fuzzy
 "home-last-update-label" = "עדכון אחרון: $1";
+// Fuzzy
 "home-last-update-never-label" = "עדכון אחרון: מעולם לא";
 "home-updating-label" = "עדכון...";
 "home-hide-suggestion-prompt" = "הסתרת ההצעה הזאת";
