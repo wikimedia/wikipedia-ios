@@ -17,10 +17,10 @@ class PageHistoryFetcher: NSObject {
                                                         parameters: strongSelf.getParams(title),
                                                         retry: nil,
                                                         success: { (operation, responseObject) in
-                                                            guard let strongSelf = self else { return }
+                                                            guard let strongSelf = self, responseDict = responseObject as? [String: AnyObject] else { return }
                                                             MWNetworkActivityIndicatorManager.sharedManager().pop()
-                                                            strongSelf.updatePagingState(responseObject)
-                                                            resolve(strongSelf.parseSections(responseObject))
+                                                            strongSelf.updatePagingState(responseDict)
+                                                            resolve(strongSelf.parseSections(responseDict))
                                                             },
                                                         failure: { (operation, error) in
                                                                 MWNetworkActivityIndicatorManager.sharedManager().pop()
@@ -34,12 +34,12 @@ class PageHistoryFetcher: NSObject {
     private var rvContinueKey: String?
     var batchComplete: Bool = false
     
-    private func updatePagingState(responseObject: AnyObject) {
-        if let continueInfo = responseObject["continue"] as? [String: AnyObject] {
+    private func updatePagingState(responseDict: [String: AnyObject]) {
+        if let continueInfo = responseDict["continue"] as? [String: AnyObject] {
             continueKey = continueInfo["continue"] as? String
             rvContinueKey = continueInfo["rvcontinue"] as? String
         }
-        if let batchCompleteFlag = responseObject["batchcomplete"] where batchCompleteFlag != nil {
+        if responseDict["batchcomplete"] != nil {
             batchComplete = true
         }
     }
@@ -48,8 +48,8 @@ class PageHistoryFetcher: NSObject {
     private typealias RevisionCurrentPrevious = (current: WMFPageHistoryRevision, previous: WMFPageHistoryRevision)
     private typealias RevisionsByDay = [Int: WMFPageHistorySection]
 
-    private func parseSections(rawResponse: AnyObject) -> [WMFPageHistorySection] {
-        guard let pages = rawResponse["query"]??["pages"] as? [String: AnyObject] else {
+    private func parseSections(responseDict: [String: AnyObject]) -> [WMFPageHistorySection] {
+        guard let pages = responseDict["query"]?["pages"] as? [String: AnyObject] else {
             assertionFailure("couldn't parse page history response")
             return []
         }
