@@ -3,14 +3,14 @@ import AFNetworking
 import Mantle
 
 
-class PageHistoryFetcher: NSObject {
+public class PageHistoryFetcher: NSObject {
     private let operationManager: AFHTTPSessionManager = {
         let manager = AFHTTPSessionManager.wmf_createDefaultManager()
         manager.responseSerializer = WMFApiJsonResponseSerializer()
         return manager
     }()
 
-    func fetchRevisionInfo(title: MWKTitle) -> AnyPromise {
+    public func fetchRevisionInfo(title: MWKTitle) -> AnyPromise {
         return AnyPromise(resolverBlock: { [weak self] (resolve) in
             guard let strongSelf = self else { return }
             strongSelf.operationManager.wmf_GETWithSite(title.site,
