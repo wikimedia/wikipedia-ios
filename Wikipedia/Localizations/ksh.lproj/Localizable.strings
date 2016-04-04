@@ -234,6 +234,7 @@
 "page_protected_other" = "Heh di Sigg es jeschöß woode op Nivvoh: $1";
 "page_protected_can_not_edit" = "Do häs nit dat Rääsch, heh di Sigg ze ändere";
 "page_protected_can_not_edit_title" = "Heh di Sigg es jeschöz.";
+// Fuzzy
 "license-footer-text" = "Dä Ennhalld es ze hann onger $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Enhalld";
@@ -317,7 +318,9 @@
 "home-featured-article-heading" = "Atikel vum Daach för der $1";
 "home-main-page-heading" = "Hück op de Wikkipehdija";
 "home-potd-heading" = "Et Beld vum Daach för $1";
+// Fuzzy
 "home-last-update-label" = "Et läz jeänndert: $1";
+// Fuzzy
 "home-last-update-never-label" = "Et läz jeänndert: Nimmohls.";
 "home-updating-label" = "Ben aam Änndere ...";
 "home-hide-suggestion-prompt" = "Donn dä Vörschlahch ußblände";

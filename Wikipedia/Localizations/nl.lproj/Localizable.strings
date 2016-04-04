@@ -253,6 +253,7 @@
 "page_protected_other" = "Deze pagina is beveiligd op de volgende niveaus: $1";
 "page_protected_can_not_edit" = "U heeft geen rechten om deze pagina te bewerken";
 "page_protected_can_not_edit_title" = "Deze pagina is beveiligd";
+// Fuzzy
 "license-footer-text" = "Inhoud is beschikbaar onder $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Inhoud";
@@ -338,7 +339,9 @@
 "home-featured-article-heading" = "Uitgelichte pagina voor $1";
 "home-main-page-heading" = "Vandaag op Wikipedia";
 "home-potd-heading" = "Afbeelding van de dag voor $1";
+// Fuzzy
 "home-last-update-label" = "Laatst bijgewerkt: $1";
+// Fuzzy
 "home-last-update-never-label" = "Laatst bijgewerkt: Nooit";
 "home-updating-label" = "Bijwerken...";
 "home-hide-suggestion-prompt" = "Suggestie verbergen";
@@ -377,7 +380,7 @@
 "alert-no-internet" = "Er is geen internetverbinding";
 "icon-shortcut-search-title" = "Zoeken in Wikipedia";
 "icon-shortcut-continue-reading-title" = "Verder lezen";
-"icon-shortcut-random-title" = "Willekeurig pagina";
+"icon-shortcut-random-title" = "Willekeurige pagina";
 "icon-shortcut-nearby-title" = "Pagina's in de buurt";
 "close-button-accessibility-label" = "Sluiten";
 "back-button-accessibility-label" = "Terug";
@@ -387,7 +390,7 @@
 "explore-nearby-heading" = "Plaatsen in de buurt";
 "explore-continue-related-heading" = "Omdat u hebt gelezen";
 "explore-main-page-heading" = "Vandaag op Wikipedia";
-"explore-random-article-heading" = "Willekeurig pagina";
+"explore-random-article-heading" = "Willekeurige pagina";
 "explore-random-article-sub-heading" = "Engelstalige Wikipedia";
 "explore-potd-heading" = "Afbeelding van de dag";
 "explore-most-read-heading" = "Meest gelezen op Wikipedia in het $1";
