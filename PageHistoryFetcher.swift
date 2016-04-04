@@ -33,7 +33,8 @@ class PageHistoryFetcher: NSObject {
     private var continueKey: String?
     private var rvContinueKey: String?
     var batchComplete: Bool = false
-    
+    private var lastRevisionFromPreviousCall: WMFPageHistoryRevision?
+
     private func updatePagingState(responseDict: [String: AnyObject]) {
         if let continueInfo = responseDict["continue"] as? [String: AnyObject] {
             continueKey = continueInfo["continue"] as? String
@@ -58,9 +59,12 @@ class PageHistoryFetcher: NSObject {
         for (_, value) in pages {
             let transformer = MTLJSONAdapter.arrayTransformerWithModelClass(WMFPageHistoryRevision.self)
             
-            guard let revisions = transformer.transformedValue(value["revisions"]) as? [WMFPageHistoryRevision] else {
+            guard var revisions = transformer.transformedValue(value["revisions"]) as? [WMFPageHistoryRevision] else {
                 assertionFailure("couldn't parse page history revisions")
                 return []
+            }
+            if let leftoverRevisionFromPreviousCall = lastRevisionFromPreviousCall {
+                revisions.insert(leftoverRevisionFromPreviousCall, atIndex: 0)
             }
             
             revisionsByDay = parse(revisions: revisions, existingRevisions: revisionsByDay)
@@ -68,6 +72,8 @@ class PageHistoryFetcher: NSObject {
             if let earliestRevision = revisions.last where earliestRevision.parentID == 0 {
                 earliestRevision.revisionSize = earliestRevision.articleSizeAtRevision
                 update(revisionsByDay: &revisionsByDay, revision: earliestRevision)
+            } else {
+                lastRevisionFromPreviousCall = revisions.last
             }
         }
         
