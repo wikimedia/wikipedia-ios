@@ -293,7 +293,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)hasLanguages {
-    return self.article.languagecount > 1;
+    return self.article.hasMultipleLanguages;
 }
 
 - (BOOL)hasTableOfContents {
