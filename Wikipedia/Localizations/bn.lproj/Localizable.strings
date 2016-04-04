@@ -246,6 +246,7 @@
 "page_protected_other" = "এই পাতাটি নিম্নের মাত্রা অনুযায়ী সুরক্ষিত: $1";
 "page_protected_can_not_edit" = "এই পাতা সম্পাদনা করার অধিকার আপনার নেই।";
 "page_protected_can_not_edit_title" = "এই পাতাটি সুরক্ষিত";
+// Fuzzy
 "license-footer-text" = "বিষয়বস্তু $1-এর অধীনে উপলব্ধ";
 "license-footer-name" = "সিসি বাই-এসএ ৩.০";
 "table-of-contents-heading" = "পরিচ্ছেদসমূহ";
@@ -310,6 +311,7 @@
 "home-continue-reading-heading" = "পড়া অব্যাহত রাখুন";
 "home-nearby-location-footer" = "$1-এর আরো কাছাকাছি";
 "home-main-page-heading" = "আজ উইকিপিডিয়ায়";
+// Fuzzy
 "home-last-update-label" = "সর্বশেষ হালনাগাদ: $1";
 "home-hide-suggestion-cancel" = "বাতিল";
 "welcome-explore-title" = "অন্বেষণ করুন";

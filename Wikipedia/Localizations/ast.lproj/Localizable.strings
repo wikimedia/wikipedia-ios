@@ -244,6 +244,7 @@
 "page_protected_other" = "Esta páxina ta protexida colos siguientes niveles: $1";
 "page_protected_can_not_edit" = "Nun tienes los permisos pa editar esta páxina";
 "page_protected_can_not_edit_title" = "Esta páxina ta protexida";
+// Fuzzy
 "license-footer-text" = "El conteníu ta disponible baxo $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Conteníu";
@@ -328,7 +329,9 @@
 "home-featured-article-heading" = "Artículu destacáu de $1";
 "home-main-page-heading" = "Güei en Wikipedia";
 "home-potd-heading" = "Imaxe del día pal $1";
+// Fuzzy
 "home-last-update-label" = "Caberu anovamientu: $1";
+// Fuzzy
 "home-last-update-never-label" = "Última actualización: Nunca";
 "home-updating-label" = "Anovando…";
 "home-hide-suggestion-prompt" = "Tapecer esta suxerencia";

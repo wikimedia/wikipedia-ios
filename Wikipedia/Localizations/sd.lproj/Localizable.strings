@@ -228,6 +228,7 @@
 "page_protected_other" = "هيءُ صفحو هيٺين سطحن تائين تحفظيل آهي: $1";
 "page_protected_can_not_edit" = "توهان کي هيءُ صفحو سنوارڻ جا حق حاصل نہ آهن";
 "page_protected_can_not_edit_title" = "هيءُ صفحو تحفظيل آهي";
+// Fuzzy
 "license-footer-text" = "مواد $1 جي تحت ميسر آهي";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "فهرست";
@@ -302,7 +303,9 @@
 "home-featured-article-heading" = "$1 لاءِ نمايان مضمون";
 "home-main-page-heading" = "اڄ وڪيپيڊيا تي";
 "home-potd-heading" = "$1 لاءِ اڄ جي تصوير";
+// Fuzzy
 "home-last-update-label" = "آخري دفعو سنواريل: $1";
+// Fuzzy
 "home-last-update-never-label" = "آخري دفعو سنواريل: ڪڏھن بہ نہ";
 "home-updating-label" = "سنواريندي...";
 "home-hide-suggestion-prompt" = "ھيءَ تجويز لڪايو";

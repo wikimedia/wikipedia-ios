@@ -252,6 +252,7 @@
 "page_protected_other" = "Cette page a été protégée pour les niveaux suivants : $1";
 "page_protected_can_not_edit" = "Vous n’avez pas le droit de modifier cette page";
 "page_protected_can_not_edit_title" = "Cette page est protégée";
+// Fuzzy
 "license-footer-text" = "Le contenu est disponible sous $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Contenus";
@@ -336,7 +337,9 @@
 "home-featured-article-heading" = "Article en vedette pour $1";
 "home-main-page-heading" = "Aujourd’hui sur Wikipédia";
 "home-potd-heading" = "Image du jour pour $1";
+// Fuzzy
 "home-last-update-label" = "Dernière mise à jour : $1";
+// Fuzzy
 "home-last-update-never-label" = "Dernière mise à jour: jamais";
 "home-updating-label" = "Mise à jour en cours ...";
 "home-hide-suggestion-prompt" = "Masquer cette suggestion";

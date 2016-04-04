@@ -246,6 +246,7 @@
 "page_protected_other" = "Esta páxina está protexida para os seguintes niveis: $1";
 "page_protected_can_not_edit" = "Non ten os permisos necesarios para editar esta páxina";
 "page_protected_can_not_edit_title" = "Esta páxina está protexida";
+// Fuzzy
 "license-footer-text" = "O contido está dispoñible baixo a $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contidos";
@@ -330,7 +331,9 @@
 "home-featured-article-heading" = "Artigo destacado para $1";
 "home-main-page-heading" = "Hoxe en Wikipedia";
 "home-potd-heading" = "Imaxe do día para $1";
+// Fuzzy
 "home-last-update-label" = "Última actualización: $1";
+// Fuzzy
 "home-last-update-never-label" = "Última actualización: Nunca";
 "home-updating-label" = "Actualizando…";
 "home-hide-suggestion-prompt" = "Ocultar esta suxestión";

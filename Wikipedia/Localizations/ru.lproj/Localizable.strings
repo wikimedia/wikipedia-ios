@@ -255,6 +255,7 @@
 "page_protected_other" = "Эта страница были защищена на следующих уровнях: $1";
 "page_protected_can_not_edit" = "У вас нет прав на редактирование этой страницы";
 "page_protected_can_not_edit_title" = "Эта страница защищена";
+// Fuzzy
 "license-footer-text" = "Содержимое доступно по лицензии $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содержание";
@@ -339,7 +340,9 @@
 "home-featured-article-heading" = "Избранная статья за $1";
 "home-main-page-heading" = "Сегодня в Википедии";
 "home-potd-heading" = "Изображение дня за $1";
+// Fuzzy
 "home-last-update-label" = "Последнее обновление: $1";
+// Fuzzy
 "home-last-update-never-label" = "Последнее обновление: никогда";
 "home-updating-label" = "Обновление…";
 "home-hide-suggestion-prompt" = "Скрыть это предложение";
