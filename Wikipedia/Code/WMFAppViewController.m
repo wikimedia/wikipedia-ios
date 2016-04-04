@@ -512,13 +512,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if(self.rootTabBarController){
         return [self.rootTabBarController supportedInterfaceOrientations];
     }else{
-        return UIInterfaceOrientationMaskPortrait;
+        return [self wmf_orientationMaskPortraitiPhoneAnyiPad];
     }
 
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
-    return UIInterfaceOrientationPortrait;
+    if(self.rootTabBarController){
+        return [self.rootTabBarController preferredInterfaceOrientationForPresentation];
+    }else{
+        return UIInterfaceOrientationPortrait;
+    }
 }
 
 #pragma mark - Onboarding
