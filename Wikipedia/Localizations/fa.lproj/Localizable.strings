@@ -255,6 +255,7 @@
 "page_protected_other" = "این صفحه به سطح‌های روبرو حفاظت شده‌است: $1";
 "page_protected_can_not_edit" = "شما دسترسی لازم را برای ویرایش این صفحه ندارید";
 "page_protected_can_not_edit_title" = "این صفحه محافظت شده‌است";
+// Fuzzy
 "license-footer-text" = "مطالب زیر تحت شرایط $1 در دسترس است";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "محتویات";
@@ -339,7 +340,9 @@
 "home-featured-article-heading" = "مقاله برگزیده برای $1";
 "home-main-page-heading" = "امروز در ویکی‌پدیا";
 "home-potd-heading" = "تصویر روز برای $1";
+// Fuzzy
 "home-last-update-label" = "آخرین به روز رسانی: $1";
+// Fuzzy
 "home-last-update-never-label" = "آخرین به‌روز رسانی: هرگز";
 "home-updating-label" = "در حال به‌روز رسانی...";
 "home-hide-suggestion-prompt" = "این پیشنهاد را پنهان کن";

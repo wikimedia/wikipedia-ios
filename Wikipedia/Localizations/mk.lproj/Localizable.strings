@@ -244,6 +244,7 @@
 "page_protected_other" = "Оваа страница е заштитена во следниве степени: $1";
 "page_protected_can_not_edit" = "Немате право да ја уредувате страницава";
 "page_protected_can_not_edit_title" = "Оваа страница е заштитена";
+// Fuzzy
 "license-footer-text" = "Содржината е достапна под $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содржина";
@@ -328,7 +329,9 @@
 "home-featured-article-heading" = "Избрана статија за $1";
 "home-main-page-heading" = "Денес на Википедија";
 "home-potd-heading" = "Слика на денот за $1";
+// Fuzzy
 "home-last-update-label" = "Последна поднова: $1";
+// Fuzzy
 "home-last-update-never-label" = "Последна поднова: никогаш";
 "home-updating-label" = "Подновувам...";
 "home-hide-suggestion-prompt" = "Скриј го предлогов";

@@ -1,6 +1,7 @@
 // Messages for German (Deutsch)
 // Exported from translatewiki.net
 // Author: BodminPill
+// Author: JanRei
 // Author: Metalhead64
 // Author: Purodha
 
@@ -152,7 +153,7 @@
 "saved-pages-description" = "Gespeicherte Seiten sind ziemlich genial. Betrachte sie als Lesezeichen, die du lesen kannst, auch wenn du offline bist.";
 "saved-pages-none" = "Noch keine gespeicherten Seiten.";
 "saved-pages-image-download-error" = "Die Bilder für diese gespeicherte Seite konnten nicht heruntergeladen werden.";
-"history-title" = "Versionsgeschichte";
+"history-title" = "Verlauf";
 "page-history-title" = "Artikelversionsgeschichte";
 "page-history-downloading" = "Lade Artikelversionsgeschichte …";
 "navbar-title-mode-edit-wikitext" = "Bearbeiten";
@@ -244,6 +245,7 @@
 "page_protected_other" = "Diese Seite wurde auf die folgenden Ebenen geschützt: $1";
 "page_protected_can_not_edit" = "Du hast nicht die Rechte, diese Seite zu bearbeiten.";
 "page_protected_can_not_edit_title" = "Diese Seite ist geschützt";
+// Fuzzy
 "license-footer-text" = "Der Inhalt ist verfügbar unter $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Inhalte";
@@ -328,7 +330,9 @@
 "home-featured-article-heading" = "Vorgestellter Artikel für $1";
 "home-main-page-heading" = "Heute auf Wikipedia";
 "home-potd-heading" = "Bild des Tages für $1";
+// Fuzzy
 "home-last-update-label" = "Zuletzt aktualisiert: $1";
+// Fuzzy
 "home-last-update-never-label" = "Zuletzt aktualisiert: Nie";
 "home-updating-label" = "Aktualisiere …";
 "home-hide-suggestion-prompt" = "Diesen Vorschlag ausblenden";

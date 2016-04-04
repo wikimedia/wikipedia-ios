@@ -178,6 +178,7 @@
 "page_protected_sysop" = "Ова страница је потпуно заштићена.";
 "page_protected_can_not_edit" = "Немате овлашћења да уређујете ову страницу";
 "page_protected_can_not_edit_title" = "Ова страница је заштићена";
+// Fuzzy
 "license-footer-text" = "Садржај је доступан под лиценцом $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Садржај";

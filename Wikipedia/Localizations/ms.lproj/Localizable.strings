@@ -235,6 +235,7 @@
 "page_protected_other" = "Laman ini dilindungi kepada tahap-tahap berikut: $1";
 "page_protected_can_not_edit" = "Anda tidak mempunyai izin untuk menyunting laman ini";
 "page_protected_can_not_edit_title" = "Halaman ini dilindungi";
+// Fuzzy
 "license-footer-text" = "Kandungan disediakan dengan $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Kandungan";
