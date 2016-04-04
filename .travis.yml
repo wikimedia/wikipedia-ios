@@ -1,7 +1,7 @@
 language: objective-c
 osx_image: xcode7.3
 env:
-  - IOS_VER="9.2" FL_ARGS="verify"
+  - IOS_VER="9.3" FL_ARGS="verify"
     #  - IOS_VER="9.2" FL_ARGS="analyze"
     #  - IOS_VER="9.2" FL_ARGS="verify scheme:WikipediaRTL"
     #  - IOS_VER="8.4" FL_ARGS="verify sim_os:${IOS_VER}"
