@@ -33,6 +33,8 @@
 		0E3268BF1C52C35900131F5F /* WMFNearbyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3268BE1C52C35900131F5F /* WMFNearbyListViewController.m */; };
 		0E331BF51C49647600DDE02A /* WMFRelatedSectionBlackList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E331BF41C49647600DDE02A /* WMFRelatedSectionBlackList.m */; };
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
+		0E37F9001CAEE63C0076FF88 /* WMFRotationRespectingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37F8FF1CAEE63C0076FF88 /* WMFRotationRespectingNavigationController.swift */; };
+		0E37F9021CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37F9011CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift */; };
 		0E4B5FBE1C56B3E70099B02E /* WMFBaseExploreSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FBD1C56B3E70099B02E /* WMFBaseExploreSectionController.m */; };
 		0E4B5FC11C5725C20099B02E /* WMFExploreSectionControllerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC01C5725C20099B02E /* WMFExploreSectionControllerCache.m */; };
 		0E4B5FC61C5BFFFB0099B02E /* WMFArticleBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC51C5BFFFB0099B02E /* WMFArticleBrowserViewController.m */; };
@@ -50,6 +52,7 @@
 		0EC044791C7917860033D773 /* WMFArticleTextActivitySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC044781C7917860033D773 /* WMFArticleTextActivitySource.m */; };
 		0EC0447B1C796FEF0033D773 /* WMFImageTextActivitySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0447A1C796FEF0033D773 /* WMFImageTextActivitySource.swift */; };
 		0EC0447F1C797DC20033D773 /* WMFImageURLActivitySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0447E1C797DC20033D773 /* WMFImageURLActivitySource.swift */; };
+		0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED2E9F91CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift */; };
 		0EF5BB6A1C110BFC00DE75E1 /* WMFLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB691C110BFC00DE75E1 /* WMFLocalization.m */; };
 		0EF5BB6D1C110C2100DE75E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6C1C110C2100DE75E1 /* AppDelegate.m */; };
 		0EF5BB701C1628B100DE75E1 /* NSArray+WMFMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6F1C1628B100DE75E1 /* NSArray+WMFMapping.m */; };
@@ -714,6 +717,8 @@
 		0E331BF31C49647600DDE02A /* WMFRelatedSectionBlackList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFRelatedSectionBlackList.h; path = Wikipedia/Code/WMFRelatedSectionBlackList.h; sourceTree = SOURCE_ROOT; };
 		0E331BF41C49647600DDE02A /* WMFRelatedSectionBlackList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFRelatedSectionBlackList.m; path = Wikipedia/Code/WMFRelatedSectionBlackList.m; sourceTree = SOURCE_ROOT; };
 		0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SourceIcons.xcassets; path = Wikipedia/SourceIcons.xcassets; sourceTree = "<group>"; };
+		0E37F8FF1CAEE63C0076FF88 /* WMFRotationRespectingNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFRotationRespectingNavigationController.swift; sourceTree = "<group>"; };
+		0E37F9011CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFRotationRespectingTabBarController.swift; sourceTree = "<group>"; };
 		0E4B5FBC1C56B3E70099B02E /* WMFBaseExploreSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBaseExploreSectionController.h; path = Wikipedia/Code/WMFBaseExploreSectionController.h; sourceTree = SOURCE_ROOT; };
 		0E4B5FBD1C56B3E70099B02E /* WMFBaseExploreSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBaseExploreSectionController.m; path = Wikipedia/Code/WMFBaseExploreSectionController.m; sourceTree = SOURCE_ROOT; };
 		0E4B5FBF1C5725C20099B02E /* WMFExploreSectionControllerCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreSectionControllerCache.h; path = Wikipedia/Code/WMFExploreSectionControllerCache.h; sourceTree = SOURCE_ROOT; };
@@ -741,6 +746,7 @@
 		0EC044781C7917860033D773 /* WMFArticleTextActivitySource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleTextActivitySource.m; path = Wikipedia/Code/WMFArticleTextActivitySource.m; sourceTree = SOURCE_ROOT; };
 		0EC0447A1C796FEF0033D773 /* WMFImageTextActivitySource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFImageTextActivitySource.swift; path = Wikipedia/Code/WMFImageTextActivitySource.swift; sourceTree = SOURCE_ROOT; };
 		0EC0447E1C797DC20033D773 /* WMFImageURLActivitySource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFImageURLActivitySource.swift; path = Wikipedia/Code/WMFImageURLActivitySource.swift; sourceTree = SOURCE_ROOT; };
+		0ED2E9F91CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIVIewController+WMFCommonRotationSupport.swift"; path = "Wikipedia/Code/UIVIewController+WMFCommonRotationSupport.swift"; sourceTree = SOURCE_ROOT; };
 		0EF5BB651C110BFC00DE75E1 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Global.h; path = Wikipedia/Code/Global.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBlockDefinitions.h; path = Wikipedia/Code/WMFBlockDefinitions.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDirectoryPaths.h; path = Wikipedia/Code/WMFDirectoryPaths.h; sourceTree = SOURCE_ROOT; };
@@ -3109,11 +3115,12 @@
 			children = (
 				D4B0ADFF19365F4600F0AC90 /* Analytics */,
 				BC45D57D1C32F3EA007C72F3 /* Diagnostics */,
-				BC45D5461C31E0C0007C72F3 /* Root View Controller */,
+				BC45D5461C31E0C0007C72F3 /* App View Controller */,
 				0447866C1852B5010050563B /* Session */,
 				0EF5BB6B1C110C2100DE75E1 /* AppDelegate.h */,
 				0EF5BB6C1C110C2100DE75E1 /* AppDelegate.m */,
 				B0E8071E1C0CEC8A0065EBC0 /* main.m */,
+				0EF5BB651C110BFC00DE75E1 /* Global.h */,
 				0E5DC8611C6D716100C39A6F /* NSUserActivity+WMFExtensions.h */,
 				0E5DC8621C6D716100C39A6F /* NSUserActivity+WMFExtensions.m */,
 				0E69CD5A1C8773410095918B /* Launch Screen.storyboard */,
@@ -3121,7 +3128,7 @@
 			name = Application;
 			sourceTree = "<group>";
 		};
-		BC45D5461C31E0C0007C72F3 /* Root View Controller */ = {
+		BC45D5461C31E0C0007C72F3 /* App View Controller */ = {
 			isa = PBXGroup;
 			children = (
 				B0E802BF1C0CD27F0065EBC0 /* WMFAppViewController.h */,
@@ -3129,7 +3136,7 @@
 				0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */,
 				0E26B0701C0F4F550004D687 /* WMFAppViewController.storyboard */,
 			);
-			name = "Root View Controller";
+			name = "App View Controller";
 			sourceTree = "<group>";
 		};
 		BC45D5471C31E1EA007C72F3 /* Common */ = {
@@ -3146,7 +3153,6 @@
 				0EFB48091B3BB01300381F99 /* Style */,
 				BC45D54E1C31EAD6007C72F3 /* UI Components */,
 				BC45D58B1C32FC15007C72F3 /* Utilities */,
-				0EF5BB651C110BFC00DE75E1 /* Global.h */,
 				7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */,
 			);
 			name = Common;
@@ -3164,6 +3170,8 @@
 				B0E803F51C0CDDA80065EBC0 /* WMFIntrinsicSizeTableView.m */,
 				0EA4D8931C4867BF0043622B /* UITableView+WMFLockedUpdates.h */,
 				0EA4D8921C4867BF0043622B /* UITableView+WMFLockedUpdates.m */,
+				0E37F8FF1CAEE63C0076FF88 /* WMFRotationRespectingNavigationController.swift */,
+				0E37F9011CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift */,
 			);
 			name = "UI Components";
 			sourceTree = "<group>";
@@ -3550,6 +3558,7 @@
 		BC45D5811C32F6BC007C72F3 /* UIViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0ED2E9F91CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift */,
 				B0E803E41C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.h */,
 				B0E803E51C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m */,
 				B0E805261C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift */,
@@ -5657,6 +5666,7 @@
 				B0E803911C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m in Sources */,
 				B0E803E61C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				B0E802FB1C0CD4EC0065EBC0 /* WMFLocationManager.m in Sources */,
+				0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				B0E804D41C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.m in Sources */,
 				B0E807AF1C0CEFF70065EBC0 /* MWKHistoryEntry.m in Sources */,
 				B0E804B91C0CE0B40065EBC0 /* Article+ConvenienceAccessors.m in Sources */,
@@ -5800,6 +5810,7 @@
 				B0E806E21C0CEB930065EBC0 /* PreviewAndSaveViewController.m in Sources */,
 				B0E808241C0CF5120065EBC0 /* NSUserDefaults+WMFExtensions.swift in Sources */,
 				B0E805951C0CE2C60065EBC0 /* ToCInteractionFunnel.m in Sources */,
+				0E37F9021CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift in Sources */,
 				0E568D481C78273B00E68FC1 /* SavedPageSpotlightManager.swift in Sources */,
 				B0E8068C1C0CEA060065EBC0 /* WMFArticleProtocol.m in Sources */,
 				B0E8031C1C0CD6820065EBC0 /* WMFCompassView.m in Sources */,
@@ -5949,6 +5960,7 @@
 				B0E807671C0CEE3A0065EBC0 /* DiscoveryContext.m in Sources */,
 				B0E802C41C0CD2B80065EBC0 /* WMFExploreViewController.m in Sources */,
 				B0E805431C0CE0DC0065EBC0 /* UIFont+WMFStyle.m in Sources */,
+				0E37F9001CAEE63C0076FF88 /* WMFRotationRespectingNavigationController.swift in Sources */,
 				B0E803BF1C0CDC360065EBC0 /* WMFArticleListTableViewCell+WMFSearch.m in Sources */,
 				B0E805451C0CE0DC0065EBC0 /* UIImage+WMFFocalImageDrawing.m in Sources */,
 				B0E802E81C0CD4350065EBC0 /* WMFMainPagePlaceholderTableViewCell.m in Sources */,
