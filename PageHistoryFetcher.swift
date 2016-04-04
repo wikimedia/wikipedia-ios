@@ -17,6 +17,7 @@ class PageHistoryFetcher: NSObject {
                                                         parameters: strongSelf.getParams(title),
                                                         retry: nil,
                                                         success: { (operation, responseObject) in
+                                                            guard let strongSelf = self else { return }
                                                             MWNetworkActivityIndicatorManager.sharedManager().pop()
                                                             strongSelf.updatePagingState(responseObject)
                                                             resolve(strongSelf.parseSections(responseObject))
