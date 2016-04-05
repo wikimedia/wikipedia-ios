@@ -168,7 +168,16 @@ public class PageHistoryResponseSerializer: WMFApiJsonResponseSerializer {
             revisionsByDay[distanceToToday] = PageHistorySection(sectionTitle: sectionTitle, items: items)
         } else {
             if let revisionDate = revision.revisionDate {
-                let sectionTitle = NSDateFormatter.wmf_longDateFormatter().stringFromDate(revisionDate)
+                var title: String?
+                let getSectionTitle = {
+                    title = NSDateFormatter.wmf_longDateFormatter().stringFromDate(revisionDate)
+                }
+                if NSThread.isMainThread() {
+                    getSectionTitle()
+                } else {
+                    dispatch_sync(dispatch_get_main_queue(), getSectionTitle)
+                }
+                guard let sectionTitle = title else { return }
                 let newSection = PageHistorySection(sectionTitle: sectionTitle, items: [revision])
                 revisionsByDay[distanceToToday] = newSection
             }
