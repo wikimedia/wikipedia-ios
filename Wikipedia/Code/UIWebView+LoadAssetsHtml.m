@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "UIWebView+LoadAssetsHtml.h"
+#import "Wikipedia-Swift.h"
 
 @implementation UIWebView (LoadAssetsHtml)
 
@@ -26,7 +27,9 @@
                                                               encoding:NSUTF8StringEncoding
                                                                  error:nil];
 
-    [self loadHTMLString:[NSString stringWithFormat:fileContents, string]
+    NSNumber* fontSize   = [[NSUserDefaults standardUserDefaults] wmf_readingFontSize];
+    NSString* fontString = [NSString stringWithFormat:@"%ld%%", fontSize.integerValue];
+    [self loadHTMLString:[NSString stringWithFormat:fileContents, fontString, string]
                  baseURL:[NSURL URLWithString:path]];
 }
 
