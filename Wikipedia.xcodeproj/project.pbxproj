@@ -58,7 +58,10 @@
 		0EF5BB701C1628B100DE75E1 /* NSArray+WMFMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6F1C1628B100DE75E1 /* NSArray+WMFMapping.m */; };
 		0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EF8634D1C19E02700006D2D /* WMFEmptyView.xib */; };
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
+		221644041CB3285F00EB1D89 /* PageHistorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221644031CB3285F00EB1D89 /* PageHistorySection.swift */; };
 		222B052ECD9AB4BCC885B932 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A04642A54B737002D28D70 /* Pods.framework */; };
+		2299518C1CB1C2E600545ED5 /* PageHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2299518B1CB1C2E600545ED5 /* PageHistoryFetcher.swift */; };
+		229C20DC1CB08FE100BC17AD /* WMFPageHistoryRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = 229C20DB1CB08FE100BC17AD /* WMFPageHistoryRevision.m */; };
 		AA61D5DAA39C2A7CB97B4791 /* Pods_WikipediaUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D04746551BF8DC9FF0160F /* Pods_WikipediaUnitTests.framework */; };
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
 		B01162E81C24D3B200C3B52B /* WMFPageIssuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */; };
@@ -327,7 +330,6 @@
 		B0E8066A1C0CE9030065EBC0 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */; };
 		B0E8066B1C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806621C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m */; };
 		B0E8066C1C0CE9030065EBC0 /* MWKSiteInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806641C0CE9030065EBC0 /* MWKSiteInfoFetcher.m */; };
-		B0E8066D1C0CE9030065EBC0 /* PageHistoryFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806661C0CE9030065EBC0 /* PageHistoryFetcher.m */; };
 		B0E8066E1C0CE9030065EBC0 /* PreviewHtmlFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806681C0CE9030065EBC0 /* PreviewHtmlFetcher.m */; };
 		B0E806711C0CE94B0065EBC0 /* WMFEnglishFeaturedTitleFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806701C0CE94B0065EBC0 /* WMFEnglishFeaturedTitleFetcher.m */; };
 		B0E806741C0CE9850065EBC0 /* QueuesSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806731C0CE9850065EBC0 /* QueuesSingleton.m */; };
@@ -761,6 +763,10 @@
 		0EF863501C19E4F100006D2D /* WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFEmptyView.m; path = Wikipedia/Code/WMFEmptyView.m; sourceTree = SOURCE_ROOT; };
 		17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		1BC5FB470144D2C10C55A037 /* Pods-WikipediaUnitTests.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.alpha.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.alpha.xcconfig"; sourceTree = "<group>"; };
+		221644031CB3285F00EB1D89 /* PageHistorySection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageHistorySection.swift; sourceTree = SOURCE_ROOT; };
+		2299518B1CB1C2E600545ED5 /* PageHistoryFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageHistoryFetcher.swift; sourceTree = SOURCE_ROOT; };
+		229C20DA1CB08FE100BC17AD /* WMFPageHistoryRevision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFPageHistoryRevision.h; sourceTree = SOURCE_ROOT; };
+		229C20DB1CB08FE100BC17AD /* WMFPageHistoryRevision.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFPageHistoryRevision.m; sourceTree = SOURCE_ROOT; };
 		357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		429C152FC8B093B59D18CAD3 /* Pods-WikipediaUnitTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.beta.xcconfig"; sourceTree = "<group>"; };
 		59CB2F41D52F438BED356EF4 /* Pods-WikipediaUnitTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.adhoc.xcconfig"; sourceTree = "<group>"; };
@@ -1291,8 +1297,6 @@
 		B0E806621C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageLinkFetcher.m; path = Wikipedia/Code/MWKLanguageLinkFetcher.m; sourceTree = SOURCE_ROOT; };
 		B0E806631C0CE9030065EBC0 /* MWKSiteInfoFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKSiteInfoFetcher.h; path = Wikipedia/Code/MWKSiteInfoFetcher.h; sourceTree = SOURCE_ROOT; };
 		B0E806641C0CE9030065EBC0 /* MWKSiteInfoFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSiteInfoFetcher.m; path = Wikipedia/Code/MWKSiteInfoFetcher.m; sourceTree = SOURCE_ROOT; };
-		B0E806651C0CE9030065EBC0 /* PageHistoryFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageHistoryFetcher.h; path = Wikipedia/Code/PageHistoryFetcher.h; sourceTree = SOURCE_ROOT; };
-		B0E806661C0CE9030065EBC0 /* PageHistoryFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageHistoryFetcher.m; path = Wikipedia/Code/PageHistoryFetcher.m; sourceTree = SOURCE_ROOT; };
 		B0E806671C0CE9030065EBC0 /* PreviewHtmlFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreviewHtmlFetcher.h; path = Wikipedia/Code/PreviewHtmlFetcher.h; sourceTree = SOURCE_ROOT; };
 		B0E806681C0CE9030065EBC0 /* PreviewHtmlFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreviewHtmlFetcher.m; path = Wikipedia/Code/PreviewHtmlFetcher.m; sourceTree = SOURCE_ROOT; };
 		B0E8066F1C0CE94B0065EBC0 /* WMFEnglishFeaturedTitleFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFEnglishFeaturedTitleFetcher.h; path = Wikipedia/Code/WMFEnglishFeaturedTitleFetcher.h; sourceTree = SOURCE_ROOT; };
@@ -2225,10 +2229,9 @@
 				B0E806621C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m */,
 				B0E806631C0CE9030065EBC0 /* MWKSiteInfoFetcher.h */,
 				B0E806641C0CE9030065EBC0 /* MWKSiteInfoFetcher.m */,
-				B0E806651C0CE9030065EBC0 /* PageHistoryFetcher.h */,
-				B0E806661C0CE9030065EBC0 /* PageHistoryFetcher.m */,
 				B0E806671C0CE9030065EBC0 /* PreviewHtmlFetcher.h */,
 				B0E806681C0CE9030065EBC0 /* PreviewHtmlFetcher.m */,
+				2299518B1CB1C2E600545ED5 /* PageHistoryFetcher.swift */,
 			);
 			name = Fetchers;
 			path = Wikipedia/Code/Fetchers;
@@ -2994,6 +2997,16 @@
 			name = Style;
 			path = Wikipedia/Code/Style;
 			sourceTree = SOURCE_ROOT;
+		};
+		229C20D91CB08FA500BC17AD /* PageHistory */ = {
+			isa = PBXGroup;
+			children = (
+				229C20DA1CB08FE100BC17AD /* WMFPageHistoryRevision.h */,
+				229C20DB1CB08FE100BC17AD /* WMFPageHistoryRevision.m */,
+				221644031CB3285F00EB1D89 /* PageHistorySection.swift */,
+			);
+			name = PageHistory;
+			sourceTree = "<group>";
 		};
 		B063DE5D1C63FEB5002F2EDE /* UIToolbar */ = {
 			isa = PBXGroup;
@@ -4532,6 +4545,7 @@
 		BCB669A31A83F6C300C7B1FE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				229C20D91CB08FA500BC17AD /* PageHistory */,
 				BC45D58F1C32FEAF007C72F3 /* MediaWikiKit */,
 			);
 			name = Model;
@@ -5766,6 +5780,7 @@
 				B0E8073B1C0CED810065EBC0 /* NSString+WMFPageUtilities.m in Sources */,
 				B0E8034B1C0CD7F40065EBC0 /* WMFArticleImageGalleryDataSource.m in Sources */,
 				B0E8034F1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController.m in Sources */,
+				229C20DC1CB08FE100BC17AD /* WMFPageHistoryRevision.m in Sources */,
 				B0E803CF1C0CDCAF0065EBC0 /* WMFSaveButtonController.m in Sources */,
 				B0E802EA1C0CD4350065EBC0 /* WMFMainPageSectionController.m in Sources */,
 				B0E8068D1C0CEA060065EBC0 /* WMFBundledImageProtocol.m in Sources */,
@@ -5836,6 +5851,7 @@
 				B0E8054D1C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				B0E8078C1C0CEF660065EBC0 /* MWKDataObject.m in Sources */,
 				B0E806331C0CE7680065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
+				2299518C1CB1C2E600545ED5 /* PageHistoryFetcher.swift in Sources */,
 				B0E805D11C0CE5420065EBC0 /* WMFFaceDetectionCache.m in Sources */,
 				B0E804C51C0CE0B40065EBC0 /* NSArray+WMFLayoutDirectionUtilities.m in Sources */,
 				B0E8055B1C0CE0DC0065EBC0 /* UIView+WMFSearchSubviews.m in Sources */,
@@ -5926,8 +5942,8 @@
 				B0E804281C0CDF510065EBC0 /* WMFGeometry.c in Sources */,
 				B0E806491C0CE7F70065EBC0 /* AccountLogin.m in Sources */,
 				B0E806B91C0CEB160065EBC0 /* MWKLanguageLinkController.m in Sources */,
+				221644041CB3285F00EB1D89 /* PageHistorySection.swift in Sources */,
 				B0E802F51C0CD4C00065EBC0 /* WMFRandomArticleFetcher.m in Sources */,
-				B0E8066D1C0CE9030065EBC0 /* PageHistoryFetcher.m in Sources */,
 				B0E806B71C0CEB160065EBC0 /* LanguagesViewController.m in Sources */,
 				B0E805521C0CE0DC0065EBC0 /* UITableViewCell+WMFLayout.m in Sources */,
 				0E0361801C456C4600FD9642 /* WMFReadMoreViewController.m in Sources */,
