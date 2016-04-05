@@ -32,19 +32,22 @@ public class PageHistoryFetcher: NSObject {
 }
 
 private typealias RevisionsByDay = [Int: PageHistorySection]
+private typealias PagingInfo = (continueKey: String?, rvContinueKey: String?, batchComplete: Bool)
 public class HistoryFetchResults: NSObject {
-    private let continueKey: String?
-    private let rvContinueKey: String?
-    public let batchComplete: Bool
+    private let pagingInfo: PagingInfo
     private let lastRevision: WMFPageHistoryRevision?
     private var revisionsByDay: RevisionsByDay
     
     public func getPageHistoryRequestParameters(title: String) -> PageHistoryRequestParameters {
-        return PageHistoryRequestParameters(title: title, continueKey: continueKey, rvContinueKey: rvContinueKey, lastRevisionFromPreviousCall: lastRevision)
+        return PageHistoryRequestParameters(title: title, pagingInfo: pagingInfo, lastRevisionFromPreviousCall: lastRevision)
     }
     
     public func items() -> [PageHistorySection]  {
         return self.revisionsByDay.keys.sort(<).flatMap() { self.revisionsByDay[$0] }
+    }
+    
+    public func batchComplete() -> Bool {
+        return self.pagingInfo.batchComplete
     }
     
     private func tackOn(lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
@@ -53,32 +56,27 @@ public class HistoryFetchResults: NSObject {
         HistoryFetchResults.update(revisionsByDay: &revisionsByDay, revision: previouslyParsedRevision)
     }
     
-    private init(continueKey: String?, rvContinueKey: String?, batchComplete: Bool,  revisionsByDay: RevisionsByDay, lastRevision: WMFPageHistoryRevision?) {
-        self.continueKey = continueKey
-        self.rvContinueKey = rvContinueKey
-        self.batchComplete = batchComplete
+    private init(pagingInfo: PagingInfo, revisionsByDay: RevisionsByDay, lastRevision: WMFPageHistoryRevision?) {
+        self.pagingInfo = pagingInfo
         self.revisionsByDay = revisionsByDay
         self.lastRevision = lastRevision
     }
 }
 
 public class PageHistoryRequestParameters: NSObject {
-    private let title: String
-    private let continueKey: String?
-    private let rvContinueKey: String?
+    private let pagingInfo: PagingInfo
     private let lastRevisionFromPreviousCall: WMFPageHistoryRevision?
-
-    public init(title: String, continueKey: String?, rvContinueKey: String?, lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
+    private let title: String
+    
+    private init(title: String, pagingInfo: PagingInfo, lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
         self.title = title
-        self.continueKey = continueKey
-        self.rvContinueKey = rvContinueKey
+        self.pagingInfo = pagingInfo
         self.lastRevisionFromPreviousCall = lastRevisionFromPreviousCall
     }
     //TODO: get rid of this when the VC is swift and we can use default values in the other init
     public init(title: String) {
         self.title = title
-        continueKey = nil
-        rvContinueKey = nil
+        pagingInfo = (nil, nil, false)
         lastRevisionFromPreviousCall = nil
     }
 }
@@ -100,12 +98,12 @@ public class PageHistoryRequestSerializer: AFHTTPRequestSerializer {
             "rvlimit": 51,
             "rvdir": "older",
             "titles": requestParameters.title,
-            "continue": requestParameters.continueKey ?? "",
+            "continue": requestParameters.pagingInfo.continueKey ?? "",
             "format": "json"
             //,"rvdiffto": -1 //Add this to fake out "error" api response.
         ]
         
-        if let rvContinueKey = requestParameters.rvContinueKey {
+        if let rvContinueKey = requestParameters.pagingInfo.rvContinueKey {
             params["rvcontinue"] = rvContinueKey
         }
         
@@ -148,6 +146,10 @@ public class PageHistoryResponseSerializer: WMFApiJsonResponseSerializer {
             }
         }
         
+        return HistoryFetchResults(pagingInfo: parsePagingInfo(responseDict), revisionsByDay: revisionsByDay, lastRevision: lastRevision)
+    }
+    
+    private func parsePagingInfo(responseDict: [String: AnyObject]) -> (continueKey: String?, rvContinueKey: String?, batchComplete: Bool) {
         var continueKey: String? = nil
         var rvContinueKey: String? = nil
         if let continueInfo = responseDict["continue"] as? [String: AnyObject] {
@@ -156,7 +158,7 @@ public class PageHistoryResponseSerializer: WMFApiJsonResponseSerializer {
         }
         let batchComplete = responseDict["batchcomplete"] != nil
         
-        return HistoryFetchResults(continueKey: continueKey, rvContinueKey: rvContinueKey, batchComplete: batchComplete, revisionsByDay: revisionsByDay, lastRevision: lastRevision)
+        return (continueKey, rvContinueKey, batchComplete)
     }
     
     private typealias RevisionCurrentPrevious = (current: WMFPageHistoryRevision, previous: WMFPageHistoryRevision)
