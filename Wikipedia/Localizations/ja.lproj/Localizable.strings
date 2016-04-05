@@ -249,6 +249,7 @@
 "page_protected_other" = "このページは、次のレベルに保護されています:$1";
 "page_protected_can_not_edit" = "このページを編集する権限がありません";
 "page_protected_can_not_edit_title" = "このページは保護されています";
+// Fuzzy
 "license-footer-text" = "コンテンツは$1の利用条件のもとで利用できます";
 "license-footer-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
 "table-of-contents-heading" = "目次";
@@ -333,7 +334,9 @@
 "home-featured-article-heading" = "$1日の秀逸な記事";
 "home-main-page-heading" = "今日の記事";
 "home-potd-heading" = "$1日の写真";
+// Fuzzy
 "home-last-update-label" = "最終更新: $1";
+// Fuzzy
 "home-last-update-never-label" = "最終更新: なし";
 "home-updating-label" = "更新しています...";
 "home-hide-suggestion-cancel" = "中止";

@@ -5,7 +5,7 @@
 	<key>urls</key>
 	<dict>
 		<key>sharealike</key>
-		<string>https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License</string>
+		<string>https://creativecommons.org/licenses/by-sa/3.0/</string>
 		<key>mit</key>
 		<string>https://raw.githubusercontent.com/wikimedia/wikipedia-ios/master/LICENSE.txt</string>
 		<key>tsg</key>
@@ -185,6 +185,7 @@ THE SOFTWARE.</string>
 		<string>Barbara Martina Rodeker</string>
 		<string>Boris Dušek</string>
 		<string>Jonatan Svensson Glad</string>
+		<string>Nick DiStefano</string>
 	</array>
 </dict>
 </plist>

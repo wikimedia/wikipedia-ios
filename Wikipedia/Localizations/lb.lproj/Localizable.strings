@@ -228,6 +228,7 @@
 "page_protected_other" = "Dës Säit gouf fir dës Niveaue gespaart: $1";
 "page_protected_can_not_edit" = "Dir hutt net d'Recht fir dës Säit z'änneren";
 "page_protected_can_not_edit_title" = "Dës Säit ass gespaart";
+// Fuzzy
 "license-footer-text" = "Den Inhalt ass ënner $1 disponibel";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Inhalter";
@@ -308,7 +309,9 @@
 "home-featured-article-heading" = "Besonneschen Artikel vum $1";
 "home-main-page-heading" = "Haut op Wikipedia";
 "home-potd-heading" = "Bild vum Dag vum $1";
+// Fuzzy
 "home-last-update-label" = "Lescht Aktualisatioun: $1";
+// Fuzzy
 "home-last-update-never-label" = "Lescht Aktualisatioun: Ni";
 "home-updating-label" = "Gëtt aktualiséiert...";
 "home-hide-suggestion-prompt" = "Dës Propos verstoppen";

@@ -1,7 +1,0 @@
-[gerrit]
-host=gerrit.wikimedia.org
-port=29418
-project=apps/ios/wikipedia.git
-defaultbranch=master
-defaultrebase=0
-defaultremote=gerrit

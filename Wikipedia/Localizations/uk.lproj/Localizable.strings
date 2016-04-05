@@ -250,6 +250,7 @@
 "page_protected_other" = "Цю сторінку захищено на таких рівнях: $1";
 "page_protected_can_not_edit" = "Ви не маєте повноважень для редагування цієї сторінки";
 "page_protected_can_not_edit_title" = "Сторінку захищено";
+// Fuzzy
 "license-footer-text" = "Вміст доступний згідно з $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Вміст";
@@ -334,7 +335,9 @@
 "home-featured-article-heading" = "Вибрана стаття за $1";
 "home-main-page-heading" = "Сьогодні на Вікіпедії";
 "home-potd-heading" = "Зображення дня за $1";
+// Fuzzy
 "home-last-update-label" = "Останнє оновлення: $1";
+// Fuzzy
 "home-last-update-never-label" = "Останнє оновлення: ніколи";
 "home-updating-label" = "Оновлення...";
 "home-hide-suggestion-prompt" = "Приховати цю пропозицію";

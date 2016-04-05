@@ -62,4 +62,60 @@
     }];
 }
 
+- (NSURLSessionDataTask*)wmf_POSTWithMobileURLString:(NSString*)mobileURLString
+                                   desktopURLString:(NSString*)desktopURLString
+                                         parameters:(id)parameters
+                                              retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
+                                            success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
+                                            failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure {
+    return [self POST:mobileURLString parameters:parameters progress:NULL success:^(NSURLSessionDataTask* _Nonnull operation, id _Nonnull responseObject) {
+        if (success) {
+            success(operation, responseObject);
+        }
+    } failure:^(NSURLSessionDataTask* _Nonnull operation, NSError* _Nonnull error) {
+        if ([error wmf_shouldFallbackToDesktopURLError]) {
+            NSURLSessionDataTask* operation = [self POST:desktopURLString parameters:parameters progress:NULL success:^(NSURLSessionDataTask* _Nonnull operation, id _Nonnull responseObject) {
+                if (success) {
+                    success(operation, responseObject);
+                }
+            } failure:^(NSURLSessionDataTask* _Nonnull operation, NSError* _Nonnull error) {
+                if (failure) {
+                    failure(operation, error);
+                }
+            }];
+            if (retry) {
+                retry(operation, error);
+            }
+        } else {
+            if (failure) {
+                failure(operation, error);
+            }
+        }
+    }];
+}
+
+- (NSURLSessionDataTask*)wmf_POSTWithSite:(MWKSite*)site
+                              parameters:(id)parameters
+                                   retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
+                                 success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
+                                 failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure {
+    return [self wmf_POSTWithMobileURLString:[site apiEndpoint:YES].absoluteString
+                           desktopURLString:[site apiEndpoint:NO].absoluteString
+                                 parameters:parameters
+                                      retry:retry
+                                    success:success
+                                    failure:failure];
+}
+
+- (AnyPromise*)wmf_POSTWithSite:(MWKSite*)site
+                    parameters:(id)parameters {
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
+        [self wmf_POSTWithSite:site parameters:parameters retry:nil success:^(NSURLSessionDataTask* operation, id responseObject) {
+            resolve(responseObject);
+        } failure:^(NSURLSessionDataTask* operation, NSError* error) {
+            resolve(error);
+        }];
+    }];
+}
+
 @end

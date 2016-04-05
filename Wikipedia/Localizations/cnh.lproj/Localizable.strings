@@ -233,6 +233,7 @@
 "page_protected_other" = "Hi cahmai atanglei dotning in kilven a si: $1";
 "page_protected_can_not_edit" = "Hi cahmai remhnak nawl na ngei lo.";
 "page_protected_can_not_edit_title" = "Hi cahmai hi kilvenpiak a si.";
+// Fuzzy
 "license-footer-text" = "$1 tangah chungum pawl zoh khawh a si.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Cazin pawl";
