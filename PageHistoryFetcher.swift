@@ -31,6 +31,7 @@ public class PageHistoryFetcher: NSObject {
     }
 }
 
+private typealias RevisionsByDay = [Int: PageHistorySection]
 public class HistoryFetchResults: NSObject {
     private let continueKey: String?
     private let rvContinueKey: String?
@@ -49,7 +50,7 @@ public class HistoryFetchResults: NSObject {
     private func tackOn(lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
         guard let previouslyParsedRevision = lastRevisionFromPreviousCall, parentSize = items().first?.items.first?.articleSizeAtRevision else { return }
         previouslyParsedRevision.revisionSize = previouslyParsedRevision.articleSizeAtRevision - parentSize
-        update(revisionsByDay: &revisionsByDay, revision: previouslyParsedRevision)
+        HistoryFetchResults.update(revisionsByDay: &revisionsByDay, revision: previouslyParsedRevision)
     }
     
     private init(continueKey: String?, rvContinueKey: String?, batchComplete: Bool,  revisionsByDay: RevisionsByDay, lastRevision: WMFPageHistoryRevision?) {
@@ -112,12 +113,12 @@ public class PageHistoryRequestSerializer: AFHTTPRequestSerializer {
     }
 }
 
-private typealias RevisionCurrentPrevious = (current: WMFPageHistoryRevision, previous: WMFPageHistoryRevision)
-private typealias RevisionsByDay = [Int: PageHistorySection]
-
 public class PageHistoryResponseSerializer: WMFApiJsonResponseSerializer {
     public override func responseObjectForResponse(response: NSURLResponse?, data: NSData?, error: NSErrorPointer) -> AnyObject? {
-        guard let responseDict = super.responseObjectForResponse(response, data: data, error: error) as? [String: AnyObject] else { return nil }
+        guard let responseDict = super.responseObjectForResponse(response, data: data, error: error) as? [String: AnyObject] else {
+            assertionFailure("couldn't parse page history response")
+            return nil
+        }
         return parseSections(responseDict)
     }
     
@@ -141,7 +142,7 @@ public class PageHistoryResponseSerializer: WMFApiJsonResponseSerializer {
             
             if let earliestRevision = revisions.last where earliestRevision.parentID == 0 {
                 earliestRevision.revisionSize = earliestRevision.articleSizeAtRevision
-                update(revisionsByDay: &revisionsByDay, revision: earliestRevision)
+                HistoryFetchResults.update(revisionsByDay: &revisionsByDay, revision: earliestRevision)
             } else {
                 lastRevision = revisions.last
             }
@@ -158,39 +159,42 @@ public class PageHistoryResponseSerializer: WMFApiJsonResponseSerializer {
         return HistoryFetchResults(continueKey: continueKey, rvContinueKey: rvContinueKey, batchComplete: batchComplete, revisionsByDay: revisionsByDay, lastRevision: lastRevision)
     }
     
+    private typealias RevisionCurrentPrevious = (current: WMFPageHistoryRevision, previous: WMFPageHistoryRevision)
     private func parse(revisions revisions: [WMFPageHistoryRevision], existingRevisions: RevisionsByDay) -> RevisionsByDay {
         return zip(revisions, revisions.dropFirst()).reduce(existingRevisions, combine: { (revisionsByDay, itemPair: RevisionCurrentPrevious) -> RevisionsByDay in
             var revisionsByDay = revisionsByDay
             
             itemPair.current.revisionSize = itemPair.current.articleSizeAtRevision - itemPair.previous.articleSizeAtRevision
-            update(revisionsByDay:&revisionsByDay, revision: itemPair.current)
+            HistoryFetchResults.update(revisionsByDay:&revisionsByDay, revision: itemPair.current)
             
             return revisionsByDay
         })
     }
 }
 
-private func update(inout revisionsByDay revisionsByDay: RevisionsByDay, revision: WMFPageHistoryRevision) {
-    let distanceToToday = revision.daysFromToday()
-    
-    if let existingRevisionsOnCurrentDay = revisionsByDay[distanceToToday] {
-        let sectionTitle = existingRevisionsOnCurrentDay.sectionTitle
-        let items = existingRevisionsOnCurrentDay.items + [revision]
-        revisionsByDay[distanceToToday] = PageHistorySection(sectionTitle: sectionTitle, items: items)
-    } else {
-        if let revisionDate = revision.revisionDate {
-            var title: String?
-            let getSectionTitle = {
-                title = NSDateFormatter.wmf_longDateFormatter().stringFromDate(revisionDate)
+extension HistoryFetchResults {
+    private static func update(inout revisionsByDay revisionsByDay: RevisionsByDay, revision: WMFPageHistoryRevision) {
+        let distanceToToday = revision.daysFromToday()
+        
+        if let existingRevisionsOnCurrentDay = revisionsByDay[distanceToToday] {
+            let sectionTitle = existingRevisionsOnCurrentDay.sectionTitle
+            let items = existingRevisionsOnCurrentDay.items + [revision]
+            revisionsByDay[distanceToToday] = PageHistorySection(sectionTitle: sectionTitle, items: items)
+        } else {
+            if let revisionDate = revision.revisionDate {
+                var title: String?
+                let getSectionTitle = {
+                    title = NSDateFormatter.wmf_longDateFormatter().stringFromDate(revisionDate)
+                }
+                if NSThread.isMainThread() {
+                    getSectionTitle()
+                } else {
+                    dispatch_sync(dispatch_get_main_queue(), getSectionTitle)
+                }
+                guard let sectionTitle = title else { return }
+                let newSection = PageHistorySection(sectionTitle: sectionTitle, items: [revision])
+                revisionsByDay[distanceToToday] = newSection
             }
-            if NSThread.isMainThread() {
-                getSectionTitle()
-            } else {
-                dispatch_sync(dispatch_get_main_queue(), getSectionTitle)
-            }
-            guard let sectionTitle = title else { return }
-            let newSection = PageHistorySection(sectionTitle: sectionTitle, items: [revision])
-            revisionsByDay[distanceToToday] = newSection
         }
     }
 }
