@@ -84,7 +84,7 @@
     self.isLoadingData = YES;
 
     @weakify(self);
-    [self.pageHistoryFetcher fetchRevisionInfo:self.article.title requestParams: self.params].then(^(HistoryFetchResults* historyFetchResults){
+    [self.pageHistoryFetcher fetchRevisionInfo:self.article.title.site requestParams: self.params].then(^(HistoryFetchResults* historyFetchResults){
         @strongify(self);
         [self.pageHistoryDataArray addObjectsFromArray:historyFetchResults.items];
         self.params = [historyFetchResults getPageHistoryRequestParameters:self.article.title.text];
