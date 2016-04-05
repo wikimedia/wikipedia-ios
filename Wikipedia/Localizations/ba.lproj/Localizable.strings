@@ -1,10 +1,12 @@
 // Messages for Bashkir (башҡортса)
 // Exported from translatewiki.net
+// Author: Mhurd
 // Author: Азат Хәлилов
 // Author: Айсар
 // Author: Аҡҡашҡа
 // Author: Мухамадеева
 // Author: Танзиля Кутлугильдина
+// Author: Янмурза Баки
 
 "languages-title" = "Телдәр";
 "article-languages-label" = "Телде һайларға";
@@ -35,7 +37,9 @@
 "zero-free-verbiage" = "Һеҙҙең операторҙың Википедияға бушлай инергә рөхсәте бар (трафик өсөн түләү алынмай)";
 "zero-charged-verbiage" = "Zero википедияһы һүндерелгән";
 "zero-charged-verbiage-extended" = "Башҡа мәҡәләләрҙе күсергәндә, мәғлүмәт ебәргән өсөн түләтеүҙәре ихтимал. Айырым һаҡланған мәҡәләләр мәғлүмәт биреүҙе талп итмәй, шуға күрә бушлай.";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = " Zero википедияһынан сығыу";
+"zero-interstitial-leave-app" = "Мәғлүмәт ебәргән өсөн стандарт хаҡ алыныуы ихтимал. Тышҡы сайтҡа күсеүҙе дауам итергәме?";
 "zero-interstitial-continue" = "Күсеү";
 "zero-interstitial-cancel" = "Ҡалырға";
 "zero-learn-more" = "Википедияның был ҡушымтаһын файҙаланғанда мәғлүмәт өсөн хаҡ алынмай";
@@ -80,6 +84,7 @@
 "wikitext-upload-save-anonymously-warning" = "Төҙәтеүҙәр һеҙҙең ҡоролмағыҙҙың IP-адресы менән билдәләнәсәк. Әгәр һеҙ $1 икән, юғарыраҡ кимәлдәге конфиденциаллек алығыҙ";
 "wikitext-upload-save-terms-and-license" = "Һаҡлап,  $1 лицензияһы аҫтында үҙегеҙҙең өлөштө урынлаштырыу менән килешәһегеҙ";
 "wikitext-upload-save-terms-name" = "Ҡулланыу шарттары";
+"wikitext-upload-save-license-name" = "CC-BY-SA 3.0";
 "open-link-title" = "Һылтанманы асырға";
 "open-link-cancel" = "Кире алырға";
 "search-title" = "Эҙләү";
@@ -136,6 +141,7 @@
 "main-menu-show-today" = "Бөгөн";
 "main-menu-nearby" = "Эргәлә";
 "main-menu-more" = "Тағы ла";
+"main-menu-heading-debug" = "Көйләү";
 "main-menu-debug-crash" = "Түбән төшөү";
 "main-menu-debug-tweaks" = "Әҙерләүселәр өсөн көйләүҙәр";
 "saved-title" = "Һаҡланған";
@@ -188,6 +194,7 @@
 "about-wikipedia" = "Википедия";
 "about-contributors" = "Авторҙар";
 "about-testers" = "Тестерҙар";
+"about-testers-details" = "В/А, тест яһалған $1";
 "about-translators" = "Тәржемәселәр";
 "about-translators-details" = "Был ҡушымта  $1-гә ирекмәндәр тарафынан тәржемәләнде";
 "about-libraries" = "файҙаланған китапханалар";
@@ -195,6 +202,7 @@
 "about-libraries-licenses" = "Рөхсәт ҡағыҙы";
 "about-content-license" = "булған нәмәнең рөхсәте";
 "about-content-license-details" = "Башҡаһы күрһәтелмәһә,файл эсендәге нәмә $1-гә ярашлы асыҡ була";
+"about-content-license-details-share-alike-license" = " Creative Commons Attribution-ShareAlike лицензияһы менән";
 "about-libraries-licenses-title" = "Баштағы асыҡ $1 кодлы Программа тәьминәтен яратабыҙ";
 "about-libraries-complete-list" = "Тулы исемлек";
 "about-repositories" = "Һаҡлағыс:";
@@ -226,18 +234,23 @@
 "button-done" = "Әҙер";
 "button-save" = "Һаҡларға";
 "button-save-for-later" = "Аҙаҡҡыға һаҡларға";
+"button-saved-for-later" = "Киләсәккә һаҡланды";
+"onboarding-create-account" = "Иҫәп яҙмаһын булдырырға";
 "onboarding-login" = "Инергә";
 "onboarding-already-have-account" = "Һеҙ теркәлдегеҙме? $1";
 "onboarding-skip" = "Ҡалдырып торорға";
 "onboarding-wikipedia" = "Википедия";
 "onboarding-free-encyclopedia" = "Ирекле энциклопедия";
 "preference_title_eventlogging_opt_in" = "Файҙаланыу тураһында отчет ебәреү";
+"preference_summary_eventlogging_opt_in" = "Викимедиаға һеҙҙең ҡушымтаны нисек файҙаланыуығыҙ тураһында мәғлүмәт бирергә рөхсәт итеү. Был уны тағы ла яҡшыраҡ итергә мөмкинселек бирәсәк.";
 "page_protected_autoconfirmed" = "Был бит өлөшләтә һаҡланған ине";
 "page_protected_sysop" = "Был бит тулыһынса һаҡланған ине";
 "page_protected_other" = "Был бит тулыһынса һаҡланған ине: $1";
 "page_protected_can_not_edit" = "Һеҙҙең был битте мөхәррирләргә оҡуғыҙ юҡ";
 "page_protected_can_not_edit_title" = "Был бит һаҡланған";
+// Fuzzy
 "license-footer-text" = "Файлдағы нәмә $1 лицензияһы буйынса рөхсәт ителә";
+"license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Йөкмәткеһе";
 "table-of-contents-button-label" = "Йөкмәткеһе";
 "table-of-contents-close-accessibility-label" = "Йөкмәткене ябырға";
@@ -320,7 +333,9 @@
 "home-featured-article-heading" = " $1-гә һайланған мәҡәлә";
 "home-main-page-heading" = "Бөгөн Википедияла";
 "home-potd-heading" = " $1 - гә көн һүрәте";
+// Fuzzy
 "home-last-update-label" = "Һуңғы яңыртыу $1";
+// Fuzzy
 "home-last-update-never-label" = "Һуңғы яңыртыу:бер ҡасан да";
 "home-updating-label" = "Яңыртыу";
 "home-hide-suggestion-prompt" = "Был тәҡдимде йәшереү";

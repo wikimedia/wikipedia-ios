@@ -12,19 +12,23 @@
 #import "UITableView+DynamicCellHeight.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "PageHistoryFetcher.h"
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
+#import "WMFPageHistoryRevision.h"
 
 
 #define TABLE_CELL_ID @"PageHistoryResultCell"
 
-@interface PageHistoryViewController () <FetchFinishedDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface PageHistoryViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) __block NSMutableArray* pageHistoryDataArray;
+@property (strong, nonatomic) __block NSMutableArray<PageHistorySection*>* pageHistoryDataArray;
 @property (strong, nonatomic) PageHistoryResultCell* offScreenSizingCell;
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
+@property (strong, nonatomic) PageHistoryFetcher* pageHistoryFetcher;
+@property (assign, nonatomic) BOOL isLoadingData;
+@property (assign, nonatomic) BOOL batchComplete;
+@property (strong, nonatomic) PageHistoryRequestParameters *historyFetcherParams;
 
 @end
 
@@ -52,7 +56,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    self.historyFetcherParams = [[PageHistoryRequestParameters alloc] initWithTitle:self.article.title.text];
+    self.pageHistoryFetcher = [PageHistoryFetcher new];
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
         @strongify(self)
@@ -74,36 +80,25 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
-- (void)fetchFinished:(id)sender
-          fetchedData:(id)fetchedData
-               status:(FetchFinalStatus)status
-                error:(NSError*)error;
-{
-    if ([sender isKindOfClass:[PageHistoryFetcher class]]) {
-        NSMutableArray* pageHistoryDataArray = (NSMutableArray*)fetchedData;
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:
-
-                self.pageHistoryDataArray = pageHistoryDataArray;
-                [[WMFAlertManager sharedInstance] dismissAlert];
-                [self.tableView reloadData];
-
-                break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-                [[WMFAlertManager sharedInstance] dismissAlert];
-
-                break;
-            case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
-                break;
-        }
-    }
-}
-
 - (void)getPageHistoryData {
-    (void)[[PageHistoryFetcher alloc] initAndFetchHistoryForTitle:self.article.title
-                                                      withManager:[QueuesSingleton sharedInstance].pageHistoryFetchManager
-                                               thenNotifyDelegate:self];
+    self.isLoadingData = YES;
+
+    @weakify(self);
+    [self.pageHistoryFetcher fetchRevisionInfo:self.article.title.site requestParams: self.historyFetcherParams].then(^(HistoryFetchResults* historyFetchResults){
+        @strongify(self);
+        [self.pageHistoryDataArray addObjectsFromArray:historyFetchResults.items];
+        self.historyFetcherParams = [historyFetchResults getPageHistoryRequestParameters:self.article.title.text];
+        self.batchComplete = historyFetchResults.batchComplete;
+        [[WMFAlertManager sharedInstance] dismissAlert];
+        [self.tableView reloadData];
+    }).catch(^(NSError* error){
+        @strongify(self);
+        DDLogError(@"Failed to fetch items for section %@. %@", self, error);
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
+    }).finally(^{
+        @strongify(self);
+        self.isLoadingData = NO;
+    });
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
@@ -111,9 +106,8 @@
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    NSDictionary* sectionDict = self.pageHistoryDataArray[section];
-    NSArray* rows             = sectionDict[@"revisions"];
-    return rows.count;
+    PageHistorySection* sectionItems = self.pageHistoryDataArray[section];
+    return sectionItems.items.count;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -126,16 +120,15 @@
 }
 
 - (void)updateViewsInCell:(PageHistoryResultCell*)cell forIndexPath:(NSIndexPath*)indexPath {
-    NSDictionary* sectionDict = self.pageHistoryDataArray[indexPath.section];
-    NSArray* rows             = sectionDict[@"revisions"];
-    NSDictionary* row         = rows[indexPath.row];
+    PageHistorySection* section = self.pageHistoryDataArray[indexPath.section];
+    WMFPageHistoryRevision* row = section.items[indexPath.row];
 
-    [cell setName:row[@"user"]
-             time:row[@"timestamp"]
-            delta:row[@"characterDelta"]
-             icon:row[@"anon"] ? WIKIGLYPH_USER_SLEEP : WIKIGLYPH_USER_SMILE
-          summary:row[@"parsedcomment"]
-        separator:(rows.count > 1)];
+    [cell setName:row.user
+             date:row.revisionDate
+            delta:@(row.revisionSize)
+             icon:row.authorIcon
+          summary:row.parsedComment
+        separator:(section.items.count > 1)];
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -144,15 +137,6 @@
 
     // Determine height for the current configuration of the sizing cell.
     return [tableView heightForSizingCell:self.offScreenSizingCell];
-}
-
-- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    NSDictionary* sectionDict = self.pageHistoryDataArray[indexPath.section];
-    NSArray* rows             = sectionDict[@"revisions"];
-    NSDictionary* row         = rows[indexPath.row];
-    NSLog(@"row = %@", row);
-
-// TODO: row contains a revisionid, make tap cause diff for that revision to open in Safari?
 }
 
 - (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
@@ -170,12 +154,8 @@
     label.backgroundColor  = [UIColor clearColor];
 
     label.textAlignment = NSTextAlignmentNatural;
-
-    NSDictionary* sectionDict = self.pageHistoryDataArray[section];
-
-    NSNumber* daysAgo = sectionDict[@"daysAgo"];
-    NSDate* date      = [NSDate dateWithDaysBeforeNow:daysAgo.integerValue];
-    label.text = [[NSDateFormatter wmf_longDateFormatter] stringFromDate:date];
+    
+    label.text = self.pageHistoryDataArray[section].sectionTitle;
 
     [view addSubview:label];
 
@@ -186,9 +166,22 @@
     return 27.0 * MENUS_SCALE_MULTIPLIER;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (BOOL)shouldLoadNewData {
+    if (self.batchComplete || self.isLoadingData) {
+        return NO;
+    }
+    CGFloat maxY = self.tableView.contentOffset.y + self.tableView.frame.size.height + 200.0;
+    BOOL shouldLoad = NO;
+    if (maxY >= self.tableView.contentSize.height) {
+        shouldLoad = YES;
+    }
+    return shouldLoad;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if ([self shouldLoadNewData]) {
+        [self getPageHistoryData];
+    }
 }
 
 @end

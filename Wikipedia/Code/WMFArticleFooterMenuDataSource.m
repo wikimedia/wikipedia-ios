@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSMutableArray<WMFArticleFooterMenuItem*>* menuItems = [NSMutableArray arrayWithCapacity:4];
 
-    if (article.languagecount > 0) {
+    if (article.hasMultipleLanguages) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLanguages,
                                       [MWSiteLocalizedString(article.title.site, @"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", article.languagecount]],
                                       nil, @"footer-switch-language")];

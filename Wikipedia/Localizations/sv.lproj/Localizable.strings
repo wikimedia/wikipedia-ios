@@ -252,6 +252,7 @@
 "page_protected_other" = "Denna sida har skyddats för följande nivåer: $1";
 "page_protected_can_not_edit" = "Du saknar rättigheter för att redigera denna sida.";
 "page_protected_can_not_edit_title" = "Denna sida är skrivskyddad";
+// Fuzzy
 "license-footer-text" = "Innehållet är tillgängligt under $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Innehåll";
@@ -336,7 +337,9 @@
 "home-featured-article-heading" = "Utmärkt artikel för $1";
 "home-main-page-heading" = "Idag på Wikipedia";
 "home-potd-heading" = "Dagens bild för $1";
+// Fuzzy
 "home-last-update-label" = "Senast uppdaterad: $1";
+// Fuzzy
 "home-last-update-never-label" = "Senast uppdaterad: Aldrig";
 "home-updating-label" = "Uppdaterar...";
 "home-hide-suggestion-prompt" = "Dölj detta förslag";
