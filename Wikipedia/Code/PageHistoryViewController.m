@@ -27,6 +27,7 @@
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
 @property (strong, nonatomic) PageHistoryFetcher* pageHistoryFetcher;
 @property (assign, nonatomic) BOOL isLoadingData;
+@property (assign, nonatomic) BOOL batchComplete;
 @property (strong, nonatomic) PageHistoryRequestParameters *params;
 
 @end
@@ -83,9 +84,11 @@
     self.isLoadingData = YES;
 
     @weakify(self);
-    [self.pageHistoryFetcher fetchRevisionInfo:self.article.title requestParams: self.params].then(^(NSArray<PageHistorySection*>* items){
+    [self.pageHistoryFetcher fetchRevisionInfo:self.article.title requestParams: self.params].then(^(HistoryFetchResults* historyFetchResults){
         @strongify(self);
-        [self.pageHistoryDataArray addObjectsFromArray:items];
+        [self.pageHistoryDataArray addObjectsFromArray:historyFetchResults.items];
+        self.params = [historyFetchResults getPageHistoryRequestParameters:self.article.title.text];
+        self.batchComplete = historyFetchResults.batchComplete;
         [[WMFAlertManager sharedInstance] dismissAlert];
         [self.tableView reloadData];
     }).catch(^(NSError* error){
@@ -164,7 +167,7 @@
 }
 
 - (BOOL)shouldLoadNewData {
-    if (self.pageHistoryFetcher.batchComplete || self.isLoadingData) {
+    if (self.batchComplete || self.isLoadingData) {
         return NO;
     }
     CGFloat maxY = self.tableView.contentOffset.y + self.tableView.frame.size.height + 200.0;

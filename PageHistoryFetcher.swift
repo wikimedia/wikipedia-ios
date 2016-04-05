@@ -20,7 +20,6 @@ public class PageHistoryFetcher: NSObject {
                                                         success: { (operation, responseObject) in
                                                             guard let strongSelf = self, responseDict = responseObject as? [String: AnyObject] else { return }
                                                             MWNetworkActivityIndicatorManager.sharedManager().pop()
-                                                            strongSelf.updatePagingState(responseDict)
                                                             resolve(strongSelf.parseSections(responseDict))
                                                             },
                                                         failure: { (operation, error) in
@@ -31,29 +30,18 @@ public class PageHistoryFetcher: NSObject {
     }
     
     //Mark: Paging
-    private var continueKey: String?
-    private var rvContinueKey: String?
-    var batchComplete: Bool = false
     private var lastRevisionFromPreviousCall: WMFPageHistoryRevision?
 
-    private func updatePagingState(responseDict: [String: AnyObject]) {
-        if let continueInfo = responseDict["continue"] as? [String: AnyObject] {
-            continueKey = continueInfo["continue"] as? String
-            rvContinueKey = continueInfo["rvcontinue"] as? String
-        }
-        if responseDict["batchcomplete"] != nil {
-            batchComplete = true
-        }
-    }
+
     
     //Mark: Data Parsing
     private typealias RevisionCurrentPrevious = (current: WMFPageHistoryRevision, previous: WMFPageHistoryRevision)
     private typealias RevisionsByDay = [Int: PageHistorySection]
 
-    private func parseSections(responseDict: [String: AnyObject]) -> [PageHistorySection] {
+    private func parseSections(responseDict: [String: AnyObject]) -> HistoryFetchResults? {
         guard let pages = responseDict["query"]?["pages"] as? [String: AnyObject] else {
             assertionFailure("couldn't parse page history response")
-            return []
+            return nil
         }
         
         var revisionsByDay = RevisionsByDay()
@@ -62,7 +50,7 @@ public class PageHistoryFetcher: NSObject {
             
             guard var revisions = transformer.transformedValue(value["revisions"]) as? [WMFPageHistoryRevision] else {
                 assertionFailure("couldn't parse page history revisions")
-                return []
+                return nil
             }
             if let leftoverRevisionFromPreviousCall = lastRevisionFromPreviousCall {
                 revisions.insert(leftoverRevisionFromPreviousCall, atIndex: 0)
@@ -78,7 +66,9 @@ public class PageHistoryFetcher: NSObject {
             }
         }
         
-        return revisionsByDay.keys.sort(<).flatMap() { revisionsByDay[$0] }
+        let items = revisionsByDay.keys.sort(<).flatMap() { revisionsByDay[$0] }
+        
+        return HistoryFetchResults(responseDict: responseDict, items: items)
     }
     
     private func parse(revisions revisions: [WMFPageHistoryRevision], existingRevisions: RevisionsByDay) -> RevisionsByDay {
@@ -109,13 +99,46 @@ public class PageHistoryFetcher: NSObject {
     }
 }
 
-public class PageHistoryRequestParameters: NSObject {
-    let title: String
-    var continueKey: String?
-    var rvContinueKey: String?
+public class HistoryFetchResults: NSObject {
+    private let continueKey: String?
+    private let rvContinueKey: String?
+    public let batchComplete: Bool
+    public let items: [PageHistorySection]
     
-    init(title: String) {
+    public func getPageHistoryRequestParameters(title: String) -> PageHistoryRequestParameters {
+        return PageHistoryRequestParameters(title: title, continueKey: continueKey, rvContinueKey: rvContinueKey)
+    }
+    
+    private init?(responseDict: [String: AnyObject], items: [PageHistorySection]) {
+        if let continueInfo = responseDict["continue"] as? [String: AnyObject] {
+            continueKey = continueInfo["continue"] as? String
+            rvContinueKey = continueInfo["rvcontinue"] as? String
+        }
+        else {
+            continueKey = nil
+            rvContinueKey = nil
+        }
+        
+        batchComplete = responseDict["batchcomplete"] != nil
+        self.items = items
+    }
+}
+
+public class PageHistoryRequestParameters: NSObject {
+    private let title: String
+    private let continueKey: String?
+    private let rvContinueKey: String?
+    
+    public init(title: String, continueKey: String?, rvContinueKey: String?) {
         self.title = title
+        self.continueKey = continueKey
+        self.rvContinueKey = rvContinueKey
+    }
+    //TODO: get rid of this when the VC is swift and we can use default values in the other init
+    public init(title: String) {
+        self.title = title
+        continueKey = nil
+        rvContinueKey = nil
     }
 }
 
@@ -128,7 +151,7 @@ public class PageHistoryRequestSerializer: AFHTTPRequestSerializer {
         return super.requestBySerializingRequest(request, withParameters: serializedParams(pageHistoryParameters), error: error)
     }
     
-    func serializedParams(requestParameters: PageHistoryRequestParameters) -> [String: AnyObject] {
+    private func serializedParams(requestParameters: PageHistoryRequestParameters) -> [String: AnyObject] {
         var params: [String: AnyObject] = [
             "action": "query",
             "prop": "revisions",
