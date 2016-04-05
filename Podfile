@@ -19,7 +19,7 @@ pod 'Mantle', '~> 2.0.0'
 
 # Images
 pod 'SDWebImage', :git => 'https://github.com/wikimedia/SDWebImage.git', :commit => 'bb49df83e72f2231a191e9477a85f0effe13430a'
-pod 'AnimatedGIFImageSerialization'
+pod 'AnimatedGIFImageSerialization', :git => 'https://github.com/wikimedia/AnimatedGIFImageSerialization.git'
 
 # Utilities
 pod 'libextobjc/EXTScope', '~> 0.4.1'
