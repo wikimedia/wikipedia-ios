@@ -23,14 +23,14 @@
 @implementation PageHistoryResultCell
 
 - (void)setName:(NSString*)name
-           time:(NSString*)time
+           date:(NSDate*)date
           delta:(NSNumber*)delta
            icon:(NSString*)icon
         summary:(NSString*)summary
       separator:(BOOL)separator {
     self.nameLabel.text = name;
 
-    self.timeLabel.text = [[NSDateFormatter wmf_shortTimeFormatter] stringFromDate:[time wmf_iso8601Date]];
+    self.timeLabel.text = [[NSDateFormatter wmf_shortTimeFormatter] stringFromDate:date];
 
     self.deltaLabel.text =
         [NSString stringWithFormat:@"%@%@", (delta.integerValue > 0) ? @"+" : @"", delta.stringValue];

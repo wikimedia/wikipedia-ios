@@ -6,7 +6,7 @@
 @interface PageHistoryResultCell : UITableViewCell
 
 - (void)setName:(NSString*)name
-           time:(NSString*)time
+           date:(NSDate*)date
           delta:(NSNumber*)delta
            icon:(NSString*)icon
         summary:(NSString*)summary
