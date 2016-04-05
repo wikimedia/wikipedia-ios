@@ -7,14 +7,15 @@ public class PageHistoryFetcher: NSObject {
     private let operationManager: AFHTTPSessionManager = {
         let manager = AFHTTPSessionManager.wmf_createDefaultManager()
         manager.responseSerializer = WMFApiJsonResponseSerializer()
+        manager.requestSerializer = PageHistoryRequestSerializer()
         return manager
     }()
 
-    public func fetchRevisionInfo(title: MWKTitle) -> AnyPromise {
+    public func fetchRevisionInfo(title: MWKTitle, requestParams: PageHistoryRequestParameters) -> AnyPromise {
         return AnyPromise(resolverBlock: { [weak self] (resolve) in
             guard let strongSelf = self else { return }
             strongSelf.operationManager.wmf_GETWithSite(title.site,
-                                                        parameters: strongSelf.getParams(title),
+                                                        parameters: requestParams,
                                                         retry: nil,
                                                         success: { (operation, responseObject) in
                                                             guard let strongSelf = self, responseDict = responseObject as? [String: AnyObject] else { return }
@@ -106,22 +107,41 @@ public class PageHistoryFetcher: NSObject {
             }
         }
     }
+}
+
+public class PageHistoryRequestParameters: NSObject {
+    let title: String
+    var continueKey: String?
+    var rvContinueKey: String?
     
-    //Mark: API Parameters
-    private func getParams(title: MWKTitle) -> [String: AnyObject] {
+    init(title: String) {
+        self.title = title
+    }
+}
+
+public class PageHistoryRequestSerializer: AFHTTPRequestSerializer {
+    public override func requestBySerializingRequest(request: NSURLRequest, withParameters parameters: AnyObject?, error: NSErrorPointer) -> NSURLRequest? {
+        guard let pageHistoryParameters = parameters as? PageHistoryRequestParameters else {
+            assertionFailure("pagehistoryfetcher has incorrect parameter type")
+            return nil
+        }
+        return super.requestBySerializingRequest(request, withParameters: serializedParams(pageHistoryParameters), error: error)
+    }
+    
+    func serializedParams(requestParameters: PageHistoryRequestParameters) -> [String: AnyObject] {
         var params: [String: AnyObject] = [
-        "action": "query",
-        "prop": "revisions",
-        "rvprop": "ids|timestamp|user|size|parsedcomment",
-        "rvlimit": 51,
-        "rvdir": "older",
-        "titles": title.text,
-        "continue": continueKey ?? "",
-        "format": "json"
-        //,"rvdiffto": -1 //Add this to fake out "error" api response.
+            "action": "query",
+            "prop": "revisions",
+            "rvprop": "ids|timestamp|user|size|parsedcomment",
+            "rvlimit": 51,
+            "rvdir": "older",
+            "titles": requestParameters.title,
+            "continue": requestParameters.continueKey ?? "",
+            "format": "json"
+            //,"rvdiffto": -1 //Add this to fake out "error" api response.
         ]
         
-        if let rvContinueKey = self.rvContinueKey {
+        if let rvContinueKey = requestParameters.rvContinueKey {
             params["rvcontinue"] = rvContinueKey
         }
         

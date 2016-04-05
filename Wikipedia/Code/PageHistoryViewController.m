@@ -27,6 +27,7 @@
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
 @property (strong, nonatomic) PageHistoryFetcher* pageHistoryFetcher;
 @property (assign, nonatomic) BOOL isLoadingData;
+@property (strong, nonatomic) PageHistoryRequestParameters *params;
 
 @end
 
@@ -55,6 +56,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.params = [[PageHistoryRequestParameters alloc] initWithTitle:self.article.title.text];
     self.pageHistoryFetcher = [PageHistoryFetcher new];
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
@@ -79,8 +81,9 @@
 
 - (void)getPageHistoryData {
     self.isLoadingData = YES;
+
     @weakify(self);
-    [self.pageHistoryFetcher fetchRevisionInfo:self.article.title].then(^(NSArray<PageHistorySection*>* items){
+    [self.pageHistoryFetcher fetchRevisionInfo:self.article.title requestParams: self.params].then(^(NSArray<PageHistorySection*>* items){
         @strongify(self);
         [self.pageHistoryDataArray addObjectsFromArray:items];
         [[WMFAlertManager sharedInstance] dismissAlert];
