@@ -16,11 +16,8 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="78"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T-small" translatesAutoresizingMaskIntoConstraints="NO" id="vkB-ph-elW">
-                    <rect key="frame" x="22" y="12" width="24" height="20"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="20" id="IBB-IN-ova"/>
-                    </constraints>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T-small" translatesAutoresizingMaskIntoConstraints="NO" id="vkB-ph-elW">
+                    <rect key="frame" x="28" y="17" width="12" height="15"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZG-9J-e1O" customClass="SWStepSlider" customModule="SWStepSlider">
                     <rect key="frame" x="20" y="32" width="560" height="44"/>
@@ -41,10 +38,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T-large" translatesAutoresizingMaskIntoConstraints="NO" id="Ycr-G6-Fi3">
-                    <rect key="frame" x="554" y="12" width="24" height="20"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="20" id="C1R-5F-mb6"/>
-                    </constraints>
+                    <rect key="frame" x="560" y="17" width="12" height="15"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -57,15 +51,23 @@
                 <constraint firstAttribute="trailing" secondItem="Ycr-G6-Fi3" secondAttribute="trailing" constant="22" id="JrM-1G-B4R"/>
                 <constraint firstItem="YZG-9J-e1O" firstAttribute="top" secondItem="vkB-ph-elW" secondAttribute="bottom" id="Uc7-ez-KGR"/>
                 <constraint firstAttribute="bottom" secondItem="YZG-9J-e1O" secondAttribute="bottom" constant="2" id="aFC-jg-Wpy"/>
+                <constraint firstItem="YZG-9J-e1O" firstAttribute="leading" secondItem="vkB-ph-elW" secondAttribute="leading" constant="-8" id="ebZ-vg-kWK"/>
                 <constraint firstAttribute="trailing" secondItem="YZG-9J-e1O" secondAttribute="trailing" constant="20" id="lfN-zC-sT3"/>
+                <constraint firstItem="Ycr-G6-Fi3" firstAttribute="trailing" secondItem="YZG-9J-e1O" secondAttribute="trailing" constant="-8" id="x8H-8H-Ush"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="AFX-qM-HyA"/>
+                    <exclude reference="JrM-1G-B4R"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="467" y="413"/>
         </view>
     </objects>
     <resources>
-        <image name="T-large" width="24" height="30"/>
-        <image name="T-small" width="24" height="30"/>
+        <image name="T-large" width="12" height="15"/>
+        <image name="T-small" width="12" height="15"/>
     </resources>
 </document>
