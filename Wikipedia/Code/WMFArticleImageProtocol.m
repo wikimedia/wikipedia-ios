@@ -23,7 +23,7 @@ static const int WMFArticleImageProtocolLogLevel = DDLogLevelInfo;
 
 NSString* const WMFArticleImageSectionImageRetrievedNotification = @"WMFSectionImageRetrieved";
 static NSString* const WMFArticleImageProtocolHost               = @"upload.wikimedia.org";
-static NSString* const WMFArticleImageProtocolResponseAndDataErrorDomain = @"WMFArticleImageProtocolResponseAndDataErrorDomain";
+static NSString* const WMFArticleImageProtocolErrorDomain        = @"WMFArticleImageProtocolErrorDomain";
 
 @interface WMFArticleImageProtocolResponseAndData: NSObject
 @property (strong) NSURLResponse* response;
@@ -85,24 +85,17 @@ static NSString* const WMFArticleImageProtocolResponseAndDataErrorDomain = @"WMF
         }
 
         if (!responseAndData.response) {
-            return [[NSError alloc] initWithDomain:WMFArticleImageProtocolResponseAndDataErrorDomain
+            return [[NSError alloc] initWithDomain:WMFArticleImageProtocolErrorDomain
                                               code:0
                                           userInfo:@{
                                                      NSLocalizedDescriptionKey: @"Response for image not found",
                                                      NSURLErrorKey: self.request.URL
                                                      }];
-        }else if (!responseAndData.data) {
-            return [[NSError alloc] initWithDomain:WMFArticleImageProtocolResponseAndDataErrorDomain
+        }else if (responseAndData.data.length == 0) {
+            return [[NSError alloc] initWithDomain:WMFArticleImageProtocolErrorDomain
                                               code:1
                                           userInfo:@{
-                                                     NSLocalizedDescriptionKey: @"Data for image not found",
-                                                     NSURLErrorKey: self.request.URL
-                                                     }];
-        }else if (responseAndData.data.length == 0) {
-            return [[NSError alloc] initWithDomain:WMFArticleImageProtocolResponseAndDataErrorDomain
-                                              code:2
-                                          userInfo:@{
-                                                     NSLocalizedDescriptionKey: @"Data for image was zero length",
+                                                     NSLocalizedDescriptionKey: @"Data for image not found or was zero length",
                                                      NSURLErrorKey: self.request.URL
                                                      }];
         }else{
