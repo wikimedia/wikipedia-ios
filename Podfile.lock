@@ -95,7 +95,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0.0)
-  - AnimatedGIFImageSerialization
+  - AnimatedGIFImageSerialization (from `https://github.com/wikimedia/AnimatedGIFImageSerialization.git`)
   - BlocksKit/Core (~> 2.2.0)
   - BlocksKit/UIKit (~> 2.2.0)
   - CocoaLumberjack/Swift (HEAD)
@@ -128,6 +128,8 @@ DEPENDENCIES:
   - WEPopover
 
 EXTERNAL SOURCES:
+  AnimatedGIFImageSerialization:
+    :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git
   MGSwipeTableCell:
     :git: git@github.com:wikimedia/MGSwipeTableCell.git
   NSDate-Extensions:
@@ -143,6 +145,9 @@ EXTERNAL SOURCES:
     :git: https://github.com/wikimedia/TSMessages.git
 
 CHECKOUT OPTIONS:
+  AnimatedGIFImageSerialization:
+    :commit: f0fcaa7d474672ecfdd8b7fd26ca2fca31940e0b
+    :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git
   MGSwipeTableCell:
     :commit: 8ca85004bd7fcfe09a3b7938fb8c079a88481d45
     :git: git@github.com:wikimedia/MGSwipeTableCell.git
