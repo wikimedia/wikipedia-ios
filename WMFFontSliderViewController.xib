@@ -22,7 +22,7 @@
                         <constraint firstAttribute="height" constant="20" id="IBB-IN-ova"/>
                     </constraints>
                 </imageView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZG-9J-e1O" customClass="SWStepSlider" customModule="Wikipedia" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZG-9J-e1O" customClass="SWStepSlider" customModule="SWStepSlider">
                     <rect key="frame" x="20" y="32" width="560" height="44"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
