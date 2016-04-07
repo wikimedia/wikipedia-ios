@@ -23,12 +23,12 @@ public class SWStepSlider: UIControl {
     @IBInspectable public var continuous: Bool = true // if set, value change events are generated any time the value changes due to dragging. default = YES
     
     let trackLayer = CALayer()
-    var trackHeight: CGFloat = 1
-    var trackColor = UIColor(red: 152.0/255.0, green: 152.0/255.0, blue: 152.0/255.0, alpha: 1)
+    public var trackHeight: CGFloat = 2
+    public var trackColor = UIColor(red: 152.0/255.0, green: 152.0/255.0, blue: 152.0/255.0, alpha: 1)
     
-    var tickHeight: CGFloat = 8
-    var tickWidth: CGFloat = 1
-    var tickColor = UIColor(red: 152.0/255.0, green: 152.0/255.0, blue: 152.0/255.0, alpha: 1)
+    public var tickHeight: CGFloat = 8
+    public var tickWidth: CGFloat = 2
+    public var tickColor = UIColor(red: 152.0/255.0, green: 152.0/255.0, blue: 152.0/255.0, alpha: 1)
     
     let thumbLayer = CAShapeLayer()
     var thumbFillColor = UIColor.whiteColor()

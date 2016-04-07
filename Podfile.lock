@@ -120,7 +120,7 @@ DEPENDENCIES:
   - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `bb49df83e72f2231a191e9477a85f0effe13430a`)
   - SSDataSources (~> 0.8.0)
   - SVWebViewController (~> 1.0)
-  - SWStepSlider
+  - SWStepSlider (from `https://github.com/wikimedia/SWStepSlider.git`)
   - TSMessages (from `https://github.com/wikimedia/TSMessages.git`)
   - TUSafariActivity
   - Tweaks (HEAD)
@@ -137,6 +137,8 @@ EXTERNAL SOURCES:
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
+  SWStepSlider:
+    :git: https://github.com/wikimedia/SWStepSlider.git
   TSMessages:
     :git: https://github.com/wikimedia/TSMessages.git
 
@@ -153,6 +155,9 @@ CHECKOUT OPTIONS:
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
+  SWStepSlider:
+    :commit: 38cbf49073c0cf661514a9b48cb6db6bf0d73848
+    :git: https://github.com/wikimedia/SWStepSlider.git
   TSMessages:
     :commit: ec0aa9be29ab79083e4957ac500f3af2f622605d
     :git: https://github.com/wikimedia/TSMessages.git
