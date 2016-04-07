@@ -631,6 +631,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
+    [self.popover dismissPopoverAnimated:YES];
     [self registerForPreviewingIfAvailable];
 }
 
@@ -809,8 +810,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     [vc setValuesWithSteps:fontSizes.count current:index];
 
-    
-    
     WEPopoverController* popup = [[WEPopoverController alloc] initWithContentViewController:vc];
     WEPopoverContainerViewProperties* props = [WEPopoverController defaultContainerViewProperties];
     props.backgroundColor = [UIColor whiteColor];
