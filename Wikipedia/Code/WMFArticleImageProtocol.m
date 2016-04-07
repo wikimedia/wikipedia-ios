@@ -23,6 +23,22 @@ static const int WMFArticleImageProtocolLogLevel = DDLogLevelInfo;
 
 NSString* const WMFArticleImageSectionImageRetrievedNotification = @"WMFSectionImageRetrieved";
 static NSString* const WMFArticleImageProtocolHost               = @"upload.wikimedia.org";
+static NSString* const WMFArticleImageProtocolResponseAndDataErrorDomain = @"WMFArticleImageProtocolResponseAndDataErrorDomain";
+
+@interface WMFArticleImageProtocolResponseAndData: NSObject
+@property (strong) NSURLResponse* response;
+@property (strong) NSData* data;
+@end
+
+@implementation WMFArticleImageProtocolResponseAndData
+- (instancetype)initWithResponse:(NSURLResponse*)response data:(NSData *)data{
+    if (self = [super init]) {
+        _response = response;
+        _data     = data;
+    }
+    return self;
+}
+@end
 
 @implementation WMFArticleImageProtocol
 
@@ -55,37 +71,37 @@ static NSString* const WMFArticleImageProtocolHost               = @"upload.wiki
     DDLogVerbose(@"Fetching image %@", self.request.URL);
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:self.request.URL]
-    .thenInBackground(^id(WMFImageDownload* download) {
+    .thenInBackground(^WMFArticleImageProtocolResponseAndData*(WMFImageDownload* download) {
         @strongify(self);
         if(!self){
             return nil;
         }
-        
-        UIImage* image     = download.image;
-        NSString* mimeType = [self.request.URL wmf_mimeTypeForExtension];
-        NSData* data       = [image wmf_dataRepresentationForMimeType:mimeType serializedMimeType:&mimeType];
-        
-        NSURLResponse* response =
-        [[NSURLResponse alloc] initWithURL:self.request.URL
-                                  MIMEType:mimeType
-                     expectedContentLength:data.length
-                          textEncodingName:nil];
-        
-        return (response && data) ? @[response, data]: nil;
+        return [self getResponseAndDataForDownload:download];
     })
-    .then(^(NSArray* responseAndDataArray) {
+    .then(^id(WMFArticleImageProtocolResponseAndData* responseAndData) {
         @strongify(self);
         if(!self){
-            return;
+            return nil;
         }
 
-        if (!responseAndDataArray || (responseAndDataArray.count != 2)) {
-            return;
+        if (!responseAndData.response) {
+            return [[NSError alloc] initWithDomain:WMFArticleImageProtocolResponseAndDataErrorDomain
+                                              code:0
+                                          userInfo:@{
+                                                     NSLocalizedDescriptionKey: @"Response for image not found",
+                                                     NSURLErrorKey: self.request.URL
+                                                     }];
+        }else if (!responseAndData.data) {
+            return [[NSError alloc] initWithDomain:WMFArticleImageProtocolResponseAndDataErrorDomain
+                                              code:1
+                                          userInfo:@{
+                                                     NSLocalizedDescriptionKey: @"Data for image not found",
+                                                     NSURLErrorKey: self.request.URL
+                                                     }];
+        }else{
+            [self respondWithResponseAndData:responseAndData];
         }
-        NSURLResponse* response = responseAndDataArray[0];
-        NSData* data = responseAndDataArray[1];
-        
-        [self respondWithDataFromDownload:data response:response];
+        return nil;
     })
     .catch(^(NSError* err) {
         @strongify(self);
@@ -96,18 +112,36 @@ static NSString* const WMFArticleImageProtocolHost               = @"upload.wiki
     });
 }
 
+- (WMFArticleImageProtocolResponseAndData*)getResponseAndDataForDownload:(WMFImageDownload*)download {
+    UIImage* image     = download.image;
+    NSString* mimeType = [self.request.URL wmf_mimeTypeForExtension];
+    NSData* data       = [image wmf_dataRepresentationForMimeType:mimeType serializedMimeType:&mimeType];
+    
+    NSURLResponse* response =
+    [[NSURLResponse alloc] initWithURL:self.request.URL
+                              MIMEType:mimeType
+                 expectedContentLength:data.length
+                      textEncodingName:nil];
+    
+    return [[WMFArticleImageProtocolResponseAndData alloc] initWithResponse:response data:data];
+}
+
 #pragma mark - Callbacks
 
-- (void)respondWithDataFromDownload:(NSData*)data response:(NSURLResponse*)response{
+- (void)respondWithResponseAndData:(WMFArticleImageProtocolResponseAndData*)responseAndData{
     if(!self){
         return;
     }
+    NSAssert(responseAndData, @"No response and data!");
+    NSAssert(responseAndData.response, @"No response!");
+    NSAssert(responseAndData.data, @"No data!");
+
     // prevent browser from caching images (hopefully?)
     [[self client] URLProtocol:self
-            didReceiveResponse:response
+            didReceiveResponse:responseAndData.response
             cacheStoragePolicy:NSURLCacheStorageNotAllowed];
 
-    [[self client] URLProtocol:self didLoadData:data];
+    [[self client] URLProtocol:self didLoadData:responseAndData.data];
     [[self client] URLProtocolDidFinishLoading:self];
 }
 
