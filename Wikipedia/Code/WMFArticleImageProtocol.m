@@ -23,6 +23,22 @@ static const int WMFArticleImageProtocolLogLevel = DDLogLevelInfo;
 
 NSString* const WMFArticleImageSectionImageRetrievedNotification = @"WMFSectionImageRetrieved";
 static NSString* const WMFArticleImageProtocolHost               = @"upload.wikimedia.org";
+static NSString* const WMFArticleImageProtocolErrorDomain        = @"WMFArticleImageProtocolErrorDomain";
+
+@interface WMFArticleImageProtocolResponseAndData: NSObject
+@property (strong) NSURLResponse* response;
+@property (strong) NSData* data;
+@end
+
+@implementation WMFArticleImageProtocolResponseAndData
+- (instancetype)initWithResponse:(NSURLResponse*)response data:(NSData *)data{
+    if (self = [super init]) {
+        _response = response;
+        _data     = data;
+    }
+    return self;
+}
+@end
 
 @implementation WMFArticleImageProtocol
 
@@ -55,12 +71,37 @@ static NSString* const WMFArticleImageProtocolHost               = @"upload.wiki
     DDLogVerbose(@"Fetching image %@", self.request.URL);
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:self.request.URL]
-    .then(^(WMFImageDownload* download) {
+    .thenInBackground(^WMFArticleImageProtocolResponseAndData*(WMFImageDownload* download) {
         @strongify(self);
         if(!self){
-            return;
+            return nil;
         }
-        [self respondWithDataFromDownload:download];
+        return [self getResponseAndDataForDownload:download];
+    })
+    .then(^id(WMFArticleImageProtocolResponseAndData* responseAndData) {
+        @strongify(self);
+        if(!self){
+            return nil;
+        }
+
+        if (!responseAndData.response) {
+            return [[NSError alloc] initWithDomain:WMFArticleImageProtocolErrorDomain
+                                              code:0
+                                          userInfo:@{
+                                                     NSLocalizedDescriptionKey: @"Response for image not found",
+                                                     NSURLErrorKey: self.request.URL
+                                                     }];
+        }else if (responseAndData.data.length == 0) {
+            return [[NSError alloc] initWithDomain:WMFArticleImageProtocolErrorDomain
+                                              code:1
+                                          userInfo:@{
+                                                     NSLocalizedDescriptionKey: @"Data for image not found or was zero length",
+                                                     NSURLErrorKey: self.request.URL
+                                                     }];
+        }else{
+            [self respondWithResponseAndData:responseAndData];
+        }
+        return nil;
     })
     .catch(^(NSError* err) {
         @strongify(self);
@@ -71,28 +112,37 @@ static NSString* const WMFArticleImageProtocolHost               = @"upload.wiki
     });
 }
 
-#pragma mark - Callbacks
-
-- (void)respondWithDataFromDownload:(WMFImageDownload*)download {
-    if(!self){
-        return;
-    }
+- (WMFArticleImageProtocolResponseAndData*)getResponseAndDataForDownload:(WMFImageDownload*)download {
     UIImage* image     = download.image;
     NSString* mimeType = [self.request.URL wmf_mimeTypeForExtension];
     NSData* data       = [image wmf_dataRepresentationForMimeType:mimeType serializedMimeType:&mimeType];
-    DDLogVerbose(@"Sending image response for %@", self.request.URL);
+    
     NSURLResponse* response =
-        [[NSURLResponse alloc] initWithURL:self.request.URL
-                                  MIMEType:mimeType
-                     expectedContentLength:data.length
-                          textEncodingName:nil];
+    [[NSURLResponse alloc] initWithURL:self.request.URL
+                              MIMEType:mimeType
+                 expectedContentLength:data.length
+                      textEncodingName:nil];
+    
+    return [[WMFArticleImageProtocolResponseAndData alloc] initWithResponse:response data:data];
+}
+
+#pragma mark - Callbacks
+
+- (void)respondWithResponseAndData:(WMFArticleImageProtocolResponseAndData*)responseAndData{
+    if(!self){
+        return;
+    }
+    NSAssert(responseAndData, @"No response and data!");
+    NSAssert(responseAndData.response, @"No response!");
+    NSAssert(responseAndData.data, @"No data!");
+    NSAssert(responseAndData.data.length > 0, @"Data was zero length!");
 
     // prevent browser from caching images (hopefully?)
     [[self client] URLProtocol:self
-            didReceiveResponse:response
+            didReceiveResponse:responseAndData.response
             cacheStoragePolicy:NSURLCacheStorageNotAllowed];
 
-    [[self client] URLProtocol:self didLoadData:data];
+    [[self client] URLProtocol:self didLoadData:responseAndData.data];
     [[self client] URLProtocolDidFinishLoading:self];
 }
 
