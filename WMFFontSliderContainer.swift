@@ -17,7 +17,6 @@ public class WMFFontSliderViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.slider.addTarget(self, action: #selector(WMFFontSliderViewController.fontSliderValueChanged(_:)), forControlEvents: .ValueChanged)
         if let max = self.maximumValue {
             if let current = self.currentValue {
                 self.setValues(0, maximum: max, current: current)
@@ -42,7 +41,7 @@ public class WMFFontSliderViewController: UIViewController {
         self.slider.value = current
     }
     
-    func fontSliderValueChanged(slider: SWStepSlider) {
+    @IBAction func fontSliderValueChanged(slider: SWStepSlider) {
         if let delegate = self.delegate {
             delegate.sliderValueChangedInController(self, value: self.slider.value)
         }

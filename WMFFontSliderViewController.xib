@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFFontSliderViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
-                <outlet property="slider" destination="YZG-9J-e1O" id="X7w-p4-Ian"/>
+                <outlet property="slider" destination="YZG-9J-e1O" id="8gd-FA-yaS"/>
                 <outlet property="view" destination="iN0-l3-epB" id="gpZ-CK-liO"/>
             </connections>
         </placeholder>
@@ -36,6 +36,9 @@
                             <integer key="value" value="2"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="fontSliderValueChanged:" destination="-1" eventType="valueChanged" id="OH2-UZ-ICq"/>
+                    </connections>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T-large" translatesAutoresizingMaskIntoConstraints="NO" id="Ycr-G6-Fi3">
                     <rect key="frame" x="560" y="17" width="12" height="15"/>

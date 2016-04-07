@@ -805,22 +805,22 @@ NS_ASSUME_NONNULL_BEGIN
     NSArray* fontSizes = self.fontSizeMultipliers;
     NSUInteger index   = self.indexOfCurrentFontSize;
 
-    WMFFontSliderViewController* vc = [[WMFFontSliderViewController alloc] init];
+    WMFFontSliderViewController* vc = [[WMFFontSliderViewController alloc] initWithNibName:@"WMFFontSliderViewController" bundle:nil];
     vc.delegate = self;
 
     [vc setValuesWithSteps:fontSizes.count current:index];
 
-    WEPopoverController* popup = [[WEPopoverController alloc] initWithContentViewController:vc];
+    WEPopoverController* popup              = [[WEPopoverController alloc] initWithContentViewController:vc];
     WEPopoverContainerViewProperties* props = [WEPopoverController defaultContainerViewProperties];
-    props.backgroundColor = [UIColor whiteColor];
-    props.maskCornerRadius = 12.0;
-    props.contentMargins = UIEdgeInsetsZero;
-    props.backgroundMargins = UIEdgeInsetsMake(0, 0, 1.0, 0);
-    props.downArrowImage = [UIImage imageNamed:@"popoverArrowDown-white" inBundle:[NSBundle bundleForClass:[WEPopoverController class]] compatibleWithTraitCollection:nil];
+    props.backgroundColor         = [UIColor whiteColor];
+    props.maskCornerRadius        = 12.0;
+    props.contentMargins          = UIEdgeInsetsZero;
+    props.backgroundMargins       = UIEdgeInsetsMake(0, 0, 1.0, 0);
+    props.downArrowImage          = [UIImage imageNamed:@"popoverArrowDown-white" inBundle:[NSBundle bundleForClass:[WEPopoverController class]] compatibleWithTraitCollection:nil];
     popup.containerViewProperties = props;
-    popup.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.2];
-    popup.delegate           = self;
-    popup.popoverContentSize = CGSizeMake(self.view.frame.size.width, vc.view.frame.size.height);
+    popup.backgroundColor         = [UIColor colorWithWhite:0.0 alpha:0.2];
+    popup.delegate                = self;
+    popup.popoverContentSize      = CGSizeMake(self.view.frame.size.width, vc.view.frame.size.height);
     [popup presentPopoverFromBarButtonItem:self.fontSizeToolbarItem permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     self.popover = popup;
 }
