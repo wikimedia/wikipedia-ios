@@ -55,12 +55,37 @@ static NSString* const WMFArticleImageProtocolHost               = @"upload.wiki
     DDLogVerbose(@"Fetching image %@", self.request.URL);
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:self.request.URL]
-    .then(^(WMFImageDownload* download) {
+    .thenInBackground(^id(WMFImageDownload* download) {
+        @strongify(self);
+        if(!self){
+            return nil;
+        }
+        
+        UIImage* image     = download.image;
+        NSString* mimeType = [self.request.URL wmf_mimeTypeForExtension];
+        NSData* data       = [image wmf_dataRepresentationForMimeType:mimeType serializedMimeType:&mimeType];
+        
+        NSURLResponse* response =
+        [[NSURLResponse alloc] initWithURL:self.request.URL
+                                  MIMEType:mimeType
+                     expectedContentLength:data.length
+                          textEncodingName:nil];
+        
+        return (response && data) ? @[response, data]: nil;
+    })
+    .then(^(NSArray* responseAndDataArray) {
         @strongify(self);
         if(!self){
             return;
         }
-        [self respondWithDataFromDownload:download];
+
+        if (!responseAndDataArray || (responseAndDataArray.count != 2)) {
+            return;
+        }
+        NSURLResponse* response = responseAndDataArray[0];
+        NSData* data = responseAndDataArray[1];
+        
+        [self respondWithDataFromDownload:data response:response];
     })
     .catch(^(NSError* err) {
         @strongify(self);
@@ -73,20 +98,10 @@ static NSString* const WMFArticleImageProtocolHost               = @"upload.wiki
 
 #pragma mark - Callbacks
 
-- (void)respondWithDataFromDownload:(WMFImageDownload*)download {
+- (void)respondWithDataFromDownload:(NSData*)data response:(NSURLResponse*)response{
     if(!self){
         return;
     }
-    UIImage* image     = download.image;
-    NSString* mimeType = [self.request.URL wmf_mimeTypeForExtension];
-    NSData* data       = [image wmf_dataRepresentationForMimeType:mimeType serializedMimeType:&mimeType];
-    DDLogVerbose(@"Sending image response for %@", self.request.URL);
-    NSURLResponse* response =
-        [[NSURLResponse alloc] initWithURL:self.request.URL
-                                  MIMEType:mimeType
-                     expectedContentLength:data.length
-                          textEncodingName:nil];
-
     // prevent browser from caching images (hopefully?)
     [[self client] URLProtocol:self
             didReceiveResponse:response
