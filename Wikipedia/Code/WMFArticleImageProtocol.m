@@ -98,6 +98,13 @@ static NSString* const WMFArticleImageProtocolResponseAndDataErrorDomain = @"WMF
                                                      NSLocalizedDescriptionKey: @"Data for image not found",
                                                      NSURLErrorKey: self.request.URL
                                                      }];
+        }else if (responseAndData.data.length == 0) {
+            return [[NSError alloc] initWithDomain:WMFArticleImageProtocolResponseAndDataErrorDomain
+                                              code:2
+                                          userInfo:@{
+                                                     NSLocalizedDescriptionKey: @"Data for image was zero length",
+                                                     NSURLErrorKey: self.request.URL
+                                                     }];
         }else{
             [self respondWithResponseAndData:responseAndData];
         }
@@ -135,6 +142,7 @@ static NSString* const WMFArticleImageProtocolResponseAndDataErrorDomain = @"WMF
     NSAssert(responseAndData, @"No response and data!");
     NSAssert(responseAndData.response, @"No response!");
     NSAssert(responseAndData.data, @"No data!");
+    NSAssert(responseAndData.data.length > 0, @"Data was zero length!");
 
     // prevent browser from caching images (hopefully?)
     [[self client] URLProtocol:self
