@@ -59,6 +59,7 @@
 #import "NSURL+WMFLinkParsing.h"
 #import "NSURL+WMFExtras.h"
 #import "UIToolbar+WMFStyling.h"
+#import <WEPopover/WEPopover-umbrella.h>
 
 @import SafariServices;
 
@@ -76,7 +77,9 @@ NS_ASSUME_NONNULL_BEGIN
  SectionEditorViewControllerDelegate,
  UIViewControllerPreviewingDelegate,
  LanguageSelectionDelegate,
- WMFArticleListTableViewControllerDelegate>
+ WMFArticleListTableViewControllerDelegate,
+ WMFFontSliderViewControllerDelegate,
+ WEPopoverControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
@@ -104,9 +107,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIBarButtonItem* saveToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* languagesToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
+@property (nonatomic, strong) UIBarButtonItem* fontSizeToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
 @property (nonatomic, strong) UIRefreshControl* pullToRefresh;
+
+@property (nonatomic, strong, nullable) WEPopoverController* popover;
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
@@ -333,6 +339,7 @@ NS_ASSUME_NONNULL_BEGIN
         [NSArray arrayWithObjects:
          self.languagesToolbarItem,
          [self flexibleSpaceToolbarItem],
+         self.fontSizeToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:22.f],
          self.shareToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:24.f],
          self.saveToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.0],
          [self flexibleSpaceToolbarItem],
@@ -376,6 +383,19 @@ NS_ASSUME_NONNULL_BEGIN
     return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                                          target:nil
                                                          action:NULL];
+}
+
+- (UIBarButtonItem*)fontSizeToolbarItem {
+    if (!_fontSizeToolbarItem) {
+        @weakify(self);
+        _fontSizeToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"font-size"]
+                                                                   style:UIBarButtonItemStylePlain
+                                                                 handler:^(id sender){
+            @strongify(self);
+            [self showFontSizePopup];
+        }];
+    }
+    return _fontSizeToolbarItem;
 }
 
 - (UIBarButtonItem*)shareToolbarItem {
@@ -611,6 +631,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
+    [self.popover dismissPopoverAnimated:YES];
     [self registerForPreviewingIfAvailable];
 }
 
@@ -752,7 +773,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(UIBarButtonItem*)button {
     NSParameterAssert(button);
-    if(!button){
+    if (!button) {
         //If we get no button, we will crash below on iPad
         //The assert above shoud help, but lets make sure we bail in prod
         return;
@@ -776,6 +797,77 @@ NS_ASSUME_NONNULL_BEGIN
     presenter.barButtonItem = button;
 
     [self presentViewController:vc animated:YES completion:NULL];
+}
+
+#pragma mark - Font Size
+
+- (void)showFontSizePopup {
+    NSArray* fontSizes = self.fontSizeMultipliers;
+    NSUInteger index   = self.indexOfCurrentFontSize;
+
+    WMFFontSliderViewController* vc = [[WMFFontSliderViewController alloc] initWithNibName:@"WMFFontSliderViewController" bundle:nil];
+    vc.delegate = self;
+
+    [vc setValuesWithSteps:fontSizes.count current:index];
+
+    WEPopoverController* popup              = [[WEPopoverController alloc] initWithContentViewController:vc];
+    WEPopoverContainerViewProperties* props = [WEPopoverController defaultContainerViewProperties];
+    props.backgroundColor         = [UIColor whiteColor];
+    props.maskCornerRadius        = 12.0;
+    props.contentMargins          = UIEdgeInsetsZero;
+    props.backgroundMargins       = UIEdgeInsetsMake(0, 0, 1.0, 0);
+    props.downArrowImage          = [UIImage imageNamed:@"popoverArrowDown-white" inBundle:[NSBundle bundleForClass:[WEPopoverController class]] compatibleWithTraitCollection:nil];
+    popup.containerViewProperties = props;
+    popup.backgroundColor         = [UIColor colorWithWhite:0.0 alpha:0.2];
+    popup.delegate                = self;
+    popup.popoverContentSize      = CGSizeMake(self.view.frame.size.width, vc.view.frame.size.height);
+    [popup presentPopoverFromBarButtonItem:self.fontSizeToolbarItem permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    self.popover = popup;
+}
+
+- (void)popoverControllerDidDismissPopover:(WEPopoverController*)popoverController {
+    self.popover = nil;
+}
+
+- (void)sliderValueChangedInController:(WMFFontSliderViewController*)container value:(NSInteger)value {
+    NSArray* fontSizes = self.fontSizeMultipliers;
+
+    if (value > fontSizes.count) {
+        return;
+    }
+
+    [self.webViewController setFontSizeMultiplier:self.fontSizeMultipliers[value]];
+}
+
+- (NSArray<NSNumber*>*)fontSizeMultipliers {
+    return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", 70)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 2", 85)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 3", 100)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 4", 115)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 5", 130)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 6", 145)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 7", 160))
+    ];
+}
+
+- (NSUInteger)indexOfCurrentFontSize {
+    NSNumber* fontSize = [[NSUserDefaults standardUserDefaults] wmf_readingFontSize];
+
+    NSUInteger index = [[self fontSizeMultipliers] indexOfObject:fontSize];
+
+    if (index == NSNotFound) {
+        index = [[[self fontSizeMultipliers] bk_reduce:@(NSIntegerMax) withBlock:^id (NSNumber* current, NSNumber* obj) {
+            NSUInteger currentDistance = current.integerValue;
+            NSUInteger objDistance = abs((int)(obj.integerValue - fontSize.integerValue));
+            if (objDistance < currentDistance) {
+                return obj;
+            } else {
+                return current;
+            }
+        }] integerValue];
+    }
+
+    return index;
 }
 
 #pragma mark - Scroll Position and Fragments
@@ -820,7 +912,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self completeAndHideProgress];
     [self scrollWebViewToRequestedPosition];
     [self.delegate articleControllerDidLoadArticle:self];
-    [self fetchReadMoreIfNeeded];    
+    [self fetchReadMoreIfNeeded];
 }
 
 - (void)webViewController:(WebViewController*)controller didTapEditForSection:(MWKSection*)section {
@@ -858,7 +950,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!self.article.isCached) {
         return;
     }
-    fullscreenGallery = [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article currentImage:nil];
+    fullscreenGallery             = [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article currentImage:nil];
     fullscreenGallery.currentPage = gallery.currentPage;
     // set delegate to ensure the header gallery is updated when the fullscreen gallery is dismissed
     fullscreenGallery.delegate = self;

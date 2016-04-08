@@ -46,7 +46,7 @@ PODS:
   - Mantle/extobjc (2.0.6)
   - Masonry (0.6.2)
   - MGSwipeTableCell (1.5.3)
-  - Nimble (HEAD based on 3.2.0)
+  - Nimble (HEAD based on 4.0.0)
   - Nocilla (0.10.0)
   - NSDate-Extensions (0.0.1)
   - OAStackView (0.2.0):
@@ -64,19 +64,19 @@ PODS:
   - PiwikTracker (HEAD based on 3.3.0):
     - PiwikTracker/Core (= HEAD based on 3.3.0)
   - PiwikTracker/Core (HEAD based on 3.3.0)
-  - PromiseKit (HEAD based on 3.1.0):
-    - PromiseKit/Foundation (= HEAD based on 3.1.0)
-    - PromiseKit/QuartzCore (= HEAD based on 3.1.0)
-    - PromiseKit/UIKit (= HEAD based on 3.1.0)
-  - PromiseKit/CorePromise (HEAD based on 3.1.0)
-  - PromiseKit/Foundation (HEAD based on 3.1.0):
+  - PromiseKit (HEAD based on 3.1.1):
+    - PromiseKit/Foundation (= HEAD based on 3.1.1)
+    - PromiseKit/QuartzCore (= HEAD based on 3.1.1)
+    - PromiseKit/UIKit (= HEAD based on 3.1.1)
+  - PromiseKit/CorePromise (HEAD based on 3.1.1)
+  - PromiseKit/Foundation (HEAD based on 3.1.1):
     - OMGHTTPURLRQ (~> 3.1.0)
     - PromiseKit/CorePromise
-  - PromiseKit/QuartzCore (HEAD based on 3.1.0):
+  - PromiseKit/QuartzCore (HEAD based on 3.1.1):
     - PromiseKit/CorePromise
-  - PromiseKit/SystemConfiguration (HEAD based on 3.1.0):
+  - PromiseKit/SystemConfiguration (HEAD based on 3.1.1):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (HEAD based on 3.1.0):
+  - PromiseKit/UIKit (HEAD based on 3.1.1):
     - PromiseKit/CorePromise
   - Quick (0.9.1)
   - SDWebImage (3.7.2):
@@ -84,16 +84,18 @@ PODS:
   - SDWebImage/Core (3.7.2)
   - SSDataSources (0.8.5)
   - SVWebViewController (1.0)
+  - SWStepSlider (1.0.0)
   - TSMessages (0.9.13):
     - HexColors (~> 2.3.0)
     - Masonry (~> 0.6)
   - TUSafariActivity (1.0.4)
   - Tweaks (HEAD based on 2.0.0)
   - VTAcknowledgementsViewController (0.17)
+  - WEPopover (2.3.4)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0.0)
-  - AnimatedGIFImageSerialization
+  - AnimatedGIFImageSerialization (from `https://github.com/wikimedia/AnimatedGIFImageSerialization.git`)
   - BlocksKit/Core (~> 2.2.0)
   - BlocksKit/UIKit (~> 2.2.0)
   - CocoaLumberjack/Swift (HEAD)
@@ -118,12 +120,16 @@ DEPENDENCIES:
   - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `bb49df83e72f2231a191e9477a85f0effe13430a`)
   - SSDataSources (~> 0.8.0)
   - SVWebViewController (~> 1.0)
+  - SWStepSlider (from `https://github.com/wikimedia/SWStepSlider.git`)
   - TSMessages (from `https://github.com/wikimedia/TSMessages.git`)
   - TUSafariActivity
   - Tweaks (HEAD)
   - VTAcknowledgementsViewController
+  - WEPopover
 
 EXTERNAL SOURCES:
+  AnimatedGIFImageSerialization:
+    :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git
   MGSwipeTableCell:
     :git: git@github.com:wikimedia/MGSwipeTableCell.git
   NSDate-Extensions:
@@ -133,10 +139,15 @@ EXTERNAL SOURCES:
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
+  SWStepSlider:
+    :git: https://github.com/wikimedia/SWStepSlider.git
   TSMessages:
     :git: https://github.com/wikimedia/TSMessages.git
 
 CHECKOUT OPTIONS:
+  AnimatedGIFImageSerialization:
+    :commit: f0fcaa7d474672ecfdd8b7fd26ca2fca31940e0b
+    :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git
   MGSwipeTableCell:
     :commit: 8ca85004bd7fcfe09a3b7938fb8c079a88481d45
     :git: git@github.com:wikimedia/MGSwipeTableCell.git
@@ -149,6 +160,9 @@ CHECKOUT OPTIONS:
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
+  SWStepSlider:
+    :commit: 38cbf49073c0cf661514a9b48cb6db6bf0d73848
+    :git: https://github.com/wikimedia/SWStepSlider.git
   TSMessages:
     :commit: ec0aa9be29ab79083e4957ac500f3af2f622605d
     :git: https://github.com/wikimedia/TSMessages.git
@@ -167,7 +181,7 @@ SPEC CHECKSUMS:
   Mantle: 299966b00759634931699f69cb6a30b9239b944d
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   MGSwipeTableCell: 5ae3b9a15efda26b201adc8676b24040febe6ff6
-  Nimble: 703854335d181df169bbca9c97117b5cf8c47c1d
+  Nimble: 72bcc3e2f02242e6bfaaf8d9412ca7bfe3d8b417
   Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
   NSDate-Extensions: 5bd64f8815dc6b3c9d08e1f620229567e2b4771c
   OAStackView: 323757cd34a1bc5fcc9ed3c903b51dbfe192f355
@@ -175,14 +189,16 @@ SPEC CHECKSUMS:
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
   OMGHTTPURLRQ: 633f98ee745aeda02345935a52eec1784cddb589
   PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
-  PromiseKit: 7ed2a3fc5217695305a55a8c47cb3a17ff5fde0d
+  PromiseKit: 4e8127c22a9b29d1b44958ab2ec762ea6115cbfb
   Quick: a5221fc21788b6aeda934805e68b061839bc3165
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
   SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
+  SWStepSlider: a714a255526dbba7c6290d67ea7226ba8724b56c
   TSMessages: 39ca10c7bfdaa42d574af0f7946a04699145051e
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
   VTAcknowledgementsViewController: 6056f5f5e5ed995bbf0581bed6ddd29355ca9a80
+  WEPopover: 777f2efde6abb24903f6e81d5c10038b5faa1f8d
 
 COCOAPODS: 0.39.0

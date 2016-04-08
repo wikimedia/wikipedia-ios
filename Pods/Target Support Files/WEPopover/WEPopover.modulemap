@@ -1,0 +1,6 @@
+framework module WEPopover {
+  umbrella header "WEPopover-umbrella.h"
+
+  export *
+  module * { export * }
+}

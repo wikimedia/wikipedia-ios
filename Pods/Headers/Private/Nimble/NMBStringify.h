@@ -1,1 +1,1 @@
-../../../Nimble/Sources/Nimble/objc/NMBStringify.h
+../../../Nimble/Sources/Nimble/Adapters/ObjectiveC/NMBStringify.h
