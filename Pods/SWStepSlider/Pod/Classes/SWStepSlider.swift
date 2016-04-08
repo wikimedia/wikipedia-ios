@@ -8,7 +8,7 @@
 
 import UIKit
 
-private class SWStepSliderAccessibilityElement: UIAccessibilityElement {
+public class SWStepSliderAccessibilityElement: UIAccessibilityElement {
     var minimumValue: Int = 0
     var maximumValue: Int = 4
     var value: Int = 2
@@ -20,16 +20,16 @@ private class SWStepSliderAccessibilityElement: UIAccessibilityElement {
         super.init(accessibilityContainer: container)
     }
 
-    override private func accessibilityActivate() -> Bool {
+    override public func accessibilityActivate() -> Bool {
         return true
     }
     
-    override func accessibilityIncrement() {
+    override public func accessibilityIncrement() {
         let new = value + 1
         self.slider?.setValueAndUpdateView(new)
     }
     
-    override func accessibilityDecrement() {
+    override public func accessibilityDecrement() {
         let new = value - 1
         self.slider?.setValueAndUpdateView(new)
     }

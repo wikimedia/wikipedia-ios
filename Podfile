@@ -66,7 +66,7 @@ target 'WikipediaUnitTests', :exclusive => true do
   pod 'Nocilla'
   pod 'FBSnapshotTestCase', :head
   pod 'Quick', '~> 0.9.0'
-  pod 'Nimble', :head
+  pod 'Nimble', '~> 4.0.0'
 end
 
 

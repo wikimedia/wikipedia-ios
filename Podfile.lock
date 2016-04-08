@@ -46,7 +46,7 @@ PODS:
   - Mantle/extobjc (2.0.6)
   - Masonry (0.6.2)
   - MGSwipeTableCell (1.5.3)
-  - Nimble (HEAD based on 4.0.0)
+  - Nimble (4.0.0)
   - Nocilla (0.10.0)
   - NSDate-Extensions (0.0.1)
   - OAStackView (0.2.0):
@@ -106,7 +106,7 @@ DEPENDENCIES:
   - Mantle (~> 2.0.0)
   - Masonry (= 0.6.2)
   - MGSwipeTableCell (from `git@github.com:wikimedia/MGSwipeTableCell.git`)
-  - Nimble (HEAD)
+  - Nimble (~> 4.0.0)
   - Nocilla
   - NSDate-Extensions (from `git@github.com:wikimedia/NSDate-Extensions.git`)
   - OAStackView (from `git@github.com:wikimedia/OAStackView.git`)
@@ -159,7 +159,7 @@ CHECKOUT OPTIONS:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
   SWStepSlider:
-    :commit: b66c73ab6186054ff7262b35789f2ab6d5b13a44
+    :commit: b35203961dfe876a291e1dae76b5bf290928fde7
     :git: https://github.com/wikimedia/SWStepSlider.git
   TSMessages:
     :commit: ec0aa9be29ab79083e4957ac500f3af2f622605d
