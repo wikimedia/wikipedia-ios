@@ -47,6 +47,8 @@ pod 'OAStackView', :git => 'git@github.com:wikimedia/OAStackView.git'
 pod 'MGSwipeTableCell', :git => 'git@github.com:wikimedia/MGSwipeTableCell.git'
 pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git'
 pod 'SVWebViewController', '~> 1.0'
+pod "WEPopover"
+pod "SWStepSlider", :git => 'https://github.com/wikimedia/SWStepSlider.git'
 
 # Activities
 pod 'TUSafariActivity'

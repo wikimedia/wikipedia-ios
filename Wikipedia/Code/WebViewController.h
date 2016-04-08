@@ -69,6 +69,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURL*)urlForHTMLElement:(JSValue*)element;
 - (CGRect)rectForHTMLElement:(JSValue*)element;
 
+- (void)setFontSizeMultiplier:(NSNumber*)fontSize;
+
+
 /**
  *  Check if web content is visible.
  *

@@ -44,6 +44,8 @@
 		0E78419C1C7CF5CE004F9D36 /* NSDate+WMFRelativeDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E78419B1C7CF5CE004F9D36 /* NSDate+WMFRelativeDate.m */; };
 		0E7FC4631C517B00000E878B /* WMFBlacklistTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7FC4621C517B00000E878B /* WMFBlacklistTests.m */; };
 		0E8DC0951C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8DC0941C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m */; };
+		0E9383A11CB5C15500A3DC8D /* WMFFontSliderContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9383A01CB5C15500A3DC8D /* WMFFontSliderContainer.swift */; };
+		0E9383A31CB5C16500A3DC8D /* WMFFontSliderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9383A21CB5C16500A3DC8D /* WMFFontSliderViewController.xib */; };
 		0EA4D8941C4867BF0043622B /* UITableView+WMFLockedUpdates.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA4D8921C4867BF0043622B /* UITableView+WMFLockedUpdates.m */; };
 		0EBCA7431C162ECF004F1FD9 /* MWKTitleLanguageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */; };
 		0EBCA7461C162EE9004F1FD9 /* MWKLanguageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7451C162EE9004F1FD9 /* MWKLanguageFilter.m */; };
@@ -736,6 +738,8 @@
 		0E7FC4621C517B00000E878B /* WMFBlacklistTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBlacklistTests.m; path = WikipediaUnitTests/Code/WMFBlacklistTests.m; sourceTree = SOURCE_ROOT; };
 		0E8DC0931C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDailyStatsLoggingFunnel.h; path = Wikipedia/Code/WMFDailyStatsLoggingFunnel.h; sourceTree = SOURCE_ROOT; };
 		0E8DC0941C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFDailyStatsLoggingFunnel.m; path = Wikipedia/Code/WMFDailyStatsLoggingFunnel.m; sourceTree = SOURCE_ROOT; };
+		0E9383A01CB5C15500A3DC8D /* WMFFontSliderContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFFontSliderContainer.swift; sourceTree = SOURCE_ROOT; };
+		0E9383A21CB5C16500A3DC8D /* WMFFontSliderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFFontSliderViewController.xib; sourceTree = SOURCE_ROOT; };
 		0EA4D8921C4867BF0043622B /* UITableView+WMFLockedUpdates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+WMFLockedUpdates.m"; sourceTree = "<group>"; };
 		0EA4D8931C4867BF0043622B /* UITableView+WMFLockedUpdates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+WMFLockedUpdates.h"; sourceTree = "<group>"; };
 		0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKTitleLanguageController.m; path = Wikipedia/Code/MWKTitleLanguageController.m; sourceTree = SOURCE_ROOT; };
@@ -749,6 +753,7 @@
 		0EC0447A1C796FEF0033D773 /* WMFImageTextActivitySource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFImageTextActivitySource.swift; path = Wikipedia/Code/WMFImageTextActivitySource.swift; sourceTree = SOURCE_ROOT; };
 		0EC0447E1C797DC20033D773 /* WMFImageURLActivitySource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFImageURLActivitySource.swift; path = Wikipedia/Code/WMFImageURLActivitySource.swift; sourceTree = SOURCE_ROOT; };
 		0ED2E9F91CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIVIewController+WMFCommonRotationSupport.swift"; path = "Wikipedia/Code/UIVIewController+WMFCommonRotationSupport.swift"; sourceTree = SOURCE_ROOT; };
+		0ED79A3B1CB5B507005D9AF5 /* Wikipedia-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wikipedia-Info.plist"; sourceTree = "<group>"; };
 		0EF5BB651C110BFC00DE75E1 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Global.h; path = Wikipedia/Code/Global.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBlockDefinitions.h; path = Wikipedia/Code/WMFBlockDefinitions.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDirectoryPaths.h; path = Wikipedia/Code/WMFDirectoryPaths.h; sourceTree = SOURCE_ROOT; };
@@ -1959,7 +1964,6 @@
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D499143C181D51DE00E6073C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		D4991440181D51DE00E6073C /* Wikipedia-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Wikipedia-Info.plist"; sourceTree = "<group>"; };
 		D4991446181D51DE00E6073C /* Wikipedia-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wikipedia-Prefix.pch"; sourceTree = "<group>"; };
 		D4991453181D51DE00E6073C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = wikipedia/Images.xcassets; sourceTree = "<group>"; };
 		D499145A181D51DF00E6073C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -2707,6 +2711,7 @@
 				B0E803681C0CD9300065EBC0 /* WMFArticleViewController_Private.h */,
 				B0E803651C0CD91D0065EBC0 /* WMFArticleViewController.h */,
 				B0E803661C0CD91D0065EBC0 /* WMFArticleViewController.m */,
+				0E9383A41CB6AAAB00A3DC8D /* Font Popup */,
 			);
 			name = "Article View Controller";
 			sourceTree = "<group>";
@@ -2738,6 +2743,15 @@
 			name = "Featured Article";
 			path = "Wikipedia/Code/Featured Article";
 			sourceTree = SOURCE_ROOT;
+		};
+		0E9383A41CB6AAAB00A3DC8D /* Font Popup */ = {
+			isa = PBXGroup;
+			children = (
+				0E9383A01CB5C15500A3DC8D /* WMFFontSliderContainer.swift */,
+				0E9383A21CB5C16500A3DC8D /* WMFFontSliderViewController.xib */,
+			);
+			name = "Font Popup";
+			sourceTree = "<group>";
 		};
 		0E9DFEAB1BDEB82E0032606E /* Networking */ = {
 			isa = PBXGroup;
@@ -3137,6 +3151,7 @@
 				0E5DC8611C6D716100C39A6F /* NSUserActivity+WMFExtensions.h */,
 				0E5DC8621C6D716100C39A6F /* NSUserActivity+WMFExtensions.m */,
 				0E69CD5A1C8773410095918B /* Launch Screen.storyboard */,
+				BCA15AE01C0DFCC900D0A3EA /* Supporting Files */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -3166,7 +3181,6 @@
 				0EFB48091B3BB01300381F99 /* Style */,
 				BC45D54E1C31EAD6007C72F3 /* UI Components */,
 				BC45D58B1C32FC15007C72F3 /* Utilities */,
-				7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -3698,6 +3712,7 @@
 				B0E804891C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.h */,
 				B0E8048A1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m */,
 				B0E805BD1C0CE4D40065EBC0 /* WMFBackgroundTaskManager.swift */,
+				7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -4303,14 +4318,15 @@
 		BCA15AE01C0DFCC900D0A3EA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0ED79A3B1CB5B507005D9AF5 /* Wikipedia-Info.plist */,
 				0E10C4FD1C81046300CEB5C2 /* Wikipedia Debug.entitlements */,
 				C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */,
 				B0E808281C0D07EA0065EBC0 /* Wikipedia-Bridging-Header.h */,
-				D4991440181D51DE00E6073C /* Wikipedia-Info.plist */,
 				D4991446181D51DE00E6073C /* Wikipedia-Prefix.pch */,
 				BC2F420B1BE9385C0033E185 /* Wikipedia.entitlements */,
 			);
 			name = "Supporting Files";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		BCA15AE11C0DFD1600D0A3EA /* Supporting Files */ = {
@@ -5017,7 +5033,6 @@
 				BC2F420D1BEA60350033E185 /* Localizations */,
 				BCF012321AD2FA38008D3675 /* assets */,
 				0442F57C1900718600F55DF9 /* Fonts */,
-				BCA15AE01C0DFCC900D0A3EA /* Supporting Files */,
 			);
 			path = Wikipedia;
 			sourceTree = "<group>";
@@ -5294,6 +5309,7 @@
 				0E26B0721C0F4F550004D687 /* WMFAppViewController.storyboard in Resources */,
 				B0E806D11C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib in Resources */,
 				0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */,
+				0E9383A31CB5C16500A3DC8D /* WMFFontSliderViewController.xib in Resources */,
 				B0E803BE1C0CDC360065EBC0 /* WMFArticleListTableViewCell.xib in Resources */,
 				B0E803771C0CD9C10065EBC0 /* WMFTableOfContentsCell.xib in Resources */,
 				B0E804151C0CDE480065EBC0 /* SectionEditorViewController.storyboard in Resources */,
@@ -5814,6 +5830,7 @@
 				0EA4D8941C4867BF0043622B /* UITableView+WMFLockedUpdates.m in Sources */,
 				B0E8076B1C0CEE3A0065EBC0 /* ImageData.m in Sources */,
 				0E26B0821C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m in Sources */,
+				0E9383A11CB5C15500A3DC8D /* WMFFontSliderContainer.swift in Sources */,
 				B0E805C71C0CE5250065EBC0 /* SDImageCache+WMFPersistentCache.m in Sources */,
 				B0E8066B1C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m in Sources */,
 				B0F84EED1C8E444400801560 /* WelcomeAnimationView.swift in Sources */,
@@ -6310,6 +6327,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 429C152FC8B093B59D18CAD3 /* Pods-WikipediaUnitTests.beta.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -6425,6 +6443,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 59CB2F41D52F438BED356EF4 /* Pods-WikipediaUnitTests.adhoc.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -6457,6 +6476,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC96DA4AAD521D734849D20F /* Pods-WikipediaUnitTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -6490,6 +6510,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_MODULES = YES;
