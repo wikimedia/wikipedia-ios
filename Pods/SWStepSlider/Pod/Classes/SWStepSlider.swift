@@ -8,14 +8,68 @@
 
 import UIKit
 
+private class SWStepSliderAccessibilityElement: UIAccessibilityElement {
+    var minimumValue: Int = 0
+    var maximumValue: Int = 4
+    var value: Int = 2
+    
+    weak var slider: SWStepSlider?
+    
+    public init(accessibilityContainer container: AnyObject, slider: SWStepSlider) {
+        self.slider = slider
+        super.init(accessibilityContainer: container)
+    }
+
+    override private func accessibilityActivate() -> Bool {
+        return true
+    }
+    
+    override func accessibilityIncrement() {
+        let new = value + 1
+        self.slider?.setValueAndUpdateView(new)
+    }
+    
+    override func accessibilityDecrement() {
+        let new = value - 1
+        self.slider?.setValueAndUpdateView(new)
+    }
+}
+
+
+
 @IBDesignable
 public class SWStepSlider: UIControl {
-    @IBInspectable public var minimumValue: Int = 0
-    @IBInspectable public var maximumValue: Int = 4
+    @IBInspectable public var minimumValue: Int = 0 {
+        didSet {
+            if self.minimumValue != oldValue {
+                if let e = self.thumbAccessabilityElement {
+                    e.minimumValue = self.minimumValue
+                    self.accessibilityElements = [e]
+                }
+            }
+        }
+    }
+    @IBInspectable public var maximumValue: Int = 4 {
+        didSet {
+            if self.maximumValue != oldValue {
+                if let e = self.thumbAccessabilityElement {
+                    e.minimumValue = self.maximumValue
+                    self.accessibilityElements = [e]
+                }
+            }
+        }
+    }
     @IBInspectable public var value: Int = 2 {
         didSet {
-            if self.value != oldValue && self.continuous {
-                self.sendActionsForControlEvents(.ValueChanged)
+            if self.value != oldValue {
+                if let e = self.thumbAccessabilityElement {
+                    e.accessibilityValue = String(self.value)
+                    e.value = self.value
+                    self.accessibilityElements = [e]
+                }
+                if self.continuous {
+                    self.sendActionsForControlEvents(.ValueChanged)
+                }
             }
         }
     }
@@ -34,7 +88,9 @@ public class SWStepSlider: UIControl {
     var thumbFillColor = UIColor.whiteColor()
     var thumbStrokeColor = UIColor(red: 222.0/255.0, green: 222.0/255.0, blue: 222.0/255.0, alpha: 1)
     var thumbDimension: CGFloat = 28
-    
+
+    private var thumbAccessabilityElement: SWStepSliderAccessibilityElement?
+
     var stepWidth: CGFloat {
         return self.trackWidth / CGFloat(self.maximumValue)
     }
@@ -53,13 +109,11 @@ public class SWStepSlider: UIControl {
     
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
-        
         self.commonInit()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         self.commonInit()
     }
     
@@ -82,6 +136,14 @@ public class SWStepSlider: UIControl {
         self.thumbLayer.contentsScale = UIScreen.mainScreen().scale
         
         self.layer.addSublayer(self.thumbLayer)
+        
+        self.thumbAccessabilityElement = SWStepSliderAccessibilityElement(accessibilityContainer: self, slider: self)
+        if let e = self.thumbAccessabilityElement {
+            e.accessibilityLabel = "Text Slider"
+            e.accessibilityHint = "Increment of decrement to adjust the text size"
+            e.accessibilityTraits = UIAccessibilityTraitAdjustable
+            self.accessibilityElements = [e]
+        }
     }
     
     public override func layoutSubviews() {
@@ -97,6 +159,10 @@ public class SWStepSlider: UIControl {
         let center = CGPoint(x: self.trackOffset + CGFloat(self.value) * self.stepWidth, y: self.bounds.midY)
         let thumbRect = CGRect(x: center.x - self.thumbDimension / 2, y: center.y - self.thumbDimension / 2, width: self.thumbDimension, height: self.thumbDimension)
         self.thumbLayer.frame = thumbRect
+        if let e = self.thumbAccessabilityElement {
+            e.accessibilityFrame = self.convertRect(thumbRect, toView: nil)
+            self.accessibilityElements = [e]
+        }
     }
     
     public override func drawRect(rect: CGRect) {
@@ -124,6 +190,17 @@ public class SWStepSlider: UIControl {
     
     public override func intrinsicContentSize() -> CGSize {
         return CGSize(width: self.thumbDimension * CGFloat(self.numberOfSteps), height: self.thumbDimension)
+    }
+    
+    
+    public func setValueAndUpdateView(value: Int) {
+        self.value = self.clipValue(value)
+
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        // Update UI without animation
+        self.setNeedsLayout()
+        CATransaction.commit()
     }
     
     // MARK: - Touch
@@ -191,4 +268,28 @@ public class SWStepSlider: UIControl {
     func clipValue(value: Int) -> Int {
         return min(max(value, self.minimumValue), self.maximumValue)
     }
+    
+    // MARK: - Accessibility
+    override public var isAccessibilityElement: Bool {
+        get {
+            return false //return NO to be a container
+        }
+        set {
+            super.isAccessibilityElement = newValue
+        }
+    }
+    
+    override public func accessibilityElementCount() -> Int {
+        return 1
+    }
+    
+    override public func accessibilityElementAtIndex(index: Int) -> AnyObject? {
+        return self.thumbAccessabilityElement
+    }
+    
+    override public func indexOfAccessibilityElement(element: AnyObject) -> Int {
+        return 0
+    }
+    
+    
 }

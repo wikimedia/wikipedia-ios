@@ -91,7 +91,6 @@ PODS:
   - TUSafariActivity (1.0.4)
   - Tweaks (HEAD based on 2.0.0)
   - VTAcknowledgementsViewController (0.17)
-  - WEPopover (2.3.4)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0.0)
@@ -125,7 +124,6 @@ DEPENDENCIES:
   - TUSafariActivity
   - Tweaks (HEAD)
   - VTAcknowledgementsViewController
-  - WEPopover
 
 EXTERNAL SOURCES:
   AnimatedGIFImageSerialization:
@@ -161,7 +159,7 @@ CHECKOUT OPTIONS:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
   SWStepSlider:
-    :commit: 38cbf49073c0cf661514a9b48cb6db6bf0d73848
+    :commit: b66c73ab6186054ff7262b35789f2ab6d5b13a44
     :git: https://github.com/wikimedia/SWStepSlider.git
   TSMessages:
     :commit: ec0aa9be29ab79083e4957ac500f3af2f622605d
@@ -199,6 +197,5 @@ SPEC CHECKSUMS:
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
   VTAcknowledgementsViewController: 6056f5f5e5ed995bbf0581bed6ddd29355ca9a80
-  WEPopover: 777f2efde6abb24903f6e81d5c10038b5faa1f8d
 
 COCOAPODS: 0.39.0
