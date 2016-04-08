@@ -900,6 +900,15 @@ NSString* const WMFCCBySALicenseURL =
     [self presentViewController:nc animated:YES completion:nil];
 }
 
+- (void)setFontSizeMultiplier:(NSNumber*)fontSize {
+    if (fontSize == nil) {
+        fontSize = @(100);
+    }
+    [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.querySelector('body').style['-webkit-text-size-adjust'] = '%ld%%';", fontSize.integerValue]];
+    [[NSUserDefaults standardUserDefaults] wmf_setReadingFontSize:fontSize];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 #pragma mark - Previewing
 
 - (JSValue*)htmlElementAtLocation:(CGPoint)location {
