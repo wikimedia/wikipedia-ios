@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T-small" translatesAutoresizingMaskIntoConstraints="NO" id="vkB-ph-elW">
-                    <rect key="frame" x="28" y="17" width="12" height="15"/>
+                    <rect key="frame" x="27" y="17" width="12" height="15"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZG-9J-e1O" customClass="SWStepSlider" customModule="SWStepSlider">
                     <rect key="frame" x="20" y="32" width="360" height="44"/>
@@ -41,7 +41,7 @@
                     </connections>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T-large" translatesAutoresizingMaskIntoConstraints="NO" id="Ycr-G6-Fi3">
-                    <rect key="frame" x="360" y="17" width="12" height="15"/>
+                    <rect key="frame" x="361" y="17" width="12" height="15"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -54,9 +54,9 @@
                 <constraint firstAttribute="trailing" secondItem="Ycr-G6-Fi3" secondAttribute="trailing" constant="22" id="JrM-1G-B4R"/>
                 <constraint firstItem="YZG-9J-e1O" firstAttribute="top" secondItem="vkB-ph-elW" secondAttribute="bottom" id="Uc7-ez-KGR"/>
                 <constraint firstAttribute="bottom" secondItem="YZG-9J-e1O" secondAttribute="bottom" constant="2" id="aFC-jg-Wpy"/>
-                <constraint firstItem="YZG-9J-e1O" firstAttribute="leading" secondItem="vkB-ph-elW" secondAttribute="leading" constant="-8" id="ebZ-vg-kWK"/>
+                <constraint firstItem="YZG-9J-e1O" firstAttribute="leading" secondItem="vkB-ph-elW" secondAttribute="leading" constant="-7" id="ebZ-vg-kWK"/>
                 <constraint firstAttribute="trailing" secondItem="YZG-9J-e1O" secondAttribute="trailing" constant="20" id="lfN-zC-sT3"/>
-                <constraint firstItem="Ycr-G6-Fi3" firstAttribute="trailing" secondItem="YZG-9J-e1O" secondAttribute="trailing" constant="-8" id="x8H-8H-Ush"/>
+                <constraint firstItem="Ycr-G6-Fi3" firstAttribute="trailing" secondItem="YZG-9J-e1O" secondAttribute="trailing" constant="-7" id="x8H-8H-Ush"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

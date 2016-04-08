@@ -295,6 +295,10 @@ NS_ASSUME_NONNULL_BEGIN
     return self.article != nil;
 }
 
+- (BOOL)canAdjustText {
+    return self.article != nil;
+}
+
 - (BOOL)hasLanguages {
     return self.article.hasMultipleLanguages;
 }
@@ -350,6 +354,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateToolbarItemEnabledState {
+    self.fontSizeToolbarItem.enabled        = [self canAdjustText];
     self.shareToolbarItem.enabled           = [self canShare];
     self.languagesToolbarItem.enabled       = [self hasLanguages];
     self.tableOfContentsToolbarItem.enabled = [self hasTableOfContents];
