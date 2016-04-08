@@ -59,7 +59,6 @@
 #import "NSURL+WMFLinkParsing.h"
 #import "NSURL+WMFExtras.h"
 #import "UIToolbar+WMFStyling.h"
-#import <WEPopover/WEPopover-umbrella.h>
 
 @import SafariServices;
 
@@ -79,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
  LanguageSelectionDelegate,
  WMFArticleListTableViewControllerDelegate,
  WMFFontSliderViewControllerDelegate,
- WEPopoverControllerDelegate>
+ UIPopoverPresentationControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
@@ -111,8 +110,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
 @property (nonatomic, strong) UIRefreshControl* pullToRefresh;
-
-@property (nonatomic, strong, nullable) WEPopoverController* popover;
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
@@ -298,6 +295,10 @@ NS_ASSUME_NONNULL_BEGIN
     return self.article != nil;
 }
 
+- (BOOL)canAdjustText {
+    return self.article != nil;
+}
+
 - (BOOL)hasLanguages {
     return self.article.hasMultipleLanguages;
 }
@@ -353,6 +354,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateToolbarItemEnabledState {
+    self.fontSizeToolbarItem.enabled        = [self canAdjustText];
     self.shareToolbarItem.enabled           = [self canShare];
     self.languagesToolbarItem.enabled       = [self hasLanguages];
     self.tableOfContentsToolbarItem.enabled = [self hasTableOfContents];
@@ -631,7 +633,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    [self.popover dismissPopoverAnimated:YES];
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
     [self registerForPreviewingIfAvailable];
 }
 
@@ -806,27 +808,23 @@ NS_ASSUME_NONNULL_BEGIN
     NSUInteger index   = self.indexOfCurrentFontSize;
 
     WMFFontSliderViewController* vc = [[WMFFontSliderViewController alloc] initWithNibName:@"WMFFontSliderViewController" bundle:nil];
-    vc.delegate = self;
+    vc.preferredContentSize   = vc.view.frame.size;
+    vc.modalPresentationStyle = UIModalPresentationPopover;
+    vc.delegate               = self;
 
     [vc setValuesWithSteps:fontSizes.count current:index];
 
-    WEPopoverController* popup              = [[WEPopoverController alloc] initWithContentViewController:vc];
-    WEPopoverContainerViewProperties* props = [WEPopoverController defaultContainerViewProperties];
-    props.backgroundColor         = [UIColor whiteColor];
-    props.maskCornerRadius        = 12.0;
-    props.contentMargins          = UIEdgeInsetsZero;
-    props.backgroundMargins       = UIEdgeInsetsMake(0, 0, 1.0, 0);
-    props.downArrowImage          = [UIImage imageNamed:@"popoverArrowDown-white" inBundle:[NSBundle bundleForClass:[WEPopoverController class]] compatibleWithTraitCollection:nil];
-    popup.containerViewProperties = props;
-    popup.backgroundColor         = [UIColor colorWithWhite:0.0 alpha:0.2];
-    popup.delegate                = self;
-    popup.popoverContentSize      = CGSizeMake(self.view.frame.size.width, vc.view.frame.size.height);
-    [popup presentPopoverFromBarButtonItem:self.fontSizeToolbarItem permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-    self.popover = popup;
+    UIPopoverPresentationController* presenter = [vc popoverPresentationController];
+    presenter.delegate                 = self;
+    presenter.backgroundColor          = vc.view.backgroundColor;
+    presenter.barButtonItem            = self.fontSizeToolbarItem;
+    presenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
+
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
-- (void)popoverControllerDidDismissPopover:(WEPopoverController*)popoverController {
-    self.popover = nil;
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController*)controller {
+    return UIModalPresentationNone;
 }
 
 - (void)sliderValueChangedInController:(WMFFontSliderViewController*)container value:(NSInteger)value {
