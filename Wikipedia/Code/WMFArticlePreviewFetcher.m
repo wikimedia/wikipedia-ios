@@ -12,6 +12,7 @@
 #import "WMFNumberOfExtractCharacters.h"
 #import "NSDictionary+WMFCommonParams.h"
 #import "WMFNetworkUtilities.h"
+#import "WMFBaseRequestSerializer.h"
 
 //Models
 #import "MWKSearchResult.h"
@@ -30,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFArticlePreviewRequestSerializer : AFHTTPRequestSerializer
+@interface WMFArticlePreviewRequestSerializer : WMFBaseRequestSerializer
 
 @end
 

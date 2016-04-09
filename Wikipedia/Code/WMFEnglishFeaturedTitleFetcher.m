@@ -18,17 +18,17 @@
 #import "MWKTitle.h"
 #import "MWKSearchResult.h"
 #import "NSDictionary+WMFCommonParams.h"
-
+#import "WMFBaseRequestSerializer.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFEnglishFeaturedTitleRequestSerializer : AFHTTPRequestSerializer
+@interface WMFEnglishFeaturedTitleRequestSerializer : WMFBaseRequestSerializer
 @end
 
 @interface WMFEnglishFeaturedTitleResponseSerializer : WMFApiJsonResponseSerializer
 @end
 
-@interface WMFTitlePreviewRequestSerializer : AFHTTPRequestSerializer
+@interface WMFTitlePreviewRequestSerializer : WMFBaseRequestSerializer
 @end
 
 @interface WMFEnglishFeaturedTitleFetcher ()
