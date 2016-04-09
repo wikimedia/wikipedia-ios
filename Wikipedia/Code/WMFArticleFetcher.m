@@ -169,6 +169,8 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     if (self) {
         self.operationManager.requestSerializer  = [WMFArticleRequestSerializer serializer];
         self.operationManager.responseSerializer = [WMFArticleResponseSerializer serializer];
+        [self.operationManager wmf_applyAppRequestHeaders];
+        
         self.dataStore                           = dataStore;
         self.revisionFetcher                     = [[WMFArticleRevisionFetcher alloc] init];
 
