@@ -37,7 +37,6 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @interface WMFArticleBaseFetcher ()
 
-@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
 @property (nonatomic, strong) NSMapTable* operationsKeyedByTitle;
 @property (nonatomic, strong) dispatch_queue_t operationsQueue;
 

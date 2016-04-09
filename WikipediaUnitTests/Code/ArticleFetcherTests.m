@@ -96,4 +96,26 @@
     assertThat(@([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]), isTrue());
 }
 
+-(NSDictionary *)requestHeaders {
+    return self.articleFetcher.operationManager.requestSerializer.HTTPRequestHeaders;
+}
+
+- (void)testRequestHeadersForWikipediaAppUserAgent {
+    NSString* userAgent = [self requestHeaders][@"User-Agent"];
+    assertThat(@([userAgent hasPrefix:@"WikipediaApp/"]), isTrue());
+}
+
+- (void)testRequestHeadersForGZIPAcceptEncoding {
+    NSString* acceptEncoding = [self requestHeaders][@"Accept-Encoding"];
+    assertThat(acceptEncoding, is(equalTo(@"gzip")));
+}
+
+- (void)testRequestHeadersForOptInUUID {
+    if ([SessionSingleton sharedInstance].shouldSendUsageReports) {
+        assertThat(@([self requestHeaders][@"X-WMF-UUID"] != nil), isTrue());
+    }else{
+        assertThat(@([self requestHeaders][@"X-WMF-UUID"] == nil), isTrue());
+    }
+}
+
 @end
