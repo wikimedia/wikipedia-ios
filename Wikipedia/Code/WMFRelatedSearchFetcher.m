@@ -7,6 +7,7 @@
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import <Mantle/Mantle.h>
+#import "WMFBaseRequestSerializer.h"
 
 //Promises
 #import "Wikipedia-Swift.h"
@@ -30,7 +31,7 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 
 @end
 
-@interface WMFRelatedSearchRequestSerializer : AFHTTPRequestSerializer
+@interface WMFRelatedSearchRequestSerializer : WMFBaseRequestSerializer
 @end
 
 #pragma mark - Fetcher Implementation

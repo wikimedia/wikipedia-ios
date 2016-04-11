@@ -27,7 +27,7 @@
 #import "MWKSection.h"
 #import "MWKArticle+HTMLImageImport.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
-
+#import "WMFArticleBaseFetcher_Testing.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -37,7 +37,6 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @interface WMFArticleBaseFetcher ()
 
-@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
 @property (nonatomic, strong) NSMapTable* operationsKeyedByTitle;
 @property (nonatomic, strong) dispatch_queue_t operationsQueue;
 
@@ -169,6 +168,7 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     if (self) {
         self.operationManager.requestSerializer  = [WMFArticleRequestSerializer serializer];
         self.operationManager.responseSerializer = [WMFArticleResponseSerializer serializer];
+        
         self.dataStore                           = dataStore;
         self.revisionFetcher                     = [[WMFArticleRevisionFetcher alloc] init];
 
