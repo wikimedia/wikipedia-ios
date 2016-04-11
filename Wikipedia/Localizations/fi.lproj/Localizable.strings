@@ -248,8 +248,7 @@
 "page_protected_other" = "Sivun suojaustaso on: $1";
 "page_protected_can_not_edit" = "Sinulla ei ole oikeuksia muokata tätä sivua";
 "page_protected_can_not_edit_title" = "Tämä sivu on suojattu";
-// Fuzzy
-"license-footer-text" = "Sisältö on käytettävissä $1 -lisenssin ehtojen mukaisesti.";
+"license-footer-text" = "Sisältö on käytettävissä $1 -lisenssin ehtojen mukaisesti ellei toisin mainita.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Sisällys";
 "table-of-contents-button-label" = "Sisällysluettelo";
@@ -311,7 +310,7 @@
 "hockeyapp-alert-privacy" = "$1 tietosuoja";
 "page-issues" = "Sivun ongelmat";
 "page-similar-titles" = "Samankaltaiset sivut";
-"page-read-in-other-languages" = "Saatavilla $1 kielellä";
+"page-read-in-other-languages" = "Saatavilla $1 muulla kielellä";
 "page-last-edited" = "Muokattu $1 päivää sitten";
 "page-edit-history" = "Täysi muokkaushistoria";
 "captcha-reload" = "Näytä toinen CAPTCHA";
@@ -322,9 +321,7 @@
 "home-continue-reading-heading" = "Jatka lukemista";
 "home-nearby-check-again" = "Tarkista uudelleen";
 "home-main-page-heading" = "Tänään Wikipediassa";
-// Fuzzy
 "home-last-update-label" = "Viimeisin päivitys: $1";
-// Fuzzy
 "home-last-update-never-label" = "Viimeisin päivitys: Ei koskaan";
 "home-updating-label" = "Päivitetään…";
 "home-hide-suggestion-prompt" = "Piilota tämä ehdotus";

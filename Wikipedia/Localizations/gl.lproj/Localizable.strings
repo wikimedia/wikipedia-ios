@@ -312,6 +312,7 @@
 "hockeyapp-alert-privacy" = "Confidencialidade de $1";
 "page-issues" = "Problemas na páxina";
 "page-similar-titles" = "Páxinas similares";
+// Fuzzy
 "page-read-in-other-languages" = "Dispoñible en $1 linguas";
 "page-last-edited" = "Editado fai $1 días";
 "page-edit-history" = "Historial de edición completo";

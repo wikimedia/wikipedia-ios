@@ -313,6 +313,7 @@
 "hockeyapp-alert-privacy" = "$1 privatliv";
 "page-issues" = "Problemer med siden";
 "page-similar-titles" = "Lignende sider";
+// Fuzzy
 "page-read-in-other-languages" = "Tilgængelig på $1 sprog";
 "page-last-edited" = "Redigeret for $1 dage siden";
 "page-edit-history" = "Fuld redigerings historik";

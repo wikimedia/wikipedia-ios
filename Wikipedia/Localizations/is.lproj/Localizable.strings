@@ -312,6 +312,7 @@
 "hockeyapp-alert-privacy" = "$1 friðhelgi";
 "page-issues" = "Vandamál varðandi síðu";
 "page-similar-titles" = "Áþekkar síður";
+// Fuzzy
 "page-read-in-other-languages" = "Lesa á $1 tungumálum";
 "page-last-edited" = "Breytt fyrir $1 dögum";
 "page-edit-history" = "Öll breytingaskráin";

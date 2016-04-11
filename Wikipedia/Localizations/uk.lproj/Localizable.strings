@@ -316,6 +316,7 @@
 "hockeyapp-alert-privacy" = "Приватність $1";
 "page-issues" = "Проблеми сторінки";
 "page-similar-titles" = "Подібні сторінки";
+// Fuzzy
 "page-read-in-other-languages" = "Доступно на $1 мовах";
 "page-last-edited" = "Відредаговано $1 днів тому";
 "page-edit-history" = "Повна історія редагування";

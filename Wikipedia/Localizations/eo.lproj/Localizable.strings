@@ -240,6 +240,7 @@
 "hockeyapp-alert-do-not-send" = "Ne sendi";
 "page-issues" = "Problemoj pri paĝo";
 "page-similar-titles" = "Similaj paĝoj";
+// Fuzzy
 "page-read-in-other-languages" = "Disponebla en $1 lingvoj";
 "home-empty-section-check-again" = "Reprovi";
 "home-hide-suggestion-cancel" = "Nuligi";

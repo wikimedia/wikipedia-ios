@@ -218,6 +218,7 @@
 "hockeyapp-alert-always-send" = "ڕەوانە کرا";
 "hockeyapp-alert-do-not-send" = "ڕەوانە نەکرا";
 "page-similar-titles" = "پەڕە لێکچووەکان";
+// Fuzzy
 "page-read-in-other-languages" = "بە $1 زمان بەردەستە";
 "page-last-edited" = "دەستکاری کراوە $1 لەمەوپێش";
 "home-title" = "دۆزینەوە";
