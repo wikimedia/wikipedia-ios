@@ -277,6 +277,7 @@
 "hockeyapp-alert-privacy" = "$1 súkromie";
 "page-issues" = "Problémy stránky";
 "page-similar-titles" = "Podobné stránky";
+// Fuzzy
 "page-read-in-other-languages" = "Článok je dostupný v $1 jazykoch";
 "page-last-edited" = "Upravené pred $1 dňami";
 "page-edit-history" = "Úplná história úprav";

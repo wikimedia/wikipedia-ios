@@ -314,7 +314,7 @@
 "hockeyapp-alert-privacy" = "$ personvern";
 "page-issues" = "Problemer med siden";
 "page-similar-titles" = "Lignende sider";
-"page-read-in-other-languages" = "Finnes på $1 språk";
+"page-read-in-other-languages" = "Tilgjengelig på $1 annet språk";
 "page-last-edited" = "Redigert for $1 dager siden";
 "page-edit-history" = "Fullstendig redigeringshistorikk";
 "captcha-reload" = "Vis en annen captcha";

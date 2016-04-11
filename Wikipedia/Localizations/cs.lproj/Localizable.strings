@@ -153,8 +153,7 @@
 "onboarding-wikipedia" = "Wikipedie";
 "onboarding-free-encyclopedia" = "Otevřená encyklopedie";
 "page_protected_can_not_edit_title" = "Tato stránka je chráněná";
-// Fuzzy
-"license-footer-text" = "Obsah je dostupný pod $1";
+"license-footer-text" = "Obsah je dostupný pod $1, pokud není uvedeno jinak.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Obsah";
 "menu-edit-accessibility-label" = "Editovat";

@@ -249,8 +249,7 @@
 "page_protected_other" = "Esta página está protegida para os seguintes níveis: $1";
 "page_protected_can_not_edit" = "Não tem permissão para editar esta página";
 "page_protected_can_not_edit_title" = "Esta página está protegida";
-// Fuzzy
-"license-footer-text" = "Conteúdo disponível sob a licença $1";
+"license-footer-text" = "Conteúdo disponibilizado nos termos da $1, salvo indicação contrária.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Índice";
 "table-of-contents-button-label" = "Índice";
@@ -315,7 +314,7 @@
 "hockeyapp-alert-privacy" = "Privacidade de $1";
 "page-issues" = "Problemas da página";
 "page-similar-titles" = "Páginas semelhantes";
-"page-read-in-other-languages" = "Disponível em $1 idiomas";
+"page-read-in-other-languages" = "Disponível em $1 outros idiomas";
 "page-last-edited" = "Editado há $1 dias";
 "page-edit-history" = "Histórico completo";
 "captcha-reload" = "Mostrar outro código";
@@ -334,9 +333,7 @@
 "home-featured-article-heading" = "Artigo destacado de $1";
 "home-main-page-heading" = "Hoje na Wikipédia";
 "home-potd-heading" = "Imagem do dia de $1";
-// Fuzzy
 "home-last-update-label" = "Última atualização: $1";
-// Fuzzy
 "home-last-update-never-label" = "Última atualização: Nunca";
 "home-updating-label" = "A atualizar...";
 "home-hide-suggestion-prompt" = "Ocultar esta sugestão";

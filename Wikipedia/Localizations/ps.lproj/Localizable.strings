@@ -204,6 +204,7 @@
 "hockeyapp-alert-privacy" = "$1 پټنتيا";
 "page-issues" = "د مخ ستونزې";
 "page-similar-titles" = "ورته مخونه";
+// Fuzzy
 "page-read-in-other-languages" = "په $1 ژبو کې شته";
 "page-last-edited" = "$1 ورځې مخکې سم کړی";
 "page-edit-history" = "د سمون بشپړ پېښليک";

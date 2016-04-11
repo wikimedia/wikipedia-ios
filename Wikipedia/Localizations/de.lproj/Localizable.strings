@@ -245,8 +245,7 @@
 "page_protected_other" = "Diese Seite wurde auf die folgenden Ebenen geschützt: $1";
 "page_protected_can_not_edit" = "Du hast nicht die Rechte, diese Seite zu bearbeiten.";
 "page_protected_can_not_edit_title" = "Diese Seite ist geschützt";
-// Fuzzy
-"license-footer-text" = "Der Inhalt ist verfügbar unter $1";
+"license-footer-text" = "Der Inhalt ist verfügbar unter $1, sofern nicht anders angegeben.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Inhalte";
 "table-of-contents-button-label" = "Inhaltsverzeichnis";
@@ -311,7 +310,7 @@
 "hockeyapp-alert-privacy" = "$1-Datenschutz";
 "page-issues" = "Seitenprobleme";
 "page-similar-titles" = "Ähnliche Seiten";
-"page-read-in-other-languages" = "In $1 Sprachen verfügbar";
+"page-read-in-other-languages" = "In $1 weiteren Sprachen verfügbar";
 "page-last-edited" = "Bearbeitet vor $1 Tagen";
 "page-edit-history" = "Vollständige Versionsgeschichte";
 "captcha-reload" = "Ein anderes Captcha anzeigen";
@@ -330,9 +329,7 @@
 "home-featured-article-heading" = "Vorgestellter Artikel für $1";
 "home-main-page-heading" = "Heute auf Wikipedia";
 "home-potd-heading" = "Bild des Tages für $1";
-// Fuzzy
 "home-last-update-label" = "Zuletzt aktualisiert: $1";
-// Fuzzy
 "home-last-update-never-label" = "Zuletzt aktualisiert: Nie";
 "home-updating-label" = "Aktualisiere …";
 "home-hide-suggestion-prompt" = "Diesen Vorschlag ausblenden";

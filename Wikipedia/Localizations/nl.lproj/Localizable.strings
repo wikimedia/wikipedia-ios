@@ -319,6 +319,7 @@
 "hockeyapp-alert-privacy" = "Privacy van $1";
 "page-issues" = "Paginaproblemen";
 "page-similar-titles" = "Vergelijkbare pagina's";
+// Fuzzy
 "page-read-in-other-languages" = "Beschikbaar in $1 talen";
 "page-last-edited" = "$1 dagen geleden bewerkt";
 "page-edit-history" = "Volledige bewerkingsgeschiedenis";

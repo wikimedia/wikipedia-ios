@@ -299,6 +299,7 @@
 "hockeyapp-alert-privacy" = "$1 গোপনীয়তা";
 "page-issues" = "পাতার সমস্যা";
 "page-similar-titles" = "অনুরূপ পাতাগুলি";
+// Fuzzy
 "page-read-in-other-languages" = "$1টি ভাষায় উপলব্ধ";
 "page-last-edited" = "$1 দিন আগে সম্পাদিত";
 "page-edit-history" = "সম্পূর্ণ সম্পাদনা ইতিহাস";
@@ -311,8 +312,9 @@
 "home-continue-reading-heading" = "পড়া অব্যাহত রাখুন";
 "home-nearby-location-footer" = "$1-এর আরো কাছাকাছি";
 "home-main-page-heading" = "আজ উইকিপিডিয়ায়";
-// Fuzzy
 "home-last-update-label" = "সর্বশেষ হালনাগাদ: $1";
+"home-last-update-never-label" = "সর্বশেষ হালনাগাদ: কখনো না";
+"home-updating-label" = "হালনাগাদ হচ্ছে...";
 "home-hide-suggestion-cancel" = "বাতিল";
 "welcome-explore-title" = "অন্বেষণ করুন";
 "welcome-explore-tell-me-more" = "আমাকে আরও বলুন";

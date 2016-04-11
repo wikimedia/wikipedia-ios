@@ -224,6 +224,7 @@
 "hockeyapp-alert-always-send" = "Visada siųsti";
 "hockeyapp-alert-do-not-send" = "Nesiųsti";
 "page-similar-titles" = "Panašūs puslapiai";
+// Fuzzy
 "page-read-in-other-languages" = "Prieinama $1 kalbomis";
 "captcha-reload" = "Rodyti kitą saugos kodą";
 "home-empty-section" = "Nėra rezultatų";

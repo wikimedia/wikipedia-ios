@@ -318,6 +318,7 @@
 "hockeyapp-alert-privacy" = "$1 隱私";
 "page-issues" = "頁面問題";
 "page-similar-titles" = "相似頁面";
+// Fuzzy
 "page-read-in-other-languages" = "在 $1 語言中閱讀";
 "page-last-edited" = "$1 日前編輯";
 "page-edit-history" = "完整編輯歷史";

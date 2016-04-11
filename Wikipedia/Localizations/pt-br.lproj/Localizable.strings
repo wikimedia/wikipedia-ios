@@ -327,6 +327,7 @@
 "hockeyapp-alert-privacy" = "$1 privacidade";
 "page-issues" = "Problemas da página";
 "page-similar-titles" = "Páginas similares";
+// Fuzzy
 "page-read-in-other-languages" = "Disponível em $1 idiomas";
 "page-last-edited" = "Editado $1 dias atrás";
 "page-edit-history" = "Histórico de edição completo";

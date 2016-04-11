@@ -316,6 +316,7 @@
 "hockeyapp-alert-privacy" = "Quyền riêng tư $1";
 "page-issues" = "Vấn đề trang";
 "page-similar-titles" = "Trang tương tự";
+// Fuzzy
 "page-read-in-other-languages" = "Có sẵn trong $1 ngôn ngữ";
 "page-last-edited" = "Sửa đổi lần cuối $1 ngày trước";
 "page-edit-history" = "Toàn bộ lịch sử sửa đổi";

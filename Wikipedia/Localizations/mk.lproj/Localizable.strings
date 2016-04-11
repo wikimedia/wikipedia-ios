@@ -310,6 +310,7 @@
 "hockeyapp-alert-privacy" = "Приватност на $1";
 "page-issues" = "Проблеми со страницата";
 "page-similar-titles" = "Слични страници";
+// Fuzzy
 "page-read-in-other-languages" = "Достапно на $1 јазици";
 "page-last-edited" = "Изменето пред $1 дена";
 "page-edit-history" = "Цела историја на уредувања";

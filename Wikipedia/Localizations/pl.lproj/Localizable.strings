@@ -244,8 +244,7 @@
 "page_protected_other" = "Ta strona została zabezpieczona do następujących poziomów: $1";
 "page_protected_can_not_edit" = "Nie masz uprawnień do edytowania tej strony";
 "page_protected_can_not_edit_title" = "Ta strona jest zabezpieczona";
-// Fuzzy
-"license-footer-text" = "Zawartość jest dostępna na licencji $1";
+"license-footer-text" = "Treść udostępniana na licencji $1, jeśli nie podano inaczej.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Zawartości";
 "table-of-contents-button-label" = "Spis treści";
@@ -309,7 +308,7 @@
 "hockeyapp-alert-privacy" = "Polityka prywatności $1";
 "page-issues" = "Problemy ze stroną";
 "page-similar-titles" = "Podobne strony";
-"page-read-in-other-languages" = "Dostępne w $1 językach";
+"page-read-in-other-languages" = "Dostępne w $1 innych językach";
 "captcha-reload" = "Pokaż inny tekst CAPTCHA";
 "captcha-prompt" = "Wpisz tekst CAPTCHA";
 "mwk-empty-title-error" = "Nie można wykonać operacji, jeśli tytuł jest pusty.";
@@ -317,7 +316,6 @@
 "home-empty-section-check-again" = "Spróbuj ponownie";
 "home-nearby-check-again" = "Sprawdź ponownie";
 "home-main-page-heading" = "Dzisiaj w Wikipedii";
-// Fuzzy
 "home-last-update-label" = "Ostatnia aktualizacja: $1";
 "home-hide-suggestion-cancel" = "Anuluj";
 "potd-description-prefix" = "Ilustracja dnia na $1";

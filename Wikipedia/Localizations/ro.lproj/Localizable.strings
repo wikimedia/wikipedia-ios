@@ -309,6 +309,7 @@
 "hockeyapp-alert-privacy" = "Confidențialitate $1";
 "page-issues" = "Problemele paginii";
 "page-similar-titles" = "Pagini similare";
+// Fuzzy
 "page-read-in-other-languages" = "Disponibil în $1 limbi";
 "page-last-edited" = "Modificat acum $1 zi(le)";
 "page-edit-history" = "Istoric complet al modificărilor";

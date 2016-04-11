@@ -321,6 +321,7 @@
 "hockeyapp-alert-privacy" = "Политика конфиденциальности $1";
 "page-issues" = "Вопросы по странице";
 "page-similar-titles" = "Похожие страницы";
+// Fuzzy
 "page-read-in-other-languages" = "Доступно на $1 языках";
 "page-last-edited" = "Отредактировано $1 д. назад";
 "page-edit-history" = "Полная история редактирования";
