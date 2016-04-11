@@ -27,7 +27,7 @@
 #import "MWKSection.h"
 #import "MWKArticle+HTMLImageImport.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
-
+#import "WMFArticleBaseFetcher_Testing.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

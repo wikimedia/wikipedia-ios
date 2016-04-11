@@ -23,8 +23,6 @@ extern NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey;
 - (void)cancelFetchForPageTitle:(MWKTitle*)pageTitle;
 - (void)cancelAllFetches;
 
-@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
-
 @end
 
 @interface WMFArticleFetcher : WMFArticleBaseFetcher

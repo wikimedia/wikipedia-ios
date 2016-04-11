@@ -17,6 +17,7 @@
 #import "SessionSingleton.h"
 #import <Nocilla/Nocilla.h>
 #import "Wikipedia-Swift.h"
+#import "WMFArticleBaseFetcher_Testing.h"
 
 #import "XCTestCase+PromiseKit.h"
 
