@@ -8,6 +8,7 @@
 #import "WMFSearchResponseSerializer.h"
 #import <Mantle/Mantle.h>
 #import "UIScreen+WMFImageWidth.h"
+#import "WMFBaseRequestSerializer.h"
 
 //Promises
 #import "Wikipedia-Swift.h"
@@ -27,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSUInteger numberOfResults;
 @end
 
-@interface WMFLocationSearchRequestSerializer : AFHTTPRequestSerializer
+@interface WMFLocationSearchRequestSerializer : WMFBaseRequestSerializer
 @end
 
 #pragma mark - Fetcher Implementation
