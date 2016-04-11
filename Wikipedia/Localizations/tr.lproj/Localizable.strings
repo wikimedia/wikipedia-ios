@@ -320,6 +320,7 @@
 "hockeyapp-alert-privacy" = "$1 gizliliği";
 "page-issues" = "Sayfa sorunları";
 "page-similar-titles" = "Benzer sayfalar";
+// Fuzzy
 "page-read-in-other-languages" = "$1 farklı dilde mevcut";
 "page-last-edited" = "$1 gün önce düzenlendi";
 "page-edit-history" = "Bütün düzenleme geçmişi";

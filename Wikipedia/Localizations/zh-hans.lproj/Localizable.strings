@@ -252,8 +252,7 @@
 "page_protected_other" = "此页面已获以下保护：$1";
 "page_protected_can_not_edit" = "您没有权限编辑此页";
 "page_protected_can_not_edit_title" = "此页面受到保护";
-// Fuzzy
-"license-footer-text" = "内容根据$1可用";
+"license-footer-text" = "除非另有说明，内容基于$1授权。";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "内容";
 "table-of-contents-button-label" = "目录";
@@ -318,7 +317,7 @@
 "hockeyapp-alert-privacy" = "$1隐私";
 "page-issues" = "页面问题";
 "page-similar-titles" = "相似页面";
-"page-read-in-other-languages" = "在$1种语言中可用";
+"page-read-in-other-languages" = "在$1种其他语言中可用";
 "page-last-edited" = "编辑于$1天前";
 "page-edit-history" = "完整编辑历史";
 "captcha-reload" = "显示另一个验证码";
@@ -337,9 +336,7 @@
 "home-featured-article-heading" = "$1的特色条目";
 "home-main-page-heading" = "维基百科今日";
 "home-potd-heading" = "$1的每日图片";
-// Fuzzy
 "home-last-update-label" = "最后更新：$1";
-// Fuzzy
 "home-last-update-never-label" = "最后更新：从未";
 "home-updating-label" = "正在更新…";
 "home-hide-suggestion-prompt" = "隐藏该建议";
