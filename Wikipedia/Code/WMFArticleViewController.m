@@ -12,7 +12,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFArticleHeaderImageGalleryViewController.h"
 #import "WMFReadMoreViewController.h"
-#import "WMFModalImageGalleryViewController.h"
+#import "WMFImageGalleryViewContoller.h"
 #import "SectionEditorViewController.h"
 #import "WMFArticleFooterMenuViewController.h"
 #import "WMFArticleBrowserViewController.h"
@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 <WMFWebViewControllerDelegate,
  UINavigationControllerDelegate,
  WMFArticleHeaderImageGalleryViewControllerDelegate,
- WMFImageGalleryViewControllerDelegate,
+ NYTPhotosViewControllerDelegate,
  SectionEditorViewControllerDelegate,
  UIViewControllerPreviewingDelegate,
  LanguageSelectionDelegate,
@@ -899,12 +899,10 @@ NS_ASSUME_NONNULL_BEGIN
     didTapImageWithSourceURLString:(nonnull NSString*)imageSourceURLString {
     MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURLString:imageSourceURLString];
     /*
-       NOTE(bgerstle): not setting gallery delegate intentionally to prevent header gallery changes as a result of
+       NOTE: not setting gallery delegate intentionally to prevent header gallery changes as a result of
        fullscreen gallery interactions that originate from the webview
      */
-    WMFModalImageGalleryViewController* fullscreenGallery =
-        [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article
-                                                               currentImage:selectedImage];
+    WMFImageGalleryViewContoller* fullscreenGallery = [[WMFImageGalleryViewContoller alloc] initWithArticle:self.article selectedImage:selectedImage];
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
 
@@ -944,24 +942,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)headerImageGallery:(WMFArticleHeaderImageGalleryViewController* __nonnull)gallery
      didSelectImageAtIndex:(NSUInteger)index {
-    WMFModalImageGalleryViewController* fullscreenGallery;
-
     NSAssert(self.article.isCached, @"Expected article data to already be downloaded.");
     if (!self.article.isCached) {
         return;
     }
-    fullscreenGallery             = [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article currentImage:nil];
-    fullscreenGallery.currentPage = gallery.currentPage;
-    // set delegate to ensure the header gallery is updated when the fullscreen gallery is dismissed
-    fullscreenGallery.delegate = self;
 
+    WMFImageGalleryViewContoller* fullscreenGallery = [[WMFImageGalleryViewContoller alloc] initWithArticle:self.article selectedImageIndex:[self.headerGallery currentPage]];
+    fullscreenGallery.delegate = self;
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
 
-#pragma mark - WMFModalArticleImageGalleryViewControllerDelegate
+- (void)photosViewController:(WMFImageGalleryViewContoller*)photosViewController didNavigateToPhoto:(id <NYTPhoto>)photo atIndex:(NSUInteger)photoIndex {
+    self.headerGallery.currentPage = [photosViewController indexOfCurrentImage];
+}
 
-- (void)willDismissGalleryController:(WMFModalImageGalleryViewController* __nonnull)gallery {
-    self.headerGallery.currentPage = gallery.currentPage;
+- (UIView* _Nullable)photosViewController:(WMFImageGalleryViewContoller*)photosViewController referenceViewForPhoto:(id <NYTPhoto>)photo {
+    return [self.headerGallery imageViewForImage:[photosViewController currentImage]];
 }
 
 #pragma mark - Edit Section
