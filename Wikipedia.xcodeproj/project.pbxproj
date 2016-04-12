@@ -35,6 +35,7 @@
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		0E37F9001CAEE63C0076FF88 /* WMFRotationRespectingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37F8FF1CAEE63C0076FF88 /* WMFRotationRespectingNavigationController.swift */; };
 		0E37F9021CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37F9011CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift */; };
+		0E4A34721CBBFCD400A400F6 /* WMFImageGalleryViewContoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4A34711CBBFCD400A400F6 /* WMFImageGalleryViewContoller.m */; };
 		0E4B5FBE1C56B3E70099B02E /* WMFBaseExploreSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FBD1C56B3E70099B02E /* WMFBaseExploreSectionController.m */; };
 		0E4B5FC11C5725C20099B02E /* WMFExploreSectionControllerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC01C5725C20099B02E /* WMFExploreSectionControllerCache.m */; };
 		0E4B5FC61C5BFFFB0099B02E /* WMFArticleBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC51C5BFFFB0099B02E /* WMFArticleBrowserViewController.m */; };
@@ -725,6 +726,8 @@
 		0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SourceIcons.xcassets; path = Wikipedia/SourceIcons.xcassets; sourceTree = "<group>"; };
 		0E37F8FF1CAEE63C0076FF88 /* WMFRotationRespectingNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFRotationRespectingNavigationController.swift; sourceTree = "<group>"; };
 		0E37F9011CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFRotationRespectingTabBarController.swift; sourceTree = "<group>"; };
+		0E4A34701CBBFCD400A400F6 /* WMFImageGalleryViewContoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryViewContoller.h; path = Wikipedia/Code/WMFImageGalleryViewContoller.h; sourceTree = SOURCE_ROOT; };
+		0E4A34711CBBFCD400A400F6 /* WMFImageGalleryViewContoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryViewContoller.m; path = Wikipedia/Code/WMFImageGalleryViewContoller.m; sourceTree = SOURCE_ROOT; };
 		0E4B5FBC1C56B3E70099B02E /* WMFBaseExploreSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBaseExploreSectionController.h; path = Wikipedia/Code/WMFBaseExploreSectionController.h; sourceTree = SOURCE_ROOT; };
 		0E4B5FBD1C56B3E70099B02E /* WMFBaseExploreSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBaseExploreSectionController.m; path = Wikipedia/Code/WMFBaseExploreSectionController.m; sourceTree = SOURCE_ROOT; };
 		0E4B5FBF1C5725C20099B02E /* WMFExploreSectionControllerCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreSectionControllerCache.h; path = Wikipedia/Code/WMFExploreSectionControllerCache.h; sourceTree = SOURCE_ROOT; };
@@ -4212,6 +4215,7 @@
 		BC628C791B389E2B00B3F85C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B0E8034C1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController_Subclass.h */,
 				BCA15B121C0E9B2100D0A3EA /* ImageController */,
 				BCD67E831C1F163C005179E1 /* Image Info */,
 				BCD67E871C1F17D4005179E1 /* Face Detection */,
@@ -4358,6 +4362,8 @@
 			children = (
 				BCA15B131C0E9B6F00D0A3EA /* View Controllers */,
 				BC86B94C1A9391E200B4C039 /* Views */,
+				0E4A34701CBBFCD400A400F6 /* WMFImageGalleryViewContoller.h */,
+				0E4A34711CBBFCD400A400F6 /* WMFImageGalleryViewContoller.m */,
 			);
 			name = Gallery;
 			path = Wikipedia/Code/Gallery;
@@ -4383,7 +4389,6 @@
 			isa = PBXGroup;
 			children = (
 				B0E8034D1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController.h */,
-				B0E8034C1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController_Subclass.h */,
 				B0E8034E1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController.m */,
 				BC22F9971C176FFF003232CD /* WMFBaseImageGalleryViewController_Testing.h */,
 				B0E803501C0CD82D0065EBC0 /* WMFModalImageGalleryViewController.h */,
@@ -5998,6 +6003,7 @@
 				B06531631C221BC4003BD7DC /* WMFArticlePreviewFetcher.m in Sources */,
 				B0E807DF1C0CF04A0065EBC0 /* MWKUserDataStore.m in Sources */,
 				B0E804C71C0CE0B40065EBC0 /* NSArray+WMFPredicate.swift in Sources */,
+				0E4A34721CBBFCD400A400F6 /* WMFImageGalleryViewContoller.m in Sources */,
 				B0E807DC1C0CF04A0065EBC0 /* MWKSearchResult.m in Sources */,
 				B0E807D91C0CF04A0065EBC0 /* MWKImageList.m in Sources */,
 				B0E803F11C0CDD950065EBC0 /* WMFAsyncBlockOperation.m in Sources */,
