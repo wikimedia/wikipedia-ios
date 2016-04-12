@@ -19,7 +19,6 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
 
 @interface WMFImageGalleryCollectionViewCell ()
 <UIScrollViewDelegate>
-@property (nonatomic, weak, readonly) UIImageView* imageView;
 @property (nonatomic, weak, readonly) UIScrollView* imageContainerView;
 @property (nonatomic, weak, readonly) WMFGradientView* gradientView;
 @property (nonatomic, weak, readonly) UIActivityIndicatorView* loadingIndicator;

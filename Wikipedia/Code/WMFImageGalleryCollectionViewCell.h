@@ -33,4 +33,10 @@
 
 - (void)startLoadingAfterDelay:(NSTimeInterval)seconds;
 
+/**
+ *  Do not set the image here directly - this is exposed only
+ *  for animation purposes
+ */
+@property (nonatomic, weak, readonly) UIImageView* imageView;
+
 @end

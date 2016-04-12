@@ -3,7 +3,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MWKArticle;
+@class MWKArticle, MWKImage;
 
 @class WMFArticleHeaderImageGalleryViewController;
 @protocol WMFArticleHeaderImageGalleryViewControllerDelegate <NSObject>
@@ -40,6 +40,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// @see initWithDataStore:
 - (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout*)layout NS_UNAVAILABLE;
+
+
+- (UIImageView*)imageViewForImage:(MWKImage*)image;
+
+- (UIImageView*)imageViewForIndexPath:(NSIndexPath*)indexPath;
 
 @end
 

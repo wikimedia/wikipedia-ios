@@ -65,6 +65,16 @@ NS_ASSUME_NONNULL_BEGIN
     };
 }
 
+- (UIImageView*)imageViewForImage:(MWKImage*)image {
+    NSIndexPath* indexPath = [self.dataSource indexPathForItem:image];
+    return [self imageViewForIndexPath:indexPath];
+}
+
+- (UIImageView*)imageViewForIndexPath:(NSIndexPath*)indexPath {
+    WMFImageCollectionViewCell* cell = (id)[self.collectionView cellForItemAtIndexPath:indexPath];
+    return cell.imageView;
+}
+
 - (void)addDivider {
     UIView* divider = [[UIView alloc] initWithFrame:CGRectZero];
     divider.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];

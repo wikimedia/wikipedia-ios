@@ -180,6 +180,16 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return nil;
 }
 
+- (UIImageView*)imageViewForImage:(MWKImage*)image {
+    NSIndexPath* indexPath = [self.dataSource indexPathForItem:image];
+    return [self imageViewForIndexPath:indexPath];
+}
+
+- (UIImageView*)imageViewForIndexPath:(NSIndexPath*)indexPath {
+    WMFImageGalleryCollectionViewCell* cell = (id)[self.collectionView cellForItemAtIndexPath:indexPath];
+    return cell.imageView;
+}
+
 #pragma mark - UIViewController
 
 - (BOOL)prefersStatusBarHidden {

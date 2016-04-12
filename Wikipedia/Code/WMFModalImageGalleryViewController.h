@@ -104,6 +104,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout*)layout NS_UNAVAILABLE;
 
+
+- (UIImageView*)imageViewForImage:(MWKImage*)image;
+
+- (UIImageView*)imageViewForIndexPath:(NSIndexPath*)indexPath;
+
 @end
 
 NS_ASSUME_NONNULL_END
