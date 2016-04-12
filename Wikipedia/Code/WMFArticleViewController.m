@@ -633,7 +633,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    if ([self.presentedViewController isKindOfClass:[WMFFontSliderViewController class]]) {
+        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    }
     [self registerForPreviewingIfAvailable];
 }
 
