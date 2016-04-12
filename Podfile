@@ -27,10 +27,6 @@ pod 'BlocksKit/Core', '~> 2.2.0'
 pod 'BlocksKit/UIKit', '~> 2.2.0'
 pod 'PromiseKit', :head
 pod 'PromiseKit/SystemConfiguration', :head
-
-pod 'Tweaks', :head
-
-# KVO
 pod 'KVOController'
 
 # Dates
@@ -55,10 +51,14 @@ pod 'TUSafariActivity'
 # Licenses
 pod 'VTAcknowledgementsViewController'
 
+# Photo Gallery
+pod 'NYTPhotoViewer'
+
 # Diagnostics
 pod 'PiwikTracker', :head
 pod 'CocoaLumberjack/Swift', :head
 pod 'HockeySDK', '~> 3.8.2'
+pod 'Tweaks', :head
 
 target 'WikipediaUnitTests', :exclusive => true do
   pod 'OCMockito', '~> 1.4.0'
