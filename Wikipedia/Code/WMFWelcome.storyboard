@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kE0-D3-vEu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kE0-D3-vEu">
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--Welcome View Controller-->
@@ -76,10 +76,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="520"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faM-dw-L8V" userLabel="Container view">
-                                        <rect key="frame" x="20" y="94" width="280" height="333.5"/>
+                                        <rect key="frame" x="20" y="93" width="280" height="334"/>
                                         <subviews>
                                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0sR-5J-nGL" customClass="WelcomeIntroAnimationView" customModule="Wikipedia" customModuleProvider="target">
-                                                <rect key="frame" x="68.5" y="0.0" width="143" height="143"/>
+                                                <rect key="frame" x="69" y="0.0" width="143" height="143"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="143" id="7DX-sw-TCJ"/>
@@ -93,13 +93,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SqE-XP-Cxz">
-                                                <rect key="frame" x="0.0" y="225" width="280" height="19.5"/>
+                                                <rect key="frame" x="0.0" y="225" width="280" height="20"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6l1-FL-tma">
-                                                <rect key="frame" x="93" y="290.5" width="93" height="32"/>
+                                                <rect key="frame" x="93" y="291" width="93" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="Tell me more">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -109,7 +109,7 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gk6-uH-c55" userLabel="Tell Me More Underline">
-                                                <rect key="frame" x="93" y="322.5" width="93" height="1"/>
+                                                <rect key="frame" x="93" y="323" width="93" height="1"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="NJ6-r0-J35"/>
@@ -228,7 +228,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w9e-2q-iXX" customClass="WelcomeLanguagesAnimationView" customModule="Wikipedia" customModuleProvider="target">
-                                                    <rect key="frame" x="68.5" y="14" width="143" height="143"/>
+                                                    <rect key="frame" x="69" y="14" width="143" height="143"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="143" id="4Jd-gP-D19"/>
@@ -242,7 +242,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" text="Choose your preferred languages to search Wikipedia" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8f-yP-8lK">
-                                                    <rect key="frame" x="0.0" y="220" width="280" height="38.5"/>
+                                                    <rect key="frame" x="0.0" y="220" width="280" height="39"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -287,7 +287,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QGu-4w-xAJ">
-                                                            <rect key="frame" x="15" y="13" width="30" height="30"/>
+                                                            <rect key="frame" x="66" y="13" width="30" height="30"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iky-eM-rBd">
                                                                     <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -312,22 +312,35 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wef-Qu-Lql">
-                                                            <rect key="frame" x="67" y="18" width="205" height="21"/>
+                                                            <rect key="frame" x="118" y="18" width="154" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aSB-26-uHW">
+                                                            <rect key="frame" x="15" y="13" width="36" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="36" id="t5y-cQ-oTp"/>
+                                                            </constraints>
+                                                            <state key="normal" title="-"/>
+                                                            <connections>
+                                                                <action selector="minusButtonTapped:" destination="XVM-je-wTt" eventType="touchUpInside" id="Q3g-OL-wrs"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
+                                                        <constraint firstItem="aSB-26-uHW" firstAttribute="leading" secondItem="aqT-I1-gCa" secondAttribute="leading" constant="15" id="6Sq-05-CVP"/>
                                                         <constraint firstItem="QGu-4w-xAJ" firstAttribute="centerY" secondItem="aqT-I1-gCa" secondAttribute="centerY" id="AAj-tH-Mo8"/>
+                                                        <constraint firstItem="aSB-26-uHW" firstAttribute="centerY" secondItem="aqT-I1-gCa" secondAttribute="centerY" id="UHI-vK-thX"/>
                                                         <constraint firstItem="wef-Qu-Lql" firstAttribute="leading" secondItem="QGu-4w-xAJ" secondAttribute="trailing" constant="22" id="aqU-Ky-puI"/>
-                                                        <constraint firstItem="QGu-4w-xAJ" firstAttribute="leading" secondItem="aqT-I1-gCa" secondAttribute="leading" constant="15" id="bQv-gw-7x5"/>
+                                                        <constraint firstItem="QGu-4w-xAJ" firstAttribute="leading" secondItem="aSB-26-uHW" secondAttribute="trailing" constant="15" id="kMP-2e-eTF"/>
                                                         <constraint firstAttribute="trailing" secondItem="wef-Qu-Lql" secondAttribute="trailing" constant="8" id="v0B-pk-z68"/>
                                                         <constraint firstItem="wef-Qu-Lql" firstAttribute="centerY" secondItem="QGu-4w-xAJ" secondAttribute="centerY" id="zit-db-nbI"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="languageNameLabel" destination="wef-Qu-Lql" id="F5I-av-Ma8"/>
+                                                    <outlet property="minusButton" destination="aSB-26-uHW" id="qRO-fa-Lxx"/>
                                                     <outlet property="numberLabel" destination="iky-eM-rBd" id="eJQ-Ob-nZ4"/>
                                                 </connections>
                                             </tableViewCell>
@@ -435,7 +448,7 @@
                                         <rect key="frame" x="20" y="60" width="280" height="401"/>
                                         <subviews>
                                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S7X-cL-jMB" customClass="WelcomeAnalyticsAnimationView" customModule="Wikipedia" customModuleProvider="target">
-                                                <rect key="frame" x="68.5" y="14" width="143" height="143"/>
+                                                <rect key="frame" x="69" y="14" width="143" height="143"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="143" id="Qi8-2E-2jv"/>
@@ -449,19 +462,19 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="The deets" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8L-fH-dvF">
-                                                <rect key="frame" x="0.0" y="220" width="280" height="19.5"/>
+                                                <rect key="frame" x="0.0" y="220" width="280" height="20"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Amn-gX-rE4">
-                                                <rect key="frame" x="115" y="277.5" width="51" height="31"/>
+                                                <rect key="frame" x="115" y="278" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="toggleAnalytics:" destination="vzW-SM-zih" eventType="valueChanged" id="Kl2-3D-SxU"/>
                                                 </connections>
                                             </switch>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Turn me on" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Roe-30-TJh">
-                                                <rect key="frame" x="0.0" y="331.5" width="280" height="19.5"/>
+                                                <rect key="frame" x="0.0" y="332" width="280" height="19"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>

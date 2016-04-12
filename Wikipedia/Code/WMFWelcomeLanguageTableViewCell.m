@@ -32,6 +32,10 @@
     }
 }
 
+-(IBAction)minusButtonTapped:(id)sender {
+    [self showSwipe:MGSwipeDirectionRightToLeft animated:YES];
+}
+
 - (BOOL)shouldIndentWhileEditing {
     return NO;
 }
