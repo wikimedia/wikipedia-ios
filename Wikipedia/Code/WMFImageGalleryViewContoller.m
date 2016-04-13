@@ -153,7 +153,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Exposing a private property of the data source
- *  In order to guarentee its existince, we assert photos
+ *  In order to guarantee its existence, we assert photos
  *  on int in the VC
  */
 @property (nonatomic, copy, readonly) NSArray* photos;
@@ -420,7 +420,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert([self respondsToSelector:@selector(updateOverlayInformation)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(didNavigateToPhoto:)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
-        self.infoFetcher = [[MWKImageInfoFetcher alloc] init];
+        self.infoFetcher                  = [[MWKImageInfoFetcher alloc] init];
         self.rightBarButtonItem.tintColor = [UIColor whiteColor];
         self.leftBarButtonItem.tintColor  = [UIColor whiteColor];
     }
