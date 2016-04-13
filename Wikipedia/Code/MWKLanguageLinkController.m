@@ -206,12 +206,13 @@ static id _sharedInstance;
     NSMutableArray<NSString*>* preferredLanguages = [[self readPreferredLanguageCodesWithoutOSPreferredLanguages] mutableCopy];
     NSArray<NSString*>* osLanguages               = [self readOSPreferredLanguageCodes];
 
-    [osLanguages enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        if (![preferredLanguages containsObject:obj]) {
-            [preferredLanguages insertObject:obj atIndex:0];
-        }
-    }];
-
+    if (preferredLanguages.count == 0) {
+        [osLanguages enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+            if (![preferredLanguages containsObject:obj]) {
+                [preferredLanguages insertObject:obj atIndex:0];
+            }
+        }];
+    }
     return [preferredLanguages bk_reject:^BOOL (id obj) {
         return [obj isEqual:[NSNull null]];
     }];
