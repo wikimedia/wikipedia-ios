@@ -94,7 +94,7 @@
     cell.languageNameLabel.text = langLink.localizedName;
 
     //can only delete non-OS languages
-    if (![[MWKLanguageLinkController sharedInstance] languageIsOSLanguage:langLink]) {
+    if([[MWKLanguageLinkController sharedInstance].preferredLanguages count] > 1){
         cell.deleteButtonTapped = ^{
             MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
             [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
