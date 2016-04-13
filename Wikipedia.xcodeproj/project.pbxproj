@@ -865,7 +865,6 @@
 		B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAppViewController.m; path = Wikipedia/Code/WMFAppViewController.m; sourceTree = SOURCE_ROOT; };
 		B0E802C21C0CD2B80065EBC0 /* WMFExploreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreViewController.h; path = Wikipedia/Code/WMFExploreViewController.h; sourceTree = SOURCE_ROOT; };
 		B0E802C31C0CD2B80065EBC0 /* WMFExploreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreViewController.m; path = Wikipedia/Code/WMFExploreViewController.m; sourceTree = SOURCE_ROOT; };
-		B0E802C51C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFPicOfTheDayTableViewCell_Testing.h; path = Wikipedia/Code/WMFPicOfTheDayTableViewCell_Testing.h; sourceTree = SOURCE_ROOT; };
 		B0E802C61C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFPicOfTheDayTableViewCell.h; path = Wikipedia/Code/WMFPicOfTheDayTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		B0E802C71C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPicOfTheDayTableViewCell.m; path = Wikipedia/Code/WMFPicOfTheDayTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		B0E802C81C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFPicOfTheDayTableViewCell.xib; path = Wikipedia/Code/WMFPicOfTheDayTableViewCell.xib; sourceTree = SOURCE_ROOT; };
@@ -4624,7 +4623,6 @@
 		BCCB81461C110857008BC602 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B0E802C51C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell_Testing.h */,
 				B0E802C61C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.h */,
 				B0E802C71C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.m */,
 				B0E802C81C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.xib */,

@@ -6,7 +6,7 @@
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFPicOfTheDayTableViewCell_Testing.h"
+#import "WMFPicOfTheDayTableViewCell.h"
 #import "UIImageView+WMFPlaceholder.h"
 #import "UIImageView+WMFImageFetchingInternal.h"
 #import "WMFGradientView.h"

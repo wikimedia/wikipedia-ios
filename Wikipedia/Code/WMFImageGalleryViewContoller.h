@@ -34,6 +34,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface WMFPOTDImageGalleryViewContoller : NYTPhotosViewController
+
+- (instancetype)initWithDates:(NSArray<NSDate*>*)imageDates selectedImageInfo:(nullable MWKImageInfo*)imageInfo;
+
+- (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto> >*)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
+
+@end
+
 
 @protocol WMFHeaderImageGalleryViewContollerDelegate <NYTPhotosViewControllerDelegate>
 
