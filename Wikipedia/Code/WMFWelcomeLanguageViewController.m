@@ -13,6 +13,7 @@
 @property (strong, nonatomic) IBOutlet UILabel* titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel* subTitleLabel;
 @property (strong, nonatomic) IBOutlet UIButton* moreLanguagesButton;
+@property (strong, nonatomic) IBOutlet UIButton* moreLanguagesIcon;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
 @property (strong, nonatomic) IBOutlet UIView* dividerAboveNextStepButton;
 @property (strong, nonatomic) IBOutlet WelcomeLanguagesAnimationView* animationView;
@@ -39,6 +40,8 @@
 
     [self wmf_setupTransparentWelcomeNavigationBarWithBackChevron];
     self.animationView.backgroundColor = [UIColor clearColor];
+
+    self.moreLanguagesIcon.tintColor = [UIColor wmf_blueTintColor];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -88,18 +91,24 @@
     WMFWelcomeLanguageTableViewCell* cell = (id)[tableView dequeueReusableCellWithIdentifier:[WMFWelcomeLanguageTableViewCell wmf_nibName]
                                                                                 forIndexPath:indexPath];
     MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
-    cell.numberLabel.text       = [NSString stringWithFormat:@"%ld", (long)indexPath.row + 1];
     cell.languageNameLabel.text = langLink.localizedName;
 
     //can only delete non-OS languages
-    if (![[MWKLanguageLinkController sharedInstance] languageIsOSLanguage:langLink]) {
+    if([[MWKLanguageLinkController sharedInstance].preferredLanguages count] > 1){
         cell.deleteButtonTapped = ^{
             MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
             [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
             [tableView reloadData];
         };
+        cell.minusButton.hidden = NO;
+    }else{
+        cell.minusButton.hidden = YES;
     }
     return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [[MWKLanguageLinkController sharedInstance].preferredLanguages count] > 1;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
