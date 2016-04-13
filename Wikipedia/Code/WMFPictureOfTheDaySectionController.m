@@ -145,6 +145,10 @@ static NSString* const WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoT
     return self.referenceImageView;
 }
 
+- (NSString* _Nullable)photosViewController:(NYTPhotosViewController*)photosViewController titleForPhoto:(id <NYTPhoto>)photo atIndex:(NSUInteger)photoIndex totalPhotoCount:(NSUInteger)totalPhotoCount {
+    return @"";
+}
+
 @end
 
 

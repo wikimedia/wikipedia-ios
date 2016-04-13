@@ -966,6 +966,11 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+- (NSString * _Nullable)photosViewController:(NYTPhotosViewController *)photosViewController titleForPhoto:(id <NYTPhoto>)photo atIndex:(NSUInteger)photoIndex totalPhotoCount:(NSUInteger)totalPhotoCount{
+    return @"";
+}
+
+
 #pragma mark - Edit Section
 
 - (void)showEditorForSection:(MWKSection*)section {
