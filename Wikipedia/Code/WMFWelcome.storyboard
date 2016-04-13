@@ -265,18 +265,34 @@
                                             <rect key="frame" x="0.0" y="365" width="280" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQm-oo-RaU">
-                                                    <rect key="frame" x="69" y="7" width="141" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQm-oo-RaU">
+                                                    <rect key="frame" x="60" y="7" width="90" height="32"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <state key="normal" title="+ Add another">
+                                                    <state key="normal" title="Add another">
                                                         <color key="titleColor" red="0.1647058824" green="0.30980392159999998" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="addLanguages:" destination="HdP-0o-ZZC" eventType="touchUpInside" id="7tf-w6-N2g"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LPH-dz-BeL">
+                                                    <rect key="frame" x="15" y="12" width="30" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="Jho-4J-Qnn"/>
+                                                    </constraints>
+                                                    <state key="normal" image="language-add"/>
+                                                    <connections>
+                                                        <action selector="addLanguages:" destination="HdP-0o-ZZC" eventType="touchUpInside" id="Wib-Ma-sR5"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="aQm-oo-RaU" firstAttribute="top" secondItem="E2k-u4-Y2C" secondAttribute="top" constant="7" id="235-W9-zhR"/>
+                                                <constraint firstItem="aQm-oo-RaU" firstAttribute="leading" secondItem="LPH-dz-BeL" secondAttribute="trailing" constant="15" id="6Ht-wu-f9n"/>
+                                                <constraint firstItem="LPH-dz-BeL" firstAttribute="centerY" secondItem="aQm-oo-RaU" secondAttribute="centerY" id="rBq-JS-Ygh"/>
+                                                <constraint firstItem="LPH-dz-BeL" firstAttribute="leading" secondItem="E2k-u4-Y2C" secondAttribute="leading" constant="15" id="vYO-Z3-blQ"/>
+                                            </constraints>
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WMFWelcomeLanguageTableViewCell" rowHeight="56" id="XVM-je-wTt" customClass="WMFWelcomeLanguageTableViewCell">
@@ -286,43 +302,18 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="280" height="55.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QGu-4w-xAJ">
-                                                            <rect key="frame" x="66" y="13" width="30" height="30"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iky-eM-rBd">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <color key="textColor" red="0.55686274509803924" green="0.56470588235294117" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                            <color key="backgroundColor" red="0.89803921568627454" green="0.90588235294117647" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <constraints>
-                                                                <constraint firstItem="iky-eM-rBd" firstAttribute="top" secondItem="QGu-4w-xAJ" secondAttribute="top" id="4cc-JS-wVs"/>
-                                                                <constraint firstItem="iky-eM-rBd" firstAttribute="leading" secondItem="QGu-4w-xAJ" secondAttribute="leading" id="5W4-i6-y9S"/>
-                                                                <constraint firstAttribute="height" constant="30" id="5tv-AJ-1oj"/>
-                                                                <constraint firstAttribute="width" constant="30" id="CE9-67-Hhx"/>
-                                                                <constraint firstAttribute="trailing" secondItem="iky-eM-rBd" secondAttribute="trailing" id="JMD-kG-2ff"/>
-                                                                <constraint firstAttribute="bottom" secondItem="iky-eM-rBd" secondAttribute="bottom" id="vkj-0g-v3y"/>
-                                                            </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="15"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wef-Qu-Lql">
-                                                            <rect key="frame" x="118" y="18" width="154" height="21"/>
+                                                            <rect key="frame" x="60" y="18" width="212" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aSB-26-uHW">
-                                                            <rect key="frame" x="15" y="13" width="36" height="30"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aSB-26-uHW">
+                                                            <rect key="frame" x="15" y="17" width="30" height="22"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="36" id="t5y-cQ-oTp"/>
+                                                                <constraint firstAttribute="width" constant="30" id="t5y-cQ-oTp"/>
                                                             </constraints>
-                                                            <state key="normal" title="-"/>
+                                                            <state key="normal" image="language-delete"/>
                                                             <connections>
                                                                 <action selector="minusButtonTapped:" destination="XVM-je-wTt" eventType="touchUpInside" id="Q3g-OL-wrs"/>
                                                             </connections>
@@ -330,18 +321,15 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="aSB-26-uHW" firstAttribute="leading" secondItem="aqT-I1-gCa" secondAttribute="leading" constant="15" id="6Sq-05-CVP"/>
-                                                        <constraint firstItem="QGu-4w-xAJ" firstAttribute="centerY" secondItem="aqT-I1-gCa" secondAttribute="centerY" id="AAj-tH-Mo8"/>
                                                         <constraint firstItem="aSB-26-uHW" firstAttribute="centerY" secondItem="aqT-I1-gCa" secondAttribute="centerY" id="UHI-vK-thX"/>
-                                                        <constraint firstItem="wef-Qu-Lql" firstAttribute="leading" secondItem="QGu-4w-xAJ" secondAttribute="trailing" constant="22" id="aqU-Ky-puI"/>
-                                                        <constraint firstItem="QGu-4w-xAJ" firstAttribute="leading" secondItem="aSB-26-uHW" secondAttribute="trailing" constant="15" id="kMP-2e-eTF"/>
+                                                        <constraint firstItem="wef-Qu-Lql" firstAttribute="centerY" secondItem="aqT-I1-gCa" secondAttribute="centerY" id="iWk-u6-rl2"/>
+                                                        <constraint firstItem="wef-Qu-Lql" firstAttribute="leading" secondItem="aSB-26-uHW" secondAttribute="trailing" constant="15" id="idb-yd-rud"/>
                                                         <constraint firstAttribute="trailing" secondItem="wef-Qu-Lql" secondAttribute="trailing" constant="8" id="v0B-pk-z68"/>
-                                                        <constraint firstItem="wef-Qu-Lql" firstAttribute="centerY" secondItem="QGu-4w-xAJ" secondAttribute="centerY" id="zit-db-nbI"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="languageNameLabel" destination="wef-Qu-Lql" id="F5I-av-Ma8"/>
                                                     <outlet property="minusButton" destination="aSB-26-uHW" id="qRO-fa-Lxx"/>
-                                                    <outlet property="numberLabel" destination="iky-eM-rBd" id="eJQ-Ob-nZ4"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -420,6 +408,7 @@
                         <outlet property="dividerAboveNextStepButton" destination="6IQ-9d-NOr" id="wwf-bs-9JA"/>
                         <outlet property="languageTableView" destination="NhA-v2-Uom" id="fhm-4F-gOJ"/>
                         <outlet property="moreLanguagesButton" destination="aQm-oo-RaU" id="HS5-TX-RId"/>
+                        <outlet property="moreLanguagesIcon" destination="LPH-dz-BeL" id="IZD-Y7-2UT"/>
                         <outlet property="nextStepButton" destination="4mC-Fk-qiy" id="P63-h8-FjQ"/>
                         <outlet property="subTitleLabel" destination="i8f-yP-8lK" id="AzA-jA-Hqg"/>
                         <outlet property="titleLabel" destination="C1e-el-eKb" id="eYr-Bt-0xF"/>
@@ -578,6 +567,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="language-add" width="22" height="22"/>
+        <image name="language-delete" width="22" height="22"/>
         <image name="welcome-bg" width="360" height="640"/>
     </resources>
 </document>

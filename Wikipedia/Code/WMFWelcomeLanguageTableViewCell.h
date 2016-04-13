@@ -11,7 +11,6 @@
 
 @interface WMFWelcomeLanguageTableViewCell : MGSwipeTableCell
 
-@property (strong, nonatomic) IBOutlet UILabel* numberLabel;
 @property (strong, nonatomic) IBOutlet UILabel* languageNameLabel;
 
 @property (strong, nonatomic) IBOutlet UIButton* minusButton;
