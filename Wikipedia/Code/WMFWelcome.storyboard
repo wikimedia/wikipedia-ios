@@ -327,6 +327,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="wef-Qu-Lql" secondAttribute="trailing" constant="8" id="v0B-pk-z68"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <inset key="separatorInset" minX="54" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <connections>
                                                     <outlet property="languageNameLabel" destination="wef-Qu-Lql" id="F5I-av-Ma8"/>
                                                     <outlet property="minusButton" destination="aSB-26-uHW" id="qRO-fa-Lxx"/>
