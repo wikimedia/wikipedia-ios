@@ -104,6 +104,10 @@
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [[MWKLanguageLinkController sharedInstance].preferredLanguages count] > 1;
+}
+
 - (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
     return UITableViewCellEditingStyleNone; //remove delete control
 }
