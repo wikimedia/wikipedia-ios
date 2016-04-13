@@ -260,8 +260,10 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert([self respondsToSelector:@selector(updateOverlayInformation)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(didNavigateToPhoto:)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
-        self.infoController          = [[WMFImageInfoController alloc] initWithDataStore:store batchSize:50];
-        self.infoController.delegate = self;
+        self.infoController               = [[WMFImageInfoController alloc] initWithDataStore:store batchSize:50];
+        self.infoController.delegate      = self;
+        self.rightBarButtonItem.tintColor = [UIColor whiteColor];
+        self.leftBarButtonItem.tintColor  = [UIColor whiteColor];
     }
 
     return self;
@@ -419,6 +421,8 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert([self respondsToSelector:@selector(didNavigateToPhoto:)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
         self.infoFetcher = [[MWKImageInfoFetcher alloc] init];
+        self.rightBarButtonItem.tintColor = [UIColor whiteColor];
+        self.leftBarButtonItem.tintColor  = [UIColor whiteColor];
     }
 
     return self;
