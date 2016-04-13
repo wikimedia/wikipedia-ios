@@ -7,7 +7,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface WMFImageGalleryViewContoller : NYTPhotosViewController<WMFImageInfoControllerDelegate>
+@interface WMFBaseImageGalleryViewContoller : NYTPhotosViewController
+
+- (NSUInteger)indexOfCurrentImage;
+
+- (UIImageView*)currentImageView;
+
+- (void)showImageAtIndex:(NSUInteger)index animated:(BOOL)animated;
+
+@end
+
+@interface WMFImageGalleryViewContoller : WMFBaseImageGalleryViewContoller<WMFImageInfoControllerDelegate>
 
 - (instancetype)initWithArticle:(MWKArticle*)article;
 
@@ -21,37 +31,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto> >*)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
 
-
-- (NSUInteger)indexOfCurrentImage;
-
 - (MWKImage*)currentImage;
 
 - (MWKImage*)imageForPhoto:(id<NYTPhoto>)photo;
 
-- (UIImageView*)currentImageView;
-
-- (void)showImageAtIndex:(NSUInteger)index animated:(BOOL)animated;
-
 @end
 
-@interface WMFPOTDImageGalleryViewContoller : NYTPhotosViewController
+@interface WMFPOTDImageGalleryViewContoller : WMFBaseImageGalleryViewContoller
 
 - (instancetype)initWithDates:(NSArray<NSDate*>*)imageDates selectedImageInfo:(nullable MWKImageInfo*)imageInfo;
 
 - (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto> >*)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
-
-@end
-
-
-@protocol WMFHeaderImageGalleryViewContollerDelegate <NYTPhotosViewControllerDelegate>
-
-- (void)photosViewController:(NYTPhotosViewController*)photosViewController handleTapForPhoto:(id <NYTPhoto>)photo;
-
-@end
-
-@interface WMFHeaderImageGalleryViewContoller : WMFImageGalleryViewContoller
-
-@property(nonatomic, weak) id<WMFHeaderImageGalleryViewContollerDelegate> delegate;
 
 @end
 

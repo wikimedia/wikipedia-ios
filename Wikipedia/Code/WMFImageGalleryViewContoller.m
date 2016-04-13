@@ -154,13 +154,20 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Exposing a private property of the data source
  *  In order to guarantee its existence, we assert photos
- *  on int in the VC
+ *  on init in the VC
  */
 @property (nonatomic, copy, readonly) NSArray* photos;
 
 @end
 
-@interface NYTPhotosViewController (WMFExposure)
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincomplete-implementation"
+
+
+@interface WMFBaseImageGalleryViewContoller ()
+
+@property (nonatomic, strong, readonly) NSArray<WMFGalleryImage*>* photos;
 
 @property (nonatomic, readonly) id <WMFExposedDataSource> dataSource;
 
@@ -173,16 +180,31 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIImageView*)currentImageView;
 
 - (void)didNavigateToPhoto:(id <NYTPhoto>)photo;
-
-
 @end
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wincomplete-implementation"
 
-@implementation NYTPhotosViewController (WMFExposure)
+@implementation WMFBaseImageGalleryViewContoller
 
 @dynamic dataSource;
+
+- (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto> >*)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate {
+    self = [super initWithPhotos:photos initialPhoto:initialPhoto delegate:delegate];
+    if (self) {
+        /**
+         *  We are performing the following asserts to ensure that the
+         *  implmentation of of NYTPhotosViewController does not change.
+         *  We exposed these properties and methods via a category
+         *  in lieu of subclassing. (and then maintaining a seperate fork)
+         */
+        NSParameterAssert(self.dataSource);
+        NSParameterAssert(self.photos);
+        NSAssert([self respondsToSelector:@selector(updateOverlayInformation)], @"NYTPhoto implementation changed!");
+        NSAssert([self respondsToSelector:@selector(didNavigateToPhoto:)], @"NYTPhoto implementation changed!");
+        NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
+        NSAssert([self respondsToSelector:@selector(currentImageView)], @"NYTPhoto implementation changed!");
+    }
+    return self;
+}
 
 - (void)setOverlayViewHidden:(BOOL)overlayViewHidden {
     if (overlayViewHidden) {
@@ -200,16 +222,38 @@ NS_ASSUME_NONNULL_BEGIN
     return [self currentPhotoViewController].scalingImageView.imageView;
 }
 
+- (NSArray<WMFGalleryImage*>*)photos {
+    return [(id < WMFExposedDataSource >)self.dataSource photos];
+}
+
+- (NSUInteger)indexOfCurrentImage {
+    return [self indexOfPhoto:self.currentlyDisplayedPhoto];
+}
+
+- (NSUInteger)indexOfPhoto:(id<NYTPhoto>)photo {
+    return [self.photos indexOfObject:photo];
+}
+
+- (id<NYTPhoto>)photoAtIndex:(NSUInteger)index {
+    if (index > self.photos.count) {
+        return nil;
+    }
+    return self.photos[index];
+}
+
+- (void)showImageAtIndex:(NSUInteger)index animated:(BOOL)animated {
+    id<NYTPhoto> photo = [self photoAtIndex:index];
+    [self displayPhoto:photo animated:animated];
+}
+
 @end
+
 
 #pragma clang diagnostic pop
 
 @interface WMFImageGalleryViewContoller ()
 
 @property (nonatomic, strong) WMFImageInfoController* infoController;
-
-@property (nonatomic, strong, readonly) NSArray<WMFGalleryImage*>* photos;
-
 
 @end
 
@@ -238,6 +282,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore*)store images:(NSArray<MWKImage*>*)images selectedImage:(nullable MWKImage*)image {
+    NSParameterAssert(store);
+    NSParameterAssert(images);
+
     NSArray* items = images;
 
     NSArray<WMFGalleryImage*>* galleryImages = [WMFGalleryImage galleryImagesWithImageObjects:items];
@@ -253,13 +300,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     self = [super initWithPhotos:galleryImages initialPhoto:selected delegate:nil];
     if (self) {
-        NSParameterAssert(self.dataSource);
-        NSParameterAssert(self.photos);
-        NSParameterAssert(store);
-        NSParameterAssert(images);
-        NSAssert([self respondsToSelector:@selector(updateOverlayInformation)], @"NYTPhoto implementation changed!");
-        NSAssert([self respondsToSelector:@selector(didNavigateToPhoto:)], @"NYTPhoto implementation changed!");
-        NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
         self.infoController               = [[WMFImageInfoController alloc] initWithDataStore:store batchSize:50];
         self.infoController.delegate      = self;
         self.rightBarButtonItem.tintColor = [UIColor whiteColor];
@@ -282,10 +322,6 @@ NS_ASSUME_NONNULL_BEGIN
             //show error
         });
     }
-}
-
-- (NSArray<WMFGalleryImage*>*)photos {
-    return [(id < WMFExposedDataSource >)self.dataSource photos];
 }
 
 + (nullable WMFGalleryImage*)galleryImageWithImage:(MWKImage*)image inGalleryImages:(NSArray<WMFGalleryImage*>*)images {
@@ -311,42 +347,16 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self class] indexOfImage:image inGalleryImages:self.photos];
 }
 
-- (NSUInteger)indexOfGalleryImage:(WMFGalleryImage*)image {
-    return [[self class] indexOfImage:image.imageObject inGalleryImages:self.photos];
-}
-
-- (NSUInteger)indexOfCurrentImage {
-    return [self indexOfGalleryImage:self.currentlyDisplayedPhoto];
-}
-
-- (MWKImage*)currentImage {
-    NSUInteger current = [self indexOfCurrentImage];
-    if (current > self.photos.count) {
-        return nil;
-    }
-    return [self.photos[current] imageObject];
-}
-
 - (MWKImage*)imageForPhoto:(id<NYTPhoto>)photo {
     return [(WMFGalleryImage*)photo imageObject];
 }
 
-- (UIImageView*)currentImageView {
-    return [super currentImageView];
-}
-
-- (void)showImageAtIndex:(NSUInteger)index animated:(BOOL)animated {
-    if (index > self.photos.count) {
-        return;
-    }
-
-    id<NYTPhoto> photo = self.photos[index];
-
-    [self displayPhoto:photo animated:animated];
+- (MWKImage*)currentImage {
+    return [self imageForPhoto:[self photoAtIndex:[self indexOfCurrentImage]]];
 }
 
 - (void)fetchCurrentImageInfo {
-    [self.infoController fetchBatchContainingIndex:[self indexOfGalleryImage:self.currentlyDisplayedPhoto]];
+    [self.infoController fetchBatchContainingIndex:[self indexOfPhoto:self.currentlyDisplayedPhoto]];
 }
 
 #pragma mark - UIViewController
@@ -391,9 +401,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MWKImageInfoFetcher* infoFetcher;
 
-@property (nonatomic, strong, readonly) NSArray<WMFGalleryImage*>* photos;
-
-
 @end
 
 @implementation WMFPOTDImageGalleryViewContoller
@@ -436,10 +443,6 @@ NS_ASSUME_NONNULL_BEGIN
     } else if (![galleryImage memoryCachedImage]) {
         [self fetchImageForGalleryImage:galleryImage];
     }
-}
-
-- (NSArray<WMFGalleryImage*>*)photos {
-    return [(id < WMFExposedDataSource >)self.dataSource photos];
 }
 
 - (void)fetchCurrentImageInfo {
@@ -486,26 +489,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @end
-
-@implementation WMFHeaderImageGalleryViewContoller
-
-@dynamic delegate;
-
-- (instancetype)initWithDataStore:(MWKDataStore*)store images:(NSArray<MWKImage*>*)images selectedImage:(nullable MWKImage*)image {
-    self = [super initWithDataStore:store images:images selectedImage:image];
-    if (self) {
-        self.overlayViewHidden = YES;
-        [self.singleTapGestureRecognizer addTarget:self action:@selector(didTap:)];
-    }
-    return self;
-}
-
-- (void)didTap:(UITapGestureRecognizer*)tap {
-    [self.delegate photosViewController:self handleTapForPhoto:[self currentlyDisplayedPhoto]];
-}
-
-@end
-
 
 
 NS_ASSUME_NONNULL_END
