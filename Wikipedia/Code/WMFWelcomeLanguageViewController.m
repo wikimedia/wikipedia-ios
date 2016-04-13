@@ -100,6 +100,9 @@
             [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
             [tableView reloadData];
         };
+        cell.minusButton.hidden = NO;
+    }else{
+        cell.minusButton.hidden = YES;
     }
     return cell;
 }
