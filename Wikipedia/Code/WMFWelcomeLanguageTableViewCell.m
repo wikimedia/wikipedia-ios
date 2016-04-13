@@ -13,6 +13,11 @@
     return self;
 }
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.minusButton.tintColor = [UIColor redColor];
+}
+
 - (void)setDeleteButtonTapped:(dispatch_block_t)deleteButtonTapped {
     _deleteButtonTapped = [deleteButtonTapped copy];
     if (_deleteButtonTapped == NULL) {
@@ -30,6 +35,10 @@
             return YES;
         };
     }
+}
+
+-(IBAction)minusButtonTapped:(id)sender {
+    [self showSwipe:MGSwipeDirectionRightToLeft animated:YES];
 }
 
 - (BOOL)shouldIndentWhileEditing {
