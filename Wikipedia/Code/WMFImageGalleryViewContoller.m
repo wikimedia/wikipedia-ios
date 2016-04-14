@@ -10,6 +10,7 @@
 #import "UIImage+WMFStyle.h"
 #import "UIColor+WMFStyle.h"
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
+#import "UIViewController+WMFOpenExternalUrl.h"
 
 @import FLAnimatedImage;
 
@@ -202,8 +203,26 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert([self respondsToSelector:@selector(didNavigateToPhoto:)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(currentImageView)], @"NYTPhoto implementation changed!");
+
+        UIBarButtonItem* share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
+        share.tintColor         = [UIColor whiteColor];
+        self.rightBarButtonItem = share;
+
+        UIBarButtonItem* close = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
+        close.tintColor        = [UIColor whiteColor];
+        self.leftBarButtonItem = close;
     }
     return self;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 }
 
 - (void)setOverlayViewHidden:(BOOL)overlayViewHidden {
@@ -244,6 +263,49 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showImageAtIndex:(NSUInteger)index animated:(BOOL)animated {
     id<NYTPhoto> photo = [self photoAtIndex:index];
     [self displayPhoto:photo animated:animated];
+}
+
+#pragma mark - Actions
+
+- (void)didTapCloseButton {
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)didTapShareButton {
+    WMFGalleryImage* image = self.currentlyDisplayedPhoto;
+    MWKImageInfo* info     = image.imageInfo ? : image.thumbnailImageInfo;
+    NSURL* url             = [image imageURL] ? : [image thumbnailImageURL];
+
+    @weakify(self);
+    [[WMFImageController sharedInstance] fetchImageWithURL:url].then(^(WMFImageDownload* _Nullable download){
+        @strongify(self);
+
+        NSMutableArray* items = [NSMutableArray array];
+
+        WMFImageTextActivitySource* textSource = [[WMFImageTextActivitySource alloc] initWithInfo:info];
+        [items addObject:textSource];
+
+        WMFImageURLActivitySource* imageSource = [[WMFImageURLActivitySource alloc] initWithInfo:info];
+        [items addObject:imageSource];
+
+        if (download.image) {
+            [items addObject:download.image];
+        }
+
+        UIActivityViewController* vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
+        vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
+        UIPopoverPresentationController* presenter = [vc popoverPresentationController];
+        presenter.barButtonItem = self.rightBarButtonItem;
+        [self presentViewController:vc animated:YES completion:NULL];
+    }).catch(^(NSError* error){
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+    });
+}
+
+- (void)didTapInfoButton {
+    WMFGalleryImage* image = self.currentlyDisplayedPhoto;
+    MWKImageInfo* info     = image.imageInfo ? : image.thumbnailImageInfo;
+    [self wmf_openExternalUrl:info.filePageURL];
 }
 
 @end
