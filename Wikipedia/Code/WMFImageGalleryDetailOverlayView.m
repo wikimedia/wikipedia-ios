@@ -91,10 +91,18 @@ static NSAttributedString* ConcatOwnerAndLicense(NSString* owner, MWKLicense* li
     if (self.frame.size.height > 0.0) {
         // start gradient at the top of the image description label
         double const imageDescriptionTop =
-        self.frame.size.height
-        - CGRectGetMinY(self.imageDescriptionLabel.frame);
+            self.frame.size.height
+            - CGRectGetMinY(self.imageDescriptionLabel.frame);
         double const relativeImageDescriptionTop = 1.0 - imageDescriptionTop / self.frame.size.height;
         self.gradientView.gradientLayer.startPoint = CGPointMake(0.5, relativeImageDescriptionTop);
+    }
+}
+
+- (void)didMoveToSuperview {
+    [super didMoveToSuperview];
+    if (self.superview) {
+        NSLayoutConstraint* maxHeightConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.superview attribute:NSLayoutAttributeHeight multiplier:0.3f constant:0.0f];
+        [self.superview addConstraint:maxHeightConstraint];
     }
 }
 
