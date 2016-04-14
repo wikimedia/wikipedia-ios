@@ -2,6 +2,6 @@
 
 @interface WMFArticleLanguagesSectionHeader : UITableViewHeaderFooterView
 
-@property (strong, nonatomic) NSString* title;
+- (void)setTitle:(NSString*)title;
 
 @end

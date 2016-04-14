@@ -14,10 +14,6 @@ static CGFloat const WMFLanguageHeaderFontSize = 12.f;
     self.titleLabel.text = title;
 }
 
-- (NSString *)title {
-    return self.titleLabel.text;
-}
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     
