@@ -48,15 +48,15 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QuT-sm-MtF" userLabel="Container View">
-                                                    <rect key="frame" x="18" y="10" width="284" height="118"/>
+                                                    <rect key="frame" x="18" y="10" width="284" height="117"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Localized language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rLN-Zb-UJl" userLabel="Localized language name">
-                                                            <rect key="frame" x="0.0" y="0.0" width="284" height="64"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="284" height="63"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Article title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ib6-Zk-jUw" userLabel="Article title">
-                                                            <rect key="frame" x="0.0" y="64" width="284" height="18"/>
+                                                            <rect key="frame" x="0.0" y="63" width="284" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" placeholder="YES" id="Vuo-LR-40O"/>
                                                             </constraints>
@@ -65,7 +65,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wVn-n7-pdy" userLabel="Language name">
-                                                            <rect key="frame" x="0.0" y="82" width="284" height="18"/>
+                                                            <rect key="frame" x="0.0" y="81" width="284" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="jOO-T3-pcc"/>
                                                             </constraints>
@@ -74,7 +74,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lQo-0f-Md2" userLabel="Language code">
-                                                            <rect key="frame" x="0.0" y="100" width="284" height="18"/>
+                                                            <rect key="frame" x="0.0" y="99" width="284" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="QuJ-cG-Rpw"/>
                                                             </constraints>
@@ -113,7 +113,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="Pub-Ik-4Ne" secondAttribute="trailing" id="OBz-Rm-Ffm"/>
                                                 <constraint firstItem="Pub-Ik-4Ne" firstAttribute="leading" secondItem="u7F-wb-Bsy" secondAttribute="leading" id="Thf-9y-vnP"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="QuT-sm-MtF" secondAttribute="trailing" constant="10" id="XM2-T9-UEr"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="QuT-sm-MtF" secondAttribute="bottom" constant="2" id="kqP-vV-Kec"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="QuT-sm-MtF" secondAttribute="bottom" constant="3" id="kqP-vV-Kec"/>
                                                 <constraint firstItem="QuT-sm-MtF" firstAttribute="top" secondItem="u7F-wb-Bsy" secondAttribute="topMargin" constant="2" id="pmH-dB-0Qz"/>
                                                 <constraint firstItem="QuT-sm-MtF" firstAttribute="leading" secondItem="u7F-wb-Bsy" secondAttribute="leadingMargin" constant="10" id="q95-c0-ppO"/>
                                             </constraints>
