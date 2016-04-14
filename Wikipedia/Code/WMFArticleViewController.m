@@ -226,11 +226,11 @@ NS_ASSUME_NONNULL_BEGIN
     return _progressView;
 }
 
-- (UIImageView*)headerImageView{
-    if(!_headerImageView){
-        _headerImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+- (UIImageView*)headerImageView {
+    if (!_headerImageView) {
+        _headerImageView                        = [[UIImageView alloc] initWithFrame:CGRectZero];
         _headerImageView.userInteractionEnabled = YES;
-        _headerImageView.clipsToBounds = YES;
+        _headerImageView.clipsToBounds          = YES;
         [_headerImageView wmf_configureWithDefaultPlaceholder];
         UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
         [_headerImageView addGestureRecognizer:tap];
@@ -256,8 +256,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WebViewController*)webViewController {
     if (!_webViewController) {
-        _webViewController                      = [WebViewController wmf_initialViewControllerFromClassStoryboard];
-        _webViewController.delegate             = self;
+        _webViewController            = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+        _webViewController.delegate   = self;
         _webViewController.headerView = self.headerImageView;
     }
     return _webViewController;
@@ -949,7 +949,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    WMFImageGalleryViewContoller* fullscreenGallery = [[WMFImageGalleryViewContoller alloc] initWithArticle:self.article selectedImageIndex:0];
+    WMFImageGalleryViewContoller* fullscreenGallery = [[WMFImageGalleryViewContoller alloc] initWithArticle:self.article];
     fullscreenGallery.delegate = self;
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
@@ -958,18 +958,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIView* _Nullable)photosViewController:(WMFImageGalleryViewContoller*)photosViewController referenceViewForPhoto:(id <NYTPhoto>)photo {
     MWKImage* currentImage = [photosViewController currentImage];
-    MWKImage* leadImage = self.article.leadImage;
-    if([currentImage isEqualToImage:leadImage] || [currentImage isVariantOfImage:leadImage]){
+    MWKImage* leadImage    = self.article.leadImage;
+    if ([currentImage isEqualToImage:leadImage] || [currentImage isVariantOfImage:leadImage]) {
         return self.headerImageView;
-    }else{
+    } else {
         return nil;
     }
 }
 
-- (NSString * _Nullable)photosViewController:(NYTPhotosViewController *)photosViewController titleForPhoto:(id <NYTPhoto>)photo atIndex:(NSUInteger)photoIndex totalPhotoCount:(NSUInteger)totalPhotoCount{
+- (NSString* _Nullable)photosViewController:(NYTPhotosViewController*)photosViewController titleForPhoto:(id <NYTPhoto>)photo atIndex:(NSUInteger)photoIndex totalPhotoCount:(NSUInteger)totalPhotoCount {
     return @"";
 }
-
 
 #pragma mark - Edit Section
 

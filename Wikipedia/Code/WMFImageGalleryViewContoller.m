@@ -330,32 +330,18 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFImageGalleryViewContoller
 
 - (instancetype)initWithArticle:(MWKArticle*)article {
-    return [self initWithArticle:article selectedImageIndex:0];
-}
-
-- (instancetype)initWithArticle:(MWKArticle*)article selectedImageIndex:(NSUInteger)imageIndex {
-    NSArray* items = [article.images imagesForDisplayInGallery];
-    return [self initWithDataStore:article.dataStore images:items selectedImageIndex:imageIndex];
-}
-
-- (instancetype)initWithDataStore:(MWKDataStore*)store images:(NSArray<MWKImage*>*)images selectedImageIndex:(NSUInteger)imageIndex {
-    MWKImage* image = images[imageIndex];
-    if (imageIndex < images.count) {
-        image = images[imageIndex];
-    }
-    return [self initWithDataStore:store images:images selectedImage:image];
+    return [self initWithArticle:article selectedImage:nil];
 }
 
 - (instancetype)initWithArticle:(MWKArticle*)article selectedImage:(nullable MWKImage*)image {
+    NSParameterAssert(article);
+    NSParameterAssert(article.dataStore);
+
     NSArray* items = [article.images imagesForDisplayInGallery];
-    return [self initWithDataStore:article.dataStore images:items selectedImage:image];
-}
 
-- (instancetype)initWithDataStore:(MWKDataStore*)store images:(NSArray<MWKImage*>*)images selectedImage:(nullable MWKImage*)image {
-    NSParameterAssert(store);
-    NSParameterAssert(images);
-
-    NSArray* items = images;
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
+        items = [items wmf_reverseArrayIfApplicationIsRTL];
+    }
 
     NSArray<WMFGalleryImage*>* galleryImages = [WMFGalleryImage galleryImagesWithImageObjects:items];
 
@@ -364,16 +350,14 @@ NS_ASSUME_NONNULL_BEGIN
         selected = [[self class] galleryImageWithImage:image inGalleryImages:galleryImages];
     }
 
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
-        galleryImages = [galleryImages wmf_reverseArrayIfApplicationIsRTL];
-    }
-
     self = [super initWithPhotos:galleryImages initialPhoto:selected delegate:nil];
     if (self) {
-        self.infoController               = [[WMFImageInfoController alloc] initWithDataStore:store batchSize:50];
-        self.infoController.delegate      = self;
-        self.rightBarButtonItem.tintColor = [UIColor whiteColor];
-        self.leftBarButtonItem.tintColor  = [UIColor whiteColor];
+        self.infoController = [[WMFImageInfoController alloc] initWithDataStore:article.dataStore batchSize:50];
+        [self.infoController setUniqueArticleImages:items forTitle:article.title];
+        [self.photos enumerateObjectsUsingBlock:^(WMFGalleryImage * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.imageInfo = [self.infoController infoForImage:obj.imageObject];
+        }];
+        self.infoController.delegate = self;
     }
 
     return self;
@@ -382,6 +366,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)didNavigateToPhoto:(id <NYTPhoto>)photo {
     [super didNavigateToPhoto:photo];
     WMFGalleryImage* galleryImage = (WMFGalleryImage*)photo;
+    [self fetchImageInfoForGalleryImage:galleryImage];
     if (![galleryImage memoryCachedImage]) {
         @weakify(self);
         [[WMFImageController sharedInstance] fetchImageWithURL:galleryImage.imageURL].then(^(WMFImageDownload* download) {
@@ -426,7 +411,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)fetchCurrentImageInfo {
-    [self.infoController fetchBatchContainingIndex:[self indexOfPhoto:self.currentlyDisplayedPhoto]];
+    [self fetchImageInfoForGalleryImage:self.currentlyDisplayedPhoto];
+}
+
+- (void)fetchImageInfoForGalleryImage:(WMFGalleryImage*)galleryImage {
+    [self.infoController fetchBatchContainingIndex:[self indexOfPhoto:galleryImage]];
 }
 
 #pragma mark - UIViewController
@@ -497,9 +486,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert([self respondsToSelector:@selector(updateOverlayInformation)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(didNavigateToPhoto:)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
-        self.infoFetcher                  = [[MWKImageInfoFetcher alloc] init];
-        self.rightBarButtonItem.tintColor = [UIColor whiteColor];
-        self.leftBarButtonItem.tintColor  = [UIColor whiteColor];
+        self.infoFetcher = [[MWKImageInfoFetcher alloc] init];
     }
 
     return self;
