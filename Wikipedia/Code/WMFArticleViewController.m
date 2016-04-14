@@ -670,6 +670,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Article Fetching
 
 - (void)fetchArticleForce:(BOOL)force {
+    NSAssert([[NSThread currentThread] isMainThread], @"Not on main thread!");
     NSAssert(self.isViewLoaded, @"Should only fetch article when view is loaded so we can update its state.");
     if (!force && self.article) {
         return;
