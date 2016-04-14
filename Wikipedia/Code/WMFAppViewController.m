@@ -211,6 +211,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         return;
     }
     
+    [self.session autoLogin];
+    
     if(self.unprocessedUserActivity){
         [self processUserActivity:self.unprocessedUserActivity];
     }else if(self.unprocessedShortcutItem){
