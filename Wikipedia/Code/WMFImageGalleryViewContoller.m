@@ -225,6 +225,14 @@ NS_ASSUME_NONNULL_BEGIN
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 }
 
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
 - (void)setOverlayViewHidden:(BOOL)overlayViewHidden {
     if (overlayViewHidden) {
         [self.overlayView removeFromSuperview];
