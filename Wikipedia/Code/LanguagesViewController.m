@@ -17,14 +17,17 @@
 #import "Wikipedia-Swift.h"
 
 static CGFloat const WMFOtherLanguageRowHeight = 138.f;
+static CGFloat const WMFLanguageHeaderHeight = 57.f;
+static CGFloat const WMFLanguageHeaderFontSize = 12.f;
 
 @interface LanguagesViewController ()
 <UISearchBarDelegate>
 
-@property (weak, nonatomic) IBOutlet UISearchBar* languageFilterField;
+@property (strong, nonatomic) IBOutlet UISearchBar* languageFilterField;
 @property (strong, nonatomic) MWKLanguageFilter* languageFilter;
 @property (strong, nonatomic) MWKTitleLanguageController* titleLanguageController;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* languageFilterTopSpaceConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* languageFilterTopSpaceConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* filterdividerHeightConstraint;
 
 @end
 
@@ -80,7 +83,8 @@ static CGFloat const WMFOtherLanguageRowHeight = 138.f;
     self.languageFilterField.barTintColor = [UIColor wmf_settingsBackgroundColor];
     self.languageFilterField.placeholder  = MWLocalizedString(@"article-languages-filter-placeholder", nil);
 
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.filterdividerHeightConstraint.constant = 0.5f;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -263,30 +267,40 @@ static CGFloat const WMFOtherLanguageRowHeight = 138.f;
     }
 }
 
-- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if ([self tableView:tableView numberOfRowsInSection:section] == 0){
-        return nil;
-    }else{
+#pragma mark - UITableViewDelegate
+
+- (BOOL)shouldShowHeaderForSection:(NSInteger)section {
+    return ([self tableView:self.tableView numberOfRowsInSection:section] > 0);
+}
+
+- (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
+    if ([self shouldShowHeaderForSection:section]){
+        UIView* containerView             = [[UIView alloc] initWithFrame:CGRectZero];
+        containerView.backgroundColor     = [UIColor wmf_settingsBackgroundColor];
+        containerView.autoresizesSubviews = YES;
+
+        UILabel* label                                  = [[UILabel alloc] init];
+        label.translatesAutoresizingMaskIntoConstraints = NO;
+        label.font                                      = [UIFont systemFontOfSize:WMFLanguageHeaderFontSize];
+        label.textColor                                 = [UIColor wmf_customGray];
+        label.textAlignment                             = NSTextAlignmentNatural;
+        
         NSString *title = ([self isPreferredSection:section]) ? MWLocalizedString(@"article-languages-yours", nil) : MWLocalizedString(@"article-languages-others", nil);
-        return [title uppercaseStringWithLocale:[NSLocale currentLocale]];
+        label.text      = [title uppercaseStringWithLocale:[NSLocale currentLocale]];
+        
+        [containerView addSubview:label];
+        
+        [label mas_makeConstraints:^(MASConstraintMaker* make) {
+            make.leading.and.trailing.top.and.bottom.equalTo(containerView).insets(UIEdgeInsetsMake(23, 18, 0, 18));
+        }];
+        return containerView;
+    }else{
+        return nil;
     }
 }
 
-#pragma mark - UITableViewDelegate
-
-- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
-    // HAX: hide line separators which appear before sections/rows load
-    return 0.1f;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UITableViewHeaderFooterView *)view forSection:(NSInteger)section {
-    view.textLabel.font = [UIFont systemFontOfSize:12];
-    view.textLabel.textColor = [UIColor wmf_customGray];
-    view.contentView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
-}
-
 - (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
-    return ([self tableView:tableView numberOfRowsInSection:section] == 0) ? 0 : 56.0;
+    return [self shouldShowHeaderForSection:section] ? WMFLanguageHeaderHeight : 0;
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
