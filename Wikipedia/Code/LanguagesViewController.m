@@ -103,38 +103,14 @@ static CGFloat const WMFLanguageHeaderFontSize = 12.f;
 }
 
 - (void)downloadArticlelanguages {
-    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"article-languages-downloading", nil) sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
-    // (temporarily?) hide search field while loading languages since the default alert UI covers the search field
-    [self setLanguageFilterHidden:YES animated:NO];
-
     @weakify(self);
     [self.titleLanguageController
      fetchLanguagesWithSuccess:^{
         @strongify(self)
-        //This can fire rather quickly, lets give the user a chance to read the message before we dismiss
-        dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
-            [[WMFAlertManager sharedInstance] dismissAlert];
-        });
-        [self setLanguageFilterHidden:NO animated:YES];
         [self reloadDataSections];
     } failure:^(NSError* __nonnull error) {
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
     }];
-}
-
-#pragma mark - Search Bar Visibility
-
-- (void)setLanguageFilterHidden:(BOOL)hidden animated:(BOOL)animated {
-    dispatch_block_t updateConstraint = ^{
-        // iOS7: need to do this w/ an IBOutlet due to some conflict between Masonry & layout guides
-        self.languageFilterTopSpaceConstraint.constant = hidden ? -self.languageFilterField.frame.size.height : 0.f;
-        [self.languageFilterField layoutIfNeeded];
-    };
-    if (animated) {
-        [UIView animateWithDuration:[CATransaction animationDuration] animations:updateConstraint];
-    } else {
-        updateConstraint();
-    }
 }
 
 #pragma mark - Top menu
