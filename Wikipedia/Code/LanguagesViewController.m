@@ -15,10 +15,10 @@
 #import <Masonry/Masonry.h>
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
+#import "WMFArticleLanguagesSectionHeader.h"
 
 static CGFloat const WMFOtherLanguageRowHeight = 138.f;
 static CGFloat const WMFLanguageHeaderHeight = 57.f;
-static CGFloat const WMFLanguageHeaderFontSize = 12.f;
 
 @interface LanguagesViewController ()
 <UISearchBarDelegate>
@@ -85,6 +85,8 @@ static CGFloat const WMFLanguageHeaderFontSize = 12.f;
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.filterDividerHeightConstraint.constant = 0.5f;
+
+    [self.tableView registerNib:[WMFArticleLanguagesSectionHeader wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFArticleLanguagesSectionHeader wmf_nibName]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -249,27 +251,20 @@ static CGFloat const WMFLanguageHeaderFontSize = 12.f;
     return ([self tableView:self.tableView numberOfRowsInSection:section] > 0);
 }
 
-- (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
-    if ([self shouldShowHeaderForSection:section]){
-        UIView* containerView             = [[UIView alloc] initWithFrame:CGRectZero];
-        containerView.backgroundColor     = [UIColor wmf_settingsBackgroundColor];
-        containerView.autoresizesSubviews = YES;
+- (NSString*)titleForHeaderInSection:(NSInteger)section {
+    NSString *title = ([self isPreferredSection:section]) ? MWLocalizedString(@"article-languages-yours", nil) : MWLocalizedString(@"article-languages-others", nil);
+    return [title uppercaseStringWithLocale:[NSLocale currentLocale]];;
+}
 
-        UILabel* label                                  = [[UILabel alloc] init];
-        label.translatesAutoresizingMaskIntoConstraints = NO;
-        label.font                                      = [UIFont systemFontOfSize:WMFLanguageHeaderFontSize];
-        label.textColor                                 = [UIColor wmf_customGray];
-        label.textAlignment                             = NSTextAlignmentNatural;
-        
-        NSString *title = ([self isPreferredSection:section]) ? MWLocalizedString(@"article-languages-yours", nil) : MWLocalizedString(@"article-languages-others", nil);
-        label.text      = [title uppercaseStringWithLocale:[NSLocale currentLocale]];
-        
-        [containerView addSubview:label];
-        
-        [label mas_makeConstraints:^(MASConstraintMaker* make) {
-            make.leading.and.trailing.top.and.bottom.equalTo(containerView).insets(UIEdgeInsetsMake(23, 18, 0, 18));
-        }];
-        return containerView;
+- (void)configureHeader:(WMFArticleLanguagesSectionHeader*)header forSection:(NSInteger)section {
+    header.title = [self titleForHeaderInSection:section];
+}
+
+- (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section; {
+    if ([self shouldShowHeaderForSection:section]){
+        WMFArticleLanguagesSectionHeader* header = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFArticleLanguagesSectionHeader wmf_nibName]];
+        [self configureHeader:header forSection:section];
+        return header;
     }else{
         return nil;
     }
