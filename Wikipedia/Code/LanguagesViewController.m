@@ -16,11 +16,7 @@
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 
-static CGFloat const WMFLanguagesSectionFooterHeight = 10.f;
-static CGFloat const WMFOtherLanguageRowHeight       = 138.f;
-
-// This assumes the language cell is configured in IB by LanguagesViewController
-static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectionSeparator";
+static CGFloat const WMFOtherLanguageRowHeight = 138.f;
 
 @interface LanguagesViewController ()
 <UISearchBarDelegate>
@@ -70,9 +66,6 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 
     self.tableView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
 
-    [self.tableView registerClass:[UITableViewHeaderFooterView class]
-     forHeaderFooterViewReuseIdentifier:LangaugesSectionFooterReuseIdentifier];
-
     self.tableView.estimatedRowHeight = WMFOtherLanguageRowHeight;
     self.tableView.rowHeight          = UITableViewAutomaticDimension;
 
@@ -84,8 +77,10 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     if ([self.languageFilterField respondsToSelector:@selector(setReturnKeyType:)]) {
         [self.languageFilterField setReturnKeyType:UIReturnKeyDone];
     }
-    self.languageFilterField.barTintColor = [UIColor wmf_settingsBackgroundColor];;
+    self.languageFilterField.barTintColor = [UIColor wmf_settingsBackgroundColor];
     self.languageFilterField.placeholder  = MWLocalizedString(@"article-languages-filter-placeholder", nil);
+
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -268,23 +263,30 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     }
 }
 
-#pragma mark - UITableViewDelegate
-
-- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
-    if ([self isPreferredSection:section] && self.languageFilter.filteredPreferredLanguages.count > 0) {
-        // collapse footer when empty, removing needless padding of "other" section from top of table
-        return WMFLanguagesSectionFooterHeight;
-    } else {
-        return 0.f;
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if ([self tableView:tableView numberOfRowsInSection:section] == 0){
+        return nil;
+    }else{
+        NSString *title = ([self isPreferredSection:section]) ? MWLocalizedString(@"article-languages-yours", nil) : MWLocalizedString(@"article-languages-others", nil);
+        return [title uppercaseStringWithLocale:[NSLocale currentLocale]];
     }
 }
 
-// using footers instead of headers because footers don't "stick"
-- (UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section {
-    UITableViewHeaderFooterView* footerView =
-        [tableView dequeueReusableHeaderFooterViewWithIdentifier:LangaugesSectionFooterReuseIdentifier];
-    footerView.contentView.backgroundColor = [UIColor wmf_settingsBackgroundColor];;
-    return footerView;
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
+    // HAX: hide line separators which appear before sections/rows load
+    return 0.1f;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UITableViewHeaderFooterView *)view forSection:(NSInteger)section {
+    view.textLabel.font = [UIFont systemFontOfSize:12];
+    view.textLabel.textColor = [UIColor wmf_customGray];
+    view.contentView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
+    return ([self tableView:tableView numberOfRowsInSection:section] == 0) ? 0 : 56.0;
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {

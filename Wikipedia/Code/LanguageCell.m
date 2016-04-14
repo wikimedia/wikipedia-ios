@@ -4,6 +4,7 @@
 #import "LanguageCell.h"
 #import "WikipediaAppUtils.h"
 #import "UILabel+WMFStyling.h"
+#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 
 static CGFloat const WMFPreferredLanguageFontSize = 22.f;
 static CGFloat const WMFPreferredTitleFontSize    = 17.f;
@@ -75,6 +76,7 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self prepareForReuse];
+    [self wmf_makeCellDividerBeEdgeToEdge];
 }
 
 - (void)prepareForReuse {
