@@ -9,8 +9,9 @@
 #import "EventLoggingFunnel.h"
 #import "EventLogger.h"
 #import "QueuesSingleton.h"
-#import "SessionSingleton.h"
 #import "MediaWikiKit.h"
+#import "Wikipedia-Swift.h"
+#import "SessionSingleton.h"
 
 @implementation EventLoggingFunnel
 
@@ -28,8 +29,7 @@
 }
 
 - (void)log:(NSDictionary*)eventData {
-    SessionSingleton* session = [SessionSingleton sharedInstance];
-    NSString* wiki            = [session.currentArticleSite.language stringByAppendingString:@"wiki"];
+    NSString* wiki = [[[NSUserDefaults standardUserDefaults] wmf_appSite].language stringByAppendingString:@"wiki"];
     [self log:eventData wiki:wiki];
 }
 

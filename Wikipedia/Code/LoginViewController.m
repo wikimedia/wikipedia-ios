@@ -278,7 +278,7 @@
     self.failBlock = (!failBlock) ? ^(){} : failBlock;
 
     [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
+        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[NSUserDefaults standardUserDefaults] wmf_appSite].language
                                                            userName:userName
                                                            password:password
                                                         withManager:[QueuesSingleton sharedInstance].loginFetchManager
@@ -292,7 +292,7 @@
     // long as we can to lessen number of server requests. Uses user tokens as templates for copying
     // session tokens. See "recreateCookie:usingCookieAsTemplate:" for details.
 
-    NSString* domain = [SessionSingleton sharedInstance].currentArticleSite.language;
+    NSString* domain = [[NSUserDefaults standardUserDefaults] wmf_appSite].language;
 
     NSString* cookie1Name = [NSString stringWithFormat:@"%@wikiSession", domain];
     NSString* cookie2Name = [NSString stringWithFormat:@"%@wikiUserID", domain];
