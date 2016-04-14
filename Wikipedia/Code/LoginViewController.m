@@ -56,7 +56,7 @@
     }];
     self.navigationItem.leftBarButtonItems = @[xButton];
 
-    self.doneButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-done", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
+    self.doneButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"main-menu-account-login", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
         @strongify(self)
         [self save];
     }];
