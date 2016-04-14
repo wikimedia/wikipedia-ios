@@ -117,6 +117,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic, nullable) NSTimer* significantlyViewedTimer;
 
+/**
+ *  We need to do this to prevent auto loading from occuring,
+ *  if we do something to the article like edit it and force a reload
+ */
+@property (nonatomic, assign) BOOL skipFetchOnViewDidAppear;
+
 @end
 
 @implementation WMFArticleViewController
@@ -602,8 +608,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
-    [self fetchArticleIfNeeded];
 
+    if (!self.skipFetchOnViewDidAppear) {
+        [self fetchArticleIfNeeded];
+    }
+    self.skipFetchOnViewDidAppear = NO;
     [self startSignificantlyViewedTimer];
 }
 
@@ -991,6 +1000,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - SectionEditorViewControllerDelegate
 
 - (void)sectionEditorFinishedEditing:(SectionEditorViewController*)sectionEditorViewController {
+    self.skipFetchOnViewDidAppear = YES;
     [self dismissViewControllerAnimated:YES completion:NULL];
     [self fetchArticle];
 }
