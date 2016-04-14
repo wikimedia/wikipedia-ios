@@ -20,7 +20,7 @@ static NSUInteger const WMFDefaultNumberOfPOTDDates = 15;
 
 static NSString* const WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
-@interface WMFPictureOfTheDaySectionController ()<NYTPhotosViewControllerDelegate>
+@interface WMFPictureOfTheDaySectionController ()<WMFImageGalleryViewContollerReferenceViewDelegate>
 
 @property (nonatomic, strong) MWKImageInfoFetcher* fetcher;
 
@@ -137,16 +137,12 @@ static NSString* const WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoT
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
     NSArray<NSDate*>* dates              = [[self.fetchedDate dateBySubtractingDays:WMFDefaultNumberOfPOTDDates] wmf_datesUntilDate:self.fetchedDate];
     WMFPOTDImageGalleryViewContoller* vc = [[WMFPOTDImageGalleryViewContoller alloc] initWithDates:dates selectedImageInfo:self.imageInfo];
-    vc.delegate = self;
+    vc.referenceViewDelegate = self;
     return vc;
 }
 
-- (UIView* _Nullable)photosViewController:(NYTPhotosViewController*)photosViewController referenceViewForPhoto:(id <NYTPhoto>)photo {
+- (UIImageView*)referenceViewForImageController:(WMFImageGalleryViewContoller*)controller {
     return self.referenceImageView;
-}
-
-- (NSString* _Nullable)photosViewController:(NYTPhotosViewController*)photosViewController titleForPhoto:(id <NYTPhoto>)photo atIndex:(NSUInteger)photoIndex totalPhotoCount:(NSUInteger)totalPhotoCount {
-    return @"";
 }
 
 @end

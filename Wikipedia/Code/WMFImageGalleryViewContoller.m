@@ -11,6 +11,8 @@
 #import "UIColor+WMFStyle.h"
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import "WMFImageGalleryDetailOverlayView.h"
+#import "UIView+WMFDefaultNib.h"
 
 @import FLAnimatedImage;
 
@@ -166,7 +168,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic ignored "-Wincomplete-implementation"
 
 
-@interface WMFBaseImageGalleryViewContoller ()
+@interface WMFImageGalleryViewContoller ()<NYTPhotosViewControllerDelegate>
 
 @property (nonatomic, strong, readonly) NSArray<WMFGalleryImage*>* photos;
 
@@ -180,16 +182,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIImageView*)currentImageView;
 
-- (void)didNavigateToPhoto:(id <NYTPhoto>)photo;
 @end
 
 
-@implementation WMFBaseImageGalleryViewContoller
+@implementation WMFImageGalleryViewContoller
 
 @dynamic dataSource;
 
 - (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto> >*)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate {
-    self = [super initWithPhotos:photos initialPhoto:initialPhoto delegate:delegate];
+    self = [super initWithPhotos:photos initialPhoto:initialPhoto delegate:self];
     if (self) {
         /**
          *  We are performing the following asserts to ensure that the
@@ -200,7 +201,6 @@ NS_ASSUME_NONNULL_BEGIN
         NSParameterAssert(self.dataSource);
         NSParameterAssert(self.photos);
         NSAssert([self respondsToSelector:@selector(updateOverlayInformation)], @"NYTPhoto implementation changed!");
-        NSAssert([self respondsToSelector:@selector(didNavigateToPhoto:)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(currentImageView)], @"NYTPhoto implementation changed!");
 
@@ -255,6 +255,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)indexOfCurrentImage {
     return [self indexOfPhoto:self.currentlyDisplayedPhoto];
+}
+
+- (MWKImage*)imageForPhoto:(id<NYTPhoto>)photo {
+    return [(WMFGalleryImage*)photo imageObject] ? : [(WMFGalleryImage*)photo thumbnailImageObject];
+}
+
+- (MWKImageInfo*)imageInfoForPhoto:(id<NYTPhoto>)photo {
+    return [(WMFGalleryImage*)photo imageInfo] ? : [(WMFGalleryImage*)photo thumbnailImageInfo];
+}
+
+- (MWKImage*)currentImage {
+    return [self imageForPhoto:[self photoAtIndex:[self indexOfCurrentImage]]];
+}
+
+- (MWKImageInfo*)currentImageInfo {
+    return [self imageInfoForPhoto:[self photoAtIndex:[self indexOfCurrentImage]]];
 }
 
 - (NSUInteger)indexOfPhoto:(id<NYTPhoto>)photo {
@@ -316,18 +332,58 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_openExternalUrl:info.filePageURL];
 }
 
+#pragma mark NYTPhotosViewControllerDelegate
+
+- (UIView * _Nullable)photosViewController:(NYTPhotosViewController *)photosViewController referenceViewForPhoto:(id <NYTPhoto>)photo{
+    return [self.referenceViewDelegate referenceViewForImageController:self];
+}
+
+
+- (NSString* _Nullable)photosViewController:(NYTPhotosViewController*)photosViewController titleForPhoto:(id <NYTPhoto>)photo atIndex:(NSUInteger)photoIndex totalPhotoCount:(NSUInteger)totalPhotoCount {
+    return @"";
+}
+
+- (UIView* _Nullable)photosViewController:(NYTPhotosViewController*)photosViewController captionViewForPhoto:(id <NYTPhoto>)photo {
+    MWKImageInfo* imageInfo = [self imageInfoForPhoto:photo];
+    
+    if(!imageInfo){
+        return nil;
+    }
+    
+    WMFImageGalleryDetailOverlayView* caption = [WMFImageGalleryDetailOverlayView wmf_viewFromClassNib];
+    
+    caption.imageDescription =
+    [imageInfo.imageDescription stringByTrimmingCharactersInSet:
+     [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    NSString* ownerOrFallback = imageInfo.owner ?
+    [imageInfo.owner stringByTrimmingCharactersInSet : [NSCharacterSet whitespaceAndNewlineCharacterSet]]
+    : MWLocalizedString(@"image-gallery-unknown-owner", nil);
+    
+    [caption setLicense:imageInfo.license owner:ownerOrFallback];
+    
+    caption.ownerTapCallback = ^{
+        [self wmf_openExternalUrl:imageInfo.license.URL];
+    };
+    caption.infoTapCallback = ^{
+        [self wmf_openExternalUrl:imageInfo.filePageURL];
+    };
+    
+    return caption;
+}
+
 @end
 
 
 #pragma clang diagnostic pop
 
-@interface WMFImageGalleryViewContoller ()
+@interface WMFArticleImageGalleryViewContoller ()
 
 @property (nonatomic, strong) WMFImageInfoController* infoController;
 
 @end
 
-@implementation WMFImageGalleryViewContoller
+@implementation WMFArticleImageGalleryViewContoller
 
 - (instancetype)initWithArticle:(MWKArticle*)article {
     return [self initWithArticle:article selectedImage:nil];
@@ -354,29 +410,13 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         self.infoController = [[WMFImageInfoController alloc] initWithDataStore:article.dataStore batchSize:50];
         [self.infoController setUniqueArticleImages:items forTitle:article.title];
-        [self.photos enumerateObjectsUsingBlock:^(WMFGalleryImage * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.photos enumerateObjectsUsingBlock:^(WMFGalleryImage* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
             obj.imageInfo = [self.infoController infoForImage:obj.imageObject];
         }];
         self.infoController.delegate = self;
     }
 
     return self;
-}
-
-- (void)didNavigateToPhoto:(id <NYTPhoto>)photo {
-    [super didNavigateToPhoto:photo];
-    WMFGalleryImage* galleryImage = (WMFGalleryImage*)photo;
-    [self fetchImageInfoForGalleryImage:galleryImage];
-    if (![galleryImage memoryCachedImage]) {
-        @weakify(self);
-        [[WMFImageController sharedInstance] fetchImageWithURL:galleryImage.imageURL].then(^(WMFImageDownload* download) {
-            @strongify(self);
-            [self updateImageForPhoto:galleryImage];
-        })
-        .catch(^(NSError* error) {
-            //show error
-        });
-    }
 }
 
 + (nullable WMFGalleryImage*)galleryImageWithImage:(MWKImage*)image inGalleryImages:(NSArray<WMFGalleryImage*>*)images {
@@ -402,13 +442,16 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self class] indexOfImage:image inGalleryImages:self.photos];
 }
 
-- (MWKImage*)imageForPhoto:(id<NYTPhoto>)photo {
-    return [(WMFGalleryImage*)photo imageObject];
+#pragma mark - UIViewController
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.currentlyDisplayedPhoto) {
+        [self fetchCurrentImageInfo];
+    }
 }
 
-- (MWKImage*)currentImage {
-    return [self imageForPhoto:[self photoAtIndex:[self indexOfCurrentImage]]];
-}
+#pragma mark - Fetch
 
 - (void)fetchCurrentImageInfo {
     [self fetchImageInfoForGalleryImage:self.currentlyDisplayedPhoto];
@@ -418,14 +461,23 @@ NS_ASSUME_NONNULL_BEGIN
     [self.infoController fetchBatchContainingIndex:[self indexOfPhoto:galleryImage]];
 }
 
-#pragma mark - UIViewController
+#pragma mark NYTPhotosViewControllerDelegate
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    if (self.currentlyDisplayedPhoto) {
-        [self fetchCurrentImageInfo];
+- (void)photosViewController:(NYTPhotosViewController *)photosViewController didNavigateToPhoto:(id <NYTPhoto>)photo atIndex:(NSUInteger)photoIndex{
+    WMFGalleryImage* galleryImage = (WMFGalleryImage*)photo;
+    [self fetchImageInfoForGalleryImage:galleryImage];
+    if (![galleryImage memoryCachedImage]) {
+        @weakify(self);
+        [[WMFImageController sharedInstance] fetchImageWithURL:galleryImage.imageURL].then(^(WMFImageDownload* download) {
+            @strongify(self);
+            [self updateImageForPhoto:galleryImage];
+        })
+        .catch(^(NSError* error) {
+            //show error
+        });
     }
 }
+
 
 #pragma mark - WMFImageInfoControllerDelegate
 
@@ -481,26 +533,22 @@ NS_ASSUME_NONNULL_BEGIN
 
     self = [super initWithPhotos:galleryImages initialPhoto:selected delegate:nil];
     if (self) {
-        NSParameterAssert(self.dataSource);
-        NSParameterAssert(self.photos);
-        NSAssert([self respondsToSelector:@selector(updateOverlayInformation)], @"NYTPhoto implementation changed!");
-        NSAssert([self respondsToSelector:@selector(didNavigateToPhoto:)], @"NYTPhoto implementation changed!");
-        NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
         self.infoFetcher = [[MWKImageInfoFetcher alloc] init];
     }
 
     return self;
 }
 
-- (void)didNavigateToPhoto:(id <NYTPhoto>)photo {
-    [super didNavigateToPhoto:photo];
-    WMFGalleryImage* galleryImage = (WMFGalleryImage*)photo;
-    if (![galleryImage imageURL]) {
-        [self fetchImageInfoForGalleryImage:galleryImage];
-    } else if (![galleryImage memoryCachedImage]) {
-        [self fetchImageForGalleryImage:galleryImage];
+#pragma mark - UIViewController
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.currentlyDisplayedPhoto) {
+        [self fetchCurrentImageInfo];
     }
 }
+
+#pragma mark - Fetch
 
 - (void)fetchCurrentImageInfo {
     [self fetchImageInfoForGalleryImage:(WMFGalleryImage*)self.currentlyDisplayedPhoto];
@@ -544,6 +592,18 @@ NS_ASSUME_NONNULL_BEGIN
         //show error
     });
 }
+
+#pragma mark NYTPhotosViewControllerDelegate
+
+- (void)photosViewController:(NYTPhotosViewController *)photosViewController didNavigateToPhoto:(id <NYTPhoto>)photo atIndex:(NSUInteger)photoIndex{
+    WMFGalleryImage* galleryImage = (WMFGalleryImage*)photo;
+    if (![galleryImage imageURL]) {
+        [self fetchImageInfoForGalleryImage:galleryImage];
+    } else if (![galleryImage memoryCachedImage]) {
+        [self fetchImageForGalleryImage:galleryImage];
+    }
+}
+
 
 @end
 

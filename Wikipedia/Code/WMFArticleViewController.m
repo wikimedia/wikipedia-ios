@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleViewController ()
 <WMFWebViewControllerDelegate,
  UINavigationControllerDelegate,
- NYTPhotosViewControllerDelegate,
+ WMFImageGalleryViewContollerReferenceViewDelegate,
  SectionEditorViewControllerDelegate,
  UIViewControllerPreviewingDelegate,
  LanguageSelectionDelegate,
@@ -905,7 +905,7 @@ NS_ASSUME_NONNULL_BEGIN
        NOTE: not setting gallery delegate intentionally to prevent header gallery changes as a result of
        fullscreen gallery interactions that originate from the webview
      */
-    WMFImageGalleryViewContoller* fullscreenGallery = [[WMFImageGalleryViewContoller alloc] initWithArticle:self.article selectedImage:selectedImage];
+    WMFArticleImageGalleryViewContoller* fullscreenGallery = [[WMFArticleImageGalleryViewContoller alloc] initWithArticle:self.article selectedImage:selectedImage];
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
 
@@ -949,25 +949,21 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    WMFImageGalleryViewContoller* fullscreenGallery = [[WMFImageGalleryViewContoller alloc] initWithArticle:self.article];
-    fullscreenGallery.delegate = self;
+    WMFArticleImageGalleryViewContoller* fullscreenGallery = [[WMFArticleImageGalleryViewContoller alloc] initWithArticle:self.article];
+    fullscreenGallery.referenceViewDelegate = self;
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
 
-#pragma mark - NYTPhotosViewControllerDelegate
+#pragma mark - WMFImageGalleryViewContollerReferenceViewDelegate
 
-- (UIView* _Nullable)photosViewController:(WMFImageGalleryViewContoller*)photosViewController referenceViewForPhoto:(id <NYTPhoto>)photo {
-    MWKImage* currentImage = [photosViewController currentImage];
+- (UIImageView*)referenceViewForImageController:(WMFImageGalleryViewContoller*)controller {
+    MWKImage* currentImage = [controller currentImage];
     MWKImage* leadImage    = self.article.leadImage;
     if ([currentImage isEqualToImage:leadImage] || [currentImage isVariantOfImage:leadImage]) {
         return self.headerImageView;
     } else {
         return nil;
     }
-}
-
-- (NSString* _Nullable)photosViewController:(NYTPhotosViewController*)photosViewController titleForPhoto:(id <NYTPhoto>)photo atIndex:(NSUInteger)photoIndex totalPhotoCount:(NSUInteger)totalPhotoCount {
-    return @"";
 }
 
 #pragma mark - Edit Section

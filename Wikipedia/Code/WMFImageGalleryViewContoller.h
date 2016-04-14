@@ -6,18 +6,53 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class WMFImageGalleryViewContoller;
 
-@interface WMFBaseImageGalleryViewContoller : NYTPhotosViewController
+@protocol WMFImageGalleryViewContollerReferenceViewDelegate <NSObject>
+
+/**
+ *  Provide a reference view for which to orgiginate and
+ *  terminate the transiton animations to and from the gallery.
+ *
+ *  @param controller The controller requesting the view
+ *
+ *  @return The view
+ */
+- (UIImageView*)referenceViewForImageController:(WMFImageGalleryViewContoller*)controller;
+
+@end
+
+/**
+ *  This is an abstract base class do not use it directly.
+ *  Instead use either the concrete article or POTD version below.
+ */
+@interface WMFImageGalleryViewContoller : NYTPhotosViewController
+
+@property (nonatomic, weak) id<WMFImageGalleryViewContollerReferenceViewDelegate> referenceViewDelegate;
+
+/**
+ *  Do not use the deelgate from NYTPhotosViewController
+ *  Instead use the referenceViewDelegate above.
+ */
+- (void)setDelegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
 
 - (NSUInteger)indexOfCurrentImage;
 
+- (MWKImage*)currentImage;
+
+- (MWKImageInfo*)currentImageInfo;
+
 - (UIImageView*)currentImageView;
+
+- (MWKImage*)imageForPhoto:(id<NYTPhoto>)photo;
+
+- (MWKImageInfo*)imageInfoForPhoto:(id<NYTPhoto>)photo;
 
 - (void)showImageAtIndex:(NSUInteger)index animated:(BOOL)animated;
 
 @end
 
-@interface WMFImageGalleryViewContoller : WMFBaseImageGalleryViewContoller<WMFImageInfoControllerDelegate>
+@interface WMFArticleImageGalleryViewContoller : WMFImageGalleryViewContoller<WMFImageInfoControllerDelegate>
 
 - (instancetype)initWithArticle:(MWKArticle*)article;
 
@@ -25,15 +60,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto> >*)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
 
-- (MWKImage*)currentImage;
-
-- (MWKImage*)imageForPhoto:(id<NYTPhoto>)photo;
-
 @end
 
-@interface WMFPOTDImageGalleryViewContoller : WMFBaseImageGalleryViewContoller
+@interface WMFPOTDImageGalleryViewContoller : WMFImageGalleryViewContoller
 
-- (instancetype)initWithDates:(NSArray<NSDate*>*)imageDates selectedImageInfo:(nullable MWKImageInfo*)imageInfo;
+- (instancetype)initWithDates:(NSArray<NSDate*>*)imageDates selectedImageInfo:(nullable MWKImageInfo*)imageInfo NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto> >*)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
 
