@@ -335,6 +335,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark NYTPhotosViewControllerDelegate
 
 - (UIView * _Nullable)photosViewController:(NYTPhotosViewController *)photosViewController referenceViewForPhoto:(id <NYTPhoto>)photo{
+    return nil; //TODO: remove this and re-enable animations when tickets for fixing anmimations are addressed
     return [self.referenceViewDelegate referenceViewForImageController:self];
 }
 
