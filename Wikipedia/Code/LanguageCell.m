@@ -79,6 +79,8 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
     [super awakeFromNib];
     [self prepareForReuse];
     [self wmf_makeCellDividerBeEdgeToEdge];
+    self.separatorView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
+    self.separatorViewHeightConstraint.constant = 1.5;
 }
 
 - (void)prepareForReuse {
@@ -88,8 +90,6 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
     self.localizedLanguageLabel.text      = @"";
     self.languageCodeLabel.text           = @"";
     self.languageNameLabelHeight.constant = 0.f;
-    self.separatorView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
-    self.separatorViewHeightConstraint.constant = 1.5;
 }
 
 @end
