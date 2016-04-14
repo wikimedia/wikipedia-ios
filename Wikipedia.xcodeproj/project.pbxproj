@@ -47,6 +47,8 @@
 		0E8DC0951C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8DC0941C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m */; };
 		0E9383A11CB5C15500A3DC8D /* WMFFontSliderContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9383A01CB5C15500A3DC8D /* WMFFontSliderContainer.swift */; };
 		0E9383A31CB5C16500A3DC8D /* WMFFontSliderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9383A21CB5C16500A3DC8D /* WMFFontSliderViewController.xib */; };
+		0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
+		0E9B9E331CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9B9E301CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m */; };
 		0EA4D8941C4867BF0043622B /* UITableView+WMFLockedUpdates.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA4D8921C4867BF0043622B /* UITableView+WMFLockedUpdates.m */; };
 		0EBCA7431C162ECF004F1FD9 /* MWKTitleLanguageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */; };
 		0EBCA7461C162EE9004F1FD9 /* MWKLanguageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7451C162EE9004F1FD9 /* MWKLanguageFilter.m */; };
@@ -732,6 +734,9 @@
 		0E8DC0941C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFDailyStatsLoggingFunnel.m; path = Wikipedia/Code/WMFDailyStatsLoggingFunnel.m; sourceTree = SOURCE_ROOT; };
 		0E9383A01CB5C15500A3DC8D /* WMFFontSliderContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFFontSliderContainer.swift; sourceTree = SOURCE_ROOT; };
 		0E9383A21CB5C16500A3DC8D /* WMFFontSliderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFFontSliderViewController.xib; sourceTree = SOURCE_ROOT; };
+		0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFImageGalleryDetailOverlayView.xib; path = Wikipedia/Code/WMFImageGalleryDetailOverlayView.xib; sourceTree = SOURCE_ROOT; };
+		0E9B9E301CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryDetailOverlayView.m; path = Wikipedia/Code/WMFImageGalleryDetailOverlayView.m; sourceTree = SOURCE_ROOT; };
+		0E9B9E311CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryDetailOverlayView.h; path = Wikipedia/Code/WMFImageGalleryDetailOverlayView.h; sourceTree = SOURCE_ROOT; };
 		0EA4D8921C4867BF0043622B /* UITableView+WMFLockedUpdates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+WMFLockedUpdates.m"; sourceTree = "<group>"; };
 		0EA4D8931C4867BF0043622B /* UITableView+WMFLockedUpdates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+WMFLockedUpdates.h"; sourceTree = "<group>"; };
 		0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKTitleLanguageController.m; path = Wikipedia/Code/MWKTitleLanguageController.m; sourceTree = SOURCE_ROOT; };
@@ -2723,6 +2728,16 @@
 			name = "Font Popup";
 			sourceTree = "<group>";
 		};
+		0E9B9E341CBF3262001E4C3C /* Overlay View */ = {
+			isa = PBXGroup;
+			children = (
+				0E9B9E311CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.h */,
+				0E9B9E301CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m */,
+				0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */,
+			);
+			name = "Overlay View";
+			sourceTree = "<group>";
+		};
 		0E9DFEAB1BDEB82E0032606E /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -4306,6 +4321,7 @@
 			children = (
 				0E4A34701CBBFCD400A400F6 /* WMFImageGalleryViewContoller.h */,
 				0E4A34711CBBFCD400A400F6 /* WMFImageGalleryViewContoller.m */,
+				0E9B9E341CBF3262001E4C3C /* Overlay View */,
 			);
 			name = Gallery;
 			path = Wikipedia/Code/Gallery;
@@ -5224,6 +5240,7 @@
 				B0E806E41C0CEB930065EBC0 /* PreviewLicenseView.xib in Resources */,
 				B0E806EC1C0CEBA40065EBC0 /* RecentSearchCell.xib in Resources */,
 				B0E806A11C0CEAE10065EBC0 /* DataMigrationProgressViewController.xib in Resources */,
+				0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				B0F956AB1C481C2100691810 /* WMFArticleFooterMenuCell.xib in Resources */,
 				BC6E42881BA9CB930059FBF6 /* InfoPlist.strings in Resources */,
 				B0E806B81C0CEB160065EBC0 /* LanguagesViewController.storyboard in Resources */,
@@ -5887,6 +5904,7 @@
 				B0E8037B1C0CD9D30065EBC0 /* WMFTableOfContentsItem.swift in Sources */,
 				B0E8074D1C0CEE080065EBC0 /* ArticleDataContextSingleton.m in Sources */,
 				B0E806351C0CE7680065EBC0 /* MWKLanguageLinkResponseSerializer.m in Sources */,
+				0E9B9E331CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				B0E807421C0CED9F0065EBC0 /* ZeroConfigState.m in Sources */,
 				B0E806821C0CE9C70065EBC0 /* WMFNetworkUtilities.m in Sources */,
 				B0E804CB1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m in Sources */,
