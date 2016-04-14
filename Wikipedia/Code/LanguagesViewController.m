@@ -27,7 +27,7 @@ static CGFloat const WMFLanguageHeaderFontSize = 12.f;
 @property (strong, nonatomic) MWKLanguageFilter* languageFilter;
 @property (strong, nonatomic) MWKTitleLanguageController* titleLanguageController;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* languageFilterTopSpaceConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint* filterdividerHeightConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* filterDividerHeightConstraint;
 
 @end
 
@@ -84,7 +84,7 @@ static CGFloat const WMFLanguageHeaderFontSize = 12.f;
     self.languageFilterField.placeholder  = MWLocalizedString(@"article-languages-filter-placeholder", nil);
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.filterdividerHeightConstraint.constant = 0.5f;
+    self.filterDividerHeightConstraint.constant = 0.5f;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

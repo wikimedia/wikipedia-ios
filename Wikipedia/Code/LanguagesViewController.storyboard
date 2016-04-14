@@ -151,7 +151,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
-                        <outlet property="filterdividerHeightConstraint" destination="ARZ-wg-hsQ" id="daE-ok-baE"/>
+                        <outlet property="filterDividerHeightConstraint" destination="ARZ-wg-hsQ" id="CEi-NN-6ei"/>
                         <outlet property="languageFilterField" destination="HRn-z3-mks" id="hss-pu-GZS"/>
                         <outlet property="languageFilterTopSpaceConstraint" destination="XGZ-SO-FBB" id="Xme-7X-Dz6"/>
                         <outlet property="tableView" destination="iFX-H4-bkt" id="k4b-bt-h64"/>
