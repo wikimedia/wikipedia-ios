@@ -76,12 +76,12 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     NSURL* url = useDeskTopURL ? [pageTitle.site apiEndpoint] : [pageTitle.site mobileApiEndpoint];
 
-    NSURLSessionDataTask* operation = [self.operationManager GET:url.absoluteString parameters:pageTitle progress:^(NSProgress * _Nonnull downloadProgress) {
-        
+    NSURLSessionDataTask* operation = [self.operationManager GET:url.absoluteString parameters:pageTitle progress:^(NSProgress* _Nonnull downloadProgress) {
         if (progress) {
-            progress(downloadProgress.fractionCompleted);
+            dispatchOnMainQueue(^{
+                progress(downloadProgress.fractionCompleted);
+            });
         }
-        
     } success:^(NSURLSessionDataTask* operation, id response) {
         dispatchOnBackgroundQueue(^{
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
@@ -168,9 +168,9 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     if (self) {
         self.operationManager.requestSerializer  = [WMFArticleRequestSerializer serializer];
         self.operationManager.responseSerializer = [WMFArticleResponseSerializer serializer];
-        
-        self.dataStore                           = dataStore;
-        self.revisionFetcher                     = [[WMFArticleRevisionFetcher alloc] init];
+
+        self.dataStore       = dataStore;
+        self.revisionFetcher = [[WMFArticleRevisionFetcher alloc] init];
 
         /*
            Setting short revision check timeouts, to ensure that poor connections don't drastically impact the case
@@ -212,11 +212,11 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     @weakify(self);
     AnyPromise* promisedArticle;
     if (!cachedArticle || !cachedArticle.revisionId || [cachedArticle isMain]) {
-        if(!cachedArticle){
+        if (!cachedArticle) {
             DDLogInfo(@"No cached article found for %@, fetching immediately.", title);
-        }else if (!cachedArticle.revisionId){
+        } else if (!cachedArticle.revisionId) {
             DDLogInfo(@"Cached article for %@ doesn't have revision ID, fetching immediately.", title);
-        }else{
+        } else {
             //Main pages dont neccesarily have revisions every day. We can't rely on the revision check
             DDLogInfo(@"Cached article for main page: %@, fetching immediately.", title);
         }

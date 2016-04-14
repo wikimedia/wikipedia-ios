@@ -8,9 +8,13 @@
 #import "WMFAssetsFile.h"
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
+#import "LoginTokenFetcher.h"
+#import "AccountLogin.h"
+#import "AFHTTPSessionManager+WMFCancelAll.h"
+#import "NSHTTPCookieStorage+WMFCloneCookie.h"
 
 
-@interface SessionSingleton ()
+@interface SessionSingleton ()<FetchFinishedDelegate>
 
 @property (strong, nonatomic, readwrite) MWKDataStore* dataStore;
 
@@ -154,6 +158,72 @@
     }
     [[NSUserDefaults standardUserDefaults] wmf_setSendUsageReports:sendUsageReports];
     [[QueuesSingleton sharedInstance] reset];
+}
+
+- (void)autoLogin {
+    if (self.keychainCredentials.userName == nil || self.keychainCredentials.password == nil) {
+        return;
+    }
+
+    [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
+        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[NSUserDefaults standardUserDefaults] wmf_appSite].language
+                                                           userName:self.keychainCredentials.userName
+                                                           password:self.keychainCredentials.password
+                                                        withManager:[QueuesSingleton sharedInstance].loginFetchManager
+                                                 thenNotifyDelegate:self];
+    }];
+}
+
+- (void)fetchFinished:(id)sender
+          fetchedData:(id)fetchedData
+               status:(FetchFinalStatus)status
+                error:(NSError*)error {
+    if ([sender isKindOfClass:[LoginTokenFetcher class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED: {
+                (void)[[AccountLogin alloc] initAndLoginForDomain:[sender domain]
+                                                         userName:[sender userName]
+                                                         password:[sender password]
+                                                            token:[sender token]
+                                                      withManager:[QueuesSingleton sharedInstance].loginFetchManager
+                                               thenNotifyDelegate:self];
+            }
+            break;
+            default:
+                break;
+        }
+    }
+
+    if ([sender isKindOfClass:[AccountLogin class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED: {
+                [self cloneSessionCookies];
+            }
+            break;
+            default:
+                break;
+        }
+    }
+}
+
+- (void)cloneSessionCookies {
+    // Make the session cookies expire at same time user cookies. Just remember they still can't be
+    // necessarily assumed to be valid as the server may expire them, but at least make them last as
+    // long as we can to lessen number of server requests. Uses user tokens as templates for copying
+    // session tokens. See "recreateCookie:usingCookieAsTemplate:" for details.
+    
+    NSString* domain = [[NSUserDefaults standardUserDefaults] wmf_appSite].language;
+    
+    NSString* cookie1Name = [NSString stringWithFormat:@"%@wikiSession", domain];
+    NSString* cookie2Name = [NSString stringWithFormat:@"%@wikiUserID", domain];
+    
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] wmf_recreateCookie:cookie1Name
+                                                usingCookieAsTemplate:cookie2Name
+     ];
+    
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] wmf_recreateCookie:@"centralauth_Session"
+                                                usingCookieAsTemplate:@"centralauth_User"
+     ];
 }
 
 @end
