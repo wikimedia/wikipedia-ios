@@ -467,7 +467,6 @@ BOOL useSingleBrowserController() {
 }
 
 - (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
-    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
     [self dismissViewControllerAnimated:YES completion:^{
         WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:language.title dataStore:self.dataStore];
         [self.internalNavigationController pushViewController:vc animated:YES];

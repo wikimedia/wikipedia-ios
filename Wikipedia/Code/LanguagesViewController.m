@@ -51,10 +51,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     return self;
 }
 
-- (NSString*)title {
-    return MWLocalizedString(@"languages-title", nil);
-}
-
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad {
@@ -83,10 +79,14 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.languageFilterField.barTintColor = [UIColor wmf_settingsBackgroundColor];
     self.languageFilterField.placeholder  = MWLocalizedString(@"article-languages-filter-placeholder", nil);
 
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.filterDividerHeightConstraint.constant = 0.5f;
 
     [self.tableView registerNib:[WMFArticleLanguagesSectionHeader wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFArticleLanguagesSectionHeader wmf_nibName]];
+
+    self.tableView.editing = (self.articleTitle == nil);
+    
+    self.title = self.tableView.editing ? MWLocalizedString(@"settings-my-languages", nil) : MWLocalizedString(@"languages-title", nil);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -278,6 +278,71 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MWKLanguageLink* selectedLanguage = [self languageAtIndexPath:indexPath];
     [self.languageSelectionDelegate languagesController:self didSelectLanguage:selectedLanguage];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
+    if ([self isPreferredSection:indexPath.section]) {
+        if ([self tableView:tableView numberOfRowsInSection:indexPath.section] > 1) {
+            return UITableViewCellEditingStyleDelete;
+        }else{
+            return UITableViewCellEditingStyleNone;
+        }
+    }else{
+        return UITableViewCellEditingStyleInsert;
+    }    
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return
+        [self isPreferredSection:indexPath.section]
+        &&
+        ([self tableView:tableView numberOfRowsInSection:indexPath.section] > 1)
+        &&
+        (self.languageFilter.languageFilter.length == 0)
+    ;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+- (void)tableView:(UITableView*)tableView moveRowAtIndexPath:(NSIndexPath*)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath {
+    MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[sourceIndexPath.row];
+    [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
+    [self.tableView reloadData];
+    [self useFirstPreferredLanguageAsPrimaryAppLanguage];
+}
+
+-(void)useFirstPreferredLanguageAsPrimaryAppLanguage {
+    MWKLanguageLink* selectedLanguage = [[MWKLanguageLinkController sharedInstance].preferredLanguages firstObject];
+    [self.languageSelectionDelegate languagesController:self didSelectLanguage:selectedLanguage];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (editingStyle) {
+        case UITableViewCellEditingStyleInsert: {
+            MWKLanguageLink* langLink = self.languageFilter.filteredOtherLanguages[indexPath.row];
+            [[MWKLanguageLinkController sharedInstance] appendPreferredLanguage:langLink];
+        }
+            break;
+        case UITableViewCellEditingStyleDelete: {
+            MWKLanguageLink* langLink = self.languageFilter.filteredPreferredLanguages[indexPath.row];
+            [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
+        }
+            break;
+        case UITableViewCellEditingStyleNone:
+            break;
+    }
+    self.languageFilter.languageFilter = @"";
+    self.languageFilterField.text = @"";
+    [self useFirstPreferredLanguageAsPrimaryAppLanguage];
+    [tableView reloadData];
+    [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
+    // HAX: hide line separators which appear before sections/rows load
+    return 0.1f;
 }
 
 #pragma mark - UITextFieldDelegate

@@ -549,7 +549,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (NSArray<MWKLanguageLink*>*)languages {
     NSMutableArray* languages = [NSMutableArray new];
-    [languages wmf_safeAddObject:[self appLanguage]];
     [languages addObjectsFromArray:self.preferredLanguages];
     return languages;
 }
@@ -565,12 +564,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)updatePreferredLanguages {
-    NSArray* languages           = [[MWKLanguageLinkController sharedInstance].preferredLanguages wmf_arrayByTrimmingToLength:3];
-    MWKLanguageLink* appLanguage = [self appLanguage];
-    languages = [languages bk_reject:^BOOL (MWKLanguageLink* obj) {
-        return [obj isEqualToLanguageLink:appLanguage];
-    }];
-    self.preferredLanguages = [languages wmf_arrayByTrimmingToLength:2];
+    self.preferredLanguages = [[MWKLanguageLinkController sharedInstance].preferredLanguages wmf_arrayByTrimmingToLength:3];
 }
 
 - (void)updateLanguageButtonsToPreferredLanguages {
@@ -676,9 +670,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - LanguageSelectionDelegate
 
 - (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
-    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
     [self setSelectedLanguage:language];
-    [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (NSString*)analyticsContext {

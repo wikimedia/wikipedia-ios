@@ -279,8 +279,6 @@ static NSString* const WMFSettingsURLSupport   = @"https://donate.wikimedia.org/
 
     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_SearchLanguage];
     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_SearchLanguageBarVisibility];
-
-    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate

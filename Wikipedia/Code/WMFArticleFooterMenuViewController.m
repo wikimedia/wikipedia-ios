@@ -141,7 +141,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
-    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
     [self dismissViewControllerAnimated:YES completion:^{
         WMFArticleViewController* articleContainerVC =
             [[WMFArticleViewController alloc] initWithArticleTitle:language.title

@@ -100,18 +100,8 @@
                                                         <constraint firstItem="ib6-Zk-jUw" firstAttribute="leading" secondItem="QuT-sm-MtF" secondAttribute="leading" id="yq6-IZ-DYQ"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pub-Ik-4Ne" userLabel="Separator View">
-                                                    <rect key="frame" x="0.0" y="136" width="320" height="2"/>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="2" id="Sfs-dR-P07"/>
-                                                    </constraints>
-                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="Pub-Ik-4Ne" secondAttribute="bottom" id="FUN-dg-eoC"/>
-                                                <constraint firstAttribute="trailing" secondItem="Pub-Ik-4Ne" secondAttribute="trailing" id="OBz-Rm-Ffm"/>
-                                                <constraint firstItem="Pub-Ik-4Ne" firstAttribute="leading" secondItem="u7F-wb-Bsy" secondAttribute="leading" id="Thf-9y-vnP"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="QuT-sm-MtF" secondAttribute="trailing" constant="10" id="XM2-T9-UEr"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="QuT-sm-MtF" secondAttribute="bottom" constant="3" id="kqP-vV-Kec"/>
                                                 <constraint firstItem="QuT-sm-MtF" firstAttribute="top" secondItem="u7F-wb-Bsy" secondAttribute="topMargin" constant="2" id="pmH-dB-0Qz"/>
@@ -124,8 +114,6 @@
                                             <outlet property="languageNameLabel" destination="wVn-n7-pdy" id="uca-Ov-HGk"/>
                                             <outlet property="languageNameLabelHeight" destination="jOO-T3-pcc" id="l7k-8K-VGq"/>
                                             <outlet property="localizedLanguageLabel" destination="rLN-Zb-UJl" id="SAQ-ks-taJ"/>
-                                            <outlet property="separatorView" destination="Pub-Ik-4Ne" id="A8M-CI-VQ1"/>
-                                            <outlet property="separatorViewHeightConstraint" destination="Sfs-dR-P07" id="Hxf-bS-4sJ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
