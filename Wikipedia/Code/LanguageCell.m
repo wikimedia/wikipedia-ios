@@ -4,10 +4,11 @@
 #import "LanguageCell.h"
 #import "WikipediaAppUtils.h"
 #import "UILabel+WMFStyling.h"
+#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 
-static CGFloat const WMFPreferredLanguageFontSize = 22.f;
-static CGFloat const WMFPreferredTitleFontSize    = 17.f;
-static CGFloat const WMFOtherLanguageFontSize     = 17.f;
+static CGFloat const WMFPreferredLanguageFontSize = 15.f;
+static CGFloat const WMFPreferredTitleFontSize    = 12.f;
+static CGFloat const WMFOtherLanguageFontSize     = 15.f;
 static CGFloat const WMFOtherTitleFontSize        = 12.f;
 static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
 
@@ -19,6 +20,8 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
 @property (strong, nonatomic) IBOutlet UILabel* languageCodeLabel;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* languageNameLabelHeight;
+@property (strong, nonatomic) IBOutlet UIView* separatorView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* separatorViewHeightConstraint;
 
 @end
 
@@ -75,6 +78,9 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self prepareForReuse];
+    [self wmf_makeCellDividerBeEdgeToEdge];
+    self.separatorView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
+    self.separatorViewHeightConstraint.constant = 1.5;
 }
 
 - (void)prepareForReuse {

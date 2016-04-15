@@ -320,8 +320,8 @@
         // Background thread
         NSURL* captchaImageUrl = [NSURL URLWithString:
                                   [NSString stringWithFormat:@"https://%@.m.%@%@",
-                                   [SessionSingleton sharedInstance].currentArticleSite.language,
-                                   [SessionSingleton sharedInstance].currentArticleSite.domain,
+                                   [[NSUserDefaults standardUserDefaults] wmf_appSite].language,
+                                   [[NSUserDefaults standardUserDefaults] wmf_appSite].domain,
                                    self.captchaUrl
                                   ]
                                  ];
@@ -344,7 +344,7 @@
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
 
     [[QueuesSingleton sharedInstance].accountCreationFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
+        (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[[NSUserDefaults standardUserDefaults] wmf_appSite].language
                                                         withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
                                                  thenNotifyDelegate:self];
     }];
@@ -490,7 +490,7 @@
     // Save!
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-saving", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
     [[QueuesSingleton sharedInstance].accountCreationFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
+        (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[[NSUserDefaults standardUserDefaults] wmf_appSite].language
                                                                      userName:self.usernameField.text
                                                                      password:self.passwordField.text
                                                                         email:self.emailField.text

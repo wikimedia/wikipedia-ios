@@ -55,4 +55,10 @@
 
 - (NSURL*)urlForLanguage:(NSString*)language WMF_TECH_DEBT_DEPRECATED_MSG("Use -[MWKSite apiEndpoint] instead.");
 
+
+/**
+ *  Logs in the user using saved credentials
+ */
+- (void)autoLogin;
+
 @end

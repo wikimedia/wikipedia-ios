@@ -179,9 +179,7 @@
         (void)[[WikiTextSectionFetcher alloc] initAndFetchWikiTextForSection:self.section
                                                                  withManager:[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager
                                                           thenNotifyDelegate:self];
-
     }];
-
 }
 
 - (NSAttributedString*)getAttributedString:(NSString*)string {

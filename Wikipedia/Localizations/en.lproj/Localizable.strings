@@ -1,4 +1,4 @@
-"languages-title" = "Languages";
+"languages-title" = "Change language";
 "article-languages-label" = "Choose language";
 "article-languages-cancel" = "Cancel";
 "article-languages-downloading" = "Loading article languages...";
@@ -8,6 +8,8 @@
 "article-unable-to-load-section" = "Unable to load this section. Try refreshing the article to see if it fixes the problem.";
 "article-unable-to-load-article" = "Unable to load article.";
 "article-related-articles-title" = "Related articles";
+"article-languages-yours" = "Your languages";
+"article-languages-others" = "Other languages";
 
 "info-box-title" = "Quick facts";
 "info-box-close-text" = "Close";
