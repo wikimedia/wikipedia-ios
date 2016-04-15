@@ -6,22 +6,29 @@
 #import "WMFPicOfTheDayTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "NSDateFormatter+WMFExtensions.h"
-#import "WMFModalImageGalleryViewController.h"
+#import "WMFImageGalleryViewContoller.h"
 #import "UIScreen+WMFImageWidth.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "Wikipedia-Swift.h"
+#import "NSDate+WMFDateRanges.h"
+
+@import NSDate_Extensions;
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
+static NSUInteger const WMFDefaultNumberOfPOTDDates = 15;
 
-@interface WMFPictureOfTheDaySectionController ()
+static NSString* const WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
+
+@interface WMFPictureOfTheDaySectionController ()<WMFImageGalleryViewContollerReferenceViewDelegate>
 
 @property (nonatomic, strong) MWKImageInfoFetcher* fetcher;
 
 @property (nonatomic, strong, nullable) MWKImageInfo* imageInfo;
 
 @property (nonatomic, strong) NSDate* fetchedDate;
+
+@property (nonatomic, weak, nullable) UIImageView* referenceImageView;
 
 @end
 
@@ -95,6 +102,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     } else {
         [cell setDisplayTitle:item.canonicalPageTitle];
     }
+    self.referenceImageView = cell.potdImageView;
 }
 
 - (NSString*)analyticsContentType {
@@ -103,6 +111,10 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
 - (CGFloat)estimatedRowHeight {
     return [WMFPicOfTheDayTableViewCell estimatedRowHeight];
+}
+
+- (void)didEndDisplayingSection {
+    self.referenceImageView = nil;
 }
 
 - (AnyPromise*)fetchData {
@@ -123,7 +135,14 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 }
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
-    return [[WMFModalImageGalleryViewController alloc] initWithInfo:self.imageInfo forDate:self.fetchedDate];
+    NSArray<NSDate*>* dates              = [[self.fetchedDate dateBySubtractingDays:WMFDefaultNumberOfPOTDDates] wmf_datesUntilDate:self.fetchedDate];
+    WMFPOTDImageGalleryViewContoller* vc = [[WMFPOTDImageGalleryViewContoller alloc] initWithDates:dates selectedImageInfo:self.imageInfo];
+    vc.referenceViewDelegate = self;
+    return vc;
+}
+
+- (UIImageView*)referenceViewForImageController:(WMFImageGalleryViewContoller*)controller {
+    return self.referenceImageView;
 }
 
 @end

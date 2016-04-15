@@ -9,7 +9,7 @@
 #import "FBSnapshotTestCase+WMFConvenience.h"
 #import <Nocilla/LSNocilla.h>
 
-#import "WMFPicOfTheDayTableViewCell_Testing.h"
+#import "WMFPicOfTheDayTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIImageView+WMFImageFetchingInternal.h"
 #import "WMFImageController+Testing.h"

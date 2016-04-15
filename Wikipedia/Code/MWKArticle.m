@@ -355,6 +355,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     [self.images addImageURLIfAbsent:imageURL];
 }
 
+
+
 - (MWKImage*)image {
     if (self.imageURL && !_image) {
         _image = [self imageWithURL:self.imageURL];
@@ -362,6 +364,16 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return _image;
 }
 
+- (MWKImage*)leadImage {
+    if (self.imageURL) {
+        return [self image];
+    }
+    
+    if (self.thumbnailURL) {
+        return [self thumbnail];
+    }
+    return nil;
+}
 - (MWKImage*)bestThumbnailImage {
     if (self.thumbnailURL) {
         return [self thumbnail];

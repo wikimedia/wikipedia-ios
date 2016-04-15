@@ -1,18 +1,13 @@
-//
-//  WMFImageGalleryDetailOverlayView.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/9/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFImageGalleryDetailOverlayView.h"
-#import "PaddedLabel.h"
 #import "UIFont+WMFStyle.h"
 #import "WikiGlyph_Chars.h"
 #import "UILabel+WMFStyling.h"
 #import "MWKLicense+ToGlyph.h"
 #import "NSParagraphStyle+WMFParagraphStyles.h"
+#import "WMFGradientView.h"
+
+@import Masonry;
 
 static double const WMFImageGalleryLicenseFontSize       = 19.0;
 static double const WMFImageGalleryLicenseBaselineOffset = -1.5;
@@ -22,6 +17,8 @@ static double const WMFImageGalleryOwnerFontSize         = 11.f;
 @property (nonatomic, strong) IBOutlet UILabel* imageDescriptionLabel;
 @property (nonatomic, strong) IBOutlet UIButton* ownerButton;
 @property (nonatomic, strong) IBOutlet UIButton* infoButton;
+
+@property (nonatomic, strong) WMFGradientView* gradientView;
 
 - (IBAction)didTapOwnerButton;
 - (IBAction)didTapInfoButton;
@@ -66,6 +63,47 @@ static NSAttributedString* ConcatOwnerAndLicense(NSString* owner, MWKLicense* li
     [super awakeFromNib];
     [self.ownerButton.titleLabel wmf_applyDropShadow];
     [self.imageDescriptionLabel wmf_applyDropShadow];
+
+//    [self.detailOverlayView mas_makeConstraints:^(MASConstraintMaker* make) {
+//        make.height.lessThanOrEqualTo(@(WMFImageGalleryMaxDetailHeight)).with.priorityHigh();
+//        make.leading.trailing.and.bottom.equalTo(self.contentView);
+//    }];
+
+    WMFGradientView* gradientView = [WMFGradientView new];
+    [gradientView.gradientLayer setLocations:@[@0, @1]];
+    [gradientView.gradientLayer setColors:@[(id)[UIColor colorWithWhite:0.0 alpha:1.0].CGColor,
+                                            (id)[UIColor clearColor].CGColor]];
+    // default start/end points, to be adjusted w/ image size
+    [gradientView.gradientLayer setStartPoint:CGPointMake(0.5, 1.0)];
+    [gradientView.gradientLayer setEndPoint:CGPointMake(0.5, 0.0)];
+    gradientView.userInteractionEnabled = NO;
+    [self addSubview:gradientView];
+    [self sendSubviewToBack:gradientView];
+    self.gradientView = gradientView;
+
+    [self.gradientView mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.edges.equalTo(self);
+    }];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (self.frame.size.height > 0.0) {
+        // start gradient at the top of the image description label
+        double const imageDescriptionTop =
+            self.frame.size.height
+            - CGRectGetMinY(self.imageDescriptionLabel.frame);
+        double const relativeImageDescriptionTop = 1.0 - imageDescriptionTop / self.frame.size.height;
+        self.gradientView.gradientLayer.startPoint = CGPointMake(0.5, relativeImageDescriptionTop);
+    }
+}
+
+- (void)didMoveToSuperview {
+    [super didMoveToSuperview];
+    if (self.superview) {
+        NSLayoutConstraint* maxHeightConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.superview attribute:NSLayoutAttributeHeight multiplier:0.3f constant:0.0f];
+        [self.superview addConstraint:maxHeightConstraint];
+    }
 }
 
 - (IBAction)didTapOwnerButton {

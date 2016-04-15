@@ -90,6 +90,10 @@
 /// @return The `sourceURL` of each entry in `uniqueLargestVariants` as a NSURL.
 - (NSArray*)uniqueLargestVariantSourceURLs;
 
+
+- (NSArray<MWKImage*>*)imagesForDisplayInGallery;
+
+
 @property (readonly) BOOL dirty;
 
 - (void)save;

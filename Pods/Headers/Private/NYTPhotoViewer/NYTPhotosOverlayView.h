@@ -1,0 +1,1 @@
+../../../NYTPhotoViewer/Pod/Classes/ios/NYTPhotosOverlayView.h

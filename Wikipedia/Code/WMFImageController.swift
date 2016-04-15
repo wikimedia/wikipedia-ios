@@ -68,10 +68,6 @@ public class WMFImageController : NSObject {
         return WMFImageController(manager: SDWebImageManager(downloader: downloader, cache: cache),
                                   namespace: defaultNamespace)
     }()
-
-    public func syncCachedImageWithURL(url: String) -> UIImage? {
-        return imageManager.imageCache.imageFromDiskCacheForKey(url)
-    }
     
     public static let backgroundImageFetchOptions: SDWebImageOptions = [.LowPriority, .ContinueInBackground]
 
@@ -189,6 +185,14 @@ public class WMFImageController : NSObject {
         return url == nil ? nil : imageManager.imageCache.imageFromMemoryCacheForKey(cacheKeyForURL(url!))
     }
 
+    public func syncCachedImageWithURL(url: NSURL?) -> UIImage? {
+        guard url != nil else{
+            return nil
+        }
+        let image = imageManager.imageCache.imageFromDiskCacheForKey(cacheKeyForURL(url!))
+        return image
+    }
+    
     public func hasDataInMemoryForImageWithURL(url: NSURL?) -> Bool {
         return cachedImageInMemoryWithURL(url) != nil
     }

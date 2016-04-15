@@ -10,9 +10,8 @@
 // Controller
 #import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFArticleHeaderImageGalleryViewController.h"
 #import "WMFReadMoreViewController.h"
-#import "WMFModalImageGalleryViewController.h"
+#import "WMFImageGalleryViewContoller.h"
 #import "SectionEditorViewController.h"
 #import "WMFArticleFooterMenuViewController.h"
 #import "WMFArticleBrowserViewController.h"
@@ -54,6 +53,8 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import <TUSafariActivity/TUSafariActivity.h>
 #import "WMFArticleTextActivitySource.h"
+#import "UIImageView+WMFImageFetching.h"
+#import "UIImageView+WMFPlaceholder.h"
 
 #import "NSString+WMFPageUtilities.h"
 #import "NSURL+WMFLinkParsing.h"
@@ -71,8 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleViewController ()
 <WMFWebViewControllerDelegate,
  UINavigationControllerDelegate,
- WMFArticleHeaderImageGalleryViewControllerDelegate,
- WMFImageGalleryViewControllerDelegate,
+ WMFImageGalleryViewContollerReferenceViewDelegate,
  SectionEditorViewControllerDelegate,
  UIViewControllerPreviewingDelegate,
  LanguageSelectionDelegate,
@@ -97,12 +97,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
 
 // Children
-@property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
 @property (nonatomic, strong) WMFReadMoreViewController* readMoreListViewController;
 @property (nonatomic, strong) WMFArticleFooterMenuViewController* footerMenuViewController;
 
 // Views
-@property (nonatomic, strong) MASConstraint* headerHeightConstraint;
+@property (nonatomic, strong) UIImageView* headerImageView;
 @property (nonatomic, strong) UIBarButtonItem* saveToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* languagesToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
@@ -172,9 +171,9 @@ NS_ASSUME_NONNULL_BEGIN
     // always update webVC & headerGallery, even if nil so they are reset if needed
     self.footerMenuViewController.article = _article;
     self.webViewController.article        = _article;
-    [self.headerGallery showImagesInArticle:_article];
 
     if (self.article) {
+        [self.headerImageView wmf_setImageWithMetadata:_article.leadImage detectFaces:YES];
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
         [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_articleViewActivityWithArticle:self.article]];
@@ -233,6 +232,18 @@ NS_ASSUME_NONNULL_BEGIN
     return _progressView;
 }
 
+- (UIImageView*)headerImageView {
+    if (!_headerImageView) {
+        _headerImageView                        = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _headerImageView.userInteractionEnabled = YES;
+        _headerImageView.clipsToBounds          = YES;
+        [_headerImageView wmf_configureWithDefaultPlaceholder];
+        UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
+        [_headerImageView addGestureRecognizer:tap];
+    }
+    return _headerImageView;
+}
+
 - (WMFReadMoreViewController*)readMoreListViewController {
     if (!_readMoreListViewController) {
         _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithTitle:self.articleTitle
@@ -251,19 +262,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WebViewController*)webViewController {
     if (!_webViewController) {
-        _webViewController                      = [WebViewController wmf_initialViewControllerFromClassStoryboard];
-        _webViewController.delegate             = self;
-        _webViewController.headerViewController = self.headerGallery;
+        _webViewController            = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+        _webViewController.delegate   = self;
+        _webViewController.headerView = self.headerImageView;
     }
     return _webViewController;
-}
-
-- (WMFArticleHeaderImageGalleryViewController*)headerGallery {
-    if (!_headerGallery) {
-        _headerGallery          = [[WMFArticleHeaderImageGalleryViewController alloc] init];
-        _headerGallery.delegate = self;
-    }
-    return _headerGallery;
 }
 
 #pragma mark - Notifications and Observations
@@ -641,7 +644,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    if ([self.presentedViewController isKindOfClass:[WMFFontSliderViewController class]]) {
+        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    }
     [self registerForPreviewingIfAvailable];
 }
 
@@ -906,12 +911,10 @@ NS_ASSUME_NONNULL_BEGIN
     didTapImageWithSourceURLString:(nonnull NSString*)imageSourceURLString {
     MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURLString:imageSourceURLString];
     /*
-       NOTE(bgerstle): not setting gallery delegate intentionally to prevent header gallery changes as a result of
+       NOTE: not setting gallery delegate intentionally to prevent header gallery changes as a result of
        fullscreen gallery interactions that originate from the webview
      */
-    WMFModalImageGalleryViewController* fullscreenGallery =
-        [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article
-                                                               currentImage:selectedImage];
+    WMFArticleImageGalleryViewContoller* fullscreenGallery = [[WMFArticleImageGalleryViewContoller alloc] initWithArticle:self.article selectedImage:selectedImage];
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
 
@@ -947,28 +950,29 @@ NS_ASSUME_NONNULL_BEGIN
     return nil;
 }
 
-#pragma mark - WMFArticleHeadermageGalleryViewControllerDelegate
+#pragma mark - Header Tap Gesture
 
-- (void)headerImageGallery:(WMFArticleHeaderImageGalleryViewController* __nonnull)gallery
-     didSelectImageAtIndex:(NSUInteger)index {
-    WMFModalImageGalleryViewController* fullscreenGallery;
-
+- (void)imageViewDidTap:(UITapGestureRecognizer*)tap {
     NSAssert(self.article.isCached, @"Expected article data to already be downloaded.");
     if (!self.article.isCached) {
         return;
     }
-    fullscreenGallery             = [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article currentImage:nil];
-    fullscreenGallery.currentPage = gallery.currentPage;
-    // set delegate to ensure the header gallery is updated when the fullscreen gallery is dismissed
-    fullscreenGallery.delegate = self;
 
+    WMFArticleImageGalleryViewContoller* fullscreenGallery = [[WMFArticleImageGalleryViewContoller alloc] initWithArticle:self.article];
+    fullscreenGallery.referenceViewDelegate = self;
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
 
-#pragma mark - WMFModalArticleImageGalleryViewControllerDelegate
+#pragma mark - WMFImageGalleryViewContollerReferenceViewDelegate
 
-- (void)willDismissGalleryController:(WMFModalImageGalleryViewController* __nonnull)gallery {
-    self.headerGallery.currentPage = gallery.currentPage;
+- (UIImageView*)referenceViewForImageController:(WMFArticleImageGalleryViewContoller*)controller {
+    MWKImage* currentImage = [controller currentImage];
+    MWKImage* leadImage    = self.article.leadImage;
+    if ([currentImage isEqualToImage:leadImage] || [currentImage isVariantOfImage:leadImage]) {
+        return self.headerImageView;
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark - Edit Section
