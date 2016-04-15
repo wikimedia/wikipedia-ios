@@ -38,15 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)indexOfCurrentImage;
 
-- (MWKImage*)currentImage;
-
-- (MWKImageInfo*)currentImageInfo;
-
 - (UIImageView*)currentImageView;
-
-- (MWKImage*)imageForPhoto:(id<NYTPhoto>)photo;
-
-- (MWKImageInfo*)imageInfoForPhoto:(id<NYTPhoto>)photo;
 
 - (void)showImageAtIndex:(NSUInteger)index animated:(BOOL)animated;
 
@@ -60,6 +52,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto> >*)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
 
+- (MWKImage*)currentImage;
+
+- (MWKImageInfo*)currentImageInfo;
+
 @end
 
 @interface WMFPOTDImageGalleryViewContoller : WMFImageGalleryViewContoller
@@ -67,6 +63,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDates:(NSArray<NSDate*>*)imageDates selectedImageInfo:(nullable MWKImageInfo*)imageInfo NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto> >*)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
+
+- (MWKImageInfo*)imageInfoForPhoto:(id<NYTPhoto>)photo;
+
+- (MWKImageInfo*)currentImageInfo;
 
 @end
 

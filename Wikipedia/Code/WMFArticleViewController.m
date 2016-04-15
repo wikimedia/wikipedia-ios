@@ -966,7 +966,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFImageGalleryViewContollerReferenceViewDelegate
 
-- (UIImageView*)referenceViewForImageController:(WMFImageGalleryViewContoller*)controller {
+- (UIImageView*)referenceViewForImageController:(WMFArticleImageGalleryViewContoller*)controller {
     MWKImage* currentImage = [controller currentImage];
     MWKImage* leadImage    = self.article.leadImage;
     if ([currentImage isEqualToImage:leadImage] || [currentImage isVariantOfImage:leadImage]) {
