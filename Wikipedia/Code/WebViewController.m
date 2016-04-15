@@ -263,17 +263,16 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)addHeaderView {
-    if (!self.headerViewController) {
+    if (!self.headerView) {
         return;
     }
-    [self.webView.scrollView addSubview:self.headerViewController.view];
-    [self.headerViewController.view mas_makeConstraints:^(MASConstraintMaker* make) {
+    [self.webView.scrollView addSubview:self.headerView];
+    [self.headerView mas_makeConstraints:^(MASConstraintMaker* make) {
         // lead/trail must be constained to webview, the scrollview doesn't define a width
         make.leading.and.trailing.equalTo(self.webView);
         make.top.equalTo(self.webView.scrollView);
         self.headerHeight = make.height.equalTo(@([self headerHeightForCurrentTraitCollection]));
     }];
-    [self.headerViewController didMoveToParentViewController:self];
 }
 
 - (UIView*)footerContainerView {
@@ -370,17 +369,16 @@ NSString* const WMFCCBySALicenseURL =
     [self addFooterView];
 }
 
-- (void)setHeaderViewController:(UIViewController*)headerViewController {
-    NSAssert(!self.headerViewController, @"Dynamic/re-configurable header view is not supported.");
+- (void)setHeaderView:(UIView *)headerView{
+    NSAssert(!self.headerView, @"Dynamic/re-configurable header view is not supported.");
     NSAssert(!self.isViewLoaded, @"Expected header to be configured before viewDidLoad.");
-    _headerViewController = headerViewController;
-    [self addChildViewController:self.headerViewController];
-    // didMoveToParent is called when it is added to the view
+    _headerView = headerView;
+
 }
 
 - (void)layoutWebViewSubviews {
     [self.headerHeight setOffset:[self headerHeightForCurrentTraitCollection]];
-    CGFloat headerBottom = CGRectGetMaxY(self.headerViewController.view.frame);
+    CGFloat headerBottom = CGRectGetMaxY(self.headerView.frame);
     /*
        HAX: need to manage positioning the browser view manually.
        using constraints seems to prevent the browser view size and scrollview contentSize from being set
@@ -428,7 +426,7 @@ NSString* const WMFCCBySALicenseURL =
 - (CGFloat)clientBoundingRectVerticalOffset {
     NSParameterAssert(self.isViewLoaded);
     CGRect headerIntersection =
-        CGRectIntersection(self.webView.scrollView.wmf_contentFrame, self.headerViewController.view.frame);
+        CGRectIntersection(self.webView.scrollView.wmf_contentFrame, self.headerView.frame);
     return headerIntersection.size.height;
 }
 
