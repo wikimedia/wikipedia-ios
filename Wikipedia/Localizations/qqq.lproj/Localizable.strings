@@ -18,6 +18,8 @@
 "article-languages-cancel" = "Button text for dismissing the language selector screen.\n{{Identical|Cancel}}";
 "article-languages-downloading" = "Alert text shown when obtaining list of languages in which an article is available";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
+"article-languages-yours" = "Title for list of user's preferred languages";
+"article-languages-others" = "Title for list of languages not in user's preferred languages";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}";
 "article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";

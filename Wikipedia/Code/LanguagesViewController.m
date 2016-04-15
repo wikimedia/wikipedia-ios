@@ -15,20 +15,19 @@
 #import <Masonry/Masonry.h>
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
+#import "WMFArticleLanguagesSectionHeader.h"
 
-static CGFloat const WMFLanguagesSectionFooterHeight = 10.f;
-static CGFloat const WMFOtherLanguageRowHeight       = 138.f;
-
-// This assumes the language cell is configured in IB by LanguagesViewController
-static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectionSeparator";
+static CGFloat const WMFOtherLanguageRowHeight = 138.f;
+static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 @interface LanguagesViewController ()
 <UISearchBarDelegate>
 
-@property (weak, nonatomic) IBOutlet UISearchBar* languageFilterField;
+@property (strong, nonatomic) IBOutlet UISearchBar* languageFilterField;
 @property (strong, nonatomic) MWKLanguageFilter* languageFilter;
 @property (strong, nonatomic) MWKTitleLanguageController* titleLanguageController;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* languageFilterTopSpaceConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* languageFilterTopSpaceConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* filterDividerHeightConstraint;
 
 @end
 
@@ -70,9 +69,6 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 
     self.tableView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
 
-    [self.tableView registerClass:[UITableViewHeaderFooterView class]
-     forHeaderFooterViewReuseIdentifier:LangaugesSectionFooterReuseIdentifier];
-
     self.tableView.estimatedRowHeight = WMFOtherLanguageRowHeight;
     self.tableView.rowHeight          = UITableViewAutomaticDimension;
 
@@ -84,8 +80,13 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     if ([self.languageFilterField respondsToSelector:@selector(setReturnKeyType:)]) {
         [self.languageFilterField setReturnKeyType:UIReturnKeyDone];
     }
-    self.languageFilterField.barTintColor = [UIColor wmf_settingsBackgroundColor];;
+    self.languageFilterField.barTintColor = [UIColor wmf_settingsBackgroundColor];
     self.languageFilterField.placeholder  = MWLocalizedString(@"article-languages-filter-placeholder", nil);
+
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.filterDividerHeightConstraint.constant = 0.5f;
+
+    [self.tableView registerNib:[WMFArticleLanguagesSectionHeader wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFArticleLanguagesSectionHeader wmf_nibName]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -104,38 +105,14 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 }
 
 - (void)downloadArticlelanguages {
-    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"article-languages-downloading", nil) sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
-    // (temporarily?) hide search field while loading languages since the default alert UI covers the search field
-    [self setLanguageFilterHidden:YES animated:NO];
-
     @weakify(self);
     [self.titleLanguageController
      fetchLanguagesWithSuccess:^{
         @strongify(self)
-        //This can fire rather quickly, lets give the user a chance to read the message before we dismiss
-        dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
-            [[WMFAlertManager sharedInstance] dismissAlert];
-        });
-        [self setLanguageFilterHidden:NO animated:YES];
         [self reloadDataSections];
     } failure:^(NSError* __nonnull error) {
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
     }];
-}
-
-#pragma mark - Search Bar Visibility
-
-- (void)setLanguageFilterHidden:(BOOL)hidden animated:(BOOL)animated {
-    dispatch_block_t updateConstraint = ^{
-        // iOS7: need to do this w/ an IBOutlet due to some conflict between Masonry & layout guides
-        self.languageFilterTopSpaceConstraint.constant = hidden ? -self.languageFilterField.frame.size.height : 0.f;
-        [self.languageFilterField layoutIfNeeded];
-    };
-    if (animated) {
-        [UIView animateWithDuration:[CATransaction animationDuration] animations:updateConstraint];
-    } else {
-        updateConstraint();
-    }
 }
 
 #pragma mark - Top menu
@@ -270,21 +247,31 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
-    if ([self isPreferredSection:section] && self.languageFilter.filteredPreferredLanguages.count > 0) {
-        // collapse footer when empty, removing needless padding of "other" section from top of table
-        return WMFLanguagesSectionFooterHeight;
-    } else {
-        return 0.f;
+- (BOOL)shouldShowHeaderForSection:(NSInteger)section {
+    return ([self tableView:self.tableView numberOfRowsInSection:section] > 0);
+}
+
+- (NSString*)titleForHeaderInSection:(NSInteger)section {
+    NSString *title = ([self isPreferredSection:section]) ? MWLocalizedString(@"article-languages-yours", nil) : MWLocalizedString(@"article-languages-others", nil);
+    return [title uppercaseStringWithLocale:[NSLocale currentLocale]];;
+}
+
+- (void)configureHeader:(WMFArticleLanguagesSectionHeader*)header forSection:(NSInteger)section {
+    header.title = [self titleForHeaderInSection:section];
+}
+
+- (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section; {
+    if ([self shouldShowHeaderForSection:section]){
+        WMFArticleLanguagesSectionHeader* header = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFArticleLanguagesSectionHeader wmf_nibName]];
+        [self configureHeader:header forSection:section];
+        return header;
+    }else{
+        return nil;
     }
 }
 
-// using footers instead of headers because footers don't "stick"
-- (UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section {
-    UITableViewHeaderFooterView* footerView =
-        [tableView dequeueReusableHeaderFooterViewWithIdentifier:LangaugesSectionFooterReuseIdentifier];
-    footerView.contentView.backgroundColor = [UIColor wmf_settingsBackgroundColor];;
-    return footerView;
+- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
+    return [self shouldShowHeaderForSection:section] ? WMFLanguageHeaderHeight : 0;
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
