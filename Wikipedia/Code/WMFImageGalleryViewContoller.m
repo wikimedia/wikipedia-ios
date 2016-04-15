@@ -339,6 +339,10 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.referenceViewDelegate referenceViewForImageController:self];
 }
 
+- (CGFloat)photosViewController:(NYTPhotosViewController *)photosViewController maximumZoomScaleForPhoto:(id <NYTPhoto>)photo{
+    return 2.0;
+}
+
 
 - (NSString* _Nullable)photosViewController:(NYTPhotosViewController*)photosViewController titleForPhoto:(id <NYTPhoto>)photo atIndex:(NSUInteger)photoIndex totalPhotoCount:(NSUInteger)totalPhotoCount {
     return @"";
