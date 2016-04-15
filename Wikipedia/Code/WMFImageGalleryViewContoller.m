@@ -42,6 +42,12 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wincomplete-implementation"
 
+@interface NYTPhotosViewController (WMFExposure)
+
+- (NYTPhotoViewController *)newPhotoViewControllerForPhoto:(id <NYTPhoto>)photo;
+
+@end
+
 
 @interface WMFImageGalleryViewContoller ()<NYTPhotosViewControllerDelegate>
 
@@ -195,6 +201,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert([self respondsToSelector:@selector(updateOverlayInformation)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
         NSAssert([self respondsToSelector:@selector(currentImageView)], @"NYTPhoto implementation changed!");
+        NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
 
         UIBarButtonItem* share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
         share.tintColor         = [UIColor whiteColor];
@@ -268,6 +275,13 @@ NS_ASSUME_NONNULL_BEGIN
     id<NYTPhoto> photo = [self photoAtIndex:index];
     [self displayPhoto:photo animated:animated];
 }
+
+- (NYTPhotoViewController *)newPhotoViewControllerForPhoto:(id <NYTPhoto>)photo {
+    NYTPhotoViewController* vc = [super newPhotoViewControllerForPhoto:photo];
+    vc.scalingImageView.imageView.backgroundColor = [UIColor whiteColor];
+    return vc;
+}
+
 
 #pragma mark - Actions
 
