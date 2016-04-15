@@ -567,7 +567,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable MWKImageInfo*)bestImageInfo{
-    return self.imageInfo ? : self.thumbnailImageInfo;
+    return self.imageInfo;
 }
 
 - (nullable NSURL*)bestImageURL {
