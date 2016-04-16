@@ -36,8 +36,8 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _showNonPreferredLanguges = YES;
-        _showPreferredLanguges    = YES;
+        _showNonPreferredLanguages = YES;
+        _showPreferredLanguages    = YES;
     }
     return self;
 }
@@ -45,8 +45,8 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        _showNonPreferredLanguges = YES;
-        _showPreferredLanguges    = YES;
+        _showNonPreferredLanguages = YES;
+        _showPreferredLanguages    = YES;
     }
     return self;
 }
@@ -129,7 +129,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 }
 
 - (BOOL)isPreferredSection:(NSInteger)section {
-    if (self.showPreferredLanguges) {
+    if (self.showPreferredLanguages) {
         if (section == 0) {
             return YES;
         }
@@ -137,19 +137,19 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     return NO;
 }
 
-- (void)setShowPreferredLanguges:(BOOL)showPreferredLanguges {
-    if (_showPreferredLanguges == showPreferredLanguges) {
+- (void)setShowPreferredLanguages:(BOOL)showPreferredLanguages {
+    if (_showPreferredLanguages == showPreferredLanguages) {
         return;
     }
-    _showPreferredLanguges = showPreferredLanguges;
+    _showPreferredLanguages = showPreferredLanguages;
     [self reloadDataSections];
 }
 
-- (void)setShowNonPreferredLanguges:(BOOL)showNonPreferredLanguges {
-    if (_showNonPreferredLanguges == showNonPreferredLanguges) {
+- (void)setShowNonPreferredLanguages:(BOOL)showNonPreferredLanguages {
+    if (_showNonPreferredLanguages == showNonPreferredLanguages) {
         return;
     }
-    _showNonPreferredLanguges = showNonPreferredLanguges;
+    _showNonPreferredLanguages = showNonPreferredLanguages;
     [self reloadDataSections];
 }
 
@@ -207,10 +207,10 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
     NSInteger count = 0;
-    if (self.showPreferredLanguges) {
+    if (self.showPreferredLanguages) {
         count++;
     }
-    if (self.showNonPreferredLanguges) {
+    if (self.showNonPreferredLanguages) {
         count++;
     }
     return count;

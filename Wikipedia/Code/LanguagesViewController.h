@@ -24,8 +24,8 @@
  */
 @property (nonatomic, strong) MWKTitle* articleTitle;
 
-@property (nonatomic, assign) BOOL showPreferredLanguges;
-@property (nonatomic, assign) BOOL showNonPreferredLanguges;
+@property (nonatomic, assign) BOOL showPreferredLanguages;
+@property (nonatomic, assign) BOOL showNonPreferredLanguages;
 
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
 
