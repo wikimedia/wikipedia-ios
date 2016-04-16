@@ -56,6 +56,8 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    NSAssert(self.title, @"Don't forget to set a title!");
+
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
         @strongify(self)
@@ -84,9 +86,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
     [self.tableView registerNib:[WMFArticleLanguagesSectionHeader wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFArticleLanguagesSectionHeader wmf_nibName]];
 
-    self.tableView.editing = (self.articleTitle == nil);
-    
-    self.title = self.tableView.editing ? MWLocalizedString(@"settings-my-languages", nil) : MWLocalizedString(@"languages-title", nil);
+    self.tableView.editing = self.editing;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

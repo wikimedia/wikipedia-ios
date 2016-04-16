@@ -640,6 +640,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (IBAction)openLanguagePicker:(id)sender {
     LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    languagesVC.editing = YES;
+    languagesVC.title = MWLocalizedString(@"settings-my-languages", nil);
     languagesVC.languageSelectionDelegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:NULL];
 }

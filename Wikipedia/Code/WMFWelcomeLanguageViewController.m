@@ -135,6 +135,8 @@
 
 - (IBAction)addLanguages:(id)sender {
     LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    languagesVC.title = MWLocalizedString(@"settings-my-languages", nil);
+    languagesVC.editing = NO;
     languagesVC.showPreferredLanguges     = NO;
     languagesVC.languageSelectionDelegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:NULL];

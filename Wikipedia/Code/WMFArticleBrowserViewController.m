@@ -460,7 +460,9 @@ BOOL useSingleBrowserController() {
 #pragma mark - Languages
 
 - (void)showLanguagePicker {
-    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    LanguagesViewController* languagesVC  = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    languagesVC.editing = NO;
+    languagesVC.title = MWLocalizedString(@"languages-title", nil);
     languagesVC.articleTitle              = [[self currentViewController] articleTitle];
     languagesVC.languageSelectionDelegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];

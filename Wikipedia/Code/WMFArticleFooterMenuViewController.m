@@ -135,6 +135,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showLanguages {
     LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    languagesVC.editing = NO;
+    languagesVC.title = MWLocalizedString(@"languages-title", nil);
     languagesVC.articleTitle              = self.article.title;
     languagesVC.languageSelectionDelegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
