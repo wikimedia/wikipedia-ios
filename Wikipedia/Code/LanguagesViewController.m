@@ -33,7 +33,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 @property (nonatomic, assign) BOOL hideLanguageFilter;
 @property (nonatomic) BOOL editing;
-@property (nonatomic) BOOL allowsSelection;
+@property (nonatomic) BOOL disableSelection;
 
 @end
 
@@ -95,7 +95,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     //HAX: force these to take effect if they were set before the VC was presented/pushed.
     self.editing = self.editing;
     self.hideLanguageFilter = self.hideLanguageFilter;
-    self.allowsSelection = self.allowsSelection;
+    self.disableSelection = self.disableSelection;
 }
 
 -(void)setHideLanguageFilter:(BOOL)hideLanguageFilter {
@@ -108,9 +108,9 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.tableView.editing = editing;
 }
 
-- (void)setAllowsSelection:(BOOL)allowsSelection {
-    _allowsSelection = allowsSelection;
-    self.tableView.allowsSelection = allowsSelection;
+- (void)setDisableSelection:(BOOL)disableSelection {
+    _disableSelection = disableSelection;
+    self.tableView.allowsSelection = !disableSelection;
 }
 
 - (void)configureForEditing {
@@ -119,7 +119,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.editing = NO;
     self.hideLanguageFilter = YES;
     self.showNonPreferredLanguages = NO;
-    self.allowsSelection = NO;
+    self.disableSelection = YES;
     
     @weakify(self)
     self.navigationItem.rightBarButtonItem =
@@ -133,13 +133,13 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
                                               self.editing = YES;
                                               self.hideLanguageFilter = NO;
                                               self.showNonPreferredLanguages = YES;
-                                              self.allowsSelection = YES;
+                                              self.disableSelection = NO;
                                           }else{
                                               button.title = MWLocalizedString(@"button-edit", nil);
                                               self.editing = NO;
                                               self.hideLanguageFilter = YES;
                                               self.showNonPreferredLanguages = NO;
-                                              self.allowsSelection = NO;
+                                              self.disableSelection = YES;
                                           }
                                       }];
 }
