@@ -254,6 +254,7 @@
 "lastmodified-by-user" = "Edited $1 by $2";
 "lastmodified-by-anon" = "Edited $1 by an anonymous user";
 
+"button-edit" = "Edit";
 "button-next" = "Next";
 "button-done" = "Done";
 "button-save" = "Save";

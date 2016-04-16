@@ -101,7 +101,7 @@
             MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
             [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
             [tableView reloadData];
-            [self useFirstPreferredLanguageAsAppSiteLanguage];
+            [self useFirstPreferredLanguageAsAppSiteAndSearchLanguage];
         };
         cell.minusButton.hidden = NO;
     }else{
@@ -122,10 +122,10 @@
     MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[sourceIndexPath.row];
     [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
     [self.languageTableView reloadData];
-    [self useFirstPreferredLanguageAsAppSiteLanguage];
+    [self useFirstPreferredLanguageAsAppSiteAndSearchLanguage];
 }
 
-- (void)useFirstPreferredLanguageAsAppSiteLanguage {
+- (void)useFirstPreferredLanguageAsAppSiteAndSearchLanguage {
     MWKLanguageLink* firstPreferredLanguage = [[MWKLanguageLinkController sharedInstance].preferredLanguages firstObject];
 
     [[NSUserDefaults standardUserDefaults] wmf_setAppSite:[firstPreferredLanguage site]];

@@ -238,6 +238,7 @@
 "timestamp-years" = "Human-readable approximate timestamp for events in the distant past, expressed as years";
 "lastmodified-by-user" = "Marker at page end for who last modified the page.\n* $1 is a relative date such as '2 months ago' or 'today',\n* $2 is a username.";
 "lastmodified-by-anon" = "Marker at page end for who last modified the page when anonymous. $1 is a relative date such as '2 months ago' or 'today'.";
+"button-edit" = "Button text for edit button used in various places.";
 "button-next" = "Button text for next button used in various places.\n{{Identical|Next}}";
 "button-done" = "Button text for done button used in various places.\n{{Identical|Done}}";
 "button-save" = "Button text for save button used in various places.\n{{Identical|Save}}";

@@ -32,7 +32,6 @@
 // Object to receive "languageSelected:sender:" notifications.
 @property (nonatomic, weak) id <LanguageSelectionDelegate> languageSelectionDelegate;
 
-@property (nonatomic) BOOL editing;
-@property (nonatomic, assign) BOOL hideLanguageFilter;
+- (void)configureForEditing;
 
 @end

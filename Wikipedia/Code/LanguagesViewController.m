@@ -16,6 +16,7 @@
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 #import "WMFArticleLanguagesSectionHeader.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
 
 static CGFloat const WMFOtherLanguageRowHeight = 138.f;
 static CGFloat const WMFLanguageHeaderHeight = 57.f;
@@ -29,6 +30,10 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* languageFilterTopSpaceConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* filterDividerHeightConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* filterHeightConstraint;
+
+@property (nonatomic, assign) BOOL hideLanguageFilter;
+@property (nonatomic) BOOL editing;
+@property (nonatomic) BOOL allowsSelection;
 
 @end
 
@@ -87,8 +92,56 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
     [self.tableView registerNib:[WMFArticleLanguagesSectionHeader wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFArticleLanguagesSectionHeader wmf_nibName]];
 
-    self.tableView.editing = self.editing;
-    self.filterHeightConstraint.constant = self.hideLanguageFilter ? 0 : 44;
+    //HAX: force these to take effect if they were set before the VC was presented/pushed.
+    self.editing = self.editing;
+    self.hideLanguageFilter = self.hideLanguageFilter;
+    self.allowsSelection = self.allowsSelection;
+}
+
+-(void)setHideLanguageFilter:(BOOL)hideLanguageFilter {
+    _hideLanguageFilter = hideLanguageFilter;
+    self.filterHeightConstraint.constant = hideLanguageFilter ? 0 : 44;
+}
+
+- (void)setEditing:(BOOL)editing {
+    _editing = editing;
+    self.tableView.editing = editing;
+}
+
+- (void)setAllowsSelection:(BOOL)allowsSelection {
+    _allowsSelection = allowsSelection;
+    self.tableView.allowsSelection = allowsSelection;
+}
+
+- (void)configureForEditing {
+    self.title = MWLocalizedString(@"settings-my-languages", nil);
+    
+    self.editing = NO;
+    self.hideLanguageFilter = YES;
+    self.showNonPreferredLanguages = NO;
+    self.allowsSelection = NO;
+    
+    @weakify(self)
+    self.navigationItem.rightBarButtonItem =
+    [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-edit", nil)
+                                        style:UIBarButtonItemStylePlain
+                                      handler:^(UIBarButtonItem *button){
+                                          @strongify(self)
+                                          self.editing = !self.editing;
+                                          if(self.editing){
+                                              button.title = MWLocalizedString(@"button-done", nil);
+                                              self.editing = YES;
+                                              self.hideLanguageFilter = NO;
+                                              self.showNonPreferredLanguages = YES;
+                                              self.allowsSelection = YES;
+                                          }else{
+                                              button.title = MWLocalizedString(@"button-edit", nil);
+                                              self.editing = NO;
+                                              self.hideLanguageFilter = YES;
+                                              self.showNonPreferredLanguages = NO;
+                                              self.allowsSelection = NO;
+                                          }
+                                      }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
