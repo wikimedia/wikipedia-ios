@@ -33,5 +33,6 @@
 @property (nonatomic, weak) id <LanguageSelectionDelegate> languageSelectionDelegate;
 
 @property (nonatomic) BOOL editing;
+@property (nonatomic, assign) BOOL hideLanguageFilter;
 
 @end

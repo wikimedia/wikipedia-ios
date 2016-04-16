@@ -28,6 +28,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 @property (strong, nonatomic) MWKTitleLanguageController* titleLanguageController;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* languageFilterTopSpaceConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* filterDividerHeightConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* filterHeightConstraint;
 
 @end
 
@@ -87,6 +88,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     [self.tableView registerNib:[WMFArticleLanguagesSectionHeader wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFArticleLanguagesSectionHeader wmf_nibName]];
 
     self.tableView.editing = self.editing;
+    self.filterHeightConstraint.constant = self.hideLanguageFilter ? 0 : 44;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
