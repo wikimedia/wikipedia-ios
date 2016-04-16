@@ -95,10 +95,13 @@
 
     //can only delete non-OS languages
     if([[MWKLanguageLinkController sharedInstance].preferredLanguages count] > 1){
+        @weakify(self)
         cell.deleteButtonTapped = ^{
+            @strongify(self)
             MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
             [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
             [tableView reloadData];
+            [self useFirstPreferredLanguageAsAppSiteLanguage];
         };
         cell.minusButton.hidden = NO;
     }else{
@@ -119,6 +122,15 @@
     MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[sourceIndexPath.row];
     [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
     [self.languageTableView reloadData];
+    [self useFirstPreferredLanguageAsAppSiteLanguage];
+}
+
+- (void)useFirstPreferredLanguageAsAppSiteLanguage {
+    MWKLanguageLink* firstPreferredLanguage = [[MWKLanguageLinkController sharedInstance].preferredLanguages firstObject];
+
+    [[NSUserDefaults standardUserDefaults] wmf_setAppSite:[firstPreferredLanguage site]];
+    [[NSUserDefaults standardUserDefaults] wmf_setCurrentSearchLanguageSite:firstPreferredLanguage.site];
+
 }
 
 - (IBAction)addLanguages:(id)sender {
