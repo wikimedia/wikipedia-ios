@@ -310,10 +310,13 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[sourceIndexPath.row];
     [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
     [self.tableView reloadData];
-    [self useFirstPreferredLanguageAsPrimaryAppLanguage];
+    
+    //HAX: any time a re-order, insert, or delete happens tell the delegate the first preferred language
+    // was seletected. Will need to clean this up later.
+    [self reportFirstPreferredLanguageToDelegate];
 }
 
--(void)useFirstPreferredLanguageAsPrimaryAppLanguage {
+-(void)reportFirstPreferredLanguageToDelegate {
     MWKLanguageLink* selectedLanguage = [[MWKLanguageLinkController sharedInstance].preferredLanguages firstObject];
     [self.languageSelectionDelegate languagesController:self didSelectLanguage:selectedLanguage];
 }
@@ -335,7 +338,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     }
     self.languageFilter.languageFilter = @"";
     self.languageFilterField.text = @"";
-    [self useFirstPreferredLanguageAsPrimaryAppLanguage];
+    [self reportFirstPreferredLanguageToDelegate];
     [tableView reloadData];
     [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
