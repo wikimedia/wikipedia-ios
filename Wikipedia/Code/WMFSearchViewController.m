@@ -543,6 +543,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)setSelectedLanguage:(MWKLanguageLink*)language {
     [[NSUserDefaults standardUserDefaults] wmf_setCurrentSearchLanguageSite:language.site];
+    [[NSUserDefaults standardUserDefaults] wmf_setAppSite:language.site];
     [self updateLanguageButtonsToPreferredLanguages];
     [self selectLanguageForSite:language.site];
 }
