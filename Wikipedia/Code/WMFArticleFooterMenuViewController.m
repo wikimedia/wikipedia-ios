@@ -5,7 +5,6 @@
 #import "WMFArticleListTableViewController.h"
 #import "WMFArticlePreviewFetcher.h"
 #import "WMFArticleFooterMenuItem.h"
-#import "UIViewController+WMFStoryboardUtilities.h"
 #import "PageHistoryViewController.h"
 #import "LanguagesViewController.h"
 #import "MWKLanguageLinkController.h"
@@ -18,10 +17,11 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UINavigationController+WMFHideEmptyToolbar.h"
 #import "WMFArticleBrowserViewController.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticleFooterMenuViewController () <UITableViewDelegate, LanguageSelectionDelegate, UINavigationControllerDelegate>
+@interface WMFArticleFooterMenuViewController () <UITableViewDelegate, WMFLanguagesViewControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) WMFArticleFooterMenuDataSource* footerDataSource;
 
@@ -134,15 +134,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)showLanguages {
-    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
-    languagesVC.editing = NO;
-    languagesVC.title = MWLocalizedString(@"languages-title", nil);
-    languagesVC.articleTitle              = self.article.title;
-    languagesVC.languageSelectionDelegate = self;
+    WMFArticleLanguagesViewController* languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithTitle:self.article.title];
+    languagesVC.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
 
-- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
+- (void)languagesController:(WMFArticleLanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
     [self dismissViewControllerAnimated:YES completion:^{
         WMFArticleViewController* articleContainerVC =
             [[WMFArticleViewController alloc] initWithArticleTitle:language.title

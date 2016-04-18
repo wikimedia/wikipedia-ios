@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
  WMFImageGalleryViewContollerReferenceViewDelegate,
  SectionEditorViewControllerDelegate,
  UIViewControllerPreviewingDelegate,
- LanguageSelectionDelegate,
+ WMFLanguagesViewControllerDelegate,
  WMFArticleListTableViewControllerDelegate,
  WMFFontSliderViewControllerDelegate,
  UIPopoverPresentationControllerDelegate>
@@ -434,11 +434,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Article languages
 
 - (void)showLanguagePicker {
-    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
-    languagesVC.editing = NO;
-    languagesVC.title = MWLocalizedString(@"languages-title", nil);
-    languagesVC.articleTitle              = self.articleTitle;
-    languagesVC.languageSelectionDelegate = self;
+    WMFArticleLanguagesViewController* languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithTitle:self.articleTitle];
+    languagesVC.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
 
