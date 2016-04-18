@@ -23,11 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loadLanguagesFromFile;
 
 
-- (void)addPreferredLanguageForCode:(NSString*)languageCode;
-
-
-- (void)appendPreferredLanguageForCode:(NSString*)languageCode;
-
 /**
  * Delete all previously selected languages.
  * calling readPreferredLanguageCodes will automatically restore the OS languages
