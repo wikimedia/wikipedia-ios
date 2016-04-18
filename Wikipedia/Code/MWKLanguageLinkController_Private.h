@@ -3,7 +3,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MWKLanguageLinkController ()
+@interface MWKLanguageLinkController (WMFTesting)
 
 /**
  * Reads previously selected languages from storage.

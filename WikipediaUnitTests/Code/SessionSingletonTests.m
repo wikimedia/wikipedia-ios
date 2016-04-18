@@ -41,19 +41,6 @@ afterSuite(^{
     [[QueuesSingleton sharedInstance] reset];
 });
 
-describe(@"searchLanguage", ^{
-    it(@"should default to the current device language", ^{
-        expect([NSUserDefaults standardUserDefaults].wmf_appSite.language)
-        .to(equal([[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]));
-    });
-
-    it(@"should be idempotent", ^{
-        expectAction(^{
-            [[NSUserDefaults standardUserDefaults] wmf_setAppSite:[NSUserDefaults standardUserDefaults].wmf_appSite];
-        }).notTo(postNotification([NSUserDefaults WMFSearchLanguageDidChangeNotification], nil));
-    });
-});
-
 describe(@"send usage reports", ^{
     itBehavesLike(@"a persistent property", ^{
         return @{ @"session": testSession,

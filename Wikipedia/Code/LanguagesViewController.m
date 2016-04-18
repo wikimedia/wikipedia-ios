@@ -17,27 +17,55 @@
 #import "Wikipedia-Swift.h"
 #import "WMFArticleLanguagesSectionHeader.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
+#import "UIViewController+WMFStoryboardUtilities.h"
 
 static CGFloat const WMFOtherLanguageRowHeight = 138.f;
-static CGFloat const WMFLanguageHeaderHeight = 57.f;
+static CGFloat const WMFLanguageHeaderHeight   = 57.f;
 
 @interface LanguagesViewController ()
 <UISearchBarDelegate>
 
 @property (strong, nonatomic) IBOutlet UISearchBar* languageFilterField;
 @property (strong, nonatomic) MWKLanguageFilter* languageFilter;
-@property (strong, nonatomic) MWKTitleLanguageController* titleLanguageController;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* languageFilterTopSpaceConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* filterDividerHeightConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* filterHeightConstraint;
+@property (strong, nonatomic) IBOutlet UITableView* tableView;
 
 @property (nonatomic, assign) BOOL hideLanguageFilter;
 @property (nonatomic) BOOL editing;
 @property (nonatomic) BOOL disableSelection;
 
+@property (nonatomic, assign) BOOL showPreferredLanguages;
+@property (nonatomic, assign) BOOL showNonPreferredLanguages;
+
 @end
 
-@implementation LanguagesViewController
+@implementation LanguagesViewController {
+    @public MWKLanguageFilter* _languageFilter;
+}
+
+@synthesize languageFilter = _languageFilter;
+
++ (instancetype)languagesViewController {
+    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    NSParameterAssert(languagesVC);
+    
+    languagesVC.title                  = MWLocalizedString(@"article-languages-label", nil);
+    languagesVC.editing                = NO;
+    return languagesVC;
+}
+
++ (instancetype)nonPreferredLanguagesViewController {
+    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    NSParameterAssert(languagesVC);
+
+    languagesVC.title                  = MWLocalizedString(@"settings-my-languages", nil);
+    languagesVC.editing                = NO;
+    languagesVC.showPreferredLanguages = NO;
+
+    return languagesVC;
+}
 
 - (instancetype)init {
     self = [super init];
@@ -87,61 +115,30 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.languageFilterField.barTintColor = [UIColor wmf_settingsBackgroundColor];
     self.languageFilterField.placeholder  = MWLocalizedString(@"article-languages-filter-placeholder", nil);
 
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorStyle               = UITableViewCellSeparatorStyleSingleLine;
     self.filterDividerHeightConstraint.constant = 0.5f;
 
     [self.tableView registerNib:[WMFArticleLanguagesSectionHeader wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFArticleLanguagesSectionHeader wmf_nibName]];
 
     //HAX: force these to take effect if they were set before the VC was presented/pushed.
-    self.editing = self.editing;
+    self.editing            = self.editing;
     self.hideLanguageFilter = self.hideLanguageFilter;
-    self.disableSelection = self.disableSelection;
+    self.disableSelection   = self.disableSelection;
 }
 
--(void)setHideLanguageFilter:(BOOL)hideLanguageFilter {
-    _hideLanguageFilter = hideLanguageFilter;
+- (void)setHideLanguageFilter:(BOOL)hideLanguageFilter {
+    _hideLanguageFilter                  = hideLanguageFilter;
     self.filterHeightConstraint.constant = hideLanguageFilter ? 0 : 44;
 }
 
 - (void)setEditing:(BOOL)editing {
-    _editing = editing;
+    _editing               = editing;
     self.tableView.editing = editing;
 }
 
 - (void)setDisableSelection:(BOOL)disableSelection {
-    _disableSelection = disableSelection;
+    _disableSelection              = disableSelection;
     self.tableView.allowsSelection = !disableSelection;
-}
-
-- (void)configureForEditing {
-    self.title = MWLocalizedString(@"settings-my-languages", nil);
-    
-    self.editing = NO;
-    self.hideLanguageFilter = YES;
-    self.showNonPreferredLanguages = NO;
-    self.disableSelection = YES;
-    
-    @weakify(self)
-    self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-edit", nil)
-                                        style:UIBarButtonItemStylePlain
-                                      handler:^(UIBarButtonItem *button){
-                                          @strongify(self)
-                                          self.editing = !self.editing;
-                                          if(self.editing){
-                                              button.title = MWLocalizedString(@"button-done", nil);
-                                              self.editing = YES;
-                                              self.hideLanguageFilter = NO;
-                                              self.showNonPreferredLanguages = YES;
-                                              self.disableSelection = NO;
-                                          }else{
-                                              button.title = MWLocalizedString(@"button-edit", nil);
-                                              self.editing = NO;
-                                              self.hideLanguageFilter = YES;
-                                              self.showNonPreferredLanguages = NO;
-                                              self.disableSelection = YES;
-                                          }
-                                      }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -152,22 +149,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 #pragma mark - Language Loading
 
 - (void)loadLanguages {
-    if (self.articleTitle) {
-        [self downloadArticlelanguages];
-    } else {
-        [self reloadDataSections];
-    }
-}
-
-- (void)downloadArticlelanguages {
-    @weakify(self);
-    [self.titleLanguageController
-     fetchLanguagesWithSuccess:^{
-        @strongify(self)
-        [self reloadDataSections];
-    } failure:^(NSError* __nonnull error) {
-        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-    }];
+    [self reloadDataSections];
 }
 
 #pragma mark - Top menu
@@ -208,28 +190,9 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     [self reloadDataSections];
 }
 
-#pragma mark - Getters & Setters
-
-- (void)setArticleTitle:(MWKTitle*)articleTitle {
-    NSAssert(self.isViewLoaded == NO, @"Article Title must be set prior to view being loaded");
-    _articleTitle = articleTitle;
-}
-
-- (MWKTitleLanguageController*)titleLanguageController {
-    NSAssert(self.articleTitle != nil, @"Article Title must be set before accessing titleLanguageController");
-    if (!_titleLanguageController) {
-        _titleLanguageController = [[MWKTitleLanguageController alloc] initWithTitle:self.articleTitle languageController:[MWKLanguageLinkController sharedInstance]];
-    }
-    return _titleLanguageController;
-}
-
 - (MWKLanguageFilter*)languageFilter {
     if (!_languageFilter) {
-        if (self.articleTitle) {
-            _languageFilter = [[MWKLanguageFilter alloc] initWithLanguageDataSource:self.titleLanguageController];
-        } else {
-            _languageFilter = [[MWKLanguageFilter alloc] initWithLanguageDataSource:[MWKLanguageLinkController sharedInstance]];
-        }
+        _languageFilter = [[MWKLanguageFilter alloc] initWithLanguageDataSource:[MWKLanguageLinkController sharedInstance]];
     }
     return _languageFilter;
 }
@@ -307,7 +270,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 }
 
 - (NSString*)titleForHeaderInSection:(NSInteger)section {
-    NSString *title = ([self isPreferredSection:section]) ? MWLocalizedString(@"article-languages-yours", nil) : MWLocalizedString(@"article-languages-others", nil);
+    NSString* title = ([self isPreferredSection:section]) ? MWLocalizedString(@"article-languages-yours", nil) : MWLocalizedString(@"article-languages-others", nil);
     return [title uppercaseStringWithLocale:[NSLocale currentLocale]];;
 }
 
@@ -316,11 +279,11 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 }
 
 - (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section; {
-    if ([self shouldShowHeaderForSection:section]){
+    if ([self shouldShowHeaderForSection:section]) {
         WMFArticleLanguagesSectionHeader* header = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFArticleLanguagesSectionHeader wmf_nibName]];
         [self configureHeader:header forSection:section];
         return header;
-    }else{
+    } else {
         return nil;
     }
 }
@@ -332,22 +295,24 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MWKLanguageLink* selectedLanguage = [self languageAtIndexPath:indexPath];
-    [self.languageSelectionDelegate languagesController:self didSelectLanguage:selectedLanguage];
+    if ([self.delegate respondsToSelector:@selector(languagesController:didSelectLanguage:)]) {
+        [self.delegate languagesController:self didSelectLanguage:selectedLanguage];
+    }
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
     if ([self isPreferredSection:indexPath.section]) {
         if ([self tableView:tableView numberOfRowsInSection:indexPath.section] > 1) {
             return UITableViewCellEditingStyleDelete;
-        }else{
+        } else {
             return UITableViewCellEditingStyleNone;
         }
-    }else{
+    } else {
         return UITableViewCellEditingStyleInsert;
-    }    
+    }
 }
 
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView*)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath {
     return
         [self isPreferredSection:indexPath.section]
         &&
@@ -357,7 +322,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     ;
 }
 
-- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView*)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath*)indexPath {
     return NO;
 }
 
@@ -365,34 +330,34 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[sourceIndexPath.row];
     [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
     [self.tableView reloadData];
-    
+
     //HAX: any time a re-order, insert, or delete happens tell the delegate the first preferred language
     // was seletected. Will need to clean this up later.
     [self reportFirstPreferredLanguageToDelegate];
 }
 
--(void)reportFirstPreferredLanguageToDelegate {
+- (void)reportFirstPreferredLanguageToDelegate {
     MWKLanguageLink* selectedLanguage = [[MWKLanguageLinkController sharedInstance].preferredLanguages firstObject];
-    [self.languageSelectionDelegate languagesController:self didSelectLanguage:selectedLanguage];
+    [self.delegate languagesController:self didSelectLanguage:selectedLanguage];
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
     switch (editingStyle) {
         case UITableViewCellEditingStyleInsert: {
             MWKLanguageLink* langLink = self.languageFilter.filteredOtherLanguages[indexPath.row];
             [[MWKLanguageLinkController sharedInstance] appendPreferredLanguage:langLink];
         }
-            break;
+        break;
         case UITableViewCellEditingStyleDelete: {
             MWKLanguageLink* langLink = self.languageFilter.filteredPreferredLanguages[indexPath.row];
             [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
         }
-            break;
+        break;
         case UITableViewCellEditingStyleNone:
             break;
     }
     self.languageFilter.languageFilter = @"";
-    self.languageFilterField.text = @"";
+    self.languageFilterField.text      = @"";
     [self reportFirstPreferredLanguageToDelegate];
     [tableView reloadData];
     [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -423,6 +388,132 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (NSString*)analyticsContentType {
     return @"Language";
+}
+
+@end
+
+
+@interface WMFPreferredLanguagesViewController ()<WMFLanguagesViewControllerDelegate>
+
+@end
+
+
+@implementation WMFPreferredLanguagesViewController
+
+@dynamic delegate;
+
++ (instancetype)preferredLanguagesViewController {
+    WMFPreferredLanguagesViewController* languagesVC = [WMFPreferredLanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    NSParameterAssert(languagesVC);
+
+    [languagesVC configureForEditing];
+
+    return languagesVC;
+}
+
+- (void)configureForEditing {
+    self.title = MWLocalizedString(@"settings-my-languages", nil);
+
+    self.editing                   = NO;
+    self.hideLanguageFilter        = YES;
+    self.showNonPreferredLanguages = NO;
+    self.disableSelection          = YES;
+
+    @weakify(self)
+    self.navigationItem.rightBarButtonItem =
+        [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-edit", nil)
+                                            style:UIBarButtonItemStylePlain
+                                          handler:^(UIBarButtonItem* button){
+        @strongify(self)
+        self.editing = !self.editing;
+        if (self.editing) {
+            button.title = MWLocalizedString(@"button-done", nil);
+            self.editing = YES;
+            self.hideLanguageFilter = NO;
+            self.showNonPreferredLanguages = YES;
+            self.disableSelection = NO;
+        } else {
+            button.title = MWLocalizedString(@"button-edit", nil);
+            self.editing = NO;
+            self.hideLanguageFilter = YES;
+            self.showNonPreferredLanguages = NO;
+            self.disableSelection = YES;
+        }
+    }];
+}
+
+- (IBAction)addLanguages:(id)sender {
+    LanguagesViewController* languagesVC = [LanguagesViewController nonPreferredLanguagesViewController];
+    languagesVC.delegate = self;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:NULL];
+}
+
+- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
+    [[MWKLanguageLinkController sharedInstance] appendPreferredLanguage:language];
+    [self reloadDataSections];
+    [controller dismissViewControllerAnimated:YES completion:NULL];
+    [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
+}
+
+@end
+
+
+@interface WMFArticleLanguagesViewController ()
+
+@property (strong, nonatomic) MWKTitleLanguageController* titleLanguageController;
+
+@end
+
+@implementation WMFArticleLanguagesViewController
+
++ (instancetype)articleLanguagesViewControllerWithTitle:(MWKTitle*)title {
+    NSParameterAssert(title);
+
+    WMFArticleLanguagesViewController* languagesVC = [WMFArticleLanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    NSParameterAssert(languagesVC);
+
+    languagesVC.articleTitle = title;
+    languagesVC.editing      = NO;
+    languagesVC.title        = MWLocalizedString(@"languages-title", nil);
+
+    return languagesVC;
+}
+
+#pragma mark - Getters & Setters
+
+- (void)setArticleTitle:(MWKTitle*)articleTitle {
+    NSAssert(self.isViewLoaded == NO, @"Article Title must be set prior to view being loaded");
+    _articleTitle = articleTitle;
+}
+
+- (MWKTitleLanguageController*)titleLanguageController {
+    NSAssert(self.articleTitle != nil, @"Article Title must be set before accessing titleLanguageController");
+    if (!_titleLanguageController) {
+        _titleLanguageController = [[MWKTitleLanguageController alloc] initWithTitle:self.articleTitle languageController:[MWKLanguageLinkController sharedInstance]];
+    }
+    return _titleLanguageController;
+}
+
+- (void)loadLanguages {
+    [self downloadArticlelanguages];
+}
+
+- (MWKLanguageFilter*)languageFilter {
+    if (!_languageFilter) {
+        _languageFilter = [[MWKLanguageFilter alloc] initWithLanguageDataSource:self.titleLanguageController];
+    }
+    return _languageFilter;
+}
+
+- (void)downloadArticlelanguages {
+    @weakify(self);
+    [self.titleLanguageController
+     fetchLanguagesWithSuccess:^{
+        @strongify(self)
+        [self reloadDataSections];
+    } failure:^(NSError* __nonnull error) {
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+    }];
 }
 
 @end
