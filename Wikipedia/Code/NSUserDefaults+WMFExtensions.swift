@@ -11,10 +11,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
 extension NSUserDefaults {
 
-    @objc public class func WMFSearchLanguageDidChangeNotification() -> String {
-        return "WMFSearchLanguageDidChangeNotification"
-    }
-
     public func wmf_dateForKey(key: String) -> NSDate? {
         return self.objectForKey(key) as? NSDate
     }
@@ -103,27 +99,6 @@ extension NSUserDefaults {
         }
     }
     
-    public func wmf_appSite() -> MWKSite? {
-        guard let data = self.objectForKey(WMFAppSiteKey) as? String else {
-            DDLogError("Site preference was empty! Falling back to device language")
-            let fallbackSite = MWKSite.siteWithCurrentLocale()
-            // NOTE: need to set defaults directly, otherwise we'd get into inf. loop
-            self.setObject(fallbackSite.language, forKey: WMFAppSiteKey)
-            self.synchronize()
-            return fallbackSite
-        }
-        return MWKSite.init(domain: WMFDefaultSiteDomain, language: data)
-    }
-    
-    public func wmf_setAppSite(site: MWKSite) {
-        guard !site.isEqualToSite(self.wmf_appSite()) else{
-            return
-        }
-        self.setObject(site.language, forKey: WMFAppSiteKey)
-        self.synchronize()
-        NSNotificationCenter.defaultCenter().postNotificationName(NSUserDefaults.WMFSearchLanguageDidChangeNotification(), object: nil)
-    }
-
     public func wmf_setDateLastDailyLoggingStatsSent(date: NSDate) {
         self.setObject(date, forKey: "DailyLoggingStatsDate")
         self.synchronize()
