@@ -5,6 +5,7 @@
 // Author: Metalhead64
 // Author: Purodha
 
+// Fuzzy
 "languages-title" = "Sprachen";
 "article-languages-label" = "Sprache auswählen";
 "article-languages-cancel" = "Abbrechen";
@@ -349,6 +350,7 @@
 "welcome-explore-continue-button" = "Anfangen";
 "welcome-languages-title" = "Sprachen";
 "welcome-languages-sub-title" = "Wähle deine bevorzugten Sprachen aus, um Wikipedia zu durchsuchen.";
+// Fuzzy
 "welcome-languages-add-button" = "+ Eine weitere hinzufügen";
 "welcome-languages-continue-button" = "Fortfahren";
 "welcome-volunteer-title" = "Freiwilliger";

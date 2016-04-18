@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Purodha
 
+// Fuzzy
 "languages-title" = "Schprohche";
 "article-languages-label" = "Söhg en Schprohch uß";
 "article-languages-cancel" = "Ophüre!";
@@ -338,6 +339,7 @@
 "welcome-explore-continue-button" = "Wigger";
 "welcome-languages-title" = "Schprohche";
 "welcome-languages-sub-title" = "Beschtemm Ding Schprohche, för zem Söhke en de Wikkipehdija";
+// Fuzzy
 "welcome-languages-add-button" = "+ Donn ein dobei";
 "welcome-languages-continue-button" = "Wiggermaache";
 "welcome-volunteer-title" = "Freiwellejer";

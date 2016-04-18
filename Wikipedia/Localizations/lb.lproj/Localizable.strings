@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Robby
 
+// Fuzzy
 "languages-title" = "Sproochen";
 "article-languages-label" = "Sprooch eraussichen";
 "article-languages-cancel" = "Ofbriechen";
@@ -319,6 +320,7 @@
 "welcome-explore-tell-me-more-done-button" = "Verstan";
 "welcome-explore-continue-button" = "Fir unzefänken";
 "welcome-languages-title" = "Sproochen";
+// Fuzzy
 "welcome-languages-add-button" = "+ Eng aner derbäisetzen";
 "welcome-languages-continue-button" = "Virufueren";
 "welcome-volunteer-title" = "Fräiwëllegen";

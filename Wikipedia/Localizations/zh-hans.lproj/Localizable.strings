@@ -12,6 +12,7 @@
 // Author: Shizhao
 // Author: 王庭茂
 
+// Fuzzy
 "languages-title" = "语言";
 "article-languages-label" = "选择语言";
 "article-languages-cancel" = "取消";
@@ -73,7 +74,7 @@
 "login-account-creation" = "没有账户？加入维基百科";
 "login-username-placeholder-text" = "用户名";
 "login-password-placeholder-text" = "密码";
-"wikitext-downloading" = "加载中…";
+"wikitext-downloading" = "正在加载内容...";
 "wikitext-download-failed" = "无法获取最新的版本。";
 "wikitext-download-success" = "内容已加载。";
 "wikitext-preview-changes" = "正在获取您更改的预览…";
@@ -356,6 +357,7 @@
 "welcome-explore-continue-button" = "入门";
 "welcome-languages-title" = "语言";
 "welcome-languages-sub-title" = "选择您的首选语言以搜索维基百科";
+// Fuzzy
 "welcome-languages-add-button" = "+添加另一个";
 "welcome-languages-continue-button" = "继续";
 "welcome-volunteer-title" = "志愿者";

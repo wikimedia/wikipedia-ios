@@ -13,6 +13,7 @@
 // Author: Weft
 // Author: Wladek92
 
+// Fuzzy
 "languages-title" = "Langues";
 "article-languages-label" = "Choisir langue";
 "article-languages-cancel" = "Annuler";
@@ -357,6 +358,7 @@
 "welcome-explore-continue-button" = "Commencer";
 "welcome-languages-title" = "Langues";
 "welcome-languages-sub-title" = "Choisir vos langues préférées pour rechercher sur Wikipédia";
+// Fuzzy
 "welcome-languages-add-button" = "+ Ajouter une autre";
 "welcome-languages-continue-button" = "Continuer";
 "welcome-volunteer-title" = "Volontaire";

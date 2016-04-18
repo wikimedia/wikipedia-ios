@@ -4,6 +4,7 @@
 // Author: Bsitzmann
 // Author: Монтехристо
 
+// Fuzzy
 "languages-title" = "Јазици";
 "article-languages-label" = "Изберете јазик";
 "article-languages-cancel" = "Откажи";
@@ -244,8 +245,7 @@
 "page_protected_other" = "Оваа страница е заштитена во следниве степени: $1";
 "page_protected_can_not_edit" = "Немате право да ја уредувате страницава";
 "page_protected_can_not_edit_title" = "Оваа страница е заштитена";
-// Fuzzy
-"license-footer-text" = "Содржината е достапна под $1";
+"license-footer-text" = "Содржината е достапна под условите на $1 освен ако не е поинаку наведено.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содржина";
 "table-of-contents-button-label" = "Содржина";
@@ -310,8 +310,7 @@
 "hockeyapp-alert-privacy" = "Приватност на $1";
 "page-issues" = "Проблеми со страницата";
 "page-similar-titles" = "Слични страници";
-// Fuzzy
-"page-read-in-other-languages" = "Достапно на $1 јазици";
+"page-read-in-other-languages" = "Достапно на $1 други јазици";
 "page-last-edited" = "Изменето пред $1 дена";
 "page-edit-history" = "Цела историја на уредувања";
 "captcha-reload" = "Прикажи друга Captcha";
@@ -330,9 +329,7 @@
 "home-featured-article-heading" = "Избрана статија за $1";
 "home-main-page-heading" = "Денес на Википедија";
 "home-potd-heading" = "Слика на денот за $1";
-// Fuzzy
 "home-last-update-label" = "Последна поднова: $1";
-// Fuzzy
 "home-last-update-never-label" = "Последна поднова: никогаш";
 "home-updating-label" = "Подновувам...";
 "home-hide-suggestion-prompt" = "Скриј го предлогов";
@@ -352,6 +349,7 @@
 "welcome-explore-continue-button" = "Започни";
 "welcome-languages-title" = "Јазици";
 "welcome-languages-sub-title" = "Одберете ги вашите претпочитани јазици за пребарување на Википедија";
+// Fuzzy
 "welcome-languages-add-button" = "+ Додај друг";
 "welcome-languages-continue-button" = "Продолжи";
 "welcome-volunteer-title" = "Пријави се";

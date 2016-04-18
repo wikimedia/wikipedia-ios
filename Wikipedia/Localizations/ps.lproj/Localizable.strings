@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Ahmed-Najib-Biabani-Ibrahimkhel
 
+// Fuzzy
 "languages-title" = "ژبې";
 "article-languages-label" = "ژبه ټاکل";
 "article-languages-cancel" = "ناگارل";
@@ -204,7 +205,6 @@
 "hockeyapp-alert-privacy" = "$1 پټنتيا";
 "page-issues" = "د مخ ستونزې";
 "page-similar-titles" = "ورته مخونه";
-// Fuzzy
 "page-read-in-other-languages" = "په $1 ژبو کې شته";
 "page-last-edited" = "$1 ورځې مخکې سم کړی";
 "page-edit-history" = "د سمون بشپړ پېښليک";
@@ -225,6 +225,7 @@
 "welcome-explore-tell-me-more-done-button" = "وپوهېدم";
 "welcome-explore-continue-button" = "پيلول";
 "welcome-languages-title" = "ژبې";
+// Fuzzy
 "welcome-languages-add-button" = "+ بل ورگډول";
 "welcome-volunteer-thanks" = "$1 له تاسو مننه!";
 "empty-no-feed-title" = "انټرنټي اړيکتيا نشته";
