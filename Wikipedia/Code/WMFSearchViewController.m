@@ -40,7 +40,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
  WMFRecentSearchesViewControllerDelegate,
  UITextFieldDelegate,
  WMFArticleListTableViewControllerDelegate,
- LanguageSelectionDelegate>
+ WMFLanguagesViewControllerDelegate>
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
@@ -635,11 +635,19 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (IBAction)openLanguagePicker:(id)sender {
-    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
-    [languagesVC configureForEditing];
-    languagesVC.languageSelectionDelegate = self;
+    LanguagesViewController* languagesVC = [WMFPreferredLanguagesViewController languagesViewController];
+    languagesVC.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:NULL];
 }
+
+#pragma mark - LanguageSelectionDelegate
+
+- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
+    [[MWKLanguageLinkController sharedInstance] insertPreferredLanguage:language atIndex:1];
+    [self setSelectedLanguage:language];
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
 
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
@@ -662,12 +670,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self dismissViewControllerAnimated:YES completion:^{
         [presenter wmf_pushArticleViewController:(WMFArticleViewController*)viewController animated:YES];
     }];
-}
-
-#pragma mark - LanguageSelectionDelegate
-
-- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
-    [self setSelectedLanguage:language];
 }
 
 - (NSString*)analyticsContext {
