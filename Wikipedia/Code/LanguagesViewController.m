@@ -50,9 +50,9 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
 + (instancetype)languagesViewController {
     LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
     NSParameterAssert(languagesVC);
-    
-    languagesVC.title                  = MWLocalizedString(@"article-languages-label", nil);
-    languagesVC.editing                = NO;
+
+    languagesVC.title   = MWLocalizedString(@"article-languages-label", nil);
+    languagesVC.editing = NO;
     return languagesVC;
 }
 
@@ -329,16 +329,6 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
 - (void)tableView:(UITableView*)tableView moveRowAtIndexPath:(NSIndexPath*)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath {
     MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[sourceIndexPath.row];
     [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
-    [self.tableView reloadData];
-
-    //HAX: any time a re-order, insert, or delete happens tell the delegate the first preferred language
-    // was seletected. Will need to clean this up later.
-    [self reportFirstPreferredLanguageToDelegate];
-}
-
-- (void)reportFirstPreferredLanguageToDelegate {
-    MWKLanguageLink* selectedLanguage = [[MWKLanguageLinkController sharedInstance].preferredLanguages firstObject];
-    [self.delegate languagesController:self didSelectLanguage:selectedLanguage];
 }
 
 - (void)tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -358,7 +348,6 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     }
     self.languageFilter.languageFilter = @"";
     self.languageFilterField.text      = @"";
-    [self reportFirstPreferredLanguageToDelegate];
     [tableView reloadData];
     [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
@@ -406,40 +395,20 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     WMFPreferredLanguagesViewController* languagesVC = [WMFPreferredLanguagesViewController wmf_initialViewControllerFromClassStoryboard];
     NSParameterAssert(languagesVC);
 
-    [languagesVC configureForEditing];
+    languagesVC.title = MWLocalizedString(@"settings-my-languages", nil);
+    
+    languagesVC.hideLanguageFilter        = YES;
+    languagesVC.showNonPreferredLanguages = NO;
+    languagesVC.disableSelection          = YES;
+    
+    languagesVC.navigationItem.rightBarButtonItem = languagesVC.editButtonItem;
 
     return languagesVC;
 }
 
-- (void)configureForEditing {
-    self.title = MWLocalizedString(@"settings-my-languages", nil);
-
-    self.editing                   = NO;
-    self.hideLanguageFilter        = YES;
-    self.showNonPreferredLanguages = NO;
-    self.disableSelection          = YES;
-
-    @weakify(self)
-    self.navigationItem.rightBarButtonItem =
-        [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-edit", nil)
-                                            style:UIBarButtonItemStylePlain
-                                          handler:^(UIBarButtonItem* button){
-        @strongify(self)
-        self.editing = !self.editing;
-        if (self.editing) {
-            button.title = MWLocalizedString(@"button-done", nil);
-            self.editing = YES;
-            self.hideLanguageFilter = NO;
-            self.showNonPreferredLanguages = YES;
-            self.disableSelection = NO;
-        } else {
-            button.title = MWLocalizedString(@"button-edit", nil);
-            self.editing = NO;
-            self.hideLanguageFilter = YES;
-            self.showNonPreferredLanguages = NO;
-            self.disableSelection = YES;
-        }
-    }];
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated{
+    [super setEditing:editing animated:animated];
+    [self.tableView setEditing:editing animated:animated];
 }
 
 - (IBAction)addLanguages:(id)sender {
