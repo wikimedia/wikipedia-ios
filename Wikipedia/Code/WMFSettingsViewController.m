@@ -9,7 +9,7 @@
 // View Controllers
 #import "WMFSettingsViewController.h"
 #import "LoginViewController.h"
-#import "LanguagesViewController.h"
+#import "WMFLanguagesViewController.h"
 #import "AboutViewController.h"
 
 // Models

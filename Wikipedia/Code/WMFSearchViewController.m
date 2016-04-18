@@ -30,7 +30,7 @@
 #import "UIFont+WMFStyle.h"
 
 #import "WMFArticleBrowserViewController.h"
-#import "LanguagesViewController.h"
+#import "WMFLanguagesViewController.h"
 #import "UIViewController+WMFEmptyView.h"
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
@@ -635,14 +635,14 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (IBAction)openLanguagePicker:(id)sender {
-    LanguagesViewController* languagesVC = [WMFPreferredLanguagesViewController languagesViewController];
+    WMFLanguagesViewController* languagesVC = [WMFPreferredLanguagesViewController languagesViewController];
     languagesVC.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:NULL];
 }
 
 #pragma mark - LanguageSelectionDelegate
 
-- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
+- (void)languagesController:(WMFLanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
     [[MWKLanguageLinkController sharedInstance] insertPreferredLanguage:language atIndex:1];
     [self setSelectedLanguage:language];
     [self dismissViewControllerAnimated:YES completion:NULL];

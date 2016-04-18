@@ -23,7 +23,7 @@
 #import "UIToolbar+WMFStyling.h"
 
 #import "WMFArticleViewController.h"
-#import "LanguagesViewController.h"
+#import "WMFLanguagesViewController.h"
 
 @import Tweaks;
 

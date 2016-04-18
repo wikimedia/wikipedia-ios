@@ -3,7 +3,7 @@
 #import "WMFAnalyticsLogging.h"
 
 @class MWKLanguageLink;
-@class LanguagesViewController;
+@class WMFLanguagesViewController;
 
 /*
  * Protocol for notifying languageSelectionDelegate that selection was made.
@@ -12,11 +12,11 @@
 @protocol WMFLanguagesViewControllerDelegate <NSObject>
 
 @optional
-- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language;
+- (void)languagesController:(WMFLanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language;
 
 @end
 
-@interface LanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, WMFAnalyticsContentTypeProviding>
+@interface WMFLanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, WMFAnalyticsContentTypeProviding>
 
 @property (nonatomic, weak) id <WMFLanguagesViewControllerDelegate> delegate;
 
@@ -35,7 +35,7 @@
 
 @end
 
-@interface WMFPreferredLanguagesViewController : LanguagesViewController
+@interface WMFPreferredLanguagesViewController : WMFLanguagesViewController
 
 + (instancetype)preferredLanguagesViewController;
 
@@ -46,7 +46,7 @@
 
 @class MWKTitle, MWKLanguageLink;
 
-@interface WMFArticleLanguagesViewController : LanguagesViewController
+@interface WMFArticleLanguagesViewController : WMFLanguagesViewController
 
 + (instancetype)articleLanguagesViewControllerWithTitle:(MWKTitle*)title;
 

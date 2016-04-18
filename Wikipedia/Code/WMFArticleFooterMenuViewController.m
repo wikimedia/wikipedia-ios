@@ -6,7 +6,7 @@
 #import "WMFArticlePreviewFetcher.h"
 #import "WMFArticleFooterMenuItem.h"
 #import "PageHistoryViewController.h"
-#import "LanguagesViewController.h"
+#import "WMFLanguagesViewController.h"
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
 #import "WMFArticleViewController.h"

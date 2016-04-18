@@ -7,7 +7,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIViewController+WMFWelcomeNavigation.h"
 #import "UIButton+WMFWelcomeNextButton.h"
-#import "LanguagesViewController.h"
+#import "WMFLanguagesViewController.h"
 
 @interface WMFWelcomeLanguageViewController ()<WMFLanguagesViewControllerDelegate>
 
@@ -134,14 +134,14 @@
 }
 
 - (IBAction)addLanguages:(id)sender {
-    LanguagesViewController* languagesVC = [LanguagesViewController nonPreferredLanguagesViewController];
+    WMFLanguagesViewController* languagesVC = [WMFLanguagesViewController nonPreferredLanguagesViewController];
     languagesVC.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:NULL];
 }
 
 #pragma mark - LanguageSelectionDelegate
 
-- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
+- (void)languagesController:(WMFLanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
     [[MWKLanguageLinkController sharedInstance] appendPreferredLanguage:language];
     [self.languageTableView reloadData];
     [controller dismissViewControllerAnimated:YES completion:NULL];

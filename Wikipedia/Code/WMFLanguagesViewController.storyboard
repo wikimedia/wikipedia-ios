@@ -6,10 +6,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Article Languages View Controller-->
+        <!--Languages View Controller-->
         <scene sceneID="GRT-6z-zsK">
             <objects>
-                <viewController restorationIdentifier="LanguagesViewController" storyboardIdentifier="LanguagesViewController" automaticallyAdjustsScrollViewInsets="NO" id="vqp-1K-wjM" customClass="WMFArticleLanguagesViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="LanguagesViewController" storyboardIdentifier="LanguagesViewController" automaticallyAdjustsScrollViewInsets="NO" id="vqp-1K-wjM" customClass="WMFLanguagesViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gGs-4d-iMW"/>
                         <viewControllerLayoutGuide type="bottom" id="i1a-f9-VJ9"/>

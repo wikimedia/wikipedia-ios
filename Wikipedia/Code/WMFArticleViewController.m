@@ -15,7 +15,7 @@
 #import "SectionEditorViewController.h"
 #import "WMFArticleFooterMenuViewController.h"
 #import "WMFArticleBrowserViewController.h"
-#import "LanguagesViewController.h"
+#import "WMFLanguagesViewController.h"
 #import "MWKLanguageLinkController.h"
 #import "WMFShareOptionsController.h"
 #import "WMFSaveButtonController.h"
@@ -439,7 +439,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
 
-- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
+- (void)languagesController:(WMFLanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
     [[PiwikTracker wmf_configuredInstance] wmf_logActionSwitchLanguageInContext:self contentType:nil];
     [self dismissViewControllerAnimated:YES completion:^{
         [self pushArticleViewControllerWithTitle:language.title contentType:nil animated:YES];
