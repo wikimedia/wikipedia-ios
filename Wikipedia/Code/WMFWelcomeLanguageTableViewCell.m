@@ -7,8 +7,7 @@
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        self.showsReorderControl    = YES;
-        self.allowsSwipeWhenEditing = YES;
+        self.showsReorderControl = YES;
     }
     return self;
 }
@@ -37,7 +36,7 @@
     }
 }
 
--(IBAction)minusButtonTapped:(id)sender {
+- (IBAction)minusButtonTapped:(id)sender {
     [self showSwipe:MGSwipeDirectionRightToLeft animated:YES];
 }
 

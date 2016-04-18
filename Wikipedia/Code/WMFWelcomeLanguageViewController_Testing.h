@@ -7,11 +7,9 @@
 //
 
 #import "WMFWelcomeLanguageViewController.h"
-#import "LanguagesViewController.h"
 #import "MWKLanguageLinkController.h"
 
-@interface WMFWelcomeLanguageViewController ()
-<LanguageSelectionDelegate>
+@interface WMFWelcomeLanguageViewController (WMFTesting)
 
 @property (strong, nonatomic) IBOutlet UITableView* languageTableView;
 

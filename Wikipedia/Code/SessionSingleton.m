@@ -12,6 +12,7 @@
 #import "AccountLogin.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
+#import "MWKLanguageLinkController.h"
 
 
 @interface SessionSingleton ()<FetchFinishedDelegate>
@@ -166,7 +167,7 @@
     }
 
     [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[NSUserDefaults standardUserDefaults] wmf_appSite].language
+        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
                                                            userName:self.keychainCredentials.userName
                                                            password:self.keychainCredentials.password
                                                         withManager:[QueuesSingleton sharedInstance].loginFetchManager
@@ -211,19 +212,19 @@
     // necessarily assumed to be valid as the server may expire them, but at least make them last as
     // long as we can to lessen number of server requests. Uses user tokens as templates for copying
     // session tokens. See "recreateCookie:usingCookieAsTemplate:" for details.
-    
-    NSString* domain = [[NSUserDefaults standardUserDefaults] wmf_appSite].language;
-    
+
+    NSString* domain = [[MWKLanguageLinkController sharedInstance] appLanguage].languageCode;
+
     NSString* cookie1Name = [NSString stringWithFormat:@"%@wikiSession", domain];
     NSString* cookie2Name = [NSString stringWithFormat:@"%@wikiUserID", domain];
-    
+
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] wmf_recreateCookie:cookie1Name
                                                 usingCookieAsTemplate:cookie2Name
-     ];
-    
+    ];
+
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] wmf_recreateCookie:@"centralauth_Session"
                                                 usingCookieAsTemplate:@"centralauth_User"
-     ];
+    ];
 }
 
 @end

@@ -28,6 +28,8 @@
 #import "MWKLocationSearchResult.h"
 #import "MWKSavedPageList.h"
 #import "MWKRecentSearchList.h"
+#import "MWKLanguageLinkController.h"
+
 
 // Views
 #import "UIViewController+WMFEmptyView.h"
@@ -186,8 +188,8 @@ NS_ASSUME_NONNULL_BEGIN
         [sum addIndex:(NSUInteger)obj.section];
         return sum;
     }];
-    
-    if([visibleSectionIndexes count] == 0){
+
+    if ([visibleSectionIndexes count] == 0) {
         return @[];
     }
 
@@ -235,10 +237,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UIViewController
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return [self wmf_orientationMaskPortraitiPhoneAnyiPad];
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -274,8 +275,8 @@ NS_ASSUME_NONNULL_BEGIN
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(searchLanguageDidChangeWithNotification:)
-                                                 name:[NSUserDefaults WMFSearchLanguageDidChangeNotification]
+                                             selector:@selector(appLanguageDidChangeWithNotification:)
+                                                 name:WMFPreferredLanguagesDidChangeNotification
                                                object:nil];
 }
 
@@ -363,9 +364,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self sendWillDisplayToVisibleSectionControllers];
 }
 
-- (void)searchLanguageDidChangeWithNotification:(NSNotification*)note {
+- (void)appLanguageDidChangeWithNotification:(NSNotification*)note {
     [self createSectionSchemaIfNeeded];
-    [self.schemaManager updateSite:[[NSUserDefaults standardUserDefaults] wmf_appSite]];
+    [self.schemaManager updateSite:[[[MWKLanguageLinkController sharedInstance] appLanguage] site]];
 }
 
 - (void)tweaksDidChangeWithNotification:(NSNotification*)note {
@@ -645,7 +646,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.schemaManager = [WMFExploreSectionSchema schemaWithSite:[[NSUserDefaults standardUserDefaults] wmf_appSite]
+    self.schemaManager = [WMFExploreSectionSchema schemaWithSite:[[[MWKLanguageLinkController sharedInstance] appLanguage] site]
                                                       savedPages:self.savedPages
                                                          history:self.recentPages
                                                        blackList:[WMFRelatedSectionBlackList sharedBlackList]];

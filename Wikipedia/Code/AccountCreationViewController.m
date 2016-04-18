@@ -23,6 +23,7 @@
 #import "Wikipedia-Swift.h"
 #import "PaddedLabel.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
+#import "MWKLanguageLinkController.h"
 
 
 @interface AccountCreationViewController ()
@@ -319,9 +320,8 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         // Background thread
         NSURL* captchaImageUrl = [NSURL URLWithString:
-                                  [NSString stringWithFormat:@"https://%@.m.%@%@",
-                                   [[NSUserDefaults standardUserDefaults] wmf_appSite].language,
-                                   [[NSUserDefaults standardUserDefaults] wmf_appSite].domain,
+                                  [NSString stringWithFormat:@"https://%@.m.%@%@", [[MWKLanguageLinkController sharedInstance] appLanguage].languageCode,
+                                   [[[MWKLanguageLinkController sharedInstance] appLanguage] site].domain,
                                    self.captchaUrl
                                   ]
                                  ];
@@ -344,12 +344,10 @@
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
 
     [[QueuesSingleton sharedInstance].accountCreationFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[[NSUserDefaults standardUserDefaults] wmf_appSite].language
+        (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
                                                         withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
                                                  thenNotifyDelegate:self];
     }];
-
-
 }
 
 - (void)login {
@@ -490,15 +488,13 @@
     // Save!
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-saving", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
     [[QueuesSingleton sharedInstance].accountCreationFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[[NSUserDefaults standardUserDefaults] wmf_appSite].language
+        (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
                                                                      userName:self.usernameField.text
                                                                      password:self.passwordField.text
                                                                         email:self.emailField.text
                                                                   withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
                                                            thenNotifyDelegate:self];
     }];
-
-    
 }
 
 - (void)didReceiveMemoryWarning {

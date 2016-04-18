@@ -56,17 +56,19 @@
     NSAssert(![[self preferredLanguageCodes] containsObject:@"test"],
              @"'test' shouldn't be a default member of preferred languages!");
 
-    [self.controller appendPreferredLanguageForCode:@"test"];
+    MWKLanguageLink* link = [[MWKLanguageLink alloc] initWithLanguageCode:@"test" pageTitleText:@"test" name:@"test" localizedName:@"test"];
+    [self.controller addPreferredLanguage:link];
 
     assertThat([self preferredLanguageCodes], hasItem(@"test"));
     [self verifyAllLanguageArrayProperties];
 }
 
 - (void)testUniqueAppendToPreferredLanguages {
-    [self.controller appendPreferredLanguageForCode:@"test"];
+    MWKLanguageLink* link = [[MWKLanguageLink alloc] initWithLanguageCode:@"test" pageTitleText:@"test" name:@"test" localizedName:@"test"];
+    [self.controller appendPreferredLanguage:link];
     NSArray* firstAppend = [self.controller.preferredLanguages copy];
 
-    [self.controller appendPreferredLanguageForCode:@"test"];
+    [self.controller appendPreferredLanguage:link];
     NSArray* secondAppend = [self.controller.preferredLanguages copy];
 
     assertThat(firstAppend, is(equalTo(secondAppend)));
