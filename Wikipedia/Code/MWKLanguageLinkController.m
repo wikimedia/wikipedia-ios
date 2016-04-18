@@ -20,6 +20,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NSString* const WMFPreferredLanguagesDidChangeNotification = @"WMFPreferredLanguagesDidChangeNotification";
+
 static NSString* const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesKey";
 
 /**
@@ -113,6 +115,10 @@ static id _sharedInstance;
     return [self.allLanguages bk_match:^BOOL (MWKLanguageLink* obj) {
         return [obj.site isEqualToSite:site];
     }];
+}
+
+- (MWKLanguageLink*)appLanguage {
+    return [self.preferredLanguages firstObject];
 }
 
 #pragma mark - Build Language Arrays
@@ -222,12 +228,14 @@ static id _sharedInstance;
     [[NSUserDefaults standardUserDefaults] setObject:languageCodes forKey:WMFPreviousLanguagesKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self updateLanguageArrays];
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
 }
 
 - (void)resetPreferredLanguages {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:WMFPreviousLanguagesKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self updateLanguageArrays];
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
 }
 
 - (BOOL)languageIsOSLanguage:(MWKLanguageLink*)language {

@@ -7,6 +7,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString* const WMFPreferredLanguagesDidChangeNotification;
+
+
 @interface MWKLanguageLinkController : NSObject<MWKLanguageFilterDataSource>
 
 + (instancetype)sharedInstance;
@@ -19,8 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink*>* allLanguages;
 
 /**
+ * Returns the user's 1st preferred language - used as the "App Language".
+ */
+@property (readonly, copy, nonatomic) MWKLanguageLink* appLanguage;
+
+/**
  * Returns the user's preferred languages.
- * Preferred languages will always contain the user's OS preferred languages, even if they are removed.
  */
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink*>* preferredLanguages;
 
@@ -28,7 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
  * All the languages in the receiver minus @c preferredLanguages.
  */
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink*>* otherLanguages;
-
 
 /**
  *  Uniquely adds a new preferred language. The new lnguage will be the first preferred language.
