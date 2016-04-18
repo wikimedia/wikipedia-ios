@@ -9,6 +9,8 @@
 #import "MWKSite.h"
 #import "WMFZeroMessage.h"
 #import "WMFZeroMessageFetcher.h"
+#import "MWKLanguageLinkController.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -109,7 +111,7 @@ NSString* const ZeroWarnWhenLeaving   = @"ZeroWarnWhenLeaving";
 - (AnyPromise*)fetchZeroMessage {
     [self.zeroMessageFetcher cancelAllFetches];
     WMF_TECH_DEBT_TODO(fall back to default zero warning on fetch error);
-    return [self.zeroMessageFetcher fetchZeroMessageForSite:[[NSUserDefaults standardUserDefaults] wmf_appSite]];
+    return [self.zeroMessageFetcher fetchZeroMessageForSite:[[[MWKLanguageLinkController sharedInstance] appLanguage] site]];
 }
 
 #pragma mark - Prompts

@@ -410,7 +410,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         MWKLanguageLink* lang = [self languages][index];
         return [lang site];
     } else {
-        return [[NSUserDefaults standardUserDefaults] wmf_appSite];
+        return [[[MWKLanguageLinkController sharedInstance] appLanguage] site];
     }
 }
 
@@ -543,7 +543,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)setSelectedLanguage:(MWKLanguageLink*)language {
     [[NSUserDefaults standardUserDefaults] wmf_setCurrentSearchLanguageSite:language.site];
-    [[NSUserDefaults standardUserDefaults] wmf_setAppSite:language.site];
     [self updateLanguageButtonsToPreferredLanguages];
     [self selectLanguageForSite:language.site];
 }
@@ -555,12 +554,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (nullable MWKLanguageLink*)appLanguage {
-    MWKSite* site             = [[NSUserDefaults standardUserDefaults] wmf_appSite];
-    MWKLanguageLink* language = [[MWKLanguageLinkController sharedInstance] languageForSite:site];
-    NSAssert(language, @"No language data found for site %@", site);
-    if (!language) {
-        DDLogError(@"No language data found for site %@", site);
-    }
+    MWKLanguageLink* language = [[MWKLanguageLinkController sharedInstance] appLanguage];
+    NSAssert(language, @"No app language data found");
     return language;
 }
 
