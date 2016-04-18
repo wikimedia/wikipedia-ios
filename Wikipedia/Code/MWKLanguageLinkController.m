@@ -140,56 +140,60 @@ static id _sharedInstance;
 #pragma mark - Preferred Language Management
 
 - (void)addPreferredLanguage:(MWKLanguageLink*)language {
-    [self addPreferredLanguageForCode:language.languageCode];
-}
-
-- (void)addPreferredLanguageForCode:(NSString*)languageCode {
-    NSParameterAssert(languageCode);
+    NSParameterAssert(language);
     NSMutableArray<NSString*>* langCodes = [[self readPreferredLanguageCodes] mutableCopy];
-    [langCodes removeObject:languageCode];
-    [langCodes insertObject:languageCode atIndex:0];
+    [langCodes removeObject:language.languageCode];
+    [langCodes insertObject:language.languageCode atIndex:0];
     [self savePreferredLanguageCodes:langCodes];
 }
 
 - (void)appendPreferredLanguage:(MWKLanguageLink*)language {
-    [self appendPreferredLanguageForCode:language.languageCode];
+    NSParameterAssert(language);
+    NSMutableArray<NSString*>* langCodes = [[self readPreferredLanguageCodes] mutableCopy];
+    [langCodes removeObject:language.languageCode];
+    [langCodes addObject:language.languageCode];
+    [self savePreferredLanguageCodes:langCodes];
 }
 
-- (void)appendPreferredLanguageForCode:(NSString*)languageCode {
+- (void)insertPreferredLanguage:(MWKLanguageLink*)language atIndex:(NSUInteger)newIndex {
+    NSParameterAssert(language);
     NSMutableArray<NSString*>* langCodes = [[self readPreferredLanguageCodes] mutableCopy];
-    [langCodes removeObject:languageCode];
-    [langCodes addObject:languageCode];
+    NSUInteger oldIndex                  = [langCodes indexOfObject:language.languageCode];
+    if (oldIndex != NSNotFound) {
+        [self reorderPreferredLanguage:language toIndex:newIndex];
+        return;
+    }
+    
+    NSAssert(newIndex < [langCodes count], @"new language index is out of range");
+    if (newIndex > [langCodes count]) {
+        //make last if index is too high
+        newIndex = [langCodes count];
+    }
+    [langCodes insertObject:language.languageCode atIndex:newIndex];
     [self savePreferredLanguageCodes:langCodes];
 }
 
 - (void)reorderPreferredLanguage:(MWKLanguageLink*)language toIndex:(NSUInteger)newIndex {
-    [self reorderPreferredLanguageForCode:language.languageCode toIndex:newIndex];
-}
-
-- (void)reorderPreferredLanguageForCode:(NSString*)languageCode toIndex:(NSUInteger)newIndex {
     NSMutableArray<NSString*>* langCodes = [[self readPreferredLanguageCodes] mutableCopy];
     NSAssert(newIndex < [langCodes count], @"new language index is out of range");
     if (newIndex >= [langCodes count]) {
         return;
     }
-    NSUInteger oldIndex = [langCodes indexOfObject:languageCode];
+    NSUInteger oldIndex = [langCodes indexOfObject:language.languageCode];
     NSAssert(oldIndex != NSNotFound, @"Language is not a preferred language");
     if (oldIndex == NSNotFound) {
         return;
     }
-    [langCodes removeObject:languageCode];
-    [langCodes insertObject:languageCode atIndex:newIndex];
+    [langCodes removeObject:language.languageCode];
+    [langCodes insertObject:language.languageCode atIndex:newIndex];
     [self savePreferredLanguageCodes:langCodes];
 }
 
-- (void)removePreferredLanguage:(MWKLanguageLink*)langage {
-    [self removePreferredLanguageForCode:langage.languageCode];
-}
-
-- (void)removePreferredLanguageForCode:(NSString*)languageCode {
+- (void)removePreferredLanguage:(MWKLanguageLink*)language {
     NSMutableArray<NSString*>* langCodes = [[self readPreferredLanguageCodes] mutableCopy];
-    [langCodes removeObject:languageCode];
+    [langCodes removeObject:language.languageCode];
     [self savePreferredLanguageCodes:langCodes];
+
 }
 
 #pragma mark - Reading/Saving Preferred Language Codes to NSUserDefaults
