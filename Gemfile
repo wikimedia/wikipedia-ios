@@ -6,5 +6,5 @@ end
 
 group :ci do
   gem 'fastlane', '~> 1.68.0'
-  gem 'spaceship', '~> 0.26.1'
+  gem 'spaceship', '~> 0.24'
 end
