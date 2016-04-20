@@ -78,8 +78,9 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     NSURLSessionDataTask* operation = [self.operationManager GET:url.absoluteString parameters:pageTitle progress:^(NSProgress* _Nonnull downloadProgress) {
         if (progress) {
+            CGFloat currentProgress = downloadProgress.fractionCompleted;
             dispatchOnMainQueue(^{
-                progress(downloadProgress.fractionCompleted);
+                progress(currentProgress);
             });
         }
     } success:^(NSURLSessionDataTask* operation, id response) {
