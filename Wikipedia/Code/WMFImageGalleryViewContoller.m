@@ -13,6 +13,7 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "WMFImageGalleryDetailOverlayView.h"
 #import "UIView+WMFDefaultNib.h"
+#import "WMFURLCache.h"
 
 @import FLAnimatedImage;
 
@@ -126,7 +127,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIImage*)placeholderImage {
     NSURL* url = [self thumbnailImageURL];
     if (url) {
-        return [[WMFImageController sharedInstance] syncCachedImageWithURL:url];
+        UIImage* image = [(WMFURLCache*)[NSURLCache sharedURLCache] cachedImageForURL:url];
+        if(!image){
+            image = [[WMFImageController sharedInstance] syncCachedImageWithURL:url];
+        }
+        return image;
     } else {
         return nil;
     }
@@ -139,7 +144,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIImage*)image {
     NSURL* url = [self imageURL];
     if (url) {
-        return [[WMFImageController sharedInstance] syncCachedImageWithURL:url];
+        UIImage* image = [(WMFURLCache*)[NSURLCache sharedURLCache] cachedImageForURL:url];
+        if(!image){
+            image = [[WMFImageController sharedInstance] syncCachedImageWithURL:url];
+        }
+        return image;
     } else {
         return nil;
     }

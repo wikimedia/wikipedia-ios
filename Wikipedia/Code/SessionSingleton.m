@@ -52,7 +52,7 @@
         [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
 
         WMFURLCache* urlCache = [[WMFURLCache alloc] initWithMemoryCapacity:MegabytesToBytes(64)
-                                                               diskCapacity:MegabytesToBytes(64)
+                                                               diskCapacity:MegabytesToBytes(128)
                                                                    diskPath:nil];
         [NSURLCache setSharedURLCache:urlCache];
 
