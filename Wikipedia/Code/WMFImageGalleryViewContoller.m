@@ -441,7 +441,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSUInteger)indexOfImage:(MWKImage*)image inPhotos:(NSArray<id<NYTPhoto>>*)photos {
     return [photos
             indexOfObjectPassingTest:^BOOL (WMFArticlePhoto* anImage, NSUInteger _, BOOL* stop) {
-        if ([anImage.imageObject isEqualToImage:image] || [anImage.imageObject isVariantOfImage:image]) {
+        if ([anImage.imageObject isEqualToImage:image] || [anImage.imageObject isVariantOfImage:image] || [anImage.thumbnailImageObject isEqualToImage:image] || [anImage.thumbnailImageObject isVariantOfImage:image]) {
             *stop = YES;
             return YES;
         }
@@ -482,7 +482,6 @@ NS_ASSUME_NONNULL_BEGIN
         @weakify(self);
         [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage imageURL]].then(^(WMFImageDownload* download) {
             @strongify(self);
-//            galleryImage.imageObject = [galleryImage.imageObject.article imageWithURL:download.url.absoluteString];
             [self updateImageForPhoto:galleryImage];
         })
         .catch(^(NSError* error) {
