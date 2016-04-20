@@ -130,18 +130,15 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     MWKArticle* articleFromDisk = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
     @weakify(self);
     if (articleFromDisk.isCached) {
-        // only fetch images is article was cached
-        [self downloadImageDataForArticle:articleFromDisk].thenOn(self.accessQueue, ^{
-            @strongify(self);
-            [self didFetchArticle:articleFromDisk title:title error:nil];
-        });
-    }else{
+        // only fetch images if article was cached
+        [self downloadImageDataForArticle:articleFromDisk];
+    } else {
         /*
-         don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
-         immediately in order to ensure accurate progress & error reporting.
+           don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
+           immediately in order to ensure accurate progress & error reporting.
          */
         self.fetchOperationsByArticleTitle[title] =
-        [self.articleFetcher fetchArticleForPageTitle:title progress:NULL].thenOn(self.accessQueue, ^(MWKArticle* article){
+            [self.articleFetcher fetchArticleForPageTitle:title progress:NULL].thenOn(self.accessQueue, ^(MWKArticle* article){
             @strongify(self);
             return [self downloadImageDataForArticle:article].thenOn(self.accessQueue, ^{
                 [self didFetchArticle:article title:title error:nil];
@@ -166,11 +163,17 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 }
 
 - (AnyPromise*)fetchAllImagesInArticle:(MWKArticle*)article {
-    WMFURLCache* cache  = (WMFURLCache*)[NSURLCache sharedURLCache];
+    WMFURLCache* cache = (WMFURLCache*)[NSURLCache sharedURLCache];
     [cache permenantlyCacheImagesForArticle:article];
 
-    return PMKJoin([[[article allImageURLs] allObjects] bk_map:^(NSURL* imageURL) {
+    NSArray<NSURL*>* urls = [[[article allImageURLs] allObjects] bk_reject:^BOOL (id obj) {
+        return [obj isEqual:[NSNull null]];
+    }];
+
+    return PMKJoin([[urls bk_map:^(NSURL* imageURL) {
         return [self.imageController fetchImageWithURLInBackground:imageURL];
+    }] bk_reject:^BOOL (id obj) {
+        return [obj isEqual:[NSNull null]];
     }]);
 }
 
@@ -186,8 +189,10 @@ static SavedArticlesFetcher* _articleFetcher = nil;
             DDLogVerbose(@"No gallery images to fetch.");
             return info;
         }
-        return PMKJoin([info bk_map:^(MWKImageInfo* info) {
+        return PMKJoin([[info bk_map:^(MWKImageInfo* info) {
             return [self.imageController fetchImageWithURLInBackground:info.imageThumbURL];
+        }] bk_reject:^BOOL (id obj) {
+            return [obj isEqual:[NSNull null]];
         }]);
     });
 }
@@ -204,8 +209,10 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         return [AnyPromise promiseWithValue:imageFileTitles];
     }
 
-    return PMKJoin([imageFileTitles bk_map:^AnyPromise*(NSString* canonicalFilename) {
+    return PMKJoin([[imageFileTitles bk_map:^AnyPromise*(NSString* canonicalFilename) {
         return [self.imageInfoFetcher fetchGalleryInfoForImage:canonicalFilename fromSite:article.title.site];
+    }] bk_reject:^BOOL (id obj) {
+        return [obj isEqual:[NSNull null]];
     }]).thenInBackground(^id (NSArray* infoObjects) {
         @strongify(self);
         if (!self) {
