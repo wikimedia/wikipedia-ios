@@ -44,7 +44,7 @@ GEM
     colored (1.2)
     commander (4.3.5)
       highline (~> 1.7.2)
-    credentials_manager (0.15.0)
+    credentials_manager (0.15.1)
       colored
       commander (>= 4.3.5)
       highline (>= 1.7.1)
@@ -227,7 +227,7 @@ GEM
       fastlane_core (>= 0.36.1, < 1.0.0)
       plist (~> 3.1.0)
       xcpretty (>= 0.2.1)
-    spaceship (0.24.0)
+    spaceship (0.26.1)
       colored
       credentials_manager (>= 0.9.0)
       faraday (~> 0.9)
@@ -265,6 +265,7 @@ PLATFORMS
 DEPENDENCIES
   cocoapods (~> 0.39.0)
   fastlane (~> 1.68.0)
+  spaceship (~> 0.26.1)
 
 BUNDLED WITH
    1.11.2
