@@ -96,8 +96,8 @@ NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     if ([self isSaved:entry.title]) {
         return;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidSaveNotification object:self userInfo:@{MWKTitleKey: entry.title}];
     [self insertEntry:entry atIndex:0];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidSaveNotification object:self userInfo:@{MWKTitleKey: entry.title}];
 }
 
 - (void)removeEntryWithListIndex:(MWKTitle*)listIndex {
