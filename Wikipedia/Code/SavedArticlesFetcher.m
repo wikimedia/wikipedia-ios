@@ -9,6 +9,7 @@
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
 #import "MWKImage+CanonicalFilenames.h"
+#import "WMFURLCache.h"
 
 static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 
@@ -127,30 +128,33 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 - (void)fetchTitle:(MWKTitle*)title {
     // NOTE: must check isCached to determine that all article data has been downloaded
     MWKArticle* articleFromDisk = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
-    if (articleFromDisk.isCached) {
-        // don't fetch anything if article was cached
-        return;
-    }
-
-    /*
-       don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
-       immediately in order to ensure accurate progress & error reporting.
-     */
     @weakify(self);
-    self.fetchOperationsByArticleTitle[title] =
+    if (articleFromDisk.isCached) {
+        // only fetch images is article was cached
+        [self downloadImageDataForArticle:articleFromDisk].thenOn(self.accessQueue, ^{
+            @strongify(self);
+            [self didFetchArticle:articleFromDisk title:title error:nil];
+        });
+    }else{
+        /*
+         don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
+         immediately in order to ensure accurate progress & error reporting.
+         */
+        self.fetchOperationsByArticleTitle[title] =
         [self.articleFetcher fetchArticleForPageTitle:title progress:NULL].thenOn(self.accessQueue, ^(MWKArticle* article){
-        @strongify(self);
-        return [self downloadImageDataForArticle:article].thenOn(self.accessQueue, ^{
-            [self didFetchArticle:article title:title error:nil];
+            @strongify(self);
+            return [self downloadImageDataForArticle:article].thenOn(self.accessQueue, ^{
+                [self didFetchArticle:article title:title error:nil];
+            });
+        }).catch(^(NSError* error){
+            if (!self) {
+                return;
+            }
+            dispatch_async(self.accessQueue, ^{
+                [self didFetchArticle:nil title:title error:error];
+            });
         });
-    }).catch(^(NSError* error){
-        if (!self) {
-            return;
-        }
-        dispatch_async(self.accessQueue, ^{
-            [self didFetchArticle:nil title:title error:error];
-        });
-    });
+    }
 }
 
 - (AnyPromise*)downloadImageDataForArticle:(MWKArticle*)article {
@@ -162,6 +166,9 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 }
 
 - (AnyPromise*)fetchAllImagesInArticle:(MWKArticle*)article {
+    WMFURLCache* cache  = (WMFURLCache*)[NSURLCache sharedURLCache];
+    [cache permenantlyCacheImagesForArticle:article];
+
     return PMKJoin([[[article allImageURLs] allObjects] bk_map:^(NSURL* imageURL) {
         return [self.imageController fetchImageWithURLInBackground:imageURL];
     }]);
