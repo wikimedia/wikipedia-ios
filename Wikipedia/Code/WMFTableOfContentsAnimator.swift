@@ -154,9 +154,10 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     
     
     // MARK: - Gestures
-    lazy var presentationGesture: UIScreenEdgePanGestureRecognizer = {
-        let gesture = UIScreenEdgePanGestureRecognizer.init(target: self, action: #selector(WMFTableOfContentsAnimator.handlePresentationGesture(_:)))
-        gesture.edges = UIApplication.sharedApplication().wmf_tocShouldBeOnLeft ? .Left : .Right
+    lazy var presentationGesture: UIPanGestureRecognizer = {
+        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(WMFTableOfContentsAnimator.handlePresentationGesture(_:)))
+        gesture.maximumNumberOfTouches = 1
+        gesture.delegate = self
         return gesture
     }()
     
@@ -183,9 +184,8 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
             self.isInteractive = true
             self.presentingViewController?.presentViewController(self.presentedViewController!, animated: true, completion: nil)
         case (.Changed):
-            let position = gesture.locationInView(gesture.view);
-            let distanceFromSide = UIApplication.sharedApplication().wmf_tocShouldBeOnLeft ? position.x : CGRectGetMaxX(gesture.view!.bounds) - position.x
-            let transitionProgress = distanceFromSide / CGRectGetMaxX(gesture.view!.bounds)
+            let translation = gesture.translationInView(gesture.view)
+            let transitionProgress = translation.x * -UIApplication.sharedApplication().wmf_tocRTLMultiplier / CGRectGetMaxX(self.presentedViewController!.view.bounds)
             self.updateInteractiveTransition(transitionProgress)
         case (.Ended):
             self.isInteractive = false
@@ -268,18 +268,33 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     
     // MARK: - UIGestureRecognizerDelegate
     public func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard gestureRecognizer == self.dismissalGesture else {
-            return true
-        }
-        
-        if let translation = self.dismissalGesture?.translationInView(dismissalGesture?.view) {
-            if(translation.x * UIApplication.sharedApplication().wmf_tocRTLMultiplier > 0){
+        if gestureRecognizer == self.dismissalGesture {
+            
+            if let translation = self.dismissalGesture?.translationInView(dismissalGesture?.view) {
+                if(translation.x * UIApplication.sharedApplication().wmf_tocRTLMultiplier > 0){
+                    return true
+                }else{
+                    return false
+                }
+            }else{
+                return false
+            }
+            
+        }else if gestureRecognizer == self.presentationGesture{
+            
+            let translation = self.presentationGesture.translationInView(presentationGesture.view)
+            let location = self.presentationGesture.locationInView(presentationGesture.view)
+            let maxLocation = UIApplication.sharedApplication().wmf_tocShouldBeOnLeft ? 120 : presentationGesture.view!.frame.maxX - 120
+            let isInStartBoundry = UIApplication.sharedApplication().wmf_tocShouldBeOnLeft ? maxLocation - location.x > 0 : location.x - maxLocation > 0
+            if(translation.x * UIApplication.sharedApplication().wmf_tocRTLMultiplier < 0) && isInStartBoundry{
                 return true
             }else{
                 return false
             }
         }else{
-            return false
+            return true
         }
+        
+        
     }
 }
