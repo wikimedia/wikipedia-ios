@@ -911,10 +911,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)         webViewController:(WebViewController*)controller
     didTapImageWithSourceURLString:(nonnull NSString*)imageSourceURLString {
     MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURLString:imageSourceURLString];
-    /*
-       NOTE: not setting gallery delegate intentionally to prevent header gallery changes as a result of
-       fullscreen gallery interactions that originate from the webview
-     */
     WMFArticleImageGalleryViewContoller* fullscreenGallery = [[WMFArticleImageGalleryViewContoller alloc] initWithArticle:self.article selectedImage:selectedImage];
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
