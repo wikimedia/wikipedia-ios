@@ -116,6 +116,7 @@
 "settings-language" = "Title for button letting user choose primary language Wikipedia for the app.";
 "settings-support" = "Title for button letting user make a donation.";
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
+"settings-my-languages" = "Title for list of user's preferred languages";
 "main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
 "main-menu-heading-about" = "'More' menu section heading for items about the app (e.g. privacy, terms, FAQ).";
 "main-menu-language-title" = "Header text for default search language selection. Parameters:\n* $1 - language domain name";
@@ -237,6 +238,7 @@
 "timestamp-years" = "Human-readable approximate timestamp for events in the distant past, expressed as years";
 "lastmodified-by-user" = "Marker at page end for who last modified the page.\n* $1 is a relative date such as '2 months ago' or 'today',\n* $2 is a username.";
 "lastmodified-by-anon" = "Marker at page end for who last modified the page when anonymous. $1 is a relative date such as '2 months ago' or 'today'.";
+"button-edit" = "Button text for edit button used in various places.";
 "button-next" = "Button text for next button used in various places.\n{{Identical|Next}}";
 "button-done" = "Button text for done button used in various places.\n{{Identical|Done}}";
 "button-save" = "Button text for save button used in various places.\n{{Identical|Save}}";
