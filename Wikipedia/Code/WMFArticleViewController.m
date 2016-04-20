@@ -535,7 +535,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  This leaves 20% of progress for that work.
  */
 - (CGFloat)totalProgressWithArticleFetcherProgress:(CGFloat)progress {
-    return 0.8 * progress;
+    return  0.1 + (0.7 * progress);
 }
 
 #pragma mark - Significantly Viewed Timer
@@ -691,6 +691,7 @@ NS_ASSUME_NONNULL_BEGIN
     //only show a blank view if we have nothing to show
     if (!self.article) {
         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank];
+        [self.view bringSubviewToFront:self.progressView];
     }
 
     [self showProgressViewAnimated:YES];
@@ -725,6 +726,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
         } else {
             [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
+            [self.view bringSubviewToFront:self.progressView];
             [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                       sticky:NO
                                        dismissPreviousAlerts:NO
