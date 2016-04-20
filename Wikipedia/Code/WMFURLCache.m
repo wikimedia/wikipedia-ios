@@ -44,10 +44,12 @@ static NSString* const WMFURLCacheXCS           = @"X-CS";
     NSURLRequest* request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
 
     NSCachedURLResponse* response = [self cachedResponseForRequest:request];
-    
+
     if (response.data.length > 0) {
         return [UIImage imageWithData:response.data];
-    }else{
+    } else if ([url wmf_isSchemeless]) {
+        return [self cachedImageForURL:[url wmf_urlByPrependingSchemeIfSchemeless]];
+    } else {
         return nil;
     }
 }
