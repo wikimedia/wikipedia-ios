@@ -14,6 +14,7 @@
 // Author: Takot
 // Author: 아라
 
+// Fuzzy
 "languages-title" = "言語";
 "article-languages-label" = "言語を選択";
 "article-languages-cancel" = "中止";
@@ -353,6 +354,7 @@
 "welcome-explore-continue-button" = "次へ";
 "welcome-languages-title" = "言語";
 "welcome-languages-sub-title" = "ウィキペディアでの検索に使用する言語を選択してください";
+// Fuzzy
 "welcome-languages-add-button" = "+ 言語を追加";
 "welcome-languages-continue-button" = "次へ";
 "welcome-volunteer-title" = "ボランティア";

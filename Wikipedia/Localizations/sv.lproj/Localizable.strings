@@ -12,6 +12,7 @@
 // Author: Rockyfelle
 // Author: WikiPhoenix
 
+// Fuzzy
 "languages-title" = "Språk";
 "article-languages-label" = "Välj språk";
 "article-languages-cancel" = "Avbryt";
@@ -252,8 +253,7 @@
 "page_protected_other" = "Denna sida har skyddats för följande nivåer: $1";
 "page_protected_can_not_edit" = "Du saknar rättigheter för att redigera denna sida.";
 "page_protected_can_not_edit_title" = "Denna sida är skrivskyddad";
-// Fuzzy
-"license-footer-text" = "Innehållet är tillgängligt under $1";
+"license-footer-text" = "Innehållet är tillgängligt under $1 om ingenting annat anges.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Innehåll";
 "table-of-contents-button-label" = "Innehållsförteckning";
@@ -318,8 +318,7 @@
 "hockeyapp-alert-privacy" = "$1s sekretess";
 "page-issues" = "Sidproblem";
 "page-similar-titles" = "Liknande sidor";
-// Fuzzy
-"page-read-in-other-languages" = "Tillgänglig på $1 språk";
+"page-read-in-other-languages" = "Tillgänglig på $1 andra språk";
 "page-last-edited" = "Redigerad för $1 dagar sedan";
 "page-edit-history" = "Full redigeringshistorik";
 "captcha-reload" = "Visa en annan captcha";
@@ -338,9 +337,7 @@
 "home-featured-article-heading" = "Utmärkt artikel för $1";
 "home-main-page-heading" = "Idag på Wikipedia";
 "home-potd-heading" = "Dagens bild för $1";
-// Fuzzy
 "home-last-update-label" = "Senast uppdaterad: $1";
-// Fuzzy
 "home-last-update-never-label" = "Senast uppdaterad: Aldrig";
 "home-updating-label" = "Uppdaterar...";
 "home-hide-suggestion-prompt" = "Dölj detta förslag";
@@ -360,6 +357,7 @@
 "welcome-explore-continue-button" = "Kom igång";
 "welcome-languages-title" = "Språk";
 "welcome-languages-sub-title" = "Välj dina föredragna språk att söka på i Wikipedia";
+// Fuzzy
 "welcome-languages-add-button" = "+ Lägg till en annat";
 "welcome-languages-continue-button" = "Fortsätt";
 "welcome-volunteer-title" = "Volontär";

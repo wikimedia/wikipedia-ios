@@ -12,6 +12,7 @@
 // Author: Sjoerddebruin
 // Author: Southparkfan
 
+// Fuzzy
 "languages-title" = "Talen";
 "article-languages-label" = "Taal kiezen";
 "article-languages-cancel" = "Annuleren";
@@ -213,8 +214,7 @@
 "about-repositories-app-source-license" = "Broncode is beschikbaar onder de $1.";
 "about-repositories-app-source-license-mit" = "MIT-licentie";
 "about-send-feedback" = "Terugkoppeling over app geven";
-// Fuzzy
-"about-product-of" = "Een product van de $1";
+"about-product-of" = "Gemaakt door de $1 met behulp van vrijwilligers zoals u";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Pagina opslaan";
 "share-menu-page-saved" = "Pgina opgeslagen voor offline lezen.";
@@ -253,8 +253,7 @@
 "page_protected_other" = "Deze pagina is beveiligd op de volgende niveaus: $1";
 "page_protected_can_not_edit" = "U heeft geen rechten om deze pagina te bewerken";
 "page_protected_can_not_edit_title" = "Deze pagina is beveiligd";
-// Fuzzy
-"license-footer-text" = "Inhoud is beschikbaar onder $1";
+"license-footer-text" = "De inhoud is beschikbaar onder de $1 tenzij anders aangegeven.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Inhoud";
 "table-of-contents-button-label" = "Inhoudsopgave";
@@ -319,12 +318,10 @@
 "hockeyapp-alert-privacy" = "Privacy van $1";
 "page-issues" = "Paginaproblemen";
 "page-similar-titles" = "Vergelijkbare pagina's";
-// Fuzzy
-"page-read-in-other-languages" = "Beschikbaar in $1 talen";
+"page-read-in-other-languages" = "Beschikbaar in $1 andere talen";
 "page-last-edited" = "$1 dagen geleden bewerkt";
 "page-edit-history" = "Volledige bewerkingsgeschiedenis";
 "captcha-reload" = "Andere CAPTCHA weergeven";
-// Fuzzy
 "captcha-prompt" = "Vul de CAPTCHA-tekst in";
 "mwk-empty-title-error" = "Het was niet mogelijk de bewerking uit de voeren zonder paginanaam.";
 "home-title" = "Verkennen";
@@ -340,10 +337,8 @@
 "home-featured-article-heading" = "Uitgelichte pagina voor $1";
 "home-main-page-heading" = "Vandaag op Wikipedia";
 "home-potd-heading" = "Afbeelding van de dag voor $1";
-// Fuzzy
 "home-last-update-label" = "Laatst bijgewerkt: $1";
-// Fuzzy
-"home-last-update-never-label" = "Laatst bijgewerkt: Nooit";
+"home-last-update-never-label" = "Laatst bijgewerkt: nooit";
 "home-updating-label" = "Bijwerken...";
 "home-hide-suggestion-prompt" = "Suggestie verbergen";
 "home-hide-suggestion-cancel" = "Annuleren";
@@ -362,6 +357,7 @@
 "welcome-explore-continue-button" = "Aan de slag";
 "welcome-languages-title" = "Talen";
 "welcome-languages-sub-title" = "Kies de voorkeurstalen waarin u binnen Wikipedia wilt zoeken";
+// Fuzzy
 "welcome-languages-add-button" = "+ taal toevoegen";
 "welcome-languages-continue-button" = "Doorgaan";
 "welcome-volunteer-title" = "Vrijwilliger";

@@ -5,6 +5,7 @@
 // Author: Mikulas1
 // Author: Rudko
 
+// Fuzzy
 "languages-title" = "Jazyky";
 "article-languages-label" = "Zvoliť jazyk";
 "article-languages-cancel" = "Zrušiť";
@@ -76,7 +77,7 @@
 "wikitext-upload-save-sign-in" = "Prihlásiť sa";
 "wikitext-upload-save-anonymously" = "Uložiť anonymne";
 "wikitext-upload-save-anonymously-warning" = "Úpravy budú mať pridelenú IP adresu vášho prístroja. Ak $1, budete mať viac súkromia.";
-"wikitext-upload-save-terms-and-license" = "Uložením vyjadríte súhlas s $1, a neodvolateľne tak uvoľníte svoje príspevky pod $2 licenciou.";
+"wikitext-upload-save-terms-and-license" = "Uložením vyjadríte súhlas s $1 a neodvolateľne tak uvoľníte svoje príspevky v rámci licencie $2.";
 "wikitext-upload-save-terms-name" = "Podmienky používania";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Otvoriť odkaz";
@@ -184,11 +185,11 @@
 "about-libraries-license" = "Licencia";
 "about-libraries-licenses" = "Licencie";
 "about-content-license" = "Licencia obsahu";
-"about-content-license-details" = "Pokiaľ nie je uvedené inak, je obsah dostupný pod licenciou $1.";
+"about-content-license-details" = "Pokiaľ nie je uvedené inak, je obsah dostupný v rámci licencie $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
 "about-libraries-licenses-title" = "Máme radi open source softvér $1";
 "about-libraries-complete-list" = "Úplný zoznam";
-"about-repositories-app-source-license" = "Zdrojový kód je dostupný pod $1.";
+"about-repositories-app-source-license" = "Zdrojový kód je dostupný v rámci $1.";
 "about-repositories-app-source-license-mit" = "licenciou MIT";
 "about-send-feedback" = "Odoslať spätnú väzbu";
 "about-product-of" = "Vytvorené $1 s pomocou dobrovoľníkov, ako ste vy";
@@ -227,8 +228,7 @@
 "page_protected_sysop" = "Táto stránka je zamknutá.";
 "page_protected_can_not_edit" = "Nemáte právo upraviť túto stránku";
 "page_protected_can_not_edit_title" = "Táto stránka je zamknutá";
-// Fuzzy
-"license-footer-text" = "Obsah je k dispozícii v rámci $1";
+"license-footer-text" = "Pokiaľ nie je uvedené inak, je obsah dostupný v rámci licencie $1.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Obsah";
 "table-of-contents-button-label" = "Obsah";
@@ -277,8 +277,7 @@
 "hockeyapp-alert-privacy" = "$1 súkromie";
 "page-issues" = "Problémy stránky";
 "page-similar-titles" = "Podobné stránky";
-// Fuzzy
-"page-read-in-other-languages" = "Článok je dostupný v $1 jazykoch";
+"page-read-in-other-languages" = "Článok je dostupný v $1 ďalších jazykoch";
 "page-last-edited" = "Upravené pred $1 dňami";
 "page-edit-history" = "Úplná história úprav";
 "captcha-reload" = "Zobraziť ďalšie captcha";
@@ -292,9 +291,7 @@
 "home-featured-article-heading" = "Odporúčaný článok pre $1";
 "home-main-page-heading" = "Dnes na Wikipédii";
 "home-potd-heading" = "Obrázok dňa pre $1";
-// Fuzzy
 "home-last-update-label" = "Posledná aktualizácia: $1";
-// Fuzzy
 "home-last-update-never-label" = "Posledná aktualizácia: nikdy";
 "home-updating-label" = "Aktualizácia...";
 "home-hide-suggestion-prompt" = "Skryť túto radu";
@@ -306,6 +303,7 @@
 "welcome-explore-continue-button" = "Začíname";
 "welcome-languages-title" = "Jazyky";
 "welcome-languages-sub-title" = "Zvoľte si jazyk, ktorý pri vyhľadávaní na Wikipédii uprednostňujete";
+// Fuzzy
 "welcome-languages-add-button" = "+ Pridať ďalší";
 "welcome-languages-continue-button" = "Pokračovať";
 "welcome-volunteer-sub-title" = "Pomôžte nám skvalitňovať aplikáciu tým, že budete zdieľať informácie o jej používaní";

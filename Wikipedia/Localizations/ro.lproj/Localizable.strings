@@ -1,8 +1,10 @@
 // Messages for Romanian (română)
 // Exported from translatewiki.net
+// Author: ANDROBETA
 // Author: Macofe
 // Author: Minisarm
 
+// Fuzzy
 "languages-title" = "Limbi";
 "article-languages-label" = "Alegere limbă";
 "article-languages-cancel" = "Revocare";
@@ -243,8 +245,7 @@
 "page_protected_other" = "Această pagină a fost protejată pentru următoarele niveluri: $1";
 "page_protected_can_not_edit" = "Nu aveți drepturi pentru a modifica această pagină";
 "page_protected_can_not_edit_title" = "Această pagină este protejată";
-// Fuzzy
-"license-footer-text" = "Conținutul este disponibil sub $1";
+"license-footer-text" = "Conținutul este disponibil sub $1, exceptând cazurile în care se specifică altfel.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Cuprins";
 "table-of-contents-button-label" = "Cuprins";
@@ -309,8 +310,7 @@
 "hockeyapp-alert-privacy" = "Confidențialitate $1";
 "page-issues" = "Problemele paginii";
 "page-similar-titles" = "Pagini similare";
-// Fuzzy
-"page-read-in-other-languages" = "Disponibil în $1 limbi";
+"page-read-in-other-languages" = "Disponibil în alte $1 limbi";
 "page-last-edited" = "Modificat acum $1 zi(le)";
 "page-edit-history" = "Istoric complet al modificărilor";
 "captcha-reload" = "Arată alt text captcha";
@@ -329,9 +329,7 @@
 "home-featured-article-heading" = "Articol de calitate în $1";
 "home-main-page-heading" = "Astăzi la Wikipedia";
 "home-potd-heading" = "Imaginea zilei în $1";
-// Fuzzy
 "home-last-update-label" = "Ultima actualizare: $1";
-// Fuzzy
 "home-last-update-never-label" = "Ultima actualizare: niciodată";
 "home-updating-label" = "Se actualizează...";
 "home-hide-suggestion-prompt" = "Ascunde această sugestie";
@@ -351,6 +349,7 @@
 "welcome-explore-continue-button" = "Să începem";
 "welcome-languages-title" = "Limbi";
 "welcome-languages-sub-title" = "Alegeți limbile preferate în care doriți să căutați pe Wikipedia";
+// Fuzzy
 "welcome-languages-add-button" = "+ Adaugă încă una";
 "welcome-languages-continue-button" = "Continuă";
 "welcome-volunteer-title" = "Voluntariat";

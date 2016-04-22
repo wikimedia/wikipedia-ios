@@ -13,6 +13,7 @@
 // Author: Rizkiahmadz
 // Author: WongKentir
 
+// Fuzzy
 "languages-title" = "Bahasa";
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batal";
@@ -357,6 +358,7 @@
 "welcome-explore-continue-button" = "Memulai";
 "welcome-languages-title" = "Bahasa";
 "welcome-languages-sub-title" = "Pilih bahasa pilihan Anda untuk mencari Wikipedia";
+// Fuzzy
 "welcome-languages-add-button" = "+ Tambahkan yang lainnya";
 "welcome-languages-continue-button" = "Lanjutkan";
 "welcome-volunteer-title" = "Relawan";

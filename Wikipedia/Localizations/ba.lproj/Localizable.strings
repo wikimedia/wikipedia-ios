@@ -9,6 +9,7 @@
 // Author: Танзиля Кутлугильдина
 // Author: Янмурза Баки
 
+// Fuzzy
 "languages-title" = "Телдәр";
 "article-languages-label" = "Телде һайларға";
 "article-languages-cancel" = "Кире алырға";
@@ -353,6 +354,7 @@
 "welcome-explore-continue-button" = "Башларға";
 "welcome-languages-title" = "Телдәр";
 "welcome-languages-sub-title" = "Википедияла эҙләү башҡарырға теләгән  телдәрҙе һайлағыҙ";
+// Fuzzy
 "welcome-languages-add-button" = "+Тағы берәү өҫтәргә";
 "welcome-languages-continue-button" = "Дауам итергә";
 "welcome-volunteer-title" = "Ирекмән";

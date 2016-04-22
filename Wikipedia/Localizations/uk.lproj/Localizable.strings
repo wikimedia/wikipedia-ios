@@ -10,6 +10,7 @@
 // Author: Ата
 // Author: Дар'я Козлова
 
+// Fuzzy
 "languages-title" = "Мови";
 "article-languages-label" = "Вибрати мову";
 "article-languages-cancel" = "Скасувати";
@@ -358,6 +359,7 @@
 "welcome-explore-continue-button" = "Розпочати";
 "welcome-languages-title" = "Мови";
 "welcome-languages-sub-title" = "Оберіть мови для пошуку у Вікіпедії";
+// Fuzzy
 "welcome-languages-add-button" = "+ Додати ще один";
 "welcome-languages-continue-button" = "Продовжити";
 "welcome-volunteer-title" = "Волонтер";
