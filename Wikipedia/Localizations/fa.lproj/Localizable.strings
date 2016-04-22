@@ -16,6 +16,7 @@
 // Author: Signal89
 // Author: درفش کاویانی
 
+// Fuzzy
 "languages-title" = "زبان‌ها";
 "article-languages-label" = "انتخاب زبان";
 "article-languages-cancel" = "لغو";
@@ -26,7 +27,7 @@
 "article-unable-to-load-section" = "امکان بارگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
 "article-unable-to-load-article" = "بارگیری مقاله ناموفق بود.";
 "article-related-articles-title" = "مقاله‌های مرتبط";
-"info-box-title" = "واقعیت‌های سریع";
+"info-box-title" = "اطلاعات اجمالی";
 "info-box-close-text" = "بستن";
 "table-title-other" = "اطلاعات بیشتر";
 "saved-clear-all" = "پاک‌کردن";
@@ -360,6 +361,7 @@
 "welcome-explore-continue-button" = "شروع شد";
 "welcome-languages-title" = "زبان‌ها";
 "welcome-languages-sub-title" = "زبان مورد علاقه‌تان برای جستجو در ویکی‌پدیا را انتخاب کنید";
+// Fuzzy
 "welcome-languages-add-button" = "+افزدون دیگری";
 "welcome-languages-continue-button" = "ادامه";
 "welcome-volunteer-title" = "داوطلب";

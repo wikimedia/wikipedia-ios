@@ -21,6 +21,7 @@
 // Author: Statix64
 // Author: SuperVirtual
 
+// Fuzzy
 "languages-title" = "Lingue";
 "article-languages-label" = "Scegli la lingua";
 "article-languages-cancel" = "Annulla";
@@ -365,6 +366,7 @@
 "welcome-explore-continue-button" = "Inizia";
 "welcome-languages-title" = "Lingue";
 "welcome-languages-sub-title" = "Scegli la tua lingua preferita per la ricerca su Wikipedia";
+// Fuzzy
 "welcome-languages-add-button" = "+ Aggiungi un'altra";
 "welcome-languages-continue-button" = "Continua";
 "welcome-volunteer-title" = "Volontario";

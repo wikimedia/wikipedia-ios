@@ -7,6 +7,7 @@
 // Author: Matanya
 // Author: איתן96
 
+// Fuzzy
 "languages-title" = "שפות";
 "article-languages-label" = "בחירת שפה";
 "article-languages-cancel" = "ביטול";
@@ -351,6 +352,7 @@
 "welcome-explore-continue-button" = "להתחיל";
 "welcome-languages-title" = "שפות";
 "welcome-languages-sub-title" = "נא לבחור את השפות שבהן ברצונך לחפש בוויקיפדיה";
+// Fuzzy
 "welcome-languages-add-button" = "+ להוסיף עוד";
 "welcome-languages-continue-button" = "להמשיך";
 "welcome-volunteer-title" = "התנדבות";

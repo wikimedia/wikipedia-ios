@@ -12,6 +12,7 @@
 // Author: Wifidel
 // Author: Yllelder
 
+// Fuzzy
 "languages-title" = "Idiomas";
 "article-languages-label" = "Elige un idioma";
 "article-languages-cancel" = "Cancelar";
@@ -356,6 +357,7 @@
 "welcome-explore-continue-button" = "Empezar";
 "welcome-languages-title" = "Idiomas";
 "welcome-languages-sub-title" = "Selecciona tus idiomas preferidos para buscar en Wikipedia";
+// Fuzzy
 "welcome-languages-add-button" = "+ Añadir otro";
 "welcome-languages-continue-button" = "Continuar";
 "welcome-volunteer-title" = "Voluntarios";

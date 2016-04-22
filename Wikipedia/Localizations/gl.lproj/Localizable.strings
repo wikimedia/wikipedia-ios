@@ -6,6 +6,7 @@
 // Author: Macofe
 // Author: Toliño
 
+// Fuzzy
 "languages-title" = "Linguas";
 "article-languages-label" = "Escolla unha lingua";
 "article-languages-cancel" = "Cancelar";
@@ -354,6 +355,7 @@
 "welcome-explore-continue-button" = "Comezar";
 "welcome-languages-title" = "Linguas";
 "welcome-languages-sub-title" = "Seleccione as súas linguas preferidas para buscar en Wikipedia";
+// Fuzzy
 "welcome-languages-add-button" = "+ Engadir outro";
 "welcome-languages-continue-button" = "Continuar";
 "welcome-volunteer-title" = "Voluntarios";

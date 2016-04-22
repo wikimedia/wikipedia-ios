@@ -7,6 +7,7 @@
 // Author: Techwebpd
 // Author: Zygimantus
 
+// Fuzzy
 "languages-title" = "Kalbos";
 "article-languages-label" = "Pasirinkite kalbą";
 "article-languages-cancel" = "Atšaukti";
@@ -236,6 +237,7 @@
 "welcome-explore-tell-me-more-done-button" = "Supratau";
 "welcome-explore-continue-button" = "Pradėti";
 "welcome-languages-title" = "Kalbos";
+// Fuzzy
 "welcome-languages-add-button" = "+ Pridėti kitą";
 "welcome-languages-continue-button" = "Tęsti";
 "welcome-volunteer-title" = "Savanoris";

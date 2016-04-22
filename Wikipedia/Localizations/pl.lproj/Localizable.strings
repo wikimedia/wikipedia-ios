@@ -15,6 +15,7 @@
 // Author: WTM
 // Author: Wiochman
 
+// Fuzzy
 "languages-title" = "Języki";
 "article-languages-label" = "Wybierz język";
 "article-languages-cancel" = "Anuluj";
@@ -317,6 +318,7 @@
 "home-nearby-check-again" = "Sprawdź ponownie";
 "home-main-page-heading" = "Dzisiaj w Wikipedii";
 "home-last-update-label" = "Ostatnia aktualizacja: $1";
+"home-updating-label" = "Aktualizacja...";
 "home-hide-suggestion-cancel" = "Anuluj";
 "potd-description-prefix" = "Ilustracja dnia na $1";
 "welcome-explore-sub-title" = "Nowy sposób, aby odkrywać ciekawe artykuły każdego dnia";
@@ -325,6 +327,7 @@
 "welcome-languages-continue-button" = "Kontynuuj";
 "welcome-volunteer-continue-button" = "Kontynuuj";
 "welcome-volunteer-thanks" = "Dziękujemy $1!";
+"empty-no-feed-title" = "Brak połączenia z internetem";
 "empty-no-search-results-message" = "Nie znaleziono";
 "empty-no-saved-pages-title" = "Nie zapisano jeszcze żadnych stron";
 "empty-no-history-title" = "Nie ma historii do pokazania";
@@ -335,3 +338,4 @@
 "explore-nearby-heading" = "Miejsca w pobliżu";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
 "explore-most-read-more-list-title" = "Najczęściej czytane artykuły";
+"no-email-account-alert" = "Skonfiguruj konto e-mail w tym urządzeniu i spróbuj jeszcze raz.";

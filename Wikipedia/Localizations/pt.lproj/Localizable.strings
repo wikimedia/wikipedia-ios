@@ -9,6 +9,7 @@
 // Author: Vitorvicentevalente
 // Author: Webysther
 
+// Fuzzy
 "languages-title" = "Idiomas";
 "article-languages-label" = "Escolher idioma";
 "article-languages-cancel" = "Cancelar";
@@ -353,6 +354,7 @@
 "welcome-explore-continue-button" = "Começar";
 "welcome-languages-title" = "Idiomas";
 "welcome-languages-sub-title" = "Escolha os seus idiomas pré-definidos para pesquisar na Wikipédia";
+// Fuzzy
 "welcome-languages-add-button" = "+ Adicionar outro";
 "welcome-languages-continue-button" = "Continuar";
 "welcome-volunteer-title" = "Voluntário";
