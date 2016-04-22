@@ -643,11 +643,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - LanguageSelectionDelegate
 
 - (void)languagesController:(WMFLanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
-    [[MWKLanguageLinkController sharedInstance] insertPreferredLanguage:language atIndex:1];
+    [[MWKLanguageLinkController sharedInstance] appendPreferredLanguage:language];
     [self setSelectedLanguage:language];
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
-
 
 #pragma mark - WMFArticleListTableViewControllerDelegate
 

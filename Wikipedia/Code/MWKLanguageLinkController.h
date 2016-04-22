@@ -51,14 +51,6 @@ extern NSString* const WMFPreferredLanguagesDidChangeNotification;
 - (void)appendPreferredLanguage:(MWKLanguageLink*)language;
 
 /**
- *  Uniquely inserts a new preferred language. The new lnguage will be inserted at the given index.
- *
- *  @param language the language to append
- *  @param newIndex the new index of the langage
- */
-- (void)insertPreferredLanguage:(MWKLanguageLink*)language atIndex:(NSUInteger)newIndex;
-
-/**
  *  Reorders a preferred language to the index given. The language must already exist in a user's preferred languages
  *
  *  @param language the language to reorder
