@@ -7,7 +7,7 @@
 
 @interface WMFURLCache : NSURLCache
 
-- (void)permenantlyCacheImagesForArticle:(MWKArticle*)article;
+- (void)permanentlyCacheImagesForArticle:(MWKArticle*)article;
 
 - (UIImage*)cachedImageForURL:(NSURL*)url;
 

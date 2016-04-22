@@ -37,14 +37,14 @@ extern NSString* const WMFPreferredLanguagesDidChangeNotification;
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink*>* otherLanguages;
 
 /**
- *  Uniquely adds a new preferred language. The new lnguage will be the first preferred language.
+ *  Uniquely adds a new preferred language. The new language will be the first preferred language.
  *
  *  @param language the language to add
  */
 - (void)addPreferredLanguage:(MWKLanguageLink*)language;
 
 /**
- *  Uniquely appends a new preferred language. The new lnguage will be the last preferred language.
+ *  Uniquely appends a new preferred language. The new language will be the last preferred language.
  *
  *  @param language the language to append
  */
