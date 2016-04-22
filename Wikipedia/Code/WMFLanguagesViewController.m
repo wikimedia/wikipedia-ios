@@ -381,6 +381,8 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
 
 @interface WMFPreferredLanguagesViewController ()<WMFLanguagesViewControllerDelegate>
 
+@property (strong, nonatomic) IBOutlet UIButton* addButton;
+
 @end
 
 
@@ -406,6 +408,9 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     [super viewDidLoad];
     //need to update the footer
     [self setEditing:self.editing animated:NO];
+    [self.addButton setTitle:MWLocalizedString(@"welcome-languages-add-button", nil)
+                           forState:UIControlStateNormal];
+    [self.addButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {

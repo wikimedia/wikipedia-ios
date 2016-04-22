@@ -97,6 +97,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
+                        <outlet property="addButton" destination="7gH-ZN-qov" id="eri-hd-c1x"/>
                         <outlet property="filterDividerHeightConstraint" destination="ARZ-wg-hsQ" id="CEi-NN-6ei"/>
                         <outlet property="filterHeightConstraint" destination="6qh-TC-frw" id="SaC-TZ-Fk4"/>
                         <outlet property="languageFilterField" destination="HRn-z3-mks" id="hss-pu-GZS"/>
