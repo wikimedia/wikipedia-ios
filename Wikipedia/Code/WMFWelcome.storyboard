@@ -266,7 +266,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQm-oo-RaU">
-                                                    <rect key="frame" x="60" y="7" width="90" height="32"/>
+                                                    <rect key="frame" x="45" y="7" width="90" height="32"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <state key="normal" title="Add another">
                                                         <color key="titleColor" red="0.1647058824" green="0.30980392159999998" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -275,23 +275,11 @@
                                                         <action selector="addLanguages:" destination="HdP-0o-ZZC" eventType="touchUpInside" id="7tf-w6-N2g"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LPH-dz-BeL">
-                                                    <rect key="frame" x="15" y="12" width="30" height="22"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="Jho-4J-Qnn"/>
-                                                    </constraints>
-                                                    <state key="normal" image="language-add"/>
-                                                    <connections>
-                                                        <action selector="addLanguages:" destination="HdP-0o-ZZC" eventType="touchUpInside" id="Wib-Ma-sR5"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="aQm-oo-RaU" firstAttribute="top" secondItem="E2k-u4-Y2C" secondAttribute="top" constant="7" id="235-W9-zhR"/>
-                                                <constraint firstItem="aQm-oo-RaU" firstAttribute="leading" secondItem="LPH-dz-BeL" secondAttribute="trailing" constant="15" id="6Ht-wu-f9n"/>
-                                                <constraint firstItem="LPH-dz-BeL" firstAttribute="centerY" secondItem="aQm-oo-RaU" secondAttribute="centerY" id="rBq-JS-Ygh"/>
-                                                <constraint firstItem="LPH-dz-BeL" firstAttribute="leading" secondItem="E2k-u4-Y2C" secondAttribute="leading" constant="15" id="vYO-Z3-blQ"/>
+                                                <constraint firstItem="aQm-oo-RaU" firstAttribute="leading" secondItem="E2k-u4-Y2C" secondAttribute="leading" constant="45" id="QLS-m9-JYI"/>
                                             </constraints>
                                         </view>
                                         <prototypes>
@@ -303,13 +291,13 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wef-Qu-Lql">
-                                                            <rect key="frame" x="60" y="18" width="212" height="21"/>
+                                                            <rect key="frame" x="45" y="18" width="220" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aSB-26-uHW">
-                                                            <rect key="frame" x="15" y="17" width="30" height="22"/>
+                                                            <rect key="frame" x="0.0" y="17" width="30" height="22"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="30" id="t5y-cQ-oTp"/>
                                                             </constraints>
@@ -320,14 +308,14 @@
                                                         </button>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="aSB-26-uHW" firstAttribute="leading" secondItem="aqT-I1-gCa" secondAttribute="leading" constant="15" id="6Sq-05-CVP"/>
+                                                        <constraint firstItem="aSB-26-uHW" firstAttribute="leading" secondItem="aqT-I1-gCa" secondAttribute="leading" id="6Sq-05-CVP"/>
                                                         <constraint firstItem="aSB-26-uHW" firstAttribute="centerY" secondItem="aqT-I1-gCa" secondAttribute="centerY" id="UHI-vK-thX"/>
                                                         <constraint firstItem="wef-Qu-Lql" firstAttribute="centerY" secondItem="aqT-I1-gCa" secondAttribute="centerY" id="iWk-u6-rl2"/>
                                                         <constraint firstItem="wef-Qu-Lql" firstAttribute="leading" secondItem="aSB-26-uHW" secondAttribute="trailing" constant="15" id="idb-yd-rud"/>
-                                                        <constraint firstAttribute="trailing" secondItem="wef-Qu-Lql" secondAttribute="trailing" constant="8" id="v0B-pk-z68"/>
+                                                        <constraint firstAttribute="trailing" secondItem="wef-Qu-Lql" secondAttribute="trailing" constant="15" id="v0B-pk-z68"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
-                                                <inset key="separatorInset" minX="54" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <inset key="separatorInset" minX="48" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <connections>
                                                     <outlet property="languageNameLabel" destination="wef-Qu-Lql" id="F5I-av-Ma8"/>
                                                     <outlet property="minusButton" destination="aSB-26-uHW" id="qRO-fa-Lxx"/>
@@ -409,7 +397,6 @@
                         <outlet property="dividerAboveNextStepButton" destination="6IQ-9d-NOr" id="wwf-bs-9JA"/>
                         <outlet property="languageTableView" destination="NhA-v2-Uom" id="fhm-4F-gOJ"/>
                         <outlet property="moreLanguagesButton" destination="aQm-oo-RaU" id="HS5-TX-RId"/>
-                        <outlet property="moreLanguagesIcon" destination="LPH-dz-BeL" id="IZD-Y7-2UT"/>
                         <outlet property="nextStepButton" destination="4mC-Fk-qiy" id="P63-h8-FjQ"/>
                         <outlet property="subTitleLabel" destination="i8f-yP-8lK" id="AzA-jA-Hqg"/>
                         <outlet property="titleLabel" destination="C1e-el-eKb" id="eYr-Bt-0xF"/>
@@ -568,7 +555,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="language-add" width="22" height="22"/>
         <image name="language-delete" width="22" height="22"/>
         <image name="welcome-bg" width="360" height="640"/>
     </resources>
