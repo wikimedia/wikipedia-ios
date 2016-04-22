@@ -43,7 +43,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gH-ZN-qov">
-                                            <rect key="frame" x="60" y="14" width="90" height="32"/>
+                                            <rect key="frame" x="15" y="14" width="90" height="32"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="32" id="kb9-Tk-LDD"/>
                                             </constraints>
@@ -55,24 +55,11 @@
                                                 <action selector="addLanguages:" destination="vqp-1K-wjM" eventType="touchUpInside" id="92D-my-GcN"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0l8-uP-alG">
-                                            <rect key="frame" x="15" y="19" width="30" height="22"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="30" id="TFA-aI-Q6A"/>
-                                                <constraint firstAttribute="height" constant="22" id="o4M-vd-YaL"/>
-                                            </constraints>
-                                            <state key="normal" image="language-add"/>
-                                            <connections>
-                                                <action selector="addLanguages:" destination="vqp-1K-wjM" eventType="touchUpInside" id="Bzi-Vf-NQJ"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstItem="0l8-uP-alG" firstAttribute="centerY" secondItem="22O-Le-VtS" secondAttribute="centerY" id="3Ax-st-LSF"/>
-                                        <constraint firstItem="7gH-ZN-qov" firstAttribute="leading" secondItem="0l8-uP-alG" secondAttribute="trailing" constant="15" id="6dE-TR-bCv"/>
-                                        <constraint firstItem="0l8-uP-alG" firstAttribute="leading" secondItem="22O-Le-VtS" secondAttribute="leading" constant="15" id="CZm-w8-Tiy"/>
-                                        <constraint firstItem="0l8-uP-alG" firstAttribute="centerY" secondItem="7gH-ZN-qov" secondAttribute="centerY" id="m6h-SX-1Xz"/>
+                                        <constraint firstItem="7gH-ZN-qov" firstAttribute="leading" secondItem="22O-Le-VtS" secondAttribute="leading" constant="15" id="tTD-Jw-Gn5"/>
+                                        <constraint firstItem="7gH-ZN-qov" firstAttribute="centerY" secondItem="22O-Le-VtS" secondAttribute="centerY" id="xBm-2s-Vqm"/>
                                     </constraints>
                                 </view>
                                 <connections>
@@ -110,7 +97,4 @@
             <point key="canvasLocation" x="111" y="-3528"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="language-add" width="22" height="22"/>
-    </resources>
 </document>
