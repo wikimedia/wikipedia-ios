@@ -26,7 +26,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.languageTableView.editing = YES;
+    self.languageTableView.editing              = YES;
+    self.languageTableView.alwaysBounceVertical = NO;
 
     self.titleLabel.text =
         [MWLocalizedString(@"welcome-languages-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
@@ -85,6 +86,15 @@
     }
 }
 
+- (void)updateFirstCell {
+    if([[[MWKLanguageLinkController sharedInstance] preferredLanguages] count] == 1){
+        WMFWelcomeLanguageTableViewCell* firstCell = [self.languageTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        [UIView animateWithDuration:0.25 animations:^{
+            firstCell.minusButton.alpha = 0.0;
+        }];
+    }
+}
+
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
     return [[MWKLanguageLinkController sharedInstance].preferredLanguages count];
 }
@@ -98,16 +108,20 @@
     //can only delete non-OS languages
     if ([[MWKLanguageLinkController sharedInstance].preferredLanguages count] > 1) {
         @weakify(self)
+        @weakify(cell)
         cell.deleteButtonTapped = ^{
             @strongify(self)
+            @strongify(cell)
+            NSIndexPath* indexPath = [self.languageTableView indexPathForCell:cell];
             MWKLanguageLink * langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
             [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self updateFirstCell];
             [self useFirstPreferredLanguageAsSearchLanguage];
         };
-        cell.minusButton.hidden = NO;
+        cell.minusButton.alpha = 1.0;
     } else {
-        cell.minusButton.hidden = YES;
+        cell.minusButton.alpha = 0.0;
     }
     return cell;
 }
@@ -123,7 +137,7 @@
 - (void)tableView:(UITableView*)tableView moveRowAtIndexPath:(NSIndexPath*)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath {
     MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[sourceIndexPath.row];
     [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
-    [self.languageTableView reloadData];
+    [self.languageTableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
     [self useFirstPreferredLanguageAsSearchLanguage];
 }
 
