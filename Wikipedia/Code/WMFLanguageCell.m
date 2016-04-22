@@ -1,7 +1,7 @@
 //  Created by Monte Hurd on 1/23/14.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "LanguageCell.h"
+#import "WMFLanguageCell.h"
 #import "WikipediaAppUtils.h"
 #import "UILabel+WMFStyling.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
@@ -12,20 +12,17 @@ static CGFloat const WMFOtherLanguageFontSize     = 15.f;
 static CGFloat const WMFOtherTitleFontSize        = 12.f;
 static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
 
-@interface LanguageCell ()
+@interface WMFLanguageCell ()
 
 @property (strong, nonatomic) IBOutlet UILabel* localizedLanguageLabel;
 @property (strong, nonatomic) IBOutlet UILabel* articleTitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel* languageNameLabel;
-@property (strong, nonatomic) IBOutlet UILabel* languageCodeLabel;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* languageNameLabelHeight;
-@property (strong, nonatomic) IBOutlet UIView* separatorView;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint* separatorViewHeightConstraint;
 
 @end
 
-@implementation LanguageCell
+@implementation WMFLanguageCell
 
 - (void)setIsPreferred:(BOOL)isPreferred {
     _isPreferred = isPreferred;
@@ -33,12 +30,10 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
         self.localizedLanguageLabel.font = [UIFont systemFontOfSize:WMFPreferredLanguageFontSize];
         self.articleTitleLabel.font      = [UIFont systemFontOfSize:WMFPreferredTitleFontSize];
         self.languageNameLabel.font      = [UIFont systemFontOfSize:WMFPreferredTitleFontSize];
-        self.languageCodeLabel.font      = [UIFont systemFontOfSize:WMFPreferredTitleFontSize];
     } else {
         self.localizedLanguageLabel.font = [UIFont systemFontOfSize:WMFOtherLanguageFontSize];
         self.articleTitleLabel.font      = [UIFont systemFontOfSize:WMFOtherTitleFontSize];
         self.languageNameLabel.font      = [UIFont systemFontOfSize:WMFOtherTitleFontSize];
-        self.languageCodeLabel.font      = [UIFont systemFontOfSize:WMFOtherTitleFontSize];
     }
 }
 
@@ -64,11 +59,6 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
     return ![languageName isEqualToString:self.localizedLanguageName];
 }
 
-- (void)setLanguageCode:(NSString*)languageCode {
-    _languageCode               = languageCode;
-    self.languageCodeLabel.text = languageCode;
-}
-
 - (void)setLanguageID:(NSString*)languageID {
     _languageID                              = languageID;
     _articleTitleLabel.accessibilityLanguage = languageID;
@@ -79,8 +69,7 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
     [super awakeFromNib];
     [self prepareForReuse];
     [self wmf_makeCellDividerBeEdgeToEdge];
-    self.separatorView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
-    self.separatorViewHeightConstraint.constant = 1.5;
+    self.showsReorderControl = YES;
 }
 
 - (void)prepareForReuse {
@@ -88,7 +77,6 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
     self.languageNameLabel.text           = @"";
     self.articleTitleLabel.text           = @"";
     self.localizedLanguageLabel.text      = @"";
-    self.languageCodeLabel.text           = @"";
     self.languageNameLabelHeight.constant = 0.f;
 }
 

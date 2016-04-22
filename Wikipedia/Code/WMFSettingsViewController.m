@@ -9,7 +9,7 @@
 // View Controllers
 #import "WMFSettingsViewController.h"
 #import "LoginViewController.h"
-#import "LanguagesViewController.h"
+#import "WMFLanguagesViewController.h"
 #import "AboutViewController.h"
 
 // Models
@@ -47,7 +47,7 @@ static NSString* const WMFSettingsEmailAddress = @"mobile-ios-wikipedia@wikimedi
 static NSString* const WMFSettingsEmailSubject = @"Feedback:";
 static NSString* const WMFSettingsURLSupport   = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
 
-@interface WMFSettingsViewController () <UITableViewDelegate, LanguageSelectionDelegate, FBTweakViewControllerDelegate, MFMailComposeViewControllerDelegate>
+@interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate, FBTweakViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) SSSectionedDataSource* elementDataSource;
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
@@ -208,7 +208,7 @@ static NSString* const WMFSettingsURLSupport   = @"https://donate.wikimedia.org/
 - (NSURL*)donationURL {
     NSString* url = WMFSettingsURLSupport;
 
-    NSString* languageCode = [NSUserDefaults standardUserDefaults].wmf_appSite.language;
+    NSString* languageCode = [[MWKLanguageLinkController sharedInstance] appLanguage].languageCode;
     languageCode = [languageCode stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     NSString* appVersion = [[NSBundle mainBundle] wmf_debugVersion];
@@ -261,34 +261,29 @@ static NSString* const WMFSettingsURLSupport   = @"https://donate.wikimedia.org/
 #pragma mark - Languages
 
 - (void)showLanguages {
-    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
-    languagesVC.languageSelectionDelegate = self;
+    WMFPreferredLanguagesViewController* languagesVC = [WMFPreferredLanguagesViewController preferredLanguagesViewController];
+    languagesVC.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC]
                        animated:YES
                      completion:nil];
 }
 
-- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
-    if ([[language site] isEqualToSite:[NSUserDefaults standardUserDefaults].wmf_appSite]) {
-        return;
+- (void)languagesController:(WMFPreferredLanguagesViewController*)controller didUpdatePreferredLanguages:(NSArray<MWKLanguageLink*>*)languages {
+    if ([languages count] > 1) {
+        [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:YES];
+    } else {
+        [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:NO];
     }
-
-    [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:YES];
-    [[NSUserDefaults standardUserDefaults] wmf_setAppSite:[language site]];
-    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
 
     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_SearchLanguage];
     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_SearchLanguageBarVisibility];
-
-    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate
 
-- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error{
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError*)error {
     [controller dismissViewControllerAnimated:YES completion:NULL];
 }
-
 
 #pragma mark - Debugging
 

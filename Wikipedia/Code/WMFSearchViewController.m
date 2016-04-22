@@ -30,7 +30,7 @@
 #import "UIFont+WMFStyle.h"
 
 #import "WMFArticleBrowserViewController.h"
-#import "LanguagesViewController.h"
+#import "WMFLanguagesViewController.h"
 #import "UIViewController+WMFEmptyView.h"
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
@@ -40,7 +40,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
  WMFRecentSearchesViewControllerDelegate,
  UITextFieldDelegate,
  WMFArticleListTableViewControllerDelegate,
- LanguageSelectionDelegate>
+ WMFLanguagesViewControllerDelegate>
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
@@ -410,7 +410,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         MWKLanguageLink* lang = [self languages][index];
         return [lang site];
     } else {
-        return [[NSUserDefaults standardUserDefaults] wmf_appSite];
+        return [[[MWKLanguageLinkController sharedInstance] appLanguage] site];
     }
 }
 
@@ -549,28 +549,18 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (NSArray<MWKLanguageLink*>*)languages {
     NSMutableArray* languages = [NSMutableArray new];
-    [languages wmf_safeAddObject:[self appLanguage]];
     [languages addObjectsFromArray:self.preferredLanguages];
     return languages;
 }
 
 - (nullable MWKLanguageLink*)appLanguage {
-    MWKSite* site             = [[NSUserDefaults standardUserDefaults] wmf_appSite];
-    MWKLanguageLink* language = [[MWKLanguageLinkController sharedInstance] languageForSite:site];
-    NSAssert(language, @"No language data found for site %@", site);
-    if (!language) {
-        DDLogError(@"No language data found for site %@", site);
-    }
+    MWKLanguageLink* language = [[MWKLanguageLinkController sharedInstance] appLanguage];
+    NSAssert(language, @"No app language data found");
     return language;
 }
 
 - (void)updatePreferredLanguages {
-    NSArray* languages           = [[MWKLanguageLinkController sharedInstance].preferredLanguages wmf_arrayByTrimmingToLength:3];
-    MWKLanguageLink* appLanguage = [self appLanguage];
-    languages = [languages bk_reject:^BOOL (MWKLanguageLink* obj) {
-        return [obj isEqualToLanguageLink:appLanguage];
-    }];
-    self.preferredLanguages = [languages wmf_arrayByTrimmingToLength:2];
+    self.preferredLanguages = [[MWKLanguageLinkController sharedInstance].preferredLanguages wmf_arrayByTrimmingToLength:3];
 }
 
 - (void)updateLanguageButtonsToPreferredLanguages {
@@ -645,10 +635,19 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (IBAction)openLanguagePicker:(id)sender {
-    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
-    languagesVC.languageSelectionDelegate = self;
+    WMFLanguagesViewController* languagesVC = [WMFPreferredLanguagesViewController languagesViewController];
+    languagesVC.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:NULL];
 }
+
+#pragma mark - LanguageSelectionDelegate
+
+- (void)languagesController:(WMFLanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
+    [[MWKLanguageLinkController sharedInstance] insertPreferredLanguage:language atIndex:1];
+    [self setSelectedLanguage:language];
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
 
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
@@ -671,14 +670,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self dismissViewControllerAnimated:YES completion:^{
         [presenter wmf_pushArticleViewController:(WMFArticleViewController*)viewController animated:YES];
     }];
-}
-
-#pragma mark - LanguageSelectionDelegate
-
-- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
-    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
-    [self setSelectedLanguage:language];
-    [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (NSString*)analyticsContext {

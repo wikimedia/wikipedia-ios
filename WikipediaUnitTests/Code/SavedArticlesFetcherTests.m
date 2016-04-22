@@ -9,11 +9,17 @@
 #import "SavedArticlesFetcherTests.h"
 #import "HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.h"
 #import "MWKArticle+HTMLImageImport.h"
+#import "WMFURLCache.h"
+
 
 @implementation SavedArticlesFetcherTests
 
 - (void)setUp {
     [super setUp];
+    WMFURLCache* urlCache = [[WMFURLCache alloc] initWithMemoryCapacity:MegabytesToBytes(64)
+                                                           diskCapacity:MegabytesToBytes(128)
+                                                               diskPath:nil];
+    [NSURLCache setSharedURLCache:urlCache];
     self.downloadErrors             = [NSMutableDictionary new];
     self.downloadedArticles         = [NSMutableArray new];
     self.expectedFetchFinishedError = nil;

@@ -15,7 +15,7 @@
 #import "SectionEditorViewController.h"
 #import "WMFArticleFooterMenuViewController.h"
 #import "WMFArticleBrowserViewController.h"
-#import "LanguagesViewController.h"
+#import "WMFLanguagesViewController.h"
 #import "MWKLanguageLinkController.h"
 #import "WMFShareOptionsController.h"
 #import "WMFSaveButtonController.h"
@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
  WMFImageGalleryViewContollerReferenceViewDelegate,
  SectionEditorViewControllerDelegate,
  UIViewControllerPreviewingDelegate,
- LanguageSelectionDelegate,
+ WMFLanguagesViewControllerDelegate,
  WMFArticleListTableViewControllerDelegate,
  WMFFontSliderViewControllerDelegate,
  UIPopoverPresentationControllerDelegate>
@@ -434,15 +434,13 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Article languages
 
 - (void)showLanguagePicker {
-    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
-    languagesVC.articleTitle              = self.articleTitle;
-    languagesVC.languageSelectionDelegate = self;
+    WMFArticleLanguagesViewController* languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithTitle:self.articleTitle];
+    languagesVC.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
 
-- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
+- (void)languagesController:(WMFLanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
     [[PiwikTracker wmf_configuredInstance] wmf_logActionSwitchLanguageInContext:self contentType:nil];
-    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
     [self dismissViewControllerAnimated:YES completion:^{
         [self pushArticleViewControllerWithTitle:language.title contentType:nil animated:YES];
     }];
@@ -537,7 +535,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  This leaves 20% of progress for that work.
  */
 - (CGFloat)totalProgressWithArticleFetcherProgress:(CGFloat)progress {
-    return 0.8 * progress;
+    return  0.1 + (0.7 * progress);
 }
 
 #pragma mark - Significantly Viewed Timer
@@ -693,6 +691,7 @@ NS_ASSUME_NONNULL_BEGIN
     //only show a blank view if we have nothing to show
     if (!self.article) {
         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank];
+        [self.view bringSubviewToFront:self.progressView];
     }
 
     [self showProgressViewAnimated:YES];
@@ -727,6 +726,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
         } else {
             [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
+            [self.view bringSubviewToFront:self.progressView];
             [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                       sticky:NO
                                        dismissPreviousAlerts:NO
@@ -910,11 +910,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)         webViewController:(WebViewController*)controller
     didTapImageWithSourceURLString:(nonnull NSString*)imageSourceURLString {
-    MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURLString:imageSourceURLString];
-    /*
-       NOTE: not setting gallery delegate intentionally to prevent header gallery changes as a result of
-       fullscreen gallery interactions that originate from the webview
-     */
+    MWKImage* selectedImage                                = [[MWKImage alloc] initWithArticle:self.article sourceURLString:imageSourceURLString];
     WMFArticleImageGalleryViewContoller* fullscreenGallery = [[WMFArticleImageGalleryViewContoller alloc] initWithArticle:self.article selectedImage:selectedImage];
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }

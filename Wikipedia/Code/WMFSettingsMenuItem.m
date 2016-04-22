@@ -4,6 +4,7 @@
 #import "SessionSingleton.h"
 #import "MWKSite.h"
 #import "Wikipedia-Swift.h"
+#import "MWKLanguageLinkController.h"
 
 @interface WMFSettingsMenuItem ()
 
@@ -51,11 +52,11 @@
         case WMFSettingsMenuItemType_SearchLanguage: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:MWLocalizedString(@"settings-language", nil)
+                                                    title:MWLocalizedString(@"settings-my-languages", nil)
                                                  iconName:@"settings-project"
                                                 iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                           disclosureText:[[NSUserDefaults standardUserDefaults].wmf_appSite.language uppercaseString]
+                                           disclosureText:[[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode uppercaseString]
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_SearchLanguageBarVisibility: {

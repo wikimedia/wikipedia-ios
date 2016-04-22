@@ -23,6 +23,8 @@
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
+#import "MWKLanguageLinkController.h"
+
 
 @interface LoginViewController (){
 }
@@ -278,7 +280,7 @@
     self.failBlock = (!failBlock) ? ^(){} : failBlock;
 
     [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[NSUserDefaults standardUserDefaults] wmf_appSite].language
+        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
                                                            userName:userName
                                                            password:password
                                                         withManager:[QueuesSingleton sharedInstance].loginFetchManager
@@ -292,7 +294,7 @@
     // long as we can to lessen number of server requests. Uses user tokens as templates for copying
     // session tokens. See "recreateCookie:usingCookieAsTemplate:" for details.
 
-    NSString* domain = [[NSUserDefaults standardUserDefaults] wmf_appSite].language;
+    NSString* domain = [[MWKLanguageLinkController sharedInstance] appLanguage].languageCode;
 
     NSString* cookie1Name = [NSString stringWithFormat:@"%@wikiSession", domain];
     NSString* cookie2Name = [NSString stringWithFormat:@"%@wikiUserID", domain];
