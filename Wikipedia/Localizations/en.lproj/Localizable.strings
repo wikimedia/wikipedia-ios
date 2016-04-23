@@ -118,6 +118,7 @@
 "settings-support" = "Support Wikipedia";
 "settings-language-bar" = "Show languages on search";
 "settings-my-languages" = "My languages";
+"settings-primary-language" = "The first language in this list is used as the primary language for the app, used to tailor your Explore feed. Changing this language will change the daily content (such as Featured Article).";
 
 "main-menu-title" = "More";
 "main-menu-heading-about" = "About";

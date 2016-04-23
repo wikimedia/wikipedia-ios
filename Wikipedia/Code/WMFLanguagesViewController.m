@@ -16,6 +16,7 @@
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 #import "WMFArticleLanguagesSectionHeader.h"
+#import "WMFArticleLanguagesSectionFooter.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "UIViewController+WMFStoryboardUtilities.h"
 
@@ -268,7 +269,7 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
 
 - (NSString*)titleForHeaderInSection:(NSInteger)section {
     NSString* title = ([self isPreferredSection:section]) ? MWLocalizedString(@"article-languages-yours", nil) : MWLocalizedString(@"article-languages-others", nil);
-    return [title uppercaseStringWithLocale:[NSLocale currentLocale]];;
+    return [title uppercaseStringWithLocale:[NSLocale currentLocale]];
 }
 
 - (void)configureHeader:(WMFArticleLanguagesSectionHeader*)header forSection:(NSInteger)section {
@@ -349,11 +350,6 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
-- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
-    // HAX: hide line separators which appear before sections/rows load
-    return 0.1f;
-}
-
 #pragma mark - UITextFieldDelegate
 
 - (void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)searchText {
@@ -381,8 +377,6 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
 
 @interface WMFPreferredLanguagesViewController ()<WMFLanguagesViewControllerDelegate>
 
-@property (strong, nonatomic) IBOutlet UIButton* addButton;
-
 @end
 
 
@@ -408,9 +402,11 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     [super viewDidLoad];
     //need to update the footer
     [self setEditing:self.editing animated:NO];
-    [self.addButton setTitle:MWLocalizedString(@"welcome-languages-add-button", nil)
-                           forState:UIControlStateNormal];
-    [self.addButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
+    
+    self.tableView.sectionFooterHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedSectionFooterHeight = 50.f;
+
+    [self.tableView registerNib:[WMFArticleLanguagesSectionFooter wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFArticleLanguagesSectionFooter wmf_nibName]];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
@@ -436,6 +432,20 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     [self reloadDataSections];
     [controller dismissViewControllerAnimated:YES completion:NULL];
     [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
+}
+
+- (BOOL)shouldShowFooterForSection:(NSInteger)section {
+    return (self.showPreferredLanguages && (section == 0));
+}
+
+- (nullable UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section; {
+    if ([self shouldShowFooterForSection:section]) {
+        WMFArticleLanguagesSectionFooter* footer = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFArticleLanguagesSectionFooter wmf_nibName]];
+        footer.title = MWLocalizedString(@"settings-primary-language", nil);
+        return footer;
+    } else {
+        return nil;
+    }
 }
 
 @end
@@ -497,6 +507,11 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     } failure:^(NSError* __nonnull error) {
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
     }];
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
+    // HAX: hide line separators which appear before sections/rows load
+    return 0.1f;
 }
 
 @end
