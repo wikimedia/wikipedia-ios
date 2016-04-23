@@ -441,7 +441,7 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
 - (nullable UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section; {
     if ([self shouldShowFooterForSection:section]) {
         WMFArticleLanguagesSectionFooter* footer = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFArticleLanguagesSectionFooter wmf_nibName]];
-        footer.title = MWLocalizedString(@"settings-primary-language", nil);
+        footer.title = MWLocalizedString(@"settings-primary-language-details", nil);
         return footer;
     } else {
         return nil;
