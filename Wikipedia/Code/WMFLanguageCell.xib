@@ -8,23 +8,23 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WMFLanguageCell" rowHeight="119" id="dWG-ZV-62a" customClass="WMFLanguageCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="119"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WMFLanguageCell" rowHeight="128" id="dWG-ZV-62a" customClass="WMFLanguageCell">
+            <rect key="frame" x="0.0" y="0.0" width="357" height="128"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="dWG-ZV-62a" id="NeE-xr-BEw">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="118.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="357" height="127.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oox-XU-ZXT" userLabel="Container View">
-                        <rect key="frame" x="18" y="10" width="284" height="97.5"/>
+                        <rect key="frame" x="18" y="10" width="228" height="106.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Localized language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmB-2b-adX" userLabel="Localized language name">
-                                <rect key="frame" x="0.0" y="0.0" width="284" height="61"/>
+                                <rect key="frame" x="0.0" y="0.0" width="228" height="70"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Article title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pS1-QO-ucg" userLabel="Article title">
-                                <rect key="frame" x="0.0" y="61" width="284" height="18"/>
+                                <rect key="frame" x="0.0" y="70" width="228" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" placeholder="YES" id="JLj-vk-tMb"/>
                                 </constraints>
@@ -33,7 +33,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msA-8i-v6O" userLabel="Language name">
-                                <rect key="frame" x="0.0" y="79" width="284" height="18"/>
+                                <rect key="frame" x="0.0" y="88" width="228" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="SOa-VD-AKu"/>
                                 </constraints>
@@ -56,9 +56,26 @@
                             <constraint firstAttribute="trailing" secondItem="msA-8i-v6O" secondAttribute="trailing" id="q5l-7w-30a"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRIMARY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hN-2v-bOc">
+                        <rect key="frame" x="289.5" y="54.5" width="52.5" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="1ok-lh-gsK"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="oox-XU-ZXT" secondAttribute="trailing" constant="10" id="bOz-eG-PbN"/>
+                    <constraint firstAttribute="trailing" secondItem="6hN-2v-bOc" secondAttribute="trailing" constant="15" id="9oa-H2-jYA"/>
+                    <constraint firstItem="6hN-2v-bOc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oox-XU-ZXT" secondAttribute="trailing" constant="15" id="AmR-Fi-WD3"/>
+                    <constraint firstItem="6hN-2v-bOc" firstAttribute="centerY" secondItem="NeE-xr-BEw" secondAttribute="centerY" id="SZ9-jH-a8g"/>
                     <constraint firstItem="oox-XU-ZXT" firstAttribute="top" secondItem="NeE-xr-BEw" secondAttribute="topMargin" constant="2" id="iCo-53-qZq"/>
                     <constraint firstAttribute="bottomMargin" secondItem="oox-XU-ZXT" secondAttribute="bottom" constant="3" id="j4K-Gz-Cf5"/>
                     <constraint firstItem="oox-XU-ZXT" firstAttribute="leading" secondItem="NeE-xr-BEw" secondAttribute="leadingMargin" constant="10" id="t53-Zz-hsw"/>
@@ -69,8 +86,9 @@
                 <outlet property="languageNameLabel" destination="msA-8i-v6O" id="imJ-v5-gV5"/>
                 <outlet property="languageNameLabelHeight" destination="SOa-VD-AKu" id="j2S-fo-s7P"/>
                 <outlet property="localizedLanguageLabel" destination="jmB-2b-adX" id="uPP-hM-XhY"/>
+                <outlet property="primaryLabel" destination="6hN-2v-bOc" id="bbQ-jS-LSJ"/>
             </connections>
-            <point key="canvasLocation" x="213" y="355.5"/>
+            <point key="canvasLocation" x="231.5" y="360"/>
         </tableViewCell>
     </objects>
 </document>

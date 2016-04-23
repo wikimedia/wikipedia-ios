@@ -8,5 +8,6 @@
 @property (strong, nonatomic) NSString* languageID;
 
 @property (nonatomic) BOOL isPreferred;
+@property (nonatomic) BOOL isPrimary;
 
 @end
