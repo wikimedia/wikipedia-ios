@@ -448,6 +448,17 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     }
 }
 
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
+    WMFLanguageCell* cell = (WMFLanguageCell*)[super tableView:tableView cellForRowAtIndexPath:indexPath];
+    cell.isPrimary = (indexPath.row == 0) ? YES : NO;
+    return cell;
+}
+
+- (void)tableView:(UITableView*)tableView moveRowAtIndexPath:(NSIndexPath*)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath {
+    [super tableView:tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+    [tableView reloadData];
+}
+
 @end
 
 
