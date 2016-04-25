@@ -12,8 +12,7 @@
 // Author: Rockyfelle
 // Author: WikiPhoenix
 
-// Fuzzy
-"languages-title" = "Språk";
+"languages-title" = "Ändra språk";
 "article-languages-label" = "Välj språk";
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Läser in artikelspråk...";
@@ -23,6 +22,8 @@
 "article-unable-to-load-section" = "Kunde inte hämta detta avsnitt. Prova att uppdatera artikeln för att kolla om det åtgärdar några problem.";
 "article-unable-to-load-article" = "Kunde inte läsa in artikeln.";
 "article-related-articles-title" = "Relaterade artiklar";
+"article-languages-yours" = "Dina språk";
+"article-languages-others" = "Andra språk";
 "info-box-title" = "Snabbfakta";
 "info-box-close-text" = "Stäng";
 "table-title-other" = "Mer information";
@@ -217,7 +218,7 @@
 "about-product-of" = "Skapad av $1 med hjälp från volontärer som du";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Spara artikeln";
-"share-menu-page-saved" = "Sparade för offline-läsning.";
+"share-menu-page-saved" = "Sparades för läsning offline.";
 "share-menu-page-saved-access" = "Tips: för att komma åt dina sparade sidor, klicka på $1 ovan eller tryck länge på $2 nedan.";
 "share-custom-menu-item" = "Dela";
 "share-a-fact-share-menu-item" = "Dela-ett-faktum";
@@ -357,8 +358,7 @@
 "welcome-explore-continue-button" = "Kom igång";
 "welcome-languages-title" = "Språk";
 "welcome-languages-sub-title" = "Välj dina föredragna språk att söka på i Wikipedia";
-// Fuzzy
-"welcome-languages-add-button" = "+ Lägg till en annat";
+"welcome-languages-add-button" = "Lägg till en annat";
 "welcome-languages-continue-button" = "Fortsätt";
 "welcome-volunteer-title" = "Volontär";
 "welcome-volunteer-sub-title" = "Hjälp till att förbättra Wikipedia-appen genom att dela hur du använder den";

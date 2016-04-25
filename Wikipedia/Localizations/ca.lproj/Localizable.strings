@@ -15,8 +15,7 @@
 // Author: Vriullop
 // Author: Xavier Dengra
 
-// Fuzzy
-"languages-title" = "Llengües";
+"languages-title" = "Canvia la llengua";
 "article-languages-label" = "Trieu un idioma";
 "article-languages-cancel" = "Cancel·la";
 "article-languages-downloading" = "Carregant els idiomes de l'article...";
@@ -26,6 +25,8 @@
 "article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
 "article-unable-to-load-article" = "No s'ha pogut carregar l'article.";
 "article-related-articles-title" = "Articles relacionats";
+"article-languages-yours" = "Les vostres llengües";
+"article-languages-others" = "Altres llengües";
 "info-box-title" = "Dades bàsiques";
 "info-box-close-text" = "Tanca";
 "table-title-other" = "Més informació";
@@ -353,6 +354,7 @@
 "welcome-explore-tell-me-more" = "Més informació";
 "welcome-explore-tell-me-more-about-explore" = "Més informació sobre «Explora»";
 "welcome-explore-tell-me-more-done-button" = "Ho he entès";
+"welcome-explore-continue-button" = "Primers passos";
 "welcome-languages-title" = "Llengües";
 "welcome-languages-continue-button" = "Continua";
 "welcome-volunteer-continue-button" = "Continua";

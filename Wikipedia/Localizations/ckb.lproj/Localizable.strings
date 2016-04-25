@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Asoxor
 // Author: Diyariq
+// Author: Macofe
 // Author: Mhurd
 // Author: Sarchia
 
@@ -237,8 +238,7 @@
 "welcome-explore-tell-me-more" = "زۆرترم پێ بڵێ";
 "welcome-explore-tell-me-more-done-button" = "زانیم";
 "welcome-languages-title" = "زمانەکان";
-// Fuzzy
-"welcome-languages-add-button" = "+ زیادکردنی ھیتر";
+"welcome-languages-add-button" = "زیادکردنی ھیتر";
 "welcome-languages-continue-button" = "درێژە بدە";
 "welcome-volunteer-continue-button" = "درێژە بدە";
 "welcome-volunteer-thanks" = "$1 سوپاس بۆ تۆ!";

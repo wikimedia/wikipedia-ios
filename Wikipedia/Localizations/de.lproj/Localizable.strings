@@ -5,8 +5,7 @@
 // Author: Metalhead64
 // Author: Purodha
 
-// Fuzzy
-"languages-title" = "Sprachen";
+"languages-title" = "Sprache ändern";
 "article-languages-label" = "Sprache auswählen";
 "article-languages-cancel" = "Abbrechen";
 "article-languages-downloading" = "Lade Artikelsprachen …";
@@ -16,6 +15,8 @@
 "article-unable-to-load-section" = "Dieser Abschnitt konnte nicht geladen werden. Versuche, den Artikel neu zu laden, um zu sehen, ob dies das Problem behebt.";
 "article-unable-to-load-article" = "Artikel konnte nicht geladen werden.";
 "article-related-articles-title" = "Ähnliche Artikel";
+"article-languages-yours" = "Deine Sprachen";
+"article-languages-others" = "Andere Sprachen";
 "info-box-title" = "Schnelle Fakten";
 "info-box-close-text" = "Schließen";
 "table-title-other" = "Weitere Informationen";
@@ -350,8 +351,7 @@
 "welcome-explore-continue-button" = "Anfangen";
 "welcome-languages-title" = "Sprachen";
 "welcome-languages-sub-title" = "Wähle deine bevorzugten Sprachen aus, um Wikipedia zu durchsuchen.";
-// Fuzzy
-"welcome-languages-add-button" = "+ Eine weitere hinzufügen";
+"welcome-languages-add-button" = "Eine weitere hinzufügen";
 "welcome-languages-continue-button" = "Fortfahren";
 "welcome-volunteer-title" = "Freiwilliger";
 "welcome-volunteer-sub-title" = "Hilf mit, die Wikipedia-App zu verbessern, indem du ihre Nutzung teilst.";

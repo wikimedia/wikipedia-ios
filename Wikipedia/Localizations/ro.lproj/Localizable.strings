@@ -349,8 +349,7 @@
 "welcome-explore-continue-button" = "Să începem";
 "welcome-languages-title" = "Limbi";
 "welcome-languages-sub-title" = "Alegeți limbile preferate în care doriți să căutați pe Wikipedia";
-// Fuzzy
-"welcome-languages-add-button" = "+ Adaugă încă una";
+"welcome-languages-add-button" = "Adaugă încă una";
 "welcome-languages-continue-button" = "Continuă";
 "welcome-volunteer-title" = "Voluntariat";
 "welcome-volunteer-sub-title" = "Ajutați-ne să îmbunătățim aplicația Wikipedia, partajând modul în care o folosiți";

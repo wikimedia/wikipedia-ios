@@ -356,8 +356,7 @@
 "welcome-explore-continue-button" = "Bắt đầu";
 "welcome-languages-title" = "Ngôn ngữ";
 "welcome-languages-sub-title" = "Chọn các ngôn ngữ ưa thích của bạn đã tìm kiếm Wikipedia";
-// Fuzzy
-"welcome-languages-add-button" = "+ Thêm tiếp";
+"welcome-languages-add-button" = "Thêm tiếp";
 "welcome-languages-continue-button" = "Tiếp";
 "welcome-volunteer-title" = "Tình nguyện";
 "welcome-volunteer-sub-title" = "Giúp cải thiện ứng dụng Wikipedia bằng cách cho biết bạn sử dụng nó như thế nào";

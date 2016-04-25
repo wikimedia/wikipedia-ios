@@ -8,6 +8,7 @@
 // Author: LEEJACK
 // Author: LNDDYL
 // Author: Liuxinyu970226
+// Author: Macofe
 // Author: Mikepanhu
 // Author: Simon Shek
 // Author: Wehwei
@@ -361,8 +362,7 @@
 "welcome-explore-continue-button" = "入門";
 "welcome-languages-title" = "語言";
 "welcome-languages-sub-title" = "選擇您偏好的語言來搜尋維基百科";
-// Fuzzy
-"welcome-languages-add-button" = "+新增另一個";
+"welcome-languages-add-button" = "新增另一個";
 "welcome-languages-continue-button" = "繼續";
 "welcome-volunteer-title" = "志願者";
 "welcome-volunteer-sub-title" = "透過分享您的使用方式，協助改善維基百科應用程式。";

@@ -1,6 +1,7 @@
 // Messages for Pashto (پښتو)
 // Exported from translatewiki.net
 // Author: Ahmed-Najib-Biabani-Ibrahimkhel
+// Author: Macofe
 
 // Fuzzy
 "languages-title" = "ژبې";
@@ -225,8 +226,7 @@
 "welcome-explore-tell-me-more-done-button" = "وپوهېدم";
 "welcome-explore-continue-button" = "پيلول";
 "welcome-languages-title" = "ژبې";
-// Fuzzy
-"welcome-languages-add-button" = "+ بل ورگډول";
+"welcome-languages-add-button" = "بل ورگډول";
 "welcome-volunteer-thanks" = "$1 له تاسو مننه!";
 "empty-no-feed-title" = "انټرنټي اړيکتيا نشته";
 "empty-no-search-results-message" = "کومې پايلې و نه موندل شوې";
