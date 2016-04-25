@@ -96,4 +96,61 @@ extension WMFArticleViewController {
         presentViewController(self.tableOfContentsViewController!, animated: true, completion: nil)
 
     }
+    
+    func backgroundView() -> UIVisualEffectView {
+        let view = UIVisualEffectView(frame: CGRectZero)
+        view.autoresizingMask = .FlexibleWidth
+        view.effect = UIBlurEffect(style: .Dark)
+        view.alpha = 0.0
+        return view
+    }
+
+    public func peekTableOfContentsIfNeccesary() {
+        guard let toc = self.tableOfContentsViewController else{
+            return
+        }
+        guard NSUserDefaults.standardUserDefaults().wmf_didPeekTableOfContents() == false else{
+            return
+        }
+
+        let bg = backgroundView()
+        
+        let containerBounds = self.navigationController!.view.bounds
+        bg.frame = containerBounds
+        self.navigationController!.view!.addSubview(bg)
+
+        let maxToCWidth: CGFloat = 300.0
+        let peekWidth = (containerBounds.width * 0.3) < maxToCWidth ? containerBounds.width * 0.3 : maxToCWidth
+        let tocWidth = (containerBounds.width * 0.4) < maxToCWidth ? containerBounds.width * 0.4 : maxToCWidth
+        
+        var onscreen = containerBounds
+        onscreen.size.width = tocWidth
+        var offscreen = onscreen
+        
+        if UIApplication.sharedApplication().wmf_tocShouldBeOnLeft {
+            offscreen.origin.x -= offscreen.width
+            onscreen.origin.x = offscreen.origin.x + peekWidth
+        }else{
+            onscreen.origin.x = containerBounds.width - peekWidth
+            offscreen.origin.x = containerBounds.width
+        }
+        
+        toc.view.frame = offscreen
+        self.navigationController!.view!.addSubview(toc.view)
+        
+        UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
+            bg.alpha = 0.8;
+            toc.view.frame = onscreen
+            
+            }) { (completed) in
+                UIView.animateWithDuration(0.2, delay: 0.7, options: .CurveEaseInOut, animations: {
+                    bg.alpha = 0.0;
+                    toc.view.frame = offscreen
+                    }, completion: { (completed) in
+                        bg.removeFromSuperview()
+                        toc.view.removeFromSuperview()
+                        NSUserDefaults.standardUserDefaults().wmf_setDidPeekTableOfContents(true)
+                })
+        }
+    }
 }
