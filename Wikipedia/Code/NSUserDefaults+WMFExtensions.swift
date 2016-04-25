@@ -159,5 +159,20 @@ extension NSUserDefaults {
             return NSNumber(integer:100) //default is 100%
         }
     }
+    
+    public func wmf_setDidPeekTableOfContents(peeked: Bool) {
+        self.setObject(NSNumber(bool: peeked), forKey: "PeekTableOfContents")
+        self.synchronize()
+        
+    }
+    
+    public func wmf_didPeekTableOfContents() -> Bool {
+        if let enabled = self.objectForKey("PeekTableOfContents") as? NSNumber {
+            return enabled.boolValue
+        }else{
+            return false
+        }
+    }
+
 
 }
