@@ -7,8 +7,7 @@
 // Author: Matanya
 // Author: איתן96
 
-// Fuzzy
-"languages-title" = "שפות";
+"languages-title" = "שינוי שפה";
 "article-languages-label" = "בחירת שפה";
 "article-languages-cancel" = "ביטול";
 "article-languages-downloading" = "טעינת שפות הערך...";
@@ -18,6 +17,8 @@
 "article-unable-to-load-section" = "לא ניתן לטעון את הפסקה הזאת. נא לנסות לרענן את הערך כדי לראות אם זה מתקן את הבעיה.";
 "article-unable-to-load-article" = "לא ניתן לטעון את הערך.";
 "article-related-articles-title" = "ערכים קשורים";
+"article-languages-yours" = "השפות שלך";
+"article-languages-others" = "שפות אחרות";
 "info-box-title" = "עובדות מהירות";
 "info-box-close-text" = "סגירה";
 "table-title-other" = "מידע נוסף";
@@ -352,8 +353,7 @@
 "welcome-explore-continue-button" = "להתחיל";
 "welcome-languages-title" = "שפות";
 "welcome-languages-sub-title" = "נא לבחור את השפות שבהן ברצונך לחפש בוויקיפדיה";
-// Fuzzy
-"welcome-languages-add-button" = "+ להוסיף עוד";
+"welcome-languages-add-button" = "להוסיף עוד";
 "welcome-languages-continue-button" = "להמשיך";
 "welcome-volunteer-title" = "התנדבות";
 "welcome-volunteer-sub-title" = "עזרה לשיפור יישום ויקיפדיה באמצעות שיתוף מידע על השימוש שלך בו";

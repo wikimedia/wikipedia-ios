@@ -7,13 +7,13 @@
 // Author: LNDDYL
 // Author: Linforest
 // Author: Liuxinyu970226
+// Author: Macofe
 // Author: NigelSoft
 // Author: Qiyue2001
 // Author: Shizhao
 // Author: 王庭茂
 
-// Fuzzy
-"languages-title" = "语言";
+"languages-title" = "更改语言";
 "article-languages-label" = "选择语言";
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "条目语言载入中...";
@@ -23,6 +23,8 @@
 "article-unable-to-load-section" = "无法载入此章节。请尝试刷新条目以查看问题是否解决。";
 "article-unable-to-load-article" = "无法加载条目。";
 "article-related-articles-title" = "相关条目";
+"article-languages-yours" = "您的语言";
+"article-languages-others" = "其他语言";
 "info-box-title" = "快速预览";
 "info-box-close-text" = "关闭";
 "table-title-other" = "更多信息";
@@ -357,8 +359,7 @@
 "welcome-explore-continue-button" = "入门";
 "welcome-languages-title" = "语言";
 "welcome-languages-sub-title" = "选择您的首选语言以搜索维基百科";
-// Fuzzy
-"welcome-languages-add-button" = "+添加另一个";
+"welcome-languages-add-button" = "添加另一个";
 "welcome-languages-continue-button" = "继续";
 "welcome-volunteer-title" = "志愿者";
 "welcome-volunteer-sub-title" = "通过分享您的使用方式，帮助改进维基百科应用程序";

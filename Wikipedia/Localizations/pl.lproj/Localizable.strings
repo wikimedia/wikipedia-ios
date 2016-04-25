@@ -15,8 +15,7 @@
 // Author: WTM
 // Author: Wiochman
 
-// Fuzzy
-"languages-title" = "Języki";
+"languages-title" = "Zmień język";
 "article-languages-label" = "Wybierz język";
 "article-languages-cancel" = "Anuluj";
 "article-languages-downloading" = "Ładowanie języków artykułu...";
@@ -26,6 +25,8 @@
 "article-unable-to-load-section" = "Nie można pobrać tej sekcji. Spróbuj odświeżyć stronę i zobaczyć, czy to pomogło rozwiązać problem.";
 "article-unable-to-load-article" = "Nie można załadować artykułu.";
 "article-related-articles-title" = "Powiązane artykuły";
+"article-languages-yours" = "Twoje języki";
+"article-languages-others" = "Inne języki";
 "info-box-title" = "Szybkie fakty";
 "info-box-close-text" = "Zamknij";
 "table-title-other" = "Więcej informacji";
@@ -324,6 +325,7 @@
 "welcome-explore-sub-title" = "Nowy sposób, aby odkrywać ciekawe artykuły każdego dnia";
 "welcome-explore-tell-me-more-done-button" = "Wszystko jasne";
 "welcome-languages-title" = "Języki";
+"welcome-languages-add-button" = "Dodaj kolejny";
 "welcome-languages-continue-button" = "Kontynuuj";
 "welcome-volunteer-continue-button" = "Kontynuuj";
 "welcome-volunteer-thanks" = "Dziękujemy $1!";
