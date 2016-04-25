@@ -9,8 +9,7 @@
 // Author: Танзиля Кутлугильдина
 // Author: Янмурза Баки
 
-// Fuzzy
-"languages-title" = "Телдәр";
+"languages-title" = "Телде үҙгәртергә";
 "article-languages-label" = "Телде һайларға";
 "article-languages-cancel" = "Кире алырға";
 "article-languages-downloading" = "мәҡәләләрҙең телен күсереү";
@@ -20,6 +19,8 @@
 "article-unable-to-load-section" = "Был бүлекте күсереп булмай. Мәҡәләне яңыртып ҡарағыҙ, бәлки проблеманы хәл итер.";
 "article-unable-to-load-article" = "Был мәҡәләне күсереп булмай.";
 "article-related-articles-title" = "Тема буйынса мәҡәләләр";
+"article-languages-yours" = "Һеҙҙең телдәр";
+"article-languages-others" = "Башҡа телдәр";
 "info-box-title" = "Ҡыҫҡа факттар";
 "info-box-close-text" = "Ябырға";
 "table-title-other" = "Тулыраҡ";
@@ -203,7 +204,7 @@
 "about-libraries-license" = "Рөхсәт ҡағыҙы";
 "about-libraries-licenses" = "Рөхсәт ҡағыҙы";
 "about-content-license" = "Эстәлек лицензияһы";
-"about-content-license-details" = "Башҡаһы күрһәтелмәһә, файл эсендәге нәмә $1-гә ярашлы асыҡ була";
+"about-content-license-details" = "Башҡаһы күрһәтелмәһә, файл эсендәге нәмә $1-гә ярашлы асыҡ була.";
 "about-content-license-details-share-alike-license" = " Creative Commons Attribution-ShareAlike лицензияһы менән";
 "about-libraries-licenses-title" = "Баштағы асыҡ $1 кодлы Программа тәьминәтен яратабыҙ";
 "about-libraries-complete-list" = "Тулы исемлек";
@@ -354,8 +355,7 @@
 "welcome-explore-continue-button" = "Башларға";
 "welcome-languages-title" = "Телдәр";
 "welcome-languages-sub-title" = "Википедияла эҙләү башҡарырға теләгән  телдәрҙе һайлағыҙ";
-// Fuzzy
-"welcome-languages-add-button" = "+Тағы берәү өҫтәргә";
+"welcome-languages-add-button" = "Тағы өҫтәргә";
 "welcome-languages-continue-button" = "Дауам итергә";
 "welcome-volunteer-title" = "Ирекмән";
 "welcome-volunteer-sub-title" = "Уны нисек файҙаланыуығыҙ тураһында һөйләп, Википедияның ҡушымтаһын яҡшыртырға ярҙам итегеҙ";

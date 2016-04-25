@@ -4,6 +4,7 @@
 // Author: Aftabuzzaman
 // Author: Bodhisattwa
 // Author: Kayser Ahmad
+// Author: Macofe
 // Author: Sayma Jahan
 // Author: Tauhid16
 
@@ -323,8 +324,7 @@
 "welcome-explore-tell-me-more-done-button" = "বুঝেছি";
 "welcome-explore-continue-button" = "শুরু করুন";
 "welcome-languages-title" = "ভাষাসমূহ";
-// Fuzzy
-"welcome-languages-add-button" = "+ আরেকটি যোগ করুন";
+"welcome-languages-add-button" = "আরেকটি যোগ করুন";
 "welcome-languages-continue-button" = "অব্যাহত";
 "welcome-volunteer-title" = "স্বেচ্ছাসেবক";
 "welcome-volunteer-send-usage-reports" = "ব্যবহারের রিপোর্ট পাঠান";

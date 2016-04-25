@@ -370,8 +370,7 @@
 "welcome-explore-continue-button" = "Começar";
 "welcome-languages-title" = "Idiomas";
 "welcome-languages-sub-title" = "Escolha seu idioma preferido para pesquisar na Wikipédia";
-// Fuzzy
-"welcome-languages-add-button" = "+ Adicionar outro";
+"welcome-languages-add-button" = "Adicionar outro";
 "welcome-languages-continue-button" = "Continuar";
 "welcome-volunteer-title" = "Voluntário";
 "welcome-volunteer-sub-title" = "Ajude a melhorar o aplicativo da Wikipédia compartilhando como você o usa";

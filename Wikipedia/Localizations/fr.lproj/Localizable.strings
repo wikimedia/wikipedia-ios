@@ -13,8 +13,7 @@
 // Author: Weft
 // Author: Wladek92
 
-// Fuzzy
-"languages-title" = "Langues";
+"languages-title" = "Changer de langue";
 "article-languages-label" = "Choisir langue";
 "article-languages-cancel" = "Annuler";
 "article-languages-downloading" = "Chargement des langues de l’article en cours…";
@@ -24,6 +23,8 @@
 "article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
 "article-unable-to-load-article" = "Impossible de charger l’article.";
 "article-related-articles-title" = "Articles connexes";
+"article-languages-yours" = "Vos langues";
+"article-languages-others" = "Autres langues";
 "info-box-title" = "Faits en bref";
 "info-box-close-text" = "Fermer";
 "table-title-other" = "Plus d’information";
@@ -358,8 +359,7 @@
 "welcome-explore-continue-button" = "Commencer";
 "welcome-languages-title" = "Langues";
 "welcome-languages-sub-title" = "Choisir vos langues préférées pour rechercher sur Wikipédia";
-// Fuzzy
-"welcome-languages-add-button" = "+ Ajouter une autre";
+"welcome-languages-add-button" = "Ajouter une autre";
 "welcome-languages-continue-button" = "Continuer";
 "welcome-volunteer-title" = "Volontaire";
 "welcome-volunteer-sub-title" = "Aider à améliorer l’application Wikipédia en partageant comment vous l’utilisez";

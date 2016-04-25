@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Haytham morsy
 // Author: Hocinend1
+// Author: Macofe
 // Author: Maroen1990
 // Author: Meno25
 // Author: Mhurd
@@ -247,8 +248,7 @@
 "welcome-explore-continue-button" = "فلنبدأ";
 "welcome-languages-title" = "اللغات";
 "welcome-languages-sub-title" = "اختيار اللغة المفضلة للبحث في ويكيبيديا";
-// Fuzzy
-"welcome-languages-add-button" = "+إضافة آخر";
+"welcome-languages-add-button" = "إضافة آخر";
 "welcome-languages-continue-button" = "استمر";
 "welcome-volunteer-title" = "متطوع";
 "welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";

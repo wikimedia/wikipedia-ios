@@ -1,6 +1,7 @@
 // Messages for Hindi (हिन्दी)
 // Exported from translatewiki.net
 // Author: Adithyavr
+// Author: Macofe
 // Author: NehalDaveND
 // Author: Sahilrathod
 // Author: Sfic
@@ -10,8 +11,7 @@
 // Author: चक्रपाणी
 // Author: संजीव कुमार
 
-// Fuzzy
-"languages-title" = "भाषाएँ";
+"languages-title" = "भाषा बदलें";
 "article-languages-label" = "भाषा चुनें";
 "article-languages-cancel" = "रद्द करें";
 "article-languages-downloading" = "आर्टिकल की भाषाओं को लोड किया जा रहा है...";
@@ -21,6 +21,8 @@
 "article-unable-to-load-section" = "इस भाग को लोड करने में असमर्थ। समस्या फिक्स करने के लिये लेख को रिफ्रेश करने की कोशिश करें।";
 "article-unable-to-load-article" = "लेख की लोड करने  में असमर्थ।";
 "article-related-articles-title" = "सम्बंधित लेख";
+"article-languages-yours" = "आपकी भाषाएँ";
+"article-languages-others" = "अन्य भाषाएँ";
 "info-box-title" = "सामान्य तथ्य";
 "info-box-close-text" = "बंद करें";
 "table-title-other" = "अधिक जानकारी";
@@ -251,8 +253,7 @@
 "page_protected_other" = "इस पेज को निम्न स्तरों तक सुरक्षित किया गया है: $1";
 "page_protected_can_not_edit" = "इस पेज को सम्पादित करने के लिए आपके पास अधिकार नहीं हैं";
 "page_protected_can_not_edit_title" = "यह पृष्ठ संरक्षित है";
-// Fuzzy
-"license-footer-text" = "सामग्री $1 के अंतर्गत उपलब्ध है";
+"license-footer-text" = "जब तक बताया न गया हो, सामग्री $1 के अंतर्गत उपलब्ध है";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "सामग्री";
 "table-of-contents-button-label" = "सामग्री सूची";
@@ -336,9 +337,7 @@
 "home-featured-article-heading" = "$1 हेतु निर्वाचित लेख";
 "home-main-page-heading" = "विकिपीडिया पर आज";
 "home-potd-heading" = " $1 के लिए आज का चित्र";
-// Fuzzy
-"home-last-update-label" = "आखिरी अपडेट:$1";
-// Fuzzy
+"home-last-update-label" = "$1 अन्तिम अद्यतन हुआ।";
 "home-last-update-never-label" = "आखिरी अपडेट: कभी नहीं";
 "home-updating-label" = "अद्यतन हो रहा...";
 "home-hide-suggestion-prompt" = "इस सुझाव को छुपाएँ";
@@ -358,8 +357,7 @@
 "welcome-explore-continue-button" = "शुरू करें";
 "welcome-languages-title" = "भाषाएँ";
 "welcome-languages-sub-title" = "विकिपीडिया को खोजने के लिए अपनी पसंदीदा भाषाएँ चुनें";
-// Fuzzy
-"welcome-languages-add-button" = "+दूसरी जोड़ें";
+"welcome-languages-add-button" = "दूसरी जोड़ें";
 "welcome-languages-continue-button" = "जारी रखें";
 "welcome-volunteer-title" = "स्वयंसेवक";
 "welcome-volunteer-sub-title" = "आप इसे कैसे प्रयोग करते है यह साझा करके विकिपीडिया एप को सुधारने में सहायता करें";

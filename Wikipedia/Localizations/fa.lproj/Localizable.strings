@@ -16,8 +16,7 @@
 // Author: Signal89
 // Author: درفش کاویانی
 
-// Fuzzy
-"languages-title" = "زبان‌ها";
+"languages-title" = "تغییر زبان";
 "article-languages-label" = "انتخاب زبان";
 "article-languages-cancel" = "لغو";
 "article-languages-downloading" = "در حال بارگیری زبان‌های مقاله...";
@@ -361,8 +360,7 @@
 "welcome-explore-continue-button" = "شروع شد";
 "welcome-languages-title" = "زبان‌ها";
 "welcome-languages-sub-title" = "زبان مورد علاقه‌تان برای جستجو در ویکی‌پدیا را انتخاب کنید";
-// Fuzzy
-"welcome-languages-add-button" = "+افزدون دیگری";
+"welcome-languages-add-button" = "افزدون دیگری";
 "welcome-languages-continue-button" = "ادامه";
 "welcome-volunteer-title" = "داوطلب";
 "welcome-volunteer-sub-title" = "با به اشتراک گذاشتن نحوهٔ استفادتان از نرم‌افزار ویکی‌پدیا به ما در بهبود آن کمک کنید";

@@ -12,8 +12,7 @@
 // Author: Sjoerddebruin
 // Author: Southparkfan
 
-// Fuzzy
-"languages-title" = "Talen";
+"languages-title" = "Taal wijzigen";
 "article-languages-label" = "Taal kiezen";
 "article-languages-cancel" = "Annuleren";
 "article-languages-downloading" = "Paginatalen aan het laden...";
@@ -23,6 +22,8 @@
 "article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
 "article-unable-to-load-article" = "Het was niet mogelijk de pagina te laden.";
 "article-related-articles-title" = "Gerelateerde pagina's";
+"article-languages-yours" = "Uw talen";
+"article-languages-others" = "Andere talen";
 "info-box-title" = "Snelle feiten";
 "info-box-close-text" = "Sluiten";
 "table-title-other" = "Meer informatie";
@@ -357,8 +358,7 @@
 "welcome-explore-continue-button" = "Aan de slag";
 "welcome-languages-title" = "Talen";
 "welcome-languages-sub-title" = "Kies de voorkeurstalen waarin u binnen Wikipedia wilt zoeken";
-// Fuzzy
-"welcome-languages-add-button" = "+ taal toevoegen";
+"welcome-languages-add-button" = "Volgende toevoegen";
 "welcome-languages-continue-button" = "Doorgaan";
 "welcome-volunteer-title" = "Vrijwilliger";
 "welcome-volunteer-sub-title" = "Help met verbeteren van de Wikipedia-app door te delen hoe je deze gebruikt";
