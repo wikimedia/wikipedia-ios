@@ -2,12 +2,13 @@
 // Exported from translatewiki.net
 // Author: Gediminas
 // Author: Hugo.arg
+// Author: Macofe
 // Author: Mantak111
 // Author: Pofka
 // Author: Techwebpd
 // Author: Zygimantus
 
-"languages-title" = "Kalbos";
+"languages-title" = "Keisti kalbą";
 "article-languages-label" = "Pasirinkite kalbą";
 "article-languages-cancel" = "Atšaukti";
 "article-languages-downloading" = "Įkeliamos straipsnio kalbos...";
@@ -15,6 +16,7 @@
 "article-read-more-title" = "Skaityti daugiau";
 "article-about-title" = "Apie šį straipsnį";
 "article-related-articles-title" = "Susiję straipsniai";
+"article-languages-yours" = "Jūsų kalbos";
 "info-box-title" = "Trumpi faktai";
 "info-box-close-text" = "Uždaryti";
 "table-title-other" = "Daugiau informacijos";
@@ -236,7 +238,7 @@
 "welcome-explore-tell-me-more-done-button" = "Supratau";
 "welcome-explore-continue-button" = "Pradėti";
 "welcome-languages-title" = "Kalbos";
-"welcome-languages-add-button" = "+ Pridėti kitą";
+"welcome-languages-add-button" = "Pridėti kitą";
 "welcome-languages-continue-button" = "Tęsti";
 "welcome-volunteer-title" = "Savanoris";
 "welcome-volunteer-send-usage-reports" = "Siųsti naudojimo ataskaitas";

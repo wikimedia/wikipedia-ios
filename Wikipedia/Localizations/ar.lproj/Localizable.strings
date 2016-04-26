@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Haytham morsy
 // Author: Hocinend1
+// Author: Macofe
 // Author: Maroen1990
 // Author: Meno25
 // Author: Mhurd
@@ -12,6 +13,7 @@
 // Author: محمد أحمد عبد الفتاح
 // Author: محمد عصام
 
+// Fuzzy
 "languages-title" = "اللغات";
 "article-languages-label" = "اختر لغة";
 "article-languages-cancel" = "إلغاء";
@@ -48,6 +50,7 @@
 "zero-wikipedia-zero-heading" = "ويكيبيديا زيرو";
 "zero-warn-when-leaving" = "قم بالتحذير عند ترك صفر";
 "zero-settings-devmode" = "زيرو في وضع التطوير البرمجي.";
+"account-creation-captcha-obtaining" = "الحصول على كابتشا جديدة";
 "account-creation-logging-in" = "جارٍ تسجيل دخولك...";
 "account-creation-passwords-mismatched" = "كلمتا السر لا تتطابقان";
 "account-creation-saving" = "جارٍ الحفظ...";
@@ -153,11 +156,13 @@
 "edit-summary-choice-other" = "غير ذلك";
 "edit-summary-title" = "كيف حسّنت المقالة؟";
 "credits-wikimedia-repos" = "مستودعات ويكيميديا";
+"credits-external-libraries" = "مستودعات خارجية";
 "about-title" = "عن";
 "about-wikipedia" = "ويكيبيديا";
 "about-contributors" = "المساهمون";
 "about-testers" = "مختبرو التطبيق";
 "about-translators" = "المترجمون";
+"about-translators-details" = "ترجمه متطوعون في $1";
 "about-libraries" = "المكتبات المستخدمة";
 "about-libraries-license" = "ترخيص";
 "about-libraries-licenses" = "الرخصة";
@@ -222,6 +227,7 @@
 "hockeyapp-alert-send-report" = "أرسل التقرير";
 "hockeyapp-alert-always-send" = "أرسل دائما";
 "hockeyapp-alert-do-not-send" = "لا ترسل";
+"page-issues" = "مشاكل في الصفحة";
 "page-similar-titles" = "صفحات مشابهة";
 "page-edit-history" = "تاريخ التعديل الكامل";
 "home-title" = "استكشف";
@@ -235,13 +241,14 @@
 "home-nearby-check-again" = "تحقق مرة أخرى";
 "home-main-page-heading" = "اليوم في ويكيبيديا";
 "home-updating-label" = "جارٍ التحديث...";
+"home-hide-suggestion-prompt" = "أخف هذا الاقتراح";
 "welcome-explore-title" = "استكشف";
 "welcome-explore-tell-me-more" = "أطلعني على المزيد";
 "welcome-explore-tell-me-more-done-button" = "فهمت";
 "welcome-explore-continue-button" = "فلنبدأ";
 "welcome-languages-title" = "اللغات";
 "welcome-languages-sub-title" = "اختيار اللغة المفضلة للبحث في ويكيبيديا";
-"welcome-languages-add-button" = "+إضافة آخر";
+"welcome-languages-add-button" = "إضافة آخر";
 "welcome-languages-continue-button" = "استمر";
 "welcome-volunteer-title" = "متطوع";
 "welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
@@ -249,7 +256,9 @@
 "welcome-volunteer-thanks" = "شكرا لك!$1";
 "empty-no-feed-action-message" = "ما زال بالإمكان قراءة الصفحات المحفوظة";
 "empty-no-search-results-message" = "لا توجد نتائج";
+"empty-no-saved-pages-title" = "لا صفحات محفوظة بعد";
 "empty-no-saved-pages-message" = "احفظ الصفحات لمطالعتها لاحقًا، حتى بدون اتصال بالإنترنت";
+"empty-no-history-title" = "لا تاريخ لإظهاره";
 "alert-no-internet" = "لا يوجد اتصال بالإنترنت";
 "icon-shortcut-search-title" = "البحث في ويكيبيديا";
 "icon-shortcut-continue-reading-title" = "مواصلة القراءة";

@@ -204,7 +204,7 @@ public class WMFImageController : NSObject {
         return imageManager.diskImageExistsForURL(url)
     }
 
-    func diskDataForImageWithURL(url: NSURL?) -> NSData? {
+    public func diskDataForImageWithURL(url: NSURL?) -> NSData? {
         if let url = url {
             let path = imageManager.imageCache.defaultCachePathForKey(cacheKeyForURL(url))
             return NSFileManager.defaultManager().contentsAtPath(path)
@@ -246,6 +246,14 @@ public class WMFImageController : NSObject {
         self.imageManager.imageCache.clearDisk()
     }
 
+    public func cacheImageData(imageData: NSData, url: NSURL){
+        let diskCachePath = self.imageManager.imageCache.defaultCachePathForKey(self.cacheKeyForURL(url))
+        let success = NSFileManager.defaultManager().createFileAtPath(diskCachePath, contents: imageData, attributes: nil)
+        if(!success){
+            DDLogDebug("Error caching image data")
+        }
+    }
+    
     /**
     Import image data associated with a URL from a file into the receiver's disk storage.
 

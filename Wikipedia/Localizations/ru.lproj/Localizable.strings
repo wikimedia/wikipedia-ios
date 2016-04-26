@@ -15,7 +15,7 @@
 // Author: WindEwriX
 // Author: Александр Сигачёв
 
-"languages-title" = "Языки";
+"languages-title" = "Изменить язык";
 "article-languages-label" = "Выберите язык";
 "article-languages-cancel" = "Отмена";
 "article-languages-downloading" = "Загрузка языков статьи…";
@@ -25,6 +25,8 @@
 "article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "article-unable-to-load-article" = "Не удается загрузить эту статью.";
 "article-related-articles-title" = "Статьи по теме";
+"article-languages-yours" = "Ваши языки";
+"article-languages-others" = "Другие языки";
 "info-box-title" = "Краткие факты";
 "info-box-close-text" = "Закрыть";
 "table-title-other" = "Подробнее";
@@ -255,7 +257,6 @@
 "page_protected_other" = "Эта страница были защищена на следующих уровнях: $1";
 "page_protected_can_not_edit" = "У вас нет прав на редактирование этой страницы";
 "page_protected_can_not_edit_title" = "Эта страница защищена";
-// Fuzzy
 "license-footer-text" = "Содержимое доступно по лицензии $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содержание";
@@ -321,7 +322,6 @@
 "hockeyapp-alert-privacy" = "Политика конфиденциальности $1";
 "page-issues" = "Вопросы по странице";
 "page-similar-titles" = "Похожие страницы";
-// Fuzzy
 "page-read-in-other-languages" = "Доступно на $1 языках";
 "page-last-edited" = "Отредактировано $1 д. назад";
 "page-edit-history" = "Полная история редактирования";
@@ -341,9 +341,7 @@
 "home-featured-article-heading" = "Избранная статья за $1";
 "home-main-page-heading" = "Сегодня в Википедии";
 "home-potd-heading" = "Изображение дня за $1";
-// Fuzzy
 "home-last-update-label" = "Последнее обновление: $1";
-// Fuzzy
 "home-last-update-never-label" = "Последнее обновление: никогда";
 "home-updating-label" = "Обновление…";
 "home-hide-suggestion-prompt" = "Скрыть это предложение";
@@ -363,7 +361,7 @@
 "welcome-explore-continue-button" = "Начать";
 "welcome-languages-title" = "Языки";
 "welcome-languages-sub-title" = "Выберите языки, на которых вы хотели бы осуществлять поиск в Википедии";
-"welcome-languages-add-button" = "+ Добавить ещё один";
+"welcome-languages-add-button" = "Добавить ещё один";
 "welcome-languages-continue-button" = "Продолжить";
 "welcome-volunteer-title" = "Доброволец";
 "welcome-volunteer-sub-title" = "Помогите улучшить приложение Википедии, рассказав, как вы его используете";

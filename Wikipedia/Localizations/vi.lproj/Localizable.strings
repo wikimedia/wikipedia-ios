@@ -10,6 +10,7 @@
 // Author: Nguyên Lê
 // Author: Vinhtantran
 
+// Fuzzy
 "languages-title" = "Ngôn ngữ";
 "article-languages-label" = "Chọn ngôn ngữ";
 "article-languages-cancel" = "Hủy bỏ";
@@ -250,8 +251,7 @@
 "page_protected_other" = "Trang này đã bị khóa ở các mức độ sau: %1";
 "page_protected_can_not_edit" = "Bạn không có quyền sửa đổi trang này.";
 "page_protected_can_not_edit_title" = "Trang này bị khóa";
-// Fuzzy
-"license-footer-text" = "Nội dung được phát hành theo $1";
+"license-footer-text" = "Nội dung được phát hành theo $1, trừ khi có ghi chú khác.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Mục lục";
 "table-of-contents-button-label" = "Mục lục";
@@ -336,9 +336,7 @@
 "home-featured-article-heading" = "Bài viết chọn lọc cho $1";
 "home-main-page-heading" = "Hôm nay tại Wikipedia";
 "home-potd-heading" = "Hình trong ngày cho $1";
-// Fuzzy
 "home-last-update-label" = "Cập nhật lần cuối: $1";
-// Fuzzy
 "home-last-update-never-label" = "Cập nhật lần cuối: Chưa bao giờ";
 "home-updating-label" = "Đang cập nhật…";
 "home-hide-suggestion-prompt" = "Ẩn gợi ý này";
@@ -358,7 +356,7 @@
 "welcome-explore-continue-button" = "Bắt đầu";
 "welcome-languages-title" = "Ngôn ngữ";
 "welcome-languages-sub-title" = "Chọn các ngôn ngữ ưa thích của bạn đã tìm kiếm Wikipedia";
-"welcome-languages-add-button" = "+ Thêm tiếp";
+"welcome-languages-add-button" = "Thêm tiếp";
 "welcome-languages-continue-button" = "Tiếp";
 "welcome-volunteer-title" = "Tình nguyện";
 "welcome-volunteer-sub-title" = "Giúp cải thiện ứng dụng Wikipedia bằng cách cho biết bạn sử dụng nó như thế nào";

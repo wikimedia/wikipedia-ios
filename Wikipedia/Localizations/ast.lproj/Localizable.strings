@@ -4,6 +4,7 @@
 // Author: Macofe
 // Author: Xuacu
 
+// Fuzzy
 "languages-title" = "Llingües";
 "article-languages-label" = "Escoyer llingua";
 "article-languages-cancel" = "Encaboxar";
@@ -348,7 +349,7 @@
 "welcome-explore-continue-button" = "Primeros pasos";
 "welcome-languages-title" = "Llingües";
 "welcome-languages-sub-title" = "Esbilla les llingües que prefieres pa guetar en Wikipedia";
-"welcome-languages-add-button" = "+ Amestar otra";
+"welcome-languages-add-button" = "Amestar otra";
 "welcome-languages-continue-button" = "Siguir";
 "welcome-volunteer-title" = "Facete voluntariu";
 "welcome-volunteer-sub-title" = "Ayuda a enantar l'app de Wikipedia compartiendo cómo la uses";

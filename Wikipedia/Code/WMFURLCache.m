@@ -4,6 +4,11 @@
 #import "WMFURLCache.h"
 #import "SessionSingleton.h"
 #import "FBTweak+WikipediaZero.h"
+#import "NSURL+WMFExtras.h"
+#import "MWKArticle.h"
+#import "MWKImageList.h"
+#import "MWKImage.h"
+#import "Wikipedia-Swift.h"
 
 static NSString* const WMFURLCacheWikipediaHost = @".m.wikipedia.org";
 static NSString* const WMFURLCacheJsonMIMEType  = @"application/json";
@@ -13,15 +18,77 @@ static NSString* const WMFURLCacheXCS           = @"X-CS";
 
 @implementation WMFURLCache
 
+- (void)permenantlyCacheImagesForArticle:(MWKArticle*)article {
+    [article.images.entries enumerateObjectsUsingBlock:^(NSString* _Nonnull imagePath, NSUInteger idx, BOOL* _Nonnull stop) {
+        MWKImage* image = [article.images objectAtIndexedSubscript:idx];
+        NSURL* url = image.sourceURL;
+        if (!url) {
+            return;
+        }
+
+        NSURLRequest* request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
+
+        NSCachedURLResponse* response = [self cachedResponseForRequest:request];
+
+        if (response.data.length > 0) {
+            [[WMFImageController sharedInstance] cacheImageData:response.data url:url];
+        }
+    }];
+}
+
+- (UIImage*)cachedImageForURL:(NSURL*)url {
+    if (!url) {
+        return nil;
+    }
+
+    NSURLRequest* request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
+
+    NSCachedURLResponse* response = [self cachedResponseForRequest:request];
+
+    if (response.data.length > 0) {
+        return [UIImage imageWithData:response.data];
+    } else if ([url wmf_isSchemeless]) {
+        return [self cachedImageForURL:[url wmf_urlByPrependingSchemeIfSchemeless]];
+    } else {
+        return nil;
+    }
+}
+
+- (BOOL)isMIMETypeImage:(NSString*)type {
+    if ([type isEqualToString:@"image/jpeg"]) {
+        return YES;
+    }
+    if ([type isEqualToString:@"image/png"]) {
+        return YES;
+    }
+    if ([type isEqualToString:@"image/gif"]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (NSCachedURLResponse*)cachedResponseForRequest:(NSURLRequest*)request {
+    NSString* mimeType = [request.URL wmf_mimeTypeForExtension];
+    if ([self isMIMETypeImage:mimeType] && [[WMFImageController sharedInstance] hasDataOnDiskForImageWithURL:request.URL]) {
+        NSData* data = [[WMFImageController sharedInstance] diskDataForImageWithURL:request.URL];
+
+        if (data.length > 0) {
+            NSURLResponse* response             = [[NSURLResponse alloc] initWithURL:request.URL MIMEType:mimeType expectedContentLength:data.length textEncodingName:nil];
+            NSCachedURLResponse* cachedResponse = [[NSCachedURLResponse alloc] initWithResponse:response data:data];
+            return cachedResponse;
+        }
+    }
+
+    return [super cachedResponseForRequest:request];
+}
+
 - (void)storeCachedResponse:(NSCachedURLResponse*)cachedResponse forRequest:(NSURLRequest*)request {
     [super storeCachedResponse:cachedResponse forRequest:request];
 
     if ([self isJsonResponse:cachedResponse fromMDotRequest:request]) {
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            //NSLog(@"Processing zero headers for cached repsonse from %@", request);
+        //NSLog(@"Processing zero headers for cached repsonse from %@", request);
 //TODO: should refactor a lot of this into ZeroConfigState itself and make it thread safe so we can do its work off the main thread.
-            [self processZeroHeaders:cachedResponse.response];
-        });
+        [self processZeroHeaders:cachedResponse.response];
     }
 }
 

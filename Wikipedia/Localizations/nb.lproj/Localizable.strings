@@ -8,6 +8,7 @@
 // Author: SuperPotato
 // Author: Tsaetre
 
+// Fuzzy
 "languages-title" = "Språk";
 "article-languages-label" = "Velg språk";
 "article-languages-cancel" = "Avbryt";
@@ -352,7 +353,7 @@
 "welcome-explore-continue-button" = "Kom igang";
 "welcome-languages-title" = "Språk";
 "welcome-languages-sub-title" = "Velg foretrukne språk å søke på i Wikipedia";
-"welcome-languages-add-button" = "+ Legg til";
+"welcome-languages-add-button" = "Legg til";
 "welcome-languages-continue-button" = "Fortsett";
 "welcome-volunteer-continue-button" = "Fortsett";
 "welcome-volunteer-thanks" = "$1 Takk!";

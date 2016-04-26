@@ -3,6 +3,7 @@
 // Author: Andriykopanytsia
 // Author: Base
 // Author: Green Zero
+// Author: Macofe
 // Author: NickK
 // Author: Piramidion
 // Author: Sir-nik
@@ -10,6 +11,7 @@
 // Author: Ата
 // Author: Дар'я Козлова
 
+// Fuzzy
 "languages-title" = "Мови";
 "article-languages-label" = "Вибрати мову";
 "article-languages-cancel" = "Скасувати";
@@ -358,7 +360,7 @@
 "welcome-explore-continue-button" = "Розпочати";
 "welcome-languages-title" = "Мови";
 "welcome-languages-sub-title" = "Оберіть мови для пошуку у Вікіпедії";
-"welcome-languages-add-button" = "+ Додати ще один";
+"welcome-languages-add-button" = "Додати ще один";
 "welcome-languages-continue-button" = "Продовжити";
 "welcome-volunteer-title" = "Волонтер";
 "welcome-volunteer-sub-title" = "Допоможіть поліпшити додаток для Вікіпедії, розповівши, як Ви його використовуєте";

@@ -12,7 +12,7 @@
 // Author: Wifidel
 // Author: Yllelder
 
-"languages-title" = "Idiomas";
+"languages-title" = "Cambiar idioma";
 "article-languages-label" = "Elige un idioma";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "Cargando idiomas del artículo…";
@@ -22,6 +22,8 @@
 "article-unable-to-load-section" = "No se pudo cargar esta sección. Prueba recargar el artículo para ver si se soluciona el problema.";
 "article-unable-to-load-article" = "No se puede cargar el artículo.";
 "article-related-articles-title" = "Artículos relacionados";
+"article-languages-yours" = "Tus idiomas";
+"article-languages-others" = "Otros idiomas";
 "info-box-title" = "Datos rápidos";
 "info-box-close-text" = "Cerrar";
 "table-title-other" = "Más información";
@@ -356,7 +358,7 @@
 "welcome-explore-continue-button" = "Empezar";
 "welcome-languages-title" = "Idiomas";
 "welcome-languages-sub-title" = "Selecciona tus idiomas preferidos para buscar en Wikipedia";
-"welcome-languages-add-button" = "+ Añadir otro";
+"welcome-languages-add-button" = "Añadir otro";
 "welcome-languages-continue-button" = "Continuar";
 "welcome-volunteer-title" = "Voluntarios";
 "welcome-volunteer-sub-title" = "Ayuda a mejorar la aplicación de Wikipedia compartiendo cómo la usas";

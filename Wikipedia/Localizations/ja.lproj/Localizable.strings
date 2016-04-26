@@ -5,6 +5,7 @@
 // Author: Fryed-peach
 // Author: Kanon und wikipedia
 // Author: Los688
+// Author: Macofe
 // Author: Otokoume
 // Author: Ridmevo
 // Author: Shirayuki
@@ -12,9 +13,10 @@
 // Author: Sujiniku
 // Author: Surgical21
 // Author: Takot
+// Author: Thibaut120094
 // Author: 아라
 
-"languages-title" = "言語";
+"languages-title" = "言語を変更";
 "article-languages-label" = "言語を選択";
 "article-languages-cancel" = "中止";
 "article-languages-downloading" = "言語リストを取得中...";
@@ -24,6 +26,7 @@
 "article-unable-to-load-section" = "この節を読み込むことができません。問題が解決するかどうかの確認のために記事を更新してみてください。";
 "article-unable-to-load-article" = "記事を読み込むことができません。";
 "article-related-articles-title" = "関連記事";
+"article-languages-yours" = "あなたの言語";
 "info-box-title" = "基本データ";
 "info-box-close-text" = "閉じる";
 "table-title-other" = "さらに見る";
@@ -353,7 +356,7 @@
 "welcome-explore-continue-button" = "次へ";
 "welcome-languages-title" = "言語";
 "welcome-languages-sub-title" = "ウィキペディアでの検索に使用する言語を選択してください";
-"welcome-languages-add-button" = "+ 言語を追加";
+"welcome-languages-add-button" = "言語を追加";
 "welcome-languages-continue-button" = "次へ";
 "welcome-volunteer-title" = "ボランティア";
 "welcome-volunteer-send-usage-reports" = "利用状況レポートを送信";

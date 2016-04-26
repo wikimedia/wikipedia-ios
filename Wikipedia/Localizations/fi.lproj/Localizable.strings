@@ -10,7 +10,7 @@
 // Author: Stryn
 // Author: SuperPete
 
-"languages-title" = "Kielet";
+"languages-title" = "Kielenvaihto";
 "article-languages-label" = "Valitse kieli";
 "article-languages-cancel" = "Peruuta";
 "article-languages-downloading" = "Ladataan artikkelin kieliä...";
@@ -20,6 +20,8 @@
 "article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
 "article-unable-to-load-article" = "Artikkelin lataaminen epäonnistui.";
 "article-related-articles-title" = "Aiheeseen liittyvät artikkelit";
+"article-languages-yours" = "Omat kielet";
+"article-languages-others" = "Muut kielet";
 "info-box-title" = "Pikafaktoja";
 "info-box-close-text" = "Sulje";
 "table-title-other" = "Lisätietoja";
@@ -333,6 +335,7 @@
 "welcome-explore-tell-me-more" = "Kerro lisää";
 "welcome-explore-tell-me-more-done-button" = "Selvä";
 "welcome-languages-title" = "Kielet";
+"welcome-languages-add-button" = "Lisää toinen";
 "welcome-languages-continue-button" = "Jatka";
 "welcome-volunteer-sub-title" = "Auta parantamaan Wikipedia-sovellusta jakamalla tietoja siitä, kuinka käytät sitä";
 "welcome-volunteer-send-usage-reports" = "Lähetä käyttöraportteja";
