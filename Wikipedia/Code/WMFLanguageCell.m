@@ -89,7 +89,7 @@ static CGFloat const WMFLocalizedLanguageLabelHeight   = 18.f;
         self.primaryLabel.text = [MWLocalizedString(@"settings-primary-language", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
         self.primaryLabelContainerView.backgroundColor = [UIColor colorWithRed:0.8039 green:0.8039 blue:0.8039 alpha:1.0];
     }else{
-        self.primaryLabel.text = @"";
+        self.primaryLabel.text = nil;
         self.primaryLabelContainerView.backgroundColor = [UIColor clearColor];
     }
 }
