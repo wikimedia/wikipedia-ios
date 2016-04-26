@@ -102,7 +102,7 @@
     WMFWelcomeLanguageTableViewCell* cell = (id)[tableView dequeueReusableCellWithIdentifier:[WMFWelcomeLanguageTableViewCell wmf_nibName]
                                                                                 forIndexPath:indexPath];
     MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
-    cell.languageNameLabel.text = langLink.localizedName;
+    cell.languageName = langLink.name;
 
     return cell;
 }
