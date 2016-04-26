@@ -72,8 +72,6 @@ static CGFloat const WMFLocalizedLanguageLabelHeight   = 18.f;
     [super awakeFromNib];
     [self prepareForReuse];
     [self wmf_makeCellDividerBeEdgeToEdge];
-    self.showsReorderControl = YES;
-    self.primaryLabel.textColor = [UIColor whiteColor];
     self.isPrimary = NO;
 }
 
