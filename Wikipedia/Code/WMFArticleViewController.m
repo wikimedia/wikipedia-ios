@@ -126,6 +126,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticleViewController
 
++ (void)load{
+    [self registerTweak];
+}
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

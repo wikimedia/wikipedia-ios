@@ -1,6 +1,7 @@
 
 import Foundation
 import BlocksKit
+import Tweaks
 
 extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
 
@@ -100,16 +101,45 @@ extension WMFArticleViewController {
     func backgroundView() -> UIVisualEffectView {
         let view = UIVisualEffectView(frame: CGRectZero)
         view.autoresizingMask = .FlexibleWidth
-        view.effect = UIBlurEffect(style: .Dark)
+        view.effect = UIBlurEffect(style: .Light)
         view.alpha = 0.0
         return view
     }
+    
+    class func registerTweak(){
+        let tweak = FBTweak(identifier: "Always Peek ToC")
+        tweak.name = "Always Peek ToC"
+        tweak.defaultValue = false
+        
+        let collection = FBTweakCollection(name: "Table of Contents");
+        collection.addTweak(tweak)
+
+        let store = FBTweakStore.sharedInstance()
+        let category = store.tweakCategoryWithName("Article")
+
+        category.addTweakCollection(collection);
+    }
+    
+    func shouldPeek() -> Bool {
+        let store = FBTweakStore.sharedInstance()
+        let category = store.tweakCategoryWithName("Article")
+        let collection = category.tweakCollectionWithName("Table of Contents")
+        let tweak = collection.tweakWithIdentifier("Always Peek ToC")
+        if tweak.currentValue as? Bool == true {
+            return true
+        }
+        
+        return !NSUserDefaults.standardUserDefaults().wmf_didPeekTableOfContents()
+    }
 
     public func peekTableOfContentsIfNeccesary() {
+        guard self.navigationController != nil else{
+            return
+        }
         guard let toc = self.tableOfContentsViewController else{
             return
         }
-        guard NSUserDefaults.standardUserDefaults().wmf_didPeekTableOfContents() == false else{
+        guard shouldPeek() == true else{
             return
         }
 
@@ -139,7 +169,7 @@ extension WMFArticleViewController {
         self.navigationController!.view!.addSubview(toc.view)
         
         UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
-            bg.alpha = 0.8;
+            bg.alpha = 1.0;
             toc.view.frame = onscreen
             
             }) { (completed) in
