@@ -72,7 +72,6 @@ static CGFloat const WMFLocalizedLanguageLabelHeight   = 18.f;
     [super awakeFromNib];
     [self prepareForReuse];
     [self wmf_makeCellDividerBeEdgeToEdge];
-    self.isPrimary = NO;
 }
 
 - (void)prepareForReuse {
