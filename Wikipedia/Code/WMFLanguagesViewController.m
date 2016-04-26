@@ -19,6 +19,7 @@
 #import "WMFArticleLanguagesSectionFooter.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "WMFWelcomeLanguageTableViewCell.h"
 
 static CGFloat const WMFOtherLanguageRowHeight = 138.f;
 static CGFloat const WMFLanguageHeaderHeight   = 57.f;
@@ -250,7 +251,19 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
         [self configureOtherLanguageCell:cell atRow:indexPath.row];
     }
 
+    cell.minusButton.alpha = [self alphaForMinusButton];
+    
     return cell;
+}
+
+- (CGFloat)alphaForMinusButton {
+    return !self.tableView.editing || ([MWKLanguageLinkController sharedInstance].preferredLanguages.count == 1) ? 0.f : 1.f;
+}
+
+- (void)updateMinusButtonsVisibility {
+    for (WMFWelcomeLanguageTableViewCell* cell in self.tableView.visibleCells) {
+        cell.minusButton.alpha = [self alphaForMinusButton];
+    }
 }
 
 - (MWKLanguageLink*)languageAtIndexPath:(NSIndexPath*)indexPath {
@@ -415,9 +428,11 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     if (animated) {
         [UIView animateWithDuration:0.30 animations:^{
             self.tableView.tableFooterView.alpha = editing ? 1.0 : 0.0;
+            [self updateMinusButtonsVisibility];
         }];
     } else {
         self.tableView.tableFooterView.alpha = editing ? 1.0 : 0.0;
+        [self updateMinusButtonsVisibility];
     }
 }
 
