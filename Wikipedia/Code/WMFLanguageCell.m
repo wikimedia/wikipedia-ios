@@ -18,6 +18,7 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
 @property (strong, nonatomic) IBOutlet UILabel* articleTitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel* languageNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel* primaryLabel;
+@property (strong, nonatomic) IBOutlet UIView* primaryLabelContainerView;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* languageNameLabelHeight;
 
@@ -72,7 +73,6 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
     [self wmf_makeCellDividerBeEdgeToEdge];
     self.showsReorderControl = YES;
     self.primaryLabel.textColor = [UIColor whiteColor];
-    self.primaryLabel.backgroundColor = [UIColor colorWithRed:0.8039 green:0.8039 blue:0.8039 alpha:1.0];
     self.isPrimary = NO;
 }
 
@@ -87,7 +87,13 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
 
 - (void)setIsPrimary:(BOOL)isPrimary {
     _isPrimary = isPrimary;
-    self.primaryLabel.text = isPrimary ? [NSString stringWithFormat:@"   %@   ", [MWLocalizedString(@"settings-primary-language", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]] : @"";
+    if (isPrimary){
+        self.primaryLabel.text = [MWLocalizedString(@"settings-primary-language", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+        self.primaryLabelContainerView.backgroundColor = [UIColor colorWithRed:0.8039 green:0.8039 blue:0.8039 alpha:1.0];
+    }else{
+        self.primaryLabel.text = @"";
+        self.primaryLabelContainerView.backgroundColor = [UIColor clearColor];
+    }
 }
 
 @end

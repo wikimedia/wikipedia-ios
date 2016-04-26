@@ -56,28 +56,45 @@
                             <constraint firstAttribute="trailing" secondItem="msA-8i-v6O" secondAttribute="trailing" id="q5l-7w-30a"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRIMARY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hN-2v-bOc">
-                        <rect key="frame" x="289.5" y="54.5" width="52.5" height="20"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hpq-jr-QHw" userLabel="Primary Label Container">
+                        <rect key="frame" x="273.5" y="54" width="68.5" height="20"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRIMARY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hN-2v-bOc">
+                                <rect key="frame" x="8" y="0.0" width="52.5" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="1ok-lh-gsK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="1ok-lh-gsK"/>
+                            <constraint firstItem="6hN-2v-bOc" firstAttribute="leading" secondItem="Hpq-jr-QHw" secondAttribute="leading" constant="8" id="6IM-5O-Xge"/>
+                            <constraint firstItem="6hN-2v-bOc" firstAttribute="top" secondItem="Hpq-jr-QHw" secondAttribute="top" id="b8k-Ll-Xu7"/>
+                            <constraint firstAttribute="bottom" secondItem="6hN-2v-bOc" secondAttribute="bottom" id="cMs-J8-9kN"/>
+                            <constraint firstAttribute="trailing" secondItem="6hN-2v-bOc" secondAttribute="trailing" constant="8" id="pws-1q-aU8"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="2"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                         </userDefinedRuntimeAttributes>
-                    </label>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="6hN-2v-bOc" secondAttribute="trailing" constant="15" id="9oa-H2-jYA"/>
-                    <constraint firstItem="6hN-2v-bOc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oox-XU-ZXT" secondAttribute="trailing" constant="15" id="AmR-Fi-WD3"/>
-                    <constraint firstItem="6hN-2v-bOc" firstAttribute="centerY" secondItem="NeE-xr-BEw" secondAttribute="centerY" id="SZ9-jH-a8g"/>
+                    <constraint firstAttribute="trailing" secondItem="Hpq-jr-QHw" secondAttribute="trailing" constant="15" id="KvS-n1-a3M"/>
+                    <constraint firstItem="Hpq-jr-QHw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oox-XU-ZXT" secondAttribute="trailing" constant="15" id="edU-yk-wuz"/>
                     <constraint firstItem="oox-XU-ZXT" firstAttribute="top" secondItem="NeE-xr-BEw" secondAttribute="topMargin" constant="2" id="iCo-53-qZq"/>
                     <constraint firstAttribute="bottomMargin" secondItem="oox-XU-ZXT" secondAttribute="bottom" constant="3" id="j4K-Gz-Cf5"/>
+                    <constraint firstItem="Hpq-jr-QHw" firstAttribute="centerY" secondItem="NeE-xr-BEw" secondAttribute="centerY" id="q7z-xK-mlI"/>
                     <constraint firstItem="oox-XU-ZXT" firstAttribute="leading" secondItem="NeE-xr-BEw" secondAttribute="leadingMargin" constant="10" id="t53-Zz-hsw"/>
                 </constraints>
             </tableViewCellContentView>
@@ -87,6 +104,7 @@
                 <outlet property="languageNameLabelHeight" destination="SOa-VD-AKu" id="j2S-fo-s7P"/>
                 <outlet property="localizedLanguageLabel" destination="jmB-2b-adX" id="uPP-hM-XhY"/>
                 <outlet property="primaryLabel" destination="6hN-2v-bOc" id="bbQ-jS-LSJ"/>
+                <outlet property="primaryLabelContainerView" destination="Hpq-jr-QHw" id="Opd-zX-bBR"/>
             </connections>
             <point key="canvasLocation" x="231.5" y="360"/>
         </tableViewCell>
