@@ -30,6 +30,8 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     
     weak var presentedViewController: UIViewController?
 
+    public var gesturePercentage: CGFloat = 0.4
+
     weak public var delegate: WMFTableOfContentsAnimatorDelegate?
     
     private(set) public var isPresenting: Bool
@@ -280,11 +282,12 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
                 return false
             }
             
-        }else if gestureRecognizer == self.presentationGesture{
+        }else if gestureRecognizer == self.presentationGesture {
             
             let translation = self.presentationGesture.translationInView(presentationGesture.view)
             let location = self.presentationGesture.locationInView(presentationGesture.view)
-            let maxLocation = UIApplication.sharedApplication().wmf_tocShouldBeOnLeft ? 120 : presentationGesture.view!.frame.maxX - 120
+            let gestureWidth = presentationGesture.view!.frame.width * gesturePercentage
+            let maxLocation = UIApplication.sharedApplication().wmf_tocShouldBeOnLeft ? gestureWidth: presentationGesture.view!.frame.maxX - gestureWidth
             let isInStartBoundry = UIApplication.sharedApplication().wmf_tocShouldBeOnLeft ? maxLocation - location.x > 0 : location.x - maxLocation > 0
             if(translation.x * UIApplication.sharedApplication().wmf_tocRTLMultiplier < 0) && isInStartBoundry{
                 return true
