@@ -88,6 +88,7 @@
 		B07963E31C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = B07963E21C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m */; };
 		B0866F461CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0866F441CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m */; };
 		B0866F471CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0866F451CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib */; };
+		B0866F4D1CCF077C0088A789 /* WMFTableViewCellWithCustomMinusButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0866F4C1CCF077C0088A789 /* WMFTableViewCellWithCustomMinusButton.m */; };
 		B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = B08E7E9A1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m */; };
 		B09D64E81C2514FF00A29514 /* WMFArticleFooterMenuDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B09D64E71C2514FF00A29514 /* WMFArticleFooterMenuDataSource.m */; };
 		B0AB16371C7E5762002E566A /* UINavigationBar+WMFTransparency.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AB16361C7E5762002E566A /* UINavigationBar+WMFTransparency.m */; };
@@ -844,6 +845,8 @@
 		B0866F431CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionFooter.h; sourceTree = "<group>"; };
 		B0866F441CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionFooter.m; sourceTree = "<group>"; };
 		B0866F451CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionFooter.xib; sourceTree = "<group>"; };
+		B0866F4B1CCF077C0088A789 /* WMFTableViewCellWithCustomMinusButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFTableViewCellWithCustomMinusButton.h; path = Wikipedia/Code/WMFTableViewCellWithCustomMinusButton.h; sourceTree = SOURCE_ROOT; };
+		B0866F4C1CCF077C0088A789 /* WMFTableViewCellWithCustomMinusButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFTableViewCellWithCustomMinusButton.m; path = Wikipedia/Code/WMFTableViewCellWithCustomMinusButton.m; sourceTree = SOURCE_ROOT; };
 		B08E7E991C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFEmptyView.h"; path = "Wikipedia/Code/UIViewController+WMFEmptyView.h"; sourceTree = SOURCE_ROOT; };
 		B08E7E9A1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFEmptyView.m"; path = "Wikipedia/Code/UIViewController+WMFEmptyView.m"; sourceTree = SOURCE_ROOT; };
 		B09D64E61C2514FF00A29514 /* WMFArticleFooterMenuDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleFooterMenuDataSource.h; path = Wikipedia/Code/WMFArticleFooterMenuDataSource.h; sourceTree = SOURCE_ROOT; };
@@ -3521,6 +3524,8 @@
 				B0E805131C0CE0DC0065EBC0 /* UITableViewCell+WMFLayout.m */,
 				B0E805101C0CE0DC0065EBC0 /* UITableViewCell+SelectedBackground.h */,
 				B0E805111C0CE0DC0065EBC0 /* UITableViewCell+SelectedBackground.m */,
+				B0866F4B1CCF077C0088A789 /* WMFTableViewCellWithCustomMinusButton.h */,
+				B0866F4C1CCF077C0088A789 /* WMFTableViewCellWithCustomMinusButton.m */,
 			);
 			name = UITableViewCell;
 			sourceTree = "<group>";
@@ -5699,6 +5704,7 @@
 				0E0361771C4488BC00FD9642 /* WMFLocationSearchListViewController.m in Sources */,
 				B0E805C91C0CE5250065EBC0 /* UIImage+Debug.swift in Sources */,
 				B0E807A91C0CEFE30065EBC0 /* MWKRecentSearchEntry.m in Sources */,
+				B0866F4D1CCF077C0088A789 /* WMFTableViewCellWithCustomMinusButton.m in Sources */,
 				B0E8066A1C0CE9030065EBC0 /* MWKImageInfoFetcher.m in Sources */,
 				BCD3200D1C737E0000317D08 /* NSNumber+MWKTitleNamespace.m in Sources */,
 				B0E805631C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptContext.m in Sources */,
