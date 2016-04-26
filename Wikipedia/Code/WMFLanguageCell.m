@@ -5,6 +5,7 @@
 #import "WikipediaAppUtils.h"
 #import "UILabel+WMFStyling.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
+#import "NSString+WMFExtras.h"
 
 static CGFloat const WMFPreferredLanguageFontSize      = 15.f;
 static CGFloat const WMFPreferredTitleFontSize         = 12.f;
@@ -54,7 +55,7 @@ static CGFloat const WMFLocalizedLanguageLabelHeight   = 18.f;
         self.localizedLanguageLabelHeight.constant = WMFLocalizedLanguageLabelHeight;
     }
     _languageName               = languageName;
-    self.languageNameLabel.text = languageName;
+    self.languageNameLabel.text = [languageName wmf_stringByCapitalizingFirstCharacter];
 }
 
 - (BOOL)shouldShowLanguageName:(NSString*)languageName {
