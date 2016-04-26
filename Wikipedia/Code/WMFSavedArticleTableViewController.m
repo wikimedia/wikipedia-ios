@@ -21,7 +21,7 @@
 
 #import "WMFSaveButtonController.h"
 
-#import "WMFArticlePreviewTableViewCell.h"
+#import "WMFArticleListTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 
@@ -40,28 +40,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self.tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
+    [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
-    self.tableView.estimatedRowHeight = [WMFArticlePreviewTableViewCell estimatedRowHeight];
+    self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
 
     WMFSavedPagesDataSource* ds = [[WMFSavedPagesDataSource alloc] initWithSavedPagesList:[self savedPageList]];
 
-    ds.cellClass = [WMFArticlePreviewTableViewCell class];
+    ds.cellClass = [WMFArticleListTableViewCell class];
 
     @weakify(self);
-    ds.cellConfigureBlock = ^(WMFArticlePreviewTableViewCell* cell,
+    ds.cellConfigureBlock = ^(WMFArticleListTableViewCell* cell,
                               MWKSavedPageEntry* entry,
                               UITableView* tableView,
                               NSIndexPath* indexPath) {
         @strongify(self);
         MWKArticle* article = [[self dataStore] articleWithTitle:entry.title];
-        [cell setSaveableTitle:article.title savedPageList:[self savedPageList]];
         cell.titleText       = article.title.text;
         cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
-        cell.snippetText     = [article summary];
         [cell setImage:[article bestThumbnailImage]];
-        [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-        cell.saveButtonController.analyticsContext = self;
     };
 
     self.dataSource = ds;
