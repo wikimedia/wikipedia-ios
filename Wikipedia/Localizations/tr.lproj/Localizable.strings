@@ -3,6 +3,7 @@
 // Author: Ayrıntılı Bilgi
 // Author: HakanIST
 // Author: Incelemeelemani
+// Author: Macofe
 // Author: Mavrikant
 // Author: Mavrikant2
 // Author: McAang
@@ -15,8 +16,7 @@
 // Author: Violetanka
 // Author: Ömer Berkay
 
-// Fuzzy
-"languages-title" = "Diller";
+"languages-title" = "Dili değiştir";
 "article-languages-label" = "Dil seçin";
 "article-languages-cancel" = "İptal";
 "article-languages-downloading" = "Madde dilleri yükleniyor...";
@@ -26,6 +26,8 @@
 "article-unable-to-load-section" = "Bu bölüm yüklenemedi. Sorunu gidermek için sayfayı yenilemeyi deneyin.";
 "article-unable-to-load-article" = "Makale yüklenemedi.";
 "article-related-articles-title" = "İlgili maddeler";
+"article-languages-yours" = "Dilleriniz";
+"article-languages-others" = "Diğer diller";
 "info-box-title" = "Pratik bilgiler";
 "info-box-close-text" = "Kapat";
 "table-title-other" = "Daha fazla bilgi";
@@ -360,8 +362,7 @@
 "welcome-explore-continue-button" = "Kullanmaya başla";
 "welcome-languages-title" = "Diller";
 "welcome-languages-sub-title" = "Vikipedi'de arama yapmak için tercih ettiğiniz dilleri seçin";
-// Fuzzy
-"welcome-languages-add-button" = "+ Bir tane daha ekle";
+"welcome-languages-add-button" = "Bir tane daha ekle";
 "welcome-languages-continue-button" = "Devam";
 "welcome-volunteer-title" = "Gönüllü ol";
 "welcome-volunteer-sub-title" = "Nasıl kullandığınızı paylaşarak, Vikipedi uygulamasının geliştirilmesine yardım edin.";

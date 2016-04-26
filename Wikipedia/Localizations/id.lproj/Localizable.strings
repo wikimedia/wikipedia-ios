@@ -13,8 +13,7 @@
 // Author: Rizkiahmadz
 // Author: WongKentir
 
-// Fuzzy
-"languages-title" = "Bahasa";
+"languages-title" = "Ubah bahasa";
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batal";
 "article-languages-downloading" = "Memuat bahasa artikel...";
@@ -24,6 +23,8 @@
 "article-unable-to-load-section" = "Tidak dapat memuat bagian ini. Coba menyegarkan artikel untuk melihat apakah itu bisa memperbaiki masalah.";
 "article-unable-to-load-article" = "Tidak dapat memuat artikel.";
 "article-related-articles-title" = "Artikel terkait";
+"article-languages-yours" = "Bahasa Anda";
+"article-languages-others" = "Bahasa lainnya";
 "info-box-title" = "Fakta cepat";
 "info-box-close-text" = "Tutup";
 "table-title-other" = "Informasi lebih lanjut";
@@ -358,8 +359,7 @@
 "welcome-explore-continue-button" = "Memulai";
 "welcome-languages-title" = "Bahasa";
 "welcome-languages-sub-title" = "Pilih bahasa pilihan Anda untuk mencari Wikipedia";
-// Fuzzy
-"welcome-languages-add-button" = "+ Tambahkan yang lainnya";
+"welcome-languages-add-button" = "Tambahkan yang lainnya";
 "welcome-languages-continue-button" = "Lanjutkan";
 "welcome-volunteer-title" = "Relawan";
 "welcome-volunteer-sub-title" = "Bantu menyempurnakan aplikasi Wikipedia dengan membagikan bagaimana Anda menggunakannya";

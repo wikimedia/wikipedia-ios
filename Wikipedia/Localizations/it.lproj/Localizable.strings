@@ -21,8 +21,7 @@
 // Author: Statix64
 // Author: SuperVirtual
 
-// Fuzzy
-"languages-title" = "Lingue";
+"languages-title" = "Cambia lingua";
 "article-languages-label" = "Scegli la lingua";
 "article-languages-cancel" = "Annulla";
 "article-languages-downloading" = "Caricamento delle lingue in cui è disponibile la voce...";
@@ -32,6 +31,8 @@
 "article-unable-to-load-section" = "Impossibile caricare questa sezione. Prova ad aggiornare l'articolo per vedere se si risolve il problema.";
 "article-unable-to-load-article" = "Impossibile caricare questa pagina.";
 "article-related-articles-title" = "Voci correlate";
+"article-languages-yours" = "Le tue lingue";
+"article-languages-others" = "Altre lingue";
 "info-box-title" = "Fatti in breve";
 "info-box-close-text" = "Chiudi";
 "table-title-other" = "Ulteriori informazioni";
@@ -366,8 +367,7 @@
 "welcome-explore-continue-button" = "Inizia";
 "welcome-languages-title" = "Lingue";
 "welcome-languages-sub-title" = "Scegli la tua lingua preferita per la ricerca su Wikipedia";
-// Fuzzy
-"welcome-languages-add-button" = "+ Aggiungi un'altra";
+"welcome-languages-add-button" = "Aggiungi un'altra";
 "welcome-languages-continue-button" = "Continua";
 "welcome-volunteer-title" = "Volontario";
 "welcome-volunteer-sub-title" = "Aiutaci a migliorare l'applicazione Wikipedia condividendo come la utilizzi";

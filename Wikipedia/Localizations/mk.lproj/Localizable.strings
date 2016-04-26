@@ -2,10 +2,10 @@
 // Exported from translatewiki.net
 // Author: Bjankuloski06
 // Author: Bsitzmann
+// Author: Macofe
 // Author: Монтехристо
 
-// Fuzzy
-"languages-title" = "Јазици";
+"languages-title" = "Смени јазик";
 "article-languages-label" = "Изберете јазик";
 "article-languages-cancel" = "Откажи";
 "article-languages-downloading" = "Ги вчитувам јазиците на статијата...";
@@ -15,6 +15,8 @@
 "article-unable-to-load-section" = "Не можам да го вчитам одделот. Видете дали ќе се реши проблемот ако ја превчитате страницата.";
 "article-unable-to-load-article" = "Не можам да ја вчитам статијата.";
 "article-related-articles-title" = "Поврзани статии";
+"article-languages-yours" = "Ваши јазици";
+"article-languages-others" = "Други јазици";
 "info-box-title" = "Накратко";
 "info-box-close-text" = "Затвори";
 "table-title-other" = "Повеќе информации";
@@ -349,8 +351,7 @@
 "welcome-explore-continue-button" = "Започни";
 "welcome-languages-title" = "Јазици";
 "welcome-languages-sub-title" = "Одберете ги вашите претпочитани јазици за пребарување на Википедија";
-// Fuzzy
-"welcome-languages-add-button" = "+ Додај друг";
+"welcome-languages-add-button" = "Додај друг";
 "welcome-languages-continue-button" = "Продолжи";
 "welcome-volunteer-title" = "Пријави се";
 "welcome-volunteer-sub-title" = "Помогнете ни да го подобриме прилогов споделувајќи сознанија за тоа како го употребувате";

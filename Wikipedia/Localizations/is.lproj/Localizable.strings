@@ -356,8 +356,7 @@
 "welcome-explore-continue-button" = "Komast í gang";
 "welcome-languages-title" = "Tungumál sem á að leita í";
 "welcome-languages-sub-title" = "Veldu þau tungumál sem þú vilt fyrst og fremst nota við leit á Wikipedia";
-// Fuzzy
-"welcome-languages-add-button" = "+ Bæta við öðru";
+"welcome-languages-add-button" = "Bæta við öðru";
 "welcome-languages-continue-button" = "Halda áfram";
 "welcome-volunteer-title" = "Bjóða sig fram";
 "welcome-volunteer-sub-title" = "Hjálpaðu til við að bæta Wikipedia-appið með því að deila með okkur hvernig þú notar það";
