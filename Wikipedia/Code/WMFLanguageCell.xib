@@ -16,15 +16,15 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oox-XU-ZXT" userLabel="Container View">
-                        <rect key="frame" x="18" y="10" width="228" height="106.5"/>
+                        <rect key="frame" x="18" y="10" width="173.5" height="106.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Localized language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmB-2b-adX" userLabel="Localized language name">
-                                <rect key="frame" x="0.0" y="0.0" width="228" height="70"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmB-2b-adX" userLabel="Language name">
+                                <rect key="frame" x="0.0" y="0.0" width="173.5" height="70"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Article title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pS1-QO-ucg" userLabel="Article title">
-                                <rect key="frame" x="0.0" y="70" width="228" height="18"/>
+                                <rect key="frame" x="0.0" y="70" width="173.5" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" placeholder="YES" id="JLj-vk-tMb"/>
                                 </constraints>
@@ -32,8 +32,8 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msA-8i-v6O" userLabel="Language name">
-                                <rect key="frame" x="0.0" y="88" width="228" height="18"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Localized language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msA-8i-v6O" userLabel="Localized language name">
+                                <rect key="frame" x="0.0" y="88" width="173.5" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="SOa-VD-AKu"/>
                                 </constraints>
@@ -100,9 +100,9 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="articleTitleLabel" destination="pS1-QO-ucg" id="zIe-s7-xSw"/>
-                <outlet property="languageNameLabel" destination="msA-8i-v6O" id="imJ-v5-gV5"/>
-                <outlet property="languageNameLabelHeight" destination="SOa-VD-AKu" id="j2S-fo-s7P"/>
-                <outlet property="localizedLanguageLabel" destination="jmB-2b-adX" id="uPP-hM-XhY"/>
+                <outlet property="languageNameLabel" destination="jmB-2b-adX" id="Yit-qb-0Re"/>
+                <outlet property="localizedLanguageLabel" destination="msA-8i-v6O" id="HMP-XB-mF4"/>
+                <outlet property="localizedLanguageLabelHeight" destination="SOa-VD-AKu" id="VxY-Jx-JD2"/>
                 <outlet property="primaryLabel" destination="6hN-2v-bOc" id="bbQ-jS-LSJ"/>
                 <outlet property="primaryLabelContainerView" destination="Hpq-jr-QHw" id="Opd-zX-bBR"/>
             </connections>
