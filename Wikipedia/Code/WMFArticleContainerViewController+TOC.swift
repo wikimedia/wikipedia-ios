@@ -166,6 +166,10 @@ extension WMFArticleViewController {
         }
         
         toc.view.frame = offscreen
+        toc.view.layer.shadowOpacity = 0.25
+        toc.view.layer.shadowRadius = 4.0
+        toc.view.layer.shadowOffset = CGSizeZero
+        
         self.navigationController!.view!.addSubview(toc.view)
         
         UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
