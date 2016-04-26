@@ -523,10 +523,13 @@ NS_ASSUME_NONNULL_BEGIN
     [self.delegate articleController:self didUpdateArticleLoadProgress:progress animated:animated];
 }
 
-- (void)completeAndHideProgress {
+- (void)completeAndHideProgressWithCompletion:(nullable dispatch_block_t)completion {
     [self updateProgress:1.0 animated:YES];
     dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
         [self hideProgressViewAnimated:YES];
+        if (completion) {
+            completion();
+        }
     });
 }
 
@@ -535,7 +538,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  This leaves 20% of progress for that work.
  */
 - (CGFloat)totalProgressWithArticleFetcherProgress:(CGFloat)progress {
-    return  0.1 + (0.7 * progress);
+    return 0.1 + (0.7 * progress);
 }
 
 #pragma mark - Significantly Viewed Timer
@@ -916,7 +919,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article {
-    [self completeAndHideProgress];
+    [self completeAndHideProgressWithCompletion:^{
+        //Without this pause, the motion happens too soon after loading the article
+        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+            [self peekTableOfContentsIfNeccesary];
+        });
+    }];
     [self scrollWebViewToRequestedPosition];
     [self.delegate articleControllerDidLoadArticle:self];
     [self fetchReadMoreIfNeeded];
