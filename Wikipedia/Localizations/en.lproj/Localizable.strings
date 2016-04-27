@@ -118,6 +118,7 @@
 "settings-support" = "Support Wikipedia";
 "settings-language-bar" = "Show languages on search";
 "settings-my-languages" = "My languages";
+"settings-help-and-feedback" = "Help and feedback";
 
 "main-menu-title" = "More";
 "main-menu-heading-about" = "About";
@@ -260,6 +261,8 @@
 "button-save" = "Save";
 "button-save-for-later" = "Save for later";
 "button-saved-for-later" = "Saved for later";
+
+"button-report-a-bug" = "Report a bug";
 
 "onboarding-create-account" = "Create account";
 "onboarding-login" = "Log in";
