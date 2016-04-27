@@ -132,9 +132,9 @@
         case WMFSettingsMenuItemType_SendFeedback: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:MWLocalizedString(@"main-menu-send-feedback", nil)
-                                                 iconName:@"settings-feedback"
-                                                iconColor:[UIColor wmf_green]
+                                                    title:MWLocalizedString(@"settings-help-and-feedback", nil)
+                                                 iconName:@"settings-help-and-feedback"
+                                                iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
                                                isSwitchOn:NO];
@@ -146,16 +146,6 @@
                                                  iconName:@"settings-about"
                                                 iconColor:[UIColor wmf_colorWithHex:0x000000 alpha:1.0]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                           disclosureText:nil
-                                               isSwitchOn:NO];
-        }
-        case WMFSettingsMenuItemType_FAQ: {
-            return
-                [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:MWLocalizedString(@"main-menu-faq", nil)
-                                                 iconName:@"settings-faq"
-                                                iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
