@@ -1,7 +1,7 @@
-#import "WMFTableViewCellWithCustomMinusButton.h"
+#import "WMFCustomDeleteButtonTableViewCell.h"
 #import <Masonry/Masonry.h>
 
-@interface WMFTableViewCellWithCustomMinusButton ()
+@interface WMFCustomDeleteButtonTableViewCell ()
 
 @property (strong, nonatomic) UIButton* minusButton;
 @property (strong, nonatomic) CALayer* cellWhiteLayer;
@@ -9,7 +9,7 @@
 
 @end
 
-@implementation WMFTableViewCellWithCustomMinusButton
+@implementation WMFCustomDeleteButtonTableViewCell
 
 - (void)layoutSubviews {
     [super layoutSubviews];

@@ -1,8 +1,8 @@
-#import "WMFTableViewCellWithCustomMinusButton.h"
+#import "WMFCustomDeleteButtonTableViewCell.h"
 
 #import <UIKit/UIKit.h>
 
-@interface WMFWelcomeLanguageTableViewCell : WMFTableViewCellWithCustomMinusButton
+@interface WMFWelcomeLanguageTableViewCell : WMFCustomDeleteButtonTableViewCell
 
 @property (strong, nonatomic) NSString* languageName;
 
