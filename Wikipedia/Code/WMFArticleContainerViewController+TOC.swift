@@ -149,9 +149,8 @@ extension WMFArticleViewController {
         bg.frame = containerBounds
         self.navigationController!.view!.addSubview(bg)
 
-        let maxToCWidth: CGFloat = 300.0
-        let peekWidth = (containerBounds.width * 0.3) < maxToCWidth ? containerBounds.width * 0.3 : maxToCWidth
-        let tocWidth = (containerBounds.width * 0.4) < maxToCWidth ? containerBounds.width * 0.4 : maxToCWidth
+        let tocWidth: CGFloat = 300.0
+        let peekWidth = (containerBounds.width * 0.3) < tocWidth ? containerBounds.width * 0.3 : tocWidth
         
         var onscreen = containerBounds
         onscreen.size.width = tocWidth
