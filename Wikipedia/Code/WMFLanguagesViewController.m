@@ -289,7 +289,7 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     header.title = [self titleForHeaderInSection:section];
 }
 
-- (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section; {
+- (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     if ([self shouldShowHeaderForSection:section]) {
         WMFArticleLanguagesSectionHeader* header = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFArticleLanguagesSectionHeader wmf_nibName]];
         [self configureHeader:header forSection:section];
@@ -453,7 +453,7 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     return (self.showPreferredLanguages && (section == 0));
 }
 
-- (nullable UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section; {
+- (nullable UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section {
     if ([self shouldShowFooterForSection:section]) {
         WMFArticleLanguagesSectionFooter* footer = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFArticleLanguagesSectionFooter wmf_nibName]];
         footer.title = MWLocalizedString(@"settings-primary-language-details", nil);
