@@ -99,4 +99,6 @@
 
 + (instancetype)wmf_welcomeNextButtonDividerBackgroundColor;
 
++ (instancetype)wmf_primaryLanguageLabelBackgroundColor;
+
 @end

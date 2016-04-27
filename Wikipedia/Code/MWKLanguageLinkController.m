@@ -155,24 +155,6 @@ static id _sharedInstance;
     [self savePreferredLanguageCodes:langCodes];
 }
 
-- (void)insertPreferredLanguage:(MWKLanguageLink*)language atIndex:(NSUInteger)newIndex {
-    NSParameterAssert(language);
-    NSMutableArray<NSString*>* langCodes = [[self readPreferredLanguageCodes] mutableCopy];
-    NSUInteger oldIndex                  = [langCodes indexOfObject:language.languageCode];
-    if (oldIndex != NSNotFound) {
-        [self reorderPreferredLanguage:language toIndex:newIndex];
-        return;
-    }
-    
-    NSAssert(newIndex < [langCodes count], @"new language index is out of range");
-    if (newIndex > [langCodes count]) {
-        //make last if index is too high
-        newIndex = [langCodes count];
-    }
-    [langCodes insertObject:language.languageCode atIndex:newIndex];
-    [self savePreferredLanguageCodes:langCodes];
-}
-
 - (void)reorderPreferredLanguage:(MWKLanguageLink*)language toIndex:(NSUInteger)newIndex {
     NSMutableArray<NSString*>* langCodes = [[self readPreferredLanguageCodes] mutableCopy];
     NSAssert(newIndex < [langCodes count], @"new language index is out of range");

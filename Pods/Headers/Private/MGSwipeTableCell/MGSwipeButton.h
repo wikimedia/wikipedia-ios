@@ -1,1 +1,0 @@
-../../../MGSwipeTableCell/MGSwipeTableCell/MGSwipeButton.h

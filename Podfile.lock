@@ -46,7 +46,6 @@ PODS:
     - Mantle/extobjc (= 2.0.6)
   - Mantle/extobjc (2.0.6)
   - Masonry (0.6.2)
-  - MGSwipeTableCell (1.5.3)
   - Nimble (4.0.0)
   - Nocilla (0.10.0)
   - NSDate-Extensions (0.0.1)
@@ -113,7 +112,6 @@ DEPENDENCIES:
   - libextobjc/EXTScope (~> 0.4.1)
   - Mantle (~> 2.0.0)
   - Masonry (= 0.6.2)
-  - MGSwipeTableCell (from `git@github.com:wikimedia/MGSwipeTableCell.git`)
   - Nimble (~> 4.0.0)
   - Nocilla
   - NSDate-Extensions (from `git@github.com:wikimedia/NSDate-Extensions.git`)
@@ -137,8 +135,6 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   AnimatedGIFImageSerialization:
     :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git
-  MGSwipeTableCell:
-    :git: git@github.com:wikimedia/MGSwipeTableCell.git
   NSDate-Extensions:
     :git: git@github.com:wikimedia/NSDate-Extensions.git
   OAStackView:
@@ -155,9 +151,6 @@ CHECKOUT OPTIONS:
   AnimatedGIFImageSerialization:
     :commit: f0fcaa7d474672ecfdd8b7fd26ca2fca31940e0b
     :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git
-  MGSwipeTableCell:
-    :commit: 8ca85004bd7fcfe09a3b7938fb8c079a88481d45
-    :git: git@github.com:wikimedia/MGSwipeTableCell.git
   NSDate-Extensions:
     :commit: 388ab1b864b742feadc1cf94063968953fc6a6a1
     :git: git@github.com:wikimedia/NSDate-Extensions.git
@@ -188,7 +181,6 @@ SPEC CHECKSUMS:
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Mantle: 299966b00759634931699f69cb6a30b9239b944d
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
-  MGSwipeTableCell: 5ae3b9a15efda26b201adc8676b24040febe6ff6
   Nimble: 72bcc3e2f02242e6bfaaf8d9412ca7bfe3d8b417
   Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
   NSDate-Extensions: 5bd64f8815dc6b3c9d08e1f620229567e2b4771c
