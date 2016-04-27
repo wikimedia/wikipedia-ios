@@ -202,7 +202,11 @@
             }
             break;
             case FETCH_FINAL_STATUS_FAILED: {
-                [self logout];
+                // If autoLogin fails the credentials need to be cleared out if they're no longer valid so the
+                // user has an indication that they're no longer logged in.
+                if (error.code == LOGIN_ERROR_PASSWORD_WRONG){
+                    [self logout];
+                }
             }
             break;
             default:
