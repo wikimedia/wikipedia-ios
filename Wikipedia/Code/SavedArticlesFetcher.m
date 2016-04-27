@@ -164,7 +164,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 
 - (AnyPromise*)fetchAllImagesInArticle:(MWKArticle*)article {
     WMFURLCache* cache = (WMFURLCache*)[NSURLCache sharedURLCache];
-    [cache permenantlyCacheImagesForArticle:article];
+    [cache permanentlyCacheImagesForArticle:article];
 
     NSArray<NSURL*>* urls = [[[article allImageURLs] allObjects] bk_reject:^BOOL (id obj) {
         return [obj isEqual:[NSNull null]];

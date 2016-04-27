@@ -16,8 +16,10 @@
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 #import "WMFArticleLanguagesSectionHeader.h"
+#import "WMFArticleLanguagesSectionFooter.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "WMFWelcomeLanguageTableViewCell.h"
 
 static CGFloat const WMFOtherLanguageRowHeight = 138.f;
 static CGFloat const WMFLanguageHeaderHeight   = 57.f;
@@ -249,7 +251,19 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
         [self configureOtherLanguageCell:cell atRow:indexPath.row];
     }
 
+    cell.deleteButton.alpha = [self alphaForDeleteButton];
+    
     return cell;
+}
+
+- (CGFloat)alphaForDeleteButton {
+    return !self.tableView.editing || ([MWKLanguageLinkController sharedInstance].preferredLanguages.count == 1) ? 0.f : 1.f;
+}
+
+- (void)updateDeleteButtonsVisibility {
+    for (WMFWelcomeLanguageTableViewCell* cell in self.tableView.visibleCells) {
+        cell.deleteButton.alpha = [self alphaForDeleteButton];
+    }
 }
 
 - (MWKLanguageLink*)languageAtIndexPath:(NSIndexPath*)indexPath {
@@ -268,14 +282,14 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
 
 - (NSString*)titleForHeaderInSection:(NSInteger)section {
     NSString* title = ([self isPreferredSection:section]) ? MWLocalizedString(@"article-languages-yours", nil) : MWLocalizedString(@"article-languages-others", nil);
-    return [title uppercaseStringWithLocale:[NSLocale currentLocale]];;
+    return [title uppercaseStringWithLocale:[NSLocale currentLocale]];
 }
 
 - (void)configureHeader:(WMFArticleLanguagesSectionHeader*)header forSection:(NSInteger)section {
     header.title = [self titleForHeaderInSection:section];
 }
 
-- (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section; {
+- (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     if ([self shouldShowHeaderForSection:section]) {
         WMFArticleLanguagesSectionHeader* header = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFArticleLanguagesSectionHeader wmf_nibName]];
         [self configureHeader:header forSection:section];
@@ -309,23 +323,8 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     }
 }
 
-- (BOOL)tableView:(UITableView*)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath {
-    return
-        [self isPreferredSection:indexPath.section]
-        &&
-        ([self tableView:tableView numberOfRowsInSection:indexPath.section] > 1)
-        &&
-        (self.languageFilter.languageFilter.length == 0)
-    ;
-}
-
 - (BOOL)tableView:(UITableView*)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath*)indexPath {
     return NO;
-}
-
-- (void)tableView:(UITableView*)tableView moveRowAtIndexPath:(NSIndexPath*)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath {
-    MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[sourceIndexPath.row];
-    [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
 }
 
 - (void)tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -347,11 +346,6 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     self.languageFilterField.text      = @"";
     [tableView reloadData];
     [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-}
-
-- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
-    // HAX: hide line separators which appear before sections/rows load
-    return 0.1f;
 }
 
 #pragma mark - UITextFieldDelegate
@@ -406,6 +400,11 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     [super viewDidLoad];
     //need to update the footer
     [self setEditing:self.editing animated:NO];
+    
+    self.tableView.sectionFooterHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedSectionFooterHeight = 50.f;
+
+    [self.tableView registerNib:[WMFArticleLanguagesSectionFooter wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFArticleLanguagesSectionFooter wmf_nibName]];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
@@ -414,9 +413,11 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     if (animated) {
         [UIView animateWithDuration:0.30 animations:^{
             self.tableView.tableFooterView.alpha = editing ? 1.0 : 0.0;
+            [self updateDeleteButtonsVisibility];
         }];
     } else {
         self.tableView.tableFooterView.alpha = editing ? 1.0 : 0.0;
+        [self updateDeleteButtonsVisibility];
     }
 }
 
@@ -431,6 +432,45 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     [self reloadDataSections];
     [controller dismissViewControllerAnimated:YES completion:NULL];
     [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
+}
+
+- (BOOL)shouldShowFooterForSection:(NSInteger)section {
+    return (self.showPreferredLanguages && (section == 0));
+}
+
+- (nullable UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section {
+    if ([self shouldShowFooterForSection:section]) {
+        WMFArticleLanguagesSectionFooter* footer = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFArticleLanguagesSectionFooter wmf_nibName]];
+        footer.title = MWLocalizedString(@"settings-primary-language-details", nil);
+        return footer;
+    } else {
+        return nil;
+    }
+}
+
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
+    WMFLanguageCell* cell = (WMFLanguageCell*)[super tableView:tableView cellForRowAtIndexPath:indexPath];
+    cell.isPrimary = (indexPath.row == 0) ? YES : NO;
+    return cell;
+}
+
+- (void)tableView:(UITableView*)tableView moveRowAtIndexPath:(NSIndexPath*)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath {
+    MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[sourceIndexPath.row];
+    [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
+  
+    // TODO: reloadData is a bit brute force, but had issues with the "PRIMARY" indicator
+    // showing on more than one cell after re-ordering first cell.
+    [tableView reloadData];
+}
+
+- (BOOL)tableView:(UITableView*)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath {
+    return
+    [self isPreferredSection:indexPath.section]
+    &&
+    ([self tableView:tableView numberOfRowsInSection:indexPath.section] > 1)
+    &&
+    (self.languageFilter.languageFilter.length == 0)
+    ;
 }
 
 @end
@@ -492,6 +532,11 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     } failure:^(NSError* __nonnull error) {
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
     }];
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
+    // HAX: hide line separators which appear before sections/rows load
+    return 0.1f;
 }
 
 @end
