@@ -231,4 +231,14 @@
     ];
 }
 
+- (void)logout {
+    [SessionSingleton sharedInstance].keychainCredentials.userName   = nil;
+    [SessionSingleton sharedInstance].keychainCredentials.password   = nil;
+    [SessionSingleton sharedInstance].keychainCredentials.editTokens = nil;
+    // Clear session cookies too.
+    for (NSHTTPCookie* cookie in[[NSHTTPCookieStorage sharedHTTPCookieStorage].cookies copy]) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
+}
+
 @end
