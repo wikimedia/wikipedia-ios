@@ -108,6 +108,13 @@ NS_ASSUME_NONNULL_BEGIN
                                  self.escapedURLText]];
 }
 
+- (BOOL)isNonStandardTitle {
+    //TODO: this is the best test for now
+    //We should formailze this
+    //Really we shoud remove MWKTitle in favor NSURLComponenets
+    return self.site.language == nil;
+}
+
 - (BOOL)isEqual:(id)object {
     if (self == object) {
         return YES;

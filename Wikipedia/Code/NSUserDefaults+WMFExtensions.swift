@@ -59,12 +59,17 @@ extension NSUserDefaults {
     }
     
     public func wmf_setOpenArticleTitle(title: MWKTitle?) {
-        if let title = title {
-            let data = NSKeyedArchiver.archivedDataWithRootObject(title)
-            self.setObject(data, forKey: WMFOpenArticleTitleKey)
-        }else{
+        guard let title = title else{
             self.removeObjectForKey(WMFOpenArticleTitleKey)
+            self.synchronize()
+            return
         }
+        guard !title.isNonStandardTitle() else{
+            return;
+        }
+        
+        let data = NSKeyedArchiver.archivedDataWithRootObject(title)
+        self.setObject(data, forKey: WMFOpenArticleTitleKey)
         self.synchronize()
     }
 
