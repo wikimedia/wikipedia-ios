@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIBarButtonItem*)wmf_barButtonItemOfFixedWidth:(CGFloat)width;
 
++ (UIBarButtonItem*)flexibleSpaceToolbarItem;
+
 @end
 
 NS_ASSUME_NONNULL_END

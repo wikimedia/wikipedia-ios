@@ -55,6 +55,7 @@
 #import "WMFArticleTextActivitySource.h"
 #import "UIImageView+WMFImageFetching.h"
 #import "UIImageView+WMFPlaceholder.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
 
 #import "NSString+WMFPageUtilities.h"
 #import "NSURL+WMFLinkParsing.h"
@@ -80,6 +81,13 @@ NS_ASSUME_NONNULL_BEGIN
  WMFFontSliderViewControllerDelegate,
  UIPopoverPresentationControllerDelegate>
 
+// Data
+@property (nonatomic, strong, readwrite, nullable) MWKArticle* article;
+
+// Children
+@property (nonatomic, strong, nullable) WMFTableOfContentsViewController* tableOfContentsViewController;
+@property (nonatomic, strong) WebViewController* webViewController;
+
 @property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
 
@@ -102,11 +110,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Views
 @property (nonatomic, strong) UIImageView* headerImageView;
-@property (nonatomic, strong) UIBarButtonItem* saveToolbarItem;
-@property (nonatomic, strong) UIBarButtonItem* languagesToolbarItem;
-@property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
-@property (nonatomic, strong) UIBarButtonItem* fontSizeToolbarItem;
-@property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem* saveToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem* languagesToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem* shareToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem* fontSizeToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem* tableOfContentsToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
 @property (nonatomic, strong) UIRefreshControl* pullToRefresh;
 
@@ -173,7 +181,11 @@ NS_ASSUME_NONNULL_BEGIN
     self.webViewController.article        = _article;
 
     if (self.article) {
-        [self.headerImageView wmf_setImageWithMetadata:_article.leadImage detectFaces:YES];
+        if([self.article.title isNonStandardTitle]){
+            self.headerImageView.image = nil;
+        }else{
+            [self.headerImageView wmf_setImageWithMetadata:_article.leadImage detectFaces:YES];
+        }
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
         [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_articleViewActivityWithArticle:self.article]];
@@ -335,6 +347,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Toolbar Setup
 
+- (NSArray<UIBarButtonItem*>*)articleToolBarItems {
+    return [NSArray arrayWithObjects:
+            self.languagesToolbarItem,
+            [UIBarButtonItem flexibleSpaceToolbarItem],
+            self.fontSizeToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:22.f],
+            self.shareToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:24.f],
+            self.saveToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.0],
+            [UIBarButtonItem flexibleSpaceToolbarItem],
+            self.tableOfContentsToolbarItem,
+            nil];
+}
+
 - (void)updateToolbar {
     [self updateToolbarItemsIfNeeded];
     [self updateToolbarItemEnabledState];
@@ -345,16 +369,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.savedPages title:self.articleTitle];
     }
 
-    NSArray<UIBarButtonItem*>* toolbarItems =
-        [NSArray arrayWithObjects:
-         self.languagesToolbarItem,
-         [self flexibleSpaceToolbarItem],
-         self.fontSizeToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:22.f],
-         self.shareToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:24.f],
-         self.saveToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.0],
-         [self flexibleSpaceToolbarItem],
-         self.tableOfContentsToolbarItem,
-         nil];
+    NSArray<UIBarButtonItem*>* toolbarItems = [self articleToolBarItems];
 
     if (self.toolbarItems.count != toolbarItems.count) {
         // HAX: only update toolbar if # of items has changed, otherwise items will (somehow) get lost
@@ -388,12 +403,6 @@ NS_ASSUME_NONNULL_BEGIN
         _saveToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:nil action:nil];
     }
     return _saveToolbarItem;
-}
-
-- (UIBarButtonItem*)flexibleSpaceToolbarItem {
-    return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                         target:nil
-                                                         action:NULL];
 }
 
 - (UIBarButtonItem*)fontSizeToolbarItem {
@@ -535,7 +544,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  This leaves 20% of progress for that work.
  */
 - (CGFloat)totalProgressWithArticleFetcherProgress:(CGFloat)progress {
-    return  0.1 + (0.7 * progress);
+    return 0.1 + (0.7 * progress);
 }
 
 #pragma mark - Significantly Viewed Timer

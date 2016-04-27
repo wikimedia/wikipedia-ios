@@ -59,7 +59,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)shareArticleFromButton:(nullable UIBarButtonItem*)button;
 
+@end
+
+
+@interface WMFArticleViewController (WMFSubclasses)
+
+@property (nonatomic, strong, readonly) UIBarButtonItem* saveToolbarItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem* languagesToolbarItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem* shareToolbarItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem* fontSizeToolbarItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem* tableOfContentsToolbarItem;
+
+
+- (NSArray<UIBarButtonItem*>*)articleToolBarItems;
+
+- (void)updateToolbarItemEnabledState;
+
+
 
 @end
+
 
 NS_ASSUME_NONNULL_END
