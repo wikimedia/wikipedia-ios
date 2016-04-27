@@ -90,7 +90,7 @@
 
 - (void)updateDeleteButtonsVisibility {
     for (WMFWelcomeLanguageTableViewCell* cell in self.languageTableView.visibleCells) {
-        cell.minusButton.hidden = ([MWKLanguageLinkController sharedInstance].preferredLanguages.count == 1) ? YES : NO;
+        cell.deleteButton.hidden = ([MWKLanguageLinkController sharedInstance].preferredLanguages.count == 1) ? YES : NO;
     }
 }
 

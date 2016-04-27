@@ -6,6 +6,6 @@
 
 @interface WMFCustomDeleteButtonTableViewCell : UITableViewCell
 
-@property (strong, nonatomic, readonly) UIButton* minusButton;
+@property (strong, nonatomic, readonly) UIButton* deleteButton;
 
 @end

@@ -3,9 +3,9 @@
 
 @interface WMFCustomDeleteButtonTableViewCell ()
 
-@property (strong, nonatomic) UIButton* minusButton;
+@property (strong, nonatomic) UIButton* deleteButton;
 @property (strong, nonatomic) CALayer* cellWhiteLayer;
-@property (strong, nonatomic) CALayer* minusButtonWhiteLayer;
+@property (strong, nonatomic) CALayer* deleteButtonWhiteLayer;
 
 @end
 
@@ -15,18 +15,18 @@
     [super layoutSubviews];
     
     // HAX: ensure the custom button is always on top.
-    [self.minusButton.superview bringSubviewToFront:self.minusButton];
+    [self.deleteButton.superview bringSubviewToFront:self.deleteButton];
 
     self.cellWhiteLayer.frame = self.bounds;
-    self.minusButtonWhiteLayer.frame = self.minusButton.bounds;
+    self.deleteButtonWhiteLayer.frame = self.deleteButton.bounds;
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.minusButton = [self wmf_minusButton];
-    [self.contentView.superview addSubview:self.minusButton];
-    [self.minusButton mas_makeConstraints:^(MASConstraintMaker* make) {
+    self.deleteButton = [self wmf_deleteButton];
+    [self.contentView.superview addSubview:self.deleteButton];
+    [self.deleteButton mas_makeConstraints:^(MASConstraintMaker* make) {
         make.width.equalTo(@(50));
 
         // HAX: attach leading edge to contentView so it tracks horizonally
@@ -35,15 +35,15 @@
         make.leading.equalTo(self.contentView).offset(-40);
 
         // HAX: use offsets for top and bottom so as not to overlap separators.
-        make.top.equalTo(self.minusButton.superview).offset(1);
-        make.bottom.equalTo(self.minusButton.superview).offset(-1);
+        make.top.equalTo(self.deleteButton.superview).offset(1);
+        make.bottom.equalTo(self.deleteButton.superview).offset(-1);
     }];
 
     self.cellWhiteLayer = [self whiteLayer];
     [self.layer insertSublayer:self.cellWhiteLayer atIndex:0];
 }
 
-- (UIButton *)wmf_minusButton {
+- (UIButton *)wmf_deleteButton {
     UIButton *button = [[UIButton alloc] init];
     button.translatesAutoresizingMaskIntoConstraints = NO;
     button.userInteractionEnabled = NO;
@@ -52,8 +52,8 @@
     [button setImage:[UIImage imageNamed:@"language-delete"] forState:UIControlStateNormal];
     button.imageView.backgroundColor = [UIColor whiteColor];
     
-    self.minusButtonWhiteLayer = [self whiteLayer];
-    [button.layer insertSublayer:self.minusButtonWhiteLayer atIndex:0];
+    self.deleteButtonWhiteLayer = [self whiteLayer];
+    [button.layer insertSublayer:self.deleteButtonWhiteLayer atIndex:0];
     
     return button;
 }

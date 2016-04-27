@@ -251,18 +251,18 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
         [self configureOtherLanguageCell:cell atRow:indexPath.row];
     }
 
-    cell.minusButton.alpha = [self alphaForMinusButton];
+    cell.deleteButton.alpha = [self alphaForDeleteButton];
     
     return cell;
 }
 
-- (CGFloat)alphaForMinusButton {
+- (CGFloat)alphaForDeleteButton {
     return !self.tableView.editing || ([MWKLanguageLinkController sharedInstance].preferredLanguages.count == 1) ? 0.f : 1.f;
 }
 
-- (void)updateMinusButtonsVisibility {
+- (void)updateDeleteButtonsVisibility {
     for (WMFWelcomeLanguageTableViewCell* cell in self.tableView.visibleCells) {
-        cell.minusButton.alpha = [self alphaForMinusButton];
+        cell.deleteButton.alpha = [self alphaForDeleteButton];
     }
 }
 
@@ -428,11 +428,11 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     if (animated) {
         [UIView animateWithDuration:0.30 animations:^{
             self.tableView.tableFooterView.alpha = editing ? 1.0 : 0.0;
-            [self updateMinusButtonsVisibility];
+            [self updateDeleteButtonsVisibility];
         }];
     } else {
         self.tableView.tableFooterView.alpha = editing ? 1.0 : 0.0;
-        [self updateMinusButtonsVisibility];
+        [self updateDeleteButtonsVisibility];
     }
 }
 
