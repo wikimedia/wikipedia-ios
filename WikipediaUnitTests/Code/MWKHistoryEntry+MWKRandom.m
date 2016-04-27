@@ -15,7 +15,7 @@
     return [[self alloc] initWithTitle:[MWKTitle random]];
 }
 
-+ (instancetype)randomSaveableEntry; {
++ (instancetype)randomSaveableEntry {
     MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:[MWKTitle random]];
     // HAX: history entries need significantly different dates for the order to persist properly
     float timeInterval = roundf((float)1e6 * ((float)arc4random() / (float)UINT32_MAX));

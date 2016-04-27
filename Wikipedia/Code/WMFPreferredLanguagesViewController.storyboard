@@ -35,46 +35,9 @@
                                     <constraint firstAttribute="height" constant="1" id="ARZ-wg-hsQ"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="iFX-H4-bkt">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="iFX-H4-bkt">
                                 <rect key="frame" x="0.0" y="65" width="320" height="503"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="22O-Le-VtS">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gH-ZN-qov">
-                                            <rect key="frame" x="60" y="14" width="90" height="32"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="32" id="kb9-Tk-LDD"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <state key="normal" title="Add another">
-                                                <color key="titleColor" red="0.1647058824" green="0.30980392159999998" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="addLanguages:" destination="vqp-1K-wjM" eventType="touchUpInside" id="92D-my-GcN"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0l8-uP-alG">
-                                            <rect key="frame" x="15" y="19" width="30" height="22"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="30" id="TFA-aI-Q6A"/>
-                                                <constraint firstAttribute="height" constant="22" id="o4M-vd-YaL"/>
-                                            </constraints>
-                                            <state key="normal" image="language-add"/>
-                                            <connections>
-                                                <action selector="addLanguages:" destination="vqp-1K-wjM" eventType="touchUpInside" id="Bzi-Vf-NQJ"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstItem="0l8-uP-alG" firstAttribute="centerY" secondItem="22O-Le-VtS" secondAttribute="centerY" id="3Ax-st-LSF"/>
-                                        <constraint firstItem="7gH-ZN-qov" firstAttribute="leading" secondItem="0l8-uP-alG" secondAttribute="trailing" constant="15" id="6dE-TR-bCv"/>
-                                        <constraint firstItem="0l8-uP-alG" firstAttribute="leading" secondItem="22O-Le-VtS" secondAttribute="leading" constant="15" id="CZm-w8-Tiy"/>
-                                        <constraint firstItem="0l8-uP-alG" firstAttribute="centerY" secondItem="7gH-ZN-qov" secondAttribute="centerY" id="m6h-SX-1Xz"/>
-                                    </constraints>
-                                </view>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="vqp-1K-wjM" id="YdH-D0-vDJ"/>
                                     <outlet property="delegate" destination="vqp-1K-wjM" id="lRQ-Yf-fLg"/>
@@ -109,7 +72,4 @@
             <point key="canvasLocation" x="111" y="-3528"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="language-add" width="22" height="22"/>
-    </resources>
 </document>

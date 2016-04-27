@@ -15,7 +15,6 @@
 @property (strong, nonatomic) IBOutlet UILabel* titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel* subTitleLabel;
 @property (strong, nonatomic) IBOutlet UIButton* moreLanguagesButton;
-@property (strong, nonatomic) IBOutlet UIButton* moreLanguagesIcon;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
 @property (strong, nonatomic) IBOutlet UIView* dividerAboveNextStepButton;
 @property (strong, nonatomic) IBOutlet WelcomeLanguagesAnimationView* animationView;
@@ -43,8 +42,6 @@
 
     [self wmf_setupTransparentWelcomeNavigationBarWithBackChevron];
     self.animationView.backgroundColor = [UIColor clearColor];
-
-    self.moreLanguagesIcon.tintColor = [UIColor wmf_blueTintColor];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -86,12 +83,14 @@
     }
 }
 
-- (void)updateFirstCell {
-    if([[[MWKLanguageLinkController sharedInstance] preferredLanguages] count] == 1){
-        WMFWelcomeLanguageTableViewCell* firstCell = [self.languageTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [UIView animateWithDuration:0.25 animations:^{
-            firstCell.minusButton.alpha = 0.0;
-        }];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self updateDeleteButtonsVisibility];
+}
+
+- (void)updateDeleteButtonsVisibility {
+    for (WMFWelcomeLanguageTableViewCell* cell in self.languageTableView.visibleCells) {
+        cell.deleteButton.hidden = ([MWKLanguageLinkController sharedInstance].preferredLanguages.count == 1) ? YES : NO;
     }
 }
 
@@ -103,26 +102,8 @@
     WMFWelcomeLanguageTableViewCell* cell = (id)[tableView dequeueReusableCellWithIdentifier:[WMFWelcomeLanguageTableViewCell wmf_nibName]
                                                                                 forIndexPath:indexPath];
     MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
-    cell.languageNameLabel.text = langLink.localizedName;
+    cell.languageName = langLink.name;
 
-    //can only delete non-OS languages
-    if ([[MWKLanguageLinkController sharedInstance].preferredLanguages count] > 1) {
-        @weakify(self)
-        @weakify(cell)
-        cell.deleteButtonTapped = ^{
-            @strongify(self)
-            @strongify(cell)
-            NSIndexPath* indexPath = [self.languageTableView indexPathForCell:cell];
-            MWKLanguageLink * langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
-            [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [self updateFirstCell];
-            [self useFirstPreferredLanguageAsSearchLanguage];
-        };
-        cell.minusButton.alpha = 1.0;
-    } else {
-        cell.minusButton.alpha = 0.0;
-    }
     return cell;
 }
 
@@ -130,8 +111,24 @@
     return [[MWKLanguageLinkController sharedInstance].preferredLanguages count] > 1;
 }
 
+- (void)tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+
+        MWKLanguageLink * langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
+        [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self updateDeleteButtonsVisibility];
+        
+        [self useFirstPreferredLanguageAsSearchLanguage];
+    }
+}
+
 - (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
-    return UITableViewCellEditingStyleNone; //remove delete control
+    if ([[MWKLanguageLinkController sharedInstance].preferredLanguages count] > 1) {
+        return UITableViewCellEditingStyleDelete;
+    } else{
+        return UITableViewCellEditingStyleNone;
+    }
 }
 
 - (void)tableView:(UITableView*)tableView moveRowAtIndexPath:(NSIndexPath*)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath {
