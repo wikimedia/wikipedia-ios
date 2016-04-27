@@ -14,7 +14,9 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    [self.deleteButton.superview bringSubviewToFront:self.deleteButton];
+    if (self.deleteButton.superview.subviews.lastObject != self.deleteButton) {
+        [self.deleteButton.superview bringSubviewToFront:self.deleteButton];
+    }
 
     self.cellWhiteLayer.frame = self.bounds;
     self.deleteButtonWhiteLayer.frame = self.deleteButton.bounds;
