@@ -190,10 +190,6 @@
                                                thenNotifyDelegate:self];
             }
             break;
-            case FETCH_FINAL_STATUS_FAILED: {
-                [SessionSingleton sharedInstance].keychainCredentials.userName = nil;
-                [SessionSingleton sharedInstance].keychainCredentials.password = nil;
-            }
             default:
                 break;
         }
@@ -203,6 +199,10 @@
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [self cloneSessionCookies];
+            }
+            break;
+            case FETCH_FINAL_STATUS_FAILED: {
+                [self logout];
             }
             break;
             default:
