@@ -81,6 +81,7 @@ static CGFloat const WMFLocalizedLanguageLabelHeight   = 18.f;
     self.localizedLanguageLabel.text      = nil;
     self.localizedLanguageLabelHeight.constant = 0.f;
     self.isPrimary = NO;
+    self.isPreferred = NO;
 }
 
 - (void)setIsPrimary:(BOOL)isPrimary {
