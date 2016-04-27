@@ -14,7 +14,6 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    // HAX: ensure the custom button is always on top.
     [self.deleteButton.superview bringSubviewToFront:self.deleteButton];
 
     self.cellWhiteLayer.frame = self.bounds;
@@ -29,12 +28,12 @@
     [self.deleteButton mas_makeConstraints:^(MASConstraintMaker* make) {
         make.width.equalTo(@(50));
 
-        // HAX: attach leading edge to contentView so it tracks horizonally
+        // Attach leading edge to contentView so it tracks horizonally
         // with cell animations such as when enabling table view editing with
         // animations.
         make.leading.equalTo(self.contentView).offset(-40);
 
-        // HAX: use offsets for top and bottom so as not to overlap separators.
+        // Use offsets for top and bottom so as not to overlap separators.
         make.top.equalTo(self.deleteButton.superview).offset(1);
         make.bottom.equalTo(self.deleteButton.superview).offset(-1);
     }];
