@@ -323,23 +323,8 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     }
 }
 
-- (BOOL)tableView:(UITableView*)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath {
-    return
-        [self isPreferredSection:indexPath.section]
-        &&
-        ([self tableView:tableView numberOfRowsInSection:indexPath.section] > 1)
-        &&
-        (self.languageFilter.languageFilter.length == 0)
-    ;
-}
-
 - (BOOL)tableView:(UITableView*)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath*)indexPath {
     return NO;
-}
-
-- (void)tableView:(UITableView*)tableView moveRowAtIndexPath:(NSIndexPath*)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath {
-    MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[sourceIndexPath.row];
-    [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
 }
 
 - (void)tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -470,8 +455,22 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
 }
 
 - (void)tableView:(UITableView*)tableView moveRowAtIndexPath:(NSIndexPath*)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath {
-    [super tableView:tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+    MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[sourceIndexPath.row];
+    [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
+  
+    // TODO: reloadData is a bit brute force, but had issues with the "PRIMARY" indicator
+    // showing on more than one cell after re-ordering first cell.
     [tableView reloadData];
+}
+
+- (BOOL)tableView:(UITableView*)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath {
+    return
+    [self isPreferredSection:indexPath.section]
+    &&
+    ([self tableView:tableView numberOfRowsInSection:indexPath.section] > 1)
+    &&
+    (self.languageFilter.languageFilter.length == 0)
+    ;
 }
 
 @end
