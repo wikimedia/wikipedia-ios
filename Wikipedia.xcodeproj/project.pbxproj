@@ -6256,7 +6256,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 841;
+				CURRENT_PROJECT_VERSION = 842;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
@@ -6372,7 +6372,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 841;
+				CURRENT_PROJECT_VERSION = 842;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
@@ -6609,7 +6609,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 841;
+				CURRENT_PROJECT_VERSION = 842;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
@@ -6646,7 +6646,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 841;
+				CURRENT_PROJECT_VERSION = 842;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
