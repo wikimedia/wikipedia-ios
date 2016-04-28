@@ -248,14 +248,7 @@ static NSString* const WMFSettingsURLSupport   = @"https://donate.wikimedia.org/
 }
 
 - (void)logout {
-    //TODO: find better home for this.
-    [SessionSingleton sharedInstance].keychainCredentials.userName   = nil;
-    [SessionSingleton sharedInstance].keychainCredentials.password   = nil;
-    [SessionSingleton sharedInstance].keychainCredentials.editTokens = nil;
-    // Clear session cookies too.
-    for (NSHTTPCookie* cookie in[[NSHTTPCookieStorage sharedHTTPCookieStorage].cookies copy]) {
-        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-    }
+    [[SessionSingleton sharedInstance] logout];
 }
 
 #pragma mark - Languages

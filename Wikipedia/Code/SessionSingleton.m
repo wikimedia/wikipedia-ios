@@ -201,6 +201,14 @@
                 [self cloneSessionCookies];
             }
             break;
+            case FETCH_FINAL_STATUS_FAILED: {
+                // If autoLogin fails the credentials need to be cleared out if they're no longer valid so the
+                // user has an indication that they're no longer logged in.
+                if (error.domain == WMFAccountLoginErrorDomain && error.code != LOGIN_ERROR_UNKNOWN && error.code != LOGIN_ERROR_API){
+                    [self logout];
+                }
+            }
+            break;
             default:
                 break;
         }
@@ -225,6 +233,16 @@
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] wmf_recreateCookie:@"centralauth_Session"
                                                 usingCookieAsTemplate:@"centralauth_User"
     ];
+}
+
+- (void)logout {
+    [SessionSingleton sharedInstance].keychainCredentials.userName   = nil;
+    [SessionSingleton sharedInstance].keychainCredentials.password   = nil;
+    [SessionSingleton sharedInstance].keychainCredentials.editTokens = nil;
+    // Clear session cookies too.
+    for (NSHTTPCookie* cookie in[[NSHTTPCookieStorage sharedHTTPCookieStorage].cookies copy]) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
 }
 
 @end
