@@ -1,6 +1,0 @@
-framework module MGSwipeTableCell {
-  umbrella header "MGSwipeTableCell-umbrella.h"
-
-  export *
-  module * { export * }
-}

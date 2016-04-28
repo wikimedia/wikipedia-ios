@@ -60,7 +60,7 @@
 
 - (AnyPromise*)fetchGalleryInfoForImagesOnPages:(NSArray*)pageTitles
                                        fromSite:(MWKSite*)site
-                               metadataLanguage:(nullable NSString*)metadataLanguage; {
+                               metadataLanguage:(nullable NSString*)metadataLanguage {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
         [self fetchInfoForTitles:pageTitles
                         fromSite:site

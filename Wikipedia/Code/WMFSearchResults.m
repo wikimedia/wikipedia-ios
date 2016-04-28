@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithSearchTerm:(NSString*)searchTerm
                            results:(nullable NSArray<MWKSearchResult*>*)results
                   searchSuggestion:(nullable NSString*)suggestion
-                  redirectMappings:(NSArray<MWKSearchRedirectMapping*>*)redirectMappings; {
+                  redirectMappings:(NSArray<MWKSearchRedirectMapping*>*)redirectMappings {
     self = [self init];
     if (self) {
         self.searchTerm       = searchTerm;

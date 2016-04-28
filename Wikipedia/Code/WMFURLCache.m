@@ -18,7 +18,7 @@ static NSString* const WMFURLCacheXCS           = @"X-CS";
 
 @implementation WMFURLCache
 
-- (void)permenantlyCacheImagesForArticle:(MWKArticle*)article {
+- (void)permanentlyCacheImagesForArticle:(MWKArticle*)article {
     [article.images.entries enumerateObjectsUsingBlock:^(NSString* _Nonnull imagePath, NSUInteger idx, BOOL* _Nonnull stop) {
         MWKImage* image = [article.images objectAtIndexedSubscript:idx];
         NSURL* url = image.sourceURL;

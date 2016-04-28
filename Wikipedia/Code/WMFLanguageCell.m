@@ -5,20 +5,23 @@
 #import "WikipediaAppUtils.h"
 #import "UILabel+WMFStyling.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
+#import "NSString+WMFExtras.h"
 
-static CGFloat const WMFPreferredLanguageFontSize = 15.f;
-static CGFloat const WMFPreferredTitleFontSize    = 12.f;
-static CGFloat const WMFOtherLanguageFontSize     = 15.f;
-static CGFloat const WMFOtherTitleFontSize        = 12.f;
-static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
+static CGFloat const WMFPreferredLanguageFontSize      = 15.f;
+static CGFloat const WMFPreferredTitleFontSize         = 12.f;
+static CGFloat const WMFOtherLanguageFontSize          = 15.f;
+static CGFloat const WMFOtherTitleFontSize             = 12.f;
+static CGFloat const WMFLocalizedLanguageLabelHeight   = 18.f;
 
 @interface WMFLanguageCell ()
 
 @property (strong, nonatomic) IBOutlet UILabel* localizedLanguageLabel;
 @property (strong, nonatomic) IBOutlet UILabel* articleTitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel* languageNameLabel;
+@property (strong, nonatomic) IBOutlet UILabel* primaryLabel;
+@property (strong, nonatomic) IBOutlet UIView* primaryLabelContainerView;
 
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint* languageNameLabelHeight;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* localizedLanguageLabelHeight;
 
 @end
 
@@ -27,13 +30,13 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
 - (void)setIsPreferred:(BOOL)isPreferred {
     _isPreferred = isPreferred;
     if (isPreferred) {
-        self.localizedLanguageLabel.font = [UIFont systemFontOfSize:WMFPreferredLanguageFontSize];
+        self.localizedLanguageLabel.font = [UIFont systemFontOfSize:WMFPreferredTitleFontSize];
         self.articleTitleLabel.font      = [UIFont systemFontOfSize:WMFPreferredTitleFontSize];
-        self.languageNameLabel.font      = [UIFont systemFontOfSize:WMFPreferredTitleFontSize];
+        self.languageNameLabel.font      = [UIFont systemFontOfSize:WMFPreferredLanguageFontSize];
     } else {
-        self.localizedLanguageLabel.font = [UIFont systemFontOfSize:WMFOtherLanguageFontSize];
+        self.localizedLanguageLabel.font = [UIFont systemFontOfSize:WMFOtherTitleFontSize];
         self.articleTitleLabel.font      = [UIFont systemFontOfSize:WMFOtherTitleFontSize];
-        self.languageNameLabel.font      = [UIFont systemFontOfSize:WMFOtherTitleFontSize];
+        self.languageNameLabel.font      = [UIFont systemFontOfSize:WMFOtherLanguageFontSize];
     }
 }
 
@@ -49,10 +52,10 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
 
 - (void)setLanguageName:(NSString*)languageName {
     if ([self shouldShowLanguageName:languageName]) {
-        self.languageNameLabelHeight.constant = WMFLanguageNameLabelHeight;
+        self.localizedLanguageLabelHeight.constant = WMFLocalizedLanguageLabelHeight;
     }
     _languageName               = languageName;
-    self.languageNameLabel.text = languageName;
+    self.languageNameLabel.text = [languageName wmf_stringByCapitalizingFirstCharacter];
 }
 
 - (BOOL)shouldShowLanguageName:(NSString*)languageName {
@@ -69,15 +72,27 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
     [super awakeFromNib];
     [self prepareForReuse];
     [self wmf_makeCellDividerBeEdgeToEdge];
-    self.showsReorderControl = YES;
 }
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.languageNameLabel.text           = @"";
-    self.articleTitleLabel.text           = @"";
-    self.localizedLanguageLabel.text      = @"";
-    self.languageNameLabelHeight.constant = 0.f;
+    self.languageNameLabel.text           = nil;
+    self.articleTitleLabel.text           = nil;
+    self.localizedLanguageLabel.text      = nil;
+    self.localizedLanguageLabelHeight.constant = 0.f;
+    self.isPrimary = NO;
+    self.isPreferred = NO;
+}
+
+- (void)setIsPrimary:(BOOL)isPrimary {
+    _isPrimary = isPrimary;
+    if (isPrimary){
+        self.primaryLabel.text = [MWLocalizedString(@"settings-primary-language", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+        self.primaryLabelContainerView.backgroundColor = [UIColor wmf_primaryLanguageLabelBackgroundColor];
+    }else{
+        self.primaryLabel.text = nil;
+        self.primaryLabelContainerView.backgroundColor = [UIColor clearColor];
+    }
 }
 
 @end

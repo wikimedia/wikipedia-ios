@@ -635,19 +635,15 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (IBAction)openLanguagePicker:(id)sender {
-    WMFLanguagesViewController* languagesVC = [WMFPreferredLanguagesViewController languagesViewController];
+    WMFLanguagesViewController* languagesVC = [WMFPreferredLanguagesViewController preferredLanguagesViewController];
     languagesVC.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:NULL];
 }
 
-#pragma mark - LanguageSelectionDelegate
+#pragma mark - WMFPreferredLanguagesViewControllerDelegate
 
-- (void)languagesController:(WMFLanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
-    [[MWKLanguageLinkController sharedInstance] insertPreferredLanguage:language atIndex:1];
-    [self setSelectedLanguage:language];
-    [self dismissViewControllerAnimated:YES completion:NULL];
+- (void)languagesController:(WMFPreferredLanguagesViewController*)controller didUpdatePreferredLanguages:(NSArray<MWKLanguageLink*>*)languages {
 }
-
 
 #pragma mark - WMFArticleListTableViewControllerDelegate
 

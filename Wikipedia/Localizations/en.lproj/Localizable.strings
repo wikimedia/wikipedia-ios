@@ -119,6 +119,8 @@
 "settings-language-bar" = "Show languages on search";
 "settings-my-languages" = "My languages";
 "settings-help-and-feedback" = "Help and feedback";
+"settings-primary-language" = "Primary";
+"settings-primary-language-details" = "The first language in this list is used as the primary language for the app. Changing this language will change daily content (such as Featured Article) shown on Explore.";
 
 "main-menu-title" = "More";
 "main-menu-heading-about" = "About";
@@ -400,7 +402,7 @@
 
 "welcome-languages-title" = "Languages";
 "welcome-languages-sub-title" = "Choose your preferred languages to search Wikipedia";
-"welcome-languages-add-button" = "Add another";
+"welcome-languages-add-button" = "Add another language";
 "welcome-languages-continue-button" = "Continue";
 
 "welcome-volunteer-title" = "Volunteer";
