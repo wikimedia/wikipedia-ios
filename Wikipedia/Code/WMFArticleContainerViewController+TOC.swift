@@ -50,7 +50,11 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
     }
 
     public func tableOfContentsArticleSite() -> MWKSite {
-        return self.articleTitle.site
+        if(self.articleTitle.isNonStandardTitle()){
+            return MWKSite.init(language: "en")
+        }else{
+            return self.articleTitle.site
+        }
     }
 }
 
