@@ -31,6 +31,12 @@ static NSString* const WMFSettingsEmailSubject = @"Bug:";
     return self;
 }
 
+- (void)viewDidLoad{
+    [super viewDidLoad];
+    self.navigationItem.rightBarButtonItem = nil;
+}
+
+
 - (UIBarButtonItem*)sendEmailToolbarItem {
     if (!_sendEmailToolbarItem) {
         WMFLeadingImageTrailingTextButton* button = [[WMFLeadingImageTrailingTextButton alloc] init];
