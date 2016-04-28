@@ -4,10 +4,18 @@
 #import <Foundation/Foundation.h>
 #import "FetcherBase.h"
 
+extern NSString* const WMFAccountLoginErrorDomain;
+
 typedef NS_ENUM (NSInteger, LoginErrorType) {
-    LOGIN_ERROR_UNKNOWN = 0,
-    LOGIN_ERROR_API     = 1,
-    LOGIN_ERROR_MISC    = 2
+    LOGIN_ERROR_UNKNOWN,
+    LOGIN_ERROR_API,
+    LOGIN_ERROR_NAME_REQUIRED,
+    LOGIN_ERROR_NAME_ILLEGAL,
+    LOGIN_ERROR_NAME_NOT_FOUND,
+    LOGIN_ERROR_PASSWORD_REQUIRED,
+    LOGIN_ERROR_PASSWORD_WRONG,
+    LOGIN_ERROR_THROTTLED,
+    LOGIN_ERROR_BLOCKED
 };
 
 @class AFHTTPSessionManager;
