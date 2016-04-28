@@ -8,6 +8,8 @@
 #import "NSObject+WMFExtras.h"
 #import "WikipediaAppUtils.h"
 
+NSString* const WMFAccountLoginErrorDomain = @"WMFAccountLoginErrorDomain";
+
 @interface AccountLogin ()
 
 @property (strong, nonatomic) NSString* domain;
@@ -61,7 +63,7 @@
         if (responseObject[@"error"]) {
             NSMutableDictionary* errorDict = [responseObject[@"error"] mutableCopy];
             errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
-            error = [NSError errorWithDomain:@"Account Login"
+            error = [NSError errorWithDomain:WMFAccountLoginErrorDomain
                                         code:LOGIN_ERROR_API
                                     userInfo:errorDict];
         }
@@ -139,7 +141,7 @@
         errorType = LOGIN_ERROR_BLOCKED;
     }
 
-    return [NSError errorWithDomain:@"Account Login" code:errorType userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
+    return [NSError errorWithDomain:WMFAccountLoginErrorDomain code:errorType userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
 }
 
 /*

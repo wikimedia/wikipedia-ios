@@ -4,6 +4,8 @@
 #import <Foundation/Foundation.h>
 #import "FetcherBase.h"
 
+extern NSString* const WMFAccountLoginErrorDomain;
+
 typedef NS_ENUM (NSInteger, LoginErrorType) {
     LOGIN_ERROR_UNKNOWN,
     LOGIN_ERROR_API,
