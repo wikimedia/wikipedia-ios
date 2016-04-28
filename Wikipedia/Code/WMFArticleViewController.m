@@ -458,6 +458,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Article Footers
 
 - (void)updateWebviewFootersIfNeeded {
+    if([self.article.title isNonStandardTitle]){
+        return;
+    }
+
     NSMutableArray* footerVCs = [NSMutableArray arrayWithCapacity:2];
     [footerVCs wmf_safeAddObject:self.footerMenuViewController];
     /*

@@ -296,6 +296,12 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)addFooterView {
+    if(!self.article){
+        return;
+    }
+    if([self.article.title isNonStandardTitle]){
+        return;
+    }
     self.footerViewHeadersByIndex = [NSMutableDictionary dictionary];
     [self addFooterContainerView];
     [self addFooterContentViews];
@@ -313,6 +319,9 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)addFooterContentViews {
+    if([self.article.title isNonStandardTitle]){
+        return;
+    }
     NSParameterAssert(self.isViewLoaded);
     MASViewAttribute* lastAnchor = [self.footerViewControllers bk_reduce:self.footerContainerView.mas_top
                                                                withBlock:^MASViewAttribute*(MASViewAttribute* topAnchor,
