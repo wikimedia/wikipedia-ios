@@ -27,7 +27,7 @@
 /**
  *  The space between the elements. Default == 12
  */
-@property (nonatomic, assign) CGFloat spaceBewteenIconAndText;
+@property (nonatomic, assign) CGFloat spaceBetweenIconAndText;
 
 @end
 

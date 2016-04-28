@@ -43,7 +43,7 @@
 - (instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        _spaceBewteenIconAndText = 12.0;
+        _spaceBetweenIconAndText = 12.0;
         [self setupSubviews];
         [self applyInitialState];
     }
@@ -53,7 +53,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _spaceBewteenIconAndText = 12.0;
+        _spaceBetweenIconAndText = 12.0;
         [self setupSubviews];
         [self applyInitialState];
     }
@@ -77,8 +77,8 @@
 //    }
 //}
 
-- (void)setSpaceBewteenIconAndText:(CGFloat)spaceBewteenIconAndText{
-    _spaceBewteenIconAndText = spaceBewteenIconAndText;
+- (void)setspaceBetweenIconAndText:(CGFloat)spaceBetweenIconAndText{
+    _spaceBetweenIconAndText = spaceBetweenIconAndText;
     [self applyConstraints];
 }
 
@@ -131,7 +131,7 @@
     [self.textLabel mas_remakeConstraints:^(MASConstraintMaker* make) {
         make.trailing.top.and.bottom.equalTo(self);
         // make sure icon & button aren't squished together
-        make.leading.equalTo(self.iconImageView.mas_trailing).with.offset(self.spaceBewteenIconAndText);
+        make.leading.equalTo(self.iconImageView.mas_trailing).with.offset(self.spaceBetweenIconAndText);
     }];
 }
 
@@ -199,7 +199,7 @@
 }
 
 - (void)configureAsReportBugButton {
-    self.spaceBewteenIconAndText = 5.0;
+    self.spaceBetweenIconAndText = 5.0;
     self.iconImage = [UIImage imageNamed:@"settings-feedback"
                                 inBundle:[NSBundle bundleForClass:[self class]]
            compatibleWithTraitCollection:self.traitCollection];
