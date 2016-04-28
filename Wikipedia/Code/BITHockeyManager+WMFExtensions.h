@@ -1,7 +1,7 @@
 
 #import <HockeySDK/HockeySDK.h>
 
-@interface BITHockeyManager (WMFExtensions)
+@interface BITHockeyManager (WMFExtensions)<BITHockeyManagerDelegate>
 
 /**
  *  Configure and startup in one line.

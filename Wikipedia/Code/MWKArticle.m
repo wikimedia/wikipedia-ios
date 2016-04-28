@@ -181,8 +181,18 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     self.lastmodifiedby = [self requiredUser:@"lastmodifiedby" dict:dict];
     self.articleId      = [[self requiredNumber:@"id" dict:dict] intValue];
     self.languagecount  = [[self requiredNumber:@"languagecount" dict:dict] intValue];
-    self.protection     = [self requiredProtectionStatus:@"protection" dict:dict];
-    self.editable       = [[self requiredNumber:@"editable" dict:dict] boolValue];
+
+
+    //We are getting crashes becuase of the protection status.
+    //Set this up
+    @try {
+        self.protection = [self requiredProtectionStatus:@"protection" dict:dict];
+    } @catch (NSException* exception) {
+        self.protection = nil;
+        DDLogWarn(@"Protection Status is not a dictionary, setting to nil: %@", [[dict valueForKey:@"protection"] description]);
+    }
+
+    self.editable = [[self requiredNumber:@"editable" dict:dict] boolValue];
 
     self.revisionId        = [self optionalNumber:@"revision" dict:dict];
     self.redirected        = [self optionalTitle:@"redirected" dict:dict];
@@ -355,8 +365,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     [self.images addImageURLIfAbsent:imageURL];
 }
 
-
-
 - (MWKImage*)image {
     if (self.imageURL && !_image) {
         _image = [self imageWithURL:self.imageURL];
@@ -368,12 +376,13 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     if (self.imageURL) {
         return [self image];
     }
-    
+
     if (self.thumbnailURL) {
         return [self thumbnail];
     }
     return nil;
 }
+
 - (MWKImage*)bestThumbnailImage {
     if (self.thumbnailURL) {
         return [self thumbnail];
