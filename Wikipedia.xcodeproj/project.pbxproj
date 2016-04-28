@@ -75,6 +75,7 @@
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
 		B01162E81C24D3B200C3B52B /* WMFPageIssuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */; };
 		B014E99B1CD03AFF00A887D9 /* WMFCustomDeleteButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B014E99A1CD03AFF00A887D9 /* WMFCustomDeleteButtonTableViewCell.m */; };
+		B014E99F1CD189F600A887D9 /* Tharlon-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B014E99E1CD189F600A887D9 /* Tharlon-Regular.ttf */; };
 		B0265F291CB8988F00740525 /* WMFBaseRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0265F281CB8988F00740525 /* WMFBaseRequestSerializer.m */; };
 		B0265F2C1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.m in Sources */ = {isa = PBXBuildFile; fileRef = B0265F2B1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.m */; };
 		B02B82751C696ECA00B19309 /* WMFSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B02B82731C696ECA00B19309 /* WMFSettingsTableViewCell.m */; };
@@ -789,6 +790,7 @@
 		B01162E61C24D3B200C3B52B /* WMFPageIssuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFPageIssuesViewController.h; path = WikipediaUnitTests/Code/WMFPageIssuesViewController.h; sourceTree = SOURCE_ROOT; };
 		B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPageIssuesViewController.m; path = WikipediaUnitTests/Code/WMFPageIssuesViewController.m; sourceTree = SOURCE_ROOT; };
 		B014E99A1CD03AFF00A887D9 /* WMFCustomDeleteButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCustomDeleteButtonTableViewCell.m; path = Wikipedia/Code/WMFCustomDeleteButtonTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		B014E99E1CD189F600A887D9 /* Tharlon-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Tharlon-Regular.ttf"; sourceTree = "<group>"; };
 		B0265F271CB8988F00740525 /* WMFBaseRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBaseRequestSerializer.h; path = Wikipedia/Code/WMFBaseRequestSerializer.h; sourceTree = SOURCE_ROOT; };
 		B0265F281CB8988F00740525 /* WMFBaseRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBaseRequestSerializer.m; path = Wikipedia/Code/WMFBaseRequestSerializer.m; sourceTree = SOURCE_ROOT; };
 		B0265F2A1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPRequestSerializer+WMFRequestHeaders.h"; path = "Wikipedia/Code/AFHTTPRequestSerializer+WMFRequestHeaders.h"; sourceTree = SOURCE_ROOT; };
@@ -2067,6 +2069,7 @@
 			isa = PBXGroup;
 			children = (
 				0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */,
+				B014E99E1CD189F600A887D9 /* Tharlon-Regular.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -5275,6 +5278,7 @@
 				0E9383A31CB5C16500A3DC8D /* WMFFontSliderViewController.xib in Resources */,
 				B0E803BE1C0CDC360065EBC0 /* WMFArticleListTableViewCell.xib in Resources */,
 				B0E803771C0CD9C10065EBC0 /* WMFTableOfContentsCell.xib in Resources */,
+				B014E99F1CD189F600A887D9 /* Tharlon-Regular.ttf in Resources */,
 				B0E804151C0CDE480065EBC0 /* SectionEditorViewController.storyboard in Resources */,
 				B0E803A71C0CDB5A0065EBC0 /* WMFArticleFooterViewHeader.xib in Resources */,
 				0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */,
