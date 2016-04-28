@@ -8,6 +8,8 @@
 #import "NSObject+WMFExtras.h"
 #import "WikipediaAppUtils.h"
 
+NSString* const WMFAccountLoginErrorDomain = @"WMFAccountLoginErrorDomain";
+
 @interface AccountLogin ()
 
 @property (strong, nonatomic) NSString* domain;
@@ -61,7 +63,7 @@
         if (responseObject[@"error"]) {
             NSMutableDictionary* errorDict = [responseObject[@"error"] mutableCopy];
             errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
-            error = [NSError errorWithDomain:@"Account Login"
+            error = [NSError errorWithDomain:WMFAccountLoginErrorDomain
                                         code:LOGIN_ERROR_API
                                     userInfo:errorDict];
         }
@@ -73,10 +75,7 @@
 
         NSString* result = output[@"login"][@"result"];
         if (![result isEqualToString:@"Success"]) {
-            NSMutableDictionary* errorDict = @{}.mutableCopy;
-            NSString* errorMessage = [self getErrorMessageForResult:result];
-            errorDict[NSLocalizedDescriptionKey] = errorMessage;
-            error = [NSError errorWithDomain:@"Account Login" code:LOGIN_ERROR_MISC userInfo:errorDict];
+            error = [self getErrorForResult:result];
         }
 
         [self finishWithError:error
@@ -114,27 +113,35 @@
     return mutableResponse;
 }
 
-- (NSString*)getErrorMessageForResult:(NSString*)result {
+- (NSError*)getErrorForResult:(NSString*)result {
     // Error types from: http://www.mediawiki.org/wiki/API:Login#Errors
     NSString* errorMessage = [NSString stringWithFormat:@"Unknown login error. Code '%@'", result];
+    LoginErrorType errorType = LOGIN_ERROR_UNKNOWN;
 
     if ([result isEqualToString:@"NoName"]) {
         errorMessage = MWLocalizedString(@"login-name-not-found", nil);
+        errorType = LOGIN_ERROR_NAME_REQUIRED;
     } else if ([result isEqualToString:@"Illegal"]) {
         errorMessage = MWLocalizedString(@"login-name-illegal", nil);
+        errorType = LOGIN_ERROR_NAME_ILLEGAL;
     } else if ([result isEqualToString:@"NotExists"]) {
         errorMessage = MWLocalizedString(@"login-name-does-not-exist", nil);
+        errorType = LOGIN_ERROR_NAME_NOT_FOUND;
     } else if ([result isEqualToString:@"EmptyPass"]) {
         errorMessage = MWLocalizedString(@"login-password-empty", nil);
+        errorType = LOGIN_ERROR_PASSWORD_REQUIRED;
     } else if ([result isEqualToString:@"WrongPass"] || [result isEqualToString:@"WrongPluginPass"]) {
         errorMessage = MWLocalizedString(@"login-password-wrong", nil);
+        errorType = LOGIN_ERROR_PASSWORD_WRONG;
     } else if ([result isEqualToString:@"Throttled"]) {
         errorMessage = MWLocalizedString(@"login-throttled", nil);
+        errorType = LOGIN_ERROR_THROTTLED;
     } else if ([result isEqualToString:@"Blocked"]) {
         errorMessage = MWLocalizedString(@"login-user-blocked", nil);
+        errorType = LOGIN_ERROR_BLOCKED;
     }
 
-    return errorMessage;
+    return [NSError errorWithDomain:WMFAccountLoginErrorDomain code:errorType userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
 }
 
 /*

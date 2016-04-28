@@ -46,6 +46,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>WikiFont-Glyphs.ttf</string>
+		<string>Tharlon-Regular.ttf</string>
 	</array>
 	<key>UIFileSharingEnabled</key>
 	<false/>
