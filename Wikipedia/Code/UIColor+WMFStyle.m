@@ -211,6 +211,16 @@
     return c;
 }
 
++ (instancetype)wmf_777777Color {
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x777777 alpha:1.0];
+    });
+    return c;
+}
+
 + (instancetype)wmf_customGray {
     static UIColor* c = nil;
 

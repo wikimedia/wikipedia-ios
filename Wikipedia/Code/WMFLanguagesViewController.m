@@ -392,6 +392,7 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     languagesVC.showNonPreferredLanguages = NO;
     languagesVC.disableSelection          = YES;
 
+    languagesVC.editButtonItem.tintColor = [UIColor wmf_blueTintColor];
     languagesVC.navigationItem.rightBarButtonItem = languagesVC.editButtonItem;
     return languagesVC;
 }
@@ -461,6 +462,14 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     // TODO: reloadData is a bit brute force, but had issues with the "PRIMARY" indicator
     // showing on more than one cell after re-ordering first cell.
     [tableView reloadData];
+
+    [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
+}
+
+- (void)tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
+    [super tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
+    
+    [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
 }
 
 - (BOOL)tableView:(UITableView*)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath {
