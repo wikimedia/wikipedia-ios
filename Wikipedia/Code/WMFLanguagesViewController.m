@@ -432,6 +432,7 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     [[MWKLanguageLinkController sharedInstance] appendPreferredLanguage:language];
     [self reloadDataSections];
     [controller dismissViewControllerAnimated:YES completion:NULL];
+    [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
 }
 
 - (BOOL)shouldShowFooterForSection:(NSInteger)section {
