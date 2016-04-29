@@ -24,7 +24,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Article title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pS1-QO-ucg" userLabel="Article title">
-                                <rect key="frame" x="0.0" y="70" width="173.5" height="18"/>
+                                <rect key="frame" x="0.0" y="88" width="173.5" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" placeholder="YES" id="JLj-vk-tMb"/>
                                 </constraints>
@@ -33,7 +33,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Localized language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msA-8i-v6O" userLabel="Localized language name">
-                                <rect key="frame" x="0.0" y="88" width="173.5" height="18"/>
+                                <rect key="frame" x="0.0" y="70" width="173.5" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="SOa-VD-AKu"/>
                                 </constraints>
@@ -44,16 +44,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="pS1-QO-ucg" firstAttribute="top" secondItem="jmB-2b-adX" secondAttribute="bottom" id="1Pt-7D-YMg"/>
-                            <constraint firstAttribute="bottom" secondItem="msA-8i-v6O" secondAttribute="bottom" id="1yG-fY-cbc"/>
+                            <constraint firstItem="msA-8i-v6O" firstAttribute="top" secondItem="jmB-2b-adX" secondAttribute="bottom" id="Cp7-aM-Ca6"/>
                             <constraint firstItem="jmB-2b-adX" firstAttribute="leading" secondItem="oox-XU-ZXT" secondAttribute="leading" id="Dxe-KA-870"/>
+                            <constraint firstItem="pS1-QO-ucg" firstAttribute="top" secondItem="msA-8i-v6O" secondAttribute="bottom" id="Rlu-Ar-nOj"/>
                             <constraint firstItem="pS1-QO-ucg" firstAttribute="leading" secondItem="oox-XU-ZXT" secondAttribute="leading" id="U0G-3A-iDV"/>
-                            <constraint firstItem="msA-8i-v6O" firstAttribute="top" secondItem="pS1-QO-ucg" secondAttribute="bottom" id="Y2t-0C-KDu"/>
                             <constraint firstItem="jmB-2b-adX" firstAttribute="top" secondItem="oox-XU-ZXT" secondAttribute="top" id="bB6-yu-gPR"/>
                             <constraint firstItem="msA-8i-v6O" firstAttribute="leading" secondItem="oox-XU-ZXT" secondAttribute="leading" id="bgC-ig-0Xp"/>
                             <constraint firstAttribute="trailing" secondItem="jmB-2b-adX" secondAttribute="trailing" id="gnh-zR-YSh"/>
                             <constraint firstAttribute="trailing" secondItem="pS1-QO-ucg" secondAttribute="trailing" id="niW-JV-VWS"/>
                             <constraint firstAttribute="trailing" secondItem="msA-8i-v6O" secondAttribute="trailing" id="q5l-7w-30a"/>
+                            <constraint firstAttribute="bottom" secondItem="pS1-QO-ucg" secondAttribute="bottom" id="wDU-xN-bVA"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hpq-jr-QHw" userLabel="Primary Label Container">
