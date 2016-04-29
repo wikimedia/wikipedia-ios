@@ -22,7 +22,7 @@ static CGFloat const WMFLanguageHeaderFontSize = 12.f;
     self.backgroundView = backgroundView;
     
     self.titleLabel.font = [UIFont systemFontOfSize:WMFLanguageHeaderFontSize];
-    self.titleLabel.textColor = [UIColor wmf_customGray];
+    self.titleLabel.textColor = [UIColor wmf_777777Color];
 }
 
 @end

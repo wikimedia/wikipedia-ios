@@ -49,6 +49,8 @@
 
 + (instancetype)wmf_999999Color;
 
++ (instancetype)wmf_777777Color;
+
 + (instancetype)wmf_customGray;
 
 + (instancetype)wmf_readerWGray;

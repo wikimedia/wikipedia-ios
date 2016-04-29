@@ -23,7 +23,7 @@ static CGFloat const WMFLanguageFooterFontSize = 14.f;
     self.backgroundView = backgroundView;
     
     self.titleLabel.font = [UIFont systemFontOfSize:WMFLanguageFooterFontSize];
-    self.titleLabel.textColor = [UIColor wmf_customGray];
+    self.titleLabel.textColor = [UIColor wmf_777777Color];
     
     [self.addButton setTitle:MWLocalizedString(@"welcome-languages-add-button", nil)
                     forState:UIControlStateNormal];
