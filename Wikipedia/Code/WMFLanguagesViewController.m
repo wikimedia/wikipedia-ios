@@ -431,7 +431,6 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     [[MWKLanguageLinkController sharedInstance] appendPreferredLanguage:language];
     [self reloadDataSections];
     [controller dismissViewControllerAnimated:YES completion:NULL];
-    [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
 }
 
 - (BOOL)shouldShowFooterForSection:(NSInteger)section {
@@ -461,6 +460,14 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     // TODO: reloadData is a bit brute force, but had issues with the "PRIMARY" indicator
     // showing on more than one cell after re-ordering first cell.
     [tableView reloadData];
+
+    [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
+}
+
+- (void)tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
+    [super tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
+    
+    [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
 }
 
 - (BOOL)tableView:(UITableView*)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath {
