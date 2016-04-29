@@ -61,4 +61,6 @@
  */
 - (void)autoLogin;
 
+- (void)logout;
+
 @end
