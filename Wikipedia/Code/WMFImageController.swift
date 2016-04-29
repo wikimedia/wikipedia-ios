@@ -65,6 +65,14 @@ public class WMFImageController : NSObject {
     private static let _sharedInstance: WMFImageController = {
         let downloader = SDWebImageDownloader.sharedDownloader()
         let cache = SDImageCache.wmf_appSupportCacheWithNamespace(defaultNamespace)
+        let memory = NSProcessInfo.processInfo().physicalMemory
+        if memory < 805306368 {
+            cache.shouldDecompressImages = false
+            downloader.shouldDecompressImages = false
+        }else{
+            cache.shouldDecompressImages = true
+            downloader.shouldDecompressImages = true
+        }
         return WMFImageController(manager: SDWebImageManager(downloader: downloader, cache: cache),
                                   namespace: defaultNamespace)
     }()
