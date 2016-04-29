@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ebr-hF-Cp5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ebr-hF-Cp5">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Rotation Respecting Tab Bar Controller-->
         <scene sceneID="DIN-EW-PiF">
             <objects>
-                <tabBarController id="ebr-hF-Cp5" sceneMemberID="viewController">
+                <tabBarController id="ebr-hF-Cp5" customClass="WMFRotationRespectingTabBarController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="l4Z-Yh-AWy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -27,7 +27,7 @@
         <!--Saved-->
         <scene sceneID="Lqf-ge-2v5">
             <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" id="bzO-gj-jpB" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" id="bzO-gj-jpB" customClass="WMFRotationRespectingNavigationController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Saved" image="tabbar-save" selectedImage="tabbar-save-selected" id="tEK-7k-93Q"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
@@ -82,7 +82,7 @@
         <!--Recent-->
         <scene sceneID="2zr-9G-QMd">
             <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" id="ROQ-sG-rcF" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" id="ROQ-sG-rcF" customClass="WMFRotationRespectingNavigationController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Recent" image="tabbar-recent" selectedImage="tabbar-recent-selected" id="ZNo-7p-3PU"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
@@ -121,7 +121,7 @@
         <!--Explore-->
         <scene sceneID="my8-ht-Vqg">
             <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" id="EJe-8j-1e6" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" id="EJe-8j-1e6" customClass="WMFRotationRespectingNavigationController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Explore" image="tabbar-explore" selectedImage="tabbar-explore-selected" id="fCG-Qf-VzW"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>

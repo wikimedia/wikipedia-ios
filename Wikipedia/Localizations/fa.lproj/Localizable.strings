@@ -14,8 +14,9 @@
 // Author: Reza1615
 // Author: Sahehco
 // Author: Signal89
+// Author: درفش کاویانی
 
-"languages-title" = "زبان‌ها";
+"languages-title" = "تغییر زبان";
 "article-languages-label" = "انتخاب زبان";
 "article-languages-cancel" = "لغو";
 "article-languages-downloading" = "در حال بارگیری زبان‌های مقاله...";
@@ -25,7 +26,7 @@
 "article-unable-to-load-section" = "امکان بارگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
 "article-unable-to-load-article" = "بارگیری مقاله ناموفق بود.";
 "article-related-articles-title" = "مقاله‌های مرتبط";
-"info-box-title" = "واقعیت‌های سریع";
+"info-box-title" = "اطلاعات اجمالی";
 "info-box-close-text" = "بستن";
 "table-title-other" = "اطلاعات بیشتر";
 "saved-clear-all" = "پاک‌کردن";
@@ -255,7 +256,7 @@
 "page_protected_other" = "این صفحه به سطح‌های روبرو حفاظت شده‌است: $1";
 "page_protected_can_not_edit" = "شما دسترسی لازم را برای ویرایش این صفحه ندارید";
 "page_protected_can_not_edit_title" = "این صفحه محافظت شده‌است";
-"license-footer-text" = "مطالب زیر تحت شرایط $1 در دسترس است";
+"license-footer-text" = "محتوا تحت $1 در دسترس است، مگر اینکه خلافش ذکر شده‌باشد.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "محتویات";
 "table-of-contents-button-label" = "فهرست مندرجات";
@@ -320,7 +321,7 @@
 "hockeyapp-alert-privacy" = "سیاست محرمانگی $1";
 "page-issues" = "موضوعات صفحه";
 "page-similar-titles" = "صفحات مشابه";
-"page-read-in-other-languages" = "موجود به $1 زبان";
+"page-read-in-other-languages" = "به $1 زبان در دسترس است";
 "page-last-edited" = "تغییر یافته در $1 روز پیش";
 "page-edit-history" = "تاریخچهٔ کامل ویرایش";
 "captcha-reload" = "نمایش کپچای دیگر";
@@ -339,8 +340,8 @@
 "home-featured-article-heading" = "مقاله برگزیده برای $1";
 "home-main-page-heading" = "امروز در ویکی‌پدیا";
 "home-potd-heading" = "تصویر روز برای $1";
-"home-last-update-label" = "آخرین به روز رسانی: $1";
-"home-last-update-never-label" = "آخرین به‌روز رسانی: هرگز";
+"home-last-update-label" = "واپسین بروزرسانی: $1";
+"home-last-update-never-label" = "آخرین بروزرسانی: هرگز";
 "home-updating-label" = "در حال به‌روز رسانی...";
 "home-hide-suggestion-prompt" = "این پیشنهاد را پنهان کن";
 "home-hide-suggestion-cancel" = "لغو";
@@ -359,7 +360,7 @@
 "welcome-explore-continue-button" = "شروع شد";
 "welcome-languages-title" = "زبان‌ها";
 "welcome-languages-sub-title" = "زبان مورد علاقه‌تان برای جستجو در ویکی‌پدیا را انتخاب کنید";
-"welcome-languages-add-button" = "+افزدون دیگری";
+"welcome-languages-add-button" = "افزدون دیگری";
 "welcome-languages-continue-button" = "ادامه";
 "welcome-volunteer-title" = "داوطلب";
 "welcome-volunteer-sub-title" = "با به اشتراک گذاشتن نحوهٔ استفادتان از نرم‌افزار ویکی‌پدیا به ما در بهبود آن کمک کنید";

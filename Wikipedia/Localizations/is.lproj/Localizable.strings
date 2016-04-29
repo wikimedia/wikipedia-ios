@@ -5,6 +5,7 @@
 // Author: Maxí
 // Author: Sveinn í Felli
 
+// Fuzzy
 "languages-title" = "Tungumál";
 "article-languages-label" = "Velja tungumál";
 "article-languages-cancel" = "Hætta við";
@@ -246,6 +247,7 @@
 "page_protected_other" = "Þessi síða er varin upp á eftirfarandi stig: $1";
 "page_protected_can_not_edit" = "Þú hefur ekki réttindi á að breyta þessari síðu";
 "page_protected_can_not_edit_title" = "Þessi síða er varin";
+// Fuzzy
 "license-footer-text" = "Efnið er gefið út undir $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Efni";
@@ -311,6 +313,7 @@
 "hockeyapp-alert-privacy" = "$1 friðhelgi";
 "page-issues" = "Vandamál varðandi síðu";
 "page-similar-titles" = "Áþekkar síður";
+// Fuzzy
 "page-read-in-other-languages" = "Lesa á $1 tungumálum";
 "page-last-edited" = "Breytt fyrir $1 dögum";
 "page-edit-history" = "Öll breytingaskráin";
@@ -331,7 +334,9 @@
 "home-featured-article-heading" = "Grein sem er efst á baugi þann $1";
 "home-main-page-heading" = "Í dag á Wikipedia";
 "home-potd-heading" = "Mynd dagsins þann $1";
+// Fuzzy
 "home-last-update-label" = "Síðast uppfært: $1";
+// Fuzzy
 "home-last-update-never-label" = "Síðast uppfært: Aldrei";
 "home-updating-label" = "Uppfæri...";
 "home-hide-suggestion-prompt" = "Fela þessa tillögu";
@@ -351,7 +356,7 @@
 "welcome-explore-continue-button" = "Komast í gang";
 "welcome-languages-title" = "Tungumál sem á að leita í";
 "welcome-languages-sub-title" = "Veldu þau tungumál sem þú vilt fyrst og fremst nota við leit á Wikipedia";
-"welcome-languages-add-button" = "+ Bæta við öðru";
+"welcome-languages-add-button" = "Bæta við öðru";
 "welcome-languages-continue-button" = "Halda áfram";
 "welcome-volunteer-title" = "Bjóða sig fram";
 "welcome-volunteer-sub-title" = "Hjálpaðu til við að bæta Wikipedia-appið með því að deila með okkur hvernig þú notar það";

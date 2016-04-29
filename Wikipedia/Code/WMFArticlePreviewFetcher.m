@@ -12,6 +12,7 @@
 #import "WMFNumberOfExtractCharacters.h"
 #import "NSDictionary+WMFCommonParams.h"
 #import "WMFNetworkUtilities.h"
+#import "WMFBaseRequestSerializer.h"
 
 //Models
 #import "MWKSearchResult.h"
@@ -30,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFArticlePreviewRequestSerializer : AFHTTPRequestSerializer
+@interface WMFArticlePreviewRequestSerializer : WMFBaseRequestSerializer
 
 @end
 
@@ -79,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
     params.thumbnailWidth = thumbnailWidth;
 
     @weakify(self);
-    return [self.operationManager wmf_GETWithSite:site parameters:params]
+    return [self.operationManager wmf_POSTWithSite:site parameters:params]
            .thenInBackground(^id (NSArray<MWKSearchResult*>* unsortedPreviews) {
         @strongify(self);
         if (!self) {

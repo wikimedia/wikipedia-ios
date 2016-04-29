@@ -20,6 +20,7 @@
 // Model
 #import "MediaWikiKit.h"
 #import "MWKSearchResult.h"
+#import "MWKLanguageLinkController.h"
 
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -108,14 +109,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     return [self.presentedViewController isKindOfClass:[WMFWelcomeViewController class]];
 }
 
-- (BOOL)uiIsLoaded{
+- (BOOL)uiIsLoaded {
     return _rootTabBarController != nil;
 }
 
 #pragma mark - Setup
 
 - (void)loadMainUI {
-    if([self uiIsLoaded]){
+    if ([self uiIsLoaded]) {
         return;
     }
     UITabBarController* tabBar = [[UIStoryboard storyboardWithName:@"WMFTabBarUI" bundle:nil] instantiateInitialViewController];
@@ -205,12 +206,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (self.isPresentingOnboarding) {
         return;
     }
-    
-    if(self.unprocessedUserActivity){
+
+    [self.session autoLogin];
+
+    if (self.unprocessedUserActivity) {
         [self processUserActivity:self.unprocessedUserActivity];
-    }else if(self.unprocessedShortcutItem){
+    } else if (self.unprocessedShortcutItem) {
         [self processShortcutItem:self.unprocessedShortcutItem completion:NULL];
-    }else if ([self shouldShowLastReadArticleOnLaunch]) {
+    } else if ([self shouldShowLastReadArticleOnLaunch]) {
         [self showLastReadArticleAnimated:YES];
     } else if ([self shouldShowExploreScreenOnLaunch]) {
         [self showExplore];
@@ -231,13 +234,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)pauseApp {
+    [[WMFImageController sharedInstance] clearMemoryCache];
     [self downloadAssetsFilesIfNecessary];
     [self performHousekeeping];
 }
 
 #pragma mark - Shortcut
 
-- (BOOL)canProcessShortcutItem:(UIApplicationShortcutItem*)item{
+- (BOOL)canProcessShortcutItem:(UIApplicationShortcutItem*)item {
     if (!item) {
         return NO;
     }
@@ -249,20 +253,20 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         return YES;
     } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
         return YES;
-    }else{
+    } else {
         return NO;
     }
 }
 
 - (void)processShortcutItem:(UIApplicationShortcutItem*)item completion:(void (^)(BOOL))completion {
-    if(![self canProcessShortcutItem:item]){
+    if (![self canProcessShortcutItem:item]) {
         if (completion) {
             completion(NO);
         }
         return;
     }
-    
-    if(![self uiIsLoaded]){
+
+    if (![self uiIsLoaded]) {
         self.unprocessedShortcutItem = item;
         if (completion) {
             completion(YES);
@@ -288,7 +292,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - NSUserActivity
 
 - (BOOL)canProcessUserActivity:(NSUserActivity*)activity {
-    if(!activity){
+    if (!activity) {
         return NO;
     }
     switch ([activity wmf_type]) {
@@ -299,20 +303,20 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         case WMFUserActivityTypeSettings:
             return YES;
         case WMFUserActivityTypeSearchResults:
-            if([activity wmf_searchTerm]){
+            if ([activity wmf_searchTerm]) {
                 return YES;
-            }else{
+            } else {
                 return NO;
             }
             break;
         case WMFUserActivityTypeArticle: {
             if (![[MWKTitle alloc] initWithURL:activity.webpageURL]) {
                 return NO;
-            }else{
+            } else {
                 return YES;
             }
         }
-            break;
+        break;
         default:
             return NO;
             break;
@@ -320,10 +324,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (BOOL)processUserActivity:(NSUserActivity*)activity {
-    if(![self canProcessUserActivity:activity]){
+    if (![self canProcessUserActivity:activity]) {
         return NO;
     }
-    if(![self uiIsLoaded]){
+    if (![self uiIsLoaded]) {
         self.unprocessedUserActivity = activity;
         return YES;
     }
@@ -414,7 +418,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[WMFArticleBrowserViewController class]]) {
         return YES;
     }
-    
+
     return NO;
 }
 
@@ -423,7 +427,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if ([navVC.topViewController isKindOfClass:[WMFArticleViewController class]]) {
         return ((WMFArticleViewController*)navVC.topViewController).articleTitle;
     }
-    
+
     if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[WMFArticleBrowserViewController class]]) {
         WMFArticleBrowserViewController* vc = (id)navVC.presentedViewController;
         return [vc titleOfCurrentArticle];
@@ -496,7 +500,27 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - UIViewController
 
 - (BOOL)shouldAutorotate {
-    return YES;
+    if (self.rootTabBarController) {
+        return [self.rootTabBarController shouldAutorotate];
+    } else {
+        return NO;
+    }
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    if (self.rootTabBarController) {
+        return [self.rootTabBarController supportedInterfaceOrientations];
+    } else {
+        return [self wmf_orientationMaskPortraitiPhoneAnyiPad];
+    }
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    if (self.rootTabBarController) {
+        return [self.rootTabBarController preferredInterfaceOrientationForPresentation];
+    } else {
+        return UIInterfaceOrientationPortrait;
+    }
 }
 
 #pragma mark - Onboarding
@@ -569,25 +593,25 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (BOOL)shouldShowLastReadArticleOnLaunch {
     MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
-    if(!lastRead){
+    if (!lastRead) {
         return NO;
     }
-    
+
     if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
         return YES;
     }
-    
+
     NSDate* resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
     if (!resignActiveDate) {
         return NO;
     }
-    
+
     if (fabs([resignActiveDate timeIntervalSinceNow]) < WMFTimeBeforeRefreshingExploreScreen) {
         if (![self exploreViewControllerIsDisplayingContent] && [self.rootTabBarController selectedIndex] == WMFAppTabTypeExplore) {
             return YES;
         }
     }
-    
+
     return NO;
 }
 
@@ -624,7 +648,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     if (exploreNavController.presentedViewController) {
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
-    MWKSite* site = [NSUserDefaults standardUserDefaults].wmf_appSite;
+    MWKSite* site = [[[MWKLanguageLinkController sharedInstance] appLanguage] site];
     [self.randomFetcher fetchRandomArticleWithSite:site].then(^(MWKSearchResult* result){
         MWKTitle* title = [site titleWithString:result.displayTitle];
         [[self exploreViewController] wmf_pushArticleWithTitle:title dataStore:self.session.dataStore animated:YES];
@@ -640,7 +664,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
     [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-    MWKSite* site                   = [NSUserDefaults standardUserDefaults].wmf_appSite;
+    MWKSite* site                   = [[[MWKLanguageLinkController sharedInstance] appLanguage] site];
     WMFNearbyListViewController* vc = [[WMFNearbyListViewController alloc] initWithSearchSite:site dataStore:self.dataStore];
     [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];
 }
@@ -660,9 +684,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFileOfType:WMFAssetsFileTypeConfig
                                                           withManager:[QueuesSingleton sharedInstance].assetsFetchManager
                                                                maxAge:kWMFMaxAgeDefault];
-        
     }];
-
 }
 
 #pragma mark - Migration

@@ -7,6 +7,7 @@
 // Author: Mortenelling
 // Author: Sarrus
 
+// Fuzzy
 "languages-title" = "Sprog";
 "article-languages-label" = "Vælg sprog";
 "article-languages-cancel" = "Annuller";
@@ -247,6 +248,7 @@
 "page_protected_other" = "Denne side er beskyttet til følgende niveauer: $1";
 "page_protected_can_not_edit" = "Du har ikke rettigheder til at redigere denne side";
 "page_protected_can_not_edit_title" = "Denne side er beskyttet";
+// Fuzzy
 "license-footer-text" = "Indholdet er udgivet under $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Indhold";
@@ -312,6 +314,7 @@
 "hockeyapp-alert-privacy" = "$1 privatliv";
 "page-issues" = "Problemer med siden";
 "page-similar-titles" = "Lignende sider";
+// Fuzzy
 "page-read-in-other-languages" = "Tilgængelig på $1 sprog";
 "page-last-edited" = "Redigeret for $1 dage siden";
 "page-edit-history" = "Fuld redigerings historik";
@@ -329,7 +332,9 @@
 "home-nearby-nothing" = "Ingenting nær dig";
 "home-main-page-heading" = "I dag på Wikipedia";
 "home-potd-heading" = "Dagens billede for $1";
+// Fuzzy
 "home-last-update-label" = "Sidst opdateret $1";
+// Fuzzy
 "home-last-update-never-label" = "Sidst opdateret: Aldrig";
 "home-updating-label" = "Opdaterer...";
 "home-hide-suggestion-prompt" = "Skjul dette forslag";

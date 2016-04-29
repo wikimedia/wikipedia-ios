@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: គីមស៊្រុន
 
+// Fuzzy
 "languages-title" = "ភាសា";
 "article-languages-label" = "ជ្រើសរើសភាសា";
 "article-languages-cancel" = "បោះបង់";
@@ -199,6 +200,7 @@
 "page_protected_other" = "ទំព័រនេះត្រូវបានការពារត្រឹមកម្រិតដូចតទៅ៖ $1";
 "page_protected_can_not_edit" = "អ្នកគ្មានសិទ្ធិក្នុងការកែប្រែទំព័រនេះទេ";
 "page_protected_can_not_edit_title" = "ទំព័រនេះត្រូវបានការពាររួចហើយ";
+// Fuzzy
 "license-footer-text" = "ខ្លឹមសារអត្ថបទនេះផ្ដល់ជូនក្រោមអាជ្ញាបណ្ឌ $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "មាតិកា";

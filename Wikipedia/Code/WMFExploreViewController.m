@@ -28,6 +28,8 @@
 #import "MWKLocationSearchResult.h"
 #import "MWKSavedPageList.h"
 #import "MWKRecentSearchList.h"
+#import "MWKLanguageLinkController.h"
+
 
 // Views
 #import "UIViewController+WMFEmptyView.h"
@@ -39,11 +41,11 @@
 // Child View Controllers
 #import "WMFArticleBrowserViewController.h"
 #import "WMFSettingsViewController.h"
-#import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFTitleListDataSource.h"
 #import "WMFArticleListTableViewController.h"
 #import "WMFRelatedSectionController.h"
 #import "UIViewController+WMFSearch.h"
+#import "UINavigationController+WMFHideEmptyToolbar.h"
 
 // Controllers
 #import "WMFRelatedSectionBlackList.h"
@@ -58,7 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
 <WMFExploreSectionSchemaDelegate,
  UIViewControllerPreviewingDelegate,
  WMFAnalyticsContextProviding,
- WMFAnalyticsViewNameProviding>
+ WMFAnalyticsViewNameProviding,
+ UINavigationControllerDelegate>
 
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
@@ -186,8 +189,8 @@ NS_ASSUME_NONNULL_BEGIN
         [sum addIndex:(NSUInteger)obj.section];
         return sum;
     }];
-    
-    if([visibleSectionIndexes count] == 0){
+
+    if ([visibleSectionIndexes count] == 0) {
         return @[];
     }
 
@@ -223,7 +226,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showSettings {
     UINavigationController* settingsContainer =
         [[UINavigationController alloc] initWithRootViewController:
-         [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard]];
+         [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore]];
+    settingsContainer.delegate = self;
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
@@ -234,6 +238,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - UIViewController
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return [self wmf_orientationMaskPortraitiPhoneAnyiPad];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -269,8 +277,8 @@ NS_ASSUME_NONNULL_BEGIN
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(searchLanguageDidChangeWithNotification:)
-                                                 name:[NSUserDefaults WMFSearchLanguageDidChangeNotification]
+                                             selector:@selector(appLanguageDidChangeWithNotification:)
+                                                 name:WMFPreferredLanguagesDidChangeNotification
                                                object:nil];
 }
 
@@ -358,9 +366,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self sendWillDisplayToVisibleSectionControllers];
 }
 
-- (void)searchLanguageDidChangeWithNotification:(NSNotification*)note {
+- (void)appLanguageDidChangeWithNotification:(NSNotification*)note {
     [self createSectionSchemaIfNeeded];
-    [self.schemaManager updateSite:[[NSUserDefaults standardUserDefaults] wmf_appSite]];
+    [self.schemaManager updateSite:[[[MWKLanguageLinkController sharedInstance] appLanguage] site]];
 }
 
 - (void)tweaksDidChangeWithNotification:(NSNotification*)note {
@@ -452,7 +460,7 @@ NS_ASSUME_NONNULL_BEGIN
     header.subTitle = subTitle;
 }
 
-- (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section; {
+- (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:section];
     if (!controller) {
         return nil;
@@ -640,7 +648,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.schemaManager = [WMFExploreSectionSchema schemaWithSite:[[NSUserDefaults standardUserDefaults] wmf_appSite]
+    self.schemaManager = [WMFExploreSectionSchema schemaWithSite:[[[MWKLanguageLinkController sharedInstance] appLanguage] site]
                                                       savedPages:self.savedPages
                                                          history:self.recentPages
                                                        blackList:[WMFRelatedSectionBlackList sharedBlackList]];
@@ -831,6 +839,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)analyticsName {
     return [self analyticsContext];
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController*)navigationController
+      willShowViewController:(UIViewController*)viewController
+                    animated:(BOOL)animated {
+    [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
 }
 
 @end

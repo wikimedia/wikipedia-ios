@@ -181,8 +181,18 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     self.lastmodifiedby = [self requiredUser:@"lastmodifiedby" dict:dict];
     self.articleId      = [[self requiredNumber:@"id" dict:dict] intValue];
     self.languagecount  = [[self requiredNumber:@"languagecount" dict:dict] intValue];
-    self.protection     = [self requiredProtectionStatus:@"protection" dict:dict];
-    self.editable       = [[self requiredNumber:@"editable" dict:dict] boolValue];
+
+
+    //We are getting crashes becuase of the protection status.
+    //Set this up
+    @try {
+        self.protection = [self requiredProtectionStatus:@"protection" dict:dict];
+    } @catch (NSException* exception) {
+        self.protection = nil;
+        DDLogWarn(@"Protection Status is not a dictionary, setting to nil: %@", [[dict valueForKey:@"protection"] description]);
+    }
+
+    self.editable = [[self requiredNumber:@"editable" dict:dict] boolValue];
 
     self.revisionId        = [self optionalNumber:@"revision" dict:dict];
     self.redirected        = [self optionalTitle:@"redirected" dict:dict];
@@ -362,6 +372,17 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return _image;
 }
 
+- (MWKImage*)leadImage {
+    if (self.imageURL) {
+        return [self image];
+    }
+
+    if (self.thumbnailURL) {
+        return [self thumbnail];
+    }
+    return nil;
+}
+
 - (MWKImage*)bestThumbnailImage {
     if (self.thumbnailURL) {
         return [self thumbnail];
@@ -379,6 +400,13 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         _images = [self.dataStore imageListWithArticle:self section:nil];
     }
     return _images;
+}
+
+- (BOOL)hasMultipleLanguages {
+    if (self.isMain) {
+        return NO;
+    }
+    return self.languagecount > 0;
 }
 
 #pragma mark - protection status methods

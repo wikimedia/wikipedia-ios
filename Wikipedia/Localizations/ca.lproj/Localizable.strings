@@ -15,7 +15,7 @@
 // Author: Vriullop
 // Author: Xavier Dengra
 
-"languages-title" = "Llengües";
+"languages-title" = "Canvia la llengua";
 "article-languages-label" = "Trieu un idioma";
 "article-languages-cancel" = "Cancel·la";
 "article-languages-downloading" = "Carregant els idiomes de l'article...";
@@ -25,6 +25,8 @@
 "article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
 "article-unable-to-load-article" = "No s'ha pogut carregar l'article.";
 "article-related-articles-title" = "Articles relacionats";
+"article-languages-yours" = "Les vostres llengües";
+"article-languages-others" = "Altres llengües";
 "info-box-title" = "Dades bàsiques";
 "info-box-close-text" = "Tanca";
 "table-title-other" = "Més informació";
@@ -253,6 +255,7 @@
 "page_protected_other" = "La pàgina ha estat protegida als nivells següents: $1";
 "page_protected_can_not_edit" = "No teniu permisos per modificar la pàgina";
 "page_protected_can_not_edit_title" = "La pàgina està protegida";
+// Fuzzy
 "license-footer-text" = "El contingut està disponible sota $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Continguts";
@@ -318,6 +321,7 @@
 "hockeyapp-alert-privacy" = "Privadesa de $1";
 "page-issues" = "Problemes de la pàgina";
 "page-similar-titles" = "Pàgines similars";
+// Fuzzy
 "page-read-in-other-languages" = "Disponible en $1 llengües";
 "page-last-edited" = "Modificat fa $1 dies";
 "page-edit-history" = "Historial complet";
@@ -326,6 +330,7 @@
 "mwk-empty-title-error" = "No es pot realitzar l'operació amb un títol buit.";
 "home-title" = "Exploreu!";
 "home-empty-section" = "Cap resultat";
+"home-empty-section-check-again" = "Torna a provar-ho";
 "home-continue-reading-heading" = "Continuar llegint";
 "home-continue-related-heading" = "Perquè vas llegir $1";
 "home-more-like-footer" = "Més com $1";
@@ -335,9 +340,12 @@
 "home-featured-article-heading" = "Article de Qualitat per $1";
 "home-main-page-heading" = "Avui a la Viquipèdia";
 "home-potd-heading" = "Imatge del dia per a $1";
+// Fuzzy
 "home-last-update-label" = "Darrera actualització: $1";
+"home-updating-label" = "S'està actualitzant…";
 "home-hide-suggestion-prompt" = "Amaga el suggeriment";
 "home-hide-suggestion-cancel" = "Cancel·la";
+"home-accessibility-label" = "Viquipèdia, Explora";
 "home-button-accessibility-label" = "Botó d'inici";
 "potd-empty-error-description" = "Ha fallat en recuperar la imatge del dia per a $1";
 "potd-description-prefix" = "Imatge del dia per a $1";
@@ -345,19 +353,29 @@
 "welcome-explore-sub-title" = "Una forma nova de descobrir articles interessants cada dia";
 "welcome-explore-tell-me-more" = "Més informació";
 "welcome-explore-tell-me-more-about-explore" = "Més informació sobre «Explora»";
+"welcome-explore-tell-me-more-done-button" = "Ho he entès";
+"welcome-explore-continue-button" = "Primers passos";
 "welcome-languages-title" = "Llengües";
 "welcome-languages-continue-button" = "Continua";
+"welcome-volunteer-continue-button" = "Continua";
+"welcome-volunteer-thanks" = "$1 Gràcies!";
 "empty-no-feed-title" = "Sense Connexió a Internet";
 "empty-no-feed-message" = "Podeu veure els vostres articles recomanats quan tingueu Internet";
-// Fuzzy
-"empty-no-feed-action-message" = "Mentrestant, podeu llegir les pàgines desades";
+"empty-no-feed-action-message" = "Encara podeu llegir les pàgines desades";
 "empty-no-article-message" = "Ho sentim, no s'ha pogut carregar l'article";
-// Fuzzy
-"empty-no-search-results-message" = "Ho sentim, no hem pogut carregar els resultats";
+"empty-no-search-results-message" = "No s'han trobat resultats";
 "empty-no-saved-pages-title" = "Encara no teniu pàgines desades";
 "empty-no-saved-pages-message" = "Desa les pàgines per visualitzar-les més tard, fins i tot fora de línia";
 "empty-no-history-title" = "No hi ha historial per mostrar";
 "empty-no-history-message" = "Mantén un registre del que he llegit aquí";
 "alert-no-internet" = "No hi ha connexió a internet";
+"icon-shortcut-search-title" = "Cerca a la Viquipèdia";
+"icon-shortcut-continue-reading-title" = "Continua llegint";
+"icon-shortcut-random-title" = "Article a l'atzar";
+"icon-shortcut-nearby-title" = "Articles propers";
+"close-button-accessibility-label" = "Tanca";
+"back-button-accessibility-label" = "Enrere";
 "explore-featured-article-heading" = "Article destacat";
 "explore-continue-reading-heading" = "Continua llegint";
+"explore-main-page-heading" = "Avui a la Viquipèdia";
+"explore-potd-heading" = "Foto del dia";

@@ -15,7 +15,7 @@
 // Author: WTM
 // Author: Wiochman
 
-"languages-title" = "Języki";
+"languages-title" = "Zmień język";
 "article-languages-label" = "Wybierz język";
 "article-languages-cancel" = "Anuluj";
 "article-languages-downloading" = "Ładowanie języków artykułu...";
@@ -25,6 +25,8 @@
 "article-unable-to-load-section" = "Nie można pobrać tej sekcji. Spróbuj odświeżyć stronę i zobaczyć, czy to pomogło rozwiązać problem.";
 "article-unable-to-load-article" = "Nie można załadować artykułu.";
 "article-related-articles-title" = "Powiązane artykuły";
+"article-languages-yours" = "Twoje języki";
+"article-languages-others" = "Inne języki";
 "info-box-title" = "Szybkie fakty";
 "info-box-close-text" = "Zamknij";
 "table-title-other" = "Więcej informacji";
@@ -244,7 +246,7 @@
 "page_protected_other" = "Ta strona została zabezpieczona do następujących poziomów: $1";
 "page_protected_can_not_edit" = "Nie masz uprawnień do edytowania tej strony";
 "page_protected_can_not_edit_title" = "Ta strona jest zabezpieczona";
-"license-footer-text" = "Zawartość jest dostępna na licencji $1";
+"license-footer-text" = "Treść udostępniana na licencji $1, jeśli nie podano inaczej.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Zawartości";
 "table-of-contents-button-label" = "Spis treści";
@@ -308,7 +310,7 @@
 "hockeyapp-alert-privacy" = "Polityka prywatności $1";
 "page-issues" = "Problemy ze stroną";
 "page-similar-titles" = "Podobne strony";
-"page-read-in-other-languages" = "Dostępne w $1 językach";
+"page-read-in-other-languages" = "Dostępne w $1 innych językach";
 "captcha-reload" = "Pokaż inny tekst CAPTCHA";
 "captcha-prompt" = "Wpisz tekst CAPTCHA";
 "mwk-empty-title-error" = "Nie można wykonać operacji, jeśli tytuł jest pusty.";
@@ -317,14 +319,17 @@
 "home-nearby-check-again" = "Sprawdź ponownie";
 "home-main-page-heading" = "Dzisiaj w Wikipedii";
 "home-last-update-label" = "Ostatnia aktualizacja: $1";
+"home-updating-label" = "Aktualizacja...";
 "home-hide-suggestion-cancel" = "Anuluj";
 "potd-description-prefix" = "Ilustracja dnia na $1";
 "welcome-explore-sub-title" = "Nowy sposób, aby odkrywać ciekawe artykuły każdego dnia";
 "welcome-explore-tell-me-more-done-button" = "Wszystko jasne";
 "welcome-languages-title" = "Języki";
+"welcome-languages-add-button" = "Dodaj kolejny";
 "welcome-languages-continue-button" = "Kontynuuj";
 "welcome-volunteer-continue-button" = "Kontynuuj";
 "welcome-volunteer-thanks" = "Dziękujemy $1!";
+"empty-no-feed-title" = "Brak połączenia z internetem";
 "empty-no-search-results-message" = "Nie znaleziono";
 "empty-no-saved-pages-title" = "Nie zapisano jeszcze żadnych stron";
 "empty-no-history-title" = "Nie ma historii do pokazania";
@@ -335,3 +340,4 @@
 "explore-nearby-heading" = "Miejsca w pobliżu";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
 "explore-most-read-more-list-title" = "Najczęściej czytane artykuły";
+"no-email-account-alert" = "Skonfiguruj konto e-mail w tym urządzeniu i spróbuj jeszcze raz.";

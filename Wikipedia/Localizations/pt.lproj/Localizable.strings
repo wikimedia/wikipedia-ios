@@ -9,7 +9,7 @@
 // Author: Vitorvicentevalente
 // Author: Webysther
 
-"languages-title" = "Idiomas";
+"languages-title" = "Alterar idioma";
 "article-languages-label" = "Escolher idioma";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "A carregar idiomas do artigo...";
@@ -19,6 +19,8 @@
 "article-unable-to-load-section" = "Não foi possível carregar esta secção. Experimente recarregar o artigo para tentar corrigir o problema.";
 "article-unable-to-load-article" = "Não é possível carregar o artigo.";
 "article-related-articles-title" = "Artigos relacionados";
+"article-languages-yours" = "Os seus idiomas";
+"article-languages-others" = "Outros idiomas";
 "info-box-title" = "Fatos rápidos";
 "info-box-close-text" = "Fechar";
 "table-title-other" = "Mais informação";
@@ -249,7 +251,7 @@
 "page_protected_other" = "Esta página está protegida para os seguintes níveis: $1";
 "page_protected_can_not_edit" = "Não tem permissão para editar esta página";
 "page_protected_can_not_edit_title" = "Esta página está protegida";
-"license-footer-text" = "Conteúdo disponível sob a licença $1";
+"license-footer-text" = "Conteúdo disponibilizado nos termos da $1, salvo indicação contrária.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Índice";
 "table-of-contents-button-label" = "Índice";
@@ -314,7 +316,7 @@
 "hockeyapp-alert-privacy" = "Privacidade de $1";
 "page-issues" = "Problemas da página";
 "page-similar-titles" = "Páginas semelhantes";
-"page-read-in-other-languages" = "Disponível em $1 idiomas";
+"page-read-in-other-languages" = "Disponível em $1 outros idiomas";
 "page-last-edited" = "Editado há $1 dias";
 "page-edit-history" = "Histórico completo";
 "captcha-reload" = "Mostrar outro código";
@@ -353,7 +355,7 @@
 "welcome-explore-continue-button" = "Começar";
 "welcome-languages-title" = "Idiomas";
 "welcome-languages-sub-title" = "Escolha os seus idiomas pré-definidos para pesquisar na Wikipédia";
-"welcome-languages-add-button" = "+ Adicionar outro";
+"welcome-languages-add-button" = "Adicionar outro";
 "welcome-languages-continue-button" = "Continuar";
 "welcome-volunteer-title" = "Voluntário";
 "welcome-volunteer-sub-title" = "Ajude a melhorar a aplicação da Wikipédia ao partilhar a forma como a utiliza";

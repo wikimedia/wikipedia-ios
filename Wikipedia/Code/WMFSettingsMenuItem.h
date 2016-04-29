@@ -22,7 +22,6 @@ typedef NS_ENUM (NSUInteger, WMFSettingsMenuItemType) {
     WMFSettingsMenuItemType_RateApp,
     WMFSettingsMenuItemType_SendFeedback,
     WMFSettingsMenuItemType_About,
-    WMFSettingsMenuItemType_FAQ,
     WMFSettingsMenuItemType_DebugCrash,
     WMFSettingsMenuItemType_DevSettings,
 };

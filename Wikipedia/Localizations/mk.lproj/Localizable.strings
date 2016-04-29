@@ -2,9 +2,10 @@
 // Exported from translatewiki.net
 // Author: Bjankuloski06
 // Author: Bsitzmann
+// Author: Macofe
 // Author: Монтехристо
 
-"languages-title" = "Јазици";
+"languages-title" = "Смени јазик";
 "article-languages-label" = "Изберете јазик";
 "article-languages-cancel" = "Откажи";
 "article-languages-downloading" = "Ги вчитувам јазиците на статијата...";
@@ -14,6 +15,8 @@
 "article-unable-to-load-section" = "Не можам да го вчитам одделот. Видете дали ќе се реши проблемот ако ја превчитате страницата.";
 "article-unable-to-load-article" = "Не можам да ја вчитам статијата.";
 "article-related-articles-title" = "Поврзани статии";
+"article-languages-yours" = "Ваши јазици";
+"article-languages-others" = "Други јазици";
 "info-box-title" = "Накратко";
 "info-box-close-text" = "Затвори";
 "table-title-other" = "Повеќе информации";
@@ -244,7 +247,7 @@
 "page_protected_other" = "Оваа страница е заштитена во следниве степени: $1";
 "page_protected_can_not_edit" = "Немате право да ја уредувате страницава";
 "page_protected_can_not_edit_title" = "Оваа страница е заштитена";
-"license-footer-text" = "Содржината е достапна под $1";
+"license-footer-text" = "Содржината е достапна под условите на $1 освен ако не е поинаку наведено.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содржина";
 "table-of-contents-button-label" = "Содржина";
@@ -309,7 +312,7 @@
 "hockeyapp-alert-privacy" = "Приватност на $1";
 "page-issues" = "Проблеми со страницата";
 "page-similar-titles" = "Слични страници";
-"page-read-in-other-languages" = "Достапно на $1 јазици";
+"page-read-in-other-languages" = "Достапно на $1 други јазици";
 "page-last-edited" = "Изменето пред $1 дена";
 "page-edit-history" = "Цела историја на уредувања";
 "captcha-reload" = "Прикажи друга Captcha";
@@ -348,7 +351,7 @@
 "welcome-explore-continue-button" = "Започни";
 "welcome-languages-title" = "Јазици";
 "welcome-languages-sub-title" = "Одберете ги вашите претпочитани јазици за пребарување на Википедија";
-"welcome-languages-add-button" = "+ Додај друг";
+"welcome-languages-add-button" = "Додај друг";
 "welcome-languages-continue-button" = "Продолжи";
 "welcome-volunteer-title" = "Пријави се";
 "welcome-volunteer-sub-title" = "Помогнете ни да го подобриме прилогов споделувајќи сознанија за тоа како го употребувате";

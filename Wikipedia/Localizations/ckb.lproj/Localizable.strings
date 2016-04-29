@@ -2,8 +2,11 @@
 // Exported from translatewiki.net
 // Author: Asoxor
 // Author: Diyariq
+// Author: Macofe
+// Author: Mhurd
 // Author: Sarchia
 
+// Fuzzy
 "languages-title" = "زمانەکان";
 "article-languages-label" = "ھەڵبژاردنی زمان";
 "article-languages-cancel" = "ھەڵوەشاندنەوە";
@@ -177,6 +180,7 @@
 "page_protected_other" = "ئەم پەڕەیە پارێزراوە بۆ ئەم ئاستانە: $1";
 "page_protected_can_not_edit" = "تۆ مەفەکانی دەستکاریکردنی ئەم پەڕەیەت نییە.";
 "page_protected_can_not_edit_title" = "ئەم پەڕەیە پارێزراوە";
+// Fuzzy
 "license-footer-text" = "ناوەڕۆک بەردەستە لەژێر $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "ناوەڕۆکەکان";
@@ -216,6 +220,7 @@
 "hockeyapp-alert-always-send" = "ڕەوانە کرا";
 "hockeyapp-alert-do-not-send" = "ڕەوانە نەکرا";
 "page-similar-titles" = "پەڕە لێکچووەکان";
+// Fuzzy
 "page-read-in-other-languages" = "بە $1 زمان بەردەستە";
 "page-last-edited" = "دەستکاری کراوە $1 لەمەوپێش";
 "home-title" = "دۆزینەوە";
@@ -233,7 +238,7 @@
 "welcome-explore-tell-me-more" = "زۆرترم پێ بڵێ";
 "welcome-explore-tell-me-more-done-button" = "زانیم";
 "welcome-languages-title" = "زمانەکان";
-"welcome-languages-add-button" = "+ زیادکردنی ھیتر";
+"welcome-languages-add-button" = "زیادکردنی ھیتر";
 "welcome-languages-continue-button" = "درێژە بدە";
 "welcome-volunteer-continue-button" = "درێژە بدە";
 "welcome-volunteer-thanks" = "$1 سوپاس بۆ تۆ!";

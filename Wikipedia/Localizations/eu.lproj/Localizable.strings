@@ -6,6 +6,7 @@
 // Author: Sator
 // Author: Subi
 
+// Fuzzy
 "languages-title" = "Hizkuntzak";
 "article-languages-label" = "Hizkuntza aukeratu";
 "article-languages-cancel" = "Utzi";
@@ -205,8 +206,7 @@
 "hockeyapp-alert-privacy" = "$1 pribatutasuna";
 "page-issues" = "Orriaren arazoak";
 "page-similar-titles" = "Antzeko orriak";
-// Fuzzy
-"page-read-in-other-languages" = "Irakurri $1 hizkuntzatan";
+"page-read-in-other-languages" = "Irakurgarri beste $1 hizkuntzatan";
 "captcha-reload" = "Erakutsi beste captcha bat";
 "home-title" = "Esploratu";
 "home-continue-reading-heading" = "Irakurtzen jarraitu";
@@ -214,6 +214,7 @@
 "home-nearby-nothing" = "Ezer ez gertu";
 "home-nearby-check-again" = "Egiaztatu berriro";
 "home-main-page-heading" = "Gaur Wikipedian";
+"home-last-update-label" = "Azken eguneratzea:$1";
 // Fuzzy
 "welcome-languages-title" = "Aukeratu zure hizkuntza";
 "empty-no-feed-title" = "Internet Konexiorik Ez";

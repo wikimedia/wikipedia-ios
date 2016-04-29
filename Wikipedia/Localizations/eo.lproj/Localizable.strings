@@ -6,6 +6,7 @@
 // Author: Remux
 // Author: Robin van der Vliet
 
+// Fuzzy
 "languages-title" = "Lingvoj";
 "article-languages-label" = "Elekti lingvon";
 "article-languages-cancel" = "Nuligi";
@@ -197,6 +198,7 @@
 "page_protected_other" = "Ĉi tiu paĝo estas protektita je la jenaj niveloj: $1";
 "page_protected_can_not_edit" = "Vi ne rajtas redakti ĉi tiun paĝon";
 "page_protected_can_not_edit_title" = "Ĉi tiu paĝo estas protektita";
+// Fuzzy
 "license-footer-text" = "Enhavo disponebla je $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Enhavaĵoj";
@@ -239,6 +241,7 @@
 "hockeyapp-alert-do-not-send" = "Ne sendi";
 "page-issues" = "Problemoj pri paĝo";
 "page-similar-titles" = "Similaj paĝoj";
+// Fuzzy
 "page-read-in-other-languages" = "Disponebla en $1 lingvoj";
 "home-empty-section-check-again" = "Reprovi";
 "home-hide-suggestion-cancel" = "Nuligi";

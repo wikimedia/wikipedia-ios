@@ -5,6 +5,7 @@
 // Author: Xelgen
 // Author: Աշոտ1997
 
+// Fuzzy
 "languages-title" = "Լեզուներ";
 "article-languages-label" = "Ընտրեք լեզուն";
 "article-languages-cancel" = "Չեղարկել";
@@ -157,6 +158,7 @@
 "page_protected_sysop" = "Այս էջն ամբողջությամբ պաշտպանված է եղել։";
 "page_protected_can_not_edit" = "Դուք իրավունք չունեք խմբագրել այս էջը:";
 "page_protected_can_not_edit_title" = "Այս էջը պաշտպանված է";
+// Fuzzy
 "license-footer-text" = "Բովանդակությունը հասանելի է";
 "license-footer-name" = "CC BY-SA 3.0 արտոնագրի ներքո";
 "table-of-contents-heading" = "Բովանդակություն";

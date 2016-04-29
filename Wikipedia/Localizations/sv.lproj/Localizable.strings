@@ -12,7 +12,7 @@
 // Author: Rockyfelle
 // Author: WikiPhoenix
 
-"languages-title" = "Språk";
+"languages-title" = "Ändra språk";
 "article-languages-label" = "Välj språk";
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Läser in artikelspråk...";
@@ -22,6 +22,8 @@
 "article-unable-to-load-section" = "Kunde inte hämta detta avsnitt. Prova att uppdatera artikeln för att kolla om det åtgärdar några problem.";
 "article-unable-to-load-article" = "Kunde inte läsa in artikeln.";
 "article-related-articles-title" = "Relaterade artiklar";
+"article-languages-yours" = "Dina språk";
+"article-languages-others" = "Andra språk";
 "info-box-title" = "Snabbfakta";
 "info-box-close-text" = "Stäng";
 "table-title-other" = "Mer information";
@@ -216,7 +218,7 @@
 "about-product-of" = "Skapad av $1 med hjälp från volontärer som du";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Spara artikeln";
-"share-menu-page-saved" = "Sparade för offline-läsning.";
+"share-menu-page-saved" = "Sparades för läsning offline.";
 "share-menu-page-saved-access" = "Tips: för att komma åt dina sparade sidor, klicka på $1 ovan eller tryck länge på $2 nedan.";
 "share-custom-menu-item" = "Dela";
 "share-a-fact-share-menu-item" = "Dela-ett-faktum";
@@ -252,7 +254,7 @@
 "page_protected_other" = "Denna sida har skyddats för följande nivåer: $1";
 "page_protected_can_not_edit" = "Du saknar rättigheter för att redigera denna sida.";
 "page_protected_can_not_edit_title" = "Denna sida är skrivskyddad";
-"license-footer-text" = "Innehållet är tillgängligt under $1";
+"license-footer-text" = "Innehållet är tillgängligt under $1 om ingenting annat anges.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Innehåll";
 "table-of-contents-button-label" = "Innehållsförteckning";
@@ -317,7 +319,7 @@
 "hockeyapp-alert-privacy" = "$1s sekretess";
 "page-issues" = "Sidproblem";
 "page-similar-titles" = "Liknande sidor";
-"page-read-in-other-languages" = "Tillgänglig på $1 språk";
+"page-read-in-other-languages" = "Tillgänglig på $1 andra språk";
 "page-last-edited" = "Redigerad för $1 dagar sedan";
 "page-edit-history" = "Full redigeringshistorik";
 "captcha-reload" = "Visa en annan captcha";
@@ -356,7 +358,7 @@
 "welcome-explore-continue-button" = "Kom igång";
 "welcome-languages-title" = "Språk";
 "welcome-languages-sub-title" = "Välj dina föredragna språk att söka på i Wikipedia";
-"welcome-languages-add-button" = "+ Lägg till en annat";
+"welcome-languages-add-button" = "Lägg till en annat";
 "welcome-languages-continue-button" = "Fortsätt";
 "welcome-volunteer-title" = "Volontär";
 "welcome-volunteer-sub-title" = "Hjälp till att förbättra Wikipedia-appen genom att dela hur du använder den";

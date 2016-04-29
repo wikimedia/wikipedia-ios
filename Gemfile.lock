@@ -265,6 +265,7 @@ PLATFORMS
 DEPENDENCIES
   cocoapods (~> 0.39.0)
   fastlane (~> 1.68.0)
+  spaceship (~> 0.24)
 
 BUNDLED WITH
    1.11.2

@@ -5,6 +5,7 @@
 // Author: Fryed-peach
 // Author: Kanon und wikipedia
 // Author: Los688
+// Author: Macofe
 // Author: Otokoume
 // Author: Ridmevo
 // Author: Shirayuki
@@ -12,9 +13,10 @@
 // Author: Sujiniku
 // Author: Surgical21
 // Author: Takot
+// Author: Thibaut120094
 // Author: 아라
 
-"languages-title" = "言語";
+"languages-title" = "言語を変更";
 "article-languages-label" = "言語を選択";
 "article-languages-cancel" = "中止";
 "article-languages-downloading" = "言語リストを取得中...";
@@ -24,6 +26,7 @@
 "article-unable-to-load-section" = "この節を読み込むことができません。問題が解決するかどうかの確認のために記事を更新してみてください。";
 "article-unable-to-load-article" = "記事を読み込むことができません。";
 "article-related-articles-title" = "関連記事";
+"article-languages-yours" = "あなたの言語";
 "info-box-title" = "基本データ";
 "info-box-close-text" = "閉じる";
 "table-title-other" = "さらに見る";
@@ -206,12 +209,16 @@
 "about-libraries" = "使用ライブラリについて";
 "about-libraries-license" = "ライセンス";
 "about-libraries-licenses" = "ライセンス";
+"about-content-license" = "コンテンツのライセンス";
+"about-content-license-details" = "特記なき場合、コンテンツは $1 で利用可能です";
 "about-content-license-details-share-alike-license" = "クリエイティブ・コモンズ 表示-継承 (CC BY-SA)";
+"about-libraries-licenses-title" = "オープンソースソフトウェアを愛してます $1";
+"about-libraries-complete-list" = "完全なリスト";
 "about-repositories" = "リポジトリについて";
+"about-repositories-app-source-license" = "ソースコードは $1 で利用可能です。";
 "about-repositories-app-source-license-mit" = "MITライセンス";
 "about-send-feedback" = "フィードバックを送信";
-// Fuzzy
-"about-product-of" = "$1の製品について";
+"about-product-of" = "あなたのようなボランティアの手助けのもと、$1 によって作られました";
 "about-wikimedia-foundation" = "ウィキメディア財団";
 "share-menu-save-page" = "ページを保存";
 "share-menu-page-saved" = "記事を保存しました";
@@ -249,7 +256,7 @@
 "page_protected_other" = "このページは、次のレベルに保護されています:$1";
 "page_protected_can_not_edit" = "このページを編集する権限がありません";
 "page_protected_can_not_edit_title" = "このページは保護されています";
-"license-footer-text" = "コンテンツは$1の利用条件のもとで利用できます";
+"license-footer-text" = "特に記載がない限り、内容は$1のライセンスで利用できます。";
 "license-footer-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
 "table-of-contents-heading" = "目次";
 "table-of-contents-button-label" = "目次";
@@ -318,7 +325,6 @@
 "page-last-edited" = "最終編集日: $1日前";
 "page-edit-history" = "すべての編集履歴";
 "captcha-reload" = "別の文字を表示";
-// Fuzzy
 "captcha-prompt" = "上に示した画像に書いてある文字を入力してください";
 "mwk-empty-title-error" = "タイトルなしでは操作を実行できません。";
 "home-title" = "探してみよう";
@@ -328,6 +334,7 @@
 "home-continue-related-heading" = "$1 も読まれています";
 "home-more-like-footer" = "$1 なども読まれています";
 "home-nearby-footer" = "付近の記事";
+"home-nearby-location-footer" = "$1 付近についてもっと詳しく";
 "home-nearby-nothing" = "付近の記事はありません";
 "home-nearby-check-again" = "もう一度確認する";
 "home-featured-article-heading" = "$1日の秀逸な記事";
@@ -336,18 +343,20 @@
 "home-last-update-label" = "最終更新: $1";
 "home-last-update-never-label" = "最終更新: なし";
 "home-updating-label" = "更新しています...";
+"home-hide-suggestion-prompt" = "提案を隠す";
 "home-hide-suggestion-cancel" = "中止";
 "home-button-accessibility-label" = "ホームボタン";
 "potd-empty-error-description" = "$1日の写真の取得に失敗しました";
 "potd-description-prefix" = "$1日の写真";
 "welcome-explore-title" = "探してみよう";
+"welcome-explore-sub-title" = "面白い記事を毎日見つけよう";
 "welcome-explore-tell-me-more" = "もっと詳しく";
 "welcome-explore-tell-me-more-about-explore" = "「探してみよう」について";
 "welcome-explore-tell-me-more-done-button" = "わかりました";
 "welcome-explore-continue-button" = "次へ";
 "welcome-languages-title" = "言語";
 "welcome-languages-sub-title" = "ウィキペディアでの検索に使用する言語を選択してください";
-"welcome-languages-add-button" = "+ 言語を追加";
+"welcome-languages-add-button" = "言語を追加";
 "welcome-languages-continue-button" = "次へ";
 "welcome-volunteer-title" = "ボランティア";
 "welcome-volunteer-send-usage-reports" = "利用状況レポートを送信";
@@ -366,11 +375,13 @@
 "icon-shortcut-search-title" = "ウィキペディア内を検索";
 "icon-shortcut-continue-reading-title" = "続けて読む";
 "icon-shortcut-random-title" = "おまかせ記事";
+"icon-shortcut-nearby-title" = "付近についての記事";
 "close-button-accessibility-label" = "閉じる";
 "back-button-accessibility-label" = "戻る";
 "compass-direction" = "$1時の位置";
 "explore-featured-article-heading" = "秀逸な記事";
 "explore-continue-reading-heading" = "続けて読む";
+"explore-nearby-heading" = "近くのスポット";
 "explore-continue-related-heading" = "こんな記事も読まれています";
 "explore-main-page-heading" = "今日についての記事";
 "explore-random-article-heading" = "おまかせ記事";

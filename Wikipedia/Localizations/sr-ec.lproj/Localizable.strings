@@ -6,6 +6,7 @@
 // Author: Rancher
 // Author: Сербијана
 
+// Fuzzy
 "languages-title" = "Језици";
 "article-languages-label" = "Изаберите језик";
 "article-languages-cancel" = "Откажи";
@@ -178,7 +179,7 @@
 "page_protected_sysop" = "Ова страница је потпуно заштићена.";
 "page_protected_can_not_edit" = "Немате овлашћења да уређујете ову страницу";
 "page_protected_can_not_edit_title" = "Ова страница је заштићена";
-"license-footer-text" = "Садржај је доступан под лиценцом $1";
+"license-footer-text" = "Садржај је доступан под лиценцом $1 осим ако је другачије наведено.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Садржај";
 "table-of-contents-close-accessibility-hint" = "Затвори";

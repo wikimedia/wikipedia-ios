@@ -1,4 +1,4 @@
-"languages-title" = "Languages";
+"languages-title" = "Change language";
 "article-languages-label" = "Choose language";
 "article-languages-cancel" = "Cancel";
 "article-languages-downloading" = "Loading article languages...";
@@ -8,6 +8,8 @@
 "article-unable-to-load-section" = "Unable to load this section. Try refreshing the article to see if it fixes the problem.";
 "article-unable-to-load-article" = "Unable to load article.";
 "article-related-articles-title" = "Related articles";
+"article-languages-yours" = "Your languages";
+"article-languages-others" = "Other languages";
 
 "info-box-title" = "Quick facts";
 "info-box-close-text" = "Close";
@@ -115,6 +117,10 @@
 "settings-language" = "Wikipedia language";
 "settings-support" = "Support Wikipedia";
 "settings-language-bar" = "Show languages on search";
+"settings-my-languages" = "My languages";
+"settings-help-and-feedback" = "Help and feedback";
+"settings-primary-language" = "Primary";
+"settings-primary-language-details" = "The first language in this list is used as the primary language for the app. Changing this language will change daily content (such as Featured Article) shown on Explore.";
 
 "main-menu-title" = "More";
 "main-menu-heading-about" = "About";
@@ -251,11 +257,14 @@
 "lastmodified-by-user" = "Edited $1 by $2";
 "lastmodified-by-anon" = "Edited $1 by an anonymous user";
 
+"button-edit" = "Edit";
 "button-next" = "Next";
 "button-done" = "Done";
 "button-save" = "Save";
 "button-save-for-later" = "Save for later";
 "button-saved-for-later" = "Saved for later";
+
+"button-report-a-bug" = "Report a bug";
 
 "onboarding-create-account" = "Create account";
 "onboarding-login" = "Log in";
@@ -273,7 +282,7 @@
 "page_protected_can_not_edit" = "You do not have the rights to edit this page";
 "page_protected_can_not_edit_title" = "This page is protected";
 
-"license-footer-text" = "Content is available under $1";
+"license-footer-text" = "Content is available under $1 unless otherwise noted.";
 "license-footer-name" = "CC BY-SA 3.0";
 
 "table-of-contents-heading" = "Contents";
@@ -348,7 +357,7 @@
 
 "page-issues" = "Page issues";
 "page-similar-titles" = "Similar pages";
-"page-read-in-other-languages" = "Available in $1 languages";
+"page-read-in-other-languages" = "Available in $1 other languages";
 "page-last-edited" = "Edited $1 days ago";
 "page-edit-history" = "Full edit history";
 
@@ -370,8 +379,8 @@
 "home-featured-article-heading" = "Featured article for $1";
 "home-main-page-heading" = "Today on Wikipedia";
 "home-potd-heading" = "Picture of the day for $1";
-"home-last-update-label" = "Last Updated: $1";
-"home-last-update-never-label" = "Last Updated: Never";
+"home-last-update-label" = "Last updated: $1";
+"home-last-update-never-label" = "Last updated: Never";
 "home-updating-label" = "Updating…";
 "home-hide-suggestion-prompt" = "Hide this suggestion";
 "home-hide-suggestion-cancel" = "Cancel";
@@ -393,7 +402,7 @@
 
 "welcome-languages-title" = "Languages";
 "welcome-languages-sub-title" = "Choose your preferred languages to search Wikipedia";
-"welcome-languages-add-button" = "+ Add another";
+"welcome-languages-add-button" = "Add another language";
 "welcome-languages-continue-button" = "Continue";
 
 "welcome-volunteer-title" = "Volunteer";

@@ -6,7 +6,7 @@
 // Author: Macofe
 // Author: Toliño
 
-"languages-title" = "Linguas";
+"languages-title" = "Cambiar lingua";
 "article-languages-label" = "Escolla unha lingua";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "Cargando as linguas do artigo...";
@@ -16,6 +16,8 @@
 "article-unable-to-load-section" = "Non foi posible cargar esta sección. Probe a refrescar o artigo para intentar amañar o problema.";
 "article-unable-to-load-article" = "Non se pode cargar o artigo.";
 "article-related-articles-title" = "Artigos relacionados";
+"article-languages-yours" = "As súas linguas";
+"article-languages-others" = "Outras linguas";
 "info-box-title" = "Datos rápidos";
 "info-box-close-text" = "Pechar";
 "table-title-other" = "Máis información";
@@ -246,7 +248,7 @@
 "page_protected_other" = "Esta páxina está protexida para os seguintes niveis: $1";
 "page_protected_can_not_edit" = "Non ten os permisos necesarios para editar esta páxina";
 "page_protected_can_not_edit_title" = "Esta páxina está protexida";
-"license-footer-text" = "O contido está dispoñible baixo a $1";
+"license-footer-text" = "O contido está dispoñible baixo a $1, salvo que se indique o contrario.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contidos";
 "table-of-contents-button-label" = "Táboa de contidos";
@@ -311,7 +313,7 @@
 "hockeyapp-alert-privacy" = "Confidencialidade de $1";
 "page-issues" = "Problemas na páxina";
 "page-similar-titles" = "Páxinas similares";
-"page-read-in-other-languages" = "Dispoñible en $1 linguas";
+"page-read-in-other-languages" = "Dispoñible en outras $1 linguas";
 "page-last-edited" = "Editado fai $1 días";
 "page-edit-history" = "Historial de edición completo";
 "captcha-reload" = "Mostrar outro «captcha»";
@@ -350,7 +352,7 @@
 "welcome-explore-continue-button" = "Comezar";
 "welcome-languages-title" = "Linguas";
 "welcome-languages-sub-title" = "Seleccione as súas linguas preferidas para buscar en Wikipedia";
-"welcome-languages-add-button" = "+ Engadir outro";
+"welcome-languages-add-button" = "Engadir outro";
 "welcome-languages-continue-button" = "Continuar";
 "welcome-volunteer-title" = "Voluntarios";
 "welcome-volunteer-sub-title" = "Axude a mellorar a aplicación de Wikipedia compartindo como a usa";

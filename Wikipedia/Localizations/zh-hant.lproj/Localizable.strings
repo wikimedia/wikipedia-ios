@@ -8,10 +8,12 @@
 // Author: LEEJACK
 // Author: LNDDYL
 // Author: Liuxinyu970226
+// Author: Macofe
 // Author: Mikepanhu
 // Author: Simon Shek
 // Author: Wehwei
 
+// Fuzzy
 "languages-title" = "語言";
 "article-languages-label" = "選擇語言";
 "article-languages-cancel" = "取消";
@@ -252,6 +254,7 @@
 "page_protected_other" = "此頁面已受到以下層級的保護：$1";
 "page_protected_can_not_edit" = "您沒有權限編輯此頁面";
 "page_protected_can_not_edit_title" = "此頁面受到保護";
+// Fuzzy
 "license-footer-text" = "內容根據 $1 可用";
 "license-footer-name" = "創用 CC 姓名標示-相同方式分享 3.0";
 "table-of-contents-heading" = "內容";
@@ -317,6 +320,7 @@
 "hockeyapp-alert-privacy" = "$1 隱私";
 "page-issues" = "頁面問題";
 "page-similar-titles" = "相似頁面";
+// Fuzzy
 "page-read-in-other-languages" = "在 $1 語言中閱讀";
 "page-last-edited" = "$1 日前編輯";
 "page-edit-history" = "完整編輯歷史";
@@ -336,7 +340,9 @@
 "home-featured-article-heading" = "$1 的特色條目";
 "home-main-page-heading" = "維基百科今日";
 "home-potd-heading" = "$1 的每日圖片";
+// Fuzzy
 "home-last-update-label" = "最後更新: $1";
+// Fuzzy
 "home-last-update-never-label" = "最後更新: 從未";
 "home-updating-label" = "正在更新…";
 "home-hide-suggestion-prompt" = "隱藏此建議";
@@ -356,7 +362,7 @@
 "welcome-explore-continue-button" = "入門";
 "welcome-languages-title" = "語言";
 "welcome-languages-sub-title" = "選擇您偏好的語言來搜尋維基百科";
-"welcome-languages-add-button" = "+新增另一個";
+"welcome-languages-add-button" = "新增另一個";
 "welcome-languages-continue-button" = "繼續";
 "welcome-volunteer-title" = "志願者";
 "welcome-volunteer-sub-title" = "透過分享您的使用方式，協助改善維基百科應用程式。";

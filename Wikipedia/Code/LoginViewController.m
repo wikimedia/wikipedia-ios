@@ -23,6 +23,8 @@
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
+#import "MWKLanguageLinkController.h"
+
 
 @interface LoginViewController (){
 }
@@ -56,7 +58,7 @@
     }];
     self.navigationItem.leftBarButtonItems = @[xButton];
 
-    self.doneButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-done", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
+    self.doneButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"main-menu-account-login", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
         @strongify(self)
         [self save];
     }];
@@ -278,7 +280,7 @@
     self.failBlock = (!failBlock) ? ^(){} : failBlock;
 
     [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
+        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
                                                            userName:userName
                                                            password:password
                                                         withManager:[QueuesSingleton sharedInstance].loginFetchManager
@@ -292,7 +294,7 @@
     // long as we can to lessen number of server requests. Uses user tokens as templates for copying
     // session tokens. See "recreateCookie:usingCookieAsTemplate:" for details.
 
-    NSString* domain = [SessionSingleton sharedInstance].currentArticleSite.language;
+    NSString* domain = [[MWKLanguageLinkController sharedInstance] appLanguage].languageCode;
 
     NSString* cookie1Name = [NSString stringWithFormat:@"%@wikiSession", domain];
     NSString* cookie2Name = [NSString stringWithFormat:@"%@wikiUserID", domain];

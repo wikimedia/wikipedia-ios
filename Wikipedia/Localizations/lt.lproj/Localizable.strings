@@ -2,11 +2,13 @@
 // Exported from translatewiki.net
 // Author: Gediminas
 // Author: Hugo.arg
+// Author: Macofe
 // Author: Mantak111
 // Author: Pofka
+// Author: Techwebpd
 // Author: Zygimantus
 
-"languages-title" = "Kalbos";
+"languages-title" = "Keisti kalbą";
 "article-languages-label" = "Pasirinkite kalbą";
 "article-languages-cancel" = "Atšaukti";
 "article-languages-downloading" = "Įkeliamos straipsnio kalbos...";
@@ -14,6 +16,7 @@
 "article-read-more-title" = "Skaityti daugiau";
 "article-about-title" = "Apie šį straipsnį";
 "article-related-articles-title" = "Susiję straipsniai";
+"article-languages-yours" = "Jūsų kalbos";
 "info-box-title" = "Trumpi faktai";
 "info-box-close-text" = "Uždaryti";
 "table-title-other" = "Daugiau informacijos";
@@ -66,6 +69,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Atidaryti nuorodą";
 "open-link-cancel" = "Atšaukti";
+"search-title" = "Paieška";
 "search-searching" = "Ieškoma...";
 "search-field-placeholder-text" = "Paieška Vikipedijoje";
 "search-loading-article-loaded" = "Straipsnis įkeltas.";
@@ -184,6 +188,7 @@
 "onboarding-free-encyclopedia" = "Laisvoji enciklopedija";
 "preference_title_eventlogging_opt_in" = "Siųsti naudojimo ataskaitas";
 "page_protected_can_not_edit_title" = "Šis puslapis apsaugotas";
+// Fuzzy
 "license-footer-text" = "Turinys prieinamas pagal $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Turinys";
@@ -221,6 +226,7 @@
 "hockeyapp-alert-always-send" = "Visada siųsti";
 "hockeyapp-alert-do-not-send" = "Nesiųsti";
 "page-similar-titles" = "Panašūs puslapiai";
+// Fuzzy
 "page-read-in-other-languages" = "Prieinama $1 kalbomis";
 "captcha-reload" = "Rodyti kitą saugos kodą";
 "home-empty-section" = "Nėra rezultatų";
@@ -232,7 +238,7 @@
 "welcome-explore-tell-me-more-done-button" = "Supratau";
 "welcome-explore-continue-button" = "Pradėti";
 "welcome-languages-title" = "Kalbos";
-"welcome-languages-add-button" = "+ Pridėti kitą";
+"welcome-languages-add-button" = "Pridėti kitą";
 "welcome-languages-continue-button" = "Tęsti";
 "welcome-volunteer-title" = "Savanoris";
 "welcome-volunteer-send-usage-reports" = "Siųsti naudojimo ataskaitas";

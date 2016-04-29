@@ -7,12 +7,13 @@
 // Author: LNDDYL
 // Author: Linforest
 // Author: Liuxinyu970226
+// Author: Macofe
 // Author: NigelSoft
 // Author: Qiyue2001
 // Author: Shizhao
 // Author: 王庭茂
 
-"languages-title" = "语言";
+"languages-title" = "更改语言";
 "article-languages-label" = "选择语言";
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "条目语言载入中...";
@@ -22,6 +23,8 @@
 "article-unable-to-load-section" = "无法载入此章节。请尝试刷新条目以查看问题是否解决。";
 "article-unable-to-load-article" = "无法加载条目。";
 "article-related-articles-title" = "相关条目";
+"article-languages-yours" = "您的语言";
+"article-languages-others" = "其他语言";
 "info-box-title" = "快速预览";
 "info-box-close-text" = "关闭";
 "table-title-other" = "更多信息";
@@ -73,7 +76,7 @@
 "login-account-creation" = "没有账户？加入维基百科";
 "login-username-placeholder-text" = "用户名";
 "login-password-placeholder-text" = "密码";
-"wikitext-downloading" = "加载中…";
+"wikitext-downloading" = "正在加载内容...";
 "wikitext-download-failed" = "无法获取最新的版本。";
 "wikitext-download-success" = "内容已加载。";
 "wikitext-preview-changes" = "正在获取您更改的预览…";
@@ -252,7 +255,7 @@
 "page_protected_other" = "此页面已获以下保护：$1";
 "page_protected_can_not_edit" = "您没有权限编辑此页";
 "page_protected_can_not_edit_title" = "此页面受到保护";
-"license-footer-text" = "内容根据$1可用";
+"license-footer-text" = "除非另有说明，内容基于$1授权。";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "内容";
 "table-of-contents-button-label" = "目录";
@@ -317,7 +320,7 @@
 "hockeyapp-alert-privacy" = "$1隐私";
 "page-issues" = "页面问题";
 "page-similar-titles" = "相似页面";
-"page-read-in-other-languages" = "在$1种语言中可用";
+"page-read-in-other-languages" = "在$1种其他语言中可用";
 "page-last-edited" = "编辑于$1天前";
 "page-edit-history" = "完整编辑历史";
 "captcha-reload" = "显示另一个验证码";
@@ -356,7 +359,7 @@
 "welcome-explore-continue-button" = "入门";
 "welcome-languages-title" = "语言";
 "welcome-languages-sub-title" = "选择您的首选语言以搜索维基百科";
-"welcome-languages-add-button" = "+添加另一个";
+"welcome-languages-add-button" = "添加另一个";
 "welcome-languages-continue-button" = "继续";
 "welcome-volunteer-title" = "志愿者";
 "welcome-volunteer-sub-title" = "通过分享您的使用方式，帮助改进维基百科应用程序";

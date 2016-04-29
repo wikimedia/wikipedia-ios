@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Purodha
 
+// Fuzzy
 "languages-title" = "Schprohche";
 "article-languages-label" = "Söhg en Schprohch uß";
 "article-languages-cancel" = "Ophüre!";
@@ -234,7 +235,7 @@
 "page_protected_other" = "Heh di Sigg es jeschöß woode op Nivvoh: $1";
 "page_protected_can_not_edit" = "Do häs nit dat Rääsch, heh di Sigg ze ändere";
 "page_protected_can_not_edit_title" = "Heh di Sigg es jeschöz.";
-"license-footer-text" = "Dä Ennhalld es ze hann onger $1";
+"license-footer-text" = "Wann nit angersch aanjejovve es dä Ennhalld ze hann onger $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Enhalld";
 "table-of-contents-button-label" = "Enhalldsverzeijschneß";
@@ -297,6 +298,7 @@
 "hockeyapp-alert-privacy" = "Jeheimhalldong vun $1";
 "page-issues" = "Problehme met heh dä Sigg";
 "page-similar-titles" = "Ähnlejje Sigge";
+// Fuzzy
 "page-read-in-other-languages" = "En $1 Schprohche";
 "page-last-edited" = "Vör $1 Dähsch verändert";
 "page-edit-history" = "De kumplätte Verjangeheijt";
@@ -318,7 +320,7 @@
 "home-main-page-heading" = "Hück op de Wikkipehdija";
 "home-potd-heading" = "Et Beld vum Daach för $1";
 "home-last-update-label" = "Et läz jeänndert: $1";
-"home-last-update-never-label" = "Et läz jeänndert: Nimmohls.";
+"home-last-update-never-label" = "Et läz jeänndert: Noch nihmohls.";
 "home-updating-label" = "Ben aam Änndere ...";
 "home-hide-suggestion-prompt" = "Donn dä Vörschlahch ußblände";
 "home-hide-suggestion-cancel" = "Ophühre";
@@ -337,7 +339,7 @@
 "welcome-explore-continue-button" = "Wigger";
 "welcome-languages-title" = "Schprohche";
 "welcome-languages-sub-title" = "Beschtemm Ding Schprohche, för zem Söhke en de Wikkipehdija";
-"welcome-languages-add-button" = "+ Donn ein dobei";
+"welcome-languages-add-button" = "Donn eine dobei";
 "welcome-languages-continue-button" = "Wiggermaache";
 "welcome-volunteer-title" = "Freiwellejer";
 "welcome-volunteer-sub-title" = "Hellev_ons, di Äpp för de Wikkipehdiaj noch bäßer ze maache, endämm dat De ons weße läß wi De aam bruche bes";

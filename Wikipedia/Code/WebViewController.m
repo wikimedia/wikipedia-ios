@@ -39,8 +39,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroInterstitial
 };
 
-NSString* const WMFLicenseTitleOnENWiki =
-    @"Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License";
+NSString* const WMFCCBySALicenseURL =
+    @"https://creativecommons.org/licenses/by-sa/3.0/";
 
 @interface WebViewController () <ReferencesVCDelegate>
 
@@ -263,17 +263,16 @@ NSString* const WMFLicenseTitleOnENWiki =
 }
 
 - (void)addHeaderView {
-    if (!self.headerViewController) {
+    if (!self.headerView) {
         return;
     }
-    [self.webView.scrollView addSubview:self.headerViewController.view];
-    [self.headerViewController.view mas_makeConstraints:^(MASConstraintMaker* make) {
+    [self.webView.scrollView addSubview:self.headerView];
+    [self.headerView mas_makeConstraints:^(MASConstraintMaker* make) {
         // lead/trail must be constained to webview, the scrollview doesn't define a width
         make.leading.and.trailing.equalTo(self.webView);
         make.top.equalTo(self.webView.scrollView);
         self.headerHeight = make.height.equalTo(@([self headerHeightForCurrentTraitCollection]));
     }];
-    [self.headerViewController didMoveToParentViewController:self];
 }
 
 - (UIView*)footerContainerView {
@@ -290,14 +289,19 @@ NSString* const WMFLicenseTitleOnENWiki =
         @weakify(self);
         [_footerLicenseView.showLicenseButton bk_addEventHandler:^(id sender) {
             @strongify(self);
-            MWKSite* site = [[MWKSite alloc] initWithDomain:WMFDefaultSiteDomain language:@"en"];
-            [self.delegate webViewController:self didTapOnLinkForTitle:[site titleWithString:WMFLicenseTitleOnENWiki]];
+            [self wmf_openExternalUrl:[NSURL URLWithString:WMFCCBySALicenseURL]];
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _footerLicenseView;
 }
 
 - (void)addFooterView {
+    if(!self.article){
+        return;
+    }
+    if([self.article.title isNonStandardTitle]){
+        return;
+    }
     self.footerViewHeadersByIndex = [NSMutableDictionary dictionary];
     [self addFooterContainerView];
     [self addFooterContentViews];
@@ -315,6 +319,9 @@ NSString* const WMFLicenseTitleOnENWiki =
 }
 
 - (void)addFooterContentViews {
+    if([self.article.title isNonStandardTitle]){
+        return;
+    }
     NSParameterAssert(self.isViewLoaded);
     MASViewAttribute* lastAnchor = [self.footerViewControllers bk_reduce:self.footerContainerView.mas_top
                                                                withBlock:^MASViewAttribute*(MASViewAttribute* topAnchor,
@@ -371,17 +378,16 @@ NSString* const WMFLicenseTitleOnENWiki =
     [self addFooterView];
 }
 
-- (void)setHeaderViewController:(UIViewController*)headerViewController {
-    NSAssert(!self.headerViewController, @"Dynamic/re-configurable header view is not supported.");
+- (void)setHeaderView:(UIView *)headerView{
+    NSAssert(!self.headerView, @"Dynamic/re-configurable header view is not supported.");
     NSAssert(!self.isViewLoaded, @"Expected header to be configured before viewDidLoad.");
-    _headerViewController = headerViewController;
-    [self addChildViewController:self.headerViewController];
-    // didMoveToParent is called when it is added to the view
+    _headerView = headerView;
+
 }
 
 - (void)layoutWebViewSubviews {
     [self.headerHeight setOffset:[self headerHeightForCurrentTraitCollection]];
-    CGFloat headerBottom = CGRectGetMaxY(self.headerViewController.view.frame);
+    CGFloat headerBottom = CGRectGetMaxY(self.headerView.frame);
     /*
        HAX: need to manage positioning the browser view manually.
        using constraints seems to prevent the browser view size and scrollview contentSize from being set
@@ -413,7 +419,7 @@ NSString* const WMFLicenseTitleOnENWiki =
 }
 
 - (CGFloat)headerHeightForTraitCollection:(UITraitCollection*)traitCollection {
-    if (self.article.isMain || !self.article.imageURL) {
+    if (self.article.isMain || !self.article.imageURL || [self.article.title isNonStandardTitle]) {
         return 0;
     }
     switch (traitCollection.verticalSizeClass) {
@@ -429,7 +435,7 @@ NSString* const WMFLicenseTitleOnENWiki =
 - (CGFloat)clientBoundingRectVerticalOffset {
     NSParameterAssert(self.isViewLoaded);
     CGRect headerIntersection =
-        CGRectIntersection(self.webView.scrollView.wmf_contentFrame, self.headerViewController.view.frame);
+        CGRectIntersection(self.webView.scrollView.wmf_contentFrame, self.headerView.frame);
     return headerIntersection.size.height;
 }
 
@@ -655,28 +661,21 @@ NSString* const WMFLicenseTitleOnENWiki =
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.site.language];
     NSString* uidir              = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
 
-    // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
-    BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && html);
-    if (!safeToCrossBridge) {
-        NSLog(@"\n\nUnsafe to cross JS bridge!");
-        NSLog(@"\tlanguageInfo.code = %@", languageInfo.code);
-        NSLog(@"\tlanguageInfo.dir = %@", languageInfo.dir);
-        NSLog(@"\tuidir = %@", uidir);
-        NSLog(@"\thtmlStr is nil = %d\n\n", (html == nil));
-        //TODO: output "could not load page" alert and/or show last page?
-        return;
-    }
-
     [self.bridge loadHTML:html withAssetsFile:@"index.html"];
 
     // NSLog(@"languageInfo = %@", languageInfo.code);
-    [self.bridge sendMessage:@"setLanguage"
-                 withPayload:@{
-         @"lang": languageInfo.code,
-         @"dir": languageInfo.dir,
-         @"uidir": uidir
-     }];
-
+    
+    // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
+    BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && html);
+    if (safeToCrossBridge) {
+        [self.bridge sendMessage:@"setLanguage"
+                     withPayload:@{
+                                   @"lang": languageInfo.code,
+                                   @"dir": languageInfo.dir,
+                                   @"uidir": uidir
+                                   }];
+    }
+    
     if (!self.article.editable) {
         [self.bridge sendMessage:@"setPageProtected" withPayload:@{}];
     }
@@ -899,6 +898,15 @@ NSString* const WMFLicenseTitleOnENWiki =
 - (void)editHistoryButtonPushed {
     UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[PageHistoryViewController wmf_initialViewControllerFromClassStoryboard]];
     [self presentViewController:nc animated:YES completion:nil];
+}
+
+- (void)setFontSizeMultiplier:(NSNumber*)fontSize {
+    if (fontSize == nil) {
+        fontSize = @(100);
+    }
+    [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.querySelector('body').style['-webkit-text-size-adjust'] = '%ld%%';", fontSize.integerValue]];
+    [[NSUserDefaults standardUserDefaults] wmf_setReadingFontSize:fontSize];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - Previewing

@@ -1,14 +1,15 @@
 // Messages for Sindhi (سنڌي)
 // Exported from translatewiki.net
 // Author: Aursani
+// Author: Macofe
 // Author: Mehtab ahmed
 
+// Fuzzy
 "languages-title" = "ٻوليون";
 "article-languages-label" = "ٻولي چونڊيو";
 "article-languages-cancel" = "رد";
 "article-languages-downloading" = "مضمون جون ٻوليون لاهيندي...";
-// Fuzzy
-"article-languages-filter-placeholder" = "ٻولي جي ڇاڻي";
+"article-languages-filter-placeholder" = "ٻولي لھو";
 "article-read-more-title" = "وڌيڪ پڙهو";
 "article-about-title" = "هن مضمون بابت";
 "article-unable-to-load-section" = "هن حصي کي لوڊ ڪرڻ ۾ نالائق. مضمون کي تازو ڪرڻ جي ڪوشش ڪريو اهو ڏسڻ لاءِ ته ڇا اهو مسئلي کي حل ڪري ٿو.";
@@ -17,17 +18,17 @@
 "info-box-title" = "ترت معلومات";
 "info-box-close-text" = "بند ڪريو";
 "table-title-other" = "وڌيڪ معلومات";
+"saved-clear-all" = "ختم ڪريو";
+"history-clear-all" = "ختم ڪريو";
 "history-label" = "تازيون";
 "history-section-today" = "اڄ";
 "history-section-yesterday" = "ڪلھ";
 "history-section-lastweek" = "گذريل هفتي";
 "history-section-lastmonth" = "گذريل مهيني";
-// Fuzzy
-"history-clear-confirmation-heading" = "سڀ تازيون شيون ختم ڪريون؟";
+"history-clear-confirmation-heading" = "ڇا توھان کي پڪ آھي تہ توھان سڀ تازيون شيون ڊاھڻ چاھيو ٿا'";
 "history-clear-confirmation-sub-heading" = "هي عمل واپس نٿو ڪري سگهجي!";
 "history-clear-cancel" = "رد";
-// Fuzzy
-"history-clear-delete-all" = "سڀ ختم ڪريو";
+"history-clear-delete-all" = "ھا، سڀ ختم ڪريو";
 "history-description" = "توهان شايد سڀني کي ڊاهي ڇڏيو. آئينده توهان اڳ ۾ گھميل ڪنهن بہ صفحي تي هتان وڃي سگھو ٿا.";
 "history-none" = "هتي ڪي به تازا صفحا نه آهن.";
 "zero-free-verbiage" = "توهانجي موبائل آپريٽر پاران وڪيپيڊيا تي مفت رسائي (ڊيٽا رقمن تان هٿ کنيل آهي)";
@@ -42,8 +43,7 @@
 "zero-learn-more-learn-more" = "وڌيڪ پڙهو";
 "zero-learn-more-no-thanks" = "برخاست ڪريو";
 "zero-wikipedia-zero-heading" = "وڪيپيڊيا زيرو";
-// Fuzzy
-"zero-warn-when-leaving" = "جيڪڏهن وڪيپيڊيا زيرو ڇڏي وڃي رهي هجي ته خبردار ڪريو";
+"zero-warn-when-leaving" = "جيڪڏهن وڪيپيڊيا زيرو ڇڏي وڃي رهي هجي تہ خبردار ڪريو";
 "account-creation-captcha-required" = "CAPTCHA پڪ گھربل آھي.";
 "account-creation-captcha-obtaining" = "ھڪ نئون  CAPTCHA حاصل ڪندي.";
 "account-creation-logging-in" = "لاگ ان ڪندي...";
@@ -99,38 +99,36 @@
 "search-recent-clear-delete-all" = "سڀ ختم ڪريو";
 "search-result-redirected-from" = "$1: کان چوريل";
 "settings-title" = "ترتيبون";
+"settings-language" = "وڪيپيڊيا ٻولي";
+"settings-support" = "وڪيپيڊيا جي مدد ڪريو";
+"settings-language-bar" = "ڳولا تي ٻوليون ڏيکاريو";
 "main-menu-title" = "وڌيڪ";
 "main-menu-heading-about" = "بابت";
 "main-menu-language-title" = "$1 وڪيپيڊيا ڳوليو";
-// Fuzzy
-"main-menu-faq" = "FAQ";
+"main-menu-faq" = "ڪثرتاََ پڇجندڙ سوال";
 "main-menu-language-toggle-show" = "ٻوليون ڏيکاريو";
 "main-menu-language-toggle-hide" = "ٻوليون لڪايو";
 "main-menu-language-selection-saved" = "ٻولي جي چونڊ سانڍي وئي";
 "main-menu-account-title-logged-out" = "کاتو";
-// Fuzzy
-"main-menu-account-title-logged-in" = "بطور: $1 لاڳ ان ٿيل";
-// Fuzzy
-"main-menu-account-login" = "وڪيپيڊيا ۾ لاگ ان ٿيو";
+"main-menu-account-title-logged-in" = "بطور $1 لاگ ان ٿيل";
+"main-menu-account-login" = "لاگ ان ٿيو";
 "main-menu-account-logout" = "لاگ آئوٽ";
+"main-menu-account-logout-are-you-sure" = "ڇا توھان کي پڪ آھي تہ توھان لاگ آئوٽ ٿيڻ ٿا چاھيو؟";
+"main-menu-account-logout-cancel" = "رد";
 "main-menu-show-title" = "مونکي ڏيکاريو.";
 "main-menu-show-history" = "تازيون";
 "main-menu-show-saved" = "سانڍيل صفحا";
 "main-menu-current-article-save" = "$1 کي آف لائين پڙهائي لاءِ سانڍيو";
 "main-menu-random" = "بي ترتيب";
 "main-menu-feedback-heading" = "پذيرائي";
-// Fuzzy
-"main-menu-send-feedback" = "ايپ جي پذيرائي موڪليو";
+"main-menu-send-feedback" = "پذيرائي موڪليو";
 "main-menu-show-page-history" = "$1 ۾ تبديلين جي سوانح";
 "main-menu-credits" = "ساراهون";
-// Fuzzy
-"main-menu-about" = "وڪيپيڊيا ايپ بابت";
+"main-menu-about" = "ايپ بابت";
 "main-menu-zero-faq" = "وڪيپيڊيا زيرو FAQ";
 "main-menu-privacy-policy" = "ذاتيات پاليسي";
-// Fuzzy
-"main-menu-terms-of-use" = "استعمال جا شرط";
-// Fuzzy
-"main-menu-rate-app" = "Rate app";
+"main-menu-terms-of-use" = "استعمال جون شرطون";
+"main-menu-rate-app" = "ايپ کي ريٽ ڪريو";
 "main-menu-heading-zero" = "وڪيپيڊيا زيرو";
 "main-menu-heading-legal" = "ذاتيات ۽ شرط";
 "main-menu-show-today" = "اڄ";
@@ -140,12 +138,10 @@
 "main-menu-debug-tweaks" = "ترقي ڏيندڙ جون ترتيبون";
 "saved-title" = "سانڍيل";
 "saved-pages-title" = "سانڍيل صفحا";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "سڀ سانڍيل شيون ختم ڪريون؟";
+"saved-pages-clear-confirmation-heading" = "ڇا توھان کي پڪ آھي تہ توھان پنھنجا  سڀ سانڍيل صفحا ڊاھڻ چاھيو ٿا'";
 "saved-pages-clear-confirmation-sub-heading" = "هي عمل واپس نٿو ڪري سگهجي!";
 "saved-pages-clear-cancel" = "رد";
-// Fuzzy
-"saved-pages-clear-delete-all" = "سڀ ختم ڪريو";
+"saved-pages-clear-delete-all" = "ھا، سڀ ختم ڪريو";
 "saved-pages-refresh-cancel-alert-title" = "جدت رد ڪئي.";
 "saved-pages-refresh-cancel-alert-message" = "وڪيپيڊيا مضمونن ۾ هر وقت جدت آندي ويندي آهي. تازو ڪرڻ لاءِ ٽيپ ڪريو ته جيئن سڀني مضمونن جا تازا ترين ورزن ملن.";
 "saved-pages-refresh-cancel-alert-button" = "سمجھي ويس";
@@ -181,22 +177,26 @@
 "article-pull-to-refresh-is-refreshing" = "مضمون کي تازو ڪندي";
 "about-title" = "بانت";
 "about-wikipedia" = "وڪيپيڊيا";
-// Fuzzy
-"about-contributors" = "ڀاڱيدار";
-// Fuzzy
-"about-translators" = "ترجميڪار";
+"about-contributors" = "ڀاڱيدارَ";
+"about-translators" = "ترجميڪارَ";
 "about-translators-details" = "$1 تي رضاڪارن طرفان ترجمو ڪيل";
-// Fuzzy
-"about-libraries" = "استعمال ڪيل ڪتبخانا";
+"about-libraries" = "مستعمل لائبريريون";
 "about-libraries-license" = "لائسنس";
+"about-libraries-licenses" = "لائسنس";
+"about-content-license" = "مواد جو لائسنس";
+"about-content-license-details" = "مواد $1 جي تحت موجود آھي، نہ تہ ٻي صورت ۾ وضاحت ڪيل آھي.";
+"about-content-license-details-share-alike-license" = "ڪريئيٽو ڪامنز اٽريبيوشن-شيئرالائيڪ لائسنس";
+"about-libraries-complete-list" = "مڪمل فھرست";
+"about-repositories-app-source-license-mit" = "ايمآءِٽي لائسنس";
 "about-send-feedback" = "ايپ جي پذيرائي موڪليو";
-// Fuzzy
-"about-product-of" = "$1 جي پيداوار";
+"about-product-of" = "توھان جھڙن رضاڪارن جي مدد سان $1 پاران ٺھيل";
 "about-wikimedia-foundation" = "وڪيميڊيا تنظيم";
 "share-menu-save-page" = "صفحو سانڍيو";
 "share-menu-page-saved" = "آف لائين پڙهائي لاءِ سانڍيل.";
 "share-menu-page-saved-access" = "ٽوٽڪو: پنهنجن سانڍيل صفحن تائين رسائي حاصل ڪرڻ لاءِ،  $1 تي مٿي ٽيپ ڪريو يا هيٺ $2 تي ڊگهو زور ڏيو.";
 "share-custom-menu-item" = "ونڊيو";
+"share-a-fact-share-menu-item" = "ھڪ-حقيقت-ونڊيو";
+"share-on-twitter-sign-off" = "وايہ @وڪيپيڊيا";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia تي:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" @Wikipedia تي: \"$2\"";
 "share-as-image" = "عڪس طور ونڊيو";
@@ -228,10 +228,12 @@
 "page_protected_other" = "هيءُ صفحو هيٺين سطحن تائين تحفظيل آهي: $1";
 "page_protected_can_not_edit" = "توهان کي هيءُ صفحو سنوارڻ جا حق حاصل نہ آهن";
 "page_protected_can_not_edit_title" = "هيءُ صفحو تحفظيل آهي";
-"license-footer-text" = "مواد $1 جي تحت ميسر آهي";
+"license-footer-text" = "مواد $1 جي تحت ميسر آهي نہ تہ ٻي صورت ۾ نوٽ ٿيل آھي.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "فهرست";
 "table-of-contents-button-label" = "فهرست";
+"table-of-contents-close-accessibility-label" = "عنوانن جي فھرست بند ڪريو";
+"table-of-contents-close-accessibility-hint" = "بند ڪريو";
 "abuse-filter-warning-heading" = "هي هڪ غير تخليقي ترميم لڳي ٿي، ڇا توهان انکي سانڍڻ چاهيو ٿا؟";
 "abuse-filter-warning-subheading" = "توهان جي ترميم ۾ هيٺين مان هڪ يا ٻه شيون ٿي سگھن ٿيون:";
 "abuse-filter-warning-caps" = "وڏن اکرن ۾ لکندي";
@@ -293,17 +295,20 @@
 "captcha-prompt" = "مٿين عڪس مان CAPTCHA لکت داخل ڪريو";
 "mwk-empty-title-error" = "خالي عنوان تي آپريشن پيش ڪرڻ ۾ ناڪام.";
 "home-title" = "تلاش ڪريو";
+"home-empty-section" = "نتيجا نہ آھن";
+"home-empty-section-check-again" = "ٻيهر ڪوشش ڪريو";
 "home-continue-reading-heading" = "پڙهڻ جاري رکو";
 "home-continue-related-heading" = "جيئن تہ توهان $1 پڙهيو";
 "home-more-like-footer" = "وڌيڪ $1 وانگر";
 "home-nearby-footer" = "توهان جي مڪانيت جي ويجھڙ مان وڌيڪ";
+"home-nearby-location-footer" = "وڌيڪ ويجھڙائي ۾ $1";
 "home-nearby-nothing" = "ڪجھ به ويجھڙ ۾ نه آهي";
 "home-nearby-check-again" = "ٻيهر چڪاسيو";
 "home-featured-article-heading" = "$1 لاءِ نمايان مضمون";
 "home-main-page-heading" = "اڄ وڪيپيڊيا تي";
 "home-potd-heading" = "$1 لاءِ اڄ جي تصوير";
-"home-last-update-label" = "آخري دفعو سنواريل: $1";
-"home-last-update-never-label" = "آخري دفعو سنواريل: ڪڏھن بہ نہ";
+"home-last-update-label" = "پويون دفعو سنواريل: $1";
+"home-last-update-never-label" = "پويون دفعو سنواريل: ڪڏھن بہ نہ";
 "home-updating-label" = "سنواريندي...";
 "home-hide-suggestion-prompt" = "ھيءَ تجويز لڪايو";
 "home-hide-suggestion-cancel" = "رد";
@@ -311,15 +316,26 @@
 "home-button-accessibility-label" = "گھر بٽڻ";
 "potd-empty-error-description" = "$1 لاءِ اڄ جي تصوير حاصل ڪرڻ ۾ ناڪام";
 "potd-description-prefix" = "$1 لاءِ اڄ جي تصوير";
-// Fuzzy
-"welcome-languages-title" = "ڳولا لاءِ ٻوليون";
+"welcome-explore-title" = "ايڪسپلور";
+"welcome-explore-sub-title" = "ھر روز دلچسپ مضمون ڳولڻ جو نئون طريقو";
+"welcome-explore-tell-me-more" = "مون کي وڌيڪ ٻڌايو";
+"welcome-explore-tell-me-more-about-explore" = "ايڪسپلور بابت وڌيڪ";
+"welcome-explore-tell-me-more-done-button" = "سمجھي ويا";
+"welcome-explore-continue-button" = "شروع ڪريو";
+"welcome-languages-title" = "ٻوليون";
+"welcome-languages-sub-title" = "وڪيپيڊيا ڳولڻ لاءِ پنھنجيون ترجيحي ٻوليون چونڊيو";
+"welcome-languages-add-button" = "ٻي شامل ڪريو";
+"welcome-languages-continue-button" = "جاري رکو";
+"welcome-volunteer-title" = "رضاڪار ٿيو";
+"welcome-volunteer-sub-title" = "وڪيپيڊيا ايپ کي بھتر بڻائڻ لاءِ پنھنجو استعمال ڪرڻ جو طريقو ونڊيو";
+"welcome-volunteer-send-usage-reports" = "استعمال ڪرڻ جون رپورٽون موڪليو";
+"welcome-volunteer-continue-button" = "جاري رکو";
+"welcome-volunteer-thanks" = "$1 توھان جي مھرباني!";
 "empty-no-feed-title" = "باهمڄار (انٽرنيٽ) ڳانڍاپو غير موجود";
 "empty-no-feed-message" = "جڏهن توهان کي انٽرنيٽ ڳانڍاپو آهي تہ توهان پنهنجا سفارش ڪيل مضمون ڏسي سگهو ٿا";
-// Fuzzy
-"empty-no-feed-action-message" = "ان دوران توهان پنهنجا سانڍل مضمون پڙهي سگهو ٿا";
+"empty-no-feed-action-message" = "توھان اڃان بہ سانڍيل صفحا پڙھي سگھو ٿا";
 "empty-no-article-message" = "معاف ڪجو، مضمون اتاري نہ سگهياسين.";
-// Fuzzy
-"empty-no-search-results-message" = "معاف ڪجو، نتيجا اتاري نہ سگهياسين.";
+"empty-no-search-results-message" = "ڪي بہ نتيجا نہ لڌا";
 "empty-no-saved-pages-title" = "اڃان ڪي بہ صفحا سانڍيل نہ آهن";
 "empty-no-saved-pages-message" = "بعد ۾ ڏسڻ لاءِ صفحا سانڍيو ، ڀلي آف لائين بہ";
 "empty-no-history-title" = "ڏيکارڻ لاءِ ڪابہ سوانح ناھي";
@@ -334,10 +350,14 @@
 "compass-direction" = " $1 بجي";
 "explore-featured-article-heading" = "نمايان مضمون";
 "explore-continue-reading-heading" = "پڙهڻ جاري رکو";
-// Fuzzy
-"explore-nearby-heading" = "ويجھڙائيءَ ۾ جڳھون";
+"explore-nearby-heading" = "ويجھيون جڳھون";
 "explore-continue-related-heading" = "ڇو تہ توھان پڙھو ٿا";
 "explore-main-page-heading" = "اڄ وڪيپيڊيا تي";
 "explore-random-article-heading" = "بلا ترتيب مضمون";
 "explore-random-article-sub-heading" = "انگريزي وڪيپيڊيا";
 "explore-potd-heading" = "اڄ جي تصوير";
+"explore-most-read-heading" = "$1 وڪيپيڊيا تي گھڻو پڙھيل";
+"explore-most-read-footer" = "سڀ گھڻو پڙھيل مضمون";
+"explore-most-read-footer-for-date" = "$1 تي سڀ گھڻو پڙھيل مضمون";
+"explore-most-read-more-list-title" = "مٿيان مضمون";
+"explore-most-read-more-list-title-for-date" = "$1 تي مٿيان";

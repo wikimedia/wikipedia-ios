@@ -219,6 +219,13 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     if (article.title.text == nil) {
         return;
     }
+    if([article isMain]){
+        return;
+    }
+    if([article.title isNonStandardTitle]){
+        return;
+    }
+    
     NSString* path       = [self pathForArticle:article];
     NSDictionary* export = [article dataExport];
     [self saveDictionary:export path:path name:@"Article.plist"];
@@ -229,23 +236,35 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (void)saveSection:(MWKSection*)section {
+    if([section.article isMain]){
+        return;
+    }
     NSString* path       = [self pathForSection:section];
     NSDictionary* export = [section dataExport];
     [self saveDictionary:export path:path name:@"Section.plist"];
 }
 
 - (void)saveSectionText:(NSString*)html section:(MWKSection*)section {
+    if([section.article isMain]){
+        return;
+    }
     NSString* path = [self pathForSection:section];
     [self saveString:html path:path name:@"Section.html"];
 }
 
 - (void)saveImage:(MWKImage*)image {
+    if([image.article isMain]){
+        return;
+    }
     NSString* path       = [self pathForImage:image];
     NSDictionary* export = [image dataExport];
     [self saveDictionary:export path:path name:@"Image.plist"];
 }
 
 - (void)saveImageData:(NSData*)data image:(MWKImage*)image {
+    if([image.article isMain]){
+        return;
+    }
     NSString* path     = [self pathForImage:image];
     NSString* filename = [@"Image" stringByAppendingPathExtension:image.extension];
 
@@ -275,6 +294,9 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (void)saveImageList:(MWKImageList*)imageList {
+    if([imageList.article isMain]){
+        return;
+    }
     NSString* path;
     if (imageList.section) {
         path = [self pathForSection:imageList.section];
@@ -437,6 +459,14 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     NSString* articlePath = [self pathForSites];
     for (NSString* path in [fm enumeratorAtPath:articlePath]) {
         NSArray* components = [path pathComponents];
+        
+        //HAX: We make assumptions about the length of paths below.
+        //This is due to our title handling assumptions
+        //We should remove this when we remove MWKTitle
+        if([components count] < 5){
+            continue;
+        }
+        
         NSUInteger count    = [components count];
         NSString* filename  = components[count - 1];
         if ([filename isEqualToString:@"Article.plist"]) {

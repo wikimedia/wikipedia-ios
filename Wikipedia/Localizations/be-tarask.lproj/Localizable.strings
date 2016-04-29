@@ -3,6 +3,7 @@
 // Author: Jim-by
 // Author: Red Winged Duck
 
+// Fuzzy
 "languages-title" = "Мовы";
 "article-languages-label" = "Выберыце мову";
 "article-languages-cancel" = "Скасаваць";
@@ -245,6 +246,7 @@
 "page_protected_other" = "Гэтая старонка была абароненая на наступных узроўнях: $1";
 "page_protected_can_not_edit" = "Вы ня маеце правоў рэдагаваць гэтую старонку";
 "page_protected_can_not_edit_title" = "Гэтая старонка абароненая";
+// Fuzzy
 "license-footer-text" = "Зьмест даступны на ўмовах $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Зьмест";
@@ -326,7 +328,9 @@
 "home-featured-article-heading" = "Абраны артыкул за $1";
 "home-main-page-heading" = "Сёньня ў Вікіпэдыі";
 "home-potd-heading" = "Выява дня за $1";
+// Fuzzy
 "home-last-update-label" = "Апошняе абнаўленьне: $1";
+// Fuzzy
 "home-last-update-never-label" = "Апошняе абнаўленьне: ніколі";
 "home-updating-label" = "Абнаўленьне…";
 "home-hide-suggestion-prompt" = "Схаваць гэтую прапанову";

@@ -3,7 +3,7 @@
 // Author: Har-wradim
 // Author: פוילישער
 
-"languages-title" = "שפראכן";
+"languages-title" = "ענדערן שפּראַך";
 "article-languages-label" = "קלויבן שפראך…";
 "article-languages-cancel" = "אַנולירן";
 "article-languages-downloading" = "לאדן ארטיקל שפראכן…";
@@ -223,7 +223,7 @@
 "page-similar-titles" = "ענלעכע בלעטער";
 "home-main-page-heading" = "היינט אויף וויקיפעדיע";
 "home-potd-heading" = "בילד פונעם טאג פאר $1";
-"home-last-update-label" = "לעצט דערהײַנטיקט: $1";
+"home-last-update-label" = "לעצטע דערהיינטיקונג: $1";
 "home-hide-suggestion-cancel" = "אַנולירן";
 "icon-shortcut-search-title" = "זוכן וויקיפעדיע";
 "icon-shortcut-continue-reading-title" = "לייענען ווײַטער";

@@ -11,10 +11,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
 extension NSUserDefaults {
 
-    @objc public class func WMFSearchLanguageDidChangeNotification() -> String {
-        return "WMFSearchLanguageDidChangeNotification"
-    }
-
     public func wmf_dateForKey(key: String) -> NSDate? {
         return self.objectForKey(key) as? NSDate
     }
@@ -63,12 +59,17 @@ extension NSUserDefaults {
     }
     
     public func wmf_setOpenArticleTitle(title: MWKTitle?) {
-        if let title = title {
-            let data = NSKeyedArchiver.archivedDataWithRootObject(title)
-            self.setObject(data, forKey: WMFOpenArticleTitleKey)
-        }else{
+        guard let title = title else{
             self.removeObjectForKey(WMFOpenArticleTitleKey)
+            self.synchronize()
+            return
         }
+        guard !title.isNonStandardTitle() else{
+            return;
+        }
+        
+        let data = NSKeyedArchiver.archivedDataWithRootObject(title)
+        self.setObject(data, forKey: WMFOpenArticleTitleKey)
         self.synchronize()
     }
 
@@ -103,27 +104,6 @@ extension NSUserDefaults {
         }
     }
     
-    public func wmf_appSite() -> MWKSite? {
-        guard let data = self.objectForKey(WMFAppSiteKey) as? String else {
-            DDLogError("Site preference was empty! Falling back to device language")
-            let fallbackSite = MWKSite.siteWithCurrentLocale()
-            // NOTE: need to set defaults directly, otherwise we'd get into inf. loop
-            self.setObject(fallbackSite.language, forKey: WMFAppSiteKey)
-            self.synchronize()
-            return fallbackSite
-        }
-        return MWKSite.init(domain: WMFDefaultSiteDomain, language: data)
-    }
-    
-    public func wmf_setAppSite(site: MWKSite) {
-        guard !site.isEqualToSite(self.wmf_appSite()) else{
-            return
-        }
-        self.setObject(site.language, forKey: WMFAppSiteKey)
-        self.synchronize()
-        NSNotificationCenter.defaultCenter().postNotificationName(NSUserDefaults.WMFSearchLanguageDidChangeNotification(), object: nil)
-    }
-
     public func wmf_setDateLastDailyLoggingStatsSent(date: NSDate) {
         self.setObject(date, forKey: "DailyLoggingStatsDate")
         self.synchronize()
@@ -170,4 +150,34 @@ extension NSUserDefaults {
     }
 
     
+    
+    public func wmf_setReadingFontSize(fontSize: NSNumber) {
+        self.setObject(fontSize, forKey: "ReadingFontSize")
+        self.synchronize()
+        
+    }
+    
+    public func wmf_readingFontSize() -> NSNumber {
+        if let fontSize = self.objectForKey("ReadingFontSize") as? NSNumber {
+            return fontSize
+        }else{
+            return NSNumber(integer:100) //default is 100%
+        }
+    }
+    
+    public func wmf_setDidPeekTableOfContents(peeked: Bool) {
+        self.setObject(NSNumber(bool: peeked), forKey: "PeekTableOfContents")
+        self.synchronize()
+        
+    }
+    
+    public func wmf_didPeekTableOfContents() -> Bool {
+        if let enabled = self.objectForKey("PeekTableOfContents") as? NSNumber {
+            return enabled.boolValue
+        }else{
+            return false
+        }
+    }
+
+
 }

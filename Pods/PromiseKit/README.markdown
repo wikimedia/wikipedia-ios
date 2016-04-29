@@ -22,7 +22,7 @@ PromiseKit is a thoughtful and complete implementation of promises for iOS and O
 
 # Which PromiseKit Should I Use?
 
-If you are writing a library, **use PromiseKit 1.6**. This is because PromiseKit > 2 breaks everytime Swift changes. While Swift is in flux it is not feasible to depend on a library that will break every time Xcode updates.
+If you are writing a library, [**use PromiseKit 1.x**](https://github.com/mxcl/PromiseKit/tree/legacy-1.x). This is because PromiseKit > 2 breaks everytime Swift changes. While Swift is in flux it is not feasible to depend on a library that will break every time Xcode updates.
 
 If you are making an app then PromiseKit 3 is the best PromiseKit, you may have to make some fixes when Xcode updates, but probably you will be OK as long as you update PromiseKit when Xcode updates.
 
@@ -37,7 +37,7 @@ Thus we intend to support PromiseKit 1.x for longer than expected.
 
 In Swift 2.0 `catch` and `defer` became reserved keywords mandating we rename our functions with these names. This forced a major semantic version change on PromiseKit and thus we took the opportunity to make other minor (source compatability breaking) improvements.
 
-Thus if you cannot afford to adapt to PromiseKit 3 but still want to use Xcode-7.0/Swift-2.0 we provide a [minimal changes branch] where `catch` and `defer` are renamed `catch_` and `defer_` and all other changes are the bare minimum to make PromiseKit 2 compile against Swift 2.
+Thus if you cannot afford to adapt to PromiseKit 3 but still want to use Xcode-7.0/Swift-2.0 we provide a [minimal changes branch] \(Swift 2.2 version [here](https://github.com/mxcl/PromiseKit/tree/swift-2.2-minimal-changes)\) where `catch` and `defer` are renamed `catch_` and `defer_` and all other changes are the bare minimum to make PromiseKit 2 compile against Swift 2.
 
 If you still are using Xcode 6 and Swift 1.2 then use PromiseKit 2.
 
@@ -85,11 +85,16 @@ github "mxcl/PromiseKit" ~> 2.0
 
 Neither CocoaPods or Carthage will install PromiseKit 2 for an iOS 7 target. Your options are:
 
- 1. `pod "PromiseKit", "~> 1.5"` †‡
+ 1. `pod "PromiseKit", "~> 1.7"` †‡
  2. Use our [iOS 7 EZ-Bake](https://github.com/PromiseKit/EZiOS7)
  3. Download our pre-built static framework (coming soon!)
 
 † There is no Swift support with PromiseKit 1.x installed via CocoaPods.<br>‡ PromiseKit 1.x will work as far back as iOS 5 if required.
+
+
+# Support
+
+PromiseKit is lucky enough to have a large community behind it which is reflected in our [Gitter chat](https://gitter.im/mxcl/PromiseKit). If you're new to PromiseKit and are stumped or otherwise have a question that doesn't feel like an issue (and isn't answered in our [documentation](http://promisekit.org/introduction)) then our Gitter is a great place to go for help. Of course if you're onto something that you believe is broken or could be improved then opening a new issue is still the way to go 👍.
 
 
 # Donations

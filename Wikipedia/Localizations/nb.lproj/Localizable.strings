@@ -8,6 +8,7 @@
 // Author: SuperPotato
 // Author: Tsaetre
 
+// Fuzzy
 "languages-title" = "Språk";
 "article-languages-label" = "Velg språk";
 "article-languages-cancel" = "Avbryt";
@@ -248,6 +249,7 @@
 "page_protected_other" = "Denne siden har blitt beskyttet til følgende nivåer: $1";
 "page_protected_can_not_edit" = "Du har ikke rettigheter til å redigere denne siden";
 "page_protected_can_not_edit_title" = "Denne siden er beskyttet";
+// Fuzzy
 "license-footer-text" = "Innholdet er tilgjengelig under $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Innhold";
@@ -313,7 +315,7 @@
 "hockeyapp-alert-privacy" = "$ personvern";
 "page-issues" = "Problemer med siden";
 "page-similar-titles" = "Lignende sider";
-"page-read-in-other-languages" = "Finnes på $1 språk";
+"page-read-in-other-languages" = "Tilgjengelig på $1 annet språk";
 "page-last-edited" = "Redigert for $1 dager siden";
 "page-edit-history" = "Fullstendig redigeringshistorikk";
 "captcha-reload" = "Vis en annen captcha";
@@ -332,7 +334,9 @@
 "home-featured-article-heading" = "Fremhevet artikkel $1";
 "home-main-page-heading" = "I dag på Wikipedia";
 "home-potd-heading" = "Dagens bilde $1";
+// Fuzzy
 "home-last-update-label" = "Sist oppdatert: $1";
+// Fuzzy
 "home-last-update-never-label" = "Sist oppdatert: Aldri";
 "home-updating-label" = "Oppdaterer...";
 "home-hide-suggestion-prompt" = "Skjul dette forslaget";
@@ -349,7 +353,7 @@
 "welcome-explore-continue-button" = "Kom igang";
 "welcome-languages-title" = "Språk";
 "welcome-languages-sub-title" = "Velg foretrukne språk å søke på i Wikipedia";
-"welcome-languages-add-button" = "+ Legg til";
+"welcome-languages-add-button" = "Legg til";
 "welcome-languages-continue-button" = "Fortsett";
 "welcome-volunteer-continue-button" = "Fortsett";
 "welcome-volunteer-thanks" = "$1 Takk!";

@@ -24,4 +24,12 @@
     return item;
 }
 
++ (UIBarButtonItem*)flexibleSpaceToolbarItem{
+    return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                         target:nil
+                                                         action:NULL];
+    
+}
+
+
 @end

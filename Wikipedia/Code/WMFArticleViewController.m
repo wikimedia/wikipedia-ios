@@ -10,13 +10,12 @@
 // Controller
 #import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFArticleHeaderImageGalleryViewController.h"
 #import "WMFReadMoreViewController.h"
-#import "WMFModalImageGalleryViewController.h"
+#import "WMFImageGalleryViewContoller.h"
 #import "SectionEditorViewController.h"
 #import "WMFArticleFooterMenuViewController.h"
 #import "WMFArticleBrowserViewController.h"
-#import "LanguagesViewController.h"
+#import "WMFLanguagesViewController.h"
 #import "MWKLanguageLinkController.h"
 #import "WMFShareOptionsController.h"
 #import "WMFSaveButtonController.h"
@@ -54,6 +53,9 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import <TUSafariActivity/TUSafariActivity.h>
 #import "WMFArticleTextActivitySource.h"
+#import "UIImageView+WMFImageFetching.h"
+#import "UIImageView+WMFPlaceholder.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
 
 #import "NSString+WMFPageUtilities.h"
 #import "NSURL+WMFLinkParsing.h"
@@ -71,12 +73,20 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleViewController ()
 <WMFWebViewControllerDelegate,
  UINavigationControllerDelegate,
- WMFArticleHeaderImageGalleryViewControllerDelegate,
- WMFImageGalleryViewControllerDelegate,
+ WMFImageGalleryViewContollerReferenceViewDelegate,
  SectionEditorViewControllerDelegate,
  UIViewControllerPreviewingDelegate,
- LanguageSelectionDelegate,
- WMFArticleListTableViewControllerDelegate>
+ WMFLanguagesViewControllerDelegate,
+ WMFArticleListTableViewControllerDelegate,
+ WMFFontSliderViewControllerDelegate,
+ UIPopoverPresentationControllerDelegate>
+
+// Data
+@property (nonatomic, strong, readwrite, nullable) MWKArticle* article;
+
+// Children
+@property (nonatomic, strong, nullable) WMFTableOfContentsViewController* tableOfContentsViewController;
+@property (nonatomic, strong) WebViewController* webViewController;
 
 @property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
@@ -95,16 +105,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
 
 // Children
-@property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
 @property (nonatomic, strong) WMFReadMoreViewController* readMoreListViewController;
 @property (nonatomic, strong) WMFArticleFooterMenuViewController* footerMenuViewController;
 
 // Views
-@property (nonatomic, strong) MASConstraint* headerHeightConstraint;
-@property (nonatomic, strong) UIBarButtonItem* saveToolbarItem;
-@property (nonatomic, strong) UIBarButtonItem* languagesToolbarItem;
-@property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
-@property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
+@property (nonatomic, strong) UIImageView* headerImageView;
+@property (nonatomic, strong, readwrite) UIBarButtonItem* saveToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem* languagesToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem* shareToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem* fontSizeToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem* tableOfContentsToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
 @property (nonatomic, strong) UIRefreshControl* pullToRefresh;
 
@@ -114,10 +124,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic, nullable) NSTimer* significantlyViewedTimer;
 
+/**
+ *  We need to do this to prevent auto loading from occuring,
+ *  if we do something to the article like edit it and force a reload
+ */
+@property (nonatomic, assign) BOOL skipFetchOnViewDidAppear;
+
 @end
 
 @implementation WMFArticleViewController
 
++ (void)load{
+    [self registerTweak];
+}
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -163,9 +182,13 @@ NS_ASSUME_NONNULL_BEGIN
     // always update webVC & headerGallery, even if nil so they are reset if needed
     self.footerMenuViewController.article = _article;
     self.webViewController.article        = _article;
-    [self.headerGallery showImagesInArticle:_article];
 
     if (self.article) {
+        if([self.article.title isNonStandardTitle]){
+            self.headerImageView.image = nil;
+        }else{
+            [self.headerImageView wmf_setImageWithMetadata:_article.leadImage detectFaces:YES];
+        }
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
         [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_articleViewActivityWithArticle:self.article]];
@@ -224,6 +247,18 @@ NS_ASSUME_NONNULL_BEGIN
     return _progressView;
 }
 
+- (UIImageView*)headerImageView {
+    if (!_headerImageView) {
+        _headerImageView                        = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _headerImageView.userInteractionEnabled = YES;
+        _headerImageView.clipsToBounds          = YES;
+        [_headerImageView wmf_configureWithDefaultPlaceholder];
+        UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
+        [_headerImageView addGestureRecognizer:tap];
+    }
+    return _headerImageView;
+}
+
 - (WMFReadMoreViewController*)readMoreListViewController {
     if (!_readMoreListViewController) {
         _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithTitle:self.articleTitle
@@ -242,19 +277,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WebViewController*)webViewController {
     if (!_webViewController) {
-        _webViewController                      = [WebViewController wmf_initialViewControllerFromClassStoryboard];
-        _webViewController.delegate             = self;
-        _webViewController.headerViewController = self.headerGallery;
+        _webViewController            = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+        _webViewController.delegate   = self;
+        _webViewController.headerView = self.headerImageView;
     }
     return _webViewController;
-}
-
-- (WMFArticleHeaderImageGalleryViewController*)headerGallery {
-    if (!_headerGallery) {
-        _headerGallery          = [[WMFArticleHeaderImageGalleryViewController alloc] init];
-        _headerGallery.delegate = self;
-    }
-    return _headerGallery;
 }
 
 #pragma mark - Notifications and Observations
@@ -292,8 +319,12 @@ NS_ASSUME_NONNULL_BEGIN
     return self.article != nil;
 }
 
+- (BOOL)canAdjustText {
+    return self.article != nil;
+}
+
 - (BOOL)hasLanguages {
-    return self.article.languagecount > 1;
+    return self.article.hasMultipleLanguages;
 }
 
 - (BOOL)hasTableOfContents {
@@ -319,6 +350,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Toolbar Setup
 
+- (NSArray<UIBarButtonItem*>*)articleToolBarItems {
+    return [NSArray arrayWithObjects:
+            self.languagesToolbarItem,
+            [UIBarButtonItem flexibleSpaceToolbarItem],
+            self.fontSizeToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:22.f],
+            self.shareToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:24.f],
+            self.saveToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.0],
+            [UIBarButtonItem flexibleSpaceToolbarItem],
+            self.tableOfContentsToolbarItem,
+            nil];
+}
+
 - (void)updateToolbar {
     [self updateToolbarItemsIfNeeded];
     [self updateToolbarItemEnabledState];
@@ -329,15 +372,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.savedPages title:self.articleTitle];
     }
 
-    NSArray<UIBarButtonItem*>* toolbarItems =
-        [NSArray arrayWithObjects:
-         self.languagesToolbarItem,
-         [self flexibleSpaceToolbarItem],
-         self.shareToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:24.f],
-         self.saveToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.0],
-         [self flexibleSpaceToolbarItem],
-         self.tableOfContentsToolbarItem,
-         nil];
+    NSArray<UIBarButtonItem*>* toolbarItems = [self articleToolBarItems];
 
     if (self.toolbarItems.count != toolbarItems.count) {
         // HAX: only update toolbar if # of items has changed, otherwise items will (somehow) get lost
@@ -346,6 +381,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateToolbarItemEnabledState {
+    self.fontSizeToolbarItem.enabled        = [self canAdjustText];
     self.shareToolbarItem.enabled           = [self canShare];
     self.languagesToolbarItem.enabled       = [self hasLanguages];
     self.tableOfContentsToolbarItem.enabled = [self hasTableOfContents];
@@ -372,10 +408,17 @@ NS_ASSUME_NONNULL_BEGIN
     return _saveToolbarItem;
 }
 
-- (UIBarButtonItem*)flexibleSpaceToolbarItem {
-    return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                         target:nil
-                                                         action:NULL];
+- (UIBarButtonItem*)fontSizeToolbarItem {
+    if (!_fontSizeToolbarItem) {
+        @weakify(self);
+        _fontSizeToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"font-size"]
+                                                                   style:UIBarButtonItemStylePlain
+                                                                 handler:^(id sender){
+            @strongify(self);
+            [self showFontSizePopup];
+        }];
+    }
+    return _fontSizeToolbarItem;
 }
 
 - (UIBarButtonItem*)shareToolbarItem {
@@ -403,15 +446,13 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Article languages
 
 - (void)showLanguagePicker {
-    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
-    languagesVC.articleTitle              = self.articleTitle;
-    languagesVC.languageSelectionDelegate = self;
+    WMFArticleLanguagesViewController* languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithTitle:self.articleTitle];
+    languagesVC.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
 
-- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
+- (void)languagesController:(WMFLanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
     [[PiwikTracker wmf_configuredInstance] wmf_logActionSwitchLanguageInContext:self contentType:nil];
-    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
     [self dismissViewControllerAnimated:YES completion:^{
         [self pushArticleViewControllerWithTitle:language.title contentType:nil animated:YES];
     }];
@@ -420,6 +461,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Article Footers
 
 - (void)updateWebviewFootersIfNeeded {
+    if([self.article.title isNonStandardTitle]){
+        return;
+    }
+
     NSMutableArray* footerVCs = [NSMutableArray arrayWithCapacity:2];
     [footerVCs wmf_safeAddObject:self.footerMenuViewController];
     /*
@@ -494,10 +539,13 @@ NS_ASSUME_NONNULL_BEGIN
     [self.delegate articleController:self didUpdateArticleLoadProgress:progress animated:animated];
 }
 
-- (void)completeAndHideProgress {
+- (void)completeAndHideProgressWithCompletion:(nullable dispatch_block_t)completion {
     [self updateProgress:1.0 animated:YES];
     dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
         [self hideProgressViewAnimated:YES];
+        if (completion) {
+            completion();
+        }
     });
 }
 
@@ -506,7 +554,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  This leaves 20% of progress for that work.
  */
 - (CGFloat)totalProgressWithArticleFetcherProgress:(CGFloat)progress {
-    return 0.8 * progress;
+    return 0.1 + (0.7 * progress);
 }
 
 #pragma mark - Significantly Viewed Timer
@@ -580,8 +628,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
-    [self fetchArticleIfNeeded];
 
+    if (!self.skipFetchOnViewDidAppear) {
+        [self fetchArticleIfNeeded];
+    }
+    self.skipFetchOnViewDidAppear = NO;
     [self startSignificantlyViewedTimer];
 }
 
@@ -611,6 +662,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
+    if ([self.presentedViewController isKindOfClass:[WMFFontSliderViewController class]]) {
+        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    }
     [self registerForPreviewingIfAvailable];
 }
 
@@ -647,6 +701,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Article Fetching
 
 - (void)fetchArticleForce:(BOOL)force {
+    NSAssert([[NSThread currentThread] isMainThread], @"Not on main thread!");
     NSAssert(self.isViewLoaded, @"Should only fetch article when view is loaded so we can update its state.");
     if (!force && self.article) {
         return;
@@ -655,6 +710,7 @@ NS_ASSUME_NONNULL_BEGIN
     //only show a blank view if we have nothing to show
     if (!self.article) {
         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank];
+        [self.view bringSubviewToFront:self.progressView];
     }
 
     [self showProgressViewAnimated:YES];
@@ -689,6 +745,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
         } else {
             [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
+            [self.view bringSubviewToFront:self.progressView];
             [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                       sticky:NO
                                        dismissPreviousAlerts:NO
@@ -752,7 +809,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(UIBarButtonItem*)button {
     NSParameterAssert(button);
-    if(!button){
+    if (!button) {
         //If we get no button, we will crash below on iPad
         //The assert above shoud help, but lets make sure we bail in prod
         return;
@@ -776,6 +833,73 @@ NS_ASSUME_NONNULL_BEGIN
     presenter.barButtonItem = button;
 
     [self presentViewController:vc animated:YES completion:NULL];
+}
+
+#pragma mark - Font Size
+
+- (void)showFontSizePopup {
+    NSArray* fontSizes = self.fontSizeMultipliers;
+    NSUInteger index   = self.indexOfCurrentFontSize;
+
+    WMFFontSliderViewController* vc = [[WMFFontSliderViewController alloc] initWithNibName:@"WMFFontSliderViewController" bundle:nil];
+    vc.preferredContentSize   = vc.view.frame.size;
+    vc.modalPresentationStyle = UIModalPresentationPopover;
+    vc.delegate               = self;
+
+    [vc setValuesWithSteps:fontSizes.count current:index];
+
+    UIPopoverPresentationController* presenter = [vc popoverPresentationController];
+    presenter.delegate                 = self;
+    presenter.backgroundColor          = vc.view.backgroundColor;
+    presenter.barButtonItem            = self.fontSizeToolbarItem;
+    presenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
+
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController*)controller {
+    return UIModalPresentationNone;
+}
+
+- (void)sliderValueChangedInController:(WMFFontSliderViewController*)container value:(NSInteger)value {
+    NSArray* fontSizes = self.fontSizeMultipliers;
+
+    if (value > fontSizes.count) {
+        return;
+    }
+
+    [self.webViewController setFontSizeMultiplier:self.fontSizeMultipliers[value]];
+}
+
+- (NSArray<NSNumber*>*)fontSizeMultipliers {
+    return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", 70)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 2", 85)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 3", 100)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 4", 115)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 5", 130)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 6", 145)),
+             @(FBTweakValue(@"Article", @"Font Size", @"Step 7", 160))
+    ];
+}
+
+- (NSUInteger)indexOfCurrentFontSize {
+    NSNumber* fontSize = [[NSUserDefaults standardUserDefaults] wmf_readingFontSize];
+
+    NSUInteger index = [[self fontSizeMultipliers] indexOfObject:fontSize];
+
+    if (index == NSNotFound) {
+        index = [[[self fontSizeMultipliers] bk_reduce:@(NSIntegerMax) withBlock:^id (NSNumber* current, NSNumber* obj) {
+            NSUInteger currentDistance = current.integerValue;
+            NSUInteger objDistance = abs((int)(obj.integerValue - fontSize.integerValue));
+            if (objDistance < currentDistance) {
+                return obj;
+            } else {
+                return current;
+            }
+        }] integerValue];
+    }
+
+    return index;
 }
 
 #pragma mark - Scroll Position and Fragments
@@ -805,22 +929,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)         webViewController:(WebViewController*)controller
     didTapImageWithSourceURLString:(nonnull NSString*)imageSourceURLString {
-    MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURLString:imageSourceURLString];
-    /*
-       NOTE(bgerstle): not setting gallery delegate intentionally to prevent header gallery changes as a result of
-       fullscreen gallery interactions that originate from the webview
-     */
-    WMFModalImageGalleryViewController* fullscreenGallery =
-        [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article
-                                                               currentImage:selectedImage];
+    MWKImage* selectedImage                                = [[MWKImage alloc] initWithArticle:self.article sourceURLString:imageSourceURLString];
+    WMFArticleImageGalleryViewContoller* fullscreenGallery = [[WMFArticleImageGalleryViewContoller alloc] initWithArticle:self.article selectedImage:selectedImage];
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
 
 - (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article {
-    [self completeAndHideProgress];
+    [self completeAndHideProgressWithCompletion:^{
+        //Without this pause, the motion happens too soon after loading the article
+        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+            [self peekTableOfContentsIfNeccesary];
+        });
+    }];
     [self scrollWebViewToRequestedPosition];
     [self.delegate articleControllerDidLoadArticle:self];
-    [self fetchReadMoreIfNeeded];    
+    [self fetchReadMoreIfNeeded];
 }
 
 - (void)webViewController:(WebViewController*)controller didTapEditForSection:(MWKSection*)section {
@@ -848,28 +971,29 @@ NS_ASSUME_NONNULL_BEGIN
     return nil;
 }
 
-#pragma mark - WMFArticleHeadermageGalleryViewControllerDelegate
+#pragma mark - Header Tap Gesture
 
-- (void)headerImageGallery:(WMFArticleHeaderImageGalleryViewController* __nonnull)gallery
-     didSelectImageAtIndex:(NSUInteger)index {
-    WMFModalImageGalleryViewController* fullscreenGallery;
-
+- (void)imageViewDidTap:(UITapGestureRecognizer*)tap {
     NSAssert(self.article.isCached, @"Expected article data to already be downloaded.");
     if (!self.article.isCached) {
         return;
     }
-    fullscreenGallery = [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article currentImage:nil];
-    fullscreenGallery.currentPage = gallery.currentPage;
-    // set delegate to ensure the header gallery is updated when the fullscreen gallery is dismissed
-    fullscreenGallery.delegate = self;
 
+    WMFArticleImageGalleryViewContoller* fullscreenGallery = [[WMFArticleImageGalleryViewContoller alloc] initWithArticle:self.article];
+    fullscreenGallery.referenceViewDelegate = self;
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
 
-#pragma mark - WMFModalArticleImageGalleryViewControllerDelegate
+#pragma mark - WMFImageGalleryViewContollerReferenceViewDelegate
 
-- (void)willDismissGalleryController:(WMFModalImageGalleryViewController* __nonnull)gallery {
-    self.headerGallery.currentPage = gallery.currentPage;
+- (UIImageView*)referenceViewForImageController:(WMFArticleImageGalleryViewContoller*)controller {
+    MWKImage* currentImage = [controller currentImage];
+    MWKImage* leadImage    = self.article.leadImage;
+    if ([currentImage isEqualToImage:leadImage] || [currentImage isVariantOfImage:leadImage]) {
+        return self.headerImageView;
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark - Edit Section
@@ -900,6 +1024,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - SectionEditorViewControllerDelegate
 
 - (void)sectionEditorFinishedEditing:(SectionEditorViewController*)sectionEditorViewController {
+    self.skipFetchOnViewDidAppear = YES;
     [self dismissViewControllerAnimated:YES completion:NULL];
     [self fetchArticle];
 }

@@ -1,10 +1,10 @@
 #import "FBSnapshotTestCase+WMFConvenience.h"
 #import "UIView+VisualTestSizingUtils.h"
-#import "WMFTextualSaveButton.h"
+#import "WMFLeadingImageTrailingTextButton.h"
 
 @interface WMFTextualSaveButtonLayoutVisualTests : FBSnapshotTestCase
 
-@property (nonatomic, strong) WMFTextualSaveButton* saveButton;
+@property (nonatomic, strong) WMFLeadingImageTrailingTextButton* saveButton;
 
 @end
 
@@ -17,7 +17,8 @@
     self.deviceAgnostic = NO;
     // record snapshots at fixed size (regardless of window size) which must be larger than the content itself
     // in order to verify alignment with leading edge in LTR & RTL
-    self.saveButton = [[WMFTextualSaveButton alloc] initWithFrame:CGRectMake(0, 0, 200, 100)];
+    self.saveButton = [[WMFLeadingImageTrailingTextButton alloc] initWithFrame:CGRectMake(0, 0, 200, 100)];
+    [self.saveButton configureAsSaveButton];
 }
 
 - (void)testLaysOutProperly {

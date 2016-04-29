@@ -1,6 +1,6 @@
 
-#import <AFNetworking/AFURLRequestSerialization.h>
+#import "WMFBaseRequestSerializer.h"
 
-@interface WMFArticleRequestSerializer : AFHTTPRequestSerializer
+@interface WMFArticleRequestSerializer : WMFBaseRequestSerializer
 
 @end

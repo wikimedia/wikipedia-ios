@@ -6,6 +6,7 @@
 // Author: अभय नातू
 // Author: संतोष दहिवळ
 
+// Fuzzy
 "languages-title" = "भाषा";
 "article-languages-label" = "भाषा निवडा";
 "article-languages-cancel" = "रद्द करा";
@@ -188,6 +189,7 @@
 "page_protected_other" = "हे पान खालील स्तरांपर्यंत सुरक्षित आहे:$1";
 "page_protected_can_not_edit" = "तुम्हाला हे पान संपादन करण्याचा अधिकार नाही";
 "page_protected_can_not_edit_title" = "हे पान संरक्षित आहे";
+// Fuzzy
 "license-footer-text" = "यातील आशय हा $1 अंतर्गत उपलब्ध आहे";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "आशय";

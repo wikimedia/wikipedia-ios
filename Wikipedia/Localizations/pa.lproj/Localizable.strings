@@ -6,6 +6,7 @@
 // Author: Satdeep gill
 // Author: ਪ੍ਰਚਾਰਕ
 
+// Fuzzy
 "languages-title" = "ਭਾਸ਼ਾਵਾਂ";
 "article-languages-label" = "ਬੋਲੀ ਚੁਣੋ";
 "article-languages-cancel" = "ਰੱਦ ਕਰੋ";
@@ -226,6 +227,7 @@
 "page_protected_other" = "ਇਸ ਸਫ਼ੇ ਨੂੰ ਇਹਨਾਂ ਤਹਿਆਂ ਤੱਕ ਸੁਰੱਖਿਅਤ ਕੀਤਾ ਗਿਆ ਹੈ: $1";
 "page_protected_can_not_edit" = "ਤੁਹਾਡੇ ਕੋਲ਼ ਇਸ ਸਫ਼ੇ ਦੀ ਸੁਧਾਈ ਕਰਨ ਦੇ ਹੱਕ ਨਹੀਂ ਹਨ";
 "page_protected_can_not_edit_title" = "ਇਹ ਸਫ਼ਾ ਸੁਰੱਖਿਅਤ ਹੈ";
+// Fuzzy
 "license-footer-text" = "ਸਮੱਗਰੀ $1 ਹੇਠ ਮੌਜੂਦ ਹੈ";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "ਸਮੱਗਰੀ";

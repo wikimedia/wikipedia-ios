@@ -21,6 +21,7 @@
 // Author: Walesson
 // Author: Webysther
 
+// Fuzzy
 "languages-title" = "Idiomas";
 "article-languages-label" = "Escolha um idioma";
 "article-languages-cancel" = "Cancelar";
@@ -214,7 +215,12 @@
 "about-libraries-license" = "Licença";
 "about-libraries-licenses" = "Licenças";
 "about-content-license" = "Licença de conteúdo";
+"about-content-license-details" = "A menos que especificado o contrário, o conteúdo está disponível sob a $1.";
+"about-content-license-details-share-alike-license" = "Licença Creative Commons Atribuição-PartilhaIgual";
+"about-libraries-licenses-title" = "Nós amamos software de código aberto $1";
+"about-libraries-complete-list" = "Lista completa";
 "about-repositories" = "Repositórios";
+"about-repositories-app-source-license" = "Código-fonte disponível sob a $1.";
 "about-repositories-app-source-license-mit" = "Licença MIT";
 "about-send-feedback" = "Enviar comentários sobre o aplicativo";
 "about-product-of" = "Feito por $1 com a ajuda de voluntários como você";
@@ -224,6 +230,7 @@
 "share-menu-page-saved-access" = "Dica: Para acessar as suas páginas salvas, toque em $1 acima ou pressione $2 abaixo.";
 "share-custom-menu-item" = "Compartilhar";
 "share-a-fact-share-menu-item" = "Compartilhe um fato";
+"share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" na @Wikipédia: \"$2\"";
 "share-as-image" = "Compartilhar como imagem";
@@ -255,6 +262,7 @@
 "page_protected_other" = "Esta página está protegida para os seguintes níveis: $1";
 "page_protected_can_not_edit" = "Você não tem permissão para editar esta página";
 "page_protected_can_not_edit_title" = "Esta página está protegida";
+// Fuzzy
 "license-footer-text" = "Conteúdo disponível sob a licença $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Conteúdo";
@@ -320,6 +328,7 @@
 "hockeyapp-alert-privacy" = "$1 privacidade";
 "page-issues" = "Problemas da página";
 "page-similar-titles" = "Páginas similares";
+// Fuzzy
 "page-read-in-other-languages" = "Disponível em $1 idiomas";
 "page-last-edited" = "Editado $1 dias atrás";
 "page-edit-history" = "Histórico de edição completo";
@@ -339,7 +348,9 @@
 "home-featured-article-heading" = "Artigo em destaque de $1";
 "home-main-page-heading" = "Hoje na Wikipédia";
 "home-potd-heading" = "Imagem do dia de $1";
+// Fuzzy
 "home-last-update-label" = "Última atualização: $1";
+// Fuzzy
 "home-last-update-never-label" = "Última atualização: nunca";
 "home-updating-label" = "Atualizando...";
 "home-hide-suggestion-prompt" = "Ocultar esta sugestão";
@@ -349,7 +360,23 @@
 "potd-empty-error-description" = "Erro ao baixar imagem do dia de $1";
 "potd-description-prefix" = "Imagem do dia de $1";
 "welcome-explore-title" = "Explorar";
+"welcome-explore-sub-title" = "Nova maneira de descobrir artigos interessantes todo dia";
+"welcome-explore-tell-me-more" = "Conte-me mais";
+"welcome-explore-tell-me-more-about-explore" = "Mais sobre Explorar";
+"welcome-explore-tell-me-more-details" = "Quando você lê um artigo, artigos relacionados são automaticamente adicionados em seu feed Explorar. Isso não muda como nós coletamos sua informação, e seu histórico de leitura continua privado.";
+"welcome-explore-tell-me-more-related" = "O feed Explorar mostra a você artigos relacionados aos artigos que leu.";
+"welcome-explore-tell-me-more-privacy" = "Nenhuma lista de leitura ou perfil é armazenado em nossos servidores.";
+"welcome-explore-tell-me-more-done-button" = "Entendi";
+"welcome-explore-continue-button" = "Começar";
 "welcome-languages-title" = "Idiomas";
+"welcome-languages-sub-title" = "Escolha seu idioma preferido para pesquisar na Wikipédia";
+"welcome-languages-add-button" = "Adicionar outro";
+"welcome-languages-continue-button" = "Continuar";
+"welcome-volunteer-title" = "Voluntário";
+"welcome-volunteer-sub-title" = "Ajude a melhorar o aplicativo da Wikipédia compartilhando como você o usa";
+"welcome-volunteer-send-usage-reports" = "Enviar relatório de uso";
+"welcome-volunteer-continue-button" = "Continuar";
+"welcome-volunteer-thanks" = "$1 Obrigado!";
 "empty-no-feed-title" = "Sem conexão com a internet";
 "empty-no-feed-message" = "Você pode ver os seus artigos recomendados quando houver conexão com a internet";
 "empty-no-feed-action-message" = "Você ainda pode ler páginas salvas";
@@ -377,3 +404,7 @@
 "explore-potd-heading" = "Imagem do dia";
 "explore-most-read-heading" = "Mais lidos na Wikipédia em $1";
 "explore-most-read-footer" = "Todos os artigos mais lidos";
+"explore-most-read-footer-for-date" = "Todos os artigos mais lidos em $1";
+"explore-most-read-more-list-title" = "Artigos mais lidos";
+"explore-most-read-more-list-title-for-date" = "Mais lidos em $1";
+"no-email-account-alert" = "Por favor configure uma conta de email em seu dispositivo e tente novamente.";

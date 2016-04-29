@@ -10,7 +10,7 @@
 // Author: Stryn
 // Author: SuperPete
 
-"languages-title" = "Kielet";
+"languages-title" = "Kielenvaihto";
 "article-languages-label" = "Valitse kieli";
 "article-languages-cancel" = "Peruuta";
 "article-languages-downloading" = "Ladataan artikkelin kieliä...";
@@ -20,6 +20,8 @@
 "article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
 "article-unable-to-load-article" = "Artikkelin lataaminen epäonnistui.";
 "article-related-articles-title" = "Aiheeseen liittyvät artikkelit";
+"article-languages-yours" = "Omat kielet";
+"article-languages-others" = "Muut kielet";
 "info-box-title" = "Pikafaktoja";
 "info-box-close-text" = "Sulje";
 "table-title-other" = "Lisätietoja";
@@ -248,7 +250,7 @@
 "page_protected_other" = "Sivun suojaustaso on: $1";
 "page_protected_can_not_edit" = "Sinulla ei ole oikeuksia muokata tätä sivua";
 "page_protected_can_not_edit_title" = "Tämä sivu on suojattu";
-"license-footer-text" = "Sisältö on käytettävissä $1 -lisenssin ehtojen mukaisesti.";
+"license-footer-text" = "Sisältö on käytettävissä $1 -lisenssin ehtojen mukaisesti ellei toisin mainita.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Sisällys";
 "table-of-contents-button-label" = "Sisällysluettelo";
@@ -310,7 +312,7 @@
 "hockeyapp-alert-privacy" = "$1 tietosuoja";
 "page-issues" = "Sivun ongelmat";
 "page-similar-titles" = "Samankaltaiset sivut";
-"page-read-in-other-languages" = "Saatavilla $1 kielellä";
+"page-read-in-other-languages" = "Saatavilla $1 muulla kielellä";
 "page-last-edited" = "Muokattu $1 päivää sitten";
 "page-edit-history" = "Täysi muokkaushistoria";
 "captcha-reload" = "Näytä toinen CAPTCHA";
@@ -333,6 +335,7 @@
 "welcome-explore-tell-me-more" = "Kerro lisää";
 "welcome-explore-tell-me-more-done-button" = "Selvä";
 "welcome-languages-title" = "Kielet";
+"welcome-languages-add-button" = "Lisää toinen";
 "welcome-languages-continue-button" = "Jatka";
 "welcome-volunteer-sub-title" = "Auta parantamaan Wikipedia-sovellusta jakamalla tietoja siitä, kuinka käytät sitä";
 "welcome-volunteer-send-usage-reports" = "Lähetä käyttöraportteja";

@@ -10,6 +10,7 @@
 #import "WMFMantleJSONResponseSerializer.h"
 
 #import "UIScreen+WMFImageWidth.h"
+#import "WMFBaseRequestSerializer.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,7 +25,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 
 @end
 
-@interface WMFSearchRequestSerializer : AFHTTPRequestSerializer
+@interface WMFSearchRequestSerializer : WMFBaseRequestSerializer
 @end
 
 

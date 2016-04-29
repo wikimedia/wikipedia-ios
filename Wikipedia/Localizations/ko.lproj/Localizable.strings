@@ -14,6 +14,7 @@
 // Author: 밥풀떼기
 // Author: 아라
 
+// Fuzzy
 "languages-title" = "언어";
 "article-languages-label" = "언어 선택";
 "article-languages-cancel" = "취소";
@@ -253,6 +254,7 @@
 "page_protected_other" = "이 문서는 다음 수준으로 보호되어 있습니다: $1";
 "page_protected_can_not_edit" = "이 문서를 편집할 권한이 없습니다";
 "page_protected_can_not_edit_title" = "이 문서는 보호되어 있습니다";
+// Fuzzy
 "license-footer-text" = "내용은 $1에 따라 사용할 수 있습니다";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "목차";
@@ -328,7 +330,9 @@
 "home-featured-article-heading" = "$1의 알찬 글";
 "home-main-page-heading" = "오늘의 위키백과";
 "home-potd-heading" = "$1의 그림";
+// Fuzzy
 "home-last-update-label" = "마지막 업데이트: $1";
+// Fuzzy
 "home-last-update-never-label" = "마지막 업데이트: 업데이트가 이뤄진 적이 없습니다.";
 "home-updating-label" = "업데이트 중...";
 "home-hide-suggestion-prompt" = "숨기기";
