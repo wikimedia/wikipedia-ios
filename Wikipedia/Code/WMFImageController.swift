@@ -69,9 +69,11 @@ public class WMFImageController : NSObject {
         if memory < 805306368 {
             cache.shouldDecompressImages = false
             downloader.shouldDecompressImages = false
+            downloader.maxConcurrentDownloads = 4
         }else{
             cache.shouldDecompressImages = true
             downloader.shouldDecompressImages = true
+            downloader.maxConcurrentDownloads = 6
         }
         return WMFImageController(manager: SDWebImageManager(downloader: downloader, cache: cache),
                                   namespace: defaultNamespace)
