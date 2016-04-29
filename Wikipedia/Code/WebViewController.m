@@ -296,6 +296,12 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)addFooterView {
+    if(!self.article){
+        return;
+    }
+    if([self.article.title isNonStandardTitle]){
+        return;
+    }
     self.footerViewHeadersByIndex = [NSMutableDictionary dictionary];
     [self addFooterContainerView];
     [self addFooterContentViews];
@@ -313,6 +319,9 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)addFooterContentViews {
+    if([self.article.title isNonStandardTitle]){
+        return;
+    }
     NSParameterAssert(self.isViewLoaded);
     MASViewAttribute* lastAnchor = [self.footerViewControllers bk_reduce:self.footerContainerView.mas_top
                                                                withBlock:^MASViewAttribute*(MASViewAttribute* topAnchor,
@@ -410,7 +419,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (CGFloat)headerHeightForTraitCollection:(UITraitCollection*)traitCollection {
-    if (self.article.isMain || !self.article.imageURL) {
+    if (self.article.isMain || !self.article.imageURL || [self.article.title isNonStandardTitle]) {
         return 0;
     }
     switch (traitCollection.verticalSizeClass) {
@@ -652,28 +661,21 @@ NSString* const WMFCCBySALicenseURL =
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.site.language];
     NSString* uidir              = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
 
-    // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
-    BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && html);
-    if (!safeToCrossBridge) {
-        NSLog(@"\n\nUnsafe to cross JS bridge!");
-        NSLog(@"\tlanguageInfo.code = %@", languageInfo.code);
-        NSLog(@"\tlanguageInfo.dir = %@", languageInfo.dir);
-        NSLog(@"\tuidir = %@", uidir);
-        NSLog(@"\thtmlStr is nil = %d\n\n", (html == nil));
-        //TODO: output "could not load page" alert and/or show last page?
-        return;
-    }
-
     [self.bridge loadHTML:html withAssetsFile:@"index.html"];
 
     // NSLog(@"languageInfo = %@", languageInfo.code);
-    [self.bridge sendMessage:@"setLanguage"
-                 withPayload:@{
-         @"lang": languageInfo.code,
-         @"dir": languageInfo.dir,
-         @"uidir": uidir
-     }];
-
+    
+    // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
+    BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && html);
+    if (safeToCrossBridge) {
+        [self.bridge sendMessage:@"setLanguage"
+                     withPayload:@{
+                                   @"lang": languageInfo.code,
+                                   @"dir": languageInfo.dir,
+                                   @"uidir": uidir
+                                   }];
+    }
+    
     if (!self.article.editable) {
         [self.bridge sendMessage:@"setPageProtected" withPayload:@{}];
     }

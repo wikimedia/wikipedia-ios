@@ -117,6 +117,7 @@
 "settings-support" = "Title for button letting user make a donation.";
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "settings-my-languages" = "Title for list of user's preferred languages";
+"settings-help-and-feedback" = "Title for showing showing a screen that displays the FAQ and allows users to submit bug reports";
 "settings-primary-language" = "Label shown next to primary language";
 "settings-primary-language-details" = "Explanation of how the first preferred language is used";
 "main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
@@ -246,6 +247,7 @@
 "button-save" = "Button text for save button used in various places.\n{{Identical|Save}}";
 "button-save-for-later" = "Longer button text for save button used in various places.";
 "button-saved-for-later" = "Longer button text for already saved button used in various places.";
+"button-report-a-bug" = "Button text for reporting a bug";
 "onboarding-create-account" = "Button text prompting first time users to create an account";
 "onboarding-login" = "{{Identical|Log in}}";
 "onboarding-already-have-account" = "Button text prompting first time users to log in to existing account. Parameters:\n* $1 - login button text";
