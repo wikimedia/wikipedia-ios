@@ -7,11 +7,11 @@
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 #import "NSString+WMFExtras.h"
 
-static CGFloat const WMFPreferredLanguageFontSize      = 15.f;
-static CGFloat const WMFPreferredTitleFontSize         = 12.f;
-static CGFloat const WMFOtherLanguageFontSize          = 15.f;
-static CGFloat const WMFOtherTitleFontSize             = 12.f;
-static CGFloat const WMFLocalizedLanguageLabelHeight   = 18.f;
+static CGFloat const WMFPreferredLanguageFontSize    = 15.f;
+static CGFloat const WMFPreferredTitleFontSize       = 12.f;
+static CGFloat const WMFOtherLanguageFontSize        = 15.f;
+static CGFloat const WMFOtherTitleFontSize           = 12.f;
+static CGFloat const WMFLocalizedLanguageLabelHeight = 18.f;
 
 @interface WMFLanguageCell ()
 
@@ -76,21 +76,21 @@ static CGFloat const WMFLocalizedLanguageLabelHeight   = 18.f;
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.languageNameLabel.text           = nil;
-    self.articleTitleLabel.text           = nil;
-    self.localizedLanguageLabel.text      = nil;
+    self.languageNameLabel.text                = nil;
+    self.articleTitleLabel.text                = nil;
+    self.localizedLanguageLabel.text           = nil;
     self.localizedLanguageLabelHeight.constant = 0.f;
-    self.isPrimary = NO;
-    self.isPreferred = NO;
+    self.isPrimary                             = NO;
+    self.isPreferred                           = NO;
 }
 
 - (void)setIsPrimary:(BOOL)isPrimary {
     _isPrimary = isPrimary;
-    if (isPrimary){
-        self.primaryLabel.text = [MWLocalizedString(@"settings-primary-language", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+    if (isPrimary) {
+        self.primaryLabel.text                         = [MWLocalizedString(@"settings-primary-language", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
         self.primaryLabelContainerView.backgroundColor = [UIColor wmf_primaryLanguageLabelBackgroundColor];
-    }else{
-        self.primaryLabel.text = nil;
+    } else {
+        self.primaryLabel.text                         = nil;
         self.primaryLabelContainerView.backgroundColor = [UIColor clearColor];
     }
 }
