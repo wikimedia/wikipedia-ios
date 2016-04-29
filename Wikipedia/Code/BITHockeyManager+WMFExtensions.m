@@ -3,6 +3,8 @@
 #import "WikipediaAppUtils.h"
 #import "NSBundle+WMFInfoUtils.h"
 #import "WMFCrashAlertView.h"
+#import "DDLog+WMFLogger.h"
+
 
 // See also:
 // http://support.hockeyapp.net/kb/client-integration-ios-mac-os-x/hockeyapp-for-ios
@@ -38,6 +40,7 @@ static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeya
         return;
     }
 
+
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:appID];
 
 #if DEBUG
@@ -49,6 +52,9 @@ static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeya
     if ([[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus == BITCrashManagerStatusDisabled) {
         [[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus = BITCrashManagerStatusAlwaysAsk;
     }
+
+    [[BITHockeyManager sharedHockeyManager] crashManager].enableAppNotTerminatingCleanlyDetection = YES;
+    [BITHockeyManager sharedHockeyManager].delegate                                               = self;
     [[BITHockeyManager sharedHockeyManager] wmf_setupCrashNotificationAlert];
     [[BITHockeyManager sharedHockeyManager] startManager];
     DDLogInfo(@"Starting crash manager.");
@@ -92,6 +98,10 @@ static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeya
     } else if ([buttonText isEqualToString:[[self class] crashDoNotSendText]]) {
         [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputDontSend withUserProvidedMetaData:nil];
     }
+}
+
+- (NSString*)applicationLogForCrashManager:(BITCrashManager*)crashManager {
+    return [DDLog wmf_currentLogFile];
 }
 
 @end
