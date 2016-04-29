@@ -222,6 +222,10 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     if([article isMain]){
         return;
     }
+    if([article.title isNonStandardTitle]){
+        return;
+    }
+    
     NSString* path       = [self pathForArticle:article];
     NSDictionary* export = [article dataExport];
     [self saveDictionary:export path:path name:@"Article.plist"];
@@ -455,6 +459,14 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     NSString* articlePath = [self pathForSites];
     for (NSString* path in [fm enumeratorAtPath:articlePath]) {
         NSArray* components = [path pathComponents];
+        
+        //HAX: We make assumptions about the length of paths below.
+        //This is due to our title handling assumptions
+        //We should remove this when we remove MWKTitle
+        if([components count] < 5){
+            continue;
+        }
+        
         NSUInteger count    = [components count];
         NSString* filename  = components[count - 1];
         if ([filename isEqualToString:@"Article.plist"]) {

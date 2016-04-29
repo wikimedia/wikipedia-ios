@@ -140,11 +140,9 @@
 
 - (NSURL*)urlForLanguage:(NSString*)language {
     NSString* endpoint = self.fallback ? @"" : @".m";
-    if (!self.currentArticleSite) {
-        return nil;
-    }
+    MWKSite* site = [MWKSite siteWithLanguage:language];
     return [NSURL URLWithString:
-            [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", language, endpoint, self.currentArticleSite.domain]];
+            [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", language, endpoint, site.domain]];
 }
 
 #pragma mark - Usage Reports
