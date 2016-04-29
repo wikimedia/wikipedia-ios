@@ -65,6 +65,16 @@ public class WMFImageController : NSObject {
     private static let _sharedInstance: WMFImageController = {
         let downloader = SDWebImageDownloader.sharedDownloader()
         let cache = SDImageCache.wmf_appSupportCacheWithNamespace(defaultNamespace)
+        let memory = NSProcessInfo.processInfo().physicalMemory
+        if memory < 805306368 {
+            cache.shouldDecompressImages = false
+            downloader.shouldDecompressImages = false
+            downloader.maxConcurrentDownloads = 4
+        }else{
+            cache.shouldDecompressImages = true
+            downloader.shouldDecompressImages = true
+            downloader.maxConcurrentDownloads = 6
+        }
         return WMFImageController(manager: SDWebImageManager(downloader: downloader, cache: cache),
                                   namespace: defaultNamespace)
     }()
@@ -133,14 +143,24 @@ public class WMFImageController : NSObject {
 
 
     /**
-    Fetch the image at `url` slowly in the background.
+    Cache the image at `url` slowly in the background. The image will not be in the memory cache after completion
 
     - parameter url: A URL pointing to an image.
 
     - returns: A promise which resolves when the image has been downloaded.
     */
-    public func fetchImageWithURLInBackground(url: NSURL?) -> Promise<WMFImageDownload> {
-        return fetchImageWithURL(url, options: WMFImageController.backgroundImageFetchOptions) as Promise<WMFImageDownload>
+    public func cacheImageWithURLInBackground(url: NSURL?) -> Promise<Bool> {
+        guard let url = url else{
+            return Promise<Bool>(false)
+        }
+        let key = self.cacheKeyForURL(url)
+        if(self.imageManager.imageCache.diskImageExistsWithKey(key)){
+            return Promise<Bool>(true)
+        }
+        return fetchImageWithURL(url, options: WMFImageController.backgroundImageFetchOptions).then({ (imageDownload: WMFImageDownload) in
+                self.imageManager.imageCache.removeImageForKey(key, fromDisk: false, withCompletion: nil)
+                return Promise<Bool>(true)
+        })
     }
 
     // MARK: - Simple Fetching
@@ -378,12 +398,12 @@ extension WMFImageController {
     }
 
     /**
-    Objective-C-compatible variant of fetchImageWithURLInBackground(url:) returning an `AnyPromise`.
+    Objective-C-compatible variant of cacheImageWithURLInBackground(url:) returning an `AnyPromise`.
 
     - returns: `AnyPromise` which resolves to `WMFImageDownload`.
     */
-    @objc public func fetchImageWithURLInBackground(url: NSURL?) -> AnyPromise {
-        return AnyPromise(bound: fetchImageWithURLInBackground(url))
+    @objc public func cacheImageWithURLInBackground(url: NSURL?) -> AnyPromise {
+        return AnyPromise(bound: cacheImageWithURLInBackground(url))
     }
 
     /**

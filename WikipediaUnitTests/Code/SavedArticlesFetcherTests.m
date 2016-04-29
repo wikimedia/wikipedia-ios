@@ -157,7 +157,7 @@
 
     [self waitForExpectationsWithTimeout:2 handler:nil];
 
-    [MKTVerifyCount(self.mockImageController, MKTNever()) fetchImageWithURLInBackground:anything()];
+    [MKTVerifyCount(self.mockImageController, MKTNever()) cacheImageWithURLInBackground:anything()];
     assertThat(self.downloadedArticles, isEmpty());
     assertThat(self.downloadErrors, is(@{dummyTitle: downloadError}));
 }
@@ -176,7 +176,7 @@
      willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
 
     [stubbedArticle.allImageURLs bk_each:^(NSURL* imageURL) {
-        [MKTGiven([self.mockImageController fetchImageWithURLInBackground:imageURL])
+        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:imageURL])
          willReturn:[AnyPromise promiseWithValue:downloadError]];
     }];
 
@@ -245,7 +245,7 @@
                                                              fromSite:stubbedArticle.title.site])
          willReturn:[AnyPromise promiseWithValue:stubbedImageInfo]];
 
-        [MKTGiven([self.mockImageController fetchImageWithURLInBackground:stubbedImageInfo.imageThumbURL])
+        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL])
          willReturn:[AnyPromise promiseWithValue:downloadError]];
     }];
 
@@ -457,8 +457,8 @@
 
 - (void)stubArticleImageResponsesForArticle:(MWKArticle*)article {
     [[article allImageURLs] bk_each:^(NSURL* imageURL) {
-        [MKTGiven([self.mockImageController fetchImageWithURLInBackground:imageURL])
-         willReturn:[AnyPromise promiseWithValue:[NSData data]]];
+        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:imageURL])
+         willReturn:[AnyPromise promiseWithValue:@(YES)]];
     }];
 }
 
@@ -470,8 +470,8 @@
                                                              fromSite:article.title.site])
          willReturn:[AnyPromise promiseWithValue:stubbedImageInfo]];
 
-        [MKTGiven([self.mockImageController fetchImageWithURLInBackground:stubbedImageInfo.imageThumbURL])
-         willReturn:[AnyPromise promiseWithValue:[NSData data]]];
+        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL])
+         willReturn:[AnyPromise promiseWithValue:@(YES)]];
     }];
 }
 
