@@ -70,7 +70,7 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                    useDesktopURL:(BOOL)useDeskTopURL
                         progress:(WMFProgressHandler __nullable)progress
                         resolver:(PMKResolver)resolve {
-    if (!pageTitle.text || !pageTitle.site.language) {
+    if (!pageTitle.text || !pageTitle.site) {
         resolve([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
     }
 

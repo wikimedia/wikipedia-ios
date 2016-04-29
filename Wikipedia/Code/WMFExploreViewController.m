@@ -41,11 +41,11 @@
 // Child View Controllers
 #import "WMFArticleBrowserViewController.h"
 #import "WMFSettingsViewController.h"
-#import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFTitleListDataSource.h"
 #import "WMFArticleListTableViewController.h"
 #import "WMFRelatedSectionController.h"
 #import "UIViewController+WMFSearch.h"
+#import "UINavigationController+WMFHideEmptyToolbar.h"
 
 // Controllers
 #import "WMFRelatedSectionBlackList.h"
@@ -60,7 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
 <WMFExploreSectionSchemaDelegate,
  UIViewControllerPreviewingDelegate,
  WMFAnalyticsContextProviding,
- WMFAnalyticsViewNameProviding>
+ WMFAnalyticsViewNameProviding,
+ UINavigationControllerDelegate>
 
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
@@ -225,7 +226,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showSettings {
     UINavigationController* settingsContainer =
         [[UINavigationController alloc] initWithRootViewController:
-         [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard]];
+         [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore]];
+    settingsContainer.delegate = self;
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
@@ -837,6 +839,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)analyticsName {
     return [self analyticsContext];
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController*)navigationController
+      willShowViewController:(UIViewController*)viewController
+                    animated:(BOOL)animated {
+    [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
 }
 
 @end
