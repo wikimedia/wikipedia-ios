@@ -171,7 +171,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     }];
 
     return PMKJoin([[urls bk_map:^(NSURL* imageURL) {
-        return [self.imageController fetchImageWithURLInBackground:imageURL];
+        return [self.imageController cacheImageWithURLInBackground:imageURL];
     }] bk_reject:^BOOL (id obj) {
         return [obj isEqual:[NSNull null]];
     }]);
@@ -190,7 +190,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
             return info;
         }
         return PMKJoin([[info bk_map:^(MWKImageInfo* info) {
-            return [self.imageController fetchImageWithURLInBackground:info.imageThumbURL];
+            return [self.imageController cacheImageWithURLInBackground:info.imageThumbURL];
         }] bk_reject:^BOOL (id obj) {
             return [obj isEqual:[NSNull null]];
         }]);
