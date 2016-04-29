@@ -18,13 +18,13 @@ extern NSString* const WMFDefaultSiteDomain;
 
 /// The language code for the site. Should be ISO 639-x/IETF BCP 47
 /// @see kCFLocaleLanguageCode
-@property (nonatomic, copy, readonly) NSString* language;
+@property (nonatomic, copy, readonly, nullable) NSString* language;
 
 ///
 /// @name Initialization
 ///
 
-- (instancetype)initWithDomain:(NSString*)domain language:(NSString*)language NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDomain:(NSString*)domain language:(nullable NSString*)language NS_DESIGNATED_INITIALIZER;
 
 /// Create a site using @c language and the default domain.
 - (instancetype)initWithLanguage:(NSString*)language;
@@ -38,7 +38,7 @@ extern NSString* const WMFDefaultSiteDomain;
  */
 - (MWKSite* __nullable)initWithURL:(NSURL*)url;
 
-+ (instancetype)siteWithDomain:(NSString*)domain language:(NSString*)language;
++ (instancetype)siteWithDomain:(NSString*)domain language:(nullable NSString*)language;
 
 + (instancetype)siteWithLanguage:(NSString*)language;
 

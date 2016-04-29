@@ -16,7 +16,7 @@ typedef NS_ENUM (NSInteger, WMFArticleFooterViewIndex) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticleViewController ()
+@interface WMFArticleViewController (WMFPrivate)
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle* article;
