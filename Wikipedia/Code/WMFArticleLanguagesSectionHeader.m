@@ -2,7 +2,7 @@
 
 static CGFloat const WMFLanguageHeaderFontSize = 12.f;
 
-@interface WMFArticleLanguagesSectionHeader()
+@interface WMFArticleLanguagesSectionHeader ()
 
 @property (strong, nonatomic) IBOutlet UILabel* titleLabel;
 
@@ -16,12 +16,12 @@ static CGFloat const WMFLanguageHeaderFontSize = 12.f;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
-    UIView * backgroundView = [[UIView alloc] initWithFrame:self.bounds];
+
+    UIView* backgroundView = [[UIView alloc] initWithFrame:self.bounds];
     backgroundView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
-    self.backgroundView = backgroundView;
-    
-    self.titleLabel.font = [UIFont systemFontOfSize:WMFLanguageHeaderFontSize];
+    self.backgroundView            = backgroundView;
+
+    self.titleLabel.font      = [UIFont systemFontOfSize:WMFLanguageHeaderFontSize];
     self.titleLabel.textColor = [UIColor wmf_customGray];
 }
 

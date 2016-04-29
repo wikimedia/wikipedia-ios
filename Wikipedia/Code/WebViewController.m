@@ -369,11 +369,10 @@ NSString* const WMFCCBySALicenseURL =
     [self addFooterView];
 }
 
-- (void)setHeaderView:(UIView *)headerView{
+- (void)setHeaderView:(UIView*)headerView {
     NSAssert(!self.headerView, @"Dynamic/re-configurable header view is not supported.");
     NSAssert(!self.isViewLoaded, @"Expected header to be configured before viewDidLoad.");
     _headerView = headerView;
-
 }
 
 - (void)layoutWebViewSubviews {

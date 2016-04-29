@@ -115,30 +115,30 @@ NSString* const WMFAccountLoginErrorDomain = @"WMFAccountLoginErrorDomain";
 
 - (NSError*)getErrorForResult:(NSString*)result {
     // Error types from: http://www.mediawiki.org/wiki/API:Login#Errors
-    NSString* errorMessage = [NSString stringWithFormat:@"Unknown login error. Code '%@'", result];
+    NSString* errorMessage   = [NSString stringWithFormat:@"Unknown login error. Code '%@'", result];
     LoginErrorType errorType = LOGIN_ERROR_UNKNOWN;
 
     if ([result isEqualToString:@"NoName"]) {
         errorMessage = MWLocalizedString(@"login-name-not-found", nil);
-        errorType = LOGIN_ERROR_NAME_REQUIRED;
+        errorType    = LOGIN_ERROR_NAME_REQUIRED;
     } else if ([result isEqualToString:@"Illegal"]) {
         errorMessage = MWLocalizedString(@"login-name-illegal", nil);
-        errorType = LOGIN_ERROR_NAME_ILLEGAL;
+        errorType    = LOGIN_ERROR_NAME_ILLEGAL;
     } else if ([result isEqualToString:@"NotExists"]) {
         errorMessage = MWLocalizedString(@"login-name-does-not-exist", nil);
-        errorType = LOGIN_ERROR_NAME_NOT_FOUND;
+        errorType    = LOGIN_ERROR_NAME_NOT_FOUND;
     } else if ([result isEqualToString:@"EmptyPass"]) {
         errorMessage = MWLocalizedString(@"login-password-empty", nil);
-        errorType = LOGIN_ERROR_PASSWORD_REQUIRED;
+        errorType    = LOGIN_ERROR_PASSWORD_REQUIRED;
     } else if ([result isEqualToString:@"WrongPass"] || [result isEqualToString:@"WrongPluginPass"]) {
         errorMessage = MWLocalizedString(@"login-password-wrong", nil);
-        errorType = LOGIN_ERROR_PASSWORD_WRONG;
+        errorType    = LOGIN_ERROR_PASSWORD_WRONG;
     } else if ([result isEqualToString:@"Throttled"]) {
         errorMessage = MWLocalizedString(@"login-throttled", nil);
-        errorType = LOGIN_ERROR_THROTTLED;
+        errorType    = LOGIN_ERROR_THROTTLED;
     } else if ([result isEqualToString:@"Blocked"]) {
         errorMessage = MWLocalizedString(@"login-user-blocked", nil);
-        errorType = LOGIN_ERROR_BLOCKED;
+        errorType    = LOGIN_ERROR_BLOCKED;
     }
 
     return [NSError errorWithDomain:WMFAccountLoginErrorDomain code:errorType userInfo:@{NSLocalizedDescriptionKey: errorMessage}];

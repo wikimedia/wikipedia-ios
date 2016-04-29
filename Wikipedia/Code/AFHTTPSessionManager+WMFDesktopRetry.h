@@ -20,11 +20,11 @@
  *  @return The operation
  */
 - (NSURLSessionDataTask*)wmf_GETWithMobileURLString:(NSString*)mobileURLString
-                                     desktopURLString:(NSString*)desktopURLString
-                                           parameters:(id)parameters
-                                                retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
-                                              success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
-                                              failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure;
+                                   desktopURLString:(NSString*)desktopURLString
+                                         parameters:(id)parameters
+                                              retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
+                                            success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
+                                            failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure;
 
 
 /**
@@ -37,10 +37,10 @@
  *  @return The operation which represents the state of the request.
  */
 - (NSURLSessionDataTask*)wmf_GETWithSite:(MWKSite*)site
-                                parameters:(id)parameters
-                                     retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
-                                   success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
-                                   failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure;
+                              parameters:(id)parameters
+                                   retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
+                                 success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
+                                 failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure;
 
 
 /**

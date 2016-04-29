@@ -113,12 +113,11 @@
 
 - (void)tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-
-        MWKLanguageLink * langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
+        MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
         [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self updateDeleteButtonsVisibility];
-        
+
         [self useFirstPreferredLanguageAsSearchLanguage];
     }
 }
@@ -126,7 +125,7 @@
 - (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
     if ([[MWKLanguageLinkController sharedInstance].preferredLanguages count] > 1) {
         return UITableViewCellEditingStyleDelete;
-    } else{
+    } else {
         return UITableViewCellEditingStyleNone;
     }
 }

@@ -8,8 +8,8 @@
 
 @implementation WMFWelcomeLanguageTableViewCell
 
--(void)setLanguageName:(NSString *)languageName {
-    _languageName = languageName;
+- (void)setLanguageName:(NSString*)languageName {
+    _languageName               = languageName;
     self.languageNameLabel.text = languageName;
 }
 

@@ -97,7 +97,7 @@
     assertThat(@([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]), isTrue());
 }
 
--(NSDictionary *)requestHeaders {
+- (NSDictionary*)requestHeaders {
     return self.articleFetcher.operationManager.requestSerializer.HTTPRequestHeaders;
 }
 
@@ -114,7 +114,7 @@
 - (void)testRequestHeadersForOptInUUID {
     if ([SessionSingleton sharedInstance].shouldSendUsageReports) {
         assertThat(@([self requestHeaders][@"X-WMF-UUID"] != nil), isTrue());
-    }else{
+    } else {
         assertThat(@([self requestHeaders][@"X-WMF-UUID"] == nil), isTrue());
     }
 }
