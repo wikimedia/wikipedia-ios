@@ -71,7 +71,9 @@ static CGFloat const WMFLocalizedLanguageLabelHeight   = 18.f;
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self prepareForReuse];
-    [self wmf_makeCellDividerBeEdgeToEdge];
+    [self wmf_makeCellDividerBeEdgeToEdge];    
+    self.localizedLanguageLabel.textColor = [UIColor wmf_777777Color];
+    self.articleTitleLabel.textColor = [UIColor wmf_777777Color];
 }
 
 - (void)prepareForReuse {
