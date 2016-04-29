@@ -111,27 +111,32 @@ extension WMFArticleViewController {
     }
     
     class func registerTweak(){
-        let tweak = FBTweak(identifier: "Always Peek ToC")
-        tweak.name = "Always Peek ToC"
-        tweak.defaultValue = false
-        
-        let collection = FBTweakCollection(name: "Table of Contents");
-        collection.addTweak(tweak)
-
-        let store = FBTweakStore.sharedInstance()
-        let category = store.tweakCategoryWithName("Article")
-
-        category.addTweakCollection(collection);
+        #if DEBUG
+            let tweak = FBTweak(identifier: "Always Peek ToC")
+            tweak.name = "Always Peek ToC"
+            tweak.defaultValue = false
+            
+            let collection = FBTweakCollection(name: "Table of Contents");
+            collection.addTweak(tweak)
+            
+            let store = FBTweakStore.sharedInstance()
+            let category = store.tweakCategoryWithName("Article")
+            
+            category.addTweakCollection(collection);
+        #endif
     }
     
     func shouldPeek() -> Bool {
-        let store = FBTweakStore.sharedInstance()
-        let category = store.tweakCategoryWithName("Article")
-        let collection = category.tweakCollectionWithName("Table of Contents")
-        let tweak = collection.tweakWithIdentifier("Always Peek ToC")
-        if tweak.currentValue as? Bool == true {
-            return true
-        }
+        
+        #if DEBUG
+            let store = FBTweakStore.sharedInstance()
+            let category = store.tweakCategoryWithName("Article")
+            let collection = category.tweakCollectionWithName("Table of Contents")
+            let tweak = collection.tweakWithIdentifier("Always Peek ToC")
+            if tweak.currentValue as? Bool == true {
+                return true
+            }
+        #endif
         
         return !NSUserDefaults.standardUserDefaults().wmf_didPeekTableOfContents()
     }
