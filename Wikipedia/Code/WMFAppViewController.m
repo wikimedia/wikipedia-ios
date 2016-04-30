@@ -367,6 +367,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             [[UIViewController wmf_sharedSearchViewController] setSearchTerm:[activity wmf_searchTerm]];
             break;
         case WMFUserActivityTypeArticle: {
+            [self dismissViewControllerAnimated:NO completion:NULL];
             MWKTitle* title = [[MWKTitle alloc] initWithURL:activity.webpageURL];
             if (!title) {
                 return NO;
