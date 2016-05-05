@@ -72,9 +72,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
+@property (nonatomic, assign) NSUInteger numberOfFailedFetches;
 @property (nonatomic, assign) BOOL isWaitingForNetworkToReconnect;
+@property (nonatomic, assign) CGPoint preNetworkTroubleScrollPosition;
 
 @property (nonatomic, strong, nullable) id<WMFExploreSectionController> sectionOfPreviewingTitle;
+
+@property (nonatomic, strong, nullable) AFNetworkReachabilityManager* reachabilityManager;
+
 
 @end
 
@@ -87,6 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        self.preNetworkTroubleScrollPosition = CGPointZero;
         UIButton* b = [UIButton buttonWithType:UIButtonTypeCustom];
         [b adjustsImageWhenHighlighted];
         UIImage* w = [UIImage imageNamed:@"W"];
@@ -103,6 +109,8 @@ NS_ASSUME_NONNULL_BEGIN
         self.navigationItem.titleView.accessibilityTraits   |= UIAccessibilityTraitHeader;
         self.navigationItem.leftBarButtonItem                = [self settingsBarButtonItem];
         self.navigationItem.rightBarButtonItem               = [self wmf_searchBarButtonItem];
+        self.reachabilityManager                             = [AFNetworkReachabilityManager manager];
+        [self.reachabilityManager startMonitoring];
     }
     return self;
 }
@@ -288,6 +296,8 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(self.savedPages);
     [super viewDidAppear:animated];
 
+    [self.reachabilityManager startMonitoring];
+
     if ([self wmf_isShowingEmptyView]) {
         return;
     }
@@ -306,6 +316,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+
+    [self.reachabilityManager stopMonitoring];
+
     // stop location manager from updating.
     [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull obj) {
         if ([obj respondsToSelector:@selector(didEndDisplayingSection)]) {
@@ -383,7 +396,17 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.isWaitingForNetworkToReconnect = YES;
+    if (self.reachabilityManager.networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable) {
+        return;
+    }
+
+    if (self.numberOfFailedFetches < 3) {
+        self.numberOfFailedFetches++;
+        return;
+    }
+
+    self.preNetworkTroubleScrollPosition = self.tableView.contentOffset;
+    self.isWaitingForNetworkToReconnect  = YES;
     [self.refreshControl endRefreshing];
     [self.tableView reloadData];
 
@@ -391,8 +414,11 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     SCNetworkReachability().then(^{
         @strongify(self);
+        self.numberOfFailedFetches = 0;
         self.isWaitingForNetworkToReconnect = NO;
         [self.tableView reloadData];
+        [self.tableView setContentOffset:self.preNetworkTroubleScrollPosition animated:NO];
+        self.preNetworkTroubleScrollPosition = CGPointZero;
         [self wmf_hideEmptyView];
 
         [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController>  _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
