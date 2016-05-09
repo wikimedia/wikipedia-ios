@@ -31,11 +31,10 @@ static NSString* const WMFSettingsEmailSubject = @"Bug:";
     return self;
 }
 
-- (void)viewDidLoad{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = nil;
 }
-
 
 - (UIBarButtonItem*)sendEmailToolbarItem {
     if (!_sendEmailToolbarItem) {
@@ -44,7 +43,7 @@ static NSString* const WMFSettingsEmailSubject = @"Bug:";
         [button configureAsReportBugButton];
         [button sizeToFit];
         [button addTarget:self action:@selector(sendEmail) forControlEvents:UIControlEventTouchUpInside];
-        _sendEmailToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        _sendEmailToolbarItem                    = [[UIBarButtonItem alloc] initWithCustomView:button];
         _sendEmailToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
         return _sendEmailToolbarItem;
     }

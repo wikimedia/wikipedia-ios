@@ -20,10 +20,10 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     NSArray* entries = [[[dataStore historyListData] bk_map:^id (id obj) {
         @try {
             return [[MWKHistoryEntry alloc] initWithDict:obj];
-        } @catch (NSException *exception) {
+        } @catch (NSException* exception) {
             return nil;
         }
-    }] bk_reject:^BOOL(id obj) {
+    }] bk_reject:^BOOL (id obj) {
         return [obj isEqual:[NSNull null]];
     }];
 
@@ -48,7 +48,7 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
 
 - (MWKHistoryEntry*)addPageToHistoryWithTitle:(MWKTitle*)title {
     NSParameterAssert(title);
-    if([title isNonStandardTitle]){
+    if ([title isNonStandardTitle]) {
         return nil;
     }
     MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title];

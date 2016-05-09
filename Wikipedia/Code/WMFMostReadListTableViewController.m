@@ -27,10 +27,10 @@
 
 - (NSString*)titleForDate:(NSDate*)date {
     return
-    [MWLocalizedString(@"explore-most-read-more-list-title-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                    withString:
-     [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date]
-     ];
+        [MWLocalizedString(@"explore-most-read-more-list-title-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                                         withString:
+         [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date]
+        ];
 }
 
 - (void)viewDidLoad {

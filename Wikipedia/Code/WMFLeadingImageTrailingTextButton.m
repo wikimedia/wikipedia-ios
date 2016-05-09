@@ -77,7 +77,7 @@
 //    }
 //}
 
-- (void)setspaceBetweenIconAndText:(CGFloat)spaceBetweenIconAndText{
+- (void)setspaceBetweenIconAndText:(CGFloat)spaceBetweenIconAndText {
     _spaceBetweenIconAndText = spaceBetweenIconAndText;
     [self applyConstraints];
 }
@@ -124,7 +124,7 @@
     [self applyConstraints];
 }
 
-- (void)applyConstraints{
+- (void)applyConstraints {
     [self.iconImageView mas_makeConstraints:^(MASConstraintMaker* make) {
         make.leading.top.and.bottom.equalTo(self);
     }];
@@ -135,7 +135,6 @@
     }];
 }
 
-
 - (void)applyInitialState {
     [self applySelectedState:NO];
     [self applyTintColor];
@@ -145,7 +144,7 @@
     dispatch_block_t animations = ^{
         self.iconImageView.image = self.selected && self.selectedIconImage ? self.selectedIconImage : self.iconImage;
         self.textLabel.text      = self.selected && self.selectedLabelText ? self.selectedLabelText : self.labelText;
-        self.accessibilityHint = self.textLabel.text;
+        self.accessibilityHint   = self.textLabel.text;
     };
     if (!animated) {
         animations();
@@ -200,9 +199,9 @@
 
 - (void)configureAsReportBugButton {
     self.spaceBetweenIconAndText = 5.0;
-    self.iconImage = [UIImage imageNamed:@"settings-feedback"
-                                inBundle:[NSBundle bundleForClass:[self class]]
-           compatibleWithTraitCollection:self.traitCollection];
+    self.iconImage               = [UIImage imageNamed:@"settings-feedback"
+                                              inBundle:[NSBundle bundleForClass:[self class]]
+                         compatibleWithTraitCollection:self.traitCollection];
     self.labelText = [self localizedStringForKeyFromCurrentBundle:@"button-report-a-bug"];
 }
 

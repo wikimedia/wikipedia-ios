@@ -14,8 +14,8 @@
 
 @implementation WMFPageHistoryRevision
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionaryValue error:(NSError *__autoreleasing *)error {
-    NSDictionary *defaults = @{WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, authorIcon) : WIKIGLYPH_USER_SMILE};
+- (instancetype)initWithDictionary:(NSDictionary*)dictionaryValue error:(NSError* __autoreleasing*)error {
+    NSDictionary* defaults = @{WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, authorIcon): WIKIGLYPH_USER_SMILE};
     dictionaryValue = [defaults mtl_dictionaryByAddingEntriesFromDictionary:dictionaryValue];
     return [super initWithDictionary:dictionaryValue error:error];
 }
@@ -27,18 +27,17 @@
              WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, parentID): @"parentid",
              WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, revisionID): @"revid",
              WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, articleSizeAtRevision): @"size",
-             WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, authorIcon): @"anon",
-             };
+             WMF_SAFE_KEYPATH(WMFPageHistoryRevision.new, authorIcon): @"anon", };
 }
 
-+ (NSValueTransformer *)revisionDateJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^(NSString *timeStamp, BOOL *success, NSError *__autoreleasing *error) {
++ (NSValueTransformer*)revisionDateJSONTransformer {
+    return [MTLValueTransformer transformerUsingForwardBlock:^(NSString* timeStamp, BOOL* success, NSError* __autoreleasing* error) {
         return [timeStamp wmf_iso8601Date];
     }];
 }
 
-+ (NSValueTransformer *)authorIconJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^(NSString *anon, BOOL *success, NSError *__autoreleasing *error) {
++ (NSValueTransformer*)authorIconJSONTransformer {
+    return [MTLValueTransformer transformerUsingForwardBlock:^(NSString* anon, BOOL* success, NSError* __autoreleasing* error) {
         return WIKIGLYPH_USER_SLEEP;
     }];
 }

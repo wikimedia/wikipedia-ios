@@ -666,7 +666,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                                                           withManager:[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager
                                                    thenNotifyDelegate:self];
     }];
-
 }
 
 - (void)save {
@@ -683,11 +682,10 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     }
 
     [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{
-        
         // If fromTitle was set, the section was transcluded, so use the title of the page
         // it was transcluded from.
         MWKTitle* editTitle = self.section.fromtitle ? self.section.fromtitle : self.section.article.title;
-        
+
         // First try to get an edit token for the page's domain before trying to upload the changes.
         // Only the domain is used to actually fetch the token, the other values are
         // parked in EditTokenFetcher so the actual uploader can have quick read-only
@@ -701,8 +699,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                                                              withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
                                                       thenNotifyDelegate:self];
     }];
-
-    
 }
 
 - (void)showAbuseFilterAlertOfType:(AbuseFilterAlertType)alertType {
@@ -738,7 +734,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                                                         withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
                                                  thenNotifyDelegate:self];
     }];
- 
 }
 
 - (void)revealCaptcha {

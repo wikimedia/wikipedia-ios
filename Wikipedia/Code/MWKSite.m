@@ -46,7 +46,7 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
         NSRange range    = NSMakeRange(hostComponents.count - 2, hostComponents.count - 1);
         NSString* domain = [[hostComponents subarrayWithRange:range] componentsJoinedByString:@"."];
         return [self initWithDomain:domain language:nil];
-    }else{
+    } else {
         NSString* language = [hostComponents firstObject];
         if (!language.length) {
             DDLogError(@"Can't form site empty language URL component: %@", url);
@@ -54,9 +54,9 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
         }
         //strip mobile domain
         [hostComponents removeObject:@"m"];
-        
+
         NSString* domain =
-        [[hostComponents subarrayWithRange:NSMakeRange(1, hostComponents.count - 1)] componentsJoinedByString:@"."];
+            [[hostComponents subarrayWithRange:NSMakeRange(1, hostComponents.count - 1)] componentsJoinedByString:@"."];
         return [self initWithDomain:domain language:language];
     }
 }
