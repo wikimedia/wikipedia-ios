@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
                 [self.tableView reloadData];
             }];
             [sheet bk_setCancelButtonWithTitle:[self deleteCancelText] handler:NULL];
-            [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
+            [sheet showFromBarButtonItem:sender animated:YES];
         }];
     } else {
         self.navigationItem.leftBarButtonItem = nil;

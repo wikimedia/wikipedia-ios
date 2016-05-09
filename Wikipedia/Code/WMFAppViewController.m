@@ -332,30 +332,26 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         return YES;
     }
     self.unprocessedUserActivity = nil;
+    [self dismissViewControllerAnimated:NO completion:NULL];
     switch ([activity wmf_type]) {
         case WMFUserActivityTypeExplore:
-            [self dismissViewControllerAnimated:NO completion:NULL];
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
             break;
         case WMFUserActivityTypeSavedPages:
-            [self dismissViewControllerAnimated:NO completion:NULL];
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];
             [[self navigationControllerForTab:WMFAppTabTypeSaved] popToRootViewControllerAnimated:NO];
             break;
         case WMFUserActivityTypeHistory:
-            [self dismissViewControllerAnimated:NO completion:NULL];
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeRecent];
             [[self navigationControllerForTab:WMFAppTabTypeRecent] popToRootViewControllerAnimated:NO];
             break;
         case WMFUserActivityTypeSearch:
-            [self dismissViewControllerAnimated:NO completion:NULL];
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
             [[self rootViewControllerForTab:WMFAppTabTypeExplore] wmf_showSearchAnimated:NO];
             break;
         case WMFUserActivityTypeSearchResults:
-            [self dismissViewControllerAnimated:NO completion:NULL];
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
             [[self rootViewControllerForTab:WMFAppTabTypeExplore] wmf_showSearchAnimated:NO];
@@ -370,7 +366,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         }
         break;
         case WMFUserActivityTypeSettings:
-            [self dismissViewControllerAnimated:NO completion:NULL];
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
             [self.exploreViewController showSettings];
