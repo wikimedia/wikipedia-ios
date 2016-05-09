@@ -10,8 +10,7 @@
 // Author: Nguyên Lê
 // Author: Vinhtantran
 
-// Fuzzy
-"languages-title" = "Ngôn ngữ";
+"languages-title" = "Thay đổi ngôn ngữ";
 "article-languages-label" = "Chọn ngôn ngữ";
 "article-languages-cancel" = "Hủy bỏ";
 "article-languages-downloading" = "Đang tải các ngôn ngữ của bài…";
@@ -21,6 +20,8 @@
 "article-unable-to-load-section" = "Không thể tải lên phần này. Hãy thử tải lại bài để xem lỗi có được khắc phục hay không.";
 "article-unable-to-load-article" = "Không thể tải bài này.";
 "article-related-articles-title" = "Các bài liên quan";
+"article-languages-yours" = "Ngôn ngữ của bạn";
+"article-languages-others" = "Ngôn ngữ khác";
 "info-box-title" = "Thông tin nhanh";
 "info-box-close-text" = "Đóng";
 "table-title-other" = "Thêm thông tin";
@@ -112,6 +113,7 @@
 "settings-language" = "Ngôn ngữ Wikipedia";
 "settings-support" = "Hỗ trợ Wikimedia";
 "settings-language-bar" = "Hiển thị ngôn ngữ khi tìm kiếm";
+"settings-my-languages" = "Ngôn ngữ của tôi";
 "main-menu-title" = "Khác";
 "main-menu-heading-about" = "Giới thiệu";
 "main-menu-language-title" = "Tìm kiếm trong phiên bản ngôn ngữ $1";
@@ -233,6 +235,7 @@
 "timestamp-years" = "%d năm trước";
 "lastmodified-by-user" = "Được sửa đổi $1 bởi $2";
 "lastmodified-by-anon" = "Được sửa đổi $1 bởi người dùng vô danh";
+"button-edit" = "Sửa đổi";
 "button-next" = "Tiếp";
 "button-done" = "Xong";
 "button-save" = "Lưu";
@@ -316,8 +319,7 @@
 "hockeyapp-alert-privacy" = "Quyền riêng tư $1";
 "page-issues" = "Vấn đề trang";
 "page-similar-titles" = "Trang tương tự";
-// Fuzzy
-"page-read-in-other-languages" = "Có sẵn trong $1 ngôn ngữ";
+"page-read-in-other-languages" = "Có sẵn trong $1 ngôn ngữ khác";
 "page-last-edited" = "Sửa đổi lần cuối $1 ngày trước";
 "page-edit-history" = "Toàn bộ lịch sử sửa đổi";
 "captcha-reload" = "Hiển thị CAPTCHA khác";
@@ -356,6 +358,7 @@
 "welcome-explore-continue-button" = "Bắt đầu";
 "welcome-languages-title" = "Ngôn ngữ";
 "welcome-languages-sub-title" = "Chọn các ngôn ngữ ưa thích của bạn đã tìm kiếm Wikipedia";
+// Fuzzy
 "welcome-languages-add-button" = "Thêm tiếp";
 "welcome-languages-continue-button" = "Tiếp";
 "welcome-volunteer-title" = "Tình nguyện";

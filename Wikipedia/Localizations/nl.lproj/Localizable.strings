@@ -115,6 +115,7 @@
 "settings-language" = "Wikipedia-taal";
 "settings-support" = "Wikipedia steunen";
 "settings-language-bar" = "Talen weergeven bij zoeken";
+"settings-my-languages" = "Mijn talen";
 "main-menu-title" = "Meer";
 "main-menu-heading-about" = "Over";
 "main-menu-language-title" = "Zoeken in Wikipedia in het $1";
@@ -236,6 +237,7 @@
 "timestamp-years" = "%d jaar geleden";
 "lastmodified-by-user" = "$1 bewerkt door $2";
 "lastmodified-by-anon" = "$1 bewerkt door een anonieme gebruiker";
+"button-edit" = "Bewerken";
 "button-next" = "Volgende";
 "button-done" = "Afgerond";
 "button-save" = "Opslaan";
@@ -358,6 +360,7 @@
 "welcome-explore-continue-button" = "Aan de slag";
 "welcome-languages-title" = "Talen";
 "welcome-languages-sub-title" = "Kies de voorkeurstalen waarin u binnen Wikipedia wilt zoeken";
+// Fuzzy
 "welcome-languages-add-button" = "Volgende toevoegen";
 "welcome-languages-continue-button" = "Doorgaan";
 "welcome-volunteer-title" = "Vrijwilliger";

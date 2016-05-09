@@ -10,11 +10,11 @@
 // Author: Liuxinyu970226
 // Author: Macofe
 // Author: Mikepanhu
+// Author: Reke
 // Author: Simon Shek
 // Author: Wehwei
 
-// Fuzzy
-"languages-title" = "語言";
+"languages-title" = "變更語言";
 "article-languages-label" = "選擇語言";
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "正在讀取條目語言...";
@@ -24,6 +24,8 @@
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
 "article-unable-to-load-article" = "無法載入條目。";
 "article-related-articles-title" = "相關條目";
+"article-languages-yours" = "您的語言";
+"article-languages-others" = "其他語言";
 "info-box-title" = "快速預覽";
 "info-box-close-text" = "關閉";
 "table-title-other" = "更多資訊";
@@ -115,6 +117,7 @@
 "settings-language" = "維基百科語言";
 "settings-support" = "支持維基百科";
 "settings-language-bar" = "搜尋時顯示語言";
+"settings-my-languages" = "我的語言";
 "main-menu-title" = "更多";
 "main-menu-heading-about" = "關於";
 "main-menu-language-title" = "搜尋 $1 的維基百科";
@@ -236,6 +239,7 @@
 "timestamp-years" = "%d 年前";
 "lastmodified-by-user" = "$1 由 $2 編輯";
 "lastmodified-by-anon" = "$1 由匿名使用者編輯";
+"button-edit" = "編輯";
 "button-next" = "下一步";
 "button-done" = "已完成";
 "button-save" = "儲存";
@@ -254,8 +258,7 @@
 "page_protected_other" = "此頁面已受到以下層級的保護：$1";
 "page_protected_can_not_edit" = "您沒有權限編輯此頁面";
 "page_protected_can_not_edit_title" = "此頁面受到保護";
-// Fuzzy
-"license-footer-text" = "內容根據 $1 可用";
+"license-footer-text" = "除非另有註記，內容根據 $1 授權";
 "license-footer-name" = "創用 CC 姓名標示-相同方式分享 3.0";
 "table-of-contents-heading" = "內容";
 "table-of-contents-button-label" = "目錄";
@@ -320,8 +323,7 @@
 "hockeyapp-alert-privacy" = "$1 隱私";
 "page-issues" = "頁面問題";
 "page-similar-titles" = "相似頁面";
-// Fuzzy
-"page-read-in-other-languages" = "在 $1 語言中閱讀";
+"page-read-in-other-languages" = "在 $1 種其他語言中可用";
 "page-last-edited" = "$1 日前編輯";
 "page-edit-history" = "完整編輯歷史";
 "captcha-reload" = "顯示其他驗證碼";
@@ -340,9 +342,7 @@
 "home-featured-article-heading" = "$1 的特色條目";
 "home-main-page-heading" = "維基百科今日";
 "home-potd-heading" = "$1 的每日圖片";
-// Fuzzy
 "home-last-update-label" = "最後更新: $1";
-// Fuzzy
 "home-last-update-never-label" = "最後更新: 從未";
 "home-updating-label" = "正在更新…";
 "home-hide-suggestion-prompt" = "隱藏此建議";
@@ -362,6 +362,7 @@
 "welcome-explore-continue-button" = "入門";
 "welcome-languages-title" = "語言";
 "welcome-languages-sub-title" = "選擇您偏好的語言來搜尋維基百科";
+// Fuzzy
 "welcome-languages-add-button" = "新增另一個";
 "welcome-languages-continue-button" = "繼續";
 "welcome-volunteer-title" = "志願者";

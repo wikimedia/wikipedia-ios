@@ -86,6 +86,7 @@
 "settings-language" = "Vikipedijos kalba";
 "settings-support" = "Paremti Vikipediją";
 "settings-language-bar" = "Rodyti kalbas paieškoje";
+"settings-my-languages" = "Mano kalbos";
 "main-menu-title" = "Daugiau";
 "main-menu-heading-about" = "Apie";
 "main-menu-language-title" = "Paieška $1 Vikipedijoje";
@@ -177,6 +178,7 @@
 "timestamp-days" = "Prieš %d dienas";
 "timestamp-months" = "Prieš %d mėnesius";
 "timestamp-years" = "Prieš %d metus";
+"button-edit" = "Keisti";
 "button-next" = "Kitas";
 "button-done" = "Atlikta";
 "button-save" = "Įrašyti";
@@ -238,6 +240,7 @@
 "welcome-explore-tell-me-more-done-button" = "Supratau";
 "welcome-explore-continue-button" = "Pradėti";
 "welcome-languages-title" = "Kalbos";
+// Fuzzy
 "welcome-languages-add-button" = "Pridėti kitą";
 "welcome-languages-continue-button" = "Tęsti";
 "welcome-volunteer-title" = "Savanoris";

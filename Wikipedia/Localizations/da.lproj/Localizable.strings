@@ -7,18 +7,18 @@
 // Author: Mortenelling
 // Author: Sarrus
 
-// Fuzzy
-"languages-title" = "Sprog";
+"languages-title" = "Skift sprog";
 "article-languages-label" = "Vælg sprog";
 "article-languages-cancel" = "Annuller";
 "article-languages-downloading" = "Indlæser artikelsprog...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Sprogfilter";
+"article-languages-filter-placeholder" = "Find sprog";
 "article-read-more-title" = "Læs mere";
 "article-about-title" = "Om denne artikel";
 "article-unable-to-load-section" = "Kunne ikke indlæse dette afsnit. Prøv at genindlæse artiklen for at se om det løser problemet.";
 "article-unable-to-load-article" = "Kunne ikke indlæse denne artikel.";
 "article-related-articles-title" = "Relaterede artikler";
+"article-languages-yours" = "Dine sprog";
+"article-languages-others" = "Andre sprog";
 "info-box-title" = "Hurtige fakta";
 "info-box-close-text" = "Luk";
 "table-title-other" = "Flere oplysninger";
@@ -113,6 +113,7 @@
 "settings-language" = "Wikipedia sprog";
 "settings-support" = "Støt Wikipedia";
 "settings-language-bar" = "Vis sprog ved søgning";
+"settings-my-languages" = "Mine sprog";
 "main-menu-title" = "Mere";
 "main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Søg i Wikipedia på $1";
@@ -230,6 +231,7 @@
 "timestamp-years" = "for %d år siden";
 "lastmodified-by-user" = "Redigeret $1 af $2";
 "lastmodified-by-anon" = "Redigeret $1 af en anonym bruger";
+"button-edit" = "Redigér";
 "button-next" = "Næste";
 "button-done" = "Færdig";
 "button-save" = "Gem";
@@ -346,4 +348,10 @@
 "welcome-explore-sub-title" = "En ny måde at opdage interessante artikler hver dag";
 "welcome-explore-tell-me-more" = "Fortæl mig mere";
 "welcome-explore-tell-me-more-about-explore" = "Mere om at Udforske";
+"welcome-languages-title" = "Sprog";
+"welcome-languages-continue-button" = "Fortsæt";
+"welcome-volunteer-continue-button" = "Fortsæt";
+"welcome-volunteer-thanks" = "$1 Tak!";
+"empty-no-feed-title" = "Ingen internetforbindelse";
+"empty-no-search-results-message" = "Ingen resultater fundet";
 "explore-most-read-more-list-title" = "Top artikler";
