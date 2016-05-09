@@ -5,6 +5,5 @@ group :dev do
 end
 
 group :ci do
-  gem 'fastlane', '~> 1.68.0'
-  gem 'spaceship', '~> 0.24'
+  gem 'fastlane', '~> 1.87.0'
 end
