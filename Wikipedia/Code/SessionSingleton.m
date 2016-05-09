@@ -140,7 +140,7 @@
 
 - (NSURL*)urlForLanguage:(NSString*)language {
     NSString* endpoint = self.fallback ? @"" : @".m";
-    MWKSite* site = [MWKSite siteWithLanguage:language];
+    MWKSite* site      = [MWKSite siteWithLanguage:language];
     return [NSURL URLWithString:
             [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", language, endpoint, site.domain]];
 }
@@ -202,7 +202,7 @@
             case FETCH_FINAL_STATUS_FAILED: {
                 // If autoLogin fails the credentials need to be cleared out if they're no longer valid so the
                 // user has an indication that they're no longer logged in.
-                if (error.domain == WMFAccountLoginErrorDomain && error.code != LOGIN_ERROR_UNKNOWN && error.code != LOGIN_ERROR_API){
+                if (error.domain == WMFAccountLoginErrorDomain && error.code != LOGIN_ERROR_UNKNOWN && error.code != LOGIN_ERROR_API) {
                     [self logout];
                 }
             }

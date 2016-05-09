@@ -58,8 +58,8 @@ NS_ASSUME_NONNULL_BEGIN
                                       nil, @"footer-switch-language")];
     }
 
-    NSDate *lastModified = article.lastmodified ? article.lastmodified : [NSDate date];
-    
+    NSDate* lastModified = article.lastmodified ? article.lastmodified : [NSDate date];
+
     if (FBTweakValue(@"Article", @"Article Metadata Footer", @"Show last edit timestamp", NO)) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
                                       [lastModified mediumString],

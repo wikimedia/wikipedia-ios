@@ -43,17 +43,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchLanguagesWithSuccess:(dispatch_block_t)success
                           failure:(void (^ __nullable)(NSError* __nonnull))failure {
     [[QueuesSingleton sharedInstance].languageLinksFetcher wmf_cancelAllTasksWithCompletionHandler:^{
-        
         [self.fetcher fetchLanguageLinksForTitle:self.title
                                          success:^(NSArray* languageLinks) {
-                                             self.availableLanguages = languageLinks;
-                                             if (success) {
-                                                 success();
-                                             }
-                                         }
+            self.availableLanguages = languageLinks;
+            if (success) {
+                success();
+            }
+        }
                                          failure:failure];
     }];
-    
 }
 
 - (void)setAvailableLanguages:(NSArray*)availableLanguages {

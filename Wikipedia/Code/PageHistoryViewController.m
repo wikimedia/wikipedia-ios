@@ -28,7 +28,7 @@
 @property (strong, nonatomic) PageHistoryFetcher* pageHistoryFetcher;
 @property (assign, nonatomic) BOOL isLoadingData;
 @property (assign, nonatomic) BOOL batchComplete;
-@property (strong, nonatomic) PageHistoryRequestParameters *historyFetcherParams;
+@property (strong, nonatomic) PageHistoryRequestParameters* historyFetcherParams;
 
 @end
 
@@ -56,9 +56,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.historyFetcherParams = [[PageHistoryRequestParameters alloc] initWithTitle:self.article.title.text];
-    self.pageHistoryFetcher = [PageHistoryFetcher new];
+    self.pageHistoryFetcher   = [PageHistoryFetcher new];
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
         @strongify(self)
@@ -84,7 +84,7 @@
     self.isLoadingData = YES;
 
     @weakify(self);
-    [self.pageHistoryFetcher fetchRevisionInfo:self.article.title.site requestParams: self.historyFetcherParams].then(^(HistoryFetchResults* historyFetchResults){
+    [self.pageHistoryFetcher fetchRevisionInfo:self.article.title.site requestParams:self.historyFetcherParams].then(^(HistoryFetchResults* historyFetchResults){
         @strongify(self);
         [self.pageHistoryDataArray addObjectsFromArray:historyFetchResults.items];
         self.historyFetcherParams = [historyFetchResults getPageHistoryRequestParameters:self.article.title.text];
@@ -154,7 +154,7 @@
     label.backgroundColor  = [UIColor clearColor];
 
     label.textAlignment = NSTextAlignmentNatural;
-    
+
     label.text = self.pageHistoryDataArray[section].sectionTitle;
 
     [view addSubview:label];
@@ -170,7 +170,7 @@
     if (self.batchComplete || self.isLoadingData) {
         return NO;
     }
-    CGFloat maxY = self.tableView.contentOffset.y + self.tableView.frame.size.height + 200.0;
+    CGFloat maxY    = self.tableView.contentOffset.y + self.tableView.frame.size.height + 200.0;
     BOOL shouldLoad = NO;
     if (maxY >= self.tableView.contentSize.height) {
         shouldLoad = YES;
@@ -178,7 +178,7 @@
     return shouldLoad;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
     if ([self shouldLoadNewData]) {
         [self getPageHistoryData];
     }

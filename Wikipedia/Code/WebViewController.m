@@ -296,10 +296,10 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)addFooterView {
-    if(!self.article){
+    if (!self.article) {
         return;
     }
-    if([self.article.title isNonStandardTitle]){
+    if ([self.article.title isNonStandardTitle]) {
         return;
     }
     self.footerViewHeadersByIndex = [NSMutableDictionary dictionary];
@@ -319,7 +319,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)addFooterContentViews {
-    if([self.article.title isNonStandardTitle]){
+    if ([self.article.title isNonStandardTitle]) {
         return;
     }
     NSParameterAssert(self.isViewLoaded);
@@ -378,11 +378,10 @@ NSString* const WMFCCBySALicenseURL =
     [self addFooterView];
 }
 
-- (void)setHeaderView:(UIView *)headerView{
+- (void)setHeaderView:(UIView*)headerView {
     NSAssert(!self.headerView, @"Dynamic/re-configurable header view is not supported.");
     NSAssert(!self.isViewLoaded, @"Expected header to be configured before viewDidLoad.");
     _headerView = headerView;
-
 }
 
 - (void)layoutWebViewSubviews {
@@ -664,18 +663,18 @@ NSString* const WMFCCBySALicenseURL =
     [self.bridge loadHTML:html withAssetsFile:@"index.html"];
 
     // NSLog(@"languageInfo = %@", languageInfo.code);
-    
+
     // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
     BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && html);
     if (safeToCrossBridge) {
         [self.bridge sendMessage:@"setLanguage"
                      withPayload:@{
-                                   @"lang": languageInfo.code,
-                                   @"dir": languageInfo.dir,
-                                   @"uidir": uidir
-                                   }];
+             @"lang": languageInfo.code,
+             @"dir": languageInfo.dir,
+             @"uidir": uidir
+         }];
     }
-    
+
     if (!self.article.editable) {
         [self.bridge sendMessage:@"setPageProtected" withPayload:@{}];
     }

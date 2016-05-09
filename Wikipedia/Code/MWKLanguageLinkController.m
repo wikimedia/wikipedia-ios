@@ -175,7 +175,6 @@ static id _sharedInstance;
     NSMutableArray<NSString*>* langCodes = [[self readPreferredLanguageCodes] mutableCopy];
     [langCodes removeObject:language.languageCode];
     [self savePreferredLanguageCodes:langCodes];
-
 }
 
 #pragma mark - Reading/Saving Preferred Language Codes to NSUserDefaults

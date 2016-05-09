@@ -34,7 +34,7 @@
     self.titleIcon.tintColor       = [UIColor whiteColor];
 }
 
-- (UIImage *)backChevronImage {
+- (UIImage*)backChevronImage {
     static dispatch_once_t once;
     static UIImage* image;
     dispatch_once(&once, ^{
@@ -43,7 +43,7 @@
     return image;
 }
 
-- (UIImage *)externalLinkImage {
+- (UIImage*)externalLinkImage {
     static dispatch_once_t once;
     static UIImage* image;
     dispatch_once(&once, ^{

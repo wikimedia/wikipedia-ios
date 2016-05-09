@@ -52,8 +52,8 @@ static NSString* const kWMFContributorsKey = @"contributors";
 - (instancetype)init {
     NSError* error;
     NSString* licenseText = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"OFL" ofType:@"txt"]
-                                                 encoding:NSUTF8StringEncoding
-                                                    error:&error];
+                                                      encoding:NSUTF8StringEncoding
+                                                         error:&error];
     NSAssert(!error, @"License copy not retrieved");
     return [super initWithTitle:@"TharLon Myanmar Unicode Font"
                            text:licenseText];
@@ -237,7 +237,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
         vc.headerText = [MWLocalizedString(@"about-libraries-licenses-title", nil) stringByReplacingOccurrencesOfString:@"$1" withString:@"💖"];
 
         vc.acknowledgements = [vc.acknowledgements arrayByAddingObjectsFromArray:@[[[TharlonFontAcknowledgement alloc] init]]];
-        
+
         UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
 
