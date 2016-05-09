@@ -21,20 +21,19 @@
 
     //If zero rated, don't open any external (non-zero rated!) links until user consents!
     if ([SessionSingleton sharedInstance].zeroConfigState.disposition && [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
-
         WMFZeroMessage* zeroMessage = [SessionSingleton sharedInstance].zeroConfigState.zeroMessage;
-        NSString* exitDialogTitle = zeroMessage.exitTitle ?: MWLocalizedString(@"zero-interstitial-title", nil);
-        NSString* messageWithHost = [NSString stringWithFormat:@"%@\n\n%@", zeroMessage.exitWarning ?: MWLocalizedString(@"zero-interstitial-leave-app", nil), url.host];
+        NSString* exitDialogTitle   = zeroMessage.exitTitle ? : MWLocalizedString(@"zero-interstitial-title", nil);
+        NSString* messageWithHost   = [NSString stringWithFormat:@"%@\n\n%@", zeroMessage.exitWarning ? : MWLocalizedString(@"zero-interstitial-leave-app", nil), url.host];
 
-        UIAlertView* zeroAlert    = [UIAlertView bk_alertViewWithTitle:exitDialogTitle
-                                                               message:messageWithHost];
+        UIAlertView* zeroAlert = [UIAlertView bk_alertViewWithTitle:exitDialogTitle
+                                                            message:messageWithHost];
         [zeroAlert bk_setCancelButtonWithTitle:MWLocalizedString(@"zero-interstitial-cancel", nil) handler:nil];
         [zeroAlert bk_addButtonWithTitle:MWLocalizedString(@"zero-interstitial-continue", nil) handler:^{
             [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
         }];
         if ([self isPartnerInfoConfigValid:zeroMessage]) {
             NSString* partnerInfoText = zeroMessage.partnerInfoText;
-            NSURL* partnerInfoUrl = [NSURL URLWithString: zeroMessage.partnerInfoUrl];
+            NSURL* partnerInfoUrl     = [NSURL URLWithString:zeroMessage.partnerInfoUrl];
             [zeroAlert bk_addButtonWithTitle:partnerInfoText handler:^{
                 [self wmf_openExternalUrlModallyIfNeeded:partnerInfoUrl forceSafari:useSafari];
             }];

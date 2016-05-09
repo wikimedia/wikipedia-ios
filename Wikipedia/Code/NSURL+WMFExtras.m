@@ -26,7 +26,7 @@
     return [self.pathExtension wmf_asMIMEType];
 }
 
-- (BOOL)wmf_isSchemeless{
+- (BOOL)wmf_isSchemeless {
     return self.scheme.length == 0;
 }
 

@@ -58,7 +58,7 @@
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    [manager POST:url.absoluteString parameters:params                           progress:NULL success:^(NSURLSessionDataTask* operation, id responseObject) {
+    [manager POST:url.absoluteString parameters:params progress:NULL success:^(NSURLSessionDataTask* operation, id responseObject) {
         //NSLog(@"JSON: %@", responseObject);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 

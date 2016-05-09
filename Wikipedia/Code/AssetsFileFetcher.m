@@ -44,7 +44,7 @@ NSTimeInterval const kWMFMaxAgeDefault = 60 * 60 * 24;
     [manager GET:url.absoluteString parameters:nil progress:NULL success:^(NSURLSessionDataTask* operation, id responseObject) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-        if([operation.response isKindOfClass:[NSHTTPURLResponse class]] && [(NSHTTPURLResponse*)operation.response statusCode] != 200) {
+        if ([operation.response isKindOfClass:[NSHTTPURLResponse class]] && [(NSHTTPURLResponse*)operation.response statusCode] != 200) {
             return;
         }
 

@@ -134,9 +134,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticleViewController
 
-+ (void)load{
++ (void)load {
     [self registerTweak];
 }
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -184,9 +185,9 @@ NS_ASSUME_NONNULL_BEGIN
     self.webViewController.article        = _article;
 
     if (self.article) {
-        if([self.article.title isNonStandardTitle]){
+        if ([self.article.title isNonStandardTitle]) {
             self.headerImageView.image = nil;
-        }else{
+        } else {
             [self.headerImageView wmf_setImageWithMetadata:_article.leadImage detectFaces:YES];
         }
         [self startSignificantlyViewedTimer];
@@ -461,7 +462,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Article Footers
 
 - (void)updateWebviewFootersIfNeeded {
-    if([self.article.title isNonStandardTitle]){
+    if ([self.article.title isNonStandardTitle]) {
         return;
     }
 

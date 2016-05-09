@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @implementation WMFMostReadSectionController
-@synthesize localDateDisplayString = _localDateDisplayString;
+@synthesize localDateDisplayString      = _localDateDisplayString;
 @synthesize localDateShortDisplayString = _localDateShortDisplayString;
 
 - (instancetype)initWithDate:(NSDate*)date site:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)localDateShortDisplayString {
     if (!_localDateShortDisplayString) {
         _localDateShortDisplayString =
-        [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
+            [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
     }
     return _localDateShortDisplayString;
 }
@@ -170,8 +170,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)footerText {
     return
-    [MWLocalizedString(@"explore-most-read-footer-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                            withString:self.localDateShortDisplayString];
+        [MWLocalizedString(@"explore-most-read-footer-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                                withString:self.localDateShortDisplayString];
 }
 
 - (UIViewController*)moreViewController {
@@ -255,13 +255,13 @@ NS_ASSUME_NONNULL_BEGIN
     })
            .then(^NSArray<MWKSearchResult*>*(NSArray<MWKSearchResult*>* previews) {
         @strongify(self);
-               
-               // Now that we have preview data we can check for articleID. If articleID is zero
-               // it's not a regular article. Rejecting these hides most special pages.
-               previews = [previews bk_reject:^BOOL (MWKSearchResult* previews) {
-                   return (previews.articleID == 0);
-               }];
-               
+
+        // Now that we have preview data we can check for articleID. If articleID is zero
+        // it's not a regular article. Rejecting these hides most special pages.
+        previews = [previews bk_reject:^BOOL (MWKSearchResult* previews) {
+            return (previews.articleID == 0);
+        }];
+
         self.previews = previews;
         // only return first 5 previews to the section, store the rest internally for the full list view
         return [self.previews wmf_safeSubarrayWithRange:NSMakeRange(0, 5)];
