@@ -509,7 +509,14 @@ NS_ASSUME_NONNULL_BEGIN
         @weakify(controller);
         [header.rightButton bk_addEventHandler:^(id sender) {
             @strongify(controller);
-            [[(id < WMFHeaderMenuProviding >)controller menuActionSheet] showFromTabBar:self.navigationController.tabBarController.tabBar];
+            @strongify(self);
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                CGRect frame = ((UIButton*)sender).frame;
+                frame.origin.y = 0.f;
+                [[(id < WMFHeaderMenuProviding >)controller menuActionSheet] showFromRect:frame inView:((UIButton*)sender).superview animated:YES];
+            } else {
+                [[(id < WMFHeaderMenuProviding >)controller menuActionSheet] showFromTabBar:self.navigationController.tabBarController.tabBar];
+            }
         } forControlEvents:UIControlEventTouchUpInside];
     } else if ([controller conformsToProtocol:@protocol(WMFHeaderActionProviding)]) {
         header.rightButtonEnabled = YES;
