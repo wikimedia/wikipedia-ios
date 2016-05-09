@@ -13,18 +13,18 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
+
     if (self.deleteButton.superview.subviews.lastObject != self.deleteButton) {
         [self.deleteButton.superview bringSubviewToFront:self.deleteButton];
     }
 
-    self.cellWhiteLayer.frame = self.bounds;
+    self.cellWhiteLayer.frame         = self.bounds;
     self.deleteButtonWhiteLayer.frame = self.deleteButton.bounds;
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+
     self.deleteButton = [self wmf_deleteButton];
     [self.contentView.superview addSubview:self.deleteButton];
     [self.deleteButton mas_makeConstraints:^(MASConstraintMaker* make) {
@@ -44,18 +44,18 @@
     [self.layer insertSublayer:self.cellWhiteLayer atIndex:0];
 }
 
-- (UIButton *)wmf_deleteButton {
-    UIButton *button = [[UIButton alloc] init];
+- (UIButton*)wmf_deleteButton {
+    UIButton* button = [[UIButton alloc] init];
     button.translatesAutoresizingMaskIntoConstraints = NO;
-    button.userInteractionEnabled = NO;
-    button.clipsToBounds = YES;
-    button.tintColor = [UIColor redColor];
+    button.userInteractionEnabled                    = NO;
+    button.clipsToBounds                             = YES;
+    button.tintColor                                 = [UIColor redColor];
     [button setImage:[UIImage imageNamed:@"language-delete"] forState:UIControlStateNormal];
     button.imageView.backgroundColor = [UIColor whiteColor];
-    
+
     self.deleteButtonWhiteLayer = [self whiteLayer];
     [button.layer insertSublayer:self.deleteButtonWhiteLayer atIndex:0];
-    
+
     return button;
 }
 
@@ -63,8 +63,8 @@
 // Used layer because this is immune to cell drag forcing background colors set otherwise to
 // go transparent on drag. Also needed to do same for entire cell otherwise it looks weird on
 // drag if only the minus button part stays white.
-- (CALayer *)whiteLayer {
-    CALayer *layer = [CALayer layer];
+- (CALayer*)whiteLayer {
+    CALayer* layer = [CALayer layer];
     layer.backgroundColor = [UIColor whiteColor].CGColor;
     return layer;
 }

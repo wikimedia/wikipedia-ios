@@ -173,7 +173,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UIViewController
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return [self wmf_orientationMaskPortraitiPhoneAnyiPad];
 }
 

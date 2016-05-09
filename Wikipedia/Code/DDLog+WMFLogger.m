@@ -24,7 +24,7 @@
 #endif
     // always add ASLLogger
     [self wmf_addWMFFormattedLogger:[DDASLLogger sharedInstance]];
-    
+
     DDFileLogger* fileLogger = [[DDFileLogger alloc] init];
     fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
     [self wmf_addWMFFormattedLogger:fileLogger];
@@ -35,15 +35,14 @@
     [DDLog addLogger:logger];
 }
 
-+ (NSString*)wmf_currentLogFile{
-    DDFileLogger* logger =  [[DDLog allLoggers] bk_match:^BOOL(id obj) {
++ (NSString*)wmf_currentLogFile {
+    DDFileLogger* logger = [[DDLog allLoggers] bk_match:^BOOL (id obj) {
         return [obj isKindOfClass:[DDFileLogger class]];
     }];
-    
-    NSString* logPath = [[logger.logFileManager sortedLogFilePaths] firstObject];
+
+    NSString* logPath     = [[logger.logFileManager sortedLogFilePaths] firstObject];
     NSString* logContents = [NSString stringWithContentsOfFile:logPath encoding:NSUTF8StringEncoding error:nil];
     return logContents;
 }
-
 
 @end

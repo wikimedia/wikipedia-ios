@@ -252,7 +252,7 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     }
 
     cell.deleteButton.alpha = [self alphaForDeleteButton];
-    
+
     return cell;
 }
 
@@ -392,7 +392,7 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     languagesVC.showNonPreferredLanguages = NO;
     languagesVC.disableSelection          = YES;
 
-    languagesVC.editButtonItem.tintColor = [UIColor wmf_blueTintColor];
+    languagesVC.editButtonItem.tintColor          = [UIColor wmf_blueTintColor];
     languagesVC.navigationItem.rightBarButtonItem = languagesVC.editButtonItem;
     return languagesVC;
 }
@@ -401,8 +401,8 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     [super viewDidLoad];
     //need to update the footer
     [self setEditing:self.editing animated:NO];
-    
-    self.tableView.sectionFooterHeight = UITableViewAutomaticDimension;
+
+    self.tableView.sectionFooterHeight          = UITableViewAutomaticDimension;
     self.tableView.estimatedSectionFooterHeight = 50.f;
 
     [self.tableView registerNib:[WMFArticleLanguagesSectionFooter wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFArticleLanguagesSectionFooter wmf_nibName]];
@@ -458,7 +458,7 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
 - (void)tableView:(UITableView*)tableView moveRowAtIndexPath:(NSIndexPath*)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath {
     MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[sourceIndexPath.row];
     [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
-  
+
     // TODO: reloadData is a bit brute force, but had issues with the "PRIMARY" indicator
     // showing on more than one cell after re-ordering first cell.
     [tableView reloadData];
@@ -468,17 +468,17 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
 
 - (void)tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
     [super tableView:tableView commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
-    
+
     [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
 }
 
 - (BOOL)tableView:(UITableView*)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath {
     return
-    [self isPreferredSection:indexPath.section]
-    &&
-    ([self tableView:tableView numberOfRowsInSection:indexPath.section] > 1)
-    &&
-    (self.languageFilter.languageFilter.length == 0)
+        [self isPreferredSection:indexPath.section]
+        &&
+        ([self tableView:tableView numberOfRowsInSection:indexPath.section] > 1)
+        &&
+        (self.languageFilter.languageFilter.length == 0)
     ;
 }
 
