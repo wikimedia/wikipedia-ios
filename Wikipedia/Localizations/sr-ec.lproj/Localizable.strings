@@ -6,8 +6,7 @@
 // Author: Rancher
 // Author: Сербијана
 
-// Fuzzy
-"languages-title" = "Језици";
+"languages-title" = "Промени језик";
 "article-languages-label" = "Изаберите језик";
 "article-languages-cancel" = "Откажи";
 "article-languages-downloading" = "Учитавање језика...";
@@ -79,6 +78,7 @@
 "search-recent-clear-cancel" = "Откажи";
 "search-recent-clear-delete-all" = "Обриши све";
 "settings-title" = "Подешавања";
+"settings-my-languages" = "Моји језици";
 "main-menu-title" = "Више";
 "main-menu-heading-about" = "О";
 "main-menu-language-title" = "Претрага Википедије";
@@ -165,6 +165,7 @@
 "timestamp-days" = "пре %d дана";
 "timestamp-months" = "пре %d месеца";
 "timestamp-years" = "пре %d година";
+"button-edit" = "Уреди";
 "button-next" = "Следеће";
 "button-done" = "Урађено";
 "button-save" = "Сачувај";

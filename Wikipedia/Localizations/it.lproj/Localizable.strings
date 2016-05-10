@@ -124,6 +124,7 @@
 "settings-language" = "Lingua di Wikipedia";
 "settings-support" = "Sostieni Wikipedia";
 "settings-language-bar" = "Mostra lingue nella ricerca";
+"settings-my-languages" = "Le mie lingue";
 "main-menu-title" = "Altro";
 "main-menu-heading-about" = "Informazioni";
 "main-menu-language-title" = "Cerca nel wiki in lingua $1";
@@ -245,6 +246,7 @@
 "timestamp-years" = "%d anni fa";
 "lastmodified-by-user" = "Modificato $1 da $2";
 "lastmodified-by-anon" = "Modificata $1 da un utente anonimo";
+"button-edit" = "Modifica";
 "button-next" = "Successivo";
 "button-done" = "Fatto";
 "button-save" = "Salva";
@@ -367,6 +369,7 @@
 "welcome-explore-continue-button" = "Inizia";
 "welcome-languages-title" = "Lingue";
 "welcome-languages-sub-title" = "Scegli la tua lingua preferita per la ricerca su Wikipedia";
+// Fuzzy
 "welcome-languages-add-button" = "Aggiungi un'altra";
 "welcome-languages-continue-button" = "Continua";
 "welcome-volunteer-title" = "Volontario";

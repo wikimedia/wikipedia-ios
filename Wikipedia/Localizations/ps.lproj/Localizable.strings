@@ -3,8 +3,7 @@
 // Author: Ahmed-Najib-Biabani-Ibrahimkhel
 // Author: Macofe
 
-// Fuzzy
-"languages-title" = "ژبې";
+"languages-title" = "ژبه بدلول";
 "article-languages-label" = "ژبه ټاکل";
 "article-languages-cancel" = "ناگارل";
 "article-languages-downloading" = "د ليکنې د ژبو برسېرېدنې کې دی...";
@@ -12,6 +11,8 @@
 "article-read-more-title" = "نور لوستل";
 "article-about-title" = "د دې ليکنې په اړه";
 "article-related-articles-title" = "اړونده ليکنې";
+"article-languages-yours" = "ستاسې ژبې";
+"article-languages-others" = "نورې ژبې";
 "info-box-title" = "چټک مالومات";
 "info-box-close-text" = "تړل";
 "table-title-other" = "نور مالومات";
@@ -73,6 +74,7 @@
 "settings-title" = "امستنې";
 "settings-language" = "د ويکيپېډيا ژبه";
 "settings-support" = "د ويکيمېډيا ملاتړ وکړئ";
+"settings-my-languages" = "زما ژبې";
 "main-menu-title" = "نور";
 "main-menu-heading-about" = "په اړه";
 "main-menu-language-title" = "د $1 ويکيپېډيا پلټل";
@@ -132,6 +134,7 @@
 "about-libraries" = "کارېدلي کتابتونونه";
 "about-libraries-license" = "منښتليک";
 "about-libraries-licenses" = "منښتليکونه";
+"about-content-license" = "د مېنځپانگې منښتليک";
 "about-libraries-licenses-title" = "موږ د پرانيستې سرچينې په ساوترې ميين يو $1";
 "about-libraries-complete-list" = "بشپړ لړليک";
 "about-repositories" = "زېرمې";
@@ -153,6 +156,7 @@
 "timestamp-years" = "%d کالونه پخوا";
 "lastmodified-by-user" = "$1 د $2 لخوا سم شوی";
 "lastmodified-by-anon" = "$1 د يو ورکنومي کارن لخوا سم شوی";
+"button-edit" = "سمول";
 "button-next" = "راتلونکی";
 "button-done" = "ترسره شو";
 "button-save" = "خوندي کول";
@@ -166,8 +170,7 @@
 "onboarding-free-encyclopedia" = "يو وړيا پوهنغونډ";
 "preference_title_eventlogging_opt_in" = "د کارېدنې راپورونه لېږل";
 "page_protected_can_not_edit_title" = "دا مخ ژغورل شوی";
-// Fuzzy
-"license-footer-text" = "مېنځپانگه د $1 منښتليک له مخې ايښودل شوې";
+"license-footer-text" = "دا مېنځپانگه د $1 سره سم ستاسې لاسرسي کې ده، خو چې مخالف يې وييل شوی وي.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "منځپانگې";
 "table-of-contents-button-label" = "نيوليک";
@@ -195,6 +198,7 @@
 "nearby-pull-to-refresh-is-refreshing" = "بياتاندېدنه";
 "nearby-open-in-maps" = "په نخشو کې پرانيستل";
 "nearby-cancel" = "ناگارل";
+"nearby-location-updates-settings-menu" = "پټنتيا > د ځای چوپړونه > ويکيپېډيا";
 "migration-update-progress-label" = "د سيمه ايز اومتوک کډېدنه";
 "migration-skip-button-title" = "دا ړنگول";
 "image-gallery-unknown-owner" = "ناڅرگند پورته کوونکی.";
@@ -220,12 +224,16 @@
 "home-featured-article-heading" = "د $1 غوره ليکنه";
 "home-main-page-heading" = "نن په ويکيپېډيا کې";
 "home-potd-heading" = "د $1 د ورځې انځور";
+"home-last-update-label" = "وروستئ هممهالېدنه: $1";
+"home-last-update-never-label" = "وروستنۍ اوسمهالېدنه: هېڅکله";
 "home-hide-suggestion-cancel" = "ناگارل";
+"home-button-accessibility-label" = "کور تڼۍ";
 "potd-description-prefix" = "د $1 د ورځې انځور";
 "welcome-explore-tell-me-more" = "نور راته ووايه";
 "welcome-explore-tell-me-more-done-button" = "وپوهېدم";
 "welcome-explore-continue-button" = "پيلول";
 "welcome-languages-title" = "ژبې";
+// Fuzzy
 "welcome-languages-add-button" = "بل ورگډول";
 "welcome-volunteer-thanks" = "$1 له تاسو مننه!";
 "empty-no-feed-title" = "انټرنټي اړيکتيا نشته";

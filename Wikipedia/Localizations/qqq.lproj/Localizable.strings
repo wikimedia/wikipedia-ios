@@ -241,7 +241,7 @@
 "timestamp-years" = "Human-readable approximate timestamp for events in the distant past, expressed as years";
 "lastmodified-by-user" = "Marker at page end for who last modified the page.\n* $1 is a relative date such as '2 months ago' or 'today',\n* $2 is a username.";
 "lastmodified-by-anon" = "Marker at page end for who last modified the page when anonymous. $1 is a relative date such as '2 months ago' or 'today'.";
-"button-edit" = "Button text for edit button used in various places.";
+"button-edit" = "Button text for edit button used in various places.\n{{Identical|Edit}}";
 "button-next" = "Button text for next button used in various places.\n{{Identical|Next}}";
 "button-done" = "Button text for done button used in various places.\n{{Identical|Done}}";
 "button-save" = "Button text for save button used in various places.\n{{Identical|Save}}";
@@ -345,8 +345,8 @@
 "home-featured-article-heading" = "Heading above today's featured article. $1 will be replaced with today's date.";
 "home-main-page-heading" = "Heading above Main page.";
 "home-potd-heading" = "Heading above the Wikimedia Commons Picture of the Day. $1 will be replaced with the date for the picture of the day.";
-"home-last-update-label" = "Label that appears before the last updated time of the explore feed";
-"home-last-update-never-label" = "Label that appears when the explore feed has never been updated";
+"home-last-update-label" = "Label that appears before the last updated time of the explore feed\n{{Identical|Last updated}}";
+"home-last-update-never-label" = "Label that appears when the explore feed has never been updated\n{{Identical|Last updated}}";
 "home-updating-label" = "Label that appears when a user is updating the explore feed to inform the user that an update is in progress";
 "home-hide-suggestion-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
 "home-hide-suggestion-cancel" = "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}";

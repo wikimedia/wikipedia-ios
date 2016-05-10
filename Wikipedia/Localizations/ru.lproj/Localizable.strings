@@ -118,6 +118,7 @@
 "settings-language" = "Язык Википедии";
 "settings-support" = "Поддержать Википедию";
 "settings-language-bar" = "Показывать языки при поиске";
+"settings-my-languages" = "Мои языки";
 "main-menu-title" = "Ещё";
 "main-menu-heading-about" = "Про приложение";
 "main-menu-language-title" = "Поиск $1 Википедии";
@@ -239,6 +240,7 @@
 "timestamp-years" = "%d г. назад";
 "lastmodified-by-user" = "Отредактировано $1 участником $2";
 "lastmodified-by-anon" = "Отредактировано $1 анонимным пользователем";
+"button-edit" = "Править";
 "button-next" = "Далее";
 "button-done" = "Готово";
 "button-save" = "Сохранить";
@@ -361,6 +363,7 @@
 "welcome-explore-continue-button" = "Начать";
 "welcome-languages-title" = "Языки";
 "welcome-languages-sub-title" = "Выберите языки, на которых вы хотели бы осуществлять поиск в Википедии";
+// Fuzzy
 "welcome-languages-add-button" = "Добавить ещё один";
 "welcome-languages-continue-button" = "Продолжить";
 "welcome-volunteer-title" = "Доброволец";

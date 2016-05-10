@@ -2,8 +2,7 @@
 // Exported from translatewiki.net
 // Author: Purodha
 
-// Fuzzy
-"languages-title" = "Schprohche";
+"languages-title" = "De Schprohch wääßele";
 "article-languages-label" = "Söhg en Schprohch uß";
 "article-languages-cancel" = "Ophüre!";
 "article-languages-downloading" = "Ben dä Sigg iehr Schprohche aam lahde …";
@@ -13,6 +12,8 @@
 "article-unable-to-load-section" = "Mer kunnte dä Affschnett nit lahde. Versöhg ens, dä jannze Atikel neu ze lahde, öm ze sinn, of dat hellef.";
 "article-unable-to-load-article" = "Mer künne dä Atikel nit lahde.";
 "article-related-articles-title" = "Verwandte Atikele";
+"article-languages-yours" = "Ding Schprohche";
+"article-languages-others" = "Ander Schprohche";
 "info-box-title" = "Koot jesaat";
 "info-box-close-text" = "Zohmaache";
 "table-title-other" = "Mih Aanjahbe";
@@ -98,6 +99,7 @@
 "settings-language" = "Dä Wikkipehdija ier Schprohch";
 "settings-support" = "Ongerschtöz de Wikkipehdija!";
 "settings-language-bar" = "Schprohche beim Söhke aanzeije";
+"settings-my-languages" = "Mih Schprohche";
 "main-menu-title" = "Mih";
 "main-menu-heading-about" = "Övver";
 "main-menu-language-title" = "En de $1 Wikkipehdija söhke";
@@ -139,7 +141,7 @@
 "saved-pages-clear-delete-all" = "Joh, donn alle fottschmiiße";
 "saved-pages-refresh-cancel-alert-title" = "Et Huh_Lahde es afjebroche";
 "saved-pages-refresh-cancel-alert-message" = "En de Wikkipehdija wähde de Atikelle alle nahslangs op ene neue schtand jebraaat. Klegg op\n„Aktualisieren“,!!FUZZYY!! öm alldemohlde de neuste Väsjohn vun alle Atikelle ze sinn ze krijje.";
-"saved-pages-refresh-cancel-alert-button" = "Aanjkumme.";
+"saved-pages-refresh-cancel-alert-button" = "Aanjekumme.";
 "saved-pages-description" = "Faßjehallde Sigge sin janz johd. Kannze lässe, sälvs wann De kein Verbendong mem Näz häs, un wi op Lässezeische drop zohjriife.";
 "saved-pages-none" = "Noch kein faßjehallde Sigge.";
 "saved-pages-image-download-error" = "Mer kunnte kein Bellder för heh di faßjehallde Sigg eronger lahde.";
@@ -217,6 +219,7 @@
 "timestamp-years" = "vör $d Johre";
 "lastmodified-by-user" = "Vum „$2“ $1 beärbeidt.";
 "lastmodified-by-anon" = "$1 vun enem nahmelohse Metmaacher verändert.";
+"button-edit" = "Ändere";
 "button-next" = "Näx";
 "button-done" = "Jedonn";
 "button-save" = "Faßhalde";
@@ -339,6 +342,7 @@
 "welcome-explore-continue-button" = "Wigger";
 "welcome-languages-title" = "Schprohche";
 "welcome-languages-sub-title" = "Beschtemm Ding Schprohche, för zem Söhke en de Wikkipehdija";
+// Fuzzy
 "welcome-languages-add-button" = "Donn eine dobei";
 "welcome-languages-continue-button" = "Wiggermaache";
 "welcome-volunteer-title" = "Freiwellejer";

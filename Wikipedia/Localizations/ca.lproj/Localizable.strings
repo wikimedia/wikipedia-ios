@@ -118,6 +118,7 @@
 "settings-language" = "Idioma de la Viquipèdia";
 "settings-support" = "Doneu suport a la Viquipèdia";
 "settings-language-bar" = "Mostra llengües a la cerca";
+"settings-my-languages" = "Les meves llengües";
 "main-menu-title" = "Més";
 "main-menu-heading-about" = "Quant a";
 "main-menu-language-title" = "Cerca la wiki en llengua $1";
@@ -356,6 +357,8 @@
 "welcome-explore-tell-me-more-done-button" = "Ho he entès";
 "welcome-explore-continue-button" = "Primers passos";
 "welcome-languages-title" = "Llengües";
+// Fuzzy
+"welcome-languages-add-button" = "Afegeix una altra";
 "welcome-languages-continue-button" = "Continua";
 "welcome-volunteer-continue-button" = "Continua";
 "welcome-volunteer-thanks" = "$1 Gràcies!";
@@ -378,4 +381,12 @@
 "explore-featured-article-heading" = "Article destacat";
 "explore-continue-reading-heading" = "Continua llegint";
 "explore-main-page-heading" = "Avui a la Viquipèdia";
+"explore-random-article-heading" = "Article a l'atzar";
+"explore-random-article-sub-heading" = "Viquipèdia en anglès";
 "explore-potd-heading" = "Foto del dia";
+"explore-most-read-heading" = "Els més llegits a la Viquipèdia en $1";
+"explore-most-read-footer" = "Tots els articles més llegits";
+"explore-most-read-footer-for-date" = "Tots els articles més llegits el $1";
+"explore-most-read-more-list-title" = "Primers articles";
+"explore-most-read-more-list-title-for-date" = "Primers el $1";
+"no-email-account-alert" = "Configureu un compte de correu en el vostre dispositiu i torneu-ho a provar.";

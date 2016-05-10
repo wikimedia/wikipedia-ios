@@ -4,8 +4,7 @@
 // Author: Macofe
 // Author: Minisarm
 
-// Fuzzy
-"languages-title" = "Limbi";
+"languages-title" = "Schimbare limbă";
 "article-languages-label" = "Alegere limbă";
 "article-languages-cancel" = "Revocare";
 "article-languages-downloading" = "Se încarcă limbile articolului...";
@@ -15,6 +14,8 @@
 "article-unable-to-load-section" = "Această secțiune nu poate fi încărcată. Reîncărcați articolul pentru a vedea dacă problema se rezolvă astfel.";
 "article-unable-to-load-article" = "Imposibil de încărcat articolul.";
 "article-related-articles-title" = "Articole similare";
+"article-languages-yours" = "Limbile dumneavoastră";
+"article-languages-others" = "Alte limbi";
 "info-box-title" = "Informații pe scurt";
 "info-box-close-text" = "Închide";
 "table-title-other" = "Mai multe informații";
@@ -106,6 +107,7 @@
 "settings-language" = "Limba Wikipediei";
 "settings-support" = "Susțineți Wikipedia";
 "settings-language-bar" = "Arată limbile la căutări";
+"settings-my-languages" = "Limbile mele";
 "main-menu-title" = "Mai mult";
 "main-menu-heading-about" = "Despre";
 "main-menu-language-title" = "Căutare pe wiki în limba $1";
@@ -227,6 +229,7 @@
 "timestamp-years" = "acum %d ani";
 "lastmodified-by-user" = "Modificat $1 de $2";
 "lastmodified-by-anon" = "Modificat $1 de către un utilizator anonim";
+"button-edit" = "Modificare";
 "button-next" = "Înainte";
 "button-done" = "Realizat";
 "button-save" = "Salvare";
@@ -349,6 +352,7 @@
 "welcome-explore-continue-button" = "Să începem";
 "welcome-languages-title" = "Limbi";
 "welcome-languages-sub-title" = "Alegeți limbile preferate în care doriți să căutați pe Wikipedia";
+// Fuzzy
 "welcome-languages-add-button" = "Adaugă încă una";
 "welcome-languages-continue-button" = "Continuă";
 "welcome-volunteer-title" = "Voluntariat";

@@ -357,6 +357,7 @@
 "welcome-explore-continue-button" = "शुरू करें";
 "welcome-languages-title" = "भाषाएँ";
 "welcome-languages-sub-title" = "विकिपीडिया को खोजने के लिए अपनी पसंदीदा भाषाएँ चुनें";
+// Fuzzy
 "welcome-languages-add-button" = "दूसरी जोड़ें";
 "welcome-languages-continue-button" = "जारी रखें";
 "welcome-volunteer-title" = "स्वयंसेवक";

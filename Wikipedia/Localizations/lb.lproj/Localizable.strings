@@ -102,6 +102,7 @@
 "settings-title" = "Astellungen";
 "settings-language" = "Wikipedia-Sprooch";
 "settings-support" = "Wikipedia ënnerstëtzen";
+"settings-my-languages" = "Meng Sproochen";
 "main-menu-title" = "Méi";
 "main-menu-heading-about" = "Iwwer";
 "main-menu-language-title" = "Sicht an der Wiki op $1";
@@ -113,6 +114,7 @@
 "main-menu-account-title-logged-in" = "Ageloggt als $1";
 "main-menu-account-login" = "Aloggen";
 "main-menu-account-logout" = "Ausloggen";
+"main-menu-account-logout-are-you-sure" = "Sidd Dir sécher datt Dir Iech wëllt ausloggen?";
 "main-menu-account-logout-cancel" = "Ofbriechen";
 "main-menu-show-title" = "Weis mir...";
 "main-menu-show-history" = "Rezent";
@@ -213,6 +215,7 @@
 "timestamp-years" = "viru(n) %d Joer";
 "lastmodified-by-user" = "$1 geännert vum $2";
 "lastmodified-by-anon" = "$1 geännert vun engem anonyme Benotzer";
+"button-edit" = "Änneren";
 "button-next" = "Weider";
 "button-done" = "Fäerdeg";
 "button-save" = "Späicheren";
@@ -322,6 +325,7 @@
 "welcome-explore-tell-me-more-done-button" = "Verstan";
 "welcome-explore-continue-button" = "Fir unzefänken";
 "welcome-languages-title" = "Sproochen";
+// Fuzzy
 "welcome-languages-add-button" = "Eng aner derbäisetzen";
 "welcome-languages-continue-button" = "Virufueren";
 "welcome-volunteer-title" = "Fräiwëllegen";
@@ -352,4 +356,7 @@
 "explore-random-article-heading" = "Zoufällegen Artikel";
 "explore-random-article-sub-heading" = "Wikipedia op Englesch";
 "explore-potd-heading" = "Bild vum Dag";
+"explore-most-read-heading" = "Am dackste geliest op der Wikipedia op $1";
+"explore-most-read-footer" = "Déi am dackste geliest Artikelen";
+"explore-most-read-more-list-title" = "Beléifst Artikelen";
 "explore-most-read-more-list-title-for-date" = "Déi beléifst de(n) $1";

@@ -96,6 +96,7 @@
 "settings-title" = "إعدادات";
 "settings-language" = "لغة ويكيبيديا";
 "settings-language-bar" = "إظهار اللغات في البحث";
+"settings-my-languages" = "لغاتي";
 "main-menu-title" = "المزيد";
 "main-menu-heading-about" = "حول";
 "main-menu-language-title" = "البحث في ويكيبيديا";
@@ -178,6 +179,7 @@
 "share-as-text" = "شارك كنص";
 "share-cancel" = "ألغ";
 "timestamp-just-now" = "الآن فقط";
+"button-edit" = "تعديل";
 "button-next" = "التالي";
 "button-done" = "تم";
 "button-save" = "حفظ";
@@ -248,6 +250,7 @@
 "welcome-explore-continue-button" = "فلنبدأ";
 "welcome-languages-title" = "اللغات";
 "welcome-languages-sub-title" = "اختيار اللغة المفضلة للبحث في ويكيبيديا";
+// Fuzzy
 "welcome-languages-add-button" = "إضافة آخر";
 "welcome-languages-continue-button" = "استمر";
 "welcome-volunteer-title" = "متطوع";
