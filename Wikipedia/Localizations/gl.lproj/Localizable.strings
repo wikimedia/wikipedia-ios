@@ -1,5 +1,6 @@
 // Messages for Galician (galego)
 // Exported from translatewiki.net
+// Author: Chairego apc
 // Author: Elisardojm
 // Author: Estevoaei
 // Author: Fisterraeomar
@@ -109,6 +110,7 @@
 "settings-language" = "Lingua de Wikipedia";
 "settings-support" = "Apoie a Wikipedia";
 "settings-language-bar" = "Amosar as linguas ó buscar";
+"settings-my-languages" = "As miñas linguas";
 "main-menu-title" = "Máis";
 "main-menu-heading-about" = "Acerca de";
 "main-menu-language-title" = "Procurar na Wikipedia en $1";
@@ -230,6 +232,7 @@
 "timestamp-years" = "hai %d anos";
 "lastmodified-by-user" = "Editada $1 por $2";
 "lastmodified-by-anon" = "Editada $1 por un usuario anónimo";
+"button-edit" = "Editar";
 "button-next" = "Seguinte";
 "button-done" = "Feito";
 "button-save" = "Gardar";
@@ -352,6 +355,7 @@
 "welcome-explore-continue-button" = "Comezar";
 "welcome-languages-title" = "Linguas";
 "welcome-languages-sub-title" = "Seleccione as súas linguas preferidas para buscar en Wikipedia";
+// Fuzzy
 "welcome-languages-add-button" = "Engadir outro";
 "welcome-languages-continue-button" = "Continuar";
 "welcome-volunteer-title" = "Voluntarios";

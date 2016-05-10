@@ -116,6 +116,7 @@
 "settings-language" = "Bahasa Wikipedia";
 "settings-support" = "Dukung Wikipedia";
 "settings-language-bar" = "Tampilkan bahasa di pencarian";
+"settings-my-languages" = "Bahasa saya";
 "main-menu-title" = "Lainnya";
 "main-menu-heading-about" = "Tentang";
 "main-menu-language-title" = "Cari Wikipedia $1";
@@ -237,6 +238,7 @@
 "timestamp-years" = "%d tahun yang lalu";
 "lastmodified-by-user" = "Suntingan $1 oleh $2";
 "lastmodified-by-anon" = "Suntingan $1 oleh pengguna anonim";
+"button-edit" = "Sunting";
 "button-next" = "Selanjutnya";
 "button-done" = "Selesai";
 "button-save" = "Simpan";
@@ -359,6 +361,7 @@
 "welcome-explore-continue-button" = "Memulai";
 "welcome-languages-title" = "Bahasa";
 "welcome-languages-sub-title" = "Pilih bahasa pilihan Anda untuk mencari Wikipedia";
+// Fuzzy
 "welcome-languages-add-button" = "Tambahkan yang lainnya";
 "welcome-languages-continue-button" = "Lanjutkan";
 "welcome-volunteer-title" = "Relawan";

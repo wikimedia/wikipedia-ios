@@ -324,6 +324,7 @@
 "welcome-explore-tell-me-more-done-button" = "বুঝেছি";
 "welcome-explore-continue-button" = "শুরু করুন";
 "welcome-languages-title" = "ভাষাসমূহ";
+// Fuzzy
 "welcome-languages-add-button" = "আরেকটি যোগ করুন";
 "welcome-languages-continue-button" = "অব্যাহত";
 "welcome-volunteer-title" = "স্বেচ্ছাসেবক";

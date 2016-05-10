@@ -4,8 +4,7 @@
 // Author: Macofe
 // Author: Xuacu
 
-// Fuzzy
-"languages-title" = "Llingües";
+"languages-title" = "Camudar llingua";
 "article-languages-label" = "Escoyer llingua";
 "article-languages-cancel" = "Encaboxar";
 "article-languages-downloading" = "Cargando llingües del artículu...";
@@ -15,6 +14,8 @@
 "article-unable-to-load-section" = "Nun pudo cargase esta seición. Intenta recargar l'artículu para ver si eso igua'l problema.";
 "article-unable-to-load-article" = "Nun pudo cargase l'artículu.";
 "article-related-articles-title" = "Artículos rellacionaos";
+"article-languages-yours" = "Les tos llingües";
+"article-languages-others" = "Otres llingües";
 "info-box-title" = "Datos rápidos";
 "info-box-close-text" = "Zarrar";
 "table-title-other" = "Más información";
@@ -106,6 +107,7 @@
 "settings-language" = "Llingua de Wikipedia";
 "settings-support" = "Sofita Wikimedia";
 "settings-language-bar" = "Amosar les llingües na gueta";
+"settings-my-languages" = "Les mios llingües";
 "main-menu-title" = "Más";
 "main-menu-heading-about" = "Tocante a";
 "main-menu-language-title" = "Guetar la wiki en llingua $1";
@@ -227,6 +229,7 @@
 "timestamp-years" = "hai %d años";
 "lastmodified-by-user" = "Editada $1 por $2";
 "lastmodified-by-anon" = "Editada $1 por un usuariu anónimu";
+"button-edit" = "Editar";
 "button-next" = "Siguiente";
 "button-done" = "Fecho";
 "button-save" = "Guardar";
@@ -349,6 +352,7 @@
 "welcome-explore-continue-button" = "Primeros pasos";
 "welcome-languages-title" = "Llingües";
 "welcome-languages-sub-title" = "Esbilla les llingües que prefieres pa guetar en Wikipedia";
+// Fuzzy
 "welcome-languages-add-button" = "Amestar otra";
 "welcome-languages-continue-button" = "Siguir";
 "welcome-volunteer-title" = "Facete voluntariu";

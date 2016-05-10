@@ -119,6 +119,7 @@
 "settings-language" = "Vikipedi dili";
 "settings-support" = "Vikipedi'yi destekleyin";
 "settings-language-bar" = "Aramada dilleri göster";
+"settings-my-languages" = "Dillerim";
 "main-menu-title" = "Diğer";
 "main-menu-heading-about" = "Hakkında";
 "main-menu-language-title" = "$1 vikide ara";
@@ -240,6 +241,7 @@
 "timestamp-years" = "%d yıl önce";
 "lastmodified-by-user" = "$2 tarafından $1 düzenlendi";
 "lastmodified-by-anon" = "Anonim bir kullanıcı tarafından $1 düzenlendi";
+"button-edit" = "Değiştir";
 "button-next" = "Sonraki";
 "button-done" = "Tamamlandı";
 "button-save" = "Kaydet";
@@ -362,6 +364,7 @@
 "welcome-explore-continue-button" = "Kullanmaya başla";
 "welcome-languages-title" = "Diller";
 "welcome-languages-sub-title" = "Vikipedi'de arama yapmak için tercih ettiğiniz dilleri seçin";
+// Fuzzy
 "welcome-languages-add-button" = "Bir tane daha ekle";
 "welcome-languages-continue-button" = "Devam";
 "welcome-volunteer-title" = "Gönüllü ol";

@@ -27,6 +27,7 @@
 "article-unable-to-load-article" = "記事を読み込むことができません。";
 "article-related-articles-title" = "関連記事";
 "article-languages-yours" = "あなたの言語";
+"article-languages-others" = "他の言語で読む";
 "info-box-title" = "基本データ";
 "info-box-close-text" = "閉じる";
 "table-title-other" = "さらに見る";
@@ -118,6 +119,7 @@
 "settings-language" = "ウィキペディアの言語";
 "settings-support" = "ウィキペディアを支援する";
 "settings-language-bar" = "検索結果に表示する言語";
+"settings-my-languages" = "お使いになる言語";
 "main-menu-title" = "その他";
 "main-menu-heading-about" = "このアプリについて";
 "main-menu-language-title" = "$1版ウィキペディア内を検索";
@@ -224,6 +226,7 @@
 "share-menu-page-saved" = "記事を保存しました";
 "share-menu-page-saved-access" = "ヒント: 保存したページにアクセスするには、上部の$1をタップするか、下部の$2を長押しします。";
 "share-custom-menu-item" = "共有";
+"share-a-fact-share-menu-item" = "引用してシェア";
 "share-on-twitter-sign-off" = "@Wikipedia から";
 "share-article-name-on-wikipedia" = "「$1」の記事を @Wikipedia で読む";
 "share-article-name-on-wikipedia-with-selected-text" = "「$2」(@Wikipedia の記事「$1」より)";
@@ -238,6 +241,7 @@
 "timestamp-years" = "%d年前";
 "lastmodified-by-user" = "$1に $2 が編集";
 "lastmodified-by-anon" = "$1に匿名利用者が編集";
+"button-edit" = "編集";
 "button-next" = "次へ";
 "button-done" = "完了";
 "button-save" = "保存";
@@ -345,6 +349,7 @@
 "home-updating-label" = "更新しています...";
 "home-hide-suggestion-prompt" = "提案を隠す";
 "home-hide-suggestion-cancel" = "中止";
+"home-accessibility-label" = "探求";
 "home-button-accessibility-label" = "ホームボタン";
 "potd-empty-error-description" = "$1日の写真の取得に失敗しました";
 "potd-description-prefix" = "$1日の写真";
@@ -352,13 +357,18 @@
 "welcome-explore-sub-title" = "面白い記事を毎日見つけよう";
 "welcome-explore-tell-me-more" = "もっと詳しく";
 "welcome-explore-tell-me-more-about-explore" = "「探してみよう」について";
+"welcome-explore-tell-me-more-details" = "記事を読むと、関連する記事が自動的に「探求」フィードに追加されます。これを有効にしても、アプリの情報収集方法には変わりありません。あなたの閲覧履歴は秘密のままです。";
+"welcome-explore-tell-me-more-related" = "「探求」フィードでは、あなたが読んだ記事に関連する記事が表示されます。";
+"welcome-explore-tell-me-more-privacy" = "あとで読むリストやプロフィールは、ウィキメディア財団のサーバーには保存されません。";
 "welcome-explore-tell-me-more-done-button" = "わかりました";
 "welcome-explore-continue-button" = "次へ";
 "welcome-languages-title" = "言語";
 "welcome-languages-sub-title" = "ウィキペディアでの検索に使用する言語を選択してください";
+// Fuzzy
 "welcome-languages-add-button" = "言語を追加";
 "welcome-languages-continue-button" = "次へ";
 "welcome-volunteer-title" = "ボランティア";
+"welcome-volunteer-sub-title" = "使用状況を送信することでウィキペディアアプリが改善されます";
 "welcome-volunteer-send-usage-reports" = "利用状況レポートを送信";
 "welcome-volunteer-continue-button" = "次へ";
 "welcome-volunteer-thanks" = "$1 ありがとうございます!";
@@ -387,5 +397,9 @@
 "explore-random-article-heading" = "おまかせ記事";
 "explore-random-article-sub-heading" = "英語版ウィキペディア";
 "explore-potd-heading" = "今日の一枚";
+"explore-most-read-heading" = "$1 版ウィキペディアでよく読まれている記事";
+"explore-most-read-footer" = "よく読まれている記事すべて";
+"explore-most-read-footer-for-date" = "$1 によく読まれている記事すべて";
+"explore-most-read-more-list-title" = "よく読まれている記事";
 "explore-most-read-more-list-title-for-date" = "$1の上位記事";
 "no-email-account-alert" = "アカウントのメールアドレスを設定してから、もう一度お試しください。";
