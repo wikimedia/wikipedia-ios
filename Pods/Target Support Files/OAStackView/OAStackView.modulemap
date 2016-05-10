@@ -1,6 +1,0 @@
-framework module OAStackView {
-  umbrella header "OAStackView-umbrella.h"
-
-  export *
-  module * { export * }
-}
