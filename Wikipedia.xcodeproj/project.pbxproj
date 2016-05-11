@@ -21,10 +21,10 @@
 		0E09EAC31C4426470058F2D8 /* WMFSearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09EABD1C4426470058F2D8 /* WMFSearchResultsTableViewController.m */; };
 		0E09EAC41C4426470058F2D8 /* WMFSavedArticleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09EABF1C4426470058F2D8 /* WMFSavedArticleTableViewController.m */; };
 		0E09EAC51C4426470058F2D8 /* WMFHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09EAC11C4426470058F2D8 /* WMFHistoryTableViewController.m */; };
-		0E2470551CE27DF200D06E19 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2470441CE26D9300D06E19 /* CocoaLumberjack.framework */; };
-		0E2470561CE27DF500D06E19 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2470481CE26D9B00D06E19 /* CocoaLumberjackSwift.framework */; };
-		0E2470571CE27DFA00D06E19 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E24704E1CE26E2A00D06E19 /* PromiseKit.framework */; };
-		0E2470581CE27DFD00D06E19 /* SWStepSlider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2470511CE26E3400D06E19 /* SWStepSlider.framework */; };
+		0E0BE3BB1CE2B2E1004A9DF0 /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3B71CE2B2E1004A9DF0 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0E0BE3BC1CE2B2E1004A9DF0 /* CocoaLumberjackSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3B81CE2B2E1004A9DF0 /* CocoaLumberjackSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0E0BE3BD1CE2B2E1004A9DF0 /* PromiseKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3B91CE2B2E1004A9DF0 /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0E0BE3BE1CE2B2E1004A9DF0 /* SWStepSlider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3BA1CE2B2E1004A9DF0 /* SWStepSlider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E26B0721C0F4F550004D687 /* WMFAppViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0701C0F4F550004D687 /* WMFAppViewController.storyboard */; };
 		0E26B0731C0F4F550004D687 /* WMFTabBarUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */; };
 		0E26B07F1C0F4F720004D687 /* WMFWelcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */; };
@@ -49,6 +49,15 @@
 		0E568D481C78273B00E68FC1 /* SavedPageSpotlightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E568D471C78273B00E68FC1 /* SavedPageSpotlightManager.swift */; };
 		0E5DC8631C6D716100C39A6F /* NSUserActivity+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5DC8621C6D716100C39A6F /* NSUserActivity+WMFExtensions.m */; };
 		0E61C4881CD00984000B11B3 /* WMFHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E61C4871CD00984000B11B3 /* WMFHelpViewController.m */; };
+		0E67DDA51CE3AE8A0061620F /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E67DDA21CE3AE8A0061620F /* FBSnapshotTestCase.framework */; };
+		0E67DDA61CE3AE8A0061620F /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E67DDA31CE3AE8A0061620F /* Quick.framework */; };
+		0E67DDA71CE3AE8A0061620F /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E67DDA41CE3AE8A0061620F /* Nimble.framework */; };
+		0E67DDAA1CE3BEDF0061620F /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3B91CE2B2E1004A9DF0 /* PromiseKit.framework */; };
+		0E67DDAB1CE3BEE00061620F /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3B71CE2B2E1004A9DF0 /* CocoaLumberjack.framework */; };
+		0E67DDAC1CE3C17C0061620F /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3B81CE2B2E1004A9DF0 /* CocoaLumberjackSwift.framework */; };
+		0E67DDB61CE3C3470061620F /* FBSnapshotTestCase.framework in Embed Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 0E67DDAF1CE3C3470061620F /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0E67DDB81CE3C3470061620F /* Quick.framework in Embed Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 0E67DDB11CE3C3470061620F /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0E67DDB91CE3C3470061620F /* Nimble.framework in Embed Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 0E67DDB21CE3C3470061620F /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E69CD5B1C8773410095918B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69CD5A1C8773410095918B /* Launch Screen.storyboard */; };
 		0E78419C1C7CF5CE004F9D36 /* NSDate+WMFRelativeDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E78419B1C7CF5CE004F9D36 /* NSDate+WMFRelativeDate.m */; };
 		0E7FC4631C517B00000E878B /* WMFBlacklistTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7FC4621C517B00000E878B /* WMFBlacklistTests.m */; };
@@ -675,6 +684,36 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0E0BE3B61CE2B29C004A9DF0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0E0BE3BB1CE2B2E1004A9DF0 /* CocoaLumberjack.framework in Embed Frameworks */,
+				0E0BE3BC1CE2B2E1004A9DF0 /* CocoaLumberjackSwift.framework in Embed Frameworks */,
+				0E0BE3BD1CE2B2E1004A9DF0 /* PromiseKit.framework in Embed Frameworks */,
+				0E0BE3BE1CE2B2E1004A9DF0 /* SWStepSlider.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E67DDAD1CE3C3240061620F /* Embed Carthage Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0E67DDB61CE3C3470061620F /* FBSnapshotTestCase.framework in Embed Carthage Frameworks */,
+				0E67DDB81CE3C3470061620F /* Quick.framework in Embed Carthage Frameworks */,
+				0E67DDB91CE3C3470061620F /* Nimble.framework in Embed Carthage Frameworks */,
+			);
+			name = "Embed Carthage Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		040E5C4E184566F4007AFE6F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		041EFC361996A1F800B2CB28 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -702,12 +741,11 @@
 		0E09EAC01C4426470058F2D8 /* WMFSavedArticleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSavedArticleTableViewController.h; sourceTree = "<group>"; };
 		0E09EAC11C4426470058F2D8 /* WMFHistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFHistoryTableViewController.m; sourceTree = "<group>"; };
 		0E09EAC21C4426470058F2D8 /* WMFHistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFHistoryTableViewController.h; sourceTree = "<group>"; };
+		0E0BE3B71CE2B2E1004A9DF0 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/iOS/CocoaLumberjack.framework; sourceTree = "<group>"; };
+		0E0BE3B81CE2B2E1004A9DF0 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Carthage/Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
+		0E0BE3B91CE2B2E1004A9DF0 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
+		0E0BE3BA1CE2B2E1004A9DF0 /* SWStepSlider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWStepSlider.framework; path = Carthage/Build/iOS/SWStepSlider.framework; sourceTree = "<group>"; };
 		0E10C4FD1C81046300CEB5C2 /* Wikipedia Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Wikipedia Debug.entitlements"; sourceTree = "<group>"; };
-		0E2470441CE26D9300D06E19 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/iOS/CocoaLumberjack.framework; sourceTree = "<group>"; };
-		0E2470481CE26D9B00D06E19 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Carthage/Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
-		0E24704B1CE26E1500D06E19 /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSnapshotTestCase.framework; path = Carthage/Build/iOS/FBSnapshotTestCase.framework; sourceTree = "<group>"; };
-		0E24704E1CE26E2A00D06E19 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
-		0E2470511CE26E3400D06E19 /* SWStepSlider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWStepSlider.framework; path = Carthage/Build/iOS/SWStepSlider.framework; sourceTree = "<group>"; };
 		0E26B0701C0F4F550004D687 /* WMFAppViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFAppViewController.storyboard; path = Wikipedia/Code/WMFAppViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFTabBarUI.storyboard; path = Wikipedia/Code/WMFTabBarUI.storyboard; sourceTree = SOURCE_ROOT; };
 		0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFWelcome.storyboard; path = Wikipedia/Code/WMFWelcome.storyboard; sourceTree = SOURCE_ROOT; };
@@ -731,7 +769,6 @@
 		0E3268BE1C52C35900131F5F /* WMFNearbyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNearbyListViewController.m; sourceTree = "<group>"; };
 		0E331BF31C49647600DDE02A /* WMFRelatedSectionBlackList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFRelatedSectionBlackList.h; path = Wikipedia/Code/WMFRelatedSectionBlackList.h; sourceTree = SOURCE_ROOT; };
 		0E331BF41C49647600DDE02A /* WMFRelatedSectionBlackList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFRelatedSectionBlackList.m; path = Wikipedia/Code/WMFRelatedSectionBlackList.m; sourceTree = SOURCE_ROOT; };
-		0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SourceIcons.xcassets; path = Wikipedia/SourceIcons.xcassets; sourceTree = "<group>"; };
 		0E37F8FF1CAEE63C0076FF88 /* WMFRotationRespectingNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFRotationRespectingNavigationController.swift; sourceTree = "<group>"; };
 		0E37F9011CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFRotationRespectingTabBarController.swift; sourceTree = "<group>"; };
 		0E4A34701CBBFCD400A400F6 /* WMFImageGalleryViewContoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryViewContoller.h; path = Wikipedia/Code/WMFImageGalleryViewContoller.h; sourceTree = SOURCE_ROOT; };
@@ -748,6 +785,15 @@
 		0E5DC8621C6D716100C39A6F /* NSUserActivity+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensions.m"; sourceTree = "<group>"; };
 		0E61C4861CD00984000B11B3 /* WMFHelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFHelpViewController.h; sourceTree = "<group>"; };
 		0E61C4871CD00984000B11B3 /* WMFHelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFHelpViewController.m; sourceTree = "<group>"; };
+		0E67DDA21CE3AE8A0061620F /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSnapshotTestCase.framework; path = Carthage/Build/iOS/FBSnapshotTestCase.framework; sourceTree = "<group>"; };
+		0E67DDA31CE3AE8A0061620F /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		0E67DDA41CE3AE8A0061620F /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		0E67DDAE1CE3C3470061620F /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = ../Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
+		0E67DDAF1CE3C3470061620F /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSnapshotTestCase.framework; path = ../Carthage/Build/iOS/FBSnapshotTestCase.framework; sourceTree = "<group>"; };
+		0E67DDB11CE3C3470061620F /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = ../Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		0E67DDB21CE3C3470061620F /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = ../Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		0E67DDB31CE3C3470061620F /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = ../Carthage/Build/iOS/CocoaLumberjack.framework; sourceTree = "<group>"; };
+		0E67DDB41CE3C3470061620F /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = ../Carthage/Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
 		0E69CD5A1C8773410095918B /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		0E78419A1C7CF5CE004F9D36 /* NSDate+WMFRelativeDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+WMFRelativeDate.h"; path = "Wikipedia/Code/NSDate+WMFRelativeDate.h"; sourceTree = SOURCE_ROOT; };
 		0E78419B1C7CF5CE004F9D36 /* NSDate+WMFRelativeDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+WMFRelativeDate.m"; path = "Wikipedia/Code/NSDate+WMFRelativeDate.m"; sourceTree = SOURCE_ROOT; };
@@ -1982,6 +2028,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E67DDAC1CE3C17C0061620F /* CocoaLumberjackSwift.framework in Frameworks */,
+				0E67DDAA1CE3BEDF0061620F /* PromiseKit.framework in Frameworks */,
+				0E67DDAB1CE3BEE00061620F /* CocoaLumberjack.framework in Frameworks */,
+				0E67DDA51CE3AE8A0061620F /* FBSnapshotTestCase.framework in Frameworks */,
+				0E67DDA61CE3AE8A0061620F /* Quick.framework in Frameworks */,
+				0E67DDA71CE3AE8A0061620F /* Nimble.framework in Frameworks */,
 				A3FCB313A3E5F59635FBED32 /* libPods-WikipediaUnitTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1990,10 +2042,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E2470581CE27DFD00D06E19 /* SWStepSlider.framework in Frameworks */,
-				0E2470571CE27DFA00D06E19 /* PromiseKit.framework in Frameworks */,
-				0E2470561CE27DF500D06E19 /* CocoaLumberjackSwift.framework in Frameworks */,
-				0E2470551CE27DF200D06E19 /* CocoaLumberjack.framework in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */,
 				04D34DB21863D39000610A87 /* libxml2.dylib in Frameworks */,
@@ -4366,6 +4414,12 @@
 		BC8309941A7BF935003FC5C7 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				0E67DDAE1CE3C3470061620F /* PromiseKit.framework */,
+				0E67DDAF1CE3C3470061620F /* FBSnapshotTestCase.framework */,
+				0E67DDB11CE3C3470061620F /* Quick.framework */,
+				0E67DDB21CE3C3470061620F /* Nimble.framework */,
+				0E67DDB31CE3C3470061620F /* CocoaLumberjack.framework */,
+				0E67DDB41CE3C3470061620F /* CocoaLumberjackSwift.framework */,
 				BC7C3A381C0FF9620057F023 /* Code */,
 				BCD41DDD1B11CC5800231BB1 /* Fixtures */,
 				BCA15AE11C0DFD1600D0A3EA /* Supporting Files */,
@@ -4977,7 +5031,6 @@
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				04E9A78218F73C7200F7ECF7 /* www */,
 				D4991453181D51DE00E6073C /* Images.xcassets */,
-				0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
@@ -4997,12 +5050,14 @@
 		D4991437181D51DE00E6073C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0E2470511CE26E3400D06E19 /* SWStepSlider.framework */,
-				0E24704E1CE26E2A00D06E19 /* PromiseKit.framework */,
-				0E24704B1CE26E1500D06E19 /* FBSnapshotTestCase.framework */,
-				0E2470481CE26D9B00D06E19 /* CocoaLumberjackSwift.framework */,
-				0E2470441CE26D9300D06E19 /* CocoaLumberjack.framework */,
+				0E67DDA21CE3AE8A0061620F /* FBSnapshotTestCase.framework */,
+				0E67DDA31CE3AE8A0061620F /* Quick.framework */,
+				0E67DDA41CE3AE8A0061620F /* Nimble.framework */,
 				04649CA619F72B360071E8FA /* libPods.a */,
+				0E0BE3B71CE2B2E1004A9DF0 /* CocoaLumberjack.framework */,
+				0E0BE3B81CE2B2E1004A9DF0 /* CocoaLumberjackSwift.framework */,
+				0E0BE3B91CE2B2E1004A9DF0 /* PromiseKit.framework */,
+				0E0BE3BA1CE2B2E1004A9DF0 /* SWStepSlider.framework */,
 				041EFC361996A1F800B2CB28 /* MapKit.framework */,
 				D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */,
 				04D34DB11863D39000610A87 /* libxml2.dylib */,
@@ -5072,12 +5127,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC42735A1A7C736800068882 /* Build configuration list for PBXNativeTarget "WikipediaUnitTests" */;
 			buildPhases = (
+				0E67DDA81CE3AEB00061620F /* Copy Carthage Frameworks */,
 				B29DA021E0C2F3461F2CD2D8 /* Check Pods Manifest.lock */,
 				BC42734E1A7C736800068882 /* Sources */,
 				BC42734F1A7C736800068882 /* Frameworks */,
 				BC4273501A7C736800068882 /* Resources */,
 				3E12E9E666E87AE6E3CA45E3 /* Copy Pods Resources */,
 				37D741FA80649BE2F5F14875 /* Embed Pods Frameworks */,
+				0E67DDAD1CE3C3240061620F /* Embed Carthage Frameworks */,
 			);
 			buildRules = (
 			);
@@ -5093,15 +5150,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D499146A181D51DF00E6073C /* Build configuration list for PBXNativeTarget "Wikipedia" */;
 			buildPhases = (
-				0E2470541CE27BC500D06E19 /* Carthage */,
+				0E2470541CE27BC500D06E19 /* Copy Carthage Frameworks */,
 				F33F4F6424C55FEF072D1A81 /* Check Pods Manifest.lock */,
 				D4991431181D51DE00E6073C /* Sources */,
 				D4991432181D51DE00E6073C /* Frameworks */,
-				0EB312441ACB96C300C7F7A6 /* Process Icons */,
 				D4991433181D51DE00E6073C /* Resources */,
 				45FA417DEEAE18B42A662320 /* Copy Pods Resources */,
 				BC44DB9E1B161839008FCD0C /* Modify App Info.plist */,
-				97718BC2AC5EF915ABCFF8D2 /* Embed Pods Frameworks */,
+				0E0BE3B61CE2B29C004A9DF0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -5352,8 +5408,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0EB312441ACB96C300C7F7A6 /* Process Icons */ = {
-		0E2470541CE27BC500D06E19 /* Carthage */ = {
+		0E2470541CE27BC500D06E19 /* Copy Carthage Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -5362,14 +5417,30 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SWStepSlider.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PromiseKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
 			);
-			name = "Process Icons";
-			name = Carthage;
+			name = "Copy Carthage Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./scripts/process-icons.sh";
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		0E67DDA81CE3AEB00061620F /* Copy Carthage Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Quick.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/FBSnapshotTestCase.framework",
+			);
+			name = "Copy Carthage Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 		37D741FA80649BE2F5F14875 /* Embed Pods Frameworks */ = {
@@ -5415,21 +5486,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		97718BC2AC5EF915ABCFF8D2 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B29DA021E0C2F3461F2CD2D8 /* Check Pods Manifest.lock */ = {
@@ -6340,13 +6396,21 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /Applications/Xcode.app/Contents/Developer/Library/Frameworks/ @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6464,6 +6528,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -6471,12 +6540,15 @@
 					"MKT_SHORTHAND=1",
 					"HC_SHORTHAND=1",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /Applications/Xcode.app/Contents/Developer/Library/Frameworks/ @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6497,6 +6569,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -6505,12 +6582,15 @@
 					"HC_SHORTHAND=1",
 					"LOCALIZATIONS_DIR=@\\\"\"$(SOURCE_ROOT)/Wikipedia/Localizations\"\\\"",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /Applications/Xcode.app/Contents/Developer/Library/Frameworks/ @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6531,13 +6611,21 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /Applications/Xcode.app/Contents/Developer/Library/Frameworks/ @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
