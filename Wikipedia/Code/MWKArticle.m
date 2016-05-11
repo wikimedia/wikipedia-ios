@@ -88,7 +88,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         self.entityDescription = [self optionalString:@"description" dict:dict];
         self.snippet           = [self optionalString:@"snippet" dict:dict];
         self.imageURL          = dict[@"thumbnail"][@"source"];
-        self.thumbnailURL      = self.imageURL;
+        self.thumbnailURL      = [self thumbnailURLFromImageURL:self.imageURL];
     }
 
     return self;
@@ -208,7 +208,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         self.imageURL = [self optionalString:@"imageURL" dict:dict];
     }
 
-    self.thumbnailURL = self.imageURL;
+    self.thumbnailURL = [self thumbnailURLFromImageURL:self.imageURL];
 
     // Populate sections
     NSArray* sectionsData = [dict[@"sections"] bk_map:^id (NSDictionary* sectionData) {
@@ -356,9 +356,13 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return _thumbnail;
 }
 
+- (NSString*)thumbnailURLFromImageURL:(NSString*)imageURL {
+    return WMFChangeImageSourceURLSizePrefix(imageURL, [[UIScreen mainScreen] wmf_listThumbnailWidthForScale].unsignedIntegerValue);
+}
+
 - (void)setThumbnailURL:(NSString*)thumbnailURL {
-    _thumbnailURL = WMFChangeImageSourceURLSizePrefix(thumbnailURL, [[UIScreen mainScreen] wmf_listThumbnailWidthForScale].unsignedIntegerValue);
-    [self.images addImageURLIfAbsent:_thumbnailURL];
+    _thumbnailURL = thumbnailURL;
+    [self.images addImageURLIfAbsent:thumbnailURL];
 }
 
 - (void)setImageURL:(NSString*)imageURL {
