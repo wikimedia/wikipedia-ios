@@ -5,7 +5,7 @@
 *.sw[op]
 
 # Xcode/ObjC ignores, copied from https://github.com/github/gitignore/blob/master/Objective-C.gitignore
-build/
+/build/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -61,4 +61,3 @@ Wikipedia/assets/
 
 # Git
 *.orig
-
