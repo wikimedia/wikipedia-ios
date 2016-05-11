@@ -16,3 +16,5 @@
 #import "MWKSavedPageList+ImageMigrationTesting.h"
 #import "WMFHTTPHangingProtocol.h"
 #import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
+#import <Nocilla/Nocilla.h>
+#import <CocoaLumberjack/CocoaLumberjack.h>

@@ -3,11 +3,11 @@
 #import "Wikipedia-Swift.h"
 
 // Frameworks
-@import Masonry;
+#import <Masonry/Masonry.h>
 #import <Tweaks/FBTweakInline.h>
 #import "PiwikTracker+WMFExtensions.h"
 
-//Utility
+// Utility
 #import "NSDate+Utilities.h"
 #import "MWKDataHousekeeping.h"
 #import "NSUserActivity+WMFExtensions.h"

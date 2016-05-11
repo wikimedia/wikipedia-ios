@@ -6,8 +6,7 @@
 #import "MWKLicense+ToGlyph.h"
 #import "NSParagraphStyle+WMFParagraphStyles.h"
 #import "WMFGradientView.h"
-
-@import Masonry;
+#import <Masonry/Masonry.h>
 
 static double const WMFImageGalleryLicenseFontSize       = 19.0;
 static double const WMFImageGalleryLicenseBaselineOffset = -1.5;

@@ -1,6 +1,4 @@
 import Foundation
-import AFNetworking
-import Mantle
 
 
 public class PageHistoryFetcher: NSObject {

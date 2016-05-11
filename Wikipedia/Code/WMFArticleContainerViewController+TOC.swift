@@ -1,7 +1,5 @@
 
 import Foundation
-import BlocksKit
-import Tweaks
 
 extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
 
@@ -120,9 +118,14 @@ extension WMFArticleViewController {
             collection.addTweak(tweak)
             
             let store = FBTweakStore.sharedInstance()
-            let category = store.tweakCategoryWithName("Article")
             
-            category.addTweakCollection(collection);
+            if let category = store.tweakCategoryWithName("Article") {
+                category.addTweakCollection(collection);
+            }else{
+                let category = FBTweakCategory(name: "Article")
+                store.addTweakCategory(category)
+                category.addTweakCollection(collection);
+            }
         #endif
     }
     

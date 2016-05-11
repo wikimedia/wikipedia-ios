@@ -9,7 +9,7 @@
 import UIKit
 import MobileCoreServices
 import CoreSpotlight
-import CocoaLumberjack
+import CocoaLumberjackSwift
 
 @available(iOS 9.0, *)
 

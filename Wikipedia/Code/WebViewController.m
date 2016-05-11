@@ -5,9 +5,8 @@
 
 #import "Wikipedia-Swift.h"
 
-@import Masonry;
-@import BlocksKit.BlocksKit_UIKit;
-
+#import <Masonry/Masonry.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
 #import "NSString+WMFHTMLParsing.h"
 
 #import "MWKArticle.h"

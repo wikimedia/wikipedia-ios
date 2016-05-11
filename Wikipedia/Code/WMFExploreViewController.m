@@ -3,11 +3,10 @@
 
 // Frameworks
 #import <BlocksKit/BlocksKit+UIKit.h>
-@import Tweaks;
+#import <Tweaks/FBTweakViewController.h>
 
 #import "PiwikTracker+WMFExtensions.h"
 #import "NSUserActivity+WMFExtensions.h"
-#import <PromiseKit/SCNetworkReachability+AnyPromise.h>
 
 // Sections
 #import "WMFExploreSectionSchema.h"
@@ -412,26 +411,34 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
     @weakify(self);
-    SCNetworkReachability().then(^{
-        @strongify(self);
-        self.numberOfFailedFetches = 0;
-        self.isWaitingForNetworkToReconnect = NO;
-        [self.tableView reloadData];
-        [self.tableView setContentOffset:self.preNetworkTroubleScrollPosition animated:NO];
-        self.preNetworkTroubleScrollPosition = CGPointZero;
-        [self wmf_hideEmptyView];
-
-        [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController>  _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-            @weakify(self);
-            [obj resetData];
-            [obj fetchDataIfError].catch(^(NSError* error){
+    [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            case AFNetworkReachabilityStatusReachableViaWiFi: {
                 @strongify(self);
-                if ([error wmf_isNetworkConnectionError]) {
-                    [self showOfflineEmptyViewAndReloadWhenReachable];
-                }
-            });
-        }];
-    });
+                self.numberOfFailedFetches = 0;
+                self.isWaitingForNetworkToReconnect = NO;
+                [self.tableView reloadData];
+                [self.tableView setContentOffset:self.preNetworkTroubleScrollPosition animated:NO];
+                self.preNetworkTroubleScrollPosition = CGPointZero;
+                [self wmf_hideEmptyView];
+
+                [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController>  _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+                    @weakify(self);
+                    [obj resetData];
+                    [obj fetchDataIfError].catch(^(NSError* error){
+                        @strongify(self);
+                        if ([error wmf_isNetworkConnectionError]) {
+                            [self showOfflineEmptyViewAndReloadWhenReachable];
+                        }
+                    });
+                }];
+            }
+            break;
+            default:
+                break;
+        }
+    }];
 }
 
 #pragma mark - UITableViewDatasource
