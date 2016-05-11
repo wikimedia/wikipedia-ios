@@ -245,8 +245,6 @@ static NSUInteger const kWMFLegacyCoreDataBackupExpirationTimeInDays = 30;
             if (thumbnail) {
                 [self migrateThumbnailImage:thumbnail article:article newArticle:migratedArticle];
             }
-            // HACK: setting thumbnailURL after migration prevents it from being added to the image list twice
-            migratedArticle.thumbnailURL = thumbnail.sourceUrl;
 
             for (Section* section in [article sectionsBySectionId]) {
                 for (SectionImage* sectionImage in [section sectionImagesByIndex]) {

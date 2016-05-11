@@ -15,6 +15,8 @@
 #import "MWKCitation.h"
 #import "MWKSection+DisplayHtml.h"
 #import "NSMutableDictionary+WMFMaybeSet.h"
+#import "WMFImageURLParsing.h"
+#import "UIScreen+WMFImageWidth.h"
 
 @import CoreText;
 
@@ -85,8 +87,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     if (self) {
         self.entityDescription = [self optionalString:@"description" dict:dict];
         self.snippet           = [self optionalString:@"snippet" dict:dict];
-        self.thumbnailURL      = dict[@"thumbnail"][@"source"];
-        self.imageURL          = self.thumbnailURL;
+        self.imageURL          = dict[@"thumbnail"][@"source"];
+        self.thumbnailURL      = self.imageURL;
     }
 
     return self;
@@ -206,8 +208,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         self.imageURL = [self optionalString:@"imageURL" dict:dict];
     }
 
-    // From local storage
-    self.thumbnailURL = [self optionalString:@"thumbnailURL" dict:dict];
+    self.thumbnailURL = self.imageURL;
 
     // Populate sections
     NSArray* sectionsData = [dict[@"sections"] bk_map:^id (NSDictionary* sectionData) {
@@ -356,8 +357,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (void)setThumbnailURL:(NSString*)thumbnailURL {
-    _thumbnailURL = thumbnailURL;
-    [self.images addImageURLIfAbsent:thumbnailURL];
+    _thumbnailURL = WMFChangeImageSourceURLSizePrefix(thumbnailURL, [[UIScreen mainScreen] wmf_listThumbnailWidthForScale].unsignedIntegerValue);
+    [self.images addImageURLIfAbsent:_thumbnailURL];
 }
 
 - (void)setImageURL:(NSString*)imageURL {
