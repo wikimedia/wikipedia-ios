@@ -30,6 +30,7 @@ platform :ios do
   lane :testAndPushBeta do
     verifyTestPlatforms
     bumpAndTagBeta
+    badge(dark: true, shield: get_badge_version_string)
     beta
   end
 
@@ -131,7 +132,7 @@ platform :ios do
 
   end
 
-  desc "Increment the app's beta build number, add a tag, and push to the beta branch."
+  desc "Increment the app's build number, add a tag, and push to the master branch."
   lane :bumpAndTagRelease do |options|
     sh "git fetch"
     sh "git checkout release"
