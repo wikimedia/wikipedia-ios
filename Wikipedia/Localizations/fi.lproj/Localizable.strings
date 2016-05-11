@@ -232,6 +232,7 @@
 "timestamp-years" = "%d vuotta sitten";
 "lastmodified-by-user" = "Muokannut $2 $1";
 "lastmodified-by-anon" = "Anonyymi käyttäjä muokkasi $1";
+"button-edit" = "Muokkaa";
 "button-next" = "Seuraava";
 "button-done" = "Valmis";
 "button-save" = "Tallenna";
@@ -335,6 +336,7 @@
 "welcome-explore-tell-me-more" = "Kerro lisää";
 "welcome-explore-tell-me-more-done-button" = "Selvä";
 "welcome-languages-title" = "Kielet";
+// Fuzzy
 "welcome-languages-add-button" = "Lisää toinen";
 "welcome-languages-continue-button" = "Jatka";
 "welcome-volunteer-sub-title" = "Auta parantamaan Wikipedia-sovellusta jakamalla tietoja siitä, kuinka käytät sitä";

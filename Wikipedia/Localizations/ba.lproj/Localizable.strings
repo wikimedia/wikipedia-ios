@@ -112,6 +112,7 @@
 "settings-language" = "Википедия теле";
 "settings-support" = "Википедияға ярҙам";
 "settings-language-bar" = "Эҙләү ваҡытында телдәрҙе күрһәтеү";
+"settings-my-languages" = "Минең телдәр";
 "main-menu-title" = "Тағы ла";
 "main-menu-heading-about" = "Ҡушымта тураһында";
 "main-menu-language-title" = "$1 Википедияла эҙләү";
@@ -204,7 +205,7 @@
 "about-libraries-license" = "Рөхсәт ҡағыҙы";
 "about-libraries-licenses" = "Рөхсәт ҡағыҙы";
 "about-content-license" = "Эстәлек лицензияһы";
-"about-content-license-details" = "Башҡаһы күрһәтелмәһә, файл эсендәге нәмә $1-гә ярашлы асыҡ була.";
+"about-content-license-details" = "Башҡаһы күрһәтелмәһә, файл эсендәге нәмә $1 ярашлы асыҡ була.";
 "about-content-license-details-share-alike-license" = " Creative Commons Attribution-ShareAlike лицензияһы менән";
 "about-libraries-licenses-title" = "Баштағы асыҡ $1 кодлы Программа тәьминәтен яратабыҙ";
 "about-libraries-complete-list" = "Тулы исемлек";
@@ -233,6 +234,7 @@
 "timestamp-years" = "%d йыл элек";
 "lastmodified-by-user" = "  $2 ҡатнашыусыһы тарафынан $1 мөхәррирләнгән";
 "lastmodified-by-anon" = " $1 аноним ҡатнашыусы тарафынан мөхәррирләнгән";
+"button-edit" = "Үҙгәртергә";
 "button-next" = "Артабан";
 "button-done" = "Әҙер";
 "button-save" = "Һаҡларға";
@@ -295,7 +297,7 @@
 "nearby-location-updates-denied" = "Был ҡушымтаның урынлашҡан урыны тураһында мәғлүмәтен яңыртыуға рөхсәте юҡ";
 "nearby-location-updates-enable" = "Урынлашҡан урыны тураһындағы мәғлүмәтте яңыртыуҙы һүндереү өсөн ҡушымтаны асығыҙ һәм түбәндәгеләрҙе һайлағыҙ";
 "nearby-location-updates-settings-menu" = "Википедияның \"Геолакация хеҙмәте\"-ең хосусилығы";
-"nearby-location-general-error" = "Урынлашҡан ерен билдәләп булмай.Яңыртыу өсөн тартығыҙ йәки һуңғараҡ тағы берҙе ҡабатлап ҡарағыҙ";
+"nearby-location-general-error" = "Урынлашҡан ерен билдәләп булмай. Яңыртыр өсөн тартығыҙ йәки һуңғараҡ тағы ла ҡабатлап ҡарағыҙ.";
 "nearby-wifi" = " Wi-Fi-ға тоташыу ҡоролмаға һеҙҙең урынды тиҙерәк билдәләргә ярҙам итәсәк";
 "migration-update-progress-label" = "локаль мәғлүмәттәрҙе күсереү";
 "migration-update-progress-count-label" = " мәҡәләне $2- нән $1- гә күсереү";
@@ -355,6 +357,7 @@
 "welcome-explore-continue-button" = "Башларға";
 "welcome-languages-title" = "Телдәр";
 "welcome-languages-sub-title" = "Википедияла эҙләү башҡарырға теләгән  телдәрҙе һайлағыҙ";
+// Fuzzy
 "welcome-languages-add-button" = "Тағы өҫтәргә";
 "welcome-languages-continue-button" = "Дауам итергә";
 "welcome-volunteer-title" = "Ирекмән";

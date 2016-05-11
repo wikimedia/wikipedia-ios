@@ -66,14 +66,15 @@ NS_ASSUME_NONNULL_BEGIN
     //Sort so random results with good extracts and images come first and disambiguation pages come last.
     NSSortDescriptor* extractSorter  = [[NSSortDescriptor alloc] initWithKey:@"extract.length" ascending:NO];
     NSSortDescriptor* descripSorter  = [[NSSortDescriptor alloc] initWithKey:@"wikidataDescription" ascending:NO];
-    NSSortDescriptor* thumbSorter    = [[NSSortDescriptor alloc] initWithKey:@"thumbnailURL" ascending:NO];
+    NSSortDescriptor* thumbSorter    = [[NSSortDescriptor alloc] initWithKey:@"thumbnailURL.absoluteString" ascending:NO];
     NSSortDescriptor* disambigSorter = [[NSSortDescriptor alloc] initWithKey:@"isDisambiguation" ascending:YES];
     NSSortDescriptor* listSorter     = [[NSSortDescriptor alloc] initWithKey:@"isList" ascending:YES];
-    results = [results sortedArrayUsingDescriptors:@[disambigSorter, listSorter, extractSorter, thumbSorter, descripSorter]];
+    results = [results sortedArrayUsingDescriptors:@[disambigSorter, listSorter, thumbSorter, descripSorter, extractSorter]];
     return [results firstObject];
 }
 
 + (NSDictionary*)params {
+    NSNumber* numberOfRandomItemsToFetch = @8;
     return @{
                @"action": @"query",
                @"prop": @"extracts|pageterms|pageimages|pageprops",
@@ -81,10 +82,10 @@ NS_ASSUME_NONNULL_BEGIN
                @"generator": @"random",
                @"grnnamespace": @0,
                @"grnfilterredir": @"nonredirects",
-               @"grnlimit": @"8",
+               @"grnlimit": numberOfRandomItemsToFetch,
                // extracts
                @"exintro": @YES,
-               @"exlimit": @"1",
+               @"exlimit": numberOfRandomItemsToFetch,
                @"explaintext": @"",
                @"exchars": @(WMFNumberOfExtractCharacters),
                // pageterms
@@ -92,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
                // pageimage
                @"piprop": @"thumbnail",
                @"pithumbsize": [[UIScreen mainScreen] wmf_leadImageWidthForScale],
-               @"pilimit": @"1",
+               @"pilimit": numberOfRandomItemsToFetch,
                @"format": @"json",
     };
 }

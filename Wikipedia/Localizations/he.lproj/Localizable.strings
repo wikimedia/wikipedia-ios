@@ -110,6 +110,7 @@
 "settings-language" = "שפת הוויקיפדיה";
 "settings-support" = "תמיכה בוויקיפדיה";
 "settings-language-bar" = "הצגת שפות בחיפוש";
+"settings-my-languages" = "השפות שלי";
 "main-menu-title" = "עוד";
 "main-menu-heading-about" = "אודות";
 "main-menu-language-title" = "חיפוש בוויקיפדיה ה$1";
@@ -231,6 +232,7 @@
 "timestamp-years" = "לפני %d שנים";
 "lastmodified-by-user" = "נערך $1 על־ידי $2";
 "lastmodified-by-anon" = "נערך $1 על־ידי משתמש אלמוני";
+"button-edit" = "עריכה";
 "button-next" = "הבא";
 "button-done" = "בוצע";
 "button-save" = "שמירה";
@@ -353,6 +355,7 @@
 "welcome-explore-continue-button" = "להתחיל";
 "welcome-languages-title" = "שפות";
 "welcome-languages-sub-title" = "נא לבחור את השפות שבהן ברצונך לחפש בוויקיפדיה";
+// Fuzzy
 "welcome-languages-add-button" = "להוסיף עוד";
 "welcome-languages-continue-button" = "להמשיך";
 "welcome-volunteer-title" = "התנדבות";

@@ -108,6 +108,7 @@
 "settings-language" = "Јазик на Википедија";
 "settings-support" = "Поддржете ја Википедија";
 "settings-language-bar" = "Прикажувај јазици при пребарувањето";
+"settings-my-languages" = "Мои јазици";
 "main-menu-title" = "Повеќе";
 "main-menu-heading-about" = "За прилогот";
 "main-menu-language-title" = "Пребарување на Википедија на $1";
@@ -229,6 +230,7 @@
 "timestamp-years" = "пред %d години";
 "lastmodified-by-user" = "Изменета $1 од $2";
 "lastmodified-by-anon" = "Изменета $1 од анонимен корисник";
+"button-edit" = "Уреди";
 "button-next" = "Следно";
 "button-done" = "Готово";
 "button-save" = "Зачувај";
@@ -351,6 +353,7 @@
 "welcome-explore-continue-button" = "Започни";
 "welcome-languages-title" = "Јазици";
 "welcome-languages-sub-title" = "Одберете ги вашите претпочитани јазици за пребарување на Википедија";
+// Fuzzy
 "welcome-languages-add-button" = "Додај друг";
 "welcome-languages-continue-button" = "Продолжи";
 "welcome-volunteer-title" = "Пријави се";

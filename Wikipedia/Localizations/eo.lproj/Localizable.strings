@@ -2,18 +2,20 @@
 // Exported from translatewiki.net
 // Author: Fitoschido
 // Author: KuboF
+// Author: Lucas
 // Author: Ochilov
 // Author: Remux
 // Author: Robin van der Vliet
 
-// Fuzzy
-"languages-title" = "Lingvoj";
+"languages-title" = "Ŝanĝi lingvon";
 "article-languages-label" = "Elekti lingvon";
 "article-languages-cancel" = "Nuligi";
 "article-languages-downloading" = "Ŝarĝante lingvojn de la artikolo...";
 "article-languages-filter-placeholder" = "Trovi lingvon";
 "article-read-more-title" = "Legi plu";
 "article-unable-to-load-section" = "Ne eblas ŝuti tiun ĉi sekcion. Provu refreŝigi la artikolon, tio eble riparos la problemon.";
+"article-languages-yours" = "Viaj lingvoj";
+"article-languages-others" = "Aliaj lingvoj";
 "info-box-title" = "Rapidaj faktoj";
 "info-box-close-text" = "Fermi";
 "table-title-other" = "Pliaj informoj";
@@ -82,6 +84,7 @@
 "search-recent-clear-delete-all" = "Forigi ĉiujn";
 "settings-title" = "Agordoj";
 "settings-language" = "Lingvo de Vikipedio";
+"settings-my-languages" = "Miaj lingvoj";
 "main-menu-title" = "Pli";
 "main-menu-heading-about" = "Pri";
 "main-menu-faq" = "Oftaj demandoj";
@@ -182,6 +185,7 @@
 "timestamp-years" = "Antaŭ %d jaroj";
 "lastmodified-by-user" = "Redaktita $1 de $2";
 "lastmodified-by-anon" = "Redaktita $1 de anonima uzanto";
+"button-edit" = "Redakti";
 "button-next" = "Sekva";
 "button-done" = "Farite";
 "button-save" = "Konservi";
@@ -241,8 +245,7 @@
 "hockeyapp-alert-do-not-send" = "Ne sendi";
 "page-issues" = "Problemoj pri paĝo";
 "page-similar-titles" = "Similaj paĝoj";
-// Fuzzy
-"page-read-in-other-languages" = "Disponebla en $1 lingvoj";
+"page-read-in-other-languages" = "Disponebla en $1 aliaj lingvoj";
 "home-empty-section-check-again" = "Reprovi";
 "home-hide-suggestion-cancel" = "Nuligi";
 "welcome-languages-title" = "Lingvoj";

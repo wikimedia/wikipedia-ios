@@ -6,8 +6,7 @@
 // Author: Sator
 // Author: Subi
 
-// Fuzzy
-"languages-title" = "Hizkuntzak";
+"languages-title" = "Hizkuntza aldatu";
 "article-languages-label" = "Hizkuntza aukeratu";
 "article-languages-cancel" = "Utzi";
 "article-languages-downloading" = "Artikuluaren hizkuntzak kargatzen...";
@@ -17,6 +16,8 @@
 "article-about-title" = "Artikulu honi buruz";
 "article-unable-to-load-article" = "Ezin da artikulua kargatu.";
 "article-related-articles-title" = "Lotutako artikuluak";
+"article-languages-yours" = "Zure hizkuntzak";
+"article-languages-others" = "Beste hizkuntzak";
 "info-box-title" = "Datu azkarrak";
 "info-box-close-text" = "Itxi";
 "table-title-other" = "Informazio gehiago";

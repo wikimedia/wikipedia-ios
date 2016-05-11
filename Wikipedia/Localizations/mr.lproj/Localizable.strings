@@ -6,39 +6,43 @@
 // Author: अभय नातू
 // Author: संतोष दहिवळ
 
-// Fuzzy
-"languages-title" = "भाषा";
+"languages-title" = "भाषा बदला";
 "article-languages-label" = "भाषा निवडा";
 "article-languages-cancel" = "रद्द करा";
 "article-languages-downloading" = "लेखाच्या भाषेचे भारण करीत आहे...";
-// Fuzzy
-"article-languages-filter-placeholder" = "भाषेची गाळणी";
+"article-languages-filter-placeholder" = "भाषा शोधा";
 "article-read-more-title" = "अधिक वाचन";
 "article-about-title" = "या लेखाबद्दल";
 "article-unable-to-load-section" = "या भागाचे भारण करता आले नाही.या लेखास तरोताजे करण्याने अडचण दुर होते का बघा.";
 "article-unable-to-load-article" = "लेखाचे भारण करता आले नाही.";
+"article-related-articles-title" = "संबंधित लेख";
+"article-languages-yours" = "आपल्या भाषा";
+"article-languages-others" = "इतर भाषा";
 "info-box-title" = "जलद तथ्य";
 "info-box-close-text" = "बंद करा";
 "table-title-other" = "इतर माहिती";
+"saved-clear-all" = "स्वच्छ करा";
+"history-clear-all" = "स्वछ करा";
 "history-label" = "अलीकडील";
 "history-section-today" = "आज";
 "history-section-yesterday" = "काल";
 "history-section-lastweek" = "मागील आठवडयात";
 "history-section-lastmonth" = "मागील महिन्यात";
-// Fuzzy
-"history-clear-confirmation-heading" = "अलीकडील सर्व बाबी वगळायच्या काय?";
+"history-clear-confirmation-heading" = "आपण हे निश्चित करता काय कि आपणास आपल्या अलीकडील सर्व बाबी वगळायच्या आहेत?";
 "history-clear-confirmation-sub-heading" = "ही क्रिया परतवू शकत नाही!";
 "history-clear-cancel" = "रद्द करा";
-// Fuzzy
-"history-clear-delete-all" = "सर्व वगळा";
+"history-clear-delete-all" = "होय, सर्व वगळा";
 "history-description" = "त्यातील आपण बहुतेक सर्वच वगळले आहेत. पुढील वेळेस आपल्यास कोणतेही पान हवे असेल तर तेथे, आपण येथून जाउ शकता.";
 "history-none" = "अलीकडील पाने येथे नाहीत.";
+"zero-charged-verbiage" = "विकिपीडिया झिरो बंद आहे";
+"zero-interstitial-title" = "विकिपीडिया झिरो त्यागत आहे";
 "zero-interstitial-continue" = "सोडा";
 "zero-interstitial-cancel" = "इथेच रहा";
 "zero-learn-more" = "या विकिपीडिया अॲपसाठी डाटा चार्जेस लागणार नाहीत.";
 "zero-learn-more-learn-more" = "अधिक वाचन";
 "zero-learn-more-no-thanks" = "रद्द करा";
 "zero-wikipedia-zero-heading" = "विकिपीडीया झीरो";
+"zero-warn-when-leaving" = "जर झिरो त्यागत असाल तर इशारा द्या";
 "zero-settings-devmode" = "शून्य devmode";
 "account-creation-captcha-required" = "कॅपचा पडताळणी आवश्यक.";
 "account-creation-captcha-obtaining" = "नविन कॅपचा मिळवित आहे.";
@@ -75,51 +79,59 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "दुवा उघडा";
 "open-link-cancel" = "रद्द करा";
+"search-title" = "शोधा";
 "search-searching" = "पहारा देत आहे...";
 "search-no-matches" = "शोध मजकूराशी काहीच अनुरुप सापडले नाही.";
 "search-field-placeholder-text" = "विकिपीडिया मध्ये शोधा";
 "search-field-placeholder-text-zero" = "विकीपिडीया झीरो मध्ये शोधा";
+"search-loading-section-zero" = "लेखाच्या पहिल्या विभागाचे प्रभारण करीत आहे...";
+"search-loading-section-remaining" = "उरलेला लेख प्रभारण करीत आहे...";
+"search-loading-article-loaded" = "लेखाचे प्रभारण झाले.";
 "search-cancel" = "रद्द करा";
 "search-titles" = "शीर्षके:";
+"search-within-articles" = "लेखातच";
 "search-did-you-mean" = "तुम्हाला $1 म्हणायचे आहे काय?";
-// Fuzzy
-"search-recent-title" = "अलीकडील शोध";
+"search-recent-title" = "अलीकडील शोधलेले";
 "search-recent-clear-confirmation-heading" = "सध्याचे सर्व शोध वगळु?";
 "search-recent-clear-confirmation-sub-heading" = "ही क्रिया परतवू शकत नाही!";
 "search-recent-clear-cancel" = "रद्द करा";
 "search-recent-clear-delete-all" = "सर्व वगळा";
+"search-result-redirected-from" = "पासून पुनर्निदेशन: $1";
 "settings-title" = "मांडण्या";
+"settings-language" = "विकिपीडिया भाषा";
+"settings-support" = "विकिपीडियास साहाय्य करा";
+"settings-language-bar" = "शोधात भाषा दाखवा";
+"settings-my-languages" = "माझ्या भाषा";
 "main-menu-title" = "अधिक";
 "main-menu-heading-about" = "च्या बद्दल";
 "main-menu-language-title" = "विकिपीडिया मध्ये शोधा";
-// Fuzzy
 "main-menu-faq" = "नेहमी विचारण्यात येणारे प्रश्न";
 "main-menu-language-toggle-show" = "भाषा दाखवा";
 "main-menu-language-toggle-hide" = "भाषा लपवा";
 "main-menu-language-selection-saved" = "भाषेची निवड जतन केली";
 "main-menu-account-title-logged-out" = "खाते";
-// Fuzzy
-"main-menu-account-title-logged-in" = "सनोंद प्रवेशित:$1 म्हणून";
-// Fuzzy
-"main-menu-account-login" = "विकिपीडियात सनोंद-प्रवेश करा";
+"main-menu-account-title-logged-in" = "सनोंद प्रवेशित $1 म्हणून";
+"main-menu-account-login" = "सनोंद-प्रवेश करा";
 "main-menu-account-logout" = "सनोंद-निर्गम";
+"main-menu-account-logout-are-you-sure" = "आपण निश्चित करता काय कि आपणास निर्गमित व्हायचे आहे?";
+"main-menu-account-logout-cancel" = "रद्द करा";
 "main-menu-show-title" = "मला दाखवा...";
 "main-menu-show-history" = "अलीकडील";
 "main-menu-show-saved" = "जतन केलेली पाने";
 "main-menu-current-article-save" = "विनाजाल वाचनासाठी $1 जतन करा";
 "main-menu-random" = "अविशिष्ट";
 "main-menu-feedback-heading" = "प्रतिक्रिया";
-// Fuzzy
-"main-menu-send-feedback" = "प्रतिक्रिया पाठवा";
+"main-menu-send-feedback" = "आम्हास लिहा";
 "main-menu-show-page-history" = "$1 च्या बदलांचा इतिहास";
 "main-menu-credits" = "श्रेयनिर्देश";
-// Fuzzy
-"main-menu-about" = "विकिपीडिया अॅपविषयी";
-// Fuzzy
-"main-menu-terms-of-use" = "वापराच्या अटी";
+"main-menu-about" = "अॅप विषयी";
+"main-menu-privacy-policy" = "गुप्तता नीती";
+"main-menu-terms-of-use" = "वापरण्याच्या अटी";
+"main-menu-heading-legal" = "गुप्तता व अटी";
 "main-menu-show-today" = "आज";
 "main-menu-nearby" = "जवळपास";
 "main-menu-more" = "अधिक...";
+"main-menu-heading-debug" = "गणकदोष काढा";
 "main-menu-debug-crash" = "नेस्तनाबूत";
 "saved-title" = "जतन केले";
 "saved-pages-title" = "जतन केलेली पाने";
