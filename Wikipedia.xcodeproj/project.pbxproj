@@ -2574,6 +2574,13 @@
 			name = Blacklist;
 			sourceTree = "<group>";
 		};
+		0E3F35951CA5DB3700FD4999 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
 		0E4500B91B97A26800A33B55 /* Section Schema */ = {
 			isa = PBXGroup;
 			children = (
@@ -4947,6 +4954,7 @@
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
+				0E3F35951CA5DB3700FD4999 /* New Group */,
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				04E9A78218F73C7200F7ECF7 /* www */,
 				D4991453181D51DE00E6073C /* Images.xcassets */,

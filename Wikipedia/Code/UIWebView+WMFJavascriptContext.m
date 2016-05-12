@@ -5,7 +5,7 @@
 
 static NSString* const WMFWebViewJavascriptContextPath = @"documentView.webView.mainFrame.javaScriptContext";
 
-@implementation UIWebView (WMFJavascriptContext)
+@implementation WKWebView (WMFJavascriptContext)
 
 - (JSContext*)wmf_javascriptContext {
     JSContext* context = [self valueForKeyPath:WMFWebViewJavascriptContextPath];

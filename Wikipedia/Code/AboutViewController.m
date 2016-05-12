@@ -12,6 +12,7 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "Wikipedia-Swift.h"
 #import <VTAcknowledgementsViewController/VTAcknowledgementsViewController.h>
+#import <Masonry/Masonry.h>
 
 static NSString* const kWMFAboutHTMLFile  = @"about.html";
 static NSString* const kWMFAboutPlistName = @"AboutViewController";
@@ -45,6 +46,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
 @interface AboutViewController ()
 
+@property (strong, nonatomic) WKWebView* webView;
 @property (nonatomic, strong) UIBarButtonItem* buttonX;
 @property (nonatomic, strong) UIBarButtonItem* buttonCaretLeft;
 
@@ -57,8 +59,15 @@ static NSString* const kWMFContributorsKey = @"contributors";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.webView.delegate = self;
-    [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile];
+    WKWebView* wv = [[WKWebView alloc] initWithFrame:CGRectZero];
+    [self.view addSubview:wv];
+    [wv mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.leading.and.trailing.top.and.bottom.equalTo(wv.superview);
+    }];
+
+    wv.navigationDelegate = self;
+    [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile];
+    self.webView = wv;
 
     @weakify(self)
     self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
@@ -148,8 +157,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
     void (^ setDivHTML)(NSString*, NSString*) = ^void (NSString* divId, NSString* twnString) {
         twnString = stringEscapedForJavasacript(twnString);
-        [self.webView stringByEvaluatingJavaScriptFromString:
-         [NSString stringWithFormat:@"document.getElementById('%@').innerHTML = \"%@\";", divId, twnString]];
+        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('%@').innerHTML = \"%@\";", divId, twnString] completionHandler:NULL];
     };
 
     setDivHTML(@"version", [[NSBundle mainBundle] wmf_versionForCurrentBundleIdentifier]);
@@ -200,8 +208,8 @@ static NSString* const kWMFContributorsKey = @"contributors";
 #pragma mark - Introspection
 
 - (BOOL)isDisplayingLicense {
-    if ([[[[self.webView request] URL] scheme] isEqualToString:kWMFLicenseRedirectScheme] &&
-        [[[[self.webView request] URL] resourceSpecifier] isEqualToString:kWMFLicenseRedirectResourceIdentifier]) {
+    if ([[[self.webView URL] scheme] isEqualToString:kWMFLicenseRedirectScheme] &&
+        [[[self.webView URL] resourceSpecifier] isEqualToString:kWMFLicenseRedirectResourceIdentifier]) {
         return YES;
     }
 

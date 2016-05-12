@@ -310,12 +310,15 @@ NS_ASSUME_NONNULL_BEGIN
     return self.article && !self.article.isMain;
 }
 
-- (NSString*)shareText {
-    NSString* text = [self.webViewController selectedText];
-    if (text.length == 0) {
-        text = [self.article shareSnippet];
-    }
-    return text;
+- (void)getShareText:(void (^)(NSString* text))completion{
+    [self.webViewController getSelectedText:^(NSString * _Nonnull text) {
+        if (text.length == 0) {
+            text = [self.article shareSnippet];
+        }
+        if(completion){
+            completion(text);
+        }
+    }];
 }
 
 #pragma mark - Toolbar Setup

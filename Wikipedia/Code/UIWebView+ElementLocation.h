@@ -3,15 +3,15 @@
 
 //  Html page shown by webview must reference elementLocation.js for these methods to work.
 
-#import <UIKit/UIKit.h>
+@import WebKit;
 
-@interface UIWebView (ElementLocation)
+@interface WKWebView (ElementLocation)
 
-- (CGRect)getScreenRectForHtmlElementWithId:(NSString*)elementId;
-- (CGRect)getWebViewRectForHtmlElementWithId:(NSString*)elementId;
+- (void)getScreenRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion;
+- (void)getWebViewRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion;
 
-- (CGPoint)getScreenCoordsForHtmlImageWithSrc:(NSString*)src;
-- (CGPoint)getWebViewCoordsForHtmlImageWithSrc:(NSString*)src;
+//- (CGPoint)getScreenCoordsForHtmlImageWithSrc:(NSString*)src;
+//- (CGPoint)getWebViewCoordsForHtmlImageWithSrc:(NSString*)src;
 
 - (NSInteger)getIndexOfTopOnScreenElementWithPrefix:(NSString*)prefix count:(NSUInteger)count;
 

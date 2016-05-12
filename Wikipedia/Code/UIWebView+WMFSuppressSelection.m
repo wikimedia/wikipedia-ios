@@ -8,7 +8,7 @@
 
 #import "UIWebView+WMFSuppressSelection.h"
 
-@implementation UIWebView (WMF_SuppressSelection)
+@implementation WKWebView (WMF_SuppressSelection)
 
 - (void)wmf_suppressSelection {
     self.userInteractionEnabled = NO;

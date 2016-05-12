@@ -5,6 +5,7 @@
 
 #import "Wikipedia-Swift.h"
 
+@import WebKit;
 @import Masonry;
 @import BlocksKit.BlocksKit_UIKit;
 
@@ -60,6 +61,7 @@ NSString* const WMFLicenseTitleOnENWiki =
 @property (nonatomic, strong) UIView* footerContainerView;
 @property (nonatomic, strong) NSMutableDictionary* footerViewHeadersByIndex;
 @property (nonatomic, strong) WMFArticleFooterView* footerLicenseView;
+@property (strong, nonatomic) IBOutlet UIView* containerView;
 
 /**
  *  Calculates the amount needed to compensate to specific HTML element locations.
@@ -104,6 +106,13 @@ NSString* const WMFLicenseTitleOnENWiki =
     return self;
 }
 
+- (WKWebView*)webView {
+    if (!_webView) {
+        _webView = [[WKWebView alloc] initWithFrame:CGRectZero];
+    }
+    return _webView;
+}
+
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
@@ -115,7 +124,12 @@ NSString* const WMFLicenseTitleOnENWiki =
 
     self.referencesHidden = YES;
 
-    self.view.clipsToBounds               = NO;
+    self.view.clipsToBounds = NO;
+
+    [self.containerView insertSubview:self.webView atIndex:0];
+    [self.webView mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.leading.and.trailing.and.top.and.bottom.equalTo(self.containerView);
+    }];
     self.webView.clipsToBounds            = NO;
     self.webView.scrollView.clipsToBounds = NO;
 
@@ -447,13 +461,14 @@ NSString* const WMFLicenseTitleOnENWiki =
                                                             withArguments:@[fragment]];
             return;
         }
-        CGRect r = [self.webView getScreenRectForHtmlElementWithId:fragment];
-        if (!CGRectIsNull(r)) {
-            CGPoint elementOrigin =
-                CGPointMake(self.webView.scrollView.contentOffset.x,
-                            self.webView.scrollView.contentOffset.y + r.origin.y + [self clientBoundingRectVerticalOffset]);
-            [self.webView.scrollView wmf_safeSetContentOffset:elementOrigin animated:YES];
-        }
+        [self.webView getScreenRectForHtmlElementWithId:fragment completion:^(CGRect rect) {
+            if (!CGRectIsNull(rect)) {
+                CGPoint elementOrigin =
+                    CGPointMake(self.webView.scrollView.contentOffset.x,
+                                self.webView.scrollView.contentOffset.y + rect.origin.y + [self clientBoundingRectVerticalOffset]);
+                [self.webView.scrollView wmf_safeSetContentOffset:elementOrigin animated:YES];
+            }
+        }];
     }
 }
 
@@ -840,14 +855,14 @@ NSString* const WMFLicenseTitleOnENWiki =
                       document.getElementById('%@').style.backgroundColor = '#999';\
                       document.getElementById('%@').style.borderRadius = 2;\
                       ", linkID, linkID, linkID, linkID];
-    [self.webView stringByEvaluatingJavaScriptFromString:eval];
+    [self.webView evaluateJavaScript:eval completionHandler:NULL];
 }
 
 - (void)referenceViewController:(ReferencesVC*)referenceViewController didFinishShowingReferenceWithLinkID:(NSString*)linkID {
     NSString* eval = [NSString stringWithFormat:@"\
                       document.getElementById('%@').style.backgroundColor = document.getElementById('%@').oldBackgroundColor;\
                       ", linkID, linkID];
-    [self.webView stringByEvaluatingJavaScriptFromString:eval];
+    [self.webView evaluateJavaScript:eval completionHandler:NULL];
 }
 
 - (void)referenceViewControllerCloseReferences:(ReferencesVC*)referenceViewController {
@@ -869,26 +884,33 @@ NSString* const WMFLicenseTitleOnENWiki =
 #pragma mark - Share Actions
 
 - (void)shareMenuItemTapped:(id)sender {
-    [self shareSnippet:self.selectedText];
+    [self getSelectedText:^(NSString* _Nonnull text) {
+        [self shareSnippet:text];
+    }];
 }
 
 #pragma mark - Sharing
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
     if (action == @selector(shareSnippet:)) {
-        if ([self.selectedText isEqualToString:@""]) {
-            return NO;
-        }
-        [self.delegate webViewController:self didSelectText:self.selectedText];
+        [self getSelectedText:^(NSString* _Nonnull text) {
+            [self.delegate webViewController:self didSelectText:text];
+        }];
         return YES;
     }
     return [super canPerformAction:action withSender:sender];
 }
 
-- (NSString*)selectedText {
-    NSString* selectedText =
-        [[self.webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"] wmf_shareSnippetFromText];
-    return selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
+- (void)getSelectedText:(void (^)(NSString* text))completion {
+    [self.webView evaluateJavaScript:@"window.getSelection().toString()" completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
+        if ([obj isKindOfClass:[NSString class]]) {
+            NSString* selectedText = [(NSString*)obj wmf_shareSnippetFromText];
+            selectedText = selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
+            completion(selectedText);
+        } else {
+            completion(@"");
+        }
+    }];
 }
 
 - (void)shareSnippet:(NSString*)snippet {
@@ -929,7 +951,7 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 
 
-@interface WMFWebView : UIWebView
+@interface WMFWebView : WKWebView
 
 @end
 

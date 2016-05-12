@@ -5,7 +5,7 @@
 #import "UIWebView+WMFJavascriptToXcodeConsoleLogging.h"
 #import "UIWebView+WMFJavascriptContext.h"
 
-@implementation UIWebView (WMFJavascriptToXcodeConsoleLogging)
+@implementation WKWebView (WMFJavascriptToXcodeConsoleLogging)
 
 - (void)wmf_enableJavascriptToXcodeConsoleLogging {
 #if DEBUG

@@ -4,84 +4,91 @@
 #import "UIWebView+ElementLocation.h"
 #import "UIWebView+WMFJavascriptContext.h"
 
-@implementation UIWebView (ElementLocation)
+@implementation WKWebView (ElementLocation)
 
-- (CGPoint)getScreenCoordsForHtmlImageWithSrc:(NSString*)src {
-    NSString* strToEval =
-        [NSString stringWithFormat:@"window.elementLocation.getElementRectAsJson(window.elementLocation.getImageWithSrc('%@'));", src];
-    NSString* jsonString = [self stringByEvaluatingJavaScriptFromString:strToEval];
-    if (jsonString.length == 0) {
-        return CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX);
-    }
-    NSData* jsonData       = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    NSError* error         = nil;
-    NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-    if (error) {
-        return CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX);
-    }
-    NSString* top  = (NSString*)jsonDict[@"top"];
-    NSString* left = (NSString*)jsonDict[@"left"];
+//- (CGPoint)getScreenCoordsForHtmlImageWithSrc:(NSString*)src {
+//    NSString* strToEval =
+//        [NSString stringWithFormat:@"window.elementLocation.getElementRectAsJson(window.elementLocation.getImageWithSrc('%@'));", src];
+//    NSString* jsonString = [self stringByEvaluatingJavaScriptFromString:strToEval];
+//    if (jsonString.length == 0) {
+//        return CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX);
+//    }
+//    NSData* jsonData       = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+//    NSError* error         = nil;
+//    NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+//    if (error) {
+//        return CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX);
+//    }
+//    NSString* top  = (NSString*)jsonDict[@"top"];
+//    NSString* left = (NSString*)jsonDict[@"left"];
+//
+//    void (^ zeroOutNulls)(NSString**) = ^(NSString** str){
+//        if ([*str isMemberOfClass :[NSNull class]]) {
+//            *str = @"0";
+//        }
+//    };
+//    zeroOutNulls(&top);
+//    zeroOutNulls(&left);
+//
+//    return CGPointMake(left.floatValue, top.floatValue);
+//}
 
-    void (^ zeroOutNulls)(NSString**) = ^(NSString** str){
-        if ([*str isMemberOfClass :[NSNull class]]) {
-            *str = @"0";
-        }
-    };
-    zeroOutNulls(&top);
-    zeroOutNulls(&left);
+//- (CGPoint)getWebViewCoordsForHtmlImageWithSrc:(NSString*)src {
+//    CGPoint p = [self getScreenCoordsForHtmlImageWithSrc:src];
+//
+//    return CGPointMake(
+//        p.x + floor(self.scrollView.contentOffset.x),
+//        p.y + floor(self.scrollView.contentOffset.y)
+//        );
+//}
 
-    return CGPointMake(left.floatValue, top.floatValue);
-}
-
-- (CGPoint)getWebViewCoordsForHtmlImageWithSrc:(NSString*)src {
-    CGPoint p = [self getScreenCoordsForHtmlImageWithSrc:src];
-
-    return CGPointMake(
-        p.x + floor(self.scrollView.contentOffset.x),
-        p.y + floor(self.scrollView.contentOffset.y)
-        );
-}
-
-- (CGRect)getScreenRectForHtmlElementWithId:(NSString*)elementId {
+- (void)getScreenRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion {
     NSString* strToEval =
         [NSString stringWithFormat:@"window.elementLocation.getElementRectAsJson(document.getElementById('%@'));", elementId];
-    NSString* jsonString = [self stringByEvaluatingJavaScriptFromString:strToEval];
-    if (jsonString.length == 0) {
-        return CGRectNull;
-    }
-    NSData* jsonData              = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    NSError* error                = nil;
-    NSMutableDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-    if (error) {
-        return CGRectNull;
-    }
 
-    NSString* top    = (NSString*)jsonDict[@"top"];
-    NSString* left   = (NSString*)jsonDict[@"left"];
-    NSString* width  = (NSString*)jsonDict[@"width"];
-    NSString* height = (NSString*)jsonDict[@"height"];
 
-    void (^ zeroOutNulls)(NSString**) = ^(NSString** str){
-        if ([*str isMemberOfClass :[NSNull class]]) {
-            *str = @"0";
+    [self evaluateJavaScript:strToEval completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
+        NSString* jsonString = obj;
+        if (error) {
+            completion(CGRectNull);
+            return;
         }
-    };
-    zeroOutNulls(&top);
-    zeroOutNulls(&left);
-    zeroOutNulls(&width);
-    zeroOutNulls(&height);
+        NSData* jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+        NSMutableDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+        if (error) {
+            completion(CGRectNull);
+            return;
+        }
 
-    return CGRectMake(left.floatValue, top.floatValue, width.floatValue, height.floatValue);
+        NSString* top = (NSString*)jsonDict[@"top"];
+        NSString* left = (NSString*)jsonDict[@"left"];
+        NSString* width = (NSString*)jsonDict[@"width"];
+        NSString* height = (NSString*)jsonDict[@"height"];
+
+        void (^ zeroOutNulls)(NSString**) = ^(NSString** str){
+            if ([*str isMemberOfClass :[NSNull class]]) {
+                *str = @"0";
+            }
+        };
+        zeroOutNulls(&top);
+        zeroOutNulls(&left);
+        zeroOutNulls(&width);
+        zeroOutNulls(&height);
+
+        completion(CGRectMake(left.floatValue, top.floatValue, width.floatValue, height.floatValue));
+    }];
 }
 
-- (CGRect)getWebViewRectForHtmlElementWithId:(NSString*)elementId {
-    CGRect r  = [self getScreenRectForHtmlElementWithId:elementId];
-    CGPoint p = CGPointMake(
-        r.origin.x + floor(self.scrollView.contentOffset.x),
-        r.origin.y + floor(self.scrollView.contentOffset.y)
-        );
-    r.origin = p;
-    return r;
+- (void)getWebViewRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion{
+    
+    [self getScreenRectForHtmlElementWithId:elementId completion:^(CGRect rect) {
+        CGPoint p = CGPointMake(
+                                rect.origin.x + floor(self.scrollView.contentOffset.x),
+                                rect.origin.y + floor(self.scrollView.contentOffset.y)
+                                );
+        rect.origin = p;
+        completion(rect);
+    }];
 }
 
 /**

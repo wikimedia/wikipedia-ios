@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import WebKit;
 
-@interface UIWebView (WMF_SuppressSelection)
+@interface WKWebView (WMF_SuppressSelection)
 
 - (void)wmf_suppressSelection;
 

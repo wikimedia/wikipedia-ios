@@ -44,7 +44,7 @@ static int const kMinimumTextSelectionLength = 2;
 
 @interface WebViewController ()
 
-@property (nonatomic, strong, readwrite) IBOutlet UIWebView* webView;
+@property (nonatomic, strong, readwrite) WKWebView* webView;
 
 @property (nonatomic, strong) SessionSingleton* session;
 

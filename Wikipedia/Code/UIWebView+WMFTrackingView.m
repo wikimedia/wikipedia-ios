@@ -4,7 +4,7 @@
 #import "UIWebView+WMFTrackingView.h"
 #import "UIView+WMFSearchSubviews.h"
 
-@implementation UIWebView (TrackingView)
+@implementation WKWebView (TrackingView)
 
 - (UIView*)wmf_browserView {
     return [self.scrollView wmf_firstSubviewOfClass:NSClassFromString(@"UIWebBrowserView")];

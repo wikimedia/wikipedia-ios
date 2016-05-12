@@ -3,11 +3,12 @@
 
 #import <UIKit/UIKit.h>
 @import JavaScriptCore;
+@import WebKit;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class JSContext;
-@interface UIWebView (WMFJavascriptContext)
+@interface WKWebView (WMFJavascriptContext)
 
 /**
  *  Retrieve the receiver's Javascript context.

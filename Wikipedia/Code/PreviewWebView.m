@@ -5,48 +5,23 @@
 #import "SessionSingleton.h"
 #import "Wikipedia-Swift.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface PreviewWebView ()
 
 @end
 
 @implementation PreviewWebView
 
-//TODO: override "loadHTMLString:baseURL:" to add reference to css/js on server.
-- (void)loadHTMLString:(NSString*)string baseURL:(NSURL*)baseURL {
-    [super loadHTMLString:string baseURL:baseURL];
-}
-
-- (id)initWithCoder:(NSCoder*)aDecoder {
-    self = [super initWithCoder:aDecoder];
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
-
-        self.delegate               = self;
+        self.backgroundColor        = [UIColor whiteColor];
+        self.navigationDelegate     = self;
         self.userInteractionEnabled = YES;
-
-        self.dataDetectorTypes = UIDataDetectorTypeNone;
+//        self.dataDetectorTypes = UIDataDetectorTypeNone;
     }
     return self;
-}
-
-// Force web view links to open in Safari.
-// From: http://stackoverflow.com/a/2532884
-- (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType;
-{
-    NSURL* requestURL = [request URL];
-    if (
-        (
-            [[requestURL scheme] isEqualToString:@"http"]
-            ||
-            [[requestURL scheme] isEqualToString:@"https"]
-            ||
-            [[requestURL scheme] isEqualToString:@"mailto"])
-        && (navigationType == UIWebViewNavigationTypeLinkClicked)
-        ) {
-        [self.externalLinksOpenerDelegate wmf_openExternalUrl:requestURL];
-        return NO;
-    }
-    return YES;
 }
 
 - (void)layoutSubviews {
@@ -70,13 +45,27 @@
     self.frame = f;
 }
 
-/*
-   // Only override drawRect: if you perform custom drawing.
-   // An empty implementation adversely affects performance during animation.
-   - (void)drawRect:(CGRect)rect
-   {
-    // Drawing code
-   }
- */
+// Force web view links to open in Safari.
+// From: http://stackoverflow.com/a/2532884
+
+- (void)webView:(WKWebView*)webView decidePolicyForNavigationAction:(WKNavigationAction*)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSURLRequest* request = navigationAction.request;
+    NSURL* requestURL     = [request URL];
+    if (
+        (
+            [[requestURL scheme] isEqualToString:@"http"]
+            ||
+            [[requestURL scheme] isEqualToString:@"https"]
+            ||
+            [[requestURL scheme] isEqualToString:@"mailto"])
+        && (navigationAction.navigationType == WKNavigationTypeLinkActivated)
+        ) {
+        [self.externalLinksOpenerDelegate wmf_openExternalUrl:requestURL];
+        decisionHandler(WKNavigationActionPolicyCancel);
+    }
+    decisionHandler(WKNavigationActionPolicyAllow);
+}
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -3,16 +3,13 @@
 
 #import "UIWebView+LoadAssetsHtml.h"
 
-@implementation UIWebView (LoadAssetsHtml)
+@implementation WKWebView (LoadAssetsHtml)
 
 - (void)loadHTMLFromAssetsFile:(NSString*)fileName {
     NSString* filePath = [[self getAssetsPath] stringByAppendingPathComponent:fileName];
     NSData* fileData   = [[NSFileManager defaultManager] contentsAtPath:filePath];
 
-    [self loadData:fileData
-             MIMEType:@"text/html"
-     textEncodingName:@"UTF-8"
-              baseURL:[NSURL URLWithString:filePath]];
+    [self loadData:fileData MIMEType:@"text/html" characterEncodingName:@"UTF-8" baseURL:[NSURL URLWithString:filePath]];
 }
 
 - (void)loadHTML:(NSString*)string withAssetsFile:(NSString*)fileName {

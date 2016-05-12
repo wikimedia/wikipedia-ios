@@ -3,7 +3,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIWebView (WMFJavascriptToXcodeConsoleLogging)
+@import WebKit;
+
+@interface WKWebView (WMFJavascriptToXcodeConsoleLogging)
 
 /**
  *  Adds 'console.log()' to global javascript namespace for sending

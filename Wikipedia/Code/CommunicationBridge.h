@@ -2,12 +2,13 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <Foundation/Foundation.h>
+@import WebKit;
 
 typedef void (^ JSListener)(NSString*, NSDictionary*);
 
-@interface CommunicationBridge : NSObject <UIWebViewDelegate>
+@interface CommunicationBridge : NSObject <WKNavigationDelegate>
 
-- (CommunicationBridge*)initWithWebView:(UIWebView*)targetWebView;
+- (CommunicationBridge*)initWithWebView:(WKWebView*)targetWebView;
 
 - (void)addListener:(NSString*)messageType
           withBlock:(JSListener)block;

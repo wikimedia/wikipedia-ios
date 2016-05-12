@@ -34,6 +34,7 @@
 #import "WMFOpenExternalLinkDelegateProtocol.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import <Masonry/Masonry.h>
 
 typedef NS_ENUM (NSInteger, WMFCannedSummaryChoices) {
     CANNED_SUMMARY_TYPOS,
@@ -56,11 +57,11 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 @property (strong, nonatomic) NSString* captchaUrl;
 
 @property (strong, nonatomic) CaptchaViewController* captchaViewController;
-@property (weak, nonatomic) IBOutlet UIView* captchaContainer;
-@property (weak, nonatomic) IBOutlet UIScrollView* captchaScrollView;
-@property (weak, nonatomic) IBOutlet UIView* captchaScrollContainer;
-@property (weak, nonatomic) IBOutlet UIView* editSummaryContainer;
-@property (weak, nonatomic) IBOutlet PreviewWebView* previewWebView;
+@property (strong, nonatomic) IBOutlet UIView* captchaContainer;
+@property (strong, nonatomic) IBOutlet UIScrollView* captchaScrollView;
+@property (strong, nonatomic) IBOutlet UIView* captchaScrollContainer;
+@property (strong, nonatomic) IBOutlet UIView* editSummaryContainer;
+@property (strong, nonatomic) IBOutlet PreviewWebView* previewWebView;
 @property (strong, nonatomic) CommunicationBridge* bridge;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* previewWebViewHeightConstraint;
 @property (strong, nonatomic) UILabel* aboutLabel;
@@ -69,10 +70,11 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 @property (strong, nonatomic) MenuButton* cannedSummary03;
 @property (strong, nonatomic) MenuButton* cannedSummary04;
 @property (nonatomic) CGFloat borderWidth;
-@property (weak, nonatomic) IBOutlet PreviewLicenseView* previewLicenseView;
+@property (strong, nonatomic) IBOutlet PreviewLicenseView* previewLicenseView;
 @property (strong, nonatomic) UIGestureRecognizer* previewLicenseTapGestureRecognizer;
 @property (strong, nonatomic) IBOutlet PaddedLabel* previewLabel;
-@property (weak, nonatomic) IBOutlet UIScrollView* scrollView;
+@property (strong, nonatomic) IBOutlet UIScrollView* scrollView;
+@property (strong, nonatomic) IBOutlet UIView* scrollContainer;
 @property (strong, nonatomic) UIBarButtonItem* buttonSave;
 @property (strong, nonatomic) UIBarButtonItem* buttonNext;
 @property (strong, nonatomic) UIBarButtonItem* buttonX;
@@ -124,10 +126,10 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     //[self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString *messageType, NSDictionary *payload) {
     //}];
 
-    __weak PreviewAndSaveViewController* weakSelf = self;
-
+    @weakify(self);
     [self.bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-        [weakSelf.previewWebView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"alert('%@')", payload[@"href"]]];
+        @strongify(self);
+        [self.previewWebView evaluateJavaScript:[NSString stringWithFormat:@"alert('%@')", payload[@"href"]] completionHandler:NULL];
     }];
 }
 
@@ -195,6 +197,16 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    PreviewWebView* webview = [[PreviewWebView alloc] initWithFrame:CGRectZero];
+    [self.scrollContainer addSubview:webview];
+    [webview mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.leading.and.trailing.equalTo(webview.superview);
+        make.bottom.equalTo(webview.superview).with.offset(50.0);
+        make.height.equalTo(@100.0);
+        make.top.equalTo(webview.superview).with.offset(8.0);
+    }];
+
 
     self.previewWebView.externalLinksOpenerDelegate     = self;
     self.previewLicenseView.externalLinksOpenerDelegate = self;

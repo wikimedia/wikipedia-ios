@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
+@import WebKit;
 
 @class MWKSection, MWKArticle, MWKTitle, JSValue;
 
@@ -19,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, nullable) id<WMFWebViewControllerDelegate> delegate;
 
-@property (nonatomic, strong, nullable, readonly) UIWebView* webView;
+@property (nonatomic, strong, nullable, readonly) WKWebView* webView;
 
 @property (nonatomic) BOOL isPeeking;
 
@@ -29,7 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
  * Currently-selected text in the webview, if there is any.
  * @return The selection if it's longer than `kMinimumTextSelectionLength`, otherwise an empty string.
  */
-@property (nonatomic, strong, nonnull, readonly) NSString* selectedText;
+- (void)getSelectedText:(void (^)(NSString* text))completion;
+
 
 /**
  *  Animates the scroll view to the given fragment in the browser view.

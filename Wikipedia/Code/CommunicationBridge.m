@@ -7,7 +7,7 @@
 
 @interface CommunicationBridge ()
 
-@property (strong, nonatomic) UIWebView* webView;
+@property (strong, nonatomic) WKWebView* webView;
 @property (strong, nonatomic) NSMutableDictionary* listenersByEvent;
 @property (strong, nonatomic) NSMutableArray* queuedMessages;
 @property BOOL shouldQueueMessages;
@@ -16,7 +16,7 @@
 
 @implementation CommunicationBridge
 
-- (CommunicationBridge*)initWithWebView:(UIWebView*)targetWebView;
+- (CommunicationBridge*)initWithWebView:(WKWebView*)targetWebView;
 {
     self = [super init];
     if (self) {
@@ -30,7 +30,7 @@
             [weakSelf.webView wmf_enableJavascriptToXcodeConsoleLogging];
             [weakSelf sendQueuedMessages];
         }];
-        targetWebView.delegate = self;
+        targetWebView.navigationDelegate = self;
     }
     return self;
 }
@@ -109,34 +109,13 @@ static NSString* bridgeURLPrefix = @"x-wikipedia-bridge:";
 }
 
 - (void)sendRawMessage:(NSString*)js {
-    [self.webView stringByEvaluatingJavaScriptFromString:js];
-}
-
-- (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
-    if ([self isBridgeURL:request.URL]) {
-        NSDictionary* message = [self extractBridgePayload:request.URL];
-        NSString* messageType = message[@"type"];
-        NSDictionary* payload = message[@"payload"];
-        [self fireEvent:messageType withPayload:payload];
-        return NO;
-    }
-
-    return YES;
+    [self.webView evaluateJavaScript:js completionHandler:NULL];
 }
 
 - (void)sendQueuedMessages {
     for (NSString* js in self.queuedMessages.copy) {
         [self sendRawMessage:js];
     }
-    [self disableQueueingAndRemoveQueuedMessages];
-}
-
-- (void)webViewDidStartLoad:(UIWebView*)webView {
-    self.shouldQueueMessages = YES;
-}
-
-- (void)webView:(UIWebView*)webView didFailLoadWithError:(NSError*)error {
-    NSLog(@"webView failed to load: %@", error);
     [self disableQueueingAndRemoveQueuedMessages];
 }
 
@@ -149,5 +128,38 @@ static NSString* bridgeURLPrefix = @"x-wikipedia-bridge:";
     self.shouldQueueMessages = YES;
     [self.webView loadHTML:string withAssetsFile:fileName];
 }
+
+#pragma mark - WKnavigationDelegate
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
+    
+    NSURLRequest* request = navigationAction.request;
+    if ([self isBridgeURL:request.URL]) {
+        NSDictionary* message = [self extractBridgePayload:request.URL];
+        NSString* messageType = message[@"type"];
+        NSDictionary* payload = message[@"payload"];
+        [self fireEvent:messageType withPayload:payload];
+        
+        decisionHandler(WKNavigationActionPolicyCancel);
+    }
+    decisionHandler(WKNavigationActionPolicyAllow);
+}
+
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation{
+    self.shouldQueueMessages = YES;
+}
+
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
+    NSLog(@"webView failed to load: %@", error);
+    [self disableQueueingAndRemoveQueuedMessages];
+}
+
+
+- (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
+    NSLog(@"webView failed to load: %@", error);
+    [self disableQueueingAndRemoveQueuedMessages];
+}
+
+
 
 @end
