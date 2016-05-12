@@ -1,30 +1,32 @@
 // Messages for Pashto (پښتو)
 // Exported from translatewiki.net
 // Author: Ahmed-Najib-Biabani-Ibrahimkhel
+// Author: Macofe
 
-"languages-title" = "ژبې";
+"languages-title" = "ژبه بدلول";
 "article-languages-label" = "ژبه ټاکل";
 "article-languages-cancel" = "ناگارل";
 "article-languages-downloading" = "د ليکنې د ژبو برسېرېدنې کې دی...";
-// Fuzzy
-"article-languages-filter-placeholder" = "د ژبې چاڼگر";
+"article-languages-filter-placeholder" = "ژبه موندل";
 "article-read-more-title" = "نور لوستل";
 "article-about-title" = "د دې ليکنې په اړه";
 "article-related-articles-title" = "اړونده ليکنې";
+"article-languages-yours" = "ستاسې ژبې";
+"article-languages-others" = "نورې ژبې";
 "info-box-title" = "چټک مالومات";
 "info-box-close-text" = "تړل";
 "table-title-other" = "نور مالومات";
+"saved-clear-all" = "سپينول";
+"history-clear-all" = "سپينول";
 "history-label" = "وروستني";
 "history-section-today" = "نن";
 "history-section-yesterday" = "پرون";
 "history-section-lastweek" = "تېره اونۍ";
 "history-section-lastmonth" = "تېره مياشت";
-// Fuzzy
-"history-clear-confirmation-heading" = "ټول وروستني توکي ړنگوۍ؟";
+"history-clear-confirmation-heading" = "آيا ډاډمن يې چې خپل ټول وروستني توکي ړنگول غواړې؟";
 "history-clear-confirmation-sub-heading" = "دا کړنه پر شا نه گرځول کېږي!";
 "history-clear-cancel" = "ناگارل";
-// Fuzzy
-"history-clear-delete-all" = "ټول ړنگول";
+"history-clear-delete-all" = "هو، ټول ړنگول";
 "zero-charged-verbiage" = "ويكيپېډيا زيرو گول دی";
 "zero-interstitial-title" = "ويکيپېډيا زيرو پرېښودل";
 "zero-interstitial-continue" = "وتل";
@@ -70,30 +72,29 @@
 "search-recent-clear-cancel" = "ناگارل";
 "search-recent-clear-delete-all" = "ټول ړنگول";
 "settings-title" = "امستنې";
+"settings-language" = "د ويکيپېډيا ژبه";
+"settings-support" = "د ويکيمېډيا ملاتړ وکړئ";
+"settings-my-languages" = "زما ژبې";
 "main-menu-title" = "نور";
 "main-menu-heading-about" = "په اړه";
 "main-menu-language-title" = "د $1 ويکيپېډيا پلټل";
-// Fuzzy
-"main-menu-faq" = "ډ-ځ-پ";
+"main-menu-faq" = "ډېر ځليزې پوښتنې";
 "main-menu-language-toggle-show" = "ژبې ښکاره کول";
 "main-menu-language-toggle-hide" = "ژبې پټول";
 "main-menu-language-selection-saved" = "ژبټاکنه مو خوندي شوه";
 "main-menu-account-title-logged-out" = "گڼون";
-// Fuzzy
-"main-menu-account-title-logged-in" = "ننوتي ياست لکه: $1";
-// Fuzzy
-"main-menu-account-login" = "ويکيپېډيا کې ننوتل";
+"main-menu-account-title-logged-in" = "د $1 په توگه ورننوتئ";
+"main-menu-account-login" = "ننوتل";
 "main-menu-account-logout" = "وتل";
+"main-menu-account-logout-cancel" = "ناگارل";
 "main-menu-show-title" = "راښکاره يې کړه...";
 "main-menu-show-history" = "وروستني";
 "main-menu-show-saved" = "خوندي مخونه";
 "main-menu-random" = "ناټاکلی";
-// Fuzzy
-"main-menu-about" = "د ويکيپېډيا کاريال په اړه";
+"main-menu-send-feedback" = "موږ ته وليکئ";
+"main-menu-about" = "د کاريال په اړه";
 "main-menu-privacy-policy" = "د پټنتيا تگلاره";
-// Fuzzy
 "main-menu-terms-of-use" = "د کارولو شرطونه";
-// Fuzzy
 "main-menu-rate-app" = "کاريال ارزول";
 "main-menu-heading-zero" = "ويکيپېډيا زيرو";
 "main-menu-show-today" = "نن";
@@ -106,8 +107,7 @@
 "saved-pages-clear-confirmation-heading" = "ټول خوندي شوي توکي ړنگوۍ؟";
 "saved-pages-clear-confirmation-sub-heading" = "دا کړنه پر شا نه گرځول کېږي!";
 "saved-pages-clear-cancel" = "ناگارل";
-// Fuzzy
-"saved-pages-clear-delete-all" = "ټول ړنگول";
+"saved-pages-clear-delete-all" = "هو، ټول ړنگول";
 "saved-pages-refresh-cancel-alert-title" = "اوسمهالېدنه ناگارېدلې";
 "saved-pages-refresh-cancel-alert-button" = "پوه شوم";
 "history-title" = "پېښليک";
@@ -128,18 +128,21 @@
 "edit-summary-choice-other" = "بل";
 "about-title" = "په اړه";
 "about-wikipedia" = "ويکيپېډيا";
-// Fuzzy
 "about-contributors" = "ونډه وال";
-// Fuzzy
+"about-testers" = "ازمېښتگران";
 "about-translators" = "ژباړنان";
-// Fuzzy
 "about-libraries" = "کارېدلي کتابتونونه";
 "about-libraries-license" = "منښتليک";
-// Fuzzy
+"about-libraries-licenses" = "منښتليکونه";
+"about-content-license" = "د مېنځپانگې منښتليک";
+"about-libraries-licenses-title" = "موږ د پرانيستې سرچينې په ساوترې ميين يو $1";
+"about-libraries-complete-list" = "بشپړ لړليک";
 "about-repositories" = "زېرمې";
+"about-repositories-app-source-license-mit" = "MIT منښتليک";
 "about-wikimedia-foundation" = "ويکيمېډيا بنسټ";
 "share-menu-save-page" = "مخ خوندي کول";
 "share-custom-menu-item" = "شريکول";
+"share-on-twitter-sign-off" = "د @ويکيپېډيا له لارې";
 "share-article-name-on-wikipedia" = "\"$1\" په @Wikipedia کې:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" په @Wikipedia کې: \"$2\"";
 "share-as-image" = "د انځور په توگه شريکول";
@@ -153,6 +156,7 @@
 "timestamp-years" = "%d کالونه پخوا";
 "lastmodified-by-user" = "$1 د $2 لخوا سم شوی";
 "lastmodified-by-anon" = "$1 د يو ورکنومي کارن لخوا سم شوی";
+"button-edit" = "سمول";
 "button-next" = "راتلونکی";
 "button-done" = "ترسره شو";
 "button-save" = "خوندي کول";
@@ -166,10 +170,11 @@
 "onboarding-free-encyclopedia" = "يو وړيا پوهنغونډ";
 "preference_title_eventlogging_opt_in" = "د کارېدنې راپورونه لېږل";
 "page_protected_can_not_edit_title" = "دا مخ ژغورل شوی";
-"license-footer-text" = "مېنځپانگه د $1 منښتليک له مخې ايښودل شوې";
+"license-footer-text" = "دا مېنځپانگه د $1 سره سم ستاسې لاسرسي کې ده، خو چې مخالف يې وييل شوی وي.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "منځپانگې";
 "table-of-contents-button-label" = "نيوليک";
+"table-of-contents-close-accessibility-hint" = "تړل";
 "menu-edit-accessibility-label" = "سمول";
 "menu-close-accessibility-label" = "تړل";
 "menu-preview-accessibility-label" = "مخليدنه";
@@ -193,6 +198,7 @@
 "nearby-pull-to-refresh-is-refreshing" = "بياتاندېدنه";
 "nearby-open-in-maps" = "په نخشو کې پرانيستل";
 "nearby-cancel" = "ناگارل";
+"nearby-location-updates-settings-menu" = "پټنتيا > د ځای چوپړونه > ويکيپېډيا";
 "migration-update-progress-label" = "د سيمه ايز اومتوک کډېدنه";
 "migration-skip-button-title" = "دا ړنگول";
 "image-gallery-unknown-owner" = "ناڅرگند پورته کوونکی.";
@@ -204,12 +210,13 @@
 "hockeyapp-alert-privacy" = "$1 پټنتيا";
 "page-issues" = "د مخ ستونزې";
 "page-similar-titles" = "ورته مخونه";
-// Fuzzy
-"page-read-in-other-languages" = "په $1 ژبه کې لوستل";
+"page-read-in-other-languages" = "په $1 ژبو کې شته";
 "page-last-edited" = "$1 ورځې مخکې سم کړی";
 "page-edit-history" = "د سمون بشپړ پېښليک";
 "captcha-reload" = "يو بل کپچا ښکاره کول";
-"captcha-prompt" = "له پورته انځور څخه کپچا متن ورکړئ";
+"captcha-prompt" = "کپچا متن ورکړئ";
+"home-empty-section" = "بې پايلو";
+"home-empty-section-check-again" = "بيا هڅه";
 "home-continue-related-heading" = "ځکه چې تاسې $1 لوستلی";
 "home-more-like-footer" = "د $1 په څېر نور";
 "home-nearby-nothing" = "نژدې څه نشته";
@@ -217,11 +224,20 @@
 "home-featured-article-heading" = "د $1 غوره ليکنه";
 "home-main-page-heading" = "نن په ويکيپېډيا کې";
 "home-potd-heading" = "د $1 د ورځې انځور";
+"home-last-update-label" = "وروستئ هممهالېدنه: $1";
+"home-last-update-never-label" = "وروستنۍ اوسمهالېدنه: هېڅکله";
 "home-hide-suggestion-cancel" = "ناگارل";
+"home-button-accessibility-label" = "کور تڼۍ";
 "potd-description-prefix" = "د $1 د ورځې انځور";
+"welcome-explore-tell-me-more" = "نور راته ووايه";
+"welcome-explore-tell-me-more-done-button" = "وپوهېدم";
+"welcome-explore-continue-button" = "پيلول";
+"welcome-languages-title" = "ژبې";
 // Fuzzy
-"welcome-languages-title" = "د پلټلو ژبې";
+"welcome-languages-add-button" = "بل ورگډول";
+"welcome-volunteer-thanks" = "$1 له تاسو مننه!";
 "empty-no-feed-title" = "انټرنټي اړيکتيا نشته";
+"empty-no-search-results-message" = "کومې پايلې و نه موندل شوې";
 "empty-no-saved-pages-title" = "لا تر اوسه پورې خوندي مخونه نشته";
 "empty-no-history-title" = "د ښکاره کولو لپاره کوم پېښليک نشته";
 "alert-no-internet" = "کومه انټرنټي اړيکتيا نشته";
@@ -231,11 +247,13 @@
 "icon-shortcut-nearby-title" = "نژدې ليکنې";
 "close-button-accessibility-label" = "تړل";
 "back-button-accessibility-label" = "پر شا کېدل";
+"compass-direction" = "په $1 بجو";
 "explore-featured-article-heading" = "مخکښه ليکنه";
-// Fuzzy
 "explore-nearby-heading" = "نژدې ځايونه";
 "explore-continue-related-heading" = "ځکه چې تاسې لولی";
 "explore-main-page-heading" = "نن په ويکيپېډيا کې";
 "explore-random-article-heading" = "ناټاکلې ليکنه";
 "explore-random-article-sub-heading" = "انگرېزي ويکيپېډيا";
 "explore-potd-heading" = "د نن ورځې انځور";
+"explore-most-read-heading" = "پر $1 ويکيپېډيا تر ټولو ډېر لوستل شوي";
+"explore-most-read-more-list-title" = "د سر ليکنې";

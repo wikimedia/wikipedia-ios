@@ -9,10 +9,11 @@
 // Author: Orikrin1998
 // Author: Selhom
 // Author: Solucer
+// Author: Verdy p
 // Author: Weft
 // Author: Wladek92
 
-"languages-title" = "Langues";
+"languages-title" = "Changer de langue";
 "article-languages-label" = "Choisir langue";
 "article-languages-cancel" = "Annuler";
 "article-languages-downloading" = "Chargement des langues de l’article en cours…";
@@ -22,6 +23,8 @@
 "article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
 "article-unable-to-load-article" = "Impossible de charger l’article.";
 "article-related-articles-title" = "Articles connexes";
+"article-languages-yours" = "Vos langues";
+"article-languages-others" = "Autres langues";
 "info-box-title" = "Faits en bref";
 "info-box-close-text" = "Fermer";
 "table-title-other" = "Plus d’information";
@@ -113,6 +116,7 @@
 "settings-language" = "Langue de Wikipédia";
 "settings-support" = "Soutenir Wikipédia";
 "settings-language-bar" = "Afficher les langues dans la recherche";
+"settings-my-languages" = "Mes langues";
 "main-menu-title" = "Plus";
 "main-menu-heading-about" = "À propos";
 "main-menu-language-title" = "Rechercher le wiki de langue $1";
@@ -213,7 +217,7 @@
 "about-repositories-app-source-license" = "Le code source est disponible sous les $1.";
 "about-repositories-app-source-license-mit" = "Licence MIT";
 "about-send-feedback" = "Envoyer un avis sur l’application";
-"about-product-of" = "Un produit de la $1";
+"about-product-of" = "Fait par la $1 avec l’aide de volontaires tels que vous";
 "about-wikimedia-foundation" = "Fondation Wikimédia";
 "share-menu-save-page" = "Enregistrer la page";
 "share-menu-page-saved" = "Page enregistrée";
@@ -234,6 +238,7 @@
 "timestamp-years" = "il y a %d ans";
 "lastmodified-by-user" = "Modifié $1 par $2";
 "lastmodified-by-anon" = "Modifié $1 par un utilisateur anonyme";
+"button-edit" = "Éditer";
 "button-next" = "Suivant";
 "button-done" = "Terminé";
 "button-save" = "Enregistrer";
@@ -252,7 +257,7 @@
 "page_protected_other" = "Cette page a été protégée pour les niveaux suivants : $1";
 "page_protected_can_not_edit" = "Vous n’avez pas le droit de modifier cette page";
 "page_protected_can_not_edit_title" = "Cette page est protégée";
-"license-footer-text" = "Le contenu est disponible sous $1";
+"license-footer-text" = "Le contenu est disponible sous $1 sauf spécification contraire.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Contenus";
 "table-of-contents-button-label" = "Table des matières";
@@ -317,11 +322,11 @@
 "hockeyapp-alert-privacy" = "Confidentialité de $1";
 "page-issues" = "Problèmes de la page";
 "page-similar-titles" = "Pages similaires";
-"page-read-in-other-languages" = "Disponible en $1 langues";
+"page-read-in-other-languages" = "Disponible en $1 autres langues";
 "page-last-edited" = "Modifié il y a $1 jours";
 "page-edit-history" = "Historique complet des modifications";
 "captcha-reload" = "Afficher un autre captcha";
-"captcha-prompt" = "Entrer le texte du CAPTCHA dans l’image ci-dessus";
+"captcha-prompt" = "Entrer le texte du CAPTCHA";
 "mwk-empty-title-error" = "Impossible d’effectuer l’opération avec un titre vide.";
 "home-title" = "Explorer";
 "home-empty-section" = "Aucun résultat";
@@ -337,7 +342,7 @@
 "home-main-page-heading" = "Aujourd’hui sur Wikipédia";
 "home-potd-heading" = "Image du jour pour $1";
 "home-last-update-label" = "Dernière mise à jour : $1";
-"home-last-update-never-label" = "Dernière mise à jour: jamais";
+"home-last-update-never-label" = "Dernière mise à jour : jamais";
 "home-updating-label" = "Mise à jour en cours ...";
 "home-hide-suggestion-prompt" = "Masquer cette suggestion";
 "home-hide-suggestion-cancel" = "Annuler";
@@ -356,7 +361,8 @@
 "welcome-explore-continue-button" = "Commencer";
 "welcome-languages-title" = "Langues";
 "welcome-languages-sub-title" = "Choisir vos langues préférées pour rechercher sur Wikipédia";
-"welcome-languages-add-button" = "+ Ajouter une autre";
+// Fuzzy
+"welcome-languages-add-button" = "Ajouter une autre";
 "welcome-languages-continue-button" = "Continuer";
 "welcome-volunteer-title" = "Volontaire";
 "welcome-volunteer-sub-title" = "Aider à améliorer l’application Wikipédia en partageant comment vous l’utilisez";
@@ -390,4 +396,7 @@
 "explore-potd-heading" = "Image du jour";
 "explore-most-read-heading" = "Meilleures lectures sur Wikipédia en $1";
 "explore-most-read-footer" = "Tous les articles les plus lus";
+"explore-most-read-footer-for-date" = "Tous les articles les plus lus au $1";
 "explore-most-read-more-list-title" = "Meilleurs articles";
+"explore-most-read-more-list-title-for-date" = "Les plus lus au $1";
+"no-email-account-alert" = "Veuillez configurer un compte de messagerie sur votre appareil et réessayer.";

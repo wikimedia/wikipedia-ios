@@ -12,7 +12,7 @@
 // Author: Wifidel
 // Author: Yllelder
 
-"languages-title" = "Idiomas";
+"languages-title" = "Cambiar idioma";
 "article-languages-label" = "Elige un idioma";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "Cargando idiomas del artículo…";
@@ -22,6 +22,8 @@
 "article-unable-to-load-section" = "No se pudo cargar esta sección. Prueba recargar el artículo para ver si se soluciona el problema.";
 "article-unable-to-load-article" = "No se puede cargar el artículo.";
 "article-related-articles-title" = "Artículos relacionados";
+"article-languages-yours" = "Tus idiomas";
+"article-languages-others" = "Otros idiomas";
 "info-box-title" = "Datos rápidos";
 "info-box-close-text" = "Cerrar";
 "table-title-other" = "Más información";
@@ -113,6 +115,7 @@
 "settings-language" = "Idioma de Wikipedia";
 "settings-support" = "Apoya a Wikipedia";
 "settings-language-bar" = "Mostrar los idiomas al buscar";
+"settings-my-languages" = "Mis idiomas";
 "main-menu-title" = "Más";
 "main-menu-heading-about" = "Acerca de";
 "main-menu-language-title" = "Búsqueda en Wikipedia en $1";
@@ -213,7 +216,7 @@
 "about-repositories-app-source-license" = "Código fuente disponible bajo la $1.";
 "about-repositories-app-source-license-mit" = "Licencia MIT";
 "about-send-feedback" = "Enviar comentarios sobre la aplicación";
-"about-product-of" = "Un producto de la $1";
+"about-product-of" = "Hecha por la $1 con la ayuda de voluntarios como tú";
 "about-wikimedia-foundation" = "Fundación Wikimedia";
 "share-menu-save-page" = "Guardar página";
 "share-menu-page-saved" = "Guardado para leer sin conexión.";
@@ -234,6 +237,7 @@
 "timestamp-years" = "hace %d años";
 "lastmodified-by-user" = "Editada $1 por $2";
 "lastmodified-by-anon" = "Editada $1 por un usuario anónimo";
+"button-edit" = "Editar";
 "button-next" = "Siguiente";
 "button-done" = "Hecho";
 "button-save" = "Guardar";
@@ -252,7 +256,7 @@
 "page_protected_other" = "Esta página ha sido protegida a los siguientes niveles: $1";
 "page_protected_can_not_edit" = "No tienes permisos para editar esta página";
 "page_protected_can_not_edit_title" = "Esta página está protegida";
-"license-footer-text" = "El contenido está disponible bajo la $1";
+"license-footer-text" = "El contenido está disponible bajo la licencia $1, salvo que se indique lo contrario.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Contenido";
 "table-of-contents-button-label" = "Tabla de contenidos";
@@ -317,11 +321,11 @@
 "hockeyapp-alert-privacy" = "Privacidad de $1";
 "page-issues" = "Problemas de la página";
 "page-similar-titles" = "Páginas similares";
-"page-read-in-other-languages" = "Disponible en $1 idiomas";
+"page-read-in-other-languages" = "Disponible en $1 idiomas más";
 "page-last-edited" = "Editado hace $1 días";
 "page-edit-history" = "Historial de edición completo";
 "captcha-reload" = "Mostrar otro «captcha»";
-"captcha-prompt" = "Escribe el texto del CAPTCHA anterior";
+"captcha-prompt" = "Escribe el texto del CAPTCHA";
 "mwk-empty-title-error" = "No se puede realizar la operación con un título vacío.";
 "home-title" = "Explorar";
 "home-empty-section" = "No hay resultados";
@@ -356,7 +360,8 @@
 "welcome-explore-continue-button" = "Empezar";
 "welcome-languages-title" = "Idiomas";
 "welcome-languages-sub-title" = "Selecciona tus idiomas preferidos para buscar en Wikipedia";
-"welcome-languages-add-button" = "+ Añadir otro";
+// Fuzzy
+"welcome-languages-add-button" = "Añadir otro";
 "welcome-languages-continue-button" = "Continuar";
 "welcome-volunteer-title" = "Voluntarios";
 "welcome-volunteer-sub-title" = "Ayuda a mejorar la aplicación de Wikipedia compartiendo cómo la usas";
@@ -390,4 +395,7 @@
 "explore-potd-heading" = "Imagen del día";
 "explore-most-read-heading" = "Los más leídos en Wikipedia en $1";
 "explore-most-read-footer" = "Todos los artículos más leídos";
+"explore-most-read-footer-for-date" = "Todos los artículos más leídos el $1";
 "explore-most-read-more-list-title" = "Los artículos más leídos";
+"explore-most-read-more-list-title-for-date" = "Los más leídos el $1";
+"no-email-account-alert" = "Configura una cuenta de correo electrónico en tu dispositivo e inténtalo de nuevo.";

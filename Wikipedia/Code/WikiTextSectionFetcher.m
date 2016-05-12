@@ -2,7 +2,7 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WikiTextSectionFetcher.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFHTTPSessionManager.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSObject+WMFExtras.h"
@@ -18,7 +18,7 @@
 @implementation WikiTextSectionFetcher
 
 - (instancetype)initAndFetchWikiTextForSection:(MWKSection*)section
-                                   withManager:(AFHTTPRequestOperationManager*)manager
+                                   withManager:(AFHTTPSessionManager*)manager
                             thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
@@ -29,7 +29,7 @@
     return self;
 }
 
-- (void)fetchWikiTextWithManager:(AFHTTPRequestOperationManager*)manager {
+- (void)fetchWikiTextWithManager:(AFHTTPSessionManager*)manager {
     NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.section.site.language];
 
     NSDictionary* params = [self getParams];
@@ -38,7 +38,7 @@
 
     // Note: "Preview should probably stay as a post, since the wikitext chunk may be
     // pretty long and there may or may not be a limit on URL length some" - Brion
-    [manager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
+    [manager GET:url.absoluteString parameters:params progress:NULL success:^(NSURLSessionDataTask* operation, id responseObject) {
         //NSLog(@"JSON: %@", responseObject);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
@@ -71,7 +71,7 @@
 
         [self finishWithError:error
                   fetchedData:output];
-    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+    } failure:^(NSURLSessionDataTask* operation, NSError* error) {
         //NSLog(@"WIKITEXT DOWNLOAD FAIL = %@", error);
 
         [[MWNetworkActivityIndicatorManager sharedManager] pop];

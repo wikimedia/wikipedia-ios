@@ -8,9 +8,14 @@
 #import "WMFAssetsFile.h"
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
+#import "LoginTokenFetcher.h"
+#import "AccountLogin.h"
+#import "AFHTTPSessionManager+WMFCancelAll.h"
+#import "NSHTTPCookieStorage+WMFCloneCookie.h"
+#import "MWKLanguageLinkController.h"
 
 
-@interface SessionSingleton ()
+@interface SessionSingleton ()<FetchFinishedDelegate>
 
 @property (strong, nonatomic, readwrite) MWKDataStore* dataStore;
 
@@ -47,7 +52,7 @@
         [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
 
         WMFURLCache* urlCache = [[WMFURLCache alloc] initWithMemoryCapacity:MegabytesToBytes(64)
-                                                               diskCapacity:MegabytesToBytes(64)
+                                                               diskCapacity:MegabytesToBytes(128)
                                                                    diskPath:nil];
         [NSURLCache setSharedURLCache:urlCache];
 
@@ -135,11 +140,9 @@
 
 - (NSURL*)urlForLanguage:(NSString*)language {
     NSString* endpoint = self.fallback ? @"" : @".m";
-    if (!self.currentArticleSite) {
-        return nil;
-    }
+    MWKSite* site      = [MWKSite siteWithLanguage:language];
     return [NSURL URLWithString:
-            [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", language, endpoint, self.currentArticleSite.domain]];
+            [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", language, endpoint, site.domain]];
 }
 
 #pragma mark - Usage Reports
@@ -154,6 +157,90 @@
     }
     [[NSUserDefaults standardUserDefaults] wmf_setSendUsageReports:sendUsageReports];
     [[QueuesSingleton sharedInstance] reset];
+}
+
+- (void)autoLogin {
+    if (self.keychainCredentials.userName == nil || self.keychainCredentials.password == nil) {
+        return;
+    }
+
+    [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
+        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
+                                                           userName:self.keychainCredentials.userName
+                                                           password:self.keychainCredentials.password
+                                                        withManager:[QueuesSingleton sharedInstance].loginFetchManager
+                                                 thenNotifyDelegate:self];
+    }];
+}
+
+- (void)fetchFinished:(id)sender
+          fetchedData:(id)fetchedData
+               status:(FetchFinalStatus)status
+                error:(NSError*)error {
+    if ([sender isKindOfClass:[LoginTokenFetcher class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED: {
+                (void)[[AccountLogin alloc] initAndLoginForDomain:[sender domain]
+                                                         userName:[sender userName]
+                                                         password:[sender password]
+                                                            token:[sender token]
+                                                      withManager:[QueuesSingleton sharedInstance].loginFetchManager
+                                               thenNotifyDelegate:self];
+            }
+            break;
+            default:
+                break;
+        }
+    }
+
+    if ([sender isKindOfClass:[AccountLogin class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED: {
+                [self cloneSessionCookies];
+            }
+            break;
+            case FETCH_FINAL_STATUS_FAILED: {
+                // If autoLogin fails the credentials need to be cleared out if they're no longer valid so the
+                // user has an indication that they're no longer logged in.
+                if (error.domain == WMFAccountLoginErrorDomain && error.code != LOGIN_ERROR_UNKNOWN && error.code != LOGIN_ERROR_API) {
+                    [self logout];
+                }
+            }
+            break;
+            default:
+                break;
+        }
+    }
+}
+
+- (void)cloneSessionCookies {
+    // Make the session cookies expire at same time user cookies. Just remember they still can't be
+    // necessarily assumed to be valid as the server may expire them, but at least make them last as
+    // long as we can to lessen number of server requests. Uses user tokens as templates for copying
+    // session tokens. See "recreateCookie:usingCookieAsTemplate:" for details.
+
+    NSString* domain = [[MWKLanguageLinkController sharedInstance] appLanguage].languageCode;
+
+    NSString* cookie1Name = [NSString stringWithFormat:@"%@wikiSession", domain];
+    NSString* cookie2Name = [NSString stringWithFormat:@"%@wikiUserID", domain];
+
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] wmf_recreateCookie:cookie1Name
+                                                usingCookieAsTemplate:cookie2Name
+    ];
+
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] wmf_recreateCookie:@"centralauth_Session"
+                                                usingCookieAsTemplate:@"centralauth_User"
+    ];
+}
+
+- (void)logout {
+    [SessionSingleton sharedInstance].keychainCredentials.userName   = nil;
+    [SessionSingleton sharedInstance].keychainCredentials.password   = nil;
+    [SessionSingleton sharedInstance].keychainCredentials.editTokens = nil;
+    // Clear session cookies too.
+    for (NSHTTPCookie* cookie in[[NSHTTPCookieStorage sharedHTTPCookieStorage].cookies copy]) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
 }
 
 @end

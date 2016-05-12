@@ -14,8 +14,9 @@
 // Author: Reza1615
 // Author: Sahehco
 // Author: Signal89
+// Author: درفش کاویانی
 
-"languages-title" = "زبان‌ها";
+"languages-title" = "تغییر زبان";
 "article-languages-label" = "انتخاب زبان";
 "article-languages-cancel" = "لغو";
 "article-languages-downloading" = "در حال بارگیری زبان‌های مقاله...";
@@ -25,7 +26,7 @@
 "article-unable-to-load-section" = "امکان بارگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
 "article-unable-to-load-article" = "بارگیری مقاله ناموفق بود.";
 "article-related-articles-title" = "مقاله‌های مرتبط";
-"info-box-title" = "واقعیت‌های سریع";
+"info-box-title" = "اطلاعات اجمالی";
 "info-box-close-text" = "بستن";
 "table-title-other" = "اطلاعات بیشتر";
 "saved-clear-all" = "پاک‌کردن";
@@ -89,7 +90,7 @@
 "wikitext-upload-save-sign-in-benefits" = "بنابراین ویرایشگران همکار می توانند با شما تماس برقرار کنند و شما می‌توانید ببنید چه مقالاتی ویرایش کرده‌اید.";
 "wikitext-upload-save-anonymously" = "ذخیره به صورت ناشناس";
 "wikitext-upload-save-anonymously-warning" = "ویرایش شما با آدرس آی‌پی دستگاه شما نمایش داده می‌شود. اگر شما  $1  باید حریم خصوصی بیشتری خواهید داشت.";
-"wikitext-upload-save-terms-and-license" = "با ذخیره‌کردن، می‌پذیرید که $1، و به طور جبران‌ناشدنی مشارکت‌هایتان را تحت پروانه $2 منتشر کنید.";
+"wikitext-upload-save-terms-and-license" = "با ذخیره کردن، می‌پذیرید که $1، و به طور جبران‌ناشدنی مشارکت‌هایتان را تحت پروانه $2 منتشر کنید.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "باز کردن پیوند";
@@ -216,7 +217,7 @@
 "about-repositories-app-source-license" = "سورس کد تحت $1 در دسترس است.";
 "about-repositories-app-source-license-mit" = "مجوز ام‌‌آی‌تی";
 "about-send-feedback" = "فرستادن بازخورد برنامه";
-"about-product-of" = "محصول $1";
+"about-product-of" = "شاید $1 با کمک داوطلبانی مانند شما";
 "about-wikimedia-foundation" = "بنیاد ویکی‌مدیا";
 "share-menu-save-page" = "ذخیره مقاله";
 "share-menu-page-saved" = "مقاله ذخیره شده";
@@ -255,7 +256,7 @@
 "page_protected_other" = "این صفحه به سطح‌های روبرو حفاظت شده‌است: $1";
 "page_protected_can_not_edit" = "شما دسترسی لازم را برای ویرایش این صفحه ندارید";
 "page_protected_can_not_edit_title" = "این صفحه محافظت شده‌است";
-"license-footer-text" = "مطالب زیر تحت شرایط $1 در دسترس است";
+"license-footer-text" = "محتوا تحت $1 در دسترس است، مگر اینکه خلافش ذکر شده‌باشد.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "محتویات";
 "table-of-contents-button-label" = "فهرست مندرجات";
@@ -320,11 +321,11 @@
 "hockeyapp-alert-privacy" = "سیاست محرمانگی $1";
 "page-issues" = "موضوعات صفحه";
 "page-similar-titles" = "صفحات مشابه";
-"page-read-in-other-languages" = "موجود به $1 زبان";
+"page-read-in-other-languages" = "به $1 زبان در دسترس است";
 "page-last-edited" = "تغییر یافته در $1 روز پیش";
 "page-edit-history" = "تاریخچهٔ کامل ویرایش";
 "captcha-reload" = "نمایش کپچای دیگر";
-"captcha-prompt" = "متن کپچا را از تصویر بالا وارد کنید";
+"captcha-prompt" = "متن کپچا را وارد کنید";
 "mwk-empty-title-error" = "با عنوان خالی امکان انجام عملیات نیست.";
 "home-title" = "مرور";
 "home-empty-section" = "هیچ نتیجه";
@@ -339,8 +340,8 @@
 "home-featured-article-heading" = "مقاله برگزیده برای $1";
 "home-main-page-heading" = "امروز در ویکی‌پدیا";
 "home-potd-heading" = "تصویر روز برای $1";
-"home-last-update-label" = "آخرین به روز رسانی: $1";
-"home-last-update-never-label" = "آخرین به‌روز رسانی: هرگز";
+"home-last-update-label" = "واپسین بروزرسانی: $1";
+"home-last-update-never-label" = "آخرین بروزرسانی: هرگز";
 "home-updating-label" = "در حال به‌روز رسانی...";
 "home-hide-suggestion-prompt" = "این پیشنهاد را پنهان کن";
 "home-hide-suggestion-cancel" = "لغو";
@@ -359,7 +360,8 @@
 "welcome-explore-continue-button" = "شروع شد";
 "welcome-languages-title" = "زبان‌ها";
 "welcome-languages-sub-title" = "زبان مورد علاقه‌تان برای جستجو در ویکی‌پدیا را انتخاب کنید";
-"welcome-languages-add-button" = "+افزدون دیگری";
+// Fuzzy
+"welcome-languages-add-button" = "افزدون دیگری";
 "welcome-languages-continue-button" = "ادامه";
 "welcome-volunteer-title" = "داوطلب";
 "welcome-volunteer-sub-title" = "با به اشتراک گذاشتن نحوهٔ استفادتان از نرم‌افزار ویکی‌پدیا به ما در بهبود آن کمک کنید";
@@ -393,4 +395,7 @@
 "explore-potd-heading" = "نگارهٔ برگزیدهٔ روز";
 "explore-most-read-heading" = "برای مطالعه در ویکی‌پدیای $1";
 "explore-most-read-footer" = "همهٔ مقالاتی که بیشترین بازدید را داشتند";
+"explore-most-read-footer-for-date" = "همهٔ مقالاتی که بیشترین بازدید را در $1 داشتند";
 "explore-most-read-more-list-title" = "بالاترین مقالات";
+"explore-most-read-more-list-title-for-date" = "بالاترین در $1";
+"no-email-account-alert" = "لطفاً حساب ایمیل را بر روی دستگاهتان تنظیم کنید و مجدداً تلاش کنید.";

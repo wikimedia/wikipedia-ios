@@ -8,10 +8,10 @@
 
 #import "WMFSearchFetcher.h"
 
-@class AFHTTPRequestOperationManager;
+@class AFHTTPSessionManager;
 
 @interface WMFSearchFetcher ()
 
-@property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
 
 @end

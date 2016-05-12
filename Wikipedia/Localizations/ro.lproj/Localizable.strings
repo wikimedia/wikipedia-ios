@@ -1,33 +1,35 @@
 // Messages for Romanian (română)
 // Exported from translatewiki.net
+// Author: ANDROBETA
 // Author: Macofe
 // Author: Minisarm
 
-"languages-title" = "Limbi";
+"languages-title" = "Schimbare limbă";
 "article-languages-label" = "Alegere limbă";
 "article-languages-cancel" = "Revocare";
 "article-languages-downloading" = "Se încarcă limbile articolului...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtru de limbă";
+"article-languages-filter-placeholder" = "Găsește limba";
 "article-read-more-title" = "Citiți mai multe";
 "article-about-title" = "Despre acest articol";
 "article-unable-to-load-section" = "Această secțiune nu poate fi încărcată. Reîncărcați articolul pentru a vedea dacă problema se rezolvă astfel.";
 "article-unable-to-load-article" = "Imposibil de încărcat articolul.";
 "article-related-articles-title" = "Articole similare";
+"article-languages-yours" = "Limbile dumneavoastră";
+"article-languages-others" = "Alte limbi";
 "info-box-title" = "Informații pe scurt";
 "info-box-close-text" = "Închide";
 "table-title-other" = "Mai multe informații";
+"saved-clear-all" = "Șterge";
+"history-clear-all" = "Curăță";
 "history-label" = "Recente";
 "history-section-today" = "Astăzi";
 "history-section-yesterday" = "Ieri";
 "history-section-lastweek" = "Săptămâna trecută";
 "history-section-lastmonth" = "Luna trecută";
-// Fuzzy
-"history-clear-confirmation-heading" = "Ștergeți toate elementele recente?";
+"history-clear-confirmation-heading" = "Sigur doriți să ștergeți toate elementele recente?";
 "history-clear-confirmation-sub-heading" = "Această acțiune nu poate fi anulată!";
 "history-clear-cancel" = "Revocare";
-// Fuzzy
-"history-clear-delete-all" = "Șterge tot";
+"history-clear-delete-all" = "Da, șterge tot";
 "history-description" = "Probabil că le-ați șters pe toate. Data viitoare când doriți să accesați o pagină, puteți reveni la ea pornind de aici.";
 "history-none" = "Nicio pagină recentă aici.";
 "zero-free-verbiage" = "Acces gratuit la Wikipedia de la operatorul dumneavoastră de telefonie mobilă (traficul de date nu va fi taxat)";
@@ -42,8 +44,7 @@
 "zero-learn-more-learn-more" = "Citiți mai multe";
 "zero-learn-more-no-thanks" = "Renunță";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
-// Fuzzy
-"zero-warn-when-leaving" = "Avertizează-mă dacă părăsesc Wikipedia Zero";
+"zero-warn-when-leaving" = "Avertizează-mă dacă părăsesc Zero";
 "zero-settings-devmode" = "Mod de dezvoltare Zero";
 "account-creation-captcha-required" = "Verificare CAPTCHA obligatorie.";
 "account-creation-captcha-obtaining" = "Se obține un nou CAPTCHA.";
@@ -103,37 +104,36 @@
 "search-recent-clear-delete-all" = "Șterge tot";
 "search-result-redirected-from" = "Redirecționare de la: $1";
 "settings-title" = "Setări";
+"settings-language" = "Limba Wikipediei";
+"settings-support" = "Susțineți Wikipedia";
+"settings-language-bar" = "Arată limbile la căutări";
+"settings-my-languages" = "Limbile mele";
 "main-menu-title" = "Mai mult";
 "main-menu-heading-about" = "Despre";
 "main-menu-language-title" = "Căutare pe wiki în limba $1";
-// Fuzzy
-"main-menu-faq" = "FAQ";
+"main-menu-faq" = "Întrebări frecvente";
 "main-menu-language-toggle-show" = "Arată limbile";
 "main-menu-language-toggle-hide" = "Ascunde limbile";
 "main-menu-language-selection-saved" = "Selectarea limbii salvată";
 "main-menu-account-title-logged-out" = "Cont";
-// Fuzzy
-"main-menu-account-title-logged-in" = "Autentificat ca: $1";
-// Fuzzy
-"main-menu-account-login" = "Autentificare la Wikipedia";
+"main-menu-account-title-logged-in" = "Autentificat ca $1";
+"main-menu-account-login" = "Autentificare";
 "main-menu-account-logout" = "Închide sesiunea";
+"main-menu-account-logout-are-you-sure" = "Sigur doriți să închideți sesiunea?";
+"main-menu-account-logout-cancel" = "Revocare";
 "main-menu-show-title" = "Arată-mi...";
 "main-menu-show-history" = "Recente";
 "main-menu-show-saved" = "Pagini salvate";
 "main-menu-current-article-save" = "Salvează $1 pentru lectură off-line";
 "main-menu-random" = "Aleatoriu";
 "main-menu-feedback-heading" = "Păreri";
-// Fuzzy
-"main-menu-send-feedback" = "Trimitere părere despre aplicație";
+"main-menu-send-feedback" = "Spuneți-ne părerea";
 "main-menu-show-page-history" = "Istoricul modificărilor pentru $1";
 "main-menu-credits" = "Credite";
-// Fuzzy
-"main-menu-about" = "Despre aplicația Wikipedia";
+"main-menu-about" = "Despre aplicație";
 "main-menu-zero-faq" = "Într. frecv. Wikipedia Zero";
 "main-menu-privacy-policy" = "Politica de confidențialitate";
-// Fuzzy
 "main-menu-terms-of-use" = "Termeni de utilizare";
-// Fuzzy
 "main-menu-rate-app" = "Evaluează aplicația";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Confidențialitate și Termeni";
@@ -145,12 +145,10 @@
 "main-menu-debug-tweaks" = "Setări pentru dezvoltatori";
 "saved-title" = "Salvat";
 "saved-pages-title" = "Pagini salvate";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Ștergeți toate elementele salvate?";
+"saved-pages-clear-confirmation-heading" = "Sigur doriți să ștergeți toate paginile salvate?";
 "saved-pages-clear-confirmation-sub-heading" = "Această acțiune nu poate fi anulată!";
 "saved-pages-clear-cancel" = "Revocare";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Șterge tot";
+"saved-pages-clear-delete-all" = "Da, șterge tot";
 "saved-pages-refresh-cancel-alert-title" = "Actualizare anulată";
 "saved-pages-refresh-cancel-alert-message" = "Articolele Wikipediei sunt actualizate permanent. Apăsați „reîncarcă” pentru a obține ultima versiune a tuturor articolelor.";
 "saved-pages-refresh-cancel-alert-button" = "Am înțeles!";
@@ -194,22 +192,30 @@
 "about-title" = "Despre";
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "Contribuitori";
-// Fuzzy
-"about-testers" = "testeri";
+"about-testers" = "Testeri";
 "about-testers-details" = "QA testată de $1";
 "about-translators" = "Traducători";
 "about-translators-details" = "Această aplicație a fost tradusă de traducătorii voluntari de la $1";
 "about-libraries" = "Biblioteci utilizate";
 "about-libraries-license" = "Licență";
-// Fuzzy
-"about-repositories" = "depozite";
+"about-libraries-licenses" = "Licențe";
+"about-content-license" = "Licență conținut";
+"about-content-license-details" = "Dacă nu se specifică altfel, conținutul este disponibil sub $1.";
+"about-content-license-details-share-alike-license" = "licența Creative Commons Atribuire și distribuire în condiții identice";
+"about-libraries-licenses-title" = "Ne place software-ul cu sursă deschisă $1";
+"about-libraries-complete-list" = "Lista completă";
+"about-repositories" = "Depozite";
+"about-repositories-app-source-license" = "Codul sursă este disponibil sub $1.";
+"about-repositories-app-source-license-mit" = "licența MIT";
 "about-send-feedback" = "Trimiteți o părere despre aplicație";
-"about-product-of" = "Un produs al $1";
-"about-wikimedia-foundation" = "Fundației Wikimedia";
+"about-product-of" = "Creat de $1 cu ajutorul voluntarilor ca dumneavoastră";
+"about-wikimedia-foundation" = "Fundația Wikimedia";
 "share-menu-save-page" = "Salvare articol";
 "share-menu-page-saved" = "Articol salvat";
 "share-menu-page-saved-access" = "Sfat: pentru a vă accesa paginile salvate, atingeți simbolul $1 de mai sus sau apăsați prelung simbolul $2 de mai jos.";
 "share-custom-menu-item" = "Distribuie";
+"share-a-fact-share-menu-item" = "Distribuie-o-informație";
+"share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "„$1” la @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "„$1” la @Wikipedia: „$2”";
 "share-as-image" = "Distribuie ca imagine";
@@ -223,6 +229,7 @@
 "timestamp-years" = "acum %d ani";
 "lastmodified-by-user" = "Modificat $1 de $2";
 "lastmodified-by-anon" = "Modificat $1 de către un utilizator anonim";
+"button-edit" = "Modificare";
 "button-next" = "Înainte";
 "button-done" = "Realizat";
 "button-save" = "Salvare";
@@ -241,10 +248,12 @@
 "page_protected_other" = "Această pagină a fost protejată pentru următoarele niveluri: $1";
 "page_protected_can_not_edit" = "Nu aveți drepturi pentru a modifica această pagină";
 "page_protected_can_not_edit_title" = "Această pagină este protejată";
-"license-footer-text" = "Conținutul este disponibil sub $1";
+"license-footer-text" = "Conținutul este disponibil sub $1, exceptând cazurile în care se specifică altfel.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Cuprins";
 "table-of-contents-button-label" = "Cuprins";
+"table-of-contents-close-accessibility-label" = "Închide cuprinsul";
+"table-of-contents-close-accessibility-hint" = "Închide";
 "abuse-filter-warning-heading" = "Aceasta pare o modificare neconstructivă. Sigur doriți s-o salvați?";
 "abuse-filter-warning-subheading" = "Modificarea dumnevoastră poate conține una din următoarele probleme:";
 "abuse-filter-warning-caps" = "Scrierea INTEGRALĂ CU MAJUSCULE";
@@ -304,18 +313,20 @@
 "hockeyapp-alert-privacy" = "Confidențialitate $1";
 "page-issues" = "Problemele paginii";
 "page-similar-titles" = "Pagini similare";
-// Fuzzy
-"page-read-in-other-languages" = "Lecturează în $1 limbi";
+"page-read-in-other-languages" = "Disponibil în alte $1 limbi";
 "page-last-edited" = "Modificat acum $1 zi(le)";
 "page-edit-history" = "Istoric complet al modificărilor";
 "captcha-reload" = "Arată alt text captcha";
-"captcha-prompt" = "Introduceți textul CAPTCHA din imaginea de mai sus";
+"captcha-prompt" = "Introduceți textul CAPTCHA";
 "mwk-empty-title-error" = "Imposibil de efectuat operațiunea cu un titlu gol.";
 "home-title" = "Explorare";
+"home-empty-section" = "Niciun rezultat";
+"home-empty-section-check-again" = "Încearcă din nou";
 "home-continue-reading-heading" = "Reia lectura";
 "home-continue-related-heading" = "Pentru că ați citit articolul $1";
 "home-more-like-footer" = "Mai multe precum $1";
 "home-nearby-footer" = "Mai multe articole din apropierea dumneavoastră";
+"home-nearby-location-footer" = "Mai multe locuri de lângă $1";
 "home-nearby-nothing" = "Nimic în apropierea dumneavoastră";
 "home-nearby-check-again" = "Verifică din nou";
 "home-featured-article-heading" = "Articol de calitate în $1";
@@ -330,15 +341,30 @@
 "home-button-accessibility-label" = "Butonul Acasă";
 "potd-empty-error-description" = "Nu s-a putut găsi imaginea zilei pentru $1";
 "potd-description-prefix" = "Imaginea zilei în $1";
+"welcome-explore-title" = "Explorați";
+"welcome-explore-sub-title" = "Un nou mod de a descoperi articole interesante în fiecare zi";
+"welcome-explore-tell-me-more" = "Spune-mi mai multe";
+"welcome-explore-tell-me-more-about-explore" = "Mai multe despre Explorare";
+"welcome-explore-tell-me-more-details" = "Când citiți un articol, articolele conexe sunt adăugate automat în fila Explorare. Acest lucru nu schimbă modul în care colectăm informațiile dumneavoastră, întrucât istoricul articolelor citite rămâne confidențial.";
+"welcome-explore-tell-me-more-related" = "Fila Explorare vă afișează articole relevante în funcție de articolele pe care le-ați citit.";
+"welcome-explore-tell-me-more-privacy" = "Nu stocăm liste de lectură sau profiluri pe serverele noastre.";
+"welcome-explore-tell-me-more-done-button" = "Am înțeles";
+"welcome-explore-continue-button" = "Să începem";
+"welcome-languages-title" = "Limbi";
+"welcome-languages-sub-title" = "Alegeți limbile preferate în care doriți să căutați pe Wikipedia";
 // Fuzzy
-"welcome-languages-title" = "Limbile pentru căutare";
+"welcome-languages-add-button" = "Adaugă încă una";
+"welcome-languages-continue-button" = "Continuă";
+"welcome-volunteer-title" = "Voluntariat";
+"welcome-volunteer-sub-title" = "Ajutați-ne să îmbunătățim aplicația Wikipedia, partajând modul în care o folosiți";
+"welcome-volunteer-send-usage-reports" = "Trimite rapoarte de utilizare";
+"welcome-volunteer-continue-button" = "Continuă";
+"welcome-volunteer-thanks" = "$1 Mulțumim!";
 "empty-no-feed-title" = "Fără conexiune la internet";
 "empty-no-feed-message" = "Puteți vedea articolele recomandate atunci când aveți acces la internet";
-// Fuzzy
-"empty-no-feed-action-message" = "Între timp, puteți lectura paginile salvate";
+"empty-no-feed-action-message" = "Puteți încă lectura paginile salvate";
 "empty-no-article-message" = "Ne pare rău, articolul nu poate fi încărcat";
-// Fuzzy
-"empty-no-search-results-message" = "Ne pare rău, nu se pot încărca rezultatele";
+"empty-no-search-results-message" = "Niciun rezultat găsit";
 "empty-no-saved-pages-title" = "Nicio pagină salvată încă";
 "empty-no-saved-pages-message" = "Salvați pagini pentru a le vizualiza mai târziu, chiar și în modul off-line";
 "empty-no-history-title" = "Niciun istoric de afișat";
@@ -353,10 +379,15 @@
 "compass-direction" = "la ora $1";
 "explore-featured-article-heading" = "Articol de calitate";
 "explore-continue-reading-heading" = "Reluare lectură";
-// Fuzzy
 "explore-nearby-heading" = "Locuri din apropiere";
 "explore-continue-related-heading" = "Pentru că ați citit";
 "explore-main-page-heading" = "Astăzi la Wikipedia";
 "explore-random-article-heading" = "Articol aleatoriu";
 "explore-random-article-sub-heading" = "Wikipedia engleză";
 "explore-potd-heading" = "Imaginea zilei";
+"explore-most-read-heading" = "Cele mai citite la Wikipedia în $1";
+"explore-most-read-footer" = "Cele mai citite articole (toate)";
+"explore-most-read-footer-for-date" = "Cele mai citite articole (toate) pe $1";
+"explore-most-read-more-list-title" = "Cele mai citite articole";
+"explore-most-read-more-list-title-for-date" = "Cele mai citite articole pe $1";
+"no-email-account-alert" = "Vă rugăm să configurați un cont de e-mail pe dispozitivul dumneavoastră și să încercați din nou.";

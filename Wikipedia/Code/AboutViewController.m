@@ -13,6 +13,7 @@
 #import "Wikipedia-Swift.h"
 #import <VTAcknowledgementsViewController/VTAcknowledgementsViewController.h>
 #import <Masonry/Masonry.h>
+#import <VTAcknowledgementsViewController/VTAcknowledgement.h>
 
 static NSString* const kWMFAboutHTMLFile  = @"about.html";
 static NSString* const kWMFAboutPlistName = @"AboutViewController";
@@ -43,6 +44,23 @@ static NSString* const kWMFLicenseRedirectScheme             = @"about";
 static NSString* const kWMFLicenseRedirectResourceIdentifier = @"blank";
 
 static NSString* const kWMFContributorsKey = @"contributors";
+
+@interface TharlonFontAcknowledgement : VTAcknowledgement
+@end
+
+@implementation TharlonFontAcknowledgement
+
+- (instancetype)init {
+    NSError* error;
+    NSString* licenseText = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"OFL" ofType:@"txt"]
+                                                      encoding:NSUTF8StringEncoding
+                                                         error:&error];
+    NSAssert(!error, @"License copy not retrieved");
+    return [super initWithTitle:@"TharLon Myanmar Unicode Font"
+                           text:licenseText];
+}
+
+@end
 
 @interface AboutViewController ()
 
@@ -225,6 +243,8 @@ static NSString* const kWMFContributorsKey = @"contributors";
     if ([[self class] isLicenseURL:requestURL]) {
         VTAcknowledgementsViewController* vc = [VTAcknowledgementsViewController acknowledgementsViewController];
         vc.headerText = [MWLocalizedString(@"about-libraries-licenses-title", nil) stringByReplacingOccurrencesOfString:@"$1" withString:@"💖"];
+
+        vc.acknowledgements = [vc.acknowledgements arrayByAddingObjectsFromArray:@[[[TharlonFontAcknowledgement alloc] init]]];
 
         UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];

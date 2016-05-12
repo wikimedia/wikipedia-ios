@@ -3,10 +3,11 @@
 
 //AFNetworking
 #import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
-#import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
+#import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import <Mantle/Mantle.h>
+#import "WMFBaseRequestSerializer.h"
 
 //Promises
 #import "Wikipedia-Swift.h"
@@ -30,14 +31,14 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 
 @end
 
-@interface WMFRelatedSearchRequestSerializer : AFHTTPRequestSerializer
+@interface WMFRelatedSearchRequestSerializer : WMFBaseRequestSerializer
 @end
 
 #pragma mark - Fetcher Implementation
 
 @interface WMFRelatedSearchFetcher ()
 
-@property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
 
 @end
 
@@ -46,7 +47,7 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+        AFHTTPSessionManager* manager = [AFHTTPSessionManager wmf_createDefaultManager];
         manager.requestSerializer  = [WMFRelatedSearchRequestSerializer serializer];
         manager.responseSerializer =
             [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class]
@@ -70,11 +71,11 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
         [self.operationManager wmf_GETWithSite:title.site
                                     parameters:params
                                          retry:NULL
-                                       success:^(AFHTTPRequestOperation* operation, id responseObject) {
+                                       success:^(NSURLSessionDataTask* operation, id responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve([[WMFRelatedSearchResults alloc] initWithTitle:title results:responseObject]);
         }
-                                       failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+                                       failure:^(NSURLSessionDataTask* operation, NSError* error) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve(error);
         }];

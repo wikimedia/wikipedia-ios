@@ -26,8 +26,6 @@ extern NSString* const ZeroWarnWhenLeaving;
  */
 @property (atomic) BOOL disposition;
 
-@property (atomic) BOOL sentMCCMNC;
-
 /**
  *  Whether or not the user prefers to see a modal alert before going to a non-zero-rated URL (i.e. off of Wikipedia).
  */

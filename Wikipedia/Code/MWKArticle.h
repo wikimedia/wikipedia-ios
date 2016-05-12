@@ -49,6 +49,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly, copy, nonatomic) NSString* displaytitle;              // optional
 @property (readonly, strong, nonatomic) MWKProtectionStatus* protection;     // required
 @property (readonly, assign, nonatomic) BOOL editable;                       // required
+@property (readonly, assign, nonatomic) BOOL hasMultipleLanguages;
 
 /// Whether or not the receiver is the main page for its @c site.
 @property (readonly, assign, nonatomic, getter = isMain) BOOL main;
@@ -66,6 +67,8 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly, strong, nonatomic) MWKImageList* images;
 @property (readonly, strong, nonatomic) MWKImage* thumbnail;
 @property (readonly, strong, nonatomic) MWKImage* image;
+
+@property (readonly, strong, nonatomic) MWKImage* leadImage;
 
 @property (readonly, strong, nonatomic) NSString* summary;
 

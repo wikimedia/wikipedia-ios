@@ -221,6 +221,18 @@
     }];
 }
 
+- (NSArray<MWKImage*>*)imagesForDisplayInGallery {
+    return [self.uniqueLargestVariants bk_select:^BOOL (MWKImage* largestVariantImage) {
+        // Keep image if it's the article image even if we can't determine its size - we
+        // always want to show article image as first "lead" image by gallery.
+        if ([self.article.image isEqualToImage:largestVariantImage]) {
+            return YES;
+        }
+
+        return [largestVariantImage isLargeEnoughForGalleryInclusion];
+    }];
+}
+
 - (BOOL)addImageURLIfAbsent:(NSString*)imageURL {
     imageURL = [imageURL wmf_schemelessURL];
     if (imageURL && imageURL.length > 0 && ![self.mutableEntries containsObject:imageURL]) {

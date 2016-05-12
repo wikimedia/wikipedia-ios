@@ -8,7 +8,6 @@
 
 import Foundation
 import PromiseKit
-import SDWebImage
 
 public typealias DiskQueryResult = (cancellable: Cancellable?, promise: Promise<(UIImage, ImageOrigin)>)
 

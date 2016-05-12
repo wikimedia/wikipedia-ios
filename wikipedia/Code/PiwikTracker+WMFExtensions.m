@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString* appID              = [[NSBundle mainBundle] wmf_piwikAppID];
     [PiwikTracker sharedInstanceWithSiteID:appID baseURL:[NSURL URLWithString:piwikHostURLString]];
     [[PiwikTracker wmf_configuredInstance] setDispatchInterval:WMFDispatchInterval];
+    [PiwikTracker wmf_configuredInstance].sampleRate = 10;
 #endif
 }
 

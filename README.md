@@ -30,11 +30,11 @@ At this point, you should be able to open `Wikipedia.xcworkspace` and run the ap
 ### Architecture
 *TODO: We hope to have some high-level documentation on the application's architecture soon.*
 ### Best practices and coding style
-You can find our current thinking on [iOS best practices](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/BestPractices) and [coding style](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/ObjectiveCStyleGuide) on our [team page](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS). The [WMFCodingStyle](./WikipediaUnitTests/WMFCodingStyle.h) files are also canonical examples of our coding style, which are enforced using [uncrustify](#uncrustify).
+You can find our current thinking on [iOS best practices](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/BestPractices) and [coding style](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/ObjectiveCStyleGuide) on our [team page](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS). The [WMFCodingStyle](./WikipediaUnitTests/Code/WMFCodingStyle.h) files are also canonical examples of our coding style, which are enforced using [uncrustify](#uncrustify).
 ### Dependencies
 We use [CocoaPods](#cocoapods) to manage third-party native dependencies and [npm](#npm) for web.  We've committed our CocoaPods dependencies and npm build artifacts to the repo so you don't need them to build the project.
 ## Testing
-The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action. In addition to unit testing, we enforce our coding style using [uncrustify](#uncrustify). You can also use the project's [Makefile](#makefile) to run both in one action: `make verify`.
+The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action. In addition to unit testing, we enforce our coding style using [uncrustify](#uncrustify). You can also use the project's [Makefile](./Makefile) to run both in one action: `make verify`.
 
 ## Contributing
 If you're interested in contributing to the project, you can find our current product, bug, and engineering backlogs on the [iOS App Phabricator project board](https://phabricator.wikimedia.org/project/view/782/). Once you pick a task, make sure you assign it to yourself to ensure nobody else duplicates your work.  The **#Easy** tag in Phabricator can also help you find tasks that are ideal for new contributors because they're small and/or well-defined.  We suggest you [filter the **#Easy** project to only show tasks in the Wikipedia iOS app projects](https://phabricator.wikimedia.org/project/board/169/query/OuulRzaqbmPh/).
@@ -44,7 +44,7 @@ Once your contributions are ready for review, post a pull request on GitHub and 
 ### Gerrit
 We also maintain a mirror of this repository on Gerrit (see above), syncing the code after every release. If you'd rather use Gerrit to send us a patch, you'll need to:
 
-- [Create an SSH key](https://help.github.com/articles/generating-ssh-keys/)
+- [Create an SSH key](https://help.github.com/articles/generating-an-ssh-key/)
 - [Create a Wikimedia developer account](https://wikitech.wikimedia.org/wiki/Special:UserLogin/signup)
 - Clone the gerrit repo: `git clone ssh://<wikimedia-dev-username>@gerrit.wikimedia.org:29418/apps/ios/wikipedia.git`
 - [Install git-review](https://www.mediawiki.org/wiki/Gerrit/git-review)
@@ -68,7 +68,7 @@ As mentioned in [best practices and coding style](#best-practices-and-coding-sty
 [CocoaPods](https://cocoapods.org) is a Ruby gem that the project uses to download and integrate third-party iOS components (see `Podfile` for an up-to-date list). We have committed all of these dependencies to the repository itself, removing the need to install the gem or run before building the project. However, if you want to do anything related to CocoaPods (such as upgrading the version of CocoaPods or adding a dependency), please refer to the [Working With Cocoapods documentation](docs/working-with-cocoapods.md).
 
 ### NPM
-[npm](http://npmjs.com) is a package manager for [nodejs](nodejs.org). With it, we install various node modules as Javascript dependencies and development tools (see `www/package.json` for an up-to-date list). Similar to our native dependencies, we have committed certain files to the repository to remove node and npm as build dependencies in an effort to streamline typical application development. Please see [Wikipedia iOS Web Development](docs/web-dev.md) for more information about how to work with the web components in this project.
+[npm](https://www.npmjs.com/) is a package manager for [nodejs](https://nodejs.org). With it, we install various node modules as Javascript dependencies and development tools (see `www/package.json` for an up-to-date list). Similar to our native dependencies, we have committed certain files to the repository to remove node and npm as build dependencies in an effort to streamline typical application development. Please see [Wikipedia iOS Web Development](docs/web-dev.md) for more information about how to work with the web components in this project.
 
 ## Continuous Integration
 Continuous integration is run on [Travis-CI](https://travis-ci.org) in response to pull request updates and merges to the **master** branch. See the `verify` lane in `fastlane/Fastfile` and our `.travis.yml` for details.

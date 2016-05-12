@@ -13,7 +13,7 @@
 // Author: Rizkiahmadz
 // Author: WongKentir
 
-"languages-title" = "Bahasa";
+"languages-title" = "Ubah bahasa";
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batal";
 "article-languages-downloading" = "Memuat bahasa artikel...";
@@ -23,6 +23,8 @@
 "article-unable-to-load-section" = "Tidak dapat memuat bagian ini. Coba menyegarkan artikel untuk melihat apakah itu bisa memperbaiki masalah.";
 "article-unable-to-load-article" = "Tidak dapat memuat artikel.";
 "article-related-articles-title" = "Artikel terkait";
+"article-languages-yours" = "Bahasa Anda";
+"article-languages-others" = "Bahasa lainnya";
 "info-box-title" = "Fakta cepat";
 "info-box-close-text" = "Tutup";
 "table-title-other" = "Informasi lebih lanjut";
@@ -114,6 +116,7 @@
 "settings-language" = "Bahasa Wikipedia";
 "settings-support" = "Dukung Wikipedia";
 "settings-language-bar" = "Tampilkan bahasa di pencarian";
+"settings-my-languages" = "Bahasa saya";
 "main-menu-title" = "Lainnya";
 "main-menu-heading-about" = "Tentang";
 "main-menu-language-title" = "Cari Wikipedia $1";
@@ -214,7 +217,7 @@
 "about-repositories-app-source-license" = "Kode sumber tersedia di bawah $1.";
 "about-repositories-app-source-license-mit" = "Lisensi MIT";
 "about-send-feedback" = "Kirim umpan balik aplikasi";
-"about-product-of" = "Sebuah produk dari $1";
+"about-product-of" = "Dibuat oleh $1 dengan bantuan dari beberapa relawan seperti Anda";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Simpan Artikel";
 "share-menu-page-saved" = "Artikel Disimpan";
@@ -235,6 +238,7 @@
 "timestamp-years" = "%d tahun yang lalu";
 "lastmodified-by-user" = "Suntingan $1 oleh $2";
 "lastmodified-by-anon" = "Suntingan $1 oleh pengguna anonim";
+"button-edit" = "Sunting";
 "button-next" = "Selanjutnya";
 "button-done" = "Selesai";
 "button-save" = "Simpan";
@@ -253,7 +257,7 @@
 "page_protected_other" = "Halaman ini telah dilindungi ke tingkat sebagai berikut: $1";
 "page_protected_can_not_edit" = "Anda tidak memiliki hak untuk menyunting halaman ini";
 "page_protected_can_not_edit_title" = "Halaman ini dilindungi";
-"license-footer-text" = "Konten tersedia di bawah lisensi $1";
+"license-footer-text" = "Konten tersedia di bawah lisensi $1 kecuali dinyatakan lain.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Konten";
 "table-of-contents-button-label" = "Daftar Isi";
@@ -318,11 +322,11 @@
 "hockeyapp-alert-privacy" = "Privasi $1";
 "page-issues" = "Masalah halaman";
 "page-similar-titles" = "Halaman serupa";
-"page-read-in-other-languages" = "Tersedia dalam $1 bahasa";
+"page-read-in-other-languages" = "Tersedia dalam $1 bahasa lain";
 "page-last-edited" = "Disunting $1 hari yang lalu";
 "page-edit-history" = "Semua riwayat suntingan";
 "captcha-reload" = "Tampilkan captcha yang lain";
-"captcha-prompt" = "Masukkan teks CAPTCHA dari gambar di atas";
+"captcha-prompt" = "Masukkan teks CAPTCHA";
 "mwk-empty-title-error" = "Tidak dapat melakukan operasi dengan judul yang kosong.";
 "home-title" = "Jelajah";
 "home-empty-section" = "Tidak ada hasil";
@@ -337,8 +341,8 @@
 "home-featured-article-heading" = "Artikel pilihan untuk $1";
 "home-main-page-heading" = "Hari ini di Wikipedia";
 "home-potd-heading" = "Gambar hari ini untuk $1";
-"home-last-update-label" = "Terakhir Diperbarui: $1";
-"home-last-update-never-label" = "Terakhir Diperbarui: Tidak pernah";
+"home-last-update-label" = "Terakhir diperbarui: $1";
+"home-last-update-never-label" = "Terakhir diperbarui: Tidak pernah";
 "home-updating-label" = "Memperbarui...";
 "home-hide-suggestion-prompt" = "Sembunyikan saran ini";
 "home-hide-suggestion-cancel" = "Batal";
@@ -357,7 +361,8 @@
 "welcome-explore-continue-button" = "Memulai";
 "welcome-languages-title" = "Bahasa";
 "welcome-languages-sub-title" = "Pilih bahasa pilihan Anda untuk mencari Wikipedia";
-"welcome-languages-add-button" = "+ Tambahkan yang lainnya";
+// Fuzzy
+"welcome-languages-add-button" = "Tambahkan yang lainnya";
 "welcome-languages-continue-button" = "Lanjutkan";
 "welcome-volunteer-title" = "Relawan";
 "welcome-volunteer-sub-title" = "Bantu menyempurnakan aplikasi Wikipedia dengan membagikan bagaimana Anda menggunakannya";
@@ -391,4 +396,7 @@
 "explore-potd-heading" = "Gambar pilihan";
 "explore-most-read-heading" = "Bacaan teratas di Wikipedia Bahasa $1";
 "explore-most-read-footer" = "Semua artikel bacaan teratas";
+"explore-most-read-footer-for-date" = "Baca semua artikel teratas di $1";
 "explore-most-read-more-list-title" = "Artikel teratas";
+"explore-most-read-more-list-title-for-date" = "Teratas di $1";
+"no-email-account-alert" = "Silakan menyiapkan sebuah akun surel di perangkat Anda dan coba lagi.";

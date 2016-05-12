@@ -7,9 +7,11 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIViewController+WMFWelcomeNavigation.h"
 #import "UIButton+WMFWelcomeNextButton.h"
+#import "WMFLanguagesViewController.h"
 
-@interface WMFWelcomeLanguageViewController ()
+@interface WMFWelcomeLanguageViewController ()<WMFLanguagesViewControllerDelegate>
 
+@property (strong, nonatomic) IBOutlet UITableView* languageTableView;
 @property (strong, nonatomic) IBOutlet UILabel* titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel* subTitleLabel;
 @property (strong, nonatomic) IBOutlet UIButton* moreLanguagesButton;
@@ -23,7 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.languageTableView.editing = YES;
+    self.languageTableView.editing              = YES;
+    self.languageTableView.alwaysBounceVertical = NO;
 
     self.titleLabel.text =
         [MWLocalizedString(@"welcome-languages-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
@@ -80,6 +83,17 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self updateDeleteButtonsVisibility];
+}
+
+- (void)updateDeleteButtonsVisibility {
+    for (WMFWelcomeLanguageTableViewCell* cell in self.languageTableView.visibleCells) {
+        cell.deleteButton.hidden = ([MWKLanguageLinkController sharedInstance].preferredLanguages.count == 1) ? YES : NO;
+    }
+}
+
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
     return [[MWKLanguageLinkController sharedInstance].preferredLanguages count];
 }
@@ -88,40 +102,56 @@
     WMFWelcomeLanguageTableViewCell* cell = (id)[tableView dequeueReusableCellWithIdentifier:[WMFWelcomeLanguageTableViewCell wmf_nibName]
                                                                                 forIndexPath:indexPath];
     MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
-    cell.numberLabel.text       = [NSString stringWithFormat:@"%ld", (long)indexPath.row + 1];
-    cell.languageNameLabel.text = langLink.localizedName;
+    cell.languageName = langLink.name;
 
-    //can only delete non-OS languages
-    if (![[MWKLanguageLinkController sharedInstance] languageIsOSLanguage:langLink]) {
-        cell.deleteButtonTapped = ^{
-            MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
-            [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
-            [tableView reloadData];
-        };
-    }
     return cell;
 }
 
+- (BOOL)tableView:(UITableView*)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath {
+    return [[MWKLanguageLinkController sharedInstance].preferredLanguages count] > 1;
+}
+
+- (void)tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
+        [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self updateDeleteButtonsVisibility];
+
+        [self useFirstPreferredLanguageAsSearchLanguage];
+    }
+}
+
 - (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
-    return UITableViewCellEditingStyleNone; //remove delete control
+    if ([[MWKLanguageLinkController sharedInstance].preferredLanguages count] > 1) {
+        return UITableViewCellEditingStyleDelete;
+    } else {
+        return UITableViewCellEditingStyleNone;
+    }
 }
 
 - (void)tableView:(UITableView*)tableView moveRowAtIndexPath:(NSIndexPath*)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath {
     MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[sourceIndexPath.row];
     [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:langLink toIndex:destinationIndexPath.row];
-    [self.languageTableView reloadData];
+    [self.languageTableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+    [self useFirstPreferredLanguageAsSearchLanguage];
+}
+
+- (void)useFirstPreferredLanguageAsSearchLanguage {
+    MWKLanguageLink* firstPreferredLanguage = [[MWKLanguageLinkController sharedInstance] appLanguage];
+
+    [[NSUserDefaults standardUserDefaults] wmf_setCurrentSearchLanguageSite:firstPreferredLanguage.site];
 }
 
 - (IBAction)addLanguages:(id)sender {
-    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
-    languagesVC.showPreferredLanguges     = NO;
-    languagesVC.languageSelectionDelegate = self;
+    WMFLanguagesViewController* languagesVC = [WMFLanguagesViewController nonPreferredLanguagesViewController];
+    languagesVC.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:NULL];
 }
 
 #pragma mark - LanguageSelectionDelegate
 
-- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
+- (void)languagesController:(WMFLanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
     [[MWKLanguageLinkController sharedInstance] appendPreferredLanguage:language];
     [self.languageTableView reloadData];
     [controller dismissViewControllerAnimated:YES completion:NULL];

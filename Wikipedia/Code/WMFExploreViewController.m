@@ -3,11 +3,10 @@
 
 // Frameworks
 #import <BlocksKit/BlocksKit+UIKit.h>
-@import Tweaks;
+#import <Tweaks/FBTweakViewController.h>
 
 #import "PiwikTracker+WMFExtensions.h"
 #import "NSUserActivity+WMFExtensions.h"
-#import <PromiseKit/SCNetworkReachability+AnyPromise.h>
 
 // Sections
 #import "WMFExploreSectionSchema.h"
@@ -28,6 +27,8 @@
 #import "MWKLocationSearchResult.h"
 #import "MWKSavedPageList.h"
 #import "MWKRecentSearchList.h"
+#import "MWKLanguageLinkController.h"
+
 
 // Views
 #import "UIViewController+WMFEmptyView.h"
@@ -39,11 +40,11 @@
 // Child View Controllers
 #import "WMFArticleBrowserViewController.h"
 #import "WMFSettingsViewController.h"
-#import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFTitleListDataSource.h"
 #import "WMFArticleListTableViewController.h"
 #import "WMFRelatedSectionController.h"
 #import "UIViewController+WMFSearch.h"
+#import "UINavigationController+WMFHideEmptyToolbar.h"
 
 // Controllers
 #import "WMFRelatedSectionBlackList.h"
@@ -58,7 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 <WMFExploreSectionSchemaDelegate,
  UIViewControllerPreviewingDelegate,
  WMFAnalyticsContextProviding,
- WMFAnalyticsViewNameProviding>
+ WMFAnalyticsViewNameProviding,
+ UINavigationControllerDelegate>
 
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
@@ -69,9 +71,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
+@property (nonatomic, assign) NSUInteger numberOfFailedFetches;
 @property (nonatomic, assign) BOOL isWaitingForNetworkToReconnect;
+@property (nonatomic, assign) CGPoint preNetworkTroubleScrollPosition;
 
 @property (nonatomic, strong, nullable) id<WMFExploreSectionController> sectionOfPreviewingTitle;
+
+@property (nonatomic, strong, nullable) AFNetworkReachabilityManager* reachabilityManager;
+
 
 @end
 
@@ -84,6 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        self.preNetworkTroubleScrollPosition = CGPointZero;
         UIButton* b = [UIButton buttonWithType:UIButtonTypeCustom];
         [b adjustsImageWhenHighlighted];
         UIImage* w = [UIImage imageNamed:@"W"];
@@ -100,6 +108,8 @@ NS_ASSUME_NONNULL_BEGIN
         self.navigationItem.titleView.accessibilityTraits   |= UIAccessibilityTraitHeader;
         self.navigationItem.leftBarButtonItem                = [self settingsBarButtonItem];
         self.navigationItem.rightBarButtonItem               = [self wmf_searchBarButtonItem];
+        self.reachabilityManager                             = [AFNetworkReachabilityManager manager];
+        [self.reachabilityManager startMonitoring];
     }
     return self;
 }
@@ -186,8 +196,8 @@ NS_ASSUME_NONNULL_BEGIN
         [sum addIndex:(NSUInteger)obj.section];
         return sum;
     }];
-    
-    if([visibleSectionIndexes count] == 0){
+
+    if ([visibleSectionIndexes count] == 0) {
         return @[];
     }
 
@@ -223,7 +233,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showSettings {
     UINavigationController* settingsContainer =
         [[UINavigationController alloc] initWithRootViewController:
-         [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard]];
+         [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore]];
+    settingsContainer.delegate = self;
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
@@ -234,6 +245,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - UIViewController
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return [self wmf_orientationMaskPortraitiPhoneAnyiPad];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -269,8 +284,8 @@ NS_ASSUME_NONNULL_BEGIN
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(searchLanguageDidChangeWithNotification:)
-                                                 name:[NSUserDefaults WMFSearchLanguageDidChangeNotification]
+                                             selector:@selector(appLanguageDidChangeWithNotification:)
+                                                 name:WMFPreferredLanguagesDidChangeNotification
                                                object:nil];
 }
 
@@ -279,6 +294,8 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(self.recentPages);
     NSParameterAssert(self.savedPages);
     [super viewDidAppear:animated];
+
+    [self.reachabilityManager startMonitoring];
 
     if ([self wmf_isShowingEmptyView]) {
         return;
@@ -298,6 +315,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+
+    [self.reachabilityManager stopMonitoring];
+
     // stop location manager from updating.
     [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull obj) {
         if ([obj respondsToSelector:@selector(didEndDisplayingSection)]) {
@@ -358,9 +378,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self sendWillDisplayToVisibleSectionControllers];
 }
 
-- (void)searchLanguageDidChangeWithNotification:(NSNotification*)note {
+- (void)appLanguageDidChangeWithNotification:(NSNotification*)note {
     [self createSectionSchemaIfNeeded];
-    [self.schemaManager updateSite:[[NSUserDefaults standardUserDefaults] wmf_appSite]];
+    [self.schemaManager updateSite:[[[MWKLanguageLinkController sharedInstance] appLanguage] site]];
 }
 
 - (void)tweaksDidChangeWithNotification:(NSNotification*)note {
@@ -375,29 +395,50 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.isWaitingForNetworkToReconnect = YES;
+    if (self.reachabilityManager.networkReachabilityStatus != AFNetworkReachabilityStatusNotReachable) {
+        return;
+    }
+
+    if (self.numberOfFailedFetches < 3) {
+        self.numberOfFailedFetches++;
+        return;
+    }
+
+    self.preNetworkTroubleScrollPosition = self.tableView.contentOffset;
+    self.isWaitingForNetworkToReconnect  = YES;
     [self.refreshControl endRefreshing];
     [self.tableView reloadData];
 
     [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
     @weakify(self);
-    SCNetworkReachability().then(^{
-        @strongify(self);
-        self.isWaitingForNetworkToReconnect = NO;
-        [self.tableView reloadData];
-        [self wmf_hideEmptyView];
-
-        [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController>  _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-            @weakify(self);
-            [obj resetData];
-            [obj fetchDataIfError].catch(^(NSError* error){
+    [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            case AFNetworkReachabilityStatusReachableViaWiFi: {
                 @strongify(self);
-                if ([error wmf_isNetworkConnectionError]) {
-                    [self showOfflineEmptyViewAndReloadWhenReachable];
-                }
-            });
-        }];
-    });
+                self.numberOfFailedFetches = 0;
+                self.isWaitingForNetworkToReconnect = NO;
+                [self.tableView reloadData];
+                [self.tableView setContentOffset:self.preNetworkTroubleScrollPosition animated:NO];
+                self.preNetworkTroubleScrollPosition = CGPointZero;
+                [self wmf_hideEmptyView];
+
+                [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController>  _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+                    @weakify(self);
+                    [obj resetData];
+                    [obj fetchDataIfError].catch(^(NSError* error){
+                        @strongify(self);
+                        if ([error wmf_isNetworkConnectionError]) {
+                            [self showOfflineEmptyViewAndReloadWhenReachable];
+                        }
+                    });
+                }];
+            }
+            break;
+            default:
+                break;
+        }
+    }];
 }
 
 #pragma mark - UITableViewDatasource
@@ -452,7 +493,7 @@ NS_ASSUME_NONNULL_BEGIN
     header.subTitle = subTitle;
 }
 
-- (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section; {
+- (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:section];
     if (!controller) {
         return nil;
@@ -475,7 +516,14 @@ NS_ASSUME_NONNULL_BEGIN
         @weakify(controller);
         [header.rightButton bk_addEventHandler:^(id sender) {
             @strongify(controller);
-            [[(id < WMFHeaderMenuProviding >)controller menuActionSheet] showFromTabBar:self.navigationController.tabBarController.tabBar];
+            @strongify(self);
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                CGRect frame = ((UIButton*)sender).frame;
+                frame.origin.y = 0.f;
+                [[(id < WMFHeaderMenuProviding >)controller menuActionSheet] showFromRect:frame inView:((UIButton*)sender).superview animated:YES];
+            } else {
+                [[(id < WMFHeaderMenuProviding >)controller menuActionSheet] showFromTabBar:self.navigationController.tabBarController.tabBar];
+            }
         } forControlEvents:UIControlEventTouchUpInside];
     } else if ([controller conformsToProtocol:@protocol(WMFHeaderActionProviding)]) {
         header.rightButtonEnabled = YES;
@@ -640,7 +688,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.schemaManager = [WMFExploreSectionSchema schemaWithSite:[[NSUserDefaults standardUserDefaults] wmf_appSite]
+    self.schemaManager = [WMFExploreSectionSchema schemaWithSite:[[[MWKLanguageLinkController sharedInstance] appLanguage] site]
                                                       savedPages:self.savedPages
                                                          history:self.recentPages
                                                        blackList:[WMFRelatedSectionBlackList sharedBlackList]];
@@ -831,6 +879,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)analyticsName {
     return [self analyticsContext];
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController*)navigationController
+      willShowViewController:(UIViewController*)viewController
+                    animated:(BOOL)animated {
+    [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
 }
 
 @end

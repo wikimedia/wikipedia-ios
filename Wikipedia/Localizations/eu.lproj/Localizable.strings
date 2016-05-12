@@ -6,7 +6,7 @@
 // Author: Sator
 // Author: Subi
 
-"languages-title" = "Hizkuntzak";
+"languages-title" = "Hizkuntza aldatu";
 "article-languages-label" = "Hizkuntza aukeratu";
 "article-languages-cancel" = "Utzi";
 "article-languages-downloading" = "Artikuluaren hizkuntzak kargatzen...";
@@ -16,6 +16,8 @@
 "article-about-title" = "Artikulu honi buruz";
 "article-unable-to-load-article" = "Ezin da artikulua kargatu.";
 "article-related-articles-title" = "Lotutako artikuluak";
+"article-languages-yours" = "Zure hizkuntzak";
+"article-languages-others" = "Beste hizkuntzak";
 "info-box-title" = "Datu azkarrak";
 "info-box-close-text" = "Itxi";
 "table-title-other" = "Informazio gehiago";
@@ -88,6 +90,7 @@
 // Fuzzy
 "main-menu-account-login" = "Saioa hasi";
 "main-menu-account-logout" = "Saioa itxi";
+"main-menu-account-logout-cancel" = "Utzi";
 "main-menu-show-title" = "Erakutsi gehiago...";
 "main-menu-show-history" = "Berriak";
 "main-menu-show-saved" = "Gordetako orrialdeak";
@@ -204,8 +207,7 @@
 "hockeyapp-alert-privacy" = "$1 pribatutasuna";
 "page-issues" = "Orriaren arazoak";
 "page-similar-titles" = "Antzeko orriak";
-// Fuzzy
-"page-read-in-other-languages" = "Irakurri $1 hizkuntzatan";
+"page-read-in-other-languages" = "Irakurgarri beste $1 hizkuntzatan";
 "captcha-reload" = "Erakutsi beste captcha bat";
 "home-title" = "Esploratu";
 "home-continue-reading-heading" = "Irakurtzen jarraitu";
@@ -213,6 +215,7 @@
 "home-nearby-nothing" = "Ezer ez gertu";
 "home-nearby-check-again" = "Egiaztatu berriro";
 "home-main-page-heading" = "Gaur Wikipedian";
+"home-last-update-label" = "Azken eguneratzea:$1";
 // Fuzzy
 "welcome-languages-title" = "Aukeratu zure hizkuntza";
 "empty-no-feed-title" = "Internet Konexiorik Ez";

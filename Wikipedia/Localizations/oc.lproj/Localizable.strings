@@ -3,6 +3,7 @@
 // Author: Cedric31
 // Author: Macofe
 
+// Fuzzy
 "languages-title" = "Lengas";
 "article-languages-label" = "Causir una lenga";
 "article-languages-cancel" = "Anullar";
@@ -145,6 +146,7 @@
 "about-libraries-license" = "Licéncia";
 "about-repositories" = "Referencials";
 "about-send-feedback" = "Mandar un comentari sus l’aplicacion";
+// Fuzzy
 "about-product-of" = "Un produch de la $1";
 "about-wikimedia-foundation" = "Fondacion Wikimèdia";
 "share-menu-save-page" = "Enregistrar la pagina";

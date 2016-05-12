@@ -4,10 +4,11 @@
 
 //Networking
 #import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFSearchResponseSerializer.h"
 #import <Mantle/Mantle.h>
 #import "UIScreen+WMFImageWidth.h"
+#import "WMFBaseRequestSerializer.h"
 
 //Promises
 #import "Wikipedia-Swift.h"
@@ -27,14 +28,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSUInteger numberOfResults;
 @end
 
-@interface WMFLocationSearchRequestSerializer : AFHTTPRequestSerializer
+@interface WMFLocationSearchRequestSerializer : WMFBaseRequestSerializer
 @end
 
 #pragma mark - Fetcher Implementation
 
 @interface WMFLocationSearchFetcher ()
 
-@property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
 
 @end
 
@@ -43,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init {
     self = [super init];
     if (self) {
-        AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+        AFHTTPSessionManager* manager = [AFHTTPSessionManager wmf_createDefaultManager];
         manager.requestSerializer = [WMFLocationSearchRequestSerializer serializer];
         WMFSearchResponseSerializer* serializer = [WMFSearchResponseSerializer serializer];
         serializer.searchResultClass = [MWKLocationSearchResult class];
@@ -89,12 +90,13 @@ NS_ASSUME_NONNULL_BEGIN
 
     return [self.operationManager GET:url.absoluteString
                            parameters:params
-                              success:^(AFHTTPRequestOperation* operation, id response) {
+                             progress:NULL
+                              success:^(NSURLSessionDataTask* operation, id response) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
         WMFLocationSearchResults* results = [[WMFLocationSearchResults alloc] initWithSite:site location:location results:response];
         resolve(results);
     }
-                              failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+                              failure:^(NSURLSessionDataTask* operation, NSError* error) {
         if ([url isEqual:[site mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
             [self fetchNearbyArticlesWithSite:site
                                      location:location

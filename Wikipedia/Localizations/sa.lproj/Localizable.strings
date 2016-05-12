@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: NehalDaveND
 
+// Fuzzy
 "languages-title" = "भाषाः";
 "article-languages-label" = "भाषां चिनोतु";
 "article-languages-cancel" = "निरस्यताम्";
@@ -199,6 +200,7 @@
 // Fuzzy
 "about-repositories" = "भण्डाराः";
 "about-send-feedback" = "अनुप्रयोगप्रतिक्रियां प्रेषयतु";
+// Fuzzy
 "about-product-of" = "$1 इत्यस्य प्रकाशनम्";
 "about-wikimedia-foundation" = "विकिमीडिया फाउण्डेशन्";
 "share-menu-save-page" = "पृष्ठं रक्ष्यताम्";
@@ -233,6 +235,7 @@
 "page_protected_other" = "$1 स्तरं यावत् एतत् पृष्ठं संरक्षितम् अस्ति ।";
 "page_protected_can_not_edit" = "एतस्मिन् पृष्ठे सम्पादनं कर्तुं भवतः/भवत्याः पार्श्वे अधिकाराः न सन्ति ।";
 "page_protected_can_not_edit_title" = "एतत् पृष्ठं संरक्षितचरम् अस्ति";
+// Fuzzy
 "license-footer-text" = "$1 अन्तर्गतम् अन्तर्विषयः उपलब्धः अस्ति";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "अन्तर्विषयाः";
@@ -296,5 +299,6 @@
 "page-issues" = "पृष्ठस्य समस्याः";
 "page-similar-titles" = "समानपृष्ठानि";
 "captcha-reload" = "अन्यत् संभेपूस्वसाट्यूप प्रदर्शयतु";
+// Fuzzy
 "captcha-prompt" = "उक्तचित्रात् संभेपूस्वसाट्यूप-पाठं लिखतु";
 "mwk-empty-title-error" = "रिक्तशिर्षकेन एषा प्रकिया भवितुं नार्हति ।";

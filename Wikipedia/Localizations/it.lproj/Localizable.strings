@@ -21,7 +21,7 @@
 // Author: Statix64
 // Author: SuperVirtual
 
-"languages-title" = "Lingue";
+"languages-title" = "Cambia lingua";
 "article-languages-label" = "Scegli la lingua";
 "article-languages-cancel" = "Annulla";
 "article-languages-downloading" = "Caricamento delle lingue in cui è disponibile la voce...";
@@ -31,6 +31,8 @@
 "article-unable-to-load-section" = "Impossibile caricare questa sezione. Prova ad aggiornare l'articolo per vedere se si risolve il problema.";
 "article-unable-to-load-article" = "Impossibile caricare questa pagina.";
 "article-related-articles-title" = "Voci correlate";
+"article-languages-yours" = "Le tue lingue";
+"article-languages-others" = "Altre lingue";
 "info-box-title" = "Fatti in breve";
 "info-box-close-text" = "Chiudi";
 "table-title-other" = "Ulteriori informazioni";
@@ -122,6 +124,7 @@
 "settings-language" = "Lingua di Wikipedia";
 "settings-support" = "Sostieni Wikipedia";
 "settings-language-bar" = "Mostra lingue nella ricerca";
+"settings-my-languages" = "Le mie lingue";
 "main-menu-title" = "Altro";
 "main-menu-heading-about" = "Informazioni";
 "main-menu-language-title" = "Cerca nel wiki in lingua $1";
@@ -222,7 +225,7 @@
 "about-repositories-app-source-license" = "Codice sorgente disponibile in base alla $1.";
 "about-repositories-app-source-license-mit" = "Licenza MIT";
 "about-send-feedback" = "Invia commento sull'app";
-"about-product-of" = "Un prodotto di $1";
+"about-product-of" = "Realizzato da $1, con l'aiuto di volontari come te";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Salva la pagina";
 "share-menu-page-saved" = "Salvata per la lettura offline.";
@@ -243,6 +246,7 @@
 "timestamp-years" = "%d anni fa";
 "lastmodified-by-user" = "Modificato $1 da $2";
 "lastmodified-by-anon" = "Modificata $1 da un utente anonimo";
+"button-edit" = "Modifica";
 "button-next" = "Successivo";
 "button-done" = "Fatto";
 "button-save" = "Salva";
@@ -261,7 +265,7 @@
 "page_protected_other" = "Questa pagina è stata protetta ai seguenti livelli: $1";
 "page_protected_can_not_edit" = "Non hai i diritti per modificare questa pagina";
 "page_protected_can_not_edit_title" = "Questa pagina è protetta";
-"license-footer-text" = "Il contenuto è disponibile in base alla licenza $1";
+"license-footer-text" = "Il contenuto è disponibile in base alla licenza $1, se non diversamente specificato.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contenuti";
 "table-of-contents-button-label" = "Sommario";
@@ -326,11 +330,11 @@
 "hockeyapp-alert-privacy" = "Privacy $1";
 "page-issues" = "Problemi alla pagina";
 "page-similar-titles" = "Pagine simili";
-"page-read-in-other-languages" = "Disponibile in $1 lingue";
+"page-read-in-other-languages" = "Disponibile in altre $1 lingue";
 "page-last-edited" = "Modificata $1 giorni fa";
 "page-edit-history" = "Cronologia completa";
 "captcha-reload" = "Mostra un altro captcha";
-"captcha-prompt" = "Inserisci il testo captcha dall'immagine sopra";
+"captcha-prompt" = "Inserisci il testo CAPTCHA";
 "mwk-empty-title-error" = "Impossibile eseguire l'operazione con un titolo vuoto.";
 "home-title" = "Esplora";
 "home-empty-section" = "Nessun risultato";
@@ -365,7 +369,8 @@
 "welcome-explore-continue-button" = "Inizia";
 "welcome-languages-title" = "Lingue";
 "welcome-languages-sub-title" = "Scegli la tua lingua preferita per la ricerca su Wikipedia";
-"welcome-languages-add-button" = "+ Aggiungi un'altra";
+// Fuzzy
+"welcome-languages-add-button" = "Aggiungi un'altra";
 "welcome-languages-continue-button" = "Continua";
 "welcome-volunteer-title" = "Volontario";
 "welcome-volunteer-sub-title" = "Aiutaci a migliorare l'applicazione Wikipedia condividendo come la utilizzi";
@@ -399,5 +404,7 @@
 "explore-potd-heading" = "Immagine del giorno";
 "explore-most-read-heading" = "Più letti nella Wikipedia in $1";
 "explore-most-read-footer" = "Tutte le voci più lette";
-// Fuzzy
-"explore-most-read-more-list-title" = "Voci più lette";
+"explore-most-read-footer-for-date" = "Tutte le voci più lette il $1";
+"explore-most-read-more-list-title" = "Voci migliori";
+"explore-most-read-more-list-title-for-date" = "Voci migliori il $1";
+"no-email-account-alert" = "Configura un account di posta elettronica sul tuo dispositivo e riprova.";

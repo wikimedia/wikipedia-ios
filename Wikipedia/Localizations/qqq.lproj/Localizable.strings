@@ -23,6 +23,8 @@
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
 "article-unable-to-load-article" = "Alert text shown when unable to load an article";
 "article-related-articles-title" = "The title shown above article titles related to the current article.";
+"article-languages-yours" = "Title for list of user's preferred languages";
+"article-languages-others" = "Title for list of languages not in user's preferred languages";
 "info-box-title" = "The title of info boxes - in collapsed and expanded form";
 "info-box-close-text" = "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}";
 "table-title-other" = "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}";
@@ -114,6 +116,10 @@
 "settings-language" = "Title for button letting user choose primary language Wikipedia for the app.";
 "settings-support" = "Title for button letting user make a donation.";
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
+"settings-my-languages" = "Title for list of user's preferred languages";
+"settings-help-and-feedback" = "Title for showing showing a screen that displays the FAQ and allows users to submit bug reports";
+"settings-primary-language" = "Label shown next to primary language";
+"settings-primary-language-details" = "Explanation of how the first preferred language is used";
 "main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
 "main-menu-heading-about" = "'More' menu section heading for items about the app (e.g. privacy, terms, FAQ).";
 "main-menu-language-title" = "Header text for default search language selection. Parameters:\n* $1 - language domain name";
@@ -199,7 +205,7 @@
 "about-wikipedia" = "Wikipedia\n{{Identical|Wikipedia}}";
 "about-contributors" = "Header text for contributors section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.\n{{Identical|Contributor}}";
 "about-testers" = "Header text for (software) testers section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.";
-"about-testers-details" = "Description of the QA testers. $1 is specialistsguild.org, the website of the testing group.";
+"about-testers-details" = "Description of the Quality Assurance (QA) testers. $1 is specialistsguild.org, the website of the testing group.";
 "about-translators" = "Header text for translators section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.\n{{Identical|Translator}}";
 "about-translators-details" = "Description of volunteer translation. $1 is translatewiki url.";
 "about-libraries" = "Header text for libraries section (as in a collection of subprograms used to develop software) of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.";
@@ -235,11 +241,13 @@
 "timestamp-years" = "Human-readable approximate timestamp for events in the distant past, expressed as years";
 "lastmodified-by-user" = "Marker at page end for who last modified the page.\n* $1 is a relative date such as '2 months ago' or 'today',\n* $2 is a username.";
 "lastmodified-by-anon" = "Marker at page end for who last modified the page when anonymous. $1 is a relative date such as '2 months ago' or 'today'.";
+"button-edit" = "Button text for edit button used in various places.\n{{Identical|Edit}}";
 "button-next" = "Button text for next button used in various places.\n{{Identical|Next}}";
 "button-done" = "Button text for done button used in various places.\n{{Identical|Done}}";
 "button-save" = "Button text for save button used in various places.\n{{Identical|Save}}";
 "button-save-for-later" = "Longer button text for save button used in various places.";
 "button-saved-for-later" = "Longer button text for already saved button used in various places.";
+"button-report-a-bug" = "Button text for reporting a bug";
 "onboarding-create-account" = "Button text prompting first time users to create an account";
 "onboarding-login" = "{{Identical|Log in}}";
 "onboarding-already-have-account" = "Button text prompting first time users to log in to existing account. Parameters:\n* $1 - login button text";
@@ -337,8 +345,8 @@
 "home-featured-article-heading" = "Heading above today's featured article. $1 will be replaced with today's date.";
 "home-main-page-heading" = "Heading above Main page.";
 "home-potd-heading" = "Heading above the Wikimedia Commons Picture of the Day. $1 will be replaced with the date for the picture of the day.";
-"home-last-update-label" = "Label that appears before the last updated time of the explore feed";
-"home-last-update-never-label" = "Label that appears when the explore feed has never been updated";
+"home-last-update-label" = "Label that appears before the last updated time of the explore feed\n{{Identical|Last updated}}";
+"home-last-update-never-label" = "Label that appears when the explore feed has never been updated\n{{Identical|Last updated}}";
 "home-updating-label" = "Label that appears when a user is updating the explore feed to inform the user that an update is in progress";
 "home-hide-suggestion-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
 "home-hide-suggestion-cancel" = "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}";
@@ -395,4 +403,3 @@
 "explore-most-read-more-list-title" = "Title for the view displaying longer list of top read articles.";
 "explore-most-read-more-list-title-for-date" = "Title with date for the view displaying longer list of top read articles. $1 will be substituted with the date";
 "no-email-account-alert" = "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device";
-

@@ -32,7 +32,6 @@
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "UIColor+WMFHexColor.h"
 
-#import "WMFArticleImageProtocol.h"
 #import "WMFURLCache.h"
 
 #import "MWKHistoryEntry.h"

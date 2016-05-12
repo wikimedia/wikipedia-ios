@@ -26,9 +26,13 @@
     return [self.pathExtension wmf_asMIMEType];
 }
 
+- (BOOL)wmf_isSchemeless {
+    return self.scheme.length == 0;
+}
+
 - (instancetype)wmf_urlByPrependingSchemeIfSchemeless:(NSString*)scheme {
     NSParameterAssert(scheme.length);
-    if (self.scheme.length) {
+    if (![self wmf_isSchemeless]) {
         return self;
     } else {
         NSURLComponents* components = [[NSURLComponents alloc] initWithURL:self resolvingAgainstBaseURL:YES];

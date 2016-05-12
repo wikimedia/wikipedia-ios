@@ -5,6 +5,7 @@
 // Author: Kurniasan
 // Author: Macofe
 
+// Fuzzy
 "languages-title" = "Bahasa";
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batalkan";
@@ -200,6 +201,7 @@
 "about-libraries-license" = "Lesen";
 "about-repositories" = "Repositori";
 "about-send-feedback" = "Hantar maklum balas aplikasi";
+// Fuzzy
 "about-product-of" = "Keluaran $1";
 "about-wikimedia-foundation" = "Yayasan Wikimedia";
 "share-menu-save-page" = "Simpan Rencana";
@@ -234,6 +236,7 @@
 "page_protected_other" = "Laman ini dilindungi kepada tahap-tahap berikut: $1";
 "page_protected_can_not_edit" = "Anda tidak mempunyai izin untuk menyunting laman ini";
 "page_protected_can_not_edit_title" = "Halaman ini dilindungi";
+// Fuzzy
 "license-footer-text" = "Kandungan disediakan dengan $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Kandungan";
@@ -297,5 +300,6 @@
 "page-issues" = "Isu-isu laman";
 "page-similar-titles" = "Laman-laman serupa";
 "captcha-reload" = "Tunjukkan captcha lain";
+// Fuzzy
 "captcha-prompt" = "Taipkan teks captcha dari imej di atas";
 "mwk-empty-title-error" = "Tidak dapat melakukan operasi dengan judul yang kosong.";

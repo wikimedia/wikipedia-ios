@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Olsi
 
+// Fuzzy
 "languages-title" = "Gjuhët";
 "article-languages-label" = "Zgjidhni gjuhën";
 "article-languages-cancel" = "Anulo";
@@ -239,4 +240,5 @@
 "image-gallery-fetch-image-info-error-ok" = "Në rregull";
 "page-similar-titles" = "Faqe të ngjashme";
 "captcha-reload" = "Trego një captcha tjetër";
+// Fuzzy
 "captcha-prompt" = "Fusni tekstin CAPTCHA nga imazhi lart";

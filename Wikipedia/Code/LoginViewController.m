@@ -22,6 +22,9 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
+#import "AFHTTPSessionManager+WMFCancelAll.h"
+#import "MWKLanguageLinkController.h"
+
 
 @interface LoginViewController (){
 }
@@ -55,7 +58,7 @@
     }];
     self.navigationItem.leftBarButtonItems = @[xButton];
 
-    self.doneButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-done", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
+    self.doneButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"main-menu-account-login", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
         @strongify(self)
         [self save];
     }];
@@ -276,24 +279,13 @@
     self.successBlock = (!successBlock) ? ^(){} : successBlock;
     self.failBlock = (!failBlock) ? ^(){} : failBlock;
 
-    /*
-       void (^printCookies)() =  ^void(){
-        NSLog(@"\n\n\n\n\n\n\n\n\n\n");
-        for (NSHTTPCookie *cookie in [NSHTTPCookieStorage sharedHTTPCookieStorage].cookies) {
-            NSLog(@"cookies = %@", cookie.properties);
-        }
-        NSLog(@"\n\n\n\n\n\n\n\n\n\n");
-       };
-     */
-
-    //[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-
-    [[QueuesSingleton sharedInstance].loginFetchManager.operationQueue cancelAllOperations];
-    (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
-                                                       userName:userName
-                                                       password:password
-                                                    withManager:[QueuesSingleton sharedInstance].loginFetchManager
-                                             thenNotifyDelegate:self];
+    [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
+        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
+                                                           userName:userName
+                                                           password:password
+                                                        withManager:[QueuesSingleton sharedInstance].loginFetchManager
+                                                 thenNotifyDelegate:self];
+    }];
 }
 
 - (void)cloneSessionCookies {
@@ -302,7 +294,7 @@
     // long as we can to lessen number of server requests. Uses user tokens as templates for copying
     // session tokens. See "recreateCookie:usingCookieAsTemplate:" for details.
 
-    NSString* domain = [SessionSingleton sharedInstance].currentArticleSite.language;
+    NSString* domain = [[MWKLanguageLinkController sharedInstance] appLanguage].languageCode;
 
     NSString* cookie1Name = [NSString stringWithFormat:@"%@wikiSession", domain];
     NSString* cookie2Name = [NSString stringWithFormat:@"%@wikiUserID", domain];

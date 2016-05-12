@@ -1,8 +1,8 @@
 
 #import "WMFRandomArticleFetcher.h"
 #import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
-#import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
+#import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "WMFApiJsonResponseSerializer.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFNumberOfExtractCharacters.h"
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFRandomArticleFetcher ()
 
 @property (nonatomic, strong) MWKSite* site;
-@property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
 
 @end
 
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init {
     self = [super init];
     if (self) {
-        AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+        AFHTTPSessionManager* manager = [AFHTTPSessionManager wmf_createDefaultManager];
         manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class]
                                                                                                 fromKeypath:@"query.pages"];
         self.operationManager = manager;
@@ -49,13 +49,13 @@ NS_ASSUME_NONNULL_BEGIN
         [self.operationManager wmf_GETWithSite:site
                                     parameters:params
                                          retry:NULL
-                                       success:^(AFHTTPRequestOperation* operation, NSArray* responseObject) {
+                                       success:^(NSURLSessionDataTask* operation, NSArray* responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
             MWKSearchResult* article = [self getBestRandomResultFromResults:responseObject];
 
             resolve(article);
-        } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+        } failure:^(NSURLSessionDataTask* operation, NSError* error) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve(error);
         }];
@@ -66,14 +66,15 @@ NS_ASSUME_NONNULL_BEGIN
     //Sort so random results with good extracts and images come first and disambiguation pages come last.
     NSSortDescriptor* extractSorter  = [[NSSortDescriptor alloc] initWithKey:@"extract.length" ascending:NO];
     NSSortDescriptor* descripSorter  = [[NSSortDescriptor alloc] initWithKey:@"wikidataDescription" ascending:NO];
-    NSSortDescriptor* thumbSorter    = [[NSSortDescriptor alloc] initWithKey:@"thumbnailURL" ascending:NO];
+    NSSortDescriptor* thumbSorter    = [[NSSortDescriptor alloc] initWithKey:@"thumbnailURL.absoluteString" ascending:NO];
     NSSortDescriptor* disambigSorter = [[NSSortDescriptor alloc] initWithKey:@"isDisambiguation" ascending:YES];
     NSSortDescriptor* listSorter     = [[NSSortDescriptor alloc] initWithKey:@"isList" ascending:YES];
-    results = [results sortedArrayUsingDescriptors:@[disambigSorter, listSorter, extractSorter, thumbSorter, descripSorter]];
+    results = [results sortedArrayUsingDescriptors:@[disambigSorter, listSorter, thumbSorter, descripSorter, extractSorter]];
     return [results firstObject];
 }
 
 + (NSDictionary*)params {
+    NSNumber* numberOfRandomItemsToFetch = @8;
     return @{
                @"action": @"query",
                @"prop": @"extracts|pageterms|pageimages|pageprops",
@@ -81,10 +82,10 @@ NS_ASSUME_NONNULL_BEGIN
                @"generator": @"random",
                @"grnnamespace": @0,
                @"grnfilterredir": @"nonredirects",
-               @"grnlimit": @"8",
+               @"grnlimit": numberOfRandomItemsToFetch,
                // extracts
                @"exintro": @YES,
-               @"exlimit": @"1",
+               @"exlimit": numberOfRandomItemsToFetch,
                @"explaintext": @"",
                @"exchars": @(WMFNumberOfExtractCharacters),
                // pageterms
@@ -92,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
                // pageimage
                @"piprop": @"thumbnail",
                @"pithumbsize": [[UIScreen mainScreen] wmf_leadImageWidthForScale],
-               @"pilimit": @"1",
+               @"pilimit": numberOfRandomItemsToFetch,
                @"format": @"json",
     };
 }

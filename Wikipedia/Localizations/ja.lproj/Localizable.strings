@@ -5,25 +5,29 @@
 // Author: Fryed-peach
 // Author: Kanon und wikipedia
 // Author: Los688
+// Author: Macofe
 // Author: Otokoume
+// Author: Ridmevo
 // Author: Shirayuki
 // Author: SkyDaisy9
 // Author: Sujiniku
 // Author: Surgical21
 // Author: Takot
+// Author: Thibaut120094
 // Author: 아라
 
-"languages-title" = "言語";
+"languages-title" = "言語を変更";
 "article-languages-label" = "言語を選択";
 "article-languages-cancel" = "中止";
 "article-languages-downloading" = "言語リストを取得中...";
-// Fuzzy
 "article-languages-filter-placeholder" = "言語の絞り込み";
 "article-read-more-title" = "さらに読む";
 "article-about-title" = "この記事について";
 "article-unable-to-load-section" = "この節を読み込むことができません。問題が解決するかどうかの確認のために記事を更新してみてください。";
 "article-unable-to-load-article" = "記事を読み込むことができません。";
 "article-related-articles-title" = "関連記事";
+"article-languages-yours" = "あなたの言語";
+"article-languages-others" = "他の言語で読む";
 "info-box-title" = "基本データ";
 "info-box-close-text" = "閉じる";
 "table-title-other" = "さらに見る";
@@ -113,7 +117,9 @@
 "search-result-redirected-from" = "$1 から転送されました";
 "settings-title" = "設定";
 "settings-language" = "ウィキペディアの言語";
+"settings-support" = "ウィキペディアを支援する";
 "settings-language-bar" = "検索結果に表示する言語";
+"settings-my-languages" = "お使いになる言語";
 "main-menu-title" = "その他";
 "main-menu-heading-about" = "このアプリについて";
 "main-menu-language-title" = "$1版ウィキペディア内を検索";
@@ -125,6 +131,7 @@
 "main-menu-account-title-logged-in" = "$1 としてログインしています。";
 "main-menu-account-login" = "ログイン";
 "main-menu-account-logout" = "ログアウト";
+"main-menu-account-logout-are-you-sure" = "本当にログアウトしますか?";
 "main-menu-account-logout-cancel" = "キャンセル";
 "main-menu-show-title" = "表示...";
 "main-menu-show-history" = "最近閲覧した記事";
@@ -132,7 +139,6 @@
 "main-menu-current-article-save" = "$1 をオフラインで読むために保存する";
 "main-menu-random" = "おまかせ表示";
 "main-menu-feedback-heading" = "フィードバック";
-// Fuzzy
 "main-menu-send-feedback" = "アプリのフィードバックを送る";
 "main-menu-show-page-history" = "$1 の変更履歴";
 "main-menu-credits" = "クレジット";
@@ -205,14 +211,23 @@
 "about-libraries" = "使用ライブラリについて";
 "about-libraries-license" = "ライセンス";
 "about-libraries-licenses" = "ライセンス";
+"about-content-license" = "コンテンツのライセンス";
+"about-content-license-details" = "特記なき場合、コンテンツは $1 で利用可能です";
+"about-content-license-details-share-alike-license" = "クリエイティブ・コモンズ 表示-継承 (CC BY-SA)";
+"about-libraries-licenses-title" = "オープンソースソフトウェアを愛してます $1";
+"about-libraries-complete-list" = "完全なリスト";
 "about-repositories" = "リポジトリについて";
+"about-repositories-app-source-license" = "ソースコードは $1 で利用可能です。";
+"about-repositories-app-source-license-mit" = "MITライセンス";
 "about-send-feedback" = "フィードバックを送信";
-"about-product-of" = "$1の製品について";
+"about-product-of" = "あなたのようなボランティアの手助けのもと、$1 によって作られました";
 "about-wikimedia-foundation" = "ウィキメディア財団";
 "share-menu-save-page" = "ページを保存";
 "share-menu-page-saved" = "記事を保存しました";
 "share-menu-page-saved-access" = "ヒント: 保存したページにアクセスするには、上部の$1をタップするか、下部の$2を長押しします。";
 "share-custom-menu-item" = "共有";
+"share-a-fact-share-menu-item" = "引用してシェア";
+"share-on-twitter-sign-off" = "@Wikipedia から";
 "share-article-name-on-wikipedia" = "「$1」の記事を @Wikipedia で読む";
 "share-article-name-on-wikipedia-with-selected-text" = "「$2」(@Wikipedia の記事「$1」より)";
 "share-as-image" = "画像を共有";
@@ -226,6 +241,7 @@
 "timestamp-years" = "%d年前";
 "lastmodified-by-user" = "$1に $2 が編集";
 "lastmodified-by-anon" = "$1に匿名利用者が編集";
+"button-edit" = "編集";
 "button-next" = "次へ";
 "button-done" = "完了";
 "button-save" = "保存";
@@ -244,7 +260,7 @@
 "page_protected_other" = "このページは、次のレベルに保護されています:$1";
 "page_protected_can_not_edit" = "このページを編集する権限がありません";
 "page_protected_can_not_edit_title" = "このページは保護されています";
-"license-footer-text" = "コンテンツは$1の利用条件のもとで利用できます";
+"license-footer-text" = "特に記載がない限り、内容は$1のライセンスで利用できます。";
 "license-footer-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
 "table-of-contents-heading" = "目次";
 "table-of-contents-button-label" = "目次";
@@ -322,6 +338,7 @@
 "home-continue-related-heading" = "$1 も読まれています";
 "home-more-like-footer" = "$1 なども読まれています";
 "home-nearby-footer" = "付近の記事";
+"home-nearby-location-footer" = "$1 付近についてもっと詳しく";
 "home-nearby-nothing" = "付近の記事はありません";
 "home-nearby-check-again" = "もう一度確認する";
 "home-featured-article-heading" = "$1日の秀逸な記事";
@@ -330,26 +347,33 @@
 "home-last-update-label" = "最終更新: $1";
 "home-last-update-never-label" = "最終更新: なし";
 "home-updating-label" = "更新しています...";
+"home-hide-suggestion-prompt" = "提案を隠す";
 "home-hide-suggestion-cancel" = "中止";
+"home-accessibility-label" = "探求";
 "home-button-accessibility-label" = "ホームボタン";
 "potd-empty-error-description" = "$1日の写真の取得に失敗しました";
 "potd-description-prefix" = "$1日の写真";
 "welcome-explore-title" = "探してみよう";
+"welcome-explore-sub-title" = "面白い記事を毎日見つけよう";
 "welcome-explore-tell-me-more" = "もっと詳しく";
 "welcome-explore-tell-me-more-about-explore" = "「探してみよう」について";
+"welcome-explore-tell-me-more-details" = "記事を読むと、関連する記事が自動的に「探求」フィードに追加されます。これを有効にしても、アプリの情報収集方法には変わりありません。あなたの閲覧履歴は秘密のままです。";
+"welcome-explore-tell-me-more-related" = "「探求」フィードでは、あなたが読んだ記事に関連する記事が表示されます。";
+"welcome-explore-tell-me-more-privacy" = "あとで読むリストやプロフィールは、ウィキメディア財団のサーバーには保存されません。";
 "welcome-explore-tell-me-more-done-button" = "わかりました";
 "welcome-explore-continue-button" = "次へ";
 "welcome-languages-title" = "言語";
 "welcome-languages-sub-title" = "ウィキペディアでの検索に使用する言語を選択してください";
-"welcome-languages-add-button" = "+ 言語を追加";
+// Fuzzy
+"welcome-languages-add-button" = "言語を追加";
 "welcome-languages-continue-button" = "次へ";
 "welcome-volunteer-title" = "ボランティア";
+"welcome-volunteer-sub-title" = "使用状況を送信することでウィキペディアアプリが改善されます";
 "welcome-volunteer-send-usage-reports" = "利用状況レポートを送信";
 "welcome-volunteer-continue-button" = "次へ";
 "welcome-volunteer-thanks" = "$1 ありがとうございます!";
 "empty-no-feed-title" = "インターネットが接続されていません";
 "empty-no-feed-message" = "インターネットに接続しているときに、おすすめの記事を見ることができます";
-// Fuzzy
 "empty-no-feed-action-message" = "保存したページを読むことができます";
 "empty-no-article-message" = "申し訳ありませんが、記事を読み込むことができませんでした";
 "empty-no-search-results-message" = "申し訳ありませんが、該当するものはありません。";
@@ -361,13 +385,21 @@
 "icon-shortcut-search-title" = "ウィキペディア内を検索";
 "icon-shortcut-continue-reading-title" = "続けて読む";
 "icon-shortcut-random-title" = "おまかせ記事";
+"icon-shortcut-nearby-title" = "付近についての記事";
 "close-button-accessibility-label" = "閉じる";
 "back-button-accessibility-label" = "戻る";
 "compass-direction" = "$1時の位置";
 "explore-featured-article-heading" = "秀逸な記事";
 "explore-continue-reading-heading" = "続けて読む";
+"explore-nearby-heading" = "近くのスポット";
 "explore-continue-related-heading" = "こんな記事も読まれています";
 "explore-main-page-heading" = "今日についての記事";
 "explore-random-article-heading" = "おまかせ記事";
 "explore-random-article-sub-heading" = "英語版ウィキペディア";
 "explore-potd-heading" = "今日の一枚";
+"explore-most-read-heading" = "$1 版ウィキペディアでよく読まれている記事";
+"explore-most-read-footer" = "よく読まれている記事すべて";
+"explore-most-read-footer-for-date" = "$1 によく読まれている記事すべて";
+"explore-most-read-more-list-title" = "よく読まれている記事";
+"explore-most-read-more-list-title-for-date" = "$1の上位記事";
+"no-email-account-alert" = "アカウントのメールアドレスを設定してから、もう一度お試しください。";

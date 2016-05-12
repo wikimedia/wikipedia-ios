@@ -1,5 +1,3 @@
-//  Created by Monte Hurd on 12/18/13.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 // Views
 #import "WMFSettingsTableViewCell.h"
@@ -9,8 +7,9 @@
 // View Controllers
 #import "WMFSettingsViewController.h"
 #import "LoginViewController.h"
-#import "LanguagesViewController.h"
+#import "WMFLanguagesViewController.h"
 #import "AboutViewController.h"
+#import "WMFHelpViewController.h"
 
 // Models
 #import "MWKLanguageLink.h"
@@ -22,9 +21,9 @@
 // Frameworks
 #import <HockeySDK/HockeySDK.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
-@import Tweaks;
-@import SSDataSources;
-@import MessageUI;
+#import <Tweaks/FBTweakViewController.h>
+#import <Tweaks/FBTweakStore.h>
+#import <SSDataSources/SSDataSources.h>
 
 // Other
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -39,15 +38,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString* const WMFSettingsURLZeroFAQ   = @"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
-static NSString* const WMFSettingsURLTerms     = @"https://m.wikimediafoundation.org/wiki/Terms_of_Use";
-static NSString* const WMFSettingsURLRate      = @"itms-apps://itunes.apple.com/app/id324715238";
-static NSString* const WMFSettingsURLFAQ       = @"https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ";
-static NSString* const WMFSettingsEmailAddress = @"mobile-ios-wikipedia@wikimedia.org";
-static NSString* const WMFSettingsEmailSubject = @"Feedback:";
-static NSString* const WMFSettingsURLSupport   = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
+static NSString* const WMFSettingsURLZeroFAQ  = @"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+static NSString* const WMFSettingsURLTerms    = @"https://m.wikimediafoundation.org/wiki/Terms_of_Use";
+static NSString* const WMFSettingsURLRate     = @"itms-apps://itunes.apple.com/app/id324715238";
+static NSString* const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
 
-@interface WMFSettingsViewController () <UITableViewDelegate, LanguageSelectionDelegate, FBTweakViewControllerDelegate, MFMailComposeViewControllerDelegate>
+@interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate, FBTweakViewControllerDelegate>
+
+@property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
 
 @property (nonatomic, strong) SSSectionedDataSource* elementDataSource;
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
@@ -57,9 +55,17 @@ static NSString* const WMFSettingsURLSupport   = @"https://donate.wikimedia.org/
 
 @implementation WMFSettingsViewController
 
++ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore*)store {
+    WMFSettingsViewController* vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
+    vc.dataStore = store;
+    return vc;
+}
+
 #pragma mark - Setup
 
 - (void)viewDidLoad {
+    NSParameterAssert(self.dataStore);
+
     [super viewDidLoad];
 
     [self configureBackButton];
@@ -168,26 +174,15 @@ static NSString* const WMFSettingsURLSupport   = @"https://donate.wikimedia.org/
         case WMFSettingsMenuItemType_RateApp:
             [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLRate] useSafari:YES];
             break;
-        case WMFSettingsMenuItemType_SendFeedback:
-            if ([MFMailComposeViewController canSendMail]) {
-                MFMailComposeViewController* vc = [[MFMailComposeViewController alloc] init];
-                [vc setSubject:[WMFSettingsEmailSubject stringByAppendingString:[WikipediaAppUtils versionedUserAgent]]];
-                [vc setToRecipients:@[WMFSettingsEmailAddress]];
-                [vc setMessageBody:[NSString stringWithFormat:@"\n\n\n\nVersion: %@", [WikipediaAppUtils versionedUserAgent]] isHTML:NO];
-                vc.mailComposeDelegate = self;
-                [self presentViewController:vc animated:YES completion:NULL];
-            } else {
-                [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:MWLocalizedString(@"no-email-account-alert", nil) sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-            }
-            break;
+        case WMFSettingsMenuItemType_SendFeedback: {
+            WMFHelpViewController* vc = [[WMFHelpViewController alloc]initWithDataStore:self.dataStore];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        break;
         case WMFSettingsMenuItemType_About:
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[AboutViewController wmf_initialViewControllerFromClassStoryboard]]
                                animated:YES
                              completion:nil];
-            break;
-        case WMFSettingsMenuItemType_FAQ:
-
-            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLFAQ]];
             break;
         case WMFSettingsMenuItemType_DebugCrash:
             [[self class] generateTestCrash];
@@ -206,9 +201,9 @@ static NSString* const WMFSettingsURLSupport   = @"https://donate.wikimedia.org/
 #pragma mark - Dynamic URLs
 
 - (NSURL*)donationURL {
-    NSString* url = WMFSettingsURLSupport;
+    NSString* url = WMFSettingsURLDonation;
 
-    NSString* languageCode = [NSUserDefaults standardUserDefaults].wmf_appSite.language;
+    NSString* languageCode = [[MWKLanguageLinkController sharedInstance] appLanguage].languageCode;
     languageCode = [languageCode stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     NSString* appVersion = [[NSBundle mainBundle] wmf_debugVersion];
@@ -248,47 +243,29 @@ static NSString* const WMFSettingsURLSupport   = @"https://donate.wikimedia.org/
 }
 
 - (void)logout {
-    //TODO: find better home for this.
-    [SessionSingleton sharedInstance].keychainCredentials.userName   = nil;
-    [SessionSingleton sharedInstance].keychainCredentials.password   = nil;
-    [SessionSingleton sharedInstance].keychainCredentials.editTokens = nil;
-    // Clear session cookies too.
-    for (NSHTTPCookie* cookie in[[NSHTTPCookieStorage sharedHTTPCookieStorage].cookies copy]) {
-        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-    }
+    [[SessionSingleton sharedInstance] logout];
 }
 
 #pragma mark - Languages
 
 - (void)showLanguages {
-    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
-    languagesVC.languageSelectionDelegate = self;
+    WMFPreferredLanguagesViewController* languagesVC = [WMFPreferredLanguagesViewController preferredLanguagesViewController];
+    languagesVC.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC]
                        animated:YES
                      completion:nil];
 }
 
-- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
-    if ([[language site] isEqualToSite:[NSUserDefaults standardUserDefaults].wmf_appSite]) {
-        return;
+- (void)languagesController:(WMFPreferredLanguagesViewController*)controller didUpdatePreferredLanguages:(NSArray<MWKLanguageLink*>*)languages {
+    if ([languages count] > 1) {
+        [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:YES];
+    } else {
+        [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:NO];
     }
-
-    [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:YES];
-    [[NSUserDefaults standardUserDefaults] wmf_setAppSite:[language site]];
-    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
 
     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_SearchLanguage];
     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_SearchLanguageBarVisibility];
-
-    [self dismissViewControllerAnimated:YES completion:NULL];
 }
-
-#pragma mark - MFMailComposeViewControllerDelegate
-
-- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error{
-    [controller dismissViewControllerAnimated:YES completion:NULL];
-}
-
 
 #pragma mark - Debugging
 
@@ -330,8 +307,7 @@ static NSString* const WMFSettingsURLSupport   = @"https://donate.wikimedia.org/
     [sections addObject:[self section_3]];
     [sections addObject:[self section_4]];
     [sections addObject:[self section_5]];
-    [sections addObject:[self section_6]];
-    [sections wmf_safeAddObject:[self section_7]];
+    [sections wmf_safeAddObject:[self section_6]];
 
     [self.elementDataSource.sections setArray:sections];
     [self.elementDataSource.tableView reloadData];
@@ -388,25 +364,15 @@ static NSString* const WMFSettingsURLSupport   = @"https://donate.wikimedia.org/
     SSSection* section =
         [SSSection sectionWithItems:@[
              [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_RateApp],
-             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SendFeedback]
-         ]];
-    section.header = nil;
-    section.footer = nil;
-    return section;
-}
-
-- (SSSection*)section_6 {
-    SSSection* section =
-        [SSSection sectionWithItems:@[
+             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SendFeedback],
              [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_About],
-             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_FAQ]
          ]];
     section.header = nil;
     section.footer = nil;
     return section;
 }
 
-- (nullable SSSection*)section_7 {
+- (nullable SSSection*)section_6 {
     if (![[NSBundle mainBundle] wmf_shouldShowDebugMenu]) {
         return nil;
     }

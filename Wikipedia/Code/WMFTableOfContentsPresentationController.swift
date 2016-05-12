@@ -19,7 +19,8 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
 
     public var minimumVisibleBackgroundWidth: CGFloat = 60.0
     public var maximumTableOfContentsWidth: CGFloat = 300.0
-    public var closeButtonPadding: CGFloat = 10.0
+    public var closeButtonLeadingPadding: CGFloat = 10.0
+    public var closeButtonTopPadding: CGFloat = 0.0
     public var statusBarEstimatedHeight: CGFloat = 20.0
     
     // MARK: - Views
@@ -39,7 +40,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         let button = UIButton(frame: CGRectZero)
         
         button.setImage(UIImage(named: "close"), forState: UIControlState.Normal)
-        button.tintColor = UIColor.whiteColor()
+        button.tintColor = UIColor.blackColor()
         button.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)), forControlEvents: .TouchUpInside)
         
         button.accessibilityHint = localizedStringForKeyFallingBackOnEnglish("table-of-contents-close-accessibility-hint")
@@ -51,7 +52,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     lazy var backgroundView :UIVisualEffectView = {
         let view = UIVisualEffectView(frame: CGRectZero)
         view.autoresizingMask = .FlexibleWidth
-        view.effect = UIBlurEffect(style: .Dark)
+        view.effect = UIBlurEffect(style: .Light)
         view.alpha = 0.0
         let tap = UITapGestureRecognizer.init()
         tap.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)))
@@ -67,11 +68,11 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         self.closeButton.mas_remakeConstraints({ make in
             make.width.equalTo()(44)
             make.height.equalTo()(44)
-            make.leading.equalTo()(self.closeButton.superview!.mas_leading).offset()(10)
+            make.leading.equalTo()(self.closeButton.superview!.mas_leading).offset()(self.closeButtonLeadingPadding)
             if(self.traitCollection.verticalSizeClass == .Compact){
-                make.top.equalTo()(self.closeButtonPadding)
+                make.top.equalTo()(self.closeButtonTopPadding)
             }else{
-                make.top.equalTo()(self.closeButtonPadding + self.statusBarEstimatedHeight)
+                make.top.equalTo()(self.closeButtonTopPadding + self.statusBarEstimatedHeight)
             }
 
             return ()

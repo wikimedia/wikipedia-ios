@@ -12,7 +12,7 @@
 // Author: Sjoerddebruin
 // Author: Southparkfan
 
-"languages-title" = "Talen";
+"languages-title" = "Taal wijzigen";
 "article-languages-label" = "Taal kiezen";
 "article-languages-cancel" = "Annuleren";
 "article-languages-downloading" = "Paginatalen aan het laden...";
@@ -22,6 +22,8 @@
 "article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
 "article-unable-to-load-article" = "Het was niet mogelijk de pagina te laden.";
 "article-related-articles-title" = "Gerelateerde pagina's";
+"article-languages-yours" = "Uw talen";
+"article-languages-others" = "Andere talen";
 "info-box-title" = "Snelle feiten";
 "info-box-close-text" = "Sluiten";
 "table-title-other" = "Meer informatie";
@@ -113,6 +115,7 @@
 "settings-language" = "Wikipedia-taal";
 "settings-support" = "Wikipedia steunen";
 "settings-language-bar" = "Talen weergeven bij zoeken";
+"settings-my-languages" = "Mijn talen";
 "main-menu-title" = "Meer";
 "main-menu-heading-about" = "Over";
 "main-menu-language-title" = "Zoeken in Wikipedia in het $1";
@@ -213,7 +216,7 @@
 "about-repositories-app-source-license" = "Broncode is beschikbaar onder de $1.";
 "about-repositories-app-source-license-mit" = "MIT-licentie";
 "about-send-feedback" = "Terugkoppeling over app geven";
-"about-product-of" = "Een product van de $1";
+"about-product-of" = "Gemaakt door de $1 met behulp van vrijwilligers zoals u";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Pagina opslaan";
 "share-menu-page-saved" = "Pgina opgeslagen voor offline lezen.";
@@ -234,6 +237,7 @@
 "timestamp-years" = "%d jaar geleden";
 "lastmodified-by-user" = "$1 bewerkt door $2";
 "lastmodified-by-anon" = "$1 bewerkt door een anonieme gebruiker";
+"button-edit" = "Bewerken";
 "button-next" = "Volgende";
 "button-done" = "Afgerond";
 "button-save" = "Opslaan";
@@ -252,7 +256,7 @@
 "page_protected_other" = "Deze pagina is beveiligd op de volgende niveaus: $1";
 "page_protected_can_not_edit" = "U heeft geen rechten om deze pagina te bewerken";
 "page_protected_can_not_edit_title" = "Deze pagina is beveiligd";
-"license-footer-text" = "Inhoud is beschikbaar onder $1";
+"license-footer-text" = "De inhoud is beschikbaar onder de $1 tenzij anders aangegeven.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Inhoud";
 "table-of-contents-button-label" = "Inhoudsopgave";
@@ -317,7 +321,7 @@
 "hockeyapp-alert-privacy" = "Privacy van $1";
 "page-issues" = "Paginaproblemen";
 "page-similar-titles" = "Vergelijkbare pagina's";
-"page-read-in-other-languages" = "Beschikbaar in $1 talen";
+"page-read-in-other-languages" = "Beschikbaar in $1 andere talen";
 "page-last-edited" = "$1 dagen geleden bewerkt";
 "page-edit-history" = "Volledige bewerkingsgeschiedenis";
 "captcha-reload" = "Andere CAPTCHA weergeven";
@@ -337,7 +341,7 @@
 "home-main-page-heading" = "Vandaag op Wikipedia";
 "home-potd-heading" = "Afbeelding van de dag voor $1";
 "home-last-update-label" = "Laatst bijgewerkt: $1";
-"home-last-update-never-label" = "Laatst bijgewerkt: Nooit";
+"home-last-update-never-label" = "Laatst bijgewerkt: nooit";
 "home-updating-label" = "Bijwerken...";
 "home-hide-suggestion-prompt" = "Suggestie verbergen";
 "home-hide-suggestion-cancel" = "Annuleren";
@@ -356,7 +360,8 @@
 "welcome-explore-continue-button" = "Aan de slag";
 "welcome-languages-title" = "Talen";
 "welcome-languages-sub-title" = "Kies de voorkeurstalen waarin u binnen Wikipedia wilt zoeken";
-"welcome-languages-add-button" = "+ taal toevoegen";
+// Fuzzy
+"welcome-languages-add-button" = "Volgende toevoegen";
 "welcome-languages-continue-button" = "Doorgaan";
 "welcome-volunteer-title" = "Vrijwilliger";
 "welcome-volunteer-sub-title" = "Help met verbeteren van de Wikipedia-app door te delen hoe je deze gebruikt";
@@ -375,7 +380,7 @@
 "alert-no-internet" = "Er is geen internetverbinding";
 "icon-shortcut-search-title" = "Zoeken in Wikipedia";
 "icon-shortcut-continue-reading-title" = "Verder lezen";
-"icon-shortcut-random-title" = "Willekeurig pagina";
+"icon-shortcut-random-title" = "Willekeurige pagina";
 "icon-shortcut-nearby-title" = "Pagina's in de buurt";
 "close-button-accessibility-label" = "Sluiten";
 "back-button-accessibility-label" = "Terug";
@@ -385,9 +390,11 @@
 "explore-nearby-heading" = "Plaatsen in de buurt";
 "explore-continue-related-heading" = "Omdat u hebt gelezen";
 "explore-main-page-heading" = "Vandaag op Wikipedia";
-"explore-random-article-heading" = "Willekeurig pagina";
+"explore-random-article-heading" = "Willekeurige pagina";
 "explore-random-article-sub-heading" = "Engelstalige Wikipedia";
 "explore-potd-heading" = "Afbeelding van de dag";
 "explore-most-read-heading" = "Meest gelezen op Wikipedia in het $1";
 "explore-most-read-footer" = "Alle meest gelezen pagina's";
+"explore-most-read-footer-for-date" = "Alle meest gelezen pagina's op $1";
 "explore-most-read-more-list-title" = "Meest gelezen pagina's";
+"explore-most-read-more-list-title-for-date" = "Populair op $1";

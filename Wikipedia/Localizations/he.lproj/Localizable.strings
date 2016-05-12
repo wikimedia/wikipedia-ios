@@ -7,7 +7,7 @@
 // Author: Matanya
 // Author: איתן96
 
-"languages-title" = "שפות";
+"languages-title" = "שינוי שפה";
 "article-languages-label" = "בחירת שפה";
 "article-languages-cancel" = "ביטול";
 "article-languages-downloading" = "טעינת שפות הערך...";
@@ -17,6 +17,8 @@
 "article-unable-to-load-section" = "לא ניתן לטעון את הפסקה הזאת. נא לנסות לרענן את הערך כדי לראות אם זה מתקן את הבעיה.";
 "article-unable-to-load-article" = "לא ניתן לטעון את הערך.";
 "article-related-articles-title" = "ערכים קשורים";
+"article-languages-yours" = "השפות שלך";
+"article-languages-others" = "שפות אחרות";
 "info-box-title" = "עובדות מהירות";
 "info-box-close-text" = "סגירה";
 "table-title-other" = "מידע נוסף";
@@ -108,6 +110,7 @@
 "settings-language" = "שפת הוויקיפדיה";
 "settings-support" = "תמיכה בוויקיפדיה";
 "settings-language-bar" = "הצגת שפות בחיפוש";
+"settings-my-languages" = "השפות שלי";
 "main-menu-title" = "עוד";
 "main-menu-heading-about" = "אודות";
 "main-menu-language-title" = "חיפוש בוויקיפדיה ה$1";
@@ -208,7 +211,7 @@
 "about-repositories-app-source-license" = "קוד המקור זמין לפי תנאי $1.";
 "about-repositories-app-source-license-mit" = "רישיון MIT";
 "about-send-feedback" = "שליחת משוב על היישום";
-"about-product-of" = "מוצר של $1";
+"about-product-of" = "נוצר על־ידי $1 בעזרת מתנדבים כמוך";
 "about-wikimedia-foundation" = "קרן ויקימדיה";
 "share-menu-save-page" = "שמירת דף";
 "share-menu-page-saved" = "הדף נשמר";
@@ -229,6 +232,7 @@
 "timestamp-years" = "לפני %d שנים";
 "lastmodified-by-user" = "נערך $1 על־ידי $2";
 "lastmodified-by-anon" = "נערך $1 על־ידי משתמש אלמוני";
+"button-edit" = "עריכה";
 "button-next" = "הבא";
 "button-done" = "בוצע";
 "button-save" = "שמירה";
@@ -247,7 +251,7 @@
 "page_protected_other" = "הדף הזה הוגן לרמות הבאות: $1";
 "page_protected_can_not_edit" = "אין לך הרשאה לערוך את הדף הזה";
 "page_protected_can_not_edit_title" = "הדף הזה מוגן";
-"license-footer-text" = "התוכן זמין לפי תנאי $1";
+"license-footer-text" = "התוכן זמין לפי תנאי $1 אלא אם נאמר אחרת.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "תוכן עניינים";
 "table-of-contents-button-label" = "תוכן עניינים";
@@ -351,7 +355,8 @@
 "welcome-explore-continue-button" = "להתחיל";
 "welcome-languages-title" = "שפות";
 "welcome-languages-sub-title" = "נא לבחור את השפות שבהן ברצונך לחפש בוויקיפדיה";
-"welcome-languages-add-button" = "+ להוסיף עוד";
+// Fuzzy
+"welcome-languages-add-button" = "להוסיף עוד";
 "welcome-languages-continue-button" = "להמשיך";
 "welcome-volunteer-title" = "התנדבות";
 "welcome-volunteer-sub-title" = "עזרה לשיפור יישום ויקיפדיה באמצעות שיתוף מידע על השימוש שלך בו";
@@ -385,4 +390,7 @@
 "explore-potd-heading" = "תמונת היום";
 "explore-most-read-heading" = "הכי נקרא בוויקיפדיה ה$1";
 "explore-most-read-footer" = "כל הערכים שנקראו הכי הרבה";
+"explore-most-read-footer-for-date" = "כל הערכים שנקראו הכי הרבה ב־$1";
 "explore-most-read-more-list-title" = "ערכים מובילים";
+"explore-most-read-more-list-title-for-date" = "מוביל ב־$1";
+"no-email-account-alert" = "נא להגדיר חשבון דואר אלקטרוני במכשיר שלך ולנסות שוב.";

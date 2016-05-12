@@ -140,7 +140,7 @@
       </DeviceAppData>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release"
+      buildConfiguration = "AdHoc"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"

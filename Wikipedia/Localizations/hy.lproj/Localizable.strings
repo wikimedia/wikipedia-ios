@@ -5,33 +5,47 @@
 // Author: Xelgen
 // Author: Աշոտ1997
 
+// Fuzzy
 "languages-title" = "Լեզուներ";
 "article-languages-label" = "Ընտրեք լեզուն";
 "article-languages-cancel" = "Չեղարկել";
 "article-languages-downloading" = "Հոդվածի լեզուների բեռնում...";
+"article-languages-filter-placeholder" = "Գտնել լեզուն";
 "article-read-more-title" = "Կարդալ ավելին";
+"article-about-title" = "Այս հոդվածի մասին";
+"article-related-articles-title" = "Առնչվող հոդվածներ";
+"article-languages-yours" = "Ձեր լեզուն";
+"article-languages-others" = "Այլ լեզուներ";
+"info-box-title" = "Համառոտ փաստեր";
 "info-box-close-text" = "Փակել";
 "table-title-other" = "Մանրամասն տեղեկատվություն";
+"saved-clear-all" = "Մաքրել";
+"history-clear-all" = "Մաքրել";
 "history-label" = "Վերջին";
 "history-section-today" = "Այսօր";
 "history-section-yesterday" = "Երեկ";
 "history-section-lastweek" = "Անցյալ շաբաթ";
 "history-section-lastmonth" = "Անցյալ ամիս";
 "history-clear-cancel" = "Չեղարկել";
-// Fuzzy
-"history-clear-delete-all" = "Ջնջել ամբողջը";
+"history-clear-delete-all" = "Այո, ջնջել ամբողջը";
+"history-none" = "Վերջնադիտված էջեր չկան";
 "zero-charged-verbiage" = "Վիքիպեդիա Զրոն անջատված է";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-title" = "Լքել Վիքիպեդիա Զրոն";
+"zero-interstitial-continue" = "Լքել";
 "zero-interstitial-cancel" = "Մնալ";
 "zero-learn-more-learn-more" = "Կարդալ ավելին";
 "zero-learn-more-no-thanks" = "Փակել";
 "zero-wikipedia-zero-heading" = "Վիքիպեդիա Զրո";
+"zero-warn-when-leaving" = "Զգուշացնել Զրոն լքելիս";
+"account-creation-logging-in" = "Մուտք համակարգ...";
 "account-creation-saving" = "Պահպանվում է...";
 "account-creation-login" = "Դուք արդեն գրանցվա՞ծ եք։ Մուտք գործել:";
 "account-creation-username-placeholder-text" = "Մասնակցային անուն";
 "account-creation-password-placeholder-text" = "Գաղտնաբառ";
 "account-creation-password-confirm-placeholder-text" = "Հաստատեք գաղտնաբառը";
-"account-creation-email-placeholder-text" = "Էլ-փոստի հասցե (ոչ պարտադիր)";
+"account-creation-email-placeholder-text" = "Էլփոստի հասցե (ոչ պարտադիր)";
+"account-creation-missing-fields" = "Դուք պետք է մուտքագրեք մասնակցային անուն, ծածկագիր և հաստատող ծածկագիր մասնակցային հաշիվ ստեղծելու համար";
 "login-name-not-found" = "Մուտք գործելու համար պահանջվում է մասնակցային անունը:";
 "login-name-illegal" = "Դուք նշել եք անթույլատրելի մասնակցային անունը:";
 "login-name-does-not-exist" = "Ձեր նշած մասնակցային անունը գոյություն չունի:";
@@ -139,11 +153,11 @@
 "share-cancel" = "Չեղարկել";
 "timestamp-just-now" = "մի փոքր առաջ";
 "timestamp-minutes" = "%d րոպե առաջ";
-"timestamp-hours" = "%d ժամ առաջ";
-"timestamp-days" = "%d օր առաջ";
-"timestamp-months" = "%d ամիս առաջ";
-"timestamp-years" = "%d տարի առաջ";
-"button-next" = "Հաջորդը";
+"timestamp-hours" = "% ժամ առաջ";
+"timestamp-days" = "% օր առաջ";
+"timestamp-months" = "% ամիս առաջ";
+"timestamp-years" = "% տարի առաջ";
+"button-next" = "Հաջորդ";
 "button-done" = "Արված է";
 "button-save" = "Հիշել";
 "onboarding-create-account" = "Ստեղծել մասնակցային հաշիվ";
@@ -157,6 +171,7 @@
 "page_protected_sysop" = "Այս էջն ամբողջությամբ պաշտպանված է եղել։";
 "page_protected_can_not_edit" = "Դուք իրավունք չունեք խմբագրել այս էջը:";
 "page_protected_can_not_edit_title" = "Այս էջը պաշտպանված է";
+// Fuzzy
 "license-footer-text" = "Բովանդակությունը հասանելի է";
 "license-footer-name" = "CC BY-SA 3.0 արտոնագրի ներքո";
 "table-of-contents-heading" = "Բովանդակություն";

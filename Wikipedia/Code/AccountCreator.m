@@ -2,7 +2,7 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "AccountCreator.h"
-#import "AFHTTPRequestOperationManager.h"
+#import <AFNetworking/AFNetworking.h>
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSObject+WMFExtras.h"
@@ -32,7 +32,7 @@
                                       captchaId:(NSString*)captchaId
                                     captchaWord:(NSString*)captchaWord
                                           token:(NSString*)token
-                                    withManager:(AFHTTPRequestOperationManager*)manager
+                                    withManager:(AFHTTPSessionManager*)manager
                              thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
@@ -51,14 +51,14 @@
     return self;
 }
 
-- (void)creationAccountWithManager:(AFHTTPRequestOperationManager*)manager {
+- (void)creationAccountWithManager:(AFHTTPSessionManager*)manager {
     NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain];
 
     NSDictionary* params = [self getParams];
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    [manager POST:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
+    [manager POST:url.absoluteString parameters:params progress:NULL success:^(NSURLSessionDataTask* operation, id responseObject) {
         //NSLog(@"JSON: %@", responseObject);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
@@ -102,7 +102,7 @@
 
         [self finishWithError:error
                   fetchedData:result];
-    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+    } failure:^(NSURLSessionDataTask* operation, NSError* error) {
         //NSLog(@"ACCT CREATION TOKEN FAIL = %@", error);
 
         [[MWNetworkActivityIndicatorManager sharedManager] pop];

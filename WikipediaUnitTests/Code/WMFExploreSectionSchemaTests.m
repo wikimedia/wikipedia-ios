@@ -8,7 +8,7 @@
 
 @import Quick;
 @import Nimble;
-@import NSDate_Extensions;
+#import <NSDate-Extensions/NSDate+Utilities.h>
 
 #import "WMFExploreSection.h"
 #import "WMFExploreSectionSchema_Testing.h"

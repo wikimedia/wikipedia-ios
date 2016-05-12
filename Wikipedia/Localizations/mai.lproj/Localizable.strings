@@ -1,6 +1,7 @@
 // Messages for Maithili (मैथिली)
 // Exported from translatewiki.net
 // Author: Bijay chaurasia
+// Author: बिप्लब आनन्द
 
 "article-languages-label" = "भाषा चुनु";
 "article-languages-cancel" = "रद्द करु";
@@ -81,6 +82,7 @@
 "search-recent-clear-confirmation-sub-heading" = "ई कार्य पूर्ववत नै भ्यसकई यऽ!";
 "search-recent-clear-cancel" = "रद्द करु";
 "search-recent-clear-delete-all" = "सभटाकेँ मेटाउ";
+"settings-my-languages" = "हमर भाषासभ";
 "main-menu-title" = "आर";
 "main-menu-language-title" = "$१ विकिपिडिया खोजु";
 "main-menu-language-toggle-show" = "भाषा देखाबू";
@@ -157,6 +159,7 @@
 "share-menu-page-saved" = "ऑफ़लाइन पढ़बाक लेल रक्षण ।";
 "share-custom-menu-item" = "साझा करू";
 "timestamp-just-now" = "अखन";
+"button-edit" = "सम्पादन";
 "button-next" = "आगाँ";
 "button-done" = "भ गेल";
 "button-save" = "सुरक्षित करू";
@@ -171,6 +174,7 @@
 "page_protected_other" = ": $१ के आधार मेंई पृष्ठ संरक्षित क्याल गेल अछि।";
 "page_protected_can_not_edit" = "ई पन्ना सम्पादन करई लेल आहाँ के अधिकार नै अछि";
 "page_protected_can_not_edit_title" = "ई पृष्ठ संरक्षित क्याल गेल अछि।";
+// Fuzzy
 "license-footer-text" = "$१ के तहत सामग्री उपलब्ध अछि";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "विषय-सूची";

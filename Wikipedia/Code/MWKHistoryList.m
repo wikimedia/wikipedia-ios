@@ -17,8 +17,14 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
 #pragma mark - Setup
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
-    NSArray* entries = [[dataStore historyListData] bk_map:^id (id obj) {
-        return [[MWKHistoryEntry alloc] initWithDict:obj];
+    NSArray* entries = [[[dataStore historyListData] bk_map:^id (id obj) {
+        @try {
+            return [[MWKHistoryEntry alloc] initWithDict:obj];
+        } @catch (NSException* exception) {
+            return nil;
+        }
+    }] bk_reject:^BOOL (id obj) {
+        return [obj isEqual:[NSNull null]];
     }];
 
     self = [super initWithEntries:entries];
@@ -42,6 +48,9 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
 
 - (MWKHistoryEntry*)addPageToHistoryWithTitle:(MWKTitle*)title {
     NSParameterAssert(title);
+    if ([title isNonStandardTitle]) {
+        return nil;
+    }
     MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title];
     [self addEntry:entry];
     return entry;

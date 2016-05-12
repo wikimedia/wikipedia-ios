@@ -4,6 +4,7 @@
 // Author: Fwolff
 // Author: Naudefj
 
+// Fuzzy
 "languages-title" = "Tale";
 "article-languages-label" = "Kies taal";
 "article-languages-cancel" = "Kanselleer";
@@ -200,6 +201,7 @@
 // Fuzzy
 "about-repositories" = "kodebanke";
 "about-send-feedback" = "Stuur toep terugvoer";
+// Fuzzy
 "about-product-of" = "'n Produk van die $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Stoor bladsy";
@@ -234,6 +236,7 @@
 "page_protected_other" = "Hierdie blad is beskerm tot die volgende vlakke: $1";
 "page_protected_can_not_edit" = "U het nie die regte om hierdie blad te wysig nie";
 "page_protected_can_not_edit_title" = "Hierdie blad is beskerm";
+// Fuzzy
 "license-footer-text" = "Inhoud is beskikbaar onder $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Inhoud";
@@ -297,4 +300,5 @@
 "page-issues" = "Bladprobleme";
 "page-similar-titles" = "Soortgelyke bladsye";
 "captcha-reload" = "Wys 'n ander captcha";
+// Fuzzy
 "captcha-prompt" = "Tik CAPTCHA-teks op die prentjie bó";

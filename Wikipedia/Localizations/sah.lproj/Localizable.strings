@@ -3,6 +3,7 @@
 // Author: HalanTul
 // Author: Ай-Куо
 
+// Fuzzy
 "languages-title" = "Тыллар";
 "article-languages-label" = "Тылгын тал";
 "article-languages-cancel" = "Таҕыс";
@@ -207,6 +208,7 @@
 // Fuzzy
 "about-repositories" = "харалта";
 "about-send-feedback" = "Дьибилгэт туһунан санааҕын ыыт";
+// Fuzzy
 "about-product-of" = "$1 бородуукта";
 "about-wikimedia-foundation" = "Викимедиа пуондата";
 "share-menu-save-page" = "Сирэйи бигэргэт";
@@ -244,6 +246,7 @@
 "page_protected_other" = "Бу сирэй маннык таһымнарга хатанна: $1";
 "page_protected_can_not_edit" = "Бу сирэйи уларытар кыаҕыҥ суох эбит";
 "page_protected_can_not_edit_title" = "Бу сирэй хатанан турар";
+// Fuzzy
 "license-footer-text" = "Иһиниээҕитэ $1 лиссиэнсийэнэн тарҕанар";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Иһинээҕитэ";
@@ -312,6 +315,7 @@
 "page-last-edited" = "$1 күн ынараа өттүгэр уларыйбыт";
 "page-edit-history" = "Уларытыы толору устуоруйата";
 "captcha-reload" = "Атын куоду көрдөр";
+// Fuzzy
 "captcha-prompt" = "Капча ойууттан тиэкиһин суруйан ыл";
 "mwk-empty-title-error" = "Ааттаматах буолан дьайыыны оҥорор табыллыбата.";
 "home-title" = "Чинчий!";
@@ -324,7 +328,9 @@
 "home-featured-article-heading" = "$1 бастыҥ ыстатыйата";
 "home-main-page-heading" = "Бикипиэдьийэҕэ бүгүн";
 "home-potd-heading" = "Күннээҕи ойуу $1";
+// Fuzzy
 "home-last-update-label" = "Тиһэх саҥардыы: $1";
+// Fuzzy
 "home-last-update-never-label" = "Тиһэх саҥардыы: Саҥардыллыбатах";
 "home-updating-label" = "Саҥардыы...";
 "home-hide-suggestion-prompt" = "бу этиини кистээ";

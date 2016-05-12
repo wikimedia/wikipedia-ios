@@ -41,19 +41,6 @@ afterSuite(^{
     [[QueuesSingleton sharedInstance] reset];
 });
 
-describe(@"searchLanguage", ^{
-    it(@"should default to the current device language", ^{
-        expect([NSUserDefaults standardUserDefaults].wmf_appSite.language)
-        .to(equal([[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]));
-    });
-
-    it(@"should be idempotent", ^{
-        expectAction(^{
-            [[NSUserDefaults standardUserDefaults] wmf_setAppSite:[NSUserDefaults standardUserDefaults].wmf_appSite];
-        }).notTo(postNotification([NSUserDefaults WMFSearchLanguageDidChangeNotification], nil));
-    });
-});
-
 describe(@"send usage reports", ^{
     itBehavesLike(@"a persistent property", ^{
         return @{ @"session": testSession,
@@ -77,7 +64,7 @@ describe(@"send usage reports", ^{
     it(@"should reset the global request managers", ^{
         NSArray* oldManagers = [[QueuesSingleton sharedInstance] allManagers];
         expect(oldManagers).toNot(beEmpty());
-        expect(oldManagers).to(allPass(beAKindOf([AFHTTPRequestOperationManager class])));
+        expect(oldManagers).to(allPass(beAKindOf([AFHTTPSessionManager class])));
 
         expectAllManagersToHaveExpectedAnalyticsHeaderForCurrentUsageReportsValue(oldManagers);
 
@@ -87,7 +74,7 @@ describe(@"send usage reports", ^{
         NSArray* newManagers = [[QueuesSingleton sharedInstance] allManagers];
         expect(newManagers).to(haveCount(@(oldManagers.count)));
         expect(newManagers).toNot(equal(oldManagers));
-        expect(newManagers).to(allPass(beAKindOf([AFHTTPRequestOperationManager class])));
+        expect(newManagers).to(allPass(beAKindOf([AFHTTPSessionManager class])));
 
         expectAllManagersToHaveExpectedAnalyticsHeaderForCurrentUsageReportsValue(newManagers);
     });
@@ -95,7 +82,7 @@ describe(@"send usage reports", ^{
     it(@"should be idempotent", ^{
         NSArray* oldManagers = [[QueuesSingleton sharedInstance] allManagers];
         expect(oldManagers).toNot(beEmpty());
-        expect(oldManagers).to(allPass(beAKindOf([AFHTTPRequestOperationManager class])));
+        expect(oldManagers).to(allPass(beAKindOf([AFHTTPSessionManager class])));
         expectAllManagersToHaveExpectedAnalyticsHeaderForCurrentUsageReportsValue(oldManagers);
 
         [testSession setShouldSendUsageReports:testSession.shouldSendUsageReports];

@@ -1,6 +1,5 @@
 
 import UIKit
-import Masonry
 
 public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
 
@@ -246,5 +245,11 @@ public class WMFTableOfContentsViewController: UIViewController,
     public override func accessibilityPerformEscape() -> Bool {
         return didRequestClose(nil)
     }
+    
+    // MARK: - UIAccessibilityAction
+    public override func accessibilityPerformMagicTap() -> Bool {
+        return didRequestClose(nil)
+    }
+
 }
 

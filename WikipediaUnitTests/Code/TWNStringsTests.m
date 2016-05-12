@@ -56,6 +56,16 @@
     }
 }
 
+- (void)test_incoming_translation_string_for_percent_s {
+    for (NSString* lprojFileName in self.lprojFiles) {
+        NSDictionary* stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+        for (NSString* key in stringsDict) {
+            NSString* localizedString = stringsDict[key];
+            assertThat(localizedString, isNot(containsSubstring(@"%s")));
+        }
+    }
+}
+
 - (void)test_incoming_translation_string_for_html {
     for (NSString* lprojFileName in self.lprojFiles) {
         NSDictionary* stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
@@ -79,52 +89,53 @@
     }
 }
 
-- (NSArray *)unbundledLprojFiles {
-    NSMutableArray *files = [[self allLprogFiles] mutableCopy];
+- (NSArray*)unbundledLprojFiles {
+    NSMutableArray* files = [[self allLprogFiles] mutableCopy];
     [files removeObjectsInArray:[self bundledLprogFiles]];
     return files;
 }
 
-- (NSArray *)unbundledLprojFilesWithTranslations {
+- (NSArray*)unbundledLprojFilesWithTranslations {
     // unbundled lProj's containing "Localizable.strings"
     return
-    [self.unbundledLprojFiles bk_select:^BOOL (NSString* lprojFileName) {
+        [self.unbundledLprojFiles bk_select:^BOOL (NSString* lprojFileName) {
         BOOL isDirectory = NO;
-        NSString *localizableStringsFilePath =
+        NSString* localizableStringsFilePath =
             [[LOCALIZATIONS_DIR stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"Localizable.strings"];
         return [[NSFileManager defaultManager] fileExistsAtPath:localizableStringsFilePath isDirectory:&isDirectory];
     }];
 }
 
 - (void)test_all_translated_languages_were_added_to_project_localizations {
-    NSMutableArray *files = [self.unbundledLprojFilesWithTranslations mutableCopy];
+    NSMutableArray* files = [self.unbundledLprojFilesWithTranslations mutableCopy];
     [files removeObjectsInArray:[self languagesUnsureHowToMapToWikiCodes]];
-    
+
     // Fails if any lproj languages have translations (in "Localizable.strings") but are
     // not yet bundled in the project.
-    
+
     // So, if this test fails, the languages listed will need to be added these to the project's localizations.
-    
+
     assertThat(files, isEmpty());
 }
 
--(NSArray*)languagesUnsureHowToMapToWikiCodes {
+- (NSArray*)languagesUnsureHowToMapToWikiCodes {
     // These have no obvious mappings to the lang options Apple provides...
     // TODO: ^ revisit these
     return @[
-             @"azb.lproj",
-             @"be-tarask.lproj",
-             @"bgn.lproj",
-             @"cnh.lproj",
-             @"ku-latn.lproj",
-             @"mai.lproj",
-             @"pt-br.lproj", // for some reason Brazilian Portugese is still showing up as not bundled, but I added it... hmm...
-             @"sa.lproj",
-             @"sd.lproj",
-             @"tl.lproj",
-             @"vec.lproj",
-             @"xmf.lproj"
-             ];
+        @"azb.lproj",
+        @"be-tarask.lproj",
+        @"bgn.lproj",
+        @"cnh.lproj",
+        @"ku-latn.lproj",
+        @"mai.lproj",
+        @"pt-br.lproj",      // for some reason Brazilian Portugese is still showing up as not bundled, but I added it... hmm...
+        @"sa.lproj",
+        @"sd.lproj",
+        @"tl.lproj",
+        @"vec.lproj",
+        @"xmf.lproj",
+        @"ba.lproj"
+    ];
 }
 
 - (void)tearDown {

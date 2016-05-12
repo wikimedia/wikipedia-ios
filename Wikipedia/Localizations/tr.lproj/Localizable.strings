@@ -3,18 +3,20 @@
 // Author: Ayrıntılı Bilgi
 // Author: HakanIST
 // Author: Incelemeelemani
+// Author: Macofe
 // Author: Mavrikant
 // Author: Mavrikant2
 // Author: McAang
 // Author: Meelo
 // Author: Rapsar
+// Author: Sadrettin
 // Author: Sayginer
 // Author: Sucsuzz
 // Author: Uğurkent
 // Author: Violetanka
 // Author: Ömer Berkay
 
-"languages-title" = "Diller";
+"languages-title" = "Dili değiştir";
 "article-languages-label" = "Dil seçin";
 "article-languages-cancel" = "İptal";
 "article-languages-downloading" = "Madde dilleri yükleniyor...";
@@ -24,6 +26,8 @@
 "article-unable-to-load-section" = "Bu bölüm yüklenemedi. Sorunu gidermek için sayfayı yenilemeyi deneyin.";
 "article-unable-to-load-article" = "Makale yüklenemedi.";
 "article-related-articles-title" = "İlgili maddeler";
+"article-languages-yours" = "Dilleriniz";
+"article-languages-others" = "Diğer diller";
 "info-box-title" = "Pratik bilgiler";
 "info-box-close-text" = "Kapat";
 "table-title-other" = "Daha fazla bilgi";
@@ -115,6 +119,7 @@
 "settings-language" = "Vikipedi dili";
 "settings-support" = "Vikipedi'yi destekleyin";
 "settings-language-bar" = "Aramada dilleri göster";
+"settings-my-languages" = "Dillerim";
 "main-menu-title" = "Diğer";
 "main-menu-heading-about" = "Hakkında";
 "main-menu-language-title" = "$1 vikide ara";
@@ -215,7 +220,7 @@
 "about-repositories-app-source-license" = "Kaynak koduna $1 altında erişilebilir.";
 "about-repositories-app-source-license-mit" = "MIT Lisansı";
 "about-send-feedback" = "Uygulama geri bildirimi gönder";
-"about-product-of" = "Bir $1 ürünü";
+"about-product-of" = "$1 tarafından, sizin gibi gönüllüler yardımıyla oluşturuldu";
 "about-wikimedia-foundation" = "Wikimedia Vakfı";
 "share-menu-save-page" = "Makaleyi Kaydet";
 "share-menu-page-saved" = "Makale Kaydedildi";
@@ -236,6 +241,7 @@
 "timestamp-years" = "%d yıl önce";
 "lastmodified-by-user" = "$2 tarafından $1 düzenlendi";
 "lastmodified-by-anon" = "Anonim bir kullanıcı tarafından $1 düzenlendi";
+"button-edit" = "Değiştir";
 "button-next" = "Sonraki";
 "button-done" = "Tamamlandı";
 "button-save" = "Kaydet";
@@ -254,7 +260,7 @@
 "page_protected_other" = "Bu sayfa aşağıdaki seviyelerde korunmaktadır: %1";
 "page_protected_can_not_edit" = "Bu sayfayı düzenleme yetkiniz yok";
 "page_protected_can_not_edit_title" = "Bu sayfa korumalı";
-"license-footer-text" = "İçerik $1 lisansı altında kullanılabilir";
+"license-footer-text" = "İçerik, aksi belirtilmedikçe $1 lisansı altında kullanılabilir";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Konu başlıkları";
 "table-of-contents-button-label" = "İçindekiler";
@@ -323,7 +329,7 @@
 "page-last-edited" = "$1 gün önce düzenlendi";
 "page-edit-history" = "Bütün düzenleme geçmişi";
 "captcha-reload" = "Başka bir captcha göster";
-"captcha-prompt" = "Yukarıdaki resimdeki CAPTCHA metnini girin";
+"captcha-prompt" = "CAPTCHA metnini girin";
 "mwk-empty-title-error" = "Başlıksız işlem gerçekleştirilemiyor.";
 "home-title" = "Keşfet";
 "home-empty-section" = "Sonuç yok";
@@ -338,8 +344,8 @@
 "home-featured-article-heading" = "$1 tarihli seçkin madde";
 "home-main-page-heading" = "Vikipedi'de Bugün";
 "home-potd-heading" = "$1 tarihli günün resmi";
-"home-last-update-label" = "Son Güncelleme: $1";
-"home-last-update-never-label" = "Son Güncelleme: Yok";
+"home-last-update-label" = "Son güncelleme: $1";
+"home-last-update-never-label" = "Son güncelleme: Yok";
 "home-updating-label" = "Güncelleniyor...";
 "home-hide-suggestion-prompt" = "Bu öneriyi gizle";
 "home-hide-suggestion-cancel" = "Geri al";
@@ -358,7 +364,8 @@
 "welcome-explore-continue-button" = "Kullanmaya başla";
 "welcome-languages-title" = "Diller";
 "welcome-languages-sub-title" = "Vikipedi'de arama yapmak için tercih ettiğiniz dilleri seçin";
-"welcome-languages-add-button" = "+ Bir tane daha ekle";
+// Fuzzy
+"welcome-languages-add-button" = "Bir tane daha ekle";
 "welcome-languages-continue-button" = "Devam";
 "welcome-volunteer-title" = "Gönüllü ol";
 "welcome-volunteer-sub-title" = "Nasıl kullandığınızı paylaşarak, Vikipedi uygulamasının geliştirilmesine yardım edin.";
@@ -392,4 +399,7 @@
 "explore-potd-heading" = "Günün resmi";
 "explore-most-read-heading" = "$1 Vikipedi'de en çok okunan maddeler";
 "explore-most-read-footer" = "Bütün en çok okunan maddeler";
+"explore-most-read-footer-for-date" = "$1 tarihinde çok okunan bütün maddeler";
 "explore-most-read-more-list-title" = "En çok okunan maddeler";
+"explore-most-read-more-list-title-for-date" = "$1 tarihinde çok okunan maddeler";
+"no-email-account-alert" = "Lütfen cihazınızda bir e-posta hesabı kurulumu yapıp, yeniden deneyin.";

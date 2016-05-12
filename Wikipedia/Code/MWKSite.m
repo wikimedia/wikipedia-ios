@@ -23,7 +23,6 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 
 - (instancetype)initWithDomain:(NSString*)domain language:(NSString*)language {
     NSParameterAssert(domain.length);
-    NSParameterAssert(language.length);
     self = [super init];
     if (self) {
         self.domain   = domain;
@@ -42,17 +41,24 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
         DDLogError(@"Can't form site from incomplete URL: %@", url);
         return nil;
     }
-    NSString* language = [hostComponents firstObject];
-    if (!language.length) {
-        DDLogError(@"Can't form site empty language URL component: %@", url);
-        return nil;
-    }
-    //strip mobile domain
-    [hostComponents removeObject:@"m"];
 
-    NSString* domain =
-        [[hostComponents subarrayWithRange:NSMakeRange(1, hostComponents.count - 1)] componentsJoinedByString:@"."];
-    return [self initWithDomain:domain language:language];
+    if ([url.host containsString:@"mediawiki"]) {
+        NSRange range    = NSMakeRange(hostComponents.count - 2, hostComponents.count - 1);
+        NSString* domain = [[hostComponents subarrayWithRange:range] componentsJoinedByString:@"."];
+        return [self initWithDomain:domain language:nil];
+    } else {
+        NSString* language = [hostComponents firstObject];
+        if (!language.length) {
+            DDLogError(@"Can't form site empty language URL component: %@", url);
+            return nil;
+        }
+        //strip mobile domain
+        [hostComponents removeObject:@"m"];
+
+        NSString* domain =
+            [[hostComponents subarrayWithRange:NSMakeRange(1, hostComponents.count - 1)] componentsJoinedByString:@"."];
+        return [self initWithDomain:domain language:language];
+    }
 }
 
 + (instancetype)siteWithLanguage:(NSString*)language {
@@ -94,7 +100,10 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 - (NSURLComponents*)URLComponents:(BOOL)isMobile {
     NSURLComponents* siteURLComponents = [[NSURLComponents alloc] init];
     siteURLComponents.scheme = @"https";
-    NSMutableArray* hostComponents = [NSMutableArray arrayWithObject:self.language];
+    NSMutableArray* hostComponents = [NSMutableArray array];
+    if (self.language) {
+        [hostComponents addObject:self.language];
+    }
     if (isMobile) {
         [hostComponents addObject:@"m"];
     }
@@ -104,7 +113,10 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 }
 
 - (NSString*)urlDomainWithLanguage {
-    NSMutableArray* hostComponents = [NSMutableArray arrayWithObject:self.language];
+    NSMutableArray* hostComponents = [NSMutableArray array];
+    if (self.language) {
+        [hostComponents addObject:self.language];
+    }
     [hostComponents addObject:self.domain];
     return [hostComponents componentsJoinedByString:@"."];
 }

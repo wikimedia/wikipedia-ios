@@ -1,15 +1,15 @@
 
 #import "MWKSiteInfoFetcher.h"
 #import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
+#import "AFHTTPSessionManager+WMFDesktopRetry.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFNetworkUtilities.h"
 #import "WMFApiJsonResponseSerializer.h"
 #import "MWKSite.h"
 #import "MWKSiteInfo.h"
 
 @interface MWKSiteInfoFetcher ()
-@property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
 @end
 
 @implementation MWKSiteInfoFetcher
@@ -17,7 +17,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+        AFHTTPSessionManager* manager = [AFHTTPSessionManager wmf_createDefaultManager];
         manager.responseSerializer = [WMFApiJsonResponseSerializer serializer];
         self.operationManager      = manager;
     }
@@ -41,13 +41,13 @@
         [self.operationManager wmf_GETWithSite:site
                                     parameters:params
                                          retry:NULL
-                                       success:^(AFHTTPRequestOperation* operation, id responseObject) {
+                                       success:^(NSURLSessionDataTask* operation, id responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             NSDictionary* generalProps = [responseObject valueForKeyPath:@"query.general"];
             MWKSiteInfo* info = [[MWKSiteInfo alloc] initWithSite:site mainPageTitleText:generalProps[@"mainpage"]];
             resolve(info);
         }
-                                       failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+                                       failure:^(NSURLSessionDataTask* operation, NSError* error) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve(error);
         }];

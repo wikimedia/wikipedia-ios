@@ -1,8 +1,9 @@
 // Messages for Luxembourgish (Lëtzebuergesch)
 // Exported from translatewiki.net
+// Author: Macofe
 // Author: Robby
 
-"languages-title" = "Sproochen";
+"languages-title" = "Sprooch änneren";
 "article-languages-label" = "Sprooch eraussichen";
 "article-languages-cancel" = "Ofbriechen";
 "article-languages-downloading" = "Luede vun de Sprooche vum Artikel...";
@@ -12,6 +13,8 @@
 "article-unable-to-load-section" = "Dësen Abschnitt konnt net geluede ginn. Probéiert fir den Artikel z'aktualiséieren an ze kucken ob dat de Problem léist.";
 "article-unable-to-load-article" = "Artikel konnt net geluede ginn.";
 "article-related-articles-title" = "Ähnlech Artikelen";
+"article-languages-yours" = "Är Sprooch";
+"article-languages-others" = "Aner Sproochen";
 "info-box-title" = "Séier Fakten";
 "info-box-close-text" = "Zoumaachen";
 "table-title-other" = "Méi Informatiounen";
@@ -97,7 +100,9 @@
 "search-recent-clear-delete-all" = "All läschen";
 "search-result-redirected-from" = "Virugeleet vun: $1";
 "settings-title" = "Astellungen";
+"settings-language" = "Wikipedia-Sprooch";
 "settings-support" = "Wikipedia ënnerstëtzen";
+"settings-my-languages" = "Meng Sproochen";
 "main-menu-title" = "Méi";
 "main-menu-heading-about" = "Iwwer";
 "main-menu-language-title" = "Sicht an der Wiki op $1";
@@ -109,6 +114,7 @@
 "main-menu-account-title-logged-in" = "Ageloggt als $1";
 "main-menu-account-login" = "Aloggen";
 "main-menu-account-logout" = "Ausloggen";
+"main-menu-account-logout-are-you-sure" = "Sidd Dir sécher datt Dir Iech wëllt ausloggen?";
 "main-menu-account-logout-cancel" = "Ofbriechen";
 "main-menu-show-title" = "Weis mir...";
 "main-menu-show-history" = "Rezent";
@@ -122,7 +128,6 @@
 "main-menu-about" = "Iwwer d'App";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-menu-privacy-policy" = "Dateschutz";
-// Fuzzy
 "main-menu-terms-of-use" = "Benotzungs-Bedingungen";
 "main-menu-rate-app" = "D'App bewäerten";
 "main-menu-heading-zero" = "Wikipedia Zero";
@@ -190,7 +195,7 @@
 "about-libraries-complete-list" = "Komplett Lëscht";
 "about-repositories-app-source-license-mit" = "MIT-Lizenz";
 "about-send-feedback" = "Feedback vun der App schécken";
-"about-product-of" = "E Produkt vun der $1";
+"about-product-of" = "E Produkt vun der $1 mat der Hëllef vu Fräiwëllege wéi Iech";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Artikel späicheren";
 "share-menu-page-saved" = "Säit gespäichert";
@@ -210,6 +215,7 @@
 "timestamp-years" = "viru(n) %d Joer";
 "lastmodified-by-user" = "$1 geännert vum $2";
 "lastmodified-by-anon" = "$1 geännert vun engem anonyme Benotzer";
+"button-edit" = "Änneren";
 "button-next" = "Weider";
 "button-done" = "Fäerdeg";
 "button-save" = "Späicheren";
@@ -228,7 +234,7 @@
 "page_protected_other" = "Dës Säit gouf fir dës Niveaue gespaart: $1";
 "page_protected_can_not_edit" = "Dir hutt net d'Recht fir dës Säit z'änneren";
 "page_protected_can_not_edit_title" = "Dës Säit ass gespaart";
-"license-footer-text" = "Den Inhalt ass ënner $1 disponibel";
+"license-footer-text" = "Den Inhalt ass ënner der $1 disponibel wann et net anescht uginn ass.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Inhalter";
 "table-of-contents-button-label" = "Inhaltsverzeechnes";
@@ -290,11 +296,11 @@
 "hockeyapp-alert-privacy" = "$1-Dateschutz";
 "page-issues" = "Problemer mat der Säit";
 "page-similar-titles" = "Ähnlech Säiten";
-"page-read-in-other-languages" = "Disponibel an $1 Sproochen";
+"page-read-in-other-languages" = "Disponibel an $1 aneren Sproochen";
 "page-last-edited" = "Viru(n) $1 Deeg geännert";
 "page-edit-history" = "All Versioune vun der Säit";
 "captcha-reload" = "En anere Captcha weisen";
-"captcha-prompt" = "Gitt de Captcha-Text vum Bild heidriwwer an";
+"captcha-prompt" = "Gitt de Captcha-Text an";
 "mwk-empty-title-error" = "Operatioun kann net mat engem eidelen Titel gemaach ginn.";
 "home-empty-section" = "Keng Resultater";
 "home-empty-section-check-again" = "Probéiert nach emol";
@@ -319,7 +325,8 @@
 "welcome-explore-tell-me-more-done-button" = "Verstan";
 "welcome-explore-continue-button" = "Fir unzefänken";
 "welcome-languages-title" = "Sproochen";
-"welcome-languages-add-button" = "+ Eng aner derbäisetzen";
+// Fuzzy
+"welcome-languages-add-button" = "Eng aner derbäisetzen";
 "welcome-languages-continue-button" = "Virufueren";
 "welcome-volunteer-title" = "Fräiwëllegen";
 "welcome-volunteer-sub-title" = "Hëlleft d'Wikipedia-App ze verbesseren andeem Dir deelt wéi Dir se benotzt";
@@ -327,8 +334,7 @@
 "welcome-volunteer-thanks" = "$1 Merci!";
 "empty-no-feed-title" = "Keng Internetverbindung";
 "empty-no-feed-message" = "Dir kënnt Är recommandéiert Artikele gesi wann Dir Internet hutt.";
-// Fuzzy
-"empty-no-feed-action-message" = "Dir kënnt an der Tëschenzäit gespäichert Säite liesen";
+"empty-no-feed-action-message" = "Dir kënnt trotzdem gespäichert Säite liesen";
 "empty-no-article-message" = "Leider konnt den Artikel net geluede ginn";
 "empty-no-search-results-message" = "Näischt fonnt";
 "empty-no-saved-pages-title" = "Nach keng gespäichert Säiten";
@@ -344,10 +350,13 @@
 "compass-direction" = "ëm $1 Auer";
 "explore-featured-article-heading" = "Recommandéierten Artikel";
 "explore-continue-reading-heading" = "Virufuere mat Liesen";
-// Fuzzy
 "explore-nearby-heading" = "Plazen nobäi";
 "explore-continue-related-heading" = "Well Dir liest";
 "explore-main-page-heading" = "Haut op Wikipedia";
 "explore-random-article-heading" = "Zoufällegen Artikel";
 "explore-random-article-sub-heading" = "Wikipedia op Englesch";
 "explore-potd-heading" = "Bild vum Dag";
+"explore-most-read-heading" = "Am dackste geliest op der Wikipedia op $1";
+"explore-most-read-footer" = "Déi am dackste geliest Artikelen";
+"explore-most-read-more-list-title" = "Beléifst Artikelen";
+"explore-most-read-more-list-title-for-date" = "Déi beléifst de(n) $1";

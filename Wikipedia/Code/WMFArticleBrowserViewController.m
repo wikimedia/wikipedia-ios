@@ -17,16 +17,15 @@
 
 #import "UIViewController+WMFSearch.h"
 #import "WMFSaveButtonController.h"
-#import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "PiwikTracker+WMFExtensions.h"
 #import "WMFShareFunnel.h"
 #import "UIToolbar+WMFStyling.h"
 
 #import "WMFArticleViewController.h"
-#import "LanguagesViewController.h"
+#import "WMFLanguagesViewController.h"
 
-@import Tweaks;
+#import <Tweaks/FBTweakInline.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,7 +33,7 @@ BOOL useSingleBrowserController() {
     return FBTweakValue(@"Article", @"Browser", @"Use Article Browser", NO);
 }
 
-@interface WMFArticleBrowserViewController ()<UINavigationControllerDelegate, WMFArticleViewControllerDelegate, LanguageSelectionDelegate, UIToolbarDelegate, UINavigationBarDelegate>
+@interface WMFArticleBrowserViewController ()<UINavigationControllerDelegate, WMFArticleViewControllerDelegate, WMFLanguagesViewControllerDelegate, UIToolbarDelegate, UINavigationBarDelegate>
 
 @property (nonatomic, strong, readwrite) UINavigationController* internalNavigationController;
 @property (nonatomic, strong) NSMutableArray<MWKTitle*>* navigationTitleStack;
@@ -460,14 +459,12 @@ BOOL useSingleBrowserController() {
 #pragma mark - Languages
 
 - (void)showLanguagePicker {
-    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
-    languagesVC.articleTitle              = [[self currentViewController] articleTitle];
-    languagesVC.languageSelectionDelegate = self;
+    WMFArticleLanguagesViewController* languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithTitle:[[self currentViewController] articleTitle]];
+    languagesVC.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
 
-- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
-    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
+- (void)languagesController:(WMFArticleLanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
     [self dismissViewControllerAnimated:YES completion:^{
         WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:language.title dataStore:self.dataStore];
         [self.internalNavigationController pushViewController:vc animated:YES];

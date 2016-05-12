@@ -338,7 +338,9 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES">
+      allowLocationSimulation = "YES"
+      language = "he"
+      region = "IL">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
@@ -352,11 +354,11 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "-AppleLocale he_IL"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-AppleLanguages (he)"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-WMFVisualTestBatchRecordMode NO"

@@ -6,6 +6,7 @@
 // Author: Macofe
 // Author: Y-M D
 
+// Fuzzy
 "languages-title" = "Yezhoù";
 "article-languages-label" = "Dibab ar yezh";
 "article-languages-cancel" = "Nullañ";
@@ -202,6 +203,7 @@
 // Fuzzy
 "about-repositories" = "Reizhiadoù daveiñ";
 "about-send-feedback" = "Kas un ali diwar-benn an arload";
+// Fuzzy
 "about-product-of" = "Ur produ eus an $1";
 "about-wikimedia-foundation" = "Diazezadur Wikimedia";
 "share-menu-save-page" = "Enrollañ ar pennad";
@@ -236,6 +238,7 @@
 "page_protected_other" = "Gwarezet eo bet ar bajenn-mañ gant al liveoù-mañ : $1";
 "page_protected_can_not_edit" = "N'ho peus ket gwir da aozañ ar bajenn-mañ";
 "page_protected_can_not_edit_title" = "Gwarezet eo ar bajenn-mañ";
+// Fuzzy
 "license-footer-text" = "An endalc'had a c'haller kavout dindan $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Endalc'had";
@@ -299,4 +302,5 @@
 "page-issues" = "Kudennoù war ar bajenn";
 "page-similar-titles" = "Pajennoù damheñvel";
 "captcha-reload" = "Diskwel ur c'haptcha all";
+// Fuzzy
 "captcha-prompt" = "Ebarzhit an destenn CAPTCHA er skeudenn amañ a-us";

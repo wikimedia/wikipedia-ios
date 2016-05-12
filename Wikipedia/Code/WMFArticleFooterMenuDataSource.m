@@ -52,14 +52,14 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSMutableArray<WMFArticleFooterMenuItem*>* menuItems = [NSMutableArray arrayWithCapacity:4];
 
-    if (article.languagecount > 0) {
+    if (article.hasMultipleLanguages) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLanguages,
                                       [MWSiteLocalizedString(article.title.site, @"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", article.languagecount]],
                                       nil, @"footer-switch-language")];
     }
 
-    NSDate *lastModified = article.lastmodified ? article.lastmodified : [NSDate date];
-    
+    NSDate* lastModified = article.lastmodified ? article.lastmodified : [NSDate date];
+
     if (FBTweakValue(@"Article", @"Article Metadata Footer", @"Show last edit timestamp", NO)) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
                                       [lastModified mediumString],

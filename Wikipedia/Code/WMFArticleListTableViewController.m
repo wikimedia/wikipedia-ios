@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
                 [self.tableView reloadData];
             }];
             [sheet bk_setCancelButtonWithTitle:[self deleteCancelText] handler:NULL];
-            [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
+            [sheet showFromBarButtonItem:sender animated:YES];
         }];
     } else {
         self.navigationItem.leftBarButtonItem = nil;
@@ -172,6 +172,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - UIViewController
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return [self wmf_orientationMaskPortraitiPhoneAnyiPad];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

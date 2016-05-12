@@ -86,6 +86,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// Absolute URL to desktop view of this article
 @property (readonly, copy, nonatomic) NSURL* desktopURL;
 
+
+/**
+ * Non standard titles shoudnt be added to history
+ * or be saved, or loaded on launch
+ * These are typically support pages.
+ */
+- (BOOL)isNonStandardTitle;
+
 @end
 
 NS_ASSUME_NONNULL_END

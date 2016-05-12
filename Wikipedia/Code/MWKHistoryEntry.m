@@ -19,6 +19,7 @@
 @implementation MWKHistoryEntry
 
 - (instancetype)initWithTitle:(MWKTitle*)title {
+    NSParameterAssert(title.site.language);
     self = [self initWithSite:title.site];
     if (self) {
         self.title          = title;

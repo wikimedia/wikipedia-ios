@@ -16,6 +16,8 @@
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
+#import "AFHTTPSessionManager+WMFCancelAll.h"
+
 
 #define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f * MENUS_SCALE_MULTIPLIER]
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f * MENUS_SCALE_MULTIPLIER)
@@ -173,11 +175,11 @@
 - (void)loadLatestWikiTextForSectionFromServer {
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-downloading", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
-    [[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager.operationQueue cancelAllOperations];
-
-    (void)[[WikiTextSectionFetcher alloc] initAndFetchWikiTextForSection:self.section
-                                                             withManager:[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager
-                                                      thenNotifyDelegate:self];
+    [[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager wmf_cancelAllTasksWithCompletionHandler:^{
+        (void)[[WikiTextSectionFetcher alloc] initAndFetchWikiTextForSection:self.section
+                                                                 withManager:[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager
+                                                          thenNotifyDelegate:self];
+    }];
 }
 
 - (NSAttributedString*)getAttributedString:(NSString*)string {

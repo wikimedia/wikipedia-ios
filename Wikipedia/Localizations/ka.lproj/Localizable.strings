@@ -5,6 +5,7 @@
 // Author: MIKHEIL
 // Author: Otogi
 
+// Fuzzy
 "languages-title" = "ენები";
 "article-languages-label" = "აირჩიეთ ენა";
 "article-languages-cancel" = "გაუქმება";
@@ -204,6 +205,7 @@
 // Fuzzy
 "about-repositories" = "რეპოზიტორები";
 "about-send-feedback" = "შეაფასეთ აპლიკაცია";
+// Fuzzy
 "about-product-of" = "$1-ის პროდუქტი";
 "about-wikimedia-foundation" = "ფონდი ვიკიმედია";
 "share-menu-save-page" = "გვერდის შენახვა";
@@ -241,6 +243,7 @@
 "page_protected_other" = "ეს გვერდი დაცულია შემდეგ დონეებზე: $1";
 "page_protected_can_not_edit" = "თქვენ არ გაქვთ ამ გვერდის რედაქტირების უფლება";
 "page_protected_can_not_edit_title" = "ეს გვერდი დაცულია";
+// Fuzzy
 "license-footer-text" = "კონტენტი ხელმისაწვდომია $1-ით";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "შინაარსი";
@@ -309,6 +312,7 @@
 "page-last-edited" = "რედაქტირებულია $1 დღის წინ";
 "page-edit-history" = "მთლიანი რედაქტირების ისტორია";
 "captcha-reload" = "სხვა captcha-ს ჩვენება";
+// Fuzzy
 "captcha-prompt" = "შეიყვანეთ CAPTCHA-ს ტექსტი ზემოთ ნაჩვენები სურათიდან";
 "mwk-empty-title-error" = "შეუძლებელია ოპერაციის შესრულება ცარიელი სათაურით.";
 "home-title" = "გამოიკვლიე";
@@ -321,7 +325,9 @@
 "home-featured-article-heading" = "რჩეული სტატია $1-სთვის";
 "home-main-page-heading" = "დღეს ვიკიპედიაზე";
 "home-potd-heading" = "დღის სურათი $1-სთვის";
+// Fuzzy
 "home-last-update-label" = "ბოლოს განახლდა: $1";
+// Fuzzy
 "home-last-update-never-label" = "ბოლოს განახლდა: არასდროს";
 "home-updating-label" = "განახლება...";
 "home-hide-suggestion-cancel" = "გაუქმება";

@@ -13,7 +13,7 @@ typedef NS_ENUM (NSInteger, WikiTextSectionUploaderErrors) {
     WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER      = 5
 };
 
-@class AFHTTPRequestOperationManager;
+@class AFHTTPSessionManager;
 
 @interface WikiTextSectionUploader : FetcherBase
 
@@ -37,6 +37,6 @@ typedef NS_ENUM (NSInteger, WikiTextSectionUploaderErrors) {
                             captchaId:(NSString*)captchaId
                           captchaWord:(NSString*)captchaWord
                                 token:(NSString*)token
-                          withManager:(AFHTTPRequestOperationManager*)manager
+                          withManager:(AFHTTPSessionManager*)manager
                    thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 @end

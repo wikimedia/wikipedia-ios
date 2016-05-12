@@ -2,7 +2,7 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "CaptchaResetter.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "AFHTTPSessionManager.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSObject+WMFExtras.h"
@@ -16,7 +16,7 @@
 @implementation CaptchaResetter
 
 - (instancetype)initAndResetCaptchaForDomain:(NSString*)domain
-                                 withManager:(AFHTTPRequestOperationManager*)manager
+                                 withManager:(AFHTTPSessionManager*)manager
                           thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
@@ -27,14 +27,14 @@
     return self;
 }
 
-- (void)resetCaptchaWithManager:(AFHTTPRequestOperationManager*)manager {
+- (void)resetCaptchaWithManager:(AFHTTPSessionManager*)manager {
     NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain];
 
     NSDictionary* params = [self getParams];
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    [manager POST:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
+    [manager POST:url.absoluteString parameters:params progress:NULL success:^(NSURLSessionDataTask* operation, id responseObject) {
         //NSLog(@"JSON: %@", responseObject);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
@@ -62,7 +62,7 @@
 
         [self finishWithError:error
                   fetchedData:output];
-    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+    } failure:^(NSURLSessionDataTask* operation, NSError* error) {
         //NSLog(@"CAPTCHA RESETTER FAIL = %@", error);
 
         [[MWNetworkActivityIndicatorManager sharedManager] pop];

@@ -15,7 +15,7 @@
 // Author: WindEwriX
 // Author: Александр Сигачёв
 
-"languages-title" = "Языки";
+"languages-title" = "Изменить язык";
 "article-languages-label" = "Выберите язык";
 "article-languages-cancel" = "Отмена";
 "article-languages-downloading" = "Загрузка языков статьи…";
@@ -25,6 +25,8 @@
 "article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "article-unable-to-load-article" = "Не удается загрузить эту статью.";
 "article-related-articles-title" = "Статьи по теме";
+"article-languages-yours" = "Ваши языки";
+"article-languages-others" = "Другие языки";
 "info-box-title" = "Краткие факты";
 "info-box-close-text" = "Закрыть";
 "table-title-other" = "Подробнее";
@@ -116,6 +118,7 @@
 "settings-language" = "Язык Википедии";
 "settings-support" = "Поддержать Википедию";
 "settings-language-bar" = "Показывать языки при поиске";
+"settings-my-languages" = "Мои языки";
 "main-menu-title" = "Ещё";
 "main-menu-heading-about" = "Про приложение";
 "main-menu-language-title" = "Поиск $1 Википедии";
@@ -216,7 +219,7 @@
 "about-repositories-app-source-license" = "Исходный текст доступен под $1.";
 "about-repositories-app-source-license-mit" = "Лицензия MIT";
 "about-send-feedback" = "Отправить отзыв о приложении";
-"about-product-of" = "Продукт $1";
+"about-product-of" = "Этот программный продукт разработал $1 при поддержке таких же добровольцев, как вы";
 "about-wikimedia-foundation" = "Фонд Викимедиа";
 "share-menu-save-page" = "Сохранить статью";
 "share-menu-page-saved" = "Статья сохранена";
@@ -237,6 +240,7 @@
 "timestamp-years" = "%d г. назад";
 "lastmodified-by-user" = "Отредактировано $1 участником $2";
 "lastmodified-by-anon" = "Отредактировано $1 анонимным пользователем";
+"button-edit" = "Править";
 "button-next" = "Далее";
 "button-done" = "Готово";
 "button-save" = "Сохранить";
@@ -324,7 +328,7 @@
 "page-last-edited" = "Отредактировано $1 д. назад";
 "page-edit-history" = "Полная история редактирования";
 "captcha-reload" = "Показать другой код";
-"captcha-prompt" = "Введите текст капчи с изображения выше";
+"captcha-prompt" = "Введите текст капчи";
 "mwk-empty-title-error" = "Не удаётся выполнить операцию с пустым заголовком.";
 "home-title" = "Исследуйте!";
 "home-empty-section" = "Нет результатов";
@@ -359,7 +363,8 @@
 "welcome-explore-continue-button" = "Начать";
 "welcome-languages-title" = "Языки";
 "welcome-languages-sub-title" = "Выберите языки, на которых вы хотели бы осуществлять поиск в Википедии";
-"welcome-languages-add-button" = "+ Добавить ещё один";
+// Fuzzy
+"welcome-languages-add-button" = "Добавить ещё один";
 "welcome-languages-continue-button" = "Продолжить";
 "welcome-volunteer-title" = "Доброволец";
 "welcome-volunteer-sub-title" = "Помогите улучшить приложение Википедии, рассказав, как вы его используете";
@@ -393,4 +398,7 @@
 "explore-potd-heading" = "Изображение дня";
 "explore-most-read-heading" = "Самое читаемое в $1 Википедии";
 "explore-most-read-footer" = "Все самые читаемые статьи";
+"explore-most-read-footer-for-date" = "Все самые читаемые статьи на $1";
 "explore-most-read-more-list-title" = "Самые читаемые статьи";
+"explore-most-read-more-list-title-for-date" = "Самое читаемое на $1";
+"no-email-account-alert" = "Пожалуйста, настройте на вашем устройстве учетную запись электронной почты и попробуйте ещё раз.";

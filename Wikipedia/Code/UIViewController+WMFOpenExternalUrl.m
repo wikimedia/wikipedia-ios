@@ -8,6 +8,7 @@
 #import "ZeroConfigState.h"
 #import "SessionSingleton.h"
 #import "UIAlertView+BlocksKit.h"
+#import "WMFZeroMessage.h"
 
 @implementation UIViewController (WMFOpenExternalLinkDelegate)
 
@@ -20,13 +21,24 @@
 
     //If zero rated, don't open any external (non-zero rated!) links until user consents!
     if ([SessionSingleton sharedInstance].zeroConfigState.disposition && [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
-        NSString* messageWithHost = [NSString stringWithFormat:@"%@\n\n%@", MWLocalizedString(@"zero-interstitial-leave-app", nil), url.host];
-        UIAlertView* zeroAlert    = [UIAlertView bk_alertViewWithTitle:MWLocalizedString(@"zero-interstitial-title", nil)
-                                                               message:messageWithHost];
+        WMFZeroMessage* zeroMessage = [SessionSingleton sharedInstance].zeroConfigState.zeroMessage;
+        NSString* exitDialogTitle   = zeroMessage.exitTitle ? : MWLocalizedString(@"zero-interstitial-title", nil);
+        NSString* messageWithHost   = [NSString stringWithFormat:@"%@\n\n%@", zeroMessage.exitWarning ? : MWLocalizedString(@"zero-interstitial-leave-app", nil), url.host];
+
+        UIAlertView* zeroAlert = [UIAlertView bk_alertViewWithTitle:exitDialogTitle
+                                                            message:messageWithHost];
         [zeroAlert bk_setCancelButtonWithTitle:MWLocalizedString(@"zero-interstitial-cancel", nil) handler:nil];
         [zeroAlert bk_addButtonWithTitle:MWLocalizedString(@"zero-interstitial-continue", nil) handler:^{
             [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
         }];
+        if ([self isPartnerInfoConfigValid:zeroMessage]) {
+            NSString* partnerInfoText = zeroMessage.partnerInfoText;
+            NSURL* partnerInfoUrl     = [NSURL URLWithString:zeroMessage.partnerInfoUrl];
+            [zeroAlert bk_addButtonWithTitle:partnerInfoText handler:^{
+                [self wmf_openExternalUrlModallyIfNeeded:partnerInfoUrl forceSafari:useSafari];
+            }];
+        }
+
         [zeroAlert show];
     } else {
         [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
@@ -51,6 +63,10 @@
 
 - (void)wmf_presentExternalUrlAsSVModal:(NSURL*)url {
     [self presentViewController:[[SVModalWebViewController alloc] initWithURL:url] animated:YES completion:nil];
+}
+
+- (BOOL)isPartnerInfoConfigValid:(WMFZeroMessage*)msg {
+    return msg.partnerInfoText != nil && msg.partnerInfoUrl != nil;
 }
 
 @end

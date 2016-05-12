@@ -2,15 +2,21 @@
 // Exported from translatewiki.net
 // Author: Gediminas
 // Author: Hugo.arg
+// Author: Macofe
 // Author: Mantak111
 // Author: Pofka
+// Author: Techwebpd
 // Author: Zygimantus
 
+"languages-title" = "Keisti kalbą";
 "article-languages-label" = "Pasirinkite kalbą";
 "article-languages-cancel" = "Atšaukti";
-// Fuzzy
-"article-languages-filter-placeholder" = "Kalbų filtras";
+"article-languages-downloading" = "Įkeliamos straipsnio kalbos...";
+"article-languages-filter-placeholder" = "Rasti kalbą";
 "article-read-more-title" = "Skaityti daugiau";
+"article-about-title" = "Apie šį straipsnį";
+"article-related-articles-title" = "Susiję straipsniai";
+"article-languages-yours" = "Jūsų kalbos";
 "info-box-title" = "Trumpi faktai";
 "info-box-close-text" = "Uždaryti";
 "table-title-other" = "Daugiau informacijos";
@@ -63,6 +69,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Atidaryti nuorodą";
 "open-link-cancel" = "Atšaukti";
+"search-title" = "Paieška";
 "search-searching" = "Ieškoma...";
 "search-field-placeholder-text" = "Paieška Vikipedijoje";
 "search-loading-article-loaded" = "Straipsnis įkeltas.";
@@ -79,6 +86,7 @@
 "settings-language" = "Vikipedijos kalba";
 "settings-support" = "Paremti Vikipediją";
 "settings-language-bar" = "Rodyti kalbas paieškoje";
+"settings-my-languages" = "Mano kalbos";
 "main-menu-title" = "Daugiau";
 "main-menu-heading-about" = "Apie";
 "main-menu-language-title" = "Paieška $1 Vikipedijoje";
@@ -109,7 +117,9 @@
 "main-menu-show-today" = "Šiandien";
 "main-menu-nearby" = "Šalia";
 "main-menu-more" = "Daugiau...";
+"main-menu-heading-debug" = "Derinti";
 "main-menu-debug-crash" = "Užlūžo";
+"saved-title" = "Išsaugota";
 "saved-pages-title" = "Įrašyti puslapiai";
 // Fuzzy
 "saved-pages-clear-confirmation-heading" = "Naikinti visus įrašytus elementus?";
@@ -154,6 +164,7 @@
 "about-repositories" = "Duomenų saugyklos";
 "about-repositories-app-source-license-mit" = "MIT licencija";
 "about-send-feedback" = "Siųsti atsiliepimą apie programėlę";
+// Fuzzy
 "about-product-of" = "$1 produktas";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Įrašyti puslapį";
@@ -167,6 +178,7 @@
 "timestamp-days" = "Prieš %d dienas";
 "timestamp-months" = "Prieš %d mėnesius";
 "timestamp-years" = "Prieš %d metus";
+"button-edit" = "Keisti";
 "button-next" = "Kitas";
 "button-done" = "Atlikta";
 "button-save" = "Įrašyti";
@@ -178,6 +190,7 @@
 "onboarding-free-encyclopedia" = "Laisvoji enciklopedija";
 "preference_title_eventlogging_opt_in" = "Siųsti naudojimo ataskaitas";
 "page_protected_can_not_edit_title" = "Šis puslapis apsaugotas";
+// Fuzzy
 "license-footer-text" = "Turinys prieinamas pagal $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Turinys";
@@ -215,6 +228,7 @@
 "hockeyapp-alert-always-send" = "Visada siųsti";
 "hockeyapp-alert-do-not-send" = "Nesiųsti";
 "page-similar-titles" = "Panašūs puslapiai";
+// Fuzzy
 "page-read-in-other-languages" = "Prieinama $1 kalbomis";
 "captcha-reload" = "Rodyti kitą saugos kodą";
 "home-empty-section" = "Nėra rezultatų";
@@ -226,7 +240,8 @@
 "welcome-explore-tell-me-more-done-button" = "Supratau";
 "welcome-explore-continue-button" = "Pradėti";
 "welcome-languages-title" = "Kalbos";
-"welcome-languages-add-button" = "+ Pridėti kitą";
+// Fuzzy
+"welcome-languages-add-button" = "Pridėti kitą";
 "welcome-languages-continue-button" = "Tęsti";
 "welcome-volunteer-title" = "Savanoris";
 "welcome-volunteer-send-usage-reports" = "Siųsti naudojimo ataskaitas";
@@ -235,4 +250,6 @@
 "empty-no-feed-title" = "Nėra interneto ryšio";
 "empty-no-search-results-message" = "Rezultatų nerasta";
 "alert-no-internet" = "Ten nėra interneto ryšio";
+"explore-nearby-heading" = "Artimos vietovės";
 "explore-most-read-more-list-title" = "Top straipsniai";
+"explore-most-read-more-list-title-for-date" = "Viršuje $1";

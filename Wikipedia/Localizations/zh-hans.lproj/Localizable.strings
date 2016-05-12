@@ -7,12 +7,13 @@
 // Author: LNDDYL
 // Author: Linforest
 // Author: Liuxinyu970226
+// Author: Macofe
 // Author: NigelSoft
 // Author: Qiyue2001
 // Author: Shizhao
 // Author: 王庭茂
 
-"languages-title" = "语言";
+"languages-title" = "更改语言";
 "article-languages-label" = "选择语言";
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "条目语言载入中...";
@@ -22,6 +23,8 @@
 "article-unable-to-load-section" = "无法载入此章节。请尝试刷新条目以查看问题是否解决。";
 "article-unable-to-load-article" = "无法加载条目。";
 "article-related-articles-title" = "相关条目";
+"article-languages-yours" = "您的语言";
+"article-languages-others" = "其他语言";
 "info-box-title" = "快速预览";
 "info-box-close-text" = "关闭";
 "table-title-other" = "更多信息";
@@ -73,7 +76,7 @@
 "login-account-creation" = "没有账户？加入维基百科";
 "login-username-placeholder-text" = "用户名";
 "login-password-placeholder-text" = "密码";
-"wikitext-downloading" = "加载中…";
+"wikitext-downloading" = "正在加载内容...";
 "wikitext-download-failed" = "无法获取最新的版本。";
 "wikitext-download-success" = "内容已加载。";
 "wikitext-preview-changes" = "正在获取您更改的预览…";
@@ -113,6 +116,7 @@
 "settings-language" = "维基百科语言";
 "settings-support" = "支持维基百科";
 "settings-language-bar" = "在搜索时显示语言";
+"settings-my-languages" = "我的语言";
 "main-menu-title" = "更多";
 "main-menu-heading-about" = "关于";
 "main-menu-language-title" = "搜索$1语维基百科";
@@ -213,7 +217,7 @@
 "about-repositories-app-source-license" = "源代码依据$1授权。";
 "about-repositories-app-source-license-mit" = "MIT协议";
 "about-send-feedback" = "发送应用程序反馈信息";
-"about-product-of" = "$1的产品";
+"about-product-of" = "在像您一样的志愿者的帮助下由$1制作";
 "about-wikimedia-foundation" = "维基媒体基金会";
 "share-menu-save-page" = "保存条目";
 "share-menu-page-saved" = "页面已保存";
@@ -234,6 +238,7 @@
 "timestamp-years" = "%d年前";
 "lastmodified-by-user" = "由$2于$1编辑";
 "lastmodified-by-anon" = "由匿名用户于$1编辑";
+"button-edit" = "编辑";
 "button-next" = "下一个";
 "button-done" = "完成";
 "button-save" = "保存";
@@ -252,7 +257,7 @@
 "page_protected_other" = "此页面已获以下保护：$1";
 "page_protected_can_not_edit" = "您没有权限编辑此页";
 "page_protected_can_not_edit_title" = "此页面受到保护";
-"license-footer-text" = "内容根据$1可用";
+"license-footer-text" = "除非另有说明，内容基于$1授权。";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "内容";
 "table-of-contents-button-label" = "目录";
@@ -317,11 +322,11 @@
 "hockeyapp-alert-privacy" = "$1隐私";
 "page-issues" = "页面问题";
 "page-similar-titles" = "相似页面";
-"page-read-in-other-languages" = "在$1种语言中可用";
+"page-read-in-other-languages" = "在$1种其他语言中可用";
 "page-last-edited" = "编辑于$1天前";
 "page-edit-history" = "完整编辑历史";
 "captcha-reload" = "显示另一个验证码";
-"captcha-prompt" = "输入上面图片的验证码文字";
+"captcha-prompt" = "输入验证码文字";
 "mwk-empty-title-error" = "无法执行带空标题的操作。";
 "home-title" = "探索";
 "home-empty-section" = "没有结果";
@@ -356,7 +361,8 @@
 "welcome-explore-continue-button" = "入门";
 "welcome-languages-title" = "语言";
 "welcome-languages-sub-title" = "选择您的首选语言以搜索维基百科";
-"welcome-languages-add-button" = "+添加另一个";
+// Fuzzy
+"welcome-languages-add-button" = "添加另一个";
 "welcome-languages-continue-button" = "继续";
 "welcome-volunteer-title" = "志愿者";
 "welcome-volunteer-sub-title" = "通过分享您的使用方式，帮助改进维基百科应用程序";
@@ -390,4 +396,7 @@
 "explore-potd-heading" = "每日图片";
 "explore-most-read-heading" = "$1维基百科上的最多阅读";
 "explore-most-read-footer" = "所有最多阅读的条目";
+"explore-most-read-footer-for-date" = "在$1所有最多阅读的条目";
 "explore-most-read-more-list-title" = "最多阅读的条目";
+"explore-most-read-more-list-title-for-date" = "在$1最多";
+"no-email-account-alert" = "请在您的设备上设置一个电子邮件地址，并重试。";

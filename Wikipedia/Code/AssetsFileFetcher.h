@@ -5,7 +5,7 @@
 #import "FetcherBase.h"
 #import "WMFAssetsFile.h"
 
-@class AFHTTPRequestOperationManager;
+@class AFHTTPSessionManager;
 
 /**
  *  Default max age for file before fetching
@@ -22,7 +22,7 @@ extern NSTimeInterval const kWMFMaxAgeDefault;
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
 - (instancetype)initAndFetchAssetsFileOfType:(WMFAssetsFileType)file
-                                 withManager:(AFHTTPRequestOperationManager*)manager
+                                 withManager:(AFHTTPSessionManager*)manager
                                       maxAge:(NSTimeInterval)maxAge;
 
 @end

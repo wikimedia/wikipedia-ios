@@ -9,8 +9,8 @@
 #import "WMFEnglishFeaturedTitleFetcher.h"
 #import "Wikipedia-Swift.h"
 
-#import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
+#import "AFHTTPSessionManager+WMFDesktopRetry.h"
+#import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFApiJsonResponseSerializer.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFNetworkUtilities.h"
@@ -18,35 +18,35 @@
 #import "MWKTitle.h"
 #import "MWKSearchResult.h"
 #import "NSDictionary+WMFCommonParams.h"
-
+#import "WMFBaseRequestSerializer.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFEnglishFeaturedTitleRequestSerializer : AFHTTPRequestSerializer
+@interface WMFEnglishFeaturedTitleRequestSerializer : WMFBaseRequestSerializer
 @end
 
 @interface WMFEnglishFeaturedTitleResponseSerializer : WMFApiJsonResponseSerializer
 @end
 
-@interface WMFTitlePreviewRequestSerializer : AFHTTPRequestSerializer
+@interface WMFTitlePreviewRequestSerializer : WMFBaseRequestSerializer
 @end
 
 @interface WMFEnglishFeaturedTitleFetcher ()
-@property (nonatomic, strong) AFHTTPRequestOperationManager* featuredTitleOperationManager;
-@property (nonatomic, strong) AFHTTPRequestOperationManager* titlePreviewOperationManager;
+@property (nonatomic, strong) AFHTTPSessionManager* featuredTitleOperationManager;
+@property (nonatomic, strong) AFHTTPSessionManager* titlePreviewOperationManager;
 @end
 
 @implementation WMFEnglishFeaturedTitleFetcher
 
-+ (AFHTTPRequestOperationManager*)featuredTitleOperationManager {
-    AFHTTPRequestOperationManager* featuredTitleOperationManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
++ (AFHTTPSessionManager*)featuredTitleOperationManager {
+    AFHTTPSessionManager* featuredTitleOperationManager = [AFHTTPSessionManager wmf_createDefaultManager];
     featuredTitleOperationManager.requestSerializer  = [WMFEnglishFeaturedTitleRequestSerializer serializer];
     featuredTitleOperationManager.responseSerializer = [WMFEnglishFeaturedTitleResponseSerializer serializer];
     return featuredTitleOperationManager;
 }
 
-+ (AFHTTPRequestOperationManager*)titlePreviewOperationManager {
-    AFHTTPRequestOperationManager* titlePreviewOperationManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
++ (AFHTTPSessionManager*)titlePreviewOperationManager {
+    AFHTTPSessionManager* titlePreviewOperationManager = [AFHTTPSessionManager wmf_createDefaultManager];
     titlePreviewOperationManager.requestSerializer  = [WMFTitlePreviewRequestSerializer serializer];
     titlePreviewOperationManager.responseSerializer =
         [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class] fromKeypath:@"query.pages"];

@@ -20,6 +20,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NSString* const WMFPreferredLanguagesDidChangeNotification = @"WMFPreferredLanguagesDidChangeNotification";
+
 static NSString* const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesKey";
 
 /**
@@ -33,7 +35,7 @@ static NSArray* WMFUnsupportedLanguages() {
     static NSArray* unsupportedLanguageCodes;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        unsupportedLanguageCodes = @[@"my", @"am", @"km", @"dv", @"lez", @"arc", @"got", @"ti"];;
+        unsupportedLanguageCodes = @[@"am", @"dv", @"lez", @"arc", @"got", @"ti"];
     });
     return unsupportedLanguageCodes;
 }
@@ -115,6 +117,10 @@ static id _sharedInstance;
     }];
 }
 
+- (MWKLanguageLink*)appLanguage {
+    return [self.preferredLanguages firstObject];
+}
+
 #pragma mark - Build Language Arrays
 
 - (void)updateLanguageArrays {
@@ -134,55 +140,40 @@ static id _sharedInstance;
 #pragma mark - Preferred Language Management
 
 - (void)addPreferredLanguage:(MWKLanguageLink*)language {
-    [self addPreferredLanguageForCode:language.languageCode];
-}
-
-- (void)addPreferredLanguageForCode:(NSString*)languageCode {
-    NSParameterAssert(languageCode);
+    NSParameterAssert(language);
     NSMutableArray<NSString*>* langCodes = [[self readPreferredLanguageCodes] mutableCopy];
-    [langCodes removeObject:languageCode];
-    [langCodes insertObject:languageCode atIndex:0];
+    [langCodes removeObject:language.languageCode];
+    [langCodes insertObject:language.languageCode atIndex:0];
     [self savePreferredLanguageCodes:langCodes];
 }
 
 - (void)appendPreferredLanguage:(MWKLanguageLink*)language {
-    [self appendPreferredLanguageForCode:language.languageCode];
-}
-
-- (void)appendPreferredLanguageForCode:(NSString*)languageCode {
+    NSParameterAssert(language);
     NSMutableArray<NSString*>* langCodes = [[self readPreferredLanguageCodes] mutableCopy];
-    [langCodes removeObject:languageCode];
-    [langCodes addObject:languageCode];
+    [langCodes removeObject:language.languageCode];
+    [langCodes addObject:language.languageCode];
     [self savePreferredLanguageCodes:langCodes];
 }
 
 - (void)reorderPreferredLanguage:(MWKLanguageLink*)language toIndex:(NSUInteger)newIndex {
-    [self reorderPreferredLanguageForCode:language.languageCode toIndex:newIndex];
-}
-
-- (void)reorderPreferredLanguageForCode:(NSString*)languageCode toIndex:(NSUInteger)newIndex {
     NSMutableArray<NSString*>* langCodes = [[self readPreferredLanguageCodes] mutableCopy];
     NSAssert(newIndex < [langCodes count], @"new language index is out of range");
     if (newIndex >= [langCodes count]) {
         return;
     }
-    NSUInteger oldIndex = [langCodes indexOfObject:languageCode];
+    NSUInteger oldIndex = [langCodes indexOfObject:language.languageCode];
     NSAssert(oldIndex != NSNotFound, @"Language is not a preferred language");
     if (oldIndex == NSNotFound) {
         return;
     }
-    [langCodes removeObject:languageCode];
-    [langCodes insertObject:languageCode atIndex:newIndex];
+    [langCodes removeObject:language.languageCode];
+    [langCodes insertObject:language.languageCode atIndex:newIndex];
     [self savePreferredLanguageCodes:langCodes];
 }
 
-- (void)removePreferredLanguage:(MWKLanguageLink*)langage {
-    [self removePreferredLanguageForCode:langage.languageCode];
-}
-
-- (void)removePreferredLanguageForCode:(NSString*)languageCode {
+- (void)removePreferredLanguage:(MWKLanguageLink*)language {
     NSMutableArray<NSString*>* langCodes = [[self readPreferredLanguageCodes] mutableCopy];
-    [langCodes removeObject:languageCode];
+    [langCodes removeObject:language.languageCode];
     [self savePreferredLanguageCodes:langCodes];
 }
 
@@ -206,12 +197,13 @@ static id _sharedInstance;
     NSMutableArray<NSString*>* preferredLanguages = [[self readPreferredLanguageCodesWithoutOSPreferredLanguages] mutableCopy];
     NSArray<NSString*>* osLanguages               = [self readOSPreferredLanguageCodes];
 
-    [osLanguages enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        if (![preferredLanguages containsObject:obj]) {
-            [preferredLanguages insertObject:obj atIndex:0];
-        }
-    }];
-
+    if (preferredLanguages.count == 0) {
+        [osLanguages enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+            if (![preferredLanguages containsObject:obj]) {
+                [preferredLanguages insertObject:obj atIndex:0];
+            }
+        }];
+    }
     return [preferredLanguages bk_reject:^BOOL (id obj) {
         return [obj isEqual:[NSNull null]];
     }];
@@ -221,12 +213,14 @@ static id _sharedInstance;
     [[NSUserDefaults standardUserDefaults] setObject:languageCodes forKey:WMFPreviousLanguagesKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self updateLanguageArrays];
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
 }
 
 - (void)resetPreferredLanguages {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:WMFPreviousLanguagesKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self updateLanguageArrays];
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
 }
 
 - (BOOL)languageIsOSLanguage:(MWKLanguageLink*)language {

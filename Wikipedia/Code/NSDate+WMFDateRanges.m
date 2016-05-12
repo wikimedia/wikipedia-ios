@@ -15,7 +15,7 @@
     return [self wmf_datesUntilDate:[NSDate date]];
 }
 
-- (NSArray<NSDate*>*)wmf_datesUntilDate:(NSDate*)date; {
+- (NSArray<NSDate*>*)wmf_datesUntilDate:(NSDate*)date {
     NSDate* laterDate                     = [date laterDate:self];
     NSDate* earlierDate                   = [date earlierDate:self];
     NSTimeInterval const secondsUntilDate = [laterDate timeIntervalSinceDate:earlierDate];
