@@ -1,5 +1,5 @@
 
-@import SSDataSources;
+#import <SSDataSources/SSDataSources.h>
 
 @interface WMFMainPagePlaceholderTableViewCell : SSBaseTableCell
 

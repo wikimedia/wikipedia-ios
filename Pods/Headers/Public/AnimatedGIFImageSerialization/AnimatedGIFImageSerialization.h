@@ -1,0 +1,1 @@
+../../../AnimatedGIFImageSerialization/AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.h

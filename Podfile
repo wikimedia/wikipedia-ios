@@ -5,7 +5,6 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, :deployment_target => '8.0'
 
-use_frameworks!
 inhibit_all_warnings!
 
 xcodeproj 'Wikipedia'
@@ -25,8 +24,6 @@ pod 'AnimatedGIFImageSerialization', :git => 'https://github.com/wikimedia/Anima
 pod 'libextobjc/EXTScope', '~> 0.4.1'
 pod 'BlocksKit/Core', '~> 2.2.0'
 pod 'BlocksKit/UIKit', '~> 2.2.0'
-pod 'PromiseKit', :head
-pod 'PromiseKit/SystemConfiguration', :head
 pod 'KVOController'
 
 # Dates
@@ -42,7 +39,7 @@ pod 'Masonry', '0.6.2'
 pod 'OAStackView', :git => 'git@github.com:wikimedia/OAStackView.git'
 pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git'
 pod 'SVWebViewController', '~> 1.0'
-pod "SWStepSlider", :git => 'https://github.com/wikimedia/SWStepSlider.git'
+# pod "SWStepSlider", :git => 'https://github.com/wikimedia/SWStepSlider.git'
 
 # Activities
 pod 'TUSafariActivity'
@@ -55,7 +52,6 @@ pod 'NYTPhotoViewer'
 
 # Diagnostics
 pod 'PiwikTracker', :head
-pod 'CocoaLumberjack/Swift', :head
 pod 'HockeySDK', '~> 3.8.2'
 pod 'Tweaks', :head
 
@@ -63,9 +59,9 @@ target 'WikipediaUnitTests', :exclusive => true do
   pod 'OCMockito', '~> 1.4.0'
   pod 'OCHamcrest', '~> 4.2.0'
   pod 'Nocilla'
-  pod 'FBSnapshotTestCase', :head
-  pod 'Quick', '~> 0.9.0'
-  pod 'Nimble', '~> 4.0.0'
+  # pod 'FBSnapshotTestCase', :head
+  # pod 'Quick', '~> 0.9.0'
+  # pod 'Nimble', '~> 4.0.0'
 end
 
 

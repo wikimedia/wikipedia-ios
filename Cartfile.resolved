@@ -1,0 +1,7 @@
+github "CocoaLumberjack/CocoaLumberjack" "2.3.0"
+github "Quick/Nimble" "v4.0.1"
+github "mxcl/OMGHTTPURLRQ" "3.1.1"
+github "Quick/Quick" "v0.9.2"
+github "wikimedia/SWStepSlider" "1.0.0"
+github "facebook/ios-snapshot-test-case" "2.1.0"
+github "mxcl/PromiseKit" "3.1.1"

@@ -17,8 +17,6 @@ public class WMFFontSliderViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.slider.tickWidth = 1.0
-        self.slider.trackHeight = 1.0
         if let max = self.maximumValue {
             if let current = self.currentValue {
                 self.setValues(0, maximum: max, current: current)

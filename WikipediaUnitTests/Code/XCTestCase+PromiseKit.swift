@@ -27,8 +27,8 @@ extension XCTestCase {
         callback: (Promise<T>) -> ((U) -> Void) -> V,
         timeout: NSTimeInterval = WMFDefaultExpectationTimeout,
         expirationHandler: XCWaitCompletionHandler? = nil,
-        function: StaticString = __FUNCTION__,
-        line: UInt = __LINE__,
+        function: StaticString = #function,
+        line: UInt = #line,
         pipe: ((U) -> Void)? = nil,
         test: () -> Promise<T>) {
         expectPromise(
@@ -57,8 +57,8 @@ extension XCTestCase {
     private func expectPromise<T, U>(callback: ((T) -> Void) -> U,
                                      timeout: NSTimeInterval = WMFDefaultExpectationTimeout,
                                      expirationHandler: XCWaitCompletionHandler? = nil,
-                                     function: StaticString = __FUNCTION__,
-                                     line: UInt = __LINE__,
+                                     function: StaticString = #function,
+                                     line: UInt = #line,
                                      pipe: ((T) -> Void)? = nil) {
         expectPromise(
             callback,
@@ -85,7 +85,7 @@ extension XCTestCase {
                 guard error != nil else {
                     return
                 }
-                DDLogError("Timeout expired with error: \(error)")
+                print("Timeout expired with error: \(error)")
                 expirationHandler?(error)
                 // nullify pending expectation to prevent fulfilling it after timeout has expired
                 pendingExpectation = nil

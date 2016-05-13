@@ -9,7 +9,7 @@
 @import XCTest;
 #import <Quick/Quick.h>
 @import Nimble;
-@import NSDate_Extensions;
+#import <NSDate-Extensions/NSDate+Utilities.h>
 
 #import "MWKHistoryEntry+MWKRandom.h"
 #import "WMFRecentPagesDataSource.h"

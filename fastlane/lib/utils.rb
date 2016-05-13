@@ -15,6 +15,12 @@ def make(args)
   end
 end
 
+# Create a string of the app version & build number suitable for badging
+# Must be invoked w/in fastlane
+def get_badge_version_string
+  "#{get_version_number}-#{get_build_number}-blue"
+end
+
 # Create a string of the app version & build number
 # Must be invoked w/in fastlane
 def get_version_string

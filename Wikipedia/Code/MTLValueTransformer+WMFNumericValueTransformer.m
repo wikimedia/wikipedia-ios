@@ -7,6 +7,7 @@
 //
 
 #import "MTLValueTransformer+WMFNumericValueTransformer.h"
+#import <Mantle/NSValueTransformer+MTLPredefinedTransformerAdditions.h>
 
 static NSString* const WMFNumericTransformerErrorDomain = @"WMFNumericTransformerErrorDomain";
 

@@ -25,7 +25,7 @@
 #import "WMFArticleViewController.h"
 #import "WMFLanguagesViewController.h"
 
-@import Tweaks;
+#import <Tweaks/FBTweakInline.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
