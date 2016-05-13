@@ -9,6 +9,10 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     babosa (1.0.2)
+    badge (0.4.1)
+      fastimage (~> 1.6.3)
+      fastlane_core (>= 0.25.0, < 1.0.0)
+      mini_magick (~> 4.5.1)
     cert (1.4.1)
       fastlane_core (>= 0.29.1, < 1.0.0)
       spaceship (>= 0.22.0, < 1.0.0)
@@ -264,6 +268,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  badge
   cocoapods (~> 0.39.0)
   fastlane (~> 1.87.0)
 

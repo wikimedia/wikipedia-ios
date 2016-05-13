@@ -6,4 +6,5 @@ end
 
 group :ci do
   gem 'fastlane', '~> 1.87.0'
+  gem 'badge'
 end
