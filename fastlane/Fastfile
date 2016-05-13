@@ -30,7 +30,7 @@ platform :ios do
   lane :testAndPushBeta do
     verifyTestPlatforms
     bumpAndTagBeta
-    badge(dark: true, shield: get_badge_version_string)
+    badge(dark: true, shield: get_badge_version_string, shield_no_resize: true)
     beta
   end
 
