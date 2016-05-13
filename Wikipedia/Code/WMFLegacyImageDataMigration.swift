@@ -8,6 +8,8 @@
 
 import Foundation
 import PromiseKit
+import CocoaLumberjackSwift
+
 
 enum LegacyImageDataMigrationError : CancellableErrorType {
     case Deinit

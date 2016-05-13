@@ -10,7 +10,6 @@ import UIKit
 import XCTest
 @testable import Wikipedia
 import PromiseKit
-import Nocilla
 import Nimble
 
 class WMFImageControllerTests: XCTestCase {

@@ -8,8 +8,7 @@
 
 import Foundation
 import PromiseKit
-import SDWebImage
-import CocoaLumberjack
+import CocoaLumberjackSwift
 
 ///
 /// @name Constants

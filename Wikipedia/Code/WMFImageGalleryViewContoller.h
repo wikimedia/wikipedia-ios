@@ -1,7 +1,6 @@
 
 #import <UIKit/UIKit.h>
-@import NYTPhotoViewer;
-
+#import <NYTPhotoViewer/NYTPhotosViewController.h>
 #import "WMFImageInfoController.h"
 
 NS_ASSUME_NONNULL_BEGIN

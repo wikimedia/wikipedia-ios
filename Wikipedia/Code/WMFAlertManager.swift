@@ -1,7 +1,5 @@
 
 import UIKit
-import TSMessages
-
 
 extension NSError {
     

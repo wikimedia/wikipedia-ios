@@ -61,12 +61,12 @@
 #import "NSURL+WMFLinkParsing.h"
 #import "NSURL+WMFExtras.h"
 #import "UIToolbar+WMFStyling.h"
+#import <Tweaks/FBTweakInline.h>
 
 @import SafariServices;
 
 @import JavaScriptCore;
 
-@import Tweaks;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -103,6 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Fetchers
 @property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
+@property (nonatomic, strong, nullable) AFNetworkReachabilityManager* reachabilityManager;
 
 // Children
 @property (nonatomic, strong) WMFReadMoreViewController* readMoreListViewController;
@@ -152,6 +153,8 @@ NS_ASSUME_NONNULL_BEGIN
         self.articleTitle             = title;
         self.dataStore                = dataStore;
         self.hidesBottomBarWhenPushed = YES;
+        self.reachabilityManager      = [AFNetworkReachabilityManager manager];
+        [self.reachabilityManager startMonitoring];
     }
     return self;
 }
@@ -640,6 +643,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:self.articleTitle];
+    [self.reachabilityManager startMonitoring];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -659,6 +663,11 @@ NS_ASSUME_NONNULL_BEGIN
             [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
         }
     });
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.reachabilityManager stopMonitoring];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
@@ -754,10 +763,18 @@ NS_ASSUME_NONNULL_BEGIN
 
             if ([error wmf_isNetworkConnectionError]) {
                 @weakify(self);
-                SCNetworkReachability().then(^{
-                    @strongify(self);
-                    [self fetchArticleIfNeeded];
-                });
+                [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+                    switch (status) {
+                        case AFNetworkReachabilityStatusReachableViaWWAN:
+                        case AFNetworkReachabilityStatusReachableViaWiFi: {
+                            @strongify(self);
+                            [self fetchArticleIfNeeded];
+                        }
+                        break;
+                        default:
+                            break;
+                    }
+                }];
             }
         }
     }).finally(^{
