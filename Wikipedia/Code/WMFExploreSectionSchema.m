@@ -13,8 +13,8 @@
 #import "WMFRelatedSectionBlackList.h"
 #import "NSDate+WMFMostReadDate.h"
 #import "NSCalendar+WMFCommonCalendars.h"
+#import <Tweaks/FBTweakInline.h>
 
-@import Tweaks;
 @import CoreLocation;
 
 NS_ASSUME_NONNULL_BEGIN

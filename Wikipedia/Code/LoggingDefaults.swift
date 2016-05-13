@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CocoaLumberjack
+import CocoaLumberjackSwift
 
 extension DDLog {
     public class func wmf_setSwiftDefaultLogLevel(level: UInt) {

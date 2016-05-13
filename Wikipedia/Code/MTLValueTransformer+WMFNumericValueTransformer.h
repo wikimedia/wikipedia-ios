@@ -6,7 +6,7 @@
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-@import Mantle;
+#import <Mantle/MTLValueTransformer.h>
 
 /**
  *  Transformer which can handle both numbers or strings on input, and produces numbers on ouput.

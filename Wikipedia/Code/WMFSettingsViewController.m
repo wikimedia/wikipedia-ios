@@ -21,8 +21,9 @@
 // Frameworks
 #import <HockeySDK/HockeySDK.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
-@import Tweaks;
-@import SSDataSources;
+#import <Tweaks/FBTweakViewController.h>
+#import <Tweaks/FBTweakStore.h>
+#import <SSDataSources/SSDataSources.h>
 
 // Other
 #import "UIBarButtonItem+WMFButtonConvenience.h"

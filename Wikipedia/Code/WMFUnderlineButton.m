@@ -1,8 +1,7 @@
 
 #import "WMFUnderlineButton.h"
 #import "UIFont+WMFStyle.h"
-
-@import Masonry;
+#import <Masonry/Masonry.h>
 
 @interface WMFUnderlineButton ()
 
