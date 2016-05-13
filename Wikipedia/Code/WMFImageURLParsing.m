@@ -68,3 +68,44 @@ NSInteger WMFParseSizePrefixFromSourceURL(NSString* sourceURL)  __attribute__((o
         return (result == 0) ? NSNotFound : result;
     }
 }
+
+NSString* WMFChangeImageSourceURLSizePrefix(NSString* sourceURL, NSUInteger newSizePrefix)  __attribute__((overloadable)){
+    NSString* wikipediaString    = @"/wikipedia/";
+    NSRange wikipediaStringRange = [sourceURL rangeOfString:wikipediaString];
+
+    if (sourceURL.length == 0 || (wikipediaStringRange.location == NSNotFound)) {
+        return sourceURL;
+    }
+
+    NSString* urlAfterWikipedia        = [sourceURL substringFromIndex:wikipediaStringRange.location + wikipediaStringRange.length];
+    NSRange rangeOfSlashAfterWikipedia = [urlAfterWikipedia rangeOfString:@"/"];
+    if (rangeOfSlashAfterWikipedia.location == NSNotFound) {
+        return sourceURL;
+    }
+
+    NSString* site = [urlAfterWikipedia substringToIndex:rangeOfSlashAfterWikipedia.location];
+    if (site.length == 0) {
+        return sourceURL;
+    }
+
+    NSString* lastPathComponent = [sourceURL lastPathComponent];
+
+    if (WMFParseSizePrefixFromSourceURL(sourceURL) == NSNotFound) {
+        NSString* urlWithSizeVariantLastPathComponent = [sourceURL stringByAppendingString:[NSString stringWithFormat:@"/%lupx-%@", (unsigned long)newSizePrefix, lastPathComponent]];
+
+        NSString* urlWithThumbPath = [urlWithSizeVariantLastPathComponent stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@%@/", wikipediaString, site] withString:[NSString stringWithFormat:@"%@%@/thumb/", wikipediaString, site]];
+
+        return urlWithThumbPath;
+    } else {
+        NSRange rangeOfLastPathComponent =
+            NSMakeRange(
+                [sourceURL rangeOfString:lastPathComponent options:NSBackwardsSearch].location,
+                lastPathComponent.length
+                );
+        return
+            [WMFImageURLParsingRegex() stringByReplacingMatchesInString:sourceURL
+                                                                options:NSMatchingAnchored
+                                                                  range:rangeOfLastPathComponent
+                                                           withTemplate:[NSString stringWithFormat:@"%lupx-$1", (unsigned long)newSizePrefix]];
+    }
+}

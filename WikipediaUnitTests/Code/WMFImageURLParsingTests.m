@@ -81,4 +81,59 @@
     XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), NSNotFound);
 }
 
+- (void)testSizePrefixChangeOnNil {
+    assertThat(WMFChangeImageSourceURLSizePrefix(nil, 123),
+               is(equalTo(nil)));
+}
+
+- (void)testSizePrefixChangeOnEmptyString {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"", 123),
+               is(equalTo(@"")));
+}
+
+- (void)testSizePrefixChangeOnSingleSlashString {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"/", 123),
+               is(equalTo(@"/")));
+}
+
+- (void)testSizePrefixChangeOnSingleSpaceString {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@" ", 123),
+               is(equalTo(@" ")));
+}
+
+- (void)testSizePrefixChangeOnSingleSlashSingleCharacterString {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"/a", 123),
+               is(equalTo(@"/a")));
+}
+
+- (void)testSizePrefixChangeOnURLWithoutSizePrefix {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/a/a5/Buteo_magnirostris.jpg", 123),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Buteo_magnirostris.jpg/123px-Buteo_magnirostris.jpg")));
+}
+
+- (void)testSizePrefixChangeOnURLWithSizePrefix {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/200px-Potato.jpg/", 123),
+               is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/123px-Potato.jpg/")));
+}
+
+- (void)testSizePrefixChangeOnlyEffectsLastPathComponent {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/200px-/4/41/200px-Potato.jpg/", 123),
+               is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/200px-/4/41/123px-Potato.jpg/")));
+}
+
+- (void)testSizePrefixChangeOnENWikiURL {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/en/6/69/PercevalShooting.jpg", 123),
+               is(equalTo(@"//upload.wikimedia.org/wikipedia/en/thumb/6/69/PercevalShooting.jpg/123px-PercevalShooting.jpg")));
+}
+
+- (void)testSizePrefixChangeOnURLEndingWithWikipedia {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/", 123),
+               is(equalTo(@"//upload.wikimedia.org/wikipedia/")));
+}
+
+- (void)testSizePrefixChangeOnURLEndingWithWikipediaAndDoubleSlashes {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia//", 123),
+               is(equalTo(@"//upload.wikimedia.org/wikipedia//")));
+}
+
 @end

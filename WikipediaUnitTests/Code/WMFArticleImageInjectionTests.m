@@ -77,9 +77,13 @@
                                      withMatchingPrefixAndScale(440, 2.0),
                                      nil));
 
-    // first section's image list should also have the images from the element (same as article image list, minus lead image)
+    NSArray* articleImageListMinusLeadAndThumbnailImage = [article.images.entries bk_select:^BOOL (NSString* urlString) {
+        return ![urlString isEqualToString:article.imageURL] && ![urlString isEqualToString:article.thumbnailURL];
+    }];
+
+    // first section's image list should also have the images from the element (same as article image list, minus lead image and thumbnail image)
     assertThat(article.sections[0].images.entries,
-               is(equalTo([article.images.entries subarrayWithRange:NSMakeRange(1, article.images.count - 1)])));
+               is(equalTo(articleImageListMinusLeadAndThumbnailImage)));
 }
 
 - (void)testExcludesElementsBelowSizeThreshold {
@@ -110,7 +114,7 @@
     [article importAndSaveImagesFromSectionHTML];
 
     // expected number is observed & recorded,
-    assertThat(@(article.images.count), is(@90));
+    assertThat(@(article.images.count), is(@91));
     [self.dataStore removeFolderAtBasePath];
 }
 
