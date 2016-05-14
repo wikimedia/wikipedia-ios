@@ -125,6 +125,7 @@ NSString* const WMFCCBySALicenseURL =
 
     self.view.clipsToBounds = NO;
 
+    self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.containerView insertSubview:self.webView atIndex:0];
     [self.webView mas_makeConstraints:^(MASConstraintMaker* make) {
         make.leading.and.trailing.and.top.and.bottom.equalTo(self.containerView);

@@ -78,6 +78,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
     [super viewDidLoad];
 
     WKWebView* wv = [[WKWebView alloc] initWithFrame:CGRectZero];
+    wv.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:wv];
     [wv mas_makeConstraints:^(MASConstraintMaker* make) {
         make.leading.and.trailing.top.and.bottom.equalTo(wv.superview);
