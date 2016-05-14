@@ -2,43 +2,40 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "PreviewWebView.h"
-#import "SessionSingleton.h"
-#import "Wikipedia-Swift.h"
+#import <Masonry/Masonry.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PreviewWebView ()
-
-@end
-
 @implementation PreviewWebView
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.backgroundColor        = [UIColor whiteColor];
-        self.navigationDelegate     = self;
-        self.userInteractionEnabled = YES;
-//        self.dataDetectorTypes = UIDataDetectorTypeNone;
-    }
-    return self;
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    WKWebView* webview = [[WKWebView alloc] initWithFrame:CGRectZero];
+    webview.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:webview];
+    self.webView = webview;
+    self.backgroundColor                = [UIColor whiteColor];
+    self.webView.navigationDelegate     = self;
+    self.userInteractionEnabled         = YES;
+    [self.webView mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.top.bottom.leading.and.trailing.equalTo(self.webView.superview);
+    }];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews]; // get width from solved constraints
-
     [self forceScrollViewContentSizeToReflectActualHTMLHeight];
 }
 
 - (void)forceScrollViewContentSizeToReflectActualHTMLHeight {
     // Only run this if the width has changed. Otherwise it will recurse endlessly.
     static CGFloat lastWidth = 0;
-    if (lastWidth == self.scrollView.frame.size.width) {
+    if (lastWidth == self.webView.scrollView.frame.size.width) {
         return;
     }
-    lastWidth = self.scrollView.frame.size.width;
+    lastWidth = self.webView.scrollView.frame.size.width;
 
-    CGRect f = self.frame;
+    CGRect f   = self.frame;
     f.size     = CGSizeMake(f.size.width, 1);
     self.frame = f;
     f.size     = [self sizeThatFits:CGSizeZero];
