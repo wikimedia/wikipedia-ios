@@ -6,7 +6,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PreviewWebView : UIView <WKNavigationDelegate>
+@interface PreviewWebViewContainer : UIView <WKNavigationDelegate>
 
 @property (weak, nonatomic) id <WMFOpenExternalLinkDelegate> externalLinksOpenerDelegate;
 @property (strong, nonatomic) WKWebView* webView;

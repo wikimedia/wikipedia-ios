@@ -390,7 +390,7 @@
 		B0E806E21C0CEB930065EBC0 /* PreviewAndSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806DC1C0CEB930065EBC0 /* PreviewAndSaveViewController.m */; };
 		B0E806E31C0CEB930065EBC0 /* PreviewLicenseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806DE1C0CEB930065EBC0 /* PreviewLicenseView.m */; };
 		B0E806E41C0CEB930065EBC0 /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */; };
-		B0E806E51C0CEB930065EBC0 /* PreviewWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806E11C0CEB930065EBC0 /* PreviewWebView.m */; };
+		B0E806E51C0CEB930065EBC0 /* PreviewWebViewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806E11C0CEB930065EBC0 /* PreviewWebViewContainer.m */; };
 		B0E806EB1C0CEBA40065EBC0 /* RecentSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806E71C0CEBA40065EBC0 /* RecentSearchCell.m */; };
 		B0E806EC1C0CEBA40065EBC0 /* RecentSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806E81C0CEBA40065EBC0 /* RecentSearchCell.xib */; };
 		B0E806ED1C0CEBA40065EBC0 /* RecentSearchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806EA1C0CEBA40065EBC0 /* RecentSearchesViewController.m */; };
@@ -1436,8 +1436,8 @@
 		B0E806DD1C0CEB930065EBC0 /* PreviewLicenseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreviewLicenseView.h; path = Wikipedia/Code/PreviewLicenseView.h; sourceTree = SOURCE_ROOT; };
 		B0E806DE1C0CEB930065EBC0 /* PreviewLicenseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreviewLicenseView.m; path = Wikipedia/Code/PreviewLicenseView.m; sourceTree = SOURCE_ROOT; };
 		B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PreviewLicenseView.xib; path = Wikipedia/Code/PreviewLicenseView.xib; sourceTree = SOURCE_ROOT; };
-		B0E806E01C0CEB930065EBC0 /* PreviewWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreviewWebView.h; path = Wikipedia/Code/PreviewWebView.h; sourceTree = SOURCE_ROOT; };
-		B0E806E11C0CEB930065EBC0 /* PreviewWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreviewWebView.m; path = Wikipedia/Code/PreviewWebView.m; sourceTree = SOURCE_ROOT; };
+		B0E806E01C0CEB930065EBC0 /* PreviewWebViewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreviewWebViewContainer.h; path = Wikipedia/Code/PreviewWebViewContainer.h; sourceTree = SOURCE_ROOT; };
+		B0E806E11C0CEB930065EBC0 /* PreviewWebViewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreviewWebViewContainer.m; path = Wikipedia/Code/PreviewWebViewContainer.m; sourceTree = SOURCE_ROOT; };
 		B0E806E61C0CEBA40065EBC0 /* RecentSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecentSearchCell.h; path = Wikipedia/Code/RecentSearchCell.h; sourceTree = SOURCE_ROOT; };
 		B0E806E71C0CEBA40065EBC0 /* RecentSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecentSearchCell.m; path = Wikipedia/Code/RecentSearchCell.m; sourceTree = SOURCE_ROOT; };
 		B0E806E81C0CEBA40065EBC0 /* RecentSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RecentSearchCell.xib; path = Wikipedia/Code/RecentSearchCell.xib; sourceTree = SOURCE_ROOT; };
@@ -3999,8 +3999,8 @@
 				B0E806DD1C0CEB930065EBC0 /* PreviewLicenseView.h */,
 				B0E806DE1C0CEB930065EBC0 /* PreviewLicenseView.m */,
 				B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */,
-				B0E806E01C0CEB930065EBC0 /* PreviewWebView.h */,
-				B0E806E11C0CEB930065EBC0 /* PreviewWebView.m */,
+				B0E806E01C0CEB930065EBC0 /* PreviewWebViewContainer.h */,
+				B0E806E11C0CEB930065EBC0 /* PreviewWebViewContainer.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -5960,7 +5960,7 @@
 				B0E8064C1C0CE7F70065EBC0 /* EditTokenFetcher.m in Sources */,
 				B0E8073D1C0CED810065EBC0 /* WMFImageURLParsing.m in Sources */,
 				B0E805D71C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.m in Sources */,
-				B0E806E51C0CEB930065EBC0 /* PreviewWebView.m in Sources */,
+				B0E806E51C0CEB930065EBC0 /* PreviewWebViewContainer.m in Sources */,
 				B0E807AA1C0CEFE30065EBC0 /* MWKRecentSearchList.m in Sources */,
 				0EF5BB6D1C110C2100DE75E1 /* AppDelegate.m in Sources */,
 				B0E805501C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m in Sources */,
