@@ -57,6 +57,14 @@
                                                     <constraint firstItem="LfM-01-aCF" firstAttribute="leading" secondItem="Fdd-cK-gLF" secondAttribute="leading" constant="20" symbolic="YES" id="xTZ-yd-BxN"/>
                                                 </constraints>
                                             </view>
+                                            <webView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" allowsInlineMediaPlayback="NO" mediaPlaybackAllowsAirPlay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhD-15-Yw7" customClass="PreviewWebView">
+                                                <rect key="frame" x="0.0" y="216" width="320" height="100"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="B1F-i9-AK6"/>
+                                                </constraints>
+                                                <dataDetectorType key="dataDetectorTypes"/>
+                                            </webView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
@@ -67,10 +75,13 @@
                                             <constraint firstItem="Fdd-cK-gLF" firstAttribute="leading" secondItem="7fI-DJ-2eF" secondAttribute="leading" id="E27-s1-xM9"/>
                                             <constraint firstItem="S0n-wB-7Lg" firstAttribute="top" secondItem="7fI-DJ-2eF" secondAttribute="top" id="G41-He-tMb"/>
                                             <constraint firstAttribute="trailing" secondItem="3pQ-2n-Y9V" secondAttribute="trailing" id="RFi-Ag-sac"/>
-                                            <constraint firstAttribute="height" constant="366" id="cA8-yd-Sva"/>
+                                            <constraint firstItem="EhD-15-Yw7" firstAttribute="leading" secondItem="7fI-DJ-2eF" secondAttribute="leading" id="Umj-oO-ga2"/>
                                             <constraint firstAttribute="centerX" secondItem="S0n-wB-7Lg" secondAttribute="centerX" id="dho-VN-yJh"/>
                                             <constraint firstAttribute="trailing" secondItem="S0n-wB-7Lg" secondAttribute="trailing" constant="20" symbolic="YES" id="eVP-iE-Rxl"/>
+                                            <constraint firstItem="EhD-15-Yw7" firstAttribute="top" secondItem="Fdd-cK-gLF" secondAttribute="bottom" constant="8" symbolic="YES" id="jcl-xe-AN7"/>
                                             <constraint firstItem="Fdd-cK-gLF" firstAttribute="top" secondItem="3pQ-2n-Y9V" secondAttribute="bottom" constant="8" symbolic="YES" id="nDM-vQ-ANk"/>
+                                            <constraint firstAttribute="trailing" secondItem="EhD-15-Yw7" secondAttribute="trailing" id="tx7-eU-HdL"/>
+                                            <constraint firstAttribute="bottom" secondItem="EhD-15-Yw7" secondAttribute="bottom" constant="50" id="uaO-cm-KAl"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -135,7 +146,8 @@
                         <outlet property="editSummaryContainer" destination="S0n-wB-7Lg" id="Av3-yX-D59"/>
                         <outlet property="previewLabel" destination="LfM-01-aCF" id="bp1-cZ-ePP"/>
                         <outlet property="previewLicenseView" destination="3pQ-2n-Y9V" id="AY6-fH-AiY"/>
-                        <outlet property="scrollContainer" destination="7fI-DJ-2eF" id="AbV-8j-JvZ"/>
+                        <outlet property="previewWebView" destination="EhD-15-Yw7" id="syP-Dy-I4o"/>
+                        <outlet property="previewWebViewHeightConstraint" destination="B1F-i9-AK6" id="4Hg-QS-eBF"/>
                         <outlet property="scrollView" destination="Mag-UH-fwc" id="Ais-Zf-7ZY"/>
                     </connections>
                 </viewController>
