@@ -93,7 +93,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 @implementation PreviewAndSaveViewController
 
 - (void)dealloc {
-    [self.previewWebView.scrollView removeObserver:self forKeyPath:@"contentSize"];
+    [self.previewWebView.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
 }
 
 - (NSString*)getSummary {
@@ -123,7 +123,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (void)setupBridge {
-    self.bridge = [[CommunicationBridge alloc] initWithWebView:self.previewWebView];
+    self.bridge = [[CommunicationBridge alloc] initWithWebView:self.previewWebView.webView];
 
     //[self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString *messageType, NSDictionary *payload) {
     //}];
@@ -131,7 +131,14 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     @weakify(self);
     [self.bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
         @strongify(self);
-        [self.previewWebView evaluateJavaScript:[NSString stringWithFormat:@"alert('%@')", payload[@"href"]] completionHandler:NULL];
+        UIAlertController *alertController =
+        [UIAlertController alertControllerWithTitle:payload[@"href"]
+                                            message:nil
+                                     preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"button-ok", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:nil]];
+        [self presentViewController:alertController animated:YES completion:^{}];
     }];
 }
 
@@ -200,16 +207,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    PreviewWebView* webview = [[PreviewWebView alloc] initWithFrame:CGRectZero];
-    [self.scrollContainer addSubview:webview];
-    [webview mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.leading.and.trailing.equalTo(webview.superview);
-        make.bottom.equalTo(webview.superview).with.offset(50.0);
-        make.height.equalTo(@100.0);
-        make.top.equalTo(webview.superview).with.offset(8.0);
-    }];
-
-
     self.previewWebView.externalLinksOpenerDelegate     = self;
     self.previewLicenseView.externalLinksOpenerDelegate = self;
 
@@ -248,8 +245,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
     [self setupBridge];
 
-    self.previewWebView.scrollView.delegate = self;
-
     self.captchaId  = @"";
     self.captchaUrl = @"";
 
@@ -263,7 +258,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
     // Disable the preview web view's scrolling since we're going to size it
     // such that its internal scroll view isn't ever going to be visble anyway.
-    self.previewWebView.scrollView.scrollEnabled = NO;
+    self.previewWebView.webView.scrollView.scrollEnabled = NO;
 
     // Observer the web view's contentSize property to enable the web view to expand to the
     // height of the html content it is displaying so the web view's scroll view doesn't show
@@ -271,7 +266,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     // with this view controller's scroll view rather than its own.) Note that to make this
     // work, the PreviewWebView object also uses a method called
     // "forceScrollViewContentSizeToReflectActualHTMLHeight".
-    [self.previewWebView.scrollView addObserver:self
+    [self.previewWebView.webView.scrollView addObserver:self
                                      forKeyPath:@"contentSize"
                                         options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
                                         context:nil];
@@ -289,7 +284,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                         change:(NSDictionary*)change
                        context:(void*)context {
     if (
-        (object == self.previewWebView.scrollView)
+        (object == self.previewWebView.webView.scrollView)
         &&
         [keyPath isEqual:@"contentSize"]
         ) {
@@ -298,7 +293,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
         // overridden "layoutSubviews" method for the contentSize to be reported accurately such that it reflects the
         // actual height of the web view content here. Without the web view class calling this method in its
         // layoutSubviews, the contentSize.height wouldn't change if we, say, rotated the device.
-        self.previewWebViewHeightConstraint.constant = self.previewWebView.scrollView.contentSize.height;
+        self.previewWebViewHeightConstraint.constant = self.previewWebView.webView.scrollView.contentSize.height;
     }
 }
 
@@ -441,6 +436,8 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(licenseLabelTapped:)];
     [self.previewLicenseView.licenseLoginLabel addGestureRecognizer:self.previewLicenseTapGestureRecognizer];
 
+    self.previewWebView.webView.scrollView.delegate = self;
+    
     [super viewWillAppear:animated];
 }
 
@@ -461,6 +458,9 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+
+    self.previewWebView.webView.scrollView.delegate = nil;
+
     [[WMFAlertManager sharedInstance] dismissAlert];
 
 
