@@ -114,6 +114,10 @@
 "settings-language" = "विकिपीडिया भाषा";
 "settings-support" = "विकिपीडिया को समर्थन दें";
 "settings-language-bar" = "खोज में भाषाओं को दिखाएँ";
+"settings-my-languages" = "मेरी भाषाएँ";
+"settings-help-and-feedback" = "सहायता व फीडबैक";
+"settings-primary-language" = "प्राथमिक";
+"settings-primary-language-details" = "इस सूची की पहली भाषा को इस एप की प्राथमिक भाषा के रूप में प्रयोग किया जाता है।\nइस भाषा को बदलने पर खोज पर दिखाई जाने वाली दैनिक सामग्री (जैसे निर्वाचित लेख) भी परिवर्तित हो जायेगा।";
 "main-menu-title" = "अधिक";
 "main-menu-heading-about" = "विवरण";
 "main-menu-language-title" = "$1 विकिपीडिया खोजें";
@@ -235,11 +239,13 @@
 "timestamp-years" = "%d वर्ष पहले";
 "lastmodified-by-user" = "$1 को $2 के द्वारा सम्पादित";
 "lastmodified-by-anon" = "$1 को एक अनाम उपयोगकर्ता द्वारा सम्पादित";
+"button-edit" = "सम्पादित करें";
 "button-next" = "अगला";
 "button-done" = "पूर्ण हुआ";
 "button-save" = "सहेजें";
 "button-save-for-later" = "बाद के लिए सहेजें";
 "button-saved-for-later" = "बाद के लिए सहेजा गया";
+"button-report-a-bug" = "बग की रिपोर्ट करें";
 "onboarding-create-account" = "खाता बनायें";
 "onboarding-login" = "लॉग इन";
 "onboarding-already-have-account" = "पहले से आपका खाता है? $1";
@@ -357,8 +363,7 @@
 "welcome-explore-continue-button" = "शुरू करें";
 "welcome-languages-title" = "भाषाएँ";
 "welcome-languages-sub-title" = "विकिपीडिया को खोजने के लिए अपनी पसंदीदा भाषाएँ चुनें";
-// Fuzzy
-"welcome-languages-add-button" = "दूसरी जोड़ें";
+"welcome-languages-add-button" = "दूसरी भाषा जोड़ें";
 "welcome-languages-continue-button" = "जारी रखें";
 "welcome-volunteer-title" = "स्वयंसेवक";
 "welcome-volunteer-sub-title" = "आप इसे कैसे प्रयोग करते है यह साझा करके विकिपीडिया एप को सुधारने में सहायता करें";

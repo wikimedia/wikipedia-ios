@@ -1,5 +1,6 @@
 // Messages for Ukrainian (українська)
 // Exported from translatewiki.net
+// Author: Alex Khimich
 // Author: Andriykopanytsia
 // Author: Base
 // Author: Green Zero
@@ -11,8 +12,7 @@
 // Author: Ата
 // Author: Дар'я Козлова
 
-// Fuzzy
-"languages-title" = "Мови";
+"languages-title" = "Змінити мову";
 "article-languages-label" = "Вибрати мову";
 "article-languages-cancel" = "Скасувати";
 "article-languages-downloading" = "Завантаження мов статті...";
@@ -22,6 +22,8 @@
 "article-unable-to-load-section" = "Не вдається завантажити цей розділ. Спробуйте оновити статтю, і глянути, чи це вирішить проблему.";
 "article-unable-to-load-article" = "Не вдається завантажити статтю.";
 "article-related-articles-title" = "Статті по темі";
+"article-languages-yours" = "Ваші мови";
+"article-languages-others" = "Інші мови";
 "info-box-title" = "Швидкі факти";
 "info-box-close-text" = "Закрити";
 "table-title-other" = "Більше інформації";
@@ -113,6 +115,10 @@
 "settings-language" = "Мова Вікіпедії";
 "settings-support" = "Підтримати Вікіпедію";
 "settings-language-bar" = "Показувати мови при пошуці";
+"settings-my-languages" = "Мої мови";
+"settings-help-and-feedback" = "Допомога та зворотній зв'язок";
+"settings-primary-language" = "Основний";
+"settings-primary-language-details" = "Перша мова в цьому списку використовується як основна мова додатку. Зміна цієї мови буде змінювати щоденний контент, наприклад обрані статті.";
 "main-menu-title" = "Ще";
 "main-menu-heading-about" = "Про застосунок";
 "main-menu-language-title" = "$1 мова для пошуку на вікі";
@@ -234,11 +240,13 @@
 "timestamp-years" = "%d р. тому";
 "lastmodified-by-user" = "Редаговано $1 користувачем $2";
 "lastmodified-by-anon" = "Редаговано $1 анонімним користувачем";
+"button-edit" = "Редагувати";
 "button-next" = "Далі";
 "button-done" = "Готово";
 "button-save" = "Зберегти";
 "button-save-for-later" = "Зберегти наперед";
 "button-saved-for-later" = "Збережено наперед";
+"button-report-a-bug" = "Повідомити про помилку";
 "onboarding-create-account" = "Зареєструватися";
 "onboarding-login" = "Увійти до системи";
 "onboarding-already-have-account" = "Вже маєте обліковий запис? $1";
@@ -252,8 +260,7 @@
 "page_protected_other" = "Цю сторінку захищено на таких рівнях: $1";
 "page_protected_can_not_edit" = "Ви не маєте повноважень для редагування цієї сторінки";
 "page_protected_can_not_edit_title" = "Сторінку захищено";
-// Fuzzy
-"license-footer-text" = "Вміст доступний згідно з $1";
+"license-footer-text" = "Вміст доступний на умовах $1, якщо не вказано інше.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Вміст";
 "table-of-contents-button-label" = "Зміст";
@@ -318,7 +325,6 @@
 "hockeyapp-alert-privacy" = "Приватність $1";
 "page-issues" = "Проблеми сторінки";
 "page-similar-titles" = "Подібні сторінки";
-// Fuzzy
 "page-read-in-other-languages" = "Доступно на $1 мовах";
 "page-last-edited" = "Відредаговано $1 днів тому";
 "page-edit-history" = "Повна історія редагування";
@@ -338,9 +344,7 @@
 "home-featured-article-heading" = "Вибрана стаття за $1";
 "home-main-page-heading" = "Сьогодні на Вікіпедії";
 "home-potd-heading" = "Зображення дня за $1";
-// Fuzzy
 "home-last-update-label" = "Останнє оновлення: $1";
-// Fuzzy
 "home-last-update-never-label" = "Останнє оновлення: ніколи";
 "home-updating-label" = "Оновлення...";
 "home-hide-suggestion-prompt" = "Приховати цю пропозицію";
@@ -360,8 +364,7 @@
 "welcome-explore-continue-button" = "Розпочати";
 "welcome-languages-title" = "Мови";
 "welcome-languages-sub-title" = "Оберіть мови для пошуку у Вікіпедії";
-// Fuzzy
-"welcome-languages-add-button" = "Додати ще один";
+"welcome-languages-add-button" = "Додати ще одну мову";
 "welcome-languages-continue-button" = "Продовжити";
 "welcome-volunteer-title" = "Волонтер";
 "welcome-volunteer-sub-title" = "Допоможіть поліпшити додаток для Вікіпедії, розповівши, як Ви його використовуєте";

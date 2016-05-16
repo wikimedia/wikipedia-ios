@@ -100,6 +100,7 @@
 "settings-support" = "Ongerschtöz de Wikkipehdija!";
 "settings-language-bar" = "Schprohche beim Söhke aanzeije";
 "settings-my-languages" = "Mih Schprohche";
+"settings-help-and-feedback" = "Hölp un Rökmäldonge";
 "main-menu-title" = "Mih";
 "main-menu-heading-about" = "Övver";
 "main-menu-language-title" = "En de $1 Wikkipehdija söhke";
@@ -225,6 +226,7 @@
 "button-save" = "Faßhalde";
 "button-save-for-later" = "För schpääder faßjehallde";
 "button-saved-for-later" = "För schpääder faßjehallde";
+"button-report-a-bug" = "Ene Fähler mälde";
 "onboarding-create-account" = "Ene neue Zohjang aanmälde";
 "onboarding-login" = "Enlogge";
 "onboarding-already-have-account" = "Bes De ald aanjemäldt? $1";
@@ -342,8 +344,7 @@
 "welcome-explore-continue-button" = "Wigger";
 "welcome-languages-title" = "Schprohche";
 "welcome-languages-sub-title" = "Beschtemm Ding Schprohche, för zem Söhke en de Wikkipehdija";
-// Fuzzy
-"welcome-languages-add-button" = "Donn eine dobei";
+"welcome-languages-add-button" = "Donn nor_ren Schprohch dobei";
 "welcome-languages-continue-button" = "Wiggermaache";
 "welcome-volunteer-title" = "Freiwellejer";
 "welcome-volunteer-sub-title" = "Hellev_ons, di Äpp för de Wikkipehdiaj noch bäßer ze maache, endämm dat De ons weße läß wi De aam bruche bes";

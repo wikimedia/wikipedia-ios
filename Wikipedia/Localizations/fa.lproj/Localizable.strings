@@ -26,6 +26,8 @@
 "article-unable-to-load-section" = "امکان بارگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
 "article-unable-to-load-article" = "بارگیری مقاله ناموفق بود.";
 "article-related-articles-title" = "مقاله‌های مرتبط";
+"article-languages-yours" = "زبان‌های شما";
+"article-languages-others" = "زبان‌های دیگر";
 "info-box-title" = "اطلاعات اجمالی";
 "info-box-close-text" = "بستن";
 "table-title-other" = "اطلاعات بیشتر";
@@ -117,6 +119,10 @@
 "settings-language" = "زبان ویکی‌پدیا";
 "settings-support" = "حمایت از ویکی‌پدیا";
 "settings-language-bar" = "نمایش زبان در جستجو";
+"settings-my-languages" = "زبان‌های من";
+"settings-help-and-feedback" = "کمک و بازخورد";
+"settings-primary-language" = "ابتدایی";
+"settings-primary-language-details" = "اولین زبان موجود در این فهرست به عنوان زبان اصلی اپلیکیشن است. تغییر این زبان محتوای روزانه (مانند مقالات برگزیدهٔ روز) که در زمان مرور دیده می‌شوند، را تغییر می‌دهد.";
 "main-menu-title" = "بیشتر";
 "main-menu-heading-about" = "درباره";
 "main-menu-language-title" = "جستجوی  $1  زبان ویکی";
@@ -238,11 +244,13 @@
 "timestamp-years" = "%d سال پیش";
 "lastmodified-by-user" = "ویرایش  $1 توسط $2";
 "lastmodified-by-anon" = "ویرایش  $1  توسط کاربر ناشناس";
+"button-edit" = "ویرایش";
 "button-next" = "بعدی";
 "button-done" = "انجام شد";
 "button-save" = "ذخیره";
 "button-save-for-later" = "ذخیره برای بعد";
 "button-saved-for-later" = "ذخیره برای بعد";
+"button-report-a-bug" = "گزارش خطا";
 "onboarding-create-account" = "ایجاد حساب کاربری";
 "onboarding-login" = "ورود به سامانه";
 "onboarding-already-have-account" = "حساب کاربری دارید؟ $1";
@@ -360,8 +368,7 @@
 "welcome-explore-continue-button" = "شروع شد";
 "welcome-languages-title" = "زبان‌ها";
 "welcome-languages-sub-title" = "زبان مورد علاقه‌تان برای جستجو در ویکی‌پدیا را انتخاب کنید";
-// Fuzzy
-"welcome-languages-add-button" = "افزدون دیگری";
+"welcome-languages-add-button" = "افزدون زبان دیگر";
 "welcome-languages-continue-button" = "ادامه";
 "welcome-volunteer-title" = "داوطلب";
 "welcome-volunteer-sub-title" = "با به اشتراک گذاشتن نحوهٔ استفادتان از نرم‌افزار ویکی‌پدیا به ما در بهبود آن کمک کنید";
