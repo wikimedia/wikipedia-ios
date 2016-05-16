@@ -277,6 +277,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)addHeaderView {
+    return;
     if (!self.headerView) {
         return;
     }
@@ -310,6 +311,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)addFooterView {
+    return;
     if (!self.article) {
         return;
     }
@@ -333,6 +335,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)addFooterContentViews {
+    return;
     if ([self.article.title isNonStandardTitle]) {
         return;
     }
@@ -375,6 +378,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)setFooterViewControllers:(NSArray<UIViewController*>*)footerViewControllers {
+    return;
     if (WMF_EQUAL(self.footerViewControllers, isEqualToArray:, footerViewControllers)) {
         return;
     }
@@ -393,6 +397,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)setHeaderView:(UIView*)headerView {
+    return;
     NSAssert(!self.headerView, @"Dynamic/re-configurable header view is not supported.");
     NSAssert(!self.isViewLoaded, @"Expected header to be configured before viewDidLoad.");
     _headerView = headerView;
@@ -419,6 +424,8 @@ NSString* const WMFCCBySALicenseURL =
     CGFloat totalHeight      = CGRectGetMaxY(browserView.frame) + readMoreHeight;
     CGFloat constrainedWidth = self.webView.scrollView.frame.size.width;
     CGSize requiredSize      = CGSizeMake(constrainedWidth, totalHeight);
+    
+    return;
     /*
        HAX: It's important that we restrict the contentSize to the view's width to prevent awkward horizontal scrolling.
      */
