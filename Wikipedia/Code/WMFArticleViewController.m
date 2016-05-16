@@ -344,12 +344,12 @@ NS_ASSUME_NONNULL_BEGIN
     return self.article && !self.article.isMain;
 }
 
-- (void)getShareText:(void (^)(NSString* text))completion{
-    [self.webViewController getSelectedText:^(NSString * _Nonnull text) {
+- (void)getShareText:(void (^)(NSString* text))completion {
+    [self.webViewController getSelectedText:^(NSString* _Nonnull text) {
         if (text.length == 0) {
             text = [self.article shareSnippet];
         }
-        if(completion){
+        if (completion) {
             completion(text);
         }
     }];
@@ -717,6 +717,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSAssert([[NSThread currentThread] isMainThread], @"Not on main thread!");
     NSAssert(self.isViewLoaded, @"Should only fetch article when view is loaded so we can update its state.");
     if (!force && self.article) {
+        [self.pullToRefresh endRefreshing];
         return;
     }
 
@@ -734,6 +735,7 @@ NS_ASSUME_NONNULL_BEGIN
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
     }].then(^(MWKArticle* article) {
         @strongify(self);
+        [self.pullToRefresh endRefreshing];
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
         self.article = article;
         /*
@@ -743,6 +745,7 @@ NS_ASSUME_NONNULL_BEGIN
     }).catch(^(NSError* error){
         @strongify(self);
         DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
+        [self.pullToRefresh endRefreshing];
         [self hideProgressViewAnimated:YES];
         [self.delegate articleControllerDidLoadArticle:self];
 
@@ -788,7 +791,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchArticle {
     [self fetchArticleForce:YES];
-    [self.pullToRefresh endRefreshing];
 }
 
 - (void)fetchArticleIfNeeded {
