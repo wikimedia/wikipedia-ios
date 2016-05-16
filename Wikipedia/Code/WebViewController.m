@@ -216,6 +216,17 @@ NSString* const WMFCCBySALicenseURL =
     }];
 }
 
+#pragma mark - UIScrollViewDelegate
+
+/**
+ *  This must be done to work around a bug in WKWebview that
+ *  resets the deceleration rate each time dragging begins
+ *  http://stackoverflow.com/questions/31369538/cannot-change-wkwebviews-scroll-rate-on-ios-9-beta
+ */
+- (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
+    self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+}
+
 #pragma mark - Zero
 
 - (void)updateZeroStateWithNotification:(NSNotification*)notification {
