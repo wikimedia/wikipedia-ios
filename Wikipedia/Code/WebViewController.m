@@ -237,23 +237,6 @@ NSString* const WMFCCBySALicenseURL =
     return NO;
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size
-       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    @try {
-        JSContext* context = [self.webView wmf_javascriptContext];
-        if (!context) {
-            return;
-        }
-        [context[@"setPreRotationRelativeScrollOffset"] callWithArguments:nil];
-    }@catch (NSException* exception) {
-        DDLogError(@"Expection when accessing the JS context during ize transition, %@: %@", exception.name, exception.reason);
-    }
-
-    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
-        [self scrollToElementOnScreenBeforeRotate];
-    } completion:nil];
-}
-
 #pragma mark - Observations
 
 /**
@@ -765,17 +748,6 @@ NSString* const WMFCCBySALicenseURL =
     }
 
     [self.footerLicenseView setLicenseTextForSite:self.article.site];
-}
-
-#pragma mark Scroll to last section after rotate
-
-- (void)scrollToElementOnScreenBeforeRotate {
-    double finalScrollOffset =
-        [[[self.webView wmf_javascriptContext][@"getPostRotationScrollOffset"] callWithArguments:nil] toDouble]
-        + [self clientBoundingRectVerticalOffset];
-    [self tocScrollWebViewToPoint:CGPointMake(0, finalScrollOffset)
-                         duration:0
-                      thenHideTOC:NO];
 }
 
 #pragma mark Bottom menu bar
