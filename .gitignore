@@ -32,9 +32,6 @@ DerivedData
 *.profdata
 *.xccoverage
 
-# Icons
-Wikipedia/Images.xcassets/AppIcon.appiconset/*.png
-
 # Bundler
 vendor/bundle
 .bundle
