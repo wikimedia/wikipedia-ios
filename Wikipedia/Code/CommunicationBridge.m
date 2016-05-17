@@ -27,7 +27,7 @@
 
         __weak CommunicationBridge* weakSelf = self;
         [self addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
-            [weakSelf.webView wmf_enableJavascriptToXcodeConsoleLogging];
+            //[weakSelf.webView wmf_enableJavascriptToXcodeConsoleLogging];
             [weakSelf sendQueuedMessages];
         }];
         targetWebView.navigationDelegate = self;

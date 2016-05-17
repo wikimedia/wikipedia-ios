@@ -37,13 +37,6 @@ function findClosest (el, selector) {
     return el;
 }
 
-function httpGetSync(theUrl) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false );
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
-}
-
 function isNestedInTable(el) {
     while ((el = el.parentElement)){
         if(el.tagName === 'TD'){
@@ -57,5 +50,4 @@ exports.getDictionaryFromSrcset = getDictionaryFromSrcset;
 exports.firstDivAncestor = firstDivAncestor;
 exports.firstAncestorWithMultipleChildren = firstAncestorWithMultipleChildren;
 exports.findClosest = findClosest;
-exports.httpGetSync = httpGetSync;
 exports.isNestedInTable = isNestedInTable;

@@ -110,23 +110,8 @@ global.getElementFromPoint = getElementFromPoint;
 },{}],3:[function(require,module,exports){
 (function () {
 var bridge = require("./bridge");
-var transformer = require("./transformer");
 var refs = require("./refs");
 var utilities = require("./utilities");
-
-// DOMContentLoaded fires before window.onload! That's good!
-// See: http://stackoverflow.com/a/3698214/135557
-document.addEventListener("DOMContentLoaded", function() {
-
-    transformer.transform( "moveFirstGoodParagraphUp", document );
-    transformer.transform( "hideRedlinks", document );
-    transformer.transform( "disableFilePageEdit", document );
-    transformer.transform( "addImageOverflowXContainers", document ); // Needs to happen before "widenImages" transform.
-    transformer.transform( "widenImages", document );
-    transformer.transform( "hideTables", document );
-
-    bridge.sendMessage( "DOMContentLoaded", {} );
-});
 
 bridge.registerListener( "setLanguage", function( payload ){
     var html = document.querySelector( "html" );
@@ -224,15 +209,17 @@ document.addEventListener("touchend", handleTouchEnded, false);
 
 })();
 
-},{"./bridge":1,"./refs":5,"./transformer":7,"./utilities":15}],4:[function(require,module,exports){
+},{"./bridge":1,"./refs":5,"./utilities":15}],4:[function(require,module,exports){
 
 var bridge = require("./bridge");
 var elementLocation = require("./elementLocation");
+var transformer = require("./transformer");
 
 window.bridge = bridge;
 window.elementLocation = elementLocation;
+window.transformer = transformer;
 
-},{"./bridge":1,"./elementLocation":2}],5:[function(require,module,exports){
+},{"./bridge":1,"./elementLocation":2,"./transformer":7}],5:[function(require,module,exports){
 var bridge = require("./bridge");
 
 function isReference( href ) {
@@ -393,10 +380,10 @@ Transformer.prototype.register = function( transform, fun ) {
     }
 };
 
-Transformer.prototype.transform = function( transform, element ) {
+Transformer.prototype.transform = function( transform ) {
     var functions = transforms[transform];
     for ( var i = 0; i < functions.length; i++ ) {
-        functions[i](element);
+        functions[i](arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], arguments[7], arguments[8], arguments[9], arguments[10]);
     }
 };
 
@@ -531,10 +518,7 @@ function shouldTableBeCollapsed( table ) {
     return true;
 }
 
-transformer.register( "hideTables", function( content ) {
-                     
-    var isMainPage = utilities.httpGetSync('wmf://article/is-main-page');
-                     
+transformer.register( "hideTables", function( content , isMainPage, titleInfobox, titleOther, titleClose) {
     if (isMainPage == "1") return;
                      
     var tables = content.querySelectorAll( "table" );
@@ -561,7 +545,7 @@ transformer.register( "hideTables", function( content ) {
 
         var headerText = getTableHeader(table);
 
-        var caption = "<strong>" + (isInfobox ? utilities.httpGetSync('wmf://localize/info-box-title') : utilities.httpGetSync('wmf://localize/table-title-other')) + "</strong>";
+        var caption = "<strong>" + (isInfobox ? titleInfobox : titleOther) + "</strong>";
         caption += "<span class='app_span_collapse_text'>";
         if (headerText.length > 0) {
             caption += ": " + headerText[0];
@@ -596,7 +580,7 @@ transformer.register( "hideTables", function( content ) {
         var bottomDiv = document.createElement( 'div' );
         bottomDiv.classList.add('app_table_collapsed_bottom');
         bottomDiv.classList.add('app_table_collapse_icon');
-        bottomDiv.innerHTML = utilities.httpGetSync('wmf://localize/info-box-close-text');
+        bottomDiv.innerHTML = "<strong>" + titleClose + "</strong>";
 
         //add our stuff to the container
         containerDiv.appendChild(collapsedDiv);
@@ -881,13 +865,6 @@ function findClosest (el, selector) {
     return el;
 }
 
-function httpGetSync(theUrl) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false );
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
-}
-
 function isNestedInTable(el) {
     while ((el = el.parentElement)){
         if(el.tagName === 'TD'){
@@ -901,7 +878,6 @@ exports.getDictionaryFromSrcset = getDictionaryFromSrcset;
 exports.firstDivAncestor = firstDivAncestor;
 exports.firstAncestorWithMultipleChildren = firstAncestorWithMultipleChildren;
 exports.findClosest = findClosest;
-exports.httpGetSync = httpGetSync;
 exports.isNestedInTable = isNestedInTable;
 
 },{}],16:[function(require,module,exports){

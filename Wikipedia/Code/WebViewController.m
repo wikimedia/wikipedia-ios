@@ -42,7 +42,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 NSString* const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
-@interface WebViewController () <ReferencesVCDelegate>
+@interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler>
 
 /*
    NOTE: Need to add headers/footers as subviews as opposed to using contentInset, due to running into the following
@@ -60,7 +60,7 @@ NSString* const WMFCCBySALicenseURL =
 @property (nonatomic, strong) UIView* footerContainerView;
 @property (nonatomic, strong) NSMutableDictionary* footerViewHeadersByIndex;
 @property (nonatomic, strong) WMFArticleFooterView* footerLicenseView;
-@property (strong, nonatomic) IBOutlet UIView* containerView;
+@property (nonatomic, strong) IBOutlet UIView* containerView;
 
 /**
  *  Calculates the amount needed to compensate to specific HTML element locations.
@@ -105,9 +105,61 @@ NSString* const WMFCCBySALicenseURL =
     return self;
 }
 
+#pragma mark - WebView Javascript configuration
+
+- (NSString*)apostropheEscapedArticleLanguageLocalizedStringForKey:(NSString *)key {
+    return [MWSiteLocalizedString(self.article.site, key, nil) stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
+}
+
+- (NSString*)tableTransformJS {
+    return
+    [NSString stringWithFormat:@"window.transformer.transform('hideTables', document, %d, '%@', '%@', '%@');",
+     self.article.isMain,
+     [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-title"],
+     [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"table-title-other"],
+     [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-close-text"]
+     ];
+}
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    if([message.name isEqualToString:@"lateJavascriptTransforms"]){
+        if([message.body isEqualToString:@"collapseTables"]){
+            [self.webView evaluateJavaScript:[self tableTransformJS] completionHandler:nil];
+        }
+    }
+}
+
+- (WKWebViewConfiguration *)configuration {
+    WKUserContentController *userContentController = [[WKUserContentController alloc] init];
+    
+    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransforms.postMessage('collapseTables');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
+    
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"lateJavascriptTransforms"];
+    
+    NSString* earlyJavascriptTransforms = @""
+    "transformer.transform( 'moveFirstGoodParagraphUp', document );"
+    "transformer.transform( 'hideRedlinks', document );"
+    "transformer.transform( 'disableFilePageEdit', document );"
+    "transformer.transform( 'addImageOverflowXContainers', document );"
+    // 'addImageOverflowXContainers' needs to happen before 'widenImages'.
+    // See "enwiki > Counties of England > Scope and structure > Local government"
+    "transformer.transform( 'widenImages', document );"
+    "window.bridge.sendMessage('DOMContentLoaded', {});";
+    
+    [userContentController addUserScript:
+     [[WKUserScript alloc] initWithSource:earlyJavascriptTransforms
+                            injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
+                         forMainFrameOnly:YES]];
+
+    
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+    configuration.userContentController = userContentController;
+    return configuration;
+}
+
 - (WKWebView*)webView {
     if (!_webView) {
-        _webView = [[WKWebView alloc] initWithFrame:CGRectZero];
+        _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
     }
     return _webView;
 }

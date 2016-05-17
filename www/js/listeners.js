@@ -1,22 +1,7 @@
 (function () {
 var bridge = require("./bridge");
-var transformer = require("./transformer");
 var refs = require("./refs");
 var utilities = require("./utilities");
-
-// DOMContentLoaded fires before window.onload! That's good!
-// See: http://stackoverflow.com/a/3698214/135557
-document.addEventListener("DOMContentLoaded", function() {
-
-    transformer.transform( "moveFirstGoodParagraphUp", document );
-    transformer.transform( "hideRedlinks", document );
-    transformer.transform( "disableFilePageEdit", document );
-    transformer.transform( "addImageOverflowXContainers", document ); // Needs to happen before "widenImages" transform.
-    transformer.transform( "widenImages", document );
-    transformer.transform( "hideTables", document );
-
-    bridge.sendMessage( "DOMContentLoaded", {} );
-});
 
 bridge.registerListener( "setLanguage", function( payload ){
     var html = document.querySelector( "html" );
