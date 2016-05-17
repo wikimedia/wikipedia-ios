@@ -4,16 +4,18 @@ import Foundation
 extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
 
     public func tableOfContentsControllerWillDisplay(controller: WMFTableOfContentsViewController){
-        if let item: TableOfContentsItem = webViewController.currentVisibleSection() {
-            tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)
-        } else if let footerIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex(rawValue: webViewController.visibleFooterIndex()) {
-            switch footerIndex {
-            case .ReadMore:
-                tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsReadMoreItem(site: self.articleTitle.site), animated: false)
+        webViewController.getCurrentVisibleSectionCompletion({(section: MWKSection?, error: NSError?) -> Void in
+            if let item: TableOfContentsItem = section {
+                self.tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)
+            } else if let footerIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex(rawValue: self.webViewController.visibleFooterIndex()) {
+                switch footerIndex {
+                case .ReadMore:
+                    self.tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsReadMoreItem(site: self.articleTitle.site), animated: false)
+                }
+            } else {
+                assertionFailure("Couldn't find current position of user at current offset!")
             }
-        } else {
-            assertionFailure("Couldn't find current position of user at current offset!")
-        }
+        })
     }
 
     public func tableOfContentsController(controller: WMFTableOfContentsViewController,

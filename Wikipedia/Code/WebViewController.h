@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)accessibilityCursorToSection:(MWKSection*)section;
 
-- (nullable MWKSection*)currentVisibleSection;
+- (void)getCurrentVisibleSectionCompletion:(void (^)(MWKSection* _Nullable, NSError* __nullable error))completion;
 
 - (void)scrollToVerticalOffset:(CGFloat)offset;
 - (CGFloat)currentVerticalOffset;

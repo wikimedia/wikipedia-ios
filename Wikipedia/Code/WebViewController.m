@@ -543,11 +543,15 @@ NSString* const WMFCCBySALicenseURL =
     }
 }
 
-- (nullable MWKSection*)currentVisibleSection {
-    NSInteger indexOfFirstOnscreenSection =
-        [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
-                                                       count:self.article.sections.count];
-    return indexOfFirstOnscreenSection == NSNotFound ? nil : self.article.sections[indexOfFirstOnscreenSection];
+- (void)getCurrentVisibleSectionCompletion:(void (^)(MWKSection* _Nullable, NSError* __nullable error))completion {
+    [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_" count:self.article.sections.count completion:^(id obj, NSError* error){
+        if (error) {
+            completion(nil, error);
+        } else {
+            NSInteger indexOfFirstOnscreenSection = ((NSNumber*)obj).integerValue;
+            completion(indexOfFirstOnscreenSection == NSNotFound ? nil : self.article.sections[indexOfFirstOnscreenSection], error);
+        }
+    }];
 }
 
 - (void)scrollToVerticalOffset:(CGFloat)offset {
