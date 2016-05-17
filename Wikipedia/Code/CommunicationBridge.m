@@ -131,35 +131,31 @@ static NSString* bridgeURLPrefix = @"x-wikipedia-bridge:";
 
 #pragma mark - WKnavigationDelegate
 
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
-    
+- (void)webView:(WKWebView*)webView decidePolicyForNavigationAction:(WKNavigationAction*)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     NSURLRequest* request = navigationAction.request;
     if ([self isBridgeURL:request.URL]) {
         NSDictionary* message = [self extractBridgePayload:request.URL];
         NSString* messageType = message[@"type"];
         NSDictionary* payload = message[@"payload"];
         [self fireEvent:messageType withPayload:payload];
-        
+
         decisionHandler(WKNavigationActionPolicyCancel);
     }
     decisionHandler(WKNavigationActionPolicyAllow);
 }
 
-- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation{
+- (void)webView:(WKWebView*)webView didStartProvisionalNavigation:(null_unspecified WKNavigation*)navigation {
     self.shouldQueueMessages = YES;
 }
 
-- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
+- (void)webView:(WKWebView*)webView didFailProvisionalNavigation:(null_unspecified WKNavigation*)navigation withError:(NSError*)error {
     NSLog(@"webView failed to load: %@", error);
     [self disableQueueingAndRemoveQueuedMessages];
 }
 
-
-- (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
+- (void)webView:(WKWebView*)webView didFailNavigation:(null_unspecified WKNavigation*)navigation withError:(NSError*)error {
     NSLog(@"webView failed to load: %@", error);
     [self disableQueueingAndRemoveQueuedMessages];
 }
-
-
 
 @end

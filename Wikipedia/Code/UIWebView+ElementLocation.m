@@ -79,13 +79,12 @@
     }];
 }
 
-- (void)getWebViewRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion{
-    
+- (void)getWebViewRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion {
     [self getScreenRectForHtmlElementWithId:elementId completion:^(CGRect rect) {
         CGPoint p = CGPointMake(
-                                rect.origin.x + floor(self.scrollView.contentOffset.x),
-                                rect.origin.y + floor(self.scrollView.contentOffset.y)
-                                );
+            rect.origin.x + floor(self.scrollView.contentOffset.x),
+            rect.origin.y + floor(self.scrollView.contentOffset.y)
+            );
         rect.origin = p;
         completion(rect);
     }];

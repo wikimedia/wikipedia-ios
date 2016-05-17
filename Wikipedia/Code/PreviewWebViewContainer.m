@@ -13,10 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
     WKWebView* webview = [[WKWebView alloc] initWithFrame:CGRectZero];
     webview.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:webview];
-    self.webView = webview;
-    self.backgroundColor                = [UIColor whiteColor];
-    self.webView.navigationDelegate     = self;
-    self.userInteractionEnabled         = YES;
+    self.webView                    = webview;
+    self.backgroundColor            = [UIColor whiteColor];
+    self.webView.navigationDelegate = self;
+    self.userInteractionEnabled     = YES;
     [self.webView mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.bottom.leading.and.trailing.equalTo(self.webView.superview);
     }];
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     lastWidth = self.webView.scrollView.frame.size.width;
 
-    CGRect f   = self.frame;
+    CGRect f = self.frame;
     f.size     = CGSizeMake(f.size.width, 1);
     self.frame = f;
     f.size     = [self sizeThatFits:CGSizeZero];

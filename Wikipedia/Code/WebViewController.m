@@ -107,52 +107,52 @@ NSString* const WMFCCBySALicenseURL =
 
 #pragma mark - WebView Javascript configuration
 
-- (NSString*)apostropheEscapedArticleLanguageLocalizedStringForKey:(NSString *)key {
+- (NSString*)apostropheEscapedArticleLanguageLocalizedStringForKey:(NSString*)key {
     return [MWSiteLocalizedString(self.article.site, key, nil) stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
 }
 
 - (NSString*)tableTransformJS {
     return
-    [NSString stringWithFormat:@"window.transformer.transform('hideTables', document, %d, '%@', '%@', '%@');",
-     self.article.isMain,
-     [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-title"],
-     [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"table-title-other"],
-     [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-close-text"]
-     ];
+        [NSString stringWithFormat:@"window.transformer.transform('hideTables', document, %d, '%@', '%@', '%@');",
+         self.article.isMain,
+         [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-title"],
+         [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"table-title-other"],
+         [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-close-text"]
+        ];
 }
 
-- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    if([message.name isEqualToString:@"lateJavascriptTransforms"]){
-        if([message.body isEqualToString:@"collapseTables"]){
+- (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message {
+    if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
+        if ([message.body isEqualToString:@"collapseTables"]) {
             [self.webView evaluateJavaScript:[self tableTransformJS] completionHandler:nil];
         }
     }
 }
 
-- (WKWebViewConfiguration *)configuration {
-    WKUserContentController *userContentController = [[WKUserContentController alloc] init];
-    
+- (WKWebViewConfiguration*)configuration {
+    WKUserContentController* userContentController = [[WKUserContentController alloc] init];
+
     [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransforms.postMessage('collapseTables');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
-    
+
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"lateJavascriptTransforms"];
-    
+
     NSString* earlyJavascriptTransforms = @""
-    "transformer.transform( 'moveFirstGoodParagraphUp', document );"
-    "transformer.transform( 'hideRedlinks', document );"
-    "transformer.transform( 'disableFilePageEdit', document );"
-    "transformer.transform( 'addImageOverflowXContainers', document );"
-    // 'addImageOverflowXContainers' needs to happen before 'widenImages'.
-    // See "enwiki > Counties of England > Scope and structure > Local government"
-    "transformer.transform( 'widenImages', document );"
-    "window.bridge.sendMessage('DOMContentLoaded', {});";
-    
+                                          "transformer.transform( 'moveFirstGoodParagraphUp', document );"
+                                          "transformer.transform( 'hideRedlinks', document );"
+                                          "transformer.transform( 'disableFilePageEdit', document );"
+                                          "transformer.transform( 'addImageOverflowXContainers', document );"
+                                          // 'addImageOverflowXContainers' needs to happen before 'widenImages'.
+                                          // See "enwiki > Counties of England > Scope and structure > Local government"
+                                          "transformer.transform( 'widenImages', document );"
+                                          "window.bridge.sendMessage('DOMContentLoaded', {});";
+
     [userContentController addUserScript:
      [[WKUserScript alloc] initWithSource:earlyJavascriptTransforms
                             injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
                          forMainFrameOnly:YES]];
 
-    
-    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+
+    WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
     configuration.userContentController = userContentController;
     return configuration;
 }
@@ -487,7 +487,7 @@ NSString* const WMFCCBySALicenseURL =
     CGFloat totalHeight      = CGRectGetMaxY(browserView.frame) + readMoreHeight;
     CGFloat constrainedWidth = self.webView.scrollView.frame.size.width;
     CGSize requiredSize      = CGSizeMake(constrainedWidth, totalHeight);
-    
+
     return;
     /*
        HAX: It's important that we restrict the contentSize to the view's width to prevent awkward horizontal scrolling.
@@ -995,7 +995,7 @@ NSString* const WMFCCBySALicenseURL =
     if (fontSize == nil) {
         fontSize = @(100);
     }
-    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"document.querySelector('body').style['-webkit-text-size-adjust'] = '%ld%%';", fontSize.integerValue] completionHandler:NULL];    
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"document.querySelector('body').style['-webkit-text-size-adjust'] = '%ld%%';", fontSize.integerValue] completionHandler:NULL];
     [[NSUserDefaults standardUserDefaults] wmf_setReadingFontSize:fontSize];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

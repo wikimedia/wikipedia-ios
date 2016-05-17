@@ -131,10 +131,10 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     @weakify(self);
     [self.bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
         @strongify(self);
-        UIAlertController *alertController =
-        [UIAlertController alertControllerWithTitle:payload[@"href"]
-                                            message:nil
-                                     preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController* alertController =
+            [UIAlertController alertControllerWithTitle:payload[@"href"]
+                                                message:nil
+                                         preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"button-ok", nil)
                                                             style:UIAlertActionStyleDefault
                                                           handler:nil]];
@@ -207,8 +207,8 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.previewWebViewContainer.externalLinksOpenerDelegate     = self;
-    self.previewLicenseView.externalLinksOpenerDelegate = self;
+    self.previewWebViewContainer.externalLinksOpenerDelegate = self;
+    self.previewLicenseView.externalLinksOpenerDelegate      = self;
 
     @weakify(self)
     self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
@@ -267,9 +267,9 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     // work, the PreviewWebView object also uses a method called
     // "forceScrollViewContentSizeToReflectActualHTMLHeight".
     [self.previewWebViewContainer.webView.scrollView addObserver:self
-                                     forKeyPath:@"contentSize"
-                                        options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
-                                        context:nil];
+                                                      forKeyPath:@"contentSize"
+                                                         options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
+                                                         context:nil];
     [self preview];
 }
 
@@ -437,7 +437,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     [self.previewLicenseView.licenseLoginLabel addGestureRecognizer:self.previewLicenseTapGestureRecognizer];
 
     self.previewWebViewContainer.webView.scrollView.delegate = self;
-    
+
     [super viewWillAppear:animated];
 }
 
@@ -458,7 +458,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-
     self.previewWebViewContainer.webView.scrollView.delegate = nil;
 
     [[WMFAlertManager sharedInstance] dismissAlert];

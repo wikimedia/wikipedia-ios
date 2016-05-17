@@ -237,10 +237,9 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
 #pragma mark - UIWebViewDelegate
 
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-
+- (void)webView:(WKWebView*)webView decidePolicyForNavigationAction:(WKNavigationAction*)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     WKNavigationType navigationType = navigationAction.navigationType;
-    NSURL* requestURL = navigationAction.request.URL;
+    NSURL* requestURL               = navigationAction.request.URL;
 
     if ([[self class] isLicenseURL:requestURL]) {
         VTAcknowledgementsViewController* vc = [VTAcknowledgementsViewController acknowledgementsViewController];
@@ -264,7 +263,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
     decisionHandler(WKNavigationActionPolicyAllow);
 }
 
-- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
+- (void)webView:(WKWebView*)webView didFinishNavigation:(null_unspecified WKNavigation*)navigation {
     if (!([[self class] isLicenseURL:[webView URL]] || [[self class] isLicenseRedirectURL:[webView URL]])) {
         [self injectAboutPageContentIntoWebView:webView];
     } else {
