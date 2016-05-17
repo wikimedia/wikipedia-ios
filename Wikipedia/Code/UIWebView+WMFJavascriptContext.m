@@ -13,18 +13,4 @@ static NSString* const WMFWebViewJavascriptContextPath = @"documentView.webView.
     return context;
 }
 
-- (nullable JSValue*)wmf_strictValueForKey:(NSString*)key {
-    NSParameterAssert(key.length);
-    JSValue* definedValue = self.wmf_javascriptContext.globalObject[key];
-    if (!definedValue || definedValue.isUndefined) {
-        NSAssert(self.loading, @"Unexpected failure to find %@ in %@.", key, self);
-        DDLogWarn(@"Couldn't find %@ in webview %@. Load state: %@",
-                  key,
-                  self,
-                  self.loading ? @"Loading" : @"Loaded");
-        return nil;
-    }
-    return definedValue;
-}
-
 @end

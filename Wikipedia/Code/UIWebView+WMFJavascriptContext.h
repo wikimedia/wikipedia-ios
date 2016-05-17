@@ -19,15 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable JSContext*)wmf_javascriptContext;
 
-/**
- *  Retrieve an object from the global scope which should not be undefined.
- *
- *  Use this to retrieve things like object "namespaces" on which you can call <code>invokeMethod:withArguments:</code>
- *
- *  @return The value for the given key. Will raise an assertion if @c nil and the webview is done loading.
- */
-- (nullable JSValue*)wmf_strictValueForKey:(NSString*)key;
-
 @end
 
 NS_ASSUME_NONNULL_END
