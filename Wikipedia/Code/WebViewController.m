@@ -520,8 +520,7 @@ NSString* const WMFCCBySALicenseURL =
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
     } else {
         if (!animated) {
-            [self.webView.wmf_javascriptContext.globalObject invokeMethod:@"scrollToFragment"
-                                                            withArguments:@[fragment]];
+            [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.scrollToFragment('%@')", fragment] completionHandler:nil];
             return;
         }
         [self.webView getScreenRectForHtmlElementWithId:fragment completion:^(CGRect rect) {
