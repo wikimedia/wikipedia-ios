@@ -306,7 +306,6 @@
 		B0E805601C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */; };
 		B0E805611C0CE0DC0065EBC0 /* UIWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052E1C0CE0DC0065EBC0 /* UIWebView+ElementLocation.m */; };
 		B0E805621C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805301C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.m */; };
-		B0E805631C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805321C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptContext.m */; };
 		B0E805651C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805361C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m */; };
 		B0E805661C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805381C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m */; };
 		B0E8058D1C0CE2C60065EBC0 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
@@ -1251,8 +1250,6 @@
 		B0E8052E1C0CE0DC0065EBC0 /* UIWebView+ElementLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+ElementLocation.m"; path = "Wikipedia/Code/UIWebView+ElementLocation.m"; sourceTree = SOURCE_ROOT; };
 		B0E8052F1C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+LoadAssetsHtml.h"; path = "Wikipedia/Code/UIWebView+LoadAssetsHtml.h"; sourceTree = SOURCE_ROOT; };
 		B0E805301C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+LoadAssetsHtml.m"; path = "Wikipedia/Code/UIWebView+LoadAssetsHtml.m"; sourceTree = SOURCE_ROOT; };
-		B0E805311C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+WMFJavascriptContext.h"; path = "Wikipedia/Code/UIWebView+WMFJavascriptContext.h"; sourceTree = SOURCE_ROOT; };
-		B0E805321C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+WMFJavascriptContext.m"; path = "Wikipedia/Code/UIWebView+WMFJavascriptContext.m"; sourceTree = SOURCE_ROOT; };
 		B0E805351C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+WMFSuppressSelection.h"; path = "Wikipedia/Code/UIWebView+WMFSuppressSelection.h"; sourceTree = SOURCE_ROOT; };
 		B0E805361C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+WMFSuppressSelection.m"; path = "Wikipedia/Code/UIWebView+WMFSuppressSelection.m"; sourceTree = SOURCE_ROOT; };
 		B0E805371C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+WMFTrackingView.h"; path = "Wikipedia/Code/UIWebView+WMFTrackingView.h"; sourceTree = SOURCE_ROOT; };
@@ -3526,8 +3523,6 @@
 				B0E8052E1C0CE0DC0065EBC0 /* UIWebView+ElementLocation.m */,
 				B0E8052F1C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.h */,
 				B0E805301C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.m */,
-				B0E805311C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptContext.h */,
-				B0E805321C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptContext.m */,
 				B0E805351C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.h */,
 				B0E805361C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m */,
 				B0E805371C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.h */,
@@ -5751,7 +5746,6 @@
 				B0E807A91C0CEFE30065EBC0 /* MWKRecentSearchEntry.m in Sources */,
 				B0E8066A1C0CE9030065EBC0 /* MWKImageInfoFetcher.m in Sources */,
 				BCD3200D1C737E0000317D08 /* NSNumber+MWKTitleNamespace.m in Sources */,
-				B0E805631C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptContext.m in Sources */,
 				B0E8066C1C0CE9030065EBC0 /* MWKSiteInfoFetcher.m in Sources */,
 				B0E804D71C0CE0B40065EBC0 /* NSParagraphStyle+WMFParagraphStyles.m in Sources */,
 				B0E808271C0CF6160065EBC0 /* KeychainCredentials.m in Sources */,

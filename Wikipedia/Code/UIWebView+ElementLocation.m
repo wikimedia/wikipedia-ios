@@ -2,7 +2,6 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "UIWebView+ElementLocation.h"
-#import "UIWebView+WMFJavascriptContext.h"
 
 @implementation WKWebView (ElementLocation)
 

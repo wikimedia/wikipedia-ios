@@ -24,7 +24,6 @@
 #import "UIWebView+WMFSuppressSelection.h"
 #import "PageHistoryViewController.h"
 
-#import "UIWebView+WMFJavascriptContext.h"
 #import "UIWebView+WMFTrackingView.h"
 #import "UIWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
