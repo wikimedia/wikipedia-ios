@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable, readonly) WKWebView* webView;
 
 @property (nonatomic) BOOL isPeeking;
+@property (strong, nonatomic) NSString* peekURLString;
 
 @property (nonatomic) UIEdgeInsets contentInsets;
 
@@ -66,10 +67,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)scrollToVerticalOffset:(CGFloat)offset;
 - (CGFloat)currentVerticalOffset;
-
-- (JSValue*)htmlElementAtLocation:(CGPoint)location;
-- (NSURL*)urlForHTMLElement:(JSValue*)element;
-- (CGRect)rectForHTMLElement:(JSValue*)element;
 
 - (void)setFontSizeMultiplier:(NSNumber*)fontSize;
 

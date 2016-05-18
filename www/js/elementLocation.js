@@ -57,5 +57,9 @@ function getElementFromPoint(x, y){
     return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
 }
 
+exports.getURLForElementAtPoint = function (x, y){
+    return getElementFromPoint(x, y).href;
+};
+
 global.getElementFromPoint = getElementFromPoint;
 

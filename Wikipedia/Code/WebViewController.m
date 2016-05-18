@@ -122,7 +122,10 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message {
-    if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
+    if ([message.name isEqualToString:@"peek"]) {
+        NSDictionary* peekDict = message.body;
+        self.peekURLString = peekDict[@"touchedElementURL"];
+    } else if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
         if ([message.body isEqualToString:@"collapseTables"]) {
             [self.webView evaluateJavaScript:[self tableTransformJS] completionHandler:nil];
         }
@@ -135,6 +138,8 @@ NSString* const WMFCCBySALicenseURL =
     [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransforms.postMessage('collapseTables');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"lateJavascriptTransforms"];
+
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"peek"];
 
     NSString* earlyJavascriptTransforms = @""
                                           "transformer.transform( 'moveFirstGoodParagraphUp', document );"
@@ -974,29 +979,6 @@ NSString* const WMFCCBySALicenseURL =
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"document.querySelector('body').style['-webkit-text-size-adjust'] = '%ld%%';", fontSize.integerValue] completionHandler:NULL];
     [[NSUserDefaults standardUserDefaults] wmf_setReadingFontSize:fontSize];
     [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-#pragma mark - Previewing
-
-- (JSValue*)htmlElementAtLocation:(CGPoint)location {
-    return [[self.webView wmf_javascriptContext][@"getElementFromPoint"] callWithArguments:@[@(location.x), @(location.y)]];
-}
-
-- (NSURL*)urlForHTMLElement:(JSValue*)element {
-    if ([[[element valueForProperty:@"tagName"] toString] isEqualToString:@"A"] && [element valueForProperty:@"href"]) {
-        NSString* urlString = [[element valueForProperty:@"href"] toString];
-        return (!urlString) ? nil : [NSURL URLWithString:urlString];
-    }
-    return nil;
-}
-
-- (CGRect)rectForHTMLElement:(JSValue*)element {
-    JSValue* rect  = [element invokeMethod:@"getBoundingClientRect" withArguments:@[]];
-    CGFloat left   = (CGFloat)[[rect valueForProperty:@"left"] toDouble];
-    CGFloat right  = (CGFloat)[[rect valueForProperty:@"right"] toDouble];
-    CGFloat top    = (CGFloat)[[rect valueForProperty:@"top"] toDouble];
-    CGFloat bottom = (CGFloat)[[rect valueForProperty:@"bottom"] toDouble];
-    return CGRectMake(left, top + self.webView.scrollView.contentOffset.y, right - left, bottom - top);
 }
 
 @end

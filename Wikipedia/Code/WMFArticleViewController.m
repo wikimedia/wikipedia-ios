@@ -1077,12 +1077,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
-    JSValue* peekElement = [self.webViewController htmlElementAtLocation:location];
-    if (!peekElement) {
+    NSString* peekURLString = self.webViewController.peekURLString;
+    if (!peekURLString) {
         return nil;
     }
 
-    NSURL* peekURL = [self.webViewController urlForHTMLElement:peekElement];
+    NSURL* peekURL = [NSURL URLWithString:peekURLString];
     if (!peekURL) {
         return nil;
     }
@@ -1091,7 +1091,6 @@ NS_ASSUME_NONNULL_BEGIN
     if (peekVC) {
         [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
         self.webViewController.isPeeking = YES;
-        previewingContext.sourceRect     = [self.webViewController rectForHTMLElement:peekElement];
         return peekVC;
     }
 

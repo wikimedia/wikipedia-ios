@@ -103,6 +103,10 @@ function getElementFromPoint(x, y){
     return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
 }
 
+exports.getURLForElementAtPoint = function (x, y){
+    return getElementFromPoint(x, y).href;
+};
+
 global.getElementFromPoint = getElementFromPoint;
 
 
@@ -207,6 +211,16 @@ function maybeSendMessageForTarget(event, hrefTarget){
 
 document.addEventListener("touchend", handleTouchEnded, false);
 
+ // 3D Touch peeking listeners.
+ document.addEventListener("touchstart", function (event) {
+                           // Send message with url (if any) from touch element to native land.
+                           window.webkit.messageHandlers.peek.postMessage({"touchedElementURL": window.elementLocation.getURLForElementAtPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY)});
+                           }, false);
+ 
+ document.addEventListener("touchend", function () {
+                           // Tell native land to clear the url - important.
+                           window.webkit.messageHandlers.peek.postMessage({"touchedElementURL": null});
+                           }, false);
 })();
 
 },{"./bridge":1,"./refs":5,"./utilities":15}],4:[function(require,module,exports){
