@@ -307,7 +307,6 @@
 		B0E805611C0CE0DC0065EBC0 /* UIWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052E1C0CE0DC0065EBC0 /* UIWebView+ElementLocation.m */; };
 		B0E805621C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805301C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.m */; };
 		B0E805631C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805321C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptContext.m */; };
-		B0E805641C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805341C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m */; };
 		B0E805651C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805361C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m */; };
 		B0E805661C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805381C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m */; };
 		B0E8058D1C0CE2C60065EBC0 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
@@ -1254,8 +1253,6 @@
 		B0E805301C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+LoadAssetsHtml.m"; path = "Wikipedia/Code/UIWebView+LoadAssetsHtml.m"; sourceTree = SOURCE_ROOT; };
 		B0E805311C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+WMFJavascriptContext.h"; path = "Wikipedia/Code/UIWebView+WMFJavascriptContext.h"; sourceTree = SOURCE_ROOT; };
 		B0E805321C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+WMFJavascriptContext.m"; path = "Wikipedia/Code/UIWebView+WMFJavascriptContext.m"; sourceTree = SOURCE_ROOT; };
-		B0E805331C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+WMFJavascriptToXcodeConsoleLogging.h"; path = "Wikipedia/Code/UIWebView+WMFJavascriptToXcodeConsoleLogging.h"; sourceTree = SOURCE_ROOT; };
-		B0E805341C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+WMFJavascriptToXcodeConsoleLogging.m"; path = "Wikipedia/Code/UIWebView+WMFJavascriptToXcodeConsoleLogging.m"; sourceTree = SOURCE_ROOT; };
 		B0E805351C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+WMFSuppressSelection.h"; path = "Wikipedia/Code/UIWebView+WMFSuppressSelection.h"; sourceTree = SOURCE_ROOT; };
 		B0E805361C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+WMFSuppressSelection.m"; path = "Wikipedia/Code/UIWebView+WMFSuppressSelection.m"; sourceTree = SOURCE_ROOT; };
 		B0E805371C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+WMFTrackingView.h"; path = "Wikipedia/Code/UIWebView+WMFTrackingView.h"; sourceTree = SOURCE_ROOT; };
@@ -3531,8 +3528,6 @@
 				B0E805301C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.m */,
 				B0E805311C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptContext.h */,
 				B0E805321C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptContext.m */,
-				B0E805331C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.h */,
-				B0E805341C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m */,
 				B0E805351C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.h */,
 				B0E805361C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m */,
 				B0E805371C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.h */,
@@ -5363,21 +5358,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		05278D8493BA7E1D99AE02CF /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		0E2470541CE27BC500D06E19 /* Copy Carthage Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5818,7 +5798,6 @@
 				B0AB163A1C7E5A3F002E566A /* UIViewController+WMFWelcomeNavigation.m in Sources */,
 				B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */,
 				B0E807D41C0CF04A0065EBC0 /* MWKArticle+HTMLImageImport.m in Sources */,
-				B0E805641C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m in Sources */,
 				B06531601C220921003BD7DC /* WMFArticlePreviewDataSource.m in Sources */,
 				B0E8036B1C0CD97D0065EBC0 /* WMFArticleContainerViewController+TOC.swift in Sources */,
 				B0E807561C0CEE230065EBC0 /* NSManagedObjectModel+LegacyCoreData.m in Sources */,

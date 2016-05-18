@@ -123,12 +123,15 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message {
     if ([message.name isEqualToString:@"peek"]) {
-        NSDictionary* peekDict = message.body;
-        self.peekURLString = peekDict[@"touchedElementURL"];
+        self.peekURLString = message.body[@"touchedElementURL"];
     } else if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
         if ([message.body isEqualToString:@"collapseTables"]) {
             [self.webView evaluateJavaScript:[self tableTransformJS] completionHandler:nil];
         }
+    } else if ([message.name isEqualToString:@"sendJavascriptConsoleLogMessageToXcodeConsole"]) {
+#if DEBUG
+        NSLog(@"%@", message.body[@"message"]);
+#endif
     }
 }
 
@@ -141,6 +144,8 @@ NSString* const WMFCCBySALicenseURL =
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"peek"];
 
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"sendJavascriptConsoleLogMessageToXcodeConsole"];
+
     NSString* earlyJavascriptTransforms = @""
                                           "transformer.transform( 'moveFirstGoodParagraphUp', document );"
                                           "transformer.transform( 'hideRedlinks', document );"
@@ -149,7 +154,8 @@ NSString* const WMFCCBySALicenseURL =
                                           // 'addImageOverflowXContainers' needs to happen before 'widenImages'.
                                           // See "enwiki > Counties of England > Scope and structure > Local government"
                                           "transformer.transform( 'widenImages', document );"
-                                          "window.bridge.sendMessage('DOMContentLoaded', {});";
+                                          "window.bridge.sendMessage('DOMContentLoaded', {});"
+                                          "console.log = function(message){window.webkit.messageHandlers.sendJavascriptConsoleLogMessageToXcodeConsole.postMessage({'message': message});};";
 
     [userContentController addUserScript:
      [[WKUserScript alloc] initWithSource:earlyJavascriptTransforms
