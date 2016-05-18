@@ -13,7 +13,7 @@
 #import "ReferenceGradientView.h"
 #import "SessionSingleton.h"
 #import "MWLanguageInfo.h"
-#import "UIWebView+ElementLocation.h"
+#import "WKWebView+ElementLocation.h"
 #import "Defines.h"
 #import "NSObject+ConstraintsScale.h"
 #import "Wikipedia-Swift.h"

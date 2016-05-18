@@ -304,10 +304,10 @@
 		B0E8055E1C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805281C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m */; };
 		B0E8055F1C0CE0DC0065EBC0 /* UIViewController+WMFHideKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052A1C0CE0DC0065EBC0 /* UIViewController+WMFHideKeyboard.m */; };
 		B0E805601C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */; };
-		B0E805611C0CE0DC0065EBC0 /* UIWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052E1C0CE0DC0065EBC0 /* UIWebView+ElementLocation.m */; };
-		B0E805621C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805301C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.m */; };
-		B0E805651C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805361C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m */; };
-		B0E805661C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805381C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m */; };
+		B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052E1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m */; };
+		B0E805621C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805301C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.m */; };
+		B0E805651C0CE0DC0065EBC0 /* WKWebView+WMFSuppressSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805361C0CE0DC0065EBC0 /* WKWebView+WMFSuppressSelection.m */; };
+		B0E805661C0CE0DC0065EBC0 /* WKWebView+WMFTrackingView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805381C0CE0DC0065EBC0 /* WKWebView+WMFTrackingView.m */; };
 		B0E8058D1C0CE2C60065EBC0 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
 		B0E8058E1C0CE2C60065EBC0 /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */; };
 		B0E8058F1C0CE2C60065EBC0 /* EventLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057C1C0CE2C60065EBC0 /* EventLogger.m */; };
@@ -1246,14 +1246,14 @@
 		B0E8052A1C0CE0DC0065EBC0 /* UIViewController+WMFHideKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFHideKeyboard.m"; path = "Wikipedia/Code/UIViewController+WMFHideKeyboard.m"; sourceTree = SOURCE_ROOT; };
 		B0E8052B1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFOpenExternalUrl.h"; path = "Wikipedia/Code/UIViewController+WMFOpenExternalUrl.h"; sourceTree = SOURCE_ROOT; };
 		B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFOpenExternalUrl.m"; path = "Wikipedia/Code/UIViewController+WMFOpenExternalUrl.m"; sourceTree = SOURCE_ROOT; };
-		B0E8052D1C0CE0DC0065EBC0 /* UIWebView+ElementLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+ElementLocation.h"; path = "Wikipedia/Code/UIWebView+ElementLocation.h"; sourceTree = SOURCE_ROOT; };
-		B0E8052E1C0CE0DC0065EBC0 /* UIWebView+ElementLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+ElementLocation.m"; path = "Wikipedia/Code/UIWebView+ElementLocation.m"; sourceTree = SOURCE_ROOT; };
-		B0E8052F1C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+LoadAssetsHtml.h"; path = "Wikipedia/Code/UIWebView+LoadAssetsHtml.h"; sourceTree = SOURCE_ROOT; };
-		B0E805301C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+LoadAssetsHtml.m"; path = "Wikipedia/Code/UIWebView+LoadAssetsHtml.m"; sourceTree = SOURCE_ROOT; };
-		B0E805351C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+WMFSuppressSelection.h"; path = "Wikipedia/Code/UIWebView+WMFSuppressSelection.h"; sourceTree = SOURCE_ROOT; };
-		B0E805361C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+WMFSuppressSelection.m"; path = "Wikipedia/Code/UIWebView+WMFSuppressSelection.m"; sourceTree = SOURCE_ROOT; };
-		B0E805371C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+WMFTrackingView.h"; path = "Wikipedia/Code/UIWebView+WMFTrackingView.h"; sourceTree = SOURCE_ROOT; };
-		B0E805381C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+WMFTrackingView.m"; path = "Wikipedia/Code/UIWebView+WMFTrackingView.m"; sourceTree = SOURCE_ROOT; };
+		B0E8052D1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKWebView+ElementLocation.h"; path = "Wikipedia/Code/WKWebView+ElementLocation.h"; sourceTree = SOURCE_ROOT; };
+		B0E8052E1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKWebView+ElementLocation.m"; path = "Wikipedia/Code/WKWebView+ElementLocation.m"; sourceTree = SOURCE_ROOT; };
+		B0E8052F1C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKWebView+LoadAssetsHtml.h"; path = "Wikipedia/Code/WKWebView+LoadAssetsHtml.h"; sourceTree = SOURCE_ROOT; };
+		B0E805301C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKWebView+LoadAssetsHtml.m"; path = "Wikipedia/Code/WKWebView+LoadAssetsHtml.m"; sourceTree = SOURCE_ROOT; };
+		B0E805351C0CE0DC0065EBC0 /* WKWebView+WMFSuppressSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKWebView+WMFSuppressSelection.h"; path = "Wikipedia/Code/WKWebView+WMFSuppressSelection.h"; sourceTree = SOURCE_ROOT; };
+		B0E805361C0CE0DC0065EBC0 /* WKWebView+WMFSuppressSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKWebView+WMFSuppressSelection.m"; path = "Wikipedia/Code/WKWebView+WMFSuppressSelection.m"; sourceTree = SOURCE_ROOT; };
+		B0E805371C0CE0DC0065EBC0 /* WKWebView+WMFTrackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKWebView+WMFTrackingView.h"; path = "Wikipedia/Code/WKWebView+WMFTrackingView.h"; sourceTree = SOURCE_ROOT; };
+		B0E805381C0CE0DC0065EBC0 /* WKWebView+WMFTrackingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKWebView+WMFTrackingView.m"; path = "Wikipedia/Code/WKWebView+WMFTrackingView.m"; sourceTree = SOURCE_ROOT; };
 		B0E805391C0CE0DC0065EBC0 /* WMFOpenExternalLinkDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFOpenExternalLinkDelegateProtocol.h; path = Wikipedia/Code/WMFOpenExternalLinkDelegateProtocol.h; sourceTree = SOURCE_ROOT; };
 		B0E805731C0CE24B0065EBC0 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Defines.h; path = Wikipedia/Code/Defines.h; sourceTree = SOURCE_ROOT; };
 		B0E805741C0CE24B0065EBC0 /* WikiGlyph_Chars.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WikiGlyph_Chars.h; path = Wikipedia/Code/WikiGlyph_Chars.h; sourceTree = SOURCE_ROOT; };
@@ -3519,14 +3519,14 @@
 		BC45D5751C32EE01007C72F3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				B0E8052D1C0CE0DC0065EBC0 /* UIWebView+ElementLocation.h */,
-				B0E8052E1C0CE0DC0065EBC0 /* UIWebView+ElementLocation.m */,
-				B0E8052F1C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.h */,
-				B0E805301C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.m */,
-				B0E805351C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.h */,
-				B0E805361C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m */,
-				B0E805371C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.h */,
-				B0E805381C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m */,
+				B0E8052D1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.h */,
+				B0E8052E1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m */,
+				B0E8052F1C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.h */,
+				B0E805301C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.m */,
+				B0E805351C0CE0DC0065EBC0 /* WKWebView+WMFSuppressSelection.h */,
+				B0E805361C0CE0DC0065EBC0 /* WKWebView+WMFSuppressSelection.m */,
+				B0E805371C0CE0DC0065EBC0 /* WKWebView+WMFTrackingView.h */,
+				B0E805381C0CE0DC0065EBC0 /* WKWebView+WMFTrackingView.m */,
 			);
 			name = Utilities;
 			path = ../Categories;
@@ -5757,7 +5757,7 @@
 				B0E802CD1C0CD2F70065EBC0 /* WMFPictureOfTheDaySectionController.m in Sources */,
 				B0E804451C0CDF850065EBC0 /* WikiGlyphButton.m in Sources */,
 				B0265F291CB8988F00740525 /* WMFBaseRequestSerializer.m in Sources */,
-				B0E805651C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m in Sources */,
+				B0E805651C0CE0DC0065EBC0 /* WKWebView+WMFSuppressSelection.m in Sources */,
 				0E2927941CD1220D00FD8DA8 /* WMFLeadingImageTrailingTextButton.m in Sources */,
 				B0E8036D1C0CD98B0065EBC0 /* WMFTableOfContentsViewController.swift in Sources */,
 				B0E802F21C0CD4AC0065EBC0 /* WMFRandomSectionController.m in Sources */,
@@ -5851,7 +5851,7 @@
 				B0E803671C0CD91D0065EBC0 /* WMFArticleViewController.m in Sources */,
 				B0E807D61C0CF04A0065EBC0 /* MWKCitation.m in Sources */,
 				B0E804CA1C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m in Sources */,
-				B0E805621C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.m in Sources */,
+				B0E805621C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.m in Sources */,
 				B0E804D01C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.m in Sources */,
 				0EF5BB6A1C110BFC00DE75E1 /* WMFLocalization.m in Sources */,
 				B0E805591C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m in Sources */,
@@ -5983,7 +5983,7 @@
 				B0E807D91C0CF04A0065EBC0 /* MWKImageList.m in Sources */,
 				B0E803F11C0CDD950065EBC0 /* WMFAsyncBlockOperation.m in Sources */,
 				B0E806ED1C0CEBA40065EBC0 /* RecentSearchesViewController.m in Sources */,
-				B0E805661C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m in Sources */,
+				B0E805661C0CE0DC0065EBC0 /* WKWebView+WMFTrackingView.m in Sources */,
 				B0E807671C0CEE3A0065EBC0 /* DiscoveryContext.m in Sources */,
 				B0E802C41C0CD2B80065EBC0 /* WMFExploreViewController.m in Sources */,
 				B0E805431C0CE0DC0065EBC0 /* UIFont+WMFStyle.m in Sources */,
@@ -6021,7 +6021,7 @@
 				B0E803091C0CD5320065EBC0 /* WMFSearchResultBearingProvider.m in Sources */,
 				B0E805911C0CE2C60065EBC0 /* LoginFunnel.m in Sources */,
 				B0E804441C0CDF850065EBC0 /* TabularScrollView.m in Sources */,
-				B0E805611C0CE0DC0065EBC0 /* UIWebView+ElementLocation.m in Sources */,
+				B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */,
 				B0E8035E1C0CD8580065EBC0 /* WMFImageInfoController.m in Sources */,
 				B0E806591C0CE84B0065EBC0 /* ThumbnailFetcher.m in Sources */,
 				B0E805471C0CE0DC0065EBC0 /* UIImage+WMFNormalization.m in Sources */,

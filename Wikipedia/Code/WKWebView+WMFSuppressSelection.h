@@ -1,5 +1,5 @@
 //
-//  UIWebView+SuppressSelection.h
+//  WKWebView+SuppressSelection.h
 //  Wikipedia
 //
 //  Created by Adam Baso on 2/11/15.

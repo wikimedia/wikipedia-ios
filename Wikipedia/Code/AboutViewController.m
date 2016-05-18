@@ -3,7 +3,7 @@
 
 #import "AboutViewController.h"
 #import "WikipediaAppUtils.h"
-#import "UIWebView+LoadAssetsHtml.h"
+#import "WKWebView+LoadAssetsHtml.h"
 #import "Defines.h"
 #import "NSString+WMFExtras.h"
 #import <BlocksKit/BlocksKit.h>

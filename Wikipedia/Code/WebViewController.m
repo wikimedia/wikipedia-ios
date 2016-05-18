@@ -21,11 +21,11 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 
 #import "WMFShareCardViewController.h"
-#import "UIWebView+WMFSuppressSelection.h"
+#import "WKWebView+WMFSuppressSelection.h"
 #import "PageHistoryViewController.h"
 
-#import "UIWebView+WMFTrackingView.h"
-#import "UIWebView+ElementLocation.h"
+#import "WKWebView+WMFTrackingView.h"
+#import "WKWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "NSURL+WMFExtras.h"

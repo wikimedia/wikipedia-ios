@@ -2,7 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "CommunicationBridge.h"
-#import "UIWebView+LoadAssetsHtml.h"
+#import "WKWebView+LoadAssetsHtml.h"
 
 @interface CommunicationBridge ()
 
