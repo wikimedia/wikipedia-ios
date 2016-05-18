@@ -72,17 +72,14 @@ exports.getImageWithSrc = function(src) {
 exports.getElementRect = function(element) {
     var rect = element.getBoundingClientRect();
     var zoom = getZoomLevel();
+    // Important: use "X", "Y", "Width" and "Height" keys so we can use CGRectMakeWithDictionaryRepresentation in native land to convert to CGRect.
     var zoomedRect = {
-        top: rect.top * zoom,
-        left: rect.left * zoom,
-        width: rect.width * zoom,
-        height: rect.height * zoom
+        Y: rect.top * zoom,
+        X: rect.left * zoom,
+        Width: rect.width * zoom,
+        Height: rect.height * zoom
     };
     return zoomedRect;
-};
-
-exports.getElementRectAsJson = function(element) {
-    return JSON.stringify(this.getElementRect(element));
 };
 
 exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
@@ -92,7 +89,7 @@ exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
             continue;
         }
         var rect = this.getElementRect(div);
-        if ( (rect.top >= -1) || ((rect.top + rect.height) >= 50)) {
+        if ( (rect.Y >= -1) || ((rect.Y + rect.Height) >= 50)) {
             return i;
         }
     }

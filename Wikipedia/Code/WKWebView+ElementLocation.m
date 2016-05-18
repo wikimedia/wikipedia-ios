@@ -42,39 +42,21 @@
 //}
 
 - (void)getScreenRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion {
-    NSString* strToEval =
-        [NSString stringWithFormat:@"window.elementLocation.getElementRectAsJson(document.getElementById('%@'));", elementId];
-
-
-    [self evaluateJavaScript:strToEval completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
-        NSString* jsonString = obj;
-        if (error) {
-            completion(CGRectNull);
-            return;
-        }
-        NSData* jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-        NSMutableDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-        if (error) {
-            completion(CGRectNull);
-            return;
-        }
-
-        NSString* top = (NSString*)jsonDict[@"top"];
-        NSString* left = (NSString*)jsonDict[@"left"];
-        NSString* width = (NSString*)jsonDict[@"width"];
-        NSString* height = (NSString*)jsonDict[@"height"];
-
-        void (^ zeroOutNulls)(NSString**) = ^(NSString** str){
-            if ([*str isMemberOfClass :[NSNull class]]) {
-                *str = @"0";
+    [self evaluateJavaScript:[NSString stringWithFormat:@"window.elementLocation.getElementRect(document.getElementById('%@'));", elementId]
+           completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
+        if (!error && obj) {
+            NSAssert([obj objectForKey:@"X"] &&
+                     [obj objectForKey:@"Y"] &&
+                     [obj objectForKey:@"Width"] &&
+                     [obj objectForKey:@"Height"]
+                     , @"Required keys missing from dictionary destined to be converted to a CGRect");
+            CGRect rect;
+            if (CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(obj), &rect)) {
+                completion(rect);
+                return;
             }
-        };
-        zeroOutNulls(&top);
-        zeroOutNulls(&left);
-        zeroOutNulls(&width);
-        zeroOutNulls(&height);
-
-        completion(CGRectMake(left.floatValue, top.floatValue, width.floatValue, height.floatValue));
+        }
+        completion(CGRectNull);
     }];
 }
 
