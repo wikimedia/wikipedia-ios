@@ -21,9 +21,12 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     }
     
     deinit {
+        removeGestures()
+    }
+    
+    public func removeGestures(){
         removeDismissalGestureRecognizer()
-        self.presentationGesture.removeTarget(self, action: #selector(WMFTableOfContentsAnimator.handlePresentationGesture(_:)))
-        self.presentationGesture.view?.removeGestureRecognizer(self.presentationGesture)
+        removePresentationGesture()
     }
     
     weak var presentingViewController: UIViewController?
@@ -163,6 +166,12 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
         return gesture
     }()
     
+    func removePresentationGesture(){
+        presentationGesture.delegate = nil
+        presentationGesture.removeTarget(self, action: #selector(WMFTableOfContentsAnimator.handlePresentationGesture(_:)))
+        presentationGesture.view?.removeGestureRecognizer(self.presentationGesture)
+    }
+    
     var dismissalGesture: UIPanGestureRecognizer?
     
     func addDismissalGestureRecognizer(containerView: UIView) {
@@ -174,6 +183,7 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
 
     func removeDismissalGestureRecognizer() {
         if let dismissalGesture = self.dismissalGesture {
+            dismissalGesture.delegate = nil
             dismissalGesture.view?.removeGestureRecognizer(dismissalGesture)
             dismissalGesture.removeTarget(self, action: #selector(WMFTableOfContentsAnimator.handleDismissalGesture(_:)))
         }

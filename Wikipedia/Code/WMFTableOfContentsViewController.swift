@@ -47,6 +47,10 @@ public class WMFTableOfContentsViewController: UIViewController,
 
     weak var delegate: WMFTableOfContentsViewControllerDelegate?
 
+    public func prepareForRemoval(){
+        animator?.removeGestures()
+    }
+    
     // MARK: - Init
     public required init(presentingViewController: UIViewController,
                          items: [TableOfContentsItem],

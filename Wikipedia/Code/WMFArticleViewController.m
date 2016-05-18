@@ -140,6 +140,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)dealloc {
+    [self.tableOfContentsViewController prepareForRemoval];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -468,6 +469,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Article Footers
 
 - (void)updateWebviewFootersIfNeeded {
+    return;
     if ([self.article.title isNonStandardTitle]) {
         return;
     }
@@ -651,7 +653,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-
     [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
     [self removeProgressView];

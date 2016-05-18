@@ -62,20 +62,6 @@ NSString* const WMFCCBySALicenseURL =
 @property (nonatomic, strong) WMFArticleFooterView* footerLicenseView;
 @property (strong, nonatomic) IBOutlet UIView* containerView;
 
-/**
- *  Calculates the amount needed to compensate to specific HTML element locations.
- *
- *  Used when scrolling to fragments instead of setting @c location.hash since setting the offset manually allows us to
- *  animate the navigation.  However, we can't use the values provided by the webview as-is, since we've added a header
- *  view on top of the browser view.  This has the effect of offsetting the bounding rects of HTML elements by the amount
- *  of the header view which is currently on screen.  As a result, we calculate the amount of the header view that is showing,
- *  and return it from this method in order to get the <i>actual</i> bounding rect, compensated for our header view if
- *  necessary.
- *
- *  @return The vertical offset to apply to client bounding rects received from the web view.
- */
-- (CGFloat)clientBoundingRectVerticalOffset;
-
 @end
 
 @implementation WebViewController
@@ -107,7 +93,13 @@ NSString* const WMFCCBySALicenseURL =
 
 - (WKWebView*)webView {
     if (!_webView) {
-        _webView = [[WKWebView alloc] initWithFrame:CGRectZero];
+        _webView                             = [[WKWebView alloc] initWithFrame:CGRectZero];
+        _webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+        _webView.clipsToBounds               = NO;
+        _webView.scrollView.clipsToBounds    = NO;
+        _webView.scrollView.backgroundColor  = [UIColor wmf_articleBackgroundColor];
+        _webView.backgroundColor             = [UIColor whiteColor];
+        _webView.scrollView.delegate         = self;
     }
     return _webView;
 }
@@ -118,6 +110,13 @@ NSString* const WMFCCBySALicenseURL =
     [super viewDidLoad];
 
     self.isPeeking = NO;
+
+    self.webView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.containerView insertSubview:self.webView atIndex:0];
+    [self.webView mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.leading.and.trailing.and.top.and.bottom.equalTo(self.containerView);
+    }];
+
     [self addHeaderView];
     [self addFooterView];
 
@@ -125,33 +124,14 @@ NSString* const WMFCCBySALicenseURL =
 
     self.view.clipsToBounds = NO;
 
-    self.webView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.containerView insertSubview:self.webView atIndex:0];
-    [self.webView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.leading.and.trailing.and.top.and.bottom.equalTo(self.containerView);
-    }];
-    self.webView.clipsToBounds            = NO;
-    self.webView.scrollView.clipsToBounds = NO;
-
-    self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-    self.webView.scrollView.backgroundColor  = [UIColor wmf_articleBackgroundColor];
-
     self.zeroStatusLabel.font = [UIFont systemFontOfSize:ALERT_FONT_SIZE];
     self.zeroStatusLabel.text = @"";
-
-    self.webView.backgroundColor = [UIColor whiteColor];
 
     self.view.backgroundColor = CHROME_COLOR;
 
     [self observeWebScrollViewContentSize];
 
     [self displayArticle];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self layoutWebViewSubviews];
-    [self.webView.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -164,9 +144,21 @@ NSString* const WMFCCBySALicenseURL =
     [self updateZeroState];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    [self layoutWebViewSubviews];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+//    [self layoutWebViewSubviews];
+    NSLog(@"vda before");
+    NSLog(@"content offset %f", self.webView.scrollView.contentOffset.y);
+    [self updateHeaderConstraintForTraitCollection];
+    [self updateBrowserViewFrameForHeader];
+    NSLog(@"vda after");
+    NSLog(@"content offset %f", self.webView.scrollView.contentOffset.y);
+    [self.webView.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
+    NSLog(@"svds");
+    NSLog(@"content offset %f", self.webView.scrollView.contentOffset.y);
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -174,15 +166,30 @@ NSString* const WMFCCBySALicenseURL =
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroDispositionDidChange object:nil];
 }
 
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    NSLog(@"layout will");
+    NSLog(@"content offset %f", self.webView.scrollView.contentOffset.y);
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+//    [self updateHeaderConstraintForTraitCollection];
+    NSLog(@"layout before");
+    NSLog(@"content offset %f", self.webView.scrollView.contentOffset.y);
+    [self updateBrowserViewFrameForHeader];
+    NSLog(@"layout after");
+    NSLog(@"content offset %f", self.webView.scrollView.contentOffset.y);
+//    [self layoutWebViewSubviews];
+}
+
 - (void)willTransitionToTraitCollection:(UITraitCollection*)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
     [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
-        [self layoutWebViewSubviews];
+        [self updateHeaderConstraintForTraitCollection];
+        [self updateBrowserViewFrameForHeader];
+//        [self layoutWebViewSubviews];
     } completion:nil];
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return NO;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size
@@ -208,46 +215,69 @@ NSString* const WMFCCBySALicenseURL =
  *  Observe changes to @c webView.scrollView.contentSize so we can recompute it and layout subviews.
  */
 - (void)observeWebScrollViewContentSize {
-    [self.KVOControllerNonRetaining observe:self.webView.scrollView
-                                    keyPath:WMF_SAFE_KEYPATH(self.webView.scrollView, contentSize)
+    [self.KVOControllerNonRetaining observe:self.webView
+                                    keyPath:WMF_SAFE_KEYPATH(self.webView, frame)
                                     options:NSKeyValueObservingOptionInitial
                                       block:^(WebViewController* observer, id object, NSDictionary* change) {
-        [observer layoutWebViewSubviews];
+//        [observer layoutWebViewSubviews];
+        [observer updateHeaderConstraintForTraitCollection];
+        [observer updateBrowserViewFrameForHeader];
     }];
 }
 
-#pragma mark - UIScrollViewDelegate
+#pragma mark - Header
 
-/**
- *  This must be done to work around a bug in WKWebview that
- *  resets the deceleration rate each time dragging begins
- *  http://stackoverflow.com/questions/31369538/cannot-change-wkwebviews-scroll-rate-on-ios-9-beta
- */
-- (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
-    self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+- (void)setHeaderView:(UIView*)headerView {
+    NSAssert(!self.headerView, @"Dynamic/re-configurable header view is not supported.");
+    NSAssert(!self.isViewLoaded, @"Expected header to be configured before viewDidLoad.");
+    _headerView = headerView;
 }
 
-#pragma mark - Zero
-
-- (void)updateZeroStateWithNotification:(NSNotification*)notification {
-    [self updateZeroState];
+- (void)addHeaderView {
+    if (!self.headerView) {
+        return;
+    }
+    [self.webView.scrollView addSubview:self.headerView];
+    [self.headerView mas_makeConstraints:^(MASConstraintMaker* make) {
+        // lead/trail must be constained to webview, the scrollview doesn't define a width
+        make.leading.and.trailing.equalTo(self.webView);
+        make.top.equalTo(self.webView.scrollView);
+        self.headerHeight = make.height.equalTo(@([self headerHeightForCurrentTraitCollection]));
+    }];
 }
 
-- (void)updateZeroState {
-    if ([[SessionSingleton sharedInstance] zeroConfigState].disposition) {
-        [self showZeroBannerWithMessage:[[[SessionSingleton sharedInstance] zeroConfigState] zeroMessage]];
-    } else {
-        self.zeroStatusLabel.text = @"";
+- (void)updateBrowserViewFrameForHeader {
+    CGFloat headerBottom = CGRectGetMaxY(self.headerView.frame);
+    UIView* browserView  = [self.webView wmf_browserView];
+    if (floor(CGRectGetMinY(browserView.frame)) != floor(headerBottom)) { // Prevent weird recursion when doing 3d touch peek.
+        [browserView setFrame:(CGRect){
+             .origin = CGPointMake(0, headerBottom),
+             .size = browserView.frame.size
+         }];
     }
 }
 
-- (void)showZeroBannerWithMessage:(WMFZeroMessage*)zeroMessage {
-    self.zeroStatusLabel.text            = zeroMessage.message;
-    self.zeroStatusLabel.textColor       = zeroMessage.foreground;
-    self.zeroStatusLabel.backgroundColor = zeroMessage.background;
+- (void)updateHeaderConstraintForTraitCollection {
+    [self.headerHeight setOffset:[self headerHeightForCurrentTraitCollection]];
 }
 
-#pragma mark - Headers & Footers
+- (CGFloat)headerHeightForCurrentTraitCollection {
+    return [self headerHeightForTraitCollection:self.traitCollection];
+}
+
+- (CGFloat)headerHeightForTraitCollection:(UITraitCollection*)traitCollection {
+    if (self.article.isMain || !self.article.imageURL || [self.article.title isNonStandardTitle]) {
+        return 0;
+    }
+    switch (traitCollection.verticalSizeClass) {
+        case UIUserInterfaceSizeClassRegular:
+            return 210;
+        default:
+            return 0;
+    }
+}
+
+#pragma mark - Footers
 
 - (UIView*)footerAtIndex:(NSUInteger)index {
     UIView* footerView       = self.footerViewControllers[index].view;
@@ -284,20 +314,6 @@ NSString* const WMFCCBySALicenseURL =
             return YES;
         }
         return NO;
-    }];
-}
-
-- (void)addHeaderView {
-    return;
-    if (!self.headerView) {
-        return;
-    }
-    [self.webView.scrollView addSubview:self.headerView];
-    [self.headerView mas_makeConstraints:^(MASConstraintMaker* make) {
-        // lead/trail must be constained to webview, the scrollview doesn't define a width
-        make.leading.and.trailing.equalTo(self.webView);
-        make.top.equalTo(self.webView.scrollView);
-        self.headerHeight = make.height.equalTo(@([self headerHeightForCurrentTraitCollection]));
     }];
 }
 
@@ -407,15 +423,10 @@ NSString* const WMFCCBySALicenseURL =
     [self addFooterView];
 }
 
-- (void)setHeaderView:(UIView*)headerView {
-    return;
-    NSAssert(!self.headerView, @"Dynamic/re-configurable header view is not supported.");
-    NSAssert(!self.isViewLoaded, @"Expected header to be configured before viewDidLoad.");
-    _headerView = headerView;
-}
+#pragma mark - Webview
 
 - (void)layoutWebViewSubviews {
-    [self.headerHeight setOffset:[self headerHeightForCurrentTraitCollection]];
+    return;
     CGFloat headerBottom = CGRectGetMaxY(self.headerView.frame);
     /*
        HAX: need to manage positioning the browser view manually.
@@ -435,8 +446,7 @@ NSString* const WMFCCBySALicenseURL =
     CGFloat totalHeight      = CGRectGetMaxY(browserView.frame) + readMoreHeight;
     CGFloat constrainedWidth = self.webView.scrollView.frame.size.width;
     CGSize requiredSize      = CGSizeMake(constrainedWidth, totalHeight);
-    
-    return;
+
     /*
        HAX: It's important that we restrict the contentSize to the view's width to prevent awkward horizontal scrolling.
      */
@@ -445,24 +455,20 @@ NSString* const WMFCCBySALicenseURL =
     }
 }
 
-- (CGFloat)headerHeightForCurrentTraitCollection {
-    return [self headerHeightForTraitCollection:self.traitCollection];
-}
-
-- (CGFloat)headerHeightForTraitCollection:(UITraitCollection*)traitCollection {
-    if (self.article.isMain || !self.article.imageURL || [self.article.title isNonStandardTitle]) {
-        return 0;
-    }
-    switch (traitCollection.verticalSizeClass) {
-        case UIUserInterfaceSizeClassRegular:
-            return 210;
-        default:
-            return 0;
-    }
-}
-
 #pragma mark - Scrolling
 
+/**
+ *  Calculates the amount needed to compensate to specific HTML element locations.
+ *
+ *  Used when scrolling to fragments instead of setting @c location.hash since setting the offset manually allows us to
+ *  animate the navigation.  However, we can't use the values provided by the webview as-is, since we've added a header
+ *  view on top of the browser view.  This has the effect of offsetting the bounding rects of HTML elements by the amount
+ *  of the header view which is currently on screen.  As a result, we calculate the amount of the header view that is showing,
+ *  and return it from this method in order to get the <i>actual</i> bounding rect, compensated for our header view if
+ *  necessary.
+ *
+ *  @return The vertical offset to apply to client bounding rects received from the web view.
+ */
 - (CGFloat)clientBoundingRectVerticalOffset {
     NSParameterAssert(self.isViewLoaded);
     CGRect headerIntersection =
@@ -688,6 +694,14 @@ NSString* const WMFCCBySALicenseURL =
         return;
     }
 
+    NSLog(@"article before");
+    NSLog(@"content offset %f", self.webView.scrollView.contentOffset.y);
+    [self updateHeaderConstraintForTraitCollection];
+    [self updateBrowserViewFrameForHeader];
+
+    NSLog(@"article after");
+    NSLog(@"content offset %f", self.webView.scrollView.contentOffset.y);
+
     NSString* html = [self.article articleHTML];
 
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.site.language];
@@ -713,6 +727,9 @@ NSString* const WMFCCBySALicenseURL =
     }
 
     [self.footerLicenseView setLicenseTextForSite:self.article.site];
+
+    NSLog(@"article way after");
+    NSLog(@"content offset %f", self.webView.scrollView.contentOffset.y);
 }
 
 #pragma mark Scroll to last section after rotate
@@ -726,7 +743,47 @@ NSString* const WMFCCBySALicenseURL =
                       thenHideTOC:NO];
 }
 
-#pragma mark Bottom menu bar
+#pragma mark - Sharing
+
+- (void)shareMenuItemTapped:(id)sender {
+    [self getSelectedText:^(NSString* _Nonnull text) {
+        [self shareSnippet:text];
+    }];
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if (action == @selector(shareSnippet:)) {
+        [self getSelectedText:^(NSString* _Nonnull text) {
+            [self.delegate webViewController:self didSelectText:text];
+        }];
+        return YES;
+    }
+    return [super canPerformAction:action withSender:sender];
+}
+
+- (void)getSelectedText:(void (^)(NSString* text))completion {
+    [self.webView evaluateJavaScript:@"window.getSelection().toString()" completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
+        if ([obj isKindOfClass:[NSString class]]) {
+            NSString* selectedText = [(NSString*)obj wmf_shareSnippetFromText];
+            selectedText = selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
+            completion(selectedText);
+        } else {
+            completion(@"");
+        }
+    }];
+}
+
+- (void)shareSnippet:(NSString*)snippet {
+    [self.webView wmf_suppressSelection];
+    [self.delegate webViewController:self didTapShareWithSelectedText:snippet];
+}
+
+#pragma mark - Editing
+
+- (void)editHistoryButtonPushed {
+    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[PageHistoryViewController wmf_initialViewControllerFromClassStoryboard]];
+    [self presentViewController:nc animated:YES completion:nil];
+}
 
 - (void)showProtectedDialog {
     UIAlertView* alert = [[UIAlertView alloc] init];
@@ -735,6 +792,60 @@ NSString* const WMFCCBySALicenseURL =
     [alert addButtonWithTitle:@"OK"];
     alert.cancelButtonIndex = 0;
     [alert show];
+}
+
+#pragma mark - Font Size
+
+- (void)setFontSizeMultiplier:(NSNumber*)fontSize {
+    if (fontSize == nil) {
+        fontSize = @(100);
+    }
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"document.querySelector('body').style['-webkit-text-size-adjust'] = '%ld%%';", fontSize.integerValue] completionHandler:NULL];
+    [[NSUserDefaults standardUserDefaults] wmf_setReadingFontSize:fontSize];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - Previewing
+
+- (JSValue*)htmlElementAtLocation:(CGPoint)location {
+    return [[self.webView wmf_javascriptContext][@"getElementFromPoint"] callWithArguments:@[@(location.x), @(location.y)]];
+}
+
+- (NSURL*)urlForHTMLElement:(JSValue*)element {
+    if ([[[element valueForProperty:@"tagName"] toString] isEqualToString:@"A"] && [element valueForProperty:@"href"]) {
+        NSString* urlString = [[element valueForProperty:@"href"] toString];
+        return (!urlString) ? nil : [NSURL URLWithString:urlString];
+    }
+    return nil;
+}
+
+- (CGRect)rectForHTMLElement:(JSValue*)element {
+    JSValue* rect  = [element invokeMethod:@"getBoundingClientRect" withArguments:@[]];
+    CGFloat left   = (CGFloat)[[rect valueForProperty:@"left"] toDouble];
+    CGFloat right  = (CGFloat)[[rect valueForProperty:@"right"] toDouble];
+    CGFloat top    = (CGFloat)[[rect valueForProperty:@"top"] toDouble];
+    CGFloat bottom = (CGFloat)[[rect valueForProperty:@"bottom"] toDouble];
+    return CGRectMake(left, top + self.webView.scrollView.contentOffset.y, right - left, bottom - top);
+}
+
+#pragma mark - Zero
+
+- (void)updateZeroStateWithNotification:(NSNotification*)notification {
+    [self updateZeroState];
+}
+
+- (void)updateZeroState {
+    if ([[SessionSingleton sharedInstance] zeroConfigState].disposition) {
+        [self showZeroBannerWithMessage:[[[SessionSingleton sharedInstance] zeroConfigState] zeroMessage]];
+    } else {
+        self.zeroStatusLabel.text = @"";
+    }
+}
+
+- (void)showZeroBannerWithMessage:(WMFZeroMessage*)zeroMessage {
+    self.zeroStatusLabel.text            = zeroMessage.message;
+    self.zeroStatusLabel.textColor       = zeroMessage.foreground;
+    self.zeroStatusLabel.backgroundColor = zeroMessage.background;
 }
 
 #pragma mark Refs
@@ -895,80 +1006,6 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectExternalReferenceWithURL:(NSURL*)url {
     [self wmf_openExternalUrl:url];
-}
-
-#pragma mark - Share Actions
-
-- (void)shareMenuItemTapped:(id)sender {
-    [self getSelectedText:^(NSString* _Nonnull text) {
-        [self shareSnippet:text];
-    }];
-}
-
-#pragma mark - Sharing
-
-- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
-    if (action == @selector(shareSnippet:)) {
-        [self getSelectedText:^(NSString* _Nonnull text) {
-            [self.delegate webViewController:self didSelectText:text];
-        }];
-        return YES;
-    }
-    return [super canPerformAction:action withSender:sender];
-}
-
-- (void)getSelectedText:(void (^)(NSString* text))completion {
-    [self.webView evaluateJavaScript:@"window.getSelection().toString()" completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
-        if ([obj isKindOfClass:[NSString class]]) {
-            NSString* selectedText = [(NSString*)obj wmf_shareSnippetFromText];
-            selectedText = selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
-            completion(selectedText);
-        } else {
-            completion(@"");
-        }
-    }];
-}
-
-- (void)shareSnippet:(NSString*)snippet {
-    [self.webView wmf_suppressSelection];
-    [self.delegate webViewController:self didTapShareWithSelectedText:snippet];
-}
-
-- (void)editHistoryButtonPushed {
-    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[PageHistoryViewController wmf_initialViewControllerFromClassStoryboard]];
-    [self presentViewController:nc animated:YES completion:nil];
-}
-
-- (void)setFontSizeMultiplier:(NSNumber*)fontSize {
-    if (fontSize == nil) {
-        fontSize = @(100);
-    }
-    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"document.querySelector('body').style['-webkit-text-size-adjust'] = '%ld%%';", fontSize.integerValue] completionHandler:NULL];    
-    [[NSUserDefaults standardUserDefaults] wmf_setReadingFontSize:fontSize];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-#pragma mark - Previewing
-
-- (JSValue*)htmlElementAtLocation:(CGPoint)location {
-    return [[self.webView wmf_javascriptContext][@"getElementFromPoint"] callWithArguments:@[@(location.x), @(location.y)]];
-}
-
-- (NSURL*)urlForHTMLElement:(JSValue*)element {
-    if ([[[element valueForProperty:@"tagName"] toString] isEqualToString:@"A"] && [element valueForProperty:@"href"]) {
-        NSString* urlString = [[element valueForProperty:@"href"] toString];
-        return (!urlString) ? nil : [NSURL URLWithString:urlString];
-    }
-    return nil;
-}
-
-- (CGRect)rectForHTMLElement:(JSValue*)element {
-    JSValue* rect  = [element invokeMethod:@"getBoundingClientRect" withArguments:@[]];
-    CGFloat left   = (CGFloat)[[rect valueForProperty:@"left"] toDouble];
-    CGFloat right  = (CGFloat)[[rect valueForProperty:@"right"] toDouble];
-    CGFloat top    = (CGFloat)[[rect valueForProperty:@"top"] toDouble];
-    CGFloat bottom = (CGFloat)[[rect valueForProperty:@"bottom"] toDouble];
-    return CGRectMake(left, top + self.webView.scrollView.contentOffset.y, right - left, bottom - top);
 }
 
 @end
