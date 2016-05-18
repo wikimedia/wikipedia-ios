@@ -130,7 +130,7 @@ NSString* const WMFCCBySALicenseURL =
         }
     } else if ([message.name isEqualToString:@"sendJavascriptConsoleLogMessageToXcodeConsole"]) {
 #if DEBUG
-        NSLog(@"%@", message.body[@"message"]);
+        NSLog(@"\n\nMessage from Javascript console:\n\t%@\n\n", message.body[@"message"]);
 #endif
     }
 }
