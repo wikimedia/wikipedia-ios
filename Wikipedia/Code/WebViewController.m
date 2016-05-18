@@ -542,8 +542,7 @@ NSString* const WMFCCBySALicenseURL =
     // This might shift the visual scroll position. To prevent it affecting other users,
     // we will only do it when we detect than an assistive technology which actually needs this is running.
     if (UIAccessibilityIsVoiceOverRunning()) {
-        [self.webView.wmf_javascriptContext.globalObject invokeMethod:@"accessibilityCursorToFragment"
-                                                        withArguments:@[section.anchor]];
+        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.accessibilityCursorToFragment('%@')", section.anchor] completionHandler:nil];
     }
 }
 
