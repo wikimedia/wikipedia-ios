@@ -528,12 +528,10 @@ NSString* const WMFCCBySALicenseURL =
             [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.scrollToFragment('%@')", fragment] completionHandler:nil];
             return;
         }
-        [self.webView getScreenRectForHtmlElementWithId:fragment completion:^(CGRect rect) {
+        [self.webView getWebViewRectForHtmlElementWithId:fragment completion:^(CGRect rect) {
             if (!CGRectIsNull(rect)) {
-                CGPoint elementOrigin =
-                    CGPointMake(self.webView.scrollView.contentOffset.x,
-                                self.webView.scrollView.contentOffset.y + rect.origin.y + [self clientBoundingRectVerticalOffset]);
-                [self.webView.scrollView wmf_safeSetContentOffset:elementOrigin animated:YES];
+                [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self clientBoundingRectVerticalOffset])
+                                                         animated:YES];
             }
         }];
     }
