@@ -18,6 +18,7 @@ static MWKSearchResult* dummySearchResultWithIndex(NSUInteger index) {
     static NSUInteger articleId = 0;
     // increase articleId monotonically to make them unique
     return [[MWKSearchResult alloc] initWithArticleID:articleId++
+                                                revID:0
                                          displayTitle:@"foo"
                                   wikidataDescription:@"bar"
                                               extract:@"baz"
