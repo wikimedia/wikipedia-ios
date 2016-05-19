@@ -900,12 +900,32 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)referenceViewController:(ReferencesVC*)referenceViewController didShowReferenceWithLinkID:(NSString*)linkID {
+    // Highlight the tapped reference.
     NSString* eval = [NSString stringWithFormat:@"\
                       document.getElementById('%@').oldBackgroundColor = document.getElementById('%@').style.backgroundColor;\
                       document.getElementById('%@').style.backgroundColor = '#999';\
                       document.getElementById('%@').style.borderRadius = 2;\
                       ", linkID, linkID, linkID, linkID];
     [self.webView evaluateJavaScript:eval completionHandler:NULL];
+
+    // Scroll the tapped reference up if the panel would cover it.
+    [self.webView getScreenRectForHtmlElementWithId:linkID completion:^(CGRect rect) {
+        if (!CGRectIsNull(rect)) {
+            CGFloat vSpaceAboveRefsPanel = self.view.bounds.size.height - referenceViewController.panelHeight;
+            // Only scroll up if the refs link would be below the refs panel.
+            if ((rect.origin.y + rect.size.height) > (vSpaceAboveRefsPanel)) {
+                // Calculate the distance needed to scroll the refs link to the vertical center of the
+                // part of the article web view not covered by the refs panel.
+                CGFloat distanceFromVerticalCenter = ((vSpaceAboveRefsPanel) / 2.0) - (rect.size.height / 2.0);
+                [self.webView.scrollView wmf_safeSetContentOffset:
+                 CGPointMake(
+                     self.webView.scrollView.contentOffset.x,
+                     self.webView.scrollView.contentOffset.y + (rect.origin.y - distanceFromVerticalCenter)         // + [self clientBoundingRectVerticalOffset]
+                     )
+                                                         animated:YES];
+            }
+        }
+    }];
 }
 
 - (void)referenceViewController:(ReferencesVC*)referenceViewController didFinishShowingReferenceWithLinkID:(NSString*)linkID {
