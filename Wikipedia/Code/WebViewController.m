@@ -528,7 +528,7 @@ NSString* const WMFCCBySALicenseURL =
             [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.scrollToFragment('%@')", fragment] completionHandler:nil];
             return;
         }
-        [self.webView getWebViewRectForHtmlElementWithId:fragment completion:^(CGRect rect) {
+        [self.webView getScrollViewRectForHtmlElementWithId:fragment completion:^(CGRect rect) {
             if (!CGRectIsNull(rect)) {
                 [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self clientBoundingRectVerticalOffset])
                                                          animated:YES];

@@ -10,10 +10,10 @@
                                                completion:completion];
 }
 
-- (void)getWebViewRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion {
+- (void)getScrollViewRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion {
     [self getScreenRectForHtmlElementWithId:elementId
                                  completion:^(CGRect rect) {
-        completion([self getRectRelativeToWebView:rect]);
+        completion([self getRectRelativeToScrollView:rect]);
     }];
 }
 
@@ -22,14 +22,14 @@
                                                completion:completion];
 }
 
-- (void)getWebViewRectForHtmlImageWithSrc:(NSString*)src completion:(void (^)(CGRect rect))completion {
+- (void)getScrollViewRectForHtmlImageWithSrc:(NSString*)src completion:(void (^)(CGRect rect))completion {
     [self getScreenRectForHtmlImageWithSrc:src
                                 completion:^(CGRect rect) {
-        completion([self getRectRelativeToWebView:rect]);
+        completion([self getRectRelativeToScrollView:rect]);
     }];
 }
 
-- (CGRect)getRectRelativeToWebView:(CGRect)rect {
+- (CGRect)getRectRelativeToScrollView:(CGRect)rect {
     rect.origin =
         CGPointMake(
             rect.origin.x + floor(self.scrollView.contentOffset.x),

@@ -8,10 +8,10 @@
 @interface WKWebView (ElementLocation)
 
 - (void)getScreenRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion;
-- (void)getWebViewRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion;
+- (void)getScrollViewRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion;
 
 - (void)getScreenRectForHtmlImageWithSrc:(NSString*)src completion:(void (^)(CGRect rect))completion;
-- (void)getWebViewRectForHtmlImageWithSrc:(NSString*)src completion:(void (^)(CGRect rect))completion;
+- (void)getScrollViewRectForHtmlImageWithSrc:(NSString*)src completion:(void (^)(CGRect rect))completion;
 
 /**
  *  Checks all html elements in the web view which have id's of format prefix string followed
