@@ -5,44 +5,41 @@
 
 @implementation WKWebView (ElementLocation)
 
-//- (CGPoint)getScreenCoordsForHtmlImageWithSrc:(NSString*)src {
-//    NSString* strToEval =
-//        [NSString stringWithFormat:@"window.elementLocation.getElementRectAsJson(window.elementLocation.getImageWithSrc('%@'));", src];
-//    NSString* jsonString = [self stringByEvaluatingJavaScriptFromString:strToEval];
-//    if (jsonString.length == 0) {
-//        return CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX);
-//    }
-//    NSData* jsonData       = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-//    NSError* error         = nil;
-//    NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-//    if (error) {
-//        return CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX);
-//    }
-//    NSString* top  = (NSString*)jsonDict[@"top"];
-//    NSString* left = (NSString*)jsonDict[@"left"];
-//
-//    void (^ zeroOutNulls)(NSString**) = ^(NSString** str){
-//        if ([*str isMemberOfClass :[NSNull class]]) {
-//            *str = @"0";
-//        }
-//    };
-//    zeroOutNulls(&top);
-//    zeroOutNulls(&left);
-//
-//    return CGPointMake(left.floatValue, top.floatValue);
-//}
-
-//- (CGPoint)getWebViewCoordsForHtmlImageWithSrc:(NSString*)src {
-//    CGPoint p = [self getScreenCoordsForHtmlImageWithSrc:src];
-//
-//    return CGPointMake(
-//        p.x + floor(self.scrollView.contentOffset.x),
-//        p.y + floor(self.scrollView.contentOffset.y)
-//        );
-//}
-
 - (void)getScreenRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion {
-    [self evaluateJavaScript:[NSString stringWithFormat:@"window.elementLocation.getElementRect(document.getElementById('%@'));", elementId]
+    [self getScreenRectForHtmlElementFromJavascriptString:[NSString stringWithFormat:@"window.elementLocation.getElementRect(document.getElementById('%@'));", elementId]
+                                               completion:completion];
+}
+
+- (void)getWebViewRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion {
+    [self getScreenRectForHtmlElementWithId:elementId
+                                 completion:^(CGRect rect) {
+        completion([self getRectRelativeToWebView:rect]);
+    }];
+}
+
+- (void)getScreenRectForHtmlImageWithSrc:(NSString*)src completion:(void (^)(CGRect rect))completion {
+    [self getScreenRectForHtmlElementFromJavascriptString:[NSString stringWithFormat:@"window.elementLocation.getElementRect(window.elementLocation.getImageWithSrc('%@'));", src]
+                                               completion:completion];
+}
+
+- (void)getWebViewRectForHtmlImageWithSrc:(NSString*)src completion:(void (^)(CGRect rect))completion {
+    [self getScreenRectForHtmlImageWithSrc:src
+                                completion:^(CGRect rect) {
+        completion([self getRectRelativeToWebView:rect]);
+    }];
+}
+
+- (CGRect)getRectRelativeToWebView:(CGRect)rect {
+    rect.origin =
+        CGPointMake(
+            rect.origin.x + floor(self.scrollView.contentOffset.x),
+            rect.origin.y + floor(self.scrollView.contentOffset.y)
+            );
+    return rect;
+}
+
+- (void)getScreenRectForHtmlElementFromJavascriptString:(NSString*)javascriptString completion:(void (^)(CGRect rect))completion {
+    [self evaluateJavaScript:javascriptString
            completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
         if (!error && obj) {
             NSAssert([obj objectForKey:@"X"] &&
@@ -57,17 +54,6 @@
             }
         }
         completion(CGRectNull);
-    }];
-}
-
-- (void)getWebViewRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion {
-    [self getScreenRectForHtmlElementWithId:elementId completion:^(CGRect rect) {
-        CGPoint p = CGPointMake(
-            rect.origin.x + floor(self.scrollView.contentOffset.x),
-            rect.origin.y + floor(self.scrollView.contentOffset.y)
-            );
-        rect.origin = p;
-        completion(rect);
     }];
 }
 

@@ -10,8 +10,8 @@
 - (void)getScreenRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion;
 - (void)getWebViewRectForHtmlElementWithId:(NSString*)elementId completion:(void (^)(CGRect rect))completion;
 
-//- (CGPoint)getScreenCoordsForHtmlImageWithSrc:(NSString*)src;
-//- (CGPoint)getWebViewCoordsForHtmlImageWithSrc:(NSString*)src;
+- (void)getScreenRectForHtmlImageWithSrc:(NSString*)src completion:(void (^)(CGRect rect))completion;
+- (void)getWebViewRectForHtmlImageWithSrc:(NSString*)src completion:(void (^)(CGRect rect))completion;
 
 /**
  *  Checks all html elements in the web view which have id's of format prefix string followed
