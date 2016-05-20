@@ -1032,17 +1032,26 @@ NSString* const WMFCCBySALicenseURL =
     }] bk_map:^ id (NSDictionary* listItemInfo) {
         NSString* itemHtml = listItemInfo[@"html"];
         NSArray* wikiLinks = [itemHtml componentsSeparatedByString:@" href=\"/wiki/"];
+        __block NSString* mainLink = nil;
         if (wikiLinks.count > 1) {
             // Hrefs found, remove first item which is cruft from componentsSeparatedByString.
             wikiLinks = [wikiLinks subarrayWithRange:NSMakeRange(1, wikiLinks.count - 1)];
             wikiLinks = [[wikiLinks bk_map:^id (NSString* stringStartingWithHrefValue) {
                 NSRange range = [stringStartingWithHrefValue rangeOfString:@"\""];
                 NSString* page = (range.location != NSNotFound) ? [stringStartingWithHrefValue wmf_safeSubstringToIndex:range.location] : stringStartingWithHrefValue;
-                return [@"/wiki/" stringByAppendingString:page];
+
+                NSString* wikiLink = [@"/wiki/" stringByAppendingString:page];
+                
+                NSRange boldRange = [stringStartingWithHrefValue rangeOfString:@"</a>\\s*</b>" options:NSRegularExpressionSearch];
+                if(boldRange.location != NSNotFound){
+                    mainLink = wikiLink;
+                }
+
+                return wikiLink;
             }] bk_select:^ BOOL (NSString* wikiLink) {
                 NSRange range = [wikiLink rangeOfString:@"^/wiki/\\d+$" options:NSRegularExpressionSearch];
                 BOOL isYearLink = range.location != NSNotFound;
-                return !isYearLink;
+                return !isYearLink && ![wikiLink isEqualToString:mainLink];
             }];
         }
         
@@ -1051,11 +1060,22 @@ NSString* const WMFCCBySALicenseURL =
         NSInteger year = [[text wmf_safeSubstringToIndex:rangeOfDashSpace.location] integerValue];
         NSString* textAfterYear = [text wmf_safeSubstringFromIndex:rangeOfDashSpace.location + rangeOfDashSpace.length];
         
+        // If we haven't already determined a mainLink, use the first of the other links.
+        if (!mainLink && wikiLinks.count > 0) {
+            mainLink = wikiLinks.firstObject;
+            if (wikiLinks.count == 1) {
+                wikiLinks = @[];
+            }else{
+                wikiLinks = [wikiLinks wmf_safeSubarrayWithRange:NSMakeRange(1, wikiLinks.count -1)];
+            }
+        }
+        
         return @{
                  @"year": @(year),
                  @"year_page": [NSString stringWithFormat:@"/wiki/%ld", (long)year],
                  @"text": textAfterYear,
-                 @"other_pages": wikiLinks ? wikiLinks : @[]
+                 @"page": mainLink,
+                 @"other_pages": wikiLinks ? wikiLinks : @[],
                  };
     }];
     return cleanedResults;
