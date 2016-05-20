@@ -1035,10 +1035,14 @@ NSString* const WMFCCBySALicenseURL =
         if (wikiLinks.count > 1) {
             // Hrefs found, remove first item which is cruft from componentsSeparatedByString.
             wikiLinks = [wikiLinks subarrayWithRange:NSMakeRange(1, wikiLinks.count - 1)];
-            wikiLinks = [wikiLinks bk_map:^id (NSString* stringStartingWithHrefValue) {
+            wikiLinks = [[wikiLinks bk_map:^id (NSString* stringStartingWithHrefValue) {
                 NSRange range = [stringStartingWithHrefValue rangeOfString:@"\""];
                 NSString* page = (range.location != NSNotFound) ? [stringStartingWithHrefValue wmf_safeSubstringToIndex:range.location] : stringStartingWithHrefValue;
                 return [@"/wiki/" stringByAppendingString:page];
+            }] bk_select:^ BOOL (NSString* wikiLink) {
+                NSRange range = [wikiLink rangeOfString:@"^/wiki/\\d+$" options:NSRegularExpressionSearch];
+                BOOL isYearLink = range.location != NSNotFound;
+                return !isYearLink;
             }];
         }
         
@@ -1049,8 +1053,9 @@ NSString* const WMFCCBySALicenseURL =
         
         return @{
                  @"year": @(year),
+                 @"year_page": [NSString stringWithFormat:@"/wiki/%ld", (long)year],
                  @"text": textAfterYear,
-                 @"pages": wikiLinks ? wikiLinks : @[]
+                 @"other_pages": wikiLinks ? wikiLinks : @[]
                  };
     }];
     return cleanedResults;
