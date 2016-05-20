@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSNumber* numberOfRandomItemsToFetch = @8;
     return @{
                @"action": @"query",
-               @"prop": @"extracts|pageterms|pageimages|pageprops",
+               @"prop": @"extracts|pageterms|pageimages|pageprops|revisions",
                //random
                @"generator": @"random",
                @"grnnamespace": @0,
@@ -94,6 +94,9 @@ NS_ASSUME_NONNULL_BEGIN
                @"piprop": @"thumbnail",
                @"pithumbsize": [[UIScreen mainScreen] wmf_leadImageWidthForScale],
                @"pilimit": numberOfRandomItemsToFetch,
+               // revision
+               @"rrvlimit": @(1),
+               @"rvprop": @"ids",
                @"format": @"json",
     };
 }
