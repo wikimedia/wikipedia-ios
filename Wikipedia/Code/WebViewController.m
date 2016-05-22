@@ -133,6 +133,9 @@ NSString* const WMFCCBySALicenseURL =
     [self displayArticle];
 }
 
+NSString* const WMF_UIScrollViewDidEndDeceleratingNotification = @"_UIScrollViewDidEndDeceleratingNotification";
+NSString* const WMF_UIScrollViewAnimationEndedNotification     = @"_UIScrollViewAnimationEndedNotification";
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self layoutWebViewSubviews];
@@ -147,6 +150,34 @@ NSString* const WMFCCBySALicenseURL =
                                                object:nil];
     // should happen in will appear to prevent bar from being incorrect during transitions
     [self updateZeroState];
+
+    @weakify(self);
+    void (^ saveOpenArticleTitleBlock)(NSNotification*) = ^void (NSNotification* notification) {
+        @strongify(self);
+        if (notification.object == self.webView.scrollView) {
+            [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
+        }
+    };
+
+    [[NSNotificationCenter defaultCenter] addObserverForName:WMF_UIScrollViewDidEndDeceleratingNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:saveOpenArticleTitleBlock];
+    [[NSNotificationCenter defaultCenter] addObserverForName:WMF_UIScrollViewAnimationEndedNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:saveOpenArticleTitleBlock];
+}
+
+- (void)saveOpenArticleTitleWithCurrentlyOnscreenFragment {
+    [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:[self articleTitleWithCurrentlyOnScreenFragment]];
+}
+
+- (MWKTitle*)articleTitleWithCurrentlyOnScreenFragment {
+    return
+        [[MWKTitle alloc] initWithSite:self.article.title.site
+                       normalizedTitle:self.article.title.text
+                              fragment:[self currentVisibleSection].anchor];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -157,6 +188,8 @@ NSString* const WMFCCBySALicenseURL =
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroDispositionDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMF_UIScrollViewDidEndDeceleratingNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMF_UIScrollViewAnimationEndedNotification object:nil];
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection*)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
