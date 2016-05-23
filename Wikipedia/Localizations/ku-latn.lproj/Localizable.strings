@@ -47,6 +47,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Girêdanê veke";
 "open-link-cancel" = "Betal bike";
+"search-title" = "Lêgerîn";
 "search-searching" = "Lê digere...";
 "search-field-placeholder-text" = "Di nav Wîkîpediyayê de lê bigere";
 "search-loading-article-loaded" = "Gotar hat barkirin.";
@@ -154,6 +155,8 @@
 "home-hide-suggestion-cancel" = "Betal bike";
 "welcome-volunteer-thanks" = "$1 Spas!";
 "empty-no-search-results-message" = "Ti encam nehatin dîtin";
+"icon-shortcut-random-title" = "Gotara ketober";
 "close-button-accessibility-label" = "Bigre";
+"explore-continue-related-heading" = "Ji ber ku tu dixwînî";
 "explore-random-article-heading" = "Gotara ketober";
 "explore-potd-heading" = "Wêneyê rojê";

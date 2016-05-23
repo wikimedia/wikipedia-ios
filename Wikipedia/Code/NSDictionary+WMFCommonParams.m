@@ -25,14 +25,18 @@
          @"", @"continue",
          @"json", @"format",
          @"query", @"action",
-         @"pageterms|pageimages|pageprops", @"prop",
+         @"pageterms|pageimages|pageprops|revisions", @"prop",
          // pageprops
          @"ppprop", @"ns",
          // pageterms
          @"description", @"wbptterms",
          // pageimage
          @"thumbnail", @"piprop",
-         imageWidth, @"pithumbsize", nil];
+         imageWidth, @"pithumbsize",
+         // revision
+         @(1), @"rrvlimit",
+         @"ids", @"rvprop",
+         nil];
 
     if (extractLength > 0) {
         defaults[@"explaintext"] = @"";

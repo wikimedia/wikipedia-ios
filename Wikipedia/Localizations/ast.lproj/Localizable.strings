@@ -108,6 +108,9 @@
 "settings-support" = "Sofita Wikimedia";
 "settings-language-bar" = "Amosar les llingües na gueta";
 "settings-my-languages" = "Les mios llingües";
+"settings-help-and-feedback" = "Ayuda y comentarios";
+"settings-primary-language" = "Principal";
+"settings-primary-language-details" = "La primera llingua d'esta llista emplégase como l'idioma principal de l'aplicación. Al camudalu, vas camudar tamién el conteníu diariu (por casu, l'Artículu de portada) que s'amuesa n'Esplorar.";
 "main-menu-title" = "Más";
 "main-menu-heading-about" = "Tocante a";
 "main-menu-language-title" = "Guetar la wiki en llingua $1";
@@ -235,6 +238,7 @@
 "button-save" = "Guardar";
 "button-save-for-later" = "Guardar pa después";
 "button-saved-for-later" = "Guardao pa después";
+"button-report-a-bug" = "Informar d'un fallu";
 "onboarding-create-account" = "Crear una cuenta";
 "onboarding-login" = "Identificase";
 "onboarding-already-have-account" = "¿Yá tienes una cuenta? $1";
@@ -352,8 +356,7 @@
 "welcome-explore-continue-button" = "Primeros pasos";
 "welcome-languages-title" = "Llingües";
 "welcome-languages-sub-title" = "Esbilla les llingües que prefieres pa guetar en Wikipedia";
-// Fuzzy
-"welcome-languages-add-button" = "Amestar otra";
+"welcome-languages-add-button" = "Amestar otra llingua";
 "welcome-languages-continue-button" = "Siguir";
 "welcome-volunteer-title" = "Facete voluntariu";
 "welcome-volunteer-sub-title" = "Ayuda a enantar l'app de Wikipedia compartiendo cómo la uses";
