@@ -109,6 +109,9 @@
 "settings-support" = "Wikipedia unterstützen";
 "settings-language-bar" = "Sprachen in der Suche anzeigen";
 "settings-my-languages" = "Meine Sprachen";
+"settings-help-and-feedback" = "Hilfe und Rückmeldung";
+"settings-primary-language" = "Primär";
+"settings-primary-language-details" = "Die erste Sprache in dieser Liste wird als primäre Sprache für die App verwendet. Das Ändern dieser Sprache ändert den Tagesinhalt (wie den vorgestellten Artikel), der bei „Entdecken“ angezeigt wird.";
 "main-menu-title" = "Weitere";
 "main-menu-heading-about" = "Über";
 "main-menu-language-title" = "Sprachwiki $1 durchsuchen";
@@ -236,6 +239,7 @@
 "button-save" = "Speichern";
 "button-save-for-later" = "Für später speichern";
 "button-saved-for-later" = "Für später gespeichert";
+"button-report-a-bug" = "Einen Fehler melden";
 "onboarding-create-account" = "Benutzerkonto erstellen";
 "onboarding-login" = "Anmelden";
 "onboarding-already-have-account" = "Hast du bereits ein Benutzerkonto? $1";
@@ -353,8 +357,7 @@
 "welcome-explore-continue-button" = "Anfangen";
 "welcome-languages-title" = "Sprachen";
 "welcome-languages-sub-title" = "Wähle deine bevorzugten Sprachen aus, um Wikipedia zu durchsuchen.";
-// Fuzzy
-"welcome-languages-add-button" = "Eine weitere hinzufügen";
+"welcome-languages-add-button" = "Eine weitere Sprache hinzufügen";
 "welcome-languages-continue-button" = "Fortfahren";
 "welcome-volunteer-title" = "Freiwilliger";
 "welcome-volunteer-sub-title" = "Hilf mit, die Wikipedia-App zu verbessern, indem du ihre Nutzung teilst.";

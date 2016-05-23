@@ -1,5 +1,6 @@
 // Messages for Yiddish (ייִדיש)
 // Exported from translatewiki.net
+// Author: Alefbeis
 // Author: Har-wradim
 // Author: פוילישער
 
@@ -7,23 +8,22 @@
 "article-languages-label" = "קלויבן שפראך…";
 "article-languages-cancel" = "אַנולירן";
 "article-languages-downloading" = "לאדן ארטיקל שפראכן…";
-// Fuzzy
-"article-languages-filter-placeholder" = "שפראך־פֿילטער";
+"article-languages-filter-placeholder" = "טרעפן שפראך";
 "article-read-more-title" = "לייענט ווײטער";
 "article-about-title" = "וועגן דעם ארטיקל";
 "info-box-title" = "גיכע פאקטן";
 "info-box-close-text" = "פארמאכן";
 "table-title-other" = "נאך אינפארמאציע";
+"saved-clear-all" = "אפליידיגן";
+"history-clear-all" = "אפליידיגן";
 "history-label" = "לעצטיק";
 "history-section-today" = "הײַנט";
 "history-section-yesterday" = "נעכטן";
 "history-section-lastweek" = "פֿאריגע וואך";
 "history-section-lastmonth" = "פאריגן מאנאט";
-// Fuzzy
-"history-clear-confirmation-heading" = "אויסמעקן אלע לעצטיקע אביעקטן?";
+"history-clear-confirmation-heading" = "איר ווילט טאקע אויסמעקן אלע אייערע לעצטיקע אביעקטן?";
 "history-clear-cancel" = "אַנולירן";
-// Fuzzy
-"history-clear-delete-all" = "אויסמעקן אלץ";
+"history-clear-delete-all" = "יא, אויסמעקן אלץ";
 "history-none" = "קיין לעצטיקע בלעטער נישט דא.";
 "zero-free-verbiage" = "אומזיסטער צוטריט פון אײַער מאביל־פארזארגער (אן באצאלן פאר דאטן)";
 "zero-charged-verbiage" = "וויקיפעדיע זערא איז אויס";
@@ -81,31 +81,25 @@
 "main-menu-title" = "נאך";
 "main-menu-heading-about" = "וועגן";
 "main-menu-language-title" = "זוכן $1 וויקיפעדיע";
-// Fuzzy
 "main-menu-faq" = "מערסטע געפרעגטע פראגעס";
 "main-menu-language-toggle-show" = "ווײַזן שפראכן";
 "main-menu-language-toggle-hide" = "באהאלטן שפראכן";
 "main-menu-language-selection-saved" = "שפראך אויסקלייב געהיטן";
 "main-menu-account-title-logged-out" = "קאנטע";
-// Fuzzy
-"main-menu-account-title-logged-in" = "ארײַנלאגירט: $1";
-// Fuzzy
-"main-menu-account-login" = "אַרײַנלאגירן צו וויקיפעדיע";
+"main-menu-account-title-logged-in" = "ארײַנלאגירט ווי $1";
+"main-menu-account-login" = "אַרײַנלאגירן";
 "main-menu-account-logout" = "אַרויסלאָגירן";
 "main-menu-show-title" = "ווײַז מיך…";
 "main-menu-show-history" = "לעצטיק";
 "main-menu-show-saved" = "אײַנגעשפייכלערטע בלעטער";
 "main-menu-random" = "צופֿעליג";
 "main-menu-feedback-heading" = "פֿידבעק";
-// Fuzzy
-"main-menu-send-feedback" = "שיקן אפ־פידבעק";
+"main-menu-send-feedback" = "שרייבן צו אונז";
 "main-menu-show-page-history" = "היסטאריע פון ענדערונגען צו $1";
 "main-menu-credits" = "קרעדיטן";
-// Fuzzy
-"main-menu-about" = "וועגן דעם וויקימעדיע־אפ";
+"main-menu-about" = "וועגן דעם אפ";
 "main-menu-zero-faq" = "וויקיפעדיע נול שאלות ותשובות";
 "main-menu-privacy-policy" = "פּריוואַטקייט פּאליסי";
-// Fuzzy
 "main-menu-terms-of-use" = "ניצבאדינגונגען";
 "main-menu-heading-zero" = "וויקיפעדיע נול";
 "main-menu-heading-legal" = "פריוואטקייט און באדינגונגען";
@@ -114,11 +108,9 @@
 "main-menu-more" = "נאך…";
 "main-menu-debug-crash" = "איינפאלן";
 "saved-pages-title" = "אײַנגעשפייכלערטע בלעטער";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "אויסמעקן אלע געשפייכלערטע אביעקטן?";
+"saved-pages-clear-confirmation-heading" = "איר ווילט טאקע אויסמעקן אלע אייערע געשפייכלערטע בלעטער?";
 "saved-pages-clear-cancel" = "אנולירן";
-// Fuzzy
-"saved-pages-clear-delete-all" = "אויסמעקן אלץ";
+"saved-pages-clear-delete-all" = "יא, אויסמעקן אלץ";
 "saved-pages-refresh-cancel-alert-title" = "דערהיינטיקונג אנולירט";
 "saved-pages-refresh-cancel-alert-button" = "געכאפט";
 "saved-pages-none" = "נאך נישט קיין אויפגעהיטענע בלעטער.";
@@ -145,18 +137,13 @@
 "credits-github-mirror" = "אפ-שפיגל (גיטהאב)";
 "about-title" = "וועגן";
 "about-wikipedia" = "וויקיפעדיע";
-// Fuzzy
 "about-contributors" = "בײַשטײַערער";
-// Fuzzy
 "about-translators" = "איבערזעצער";
-// Fuzzy
 "about-libraries" = "געניצטע ביבליאטעקן";
 "about-libraries-license" = "ליצענץ";
-// Fuzzy
 "about-repositories" = "רעפאזיטאריעס";
 "about-send-feedback" = "שיקן אפ־פידבעק";
-// Fuzzy
-"about-product-of" = "א פראדוקט פון $1";
+"about-product-of" = "געמאכט דורך $1 מיטן הילף פון וואלונטערן ווי איר";
 "about-wikimedia-foundation" = "די וויקימעדיע פֿונדאַציע";
 "share-menu-save-page" = "אױפֿהיטן בלאַט";
 "share-custom-menu-item" = "טיילן";

@@ -109,6 +109,9 @@
 "settings-support" = "Поддржете ја Википедија";
 "settings-language-bar" = "Прикажувај јазици при пребарувањето";
 "settings-my-languages" = "Мои јазици";
+"settings-help-and-feedback" = "Помош и мислења";
+"settings-primary-language" = "Главен";
+"settings-primary-language-details" = "Првиот јазик на овој список ќе се користи како главен за прилогот. Ако го смените јазикот, ќе ја смените и дневната содржина (како на пр. Избраната статија) што се прикажува на „Истражете“.";
 "main-menu-title" = "Повеќе";
 "main-menu-heading-about" = "За прилогот";
 "main-menu-language-title" = "Пребарување на Википедија на $1";
@@ -236,6 +239,7 @@
 "button-save" = "Зачувај";
 "button-save-for-later" = "Зачувај за подоцна";
 "button-saved-for-later" = "Зачувано за подоцна";
+"button-report-a-bug" = "Пријави грешка";
 "onboarding-create-account" = "Направи сметка";
 "onboarding-login" = "Најава";
 "onboarding-already-have-account" = "Веќе имате сметка? $1";
@@ -353,8 +357,7 @@
 "welcome-explore-continue-button" = "Започни";
 "welcome-languages-title" = "Јазици";
 "welcome-languages-sub-title" = "Одберете ги вашите претпочитани јазици за пребарување на Википедија";
-// Fuzzy
-"welcome-languages-add-button" = "Додај друг";
+"welcome-languages-add-button" = "Додај друг јазик";
 "welcome-languages-continue-button" = "Продолжи";
 "welcome-volunteer-title" = "Пријави се";
 "welcome-volunteer-sub-title" = "Помогнете ни да го подобриме прилогов споделувајќи сознанија за тоа како го употребувате";

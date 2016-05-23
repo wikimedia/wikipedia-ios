@@ -119,6 +119,9 @@
 "settings-support" = "Поддержать Википедию";
 "settings-language-bar" = "Показывать языки при поиске";
 "settings-my-languages" = "Мои языки";
+"settings-help-and-feedback" = "Помощь и обратная связь";
+"settings-primary-language" = "Основной";
+"settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка изменит ежедневное содержимое (такое, как Избранная статья), показываемое на странице Исследуйте.";
 "main-menu-title" = "Ещё";
 "main-menu-heading-about" = "Про приложение";
 "main-menu-language-title" = "Поиск $1 Википедии";
@@ -246,6 +249,7 @@
 "button-save" = "Сохранить";
 "button-save-for-later" = "Сохранить на потом";
 "button-saved-for-later" = "Сохранено на потом";
+"button-report-a-bug" = "Сообщить об ошибке";
 "onboarding-create-account" = "Создать учётную запись";
 "onboarding-login" = "Войти";
 "onboarding-already-have-account" = "Вы уже зарегистрированы? $1";
@@ -363,8 +367,7 @@
 "welcome-explore-continue-button" = "Начать";
 "welcome-languages-title" = "Языки";
 "welcome-languages-sub-title" = "Выберите языки, на которых вы хотели бы осуществлять поиск в Википедии";
-// Fuzzy
-"welcome-languages-add-button" = "Добавить ещё один";
+"welcome-languages-add-button" = "Добавить ещё один язык";
 "welcome-languages-continue-button" = "Продолжить";
 "welcome-volunteer-title" = "Доброволец";
 "welcome-volunteer-sub-title" = "Помогите улучшить приложение Википедии, рассказав, как вы его используете";

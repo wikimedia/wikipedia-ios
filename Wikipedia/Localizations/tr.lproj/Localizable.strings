@@ -120,6 +120,9 @@
 "settings-support" = "Vikipedi'yi destekleyin";
 "settings-language-bar" = "Aramada dilleri göster";
 "settings-my-languages" = "Dillerim";
+"settings-help-and-feedback" = "Yardım ve geri bildirim";
+"settings-primary-language" = "Birincil";
+"settings-primary-language-details" = "Bu listedeki ilk dil, uygulamanın birincil dili olarak kullanılır. Bu dil değiştirildiğinde, Keşfet'te göysterilen günlük içerik (Seçkin Madde gibi) de değişecektir.";
 "main-menu-title" = "Diğer";
 "main-menu-heading-about" = "Hakkında";
 "main-menu-language-title" = "$1 vikide ara";
@@ -247,6 +250,7 @@
 "button-save" = "Kaydet";
 "button-save-for-later" = "Sonrası için kaydet";
 "button-saved-for-later" = "Sonrası için kaydedildi";
+"button-report-a-bug" = "Hata bildir";
 "onboarding-create-account" = "Hesap oluştur";
 "onboarding-login" = "Oturum aç";
 "onboarding-already-have-account" = "Zaten bir hesabınız var mı? $1";
@@ -364,8 +368,7 @@
 "welcome-explore-continue-button" = "Kullanmaya başla";
 "welcome-languages-title" = "Diller";
 "welcome-languages-sub-title" = "Vikipedi'de arama yapmak için tercih ettiğiniz dilleri seçin";
-// Fuzzy
-"welcome-languages-add-button" = "Bir tane daha ekle";
+"welcome-languages-add-button" = "Başka bir dil ekle";
 "welcome-languages-continue-button" = "Devam";
 "welcome-volunteer-title" = "Gönüllü ol";
 "welcome-volunteer-sub-title" = "Nasıl kullandığınızı paylaşarak, Vikipedi uygulamasının geliştirilmesine yardım edin.";

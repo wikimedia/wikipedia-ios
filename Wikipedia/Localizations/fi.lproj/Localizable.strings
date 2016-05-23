@@ -1,5 +1,6 @@
 // Messages for Finnish (suomi)
 // Exported from translatewiki.net
+// Author: Alluk.
 // Author: ElmA
 // Author: Jack Phoenix
 // Author: McSalama
@@ -112,6 +113,10 @@
 "settings-title" = "Asetukset";
 "settings-language" = "Wikipedian kieli";
 "settings-support" = "Tue Wikipediaa";
+"settings-my-languages" = "Omat kielet";
+"settings-help-and-feedback" = "Ohje ja palaute";
+"settings-primary-language" = "Ensisijainen";
+"settings-primary-language-details" = "Tämän listan ensimmäinen kieli on sovelluksen oletuskieli. Asetuksen muuttaminen vaikuttaa esimerkiksi Suositeltu artikkeli -toiminnon sisältöön.";
 "main-menu-title" = "Lisää";
 "main-menu-heading-about" = "Tietoja";
 "main-menu-language-title" = "Etsi wikistä kielellä $1";
@@ -204,6 +209,7 @@
 "about-libraries-license" = "Lisenssi";
 "about-libraries-licenses" = "Lisenssit";
 "about-content-license" = "Sisältölisenssi";
+"about-content-license-details" = "Ellei toisin mainita, sisältö on saatavilla $1 -lisenssillä.";
 "about-libraries-licenses-title" = "Me rakastamme avoimen lähdekoodin ohjelmistoja $1";
 "about-libraries-complete-list" = "Täydellinen luettelo";
 "about-repositories" = "Tietovarastot";
@@ -238,6 +244,7 @@
 "button-save" = "Tallenna";
 "button-save-for-later" = "Tallenna myöhemmäksi";
 "button-saved-for-later" = "Tallennettu myöhemmäksi";
+"button-report-a-bug" = "Ilmoita ongelmasta";
 "onboarding-create-account" = "Luo tunnus";
 "onboarding-login" = "Kirjaudu sisään";
 "onboarding-already-have-account" = "Onko sinulla jo tunnus? $1";
@@ -298,6 +305,7 @@
 "nearby-location-general-error" = "Sijainnin määritys ei onnistu. Vedä päivittääksesi tai yritä uudelleen myöhemmin.";
 "nearby-wifi" = "Langattoman verkkoyhteyden käyttöönotto voi auttaa laitettasi määrittämään sijaintisi paremmin.";
 "migration-update-progress-label" = "Siirretään paikallisia tietoja";
+"migration-update-progress-count-label" = "Siirretään artikkelia $1/$2";
 "migration-prompt-title" = "Näyttää siltä, että meillä on historiaa!";
 "migration-confirm-button-title" = "Siirrä juttuni yli";
 "migration-skip-button-title" = "Poista se";
@@ -322,8 +330,15 @@
 "home-empty-section" = "Ei tuloksia";
 "home-empty-section-check-again" = "Yritä uudelleen";
 "home-continue-reading-heading" = "Jatka lukemista";
+"home-continue-related-heading" = "Suositusperuste: $1";
+"home-more-like-footer" = "Vastaavia artikkeleita kuin $1";
+"home-nearby-footer" = "Lisää paikallisia artikkeleita";
+"home-nearby-location-footer" = "Lähistöllä: $1";
+"home-nearby-nothing" = "Lähistöllä ei ole kohteita";
 "home-nearby-check-again" = "Tarkista uudelleen";
+"home-featured-article-heading" = "Päivän artikkeli: $1";
 "home-main-page-heading" = "Tänään Wikipediassa";
+"home-potd-heading" = "Päivän kuva: $1";
 "home-last-update-label" = "Viimeisin päivitys: $1";
 "home-last-update-never-label" = "Viimeisin päivitys: Ei koskaan";
 "home-updating-label" = "Päivitetään…";
@@ -335,10 +350,11 @@
 "welcome-explore-sub-title" = "Uusi tapa löytää kiinnostavia artikkeleita joka päivä";
 "welcome-explore-tell-me-more" = "Kerro lisää";
 "welcome-explore-tell-me-more-done-button" = "Selvä";
+"welcome-explore-continue-button" = "Aloitetaan";
 "welcome-languages-title" = "Kielet";
-// Fuzzy
-"welcome-languages-add-button" = "Lisää toinen";
+"welcome-languages-add-button" = "Lisää toinen kieli";
 "welcome-languages-continue-button" = "Jatka";
+"welcome-volunteer-title" = "Vapaaehtoinen";
 "welcome-volunteer-sub-title" = "Auta parantamaan Wikipedia-sovellusta jakamalla tietoja siitä, kuinka käytät sitä";
 "welcome-volunteer-send-usage-reports" = "Lähetä käyttöraportteja";
 "welcome-volunteer-continue-button" = "Jatka";
@@ -359,8 +375,14 @@
 "back-button-accessibility-label" = "Takaisin";
 "explore-featured-article-heading" = "Suositeltu artikkeli";
 "explore-continue-reading-heading" = "Jatka lukemista";
+"explore-nearby-heading" = "Lähistön paikat";
+"explore-continue-related-heading" = "Lukusuosituksen peruste";
 "explore-main-page-heading" = "Tänään Wikipediassa";
 "explore-random-article-heading" = "Satunnainen artikkeli";
 "explore-random-article-sub-heading" = "Englanninkielinen Wikipedia";
 "explore-potd-heading" = "Päivän kuva";
+"explore-most-read-heading" = "Luetuimmat artikkelit Wikipedian kieliversiossa $1";
+"explore-most-read-footer" = "Kaikki luetuimmat artikkelit";
+"explore-most-read-footer-for-date" = "Kaikki luetuimmat artikkelit $1";
 "explore-most-read-more-list-title" = "Huippuartikkelit";
+"explore-most-read-more-list-title-for-date" = "Parhaimmistoa $1";
