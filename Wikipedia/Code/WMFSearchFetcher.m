@@ -143,11 +143,13 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                    @"gpssearch": params.searchTerm,
                    @"gpsnamespace": @0,
                    @"gpslimit": numResults,
-                   @"prop": @"pageterms|pageimages",
+                   @"prop": @"pageterms|pageimages|revisions",
                    @"piprop": @"thumbnail",
                    @"wbptterms": @"description",
                    @"pithumbsize": [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
                    @"pilimit": numResults,
+                   @"rrvlimit": @(1),
+                   @"rvprop": @"ids",
                    // -- Parameters causing prefix search to efficiently return suggestion.
                    @"list": @"search",
                    @"srsearch": params.searchTerm,
@@ -165,7 +167,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
     } else {
         return @{
                    @"action": @"query",
-                   @"prop": @"pageterms|pageimages",
+                   @"prop": @"pageterms|pageimages|revisions",
                    @"wbptterms": @"description",
                    @"generator": @"search",
                    @"gsrsearch": params.searchTerm,
@@ -178,6 +180,8 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                    @"piprop": @"thumbnail",
                    @"pithumbsize": [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
                    @"pilimit": numResults,
+                   @"rrvlimit": @(1),
+                   @"rvprop": @"ids",
                    @"continue": @"",
                    @"format": @"json",
                    @"redirects": @1,

@@ -5,6 +5,8 @@
 
 @property (nonatomic, assign, readonly) NSInteger articleID;
 
+@property (nonatomic, assign, readonly) NSInteger revID;
+
 @property (nonatomic, copy, readonly) NSString* displayTitle;
 
 @property (nonatomic, copy, readonly) NSString* wikidataDescription;
@@ -22,6 +24,7 @@
 @property (nonatomic, assign, readonly) BOOL isList;
 
 - (instancetype)initWithArticleID:(NSInteger)articleID
+                            revID:(NSInteger)revID
                      displayTitle:(NSString*)displayTitle
               wikidataDescription:(NSString*)wikidataDescription
                           extract:(NSString*)extract
