@@ -240,8 +240,7 @@
 "welcome-explore-tell-me-more-done-button" = "Supratau";
 "welcome-explore-continue-button" = "Pradėti";
 "welcome-languages-title" = "Kalbos";
-// Fuzzy
-"welcome-languages-add-button" = "Pridėti kitą";
+"welcome-languages-add-button" = "Pridėti kitą kalbą";
 "welcome-languages-continue-button" = "Tęsti";
 "welcome-volunteer-title" = "Savanoris";
 "welcome-volunteer-send-usage-reports" = "Siųsti naudojimo ataskaitas";

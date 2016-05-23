@@ -111,6 +111,9 @@
 "settings-support" = "תמיכה בוויקיפדיה";
 "settings-language-bar" = "הצגת שפות בחיפוש";
 "settings-my-languages" = "השפות שלי";
+"settings-help-and-feedback" = "עזרה ומשוב";
+"settings-primary-language" = "ראשית";
+"settings-primary-language-details" = "השפה הראשונה ברשימה הזאת היא השפה הראשית עבור היישום. שינוי השפה הזאת ישנה את התוכן היומי (כגון ערך מומלץ) שמוצג ב\"לחקור\".";
 "main-menu-title" = "עוד";
 "main-menu-heading-about" = "אודות";
 "main-menu-language-title" = "חיפוש בוויקיפדיה ה$1";
@@ -238,6 +241,7 @@
 "button-save" = "שמירה";
 "button-save-for-later" = "לשמור לאחר־כך";
 "button-saved-for-later" = "נשמרו לאחר־כך";
+"button-report-a-bug" = "דיווח באג";
 "onboarding-create-account" = "יצירת חשבון";
 "onboarding-login" = "כניסה";
 "onboarding-already-have-account" = "כבר יש לך חשבון? $1";
@@ -355,8 +359,7 @@
 "welcome-explore-continue-button" = "להתחיל";
 "welcome-languages-title" = "שפות";
 "welcome-languages-sub-title" = "נא לבחור את השפות שבהן ברצונך לחפש בוויקיפדיה";
-// Fuzzy
-"welcome-languages-add-button" = "להוסיף עוד";
+"welcome-languages-add-button" = "הוספת שפה אחרת";
 "welcome-languages-continue-button" = "להמשיך";
 "welcome-volunteer-title" = "התנדבות";
 "welcome-volunteer-sub-title" = "עזרה לשיפור יישום ויקיפדיה באמצעות שיתוף מידע על השימוש שלך בו";

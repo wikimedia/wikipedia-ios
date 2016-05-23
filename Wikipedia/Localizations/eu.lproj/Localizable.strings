@@ -76,6 +76,7 @@
 "search-recent-clear-cancel" = "Utzi";
 "search-recent-clear-delete-all" = "Denak ezabatu";
 "settings-title" = "Ezarpenak";
+"settings-my-languages" = "Nire hizkuntzak";
 "main-menu-title" = "Gehiago";
 "main-menu-heading-about" = "Honi buruz";
 "main-menu-language-title" = "Bilatu $1 Wikipedia";
@@ -218,6 +219,7 @@
 "home-last-update-label" = "Azken eguneratzea:$1";
 // Fuzzy
 "welcome-languages-title" = "Aukeratu zure hizkuntza";
+"welcome-languages-add-button" = "Gehitu beste hizkuntza bat";
 "empty-no-feed-title" = "Internet Konexiorik Ez";
 "icon-shortcut-nearby-title" = "Inguruko artikuluak";
 "close-button-accessibility-label" = "Itxi";

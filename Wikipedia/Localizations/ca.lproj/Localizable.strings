@@ -119,6 +119,8 @@
 "settings-support" = "Doneu suport a la Viquipèdia";
 "settings-language-bar" = "Mostra llengües a la cerca";
 "settings-my-languages" = "Les meves llengües";
+"settings-help-and-feedback" = "Ajuda i comentaris";
+"settings-primary-language" = "Principal";
 "main-menu-title" = "Més";
 "main-menu-heading-about" = "Quant a";
 "main-menu-language-title" = "Cerca la wiki en llengua $1";
@@ -238,11 +240,13 @@
 "timestamp-years" = "fa %d anys";
 "lastmodified-by-user" = "Modificat $1 per $2";
 "lastmodified-by-anon" = "Modificat $1 per un usuari anònim";
+"button-edit" = "Modifica";
 "button-next" = "Següent";
 "button-done" = "Fet";
 "button-save" = "Desa";
 "button-save-for-later" = "Desa-ho per a més tard";
 "button-saved-for-later" = "Desat per a més tard";
+"button-report-a-bug" = "Informa d'un error";
 "onboarding-create-account" = "Crea un compte";
 "onboarding-login" = "Inicia una sessió";
 "onboarding-already-have-account" = "Ja teniu un compte? $1";
@@ -256,8 +260,7 @@
 "page_protected_other" = "La pàgina ha estat protegida als nivells següents: $1";
 "page_protected_can_not_edit" = "No teniu permisos per modificar la pàgina";
 "page_protected_can_not_edit_title" = "La pàgina està protegida";
-// Fuzzy
-"license-footer-text" = "El contingut està disponible sota $1";
+"license-footer-text" = "El contingut està disponible sota $1 a menys que s'indiqui el contrari.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Continguts";
 "table-of-contents-button-label" = "Taula de continguts";
@@ -322,8 +325,7 @@
 "hockeyapp-alert-privacy" = "Privadesa de $1";
 "page-issues" = "Problemes de la pàgina";
 "page-similar-titles" = "Pàgines similars";
-// Fuzzy
-"page-read-in-other-languages" = "Disponible en $1 llengües";
+"page-read-in-other-languages" = "Disponible en $1 altres llengües";
 "page-last-edited" = "Modificat fa $1 dies";
 "page-edit-history" = "Historial complet";
 "captcha-reload" = "Mostra un altre captcha";
@@ -336,13 +338,14 @@
 "home-continue-related-heading" = "Perquè vas llegir $1";
 "home-more-like-footer" = "Més com $1";
 "home-nearby-footer" = "Més propers a la vostra ubicació";
+"home-nearby-location-footer" = "Més propers a $1";
 "home-nearby-nothing" = "Res proper";
 "home-nearby-check-again" = "Comprovar un altre cop";
 "home-featured-article-heading" = "Article de Qualitat per $1";
 "home-main-page-heading" = "Avui a la Viquipèdia";
 "home-potd-heading" = "Imatge del dia per a $1";
-// Fuzzy
 "home-last-update-label" = "Darrera actualització: $1";
+"home-last-update-never-label" = "Darrera actualització: mai";
 "home-updating-label" = "S'està actualitzant…";
 "home-hide-suggestion-prompt" = "Amaga el suggeriment";
 "home-hide-suggestion-cancel" = "Cancel·la";
@@ -357,9 +360,9 @@
 "welcome-explore-tell-me-more-done-button" = "Ho he entès";
 "welcome-explore-continue-button" = "Primers passos";
 "welcome-languages-title" = "Llengües";
-// Fuzzy
-"welcome-languages-add-button" = "Afegeix una altra";
+"welcome-languages-add-button" = "Afegeix una altra llengua";
 "welcome-languages-continue-button" = "Continua";
+"welcome-volunteer-title" = "Voluntariat";
 "welcome-volunteer-continue-button" = "Continua";
 "welcome-volunteer-thanks" = "$1 Gràcies!";
 "empty-no-feed-title" = "Sense Connexió a Internet";
@@ -380,6 +383,7 @@
 "back-button-accessibility-label" = "Enrere";
 "explore-featured-article-heading" = "Article destacat";
 "explore-continue-reading-heading" = "Continua llegint";
+"explore-nearby-heading" = "Llocs propers";
 "explore-main-page-heading" = "Avui a la Viquipèdia";
 "explore-random-article-heading" = "Article a l'atzar";
 "explore-random-article-sub-heading" = "Viquipèdia en anglès";

@@ -119,6 +119,9 @@
 "settings-support" = "위키백과 지원";
 "settings-language-bar" = "검색 결과에 표시할 언어";
 "settings-my-languages" = "내 언어";
+"settings-help-and-feedback" = "도움말 및 의견";
+"settings-primary-language" = "주 언어";
+"settings-primary-language-details" = "이 목록에 처음 사용한 언어가 이 앱의 주 언어로 사용됩니다. 이 언어를 변경하면 찾아보기에서 보이는 오늘의 글(알찬 글 등)이 변경됩니다.";
 "main-menu-title" = "더 보기";
 "main-menu-heading-about" = "정보";
 "main-menu-language-title" = "$1 위키백과 검색";
@@ -127,7 +130,7 @@
 "main-menu-language-toggle-hide" = "언어 숨기기";
 "main-menu-language-selection-saved" = "언어 선택이 저장됨";
 "main-menu-account-title-logged-out" = "계정";
-"main-menu-account-title-logged-in" = "$1 사용자로 로그인했습니다.";
+"main-menu-account-title-logged-in" = "$1 사용자로 로그인됨";
 "main-menu-account-login" = "로그인";
 "main-menu-account-logout" = "로그아웃";
 "main-menu-account-logout-are-you-sure" = "로그아웃하시겠습니까?";
@@ -246,6 +249,7 @@
 "button-save" = "저장";
 "button-save-for-later" = "나중에 쓰기 위해 저장";
 "button-saved-for-later" = "나중에 쓰기 위해 저장";
+"button-report-a-bug" = "버그 보고";
 "onboarding-create-account" = "계정 만들기";
 "onboarding-login" = "로그인";
 "onboarding-already-have-account" = "계정이 이미 있습니까? $1";
@@ -363,7 +367,6 @@
 "welcome-explore-continue-button" = "시작하기";
 "welcome-languages-title" = "언어";
 "welcome-languages-sub-title" = "위키백과 검색에 선호하는 언어를 선택하십시오";
-// Fuzzy
 "welcome-languages-add-button" = "다른 언어 추가";
 "welcome-languages-continue-button" = "계속";
 "welcome-volunteer-title" = "지원자";

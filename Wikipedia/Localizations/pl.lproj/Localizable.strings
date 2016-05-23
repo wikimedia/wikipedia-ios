@@ -235,6 +235,7 @@
 "button-next" = "Następny";
 "button-done" = "Gotowe";
 "button-save" = "Zapisz";
+"button-report-a-bug" = "Zgłoś błąd";
 "onboarding-create-account" = "Utwórz konto";
 "onboarding-login" = "Zaloguj się";
 "onboarding-already-have-account" = "Posiadasz już konto? $1";
@@ -328,8 +329,7 @@
 "welcome-explore-sub-title" = "Nowy sposób, aby odkrywać ciekawe artykuły każdego dnia";
 "welcome-explore-tell-me-more-done-button" = "Wszystko jasne";
 "welcome-languages-title" = "Języki";
-// Fuzzy
-"welcome-languages-add-button" = "Dodaj kolejny";
+"welcome-languages-add-button" = "Dodaj kolejny język";
 "welcome-languages-continue-button" = "Kontynuuj";
 "welcome-volunteer-continue-button" = "Kontynuuj";
 "welcome-volunteer-thanks" = "Dziękujemy $1!";

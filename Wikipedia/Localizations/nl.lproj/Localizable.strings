@@ -11,6 +11,7 @@
 // Author: Siebrand
 // Author: Sjoerddebruin
 // Author: Southparkfan
+// Author: TrisbaasBaan
 
 "languages-title" = "Taal wijzigen";
 "article-languages-label" = "Taal kiezen";
@@ -116,6 +117,9 @@
 "settings-support" = "Wikipedia steunen";
 "settings-language-bar" = "Talen weergeven bij zoeken";
 "settings-my-languages" = "Mijn talen";
+"settings-help-and-feedback" = "Hulp en feedback";
+"settings-primary-language" = "Primaire";
+"settings-primary-language-details" = "De eerste taal in deze lijst wordt gebruikt als de primaire taal voor de app. Het wijzigen van deze taal zal veranderen dat dagelijks en inhoud (zoals Aanbevolen Artikel) wordt weergegeven op Verkennen.";
 "main-menu-title" = "Meer";
 "main-menu-heading-about" = "Over";
 "main-menu-language-title" = "Zoeken in Wikipedia in het $1";
@@ -243,6 +247,7 @@
 "button-save" = "Opslaan";
 "button-save-for-later" = "Opslaan voor later";
 "button-saved-for-later" = "Opgeslagen voor later";
+"button-report-a-bug" = "Probleem melden";
 "onboarding-create-account" = "Account aanmaken";
 "onboarding-login" = "Aanmelden";
 "onboarding-already-have-account" = "Hebt u al een account? $1";
@@ -360,8 +365,7 @@
 "welcome-explore-continue-button" = "Aan de slag";
 "welcome-languages-title" = "Talen";
 "welcome-languages-sub-title" = "Kies de voorkeurstalen waarin u binnen Wikipedia wilt zoeken";
-// Fuzzy
-"welcome-languages-add-button" = "Volgende toevoegen";
+"welcome-languages-add-button" = "Een andere taal toevoegen";
 "welcome-languages-continue-button" = "Doorgaan";
 "welcome-volunteer-title" = "Vrijwilliger";
 "welcome-volunteer-sub-title" = "Help met verbeteren van de Wikipedia-app door te delen hoe je deze gebruikt";

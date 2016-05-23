@@ -1,6 +1,7 @@
 // Messages for Spanish (español)
 // Exported from translatewiki.net
 // Author: Fitoschido
+// Author: Indiralena
 // Author: Koavf
 // Author: Macofe
 // Author: MadriCR
@@ -116,6 +117,9 @@
 "settings-support" = "Apoya a Wikipedia";
 "settings-language-bar" = "Mostrar los idiomas al buscar";
 "settings-my-languages" = "Mis idiomas";
+"settings-help-and-feedback" = "Ayuda y comentarios";
+"settings-primary-language" = "Primario";
+"settings-primary-language-details" = "El primer idioma de esta lista se emplea como el idioma principal de la aplicación. Al cambiarlo, cambiarás también el contenido diario (por ejemplo, el \"Artículo del día\") mostrado en Explorar.";
 "main-menu-title" = "Más";
 "main-menu-heading-about" = "Acerca de";
 "main-menu-language-title" = "Búsqueda en Wikipedia en $1";
@@ -243,6 +247,7 @@
 "button-save" = "Guardar";
 "button-save-for-later" = "Guardar para después";
 "button-saved-for-later" = "Guardado para después";
+"button-report-a-bug" = "Informar de un error";
 "onboarding-create-account" = "Crear una cuenta";
 "onboarding-login" = "Acceder";
 "onboarding-already-have-account" = "¿Ya tienes una cuenta? $1";
@@ -360,8 +365,7 @@
 "welcome-explore-continue-button" = "Empezar";
 "welcome-languages-title" = "Idiomas";
 "welcome-languages-sub-title" = "Selecciona tus idiomas preferidos para buscar en Wikipedia";
-// Fuzzy
-"welcome-languages-add-button" = "Añadir otro";
+"welcome-languages-add-button" = "Añadir otro idioma";
 "welcome-languages-continue-button" = "Continuar";
 "welcome-volunteer-title" = "Voluntarios";
 "welcome-volunteer-sub-title" = "Ayuda a mejorar la aplicación de Wikipedia compartiendo cómo la usas";
