@@ -133,9 +133,6 @@ NSString* const WMFCCBySALicenseURL =
     [self displayArticle];
 }
 
-NSString* const WMF_UIScrollViewDidEndDeceleratingNotification = @"_UIScrollViewDidEndDeceleratingNotification";
-NSString* const WMF_UIScrollViewAnimationEndedNotification     = @"_UIScrollViewAnimationEndedNotification";
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self layoutWebViewSubviews];
@@ -154,16 +151,12 @@ NSString* const WMF_UIScrollViewAnimationEndedNotification     = @"_UIScrollView
     @weakify(self);
     void (^ saveOpenArticleTitleBlock)(NSNotification*) = ^void (NSNotification* notification) {
         @strongify(self);
-        if (notification.object == self.webView.scrollView) {
+        if (self.navigationController.topViewController == self.parentViewController) { // Ensure only the topmost article is recorded.
             [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
         }
     };
 
-    [[NSNotificationCenter defaultCenter] addObserverForName:WMF_UIScrollViewDidEndDeceleratingNotification
-                                                      object:nil
-                                                       queue:nil
-                                                  usingBlock:saveOpenArticleTitleBlock];
-    [[NSNotificationCenter defaultCenter] addObserverForName:WMF_UIScrollViewAnimationEndedNotification
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
                                                       object:nil
                                                        queue:nil
                                                   usingBlock:saveOpenArticleTitleBlock];
@@ -188,8 +181,7 @@ NSString* const WMF_UIScrollViewAnimationEndedNotification     = @"_UIScrollView
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroDispositionDidChange object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMF_UIScrollViewDidEndDeceleratingNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMF_UIScrollViewAnimationEndedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection*)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
