@@ -8,6 +8,8 @@
 
 @property (nonatomic, assign, readwrite) NSInteger articleID;
 
+@property (nonatomic, assign, readwrite) NSInteger revID;
+
 @property (nonatomic, copy, readwrite) NSString* displayTitle;
 
 @property (nonatomic, copy, readwrite) NSString* wikidataDescription;
@@ -29,6 +31,7 @@
 @implementation MWKSearchResult
 
 - (instancetype)initWithArticleID:(NSInteger)articleID
+                            revID:(NSInteger)revID
                      displayTitle:(NSString*)displayTitle
               wikidataDescription:(NSString*)wikidataDescription
                           extract:(NSString*)extract
@@ -40,6 +43,7 @@
     self = [super init];
     if (self) {
         self.articleID           = articleID;
+        self.revID               = revID;
         self.displayTitle        = displayTitle;
         self.wikidataDescription = wikidataDescription;
         self.extract             = extract;
@@ -110,9 +114,17 @@
     }];
 }
 
++ (NSValueTransformer*)revIDJSONTransformer {
+    return [MTLValueTransformer
+            transformerUsingForwardBlock:^id (NSArray* value, BOOL* success, NSError** error) {
+        return (value.count > 0 && value.firstObject[@"revid"]) ? value.firstObject[@"revid"] : @(0);
+    }];
+}
+
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
     return @{WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @"title",
              WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID): @"pageid",
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, revID): @"revisions",
              WMF_SAFE_KEYPATH(MWKSearchResult.new, thumbnailURL): @"thumbnail.source",
              WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"terms.description",
              WMF_SAFE_KEYPATH(MWKSearchResult.new, extract): @"extract",
