@@ -5,6 +5,7 @@
 // Author: Cwlin0416
 // Author: Eric850130
 // Author: Kc kennylau
+// Author: Kly
 // Author: LEEJACK
 // Author: LNDDYL
 // Author: Liuxinyu970226
@@ -118,6 +119,9 @@
 "settings-support" = "支持維基百科";
 "settings-language-bar" = "搜尋時顯示語言";
 "settings-my-languages" = "我的語言";
+"settings-help-and-feedback" = "說明與回饋";
+"settings-primary-language" = "首選";
+"settings-primary-language-details" = "此列表中最先顯示出的語言被設為此App應用程式的首選語言。更改語言項目將會一同異動瀏覽時秀出的每日內容（如特色條目）";
 "main-menu-title" = "更多";
 "main-menu-heading-about" = "關於";
 "main-menu-language-title" = "搜尋 $1 的維基百科";
@@ -245,6 +249,7 @@
 "button-save" = "儲存";
 "button-save-for-later" = "儲存以供日後使用";
 "button-saved-for-later" = "儲存以供日後使用";
+"button-report-a-bug" = "回報程式錯誤";
 "onboarding-create-account" = "建立帳號";
 "onboarding-login" = "登入";
 "onboarding-already-have-account" = "您已經擁有帳號了嗎？ $1";
@@ -362,8 +367,7 @@
 "welcome-explore-continue-button" = "入門";
 "welcome-languages-title" = "語言";
 "welcome-languages-sub-title" = "選擇您偏好的語言來搜尋維基百科";
-// Fuzzy
-"welcome-languages-add-button" = "新增另一個";
+"welcome-languages-add-button" = "新增另一個語言";
 "welcome-languages-continue-button" = "繼續";
 "welcome-volunteer-title" = "志願者";
 "welcome-volunteer-sub-title" = "透過分享您的使用方式，協助改善維基百科應用程式。";

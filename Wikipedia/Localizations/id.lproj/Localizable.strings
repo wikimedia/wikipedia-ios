@@ -117,6 +117,9 @@
 "settings-support" = "Dukung Wikipedia";
 "settings-language-bar" = "Tampilkan bahasa di pencarian";
 "settings-my-languages" = "Bahasa saya";
+"settings-help-and-feedback" = "Bantuan dan masukan";
+"settings-primary-language" = "Utama";
+"settings-primary-language-details" = "Bahasa pertama di daftar ini digunakan sebagai bahasa utama untuk aplikasi. Mengubah bahasa ini akan mengubah konten harian (seperti Artikel Pilihan) yang ditampilkan pada Jelajah.";
 "main-menu-title" = "Lainnya";
 "main-menu-heading-about" = "Tentang";
 "main-menu-language-title" = "Cari Wikipedia $1";
@@ -244,6 +247,7 @@
 "button-save" = "Simpan";
 "button-save-for-later" = "Simpan untuk nanti";
 "button-saved-for-later" = "Disimpan untuk nanti";
+"button-report-a-bug" = "Laporkan kesalahan";
 "onboarding-create-account" = "Buat akun baru";
 "onboarding-login" = "Masuk log";
 "onboarding-already-have-account" = "Sudah memiliki akun? $1";
@@ -361,8 +365,7 @@
 "welcome-explore-continue-button" = "Memulai";
 "welcome-languages-title" = "Bahasa";
 "welcome-languages-sub-title" = "Pilih bahasa pilihan Anda untuk mencari Wikipedia";
-// Fuzzy
-"welcome-languages-add-button" = "Tambahkan yang lainnya";
+"welcome-languages-add-button" = "Tambahkan bahasa lainnya";
 "welcome-languages-continue-button" = "Lanjutkan";
 "welcome-volunteer-title" = "Relawan";
 "welcome-volunteer-sub-title" = "Bantu menyempurnakan aplikasi Wikipedia dengan membagikan bagaimana Anda menggunakannya";

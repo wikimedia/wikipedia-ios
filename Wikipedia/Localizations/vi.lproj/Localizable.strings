@@ -75,7 +75,7 @@
 "login-password-placeholder-text" = "Mật khẩu";
 "wikitext-downloading" = "Đang tải nội dung…";
 "wikitext-download-failed" = "Không lấy được phiên bản hiện tại.";
-"wikitext-download-success" = "Đã tải nội dung.";
+"wikitext-download-success" = "Đã tải xong nội dung.";
 "wikitext-preview-changes" = "Đang lấy bản xem trước các thay đổi của bạn…";
 "wikitext-preview-changes-none" = "Không có thay đổi để xem trước.";
 "wikitext-upload-result-unknown" = "Không thể xác định kết quả tải lên mã wiki.";
@@ -98,7 +98,7 @@
 "search-field-placeholder-text-zero" = "Tìm trong Wikipedia Miễn phí";
 "search-loading-section-zero" = "Đang tải phần mở đầu bài…";
 "search-loading-section-remaining" = "Đang tải những phần còn lại của bài…";
-"search-loading-article-loaded" = "Đã tải bài.";
+"search-loading-article-loaded" = "Đã tải xong bài.";
 "search-cancel" = "Hủy bỏ";
 "search-titles" = "Tên trang";
 "search-within-articles" = "Nội dung bài";
@@ -358,8 +358,7 @@
 "welcome-explore-continue-button" = "Bắt đầu";
 "welcome-languages-title" = "Ngôn ngữ";
 "welcome-languages-sub-title" = "Chọn các ngôn ngữ ưa thích của bạn đã tìm kiếm Wikipedia";
-// Fuzzy
-"welcome-languages-add-button" = "Thêm tiếp";
+"welcome-languages-add-button" = "Thêm một ngôn ngữ";
 "welcome-languages-continue-button" = "Tiếp";
 "welcome-volunteer-title" = "Tình nguyện";
 "welcome-volunteer-sub-title" = "Giúp cải thiện ứng dụng Wikipedia bằng cách cho biết bạn sử dụng nó như thế nào";

@@ -116,6 +116,9 @@
 "settings-support" = "Stöd Wikipedia";
 "settings-language-bar" = "Visa språk vid sökfältet";
 "settings-my-languages" = "Mina språk";
+"settings-help-and-feedback" = "Hjälp och återkoppling";
+"settings-primary-language" = "Primär";
+"settings-primary-language-details" = "Det första språket i denna lista används som appens primära språk. Om språket ändras kommer även det dagliga innehållet ändras (t.ex. Utmärkt artikel) som visas i Utforska.";
 "main-menu-title" = "Mer";
 "main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Sök $1.Wikipedia";
@@ -243,6 +246,7 @@
 "button-save" = "Spara";
 "button-save-for-later" = "Spara till senare";
 "button-saved-for-later" = "Sparades till senare";
+"button-report-a-bug" = "Rapportera ett fel";
 "onboarding-create-account" = "Skapa konto";
 "onboarding-login" = "Logga in";
 "onboarding-already-have-account" = "Har du redan ett konto? $1";
@@ -360,8 +364,7 @@
 "welcome-explore-continue-button" = "Kom igång";
 "welcome-languages-title" = "Språk";
 "welcome-languages-sub-title" = "Välj dina föredragna språk att söka på i Wikipedia";
-// Fuzzy
-"welcome-languages-add-button" = "Lägg till en annat";
+"welcome-languages-add-button" = "Lägg till ett annat språk";
 "welcome-languages-continue-button" = "Fortsätt";
 "welcome-volunteer-title" = "Volontär";
 "welcome-volunteer-sub-title" = "Hjälp till att förbättra Wikipedia-appen genom att dela hur du använder den";
