@@ -3,18 +3,20 @@ var bridge = require("./bridge");
 var refs = require("./refs");
 var utilities = require("./utilities");
 
-bridge.registerListener( "setLanguage", function( payload ){
-    var html = document.querySelector( "html" );
-    html.lang = payload.lang;
-    html.dir = payload.dir;
-    html.classList.add( 'content-' + payload.dir );
-    html.classList.add( 'ui-' + payload.uidir );
-    document.querySelector('base').href = 'https://' + payload.lang + '.wikipedia.org/';
-} );
+function setLanguage(lang, dir, uidir){
+     var html = document.querySelector( "html" );
+     html.lang = lang;
+     html.dir = dir;
+     html.classList.add( 'content-' + dir );
+     html.classList.add( 'ui-' + uidir );
+     document.querySelector('base').href = 'https://' + lang + '.wikipedia.org/';
+}
+global.setLanguage = setLanguage;
 
-bridge.registerListener( "setPageProtected", function() {
+function setPageProtected(){
     document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
-} );
+}
+global.setPageProtected = setPageProtected;
 
 document.onclick = function() {
     // Reminder: resist adding any click/tap handling here - they can

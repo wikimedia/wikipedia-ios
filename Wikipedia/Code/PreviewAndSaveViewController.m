@@ -53,7 +53,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
 };
 
-@interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate>
+@interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate>
 
 @property (strong, nonatomic) NSString* captchaId;
 @property (strong, nonatomic) NSString* captchaUrl;
@@ -472,26 +472,21 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     [super viewWillDisappear:animated];
 }
 
+- (MWLanguageInfo*)wmf_editedSectionLanguageInfo {
+    return [MWLanguageInfo languageInfoForCode:self.section.site.language];
+}
+
 - (void)fetchFinished:(id)sender
           fetchedData:(id)fetchedData
                status:(FetchFinalStatus)status
                 error:(NSError*)error {
     if ([sender isKindOfClass:[PreviewHtmlFetcher class]]) {
-        MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.section.site.language];
-        NSString* uidir              = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
 
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [[WMFAlertManager sharedInstance] dismissAlert];
 
                 [self.bridge loadHTML:fetchedData withAssetsFile:@"preview.html"];
-
-                [self.bridge sendMessage:@"setLanguage"
-                             withPayload:@{
-                     @"lang": languageInfo.code,
-                     @"dir": languageInfo.dir,
-                     @"uidir": uidir
-                 }];
             }
             break;
             case FETCH_FINAL_STATUS_FAILED: {

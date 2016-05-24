@@ -126,6 +126,17 @@ NSString* const WMFCCBySALicenseURL =
     } else if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
         if ([message.body isEqualToString:@"collapseTables"]) {
             [self.webView evaluateJavaScript:[self tableTransformJS] completionHandler:nil];
+        } else if ([message.body isEqualToString:@"setLanguage"]) {
+            MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.site.language];
+            NSString* uidir              = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
+            
+            [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.setLanguage('%@', '%@', '%@')",
+                                              languageInfo.code,
+                                              languageInfo.dir,
+                                              uidir
+                                              ] completionHandler:nil];
+        }else if ([message.body isEqualToString:@"setPageProtected"] && !self.article.editable) {
+            [self.webView evaluateJavaScript:@"window.setPageProtected()" completionHandler:nil];
         }
     } else if ([message.name isEqualToString:@"sendJavascriptConsoleLogMessageToXcodeConsole"]) {
 #if DEBUG
@@ -139,6 +150,10 @@ NSString* const WMFCCBySALicenseURL =
 
     [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransforms.postMessage('collapseTables');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
 
+    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransforms.postMessage('setPageProtected');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
+
+    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransforms.postMessage('setLanguage');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
+    
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"lateJavascriptTransforms"];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"peek"];
@@ -733,29 +748,7 @@ NSString* const WMFCCBySALicenseURL =
         return;
     }
 
-    NSString* html = [self.article articleHTML];
-
-    MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.site.language];
-    NSString* uidir              = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
-
-    [self.bridge loadHTML:html withAssetsFile:@"index.html"];
-
-    // NSLog(@"languageInfo = %@", languageInfo.code);
-
-    // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
-    BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && html);
-    if (safeToCrossBridge) {
-        [self.bridge sendMessage:@"setLanguage"
-                     withPayload:@{
-             @"lang": languageInfo.code,
-             @"dir": languageInfo.dir,
-             @"uidir": uidir
-         }];
-    }
-
-    if (!self.article.editable) {
-        [self.bridge sendMessage:@"setPageProtected" withPayload:@{}];
-    }
+    [self.bridge loadHTML:[self.article articleHTML] withAssetsFile:@"index.html"];
 
     [self.footerLicenseView setLicenseTextForSite:self.article.site];
 }

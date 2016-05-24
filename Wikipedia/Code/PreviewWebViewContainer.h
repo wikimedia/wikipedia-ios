@@ -3,6 +3,13 @@
 
 @import WebKit;
 #import "WMFOpenExternalLinkDelegateProtocol.h"
+#import "MWLanguageInfo.h"
+
+@protocol WMFPreviewSectionLanguageInfoDelegate
+
+- (nullable MWLanguageInfo*)wmf_editedSectionLanguageInfo;
+
+@end
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -10,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) id <WMFOpenExternalLinkDelegate> externalLinksOpenerDelegate;
 @property (strong, nonatomic) WKWebView* webView;
+
+@property (weak, nonatomic) IBOutlet id <WMFPreviewSectionLanguageInfoDelegate> previewSectionLanguageInfoDelegate;
 
 @end
 

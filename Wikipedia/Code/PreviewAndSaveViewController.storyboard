@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="YCc-it-nqb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="YCc-it-nqb">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="5100" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Preview And Save View Controller-->
+        <!--Preview Section Language Info Delegate-->
         <scene sceneID="TJS-xh-DjB">
             <objects>
                 <viewController restorationIdentifier="PreviewViewController" storyboardIdentifier="PreviewViewController" hidesBottomBarWhenPushed="YES" id="YCc-it-nqb" customClass="PreviewAndSaveViewController" sceneMemberID="viewController">
@@ -63,6 +63,9 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="B1F-i9-AK6"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outlet property="previewSectionLanguageInfoDelegate" destination="YCc-it-nqb" id="AYv-U5-tc7"/>
+                                                </connections>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

@@ -3,14 +3,38 @@
 
 #import "PreviewWebViewContainer.h"
 #import <Masonry/Masonry.h>
+#import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation PreviewWebViewContainer
 
+- (WKWebViewConfiguration*)configuration {
+    WKUserContentController* userContentController = [[WKUserContentController alloc] init];
+    
+    MWLanguageInfo* langInfo = [self.previewSectionLanguageInfoDelegate wmf_editedSectionLanguageInfo];
+    NSString* uidir          = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
+
+    NSString* earlyJavascriptTransforms = [NSString stringWithFormat:@"window.setLanguage('%@', '%@', '%@');",
+                                          langInfo.code,
+                                          langInfo.dir,
+                                          uidir
+                                           ];
+    
+    [userContentController addUserScript:
+     [[WKUserScript alloc] initWithSource:earlyJavascriptTransforms
+                            injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
+                         forMainFrameOnly:YES]];
+    
+    
+    WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
+    configuration.userContentController = userContentController;
+    return configuration;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
-    WKWebView* webview = [[WKWebView alloc] initWithFrame:CGRectZero];
+    WKWebView* webview = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
     webview.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:webview];
     self.webView                    = webview;
