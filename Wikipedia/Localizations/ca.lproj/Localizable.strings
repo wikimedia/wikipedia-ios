@@ -121,6 +121,7 @@
 "settings-my-languages" = "Les meves llengües";
 "settings-help-and-feedback" = "Ajuda i comentaris";
 "settings-primary-language" = "Principal";
+"settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació. En canviar l'aplicació canviarà el contingut diari (com ara l'article destacat) que es mostra a 'Explora'.";
 "main-menu-title" = "Més";
 "main-menu-heading-about" = "Quant a";
 "main-menu-language-title" = "Cerca la wiki en llengua $1";
@@ -227,6 +228,8 @@
 "share-menu-page-saved" = "Article desat per a lectura fora de línia.";
 "share-menu-page-saved-access" = "Consell: per accedir a les vostres pàgines desades, puntegeu en $1 a dalt o premeu uns moments $2 a sota.";
 "share-custom-menu-item" = "Comparteix";
+"share-a-fact-share-menu-item" = "Compateix-un-fet";
+"share-on-twitter-sign-off" = "via @Viquipedia";
 "share-article-name-on-wikipedia" = "«$1» a la @Viquipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "«$1» a @Viquipedia: «$2»";
 "share-as-image" = "Comparteix com a imatge";
@@ -357,12 +360,16 @@
 "welcome-explore-sub-title" = "Una forma nova de descobrir articles interessants cada dia";
 "welcome-explore-tell-me-more" = "Més informació";
 "welcome-explore-tell-me-more-about-explore" = "Més informació sobre «Explora»";
+"welcome-explore-tell-me-more-privacy" = "No s'emmagatzema cap llista de lectura o perfil als nostres servidors.";
 "welcome-explore-tell-me-more-done-button" = "Ho he entès";
 "welcome-explore-continue-button" = "Primers passos";
 "welcome-languages-title" = "Llengües";
+"welcome-languages-sub-title" = "Trieu les vostres llengües preferides per cercar a la Viquipèdia";
 "welcome-languages-add-button" = "Afegeix una altra llengua";
 "welcome-languages-continue-button" = "Continua";
 "welcome-volunteer-title" = "Voluntariat";
+"welcome-volunteer-sub-title" = "Ajudeu a millorar l'aplicació de la Viquipèdia compartint com l'utilitzeu";
+"welcome-volunteer-send-usage-reports" = "Envia informes d'ús";
 "welcome-volunteer-continue-button" = "Continua";
 "welcome-volunteer-thanks" = "$1 Gràcies!";
 "empty-no-feed-title" = "Sense Connexió a Internet";
@@ -381,9 +388,11 @@
 "icon-shortcut-nearby-title" = "Articles propers";
 "close-button-accessibility-label" = "Tanca";
 "back-button-accessibility-label" = "Enrere";
+"compass-direction" = "a les $1 en punt";
 "explore-featured-article-heading" = "Article destacat";
 "explore-continue-reading-heading" = "Continua llegint";
 "explore-nearby-heading" = "Llocs propers";
+"explore-continue-related-heading" = "Perquè vas llegir";
 "explore-main-page-heading" = "Avui a la Viquipèdia";
 "explore-random-article-heading" = "Article a l'atzar";
 "explore-random-article-sub-heading" = "Viquipèdia en anglès";
