@@ -636,13 +636,6 @@ NSString* const WMFCCBySALicenseURL =
         _bridge = [[CommunicationBridge alloc] initWithWebView:self.webView];
 
         @weakify(self);
-        [_bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
-            @strongify(self);
-            //Need to introduce a delay here or the webview still might not be loaded. Should look at using the webview callbacks instead.
-            dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
-                [self.delegate webViewController:self didLoadArticle:self.article];
-            });
-        }];
 
         [_bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
             @strongify(self);

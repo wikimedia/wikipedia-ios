@@ -24,10 +24,6 @@
         self.listenersByEvent    = @{}.mutableCopy;
         self.queuedMessages = @[].mutableCopy;
 
-        __weak CommunicationBridge* weakSelf = self;
-        [self addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
-            [weakSelf sendQueuedMessages];
-        }];
         targetWebView.navigationDelegate = self;
     }
     return self;

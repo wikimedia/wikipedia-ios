@@ -125,9 +125,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 - (void)setupBridge {
     self.bridge = [[CommunicationBridge alloc] initWithWebView:self.previewWebViewContainer.webView];
 
-    //[self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString *messageType, NSDictionary *payload) {
-    //}];
-
     @weakify(self);
     [self.bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
         @strongify(self);
