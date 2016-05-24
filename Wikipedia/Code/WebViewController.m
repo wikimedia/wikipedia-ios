@@ -142,6 +142,14 @@ NSString* const WMFCCBySALicenseURL =
 #if DEBUG
         NSLog(@"\n\nMessage from Javascript console:\n\t%@\n\n", message.body[@"message"]);
 #endif
+    } else if ([message.name isEqualToString:@"articleState"]) {
+        if ([message.body isEqualToString:@"articleLoaded"]) {
+            //Need to introduce a delay here or the webview still might not be loaded.
+            //dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
+            NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
+                [self.delegate webViewController:self didLoadArticle:self.article];
+            //});
+        }
     }
 }
 
@@ -160,6 +168,8 @@ NSString* const WMFCCBySALicenseURL =
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"sendJavascriptConsoleLogMessageToXcodeConsole"];
 
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"articleState"];
+
     NSString* earlyJavascriptTransforms = @""
                                           "transformer.transform( 'moveFirstGoodParagraphUp', document );"
                                           "transformer.transform( 'hideRedlinks', document );"
@@ -168,7 +178,7 @@ NSString* const WMFCCBySALicenseURL =
                                           // 'addImageOverflowXContainers' needs to happen before 'widenImages'.
                                           // See "enwiki > Counties of England > Scope and structure > Local government"
                                           "transformer.transform( 'widenImages', document );"
-                                          "window.bridge.sendMessage('DOMContentLoaded', {});"
+                                          "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
                                           "console.log = function(message){window.webkit.messageHandlers.sendJavascriptConsoleLogMessageToXcodeConsole.postMessage({'message': message});};";
 
     [userContentController addUserScript:
