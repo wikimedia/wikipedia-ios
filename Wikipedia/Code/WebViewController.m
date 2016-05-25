@@ -150,6 +150,64 @@ NSString* const WMFCCBySALicenseURL =
                 [self.delegate webViewController:self didLoadArticle:self.article];
             //});
         }
+    } else if ([message.name isEqualToString:@"clicks"]) {
+        if (message.body[@"linkClicked"]) {
+            if (self.isPeeking) {
+                self.isPeeking = NO;
+                return;
+            }
+            
+            NSString* href = message.body[@"linkClicked"][@"href"]; //payload[@"href"];
+            
+            if (!(self).referencesHidden) {
+                [(self) referencesHide];
+            }
+            
+            if ([href wmf_isInternalLink]) {
+                MWKTitle* pageTitle = [self.article.site titleWithInternalLink:href];
+                [(self).delegate webViewController:(self) didTapOnLinkForTitle:pageTitle];
+            } else {
+                // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
+                if ([href hasPrefix:@"#"]) {
+                    [self scrollToFragment:[href substringFromIndex:1]];
+                } else if ([href hasPrefix:@"//"]) {
+                    // Expand protocol-relative link to https -- secure by default!
+                    href = [@"https:" stringByAppendingString:href];
+                }
+                NSURL* url = [NSURL URLWithString:href];
+                NSCAssert(url, @"Failed to from URL from link %@", href);
+                if (url) {
+                    [self wmf_openExternalUrl:url];
+                }
+            }
+        }else if(message.body[@"imageClicked"]){
+            
+            NSNumber* imageWidth = message.body[@"imageClicked"][@"width"];
+            NSNumber* imageHeight = message.body[@"imageClicked"][@"height"];
+            CGSize imageSize = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
+            if (![MWKImage isSizeLargeEnoughForGalleryInclusion:imageSize]) {
+                return;
+            }
+            
+            NSString* selectedImageURL = message.body[@"imageClicked"][@"url"];
+            NSCParameterAssert(selectedImageURL.length);
+            if (!selectedImageURL.length) {
+                DDLogError(@"Image clicked callback invoked with empty URL: %@", message.body[@"imageClicked"]);
+                return;
+            }
+            
+            [self.delegate webViewController:self didTapImageWithSourceURLString:selectedImageURL];
+        
+        }else if(message.body[@"referenceClicked"]){
+            [self referencesShow:message.body[@"referenceClicked"]];
+        }else if(message.body[@"editClicked"]){
+            NSUInteger sectionIndex = (NSUInteger)[message.body[@"editClicked"][@"sectionId"] integerValue];
+            if (sectionIndex < [self.article.sections count]) {
+                [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
+            }
+        }else if(message.body[@"nonAnchorTouchEndedWithoutDragging"]){
+            [self referencesHide];
+        }
     }
 }
 
@@ -166,6 +224,8 @@ NSString* const WMFCCBySALicenseURL =
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"peek"];
 
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"clicks"];
+    
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"sendJavascriptConsoleLogMessageToXcodeConsole"];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"articleState"];
@@ -634,101 +694,6 @@ NSString* const WMFCCBySALicenseURL =
 - (CommunicationBridge*)bridge {
     if (!_bridge) {
         _bridge = [[CommunicationBridge alloc] initWithWebView:self.webView];
-
-        @weakify(self);
-
-        [_bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-            @strongify(self);
-            if (!self) {
-                return;
-            }
-
-            if (self.isPeeking) {
-                self.isPeeking = NO;
-                return;
-            }
-
-            NSString* href = payload[@"href"];
-
-            if (!(self).referencesHidden) {
-                [(self) referencesHide];
-            }
-
-            if ([href wmf_isInternalLink]) {
-                MWKTitle* pageTitle = [self.article.site titleWithInternalLink:href];
-                [(self).delegate webViewController:(self) didTapOnLinkForTitle:pageTitle];
-            } else {
-                // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
-                if ([href hasPrefix:@"#"]) {
-                    [self scrollToFragment:[href substringFromIndex:1]];
-                } else if ([href hasPrefix:@"//"]) {
-                    // Expand protocol-relative link to https -- secure by default!
-                    href = [@"https:" stringByAppendingString:href];
-                }
-                NSURL* url = [NSURL URLWithString:href];
-                NSCAssert(url, @"Failed to from URL from link %@", href);
-                if (url) {
-                    [self wmf_openExternalUrl:url];
-                }
-            }
-        }];
-
-        [_bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString* messageType, NSDictionary* payload) {
-            @strongify(self);
-            if (!self) {
-                return;
-            }
-
-            [self referencesHide];
-        }];
-
-        [_bridge addListener:@"referenceClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-            @strongify(self);
-            if (!self) {
-                return;
-            }
-            //NSLog(@"referenceClicked: %@", payload);
-            [self referencesShow:payload];
-        }];
-
-        [_bridge addListener:@"editClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-            @strongify(self);
-            if (!self) {
-                return;
-            }
-
-            NSUInteger sectionIndex = (NSUInteger)[payload[@"sectionId"] integerValue];
-            if (sectionIndex < [self.article.sections count]) {
-                [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
-            }
-        }];
-
-        UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
-                                                              action:@selector(shareMenuItemTapped:)];
-        [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
-
-        [_bridge addListener:@"imageClicked" withBlock:^(NSString* type, NSDictionary* payload) {
-            @strongify(self);
-            if (!self) {
-                return;
-            }
-
-            NSNumber* imageWidth = payload[@"width"];
-            NSNumber* imageHeight = payload[@"height"];
-            CGSize imageSize = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
-            if (![MWKImage isSizeLargeEnoughForGalleryInclusion:imageSize]) {
-                return;
-            }
-
-            NSString* selectedImageURL = payload[@"url"];
-            NSCParameterAssert(selectedImageURL.length);
-            if (!selectedImageURL.length) {
-                DDLogError(@"Image clicked callback invoked with empty URL: %@", payload);
-                return;
-            }
-
-            [self.delegate webViewController:self didTapImageWithSourceURLString:selectedImageURL];
-        }];
     }
     return _bridge;
 }
@@ -752,6 +717,10 @@ NSString* const WMFCCBySALicenseURL =
     }
 
     [self.bridge loadHTML:[self.article articleHTML] withAssetsFile:@"index.html"];
+    
+    UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
+                                                          action:@selector(shareMenuItemTapped:)];
+    [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 
     [self.footerLicenseView setLicenseTextForSite:self.article.site];
 }

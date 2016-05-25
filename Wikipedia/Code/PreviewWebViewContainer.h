@@ -11,6 +11,12 @@
 
 @end
 
+@protocol WMFPreviewAnchorTapAlertDelegate
+
+- (void)wmf_showAlertForTappedAnchorHref:(nullable NSString*)href;
+
+@end
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PreviewWebViewContainer : UIView <WKNavigationDelegate>
@@ -19,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) WKWebView* webView;
 
 @property (weak, nonatomic) IBOutlet id <WMFPreviewSectionLanguageInfoDelegate> previewSectionLanguageInfoDelegate;
+@property (weak, nonatomic) IBOutlet id <WMFPreviewAnchorTapAlertDelegate> previewAnchorTapAlertDelegate;
 
 @end
 

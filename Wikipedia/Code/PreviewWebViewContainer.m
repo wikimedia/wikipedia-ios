@@ -7,7 +7,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface PreviewWebViewContainer () <WKScriptMessageHandler>
+
+@end
+
 @implementation PreviewWebViewContainer
+
+- (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message {
+    if ([message.name isEqualToString:@"clicks"]) {
+        if (message.body[@"anchorClicked"]) {
+            NSString* href = message.body[@"anchorClicked"][@"href"];
+            [self.previewAnchorTapAlertDelegate wmf_showAlertForTappedAnchorHref:href];
+        }
+    }
+}
 
 - (WKWebViewConfiguration*)configuration {
     WKUserContentController* userContentController = [[WKUserContentController alloc] init];
@@ -15,16 +28,28 @@ NS_ASSUME_NONNULL_BEGIN
     MWLanguageInfo* langInfo = [self.previewSectionLanguageInfoDelegate wmf_editedSectionLanguageInfo];
     NSString* uidir          = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
 
-    NSString* earlyJavascriptTransforms = [NSString stringWithFormat:@"window.setLanguage('%@', '%@', '%@');",
-                                          langInfo.code,
-                                          langInfo.dir,
-                                          uidir
-                                           ];
-    
+    NSString* earlyJavascriptTransforms =
+    [NSString stringWithFormat:@""
+     "document.onclick = function() {"
+     "    event.preventDefault();"
+     "        if (event.target.tagName == 'A'){"
+     "            var href = event.target.getAttribute( 'href' );"
+     "            window.webkit.messageHandlers.clicks.postMessage({'anchorClicked': { 'href': href }});"
+     "        }"
+     "};"
+     "window.setLanguage('%@', '%@', '%@');",
+     langInfo.code,
+     langInfo.dir,
+     uidir
+     ];
+
     [userContentController addUserScript:
      [[WKUserScript alloc] initWithSource:earlyJavascriptTransforms
                             injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
                          forMainFrameOnly:YES]];
+
+    
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"clicks"];
     
     
     WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];

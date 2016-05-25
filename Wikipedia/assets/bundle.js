@@ -1,48 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-(function (module) {
-
-function Bridge() {
-}
-
-var eventHandlers = {};
-
-Bridge.prototype.handleMessage = function( type, payload ) {
-    var that = this;
-    if ( eventHandlers.hasOwnProperty( type ) ) {
-        eventHandlers[type].forEach( function( callback ) {
-                                    callback.call( that, payload );
-                                    } );
-    }
-};
-
-Bridge.prototype.registerListener = function( messageType, callback ) {
-    if ( eventHandlers.hasOwnProperty( messageType ) ) {
-        eventHandlers[messageType].push( callback );
-    } else {
-        eventHandlers[messageType] = [ callback ];
-    }
-};
-
-Bridge.prototype.sendMessage = function( messageType, payload ) {
-    setTimeout(function() { // See: https://phabricator.wikimedia.org/T96822 and http://stackoverflow.com/a/9782220/135557
-        var messagePack = { type: messageType, payload: payload };
-        var url = "x-wikipedia-bridge:" + encodeURIComponent( JSON.stringify( messagePack ) );
-
-        // quick iframe version based on http://stackoverflow.com/a/6508343/82439
-        // fixme can this be an XHR instead? check Cordova current state
-        var iframe = document.createElement('iframe');
-        iframe.setAttribute("src", url);
-        document.documentElement.appendChild(iframe);
-        iframe.parentNode.removeChild(iframe);
-        iframe = null;
-    }, 0);
-};
-
-module.exports = new Bridge();
-
-})(module);
-
-},{}],2:[function(require,module,exports){
 (function (global){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
@@ -108,10 +64,9 @@ global.getElementFromPoint = getElementFromPoint;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],3:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 (function (global){
 (function () {
-var bridge = require("./bridge");
 var refs = require("./refs");
 var utilities = require("./utilities");
 
@@ -166,16 +121,16 @@ function touchEndedWithoutDragging(event){
     if (!didSendMessage && !hasSelectedText) {
         // Do NOT prevent default behavior -- this is needed to for instance
         // handle deselection of text.
-        bridge.sendMessage('nonAnchorTouchEndedWithoutDragging', {
-                              id: event.target.getAttribute( "id" ),
-                              tagName: event.target.tagName
-                          });
+        window.webkit.messageHandlers.clicks.postMessage({"nonAnchorTouchEndedWithoutDragging": {
+                                                  id: event.target.getAttribute( "id" ),
+                                                  tagName: event.target.tagName
+                                                  }});
 
     }
 }
 
 /**
- * Attempts to send a bridge message which corresponds to `hrefTarget`, based on various attributes.
+ * Attempts to send message which corresponds to `hrefTarget`, based on various attributes.
  * @return `true` if a message was sent, otherwise `false`.
  */
 function maybeSendMessageForTarget(event, hrefTarget){
@@ -185,7 +140,7 @@ function maybeSendMessageForTarget(event, hrefTarget){
     var href = hrefTarget.getAttribute( "href" );
     var hrefClass = hrefTarget.getAttribute('class');
     if (hrefTarget.getAttribute( "data-action" ) === "edit_section") {
-        bridge.sendMessage( 'editClicked', { sectionId: hrefTarget.getAttribute( "data-id" ) });
+        window.webkit.messageHandlers.clicks.postMessage({"editClicked": { sectionId: hrefTarget.getAttribute( "data-id" ) }});
     } else if (href && refs.isReference(href)) {
         // Handle reference links with a popup view instead of scrolling about!
         refs.sendNearbyReferences( hrefTarget );
@@ -193,16 +148,17 @@ function maybeSendMessageForTarget(event, hrefTarget){
         // If it is a link to an anchor in the current page, use existing link handling
         // so top floating native header height can be taken into account by the regular
         // fragment handling logic.
-        bridge.sendMessage( 'linkClicked', { 'href': href });
+        window.webkit.messageHandlers.clicks.postMessage({"linkClicked": { 'href': href }});
     } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
          var url = event.target.getAttribute('src');
-         bridge.sendMessage('imageClicked', {
-                            'url': url,
-                            'width': (event.target.naturalWidth / window.devicePixelRatio),
-                            'height': (event.target.naturalHeight / window.devicePixelRatio)
-                            });
+         window.webkit.messageHandlers.clicks.postMessage({"imageClicked": {
+                                                          'url': url,
+                                                          'width': (event.target.naturalWidth / window.devicePixelRatio),
+                                                          'height': (event.target.naturalHeight / window.devicePixelRatio)
+                                                          }});
+
     } else if (href) {
-        bridge.sendMessage( 'linkClicked', { 'href': href });
+        window.webkit.messageHandlers.clicks.postMessage({"linkClicked": { 'href': href }});
     } else {
         return false;
     }
@@ -224,18 +180,15 @@ document.addEventListener("touchend", handleTouchEnded, false);
 })();
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./bridge":1,"./refs":5,"./utilities":15}],4:[function(require,module,exports){
+},{"./refs":4,"./utilities":14}],3:[function(require,module,exports){
 
-var bridge = require("./bridge");
 var elementLocation = require("./elementLocation");
 var transformer = require("./transformer");
 
-window.bridge = bridge;
 window.elementLocation = elementLocation;
 window.transformer = transformer;
 
-},{"./bridge":1,"./elementLocation":2,"./transformer":7}],5:[function(require,module,exports){
-var bridge = require("./bridge");
+},{"./elementLocation":1,"./transformer":6}],4:[function(require,module,exports){
 
 function isReference( href ) {
     return ( href.slice( 0, 10 ) === "#cite_note" );
@@ -346,18 +299,18 @@ function sendNearbyReferences( sourceNode ) {
     }
 
     // Special handling for references
-    bridge.sendMessage( 'referenceClicked', {
-        "refs": refs,
-        "refsIndex": refsIndex,
-        "linkId": linkId,
-        "linkText": linkText
-    } );
+    window.webkit.messageHandlers.clicks.postMessage({"referenceClicked": {
+                                                     "refs": refs,
+                                                     "refsIndex": refsIndex,
+                                                     "linkId": linkId,
+                                                     "linkText": linkText
+                                                     }});
 }
 
 exports.isReference = isReference;
 exports.sendNearbyReferences = sendNearbyReferences;
 
-},{"./bridge":1}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 (function (global){
 function scrollToFragment(fragmentId){
     location.hash = '';
@@ -381,7 +334,7 @@ function accessibilityCursorToFragment(fragmentId){
 global.accessibilityCursorToFragment = accessibilityCursorToFragment;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 function Transformer() {
 }
 
@@ -404,7 +357,7 @@ Transformer.prototype.transform = function( transform ) {
 
 module.exports = new Transformer();
 
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 
 require("./transforms/collapseTables");
 require("./transforms/relocateFirstParagraph");
@@ -412,7 +365,7 @@ require("./transforms/hideRedLinks");
 require("./transforms/disableFilePageEdit");
 require("./transforms/addImageOverflowContainers");
 
-},{"./transforms/addImageOverflowContainers":9,"./transforms/collapseTables":10,"./transforms/disableFilePageEdit":11,"./transforms/hideRedLinks":12,"./transforms/relocateFirstParagraph":13}],9:[function(require,module,exports){
+},{"./transforms/addImageOverflowContainers":8,"./transforms/collapseTables":9,"./transforms/disableFilePageEdit":10,"./transforms/hideRedLinks":11,"./transforms/relocateFirstParagraph":12}],8:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -453,7 +406,7 @@ transformer.register( "addImageOverflowXContainers", function( content ) {
     }
 } );
 
-},{"../transformer":7,"../utilities":15}],10:[function(require,module,exports){
+},{"../transformer":6,"../utilities":14}],9:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -613,7 +566,7 @@ transformer.register( "hideTables", function( content , isMainPage, titleInfobox
     }
 } );
 
-},{"../transformer":7,"../utilities":15}],11:[function(require,module,exports){
+},{"../transformer":6,"../utilities":14}],10:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "disableFilePageEdit", function( content ) {
@@ -639,7 +592,7 @@ transformer.register( "disableFilePageEdit", function( content ) {
     }
 } );
 
-},{"../transformer":7}],12:[function(require,module,exports){
+},{"../transformer":6}],11:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "hideRedlinks", function( content ) {
@@ -650,7 +603,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	}
 } );
 
-},{"../transformer":7}],13:[function(require,module,exports){
+},{"../transformer":6}],12:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
@@ -731,7 +684,7 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling);
 });
 
-},{"../transformer":7}],14:[function(require,module,exports){
+},{"../transformer":6}],13:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -840,7 +793,7 @@ transformer.register( "widenImages", function( content ) {
     }
 } );
 
-},{"../transformer":7,"../utilities":15}],15:[function(require,module,exports){
+},{"../transformer":6,"../utilities":14}],14:[function(require,module,exports){
 
 function getDictionaryFromSrcset(srcset) {
     /*
@@ -895,4 +848,4 @@ exports.firstAncestorWithMultipleChildren = firstAncestorWithMultipleChildren;
 exports.findClosest = findClosest;
 exports.isNestedInTable = isNestedInTable;
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14]);

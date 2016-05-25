@@ -10,15 +10,8 @@ typedef void (^ JSListener)(NSString*, NSDictionary*);
 
 - (CommunicationBridge*)initWithWebView:(WKWebView*)targetWebView;
 
-- (void)addListener:(NSString*)messageType
-          withBlock:(JSListener)block;
-
-- (void)sendMessage:(NSString*)messageType
-        withPayload:(NSDictionary*)payload;
-
 // This method calls the "loadHTML:withAssetsFile:" category method on
-// UIWebView, but first it enables message queueing so subsequent calls
-// to "sendMessage:withPayload:" are queued until the html load completes.
+// UIWebView.
 - (void)loadHTML:(NSString*)string withAssetsFile:(NSString*)fileName;
 
 WMF_TECH_DEBT_TODO(add error handling for HTML loading)

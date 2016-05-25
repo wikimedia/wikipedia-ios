@@ -6,7 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Preview Section Language Info Delegate-->
+        <!--Preview Anchor Tap Alert Delegate-->
         <scene sceneID="TJS-xh-DjB">
             <objects>
                 <viewController restorationIdentifier="PreviewViewController" storyboardIdentifier="PreviewViewController" hidesBottomBarWhenPushed="YES" id="YCc-it-nqb" customClass="PreviewAndSaveViewController" sceneMemberID="viewController">
@@ -64,6 +64,7 @@
                                                     <constraint firstAttribute="height" constant="100" id="B1F-i9-AK6"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="previewAnchorTapAlertDelegate" destination="YCc-it-nqb" id="Pz9-ql-on3"/>
                                                     <outlet property="previewSectionLanguageInfoDelegate" destination="YCc-it-nqb" id="AYv-U5-tc7"/>
                                                 </connections>
                                             </view>

@@ -53,7 +53,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
 };
 
-@interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate>
+@interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate>
 
 @property (strong, nonatomic) NSString* captchaId;
 @property (strong, nonatomic) NSString* captchaUrl;
@@ -124,19 +124,17 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)setupBridge {
     self.bridge = [[CommunicationBridge alloc] initWithWebView:self.previewWebViewContainer.webView];
+}
 
-    @weakify(self);
-    [self.bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-        @strongify(self);
-        UIAlertController* alertController =
-            [UIAlertController alertControllerWithTitle:payload[@"href"]
-                                                message:nil
-                                         preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"button-ok", nil)
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:nil]];
-        [self presentViewController:alertController animated:YES completion:^{}];
-    }];
+-(void)wmf_showAlertForTappedAnchorHref:(NSString*)href {
+    UIAlertController* alertController =
+    [UIAlertController alertControllerWithTitle:href
+                                        message:nil
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"button-ok", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:nil]];
+    [self presentViewController:alertController animated:YES completion:^{}];
 }
 
 - (void)setMode:(WMFPreviewAndSaveMode)mode {
