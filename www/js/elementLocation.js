@@ -50,13 +50,11 @@ exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
     return -1;
 };
 
-function getElementFromPoint(x, y){
+exports.getElementFromPoint = function(x, y){
     return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
-}
-
-exports.getURLForElementAtPoint = function (x, y){
-    return getElementFromPoint(x, y).href;
 };
 
-global.getElementFromPoint = getElementFromPoint;
+exports.getURLForElementAtPoint = function (x, y){
+    return this.getElementFromPoint(x, y).href;
+};
 
