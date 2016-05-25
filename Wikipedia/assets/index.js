@@ -1,4 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var wmf = {};
+
+wmf.elementLocation = require("./js/elementLocation");
+wmf.transformer = require("./js/transformer");
+wmf.utilities = require("./js/utilities");
+
+window.wmf = wmf;
+},{"./js/elementLocation":2,"./js/transformer":5,"./js/utilities":12}],2:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -60,26 +68,10 @@ exports.getURLForElementAtPoint = function (x, y){
 };
 
 
-},{}],2:[function(require,module,exports){
-(function (global){
+},{}],3:[function(require,module,exports){
 (function () {
 var refs = require("./refs");
 var utilities = require("./utilities");
-
-function setLanguage(lang, dir, uidir){
-     var html = document.querySelector( "html" );
-     html.lang = lang;
-     html.dir = dir;
-     html.classList.add( 'content-' + dir );
-     html.classList.add( 'ui-' + uidir );
-     document.querySelector('base').href = 'https://' + lang + '.wikipedia.org/';
-}
-global.setLanguage = setLanguage;
-
-function setPageProtected(){
-    document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
-}
-global.setPageProtected = setPageProtected;
 
 document.onclick = function() {
     // Reminder: resist adding any click/tap handling here - they can
@@ -166,7 +158,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
  // 3D Touch peeking listeners.
  document.addEventListener("touchstart", function (event) {
                            // Send message with url (if any) from touch element to native land.
-                           window.webkit.messageHandlers.peek.postMessage({"touchedElementURL": window.elementLocation.getURLForElementAtPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY)});
+                           window.webkit.messageHandlers.peek.postMessage({"touchedElementURL": window.wmf.elementLocation.getURLForElementAtPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY)});
                            }, false);
  
  document.addEventListener("touchend", function () {
@@ -175,16 +167,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
                            }, false);
 })();
 
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./refs":4,"./utilities":14}],3:[function(require,module,exports){
-
-var elementLocation = require("./elementLocation");
-var transformer = require("./transformer");
-
-window.elementLocation = elementLocation;
-window.transformer = transformer;
-
-},{"./elementLocation":1,"./transformer":6}],4:[function(require,module,exports){
+},{"./refs":4,"./utilities":12}],4:[function(require,module,exports){
 
 function isReference( href ) {
     return ( href.slice( 0, 10 ) === "#cite_note" );
@@ -307,30 +290,6 @@ exports.isReference = isReference;
 exports.sendNearbyReferences = sendNearbyReferences;
 
 },{}],5:[function(require,module,exports){
-(function (global){
-function scrollToFragment(fragmentId){
-    location.hash = '';
-    location.hash = fragmentId;
-}
-
-global.scrollToFragment = scrollToFragment;
-
-function accessibilityCursorToFragment(fragmentId){
-    /* Attempt to move accessibility cursor to fragment. We need to /change/ focus,
-     in order to have the desired effect, so we first give focus to the body element,
-     then move it to the desired fragment. */
-    var focus_element = document.getElementById(fragmentId);
-    var other_element = document.body;
-    other_element.setAttribute('tabindex', 0);
-    other_element.focus();
-    focus_element.setAttribute('tabindex', 0);
-    focus_element.focus();
-}
-
-global.accessibilityCursorToFragment = accessibilityCursorToFragment;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],6:[function(require,module,exports){
 function Transformer() {
 }
 
@@ -353,15 +312,7 @@ Transformer.prototype.transform = function( transform ) {
 
 module.exports = new Transformer();
 
-},{}],7:[function(require,module,exports){
-
-require("./transforms/collapseTables");
-require("./transforms/relocateFirstParagraph");
-require("./transforms/hideRedLinks");
-require("./transforms/disableFilePageEdit");
-require("./transforms/addImageOverflowContainers");
-
-},{"./transforms/addImageOverflowContainers":8,"./transforms/collapseTables":9,"./transforms/disableFilePageEdit":10,"./transforms/hideRedLinks":11,"./transforms/relocateFirstParagraph":12}],8:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -407,7 +358,7 @@ transformer.register( "addImageOverflowXContainers", function( content ) {
     }
 } );
 
-},{"../transformer":6,"../utilities":14}],9:[function(require,module,exports){
+},{"../transformer":5,"../utilities":12}],7:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -567,7 +518,7 @@ transformer.register( "hideTables", function( content , isMainPage, titleInfobox
     }
 } );
 
-},{"../transformer":6,"../utilities":14}],10:[function(require,module,exports){
+},{"../transformer":5,"../utilities":12}],8:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "disableFilePageEdit", function( content ) {
@@ -593,7 +544,7 @@ transformer.register( "disableFilePageEdit", function( content ) {
     }
 } );
 
-},{"../transformer":6}],11:[function(require,module,exports){
+},{"../transformer":5}],9:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "hideRedlinks", function( content ) {
@@ -604,7 +555,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	}
 } );
 
-},{"../transformer":6}],12:[function(require,module,exports){
+},{"../transformer":5}],10:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
@@ -685,7 +636,7 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling);
 });
 
-},{"../transformer":6}],13:[function(require,module,exports){
+},{"../transformer":5}],11:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -821,7 +772,7 @@ transformer.register( "widenImages", function( content ) {
     }
 } );
 
-},{"../transformer":6,"../utilities":14}],14:[function(require,module,exports){
+},{"../transformer":5,"../utilities":12}],12:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -838,7 +789,41 @@ function isNestedInTable(el) {
     return false;
 }
 
+function setLanguage(lang, dir, uidir){
+    var html = document.querySelector( "html" );
+    html.lang = lang;
+    html.dir = dir;
+    html.classList.add( 'content-' + dir );
+    html.classList.add( 'ui-' + uidir );
+    document.querySelector('base').href = 'https://' + lang + '.wikipedia.org/';
+}
+
+function setPageProtected(){
+    document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
+}
+
+function scrollToFragment(fragmentId){
+    location.hash = '';
+    location.hash = fragmentId;
+}
+
+function accessibilityCursorToFragment(fragmentId){
+    /* Attempt to move accessibility cursor to fragment. We need to /change/ focus,
+     in order to have the desired effect, so we first give focus to the body element,
+     then move it to the desired fragment. */
+    var focus_element = document.getElementById(fragmentId);
+    var other_element = document.body;
+    other_element.setAttribute('tabindex', 0);
+    other_element.focus();
+    focus_element.setAttribute('tabindex', 0);
+    focus_element.focus();
+}
+
+exports.accessibilityCursorToFragment = accessibilityCursorToFragment;
+exports.scrollToFragment = scrollToFragment;
+exports.setPageProtected = setPageProtected;
+exports.setLanguage = setLanguage;
 exports.findClosest = findClosest;
 exports.isNestedInTable = isNestedInTable;
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12]);

@@ -2,21 +2,6 @@
 var refs = require("./refs");
 var utilities = require("./utilities");
 
-function setLanguage(lang, dir, uidir){
-     var html = document.querySelector( "html" );
-     html.lang = lang;
-     html.dir = dir;
-     html.classList.add( 'content-' + dir );
-     html.classList.add( 'ui-' + uidir );
-     document.querySelector('base').href = 'https://' + lang + '.wikipedia.org/';
-}
-global.setLanguage = setLanguage;
-
-function setPageProtected(){
-    document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
-}
-global.setPageProtected = setPageProtected;
-
 document.onclick = function() {
     // Reminder: resist adding any click/tap handling here - they can
     // "fight" with items in the touchEndedWithoutDragging handler.
@@ -102,7 +87,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
  // 3D Touch peeking listeners.
  document.addEventListener("touchstart", function (event) {
                            // Send message with url (if any) from touch element to native land.
-                           window.webkit.messageHandlers.peek.postMessage({"touchedElementURL": window.elementLocation.getURLForElementAtPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY)});
+                           window.webkit.messageHandlers.peek.postMessage({"touchedElementURL": window.wmf.elementLocation.getURLForElementAtPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY)});
                            }, false);
  
  document.addEventListener("touchend", function () {

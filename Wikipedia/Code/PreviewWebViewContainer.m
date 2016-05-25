@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
      "            window.webkit.messageHandlers.clicks.postMessage({'anchorClicked': { 'href': href }});"
      "        }"
      "};"
-     "window.setLanguage('%@', '%@', '%@');",
+     "window.wmf.utilities.setLanguage('%@', '%@', '%@');",
      langInfo.code,
      langInfo.dir,
      uidir

@@ -113,7 +113,7 @@ NSString* const WMFCCBySALicenseURL =
 
 - (NSString*)tableTransformJS {
     return
-        [NSString stringWithFormat:@"window.transformer.transform('hideTables', document, %d, '%@', '%@', '%@');",
+        [NSString stringWithFormat:@"window.wmf.transformer.transform('hideTables', document, %d, '%@', '%@', '%@');",
          self.article.isMain,
          [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-title"],
          [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"table-title-other"],
@@ -131,13 +131,13 @@ NSString* const WMFCCBySALicenseURL =
             MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.site.language];
             NSString* uidir              = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
             
-            [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.setLanguage('%@', '%@', '%@')",
+            [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.utilities.setLanguage('%@', '%@', '%@')",
                                               languageInfo.code,
                                               languageInfo.dir,
                                               uidir
                                               ] completionHandler:nil];
         }else if ([message.body isEqualToString:@"setPageProtected"] && !self.article.editable) {
-            [self.webView evaluateJavaScript:@"window.setPageProtected()" completionHandler:nil];
+            [self.webView evaluateJavaScript:@"window.wmf.utilities.setPageProtected()" completionHandler:nil];
         }
     } else if ([message.name isEqualToString:@"sendJavascriptConsoleLogMessageToXcodeConsole"]) {
 #if DEBUG
@@ -232,13 +232,13 @@ NSString* const WMFCCBySALicenseURL =
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"articleState"];
 
     NSString* earlyJavascriptTransforms = @""
-                                          "transformer.transform( 'moveFirstGoodParagraphUp', document );"
-                                          "transformer.transform( 'hideRedlinks', document );"
-                                          "transformer.transform( 'disableFilePageEdit', document );"
-                                          "transformer.transform( 'addImageOverflowXContainers', document );"
+                                          "window.wmf.transformer.transform( 'moveFirstGoodParagraphUp', document );"
+                                          "window.wmf.transformer.transform( 'hideRedlinks', document );"
+                                          "window.wmf.transformer.transform( 'disableFilePageEdit', document );"
+                                          "window.wmf.transformer.transform( 'addImageOverflowXContainers', document );"
                                           // 'addImageOverflowXContainers' needs to happen before 'widenImages'.
                                           // See "enwiki > Counties of England > Scope and structure > Local government"
-                                          "transformer.transform( 'widenImages', document );"
+                                          "window.wmf.transformer.transform( 'widenImages', document );"
                                           "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
                                           "console.log = function(message){window.webkit.messageHandlers.sendJavascriptConsoleLogMessageToXcodeConsole.postMessage({'message': message});};";
 
@@ -605,13 +605,17 @@ NSString* const WMFCCBySALicenseURL =
     [self scrollToFragment:fragment animated:YES];
 }
 
+//- (void)didReceiveMemoryWarning {
+//    [self scrollToFragment:@"Charts" animated:NO];
+//}
+
 - (void)scrollToFragment:(NSString*)fragment animated:(BOOL)animated {
     if (fragment.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
     } else {
         if (!animated) {
-            [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.scrollToFragment('%@')", fragment] completionHandler:nil];
+            [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.utilities.scrollToFragment('%@')", fragment] completionHandler:nil];
             return;
         }
         [self.webView getScrollViewRectForHtmlElementWithId:fragment completion:^(CGRect rect) {
@@ -631,7 +635,7 @@ NSString* const WMFCCBySALicenseURL =
     // This might shift the visual scroll position. To prevent it affecting other users,
     // we will only do it when we detect than an assistive technology which actually needs this is running.
     if (UIAccessibilityIsVoiceOverRunning()) {
-        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.accessibilityCursorToFragment('%@')", section.anchor] completionHandler:nil];
+        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.utilities.accessibilityCursorToFragment('%@')", section.anchor] completionHandler:nil];
     }
 }
 
