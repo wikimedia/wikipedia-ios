@@ -381,10 +381,15 @@ function addImageOverflowXContainer(image, ancestor) {
     div.appendChild( ancestor );
 }
 
+function firstAncestorWithMultipleChildren (el) {
+    while ((el = el.parentElement) && (el.childElementCount == 1));
+    return el;
+}
+
 function maybeAddImageOverflowXContainer() {
     var image = this;
     if (shouldAddImageOverflowXContainer(image)){
-        var ancestor = utilities.firstAncestorWithMultipleChildren (image);
+        var ancestor = firstAncestorWithMultipleChildren (image);
         if(ancestor){
             addImageOverflowXContainer(image, ancestor);
         }
@@ -728,19 +733,46 @@ function makeRoomForImageWidening(image) {
     image.removeAttribute("height");
 }
 
+function firstDivAncestor (el) {
+    while ((el = el.parentElement)){
+        if(el.tagName === 'DIV'){
+            return el;
+        }
+    }
+    return null;
+}
+
 function getStretchRatio(image){
-    var widthControllingDiv = utilities.firstDivAncestor(image);
+    var widthControllingDiv = firstDivAncestor(image);
     if (widthControllingDiv){
         return (widthControllingDiv.offsetWidth / image.naturalWidth);
     }
     return 1.0;
 }
 
+function getDictionaryFromSrcset(srcset) {
+    /*
+     Returns dictionary with density (without "x") as keys and urls as values.
+     Parameter 'srcset' string:
+     '//image1.jpg 1.5x, //image2.jpg 2x, //image3.jpg 3x'
+     Returns dictionary:
+     {1.5: '//image1.jpg', 2: '//image2.jpg', 3: '//image3.jpg'}
+     */
+    var sets = srcset.split(',').map(function(set) {
+                                     return set.trim().split(' ');
+                                     });
+    var output = {};
+    sets.forEach(function(set) {
+                 output[set[1].replace('x', '')] = set[0];
+                 });
+    return output;
+}
+
 function useHigherResolutionImageSrcFromSrcsetIfNecessary(image) {
     if (image.getAttribute('srcset')){
         var stretchRatio = getStretchRatio(image);
         if (stretchRatio > maxStretchRatioAllowedBeforeRequestingHigherResolution) {
-            var srcsetDict = utilities.getDictionaryFromSrcset(image.getAttribute('srcset'));
+            var srcsetDict = getDictionaryFromSrcset(image.getAttribute('srcset'));
             /*
             Grab the highest res url from srcset - avoids the complexity of parsing urls
             to retrieve variants - which can get tricky - canonicals have different paths 
@@ -791,38 +823,6 @@ transformer.register( "widenImages", function( content ) {
 
 },{"../transformer":6,"../utilities":14}],14:[function(require,module,exports){
 
-function getDictionaryFromSrcset(srcset) {
-    /*
-    Returns dictionary with density (without "x") as keys and urls as values.
-    Parameter 'srcset' string:
-        '//image1.jpg 1.5x, //image2.jpg 2x, //image3.jpg 3x'
-    Returns dictionary:
-        {1.5: '//image1.jpg', 2: '//image2.jpg', 3: '//image3.jpg'}
-    */
-    var sets = srcset.split(',').map(function(set) {
-        return set.trim().split(' ');
-    });
-    var output = {};
-    sets.forEach(function(set) {
-        output[set[1].replace('x', '')] = set[0];
-    });
-    return output;
-}
-
-function firstDivAncestor (el) {
-    while ((el = el.parentElement)){
-        if(el.tagName === 'DIV'){
-            return el;
-        }
-    }
-    return null;
-}
-
-function firstAncestorWithMultipleChildren (el) {
-    while ((el = el.parentElement) && (el.childElementCount == 1));
-    return el;
-}
-
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
     while ((el = el.parentElement) && !el.matches(selector));
@@ -838,9 +838,6 @@ function isNestedInTable(el) {
     return false;
 }
 
-exports.getDictionaryFromSrcset = getDictionaryFromSrcset;
-exports.firstDivAncestor = firstDivAncestor;
-exports.firstAncestorWithMultipleChildren = firstAncestorWithMultipleChildren;
 exports.findClosest = findClosest;
 exports.isNestedInTable = isNestedInTable;
 
