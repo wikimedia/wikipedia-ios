@@ -12,7 +12,6 @@
 #import "PreviewWebViewContainer.h"
 #import "Defines.h"
 #import "WMF_Colors.h"
-#import "CommunicationBridge.h"
 #import "PaddedLabel.h"
 #import "NSString+WMFExtras.h"
 #import "MenuButton.h"
@@ -36,7 +35,7 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import <Masonry/Masonry.h>
 #import "AFHTTPSessionManager+WMFCancelAll.h"
-
+#import "WKWebView+LoadAssetsHtml.h"
 
 typedef NS_ENUM (NSInteger, WMFCannedSummaryChoices) {
     CANNED_SUMMARY_TYPOS,
@@ -64,7 +63,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 @property (strong, nonatomic) IBOutlet UIView* captchaScrollContainer;
 @property (strong, nonatomic) IBOutlet UIView* editSummaryContainer;
 @property (strong, nonatomic) IBOutlet PreviewWebViewContainer* previewWebViewContainer;
-@property (strong, nonatomic) CommunicationBridge* bridge;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* previewWebViewHeightConstraint;
 @property (strong, nonatomic) UILabel* aboutLabel;
 @property (strong, nonatomic) MenuButton* cannedSummary01;
@@ -120,10 +118,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
-}
-
-- (void)setupBridge {
-    self.bridge = [[CommunicationBridge alloc] initWithWebView:self.previewWebViewContainer.webView];
 }
 
 -(void)wmf_showAlertForTappedAnchorHref:(NSString*)href {
@@ -237,8 +231,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     [self.previewLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(previewLabelTapped:)]];
 
     //self.saveAutomaticallyIfSignedIn = NO;
-
-    [self setupBridge];
 
     self.captchaId  = @"";
     self.captchaUrl = @"";
@@ -481,7 +473,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [[WMFAlertManager sharedInstance] dismissAlert];
 
-                [self.bridge loadHTML:fetchedData withAssetsFile:@"preview.html"];
+                [self.previewWebViewContainer.webView loadHTML:fetchedData withAssetsFile:@"preview.html"];
             }
             break;
             case FETCH_FINAL_STATUS_FAILED: {

@@ -9,8 +9,6 @@
 - (void)loadHTMLFromAssetsFile:(NSString*)fileName;
 
 // Loads html passed to it injected into html from fileName.
-// Warning! Probably don't call this directly! Call the method of the same
-// name on the CommunicationBridge object for reasons documented there.
 - (void)loadHTML:(NSString*)string withAssetsFile:(NSString*)fileName;
 
 @end

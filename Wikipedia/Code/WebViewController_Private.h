@@ -9,7 +9,6 @@
 #import "WebViewController.h"
 
 #import "WikipediaAppUtils.h"
-#import "CommunicationBridge.h"
 #import "SessionSingleton.h"
 #import "MWLanguageInfo.h"
 #import "Defines.h"
@@ -46,8 +45,6 @@ static int const kMinimumTextSelectionLength = 2;
 @property (nonatomic, strong, readwrite) WKWebView* webView;
 
 @property (nonatomic, strong) SessionSingleton* session;
-
-@property (strong, nonatomic) CommunicationBridge* bridge;
 
 @property (strong, nonatomic) NSDictionary* adjacentHistoryIDs;
 @property (strong, nonatomic) NSString* externalUrl;

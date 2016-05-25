@@ -31,6 +31,7 @@
 #import "NSURL+WMFExtras.h"
 
 #import "WMFZeroMessage.h"
+#import "WKWebView+LoadAssetsHtml.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -689,15 +690,6 @@ NSString* const WMFCCBySALicenseURL =
     return YES;
 }
 
-#pragma mark Webview obj-c to javascript bridge
-
-- (CommunicationBridge*)bridge {
-    if (!_bridge) {
-        _bridge = [[CommunicationBridge alloc] initWithWebView:self.webView];
-    }
-    return _bridge;
-}
-
 #pragma mark - Display article
 
 - (void)setArticle:(MWKArticle*)article {
@@ -716,7 +708,7 @@ NSString* const WMFCCBySALicenseURL =
         return;
     }
 
-    [self.bridge loadHTML:[self.article articleHTML] withAssetsFile:@"index.html"];
+    [self.webView loadHTML:[self.article articleHTML] withAssetsFile:@"index.html"];
     
     UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
                                                           action:@selector(shareMenuItemTapped:)];
