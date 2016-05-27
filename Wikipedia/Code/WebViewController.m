@@ -117,13 +117,13 @@ NSString* const WMFCCBySALicenseURL =
         } else if ([message.body isEqualToString:@"setLanguage"]) {
             MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.site.language];
             NSString* uidir              = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
-            
+
             [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.utilities.setLanguage('%@', '%@', '%@')",
                                               languageInfo.code,
                                               languageInfo.dir,
                                               uidir
-                                              ] completionHandler:nil];
-        }else if ([message.body isEqualToString:@"setPageProtected"] && !self.article.editable) {
+             ] completionHandler:nil];
+        } else if ([message.body isEqualToString:@"setPageProtected"] && !self.article.editable) {
             [self.webView evaluateJavaScript:@"window.wmf.utilities.setPageProtected()" completionHandler:nil];
         }
     } else if ([message.name isEqualToString:@"sendJavascriptConsoleLogMessageToXcodeConsole"]) {
@@ -135,12 +135,12 @@ NSString* const WMFCCBySALicenseURL =
             //Need to introduce a delay here or the webview still might not be loaded.
             //dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
             NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
-                [self.delegate webViewController:self didLoadArticle:self.article];
-            
+            [self.delegate webViewController:self didLoadArticle:self.article];
+
             [self.headerHeight setOffset:[self headerHeightForCurrentTraitCollection]];
-          
+
             // Force the bounds observers to fire - otherwise the html padding isn't added on article refresh.
-            self.headerView.bounds = self.headerView.bounds;
+            self.headerView.bounds          = self.headerView.bounds;
             self.footerContainerView.bounds = self.footerContainerView.bounds;
         }
     } else if ([message.name isEqualToString:@"clicks"]) {
@@ -149,13 +149,13 @@ NSString* const WMFCCBySALicenseURL =
                 self.isPeeking = NO;
                 return;
             }
-            
+
             NSString* href = message.body[@"linkClicked"][@"href"]; //payload[@"href"];
-            
+
             if (!(self).referencesHidden) {
                 [(self) referencesHide];
             }
-            
+
             if ([href wmf_isInternalLink]) {
                 MWKTitle* pageTitle = [self.article.site titleWithInternalLink:href];
                 [(self).delegate webViewController:(self) didTapOnLinkForTitle:pageTitle];
@@ -173,32 +173,30 @@ NSString* const WMFCCBySALicenseURL =
                     [self wmf_openExternalUrl:url];
                 }
             }
-        }else if(message.body[@"imageClicked"]){
-            
-            NSNumber* imageWidth = message.body[@"imageClicked"][@"width"];
+        } else if (message.body[@"imageClicked"]) {
+            NSNumber* imageWidth  = message.body[@"imageClicked"][@"width"];
             NSNumber* imageHeight = message.body[@"imageClicked"][@"height"];
-            CGSize imageSize = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
+            CGSize imageSize      = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
             if (![MWKImage isSizeLargeEnoughForGalleryInclusion:imageSize]) {
                 return;
             }
-            
+
             NSString* selectedImageURL = message.body[@"imageClicked"][@"url"];
             NSCParameterAssert(selectedImageURL.length);
             if (!selectedImageURL.length) {
                 DDLogError(@"Image clicked callback invoked with empty URL: %@", message.body[@"imageClicked"]);
                 return;
             }
-            
+
             [self.delegate webViewController:self didTapImageWithSourceURLString:selectedImageURL];
-        
-        }else if(message.body[@"referenceClicked"]){
+        } else if (message.body[@"referenceClicked"]) {
             [self referencesShow:message.body[@"referenceClicked"]];
-        }else if(message.body[@"editClicked"]){
+        } else if (message.body[@"editClicked"]) {
             NSUInteger sectionIndex = (NSUInteger)[message.body[@"editClicked"][@"sectionId"] integerValue];
             if (sectionIndex < [self.article.sections count]) {
                 [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
             }
-        }else if(message.body[@"nonAnchorTouchEndedWithoutDragging"]){
+        } else if (message.body[@"nonAnchorTouchEndedWithoutDragging"]) {
             [self referencesHide];
         }
     }
@@ -212,13 +210,13 @@ NSString* const WMFCCBySALicenseURL =
     [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransforms.postMessage('setPageProtected');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
 
     [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransforms.postMessage('setLanguage');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
-    
+
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"lateJavascriptTransforms"];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"peek"];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"clicks"];
-    
+
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"sendJavascriptConsoleLogMessageToXcodeConsole"];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"articleState"];
@@ -247,7 +245,8 @@ NSString* const WMFCCBySALicenseURL =
 
 - (WKWebView*)webView {
     if (!_webView) {
-        _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
+        _webView                     = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
+        _webView.scrollView.delegate = self;
     }
     return _webView;
 }
@@ -327,38 +326,35 @@ NSString* const WMFCCBySALicenseURL =
                                     keyPath:WMF_SAFE_KEYPATH(self.headerView, bounds)
                                     options:NSKeyValueObservingOptionInitial
                                       block:^(WebViewController* observer, UIView* view, NSDictionary* change) {
+        if (!view) {
+            return;
+        }
+        NSInteger height = (NSInteger)(floor(view.bounds.size.height));
+        NSString* js =
+            [NSString stringWithFormat:@""
+             "document.getElementsByTagName('BODY')[0].style.paddingTop = '%ldpx';"
+             , (long)height];
+        if (observer.webView) {
+            [observer.webView evaluateJavaScript:js completionHandler:nil];
+        }
+    }];
 
-                                          if(!view){
-                                              return;
-                                          }
-                                          NSInteger height = (NSInteger) (floor(view.bounds.size.height));
-                                          NSString* js =
-                                          [NSString stringWithFormat:@""
-                                           "document.getElementsByTagName('BODY')[0].style.paddingTop = '%ldpx';"
-                                           , (long)height];
-                                          if (observer.webView){
-                                              [observer.webView evaluateJavaScript:js completionHandler:nil];
-                                          }
-    
-                                      }];
-    
     [self.KVOControllerNonRetaining observe:self.footerContainerView
                                     keyPath:WMF_SAFE_KEYPATH(self.footerContainerView, bounds)
                                     options:NSKeyValueObservingOptionInitial
                                       block:^(WebViewController* observer, UIView* view, NSDictionary* change) {
-
-                                          if(!view){
-                                              return;
-                                          }
-                                          NSInteger height = (NSInteger) (floor(view.bounds.size.height));
-                                          NSString* js =
-                                          [NSString stringWithFormat:@""
-                                           "document.getElementsByTagName('BODY')[0].style.paddingBottom = '%ldpx';"
-                                           , (long)height];
-                                          if (observer.webView){
-                                              [observer.webView evaluateJavaScript:js completionHandler:nil];
-                                          }
-                                      }];
+        if (!view) {
+            return;
+        }
+        NSInteger height = (NSInteger)(floor(view.bounds.size.height));
+        NSString* js =
+            [NSString stringWithFormat:@""
+             "document.getElementsByTagName('BODY')[0].style.paddingBottom = '%ldpx';"
+             , (long)height];
+        if (observer.webView) {
+            [observer.webView evaluateJavaScript:js completionHandler:nil];
+        }
+    }];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -669,7 +665,7 @@ NSString* const WMFCCBySALicenseURL =
     }
 
     [self.webView loadHTML:[self.article articleHTML] withAssetsFile:@"index.html"];
-    
+
     UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
                                                           action:@selector(shareMenuItemTapped:)];
     [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
