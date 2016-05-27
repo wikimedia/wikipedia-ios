@@ -70,19 +70,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setFontSizeMultiplier:(NSNumber*)fontSize;
 
-
-/**
- *  Check if web content is visible.
- *
- *  Queries the internal browser view to see if it's within its scroll view's content frame.
- *
- *  @warning This is only intended to be used for workarounds related to internal browser view behavior, only use
- *           if no other options are available.
- *
- *  @return Whether or not the receiver's internal browser view is visible.
- */
-@property (nonatomic, assign, readonly) BOOL isWebContentVisible;
-
 #pragma mark - Header & Footers
 
 @property (nonatomic, strong, nullable) UIView* headerView;

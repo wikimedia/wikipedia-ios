@@ -23,7 +23,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
         var dismissVCCompletionHandler: (() -> Void)?
         if let section = item as? MWKSection {
             // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
-            self.webViewController.scrollToSection(section, animated: self.webViewController.isWebContentVisible)
+            self.webViewController.scrollToSection(section, animated: true)
             dismissVCCompletionHandler = {
                 // HAX: This is terrible, but iOS events not under our control would steal our focus if we didn't wait long enough here and due to problems in UIWebView, we cannot work around it either.
                 dispatchOnMainQueueAfterDelayInSeconds(1) {

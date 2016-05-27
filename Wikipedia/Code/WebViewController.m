@@ -62,26 +62,13 @@ NSString* const WMFCCBySALicenseURL =
 @property (nonatomic, strong) WMFArticleFooterView* footerLicenseView;
 @property (nonatomic, strong) IBOutlet UIView* containerView;
 
-/**
- *  Calculates the amount needed to compensate to specific HTML element locations.
- *
- *  Used when scrolling to fragments instead of setting @c location.hash since setting the offset manually allows us to
- *  animate the navigation.  However, we can't use the values provided by the webview as-is, since we've added a header
- *  view on top of the browser view.  This has the effect of offsetting the bounding rects of HTML elements by the amount
- *  of the header view which is currently on screen.  As a result, we calculate the amount of the header view that is showing,
- *  and return it from this method in order to get the <i>actual</i> bounding rect, compensated for our header view if
- *  necessary.
- *
- *  @return The vertical offset to apply to client bounding rects received from the web view.
- */
-- (CGFloat)clientBoundingRectVerticalOffset;
-
 @end
 
 @implementation WebViewController
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self unobserveTopAndBottomNativeViewFrames];
 }
 
 - (instancetype)initWithCoder:(NSCoder*)aDecoder {
@@ -149,7 +136,12 @@ NSString* const WMFCCBySALicenseURL =
             //dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
             NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
                 [self.delegate webViewController:self didLoadArticle:self.article];
-            //});
+            
+            [self.headerHeight setOffset:[self headerHeightForCurrentTraitCollection]];
+          
+            // Force the bounds observers to fire - otherwise the html padding isn't added on article refresh.
+            self.headerView.bounds = self.headerView.bounds;
+            self.footerContainerView.bounds = self.footerContainerView.bounds;
         }
     } else if ([message.name isEqualToString:@"clicks"]) {
         if (message.body[@"linkClicked"]) {
@@ -276,7 +268,7 @@ NSString* const WMFCCBySALicenseURL =
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.containerView insertSubview:self.webView atIndex:0];
     [self.webView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.leading.and.trailing.and.top.and.bottom.equalTo(self.containerView);
+        make.leading.trailing.top.and.bottom.equalTo(self.containerView);
     }];
     self.webView.clipsToBounds            = NO;
     self.webView.scrollView.clipsToBounds = NO;
@@ -291,14 +283,13 @@ NSString* const WMFCCBySALicenseURL =
 
     self.view.backgroundColor = CHROME_COLOR;
 
-    [self observeWebScrollViewContentSize];
+    [self observeTopAndBottomNativeViewFrames];
 
     [self displayArticle];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self layoutWebViewSubviews];
     [self.webView.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
 }
 
@@ -312,21 +303,9 @@ NSString* const WMFCCBySALicenseURL =
     [self updateZeroState];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    [self layoutWebViewSubviews];
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroDispositionDidChange object:nil];
-}
-
-- (void)willTransitionToTraitCollection:(UITraitCollection*)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
-        [self layoutWebViewSubviews];
-    } completion:nil];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -336,15 +315,50 @@ NSString* const WMFCCBySALicenseURL =
 #pragma mark - Observations
 
 /**
- *  Observe changes to @c webView.scrollView.contentSize so we can recompute it and layout subviews.
+ *  Observe changes to the native header and footer so we can message back to the html to add top and bottom padding to html body tag
  */
-- (void)observeWebScrollViewContentSize {
-    [self.KVOControllerNonRetaining observe:self.webView.scrollView
-                                    keyPath:WMF_SAFE_KEYPATH(self.webView.scrollView, contentSize)
+- (void)unobserveTopAndBottomNativeViewFrames {
+    [self.KVOControllerNonRetaining unobserve:self.headerView];
+    [self.KVOControllerNonRetaining unobserve:self.footerContainerView];
+}
+
+- (void)observeTopAndBottomNativeViewFrames {
+    [self.KVOControllerNonRetaining observe:self.headerView
+                                    keyPath:WMF_SAFE_KEYPATH(self.headerView, bounds)
                                     options:NSKeyValueObservingOptionInitial
-                                      block:^(WebViewController* observer, id object, NSDictionary* change) {
-        [observer layoutWebViewSubviews];
-    }];
+                                      block:^(WebViewController* observer, UIView* view, NSDictionary* change) {
+
+                                          if(!view){
+                                              return;
+                                          }
+                                          NSInteger height = (NSInteger) (floor(view.bounds.size.height));
+                                          NSString* js =
+                                          [NSString stringWithFormat:@""
+                                           "document.getElementsByTagName('BODY')[0].style.paddingTop = '%ldpx';"
+                                           , (long)height];
+                                          if (observer.webView){
+                                              [observer.webView evaluateJavaScript:js completionHandler:nil];
+                                          }
+    
+                                      }];
+    
+    [self.KVOControllerNonRetaining observe:self.footerContainerView
+                                    keyPath:WMF_SAFE_KEYPATH(self.footerContainerView, bounds)
+                                    options:NSKeyValueObservingOptionInitial
+                                      block:^(WebViewController* observer, UIView* view, NSDictionary* change) {
+
+                                          if(!view){
+                                              return;
+                                          }
+                                          NSInteger height = (NSInteger) (floor(view.bounds.size.height));
+                                          NSString* js =
+                                          [NSString stringWithFormat:@""
+                                           "document.getElementsByTagName('BODY')[0].style.paddingBottom = '%ldpx';"
+                                           , (long)height];
+                                          if (observer.webView){
+                                              [observer.webView evaluateJavaScript:js completionHandler:nil];
+                                          }
+                                      }];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -419,7 +433,6 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)addHeaderView {
-    return;
     if (!self.headerView) {
         return;
     }
@@ -453,7 +466,6 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)addFooterView {
-    return;
     if (!self.article) {
         return;
     }
@@ -471,13 +483,11 @@ NSString* const WMFCCBySALicenseURL =
     [self.footerContainerView mas_remakeConstraints:^(MASConstraintMaker* make) {
         // lead/trail must be constained to webview, the scrollview doesn't define a width
         make.leading.and.trailing.equalTo(self.webView);
-        make.top.equalTo([[self.webView wmf_browserView] mas_bottom]);
-        make.bottom.equalTo(self.webView.scrollView);
+        make.bottom.equalTo([[self.webView wmf_browserView] mas_bottom]);
     }];
 }
 
 - (void)addFooterContentViews {
-    return;
     if ([self.article.title isNonStandardTitle]) {
         return;
     }
@@ -520,7 +530,6 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)setFooterViewControllers:(NSArray<UIViewController*>*)footerViewControllers {
-    return;
     if (WMF_EQUAL(self.footerViewControllers, isEqualToArray:, footerViewControllers)) {
         return;
     }
@@ -539,41 +548,9 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)setHeaderView:(UIView*)headerView {
-    return;
     NSAssert(!self.headerView, @"Dynamic/re-configurable header view is not supported.");
     NSAssert(!self.isViewLoaded, @"Expected header to be configured before viewDidLoad.");
     _headerView = headerView;
-}
-
-- (void)layoutWebViewSubviews {
-    [self.headerHeight setOffset:[self headerHeightForCurrentTraitCollection]];
-    CGFloat headerBottom = CGRectGetMaxY(self.headerView.frame);
-    /*
-       HAX: need to manage positioning the browser view manually.
-       using constraints seems to prevent the browser view size and scrollview contentSize from being set
-       properly.
-     */
-    UIView* browserView = [self.webView wmf_browserView];
-
-    if (floor(CGRectGetMinY(browserView.frame)) != floor(headerBottom)) { // Prevent weird recursion when doing 3d touch peek.
-        [browserView setFrame:(CGRect){
-             .origin = CGPointMake(0, headerBottom),
-             .size = browserView.frame.size
-         }];
-    }
-
-    CGFloat readMoreHeight   = self.footerContainerView.frame.size.height;
-    CGFloat totalHeight      = CGRectGetMaxY(browserView.frame) + readMoreHeight;
-    CGFloat constrainedWidth = self.webView.scrollView.frame.size.width;
-    CGSize requiredSize      = CGSizeMake(constrainedWidth, totalHeight);
-
-    return;
-    /*
-       HAX: It's important that we restrict the contentSize to the view's width to prevent awkward horizontal scrolling.
-     */
-    if (!CGSizeEqualToSize(requiredSize, self.webView.scrollView.contentSize)) {
-        self.webView.scrollView.contentSize = requiredSize;
-    }
 }
 
 - (CGFloat)headerHeightForCurrentTraitCollection {
@@ -594,20 +571,9 @@ NSString* const WMFCCBySALicenseURL =
 
 #pragma mark - Scrolling
 
-- (CGFloat)clientBoundingRectVerticalOffset {
-    NSParameterAssert(self.isViewLoaded);
-    CGRect headerIntersection =
-        CGRectIntersection(self.webView.scrollView.wmf_contentFrame, self.headerView.frame);
-    return headerIntersection.size.height;
-}
-
 - (void)scrollToFragment:(NSString*)fragment {
     [self scrollToFragment:fragment animated:YES];
 }
-
-//- (void)didReceiveMemoryWarning {
-//    [self scrollToFragment:@"Charts" animated:NO];
-//}
 
 - (void)scrollToFragment:(NSString*)fragment animated:(BOOL)animated {
     if (fragment.length == 0) {
@@ -620,7 +586,7 @@ NSString* const WMFCCBySALicenseURL =
         }
         [self.webView getScrollViewRectForHtmlElementWithId:fragment completion:^(CGRect rect) {
             if (!CGRectIsNull(rect)) {
-                [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y + [self clientBoundingRectVerticalOffset])
+                [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y)
                                                          animated:YES];
             }
         }];
@@ -656,16 +622,6 @@ NSString* const WMFCCBySALicenseURL =
 
 - (CGFloat)currentVerticalOffset {
     return self.webView.scrollView.contentOffset.y;
-}
-
-- (BOOL)isWebContentVisible {
-    return CGRectIntersectsRect(self.webView.scrollView.wmf_contentFrame, self.webView.wmf_browserView.frame);
-}
-
-- (BOOL)rectIntersectsWebViewTop:(CGRect)rect {
-    CGFloat elementScreenYOffset =
-        rect.origin.y - self.webView.scrollView.contentOffset.y + rect.size.height;
-    return (elementScreenYOffset > 0) && (elementScreenYOffset < rect.size.height);
 }
 
 - (void)tocScrollWebViewToPoint:(CGPoint)point
@@ -881,7 +837,7 @@ NSString* const WMFCCBySALicenseURL =
                 [self.webView.scrollView wmf_safeSetContentOffset:
                  CGPointMake(
                      self.webView.scrollView.contentOffset.x,
-                     self.webView.scrollView.contentOffset.y + (rect.origin.y - distanceFromVerticalCenter)         // + [self clientBoundingRectVerticalOffset]
+                     self.webView.scrollView.contentOffset.y + (rect.origin.y - distanceFromVerticalCenter)
                      )
                                                          animated:YES];
             }
