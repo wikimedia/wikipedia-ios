@@ -245,7 +245,7 @@ NSString* const WMFCCBySALicenseURL =
 
 - (WKWebView*)webView {
     if (!_webView) {
-        _webView                     = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
+        _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
     }
     return _webView;
 }
