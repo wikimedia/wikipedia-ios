@@ -224,13 +224,13 @@ NSString* const WMFCCBySALicenseURL =
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"articleState"];
 
     NSString* earlyJavascriptTransforms = @""
-                                          "window.wmf.transformer.transform( 'moveFirstGoodParagraphUp', document );"
                                           "window.wmf.transformer.transform( 'hideRedlinks', document );"
                                           "window.wmf.transformer.transform( 'disableFilePageEdit', document );"
                                           "window.wmf.transformer.transform( 'addImageOverflowXContainers', document );"
                                           // 'addImageOverflowXContainers' needs to happen before 'widenImages'.
                                           // See "enwiki > Counties of England > Scope and structure > Local government"
                                           "window.wmf.transformer.transform( 'widenImages', document );"
+                                          "window.wmf.transformer.transform( 'moveFirstGoodParagraphUp', document );"
                                           "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
                                           "console.log = function(message){window.webkit.messageHandlers.sendJavascriptConsoleLogMessageToXcodeConsole.postMessage({'message': message});};";
 
