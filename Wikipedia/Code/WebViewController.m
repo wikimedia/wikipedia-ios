@@ -246,7 +246,6 @@ NSString* const WMFCCBySALicenseURL =
 - (WKWebView*)webView {
     if (!_webView) {
         _webView                     = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
-        _webView.scrollView.delegate = self;
     }
     return _webView;
 }
@@ -293,6 +292,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    self.webView.scrollView.delegate = self;
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateZeroStateWithNotification:)
@@ -303,6 +303,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    self.webView.scrollView.delegate = nil;
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroDispositionDidChange object:nil];
 }
