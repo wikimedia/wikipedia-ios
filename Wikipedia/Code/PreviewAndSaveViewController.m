@@ -120,11 +120,11 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     return YES;
 }
 
--(void)wmf_showAlertForTappedAnchorHref:(NSString*)href {
+- (void)wmf_showAlertForTappedAnchorHref:(NSString*)href {
     UIAlertController* alertController =
-    [UIAlertController alertControllerWithTitle:href
-                                        message:nil
-                                 preferredStyle:UIAlertControllerStyleAlert];
+        [UIAlertController alertControllerWithTitle:href
+                                            message:nil
+                                     preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"button-ok", nil)
                                                         style:UIAlertActionStyleDefault
                                                       handler:nil]];
@@ -468,7 +468,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                status:(FetchFinalStatus)status
                 error:(NSError*)error {
     if ([sender isKindOfClass:[PreviewHtmlFetcher class]]) {
-
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [[WMFAlertManager sharedInstance] dismissAlert];

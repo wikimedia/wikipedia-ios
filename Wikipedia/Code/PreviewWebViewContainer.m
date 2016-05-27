@@ -24,34 +24,34 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WKWebViewConfiguration*)configuration {
     WKUserContentController* userContentController = [[WKUserContentController alloc] init];
-    
+
     MWLanguageInfo* langInfo = [self.previewSectionLanguageInfoDelegate wmf_editedSectionLanguageInfo];
     NSString* uidir          = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
 
     NSString* earlyJavascriptTransforms =
-    [NSString stringWithFormat:@""
-     "document.onclick = function() {"
-     "    event.preventDefault();"
-     "        if (event.target.tagName == 'A'){"
-     "            var href = event.target.getAttribute( 'href' );"
-     "            window.webkit.messageHandlers.clicks.postMessage({'anchorClicked': { 'href': href }});"
-     "        }"
-     "};"
-     "window.wmf.utilities.setLanguage('%@', '%@', '%@');",
-     langInfo.code,
-     langInfo.dir,
-     uidir
-     ];
+        [NSString stringWithFormat:@""
+         "document.onclick = function() {"
+         "    event.preventDefault();"
+         "        if (event.target.tagName == 'A'){"
+         "            var href = event.target.getAttribute( 'href' );"
+         "            window.webkit.messageHandlers.clicks.postMessage({'anchorClicked': { 'href': href }});"
+         "        }"
+         "};"
+         "window.wmf.utilities.setLanguage('%@', '%@', '%@');",
+         langInfo.code,
+         langInfo.dir,
+         uidir
+        ];
 
     [userContentController addUserScript:
      [[WKUserScript alloc] initWithSource:earlyJavascriptTransforms
                             injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
                          forMainFrameOnly:YES]];
 
-    
+
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"clicks"];
-    
-    
+
+
     WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
     configuration.userContentController = userContentController;
     return configuration;
