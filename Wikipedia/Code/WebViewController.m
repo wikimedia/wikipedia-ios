@@ -147,6 +147,24 @@ NSString* const WMFCCBySALicenseURL =
                                                object:nil];
     // should happen in will appear to prevent bar from being incorrect during transitions
     [self updateZeroState];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(saveOpenArticleTitleWithCurrentlyOnscreenFragment)
+                                                 name:UIApplicationWillResignActiveNotification
+                                               object:nil];
+}
+
+- (void)saveOpenArticleTitleWithCurrentlyOnscreenFragment {
+    if (self.navigationController.topViewController == self.parentViewController) { // Ensure only the topmost article is recorded.
+        [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:[self articleTitleWithCurrentlyOnScreenFragment]];
+    }
+}
+
+- (MWKTitle*)articleTitleWithCurrentlyOnScreenFragment {
+    return
+        [[MWKTitle alloc] initWithSite:self.article.title.site
+                       normalizedTitle:self.article.title.text
+                              fragment:[self currentVisibleSection].anchor];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -157,6 +175,7 @@ NSString* const WMFCCBySALicenseURL =
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroDispositionDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection*)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
