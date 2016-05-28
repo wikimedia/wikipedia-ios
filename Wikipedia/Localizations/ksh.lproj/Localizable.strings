@@ -1,5 +1,6 @@
 // Messages for Colognian (Ripoarisch)
 // Exported from translatewiki.net
+// Author: Mhurd
 // Author: Purodha
 
 "languages-title" = "De Schprohch wääßele";
@@ -30,15 +31,20 @@
 "history-clear-delete-all" = "Joh, donn alle fottschmieße";
 "history-description" = "Do hä se velleisch alle fott jeschmeße. Et nähkste Mohl woh de obb en Sigg jeihß, kanns De op se zeröck jonn.";
 "history-none" = "Kein köözlesche Sigge heh.";
+"zero-free-verbiage" = "Der Zohjang op de Wikkipehdija es ömesöns, Dinge Mobihlfunk-Ferrma nimmp nix för di övverdrahre Dahte.";
+"zero-charged-verbiage" = "De Wikkiphedija Zero es ußjeschalldt";
+"zero-charged-verbiage-extended" = "Annder Sigge lahde kann Jäld koste för de övverdrahre Dahte. Offlain faßjehalldde Siggebruche kein Dahte mih un sin ömmesöns.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-title" = "De Wikkiphedija Zero hührd jäz op";
 "zero-interstitial-leave-app" = "Dat künnt Jäld koste för de Dahte ze övverdrahre. Wells De trozdämm op di Sigg ußerhallef jonn?";
 "zero-interstitial-continue" = "Jangk fott";
 "zero-interstitial-cancel" = "Bliehv heh";
 "zero-learn-more" = "Koßte för der Dahteverkehr för heh di Wikkipehdija Äpp falle kein aan.";
 "zero-learn-more-learn-more" = "Mih lässe";
 "zero-learn-more-no-thanks" = "Nää, well esch nit lässe.";
-// Fuzzy
-"zero-settings-devmode" = "Äntweckler för zero wähde";
+"zero-wikipedia-zero-heading" = "De Wikkiphedija Zero";
+"zero-warn-when-leaving" = "Donn warne, wann de Wikkipehdija Zero ophührt.";
+"zero-settings-devmode" = "Äntweckler för de Wikkipehdija Zero wähde";
 "account-creation-captcha-required" = "Et Kaptscha moß jepröhv wähde.";
 "account-creation-captcha-obtaining" = "Ben e neu Kaptscha aam holle.";
 "account-creation-logging-in" = "Aam Enlogge …";
@@ -82,6 +88,7 @@
 "search-searching" = "Aam söhke …";
 "search-no-matches" = "Nix jefonge beim Söhke.";
 "search-field-placeholder-text" = "En de Wikkipehdija söhke";
+"search-field-placeholder-text-zero" = "En de Wikkipehdija Zero söhke";
 "search-loading-section-zero" = "Ben de Aanfang vum Atikel aam lahde ...";
 "search-loading-section-remaining" = "Ben der Rääß vum Atikkel aam holle …";
 "search-loading-article-loaded" = "Atikel jelahe.";
@@ -101,6 +108,9 @@
 "settings-language-bar" = "Schprohche beim Söhke aanzeije";
 "settings-my-languages" = "Mih Schprohche";
 "settings-help-and-feedback" = "Hölp un Rökmäldonge";
+"settings-primary-language" = "Houpschprohch";
+// Fuzzy
+"settings-primary-language-details" = "De eezde Schprohch e heh dä Leß es och de Houpschprohch fö di Äpp. Di ze änndere bedügg, de dääschlesche Saache ze änndere, wi de Featured Sigge, di beijm Ußfochsche kumme.";
 "main-menu-title" = "Mih";
 "main-menu-heading-about" = "Övver";
 "main-menu-language-title" = "En de $1 Wikkipehdija söhke";
@@ -124,9 +134,11 @@
 "main-menu-show-page-history" = "De fröjere Verändoronge aan dä Sigg $1";
 "main-menu-credits" = "Aanäkännong för Beijdrähsch";
 "main-menu-about" = "Övver di Äpp";
+"main-menu-zero-faq" = "Öff jeschtallte Frohre övver de Wikkiphedija Zero, un de Antwoote dozoh";
 "main-menu-privacy-policy" = "Rääjelle för der Daateschotz un de Jeheimhaldung";
 "main-menu-terms-of-use" = "Bedengonge för der Jebruch";
 "main-menu-rate-app" = "Donn di Äpp beoordeijle";
+"main-menu-heading-zero" = "De Wikkiphedija Zero";
 "main-menu-heading-legal" = "Rääschlesche Krohm";
 "main-menu-show-today" = "Hügg";
 "main-menu-nearby" = "En de Nöhde";
@@ -199,8 +211,7 @@
 "about-repositories-app-source-license" = "De Projrmm-Quälle sin ze han onger $1.";
 "about-repositories-app-source-license-mit" = "dem MIT sing Lezänz";
 "about-send-feedback" = "En Rökmäldong jävve";
-// Fuzzy
-"about-product-of" = "Jemaht vun $1";
+"about-product-of" = "Jemaht vun de $1, zesamme med Lück wi Dir.";
 "about-wikimedia-foundation" = "de Wikkimehdija Schtefftong";
 "share-menu-save-page" = "De Sigg faßhallde";
 "share-menu-page-saved" = "För et Lässe der ohne Internet faßjehallde.";
@@ -276,6 +287,8 @@
 "nearby-distance-label-miles" = "$1 Meile";
 "nearby-pull-to-refresh-prompt" = "Trick zom neu Aanzeije";
 "nearby-pull-to-refresh-is-refreshing" = "Neu aam Lahde";
+"nearby-loading" = "Loading nearby articles...";
+"nearby-loaded" = "Nearby articles loaded";
 "nearby-none" = "mer han kein Atikele jevonge, di met jädd en dä Omjävong ze donn hätte.\nTrick, öm et tiräk norr_ens ze versöhke, udder donn dat schpääder.";
 "nearby-open-in-maps" = "Op der Landkaat zeihje";
 "nearby-cancel" = "Ophüre!";
@@ -303,12 +316,10 @@
 "hockeyapp-alert-privacy" = "Jeheimhalldong vun $1";
 "page-issues" = "Problehme met heh dä Sigg";
 "page-similar-titles" = "Ähnlejje Sigge";
-// Fuzzy
-"page-read-in-other-languages" = "En $1 Schprohche";
+"page-read-in-other-languages" = "En $1 annder Schprohche ze han";
 "page-last-edited" = "Vör $1 Dähsch verändert";
 "page-edit-history" = "De kumplätte Verjangeheijt";
 "captcha-reload" = "En annder Kaptscha";
-// Fuzzy
 "captcha-prompt" = "Jif dä Kaptscha-Täx vun dämm Belld en.";
 "mwk-empty-title-error" = "Medd_ene läddeje Övverschreff jeiht dat nit ze maache.";
 "home-title" = "Ußfochsche";
@@ -364,6 +375,7 @@
 "icon-shortcut-search-title" = "En de Wikkipehdija söhke";
 "icon-shortcut-continue-reading-title" = "Wigger lässe";
 "icon-shortcut-random-title" = "Ene zohfälleje Atikel";
+"icon-shortcut-nearby-title" = "Nearby articles";
 "close-button-accessibility-label" = "Zohmaache";
 "back-button-accessibility-label" = "Retuhr";
 "compass-direction" = "öm $1 Uhr";
@@ -380,3 +392,4 @@
 "explore-most-read-footer-for-date" = "All de mihts jelässe Sigge op $1";
 "explore-most-read-more-list-title" = "De mihts jelässe Sigge";
 "explore-most-read-more-list-title-for-date" = "Jähn jelässe aam $1";
+"no-email-account-alert" = "Bes esu johd un donn op Dingem Apparahd en Adräß för de e-mail ennreeschte.";

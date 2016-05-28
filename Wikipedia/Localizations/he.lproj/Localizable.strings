@@ -321,7 +321,7 @@
 "page-issues" = "בעיות בדף";
 "page-similar-titles" = "דפים דומים";
 "page-read-in-other-languages" = "זמין בעוד $1 שפות";
-"page-last-edited" = "נערך לפי $1 ימים";
+"page-last-edited" = "נערך לפני $1 ימים";
 "page-edit-history" = "היסטוריית עריכה מלאה";
 "captcha-reload" = "להראות תמונת אימות אחרת";
 "captcha-prompt" = "נא להזין את הטקסט מהתמונה לעיל";

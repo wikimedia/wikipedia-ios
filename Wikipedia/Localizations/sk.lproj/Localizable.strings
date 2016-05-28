@@ -106,6 +106,7 @@
 "settings-language" = "Jazyk Wikipédie";
 "settings-support" = "Podporte Wikipédiu";
 "settings-my-languages" = "Moje jazyky";
+"settings-help-and-feedback" = "Pomoc a spätná väzba";
 "main-menu-title" = "Viac";
 "main-menu-heading-about" = "O aplikácii";
 "main-menu-language-title" = "Hľadať v $1 Wikipédii";
@@ -220,6 +221,7 @@
 "button-save" = "Uložiť";
 "button-save-for-later" = "Uložiť na neskôr";
 "button-saved-for-later" = "Uložené na neskôr";
+"button-report-a-bug" = "Nahlásiť chybu";
 "onboarding-create-account" = "Vytvoriť účet";
 "onboarding-login" = "Prihlásiť sa";
 "onboarding-already-have-account" = "Máte už vytvorený účet? $1";
@@ -308,8 +310,7 @@
 "welcome-explore-continue-button" = "Začíname";
 "welcome-languages-title" = "Jazyky";
 "welcome-languages-sub-title" = "Zvoľte si jazyk, ktorý pri vyhľadávaní na Wikipédii uprednostňujete";
-// Fuzzy
-"welcome-languages-add-button" = "Pridať ďalší";
+"welcome-languages-add-button" = "Pridať ďalší jazyk";
 "welcome-languages-continue-button" = "Pokračovať";
 "welcome-volunteer-sub-title" = "Pomôžte nám skvalitňovať aplikáciu tým, že budete zdieľať informácie o jej používaní";
 "welcome-volunteer-send-usage-reports" = "Odosielať správu o používaní";

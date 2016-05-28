@@ -23,17 +23,16 @@
 "info-box-close-text" = "Luk";
 "table-title-other" = "Flere oplysninger";
 "saved-clear-all" = "Slet";
+"history-clear-all" = "Ryd";
 "history-label" = "Seneste";
 "history-section-today" = "I dag";
 "history-section-yesterday" = "I går";
 "history-section-lastweek" = "Sidste uge";
 "history-section-lastmonth" = "Sidste måned";
-// Fuzzy
-"history-clear-confirmation-heading" = "Slet alle de seneste emner?";
+"history-clear-confirmation-heading" = "Er du sikker på at du ønsker at slette alle dine seneste emner?";
 "history-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
 "history-clear-cancel" = "Annuller";
-// Fuzzy
-"history-clear-delete-all" = "Slet";
+"history-clear-delete-all" = "Ja, slet alt";
 "history-description" = "Du har formentlig slettet dem alle. Næste gang du går til en side, kan du komme tilbage til den her.";
 "history-none" = "Ingen nylige sider her.";
 "zero-free-verbiage" = "Gratis Wikipedia adgang fra din mobiloperatør (data gebyrer frafaldes)";
@@ -48,8 +47,7 @@
 "zero-learn-more-learn-more" = "Læs mere";
 "zero-learn-more-no-thanks" = "Luk";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
-// Fuzzy
-"zero-warn-when-leaving" = "Advar hvis jeg forlader Wikipedia Zero";
+"zero-warn-when-leaving" = "Advar hvis Zero forlades";
 "zero-settings-devmode" = "Zero udviklertilstand";
 "account-creation-captcha-required" = "CAPTCHA kontrol kræves.";
 "account-creation-captcha-obtaining" = "Henter en ny CAPTCHA.";
@@ -102,8 +100,7 @@
 "search-titles" = "Titler";
 "search-within-articles" = "Indhold i artikler";
 "search-did-you-mean" = "Mente du $1?";
-// Fuzzy
-"search-recent-title" = "Seneste søgninger";
+"search-recent-title" = "Seneste søgte";
 "search-recent-clear-confirmation-heading" = "Slet alle seneste søgninger?";
 "search-recent-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
 "search-recent-clear-cancel" = "Annullér";
@@ -114,6 +111,9 @@
 "settings-support" = "Støt Wikipedia";
 "settings-language-bar" = "Vis sprog ved søgning";
 "settings-my-languages" = "Mine sprog";
+"settings-help-and-feedback" = "Hjælp og tilbagemelding";
+"settings-primary-language" = "Primær";
+"settings-primary-language-details" = "Det første sprog i denne liste bruges som appens primære sprog. Ændres sprog ændres dagligt indhold (såsom Fremhævet artikel) som vises i Udforsk.";
 "main-menu-title" = "Mere";
 "main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Søg i Wikipedia på $1";
@@ -126,6 +126,7 @@
 "main-menu-account-login" = "Log på";
 "main-menu-account-logout" = "Log af";
 "main-menu-account-logout-are-you-sure" = "Er du sikker på at du ønsker at logge ud?";
+"main-menu-account-logout-cancel" = "Annuller";
 "main-menu-show-title" = "Vis mig...";
 "main-menu-show-history" = "Seneste";
 "main-menu-show-saved" = "Gemte sider";
@@ -159,6 +160,7 @@
 "saved-pages-refresh-cancel-alert-button" = "OK";
 "saved-pages-description" = "Gemte sider er ret seje. Tænk på dem som bogmærker, som du kan læse, selv når du er offline.";
 "saved-pages-none" = "Du har ingen gemte sider.";
+"saved-pages-image-download-error" = "Hentning af billeder mislykkedes for denne gemte side.";
 "history-title" = "Historie";
 "page-history-title" = "Artikelhistorik";
 "page-history-downloading" = "Indlæser artikelhistorik...";
@@ -203,7 +205,9 @@
 "about-libraries" = "anvendte biblioteker";
 "about-libraries-license" = "Licens";
 "about-libraries-licenses" = "Licenser";
+"about-content-license" = "Indholdslicens";
 "about-content-license-details" = "Medmindre andet er specificeret er indholdet tilgængeligt under $1.";
+"about-content-license-details-share-alike-license" = "Creative Commons Kreditering-DelPåSammeVilkår-licensen";
 "about-libraries-licenses-title" = "Vi elsker open source software $1";
 "about-libraries-complete-list" = "Fuldfør liste";
 "about-repositories" = "Arkiver";
@@ -237,6 +241,7 @@
 "button-save" = "Gem";
 "button-save-for-later" = "Gem til senere";
 "button-saved-for-later" = "Gemt til senere";
+"button-report-a-bug" = "Rapportér en fejl";
 "onboarding-create-account" = "Opret konto";
 "onboarding-login" = "Log på";
 "onboarding-already-have-account" = "Har du allerede en konto? $1";
@@ -250,8 +255,7 @@
 "page_protected_other" = "Denne side er beskyttet til følgende niveauer: $1";
 "page_protected_can_not_edit" = "Du har ikke rettigheder til at redigere denne side";
 "page_protected_can_not_edit_title" = "Denne side er beskyttet";
-// Fuzzy
-"license-footer-text" = "Indholdet er udgivet under $1";
+"license-footer-text" = "Indholdet er udgivet under $1 medmindre andet er angivet.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Indhold";
 "table-of-contents-button-label" = "Indholdsfortegnelse";
@@ -316,8 +320,7 @@
 "hockeyapp-alert-privacy" = "$1 privatliv";
 "page-issues" = "Problemer med siden";
 "page-similar-titles" = "Lignende sider";
-// Fuzzy
-"page-read-in-other-languages" = "Tilgængelig på $1 sprog";
+"page-read-in-other-languages" = "Tilgængelig på $1 andre sprog";
 "page-last-edited" = "Redigeret for $1 dage siden";
 "page-edit-history" = "Fuld redigerings historik";
 "captcha-reload" = "Vis en anden captcha";
@@ -332,11 +335,11 @@
 "home-nearby-footer" = "Mere fra nær din lokalitet";
 "home-nearby-location-footer" = "Mere nær $1";
 "home-nearby-nothing" = "Ingenting nær dig";
+"home-nearby-check-again" = "Tjek igen";
+"home-featured-article-heading" = "Fremhævet artikel for $1";
 "home-main-page-heading" = "I dag på Wikipedia";
 "home-potd-heading" = "Dagens billede for $1";
-// Fuzzy
-"home-last-update-label" = "Sidst opdateret $1";
-// Fuzzy
+"home-last-update-label" = "Sidst opdateret: $1";
 "home-last-update-never-label" = "Sidst opdateret: Aldrig";
 "home-updating-label" = "Opdaterer...";
 "home-hide-suggestion-prompt" = "Skjul dette forslag";
@@ -345,13 +348,51 @@
 "home-button-accessibility-label" = "Hjem Knap";
 "potd-empty-error-description" = "Kunne ikke hente billede af den dag, for $1";
 "potd-description-prefix" = "Dagens billede for $1";
+"welcome-explore-title" = "Udforsk";
 "welcome-explore-sub-title" = "En ny måde at opdage interessante artikler hver dag";
 "welcome-explore-tell-me-more" = "Fortæl mig mere";
 "welcome-explore-tell-me-more-about-explore" = "Mere om at Udforske";
+"welcome-explore-tell-me-more-details" = "Når du læser en artikel bliver relaterede artikler automatisk tilføjet til dit Udforsk-feed. Dette ændrer ikke på hvordan vi indsamler dine oplysninger og din læsehistorik er stadig privat.";
+"welcome-explore-tell-me-more-related" = "Udforsk-feedet viser dig artikler relateret til artikler som du har læst.";
+"welcome-explore-tell-me-more-privacy" = "Ingen læseliste eller profil gemmes på vores servere.";
+"welcome-explore-tell-me-more-done-button" = "Forstået";
+"welcome-explore-continue-button" = "Kom i gang";
 "welcome-languages-title" = "Sprog";
+"welcome-languages-sub-title" = "Vælg dine foretrukne sprog at søge på i Wikipedia";
+"welcome-languages-add-button" = "Tilføj et andet sprog";
 "welcome-languages-continue-button" = "Fortsæt";
+"welcome-volunteer-sub-title" = "Hjælpe med at forbedre Wikipedia appen ved at dele hvordan du bruger den";
+"welcome-volunteer-send-usage-reports" = "Send anvendelsesrapporter";
 "welcome-volunteer-continue-button" = "Fortsæt";
 "welcome-volunteer-thanks" = "$1 Tak!";
 "empty-no-feed-title" = "Ingen internetforbindelse";
+"empty-no-feed-message" = "Du kan se dine anbefalede artikler når du har internetforbindelse";
+"empty-no-feed-action-message" = "Du kan stadig læse gemte sider";
+"empty-no-article-message" = "Beklager, kunne ikke indlæse artiklen";
 "empty-no-search-results-message" = "Ingen resultater fundet";
+"empty-no-saved-pages-title" = "Ingen gemte sider endnu";
+"empty-no-saved-pages-message" = "Gem sider for at læse dem senere, selv offline";
+"empty-no-history-title" = "Ingen historik at vise";
+"empty-no-history-message" = "Hold styr på hvad du har læst her";
+"alert-no-internet" = "Der er ingen internetforbindelse";
+"icon-shortcut-search-title" = "Søg i Wikipedia";
+"icon-shortcut-continue-reading-title" = "Fortsæt læsning";
+"icon-shortcut-random-title" = "Tilfældig artikel";
+"icon-shortcut-nearby-title" = "Artikler i nærheden";
+"close-button-accessibility-label" = "Luk";
+"back-button-accessibility-label" = "Tilbage";
+"compass-direction" = "mod klokken $1";
+"explore-featured-article-heading" = "Fremhævet artikel";
+"explore-continue-reading-heading" = "Fortsæt læsning";
+"explore-nearby-heading" = "Steder i nærheden";
+"explore-continue-related-heading" = "Fordi du læste";
+"explore-main-page-heading" = "I dag på Wikipedia";
+"explore-random-article-heading" = "Tilfældig artikel";
+"explore-random-article-sub-heading" = "Engelsk Wikipedia";
+"explore-potd-heading" = "Dagens billede";
+"explore-most-read-heading" = "Mest læste på $1 Wikipedia";
+"explore-most-read-footer" = "Alle mest læste artikler";
+"explore-most-read-footer-for-date" = "Alle mest læste artikler på $1";
 "explore-most-read-more-list-title" = "Top artikler";
+"explore-most-read-more-list-title-for-date" = "Mest læst d. $1";
+"no-email-account-alert" = "Opsæt venligst en e-mail-konto på din enhed og forsøg igen.";
