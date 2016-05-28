@@ -333,6 +333,7 @@ NS_ASSUME_NONNULL_BEGIN
     for (UITableViewCell* cell in self.tableView.visibleCells) {
         [cell setSelected:NO animated:NO];
     }
+    [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
