@@ -233,10 +233,14 @@
 "welcome-explore-tell-me-more-done-button" = "وپوهېدم";
 "welcome-explore-continue-button" = "پيلول";
 "welcome-languages-title" = "ژبې";
-// Fuzzy
-"welcome-languages-add-button" = "بل ورگډول";
+"welcome-languages-add-button" = "بله ژبه ورگډول";
+"welcome-languages-continue-button" = "پرله پورې";
+"welcome-volunteer-send-usage-reports" = "د کارېدنې راپورونه لېږل";
+"welcome-volunteer-continue-button" = "پرله پورې";
 "welcome-volunteer-thanks" = "$1 له تاسو مننه!";
 "empty-no-feed-title" = "انټرنټي اړيکتيا نشته";
+"empty-no-feed-action-message" = "لا تر اوسه پورې تاسو خوندي مخونه لوستلی شئ";
+"empty-no-article-message" = "اوبخښئ، ليکنه رابرسېره نه شوه";
 "empty-no-search-results-message" = "کومې پايلې و نه موندل شوې";
 "empty-no-saved-pages-title" = "لا تر اوسه پورې خوندي مخونه نشته";
 "empty-no-history-title" = "د ښکاره کولو لپاره کوم پېښليک نشته";
@@ -256,4 +260,6 @@
 "explore-random-article-sub-heading" = "انگرېزي ويکيپېډيا";
 "explore-potd-heading" = "د نن ورځې انځور";
 "explore-most-read-heading" = "پر $1 ويکيپېډيا تر ټولو ډېر لوستل شوي";
+"explore-most-read-footer" = "ټولې ډېرې لوستل شوې ليکنې";
+"explore-most-read-footer-for-date" = "په $1 ټولې ډېرې لوستل شوې ليکنې";
 "explore-most-read-more-list-title" = "د سر ليکنې";
