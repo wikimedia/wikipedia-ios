@@ -108,6 +108,9 @@
 "settings-support" = "Susțineți Wikipedia";
 "settings-language-bar" = "Arată limbile la căutări";
 "settings-my-languages" = "Limbile mele";
+"settings-help-and-feedback" = "Asistență și comentarii";
+"settings-primary-language" = "Principală";
+"settings-primary-language-details" = "Prima poziție din această listă reprezintă limba principală a aplicației. Modificarea acestei limbi va conduce la modificarea conținutului zilnic (precum Articole de calitate) afișat în secțiunea Explorare.";
 "main-menu-title" = "Mai mult";
 "main-menu-heading-about" = "Despre";
 "main-menu-language-title" = "Căutare pe wiki în limba $1";
@@ -235,6 +238,7 @@
 "button-save" = "Salvare";
 "button-save-for-later" = "Salvează pentru mai târziu";
 "button-saved-for-later" = "Salvat pentru mai târziu";
+"button-report-a-bug" = "Raportare eroare";
 "onboarding-create-account" = "Creare cont";
 "onboarding-login" = "Autentificare";
 "onboarding-already-have-account" = "Aveți deja un cont? $1";
@@ -352,8 +356,7 @@
 "welcome-explore-continue-button" = "Să începem";
 "welcome-languages-title" = "Limbi";
 "welcome-languages-sub-title" = "Alegeți limbile preferate în care doriți să căutați pe Wikipedia";
-// Fuzzy
-"welcome-languages-add-button" = "Adaugă încă una";
+"welcome-languages-add-button" = "Adaugă încă o limbă";
 "welcome-languages-continue-button" = "Continuă";
 "welcome-volunteer-title" = "Voluntariat";
 "welcome-volunteer-sub-title" = "Ajutați-ne să îmbunătățim aplicația Wikipedia, partajând modul în care o folosiți";
