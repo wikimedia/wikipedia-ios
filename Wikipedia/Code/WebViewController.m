@@ -148,22 +148,16 @@ NSString* const WMFCCBySALicenseURL =
     // should happen in will appear to prevent bar from being incorrect during transitions
     [self updateZeroState];
 
-    @weakify(self);
-    void (^ saveOpenArticleTitleBlock)(NSNotification*) = ^void (NSNotification* notification) {
-        @strongify(self);
-        if (self.navigationController.topViewController == self.parentViewController) { // Ensure only the topmost article is recorded.
-            [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
-        }
-    };
-
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
-                                                      object:nil
-                                                       queue:nil
-                                                  usingBlock:saveOpenArticleTitleBlock];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(saveOpenArticleTitleWithCurrentlyOnscreenFragment)
+                                                 name:UIApplicationWillResignActiveNotification
+                                               object:nil];
 }
 
 - (void)saveOpenArticleTitleWithCurrentlyOnscreenFragment {
-    [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:[self articleTitleWithCurrentlyOnScreenFragment]];
+    if (self.navigationController.topViewController == self.parentViewController) { // Ensure only the topmost article is recorded.
+        [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:[self articleTitleWithCurrentlyOnScreenFragment]];
+    }
 }
 
 - (MWKTitle*)articleTitleWithCurrentlyOnScreenFragment {
