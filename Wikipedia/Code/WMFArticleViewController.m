@@ -645,7 +645,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:self.articleTitle];
     [self.reachabilityManager startMonitoring];
 }
 
@@ -657,17 +656,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
     [self removeProgressView];
-    //HACK: we are dispatching this because viewWillDisappear is called even when the app is being terminated.
-    //We use the open article to restore the current article on launch, so doing this is not acceptable
-    //By dispatching we make sure the code in the block is never executed when the app closes (but is called otherwise)
-    //(it will not wait for a pending GCD call)
-    //We should move to the restoration APIs for restoring the open article to get aroudn this.
-    //NOTE: this method is not invoked when moving to the background
-    dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
-        if ([[[NSUserDefaults standardUserDefaults] wmf_openArticleTitle] isEqualToTitle:self.articleTitle]) {
-            [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
-        }
-    });
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

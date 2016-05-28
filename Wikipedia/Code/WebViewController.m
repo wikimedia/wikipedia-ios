@@ -306,12 +306,32 @@ NSString* const WMFCCBySALicenseURL =
                                                object:nil];
     // should happen in will appear to prevent bar from being incorrect during transitions
     [self updateZeroState];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(saveOpenArticleTitleWithCurrentlyOnscreenFragment)
+                                                 name:UIApplicationWillResignActiveNotification
+                                               object:nil];
+}
+
+- (void)saveOpenArticleTitleWithCurrentlyOnscreenFragment {
+    if (self.navigationController.topViewController == self.parentViewController) { // Ensure only the topmost article is recorded.
+        [self getCurrentVisibleSectionCompletion:^(MWKSection* visibleSection, NSError* error){
+            if (!error && visibleSection) {
+                MWKTitle* articleTitleWithCurrentlyOnScreenFragment =
+                    [[MWKTitle alloc] initWithSite:self.article.title.site
+                                   normalizedTitle:self.article.title.text
+                                          fragment:visibleSection.anchor];
+                [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:articleTitleWithCurrentlyOnScreenFragment];
+            }
+        }];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     self.webView.scrollView.delegate = nil;
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroDispositionDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
 
 - (BOOL)prefersStatusBarHidden {

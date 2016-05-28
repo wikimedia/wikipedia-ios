@@ -149,7 +149,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Need to specify storage properties since text & site are readonly, which Mantle interprets as transitory.
 + (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString*)propertyKey {
-    #define IS_MWKTITLE_KEY(key) [propertyKey isEqualToString : WMF_SAFE_KEYPATH([MWKTitle new], key)]
+#define IS_MWKTITLE_KEY(key) [propertyKey isEqualToString : WMF_SAFE_KEYPATH([MWKTitle new], key)]
     if (IS_MWKTITLE_KEY(text) || IS_MWKTITLE_KEY(site) || IS_MWKTITLE_KEY(fragment)) {
         return MTLPropertyStoragePermanent;
     } else {
