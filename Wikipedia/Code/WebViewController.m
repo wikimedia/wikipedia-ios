@@ -588,7 +588,7 @@ NSString* const WMFCCBySALicenseURL =
             completion(nil, error);
         } else {
             NSInteger indexOfFirstOnscreenSection = ((NSNumber*)obj).integerValue;
-            completion(indexOfFirstOnscreenSection == NSNotFound ? nil : self.article.sections[indexOfFirstOnscreenSection], error);
+            completion(indexOfFirstOnscreenSection == -1 ? nil : self.article.sections[indexOfFirstOnscreenSection], error);
         }
     }];
 }
