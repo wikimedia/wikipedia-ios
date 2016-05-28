@@ -6,9 +6,9 @@
 @interface WKWebView (LoadAssetsHtml)
 
 // Loads contents of fileName. Assumes the file is in the "assets" folder.
-- (void)loadHTMLFromAssetsFile:(NSString*)fileName;
+- (void)loadHTMLFromAssetsFile:(NSString*)fileName scrolledToFragment:(NSString*)fragment;
 
 // Loads html passed to it injected into html from fileName.
-- (void)loadHTML:(NSString*)string withAssetsFile:(NSString*)fileName;
+- (void)loadHTML:(NSString*)string withAssetsFile:(NSString*)fileName scrolledToFragment:(NSString*)fragment topPadding:(NSUInteger)topPadding;
 
 @end

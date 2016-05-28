@@ -68,7 +68,7 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self unobserveTopAndBottomNativeViewFrames];
+    [self unobserveFooterContainerViewFrame];
 }
 
 - (instancetype)initWithCoder:(NSCoder*)aDecoder {
@@ -137,10 +137,16 @@ NSString* const WMFCCBySALicenseURL =
             NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
             [self.delegate webViewController:self didLoadArticle:self.article];
 
-            [self.headerHeight setOffset:[self headerHeightForCurrentTraitCollection]];
+            [UIView animateWithDuration:0.3
+                                  delay:0.5f
+                                options:UIViewAnimationOptionBeginFromCurrentState
+                             animations:^{
+                self.headerView.alpha = 1.f;
+                self.footerContainerView.alpha = 1.f;
+            } completion:^(BOOL done) {
+            }];
 
-            // Force the bounds observers to fire - otherwise the html padding isn't added on article refresh.
-            self.headerView.bounds          = self.headerView.bounds;
+            // Force the footer bounds observers to fire - otherwise the html body tag's bottom-padding isn't updated on article refresh.
             self.footerContainerView.bounds = self.footerContainerView.bounds;
         }
     } else if ([message.name isEqualToString:@"clicks"]) {
@@ -281,7 +287,7 @@ NSString* const WMFCCBySALicenseURL =
 
     self.view.backgroundColor = CHROME_COLOR;
 
-    [self observeTopAndBottomNativeViewFrames];
+    [self observeFooterContainerViewFrame];
 
     [self displayArticle];
 }
@@ -315,31 +321,13 @@ NSString* const WMFCCBySALicenseURL =
 #pragma mark - Observations
 
 /**
- *  Observe changes to the native header and footer so we can message back to the html to add top and bottom padding to html body tag
+ *  Observe changes to the native footer frame so we can message back to the html to add bottom padding to html body tag
  */
-- (void)unobserveTopAndBottomNativeViewFrames {
-    [self.KVOControllerNonRetaining unobserve:self.headerView];
+- (void)unobserveFooterContainerViewFrame {
     [self.KVOControllerNonRetaining unobserve:self.footerContainerView];
 }
 
-- (void)observeTopAndBottomNativeViewFrames {
-    [self.KVOControllerNonRetaining observe:self.headerView
-                                    keyPath:WMF_SAFE_KEYPATH(self.headerView, bounds)
-                                    options:NSKeyValueObservingOptionInitial
-                                      block:^(WebViewController* observer, UIView* view, NSDictionary* change) {
-        if (!view) {
-            return;
-        }
-        NSInteger height = (NSInteger)(floor(view.bounds.size.height));
-        NSString* js =
-            [NSString stringWithFormat:@""
-             "document.getElementsByTagName('BODY')[0].style.paddingTop = '%ldpx';"
-             , (long)height];
-        if (observer.webView) {
-            [observer.webView evaluateJavaScript:js completionHandler:nil];
-        }
-    }];
-
+- (void)observeFooterContainerViewFrame {
     [self.KVOControllerNonRetaining observe:self.footerContainerView
                                     keyPath:WMF_SAFE_KEYPATH(self.footerContainerView, bounds)
                                     options:NSKeyValueObservingOptionInitial
@@ -438,7 +426,7 @@ NSString* const WMFCCBySALicenseURL =
         // lead/trail must be constained to webview, the scrollview doesn't define a width
         make.leading.and.trailing.equalTo(self.webView);
         make.top.equalTo(self.webView.scrollView);
-        self.headerHeight = make.height.equalTo(@([self headerHeightForCurrentTraitCollection]));
+        self.headerHeight = make.height.equalTo(@(0));
     }];
 }
 
@@ -550,19 +538,11 @@ NSString* const WMFCCBySALicenseURL =
     _headerView = headerView;
 }
 
-- (CGFloat)headerHeightForCurrentTraitCollection {
-    return [self headerHeightForTraitCollection:self.traitCollection];
-}
-
-- (CGFloat)headerHeightForTraitCollection:(UITraitCollection*)traitCollection {
+- (CGFloat)headerHeightForCurrentArticle {
     if (self.article.isMain || !self.article.imageURL || [self.article.title isNonStandardTitle]) {
         return 0;
-    }
-    switch (traitCollection.verticalSizeClass) {
-        case UIUserInterfaceSizeClassRegular:
-            return 210;
-        default:
-            return 0;
+    } else {
+        return 210;
     }
 }
 
@@ -665,7 +645,12 @@ NSString* const WMFCCBySALicenseURL =
         return;
     }
 
-    [self.webView loadHTML:[self.article articleHTML] withAssetsFile:@"index.html"];
+    self.headerView.alpha          = 0.f;
+    self.footerContainerView.alpha = 0.f;
+    CGFloat headerHeight = [self headerHeightForCurrentArticle];
+    [self.headerHeight setOffset:headerHeight];
+
+    [self.webView loadHTML:[self.article articleHTML] withAssetsFile:@"index.html" scrolledToFragment:self.article.title.fragment topPadding:headerHeight];
 
     UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
                                                           action:@selector(shareMenuItemTapped:)];

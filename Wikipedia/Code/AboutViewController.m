@@ -85,7 +85,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
     }];
 
     wv.navigationDelegate = self;
-    [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile];
+    [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:nil];
     self.webView = wv;
 
     @weakify(self)
@@ -96,7 +96,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
     self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft handler:^(id sender){
         @strongify(self)
-        [self.webView loadHTMLFromAssetsFile : kWMFAboutHTMLFile];
+        [self.webView loadHTMLFromAssetsFile : kWMFAboutHTMLFile scrolledToFragment : nil];
     }];
 
     [self updateNavigationBar];

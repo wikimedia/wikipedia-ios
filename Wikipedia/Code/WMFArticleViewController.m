@@ -927,29 +927,6 @@ NS_ASSUME_NONNULL_BEGIN
     return index;
 }
 
-#pragma mark - Scroll Position and Fragments
-
-- (void)scrollWebViewToRequestedPosition {
-    if (self.articleTitle.fragment) {
-        [self.webViewController scrollToFragment:self.articleTitle.fragment];
-    } else if (self.restoreScrollPositionOnArticleLoad && self.historyEntry.scrollPosition > 0) {
-        self.restoreScrollPositionOnArticleLoad = NO;
-        [self.webViewController scrollToVerticalOffset:self.historyEntry.scrollPosition];
-    }
-    [self markFragmentAsProcessed];
-}
-
-- (void)markFragmentAsProcessed {
-    //Create a title without the fragment so it wont be followed anymore
-    self.articleTitle = [[MWKTitle alloc] initWithSite:self.articleTitle.site normalizedTitle:self.articleTitle.text fragment:nil];
-}
-
-#pragma mark - WebView Transition
-
-- (void)showWebViewAtFragment:(NSString*)fragment animated:(BOOL)animated {
-    [self.webViewController scrollToFragment:fragment];
-}
-
 #pragma mark - WMFWebViewControllerDelegate
 
 - (void)         webViewController:(WebViewController*)controller
@@ -966,7 +943,7 @@ NS_ASSUME_NONNULL_BEGIN
             [self peekTableOfContentsIfNeccesary];
         });
     }];
-    [self scrollWebViewToRequestedPosition];
+
     [self.delegate articleControllerDidLoadArticle:self];
     [self fetchReadMoreIfNeeded];
 }

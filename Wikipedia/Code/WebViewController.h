@@ -35,23 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- *  Animates the scroll view to the given fragment in the browser view.
- *
- *  @param fragment The fragment to scroll to.
- *
- *  @see scrollToFragment:animated:
- */
-- (void)scrollToFragment:(NSString*)fragment;
-
-/**
- *  Scroll to the given fragment in the browser view.
- *
- *  @param fragment The fragment to scroll to.
- *  @param animated Whether or not to animate
- */
-- (void)scrollToFragment:(NSString*)fragment animated:(BOOL)animated;
-
-/**
  *  Scroll to the @c anchor of the given section.
  *
  *  @param section  The section to scroll to.

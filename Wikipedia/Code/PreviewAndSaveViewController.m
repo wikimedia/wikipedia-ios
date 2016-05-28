@@ -472,7 +472,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [[WMFAlertManager sharedInstance] dismissAlert];
 
-                [self.previewWebViewContainer.webView loadHTML:fetchedData withAssetsFile:@"preview.html"];
+                [self.previewWebViewContainer.webView loadHTML:fetchedData withAssetsFile:@"preview.html" scrolledToFragment:nil topPadding:0];
             }
             break;
             case FETCH_FINAL_STATUS_FAILED: {
