@@ -45,6 +45,39 @@ static NSString* const kWMFLicenseRedirectResourceIdentifier = @"blank";
 
 static NSString* const kWMFContributorsKey = @"contributors";
 
+@interface WKWebView (AboutViewControllerJavascript)
+
+@end
+
+@implementation WKWebView (AboutViewControllerJavascript)
+
+- (void)wmf_setInnerHTML:(NSString*)html ofElementId:(NSString*)elementId {
+    // Valid JSON object needs to be an array or dictionary.
+    NSArray* arrayForEncoding = @[html];
+    // Rely on NSJSONSerialization for string escaping: http://stackoverflow.com/a/13569786
+    NSString* jsonString    = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:arrayForEncoding options:0 error:nil] encoding:NSUTF8StringEncoding];
+    NSString* escapedString = [jsonString substringWithRange:NSMakeRange(2, jsonString.length - 4)];
+
+    [self evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('%@').innerHTML = \"%@\";", elementId, escapedString] completionHandler:NULL];
+};
+
+- (void)wmf_setTextDirection {
+    NSString* textDirection   = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
+    NSString* textDirectionJS = [NSString stringWithFormat:@"document.body.style.direction = '%@'", textDirection];
+    [self evaluateJavaScript:textDirectionJS completionHandler:nil];
+}
+
+- (void)wmf_setTextFontSize {
+    NSString* fontSizeJS = [NSString stringWithFormat:@"document.body.style.fontSize = '%f%%'", (MENUS_SCALE_MULTIPLIER * 100.0f)];
+    [self evaluateJavaScript:fontSizeJS completionHandler:nil];
+}
+
+- (void)wmf_preventTextFromExpandingOnRotation {
+    [self evaluateJavaScript:@"document.getElementsByTagName('body')[0].style['-webkit-text-size-adjust'] = 'none';" completionHandler:nil];
+}
+
+@end
+
 @interface TharlonFontAcknowledgement : VTAcknowledgement
 @end
 
@@ -165,18 +198,8 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
 
 - (void)injectAboutPageContentIntoWebView:(WKWebView*)webView {
-    NSString*(^ stringEscapedForJavasacript)(NSString*) = ^NSString*(NSString* string) {
-        // FROM: http://stackoverflow.com/a/13569786
-        // valid JSON object need to be an array or dictionary
-        NSArray* arrayForEncoding = @[string];
-        NSString* jsonString      = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:arrayForEncoding options:0 error:nil] encoding:NSUTF8StringEncoding];
-        NSString* escapedString   = [jsonString substringWithRange:NSMakeRange(2, jsonString.length - 4)];
-        return escapedString;
-    };
-
     void (^ setDivHTML)(NSString*, NSString*) = ^void (NSString* divId, NSString* twnString) {
-        twnString = stringEscapedForJavasacript(twnString);
-        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('%@').innerHTML = \"%@\";", divId, twnString] completionHandler:NULL];
+        [self.webView wmf_setInnerHTML:twnString ofElementId:divId];
     };
 
     setDivHTML(@"version", [[NSBundle mainBundle] wmf_versionForCurrentBundleIdentifier]);
@@ -203,12 +226,8 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
     setDivHTML(@"footer", [self stringFromLocalizationKey:@"about-product-of" urlKey:kWMFURLsWikimediaKey urlLocalizationKey:@"about-wikimedia-foundation"]);
 
-    NSString* textDirection   = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
-    NSString* textDirectionJS = [NSString stringWithFormat:@"document.body.style.direction = '%@'", textDirection];
-    [webView evaluateJavaScript:textDirectionJS completionHandler:nil];
-
-    NSString* fontSizeJS = [NSString stringWithFormat:@"document.body.style.fontSize = '%f%%'", (MENUS_SCALE_MULTIPLIER * 100.0f)];
-    [webView evaluateJavaScript:fontSizeJS completionHandler:nil];
+    [webView wmf_setTextDirection];
+    [webView wmf_setTextFontSize];
 }
 
 - (NSString*)stringFromLocalizationKey:(NSString*)localizationKey
@@ -267,13 +286,9 @@ static NSString* const kWMFContributorsKey = @"contributors";
     if (!([[self class] isLicenseURL:[webView URL]] || [[self class] isLicenseRedirectURL:[webView URL]])) {
         [self injectAboutPageContentIntoWebView:webView];
     } else {
-        [self preventTextFromExpandingOnRotationInWebView:webView];
+        [webView wmf_preventTextFromExpandingOnRotation];
     }
     [self updateNavigationBar];
-}
-
-- (void)preventTextFromExpandingOnRotationInWebView:(WKWebView*)webView {
-    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style['-webkit-text-size-adjust'] = 'none';" completionHandler:nil];
 }
 
 #pragma mark - Utility Methods
