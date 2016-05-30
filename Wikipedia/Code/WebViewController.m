@@ -341,7 +341,8 @@ NSString* const WMFCCBySALicenseURL =
 #pragma mark - Observations
 
 /**
- *  Observe changes to the native footer bounds so we can message back to the html to add bottom padding to html body tag
+ *  Observe changes to the native footer bounds so we can message back to the html to
+ *  add bottom padding to html body tag to make room for the native footerContainerView overlay.
  */
 - (void)unobserveFooterContainerViewBounds {
     [self.KVOControllerNonRetaining unobserve:self.footerContainerView];
@@ -352,18 +353,15 @@ NSString* const WMFCCBySALicenseURL =
                                     keyPath:WMF_SAFE_KEYPATH(self.footerContainerView, bounds)
                                     options:NSKeyValueObservingOptionInitial
                                       block:^(WebViewController* observer, UIView* view, NSDictionary* change) {
-        if (!view) {
-            return;
-        }
-        NSInteger height = (NSInteger)(floor(view.bounds.size.height));
-        NSString* js =
-            [NSString stringWithFormat:@""
-             "document.getElementsByTagName('BODY')[0].style.paddingBottom = '%ldpx';"
-             , (long)height];
-        if (observer.webView) {
-            [observer.webView evaluateJavaScript:js completionHandler:nil];
+        if (view && observer.webView) {
+            [self webView:observer.webView setBottomPadding:(NSInteger)(floor(view.bounds.size.height))];
         }
     }];
+}
+
+- (void)webView:(WKWebView*)webView setBottomPadding:(NSInteger)bottomPadding {
+    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementsByTagName('BODY')[0].style.paddingBottom = '%ldpx';", (long)bottomPadding]
+              completionHandler:nil];
 }
 
 #pragma mark - UIScrollViewDelegate
