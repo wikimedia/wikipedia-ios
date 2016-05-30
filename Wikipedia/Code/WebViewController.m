@@ -441,6 +441,7 @@ NSString* const WMFCCBySALicenseURL =
     if (!self.headerView) {
         return;
     }
+    self.headerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.webView.scrollView addSubview:self.headerView];
     [self.headerView mas_makeConstraints:^(MASConstraintMaker* make) {
         // lead/trail must be constained to webview, the scrollview doesn't define a width
@@ -484,6 +485,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)addFooterContainerView {
+    self.footerContainerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.webView.scrollView addSubview:self.footerContainerView];
     [self.footerContainerView mas_remakeConstraints:^(MASConstraintMaker* make) {
         // lead/trail must be constained to webview, the scrollview doesn't define a width
@@ -505,6 +507,7 @@ NSString* const WMFCCBySALicenseURL =
             WMFArticleFooterViewHeader* header = [WMFArticleFooterViewHeader wmf_viewFromClassNib];
             self.footerViewHeadersByIndex[@([self.footerViewControllers indexOfObject:childVC])] = header;
             header.headerLabel.text = footerTitle;
+            header.translatesAutoresizingMaskIntoConstraints = NO;
             [self.footerContainerView addSubview:header];
             [header mas_remakeConstraints:^(MASConstraintMaker* make) {
                 make.leading.and.trailing.equalTo(self.footerContainerView);
@@ -513,6 +516,7 @@ NSString* const WMFCCBySALicenseURL =
             topAnchor = header.mas_bottom;
         }
 
+        childVC.view.translatesAutoresizingMaskIntoConstraints = NO;
         [self.footerContainerView addSubview:childVC.view];
         [childVC.view mas_remakeConstraints:^(MASConstraintMaker* make) {
             make.leading.and.trailing.equalTo(self.footerContainerView);
@@ -526,6 +530,7 @@ NSString* const WMFCCBySALicenseURL =
         lastAnchor = self.footerContainerView.mas_top;
     }
 
+    self.footerLicenseView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.footerContainerView addSubview:self.footerLicenseView];
     [self.footerLicenseView mas_remakeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(lastAnchor);
