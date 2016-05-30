@@ -68,7 +68,7 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self unobserveFooterContainerViewFrame];
+    [self unobserveFooterContainerViewBounds];
 }
 
 - (instancetype)initWithCoder:(NSCoder*)aDecoder {
@@ -287,7 +287,7 @@ NSString* const WMFCCBySALicenseURL =
 
     self.view.backgroundColor = CHROME_COLOR;
 
-    [self observeFooterContainerViewFrame];
+    [self observeFooterContainerViewBounds];
 
     [self displayArticle];
 }
@@ -341,13 +341,13 @@ NSString* const WMFCCBySALicenseURL =
 #pragma mark - Observations
 
 /**
- *  Observe changes to the native footer frame so we can message back to the html to add bottom padding to html body tag
+ *  Observe changes to the native footer bounds so we can message back to the html to add bottom padding to html body tag
  */
-- (void)unobserveFooterContainerViewFrame {
+- (void)unobserveFooterContainerViewBounds {
     [self.KVOControllerNonRetaining unobserve:self.footerContainerView];
 }
 
-- (void)observeFooterContainerViewFrame {
+- (void)observeFooterContainerViewBounds {
     [self.KVOControllerNonRetaining observe:self.footerContainerView
                                     keyPath:WMF_SAFE_KEYPATH(self.footerContainerView, bounds)
                                     options:NSKeyValueObservingOptionInitial
