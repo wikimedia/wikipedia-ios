@@ -62,6 +62,7 @@
 #import "NSURL+WMFExtras.h"
 #import "UIToolbar+WMFStyling.h"
 #import <Tweaks/FBTweakInline.h>
+#import "WKWebView+WMFWebViewControllerJavascript.h"
 
 @import SafariServices;
 
@@ -345,7 +346,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)getShareText:(void (^)(NSString* text))completion {
-    [self.webViewController getSelectedText:^(NSString* _Nonnull text) {
+    [self.webViewController.webView wmf_getSelectedText:^(NSString* _Nonnull text) {
         if (text.length == 0) {
             text = [self.article shareSnippet];
         }

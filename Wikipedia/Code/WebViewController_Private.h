@@ -37,9 +37,6 @@
 
 // TODO: rename the WebViewControllerVariableNames once we rename this class
 
-// Some dialects have complex characters, so we use 2 instead of 10
-static int const kMinimumTextSelectionLength = 2;
-
 @interface WebViewController ()
 
 @property (nonatomic, strong, readwrite) WKWebView* webView;

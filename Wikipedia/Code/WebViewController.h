@@ -28,13 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) UIEdgeInsets contentInsets;
 
 /**
- * Currently-selected text in the webview, if there is any.
- * @return The selection if it's longer than `kMinimumTextSelectionLength`, otherwise an empty string.
- */
-- (void)getSelectedText:(void (^)(NSString* text))completion;
-
-
-/**
  *  Scroll to the @c anchor of the given section.
  *
  *  @param section  The section to scroll to.

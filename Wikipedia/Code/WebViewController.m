@@ -32,6 +32,7 @@
 
 #import "WMFZeroMessage.h"
 #import "WKWebView+LoadAssetsHtml.h"
+#import "WKWebView+WMFWebViewControllerJavascript.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -94,37 +95,16 @@ NSString* const WMFCCBySALicenseURL =
 
 #pragma mark - WebView Javascript configuration
 
-- (NSString*)apostropheEscapedArticleLanguageLocalizedStringForKey:(NSString*)key {
-    return [MWSiteLocalizedString(self.article.site, key, nil) stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
-}
-
-- (NSString*)tableTransformJS {
-    return
-        [NSString stringWithFormat:@"window.wmf.transformer.transform('hideTables', document, %d, '%@', '%@', '%@');",
-         self.article.isMain,
-         [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-title"],
-         [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"table-title-other"],
-         [self apostropheEscapedArticleLanguageLocalizedStringForKey:@"info-box-close-text"]
-        ];
-}
-
 - (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message {
     if ([message.name isEqualToString:@"peek"]) {
         self.peekURLString = message.body[@"touchedElementURL"];
     } else if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
         if ([message.body isEqualToString:@"collapseTables"]) {
-            [self.webView evaluateJavaScript:[self tableTransformJS] completionHandler:nil];
+            [self.webView wmf_collapseTablesForArticle:self.article];
         } else if ([message.body isEqualToString:@"setLanguage"]) {
-            MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.site.language];
-            NSString* uidir              = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
-
-            [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.utilities.setLanguage('%@', '%@', '%@')",
-                                              languageInfo.code,
-                                              languageInfo.dir,
-                                              uidir
-             ] completionHandler:nil];
+            [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.site.language]];
         } else if ([message.body isEqualToString:@"setPageProtected"] && !self.article.editable) {
-            [self.webView evaluateJavaScript:@"window.wmf.utilities.setPageProtected()" completionHandler:nil];
+            [self.webView wmf_setPageProtected];
         }
     } else if ([message.name isEqualToString:@"sendJavascriptConsoleLogMessageToXcodeConsole"]) {
 #if DEBUG
@@ -354,14 +334,9 @@ NSString* const WMFCCBySALicenseURL =
                                     options:NSKeyValueObservingOptionInitial
                                       block:^(WebViewController* observer, UIView* view, NSDictionary* change) {
         if (view && observer.webView) {
-            [self webView:observer.webView setBottomPadding:(NSInteger)(floor(view.bounds.size.height))];
+            [observer.webView wmf_setBottomPadding:(NSInteger)(floor(view.bounds.size.height))];
         }
     }];
-}
-
-- (void)webView:(WKWebView*)webView setBottomPadding:(NSInteger)bottomPadding {
-    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementsByTagName('BODY')[0].style.paddingBottom = '%ldpx';", (long)bottomPadding]
-              completionHandler:nil];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -581,7 +556,7 @@ NSString* const WMFCCBySALicenseURL =
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
     } else {
         if (!animated) {
-            [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.utilities.scrollToFragment('%@')", fragment] completionHandler:nil];
+            [self.webView wmf_scrollToFragment:fragment];
             return;
         }
         [self.webView getScrollViewRectForHtmlElementWithId:fragment completion:^(CGRect rect) {
@@ -600,9 +575,7 @@ NSString* const WMFCCBySALicenseURL =
 - (void)accessibilityCursorToSection:(MWKSection*)section {
     // This might shift the visual scroll position. To prevent it affecting other users,
     // we will only do it when we detect than an assistive technology which actually needs this is running.
-    if (UIAccessibilityIsVoiceOverRunning()) {
-        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.utilities.accessibilityCursorToFragment('%@')", section.anchor] completionHandler:nil];
-    }
+    [self.webView wmf_accessibilityCursorToFragment:section.anchor];
 }
 
 - (void)getCurrentVisibleSectionCompletion:(void (^)(MWKSection* _Nullable, NSError* __nullable error))completion {
@@ -823,12 +796,7 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)referenceViewController:(ReferencesVC*)referenceViewController didShowReferenceWithLinkID:(NSString*)linkID {
     // Highlight the tapped reference.
-    NSString* eval = [NSString stringWithFormat:@"\
-                      document.getElementById('%@').oldBackgroundColor = document.getElementById('%@').style.backgroundColor;\
-                      document.getElementById('%@').style.backgroundColor = '#999';\
-                      document.getElementById('%@').style.borderRadius = 2;\
-                      ", linkID, linkID, linkID, linkID];
-    [self.webView evaluateJavaScript:eval completionHandler:NULL];
+    [self.webView wmf_highlightLinkID:linkID];
 
     // Scroll the tapped reference up if the panel would cover it.
     [self.webView getScreenRectForHtmlElementWithId:linkID completion:^(CGRect rect) {
@@ -851,10 +819,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)referenceViewController:(ReferencesVC*)referenceViewController didFinishShowingReferenceWithLinkID:(NSString*)linkID {
-    NSString* eval = [NSString stringWithFormat:@"\
-                      document.getElementById('%@').style.backgroundColor = document.getElementById('%@').oldBackgroundColor;\
-                      ", linkID, linkID];
-    [self.webView evaluateJavaScript:eval completionHandler:NULL];
+    [self.webView wmf_unHighlightLinkID:linkID];
 }
 
 - (void)referenceViewControllerCloseReferences:(ReferencesVC*)referenceViewController {
@@ -876,7 +841,7 @@ NSString* const WMFCCBySALicenseURL =
 #pragma mark - Share Actions
 
 - (void)shareMenuItemTapped:(id)sender {
-    [self getSelectedText:^(NSString* _Nonnull text) {
+    [self.webView wmf_getSelectedText:^(NSString* _Nonnull text) {
         [self shareSnippet:text];
     }];
 }
@@ -885,24 +850,12 @@ NSString* const WMFCCBySALicenseURL =
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
     if (action == @selector(shareSnippet:)) {
-        [self getSelectedText:^(NSString* _Nonnull text) {
+        [self.webView wmf_getSelectedText:^(NSString* _Nonnull text) {
             [self.delegate webViewController:self didSelectText:text];
         }];
         return YES;
     }
     return [super canPerformAction:action withSender:sender];
-}
-
-- (void)getSelectedText:(void (^)(NSString* text))completion {
-    [self.webView evaluateJavaScript:@"window.getSelection().toString()" completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
-        if ([obj isKindOfClass:[NSString class]]) {
-            NSString* selectedText = [(NSString*)obj wmf_shareSnippetFromText];
-            selectedText = selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
-            completion(selectedText);
-        } else {
-            completion(@"");
-        }
-    }];
 }
 
 - (void)shareSnippet:(NSString*)snippet {
@@ -919,7 +872,7 @@ NSString* const WMFCCBySALicenseURL =
     if (fontSize == nil) {
         fontSize = @(100);
     }
-    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"document.querySelector('body').style['-webkit-text-size-adjust'] = '%ld%%';", fontSize.integerValue] completionHandler:NULL];
+    [self.webView wmf_setTextSize:fontSize.integerValue];
     [[NSUserDefaults standardUserDefaults] wmf_setReadingFontSize:fontSize];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
