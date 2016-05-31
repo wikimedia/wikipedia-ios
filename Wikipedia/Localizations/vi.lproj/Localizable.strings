@@ -114,6 +114,9 @@
 "settings-support" = "Hỗ trợ Wikimedia";
 "settings-language-bar" = "Hiển thị ngôn ngữ khi tìm kiếm";
 "settings-my-languages" = "Ngôn ngữ của tôi";
+"settings-help-and-feedback" = "Trợ giúp và phản hồi";
+"settings-primary-language" = "Chính";
+"settings-primary-language-details" = "Ngôn ngữ đứng đầu tiên trong danh sách này sẽ được dùng làm ngôn ngữ chính của ứng dụng. Thay đổi nó sẽ làm thay đổi các nội dung hằng ngày (chẳng hạn mục Bài viết chọn lọc) hiển thị ở Thám hiểm.";
 "main-menu-title" = "Khác";
 "main-menu-heading-about" = "Giới thiệu";
 "main-menu-language-title" = "Tìm kiếm trong phiên bản ngôn ngữ $1";
@@ -241,6 +244,7 @@
 "button-save" = "Lưu";
 "button-save-for-later" = "Lưu sau";
 "button-saved-for-later" = "Đã lưu sau";
+"button-report-a-bug" = "Báo lỗi";
 "onboarding-create-account" = "Mở tài khoản";
 "onboarding-login" = "Đăng nhập";
 "onboarding-already-have-account" = "Đã mở tài khoản rồi? $1";
@@ -330,7 +334,7 @@
 "home-empty-section-check-again" = "Thử lại";
 "home-continue-reading-heading" = "Đọc tiếp";
 "home-continue-related-heading" = "Vì bạn đã đọc $1";
-"home-more-like-footer" = "Thêm bài giống $1";
+"home-more-like-footer" = "Thêm bài tương tự $1";
 "home-nearby-footer" = "Thêm bài gần vị trí của bạn";
 "home-nearby-location-footer" = "Thêm mục gần $1";
 "home-nearby-nothing" = "Không có gì lân cận";
@@ -373,7 +377,7 @@
 "empty-no-saved-pages-title" = "Chưa lưu trang nào.";
 "empty-no-saved-pages-message" = "Lưu trang để xem sau, thậm chí để xem ngoại tuyến.";
 "empty-no-history-title" = "Không có gì để hiển thị";
-"empty-no-history-message" = "Ghi lại danh sách các trang bạn đã đọc";
+"empty-no-history-message" = "Ghi lại danh sách các trang bạn đã đọc ở đây";
 "alert-no-internet" = "Không có kết nối Internet";
 "icon-shortcut-search-title" = "Tìm trong Wikipedia";
 "icon-shortcut-continue-reading-title" = "Đọc tiếp";
@@ -385,14 +389,14 @@
 "explore-featured-article-heading" = "Bài viết chọn lọc";
 "explore-continue-reading-heading" = "Đọc tiếp";
 "explore-nearby-heading" = "Địa điểm gần";
-"explore-continue-related-heading" = "Vì bạn đã đọc $1";
+"explore-continue-related-heading" = "Vì bạn đã đọc";
 "explore-main-page-heading" = "Hôm nay tại Wikipedia";
 "explore-random-article-heading" = "Bài viết ngẫu nhiên";
 "explore-random-article-sub-heading" = "Wikipedia tiếng Anh";
 "explore-potd-heading" = "Hình ảnh trong ngày";
 "explore-most-read-heading" = "Được đọc nhiều nhất trên Wikipedia $1";
 "explore-most-read-footer" = "Danh sách bài được đọc nhiều nhất";
-"explore-most-read-footer-for-date" = "Danh sách bài được đọc nhiều nhất trên $1";
+"explore-most-read-footer-for-date" = "Danh sách bài được đọc nhiều nhất $1";
 "explore-most-read-more-list-title" = "Đọc nhiều nhất";
 "explore-most-read-more-list-title-for-date" = "Hạng nhất vào $1";
 "no-email-account-alert" = "Vui lòng thiết lập một tài khoản thư điện tử trên thiết bị của bạn và thử lại.";
