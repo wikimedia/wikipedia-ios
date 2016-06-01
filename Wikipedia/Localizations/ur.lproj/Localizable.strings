@@ -101,7 +101,7 @@
 "search-recent-clear-confirmation-sub-heading" = "اس عمل کو واپس نہیں کیا سکتا!";
 "search-recent-clear-cancel" = "منسوخ";
 "search-recent-clear-delete-all" = "سبھی کو حذف کریں";
-"search-result-redirected-from" = "%s سے رجوع مکرر ہوا ہے";
+"search-result-redirected-from" = "$1 سے رجوع مکرر ہوا ہے";
 "settings-title" = "ترجیحات";
 "settings-language" = "ویکیپیڈیا زبان";
 "settings-support" = "وکی میڈیا کی حمایت";
