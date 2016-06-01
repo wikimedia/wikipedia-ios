@@ -8,8 +8,7 @@
 // Author: Sayma Jahan
 // Author: Tauhid16
 
-// Fuzzy
-"languages-title" = "ভাষা";
+"languages-title" = "ভাষা পরিবর্তন করুন";
 "article-languages-label" = "ভাষা নির্বাচন করুন";
 "article-languages-cancel" = "বাতিল";
 "article-languages-downloading" = "নিবন্ধের ভাষাসমূহ লোড হচ্ছে...";
@@ -19,6 +18,8 @@
 "article-unable-to-load-section" = "এই অনুচ্ছেদ পূরণ করতে অসমর্থ। যদি এই সমস্যা সমাধান হয়ে থাকে তাহলে নিবন্ধটি দেখার জন্য পুনরায় সতেজ করুন।";
 "article-unable-to-load-article" = "নিবন্ধ লোড করতে অসমর্থ।";
 "article-related-articles-title" = "সম্পর্কিত নিবন্ধ";
+"article-languages-yours" = "আপনার ভাষাসমূহ";
+"article-languages-others" = "অন্যান্য ভাষাসমূহ";
 "info-box-title" = "দ্রুত কার্য";
 "info-box-close-text" = "বন্ধ";
 "table-title-other" = "আরও তথ্য";
@@ -110,6 +111,8 @@
 "settings-language" = "উইকিপিডিয়া ভাষা";
 "settings-support" = "উইকিপিডিয়াকে সাহায্য করুন";
 "settings-language-bar" = "অনুসন্ধানের সময় ভাষাগুলিকে দেখাও";
+"settings-my-languages" = "আমার ভাষাসমূহ";
+"settings-primary-language" = "প্রাথমিক";
 "main-menu-title" = "আরও";
 "main-menu-heading-about" = "পরিচিতি";
 "main-menu-language-title" = "$1 ভাষার উইকিতে অনুসন্ধান";
@@ -230,11 +233,13 @@
 "timestamp-years" = "%d বছর আগে";
 "lastmodified-by-user" = "$2 দ্বারা $1 সম্পাদিত";
 "lastmodified-by-anon" = "একজন বেনামী ব্যবহারকারী দ্বারা $1 সম্পাদিত";
+"button-edit" = "সম্পাদনা";
 "button-next" = "পরবর্তী";
 "button-done" = "সম্পন্ন";
 "button-save" = "সংরক্ষণ";
 "button-save-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "button-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
+"button-report-a-bug" = "বাগ রিপোর্ট করুন";
 "onboarding-create-account" = "অ্যাকাউন্ট তৈরি করুন";
 "onboarding-login" = "প্রবেশ";
 "onboarding-already-have-account" = "ইতিমধ্যে একটি অ্যাকাউন্ট আছে? $1";
@@ -248,8 +253,7 @@
 "page_protected_other" = "এই পাতাটি নিম্নের মাত্রা অনুযায়ী সুরক্ষিত: $1";
 "page_protected_can_not_edit" = "এই পাতা সম্পাদনা করার অধিকার আপনার নেই।";
 "page_protected_can_not_edit_title" = "এই পাতাটি সুরক্ষিত";
-// Fuzzy
-"license-footer-text" = "বিষয়বস্তু $1-এর অধীনে উপলব্ধ";
+"license-footer-text" = "বিষয়বস্তু $1-এর আওতায় প্রকাশিত যদি না অন্য কিছু নির্ধারিত থাকে।";
 "license-footer-name" = "সিসি বাই-এসএ ৩.০";
 "table-of-contents-heading" = "পরিচ্ছেদসমূহ";
 "table-of-contents-button-label" = "সূচিপত্র";
@@ -296,6 +300,7 @@
 "image-gallery-unknown-owner" = "আপলোডকারী অজানা।";
 "image-gallery-fetch-image-info-error-title" = "চিত্র ডাউনলোড করতে অক্ষম";
 "image-gallery-fetch-image-info-error-ok" = "ঠিক আছে";
+"hockeyapp-alert-title" = "দুঃখিত, অ্যাপ্লিকেশন শেষ বার বিধ্বস্ত হয়েছিল";
 "hockeyapp-alert-always-send" = "সর্বদা পাঠান";
 "hockeyapp-alert-do-not-send" = "পাঠাবেন না";
 "hockeyapp-alert-privacy" = "$1 গোপনীয়তা";
@@ -313,11 +318,14 @@
 "home-empty-section-check-again" = "আবার চেষ্টা করুন";
 "home-continue-reading-heading" = "পড়া অব্যাহত রাখুন";
 "home-nearby-location-footer" = "$1-এর আরো কাছাকাছি";
+"home-featured-article-heading" = "$1 তারিখে নির্বাচিত নিবন্ধ";
 "home-main-page-heading" = "আজ উইকিপিডিয়ায়";
+"home-potd-heading" = "$1 তারিখে আজকের নির্বাচিত ছবি";
 "home-last-update-label" = "সর্বশেষ হালনাগাদ: $1";
 "home-last-update-never-label" = "সর্বশেষ হালনাগাদ: কখনো না";
 "home-updating-label" = "হালনাগাদ হচ্ছে...";
 "home-hide-suggestion-cancel" = "বাতিল";
+"potd-description-prefix" = "$1 তারিখে আজকের নির্বাচিত ছবি";
 "welcome-explore-title" = "অন্বেষণ করুন";
 "welcome-explore-tell-me-more" = "আমাকে আরও বলুন";
 "welcome-explore-tell-me-more-about-explore" = "অন্বেষণ সম্পর্কে আরো";
@@ -339,10 +347,15 @@
 "icon-shortcut-nearby-title" = "কাছাকাছি নিবন্ধ";
 "close-button-accessibility-label" = "বন্ধ";
 "back-button-accessibility-label" = "পিছনে";
+"compass-direction" = "$1 টার সময়";
 "explore-featured-article-heading" = "নির্বাচিত নিবন্ধ";
+"explore-continue-reading-heading" = "পড়া অব্যাহত রাখুন";
 "explore-nearby-heading" = "নিকটবর্তী স্থানগুলি";
 "explore-main-page-heading" = "আজ উইকিপিডিয়ায়";
 "explore-random-article-heading" = "অজানা যে-কোনো নিবন্ধ";
 "explore-random-article-sub-heading" = "ইংরেজি উইকিপিডিয়া";
+"explore-potd-heading" = "আজকের নির্বাচিত ছবি";
+"explore-most-read-heading" = "$1 উইকিপিডিয়ায় সর্বাধিক পঠিত";
 "explore-most-read-footer" = "সর্বাধিক পঠিত নিবন্ধগুলি";
+"explore-most-read-footer-for-date" = "$1 তারিখে সকল সর্বাধিক পঠিত নিবন্ধসমূহ";
 "explore-most-read-more-list-title" = "শীর্ষ নিবন্ধ";
