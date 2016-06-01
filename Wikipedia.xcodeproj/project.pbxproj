@@ -897,6 +897,8 @@
 		B09B03F11CE0FB6300009083 /* PageHistoryFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageHistoryFetcher.swift; path = Wikipedia/Code/PageHistoryFetcher.swift; sourceTree = SOURCE_ROOT; };
 		B09B03F31CE0FB7700009083 /* WMFFontSliderContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFFontSliderContainer.swift; path = Wikipedia/Code/WMFFontSliderContainer.swift; sourceTree = SOURCE_ROOT; };
 		B09B03F41CE0FB7700009083 /* WMFFontSliderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFFontSliderViewController.xib; path = Wikipedia/Code/WMFFontSliderViewController.xib; sourceTree = SOURCE_ROOT; };
+		B09D5C041CFF58C3001C878A /* ur */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ur; path = ur.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B09D5C051CFF58C4001C878A /* ur */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ur; path = ur.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B09D64E61C2514FF00A29514 /* WMFArticleFooterMenuDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleFooterMenuDataSource.h; path = Wikipedia/Code/WMFArticleFooterMenuDataSource.h; sourceTree = SOURCE_ROOT; };
 		B09D64E71C2514FF00A29514 /* WMFArticleFooterMenuDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleFooterMenuDataSource.m; path = Wikipedia/Code/WMFArticleFooterMenuDataSource.m; sourceTree = SOURCE_ROOT; };
 		B0AB16351C7E5762002E566A /* UINavigationBar+WMFTransparency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationBar+WMFTransparency.h"; path = "Wikipedia/Code/UINavigationBar+WMFTransparency.h"; sourceTree = SOURCE_ROOT; };
@@ -5275,6 +5277,7 @@
 				sw,
 				uz,
 				ckb,
+				ur,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
@@ -6186,6 +6189,7 @@
 				B04876371C8FC184008F8920 /* sw */,
 				B04876391C8FC248008F8920 /* uz */,
 				B02B76A11CA9ED4400EDB253 /* ckb */,
+				B09D5C051CFF58C4001C878A /* ur */,
 			);
 			name = InfoPlist.strings;
 			path = Localizations;
@@ -6270,6 +6274,7 @@
 				B04876361C8FC184008F8920 /* sw */,
 				B04876381C8FC248008F8920 /* uz */,
 				B02B76A01CA9ED4400EDB253 /* ckb */,
+				B09D5C041CFF58C3001C878A /* ur */,
 			);
 			name = Localizable.strings;
 			path = Localizations;
