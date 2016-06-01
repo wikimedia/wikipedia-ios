@@ -24,7 +24,6 @@
 #import "WKWebView+WMFSuppressSelection.h"
 #import "PageHistoryViewController.h"
 
-#import "WKWebView+WMFTrackingView.h"
 #import "WKWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
@@ -45,23 +44,13 @@ NSString* const WMFCCBySALicenseURL =
 
 @interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler>
 
-/*
-   NOTE: Need to add headers/footers as subviews as opposed to using contentInset, due to running into the following
-   issues when attempting a contentInset approach:
-   - doesn't work well for footers:
-   - contentInset causes jumpiness when scrolling beyond _bottom_ of content
-   - interferes w/ bouncing at the bottom
-   - forces you to manually set scrollView offsets
-   - breaks native scrolling to top/bottom (i.e. title bar tap goes to top of content, not header)
-
-   IOW, contentInset is nice for pull-to-refresh, parallax scrolling stuff, but not quite for table/collection-view-style
-   headers & footers
- */
 @property (nonatomic, strong) MASConstraint* headerHeight;
 @property (nonatomic, strong) UIView* footerContainerView;
 @property (nonatomic, strong) NSMutableDictionary* footerViewHeadersByIndex;
 @property (nonatomic, strong) WMFArticleFooterView* footerLicenseView;
 @property (nonatomic, strong) IBOutlet UIView* containerView;
+
+@property (strong, nonatomic) MASConstraint* footerContainerViewTopConstraint;
 
 @end
 
@@ -70,6 +59,7 @@ NSString* const WMFCCBySALicenseURL =
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self unobserveFooterContainerViewBounds];
+    [self unobserveScrollViewContentSize];
 }
 
 - (instancetype)initWithCoder:(NSCoder*)aDecoder {
@@ -242,6 +232,8 @@ NSString* const WMFCCBySALicenseURL =
     [super viewDidLoad];
 
     self.isPeeking = NO;
+
+    [self addFooterContainerView];
     [self addHeaderView];
     [self addFooterView];
 
@@ -268,6 +260,7 @@ NSString* const WMFCCBySALicenseURL =
     self.view.backgroundColor = CHROME_COLOR;
 
     [self observeFooterContainerViewBounds];
+    [self observeScrollViewContentSize];
 
     [self displayArticle];
 }
@@ -325,7 +318,8 @@ NSString* const WMFCCBySALicenseURL =
  *  add bottom padding to html body tag to make room for the native footerContainerView overlay.
  */
 - (void)unobserveFooterContainerViewBounds {
-    [self.KVOControllerNonRetaining unobserve:self.footerContainerView];
+    [self.KVOControllerNonRetaining unobserve:self.footerContainerView
+                                      keyPath:WMF_SAFE_KEYPATH(self.footerContainerView, bounds)];
 }
 
 - (void)observeFooterContainerViewBounds {
@@ -334,9 +328,35 @@ NSString* const WMFCCBySALicenseURL =
                                     options:NSKeyValueObservingOptionInitial
                                       block:^(WebViewController* observer, UIView* view, NSDictionary* change) {
         if (view && observer.webView) {
-            [observer.webView wmf_setBottomPadding:(NSInteger)(floor(view.bounds.size.height))];
+            [observer.webView wmf_setBottomPadding:(NSInteger)(ceil(view.bounds.size.height))];
         }
     }];
+}
+
+/**
+ *  Observe changes to web view scroll view's content size so we can set the top constraint
+ *  of the native footerContainerView. Reminder: we constrain to top of footerContainerView
+ *  because constraining its bottom to the WKContentView's bottom is flakey - ie doesn't
+ *  always work.
+ */
+- (void)unobserveScrollViewContentSize {
+    [self.KVOControllerNonRetaining unobserve:self.webView.scrollView
+                                      keyPath:WMF_SAFE_KEYPATH(self.webView.scrollView, contentSize)];
+}
+
+- (void)observeScrollViewContentSize {
+    @weakify(self);
+    [self.KVOControllerNonRetaining observe:self.webView.scrollView
+                                    keyPath:WMF_SAFE_KEYPATH(self.webView.scrollView, contentSize)
+                                    options:NSKeyValueObservingOptionInitial
+                                      block:^(WebViewController* observer, UIScrollView* scrollView, NSDictionary* change) {
+        @strongify(self);
+        [self setTopOfFooterContainerViewForContentSize:scrollView.contentSize];
+    }];
+}
+
+- (void)setTopOfFooterContainerViewForContentSize:(CGSize)contentSize {
+    self.footerContainerViewTopConstraint.offset = contentSize.height - self.footerContainerView.bounds.size.height;
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -452,7 +472,6 @@ NSString* const WMFCCBySALicenseURL =
         return;
     }
     self.footerViewHeadersByIndex = [NSMutableDictionary dictionary];
-    [self addFooterContainerView];
     [self addFooterContentViews];
     [self.footerContainerView wmf_recursivelyDisableScrollsToTop];
 }
@@ -460,10 +479,15 @@ NSString* const WMFCCBySALicenseURL =
 - (void)addFooterContainerView {
     self.footerContainerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.webView.scrollView addSubview:self.footerContainerView];
-    [self.footerContainerView mas_remakeConstraints:^(MASConstraintMaker* make) {
+    [self.footerContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
         // lead/trail must be constained to webview, the scrollview doesn't define a width
         make.leading.and.trailing.equalTo(self.webView);
-        make.bottom.equalTo([[self.webView wmf_browserView] mas_bottom]);
+
+        // Note: Can't constrain bottom to webView's WKContentView bottom
+        // because its bottom constraint doesnt' seem to always track with
+        // the actual bottom of the page. This was causing the footer to
+        // *sometimes* not be at the bottom - was flakey on large pages.
+        self.footerContainerViewTopConstraint = make.top.equalTo(self.webView.scrollView);
     }];
 }
 
