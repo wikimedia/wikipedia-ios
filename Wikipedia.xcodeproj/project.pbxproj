@@ -673,6 +673,8 @@
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
 		D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
 		D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */; };
+		D8EC64011D0072F100C286EE /* NSURLComponents+WMF.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC64001D0072F100C286EE /* NSURLComponents+WMF.m */; };
+		D8EC64031D007B1F00C286EE /* WMFNSURLComponentsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC64021D007B1F00C286EE /* WMFNSURLComponentsTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2006,6 +2008,9 @@
 		D499145A181D51DF00E6073C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D4C16A6519709CDF00CD91AD /* qqq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = qqq; path = qqq.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		D8EC63FF1D0072F100C286EE /* NSURLComponents+WMF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLComponents+WMF.h"; path = "Wikipedia/Code/NSURLComponents+WMF.h"; sourceTree = SOURCE_ROOT; };
+		D8EC64001D0072F100C286EE /* NSURLComponents+WMF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURLComponents+WMF.m"; path = "Wikipedia/Code/NSURLComponents+WMF.m"; sourceTree = SOURCE_ROOT; };
+		D8EC64021D007B1F00C286EE /* WMFNSURLComponentsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNSURLComponentsTests.m; sourceTree = "<group>"; };
 		DC96DA4AAD521D734849D20F /* Pods-WikipediaUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EDA528BC357952A7D914F8E0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -4583,6 +4588,8 @@
 		BCB58F401A890D8200465627 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				D8EC63FF1D0072F100C286EE /* NSURLComponents+WMF.h */,
+				D8EC64001D0072F100C286EE /* NSURLComponents+WMF.m */,
 				B0E804751C0CE0B40065EBC0 /* MWKArticle+WMFSharing.h */,
 				B0E804761C0CE0B40065EBC0 /* MWKArticle+WMFSharing.m */,
 				B0E804771C0CE0B40065EBC0 /* MWKLicense+ToGlyph.h */,
@@ -4822,6 +4829,7 @@
 				B0E809081C0D18BC0065EBC0 /* NSString+WMFHTMLParsingTests.m */,
 				B0E8090A1C0D18D90065EBC0 /* NSString+FormattedAttributedStringTests.m */,
 				B0E8090C1C0D18E70065EBC0 /* WMFImageURLParsingTests.m */,
+				D8EC64021D007B1F00C286EE /* WMFNSURLComponentsTests.m */,
 				B0E8090E1C0D18F30065EBC0 /* WMFMathTests.m */,
 				B0E809101C0D18FD0065EBC0 /* WMFSubstringUtilsTests.m */,
 				B0E809121C0D19090065EBC0 /* WMFDateFormatterTests.m */,
@@ -5610,6 +5618,7 @@
 				B0E809431C0D1A900065EBC0 /* NSArray+WMFExtensionsTests.m in Sources */,
 				B0E809051C0D18A00065EBC0 /* CircularBitwiseRotationTests.m in Sources */,
 				B0E8095E1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m in Sources */,
+				D8EC64031D007B1F00C286EE /* WMFNSURLComponentsTests.m in Sources */,
 				B0E808F01C0D181D0065EBC0 /* MWKImageStorageTests.m in Sources */,
 				B0E809131C0D19090065EBC0 /* WMFDateFormatterTests.m in Sources */,
 				B0E808821C0D15A20065EBC0 /* MWKDataStore+TempDataStoreForEach.m in Sources */,
@@ -5758,6 +5767,7 @@
 				B0E805D41C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.m in Sources */,
 				B0E804421C0CDF850065EBC0 /* MenuLabel.m in Sources */,
 				B0F087501C860E910086F710 /* WelcomeAnimationExtensions.swift in Sources */,
+				D8EC64011D0072F100C286EE /* NSURLComponents+WMF.m in Sources */,
 				B0E803351C0CD7430065EBC0 /* WMFArticleListTableViewController.m in Sources */,
 				BC23E4DD1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m in Sources */,
 				B0E8045E1C0CDFFB0065EBC0 /* WMFLegacyImageDataMigration.swift in Sources */,
