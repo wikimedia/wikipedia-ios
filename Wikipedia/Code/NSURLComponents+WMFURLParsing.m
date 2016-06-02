@@ -11,11 +11,11 @@
 
 @implementation NSURLComponents (WMFURLParsing_Private)
 
-+ (NSRegularExpression *)WMFURLParsingDomainIndexRegularExpression {
-    static NSRegularExpression * WMFURLParsingDomainIndexRegularExpression = nil;
++ (NSRegularExpression*)WMFURLParsingDomainIndexRegularExpression {
+    static NSRegularExpression* WMFURLParsingDomainIndexRegularExpression = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSError* regexError                   = nil;
+        NSError* regexError = nil;
         WMFURLParsingDomainIndexRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"^[^.]*(.m){0,1}[.]" options:NSRegularExpressionCaseInsensitive error:&regexError];
         if (regexError) {
             DDLogError(@"Error creating domain parsing regex: %@", regexError);
@@ -58,7 +58,7 @@
 }
 
 - (NSString*)wmf_title {
-    NSString *title = [[self.path wmf_internalLinkPath] wmf_unescapedNormalizedPageTitle];
+    NSString* title = [[self.path wmf_internalLinkPath] wmf_unescapedNormalizedPageTitle];
     if (title == nil) {
         title = @"";
     }
