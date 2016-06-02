@@ -7,20 +7,29 @@
 
 @end
 
+
+
 @implementation NSURLComponents (WMFURLParsing_Private)
 
-- (NSInteger)wmf_domainIndex {
-    NSError* regexError                   = nil;
-    NSRegularExpression* domainIndexRegex = [NSRegularExpression regularExpressionWithPattern:@"^[^.]*(.m){0,1}[.]" options:NSRegularExpressionCaseInsensitive error:&regexError];
-    if (regexError) {
-        DDLogError(@"Error creating domain parsing regex: %@", regexError);
-    }
++ (NSRegularExpression *)WMFURLParsingDomainIndexRegularExpression {
+    static NSRegularExpression * WMFURLParsingDomainIndexRegularExpression = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSError* regexError                   = nil;
+        WMFURLParsingDomainIndexRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"^[^.]*(.m){0,1}[.]" options:NSRegularExpressionCaseInsensitive error:&regexError];
+        if (regexError) {
+            DDLogError(@"Error creating domain parsing regex: %@", regexError);
+        }
+    });
+    return WMFURLParsingDomainIndexRegularExpression;
+}
 
+- (NSInteger)wmf_domainIndex {
     if (self.host == nil) {
         return 0;
     }
 
-    NSTextCheckingResult* regexResult = [domainIndexRegex firstMatchInString:self.host options:NSMatchingAnchored range:NSMakeRange(0, self.host.length)];
+    NSTextCheckingResult* regexResult = [[NSURLComponents WMFURLParsingDomainIndexRegularExpression] firstMatchInString:self.host options:NSMatchingAnchored range:NSMakeRange(0, self.host.length)];
 
     NSInteger index = 0;
 
