@@ -490,7 +490,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)fetchImageForPhoto:(WMFArticlePhoto*)galleryImage {
-    UIImage *memoryCachedImage = [galleryImage memoryCachedImage];
+    UIImage* memoryCachedImage = [galleryImage memoryCachedImage];
     if (memoryCachedImage == nil) {
         @weakify(self);
         [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage imageURL]].then(^(WMFImageDownload* download) {
@@ -725,7 +725,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchImageForPhoto:(WMFPOTDPhoto*)galleryImage {
     @weakify(self);
-    UIImage *memoryCachedImage = [galleryImage memoryCachedImage];
+    UIImage* memoryCachedImage = [galleryImage memoryCachedImage];
     if (memoryCachedImage == nil) {
         [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage bestImageURL]].then(^(WMFImageDownload* download) {
             @strongify(self);
