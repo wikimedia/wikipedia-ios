@@ -287,7 +287,9 @@
 "nearby-distance-label-miles" = "$1 Meile";
 "nearby-pull-to-refresh-prompt" = "Trick zom neu Aanzeije";
 "nearby-pull-to-refresh-is-refreshing" = "Neu aam Lahde";
+// Fuzzy
 "nearby-loading" = "Loading nearby articles...";
+// Fuzzy
 "nearby-loaded" = "Nearby articles loaded";
 "nearby-none" = "mer han kein Atikele jevonge, di met jädd en dä Omjävong ze donn hätte.\nTrick, öm et tiräk norr_ens ze versöhke, udder donn dat schpääder.";
 "nearby-open-in-maps" = "Op der Landkaat zeihje";

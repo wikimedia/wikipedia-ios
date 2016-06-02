@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Aalam
 // Author: Babanwalia
+// Author: Jimidar
 // Author: Nachhattardhammu
 // Author: Satdeep gill
 // Author: ਪ੍ਰਚਾਰਕ
@@ -101,6 +102,7 @@
 "search-recent-clear-cancel" = "ਰੱਦ ਕਰੋ";
 "search-recent-clear-delete-all" = "ਸਭ ਮਿਟਾਓ";
 "settings-title" = "ਮੁਰੰਮਤਾਂ";
+"settings-primary-language" = "ਮੁੱਢਲਾ";
 "main-menu-title" = "ਹੋਰ";
 "main-menu-heading-about" = "ਸਾਡੇ ਬਾਰੇ";
 "main-menu-language-title" = "$1 ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਭਾਲੋ਼";

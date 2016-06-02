@@ -103,6 +103,7 @@
 "settings-language" = "Wikipedia-Sprooch";
 "settings-support" = "Wikipedia ënnerstëtzen";
 "settings-my-languages" = "Meng Sproochen";
+"settings-primary-language" = "Primär";
 "main-menu-title" = "Méi";
 "main-menu-heading-about" = "Iwwer";
 "main-menu-language-title" = "Sicht an der Wiki op $1";
@@ -221,6 +222,7 @@
 "button-save" = "Späicheren";
 "button-save-for-later" = "Fir spéider späicheren";
 "button-saved-for-later" = "Fir spéider gespäichert";
+"button-report-a-bug" = "E Feeler mellen";
 "onboarding-create-account" = "Benotzerkont opmaachen";
 "onboarding-login" = "Aloggen";
 "onboarding-already-have-account" = "Hutt Dir schonn e Benotzerkont? $1";
