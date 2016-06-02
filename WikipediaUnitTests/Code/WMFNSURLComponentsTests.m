@@ -16,16 +16,15 @@
 }
 
 - (void)testWMFDomain {
-    NSURLComponents *components = [NSURLComponents componentsWithString:@"https://en.wikipedia.org/"];
+    NSURLComponents* components = [NSURLComponents componentsWithString:@"https://en.wikipedia.org/"];
     XCTAssertEqualObjects(@"wikipedia.org", components.WMFDomain);
     XCTAssertEqualObjects(@"en", components.WMFLanguage);
 }
 
 - (void)testWMFMobileDomain {
-    NSURLComponents *components = [NSURLComponents componentsWithString:@"https://en.m.wikipedia.org/"];
+    NSURLComponents* components = [NSURLComponents componentsWithString:@"https://en.m.wikipedia.org/"];
     XCTAssertEqualObjects(@"wikipedia.org", components.WMFDomain);
     XCTAssertEqualObjects(@"en", components.WMFLanguage);
 }
-
 
 @end
