@@ -49,7 +49,11 @@
 }
 
 - (NSString*)wmf_title {
-    return [[self.path wmf_internalLinkPath] wmf_unescapedNormalizedPageTitle];
+    NSString *title = [[self.path wmf_internalLinkPath] wmf_unescapedNormalizedPageTitle];
+    if (title == nil) {
+        title = @"";
+    }
+    return title;
 }
 
 @end
