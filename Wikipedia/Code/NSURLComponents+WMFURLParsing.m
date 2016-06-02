@@ -1,14 +1,15 @@
-#import "NSURLComponents+WMF.h"
+#import "NSURLComponents+WMFURLParsing.h"
+#import "NSString+WMFPageUtilities.h"
 
-@interface NSURLComponents (WMF_Private)
+@interface NSURLComponents (WMFURLParsing_Private)
 
-@property (nonatomic, readonly) NSInteger WMFDomainIndex;
+@property (nonatomic, readonly) NSInteger wmf_domainIndex;
 
 @end
 
-@implementation NSURLComponents (WMF_Private)
+@implementation NSURLComponents (WMFURLParsing_Private)
 
-- (NSInteger)WMFDomainIndex {
+- (NSInteger)wmf_domainIndex {
     NSError* regexError                   = nil;
     NSRegularExpression* domainIndexRegex = [NSRegularExpression regularExpressionWithPattern:@"^[^.]*(.m){0,1}[.]" options:NSRegularExpressionCaseInsensitive error:&regexError];
     if (regexError) {
@@ -32,19 +33,23 @@
 
 @end
 
-@implementation NSURLComponents (WMF)
+@implementation NSURLComponents (WMFURLParsing)
 
-- (NSString*)WMFDomain {
-    return [self.host substringFromIndex:self.WMFDomainIndex];
+- (NSString*)wmf_domain {
+    return [self.host substringFromIndex:self.wmf_domainIndex];
 }
 
-- (NSString*)WMFLanguage {
+- (NSString*)wmf_language {
     NSRange dotRange = [self.host rangeOfString:@"."];
     if (dotRange.length == 1) {
         return [self.host substringToIndex:dotRange.location];
     } else {
         return nil;
     }
+}
+
+- (NSString*)wmf_title {
+    return [[self.path wmf_internalLinkPath] wmf_unescapedNormalizedPageTitle];
 }
 
 @end

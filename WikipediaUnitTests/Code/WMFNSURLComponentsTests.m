@@ -1,5 +1,5 @@
 #import <XCTest/XCTest.h>
-#import "NSURLComponents+WMF.h"
+#import "NSURLComponents+WMFURLParsing.h"
 
 @interface WMFNSURLComponentsTests : XCTestCase
 
@@ -16,15 +16,17 @@
 }
 
 - (void)testWMFDomain {
-    NSURLComponents* components = [NSURLComponents componentsWithString:@"https://en.wikipedia.org/"];
-    XCTAssertEqualObjects(@"wikipedia.org", components.WMFDomain);
-    XCTAssertEqualObjects(@"en", components.WMFLanguage);
+    NSURLComponents* components = [NSURLComponents componentsWithString:@"https://en.wikipedia.org/wiki/Tyrannosaurus"];
+    XCTAssertEqualObjects(@"wikipedia.org", components.wmf_domain);
+    XCTAssertEqualObjects(@"en", components.wmf_language);
+    XCTAssertEqualObjects(@"Tyrannosaurus", components.wmf_title);
 }
 
 - (void)testWMFMobileDomain {
-    NSURLComponents* components = [NSURLComponents componentsWithString:@"https://en.m.wikipedia.org/"];
-    XCTAssertEqualObjects(@"wikipedia.org", components.WMFDomain);
-    XCTAssertEqualObjects(@"en", components.WMFLanguage);
+    NSURLComponents* components = [NSURLComponents componentsWithString:@"https://en.m.wikipedia.org/wiki/Tyrannosaurus"];
+    XCTAssertEqualObjects(@"wikipedia.org", components.wmf_domain);
+    XCTAssertEqualObjects(@"en", components.wmf_language);
+    XCTAssertEqualObjects(@"Tyrannosaurus", components.wmf_title);
 }
 
 @end
