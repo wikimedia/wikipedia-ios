@@ -1,5 +1,6 @@
 #import <XCTest/XCTest.h>
 #import "NSURL+WMFLinkParsing.h"
+#import "NSURLComponents+WMFLinkParsing.h"
 
 @interface WMFLinkParsingTests : XCTestCase
 
@@ -27,6 +28,18 @@
     XCTAssertEqualObjects(@"wikipedia.org", URL.wmf_domain);
     XCTAssertEqualObjects(@"en", URL.wmf_language);
     XCTAssertEqualObjects(@"Tyrannosaurus", URL.wmf_title);
+}
+
+- (void)testWMFDomainComponents {
+    NSURLComponents* components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"en" isMobile:NO];
+    XCTAssertEqualObjects(@"en.wikipedia.org", components.host);
+    components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"en"];
+    XCTAssertEqualObjects(@"en.wikipedia.org", components.host);
+}
+
+- (void)testWMFMobileDomainComponents {
+    NSURLComponents* components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"en" isMobile:YES];
+    XCTAssertEqualObjects(@"en.m.wikipedia.org", components.host);
 }
 
 @end
