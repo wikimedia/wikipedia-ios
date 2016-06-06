@@ -14,9 +14,13 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
     MWKSiteNSCodingSchemaVersion_1 = 1
 };
 
-@interface MWKSite (Private)
+@interface MWKSite ()
 
 @property (nonatomic, copy) NSURL* URL;
+
+@property (nonatomic, copy) NSString* deprecatedDomain;
+@property (nonatomic, copy, nullable) NSString* deprecatedLanguage;
+
 
 @end
 
@@ -55,6 +59,16 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 
 + (instancetype)siteWithLocale:(NSLocale*)locale {
     return [self siteWithDomain:WMFDefaultSiteDomain language:[locale objectForKey:NSLocaleLanguageCode]];
+}
+
+- (instancetype)initWithCoder:(NSCoder*)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        if (!self.URL && self.deprecatedDomain) {
+            self.URL = [NSURL wmf_URLWithDomain:self.deprecatedDomain language:self.deprecatedLanguage];
+        }
+    }
+    return self;
 }
 
 #pragma mark - Title Helpers
@@ -120,6 +134,38 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 - (BOOL)isEqualToSite:(MWKSite*)other {
     return WMF_EQUAL_PROPERTIES(self, language, isEqualToString:, other)
            && WMF_EQUAL_PROPERTIES(self, domain, isEqualToString:, other);
+}
+
+#pragma mark - MTLModel
+
++ (NSUInteger)modelVersion {
+    return 1;
+}
+
+- (id)decodeValueForKey:(NSString*)key withCoder:(NSCoder*)coder modelVersion:(NSUInteger)modelVersion {
+    if (modelVersion == 0) {
+        id value = [coder decodeObjectForKey:key];
+        if ([key isEqualToString:@"domain"]) {
+            self.deprecatedDomain = value;
+        }
+        if ([key isEqualToString:@"language"]) {
+            self.deprecatedLanguage = value;
+        }
+        return value;
+    } else {
+        return [super decodeValueForKey:key withCoder:coder modelVersion:modelVersion];
+    }
+}
+
+// Need to specify storage properties since domain & language are readonly, which Mantle interprets as transitory.
++ (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString*)propertyKey {
+#define IS_MWKSITE_KEY(key) [propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKSite new], key)]
+    if (IS_MWKSITE_KEY(URL)) {
+        return MTLPropertyStoragePermanent;
+    } else {
+        // all other properties are computed from domain and/or language
+        return MTLPropertyStorageNone;
+    }
 }
 
 @end
