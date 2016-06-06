@@ -9,7 +9,6 @@
 #import "NSURL+WMFLinkParsing.h"
 #import "NSString+WMFExtras.h"
 #import "NSString+WMFPageUtilities.h"
-#import "MWKTitle.h"
 #import "NSURL+WMFExtras.h"
 #import "NSURLComponents+WMFLinkParsing.h"
 
@@ -56,6 +55,10 @@
 
 - (NSURL*)wmf_mobileURL {
     return [[NSURLComponents wmf_componentsWithDomain:self.wmf_domain language:self.wmf_language isMobile:YES] URL];
+}
+
+- (BOOL)wmf_isNonStandardURL {
+    return self.wmf_language == nil;
 }
 
 + (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString*)language {
