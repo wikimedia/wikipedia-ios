@@ -18,6 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)wmf_internalLinkPath;
 
+@property (nonatomic, copy, readonly, nullable) NSString* wmf_domain;
+
+@property (nonatomic, copy, readonly, nullable) NSString* wmf_language;
+
+@property (nonatomic, copy, readonly, nullable) NSString* wmf_title;
+
 @end
 
 NS_ASSUME_NONNULL_END
