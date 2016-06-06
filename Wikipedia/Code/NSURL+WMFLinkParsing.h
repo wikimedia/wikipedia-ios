@@ -12,11 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSURL (WMFLinkParsing)
 
-- (BOOL)wmf_isInternalLink;
+@property (nonatomic, readonly) BOOL wmf_isInternalLink;
 
-- (BOOL)wmf_isCitation;
+@property (nonatomic, readonly) BOOL wmf_isCitation;
 
-- (NSString*)wmf_internalLinkPath;
+@property (nonatomic, copy, readonly, nullable) NSString* wmf_internalLinkPath;
 
 @property (nonatomic, copy, readonly, nullable) NSString* wmf_domain;
 
