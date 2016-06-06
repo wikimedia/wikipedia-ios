@@ -7,6 +7,10 @@
 
 + (NSURLComponents*)wmf_componentsWithDomain:(NSString*)domain
                                     language:(NSString*)language
+                                    isMobile:(BOOL)isMobile;
+
++ (NSURLComponents*)wmf_componentsWithDomain:(NSString*)domain
+                                    language:(NSString*)language
                                        title:(NSString*)title;
 
 + (NSURLComponents*)wmf_componentsWithDomain:(NSString*)domain

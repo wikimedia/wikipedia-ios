@@ -5,7 +5,13 @@
 
 + (NSURLComponents*)wmf_componentsWithDomain:(NSString*)domain
                                     language:(NSString*)language {
-    return [self wmf_componentsWithDomain:domain language:language title:nil];
+    return [self wmf_componentsWithDomain:domain language:language isMobile:NO];
+}
+
++ (NSURLComponents*)wmf_componentsWithDomain:(NSString*)domain
+                                    language:(NSString*)language
+                                    isMobile:(BOOL)isMobile {
+    return [self wmf_componentsWithDomain:domain language:language title:nil fragment:nil isMobile:isMobile];
 }
 
 + (NSURLComponents*)wmf_componentsWithDomain:(NSString*)domain
