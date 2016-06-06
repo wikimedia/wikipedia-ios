@@ -13,6 +13,8 @@ extern NSString* const WMFDefaultSiteDomain;
 /// Represents a mediawiki instance dedicated to a specific language.
 @interface MWKSite : MTLModel <NSCopying>
 
+@property (nonatomic, copy) NSURL* URL;
+
 /// The hostname for the site, defaults to @c WMFDefaultSiteDomain.
 @property (nonatomic, copy, readonly) NSString* domain;
 
@@ -24,7 +26,9 @@ extern NSString* const WMFDefaultSiteDomain;
 /// @name Initialization
 ///
 
-- (instancetype)initWithDomain:(NSString*)domain language:(nullable NSString*)language NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithURL:(NSURL*)url NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithDomain:(NSString*)domain language:(nullable NSString*)language;
 
 /// Create a site using @c language and the default domain.
 - (instancetype)initWithLanguage:(NSString*)language;
@@ -36,7 +40,7 @@ extern NSString* const WMFDefaultSiteDomain;
  *
  * @return A site with properties parsed from the given URL, or `nil` if parsing failed.
  */
-- (MWKSite* __nullable)initWithURL:(NSURL*)url;
+
 
 + (instancetype)siteWithDomain:(NSString*)domain language:(nullable NSString*)language;
 
@@ -56,7 +60,6 @@ extern NSString* const WMFDefaultSiteDomain;
 
 - (NSString*)urlDomainWithLanguage;
 
-- (NSURL*)URL;
 
 - (NSURL*)mobileURL;
 

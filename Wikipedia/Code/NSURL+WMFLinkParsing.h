@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly, nullable) NSString* wmf_title;
 
+@property (nonatomic, copy, readonly, nullable) NSURL* wmf_mobileURL;
+
++ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString*)language;
+
 @end
 
 NS_ASSUME_NONNULL_END

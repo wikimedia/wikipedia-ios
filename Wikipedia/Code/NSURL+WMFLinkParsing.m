@@ -11,6 +11,7 @@
 #import "NSString+WMFPageUtilities.h"
 #import "MWKTitle.h"
 #import "NSURL+WMFExtras.h"
+#import "NSURLComponents+WMFLinkParsing.h"
 
 @interface NSURL (WMFLinkParsing_Private)
 
@@ -51,6 +52,14 @@
         title = @"";
     }
     return title;
+}
+
+- (NSURL*)wmf_mobileURL {
+    return [[NSURLComponents wmf_componentsWithDomain:self.wmf_domain language:self.wmf_language isMobile:YES] URL];
+}
+
++ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString*)language {
+    return [[NSURLComponents wmf_componentsWithDomain:domain language:language] URL];
 }
 
 @end
