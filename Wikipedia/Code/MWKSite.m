@@ -14,15 +14,21 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
     MWKSiteNSCodingSchemaVersion_1 = 1
 };
 
+@interface MWKSite (Private)
+
+@property (nonatomic, copy) NSURL* URL;
+
+@end
+
 @implementation MWKSite
 
 - (instancetype)initWithURL:(NSURL*)url {
     self = [super init];
     if (self) {
-        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-        components.path = nil;
+        NSURLComponents* components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+        components.path     = nil;
         components.fragment = nil;
-        self.URL = [components URL];
+        self.URL            = [components URL];
     }
     return self;
 }

@@ -13,7 +13,7 @@ extern NSString* const WMFDefaultSiteDomain;
 /// Represents a mediawiki instance dedicated to a specific language.
 @interface MWKSite : MTLModel <NSCopying>
 
-@property (nonatomic, copy) NSURL* URL;
+@property (nonatomic, copy, readonly) NSURL* URL;
 
 /// The hostname for the site, defaults to @c WMFDefaultSiteDomain.
 @property (nonatomic, copy, readonly) NSString* domain;
