@@ -63,7 +63,7 @@
     return self.wmf_language == nil;
 }
 
-+ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString*)language {
++ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language {
     return [[NSURLComponents wmf_componentsWithDomain:domain language:language] URL];
 }
 

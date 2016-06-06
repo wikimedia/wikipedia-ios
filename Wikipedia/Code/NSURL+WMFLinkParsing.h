@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
 
-+ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString*)language;
++ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language;
 
 @end
 
