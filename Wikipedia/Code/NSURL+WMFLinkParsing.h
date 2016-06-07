@@ -46,6 +46,28 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL title:(NSString* __nullable)title fragment:(NSString* __nullable)fragment;
 
+
+/**
+ * Return a new URL constructed from the `siteURL`, replacing the `path` with the `internalLink`.
+ *
+ * @param siteURL       A Wikimedia site URL. For exmaple: `https://en.wikipedia.org`.
+ * @param internalLink  A Wikimedia internal link path. For exmaple: `/wiki/Main_Page`.
+ *
+ * @return A new URL constructed from the `siteURL`, replacing the `path` with the `internalLink`.
+ **/
++ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL internalLink:(NSString*)internalLink;
+
+
+/**
+ * Return a new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
+ *
+ * @param siteURL       A Wikimedia site URL. For exmaple: `https://en.wikipedia.org`.
+ * @param path          A Wikimedia path. For exmaple: `/Main_Page`.
+ *
+ * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
+ **/
++ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL path:(NSString*)path;
+
 /**
  * Return a new URL similar to the URL you call this method on but replace the title.
  *
