@@ -4,7 +4,6 @@
 #import "MediaWikiKit.h"
 #import "NSObjectUtilities.h"
 #import "NSURL+WMFLinkParsing.h"
-#import "NSURLComponents+WMFLinkParsing.h"
 
 NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 
@@ -108,9 +107,7 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 }
 
 - (NSURL*)apiEndpoint:(BOOL)isMobile {
-    NSURLComponents* apiEndpointComponents = [NSURLComponents wmf_componentsWithDomain:self.domain language:self.language isMobile:isMobile];
-    apiEndpointComponents.path = @"/w/api.php";
-    return [apiEndpointComponents URL];
+    return [self.URL wmf_URLWithPath:@"/w/api.php" isMobile:isMobile];
 }
 
 - (UIUserInterfaceLayoutDirection)layoutDirection {

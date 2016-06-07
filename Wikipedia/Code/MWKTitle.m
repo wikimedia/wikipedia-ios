@@ -7,8 +7,6 @@
 #import "NSObjectUtilities.h"
 #import "NSURL+WMFLinkParsing.h"
 #import "NSString+WMFPageUtilities.h"
-#import "NSString+WMFPageUtilities.h"
-#import "NSURLComponents+WMFLinkParsing.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -50,10 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithSite:(MWKSite*)site
              normalizedTitle:(NSString*)text
                     fragment:(NSString* __nullable)fragment {
-    NSURLComponents* components = [NSURLComponents componentsWithURL:site.URL resolvingAgainstBaseURL:NO];
-    components.wmf_title = text;
-    components.wmf_fragment = fragment;
-    return [self initWithURL:components.URL];
+    NSURL* titleURL = [site.URL wmf_URLWithTitle:text fragment:fragment];
+    return [self initWithURL:titleURL];
 }
 
 - (instancetype)initWithInternalLink:(NSString*)relativeInternalLink site:(MWKSite*)site {

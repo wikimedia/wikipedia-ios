@@ -12,9 +12,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSURL (WMFLinkParsing)
 
++ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language;
+
++ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language title:(NSString*)title fragment:(NSString* __nullable)fragment;
+
+- (NSURL*)wmf_URLWithTitle:(NSString*)title;
+
+- (NSURL*)wmf_URLWithTitle:(NSString*)title fragment:(NSString* __nullable)fragment;
+
+- (NSURL*)wmf_URLWithPath:(NSString*)path isMobile:(BOOL)isMobile;
+
 @property (nonatomic, readonly) BOOL wmf_isInternalLink;
 
 @property (nonatomic, readonly) BOOL wmf_isCitation;
+
+@property (nonatomic, readonly) BOOL wmf_isMobile;
 
 @property (nonatomic, copy, readonly, nullable) NSString* wmf_internalLinkPath;
 
@@ -29,10 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly, nullable) NSURL* wmf_desktopURL;
 
 @property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
-
-+ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language;
-
-+ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language title:(NSString*)title fragment:(NSString* __nullable)fragment;
 
 @end
 

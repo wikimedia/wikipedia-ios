@@ -58,7 +58,7 @@
     return [hostComponents componentsJoinedByString:@"."];
 }
 
-- (void)setWmf_title:(NSString *)wmf_title {
+- (void)setWmf_title:(NSString*)wmf_title {
     NSString* path = [[wmf_title wmf_denormalizedPageTitle] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     if (path != nil && path.length > 0) {
         NSArray* pathComponents = @[WMFInternalLinkPathPrefix, path];
@@ -76,14 +76,12 @@
     return title;
 }
 
-- (void)setWmf_fragment:(NSString *)wmf_fragment {
+- (void)setWmf_fragment:(NSString*)wmf_fragment {
     self.fragment = wmf_fragment;
 }
 
 - (NSString*)wmf_fragment {
     return self.fragment;
 }
-
-
 
 @end

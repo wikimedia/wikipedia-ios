@@ -20,12 +20,51 @@
 
 @implementation NSURL (WMFLinkParsing)
 
+#pragma mark - Constructors
+
++ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language {
+    return [[NSURLComponents wmf_componentsWithDomain:domain language:language] URL];
+}
+
++ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language title:(NSString*)title fragment:(NSString* __nullable)fragment {
+    return [[NSURLComponents wmf_componentsWithDomain:domain language:language title:title fragment:fragment] URL];
+}
+
+- (NSURL*)wmf_URLWithTitle:(NSString*)title {
+    NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.wmf_title = title;
+    return components.URL;
+}
+
+- (NSURL*)wmf_URLWithTitle:(NSString*)title fragment:(NSString*)fragment {
+    NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.wmf_title    = title;
+    components.wmf_fragment = fragment;
+    return components.URL;
+}
+
+- (NSURL*)wmf_URLWithPath:(NSString*)path isMobile:(BOOL)isMobile {
+    NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.path = path;
+    if (isMobile != self.wmf_isMobile) {
+        components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:isMobile];
+    }
+    return components.URL;
+}
+
+#pragma mark - Properties
+
 - (BOOL)wmf_isInternalLink {
     return [self.path wmf_isInternalLink];
 }
 
 - (BOOL)wmf_isCitation {
     return [self.fragment wmf_isCitationFragment];
+}
+
+- (BOOL)wmf_isMobile {
+    NSArray* hostComponents = [self.host componentsSeparatedByString:@"."];
+    return hostComponents.count > 1 && [hostComponents[1] isEqualToString:@"m"];
 }
 
 - (NSString*)wmf_internalLinkPath {
@@ -67,14 +106,6 @@
 
 - (BOOL)wmf_isNonStandardURL {
     return self.wmf_language == nil;
-}
-
-+ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language {
-    return [[NSURLComponents wmf_componentsWithDomain:domain language:language] URL];
-}
-
-+ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language title:(NSString*)title fragment:(NSString* __nullable)fragment {
-    return [[NSURLComponents wmf_componentsWithDomain:domain language:language title:title fragment:fragment] URL];
 }
 
 @end
