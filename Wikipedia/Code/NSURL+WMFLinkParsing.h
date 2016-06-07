@@ -116,6 +116,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
 
+@property (nonatomic, readonly) UIUserInterfaceLayoutDirection wmf_layoutDirection;
+@property (nonatomic, readonly) NSTextAlignment wmf_textAlignment;
+
 @end
 
 NS_ASSUME_NONNULL_END

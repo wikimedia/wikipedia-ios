@@ -132,6 +132,24 @@
     return self.wmf_language == nil;
 }
 
+- (UIUserInterfaceLayoutDirection)wmf_layoutDirection {
+    switch (CFLocaleGetLanguageCharacterDirection((__bridge CFStringRef)self.wmf_language)) {
+        case kCFLocaleLanguageDirectionRightToLeft:
+            return UIUserInterfaceLayoutDirectionRightToLeft;
+        default:
+            return UIUserInterfaceLayoutDirectionLeftToRight;
+    }
+}
+
+- (NSTextAlignment)wmf_textAlignment {
+    switch (self.wmf_layoutDirection) {
+        case UIUserInterfaceLayoutDirectionRightToLeft:
+            return NSTextAlignmentRight;
+        case UIUserInterfaceLayoutDirectionLeftToRight:
+            return NSTextAlignmentLeft;
+    }
+}
+
 @end
 
 @implementation NSURL (WMFLinkParsing_Private)

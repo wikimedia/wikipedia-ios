@@ -111,21 +111,11 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 }
 
 - (UIUserInterfaceLayoutDirection)layoutDirection {
-    switch (CFLocaleGetLanguageCharacterDirection((__bridge CFStringRef)self.language)) {
-        case kCFLocaleLanguageDirectionRightToLeft:
-            return UIUserInterfaceLayoutDirectionRightToLeft;
-        default:
-            return UIUserInterfaceLayoutDirectionLeftToRight;
-    }
+    return self.URL.wmf_layoutDirection;
 }
 
 - (NSTextAlignment)textAlignment {
-    switch (self.layoutDirection) {
-        case UIUserInterfaceLayoutDirectionRightToLeft:
-            return NSTextAlignmentRight;
-        case UIUserInterfaceLayoutDirectionLeftToRight:
-            return NSTextAlignmentLeft;
-    }
+    return self.URL.wmf_textAlignment;
 }
 
 - (BOOL)isEqualToSite:(MWKSite*)other {
