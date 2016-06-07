@@ -2,6 +2,7 @@
 #import "NSURL+WMFLinkParsing.h"
 #import "NSURLComponents+WMFLinkParsing.h"
 
+
 @interface WMFLinkParsingTests : XCTestCase
 
 @end
@@ -40,6 +41,15 @@
 - (void)testWMFMobileDomainComponents {
     NSURLComponents* components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"en" isMobile:YES];
     XCTAssertEqualObjects(@"en.m.wikipedia.org", components.host);
+}
+
+- (void)testWMFInternalLinks {
+    NSURL* siteURL = [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"en"];
+    XCTAssertEqualObjects(@"en.wikipedia.org", siteURL.host);
+    NSURL* pageURL = [NSURL wmf_URLWithSiteURL:siteURL internalLink:@"/wiki/Main_Page"];
+    XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Main_Page", pageURL.absoluteString);
+    NSURL* nonInternalPageURL = [NSURL wmf_URLWithSiteURL:siteURL path:@"/Main_Page"];
+    XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Main_Page", nonInternalPageURL.absoluteString);
 }
 
 @end
