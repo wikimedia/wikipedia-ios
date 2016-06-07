@@ -13,12 +13,6 @@
 #import "NSURLComponents+WMFLinkParsing.h"
 #import "Wikipedia-Swift.h"
 
-@interface NSURL (WMFLinkParsing_Private)
-
-@property (nonatomic, readonly) NSInteger wmf_domainIndex;
-
-@end
-
 @implementation NSURL (WMFLinkParsing)
 
 #pragma mark - Constructors
@@ -88,7 +82,15 @@
 
 - (BOOL)wmf_isMobile {
     NSArray* hostComponents = [self.host componentsSeparatedByString:@"."];
-    return hostComponents.count > 1 && [hostComponents[1] isEqualToString:@"m"];
+    if (hostComponents.count < 3) {
+        return NO;
+    } else {
+        if ([hostComponents[0] isEqualToString:@"m"]) {
+            return true;
+        } else {
+            return [hostComponents[1] isEqualToString:@"m"];
+        }
+    }
 }
 
 - (NSString*)wmf_internalLinkPath {
@@ -96,15 +98,26 @@
 }
 
 - (NSString*)wmf_domain {
-    return [self.host substringFromIndex:self.wmf_domainIndex];
+    NSArray* hostComponents = [self.host componentsSeparatedByString:@"."];
+    if (hostComponents.count < 3) {
+        return self.host;
+    } else {
+        NSInteger firstIndex = 1;
+        if ([hostComponents[1] isEqualToString:@"m"]) {
+            firstIndex = 2;
+        }
+        NSArray* subarray = [hostComponents subarrayWithRange:NSMakeRange(firstIndex, hostComponents.count - firstIndex)];
+        return [subarray componentsJoinedByString:@"."];
+    }
 }
 
 - (NSString*)wmf_language {
-    NSRange dotRange = [self.host rangeOfString:@"."];
-    if (dotRange.location != NSNotFound && dotRange.location > 1) {
-        return [self.host substringToIndex:dotRange.location];
-    } else {
+    NSArray* hostComponents = [self.host componentsSeparatedByString:@"."];
+    if (hostComponents.count < 3) {
         return nil;
+    } else {
+        NSString* potentialLanguage = hostComponents[0];
+        return [potentialLanguage isEqualToString:@"m"] ? nil : potentialLanguage;
     }
 }
 
@@ -117,10 +130,14 @@
 }
 
 - (NSURL*)wmf_mobileURL {
-    NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-    components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:YES];
-    NSURL* mobileURL = components.URL ? : self;
-    return mobileURL;
+    if (self.wmf_isMobile) {
+        return self;
+    } else {
+        NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+        components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:YES];
+        NSURL* mobileURL = components.URL ? : self;
+        return mobileURL;
+    }
 }
 
 - (NSURL*)wmf_desktopURL {
@@ -150,39 +167,6 @@
         case UIUserInterfaceLayoutDirectionLeftToRight:
             return NSTextAlignmentLeft;
     }
-}
-
-@end
-
-@implementation NSURL (WMFLinkParsing_Private)
-
-+ (NSRegularExpression*)WMFURLParsingDomainIndexRegularExpression {
-    static NSRegularExpression* WMFURLParsingDomainIndexRegularExpression = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSError* regexError = nil;
-        WMFURLParsingDomainIndexRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"^[^.]*(.m){0,1}[.]" options:NSRegularExpressionCaseInsensitive error:&regexError];
-        if (regexError) {
-            DDLogError(@"Error creating domain parsing regex: %@", regexError);
-        }
-    });
-    return WMFURLParsingDomainIndexRegularExpression;
-}
-
-- (NSInteger)wmf_domainIndex {
-    if (self.host == nil) {
-        return 0;
-    }
-
-    NSTextCheckingResult* regexResult = [[NSURL WMFURLParsingDomainIndexRegularExpression] firstMatchInString:self.host options:NSMatchingAnchored range:NSMakeRange(0, self.host.length)];
-
-    NSInteger index = 0;
-
-    if (regexResult != nil) {
-        index = regexResult.range.location + regexResult.range.length;
-    }
-
-    return index;
 }
 
 @end
