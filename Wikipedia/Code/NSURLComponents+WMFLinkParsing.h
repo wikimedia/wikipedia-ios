@@ -31,7 +31,7 @@
  *
  * @param domain        Wikimedia domain - for example: `wikimedia.org`.
  * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
- * @param title         An optional Wikimedia title. for exmaple: `Main Page`.
+ * @param title         An optional Wikimedia title. For exmaple: `Main Page`.
  *
  * @return New NSURLComponents with the given domain, language and title.
  **/
@@ -44,7 +44,7 @@
  *
  * @param domain        Wikimedia domain - for example: `wikimedia.org`.
  * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
- * @param title         An optional Wikimedia title. for exmaple: `Main Page`.
+ * @param title         An optional Wikimedia title. For exmaple: `Main Page`.
  * @param fragment      An optional fragment, for example if you want the URL to contain `#section`, the fragment is `section`.
  *
  *
@@ -60,7 +60,7 @@
  *
  * @param domain        Wikimedia domain - for example: `wikimedia.org`.
  * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
- * @param title         An optional Wikimedia title. for exmaple: `Main Page`.
+ * @param title         An optional Wikimedia title. For exmaple: `Main Page`.
  * @param fragment      An optional fragment, for example if you want the URL to contain `#section`, the fragment is `section`.
  * @param isMobile      A boolean indicating whether or not the returned URL components should be for the mobile version of the site.
  *
