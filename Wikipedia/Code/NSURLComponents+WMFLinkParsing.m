@@ -39,8 +39,7 @@
         URLComponents.fragment = fragment;
     }
     if (title != nil) {
-        NSString* path = [[title wmf_denormalizedPageTitle] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        URLComponents.path = path;
+        URLComponents.wmf_title = title;
     }
     return URLComponents;
 }
@@ -58,5 +57,33 @@
     [hostComponents addObject:domain];
     return [hostComponents componentsJoinedByString:@"."];
 }
+
+- (void)setWmf_title:(NSString *)wmf_title {
+    NSString* path = [[wmf_title wmf_denormalizedPageTitle] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if (path != nil && path.length > 0) {
+        NSArray* pathComponents = @[WMFInternalLinkPathPrefix, path];
+        self.path = [NSString pathWithComponents:pathComponents];
+    } else {
+        self.path = nil;
+    }
+}
+
+- (NSString*)wmf_title {
+    NSString* title = [[self.path wmf_internalLinkPath] wmf_unescapedNormalizedPageTitle];
+    if (title == nil) {
+        title = @"";
+    }
+    return title;
+}
+
+- (void)setWmf_fragment:(NSString *)wmf_fragment {
+    self.fragment = wmf_fragment;
+}
+
+- (NSString*)wmf_fragment {
+    return self.fragment;
+}
+
+
 
 @end
