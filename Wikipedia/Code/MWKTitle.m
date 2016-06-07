@@ -53,24 +53,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (instancetype)initWithInternalLink:(NSString*)relativeInternalLink site:(MWKSite*)site {
-    NSAssert(relativeInternalLink.length == 0 || [relativeInternalLink wmf_isInternalLink],
-             @"Expected string with internal link prefix but got: %@", relativeInternalLink);
-    return [self initWithString:[relativeInternalLink wmf_internalLinkPath] site:site];
+    NSURL* URL = [NSURL wmf_URLWithSiteURL:site.URL internalLink:relativeInternalLink];
+    return [self initWithURL:URL];
 }
 
 - (instancetype)initWithString:(NSString*)string site:(MWKSite*)site {
-    NSAssert(![string wmf_isInternalLink],
-             @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
-             string);
-    if ([string wmf_isInternalLink]) {
-        // recurse here after stripping internal link prefix
-        return [self initWithInternalLink:string site:site];
-    } else {
-        NSArray* bits = [string componentsSeparatedByString:@"#"];
-        return [self initWithSite:site
-                  normalizedTitle:[[bits firstObject] wmf_unescapedNormalizedPageTitle]
-                         fragment:[bits wmf_safeObjectAtIndex:1]];
-    }
+    NSURL* URL = [NSURL wmf_URLWithSiteURL:site.URL path:string];
+    return [self initWithURL:URL];
 }
 
 + (MWKTitle*)titleWithString:(NSString*)str site:(MWKSite*)site {
