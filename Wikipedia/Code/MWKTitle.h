@@ -87,9 +87,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// Fragment passed in designated initializer.
 @property (readonly, copy, nonatomic, nullable) NSString* fragment;
 
-/// Percent-escaped fragment, prefixed with @c #, or an empty string if absent.
-@property (readonly, copy, nonatomic) NSString* escapedFragment;
-
 /// Absolute URL to mobile view of this article
 @property (readonly, copy, nonatomic) NSURL* mobileURL;
 

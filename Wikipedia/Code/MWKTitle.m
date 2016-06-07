@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readwrite, copy, nonatomic) NSString* prefixedDBKey;
 @property (readwrite, copy, nonatomic) NSString* prefixedURL;
-@property (readwrite, copy, nonatomic) NSString* escapedFragment;
 @property (readwrite, copy, nonatomic) NSURL* mobileURL;
 @property (readwrite, copy, nonatomic) NSURL* desktopURL;
 
@@ -86,15 +85,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)escapedURLText {
     return [[self.text wmf_denormalizedPageTitle] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-}
-
-- (NSString*)escapedFragment {
-    if (self.fragment) {
-        // @fixme we use some weird escaping system...?
-        return [@"#" stringByAppendingString:[self.fragment stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    } else {
-        return @"";
-    }
 }
 
 - (NSURL*)mobileURL {
