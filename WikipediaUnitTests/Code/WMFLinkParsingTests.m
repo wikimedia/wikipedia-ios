@@ -64,4 +64,28 @@
     XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Main_Page", nonInternalPageURL.absoluteString);
 }
 
+- (void)testWMFLanguagelessLinks {
+    NSURL* siteURL    = [NSURL wmf_URLWithDomain:@"mediawiki.org" language:nil];
+    NSURL* desktopURL = siteURL.wmf_desktopURL;
+    XCTAssertEqualObjects(@"https://mediawiki.org", desktopURL.absoluteString);
+    NSURL* mobileURL = siteURL.wmf_mobileURL;
+    XCTAssertEqualObjects(@"https://m.mediawiki.org", mobileURL.absoluteString);
+    NSURL* apiURL = [siteURL wmf_URLWithPath:@"/w/api.php" isMobile:NO];
+    XCTAssertEqualObjects(@"https://mediawiki.org/w/api.php", apiURL.absoluteString);
+    NSURL* mobileAPIURL = [siteURL wmf_URLWithPath:@"/w/api.php" isMobile:YES];
+    XCTAssertEqualObjects(@"https://m.mediawiki.org/w/api.php", mobileAPIURL.absoluteString);
+}
+
+- (void)testWMFLanguagelessMobileLinks {
+    NSURL* siteURL    = [NSURL URLWithString:@"https://m.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ"];
+    NSURL* desktopURL = siteURL.wmf_desktopURL;
+    XCTAssertEqualObjects(@"https://mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ", desktopURL.absoluteString);
+    NSURL* mobileURL = siteURL.wmf_mobileURL;
+    XCTAssertEqualObjects(@"https://m.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ", mobileURL.absoluteString);
+    NSURL* apiURL = [siteURL wmf_URLWithPath:@"/w/api.php" isMobile:NO];
+    XCTAssertEqualObjects(@"https://mediawiki.org/w/api.php", apiURL.absoluteString);
+    NSURL* mobileAPIURL = [siteURL wmf_URLWithPath:@"/w/api.php" isMobile:YES];
+    XCTAssertEqualObjects(@"https://m.mediawiki.org/w/api.php", mobileAPIURL.absoluteString);
+}
+
 @end
