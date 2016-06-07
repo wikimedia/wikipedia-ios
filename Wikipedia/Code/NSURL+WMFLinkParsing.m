@@ -54,7 +54,7 @@
 }
 
 - (NSURL*)wmf_mobileURL {
-    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:YES];
     return components.URL;
 }
@@ -71,6 +71,10 @@
 
 + (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language {
     return [[NSURLComponents wmf_componentsWithDomain:domain language:language] URL];
+}
+
++ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language title:(NSString*)title fragment:(NSString* __nullable)fragment {
+    return [[NSURLComponents wmf_componentsWithDomain:domain language:language title:title fragment:fragment] URL];
 }
 
 @end

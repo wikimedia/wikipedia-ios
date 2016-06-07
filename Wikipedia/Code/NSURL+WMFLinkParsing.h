@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language;
 
++ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language title:(NSString*)title fragment:(NSString* __nullable)fragment;
+
 @end
 
 NS_ASSUME_NONNULL_END
