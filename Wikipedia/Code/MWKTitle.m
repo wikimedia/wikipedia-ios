@@ -35,11 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super initWithCoder:coder];
     if (self) {
         if (!self.URL) {
-            NSString *text = [self decodeValueForKey:@"text" withCoder:coder modelVersion:0];
-            MWKSite *site = [self decodeValueForKey:@"site" withCoder:coder modelVersion:0];
-            NSString *fragment = [self decodeValueForKey:@"fragment" withCoder:coder modelVersion:0];
+            NSString* text     = [self decodeValueForKey:@"text" withCoder:coder modelVersion:0];
+            MWKSite* site      = [self decodeValueForKey:@"site" withCoder:coder modelVersion:0];
+            NSString* fragment = [self decodeValueForKey:@"fragment" withCoder:coder modelVersion:0];
             if (site && text) {
-                self.URL = [NSURL wmf_URLWithDomain:site.domain language:site.language title:text fragment:fragment];
+                self.URL = [NSURL wmf_URLWithSiteURL:site.URL title:text fragment:fragment];
             }
         }
     }

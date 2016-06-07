@@ -60,8 +60,8 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
     self = [super initWithCoder:coder];
     if (self) {
         if (!self.URL) {
-            NSString *domain = [self decodeValueForKey:@"domain" withCoder:coder modelVersion:0];
-            NSString *language = [self decodeValueForKey:@"language" withCoder:coder modelVersion:0];
+            NSString* domain   = [self decodeValueForKey:@"domain" withCoder:coder modelVersion:0];
+            NSString* language = [self decodeValueForKey:@"language" withCoder:coder modelVersion:0];
             if (domain) {
                 self.URL = [NSURL wmf_URLWithDomain:domain language:language];
             }
