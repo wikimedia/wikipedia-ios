@@ -43,6 +43,18 @@
     XCTAssertEqualObjects(@"en.m.wikipedia.org", components.host);
 }
 
+- (void)testWMFLinksFromLinks {
+    NSURL* siteURL   = [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"fr"];
+    NSURL* titledURL = [siteURL wmf_URLWithTitle:@"Main Page" fragment:nil];
+    XCTAssertEqualObjects(@"https://fr.wikipedia.org/wiki/Main_Page", titledURL.absoluteString);
+    titledURL = [siteURL wmf_URLWithTitle:@"Main Page"];
+    XCTAssertEqualObjects(@"https://fr.wikipedia.org/wiki/Main_Page", titledURL.absoluteString);
+    NSURL* titledAndFragmentedURL = [siteURL wmf_URLWithTitle:@"Main Page" fragment:@"section"];
+    XCTAssertEqualObjects(@"https://fr.wikipedia.org/wiki/Main_Page#section", titledAndFragmentedURL.absoluteString);
+    NSURL* mobileURL = [siteURL wmf_URLWithPath:@"/w/api.php" isMobile:YES];
+    XCTAssertEqualObjects(@"https://fr.m.wikipedia.org/w/api.php", mobileURL.absoluteString);
+}
+
 - (void)testWMFInternalLinks {
     NSURL* siteURL = [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"en"];
     XCTAssertEqualObjects(@"en.wikipedia.org", siteURL.host);
