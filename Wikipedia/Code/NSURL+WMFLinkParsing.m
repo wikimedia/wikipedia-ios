@@ -101,7 +101,7 @@
 
 - (NSString*)wmf_language {
     NSRange dotRange = [self.host rangeOfString:@"."];
-    if (dotRange.location != NSNotFound) {
+    if (dotRange.location != NSNotFound && dotRange.location > 1) {
         return [self.host substringToIndex:dotRange.location];
     } else {
         return nil;
