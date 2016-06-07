@@ -108,11 +108,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly, nullable) NSString* wmf_language;
 
-@property (nonatomic, copy, readonly, nullable) NSString* wmf_title;
+@property (nonatomic, copy, readonly) NSString* wmf_title;
 
-@property (nonatomic, copy, readonly, nullable) NSURL* wmf_mobileURL;
+@property (nonatomic, copy, readonly) NSURL* wmf_mobileURL;
 
-@property (nonatomic, copy, readonly, nullable) NSURL* wmf_desktopURL;
+@property (nonatomic, copy, readonly) NSURL* wmf_desktopURL;
 
 @property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
 

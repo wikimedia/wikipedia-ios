@@ -119,13 +119,15 @@
 - (NSURL*)wmf_mobileURL {
     NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:YES];
-    return components.URL;
+    NSURL* mobileURL = components.URL ? : self;
+    return mobileURL;
 }
 
 - (NSURL*)wmf_desktopURL {
     NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
-    return components.URL;
+    NSURL* desktopURL = components.URL ? : self;
+    return desktopURL;
 }
 
 - (BOOL)wmf_isNonStandardURL {
