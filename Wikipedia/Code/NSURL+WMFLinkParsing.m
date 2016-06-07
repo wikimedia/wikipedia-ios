@@ -23,15 +23,15 @@
 
 #pragma mark - Constructors
 
-+ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language {
++ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(nullable NSString*)language {
     return [[NSURLComponents wmf_componentsWithDomain:domain language:language] URL];
 }
 
-+ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language title:(NSString*)title fragment:(NSString* __nullable)fragment {
++ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(nullable NSString*)language title:(NSString*)title fragment:(nullable NSString*)fragment {
     return [[NSURLComponents wmf_componentsWithDomain:domain language:language title:title fragment:fragment] URL];
 }
 
-+ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL title:(NSString* __nullable)title fragment:(NSString* __nullable)fragment {
++ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL title:(nullable NSString*)title fragment:(nullable NSString*)fragment {
     return [siteURL wmf_URLWithTitle:title fragment:fragment];
 }
 

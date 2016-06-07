@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return A new URL with the given domain and language.
  **/
-+ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language;
++ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(nullable NSString*)language;
 
 /**
  * Initialize a new URL with a Wikimedia `domain`, `language`, `title` and `fragment`.
@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return A new URL with the given domain, language, title and fragment.
  **/
-+ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language title:(NSString* __nullable)title fragment:(NSString* __nullable)fragment;
++ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(nullable NSString*)language title:(nullable NSString*)title fragment:(nullable NSString*)fragment;
 
 
 /**
@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return A new URL constructed from the `siteURL`, replacing the `title` and `fragment` with the given values.
  **/
-+ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL title:(NSString* __nullable)title fragment:(NSString* __nullable)fragment;
++ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL title:(nullable NSString*)title fragment:(nullable NSString*)fragment;
 
 
 /**
@@ -85,7 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return A new URL based on the URL you call this method on with the given title and fragment.
  **/
-- (NSURL*)wmf_URLWithTitle:(NSString*)title fragment:(NSString* __nullable)fragment;
+- (NSURL*)wmf_URLWithTitle:(NSString*)title fragment:(nullable NSString*)fragment;
 
 /**
  * Return a new URL similar to the URL you call this method on but replace the path.

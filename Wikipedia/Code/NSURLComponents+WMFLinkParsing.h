@@ -11,8 +11,8 @@
  *
  * @return New NSURLComponents with the given domain and language.
  **/
-+ (NSURLComponents* __nonnull)wmf_componentsWithDomain:(NSString* __nonnull)domain
-                                              language:(NSString* __nullable)language;
++ (nonnull NSURLComponents*)wmf_componentsWithDomain:(nonnull NSString*)domain
+                                            language:(nullable NSString*)language;
 /**
  * Create new NSURLComponents with a Wikimedia `domain` and `language` for the mobile or desktop site.
  *
@@ -22,9 +22,9 @@
  *
  * @return New NSURLComponents with the given domain and language.
  **/
-+ (NSURLComponents* __nonnull)wmf_componentsWithDomain:(NSString* __nonnull)domain
-                                              language:(NSString* __nullable)language
-                                              isMobile:(BOOL)isMobile;
++ (nonnull NSURLComponents*)wmf_componentsWithDomain:(nonnull NSString*)domain
+                                            language:(nullable NSString*)language
+                                            isMobile:(BOOL)isMobile;
 
 /**
  * Create new NSURLComponents with a Wikimedia `domain`, `language` and `title`.
@@ -35,9 +35,9 @@
  *
  * @return New NSURLComponents with the given domain, language and title.
  **/
-+ (NSURLComponents* __nonnull)wmf_componentsWithDomain:(NSString* __nonnull)domain
-                                              language:(NSString* __nullable)language
-                                                 title:(NSString* __nullable)title;
++ (nonnull NSURLComponents*)wmf_componentsWithDomain:(nonnull NSString*)domain
+                                            language:(nullable NSString*)language
+                                               title:(nullable NSString*)title;
 
 /**
  * Create new NSURLComponents with a Wikimedia `domain`, `language`, `title` and `fragment`.
@@ -50,10 +50,10 @@
  *
  * @return New NSURLComponents with the given domain, language, title and fragment.
  **/
-+ (NSURLComponents* __nonnull)wmf_componentsWithDomain:(NSString* __nonnull)domain
-                                              language:(NSString* __nullable)language
-                                                 title:(NSString* __nullable)title
-                                              fragment:(NSString* __nullable)fragment;
++ (NSURLComponents* __nonnull)wmf_componentsWithDomain:(nonnull NSString*)domain
+                                              language:(nullable NSString*)language
+                                                 title:(nullable NSString*)title
+                                              fragment:(nullable NSString*)fragment;
 
 /**
  * Create new NSURLComponents with a Wikimedia `domain`, `language`, `title` and `fragment` for mobile or desktop based on `isMobile`.
@@ -66,11 +66,11 @@
  *
  * @return New NSURLComponents with the given domain, language, title and fragment for mobile or desktop based on `isMobile`.
  **/
-+ (NSURLComponents* __nonnull)wmf_componentsWithDomain:(NSString* __nonnull)domain
-                                              language:(NSString* __nullable)language
-                                                 title:(NSString* __nullable)title
-                                              fragment:(NSString* __nullable)fragment
-                                              isMobile:(BOOL)isMobile;
++ (nonnull NSURLComponents*)wmf_componentsWithDomain:(nonnull NSString*)domain
+                                            language:(nullable NSString*)language
+                                               title:(nullable NSString*)title
+                                            fragment:(nullable NSString*)fragment
+                                            isMobile:(BOOL)isMobile;
 
 /**
  * Create new NSString containing the full host for a Wikimedia `domain` and `language` for mobile or desktop based on `isMobile`.
@@ -81,9 +81,9 @@
  *
  * @return A new NSString containing the full host for a Wikimedia `domain` and `language` for mobile or desktop based on `isMobile`.
  **/
-+ (NSString* __nonnull)wmf_hostWithDomain:(NSString* __nonnull)domain
-                                 language:(NSString* __nullable)language
-                                 isMobile:(BOOL)isMobile;
++ (nonnull NSString*)wmf_hostWithDomain:(nonnull NSString*)domain
+                               language:(nullable NSString*)language
+                               isMobile:(BOOL)isMobile;
 
 @property (nonatomic, copy, nullable) NSString* wmf_title;
 @property (nullable, copy) NSString* wmf_fragment;
