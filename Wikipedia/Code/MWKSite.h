@@ -26,23 +26,28 @@ extern NSString* const WMFDefaultSiteDomain;
 /// @name Initialization
 ///
 
-- (instancetype)initWithURL:(NSURL*)url NS_DESIGNATED_INITIALIZER;
-
-- (instancetype)initWithCoder:(NSCoder*)coder NS_DESIGNATED_INITIALIZER;
-
-- (instancetype)initWithDomain:(NSString*)domain language:(nullable NSString*)language;
-
-/// Create a site using @c language and the default domain.
-- (instancetype)initWithLanguage:(NSString*)language;
 
 /**
- * Initialize a site with components of a URL.
+ * Initialize a site with a URL.
  *
  * @param url URL pointing to a Wikipedia site (e.g. https://en.wikipedia.org).
  *
  * @return A site with properties parsed from the given URL, or `nil` if parsing failed.
  */
 
+- (instancetype)initWithURL:(NSURL*)url NS_DESIGNATED_INITIALIZER;
+
+/**
+ * Initialize a new site with a coder.
+ *
+ * @param coder for a MWKSite.
+ */
+- (instancetype)initWithCoder:(NSCoder*)coder NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithDomain:(NSString*)domain language:(nullable NSString*)language;
+
+/// Create a site using @c language and the default domain.
+- (instancetype)initWithLanguage:(NSString*)language;
 
 + (instancetype)siteWithDomain:(NSString*)domain language:(nullable NSString*)language;
 
