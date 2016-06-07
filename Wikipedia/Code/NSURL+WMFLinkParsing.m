@@ -59,6 +59,12 @@
     return components.URL;
 }
 
+- (NSURL*)wmf_desktopURL {
+    NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
+    return components.URL;
+}
+
 - (BOOL)wmf_isNonStandardURL {
     return self.wmf_language == nil;
 }
