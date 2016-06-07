@@ -13,9 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWKTitle ()
 
 @property (nonatomic, copy) NSURL* URL;
-@property (readwrite, strong, nonatomic) MWKSite* deprecatedSite;
-@property (readwrite, copy, nonatomic) NSString* deprecatedFragment;
-@property (readwrite, copy, nonatomic) NSString* deprecatedText;
 
 @property (readwrite, copy, nonatomic) NSString* prefixedDBKey;
 @property (readwrite, copy, nonatomic) NSString* prefixedURL;
@@ -37,8 +34,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        if (!self.URL && self.deprecatedSite && self.deprecatedText) {
-            self.URL = [NSURL wmf_URLWithDomain:self.deprecatedSite.domain language:self.deprecatedSite.language title:self.deprecatedText fragment:self.deprecatedFragment];
+        if (!self.URL) {
+            NSString *text = [self decodeValueForKey:@"text" withCoder:coder modelVersion:0];
+            MWKSite *site = [self decodeValueForKey:@"site" withCoder:coder modelVersion:0];
+            NSString *fragment = [self decodeValueForKey:@"fragment" withCoder:coder modelVersion:0];
+            if (site && text) {
+                self.URL = [NSURL wmf_URLWithDomain:site.domain language:site.language title:text fragment:fragment];
+            }
         }
     }
     return self;
@@ -126,21 +128,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSUInteger)modelVersion {
     return 1;
-}
-
-- (id)decodeValueForKey:(NSString*)key withCoder:(NSCoder*)coder modelVersion:(NSUInteger)modelVersion {
-    if (modelVersion == 0) {
-        id value = [coder decodeObjectForKey:key];
-        if ([key isEqualToString:@"text"]) {
-            self.deprecatedText = value;
-        }
-        if ([key isEqualToString:@"fragment"]) {
-            self.deprecatedFragment = value;
-        }
-        return value;
-    } else {
-        return [super decodeValueForKey:key withCoder:coder modelVersion:modelVersion];
-    }
 }
 
 // Need to specify storage properties since text & site are readonly, which Mantle interprets as transitory.

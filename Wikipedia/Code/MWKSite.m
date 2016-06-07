@@ -17,10 +17,6 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 
 @property (nonatomic, copy) NSURL* URL;
 
-@property (nonatomic, copy) NSString* deprecatedDomain;
-@property (nonatomic, copy, nullable) NSString* deprecatedLanguage;
-
-
 @end
 
 @implementation MWKSite
@@ -63,8 +59,12 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        if (!self.URL && self.deprecatedDomain) {
-            self.URL = [NSURL wmf_URLWithDomain:self.deprecatedDomain language:self.deprecatedLanguage];
+        if (!self.URL) {
+            NSString *domain = [self decodeValueForKey:@"domain" withCoder:coder modelVersion:0];
+            NSString *language = [self decodeValueForKey:@"language" withCoder:coder modelVersion:0];
+            if (domain) {
+                self.URL = [NSURL wmf_URLWithDomain:domain language:language];
+            }
         }
     }
     return self;
@@ -127,21 +127,6 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 
 + (NSUInteger)modelVersion {
     return 1;
-}
-
-- (id)decodeValueForKey:(NSString*)key withCoder:(NSCoder*)coder modelVersion:(NSUInteger)modelVersion {
-    if (modelVersion == 0) {
-        id value = [coder decodeObjectForKey:key];
-        if ([key isEqualToString:@"domain"]) {
-            self.deprecatedDomain = value;
-        }
-        if ([key isEqualToString:@"language"]) {
-            self.deprecatedLanguage = value;
-        }
-        return value;
-    } else {
-        return [super decodeValueForKey:key withCoder:coder modelVersion:modelVersion];
-    }
 }
 
 // Need to specify storage properties since domain & language are readonly, which Mantle interprets as transitory.
