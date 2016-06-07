@@ -30,6 +30,10 @@
     return [[NSURLComponents wmf_componentsWithDomain:domain language:language title:title fragment:fragment] URL];
 }
 
++ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL title:(NSString* __nullable)title fragment:(NSString* __nullable)fragment {
+    return [siteURL wmf_URLWithTitle:title fragment:fragment];
+}
+
 - (NSURL*)wmf_URLWithTitle:(NSString*)title {
     NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.wmf_title = title;

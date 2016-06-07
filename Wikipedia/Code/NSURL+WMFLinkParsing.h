@@ -34,6 +34,18 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 + (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language title:(NSString* __nullable)title fragment:(NSString* __nullable)fragment;
 
+
+/**
+ * Return a new URL constructed from the `siteURL`, replacing the `title` and `fragment` with the given values.
+ *
+ * @param siteURL       A Wikimedia site URL. For exmaple: `https://en.wikipedia.org`.
+ * @param title         A Wikimedia title. For exmaple: `Main Page`.
+ * @param fragment      An optional fragment, for example if you want the URL to contain `#section`, the fragment is `section`.
+ *
+ * @return A new URL constructed from the `siteURL`, replacing the `title` and `fragment` with the given values.
+ **/
++ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL title:(NSString* __nullable)title fragment:(NSString* __nullable)fragment;
+
 /**
  * Return a new URL similar to the URL you call this method on but replace the title.
  *
