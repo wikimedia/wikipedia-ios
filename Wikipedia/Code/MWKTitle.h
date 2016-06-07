@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param site      The site to which this title belongs.
  * @param text      The text which makes up the title.
- * @param fragment  An optional fragment, e.g. @"#section".
+ * @param fragment  An optional fragment, for example if the URL contains `#section`, the fragment is `section`.
  *
  * @return A new title.
  */

@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param title         An optional Wikimedia title. for exmaple: `Main Page`.
  *
- * @param fragment      An optional fragment, for example `section`.
+ * @param fragment      An optional fragment, for example if you want the URL to contain `#section`, the fragment is `section`.
  *
  * @return A new URL with the given domain, language, title and fragment.
  **/
