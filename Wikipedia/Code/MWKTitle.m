@@ -83,10 +83,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.text stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
-- (NSString*)escapedURLText {
-    return [[self.text wmf_denormalizedPageTitle] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-}
-
 - (NSURL*)mobileURL {
     return self.URL.wmf_mobileURL;
 }

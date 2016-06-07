@@ -81,9 +81,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// Text with spaces removed
 @property (readonly, copy, nonatomic) NSString* dataBaseKey;
 
-/// Text with spaces removed and special characters escaped for a URL
-@property (readonly, copy, nonatomic) NSString* escapedURLText;
-
 /// Fragment passed in designated initializer.
 @property (readonly, copy, nonatomic, nullable) NSString* fragment;
 
