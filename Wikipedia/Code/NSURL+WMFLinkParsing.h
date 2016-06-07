@@ -38,10 +38,33 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 + (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language title:(NSString* __nullable)title fragment:(NSString* __nullable)fragment;
 
+/**
+ * Return a new URL similar to the URL you call this method on but replace the title.
+ *
+ * @param title         A Wikimedia title. for exmaple: `Main Page`.
+ *
+ * @return A new URL based on the URL you call this method on with the given title.
+ **/
 - (NSURL*)wmf_URLWithTitle:(NSString*)title;
 
+/**
+ * Return a new URL similar to the URL you call this method on but replace the title and fragemnt.
+ *
+ * @param title         A Wikimedia title. for exmaple: `Main Page`.
+ *
+ * @param fragment      An optional fragment, for example if you want the URL to contain `#section`, the fragment is `section`.
+ *
+ * @return A new URL based on the URL you call this method on with the given title and fragment.
+ **/
 - (NSURL*)wmf_URLWithTitle:(NSString*)title fragment:(NSString* __nullable)fragment;
 
+/**
+ * Return a new URL similar to the URL you call this method on but replace the path.
+ *
+ * @param path         A full path - for example `/w/api.php`
+ *
+ * @return A new URL based on the URL you call this method on with the given path.
+ **/
 - (NSURL*)wmf_URLWithPath:(NSString*)path isMobile:(BOOL)isMobile;
 
 @property (nonatomic, readonly) BOOL wmf_isInternalLink;
