@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Initialize a new URL with a Wikimedia `domain` and `language`.
  *
  * @param domain        Wikimedia domain - for example: `wikimedia.org`.
- *
  * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
  *
  * @return A new URL with the given domain and language.
@@ -27,11 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
  * Initialize a new URL with a Wikimedia `domain`, `language`, `title` and `fragment`.
  *
  * @param domain        Wikimedia domain - for example: `wikimedia.org`.
- *
  * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
- *
  * @param title         An optional Wikimedia title. for exmaple: `Main Page`.
- *
  * @param fragment      An optional fragment, for example if you want the URL to contain `#section`, the fragment is `section`.
  *
  * @return A new URL with the given domain, language, title and fragment.
@@ -51,7 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Return a new URL similar to the URL you call this method on but replace the title and fragemnt.
  *
  * @param title         A Wikimedia title. for exmaple: `Main Page`.
- *
  * @param fragment      An optional fragment, for example if you want the URL to contain `#section`, the fragment is `section`.
  *
  * @return A new URL based on the URL you call this method on with the given title and fragment.
