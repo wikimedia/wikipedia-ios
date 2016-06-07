@@ -12,9 +12,31 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSURL (WMFLinkParsing)
 
+/**
+ * Initialize a new URL with a Wikimedia `domain` and `language`.
+ *
+ * @param domain        Wikimedia domain - for example: `wikimedia.org`.
+ *
+ * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
+ *
+ * @return A new URL with the given domain and language.
+ **/
 + (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language;
 
-+ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language title:(NSString*)title fragment:(NSString* __nullable)fragment;
+/**
+ * Initialize a new URL with a Wikimedia `domain`, `language`, `title` and `fragment`.
+ *
+ * @param domain        Wikimedia domain - for example: `wikimedia.org`.
+ *
+ * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
+ *
+ * @param title         An optional Wikimedia title. for exmaple: `Main Page`.
+ *
+ * @param fragment      An optional fragment, for example `section`.
+ *
+ * @return A new URL with the given domain, language, title and fragment.
+ **/
++ (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(NSString* __nullable)language title:(NSString* __nullable)title fragment:(NSString* __nullable)fragment;
 
 - (NSURL*)wmf_URLWithTitle:(NSString*)title;
 
