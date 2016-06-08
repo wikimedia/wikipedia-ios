@@ -59,7 +59,7 @@
 }
 
 - (void)setWmf_title:(NSString*)wmf_title {
-    NSString* path = [[wmf_title wmf_denormalizedPageTitle] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString* path = [[wmf_title wmf_denormalizedPageTitle] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
     if (path != nil && path.length > 0) {
         NSArray* pathComponents = @[WMFInternalLinkPathPrefix, path];
         self.path = [NSString pathWithComponents:pathComponents];

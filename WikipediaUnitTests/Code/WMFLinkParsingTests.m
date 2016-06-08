@@ -88,4 +88,12 @@
     XCTAssertEqualObjects(@"https://m.mediawiki.org/w/api.php", mobileAPIURL.absoluteString);
 }
 
+- (void)testWMFSpecialCharacters {
+    NSURL* URL        = [NSURL URLWithString:@"https://en.m.wikipedia.org"];
+    NSURL* kirkjubURL = [URL wmf_URLWithTitle:@"Kirkjubæjarklaustur"];
+    XCTAssertEqualObjects(@"/wiki/Kirkjub%C3%A6jarklaustur", kirkjubURL.path);
+    NSURL* eldgjaURL = [URL wmf_URLWithTitle:@"Eldgjá"];
+    XCTAssertEqualObjects(@"/wiki/Eldgj%C3%A1", eldgjaURL.path);
+}
+
 @end
