@@ -289,9 +289,9 @@ NSString* const WMFCCBySALicenseURL =
     if (self.navigationController.topViewController == self.parentViewController) { // Ensure only the topmost article is recorded.
         [self getCurrentVisibleSectionCompletion:^(MWKSection* visibleSection, NSError* error){
             MWKTitle* articleTitleWithCurrentlyOnScreenFragment =
-            [[MWKTitle alloc] initWithSite:self.article.title.site
-                           normalizedTitle:self.article.title.text
-                                  fragment:visibleSection.anchor];
+                [[MWKTitle alloc] initWithSite:self.article.title.site
+                               normalizedTitle:self.article.title.text
+                                      fragment:visibleSection.anchor];
             [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:articleTitleWithCurrentlyOnScreenFragment];
         }];
     }
