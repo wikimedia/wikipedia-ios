@@ -213,7 +213,6 @@ NSString* const WMFCCBySALicenseURL =
                             injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
                          forMainFrameOnly:YES]];
 
-
     WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
     configuration.userContentController = userContentController;
     return configuration;

@@ -3,6 +3,7 @@
 
 #import "WKWebView+LoadAssetsHtml.h"
 #import "Wikipedia-Swift.h"
+#import "NSMutableString+WMFImageProxy.h"
 
 @implementation WKWebView (LoadAssetsHtml)
 
@@ -14,6 +15,10 @@
     if (!string) {
         string = @"";
     }
+
+    NSMutableString* mutableString = [string mutableCopy];
+    [mutableString wmf_replaceImgTagSrcValuesWithLocalhostProxyURLs];
+    string = mutableString;
 
     NSString* path = [[self getAssetsPath] stringByAppendingPathComponent:fileName];
 
