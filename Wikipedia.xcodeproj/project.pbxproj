@@ -6358,7 +6358,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"PIWIK_ENABLED=1",
+					"PIWIK_ENABLED=0",
 				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
@@ -6492,7 +6492,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"PIWIK_ENABLED=1",
+					"PIWIK_ENABLED=0",
 				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
@@ -6764,7 +6764,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"PIWIK_ENABLED=1",
+					"PIWIK_ENABLED=0",
 				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
@@ -6811,7 +6811,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"PIWIK_ENABLED=1",
+					"PIWIK_ENABLED=0",
 				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";

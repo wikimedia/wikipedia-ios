@@ -63,10 +63,10 @@
 }
 
 - (BOOL)wmf_isPiwikEnabledAndConfigured {
-#ifndef PIWIK_ENABLED
-    return NO;
-#else
+#if PIWIK_ENABLED
     return [self wmf_piwikURL].length > 0 && [self wmf_piwikAppID].length > 0;
+#else
+    return NO;
 #endif
 }
 
