@@ -120,15 +120,14 @@
                 originalSrc = [@"http:" stringByAppendingString:originalSrc];
             }
 
-            NSString* imgURLString = originalSrc;                    //[request.URL.absoluteString stringByReplacingOccurrencesOfString:@"http://localhost:8080/" withString:@"http://upload.wikimedia.org/"];
-            NSURL* imgURL = [NSURL URLWithString:imgURLString];
+            NSURL* imgURL = [NSURL URLWithString:originalSrc];
 
             NSAssert(imgURL, @"imageProxy URL should not be nil");
 
             NSData* cachedImgData = [[WMFImageController sharedInstance] diskDataForImageWithURL:imgURL];
 
             if (cachedImgData) {
-                NSString* mimeType = [imgURLString.pathExtension wmf_asMIMEType];
+                NSString* mimeType = [originalSrc.pathExtension wmf_asMIMEType];
 
                 GCDWebServerDataResponse* gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:cachedImgData contentType:mimeType];
                 completionBlock(gcdResponse);
