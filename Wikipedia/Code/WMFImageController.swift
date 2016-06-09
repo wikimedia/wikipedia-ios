@@ -283,10 +283,6 @@ public class WMFImageController : NSObject {
         self.imageManager.imageCache.clearDisk()
     }
     
-    public func cacheImageData(imageData: NSData, url: NSURL){
-        cacheImageData(imageData, url: url, MIMEType: nil)
-    }
-    
     public func cacheImageData(imageData: NSData, url: NSURL, MIMEType: String?){
         let diskCachePath = self.imageManager.imageCache.defaultCachePathForKey(self.cacheKeyForURL(url))
         
