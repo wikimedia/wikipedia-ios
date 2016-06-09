@@ -32,6 +32,7 @@
 #import "WMFZeroMessage.h"
 #import "WKWebView+LoadAssetsHtml.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
+#import "WKProcessPool+WMFSharedProcessPool.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -215,6 +216,7 @@ NSString* const WMFCCBySALicenseURL =
 
     WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
     configuration.userContentController = userContentController;
+    configuration.processPool = [WKProcessPool wmf_sharedProcessPool];
     return configuration;
 }
 
