@@ -123,22 +123,23 @@
             NSURL* imgURL = [NSURL URLWithString:originalSrc];
 
             NSAssert(imgURL, @"imageProxy URL should not be nil");
+            
+            NSURLCache *URLCache = [NSURLCache sharedURLCache];
+            NSURLRequest *request = [NSURLRequest requestWithURL:imgURL];
+            NSCachedURLResponse *cachedResponse = [URLCache cachedResponseForRequest:request];
+          
 
-            WMFTypedImageData* typedImgData = [[WMFImageController sharedInstance] typedDiskDataForImageWithURL:imgURL];
+            if (cachedResponse.response && cachedResponse.data) {
+                NSString* mimeType = cachedResponse.response.MIMEType;
 
-            if (typedImgData.data) {
-                NSString* mimeType = typedImgData.MIMEType;
-
-                GCDWebServerDataResponse* gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:typedImgData.data contentType:mimeType];
+                GCDWebServerDataResponse* gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:cachedResponse.data contentType:mimeType];
                 completionBlock(gcdResponse);
             } else {
-                NSURLSessionDataTask* downloadImgTask = [[NSURLSession sharedSession] dataTaskWithURL:imgURL completionHandler:^(NSData* imgData, NSURLResponse* response, NSError* error) {
-                    NSString* mimeType = response.MIMEType;
-
-                    GCDWebServerDataResponse* gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:imgData contentType:mimeType];
+                NSURLSessionDataTask* downloadImgTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData* imgData, NSURLResponse* response, NSError* error) {
+                    GCDWebServerDataResponse* gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:imgData contentType:response.MIMEType];
                     completionBlock(gcdResponse);
-
-                    [[WMFImageController sharedInstance] cacheImageData:imgData url:imgURL MIMEType:mimeType];
+                    NSCachedURLResponse *responseToCache = [[NSCachedURLResponse alloc] initWithResponse:response data:imgData];
+                    [URLCache storeCachedResponse:responseToCache forRequest:request];
                 }];
                 [downloadImgTask resume];
             }
