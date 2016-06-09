@@ -8,8 +8,8 @@ NSString* const WMFExtendedFileAttributesErrorDomain = @"org.wikimedia.WMFExtend
 @implementation NSFileManager (WMFExtendedFileAttributes)
 
 - (BOOL)wmf_setValue:(NSString*)value forExtendedFileAttributeNamed:(NSString*)attributeName forFileAtPath:(NSString*)path error:(NSError**)error {
-    const char* attributeNamePtr  = [attributeName UTF8String];
-    const char* pathPtr = [path fileSystemRepresentation];
+    const char* attributeNamePtr = [attributeName UTF8String];
+    const char* pathPtr          = [path fileSystemRepresentation];
 
     const char* valuePtr = [value UTF8String];
 
@@ -52,15 +52,15 @@ NSString* const WMFExtendedFileAttributesErrorDomain = @"org.wikimedia.WMFExtend
             case ENOSPC:
                 errorDescription = @"Not enough space left on the file system.";
         }
-        NSDictionary *userInfo = @{NSLocalizedDescriptionKey: errorDescription};
+        NSDictionary* userInfo = @{NSLocalizedDescriptionKey: errorDescription};
         *error = [NSError errorWithDomain:WMFExtendedFileAttributesErrorDomain code:err userInfo:userInfo];
     }
     return result == 0;
 }
 
 - (NSString*)wmf_valueForExtendedFileAttributeNamed:(NSString*)attributeName forFileAtPath:(NSString*)path {
-    const char* attributeNamePtr  = [attributeName UTF8String];
-    const char* pathPtr = [path fileSystemRepresentation];
+    const char* attributeNamePtr = [attributeName UTF8String];
+    const char* pathPtr          = [path fileSystemRepresentation];
 
     ssize_t bufferLength = getxattr(pathPtr, attributeNamePtr, NULL, 0, 0, 0);
 

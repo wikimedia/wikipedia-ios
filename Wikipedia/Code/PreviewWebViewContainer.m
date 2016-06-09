@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
     configuration.userContentController = userContentController;
-    configuration.processPool = [WKProcessPool wmf_sharedProcessPool];
+    configuration.processPool           = [WKProcessPool wmf_sharedProcessPool];
     return configuration;
 }
 
