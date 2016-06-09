@@ -25,6 +25,8 @@
 		0E1E1A361CE6170D002B474C /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3B81CE2B2E1004A9DF0 /* CocoaLumberjackSwift.framework */; };
 		0E1E1A371CE6170D002B474C /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3B91CE2B2E1004A9DF0 /* PromiseKit.framework */; };
 		0E1E1A381CE6170D002B474C /* SWStepSlider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3BA1CE2B2E1004A9DF0 /* SWStepSlider.framework */; };
+		0E26628A1D08D950006D4A46 /* WMFAuthManagerInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2662891D08D950006D4A46 /* WMFAuthManagerInfoFetcher.m */; };
+		0E26628D1D09ED08006D4A46 /* WMFAuthManagerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26628C1D09ED08006D4A46 /* WMFAuthManagerInfo.m */; };
 		0E26B0721C0F4F550004D687 /* WMFAppViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0701C0F4F550004D687 /* WMFAppViewController.storyboard */; };
 		0E26B0731C0F4F550004D687 /* WMFTabBarUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */; };
 		0E26B07F1C0F4F720004D687 /* WMFWelcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */; };
@@ -733,6 +735,10 @@
 		0E0BE3B91CE2B2E1004A9DF0 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		0E0BE3BA1CE2B2E1004A9DF0 /* SWStepSlider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWStepSlider.framework; path = Carthage/Build/iOS/SWStepSlider.framework; sourceTree = "<group>"; };
 		0E10C4FD1C81046300CEB5C2 /* Wikipedia Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Wikipedia Debug.entitlements"; sourceTree = "<group>"; };
+		0E2662881D08D950006D4A46 /* WMFAuthManagerInfoFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAuthManagerInfoFetcher.h; path = Wikipedia/Code/WMFAuthManagerInfoFetcher.h; sourceTree = SOURCE_ROOT; };
+		0E2662891D08D950006D4A46 /* WMFAuthManagerInfoFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAuthManagerInfoFetcher.m; path = Wikipedia/Code/WMFAuthManagerInfoFetcher.m; sourceTree = SOURCE_ROOT; };
+		0E26628B1D09ED08006D4A46 /* WMFAuthManagerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFAuthManagerInfo.h; sourceTree = "<group>"; };
+		0E26628C1D09ED08006D4A46 /* WMFAuthManagerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFAuthManagerInfo.m; sourceTree = "<group>"; };
 		0E26B0701C0F4F550004D687 /* WMFAppViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFAppViewController.storyboard; path = Wikipedia/Code/WMFAppViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFTabBarUI.storyboard; path = Wikipedia/Code/WMFTabBarUI.storyboard; sourceTree = SOURCE_ROOT; };
 		0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFWelcome.storyboard; path = Wikipedia/Code/WMFWelcome.storyboard; sourceTree = SOURCE_ROOT; };
@@ -2158,6 +2164,10 @@
 				B0E804001C0CDE480065EBC0 /* LoginViewController.storyboard */,
 				B0E806BA1C0CEB260065EBC0 /* LoginViewController.h */,
 				B0E806BB1C0CEB260065EBC0 /* LoginViewController.m */,
+				B0E8065D1C0CE9030065EBC0 /* LoginTokenFetcher.h */,
+				B0E8065E1C0CE9030065EBC0 /* LoginTokenFetcher.m */,
+				B0E8063F1C0CE7F70065EBC0 /* AccountLogin.h */,
+				B0E806401C0CE7F70065EBC0 /* AccountLogin.m */,
 			);
 			name = Login;
 			path = Wikipedia/Code/Login;
@@ -2201,13 +2211,13 @@
 			path = Wikipedia/Code/Protocols;
 			sourceTree = SOURCE_ROOT;
 		};
-		0463639518A844380049EE4F /* Credentials */ = {
+		0463639518A844380049EE4F /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
 				B0E808251C0CF6160065EBC0 /* KeychainCredentials.h */,
 				B0E808261C0CF6160065EBC0 /* KeychainCredentials.m */,
 			);
-			name = Credentials;
+			name = Keychain;
 			path = Wikipedia/Code/Keychain;
 			sourceTree = SOURCE_ROOT;
 		};
@@ -2253,16 +2263,6 @@
 				BC45D56F1C32E99C007C72F3 /* Common */,
 				BCCB813F1C110721008BC602 /* Picture of the Day */,
 				BCDC489C1BF0F38900E6858A /* Featured Article */,
-				B0E8063B1C0CE7F70065EBC0 /* AccountCreationTokenFetcher.h */,
-				B0E8063C1C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m */,
-				B0E8063D1C0CE7F70065EBC0 /* AccountCreator.h */,
-				B0E8063E1C0CE7F70065EBC0 /* AccountCreator.m */,
-				B0E8063F1C0CE7F70065EBC0 /* AccountLogin.h */,
-				B0E806401C0CE7F70065EBC0 /* AccountLogin.m */,
-				B0E806411C0CE7F70065EBC0 /* AssetsFileFetcher.h */,
-				B0E806421C0CE7F70065EBC0 /* AssetsFileFetcher.m */,
-				B0E806431C0CE7F70065EBC0 /* CaptchaResetter.h */,
-				B0E806441C0CE7F70065EBC0 /* CaptchaResetter.m */,
 				B0E806451C0CE7F70065EBC0 /* EditTokenFetcher.h */,
 				B0E806461C0CE7F70065EBC0 /* EditTokenFetcher.m */,
 				B0E806501C0CE84B0065EBC0 /* ThumbnailFetcher.h */,
@@ -2271,10 +2271,10 @@
 				B0E806551C0CE84B0065EBC0 /* WikiTextSectionFetcher.m */,
 				B0E806561C0CE84B0065EBC0 /* WikiTextSectionUploader.h */,
 				B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */,
-				B0E8065D1C0CE9030065EBC0 /* LoginTokenFetcher.h */,
-				B0E8065E1C0CE9030065EBC0 /* LoginTokenFetcher.m */,
 				B0E806611C0CE9030065EBC0 /* MWKLanguageLinkFetcher.h */,
 				B0E806621C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m */,
+				B0E806411C0CE7F70065EBC0 /* AssetsFileFetcher.h */,
+				B0E806421C0CE7F70065EBC0 /* AssetsFileFetcher.m */,
 				B0E806631C0CE9030065EBC0 /* MWKSiteInfoFetcher.h */,
 				B0E806641C0CE9030065EBC0 /* MWKSiteInfoFetcher.m */,
 				B0E806671C0CE9030065EBC0 /* PreviewHtmlFetcher.h */,
@@ -2282,7 +2282,7 @@
 				B09B03F11CE0FB6300009083 /* PageHistoryFetcher.swift */,
 			);
 			name = Fetchers;
-			path = Wikipedia/Code/Fetchers;
+			path = Wikipedia/Code;
 			sourceTree = SOURCE_ROOT;
 		};
 		0487046119F8262600B7D307 /* BaseFetcher */ = {
@@ -2298,10 +2298,14 @@
 		04A97E8418B81D440046B166 /* AccountCreation */ = {
 			isa = PBXGroup;
 			children = (
-				04B7B9BA18B5569600A63551 /* Captcha */,
 				B0E806971C0CEAC20065EBC0 /* AccountCreationViewController.h */,
 				B0E806981C0CEAC20065EBC0 /* AccountCreationViewController.m */,
 				B0E803FC1C0CDE480065EBC0 /* AccountCreationViewController.storyboard */,
+				B0E8063B1C0CE7F70065EBC0 /* AccountCreationTokenFetcher.h */,
+				B0E8063C1C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m */,
+				B0E8063D1C0CE7F70065EBC0 /* AccountCreator.h */,
+				B0E8063E1C0CE7F70065EBC0 /* AccountCreator.m */,
+				04B7B9BA18B5569600A63551 /* Captcha */,
 			);
 			name = AccountCreation;
 			path = Wikipedia/Code/AccountCreation;
@@ -2313,6 +2317,8 @@
 				B0E803FD1C0CDE480065EBC0 /* CaptchaViewController.storyboard */,
 				B0E8069A1C0CEAD20065EBC0 /* CaptchaViewController.h */,
 				B0E8069B1C0CEAD20065EBC0 /* CaptchaViewController.m */,
+				B0E806431C0CE7F70065EBC0 /* CaptchaResetter.h */,
+				B0E806441C0CE7F70065EBC0 /* CaptchaResetter.m */,
 			);
 			name = Captcha;
 			path = Wikipedia/Code/Captcha;
@@ -2494,6 +2500,28 @@
 			name = "Continue Reading";
 			path = "Wikipedia/Code/Continue Reading";
 			sourceTree = SOURCE_ROOT;
+		};
+		0E26628E1D09ED1C006D4A46 /* AuthManager Info */ = {
+			isa = PBXGroup;
+			children = (
+				0E2662881D08D950006D4A46 /* WMFAuthManagerInfoFetcher.h */,
+				0E2662891D08D950006D4A46 /* WMFAuthManagerInfoFetcher.m */,
+				0E26628B1D09ED08006D4A46 /* WMFAuthManagerInfo.h */,
+				0E26628C1D09ED08006D4A46 /* WMFAuthManagerInfo.m */,
+			);
+			name = "AuthManager Info";
+			sourceTree = "<group>";
+		};
+		0E26628F1D09F583006D4A46 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				0449E63218A9844000D51524 /* Login */,
+				04A97E8418B81D440046B166 /* AccountCreation */,
+				0463639518A844380049EE4F /* Keychain */,
+				0E26628E1D09ED1C006D4A46 /* AuthManager Info */,
+			);
+			name = Authentication;
+			sourceTree = "<group>";
 		};
 		0E2691031B86BBC0009B8605 /* Related */ = {
 			isa = PBXGroup;
@@ -3917,9 +3945,7 @@
 			isa = PBXGroup;
 			children = (
 				BC45D5AE1C330AE5007C72F3 /* Model */,
-				04A97E8418B81D440046B166 /* AccountCreation */,
-				0463639518A844380049EE4F /* Credentials */,
-				0449E63218A9844000D51524 /* Login */,
+				0E26628F1D09F583006D4A46 /* Authentication */,
 			);
 			name = User;
 			sourceTree = "<group>";
@@ -5685,6 +5711,7 @@
 				B0E804D81C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m in Sources */,
 				B0E803181C0CD6560065EBC0 /* WMFNearbyPlaceholderTableViewCell.m in Sources */,
 				B0E805CE1C0CE5330065EBC0 /* SDImageCache+PromiseKit.swift in Sources */,
+				0E26628D1D09ED08006D4A46 /* WMFAuthManagerInfo.m in Sources */,
 				B0E804C01C0CE0B40065EBC0 /* MWKArticle+WMFSharing.m in Sources */,
 				B06531721C237538003BD7DC /* WMFDisambiguationPagesViewController.m in Sources */,
 				B0E802BE1C0CD2360065EBC0 /* UIButton+WMFButton.m in Sources */,
@@ -5812,6 +5839,7 @@
 				B0E805421C0CE0DC0065EBC0 /* UIColor+WMFStyle.m in Sources */,
 				B0E805921C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m in Sources */,
 				B0E805CB1C0CE5250065EBC0 /* WMFImageController+Debug.swift in Sources */,
+				0E26628A1D08D950006D4A46 /* WMFAuthManagerInfoFetcher.m in Sources */,
 				0E26B0811C0F4F720004D687 /* WMFWelcomeIntroductionViewController.m in Sources */,
 				B0E803DD1C0CDD050065EBC0 /* UITableViewCell+WMFEdgeToEdgeSeparator.m in Sources */,
 				B0E807DD1C0CF04A0065EBC0 /* MWKSectionList.m in Sources */,
