@@ -68,7 +68,17 @@
     NSURL* fileUrlWithHashFragment =
         [NSURL URLWithString:[[[NSURL fileURLWithPath:filePath].absoluteString stringByAppendingString:@"#"] stringByAppendingString:fragment]];
 
-    [self loadFileURL:fileUrlWithHashFragment allowingReadAccessToURL:[fileUrlWithHashFragment URLByDeletingLastPathComponent]];
+    // Pre-iOS 9 WKWebView had an issue where it wouldn't load local (css or js) files
+    // (if your index.html referenced a bundled css file, for example).
+    // See: http://stackoverflow.com/q/24882834/135557 and https://github.com/ShingoFukuyama/WKWebViewTips
+    if ([self respondsToSelector:@selector(loadFileURL:allowingReadAccessToURL:)]) {
+        // As of iOS 9 there is an explicit method allowing for local read access.
+        [self loadFileURL:fileUrlWithHashFragment allowingReadAccessToURL:[fileUrlWithHashFragment URLByDeletingLastPathComponent]];
+    } else {
+        // This works for iOS 8 *only* because we are creating an "index.temp.html"
+        // file and loading it - the temp file approach is the work-around for iOS 8.
+        [self loadRequest:[NSURLRequest requestWithURL:fileUrlWithHashFragment]];
+    }
 }
 
 - (NSString*)getAssetsPath {
