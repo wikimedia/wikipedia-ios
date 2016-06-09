@@ -123,11 +123,11 @@
             NSURL* imgURL = [NSURL URLWithString:originalSrc];
 
             NSAssert(imgURL, @"imageProxy URL should not be nil");
-            
-            NSURLCache *URLCache = [NSURLCache sharedURLCache];
-            NSURLRequest *request = [NSURLRequest requestWithURL:imgURL];
-            NSCachedURLResponse *cachedResponse = [URLCache cachedResponseForRequest:request];
-          
+
+            NSURLCache* URLCache = [NSURLCache sharedURLCache];
+            NSURLRequest* request = [NSURLRequest requestWithURL:imgURL];
+            NSCachedURLResponse* cachedResponse = [URLCache cachedResponseForRequest:request];
+
 
             if (cachedResponse.response && cachedResponse.data) {
                 NSString* mimeType = cachedResponse.response.MIMEType;
@@ -138,7 +138,7 @@
                 NSURLSessionDataTask* downloadImgTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData* imgData, NSURLResponse* response, NSError* error) {
                     GCDWebServerDataResponse* gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:imgData contentType:response.MIMEType];
                     completionBlock(gcdResponse);
-                    NSCachedURLResponse *responseToCache = [[NSCachedURLResponse alloc] initWithResponse:response data:imgData];
+                    NSCachedURLResponse* responseToCache = [[NSCachedURLResponse alloc] initWithResponse:response data:imgData];
                     [URLCache storeCachedResponse:responseToCache forRequest:request];
                 }];
                 [downloadImgTask resume];
