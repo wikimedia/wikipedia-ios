@@ -1,6 +1,0 @@
-framework module GCDWebServers {
-  umbrella header "GCDWebServers.h"
-
-  export *
-  module * { export * }
-}

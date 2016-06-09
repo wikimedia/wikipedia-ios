@@ -3,7 +3,6 @@
 github "CocoaLumberjack/CocoaLumberjack"
 github "mxcl/PromiseKit"
 github "wikimedia/SWStepSlider"
-github "swisspol/GCDWebServer"
 
 #Test Libraries
 github "facebook/ios-snapshot-test-case"

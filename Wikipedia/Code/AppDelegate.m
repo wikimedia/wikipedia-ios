@@ -11,9 +11,9 @@
 #import <Tweaks/FBTweakShakeWindow.h>
 #import "ZeroConfigState.h"
 
-#import <GCDWebServers/GCDWebServer.h>
-#import <GCDWebServers/GCDWebServerDataResponse.h>
-#import <GCDWebServers/GCDWebServerErrorResponse.h>
+#import "GCDWebServer.h"
+#import "GCDWebServerDataResponse.h"
+#import "GCDWebServerErrorResponse.h"
 
 @interface AppDelegate ()
 
