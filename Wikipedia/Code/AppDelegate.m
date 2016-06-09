@@ -131,9 +131,10 @@
 
             if (cachedResponse.response && cachedResponse.data) {
                 NSString* mimeType = cachedResponse.response.MIMEType;
-                if (!mimeType) {
+                if (mimeType == nil) {
                     mimeType = [imgURL wmf_mimeTypeForExtension];
                 }
+                NSAssert(mimeType != nil, @"MIME type not found for URL %@", imgURL);
                 GCDWebServerDataResponse* gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:cachedResponse.data contentType:mimeType];
                 completionBlock(gcdResponse);
             } else {
