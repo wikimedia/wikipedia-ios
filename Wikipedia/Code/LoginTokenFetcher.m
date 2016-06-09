@@ -13,6 +13,7 @@
 @property (strong, nonatomic) NSString* userName;
 @property (strong, nonatomic) NSString* password;
 @property (strong, nonatomic) NSString* token;
+@property (assign, nonatomic) BOOL useAuthManager;
 
 @end
 
@@ -21,25 +22,27 @@
 - (instancetype)initAndFetchTokenForDomain:(NSString*)domain
                                   userName:(NSString*)userName
                                   password:(NSString*)password
+                            useAuthManager:(BOOL)useAuthManager
                                withManager:(AFHTTPSessionManager*)manager
                         thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
-        self.domain   = domain ? domain : @"";
-        self.userName = userName ? userName : @"";
-        self.password = password ? password : @"";
-        self.token    = @"";
+        self.domain         = domain ? domain : @"";
+        self.userName       = userName ? userName : @"";
+        self.password       = password ? password : @"";
+        self.token          = @"";
+        self.useAuthManager = useAuthManager;
 
         self.fetchFinishedDelegate = delegate;
-        [self fetchTokenWithManager:manager];
+        [self fetchTokenWithManager:manager useAuthManager:useAuthManager];
     }
     return self;
 }
 
-- (void)fetchTokenWithManager:(AFHTTPSessionManager*)manager {
+- (void)fetchTokenWithManager:(AFHTTPSessionManager*)manager useAuthManager:(BOOL)useAuthManager {
     NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain];
 
-    NSDictionary* params = [self getParams];
+    NSDictionary* params = useAuthManager ? [self getAuthManagerParams] : [self getLegacyParams];
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
@@ -64,15 +67,21 @@
                                     userInfo:errorDict];
         }
 
-        NSDictionary* output = @{};
-        if (!error) {
-            output = [self getSanitizedResponse:responseObject];
+        if (useAuthManager) {
+            self.token = responseObject[@"query"][@"tokens"][@"logintoken"];
+            [self finishWithError:error
+                      fetchedData:self.token];
+        } else {
+            NSDictionary* output = @{};
+            if (!error) {
+                output = [self getSanitizedResponse:responseObject];
+            }
+
+            self.token = output[@"token"] ? output[@"token"] : @"";
+
+            [self finishWithError:error
+                      fetchedData:output];
         }
-
-        self.token = output[@"token"] ? output[@"token"] : @"";
-
-        [self finishWithError:error
-                  fetchedData:output];
     } failure:^(NSURLSessionDataTask* operation, NSError* error) {
         //NSLog(@"LOGIN TOKEN FAIL = %@", error);
 
@@ -83,11 +92,20 @@
     }];
 }
 
-- (NSMutableDictionary*)getParams {
+- (NSMutableDictionary*)getLegacyParams {
     return @{
                @"action": @"login",
                @"lgname": self.userName,
                @"lgpassword": self.password,
+               @"format": @"json"
+    }.mutableCopy;
+}
+
+- (NSMutableDictionary*)getAuthManagerParams {
+    return @{
+               @"action": @"query",
+               @"meta": @"tokens",
+               @"type": @"login",
                @"format": @"json"
     }.mutableCopy;
 }

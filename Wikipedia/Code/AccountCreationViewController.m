@@ -24,11 +24,13 @@
 #import "PaddedLabel.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "MWKLanguageLinkController.h"
-
+#import "WMFAuthManagerInfoFetcher.h"
+#import "WMFAuthManagerInfo.h"
 
 @interface AccountCreationViewController ()
 
 @property (strong, nonatomic) CaptchaViewController* captchaViewController;
+@property (strong, nonatomic) WMFAuthManagerInfoFetcher* authManagerInfoFetcher;
 @property (weak, nonatomic) IBOutlet UIView* captchaContainer;
 @property (weak, nonatomic) IBOutlet UIScrollView* scrollView;
 @property (nonatomic) BOOL showCaptchaContainer;
@@ -487,11 +489,24 @@
 
     // Save!
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-saving", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+
+    self.authManagerInfoFetcher = [[WMFAuthManagerInfoFetcher alloc] init];
+
+    [self.authManagerInfoFetcher fetchAuthManagerCreationAvailableForSite:[[MWKLanguageLinkController sharedInstance] appLanguage].site].then(^(WMFAuthManagerInfo* info){
+        if (info) {
+            self.captchaId = info.captchaID;
+        }
+        [self fetchTokensWithInfo:info];
+    });
+}
+
+- (void)fetchTokensWithInfo:(WMFAuthManagerInfo*)info {
     [[QueuesSingleton sharedInstance].accountCreationFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
         (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
                                                                      userName:self.usernameField.text
                                                                      password:self.passwordField.text
                                                                         email:self.emailField.text
+                                                               useAuthManager:(info != nil)
                                                                   withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
                                                            thenNotifyDelegate:self];
     }];

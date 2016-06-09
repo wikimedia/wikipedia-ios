@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSString* password;
 @property (strong, nonatomic) NSString* email;
 @property (strong, nonatomic) NSString* token;
+@property (assign, nonatomic) BOOL useAuthManager;
 
 @end
 
@@ -23,26 +24,28 @@
                                   userName:(NSString*)userName
                                   password:(NSString*)password
                                      email:(NSString*)email
+                            useAuthManager:(BOOL)useAuthManager
                                withManager:(AFHTTPSessionManager*)manager
                         thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
-        self.domain   = domain ? domain : @"";
-        self.userName = userName ? userName : @"";
-        self.password = password ? password : @"";
-        self.email    = email ? email : @"";
-        self.token    = @"";
+        self.domain         = domain ? domain : @"";
+        self.userName       = userName ? userName : @"";
+        self.password       = password ? password : @"";
+        self.email          = email ? email : @"";
+        self.token          = @"";
+        self.useAuthManager = useAuthManager;
 
         self.fetchFinishedDelegate = delegate;
-        [self fetchTokenWithManager:manager];
+        [self fetchTokenWithManager:manager useAuthManager:useAuthManager];
     }
     return self;
 }
 
-- (void)fetchTokenWithManager:(AFHTTPSessionManager*)manager {
+- (void)fetchTokenWithManager:(AFHTTPSessionManager*)manager useAuthManager:(BOOL)useAuthManager {
     NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain];
 
-    NSDictionary* params = [self getParams];
+    NSDictionary* params = useAuthManager ? [self getAuthManagerParams] : [self getLegacyParams];
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
@@ -67,18 +70,23 @@
                                     userInfo:errorDict];
         }
 
-        NSDictionary* output = @{};
-        if (!error) {
-            output = [self getSanitizedResponse:responseObject];
+
+        if (useAuthManager) {
+            self.token = responseObject[@"query"][@"tokens"][@"createaccounttoken"];
+            [self finishWithError:error
+                      fetchedData:self.token];
+        } else {
+            NSDictionary* output = @{};
+            if (!error) {
+                output = [self getSanitizedResponse:responseObject];
+            }
+
+            self.token = output[@"token"] ? output[@"token"] : @"";
+
+            [self finishWithError:error
+                      fetchedData:output];
         }
-
-        self.token = output[@"token"] ? output[@"token"] : @"";
-
-        [self finishWithError:error
-                  fetchedData:output];
     } failure:^(NSURLSessionDataTask* operation, NSError* error) {
-        //NSLog(@"ACCT CREATION TOKEN FAIL = %@", error);
-
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
         [self finishWithError:error
@@ -86,12 +94,21 @@
     }];
 }
 
-- (NSMutableDictionary*)getParams {
+- (NSMutableDictionary*)getLegacyParams {
     return @{
                @"action": @"createaccount",
                @"name": self.userName,
                @"password": self.password,
                @"language": ([self.domain isEqualToString:@"test"] ? @"en" : self.domain),
+               @"format": @"json"
+    }.mutableCopy;
+}
+
+- (NSMutableDictionary*)getAuthManagerParams {
+    return @{
+               @"action": @"query",
+               @"meta": @"tokens",
+               @"type": @"createaccount",
                @"format": @"json"
     }.mutableCopy;
 }
@@ -108,12 +125,5 @@
     }
     return @{};
 }
-
-/*
-   -(void)dealloc
-   {
-    NSLog(@"DEALLOC'ING ACCT CREATION TOKEN FETCHER!");
-   }
- */
 
 @end

@@ -24,10 +24,14 @@
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "MWKLanguageLinkController.h"
+#import "WMFAuthManagerInfoFetcher.h"
+#import "WMFAuthManagerInfo.h"
 
 
 @interface LoginViewController (){
 }
+
+@property (strong, nonatomic) WMFAuthManagerInfoFetcher* authManagerInfoFetcher;
 
 @property (weak, nonatomic) IBOutlet UIScrollView* scrollView;
 @property (weak, nonatomic) IBOutlet UITextField* usernameField;
@@ -279,10 +283,19 @@
     self.successBlock = (!successBlock) ? ^(){} : successBlock;
     self.failBlock = (!failBlock) ? ^(){} : failBlock;
 
+    self.authManagerInfoFetcher = [[WMFAuthManagerInfoFetcher alloc] init];
+
+    [self.authManagerInfoFetcher fetchAuthManagerLoginAvailableForSite:[[MWKLanguageLinkController sharedInstance] appLanguage].site].then(^(WMFAuthManagerInfo* info){
+        [self fetchTokensWithInfo:info userName:userName password:password];
+    });
+}
+
+- (void)fetchTokensWithInfo:(WMFAuthManagerInfo*)info userName:(NSString*)userName password:(NSString*)password {
     [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
         (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
                                                            userName:userName
                                                            password:password
+                                                     useAuthManager:(info != nil)
                                                         withManager:[QueuesSingleton sharedInstance].loginFetchManager
                                                  thenNotifyDelegate:self];
     }];
