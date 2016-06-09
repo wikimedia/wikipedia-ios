@@ -31,7 +31,7 @@ static NSString* const WMFURLCacheXCS           = @"X-CS";
         NSCachedURLResponse* response = [self cachedResponseForRequest:request];
 
         if (response.data.length > 0) {
-            [[WMFImageController sharedInstance] cacheImageData:response.data url:url];
+            [[WMFImageController sharedInstance] cacheImageData:response.data url:url MIMEType:response.response.MIMEType];
         }
     }];
 }
