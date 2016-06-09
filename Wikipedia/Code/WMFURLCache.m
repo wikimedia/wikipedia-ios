@@ -54,8 +54,13 @@ static NSString* const WMFURLCacheXCS           = @"X-CS";
     }
 }
 
+- (BOOL)isMIMETypeImage:(NSString*)type {
+    return [type hasPrefix:@"image"];
+}
+
 - (NSCachedURLResponse*)cachedResponseForRequest:(NSURLRequest*)request {
-    if ([[WMFImageController sharedInstance] hasDataOnDiskForImageWithURL:request.URL]) {
+    NSString* mimeType = [request.URL wmf_mimeTypeForExtension];
+    if ([self isMIMETypeImage:mimeType] && [[WMFImageController sharedInstance] hasDataOnDiskForImageWithURL:request.URL]) {
         WMFTypedImageData* typedData = [[WMFImageController sharedInstance] typedDiskDataForImageWithURL:request.URL];
         NSData* data                 = typedData.data;
         NSString* mimeType           = typedData.MIMEType;
