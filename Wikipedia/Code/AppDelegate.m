@@ -138,10 +138,14 @@
                 completionBlock(gcdResponse);
             } else {
                 NSURLSessionDataTask* downloadImgTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData* imgData, NSURLResponse* response, NSError* error) {
-                    GCDWebServerDataResponse* gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:imgData contentType:response.MIMEType];
-                    completionBlock(gcdResponse);
-                    NSCachedURLResponse* responseToCache = [[NSCachedURLResponse alloc] initWithResponse:response data:imgData];
-                    [URLCache storeCachedResponse:responseToCache forRequest:request];
+                    if (response && imgData) {
+                        GCDWebServerDataResponse* gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:imgData contentType:response.MIMEType];
+                        completionBlock(gcdResponse);
+                        NSCachedURLResponse* responseToCache = [[NSCachedURLResponse alloc] initWithResponse:response data:imgData];
+                        [URLCache storeCachedResponse:responseToCache forRequest:request];
+                    } else {
+                        completionBlock(notFound);
+                    }
                 }];
                 [downloadImgTask resume];
             }
