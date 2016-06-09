@@ -1023,8 +1023,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - UIViewControllerPreviewingDelegate
 
 - (void)registerForPreviewingIfAvailable {
-    NSAssert(!self.webViewController.webView.allowsLinkPreview, @"WKWebView's built-in link preview forces Safari to open as of iOS 9.x. Do not enable.");
     [self wmf_ifForceTouchAvailable:^{
+        NSAssert(!self.webViewController.webView.allowsLinkPreview, @"WKWebView's built-in link preview forces Safari to open as of iOS 9.x. Do not enable.");
         [self unregisterForPreviewing];
         UIView* previewView = [self.webViewController.webView wmf_browserView];
         self.linkPreviewingContext =
