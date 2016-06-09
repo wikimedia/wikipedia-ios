@@ -124,12 +124,12 @@
 
             NSAssert(imgURL, @"imageProxy URL should not be nil");
 
-            NSData* cachedImgData = [[WMFImageController sharedInstance] diskDataForImageWithURL:imgURL];
+            WMFTypedImageData* typedImgData = [[WMFImageController sharedInstance] typedDiskDataForImageWithURL:imgURL];
 
-            if (cachedImgData) {
-                NSString* mimeType = [originalSrc.pathExtension wmf_asMIMEType];
+            if (typedImgData.data) {
+                NSString* mimeType = typedImgData.MIMEType;
 
-                GCDWebServerDataResponse* gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:cachedImgData contentType:mimeType];
+                GCDWebServerDataResponse* gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:typedImgData.data contentType:mimeType];
                 completionBlock(gcdResponse);
             } else {
                 NSURLSessionDataTask* downloadImgTask = [[NSURLSession sharedSession] dataTaskWithURL:imgURL completionHandler:^(NSData* imgData, NSURLResponse* response, NSError* error) {
@@ -138,7 +138,7 @@
                     GCDWebServerDataResponse* gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:imgData contentType:mimeType];
                     completionBlock(gcdResponse);
 
-                    [[WMFImageController sharedInstance] cacheImageData:imgData url:imgURL];
+                    [[WMFImageController sharedInstance] cacheImageData:imgData url:imgURL MIMEType:mimeType];
                 }];
                 [downloadImgTask resume];
             }
