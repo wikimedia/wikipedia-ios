@@ -57,24 +57,14 @@
                            [NSString stringWithFormat:expectedSourceURLFormat, sizePrefix]);
     };
 
-    id (^ withMatchingPrefixAndScale)(NSUInteger sizePrefix, float scale) = ^(NSUInteger sizePrefix, float scale){
-        return allOf(hasSourceURLWithPrefix(sizePrefix),
-                     hasProperty(WMF_SAFE_KEYPATH(MWKImage.new, width),
-                                 @(220 * scale)),
-                     hasProperty(WMF_SAFE_KEYPATH(MWKImage.new, height),
-                                 @(275 * scale)),
-                     nil);
-    };
-
     NSArray<MWKImage*>* savedImages = [article.images.entries bk_map:^MWKImage*(NSString* urlString) {
         return [self.dataStore imageWithURL:urlString article:article];
     }];
 
     // article image list should also contain the lead image due to importMobileViewJSON
     assertThat(savedImages, hasItems(hasSourceURLWithPrefix(640),
-                                     withMatchingPrefixAndScale(220, 1.0),
-                                     withMatchingPrefixAndScale(330, 1.0),
-                                     withMatchingPrefixAndScale(440, 2.0),
+                                     hasSourceURLWithPrefix(120),
+                                     hasSourceURLWithPrefix(220),
                                      nil));
 
     NSArray* articleImageListMinusLeadAndThumbnailImage = [article.images.entries bk_select:^BOOL (NSString* urlString) {
@@ -114,7 +104,7 @@
     [article importAndSaveImagesFromSectionHTML];
 
     // expected number is observed & recorded,
-    assertThat(@(article.images.count), is(@91));
+    assertThat(@(article.images.count), is(@244));
     [self.dataStore removeFolderAtBasePath];
 }
 
