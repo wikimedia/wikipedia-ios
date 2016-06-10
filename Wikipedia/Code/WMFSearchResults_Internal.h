@@ -8,7 +8,7 @@
 
 #import "WMFSearchResults.h"
 
-@interface WMFSearchResults ()
+@interface WMFSearchResults (WMFInternal)
 
 @property (nonatomic, copy, readwrite) NSString* searchTerm;
 
