@@ -58,8 +58,6 @@
             responseObject = @{@"error": @{@"info": @"Token not found."}};
         }
 
-        //NSLog(@"ACCT CREATION TOKEN DATA RETRIEVED = %@", responseObject);
-
         // Handle case where response is received, but API reports error.
         NSError* error = nil;
         if (responseObject[@"error"]) {
