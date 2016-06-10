@@ -9,6 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL canCreateAccount;
 
 @property (nonatomic, copy, readonly) NSString* captchaID;
+@property (nonatomic, copy, readonly) NSString* captchaURLFragment;
 
 @end
 
