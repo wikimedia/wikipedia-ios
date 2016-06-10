@@ -38,8 +38,8 @@
         return;
     }
 
-    NSString* imgHeight = imageNode.attributes[@"height"];
-    NSString* imgWidth  = imageNode.attributes[@"width"];
+    NSString* imgHeight = imageNode.attributes[@"data-file-height"] ? : imageNode.attributes[@"height"];
+    NSString* imgWidth  = imageNode.attributes[@"data-file-width"] ? : imageNode.attributes[@"width"];
 
     CGSize size = CGSizeMake([imgWidth floatValue], [imgHeight floatValue]);
     if (![MWKImage isSizeLargeEnoughForGalleryInclusion:size]) {
