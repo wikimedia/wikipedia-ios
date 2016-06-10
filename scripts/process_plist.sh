@@ -20,9 +20,16 @@ if [[ "${CONFIGURATION}" != "Release" || $WMF_FORCE_DEBUG_MENU == "1" ]]; then
   defaults write "${INFO_PLIST}" WMFShowDebugMenu -bool YES
 fi
 
-echo "Setting Hockey App ID for ${CONFIGURATION} build."
-defaults write "${INFO_PLIST}" WMFHockeyAppIdentifier -string $WMF_HOCKEYAPP_IDENTIFIER
-echo "Setting Piwik URL for ${CONFIGURATION} build."
-defaults write "${INFO_PLIST}" WMFPiwikURL -string $WMF_PIWIK_URL
-echo "Setting Piwik App ID for ${CONFIGURATION} build."
-defaults write "${INFO_PLIST}" WMFPiwikAppIdentifier -string $WMF_PIWIK_APP_IDENTIFIER
+if [[ "${CONFIGURATION}" == "Beta" ]]; then
+  echo "Setting Hockey App ID for ${CONFIGURATION} build."
+  defaults write "${INFO_PLIST}" WMFHockeyAppIdentifier -string $HOCKEY_BETA
+  defaults write "${INFO_PLIST}" WMFPiwikURL -string $PIWIK_URL
+  defaults write "${INFO_PLIST}" WMFPiwikAppIdentifier -string $PIWIK_BETA
+fi
+
+if [[ "${CONFIGURATION}" == "Release" ]]; then
+  echo "Setting Hockey App ID for ${CONFIGURATION} build."
+  defaults write "${INFO_PLIST}" WMFHockeyAppIdentifier -string $HOCKEY_PRODUCTION
+  defaults write "${INFO_PLIST}" WMFPiwikURL -string $PIWIK_URL
+  defaults write "${INFO_PLIST}" WMFPiwikAppIdentifier -string $PIWIK_PRODUCTION
+fi
