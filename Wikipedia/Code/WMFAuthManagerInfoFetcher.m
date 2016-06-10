@@ -12,6 +12,7 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFAuthManagerInfo.h"
+#import "MWKSite.h"
 
 
 @interface WMFAuthManagerInfoFetcher ()
@@ -51,20 +52,14 @@
             @"amirequestsfor": type
         };
 
-        [self.operationManager wmf_GETWithSite:site
-                                    parameters:params
-                                         retry:NULL
-                                       success:^(NSURLSessionDataTask* operation, id responseObject) {
+        [self.operationManager wmf_GETWithSite:site parameters:params]
+        .then(^(id responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
-//                                           if(!responseObject){
-//
-//                                           }
             resolve(responseObject);
-        }
-                                       failure:^(NSURLSessionDataTask* operation, NSError* error) {
+        }).catch(^(NSError* error) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve(error);
-        }];
+        });
     }];
 }
 
