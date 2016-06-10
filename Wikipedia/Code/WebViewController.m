@@ -151,10 +151,9 @@ NSString* const WMFCCBySALicenseURL =
                 }
             }
         } else if (message.body[@"imageClicked"]) {
-            NSDictionary* imageClicked = message.body[@"imageClicked"];
-            NSNumber* imageWidth       = imageClicked[@"data-file-width"] ? : imageClicked[@"width"];
-            NSNumber* imageHeight      = imageClicked[@"data-file-height"] ? : imageClicked[@"height"];
-            CGSize imageSize           = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
+            NSNumber* imageWidth  = message.body[@"imageClicked"][@"width"];
+            NSNumber* imageHeight = message.body[@"imageClicked"][@"height"];
+            CGSize imageSize      = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
             if (![MWKImage isSizeLargeEnoughForGalleryInclusion:imageSize]) {
                 return;
             }
