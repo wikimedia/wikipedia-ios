@@ -2,7 +2,6 @@
 
 @interface NSString (WMFImageProxy)
 
-- (NSString*)wmf_stringWithLocalhostProxyPrefix;
-- (NSString*)wmf_srcsetValueWithLocalhostProxyPrefixes;
+- (NSString*)wmf_stringWithImgTagSrcAndSrcsetURLsChangedToLocalhostProxyURLs;
 
 @end
