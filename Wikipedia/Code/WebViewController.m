@@ -154,12 +154,7 @@ NSString* const WMFCCBySALicenseURL =
             NSDictionary* imageClicked = message.body[@"imageClicked"];
             NSNumber* imageWidth       = imageClicked[@"data-file-width"] ? : imageClicked[@"width"];
             NSNumber* imageHeight      = imageClicked[@"data-file-height"] ? : imageClicked[@"height"];
-
-            CGSize imageSize = CGSizeZero;
-            if ([imageWidth respondsToSelector:@selector(floatValue)] && [imageHeight respondsToSelector:@selector(floatValue)]) {
-                imageSize = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
-            }
-            
+            CGSize imageSize           = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
             if (![MWKImage isSizeLargeEnoughForGalleryInclusion:imageSize]) {
                 return;
             }
