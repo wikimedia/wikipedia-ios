@@ -39,14 +39,14 @@
     testDateComponents.day      = 10;
     testDateComponents.year     = 2015;
 
-    NSString* testDatePattern = @"https://en\\.m\\.wikipedia\\.org.*TFA_title/November%2010%2C%202015.*";
+    NSString* testDatePattern = @"https://en\\.wikipedia\\.org.*TFA_title/November%2010%2C%202015.*";
 
     NSRegularExpression* tfaTitleRequest =
         [NSRegularExpression regularExpressionWithPattern:testDatePattern options:0 error:nil];
 
     // expected title matches the one in the JSON fixture
     NSRegularExpression* previewRequest =
-        [NSRegularExpression regularExpressionWithPattern:@"https://en\\.m\\.wikipedia\\.org.*titles=Mackensen-class%20battlecruiser.*" options:0 error:nil];
+        [NSRegularExpression regularExpressionWithPattern:@"https://en\\.wikipedia\\.org.*titles=Mackensen-class%20battlecruiser.*" options:0 error:nil];
 
     stubRequest(@"GET", tfaTitleRequest)
     .andReturn(200)
