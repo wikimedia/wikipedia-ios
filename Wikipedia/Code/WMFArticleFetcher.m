@@ -74,6 +74,11 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         resolve([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
     }
 
+    // Force desktop domain if not Zero rated.
+    if (![SessionSingleton sharedInstance].zeroConfigState.disposition) {
+        useDeskTopURL = YES;
+    }
+
     NSURL* url = useDeskTopURL ? [pageTitle.site apiEndpoint] : [pageTitle.site mobileApiEndpoint];
 
     NSURLSessionDataTask* operation = [self.operationManager GET:url.absoluteString parameters:pageTitle progress:^(NSProgress* _Nonnull downloadProgress) {
