@@ -56,7 +56,7 @@
 
     NSRegularExpression* anyRequestFromTestSite =
         [NSRegularExpression regularExpressionWithPattern:
-         [NSString stringWithFormat:@"%@.*", [[testSite apiEndpoint:YES] absoluteString]] options:0 error:nil];
+         [NSString stringWithFormat:@"%@.*", [[testSite apiEndpoint:NO] absoluteString]] options:0 error:nil];
 
     stubRequest(@"GET", anyRequestFromTestSite)
     .andReturn(200)
