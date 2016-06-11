@@ -56,6 +56,7 @@
     MWKSite* site        = [MWKSite siteWithDomain:@"wikipedia.org" language:@"en"];
     MWKTitle* dummyTitle = [site titleWithString:@"Foo"];
     NSURL* url           = [site mobileApiEndpoint];
+    url           = [site apiEndpoint];
 
     NSData* json = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"Obama" ofType:@"json"];
 
