@@ -2,6 +2,7 @@
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "NSError+WMFExtensions.h"
 #import "MWKSite.h"
+#import "SessionSingleton.h"
 
 @implementation AFHTTPSessionManager (WMFDesktopRetry)
 
@@ -12,30 +13,45 @@
                                               retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
                                             success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
                                             failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure {
-    return [self GET:mobileURLString parameters:parameters progress:NULL success:^(NSURLSessionDataTask* _Nonnull operation, id _Nonnull responseObject) {
-        if (success) {
-            success(operation, responseObject);
-        }
-    } failure:^(NSURLSessionDataTask* _Nonnull operation, NSError* _Nonnull error) {
-        if ([error wmf_shouldFallbackToDesktopURLError]) {
-            NSURLSessionDataTask* operation = [self GET:desktopURLString parameters:parameters progress:NULL success:^(NSURLSessionDataTask* _Nonnull operation, id _Nonnull responseObject) {
-                if (success) {
-                    success(operation, responseObject);
+    // If Zero rated try mobile domain first if Zero rated, with desktop fallback.
+    BOOL isZeroRated = [SessionSingleton sharedInstance].zeroConfigState.disposition;
+    if (isZeroRated) {
+        return [self GET:mobileURLString parameters:parameters progress:NULL success:^(NSURLSessionDataTask* _Nonnull operation, id _Nonnull responseObject) {
+            if (success) {
+                success(operation, responseObject);
+            }
+        } failure:^(NSURLSessionDataTask* _Nonnull operation, NSError* _Nonnull error) {
+            if ([error wmf_shouldFallbackToDesktopURLError]) {
+                NSURLSessionDataTask* operation = [self GET:desktopURLString parameters:parameters progress:NULL success:^(NSURLSessionDataTask* _Nonnull operation, id _Nonnull responseObject) {
+                    if (success) {
+                        success(operation, responseObject);
+                    }
+                } failure:^(NSURLSessionDataTask* _Nonnull operation, NSError* _Nonnull error) {
+                    if (failure) {
+                        failure(operation, error);
+                    }
+                }];
+                if (retry) {
+                    retry(operation, error);
                 }
-            } failure:^(NSURLSessionDataTask* _Nonnull operation, NSError* _Nonnull error) {
+            } else {
                 if (failure) {
                     failure(operation, error);
                 }
-            }];
-            if (retry) {
-                retry(operation, error);
             }
-        } else {
+        }];
+    } else {
+        // If not Zero rated use desktop domain only.
+        return [self GET:desktopURLString parameters:parameters progress:NULL success:^(NSURLSessionDataTask* _Nonnull operation, id _Nonnull responseObject) {
+            if (success) {
+                success(operation, responseObject);
+            }
+        } failure:^(NSURLSessionDataTask* _Nonnull operation, NSError* _Nonnull error) {
             if (failure) {
                 failure(operation, error);
             }
-        }
-    }];
+        }];
+    }
 }
 
 - (NSURLSessionDataTask*)wmf_GETWithSite:(MWKSite*)site
