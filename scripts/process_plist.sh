@@ -20,6 +20,11 @@ if [[ "${CONFIGURATION}" != "Release" || $WMF_FORCE_DEBUG_MENU == "1" ]]; then
   defaults write "${INFO_PLIST}" WMFShowDebugMenu -bool YES
 fi
 
+if [[ "${CONFIGURATION}" == "Debug" ]]; then
+  echo "Setting Hockey App ID for ${CONFIGURATION} build."
+  defaults write "${INFO_PLIST}" WMFHockeyAppIdentifier -string $WMF_HOCKEYAPP_IDENTIFIER
+fi
+
 if [[ "${CONFIGURATION}" == "Beta" ]]; then
   echo "Setting Hockey App ID for ${CONFIGURATION} build."
   defaults write "${INFO_PLIST}" WMFHockeyAppIdentifier -string $HOCKEY_BETA
