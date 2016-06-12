@@ -242,8 +242,8 @@
 "button-next" = "Tiếp";
 "button-done" = "Xong";
 "button-save" = "Lưu";
-"button-save-for-later" = "Lưu sau";
-"button-saved-for-later" = "Đã lưu sau";
+"button-save-for-later" = "Lưu để đọc sau";
+"button-saved-for-later" = "Đã lưu";
 "button-report-a-bug" = "Báo lỗi";
 "onboarding-create-account" = "Mở tài khoản";
 "onboarding-login" = "Đăng nhập";
