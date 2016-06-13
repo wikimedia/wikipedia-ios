@@ -9,11 +9,10 @@
 #import "WebViewController.h"
 
 #import "WikipediaAppUtils.h"
-#import "CommunicationBridge.h"
 #import "SessionSingleton.h"
 #import "MWLanguageInfo.h"
 #import "Defines.h"
-#import "UIWebView+ElementLocation.h"
+#import "WKWebView+ElementLocation.h"
 #import "NSString+WMFExtras.h"
 #import "PaddedLabel.h"
 #import "EditFunnel.h"
@@ -38,16 +37,11 @@
 
 // TODO: rename the WebViewControllerVariableNames once we rename this class
 
-// Some dialects have complex characters, so we use 2 instead of 10
-static int const kMinimumTextSelectionLength = 2;
-
 @interface WebViewController ()
 
-@property (nonatomic, strong, readwrite) IBOutlet UIWebView* webView;
+@property (nonatomic, strong, readwrite) WKWebView* webView;
 
 @property (nonatomic, strong) SessionSingleton* session;
-
-@property (strong, nonatomic) CommunicationBridge* bridge;
 
 @property (strong, nonatomic) NSDictionary* adjacentHistoryIDs;
 @property (strong, nonatomic) NSString* externalUrl;

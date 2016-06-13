@@ -17,10 +17,15 @@ function addImageOverflowXContainer(image, ancestor) {
     div.appendChild( ancestor );
 }
 
+function firstAncestorWithMultipleChildren (el) {
+    while ((el = el.parentElement) && (el.childElementCount == 1));
+    return el;
+}
+
 function maybeAddImageOverflowXContainer() {
     var image = this;
     if (shouldAddImageOverflowXContainer(image)){
-        var ancestor = utilities.firstAncestorWithMultipleChildren (image);
+        var ancestor = firstAncestorWithMultipleChildren (image);
         if(ancestor){
             addImageOverflowXContainer(image, ancestor);
         }
