@@ -1,47 +1,8 @@
 
-function getDictionaryFromSrcset(srcset) {
-    /*
-    Returns dictionary with density (without "x") as keys and urls as values.
-    Parameter 'srcset' string:
-        '//image1.jpg 1.5x, //image2.jpg 2x, //image3.jpg 3x'
-    Returns dictionary:
-        {1.5: '//image1.jpg', 2: '//image2.jpg', 3: '//image3.jpg'}
-    */
-    var sets = srcset.split(',').map(function(set) {
-        return set.trim().split(' ');
-    });
-    var output = {};
-    sets.forEach(function(set) {
-        output[set[1].replace('x', '')] = set[0];
-    });
-    return output;
-}
-
-function firstDivAncestor (el) {
-    while ((el = el.parentElement)){
-        if(el.tagName === 'DIV'){
-            return el;
-        }
-    }
-    return null;
-}
-
-function firstAncestorWithMultipleChildren (el) {
-    while ((el = el.parentElement) && (el.childElementCount == 1));
-    return el;
-}
-
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
     while ((el = el.parentElement) && !el.matches(selector));
     return el;
-}
-
-function httpGetSync(theUrl) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false );
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
 }
 
 function isNestedInTable(el) {
@@ -53,9 +14,39 @@ function isNestedInTable(el) {
     return false;
 }
 
-exports.getDictionaryFromSrcset = getDictionaryFromSrcset;
-exports.firstDivAncestor = firstDivAncestor;
-exports.firstAncestorWithMultipleChildren = firstAncestorWithMultipleChildren;
+function setLanguage(lang, dir, uidir){
+    var html = document.querySelector( "html" );
+    html.lang = lang;
+    html.dir = dir;
+    html.classList.add( 'content-' + dir );
+    html.classList.add( 'ui-' + uidir );
+    document.querySelector('base').href = 'https://' + lang + '.wikipedia.org/';
+}
+
+function setPageProtected(){
+    document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
+}
+
+function scrollToFragment(fragmentId){
+    location.hash = '';
+    location.hash = fragmentId;
+}
+
+function accessibilityCursorToFragment(fragmentId){
+    /* Attempt to move accessibility cursor to fragment. We need to /change/ focus,
+     in order to have the desired effect, so we first give focus to the body element,
+     then move it to the desired fragment. */
+    var focus_element = document.getElementById(fragmentId);
+    var other_element = document.body;
+    other_element.setAttribute('tabindex', 0);
+    other_element.focus();
+    focus_element.setAttribute('tabindex', 0);
+    focus_element.focus();
+}
+
+exports.accessibilityCursorToFragment = accessibilityCursorToFragment;
+exports.scrollToFragment = scrollToFragment;
+exports.setPageProtected = setPageProtected;
+exports.setLanguage = setLanguage;
 exports.findClosest = findClosest;
-exports.httpGetSync = httpGetSync;
 exports.isNestedInTable = isNestedInTable;

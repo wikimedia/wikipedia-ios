@@ -23,6 +23,10 @@
 }
 
 - (NSString*)wmf_mimeTypeForExtension {
+    // HAX: These SVG URLs don't have an extension, so make them a special case
+    if ([self.path containsString:@"/render/svg/"]) {
+        return @"image/svg+xml";
+    }
     return [self.pathExtension wmf_asMIMEType];
 }
 

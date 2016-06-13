@@ -2,9 +2,8 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
+@import WebKit;
 
-@interface AboutViewController : UIViewController <UIWebViewDelegate>
-
-@property (weak, nonatomic) IBOutlet UIWebView* webView;
+@interface AboutViewController : UIViewController <WKNavigationDelegate>
 
 @end
