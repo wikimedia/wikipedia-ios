@@ -27,6 +27,7 @@ typedef NS_ENUM (NSInteger, LoginErrorType) {
                              userName:(NSString*)userName
                              password:(NSString*)password
                                 token:(NSString*)token
+                       useAuthManager:(BOOL)useAuthManager
                           withManager:(AFHTTPSessionManager*)manager
                    thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 @end

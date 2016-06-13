@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="YCc-it-nqb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="YCc-it-nqb">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Preview And Save View Controller-->
+        <!--Preview Anchor Tap Alert Delegate-->
         <scene sceneID="TJS-xh-DjB">
             <objects>
                 <viewController restorationIdentifier="PreviewViewController" storyboardIdentifier="PreviewViewController" hidesBottomBarWhenPushed="YES" id="YCc-it-nqb" customClass="PreviewAndSaveViewController" sceneMemberID="viewController">
@@ -57,14 +57,17 @@
                                                     <constraint firstItem="LfM-01-aCF" firstAttribute="leading" secondItem="Fdd-cK-gLF" secondAttribute="leading" constant="20" symbolic="YES" id="xTZ-yd-BxN"/>
                                                 </constraints>
                                             </view>
-                                            <webView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" allowsInlineMediaPlayback="NO" mediaPlaybackAllowsAirPlay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhD-15-Yw7" customClass="PreviewWebView">
+                                            <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EhD-15-Yw7" customClass="PreviewWebViewContainer">
                                                 <rect key="frame" x="0.0" y="216" width="320" height="100"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="B1F-i9-AK6"/>
                                                 </constraints>
-                                                <dataDetectorType key="dataDetectorTypes"/>
-                                            </webView>
+                                                <connections>
+                                                    <outlet property="previewAnchorTapAlertDelegate" destination="YCc-it-nqb" id="Pz9-ql-on3"/>
+                                                    <outlet property="previewSectionLanguageInfoDelegate" destination="YCc-it-nqb" id="AYv-U5-tc7"/>
+                                                </connections>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
@@ -146,7 +149,7 @@
                         <outlet property="editSummaryContainer" destination="S0n-wB-7Lg" id="Av3-yX-D59"/>
                         <outlet property="previewLabel" destination="LfM-01-aCF" id="bp1-cZ-ePP"/>
                         <outlet property="previewLicenseView" destination="3pQ-2n-Y9V" id="AY6-fH-AiY"/>
-                        <outlet property="previewWebView" destination="EhD-15-Yw7" id="syP-Dy-I4o"/>
+                        <outlet property="previewWebViewContainer" destination="EhD-15-Yw7" id="aJa-95-1bI"/>
                         <outlet property="previewWebViewHeightConstraint" destination="B1F-i9-AK6" id="4Hg-QS-eBF"/>
                         <outlet property="scrollView" destination="Mag-UH-fwc" id="Ais-Zf-7ZY"/>
                     </connections>

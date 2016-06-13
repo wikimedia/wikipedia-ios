@@ -33,11 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly, nullable) MWKArticle* article;
 
-/**
- *  Set to YES to restore the scroll position
- */
-@property (nonatomic, assign) BOOL restoreScrollPositionOnArticleLoad;
-
 @property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
 
 @end

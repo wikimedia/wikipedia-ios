@@ -77,10 +77,7 @@ function shouldTableBeCollapsed( table ) {
     return true;
 }
 
-transformer.register( "hideTables", function( content ) {
-                     
-    var isMainPage = utilities.httpGetSync('wmf://article/is-main-page');
-                     
+transformer.register( "hideTables", function( content , isMainPage, titleInfobox, titleOther, titleClose) {
     if (isMainPage == "1") return;
                      
     var tables = content.querySelectorAll( "table" );
@@ -107,7 +104,7 @@ transformer.register( "hideTables", function( content ) {
 
         var headerText = getTableHeader(table);
 
-        var caption = "<strong>" + (isInfobox ? utilities.httpGetSync('wmf://localize/info-box-title') : utilities.httpGetSync('wmf://localize/table-title-other')) + "</strong>";
+        var caption = "<strong>" + (isInfobox ? titleInfobox : titleOther) + "</strong>";
         caption += "<span class='app_span_collapse_text'>";
         if (headerText.length > 0) {
             caption += ": " + headerText[0];
@@ -142,7 +139,7 @@ transformer.register( "hideTables", function( content ) {
         var bottomDiv = document.createElement( 'div' );
         bottomDiv.classList.add('app_table_collapsed_bottom');
         bottomDiv.classList.add('app_table_collapse_icon');
-        bottomDiv.innerHTML = utilities.httpGetSync('wmf://localize/info-box-close-text');
+        bottomDiv.innerHTML = "<strong>" + titleClose + "</strong>";
 
         //add our stuff to the container
         containerDiv.appendChild(collapsedDiv);
