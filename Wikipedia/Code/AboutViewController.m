@@ -3,7 +3,7 @@
 
 #import "AboutViewController.h"
 #import "WikipediaAppUtils.h"
-#import "UIWebView+LoadAssetsHtml.h"
+#import "WKWebView+LoadAssetsHtml.h"
 #import "Defines.h"
 #import "NSString+WMFExtras.h"
 #import <BlocksKit/BlocksKit.h>
@@ -12,6 +12,7 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "Wikipedia-Swift.h"
 #import <VTAcknowledgementsViewController/VTAcknowledgementsViewController.h>
+#import <Masonry/Masonry.h>
 #import <VTAcknowledgementsViewController/VTAcknowledgement.h>
 
 static NSString* const kWMFAboutHTMLFile  = @"about.html";
@@ -44,6 +45,39 @@ static NSString* const kWMFLicenseRedirectResourceIdentifier = @"blank";
 
 static NSString* const kWMFContributorsKey = @"contributors";
 
+@interface WKWebView (AboutViewControllerJavascript)
+
+@end
+
+@implementation WKWebView (AboutViewControllerJavascript)
+
+- (void)wmf_setInnerHTML:(NSString*)html ofElementId:(NSString*)elementId {
+    // Valid JSON object needs to be an array or dictionary.
+    NSArray* arrayForEncoding = @[html];
+    // Rely on NSJSONSerialization for string escaping: http://stackoverflow.com/a/13569786
+    NSString* jsonString    = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:arrayForEncoding options:0 error:nil] encoding:NSUTF8StringEncoding];
+    NSString* escapedString = [jsonString substringWithRange:NSMakeRange(2, jsonString.length - 4)];
+
+    [self evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('%@').innerHTML = \"%@\";", elementId, escapedString] completionHandler:NULL];
+};
+
+- (void)wmf_setTextDirection {
+    NSString* textDirection   = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
+    NSString* textDirectionJS = [NSString stringWithFormat:@"document.body.style.direction = '%@'", textDirection];
+    [self evaluateJavaScript:textDirectionJS completionHandler:nil];
+}
+
+- (void)wmf_setTextFontSize {
+    NSString* fontSizeJS = [NSString stringWithFormat:@"document.body.style.fontSize = '%f%%'", (MENUS_SCALE_MULTIPLIER * 100.0f)];
+    [self evaluateJavaScript:fontSizeJS completionHandler:nil];
+}
+
+- (void)wmf_preventTextFromExpandingOnRotation {
+    [self evaluateJavaScript:@"document.getElementsByTagName('body')[0].style['-webkit-text-size-adjust'] = 'none';" completionHandler:nil];
+}
+
+@end
+
 @interface TharlonFontAcknowledgement : VTAcknowledgement
 @end
 
@@ -63,6 +97,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
 @interface AboutViewController ()
 
+@property (strong, nonatomic) WKWebView* webView;
 @property (nonatomic, strong) UIBarButtonItem* buttonX;
 @property (nonatomic, strong) UIBarButtonItem* buttonCaretLeft;
 
@@ -75,8 +110,16 @@ static NSString* const kWMFContributorsKey = @"contributors";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.webView.delegate = self;
-    [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile];
+    WKWebView* wv = [[WKWebView alloc] initWithFrame:CGRectZero];
+    wv.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:wv];
+    [wv mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.leading.and.trailing.top.and.bottom.equalTo(wv.superview);
+    }];
+
+    wv.navigationDelegate = self;
+    [wv loadHTMLFromAssetsFile:kWMFAboutHTMLFile scrolledToFragment:nil];
+    self.webView = wv;
 
     @weakify(self)
     self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
@@ -86,7 +129,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
     self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft handler:^(id sender){
         @strongify(self)
-        [self.webView loadHTMLFromAssetsFile : kWMFAboutHTMLFile];
+        [self.webView loadHTMLFromAssetsFile : kWMFAboutHTMLFile scrolledToFragment : nil];
     }];
 
     [self updateNavigationBar];
@@ -154,20 +197,9 @@ static NSString* const kWMFContributorsKey = @"contributors";
 #pragma mark - HTML Injection
 
 
-- (void)injectAboutPageContentIntoWebView:(UIWebView*)webView {
-    NSString*(^ stringEscapedForJavasacript)(NSString*) = ^NSString*(NSString* string) {
-        // FROM: http://stackoverflow.com/a/13569786
-        // valid JSON object need to be an array or dictionary
-        NSArray* arrayForEncoding = @[string];
-        NSString* jsonString      = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:arrayForEncoding options:0 error:nil] encoding:NSUTF8StringEncoding];
-        NSString* escapedString   = [jsonString substringWithRange:NSMakeRange(2, jsonString.length - 4)];
-        return escapedString;
-    };
-
+- (void)injectAboutPageContentIntoWebView:(WKWebView*)webView {
     void (^ setDivHTML)(NSString*, NSString*) = ^void (NSString* divId, NSString* twnString) {
-        twnString = stringEscapedForJavasacript(twnString);
-        [self.webView stringByEvaluatingJavaScriptFromString:
-         [NSString stringWithFormat:@"document.getElementById('%@').innerHTML = \"%@\";", divId, twnString]];
+        [self.webView wmf_setInnerHTML:twnString ofElementId:divId];
     };
 
     setDivHTML(@"version", [[NSBundle mainBundle] wmf_versionForCurrentBundleIdentifier]);
@@ -194,12 +226,8 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
     setDivHTML(@"footer", [self stringFromLocalizationKey:@"about-product-of" urlKey:kWMFURLsWikimediaKey urlLocalizationKey:@"about-wikimedia-foundation"]);
 
-    NSString* textDirection   = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
-    NSString* textDirectionJS = [NSString stringWithFormat:@"document.body.style.direction = '%@'", textDirection];
-    [webView stringByEvaluatingJavaScriptFromString:textDirectionJS];
-
-    NSString* fontSizeJS = [NSString stringWithFormat:@"document.body.style.fontSize = '%f%%'", (MENUS_SCALE_MULTIPLIER * 100.0f)];
-    [webView stringByEvaluatingJavaScriptFromString:fontSizeJS];
+    [webView wmf_setTextDirection];
+    [webView wmf_setTextFontSize];
 }
 
 - (NSString*)stringFromLocalizationKey:(NSString*)localizationKey
@@ -218,8 +246,8 @@ static NSString* const kWMFContributorsKey = @"contributors";
 #pragma mark - Introspection
 
 - (BOOL)isDisplayingLicense {
-    if ([[[[self.webView request] URL] scheme] isEqualToString:kWMFLicenseRedirectScheme] &&
-        [[[[self.webView request] URL] resourceSpecifier] isEqualToString:kWMFLicenseRedirectResourceIdentifier]) {
+    if ([[[self.webView URL] scheme] isEqualToString:kWMFLicenseRedirectScheme] &&
+        [[[self.webView URL] resourceSpecifier] isEqualToString:kWMFLicenseRedirectResourceIdentifier]) {
         return YES;
     }
 
@@ -228,9 +256,9 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
 #pragma mark - UIWebViewDelegate
 
-- (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType;
-{
-    NSURL* requestURL = [request URL];
+- (void)webView:(WKWebView*)webView decidePolicyForNavigationAction:(WKNavigationAction*)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    WKNavigationType navigationType = navigationAction.navigationType;
+    NSURL* requestURL               = navigationAction.request.URL;
 
     if ([[self class] isLicenseURL:requestURL]) {
         VTAcknowledgementsViewController* vc = [VTAcknowledgementsViewController acknowledgementsViewController];
@@ -241,28 +269,26 @@ static NSString* const kWMFContributorsKey = @"contributors";
         UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
 
-        return NO;
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
     }
 
-    if (navigationType == UIWebViewNavigationTypeLinkClicked &&
+    if (navigationType == WKNavigationTypeLinkActivated &&
         [[self class] isExternalURL:requestURL]) {
         [self wmf_openExternalUrl:requestURL];
-        return NO;
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
     }
-    return YES;
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
-- (void)webViewDidFinishLoad:(UIWebView*)webView {
-    if (!([[self class] isLicenseURL:[webView.request URL]] || [[self class] isLicenseRedirectURL:[webView.request URL]])) {
+- (void)webView:(WKWebView*)webView didFinishNavigation:(null_unspecified WKNavigation*)navigation {
+    if (!([[self class] isLicenseURL:[webView URL]] || [[self class] isLicenseRedirectURL:[webView URL]])) {
         [self injectAboutPageContentIntoWebView:webView];
     } else {
-        [self preventTextFromExpandingOnRotationInWebView:webView];
+        [webView wmf_preventTextFromExpandingOnRotation];
     }
     [self updateNavigationBar];
-}
-
-- (void)preventTextFromExpandingOnRotationInWebView:(UIWebView*)webView {
-    [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style['-webkit-text-size-adjust'] = 'none';"];
 }
 
 #pragma mark - Utility Methods

@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
+@import WebKit;
 
 @class MWKSection, MWKArticle, MWKTitle, JSValue;
 
@@ -19,34 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, nullable) id<WMFWebViewControllerDelegate> delegate;
 
-@property (nonatomic, strong, nullable, readonly) UIWebView* webView;
+@property (nonatomic, strong, nullable, readonly) WKWebView* webView;
 
 @property (nonatomic) BOOL isPeeking;
+@property (strong, nonatomic) NSString* peekURLString;
 
 @property (nonatomic) UIEdgeInsets contentInsets;
-
-/**
- * Currently-selected text in the webview, if there is any.
- * @return The selection if it's longer than `kMinimumTextSelectionLength`, otherwise an empty string.
- */
-@property (nonatomic, strong, nonnull, readonly) NSString* selectedText;
-
-/**
- *  Animates the scroll view to the given fragment in the browser view.
- *
- *  @param fragment The fragment to scroll to.
- *
- *  @see scrollToFragment:animated:
- */
-- (void)scrollToFragment:(NSString*)fragment;
-
-/**
- *  Scroll to the given fragment in the browser view.
- *
- *  @param fragment The fragment to scroll to.
- *  @param animated Whether or not to animate
- */
-- (void)scrollToFragment:(NSString*)fragment animated:(BOOL)animated;
 
 /**
  *  Scroll to the @c anchor of the given section.
@@ -60,29 +39,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)accessibilityCursorToSection:(MWKSection*)section;
 
-- (nullable MWKSection*)currentVisibleSection;
+- (void)getCurrentVisibleSectionCompletion:(void (^)(MWKSection* _Nullable, NSError* __nullable error))completion;
 
 - (void)scrollToVerticalOffset:(CGFloat)offset;
 - (CGFloat)currentVerticalOffset;
 
-- (JSValue*)htmlElementAtLocation:(CGPoint)location;
-- (NSURL*)urlForHTMLElement:(JSValue*)element;
-- (CGRect)rectForHTMLElement:(JSValue*)element;
-
 - (void)setFontSizeMultiplier:(NSNumber*)fontSize;
-
-
-/**
- *  Check if web content is visible.
- *
- *  Queries the internal browser view to see if it's within its scroll view's content frame.
- *
- *  @warning This is only intended to be used for workarounds related to internal browser view behavior, only use
- *           if no other options are available.
- *
- *  @return Whether or not the receiver's internal browser view is visible.
- */
-@property (nonatomic, assign, readonly) BOOL isWebContentVisible;
 
 #pragma mark - Header & Footers
 
