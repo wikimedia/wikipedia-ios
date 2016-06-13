@@ -111,6 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Views
 @property (nonatomic, strong) UIImageView* headerImageView;
+@property (nonatomic, strong) UIView* headerView;
 @property (nonatomic, strong, readwrite) UIBarButtonItem* saveToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem* languagesToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem* shareToolbarItem;
@@ -251,6 +252,28 @@ NS_ASSUME_NONNULL_BEGIN
     return _progressView;
 }
 
+- (UIView*)headerView {
+    if (!_headerView) {
+        // HAX: Only read the scale at setup
+        CGFloat scale        = [[UIScreen mainScreen] scale];
+        CGFloat borderHeight = scale > 1 ? 0.5 : 1;
+        CGFloat height       = 10;
+
+        _headerView                 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, height)];
+        _headerView.backgroundColor = [UIColor whiteColor];
+
+        UIView* headerBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, height - borderHeight, 1, borderHeight)];
+        headerBorderView.backgroundColor  = [UIColor colorWithWhite:0 alpha:0.2];
+        headerBorderView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+
+        self.headerImageView.frame            = CGRectMake(0, 0, 1, height - borderHeight);
+        self.headerImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [_headerView addSubview:self.headerImageView];
+        [_headerView addSubview:headerBorderView];
+    }
+    return _headerView;
+}
+
 - (UIImageView*)headerImageView {
     if (!_headerImageView) {
         _headerImageView                        = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -283,7 +306,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_webViewController) {
         _webViewController            = [WebViewController wmf_initialViewControllerFromClassStoryboard];
         _webViewController.delegate   = self;
-        _webViewController.headerView = self.headerImageView;
+        _webViewController.headerView = self.headerView;
     }
     return _webViewController;
 }
