@@ -39,6 +39,10 @@ NS_ASSUME_NONNULL_BEGIN
     return [MWLocalizedString(@"share-article-name-on-wikipedia", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.article.title.text]; //send just the title for other sharing services
 }
 
+- (NSString *)activityViewController:(UIActivityViewController *)activityViewController subjectForActivityType:(nullable NSString *)activityType {
+    return self.article.title.text;
+}
+
 @end
 
 NS_ASSUME_NONNULL_END
