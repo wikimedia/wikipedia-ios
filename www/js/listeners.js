@@ -1,35 +1,6 @@
 (function () {
-var bridge = require("./bridge");
-var transformer = require("./transformer");
 var refs = require("./refs");
 var utilities = require("./utilities");
-
-// DOMContentLoaded fires before window.onload! That's good!
-// See: http://stackoverflow.com/a/3698214/135557
-document.addEventListener("DOMContentLoaded", function() {
-
-    transformer.transform( "moveFirstGoodParagraphUp", document );
-    transformer.transform( "hideRedlinks", document );
-    transformer.transform( "disableFilePageEdit", document );
-    transformer.transform( "addImageOverflowXContainers", document ); // Needs to happen before "widenImages" transform.
-    transformer.transform( "widenImages", document );
-    transformer.transform( "hideTables", document );
-
-    bridge.sendMessage( "DOMContentLoaded", {} );
-});
-
-bridge.registerListener( "setLanguage", function( payload ){
-    var html = document.querySelector( "html" );
-    html.lang = payload.lang;
-    html.dir = payload.dir;
-    html.classList.add( 'content-' + payload.dir );
-    html.classList.add( 'ui-' + payload.uidir );
-    document.querySelector('base').href = 'https://' + payload.lang + '.wikipedia.org/';
-} );
-
-bridge.registerListener( "setPageProtected", function() {
-    document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
-} );
 
 document.onclick = function() {
     // Reminder: resist adding any click/tap handling here - they can
@@ -67,16 +38,16 @@ function touchEndedWithoutDragging(event){
     if (!didSendMessage && !hasSelectedText) {
         // Do NOT prevent default behavior -- this is needed to for instance
         // handle deselection of text.
-        bridge.sendMessage('nonAnchorTouchEndedWithoutDragging', {
-                              id: event.target.getAttribute( "id" ),
-                              tagName: event.target.tagName
-                          });
+        window.webkit.messageHandlers.clicks.postMessage({"nonAnchorTouchEndedWithoutDragging": {
+                                                  id: event.target.getAttribute( "id" ),
+                                                  tagName: event.target.tagName
+                                                  }});
 
     }
 }
 
 /**
- * Attempts to send a bridge message which corresponds to `hrefTarget`, based on various attributes.
+ * Attempts to send message which corresponds to `hrefTarget`, based on various attributes.
  * @return `true` if a message was sent, otherwise `false`.
  */
 function maybeSendMessageForTarget(event, hrefTarget){
@@ -86,7 +57,7 @@ function maybeSendMessageForTarget(event, hrefTarget){
     var href = hrefTarget.getAttribute( "href" );
     var hrefClass = hrefTarget.getAttribute('class');
     if (hrefTarget.getAttribute( "data-action" ) === "edit_section") {
-        bridge.sendMessage( 'editClicked', { sectionId: hrefTarget.getAttribute( "data-id" ) });
+        window.webkit.messageHandlers.clicks.postMessage({"editClicked": { sectionId: hrefTarget.getAttribute( "data-id" ) }});
     } else if (href && refs.isReference(href)) {
         // Handle reference links with a popup view instead of scrolling about!
         refs.sendNearbyReferences( hrefTarget );
@@ -94,16 +65,17 @@ function maybeSendMessageForTarget(event, hrefTarget){
         // If it is a link to an anchor in the current page, use existing link handling
         // so top floating native header height can be taken into account by the regular
         // fragment handling logic.
-        bridge.sendMessage( 'linkClicked', { 'href': href });
+        window.webkit.messageHandlers.clicks.postMessage({"linkClicked": { 'href': href }});
     } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
          var url = event.target.getAttribute('src');
-         bridge.sendMessage('imageClicked', {
-                            'url': url,
-                            'width': (event.target.naturalWidth / window.devicePixelRatio),
-                            'height': (event.target.naturalHeight / window.devicePixelRatio)
-                            });
+         window.webkit.messageHandlers.clicks.postMessage({"imageClicked": {
+                                                          'url': url,
+                                                          'width': (event.target.naturalWidth / window.devicePixelRatio),
+                                                          'height': (event.target.naturalHeight / window.devicePixelRatio)
+                                                          }});
+
     } else if (href) {
-        bridge.sendMessage( 'linkClicked', { 'href': href });
+        window.webkit.messageHandlers.clicks.postMessage({"linkClicked": { 'href': href }});
     } else {
         return false;
     }
@@ -112,4 +84,14 @@ function maybeSendMessageForTarget(event, hrefTarget){
 
 document.addEventListener("touchend", handleTouchEnded, false);
 
+ // 3D Touch peeking listeners.
+ document.addEventListener("touchstart", function (event) {
+                           // Send message with url (if any) from touch element to native land.
+                           window.webkit.messageHandlers.peek.postMessage({"touchedElementURL": window.wmf.elementLocation.getURLForElementAtPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY)});
+                           }, false);
+ 
+ document.addEventListener("touchend", function () {
+                           // Tell native land to clear the url - important.
+                           window.webkit.messageHandlers.peek.postMessage({"touchedElementURL": null});
+                           }, false);
 })();

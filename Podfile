@@ -13,8 +13,9 @@ xcodeproj 'Wikipedia'
 pod 'hpple', '~> 0.2'
 
 # Networking / Parsing
-pod 'AFNetworking', '~> 3.0.0'
+pod 'AFNetworking', '~> 3.1.0'
 pod 'Mantle', '~> 2.0.0'
+pod 'GCDWebServer', '~> 3.3'
 
 # Images
 pod 'SDWebImage', :git => 'https://github.com/wikimedia/SDWebImage.git', :commit => 'bb49df83e72f2231a191e9477a85f0effe13430a'

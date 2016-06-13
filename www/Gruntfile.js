@@ -1,5 +1,5 @@
 module.exports = function (grunt) {
-  var allScriptFiles = "js/**/*.js";
+  var allJSFilesInJSFolder = "js/**/*.js";
 
   var distFolder = '../wikipedia/assets/';
 
@@ -11,9 +11,13 @@ module.exports = function (grunt) {
   grunt.initConfig( {
 
     browserify: {
-      dist: {
-        src: allScriptFiles,
-        dest: distFolder + "bundle.js"
+      distMain: {
+        src: ["index-main.js", allJSFilesInJSFolder, "!preview-main.js"],
+        dest: distFolder + "index.js"
+      },
+      distPreview: {
+        src: ["preview-main.js", "js/utilities.js"],
+        dest: distFolder + "preview.js"
       }
     },
 
@@ -31,7 +35,7 @@ module.exports = function (grunt) {
     },
 
     jshint: {
-      allFiles: allScriptFiles,
+      allFiles: allJSFilesInJSFolder,
       options: {
         jshintrc: true
       }
