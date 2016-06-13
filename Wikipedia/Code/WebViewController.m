@@ -31,6 +31,7 @@
 #import "NSURL+WMFExtras.h"
 
 #import "WMFZeroMessage.h"
+#import <hpple/TFHpple.h>
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -948,6 +949,244 @@ NSString* const WMFCCBySALicenseURL =
     CGFloat bottom = (CGFloat)[[rect valueForProperty:@"bottom"] toDouble];
     return CGRectMake(left, top + self.webView.scrollView.contentOffset.y, right - left, bottom - top);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-(void)didReceiveMemoryWarning {
+
+
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+
+    
+    
+    
+//EXAMPLE ONE: "On this day" matching results seen here: https://en.m.wikipedia.org/wiki/Wikipedia:On_this_day/Today
+    //Note: change the "May+20" in the url below for different date results.
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://en.wikipedia.org/w/api.php?action=query&titles=Wikipedia:Selected%20anniversaries/May+20&prop=revisions&rvprop=content&rvparse=1&format=json"]];
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+
+            NSString* responseHtml = [[[responseObject[@"query"][@"pages"] allValues] firstObject][@"revisions"] firstObject][@"*"];
+            NSArray* results = [self serializeResponseHTML:responseHtml withXPATH:@"//li"];
+            NSLog(@"\n\nON THIS DAY =\n%@\n\n", [results wmf_safeSubarrayWithRange:NSMakeRange(results.count - 5, 5)]);
+
+        }
+    }];
+    [dataTask resume];
+    
+    
+    
+    
+//EXAMPLE TWO: "Events, births and deaths" matching results seen here: https://en.m.wikipedia.org/wiki/May_20
+    //Note: change the "May+20" in the url below for different date results.
+    
+    NSURLRequest *request2 = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=May+20&rvprop=content&rvparse=1&format=json"]];
+    NSURLSessionDataTask *dataTask2 = [manager dataTaskWithRequest:request2 completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            
+            NSString* responseHtml = [[[responseObject[@"query"][@"pages"] allValues] firstObject][@"revisions"] firstObject][@"*"];
+            NSString* xpath = @"//span[@id='%@']/following::ul[1]/li";
+            NSArray* events = [self serializeResponseHTML:responseHtml withXPATH:[NSString stringWithFormat:xpath, @"Events"]];
+            NSArray* births = [self serializeResponseHTML:responseHtml withXPATH:[NSString stringWithFormat:xpath, @"Births"]];
+            NSArray* deaths = [self serializeResponseHTML:responseHtml withXPATH:[NSString stringWithFormat:xpath, @"Deaths"]];
+            NSArray* holidays = [self serializeHolidaysResponseHTML:responseHtml withXPATH:[NSString stringWithFormat:xpath, @"Holidays_and_observances"]];
+            
+            NSDictionary* results = @{
+                                      @"events": events,
+                                      @"births": births,
+                                      @"deaths": deaths,
+                                      @"holidays": holidays
+                                      };
+            NSLog(@"\n\nFULL DAY RESULTS (events, births, deaths and holidays) =\n%@\n\n", results);
+            
+        }
+    }];
+    [dataTask2 resume];
+}
+
+
+
+
+
+
+
+
+
+
+
+- (NSArray*)serializeResponseHTML:(NSString*)html withXPATH:(NSString*)xpath {
+    NSArray* listItems = [[[TFHpple hppleWithHTMLData:[html dataUsingEncoding:NSUTF8StringEncoding]] searchWithXPathQuery:xpath] valueForKey:WMF_SAFE_KEYPATH(TFHppleElement.new, raw)];
+    
+    NSArray* cleanedResults = [[[listItems bk_map:^ id (NSString* listItem) {
+        return @{
+                 @"text": [listItem wmf_stringByRemovingHTML],
+                 @"html": listItem
+                 };
+    }] bk_select:^ BOOL (NSDictionary* listItemInfo) {
+        // Keep only if text starts with year followed by a dash and a space " 1974 - "
+        NSRange range = [listItemInfo[@"text"] rangeOfString:@"^\\s*\\d+\\s*–\\s" options:NSRegularExpressionSearch];
+        return range.location != NSNotFound;
+    }] bk_map:^ id (NSDictionary* listItemInfo) {
+        NSString* itemHtml = listItemInfo[@"html"];
+        NSArray* wikiLinks = [itemHtml componentsSeparatedByString:@" href=\"/wiki/"];
+        __block NSString* mainLink = nil;
+        if (wikiLinks.count > 1) {
+            // Hrefs found, remove first item which is cruft from componentsSeparatedByString.
+            wikiLinks = [wikiLinks subarrayWithRange:NSMakeRange(1, wikiLinks.count - 1)];
+            wikiLinks = [[wikiLinks bk_map:^id (NSString* stringStartingWithHrefValue) {
+                NSRange range = [stringStartingWithHrefValue rangeOfString:@"\""];
+                NSString* page = (range.location != NSNotFound) ? [stringStartingWithHrefValue wmf_safeSubstringToIndex:range.location] : stringStartingWithHrefValue;
+
+                NSString* wikiLink = [@"/wiki/" stringByAppendingString:page];
+                
+                NSRange boldRange = [stringStartingWithHrefValue rangeOfString:@"</a>\\s*</b>" options:NSRegularExpressionSearch];
+                if(boldRange.location != NSNotFound){
+                    mainLink = wikiLink;
+                }
+
+                return wikiLink;
+            }] bk_select:^ BOOL (NSString* wikiLink) {
+                NSRange range = [wikiLink rangeOfString:@"^/wiki/\\d+$" options:NSRegularExpressionSearch];
+                BOOL isYearLink = range.location != NSNotFound;
+                return !isYearLink && ![wikiLink isEqualToString:mainLink];
+            }];
+        }
+        
+        NSString* text = listItemInfo[@"text"];
+        NSRange rangeOfDashSpace = [text rangeOfString:@"– "];
+        NSInteger year = [[text wmf_safeSubstringToIndex:rangeOfDashSpace.location] integerValue];
+        NSString* textAfterYear = [text wmf_safeSubstringFromIndex:rangeOfDashSpace.location + rangeOfDashSpace.length];
+        
+        // If we haven't already determined a mainLink, use the first of the other links.
+        if (!mainLink && wikiLinks.count > 0) {
+            mainLink = wikiLinks.firstObject;
+            if (wikiLinks.count == 1) {
+                wikiLinks = @[];
+            }else{
+                wikiLinks = [wikiLinks wmf_safeSubarrayWithRange:NSMakeRange(1, wikiLinks.count -1)];
+            }
+        }
+        
+        return @{
+                 @"year": @(year),
+                 @"year_page": [NSString stringWithFormat:@"/wiki/%ld", (long)year],
+                 @"text": textAfterYear,
+                 @"page": mainLink,
+                 @"other_pages": wikiLinks ? wikiLinks : @[],
+                 };
+    }];
+    return cleanedResults;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- (NSArray*)serializeHolidaysResponseHTML:(NSString*)html withXPATH:(NSString*)xpath {
+    NSArray* listItems = [[[TFHpple hppleWithHTMLData:[html dataUsingEncoding:NSUTF8StringEncoding]] searchWithXPathQuery:xpath] valueForKey:WMF_SAFE_KEYPATH(TFHppleElement.new, raw)];
+    
+    NSArray* cleanedResults = [[listItems bk_map:^ id (NSString* listItem) {
+        NSString* text = [listItem wmf_stringByRemovingHTML];
+        text = text ? [text wmf_trim] : @"";
+        return @{
+                 @"text": text,
+                 @"html": listItem
+                 };
+    }] bk_map:^ id (NSDictionary* listItemInfo) {
+        NSString* itemHtml = listItemInfo[@"html"];
+        NSArray* wikiLinks = [itemHtml componentsSeparatedByString:@" href=\"/wiki/"];
+        __block NSString* mainLink = nil;
+        if (wikiLinks.count > 1) {
+            // Hrefs found, remove first item which is cruft from componentsSeparatedByString.
+            wikiLinks = [wikiLinks subarrayWithRange:NSMakeRange(1, wikiLinks.count - 1)];
+            wikiLinks = [[wikiLinks bk_map:^id (NSString* stringStartingWithHrefValue) {
+                NSRange range = [stringStartingWithHrefValue rangeOfString:@"\""];
+                NSString* page = (range.location != NSNotFound) ? [stringStartingWithHrefValue wmf_safeSubstringToIndex:range.location] : stringStartingWithHrefValue;
+                
+                NSString* wikiLink = [@"/wiki/" stringByAppendingString:page];
+                
+                NSRange boldRange = [stringStartingWithHrefValue rangeOfString:@"</a>\\s*</b>" options:NSRegularExpressionSearch];
+                if(boldRange.location != NSNotFound){
+                    mainLink = wikiLink;
+                }
+                
+                return wikiLink;
+            }] bk_select:^ BOOL (NSString* wikiLink) {
+                NSRange range = [wikiLink rangeOfString:@"^/wiki/\\d+$" options:NSRegularExpressionSearch];
+                BOOL isYearLink = range.location != NSNotFound;
+                return !isYearLink && ![wikiLink isEqualToString:mainLink];
+            }];
+        }
+        
+        // If we haven't already determined a mainLink, use the first of the other links.
+        if (!mainLink && wikiLinks.count > 0) {
+            mainLink = wikiLinks.firstObject;
+            if (wikiLinks.count == 1) {
+                wikiLinks = @[];
+            }else{
+                wikiLinks = [wikiLinks wmf_safeSubarrayWithRange:NSMakeRange(1, wikiLinks.count -1)];
+            }
+        }
+        
+        return @{
+                 @"text": listItemInfo[@"text"] ? listItemInfo[@"text"] : @"",
+                 @"page": mainLink,
+                 @"other_pages": wikiLinks ? wikiLinks : @[],
+                 };
+    }];
+    return cleanedResults;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end
 
