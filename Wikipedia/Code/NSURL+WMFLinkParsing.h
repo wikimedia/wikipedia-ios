@@ -51,22 +51,22 @@ NS_ASSUME_NONNULL_BEGIN
  * Return a new URL constructed from the `siteURL`, replacing the `path` with the `internalLink`.
  *
  * @param siteURL       A Wikimedia site URL. For exmaple: `https://en.wikipedia.org`.
- * @param internalLink  A Wikimedia internal link path. For exmaple: `/wiki/Main_Page`.
+ * @param internalLink  A Wikimedia internal link path. For exmaple: `/wiki/Main_Page#section`.
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the `internalLink`.
  **/
-+ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL internalLink:(NSString*)internalLink;
++ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedInternalLink:(NSString*)internalLink;
 
 
 /**
  * Return a new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  *
- * @param siteURL       A Wikimedia site URL. For exmaple: `https://en.wikipedia.org`.
- * @param path          A Wikimedia path. For exmaple: `/Main_Page`.
+ * @param siteURL                                       A Wikimedia site URL. For exmaple: `https://en.wikipedia.org`.
+ * @param escapedDenormalizedTitleAndFragment           A Wikimedia path and fragment. For exmaple: `/Main_Page#section`.
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  **/
-+ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL path:(NSString*)path;
++ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedTitleAndFragment:(NSString*)escapedDenormalizedTitleAndFragment;
 
 /**
  * Return a new URL similar to the URL you call this method on but replace the title.

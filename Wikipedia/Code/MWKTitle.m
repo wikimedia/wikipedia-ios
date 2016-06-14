@@ -54,12 +54,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (instancetype)initWithInternalLink:(NSString*)relativeInternalLink site:(MWKSite*)site {
-    NSURL* URL = [NSURL wmf_URLWithSiteURL:site.URL internalLink:relativeInternalLink];
+    NSURL* URL = [NSURL wmf_URLWithSiteURL:site.URL escapedDenormalizedInternalLink:relativeInternalLink];
     return [self initWithURL:URL];
 }
 
 - (instancetype)initWithString:(NSString*)string site:(MWKSite*)site {
-    NSURL* URL = [NSURL wmf_URLWithSiteURL:site.URL path:string];
+    NSURL* URL = [NSURL wmf_URLWithSiteURL:site.URL escapedDenormalizedTitleAndFragment:string];
     return [self initWithURL:URL];
 }
 

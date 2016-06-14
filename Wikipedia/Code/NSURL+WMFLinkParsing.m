@@ -29,23 +29,23 @@
     return [siteURL wmf_URLWithTitle:title fragment:fragment];
 }
 
-+ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL path:(NSString*)path {
++ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedTitleAndFragment:(NSString*)path {
     NSAssert(![path wmf_isInternalLink],
              @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
              path);
     if ([path wmf_isInternalLink]) {
         // recurse here after stripping internal link prefix
-        return [NSURL wmf_URLWithSiteURL:siteURL internalLink:path];
+        return [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:path];
     } else {
         NSArray* bits = [path componentsSeparatedByString:@"#"];
         return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_unescapedNormalizedPageTitle] fragment:[bits wmf_safeObjectAtIndex:1]];
     }
 }
 
-+ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL internalLink:(NSString*)internalLink {
++ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedInternalLink:(NSString*)internalLink {
     NSAssert(internalLink.length == 0 || [internalLink wmf_isInternalLink],
              @"Expected string with internal link prefix but got: %@", internalLink);
-    return [self wmf_URLWithSiteURL:siteURL path:[internalLink wmf_internalLinkPath]];
+    return [self wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:[internalLink wmf_internalLinkPath]];
 }
 
 - (NSURL*)wmf_URLWithTitle:(NSString*)title {
