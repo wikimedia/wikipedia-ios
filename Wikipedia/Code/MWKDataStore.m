@@ -505,7 +505,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
 #pragma mark - Cache
 
-- (void)removeAllCachedObjects {
+- (void)clearMemoryCache {
     [self.articleCache removeAllObjects];
 }
 
