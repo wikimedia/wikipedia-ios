@@ -1,5 +1,6 @@
 // Messages for Arabic (العربية)
 // Exported from translatewiki.net
+// Author: Alaa
 // Author: Haytham morsy
 // Author: Hocinend1
 // Author: Macofe
@@ -13,8 +14,7 @@
 // Author: محمد أحمد عبد الفتاح
 // Author: محمد عصام
 
-// Fuzzy
-"languages-title" = "اللغات";
+"languages-title" = "تغيير اللغة";
 "article-languages-label" = "اختر لغة";
 "article-languages-cancel" = "إلغاء";
 "article-languages-downloading" = "جاري تحميل لغات المقال";
@@ -23,6 +23,8 @@
 "article-about-title" = "حول المقال";
 "article-unable-to-load-article" = "غير قادر على تحميل هذه المقالة.";
 "article-related-articles-title" = "مقالات متعلقة";
+"article-languages-yours" = "لغاتك";
+"article-languages-others" = "لغات اخرى";
 "info-box-title" = "معلومات سريعة";
 "info-box-close-text" = "إغلاق";
 "table-title-other" = "مزيد من المعلومات";
@@ -50,6 +52,7 @@
 "zero-wikipedia-zero-heading" = "ويكيبيديا زيرو";
 "zero-warn-when-leaving" = "قم بالتحذير عند ترك صفر";
 "zero-settings-devmode" = "زيرو في وضع التطوير البرمجي.";
+"account-creation-captcha-required" = "التحقق مطلوب";
 "account-creation-captcha-obtaining" = "الحصول على كابتشا جديدة";
 "account-creation-logging-in" = "جارٍ تسجيل دخولك...";
 "account-creation-passwords-mismatched" = "كلمتا السر لا تتطابقان";
@@ -64,12 +67,16 @@
 "login-name-does-not-exist" = "اسم المستخدم الذي أدخلته غير موجود";
 "login-password-empty" = "كلمة المرور مطلوبة للولوج";
 "login-password-wrong" = "كلمة السر التي أدخلتها غير صحيحة.";
+"login-throttled" = "قمت بتسجيل الدخول عدة مرات خلال وقت قصير";
 "login-user-blocked" = "المستخدم ممنوع";
 "login-account-creation" = "ليس لديك حساب؟ انضم إلى ويكيبيديا";
 "login-username-placeholder-text" = "اسم المستخدم";
 "login-password-placeholder-text" = "كلمة المرور";
 "wikitext-downloading" = "جارٍ تحميل المحتوى...";
+"wikitext-download-failed" = "غير قادر على تحديد المراجعة الأخيرة";
 "wikitext-download-success" = "تم تحميل المحتوى.";
+"wikitext-preview-changes-none" = "لم يتم عمل تعديلات لعرضها";
+"wikitext-upload-result-unknown" = "غير قادر على تحديد نتيجة تحميل النص";
 "wikitext-upload-save" = "جارٍ الحفظ...";
 "wikitext-upload-save-sign-in" = "تسجيل الدخول";
 "wikitext-upload-save-sign-in-benefits" = "ليستطيع المحررون الزملاء التواصل معك وليكون باستطاعتك رؤية المقالات التي عدَّلتَها.";
@@ -80,8 +87,11 @@
 "open-link-cancel" = "إلغاء";
 "search-title" = "بحث";
 "search-searching" = "جارٍ البحث...";
+"search-no-matches" = "لم يتم العثور على مطابقة للمصطلح الذي تم البحث عنه";
 "search-field-placeholder-text" = "البحث في ويكيبيديا";
 "search-field-placeholder-text-zero" = "البحث في ويكيبيديا زيرو";
+"search-loading-section-zero" = "تحميل الجزء الأول من المادة";
+"search-loading-section-remaining" = "تحميل بقية المادة";
 "search-loading-article-loaded" = "المقالة حُملت.";
 "search-cancel" = "إلغاء";
 "search-titles" = "العناوين";
@@ -95,8 +105,11 @@
 "search-result-redirected-from" = "بالتحويل من: $1";
 "settings-title" = "إعدادات";
 "settings-language" = "لغة ويكيبيديا";
+"settings-support" = "ادعم ويكبيديا";
 "settings-language-bar" = "إظهار اللغات في البحث";
 "settings-my-languages" = "لغاتي";
+"settings-primary-language" = "أساسي";
+"settings-primary-language-details" = "اللغة الأولى في هذه القائمة هي اللغة الأساسية للتطبيق , تغيير هذه اللغة سيسبب تغيير المحتويات اليومية ( كالمواد المميزة) الظاهرة في المتصفح";
 "main-menu-title" = "المزيد";
 "main-menu-heading-about" = "حول";
 "main-menu-language-title" = "البحث في ويكيبيديا";
@@ -108,6 +121,7 @@
 "main-menu-account-title-logged-in" = "مسجل الدخول بصفتك $1";
 "main-menu-account-login" = "تسجيل الدخول";
 "main-menu-account-logout" = "تسجيل الخروج";
+"main-menu-account-logout-are-you-sure" = "هل تريد بالتاكيد تسجيل الخروج؟";
 "main-menu-account-logout-cancel" = "ألغ";
 "main-menu-show-title" = "أرني...";
 "main-menu-show-history" = "الأخيرة";
@@ -121,9 +135,11 @@
 "main-menu-terms-of-use" = "شروط الاستخدام";
 "main-menu-rate-app" = "قيم التطبيق";
 "main-menu-heading-zero" = "ويكيبيديا زيرو";
+"main-menu-heading-legal" = "الشروط والخصوصية";
 "main-menu-show-today" = "اليوم";
 "main-menu-nearby" = "بالقرب من هنا";
 "main-menu-more" = "المزيد...";
+"main-menu-heading-debug" = "تصحيح";
 "main-menu-debug-crash" = "تحطم";
 "main-menu-debug-tweaks" = "إعدادات المطور";
 "saved-title" = "المحفوظة";
@@ -133,6 +149,7 @@
 "saved-pages-clear-cancel" = "إلغاء";
 "saved-pages-clear-delete-all" = "نغم,احذف الكل";
 "saved-pages-refresh-cancel-alert-title" = "ألغي التحديث";
+"saved-pages-refresh-cancel-alert-message" = "مواد ويكبيديا تتعدل طوال الوقت , اضغط تحديث للحصول على اخر نسخة من جميع المواد";
 "saved-pages-refresh-cancel-alert-button" = "حسنًا";
 "saved-pages-none" = "لا صفحات محفوظة بعد.";
 "history-title" = "التاريخ";
@@ -146,6 +163,7 @@
 "navbar-title-mode-edit-wikitext-warning" = "مشاكل في التعديل";
 "navbar-title-mode-edit-wikitext-disallow" = "مشاكل في التعديل";
 "navbar-title-mode-edit-wikitext-preview" = "معاينة";
+"navbar-title-mode-edit-wikitext-captcha" = "تحقق سريع مطلوب";
 "navbar-title-mode-edit-wikitext-summary" = "صف تعديلك";
 "navbar-title-mode-edit-wikitext-save" = "احفظ";
 "edit-summary-choice-linked-words" = "إضافة وصلات";
@@ -155,7 +173,9 @@
 "edit-summary-choice-added-missing-info" = "إضافة معلومات ناقصة";
 "edit-summary-choice-added-clarification" = "إضافة توضيح";
 "edit-summary-choice-other" = "غير ذلك";
+"edit-summary-field-placeholder-text" = "طرق أخرى لتطوير المادة";
 "edit-summary-title" = "كيف حسّنت المقالة؟";
+"article-pull-to-refresh-is-refreshing" = "تحديث المادة";
 "credits-wikimedia-repos" = "مستودعات ويكيميديا";
 "credits-external-libraries" = "مستودعات خارجية";
 "about-title" = "عن";
@@ -205,6 +225,7 @@
 "table-of-contents-button-label" = "قائمة المحتويات";
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
 "table-of-contents-close-accessibility-hint" = "أغلق";
+"abuse-filter-disallow-heading" = "لا يمكن حفظ هذا التعديل , يرجى الرجوع وتغييره";
 "menu-edit-accessibility-label" = "عدل";
 "menu-close-accessibility-label" = "أغلق";
 "menu-preview-accessibility-label" = "معاينة";
@@ -221,10 +242,17 @@
 "menu-language-accessibility-label" = "اللغات";
 "nearby-title" = "بالقرب من هنا";
 "nearby-distance-label-meters" = " $1 م";
+"nearby-pull-to-refresh-prompt" = "اسحب للتخديث";
+"nearby-pull-to-refresh-is-refreshing" = "تحديث";
 "nearby-open-in-maps" = "افتح في الخرائط";
 "nearby-cancel" = "ألغ";
+"nearby-location-updates-denied" = "هذا التطبيق لا يملك صلاحيات لاستلام تحديثات الموقع";
+"nearby-location-general-error" = "غير قادر على تحديد الموقع , يرجى السحب للتحديث او حاول لاحقاً";
+"nearby-wifi" = "تقعيل الواي فاي يساعد جهازك بشكل افضل على تحديد موقعك";
+"migration-skip-button-title" = "حذف";
 "image-gallery-unknown-owner" = "الرافع غير معروف.";
 "image-gallery-fetch-image-info-error-title" = "غير قادر على تنزيل الصور";
+"image-gallery-fetch-image-info-error-message" = "غير قادر على تحميل الصور لهذه المادة , يرجى تحديث المادة والمحاولة لاحقاً";
 "image-gallery-fetch-image-info-error-ok" = "موافق";
 "hockeyapp-alert-send-report" = "أرسل التقرير";
 "hockeyapp-alert-always-send" = "أرسل دائما";
@@ -232,6 +260,7 @@
 "page-issues" = "مشاكل في الصفحة";
 "page-similar-titles" = "صفحات مشابهة";
 "page-edit-history" = "تاريخ التعديل الكامل";
+"mwk-empty-title-error" = "غير قادر على تنفيذ العملية مع عنوان فارغ";
 "home-title" = "استكشف";
 "home-empty-section" = "لا نتائج";
 "home-empty-section-check-again" = "حاول مرة أخرى";
@@ -242,22 +271,29 @@
 "home-nearby-nothing" = "لا شيء في الجوار";
 "home-nearby-check-again" = "تحقق مرة أخرى";
 "home-main-page-heading" = "اليوم في ويكيبيديا";
+"home-last-update-never-label" = "التحديث الأخير: أبداًً";
 "home-updating-label" = "جارٍ التحديث...";
 "home-hide-suggestion-prompt" = "أخف هذا الاقتراح";
+"home-hide-suggestion-cancel" = "إلغاء";
 "welcome-explore-title" = "استكشف";
+"welcome-explore-sub-title" = "طريقة جديدة لاكتشاف مواضيع ممتعة كل يوم";
 "welcome-explore-tell-me-more" = "أطلعني على المزيد";
+"welcome-explore-tell-me-more-about-explore" = "المزيد عن المتصفح";
 "welcome-explore-tell-me-more-done-button" = "فهمت";
 "welcome-explore-continue-button" = "فلنبدأ";
 "welcome-languages-title" = "اللغات";
 "welcome-languages-sub-title" = "اختيار اللغة المفضلة للبحث في ويكيبيديا";
-// Fuzzy
-"welcome-languages-add-button" = "إضافة آخر";
+"welcome-languages-add-button" = "إضافة لغة آخرى";
 "welcome-languages-continue-button" = "استمر";
 "welcome-volunteer-title" = "متطوع";
+"welcome-volunteer-sub-title" = "ساعد بتطوير تطبيق ويكبيديا من خلال نشر تجربة استخدامك له";
 "welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
 "welcome-volunteer-continue-button" = "استمرار";
 "welcome-volunteer-thanks" = "شكرا لك!$1";
+"empty-no-feed-title" = "لا يوجد أتصال";
+"empty-no-feed-message" = "يمكنك مشاهدة مواضيعك المفضلة عندما تتصل بالانترنت";
 "empty-no-feed-action-message" = "ما زال بالإمكان قراءة الصفحات المحفوظة";
+"empty-no-article-message" = "عذرا , غير قادر على تحميل الموضوع";
 "empty-no-search-results-message" = "لا توجد نتائج";
 "empty-no-saved-pages-title" = "لا صفحات محفوظة بعد";
 "empty-no-saved-pages-message" = "احفظ الصفحات لمطالعتها لاحقًا، حتى بدون اتصال بالإنترنت";

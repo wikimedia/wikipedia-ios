@@ -112,6 +112,7 @@
 "settings-support" = "উইকিপিডিয়াকে সাহায্য করুন";
 "settings-language-bar" = "অনুসন্ধানের সময় ভাষাগুলিকে দেখাও";
 "settings-my-languages" = "আমার ভাষাসমূহ";
+"settings-help-and-feedback" = "সাহায্য ও প্রতিক্রিয়া";
 "settings-primary-language" = "প্রাথমিক";
 "main-menu-title" = "আরও";
 "main-menu-heading-about" = "পরিচিতি";
@@ -306,13 +307,11 @@
 "hockeyapp-alert-privacy" = "$1 গোপনীয়তা";
 "page-issues" = "পাতার সমস্যা";
 "page-similar-titles" = "অনুরূপ পাতাগুলি";
-// Fuzzy
-"page-read-in-other-languages" = "$1টি ভাষায় উপলব্ধ";
+"page-read-in-other-languages" = "আরো $1টি ভাষায় উপলব্ধ";
 "page-last-edited" = "$1 দিন আগে সম্পাদিত";
 "page-edit-history" = "সম্পূর্ণ সম্পাদনা ইতিহাস";
 "captcha-reload" = "আরেকটি ক্যাপচা দেখান";
-// Fuzzy
-"captcha-prompt" = "উপরের ছবি থেকে ক্যাপচা টেক্সট লিখুন";
+"captcha-prompt" = "ক্যাপচা টেক্সট লিখুন";
 "home-title" = "অন্বেষণ";
 "home-empty-section" = "কোন ফলাফল নেই";
 "home-empty-section-check-again" = "আবার চেষ্টা করুন";

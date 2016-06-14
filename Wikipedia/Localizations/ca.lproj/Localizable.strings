@@ -360,6 +360,8 @@
 "welcome-explore-sub-title" = "Una forma nova de descobrir articles interessants cada dia";
 "welcome-explore-tell-me-more" = "Més informació";
 "welcome-explore-tell-me-more-about-explore" = "Més informació sobre «Explora»";
+"welcome-explore-tell-me-more-details" = "Quan llegiu un articles, els articles relacionats s'afegeixen automàticament al canal Explora. Això no fa canviar com recollim la vostra informació, i el vostre historial de lectura continua essent privat.";
+"welcome-explore-tell-me-more-related" = "El canal Explora mostra articles relacionals amb els que ja heu llegit.";
 "welcome-explore-tell-me-more-privacy" = "No s'emmagatzema cap llista de lectura o perfil als nostres servidors.";
 "welcome-explore-tell-me-more-done-button" = "Ho he entès";
 "welcome-explore-continue-button" = "Primers passos";
