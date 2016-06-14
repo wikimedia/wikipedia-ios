@@ -357,6 +357,11 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    [self.sectionControllerCache removeAllObjects];
+}
+
 #pragma mark - Notifications
 
 - (void)applicationWillEnterForegroundWithNotification:(NSNotification*)note {
