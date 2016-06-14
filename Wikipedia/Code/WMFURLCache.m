@@ -31,7 +31,7 @@ static NSString* const WMFURLCacheXCS           = @"X-CS";
         NSCachedURLResponse* response = [self cachedResponseForRequest:request];
 
         if (response.data.length > 0) {
-            [[WMFImageController sharedInstance] cacheImageData:response.data url:url];
+            [[WMFImageController sharedInstance] cacheImageData:response.data url:url MIMEType:response.response.MIMEType];
         }
     }];
 }
@@ -55,22 +55,15 @@ static NSString* const WMFURLCacheXCS           = @"X-CS";
 }
 
 - (BOOL)isMIMETypeImage:(NSString*)type {
-    if ([type isEqualToString:@"image/jpeg"]) {
-        return YES;
-    }
-    if ([type isEqualToString:@"image/png"]) {
-        return YES;
-    }
-    if ([type isEqualToString:@"image/gif"]) {
-        return YES;
-    }
-    return NO;
+    return [type hasPrefix:@"image"];
 }
 
 - (NSCachedURLResponse*)cachedResponseForRequest:(NSURLRequest*)request {
     NSString* mimeType = [request.URL wmf_mimeTypeForExtension];
     if ([self isMIMETypeImage:mimeType] && [[WMFImageController sharedInstance] hasDataOnDiskForImageWithURL:request.URL]) {
-        NSData* data = [[WMFImageController sharedInstance] diskDataForImageWithURL:request.URL];
+        WMFTypedImageData* typedData = [[WMFImageController sharedInstance] typedDiskDataForImageWithURL:request.URL];
+        NSData* data                 = typedData.data;
+        NSString* mimeType           = typedData.MIMEType;
 
         if (data.length > 0) {
             NSURLResponse* response             = [[NSURLResponse alloc] initWithURL:request.URL MIMEType:mimeType expectedContentLength:data.length textEncodingName:nil];

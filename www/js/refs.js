@@ -1,4 +1,3 @@
-var bridge = require("./bridge");
 
 function isReference( href ) {
     return ( href.slice( 0, 10 ) === "#cite_note" );
@@ -109,12 +108,12 @@ function sendNearbyReferences( sourceNode ) {
     }
 
     // Special handling for references
-    bridge.sendMessage( 'referenceClicked', {
-        "refs": refs,
-        "refsIndex": refsIndex,
-        "linkId": linkId,
-        "linkText": linkText
-    } );
+    window.webkit.messageHandlers.clicks.postMessage({"referenceClicked": {
+                                                     "refs": refs,
+                                                     "refsIndex": refsIndex,
+                                                     "linkId": linkId,
+                                                     "linkText": linkText
+                                                     }});
 }
 
 exports.isReference = isReference;

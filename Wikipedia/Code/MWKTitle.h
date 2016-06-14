@@ -94,6 +94,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)isNonStandardTitle;
 
+- (MWKTitle*)wmf_titleWithoutFragment;
+
 @end
 
 NS_ASSUME_NONNULL_END

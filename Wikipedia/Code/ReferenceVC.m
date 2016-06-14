@@ -6,7 +6,7 @@
 #import "SessionSingleton.h"
 #import "MWLanguageInfo.h"
 #import "WikipediaAppUtils.h"
-#import "UIWebView+ElementLocation.h"
+#import "WKWebView+ElementLocation.h"
 #import "Defines.h"
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "MediaWikiKit.h"

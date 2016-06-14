@@ -40,6 +40,7 @@
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSDateFormatter+WMFExtensions.h"
+#import "NSFileManager+WMFExtendedFileAttributes.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"

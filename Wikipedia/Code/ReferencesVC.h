@@ -3,7 +3,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class WebViewController, ReferencesVC, MWKTitle;
+@class ReferencesVC, MWKTitle;
 
 @protocol ReferencesVCDelegate <NSObject>
 

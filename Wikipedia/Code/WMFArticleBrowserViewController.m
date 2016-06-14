@@ -77,8 +77,10 @@ BOOL useSingleBrowserController() {
 }
 
 + (WMFArticleBrowserViewController*)browserViewControllerWithDataStore:(MWKDataStore*)dataStore articleTitle:(MWKTitle*)title restoreScrollPosition:(BOOL)restoreScrollPosition {
+    if (!restoreScrollPosition) {
+        title = [title wmf_titleWithoutFragment];
+    }
     WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:dataStore];
-    vc.restoreScrollPositionOnArticleLoad = restoreScrollPosition;
     return [self browserViewControllerWithArticleViewController:vc];
 }
 
@@ -312,9 +314,8 @@ BOOL useSingleBrowserController() {
     WMFArticleViewController* articleViewController =
         [[WMFArticleViewController alloc] initWithArticleTitle:self.navigationTitleStack[nextIndex]
                                                      dataStore:self.dataStore];
-    articleViewController.restoreScrollPositionOnArticleLoad = YES;
-    self.currentViewController                               = articleViewController;
-    self.currentIndex                                        = nextIndex;
+    self.currentViewController = articleViewController;
+    self.currentIndex          = nextIndex;
     [self pushArticleViewController:articleViewController animated:YES];
 }
 
@@ -531,8 +532,10 @@ BOOL useSingleBrowserController() {
 @implementation UIViewController (WMFArticlePresentation)
 
 - (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated {
+    if (!restoreScrollPosition) {
+        title = [title wmf_titleWithoutFragment];
+    }
     WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:dataStore];
-    vc.restoreScrollPositionOnArticleLoad = restoreScrollPosition;
     [self wmf_pushArticleViewController:vc animated:animated];
 }
 
