@@ -29,10 +29,20 @@
     return [siteURL wmf_URLWithTitle:title fragment:fragment];
 }
 
++ (NSRegularExpression *)invalidPercentEscapesRegex {
+    static dispatch_once_t onceToken;
+    static NSRegularExpression *percentEscapesRegex;
+    dispatch_once(&onceToken, ^{
+        percentEscapesRegex = [NSRegularExpression regularExpressionWithPattern:@"%[^0-9A-F]|%[0-9A-F][^0-9A-F]" options:NSRegularExpressionCaseInsensitive error:nil];
+    });
+    return percentEscapesRegex;
+}
+
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedTitleAndFragment:(NSString*)path {
     NSAssert(![path wmf_isInternalLink],
              @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
              path);
+    NSAssert([[NSURL invalidPercentEscapesRegex] matchesInString:path options:0 range:NSMakeRange(0, path.length)].count == 0, @"%@ should only have valid percent escapes", path);
     if ([path wmf_isInternalLink]) {
         // recurse here after stripping internal link prefix
         return [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:path];
