@@ -48,7 +48,7 @@ extern NSString* const MWKArticleKey;
 
 // Path methods
 - (NSString*)joinWithBasePath:(NSString*)path;
-- (NSString*)pathForSites;
+- (NSString*)pathForSites; // Excluded from iCloud Backup. Includes every site, article, title.
 - (NSString*)pathForSite:(MWKSite*)site;
 - (NSString*)pathForArticlesWithSite:(MWKSite*)site;
 - (NSString*)pathForTitle:(MWKTitle*)title;
