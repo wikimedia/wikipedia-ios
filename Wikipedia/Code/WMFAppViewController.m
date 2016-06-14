@@ -239,6 +239,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self performHousekeeping];
 }
 
+#pragma mark - Memory Warning
+
+- (void)didReceiveMemoryWarning {
+    [[WMFImageController sharedInstance] clearMemoryCache];
+    [self performHousekeeping];
+}
+
 #pragma mark - Shortcut
 
 - (BOOL)canProcessShortcutItem:(UIApplicationShortcutItem*)item {
