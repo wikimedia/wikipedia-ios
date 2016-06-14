@@ -64,6 +64,8 @@
             }
         }];
     });
+    
+    [dataStore clearMemoryCache];
 }
 
 @end
