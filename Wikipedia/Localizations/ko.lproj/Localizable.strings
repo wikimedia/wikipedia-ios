@@ -139,7 +139,7 @@
 "main-menu-show-history" = "최근";
 "main-menu-show-saved" = "저장된 문서";
 "main-menu-current-article-save" = "오프라인 읽기로 $1 저장하기";
-"main-menu-random" = "임의";
+"main-menu-random" = "임의 문서";
 "main-menu-feedback-heading" = "피드백";
 "main-menu-send-feedback" = "의견 쓰기";
 "main-menu-show-page-history" = "$1의 편집 역사";
