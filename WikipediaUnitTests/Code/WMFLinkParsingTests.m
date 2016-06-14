@@ -58,9 +58,9 @@
 - (void)testWMFInternalLinks {
     NSURL* siteURL = [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"en"];
     XCTAssertEqualObjects(@"en.wikipedia.org", siteURL.host);
-    NSURL* pageURL = [NSURL wmf_URLWithSiteURL:siteURL internalLink:@"/wiki/Main_Page"];
+    NSURL* pageURL = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:@"/wiki/Main_Page"];
     XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Main_Page", pageURL.absoluteString);
-    NSURL* nonInternalPageURL = [NSURL wmf_URLWithSiteURL:siteURL path:@"/Main_Page"];
+    NSURL* nonInternalPageURL = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:@"/Main_Page"];
     XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Main_Page", nonInternalPageURL.absoluteString);
 }
 
