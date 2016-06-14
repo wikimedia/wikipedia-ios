@@ -41,16 +41,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 - (instancetype)initWithBasePath:(NSString*)basePath {
     self = [super init];
     if (self) {
-        self.basePath = basePath;
-        NSError* directoryCreationError = nil;
-        if (![[NSFileManager defaultManager] createDirectoryAtPath:self.basePath withIntermediateDirectories:YES attributes:nil error:&directoryCreationError]) {
-            DDLogError(@"Error creating MWKDataStore base path: %@", directoryCreationError);
-        }
-        NSURL* directoryURL         = [NSURL fileURLWithPath:self.basePath isDirectory:YES];
-        NSError* excludeBackupError = nil;
-        if (![directoryURL setResourceValue:@(YES) forKey:NSURLIsExcludedFromBackupKey error:&excludeBackupError]) {
-            DDLogError(@"Error excluding MWKDataStore base path from backup: %@", excludeBackupError);
-        }
+        self.basePath                = basePath;
         self.articleCache            = [[NSCache alloc] init];
         self.articleCache.countLimit = 50;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
@@ -128,7 +119,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 - (NSString*)pathForImageURL:(NSString*)url title:(MWKTitle*)title {
     NSString* imagesPath = [self pathForImagesWithTitle:title];
     NSString* encURL     = [self safeFilenameWithImageURL:url];
-    return encURL ? [imagesPath stringByAppendingPathComponent:encURL] : nil;
+    return encURL ? [imagesPath stringByAppendingPathComponent : encURL] : nil;
 }
 
 - (NSString*)pathForImage:(MWKImage*)image {
