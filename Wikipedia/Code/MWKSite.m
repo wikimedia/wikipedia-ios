@@ -73,11 +73,19 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 #pragma mark - Title Helpers
 
 - (MWKTitle*)titleWithString:(NSString*)string {
-    return [MWKTitle titleWithString:string site:self];
+    return [MWKTitle titleWithUnescapedString:string site:self];
+}
+
+- (MWKTitle*)titleWithUnescapedString:(NSString*)string {
+    return [MWKTitle titleWithUnescapedString:string site:self];
 }
 
 - (MWKTitle*)titleWithInternalLink:(NSString*)path {
     return [[MWKTitle alloc] initWithInternalLink:path site:self];
+}
+
+- (MWKTitle*)titleWithNormalizedTitle:(NSString*)normalizedTitle {
+    return [[MWKTitle alloc] initWithSite:self normalizedTitle:normalizedTitle fragment:nil];
 }
 
 #pragma mark - Computed Properties

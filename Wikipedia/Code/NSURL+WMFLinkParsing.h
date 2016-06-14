@@ -68,6 +68,17 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedTitleAndFragment:(NSString*)escapedDenormalizedTitleAndFragment;
 
+
+/**
+ * Return a new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
+ *
+ * @param siteURL                                       A Wikimedia site URL. For exmaple: `https://en.wikipedia.org`.
+ * @param unescapedDenormalizedTitleAndFragment           A Wikimedia path and fragment. For exmaple: `/99%_Invisible#section`. Note the % is not escaped.
+ *
+ * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
+ **/
++ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL unescapedDenormalizedTitleAndFragment:(NSString*)escapedDenormalizedTitleAndFragment;
+
 /**
  * Return a new URL similar to the URL you call this method on but replace the title.
  *

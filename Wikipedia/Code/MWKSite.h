@@ -95,9 +95,21 @@ extern NSString* const WMFDefaultSiteDomain;
 
 /**
  * @return A title initialized with the receiver as its @c site.
+ * @see -[MWKTitle initWithUnescapedString:site:]
+ */
+- (MWKTitle*)titleWithUnescapedString:(NSString*)string;
+
+/**
+ * @return A title initialized with the receiver as its @c site.
  * @see -[MWKTitle initWithString:site:]
  */
 - (MWKTitle*)titleWithInternalLink:(NSString*)path;
+
+/**
+ * @return A title initialized with the receiver as its @c site.
+ * @see -[MWKTitle initWithSite:normalizedTitle:fragment:]
+ */
+- (MWKTitle*)titleWithNormalizedTitle:(NSString*)normalizedTitle;
 
 @end
 

@@ -63,8 +63,17 @@ NS_ASSUME_NONNULL_BEGIN
     return [self initWithURL:URL];
 }
 
+- (instancetype)initWithUnescapedString:(NSString*)string site:(MWKSite*)site {
+    NSURL* URL = [NSURL wmf_URLWithSiteURL:site.URL unescapedDenormalizedTitleAndFragment:string];
+    return [self initWithURL:URL];
+}
+
 + (MWKTitle*)titleWithString:(NSString*)str site:(MWKSite*)site {
     return [[MWKTitle alloc] initWithString:str site:site];
+}
+
++ (MWKTitle*)titleWithUnescapedString:(NSString*)str site:(MWKSite*)site {
+    return [[MWKTitle alloc] initWithUnescapedString:str site:site];
 }
 
 #pragma mark - Computed Properties

@@ -38,6 +38,19 @@
     return percentEscapesRegex;
 }
 
++ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL unescapedDenormalizedTitleAndFragment:(NSString*)path {
+    NSAssert(![path wmf_isInternalLink],
+             @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
+             path);
+    if ([path wmf_isInternalLink]) {
+        // recurse here after stripping internal link prefix
+        return [NSURL wmf_URLWithSiteURL:siteURL unescapedDenormalizedInternalLink:path];
+    } else {
+        NSArray* bits = [path componentsSeparatedByString:@"#"];
+        return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_normalizedPageTitle] fragment:[bits wmf_safeObjectAtIndex:1]];
+    }
+}
+
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedTitleAndFragment:(NSString*)path {
     NSAssert(![path wmf_isInternalLink],
              @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
@@ -51,6 +64,13 @@
         return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_unescapedNormalizedPageTitle] fragment:[bits wmf_safeObjectAtIndex:1]];
     }
 }
+
++ (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL unescapedDenormalizedInternalLink:(NSString*)internalLink {
+    NSAssert(internalLink.length == 0 || [internalLink wmf_isInternalLink],
+             @"Expected string with internal link prefix but got: %@", internalLink);
+    return [self wmf_URLWithSiteURL:siteURL unescapedDenormalizedTitleAndFragment:[internalLink wmf_internalLinkPath]];
+}
+
 
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedInternalLink:(NSString*)internalLink {
     NSAssert(internalLink.length == 0 || [internalLink wmf_isInternalLink],
