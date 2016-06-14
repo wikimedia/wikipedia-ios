@@ -103,6 +103,7 @@
 "settings-language" = "Wikipedia-Sprooch";
 "settings-support" = "Wikipedia ënnerstëtzen";
 "settings-my-languages" = "Meng Sproochen";
+"settings-help-and-feedback" = "Hëllef a Feedback";
 "settings-primary-language" = "Primär";
 "main-menu-title" = "Méi";
 "main-menu-heading-about" = "Iwwer";
@@ -324,6 +325,7 @@
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-description-prefix" = "Bild vum Dag vum $1";
 "welcome-explore-tell-me-more" = "Ech wëll méi wëssen";
+"welcome-explore-tell-me-more-privacy" = "Lieslëschten a Profiller ginn net op eise Serveure gespäichert.";
 "welcome-explore-tell-me-more-done-button" = "Verstan";
 "welcome-explore-continue-button" = "Fir unzefänken";
 "welcome-languages-title" = "Sproochen";
@@ -331,6 +333,7 @@
 "welcome-languages-continue-button" = "Virufueren";
 "welcome-volunteer-title" = "Fräiwëllegen";
 "welcome-volunteer-sub-title" = "Hëlleft d'Wikipedia-App ze verbesseren andeem Dir deelt wéi Dir se benotzt";
+"welcome-volunteer-send-usage-reports" = "Rapporten iwwer d'Benotze schécken";
 "welcome-volunteer-continue-button" = "Virufueren";
 "welcome-volunteer-thanks" = "$1 Merci!";
 "empty-no-feed-title" = "Keng Internetverbindung";
@@ -359,5 +362,6 @@
 "explore-potd-heading" = "Bild vum Dag";
 "explore-most-read-heading" = "Am dackste geliest op der Wikipedia op $1";
 "explore-most-read-footer" = "Déi am dackste geliest Artikelen";
+"explore-most-read-footer-for-date" = "Déi am dackste geliest Artikelen de(n) $1";
 "explore-most-read-more-list-title" = "Beléifst Artikelen";
 "explore-most-read-more-list-title-for-date" = "Déi beléifst de(n) $1";

@@ -4,8 +4,7 @@
 // Author: Macofe
 // Author: Mehtab ahmed
 
-// Fuzzy
-"languages-title" = "ٻوليون";
+"languages-title" = "ٻولي تبديل ڪريو";
 "article-languages-label" = "ٻولي چونڊيو";
 "article-languages-cancel" = "رد";
 "article-languages-downloading" = "مضمون جون ٻوليون لاهيندي...";
@@ -286,13 +285,11 @@
 "hockeyapp-alert-privacy" = "$1 ذاتيات";
 "page-issues" = "صفحي جا مسئلا";
 "page-similar-titles" = "ان جهڙا صفحا";
-// Fuzzy
-"page-read-in-other-languages" = "$1 ٻولين ۾ پڙھو";
+"page-read-in-other-languages" = "$1 ٻين ٻولين ۾ موجود";
 "page-last-edited" = "$1 ڏينهن اڳ ترميم ڪيل";
 "page-edit-history" = "پوري ترميمي سوانح";
 "captcha-reload" = "ھڪ ٻيو  captcha ڏيکاريو";
-// Fuzzy
-"captcha-prompt" = "مٿين عڪس مان CAPTCHA لکت داخل ڪريو";
+"captcha-prompt" = "CAPTCHA لکت داخل ڪريو";
 "mwk-empty-title-error" = "خالي عنوان تي آپريشن پيش ڪرڻ ۾ ناڪام.";
 "home-title" = "تلاش ڪريو";
 "home-empty-section" = "نتيجا نہ آھن";
@@ -324,8 +321,7 @@
 "welcome-explore-continue-button" = "شروع ڪريو";
 "welcome-languages-title" = "ٻوليون";
 "welcome-languages-sub-title" = "وڪيپيڊيا ڳولڻ لاءِ پنھنجيون ترجيحي ٻوليون چونڊيو";
-// Fuzzy
-"welcome-languages-add-button" = "ٻي شامل ڪريو";
+"welcome-languages-add-button" = "ٻي ٻولي شامل ڪريو";
 "welcome-languages-continue-button" = "جاري رکو";
 "welcome-volunteer-title" = "رضاڪار ٿيو";
 "welcome-volunteer-sub-title" = "وڪيپيڊيا ايپ کي بھتر بڻائڻ لاءِ پنھنجو استعمال ڪرڻ جو طريقو ونڊيو";
