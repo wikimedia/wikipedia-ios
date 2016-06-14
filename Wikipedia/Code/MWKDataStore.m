@@ -119,7 +119,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 - (NSString*)pathForImageURL:(NSString*)url title:(MWKTitle*)title {
     NSString* imagesPath = [self pathForImagesWithTitle:title];
     NSString* encURL     = [self safeFilenameWithImageURL:url];
-    return encURL ? [imagesPath stringByAppendingPathComponent : encURL] : nil;
+    return encURL ? [imagesPath stringByAppendingPathComponent:encURL] : nil;
 }
 
 - (NSString*)pathForImage:(MWKImage*)image {
@@ -173,34 +173,43 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     [self ensurePathExists:path error:NULL];
 }
 
-- (BOOL)saveData:(NSData*)data toFile:(NSString*)filename atPath:(NSString*)path error:(NSError**)error {
+- (BOOL)saveData:(NSData*)data toFile:(NSString*)filename atPath:(NSString*)path excludeFromBackup:(BOOL)excludeFromBackup error:(NSError**)error {
     NSAssert([filename length] > 0, @"No file path given for saving data");
     if (!filename) {
         return NO;
     }
     [self ensurePathExists:path error:error];
     NSString* absolutePath = [path stringByAppendingPathComponent:filename];
-    return [data writeToFile:absolutePath options:NSDataWritingAtomic error:error];
+    BOOL success           = [data writeToFile:absolutePath options:NSDataWritingAtomic error:error];
+    if (success) {
+        NSURL* fileURL = [NSURL fileURLWithPath:absolutePath isDirectory:NO];
+        success = [fileURL setResourceValue:@(excludeFromBackup) forKey:NSURLIsExcludedFromBackupKey error:error];
+    }
+    return success;
 }
 
 - (void)saveData:(NSData*)data path:(NSString*)path name:(NSString*)name {
     NSError* error = nil;
-    [self saveData:data toFile:name atPath:path error:&error];
+    [self saveData:data toFile:name atPath:path excludeFromBackup:NO error:&error];
     NSAssert(error == nil, @"Error saving image to data store: %@", error);
 }
 
 - (BOOL)saveArray:(NSArray*)array path:(NSString*)path name:(NSString*)name error:(NSError**)error {
     NSData* data = [NSPropertyListSerialization dataWithPropertyList:array format:NSPropertyListXMLFormat_v1_0 options:0 error:error];
-    return [self saveData:data toFile:name atPath:path error:error];
+    return [self saveData:data toFile:name atPath:path excludeFromBackup:NO error:error];
 }
 
 - (void)saveArray:(NSArray*)array path:(NSString*)path name:(NSString*)name {
     [self saveArray:array path:path name:name error:NULL];
 }
 
-- (BOOL)saveDictionary:(NSDictionary*)dict path:(NSString*)path name:(NSString*)name error:(NSError**)error {
+- (BOOL)saveDictionary:(NSDictionary*)dict path:(NSString*)path name:(NSString*)name excludeFromBackup:(BOOL)excludeFromBackup error:(NSError**)error {
     NSData* data = [NSPropertyListSerialization dataWithPropertyList:dict format:NSPropertyListXMLFormat_v1_0 options:0 error:error];
-    return [self saveData:data toFile:name atPath:path error:error];
+    return [self saveData:data toFile:name atPath:path excludeFromBackup:NO error:error];
+}
+
+- (BOOL)saveDictionary:(NSDictionary*)dict path:(NSString*)path name:(NSString*)name error:(NSError**)error {
+    return [self saveDictionary:dict path:path name:name excludeFromBackup:NO error:error];
 }
 
 - (void)saveDictionary:(NSDictionary*)dict path:(NSString*)path name:(NSString*)name {
@@ -208,7 +217,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (BOOL)saveString:(NSString*)string path:(NSString*)path name:(NSString*)name error:(NSError**)error {
-    return [self saveData:[string dataUsingEncoding:NSUTF8StringEncoding] toFile:name atPath:path error:error];
+    return [self saveData:[string dataUsingEncoding:NSUTF8StringEncoding] toFile:name atPath:path excludeFromBackup:NO error:error];
 }
 
 - (void)saveString:(NSString*)string path:(NSString*)path name:(NSString*)name {
@@ -226,9 +235,13 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
         return;
     }
 
-    NSString* path       = [self pathForArticle:article];
-    NSDictionary* export = [article dataExport];
-    [self saveDictionary:export path:path name:@"Article.plist"];
+    NSString* path = [self pathForArticle:article];
+
+    NSDictionary* export      = [article dataExport];
+    NSError* articleSaveError = nil;
+    if (![self saveDictionary:export path:path name:@"Article.plist" excludeFromBackup:YES error:&articleSaveError]) {
+        DDLogError(@"Error saving article: %@", articleSaveError);
+    }
     [self.articleCache setObject:article forKey:article.title];
     dispatchOnMainQueue(^{
         [[NSNotificationCenter defaultCenter] postNotificationName:MWKArticleSavedNotification object:self userInfo:@{MWKArticleKey: article}];
