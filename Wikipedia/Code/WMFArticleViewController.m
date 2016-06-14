@@ -48,7 +48,7 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
-#import "UIWebView+WMFTrackingView.h"
+#import "WKWebView+WMFTrackingView.h"
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import <TUSafariActivity/TUSafariActivity.h>
@@ -62,6 +62,7 @@
 #import "NSURL+WMFExtras.h"
 #import "UIToolbar+WMFStyling.h"
 #import <Tweaks/FBTweakInline.h>
+#import "WKWebView+WMFWebViewControllerJavascript.h"
 
 @import SafariServices;
 
@@ -111,6 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Views
 @property (nonatomic, strong) UIImageView* headerImageView;
+@property (nonatomic, strong) UIView* headerView;
 @property (nonatomic, strong, readwrite) UIBarButtonItem* saveToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem* languagesToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem* shareToolbarItem;
@@ -251,6 +253,28 @@ NS_ASSUME_NONNULL_BEGIN
     return _progressView;
 }
 
+- (UIView*)headerView {
+    if (!_headerView) {
+        // HAX: Only read the scale at setup
+        CGFloat scale        = [[UIScreen mainScreen] scale];
+        CGFloat borderHeight = scale > 1 ? 0.5 : 1;
+        CGFloat height       = 10;
+
+        _headerView                 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, height)];
+        _headerView.backgroundColor = [UIColor whiteColor];
+
+        UIView* headerBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, height - borderHeight, 1, borderHeight)];
+        headerBorderView.backgroundColor  = [UIColor colorWithWhite:0 alpha:0.2];
+        headerBorderView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+
+        self.headerImageView.frame            = CGRectMake(0, 0, 1, height - borderHeight);
+        self.headerImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [_headerView addSubview:self.headerImageView];
+        [_headerView addSubview:headerBorderView];
+    }
+    return _headerView;
+}
+
 - (UIImageView*)headerImageView {
     if (!_headerImageView) {
         _headerImageView                        = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -283,7 +307,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_webViewController) {
         _webViewController            = [WebViewController wmf_initialViewControllerFromClassStoryboard];
         _webViewController.delegate   = self;
-        _webViewController.headerView = self.headerImageView;
+        _webViewController.headerView = self.headerView;
     }
     return _webViewController;
 }
@@ -344,12 +368,15 @@ NS_ASSUME_NONNULL_BEGIN
     return self.article && !self.article.isMain;
 }
 
-- (NSString*)shareText {
-    NSString* text = [self.webViewController selectedText];
-    if (text.length == 0) {
-        text = [self.article shareSnippet];
-    }
-    return text;
+- (void)getShareText:(void (^)(NSString* text))completion {
+    [self.webViewController.webView wmf_getSelectedText:^(NSString* _Nonnull text) {
+        if (text.length == 0) {
+            text = [self.article shareSnippet];
+        }
+        if (completion) {
+            completion(text);
+        }
+    }];
 }
 
 #pragma mark - Toolbar Setup
@@ -648,6 +675,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 
+    [self unregisterForPreviewing];
+
     [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
     [self removeProgressView];
@@ -702,6 +731,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSAssert([[NSThread currentThread] isMainThread], @"Not on main thread!");
     NSAssert(self.isViewLoaded, @"Should only fetch article when view is loaded so we can update its state.");
     if (!force && self.article) {
+        [self.pullToRefresh endRefreshing];
         return;
     }
 
@@ -719,6 +749,7 @@ NS_ASSUME_NONNULL_BEGIN
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
     }].then(^(MWKArticle* article) {
         @strongify(self);
+        [self.pullToRefresh endRefreshing];
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
         self.article = article;
         /*
@@ -728,6 +759,7 @@ NS_ASSUME_NONNULL_BEGIN
     }).catch(^(NSError* error){
         @strongify(self);
         DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
+        [self.pullToRefresh endRefreshing];
         [self hideProgressViewAnimated:YES];
         [self.delegate articleControllerDidLoadArticle:self];
 
@@ -773,7 +805,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchArticle {
     [self fetchArticleForce:YES];
-    [self.pullToRefresh endRefreshing];
 }
 
 - (void)fetchArticleIfNeeded {
@@ -908,29 +939,6 @@ NS_ASSUME_NONNULL_BEGIN
     return index;
 }
 
-#pragma mark - Scroll Position and Fragments
-
-- (void)scrollWebViewToRequestedPosition {
-    if (self.articleTitle.fragment) {
-        [self.webViewController scrollToFragment:self.articleTitle.fragment];
-    } else if (self.restoreScrollPositionOnArticleLoad && self.historyEntry.scrollPosition > 0) {
-        self.restoreScrollPositionOnArticleLoad = NO;
-        [self.webViewController scrollToVerticalOffset:self.historyEntry.scrollPosition];
-    }
-    [self markFragmentAsProcessed];
-}
-
-- (void)markFragmentAsProcessed {
-    //Create a title without the fragment so it wont be followed anymore
-    self.articleTitle = [[MWKTitle alloc] initWithSite:self.articleTitle.site normalizedTitle:self.articleTitle.text fragment:nil];
-}
-
-#pragma mark - WebView Transition
-
-- (void)showWebViewAtFragment:(NSString*)fragment animated:(BOOL)animated {
-    [self.webViewController scrollToFragment:fragment];
-}
-
 #pragma mark - WMFWebViewControllerDelegate
 
 - (void)         webViewController:(WebViewController*)controller
@@ -947,7 +955,7 @@ NS_ASSUME_NONNULL_BEGIN
             [self peekTableOfContentsIfNeccesary];
         });
     }];
-    [self scrollWebViewToRequestedPosition];
+
     [self.delegate articleControllerDidLoadArticle:self];
     [self fetchReadMoreIfNeeded];
 }
@@ -1039,12 +1047,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)registerForPreviewingIfAvailable {
     [self wmf_ifForceTouchAvailable:^{
+        NSAssert(!self.webViewController.webView.allowsLinkPreview, @"WKWebView's built-in link preview forces Safari to open as of iOS 9.x. Do not enable.");
         [self unregisterForPreviewing];
         UIView* previewView = [self.webViewController.webView wmf_browserView];
         self.linkPreviewingContext =
             [self registerForPreviewingWithDelegate:self sourceView:previewView];
         for (UIGestureRecognizer* r in previewView.gestureRecognizers) {
-            [r requireGestureRecognizerToFail:self.linkPreviewingContext.previewingGestureRecognizerForFailureRelationship];
+            if ([NSStringFromClass([r class]) isEqualToString:@"_UIPreviewGestureRecognizer"]) {
+                [r requireGestureRecognizerToFail:self.linkPreviewingContext.previewingGestureRecognizerForFailureRelationship];
+            }
         }
     } unavailable:^{
         [self unregisterForPreviewing];
@@ -1060,12 +1071,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
-    JSValue* peekElement = [self.webViewController htmlElementAtLocation:location];
-    if (!peekElement) {
+    NSString* peekURLString = self.webViewController.peekURLString;
+    if (!peekURLString) {
         return nil;
     }
 
-    NSURL* peekURL = [self.webViewController urlForHTMLElement:peekElement];
+    NSURL* peekURL = [NSURL URLWithString:peekURLString];
     if (!peekURL) {
         return nil;
     }
@@ -1074,7 +1085,6 @@ NS_ASSUME_NONNULL_BEGIN
     if (peekVC) {
         [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
         self.webViewController.isPeeking = YES;
-        previewingContext.sourceRect     = [self.webViewController rectForHTMLElement:peekElement];
         return peekVC;
     }
 

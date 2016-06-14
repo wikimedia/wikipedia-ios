@@ -123,6 +123,10 @@ NS_ASSUME_NONNULL_BEGIN
            ^ flipBitsWithAdditionalRotation(self.text.hash, 1);
 }
 
+- (MWKTitle*)wmf_titleWithoutFragment {
+    return [[MWKTitle alloc] initWithSite:self.site normalizedTitle:self.text fragment:nil];
+}
+
 #pragma mark - MTLModel
 
 

@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSString* email;
 @property (strong, nonatomic) NSString* captchaId;
 @property (strong, nonatomic) NSString* captchaWord;
+@property (assign, nonatomic) BOOL useAuthManager;
 
 @end
 
@@ -32,29 +33,31 @@
                                       captchaId:(NSString*)captchaId
                                     captchaWord:(NSString*)captchaWord
                                           token:(NSString*)token
+                                 useAuthManager:(BOOL)useAuthManager
                                     withManager:(AFHTTPSessionManager*)manager
                              thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
-        self.userName    = userName ? userName : @"";
-        self.realName    = realName ? realName : @"";
-        self.domain      = domain ? domain : @"";
-        self.password    = password ? password : @"";
-        self.email       = email ? email : @"";
-        self.captchaId   = captchaId ? captchaId : @"";
-        self.captchaWord = captchaWord ? captchaWord : @"";
-        self.token       = token ? token : @"";
+        self.userName       = userName ? userName : @"";
+        self.realName       = realName ? realName : @"";
+        self.domain         = domain ? domain : @"";
+        self.password       = password ? password : @"";
+        self.email          = email ? email : @"";
+        self.captchaId      = captchaId ? captchaId : @"";
+        self.captchaWord    = captchaWord ? captchaWord : @"";
+        self.token          = token ? token : @"";
+        self.useAuthManager = useAuthManager;
 
         self.fetchFinishedDelegate = delegate;
-        [self creationAccountWithManager:manager];
+        [self createAccountWithManager:manager useAuthManager:useAuthManager];
     }
     return self;
 }
 
-- (void)creationAccountWithManager:(AFHTTPSessionManager*)manager {
+- (void)createAccountWithManager:(AFHTTPSessionManager*)manager useAuthManager:(BOOL)useAuthManager {
     NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain];
 
-    NSDictionary* params = [self getParams];
+    NSDictionary* params = useAuthManager ? [self getAuthManagerParams] : [self getLegacyParams];
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
@@ -79,32 +82,55 @@
                                     userInfo:errorDict];
         }
 
+
+        if ([responseObject[@"createaccount"][@"status"] isEqualToString:@"FAIL"] && ![responseObject[@"createaccount"][@"message"] isEqualToString:@"Incorrect or missing CAPTCHA."]) {
+            NSMutableDictionary* errorDict = [responseObject[@"createaccount"] mutableCopy];
+            errorDict[NSLocalizedDescriptionKey] = responseObject[@"createaccount"][@"message"];
+            error = [NSError errorWithDomain:@"Acct Creation Fetcher"
+                                        code:ACCOUNT_CREATION_ERROR_API
+                                    userInfo:errorDict];
+        }
+
+
+
         NSString* result = @"";
         if (!error) {
-            result = [self getSanitizedResultFromResponse:responseObject];
+            if (useAuthManager) {
+                //result
 
-            if ([result isEqualToString:@"NeedCaptcha"]) {
-                NSMutableDictionary* errorDict = @{}.mutableCopy;
+                if ([responseObject[@"createaccount"][@"status"] isEqualToString:@"FAIL"] && [responseObject[@"createaccount"][@"message"] isEqualToString:@"Incorrect or missing CAPTCHA."]) {
+                    NSMutableDictionary* errorDict = @{}.mutableCopy;
 
-                if (responseObject[@"createaccount"][@"captcha"]) {
                     errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"account-creation-captcha-required", nil);
 
-                    // Make the capcha id and url available from the error.
-                    errorDict[@"captchaId"] = responseObject[@"createaccount"][@"captcha"][@"id"];
-                    errorDict[@"captchaUrl"] = responseObject[@"createaccount"][@"captcha"][@"url"];
+                    error = [NSError errorWithDomain:@"Account Creation Fetcher"
+                                                code:ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA
+                                            userInfo:errorDict];
                 }
+            } else {
+                result = [self getSanitizedResultFromResponse:responseObject];
 
-                error = [NSError errorWithDomain:@"Account Creation Fetcher"
-                                            code:ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA
-                                        userInfo:errorDict];
+                if ([result isEqualToString:@"NeedCaptcha"]) {
+                    NSMutableDictionary* errorDict = @{}.mutableCopy;
+
+                    if (responseObject[@"createaccount"][@"captcha"]) {
+                        errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"account-creation-captcha-required", nil);
+
+                        // Make the capcha id and url available from the error.
+                        errorDict[@"captchaId"] = responseObject[@"createaccount"][@"captcha"][@"id"];
+                        errorDict[@"captchaUrl"] = responseObject[@"createaccount"][@"captcha"][@"url"];
+                    }
+
+                    error = [NSError errorWithDomain:@"Account Creation Fetcher"
+                                                code:ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA
+                                            userInfo:errorDict];
+                }
             }
         }
 
         [self finishWithError:error
                   fetchedData:result];
     } failure:^(NSURLSessionDataTask* operation, NSError* error) {
-        //NSLog(@"ACCT CREATION TOKEN FAIL = %@", error);
-
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
         [self finishWithError:error
@@ -112,7 +138,7 @@
     }];
 }
 
-- (NSMutableDictionary*)getParams {
+- (NSMutableDictionary*)getLegacyParams {
     NSMutableDictionary* params =
         @{
         @"action": @"createaccount",
@@ -139,6 +165,31 @@
     return params;
 }
 
+- (NSMutableDictionary*)getAuthManagerParams {
+    NSMutableDictionary* params =
+        @{
+        @"action": @"createaccount",
+        @"username": self.userName,
+        @"password": self.password,
+        @"retype": self.password,
+        @"createreturnurl": @"https://www.wikipedia.org",
+        @"email": self.email,
+        @"format": @"json"
+    }.mutableCopy;
+
+    if (self.token && self.token.length > 0) {
+        params[@"createtoken"] = self.token;
+    }
+    if (self.captchaId && self.captchaId.length > 0) {
+        params[@"captchaId"] = self.captchaId;
+    }
+    if (self.captchaWord && self.captchaWord.length > 0) {
+        params[@"captchaWord"] = self.captchaWord;
+    }
+
+    return params;
+}
+
 - (NSString*)getSanitizedResultFromResponse:(NSDictionary*)rawResponse {
     if (![rawResponse isDict]) {
         return @"";
@@ -154,12 +205,5 @@
 
     return (result ? result : @"");
 }
-
-/*
-   -(void)dealloc
-   {
-    NSLog(@"DEALLOC'ING PAGE HISTORY FETCHER!");
-   }
- */
 
 @end

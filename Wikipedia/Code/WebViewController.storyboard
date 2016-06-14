@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="5100" identifier="xcode"/>
@@ -18,15 +18,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView clipsSubviews="YES" contentMode="scaleToFill" allowsInlineMediaPlayback="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WeL-Mj-Zsh" customClass="WMFWebView">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WeL-Mj-Zsh">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <dataDetectorType key="dataDetectorTypes"/>
-                                <connections>
-                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="Pmz-tr-TG8"/>
-                                </connections>
-                            </webView>
-                            <label clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.93000000000000005" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="aCV-ih-PXn" userLabel="Zero Status Label" customClass="PaddedLabel">
+                            </view>
+                            <label clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.93000000000000005" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="aCV-ih-PXn" userLabel="Zero Status Label" customClass="PaddedLabel">
                                 <rect key="frame" x="0.0" y="528" width="320" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -50,6 +46,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="3Zs-jL-a48"/>
+                            <constraint firstItem="aCV-ih-PXn" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="CEq-wS-qK0"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="bottom" secondItem="kh9-bI-dsS" secondAttribute="bottom" id="GWO-jz-Ox4"/>
                             <constraint firstItem="aCV-ih-PXn" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Odo-tm-VoC"/>
                             <constraint firstItem="gB8-UC-wuQ" firstAttribute="leading" secondItem="WeL-Mj-Zsh" secondAttribute="leading" id="TPG-uM-6qs"/>
@@ -67,10 +64,10 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="containerView" destination="WeL-Mj-Zsh" id="Tj2-D7-M5k"/>
                         <outlet property="referencesContainerView" destination="gB8-UC-wuQ" id="f7G-jI-SWO"/>
                         <outlet property="referencesContainerViewBottomConstraint" destination="nMr-wt-aMC" id="z1X-xR-f8n"/>
                         <outlet property="referencesContainerViewHeightConstraint" destination="Z6r-VJ-hik" id="vdX-Ye-y6G"/>
-                        <outlet property="webView" destination="WeL-Mj-Zsh" id="Tj2-D7-M5k"/>
                         <outlet property="webViewBottomConstraint" destination="GWO-jz-Ox4" id="ft4-lt-1V5"/>
                         <outlet property="zeroStatusLabel" destination="aCV-ih-PXn" id="uhp-ae-eMa"/>
                     </connections>

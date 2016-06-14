@@ -57,8 +57,6 @@ xcbaselines/
 
 # www
 node_modules/
-# TODO: remove this when assets is moved into build/
-Wikipedia/assets/
 
 # Git
 *.orig

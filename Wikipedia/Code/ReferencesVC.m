@@ -6,14 +6,12 @@
 #import "WikiGlyphButton.h"
 #import "WikiGlyphLabel.h"
 #import "WikiGlyph_Chars.h"
-#import "WebViewController.h"
 #import "WikipediaAppUtils.h"
 #import "UIView+Debugging.h"
 #import "WMF_Colors.h"
 #import "ReferenceGradientView.h"
 #import "SessionSingleton.h"
 #import "MWLanguageInfo.h"
-#import "UIWebView+ElementLocation.h"
 #import "Defines.h"
 #import "NSObject+ConstraintsScale.h"
 #import "Wikipedia-Swift.h"
@@ -308,25 +306,6 @@
     if (!elementId) {
         return;
     }
-    //TODO: scroll to ref
-//    CGRect r = [self.webVC.webView getScreenRectForHtmlElementWithId:elementId];
-//    if (!CGRectIsNull(r)) {
-//        CGFloat vSpaceAboveRefsPanel = self.webVC.view.bounds.size.height - self.panelHeight;
-//
-//        // Only scroll up if the refs link would be below the refs panel.
-//        if ((r.origin.y + r.size.height) > (vSpaceAboveRefsPanel)) {
-//            // Calculate the distance needed to scroll the refs link to the vertical center of the
-//            // part of the article web view not covered by the refs panel.
-//            CGFloat distanceFromVerticalCenter = ((vSpaceAboveRefsPanel) / 2.0) - (r.size.height / 2.0);
-//
-//            CGPoint p = CGPointMake(
-//                self.webVC.webView.scrollView.contentOffset.x,
-//                self.webVC.webView.scrollView.contentOffset.y + (r.origin.y - distanceFromVerticalCenter)
-//                );
-//            [self.webVC.webView.scrollView setContentOffset:p animated:YES];
-//        }
-//    }
-    ;
 }
 
 - (void)setPayload:(NSDictionary*)payload {

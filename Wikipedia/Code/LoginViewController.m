@@ -24,10 +24,15 @@
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "MWKLanguageLinkController.h"
+#import "WMFAuthManagerInfoFetcher.h"
+#import "WMFAuthManagerInfo.h"
 
 
 @interface LoginViewController (){
 }
+
+@property (strong, nonatomic) WMFAuthManagerInfoFetcher* authManagerInfoFetcher;
+@property (strong, nonatomic) WMFAuthManagerInfo* authManagerInfo;
 
 @property (weak, nonatomic) IBOutlet UIScrollView* scrollView;
 @property (weak, nonatomic) IBOutlet UITextField* usernameField;
@@ -203,6 +208,7 @@
                                                          userName:[sender userName]
                                                          password:[sender password]
                                                             token:[sender token]
+                                                   useAuthManager:(self.authManagerInfo != nil)
                                                       withManager:[QueuesSingleton sharedInstance].loginFetchManager
                                                thenNotifyDelegate:self];
             }
@@ -227,15 +233,21 @@
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 //NSLog(@"%@", fetchedData);
-                NSString* loginStatus = fetchedData[@"login"][@"result"];
 
-                // Login credentials should only be placed in the keychain if they've been authenticated.
-                NSString* normalizedUserName = fetchedData[@"login"][@"lgusername"];
-                [SessionSingleton sharedInstance].keychainCredentials.userName = normalizedUserName;
-                [SessionSingleton sharedInstance].keychainCredentials.password = fetchedData[@"password"];
+                if (self.authManagerInfo) {
+                    NSString* normalizedUserName = fetchedData[@"username"];
+                    [SessionSingleton sharedInstance].keychainCredentials.userName = normalizedUserName;
+                    [SessionSingleton sharedInstance].keychainCredentials.password = self.passwordField.text;
+                } else {
+                    NSString* loginStatus = fetchedData[@"login"][@"result"];
+
+                    // Login credentials should only be placed in the keychain if they've been authenticated.
+                    NSString* normalizedUserName = fetchedData[@"login"][@"lgusername"];
+                    [SessionSingleton sharedInstance].keychainCredentials.userName = normalizedUserName;
+                    [SessionSingleton sharedInstance].keychainCredentials.password = fetchedData[@"password"];
+                }
 
                 //NSString *result = loginResult[@"login"][@"result"];
-                [[WMFAlertManager sharedInstance] showSuccessAlert:loginStatus sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
 
                 self.successBlock();
 
@@ -279,10 +291,20 @@
     self.successBlock = (!successBlock) ? ^(){} : successBlock;
     self.failBlock = (!failBlock) ? ^(){} : failBlock;
 
+    self.authManagerInfoFetcher = [[WMFAuthManagerInfoFetcher alloc] init];
+
+    [self.authManagerInfoFetcher fetchAuthManagerLoginAvailableForSite:[[MWKLanguageLinkController sharedInstance] appLanguage].site].then(^(WMFAuthManagerInfo* info){
+        self.authManagerInfo = info;
+        [self fetchTokensWithInfo:info userName:userName password:password];
+    });
+}
+
+- (void)fetchTokensWithInfo:(WMFAuthManagerInfo*)info userName:(NSString*)userName password:(NSString*)password {
     [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
         (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
                                                            userName:userName
                                                            password:password
+                                                     useAuthManager:(info != nil)
                                                         withManager:[QueuesSingleton sharedInstance].loginFetchManager
                                                  thenNotifyDelegate:self];
     }];
