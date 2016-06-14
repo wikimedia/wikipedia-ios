@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Initialize a new URL with a Wikimedia `domain` and `language`.
  *
  * @param domain        Wikimedia domain - for example: `wikimedia.org`.
- * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
+ * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for example: `en`.
  *
  * @return A new URL with the given domain and language.
  **/
