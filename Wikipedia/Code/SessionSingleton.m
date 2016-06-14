@@ -13,6 +13,8 @@
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
 #import "MWKLanguageLinkController.h"
+#import "WMFAuthManagerInfoFetcher.h"
+#import "WMFAuthManagerInfo.h"
 
 
 @interface SessionSingleton ()<FetchFinishedDelegate>
@@ -24,6 +26,9 @@
 @property (strong, nonatomic, readwrite) MWKSite* currentArticleSite;
 
 @property (strong, nonatomic) MWKTitle* currentArticleTitle;
+
+@property (strong, nonatomic) WMFAuthManagerInfoFetcher* authManagerInfoFetcher;
+@property (strong, nonatomic) WMFAuthManagerInfo* authManagerInfo;
 
 @end
 
@@ -164,13 +169,18 @@
         return;
     }
 
-    [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
-                                                           userName:self.keychainCredentials.userName
-                                                           password:self.keychainCredentials.password
-                                                        withManager:[QueuesSingleton sharedInstance].loginFetchManager
-                                                 thenNotifyDelegate:self];
-    }];
+    self.authManagerInfoFetcher = [[WMFAuthManagerInfoFetcher alloc] init];
+
+    [self.authManagerInfoFetcher fetchAuthManagerLoginAvailableForSite:[[MWKLanguageLinkController sharedInstance] appLanguage].site].then(^(WMFAuthManagerInfo* info){
+        self.authManagerInfo = info;
+        [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
+            (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
+                                                               userName:self.keychainCredentials.userName
+                                                               password:self.keychainCredentials.password
+                                                         useAuthManager:(info != nil) withManager:[QueuesSingleton sharedInstance].loginFetchManager
+                                                     thenNotifyDelegate:self];
+        }];
+    });
 }
 
 - (void)fetchFinished:(id)sender
@@ -184,6 +194,7 @@
                                                          userName:[sender userName]
                                                          password:[sender password]
                                                             token:[sender token]
+                                                   useAuthManager:(self.authManagerInfo != nil)
                                                       withManager:[QueuesSingleton sharedInstance].loginFetchManager
                                                thenNotifyDelegate:self];
             }

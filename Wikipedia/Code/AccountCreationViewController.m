@@ -24,11 +24,14 @@
 #import "PaddedLabel.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "MWKLanguageLinkController.h"
-
+#import "WMFAuthManagerInfoFetcher.h"
+#import "WMFAuthManagerInfo.h"
 
 @interface AccountCreationViewController ()
 
 @property (strong, nonatomic) CaptchaViewController* captchaViewController;
+@property (strong, nonatomic) WMFAuthManagerInfoFetcher* authManagerInfoFetcher;
+@property (strong, nonatomic) WMFAuthManagerInfo* authManagerInfo;
 @property (weak, nonatomic) IBOutlet UIView* captchaContainer;
 @property (weak, nonatomic) IBOutlet UIScrollView* scrollView;
 @property (nonatomic) BOOL showCaptchaContainer;
@@ -343,11 +346,15 @@
 
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
 
-    [[QueuesSingleton sharedInstance].accountCreationFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
-                                                        withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
-                                                 thenNotifyDelegate:self];
-    }];
+    if (self.authManagerInfo) {
+        [self save]; //this resarts the token process which gets us another captcha
+    } else {
+        [[QueuesSingleton sharedInstance].accountCreationFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
+            (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
+                                                            withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
+                                                     thenNotifyDelegate:self];
+        }];
+    }
 }
 
 - (void)login {
@@ -390,6 +397,7 @@
                                                                     captchaId:self.captchaId
                                                                   captchaWord:self.captchaViewController.captchaTextBox.text
                                                                         token:[sender token]
+                                                               useAuthManager:(self.authManagerInfo != nil)
                                                                   withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
                                                            thenNotifyDelegate:self];
                 break;
@@ -418,9 +426,15 @@
 
 
                 if (error.code == ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA) {
-                    self.captchaId            = error.userInfo[@"captchaId"];
-                    self.captchaUrl           = error.userInfo[@"captchaUrl"];
-                    self.showCaptchaContainer = YES;
+                    if (self.authManagerInfo) {
+                        self.captchaId  = self.authManagerInfo.captchaID;
+                        self.captchaUrl = self.authManagerInfo.captchaURLFragment;
+                    } else {
+                        self.captchaId            = error.userInfo[@"captchaId"];
+                        self.captchaUrl           = error.userInfo[@"captchaUrl"];
+                        self.showCaptchaContainer = YES;
+                    }
+
                     [[WMFAlertManager sharedInstance] showWarningAlert:error.localizedDescription sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
                 } else {
                     [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
@@ -486,31 +500,30 @@
     }
 
     // Save!
-    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-saving", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+
+    //only show if we arent on the captcha
+    if (!self.authManagerInfo) {
+        [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-saving", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+    }
+
+    self.authManagerInfoFetcher = [[WMFAuthManagerInfoFetcher alloc] init];
+
+    [self.authManagerInfoFetcher fetchAuthManagerCreationAvailableForSite:[[MWKLanguageLinkController sharedInstance] appLanguage].site].then(^(WMFAuthManagerInfo* info){
+        self.authManagerInfo = info;
+        [self fetchTokensWithInfo:info];
+    });
+}
+
+- (void)fetchTokensWithInfo:(WMFAuthManagerInfo*)info {
     [[QueuesSingleton sharedInstance].accountCreationFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
         (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
                                                                      userName:self.usernameField.text
                                                                      password:self.passwordField.text
                                                                         email:self.emailField.text
+                                                               useAuthManager:(info != nil)
                                                                   withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
                                                            thenNotifyDelegate:self];
     }];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-   #pragma mark - Navigation
-
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-   {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-   }
- */
 
 @end

@@ -33,6 +33,9 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol {
     
     public func showAlert(message: String, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
     
+         if (message ?? "").isEmpty {
+             return
+         }
          self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
             TSMessage.showNotificationInViewController(nil,
                 title: message,

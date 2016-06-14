@@ -9,10 +9,9 @@
 #import "UIViewController+WMFHideKeyboard.h"
 #import "EditTokenFetcher.h"
 #import "SessionSingleton.h"
-#import "PreviewWebView.h"
+#import "PreviewWebViewContainer.h"
 #import "Defines.h"
 #import "WMF_Colors.h"
-#import "CommunicationBridge.h"
 #import "PaddedLabel.h"
 #import "NSString+WMFExtras.h"
 #import "MenuButton.h"
@@ -34,8 +33,9 @@
 #import "WMFOpenExternalLinkDelegateProtocol.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import <Masonry/Masonry.h>
 #import "AFHTTPSessionManager+WMFCancelAll.h"
-
+#import "WKWebView+LoadAssetsHtml.h"
 
 typedef NS_ENUM (NSInteger, WMFCannedSummaryChoices) {
     CANNED_SUMMARY_TYPOS,
@@ -52,18 +52,17 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
 };
 
-@interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate>
+@interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate>
 
 @property (strong, nonatomic) NSString* captchaId;
 @property (strong, nonatomic) NSString* captchaUrl;
 
 @property (strong, nonatomic) CaptchaViewController* captchaViewController;
-@property (weak, nonatomic) IBOutlet UIView* captchaContainer;
-@property (weak, nonatomic) IBOutlet UIScrollView* captchaScrollView;
-@property (weak, nonatomic) IBOutlet UIView* captchaScrollContainer;
-@property (weak, nonatomic) IBOutlet UIView* editSummaryContainer;
-@property (weak, nonatomic) IBOutlet PreviewWebView* previewWebView;
-@property (strong, nonatomic) CommunicationBridge* bridge;
+@property (strong, nonatomic) IBOutlet UIView* captchaContainer;
+@property (strong, nonatomic) IBOutlet UIScrollView* captchaScrollView;
+@property (strong, nonatomic) IBOutlet UIView* captchaScrollContainer;
+@property (strong, nonatomic) IBOutlet UIView* editSummaryContainer;
+@property (strong, nonatomic) IBOutlet PreviewWebViewContainer* previewWebViewContainer;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* previewWebViewHeightConstraint;
 @property (strong, nonatomic) UILabel* aboutLabel;
 @property (strong, nonatomic) MenuButton* cannedSummary01;
@@ -71,10 +70,11 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 @property (strong, nonatomic) MenuButton* cannedSummary03;
 @property (strong, nonatomic) MenuButton* cannedSummary04;
 @property (nonatomic) CGFloat borderWidth;
-@property (weak, nonatomic) IBOutlet PreviewLicenseView* previewLicenseView;
+@property (strong, nonatomic) IBOutlet PreviewLicenseView* previewLicenseView;
 @property (strong, nonatomic) UIGestureRecognizer* previewLicenseTapGestureRecognizer;
 @property (strong, nonatomic) IBOutlet PaddedLabel* previewLabel;
-@property (weak, nonatomic) IBOutlet UIScrollView* scrollView;
+@property (strong, nonatomic) IBOutlet UIScrollView* scrollView;
+@property (strong, nonatomic) IBOutlet UIView* scrollContainer;
 @property (strong, nonatomic) UIBarButtonItem* buttonSave;
 @property (strong, nonatomic) UIBarButtonItem* buttonNext;
 @property (strong, nonatomic) UIBarButtonItem* buttonX;
@@ -91,7 +91,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 @implementation PreviewAndSaveViewController
 
 - (void)dealloc {
-    [self.previewWebView.scrollView removeObserver:self forKeyPath:@"contentSize"];
+    [self.previewWebViewContainer.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
 }
 
 - (NSString*)getSummary {
@@ -120,17 +120,15 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     return YES;
 }
 
-- (void)setupBridge {
-    self.bridge = [[CommunicationBridge alloc] initWithWebView:self.previewWebView];
-
-    //[self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString *messageType, NSDictionary *payload) {
-    //}];
-
-    __weak PreviewAndSaveViewController* weakSelf = self;
-
-    [self.bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-        [weakSelf.previewWebView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"alert('%@')", payload[@"href"]]];
-    }];
+- (void)wmf_showAlertForTappedAnchorHref:(NSString*)href {
+    UIAlertController* alertController =
+        [UIAlertController alertControllerWithTitle:href
+                                            message:nil
+                                     preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"button-ok", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:nil]];
+    [self presentViewController:alertController animated:YES completion:^{}];
 }
 
 - (void)setMode:(WMFPreviewAndSaveMode)mode {
@@ -198,8 +196,8 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.previewWebView.externalLinksOpenerDelegate     = self;
-    self.previewLicenseView.externalLinksOpenerDelegate = self;
+    self.previewWebViewContainer.externalLinksOpenerDelegate = self;
+    self.previewLicenseView.externalLinksOpenerDelegate      = self;
 
     @weakify(self)
     self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
@@ -234,10 +232,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
     //self.saveAutomaticallyIfSignedIn = NO;
 
-    [self setupBridge];
-
-    self.previewWebView.scrollView.delegate = self;
-
     self.captchaId  = @"";
     self.captchaUrl = @"";
 
@@ -251,7 +245,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
     // Disable the preview web view's scrolling since we're going to size it
     // such that its internal scroll view isn't ever going to be visble anyway.
-    self.previewWebView.scrollView.scrollEnabled = NO;
+    self.previewWebViewContainer.webView.scrollView.scrollEnabled = NO;
 
     // Observer the web view's contentSize property to enable the web view to expand to the
     // height of the html content it is displaying so the web view's scroll view doesn't show
@@ -259,10 +253,10 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     // with this view controller's scroll view rather than its own.) Note that to make this
     // work, the PreviewWebView object also uses a method called
     // "forceScrollViewContentSizeToReflectActualHTMLHeight".
-    [self.previewWebView.scrollView addObserver:self
-                                     forKeyPath:@"contentSize"
-                                        options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
-                                        context:nil];
+    [self.previewWebViewContainer.webView.scrollView addObserver:self
+                                                      forKeyPath:@"contentSize"
+                                                         options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
+                                                         context:nil];
     [self preview];
 }
 
@@ -277,7 +271,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                         change:(NSDictionary*)change
                        context:(void*)context {
     if (
-        (object == self.previewWebView.scrollView)
+        (object == self.previewWebViewContainer.webView.scrollView)
         &&
         [keyPath isEqual:@"contentSize"]
         ) {
@@ -286,7 +280,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
         // overridden "layoutSubviews" method for the contentSize to be reported accurately such that it reflects the
         // actual height of the web view content here. Without the web view class calling this method in its
         // layoutSubviews, the contentSize.height wouldn't change if we, say, rotated the device.
-        self.previewWebViewHeightConstraint.constant = self.previewWebView.scrollView.contentSize.height;
+        self.previewWebViewHeightConstraint.constant = self.previewWebViewContainer.webView.scrollView.contentSize.height;
     }
 }
 
@@ -429,6 +423,8 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(licenseLabelTapped:)];
     [self.previewLicenseView.licenseLoginLabel addGestureRecognizer:self.previewLicenseTapGestureRecognizer];
 
+    self.previewWebViewContainer.webView.scrollView.delegate = self;
+
     [super viewWillAppear:animated];
 }
 
@@ -449,6 +445,8 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    self.previewWebViewContainer.webView.scrollView.delegate = nil;
+
     [[WMFAlertManager sharedInstance] dismissAlert];
 
 
@@ -461,26 +459,20 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     [super viewWillDisappear:animated];
 }
 
+- (MWLanguageInfo*)wmf_editedSectionLanguageInfo {
+    return [MWLanguageInfo languageInfoForCode:self.section.site.language];
+}
+
 - (void)fetchFinished:(id)sender
           fetchedData:(id)fetchedData
                status:(FetchFinalStatus)status
                 error:(NSError*)error {
     if ([sender isKindOfClass:[PreviewHtmlFetcher class]]) {
-        MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.section.site.language];
-        NSString* uidir              = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
-
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [[WMFAlertManager sharedInstance] dismissAlert];
 
-                [self.bridge loadHTML:fetchedData withAssetsFile:@"preview.html"];
-
-                [self.bridge sendMessage:@"setLanguage"
-                             withPayload:@{
-                     @"lang": languageInfo.code,
-                     @"dir": languageInfo.dir,
-                     @"uidir": uidir
-                 }];
+                [self.previewWebViewContainer.webView loadHTML:fetchedData withAssetsFile:@"preview.html" scrolledToFragment:nil topPadding:0];
             }
             break;
             case FETCH_FINAL_STATUS_FAILED: {
