@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         NSArray* bits = [string componentsSeparatedByString:@"#"];
         return [self initWithSite:site
-                  normalizedTitle:[[bits firstObject] wmf_unescapedNormalizedPageTitle]
+                  normalizedTitle:[bits firstObject]
                          fragment:[bits wmf_safeObjectAtIndex:1]];
     }
 }
