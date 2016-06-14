@@ -59,7 +59,7 @@
 }
 
 - (void)setWmf_title:(NSString*)wmf_title {
-    NSString* path = [[wmf_title wmf_denormalizedPageTitle] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    NSString* path = [wmf_title wmf_denormalizedPageTitle];
     if (path != nil && path.length > 0) {
         NSArray* pathComponents = @[WMFInternalLinkPathPrefix, path];
         self.path = [NSString pathWithComponents:pathComponents];
@@ -69,7 +69,7 @@
 }
 
 - (NSString*)wmf_title {
-    NSString* title = [[self.path wmf_internalLinkPath] wmf_unescapedNormalizedPageTitle];
+    NSString* title = [[self.path wmf_internalLinkPath] wmf_normalizedPageTitle];
     if (title == nil) {
         title = @"";
     }

@@ -91,9 +91,9 @@
 - (void)testWMFSpecialCharacters {
     NSURL* URL        = [NSURL URLWithString:@"https://en.m.wikipedia.org"];
     NSURL* kirkjubURL = [URL wmf_URLWithTitle:@"Kirkjubæjarklaustur"];
-    XCTAssertEqualObjects(@"/wiki/Kirkjub%C3%A6jarklaustur", kirkjubURL.path);
+    XCTAssertEqualObjects(@"https://en.m.wikipedia.org/wiki/Kirkjub%C3%A6jarklaustur", kirkjubURL.absoluteString);
     NSURL* eldgjaURL = [URL wmf_URLWithTitle:@"Eldgjá"];
-    XCTAssertEqualObjects(@"/wiki/Eldgj%C3%A1", eldgjaURL.path);
+    XCTAssertEqualObjects(@"https://en.m.wikipedia.org/wiki/Eldgj%C3%A1", eldgjaURL.absoluteString);
 }
 
 @end
