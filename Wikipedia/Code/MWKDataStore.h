@@ -204,4 +204,6 @@ extern NSString* const MWKArticleKey;
 
 - (BOOL)hasHTMLFileForSection:(MWKSection*)section;
 
+- (void)clearMemoryCache;
+
 @end

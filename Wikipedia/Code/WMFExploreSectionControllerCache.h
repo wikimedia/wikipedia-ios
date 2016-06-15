@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (id<WMFExploreSectionController>)getOrCreateControllerForSection:(WMFExploreSection*)section
                                                      creationBlock:(nullable void (^)(id<WMFExploreSectionController> newController))creationBlock;
 
+- (void)removeAllObjects;
+
 @end
 
 NS_ASSUME_NONNULL_END

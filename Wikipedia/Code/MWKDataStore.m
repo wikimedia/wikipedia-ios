@@ -513,4 +513,10 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
 }
 
+#pragma mark - Cache
+
+- (void)clearMemoryCache {
+    [self.articleCache removeAllObjects];
+}
+
 @end

@@ -197,6 +197,12 @@ NS_ASSUME_NONNULL_BEGIN
     return [[WMFFeaturedArticleSectionController alloc] initWithSite:item.site date:item.dateCreated dataStore:self.dataStore];
 }
 
+#pragma mark - removeAllObjects
+
+- (void)removeAllObjects {
+    [self.sectionControllersBySection removeAllObjects];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END
