@@ -2188,22 +2188,7 @@
 			path = Wikipedia/Code/About;
 			sourceTree = SOURCE_ROOT;
 		};
-		04616DF71AE7060C00815BCE /* URL Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				BC45D57B1C32F1AD007C72F3 /* Utilities */,
-				B0E806851C0CEA060065EBC0 /* WMFArticleProtocol.h */,
-				B0E806861C0CEA060065EBC0 /* WMFArticleProtocol.m */,
-				B0E806871C0CEA060065EBC0 /* WMFBundledImageProtocol.h */,
-				B0E806881C0CEA060065EBC0 /* WMFBundledImageProtocol.m */,
-				B0E806891C0CEA060065EBC0 /* WMFLocalizationProtocol.h */,
-				B0E8068A1C0CEA060065EBC0 /* WMFLocalizationProtocol.m */,
-			);
-			name = "URL Protocols";
-			path = Wikipedia/Code/Protocols;
-			sourceTree = SOURCE_ROOT;
-		};
-		0463639518A844380049EE4F /* Credentials */ = {
+		0463639518A844380049EE4F /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
 				B0E808251C0CF6160065EBC0 /* KeychainCredentials.h */,
@@ -6340,6 +6325,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -6390,6 +6376,7 @@
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 				WMF_HOCKEYAPP_IDENTIFIER = 2295c3698bbd0b050f257772dd2bdbb2;
 				WRAPPER_EXTENSION = app;
 			};
@@ -6473,6 +6460,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WARNING_CFLAGS = (
@@ -6523,6 +6511,7 @@
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 2.3;
 				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
 				WRAPPER_EXTENSION = app;
 			};
@@ -6693,6 +6682,7 @@
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WARNING_CFLAGS = (
@@ -6742,6 +6732,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -6793,6 +6784,7 @@
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
 				WRAPPER_EXTENSION = app;
 			};
@@ -6836,6 +6828,7 @@
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
 				WRAPPER_EXTENSION = app;
 			};

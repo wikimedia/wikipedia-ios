@@ -99,7 +99,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
     }
     
     func removeFromIndex(title: MWKTitle) {
-        CSSearchableIndex.defaultSearchableIndex().deleteSearchableItemsWithIdentifiers([title.desktopURL.absoluteString]) { (error: NSError?) -> Void in
+        CSSearchableIndex.defaultSearchableIndex().deleteSearchableItemsWithIdentifiers([title.desktopURL.absoluteString!]) { (error: NSError?) -> Void in
             if let error = error {
                 DDLogError("Deindexing error: \(error.localizedDescription)")
             } else {
