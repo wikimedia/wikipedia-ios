@@ -673,6 +673,7 @@
 		D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */; };
 		D81082F81D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = D81082F71D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m */; };
 		D81083071D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m in Sources */ = {isa = PBXBuildFile; fileRef = D81083061D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m */; };
+		D8CDBA9F1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2004,6 +2005,7 @@
 		D81082F71D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+WMFExtendedFileAttributes.m"; path = "Wikipedia/Code/NSFileManager+WMFExtendedFileAttributes.m"; sourceTree = SOURCE_ROOT; };
 		D81083051D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKProcessPool+WMFSharedProcessPool.h"; path = "Wikipedia/Code/WKProcessPool+WMFSharedProcessPool.h"; sourceTree = SOURCE_ROOT; };
 		D81083061D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKProcessPool+WMFSharedProcessPool.m"; path = "Wikipedia/Code/WKProcessPool+WMFSharedProcessPool.m"; sourceTree = SOURCE_ROOT; };
+		D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableOfContentsAboutThisArticleItem.swift; path = Wikipedia/Code/TableOfContentsAboutThisArticleItem.swift; sourceTree = SOURCE_ROOT; };
 		DC96DA4AAD521D734849D20F /* Pods-WikipediaUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EDA528BC357952A7D914F8E0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2188,22 +2190,7 @@
 			path = Wikipedia/Code/About;
 			sourceTree = SOURCE_ROOT;
 		};
-		04616DF71AE7060C00815BCE /* URL Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				BC45D57B1C32F1AD007C72F3 /* Utilities */,
-				B0E806851C0CEA060065EBC0 /* WMFArticleProtocol.h */,
-				B0E806861C0CEA060065EBC0 /* WMFArticleProtocol.m */,
-				B0E806871C0CEA060065EBC0 /* WMFBundledImageProtocol.h */,
-				B0E806881C0CEA060065EBC0 /* WMFBundledImageProtocol.m */,
-				B0E806891C0CEA060065EBC0 /* WMFLocalizationProtocol.h */,
-				B0E8068A1C0CEA060065EBC0 /* WMFLocalizationProtocol.m */,
-			);
-			name = "URL Protocols";
-			path = Wikipedia/Code/Protocols;
-			sourceTree = SOURCE_ROOT;
-		};
-		0463639518A844380049EE4F /* Credentials */ = {
+		0463639518A844380049EE4F /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
 				B0E808251C0CF6160065EBC0 /* KeychainCredentials.h */,
@@ -4394,6 +4381,7 @@
 			isa = PBXGroup;
 			children = (
 				B0E8037A1C0CD9D30065EBC0 /* WMFTableOfContentsItem.swift */,
+				D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */,
 				B0E8037C1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift */,
 				B0E8037E1C0CD9EE0065EBC0 /* MWKSection+TOCItem.swift */,
 			);
@@ -5897,6 +5885,7 @@
 				0E26B0821C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m in Sources */,
 				B0E805C71C0CE5250065EBC0 /* SDImageCache+WMFPersistentCache.m in Sources */,
 				B0E8066B1C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m in Sources */,
+				D8CDBA9F1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift in Sources */,
 				B0F84EED1C8E444400801560 /* WelcomeAnimationView.swift in Sources */,
 				B0E807811C0CEF0A0065EBC0 /* MWKTitle.m in Sources */,
 				B0E806F61C0CEBB60065EBC0 /* ReferenceVC.m in Sources */,
