@@ -144,7 +144,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSAttributedString*)headerTitle {
     // fall back to language code if it can't be localized
-    NSString* language        = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.site.language] ? : self.site.language;
+    NSString* language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.site.language] ? : self.site.language;
+    
+    //crash protection if language is nil
+    if (!language) {
+        language = @"";
+    }
+
     NSString* headingWithSite =
         [MWLocalizedString(@"explore-most-read-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
                                                                                         withString:language];
