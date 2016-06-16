@@ -446,6 +446,7 @@
 "explore-random-article-sub-heading" = "English Wikipedia";
 "explore-potd-heading" = "Picture of the day";
 "explore-most-read-heading" = "Top read on $1 Wikipedia";
+"explore-most-read-generic-heading" = "Top read";
 "explore-most-read-footer" = "All top read articles";
 "explore-most-read-footer-for-date" = "All top read articles on $1";
 "explore-most-read-more-list-title" = "Top articles";
