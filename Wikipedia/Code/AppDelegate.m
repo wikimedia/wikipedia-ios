@@ -14,6 +14,7 @@
 #import "GCDWebServer.h"
 #import "GCDWebServerDataResponse.h"
 #import "GCDWebServerErrorResponse.h"
+#import "GCDWebServerFileResponse.h"
 
 @interface AppDelegate ()
 
@@ -103,10 +104,28 @@
 
     [self updateDynamicIconShortcutItems];
 
-    NSLog(@"%@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
+    
+    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSLog(@"%@", documentsURL);
 
     self.webServer = [[GCDWebServer alloc] init];
-
+    
+    // HAX: hardcoded for now to match WebView category
+    NSURL *assetsURL = [documentsURL URLByAppendingPathComponent:@"assets"];
+    
+    [self.webServer addDefaultHandlerForMethod:@"GET" requestClass:[GCDWebServerRequest class] processBlock:^GCDWebServerResponse *(GCDWebServerRequest *request) {
+        NSString *path = request.path;
+        NSURL *fileURL = [assetsURL URLByAppendingPathComponent:path];
+        
+        NSNumber *isRegularFile = nil;
+        NSError *fileReadError = nil;
+        if ([fileURL getResourceValue:&isRegularFile forKey:NSURLIsRegularFileKey error:&fileReadError] && [isRegularFile boolValue]) {
+            return [GCDWebServerFileResponse responseWithFile:fileURL.path];
+        } else {
+            return [GCDWebServerErrorResponse responseWithClientError:kGCDWebServerHTTPStatusCode_NotFound message:@"404"];
+        }
+    }];
+    
     @weakify(self);
     [self.webServer addHandlerForMethod:@"GET" path:@"/imageProxy" requestClass:[GCDWebServerRequest class]
                       asyncProcessBlock:^(GCDWebServerRequest* request, GCDWebServerCompletionBlock completionBlock) {
