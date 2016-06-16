@@ -144,12 +144,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSAttributedString*)headerTitle {
     // fall back to language code if it can't be localized
-    NSString* language        = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.site.language] ? : self.site.language;
-    NSString* headingWithSite =
+    NSString* language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.site.language] ? : self.site.language;
+
+    NSString* heading = nil;
+    
+    //crash protection if language is nil
+    if (language) {
+        heading =
         [MWLocalizedString(@"explore-most-read-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
                                                                                         withString:language];
+    } else {
+        heading = MWLocalizedString(@"explore-most-read-generic-heading", nil);
+    }
+
     NSDictionary* attributes = @{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]};
-    return [[NSAttributedString alloc] initWithString:headingWithSite attributes:attributes];
+    return [[NSAttributedString alloc] initWithString:heading attributes:attributes];
 }
 
 - (NSAttributedString*)headerSubTitle {
