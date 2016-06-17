@@ -16,7 +16,7 @@
     components.host     = @"localhost";
     components.port     = @(8080);
     components.scheme   = @"http";
-    components.path     = [NSString stringWithFormat:@"/%@", fileName];
+    components.path     = [NSString pathWithComponents:@[@"/", fileName]];
     
     // If no fragment use "top" of document fragment keyword to fix bug sometimes causing new
     // page to load not scrolled to top. This keyword is specified by HTML5 according to:
