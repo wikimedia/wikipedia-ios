@@ -72,12 +72,12 @@
                NSString* path      = request.path;
                NSArray* components = [path pathComponents];
 
-               if (components.count < 3) { //ensure components exist and there are at least two
+               if (components.count < 3) { //ensure components exist and there are at least three
                    notFound();
                    return;
                }
 
-               if (![components[1] isEqualToString:self.secret]) { //ensure the first component is the secret
+               if (![components[1] isEqualToString:self.secret]) { //ensure the second component is the secret
                    notFound();
                    return;
                }
