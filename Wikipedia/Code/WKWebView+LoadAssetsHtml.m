@@ -17,7 +17,12 @@
     components.port     = @(8080);
     components.scheme   = @"http";
     components.path     = [NSString stringWithFormat:@"/%@", fileName];
-    components.fragment = fragment;
+    
+    // If no fragment use "top" of document fragment keyword to fix bug sometimes causing new
+    // page to load not scrolled to top. This keyword is specified by HTML5 according to:
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href
+    components.fragment = fragment ? fragment : @"top";
+
     NSURLRequest* request = [NSURLRequest requestWithURL:components.URL];
     [self loadRequest:request];
 }
