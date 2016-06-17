@@ -3,7 +3,7 @@
 
 #import "WKWebView+LoadAssetsHtml.h"
 #import "Wikipedia-Swift.h"
-#import "NSString+WMFImageProxy.h"
+#import "WMFProxyServer.h"
 
 @implementation WKWebView (LoadAssetsHtml)
 
@@ -12,18 +12,10 @@
         DDLogError(@"attempted to load nil file");
         return;
     }
-    NSURLComponents* components = [[NSURLComponents alloc] init];
-    components.host     = @"localhost";
-    components.port     = @(8080);
-    components.scheme   = @"http";
-    components.path     = [NSString pathWithComponents:@[@"/", fileName]];
     
-    // If no fragment use "top" of document fragment keyword to fix bug sometimes causing new
-    // page to load not scrolled to top. This keyword is specified by HTML5 according to:
-    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href
-    components.fragment = fragment ? fragment : @"top";
-
-    NSURLRequest* request = [NSURLRequest requestWithURL:components.URL];
+    fragment = fragment ? fragment : @"top";
+    NSURL* requestURL = [[WMFProxyServer sharedProxyServer] proxyURLForRelativeFilePath:fileName fragment:fragment];
+    NSURLRequest* request = [NSURLRequest requestWithURL:requestURL];
     [self loadRequest:request];
 }
 
@@ -31,8 +23,10 @@
     if (!string) {
         string = @"";
     }
+    
+    WMFProxyServer *proxyServer = [WMFProxyServer sharedProxyServer];
 
-    string = [string wmf_stringWithImgTagSrcAndSrcsetURLsChangedToLocalhostProxyURLs];
+    string = [proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string];
 
     NSString* path = [[self getAssetsPath] stringByAppendingPathComponent:fileName];
 
@@ -52,10 +46,7 @@
     NSString* tempFileName = [[[fileName stringByDeletingPathExtension] stringByAppendingPathExtension:@"temp"] stringByAppendingPathExtension:[fileName pathExtension]];
 
     // Get path to tempFileName
-    NSString* tempFilePath = [[[NSURL fileURLWithPath:path] URLByDeletingLastPathComponent] URLByAppendingPathComponent:tempFileName isDirectory:NO].absoluteString;
-
-    // Remove "file://" from beginning of tempFilePath
-    tempFilePath = [tempFilePath substringFromIndex:7];
+    NSString* tempFilePath = [proxyServer localFilePathForRelativeFilePath:tempFileName];
 
     NSError* error = nil;
     [templateAndContent writeToFile:tempFilePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
