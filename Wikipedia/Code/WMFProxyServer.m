@@ -90,19 +90,22 @@
                    [self handleFileRequestForRelativePath:relativePath completionBlock:completionBlock];
                } else if ([baseComponent isEqualToString:@"imageProxy"]) {
                    NSString* originalSrc = request.query[@"originalSrc"];
-                   if (originalSrc) {
-                       if (!([originalSrc hasPrefix:@"http"] || [originalSrc hasPrefix:@"https"])) {
-                           originalSrc = [@"http:" stringByAppendingString:originalSrc];
-                       }
-                       NSURL* imgURL = [NSURL URLWithString:originalSrc];
-                       if (imgURL) {
-                           [self handleImageRequestForURL:imgURL completionBlock:completionBlock];
-                       } else {
-                           notFound();
-                       }
-                   } else {
+                   if (!originalSrc) {
                        notFound();
+                       return;
                    }
+
+                   if (!([originalSrc hasPrefix:@"http"] || [originalSrc hasPrefix:@"https"])) {
+                       originalSrc = [@"http:" stringByAppendingString:originalSrc];
+                   }
+
+                   NSURL* imgURL = [NSURL URLWithString:originalSrc];
+                   if (!imgURL) {
+                       notFound();
+                       return;
+                   }
+
+                   [self handleImageRequestForURL:imgURL completionBlock:completionBlock];
                } else {
                    notFound();
                }
