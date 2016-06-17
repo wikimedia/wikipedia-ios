@@ -95,8 +95,8 @@
                        return;
                    }
 
-                   if (!([originalSrc hasPrefix:@"http"] || [originalSrc hasPrefix:@"https"])) {
-                       originalSrc = [@"http:" stringByAppendingString:originalSrc];
+                   if ([originalSrc hasPrefix:@"//"]) {
+                       originalSrc = [@"https:" stringByAppendingString:originalSrc];
                    }
 
                    NSURL* imgURL = [NSURL URLWithString:originalSrc];
