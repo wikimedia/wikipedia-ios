@@ -322,4 +322,10 @@
     return [output componentsJoinedByString:@", "];
 }
 
+#pragma mark - BaseURL (for testing only)
+
+- (NSURL*)baseURL {
+    return [self.webServer.serverURL URLByAppendingPathComponent:self.secret];
+}
+
 @end
