@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -37,17 +37,25 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rjc-ni-9zr">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rjc-ni-9zr" userLabel="Bottom Section Border">
                         <rect key="frame" x="34" y="76" width="286" height="1"/>
                         <color key="backgroundColor" red="0.92931067943572998" green="0.92946994304656982" blue="0.92930072546005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Xca-Js-lUH"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hBO-JQ-0r9" userLabel="Top Section Border">
+                        <rect key="frame" x="34" y="0.0" width="286" height="1"/>
+                        <color key="backgroundColor" red="0.92931067940000001" green="0.92946994299999997" blue="0.92930072549999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="toC-6D-aHj"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="rjc-ni-9zr" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" id="0fd-Ez-aH6"/>
                     <constraint firstAttribute="bottom" secondItem="rjc-ni-9zr" secondAttribute="bottom" id="7VV-AZ-SDF"/>
+                    <constraint firstAttribute="trailing" secondItem="hBO-JQ-0r9" secondAttribute="trailing" id="DVE-DJ-zax"/>
                     <constraint firstAttribute="trailing" secondItem="rjc-ni-9zr" secondAttribute="trailing" id="Fst-Ae-20o"/>
                     <constraint firstAttribute="bottom" secondItem="ew3-L9-lHp" secondAttribute="bottom" priority="999" constant="15" id="IjA-fh-GRc"/>
                     <constraint firstItem="rjc-ni-9zr" firstAttribute="leading" secondItem="ew3-L9-lHp" secondAttribute="leading" id="LdV-Fa-7uu"/>
@@ -56,25 +64,32 @@
                     <constraint firstItem="Bfs-Qt-Ofl" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" id="VIr-yC-IiC"/>
                     <constraint firstAttribute="trailing" secondItem="ew3-L9-lHp" secondAttribute="trailing" priority="999" constant="8" id="VmJ-Qh-cO8"/>
                     <constraint firstAttribute="trailing" secondItem="Bfs-Qt-Ofl" secondAttribute="trailing" id="g7K-oD-Wpv"/>
+                    <constraint firstItem="hBO-JQ-0r9" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" id="j8J-2C-AIb"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="centerY" secondItem="WnM-xO-Ywd" secondAttribute="centerY" id="lrX-Jk-Lsp"/>
+                    <constraint firstItem="hBO-JQ-0r9" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" id="qgM-RG-XeE"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" priority="999" constant="15" id="tkc-3N-nXV"/>
+                    <constraint firstItem="hBO-JQ-0r9" firstAttribute="leading" secondItem="ew3-L9-lHp" secondAttribute="leading" id="vvn-Hr-f7n"/>
                     <constraint firstItem="Bfs-Qt-Ofl" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" id="x5g-e2-QgP"/>
                     <constraint firstItem="WnM-xO-Ywd" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" constant="14" id="zHI-TZ-cZu"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="j8J-2C-AIb"/>
                         <exclude reference="0fd-Ez-aH6"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
             <connections>
+                <outlet property="bottomSectionBorder" destination="rjc-ni-9zr" id="N81-8V-W5X"/>
+                <outlet property="bottomSectionBorderAlignLeadingToSuperview" destination="0fd-Ez-aH6" id="n7o-Jv-ksS"/>
+                <outlet property="bottomSectionBorderAlignToText" destination="LdV-Fa-7uu" id="umV-MU-HH5"/>
                 <outlet property="indentationConstraint" destination="Tr2-mk-KE5" id="t2k-NA-mrW"/>
-                <outlet property="sectionBorder" destination="rjc-ni-9zr" id="piG-GU-mwL"/>
-                <outlet property="sectionBorderAlignLeadingToSuperview" destination="0fd-Ez-aH6" id="5G2-PN-f8t"/>
-                <outlet property="sectionBorderAlignToText" destination="LdV-Fa-7uu" id="K6I-Vd-lcK"/>
                 <outlet property="sectionSelectionBackground" destination="Bfs-Qt-Ofl" id="7AO-BD-fec"/>
                 <outlet property="sectionTitle" destination="ew3-L9-lHp" id="09m-Wa-PKk"/>
                 <outlet property="selectedSectionIndicator" destination="WnM-xO-Ywd" id="oAl-20-dvE"/>
+                <outlet property="topSectionBorder" destination="hBO-JQ-0r9" id="osV-Re-bwM"/>
+                <outlet property="topSectionBorderAlignLeadingToSuperview" destination="j8J-2C-AIb" id="ggI-LF-fP3"/>
+                <outlet property="topSectionBorderAlignToText" destination="vvn-Hr-f7n" id="Rto-G0-Muy"/>
             </connections>
             <point key="canvasLocation" x="425" y="373.5"/>
         </tableViewCell>

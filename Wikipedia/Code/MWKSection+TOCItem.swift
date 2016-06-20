@@ -28,11 +28,11 @@ extension MWKSection : TableOfContentsItem {
     public var borderType: TableOfContentsBorderType {
         get {
             if isLeadSection() {
-                return TableOfContentsBorderType.FullWidth
+                return .None
             } else if let level = level?.unsignedIntegerValue where level <= 2 {
-                return TableOfContentsBorderType.Default
+                return .DefaultTopOnly
             } else {
-                return TableOfContentsBorderType.None
+                return .None
             }
         }
     }
