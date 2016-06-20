@@ -11,6 +11,8 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                 switch footerIndex {
                 case .ReadMore:
                     self.tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsReadMoreItem(site: self.articleTitle.site), animated: false)
+                case .AboutThisArticle:
+                    self.tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsAboutThisArticleItem(site: self.articleTitle.site), animated: false)
                 }
             } else {
                 assertionFailure("Couldn't find current position of user at current offset!")
@@ -86,13 +88,17 @@ extension WMFArticleViewController {
     /**
      Append a read more section to the table of contents.
      */
-    public func appendReadMoreTableOfContentsItemIfNeeded() {
+    public func appendItemsToTableOfContentsIncludingAboutThisArticle(includeAbout: Bool, includeReadMore: Bool) {
         assert(self.tableOfContentsViewController != nil, "Attempting to add read more when toc is nil")
-        guard let tvc = self.tableOfContentsViewController
-              where !tvc.items.contains({ (item: TableOfContentsItem) in item.dynamicType == TableOfContentsReadMoreItem.self })
-              else { return }
+        guard let tvc = self.tableOfContentsViewController else { return; }
+
         if var items = createTableOfContentsSections() {
-            items.append(TableOfContentsReadMoreItem(site: self.articleTitle.site))
+            if (includeAbout) {
+                items.append(TableOfContentsAboutThisArticleItem(site: self.articleTitle.site))
+            }
+            if (includeReadMore) {
+                items.append(TableOfContentsReadMoreItem(site: self.articleTitle.site))
+            }
             tvc.items = items
         }
     }
