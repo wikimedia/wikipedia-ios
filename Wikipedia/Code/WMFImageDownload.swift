@@ -8,15 +8,23 @@
 
 import Foundation
 
-public enum ImageOrigin: String {
-    case Network = "Network"
-    case Disk = "Disk"
-    case Memory = "Memory"
-}
-
-extension ImageOrigin: CustomDebugStringConvertible {
-    public var debugDescription: String {
-        return rawValue
+public enum ImageOrigin: Int {
+    case Network = 0
+    case Disk = 1
+    case Memory = 2
+    case None = 3
+    
+    public init(sdOrigin: SDImageCacheType) {
+        switch sdOrigin {
+        case .Disk:
+            self = .Disk
+        case .Memory:
+            self = .Memory
+        case .None:
+            fallthrough
+        default:
+            self = .None
+        }
     }
 }
 
@@ -29,6 +37,8 @@ extension ImageOrigin {
             return UIColor.yellowColor()
         case .Memory:
             return UIColor.greenColor()
+        case .None:
+            return UIColor.blackColor()
         }
     }
 }
@@ -42,14 +52,10 @@ public func asImageOrigin<T: ImageOriginConvertible>(c: T) -> ImageOrigin { retu
 public class WMFImageDownload: NSObject {
     public var url: NSURL
     public var image: UIImage
-    public var origin: String
-
-    // Exposing enums as string constants for ObjC compatibility
-    public static let imageOriginNetwork = ImageOrigin.Network.rawValue
-    public static let imageOriginDisk = ImageOrigin.Disk.rawValue
-    public static let imageOriginMemory = ImageOrigin.Memory.rawValue
-
-    public init(url: NSURL, image: UIImage, origin: String) {
+    public var origin: ImageOrigin
+    
+    
+    public init(url: NSURL, image: UIImage, origin: ImageOrigin) {
         self.url = url
         self.image = image
         self.origin = origin
