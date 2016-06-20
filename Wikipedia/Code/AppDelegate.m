@@ -11,16 +11,10 @@
 #import <Tweaks/FBTweakShakeWindow.h>
 #import "ZeroConfigState.h"
 
-#import "GCDWebServer.h"
-#import "GCDWebServerDataResponse.h"
-#import "GCDWebServerErrorResponse.h"
-
 @interface AppDelegate ()
 
 @property (nonatomic, strong) WMFAppViewController* appViewController;
 @property (nonatomic, strong) WMFDailyStatsLoggingFunnel* statsFunnel;
-
-@property (nonatomic, strong) GCDWebServer* webServer;
 
 @end
 
@@ -103,59 +97,9 @@
 
     [self updateDynamicIconShortcutItems];
 
-    NSLog(@"%@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
-
-    self.webServer = [[GCDWebServer alloc] init];
-
-    @weakify(self);
-    [self.webServer addHandlerForMethod:@"GET" path:@"/imageProxy" requestClass:[GCDWebServerRequest class]
-                      asyncProcessBlock:^(GCDWebServerRequest* request, GCDWebServerCompletionBlock completionBlock) {
-        @strongify(self);
-
-        GCDWebServerErrorResponse* notFound = [GCDWebServerErrorResponse responseWithClientError:kGCDWebServerHTTPStatusCode_NotFound message:@"Image not found"];
-
-        NSString* originalSrc = request.query[@"originalSrc"];
-        if (originalSrc) {
-            if (!([originalSrc hasPrefix:@"http"] || [originalSrc hasPrefix:@"https"])) {
-                originalSrc = [@"http:" stringByAppendingString:originalSrc];
-            }
-
-            NSURL* imgURL = [NSURL URLWithString:originalSrc];
-
-            NSAssert(imgURL, @"imageProxy URL should not be nil");
-
-            NSURLCache* URLCache = [NSURLCache sharedURLCache];
-            NSURLRequest* request = [NSURLRequest requestWithURL:imgURL];
-            NSCachedURLResponse* cachedResponse = [URLCache cachedResponseForRequest:request];
-
-
-            if (cachedResponse.response && cachedResponse.data) {
-                NSString* mimeType = cachedResponse.response.MIMEType;
-                if (mimeType == nil) {
-                    mimeType = [imgURL wmf_mimeTypeForExtension];
-                }
-                NSAssert(mimeType != nil, @"MIME type not found for URL %@", imgURL);
-                GCDWebServerDataResponse* gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:cachedResponse.data contentType:mimeType];
-                completionBlock(gcdResponse);
-            } else {
-                NSURLSessionDataTask* downloadImgTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData* imgData, NSURLResponse* response, NSError* error) {
-                    if (response && imgData) {
-                        GCDWebServerDataResponse* gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:imgData contentType:response.MIMEType];
-                        completionBlock(gcdResponse);
-                        NSCachedURLResponse* responseToCache = [[NSCachedURLResponse alloc] initWithResponse:response data:imgData];
-                        [URLCache storeCachedResponse:responseToCache forRequest:request];
-                    } else {
-                        completionBlock(notFound);
-                    }
-                }];
-                [downloadImgTask resume];
-            }
-        } else {
-            completionBlock(notFound);
-        }
-    }];
-
-    [self.webServer startWithPort:8080 bonjourName:nil];
+    
+    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSLog(@"%@", documentsURL);
 
     return YES;
 }

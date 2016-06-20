@@ -40,6 +40,13 @@ platform :ios do
     store
   end
 
+  desc "Runs tests, version, tag, and push to the beta branch"
+  lane :submitHotfixAndPushToMaster do
+    verifyTestPlatforms
+    tagHotfix
+    store
+  end
+
   desc "Runs tests on the primary platforms and configurations"
   lane :verifyTestPlatforms do
     verify(
@@ -155,6 +162,26 @@ platform :ios do
 
   end
 
+  desc "Add a tag, and push to the master branch."
+  lane :tagHotfix do |options|
+    sh "git fetch"
+    sh "git checkout 5.0.5"
+    sh "git pull"
+    sh "git checkout master"
+    sh "git merge 5.0.5"
+
+    new_version = get_version_string
+
+    push_to_git_remote(
+       local_branch: 'master',  # optional, aliased by 'branch', default: 'master'
+       remote_branch: 'master', # optional, default is set to local_branch
+    )
+
+    tag_name = "releases/#{new_version}"
+    add_git_tag(tag: tag_name)
+    sh "git push origin --tags"
+
+  end
 
   desc "Returns a default changelog."
   lane :default_changelog do

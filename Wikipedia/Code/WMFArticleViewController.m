@@ -498,13 +498,18 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSMutableArray* footerVCs = [NSMutableArray arrayWithCapacity:2];
     [footerVCs wmf_safeAddObject:self.footerMenuViewController];
+    
     /*
-       NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
+     NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
      */
-    if ([self hasReadMore] && [self.readMoreListViewController hasResults]) {
+    
+    BOOL includeReadMore = [self hasReadMore] && [self.readMoreListViewController hasResults];
+    if (includeReadMore) {
         [footerVCs addObject:self.readMoreListViewController];
-        [self appendReadMoreTableOfContentsItemIfNeeded];
     }
+    
+    [self appendItemsToTableOfContentsIncludingAboutThisArticle:[self hasAboutThisArticle] includeReadMore:includeReadMore];
+    
     [self.webViewController setFooterViewControllers:footerVCs];
 }
 

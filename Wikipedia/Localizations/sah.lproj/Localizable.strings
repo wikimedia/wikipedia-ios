@@ -333,7 +333,7 @@
 // Fuzzy
 "home-last-update-never-label" = "Тиһэх саҥардыы: Саҥардыллыбатах";
 "home-updating-label" = "Саҥардыы...";
-"home-hide-suggestion-prompt" = "бу этиини кистээ";
+"home-hide-suggestion-prompt" = "Бу этиини кистээ";
 "home-hide-suggestion-cancel" = "Бигэргэтимэ";
 "home-accessibility-label" = "Бикипиэдьийэ, Сирдьит";
 "home-button-accessibility-label" = "Дьиэлиир тимэх";
@@ -356,7 +356,7 @@
 "icon-shortcut-search-title" = "Бикипиэдьийэттэн булуу";
 "icon-shortcut-continue-reading-title" = "Салгыы ааҕыы";
 "icon-shortcut-random-title" = "Түбэспиччэ ыстатыйа";
-"icon-shortcut-nearby-title" = "чугас туох баарый";
+"icon-shortcut-nearby-title" = "Чугас туох баарый";
 "close-button-accessibility-label" = "Сап";
 "back-button-accessibility-label" = "Төнүн";
 "compass-direction" = "$1 чааска";
