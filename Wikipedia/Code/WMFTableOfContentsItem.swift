@@ -39,11 +39,7 @@ public enum TableOfContentsItemType {
 
 public enum TableOfContentsBorderType {
     case Default
-    case FullWidth
     case DefaultTopOnly
-    case FullWidthTopOnly
-    case DefaultBottomOnly
-    case FullWidthBottomOnly
     case None
 }
 

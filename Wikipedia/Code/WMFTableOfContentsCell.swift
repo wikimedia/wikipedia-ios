@@ -47,13 +47,6 @@ public class WMFTableOfContentsCell: UITableViewCell {
                 topSectionBorderAlignLeadingToSuperview.active = false
                 bottomSectionBorderAlignToText.active = true
                 bottomSectionBorderAlignLeadingToSuperview.active = false
-            case .FullWidth:
-                topSectionBorder.hidden = false
-                bottomSectionBorder.hidden = false
-                topSectionBorderAlignToText.active = false
-                topSectionBorderAlignLeadingToSuperview.active = true
-                bottomSectionBorderAlignToText.active = false
-                bottomSectionBorderAlignLeadingToSuperview.active = true
             case .DefaultTopOnly:
                 topSectionBorder.hidden = false
                 bottomSectionBorder.hidden = true
@@ -61,27 +54,6 @@ public class WMFTableOfContentsCell: UITableViewCell {
                 topSectionBorderAlignLeadingToSuperview.active = false
                 bottomSectionBorderAlignToText.active = true
                 bottomSectionBorderAlignLeadingToSuperview.active = false
-            case .FullWidthTopOnly:
-                topSectionBorder.hidden = false
-                bottomSectionBorder.hidden = true
-                topSectionBorderAlignToText.active = false
-                topSectionBorderAlignLeadingToSuperview.active = true
-                bottomSectionBorderAlignToText.active = false
-                bottomSectionBorderAlignLeadingToSuperview.active = true
-            case .DefaultBottomOnly:
-                topSectionBorder.hidden = true
-                bottomSectionBorder.hidden = false
-                topSectionBorderAlignToText.active = true
-                topSectionBorderAlignLeadingToSuperview.active = false
-                bottomSectionBorderAlignToText.active = true
-                bottomSectionBorderAlignLeadingToSuperview.active = false
-            case .FullWidthBottomOnly:
-                topSectionBorder.hidden = true
-                bottomSectionBorder.hidden = false
-                topSectionBorderAlignToText.active = false
-                topSectionBorderAlignLeadingToSuperview.active = true
-                bottomSectionBorderAlignToText.active = false
-                bottomSectionBorderAlignLeadingToSuperview.active = true
             case .None:
                 topSectionBorder.hidden = true
                 bottomSectionBorder.hidden = true
