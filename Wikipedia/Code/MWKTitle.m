@@ -7,18 +7,15 @@
 #import "NSObjectUtilities.h"
 #import "NSURL+WMFLinkParsing.h"
 #import "NSString+WMFPageUtilities.h"
-#import "NSString+WMFPageUtilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKTitle ()
 
-@property (readwrite, strong, nonatomic) MWKSite* site;
-@property (readwrite, copy, nonatomic) NSString* fragment;
-@property (readwrite, copy, nonatomic) NSString* text;
+@property (nonatomic, copy) NSURL* URL;
+
 @property (readwrite, copy, nonatomic) NSString* prefixedDBKey;
 @property (readwrite, copy, nonatomic) NSString* prefixedURL;
-@property (readwrite, copy, nonatomic) NSString* escapedFragment;
 @property (readwrite, copy, nonatomic) NSURL* mobileURL;
 @property (readwrite, copy, nonatomic) NSURL* desktopURL;
 
@@ -26,93 +23,87 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation MWKTitle
 
-- (instancetype)initWithSite:(MWKSite*)site
-             normalizedTitle:(NSString*)text
-                    fragment:(NSString* __nullable)fragment {
-    NSParameterAssert(site);
+- (instancetype)initWithURL:(NSURL* __nonnull)url {
     self = [super init];
     if (self) {
-        self.site = site;
-        // HAX: fall back to empty strings in case of nil text to handle API edge cases & prevent crashes
-        self.text     = text.length ? text : @"";
-        self.fragment = fragment;
+        self.URL = url;
     }
     return self;
 }
 
-- (instancetype)initWithInternalLink:(NSString*)relativeInternalLink site:(MWKSite*)site {
-    NSAssert(relativeInternalLink.length == 0 || [relativeInternalLink wmf_isInternalLink],
-             @"Expected string with internal link prefix but got: %@", relativeInternalLink);
-    return [self initWithString:[relativeInternalLink wmf_internalLinkPath] site:site];
+- (instancetype)initWithCoder:(NSCoder*)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        if (!self.URL) {
+            NSString* text     = [self decodeValueForKey:@"text" withCoder:coder modelVersion:0];
+            MWKSite* site      = [self decodeValueForKey:@"site" withCoder:coder modelVersion:0];
+            NSString* fragment = [self decodeValueForKey:@"fragment" withCoder:coder modelVersion:0];
+            if (site && text) {
+                self.URL = [NSURL wmf_URLWithSiteURL:site.URL title:text fragment:fragment];
+            }
+        }
+    }
+    return self;
 }
 
-- (MWKTitle* __nullable)initWithURL:(NSURL* __nonnull)url {
-    MWKSite* site = [[MWKSite alloc] initWithURL:url];
-    if (!site) {
-        return nil;
-    }
-    return [self initWithSite:site
-              normalizedTitle:[[url wmf_internalLinkPath] wmf_unescapedNormalizedPageTitle]
-                     fragment:url.fragment];
+- (instancetype)initWithSite:(MWKSite*)site
+             normalizedTitle:(NSString*)text
+                    fragment:(NSString* __nullable)fragment {
+    NSURL* titleURL = [site.URL wmf_URLWithTitle:text fragment:fragment];
+    return [self initWithURL:titleURL];
+}
+
+- (instancetype)initWithInternalLink:(NSString*)relativeInternalLink site:(MWKSite*)site {
+    NSURL* URL = [NSURL wmf_URLWithSiteURL:site.URL escapedDenormalizedInternalLink:relativeInternalLink];
+    return [self initWithURL:URL];
 }
 
 - (instancetype)initWithString:(NSString*)string site:(MWKSite*)site {
-    NSAssert(![string wmf_isInternalLink],
-             @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
-             string);
-    if ([string wmf_isInternalLink]) {
-        // recurse here after stripping internal link prefix
-        return [self initWithInternalLink:string site:site];
-    } else {
-        NSArray* bits = [string componentsSeparatedByString:@"#"];
-        return [self initWithSite:site
-                  normalizedTitle:[[bits firstObject] wmf_unescapedNormalizedPageTitle]
-                         fragment:[bits wmf_safeObjectAtIndex:1]];
-    }
+    NSURL* URL = [NSURL wmf_URLWithSiteURL:site.URL escapedDenormalizedTitleAndFragment:string];
+    return [self initWithURL:URL];
+}
+
+- (instancetype)initWithUnescapedString:(NSString*)string site:(MWKSite*)site {
+    NSURL* URL = [NSURL wmf_URLWithSiteURL:site.URL unescapedDenormalizedTitleAndFragment:string];
+    return [self initWithURL:URL];
 }
 
 + (MWKTitle*)titleWithString:(NSString*)str site:(MWKSite*)site {
     return [[MWKTitle alloc] initWithString:str site:site];
 }
 
++ (MWKTitle*)titleWithUnescapedString:(NSString*)str site:(MWKSite*)site {
+    return [[MWKTitle alloc] initWithUnescapedString:str site:site];
+}
+
+#pragma mark - Computed Properties
+
+- (NSString*)text {
+    return self.URL.wmf_title;
+}
+
+- (NSString* __nullable)fragment {
+    return self.URL.fragment;
+}
+
+- (MWKSite*)site {
+    return [[MWKSite alloc] initWithURL:self.URL];
+}
+
 - (NSString*)dataBaseKey {
     return [self.text stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
-- (NSString*)escapedURLText {
-    return [[self.text wmf_denormalizedPageTitle] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-}
-
-- (NSString*)escapedFragment {
-    if (self.fragment) {
-        // @fixme we use some weird escaping system...?
-        return [@"#" stringByAppendingString:[self.fragment stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    } else {
-        return @"";
-    }
-}
-
 - (NSURL*)mobileURL {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.m.%@%@%@",
-                                 self.site.language,
-                                 self.site.domain,
-                                 WMFInternalLinkPathPrefix,
-                                 self.escapedURLText]];
+    return self.URL.wmf_mobileURL;
 }
 
 - (NSURL*)desktopURL {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.%@%@%@",
-                                 self.site.language,
-                                 self.site.domain,
-                                 WMFInternalLinkPathPrefix,
-                                 self.escapedURLText]];
+    return self.URL.wmf_desktopURL;
 }
 
 - (BOOL)isNonStandardTitle {
-    //TODO: this is the best test for now
-    //We should formailze this
-    //Really we shoud remove MWKTitle in favor NSURLComponenets
-    return self.site.language == nil;
+    return self.URL.wmf_isNonStandardURL;
 }
 
 - (BOOL)isEqual:(id)object {
@@ -147,10 +138,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - MTLModel
 
+
++ (NSUInteger)modelVersion {
+    return 1;
+}
+
 // Need to specify storage properties since text & site are readonly, which Mantle interprets as transitory.
 + (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString*)propertyKey {
-#define IS_MWKTITLE_KEY(key) [propertyKey isEqualToString : WMF_SAFE_KEYPATH([MWKTitle new], key)]
-    if (IS_MWKTITLE_KEY(text) || IS_MWKTITLE_KEY(site) || IS_MWKTITLE_KEY(fragment)) {
+#define IS_MWKTITLE_KEY(key) [propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKTitle new], key)]
+    if (IS_MWKTITLE_KEY(URL)) {
         return MTLPropertyStoragePermanent;
     } else {
         // all other properties are computed from site and/or text
