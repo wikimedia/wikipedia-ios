@@ -164,7 +164,7 @@
 "saved-pages-clear-cancel" = "취소";
 "saved-pages-clear-delete-all" = "예, 모두 삭제합니다";
 "saved-pages-refresh-cancel-alert-title" = "업데이트 취소됨";
-"saved-pages-refresh-cancel-alert-message" = "위키백과 글은 시시때때로 업데이트 됩니다. 모든 글의 최신 버전을 볼려면 새로고침하세요.";
+"saved-pages-refresh-cancel-alert-message" = "위키백과의 글은 시시때때로 업데이트됩니다. 모든 글의 최신 판을 보려면 새로 고침에 탭하세요.";
 "saved-pages-refresh-cancel-alert-button" = "알았습니다!";
 "saved-pages-description" = "저장된 문서는 정말 훌륭합니다. 오프라인일 때에도 읽을 수 있는 책갈피라고 생각해주세요.";
 "saved-pages-none" = "저장된 문서가 아직 없습니다.";

@@ -46,7 +46,7 @@
 
 - (MWKTitle*)requiredTitle:(NSString*)key dict:(NSDictionary*)dict allowEmpty:(BOOL)allowEmpty {
     NSString* str = [self requiredString:key dict:dict allowEmpty:allowEmpty];
-    return [self.site titleWithString:str];
+    return [self.site titleWithUnescapedString:str];
 }
 
 #pragma mark - user methods

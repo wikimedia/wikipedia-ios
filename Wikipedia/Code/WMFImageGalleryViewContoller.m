@@ -372,11 +372,14 @@ NS_ASSUME_NONNULL_BEGIN
                                 : MWLocalizedString(@"image-gallery-unknown-owner", nil);
 
     [caption setLicense:imageInfo.license owner:ownerOrFallback];
-
+    
+    @weakify(self)
     caption.ownerTapCallback = ^{
+        @strongify(self)
         [self wmf_openExternalUrl:imageInfo.license.URL];
     };
     caption.infoTapCallback = ^{
+        @strongify(self)
         [self wmf_openExternalUrl:imageInfo.filePageURL];
     };
 

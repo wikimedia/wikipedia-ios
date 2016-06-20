@@ -399,6 +399,7 @@
 "explore-random-article-sub-heading" = "Subtext beneath the 'Random article' header with name of Wikipedia in this language.";
 "explore-potd-heading" = "Text for 'Picture of the day' header";
 "explore-most-read-heading" = "Text for 'Most read articles' explore section header. $1 is substituted for the localized language name (e.g. 'English' or 'Espanol').";
+"explore-most-read-generic-heading" = "Text for 'Most read articles' explore section header used when no language is present";
 "explore-most-read-footer" = "Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles when tapped.";
 "explore-most-read-footer-for-date" = "Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. $1 will be substituted with the date";
 "explore-most-read-more-list-title" = "Title for the view displaying longer list of top read articles.";
