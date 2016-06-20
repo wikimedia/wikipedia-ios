@@ -112,9 +112,10 @@
 "settings-language" = "Idioma da Wikipédia";
 "settings-support" = "Apoie a Wikipédia";
 "settings-language-bar" = "Mostrar idiomas na pesquisa";
-"settings-my-languages" = "Minhas línguas";
+"settings-my-languages" = "Meus idiomas";
 "settings-help-and-feedback" = "Ajuda e comentários";
 "settings-primary-language" = "Principal";
+"settings-primary-language-details" = "O primeiro idioma desta lista é usado como principal para a aplicação. Ao alterar, o conteúdo diário também será atualizado (como o \"Artigo em destaque\") apresentado em Explorar.";
 "main-menu-title" = "Mais";
 "main-menu-heading-about" = "Sobre";
 "main-menu-language-title" = "Pesquisar na Wikipédia em $1";
@@ -360,7 +361,7 @@
 "welcome-explore-continue-button" = "Começar";
 "welcome-languages-title" = "Idiomas";
 "welcome-languages-sub-title" = "Escolha os seus idiomas pré-definidos para pesquisar na Wikipédia";
-"welcome-languages-add-button" = "Adicionar outra língua";
+"welcome-languages-add-button" = "Adicionar outro idioma";
 "welcome-languages-continue-button" = "Continuar";
 "welcome-volunteer-title" = "Voluntário";
 "welcome-volunteer-sub-title" = "Ajude a melhorar a aplicação da Wikipédia ao partilhar a forma como a utiliza";
