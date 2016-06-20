@@ -15,9 +15,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 
 #else
 
+// Redefine NSLog to be a default CocoaLumberjack log.
+#define NSLog(...) DDLogDebug(__VA_ARGS__)
+
 static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 #endif
 
-// Redefine NSLog to be a default CocoaLumberjack log.
-#define NSLog(...) DDLogDebug(__VA_ARGS__)
+
