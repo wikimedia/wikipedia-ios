@@ -6,7 +6,7 @@
 #import "WMFPicOfTheDayTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "NSDateFormatter+WMFExtensions.h"
-#import "WMFImageGalleryViewContoller.h"
+#import "WMFImageGalleryViewController.h"
 #import "UIScreen+WMFImageWidth.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "Wikipedia-Swift.h"
@@ -19,7 +19,7 @@ static NSUInteger const WMFDefaultNumberOfPOTDDates = 15;
 
 static NSString* const WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
-@interface WMFPictureOfTheDaySectionController ()<WMFImageGalleryViewContollerReferenceViewDelegate>
+@interface WMFPictureOfTheDaySectionController ()<WMFImageGalleryViewControllerReferenceViewDelegate>
 
 @property (nonatomic, strong) MWKImageInfoFetcher* fetcher;
 
@@ -135,12 +135,12 @@ static NSString* const WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoT
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
     NSArray<NSDate*>* dates              = [[self.fetchedDate dateBySubtractingDays:WMFDefaultNumberOfPOTDDates] wmf_datesUntilDate:self.fetchedDate];
-    WMFPOTDImageGalleryViewContoller* vc = [[WMFPOTDImageGalleryViewContoller alloc] initWithDates:dates selectedImageInfo:self.imageInfo];
+    WMFPOTDImageGalleryViewController* vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:dates selectedImageInfo:self.imageInfo];
     vc.referenceViewDelegate = self;
     return vc;
 }
 
-- (UIImageView*)referenceViewForImageController:(WMFImageGalleryViewContoller*)controller {
+- (UIImageView*)referenceViewForImageController:(WMFImageGalleryViewController*)controller {
     return self.referenceImageView;
 }
 

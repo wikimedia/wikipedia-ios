@@ -237,7 +237,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     MWKTitle* title = [self.dataSource titleForIndexPath:indexPath];
     if (self.delegate) {
-        [self.delegate listViewContoller:self didSelectTitle:title];
+        [self.delegate listViewController:self didSelectTitle:title];
         return;
     }
     [self wmf_pushArticleWithTitle:title dataStore:self.dataStore animated:YES];
@@ -262,7 +262,7 @@ NS_ASSUME_NONNULL_BEGIN
     [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:contentType];
 
     if (self.delegate) {
-        return [self.delegate listViewContoller:self viewControllerForPreviewingTitle:title];
+        return [self.delegate listViewController:self viewControllerForPreviewingTitle:title];
     } else {
         return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
     }
@@ -272,7 +272,7 @@ NS_ASSUME_NONNULL_BEGIN
      commitViewController:(UINavigationController*)viewControllerToCommit {
     [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:nil];
     if (self.delegate) {
-        [self.delegate listViewContoller:self didCommitToPreviewedViewController:viewControllerToCommit];
+        [self.delegate listViewController:self didCommitToPreviewedViewController:viewControllerToCommit];
     } else {
         [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit animated:YES];
     }

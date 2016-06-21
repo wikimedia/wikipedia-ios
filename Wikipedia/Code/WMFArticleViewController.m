@@ -11,7 +11,7 @@
 #import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFReadMoreViewController.h"
-#import "WMFImageGalleryViewContoller.h"
+#import "WMFImageGalleryViewController.h"
 #import "SectionEditorViewController.h"
 #import "WMFArticleFooterMenuViewController.h"
 #import "WMFArticleBrowserViewController.h"
@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleViewController ()
 <WMFWebViewControllerDelegate,
  UINavigationControllerDelegate,
- WMFImageGalleryViewContollerReferenceViewDelegate,
+ WMFImageGalleryViewControllerReferenceViewDelegate,
  SectionEditorViewControllerDelegate,
  UIViewControllerPreviewingDelegate,
  WMFLanguagesViewControllerDelegate,
@@ -950,7 +950,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)         webViewController:(WebViewController*)controller
     didTapImageWithSourceURLString:(nonnull NSString*)imageSourceURLString {
     MWKImage* selectedImage                                = [[MWKImage alloc] initWithArticle:self.article sourceURLString:imageSourceURLString];
-    WMFArticleImageGalleryViewContoller* fullscreenGallery = [[WMFArticleImageGalleryViewContoller alloc] initWithArticle:self.article selectedImage:selectedImage];
+    WMFArticleImageGalleryViewController* fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage];
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
 
@@ -999,14 +999,14 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    WMFArticleImageGalleryViewContoller* fullscreenGallery = [[WMFArticleImageGalleryViewContoller alloc] initWithArticle:self.article];
+    WMFArticleImageGalleryViewController* fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article];
     fullscreenGallery.referenceViewDelegate = self;
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
 
-#pragma mark - WMFImageGalleryViewContollerReferenceViewDelegate
+#pragma mark - WMFImageGalleryViewControllerReferenceViewDelegate
 
-- (UIImageView*)referenceViewForImageController:(WMFArticleImageGalleryViewContoller*)controller {
+- (UIImageView*)referenceViewForImageController:(WMFArticleImageGalleryViewController*)controller {
     MWKImage* currentImage = [controller currentImage];
     MWKImage* leadImage    = self.article.leadImage;
     if ([currentImage isEqualToImage:leadImage] || [currentImage isVariantOfImage:leadImage]) {
@@ -1125,8 +1125,8 @@ NS_ASSUME_NONNULL_BEGIN
         }
         
         MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURLString:originalSrcString];
-        WMFArticleImageGalleryViewContoller* gallery =
-        [[WMFArticleImageGalleryViewContoller alloc] initWithArticle:self.article
+        WMFArticleImageGalleryViewController* gallery =
+        [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
                                                        selectedImage:selectedImage];
         self.webViewController.isPeeking = YES;
 
@@ -1182,7 +1182,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
-- (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
+- (void)listViewController:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
     if ([self presentedViewController]) {
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
@@ -1193,12 +1193,12 @@ NS_ASSUME_NONNULL_BEGIN
     [self pushArticleViewControllerWithTitle:title contentType:contentType animated:YES];
 }
 
-- (UIViewController*)listViewContoller:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title {
+- (UIViewController*)listViewController:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title {
     return [[WMFArticleViewController alloc] initWithArticleTitle:title
                                                         dataStore:self.dataStore];
 }
 
-- (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
+- (void)listViewController:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
     if ([self presentedViewController]) {
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
