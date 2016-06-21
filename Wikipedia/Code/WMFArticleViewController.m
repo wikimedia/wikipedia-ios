@@ -1078,62 +1078,60 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
 
-    WMFPeekHTMLElement* peekElement = self.webViewController.peekElement;
-    NSString* tagName = peekElement.tagName;
-    
-    if ([tagName isEqualToString:@"A"]) {
-        
-        NSString* href = peekElement.href;
-        
-        if (!href) {
-            return nil;
-        }
-        
-        NSURL* peekURL = [NSURL URLWithString:href];
-        if (!peekURL) {
-            return nil;
-        }
-        
-        UIViewController* peekVC = [self viewControllerForPreviewURL:peekURL];
-        if (peekVC) {
-            [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
-            self.webViewController.isPeeking = YES;
-            return peekVC;
-        }
-        
-    } if ([tagName isEqualToString:@"IMG"]) {
-
-        NSString* src = peekElement.src;
-        
-        if (!src) {
-            return nil;
-        }
-        
-        NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:src];
-        if (!urlComponents || !urlComponents.queryItems) {
-            return nil;
-        }
-
-        NSArray* queryItems = urlComponents.queryItems;
-        NSURLQueryItem* originalSrcItem = [queryItems bk_match:^BOOL (NSURLQueryItem* item) {
-            return [item.name isEqualToString:@"originalSrc"];
-        }];
-        NSString* originalSrcString = originalSrcItem.value;
-        
-        if (!originalSrcString || ![self.article.images hasImageURLString:originalSrcString]) {
-            return nil;
-        }
-        
-        MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURLString:originalSrcString];
-        WMFArticleImageGalleryViewController* gallery =
-        [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
-                                                       selectedImage:selectedImage];
+    UIViewController* peekVC = [self peekViewControllerForPeekElement:self.webViewController.peekElement];
+    if (peekVC) {
+        [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
         self.webViewController.isPeeking = YES;
+        return peekVC;
+    }
+    return nil;
+}
 
-        return gallery;
+- (nullable UIViewController*)peekViewControllerForPeekElement:(WMFPeekHTMLElement*)peekElement {
+    if ([peekElement.tagName isEqualToString:@"A"]) {
+        return [self peekViewControllerForAnchorTagWithHref:peekElement.href];
+    } else if ([peekElement.tagName isEqualToString:@"IMG"]) {
+        return [self peekViewControllerForImageTagWithSrc:peekElement.src];
+    }
+    return nil;
+}
+
+- (nullable UIViewController*)peekViewControllerForAnchorTagWithHref:(nullable NSString*)href {
+    if (!href) {
+        return nil;
+    }
+    NSURL* peekURL = [NSURL URLWithString:href];
+    if (!peekURL) {
+        return nil;
+    }
+    return [self viewControllerForPreviewURL:peekURL];
+}
+
+- (nullable UIViewController*)peekViewControllerForImageTagWithSrc:(nullable NSString*)src {
+    if (!src) {
+        return nil;
     }
     
-    return nil;
+    NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:src];
+    if (!urlComponents || !urlComponents.queryItems) {
+        return nil;
+    }
+    
+    NSArray* queryItems = urlComponents.queryItems;
+    NSURLQueryItem* originalSrcItem = [queryItems bk_match:^BOOL (NSURLQueryItem* item) {
+        return [item.name isEqualToString:@"originalSrc"];
+    }];
+    NSString* originalSrcString = originalSrcItem.value;
+    
+    if (![self.article.images hasImageURLString:originalSrcString]) {
+        return nil;
+    }
+    
+    MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURLString:originalSrcString];
+    WMFArticleImageGalleryViewController* gallery =
+    [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
+                                                    selectedImage:selectedImage];
+    return gallery;
 }
 
 - (UIViewController*)viewControllerForPreviewURL:(NSURL*)url {
