@@ -3,13 +3,11 @@
 // Author: Cedric31
 // Author: Macofe
 
-// Fuzzy
-"languages-title" = "Lengas";
+"languages-title" = "Cambiar de lenga";
 "article-languages-label" = "Causir una lenga";
 "article-languages-cancel" = "Anullar";
 "article-languages-downloading" = "Cargament de las lengas de l’article en cors…";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtre de lenga";
+"article-languages-filter-placeholder" = "Trobar la lenga";
 "article-read-more-title" = "Ne saber mai";
 "article-about-title" = "A prepaus d'aqueste article";
 "info-box-title" = "Faits en brèu";
@@ -20,8 +18,7 @@
 "history-section-lastweek" = "La setmana passada";
 "history-section-lastmonth" = "Lo mes passat";
 "history-clear-cancel" = "Anullar";
-// Fuzzy
-"history-clear-delete-all" = "Suprimir tot";
+"history-clear-delete-all" = "Òc, suprimir tot";
 "zero-charged-verbiage" = "Wikipèdia Zèro es desactivada";
 "zero-interstitial-title" = "Sortida de Wikipèdia Zèro";
 "zero-interstitial-continue" = "Quitar";
@@ -29,8 +26,7 @@
 "zero-learn-more-learn-more" = "Legir la seguida";
 "zero-learn-more-no-thanks" = "Regetar";
 "zero-wikipedia-zero-heading" = "Wikipèdia Zèro";
-// Fuzzy
-"zero-warn-when-leaving" = "Avertir en quitant Wikipèdia Zèro";
+"zero-warn-when-leaving" = "Avertir en quitant Zèro";
 "zero-settings-devmode" = "Devmode Zèro";
 "account-creation-logging-in" = "Connexion en cors…";
 "account-creation-passwords-mismatched" = "Los senhals son pas identics.";
@@ -68,16 +64,13 @@
 "main-menu-title" = "Mai";
 "main-menu-heading-about" = "A prepaus";
 "main-menu-language-title" = "Recercar lo wiki de lenga $1";
-// Fuzzy
-"main-menu-faq" = "FAQ";
+"main-menu-faq" = "Fèira de las questions";
 "main-menu-language-toggle-show" = "Afichar las lengas";
 "main-menu-language-toggle-hide" = "Amagar las lengas";
 "main-menu-language-selection-saved" = "Seleccion de lenga enregistrada";
 "main-menu-account-title-logged-out" = "Compte";
-// Fuzzy
-"main-menu-account-title-logged-in" = "Connectat en tant que : $1.";
-// Fuzzy
-"main-menu-account-login" = "Connexion a Wikipèdia";
+"main-menu-account-title-logged-in" = "Connectat en tant que $1.";
+"main-menu-account-login" = "Connexion";
 "main-menu-account-logout" = "Desconnexion";
 "main-menu-show-title" = "M’afichar…";
 "main-menu-show-history" = "Recent";
@@ -85,16 +78,12 @@
 "main-menu-current-article-save" = "Enregistrar $1 per una lectura fòra linha";
 "main-menu-random" = "A l'azard";
 "main-menu-feedback-heading" = "Comentari";
-// Fuzzy
-"main-menu-send-feedback" = "Mandar un comentari sus l’aplicacion";
+"main-menu-send-feedback" = "Nos escriure";
 "main-menu-credits" = "Mercejaments";
-// Fuzzy
-"main-menu-about" = "A prepaus de l’aplicacion Wikipèdia";
+"main-menu-about" = "A prepaus de l’aplicacion";
 "main-menu-zero-faq" = "FAQ de Wikipèdia Zèro";
 "main-menu-privacy-policy" = "Politica de confidencialitat";
-// Fuzzy
 "main-menu-terms-of-use" = "Condicions d'utilizacion";
-// Fuzzy
 "main-menu-rate-app" = "Notar l’aplicacion";
 "main-menu-heading-zero" = "Wikipèdia Zèro";
 "main-menu-heading-legal" = "Confidencialitat e condicions";
@@ -106,8 +95,7 @@
 "saved-title" = "Enregistrat";
 "saved-pages-title" = "Paginas enregistradas";
 "saved-pages-clear-cancel" = "Anullar";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Suprimir tot";
+"saved-pages-clear-delete-all" = "Òc, suprimir tot";
 "saved-pages-refresh-cancel-alert-title" = "Mesa a jorn anullada";
 "saved-pages-refresh-cancel-alert-button" = "L’obténer";
 "history-title" = "Istoric";
@@ -137,8 +125,7 @@
 "about-title" = "A prepaus";
 "about-wikipedia" = "Wikipèdia";
 "about-contributors" = "!Contributors";
-// Fuzzy
-"about-testers" = "testaires";
+"about-testers" = "Testaires";
 "about-testers-details" = "AQ testada per $1";
 "about-translators" = "Traductors";
 "about-translators-details" = "Aquesta aplicacion es estada traduita per de traductors benevòls sus $1";

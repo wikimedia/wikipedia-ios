@@ -404,7 +404,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
  */
 - (NSArray<WMFExploreSection*>*)mostReadSectionsWithUpdateIfNeeded {
     NSMutableArray<WMFExploreSection*>* mostReadSections = [[self.sections bk_select:^BOOL (WMFExploreSection* section) {
-        return section.type == WMFExploreSectionTypeMostRead;
+        return section.type == WMFExploreSectionTypeMostRead && section.site != nil && section.mostReadFetchDate != nil;
     }] mutableCopy];
 
     WMFExploreSection* latestMostReadSection = [self newMostReadSectionWithLatestPopulatedDate];
@@ -434,8 +434,14 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 }
 
 - (nullable WMFExploreSection*)newMostReadSectionWithLatestPopulatedDate {
-    return [WMFExploreSection mostReadSectionForDate:[NSDate wmf_latestMostReadDataWithLikelyAvailableData]
-                                                site:self.site];
+    WMFExploreSection* section = [WMFExploreSection mostReadSectionForDate:[NSDate wmf_latestMostReadDataWithLikelyAvailableData]
+                                                                      site:self.site];
+    
+    if (!section.site || !section.mostReadFetchDate) {
+        return nil;
+    } else {
+        return section;
+    }
 }
 
 - (NSArray<WMFExploreSection*>*)featuredSections {
