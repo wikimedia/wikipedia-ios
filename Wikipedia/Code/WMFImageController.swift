@@ -86,7 +86,7 @@ public class WMFImageController : NSObject {
                                   namespace: defaultNamespace)
     }()
     
-    public static let backgroundImageFetchOptions: SDWebImageOptions = [.LowPriority, .ContinueInBackground]
+    public static let backgroundImageFetchOptions: SDWebImageOptions = [.LowPriority, .ContinueInBackground, .ReportCancellationAsError]
     
     public class func sharedInstance() -> WMFImageController {
         return _sharedInstance
@@ -146,12 +146,11 @@ public class WMFImageController : NSObject {
      */
     public func fetchImageWithURL(
         url: NSURL,
-        options: SDWebImageOptions = SDWebImageOptions(),
+        options: SDWebImageOptions = .ReportCancellationAsError,
         failure: (ErrorType) -> Void,
         completion: (WMFImageDownload) -> Void) {
         
         let url = url.wmf_urlByPrependingSchemeIfSchemeless()
-        
         let webImageOperation = imageManager.downloadImageWithURL(url, options: options, progress: nil) { (image, opError, type, finished, imageURL) in
             if let opError = opError {
                 failure(opError)
@@ -219,6 +218,10 @@ public class WMFImageController : NSObject {
     
     public func cachedImageWithURL(url: NSURL, failure: (ErrorType) -> Void, completion: (WMFImageDownload) -> Void) {
         let op = imageManager.imageCache.queryDiskCacheForKey(cacheKeyForURL(url)) { (image, origin) in
+            guard let image = image else {
+                failure(WMFImageControllerError.DataNotFound)
+                return
+            }
             completion(WMFImageDownload(url: url, image: image, origin: ImageOrigin(sdOrigin: origin) ?? .None))
         }
         addCancellableForURL(op, url: url)
@@ -307,12 +310,15 @@ public class WMFImageController : NSObject {
                 DDLogDebug("Ignoring file exists error for path \(fileExistsError)")
             } catch let error {
                 failure(error)
+                return
             }
             
             do {
                 try NSFileManager.defaultManager().moveItemAtURL(fileURL, toURL: diskCacheURL)
+                completion()
             } catch let fileExistsError as NSError where fileExistsError.code == NSFileWriteFileExistsError {
                 DDLogDebug("Ignoring file exists error for path \(fileExistsError)")
+                completion()
             } catch let error {
                 failure(error)
             }
@@ -389,11 +395,13 @@ extension WMFImageController {
                 reject(WMFImageControllerError.InvalidOrEmptyURL)
                 return
             }
-            fetchImageWithURL(url, failure: { (error) in
-                reject(error);
-                }, completion: { (download) in
-                    fulfill(download)
-            })
+            fetchImageWithURL(url,
+                    failure: { (error) in
+                        reject(error);
+                    },
+                    completion: { (download) in
+                        fulfill(download)
+                    })
         })
     }
 
