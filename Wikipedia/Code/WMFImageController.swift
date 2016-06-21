@@ -396,13 +396,28 @@ extension WMFImageController {
                 return
             }
             fetchImageWithURL(url,
-                    failure: { (error) in
+                failure: { (error: ErrorType) in
                         reject(error);
                     },
                     completion: { (download) in
                         fulfill(download)
                     })
         })
+    }
+    
+    /**
+     Objective-C-compatible variant of fetchImageWithURL(url:options:) using default options &  using blocks.
+     
+     - returns: `AnyPromise` which resolves to `WMFImageDownload`.
+     */
+    @objc public func fetchImageWithURL(url: NSURL, failure: (NSError) -> Void, completion: (WMFImageDownload) -> Void) {
+        fetchImageWithURL(url,
+                          failure: { (error) in
+                            failure(error);
+                          },
+                          completion: { (download) in
+                            completion(download)
+                          })
     }
 
     /**
