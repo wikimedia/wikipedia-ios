@@ -310,7 +310,7 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:url failure:^(NSError* _Nonnull error) {
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    } completion:^(WMFImageDownload* _Nonnull download) {
+    } success:^(WMFImageDownload* _Nonnull download) {
         @strongify(self);
         NSMutableArray* items = [NSMutableArray array];
 
@@ -497,7 +497,7 @@ NS_ASSUME_NONNULL_BEGIN
         @weakify(self);
         [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage imageURL] failure:^(NSError* _Nonnull error) {
             //show error
-        } completion:^(WMFImageDownload* _Nonnull download) {
+        } success:^(WMFImageDownload* _Nonnull download) {
             @strongify(self);
             [self updateImageForPhoto:galleryImage];
         }];

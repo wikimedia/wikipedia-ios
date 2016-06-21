@@ -45,12 +45,12 @@ class WMFImageControllerTests: XCTestCase {
             XCTFail()
         }
         
-        let completion = { (imgDownload: WMFImageDownload) in
+        let success = { (imgDownload: WMFImageDownload) in
             XCTAssertEqual(UIImagePNGRepresentation(imgDownload.image), stubbedData)
             expectation.fulfill()
         }
         
-        self.imageController.fetchImageWithURL(testURL, failure:failure, completion: completion)
+        self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
         waitForExpectationsWithTimeout(60) { (error) in
         }
@@ -76,12 +76,12 @@ class WMFImageControllerTests: XCTestCase {
             expectation.fulfill()
         }
         
-        let completion = { (imgDownload: WMFImageDownload) in
+        let success = { (imgDownload: WMFImageDownload) in
             XCTFail()
             expectation.fulfill()
         }
         
-        self.imageController.fetchImageWithURL(testURL, failure:failure, completion: completion)
+        self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
         waitForExpectationsWithTimeout(60) { (error) in
         }
@@ -109,12 +109,12 @@ class WMFImageControllerTests: XCTestCase {
             expectation.fulfill()
         }
         
-        let completion = { (imgDownload: WMFImageDownload) in
+        let success = { (imgDownload: WMFImageDownload) in
             XCTFail()
             expectation.fulfill()
         }
         
-        self.imageController.fetchImageWithURL(testURL, failure:failure, completion: completion)
+        self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
         waitForExpectationsWithTimeout(60) { (error) in
         }
@@ -136,12 +136,12 @@ class WMFImageControllerTests: XCTestCase {
                 expectation.fulfill()
             }
             
-            let completion = { (imgDownload: WMFImageDownload) in
+            let success = { (imgDownload: WMFImageDownload) in
                 XCTFail()
                 expectation.fulfill()
             }
             
-            self.imageController.fetchImageWithURL(testURL, failure:failure, completion: completion)
+            self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
             
             expect(self.imageController.imageManager.imageDownloader.isDownloadingImageAtURL(testURL))
             .toEventually(beTrue(), timeout: 2)
@@ -166,12 +166,12 @@ class WMFImageControllerTests: XCTestCase {
                 secondExpectation.fulfill()
             }
             
-            let secondCompletion = { (imgDownload: WMFImageDownload) in
+            let secondsuccess = { (imgDownload: WMFImageDownload) in
                 XCTAssertEqual(UIImagePNGRepresentation(imgDownload.image), stubbedData)
                 secondExpectation.fulfill()
             }
             
-            self.imageController.fetchImageWithURL(testURL, failure:secondFailure, completion: secondCompletion)
+            self.imageController.fetchImageWithURL(testURL, failure:secondFailure, success: secondsuccess)
             
             waitForExpectationsWithTimeout(60) { (error) in
             }
@@ -202,21 +202,21 @@ class WMFImageControllerTests: XCTestCase {
             expectation.fulfill()
         }
         
-        let completion = {
+        let success = {
             let failure = { (error: ErrorType) in
                 XCTAssert(true) // HAX: this test never actually copied the data
                 expectation.fulfill()
             }
             
-            let completion = { (imgDownload: WMFImageDownload) in
+            let success = { (imgDownload: WMFImageDownload) in
                 XCTFail()
                 expectation.fulfill()
             }
-            self.imageController.cachedImageWithURL(testURL, failure: failure, completion: completion)
+            self.imageController.cachedImageWithURL(testURL, failure: failure, success: success)
             self.imageController.cancelFetchForURL(testURL)
         }
         
-        self.imageController.importImage(fromFile: tempPath.absoluteString, withURL: testURL, failure: failure, completion: completion)
+        self.imageController.importImage(fromFile: tempPath.absoluteString, withURL: testURL, failure: failure, success: success)
         
         waitForExpectationsWithTimeout(60) { (error) in
         }
@@ -241,11 +241,11 @@ class WMFImageControllerTests: XCTestCase {
             expectation.fulfill()
         }
         
-        let completion = {
+        let success = {
             expectation.fulfill()
         }
         
-        self.imageController.importImage(fromFile: tempImageCopyURL.path!, withURL: testURL, failure: failure, completion: completion)
+        self.imageController.importImage(fromFile: tempImageCopyURL.path!, withURL: testURL, failure: failure, success: success)
         
         waitForExpectationsWithTimeout(60) { (error) in
         }

@@ -115,19 +115,19 @@ public class WMFImageController : NSObject {
     // MARK: - Complex Fetching
     
     /**
-     Cache the image at `url` slowly in the background. The image will not be in the memory cache after completion
+     Cache the image at `url` slowly in the background. The image will not be in the memory cache after success
      
      - parameter url: A URL pointing to an image.
      
      */
-    public func cacheImageWithURLInBackground(url: NSURL, failure: (ErrorType) -> Void, completion: (Bool) -> Void) {
+    public func cacheImageWithURLInBackground(url: NSURL, failure: (ErrorType) -> Void, success: (Bool) -> Void) {
         let key = self.cacheKeyForURL(url)
         if(self.imageManager.imageCache.diskImageExistsWithKey(key)){
-            completion(true)
+            success(true)
         }
         fetchImageWithURL(url, options: WMFImageController.backgroundImageFetchOptions, failure: failure) { (download) in
             self.imageManager.imageCache.removeImageForKey(key, fromDisk: false, withCompletion: nil)
-            completion(true)
+            success(true)
         }
     }
     
@@ -148,7 +148,7 @@ public class WMFImageController : NSObject {
         url: NSURL,
         options: SDWebImageOptions = .ReportCancellationAsError,
         failure: (ErrorType) -> Void,
-        completion: (WMFImageDownload) -> Void) {
+        success: (WMFImageDownload) -> Void) {
         
         let url = url.wmf_urlByPrependingSchemeIfSchemeless()
         let webImageOperation = imageManager.downloadImageWithURL(url, options: options, progress: nil) { (image, opError, type, finished, imageURL) in
@@ -156,7 +156,7 @@ public class WMFImageController : NSObject {
                 failure(opError)
             } else {
                 let origin = ImageOrigin(sdOrigin: type)
-                completion(WMFImageDownload(url: imageURL, image: image, origin: origin))
+                success(WMFImageDownload(url: imageURL, image: image, origin: origin))
             }
         }
         
@@ -216,13 +216,13 @@ public class WMFImageController : NSObject {
         }
     }
     
-    public func cachedImageWithURL(url: NSURL, failure: (ErrorType) -> Void, completion: (WMFImageDownload) -> Void) {
+    public func cachedImageWithURL(url: NSURL, failure: (ErrorType) -> Void, success: (WMFImageDownload) -> Void) {
         let op = imageManager.imageCache.queryDiskCacheForKey(cacheKeyForURL(url)) { (image, origin) in
             guard let image = image else {
                 failure(WMFImageControllerError.DataNotFound)
                 return
             }
-            completion(WMFImageDownload(url: url, image: image, origin: ImageOrigin(sdOrigin: origin) ?? .None))
+            success(WMFImageDownload(url: url, image: image, origin: ImageOrigin(sdOrigin: origin) ?? .None))
         }
         addCancellableForURL(op, url: url)
     }
@@ -271,11 +271,11 @@ public class WMFImageController : NSObject {
      
      - returns: A promise which resolves after the migration was completed.
      */
-    public func importImage(fromFile filepath: String, withURL url: NSURL, failure: (ErrorType) -> Void, completion: () -> Void) {
+    public func importImage(fromFile filepath: String, withURL url: NSURL, failure: (ErrorType) -> Void, success: () -> Void) {
         guard NSFileManager.defaultManager().fileExistsAtPath(filepath) else {
             DDLogInfo("Source file does not exist: \(filepath)")
             // Do not treat this as an error, as the image record could have been created w/o data ever being imported.
-            completion()
+            success()
             return
         }
         
@@ -290,7 +290,7 @@ public class WMFImageController : NSObject {
                 DDLogDebug("Skipping import of image with URL \(url) since it's already in the cache, deleting it instead")
                 do {
                     try NSFileManager.defaultManager().removeItemAtPath(filepath)
-                    completion()
+                    success()
                 } catch let error {
                     failure(error)
                 }
@@ -315,10 +315,10 @@ public class WMFImageController : NSObject {
             
             do {
                 try NSFileManager.defaultManager().moveItemAtURL(fileURL, toURL: diskCacheURL)
-                completion()
+                success()
             } catch let fileExistsError as NSError where fileExistsError.code == NSFileWriteFileExistsError {
                 DDLogDebug("Ignoring file exists error for path \(fileExistsError)")
-                completion()
+                success()
             } catch let error {
                 failure(error)
             }
@@ -399,7 +399,7 @@ extension WMFImageController {
                 failure: { (error: ErrorType) in
                         reject(error);
                     },
-                    completion: { (download) in
+                    success: { (download) in
                         fulfill(download)
                     })
         })
@@ -410,7 +410,7 @@ extension WMFImageController {
      
      - returns: `AnyPromise` which resolves to `WMFImageDownload`.
      */
-    @objc public func fetchImageWithURL(url: NSURL?, failure: (NSError) -> Void, completion: (WMFImageDownload) -> Void) {
+    @objc public func fetchImageWithURL(url: NSURL?, failure: (NSError) -> Void, success: (WMFImageDownload) -> Void) {
         guard let url = url else {
             failure(WMFImageControllerError.InvalidOrEmptyURL as NSError)
             return
@@ -420,7 +420,7 @@ extension WMFImageController {
             failure(error as NSError)
         }
         fetchImageWithURL(url, failure: metaFailure) { (download) in
-            completion(download)
+            success(download)
         }
     }
 
@@ -438,7 +438,7 @@ extension WMFImageController {
             }
             cacheImageWithURLInBackground(url, failure: { (error) in
                     reject(error)
-                }, completion: { (finished) in
+                }, success: { (finished) in
                     fulfill(finished)
             })
         })

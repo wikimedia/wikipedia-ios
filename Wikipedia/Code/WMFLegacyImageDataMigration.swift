@@ -109,10 +109,10 @@ public class WMFLegacyImageDataMigration : NSObject {
                                 #endif
                                 
                             }
-                            let completion = { () -> Void in
+                            let success = { () -> Void in
                                 fulfill()
                             }
-                            self.imageController.importImage(fromFile: filepath, withURL: url, failure: failure, completion: completion)
+                            self.imageController.importImage(fromFile: filepath, withURL: url, failure: failure, success: success)
                         }
                     }
                 }.asVoid()
