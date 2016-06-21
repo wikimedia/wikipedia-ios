@@ -410,14 +410,18 @@ extension WMFImageController {
      
      - returns: `AnyPromise` which resolves to `WMFImageDownload`.
      */
-    @objc public func fetchImageWithURL(url: NSURL, failure: (NSError) -> Void, completion: (WMFImageDownload) -> Void) {
-        fetchImageWithURL(url,
-                          failure: { (error) in
-                            failure(error);
-                          },
-                          completion: { (download) in
-                            completion(download)
-                          })
+    @objc public func fetchImageWithURL(url: NSURL?, failure: (NSError) -> Void, completion: (WMFImageDownload) -> Void) {
+        guard let url = url else {
+            failure(WMFImageControllerError.InvalidOrEmptyURL as NSError)
+            return
+        }
+        
+        let metaFailure = { (error: ErrorType) in
+            failure(error as NSError)
+        }
+        fetchImageWithURL(url, failure: metaFailure) { (download) in
+            completion(download)
+        }
     }
 
     /**

@@ -308,29 +308,28 @@ NS_ASSUME_NONNULL_BEGIN
     NSURL* url         = [photo bestImageURL];
 
     @weakify(self);
-    [[WMFImageController sharedInstance] fetchImageWithURL:url].then(^(WMFImageDownload* _Nullable download){
+    [[WMFImageController sharedInstance] fetchImageWithURL:url failure:^(NSError * _Nonnull error) {
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+    } completion:^(WMFImageDownload * _Nonnull download) {
         @strongify(self);
-
         NSMutableArray* items = [NSMutableArray array];
-
+        
         WMFImageTextActivitySource* textSource = [[WMFImageTextActivitySource alloc] initWithInfo:info];
         [items addObject:textSource];
-
+        
         WMFImageURLActivitySource* imageSource = [[WMFImageURLActivitySource alloc] initWithInfo:info];
         [items addObject:imageSource];
-
+        
         if (download.image) {
             [items addObject:download.image];
         }
-
+        
         UIActivityViewController* vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
         vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
         UIPopoverPresentationController* presenter = [vc popoverPresentationController];
         presenter.barButtonItem = self.rightBarButtonItem;
         [self presentViewController:vc animated:YES completion:NULL];
-    }).catch(^(NSError* error){
-        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    });
+    }];
 }
 
 - (void)didTapInfoButton {
@@ -496,13 +495,12 @@ NS_ASSUME_NONNULL_BEGIN
     UIImage* memoryCachedImage = [galleryImage memoryCachedImage];
     if (memoryCachedImage == nil) {
         @weakify(self);
-        [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage imageURL]].then(^(WMFImageDownload* download) {
+        [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage imageURL] failure:^(NSError * _Nonnull error) {
+             //show error
+        } completion:^(WMFImageDownload * _Nonnull download) {
             @strongify(self);
             [self updateImageForPhoto:galleryImage];
-        })
-        .catch(^(NSError* error) {
-            //show error
-        });
+        }];
     } else {
         [self updateImageForPhoto:galleryImage];
     }
