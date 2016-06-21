@@ -39,7 +39,7 @@
 #import "MWKSectionList.h"
 #import "MWKHistoryList.h"
 #import "MWKLanguageLink.h"
-
+#import "WMFPeekHTMLElement.h"
 
 // Networking
 #import "WMFArticleFetcher.h"
@@ -1078,12 +1078,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
 
-    NSDictionary* peekElement = self.webViewController.peekElement;
-    NSString* tagName = peekElement[@"tagName"];
+    WMFPeekHTMLElement* peekElement = self.webViewController.peekElement;
+    NSString* tagName = peekElement.tagName;
     
     if ([tagName isEqualToString:@"A"]) {
         
-        NSString* href = peekElement[@"href"];
+        NSString* href = peekElement.href;
         
         if (!href) {
             return nil;
@@ -1103,7 +1103,7 @@ NS_ASSUME_NONNULL_BEGIN
         
     } if ([tagName isEqualToString:@"IMG"]) {
 
-        NSString* src = peekElement[@"src"];
+        NSString* src = peekElement.src;
         
         if (!src) {
             return nil;

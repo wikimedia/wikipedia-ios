@@ -33,6 +33,7 @@
 #import "WKWebView+LoadAssetsHtml.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WKProcessPool+WMFSharedProcessPool.h"
+#import "WMFPeekHTMLElement.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -88,7 +89,15 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message {
     if ([message.name isEqualToString:@"peek"]) {
-        self.peekElement = message.body[@"peekElement"];
+        NSDictionary* peekElementDict = message.body[@"peekElement"];
+        if ([peekElementDict isMemberOfClass:[NSNull class]]) {
+            self.peekElement = nil;
+        }else{
+            self.peekElement =
+            [[WMFPeekHTMLElement alloc] initWithTagName:peekElementDict[@"tagName"]
+                                                    src:peekElementDict[@"src"]
+                                                   href:peekElementDict[@"href"]];
+        }
     } else if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
         if ([message.body isEqualToString:@"collapseTables"]) {
             [self.webView wmf_collapseTablesForArticle:self.article];

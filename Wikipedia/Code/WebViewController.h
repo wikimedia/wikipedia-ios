@@ -4,7 +4,7 @@
 #import <UIKit/UIKit.h>
 @import WebKit;
 
-@class MWKSection, MWKArticle, MWKTitle, JSValue;
+@class MWKSection, MWKArticle, MWKTitle, JSValue, WMFPeekHTMLElement;
 
 @protocol WMFWebViewControllerDelegate;
 
@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable, readonly) WKWebView* webView;
 
 @property (nonatomic) BOOL isPeeking;
-@property (strong, nonatomic) NSDictionary* peekElement;
+@property (strong, nonatomic, nullable) WMFPeekHTMLElement* peekElement;
 
 @property (nonatomic) UIEdgeInsets contentInsets;
 
