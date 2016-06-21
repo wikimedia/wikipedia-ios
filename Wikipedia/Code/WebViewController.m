@@ -367,6 +367,7 @@ NSString* const WMFCCBySALicenseURL =
  */
 - (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+    [self referencesHide];
 }
 
 #pragma mark - Zero
