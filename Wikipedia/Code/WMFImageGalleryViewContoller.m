@@ -308,22 +308,22 @@ NS_ASSUME_NONNULL_BEGIN
     NSURL* url         = [photo bestImageURL];
 
     @weakify(self);
-    [[WMFImageController sharedInstance] fetchImageWithURL:url failure:^(NSError * _Nonnull error) {
+    [[WMFImageController sharedInstance] fetchImageWithURL:url failure:^(NSError* _Nonnull error) {
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    } completion:^(WMFImageDownload * _Nonnull download) {
+    } completion:^(WMFImageDownload* _Nonnull download) {
         @strongify(self);
         NSMutableArray* items = [NSMutableArray array];
-        
+
         WMFImageTextActivitySource* textSource = [[WMFImageTextActivitySource alloc] initWithInfo:info];
         [items addObject:textSource];
-        
+
         WMFImageURLActivitySource* imageSource = [[WMFImageURLActivitySource alloc] initWithInfo:info];
         [items addObject:imageSource];
-        
+
         if (download.image) {
             [items addObject:download.image];
         }
-        
+
         UIActivityViewController* vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
         vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
         UIPopoverPresentationController* presenter = [vc popoverPresentationController];
@@ -367,19 +367,19 @@ NS_ASSUME_NONNULL_BEGIN
          [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
     NSString* ownerOrFallback = imageInfo.owner ?
-                                [imageInfo.owner stringByTrimmingCharactersInSet : [NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                                [imageInfo.owner stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
                                 : MWLocalizedString(@"image-gallery-unknown-owner", nil);
 
     [caption setLicense:imageInfo.license owner:ownerOrFallback];
-    
+
     @weakify(self)
     caption.ownerTapCallback = ^{
         @strongify(self)
-        [self wmf_openExternalUrl:imageInfo.license.URL];
+        [self wmf_openExternalUrl: imageInfo.license.URL];
     };
     caption.infoTapCallback = ^{
         @strongify(self)
-        [self wmf_openExternalUrl:imageInfo.filePageURL];
+        [self wmf_openExternalUrl: imageInfo.filePageURL];
     };
 
     return caption;
@@ -495,9 +495,9 @@ NS_ASSUME_NONNULL_BEGIN
     UIImage* memoryCachedImage = [galleryImage memoryCachedImage];
     if (memoryCachedImage == nil) {
         @weakify(self);
-        [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage imageURL] failure:^(NSError * _Nonnull error) {
-             //show error
-        } completion:^(WMFImageDownload * _Nonnull download) {
+        [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage imageURL] failure:^(NSError* _Nonnull error) {
+            //show error
+        } completion:^(WMFImageDownload* _Nonnull download) {
             @strongify(self);
             [self updateImageForPhoto:galleryImage];
         }];
