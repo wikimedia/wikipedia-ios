@@ -47,9 +47,15 @@ public protocol ImageOriginConvertible {
     func asImageOrigin() -> ImageOrigin
 }
 
+
 public func asImageOrigin<T: ImageOriginConvertible>(c: T) -> ImageOrigin { return c.asImageOrigin() }
 
 public class WMFImageDownload: NSObject {
+    // Exposing enums as string constants for ObjC compatibility
+    public static let imageOriginNetwork = ImageOrigin.Network.rawValue
+    public static let imageOriginDisk = ImageOrigin.Disk.rawValue
+    public static let imageOriginMemory = ImageOrigin.Memory.rawValue
+
     public var url: NSURL
     public var image: UIImage
     public var origin: ImageOrigin
@@ -59,5 +65,12 @@ public class WMFImageDownload: NSObject {
         self.url = url
         self.image = image
         self.origin = origin
+    }
+    
+    
+    public init(url: NSURL, image: UIImage, originRawValue: Int) {
+        self.url = url
+        self.image = image
+        self.origin = ImageOrigin(rawValue: originRawValue)!
     }
 }
