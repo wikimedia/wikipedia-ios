@@ -88,7 +88,7 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message {
     if ([message.name isEqualToString:@"peek"]) {
-        self.peekURLString = message.body[@"touchedElementURL"];
+        self.peekElement = message.body[@"peekElement"];
     } else if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
         if ([message.body isEqualToString:@"collapseTables"]) {
             [self.webView wmf_collapseTablesForArticle:self.article];

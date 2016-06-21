@@ -63,6 +63,7 @@
 #import "UIToolbar+WMFStyling.h"
 #import <Tweaks/FBTweakInline.h>
 #import "WKWebView+WMFWebViewControllerJavascript.h"
+#import "WMFImageInfoController.h"
 
 @import SafariServices;
 
@@ -1076,23 +1077,62 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
-    NSString* peekURLString = self.webViewController.peekURLString;
-    if (!peekURLString) {
-        return nil;
-    }
 
-    NSURL* peekURL = [NSURL URLWithString:peekURLString];
-    if (!peekURL) {
-        return nil;
-    }
+    NSDictionary* peekElement = self.webViewController.peekElement;
+    NSString* tagName = peekElement[@"tagName"];
+    
+    if ([tagName isEqualToString:@"A"]) {
+        
+        NSString* href = peekElement[@"href"];
+        
+        if (!href) {
+            return nil;
+        }
+        
+        NSURL* peekURL = [NSURL URLWithString:href];
+        if (!peekURL) {
+            return nil;
+        }
+        
+        UIViewController* peekVC = [self viewControllerForPreviewURL:peekURL];
+        if (peekVC) {
+            [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
+            self.webViewController.isPeeking = YES;
+            return peekVC;
+        }
+        
+    } if ([tagName isEqualToString:@"IMG"]) {
 
-    UIViewController* peekVC = [self viewControllerForPreviewURL:peekURL];
-    if (peekVC) {
-        [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
+        NSString* src = peekElement[@"src"];
+        
+        if (!src) {
+            return nil;
+        }
+        
+        NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:src];
+        if (!urlComponents || !urlComponents.queryItems) {
+            return nil;
+        }
+
+        NSArray* queryItems = urlComponents.queryItems;
+        NSURLQueryItem* originalSrcItem = [queryItems bk_match:^BOOL (NSURLQueryItem* item) {
+            return [item.name isEqualToString:@"originalSrc"];
+        }];
+        NSString* originalSrcString = originalSrcItem.value;
+        
+        if (!originalSrcString || ![self.article.images hasImageURLString:originalSrcString]) {
+            return nil;
+        }
+        
+        MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURLString:originalSrcString];
+        WMFArticleImageGalleryViewContoller* gallery =
+        [[WMFArticleImageGalleryViewContoller alloc] initWithArticle:self.article
+                                                       selectedImage:selectedImage];
         self.webViewController.isPeeking = YES;
-        return peekVC;
-    }
 
+        return gallery;
+    }
+    
     return nil;
 }
 

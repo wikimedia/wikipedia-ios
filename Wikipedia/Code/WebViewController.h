@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable, readonly) WKWebView* webView;
 
 @property (nonatomic) BOOL isPeeking;
-@property (strong, nonatomic) NSString* peekURLString;
+@property (strong, nonatomic) NSDictionary* peekElement;
 
 @property (nonatomic) UIEdgeInsets contentInsets;
 
