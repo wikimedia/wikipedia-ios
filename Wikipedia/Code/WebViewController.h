@@ -4,7 +4,7 @@
 #import <UIKit/UIKit.h>
 @import WebKit;
 
-@class MWKSection, MWKArticle, MWKTitle, JSValue, WMFPeekHTMLElement;
+@class MWKSection, MWKArticle, MWKTitle, WMFPeekHTMLElement;
 
 @protocol WMFWebViewControllerDelegate;
 
