@@ -178,7 +178,7 @@ class WMFImageControllerTests: XCTestCase {
         }
     }
     
-//    This test never functioned properly, and to do so would require a fix to SDWebImage
+//    This test never performed as intended, there was a bug in the test that passed the wrong path which caused the cache fetch to error out.  After fixing that bug, it turns out that SDWebImage doesn't return an error when cancelling a cache fetch. Altering the behavior to match this test might have other consequences.
 //    func testCancelCacheRequestCatchesWithCancellationError() throws {
 //        // copy some test fixture image to a temp location
 //        let path = wmf_bundle().resourcePath!;
