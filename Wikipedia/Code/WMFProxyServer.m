@@ -228,6 +228,8 @@
                                                     inString:mutableString
                                                       offset:offset
                                                     template:@"$4"];
+        
+        NSString* nonSrcPartsOfImgTagWithSrcSetRemoved = [nonSrcPartsOfImgTag stringByReplacingOccurrencesOfString:@"srcset" withString:@"data-srcset-disabled"];
 
         if ([srcURL wmf_trim].length > 0) {
             srcURL = [self proxyURLForImageURLString:srcURL].absoluteString;
@@ -236,7 +238,7 @@
         NSString* replacement = [NSString stringWithFormat:@"%@\"%@\"%@%@",
                                  opener,
                                  srcURL,
-                                 [self stringByReplacingSrcsetURLsWithProxyURLsInString:nonSrcPartsOfImgTag],
+                                 nonSrcPartsOfImgTagWithSrcSetRemoved,
                                  closer
                                 ];
 
@@ -246,80 +248,6 @@
     }
 
     return mutableString;
-}
-
-- (NSString*)stringByReplacingSrcsetURLsWithProxyURLsInString:(NSString*)string {
-    NSAssert(![string containsString:@"<"] && ![string containsString:@">"], @"This method should only operate on an html img tag's 'srcset' key/value substring - not entire image tags.");
-
-    static NSRegularExpression* regex;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString* pattern = @"(.+?)(srcset\\=)(?:\")(.+?)(?:\")(.*?)";
-        regex = [NSRegularExpression regularExpressionWithPattern:pattern
-                                                          options:NSRegularExpressionCaseInsensitive
-                                                            error:nil];
-    });
-
-    NSMutableString* mutableString = [string mutableCopy];
-
-    NSArray* matches = [regex matchesInString:mutableString options:0 range:NSMakeRange(0, [mutableString length])];
-
-    NSInteger offset = 0;
-    for (NSTextCheckingResult* result in matches) {
-        NSRange resultRange = [result range];
-        resultRange.location += offset;
-
-        NSString* before = [regex replacementStringForResult:result
-                                                    inString:mutableString
-                                                      offset:offset
-                                                    template:@"$1"];
-
-        NSString* srcsetKey = [regex replacementStringForResult:result
-                                                       inString:mutableString
-                                                         offset:offset
-                                                       template:@"$2"];
-
-        NSString* srcsetValue = [regex replacementStringForResult:result
-                                                         inString:mutableString
-                                                           offset:offset
-                                                         template:@"$3"];
-
-        NSString* after = [regex replacementStringForResult:result
-                                                   inString:mutableString
-                                                     offset:offset
-                                                   template:@"$4"];
-
-        NSString* replacement = [NSString stringWithFormat:@"%@%@\"%@\"%@",
-                                 before,
-                                 srcsetKey,
-                                 [self stringByReplacingURLsWithProxyURLsInSrcsetValue:srcsetValue],
-                                 after
-                                ];
-
-        [mutableString replaceCharactersInRange:resultRange withString:replacement];
-
-        offset += [replacement length] - resultRange.length;
-    }
-    return mutableString;
-}
-
-- (NSString*)stringByReplacingURLsWithProxyURLsInSrcsetValue:(NSString*)srcsetValue {
-    NSAssert(![srcsetValue containsString:@"<"] && ![srcsetValue containsString:@">"], @"This method should only operate on an html img tag's 'srcset' value substring - not entire image tags.");
-
-    NSArray* pairs         = [srcsetValue componentsSeparatedByString:@","];
-    NSMutableArray* output = [[NSMutableArray alloc] init];
-    for (NSString* pair in pairs) {
-        NSString* trimmedPair = [pair stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        NSArray* parts        = [trimmedPair componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        if (parts.count == 2) {
-            NSString* url     = parts[0];
-            NSString* density = parts[1];
-            [output addObject:[NSString stringWithFormat:@"%@ %@", [self proxyURLForImageURLString:url].absoluteString, density]];
-        } else {
-            [output addObject:pair];
-        }
-    }
-    return [output componentsJoinedByString:@", "];
 }
 
 #pragma mark - BaseURL (for testing only)

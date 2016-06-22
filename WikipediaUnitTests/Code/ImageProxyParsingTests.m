@@ -7,7 +7,6 @@
 
 
 @interface WMFProxyServer (Testing)
-- (NSString*)stringByReplacingURLsWithProxyURLsInSrcsetValue:(NSString*)srcsetValue;
 - (NSURL*)   baseURL;
 @end
 
@@ -42,41 +41,6 @@
     assertThat(string, is(equalTo(expected)));
 }
 
-- (void)testSrcsetValueWithSingleUrlIsConvertedToProxyFormat {
-    NSString* string =
-        @"//test2x.png 2x";
-
-    string = [self.proxyServer stringByReplacingURLsWithProxyURLsInSrcsetValue:string];
-
-    NSString* expected =
-        [NSString stringWithFormat:@"%@/imageProxy?originalSrc=//test2x.png 2x", self.baseURLString];
-
-    assertThat(string, is(equalTo(expected)));
-}
-
-- (void)testSrcsetValueWithMultipleUrlsIsConvertedToProxyFormat {
-    NSString* string =
-        @"//test2x.png 2x, //test3x.png 3x";
-
-    string = [self.proxyServer stringByReplacingURLsWithProxyURLsInSrcsetValue:string];
-
-    NSString* expected =
-        [NSString stringWithFormat:@"%@/imageProxy?originalSrc=//test2x.png 2x, %@/imageProxy?originalSrc=//test3x.png 3x", self.baseURLString, self.baseURLString];
-
-    assertThat(string, is(equalTo(expected)));
-}
-
-- (void)testBothSrcAndSrcsetUrlsAreConvertedToProxyFormat {
-    NSString* string =
-        @"<img src=\"//test.png\" srcset=\"//test2x.png 2x\">";
-
-    string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string];
-
-    NSString* expected =
-        [NSString stringWithFormat:@"<img src=\"%@/imageProxy?originalSrc=//test.png\" srcset=\"%@/imageProxy?originalSrc=//test2x.png 2x\">", self.baseURLString, self.baseURLString];
-
-    assertThat(string, is(equalTo(expected)));
-}
 
 - (void)testNonImageTagSrcAndSrcsetAreUnchanged {
     NSString* string = @""
@@ -99,7 +63,7 @@
 
     NSString* expected = [NSString stringWithFormat:@""
                           "<someothertag src=\"//test.png\" srcset=\"//test2x.png 2x\">"
-                          "<img src=\"%@/imageProxy?originalSrc=//test.png\" srcset=\"%@/imageProxy?originalSrc=//test2x.png 2x\">", self.baseURLString, self.baseURLString];
+                          "<img src=\"%@/imageProxy?originalSrc=//test.png\" data-srcset-disabled=\"//test2x.png 2x\">", self.baseURLString];
 
     assertThat(string, is(equalTo(expected)));
 }
@@ -111,7 +75,7 @@
     string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string];
 
     NSString* expected = [NSString stringWithFormat:@""
-                          "<img alt=\"\" src=\"%@/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/128px-Barack_Obama_signature.svg.png\" srcset=\"%@/imageProxy?originalSrc=//test2x.png 2x\" width=\"128\" height=\"31\"/>", self.baseURLString, self.baseURLString];
+                          "<img alt=\"\" src=\"%@/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/128px-Barack_Obama_signature.svg.png\" data-srcset-disabled=\"//test2x.png 2x\" width=\"128\" height=\"31\"/>", self.baseURLString];
 
     assertThat(string, is(equalTo(expected)));
 }
@@ -129,16 +93,16 @@
     assertThat(string, is(equalTo(expected)));
 }
 
-- (void)testSrcsetUrlsAreConvertedToProxyFormatWithOriginalUrlsBeingPercentEncoded {
+- (void)testSrcsetUrlsAreDisabledWithOriginalUrlsBeingPercentEncoded {
     // From: https://en.wikipedia.org/wiki/Bridge
     NSString* string = @""
-                       "<img src=\"\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg/330px-%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg/440px-%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg 2x\">";
-
+    "<img src=\"\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg/330px-%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg/440px-%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg 2x\">";
+    
     string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string];;
-
+    
     NSString* expected = [NSString stringWithFormat:@""
-                          "<img src=\"\" srcset=\"%@/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%%25C5%%25BDeljezni%%25C4%%258Dki_most%%252C_Mursko_Sredi%%25C5%%25A1%%25C4%%2587e_%%2528Croatia%%2529.1.jpg/330px-%%25C5%%25BDeljezni%%25C4%%258Dki_most%%252C_Mursko_Sredi%%25C5%%25A1%%25C4%%2587e_%%2528Croatia%%2529.1.jpg 1.5x, %@/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%%25C5%%25BDeljezni%%25C4%%258Dki_most%%252C_Mursko_Sredi%%25C5%%25A1%%25C4%%2587e_%%2528Croatia%%2529.1.jpg/440px-%%25C5%%25BDeljezni%%25C4%%258Dki_most%%252C_Mursko_Sredi%%25C5%%25A1%%25C4%%2587e_%%2528Croatia%%2529.1.jpg 2x\">", self.baseURLString, self.baseURLString];
-
+                          "<img src=\"\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%%C5%%BDeljezni%%C4%%8Dki_most%%2C_Mursko_Sredi%%C5%%A1%%C4%%87e_%%28Croatia%%29.1.jpg/330px-%%C5%%BDeljezni%%C4%%8Dki_most%%2C_Mursko_Sredi%%C5%%A1%%C4%%87e_%%28Croatia%%29.1.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%%C5%%BDeljezni%%C4%%8Dki_most%%2C_Mursko_Sredi%%C5%%A1%%C4%%87e_%%28Croatia%%29.1.jpg/440px-%%C5%%BDeljezni%%C4%%8Dki_most%%2C_Mursko_Sredi%%C5%%A1%%C4%%87e_%%28Croatia%%29.1.jpg 2x\">"];
+    
     assertThat(string, is(equalTo(expected)));
 }
 
@@ -150,7 +114,7 @@
     string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string];;
 
     NSString* expected = @""
-                         "<img src=\"\" srcset=\"\">";
+                         "<img src=\"\" data-srcset-disabled=\"\">";
 
     assertThat(string, is(equalTo(expected)));
 }
@@ -167,9 +131,9 @@
 
     NSString* expected = [NSString stringWithFormat:@""
                           "<someothertag src=\"//test.png\" srcset=\"//test2x.png 2x\">"
-                          "<img src=\"%@/imageProxy?originalSrc=//test.png\" srcset=\"%@/imageProxy?originalSrc=//test2x.png 2x\">"
+                          "<img src=\"%@/imageProxy?originalSrc=//test.png\" data-srcset-disabled=\"//test2x.png 2x\">"
                           "<someothertag src=\"//test.png\" srcset=\"//test2x.png 2x\">"
-                          "<img src=\"%@/imageProxy?originalSrc=//testThis.png\" srcset=\"%@/imageProxy?originalSrc=//testThis2x.png 2x\">", self.baseURLString, self.baseURLString, self.baseURLString, self.baseURLString];
+                          "<img src=\"%@/imageProxy?originalSrc=//testThis.png\" data-srcset-disabled=\"//testThis2x.png 2x\">", self.baseURLString, self.baseURLString];
     ;
 
     assertThat(string, is(equalTo(expected)));
