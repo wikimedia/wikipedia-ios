@@ -1088,46 +1088,24 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable UIViewController*)peekViewControllerForPeekElement:(WMFPeekHTMLElement*)peekElement {
-    if ([peekElement.tagName isEqualToString:@"A"]) {
-        return [self peekViewControllerForAnchorTagWithHref:peekElement.href];
-    } else if ([peekElement.tagName isEqualToString:@"IMG"]) {
-        return [self peekViewControllerForImageTagWithSrc:peekElement.src];
+    switch (peekElement.type) {
+        case WMFPeekElementTypeImage:
+            return [self viewControllerForImageURL:peekElement.url];
+            break;
+        case WMFPeekElementTypeAnchor:
+            return [self viewControllerForPreviewURL:peekElement.url];
+            break;
+        default:
+            return nil;
     }
-    return nil;
 }
 
-- (nullable UIViewController*)peekViewControllerForAnchorTagWithHref:(nullable NSString*)href {
-    if (!href) {
-        return nil;
-    }
-    NSURL* peekURL = [NSURL URLWithString:href];
-    if (!peekURL) {
-        return nil;
-    }
-    return [self viewControllerForPreviewURL:peekURL];
-}
-
-- (nullable UIViewController*)peekViewControllerForImageTagWithSrc:(nullable NSString*)src {
-    if (!src) {
+- (nullable UIViewController*)viewControllerForImageURL:(nullable NSURL*)url {
+    if (!url || ![self.article.images hasImageURL:url]) {
         return nil;
     }
     
-    NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:src];
-    if (!urlComponents || !urlComponents.queryItems) {
-        return nil;
-    }
-    
-    NSArray* queryItems = urlComponents.queryItems;
-    NSURLQueryItem* originalSrcItem = [queryItems bk_match:^BOOL (NSURLQueryItem* item) {
-        return [item.name isEqualToString:@"originalSrc"];
-    }];
-    NSString* originalSrcString = originalSrcItem.value;
-    
-    if (![self.article.images hasImageURLString:originalSrcString]) {
-        return nil;
-    }
-    
-    MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURLString:originalSrcString];
+    MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:url];
     WMFArticleImageGalleryViewController* gallery =
     [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
                                                     selectedImage:selectedImage];
@@ -1135,7 +1113,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UIViewController*)viewControllerForPreviewURL:(NSURL*)url {
-    if ([url.absoluteString isEqualToString:@""]) {
+    if(!url || [url.absoluteString isEqualToString:@""]){
         return nil;
     }
     if (![url wmf_isInternalLink]) {
