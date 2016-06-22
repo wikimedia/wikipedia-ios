@@ -42,7 +42,6 @@ platform :ios do
 
   desc "Runs tests, version, tag, and push to the beta branch"
   lane :submitHotfixAndPushToMaster do
-    verifyTestPlatforms
     tagHotfix
     store
   end
