@@ -1095,8 +1095,9 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFPeekElementTypeAnchor:
             return [self viewControllerForPreviewURL:peekElement.url];
             break;
-        default:
+        case WMFPeekElementTypeUnpeekable:
             return nil;
+            break;
     }
 }
 
