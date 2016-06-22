@@ -38,11 +38,25 @@
         return;
     }
 
-    NSString* imgHeight = imageNode.attributes[@"data-file-height"] ? : imageNode.attributes[@"height"];
-    NSString* imgWidth  = imageNode.attributes[@"data-file-width"] ? : imageNode.attributes[@"width"];
+    CGSize sizeToCheck = CGSizeZero;
 
-    CGSize size = CGSizeMake([imgWidth floatValue], [imgHeight floatValue]);
-    if (![MWKImage isSizeLargeEnoughForGalleryInclusion:size]) {
+    NSString* imgHeight = imageNode.attributes[@"height"];
+    NSString* imgWidth  = imageNode.attributes[@"width"];
+    CGSize size         = CGSizeZero;
+    if ([imgWidth respondsToSelector:@selector(floatValue)] && [imgHeight respondsToSelector:@selector(floatValue)]) {
+        size        = CGSizeMake([imgWidth floatValue], [imgHeight floatValue]);
+        sizeToCheck = size;
+    }
+
+    NSString* fileWidth   = imageNode.attributes[@"data-file-height"];
+    NSString* fileHeight  = imageNode.attributes[@"data-file-width"];
+    CGSize fileDimensions = CGSizeZero;
+    if ([fileWidth respondsToSelector:@selector(floatValue)] && [fileHeight respondsToSelector:@selector(floatValue)]) {
+        fileDimensions = CGSizeMake([fileWidth floatValue], [fileHeight floatValue]);
+        sizeToCheck    = fileDimensions;
+    }
+
+    if (![MWKImage isSizeLargeEnoughForGalleryInclusion:sizeToCheck]) {
         return;
     }
 
@@ -54,11 +68,17 @@
             return nil;
         }
         MWKImage* image = [[MWKImage alloc] initWithArticle:self sourceURL:srcURL];
-        if ([MWKImage fileSizePrefix:srcURL.absoluteString] != NSNotFound) {
+        if ([MWKImage fileSizePrefix:srcURL.absoluteString] != NSNotFound && [imgWidth respondsToSelector:@selector(integerValue)] && [imgHeight respondsToSelector:@selector(integerValue)]) {
             // don't add estimated width/height for images without a size prefix, since they're the original image
             image.width  = @(imgWidth.integerValue * scale);
             image.height = @(imgHeight.integerValue * scale);
         }
+
+        if ([fileWidth respondsToSelector:@selector(integerValue)] && [fileHeight respondsToSelector:@selector(integerValue)]) {
+            image.originalFileWidth  = @(fileWidth.integerValue);
+            image.originalFileHeight = @(fileHeight.integerValue);
+        }
+
         return image;
     };
 

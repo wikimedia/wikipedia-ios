@@ -54,6 +54,8 @@
         self.mimeType            = [self optionalString:@"mimeType" dict:dict];
         self.width               = [self optionalNumber:@"width" dict:dict];
         self.height              = [self optionalNumber:@"height" dict:dict];
+        self.originalFileWidth   = [self optionalNumber:@"originalFileWidth" dict:dict];
+        self.originalFileHeight  = [self optionalNumber:@"originalFileHeight" dict:dict];
         _allNormalizedFaceBounds = [dict[@"focalRects"] bk_map:^NSValue*(NSString* rectString) {
             return [NSValue valueWithCGRect:CGRectFromString(rectString)];
         }];
@@ -73,6 +75,12 @@
     }
     if (self.height) {
         dict[@"height"] = self.height;
+    }
+    if (self.originalFileWidth) {
+        dict[@"originalFileWidth"] = self.originalFileWidth;
+    }
+    if (self.originalFileHeight) {
+        dict[@"originalFileHeight"] = self.originalFileHeight;
     }
     if (self.allNormalizedFaceBounds) {
         dict[@"focalRects"] = [self.allNormalizedFaceBounds bk_map:^id (NSValue* rectValue) {
@@ -111,6 +119,18 @@
 
 - (CGSize)size {
     return CGSizeMake([self.width floatValue], [self.height floatValue]);
+}
+
+- (BOOL)hasOriginalFileSize {
+    return self.originalFileWidth && self.originalFileHeight;
+}
+
+- (CGSize)originalFileSize {
+    if ([self hasOriginalFileSize]) {
+        return CGSizeMake(self.originalFileWidth.floatValue, self.originalFileHeight.floatValue);
+    } else {
+        return CGSizeZero;
+    }
 }
 
 - (NSString*)extension {
