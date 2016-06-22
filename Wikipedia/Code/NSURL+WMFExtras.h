@@ -30,7 +30,21 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)wmf_urlByPrependingSchemeIfSchemeless;
 
-- (NSString*)wmf_valueForQueryKey:(NSString*)queryKey;
+/**
+ * Gets a value for a given url query key.
+ *
+ * @param key   The key to check. For example 'somekey' in the url above.
+ *
+ * @return      Value associated with the passed key parameter. For the url http://www.wikipedia.org?somekey=somevalue using the key 'somekey' would return the value 'somevalue'. Returns nil if no key found.
+ **/
+- (nullable NSString*)wmf_valueForQueryKey:(NSString*)key;
+
+/**
+ * Image proxy urls will have an "originalSrc" key.
+ *
+ * @return  Returns the original non-proxy src url. Returns nil if no 'originalSrc' value found.
+ **/
+- (nullable NSURL*)wmf_imageProxyOriginalSrcURL;
 
 /**
  * Determine if url links to different spot on *same* page.

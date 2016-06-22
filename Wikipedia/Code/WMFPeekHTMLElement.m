@@ -1,4 +1,5 @@
 #import "WMFPeekHTMLElement.h"
+#import "NSURL+WMFExtras.h"
 
 @interface WMFPeekHTMLElement()
 
@@ -14,7 +15,7 @@
     if (self) {
         if ([tagName isEqualToString:@"IMG"]) {
             self.type = WMFPeekElementTypeImage;
-            self.url = [self originalSrcURLFromProxyURL:[NSURL URLWithString:src]];
+            self.url = [[NSURL URLWithString:src] wmf_imageProxyOriginalSrcURL];
         }else if([tagName isEqualToString:@"A"]) {
             self.type = WMFPeekElementTypeAnchor;
             self.url = [NSURL URLWithString:href];
@@ -24,18 +25,6 @@
         }
     }
     return self;
-}
-
-- (NSURL*)originalSrcURLFromProxyURL:(NSURL*)url {
-    NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithURL:url resolvingAgainstBaseURL:NO];
-    if (!urlComponents || !urlComponents.queryItems) {
-        return nil;
-    }
-    NSArray* queryItems = urlComponents.queryItems;
-    NSURLQueryItem* originalSrcItem = [queryItems bk_match:^BOOL (NSURLQueryItem* item) {
-        return [item.name isEqualToString:@"originalSrc"];
-    }];
-    return [NSURL URLWithString:originalSrcItem.value];
 }
 
 @end

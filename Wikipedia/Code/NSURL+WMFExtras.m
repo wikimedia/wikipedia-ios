@@ -49,12 +49,16 @@
     return [self wmf_urlByPrependingSchemeIfSchemeless:@"https"];
 }
 
-- (NSString*)wmf_valueForQueryKey:(NSString*)queryKey {
-    NSURLQueryItem* queryItem = [[[NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES] queryItems]
-                                 bk_match:^BOOL (NSURLQueryItem* q) {
-        return [q.name isEqualToString:@"page"];
-    }];
-    return queryItem ? (queryItem.value ? : @"") : nil;
+- (nullable NSString*)wmf_valueForQueryKey:(NSString*)key {
+    NSURLQueryItem* matchingItem = [[[NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES] queryItems]
+                                 bk_match:^BOOL (NSURLQueryItem* item) {
+                                     return [item.name isEqualToString:key];
+                                 }];
+    return matchingItem.value;
+}
+
+- (nullable NSURL*)wmf_imageProxyOriginalSrcURL {
+    return [NSURL URLWithString:[self wmf_valueForQueryKey:@"originalSrc"]];
 }
 
 - (BOOL)wmf_isIntraPageFragment {
