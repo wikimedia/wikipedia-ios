@@ -16,9 +16,9 @@ typedef void (^ WMFProgressHandler)(CGFloat progress);
 typedef void (^ WMFErrorHandler)(NSError* error);
 
 typedef void (^ WMFSuccessHandler)();
-typedef void (^ WMFSuccessIdHandler)(id);
-typedef void (^ WMFSuccessUIImageHandler)(UIImage*);
-typedef void (^ WMFSuccessNSValueHandler)(NSValue*);
+typedef void (^ WMFSuccessIdHandler)(id object);
+typedef void (^ WMFSuccessUIImageHandler)(UIImage* image);
+typedef void (^ WMFSuccessNSValueHandler)(NSValue* value);
 
 
 static WMFErrorHandler WMFIgnoreErrorHandler = ^(NSError* error) { };
