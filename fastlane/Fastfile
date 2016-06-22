@@ -165,10 +165,10 @@ platform :ios do
   desc "Add a tag, and push to the master branch."
   lane :tagHotfix do |options|
     sh "git fetch"
-    sh "git checkout 5.0.5"
+    sh "git checkout 5.0.5-hotfix"
     sh "git pull"
     sh "git checkout master"
-    sh "git merge 5.0.5"
+    sh "git merge 5.0.5-hotfix"
 
     new_version = get_version_string
 
