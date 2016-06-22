@@ -164,14 +164,22 @@ NSString* const WMFCCBySALicenseURL =
                 return;
             }
 
-            NSString* selectedImageURL = message.body[@"imageClicked"][@"url"];
-            NSCParameterAssert(selectedImageURL.length);
-            if (!selectedImageURL.length) {
+            NSString* selectedImageURLString = message.body[@"imageClicked"][@"url"];
+            NSCParameterAssert(selectedImageURLString.length);
+            if (!selectedImageURLString.length) {
                 DDLogError(@"Image clicked callback invoked with empty URL: %@", message.body[@"imageClicked"]);
                 return;
             }
+            
+            NSURLComponents* selectedImageURLComponents = [NSURLComponents componentsWithString:selectedImageURLString];
+            for (NSURLQueryItem* item in selectedImageURLComponents.queryItems) {
+                if ([item.name.lowercaseString isEqualToString:@"originalsrc"]) {
+                    selectedImageURLString = item.value;
+                    break;
+                }
+            }
 
-            [self.delegate webViewController:self didTapImageWithSourceURLString:selectedImageURL];
+            [self.delegate webViewController:self didTapImageWithSourceURLString:selectedImageURLString];
         } else if (message.body[@"referenceClicked"]) {
             [self referencesShow:message.body[@"referenceClicked"]];
         } else if (message.body[@"editClicked"]) {
