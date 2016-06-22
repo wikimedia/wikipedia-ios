@@ -15,4 +15,13 @@ typedef void (^ WMFArticleHandler)(MWKArticle* article);
 typedef void (^ WMFProgressHandler)(CGFloat progress);
 typedef void (^ WMFErrorHandler)(NSError* error);
 
+typedef void (^ WMFSuccessHandler)();
+typedef void (^ WMFSuccessIdHandler)(id);
+typedef void (^ WMFSuccessUIImageHandler)(UIImage*);
+typedef void (^ WMFSuccessNSValueHandler)(NSValue*);
+
+
+static WMFErrorHandler WMFIgnoreErrorHandler = ^(NSError* error) { };
+static WMFSuccessHandler WMFIgnoreSuccessHandler = ^() { };
+
 #endif

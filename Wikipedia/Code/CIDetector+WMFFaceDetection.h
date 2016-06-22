@@ -19,12 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Asynchronously detect faces in `image`, without doing extra processing for smiles or eyes.
- * @return `Promise<[CIFeature]>`
  */
-- (AnyPromise*)wmf_detectFeaturelessFacesInImage:(UIImage*)image;
+- (void)wmf_detectFeaturelessFacesInImage:(UIImage*)image failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success;
 
-/// Perform `featuresInImage:options:` on a background queue, and resolve a promise with the response.
-- (AnyPromise*)wmf_detectFeaturesInImage:(UIImage*)image options:(NSDictionary*)options on:(dispatch_queue_t)queue;
+/// Perform `featuresInImage:options:` on a background queue
+- (void)wmf_detectFeaturesInImage:(UIImage*)image options:(NSDictionary*)options on:(dispatch_queue_t)queue failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success;
 
 @end
 

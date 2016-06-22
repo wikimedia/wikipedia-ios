@@ -138,24 +138,22 @@
 
 #pragma mark - Image
 
-- (AnyPromise*)setImageURL:(NSURL*)imageURL {
-    AnyPromise* promise = [super setImageURL:imageURL];
+- (void)setImageURL:(NSURL*)imageURL failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSuccessHandler)success {
+    [super setImageURL:imageURL failure:failure success:success];
     if (imageURL) {
         [self restoreImageToFullHeight];
     } else {
         [self collapseImageHeightToZero];
     }
-    return promise;
 }
 
-- (AnyPromise*)setImage:(MWKImage*)image {
-    AnyPromise* promise = [super setImage:image];
+- (void)setImage:(MWKImage*)image failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSuccessHandler)success {
+    [super setImage:image failure:failure success:success];
     if (image) {
         [self restoreImageToFullHeight];
     } else {
         [self collapseImageHeightToZero];
     }
-    return promise;
 }
 
 - (void)collapseImageHeightToZero {

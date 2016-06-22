@@ -384,26 +384,6 @@ public class WMFImageController : NSObject {
 // MARK: - Objective-C Bridge
 
 extension WMFImageController {
-    /**
-     Objective-C-compatible variant of fetchImageWithURL(url:options:) using default options & returning an `AnyPromise`.
-     
-     - returns: `AnyPromise` which resolves to `WMFImageDownload`.
-     */
-    @objc public func fetchImageWithURL(url: NSURL?) -> AnyPromise {
-        return AnyPromise(bound: Promise<WMFImageDownload> { fulfill, reject in
-            guard let url = url else {
-                reject(WMFImageControllerError.InvalidOrEmptyURL)
-                return
-            }
-            fetchImageWithURL(url,
-                failure: { (error: ErrorType) in
-                        reject(error);
-                    },
-                    success: { (download) in
-                        fulfill(download)
-                    })
-        })
-    }
     
     /**
      Objective-C-compatible variant of fetchImageWithURL(url:options:) using default options &  using blocks.

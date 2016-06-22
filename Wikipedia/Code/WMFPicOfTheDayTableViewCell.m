@@ -35,7 +35,7 @@
 }
 
 - (void)setImageURL:(NSURL*)imageURL {
-    [self.potdImageView wmf_setImageWithURL:imageURL detectFaces:YES];
+    [self.potdImageView wmf_setImageWithURL:imageURL detectFaces:YES failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
 }
 
 #pragma mark - UITableViewCell

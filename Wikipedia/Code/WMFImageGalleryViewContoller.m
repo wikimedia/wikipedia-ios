@@ -728,13 +728,12 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     UIImage* memoryCachedImage = [galleryImage memoryCachedImage];
     if (memoryCachedImage == nil) {
-        [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage bestImageURL]].then(^(WMFImageDownload* download) {
+        [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage bestImageURL] failure:^(NSError* _Nonnull error) {
+            //show error
+        } success:^(WMFImageDownload* _Nonnull download) {
             @strongify(self);
             [self updateImageForPhoto:galleryImage];
-        })
-        .catch(^(NSError* error) {
-            //show error
-        });
+        }];
     } else {
         [self updateImageForPhoto:galleryImage];
     }

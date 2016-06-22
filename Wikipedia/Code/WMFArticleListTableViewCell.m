@@ -82,12 +82,20 @@
 
 #pragma mark - Image
 
-- (AnyPromise*)setImageURL:(NSURL*)imageURL {
-    return [self.articleImageView wmf_setImageWithURL:imageURL detectFaces:YES];
+- (void)setImageURL:(NSURL*)imageURL failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+    [self.articleImageView wmf_setImageWithURL:imageURL detectFaces:YES failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
 }
 
-- (AnyPromise*)setImage:(MWKImage*)image {
-    return [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES];
+- (void)setImage:(MWKImage*)image failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+    [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
+}
+
+- (void)setImageURL:(NSURL*)imageURL {
+    [self setImageURL:imageURL failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
+}
+
+- (void)setImage:(MWKImage*)image {
+    [self setImage:image failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
 }
 
 @end

@@ -193,7 +193,7 @@ NS_ASSUME_NONNULL_BEGIN
         if ([self.article.title isNonStandardTitle]) {
             self.headerImageView.image = nil;
         } else {
-            [self.headerImageView wmf_setImageWithMetadata:_article.leadImage detectFaces:YES];
+            [self.headerImageView wmf_setImageWithMetadata:_article.leadImage detectFaces:YES failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
         }
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
