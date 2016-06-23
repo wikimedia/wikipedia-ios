@@ -45,7 +45,7 @@
 #import "WMFNearbySectionController.h"
 #import "WMFRandomArticleFetcher.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
-
+#import "WMFAuthenticationManager.h"
 /**
  *  Enums for each tab in the main tab bar.
  *
@@ -207,7 +207,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         return;
     }
 
-    [self.session autoLogin];
+    [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
 
     if (self.unprocessedUserActivity) {
         [self processUserActivity:self.unprocessedUserActivity];

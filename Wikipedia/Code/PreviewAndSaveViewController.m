@@ -36,6 +36,8 @@
 #import <Masonry/Masonry.h>
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WKWebView+LoadAssetsHtml.h"
+#import "WMFAuthenticationManager.h"
+#import "KeychainCredentials.h"
 
 typedef NS_ENUM (NSInteger, WMFCannedSummaryChoices) {
     CANNED_SUMMARY_TYPOS,
@@ -53,6 +55,8 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 };
 
 @interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate>
+
+@property (strong, nonatomic) KeychainCredentials* keychainCredentials;
 
 @property (strong, nonatomic) NSString* captchaId;
 @property (strong, nonatomic) NSString* captchaUrl;
@@ -196,6 +200,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.keychainCredentials                                 = [[KeychainCredentials alloc] init];
     self.previewWebViewContainer.externalLinksOpenerDelegate = self;
     self.previewLicenseView.externalLinksOpenerDelegate      = self;
 
@@ -411,8 +416,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     // Highlight the "Other" button if the user entered some "other" text.
     self.cannedSummary04.enabled = (self.summaryText.length > 0) ? YES : NO;
 
-    BOOL userIsloggedIn = [SessionSingleton sharedInstance].keychainCredentials.userName ? YES : NO;
-    if (userIsloggedIn) {
+    if ([[WMFAuthenticationManager sharedInstance] isLoggedIn]) {
         self.previewLicenseView.licenseLoginLabel.userInteractionEnabled = NO;
         self.previewLicenseView.licenseLoginLabel.attributedText         = nil;
     } else {
@@ -488,7 +492,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
         EditTokenFetcher* tokenFetcher = (EditTokenFetcher*)sender;
 
         void (^ upload)() = ^void () {
-            NSMutableDictionary* editTokens = [SessionSingleton sharedInstance].keychainCredentials.editTokens;
+            NSMutableDictionary* editTokens = self.keychainCredentials.editTokens;
             NSString* editToken             = editTokens[tokenFetcher.title.site.language];
             (void)[[WikiTextSectionUploader alloc] initAndUploadWikiText:tokenFetcher.wikiText
                                                             forPageTitle:tokenFetcher.title
@@ -504,11 +508,11 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 NSMutableDictionary* editTokens =
-                    [SessionSingleton sharedInstance].keychainCredentials.editTokens;
+                    self.keychainCredentials.editTokens;
                 NSString* domain = self.section.site.language;
                 if (domain && tokenFetcher.token) {
-                    editTokens[domain]                                               = tokenFetcher.token;
-                    [SessionSingleton sharedInstance].keychainCredentials.editTokens = editTokens;
+                    editTokens[domain]                  = tokenFetcher.token;
+                    self.keychainCredentials.editTokens = editTokens;
                 }
                 upload();
             }

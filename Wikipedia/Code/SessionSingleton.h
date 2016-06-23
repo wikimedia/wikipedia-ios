@@ -3,10 +3,8 @@
 
 #import <Foundation/Foundation.h>
 #import "MWKHistoryEntry.h"
-#import "KeychainCredentials.h"
 #import "ZeroConfigState.h"
 
-@class KeychainCredentials;
 @class MWKDataStore;
 @class MWKUserDataStore;
 @class MWKSite;
@@ -20,7 +18,6 @@
 + (SessionSingleton*)sharedInstance;
 
 // Persistent settings and credentials
-@property (strong, nonatomic) KeychainCredentials* keychainCredentials;
 @property (strong, nonatomic) ZeroConfigState* zeroConfigState;
 @property (nonatomic) BOOL shouldSendUsageReports;
 
@@ -55,12 +52,5 @@
 
 - (NSURL*)urlForLanguage:(NSString*)language WMF_TECH_DEBT_DEPRECATED_MSG("Use -[MWKSite apiEndpoint] instead.");
 
-
-/**
- *  Logs in the user using saved credentials
- */
-- (void)autoLogin;
-
-- (void)logout;
 
 @end
