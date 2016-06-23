@@ -190,64 +190,104 @@
     return components.URL;
 }
 
-- (NSString*)stringByReplacingImageURLsWithProxyURLsInHTMLString:(NSString*)string {
-    static NSRegularExpression* regex;
+- (NSString*)stringByReplacingImageURLsWithProxyURLsInHTMLString:(NSString*)HTMLString targetImageWidth:(NSUInteger)targetImageWidth {
+    static NSRegularExpression* imageTagRegex;
+    static NSRegularExpression* attributeRegex;
+    static NSRegularExpression* sizeRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString* pattern = @"(<img\\s+[^>]*src\\=)(?:\")(.*?)(?:\")(.*?[^>]*)(>)";
-        regex = [NSRegularExpression regularExpressionWithPattern:pattern
+        NSString* pattern = @"(?<=<img\\s)([^>]*)(?=>)";
+        imageTagRegex = [NSRegularExpression regularExpressionWithPattern:pattern
                                                           options:NSRegularExpressionCaseInsensitive
                                                             error:nil];
-    });
-
-    NSMutableString* mutableString = [string mutableCopy];
-
-    NSArray* matches = [regex matchesInString:mutableString options:0 range:NSMakeRange(0, [mutableString length])];
-
-    NSInteger offset = 0;
-    for (NSTextCheckingResult* result in matches) {
-        NSRange resultRange = [result range];
-        resultRange.location += offset;
-
-        NSString* opener = [regex replacementStringForResult:result
-                                                    inString:mutableString
-                                                      offset:offset
-                                                    template:@"$1"];
-
-        NSString* srcURL = [regex replacementStringForResult:result
-                                                    inString:mutableString
-                                                      offset:offset
-                                                    template:@"$2"];
-
-        NSString* nonSrcPartsOfImgTag = [regex replacementStringForResult:result
-                                                                 inString:mutableString
-                                                                   offset:offset
-                                                                 template:@"$3"];
-
-        NSString* closer = [regex replacementStringForResult:result
-                                                    inString:mutableString
-                                                      offset:offset
-                                                    template:@"$4"];
+        NSString *attributePattern = @"(src|data-file-width)=[\"']?((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\"']?";
+        attributeRegex = [NSRegularExpression regularExpressionWithPattern:attributePattern options:NSRegularExpressionCaseInsensitive error:nil];
         
-        NSString* nonSrcPartsOfImgTagWithSrcSetRemoved = [nonSrcPartsOfImgTag stringByReplacingOccurrencesOfString:@"srcset" withString:@"data-srcset-disabled"];
+        NSString *sizePattern = @"^[0-9]+(?=px-)";
+        sizeRegex = [NSRegularExpression regularExpressionWithPattern:sizePattern options:NSRegularExpressionCaseInsensitive error:nil];
+    });
+    
+    //defensively copy
+    HTMLString = [HTMLString copy];
+    
+    NSMutableString *newHTMLString = [NSMutableString stringWithString:@""];
 
-        if ([srcURL wmf_trim].length > 0) {
-            srcURL = [self proxyURLForImageURLString:srcURL].absoluteString;
+    __block NSInteger location = 0;
+    [imageTagRegex enumerateMatchesInString:HTMLString options:0 range:NSMakeRange(0, HTMLString.length) usingBlock:^(NSTextCheckingResult * _Nullable imageTagResult, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+        //append whatever we skipped over to the new string
+        NSString *nonMatchingStringToAppend = [HTMLString substringWithRange:NSMakeRange(location, imageTagResult.range.location - location)];
+        NSString *imageTagContents = [HTMLString substringWithRange:imageTagResult.range];
+        __block NSString *src = nil;
+        __block NSRange srcAttributeRange = NSMakeRange(NSNotFound, 0);
+        __block NSInteger dataFileWidth = 0;
+        NSInteger attributeOffset = 0;
+        [attributeRegex enumerateMatchesInString:imageTagContents options:0 range:NSMakeRange(0, imageTagContents.length) usingBlock:^(NSTextCheckingResult * _Nullable attributeResult, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+            NSString *attributeName = [[attributeRegex replacementStringForResult:attributeResult inString:imageTagContents offset:attributeOffset template:@"$1"] lowercaseString];
+            NSString *attributeValue = [attributeRegex replacementStringForResult:attributeResult inString:imageTagContents offset:attributeOffset template:@"$2"];
+            if ([attributeName isEqualToString:@"src"]) {
+                src = attributeValue;
+                srcAttributeRange = attributeResult.range;
+            } else if ([attributeName isEqualToString:@"data-file-width"]) {
+                dataFileWidth = [attributeValue integerValue];
+            }
+            *stop = dataFileWidth > 0 && srcAttributeRange.location != NSNotFound;
+        }];
+        
+        NSMutableString *newImageTagContents = [imageTagContents mutableCopy];
+        BOOL didResize = false;
+        
+        if (src) {
+            NSMutableArray *srcPathComponents = [[src pathComponents] mutableCopy];
+            if (dataFileWidth > 0 && srcPathComponents.count > 4 && [[srcPathComponents[srcPathComponents.count - 5] lowercaseString] isEqualToString:@"thumb"]) {
+                if (dataFileWidth > targetImageWidth) { //if the original file width is larger than the target width
+                    //replace the thumbnail width prefix with the target width
+                    NSString *filename = srcPathComponents[srcPathComponents.count - 1];
+                    [sizeRegex enumerateMatchesInString:filename options:0 range:NSMakeRange(0, filename.length) usingBlock:^(NSTextCheckingResult * _Nullable sizeResult, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+                        NSMutableString *newFilename = [filename mutableCopy];
+                        NSString *newSizeString = [NSString stringWithFormat:@"%llu", (unsigned long long)targetImageWidth];
+                        [newFilename replaceCharactersInRange:sizeResult.range withString:newSizeString];
+                        [srcPathComponents replaceObjectAtIndex:srcPathComponents.count - 1 withObject:newFilename];
+                        *stop = YES;
+                    }];
+                } else { // else the original file is smaller than the target width, and we should just request the original image
+                    //remove /thumb/ and the /##px- filename leaving only the original file path
+                    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSetWithIndex:srcPathComponents.count - 5];
+                    [indexSet addIndex:srcPathComponents.count - 1];
+                    [srcPathComponents removeObjectsAtIndexes:indexSet];
+                }
+                didResize = true;
+            }
+            
+            NSString *sizeAdjustedSrc = [NSString pathWithComponents:srcPathComponents];
+            if (![sizeAdjustedSrc hasPrefix:@"//"] && [sizeAdjustedSrc hasPrefix:@"/"]) {
+                sizeAdjustedSrc = [@[@"/", sizeAdjustedSrc] componentsJoinedByString:@""];
+            }
+            
+            NSString *sizeAdjustedSrcWithProxy = [self proxyURLForImageURLString:sizeAdjustedSrc].absoluteString;
+            
+            if (sizeAdjustedSrcWithProxy) {
+                NSString *newSrcAttribute = [@[@"src=\"", sizeAdjustedSrcWithProxy, @"\""] componentsJoinedByString:@""];
+                [newImageTagContents replaceCharactersInRange:srcAttributeRange withString:newSrcAttribute];
+            }
         }
+        
+        [newImageTagContents replaceOccurrencesOfString:@"srcset" withString:@"data-srcset-disabled" options:0 range:NSMakeRange(0, newImageTagContents.length)];
+        
+        if (didResize) {
+            [newImageTagContents appendString:@" data-image-resized=\"true\""];
+        }
+        
+        [newHTMLString appendString:nonMatchingStringToAppend];
+        [newHTMLString appendString:newImageTagContents];
+        
+        location = imageTagResult.range.location + imageTagResult.range.length;
+        *stop = false;
+    }];
+    
+    //append the rest of the original string
+    [newHTMLString appendString:[HTMLString substringWithRange:NSMakeRange(location, HTMLString.length - location)]];
 
-        NSString* replacement = [NSString stringWithFormat:@"%@\"%@\"%@%@",
-                                 opener,
-                                 srcURL,
-                                 nonSrcPartsOfImgTagWithSrcSetRemoved,
-                                 closer
-                                ];
-
-        [mutableString replaceCharactersInRange:resultRange withString:replacement];
-
-        offset += [replacement length] - resultRange.length;
-    }
-
-    return mutableString;
+    return newHTMLString;
 }
 
 #pragma mark - BaseURL (for testing only)

@@ -25,8 +25,9 @@
     }
     
     WMFProxyServer *proxyServer = [WMFProxyServer sharedProxyServer];
-
-    string = [proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string];
+    CGFloat padding = 32;// HAX: hardcoded based on measurement. can we get this value somewhere?
+    NSUInteger targetImageWidth = (NSUInteger)((self.bounds.size.width - padding) * self.window.screen.scale);
+    string = [proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:targetImageWidth];
 
     NSString* path = [[self getAssetsPath] stringByAppendingPathComponent:fileName];
 

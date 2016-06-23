@@ -704,7 +704,8 @@ function getStretchRatio(image){
 
 function useHigherResolutionImageSrcIfNecessary(image) {
     var src = image.getAttribute('src');
-    if (src){
+	var resized = image.getAttribute('data-image-resized');
+    if (resized !== "true" && src){
         var stretchRatio = getStretchRatio(image);
         if (stretchRatio > maxStretchRatioAllowedBeforeRequestingHigherResolution) {
 			var pathComponents = src.split("/");
