@@ -1,5 +1,5 @@
 #import "WMFPeekHTMLElement.h"
-#import "NSURL+WMFExtras.h"
+#import "NSURL+WMFProxyServer.h"
 
 @interface WMFPeekHTMLElement()
 

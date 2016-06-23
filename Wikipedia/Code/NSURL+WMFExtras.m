@@ -57,10 +57,6 @@
     return matchingItem.value;
 }
 
-- (nullable NSURL*)wmf_imageProxyOriginalSrcURL {
-    return [NSURL URLWithString:[self wmf_valueForQueryKey:@"originalSrc"]];
-}
-
 - (BOOL)wmf_isIntraPageFragment {
     return ([self.path isEqualToString:@"/"] && self.fragment);
 }
