@@ -142,83 +142,84 @@
     
     XCTAssert(self.imageView.image == self.image);
 }
-//
-//- (void)testSuccessfullySettingImageFromMetadataWithoutCenterFaces {
-//    NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
-//    MWKImage* testMetadata = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:testURL];
-//
-//    WMFImageDownload* successfulDownload = [[WMFImageDownload alloc] initWithUrl:testURL
-//                                                                           image:[UIImage new]
-//                                                                  originRawValue:[WMFImageDownload imageOriginNetwork]];
-//    [MKTGiven([self.mockImageController fetchImageWithURL:testURL])
-//     willReturn:[AnyPromise promiseWithValue:successfulDownload]];
-//
-//    [self.imageView wmf_setImageController:self.mockImageController];
-//
-//    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
-//
-//    [self.imageView wmf_setImageWithMetadata:testMetadata detectFaces:NO]
-//    .then(^(){
-//        [promiseExpectation fulfill];
-//    })
-//    .catch(^(NSError* error){
-//        XCTFail(@"Error callback erroneously called with error %@", error);
-//    });
-//
-//    XCTAssert(self.imageView.wmf_imageController == self.mockImageController,
-//              @"Image controller should be set immediately after the method is called so it can be cancelled.");
-//
-//    XCTAssert(self.imageView.wmf_imageMetadata == testMetadata,
-//              @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
-//
-//
-//    [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
-//
-//    WaitForExpectations();
-//
-//    assertThat(self.imageView.image, is(successfulDownload.image));
-//
-//    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata],
-//              @"Face detection should NOT have ran.");
-//
-//    assertThat(@(testMetadata.didDetectFaces), isFalse());
-//}
-//
-//- (void)testSuccessfullySettingImageFromURLWithoutCenterFaces {
-//    NSURL* testURL                       = [NSURL URLWithString:@"http://test/request.png"];
-//    WMFImageDownload* successfulDownload = [[WMFImageDownload alloc] initWithUrl:testURL
-//                                                                           image:[UIImage new]
-//                                                                  originRawValue:[WMFImageDownload imageOriginNetwork]];
-//    [MKTGiven([self.mockImageController fetchImageWithURL:testURL])
-//     willReturn:[AnyPromise promiseWithValue:successfulDownload]];
-//
-//    [self.imageView wmf_setImageController:self.mockImageController];
-//
-//    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
-//
-//    [self.imageView wmf_setImageWithURL:testURL detectFaces:NO]
-//    .then(^(){
-//        [promiseExpectation fulfill];
-//    })
-//    .catch(^(NSError* error){
-//        XCTFail(@"Error callback erroneously called with error %@", error);
-//    });
-//
-//    XCTAssert(self.imageView.wmf_imageController == self.mockImageController,
-//              @"Image controller should be set immediately after the method is called so it can be cancelled.");
-//
-//    XCTAssert(self.imageView.wmf_imageURL == testURL,
-//              @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
-//
-//    WaitForExpectations();
-//
-//    assertThat(self.imageView.image, is(successfulDownload.image));
-//
-//    XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL],
-//              @"Face detection should NOT have ran.");
-//
-//    [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
-//}
+
+- (void)testSuccessfullySettingImageFromMetadataWithoutCenterFaces {
+    MWKImage* testMetadata = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:self.testURL];
+    
+    XCTestExpectation* expectation = [self expectationWithDescription:@"wait for download"];
+    [self.imageController fetchImageWithURL:self.testURL failure:^(NSError* _Nonnull error) {
+        XCTAssert(false);
+        [expectation fulfill];
+    } success:^(WMFImageDownload* _Nonnull download) {
+        self.image = download.image;
+        [expectation fulfill];
+    }];
+    
+    WaitForExpectations();
+    
+    [self.imageView wmf_setImageController:self.imageController];
+    
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
+    
+    [self.imageView wmf_setImageWithMetadata:testMetadata detectFaces:NO failure:^(NSError* error) {
+        XCTFail(@"Error callback erroneously called with error %@", error);
+        [promiseExpectation fulfill];
+    } success:^{
+        [promiseExpectation fulfill];
+    }];
+    
+    
+    XCTAssert(self.imageView.wmf_imageController == self.imageController,
+              @"Image controller should be set immediately after the method is called so it can be cancelled.");
+    
+    XCTAssert(self.imageView.wmf_imageMetadata == testMetadata,
+              @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
+    
+    WaitForExpectations();
+    
+    XCTAssert(self.imageView.image == self.image);
+    
+    assertThat(@(testMetadata.didDetectFaces), isFalse());
+    
+    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == YES,
+              @"Face detection should NOT have ran.");
+}
+
+- (void)testSuccessfullySettingImageFromURLWithoutCenterFaces {
+    XCTestExpectation* expectation = [self expectationWithDescription:@"wait for download"];
+    [self.imageController fetchImageWithURL:self.testURL failure:^(NSError* _Nonnull error) {
+        XCTAssert(false);
+        [expectation fulfill];
+    } success:^(WMFImageDownload* _Nonnull download) {
+        self.image = download.image;
+        [expectation fulfill];
+    }];
+    
+    WaitForExpectations();
+    
+    [self.imageView wmf_setImageController:self.imageController];
+    
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
+    
+    [self.imageView wmf_setImageWithURL:self.testURL detectFaces:NO failure:^(NSError* error) {
+        XCTFail(@"Error callback erroneously called with error %@", error);
+        [promiseExpectation fulfill];
+    } success:^{
+        [promiseExpectation fulfill];
+    }];
+    
+    XCTAssert(self.imageView.wmf_imageController == self.imageController,
+              @"Image controller should be set immediately after the method is called so it can be cancelled.");
+    
+    XCTAssert(self.imageView.wmf_imageURL == self.testURL,
+              @"Image url should be set immediately after the method is called so it can be checked & cancelled.");
+    
+    WaitForExpectations();
+    
+    XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:self.testURL] == YES, @"Face detection should NOT have ran.");
+    
+    XCTAssert(self.imageView.image == self.image);
+}
 //
 //- (void)testSuccessfullySettingCachedImageWithoutCenterFaces {
 //    NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
