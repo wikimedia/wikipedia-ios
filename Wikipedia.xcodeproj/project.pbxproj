@@ -67,6 +67,7 @@
 		0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
 		0E9B9E331CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9B9E301CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m */; };
 		0EA4D8941C4867BF0043622B /* UITableView+WMFLockedUpdates.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA4D8921C4867BF0043622B /* UITableView+WMFLockedUpdates.m */; };
+		0EBB23181D1A2C4A00CA9742 /* WMFAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBB23171D1A2C4A00CA9742 /* WMFAuthenticationManager.m */; };
 		0EBCA7431C162ECF004F1FD9 /* MWKTitleLanguageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */; };
 		0EBCA7461C162EE9004F1FD9 /* MWKLanguageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7451C162EE9004F1FD9 /* MWKLanguageFilter.m */; };
 		0EBCA7481C176389004F1FD9 /* WMFAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7471C176389004F1FD9 /* WMFAlertManager.swift */; };
@@ -670,12 +671,12 @@
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
 		D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
 		D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */; };
-		D86C1BAE1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = D86C1BAD1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m */; };
-		D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */; };
 		D81082F81D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = D81082F71D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m */; };
 		D81083071D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m in Sources */ = {isa = PBXBuildFile; fileRef = D81083061D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m */; };
-		D8CDBA9F1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */; };
+		D86C1BAE1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = D86C1BAD1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m */; };
 		D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C0C00A1D144FF30019374D /* WMFProxyServer.m */; };
+		D8CDBA9F1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */; };
+		D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -796,6 +797,8 @@
 		0E9B9E311CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryDetailOverlayView.h; path = Wikipedia/Code/WMFImageGalleryDetailOverlayView.h; sourceTree = SOURCE_ROOT; };
 		0EA4D8921C4867BF0043622B /* UITableView+WMFLockedUpdates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+WMFLockedUpdates.m"; sourceTree = "<group>"; };
 		0EA4D8931C4867BF0043622B /* UITableView+WMFLockedUpdates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+WMFLockedUpdates.h"; sourceTree = "<group>"; };
+		0EBB23161D1A2C4A00CA9742 /* WMFAuthenticationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFAuthenticationManager.h; sourceTree = "<group>"; };
+		0EBB23171D1A2C4A00CA9742 /* WMFAuthenticationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFAuthenticationManager.m; sourceTree = "<group>"; };
 		0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKTitleLanguageController.m; path = Wikipedia/Code/MWKTitleLanguageController.m; sourceTree = SOURCE_ROOT; };
 		0EBCA7421C162ECF004F1FD9 /* MWKTitleLanguageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKTitleLanguageController.h; path = Wikipedia/Code/MWKTitleLanguageController.h; sourceTree = SOURCE_ROOT; };
 		0EBCA7441C162EE9004F1FD9 /* MWKLanguageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKLanguageFilter.h; path = Wikipedia/Code/MWKLanguageFilter.h; sourceTree = SOURCE_ROOT; };
@@ -2001,16 +2004,16 @@
 		D499145A181D51DF00E6073C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D4C16A6519709CDF00CD91AD /* qqq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = qqq; path = qqq.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		D86C1BAC1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLComponents+WMFLinkParsing.h"; path = "Wikipedia/Code/NSURLComponents+WMFLinkParsing.h"; sourceTree = SOURCE_ROOT; };
-		D86C1BAD1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURLComponents+WMFLinkParsing.m"; path = "Wikipedia/Code/NSURLComponents+WMFLinkParsing.m"; sourceTree = SOURCE_ROOT; };
-		D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLinkParsingTests.m; sourceTree = "<group>"; };
 		D81082F61D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+WMFExtendedFileAttributes.h"; path = "Wikipedia/Code/NSFileManager+WMFExtendedFileAttributes.h"; sourceTree = SOURCE_ROOT; };
 		D81082F71D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+WMFExtendedFileAttributes.m"; path = "Wikipedia/Code/NSFileManager+WMFExtendedFileAttributes.m"; sourceTree = SOURCE_ROOT; };
 		D81083051D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKProcessPool+WMFSharedProcessPool.h"; path = "Wikipedia/Code/WKProcessPool+WMFSharedProcessPool.h"; sourceTree = SOURCE_ROOT; };
 		D81083061D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKProcessPool+WMFSharedProcessPool.m"; path = "Wikipedia/Code/WKProcessPool+WMFSharedProcessPool.m"; sourceTree = SOURCE_ROOT; };
-		D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableOfContentsAboutThisArticleItem.swift; path = Wikipedia/Code/TableOfContentsAboutThisArticleItem.swift; sourceTree = SOURCE_ROOT; };
+		D86C1BAC1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLComponents+WMFLinkParsing.h"; path = "Wikipedia/Code/NSURLComponents+WMFLinkParsing.h"; sourceTree = SOURCE_ROOT; };
+		D86C1BAD1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURLComponents+WMFLinkParsing.m"; path = "Wikipedia/Code/NSURLComponents+WMFLinkParsing.m"; sourceTree = SOURCE_ROOT; };
 		D8C0C0091D144FF30019374D /* WMFProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFProxyServer.h; sourceTree = "<group>"; };
 		D8C0C00A1D144FF30019374D /* WMFProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProxyServer.m; sourceTree = "<group>"; };
+		D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableOfContentsAboutThisArticleItem.swift; path = Wikipedia/Code/TableOfContentsAboutThisArticleItem.swift; sourceTree = SOURCE_ROOT; };
+		D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLinkParsingTests.m; sourceTree = "<group>"; };
 		DC96DA4AAD521D734849D20F /* Pods-WikipediaUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EDA528BC357952A7D914F8E0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2163,10 +2166,6 @@
 				B0E804001C0CDE480065EBC0 /* LoginViewController.storyboard */,
 				B0E806BA1C0CEB260065EBC0 /* LoginViewController.h */,
 				B0E806BB1C0CEB260065EBC0 /* LoginViewController.m */,
-				B0E8065D1C0CE9030065EBC0 /* LoginTokenFetcher.h */,
-				B0E8065E1C0CE9030065EBC0 /* LoginTokenFetcher.m */,
-				B0E8063F1C0CE7F70065EBC0 /* AccountLogin.h */,
-				B0E806401C0CE7F70065EBC0 /* AccountLogin.m */,
 			);
 			name = Login;
 			path = Wikipedia/Code/Login;
@@ -2281,14 +2280,9 @@
 		04A97E8418B81D440046B166 /* AccountCreation */ = {
 			isa = PBXGroup;
 			children = (
+				B0E803FC1C0CDE480065EBC0 /* AccountCreationViewController.storyboard */,
 				B0E806971C0CEAC20065EBC0 /* AccountCreationViewController.h */,
 				B0E806981C0CEAC20065EBC0 /* AccountCreationViewController.m */,
-				B0E803FC1C0CDE480065EBC0 /* AccountCreationViewController.storyboard */,
-				B0E8063B1C0CE7F70065EBC0 /* AccountCreationTokenFetcher.h */,
-				B0E8063C1C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m */,
-				B0E8063D1C0CE7F70065EBC0 /* AccountCreator.h */,
-				B0E8063E1C0CE7F70065EBC0 /* AccountCreator.m */,
-				04B7B9BA18B5569600A63551 /* Captcha */,
 			);
 			name = AccountCreation;
 			path = Wikipedia/Code/AccountCreation;
@@ -2500,8 +2494,7 @@
 			children = (
 				0449E63218A9844000D51524 /* Login */,
 				04A97E8418B81D440046B166 /* AccountCreation */,
-				0463639518A844380049EE4F /* Keychain */,
-				0E26628E1D09ED1C006D4A46 /* AuthManager Info */,
+				0EBB23191D1C450900CA9742 /* AuthenticationManager */,
 			);
 			name = Authentication;
 			sourceTree = "<group>";
@@ -2926,6 +2919,42 @@
 			name = "View Controller";
 			path = Wikipedia/Code;
 			sourceTree = SOURCE_ROOT;
+		};
+		0EBB23191D1C450900CA9742 /* AuthenticationManager */ = {
+			isa = PBXGroup;
+			children = (
+				0EBB23161D1A2C4A00CA9742 /* WMFAuthenticationManager.h */,
+				0EBB23171D1A2C4A00CA9742 /* WMFAuthenticationManager.m */,
+				0463639518A844380049EE4F /* Keychain */,
+				0E26628E1D09ED1C006D4A46 /* AuthManager Info */,
+				0EBB231A1D1C453C00CA9742 /* Login */,
+				0EBB231B1D1C454500CA9742 /* Account Creation */,
+			);
+			name = AuthenticationManager;
+			sourceTree = "<group>";
+		};
+		0EBB231A1D1C453C00CA9742 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				B0E8065D1C0CE9030065EBC0 /* LoginTokenFetcher.h */,
+				B0E8065E1C0CE9030065EBC0 /* LoginTokenFetcher.m */,
+				B0E8063F1C0CE7F70065EBC0 /* AccountLogin.h */,
+				B0E806401C0CE7F70065EBC0 /* AccountLogin.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		0EBB231B1D1C454500CA9742 /* Account Creation */ = {
+			isa = PBXGroup;
+			children = (
+				B0E8063B1C0CE7F70065EBC0 /* AccountCreationTokenFetcher.h */,
+				B0E8063C1C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m */,
+				B0E8063D1C0CE7F70065EBC0 /* AccountCreator.h */,
+				B0E8063E1C0CE7F70065EBC0 /* AccountCreator.m */,
+				04B7B9BA18B5569600A63551 /* Captcha */,
+			);
+			name = "Account Creation";
+			sourceTree = "<group>";
 		};
 		0EC0447C1C7974590033D773 /* Share Sources */ = {
 			isa = PBXGroup;
@@ -5913,6 +5942,7 @@
 				B0E804CE1C0CE0B40065EBC0 /* NSDateFormatter+WMFExtensions.m in Sources */,
 				BCCB81421C11078B008BC602 /* MWKSite+CommonsSite.m in Sources */,
 				B0E803671C0CD91D0065EBC0 /* WMFArticleViewController.m in Sources */,
+				0EBB23181D1A2C4A00CA9742 /* WMFAuthenticationManager.m in Sources */,
 				B0E807D61C0CF04A0065EBC0 /* MWKCitation.m in Sources */,
 				B0E804CA1C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m in Sources */,
 				B0E805621C0CE0DC0065EBC0 /* WKWebView+LoadAssetsHtml.m in Sources */,
