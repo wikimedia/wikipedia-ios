@@ -147,6 +147,8 @@
 }
 
 - (void)testPerformanceExample {
+    NSString* allObamaHTMLWithImageTagsChanged = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:[self allObamaHTML] targetImageWidth:686];
+    NSLog(@"allObamaHTMLWithImageTagsChanged length = %lu", (unsigned long)allObamaHTMLWithImageTagsChanged.length);
     [self measureBlock:^{
         NSString* allObamaHTMLWithImageTagsChanged = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:[self allObamaHTML] targetImageWidth:686];
         NSLog(@"allObamaHTMLWithImageTagsChanged length = %lu", (unsigned long)allObamaHTMLWithImageTagsChanged.length);
