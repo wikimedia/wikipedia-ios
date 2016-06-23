@@ -42,4 +42,14 @@
     return components.URL;
 }
 
+- (NSURL*)wmf_urlWithoutQueryKey:(NSString*)key {
+    NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES];
+    NSArray<NSURLQueryItem *> *queryItems = [components.queryItems
+                                             bk_select:^BOOL (NSURLQueryItem* item) {
+                                                 return ([item.name isEqualToString:key]) ? NO: YES;
+                                             }];
+    components.queryItems = queryItems;
+    return components.URL;
+}
+
 @end

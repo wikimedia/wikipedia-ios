@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSString*)wmf_valueForQueryKey:(NSString*)key;
 
 /**
- * Adds or modifies value for given url query key.
+ * Gets NSURL with value for given url query key added or modified.
  *
  * @param value     The value to add.
  * @param key       If key is present, just modify its associated value. Else add the key / value.
@@ -23,6 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
  * @return          URL with added or updated key value pair. For the url http://www.wikipedia.org?somekey=somevalue using the key 'color' and value 'red' would return the http://www.wikipedia.org?somekey=somevalue&color=red However using the existing key 'somekey' and value 'othervalue' would return http://www.wikipedia.org?somekey=othervalue
  **/
 - (NSURL*)wmf_urlWithValue:(NSString*)value forQueryKey:(NSString*)key;
+
+/**
+ * Gets NSURL with key and its value removed.
+ *
+ * @param key       Key to remove if present.
+ *
+ * @return          URL with key and its value removed. For the url http://www.wikipedia.org?somekey=somevalue&color=red using the key 'somekey' would return the http://www.wikipedia.org?color=red
+ **/
+- (NSURL*)wmf_urlWithoutQueryKey:(NSString*)key;
 
 @end
 
