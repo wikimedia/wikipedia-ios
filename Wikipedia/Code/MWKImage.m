@@ -321,7 +321,7 @@
     // HAX: If this image MWKImage record doesn't have width/height values (because it
     // wasn't determined when parsing the article HTML's image url) see if the cache can
     // tell us the size.
-    if (![self hasEstimatedSize]) {
+    if (![self hasEstimatedSize] && ![self hasOriginalFileSize]) {
         UIImage* image = [self imageFromAppImageCache];
         if (!CGSizeEqualToSize(image.size, CGSizeZero)) {
             self.width  = @(image.size.width);
@@ -342,8 +342,15 @@
             return YES;
         }
     }
+    
+    CGSize sizeToCheck = CGSizeZero;
+    if ([self hasOriginalFileSize]) {
+        sizeToCheck = [self originalFileSize];
+    } else {
+        sizeToCheck = [self estimatedSize];
+    }
 
-    return [MWKImage isSizeLargeEnoughForGalleryInclusion:[self estimatedSize]];
+    return [MWKImage isSizeLargeEnoughForGalleryInclusion:sizeToCheck];
 }
 
 + (BOOL)isSizeLargeEnoughForGalleryInclusion:(CGSize)size {
