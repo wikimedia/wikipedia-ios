@@ -195,7 +195,7 @@
     static NSRegularExpression* sizeRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString* pattern = @"(?<=<img\\s)([^>]*)(?=>)";
+        NSString* pattern = @"(?:<img\\s)([^>]*)(?:>)";
         imageTagRegex = [NSRegularExpression regularExpressionWithPattern:pattern
                                                           options:NSRegularExpressionCaseInsensitive
                                                             error:nil];
@@ -215,7 +215,7 @@
     [imageTagRegex enumerateMatchesInString:HTMLString options:0 range:NSMakeRange(0, HTMLString.length) usingBlock:^(NSTextCheckingResult * _Nullable imageTagResult, NSMatchingFlags flags, BOOL * _Nonnull stop) {
         //append whatever we skipped over to the new string
         NSString *nonMatchingStringToAppend = [HTMLString substringWithRange:NSMakeRange(location, imageTagResult.range.location - location)];
-        NSString *imageTagContents = [HTMLString substringWithRange:imageTagResult.range];
+        NSString *imageTagContents = [imageTagRegex replacementStringForResult:imageTagResult inString:HTMLString offset:0 template:@"$1"];
         __block NSString *src = nil;
         __block NSRange srcAttributeRange = NSMakeRange(NSNotFound, 0);
         __block NSInteger dataFileWidth = 0;
@@ -280,7 +280,7 @@
         }
         
         [newHTMLString appendString:nonMatchingStringToAppend];
-        [newHTMLString appendString:newImageTagContents];
+        [newHTMLString appendString:[@[@"<img ", newImageTagContents, @">"] componentsJoinedByString:@""]];
         
         location = imageTagResult.range.location + imageTagResult.range.length;
         *stop = false;
