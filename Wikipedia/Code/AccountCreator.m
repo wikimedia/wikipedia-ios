@@ -19,7 +19,6 @@
 @property (strong, nonatomic) NSString* email;
 @property (strong, nonatomic) NSString* captchaId;
 @property (strong, nonatomic) NSString* captchaWord;
-@property (assign, nonatomic) BOOL useAuthManager;
 
 @end
 
@@ -33,31 +32,29 @@
                                       captchaId:(NSString*)captchaId
                                     captchaWord:(NSString*)captchaWord
                                           token:(NSString*)token
-                                 useAuthManager:(BOOL)useAuthManager
                                     withManager:(AFHTTPSessionManager*)manager
                              thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
-        self.userName       = userName ? userName : @"";
-        self.realName       = realName ? realName : @"";
-        self.domain         = domain ? domain : @"";
-        self.password       = password ? password : @"";
-        self.email          = email ? email : @"";
-        self.captchaId      = captchaId ? captchaId : @"";
-        self.captchaWord    = captchaWord ? captchaWord : @"";
-        self.token          = token ? token : @"";
-        self.useAuthManager = useAuthManager;
+        self.userName    = userName ? userName : @"";
+        self.realName    = realName ? realName : @"";
+        self.domain      = domain ? domain : @"";
+        self.password    = password ? password : @"";
+        self.email       = email ? email : @"";
+        self.captchaId   = captchaId ? captchaId : @"";
+        self.captchaWord = captchaWord ? captchaWord : @"";
+        self.token       = token ? token : @"";
 
         self.fetchFinishedDelegate = delegate;
-        [self createAccountWithManager:manager useAuthManager:useAuthManager];
+        [self createAccountWithManager:manager];
     }
     return self;
 }
 
-- (void)createAccountWithManager:(AFHTTPSessionManager*)manager useAuthManager:(BOOL)useAuthManager {
+- (void)createAccountWithManager:(AFHTTPSessionManager*)manager {
     NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain];
 
-    NSDictionary* params = useAuthManager ? [self getAuthManagerParams] : [self getLegacyParams];
+    NSDictionary* params = [self getAuthManagerParams];
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
@@ -95,36 +92,14 @@
 
         NSString* result = @"";
         if (!error) {
-            if (useAuthManager) {
-                //result
+            if ([responseObject[@"createaccount"][@"status"] isEqualToString:@"FAIL"] && [responseObject[@"createaccount"][@"message"] isEqualToString:@"Incorrect or missing CAPTCHA."]) {
+                NSMutableDictionary* errorDict = @{}.mutableCopy;
 
-                if ([responseObject[@"createaccount"][@"status"] isEqualToString:@"FAIL"] && [responseObject[@"createaccount"][@"message"] isEqualToString:@"Incorrect or missing CAPTCHA."]) {
-                    NSMutableDictionary* errorDict = @{}.mutableCopy;
+                errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"account-creation-captcha-required", nil);
 
-                    errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"account-creation-captcha-required", nil);
-
-                    error = [NSError errorWithDomain:@"Account Creation Fetcher"
-                                                code:ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA
-                                            userInfo:errorDict];
-                }
-            } else {
-                result = [self getSanitizedResultFromResponse:responseObject];
-
-                if ([result isEqualToString:@"NeedCaptcha"]) {
-                    NSMutableDictionary* errorDict = @{}.mutableCopy;
-
-                    if (responseObject[@"createaccount"][@"captcha"]) {
-                        errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"account-creation-captcha-required", nil);
-
-                        // Make the capcha id and url available from the error.
-                        errorDict[@"captchaId"] = responseObject[@"createaccount"][@"captcha"][@"id"];
-                        errorDict[@"captchaUrl"] = responseObject[@"createaccount"][@"captcha"][@"url"];
-                    }
-
-                    error = [NSError errorWithDomain:@"Account Creation Fetcher"
-                                                code:ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA
-                                            userInfo:errorDict];
-                }
+                error = [NSError errorWithDomain:@"Account Creation Fetcher"
+                                            code:ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA
+                                        userInfo:errorDict];
             }
         }
 
@@ -136,33 +111,6 @@
         [self finishWithError:error
                   fetchedData:nil];
     }];
-}
-
-- (NSMutableDictionary*)getLegacyParams {
-    NSMutableDictionary* params =
-        @{
-        @"action": @"createaccount",
-        @"name": self.userName,
-        @"password": self.password,
-        @"realname": self.realName,
-        @"email": self.email,
-        @"reason": ([self.domain isEqualToString:@"test"] ? @"iOS App Account Creation Testing" : @"iOS App Account Creation"),
-        @"language": ([self.domain isEqualToString:@"test"] ? @"en" : self.domain),
-        @"format": @"json"
-    }.mutableCopy;
-
-    if (self.token && self.token.length > 0) {
-        params[@"token"] = self.token;
-    }
-    if (self.captchaId && self.captchaId.length > 0) {
-        params[@"captchaid"] = self.captchaId;
-    }
-    if (self.captchaWord && self.captchaWord.length > 0) {
-        params[@"captchaword"] = self.captchaWord;
-    }
-
-    //NSLog(@"params = %@", params);
-    return params;
 }
 
 - (NSMutableDictionary*)getAuthManagerParams {
@@ -188,22 +136,6 @@
     }
 
     return params;
-}
-
-- (NSString*)getSanitizedResultFromResponse:(NSDictionary*)rawResponse {
-    if (![rawResponse isDict]) {
-        return @"";
-    }
-
-    id createaccount = rawResponse[@"createaccount"];
-
-    if (![createaccount isDict]) {
-        return @"";
-    }
-
-    NSString* result = createaccount[@"result"];
-
-    return (result ? result : @"");
 }
 
 @end

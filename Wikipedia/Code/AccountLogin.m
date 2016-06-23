@@ -16,7 +16,6 @@ NSString* const WMFAccountLoginErrorDomain = @"WMFAccountLoginErrorDomain";
 @property (strong, nonatomic) NSString* userName;
 @property (strong, nonatomic) NSString* password;
 @property (strong, nonatomic) NSString* token;
-@property (assign, nonatomic) BOOL useAuthManager;
 
 @end
 
@@ -26,27 +25,25 @@ NSString* const WMFAccountLoginErrorDomain = @"WMFAccountLoginErrorDomain";
                              userName:(NSString*)userName
                              password:(NSString*)password
                                 token:(NSString*)token
-                       useAuthManager:(BOOL)useAuthManager
                           withManager:(AFHTTPSessionManager*)manager
                    thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
-        self.domain         = domain ? domain : @"";
-        self.userName       = userName ? userName : @"";
-        self.password       = password ? password : @"";
-        self.token          = token ? token : @"";
-        self.useAuthManager = useAuthManager;
+        self.domain   = domain ? domain : @"";
+        self.userName = userName ? userName : @"";
+        self.password = password ? password : @"";
+        self.token    = token ? token : @"";
 
         self.fetchFinishedDelegate = delegate;
-        [self loginWithManager:manager useAuthManager:useAuthManager];
+        [self loginWithManager:manager];
     }
     return self;
 }
 
-- (void)loginWithManager:(AFHTTPSessionManager*)manager useAuthManager:(BOOL)useAuthManager {
+- (void)loginWithManager:(AFHTTPSessionManager*)manager {
     NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain];
 
-    NSDictionary* params = useAuthManager ? [self getAuthManagerParams] : [self getLegacyParams];
+    NSDictionary* params = [self getAuthManagerParams];
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
@@ -59,47 +56,17 @@ NSString* const WMFAccountLoginErrorDomain = @"WMFAccountLoginErrorDomain";
             responseObject = @{@"error": @{@"info": @"Account login info not found."}};
         }
 
-        if (useAuthManager) {
-            NSError* error = nil;
-            NSDictionary* output = @{};
-            if ([responseObject[@"clientlogin"][@"status"] isEqualToString:@"FAIL"]) {
-                NSMutableDictionary* errorDict = [responseObject[@"clientlogin"] mutableCopy];
-                errorDict[NSLocalizedDescriptionKey] = errorDict[@"message"];
-                error = [NSError errorWithDomain:WMFAccountLoginErrorDomain
-                                            code:LOGIN_ERROR_API
-                                        userInfo:errorDict];
-            } else {
-                output = responseObject[@"clientlogin"];
-            }
-            [self finishWithError:error
-                      fetchedData:output];
-
-            return;
-        }
-
-
-        //NSLog(@"LOGIN DATA RETRIEVED = %@", responseObject);
-
-        // Handle case where response is received, but API reports error.
         NSError* error = nil;
-        if (responseObject[@"error"]) {
-            NSMutableDictionary* errorDict = [responseObject[@"error"] mutableCopy];
-            errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
+        NSDictionary* output = @{};
+        if ([responseObject[@"clientlogin"][@"status"] isEqualToString:@"FAIL"]) {
+            NSMutableDictionary* errorDict = [responseObject[@"clientlogin"] mutableCopy];
+            errorDict[NSLocalizedDescriptionKey] = errorDict[@"message"];
             error = [NSError errorWithDomain:WMFAccountLoginErrorDomain
                                         code:LOGIN_ERROR_API
                                     userInfo:errorDict];
+        } else {
+            output = responseObject[@"clientlogin"];
         }
-
-        NSDictionary* output = @{};
-        if (!error) {
-            output = [self getSanitizedResponse:responseObject];
-        }
-
-        NSString* result = output[@"login"][@"result"];
-        if (![result isEqualToString:@"Success"]) {
-            error = [self getErrorForResult:result];
-        }
-
         [self finishWithError:error
                   fetchedData:output];
     } failure:^(NSURLSessionDataTask* operation, NSError* error) {
@@ -110,22 +77,6 @@ NSString* const WMFAccountLoginErrorDomain = @"WMFAccountLoginErrorDomain";
         [self finishWithError:error
                   fetchedData:nil];
     }];
-}
-
-- (NSMutableDictionary*)getLegacyParams {
-    NSMutableDictionary* params =
-        @{
-        @"action": @"login",
-        @"lgname": self.userName,
-        @"lgpassword": self.password,
-        @"format": @"json"
-    }.mutableCopy;
-
-    if (self.token) {
-        params[@"lgtoken"] = self.token;
-    }
-
-    return params;
 }
 
 - (NSMutableDictionary*)getAuthManagerParams {
