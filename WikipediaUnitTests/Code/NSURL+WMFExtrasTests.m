@@ -75,4 +75,49 @@ static NSURL* dummyURLWithExtension(NSString* extension) {
     assertThat([urlWithoutScheme wmf_schemelessURLString], is(urlWithoutScheme.absoluteString));
 }
 
+- (void)testValueForQueryKeyForURLWithSingleQueryParameter {
+    NSURL* url = [NSURL URLWithString:@"https://foo.org/bar?key=value"];
+    assertThat([url wmf_valueForQueryKey:@"key"], is(@"value"));
+}
+
+- (void)testValueForQueryKeyForURLWithMultipleQueryParameters {
+    NSURL* url = [NSURL URLWithString:@"https://foo.org/bar?key=value&otherkey=othervalue"];
+    assertThat([url wmf_valueForQueryKey:@"otherkey"], is(@"othervalue"));
+}
+
+- (void)testValueForUnfoundQueryKeyForURLWithMultipleQueryParameters {
+    NSURL* url = [NSURL URLWithString:@"https://foo.org/bar?key=value&otherkey=othervalue"];
+    assertThat([url wmf_valueForQueryKey:@"nonexistentkey"], is(nilValue()));
+}
+
+- (void)testValueForQueryKeyForURLNoQueryParameters {
+    NSURL* url = [NSURL URLWithString:@"https://foo.org/bar"];
+    assertThat([url wmf_valueForQueryKey:@"otherkey"], is(nilValue()));
+}
+
+- (void)testValueForQueryKeyForURLWithKeyButNoValueForIt {
+    NSURL* url = [NSURL URLWithString:@"https://foo.org/bar?key=&otherkey=othervalue"];
+    assertThat([url wmf_valueForQueryKey:@"key"], is(@""));
+}
+
+- (void)testImageProxyURLExtractionSingleQueryParameter {
+    NSURL* url = [NSURL URLWithString:@"http://localhost:8080?originalSrc=http://this.jpg"];
+    assertThat([[url wmf_imageProxyOriginalSrcURL] absoluteString], is(@"http://this.jpg"));
+}
+
+- (void)testImageProxyURLExtractionWithMultipleQueryParameters {
+    NSURL* url = [NSURL URLWithString:@"http://localhost:8080?key=value&originalSrc=http://this.jpg"];
+    assertThat([[url wmf_imageProxyOriginalSrcURL] absoluteString], is(@"http://this.jpg"));
+}
+
+- (void)testImageProxyURLExtractionWithNoQueryParameters {
+    NSURL* url = [NSURL URLWithString:@"http://localhost:8080"];
+    assertThat([[url wmf_imageProxyOriginalSrcURL] absoluteString], is(nilValue()));
+}
+
+- (void)testImageProxyURLExtractionWithEmptyOriginalSrcValue {
+    NSURL* url = [NSURL URLWithString:@"http://localhost:8080?originalSrc="];
+    assertThat([[url wmf_imageProxyOriginalSrcURL] absoluteString], is(@""));
+}
+
 @end
