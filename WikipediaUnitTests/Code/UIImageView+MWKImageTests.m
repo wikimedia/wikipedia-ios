@@ -1,11 +1,3 @@
-//
-//  UIImageView+MWKImageTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 8/19/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFAsyncTestCase.h"
 #import "UIImageView+WMFImageFetchingInternal.h"
 #import "WMFFaceDetectionCache.h"
@@ -14,12 +6,6 @@
 #import "MWKArticle.h"
 #import "MWKImage.h"
 #import <Nocilla/Nocilla.h>
-
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
-#define MOCKITO_SHORTHAND 1
-#import <OCMockito/OCMockito.h>
 
 @interface UIImageView_MWKImageTests : WMFAsyncTestCase
 
@@ -89,7 +75,7 @@
 
     XCTAssert(self.imageView.image != nil);
 
-    assertThat(@(testMetadata.didDetectFaces), isTrue());
+    XCTAssert(testMetadata.didDetectFaces);
 
     XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == NO,
               @"Face detection should have ran.");
@@ -145,7 +131,7 @@
 
     XCTAssert(self.imageView.image != nil);
 
-    assertThat(@(testMetadata.didDetectFaces), isFalse());
+    XCTAssertFalse(testMetadata.didDetectFaces);
 
     XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == YES,
               @"Face detection should NOT have ran.");
@@ -212,7 +198,7 @@
 
     XCTAssert(self.imageView.image == self.image);
 
-    assertThat(@(testMetadata.didDetectFaces), isFalse());
+    XCTAssertFalse(testMetadata.didDetectFaces);
 
     XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == YES,
               @"Face detection should NOT have ran.");
@@ -290,7 +276,7 @@
 
     XCTAssert(self.imageView.image == self.image);
 
-    assertThat(@(testMetadata.didDetectFaces), isTrue());
+    XCTAssert(testMetadata.didDetectFaces);
 
     XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == NO,
               @"Face detection should have ran.");
@@ -382,8 +368,8 @@
 
     WaitForExpectations();
 
-    assertThat(@([self.faceDetectionCache imageAtURLRequiresFaceDetection:self.testURL]), isFalse());
-    assertThat([self.faceDetectionCache faceBoundsForURL:self.testURL], nilValue());
+    XCTAssertFalse([self.faceDetectionCache imageAtURLRequiresFaceDetection:self.testURL]);
+    XCTAssert([self.faceDetectionCache faceBoundsForURL:self.testURL] == nil);
 }
 
 @end
