@@ -87,11 +87,16 @@ document.addEventListener("touchend", handleTouchEnded, false);
  // 3D Touch peeking listeners.
  document.addEventListener("touchstart", function (event) {
                            // Send message with url (if any) from touch element to native land.
-                           window.webkit.messageHandlers.peek.postMessage({"touchedElementURL": window.wmf.elementLocation.getURLForElementAtPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY)});
+                           var element = window.wmf.elementLocation.getElementFromPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY);
+                           window.webkit.messageHandlers.peek.postMessage({"peekElement": {
+                                                                          'tagName': element.tagName,
+                                                                          'href': element.href,
+                                                                          'src': element.src
+                                                                          }});
                            }, false);
  
  document.addEventListener("touchend", function () {
                            // Tell native land to clear the url - important.
-                           window.webkit.messageHandlers.peek.postMessage({"touchedElementURL": null});
+                           window.webkit.messageHandlers.peek.postMessage({"peekElement": null});
                            }, false);
 })();

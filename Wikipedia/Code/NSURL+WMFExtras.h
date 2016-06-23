@@ -30,8 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)wmf_urlByPrependingSchemeIfSchemeless;
 
-- (NSString*)wmf_valueForQueryKey:(NSString*)queryKey;
-
 /**
  * Determine if url links to different spot on *same* page.
  */

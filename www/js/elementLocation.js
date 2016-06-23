@@ -53,8 +53,3 @@ exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
 exports.getElementFromPoint = function(x, y){
     return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
 };
-
-exports.getURLForElementAtPoint = function (x, y){
-    return this.getElementFromPoint(x, y).href;
-};
-
