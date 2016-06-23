@@ -4,7 +4,7 @@
 #import <UIKit/UIKit.h>
 @import WebKit;
 
-@class MWKSection, MWKArticle, MWKTitle, JSValue;
+@class MWKSection, MWKArticle, MWKTitle, WMFPeekHTMLElement;
 
 @protocol WMFWebViewControllerDelegate;
 
@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable, readonly) WKWebView* webView;
 
 @property (nonatomic) BOOL isPeeking;
-@property (strong, nonatomic) NSString* peekURLString;
+@property (strong, nonatomic, nullable) WMFPeekHTMLElement* peekElement;
 
 @property (nonatomic) UIEdgeInsets contentInsets;
 
@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title;
 - (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text;
 - (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text;
-- (void)webViewController:(WebViewController*)controller didTapImageWithSourceURLString:(NSString*)imageSourceURLString;
+- (void)webViewController:(WebViewController*)controller didTapImageWithSourceURL:(NSURL*)imageSourceURL;
 
 @end
 

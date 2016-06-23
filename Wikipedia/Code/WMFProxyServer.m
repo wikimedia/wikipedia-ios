@@ -6,6 +6,7 @@
 #import "GCDWebServerFileResponse.h"
 #import "NSURL+WMFExtras.h"
 #import "NSString+WMFExtras.h"
+#import "NSURL+WMFProxyServer.h"
 
 @interface WMFProxyServer ()
 @property (nonatomic, strong, nonnull) GCDWebServer* webServer;
@@ -84,12 +85,12 @@
 
                NSString* baseComponent = components[2];
 
-               if ([baseComponent isEqualToString:@"fileProxy"]) {
+               if ([baseComponent isEqualToString:WMFProxyFileBasePath]) {
                    NSArray* localPathComponents = [components subarrayWithRange:NSMakeRange(3, components.count - 3)];
                    NSString* relativePath       = [NSString pathWithComponents:localPathComponents];
                    [self handleFileRequestForRelativePath:relativePath completionBlock:completionBlock];
-               } else if ([baseComponent isEqualToString:@"imageProxy"]) {
-                   NSString* originalSrc = request.query[@"originalSrc"];
+               } else if ([baseComponent isEqualToString:WMFProxyImageBasePath]) {
+                   NSString* originalSrc = request.query[WMFProxyImageOriginalSrcKey];
                    if (!originalSrc) {
                        notFound();
                        return;
@@ -165,7 +166,7 @@
         return nil;
     }
     NSURLComponents* components = [NSURLComponents componentsWithURL:self.webServer.serverURL resolvingAgainstBaseURL:NO];
-    components.path     = [NSString pathWithComponents:@[@"/", secret, @"fileProxy", relativeFilePath]];
+    components.path     = [NSString pathWithComponents:@[@"/", secret, WMFProxyFileBasePath, relativeFilePath]];
     components.fragment = fragment;
     return components.URL;
 }
@@ -181,13 +182,11 @@
     if (!secret) {
         return nil;
     }
+    
     NSURLComponents* components = [NSURLComponents componentsWithURL:self.webServer.serverURL resolvingAgainstBaseURL:NO];
-    components.path = [NSString pathWithComponents:@[@"/", secret, @"imageProxy"]];
-    NSURLQueryItem* queryItem = [NSURLQueryItem queryItemWithName:@"originalSrc" value:imageURLString];
-    if (queryItem) {
-        components.queryItems = @[queryItem];
-    }
-    return components.URL;
+    components.path = [NSString pathWithComponents:@[@"/", secret, WMFProxyImageBasePath]];
+    
+    return [components.URL wmf_imageProxyURLWithOriginalSrc:imageURLString];
 }
 
 - (NSString*)stringByReplacingImageURLsWithProxyURLsInHTMLString:(NSString*)HTMLString targetImageWidth:(NSUInteger)targetImageWidth {

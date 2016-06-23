@@ -390,7 +390,7 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
 
     languagesVC.hideLanguageFilter        = YES;
     languagesVC.showNonPreferredLanguages = NO;
-    languagesVC.disableSelection          = YES;
+    languagesVC.disableSelection          = NO;
 
     languagesVC.editButtonItem.tintColor          = [UIColor wmf_blueTintColor];
     languagesVC.navigationItem.rightBarButtonItem = languagesVC.editButtonItem;
@@ -432,7 +432,9 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
     [[MWKLanguageLinkController sharedInstance] appendPreferredLanguage:language];
     [self reloadDataSections];
     [controller dismissViewControllerAnimated:YES completion:NULL];
-    [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
+    if([self.delegate respondsToSelector:@selector(languagesController:didUpdatePreferredLanguages:)]){
+        [self.delegate languagesController:self didUpdatePreferredLanguages:[MWKLanguageLinkController sharedInstance].preferredLanguages];
+    }
 }
 
 - (BOOL)shouldShowFooterForSection:(NSInteger)section {

@@ -33,6 +33,8 @@
 #import "WKWebView+LoadAssetsHtml.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WKProcessPool+WMFSharedProcessPool.h"
+#import "WMFPeekHTMLElement.h"
+#import "NSURL+WMFProxyServer.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -88,7 +90,15 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message {
     if ([message.name isEqualToString:@"peek"]) {
-        self.peekURLString = message.body[@"touchedElementURL"];
+        NSDictionary* peekElementDict = message.body[@"peekElement"];
+        if ([peekElementDict isMemberOfClass:[NSNull class]]) {
+            self.peekElement = nil;
+        }else{
+            self.peekElement =
+            [[WMFPeekHTMLElement alloc] initWithTagName:peekElementDict[@"tagName"]
+                                                    src:peekElementDict[@"src"]
+                                                   href:peekElementDict[@"href"]];
+        }
     } else if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
         if ([message.body isEqualToString:@"collapseTables"]) {
             [self.webView wmf_collapseTablesForArticle:self.article];
@@ -171,15 +181,13 @@ NSString* const WMFCCBySALicenseURL =
                 return;
             }
             
-            NSURLComponents* selectedImageURLComponents = [NSURLComponents componentsWithString:selectedImageURLString];
-            for (NSURLQueryItem* item in selectedImageURLComponents.queryItems) {
-                if ([item.name.lowercaseString isEqualToString:@"originalsrc"]) {
-                    selectedImageURLString = item.value;
-                    break;
-                }
-            }
 
-            [self.delegate webViewController:self didTapImageWithSourceURLString:selectedImageURLString];
+            NSURL* selectedImageURL = [NSURL URLWithString:selectedImageURLString];
+            
+            selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
+
+            [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
+
         } else if (message.body[@"referenceClicked"]) {
             [self referencesShow:message.body[@"referenceClicked"]];
         } else if (message.body[@"editClicked"]) {
@@ -381,6 +389,7 @@ NSString* const WMFCCBySALicenseURL =
  */
 - (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+    [self referencesHide];
 }
 
 #pragma mark - Zero
