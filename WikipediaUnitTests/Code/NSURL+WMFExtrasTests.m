@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "NSURL+WMFExtras.h"
+#import "NSURL+WMFProxyServer.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
