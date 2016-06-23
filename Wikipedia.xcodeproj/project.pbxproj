@@ -91,6 +91,7 @@
 		B01662AD1D1B668C006F4544 /* NSURL+WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662AC1D1B668C006F4544 /* NSURL+WMFProxyServer.m */; };
 		B01662B01D1B8997006F4544 /* NSURL+WMFQueryParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662AF1D1B8997006F4544 /* NSURL+WMFQueryParameters.m */; };
 		B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662B11D1B8A40006F4544 /* NSURL+WMFQueryParametersTests.m */; };
+		B01662B51D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662B41D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m */; };
 		B0265F291CB8988F00740525 /* WMFBaseRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0265F281CB8988F00740525 /* WMFBaseRequestSerializer.m */; };
 		B0265F2C1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.m in Sources */ = {isa = PBXBuildFile; fileRef = B0265F2B1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.m */; };
 		B02B82751C696ECA00B19309 /* WMFSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B02B82731C696ECA00B19309 /* WMFSettingsTableViewCell.m */; };
@@ -845,6 +846,7 @@
 		B01662AE1D1B8997006F4544 /* NSURL+WMFQueryParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+WMFQueryParameters.h"; path = "Wikipedia/Code/NSURL+WMFQueryParameters.h"; sourceTree = SOURCE_ROOT; };
 		B01662AF1D1B8997006F4544 /* NSURL+WMFQueryParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFQueryParameters.m"; path = "Wikipedia/Code/NSURL+WMFQueryParameters.m"; sourceTree = SOURCE_ROOT; };
 		B01662B11D1B8A40006F4544 /* NSURL+WMFQueryParametersTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFQueryParametersTests.m"; sourceTree = "<group>"; };
+		B01662B41D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFProxyServerTests.m"; sourceTree = "<group>"; };
 		B0265F271CB8988F00740525 /* WMFBaseRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBaseRequestSerializer.h; path = Wikipedia/Code/WMFBaseRequestSerializer.h; sourceTree = SOURCE_ROOT; };
 		B0265F281CB8988F00740525 /* WMFBaseRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBaseRequestSerializer.m; path = Wikipedia/Code/WMFBaseRequestSerializer.m; sourceTree = SOURCE_ROOT; };
 		B0265F2A1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPRequestSerializer+WMFRequestHeaders.h"; path = "Wikipedia/Code/AFHTTPRequestSerializer+WMFRequestHeaders.h"; sourceTree = SOURCE_ROOT; };
@@ -4854,6 +4856,7 @@
 				B0E8092C1C0D19FA0065EBC0 /* MWKSiteInfoFetcherTests.m */,
 				B0E8092E1C0D1A0B0065EBC0 /* NSURL+WMFExtrasTests.m */,
 				B01662B11D1B8A40006F4544 /* NSURL+WMFQueryParametersTests.m */,
+				B01662B41D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m */,
 				B0E809301C0D1A170065EBC0 /* WMFBackgroundTestManagerTests.swift */,
 				B0E809321C0D1A270065EBC0 /* WMFLegacyImageDataMigrationTests.swift */,
 				B0E809341C0D1A2F0065EBC0 /* WMFGeometryTests.m */,
@@ -5644,6 +5647,7 @@
 				B0E809431C0D1A900065EBC0 /* NSArray+WMFExtensionsTests.m in Sources */,
 				B0E809051C0D18A00065EBC0 /* CircularBitwiseRotationTests.m in Sources */,
 				B0E8095E1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m in Sources */,
+				B01662B51D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m in Sources */,
 				D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */,
 				B0E808F01C0D181D0065EBC0 /* MWKImageStorageTests.m in Sources */,
 				B0E809131C0D19090065EBC0 /* WMFDateFormatterTests.m in Sources */,
