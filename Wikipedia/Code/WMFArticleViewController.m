@@ -948,8 +948,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFWebViewControllerDelegate
 
 - (void)         webViewController:(WebViewController*)controller
-    didTapImageWithSourceURLString:(nonnull NSString*)imageSourceURLString {
-    MWKImage* selectedImage                                = [[MWKImage alloc] initWithArticle:self.article sourceURLString:imageSourceURLString];
+    didTapImageWithSourceURL:(nonnull NSURL*)imageSourceURL {
+    MWKImage* selectedImage                                = [[MWKImage alloc] initWithArticle:self.article sourceURL:imageSourceURL];
     WMFArticleImageGalleryViewController* fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage];
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }

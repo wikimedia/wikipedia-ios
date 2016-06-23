@@ -5,6 +5,7 @@
 #import "NSURL+WMFQueryParameters.h"
 
 NSString* const WMFImageProxyOriginalSrcKey = @"originalSrc";
+NSString* const WMFImageProxyBasePath = @"imageProxy";
 
 @implementation NSURL (WMFProxyServer)
 

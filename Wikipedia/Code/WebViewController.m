@@ -34,6 +34,7 @@
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WKProcessPool+WMFSharedProcessPool.h"
 #import "WMFPeekHTMLElement.h"
+#import "NSURL+WMFProxyServer.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -174,15 +175,11 @@ NSString* const WMFCCBySALicenseURL =
                 return;
             }
             
-            NSURLComponents* selectedImageURLComponents = [NSURLComponents componentsWithString:selectedImageURLString];
-            for (NSURLQueryItem* item in selectedImageURLComponents.queryItems) {
-                if ([item.name.lowercaseString isEqualToString:@"originalsrc"]) {
-                    selectedImageURLString = item.value;
-                    break;
-                }
-            }
+            NSURL* selectedImageURL = [NSURL URLWithString:selectedImageURLString];
+            
+            selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
 
-            [self.delegate webViewController:self didTapImageWithSourceURLString:selectedImageURLString];
+            [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
         } else if (message.body[@"referenceClicked"]) {
             [self referencesShow:message.body[@"referenceClicked"]];
         } else if (message.body[@"editClicked"]) {

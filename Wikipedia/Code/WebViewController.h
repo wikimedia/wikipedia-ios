@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title;
 - (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text;
 - (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text;
-- (void)webViewController:(WebViewController*)controller didTapImageWithSourceURLString:(NSString*)imageSourceURLString;
+- (void)webViewController:(WebViewController*)controller didTapImageWithSourceURL:(NSURL*)imageSourceURL;
 
 @end
 
