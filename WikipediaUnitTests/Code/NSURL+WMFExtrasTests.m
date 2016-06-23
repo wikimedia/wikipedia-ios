@@ -101,6 +101,18 @@ static NSURL* dummyURLWithExtension(NSString* extension) {
     assertThat([url wmf_valueForQueryKey:@"key"], is(@""));
 }
 
+- (void)testAddingValueAndQueryKeyToURLWithoutAnyQueryKeys {
+    NSURL* url = [NSURL URLWithString:@"http://localhost:8080"];
+    url = [url wmf_urlWithValue:@"NEWVALUE" forQueryKey:@"KEY"];
+    assertThat([url absoluteString], is(@"http://localhost:8080?KEY=NEWVALUE"));
+}
+
+- (void)testChangingValueForQueryKeyWithoutChangingOtherKeysOrValues {
+    NSURL* url = [NSURL URLWithString:@"http://localhost:8080?KEY=VALUE&originalSrc=http://this.jpg"];
+    url = [url wmf_urlWithValue:@"NEWVALUE" forQueryKey:@"KEY"];
+    assertThat([url absoluteString], is(@"http://localhost:8080?KEY=NEWVALUE&originalSrc=http://this.jpg"));
+}
+
 - (void)testImageProxyURLExtractionSingleQueryParameter {
     NSURL* url = [NSURL URLWithString:@"http://localhost:8080?originalSrc=http://this.jpg"];
     assertThat([[url wmf_imageProxyOriginalSrcURL] absoluteString], is(@"http://this.jpg"));
