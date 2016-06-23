@@ -4,13 +4,13 @@
 #import <BlocksKit/BlocksKit.h>
 
 #import "WMFProxyServer.h"
-
+#import "MWKTestCase.h"
 
 @interface WMFProxyServer (Testing)
 - (NSURL*)   baseURL;
 @end
 
-@interface ImageProxyParsingTests : XCTestCase
+@interface ImageProxyParsingTests : MWKTestCase
 @property (nonatomic, copy) NSString* baseURLString;
 @property (nonatomic, strong) WMFProxyServer* proxyServer;
 @end
@@ -137,6 +137,20 @@
     ;
 
     assertThat(string, is(equalTo(expected)));
+}
+
+- (void)testObamaArticleImageProxySubstitutionCount {
+    NSString* allObamaHTMLWithImageTagsChanged = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:[self allObamaHTML] targetImageWidth:686];
+    NSArray* allObamaHTMLSplitOnImageProxy = [allObamaHTMLWithImageTagsChanged componentsSeparatedByString:@"imageProxy"];
+    NSLog(@"allObamaHTMLSplitOnImageProxy count = %lu", (unsigned long)allObamaHTMLSplitOnImageProxy.count);
+    assertThat(allObamaHTMLSplitOnImageProxy, hasCountOf(107));
+}
+
+- (void)testPerformanceExample {
+    [self measureBlock:^{
+        NSString* allObamaHTMLWithImageTagsChanged = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:[self allObamaHTML] targetImageWidth:686];
+        NSLog(@"allObamaHTMLWithImageTagsChanged length = %lu", (unsigned long)allObamaHTMLWithImageTagsChanged.length);
+    }];
 }
 
 @end
