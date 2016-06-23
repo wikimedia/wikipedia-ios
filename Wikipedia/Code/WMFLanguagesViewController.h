@@ -31,6 +31,7 @@
 
 @protocol WMFPreferredLanguagesViewControllerDelegate <WMFLanguagesViewControllerDelegate>
 
+@optional
 - (void)languagesController:(WMFPreferredLanguagesViewController*)controller didUpdatePreferredLanguages:(NSArray<MWKLanguageLink*>*)languages;
 
 @end
