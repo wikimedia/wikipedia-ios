@@ -217,10 +217,20 @@ public class WMFImageController : NSObject {
     }
     
     public func syncCachedImageWithURL(url: NSURL?) -> UIImage? {
-        guard url != nil else{
+        guard let url = url else{
             return nil
         }
-        let image = imageManager.imageCache.imageFromDiskCacheForKey(cacheKeyForURL(url!))
+        let key = cacheKeyForURL(url)
+        var image = imageManager.imageCache.imageFromDiskCacheForKey(key)
+        if image  == nil { // if it's not in the SDWebImage cache, check the NSURLCache
+            let request = NSURLRequest(URL: url.wmf_urlByPrependingSchemeIfSchemeless())
+            if let cachedResponse = NSURLCache.sharedURLCache().cachedResponseForRequest(request),
+                let cachedImage = UIImage(data: cachedResponse.data) {
+                image = cachedImage
+                //since we got a valid image, store it in the SDWebImage memory cache
+                imageManager.imageCache.storeImage(image, recalculateFromImage: false, imageData: cachedResponse.data, forKey: key, toDisk: false)
+            }
+        }
         return image
     }
     
