@@ -199,7 +199,7 @@
         imageTagRegex = [NSRegularExpression regularExpressionWithPattern:pattern
                                                           options:NSRegularExpressionCaseInsensitive
                                                             error:nil];
-        NSString *attributePattern = @"(src|data-file-width|width|hasOverflowXContainer)=[\"']?((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\"']?";
+        NSString *attributePattern = @"(src|data-file-width|width)=[\"']?((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\"']?";
         attributeRegex = [NSRegularExpression regularExpressionWithPattern:attributePattern options:NSRegularExpressionCaseInsensitive error:nil];
         
         NSString *sizePattern = @"^[0-9]+(?=px-)";
