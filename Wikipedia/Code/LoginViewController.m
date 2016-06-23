@@ -24,15 +24,11 @@
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "MWKLanguageLinkController.h"
-#import "WMFAuthManagerInfoFetcher.h"
-#import "WMFAuthManagerInfo.h"
+#import "WMFAuthenticationManager.h"
 
 
 @interface LoginViewController (){
 }
-
-@property (strong, nonatomic) WMFAuthManagerInfoFetcher* authManagerInfoFetcher;
-@property (strong, nonatomic) WMFAuthManagerInfo* authManagerInfo;
 
 @property (weak, nonatomic) IBOutlet UIScrollView* scrollView;
 @property (weak, nonatomic) IBOutlet UITextField* usernameField;
@@ -87,10 +83,6 @@
         [self getAttributedPlaceholderForString:MWLocalizedString(@"login-username-placeholder-text", nil)];
     self.passwordField.attributedPlaceholder =
         [self getAttributedPlaceholderForString:MWLocalizedString(@"login-password-placeholder-text", nil)];
-
-    UILongPressGestureRecognizer* longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress)];
-    longPressRecognizer.minimumPressDuration = 1.0f;
-    [self.view addGestureRecognizer:longPressRecognizer];
 
     if ([self.scrollView respondsToSelector:@selector(keyboardDismissMode)]) {
         self.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
@@ -154,12 +146,6 @@
     self.doneButton.enabled = highlight;
 }
 
-- (void)handleLongPress {
-    // Uncomment for presentation username/pwd auto entry
-    // self.usernameField.text = @"montehurd";
-    // self.passwordField.text = @"";
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self enableProgressiveButton:NO];
@@ -172,162 +158,26 @@
 
 - (void)save {
     [self enableProgressiveButton:NO];
+    [[WMFAlertManager sharedInstance] dismissAlert];
 
-    [self loginWithUserName:self.usernameField.text
-                   password:self.passwordField.text
-                  onSuccess:^{
+    [[WMFAuthenticationManager sharedInstance] loginWithUsername:self.usernameField.text password:self.passwordField.text success:^{
         NSString* loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
         loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
                                                                      withString:self.usernameField.text];
         [[WMFAlertManager sharedInstance] showAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
 
         [self dismissViewControllerAnimated:YES completion:nil];
-    } onFail:^{
+        [self.funnel logSuccess];
+    } failure:^(NSError* error) {
         [self enableProgressiveButton:YES];
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+        [self.funnel logError:error.localizedDescription];
     }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [self enableProgressiveButton:NO];
     [super viewWillDisappear:animated];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)fetchFinished:(id)sender
-          fetchedData:(id)fetchedData
-               status:(FetchFinalStatus)status
-                error:(NSError*)error {
-    if ([sender isKindOfClass:[LoginTokenFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                (void)[[AccountLogin alloc] initAndLoginForDomain:[sender domain]
-                                                         userName:[sender userName]
-                                                         password:[sender password]
-                                                            token:[sender token]
-                                                   useAuthManager:(self.authManagerInfo != nil)
-                                                      withManager:[QueuesSingleton sharedInstance].loginFetchManager
-                                               thenNotifyDelegate:self];
-            }
-            break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-
-                [[WMFAlertManager sharedInstance] dismissAlert];
-                self.failBlock();
-
-                break;
-            case FETCH_FINAL_STATUS_FAILED:
-
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-                self.failBlock();
-                [self.funnel logError:error.localizedDescription];
-
-                break;
-        }
-    }
-
-    if ([sender isKindOfClass:[AccountLogin class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                //NSLog(@"%@", fetchedData);
-
-                if (self.authManagerInfo) {
-                    NSString* normalizedUserName = fetchedData[@"username"];
-                    [SessionSingleton sharedInstance].keychainCredentials.userName = normalizedUserName;
-                    [SessionSingleton sharedInstance].keychainCredentials.password = self.passwordField.text;
-                } else {
-                    NSString* loginStatus = fetchedData[@"login"][@"result"];
-
-                    // Login credentials should only be placed in the keychain if they've been authenticated.
-                    NSString* normalizedUserName = fetchedData[@"login"][@"lgusername"];
-                    [SessionSingleton sharedInstance].keychainCredentials.userName = normalizedUserName;
-                    [SessionSingleton sharedInstance].keychainCredentials.password = fetchedData[@"password"];
-                }
-
-                //NSString *result = loginResult[@"login"][@"result"];
-
-                self.successBlock();
-
-                [self cloneSessionCookies];
-                //printCookies();
-
-                [self.funnel logSuccess];
-            }
-            break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-                self.failBlock();
-
-                break;
-            case FETCH_FINAL_STATUS_FAILED:
-
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-                self.failBlock();
-                [self.funnel logError:error.localizedDescription];
-
-                break;
-        }
-    }
-}
-
-- (void)loginWithUserName:(NSString*)userName
-                 password:(NSString*)password
-                onSuccess:(void (^)(void))successBlock
-                   onFail:(void (^)(void))failBlock {
-    [[WMFAlertManager sharedInstance] dismissAlert];
-
-    // Fix for iOS 6 crashing on empty credentials.
-    if (!userName) {
-        userName = @"";
-    }
-    if (!password) {
-        password = @"";
-    }
-
-    self.successBlock = (!successBlock) ? ^(){} : successBlock;
-    self.failBlock = (!failBlock) ? ^(){} : failBlock;
-
-    self.authManagerInfoFetcher = [[WMFAuthManagerInfoFetcher alloc] init];
-
-    [self.authManagerInfoFetcher fetchAuthManagerLoginAvailableForSite:[[MWKLanguageLinkController sharedInstance] appLanguage].site].then(^(WMFAuthManagerInfo* info){
-        self.authManagerInfo = info;
-        [self fetchTokensWithInfo:info userName:userName password:password];
-    });
-}
-
-- (void)fetchTokensWithInfo:(WMFAuthManagerInfo*)info userName:(NSString*)userName password:(NSString*)password {
-    [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
-                                                           userName:userName
-                                                           password:password
-                                                     useAuthManager:(info != nil)
-                                                        withManager:[QueuesSingleton sharedInstance].loginFetchManager
-                                                 thenNotifyDelegate:self];
-    }];
-}
-
-- (void)cloneSessionCookies {
-    // Make the session cookies expire at same time user cookies. Just remember they still can't be
-    // necessarily assumed to be valid as the server may expire them, but at least make them last as
-    // long as we can to lessen number of server requests. Uses user tokens as templates for copying
-    // session tokens. See "recreateCookie:usingCookieAsTemplate:" for details.
-
-    NSString* domain = [[MWKLanguageLinkController sharedInstance] appLanguage].languageCode;
-
-    NSString* cookie1Name = [NSString stringWithFormat:@"%@wikiSession", domain];
-    NSString* cookie2Name = [NSString stringWithFormat:@"%@wikiUserID", domain];
-
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage] wmf_recreateCookie:cookie1Name
-                                                usingCookieAsTemplate:cookie2Name
-    ];
-
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage] wmf_recreateCookie:@"centralauth_Session"
-                                                usingCookieAsTemplate:@"centralauth_User"
-    ];
 }
 
 - (void)createAccountButtonPushed:(UITapGestureRecognizer*)recognizer {
