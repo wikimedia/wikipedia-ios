@@ -23,7 +23,7 @@ extern NSString* const WMFImageProxyOriginalSrcKey;
  *
  * @return  Returns image proxy url.
  **/
-- (nullable NSURL*)wmf_imageProxyURLWithOriginalSrc:(NSString*)originalSrc;
+- (NSURL*)wmf_imageProxyURLWithOriginalSrc:(NSString*)originalSrc;
 
 @end
 
