@@ -1,10 +1,3 @@
-//
-//  WMFAuthManagerInfoFetcher.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 6/8/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFAuthManagerInfoFetcher.h"
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
@@ -14,6 +7,7 @@
 #import "WMFAuthManagerInfo.h"
 #import "MWKSite.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFAuthManagerInfoFetcher ()
 @property (nonatomic, strong) AFHTTPSessionManager* operationManager;
@@ -35,32 +29,31 @@
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise*)fetchAuthManagerLoginAvailableForSite:(MWKSite*)site {
-    return [self fetchAuthManagerAvailableForSite:site type:@"login"];
+- (void)fetchAuthManagerCreationAvailableForSite:(MWKSite*)site success:(WMFAuthManagerInfoBlock)success failure:(WMFErrorHandler)failure {
+    [self fetchAuthManagerAvailableForSite:site type:@"create" success:success failure:failure];
 }
 
-- (AnyPromise*)fetchAuthManagerCreationAvailableForSite:(MWKSite*)site {
-    return [self fetchAuthManagerAvailableForSite:site type:@"create"];
+- (void)fetchAuthManagerLoginAvailableForSite:(MWKSite*)site success:(WMFAuthManagerInfoBlock)success failure:(WMFErrorHandler)failure {
+    [self fetchAuthManagerAvailableForSite:site type:@"login" success:success failure:failure];
 }
 
-- (AnyPromise*)fetchAuthManagerAvailableForSite:(MWKSite*)site type:(NSString*)type {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        NSDictionary* params = @{
-            @"action": @"query",
-            @"meta": @"authmanagerinfo",
-            @"format": @"json",
-            @"amirequestsfor": type
-        };
+- (void)fetchAuthManagerAvailableForSite:(MWKSite*)site type:(NSString*)type success:(WMFAuthManagerInfoBlock)success failure:(WMFErrorHandler)failure {
+    NSDictionary* params = @{
+        @"action": @"query",
+        @"meta": @"authmanagerinfo",
+        @"format": @"json",
+        @"amirequestsfor": type
+    };
 
-        [self.operationManager wmf_GETWithSite:site parameters:params]
-        .then(^(id responseObject) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve(responseObject);
-        }).catch(^(NSError* error) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve(error);
-        });
+    [self.operationManager wmf_GETWithSite:site parameters:params retry:NULL success:^(NSURLSessionDataTask* operation, id responseObject) {
+        [[MWNetworkActivityIndicatorManager sharedManager] pop];
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask* operation, NSError* error) {
+        [[MWNetworkActivityIndicatorManager sharedManager] pop];
+        failure(error);
     }];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
