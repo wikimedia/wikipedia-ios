@@ -5,9 +5,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class WMFImageGalleryViewContoller;
+@class WMFImageGalleryViewController;
 
-@protocol WMFImageGalleryViewContollerReferenceViewDelegate <NSObject>
+@protocol WMFImageGalleryViewControllerReferenceViewDelegate <NSObject>
 
 /**
  *  Provide a reference view for which to orgiginate and
@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The view
  */
-- (UIImageView*)referenceViewForImageController:(WMFImageGalleryViewContoller*)controller;
+- (UIImageView*)referenceViewForImageController:(WMFImageGalleryViewController*)controller;
 
 @end
 
@@ -25,9 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  This is an abstract base class do not use it directly.
  *  Instead use either the concrete article or POTD version below.
  */
-@interface WMFImageGalleryViewContoller : NYTPhotosViewController
+@interface WMFImageGalleryViewController : NYTPhotosViewController
 
-@property (nonatomic, weak) id<WMFImageGalleryViewContollerReferenceViewDelegate> referenceViewDelegate;
+@property (nonatomic, weak) id<WMFImageGalleryViewControllerReferenceViewDelegate> referenceViewDelegate;
 
 /**
  *  Do not use the deelgate from NYTPhotosViewController
@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFArticleImageGalleryViewContoller : WMFImageGalleryViewContoller<WMFImageInfoControllerDelegate>
+@interface WMFArticleImageGalleryViewController : WMFImageGalleryViewController<WMFImageInfoControllerDelegate>
 
 - (instancetype)initWithArticle:(MWKArticle*)article;
 
@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFPOTDImageGalleryViewContoller : WMFImageGalleryViewContoller
+@interface WMFPOTDImageGalleryViewController : WMFImageGalleryViewController
 
 - (instancetype)initWithDates:(NSArray<NSDate*>*)imageDates selectedImageInfo:(nullable MWKImageInfo*)imageInfo NS_DESIGNATED_INITIALIZER;
 

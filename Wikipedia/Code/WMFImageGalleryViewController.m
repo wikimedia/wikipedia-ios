@@ -1,5 +1,5 @@
 
-#import "WMFImageGalleryViewContoller.h"
+#import "WMFImageGalleryViewController.h"
 #import "MWKArticle.h"
 #import "MWKImageList.h"
 #import "MWKImage.h"
@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface WMFImageGalleryViewContoller ()<NYTPhotosViewControllerDelegate>
+@interface WMFImageGalleryViewController ()<NYTPhotosViewControllerDelegate>
 
 @property (nonatomic, strong, readonly) NSArray<id<NYTPhoto> >* photos;
 
@@ -197,7 +197,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@implementation WMFImageGalleryViewContoller
+@implementation WMFImageGalleryViewController
 
 @dynamic dataSource;
 
@@ -390,13 +390,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma clang diagnostic pop
 
-@interface WMFArticleImageGalleryViewContoller ()
+@interface WMFArticleImageGalleryViewController ()
 
 @property (nonatomic, strong) WMFImageInfoController* infoController;
 
 @end
 
-@implementation WMFArticleImageGalleryViewContoller
+@implementation WMFArticleImageGalleryViewController
 
 - (instancetype)initWithArticle:(MWKArticle*)article {
     return [self initWithArticle:article selectedImage:nil];
@@ -648,13 +648,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-@interface WMFPOTDImageGalleryViewContoller ()
+@interface WMFPOTDImageGalleryViewController ()
 
 @property (nonatomic, strong) MWKImageInfoFetcher* infoFetcher;
 
 @end
 
-@implementation WMFPOTDImageGalleryViewContoller
+@implementation WMFPOTDImageGalleryViewController
 
 - (instancetype)initWithDates:(NSArray<NSDate*>*)imageDates selectedImageInfo:(nullable MWKImageInfo*)imageInfo {
     NSParameterAssert(imageDates);
