@@ -85,7 +85,7 @@
 
                NSString* baseComponent = components[2];
 
-               if ([baseComponent isEqualToString:@"fileProxy"]) {
+               if ([baseComponent isEqualToString:WMFFileProxyBasePath]) {
                    NSArray* localPathComponents = [components subarrayWithRange:NSMakeRange(3, components.count - 3)];
                    NSString* relativePath       = [NSString pathWithComponents:localPathComponents];
                    [self handleFileRequestForRelativePath:relativePath completionBlock:completionBlock];
@@ -166,7 +166,7 @@
         return nil;
     }
     NSURLComponents* components = [NSURLComponents componentsWithURL:self.webServer.serverURL resolvingAgainstBaseURL:NO];
-    components.path     = [NSString pathWithComponents:@[@"/", secret, @"fileProxy", relativeFilePath]];
+    components.path     = [NSString pathWithComponents:@[@"/", secret, WMFFileProxyBasePath, relativeFilePath]];
     components.fragment = fragment;
     return components.URL;
 }
