@@ -232,7 +232,7 @@
             } else if ([attributeName isEqualToString:@"width"]) {
                 width = [attributeValue integerValue];
             }
-            *stop = dataFileWidth > 0 && srcAttributeRange.location != NSNotFound;
+            *stop = dataFileWidth > 0 && srcAttributeRange.location != NSNotFound && width > 0;
         }];
         
         NSMutableString *newImageTagContents = [imageTagContents mutableCopy];
