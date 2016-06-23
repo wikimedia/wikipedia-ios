@@ -2,7 +2,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "NSURL+WMFProxyServer.h"
-#import "NSURL+WMFExtras.h"
+#import "NSURL+WMFQueryParameters.h"
 
 NSString* const WMFImageProxyOriginalSrcKey = @"originalSrc";
 
