@@ -220,7 +220,6 @@
         __block NSRange srcAttributeRange = NSMakeRange(NSNotFound, 0);
         __block NSInteger dataFileWidth = 0;
         __block NSInteger width = 0;
-        __block BOOL hasOverflowXContainerAttribute = false;
         NSInteger attributeOffset = 0;
         [attributeRegex enumerateMatchesInString:imageTagContents options:0 range:NSMakeRange(0, imageTagContents.length) usingBlock:^(NSTextCheckingResult * _Nullable attributeResult, NSMatchingFlags flags, BOOL * _Nonnull stop) {
             NSString *attributeName = [[attributeRegex replacementStringForResult:attributeResult inString:imageTagContents offset:attributeOffset template:@"$1"] lowercaseString];
@@ -232,8 +231,6 @@
                 dataFileWidth = [attributeValue integerValue];
             } else if ([attributeName isEqualToString:@"width"]) {
                 width = [attributeValue integerValue];
-            } else if ([attributeName isEqualToString:@"hasoverflowxcontainer"]) {
-                hasOverflowXContainerAttribute = true;
             }
             *stop = dataFileWidth > 0 && srcAttributeRange.location != NSNotFound;
         }];
@@ -243,7 +240,7 @@
         
         if (src) {
             NSMutableArray *srcPathComponents = [[src pathComponents] mutableCopy];
-            if (dataFileWidth > 0 && (width == 0 || width >= 64) && !hasOverflowXContainerAttribute && srcPathComponents.count > 4 && [[srcPathComponents[srcPathComponents.count - 5] lowercaseString] isEqualToString:@"thumb"]) {
+            if (dataFileWidth > 0 && (width == 0 || width >= 64) && srcPathComponents.count > 4 && [[srcPathComponents[srcPathComponents.count - 5] lowercaseString] isEqualToString:@"thumb"]) {
                 if (dataFileWidth > targetImageWidth) { //if the original file width is larger than the target width
                     //replace the thumbnail width prefix with the target width
                     NSString *filename = srcPathComponents[srcPathComponents.count - 1];
