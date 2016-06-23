@@ -3,6 +3,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * When modifying image src urls to point to the localhost proxy, this string is used as the query parameter key for relaying the original image url. For example, in the url "http://localhost:8080?originalSrc=http://someimagepath.jpg" the WMFImageProxyOriginalSrcKey is "originalSrc".
+ *
+ **/
+extern NSString* const WMFImageProxyOriginalSrcKey;
+
 @interface NSURL (WMFProxyServer)
 
 /**
