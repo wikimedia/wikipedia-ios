@@ -73,12 +73,19 @@
     stubRequest(@"GET", testURL.absoluteString)
     .andReturn(200)
     .withBody(UIImageJPEGRepresentation(testImage, 1.f));
-
-    expectResolutionWithTimeout(10, ^{
-        return [self.imageView wmf_setImageWithURL:testURL detectFaces:YES].then(^{
-            WMFSnapshotVerifyView(self.imageView);
-        });
-    });
+    
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"waiting for image set"];
+    
+    [self.imageView wmf_setImageWithURL:testURL detectFaces:YES failure:^(NSError *error) {
+        XCTFail();
+        [expectation fulfill];
+    } success:^{
+        WMFSnapshotVerifyView(self.imageView);
+        [expectation fulfill];
+    }];
+    
+    WaitForExpectations();
 }
 
 @end
