@@ -12,4 +12,8 @@ NSString* const WMFImageProxyOriginalSrcKey = @"originalSrc";
     return [NSURL URLWithString:[self wmf_valueForQueryKey:WMFImageProxyOriginalSrcKey]];
 }
 
+- (nullable NSURL*)wmf_imageProxyURLWithOriginalSrc:(NSString*)originalSrc {
+    return [self wmf_urlWithValue:originalSrc forQueryKey:WMFImageProxyOriginalSrcKey];
+}
+
 @end

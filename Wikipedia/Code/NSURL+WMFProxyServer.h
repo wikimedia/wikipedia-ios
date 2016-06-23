@@ -12,11 +12,18 @@ extern NSString* const WMFImageProxyOriginalSrcKey;
 @interface NSURL (WMFProxyServer)
 
 /**
- * Image proxy urls will have an "originalSrc" key.
+ * Image proxy urls will have an WMFImageProxyOriginalSrcKey key.
  *
- * @return  Returns the original non-proxy src url. Returns nil if no 'originalSrc' value found.
+ * @return  Returns the original non-proxy src url. Returns nil if no 'originalSrc' value is found in the underlying NSURL.
  **/
 - (nullable NSURL*)wmf_imageProxyOriginalSrcURL;
+
+/**
+ * Adds a WMFImageProxyOriginalSrcKey key to the underlying NSURL set to the value passed to the 'originalSrc' parameter.
+ *
+ * @return  Returns image proxy url.
+ **/
+- (nullable NSURL*)wmf_imageProxyURLWithOriginalSrc:(NSString*)originalSrc;
 
 @end
 
