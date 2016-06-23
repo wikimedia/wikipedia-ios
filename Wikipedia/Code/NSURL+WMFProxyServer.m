@@ -4,18 +4,18 @@
 #import "NSURL+WMFProxyServer.h"
 #import "NSURL+WMFQueryParameters.h"
 
-NSString* const WMFImageProxyOriginalSrcKey = @"originalSrc";
-NSString* const WMFImageProxyBasePath = @"imageProxy";
-NSString* const WMFFileProxyBasePath = @"fileProxy";
+NSString* const WMFProxyImageOriginalSrcKey = @"originalSrc";
+NSString* const WMFProxyImageBasePath = @"imageProxy";
+NSString* const WMFProxyFileBasePath = @"fileProxy";
 
 @implementation NSURL (WMFProxyServer)
 
 - (nullable NSURL*)wmf_imageProxyOriginalSrcURL {
-    return [NSURL URLWithString:[self wmf_valueForQueryKey:WMFImageProxyOriginalSrcKey]];
+    return [NSURL URLWithString:[self wmf_valueForQueryKey:WMFProxyImageOriginalSrcKey]];
 }
 
 - (NSURL*)wmf_imageProxyURLWithOriginalSrc:(NSString*)originalSrc {
-    return [self wmf_urlWithValue:originalSrc forQueryKey:WMFImageProxyOriginalSrcKey];
+    return [self wmf_urlWithValue:originalSrc forQueryKey:WMFProxyImageOriginalSrcKey];
 }
 
 @end

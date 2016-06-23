@@ -85,12 +85,12 @@
 
                NSString* baseComponent = components[2];
 
-               if ([baseComponent isEqualToString:WMFFileProxyBasePath]) {
+               if ([baseComponent isEqualToString:WMFProxyFileBasePath]) {
                    NSArray* localPathComponents = [components subarrayWithRange:NSMakeRange(3, components.count - 3)];
                    NSString* relativePath       = [NSString pathWithComponents:localPathComponents];
                    [self handleFileRequestForRelativePath:relativePath completionBlock:completionBlock];
-               } else if ([baseComponent isEqualToString:WMFImageProxyBasePath]) {
-                   NSString* originalSrc = request.query[WMFImageProxyOriginalSrcKey];
+               } else if ([baseComponent isEqualToString:WMFProxyImageBasePath]) {
+                   NSString* originalSrc = request.query[WMFProxyImageOriginalSrcKey];
                    if (!originalSrc) {
                        notFound();
                        return;
@@ -166,7 +166,7 @@
         return nil;
     }
     NSURLComponents* components = [NSURLComponents componentsWithURL:self.webServer.serverURL resolvingAgainstBaseURL:NO];
-    components.path     = [NSString pathWithComponents:@[@"/", secret, WMFFileProxyBasePath, relativeFilePath]];
+    components.path     = [NSString pathWithComponents:@[@"/", secret, WMFProxyFileBasePath, relativeFilePath]];
     components.fragment = fragment;
     return components.URL;
 }
@@ -184,7 +184,7 @@
     }
     
     NSURLComponents* components = [NSURLComponents componentsWithURL:self.webServer.serverURL resolvingAgainstBaseURL:NO];
-    components.path = [NSString pathWithComponents:@[@"/", secret, WMFImageProxyBasePath]];
+    components.path = [NSString pathWithComponents:@[@"/", secret, WMFProxyImageBasePath]];
     
     return [components.URL wmf_imageProxyURLWithOriginalSrc:imageURLString];
 }
