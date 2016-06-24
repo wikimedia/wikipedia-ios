@@ -3,11 +3,7 @@
 
 #import "AccountCreationViewController.h"
 #import "WikipediaAppUtils.h"
-#import "QueuesSingleton.h"
 #import "SessionSingleton.h"
-#import "AccountCreationTokenFetcher.h"
-#import "AccountCreator.h"
-#import "CaptchaResetter.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "LoginViewController.h"
 #import "PreviewAndSaveViewController.h"
@@ -22,21 +18,18 @@
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 #import "PaddedLabel.h"
-#import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "MWKLanguageLinkController.h"
-#import "WMFAuthManagerInfoFetcher.h"
-#import "WMFAuthManagerInfo.h"
+#import "WMFAuthenticationManager.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface AccountCreationViewController ()
 
 @property (strong, nonatomic) CaptchaViewController* captchaViewController;
-@property (strong, nonatomic) WMFAuthManagerInfoFetcher* authManagerInfoFetcher;
-@property (strong, nonatomic) WMFAuthManagerInfo* authManagerInfo;
 @property (weak, nonatomic) IBOutlet UIView* captchaContainer;
 @property (weak, nonatomic) IBOutlet UIScrollView* scrollView;
 @property (nonatomic) BOOL showCaptchaContainer;
 @property (strong, nonatomic) NSString* captchaId;
-@property (strong, nonatomic) NSString* captchaUrl;
+@property (strong, nonatomic) NSURL* captchaUrl;
 @property (weak, nonatomic) IBOutlet PaddedLabel* loginButton;
 @property (weak, nonatomic) IBOutlet PaddedLabel* titleLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* usernameUnderlineHeight;
@@ -46,8 +39,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* spaceBeneathCaptchaContainer;
 
 @property (weak, nonatomic) IBOutlet UIView* createAccountContainerView;
-
-@property (strong, nonatomic) LoginViewController* detachedloginVC;
 
 @property (strong, nonatomic) UIBarButtonItem* rightButton;
 
@@ -104,6 +95,9 @@
 
     self.rightButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-next", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
         @strongify(self)
+
+        [[WMFAlertManager sharedInstance] showAlert : MWLocalizedString(@"account-creation-saving", nil) sticky : YES dismissPreviousAlerts : YES tapCallBack : NULL];
+
         [self save];
     }];
     self.navigationItem.rightBarButtonItem = self.rightButton;
@@ -118,7 +112,7 @@
     [self adjustConstraintsScaleForViews:@[self.createAccountContainerView, self.captchaContainer, self.titleLabel, self.usernameField, self.passwordField, self.passwordRepeatField, self.emailField, self.loginButton]];
 
     self.captchaId           = @"";
-    self.captchaUrl          = @"";
+    self.captchaUrl          = nil;
     self.scrollView.delegate = self;
 
     [self.usernameField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -164,8 +158,6 @@
     self.passwordField.textAlignment       = NSTextAlignmentNatural;
     self.passwordRepeatField.textAlignment = NSTextAlignmentNatural;
     self.emailField.textAlignment          = NSTextAlignmentNatural;
-
-    //[self.view randomlyColorSubviews];
 }
 
 - (void)loginButtonPushed:(UITapGestureRecognizer*)recognizer {
@@ -205,10 +197,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
     [self.usernameField becomeFirstResponder];
-
-    //[self prepopulateTextFieldsForDebugging];
 }
 
 - (void)textFieldDidChange:(id)sender {
@@ -310,35 +299,19 @@
     }
 }
 
-- (void)setCaptchaUrl:(NSString*)captchaUrl {
-    if (![_captchaUrl isEqualToString:captchaUrl]) {
+- (void)setCaptchaUrl:(NSURL*)captchaUrl {
+    if (![_captchaUrl isEqual:captchaUrl]) {
         _captchaUrl = captchaUrl;
-        if (captchaUrl && (captchaUrl.length > 0)) {
+        if (captchaUrl) {
             [self refreshCaptchaImage];
         }
     }
 }
 
 - (void)refreshCaptchaImage {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        // Background thread
-        NSURL* captchaImageUrl = [NSURL URLWithString:
-                                  [NSString stringWithFormat:@"https://%@.m.%@%@", [[MWKLanguageLinkController sharedInstance] appLanguage].languageCode,
-                                   [[[MWKLanguageLinkController sharedInstance] appLanguage] site].domain,
-                                   self.captchaUrl
-                                  ]
-                                 ];
-
-        UIImage* captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:captchaImageUrl]];
-
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            // Main thread
-            self.captchaViewController.captchaTextBox.text = @"";
-            self.captchaViewController.captchaImageView.image = captchaImage;
-            self.showCaptchaContainer = YES;
-            //[self highlightCheckButton:NO];
-        });
-    });
+    self.captchaViewController.captchaTextBox.text = @"";
+    [self.captchaViewController.captchaImageView sd_setImageWithURL:self.captchaUrl];
+    self.showCaptchaContainer = YES;
 }
 
 - (void)reloadCaptchaPushed:(id)sender {
@@ -346,123 +319,20 @@
 
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
 
-    if (self.authManagerInfo) {
-        [self save]; //this resarts the token process which gets us another captcha
-    } else {
-        [[QueuesSingleton sharedInstance].accountCreationFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-            (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
-                                                            withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
-                                                     thenNotifyDelegate:self];
-        }];
-    }
+    [self save]; //this resarts the token process which gets us another captcha
 }
 
 - (void)login {
-    // Create detached loginVC just for logging in.
-    self.detachedloginVC = [[LoginViewController alloc] init];
-
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-logging-in", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-
-    [self.detachedloginVC loginWithUserName:self.usernameField.text password:self.passwordField.text onSuccess:^{
+    [[WMFAuthenticationManager sharedInstance] loginWithUsername:self.usernameField.text password:self.passwordField.text success:^{
         NSString* loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
         loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
                                                                      withString:self.usernameField.text];
         [[WMFAlertManager sharedInstance] showSuccessAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
         [self dismissViewControllerAnimated:YES completion:nil];
-    } onFail:^(){
+    } failure:^(NSError* error) {
         [self enableProgressiveButton:YES];
     }];
-}
-
-- (void)dismissSelf {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)fetchFinished:(id)sender
-          fetchedData:(id)fetchedData
-               status:(FetchFinalStatus)status
-                error:(NSError*)error {
-    if ([sender isKindOfClass:[AccountCreationTokenFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:
-                //NSLog(@"fetchedData = %@", fetchedData);
-                // Pull data for all the fields which were originally passed to the token
-                // fetcher from the fetchedData returned from it. This is to make extra sure
-                // the account creation is working with the same data as the token retrieval.
-                (void)[[AccountCreator alloc] initAndCreateAccountForUserName:[sender userName]
-                                                                     realName:@""
-                                                                       domain:[sender domain]
-                                                                     password:[sender password]
-                                                                        email:[sender email]
-                                                                    captchaId:self.captchaId
-                                                                  captchaWord:self.captchaViewController.captchaTextBox.text
-                                                                        token:[sender token]
-                                                               useAuthManager:(self.authManagerInfo != nil)
-                                                                  withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
-                                                           thenNotifyDelegate:self];
-                break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-                [[WMFAlertManager sharedInstance] dismissAlert];
-                break;
-            case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-                [self.funnel logError:error.localizedDescription];
-                break;
-        }
-    }
-
-    if ([sender isKindOfClass:[AccountCreator class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:
-                [self.funnel logSuccess];
-                [[WMFAlertManager sharedInstance] showAlert:fetchedData sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-                [self performSelector:@selector(login) withObject:nil afterDelay:0.6f];
-                //isAleadySaving = NO;
-                break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-                [[WMFAlertManager sharedInstance] dismissAlert];
-                break;
-            case FETCH_FINAL_STATUS_FAILED:
-
-
-                if (error.code == ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA) {
-                    if (self.authManagerInfo) {
-                        self.captchaId  = self.authManagerInfo.captchaID;
-                        self.captchaUrl = self.authManagerInfo.captchaURLFragment;
-                    } else {
-                        self.captchaId            = error.userInfo[@"captchaId"];
-                        self.captchaUrl           = error.userInfo[@"captchaUrl"];
-                        self.showCaptchaContainer = YES;
-                    }
-
-                    [[WMFAlertManager sharedInstance] showWarningAlert:error.localizedDescription sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-                } else {
-                    [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-                }
-
-                [self.funnel logError:error.localizedDescription];
-                break;
-        }
-    }
-
-    if ([sender isKindOfClass:[CaptchaResetter class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                self.captchaId = fetchedData[@"index"];
-                NSString* newCaptchaUrl = [CaptchaResetter newCaptchaImageUrlFromOldUrl:self.captchaUrl andNewId:self.captchaId];
-                if (newCaptchaUrl) {
-                    self.captchaUrl = newCaptchaUrl;
-                }
-            }
-            break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-                [[WMFAlertManager sharedInstance] dismissAlert];
-                break;
-            case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-                break;
-        }
-    }
 }
 
 - (NSArray*)requiredInputFields {
@@ -499,31 +369,32 @@
         return;
     }
 
-    // Save!
+    if ([self.captchaViewController.captchaTextBox.text length] == 0) {
+        [[WMFAuthenticationManager sharedInstance] getAccountCreationCaptchaWithUsername:self.usernameField.text password:self.passwordField.text email:self.emailField.text captcha:^(NSURL* _Nonnull captchaURL) {
+            self.captchaUrl = captchaURL;
 
-    //only show if we arent on the captcha
-    if (!self.authManagerInfo) {
-        [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-saving", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+            [[WMFAlertManager sharedInstance] showWarningAlert:MWLocalizedString(@"account-creation-captcha-required", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+        } failure:^(NSError* error) {
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+            [self.funnel logError:error.localizedDescription];
+        }];
+    } else {
+        [[WMFAuthenticationManager sharedInstance] createAccountWithCaptchaText:self.captchaViewController.captchaTextBox.text success:^{
+            NSString* loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
+            loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
+                                                                         withString:self.usernameField.text];
+            [[WMFAlertManager sharedInstance] showSuccessAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } captcha:^(NSURL* _Nonnull captchaURL) {
+            self.captchaUrl = captchaURL;
+
+            [[WMFAlertManager sharedInstance] showWarningAlert:MWLocalizedString(@"account-creation-captcha-required", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+        } failure:^(NSError* error) {
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+            [self.funnel logError:error.localizedDescription];
+            [self enableProgressiveButton:YES];
+        }];
     }
-
-    self.authManagerInfoFetcher = [[WMFAuthManagerInfoFetcher alloc] init];
-
-    [self.authManagerInfoFetcher fetchAuthManagerCreationAvailableForSite:[[MWKLanguageLinkController sharedInstance] appLanguage].site].then(^(WMFAuthManagerInfo* info){
-        self.authManagerInfo = info;
-        [self fetchTokensWithInfo:info];
-    });
-}
-
-- (void)fetchTokensWithInfo:(WMFAuthManagerInfo*)info {
-    [[QueuesSingleton sharedInstance].accountCreationFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
-                                                                     userName:self.usernameField.text
-                                                                     password:self.passwordField.text
-                                                                        email:self.emailField.text
-                                                               useAuthManager:(info != nil)
-                                                                  withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
-                                                           thenNotifyDelegate:self];
-    }];
 }
 
 @end

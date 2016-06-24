@@ -1,12 +1,8 @@
-//  Created by Monte Hurd on 2/10/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
-
 #import "LoginFunnel.h"
-#import "FetcherBase.h"
 
-@interface LoginViewController : UIViewController <FetchFinishedDelegate>
+@interface LoginViewController : UIViewController
 
 - (IBAction)createAccountButtonPushed:(id)sender;
 
