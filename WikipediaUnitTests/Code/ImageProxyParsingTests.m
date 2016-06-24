@@ -43,6 +43,30 @@
     assertThat(string, is(equalTo(expected)));
 }
 
+- (void)testSVGSrcIsntSetToOriginal {
+    self.imageSize = 800;
+    NSString* string =
+    @"<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/300px-US_Employment_Statistics.svg.png\" width=\"300\" height=\"200\" class=\"thumbimage\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/450px-US_Employment_Statistics.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/600px-US_Employment_Statistics.svg.png 2x\" data-file-width=\"720\" data-file-height=\"480\">";
+    
+    string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
+    
+    NSString* expected = [NSString stringWithFormat:@"<img alt=\"\" src=\"%@/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/300px-US_Employment_Statistics.svg.png\" width=\"300\" height=\"200\" class=\"thumbimage\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/450px-US_Employment_Statistics.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/600px-US_Employment_Statistics.svg.png 2x\" data-file-width=\"720\" data-file-height=\"480\" data-image-resized=\"true\">", self.baseURLString];
+    
+    assertThat(string, is(equalTo(expected)));
+}
+
+- (void)testSVGSrcIsScaledWhenPossible {
+    self.imageSize = 640;
+    NSString* string =
+    @"<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/300px-US_Employment_Statistics.svg.png\" width=\"300\" height=\"200\" class=\"thumbimage\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/450px-US_Employment_Statistics.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/600px-US_Employment_Statistics.svg.png 2x\" data-file-width=\"720\" data-file-height=\"480\">";
+    
+    string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
+    
+    NSString* expected = [NSString stringWithFormat:@"<img alt=\"\" src=\"%@/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/%llupx-US_Employment_Statistics.svg.png\" width=\"300\" height=\"200\" class=\"thumbimage\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/450px-US_Employment_Statistics.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/600px-US_Employment_Statistics.svg.png 2x\" data-file-width=\"720\" data-file-height=\"480\" data-image-resized=\"true\">", self.baseURLString, (unsigned long long)self.imageSize];
+    
+    assertThat(string, is(equalTo(expected)));
+}
+
 
 - (void)testNonImageTagSrcAndSrcsetAreUnchanged {
     NSString* string = @""
