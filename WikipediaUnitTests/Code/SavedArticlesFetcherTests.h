@@ -52,7 +52,7 @@ typedef void (^ SavedArticlesFetcherDidFetchArticleBlock)(MWKArticle*, CGFloat, 
 @property (nonatomic, strong) WMFArticleFetcher* mockArticleFetcher;
 
 /// Mock image controller
-@property (nonatomic, strong) WMFImageController* mockImageController;
+@property (nonatomic, strong) WMFImageController* imageController;
 
 @property (nonatomic, strong) MWKImageInfoFetcher* mockImageInfoFetcher;
 
