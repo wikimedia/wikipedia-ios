@@ -259,47 +259,48 @@
     }];
     
     NSMutableString *newImageTagContents = [imageTagContents mutableCopy];
-    BOOL didCheckForResize = false;
+    
     
     NSMutableArray *srcPathComponents = [[src pathComponents] mutableCopy];
-    if (src && srcPathComponents.count > 0) {
+    NSString *resizedSrc = nil;
+    //check to see if we should change the image size being requested - if we know the original file width (dataFileWidth) and the width is present and greater than or equal to 64, and it's a thumbnail URL, we should request a larger size
+    if (dataFileWidth > 0 && (width == 0 || width >= 64) && srcPathComponents.count > 4 && [[srcPathComponents[srcPathComponents.count - 5] lowercaseString] isEqualToString:@"thumb"]) {
         NSString *filename = srcPathComponents[srcPathComponents.count - 1];
-        //check to see if we should change the image size being requested - if we know the original file width (dataFileWidth) and the width is present and greater than or equal to 64, and it's a thumbnail URL, we should request a larger size
-        if (dataFileWidth > 0 && (width == 0 || width >= 64) && srcPathComponents.count > 4 && [[srcPathComponents[srcPathComponents.count - 5] lowercaseString] isEqualToString:@"thumb"]) {
-            if (dataFileWidth > targetImageWidth) { //if the original file width is larger than the target width
-                //replace the thumbnail width prefix with the target width
-                [sizeRegex enumerateMatchesInString:filename options:0 range:NSMakeRange(0, filename.length) usingBlock:^(NSTextCheckingResult * _Nullable sizeResult, NSMatchingFlags flags, BOOL * _Nonnull stop) {
-                    NSMutableString *newFilename = [filename mutableCopy];
-                    NSString *newSizeString = [NSString stringWithFormat:@"%llu", (unsigned long long)targetImageWidth];
-                    [newFilename replaceCharactersInRange:sizeResult.range withString:newSizeString];
-                    [srcPathComponents replaceObjectAtIndex:srcPathComponents.count - 1 withObject:newFilename];
-                    *stop = YES;
-                }];
-            } else if ([filename rangeOfString:@".svg" options:NSCaseInsensitiveSearch].location == NSNotFound) { //otherwise the original file is smaller than the target width, and we should just request the original image (as long as it's not an svg)
-                //remove /thumb/ and the /##px- filename leaving only the original file path
-                NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSetWithIndex:srcPathComponents.count - 5];
-                [indexSet addIndex:srcPathComponents.count - 1];
-                [srcPathComponents removeObjectsAtIndexes:indexSet];
-            }
-            didCheckForResize = true;
+        if (dataFileWidth > targetImageWidth) { //if the original file width is larger than the target width
+            //replace the thumbnail width prefix with the target width
+            [sizeRegex enumerateMatchesInString:filename options:0 range:NSMakeRange(0, filename.length) usingBlock:^(NSTextCheckingResult * _Nullable sizeResult, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+                NSMutableString *newFilename = [filename mutableCopy];
+                NSString *newSizeString = [NSString stringWithFormat:@"%llu", (unsigned long long)targetImageWidth];
+                [newFilename replaceCharactersInRange:sizeResult.range withString:newSizeString];
+                [srcPathComponents replaceObjectAtIndex:srcPathComponents.count - 1 withObject:newFilename];
+                *stop = YES;
+            }];
+        } else if ([filename rangeOfString:@".svg" options:NSCaseInsensitiveSearch].location == NSNotFound) { //otherwise the original file is smaller than the target width, and we should just request the original image (as long as it's not an svg)
+            //remove /thumb/ and the /##px- filename leaving only the original file path
+            NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSetWithIndex:srcPathComponents.count - 5];
+            [indexSet addIndex:srcPathComponents.count - 1];
+            [srcPathComponents removeObjectsAtIndexes:indexSet];
         }
-        
-        NSString *sizeAdjustedSrc = [NSString pathWithComponents:srcPathComponents];
-        if (![sizeAdjustedSrc hasPrefix:@"//"] && [sizeAdjustedSrc hasPrefix:@"/"]) {
-            sizeAdjustedSrc = [@[@"/", sizeAdjustedSrc] componentsJoinedByString:@""];
+
+        resizedSrc = [NSString pathWithComponents:srcPathComponents];
+        if (![resizedSrc hasPrefix:@"//"] && [resizedSrc hasPrefix:@"/"]) {
+            resizedSrc = [@[@"/", resizedSrc] componentsJoinedByString:@""];
         }
-        
-        NSString *sizeAdjustedSrcWithProxy = [self proxyURLForImageURLString:sizeAdjustedSrc].absoluteString;
-        
-        if (sizeAdjustedSrcWithProxy) {
-            NSString *newSrcAttribute = [@[@"src=\"", sizeAdjustedSrcWithProxy, @"\""] componentsJoinedByString:@""];
+        src = resizedSrc;
+    }
+    
+    if (src) {
+        NSString *srcWithProxy = [self proxyURLForImageURLString:src].absoluteString;
+        if (srcWithProxy) {
+            NSString *newSrcAttribute = [@[@"src=\"", srcWithProxy, @"\""] componentsJoinedByString:@""];
             [newImageTagContents replaceCharactersInRange:srcAttributeRange withString:newSrcAttribute];
         }
     }
     
+    
     [newImageTagContents replaceOccurrencesOfString:@"srcset" withString:@"data-srcset-disabled" options:0 range:NSMakeRange(0, newImageTagContents.length)]; //disable the srcset since we put the correct resolution image in the src
     
-    if (didCheckForResize) {
+    if (resizedSrc) {
         [newImageTagContents appendString:@" data-image-resized=\"true\""]; //the javascript looks for this so it doesn't try to change the src again
     }
     
