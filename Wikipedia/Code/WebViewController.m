@@ -161,9 +161,15 @@ NSString* const WMFCCBySALicenseURL =
                 }
             }
         } else if (message.body[@"imageClicked"]) {
-            NSNumber* imageWidth  = message.body[@"imageClicked"][@"width"];
-            NSNumber* imageHeight = message.body[@"imageClicked"][@"height"];
-            CGSize imageSize      = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
+            NSDictionary* imageClicked = message.body[@"imageClicked"];
+            NSNumber* imageWidth       = imageClicked[@"data-file-width"] ? : imageClicked[@"width"];
+            NSNumber* imageHeight      = imageClicked[@"data-file-height"] ? : imageClicked[@"height"];
+            
+            CGSize imageSize = CGSizeZero;
+            if ([imageWidth respondsToSelector:@selector(floatValue)] && [imageHeight respondsToSelector:@selector(floatValue)]) {
+                imageSize = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
+            }
+            
             if (![MWKImage isSizeLargeEnoughForGalleryInclusion:imageSize]) {
                 return;
             }
@@ -175,11 +181,13 @@ NSString* const WMFCCBySALicenseURL =
                 return;
             }
             
+
             NSURL* selectedImageURL = [NSURL URLWithString:selectedImageURLString];
             
             selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
 
             [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
+
         } else if (message.body[@"referenceClicked"]) {
             [self referencesShow:message.body[@"referenceClicked"]];
         } else if (message.body[@"editClicked"]) {
