@@ -46,6 +46,22 @@
 
 
 /**
+ * Width of the original image file. For example, if this image is a thumbnail, this is the width of the original image.
+ */
+@property (copy, nonatomic) NSNumber* originalFileWidth;
+
+/**
+ * Height of the original image file. For example, if this image is a thumbnail, this is the height of the original image.
+ */
+@property (copy, nonatomic) NSNumber* originalFileHeight;
+
+/**
+ * @return CGSize with the receiver's original file `width` and `height`.
+ */
+@property (nonatomic, readonly) CGSize originalFileSize;
+@property (nonatomic, readonly) BOOL hasOriginalFileSize;
+
+/**
  * Local storage status
  */
 @property (readonly, assign, nonatomic) BOOL isDownloaded;

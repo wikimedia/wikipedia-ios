@@ -38,11 +38,25 @@
         return;
     }
 
+    CGSize sizeToCheck = CGSizeZero;
+
     NSString* imgHeight = imageNode.attributes[@"height"];
     NSString* imgWidth  = imageNode.attributes[@"width"];
+    CGSize size         = CGSizeZero;
+    if ([imgWidth respondsToSelector:@selector(floatValue)] && [imgHeight respondsToSelector:@selector(floatValue)]) {
+        size        = CGSizeMake([imgWidth floatValue], [imgHeight floatValue]);
+        sizeToCheck = size;
+    }
 
-    CGSize size = CGSizeMake([imgWidth floatValue], [imgHeight floatValue]);
-    if (![MWKImage isSizeLargeEnoughForGalleryInclusion:size]) {
+    NSString* fileWidth   = imageNode.attributes[@"data-file-height"];
+    NSString* fileHeight  = imageNode.attributes[@"data-file-width"];
+    CGSize fileDimensions = CGSizeZero;
+    if ([fileWidth respondsToSelector:@selector(floatValue)] && [fileHeight respondsToSelector:@selector(floatValue)]) {
+        fileDimensions = CGSizeMake([fileWidth floatValue], [fileHeight floatValue]);
+        sizeToCheck    = fileDimensions;
+    }
+
+    if (![MWKImage isSizeLargeEnoughForGalleryInclusion:sizeToCheck]) {
         return;
     }
 
@@ -54,43 +68,24 @@
             return nil;
         }
         MWKImage* image = [[MWKImage alloc] initWithArticle:self sourceURL:srcURL];
-        if ([MWKImage fileSizePrefix:srcURL.absoluteString] != NSNotFound) {
+        if ([MWKImage fileSizePrefix:srcURL.absoluteString] != NSNotFound && [imgWidth respondsToSelector:@selector(integerValue)] && [imgHeight respondsToSelector:@selector(integerValue)]) {
             // don't add estimated width/height for images without a size prefix, since they're the original image
             image.width  = @(imgWidth.integerValue * scale);
             image.height = @(imgHeight.integerValue * scale);
         }
+
+        if ([fileWidth respondsToSelector:@selector(integerValue)] && [fileHeight respondsToSelector:@selector(integerValue)]) {
+            image.originalFileWidth  = @(fileWidth.integerValue);
+            image.originalFileHeight = @(fileHeight.integerValue);
+        }
+
         return image;
     };
 
     MWKImage* sourceImage =
         imageWithEstimatedSizeAndURL([NSURL wmf_optionalURLWithString:imageNode.attributes[@"src"]], 1);
 
-    NSArray<MWKImage*>* srcsetImages = [[[imageNode.attributes[@"srcset"] componentsSeparatedByString:@","] bk_map:^id (NSString* srcsetComponent) {
-        NSArray* srcsetComponentParts =
-            [[srcsetComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
-             componentsSeparatedByString:@" "];
-        NSURL* url = [NSURL wmf_optionalURLWithString:srcsetComponentParts.firstObject];
-        float scale = 1;
-        if (srcsetComponentParts.count == 2) {
-            NSScanner* scaleSuffixScanner = [NSScanner scannerWithString:srcsetComponentParts[1]];
-            float scannedSuffixValue = 0.f;
-            if ([scaleSuffixScanner scanFloat:&scannedSuffixValue]) {
-                // iOS devices don't use fractional scales, so round them down (e.g. 1.5x becomes 1x)
-                scale = floor(scannedSuffixValue);
-            } else {
-                DDLogInfo(@"Failed to scale srcset scale suffix of component: %@", srcsetComponent);
-            }
-        }
-        return imageWithEstimatedSizeAndURL(url, scale);
-    }] bk_reject:^BOOL (id obj) {
-        return [NSNull null] == obj;
-    }];
-
-    // group src & srset images together, handling case where there was no srcset attribute
-    NSMutableArray<MWKImage*>* allImages = [(srcsetImages ? : @[]) mutableCopy];
-    if (sourceImage) {
-        [allImages insertObject:sourceImage atIndex:0];
-    }
+    NSArray<MWKImage*>* allImages = sourceImage == nil ? @[] : @[sourceImage];
 
     for (MWKImage* image in allImages) {
         /*

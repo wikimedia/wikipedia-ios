@@ -13,5 +13,6 @@
 
 - (id)loadDataFile:(NSString*)name ofType:(NSString*)extension;
 - (id)loadJSON:(NSString*)name;
+- (NSString*)allObamaHTML;
 
 @end

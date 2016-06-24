@@ -71,9 +71,10 @@ function maybeSendMessageForTarget(event, hrefTarget){
          window.webkit.messageHandlers.clicks.postMessage({"imageClicked": {
                                                           'url': url,
                                                           'width': (event.target.naturalWidth / window.devicePixelRatio),
-                                                          'height': (event.target.naturalHeight / window.devicePixelRatio)
+                                                          'height': (event.target.naturalHeight / window.devicePixelRatio),
+ 														  'data-file-width': event.target.getAttribute('data-file-width'),
+ 														  'data-file-height': event.target.getAttribute('data-file-height')
                                                           }});
-
     } else if (href) {
         window.webkit.messageHandlers.clicks.postMessage({"linkClicked": { 'href': href }});
     } else {
