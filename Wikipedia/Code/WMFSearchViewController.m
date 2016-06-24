@@ -642,7 +642,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
-- (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
+- (void)listViewController:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
     //log tap through done in table
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
@@ -650,12 +650,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }];
 }
 
-- (UIViewController*)listViewContoller:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title {
+- (UIViewController*)listViewController:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title {
     WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
     return vc;
 }
 
-- (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
+- (void)listViewController:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
     //log tap through done in table
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
