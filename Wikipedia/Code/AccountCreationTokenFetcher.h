@@ -24,7 +24,6 @@ typedef NS_ENUM (NSInteger, AccountCreationTokenErrorType) {
                                   userName:(NSString*)userName
                                   password:(NSString*)password
                                      email:(NSString*)email
-                            useAuthManager:(BOOL)useAuthManager
                                withManager:(AFHTTPSessionManager*)manager
                         thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 @end
