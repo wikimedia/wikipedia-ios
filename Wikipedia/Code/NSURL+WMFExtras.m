@@ -49,14 +49,6 @@
     return [self wmf_urlByPrependingSchemeIfSchemeless:@"https"];
 }
 
-- (NSString*)wmf_valueForQueryKey:(NSString*)queryKey {
-    NSURLQueryItem* queryItem = [[[NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES] queryItems]
-                                 bk_match:^BOOL (NSURLQueryItem* q) {
-        return [q.name isEqualToString:@"page"];
-    }];
-    return queryItem ? (queryItem.value ? : @"") : nil;
-}
-
 - (BOOL)wmf_isIntraPageFragment {
     return ([self.path isEqualToString:@"/"] && self.fragment);
 }

@@ -240,6 +240,10 @@ NS_ASSUME_NONNULL_BEGIN
                      completion:nil];
 }
 
+-(void)scrollToTop:(BOOL)animated {
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:animated];
+}
+
 - (void)didTapSettingsButton:(UIBarButtonItem*)sender {
     [self showSettings];
 }

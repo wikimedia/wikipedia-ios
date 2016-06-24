@@ -63,11 +63,6 @@ exports.getElementFromPoint = function(x, y){
     return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
 };
 
-exports.getURLForElementAtPoint = function (x, y){
-    return this.getElementFromPoint(x, y).href;
-};
-
-
 },{}],3:[function(require,module,exports){
 (function () {
 var refs = require("./refs");
@@ -142,9 +137,10 @@ function maybeSendMessageForTarget(event, hrefTarget){
          window.webkit.messageHandlers.clicks.postMessage({"imageClicked": {
                                                           'url': url,
                                                           'width': (event.target.naturalWidth / window.devicePixelRatio),
-                                                          'height': (event.target.naturalHeight / window.devicePixelRatio)
+                                                          'height': (event.target.naturalHeight / window.devicePixelRatio),
+ 														  'data-file-width': event.target.getAttribute('data-file-width'),
+ 														  'data-file-height': event.target.getAttribute('data-file-height')
                                                           }});
-
     } else if (href) {
         window.webkit.messageHandlers.clicks.postMessage({"linkClicked": { 'href': href }});
     } else {
@@ -158,12 +154,17 @@ document.addEventListener("touchend", handleTouchEnded, false);
  // 3D Touch peeking listeners.
  document.addEventListener("touchstart", function (event) {
                            // Send message with url (if any) from touch element to native land.
-                           window.webkit.messageHandlers.peek.postMessage({"touchedElementURL": window.wmf.elementLocation.getURLForElementAtPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY)});
+                           var element = window.wmf.elementLocation.getElementFromPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY);
+                           window.webkit.messageHandlers.peek.postMessage({"peekElement": {
+                                                                          'tagName': element.tagName,
+                                                                          'href': element.href,
+                                                                          'src': element.src
+                                                                          }});
                            }, false);
  
  document.addEventListener("touchend", function () {
                            // Tell native land to clear the url - important.
-                           window.webkit.messageHandlers.peek.postMessage({"touchedElementURL": null});
+                           window.webkit.messageHandlers.peek.postMessage({"peekElement": null});
                            }, false);
 })();
 
@@ -665,7 +666,7 @@ function widenAncestors (el) {
 function shouldWidenImage(image) {
     if (
         image.width >= 64 &&
-        image.hasAttribute('srcset') &&
+        image.hasAttribute('data-file-width') &&
         !image.hasAttribute('hasOverflowXContainer') &&
         !utilities.isNestedInTable(image)
         ) {
@@ -701,44 +702,32 @@ function getStretchRatio(image){
     return 1.0;
 }
 
-function getDictionaryFromSrcset(srcset) {
-    /*
-     Returns dictionary with density (without "x") as keys and urls as values.
-     Parameter 'srcset' string:
-     '//image1.jpg 1.5x, //image2.jpg 2x, //image3.jpg 3x'
-     Returns dictionary:
-     {1.5: '//image1.jpg', 2: '//image2.jpg', 3: '//image3.jpg'}
-     */
-    var sets = srcset.split(',').map(function(set) {
-                                     return set.trim().split(' ');
-                                     });
-    var output = {};
-    sets.forEach(function(set) {
-                 output[set[1].replace('x', '')] = set[0];
-                 });
-    return output;
-}
-
-function useHigherResolutionImageSrcFromSrcsetIfNecessary(image) {
-    if (image.getAttribute('srcset')){
+function useHigherResolutionImageSrcIfNecessary(image) {
+    var src = image.getAttribute('src');
+	var resized = image.getAttribute('data-image-resized');
+    if (resized !== "true" && src){
         var stretchRatio = getStretchRatio(image);
         if (stretchRatio > maxStretchRatioAllowedBeforeRequestingHigherResolution) {
-            var srcsetDict = getDictionaryFromSrcset(image.getAttribute('srcset'));
-            /*
-            Grab the highest res url from srcset - avoids the complexity of parsing urls
-            to retrieve variants - which can get tricky - canonicals have different paths 
-            than size variants
-            */
-            var largestSrcsetDictKey = Object.keys(srcsetDict).reduce(function(a, b) {
-              return a > b ? a : b;
-            });
-
-            image.src = srcsetDict[largestSrcsetDictKey];
-
-            if(enableDebugBorders){
-                image.style.borderWidth = '10px';
-            }
-        }
+			var pathComponents = src.split("/");
+			var filename = pathComponents[pathComponents.length - 1];
+			var sizeRegex = /^[0-9]+(?=px-)/;
+			var sizeMatches = filename.match(sizeRegex);
+			if (sizeMatches.length > 0) {
+				var originalSize = parseInt(image.getAttribute('data-file-width'));
+				var newSize = window.devicePixelRatio < 2 ? 320 : 640; //actual width is size*stretchRatio*window.devicePixelRatio;
+				var newSrc = pathComponents.slice(0,-1).join('/');
+				if (newSize < originalSize) {
+					var newFilename = filename.replace(sizeRegex, newSize.toString());
+					newSrc = newSrc + '/' + newFilename;
+				} else if (filename.toLowerCase().indexOf('.svg') == -1) {
+					newSrc = newSrc.replace('/thumb/', '/');
+				}
+				image.src = newSrc;
+	            if(enableDebugBorders){
+	                image.style.borderWidth = '10px';
+	            }
+			}
+        } 
     }
 }
 
@@ -752,7 +741,7 @@ function widenImage(image) {
         image.style.borderColor = '#f00';
     }
 
-    useHigherResolutionImageSrcFromSrcsetIfNecessary(image);
+    useHigherResolutionImageSrcIfNecessary(image);
 }
 
 function maybeWidenImage() {

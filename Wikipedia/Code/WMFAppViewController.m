@@ -719,6 +719,14 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     [self wmf_hideKeyboard];
 }
 
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    if (tabBarController.selectedIndex == WMFAppTabTypeExplore && viewController==tabBarController.selectedViewController) {
+        WMFExploreViewController *exploreViewController = (WMFExploreViewController *)[self exploreViewController];
+        [exploreViewController scrollToTop:YES];
+    }
+    return YES;
+}
+
 #pragma mark - UINavigationControllerDelegate
 
 - (void)navigationController:(UINavigationController*)navigationController
