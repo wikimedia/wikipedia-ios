@@ -75,12 +75,12 @@ function useHigherResolutionImageSrcIfNecessary(image) {
 			if (sizeMatches.length > 0) {
 				var size = parseInt(sizeMatches[0]);
 				var originalSize = parseInt(image.getAttribute('data-file-width'));
-				var newSize = size*stretchRatio*window.devicePixelRatio;
+				var newSize = window.devicePixelRatio < 2 ? 320 : 640; //actual width is size*stretchRatio*window.devicePixelRatio;
 				var newSrc = pathComponents.slice(0,-1).join('/');
 				if (newSize < originalSize) {
 					var newFilename = filename.replace(sizeRegex, newSize.toString());
 					newSrc = newSrc + '/' + newFilename;
-				} else {
+				} else if (filename.toLowerCase().indexOf('.svg') == -1) {
 					newSrc = newSrc.replace('/thumb/', '/');
 				}
 				image.src = newSrc;
