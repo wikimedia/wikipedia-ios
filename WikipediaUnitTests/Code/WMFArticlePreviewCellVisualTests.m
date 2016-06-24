@@ -123,7 +123,7 @@
             [expectation fulfill];
         }];
         
-        WaitForExpectations();
+        WaitForExpectationsWithTimeout(10);
     } else {
         [self.cell setImageURL:nil];
     }
