@@ -176,14 +176,7 @@
         }];
     }];
     
-    [MKTGiven([self.mockImageController cacheImagesWithURLsInBackground:anything() failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
-        NSArray *args = [invocation mkt_arguments];
-        WMFErrorHandler failure = args[1];
-        if (![failure isKindOfClass:[HCIsAnything class]]) {
-            failure(downloadError);
-        }
-        return nil;
-    }];
+    [self stubMultipleImageCacheFailureWithError:downloadError];
 
     // Need to stub gallery responses to prevent NSNull errors
     [self stubGalleryResponsesForArticle:stubbedArticle];
@@ -198,206 +191,212 @@
     assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
 }
 
-//- (void)testReportGalleryInfoErrors {
-//    [self stubListWithEntries:0];
-//
-//    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-//
-//    MWKTitle* dummyTitle       = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
-//    MWKArticle* stubbedArticle = [self stubArticleResponsesForTitle:dummyTitle fixtureName:@"Obama"];
-//
-//    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
-//
-//    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
-//     willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
-//
-//    [self stubArticleImageResponsesForArticle:stubbedArticle];
-//
-//    [stubbedArticle.images.uniqueLargestVariants bk_each:^(MWKImage* image) {
-//        NSString* canonicalPageTitle = [@"File:" stringByAppendingString:image.canonicalFilename];
-//        [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:canonicalPageTitle fromSite:stubbedArticle.title.site])
-//         willReturn:[AnyPromise promiseWithValue:downloadError]];
-//    }];
-//
-//    [self.savedPageList addSavedPageWithTitle:dummyTitle];
-//
-//    [self expectFetcherToFinishWithError:[NSError wmf_savedPageImageDownloadError]];
-//
-//    [self waitForExpectationsWithTimeout:2 handler:nil];
-//
-//    assertThat(self.downloadedArticles, isEmpty());
-//    assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
-//}
-//
-//- (void)testReportGalleryImageErrors {
-//    [self stubListWithEntries:0];
-//
-//    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-//
-//    MWKTitle* dummyTitle       = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
-//    MWKArticle* stubbedArticle = [self stubArticleResponsesForTitle:dummyTitle fixtureName:@"Obama"];
-//
-//    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
-//
-//    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
-//     willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
-//
-//    [self stubArticleImageResponsesForArticle:stubbedArticle];
-//
-//    [stubbedArticle.images.uniqueLargestVariants bk_each:^(MWKImage* image) {
-//        MWKImageInfo* stubbedImageInfo = [self imageInfoStubForImage:image];
-//        [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:stubbedImageInfo.canonicalPageTitle
-//                                                             fromSite:stubbedArticle.title.site])
-//         willReturn:[AnyPromise promiseWithValue:stubbedImageInfo]];
-//
-//        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
-//            NSArray *args = [invocation mkt_arguments];
-//            WMFErrorHandler failure = args[1];
-//            failure(downloadError);
-//            return @"";
-//        }];
-//    }];
-//
-//    [self.savedPageList addSavedPageWithTitle:dummyTitle];
-//
-//    [self expectFetcherToFinishWithError:[NSError wmf_savedPageImageDownloadError]];
-//
-//    [self waitForExpectationsWithTimeout:2 handler:nil];
-//
-//    assertThat(self.downloadedArticles, isEmpty());
-//    assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
-//}
-//
-//- (void)testContinuesDownloadingIfArticleDownloadFails {
-//    [self stubListWithEntries:2];
-//
-//    MWKTitle* firstTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
-//
-//    MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
-//    MWKArticle* secondArticle = [self stubAllSuccessfulResponsesForTitle:secondTitle fixtureName:@"Exoplanet.mobileview"];
-//
-//    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
-//
-//    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
-//     willReturn:[AnyPromise promiseWithValue:downloadError]];
-//
-//    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-//
-//    [self expectFetcherToFinishWithError:downloadError];
-//
-//    [self waitForExpectationsWithTimeout:2 handler:nil];
-//
-//    assertThat(self.downloadedArticles, is(@[secondArticle]));
-//    [self verifyPersistedImageInfoForArticle:secondArticle];
-//    assertThat(self.downloadErrors, is(@{firstTitle: downloadError}));
-//}
-//
-//#pragma mark - Cancellation
-//
-//- (void)testStopDownloadingAnArticleWhenItIsDeleted {
-//    [self stubListWithEntries:2];
-//
-//    MWKTitle* firstTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
-//
-//    MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
-//    MWKArticle* secondArticle =
-//        [[MWKArticle alloc]
-//         initWithTitle:secondTitle
-//             dataStore:self.tempDataStore
-//                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
-//
-//    __block PMKResolver resolveFirstArticleRequest;
-//    AnyPromise* unresolvedSecondArticlePromise = [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-//        resolveFirstArticleRequest = resolve;
-//    }];
-//
-//    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
-//     willReturn:[AnyPromise promiseWithValue:unresolvedSecondArticlePromise]];
-//
-//    __block PMKResolver resolveSecondArticleRequest;
-//    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
-//     willReturn:[AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-//        resolveSecondArticleRequest = resolve;
-//    }]];
-//
-//    [self stubImageResponsesForArticle:secondArticle];
-//
-//    [self expectFetcherToFinishWithError:nil];
-//
-//    /*
-//       !!!: Lots of dispatching here to ensure deterministic behavior, making it possible to consistently predict what
-//       the progress value should be.  If this were omitted, the cancellation could happen at any time, meaning the saved
-//       page list could have 1 or 2 entries when we get our delegate callback, resulting in flaky tests.
-//     */
-//
-//    // start requesting first & second article
-//    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-//
-//    // after that happens...
-//    dispatch_async(self.savedArticlesFetcher.accessQueue, ^{
-//        // cancel the first request by removing the entry
-//        dispatch_sync(dispatch_get_main_queue(), ^{
-//            [self.savedPageList removeEntryWithListIndex:firstTitle];
-//        });
-//        dispatch_async(self.savedArticlesFetcher.accessQueue, ^{
-//            // after cancellation happens, resolve the second article request, triggering delegate callback
-//            resolveSecondArticleRequest(secondArticle);
-//        });
-//    });
-//
-//    [self waitForExpectationsWithTimeout:2 handler:nil];
-//
-//    [MKTVerify(self.mockArticleFetcher) cancelFetchForPageTitle:firstTitle];
-//
-//    // resolve promise after the test to prevent PromiseKit warning
-//    resolveFirstArticleRequest([NSError cancelledError]);
-//
-//    assertThat(self.downloadedArticles, is(@[secondArticle]));
-//    [self verifyPersistedImageInfoForArticle:secondArticle];
-//    assertThat(self.downloadErrors, isEmpty());
-//}
-//
-//- (void)testCancelsImageFetchesForDeletedArticles {
-//    [self stubListWithEntries:1];
-//
-//    MWKTitle* firstTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
-//    MWKArticle* firstArticle = [self stubAllSuccessfulResponsesForTitle:firstTitle fixtureName:@"Exoplanet.mobileview"];
-//
-//    [self expectFetcherToFinishWithError:nil];
-//
-//    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-//
-//    [self waitForExpectationsWithTimeout:2 handler:nil];
-//
-//    /*
-//       HAX: we need to save the article on behalf of the article fetcher in order for the savedArticlesFetcher to
-//          get the list of image fetches to cancel from its dataStore
-//     */
-//    [firstArticle save];
-//
-//    // download finished, images have now started downloading
-//    assertThat(self.downloadedArticles, is(@[firstArticle]));
-//    [self verifyPersistedImageInfoForArticle:firstArticle];
-//    assertThat(self.downloadErrors, isEmpty());
-//
-//    [self.savedPageList removeEntryWithListIndex:firstTitle];
-//
-//    XCTestExpectation* asyncFetcherWorkExpectation =
-//        [self expectationWithDescription:@"Fetcher should cancel requests on its internal queue."];
-//
-//    dispatch_async(self.savedArticlesFetcher.accessQueue, ^{
-//        // it will try to cancel the article fetch even though it's already downloaded (no effect)
-//        [MKTVerify(self.mockArticleFetcher) cancelFetchForPageTitle:firstTitle];
-//        // then it will cancel any download for its images
-//        [firstArticle.allImageURLs bk_each:^(NSURL* imageURL) {
-//            [MKTVerify(self.mockImageController) cancelFetchForURL:imageURL];
-//        }];
-//        [asyncFetcherWorkExpectation fulfill];
-//    });
-//
-//    [self waitForExpectationsWithTimeout:2 handler:nil];
-//}
-//
+- (void)testReportGalleryInfoErrors {
+    [self stubListWithEntries:0];
+
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+
+    MWKTitle* dummyTitle       = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
+    MWKArticle* stubbedArticle = [self stubArticleResponsesForTitle:dummyTitle fixtureName:@"Obama"];
+
+    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
+
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
+
+    [self stubArticleImageResponsesForArticle:stubbedArticle];
+
+    [stubbedArticle.images.uniqueLargestVariants bk_each:^(MWKImage* image) {
+        NSString* canonicalPageTitle = [@"File:" stringByAppendingString:image.canonicalFilename];
+        [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:canonicalPageTitle fromSite:stubbedArticle.title.site])
+         willReturn:[AnyPromise promiseWithValue:downloadError]];
+    }];
+    
+    [self stubMultipleImageCacheFailureWithError:downloadError];
+
+    [self.savedPageList addSavedPageWithTitle:dummyTitle];
+
+    [self expectFetcherToFinishWithError:[NSError wmf_savedPageImageDownloadError]];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    assertThat(self.downloadedArticles, isEmpty());
+    assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
+}
+
+- (void)testReportGalleryImageErrors {
+    [self stubListWithEntries:0];
+
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+
+    MWKTitle* dummyTitle       = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
+    MWKArticle* stubbedArticle = [self stubArticleResponsesForTitle:dummyTitle fixtureName:@"Obama"];
+
+    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
+
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
+
+    [self stubArticleImageResponsesForArticle:stubbedArticle];
+
+    [stubbedArticle.images.uniqueLargestVariants bk_each:^(MWKImage* image) {
+        MWKImageInfo* stubbedImageInfo = [self imageInfoStubForImage:image];
+        [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:stubbedImageInfo.canonicalPageTitle
+                                                             fromSite:stubbedArticle.title.site])
+         willReturn:[AnyPromise promiseWithValue:stubbedImageInfo]];
+
+        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
+            NSArray *args = [invocation mkt_arguments];
+            WMFErrorHandler failure = args[1];
+            if (![failure isKindOfClass:[HCIsAnything class]]) {
+                failure(downloadError);
+            }
+            return nil;
+        }];
+    }];
+    
+    [self stubMultipleImageCacheFailureWithError:downloadError];
+
+    [self.savedPageList addSavedPageWithTitle:dummyTitle];
+
+    [self expectFetcherToFinishWithError:[NSError wmf_savedPageImageDownloadError]];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    assertThat(self.downloadedArticles, isEmpty());
+    assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
+}
+
+- (void)testContinuesDownloadingIfArticleDownloadFails {
+    [self stubListWithEntries:2];
+
+    MWKTitle* firstTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
+
+    MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
+    MWKArticle* secondArticle = [self stubAllSuccessfulResponsesForTitle:secondTitle fixtureName:@"Exoplanet.mobileview"];
+
+    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
+
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:downloadError]];
+
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+
+    [self expectFetcherToFinishWithError:downloadError];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    assertThat(self.downloadedArticles, is(@[secondArticle]));
+    [self verifyPersistedImageInfoForArticle:secondArticle];
+    assertThat(self.downloadErrors, is(@{firstTitle: downloadError}));
+}
+
+#pragma mark - Cancellation
+
+- (void)testStopDownloadingAnArticleWhenItIsDeleted {
+    [self stubListWithEntries:2];
+
+    MWKTitle* firstTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
+
+    MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
+    MWKArticle* secondArticle =
+        [[MWKArticle alloc]
+         initWithTitle:secondTitle
+             dataStore:self.tempDataStore
+                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
+
+    __block PMKResolver resolveFirstArticleRequest;
+    AnyPromise* unresolvedSecondArticlePromise = [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
+        resolveFirstArticleRequest = resolve;
+    }];
+
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:unresolvedSecondArticlePromise]];
+
+    __block PMKResolver resolveSecondArticleRequest;
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
+        resolveSecondArticleRequest = resolve;
+    }]];
+
+    [self stubImageResponsesForArticle:secondArticle];
+
+    [self expectFetcherToFinishWithError:nil];
+
+    /*
+       !!!: Lots of dispatching here to ensure deterministic behavior, making it possible to consistently predict what
+       the progress value should be.  If this were omitted, the cancellation could happen at any time, meaning the saved
+       page list could have 1 or 2 entries when we get our delegate callback, resulting in flaky tests.
+     */
+
+    // start requesting first & second article
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+
+    // after that happens...
+    dispatch_async(self.savedArticlesFetcher.accessQueue, ^{
+        // cancel the first request by removing the entry
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self.savedPageList removeEntryWithListIndex:firstTitle];
+        });
+        dispatch_async(self.savedArticlesFetcher.accessQueue, ^{
+            // after cancellation happens, resolve the second article request, triggering delegate callback
+            resolveSecondArticleRequest(secondArticle);
+        });
+    });
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    [MKTVerify(self.mockArticleFetcher) cancelFetchForPageTitle:firstTitle];
+
+    // resolve promise after the test to prevent PromiseKit warning
+    resolveFirstArticleRequest([NSError cancelledError]);
+
+    assertThat(self.downloadedArticles, is(@[secondArticle]));
+    [self verifyPersistedImageInfoForArticle:secondArticle];
+    assertThat(self.downloadErrors, isEmpty());
+}
+
+- (void)testCancelsImageFetchesForDeletedArticles {
+    [self stubListWithEntries:1];
+
+    MWKTitle* firstTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
+    MWKArticle* firstArticle = [self stubAllSuccessfulResponsesForTitle:firstTitle fixtureName:@"Exoplanet.mobileview"];
+
+    [self expectFetcherToFinishWithError:nil];
+
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    /*
+       HAX: we need to save the article on behalf of the article fetcher in order for the savedArticlesFetcher to
+          get the list of image fetches to cancel from its dataStore
+     */
+    [firstArticle save];
+
+    // download finished, images have now started downloading
+    assertThat(self.downloadedArticles, is(@[firstArticle]));
+    [self verifyPersistedImageInfoForArticle:firstArticle];
+    assertThat(self.downloadErrors, isEmpty());
+
+    [self.savedPageList removeEntryWithListIndex:firstTitle];
+
+    XCTestExpectation* asyncFetcherWorkExpectation =
+        [self expectationWithDescription:@"Fetcher should cancel requests on its internal queue."];
+
+    dispatch_async(self.savedArticlesFetcher.accessQueue, ^{
+        // it will try to cancel the article fetch even though it's already downloaded (no effect)
+        [MKTVerify(self.mockArticleFetcher) cancelFetchForPageTitle:firstTitle];
+        // then it will cancel any download for its images
+        [firstArticle.allImageURLs bk_each:^(NSURL* imageURL) {
+            [MKTVerify(self.mockImageController) cancelFetchForURL:imageURL];
+        }];
+        [asyncFetcherWorkExpectation fulfill];
+    });
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+}
+
 #pragma mark - Utils
 
 - (MWKSavedPageList*)savedPageList {
@@ -443,6 +442,17 @@
     [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:article.title progress:anything()])
      willReturn:[AnyPromise promiseWithValue:article]];
     return article;
+}
+
+- (void)stubMultipleImageCacheFailureWithError:(NSError *)error {
+    [MKTGiven([self.mockImageController cacheImagesWithURLsInBackground:anything() failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
+        NSArray *args = [invocation mkt_arguments];
+        WMFErrorHandler failure = args[1];
+        if (![failure isKindOfClass:[HCIsAnything class]]) {
+            failure(error);
+        }
+        return nil;
+    }];
 }
 
 - (MWKImageInfo*)imageInfoStubForImage:(MWKImage*)image {
