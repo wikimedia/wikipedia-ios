@@ -124,6 +124,7 @@ public class WMFImageController : NSObject {
         let key = self.cacheKeyForURL(url)
         if(self.imageManager.imageCache.diskImageExistsWithKey(key)){
             success(true)
+            return
         }
         fetchImageWithURL(url, options: WMFImageController.backgroundImageFetchOptions, failure: failure) { (download) in
             self.imageManager.imageCache.removeImageForKey(key, fromDisk: false, withCompletion: nil)
