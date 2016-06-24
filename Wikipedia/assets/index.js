@@ -713,7 +713,6 @@ function useHigherResolutionImageSrcIfNecessary(image) {
 			var sizeRegex = /^[0-9]+(?=px-)/;
 			var sizeMatches = filename.match(sizeRegex);
 			if (sizeMatches.length > 0) {
-				var size = parseInt(sizeMatches[0]);
 				var originalSize = parseInt(image.getAttribute('data-file-width'));
 				var newSize = window.devicePixelRatio < 2 ? 320 : 640; //actual width is size*stretchRatio*window.devicePixelRatio;
 				var newSrc = pathComponents.slice(0,-1).join('/');
