@@ -403,18 +403,20 @@ extension WMFImageController {
     /**
      Objective-C-compatible variant of cacheImageWithURLInBackground(url:, failure:, success:)
      
-     - returns: `AnyPromise` which resolves to `WMFImageDownload`.
+     - returns: A string to make OCMockito work.
      */
-    @objc public func cacheImageWithURLInBackground(url: NSURL?, failure: (error: NSError) -> Void, success: (didCache: Bool) -> Void) {
+    @objc public func cacheImageWithURLInBackground(url: NSURL?, failure: (error: NSError) -> Void, success: (didCache: Bool) -> Void) -> String {
         guard let url = url else {
             failure(error: WMFImageControllerError.InvalidOrEmptyURL as NSError)
-            return
+            return ""
         }
         
         let metaFailure = { (error: ErrorType) in
             failure(error: error as NSError)
         }
         cacheImageWithURLInBackground(url, failure: metaFailure, success: success);
+        
+        return cacheKeyForURL(url)
     }
     
     
