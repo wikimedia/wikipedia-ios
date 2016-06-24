@@ -164,7 +164,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 
 - (void)downloadImageDataForArticle:(MWKArticle*)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     [self fetchAllImagesInArticle:article failure:^(NSError *error) {
-        failure(error);
+        failure([NSError wmf_savedPageImageDownloadError]);
     } success:^{
         [self fetchGalleryDataForArticle:article failure:failure success:success];
     }];

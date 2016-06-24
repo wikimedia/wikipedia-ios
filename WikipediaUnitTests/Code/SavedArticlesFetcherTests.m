@@ -131,64 +131,73 @@
 
 #pragma mark - Error Handling
 
-//- (void)testReportDownloadErrors {
-//    [self stubListWithEntries:0];
-//
-//    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-//
-//    MWKTitle* dummyTitle = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
-//
-//    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
-//
-//    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
-//     willReturn:[AnyPromise promiseWithValue:downloadError]];
-//
-//    [self.savedPageList addSavedPageWithTitle:dummyTitle];
-//
-//    [self expectFetcherToFinishWithError:downloadError];
-//
-//    [self waitForExpectationsWithTimeout:2 handler:nil];
-//
-//    [MKTVerifyCount(self.mockImageController, MKTNever()) cacheImageWithURLInBackground:anything() failure:anything() success:anything()];
-//    assertThat(self.downloadedArticles, isEmpty());
-//    assertThat(self.downloadErrors, is(@{dummyTitle: downloadError}));
-//}
+- (void)testReportDownloadErrors {
+    [self stubListWithEntries:0];
 
-//- (void)testReportArticleImageErrors {
-//    [self stubListWithEntries:0];
-//
-//    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-//
-//    MWKTitle* dummyTitle       = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
-//    MWKArticle* stubbedArticle = [self stubArticleResponsesForTitle:dummyTitle fixtureName:@"Obama"];
-//
-//    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
-//
-//    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
-//     willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
-//
-//    [stubbedArticle.allImageURLs bk_each:^(NSURL* imageURL) {
-//        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:imageURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
-//            NSArray *args = [invocation mkt_arguments];
-//            WMFErrorHandler failure = args[1];
-//            failure(downloadError);
-//            return @"";
-//        }];
-//    }];
-//
-//    // Need to stub gallery responses to prevent NSNull errors
-//    [self stubGalleryResponsesForArticle:stubbedArticle];
-//
-//    [self.savedPageList addSavedPageWithTitle:dummyTitle];
-//
-//    [self expectFetcherToFinishWithError:[NSError wmf_savedPageImageDownloadError]];
-//
-//    [self waitForExpectationsWithTimeout:2 handler:nil];
-//
-//    assertThat(self.downloadedArticles, isEmpty());
-//    assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
-//}
-//
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+
+    MWKTitle* dummyTitle = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
+
+    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
+
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:downloadError]];
+
+    [self.savedPageList addSavedPageWithTitle:dummyTitle];
+
+    [self expectFetcherToFinishWithError:downloadError];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    [MKTVerifyCount(self.mockImageController, MKTNever()) cacheImageWithURLInBackground:anything() failure:anything() success:anything()];
+    assertThat(self.downloadedArticles, isEmpty());
+    assertThat(self.downloadErrors, is(@{dummyTitle: downloadError}));
+}
+
+- (void)testReportArticleImageErrors {
+    [self stubListWithEntries:0];
+
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+
+    MWKTitle* dummyTitle       = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
+    MWKArticle* stubbedArticle = [self stubArticleResponsesForTitle:dummyTitle fixtureName:@"Obama"];
+
+    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
+
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
+
+    [stubbedArticle.allImageURLs bk_each:^(NSURL* imageURL) {
+        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:imageURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
+            NSArray *args = [invocation mkt_arguments];
+            WMFErrorHandler failure = args[1];
+            failure(downloadError);
+            return nil;
+        }];
+    }];
+    
+    [MKTGiven([self.mockImageController cacheImagesWithURLsInBackground:anything() failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
+        NSArray *args = [invocation mkt_arguments];
+        WMFErrorHandler failure = args[1];
+        if (![failure isKindOfClass:[HCIsAnything class]]) {
+            failure(downloadError);
+        }
+        return nil;
+    }];
+
+    // Need to stub gallery responses to prevent NSNull errors
+    [self stubGalleryResponsesForArticle:stubbedArticle];
+
+    [self.savedPageList addSavedPageWithTitle:dummyTitle];
+
+    [self expectFetcherToFinishWithError:[NSError wmf_savedPageImageDownloadError]];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    assertThat(self.downloadedArticles, isEmpty());
+    assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
+}
+
 //- (void)testReportGalleryInfoErrors {
 //    [self stubListWithEntries:0];
 //
@@ -469,7 +478,7 @@
     
     [MKTGiven([self.mockImageController cacheImagesWithURLsInBackground:anything() failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
         NSArray *args = [invocation mkt_arguments];
-        WMFSuccessBoolHandler success = [args[2] copy];
+        WMFSuccessBoolHandler success = args[2];
         if (![success isKindOfClass:[HCIsAnything class]]) {
             success(YES);
         }
