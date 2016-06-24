@@ -168,7 +168,7 @@
      willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
 
     [stubbedArticle.allImageURLs bk_each:^(NSURL* imageURL) {
-        [given([self.mockImageController cacheImageWithURLInBackground:imageURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
+        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:imageURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
             NSArray *args = [invocation mkt_arguments];
             WMFErrorHandler failure = args[1];
             failure(downloadError);
@@ -241,7 +241,7 @@
                                                              fromSite:stubbedArticle.title.site])
          willReturn:[AnyPromise promiseWithValue:stubbedImageInfo]];
 
-        [given([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
+        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
             NSArray *args = [invocation mkt_arguments];
             WMFErrorHandler failure = args[1];
             failure(downloadError);
@@ -457,7 +457,7 @@
 
 - (void)stubArticleImageResponsesForArticle:(MWKArticle*)article {
     [[article allImageURLs] bk_each:^(NSURL* imageURL) {
-        [given([self.mockImageController cacheImageWithURLInBackground:imageURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
+        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:imageURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
             NSArray *args = [invocation mkt_arguments];
             WMFSuccessBoolHandler success = args[2];
             success(YES);
@@ -474,7 +474,7 @@
                                                              fromSite:article.title.site])
          willReturn:[AnyPromise promiseWithValue:stubbedImageInfo]];
         
-        [given([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
+        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
             NSArray *args = [invocation mkt_arguments];
             WMFSuccessBoolHandler success = args[2];
             success(YES);
