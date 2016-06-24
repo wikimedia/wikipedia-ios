@@ -38,18 +38,17 @@
     return featurelessFaceOptions;
 }
 
-- (AnyPromise*)wmf_detectFeaturelessFacesInImage:(UIImage*)image {
-    return [self wmf_detectFeaturesInImage:image
-                                   options:[CIDetector wmf_featurelessFaceOptions]
-                                        on:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+- (void)wmf_detectFeaturelessFacesInImage:(UIImage*)image failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
+    [self wmf_detectFeaturesInImage:image
+                            options:[CIDetector wmf_featurelessFaceOptions]
+                                 on:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) failure:failure success:success];
 }
 
-- (AnyPromise*)wmf_detectFeaturesInImage:(UIImage*)image options:(NSDictionary*)options on:(dispatch_queue_t)queue {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        dispatch_async(queue, ^{
-            resolve([self featuresInImage:[image wmf_getOrCreateCIImage] options:options]);
-        });
-    }];
+- (void)wmf_detectFeaturesInImage:(UIImage*)image options:(NSDictionary*)options on:(dispatch_queue_t)queue failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
+    dispatch_async(queue, ^{
+        id features = [self featuresInImage:[image wmf_getOrCreateCIImage] options:options];
+        success(features);
+    });
 }
 
 @end

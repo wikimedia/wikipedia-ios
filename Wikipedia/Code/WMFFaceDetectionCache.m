@@ -38,39 +38,36 @@
     return [imageMetadata.allNormalizedFaceBounds firstObject];
 }
 
-- (AnyPromise*)detectFaceBoundsInImage:(UIImage*)image URL:(NSURL*)url {
+- (void)detectFaceBoundsInImage:(UIImage*)image URL:(NSURL*)url failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
     NSArray* savedBounds = [self faceDetectionBoundsForURL:url];
     if (savedBounds) {
-        return [AnyPromise promiseWithValue:[savedBounds firstObject]];
+        success([savedBounds firstObject]);
     } else {
-        return [self getFaceBoundsInImage:image]
-               .then(^(NSArray* faceBounds) {
+        [self getFaceBoundsInImage:image failure:failure success:^(NSArray* faceBounds) {
             [self cacheFaceDetectionBounds:faceBounds forURL:url];
-            return [faceBounds firstObject];
-        });
+            success([faceBounds firstObject]);
+        }];
     }
 }
 
-- (AnyPromise*)detectFaceBoundsInImage:(UIImage*)image imageMetadata:(MWKImage*)imageMetadata {
+- (void)detectFaceBoundsInImage:(UIImage*)image imageMetadata:(MWKImage*)imageMetadata failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
     NSArray* savedBounds = imageMetadata.allNormalizedFaceBounds;
     if (savedBounds) {
-        return [AnyPromise promiseWithValue:[savedBounds firstObject]];
+        success([savedBounds firstObject]);
     } else {
-        return [self getFaceBoundsInImage:image]
-               .then(^(NSArray* faceBounds) {
+        [self getFaceBoundsInImage:image failure:failure success:^(NSArray* faceBounds) {
             imageMetadata.allNormalizedFaceBounds = faceBounds;
             [imageMetadata save];
-            return [faceBounds firstObject];
-        });
+            success([faceBounds firstObject]);
+        }];
     }
 }
 
-- (AnyPromise*)getFaceBoundsInImage:(UIImage*)image {
-    return [[CIDetector wmf_sharedBackgroundFaceDetector] wmf_detectFeaturelessFacesInImage:image]
-           .then(^(NSArray* features) {
+- (void)getFaceBoundsInImage:(UIImage*)image failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
+    [[CIDetector wmf_sharedBackgroundFaceDetector] wmf_detectFeaturelessFacesInImage:image failure:failure success:^(NSArray* features) {
         NSArray<NSValue*>* faceBounds = [image wmf_normalizeAndConvertBoundsFromCIFeatures:features];
-        return faceBounds;
-    });
+        success(faceBounds);
+    }];
 }
 
 #pragma mark - Cache methods

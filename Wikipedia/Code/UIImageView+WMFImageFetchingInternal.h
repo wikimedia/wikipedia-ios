@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A promise which resolves after the image has been successfully set and animated into view.
  */
-- (AnyPromise*)wmf_fetchImageDetectFaces:(BOOL)detectFaces;
+- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
 
 /**
  *  Cancels any ongoing fetch for the receiver's current image, using its internal @c WMFImageController.

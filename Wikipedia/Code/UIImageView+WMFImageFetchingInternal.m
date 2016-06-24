@@ -95,92 +95,96 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
     }
 }
 
-- (AnyPromise*)wmf_getFaceBoundsInImage:(UIImage*)image {
+- (void)wmf_getFaceBoundsInImage:(UIImage*)image failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
     if (self.wmf_imageURL) {
-        return [[[self class] faceDetectionCache] detectFaceBoundsInImage:image URL:self.wmf_imageURL];
+        [[[self class] faceDetectionCache] detectFaceBoundsInImage:image URL:self.wmf_imageURL failure:failure success:success];
     } else {
-        return [[[self class] faceDetectionCache] detectFaceBoundsInImage:image imageMetadata:self.wmf_imageMetadata];
+        [[[self class] faceDetectionCache] detectFaceBoundsInImage:image imageMetadata:self.wmf_imageMetadata failure:failure success:success];
     }
 }
 
 #pragma mark - Set Image
 
-- (AnyPromise*)wmf_fetchImageDetectFaces:(BOOL)detectFaces {
+- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     NSURL* imageURL = [self wmf_imageURLToFetch];
 
     if (!imageURL) {
-        return [AnyPromise promiseWithValue:[NSError cancelledError]];
+        failure([NSError cancelledError]);
+        return;
     }
 
     UIImage* cachedImage = [self wmf_cachedImage];
     if (cachedImage) {
-        return [self wmf_setImage:cachedImage detectFaces:detectFaces animated:NO];
+        [self wmf_setImage:cachedImage detectFaces:detectFaces animated:NO failure:failure success:success];
+        return;
     }
 
     @weakify(self);
 
-    return [self.wmf_imageController fetchImageWithURL:imageURL]
-           .then(^id (WMFImageDownload* download) {
+    [self.wmf_imageController fetchImageWithURL:imageURL failure:failure success:^(WMFImageDownload* _Nonnull download) {
         @strongify(self);
         if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
-            return [NSError cancelledError];
+            failure([NSError cancelledError]);
         } else {
-            return download.image;
+            [self wmf_setImage:download.image detectFaces:detectFaces animated:YES failure:failure success:success];
         }
-    })
-           .then(^(UIImage* image) {
-        @strongify(self);
-        return [self wmf_setImage:image detectFaces:detectFaces animated:YES];
-    });
+    }];
 }
 
-- (AnyPromise*)wmf_setImage:(UIImage*)image
-                detectFaces:(BOOL)detectFaces
-                   animated:(BOOL)animated {
+- (void)wmf_setImage:(UIImage*)image
+         detectFaces:(BOOL)detectFaces
+            animated:(BOOL)animated
+             failure:(WMFErrorHandler)failure
+             success:(WMFSuccessHandler)success {
     if (!detectFaces) {
-        return [self wmf_setImage:image faceBoundsValue:nil animated:animated];
+        [self wmf_setImage:image faceBoundsValue:nil animated:animated failure:failure success:success];
+        return;
     }
 
     if (![self wmf_imageRequiresFaceDetection]) {
         NSValue* faceBoundsValue = [self wmf_faceBoundsInImage:image];
-        return [self wmf_setImage:image faceBoundsValue:faceBoundsValue animated:animated];
+        [self wmf_setImage:image faceBoundsValue:faceBoundsValue animated:animated failure:failure success:success];
+        return;
     }
 
     NSURL* imageURL = [self wmf_imageURLToFetch];
-    return [self wmf_getFaceBoundsInImage:image]
-           .then(^id (NSValue* bounds) {
+    [self wmf_getFaceBoundsInImage:image failure:failure success:^(NSValue* bounds) {
         if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
-            return [NSError cancelledError];
+            failure([NSError cancelledError]);
         } else {
-            return [self wmf_setImage:image faceBoundsValue:bounds animated:animated];
+            [self wmf_setImage:image faceBoundsValue:bounds animated:animated failure:failure success:success];
         }
-    });
+    }];
 }
 
-- (AnyPromise*)wmf_setImage:(UIImage*)image
-            faceBoundsValue:(nullable NSValue*)faceBoundsValue
-                   animated:(BOOL)animated {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        CGRect faceBounds = [faceBoundsValue CGRectValue];
-        if (!CGRectIsEmpty(faceBounds)) {
-            [self wmf_cropContentsByVerticallyCenteringFrame:[image wmf_denormalizeRect:faceBounds]
-                                         insideBoundsOfImage:image];
-        } else {
-            [self wmf_resetContentsRect];
-        }
-
+- (void)wmf_setImage:(UIImage*)image
+     faceBoundsValue:(nullable NSValue*)faceBoundsValue
+            animated:(BOOL)animated
+             failure:(WMFErrorHandler)failure
+             success:(WMFSuccessHandler)success {
+    CGRect faceBounds = [faceBoundsValue CGRectValue];
+    if (!CGRectIsEmpty(faceBounds)) {
+        [self wmf_cropContentsByVerticallyCenteringFrame:[image wmf_denormalizeRect:faceBounds]
+                                     insideBoundsOfImage:image];
+    } else {
+        [self wmf_resetContentsRect];
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
         [UIView transitionWithView:self
                           duration:animated ? [CATransaction animationDuration] : 0.0
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^{
-            self.contentMode = UIViewContentModeScaleAspectFill;
-            self.backgroundColor = [UIColor whiteColor];
-            self.image = image;
-        }
+                            self.contentMode = UIViewContentModeScaleAspectFill;
+                            self.backgroundColor = [UIColor whiteColor];
+                            self.image = image;
+                        }
                         completion:^(BOOL finished) {
-            resolve(nil);
-        }];
-    }];
+                            success();
+                        }];
+    });
+
+
 }
 
 - (void)wmf_cancelImageDownload {

@@ -12,16 +12,16 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_cancelImageDownload];
 }
 
-- (AnyPromise*)wmf_setImageWithURL:(NSURL*)imageURL detectFaces:(BOOL)detectFaces {
+- (void)wmf_setImageWithURL:(NSURL*)imageURL detectFaces:(BOOL)detectFaces failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSuccessHandler)success {
     [self wmf_cancelImageDownload];
     self.wmf_imageURL = imageURL;
-    return [self wmf_fetchImageDetectFaces:detectFaces];
+    [self wmf_fetchImageDetectFaces:detectFaces failure:failure success:success];
 }
 
-- (AnyPromise*)wmf_setImageWithMetadata:(MWKImage*)imageMetadata detectFaces:(BOOL)detectFaces {
+- (void)wmf_setImageWithMetadata:(MWKImage*)imageMetadata detectFaces:(BOOL)detectFaces failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSuccessHandler)success {
     [self wmf_cancelImageDownload];
     self.wmf_imageMetadata = imageMetadata;
-    return [self wmf_fetchImageDetectFaces:detectFaces];
+    [self wmf_fetchImageDetectFaces:detectFaces failure:failure success:success];
 }
 
 @end
