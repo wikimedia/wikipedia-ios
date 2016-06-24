@@ -85,7 +85,7 @@
         [expectation fulfill];
     }];
     
-    WaitForExpectations();
+    WaitForExpectationsWithTimeout(10);
 }
 
 @end
