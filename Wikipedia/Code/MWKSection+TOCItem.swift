@@ -30,7 +30,7 @@ extension MWKSection : TableOfContentsItem {
             if isLeadSection() {
                 return .None
             } else if let level = level?.unsignedIntegerValue where level <= 2 {
-                return .DefaultTopOnly
+                return .TopOnly
             } else {
                 return .None
             }
