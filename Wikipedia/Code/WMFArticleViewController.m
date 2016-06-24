@@ -11,7 +11,7 @@
 #import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFReadMoreViewController.h"
-#import "WMFImageGalleryViewContoller.h"
+#import "WMFImageGalleryViewController.h"
 #import "SectionEditorViewController.h"
 #import "WMFArticleFooterMenuViewController.h"
 #import "WMFArticleBrowserViewController.h"
@@ -39,7 +39,7 @@
 #import "MWKSectionList.h"
 #import "MWKHistoryList.h"
 #import "MWKLanguageLink.h"
-
+#import "WMFPeekHTMLElement.h"
 
 // Networking
 #import "WMFArticleFetcher.h"
@@ -63,6 +63,7 @@
 #import "UIToolbar+WMFStyling.h"
 #import <Tweaks/FBTweakInline.h>
 #import "WKWebView+WMFWebViewControllerJavascript.h"
+#import "WMFImageInfoController.h"
 
 @import SafariServices;
 
@@ -74,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleViewController ()
 <WMFWebViewControllerDelegate,
  UINavigationControllerDelegate,
- WMFImageGalleryViewContollerReferenceViewDelegate,
+ WMFImageGalleryViewControllerReferenceViewDelegate,
  SectionEditorViewControllerDelegate,
  UIViewControllerPreviewingDelegate,
  WMFLanguagesViewControllerDelegate,
@@ -498,13 +499,18 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSMutableArray* footerVCs = [NSMutableArray arrayWithCapacity:2];
     [footerVCs wmf_safeAddObject:self.footerMenuViewController];
+    
     /*
-       NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
+     NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
      */
-    if ([self hasReadMore] && [self.readMoreListViewController hasResults]) {
+    
+    BOOL includeReadMore = [self hasReadMore] && [self.readMoreListViewController hasResults];
+    if (includeReadMore) {
         [footerVCs addObject:self.readMoreListViewController];
-        [self appendReadMoreTableOfContentsItemIfNeeded];
     }
+    
+    [self appendItemsToTableOfContentsIncludingAboutThisArticle:[self hasAboutThisArticle] includeReadMore:includeReadMore];
+    
     [self.webViewController setFooterViewControllers:footerVCs];
 }
 
@@ -942,9 +948,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFWebViewControllerDelegate
 
 - (void)         webViewController:(WebViewController*)controller
-    didTapImageWithSourceURLString:(nonnull NSString*)imageSourceURLString {
-    MWKImage* selectedImage                                = [[MWKImage alloc] initWithArticle:self.article sourceURLString:imageSourceURLString];
-    WMFArticleImageGalleryViewContoller* fullscreenGallery = [[WMFArticleImageGalleryViewContoller alloc] initWithArticle:self.article selectedImage:selectedImage];
+    didTapImageWithSourceURL:(nonnull NSURL*)imageSourceURL {
+    MWKImage* selectedImage                                = [[MWKImage alloc] initWithArticle:self.article sourceURL:imageSourceURL];
+    WMFArticleImageGalleryViewController* fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage];
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
 
@@ -993,14 +999,14 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    WMFArticleImageGalleryViewContoller* fullscreenGallery = [[WMFArticleImageGalleryViewContoller alloc] initWithArticle:self.article];
+    WMFArticleImageGalleryViewController* fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article];
     fullscreenGallery.referenceViewDelegate = self;
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
 
-#pragma mark - WMFImageGalleryViewContollerReferenceViewDelegate
+#pragma mark - WMFImageGalleryViewControllerReferenceViewDelegate
 
-- (UIImageView*)referenceViewForImageController:(WMFArticleImageGalleryViewContoller*)controller {
+- (UIImageView*)referenceViewForImageController:(WMFArticleImageGalleryViewController*)controller {
     MWKImage* currentImage = [controller currentImage];
     MWKImage* leadImage    = self.article.leadImage;
     if ([currentImage isEqualToImage:leadImage] || [currentImage isVariantOfImage:leadImage]) {
@@ -1071,28 +1077,44 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
-    NSString* peekURLString = self.webViewController.peekURLString;
-    if (!peekURLString) {
-        return nil;
-    }
 
-    NSURL* peekURL = [NSURL URLWithString:peekURLString];
-    if (!peekURL) {
-        return nil;
-    }
-
-    UIViewController* peekVC = [self viewControllerForPreviewURL:peekURL];
+    UIViewController* peekVC = [self peekViewControllerForPeekElement:self.webViewController.peekElement];
     if (peekVC) {
         [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
         self.webViewController.isPeeking = YES;
         return peekVC;
     }
-
     return nil;
 }
 
+- (nullable UIViewController*)peekViewControllerForPeekElement:(WMFPeekHTMLElement*)peekElement {
+    switch (peekElement.type) {
+        case WMFPeekElementTypeImage:
+            return [self viewControllerForImageURL:peekElement.url];
+            break;
+        case WMFPeekElementTypeAnchor:
+            return [self viewControllerForPreviewURL:peekElement.url];
+            break;
+        case WMFPeekElementTypeUnpeekable:
+            return nil;
+            break;
+    }
+}
+
+- (nullable UIViewController*)viewControllerForImageURL:(nullable NSURL*)url {
+    if (!url || ![self.article.images hasImageURL:url]) {
+        return nil;
+    }
+    
+    MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:url];
+    WMFArticleImageGalleryViewController* gallery =
+    [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
+                                                    selectedImage:selectedImage];
+    return gallery;
+}
+
 - (UIViewController*)viewControllerForPreviewURL:(NSURL*)url {
-    if ([url.absoluteString isEqualToString:@""]) {
+    if(!url || [url.absoluteString isEqualToString:@""]){
         return nil;
     }
     if (![url wmf_isInternalLink]) {
@@ -1137,7 +1159,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
-- (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
+- (void)listViewController:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
     if ([self presentedViewController]) {
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
@@ -1148,12 +1170,12 @@ NS_ASSUME_NONNULL_BEGIN
     [self pushArticleViewControllerWithTitle:title contentType:contentType animated:YES];
 }
 
-- (UIViewController*)listViewContoller:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title {
+- (UIViewController*)listViewController:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title {
     return [[WMFArticleViewController alloc] initWithArticleTitle:title
                                                         dataStore:self.dataStore];
 }
 
-- (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
+- (void)listViewController:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
     if ([self presentedViewController]) {
         [self dismissViewControllerAnimated:YES completion:NULL];
     }

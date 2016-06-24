@@ -113,7 +113,6 @@
     NSParameterAssert([titles count]);
     NSAssert([titles count] <= 50, @"Only 50 titles can be queried at a time.");
     NSParameterAssert(site);
-    NSAssert(site.language.length, @"Site must have a non-empty language in order to send requests: %@", site);
 
     NSMutableDictionary* params =
         [@{@"format": @"json",

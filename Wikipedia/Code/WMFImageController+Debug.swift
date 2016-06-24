@@ -10,7 +10,7 @@ import Foundation
 import PromiseKit
 
 #if DEBUG
-// Enable to colorize images based on whether they were loaded from memory, disk, or network.
+    // Enable to colorize images based on whether they were loaded from memory, disk, or network.
 let APPLY_IMAGE_OVERLAYS = false
 #endif
 
@@ -26,14 +26,14 @@ internal extension WMFImageController {
             }
         #endif
     }
-
+    
     private func applyDebugTransforms(toDownload download: WMFImageDownload) -> WMFImageDownload {
         let transformedDownload = download
         transformedDownload.image = download.image.wmf_imageByDrawingInContext() {
             download.image.wmf_fillCurrentContext()
             // tint
             CGContextSetFillColorWithColor(UIGraphicsGetCurrentContext()!,
-                                           ImageOrigin(rawValue: download.origin)!.debugColor.CGColor)
+                download.origin.debugColor.CGColor)
             UIRectFillUsingBlendMode(download.image.wmf_frame, CGBlendMode.Overlay)
         }
         return transformedDownload

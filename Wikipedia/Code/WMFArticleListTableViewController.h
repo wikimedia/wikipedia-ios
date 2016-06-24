@@ -9,11 +9,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFArticleListTableViewControllerDelegate <NSObject>
 
-- (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title;
+- (void)listViewController:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title;
 
-- (UIViewController*)listViewContoller:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title;
+- (UIViewController*)listViewController:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title;
 
-- (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController;
+- (void)listViewController:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController;
 
 @end
 

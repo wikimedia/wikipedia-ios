@@ -3,16 +3,19 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import <BlocksKit/BlocksKit.h>
 
-#import "NSString+WMFImageProxy.h"
+#import "WMFProxyServer.h"
+#import "MWKTestCase.h"
 
-@interface NSString (WMFImageProxyTesting)
-
-- (NSString*)wmf_replaceURLsWithLocalhostProxyURLsInSrcsetValue:(NSString*)srcsetValue;
-
+@interface WMFProxyServer (Testing)
+- (NSURL*)   baseURL;
 @end
 
-@interface ImageProxyParsingTests : XCTestCase
-
+@interface ImageProxyParsingTests : MWKTestCase
+@property (nonatomic, copy) NSString* baseURLString;
+@property (nonatomic, copy) NSString* proxyOriginalSrcPrefix;
+@property (nonatomic, copy) NSString* resizedAttribute;
+@property (nonatomic, strong) WMFProxyServer* proxyServer;
+@property (nonatomic) NSUInteger imageSize;
 @end
 
 @implementation ImageProxyParsingTests
@@ -20,6 +23,11 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    self.proxyServer   = [WMFProxyServer sharedProxyServer];
+    self.baseURLString = self.proxyServer.baseURL.absoluteString;
+    self.proxyOriginalSrcPrefix = [NSString stringWithFormat:@"%@/imageProxy?originalSrc=", self.baseURLString];
+    self.imageSize = 640;
+    self.resizedAttribute = @"data-image-resized=\"true\"";
 }
 
 - (void)tearDown {
@@ -31,55 +39,68 @@
     NSString* string =
         @"<img src=\"//test.png\">";
 
-    string = [string wmf_stringWithImgTagSrcAndSrcsetURLsChangedToLocalhostProxyURLs];
+    string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
 
     NSString* expected =
-        @"<img src=\"http://localhost:8080/imageProxy?originalSrc=//test.png\">";
+        [NSString stringWithFormat:@"<img src=\"%@/imageProxy?originalSrc=//test.png\">", self.baseURLString];
 
     assertThat(string, is(equalTo(expected)));
 }
 
-- (void)testSrcsetValueWithSingleUrlIsConvertedToProxyFormat {
+- (void)testSrcIsSetToOriginal {
+    self.imageSize = 640;
     NSString* string =
-        @"//test2x.png 2x";
-
-    string = [string wmf_replaceURLsWithLocalhostProxyURLsInSrcsetValue:string];
-
-    NSString* expected =
-        @"http://localhost:8080/imageProxy?originalSrc=//test2x.png 2x";
-
+    @"<img alt=\"A young boy (preteen), a younger girl (toddler), a woman (about age thirty) and a man (in his mid-fifties) sit on a lawn wearing contemporary c.-1970 attire. The adults wear sunglasses and the boy wears sandals.\" src=\"//upload.wikimedia.org/wikipedia/en/thumb/3/33/Ann_Dunham_with_father_and_children.jpg/220px-Ann_Dunham_with_father_and_children.jpg\" width=\"220\" height=\"146\" class=\"thumbimage\" srcset=\"//upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg 1.5x, //upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg 2x\" data-file-width=\"320\" data-file-height=\"212\">";
+    
+    string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
+    
+    NSString* expected = [NSString stringWithFormat:@"<img alt=\"A young boy (preteen), a younger girl (toddler), a woman (about age thirty) and a man (in his mid-fifties) sit on a lawn wearing contemporary c.-1970 attire. The adults wear sunglasses and the boy wears sandals.\" src=\"%@//upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg\" width=\"220\" height=\"146\" class=\"thumbimage\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg 1.5x, //upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg 2x\" data-file-width=\"320\" data-file-height=\"212\" %@>", self.proxyOriginalSrcPrefix, self.resizedAttribute];
+    
     assertThat(string, is(equalTo(expected)));
 }
 
-- (void)testSrcsetValueWithMultipleUrlsIsConvertedToProxyFormat {
+- (void)testSrcIsScaled {
+    self.imageSize = 640;
     NSString* string =
-        @"//test2x.png 2x, //test3x.png 3x";
-
-    string = [string wmf_replaceURLsWithLocalhostProxyURLsInSrcsetValue:string];
-
-    NSString* expected =
-        @"http://localhost:8080/imageProxy?originalSrc=//test2x.png 2x, http://localhost:8080/imageProxy?originalSrc=//test3x.png 3x";
-
+    @"<img alt=\"Obama about to take a shot while three other players look at him. One of those players is holding is arms up in an attempt to block Obama.\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/170px-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg\" width=\"170\" height=\"255\" class=\"thumbimage\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/255px-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/340px-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg 2x\" data-file-width=\"2333\" data-file-height=\"3500\">";
+    
+    string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
+    
+    NSString* expected = [NSString stringWithFormat:@"<img alt=\"Obama about to take a shot while three other players look at him. One of those players is holding is arms up in an attempt to block Obama.\" src=\"%@//upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/%llupx-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg\" width=\"170\" height=\"255\" class=\"thumbimage\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/255px-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/340px-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg 2x\" data-file-width=\"2333\" data-file-height=\"3500\" %@>", self.proxyOriginalSrcPrefix, (unsigned long long)self.imageSize, self.resizedAttribute];
+    
     assertThat(string, is(equalTo(expected)));
 }
 
-- (void)testBothSrcAndSrcsetUrlsAreConvertedToProxyFormat {
+- (void)testSVGSrcIsntSetToOriginal {
+    self.imageSize = 800;
     NSString* string =
-        @"<img src=\"//test.png\" srcset=\"//test2x.png 2x\">";
-
-    string = [string wmf_stringWithImgTagSrcAndSrcsetURLsChangedToLocalhostProxyURLs];
-
-    NSString* expected =
-        @"<img src=\"http://localhost:8080/imageProxy?originalSrc=//test.png\" srcset=\"http://localhost:8080/imageProxy?originalSrc=//test2x.png 2x\">";
-
+    @"<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/300px-US_Employment_Statistics.svg.png\" width=\"300\" height=\"200\" class=\"thumbimage\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/450px-US_Employment_Statistics.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/600px-US_Employment_Statistics.svg.png 2x\" data-file-width=\"720\" data-file-height=\"480\">";
+    
+    string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
+    
+    NSString* expected = [NSString stringWithFormat:@"<img alt=\"\" src=\"%@//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/300px-US_Employment_Statistics.svg.png\" width=\"300\" height=\"200\" class=\"thumbimage\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/450px-US_Employment_Statistics.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/600px-US_Employment_Statistics.svg.png 2x\" data-file-width=\"720\" data-file-height=\"480\" %@>", self.proxyOriginalSrcPrefix, self.resizedAttribute];
+    
     assertThat(string, is(equalTo(expected)));
 }
+
+- (void)testSVGSrcIsScaledWhenPossible {
+    self.imageSize = 640;
+    NSString* string =
+    @"<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/300px-US_Employment_Statistics.svg.png\" width=\"300\" height=\"200\" class=\"thumbimage\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/450px-US_Employment_Statistics.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/600px-US_Employment_Statistics.svg.png 2x\" data-file-width=\"720\" data-file-height=\"480\">";
+    
+    string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
+    
+    NSString* expected = [NSString stringWithFormat:@"<img alt=\"\" src=\"%@/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/%llupx-US_Employment_Statistics.svg.png\" width=\"300\" height=\"200\" class=\"thumbimage\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/450px-US_Employment_Statistics.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/600px-US_Employment_Statistics.svg.png 2x\" data-file-width=\"720\" data-file-height=\"480\" data-image-resized=\"true\">", self.baseURLString, (unsigned long long)self.imageSize];
+    
+    assertThat(string, is(equalTo(expected)));
+}
+
 
 - (void)testNonImageTagSrcAndSrcsetAreUnchanged {
     NSString* string = @""
                        "<someothertag src=\"//test.png\" srcset=\"//test2x.png 2x\">";
 
-    string = [string wmf_stringWithImgTagSrcAndSrcsetURLsChangedToLocalhostProxyURLs];
+    string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
 
     NSString* expected = @""
                          "<someothertag src=\"//test.png\" srcset=\"//test2x.png 2x\">";
@@ -92,11 +113,11 @@
                        "<someothertag src=\"//test.png\" srcset=\"//test2x.png 2x\">"
                        "<img src=\"//test.png\" srcset=\"//test2x.png 2x\">";
 
-    string = [string wmf_stringWithImgTagSrcAndSrcsetURLsChangedToLocalhostProxyURLs];
+    string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
 
-    NSString* expected = @""
-                         "<someothertag src=\"//test.png\" srcset=\"//test2x.png 2x\">"
-                         "<img src=\"http://localhost:8080/imageProxy?originalSrc=//test.png\" srcset=\"http://localhost:8080/imageProxy?originalSrc=//test2x.png 2x\">";
+    NSString* expected = [NSString stringWithFormat:@""
+                          "<someothertag src=\"//test.png\" srcset=\"//test2x.png 2x\">"
+                          "<img src=\"%@/imageProxy?originalSrc=//test.png\" data-srcset-disabled=\"//test2x.png 2x\">", self.baseURLString];
 
     assertThat(string, is(equalTo(expected)));
 }
@@ -105,10 +126,10 @@
     NSString* string = @""
                        "<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/128px-Barack_Obama_signature.svg.png\" srcset=\"//test2x.png 2x\" width=\"128\" height=\"31\"/>";
 
-    string = [string wmf_stringWithImgTagSrcAndSrcsetURLsChangedToLocalhostProxyURLs];
+    string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
 
-    NSString* expected = @""
-                         "<img alt=\"\" src=\"http://localhost:8080/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/128px-Barack_Obama_signature.svg.png\" srcset=\"http://localhost:8080/imageProxy?originalSrc=//test2x.png 2x\" width=\"128\" height=\"31\"/>";
+    NSString* expected = [NSString stringWithFormat:@""
+                          "<img alt=\"\" src=\"%@/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/128px-Barack_Obama_signature.svg.png\" data-srcset-disabled=\"//test2x.png 2x\" width=\"128\" height=\"31\"/>", self.baseURLString];
 
     assertThat(string, is(equalTo(expected)));
 }
@@ -118,24 +139,24 @@
     NSString* string = @""
                        "<img src=\"//upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg/220px-%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg\">";
 
-    string = [string wmf_stringWithImgTagSrcAndSrcsetURLsChangedToLocalhostProxyURLs];
+    string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
 
-    NSString* expected = @""
-                         "<img src=\"http://localhost:8080/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%25C5%25BDeljezni%25C4%258Dki_most%252C_Mursko_Sredi%25C5%25A1%25C4%2587e_%2528Croatia%2529.1.jpg/220px-%25C5%25BDeljezni%25C4%258Dki_most%252C_Mursko_Sredi%25C5%25A1%25C4%2587e_%2528Croatia%2529.1.jpg\">";
+    NSString* expected = [NSString stringWithFormat:@""
+                          "<img src=\"%@/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%%25C5%%25BDeljezni%%25C4%%258Dki_most%%252C_Mursko_Sredi%%25C5%%25A1%%25C4%%2587e_%%2528Croatia%%2529.1.jpg/220px-%%25C5%%25BDeljezni%%25C4%%258Dki_most%%252C_Mursko_Sredi%%25C5%%25A1%%25C4%%2587e_%%2528Croatia%%2529.1.jpg\">", self.baseURLString];
 
     assertThat(string, is(equalTo(expected)));
 }
 
-- (void)testSrcsetUrlsAreConvertedToProxyFormatWithOriginalUrlsBeingPercentEncoded {
+- (void)testSrcsetUrlsAreDisabledWithOriginalUrlsBeingPercentEncoded {
     // From: https://en.wikipedia.org/wiki/Bridge
     NSString* string = @""
-                       "<img src=\"\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg/330px-%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg/440px-%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg 2x\">";
-
-    string = [string wmf_stringWithImgTagSrcAndSrcsetURLsChangedToLocalhostProxyURLs];
-
-    NSString* expected = @""
-                         "<img src=\"\" srcset=\"http://localhost:8080/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%25C5%25BDeljezni%25C4%258Dki_most%252C_Mursko_Sredi%25C5%25A1%25C4%2587e_%2528Croatia%2529.1.jpg/330px-%25C5%25BDeljezni%25C4%258Dki_most%252C_Mursko_Sredi%25C5%25A1%25C4%2587e_%2528Croatia%2529.1.jpg 1.5x, http://localhost:8080/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%25C5%25BDeljezni%25C4%258Dki_most%252C_Mursko_Sredi%25C5%25A1%25C4%2587e_%2528Croatia%2529.1.jpg/440px-%25C5%25BDeljezni%25C4%258Dki_most%252C_Mursko_Sredi%25C5%25A1%25C4%2587e_%2528Croatia%2529.1.jpg 2x\">";
-
+    "<img src=\"\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg/330px-%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg/440px-%C5%BDeljezni%C4%8Dki_most%2C_Mursko_Sredi%C5%A1%C4%87e_%28Croatia%29.1.jpg 2x\">";
+    
+    string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
+    
+    NSString* expected = [NSString stringWithFormat:@""
+                          "<img src=\"\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%%C5%%BDeljezni%%C4%%8Dki_most%%2C_Mursko_Sredi%%C5%%A1%%C4%%87e_%%28Croatia%%29.1.jpg/330px-%%C5%%BDeljezni%%C4%%8Dki_most%%2C_Mursko_Sredi%%C5%%A1%%C4%%87e_%%28Croatia%%29.1.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/d/dd/%%C5%%BDeljezni%%C4%%8Dki_most%%2C_Mursko_Sredi%%C5%%A1%%C4%%87e_%%28Croatia%%29.1.jpg/440px-%%C5%%BDeljezni%%C4%%8Dki_most%%2C_Mursko_Sredi%%C5%%A1%%C4%%87e_%%28Croatia%%29.1.jpg 2x\">"];
+    
     assertThat(string, is(equalTo(expected)));
 }
 
@@ -144,10 +165,10 @@
     NSString* string = @""
                        "<img src=\"\" srcset=\"\">";
 
-    string = [string wmf_stringWithImgTagSrcAndSrcsetURLsChangedToLocalhostProxyURLs];
+    string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
 
     NSString* expected = @""
-                         "<img src=\"\" srcset=\"\">";
+                         "<img src=\"\" data-srcset-disabled=\"\">";
 
     assertThat(string, is(equalTo(expected)));
 }
@@ -160,16 +181,31 @@
                        "<img src=\"//testThis.png\" srcset=\"//testThis2x.png 2x\">"
     ;
 
-    string = [string wmf_stringWithImgTagSrcAndSrcsetURLsChangedToLocalhostProxyURLs];
+    string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
 
-    NSString* expected = @""
-                         "<someothertag src=\"//test.png\" srcset=\"//test2x.png 2x\">"
-                         "<img src=\"http://localhost:8080/imageProxy?originalSrc=//test.png\" srcset=\"http://localhost:8080/imageProxy?originalSrc=//test2x.png 2x\">"
-                         "<someothertag src=\"//test.png\" srcset=\"//test2x.png 2x\">"
-                         "<img src=\"http://localhost:8080/imageProxy?originalSrc=//testThis.png\" srcset=\"http://localhost:8080/imageProxy?originalSrc=//testThis2x.png 2x\">"
+    NSString* expected = [NSString stringWithFormat:@""
+                          "<someothertag src=\"//test.png\" srcset=\"//test2x.png 2x\">"
+                          "<img src=\"%@/imageProxy?originalSrc=//test.png\" data-srcset-disabled=\"//test2x.png 2x\">"
+                          "<someothertag src=\"//test.png\" srcset=\"//test2x.png 2x\">"
+                          "<img src=\"%@/imageProxy?originalSrc=//testThis.png\" data-srcset-disabled=\"//testThis2x.png 2x\">", self.baseURLString, self.baseURLString];
     ;
 
     assertThat(string, is(equalTo(expected)));
+}
+
+- (void)testObamaArticleImageProxySubstitutionCount {
+    NSString* allObamaHTMLWithImageTagsChanged = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:[self allObamaHTML] targetImageWidth:self.imageSize];
+    NSArray* allObamaHTMLSplitOnImageProxy = [allObamaHTMLWithImageTagsChanged componentsSeparatedByString:@"imageProxy"];
+    NSLog(@"allObamaHTMLSplitOnImageProxy count = %lu", (unsigned long)allObamaHTMLSplitOnImageProxy.count);
+    assertThat(allObamaHTMLSplitOnImageProxy, hasCountOf(107));
+}
+
+- (void)testPerformanceExample {
+    //initial run compiles regexes
+    [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:[self allObamaHTML] targetImageWidth:self.imageSize];
+    [self measureBlock:^{
+        [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:[self allObamaHTML] targetImageWidth:self.imageSize];
+    }];
 }
 
 @end

@@ -7,9 +7,12 @@ public class WMFTableOfContentsCell: UITableViewCell {
     @IBOutlet var sectionTitle: UILabel!
     @IBOutlet var selectedSectionIndicator: UIView!
     @IBOutlet var indentationConstraint: NSLayoutConstraint!
-    @IBOutlet var sectionBorder: UIView!
-    @IBOutlet var sectionBorderAlignLeadingToSuperview: NSLayoutConstraint!
-    @IBOutlet var sectionBorderAlignToText: NSLayoutConstraint!
+    @IBOutlet var topSectionBorder: UIView!
+    @IBOutlet var bottomSectionBorder: UIView!
+    @IBOutlet var topSectionBorderAlignLeadingToSuperview: NSLayoutConstraint!
+    @IBOutlet var topSectionBorderAlignToText: NSLayoutConstraint!
+    @IBOutlet var bottomSectionBorderAlignLeadingToSuperview: NSLayoutConstraint!
+    @IBOutlet var bottomSectionBorderAlignToText: NSLayoutConstraint!
     
     // MARK: - Init
 
@@ -37,16 +40,16 @@ public class WMFTableOfContentsCell: UITableViewCell {
             sectionTitle.textColor = newItem.itemType.titleColor
 
             switch (newItem.borderType) {
-            case .Default:
-                sectionBorder.hidden = false
-                sectionBorderAlignToText.active = true
-                sectionBorderAlignLeadingToSuperview.active = false
-            case .FullWidth:
-                sectionBorder.hidden = false
-                sectionBorderAlignToText.active = false
-                sectionBorderAlignLeadingToSuperview.active = true
+            case .TopOnly:
+                topSectionBorder.hidden = false
+                bottomSectionBorder.hidden = true
+                topSectionBorderAlignToText.active = true
+                topSectionBorderAlignLeadingToSuperview.active = false
+                bottomSectionBorderAlignToText.active = true
+                bottomSectionBorderAlignLeadingToSuperview.active = false
             case .None:
-                sectionBorder.hidden = true
+                topSectionBorder.hidden = true
+                bottomSectionBorder.hidden = true
             }
 
             indentationConstraint.constant =

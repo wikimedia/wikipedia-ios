@@ -237,6 +237,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [[WMFImageController sharedInstance] clearMemoryCache];
     [self downloadAssetsFilesIfNecessary];
     [self performHousekeeping];
+    [[[SessionSingleton sharedInstance] dataStore] clearMemoryCache];
+}
+
+#pragma mark - Memory Warning
+
+- (void)didReceiveMemoryWarning {
+    [[WMFImageController sharedInstance] clearMemoryCache];
+    [[[SessionSingleton sharedInstance] dataStore] clearMemoryCache];
 }
 
 #pragma mark - Shortcut
@@ -709,6 +717,14 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
+}
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    if (tabBarController.selectedIndex == WMFAppTabTypeExplore && viewController==tabBarController.selectedViewController) {
+        WMFExploreViewController *exploreViewController = (WMFExploreViewController *)[self exploreViewController];
+        [exploreViewController scrollToTop:YES];
+    }
+    return YES;
 }
 
 #pragma mark - UINavigationControllerDelegate
