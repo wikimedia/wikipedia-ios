@@ -99,15 +99,20 @@ public class WMFLegacyImageDataMigration : NSObject {
                             return Promise(error: LegacyImageDataMigrationError.Deinit)
                         }
                         let filepath = self.legacyDataStore.pathForImageData(url.absoluteString, title: title)
-                        let promise = self.imageController.importImage(fromFile: filepath, withURL: url)
-                        return promise.recover() { (error: ErrorType) -> Promise<Void> in
-                            #if DEBUG
-                            // only return errors in debug, silently fail in production
-                            if (error as NSError).code != NSFileNoSuchFileError {
-                                return Promise(error: error)
+                        
+                        return Promise<Void> { fulfill, reject in
+                            let failure = { (error: ErrorType) -> Void in
+                                #if DEBUG
+                                    reject(error)
+                                #else
+                                    fulfill()
+                                #endif
+                                
                             }
-                            #endif
-                            return Promise()
+                            let success = { () -> Void in
+                                fulfill()
+                            }
+                            self.imageController.importImage(fromFile: filepath, withURL: url, failure: failure, success: success)
                         }
                     }
                 }.asVoid()
