@@ -305,6 +305,9 @@ NS_ASSUME_NONNULL_BEGIN
     self.keychainCredentials.userName   = nil;
     self.keychainCredentials.password   = nil;
     self.keychainCredentials.editTokens = nil;
+    self.loggedInUsername               = nil;
+    self.email                          = nil;
+    self.loginToken                     = nil;
     // Clear session cookies too.
     for (NSHTTPCookie* cookie in[[NSHTTPCookieStorage sharedHTTPCookieStorage].cookies copy]) {
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
