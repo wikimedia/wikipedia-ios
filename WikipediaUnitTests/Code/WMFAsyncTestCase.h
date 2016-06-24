@@ -13,6 +13,7 @@
 extern NSTimeInterval const WMFDefaultExpectationTimeout;
 
 #define WaitForExpectations() ([self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:nil])
+#define WaitForExpectationsWithTimeout(timeout) ([self waitForExpectationsWithTimeout:timeout handler:nil])
 
 @interface WMFAsyncTestCase : XCTestCase
 

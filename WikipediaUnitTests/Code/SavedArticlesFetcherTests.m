@@ -1,16 +1,8 @@
-//
-//  SavedArticlesFetcherTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 9/21/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "SavedArticlesFetcherTests.h"
 #import "HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.h"
 #import "MWKArticle+HTMLImageImport.h"
 #import "WMFURLCache.h"
-
+#import <OCMockito/NSInvocation+OCMockito.h>
 
 @implementation SavedArticlesFetcherTests
 
@@ -157,7 +149,7 @@
 
     [self waitForExpectationsWithTimeout:2 handler:nil];
 
-    [MKTVerifyCount(self.mockImageController, MKTNever()) cacheImageWithURLInBackground:anything()];
+    [MKTVerifyCount(self.mockImageController, MKTNever()) cacheImageWithURLInBackground:anything() failure:anything() success:anything()];
     assertThat(self.downloadedArticles, isEmpty());
     assertThat(self.downloadErrors, is(@{dummyTitle: downloadError}));
 }
@@ -176,9 +168,15 @@
      willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
 
     [stubbedArticle.allImageURLs bk_each:^(NSURL* imageURL) {
-        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:imageURL])
-         willReturn:[AnyPromise promiseWithValue:downloadError]];
+        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:imageURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
+            NSArray *args = [invocation mkt_arguments];
+            WMFErrorHandler failure = args[1];
+            failure(downloadError);
+            return nil;
+        }];
     }];
+    
+    [self stubMultipleImageCacheFailureWithError:downloadError];
 
     // Need to stub gallery responses to prevent NSNull errors
     [self stubGalleryResponsesForArticle:stubbedArticle];
@@ -213,6 +211,8 @@
         [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:canonicalPageTitle fromSite:stubbedArticle.title.site])
          willReturn:[AnyPromise promiseWithValue:downloadError]];
     }];
+    
+    [self stubMultipleImageCacheFailureWithError:downloadError];
 
     [self.savedPageList addSavedPageWithTitle:dummyTitle];
 
@@ -245,9 +245,17 @@
                                                              fromSite:stubbedArticle.title.site])
          willReturn:[AnyPromise promiseWithValue:stubbedImageInfo]];
 
-        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL])
-         willReturn:[AnyPromise promiseWithValue:downloadError]];
+        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
+            NSArray *args = [invocation mkt_arguments];
+            WMFErrorHandler failure = args[1];
+            if (![failure isKindOfClass:[HCIsAnything class]]) {
+                failure(downloadError);
+            }
+            return nil;
+        }];
     }];
+    
+    [self stubMultipleImageCacheFailureWithError:downloadError];
 
     [self.savedPageList addSavedPageWithTitle:dummyTitle];
 
@@ -436,6 +444,17 @@
     return article;
 }
 
+- (void)stubMultipleImageCacheFailureWithError:(NSError *)error {
+    [MKTGiven([self.mockImageController cacheImagesWithURLsInBackground:anything() failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
+        NSArray *args = [invocation mkt_arguments];
+        WMFErrorHandler failure = args[1];
+        if (![failure isKindOfClass:[HCIsAnything class]]) {
+            failure(error);
+        }
+        return nil;
+    }];
+}
+
 - (MWKImageInfo*)imageInfoStubForImage:(MWKImage*)image {
     return
         [[MWKImageInfo alloc]
@@ -457,8 +476,23 @@
 
 - (void)stubArticleImageResponsesForArticle:(MWKArticle*)article {
     [[article allImageURLs] bk_each:^(NSURL* imageURL) {
-        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:imageURL])
-         willReturn:[AnyPromise promiseWithValue:@(YES)]];
+        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:imageURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
+            NSArray *args = [invocation mkt_arguments];
+            WMFSuccessBoolHandler success = args[2];
+            if (![success isKindOfClass:[HCIsAnything class]]) {
+                success(YES);
+            }
+            return nil;
+        }];
+    }];
+    
+    [MKTGiven([self.mockImageController cacheImagesWithURLsInBackground:anything() failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
+        NSArray *args = [invocation mkt_arguments];
+        WMFSuccessBoolHandler success = args[2];
+        if (![success isKindOfClass:[HCIsAnything class]]) {
+            success(YES);
+        }
+        return nil;
     }];
 }
 
@@ -469,9 +503,13 @@
         [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:stubbedImageInfo.canonicalPageTitle
                                                              fromSite:article.title.site])
          willReturn:[AnyPromise promiseWithValue:stubbedImageInfo]];
-
-        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL])
-         willReturn:[AnyPromise promiseWithValue:@(YES)]];
+        
+        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
+            NSArray *args = [invocation mkt_arguments];
+            WMFSuccessBoolHandler success = args[2];
+            success(YES);
+            return @"";
+        }];
     }];
 }
 

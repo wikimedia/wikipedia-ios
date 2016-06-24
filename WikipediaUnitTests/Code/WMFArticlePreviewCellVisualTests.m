@@ -110,10 +110,20 @@
         stubRequest(@"GET", imageURL.absoluteString)
         .andReturn(200)
         .withBody([[self wmf_bundle] wmf_dataFromContentsOfFile:@"golden-gate" ofType:@".jpg"]);
-
-        expectResolutionWithTimeout(10, ^{
-            return [self.cell setImageURL:imageURL];
-        });
+        
+        XCTestExpectation *expectation = [self expectationWithDescription:@"waiting for image set"];
+        @weakify(self)
+        [self.cell setImageURL:imageURL failure:^(NSError *error) {
+            @strongify(self)
+            XCTFail(@"failed to set image: %@", error.description);
+            [expectation fulfill];
+        } success:^{
+            @strongify(self)
+            XCTAssert(true);
+            [expectation fulfill];
+        }];
+        
+        WaitForExpectationsWithTimeout(10);
     } else {
         [self.cell setImageURL:nil];
     }

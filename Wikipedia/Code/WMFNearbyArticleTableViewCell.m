@@ -195,12 +195,20 @@
 
 #pragma mark - Image
 
+- (void)setImageURL:(NSURL*)imageURL failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+    [self.articleImageView wmf_setImageWithURL:imageURL detectFaces:YES failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
+}
+
+- (void)setImage:(MWKImage*)image failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+    [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
+}
+
 - (void)setImageURL:(NSURL*)imageURL {
-    [self.articleImageView wmf_setImageWithURL:imageURL detectFaces:YES];
+    [self setImageURL:imageURL failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
 }
 
 - (void)setImage:(MWKImage*)image {
-    [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES];
+    [self setImage:image failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
 }
 
 #pragma mark - Accessibility
