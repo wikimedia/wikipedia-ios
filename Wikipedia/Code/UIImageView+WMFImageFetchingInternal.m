@@ -118,6 +118,7 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
     }
 
     @weakify(self);
+
     return [self.wmf_imageController fetchImageWithURL:imageURL]
            .then(^id (WMFImageDownload* download) {
         @strongify(self);

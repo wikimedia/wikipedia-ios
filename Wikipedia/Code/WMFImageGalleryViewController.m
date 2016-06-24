@@ -1,5 +1,5 @@
 
-#import "WMFImageGalleryViewContoller.h"
+#import "WMFImageGalleryViewController.h"
 #import "MWKArticle.h"
 #import "MWKImageList.h"
 #import "MWKImage.h"
@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface WMFImageGalleryViewContoller ()<NYTPhotosViewControllerDelegate>
+@interface WMFImageGalleryViewController ()<NYTPhotosViewControllerDelegate>
 
 @property (nonatomic, strong, readonly) NSArray<id<NYTPhoto> >* photos;
 
@@ -197,7 +197,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@implementation WMFImageGalleryViewContoller
+@implementation WMFImageGalleryViewController
 
 @dynamic dataSource;
 
@@ -308,9 +308,10 @@ NS_ASSUME_NONNULL_BEGIN
     NSURL* url         = [photo bestImageURL];
 
     @weakify(self);
-    [[WMFImageController sharedInstance] fetchImageWithURL:url].then(^(WMFImageDownload* _Nullable download){
+    [[WMFImageController sharedInstance] fetchImageWithURL:url failure:^(NSError* _Nonnull error) {
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+    } success:^(WMFImageDownload* _Nonnull download) {
         @strongify(self);
-
         NSMutableArray* items = [NSMutableArray array];
 
         WMFImageTextActivitySource* textSource = [[WMFImageTextActivitySource alloc] initWithInfo:info];
@@ -328,9 +329,7 @@ NS_ASSUME_NONNULL_BEGIN
         UIPopoverPresentationController* presenter = [vc popoverPresentationController];
         presenter.barButtonItem = self.rightBarButtonItem;
         [self presentViewController:vc animated:YES completion:NULL];
-    }).catch(^(NSError* error){
-        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    });
+    }];
 }
 
 - (void)didTapInfoButton {
@@ -368,19 +367,19 @@ NS_ASSUME_NONNULL_BEGIN
          [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
     NSString* ownerOrFallback = imageInfo.owner ?
-                                [imageInfo.owner stringByTrimmingCharactersInSet : [NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                                [imageInfo.owner stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
                                 : MWLocalizedString(@"image-gallery-unknown-owner", nil);
 
     [caption setLicense:imageInfo.license owner:ownerOrFallback];
-    
+
     @weakify(self)
     caption.ownerTapCallback = ^{
         @strongify(self)
-        [self wmf_openExternalUrl:imageInfo.license.URL];
+        [self wmf_openExternalUrl: imageInfo.license.URL];
     };
     caption.infoTapCallback = ^{
         @strongify(self)
-        [self wmf_openExternalUrl:imageInfo.filePageURL];
+        [self wmf_openExternalUrl: imageInfo.filePageURL];
     };
 
     return caption;
@@ -391,13 +390,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma clang diagnostic pop
 
-@interface WMFArticleImageGalleryViewContoller ()
+@interface WMFArticleImageGalleryViewController ()
 
 @property (nonatomic, strong) WMFImageInfoController* infoController;
 
 @end
 
-@implementation WMFArticleImageGalleryViewContoller
+@implementation WMFArticleImageGalleryViewController
 
 - (instancetype)initWithArticle:(MWKArticle*)article {
     return [self initWithArticle:article selectedImage:nil];
@@ -496,13 +495,12 @@ NS_ASSUME_NONNULL_BEGIN
     UIImage* memoryCachedImage = [galleryImage memoryCachedImage];
     if (memoryCachedImage == nil) {
         @weakify(self);
-        [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage imageURL]].then(^(WMFImageDownload* download) {
+        [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage imageURL] failure:^(NSError* _Nonnull error) {
+            //show error
+        } success:^(WMFImageDownload* _Nonnull download) {
             @strongify(self);
             [self updateImageForPhoto:galleryImage];
-        })
-        .catch(^(NSError* error) {
-            //show error
-        });
+        }];
     } else {
         [self updateImageForPhoto:galleryImage];
     }
@@ -650,13 +648,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-@interface WMFPOTDImageGalleryViewContoller ()
+@interface WMFPOTDImageGalleryViewController ()
 
 @property (nonatomic, strong) MWKImageInfoFetcher* infoFetcher;
 
 @end
 
-@implementation WMFPOTDImageGalleryViewContoller
+@implementation WMFPOTDImageGalleryViewController
 
 - (instancetype)initWithDates:(NSArray<NSDate*>*)imageDates selectedImageInfo:(nullable MWKImageInfo*)imageInfo {
     NSParameterAssert(imageDates);
