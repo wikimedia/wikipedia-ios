@@ -57,7 +57,7 @@
 
     WMFImageDownload* successfulDownload = [[WMFImageDownload alloc] initWithUrl:testURL
                                                                            image:[UIImage new]
-                                                                          origin:[WMFImageDownload imageOriginNetwork]];
+                                                                  originRawValue:[WMFImageDownload imageOriginNetwork]];
     [MKTGiven([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:successfulDownload]];
 
@@ -95,7 +95,7 @@
     NSURL* testURL                       = [NSURL URLWithString:@"http://test/request.png"];
     WMFImageDownload* successfulDownload = [[WMFImageDownload alloc] initWithUrl:testURL
                                                                            image:[UIImage new]
-                                                                          origin:[WMFImageDownload imageOriginNetwork]];
+                                                                  originRawValue:[WMFImageDownload imageOriginNetwork]];
     [MKTGiven([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:successfulDownload]];
 
@@ -133,7 +133,7 @@
 
     WMFImageDownload* successfulDownload = [[WMFImageDownload alloc] initWithUrl:testURL
                                                                            image:[UIImage new]
-                                                                          origin:[WMFImageDownload imageOriginNetwork]];
+                                                                  originRawValue:[WMFImageDownload imageOriginNetwork]];
     [MKTGiven([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:successfulDownload]];
 
@@ -172,7 +172,7 @@
     NSURL* testURL                       = [NSURL URLWithString:@"http://test/request.png"];
     WMFImageDownload* successfulDownload = [[WMFImageDownload alloc] initWithUrl:testURL
                                                                            image:[UIImage new]
-                                                                          origin:[WMFImageDownload imageOriginNetwork]];
+                                                                  originRawValue:[WMFImageDownload imageOriginNetwork]];
     [MKTGiven([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:successfulDownload]];
 

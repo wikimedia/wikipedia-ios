@@ -84,15 +84,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchImageThenShowShareCard {
     @weakify(self);
-    [[WMFImageController sharedInstance] fetchImageWithURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]]
-    .catch(^(NSError* error){
+    [[WMFImageController sharedInstance] fetchImageWithURL:[NSURL wmf_optionalURLWithString:self.article.imageURL] failure:^(NSError * _Nonnull error) {
         DDLogInfo(@"Ignoring share card image error: %@", error);
-        return nil;
-    })
-    .then(^(WMFImageDownload* _Nullable download){
+    } success:^(WMFImageDownload * _Nonnull download) {
         @strongify(self);
         [self showShareOptionsWithImage:download.image];
-    });
+    }];
 }
 
 #pragma mark - Share Options Setup

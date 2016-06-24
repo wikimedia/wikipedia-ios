@@ -333,12 +333,10 @@
 		B0E805BE1C0CE4D40065EBC0 /* MWKDataHousekeeping.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805BC1C0CE4D40065EBC0 /* MWKDataHousekeeping.m */; };
 		B0E805BF1C0CE4D40065EBC0 /* WMFBackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805BD1C0CE4D40065EBC0 /* WMFBackgroundTaskManager.swift */; };
 		B0E805C71C0CE5250065EBC0 /* SDImageCache+WMFPersistentCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805C11C0CE5250065EBC0 /* SDImageCache+WMFPersistentCache.m */; };
-		B0E805C81C0CE5250065EBC0 /* SDWebImageManager+PromiseKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805C21C0CE5250065EBC0 /* SDWebImageManager+PromiseKit.swift */; };
 		B0E805C91C0CE5250065EBC0 /* UIImage+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805C31C0CE5250065EBC0 /* UIImage+Debug.swift */; };
 		B0E805CA1C0CE5250065EBC0 /* WMFImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805C41C0CE5250065EBC0 /* WMFImageController.swift */; };
 		B0E805CB1C0CE5250065EBC0 /* WMFImageController+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805C51C0CE5250065EBC0 /* WMFImageController+Debug.swift */; };
 		B0E805CC1C0CE5250065EBC0 /* WMFImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805C61C0CE5250065EBC0 /* WMFImageDownload.swift */; };
-		B0E805CE1C0CE5330065EBC0 /* SDImageCache+PromiseKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805CD1C0CE5330065EBC0 /* SDImageCache+PromiseKit.swift */; };
 		B0E805D11C0CE5420065EBC0 /* WMFFaceDetectionCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805D01C0CE5420065EBC0 /* WMFFaceDetectionCache.m */; };
 		B0E805D41C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805D31C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.m */; };
 		B0E805D71C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805D61C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.m */; };
@@ -1321,12 +1319,10 @@
 		B0E805BD1C0CE4D40065EBC0 /* WMFBackgroundTaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFBackgroundTaskManager.swift; path = Wikipedia/Code/WMFBackgroundTaskManager.swift; sourceTree = SOURCE_ROOT; };
 		B0E805C01C0CE5250065EBC0 /* SDImageCache+WMFPersistentCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SDImageCache+WMFPersistentCache.h"; path = "Wikipedia/Code/SDImageCache+WMFPersistentCache.h"; sourceTree = SOURCE_ROOT; };
 		B0E805C11C0CE5250065EBC0 /* SDImageCache+WMFPersistentCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SDImageCache+WMFPersistentCache.m"; path = "Wikipedia/Code/SDImageCache+WMFPersistentCache.m"; sourceTree = SOURCE_ROOT; };
-		B0E805C21C0CE5250065EBC0 /* SDWebImageManager+PromiseKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SDWebImageManager+PromiseKit.swift"; path = "Wikipedia/Code/SDWebImageManager+PromiseKit.swift"; sourceTree = SOURCE_ROOT; };
 		B0E805C31C0CE5250065EBC0 /* UIImage+Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Debug.swift"; path = "Wikipedia/Code/UIImage+Debug.swift"; sourceTree = SOURCE_ROOT; };
 		B0E805C41C0CE5250065EBC0 /* WMFImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFImageController.swift; path = Wikipedia/Code/WMFImageController.swift; sourceTree = SOURCE_ROOT; };
 		B0E805C51C0CE5250065EBC0 /* WMFImageController+Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WMFImageController+Debug.swift"; path = "Wikipedia/Code/WMFImageController+Debug.swift"; sourceTree = SOURCE_ROOT; };
 		B0E805C61C0CE5250065EBC0 /* WMFImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFImageDownload.swift; path = Wikipedia/Code/WMFImageDownload.swift; sourceTree = SOURCE_ROOT; };
-		B0E805CD1C0CE5330065EBC0 /* SDImageCache+PromiseKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SDImageCache+PromiseKit.swift"; path = "Wikipedia/Code/SDImageCache+PromiseKit.swift"; sourceTree = SOURCE_ROOT; };
 		B0E805CF1C0CE5420065EBC0 /* WMFFaceDetectionCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFFaceDetectionCache.h; path = Wikipedia/Code/WMFFaceDetectionCache.h; sourceTree = SOURCE_ROOT; };
 		B0E805D01C0CE5420065EBC0 /* WMFFaceDetectionCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFFaceDetectionCache.m; path = Wikipedia/Code/WMFFaceDetectionCache.m; sourceTree = SOURCE_ROOT; };
 		B0E805D21C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+WMFPlaceholder.h"; path = "Wikipedia/Code/UIImageView+WMFPlaceholder.h"; sourceTree = SOURCE_ROOT; };
@@ -2020,7 +2016,7 @@
 		D81083061D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKProcessPool+WMFSharedProcessPool.m"; path = "Wikipedia/Code/WKProcessPool+WMFSharedProcessPool.m"; sourceTree = SOURCE_ROOT; };
 		D86C1BAC1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLComponents+WMFLinkParsing.h"; path = "Wikipedia/Code/NSURLComponents+WMFLinkParsing.h"; sourceTree = SOURCE_ROOT; };
 		D86C1BAD1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURLComponents+WMFLinkParsing.m"; path = "Wikipedia/Code/NSURLComponents+WMFLinkParsing.m"; sourceTree = SOURCE_ROOT; };
-		D8C0C0091D144FF30019374D /* WMFProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFProxyServer.h; sourceTree = "<group>"; };
+        D8C0C0091D144FF30019374D /* WMFProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFProxyServer.h; sourceTree = "<group>"; };
 		D8C0C00A1D144FF30019374D /* WMFProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProxyServer.m; sourceTree = "<group>"; };
 		D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableOfContentsAboutThisArticleItem.swift; path = Wikipedia/Code/TableOfContentsAboutThisArticleItem.swift; sourceTree = SOURCE_ROOT; };
 		D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLinkParsingTests.m; sourceTree = "<group>"; };
@@ -3643,8 +3639,6 @@
 				B0E804B71C0CE0B40065EBC0 /* SDWebImageManager+WMFCacheRemoval.m */,
 				B0E805C01C0CE5250065EBC0 /* SDImageCache+WMFPersistentCache.h */,
 				B0E805C11C0CE5250065EBC0 /* SDImageCache+WMFPersistentCache.m */,
-				B0E805C21C0CE5250065EBC0 /* SDWebImageManager+PromiseKit.swift */,
-				B0E805CD1C0CE5330065EBC0 /* SDImageCache+PromiseKit.swift */,
 			);
 			name = "SDWebImage Extensions";
 			sourceTree = "<group>";
@@ -5719,11 +5713,9 @@
 				BC3944C51C8146210008546D /* CLLocationManager+WMFLocationManagers.m in Sources */,
 				B0E8039F1C0CDB3B0065EBC0 /* WMFArticleResponseSerializer.m in Sources */,
 				B0E8045D1C0CDFFB0065EBC0 /* SQLiteHelper.m in Sources */,
-				B0E805C81C0CE5250065EBC0 /* SDWebImageManager+PromiseKit.swift in Sources */,
 				B0E806A41C0CEAF40065EBC0 /* EditSummaryViewController.m in Sources */,
 				B0E804D81C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m in Sources */,
 				B0E803181C0CD6560065EBC0 /* WMFNearbyPlaceholderTableViewCell.m in Sources */,
-				B0E805CE1C0CE5330065EBC0 /* SDImageCache+PromiseKit.swift in Sources */,
 				0E26628D1D09ED08006D4A46 /* WMFAuthManagerInfo.m in Sources */,
 				B0E804C01C0CE0B40065EBC0 /* MWKArticle+WMFSharing.m in Sources */,
 				B06531721C237538003BD7DC /* WMFDisambiguationPagesViewController.m in Sources */,
