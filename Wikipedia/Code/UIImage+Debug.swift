@@ -22,6 +22,6 @@ extension UIImage {
         draw()
         let result = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return result
+        return result!
     }
 }
