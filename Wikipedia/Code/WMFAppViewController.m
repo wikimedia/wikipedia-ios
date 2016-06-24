@@ -73,8 +73,6 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
-NSString* const PrevActiveTabIndex = @"PrevActiveTabIndex";
-
 @interface WMFAppViewController ()<UITabBarControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView* splashView;
@@ -718,12 +716,6 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 #pragma mark - UITabBarControllerDelegate
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
-    NSInteger prevActiveTabIndex = [[NSUserDefaults standardUserDefaults] integerForKey:PrevActiveTabIndex];
-    [[NSUserDefaults standardUserDefaults] setInteger:tabBarController.selectedIndex forKey:PrevActiveTabIndex];
-    if (tabBarController.selectedIndex == WMFAppTabTypeExplore && prevActiveTabIndex==WMFAppTabTypeExplore) {
-        WMFExploreViewController *exploreViewController = (WMFExploreViewController *)[self exploreViewController];
-        [exploreViewController.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    }
     [self wmf_hideKeyboard];
 }
 

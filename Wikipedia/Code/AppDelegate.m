@@ -11,8 +11,6 @@
 #import <Tweaks/FBTweakShakeWindow.h>
 #import "ZeroConfigState.h"
 
-extern NSString* const PrevActiveTabIndex;
-
 @interface AppDelegate ()
 
 @property (nonatomic, strong) WMFAppViewController* appViewController;
@@ -37,8 +35,7 @@ extern NSString* const PrevActiveTabIndex;
          ZeroOnDialogShownOnce: @NO,
          @"LastHousekeepingDate": [NSDate date],
          @"SendUsageReports": @NO,
-         @"AccessSavedPagesMessageShown": @NO,
-         PrevActiveTabIndex: @0
+         @"AccessSavedPagesMessageShown": @NO
      }];
 }
 
