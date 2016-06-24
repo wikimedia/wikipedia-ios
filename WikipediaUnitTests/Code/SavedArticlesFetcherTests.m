@@ -40,23 +40,23 @@
 
 #pragma mark - Downloading
 
-//- (void)testStartDownloadingArticleWhenAddedToList {
-//    [self stubListWithEntries:0];
-//
-//    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-//
-//    MWKArticle* stubbedArticle = [self stubAllSuccessfulResponsesForTitle:[MWKTitle random] fixtureName:@"Obama"];
-//
-//    [self.savedPageList addSavedPageWithTitle:stubbedArticle.title];
-//
-//    [self expectFetcherToFinishWithError:nil];
-//
-//    [self waitForExpectationsWithTimeout:2 handler:nil];
-//
-//    assertThat(self.downloadedArticles, is(@[stubbedArticle]));
-//    [self verifyPersistedImageInfoForArticle:stubbedArticle];
-//    assertThat(self.downloadErrors, isEmpty());
-//}
+- (void)testStartDownloadingArticleWhenAddedToList {
+    [self stubListWithEntries:0];
+
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+
+    MWKArticle* stubbedArticle = [self stubAllSuccessfulResponsesForTitle:[MWKTitle random] fixtureName:@"Obama"];
+
+    [self.savedPageList addSavedPageWithTitle:stubbedArticle.title];
+
+    [self expectFetcherToFinishWithError:nil];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    assertThat(self.downloadedArticles, is(@[stubbedArticle]));
+    [self verifyPersistedImageInfoForArticle:stubbedArticle];
+    assertThat(self.downloadErrors, isEmpty());
+}
 //
 //- (void)testStartDownloadingUncachedArticleAlreadyInList {
 //    [self stubListWithEntries:1];
@@ -389,31 +389,31 @@
 //    [self waitForExpectationsWithTimeout:2 handler:nil];
 //}
 //
-//#pragma mark - Utils
-//
-//- (MWKSavedPageList*)savedPageList {
-//    if (!_savedPageList) {
-//        self.savedPageList = [[MWKSavedPageList alloc] initWithDataStore:self.tempDataStore];
-//    }
-//    return _savedPageList;
-//}
-//
-//- (void)stubListWithEntries:(NSUInteger)numEntries {
-//    for (NSUInteger e = 0; e < numEntries; e++) {
-//        MWKTitle* title          = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://en.wikipedia.org/wiki/Foo_%lu", e]]];
-//        MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithTitle:title];
-//        [self.savedPageList addEntry:entry];
-//    }
-//    PMKHang([self.savedPageList save]);
-//}
-//
-//- (void)verifyPersistedImageInfoForArticle:(MWKArticle*)article {
-//    NSArray<NSString*>* expectedCanonicalPageTitles = [MWKImage mapFilenamesFromImages:article.images.uniqueLargestVariants];
-//    NSArray* persistedImageInfoCanonicalPageTitles  =
-//        [[self.tempDataStore imageInfoForTitle:article.title]
-//         valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, canonicalPageTitle)];
-//    assertThat(persistedImageInfoCanonicalPageTitles, containsItemsInCollectionInAnyOrder(expectedCanonicalPageTitles));
-//}
+#pragma mark - Utils
+
+- (MWKSavedPageList*)savedPageList {
+    if (!_savedPageList) {
+        self.savedPageList = [[MWKSavedPageList alloc] initWithDataStore:self.tempDataStore];
+    }
+    return _savedPageList;
+}
+
+- (void)stubListWithEntries:(NSUInteger)numEntries {
+    for (NSUInteger e = 0; e < numEntries; e++) {
+        MWKTitle* title          = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://en.wikipedia.org/wiki/Foo_%lu", e]]];
+        MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithTitle:title];
+        [self.savedPageList addEntry:entry];
+    }
+    PMKHang([self.savedPageList save]);
+}
+
+- (void)verifyPersistedImageInfoForArticle:(MWKArticle*)article {
+    NSArray<NSString*>* expectedCanonicalPageTitles = [MWKImage mapFilenamesFromImages:article.images.uniqueLargestVariants];
+    NSArray* persistedImageInfoCanonicalPageTitles  =
+        [[self.tempDataStore imageInfoForTitle:article.title]
+         valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, canonicalPageTitle)];
+    assertThat(persistedImageInfoCanonicalPageTitles, containsItemsInCollectionInAnyOrder(expectedCanonicalPageTitles));
+}
 
 - (MWKArticle*)stubAllSuccessfulResponsesForTitle:(MWKTitle*)title fixtureName:(NSString*)fixtureName {
     MWKArticle* article = [self stubArticleResponsesForTitle:title fixtureName:fixtureName];
@@ -461,8 +461,15 @@
             NSArray *args = [invocation mkt_arguments];
             WMFSuccessBoolHandler success = args[2];
             success(YES);
-            return @"";
+            return nil;
         }];
+    }];
+    
+    [MKTGiven([self.mockImageController cacheImagesWithURLsInBackground:anything() failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
+        NSArray *args = [invocation mkt_arguments];
+        WMFSuccessBoolHandler success = args[2];
+        success(YES);
+        return nil;
     }];
 }
 

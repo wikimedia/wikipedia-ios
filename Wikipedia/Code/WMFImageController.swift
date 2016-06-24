@@ -405,10 +405,10 @@ extension WMFImageController {
      
      - returns: A string to make OCMockito work.
      */
-    @objc public func cacheImageWithURLInBackground(url: NSURL?, failure: (error: NSError) -> Void, success: (didCache: Bool) -> Void) -> String {
+    @objc public func cacheImageWithURLInBackground(url: NSURL?, failure: (error: NSError) -> Void, success: (didCache: Bool) -> Void) -> AnyObject? {
         guard let url = url else {
             failure(error: WMFImageControllerError.InvalidOrEmptyURL as NSError)
-            return ""
+            return nil
         }
         
         let metaFailure = { (error: ErrorType) in
@@ -416,11 +416,11 @@ extension WMFImageController {
         }
         cacheImageWithURLInBackground(url, failure: metaFailure, success: success);
         
-        return cacheKeyForURL(url)
+        return nil
     }
     
     
-    @objc public func cacheImagesWithURLsInBackground(imageURLs: [NSURL], failure: (error: NSError) -> Void, success: () -> Void) {
+    @objc public func cacheImagesWithURLsInBackground(imageURLs: [NSURL], failure: (error: NSError) -> Void, success: () -> Void) -> AnyObject? {
         let cacheGroup = dispatch_group_create()
         var errors = [NSError]()
         
@@ -439,8 +439,6 @@ extension WMFImageController {
             cacheImageWithURLInBackground(imageURL, failure:failure, success: success)
         }
 
-        
-        
         dispatch_group_notify(cacheGroup, dispatch_get_main_queue(), {
             if let error = errors.first {
                 failure(error: error)
@@ -448,5 +446,7 @@ extension WMFImageController {
                 success()
             }
         })
+        
+        return nil
     }
 }
