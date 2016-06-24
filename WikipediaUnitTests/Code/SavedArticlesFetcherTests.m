@@ -57,77 +57,77 @@
     [self verifyPersistedImageInfoForArticle:stubbedArticle];
     assertThat(self.downloadErrors, isEmpty());
 }
-//
-//- (void)testStartDownloadingUncachedArticleAlreadyInList {
-//    [self stubListWithEntries:1];
-//
-//    MWKTitle* uncachedEntryTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
-//
-//    MWKArticle* stubbedArticle = [self stubAllSuccessfulResponsesForTitle:uncachedEntryTitle fixtureName:@"Obama"];
-//
-//    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-//
-//    [self expectFetcherToFinishWithError:nil];
-//
-//    [self waitForExpectationsWithTimeout:2 handler:nil];
-//
-//    assertThat(self.downloadedArticles, is(@[stubbedArticle]));
-//    [self verifyPersistedImageInfoForArticle:stubbedArticle];
-//    assertThat(self.downloadErrors, isEmpty());
-//}
-//
-//- (void)testCorrectProgressForMultipleSuccessfulDownloads {
-//    [self stubListWithEntries:2];
-//
-//    MWKTitle* firstTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
-//    MWKArticle* firstArticle = [self stubAllSuccessfulResponsesForTitle:firstTitle fixtureName:@"Obama"];
-//
-//    MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
-//    MWKArticle* secondArticle = [self stubAllSuccessfulResponsesForTitle:secondTitle fixtureName:@"Exoplanet.mobileview"];
-//
-//    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-//
-//    [self expectFetcherToFinishWithError:nil];
-//
-//    [self waitForExpectationsWithTimeout:2 handler:nil];
-//
-//
-//    assertThat(self.downloadedArticles, is(@[firstArticle, secondArticle]));
-//    [self verifyPersistedImageInfoForArticle:firstArticle];
-//    [self verifyPersistedImageInfoForArticle:secondArticle];
-//    assertThat(self.downloadErrors, isEmpty());
-//}
-//
-//- (void)testSkipsCachedArticles {
-//    [self stubListWithEntries:2];
-//
-//    MWKTitle* firstTitle      = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
-//    MWKArticle* cachedArticle =
-//        [[MWKArticle alloc]
-//         initWithTitle:firstTitle
-//             dataStore:self.tempDataStore
-//                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
-//    [cachedArticle importAndSaveImagesFromSectionHTML];
-//    [cachedArticle save];
-//    NSAssert(cachedArticle.isCached, @"Test depends on article being considered cached after save!");
-//
-//    MWKTitle* secondTitle       = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
-//    MWKArticle* uncachedArticle = [self stubAllSuccessfulResponsesForTitle:secondTitle fixtureName:@"Exoplanet.mobileview"];
-//
-//    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-//
-//    [self expectFetcherToFinishWithError:nil];
-//
-//    [self waitForExpectationsWithTimeout:2 handler:nil];
-//
-//    // should not have fetched anything for cached article
-//    [MKTVerifyCount(self.mockArticleFetcher, MKTNever()) fetchArticleForPageTitle:cachedArticle.title progress:anything()];
-//
-//    // should have fetched article & image data for second, uncached article
-//    assertThat(self.downloadedArticles, is(@[uncachedArticle]));
-//    [self verifyPersistedImageInfoForArticle:uncachedArticle];
-//    assertThat(self.downloadErrors, isEmpty());
-//}
+
+- (void)testStartDownloadingUncachedArticleAlreadyInList {
+    [self stubListWithEntries:1];
+
+    MWKTitle* uncachedEntryTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
+
+    MWKArticle* stubbedArticle = [self stubAllSuccessfulResponsesForTitle:uncachedEntryTitle fixtureName:@"Obama"];
+
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+
+    [self expectFetcherToFinishWithError:nil];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    assertThat(self.downloadedArticles, is(@[stubbedArticle]));
+    [self verifyPersistedImageInfoForArticle:stubbedArticle];
+    assertThat(self.downloadErrors, isEmpty());
+}
+
+- (void)testCorrectProgressForMultipleSuccessfulDownloads {
+    [self stubListWithEntries:2];
+
+    MWKTitle* firstTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
+    MWKArticle* firstArticle = [self stubAllSuccessfulResponsesForTitle:firstTitle fixtureName:@"Obama"];
+
+    MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
+    MWKArticle* secondArticle = [self stubAllSuccessfulResponsesForTitle:secondTitle fixtureName:@"Exoplanet.mobileview"];
+
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+
+    [self expectFetcherToFinishWithError:nil];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+
+    assertThat(self.downloadedArticles, is(@[firstArticle, secondArticle]));
+    [self verifyPersistedImageInfoForArticle:firstArticle];
+    [self verifyPersistedImageInfoForArticle:secondArticle];
+    assertThat(self.downloadErrors, isEmpty());
+}
+
+- (void)testSkipsCachedArticles {
+    [self stubListWithEntries:2];
+
+    MWKTitle* firstTitle      = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
+    MWKArticle* cachedArticle =
+        [[MWKArticle alloc]
+         initWithTitle:firstTitle
+             dataStore:self.tempDataStore
+                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
+    [cachedArticle importAndSaveImagesFromSectionHTML];
+    [cachedArticle save];
+    NSAssert(cachedArticle.isCached, @"Test depends on article being considered cached after save!");
+
+    MWKTitle* secondTitle       = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
+    MWKArticle* uncachedArticle = [self stubAllSuccessfulResponsesForTitle:secondTitle fixtureName:@"Exoplanet.mobileview"];
+
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+
+    [self expectFetcherToFinishWithError:nil];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    // should not have fetched anything for cached article
+    [MKTVerifyCount(self.mockArticleFetcher, MKTNever()) fetchArticleForPageTitle:cachedArticle.title progress:anything()];
+
+    // should have fetched article & image data for second, uncached article
+    assertThat(self.downloadedArticles, is(@[uncachedArticle]));
+    [self verifyPersistedImageInfoForArticle:uncachedArticle];
+    assertThat(self.downloadErrors, isEmpty());
+}
 
 #pragma mark - Error Handling
 
@@ -460,15 +460,19 @@
         [MKTGiven([self.mockImageController cacheImageWithURLInBackground:imageURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
             NSArray *args = [invocation mkt_arguments];
             WMFSuccessBoolHandler success = args[2];
-            success(YES);
+            if (![success isKindOfClass:[HCIsAnything class]]) {
+                success(YES);
+            }
             return nil;
         }];
     }];
     
     [MKTGiven([self.mockImageController cacheImagesWithURLsInBackground:anything() failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
         NSArray *args = [invocation mkt_arguments];
-        WMFSuccessBoolHandler success = args[2];
-        success(YES);
+        WMFSuccessBoolHandler success = [args[2] copy];
+        if (![success isKindOfClass:[HCIsAnything class]]) {
+            success(YES);
+        }
         return nil;
     }];
 }
