@@ -28,8 +28,6 @@
 
 - (void)addImageURL:(NSString*)imageURL;
 
-- (BOOL)hasImageURL:(NSURL*)imageURL;
-
 - (BOOL)hasImageURLString:(NSString*)imageURLString;
 
 - (MWKImage*)imageWithURL:(NSString*)imageURL;
