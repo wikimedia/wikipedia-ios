@@ -200,11 +200,51 @@
     assertThat(allObamaHTMLSplitOnImageProxy, hasCountOf(107));
 }
 
-- (void)testPerformanceExample {
+- (void)testPerformanceOfImageTagParsing {
     //initial run compiles regexes
-    [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:[self allObamaHTML] targetImageWidth:self.imageSize];
+    [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:@"Small sample string <img alt=\"Example.jpg\" src=\"//upload.wikimedia.org/wikipedia/en/thumb/a/a9/Example.jpg/20px-Example.jpg\" width=\"20\" height=\"22\" srcset=\"//upload.wikimedia.org/wikipedia/en/thumb/a/a9/Example.jpg/30px-Example.jpg 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/a/a9/Example.jpg/40px-Example.jpg 2x\" data-file-width=\"275\" data-file-height=\"297\"> and stuff." targetImageWidth:self.imageSize];
     [self measureBlock:^{
         [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:[self allObamaHTML] targetImageWidth:self.imageSize];
+    }];
+}
+
+- (void)testFormatOfScaledImageTagsHasNotChanged {
+    XCTestExpectation *expectation =
+    [self expectationWithDescription:@"Fetch img tag html for a piece of image wikitext. Thus way we can be notified when image tag formatting changes in any way so we can ensure image widening/caching/proxying still work with whatever changes are made."];
+    
+    NSString* imgWikitext = @"[[File:Example.jpg|20px|link=MediaWiki]]";
+    
+    NSString* urlString = [NSString stringWithFormat:@"https://en.wikipedia.org/w/api.php"
+                           "?action=parse"
+                           "&format=json"
+                           "&text=%@"
+                           "&prop=%@"
+                           "&disableeditsection=1"
+                           "&mobileformat=1",
+                           [imgWikitext stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                           [@"text|images" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                           ];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSString* html = json[@"parse"][@"text"][@"*"];
+        
+        NSString* expectedHTML = @""
+        "<div class=\"mf-section-0\"><p><a href=\"/wiki/MediaWiki\" title=\"MediaWiki\">"
+        "<img alt=\"Example.jpg\" src=\"//upload.wikimedia.org/wikipedia/en/thumb/a/a9/Example.jpg/20px-Example.jpg\" width=\"20\" height=\"22\" srcset=\"//upload.wikimedia.org/wikipedia/en/thumb/a/a9/Example.jpg/30px-Example.jpg 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/a/a9/Example.jpg/40px-Example.jpg 2x\" data-file-width=\"275\" data-file-height=\"297\">"
+        "</a></p>\n\n\n\n\n\n</div>";
+        
+        XCTAssert([html isEqualToString:expectedHTML]);
+        [expectation fulfill];
+        
+    }];
+    [dataTask resume];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            NSLog(@"Timeout Error: %@", error);
+        }
     }];
 }
 
