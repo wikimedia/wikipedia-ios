@@ -38,8 +38,7 @@ public enum TableOfContentsItemType {
 }
 
 public enum TableOfContentsBorderType {
-    case Default
-    case DefaultTopOnly
+    case TopOnly
     case None
 }
 
@@ -61,7 +60,7 @@ extension TableOfContentsItem {
         return false
     }
 
-    public var borderType: TableOfContentsBorderType { get { return TableOfContentsBorderType.Default } }
+    public var borderType: TableOfContentsBorderType { get { return TableOfContentsBorderType.TopOnly } }
 
     public var indentationLevel: UInt { get { return 0 } }
 }

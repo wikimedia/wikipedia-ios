@@ -23,7 +23,6 @@ typedef NS_ENUM (NSInteger, AccountCreationErrorType) {
                                       captchaId:(NSString*)captchaId
                                     captchaWord:(NSString*)captchaWord
                                           token:(NSString*)token
-                                 useAuthManager:(BOOL)useAuthManager
                                     withManager:(AFHTTPSessionManager*)manager
                              thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 

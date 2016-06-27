@@ -40,14 +40,7 @@ public class WMFTableOfContentsCell: UITableViewCell {
             sectionTitle.textColor = newItem.itemType.titleColor
 
             switch (newItem.borderType) {
-            case .Default:
-                topSectionBorder.hidden = false
-                bottomSectionBorder.hidden = false
-                topSectionBorderAlignToText.active = true
-                topSectionBorderAlignLeadingToSuperview.active = false
-                bottomSectionBorderAlignToText.active = true
-                bottomSectionBorderAlignLeadingToSuperview.active = false
-            case .DefaultTopOnly:
+            case .TopOnly:
                 topSectionBorder.hidden = false
                 bottomSectionBorder.hidden = true
                 topSectionBorderAlignToText.active = true

@@ -5,6 +5,7 @@
 #import "MWKSite.h"
 #import "Wikipedia-Swift.h"
 #import "MWKLanguageLinkController.h"
+#import "WMFAuthenticationManager.h"
 
 @interface WMFSettingsMenuItem ()
 
@@ -27,7 +28,7 @@
 + (WMFSettingsMenuItem*)itemForType:(WMFSettingsMenuItemType)type {
     switch (type) {
         case WMFSettingsMenuItemType_Login: {
-            NSString* userName    = [SessionSingleton sharedInstance].keychainCredentials.userName;
+            NSString* userName    = [WMFAuthenticationManager sharedInstance].loggedInUsername;
             NSString* loginString = (userName) ? [MWLocalizedString(@"main-menu-account-title-logged-in", nil) stringByReplacingOccurrencesOfString : @"$1" withString:userName] : MWLocalizedString(@"main-menu-account-login", nil);
 
             return

@@ -14,7 +14,6 @@
 @property (strong, nonatomic) NSString* password;
 @property (strong, nonatomic) NSString* email;
 @property (strong, nonatomic) NSString* token;
-@property (assign, nonatomic) BOOL useAuthManager;
 
 @end
 
@@ -24,28 +23,31 @@
                                   userName:(NSString*)userName
                                   password:(NSString*)password
                                      email:(NSString*)email
-                            useAuthManager:(BOOL)useAuthManager
                                withManager:(AFHTTPSessionManager*)manager
                         thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
-        self.domain         = domain ? domain : @"";
-        self.userName       = userName ? userName : @"";
-        self.password       = password ? password : @"";
-        self.email          = email ? email : @"";
-        self.token          = @"";
-        self.useAuthManager = useAuthManager;
+        self.domain   = domain ? domain : @"";
+        self.userName = userName ? userName : @"";
+        self.password = password ? password : @"";
+        self.email    = email ? email : @"";
+        self.token    = @"";
 
         self.fetchFinishedDelegate = delegate;
-        [self fetchTokenWithManager:manager useAuthManager:useAuthManager];
+        [self fetchTokenWithManager:manager];
     }
     return self;
 }
 
-- (void)fetchTokenWithManager:(AFHTTPSessionManager*)manager useAuthManager:(BOOL)useAuthManager {
+- (void)fetchTokenWithManager:(AFHTTPSessionManager*)manager {
     NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain];
 
-    NSDictionary* params = useAuthManager ? [self getAuthManagerParams] : [self getLegacyParams];
+    NSDictionary* params = @{
+        @"action": @"query",
+        @"meta": @"tokens",
+        @"type": @"createaccount",
+        @"format": @"json"
+    };
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
@@ -53,14 +55,10 @@
         //NSLog(@"JSON: %@", responseObject);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-        // Fake out an error if non-dictionary response received.
-        if (![responseObject isDict]) {
-            responseObject = @{@"error": @{@"info": @"Token not found."}};
-        }
-
-        // Handle case where response is received, but API reports error.
         NSError* error = nil;
-        if (responseObject[@"error"]) {
+        if (![responseObject isDict]) {
+            error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
+        } else if (responseObject[@"error"]) {
             NSMutableDictionary* errorDict = [responseObject[@"error"] mutableCopy];
             errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
             error = [NSError errorWithDomain:@"Acct Creation Token Fetcher"
@@ -68,60 +66,15 @@
                                     userInfo:errorDict];
         }
 
-
-        if (useAuthManager) {
-            self.token = responseObject[@"query"][@"tokens"][@"createaccounttoken"];
-            [self finishWithError:error
-                      fetchedData:self.token];
-        } else {
-            NSDictionary* output = @{};
-            if (!error) {
-                output = [self getSanitizedResponse:responseObject];
-            }
-
-            self.token = output[@"token"] ? output[@"token"] : @"";
-
-            [self finishWithError:error
-                      fetchedData:output];
-        }
+        self.token = responseObject[@"query"][@"tokens"][@"createaccounttoken"];
+        [self finishWithError:error
+                  fetchedData:self.token];
     } failure:^(NSURLSessionDataTask* operation, NSError* error) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
         [self finishWithError:error
                   fetchedData:nil];
     }];
-}
-
-- (NSMutableDictionary*)getLegacyParams {
-    return @{
-               @"action": @"createaccount",
-               @"name": self.userName,
-               @"password": self.password,
-               @"language": ([self.domain isEqualToString:@"test"] ? @"en" : self.domain),
-               @"format": @"json"
-    }.mutableCopy;
-}
-
-- (NSMutableDictionary*)getAuthManagerParams {
-    return @{
-               @"action": @"query",
-               @"meta": @"tokens",
-               @"type": @"createaccount",
-               @"format": @"json"
-    }.mutableCopy;
-}
-
-- (NSDictionary*)getSanitizedResponse:(NSDictionary*)rawResponse {
-    if ([rawResponse isDict]) {
-        id createaccount = rawResponse[@"createaccount"];
-        if ([createaccount isDict]) {
-            NSString* token = createaccount[@"token"];
-            if (token) {
-                return @{@"token": token};
-            }
-        }
-    }
-    return @{};
 }
 
 @end

@@ -14,6 +14,16 @@
 /**
  *  Set the recievers @c image using an MWKImage
  */
+- (void)setImage:(MWKImage*)image failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
+
+/**
+ *  Set the recievers @c image using a URL
+ */
+- (void)setImageURL:(NSURL*)imageURL failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
+
+/**
+ *  Set the recievers @c image using an MWKImage
+ */
 - (void)setImage:(MWKImage*)image;
 
 /**

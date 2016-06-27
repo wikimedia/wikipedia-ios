@@ -23,7 +23,8 @@ typedef NS_ENUM (NSInteger, WMFErrorType) {
     WMFErrorTypeUnableToSave,
     WMFErrorTypeArticleResponseSerialization,
     WMFErrorTypeUnexpectedResponseType,
-    WMFErrorTypeInvalidRequestParameters
+    WMFErrorTypeInvalidRequestParameters,
+    WMFErrorTypeFetchAlreadyInProgress
 };
 
 @interface NSError (WMFExtensions)
