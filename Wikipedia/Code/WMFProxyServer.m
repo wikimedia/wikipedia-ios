@@ -53,6 +53,10 @@
 }
 
 - (void)start {
+    if (self.isRunning) {
+        return;
+    }
+    
     NSDictionary* options = @{GCDWebServerOption_BindToLocalhost: @(YES), //only accept requests from localhost
                               GCDWebServerOption_Port: @(0)};// allow the OS to pick a random port
     
