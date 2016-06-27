@@ -24,10 +24,12 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 - (instancetype)initWithURL:(NSURL*)url {
     self = [super init];
     if (self) {
-        NSURLComponents* components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-        components.path     = nil;
-        components.fragment = nil;
-        self.URL            = [components URL];
+        if (url != nil) {
+            NSURLComponents* components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+            components.path     = nil;
+            components.fragment = nil;
+            self.URL            = [components URL];
+        }
     }
     return self;
 }
