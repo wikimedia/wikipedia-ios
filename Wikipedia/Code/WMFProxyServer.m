@@ -69,7 +69,6 @@
         didStartServer = [self.webServer startWithOptions:options error:&serverStartError];
         if (!didStartServer) {
             DDLogError(@"Error starting proxy: %@", serverStartError);
-            serverStartError = [NSError errorWithDomain:@"wat" code:100 userInfo:@{NSLocalizedDescriptionKey: @"he ded"}];
             attempts++;
             if (attempts == attemptLimit) {
                 DDLogError(@"Unable to start the proxy.");
