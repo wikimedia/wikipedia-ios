@@ -4,6 +4,7 @@
 #import "WKWebView+LoadAssetsHtml.h"
 #import "Wikipedia-Swift.h"
 #import "WMFProxyServer.h"
+#import "UIScreen+WMFImageWidth.h"
 
 @implementation WKWebView (LoadAssetsHtml)
 
@@ -26,7 +27,7 @@
     
     WMFProxyServer *proxyServer = [WMFProxyServer sharedProxyServer];
 
-    string = [proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string];
+    string = [proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.window.screen.wmf_articleImageWidthForScale];
 
     NSString* path = [[self getAssetsPath] stringByAppendingPathComponent:fileName];
 

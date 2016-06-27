@@ -1,13 +1,4 @@
-//
-//  WMFImageController.swift
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 6/22/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 import Foundation
-import PromiseKit
 import CocoaLumberjackSwift
 
 ///
@@ -44,19 +35,24 @@ public class WMFTypedImageData: NSObject {
     }
 }
 
-extension WMFImageControllerError: CancellableErrorType {
-    public var cancelled: Bool {
-        get {
-            // NOTE: don't forget to register add'l "cancelled" codes in WMFImageController.initialize
-            switch self {
-            case .Deinit:
-                return true
-            default:
-                return false
-            }
-        }
+// FIXME: Can't extend the SDWebImageOperation protocol or cast the return value, so we wrap it.
+class SDWebImageOperationWrapper: NSObject, Cancellable {
+    weak var operation: SDWebImageOperation?
+    required init(operation: SDWebImageOperation) {
+        super.init()
+        self.operation = operation
+        // keep wrapper around as long as operation is around
+        objc_setAssociatedObject(operation,
+                                 "SDWebImageOperationWrapper",
+                                 self,
+                                 objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+    }
+    
+    func cancel() -> Void {
+        operation?.cancel()
     }
 }
+
 
 let WMFExtendedFileAttributeNameMIMEType = "org.wikimedia.MIMEType"
 
@@ -90,7 +86,7 @@ public class WMFImageController : NSObject {
                                   namespace: defaultNamespace)
     }()
     
-    public static let backgroundImageFetchOptions: SDWebImageOptions = [.LowPriority, .ContinueInBackground]
+    public static let backgroundImageFetchOptions: SDWebImageOptions = [.LowPriority, .ContinueInBackground, .ReportCancellationAsError]
     
     public class func sharedInstance() -> WMFImageController {
         return _sharedInstance
@@ -119,59 +115,21 @@ public class WMFImageController : NSObject {
     // MARK: - Complex Fetching
     
     /**
-     Perform a cascading fetch which attempts to retrieve a "main" image from memory, or fall back to a
-     placeholder while fetching the image in the background.
-     
-     The "cascade" executes the following:
-     
-     - if mainURL is in cache, return immediately
-     - else, fetch placeholder from cache
-     - then, mainURL from network
-     
-     - returns: A promise which is resolved when the entire cascade is finished, or rejected when an error occurs.
-     */
-    public func cascadingFetchWithMainURL(mainURL: NSURL?,
-                                          cachedPlaceholderURL: NSURL?,
-                                          mainImageBlock: (WMFImageDownload) -> Void,
-                                          cachedPlaceholderImageBlock: (WMFImageDownload) -> Void) -> Promise<Void> {
-        if hasImageWithURL(mainURL) {
-            // if mainURL is cached, return it immediately w/o fetching placeholder
-            return cachedImageWithURL(mainURL).then(mainImageBlock)
-        }
-        // return cached placeholder (if available)
-        return cachedImageWithURL(cachedPlaceholderURL)
-            // handle cached placeholder
-            .then(cachedPlaceholderImageBlock)
-            // ignore placeholder errors
-            .recover() { _ -> Promise<Void> in Promise() }
-            // when placeholder handling is finished, fetch mainURL
-            .then() { [weak self] in
-                self?.fetchImageWithURL(mainURL) ?? Promise(error: WMFImageControllerError.Deinit)
-            }
-            // handle the main image
-            .then(mainImageBlock)
-    }
-    
-    
-    /**
-     Cache the image at `url` slowly in the background. The image will not be in the memory cache after completion
+     Cache the image at `url` slowly in the background. The image will not be in the memory cache after success
      
      - parameter url: A URL pointing to an image.
      
-     - returns: A promise which resolves when the image has been downloaded.
      */
-    public func cacheImageWithURLInBackground(url: NSURL?) -> Promise<Bool> {
-        guard let url = url else{
-            return Promise<Bool>(false)
-        }
+    public func cacheImageWithURLInBackground(url: NSURL, failure: (ErrorType) -> Void, success: (Bool) -> Void) {
         let key = self.cacheKeyForURL(url)
         if(self.imageManager.imageCache.diskImageExistsWithKey(key)){
-            return Promise<Bool>(true)
+            success(true)
+            return
         }
-        return fetchImageWithURL(url, options: WMFImageController.backgroundImageFetchOptions).then({ (imageDownload: WMFImageDownload) in
+        fetchImageWithURL(url, options: WMFImageController.backgroundImageFetchOptions, failure: failure) { (download) in
             self.imageManager.imageCache.removeImageForKey(key, fromDisk: false, withCompletion: nil)
-            return Promise<Bool>(true)
-        })
+            success(true)
+        }
     }
     
     // MARK: - Simple Fetching
@@ -188,17 +146,26 @@ public class WMFImageController : NSObject {
      - seealso: WMFImageControllerError
      */
     public func fetchImageWithURL(
-        url: NSURL?,
-        options: SDWebImageOptions = SDWebImageOptions()) -> Promise<WMFImageDownload> {
-        // HAX: make sure all image requests have a scheme (MW api sometimes omits one)
-        return checkForValidURL(url) { url in
-            let (cancellable, promise) =
-                imageManager.promisedImageWithURL(url.wmf_urlByPrependingSchemeIfSchemeless(), options: options)
-            DDLogVerbose("Fetching image \(url)")
-            addCancellableForURL(cancellable, url: url)
-            return applyDebugTransformIfEnabled(promise)
+        url: NSURL,
+        options: SDWebImageOptions = .ReportCancellationAsError,
+        failure: (ErrorType) -> Void,
+        success: (WMFImageDownload) -> Void) {
+        
+        let url = url.wmf_urlByPrependingSchemeIfSchemeless()
+        let webImageOperation = imageManager.downloadImageWithURL(url, options: options, progress: nil) { (image, opError, type, finished, imageURL) in
+            if let opError = opError {
+                failure(opError)
+            } else {
+                let origin = ImageOrigin(sdOrigin: type)
+                success(WMFImageDownload(url: imageURL, image: image, origin: origin))
+            }
         }
+        
+        addCancellableForURL(SDWebImageOperationWrapper(operation: webImageOperation), url: url)
     }
+    
+    
+    
     
     /// - returns: Whether or not a fetch is outstanding for an image with `url`.
     public func isDownloadingImageWithURL(url: NSURL) -> Bool {
@@ -260,18 +227,15 @@ public class WMFImageController : NSObject {
         }
     }
     
-    public func cachedImageWithURL(url: NSURL?) -> Promise<WMFImageDownload> {
-        return checkForValidURL(url, then: cachedImageWithURL)
-    }
-    
-    public func cachedImageWithURL(url: NSURL) -> Promise<WMFImageDownload> {
-        let (cancellable, promise) = imageManager.imageCache.queryDiskCacheForKey(cacheKeyForURL(url))
-        if let c = cancellable {
-            addCancellableForURL(c, url: url)
+    public func cachedImageWithURL(url: NSURL, failure: (ErrorType) -> Void, success: (WMFImageDownload) -> Void) {
+        let op = imageManager.imageCache.queryDiskCacheForKey(cacheKeyForURL(url)) { (image, origin) in
+            guard let image = image else {
+                failure(WMFImageControllerError.DataNotFound)
+                return
+            }
+            success(WMFImageDownload(url: url, image: image, origin: ImageOrigin(sdOrigin: origin) ?? .None))
         }
-        return applyDebugTransformIfEnabled(promise.then() { image, origin in
-            return WMFImageDownload(url: url, image: image, origin: origin.rawValue)
-            })
+        addCancellableForURL(op, url: url)
     }
     
     // MARK: - Deletion
@@ -300,7 +264,7 @@ public class WMFImageController : NSObject {
         
         if let MIMEType = MIMEType {
             do {
-               try NSFileManager.defaultManager().wmf_setValue(MIMEType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: diskCachePath)
+                try NSFileManager.defaultManager().wmf_setValue(MIMEType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: diskCachePath)
             } catch let error {
                 DDLogError("Error setting extended file attribute for MIME Type: \(error)")
             }
@@ -318,21 +282,29 @@ public class WMFImageController : NSObject {
      
      - returns: A promise which resolves after the migration was completed.
      */
-    public func importImage(fromFile filepath: String, withURL url: NSURL) -> Promise<Void> {
+    public func importImage(fromFile filepath: String, withURL url: NSURL, failure: (ErrorType) -> Void, success: () -> Void) {
         guard NSFileManager.defaultManager().fileExistsAtPath(filepath) else {
             DDLogInfo("Source file does not exist: \(filepath)")
             // Do not treat this as an error, as the image record could have been created w/o data ever being imported.
-            return Promise<Void>()
+            success()
+            return
         }
         
-        return dispatch_promise(on: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] in
+        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+        dispatch_async(queue) { [weak self] in
             guard let `self` = self else {
-                throw WMFImageControllerError.Deinit
+                failure(WMFImageControllerError.Deinit)
+                return
             }
             
             if self.hasDataOnDiskForImageWithURL(url) {
                 DDLogDebug("Skipping import of image with URL \(url) since it's already in the cache, deleting it instead")
-                try NSFileManager.defaultManager().removeItemAtPath(filepath)
+                do {
+                    try NSFileManager.defaultManager().removeItemAtPath(filepath)
+                    success()
+                } catch let error {
+                    failure(error)
+                }
                 return
             }
             
@@ -347,30 +319,25 @@ public class WMFImageController : NSObject {
                                           attributes: nil)
             } catch let fileExistsError as NSError where fileExistsError.code == NSFileWriteFileExistsError {
                 DDLogDebug("Ignoring file exists error for path \(fileExistsError)")
+            } catch let error {
+                failure(error)
+                return
             }
             
             do {
                 try NSFileManager.defaultManager().moveItemAtURL(fileURL, toURL: diskCacheURL)
+                success()
             } catch let fileExistsError as NSError where fileExistsError.code == NSFileWriteFileExistsError {
                 DDLogDebug("Ignoring file exists error for path \(fileExistsError)")
+                success()
+            } catch let error {
+                failure(error)
             }
         }
     }
     
     func cacheKeyForURL(url: NSURL) -> String {
         return imageManager.cacheKeyForURL(url)
-    }
-    
-    /**
-     Utility which returns a rejected promise for `nil` URLs, or passes valid URLs to function `then`.
-     
-     - parameter url:  An optional URL.
-     - parameter then: The function to call if the URL is valid.
-     
-     - returns: A rejected promise with `InvalidOrEmptyURL` error if `url` is `nil`, otherwise the promise from `then`.
-     */
-    private func checkForValidURL(url: NSURL?, @noescape then: (NSURL) -> Promise<WMFImageDownload>) -> Promise<WMFImageDownload> {
-        return url.map(then) ?? Promise(error: WMFImageControllerError.InvalidOrEmptyURL)
     }
     
     // MARK: - Cancellation
@@ -412,63 +379,75 @@ public class WMFImageController : NSObject {
     }
 }
 
+
 // MARK: - Objective-C Bridge
 
 extension WMFImageController {
+    
     /**
-     Objective-C-compatible variant of fetchImageWithURL(url:options:) using default options & returning an `AnyPromise`.
+     Objective-C-compatible variant of fetchImageWithURL(url:options:) using default options & using blocks.
      
      - returns: `AnyPromise` which resolves to `WMFImageDownload`.
      */
-    @objc public func fetchImageWithURL(url: NSURL?) -> AnyPromise {
-        return AnyPromise(bound: fetchImageWithURL(url))
+    @objc public func fetchImageWithURL(url: NSURL?, failure: (error: NSError) -> Void, success: (download: WMFImageDownload) -> Void) {
+        guard let url = url else {
+            failure(error: WMFImageControllerError.InvalidOrEmptyURL as NSError)
+            return
+        }
+        
+        let metaFailure = { (error: ErrorType) in
+            failure(error: error as NSError)
+        }
+        fetchImageWithURL(url, failure: metaFailure, success:success);
     }
-    
+
     /**
-     Objective-C-compatible variant of fetchImageWithURL(url:options:) returning an `AnyPromise`.
+     Objective-C-compatible variant of cacheImageWithURLInBackground(url:, failure:, success:)
      
-     - returns: `AnyPromise` which resolves to `WMFImageDownload`.
+     - returns: A string to make OCMockito work.
      */
-    @objc public func fetchImageWithURL(url: NSURL?, options: SDWebImageOptions) -> AnyPromise {
-        return AnyPromise(bound: fetchImageWithURL(url, options: options))
+    @objc public func cacheImageWithURLInBackground(url: NSURL?, failure: (error: NSError) -> Void, success: (didCache: Bool) -> Void) -> AnyObject? {
+        guard let url = url else {
+            failure(error: WMFImageControllerError.InvalidOrEmptyURL as NSError)
+            return nil
+        }
+        
+        let metaFailure = { (error: ErrorType) in
+            failure(error: error as NSError)
+        }
+        cacheImageWithURLInBackground(url, failure: metaFailure, success: success);
+        
+        return nil
     }
     
-    /**
-     Objective-C-compatible variant of cacheImageWithURLInBackground(url:) returning an `AnyPromise`.
-     
-     - returns: `AnyPromise` which resolves to `WMFImageDownload`.
-     */
-    @objc public func cacheImageWithURLInBackground(url: NSURL?) -> AnyPromise {
-        return AnyPromise(bound: cacheImageWithURLInBackground(url))
-    }
     
-    /**
-     Objective-C-compatible variant of cachedImageWithURL(url:) returning an `AnyPromise`.
-     
-     - returns: `AnyPromise` which resolves to `UIImage?`, where the image is present on a cache hit, and `nil` on a miss.
-     */
-    @objc public func cachedImageWithURL(url: NSURL?) -> AnyPromise {
-        return AnyPromise(bound:
-            cachedImageWithURL(url)
-                .then() { $0.image }
-                .recover() { (err: ErrorType) -> Promise<UIImage?> in
-                    if let e = err as? WMFImageControllerError where e == WMFImageControllerError.DataNotFound {
-                        return Promise<UIImage?>(nil)
-                    } else {
-                        return Promise(error: err)
-                    }
-            })
-    }
-    
-    @objc public func cascadingFetchWithMainURL(mainURL: NSURL?,
-                                                cachedPlaceholderURL: NSURL?,
-                                                mainImageBlock: (WMFImageDownload) -> Void,
-                                                cachedPlaceholderImageBlock: (WMFImageDownload) -> Void) -> AnyPromise {
-        let promise: Promise<Void> =
-            cascadingFetchWithMainURL(mainURL,
-                                      cachedPlaceholderURL: cachedPlaceholderURL,
-                                      mainImageBlock: mainImageBlock,
-                                      cachedPlaceholderImageBlock: cachedPlaceholderImageBlock)
-        return AnyPromise(bound: promise)
+    @objc public func cacheImagesWithURLsInBackground(imageURLs: [NSURL], failure: (error: NSError) -> Void, success: () -> Void) -> AnyObject? {
+        let cacheGroup = dispatch_group_create()
+        var errors = [NSError]()
+        
+        for imageURL in imageURLs {
+            dispatch_group_enter(cacheGroup)
+            
+            let failure = { (error: ErrorType) in
+                errors.append(error as NSError)
+                dispatch_group_leave(cacheGroup)
+            }
+
+            let success = { (didCache: Bool) in
+                dispatch_group_leave(cacheGroup)
+            }
+            
+            cacheImageWithURLInBackground(imageURL, failure:failure, success: success)
+        }
+
+        dispatch_group_notify(cacheGroup, dispatch_get_main_queue(), {
+            if let error = errors.first {
+                failure(error: error)
+            } else {
+                success()
+            }
+        })
+        
+        return nil
     }
 }

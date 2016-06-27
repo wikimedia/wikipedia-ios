@@ -45,7 +45,7 @@
 #import "WMFNearbySectionController.h"
 #import "WMFRandomArticleFetcher.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
-
+#import "WMFAuthenticationManager.h"
 /**
  *  Enums for each tab in the main tab bar.
  *
@@ -207,7 +207,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         return;
     }
 
-    [self.session autoLogin];
+    [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
 
     if (self.unprocessedUserActivity) {
         [self processUserActivity:self.unprocessedUserActivity];
@@ -717,6 +717,14 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
+}
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    if (tabBarController.selectedIndex == WMFAppTabTypeExplore && viewController==tabBarController.selectedViewController) {
+        WMFExploreViewController *exploreViewController = (WMFExploreViewController *)[self exploreViewController];
+        [exploreViewController scrollToTop:YES];
+    }
+    return YES;
 }
 
 #pragma mark - UINavigationControllerDelegate

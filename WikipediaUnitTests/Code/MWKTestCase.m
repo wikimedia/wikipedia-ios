@@ -19,4 +19,10 @@
     return [[self wmf_bundle] wmf_jsonFromContentsOfFile:name];
 }
 
+- (NSString*)allObamaHTML {
+    return [[[self loadJSON:@"Obama"][@"mobileview"][@"sections"] bk_map:^NSString*(NSDictionary* section) {
+        return section[@"text"];
+    }] componentsJoinedByString:@""];
+}
+
 @end

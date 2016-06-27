@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
 - (void)showSettings;
+- (void)scrollToTop:(BOOL)animated;
 
 @end
 

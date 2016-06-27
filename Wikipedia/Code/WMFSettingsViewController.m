@@ -33,6 +33,8 @@
 #import "MWKLanguageLinkController.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "NSBundle+WMFInfoUtils.h"
+#import "WMFAuthenticationManager.h"
+
 
 #pragma mark - Static URLs
 
@@ -77,8 +79,8 @@ static NSString* const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.tableView.estimatedRowHeight = 52.0;
     self.tableView.rowHeight          = UITableViewAutomaticDimension;
 
-    [self.KVOControllerNonRetaining observe:[SessionSingleton sharedInstance].keychainCredentials
-                                    keyPath:WMF_SAFE_KEYPATH([SessionSingleton sharedInstance].keychainCredentials, userName)
+    [self.KVOControllerNonRetaining observe:[WMFAuthenticationManager sharedInstance]
+                                    keyPath:WMF_SAFE_KEYPATH([WMFAuthenticationManager sharedInstance], loggedInUsername)
                                     options:NSKeyValueObservingOptionInitial
                                       block:^(WMFSettingsViewController* observer, id object, NSDictionary* change) {
         [observer reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
@@ -218,7 +220,7 @@ static NSString* const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Log in and out
 
 - (void)showLoginOrLogout {
-    NSString* userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
+    NSString* userName = [WMFAuthenticationManager sharedInstance].loggedInUsername;
     if (userName) {
         [self showLogoutActionSheet];
     } else {
@@ -243,7 +245,7 @@ static NSString* const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)logout {
-    [[SessionSingleton sharedInstance] logout];
+    [[WMFAuthenticationManager sharedInstance] logout];
 }
 
 #pragma mark - Languages
