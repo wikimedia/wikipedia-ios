@@ -379,7 +379,7 @@ NS_ASSUME_NONNULL_BEGIN
     };
     caption.infoTapCallback = ^{
         @strongify(self)
-        [self wmf_openExternalUrl: imageInfo.filePageURL];
+        [self wmf_openExternalUrl: imageInfo.filePageURL useSafari:NO ignoreOperatingSystemVersion:YES];
     };
 
     return caption;

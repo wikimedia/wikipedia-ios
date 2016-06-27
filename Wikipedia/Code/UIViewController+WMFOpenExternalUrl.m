@@ -17,6 +17,10 @@
 }
 
 - (void)wmf_openExternalUrl:(NSURL*)url useSafari:(BOOL)useSafari {
+    [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:NO ignoreOperatingSystemVersion:NO];
+}
+
+- (void)wmf_openExternalUrl:(NSURL*)url useSafari:(BOOL)useSafari ignoreOperatingSystemVersion:(BOOL)ignoreOperatingSystemVersion{
     NSParameterAssert(url);
 
     //If zero rated, don't open any external (non-zero rated!) links until user consents!
@@ -29,25 +33,29 @@
                                                             message:messageWithHost];
         [zeroAlert bk_setCancelButtonWithTitle:MWLocalizedString(@"zero-interstitial-cancel", nil) handler:nil];
         [zeroAlert bk_addButtonWithTitle:MWLocalizedString(@"zero-interstitial-continue", nil) handler:^{
-            [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
+            [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari ignoreOperatingSystemVersion:ignoreOperatingSystemVersion];
         }];
         if ([self isPartnerInfoConfigValid:zeroMessage]) {
             NSString* partnerInfoText = zeroMessage.partnerInfoText;
             NSURL* partnerInfoUrl     = [NSURL URLWithString:zeroMessage.partnerInfoUrl];
             [zeroAlert bk_addButtonWithTitle:partnerInfoText handler:^{
-                [self wmf_openExternalUrlModallyIfNeeded:partnerInfoUrl forceSafari:useSafari];
+                [self wmf_openExternalUrlModallyIfNeeded:partnerInfoUrl forceSafari:useSafari ignoreOperatingSystemVersion:ignoreOperatingSystemVersion];
             }];
         }
 
         [zeroAlert show];
     } else {
-        [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
+        [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari ignoreOperatingSystemVersion:ignoreOperatingSystemVersion];
     }
 }
 
 - (void)wmf_openExternalUrlModallyIfNeeded:(NSURL*)url forceSafari:(BOOL)forceSafari {
+    [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:forceSafari ignoreOperatingSystemVersion:NO];
+}
+
+- (void)wmf_openExternalUrlModallyIfNeeded:(NSURL*)url forceSafari:(BOOL)forceSafari ignoreOperatingSystemVersion:(BOOL)ignoreOperatingSystemVersion{
     // iOS 9 and later just use UIApplication's openURL.
-    if (forceSafari || [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){9, 0, 0}]) {
+    if (forceSafari || (!ignoreOperatingSystemVersion && [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){9, 0, 0}])) {
         [[UIApplication sharedApplication] openURL:url];
     } else {
         // pre iOS 9 use SVModalWebViewController.

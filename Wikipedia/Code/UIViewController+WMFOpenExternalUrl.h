@@ -19,4 +19,13 @@
  */
 - (void)wmf_openExternalUrl:(NSURL*)url useSafari:(BOOL)useSafari;
 
+/**
+ *  Open an external URL and specifiy whether or not safari should be used, and whether or not operating system version should be ignored
+ *
+ *  @param url                           The url to use
+ *  @param useSafari                     If YES, then safari will always be used
+ *  @param ignoreOperatingSystemVersion  If NO and it's iOS 9 or later, then safari will always be used
+ */
+- (void)wmf_openExternalUrl:(NSURL*)url useSafari:(BOOL)useSafari ignoreOperatingSystemVersion:(BOOL)ignoreOperatingSystemVersion;
+
 @end
