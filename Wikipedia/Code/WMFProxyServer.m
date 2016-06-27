@@ -161,10 +161,12 @@
 
 - (NSURL*)proxyURLForRelativeFilePath:(NSString*)relativeFilePath fragment:(NSString*)fragment {
     NSString* secret = self.secret;
-    if (!relativeFilePath || !secret) {
+    NSURL *serverURL = self.webServer.serverURL;
+    if (relativeFilePath == nil || secret == nil || serverURL == nil) {
         return nil;
     }
-    NSURLComponents* components = [NSURLComponents componentsWithURL:self.webServer.serverURL resolvingAgainstBaseURL:NO];
+
+    NSURLComponents* components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
     components.path     = [NSString pathWithComponents:@[@"/", secret, @"fileProxy", relativeFilePath]];
     components.fragment = fragment;
     return components.URL;
@@ -178,10 +180,12 @@
 
 - (NSURL*)proxyURLForImageURLString:(NSString*)imageURLString {
     NSString* secret = self.secret;
-    if (!secret) {
+    NSURL *serverURL = self.webServer.serverURL;
+    if (secret == nil || serverURL == nil) {
         return nil;
     }
-    NSURLComponents* components = [NSURLComponents componentsWithURL:self.webServer.serverURL resolvingAgainstBaseURL:NO];
+    
+    NSURLComponents* components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
     components.path = [NSString pathWithComponents:@[@"/", secret, @"imageProxy"]];
     NSURLQueryItem* queryItem = [NSURLQueryItem queryItemWithName:@"originalSrc" value:imageURLString];
     if (queryItem) {
