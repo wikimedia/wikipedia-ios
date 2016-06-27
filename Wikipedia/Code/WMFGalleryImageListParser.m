@@ -23,6 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
     // First reduce HTMLString to only image tags so other funky/malformed html won't choke NSXMLParser.
     NSString* imgTagsHtml = [self imgTagsOnlyFromHTMLString:HTMLString];
     
+    // NSXMLParser wants a single root element.
+    imgTagsHtml = [NSString stringWithFormat:@"<base>%@</base>", imgTagsHtml];
+    
     // Then use NSXMLParser to auto-extract tag attribute key/values to a dictionary for each image tag.
     [self parseStringOfImgTags:imgTagsHtml];
     
