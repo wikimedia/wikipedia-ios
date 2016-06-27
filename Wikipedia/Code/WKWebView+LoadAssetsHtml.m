@@ -25,6 +25,10 @@
     }
     
     WMFProxyServer *proxyServer = [WMFProxyServer sharedProxyServer];
+    
+    if (!proxyServer.isRunning) {
+        [proxyServer start];
+    }
 
     string = [proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string];
 
