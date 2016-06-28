@@ -1,6 +1,6 @@
 #import "WMFGalleryImageListParser.h"
-#import "WMFGalleryImageTag.h"
-#import "WMFGalleryImageTag+GalleryImageURL.h"
+#import "WMFImageTag.h"
+#import "WMFImageTag+TargetImageWidthURL.h"
 #import <BlocksKit/BlocksKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -27,20 +27,20 @@ NS_ASSUME_NONNULL_BEGIN
     [self parseStringOfImgTags:imgTagsHtml];
     
     // Map parsedImgTagAttributeDicts to image tag model objects.
-    NSArray<WMFGalleryImageTag*>* imageTagModels = [self.parsedImgTagAttributeDicts bk_map:^id(NSDictionary* tagDict){
-        return [[WMFGalleryImageTag alloc] initWithSrc:tagDict[@"src"]
-                                                srcset:tagDict[@"srcset"]
-                                                   alt:tagDict[@"alt"]
-                                                 width:tagDict[@"width"]
-                                                height:tagDict[@"height"]
-                                         dataFileWidth:tagDict[@"data-file-width"]
-                                        dataFileHeight:tagDict[@"data-file-height"]];
-    }];    
+    NSArray<WMFImageTag*>* imageTagModels = [self.parsedImgTagAttributeDicts bk_map:^id(NSDictionary* tagDict){
+        return [[WMFImageTag alloc] initWithSrc:tagDict[@"src"]
+                                         srcset:tagDict[@"srcset"]
+                                            alt:tagDict[@"alt"]
+                                          width:tagDict[@"width"]
+                                         height:tagDict[@"height"]
+                                  dataFileWidth:tagDict[@"data-file-width"]
+                                 dataFileHeight:tagDict[@"data-file-height"]];
+    }];
     
-    NSArray<NSURL*>* imageTagURLs = [[imageTagModels bk_select:^BOOL(WMFGalleryImageTag* tag){
+    NSArray<NSURL*>* imageTagURLs = [[imageTagModels bk_select:^BOOL(WMFImageTag* tag){
         return [tag isWideEnoughForGallery];
-    }] bk_map:^id(WMFGalleryImageTag* tag){
-        return [tag urlForGalleryTargetWidth:targetWidth];
+    }] bk_map:^id(WMFImageTag* tag){
+        return [tag urlForTargetWidth:targetWidth];
     }];
     
     return imageTagURLs;

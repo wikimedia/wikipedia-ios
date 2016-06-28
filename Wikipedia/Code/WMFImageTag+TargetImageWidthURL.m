@@ -1,16 +1,16 @@
-#import "WMFGalleryImageTag+GalleryImageURL.h"
+#import "WMFImageTag+TargetImageWidthURL.h"
 #import "WMFImageURLParsing.h"
 
-@implementation WMFGalleryImageTag (GalleryImageURL)
+@implementation WMFImageTag (TargetImageWidthURL)
 
 /**
- *  Get URL to image as close to desired target gallery width as possible.
+ *  Get URL to image as close to desired target width as possible.
  *
- *  @param targetWidth  The desired width for gallery images. This should be a width which is a good trade-off between resolution and file size so the gallery both looks good and loads quickly.
+ *  @param targetWidth  The desired width for images.
  *
  *  @return The URL returned needs to be as close to equal to the targetWidth as possible. Because the image scaler will not scale raster images above their canonical resolution the URL returned here needs to sometimes be modified to just use the canonical URL.
  */
-- (NSURL*)urlForGalleryTargetWidth:(NSUInteger)targetWidth {
+- (NSURL*)urlForTargetWidth:(NSUInteger)targetWidth {
     NSString *tagSrc = self.src;
     
     // One of these widths was set for us to even get here.
@@ -46,7 +46,7 @@
     }else{
         // If the url isn't scaled assume it is canonical and just keep it as-is.
         // By this point it has already been determined that it's big enough, but
-        // we can't scale it down to the targetGalleryWidth because the url is not
+        // we can't scale it down to the targetWidth because the url is not
         // pointing to the scaler's subfolder for this image's thumbs.
     }
     

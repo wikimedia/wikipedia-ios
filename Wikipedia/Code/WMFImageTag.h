@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFGalleryImageTag : NSObject
+@interface WMFImageTag : NSObject
 
 @property (nonatomic, strong, readonly) NSString* src;
 @property (nonatomic, strong, readonly, nullable) NSString* srcset;

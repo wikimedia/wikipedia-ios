@@ -1,8 +1,8 @@
-#import "WMFGalleryImageTag.h"
+#import "WMFImageTag.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFGalleryImageTag()
+@interface WMFImageTag()
 
 @property (nonatomic, strong, readwrite) NSString* src;
 @property (nonatomic, strong, readwrite, nullable) NSString* srcset;
@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation WMFGalleryImageTag
+@implementation WMFImageTag
 
 - (instancetype)initWithSrc:(NSString*)src
                      srcset:(nullable NSString*)srcset
@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)isWideEnoughForGallery {
-    NSUInteger minWidth = [WMFGalleryImageTag minimumImageWidthForGalleryInclusion];
+    NSUInteger minWidth = [WMFImageTag minimumImageWidthForGalleryInclusion];
     return self.width.integerValue > minWidth && self.dataFileWidth.integerValue > minWidth;
 }
 
