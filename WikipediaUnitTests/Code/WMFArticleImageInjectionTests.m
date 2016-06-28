@@ -44,7 +44,7 @@
          peekAtSearchWithXPathQuery:@"//html/body/*"];
     NSParameterAssert(obamaElement);
 
-    MWKArticle* article = [[MWKArticle alloc] initWithTitle:[MWKTitle random] dataStore:self.dataStore];
+    MWKArticle* article = [[MWKArticle alloc] initWithURL:[NSURL wmf_randomArticleURL] dataStore:self.dataStore];
 
     [article importMobileViewJSON:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
 
@@ -87,7 +87,7 @@
          peekAtSearchWithXPathQuery:@"//html/body/*"];
     NSParameterAssert(smallImageElement);
 
-    MWKArticle* article = [[MWKArticle alloc] initWithTitle:[MWKTitle random] dataStore:self.dataStore];
+    MWKArticle* article = [[MWKArticle alloc] initWithURL:[NSURL wmf_randomArticleURL] dataStore:self.dataStore];
 
     [article importAndSaveImagesFromElement:smallImageElement intoSection:kMWKArticleSectionNone];
 
@@ -97,7 +97,7 @@
 - (void)testImportsAllExpectedImagesFromFixture {
     self.dataStore = [MWKDataStore temporaryDataStore];
 
-    MWKArticle* article = [[MWKArticle alloc] initWithTitle:[MWKTitle random] dataStore:self.dataStore];
+    MWKArticle* article = [[MWKArticle alloc] initWithURL:[NSURL wmf_randomArticleURL] dataStore:self.dataStore];
 
     [article importMobileViewJSON:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
 

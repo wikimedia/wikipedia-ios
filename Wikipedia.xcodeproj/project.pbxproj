@@ -484,7 +484,6 @@
 		B0E808A61C0D168F0065EBC0 /* XCTestCase+WMFVisualTestConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808A51C0D168F0065EBC0 /* XCTestCase+WMFVisualTestConvenience.m */; };
 		B0E808A91C0D16A00065EBC0 /* UIView+VisualTestSizingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808A81C0D16A00065EBC0 /* UIView+VisualTestSizingUtils.m */; };
 		B0E808AC1C0D16B30065EBC0 /* FBSnapshotTestCase+WMFConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808AB1C0D16B30065EBC0 /* FBSnapshotTestCase+WMFConvenience.m */; };
-		B0E808AF1C0D16CD0065EBC0 /* MWKTitle+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808AE1C0D16CD0065EBC0 /* MWKTitle+Random.m */; };
 		B0E808B31C0D16EA0065EBC0 /* MWKSite+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808B21C0D16EA0065EBC0 /* MWKSite+Random.m */; };
 		B0E808B61C0D17070065EBC0 /* LSStubResponseDSL+WithJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808B51C0D17070065EBC0 /* LSStubResponseDSL+WithJSON.m */; };
 		B0E808B91C0D17160065EBC0 /* WMFHTTPHangingProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E808B81C0D17160065EBC0 /* WMFHTTPHangingProtocol.m */; };
@@ -544,7 +543,6 @@
 		B0E8092D1C0D19FA0065EBC0 /* MWKSiteInfoFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8092C1C0D19FA0065EBC0 /* MWKSiteInfoFetcherTests.m */; };
 		B0E8092F1C0D1A0B0065EBC0 /* NSURL+WMFExtrasTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8092E1C0D1A0B0065EBC0 /* NSURL+WMFExtrasTests.m */; };
 		B0E809311C0D1A170065EBC0 /* WMFBackgroundTestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E809301C0D1A170065EBC0 /* WMFBackgroundTestManagerTests.swift */; };
-		B0E809331C0D1A270065EBC0 /* WMFLegacyImageDataMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E809321C0D1A270065EBC0 /* WMFLegacyImageDataMigrationTests.swift */; };
 		B0E809351C0D1A2F0065EBC0 /* WMFGeometryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809341C0D1A2F0065EBC0 /* WMFGeometryTests.m */; };
 		B0E809371C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809361C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m */; };
 		B0E809391C0D1A4C0065EBC0 /* MWKLanguageLinkFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809381C0D1A4C0065EBC0 /* MWKLanguageLinkFetcherTests.m */; };
@@ -1621,8 +1619,6 @@
 		B0E808A81C0D16A00065EBC0 /* UIView+VisualTestSizingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+VisualTestSizingUtils.m"; path = "WikipediaUnitTests/Code/UIView+VisualTestSizingUtils.m"; sourceTree = SOURCE_ROOT; };
 		B0E808AA1C0D16B30065EBC0 /* FBSnapshotTestCase+WMFConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FBSnapshotTestCase+WMFConvenience.h"; path = "WikipediaUnitTests/Code/FBSnapshotTestCase+WMFConvenience.h"; sourceTree = SOURCE_ROOT; };
 		B0E808AB1C0D16B30065EBC0 /* FBSnapshotTestCase+WMFConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FBSnapshotTestCase+WMFConvenience.m"; path = "WikipediaUnitTests/Code/FBSnapshotTestCase+WMFConvenience.m"; sourceTree = SOURCE_ROOT; };
-		B0E808AD1C0D16CD0065EBC0 /* MWKTitle+Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKTitle+Random.h"; path = "WikipediaUnitTests/Code/MWKTitle+Random.h"; sourceTree = SOURCE_ROOT; };
-		B0E808AE1C0D16CD0065EBC0 /* MWKTitle+Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKTitle+Random.m"; path = "WikipediaUnitTests/Code/MWKTitle+Random.m"; sourceTree = SOURCE_ROOT; };
 		B0E808B01C0D16DC0065EBC0 /* MWKRandom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MWKRandom.h; path = WikipediaUnitTests/Code/MWKRandom.h; sourceTree = SOURCE_ROOT; };
 		B0E808B11C0D16EA0065EBC0 /* MWKSite+Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKSite+Random.h"; path = "WikipediaUnitTests/Code/MWKSite+Random.h"; sourceTree = SOURCE_ROOT; };
 		B0E808B21C0D16EA0065EBC0 /* MWKSite+Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKSite+Random.m"; path = "WikipediaUnitTests/Code/MWKSite+Random.m"; sourceTree = SOURCE_ROOT; };
@@ -1694,7 +1690,6 @@
 		B0E8092C1C0D19FA0065EBC0 /* MWKSiteInfoFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSiteInfoFetcherTests.m; path = WikipediaUnitTests/Code/MWKSiteInfoFetcherTests.m; sourceTree = SOURCE_ROOT; };
 		B0E8092E1C0D1A0B0065EBC0 /* NSURL+WMFExtrasTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFExtrasTests.m"; path = "WikipediaUnitTests/Code/NSURL+WMFExtrasTests.m"; sourceTree = SOURCE_ROOT; };
 		B0E809301C0D1A170065EBC0 /* WMFBackgroundTestManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFBackgroundTestManagerTests.swift; path = WikipediaUnitTests/Code/WMFBackgroundTestManagerTests.swift; sourceTree = SOURCE_ROOT; };
-		B0E809321C0D1A270065EBC0 /* WMFLegacyImageDataMigrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFLegacyImageDataMigrationTests.swift; path = WikipediaUnitTests/Code/WMFLegacyImageDataMigrationTests.swift; sourceTree = SOURCE_ROOT; };
 		B0E809341C0D1A2F0065EBC0 /* WMFGeometryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFGeometryTests.m; path = WikipediaUnitTests/Code/WMFGeometryTests.m; sourceTree = SOURCE_ROOT; };
 		B0E809361C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageLinkControllerTests.m; path = WikipediaUnitTests/Code/MWKLanguageLinkControllerTests.m; sourceTree = SOURCE_ROOT; };
 		B0E809381C0D1A4C0065EBC0 /* MWKLanguageLinkFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageLinkFetcherTests.m; path = WikipediaUnitTests/Code/MWKLanguageLinkFetcherTests.m; sourceTree = SOURCE_ROOT; };
@@ -4304,8 +4299,6 @@
 		BC5BC4B41BCEFADF00062619 /* Random */ = {
 			isa = PBXGroup;
 			children = (
-				B0E808AD1C0D16CD0065EBC0 /* MWKTitle+Random.h */,
-				B0E808AE1C0D16CD0065EBC0 /* MWKTitle+Random.m */,
 				B0E808B01C0D16DC0065EBC0 /* MWKRandom.h */,
 				B0E808B11C0D16EA0065EBC0 /* MWKSite+Random.h */,
 				B0E808B21C0D16EA0065EBC0 /* MWKSite+Random.m */,
@@ -4849,7 +4842,6 @@
 				B01662B11D1B8A40006F4544 /* NSURL+WMFQueryParametersTests.m */,
 				B01662B41D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m */,
 				B0E809301C0D1A170065EBC0 /* WMFBackgroundTestManagerTests.swift */,
-				B0E809321C0D1A270065EBC0 /* WMFLegacyImageDataMigrationTests.swift */,
 				B0E809341C0D1A2F0065EBC0 /* WMFGeometryTests.m */,
 				B0E809361C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m */,
 				B0E809381C0D1A4C0065EBC0 /* MWKLanguageLinkFetcherTests.m */,
@@ -5572,7 +5564,6 @@
 				BCD557B81C4584180060A51A /* WMFTextualSaveButtonLayoutVisualTests.m in Sources */,
 				B0E8088C1C0D15D90065EBC0 /* HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.m in Sources */,
 				B0E8093B1C0D1A590065EBC0 /* WMFSafeAssignTests.m in Sources */,
-				B0E809331C0D1A270065EBC0 /* WMFLegacyImageDataMigrationTests.swift in Sources */,
 				BC0069D11C7D4A6600F2C377 /* WMFExploreSectionSchemaTests.m in Sources */,
 				B0E809111C0D18FD0065EBC0 /* WMFSubstringUtilsTests.m in Sources */,
 				B0E8094D1C0D1AE50065EBC0 /* UIImageView+MWKImageTests.m in Sources */,
@@ -5616,7 +5607,6 @@
 				B0E808EA1C0D17FB0065EBC0 /* MWKDataStoreStorageTests.m in Sources */,
 				B0E808E01C0D17C20065EBC0 /* MWKSavedPageListCorruptDataTests.m in Sources */,
 				B0E8094F1C0D1AF70065EBC0 /* NSAttributedString+WMFTrimTests.m in Sources */,
-				B0E808AF1C0D16CD0065EBC0 /* MWKTitle+Random.m in Sources */,
 				B0E808F21C0D18280065EBC0 /* MWKProtectionStatusTests.m in Sources */,
 				B0E808D41C0D17A60065EBC0 /* MWKHistoryListCorruptDataTests.m in Sources */,
 				B0E809271C0D19BC0065EBC0 /* MWKSection+WMFSharingTests.m in Sources */,

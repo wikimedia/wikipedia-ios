@@ -1,15 +1,10 @@
-//
-//  MWKSite+Random.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/14/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
-#import "MWKSite.h"
-#import "MWKRandom.h"
+@interface NSURL (MWKRandom)
 
-@interface MWKSite (Random)
-<MWKRandom>
++ (instancetype)wmf_randomSiteURL;
+
++ (instancetype)wmf_randomArticleURL;
+
++ (instancetype)wmf_randomArticleURLWithFragment:(NSString*)fragment;
 
 @end
