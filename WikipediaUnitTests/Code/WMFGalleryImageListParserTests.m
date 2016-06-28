@@ -6,6 +6,8 @@
 
 @interface WMFGalleryImageListParserTests : MWKTestCase
 
+@property(nonatomic, strong)WMFGalleryImageListParser* parser;
+
 @end
 
 @implementation WMFGalleryImageListParserTests
@@ -13,17 +15,18 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    self.parser = [[WMFGalleryImageListParser alloc] init];
 }
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+    self.parser = nil;
     [super tearDown];
 }
 
 - (void)testObamaArticleGalleryImageListExtractionAtTargetWidth1024 {
-    WMFGalleryImageListParser* parser = [[WMFGalleryImageListParser alloc] init];
     
-    NSArray* parsedObamaGalleryURLS = [parser parseGalleryImageURLsFromHTMLString:[self allObamaHTML] targetWidth:1024];
+    NSArray* parsedObamaGalleryURLS = [self.parser parseGalleryImageURLsFromHTMLString:[self allObamaHTML] targetWidth:1024];
     
     NSArray *expectedObamaGalleryURLs =
     [@[
@@ -68,9 +71,8 @@
 }
 
 - (void)testObamaArticleGalleryImageListExtractionAtTargetWidth160 {
-    WMFGalleryImageListParser* parser = [[WMFGalleryImageListParser alloc] init];
     
-    NSArray* parsedObamaGalleryURLS = [parser parseGalleryImageURLsFromHTMLString:[self allObamaHTML] targetWidth:160];
+    NSArray* parsedObamaGalleryURLS = [self.parser parseGalleryImageURLsFromHTMLString:[self allObamaHTML] targetWidth:160];
     
     NSArray *expectedObamaGalleryURLs =
     [@[
@@ -115,8 +117,7 @@
 - (void)testParsingObamaHTMLPerformance {
     // This is an example of a performance test case.
     [self measureBlock:^{
-        WMFGalleryImageListParser* parser = [[WMFGalleryImageListParser alloc] init];
-        NSArray* parsedObamaGalleryURLS = [parser parseGalleryImageURLsFromHTMLString:[self allObamaHTML] targetWidth:160];
+        NSArray* parsedObamaGalleryURLS = [self.parser parseGalleryImageURLsFromHTMLString:[self allObamaHTML] targetWidth:160];
         assertThat(parsedObamaGalleryURLS, hasCountOf(31));
     }];
 }
@@ -134,15 +135,14 @@
            return [NSURL URLWithString:stringURL];
        }];
 
-    WMFGalleryImageListParser* parser = [[WMFGalleryImageListParser alloc] init];
-    assertThat([parser parseGalleryImageURLsFromHTMLString:tagsToParse targetWidth:1024], is(equalTo(expectedURLs)));
+    assertThat([self.parser parseGalleryImageURLsFromHTMLString:tagsToParse targetWidth:1024], is(equalTo(expectedURLs)));
 }
 
 - (void)testTargetWidthGreaterThanCanonicalImageWidthForNonSVGImageURL {
     NSString* tags = @""
     "<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/f/f8/The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg/220px-The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg\" width=\"220\" height=\"212\" class=\"thumbimage\" data-file-width=\"380\" data-file-height=\"366\">";
     
-    NSArray* parsedURLS = [[[WMFGalleryImageListParser alloc] init] parseGalleryImageURLsFromHTMLString:tags targetWidth:1024];
+    NSArray* parsedURLS = [self.parser parseGalleryImageURLsFromHTMLString:tags targetWidth:1024];
     NSArray* expectedULRS = @[[NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/f/f8/The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg"]];
     
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
@@ -152,7 +152,7 @@
     NSString* tags = @""
     "<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/f/f8/The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg/220px-The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg\" width=\"220\" height=\"212\" class=\"thumbimage\" data-file-width=\"380\" data-file-height=\"366\">";
     
-    NSArray* parsedURLS = [[[WMFGalleryImageListParser alloc] init] parseGalleryImageURLsFromHTMLString:tags targetWidth:380];
+    NSArray* parsedURLS = [self.parser parseGalleryImageURLsFromHTMLString:tags targetWidth:380];
     NSArray* expectedULRS = @[[NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/f/f8/The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg"]];
     
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
@@ -162,7 +162,7 @@
     NSString* tags = @""
     "<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/f/f8/The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg/220px-The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg\" width=\"220\" height=\"212\" class=\"thumbimage\" data-file-width=\"380\" data-file-height=\"366\">";
     
-    NSArray* parsedURLS = [[[WMFGalleryImageListParser alloc] init] parseGalleryImageURLsFromHTMLString:tags targetWidth:379];
+    NSArray* parsedURLS = [self.parser parseGalleryImageURLsFromHTMLString:tags targetWidth:379];
     NSArray* expectedULRS = @[[NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/f/f8/The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg/379px-The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg"]];
     
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
@@ -172,7 +172,7 @@
     NSString* tags = @""
     "<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/128px-Barack_Obama_signature.svg.png\" width=\"128\" height=\"31\" data-file-width=\"182\" data-file-height=\"44\">";
     
-    NSArray* parsedURLS = [[[WMFGalleryImageListParser alloc] init] parseGalleryImageURLsFromHTMLString:tags targetWidth:1024];
+    NSArray* parsedURLS = [self.parser parseGalleryImageURLsFromHTMLString:tags targetWidth:1024];
     NSArray* expectedULRS = @[[NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/1024px-Barack_Obama_signature.svg.png"]];
     
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
@@ -182,7 +182,7 @@
     NSString* tags = @""
     "<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/128px-Barack_Obama_signature.svg.png\" width=\"128\" height=\"31\" data-file-width=\"182\" data-file-height=\"44\">";
     
-    NSArray* parsedURLS = [[[WMFGalleryImageListParser alloc] init] parseGalleryImageURLsFromHTMLString:tags targetWidth:182];
+    NSArray* parsedURLS = [self.parser parseGalleryImageURLsFromHTMLString:tags targetWidth:182];
     NSArray* expectedULRS = @[[NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/1/11/Barack_Obama_signature.svg"]];
     
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
@@ -192,7 +192,7 @@
     NSString* tags = @""
     "<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/128px-Barack_Obama_signature.svg.png\" width=\"128\" height=\"31\" data-file-width=\"182\" data-file-height=\"44\">";
     
-    NSArray* parsedURLS = [[[WMFGalleryImageListParser alloc] init] parseGalleryImageURLsFromHTMLString:tags targetWidth:181];
+    NSArray* parsedURLS = [self.parser parseGalleryImageURLsFromHTMLString:tags targetWidth:181];
     NSArray* expectedULRS = @[[NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/181px-Barack_Obama_signature.svg.png"]];
     
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
