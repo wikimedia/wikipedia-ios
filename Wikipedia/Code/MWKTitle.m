@@ -27,12 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
     if (url == nil) {
         return nil;
     }
-    
+
     self = [super init];
     if (self) {
         self.URL = url;
     }
-    
+
     return self;
 }
 
@@ -124,8 +124,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)isEqualToTitle:(MWKTitle*)otherTitle {
-    return WMF_IS_EQUAL_PROPERTIES(self, site, otherTitle)
-           && WMF_EQUAL_PROPERTIES(self, text, isEqualToString:, otherTitle);
+    BOOL isTextEqual = [self.text wmf_isEqualToTitle:otherTitle.text];
+    return isTextEqual && WMF_IS_EQUAL_PROPERTIES(self, site, otherTitle);
 }
 
 - (BOOL)isEqualToTitleIncludingFragment:(MWKTitle*)otherTitle {
