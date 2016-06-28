@@ -47,24 +47,30 @@
 "zero-warn-when-leaving" = "Wikipedia Zero-ттан тахсаары гыннахпына сэрэтээр";
 "zero-settings-devmode" = "Zero тупсарааччы эрэсиимэ";
 "account-creation-captcha-required" = "Капча тургутуу ирдэнэр.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Саҥа капчаны ылыы.";
 "account-creation-logging-in" = "Киирии...";
 "account-creation-passwords-mismatched" = "Аһарыктар сөп түбэспэтилэр.";
 "account-creation-saving" = "Бигэргэнэр...";
 "account-creation-login" = "Бэлиэтэммитиҥ дуо? Киир.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Кыттааччы аата";
 "account-creation-password-placeholder-text" = "Аһарык";
 "account-creation-password-confirm-placeholder-text" = "Аһарыккын бигэргэт";
 "account-creation-email-placeholder-text" = "Электрон почта (булгуччута суох)";
 "account-creation-missing-fields" = "Ааккын бэлиэтииргэ кыттааччы аатын, аһарыккын уонна аһарыккын хос суруйуохтааххын.";
+// Fuzzy
 "login-name-not-found" = "Киирэргэ кытааччы аата ирдэнэр.";
+// Fuzzy
 "login-name-illegal" = "Табыллыбат ааты ыйбыккын.";
+// Fuzzy
 "login-name-does-not-exist" = "Маннык ааттаах кытааччы суох эбит.";
 "login-password-empty" = "Киирэргэ аһарык ирдэнэр.";
 "login-password-wrong" = "Аһарыгыҥ сыыһа.";
 "login-throttled" = "Кылгас кэм иһигэр аһара элбэхтэ суруйа сатаатыҥ.";
 "login-user-blocked" = "Кыттааччы уларытар кыаҕа быһыллыбыт.";
 "login-account-creation" = "Бэлиэтэнэ илик этиҥ дуо? Бикипиэдьийэҕэ кыттыс.";
+// Fuzzy
 "login-username-placeholder-text" = "Кыттааччы аата";
 "login-password-placeholder-text" = "Аһарык";
 "wikitext-downloading" = "Иһинээҕитин хачайдааһын...";

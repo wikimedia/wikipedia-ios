@@ -19,6 +19,7 @@
 "article-languages-label" = "Trieu un idioma";
 "article-languages-cancel" = "Cancel·la";
 "article-languages-downloading" = "Carregant els idiomes de l'article...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Cerca una llengua";
 "article-read-more-title" = "Més informació";
 "article-about-title" = "Sobre l'article";
@@ -58,24 +59,30 @@
 "zero-warn-when-leaving" = "Avisa'm si se surt de Viquipèdia Zero";
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-captcha-required" = "Verificació de CAPTCHA requerida.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Obtenint d'un CAPTCHA nou.";
 "account-creation-logging-in" = "Iniciant sessió...";
 "account-creation-passwords-mismatched" = "Les contrasenyes no coincideixen.";
 "account-creation-saving" = "S’està desant…";
 "account-creation-login" = "Ja tens un compte? Inicia una sessió.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Nom d'usuari";
 "account-creation-password-placeholder-text" = "Contrasenya";
 "account-creation-password-confirm-placeholder-text" = "Confirma la contrasenya";
 "account-creation-email-placeholder-text" = "Adreça electrònica (opcional)";
 "account-creation-missing-fields" = "Heu d'introduir un nom d'usuari, contrasenya i confirmació de contrasenya per crear un compte.";
+// Fuzzy
 "login-name-not-found" = "Cal el nom d'usuari per iniciar una sessió.";
+// Fuzzy
 "login-name-illegal" = "Heu introduït un nom d'usuari invàlid.";
+// Fuzzy
 "login-name-does-not-exist" = "El nom d'usuari que heu proporcionat no existeix.";
 "login-password-empty" = "És necessària la contrasenya per iniciar sessió.";
 "login-password-wrong" = "La contrasenya que heu proporcionat no és correcta.";
 "login-throttled" = "Heu iniciat una sessió massa vegades en un temps curt.";
 "login-user-blocked" = "L'usuari està blocat.";
 "login-account-creation" = "No teniu un compte? Uniu-vos a la Viquipèdia.";
+// Fuzzy
 "login-username-placeholder-text" = "Nom d'usuari";
 "login-password-placeholder-text" = "Contrasenya";
 "wikitext-downloading" = "S'està carregant el contingut...";
@@ -247,6 +254,7 @@
 "button-next" = "Següent";
 "button-done" = "Fet";
 "button-save" = "Desa";
+"button-ok" = "D’acord";
 "button-save-for-later" = "Desa-ho per a més tard";
 "button-saved-for-later" = "Desat per a més tard";
 "button-report-a-bug" = "Informa d'un error";
@@ -400,6 +408,7 @@
 "explore-random-article-sub-heading" = "Viquipèdia en anglès";
 "explore-potd-heading" = "Foto del dia";
 "explore-most-read-heading" = "Els més llegits a la Viquipèdia en $1";
+"explore-most-read-generic-heading" = "El més llegit";
 "explore-most-read-footer" = "Tots els articles més llegits";
 "explore-most-read-footer-for-date" = "Tots els articles més llegits el $1";
 "explore-most-read-more-list-title" = "Primers articles";

@@ -26,6 +26,7 @@
 "article-languages-label" = "Escolha um idioma";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "Carregando os idiomas do artigo...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Encontrar Idioma";
 "article-read-more-title" = "Leia mais";
 "article-about-title" = "Sobre este artigo";
@@ -63,24 +64,30 @@
 "zero-warn-when-leaving" = "Avisar-me se sair de Zero";
 "zero-settings-devmode" = "Modo para desenvolvedor Zero";
 "account-creation-captcha-required" = "Verificasão de CAPTCHA necessária.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Obter um novo CAPTCHA.";
 "account-creation-logging-in" = "Autenticando...";
 "account-creation-passwords-mismatched" = "Os campos de senha não correspondem.";
 "account-creation-saving" = "Salvando...";
 "account-creation-login" = "Já tem uma conta? Entrar.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Nome de usuário";
 "account-creation-password-placeholder-text" = "Senha";
 "account-creation-password-confirm-placeholder-text" = "Confirmar senha";
 "account-creation-email-placeholder-text" = "Email (opcional)";
 "account-creation-missing-fields" = "Deve inserir um nome de usuário(a), uma senha e a sua respectiva confirmação para criar uma conta.";
+// Fuzzy
 "login-name-not-found" = "Nome de usuario necessário para entrar.";
+// Fuzzy
 "login-name-illegal" = "Você forneceu um nome de usuario inválido.";
+// Fuzzy
 "login-name-does-not-exist" = "O nome de usuario que você forneceu não existe.";
 "login-password-empty" = "A senha é necessaria para entrar.";
 "login-password-wrong" = "A senha que você forneceu é incorreta.";
 "login-throttled" = "Você iniciou sessão muitas vezes num periodo pequeno de tempo.";
 "login-user-blocked" = "O usuário está bloqueado.";
 "login-account-creation" = "Não possui uma conta? Junte-se a Wikipédia.";
+// Fuzzy
 "login-username-placeholder-text" = "Nome de usuário";
 "login-password-placeholder-text" = "Senha";
 "wikitext-downloading" = "Carregando conteúdo...";

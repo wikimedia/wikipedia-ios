@@ -5,8 +5,9 @@
 
 "languages-title" = "De Schprohch wääßele";
 "article-languages-label" = "Söhg en Schprohch uß";
-"article-languages-cancel" = "Ophüre!";
+"article-languages-cancel" = "Ophühre!";
 "article-languages-downloading" = "Ben dä Sigg iehr Schprohche aam lahde …";
+// Fuzzy
 "article-languages-filter-placeholder" = "Schprohche fenge";
 "article-read-more-title" = "Mih lässe";
 "article-about-title" = "Övver heh dä Atikkel";
@@ -27,7 +28,7 @@
 "history-section-lastmonth" = "Läz Mohnd";
 "history-clear-confirmation-heading" = "Wells De veraftesch all Ding neujere Saache fott schmiiße?";
 "history-clear-confirmation-sub-heading" = "Dat kam_mer nit zerök nämme!";
-"history-clear-cancel" = "Ophüre!";
+"history-clear-cancel" = "Ophühre!";
 "history-clear-delete-all" = "Joh, donn alle fottschmieße";
 "history-description" = "Do hä se velleisch alle fott jeschmeße. Et nähkste Mohl woh de obb en Sigg jeihß, kanns De op se zeröck jonn.";
 "history-none" = "Kein köözlesche Sigge heh.";
@@ -46,24 +47,30 @@
 "zero-warn-when-leaving" = "Donn warne, wann de Wikkipehdija Zero ophührt.";
 "zero-settings-devmode" = "Äntweckler för de Wikkipehdija Zero wähde";
 "account-creation-captcha-required" = "Et Kaptscha moß jepröhv wähde.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Ben e neu Kaptscha aam holle.";
 "account-creation-logging-in" = "Aam Enlogge …";
 "account-creation-passwords-mismatched" = "De Paßwööter paße nit zersamme.";
 "account-creation-saving" = "Ben aam Afseschere …";
 "account-creation-login" = "Do häs alld_ene Zohjang? Dann donn enlogge!";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Der Metmaacher_Nahme";
 "account-creation-password-placeholder-text" = "Paßwoot";
 "account-creation-password-confirm-placeholder-text" = "Noch ens dat Paßwoot";
 "account-creation-email-placeholder-text" = "De Adräß för de eläktrohnesche Poß, kann och fott bliehve";
 "account-creation-missing-fields" = "Do moss ene Metmaacher_Nahme, e Paßwoot un en Beschtähtejong för et Paßwoot enjävve, öm ene Zohjang aanzelähje.";
+// Fuzzy
 "login-name-not-found" = "Ene Metmaacher_Nahme es nühdesch zom Enlogge.";
+// Fuzzy
 "login-name-illegal" = "Do häss ene onjöltejje Metmaacher_Nahme aanjejovve.";
+// Fuzzy
 "login-name-does-not-exist" = "Do aanjejovve Metmaacher_Nahme jidd_et nit.";
 "login-password-empty" = "E Paßwood es nühdesch zom Enlogge.";
 "login-password-wrong" = "Dat aanjejovve Paßwood es verkiehrt.";
 "login-throttled" = "Do häs Desch zoh öffe en en zoh koote Zigg ennjelogg.";
 "login-user-blocked" = "Dä Metmaacher es jespächt.";
 "login-account-creation" = "Noch keine Zohjang? Beij de Wikkipehdija aanmällde.";
+// Fuzzy
 "login-username-placeholder-text" = "Dä Metmaacher_Nahme";
 "login-password-placeholder-text" = "Et Paßwoot";
 "wikitext-downloading" = "Aam Lahde ...";
@@ -99,7 +106,7 @@
 "search-recent-title" = "Köözlesch jesöhk";
 "search-recent-clear-confirmation-heading" = "Wells De verhaftesch alle Söhke verjäße maache?";
 "search-recent-clear-confirmation-sub-heading" = "Dat kam_mer nit zerök nämme!";
-"search-recent-clear-cancel" = "Ophüre";
+"search-recent-clear-cancel" = "Ophühre";
 "search-recent-clear-delete-all" = "Alle fottschmieße";
 "search-result-redirected-from" = "Ömjeleit vun: $1";
 "settings-title" = "Enschtällonge";
@@ -235,6 +242,7 @@
 "button-next" = "Näx";
 "button-done" = "Jedonn";
 "button-save" = "Faßhalde";
+"button-ok" = "Lohß Jonn!";
 "button-save-for-later" = "För schpääder faßjehallde";
 "button-saved-for-later" = "För schpääder faßjehallde";
 "button-report-a-bug" = "Ene Fähler mälde";

@@ -7,6 +7,7 @@
 "article-languages-label" = "Vel mál";
 "article-languages-cancel" = "Avbrýt";
 "article-languages-downloading" = "Innlesur greinamál...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Finn mál";
 "article-read-more-title" = "Les meira";
 "article-about-title" = "Um hesa greinina";
@@ -44,24 +45,30 @@
 "zero-warn-when-leaving" = "Ávara meg um eg fari burtur frá Zero";
 "zero-settings-devmode" = "Zero-menningarstøða";
 "account-creation-captcha-required" = "CAPTCHA váttan verður kravd.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Heintar ein nýggjan CAPTCHA.";
 "account-creation-logging-in" = "Ritar inn...";
 "account-creation-passwords-mismatched" = "Teigarnar við loyniorði passa ikki saman.";
 "account-creation-saving" = "Goymir...";
 "account-creation-login" = "Hevur tú longuu eina konto? Rita in.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Brúkaranavn";
 "account-creation-password-placeholder-text" = "Loyniorð";
 "account-creation-password-confirm-placeholder-text" = "Váttað loyniorð";
 "account-creation-email-placeholder-text" = "T-postur (valfrítt)";
 "account-creation-missing-fields" = "Tú mást skriva eitt brúkaranavn, loyniorð ag vátta loyniorðið, fyri at upprætta eina kontu.";
+// Fuzzy
 "login-name-not-found" = "Brúkaranavn verður kravt fyri at rita inn.";
+// Fuzzy
 "login-name-illegal" = "Tú valdi eitt ólógligt brúkaranavn.";
+// Fuzzy
 "login-name-does-not-exist" = "Brúkaranavnið ið tú skrivaði finst ikki.";
 "login-password-empty" = "Loyniorð krevst fyri at rita inn.";
 "login-password-wrong" = "Loyniorðið ið tú skrivaði er skeivt.";
 "login-throttled" = "Tú hevur ritað inn ov nógvar ferðir eftir stuttari tíð.";
 "login-user-blocked" = "Brúkarin er sperraður.";
 "login-account-creation" = "Hevur tú onga kontu? Gerst partur av Wikipedia.";
+// Fuzzy
 "login-username-placeholder-text" = "Brúkaranavn";
 "login-password-placeholder-text" = "Loyniorð";
 "wikitext-downloading" = "Innlesur innihald...";
