@@ -47,9 +47,15 @@
 + (NSString*)wmf_hostWithDomain:(NSString*)domain
                        language:(NSString*)language
                        isMobile:(BOOL)isMobile {
+    return [self wmf_hostWithDomain:domain subDomain:language isMobile:isMobile];
+}
+
++ (NSString*)wmf_hostWithDomain:(NSString*)domain
+                      subDomain:(NSString*)subDomain
+                       isMobile:(BOOL)isMobile {
     NSMutableArray* hostComponents = [NSMutableArray array];
-    if (language) {
-        [hostComponents addObject:language];
+    if (subDomain) {
+        [hostComponents addObject:subDomain];
     }
     if (isMobile) {
         [hostComponents addObject:@"m"];

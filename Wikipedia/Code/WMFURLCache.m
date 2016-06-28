@@ -4,7 +4,6 @@
 #import "WMFURLCache.h"
 #import "SessionSingleton.h"
 #import "FBTweak+WikipediaZero.h"
-#import "NSURL+WMFExtras.h"
 #import "MWKArticle.h"
 #import "MWKImageList.h"
 #import "MWKImage.h"

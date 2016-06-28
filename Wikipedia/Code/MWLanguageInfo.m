@@ -21,7 +21,7 @@ NSArray* rtlLanguages;
 
 + (BOOL)articleLanguageIsRTL:(MWKArticle*)article {
     return [[MWLanguageInfo languageInfoForCode:
-             article.title.site.language].dir
+             article.url.wmf_language].dir
             isEqualToString:@"rtl"];
 }
 

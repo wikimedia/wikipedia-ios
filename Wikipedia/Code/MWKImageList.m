@@ -8,7 +8,6 @@
 
 #import "MediaWikiKit.h"
 #import "NSString+WMFExtras.h"
-#import "NSURL+WMFExtras.h"
 #import "WikipediaAppUtils.h"
 
 @interface MWKImageList ()
@@ -26,8 +25,8 @@
 
 @implementation MWKImageList
 
-- (instancetype)initWithSite:(MWKSite*)site {
-    self = [super initWithSite:site];
+- (instancetype)initWithURL:(NSURL *)url {
+    self = [super initWithURL:url];
     if (self) {
         self.mutableEntries           = [[NSMutableArray alloc] init];
         self.mutationState            = 0;
@@ -38,7 +37,7 @@
 }
 
 - (instancetype)initWithArticle:(MWKArticle*)article section:(MWKSection*)section {
-    self = [self initWithSite:article.site];
+    self = [self initWithURL:article.url];
     if (self) {
         self.article = article;
         self.section = section;
@@ -87,7 +86,7 @@
 }
 
 - (BOOL)isEqualToImageList:(MWKImageList*)imageList {
-    return WMF_EQUAL(self.article.title, isEqualToTitle:, imageList.article.title)
+    return WMF_EQUAL(self.article.url, isEqual:, imageList.article.url)
            && WMF_EQUAL(self.mutableEntries, isEqualToArray:, [imageList mutableEntries]);
 }
 

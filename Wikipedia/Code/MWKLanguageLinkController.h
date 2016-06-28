@@ -69,7 +69,7 @@ extern NSString* const WMFPreferredLanguagesDidChangeNotification;
 - (BOOL)languageIsOSLanguage:(MWKLanguageLink*)language;
 
 
-- (nullable MWKLanguageLink*)languageForSite:(MWKSite*)site;
+- (nullable MWKLanguageLink*)languageForSiteURL:(NSURL*)siteURL;
 
 @end
 

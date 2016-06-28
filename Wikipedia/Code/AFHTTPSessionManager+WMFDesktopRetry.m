@@ -54,6 +54,19 @@
     }
 }
 
+- (NSURLSessionDataTask*)wmf_GETAndRetryWithURL:(NSURL*)URL
+                                     parameters:(id)parameters
+                                          retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
+                                        success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
+                                        failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure {
+    return [self wmf_GETWithMobileURLString:[URL wmf_mobileAPIURL].absoluteString
+                           desktopURLString:[URL wmf_desktopAPIURL].absoluteString
+                                 parameters:parameters
+                                      retry:retry
+                                    success:success
+                                    failure:failure];
+}
+
 - (NSURLSessionDataTask*)wmf_GETWithSite:(MWKSite*)site
                               parameters:(id)parameters
                                    retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
@@ -71,6 +84,16 @@
                     parameters:(id)parameters {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
         [self wmf_GETWithSite:site parameters:parameters retry:nil success:^(NSURLSessionDataTask* operation, id responseObject) {
+            resolve(responseObject);
+        } failure:^(NSURLSessionDataTask* operation, NSError* error) {
+            resolve(error);
+        }];
+    }];
+}
+
+- (AnyPromise*)wmf_GETAndRetryWithURL:(NSURL*)URL parameters:(id)parameters {
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
+        [self wmf_GETAndRetryWithURL:URL parameters:parameters retry:nil success:^(NSURLSessionDataTask* operation, id responseObject) {
             resolve(responseObject);
         } failure:^(NSURLSessionDataTask* operation, NSError* error) {
             resolve(error);

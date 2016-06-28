@@ -21,11 +21,11 @@
 
 @implementation MWKLanguageLinkFetcher
 
-- (instancetype)initAndFetchLanguageLinksForPageTitle:(MWKTitle*)title
-                                          withManager:(AFHTTPSessionManager*)manager
-                                   thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
+- (instancetype)initAndFetchLanguageLinksForArticleURL:(NSURL*)url
+                                           withManager:(AFHTTPSessionManager*)manager
+                                    thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [self initWithManager:manager delegate:delegate];
-    [self fetchLanguageLinksForTitle:title success:nil failure:nil];
+    [self fetchLanguageLinksForArticleURL:url success:nil failure:nil];
     return self;
 }
 
@@ -48,21 +48,21 @@
     }
 }
 
-- (void)fetchLanguageLinksForTitle:(MWKTitle*)title
-                           success:(void (^)(NSArray*))success
-                           failure:(void (^)(NSError*))failure {
-    if (!title.text.length) {
+- (void)fetchLanguageLinksForArticleURL:(NSURL*)url
+                                success:(void (^)(NSArray*))success
+                                failure:(void (^)(NSError*))failure {
+    if (!url.wmf_title.length) {
         NSError* error = [NSError errorWithDomain:WMFNetworkingErrorDomain
                                              code:WMFNetworkingError_InvalidParameters
                                          userInfo:nil];
         [self finishWithError:error fetchedData:nil block:failure];
         return;
     }
-    NSURL* url           = [[SessionSingleton sharedInstance] urlForLanguage:title.site.language];
+    NSURL* apiURL        = [[SessionSingleton sharedInstance] urlForLanguage:url.wmf_language];
     NSDictionary* params = @{
         @"action": @"query",
         @"prop": @"langlinks",
-        @"titles": title.text,
+        @"titles": url.wmf_title,
         @"lllimit": @"500",
         @"llprop": WMFJoinedPropertyParameters(@[@"langname", @"autonym"]),
         @"llinlanguagecode": [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode],
@@ -70,7 +70,7 @@
         @"format": @"json"
     };
     [[MWNetworkActivityIndicatorManager sharedManager] push];
-    [self.manager GET:url.absoluteString
+    [self.manager GET:apiURL.absoluteString
            parameters:params
              progress:NULL
               success:^(NSURLSessionDataTask* operation, NSDictionary* indexedLanguageLinks) {

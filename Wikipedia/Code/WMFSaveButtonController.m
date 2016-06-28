@@ -1,5 +1,4 @@
 #import "WMFSaveButtonController.h"
-#import "MWKTitle.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
 #import "MWKUserDataStore.h"
@@ -17,12 +16,12 @@
 
 - (instancetype)initWithControl:(UIControl*)button
                   savedPageList:(MWKSavedPageList*)savedPageList
-                          title:(MWKTitle*)title {
+                            url:(NSURL*)url {
     NSParameterAssert(savedPageList);
     self = [super init];
     if (self) {
         self.control       = button;
-        self.title         = title;
+        self.url           = url;
         self.savedPageList = savedPageList;
     }
     return self;
@@ -30,12 +29,12 @@
 
 - (instancetype)initWithBarButtonItem:(UIBarButtonItem*)barButtonItem
                         savedPageList:(MWKSavedPageList*)savedPageList
-                                title:(MWKTitle*)title {
+                                  url:(NSURL*)url {
     NSParameterAssert(savedPageList);
     self = [super init];
     if (self) {
         self.barButtonItem = barButtonItem;
-        self.title         = title;
+        self.url           = url;
         self.savedPageList = savedPageList;
     }
     return self;
@@ -56,11 +55,11 @@
     [self observeSavedPages];
 }
 
-- (void)setTitle:(MWKTitle*)title {
-    if (WMF_EQUAL(self.title, isEqualToTitle:, title)) {
+- (void)setUrl:(NSURL*)url {
+    if (WMF_EQUAL(self.url, isEqual:, url)) {
         return;
     }
-    _title = title;
+    _url = url;
     [self updateSavedButtonState];
 }
 
@@ -127,15 +126,15 @@
 }
 
 - (BOOL)isSaved {
-    return [self.savedPageList isSaved:self.title];
+    return [self.savedPageList isSaved:self.url];
 }
 
 - (void)toggleSave:(id)sender {
     [self unobserveSavedPages];
-    [self.savedPageList toggleSavedPageForTitle:self.title];
+    [self.savedPageList toggleSavedPageForURL:self.url];
     [self.savedPageList save];
 
-    BOOL isSaved = [self.savedPageList isSaved:self.title];
+    BOOL isSaved = [self.savedPageList isSaved:self.url];
     if (isSaved) {
         [self.savedPagesFunnel logSaveNew];
         [[PiwikTracker wmf_configuredInstance] wmf_logActionSaveInContext:self.analyticsContext contentType:self.analyticsContentType];

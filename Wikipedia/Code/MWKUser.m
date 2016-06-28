@@ -19,8 +19,8 @@
 
 @implementation MWKUser
 
-- (instancetype)initWithSite:(MWKSite*)site data:(id)data {
-    self = [self initWithSite:site];
+- (instancetype)initWithSiteURL:(NSURL*)siteURL data:(id)data{
+    self = [super initWithURL:siteURL];
     if ([data isKindOfClass:[NSNull class]]) {
         self.anonymous = YES;
         self.name      = nil;

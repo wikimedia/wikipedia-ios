@@ -1,10 +1,3 @@
-//
-//  WMFNearbyArticleTableViewCell.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 11/12/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFNearbyArticleTableViewCell.h"
 

@@ -162,31 +162,31 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFMostReadSectionController*)mostReadSectionControllerForSection:(WMFExploreSection*)section {
     return [[WMFMostReadSectionController alloc] initWithDate:section.mostReadFetchDate
-                                                         site:section.site
+                                                    domainURL:section.domainURL
                                                     dataStore:self.dataStore];
 }
 
 - (WMFRelatedSectionController*)relatedSectionControllerForSectionSchemaItem:(WMFExploreSection*)item {
-    return [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title blackList:[WMFRelatedSectionBlackList sharedBlackList] dataStore:self.dataStore];
+    return [[WMFRelatedSectionController alloc] initWithArticleURL:item.articleURL blackList:[WMFRelatedSectionBlackList sharedBlackList] dataStore:self.dataStore];
 }
 
 - (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFContinueReadingSectionController alloc] initWithArticleTitle:item.title dataStore:self.dataStore];
+    return [[WMFContinueReadingSectionController alloc] initWithArticleURL:item.articleURL dataStore:self.dataStore];
 }
 
 - (WMFNearbySectionController*)nearbySectionControllerForSchemaItem:(WMFExploreSection*)item {
     return [[WMFNearbySectionController alloc] initWithLocation:item.location
                                                       placemark:item.placemark
-                                                           site:item.site
+                                                searchDomainURL:item.domainURL
                                                       dataStore:self.dataStore];
 }
 
 - (WMFRandomSectionController*)randomSectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFRandomSectionController alloc] initWithSite:item.site dataStore:self.dataStore];
+    return [[WMFRandomSectionController alloc] initWithSearchDomainURL:item.domainURL dataStore:self.dataStore];
 }
 
 - (WMFMainPageSectionController*)mainPageSectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFMainPageSectionController alloc] initWithSite:item.site dataStore:self.dataStore];
+    return [[WMFMainPageSectionController alloc] initWithDomainURL:item.domainURL dataStore:self.dataStore];
 }
 
 - (WMFPictureOfTheDaySectionController*)picOfTheDaySectionControllerForSchemaItem:(WMFExploreSection*)item  {
@@ -194,7 +194,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (WMFFeaturedArticleSectionController*)featuredArticleSectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFFeaturedArticleSectionController alloc] initWithSite:item.site date:item.dateCreated dataStore:self.dataStore];
+    return [[WMFFeaturedArticleSectionController alloc] initWithDomainURL:item.domainURL date:item.dateCreated dataStore:self.dataStore];
 }
 
 #pragma mark - removeAllObjects

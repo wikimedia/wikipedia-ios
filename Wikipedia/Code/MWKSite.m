@@ -1,11 +1,9 @@
-//  Created by Brion on 11/6/13.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "MediaWikiKit.h"
-#import "NSObjectUtilities.h"
+
+#import "MWKSite.h"
 #import "NSURL+WMFLinkParsing.h"
-
-NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
+#import "MWKTitle.h"
+#import "NSObjectUtilities.h"
 
 static NSString* const MWKSiteSchemaVersionKey = @"siteSchemaVersion";
 
@@ -24,10 +22,7 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 - (instancetype)initWithURL:(NSURL*)url {
     self = [super init];
     if (self) {
-        NSURLComponents* components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-        components.path     = nil;
-        components.fragment = nil;
-        self.URL            = [components URL];
+        self.URL = [url wmf_domainURL];
     }
     return self;
 }
@@ -139,7 +134,7 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 
 // Need to specify storage properties since domain & language are readonly, which Mantle interprets as transitory.
 + (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString*)propertyKey {
-#define IS_MWKSITE_KEY(key) [propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKSite new], key)]
+#define IS_MWKSITE_KEY(key) [propertyKey isEqualToString : WMF_SAFE_KEYPATH([MWKSite new], key)]
     if (IS_MWKSITE_KEY(URL)) {
         return MTLPropertyStoragePermanent;
     } else {

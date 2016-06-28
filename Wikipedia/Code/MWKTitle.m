@@ -1,11 +1,10 @@
 //  Created by Brion on 11/1/13.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "MediaWikiKit.h"
+#import "MWKTitle.h"
 #import "NSString+WMFPageUtilities.h"
 #import "Wikipedia-Swift.h"
 #import "NSObjectUtilities.h"
-#import "NSURL+WMFLinkParsing.h"
 #import "NSString+WMFPageUtilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -91,7 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString*)dataBaseKey {
-    return [self.text stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    return [self.text wmf_denormalizedPageTitle];
 }
 
 - (NSURL*)mobileURL {
@@ -145,7 +144,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Need to specify storage properties since text & site are readonly, which Mantle interprets as transitory.
 + (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString*)propertyKey {
-#define IS_MWKTITLE_KEY(key) [propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKTitle new], key)]
+#define IS_MWKTITLE_KEY(key) [propertyKey isEqualToString : WMF_SAFE_KEYPATH([MWKTitle new], key)]
     if (IS_MWKTITLE_KEY(URL)) {
         return MTLPropertyStoragePermanent;
     } else {

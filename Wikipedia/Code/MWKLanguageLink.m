@@ -1,14 +1,6 @@
-//
-//  MWKLanguageLink.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 6/8/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "MWKLanguageLink.h"
 #import "NSObjectUtilities.h"
-#import "MWKTitle.h"
 #import "WikipediaAppUtils.h"
 
 @interface MWKLanguageLink ()
@@ -70,13 +62,14 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink :)
 
 #pragma mark - Computed Properties
 
-- (MWKTitle*)title {
-    return [[MWKTitle alloc] initWithSite:self.site normalizedTitle:self.pageTitleText fragment:nil];
+- (NSURL*)siteURL {
+    return [NSURL wmf_URLWithLanguage:self.languageCode];
 }
 
-- (MWKSite*)site {
-    return [MWKSite siteWithLanguage:self.languageCode];
+- (NSURL*)articleURL {
+    return [[self siteURL] wmf_URLWithTitle:self.pageTitleText];
 }
+
 
 @end
 

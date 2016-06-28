@@ -11,8 +11,6 @@
 
 #import <hpple/TFHpple.h>
 
-#import "NSURL+WMFExtras.h"
-
 #import "MWKImage.h"
 #import "MWKImageList.h"
 #import "MWKSectionList.h"

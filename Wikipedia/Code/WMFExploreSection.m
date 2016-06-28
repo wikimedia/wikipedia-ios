@@ -1,7 +1,5 @@
 
 #import "WMFExploreSection.h"
-#import "MWKSite.h"
-#import "MWKTitle.h"
 #import "MWKHistoryEntry.h"
 #import "MWKSavedPageEntry.h"
 #import "NSDate+Utilities.h"
@@ -13,8 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFExploreSection ()
 
 @property (nonatomic, assign, readwrite) WMFExploreSectionType type;
-@property (nonatomic, strong, readwrite) MWKSite* site;
-@property (nonatomic, strong, readwrite) MWKTitle* title;
+@property (nonatomic, strong, readwrite) NSURL* domainURL;
+@property (nonatomic, strong, readwrite) NSURL* articleURL;
 @property (nonatomic, strong, readwrite) NSDate* dateCreated;
 @property (nonatomic, strong, readwrite) CLLocation* location;
 @property (nonatomic, strong, readwrite) CLPlacemark* placemark;
@@ -38,8 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
         //site was added after persistence. We need to provide a default value.
         switch (self.type) {
             case WMFExploreSectionTypeFeaturedArticle: {
-                if (self.site == nil) {
-                    self.site = [MWKSite siteWithLanguage:@"en"];
+                if (self.domainURL == nil) {
+                    self.domainURL = [NSURL wmf_URLWithLanguage:@"en"];
                 }
                 break;
             }
@@ -71,8 +69,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isEqualToSection:(WMFExploreSection*)rhs {
     return self.type == rhs.type
            && WMF_RHS_PROP_EQUAL(dateCreated, isEqualToDate:)
-           && WMF_RHS_PROP_EQUAL(site, isEqualToSite:)
-           && WMF_RHS_PROP_EQUAL(title, isEqualToTitle:)
+           && WMF_RHS_PROP_EQUAL(domainURL, isEqual:)
+           && WMF_RHS_PROP_EQUAL(articleURL, isEqual:)
            && WMF_RHS_PROP_EQUAL(mostReadFetchDate, isEqualToDate:)
            && WMF_RHS_PROP_EQUAL(location, wmf_isEqual:)
            && WMF_RHS_PROP_EQUAL(placemark, wmf_isEqual:);
@@ -138,83 +136,85 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Factory Methods
 
-+ (instancetype)mostReadSectionForDate:(NSDate*)date site:(MWKSite*)site {
++ (instancetype)mostReadSectionForDate:(NSDate*)date domainURL:(NSURL*)url {
     WMFExploreSection* trending = [[WMFExploreSection alloc] init];
     trending.type              = WMFExploreSectionTypeMostRead;
     trending.mostReadFetchDate = date;
-    trending.site              = site;
+    trending.domainURL         = [url wmf_domainURL];
     return trending;
 }
 
 + (instancetype)pictureOfTheDaySectionWithDate:(NSDate*)date {
+    NSParameterAssert(date);
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
     item.type        = WMFExploreSectionTypePictureOfTheDay;
     item.dateCreated = date;
     return item;
 }
 
-+ (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title {
++ (instancetype)continueReadingSectionWithArticleURL:(NSURL*)url {
+    NSParameterAssert(url.wmf_title);
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
-    item.type  = WMFExploreSectionTypeContinueReading;
-    item.title = title;
+    item.type       = WMFExploreSectionTypeContinueReading;
+    item.articleURL = url;
     return item;
 }
 
-+ (nullable instancetype)featuredArticleSectionWithSiteIfSupported:(MWKSite*)site {
-    NSParameterAssert(site);
-    if (![site.language isEqualToString:@"en"] || ![site.domain isEqualToString:@"wikipedia.org"]) {
++ (nullable instancetype)featuredArticleSectionWithDomainURLIfSupported:(NSURL*)url {
+    NSParameterAssert(url);
+    if (![url.wmf_language isEqualToString:@"en"] || ![url.wmf_domain isEqualToString:@"wikipedia.org"]) {
         /*
            HAX: "Today's Featured Article" template is only available on en.wikipedia.org.
          */
         return nil;
     }
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
-    item.type = WMFExploreSectionTypeFeaturedArticle;
-    item.site = site;
+    item.type      = WMFExploreSectionTypeFeaturedArticle;
+    item.domainURL = [url wmf_domainURL];
     return item;
 }
 
-+ (instancetype)mainPageSectionWithSite:(MWKSite*)site {
++ (instancetype)mainPageSectionWithDomainURL:(NSURL*)url {
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
-    item.type = WMFExploreSectionTypeMainPage;
-    item.site = site;
+    item.type      = WMFExploreSectionTypeMainPage;
+    item.domainURL = [url wmf_domainURL];
     return item;
 }
 
-+ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark site:(MWKSite*)site {
++ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark domainURL:(NSURL*)url {
     NSParameterAssert(location);
-    NSParameterAssert(site);
+    NSParameterAssert(url);
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
     item.type      = WMFExploreSectionTypeNearby;
     item.location  = location;
     item.placemark = placemark;
-    item.site      = site;
+    item.domainURL = [url wmf_domainURL];
     return item;
 }
 
-+ (instancetype)randomSectionWithSite:(MWKSite*)site {
++ (instancetype)randomSectionWithDomainURL:(NSURL*)url {
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
-    item.type = WMFExploreSectionTypeRandom;
-    item.site = site;
+    item.type      = WMFExploreSectionTypeRandom;
+    item.domainURL = [url wmf_domainURL];
     return item;
 }
 
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry {
-    NSParameterAssert(entry.title);
+    NSParameterAssert(entry.url.wmf_title);
     NSParameterAssert(entry.date);
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
     item.type        = WMFExploreSectionTypeHistory;
-    item.title       = entry.title;
+    item.articleURL  = entry.url;
     item.dateCreated = entry.date;
     return item;
 }
 
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry {
-    NSParameterAssert(entry.title);
+    NSParameterAssert(entry.url.wmf_title);
     NSParameterAssert(entry.date);
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
     item.type        = WMFExploreSectionTypeSaved;
-    item.title       = entry.title;
+    item.articleURL  = entry.url;
     item.dateCreated = entry.date;
     return item;
 }

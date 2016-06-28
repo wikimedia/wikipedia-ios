@@ -34,7 +34,7 @@
     return self;
 }
 
-- (AnyPromise*)fetchZeroMessageForSite:(MWKSite*)site {
+- (AnyPromise*)fetchZeroMessageForSiteURL:(NSURL*)siteURL{
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
         NSMutableDictionary* params = [NSMutableDictionary dictionaryWithDictionary:@{
                                            @"action": @"zeroconfig",
@@ -44,7 +44,7 @@
         if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
             params[@"X-CS"] = @"TEST";
         }
-        [self.operationManager GET:[[site mobileApiEndpoint] absoluteString]
+        [self.operationManager GET:[[siteURL wmf_mobileAPIURL] absoluteString]
                         parameters:params
                           progress:NULL
                            success:^(NSURLSessionDataTask* _Nonnull _, id _Nonnull responseObject) {

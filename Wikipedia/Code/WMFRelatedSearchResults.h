@@ -4,9 +4,9 @@
 
 @interface WMFRelatedSearchResults : NSObject
 
-@property (nonatomic, strong, readonly) MWKTitle* title;
+@property (nonatomic, strong, readonly) NSURL* domainURL;
 @property (nonatomic, strong, readonly) NSArray<MWKSearchResult*>* results;
 
-- (instancetype)initWithTitle:(MWKTitle*)title results:(NSArray*)results;
+- (instancetype)initWithURL:(NSURL*)URL results:(NSArray*)results;
 
 @end

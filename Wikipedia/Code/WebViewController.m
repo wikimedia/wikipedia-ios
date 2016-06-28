@@ -13,9 +13,7 @@
 #import "MWKArticle.h"
 #import "MWKSection.h"
 #import "MWKSectionList.h"
-#import "MWKSite.h"
 #import "MWKImageList.h"
-#import "MWKTitle.h"
 
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -27,7 +25,6 @@
 #import "WKWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
-#import "NSURL+WMFExtras.h"
 
 #import "WMFZeroMessage.h"
 #import "WKWebView+LoadAssetsHtml.h"
@@ -93,17 +90,17 @@ NSString* const WMFCCBySALicenseURL =
         NSDictionary* peekElementDict = message.body[@"peekElement"];
         if ([peekElementDict isMemberOfClass:[NSNull class]]) {
             self.peekElement = nil;
-        }else{
+        } else {
             self.peekElement =
-            [[WMFPeekHTMLElement alloc] initWithTagName:peekElementDict[@"tagName"]
-                                                    src:peekElementDict[@"src"]
-                                                   href:peekElementDict[@"href"]];
+                [[WMFPeekHTMLElement alloc] initWithTagName:peekElementDict[@"tagName"]
+                                                        src:peekElementDict[@"src"]
+                                                       href:peekElementDict[@"href"]];
         }
     } else if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
         if ([message.body isEqualToString:@"collapseTables"]) {
             [self.webView wmf_collapseTablesForArticle:self.article];
         } else if ([message.body isEqualToString:@"setLanguage"]) {
-            [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.site.language]];
+            [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.url.wmf_language]];
         } else if ([message.body isEqualToString:@"setPageProtected"] && !self.article.editable) {
             [self.webView wmf_setPageProtected];
         }
@@ -144,8 +141,9 @@ NSString* const WMFCCBySALicenseURL =
             }
 
             if ([href wmf_isInternalLink]) {
-                MWKTitle* pageTitle = [self.article.site titleWithInternalLink:href];
-                [(self).delegate webViewController:(self) didTapOnLinkForTitle:pageTitle];
+#warning Fix internal links by properly parsing the language code here
+                NSURL* url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
+                [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
             } else {
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                 if ([href hasPrefix:@"#"]) {
@@ -180,10 +178,9 @@ NSString* const WMFCCBySALicenseURL =
                 DDLogError(@"Image clicked callback invoked with empty URL: %@", message.body[@"imageClicked"]);
                 return;
             }
-            
 
             NSURL* selectedImageURL = [NSURL URLWithString:selectedImageURLString];
-            
+
             selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
 
             [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
@@ -312,11 +309,8 @@ NSString* const WMFCCBySALicenseURL =
 - (void)saveOpenArticleTitleWithCurrentlyOnscreenFragment {
     if (self.navigationController.topViewController == self.parentViewController) { // Ensure only the topmost article is recorded.
         [self getCurrentVisibleSectionCompletion:^(MWKSection* visibleSection, NSError* error){
-            MWKTitle* articleTitleWithCurrentlyOnScreenFragment =
-                [[MWKTitle alloc] initWithSite:self.article.title.site
-                               normalizedTitle:self.article.title.text
-                                      fragment:visibleSection.anchor];
-            [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:articleTitleWithCurrentlyOnScreenFragment];
+            NSURL* url = [self.article.url wmf_URLWithFragment:visibleSection.anchor];
+            [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleURL:url];
         }];
     }
 }
@@ -490,7 +484,7 @@ NSString* const WMFCCBySALicenseURL =
     if (!self.article) {
         return;
     }
-    if ([self.article.title isNonStandardTitle]) {
+    if ([self.article.url wmf_isNonStandardURL]) {
         return;
     }
     self.footerViewHeadersByIndex = [NSMutableDictionary dictionary];
@@ -514,7 +508,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)addFooterContentViews {
-    if ([self.article.title isNonStandardTitle]) {
+    if ([self.article.url wmf_isNonStandardURL]) {
         return;
     }
     NSParameterAssert(self.isViewLoaded);
@@ -583,7 +577,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (CGFloat)headerHeightForCurrentArticle {
-    if (self.article.isMain || !self.article.imageURL || [self.article.title isNonStandardTitle]) {
+    if (self.article.isMain || !self.article.imageURL || [self.article.url wmf_isNonStandardURL]) {
         return 0;
     } else {
         return 210;
@@ -692,13 +686,13 @@ NSString* const WMFCCBySALicenseURL =
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     [self.headerHeight setOffset:headerHeight];
 
-    [self.webView loadHTML:[self.article articleHTML] withAssetsFile:@"index.html" scrolledToFragment:self.article.title.fragment topPadding:headerHeight];
+    [self.webView loadHTML:[self.article articleHTML] withAssetsFile:@"index.html" scrolledToFragment:self.article.url.fragment topPadding:headerHeight];
 
     UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
                                                           action:@selector(shareMenuItemTapped:)];
     [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 
-    [self.footerLicenseView setLicenseTextForSite:self.article.site];
+    [self.footerLicenseView setLicenseTextForURL:self.article.url];
 }
 
 #pragma mark Bottom menu bar
@@ -876,8 +870,8 @@ NSString* const WMFCCBySALicenseURL =
     [self scrollToFragment:fragment];
 }
 
-- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectReferenceWithTitle:(MWKTitle*)title {
-    [self.delegate webViewController:self didTapOnLinkForTitle:title];
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectReferenceWithURL:(NSURL*)url {
+    [self.delegate webViewController:self didTapOnLinkForArticleURL:url];
 }
 
 - (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectExternalReferenceWithURL:(NSURL*)url {

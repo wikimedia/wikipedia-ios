@@ -1,6 +1,5 @@
 
 #import "MWKSearchResult.h"
-#import "NSURL+WMFExtras.h"
 #import "NSString+WMFExtras.h"
 #import "NSString+WMFHTMLParsing.h"
 

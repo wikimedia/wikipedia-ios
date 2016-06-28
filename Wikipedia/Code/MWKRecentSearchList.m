@@ -41,7 +41,7 @@
 #pragma mark - Validation
 
 - (BOOL)isEntryValid:(MWKRecentSearchEntry*)entry {
-    return entry.searchTerm.length > 0 && entry.site;
+    return entry.searchTerm.length > 0 && entry.url;
 }
 
 #pragma mark - Data Update

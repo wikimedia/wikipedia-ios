@@ -140,7 +140,7 @@
 - (void)useFirstPreferredLanguageAsSearchLanguage {
     MWKLanguageLink* firstPreferredLanguage = [[MWKLanguageLinkController sharedInstance] appLanguage];
 
-    [[NSUserDefaults standardUserDefaults] wmf_setCurrentSearchLanguageSite:firstPreferredLanguage.site];
+    [[NSUserDefaults standardUserDefaults] wmf_setCurrentSearchLanguageDomain:firstPreferredLanguage.siteURL];
 }
 
 - (IBAction)addLanguages:(id)sender {

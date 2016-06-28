@@ -4,7 +4,6 @@
 #import "GCDWebServerDataResponse.h"
 #import "GCDWebServerErrorResponse.h"
 #import "GCDWebServerFileResponse.h"
-#import "NSURL+WMFExtras.h"
 #import "NSString+WMFExtras.h"
 #import "NSURL+WMFProxyServer.h"
 

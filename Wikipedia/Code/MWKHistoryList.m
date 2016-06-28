@@ -40,27 +40,27 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     return [self.entries firstObject];
 }
 
-- (nullable MWKHistoryEntry*)entryForTitle:(MWKTitle*)title {
-    return [self entryForListIndex:title];
+- (nullable MWKHistoryEntry*)entryForURL:(NSURL*)url {
+    return [self entryForListIndex:url];
 }
 
 #pragma mark - Update Methods
 
-- (MWKHistoryEntry*)addPageToHistoryWithTitle:(MWKTitle*)title {
-    NSParameterAssert(title);
-    if ([title isNonStandardTitle]) {
+- (MWKHistoryEntry*)addPageToHistoryWithURL:(NSURL*)url {
+    NSParameterAssert(url);
+    if ([url wmf_isNonStandardURL]) {
         return nil;
     }
-    MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title];
+    MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithURL:url];
     [self addEntry:entry];
     return entry;
 }
 
 - (void)addEntry:(MWKHistoryEntry*)entry {
-    if ([entry.title.text length] == 0) {
+    if ([entry.url.wmf_title length] == 0) {
         return;
     }
-    MWKHistoryEntry* oldEntry = [self entryForListIndex:entry.title];
+    MWKHistoryEntry* oldEntry = [self entryForListIndex:entry.url];
     if (oldEntry) {
         [super removeEntry:oldEntry];
     }
@@ -68,21 +68,21 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
 
-- (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithTitle:(MWKTitle*)title {
-    if ([title.text length] == 0) {
+- (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithURL:(NSURL*)url {
+    if ([url.wmf_title length] == 0) {
         return;
     }
-    [self updateEntryWithListIndex:title update:^BOOL (MWKHistoryEntry* __nullable entry) {
+    [self updateEntryWithListIndex:url update:^BOOL (MWKHistoryEntry* __nullable entry) {
         entry.scrollPosition = scrollposition;
         return YES;
     }];
 }
 
-- (void)setSignificantlyViewedOnPageInHistoryWithTitle:(MWKTitle*)title {
-    if ([title.text length] == 0) {
+- (void)setSignificantlyViewedOnPageInHistoryWithURL:(NSURL*)url {
+    if ([url.wmf_title length] == 0) {
         return;
     }
-    [self updateEntryWithListIndex:title update:^BOOL (MWKHistoryEntry* __nullable entry) {
+    [self updateEntryWithListIndex:url update:^BOOL (MWKHistoryEntry* __nullable entry) {
         if (entry.titleWasSignificantlyViewed) {
             return NO;
         }
@@ -108,7 +108,7 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
         return;
     }
     [historyEntries enumerateObjectsUsingBlock:^(MWKHistoryEntry* entry, NSUInteger idx, BOOL* stop) {
-        [self removeEntryWithListIndex:entry.title];
+        [self removeEntryWithListIndex:entry.url];
     }];
 }
 

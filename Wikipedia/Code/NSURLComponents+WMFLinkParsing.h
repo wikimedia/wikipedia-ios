@@ -85,6 +85,20 @@
                                language:(nullable NSString*)language
                                isMobile:(BOOL)isMobile;
 
+
+/**
+ * Create new NSString containing the full host for a Wikimedia `domain` and `subDomain` for mobile or desktop based on `isMobile`.
+ *
+ * @param domain        Wikimedia domain - for example: `wikimedia.org`.
+ * @param subDomain      An optional subDomain. For example `commons`.
+ * @param isMobile      A boolean indicating whether or not the returned URL components should be for the mobile version of the site.
+ *
+ * @return A new NSString containing the full host for a Wikimedia `domain` and `subDomain` for mobile or desktop based on `isMobile`.
+ **/
++ (nonnull NSString*)wmf_hostWithDomain:(nonnull NSString*)domain
+                              subDomain:(nullable NSString*)subDomain
+                               isMobile:(BOOL)isMobile;
+
 @property (nonatomic, copy, nullable) NSString* wmf_title;
 @property (nullable, copy) NSString* wmf_fragment;
 

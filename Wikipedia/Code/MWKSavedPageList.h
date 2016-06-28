@@ -1,7 +1,6 @@
 
 #import "MWKList.h"
 #import "MWKSavedPageEntry.h"
-#import "MWKTitle.h"
 #import "MWKDataStoreList.h"
 
 @class MWKDataStore;
@@ -11,30 +10,30 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString* const MWKSavedPageListDidSaveNotification;
 extern NSString* const MWKSavedPageListDidUnsaveNotification;
 
-extern NSString* const MWKTitleKey;
+extern NSString* const MWKURLKey;
 
 
-@interface MWKSavedPageList : MWKList<MWKSavedPageEntry*, MWKTitle*>
+@interface MWKSavedPageList : MWKList<MWKSavedPageEntry*, NSURL*>
     < MWKDataStoreList >
 
-- (MWKSavedPageEntry* __nullable)entryForListIndex:(MWKTitle*)title;
+- (MWKSavedPageEntry* __nullable)entryForListIndex:(NSURL*)url;
 - (MWKSavedPageEntry*)           mostRecentEntry;
 
-- (BOOL)isSaved:(MWKTitle*)title;
+- (BOOL)isSaved:(NSURL*)url;
 
 /**
  * Toggle the save state for `title`.
  *
  * @param title Title to toggle state for, either saving or un-saving it.
  */
-- (void)toggleSavedPageForTitle:(MWKTitle*)title;
+- (void)toggleSavedPageForURL:(NSURL*)url;
 
 /**
  *  Add a saved page
  *
  *  @param title The title of the page to add
  */
-- (void)addSavedPageWithTitle:(MWKTitle*)title;
+- (void)addSavedPageWithURL:(NSURL*)url;
 
 - (NSDictionary*)dataExport;
 

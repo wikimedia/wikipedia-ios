@@ -1,10 +1,3 @@
-//
-//  WMFFeedItemExtractFetcher.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 11/9/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFEnglishFeaturedTitleFetcher.h"
 #import "Wikipedia-Swift.h"
@@ -14,8 +7,6 @@
 #import "WMFApiJsonResponseSerializer.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFNetworkUtilities.h"
-#import "MWKSite.h"
-#import "MWKTitle.h"
 #import "MWKSearchResult.h"
 #import "NSDictionary+WMFCommonParams.h"
 #import "WMFBaseRequestSerializer.h"
@@ -68,14 +59,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise*)fetchFeaturedArticlePreviewForDate:(NSDate*)date {
     @weakify(self);
-    MWKSite* site = [MWKSite siteWithLanguage:@"en"];
-    return [self.featuredTitleOperationManager wmf_GETWithSite:site parameters:date]
+    NSURL* siteURL = [NSURL wmf_URLWithLanguage:@"en"];
+    return [self.featuredTitleOperationManager wmf_GETAndRetryWithURL:siteURL parameters:date]
            .thenInBackground(^(NSString* title) {
         @strongify(self);
         if (!self) {
             return [AnyPromise promiseWithValue:[NSError cancelledError]];
         }
-        return [self.titlePreviewOperationManager wmf_GETWithSite:site parameters:title]
+        return [self.titlePreviewOperationManager wmf_GETAndRetryWithURL:siteURL parameters:title]
         .then(^(NSArray<MWKSearchResult*>* featuredTitlePreviews) {
             return featuredTitlePreviews.firstObject;
         });

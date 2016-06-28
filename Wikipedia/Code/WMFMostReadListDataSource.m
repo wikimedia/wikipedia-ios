@@ -1,31 +1,23 @@
-//
-//  WMFMostReadListDataSource.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/16/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFMostReadListDataSource.h"
 #import "WMFArticleListTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
-#import "MWKTitle.h"
 #import "MWKSearchResult.h"
 
 @interface WMFMostReadListDataSource ()
 
-@property (nonatomic, strong) MWKSite* site;
-@property (nonatomic, strong, readwrite) NSArray<MWKTitle*>* titles;
+@property (nonatomic, strong) NSURL* siteURL;
+@property (nonatomic, strong, readwrite) NSArray<NSURL*>* urls;
 
 @end
 
 @implementation WMFMostReadListDataSource
 
-- (instancetype)initWithPreviews:(NSArray<MWKSearchResult*>*)previews fromSite:(MWKSite*)site {
+- (instancetype)initWithPreviews:(NSArray<MWKSearchResult*>*)previews fromSiteURL:(NSURL*)siteURL {
     self = [super initWithItems:previews];
     if (self) {
-        self.site = site;
+        self.siteURL = siteURL;
 
         self.cellClass = [WMFArticleListTableViewCell class];
 
@@ -35,10 +27,10 @@
                                     UITableView* tableView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
-            MWKTitle* title = [self titleForIndexPath:indexPath];
-            NSParameterAssert([title.site isEqualToSite:self.site]);
+            NSURL* articleURL = [self urlForIndexPath:indexPath];
+            NSParameterAssert([articleURL.wmf_domainURL isEqual:self.siteURL]);
 
-            cell.titleText       = title.text;
+            cell.titleText       = articleURL.wmf_title;
             cell.descriptionText = preview.wikidataDescription;
             [cell setImageURL:preview.thumbnailURL];
 
@@ -57,14 +49,14 @@
 
 #pragma mark - Utils
 
-- (MWKTitle*)titleForPreview:(MWKSearchResult*)preview {
-    return [[MWKTitle alloc] initWithSite:self.site normalizedTitle:preview.displayTitle fragment:nil];
+- (NSURL*)articleURLForPreview:(MWKSearchResult*)preview {
+    return [self.siteURL wmf_URLWithTitle:preview.displayTitle];
 }
 
 #pragma mark - WMFTitleListDataSource
 
-- (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
-    return [self titleForPreview:[self itemAtIndexPath:indexPath]];
+- (NSURL*)urlForIndexPath:(NSIndexPath*)indexPath {
+    return [self articleURLForPreview:[self itemAtIndexPath:indexPath]];
 }
 
 - (NSUInteger)titleCount {
@@ -75,13 +67,13 @@
     return NO;
 }
 
-- (NSArray<MWKTitle*>*)titles {
-    if (!_titles) {
-        self.titles = [self.allItems bk_map:^MWKTitle*(MWKSearchResult* preview) {
-            return [self titleForPreview:preview];
+- (NSArray<NSURL*>*)urls {
+    if (!_urls) {
+        self.urls = [self.allItems bk_map:^NSURL*(MWKSearchResult* preview) {
+            return [self articleURLForPreview:preview];
         }];
     }
-    return _titles;
+    return _urls;
 }
 
 @end

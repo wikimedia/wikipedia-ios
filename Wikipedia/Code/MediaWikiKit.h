@@ -13,8 +13,6 @@
 #import "MWKDataObject.h"
 #import "MWKSiteDataObject.h"
 
-#import "MWKTitle.h"
-#import "MWKSite.h"
 #import "MWKUser.h"
 
 #import "MWKSection.h"

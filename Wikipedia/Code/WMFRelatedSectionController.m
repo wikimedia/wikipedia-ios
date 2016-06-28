@@ -2,7 +2,6 @@
 
 // Networking & Model
 #import "WMFRelatedSearchFetcher.h"
-#import "MWKTitle.h"
 #import "WMFRelatedSearchResults.h"
 #import "MWKSearchResult.h"
 #import "MWKSavedPageList.h"
@@ -35,7 +34,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 @interface WMFRelatedSectionController ()
 
-@property (nonatomic, strong, readwrite) MWKTitle* title;
+@property (nonatomic, strong, readwrite) NSURL* url;
 @property (nonatomic, strong, readwrite) WMFRelatedSectionBlackList* blackList;
 
 @property (nonatomic, strong, readwrite) WMFRelatedSearchFetcher* relatedSearchFetcher;
@@ -50,33 +49,33 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 @synthesize relatedTitleDataSource = _relatedTitleDataSource;
 
-- (instancetype)initWithArticleTitle:(MWKTitle*)title
-                           blackList:(WMFRelatedSectionBlackList*)blackList
-                           dataStore:(MWKDataStore*)dataStore {
-    return [self initWithArticleTitle:title
-                            blackList:blackList
-                            dataStore:dataStore
-                 relatedSearchFetcher:[[WMFRelatedSearchFetcher alloc] init]];
+- (instancetype)initWithArticleURL:(NSURL*)url
+                         blackList:(WMFRelatedSectionBlackList*)blackList
+                         dataStore:(MWKDataStore*)dataStore {
+    return [self initWithArticleURL:url
+                          blackList:blackList
+                          dataStore:dataStore
+               relatedSearchFetcher:[[WMFRelatedSearchFetcher alloc] init]];
 }
 
-- (instancetype)initWithArticleTitle:(MWKTitle*)title
-                           blackList:(WMFRelatedSectionBlackList*)blackList
-                           dataStore:(MWKDataStore*)dataStore
-                relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher {
-    NSParameterAssert(title);
+- (instancetype)initWithArticleURL:(NSURL*)url
+                         blackList:(WMFRelatedSectionBlackList*)blackList
+                         dataStore:(MWKDataStore*)dataStore
+              relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher {
+    NSParameterAssert(url);
     NSParameterAssert(blackList);
     NSParameterAssert(relatedSearchFetcher);
     self = [super initWithDataStore:dataStore];
     if (self) {
         self.relatedSearchFetcher = relatedSearchFetcher;
-        self.title                = title;
+        self.url                  = url;
         self.blackList            = blackList;
     }
     return self;
 }
 
 - (id)sectionIdentifier {
-    return [WMFRelatedSectionIdentifierPrefix stringByAppendingString:self.title.text];
+    return [WMFRelatedSectionIdentifierPrefix stringByAppendingString:self.url.wmf_title];
 }
 
 - (UIImage*)headerIcon {
@@ -96,7 +95,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (NSAttributedString*)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:self.title.text attributes:@{NSForegroundColorAttributeName: [UIColor wmf_blueTintColor]}];
+    return [[NSAttributedString alloc] initWithString:self.url.wmf_title attributes:@{NSForegroundColorAttributeName: [UIColor wmf_blueTintColor]}];
 }
 
 - (NSString*)cellIdentifier {
@@ -120,7 +119,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     cell.descriptionText = item.wikidataDescription;
     cell.snippetText     = item.extract;
     [cell setImageURL:item.thumbnailURL];
-    [cell setSaveableTitle:[self titleForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
+    [cell setSaveableURL:[self urlForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
     cell.saveButtonController.analyticsContext     = self;
     cell.saveButtonController.analyticsContentType = self;
@@ -150,8 +149,8 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
-    MWKTitle* title = [self titleForItemAtIndexPath:indexPath];
-    return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    NSURL* url = [self urlForItemAtIndexPath:indexPath];
+    return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
 }
 
 #pragma mark - WMFHeaderMenuProviding
@@ -159,7 +158,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 - (UIActionSheet*)menuActionSheet {
     UIActionSheet* sheet = [[UIActionSheet alloc] bk_initWithTitle:nil];
     [sheet bk_setDestructiveButtonWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil) handler:^{
-        [self.blackList addBlackListTitle:self.title];
+        [self.blackList addBlackListArticleURL:self.url];
         [self.blackList save];
     }];
 
@@ -172,7 +171,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 - (NSString*)footerText {
     return
         [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                    withString:self.title.text];
+                                                                                    withString:self.url.wmf_title];
 }
 
 - (WMFRelatedTitleListDataSource*)relatedTitleDataSource {
@@ -182,10 +181,10 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
            title don't have the same results in order. might need to look into continuation soon
          */
         _relatedTitleDataSource = [[WMFRelatedTitleListDataSource alloc]
-                                   initWithTitle:self.title
-                                       dataStore:self.dataStore
-                                     resultLimit:WMFMaxRelatedSearchResultLimit
-                                         fetcher:self.relatedSearchFetcher];
+                                   initWithURL:self.url
+                                     dataStore:self.dataStore
+                                   resultLimit:WMFMaxRelatedSearchResultLimit
+                                       fetcher:self.relatedSearchFetcher];
     }
     return _relatedTitleDataSource;
 }
@@ -202,11 +201,9 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 #pragma mark - WMFTitleProviding
 
-- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath {
+- (NSURL*)urlForIndexPath:(NSIndexPath*)indexPath {
     MWKSearchResult* result = self.items[indexPath.row];
-    MWKSite* site           = self.title.site;
-    MWKTitle* title         = [site titleWithString:result.displayTitle];
-    return title;
+    return [self.url wmf_URLWithTitle:result.displayTitle];
 }
 
 @end

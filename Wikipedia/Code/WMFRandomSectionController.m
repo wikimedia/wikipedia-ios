@@ -2,7 +2,6 @@
 #import "WMFRandomSectionController.h"
 #import "WMFRandomArticleFetcher.h"
 
-#import "MWKSite.h"
 #import "MWKSavedPageList.h"
 #import "MWKSearchResult.h"
 #import "MWKDataStore.h"
@@ -20,7 +19,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 @interface WMFRandomSectionController ()
 
-@property (nonatomic, strong, readwrite) MWKSite* searchSite;
+@property (nonatomic, strong, readwrite) NSURL* searchDomainURL;
 @property (nonatomic, strong) WMFRandomArticleFetcher* fetcher;
 
 @property (nonatomic, strong, nullable) MWKSearchResult* result;
@@ -31,10 +30,10 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 @implementation WMFRandomSectionController
 
-- (instancetype)initWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithSearchDomainURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore{
     self = [super initWithDataStore:dataStore];
     if (self) {
-        self.searchSite = site;
+        self.searchDomainURL = url;
     }
     return self;
 }
@@ -67,7 +66,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 }
 
 - (NSAttributedString*)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:MWSiteLocalizedString(self.searchSite, @"onboarding-wikipedia", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:MWSiteLocalizedString(self.searchDomainURL, @"onboarding-wikipedia", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString*)cellIdentifier {
@@ -95,7 +94,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     cell.descriptionText = item.wikidataDescription;
     cell.snippetText     = item.extract;
     [cell setImageURL:item.thumbnailURL];
-    [cell setSaveableTitle:[self titleForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
+    [cell setSaveableURL:[self urlForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
     cell.saveButtonController.analyticsContext     = self;
     cell.saveButtonController.analyticsContentType = self;
@@ -113,7 +112,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 - (AnyPromise*)fetchData {
     [self.cell setLoading:YES];
     @weakify(self);
-    return [self.fetcher fetchRandomArticleWithSite:self.searchSite].then(^(id result){
+    return [self.fetcher fetchRandomArticleWithDomainURL:self.searchDomainURL].then(^(id result){
         @strongify(self);
         if (!self) {
             return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
@@ -130,8 +129,8 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 }
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
-    MWKTitle* title = [self titleForItemAtIndexPath:indexPath];
-    return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    NSURL* url = [self urlForItemAtIndexPath:indexPath];
+    return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
 }
 
 - (void)didEndDisplayingSection {
@@ -150,8 +149,8 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 #pragma mark - WMFTitleProviding
 
-- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath {
-    return [self.searchSite titleWithString:self.result.displayTitle];
+- (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return [self.searchDomainURL wmf_URLWithTitle:self.result.displayTitle];
 }
 
 @end

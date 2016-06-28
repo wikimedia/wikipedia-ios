@@ -29,7 +29,6 @@
 // Model
 #import "MWKDataStore.h"
 #import "MWKCitation.h"
-#import "MWKTitle.h"
 #import "MWKSavedPageList.h"
 #import "MWKUserDataStore.h"
 #import "MWKArticle+WMFSharing.h"
@@ -58,8 +57,6 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 
 #import "NSString+WMFPageUtilities.h"
-#import "NSURL+WMFLinkParsing.h"
-#import "NSURL+WMFExtras.h"
 #import "UIToolbar+WMFStyling.h"
 #import <Tweaks/FBTweakInline.h>
 #import "WKWebView+WMFWebViewControllerJavascript.h"
@@ -90,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) WMFTableOfContentsViewController* tableOfContentsViewController;
 @property (nonatomic, strong) WebViewController* webViewController;
 
-@property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
+@property (nonatomic, strong, readwrite) NSURL* articleURL;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
 
 @property (strong, nonatomic, nullable, readwrite) WMFShareFunnel* shareFunnel;
@@ -146,14 +143,14 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (instancetype)initWithArticleTitle:(MWKTitle*)title
-                           dataStore:(MWKDataStore*)dataStore {
-    NSParameterAssert(title);
+- (instancetype)initWithArticleURL:(NSURL*)url
+                         dataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(url.wmf_title);
     NSParameterAssert(dataStore);
 
     self = [super init];
     if (self) {
-        self.articleTitle             = title;
+        self.articleURL               = url;
         self.dataStore                = dataStore;
         self.hidesBottomBarWhenPushed = YES;
         self.reachabilityManager      = [AFNetworkReachabilityManager manager];
@@ -172,17 +169,17 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"%@ %@", [super description], self.articleTitle];
+    return [NSString stringWithFormat:@"%@ %@", [super description], self.articleURL];
 }
 
 - (void)setArticle:(nullable MWKArticle*)article {
     NSAssert(self.isViewLoaded, @"Expecting article to only be set after the view loads.");
-    NSAssert([article.title isEqualToTitle:self.articleTitle],
-             @"Invalid article set for VC expecting article data for title: %@", self.articleTitle);
+    NSAssert([article.url isEqual:self.articleURL],
+             @"Invalid article set for VC expecting article data for title: %@", self.articleURL);
 
     _shareFunnel            = nil;
     _shareOptionsController = nil;
-    [self.articleFetcher cancelFetchForPageTitle:_articleTitle];
+    [self.articleFetcher cancelFetchForArticleURL:self.articleURL];
 
     _article = article;
 
@@ -191,7 +188,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.webViewController.article        = _article;
 
     if (self.article) {
-        if ([self.article.title isNonStandardTitle]) {
+        if ([self.article.url wmf_isNonStandardURL]) {
             self.headerImageView.image = nil;
         } else {
             [self.headerImageView wmf_setImageWithMetadata:_article.leadImage detectFaces:YES failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
@@ -216,7 +213,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (MWKHistoryEntry*)historyEntry {
-    return [self.recentPages entryForTitle:self.articleTitle];
+    return [self.recentPages entryForURL:self.articleURL];
 }
 
 - (nullable WMFShareFunnel*)shareFunnel {
@@ -290,8 +287,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFReadMoreViewController*)readMoreListViewController {
     if (!_readMoreListViewController) {
-        _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithTitle:self.articleTitle
-                                                                             dataStore:self.dataStore];
+        _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithURL:self.articleURL
+                                                                           dataStore:self.dataStore];
         _readMoreListViewController.delegate = self;
     }
     return _readMoreListViewController;
@@ -321,7 +318,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)articleUpdatedWithNotification:(NSNotification*)note {
     MWKArticle* article = note.userInfo[MWKArticleKey];
-    if ([self.articleTitle isEqualToTitle:article.title]) {
+    if ([self.articleURL isEqual:article.url]) {
         self.article = article;
     }
 }
@@ -401,7 +398,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateToolbarItemsIfNeeded {
     if (!self.saveButtonController) {
-        self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.savedPages title:self.articleTitle];
+        self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.savedPages url:self.articleURL];
     }
 
     NSArray<UIBarButtonItem*>* toolbarItems = [self articleToolBarItems];
@@ -478,7 +475,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Article languages
 
 - (void)showLanguagePicker {
-    WMFArticleLanguagesViewController* languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithTitle:self.articleTitle];
+    WMFArticleLanguagesViewController* languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithArticleURL:self.articleURL];
     languagesVC.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
@@ -486,31 +483,31 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)languagesController:(WMFLanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
     [[PiwikTracker wmf_configuredInstance] wmf_logActionSwitchLanguageInContext:self contentType:nil];
     [self dismissViewControllerAnimated:YES completion:^{
-        [self pushArticleViewControllerWithTitle:language.title contentType:nil animated:YES];
+        [self pushArticleViewControllerWithURL:language.articleURL contentType:nil animated:YES];
     }];
 }
 
 #pragma mark - Article Footers
 
 - (void)updateWebviewFootersIfNeeded {
-    if ([self.article.title isNonStandardTitle]) {
+    if ([self.articleURL wmf_isNonStandardURL]) {
         return;
     }
 
     NSMutableArray* footerVCs = [NSMutableArray arrayWithCapacity:2];
     [footerVCs wmf_safeAddObject:self.footerMenuViewController];
-    
+
     /*
-     NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
+       NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
      */
-    
+
     BOOL includeReadMore = [self hasReadMore] && [self.readMoreListViewController hasResults];
     if (includeReadMore) {
         [footerVCs addObject:self.readMoreListViewController];
     }
-    
+
     [self appendItemsToTableOfContentsIncludingAboutThisArticle:[self hasAboutThisArticle] includeReadMore:includeReadMore];
-    
+
     [self.webViewController setFooterViewControllers:footerVCs];
 }
 
@@ -604,7 +601,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     MWKHistoryList* historyList = self.dataStore.userDataStore.historyList;
-    MWKHistoryEntry* entry      = [historyList entryForTitle:self.articleTitle];
+    MWKHistoryEntry* entry      = [historyList entryForURL:self.articleURL];
     if (!entry.titleWasSignificantlyViewed) {
         self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:FBTweakValue(@"Explore", @"Related items", @"Required viewing time", 30.0) target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
     }
@@ -613,7 +610,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)significantlyViewedTimerFired:(NSTimer*)timer {
     [self stopSignificantlyViewedTimer];
     MWKHistoryList* historyList = self.dataStore.userDataStore.historyList;
-    [historyList setSignificantlyViewedOnPageInHistoryWithTitle:self.articleTitle];
+    [historyList setSignificantlyViewedOnPageInHistoryWithURL:self.articleURL];
     [historyList save];
 }
 
@@ -726,7 +723,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     CGFloat offset = [self.webViewController currentVerticalOffset];
     if (offset > 0) {
-        [self.recentPages setPageScrollPosition:offset onPageInHistoryWithTitle:self.articleTitle];
+        [self.recentPages setPageScrollPosition:offset onPageInHistoryWithURL:self.articleURL];
         [self.recentPages save];
     }
 }
@@ -751,7 +748,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self unobserveArticleUpdates];
 
     @weakify(self);
-    self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfTitleIfNeeded:self.articleTitle progress:^(CGFloat progress) {
+    self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURLIfNeeded:self.articleURL progress:^(CGFloat progress) {
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
     }].then(^(MWKArticle* article) {
         @strongify(self);
@@ -863,10 +860,9 @@ NS_ASSUME_NONNULL_BEGIN
 
     [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self.article shareText:text]];
 
-    if (self.article.title.desktopURL) {
+    if (self.articleURL.wmf_desktopURL) {
         NSURL* url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
-                                                    self.article.title.desktopURL.absoluteString,
-                                                    @"wprov=sfsi1"]];
+                                                    self.articleURL.wmf_desktopURL.absoluteString, @"wprov=sfsi1"]];
 
         [items addObject:url];
     }
@@ -947,9 +943,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFWebViewControllerDelegate
 
-- (void)         webViewController:(WebViewController*)controller
+- (void)   webViewController:(WebViewController*)controller
     didTapImageWithSourceURL:(nonnull NSURL*)imageSourceURL {
-    MWKImage* selectedImage                                = [[MWKImage alloc] initWithArticle:self.article sourceURL:imageSourceURL];
+    MWKImage* selectedImage                                 = [[MWKImage alloc] initWithArticle:self.article sourceURL:imageSourceURL];
     WMFArticleImageGalleryViewController* fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage];
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
@@ -970,8 +966,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self showEditorForSection:section];
 }
 
-- (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title {
-    [self pushArticleViewControllerWithTitle:title contentType:nil animated:YES];
+- (void)webViewController:(WebViewController*)controller didTapOnLinkForArticleURL:(NSURL*)url {
+    [self pushArticleViewControllerWithURL:url contentType:nil animated:YES];
 }
 
 - (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text {
@@ -984,9 +980,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSString*)webViewController:(WebViewController*)controller titleForFooterViewController:(UIViewController*)footerViewController {
     if (footerViewController == self.readMoreListViewController) {
-        return [MWSiteLocalizedString(self.articleTitle.site, @"article-read-more-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+        return [MWSiteLocalizedString(self.articleURL, @"article-read-more-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     } else if (footerViewController == self.footerMenuViewController) {
-        return [MWSiteLocalizedString(self.articleTitle.site, @"article-about-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+        return [MWSiteLocalizedString(self.articleURL, @"article-about-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     }
     return nil;
 }
@@ -1077,7 +1073,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
-
     UIViewController* peekVC = [self peekViewControllerForPeekElement:self.webViewController.peekElement];
     if (peekVC) {
         [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
@@ -1105,16 +1100,16 @@ NS_ASSUME_NONNULL_BEGIN
     if (!url || ![self.article.images hasImageURL:url]) {
         return nil;
     }
-    
-    MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:url];
+
+    MWKImage* selectedImage                       = [[MWKImage alloc] initWithArticle:self.article sourceURL:url];
     WMFArticleImageGalleryViewController* gallery =
-    [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
-                                                    selectedImage:selectedImage];
+        [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
+                                                        selectedImage:selectedImage];
     return gallery;
 }
 
 - (UIViewController*)viewControllerForPreviewURL:(NSURL*)url {
-    if(!url || [url.absoluteString isEqualToString:@""]){
+    if (!url || [url.absoluteString isEqualToString:@""]) {
         return nil;
     }
     if (![url wmf_isInternalLink]) {
@@ -1126,8 +1121,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
     } else {
         if (![url wmf_isIntraPageFragment]) {
-            return [[WMFArticleViewController alloc] initWithArticleTitle:[[MWKTitle alloc] initWithURL:url]
-                                                                dataStore:self.dataStore];
+            return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
         }
     }
     return nil;
@@ -1150,16 +1144,15 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_pushArticleViewController:articleViewController animated:YES];
 }
 
-- (void)pushArticleViewControllerWithTitle:(MWKTitle*)title contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
+- (void)pushArticleViewControllerWithURL:(NSURL*)url contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
     WMFArticleViewController* articleViewController =
-        [[WMFArticleViewController alloc] initWithArticleTitle:title
-                                                     dataStore:self.dataStore];
+        [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
     [self pushArticleViewController:articleViewController contentType:contentType animated:animated];
 }
 
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
-- (void)listViewController:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
+- (void)listViewController:(WMFArticleListTableViewController*)listController didSelectArticleURL:(NSURL*)url {
     if ([self presentedViewController]) {
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
@@ -1167,12 +1160,12 @@ NS_ASSUME_NONNULL_BEGIN
     if ([listController conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
         contentType = (id<WMFAnalyticsContentTypeProviding>)listController;
     }
-    [self pushArticleViewControllerWithTitle:title contentType:contentType animated:YES];
+    [self pushArticleViewControllerWithURL:url contentType:contentType animated:YES];
 }
 
-- (UIViewController*)listViewController:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title {
-    return [[WMFArticleViewController alloc] initWithArticleTitle:title
-                                                        dataStore:self.dataStore];
+- (UIViewController*)listViewController:(WMFArticleListTableViewController*)listController viewControllerForPreviewingArticleURL:(NSURL*)url {
+    return [[WMFArticleViewController alloc] initWithArticleURL:url
+                                                      dataStore:self.dataStore];
 }
 
 - (void)listViewController:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
@@ -1197,7 +1190,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString*)analyticsName {
-    return [self.articleTitle.site urlDomainWithLanguage];
+    return self.articleURL.host;
 }
 
 @end

@@ -10,7 +10,34 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString* const WMFDefaultSiteDomain;
+
 @interface NSURL (WMFLinkParsing)
+
+/**
+ * Initialize a new URL with the main page URL for a given language anf the default domain - wikipedia.org.
+ *
+ * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for example: `en`.
+ *
+ * @return A main page URL for the given language.
+ **/
++ (nullable NSURL*)wmf_mainPageURLForLanguage:(NSString*)language;
+
+/**
+ * Initialize a new URL with the commons URL -commons.wikimedia.org.
+ *
+ * @return A main page URL for the commons.wikimedia.org.
+ **/
++ (nullable NSURL*)wmf_wikimediaCommonsURL;
+
+/**
+ * Initialize a new URL with the default Site domain -wikipedia.org - and `language`.
+ *
+ * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for example: `en`.
+ *
+ * @return A new URL with the default domain and language.
+ **/
++ (NSURL*)wmf_URLWithLanguage:(nullable NSString*)language;
 
 /**
  * Initialize a new URL with a Wikimedia `domain` and `language`.
@@ -99,6 +126,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURL*)wmf_URLWithTitle:(NSString*)title fragment:(nullable NSString*)fragment;
 
 /**
+ * Return a new URL similar to the URL you call this method on but replace the fragemnt.
+ *
+ * @param fragment      An optional fragment, for example if you want the URL to contain `#section`, the fragment is `section`.
+ *
+ * @return A new URL based on the URL you call this method on with the given fragment.
+ **/
+- (NSURL*)wmf_URLWithFragment:(nullable NSString*)fragment;
+
+/**
  * Return a new URL similar to the URL you call this method on but replace the path.
  *
  * @param path         A full path - for example `/w/api.php`
@@ -106,6 +142,28 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A new URL based on the URL you call this method on with the given path.
  **/
 - (NSURL*)wmf_URLWithPath:(NSString*)path isMobile:(BOOL)isMobile;
+
+/**
+ *  Return a URL with just the domain of the reciever
+ *
+ *  @return The domain URL
+ */
+- (NSURL*)wmf_domainURL;
+
+/**
+ *  Return a URL for the mobile API Endpoint for the current URL
+ *
+ *  @return return value description
+ */
+- (NSURL*)wmf_mobileAPIURL;
+
+/**
+ *  Return a URL for the desktop API Endpoint for the current URL
+ *
+ *  @return return value description
+ */
+- (NSURL*)wmf_desktopAPIURL;
+
 
 @property (nonatomic, readonly) BOOL wmf_isInternalLink;
 
@@ -120,6 +178,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly, nullable) NSString* wmf_language;
 
 @property (nonatomic, copy, readonly) NSString* wmf_title;
+
+@property (nonatomic, copy, readonly) NSString* wmf_titleWithUnderScores;
 
 @property (nonatomic, copy, readonly) NSURL* wmf_mobileURL;
 

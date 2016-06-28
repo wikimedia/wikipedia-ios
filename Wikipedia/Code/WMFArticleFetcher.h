@@ -1,7 +1,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class MWKTitle;
 @class MWKDataStore;
 @class MWKArticle;
 @class AFHTTPSessionManager;
@@ -19,8 +18,8 @@ extern NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey;
  */
 @interface WMFArticleBaseFetcher : NSObject
 
-- (BOOL)isFetchingArticleForTitle:(MWKTitle*)pageTitle;
-- (void)cancelFetchForPageTitle:(MWKTitle*)pageTitle;
+- (BOOL)isFetchingArticleForURL:(NSURL*)articleURL;
+- (void)cancelFetchForArticleURL:(NSURL*)articleURL;
 - (void)cancelAllFetches;
 
 @end
@@ -32,7 +31,7 @@ extern NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey;
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
 //Fullfilled promise returns MWKArticle
-- (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress;
+- (AnyPromise*)fetchArticleForURL:(NSURL*)articleURL progress:(WMFProgressHandler __nullable)progress;
 
 /**
  *  Fetch the latest version of @c title, if the locally stored revision is not the latest.
@@ -43,8 +42,8 @@ extern NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey;
  *  @return A promise which resolves to an article object. If there was a cached article, and an error was encountered,
  *          the error's @c userInfo will contain the cached article for the key @c WMFArticleFetcherErrorCachedFallbackArticleKey.
  */
-- (AnyPromise*)fetchLatestVersionOfTitleIfNeeded:(MWKTitle*)title
-                                        progress:(WMFProgressHandler __nullable)progress;
+- (AnyPromise*)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL*)URL
+                                                 progress:(WMFProgressHandler __nullable)progress;
 
 
 @property (nonatomic, assign, readonly) BOOL isFetching;

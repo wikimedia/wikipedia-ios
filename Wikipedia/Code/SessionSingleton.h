@@ -7,8 +7,6 @@
 
 @class MWKDataStore;
 @class MWKUserDataStore;
-@class MWKSite;
-@class MWKTitle;
 @class MWKArticle;
 
 @interface SessionSingleton : NSObject
@@ -34,7 +32,7 @@
  *  This will never be nil.
  *
  */
-@property (strong, nonatomic, readonly) MWKSite* currentArticleSite;
+@property (strong, nonatomic, readonly) NSURL* currentArticleDomainURL;
 
 /**
  *  The current artcle. Set this when an article is loaded.

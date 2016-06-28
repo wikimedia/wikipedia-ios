@@ -16,8 +16,6 @@
 //Models
 #import "WMFLocationSearchResults.h"
 #import "MWKLocationSearchResult.h"
-#import "MWKSite.h"
-#import "MWKTitle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -62,27 +60,27 @@ NS_ASSUME_NONNULL_BEGIN
     return (WMFLocationSearchRequestSerializer*)(self.operationManager.requestSerializer);
 }
 
-- (AnyPromise*)fetchArticlesWithSite:(MWKSite*)site
-                            location:(CLLocation*)location
-                         resultLimit:(NSUInteger)resultLimit
-                         cancellable:(inout id<Cancellable> __nullable* __nullable)outCancellable {
+- (AnyPromise*)fetchArticlesWithDomainURL:(NSURL*)domainURL
+                                 location:(CLLocation*)location
+                              resultLimit:(NSUInteger)resultLimit
+                              cancellable:(inout id<Cancellable> __nullable* __nullable)outCancellable {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
         id<Cancellable> cancellable =
-            [self fetchNearbyArticlesWithSite:site
-                                     location:location
-                                  resultLimit:resultLimit
-                                useDesktopURL:NO
-                                     resolver:resolve];
+            [self fetchNearbyArticlesWithDomainURL:domainURL
+                                          location:location
+                                       resultLimit:resultLimit
+                                     useDesktopURL:NO
+                                          resolver:resolve];
         WMFSafeAssign(outCancellable, cancellable);
     }];
 }
 
-- (id<Cancellable>)fetchNearbyArticlesWithSite:(MWKSite*)site
-                                      location:(CLLocation*)location
-                                   resultLimit:(NSUInteger)resultLimit
-                                 useDesktopURL:(BOOL)useDeskTopURL
-                                      resolver:(PMKResolver)resolve {
-    NSURL* url = [site apiEndpoint:useDeskTopURL];
+- (id<Cancellable>)fetchNearbyArticlesWithDomainURL:(NSURL*)domainURL
+                                           location:(CLLocation*)location
+                                        resultLimit:(NSUInteger)resultLimit
+                                      useDesktopURL:(BOOL)useDeskTopURL
+                                           resolver:(PMKResolver)resolve {
+    NSURL* url = useDeskTopURL ? [domainURL wmf_desktopAPIURL] : [domainURL wmf_mobileAPIURL];
 
     WMFLocationSearchRequestParameters* params = [WMFLocationSearchRequestParameters new];
     params.location        = location;
@@ -93,16 +91,16 @@ NS_ASSUME_NONNULL_BEGIN
                              progress:NULL
                               success:^(NSURLSessionDataTask* operation, id response) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        WMFLocationSearchResults* results = [[WMFLocationSearchResults alloc] initWithSite:site location:location results:response];
+        WMFLocationSearchResults* results = [[WMFLocationSearchResults alloc] initWithSearchDomainURL:domainURL location:location results:response];
         resolve(results);
     }
                               failure:^(NSURLSessionDataTask* operation, NSError* error) {
-        if ([url isEqual:[site mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
-            [self fetchNearbyArticlesWithSite:site
-                                     location:location
-                                  resultLimit:resultLimit
-                                useDesktopURL:NO
-                                     resolver:resolve];
+        if ([url isEqual:[domainURL wmf_mobileAPIURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
+            [self fetchNearbyArticlesWithDomainURL:domainURL
+                                          location:location
+                                       resultLimit:resultLimit
+                                     useDesktopURL:YES
+                                          resolver:resolve];
         } else {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve(error);

@@ -1,12 +1,7 @@
 
 #import "DataMigrationProgressViewController.h"
-
+#import "MWKUserDataStore.h"
 #import "SessionSingleton.h"
-
-#import "LegacyCoreDataMigrator.h"
-#import "LegacyDataMigrator.h"
-
-#import "LegacyPhoneGapDataMigrator.h"
 
 #import "WikipediaAppUtils.h"
 #import "ArticleDataContextSingleton.h"
@@ -18,12 +13,9 @@ typedef NS_ENUM (NSInteger, MigrationButtonIndexIds) {
     BUTTON_INDEX_SUBMIT  = 1
 };
 
-@interface DataMigrationProgressViewController ()<LegacyCoreDataMigratorProgressDelegate, MFMailComposeViewControllerDelegate>
+@interface DataMigrationProgressViewController ()< MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) WMFDataMigrationCompletionBlock completionBlock;
-
-@property (nonatomic, strong) LegacyDataMigrator* schemaConvertor;
-@property (nonatomic, strong) LegacyCoreDataMigrator* oldDataSchema;
 
 @end
 
@@ -42,7 +34,6 @@ typedef NS_ENUM (NSInteger, MigrationButtonIndexIds) {
     UIAlertView* dialog = [UIAlertView bk_alertViewWithTitle:MWLocalizedString(@"migration-prompt-title", nil) message:MWLocalizedString(@"migration-prompt-message", nil)];
 
     [dialog bk_setCancelButtonWithTitle:MWLocalizedString(@"migration-skip-button-title", nil) handler:^{
-        [self moveOldDataToBackupLocation];
         [self dispatchCOmpletionBlockWithStatus:NO];
     }];
     [dialog bk_addButtonWithTitle:MWLocalizedString(@"migration-confirm-button-title", nil) handler:^{
@@ -53,59 +44,14 @@ typedef NS_ENUM (NSInteger, MigrationButtonIndexIds) {
 }
 
 - (void)performMigration {
-    if ([self.oldDataSchema exists]) {
-        [self runNewMigration];
-    }
-    // FIXME: ask user to reach out to devs for assistance with migrating their data
-    // else if ([LegacyPhoneGapDataMigrator hasData]) {
-    //
-    // }
-}
-
-- (LegacyCoreDataMigrator*)oldDataSchema {
-    if (_oldDataSchema == nil) {
-        ArticleDataContextSingleton* context = [ArticleDataContextSingleton sharedInstance];
-        _oldDataSchema = [[LegacyCoreDataMigrator alloc] initWithDatabasePath:context.databasePath];
-    }
-    return _oldDataSchema;
-}
-
-- (LegacyDataMigrator*)schemaConvertor {
-    if (!_schemaConvertor) {
-        _schemaConvertor = [[LegacyDataMigrator alloc] initWithDataStore:[SessionSingleton sharedInstance].dataStore];
-    }
-    return _schemaConvertor;
+    [self finishMigration];
 }
 
 - (BOOL)needsMigration {
-    return [self.oldDataSchema exists];
+    return NO;
 }
 
-- (void)moveOldDataToBackupLocation {
-    [self.oldDataSchema moveOldDataToBackupLocation];
-}
-
-- (void)removeOldDataBackupIfNeeded {
-    [self.oldDataSchema removeOldDataIfOlderThanMaximumGracePeriod];
-}
-
-- (void)runNewMigration {
-    // Middle-Ages Converter
-    // From the native app's initial CoreData-based implementation,
-    // which now lives in LegacyCoreData subproject.
-
-    self.progressIndicator.progress       = 0.0;
-    self.progressIndicator.trackTintColor = [UIColor clearColor];
-    self.progressIndicator.tintColor      = [UIColor wmf_blueTintColor];
-
-    self.oldDataSchema.delegate         = self.schemaConvertor;
-    self.oldDataSchema.progressDelegate = self;
-    self.oldDataSchema.context          = [[ArticleDataContextSingleton sharedInstance] backgroundContext];
-    NSLog(@"begin migration");
-    [self.oldDataSchema migrateData];
-}
-
-- (void)oldDataSchema:(LegacyCoreDataMigrator*)schema didUpdateProgressWithArticlesCompleted:(NSUInteger)completed total:(NSUInteger)total {
+- (void)updateProgressWithArticlesCompleted:(NSUInteger)completed total:(NSUInteger)total {
     NSString* lineOne = MWLocalizedString(@"migration-update-progress-label", nil);
 
     NSString* lineTwo = MWLocalizedString(@"migration-update-progress-count-label", nil);
@@ -121,7 +67,7 @@ typedef NS_ENUM (NSInteger, MigrationButtonIndexIds) {
     [self.progressIndicator setProgress:((float)completed / (float)total) animated:YES];
 }
 
-- (void)oldDataSchemaDidFinishMigration:(LegacyCoreDataMigrator*)schema {
+- (void)finishMigration {
     [[SessionSingleton sharedInstance].userDataStore reset];
     NSLog(@"end migration");
 
@@ -129,7 +75,7 @@ typedef NS_ENUM (NSInteger, MigrationButtonIndexIds) {
     [self dispatchCOmpletionBlockWithStatus:YES];
 }
 
-- (void)oldDataSchema:(LegacyCoreDataMigrator*)schema didFinishWithError:(NSError*)error {
+- (void)finishWithError:(NSError*)error {
     [self displayErrorCondition];
     NSLog(@"end migration");
 

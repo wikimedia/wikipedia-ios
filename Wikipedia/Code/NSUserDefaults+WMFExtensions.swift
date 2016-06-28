@@ -50,26 +50,21 @@ extension NSUserDefaults {
         self.synchronize()
     }
     
-    public func wmf_openArticleTitle() -> MWKTitle? {
-        if let data = self.dataForKey(WMFOpenArticleTitleKey){
-            return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? MWKTitle
-        }else{
-            return nil
-        }
+    public func wmf_openArticleURL() -> NSURL? {
+        return self.URLForKey(WMFOpenArticleTitleKey)
     }
     
-    public func wmf_setOpenArticleTitle(title: MWKTitle?) {
-        guard let title = title else{
+    public func wmf_setOpenArticleURL(url: NSURL?) {
+        guard let url = url else{
             self.removeObjectForKey(WMFOpenArticleTitleKey)
             self.synchronize()
             return
         }
-        guard !title.isNonStandardTitle() else{
+        guard !url.wmf_isNonStandardURL else{
             return;
         }
         
-        let data = NSKeyedArchiver.archivedDataWithRootObject(title)
-        self.setObject(data, forKey: WMFOpenArticleTitleKey)
+        self.setObject(url, forKey: WMFOpenArticleTitleKey)
         self.synchronize()
     }
 
@@ -131,21 +126,21 @@ extension NSUserDefaults {
         }
     }
     
-    public func wmf_currentSearchLanguageSite() -> MWKSite? {
-        if let data = self.objectForKey(WMFSearchLanguageKey) as? String{
-            return MWKSite.init(domain: WMFDefaultSiteDomain, language: data)
-        }else{
-            return nil
-        }
+    public func wmf_currentSearchLanguageDomain() -> NSURL? {
+        return self.URLForKey(WMFSearchLanguageKey)
     }
     
-    public func wmf_setCurrentSearchLanguageSite(site: MWKSite) {
-        if let searchLanguage = self.wmf_currentSearchLanguageSite() {
-            if searchLanguage.isEqualToSite(site){
-                return;
-            }
+    public func wmf_setCurrentSearchLanguageDomain(url: NSURL?) {
+        guard let url = url else{
+            self.removeObjectForKey(WMFSearchLanguageKey)
+            self.synchronize()
+            return
         }
-        self.setObject(site.language, forKey: WMFSearchLanguageKey)
+        guard !url.wmf_isNonStandardURL else{
+            return;
+        }
+        
+        self.setObject(url, forKey: WMFSearchLanguageKey)
         self.synchronize()
     }
 

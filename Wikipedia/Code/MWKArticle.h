@@ -28,10 +28,10 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly, weak, nonatomic) MWKDataStore* dataStore;
 
 // Identifiers
-@property (readonly, strong, nonatomic) MWKTitle* title;
+//@property (readonly, strong, nonatomic) MWKTitle* title;
 
 // Metadata
-@property (readonly, strong, nonatomic) MWKTitle* redirected;                // optional
+@property (readonly, strong, nonatomic) NSURL* redirectedURL;                // optional
 @property (readonly, strong, nonatomic) NSDate* lastmodified;                // required
 @property (readonly, strong, nonatomic) MWKUser* lastmodifiedby;             // required
 @property (readonly, assign, nonatomic) int articleId;                       // required; -> 'id'
@@ -83,9 +83,9 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 @property (readonly, strong, nonatomic /*, nullable*/) NSArray* citations;
 
-- (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore;
-- (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore dict:(NSDictionary*)dict;
-- (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore searchResultsDict:(NSDictionary*)dict;
+- (instancetype)initWithURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore;
+- (instancetype)initWithURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore dict:(NSDictionary*)dict;
+- (instancetype)initWithURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore searchResultsDict:(NSDictionary*)dict;
 
 /**
  * Import article and section metadata (and text if available)
@@ -157,7 +157,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 - (NSString*)articleHTML;
 
-- (/*nullable */ NSArray<MWKTitle*>*)disambiguationTitles;
+- (/*nullable */ NSArray<NSURL*>*)disambiguationURLs;
 
 - (/*nullable */ NSArray<NSString*>*)pageIssues;
 

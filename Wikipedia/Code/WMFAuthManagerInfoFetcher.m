@@ -29,15 +29,15 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (void)fetchAuthManagerCreationAvailableForSite:(MWKSite*)site success:(WMFAuthManagerInfoBlock)success failure:(WMFErrorHandler)failure {
-    [self fetchAuthManagerAvailableForSite:site type:@"create" success:success failure:failure];
+- (void)fetchAuthManagerCreationAvailableForSiteURL:(NSURL*)siteURL success:(WMFAuthManagerInfoBlock)success failure:(WMFErrorHandler)failure {
+    [self fetchAuthManagerAvailableForSiteURL:siteURL type:@"create" success:success failure:failure];
 }
 
-- (void)fetchAuthManagerLoginAvailableForSite:(MWKSite*)site success:(WMFAuthManagerInfoBlock)success failure:(WMFErrorHandler)failure {
-    [self fetchAuthManagerAvailableForSite:site type:@"login" success:success failure:failure];
+- (void)fetchAuthManagerLoginAvailableForSiteURL:(NSURL*)siteURL success:(WMFAuthManagerInfoBlock)success failure:(WMFErrorHandler)failure {
+    [self fetchAuthManagerAvailableForSiteURL:siteURL type:@"login" success:success failure:failure];
 }
 
-- (void)fetchAuthManagerAvailableForSite:(MWKSite*)site type:(NSString*)type success:(WMFAuthManagerInfoBlock)success failure:(WMFErrorHandler)failure {
+- (void)fetchAuthManagerAvailableForSiteURL:(NSURL*)siteURL type:(NSString*)type success:(WMFAuthManagerInfoBlock)success failure:(WMFErrorHandler)failure {
     NSDictionary* params = @{
         @"action": @"query",
         @"meta": @"authmanagerinfo",
@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
         @"amirequestsfor": type
     };
 
-    [self.operationManager wmf_GETWithSite:site parameters:params retry:NULL success:^(NSURLSessionDataTask* operation, id responseObject) {
+    [self.operationManager wmf_GETAndRetryWithURL:siteURL parameters:params retry:NULL success:^(NSURLSessionDataTask* operation, id responseObject) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
         success(responseObject);
     } failure:^(NSURLSessionDataTask* operation, NSError* error) {

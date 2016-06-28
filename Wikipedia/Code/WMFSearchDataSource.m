@@ -1,32 +1,31 @@
 
 #import "WMFSearchDataSource.h"
-#import "MWKTitle.h"
 #import "WMFSearchResults.h"
 #import "MWKSearchResult.h"
 
 @interface WMFSearchDataSource ()
 
-@property (nonatomic, strong, readwrite) MWKSite* searchSite;
+@property (nonatomic, strong, readwrite) NSURL* searchDomainURL;
 @property (nonatomic, strong, readwrite) WMFSearchResults* searchResults;
 
 @end
 
 @implementation WMFSearchDataSource
 
-- (nonnull instancetype)initWithSearchSite:(MWKSite*)site searchResults:(WMFSearchResults*)searchResults {
-    NSParameterAssert(site);
+- (nonnull instancetype)initWithSearchDomainURL:(NSURL*)url searchResults:(WMFSearchResults*)searchResults {
+    NSParameterAssert(url);
     NSParameterAssert(searchResults);
     self = [super initWithTarget:searchResults keyPath:WMF_SAFE_KEYPATH(searchResults, results)];
     if (self) {
-        self.searchSite    = site;
-        self.searchResults = searchResults;
+        self.searchDomainURL = url;
+        self.searchResults   = searchResults;
     }
     return self;
 }
 
-- (NSArray*)titles {
+- (NSArray<NSURL*>*)urls {
     return [[self.searchResults results] bk_map:^id (MWKSearchResult* obj) {
-        return [self.searchSite titleWithNormalizedTitle:obj.displayTitle];
+        return [self.searchDomainURL wmf_URLWithTitle:obj.displayTitle];
     }];
 }
 
@@ -39,9 +38,9 @@
     return result;
 }
 
-- (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
+- (NSURL*)urlForIndexPath:(NSIndexPath*)indexPath {
     MWKSearchResult* result = [self searchResultForIndexPath:indexPath];
-    return [self.searchSite titleWithNormalizedTitle:result.displayTitle];
+    return [self.searchDomainURL wmf_URLWithTitle:result.displayTitle];
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {

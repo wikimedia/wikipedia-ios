@@ -7,7 +7,7 @@
 NSString* const MWKSavedPageListDidSaveNotification   = @"MWKSavedPageListDidSaveNotification";
 NSString* const MWKSavedPageListDidUnsaveNotification = @"MWKSavedPageListDidUnsaveNotification";
 
-NSString* const MWKTitleKey = @"MWKTitleKey";
+NSString* const MWKURLKey = @"MWKURLKey";
 
 NSString* const MWKSavedPageExportedEntriesKey       = @"entries";
 NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
@@ -49,7 +49,7 @@ NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 - (void)importEntries:(NSArray*)entries {
     NSArray<MWKSavedPageEntry*>* validEntries = [entries bk_reject:^BOOL (MWKSavedPageEntry* entry) {
-        return entry.title.text.length == 0;
+        return entry.url.wmf_title.length == 0;
     }];
     NSArray<MWKSavedPageEntry*>* uniqueValidEntries = [[NSOrderedSet orderedSetWithArray:validEntries] array];
     [super importEntries:uniqueValidEntries];
@@ -61,56 +61,56 @@ NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     return [self.entries firstObject];
 }
 
-- (MWKSavedPageEntry*)entryForListIndex:(MWKTitle*)title {
-    if ([title.text length] == 0) {
+- (MWKSavedPageEntry* __nullable)entryForListIndex:(NSURL*)url {
+    if ([url.wmf_title length] == 0) {
         return nil;
     }
-    return [super entryForListIndex:title];
+    return [super entryForListIndex:url];
 }
 
-- (BOOL)isSaved:(MWKTitle*)title {
-    if ([title.text length] == 0) {
+- (BOOL)isSaved:(NSURL*)url {
+    if ([url.wmf_title length] == 0) {
         return NO;
     }
-    return [self containsEntryForListIndex:title];
+    return [self containsEntryForListIndex:url];
 }
 
 #pragma mark - Update Methods
 
-- (void)toggleSavedPageForTitle:(MWKTitle*)title {
-    if ([self isSaved:title]) {
-        [self removeEntryWithListIndex:title];
+- (void)toggleSavedPageForURL:(NSURL*)url {
+    if ([self isSaved:url]) {
+        [self removeEntryWithListIndex:url];
     } else {
-        [self addSavedPageWithTitle:title];
+        [self addSavedPageWithURL:url];
     }
 }
 
-- (void)addSavedPageWithTitle:(MWKTitle*)title {
-    if ([title.text length] == 0) {
+- (void)addSavedPageWithURL:(NSURL*)url {
+    if ([url.wmf_title length] == 0) {
         return;
     }
-    [self addEntry:[[MWKSavedPageEntry alloc] initWithTitle:title]];
+    [self addEntry:[[MWKSavedPageEntry alloc] initWithURL:url]];
 }
 
 - (void)addEntry:(MWKSavedPageEntry*)entry {
-    if ([self isSaved:entry.title]) {
+    if ([self isSaved:entry.url]) {
         return;
     }
     [self insertEntry:entry atIndex:0];
-    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidSaveNotification object:self userInfo:@{MWKTitleKey: entry.title}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidSaveNotification object:self userInfo:@{MWKURLKey: entry.url}];
 }
 
-- (void)removeEntryWithListIndex:(MWKTitle*)listIndex {
-    if ([[listIndex text] length] == 0) {
+- (void)removeEntryWithListIndex:(NSURL*)url {
+    if ([url.wmf_title length] == 0) {
         return;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidUnsaveNotification object:self userInfo:@{MWKTitleKey: listIndex}];
-    [super removeEntryWithListIndex:listIndex];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidUnsaveNotification object:self userInfo:@{MWKURLKey: url}];
+    [super removeEntryWithListIndex:url];
 }
 
 - (void)removeAllEntries {
     [self.entries enumerateObjectsUsingBlock:^(MWKSavedPageEntry* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidUnsaveNotification object:self userInfo:@{MWKTitleKey: obj.title}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidUnsaveNotification object:self userInfo:@{MWKURLKey: obj.url}];
     }];
     [super removeAllEntries];
 }

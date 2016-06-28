@@ -16,15 +16,14 @@
 
 @property (strong, nonatomic) WMFAssetsFile* mainPages;
 
-@property (strong, nonatomic, readwrite) MWKSite* currentArticleSite;
+@property (strong, nonatomic, readwrite) NSURL* currentArticleDomainURL;
 
-@property (strong, nonatomic) MWKTitle* currentArticleTitle;
+@property (strong, nonatomic) NSURL* currentArticleURL;
 
 @end
 
 @implementation SessionSingleton
-@synthesize currentArticleSite = _currentArticleSite;
-@synthesize currentArticle     = _currentArticle;
+@synthesize currentArticle = _currentArticle;
 
 #pragma mark - Setup
 
@@ -56,7 +55,7 @@
 
         self.dataStore = dataStore;
 
-        _currentArticleSite = [self lastKnownSite];
+        _currentArticleDomainURL = [self lastKnownSite];
     }
     return self;
 }
@@ -67,25 +66,25 @@
 
 #pragma mark - Site
 
-- (void)setCurrentArticleSite:(MWKSite*)site {
-    NSParameterAssert(site);
-    if (!site || [_currentArticleSite isEqual:site]) {
+- (void)setCurrentArticleDomainURL:(NSURL*)currentArticleDomainURL {
+    NSParameterAssert(currentArticleDomainURL);
+    if (!currentArticleDomainURL || [_currentArticleDomainURL isEqual:currentArticleDomainURL]) {
         return;
     }
-    _currentArticleSite = site;
-    [[NSUserDefaults standardUserDefaults] setObject:site.language forKey:@"CurrentArticleDomain"];
+    _currentArticleDomainURL = [currentArticleDomainURL wmf_domainURL];
+    [[NSUserDefaults standardUserDefaults] setObject:currentArticleDomainURL.wmf_language forKey:@"CurrentArticleDomain"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - Article
 
-- (void)setCurrentArticleTitle:(MWKTitle*)currentArticle {
-    NSParameterAssert(currentArticle);
-    if (!_currentArticle || [_currentArticle isEqual:currentArticle]) {
+- (void)setCurrentArticleURL:(NSURL*)currentArticleURL {
+    NSParameterAssert(currentArticleURL);
+    if (!_currentArticleURL || [_currentArticleURL isEqual:currentArticleURL]) {
         return;
     }
-    _currentArticleTitle = currentArticle;
-    [[NSUserDefaults standardUserDefaults] setObject:currentArticle.dataBaseKey forKey:@"CurrentArticleTitle"];
+    _currentArticleURL = currentArticleURL;
+    [[NSUserDefaults standardUserDefaults] setObject:currentArticleURL.wmf_title forKey:@"CurrentArticleTitle"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -93,9 +92,9 @@
     if (!currentArticle || [_currentArticle isEqual:currentArticle]) {
         return;
     }
-    _currentArticle          = currentArticle;
-    self.currentArticleTitle = currentArticle.title;
-    self.currentArticleSite  = currentArticle.site;
+    _currentArticle              = currentArticle;
+    self.currentArticleURL       = currentArticle.url;
+    self.currentArticleDomainURL = currentArticle.url;
 }
 
 - (MWKArticle*)currentArticle {
@@ -107,36 +106,32 @@
 
 #pragma mark - Last known/loaded
 
-- (MWKSite*)lastKnownSite {
-    return [MWKSite siteWithLanguage:[[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleDomain"]];
+- (NSURL*)lastKnownSite {
+    return [NSURL wmf_URLWithLanguage:[[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleDomain"]];
 }
 
-- (MWKTitle*)lastLoadedTitle {
-    MWKSite* lastKnownSite = [self lastKnownSite];
-    NSString* titleText    = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
+- (NSURL*)lastLoadedArticleURL {
+    NSURL* lastKnownSite = [self lastKnownSite];
+    NSString* titleText  = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
     if (!titleText.length) {
         return nil;
     }
-    MWKTitle* title = [lastKnownSite titleWithString:titleText];
-    return title;
+    return [lastKnownSite wmf_URLWithTitle:titleText];
 }
 
 - (MWKArticle*)lastLoadedArticle {
-    MWKTitle* lastLoadedTitle = [self lastLoadedTitle];
-    if (!lastLoadedTitle) {
+    NSURL* lastLoadedURL = [self lastLoadedArticleURL];
+    if (!lastLoadedURL) {
         return nil;
     }
-    MWKArticle* article = [self.dataStore articleWithTitle:lastLoadedTitle];
+    MWKArticle* article = [self.dataStore articleWithURL:lastLoadedURL];
     return article;
 }
 
 #pragma mark - Language URL
 
 - (NSURL*)urlForLanguage:(NSString*)language {
-    NSString* endpoint = self.fallback ? @"" : @".m";
-    MWKSite* site      = [MWKSite siteWithLanguage:language];
-    return [NSURL URLWithString:
-            [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", language, endpoint, site.domain]];
+    return self.fallback ? [[NSURL wmf_URLWithLanguage:language] wmf_desktopAPIURL] : [[NSURL wmf_URLWithLanguage:language] wmf_mobileAPIURL];
 }
 
 #pragma mark - Usage Reports

@@ -8,7 +8,6 @@
 #import "WMFRelatedSearchFetcher.h"
 
 // Model
-#import "MWKTitle.h"
 #import "MWKArticle.h"
 #import "MWKSearchResult.h"
 #import "MWKSavedPageList.h"
@@ -21,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRelatedTitleListDataSource ()
 
-@property (nonatomic, copy, readwrite) MWKTitle* title;
+@property (nonatomic, copy, readwrite) NSURL* url;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @property (nonatomic, strong) WMFRelatedSearchFetcher* relatedSearchFetcher;
 @property (nonatomic, strong, readwrite, nullable) WMFRelatedSearchResults* relatedSearchResults;
@@ -32,25 +31,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFRelatedTitleListDataSource
 
-- (instancetype)initWithTitle:(MWKTitle*)title
-                    dataStore:(MWKDataStore*)dataStore
-                  resultLimit:(NSUInteger)resultLimit {
-    return [self initWithTitle:title
-                     dataStore:dataStore
-                   resultLimit:resultLimit
-                       fetcher:[[WMFRelatedSearchFetcher alloc] init]];
+- (instancetype)initWithURL:(NSURL*)url
+                  dataStore:(MWKDataStore*)dataStore
+                resultLimit:(NSUInteger)resultLimit {
+    return [self initWithURL:url
+                   dataStore:dataStore
+                 resultLimit:resultLimit
+                     fetcher:[[WMFRelatedSearchFetcher alloc] init]];
 }
 
-- (instancetype)initWithTitle:(MWKTitle*)title
-                    dataStore:(MWKDataStore*)dataStore
-                  resultLimit:(NSUInteger)resultLimit
-                      fetcher:(WMFRelatedSearchFetcher*)fetcher {
-    NSParameterAssert(title);
+- (instancetype)initWithURL:(NSURL*)url
+                  dataStore:(MWKDataStore*)dataStore
+                resultLimit:(NSUInteger)resultLimit
+                    fetcher:(WMFRelatedSearchFetcher*)fetcher {
+    NSParameterAssert(url.wmf_title);
     NSParameterAssert(dataStore);
     NSParameterAssert(fetcher);
     self = [super initWithItems:nil];
     if (self) {
-        self.title                = title;
+        self.url                  = url;
         self.dataStore            = dataStore;
         self.relatedSearchFetcher = fetcher;
         self.resultLimit          = resultLimit;
@@ -66,9 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise*)fetch {
     @weakify(self);
-    return [self.relatedSearchFetcher fetchArticlesRelatedToTitle:self.title
-                                                      resultLimit:self.resultLimit]
-           .then(^(WMFRelatedSearchResults* searchResults) {
+    return [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:self.url resultLimit:self.resultLimit].then(^(WMFRelatedSearchResults* searchResults) {
         @strongify(self);
         if (!self) {
             return (id)nil;
@@ -86,14 +83,14 @@ NS_ASSUME_NONNULL_BEGIN
     return result;
 }
 
-- (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
+- (NSURL*)urlForIndexPath:(NSIndexPath*)indexPath {
     MWKSearchResult* result = [self searchResultForIndexPath:indexPath];
-    return [self.title.site titleWithString:result.displayTitle];
+    return [self.url wmf_URLWithTitle:result.displayTitle];
 }
 
-- (NSArray*)titles {
+- (NSArray<NSURL*>*)titles {
     return [self.relatedSearchResults.results bk_map:^id (MWKSearchResult* obj) {
-        return [self.title.site titleWithString:obj.displayTitle];
+        return [self.url wmf_URLWithTitle:obj.displayTitle];
     }];
 }
 

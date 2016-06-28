@@ -1,10 +1,3 @@
-//
-//  WMFMostReadTitlesResponse.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/11/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFMostReadTitlesResponse.h"
 #import "NSDictionary+WMFRequiredValueForKey.h"
@@ -71,7 +64,7 @@ static NSString* const WMFMostReadFailingProjectUserInfoKey             = @"WMFM
     dispatch_once(&onceToken, ^{
         mainPages = [[[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeMainPages] dictionary];
     });
-    return [mainPages[self.site.language] isEqualToString:[article.titleText wmf_normalizedPageTitle]];
+    return [mainPages[self.siteURL.wmf_language] isEqualToString:[article.titleText wmf_normalizedPageTitle]];
 }
 
 #pragma mark - MTLJSONSerializing
@@ -80,7 +73,7 @@ static NSString* const WMFMostReadFailingProjectUserInfoKey             = @"WMFM
     #define WMFMostReadTitlesResponseItemProperty(k) WMF_SAFE_KEYPATH(WMFMostReadTitlesResponseItem.new, k)
     return @{WMFMostReadTitlesResponseItemProperty(date): @[@"year", @"month", @"day"],
              WMFMostReadTitlesResponseItemProperty(articles): @"articles",
-             WMFMostReadTitlesResponseItemProperty(site): @"project"};
+             WMFMostReadTitlesResponseItemProperty(siteURL): @"project"};
 }
 
 + (MTLValueTransformer*)articlesJSONTransformer {
@@ -156,7 +149,7 @@ static NSString* const WMFMostReadFailingProjectUserInfoKey             = @"WMFM
                                           userInfo:value ? @{WMFMostReadFailingProjectUserInfoKey : value}:nil]);
             return nil;
         }
-        return [[MWKSite alloc] initWithDomain:[components[1] stringByAppendingString:@".org"] language:components[0]];
+        return [NSURL wmf_URLWithDomain:[components[1] stringByAppendingString:@".org"] language:components[0]];
     }];
 }
 

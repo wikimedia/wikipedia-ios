@@ -37,7 +37,7 @@
 
     // Keep all saved pages
     for (MWKSavedPageEntry* entry in savedPageList) {
-        [articlesToSave addObject:entry.title];
+        [articlesToSave addObject:entry.url];
     }
 
     // Keep most recent MAX_HISTORY_ENTRIES history entries
@@ -46,7 +46,7 @@
     for (MWKHistoryEntry* entry in historyList) {
         if (n++ < MAX_HISTORY_ENTRIES) {
             // save!
-            [articlesToSave addObject:entry.title];
+            [articlesToSave addObject:entry.url];
         } else {
             // prune!
             [historyEntriesToPrune addObject:entry];
@@ -58,8 +58,8 @@
         // Iterate through all articles and de-cache the ones that aren't on the keep list
         // Cached metadata, section text, and images will be removed along with their articles.
         [dataStore iterateOverArticles:^(MWKArticle* article) {
-            if (![articlesToSave containsObject:article.title] || [article isMain]) {
-                DDLogInfo(@"Pruning unsaved article %@", article.title);
+            if (![articlesToSave containsObject:article.url] || [article isMain]) {
+                DDLogInfo(@"Pruning unsaved article %@", article.url);
                 [article remove];
             }
         }];

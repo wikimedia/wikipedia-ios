@@ -11,7 +11,7 @@
 - (void)referenceViewController:(ReferencesVC*)referenceViewController didFinishShowingReferenceWithLinkID:(NSString*)linkID;
 
 - (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectInternalReferenceWithFragment:(NSString*)fragment;
-- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectReferenceWithTitle:(MWKTitle*)title;
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectReferenceWithURL:(NSURL*)url;
 - (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectExternalReferenceWithURL:(NSURL*)url;
 
 - (void)referenceViewControllerCloseReferences:(ReferencesVC*)referenceViewController;

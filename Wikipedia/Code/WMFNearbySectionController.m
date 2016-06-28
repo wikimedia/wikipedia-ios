@@ -34,7 +34,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 @interface WMFNearbySectionController ()
 
-@property (nonatomic, strong, readwrite) MWKSite* searchSite;
+@property (nonatomic, strong, readwrite) NSURL* searchDomainURL;
 @property (nonatomic, strong, readwrite) CLLocation* location;
 @property (nonatomic, strong, readwrite) CLPlacemark* placemark;
 
@@ -50,15 +50,15 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 - (instancetype)initWithLocation:(CLLocation*)location
                        placemark:(nullable CLPlacemark*)placemark
-                            site:(MWKSite*)site
+                 searchDomainURL:(NSURL*)url
                        dataStore:(MWKDataStore*)dataStore {
-    NSParameterAssert(site);
+    NSParameterAssert(url);
     NSParameterAssert(location);
     self = [super initWithDataStore:dataStore];
     if (self) {
         self.location              = location;
         self.placemark             = placemark;
-        self.searchSite            = site;
+        self.searchDomainURL       = url;
         self.locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
         self.compassViewModel      = [[WMFCompassViewModel alloc] init];
     }
@@ -156,14 +156,14 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 }
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
-    MWKTitle* title = [self titleForItemAtIndexPath:indexPath];
-    return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    NSURL* url = [self urlForItemAtIndexPath:indexPath];
+    return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
 }
 
 #pragma mark - WMFTitleProviding
 
-- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath {
-    return [self.searchResults titleForResultAtIndex:indexPath.row];
+- (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return [self.searchResults urlForResultAtIndex:indexPath.row];
 }
 
 #pragma mark - WMFMoreFooterProviding
@@ -173,7 +173,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 }
 
 - (UIViewController*)moreViewController {
-    WMFLocationSearchListViewController* vc = [[WMFLocationSearchListViewController alloc] initWithLocation:self.location searchSite:self.searchSite dataStore:self.dataStore];
+    WMFLocationSearchListViewController* vc = [[WMFLocationSearchListViewController alloc] initWithLocation:self.location searchSiteURL:self.searchDomainURL dataStore:self.dataStore];
     return vc;
 }
 
@@ -181,7 +181,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 - (BOOL)fetchedResultsAreCloseToLocation:(CLLocation*)location {
     if ([self.searchResults.location distanceFromLocation:location] < 500
-        && [self.searchResults.searchSite isEqualToSite:self.searchSite] && [self.searchResults.results count] > 0) {
+        && [self.searchResults.searchDomainURL isEqual:self.searchDomainURL] && [self.searchResults.results count] > 0) {
         return YES;
     }
 
@@ -190,10 +190,10 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 - (AnyPromise*)fetchTitlesForLocation:(CLLocation* __nullable)location {
     @weakify(self);
-    return [self.locationSearchFetcher fetchArticlesWithSite:self.searchSite
-                                                    location:location
-                                                 resultLimit:WMFNearbySectionFetchCount
-                                                 cancellable:NULL]
+    return [self.locationSearchFetcher fetchArticlesWithDomainURL:self.searchDomainURL
+                                                         location:location
+                                                      resultLimit:WMFNearbySectionFetchCount
+                                                      cancellable:NULL]
            .then(^(WMFLocationSearchResults* locationSearchResults) {
         @strongify(self);
         self.searchResults = locationSearchResults;

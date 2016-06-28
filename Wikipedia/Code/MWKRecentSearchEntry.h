@@ -13,7 +13,7 @@
 
 @property (readonly, copy, nonatomic) NSString* searchTerm;
 
-- (instancetype)initWithSite:(MWKSite*)site searchTerm:(NSString*)searchTerm;
+- (instancetype)initWithURL:(NSURL*)url searchTerm:(NSString*)searchTerm;
 - (instancetype)initWithDict:(NSDictionary*)dict;
 
 @end

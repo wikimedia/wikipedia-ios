@@ -6,11 +6,11 @@
 
 @interface WMFLocationSearchListViewController : WMFArticleListTableViewController
 
-@property (nonatomic, strong, readonly) MWKSite* site;
+@property (nonatomic, strong, readonly) NSURL* searchDomainURL;
 @property (nonatomic, strong) CLLocation* location;
 
-- (instancetype)initWithLocation:(CLLocation*)location searchSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore;
+- (instancetype)initWithLocation:(CLLocation*)location searchSiteURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore;
 
-- (instancetype)initWithSearchSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore;
+- (instancetype)initWithSearchDomainURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore;
 
 @end

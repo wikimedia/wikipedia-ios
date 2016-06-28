@@ -3,8 +3,6 @@
 #import "MWKSiteInfoFetcher.h"
 #import "WMFEnglishFeaturedTitleFetcher.h"
 
-#import "MWKSite.h"
-#import "MWKTitle.h"
 #import "MWKSearchResult.h"
 
 #import "WMFArticlePreviewTableViewCell.h"
@@ -25,7 +23,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 
 @interface WMFFeaturedArticleSectionController ()
 
-@property (nonatomic, strong, readwrite) MWKSite* site;
+@property (nonatomic, strong, readwrite) NSURL* domainURL;
 @property (nonatomic, strong, readwrite) NSDate* date;
 
 @property (nonatomic, strong) WMFEnglishFeaturedTitleFetcher* featuredTitlePreviewFetcher;
@@ -36,15 +34,15 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 
 @implementation WMFFeaturedArticleSectionController
 
-- (instancetype)initWithSite:(MWKSite*)site
-                        date:(NSDate*)date
-                   dataStore:(MWKDataStore*)dataStore {
-    NSParameterAssert(site);
+- (instancetype)initWithDomainURL:(NSURL*)url
+                             date:(NSDate*)date
+                        dataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(url);
     NSParameterAssert(date);
     self = [super initWithDataStore:dataStore];
     if (self) {
-        self.site = site;
-        self.date = date;
+        self.domainURL = url;
+        self.date      = date;
     }
     return self;
 }
@@ -109,7 +107,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
     cell.descriptionText = item.wikidataDescription;
     cell.snippetText     = item.extract;
     [cell setImageURL:item.thumbnailURL];
-    [cell setSaveableTitle:[self titleForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
+    [cell setSaveableURL:[self urlForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
     cell.saveButtonController.analyticsContext     = self;
     cell.saveButtonController.analyticsContentType = self;
@@ -140,14 +138,14 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 }
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
-    MWKTitle* title = [self titleForItemAtIndexPath:indexPath];
-    return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    NSURL* url = [self urlForItemAtIndexPath:indexPath];
+    return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
 }
 
 #pragma mark - WMFTitleProviding
 
-- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath {
-    return [[MWKTitle alloc] initWithSite:self.site normalizedTitle:self.featuredArticlePreview.displayTitle fragment:nil];
+- (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return [self.domainURL wmf_URLWithTitle:self.featuredArticlePreview.displayTitle];
 }
 
 @end

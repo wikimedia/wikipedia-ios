@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKSiteInfoFetcher : NSObject
 
-- (AnyPromise*)fetchSiteInfoForSite:(MWKSite*)site;
+- (AnyPromise*)fetchSiteInfoForDomainURL:(NSURL*)domainURL;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
 

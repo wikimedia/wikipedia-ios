@@ -7,8 +7,8 @@
 
 NSString* localizedStringForKeyFallingBackOnEnglish(NSString* key);
 
-NSString* localizedStringForSiteWithKeyFallingBackOnEnglish(MWKSite* site, NSString* key);
+NSString* localizedStringForURLWithKeyFallingBackOnEnglish(NSURL* url, NSString* key);
 
 #define MWLocalizedString(key, throwaway) localizedStringForKeyFallingBackOnEnglish(key)
 
-#define MWSiteLocalizedString(site, key, throwaway) localizedStringForSiteWithKeyFallingBackOnEnglish(site, key)
+#define MWSiteLocalizedString(url, key, throwaway) localizedStringForURLWithKeyFallingBackOnEnglish(url, key)

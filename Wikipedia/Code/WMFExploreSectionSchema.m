@@ -1,7 +1,5 @@
 
 #import "WMFExploreSectionSchema_Testing.h"
-#import "MWKSite.h"
-#import "MWKTitle.h"
 #import "MWKDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKHistoryList.h"
@@ -9,7 +7,6 @@
 #import "Wikipedia-Swift.h"
 #import "NSDate+Utilities.h"
 #import "WMFLocationManager.h"
-#import "WMFAssetsFile.h"
 #import "WMFRelatedSectionBlackList.h"
 #import "NSDate+WMFMostReadDate.h"
 #import "NSCalendar+WMFCommonCalendars.h"
@@ -28,14 +25,12 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 @interface WMFExploreSectionSchema ()<WMFLocationManagerDelegate>
 
-@property (nonatomic, strong, readwrite) MWKSite* site;
+@property (nonatomic, strong, readwrite) NSURL* domainURL;
 @property (nonatomic, strong, readwrite) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readwrite) MWKHistoryList* historyPages;
 @property (nonatomic, strong, readwrite) WMFRelatedSectionBlackList* blackList;
 
 @property (nonatomic, strong) WMFLocationManager* locationManager;
-
-@property (nonatomic, strong, readwrite) WMFAssetsFile* mainPages;
 
 @property (nonatomic, strong, readwrite, nullable) NSDate* lastUpdatedAt;
 
@@ -67,32 +62,32 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 #pragma mark - Setup
 
-+ (instancetype)schemaWithSite:(MWKSite*)site
-                    savedPages:(MWKSavedPageList*)savedPages
-                       history:(MWKHistoryList*)history
-                     blackList:(WMFRelatedSectionBlackList*)blackList {
-    return [self schemaWithSite:site
-                     savedPages:savedPages
-                        history:history
-                      blackList:blackList
-                locationManager:[WMFLocationManager coarseLocationManager]
-                           file:[self defaultSchemaURL]];
++ (instancetype)schemaWithDomainURL:(NSURL*)domainURL
+                         savedPages:(MWKSavedPageList*)savedPages
+                            history:(MWKHistoryList*)history
+                          blackList:(WMFRelatedSectionBlackList*)blackList {
+    return [self schemaWithDomainURL:domainURL
+                          savedPages:savedPages
+                             history:history
+                           blackList:blackList
+                     locationManager:[WMFLocationManager coarseLocationManager]
+                                file:[self defaultSchemaURL]];
 }
 
-+ (instancetype)schemaWithSite:(MWKSite*)site
-                    savedPages:(MWKSavedPageList*)savedPages
-                       history:(MWKHistoryList*)history
-                     blackList:(WMFRelatedSectionBlackList*)blackList
-               locationManager:(WMFLocationManager*)locationManager
-                          file:(NSURL*)fileURL {
-    NSParameterAssert(site);
++ (instancetype)schemaWithDomainURL:(NSURL*)domainURL
+                         savedPages:(MWKSavedPageList*)savedPages
+                            history:(MWKHistoryList*)history
+                          blackList:(WMFRelatedSectionBlackList*)blackList
+                    locationManager:(WMFLocationManager*)locationManager
+                               file:(NSURL*)fileURL {
+    NSParameterAssert(domainURL);
     NSParameterAssert(savedPages);
     NSParameterAssert(history);
     NSParameterAssert(blackList);
     NSParameterAssert(fileURL);
 
     WMFExploreSectionSchema* schema = [self schemaFromFileAtURL:fileURL] ? : [[WMFExploreSectionSchema alloc] init];
-    schema.site              = site;
+    schema.domainURL         = [domainURL wmf_domainURL];
     schema.savedPages        = savedPages;
     schema.historyPages      = history;
     schema.blackList         = blackList;
@@ -125,39 +120,15 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
  *  @return An array of sections that can be used to start the "feed" from scratch.
  */
 - (NSArray<WMFExploreSection*>*)startingSchema {
-    return @[[WMFExploreSection mainPageSectionWithSite:self.site],
-             [WMFExploreSection randomSectionWithSite:self.site]];
+    return @[[WMFExploreSection mainPageSectionWithDomainURL:self.domainURL],
+             [WMFExploreSection randomSectionWithDomainURL:self.domainURL]];
 }
 
 #pragma mark - Main Article
 
-/*
- * This is required so we don't show items related to main pages in the feed.
- * Ideally, we would pull this info from a service - but for now this is the easiest way to do it.
- * Note: we can get main pages individually for each site via the API, but not in an aggregate call.
- */
-- (WMFAssetsFile*)mainPages {
-    if (!_mainPages) {
-        _mainPages = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeMainPages];
-    }
-
-    return _mainPages;
-}
-
-- (MWKTitle*)mainArticleTitleForSite:(MWKSite*)site {
-    if (!site.language) {
-        return nil;
-    }
-    NSString* titleText = self.mainPages.dictionary[site.language];
-    if (!titleText) {
-        return nil;
-    }
-    return [site titleWithString:titleText];
-}
-
-- (BOOL)titleIsForMainArticle:(MWKTitle*)title {
-    MWKTitle* mainArticleTitle = [self mainArticleTitleForSite:title.site];
-    return ([title.text isEqualToString:mainArticleTitle.text]);
+- (BOOL)urlIsForMainArticle:(NSURL*)url {
+    NSURL* mainArticleURL = [NSURL wmf_mainPageURLForLanguage:url.wmf_language];
+    return ([url isEqual:mainArticleURL]);
 }
 
 #pragma mark - Sections
@@ -204,11 +175,11 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 #pragma mark - Update
 
-- (void)updateSite:(MWKSite*)site {
-    if ([site isEqual:self.site]) {
+- (void)updateDomainURL:(NSURL*)domainURL {
+    if ([domainURL isEqual:self.domainURL]) {
         return;
     }
-    self.site = site;
+    self.domainURL = domainURL;
     [self update:YES];
 }
 
@@ -251,7 +222,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 - (BOOL)updateContinueReading {
     WMFExploreSection* old = [self existingContinueReadingSection];
     WMFExploreSection* new = [self continueReadingSection];
-    if (WMF_EQUAL(old.title, isEqualToTitle:, new.title)) {
+    if (WMF_EQUAL(old.articleURL, isEqual:, new.articleURL)) {
         return NO;
     }
 
@@ -330,8 +301,8 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 - (void)updateWithChangesInBlackList:(WMFRelatedSectionBlackList*)blackList {
     //enumerate in reverse so that indexes are always correct
-    [[blackList.entries wmf_mapAndRejectNil:^id (MWKTitle* obj) {
-        return [self existingSectionForTitle:obj];
+    [[blackList.entries wmf_mapAndRejectNil:^id (NSURL* obj) {
+        return [self existingSectionForArticleURL:obj];
     }] enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(WMFExploreSection* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         [self removeSection:obj];
     }];
@@ -356,7 +327,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 - (WMFExploreSection*)randomSection {
     WMFExploreSection* random = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
-        if (obj.type == WMFExploreSectionTypeRandom && [obj.site isEqual:self.site]) {
+        if (obj.type == WMFExploreSectionTypeRandom && [obj.domainURL isEqual:self.domainURL]) {
             return YES;
         }
         return NO;
@@ -364,12 +335,12 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
     MWKHistoryEntry* lastEntry = [self.historyPages.entries firstObject];
     if (lastEntry && [[NSDate date] timeIntervalSinceDate:lastEntry.date] > WMFTimeBeforeRefreshingRandom) {
-        random = [WMFExploreSection randomSectionWithSite:self.site];
+        random = [WMFExploreSection randomSectionWithDomainURL:self.domainURL];
     }
 
     //Always return a random section
     if (!random) {
-        random = [WMFExploreSection randomSectionWithSite:self.site];
+        random = [WMFExploreSection randomSectionWithDomainURL:self.domainURL];
     }
 
     return random;
@@ -377,7 +348,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 - (NSArray<WMFExploreSection*>*)nearbySections {
     NSArray<WMFExploreSection*>* nearby = [self.sections bk_select:^BOOL (WMFExploreSection* obj) {
-        if (obj.type == WMFExploreSectionTypeNearby && obj.location != nil && obj.site != nil) {
+        if (obj.type == WMFExploreSectionTypeNearby && obj.location != nil && obj.domainURL != nil) {
             return YES;
         }
         return NO;
@@ -391,7 +362,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     if (!location || [WMFLocationManager isDeniedOrDisabled]) {
         return nil;
     }
-    return [WMFExploreSection nearbySectionWithLocation:location placemark:placemark site:self.site];
+    return [WMFExploreSection nearbySectionWithLocation:location placemark:placemark domainURL:self.domainURL];
 }
 
 /**
@@ -404,7 +375,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
  */
 - (NSArray<WMFExploreSection*>*)mostReadSectionsWithUpdateIfNeeded {
     NSMutableArray<WMFExploreSection*>* mostReadSections = [[self.sections bk_select:^BOOL (WMFExploreSection* section) {
-        return section.type == WMFExploreSectionTypeMostRead && section.site != nil && section.mostReadFetchDate != nil;
+        return section.type == WMFExploreSectionTypeMostRead && section.domainURL != nil && section.mostReadFetchDate != nil;
     }] mutableCopy];
 
     WMFExploreSection* latestMostReadSection = [self newMostReadSectionWithLatestPopulatedDate];
@@ -414,7 +385,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
                                  compareDate:mostReadSection.mostReadFetchDate
                                        toDate:latestMostReadSection.mostReadFetchDate
                             toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame;
-        BOOL const matchesSite = [mostReadSection.site isEqualToSite:latestMostReadSection.site];
+        BOOL const matchesSite = [mostReadSection.domainURL isEqual:latestMostReadSection.domainURL];
         return matchesDay && matchesSite;
     }];
 
@@ -435,9 +406,9 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 - (nullable WMFExploreSection*)newMostReadSectionWithLatestPopulatedDate {
     WMFExploreSection* section = [WMFExploreSection mostReadSectionForDate:[NSDate wmf_latestMostReadDataWithLikelyAvailableData]
-                                                                      site:self.site];
-    
-    if (!section.site || !section.mostReadFetchDate) {
+                                                                 domainURL:self.domainURL];
+
+    if (!section.domainURL || !section.mostReadFetchDate) {
         return nil;
     } else {
         return section;
@@ -459,7 +430,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     }];
 
     if (!containsTodaysFeaturedArticle) {
-        [featured wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
+        [featured wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithDomainURLIfSupported:self.domainURL]];
     }
 
     NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of featured", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeFeaturedArticle]);
@@ -475,18 +446,18 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 - (WMFExploreSection*)mainPageSection {
     WMFExploreSection* main = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
-        if (obj.type == WMFExploreSectionTypeMainPage && [obj.site isEqual:self.site]) {
+        if (obj.type == WMFExploreSectionTypeMainPage && [obj.domainURL isEqual:self.domainURL]) {
             return YES;
         }
         return NO;
     }];
 
     //If it's a new day and we havent created a new main page section, create it now
-    if ([main.dateCreated isToday] && [main.site isEqual:self.site]) {
+    if ([main.dateCreated isToday] && [main.domainURL isEqual:self.domainURL]) {
         return main;
     }
 
-    return [WMFExploreSection mainPageSectionWithSite:self.site];
+    return [WMFExploreSection mainPageSectionWithDomainURL:self.domainURL];
 }
 
 - (NSArray<WMFExploreSection*>*)pictureOfTheDaySections {
@@ -529,9 +500,9 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
     //Only return if
     if (shouldShowContinueReading) {
-        MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
+        NSURL* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleURL];
         if (lastRead) {
-            return [WMFExploreSection continueReadingSectionWithTitle:lastRead];
+            return [WMFExploreSection continueReadingSectionWithArticleURL:lastRead];
         }
     }
     return nil;
@@ -546,9 +517,9 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     }];
 }
 
-- (nullable WMFExploreSection*)existingSectionForTitle:(MWKTitle*)title {
+- (nullable WMFExploreSection*)existingSectionForArticleURL:(NSURL*)articleURL {
     return [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
-        if ([obj.title isEqualToTitle:title]) {
+        if ([obj.articleURL isEqual:articleURL]) {
             return YES;
         }
         return NO;
@@ -575,20 +546,20 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 }
 
 - (NSArray<WMFExploreSection*>*)sectionsFromHistoryEntriesExcludingExistingTitlesInSections:(nullable NSArray<WMFExploreSection*>*)existingSections maxLength:(NSUInteger)maxLength {
-    NSArray<MWKTitle*>* existingTitles = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFExploreSection new], title)];
+    NSArray<NSURL*>* existingTitles = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFExploreSection new], articleURL)];
 
     NSArray<MWKHistoryEntry*>* entries = [self.historyPages.entries bk_select:^BOOL (MWKHistoryEntry* obj) {
         return obj.titleWasSignificantlyViewed;
     }];
 
     entries = [entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
-        return [self.blackList titleIsBlackListed:obj.title];
+        return [self.blackList articleURLIsBlackListed:obj.url];
     }];
 
     entries = [entries wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
 
     entries = [entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
-        return [self titleIsForMainArticle:obj.title] || [existingTitles containsObject:obj.title];
+        return [self urlIsForMainArticle:obj.url] || [existingTitles containsObject:obj.url];
     }];
 
     return [[entries bk_map:^id (MWKHistoryEntry* obj) {
@@ -597,16 +568,16 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 }
 
 - (NSArray<WMFExploreSection*>*)sectionsFromSavedEntriesExcludingExistingTitlesInSections:(nullable NSArray<WMFExploreSection*>*)existingSections maxLength:(NSUInteger)maxLength {
-    NSArray<MWKTitle*>* existingTitles = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFExploreSection new], title)];
+    NSArray<NSURL*>* existingTitles = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFExploreSection new], articleURL)];
 
     NSArray<MWKHistoryEntry*>* entries = [self.savedPages.entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
-        return [self.blackList titleIsBlackListed:obj.title];
+        return [self.blackList articleURLIsBlackListed:obj.url];
     }];
 
     entries = [entries wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
 
     entries = [entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
-        return [self titleIsForMainArticle:obj.title] || [existingTitles containsObject:obj.title];
+        return [self urlIsForMainArticle:obj.url] || [existingTitles containsObject:obj.url];
     }];
 
     return [[entries bk_map:^id (MWKSavedPageEntry* obj) {
@@ -662,10 +633,9 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
     #define WMFExploreSectionSchemaKey(key) WMF_SAFE_KEYPATH([WMFExploreSectionSchema new], key)
 
-    behaviors[WMFExploreSectionSchemaKey(site)]            = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(domainURL)]       = @(MTLModelEncodingBehaviorExcluded);
     behaviors[WMFExploreSectionSchemaKey(savedPages)]      = @(MTLModelEncodingBehaviorExcluded);
     behaviors[WMFExploreSectionSchemaKey(historyPages)]    = @(MTLModelEncodingBehaviorExcluded);
-    behaviors[WMFExploreSectionSchemaKey(mainPages)]       = @(MTLModelEncodingBehaviorExcluded);
     behaviors[WMFExploreSectionSchemaKey(delegate)]        = @(MTLModelEncodingBehaviorExcluded);
     behaviors[WMFExploreSectionSchemaKey(locationManager)] = @(MTLModelEncodingBehaviorExcluded);
     behaviors[WMFExploreSectionSchemaKey(blackList)]       = @(MTLModelEncodingBehaviorExcluded);

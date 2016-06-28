@@ -104,7 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)fetchCreationAuthManagerInfoWithSuccess:(nullable WMFAuthManagerInfoBlock)success failure:(nullable WMFErrorHandler)failure {
-    [self.authManagerInfoFetcher fetchAuthManagerCreationAvailableForSite:[[MWKLanguageLinkController sharedInstance] appLanguage].site success:^(WMFAuthManagerInfo* _Nonnull info) {
+    [self.authManagerInfoFetcher fetchAuthManagerCreationAvailableForSiteURL:[[MWKLanguageLinkController sharedInstance] appLanguage].siteURL success:^(WMFAuthManagerInfo* _Nonnull info) {
         success(info);
     } failure:^(NSError* error) {
         failure(error);
@@ -204,7 +204,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)fetchLoginAuthManagerInfoWithSuccess:(nullable WMFAuthManagerInfoBlock)success failure:(nullable WMFErrorHandler)failure {
-    [self.authManagerInfoFetcher fetchAuthManagerLoginAvailableForSite:[[MWKLanguageLinkController sharedInstance] appLanguage].site success:^(WMFAuthManagerInfo* _Nonnull info) {
+    [self.authManagerInfoFetcher fetchAuthManagerLoginAvailableForSiteURL:[[MWKLanguageLinkController sharedInstance] appLanguage].siteURL success:^(WMFAuthManagerInfo* _Nonnull info) {
         success(info);
     } failure:^(NSError* error) {
         failure(error);
@@ -342,7 +342,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.captchaBlock) {
         NSURL* captchaImageUrl = [NSURL URLWithString:
                                   [NSString stringWithFormat:@"https://%@.m.%@%@", [[MWKLanguageLinkController sharedInstance] appLanguage].languageCode,
-                                   [[[MWKLanguageLinkController sharedInstance] appLanguage] site].domain,
+                                   [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL].wmf_domain,
                                    captchaURLString
                                   ]
                                  ];

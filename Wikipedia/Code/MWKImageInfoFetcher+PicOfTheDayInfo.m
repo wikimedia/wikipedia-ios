@@ -8,7 +8,6 @@
 
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "NSDate+WMFPOTDTitle.h"
-#import "MWKSite+CommonsSite.h"
 #import "MWKImageInfo.h"
 #import "NSDateFormatter+WMFExtensions.h"
 
@@ -66,7 +65,7 @@ static MWKImageInfoResolve addPictureOfTheDayToDescriptionForDate(NSDate* date) 
 - (AnyPromise*)fetchPicOfTheDaySectionInfoForDate:(NSDate*)date
                                  metadataLanguage:(nullable NSString*)metadataLanguage {
     return [self fetchPartialInfoForImagesOnPages:@[[date wmf_picOfTheDayPageTitle]]
-                                         fromSite:[MWKSite wikimediaCommons]
+                                    fromDomainURL:[NSURL wmf_wikimediaCommonsURL]
                                  metadataLanguage:metadataLanguage]
            .then(selectFirstImageInfo(date));
 }
@@ -74,7 +73,7 @@ static MWKImageInfoResolve addPictureOfTheDayToDescriptionForDate(NSDate* date) 
 - (AnyPromise*)fetchPicOfTheDayGalleryInfoForDate:(NSDate*)date
                                  metadataLanguage:(nullable NSString*)metadataLanguage {
     return [self fetchGalleryInfoForImagesOnPages:@[[date wmf_picOfTheDayPageTitle]]
-                                         fromSite:[MWKSite wikimediaCommons]
+                                    fromDomainURL:[NSURL wmf_wikimediaCommonsURL]
                                  metadataLanguage:metadataLanguage]
            .then(selectFirstImageInfo(date)).then(addPictureOfTheDayToDescriptionForDate(date));
 }

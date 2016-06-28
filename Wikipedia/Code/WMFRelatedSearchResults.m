@@ -3,18 +3,18 @@
 
 @interface WMFRelatedSearchResults ()
 
-@property (nonatomic, strong, readwrite) MWKTitle* title;
+@property (nonatomic, strong, readwrite) NSURL* domainURL;
 @property (nonatomic, strong, readwrite) NSArray* results;
 
 @end
 
 @implementation WMFRelatedSearchResults
 
-- (instancetype)initWithTitle:(MWKTitle*)title results:(NSArray*)results {
+- (instancetype)initWithURL:(NSURL*)URL results:(NSArray*)results {
     self = [super init];
     if (self) {
-        self.title   = title;
-        self.results = results;
+        self.domainURL = URL.wmf_domainURL;
+        self.results   = results;
     }
     return self;
 }

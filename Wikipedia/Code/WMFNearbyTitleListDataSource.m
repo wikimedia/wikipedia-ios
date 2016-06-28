@@ -3,8 +3,6 @@
 #import "WMFLocationSearchFetcher.h"
 
 // Models
-#import "MWKSite.h"
-#import "MWKTitle.h"
 #import "MWKSavedPageList.h"
 #import "MWKLocationSearchResult.h"
 #import "MWKArticle.h"
@@ -18,7 +16,7 @@ static NSUInteger const WMFNearbyDataSourceFetchCount = 20;
 
 @interface WMFNearbyTitleListDataSource ()
 
-@property (nonatomic, strong, readwrite) MWKSite* site;
+@property (nonatomic, strong, readwrite) NSURL* searchDomainURL;
 @property (nonatomic, strong) WMFLocationSearchFetcher* locationSearchFetcher;
 @property (nonatomic, strong, nullable) WMFLocationSearchResults* searchResults;
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
@@ -29,11 +27,11 @@ static NSUInteger const WMFNearbyDataSourceFetchCount = 20;
 
 @implementation WMFNearbyTitleListDataSource
 
-- (instancetype)initWithSite:(MWKSite*)site {
-    NSParameterAssert(site);
+- (instancetype)initWithSearchDomainURL:(NSURL*)url {
+    NSParameterAssert(url);
     self = [super initWithItems:nil];
     if (self) {
-        self.site                  = site;
+        self.searchDomainURL       = url;
         self.locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
     }
     return self;
@@ -53,9 +51,9 @@ static NSUInteger const WMFNearbyDataSourceFetchCount = 20;
     return NO;
 }
 
-- (NSArray*)titles {
+- (NSArray<NSURL*>*)urls {
     return [self.searchResults.results bk_map:^id (MWKLocationSearchResult* obj) {
-        return [self.site titleWithString:obj.displayTitle];
+        return [self.searchDomainURL wmf_URLWithTitle:obj.displayTitle];
     }];
 }
 
@@ -68,16 +66,16 @@ static NSUInteger const WMFNearbyDataSourceFetchCount = 20;
     return result;
 }
 
-- (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
+- (NSURL*)urlForIndexPath:(NSIndexPath*)indexPath {
     MWKLocationSearchResult* result = [self searchResultForIndexPath:indexPath];
-    return [self.site titleWithString:result.displayTitle];
+    return [self.searchDomainURL wmf_URLWithTitle:result.displayTitle];
 }
 
 #pragma mark - Fetch
 
 - (BOOL)fetchedResultsAreCloseToLocation:(CLLocation*)location {
     if ([self.searchResults.location distanceFromLocation:location] < 500
-        && [self.searchResults.searchSite isEqualToSite:self.site] && [self.searchResults.results count] > 0) {
+        && [self.searchResults.searchDomainURL isEqual:self.searchDomainURL] && [self.searchResults.results count] > 0) {
         return YES;
     }
 
@@ -102,10 +100,10 @@ static NSUInteger const WMFNearbyDataSourceFetchCount = 20;
     [self.lastFetch cancel];
     id<Cancellable> fetch;
     @weakify(self);
-    [self.locationSearchFetcher fetchArticlesWithSite:self.site
-                                             location:location
-                                          resultLimit:WMFNearbyDataSourceFetchCount
-                                          cancellable:&fetch]
+    [self.locationSearchFetcher fetchArticlesWithDomainURL:self.searchDomainURL
+                                                  location:location
+                                               resultLimit:WMFNearbyDataSourceFetchCount
+                                               cancellable:&fetch]
     .then(^(WMFLocationSearchResults* locationSearchResults) {
         @strongify(self);
         self.searchResults = locationSearchResults;

@@ -6,7 +6,7 @@
 static NSString* const WMFRelatedSectionBlackListFileName      = @"WMFRelatedSectionBlackList";
 static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
 
-@implementation MWKTitle (MWKListObject)
+@implementation NSURL (MWKListObject)
 
 - (id <NSCopying, NSObject>)listIndex {
     return self;
@@ -15,8 +15,6 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
 @end
 
 @interface WMFRelatedSectionBlackList ()
-
-@property (nonatomic, strong) NSMutableArray<MWKTitle*>* mutableBlackListTitles;
 
 @end
 
@@ -33,6 +31,21 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
     });
 
     return blackList;
+}
+
++ (NSUInteger)modelVersion {
+    return 1;
+}
+
+- (id)decodeValueForKey:(NSString*)key withCoder:(NSCoder*)coder modelVersion:(NSUInteger)modelVersion {
+    if ([key isEqualToString:WMF_SAFE_KEYPATH(self, entries)] && modelVersion == 0) {
+        NSArray* titles = [self decodeValueForKey:WMF_SAFE_KEYPATH(self, entries) withCoder:coder modelVersion:0];
+        return [titles bk_map:^id (NSURL* obj) {
+            return [[obj wmf_desktopURL] mutableCopy];
+        }];
+    } else {
+        return [super decodeValueForKey:key withCoder:coder modelVersion:modelVersion];
+    }
 }
 
 + (NSURL*)fileURL {
@@ -58,33 +71,33 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
     return [NSKeyedUnarchiver unarchiveObjectWithFile:[[self fileURL] path]];
 }
 
-- (void)addBlackListTitle:(MWKTitle*)title {
-    [self addEntry:title];
+- (void)addBlackListArticleURL:(NSURL*)url {
+    [self addEntry:url];
 }
 
-- (void)addEntry:(MWKTitle*)entry {
+- (void)addEntry:(NSURL*)entry {
     @synchronized(self) {
         [super addEntry:entry];
     }
 }
 
-- (void)removeBlackListTitle:(MWKTitle*)title {
-    [self removeEntry:title];
+- (void)removeBlackListArticleURL:(NSURL*)url {
+    [self removeEntry:url];
 }
 
-- (void)removeEntry:(MWKTitle*)entry {
+- (void)removeEntry:(NSURL*)entry {
     @synchronized(self) {
         [super removeEntry:entry];
     }
 }
 
-- (BOOL)titleIsBlackListed:(MWKTitle*)title {
-    return [self containsEntryForListIndex:title];
+- (BOOL)articleURLIsBlackListed:(NSURL*)url {
+    return [self containsEntryForListIndex:url];
 }
 
-- (BOOL)containsEntryForListIndex:(MWKTitle*)listIndex {
+- (BOOL)containsEntryForListIndex:(NSURL*)url {
     @synchronized(self) {
-        return [super containsEntryForListIndex:listIndex];
+        return [super containsEntryForListIndex:url];
     }
 }
 

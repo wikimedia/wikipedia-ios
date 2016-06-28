@@ -1,7 +1,6 @@
 
 #import "WMFSearchResults_Internal.h"
 #import "MWKArticle.h"
-#import "MWKTitle.h"
 #import "UIView+WMFDefaultNib.h"
 #import "MWKSearchResult.h"
 #import "MWKSearchRedirectMapping.h"

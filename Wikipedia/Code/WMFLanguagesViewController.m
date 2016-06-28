@@ -495,13 +495,13 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
 
 @implementation WMFArticleLanguagesViewController
 
-+ (instancetype)articleLanguagesViewControllerWithTitle:(MWKTitle*)title {
-    NSParameterAssert(title);
++ (instancetype)articleLanguagesViewControllerWithArticleURL:(NSURL*)url{
+    NSParameterAssert(url.wmf_title);
 
     WMFArticleLanguagesViewController* languagesVC = [WMFArticleLanguagesViewController wmf_initialViewControllerFromClassStoryboard];
     NSParameterAssert(languagesVC);
 
-    languagesVC.articleTitle = title;
+    languagesVC.articleURL = url;
     languagesVC.editing      = NO;
     languagesVC.title        = MWLocalizedString(@"languages-title", nil);
 
@@ -510,15 +510,15 @@ static CGFloat const WMFLanguageHeaderHeight   = 57.f;
 
 #pragma mark - Getters & Setters
 
-- (void)setArticleTitle:(MWKTitle*)articleTitle {
+- (void)setArticleURL:(NSURL *)articleURL{
     NSAssert(self.isViewLoaded == NO, @"Article Title must be set prior to view being loaded");
-    _articleTitle = articleTitle;
+    _articleURL = articleURL;
 }
 
 - (MWKTitleLanguageController*)titleLanguageController {
-    NSAssert(self.articleTitle != nil, @"Article Title must be set before accessing titleLanguageController");
+    NSAssert(self.articleURL != nil, @"Article Title must be set before accessing titleLanguageController");
     if (!_titleLanguageController) {
-        _titleLanguageController = [[MWKTitleLanguageController alloc] initWithTitle:self.articleTitle languageController:[MWKLanguageLinkController sharedInstance]];
+        _titleLanguageController = [[MWKTitleLanguageController alloc] initWithArticleURL:self.articleURL languageController:[MWKLanguageLinkController sharedInstance]];
     }
     return _titleLanguageController;
 }

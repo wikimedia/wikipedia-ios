@@ -19,14 +19,14 @@ public extension CSSearchableItemAttributeSet {
         
         let searchableItem = CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
 
-        searchableItem.keywords = ["Wikipedia","Wikimedia","Wiki"] + article.title.text.componentsSeparatedByString(" ")
+        searchableItem.keywords = ["Wikipedia","Wikimedia","Wiki"] + article.url.wmf_title.componentsSeparatedByString(" ")
         
-        searchableItem.title = article.title.text
+        searchableItem.title = article.url.wmf_title
         searchableItem.subject = article.entityDescription
         searchableItem.contentDescription = article.summary()
-        searchableItem.displayName = article.title.text
-        searchableItem.identifier = article.title.desktopURL.absoluteString
-        searchableItem.relatedUniqueIdentifier = article.title.desktopURL.absoluteString
+        searchableItem.displayName = article.url.wmf_title
+        searchableItem.identifier = article.url.wmf_desktopURL.absoluteString
+        searchableItem.relatedUniqueIdentifier = article.url.wmf_desktopURL.absoluteString
 
         if (article.imageURL != nil) {
             if let url = NSURL(string: article.imageURL) {
@@ -62,30 +62,30 @@ public class WMFSavedPageSpotlightManager: NSObject {
     public func reindexSavedPages() {
         for element in savedPageList.entries {
             if let element = element as? MWKSavedPageEntry {
-                addToIndex(element.title)
+                addToIndex(element.url)
             }
         }
     }
     
     func didSaveTitle(notification: NSNotification){
-        if let title = notification.userInfo?[MWKTitleKey] as? MWKTitle {
-            addToIndex(title)
+        if let url = notification.userInfo?[MWKURLKey] as? NSURL {
+            addToIndex(url)
         }
     }
 
     func didUnsaveTitle(notification: NSNotification){
-        if let title = notification.userInfo?[MWKTitleKey] as? MWKTitle {
-            removeFromIndex(title)
+        if let url = notification.userInfo?[MWKURLKey] as? NSURL {
+            removeFromIndex(url)
         }
     }
     
-    func addToIndex(title: MWKTitle) {
-        if let article = dataStore.existingArticleWithTitle(title) {
+    func addToIndex(url: NSURL) {
+        if let article = dataStore.existingArticleWithURL(url) {
             
             let searchableItemAttributes = CSSearchableItemAttributeSet.attributes(article)
             searchableItemAttributes.keywords?.append("Saved")
             
-            let item = CSSearchableItem(uniqueIdentifier: article.title.desktopURL.absoluteString, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
+            let item = CSSearchableItem(uniqueIdentifier: url.wmf_desktopURL.absoluteString, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
             item.expirationDate = NSDate.distantFuture()
             
             CSSearchableIndex.defaultSearchableIndex().indexSearchableItems([item]) { (error: NSError?) -> Void in
@@ -98,8 +98,8 @@ public class WMFSavedPageSpotlightManager: NSObject {
         }
     }
     
-    func removeFromIndex(title: MWKTitle) {
-        CSSearchableIndex.defaultSearchableIndex().deleteSearchableItemsWithIdentifiers([title.desktopURL.absoluteString]) { (error: NSError?) -> Void in
+    func removeFromIndex(url: NSURL) {
+        CSSearchableIndex.defaultSearchableIndex().deleteSearchableItemsWithIdentifiers([url.wmf_desktopURL.absoluteString]) { (error: NSError?) -> Void in
             if let error = error {
                 DDLogError("Deindexing error: \(error.localizedDescription)")
             } else {

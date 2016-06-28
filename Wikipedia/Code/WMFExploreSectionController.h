@@ -226,7 +226,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The title of the item at @c indexPath.
  */
-- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath;
+- (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath;
 
 @end
 

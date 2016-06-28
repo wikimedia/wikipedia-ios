@@ -10,9 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKTitleLanguageController : NSObject<MWKLanguageFilterDataSource>
 
-- (instancetype)initWithTitle:(MWKTitle*)title languageController:(MWKLanguageLinkController*)controller;
+- (instancetype)initWithArticleURL:(NSURL*)url languageController:(MWKLanguageLinkController*)controller;
 
-@property (copy, nonatomic, readonly) MWKTitle* title;
+@property (copy, nonatomic, readonly) NSURL* articleURL;
 @property (strong, nonatomic, readonly) MWKLanguageLinkController* languageController;
 
 - (void)fetchLanguagesWithSuccess:(dispatch_block_t)success

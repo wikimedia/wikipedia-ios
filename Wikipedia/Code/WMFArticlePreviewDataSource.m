@@ -15,7 +15,6 @@
 #import "WMFArticlePreviewFetcher.h"
 
 // Model
-#import "MWKTitle.h"
 #import "MWKArticle.h"
 #import "MWKSearchResult.h"
 #import "MWKHistoryEntry.h"
@@ -27,8 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) WMFArticlePreviewFetcher* titlesSearchFetcher;
 @property (nonatomic, strong, readwrite, nullable) NSArray<MWKSearchResult*>* previewResults;
-@property (nonatomic, strong) MWKSite* site;
-@property (nonatomic, strong) NSArray<MWKTitle*>* titles;
+@property (nonatomic, strong) NSURL* domainURL;
+@property (nonatomic, strong) NSArray<NSURL*>* urls;
 @property (nonatomic, assign) NSUInteger resultLimit;
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
@@ -41,18 +40,19 @@ NS_ASSUME_NONNULL_BEGIN
     return @"Article Disambiguation";
 }
 
-- (instancetype)initWithTitles:(NSArray<MWKTitle*>*)titles
-                          site:(MWKSite*)site
-                     dataStore:(MWKDataStore*)dataStore
-                       fetcher:(WMFArticlePreviewFetcher*)fetcher {
-    NSParameterAssert(titles);
+- (instancetype)initWithArticleURLs:(NSArray<NSURL*>*)articleURLs
+                          domainURL:(NSURL*)domainURL
+                          dataStore:(MWKDataStore*)dataStore
+                            fetcher:(WMFArticlePreviewFetcher*)fetcher {
+    NSParameterAssert(articleURLs);
     NSParameterAssert(fetcher);
     NSParameterAssert(dataStore);
+    NSParameterAssert(domainURL);
     self = [super initWithItems:nil];
     if (self) {
         self.dataStore           = dataStore;
-        self.titles              = titles;
-        self.site                = site;
+        self.urls                = articleURLs;
+        self.domainURL           = domainURL;
         self.titlesSearchFetcher = fetcher;
 
         self.cellClass = [WMFArticlePreviewTableViewCell class];
@@ -63,14 +63,14 @@ NS_ASSUME_NONNULL_BEGIN
                                     UITableView* tableView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
-            MWKTitle* title = [self titleForIndexPath:indexPath];
-            NSParameterAssert([title.site isEqualToSite:site]);
-            cell.titleText       = title.text;
+            NSURL* URL = [self urlForIndexPath:indexPath];
+            NSParameterAssert([URL.wmf_domain isEqual:domainURL.wmf_domain]);
+            cell.titleText       = URL.wmf_title;
             cell.descriptionText = searchResult.wikidataDescription;
             cell.snippetText     = searchResult.extract;
             [cell setImageURL:searchResult.thumbnailURL];
 
-            [cell setSaveableTitle:title savedPageList:self.savedPageList];
+            [cell setSaveableURL:URL savedPageList:self.savedPageList];
 
             [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
         };
@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetch {
     @weakify(self);
-    [self.titlesSearchFetcher fetchArticlePreviewResultsForTitles:self.titles site:self.site]
+    [self.titlesSearchFetcher fetchArticlePreviewResultsForArticleURLs:self.urls domainURL:self.domainURL]
     .then(^(NSArray<MWKSearchResult*>* searchResults) {
         @strongify(self);
         if (!self) {
@@ -109,9 +109,8 @@ NS_ASSUME_NONNULL_BEGIN
     return result;
 }
 
-- (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
-    MWKSearchResult* result = [self searchResultForIndexPath:indexPath];
-    return [self.site titleWithString:result.displayTitle];
+- (NSURL*)urlForIndexPath:(NSIndexPath*)indexPath {
+    return [self.domainURL wmf_URLWithTitle:[self searchResultForIndexPath:indexPath].displayTitle];
 }
 
 - (NSUInteger)titleCount {

@@ -42,14 +42,14 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise*)fetchRandomArticleWithSite:(MWKSite*)site {
+- (AnyPromise*)fetchRandomArticleWithDomainURL:(NSURL*)domainURL {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
         NSDictionary* params = [[self class] params];
 
-        [self.operationManager wmf_GETWithSite:site
-                                    parameters:params
-                                         retry:NULL
-                                       success:^(NSURLSessionDataTask* operation, NSArray* responseObject) {
+        [self.operationManager wmf_GETAndRetryWithURL:domainURL
+                                           parameters:params
+                                                retry:NULL
+                                              success:^(NSURLSessionDataTask* operation, NSArray* responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
             MWKSearchResult* article = [self getBestRandomResultFromResults:responseObject];

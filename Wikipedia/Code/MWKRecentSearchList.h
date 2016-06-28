@@ -1,7 +1,6 @@
 
 #import "MWKList.h"
 #import "MWKRecentSearchEntry.h"
-#import "MWKTitle.h"
 #import "MWKDataStoreList.h"
 
 @class MWKDataStore;

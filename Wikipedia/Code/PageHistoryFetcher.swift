@@ -9,10 +9,10 @@ public class PageHistoryFetcher: NSObject {
         return manager
     }()
 
-    public func fetchRevisionInfo(site: MWKSite, requestParams: PageHistoryRequestParameters) -> AnyPromise {
+    public func fetchRevisionInfo(domainURL: NSURL, requestParams: PageHistoryRequestParameters) -> AnyPromise {
         return AnyPromise(resolverBlock: { [weak self] (resolve) in
             guard let strongSelf = self else { return }
-            strongSelf.operationManager.wmf_GETWithSite(site,
+            strongSelf.operationManager.wmf_GETAndRetryWithURL(domainURL,
                                                         parameters: requestParams,
                                                         retry: nil,
                                                         success: { (operation, responseObject) in
@@ -36,8 +36,8 @@ public class HistoryFetchResults: NSObject {
     private let lastRevision: WMFPageHistoryRevision?
     private var revisionsByDay: RevisionsByDay
     
-    public func getPageHistoryRequestParameters(title: String) -> PageHistoryRequestParameters {
-        return PageHistoryRequestParameters(title: title, pagingInfo: pagingInfo, lastRevisionFromPreviousCall: lastRevision)
+    public func getPageHistoryRequestParameters(articleURL: NSURL) -> PageHistoryRequestParameters {
+        return PageHistoryRequestParameters(title: articleURL.wmf_title, pagingInfo: pagingInfo, lastRevisionFromPreviousCall: lastRevision)
     }
     
     public func items() -> [PageHistorySection]  {

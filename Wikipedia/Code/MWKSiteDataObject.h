@@ -14,13 +14,15 @@
 
 @interface MWKSiteDataObject : MWKDataObject
 
-@property (readonly, strong, nonatomic) MWKSite* site;
+@property (readonly, strong, nonatomic) NSURL* url;
 
-- (instancetype)initWithSite:(MWKSite*)site;
+- (instancetype)initWithURL:(NSURL*)url NS_DESIGNATED_INITIALIZER;
 
-- (MWKTitle*)optionalTitle:(NSString*)key dict:(NSDictionary*)dict;
-- (MWKTitle*)requiredTitle:(NSString*)key dict:(NSDictionary*)dict;
-- (MWKTitle*)requiredTitle:(NSString*)key dict:(NSDictionary*)dict allowEmpty:(BOOL)allowEmpty;
+- (instancetype)init NS_UNAVAILABLE;
+
+- (NSURL*)optionalURL:(NSString*)key dict:(NSDictionary*)dict;
+- (NSURL*)requiredURL:(NSString*)key dict:(NSDictionary*)dict;
+- (NSURL*)requiredURL:(NSString*)key dict:(NSDictionary*)dict allowEmpty:(BOOL)allowEmpty;
 
 - (MWKUser*)optionalUser:(NSString*)key dict:(NSDictionary*)dict;
 - (MWKUser*)requiredUser:(NSString*)key dict:(NSDictionary*)dict;

@@ -5,7 +5,6 @@
 #import "WMFImageURLParsing.h"
 #import "WMFGeometry.h"
 #import "Wikipedia-Swift.h"
-#import "NSURL+WMFExtras.h"
 
 @interface MWKImage ()
 
@@ -34,7 +33,7 @@
 }
 
 - (instancetype)initWithArticle:(MWKArticle*)article sourceURL:(NSURL*)sourceURL {
-    self = [super initWithSite:article.site];
+    self = [super initWithURL:article.url];
     if (self) {
         self.article = article;
 
@@ -287,7 +286,7 @@
 
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@ article: %@ sourceURL: %@",
-            [super description], self.article.title, self.sourceURLString];
+            [super description], self.article.url, self.sourceURLString];
 }
 
 - (NSString*)fullImageBinaryPath {

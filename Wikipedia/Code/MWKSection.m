@@ -20,7 +20,6 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 
 @interface MWKSection ()
 
-@property (readwrite, strong, nonatomic) MWKTitle* title;
 @property (readwrite, weak, nonatomic) MWKArticle* article;
 
 @property (readwrite, copy, nonatomic, nullable) NSNumber* toclevel;      // optional
@@ -28,7 +27,7 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 @property (readwrite, copy, nonatomic, nullable) NSString* line;          // optional; HTML
 @property (readwrite, copy, nonatomic, nullable) NSString* number;        // optional; can be "1.2.3"
 @property (readwrite, copy, nonatomic, nullable) NSString* index;         // optional; can be "T-3" for transcluded sections
-@property (readwrite, strong, nonatomic, nullable) MWKTitle* fromtitle; // optional
+@property (readwrite, strong, nonatomic, nullable) NSURL* fromURL; // optional
 @property (readwrite, copy, nonatomic, nullable) NSString* anchor;        // optional
 @property (readwrite, assign, nonatomic) int sectionId;           // required; -> id
 @property (readwrite, assign, nonatomic) BOOL references;         // optional; marked by presence of key with empty string in JSON
@@ -44,17 +43,16 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 @implementation MWKSection
 
 - (instancetype)initWithArticle:(MWKArticle*)article dict:(NSDictionary*)dict {
-    self = [self initWithSite:article.site];
+    self = [self initWithURL:article.url];
     if (self) {
         self.article = article;
-        self.title   = article.title;
 
         self.toclevel   = [self optionalNumber:@"toclevel"   dict:dict];
         self.level      = [self optionalNumber:@"level"      dict:dict];  // may be a numeric string
         self.line       = [self optionalString:@"line"       dict:dict];
         self.number     = [self optionalString:@"number"     dict:dict];  // deceptively named, this must be a string
         self.index      = [self optionalString:@"index"      dict:dict];  // deceptively named, this must be a string
-        self.fromtitle  = [self optionalTitle:@"fromtitle"  dict:dict];
+        self.fromURL    = [NSURL wmf_URLWithSiteURL:self.url unescapedDenormalizedTitleAndFragment:dict[@"fromtitle"]];
         self.anchor     = [self optionalString:@"anchor"     dict:dict];
         self.sectionId  = [[self requiredNumber:@"id"         dict:dict] intValue];
         self.references = ([self optionalString:@"references" dict:dict] != nil);
@@ -84,8 +82,9 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
     if (self.index) {
         dict[@"index"] = self.index;
     }
-    if (self.fromtitle) {
-        dict[@"fromtitle"] = self.fromtitle.text;
+    if (self.fromURL) {
+#warning if this contained a fragment, we are throwing it away
+        dict[@"fromtitle"] = self.fromURL.wmf_title;
     }
     if (self.anchor) {
         dict[@"anchor"] = self.anchor;
@@ -102,12 +101,12 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
     return (self.sectionId == 0);
 }
 
-- (nullable MWKTitle*)sourceTitle {
-    if (self.fromtitle) {
+- (nullable NSURL*)sourceURL {
+    if (self.fromURL) {
         // We probably came from a foreign template section!
-        return self.fromtitle;
+        return self.fromURL;
     } else {
-        return self.title;
+        return self.url;
     }
 }
 
@@ -150,7 +149,7 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 }
 
 - (BOOL)isEqualToSection:(MWKSection*)section {
-    return WMF_IS_EQUAL(self.article.title, section.article.title)
+    return WMF_IS_EQUAL(self.url, section.url)
            && self.sectionId == section.sectionId
            && self.references == section.references
            && WMF_EQUAL(self.toclevel, isEqualToNumber:, section.toclevel)
@@ -158,7 +157,7 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
            && WMF_EQUAL(self.line, isEqualToString:, section.line)
            && WMF_EQUAL(self.number, isEqualToString:, section.number)
            && WMF_EQUAL(self.index, isEqualToString:, section.index)
-           && WMF_EQUAL(self.fromtitle, isEqual:, section.fromtitle)
+           && WMF_EQUAL(self.fromURL, isEqual:, section.fromURL)
            && WMF_EQUAL(self.anchor, isEqualToString:, section.anchor)
            && WMF_EQUAL(self.text, isEqualToString:, section.text)
            && WMF_EQUAL(self.images, isEqual:, section.images);
@@ -277,13 +276,13 @@ static NSString* const WMFSectionSummaryXPathSelector = @"\
 
 static NSString* const WMFSectionDisambiguationTitlesXPathSelector = @"//div[@class='hatnote']//a/@href";
 
-- (nullable NSArray<MWKTitle*>*)disambiguationTitles {
+- (nullable NSArray<NSURL*>*)disambiguationURLs{
     NSArray* textNodes = [self elementsInTextMatchingXPath:WMFSectionDisambiguationTitlesXPathSelector];
     return [textNodes wmf_mapAndRejectNil:^id (TFHppleElement* node) {
         if (node.text.length == 0 || [node.text containsString:@"redlink=1"] || ![node.text containsString:WMFInternalLinkPathPrefix]) {
             return nil;
         }
-        return [[MWKTitle alloc] initWithInternalLink:node.text site:self.site];
+        return [NSURL wmf_URLWithSiteURL:self.url escapedDenormalizedInternalLink:node.text];
     }];
 }
 
