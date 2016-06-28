@@ -1,19 +1,19 @@
-#import "WMFGalleryImageListParser.h"
+#import "WMFImageTagParser.h"
 #import "WMFImageTag.h"
 #import "WMFImageTag+TargetImageWidthURL.h"
 #import <BlocksKit/BlocksKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFGalleryImageListParser() <NSXMLParserDelegate>
+@interface WMFImageTagParser() <NSXMLParserDelegate>
 
 @property (nonatomic, strong, nullable) NSMutableArray<NSDictionary*>* parsedImgTagAttributeDicts;
 
 @end
 
-@implementation WMFGalleryImageListParser
+@implementation WMFImageTagParser
 
-- (nullable NSArray<NSURL*>*)parseGalleryImageURLsFromHTMLString:(NSString*)HTMLString targetWidth:(NSUInteger)targetWidth;{
+- (nullable NSArray<NSURL*>*)parseImageURLsFromHTMLString:(NSString*)HTMLString targetWidth:(NSUInteger)targetWidth;{
 
     HTMLString = [HTMLString copy];
 

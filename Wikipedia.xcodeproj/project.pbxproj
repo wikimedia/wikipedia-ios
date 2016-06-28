@@ -98,7 +98,7 @@
 		B02B82751C696ECA00B19309 /* WMFSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B02B82731C696ECA00B19309 /* WMFSettingsTableViewCell.m */; };
 		B02B82761C696ECA00B19309 /* WMFSettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B02B82741C696ECA00B19309 /* WMFSettingsTableViewCell.xib */; };
 		B04393F21D21C04500FD2BD9 /* WMFGalleryImageListParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B04393F11D21C04500FD2BD9 /* WMFGalleryImageListParserTests.m */; };
-		B05033AB1D1F2CCA002E7D4F /* WMFGalleryImageListParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B05033AA1D1F2CCA002E7D4F /* WMFGalleryImageListParser.m */; };
+		B05033AB1D1F2CCA002E7D4F /* WMFImageTagParser.m in Sources */ = {isa = PBXBuildFile; fileRef = B05033AA1D1F2CCA002E7D4F /* WMFImageTagParser.m */; };
 		B05033AE1D1F9AC9002E7D4F /* WMFImageTag.m in Sources */ = {isa = PBXBuildFile; fileRef = B05033AD1D1F9AC9002E7D4F /* WMFImageTag.m */; };
 		B05033B11D1FA2FE002E7D4F /* WMFImageTag+TargetImageWidthURL.m in Sources */ = {isa = PBXBuildFile; fileRef = B05033B01D1FA2FE002E7D4F /* WMFImageTag+TargetImageWidthURL.m */; };
 		B063DE601C63FEE9002F2EDE /* UIToolbar+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = B063DE5F1C63FEE9002F2EDE /* UIToolbar+WMFStyling.m */; };
@@ -891,8 +891,8 @@
 		B04876371C8FC184008F8920 /* sw */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sw; path = sw.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B04876381C8FC248008F8920 /* uz */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uz; path = uz.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B04876391C8FC248008F8920 /* uz */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uz; path = uz.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		B05033A91D1F2CCA002E7D4F /* WMFGalleryImageListParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFGalleryImageListParser.h; path = Wikipedia/Code/WMFGalleryImageListParser.h; sourceTree = SOURCE_ROOT; };
-		B05033AA1D1F2CCA002E7D4F /* WMFGalleryImageListParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFGalleryImageListParser.m; path = Wikipedia/Code/WMFGalleryImageListParser.m; sourceTree = SOURCE_ROOT; };
+		B05033A91D1F2CCA002E7D4F /* WMFImageTagParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageTagParser.h; path = Wikipedia/Code/WMFImageTagParser.h; sourceTree = SOURCE_ROOT; };
+		B05033AA1D1F2CCA002E7D4F /* WMFImageTagParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageTagParser.m; path = Wikipedia/Code/WMFImageTagParser.m; sourceTree = SOURCE_ROOT; };
 		B05033AC1D1F9AC9002E7D4F /* WMFImageTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageTag.h; path = Wikipedia/Code/WMFImageTag.h; sourceTree = SOURCE_ROOT; };
 		B05033AD1D1F9AC9002E7D4F /* WMFImageTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageTag.m; path = Wikipedia/Code/WMFImageTag.m; sourceTree = SOURCE_ROOT; };
 		B05033AF1D1FA2FE002E7D4F /* WMFImageTag+TargetImageWidthURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFImageTag+TargetImageWidthURL.h"; path = "Wikipedia/Code/WMFImageTag+TargetImageWidthURL.h"; sourceTree = SOURCE_ROOT; };
@@ -3180,8 +3180,8 @@
 		B05033B21D1FA437002E7D4F /* ImageTags */ = {
 			isa = PBXGroup;
 			children = (
-				B05033A91D1F2CCA002E7D4F /* WMFGalleryImageListParser.h */,
-				B05033AA1D1F2CCA002E7D4F /* WMFGalleryImageListParser.m */,
+				B05033A91D1F2CCA002E7D4F /* WMFImageTagParser.h */,
+				B05033AA1D1F2CCA002E7D4F /* WMFImageTagParser.m */,
 				B05033AC1D1F9AC9002E7D4F /* WMFImageTag.h */,
 				B05033AD1D1F9AC9002E7D4F /* WMFImageTag.m */,
 				B05033AF1D1FA2FE002E7D4F /* WMFImageTag+TargetImageWidthURL.h */,
@@ -5827,7 +5827,7 @@
 				B0E805931C0CE2C60065EBC0 /* ReadingActionFunnel.m in Sources */,
 				B0E803911C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m in Sources */,
 				B0E803E61C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
-				B05033AB1D1F2CCA002E7D4F /* WMFGalleryImageListParser.m in Sources */,
+				B05033AB1D1F2CCA002E7D4F /* WMFImageTagParser.m in Sources */,
 				B0E802FB1C0CD4EC0065EBC0 /* WMFLocationManager.m in Sources */,
 				0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				B0E804D41C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.m in Sources */,
