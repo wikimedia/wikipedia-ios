@@ -96,4 +96,23 @@
     XCTAssertEqualObjects(@"https://en.m.wikipedia.org/wiki/Eldgj%C3%A1", eldgjaURL.absoluteString);
 }
 
+- (void)testWMFCanonicalMapping {
+    NSURL* URL       = [NSURL URLWithString:@"https://es.wikipedia.org"];
+    NSURL* ole       = [URL wmf_URLWithTitle:@"Olé"];
+    NSURL* secondOle = [URL wmf_URLWithTitle:@"Ol\u00E9"];
+    NSURL* thirdOle  = [URL wmf_URLWithTitle:@"Ole\u0301"];
+    XCTAssertEqualObjects(ole, secondOle);
+    XCTAssertEqualObjects(ole, thirdOle);
+
+    ole       = [URL wmf_URLWithTitle:@"Olé" fragment:@"Olé"];
+    secondOle = [URL wmf_URLWithTitle:@"Ol\u00E9" fragment:@"Ol\u00E9"];
+    thirdOle  = [URL wmf_URLWithTitle:@"Ole\u0301" fragment:@"Ole\u0301"];
+    XCTAssertEqualObjects(ole, secondOle);
+    XCTAssertEqualObjects(ole, thirdOle);
+
+    ole       = [URL wmf_URLWithPath:@"/wiki/Olé#Olé" isMobile:NO];
+    secondOle = [URL wmf_URLWithPath:@"/wiki/Ol\u00E9#Ol\u00E9" isMobile:NO];
+    thirdOle  = [URL wmf_URLWithPath:@"/wiki/Ole\u0301#Ole\u0301" isMobile:NO];
+}
+
 @end
