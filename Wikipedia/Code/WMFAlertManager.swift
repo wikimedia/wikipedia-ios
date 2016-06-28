@@ -1,5 +1,6 @@
 
 import UIKit
+import MessageUI
 
 extension NSError {
     
@@ -22,7 +23,7 @@ extension NSError {
 }
 
 
-public class WMFAlertManager: NSObject, TSMessageViewProtocol {
+public class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewControllerDelegate {
     
     public static let sharedInstance = WMFAlertManager()
 
@@ -144,5 +145,29 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol {
     public func customizeMessageView(messageView: TSMessageView!) {
         
         
+    }
+    
+    public func showEmailFeedbackAlertViewWithError(error: NSError) {
+        let message = localizedStringForKeyFallingBackOnEnglish("request-feedback-on-error")
+        showErrorAlertWithMessage(message, sticky: true, dismissPreviousAlerts: true) {
+            self.dismissAllAlerts()
+            if MFMailComposeViewController.canSendMail() {
+                guard let rootVC = UIApplication.sharedApplication().keyWindow?.rootViewController else {
+                    return
+                }
+                let vc = MFMailComposeViewController()
+                vc.setSubject("Bug:\(WikipediaAppUtils.versionedUserAgent())")
+                vc.setToRecipients(["mobile-ios-wikipedia@wikimedia.org"])
+                vc.mailComposeDelegate = self
+                vc.setMessageBody("Domain:\t\(error.domain)\nCode:\t\(error.code)\nDescription:\t\(error.localizedDescription)\n\n\n\nVersion:\t\(WikipediaAppUtils.versionedUserAgent())", isHTML: false)
+                rootVC.presentViewController(vc, animated: true, completion: nil)
+            } else {
+                self.showErrorAlertWithMessage(localizedStringForKeyFallingBackOnEnglish("no-email-account-alert"), sticky: false, dismissPreviousAlerts: false, tapCallBack: nil)
+            }
+        }
+    }
+    
+    public func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
 }
