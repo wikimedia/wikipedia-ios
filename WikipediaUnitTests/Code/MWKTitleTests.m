@@ -95,4 +95,14 @@
     XCTAssertNotEqualObjects(title, title5);
 }
 
+
+- (void)testCanonicalMappingEquality {
+    MWKTitle* title  = [site titleWithString:@"Olé"];
+    MWKTitle* title2 = [site titleWithString:@"Ol\u00E9"];
+    XCTAssertEqualObjects(title, title2);
+    
+    MWKTitle* title3 = [site titleWithString:@"Ole\u0301"];
+    XCTAssertEqualObjects(title, title3);
+}
+
 @end
