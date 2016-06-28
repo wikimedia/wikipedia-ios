@@ -65,12 +65,4 @@ extern NSString* const WMFCitationFragmentSubstring;
  */
 - (NSString*)wmf_denormalizedPageTitle;
 
-
-/**
- *  Compares two normalized titles
- *
- *  @return a BOOL YES if the two titles are equal
- */
-- (BOOL)wmf_isEqualToTitle:(NSString*)title;
-
 @end

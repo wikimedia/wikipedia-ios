@@ -43,8 +43,4 @@ NSString* const WMFCitationFragmentSubstring = @"cite_note";
     return [self stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
-- (BOOL)wmf_isEqualToTitle:(NSString*)title {
-    return title != nil && [self compare:title options:NSWidthInsensitiveSearch] == NSOrderedSame;
-}
-
 @end
