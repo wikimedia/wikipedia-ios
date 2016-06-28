@@ -107,18 +107,6 @@
     return [self.article.dataStore imageWithURL:imageURL article:self.article];
 }
 
-- (BOOL)hasImageURL:(NSURL*)imageURL {
-    return [self hasImageURLString:[imageURL wmf_schemelessURLString]];
-}
-
-- (BOOL)hasImageURLString:(NSString*)imageURLString {
-    if (imageURLString && imageURLString.length > 0 && [self.mutableEntries containsObject:imageURLString]) {
-        return YES;
-    } else {
-        return NO;
-    }
-}
-
 - (MWKImage*)imageWithURL:(NSString*)imageURL {
     return [self.article imageWithURL:imageURL];
 }

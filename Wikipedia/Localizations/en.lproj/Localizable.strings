@@ -2,7 +2,7 @@
 "article-languages-label" = "Choose language";
 "article-languages-cancel" = "Cancel";
 "article-languages-downloading" = "Loading article languages...";
-"article-languages-filter-placeholder" = "Find Language";
+"article-languages-filter-placeholder" = "Find language";
 "article-read-more-title" = "Read more";
 "article-about-title" = "About this article";
 "article-unable-to-load-section" = "Unable to load this section. Try refreshing the article to see if it fixes the problem.";
@@ -48,27 +48,27 @@
 "zero-settings-devmode" = "Zero devmode";
 
 "account-creation-captcha-required" = "CAPTCHA verification required.";
-"account-creation-captcha-obtaining" = "Obtaining a new CAPTCHA.";
+"account-creation-captcha-obtaining" = "Obtaining a new CAPTCHA...";
 "account-creation-logging-in" = "Logging in...";
 "account-creation-passwords-mismatched" = "Password fields do not match.";
 "account-creation-saving" = "Saving...";
 "account-creation-login" = "Already have an account? Log in.";
-"account-creation-username-placeholder-text" = "User name";
+"account-creation-username-placeholder-text" = "Username";
 "account-creation-password-placeholder-text" = "Password";
 "account-creation-password-confirm-placeholder-text" = "Confirm password";
 "account-creation-email-placeholder-text" = "Email (optional)";
 "account-creation-missing-fields" = "You must enter a username, password, and password confirmation to create an account.";
 
 
-"login-name-not-found" = "User name is required to login.";
-"login-name-illegal" = "You provided an illegal user name.";
-"login-name-does-not-exist" = "The user name you provided doesn't exist.";
+"login-name-not-found" = "Username is required to login.";
+"login-name-illegal" = "You provided an illegal username.";
+"login-name-does-not-exist" = "The username you provided doesn't exist.";
 "login-password-empty" = "Password is required to login.";
 "login-password-wrong" = "The password you provided is incorrect.";
 "login-throttled" = "You've logged in too many times in a short time.";
 "login-user-blocked" = "User is blocked.";
 "login-account-creation" = "Don't have an account? Join Wikipedia.";
-"login-username-placeholder-text" = "User name";
+"login-username-placeholder-text" = "Username";
 "login-password-placeholder-text" = "Password";
 
 "wikitext-downloading" = "Loading content...";

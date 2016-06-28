@@ -1097,7 +1097,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable UIViewController*)viewControllerForImageURL:(nullable NSURL*)url {
-    if (!url || ![self.article.images hasImageURL:url]) {
+    if (!url || ![self.article.images imageSizeVariants:url.absoluteString]) {
         return nil;
     }
 
