@@ -92,7 +92,7 @@
 
 - (NSURL*)wmf_URLWithPath:(NSString*)path isMobile:(BOOL)isMobile {
     NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-    components.path = path;
+    components.path = [path precomposedStringWithCanonicalMapping];
     if (isMobile != self.wmf_isMobile) {
         components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:isMobile];
     }

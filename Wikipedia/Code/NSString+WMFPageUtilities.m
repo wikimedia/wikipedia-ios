@@ -26,9 +26,10 @@ NSString* const WMFCitationFragmentSubstring = @"cite_note";
 
 - (NSString*)wmf_internalLinkPath {
     NSRange internalLinkRange = [self rangeOfString:WMFInternalLinkPathPrefix];
-    return internalLinkRange.location == NSNotFound ?
+    NSString *path = internalLinkRange.location == NSNotFound ?
            self
-           : [self wmf_safeSubstringFromIndex:WMFRangeGetMaxIndex(internalLinkRange)];
+           : [self wmf_safeSubstringFromIndex:WMFRangeGetMaxIndex(internalLinkRange)];\
+    return [path precomposedStringWithCanonicalMapping];
 }
 
 - (NSString*)wmf_unescapedNormalizedPageTitle {
