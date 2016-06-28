@@ -36,11 +36,11 @@ NSString* const WMFCitationFragmentSubstring = @"cite_note";
 }
 
 - (NSString*)wmf_normalizedPageTitle {
-    return [self stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+    return [[self stringByReplacingOccurrencesOfString:@"_" withString:@" "] precomposedStringWithCanonicalMapping];
 }
 
 - (NSString*)wmf_denormalizedPageTitle {
-    return [self stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    return [[self stringByReplacingOccurrencesOfString:@" " withString:@"_"] precomposedStringWithCanonicalMapping];
 }
 
 @end
