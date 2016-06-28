@@ -22,6 +22,10 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 @implementation MWKSite
 
 - (instancetype)initWithURL:(NSURL*)url {
+    if (url == nil) {
+        return nil;
+    }
+
     self = [super init];
     if (self) {
         NSURLComponents* components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
@@ -29,7 +33,12 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
         components.fragment = nil;
         self.URL            = [components URL];
     }
-    return self;
+
+    if (self.URL == nil) {
+        return nil;
+    } else {
+        return self;
+    }
 }
 
 - (instancetype)initWithDomain:(NSString*)domain language:(NSString*)language {
@@ -64,6 +73,8 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
             NSString* language = [self decodeValueForKey:@"language" withCoder:coder modelVersion:0];
             if (domain) {
                 self.URL = [NSURL wmf_URLWithDomain:domain language:language];
+            } else {
+                return nil;
             }
         }
     }

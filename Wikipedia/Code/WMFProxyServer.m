@@ -6,9 +6,10 @@
 #import "GCDWebServerFileResponse.h"
 #import "NSURL+WMFExtras.h"
 #import "NSString+WMFExtras.h"
+#import "Wikipedia-swift.h"
 
-@interface WMFProxyServer ()
-@property (nonatomic, strong, nonnull) GCDWebServer* webServer;
+@interface WMFProxyServer () <GCDWebServerDelegate>
+@property (nonatomic, strong) GCDWebServer* webServer;
 @property (nonatomic, copy, nonnull) NSString* secret;
 @property (nonatomic, copy, nonnull) NSString* hostedFolderPath;
 @property (nonatomic) NSURLComponents* hostURLComponents;
@@ -37,21 +38,64 @@
 - (void)setup {
     NSString* secret = [[NSUUID UUID] UUIDString];
     self.secret    = secret;
-    self.webServer = [[GCDWebServer alloc] init];
-
+    
     NSURL* documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     NSURL* assetsURL    = [documentsURL URLByAppendingPathComponent:@"assets"];
     self.hostedFolderPath = assetsURL.path;
-
+    
+    self.webServer = [[GCDWebServer alloc] init];
+    
+    self.webServer.delegate = self;
+    
     [self.webServer addDefaultHandlerForMethod:@"GET" requestClass:[GCDWebServerRequest class] asyncProcessBlock:self.defaultHandler];
+    
+    [self start];
+}
 
+- (void)start {
+    if (self.isRunning) {
+        return;
+    }
+    
     NSDictionary* options = @{GCDWebServerOption_BindToLocalhost: @(YES), //only accept requests from localhost
                               GCDWebServerOption_Port: @(0)};// allow the OS to pick a random port
-
+    
     NSError* serverStartError = nil;
-    if (![self.webServer startWithOptions:options error:&serverStartError]) {
-        DDLogError(@"Error starting proxy: %@", serverStartError);
+    NSUInteger attempts = 0;
+    NSUInteger attemptLimit = 5;
+    BOOL didStartServer = false;
+    
+    while (!didStartServer && attempts < attemptLimit) {
+        didStartServer = [self.webServer startWithOptions:options error:&serverStartError];
+        if (!didStartServer) {
+            DDLogError(@"Error starting proxy: %@", serverStartError);
+            attempts++;
+            if (attempts == attemptLimit) {
+                DDLogError(@"Unable to start the proxy.");
+#if DEBUG
+                [[WMFAlertManager sharedInstance] showEmailFeedbackAlertViewWithError:serverStartError];
+#else
+                NSString *errorMessage = localizedStringForKeyFallingBackOnEnglish(@"article-unable-to-load-article");
+                [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:errorMessage sticky:YES dismissPreviousAlerts:YES tapCallBack:^{
+                    [self start];
+                }];
+#endif
+                
+            }
+        }
     }
+}
+
+#pragma mark - GCDWebServer
+
+- (void)webServerDidStop:(GCDWebServer *)server {
+    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateBackground) { //restart the server if it fails for some reason other than being in the background
+        [self start];
+    }
+}
+
+- (BOOL)isRunning {
+    return self.webServer.isRunning;
 }
 
 #pragma mark - Proxy Request Handler
@@ -161,10 +205,12 @@
 
 - (NSURL*)proxyURLForRelativeFilePath:(NSString*)relativeFilePath fragment:(NSString*)fragment {
     NSString* secret = self.secret;
-    if (!relativeFilePath || !secret) {
+    NSURL *serverURL = self.webServer.serverURL;
+    if (relativeFilePath == nil || secret == nil || serverURL == nil) {
         return nil;
     }
-    NSURLComponents* components = [NSURLComponents componentsWithURL:self.webServer.serverURL resolvingAgainstBaseURL:NO];
+
+    NSURLComponents* components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
     components.path     = [NSString pathWithComponents:@[@"/", secret, @"fileProxy", relativeFilePath]];
     components.fragment = fragment;
     return components.URL;
@@ -178,10 +224,12 @@
 
 - (NSURL*)proxyURLForImageURLString:(NSString*)imageURLString {
     NSString* secret = self.secret;
-    if (!secret) {
+    NSURL *serverURL = self.webServer.serverURL;
+    if (secret == nil || serverURL == nil) {
         return nil;
     }
-    NSURLComponents* components = [NSURLComponents componentsWithURL:self.webServer.serverURL resolvingAgainstBaseURL:NO];
+    
+    NSURLComponents* components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
     components.path = [NSString pathWithComponents:@[@"/", secret, @"imageProxy"]];
     NSURLQueryItem* queryItem = [NSURLQueryItem queryItemWithName:@"originalSrc" value:imageURLString];
     if (queryItem) {

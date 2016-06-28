@@ -2,6 +2,10 @@
 
 @interface WMFProxyServer : NSObject
 
+@property (nonatomic, readonly, getter=isRunning) BOOL running;
+
+- (void)start;
+
 + (WMFProxyServer*)sharedProxyServer;
 
 - (NSString*)localFilePathForRelativeFilePath:(NSString*)relativeFilePath;   //path for writing files to the file proxy's server
