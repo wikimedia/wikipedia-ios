@@ -11,6 +11,13 @@ extension NSLocale {
         return (langCode == "en" || langCode.hasPrefix("en-")) ? true : false;
     }
     func wmf_localizedLanguageNameForCode(code: String) -> String? {
-        return self.displayNameForKey(NSLocaleLanguageCode, value: code)
+        var ISOLanguageCode:String
+        switch code {
+        case "als": //wiki language codes don't map 1:1 to ISOLanguageCodes
+            ISOLanguageCode = "gsw"
+        default:
+            ISOLanguageCode = code
+        }
+        return self.displayNameForKey(NSLocaleLanguageCode, value: ISOLanguageCode)
     }
 }
