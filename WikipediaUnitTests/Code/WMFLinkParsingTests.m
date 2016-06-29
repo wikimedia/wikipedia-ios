@@ -1,7 +1,7 @@
 #import <XCTest/XCTest.h>
 #import "NSURL+WMFLinkParsing.h"
 #import "NSURLComponents+WMFLinkParsing.h"
-
+#import "NSString+WMFPageUtilities.h"
 
 @interface WMFLinkParsingTests : XCTestCase
 
@@ -96,6 +96,43 @@
     XCTAssertEqualObjects(@"https://en.m.wikipedia.org/wiki/Eldgj%C3%A1", eldgjaURL.absoluteString);
 }
 
+- (void)testWMFCanonicalMappingURLComponents {
+    NSURL* one   = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"it" title:@"Teoria della relatività"].URL;
+    NSURL* two   = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"it" title:@"Teoria della relativit\u00E0"].URL;
+    NSURL* three = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"it" title:@"Teoria della relativita\u0300"].URL;
+    XCTAssertEqualObjects(one, two);
+    XCTAssertEqualObjects(two, three);
+
+    one   = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"it" title:@"Teoria della relatività" fragment:@"La_relatività_galileiana"].URL;
+    two   = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"it" title:@"Teoria della relativit\u00E0" fragment:@"La_relativit\u00E0_galileiana"].URL;
+    three = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"it" title:@"Teoria della relativita\u0300" fragment:@"La_relativita\u0300_galileiana"].URL;
+    XCTAssertEqualObjects(one, two);
+    XCTAssertEqualObjects(two, three);
+}
+
+- (void)testWMFNormalizedTitleCanonicalMapping {
+    NSString* one   = [@"Teoria della relatività" wmf_denormalizedPageTitle];
+    NSString* two   = [@"Teoria della relativit\u00E0" wmf_denormalizedPageTitle];
+    NSString* three = [@"Teoria della relativita\u0300" wmf_denormalizedPageTitle];
+    XCTAssertEqualObjects(one, two);
+    XCTAssertEqualObjects(two, three);
+    XCTAssertEqualObjects(three, @"Teoria_della_relativit\u00E0");
+
+    one   = [@"Teoria_della_relatività" wmf_normalizedPageTitle];
+    two   = [@"Teoria_della_relativit\u00E0" wmf_normalizedPageTitle];
+    three = [@"Teoria_della_relativita\u0300" wmf_normalizedPageTitle];
+    XCTAssertEqualObjects(one, two);
+    XCTAssertEqualObjects(two, three);
+    XCTAssertEqualObjects(three, @"Teoria della relativit\u00E0");
+
+    one = [@"Teoria_della_relativit\u00E0" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; //Teoria_della_relativit%C3%A0
+    two = [@"Teoria_della_relativita\u0300" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; //Teoria_della_relativita%CC%80
+    one = [one wmf_unescapedNormalizedPageTitle];
+    two = [two wmf_unescapedNormalizedPageTitle];
+    XCTAssertEqualObjects(one, two);
+    XCTAssertEqualObjects(two, @"Teoria della relativit\u00E0");
+}
+
 - (void)testWMFCanonicalMapping {
     NSURL* URL       = [NSURL URLWithString:@"https://es.wikipedia.org"];
     NSURL* ole       = [URL wmf_URLWithTitle:@"Olé"];
@@ -113,6 +150,8 @@
     ole       = [URL wmf_URLWithPath:@"/wiki/Olé#Olé" isMobile:NO];
     secondOle = [URL wmf_URLWithPath:@"/wiki/Ol\u00E9#Ol\u00E9" isMobile:NO];
     thirdOle  = [URL wmf_URLWithPath:@"/wiki/Ole\u0301#Ole\u0301" isMobile:NO];
+    XCTAssertEqualObjects(ole, secondOle);
+    XCTAssertEqualObjects(ole, thirdOle);
 }
 
 @end
