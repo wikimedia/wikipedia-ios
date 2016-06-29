@@ -45,7 +45,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 NSString* const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
-@interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler>
+@interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler, UIScrollViewDelegate>
 
 @property (nonatomic, strong) MASConstraint* headerHeight;
 @property (nonatomic, strong) UIView* footerContainerView;
@@ -93,11 +93,11 @@ NSString* const WMFCCBySALicenseURL =
         NSDictionary* peekElementDict = message.body[@"peekElement"];
         if ([peekElementDict isMemberOfClass:[NSNull class]]) {
             self.peekElement = nil;
-        }else{
+        } else {
             self.peekElement =
-            [[WMFPeekHTMLElement alloc] initWithTagName:peekElementDict[@"tagName"]
-                                                    src:peekElementDict[@"src"]
-                                                   href:peekElementDict[@"href"]];
+                [[WMFPeekHTMLElement alloc] initWithTagName:peekElementDict[@"tagName"]
+                                                        src:peekElementDict[@"src"]
+                                                       href:peekElementDict[@"href"]];
         }
     } else if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
         if ([message.body isEqualToString:@"collapseTables"]) {
@@ -164,12 +164,12 @@ NSString* const WMFCCBySALicenseURL =
             NSDictionary* imageClicked = message.body[@"imageClicked"];
             NSNumber* imageWidth       = imageClicked[@"data-file-width"] ? : imageClicked[@"width"];
             NSNumber* imageHeight      = imageClicked[@"data-file-height"] ? : imageClicked[@"height"];
-            
+
             CGSize imageSize = CGSizeZero;
             if ([imageWidth respondsToSelector:@selector(floatValue)] && [imageHeight respondsToSelector:@selector(floatValue)]) {
                 imageSize = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
             }
-            
+
             if (![MWKImage isSizeLargeEnoughForGalleryInclusion:imageSize]) {
                 return;
             }
@@ -180,14 +180,13 @@ NSString* const WMFCCBySALicenseURL =
                 DDLogError(@"Image clicked callback invoked with empty URL: %@", message.body[@"imageClicked"]);
                 return;
             }
-            
+
 
             NSURL* selectedImageURL = [NSURL URLWithString:selectedImageURLString];
-            
+
             selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
 
             [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
-
         } else if (message.body[@"referenceClicked"]) {
             [self referencesShow:message.body[@"referenceClicked"]];
         } else if (message.body[@"editClicked"]) {
@@ -244,7 +243,8 @@ NSString* const WMFCCBySALicenseURL =
 
 - (WKWebView*)webView {
     if (!_webView) {
-        _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
+        _webView                     = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
+        _webView.scrollView.delegate = self;
     }
     return _webView;
 }
@@ -925,6 +925,14 @@ NSString* const WMFCCBySALicenseURL =
     [self.webView wmf_setTextSize:fontSize.integerValue];
     [[NSUserDefaults standardUserDefaults] wmf_setReadingFontSize:fontSize];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
+    if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidScroll:)]) {
+        [self.delegate webViewController:self scrollViewDidScroll:scrollView];
+    }
 }
 
 @end

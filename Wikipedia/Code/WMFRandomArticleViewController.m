@@ -13,6 +13,9 @@
 @property (nonatomic, strong) UIView* emptyFadeView;
 
 @property (nonatomic, getter = isRandomButtonHidden) BOOL randomButtonHidden;
+@property (nonatomic, getter = viewHasAppeared) BOOL viewAppeared;
+
+@property (nonatomic) CGFloat previousContentOffsetY;
 
 @end
 
@@ -34,8 +37,13 @@
     [self setupEmptyFadeView];
     [self setupRandomButton];
 
-
     [self loadRandomArticle:self];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.viewAppeared = YES;
+    [self setRandomButtonHidden:NO animated:YES];
 }
 
 - (void)setupRandomButton {
@@ -45,6 +53,7 @@
     [self.randomButton setTitle:@"!" forState:UIControlStateNormal];
     [self.randomButton addTarget:self action:@selector(loadRandomArticle:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.randomButton];
+    [self setRandomButtonHidden:YES animated:NO];
 }
 
 - (void)setupEmptyFadeView {
@@ -97,6 +106,35 @@
             [self showEmptyArticle];
         }
     }];
+}
+
+- (void)setRandomButtonHidden:(BOOL)randomButtonHidden animated:(BOOL)animated {
+    self.randomButtonHidden = randomButtonHidden;
+    dispatch_block_t hideOrShow = ^{
+        [self layoutRandomButtonForViewBounds:self.view.bounds hidden:randomButtonHidden];
+    };
+    [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:0 animations:hideOrShow completion:NULL];
+}
+
+#pragma mark - WebViewControllerDelegate
+
+- (void)webViewController:(WebViewController*)controller scrollViewDidScroll:(UIScrollView*)scrollView {
+    if ([WMFArticleViewController instancesRespondToSelector:@selector(webViewController:scrollViewDidScroll:)]) {
+        [super webViewController:controller scrollViewDidScroll:scrollView];
+    }
+
+    if (!self.viewHasAppeared) {
+        return;
+    }
+
+    CGFloat newContentOffsetY   = scrollView.contentOffset.y;
+    BOOL shouldHideRandomButton = newContentOffsetY > 0 && newContentOffsetY > self.previousContentOffsetY;
+
+    if (shouldHideRandomButton != self.isRandomButtonHidden) {
+        [self setRandomButtonHidden:shouldHideRandomButton animated:YES];
+    }
+
+    self.previousContentOffsetY = newContentOffsetY;
 }
 
 @end

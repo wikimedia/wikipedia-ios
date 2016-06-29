@@ -73,8 +73,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleViewController ()
-<WMFWebViewControllerDelegate,
- UINavigationControllerDelegate,
+<UINavigationControllerDelegate,
  WMFImageGalleryViewControllerReferenceViewDelegate,
  SectionEditorViewControllerDelegate,
  UIViewControllerPreviewingDelegate,

@@ -1,6 +1,7 @@
 @import UIKit;
 #import "WMFAnalyticsLogging.h"
 #import "MWKArticle.h"
+#import "WebViewController.h"
 
 @class MWKDataStore;
 @class MWKTitle;
@@ -23,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  View controller responsible for displaying article content.
  */
-@interface WMFArticleViewController : UIViewController<WMFAnalyticsContextProviding, WMFAnalyticsViewNameProviding>
+@interface WMFArticleViewController : UIViewController<WMFAnalyticsContextProviding, WMFAnalyticsViewNameProviding, WMFWebViewControllerDelegate>
 
 - (instancetype)initWithArticleTitle:(nullable MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore;
