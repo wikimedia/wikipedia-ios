@@ -652,12 +652,12 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
     MWKSite* site = [[[MWKLanguageLinkController sharedInstance] appLanguage] site];
-    [self.randomFetcher fetchRandomArticleWithSite:site].then(^(MWKSearchResult* result){
+    [self.randomFetcher fetchRandomArticleWithSite:site failure:^(NSError *error) {
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+    } success:^(MWKSearchResult *result) {
         MWKTitle* title = [site titleWithString:result.displayTitle];
         [[self exploreViewController] wmf_pushArticleWithTitle:title dataStore:self.session.dataStore animated:YES];
-    }).catch(^(NSError* error){
-        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    });
+    }];
 }
 
 - (void)showNearbyListAnimated:(BOOL)animated {

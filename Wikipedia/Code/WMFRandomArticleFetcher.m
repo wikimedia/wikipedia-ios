@@ -42,24 +42,22 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise*)fetchRandomArticleWithSite:(MWKSite*)site {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        NSDictionary* params = [[self class] params];
-
-        [self.operationManager wmf_GETWithSite:site
-                                    parameters:params
-                                         retry:NULL
-                                       success:^(NSURLSessionDataTask* operation, NSArray* responseObject) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-
-            MWKSearchResult* article = [self getBestRandomResultFromResults:responseObject];
-
-            resolve(article);
-        } failure:^(NSURLSessionDataTask* operation, NSError* error) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve(error);
-        }];
-    }];
+- (void)fetchRandomArticleWithSite:(MWKSite*)site failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSearchResultHandler)success {
+    NSDictionary* params = [[self class] params];
+    
+    [self.operationManager wmf_GETWithSite:site
+                                parameters:params
+                                     retry:NULL
+                                   success:^(NSURLSessionDataTask* operation, NSArray* responseObject) {
+                                       [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                                       
+                                       MWKSearchResult* article = [self getBestRandomResultFromResults:responseObject];
+                                       
+                                       success(article);
+                                   } failure:^(NSURLSessionDataTask* operation, NSError* error) {
+                                       [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                                       failure(error);
+                                   }];
 }
 
 - (MWKSearchResult*)getBestRandomResultFromResults:(NSArray*)results {

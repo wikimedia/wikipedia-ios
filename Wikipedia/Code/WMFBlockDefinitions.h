@@ -10,8 +10,10 @@
 #define Wikipedia_WMFBlockDefinitions_h
 
 @class MWKArticle;
+@class MWKSearchResult;
 
 typedef void (^ WMFArticleHandler)(MWKArticle* article);
+typedef void (^ WMFSearchResultHandler)(MWKSearchResult* searchResult);
 typedef void (^ WMFProgressHandler)(CGFloat progress);
 typedef void (^ WMFErrorHandler)(NSError* error);
 

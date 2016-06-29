@@ -113,20 +113,24 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 - (AnyPromise*)fetchData {
     [self.cell setLoading:YES];
     @weakify(self);
-    return [self.fetcher fetchRandomArticleWithSite:self.searchSite].then(^(id result){
-        @strongify(self);
-        if (!self) {
-            return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
-        }
-        [self.cell setLoading:NO];
-        self.result = result;
-        return (id) @[result];
-    }).catch(^(NSError* error){
-        @strongify(self);
-        self.result = nil;
-        [self.cell setLoading:NO];
-        return error;
-    });
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+        [self.fetcher fetchRandomArticleWithSite:self.searchSite failure:^(NSError *error) {
+            @strongify(self);
+            self.result = nil;
+            [self.cell setLoading:NO];
+            resolve(error);
+        } success:^(MWKSearchResult *result) {
+            @strongify(self);
+            if (!self) {
+                resolve([NSError cancelledError]);
+                return;
+            }
+            [self.cell setLoading:NO];
+            self.result = result;
+            resolve(@[result]);
+        }];
+    }];
+
 }
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
