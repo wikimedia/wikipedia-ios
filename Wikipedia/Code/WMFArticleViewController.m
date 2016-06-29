@@ -90,7 +90,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) WMFTableOfContentsViewController* tableOfContentsViewController;
 @property (nonatomic, strong) WebViewController* webViewController;
 
-@property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
 
 @property (strong, nonatomic, nullable, readwrite) WMFShareFunnel* shareFunnel;
