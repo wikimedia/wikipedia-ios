@@ -243,6 +243,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - Memory Warning
 
 - (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
     [[WMFImageController sharedInstance] clearMemoryCache];
     [[[SessionSingleton sharedInstance] dataStore] clearMemoryCache];
 }
