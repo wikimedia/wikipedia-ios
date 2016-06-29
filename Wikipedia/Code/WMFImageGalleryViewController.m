@@ -262,7 +262,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [self currentPhotoViewController].scalingImageView.imageView;
 }
 
-- (NSArray<id<WMFPhoto> >*)photos {
+- (NSArray<id<NYTPhoto> >*)photos {
     return [(id < WMFExposedDataSource >)self.dataSource photos];
 }
 
