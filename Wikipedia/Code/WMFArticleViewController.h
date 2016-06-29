@@ -52,7 +52,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)hasReadMore;
 - (BOOL)hasAboutThisArticle;
 
-- (void)fetchArticleIfNeeded;
+- (void)fetchArticleForce:(BOOL)force completion:(nullable dispatch_block_t)completion;
+
+- (void)showEmptyArticle;
 
 - (void)shareArticleFromButton:(nullable UIBarButtonItem*)button;
 

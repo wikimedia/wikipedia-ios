@@ -63,6 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSInteger)visibleFooterIndex;
 
+- (void)showEmptyArticle;
+
 @end
 
 

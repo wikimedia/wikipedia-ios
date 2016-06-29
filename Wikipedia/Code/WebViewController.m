@@ -701,6 +701,10 @@ NSString* const WMFCCBySALicenseURL =
     [self.footerLicenseView setLicenseTextForSite:self.article.site];
 }
 
+- (void)showEmptyArticle {
+    [self.webView loadHTMLString:@"" baseURL:nil];
+}
+
 #pragma mark Bottom menu bar
 
 - (void)showProtectedDialog {

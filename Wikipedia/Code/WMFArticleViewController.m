@@ -180,7 +180,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setArticle:(nullable MWKArticle*)article {
     NSAssert(self.isViewLoaded, @"Expecting article to only be set after the view loads.");
-    NSAssert([article.title isEqualToTitle:self.articleTitle],
+    NSAssert((self.articleTitle == nil && article == nil) || [article.title isEqualToTitle:self.articleTitle],
              @"Invalid article set for VC expecting article data for title: %@", self.articleTitle);
 
     _shareFunnel            = nil;
@@ -381,6 +381,10 @@ NS_ASSUME_NONNULL_BEGIN
             completion(text);
         }
     }];
+}
+
+- (void)showEmptyArticle {
+    [self.webViewController showEmptyArticle];
 }
 
 #pragma mark - Toolbar Setup
@@ -736,7 +740,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Article Fetching
 
-- (void)fetchArticleForce:(BOOL)force {
+- (void)fetchArticleForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
     if (self.articleTitle == nil) {
         return;
     }
@@ -813,15 +817,18 @@ NS_ASSUME_NONNULL_BEGIN
     }).finally(^{
         @strongify(self);
         self.articleFetcherPromise = nil;
+        if (completion != NULL) {
+            completion();
+        }
     });
 }
 
 - (void)fetchArticle {
-    [self fetchArticleForce:YES];
+    [self fetchArticleForce:YES completion:NULL];
 }
 
 - (void)fetchArticleIfNeeded {
-    [self fetchArticleForce:NO];
+    [self fetchArticleForce:NO completion:NULL];
 }
 
 - (void)fetchReadMoreIfNeeded {
