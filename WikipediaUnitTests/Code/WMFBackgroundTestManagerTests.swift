@@ -34,7 +34,8 @@ public class WMFMockedBackgroundTaskManager<T> : WMFBackgroundTaskManager<T> {
     // Instead of starting a background task, increment our task counter and store the expiration handler for later.
     override class func startTask(expirationHandler: () -> Void) -> UIBackgroundTaskIdentifier {
         expirationHandlers.append(expirationHandler)
-        return currentTask++
+        currentTask += 1
+        return currentTask
     }
 
     // Instead of stopping a task, store it as a task that we would have stopped.
