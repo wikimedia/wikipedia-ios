@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
      UIGestureRecognizerDelegate,
      UIAlertViewDelegate>
 
-@property (nonatomic, strong, nullable) MWKArticle* article;
+- (void)loadTitle:(MWKTitle *)title forArticle:(MWKArticle *)article;
 
 @property (nonatomic, weak, nullable) id<WMFWebViewControllerDelegate> delegate;
 

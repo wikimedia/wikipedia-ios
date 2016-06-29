@@ -187,7 +187,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     // always update webVC & headerGallery, even if nil so they are reset if needed
     self.footerMenuViewController.article = _article;
-    self.webViewController.article        = _article;
+    [self.webViewController loadTitle:self.articleTitle forArticle:_article];
 
     if (self.article) {
         if ([self.article.title isNonStandardTitle]) {
