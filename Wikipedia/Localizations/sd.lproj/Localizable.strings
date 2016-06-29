@@ -8,6 +8,7 @@
 "article-languages-label" = "ٻولي چونڊيو";
 "article-languages-cancel" = "رد";
 "article-languages-downloading" = "مضمون جون ٻوليون لاهيندي...";
+// Fuzzy
 "article-languages-filter-placeholder" = "ٻولي لھو";
 "article-read-more-title" = "وڌيڪ پڙهو";
 "article-about-title" = "هن مضمون بابت";
@@ -44,24 +45,30 @@
 "zero-wikipedia-zero-heading" = "وڪيپيڊيا زيرو";
 "zero-warn-when-leaving" = "جيڪڏهن وڪيپيڊيا زيرو ڇڏي وڃي رهي هجي تہ خبردار ڪريو";
 "account-creation-captcha-required" = "CAPTCHA پڪ گھربل آھي.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "ھڪ نئون  CAPTCHA حاصل ڪندي.";
 "account-creation-logging-in" = "لاگ ان ڪندي...";
 "account-creation-passwords-mismatched" = "ڳجهي لفظ جون جڳهون مشابهت نٿيون رکن.";
 "account-creation-saving" = "سانڍيندي...";
 "account-creation-login" = "اڳ ئي کاتو رکو ٿا؟ لاگ ان ٿيو.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "يوزر نانءُ";
 "account-creation-password-placeholder-text" = "ڳجهو لفظ";
 "account-creation-password-confirm-placeholder-text" = "ڳجهي لفظ جي پڪ ڪريو";
 "account-creation-email-placeholder-text" = "ايميل (مرضيءَ موجب)";
 "account-creation-missing-fields" = "توهان کي کاتو کولڻ لاءِ هڪ يوزرنانءُ، ڳجهو لفظ، ۽ ڳجهي لفظ جي پڪ ضرور هجڻ گهرجي.";
+// Fuzzy
 "login-name-not-found" = "لاگ ان ٿيڻ لاءِ يوزر نانءُ گهربل آهي.";
+// Fuzzy
 "login-name-illegal" = "توهان هڪ غيرقانوني يوزر نانءُ فراهم ڪيو.";
+// Fuzzy
 "login-name-does-not-exist" = "جيڪو يوزر نانءُ توهان فراهم ڪيو اهو وجود نٿو رکي.";
 "login-password-empty" = "لاگ ان ٿيڻ لاءِ ڳجهو لفظ گهربل آهي.";
 "login-password-wrong" = "جيڪو ڳجهو لفظ توهان فراهم ڪيو اهو درست نه آهي.";
 "login-throttled" = "توهان ٿورڙي وقت ۾ تمام گهڻا دفعا لاگ ان ٿيا آهيو.";
 "login-user-blocked" = "يوزر بلاڪ ٿيل آهي.";
 "login-account-creation" = "کاتو نٿا رکو؟ وڪيپيڊيا ۾ شامل ٿيو.";
+// Fuzzy
 "login-username-placeholder-text" = "يوزر نانءُ";
 "login-password-placeholder-text" = "ڳجهو لفظ";
 "wikitext-downloading" = "مواد لوڊ ڪندي...";
@@ -212,6 +219,7 @@
 "button-next" = "اڳيون";
 "button-done" = "ٿي ويو";
 "button-save" = "سانڍيو";
+"button-ok" = "ٺيڪ";
 "button-save-for-later" = "بعد لاءِ سانڍيو";
 "button-saved-for-later" = "بعد لاءِ سانڍل";
 "onboarding-create-account" = "کاتو کوليو";
@@ -354,6 +362,7 @@
 "explore-random-article-sub-heading" = "انگريزي وڪيپيڊيا";
 "explore-potd-heading" = "اڄ جي تصوير";
 "explore-most-read-heading" = "$1 وڪيپيڊيا تي گھڻو پڙھيل";
+"explore-most-read-generic-heading" = "گھڻو پڙھيل";
 "explore-most-read-footer" = "سڀ گھڻو پڙھيل مضمون";
 "explore-most-read-footer-for-date" = "$1 تي سڀ گھڻو پڙھيل مضمون";
 "explore-most-read-more-list-title" = "مٿيان مضمون";

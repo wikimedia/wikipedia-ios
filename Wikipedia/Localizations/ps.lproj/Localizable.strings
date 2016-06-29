@@ -7,6 +7,7 @@
 "article-languages-label" = "ژبه ټاکل";
 "article-languages-cancel" = "ناگارل";
 "article-languages-downloading" = "د ليکنې د ژبو برسېرېدنې کې دی...";
+// Fuzzy
 "article-languages-filter-placeholder" = "ژبه موندل";
 "article-read-more-title" = "نور لوستل";
 "article-about-title" = "د دې ليکنې په اړه";
@@ -37,17 +38,22 @@
 "account-creation-logging-in" = "په ننوتلو کې دی...";
 "account-creation-saving" = "خوندي کېږي...";
 "account-creation-login" = "آيا له پخوا نه يو گڼون لرې؟ ورننوځه.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "کارن-نوم";
 "account-creation-password-placeholder-text" = "پټنوم";
 "account-creation-password-confirm-placeholder-text" = "پټنوم مو تاييد کړئ";
 "account-creation-email-placeholder-text" = "برېښليک (اختياري)";
+// Fuzzy
 "login-name-not-found" = "د  ننوتلو لپاره کارن نوم ته اړتيا ده.";
+// Fuzzy
 "login-name-illegal" = "تاسې يو ناقانونه کارن نوم ورکړی.";
+// Fuzzy
 "login-name-does-not-exist" = "کوم کارن نوم مو چې ورکړی هغه نشته.";
 "login-password-empty" = "د ننوتنې لپاره پټنوم ته اړتيا ده.";
 "login-password-wrong" = "کوم پټنوم مو چې ورکړی ناسم دی.";
 "login-user-blocked" = "پر کارن بنديز لگېدلی.";
 "login-account-creation" = "گڼون نه لرې؟ ويکيپېډيا سره يوځای شه.";
+// Fuzzy
 "login-username-placeholder-text" = "کارن-نوم";
 "login-password-placeholder-text" = "پټنوم";
 "wikitext-downloading" = "مېنځپانگه رابرسېرېږي...";

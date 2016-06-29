@@ -13,6 +13,7 @@
 "article-languages-label" = "Телде һайларға";
 "article-languages-cancel" = "Кире алырға";
 "article-languages-downloading" = "мәҡәләләрҙең телен күсереү";
+// Fuzzy
 "article-languages-filter-placeholder" = "Тел фильтры";
 "article-read-more-title" = "Тулыраҡ уҡырға";
 "article-about-title" = "Был мәҡәлә тураһында";
@@ -52,24 +53,30 @@
 "zero-warn-when-leaving" = "Zero-нан сыҡһағыҙ иҫкәртегеҙ";
 "zero-settings-devmode" = "Zero- ны әҙерләү режимы";
 "account-creation-captcha-required" = "CAPTCHA тикшереүе талап ителә";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Яңы CAPTCHA алыу";
 "account-creation-logging-in" = "Системаға инеү...";
 "account-creation-passwords-mismatched" = "Серһүҙҙәр тура килмәй";
 "account-creation-saving" = "Яҙҙырыла";
 "account-creation-login" = "Һеҙ теркәлдегеҙме? Инегеҙ";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Ҡатнашыусы исеме";
 "account-creation-password-placeholder-text" = "Серһүҙ";
 "account-creation-password-confirm-placeholder-text" = "Серһүҙҙе раҫлағыҙ";
 "account-creation-email-placeholder-text" = "Электрон почта адресы  (мотлаҡ түгел)";
 "account-creation-missing-fields" = "Иҫәп яҙмаһы булдырыу өсөн һеҙ ҡатнашыусының исемен, серһүҙҙе индеререргә һәм серһүҙҙе  раҫларға тейешһегеҙ";
+// Fuzzy
 "login-name-not-found" = "Инеү өсөн ҡатнашыусының исеме талап ителә";
+// Fuzzy
 "login-name-illegal" = "Һеҙ ҡатнашыусының дөрөҫ булмаған исемен күрһәттегеҙ";
+// Fuzzy
 "login-name-does-not-exist" = "Һеҙ күрһәткән ҡатнашыусының исеме юҡ";
 "login-password-empty" = "Системаға инеү өсөн серһүҙ кәрәк";
 "login-password-wrong" = "Дөрөҫ булмаған серһүҙ күрһәттегеҙ";
 "login-throttled" = "Ҡыҫҡа ғына ваҡыт эсендә һеҙ артыҡ күп индегеҙ";
 "login-user-blocked" = "Ҡулланыусы блокланған";
 "login-account-creation" = "Һеҙҙең иҫәп яҙыуығыҙ юҡ. Википедияға ҡушылығыҙ.";
+// Fuzzy
 "login-username-placeholder-text" = "Ҡатнашыусы исеме";
 "login-password-placeholder-text" = "Серһүҙ";
 "wikitext-downloading" = "Булғанды күсереү";

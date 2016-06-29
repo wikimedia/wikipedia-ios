@@ -17,6 +17,7 @@
 "article-languages-label" = "Taal kiezen";
 "article-languages-cancel" = "Annuleren";
 "article-languages-downloading" = "Paginatalen aan het laden...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Taal zoeken";
 "article-read-more-title" = "Meer lezen";
 "article-about-title" = "Over deze pagina";
@@ -56,24 +57,30 @@
 "zero-warn-when-leaving" = "Waarschuwen bij verlaten Zero";
 "zero-settings-devmode" = "Zero-ontwikkelmodus";
 "account-creation-captcha-required" = "CAPTCHA-controle vereist.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Nieuwe CAPTCHA aan het ophalen.";
 "account-creation-logging-in" = "Aan het aanmelden...";
 "account-creation-passwords-mismatched" = "De wachtwoorden komen niet overeen.";
 "account-creation-saving" = "Aan het opslaan...";
 "account-creation-login" = "Hebt u al een gebruiker? Meld u dan aan.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Gebruikersnaam";
 "account-creation-password-placeholder-text" = "Wachtwoord";
 "account-creation-password-confirm-placeholder-text" = "Wachtwoord bevestigen";
 "account-creation-email-placeholder-text" = "E-mailadres (optioneel)";
 "account-creation-missing-fields" = "U moet een gebruikersnaam, wachtwoord, en wachtwoordbevestiging invoeren om een account aan te maken.";
+// Fuzzy
 "login-name-not-found" = "U moet een gebruikersnaam opgeven om aan te melden.";
+// Fuzzy
 "login-name-illegal" = "U hebt een ongeldige gebruikersnaam opgegeven.";
+// Fuzzy
 "login-name-does-not-exist" = "De opgegeven gebruikersnaam bestaat niet.";
 "login-password-empty" = "Er is een wachtwoord vereist om aan te melden.";
 "login-password-wrong" = "Het opgegeven wachtwoord is onjuist.";
 "login-throttled" = "U hebt in korte tijd te vaak geprobeerd om aan te melden.";
 "login-user-blocked" = "Gebruiker is geblokkeerd.";
 "login-account-creation" = "Nog niet geregistreerd? Word lid van Wikipedia.";
+// Fuzzy
 "login-username-placeholder-text" = "Gebruikersnaam";
 "login-password-placeholder-text" = "Wachtwoord";
 "wikitext-downloading" = "Inhoud laden...";
@@ -245,6 +252,7 @@
 "button-next" = "Volgende";
 "button-done" = "Afgerond";
 "button-save" = "Opslaan";
+"button-ok" = "OK";
 "button-save-for-later" = "Opslaan voor later";
 "button-saved-for-later" = "Opgeslagen voor later";
 "button-report-a-bug" = "Probleem melden";
@@ -398,6 +406,7 @@
 "explore-random-article-sub-heading" = "Engelstalige Wikipedia";
 "explore-potd-heading" = "Afbeelding van de dag";
 "explore-most-read-heading" = "Meest gelezen op Wikipedia in het $1";
+"explore-most-read-generic-heading" = "Meest gelezen";
 "explore-most-read-footer" = "Alle meest gelezen pagina's";
 "explore-most-read-footer-for-date" = "Alle meest gelezen pagina's op $1";
 "explore-most-read-more-list-title" = "Meest gelezen pagina's";
