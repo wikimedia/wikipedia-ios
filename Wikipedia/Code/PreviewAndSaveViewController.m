@@ -767,12 +767,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (void)previewLicenseViewTermsLicenseLabelWasTapped:(PreviewLicenseView*)previewLicenseview {
-    NSString* cancel;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        cancel = MWLocalizedString(@"open-link-title", nil);
-    } else {
-        cancel = MWLocalizedString(@"open-link-cancel", nil);
-    }
     UIAlertController* sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"wikitext-upload-save-terms-name", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* _Nonnull action) {
         [self wmf_openExternalUrl:[NSURL URLWithString:TERMS_LINK]];
@@ -780,7 +774,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"wikitext-upload-save-license-name", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* _Nonnull action) {
         [self wmf_openExternalUrl:[NSURL URLWithString:LICENSE_LINK]];
     }]];
-    [sheet addAction:[UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:NULL]];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"open-link-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
     [self presentViewController:sheet animated:YES completion:NULL];
 }
 
