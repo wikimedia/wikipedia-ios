@@ -138,15 +138,16 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     self.cell = nil;
 }
 
-#pragma mark - WMFHeaderActionProviding
+#pragma mark Footer
 
-- (UIImage*)headerButtonIcon {
-    return [UIImage imageNamed:@"refresh-mini"];
+- (NSString*)footerText {
+    return MWLocalizedString(@"explore-random-more-footer", nil);
 }
 
-- (void)performHeaderButtonAction {
-    [self fetchDataUserInitiated];
+- (UIViewController*)moreViewController {
+    return [[UIViewController alloc] init];
 }
+
 
 #pragma mark - WMFTitleProviding
 
