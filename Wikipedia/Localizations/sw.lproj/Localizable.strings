@@ -33,13 +33,17 @@
 "account-creation-logging-in" = "Unaingia...";
 "account-creation-saving" = "Inahifadhi...";
 "account-creation-login" = "Uko na akaunti tayari? Ingia.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Jina la mtumiaji";
 "account-creation-password-placeholder-text" = "Neno la siri";
 "account-creation-password-confirm-placeholder-text" = "Thibitisha neno la siri";
 "account-creation-email-placeholder-text" = "Barua pepe(sio lazima)";
 "account-creation-missing-fields" = "Lazima uingize jina la mtumiaji, neno la siri na dhibitisho ya neno la siri ili kuunda akaunti.";
+// Fuzzy
 "login-name-not-found" = "Jina la mtumiaji linahitajika ili kuingia.";
+// Fuzzy
 "login-name-illegal" = "Umetoa jina haramu la mtumiaji.";
+// Fuzzy
 "login-username-placeholder-text" = "Jina la mtumiaji";
 "login-password-placeholder-text" = "Neno la siri";
 "wikitext-downloading" = "Inapakia maudhui...";

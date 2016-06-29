@@ -10,6 +10,7 @@
 "article-languages-label" = "Zvoliť jazyk";
 "article-languages-cancel" = "Zrušiť";
 "article-languages-downloading" = "Načítam zoznam jazykov...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Nájsť jazyk";
 "article-read-more-title" = "Ďalšie informácie";
 "article-about-title" = "O tomto článku";
@@ -48,24 +49,30 @@
 "zero-warn-when-leaving" = "Upozorniť ma ak opúšťam Zero";
 "zero-settings-devmode" = "Vývojársky režim";
 "account-creation-captcha-required" = "Je požadované overenie pomocou CAPTCHA.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Nahrávam nový obrázok.";
 "account-creation-logging-in" = "Prihlasujem...";
 "account-creation-passwords-mismatched" = "Heslá sa nezhodujú";
 "account-creation-saving" = "Ukladanie...";
 "account-creation-login" = "Máte už vytvorený účet? Prihláste sa.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Používateľské meno";
 "account-creation-password-placeholder-text" = "Heslo";
 "account-creation-password-confirm-placeholder-text" = "Potvrdiť heslo";
 "account-creation-email-placeholder-text" = "E-mail (voliteľné)";
 "account-creation-missing-fields" = "Aby ste si mohli vytvoriť účet, musíte zadať používateľské meno, heslo a potvrdenie hesla.";
+// Fuzzy
 "login-name-not-found" = "K prihláseniu je potrebné používateľské meno.";
+// Fuzzy
 "login-name-illegal" = "Zadali ste neplatné používateľské meno.";
+// Fuzzy
 "login-name-does-not-exist" = "Zadané používateľské meno neexistuje.";
 "login-password-empty" = "K prihláseniu je potrebné heslo.";
 "login-password-wrong" = "Zadané heslo je nesprávne.";
 "login-throttled" = "Prihlásili ste sa príliš veľa krát v krátkom čase.";
 "login-user-blocked" = "Používateľ je zablokovaný.";
 "login-account-creation" = "Nemáte ešte účet? Pripojte sa k Wikipédii.";
+// Fuzzy
 "login-username-placeholder-text" = "Používateľské meno";
 "login-password-placeholder-text" = "Heslo";
 "wikitext-downloading" = "Načítavam obsah...";
@@ -219,6 +226,7 @@
 "button-next" = "Ďalej";
 "button-done" = "Hotovo";
 "button-save" = "Uložiť";
+"button-ok" = "OK";
 "button-save-for-later" = "Uložiť na neskôr";
 "button-saved-for-later" = "Uložené na neskôr";
 "button-report-a-bug" = "Nahlásiť chybu";
@@ -306,6 +314,7 @@
 "potd-description-prefix" = "Obrázok dňa pre $1";
 "welcome-explore-sub-title" = "Nová možnosť, ako objavovať zaujímavé články každý deň";
 "welcome-explore-tell-me-more" = "Zistiť viac";
+"welcome-explore-tell-me-more-privacy" = "Na našich serveroch nie je uložený žiadny zoznam na prečítanie alebo profil.";
 "welcome-explore-tell-me-more-done-button" = "Rozumiem";
 "welcome-explore-continue-button" = "Začíname";
 "welcome-languages-title" = "Jazyky";
@@ -334,6 +343,7 @@
 "explore-featured-article-heading" = "Odporúčaný článok";
 "explore-continue-reading-heading" = "Pokračovať v čítaní";
 "explore-nearby-heading" = "Miesta v okolí";
+"explore-continue-related-heading" = "Pretože ste čítali";
 "explore-main-page-heading" = "Dnes na Wikipédii";
 "explore-random-article-heading" = "Náhodný článok";
 "explore-potd-heading" = "Obrázok dňa";

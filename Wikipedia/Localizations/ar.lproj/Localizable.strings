@@ -18,6 +18,7 @@
 "article-languages-label" = "اختر لغة";
 "article-languages-cancel" = "إلغاء";
 "article-languages-downloading" = "جاري تحميل لغات المقال";
+// Fuzzy
 "article-languages-filter-placeholder" = "ابحث عن لغة";
 "article-read-more-title" = "قراءة المزيد";
 "article-about-title" = "حول المقال";
@@ -53,23 +54,28 @@
 "zero-warn-when-leaving" = "قم بالتحذير عند ترك صفر";
 "zero-settings-devmode" = "زيرو في وضع التطوير البرمجي.";
 "account-creation-captcha-required" = "التحقق مطلوب";
+// Fuzzy
 "account-creation-captcha-obtaining" = "الحصول على كابتشا جديدة";
 "account-creation-logging-in" = "جارٍ تسجيل دخولك...";
 "account-creation-passwords-mismatched" = "كلمتا السر لا تتطابقان";
 "account-creation-saving" = "جارٍ الحفظ...";
 "account-creation-login" = "لديك حساب؟ سجل دخولك.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "اسم المستخدم";
 "account-creation-password-placeholder-text" = "كلمة المرور";
 "account-creation-password-confirm-placeholder-text" = "أكّد كلمة المرور";
 "account-creation-email-placeholder-text" = "البريد الإلكتروني (اختياري)";
 "account-creation-missing-fields" = "يجب عليك إدخال اسم مستخدم، وكلمة مرور، وتأكيد كلمة المرور لإنشاء حسابٍ.";
+// Fuzzy
 "login-name-not-found" = "اسم المستخدم مطلوب للولوج.";
+// Fuzzy
 "login-name-does-not-exist" = "اسم المستخدم الذي أدخلته غير موجود";
 "login-password-empty" = "كلمة المرور مطلوبة للولوج";
 "login-password-wrong" = "كلمة السر التي أدخلتها غير صحيحة.";
 "login-throttled" = "قمت بتسجيل الدخول عدة مرات خلال وقت قصير";
 "login-user-blocked" = "المستخدم ممنوع";
 "login-account-creation" = "ليس لديك حساب؟ انضم إلى ويكيبيديا";
+// Fuzzy
 "login-username-placeholder-text" = "اسم المستخدم";
 "login-password-placeholder-text" = "كلمة المرور";
 "wikitext-downloading" = "جارٍ تحميل المحتوى...";
@@ -314,6 +320,7 @@
 "explore-random-article-sub-heading" = "ويكيبيديا الإنجليزية";
 "explore-potd-heading" = "صورة اليوم";
 "explore-most-read-heading" = "الأعلى قراءة في ويكيبيديا $1";
+"explore-most-read-generic-heading" = "الأعلى قراءة";
 "explore-most-read-footer" = "كل المقالات الأكثر قراءة";
 "explore-most-read-footer-for-date" = "كل المقالات الأكثر قراءة في $1";
 "explore-most-read-more-list-title" = "أعلى المقالات";
