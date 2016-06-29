@@ -32,11 +32,13 @@
 "zero-learn-more-learn-more" = "Zêdetir bixwîne";
 "zero-wikipedia-zero-heading" = "Wîkîpediya Zero";
 "account-creation-saving" = "Tê tomarkirin...";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Navê bikarhêner";
 "account-creation-password-placeholder-text" = " Şîfre";
 "login-password-empty" = "Bo têketinê nasnav pêwist e.";
 "login-user-blocked" = "Bikarhêner hatiye astengkirin.";
 "login-account-creation" = "Hesabê te tune ye? Tevlî Wîkîpediyayê bibe.";
+// Fuzzy
 "login-username-placeholder-text" = "Navê bikarhêner";
 "login-password-placeholder-text" = "Şîfre";
 "wikitext-downloading" = "Naverok tê barkirin...";

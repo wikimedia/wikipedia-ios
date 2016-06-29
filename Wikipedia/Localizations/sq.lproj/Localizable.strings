@@ -44,24 +44,30 @@
 "zero-warn-when-leaving" = "Më paralajmëro nëse po lë Wikipedia Zeron";
 "zero-settings-devmode" = "Zero devmode";
 "account-creation-captcha-required" = "Kërkohet verifikimi CAPTCHA.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Duke marrë një CAPTCHA tjetër.";
 "account-creation-logging-in" = "Duke hyrë...";
 "account-creation-passwords-mismatched" = "Fushat e fjalëkalimeve nuk përputhen.";
 "account-creation-saving" = "Duke ruajtur...";
 "account-creation-login" = "Keni një llogari? Identifikohuni";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Emri i përdoruesit";
 "account-creation-password-placeholder-text" = "Fjalëkalimi";
 "account-creation-password-confirm-placeholder-text" = "Konfirmoni fjalëkalimin";
 "account-creation-email-placeholder-text" = "Email (me dëshirë)";
 "account-creation-missing-fields" = "Ju duhet të fusni një emër përdoruesi, fjalëkalimin dhe konfirmimin e fjalëkalimit për të krijuar një llogari.";
+// Fuzzy
 "login-name-not-found" = "Emri i përdoruesit është i nevojshëm në mënyrë që të hyni.";
+// Fuzzy
 "login-name-illegal" = "Ju dhatë një emër përdoruesi të palejuar.";
+// Fuzzy
 "login-name-does-not-exist" = "Emri i përdoruesit që dhatë nuk ekziston.";
 "login-password-empty" = "Fjalëkalimi është i nevojshëm në mënyrë që të hyni.";
 "login-password-wrong" = "Fjalëkalimi që dhatë është i pasaktë.";
 "login-throttled" = "Keni hyrë shumë herë në një kohë të shkurtër.";
 "login-user-blocked" = "Përdoruesi është i bllokuar.";
 "login-account-creation" = "Nuk keni llogari? Bashkojuni Wikipedias";
+// Fuzzy
 "login-username-placeholder-text" = "Emri i përdoruesit";
 "login-password-placeholder-text" = "Fjalëkalimi";
 "wikitext-downloading" = "Duke ngarkuar përmbajtjen...";

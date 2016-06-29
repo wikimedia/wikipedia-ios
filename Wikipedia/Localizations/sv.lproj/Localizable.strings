@@ -16,6 +16,7 @@
 "article-languages-label" = "Välj språk";
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Läser in artikelspråk...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Hitta språk";
 "article-read-more-title" = "Läs mer";
 "article-about-title" = "Om den här artikeln";
@@ -55,24 +56,30 @@
 "zero-warn-when-leaving" = "Varna om jag lämnar Zero";
 "zero-settings-devmode" = "Zero-utvecklarläge";
 "account-creation-captcha-required" = "CAPTCHA-verifiering krävs.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Hämtar en ny CAPTCHA";
 "account-creation-logging-in" = "Loggar in...";
 "account-creation-passwords-mismatched" = "Lösenorden matchar inte.";
 "account-creation-saving" = "Sparar...";
 "account-creation-login" = "Har du redan ett konto? Logga in.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Användarnamn";
 "account-creation-password-placeholder-text" = "Lösenord";
 "account-creation-password-confirm-placeholder-text" = "Bekräfta lösenord";
 "account-creation-email-placeholder-text" = "E-post (valfritt)";
 "account-creation-missing-fields" = "Du måste ange ett användarnamn, lösenord och en lösenordsbekräftelse för att skapa ett konto.";
+// Fuzzy
 "login-name-not-found" = "Användarnamn krävs för att logga in.";
+// Fuzzy
 "login-name-illegal" = "Du angav ett ogiltigt användarnamn.";
+// Fuzzy
 "login-name-does-not-exist" = "Det användarnamn du angav finns inte.";
 "login-password-empty" = "Lösenord krävs för att logga in.";
 "login-password-wrong" = "Det lösenord som du angav är felaktigt.";
 "login-throttled" = "Du har loggat in för många gånger på kort tid.";
 "login-user-blocked" = "Användaren är blockerad.";
 "login-account-creation" = "Har du inget konto? Skapa ett.";
+// Fuzzy
 "login-username-placeholder-text" = "Användarnamn";
 "login-password-placeholder-text" = "Lösenord";
 "wikitext-downloading" = "Laddar innehåll...";
@@ -244,6 +251,7 @@
 "button-next" = "Nästa";
 "button-done" = "Färdig";
 "button-save" = "Spara";
+"button-ok" = "OK";
 "button-save-for-later" = "Spara till senare";
 "button-saved-for-later" = "Sparades till senare";
 "button-report-a-bug" = "Rapportera ett fel";
@@ -397,6 +405,7 @@
 "explore-random-article-sub-heading" = "Engelskspråkiga Wikipedia";
 "explore-potd-heading" = "Dagens bild";
 "explore-most-read-heading" = "Mest lästa på $1 Wikipedia";
+"explore-most-read-generic-heading" = "Mest lästa";
 "explore-most-read-footer" = "Alla mest lästa artiklar";
 "explore-most-read-footer-for-date" = "Alla mest lästa artiklar på $1";
 "explore-most-read-more-list-title" = "Populära artiklar";

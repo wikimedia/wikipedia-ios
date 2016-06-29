@@ -15,6 +15,7 @@
 "article-languages-label" = "भाषा चुनें";
 "article-languages-cancel" = "रद्द करें";
 "article-languages-downloading" = "आर्टिकल की भाषाओं को लोड किया जा रहा है...";
+// Fuzzy
 "article-languages-filter-placeholder" = "भाषा ढूंढें";
 "article-read-more-title" = "और पढ़ें";
 "article-about-title" = "इस लेख के बारे में";
@@ -54,24 +55,30 @@
 "zero-warn-when-leaving" = "चेतावनी दें अगर ज़ीरो को छोड़ा जा रहा है";
 "zero-settings-devmode" = "ज़ीरो डेवमोड";
 "account-creation-captcha-required" = "कैप्चा सत्यापन की आवश्यकता है";
+// Fuzzy
 "account-creation-captcha-obtaining" = "एक नया कैप्चा प्राप्त किया जा रहा है।";
 "account-creation-logging-in" = "लॉग इन हो रहा है...";
 "account-creation-passwords-mismatched" = "पासवर्ड मैच नहीं हो रहा है।";
 "account-creation-saving" = "सहेज रहा है...";
 "account-creation-login" = "पहले से ही ख़ाता है? लॉगिन करें।";
+// Fuzzy
 "account-creation-username-placeholder-text" = "सदस्यनाम";
 "account-creation-password-placeholder-text" = "कूटशब्द";
 "account-creation-password-confirm-placeholder-text" = "कूटशब्द की पुष्टि करें";
 "account-creation-email-placeholder-text" = "ईमेल (वैकल्पिक)";
 "account-creation-missing-fields" = "आपको खाता बनाने के लिए एक यूज़रनेम और पासवर्ड , और प्रमाणित किया गया पासवर्ड डालना आवश्यक है।";
+// Fuzzy
 "login-name-not-found" = "यूज़रनेम लॉगिन के लिए आवश्यक है।";
+// Fuzzy
 "login-name-illegal" = "आपने एक अवैध यूज़रनेम दिया है।";
+// Fuzzy
 "login-name-does-not-exist" = "यूज़रनेम जो अपने दिया है वो अस्तित्व में नहीं है।";
 "login-password-empty" = "लॉगिन के लिए पासवर्ड आवश्यक है।";
 "login-password-wrong" = "अपने जो पासवर्ड दिया है वो गलत है।";
 "login-throttled" = "अपने थोड़े से समय में बहुत ज़्यादा बार लॉगिन किया है।";
 "login-user-blocked" = "सदस्य अवरोधित है।";
 "login-account-creation" = "कोई खाता नहीं है? विकिपीडिया से जुड़ें।";
+// Fuzzy
 "login-username-placeholder-text" = "सदस्यनाम";
 "login-password-placeholder-text" = "कूटशब्द";
 "wikitext-downloading" = "सामग्री को लोड किया जा रहा है...";

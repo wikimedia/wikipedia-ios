@@ -7,6 +7,7 @@
 "article-languages-label" = "Sprooch eraussichen";
 "article-languages-cancel" = "Ofbriechen";
 "article-languages-downloading" = "Luede vun de Sprooche vum Artikel...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Sprooch fannen";
 "article-read-more-title" = "Liest méi";
 "article-about-title" = "Iwwer dësen Artikel";
@@ -45,24 +46,30 @@
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Beim Verloosse vu Zero warnen";
 "account-creation-captcha-required" = "CAPTCHA-Kontroll obligatoresch.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "En neie CAPTCHA kréien.";
 "account-creation-logging-in" = "Aloggen...";
 "account-creation-passwords-mismatched" = "D'Passwierder sinn net identesch.";
 "account-creation-saving" = "Späicheren...";
 "account-creation-login" = "Hutt Dir schonn e Benotzerkont? Aloggen.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Benotzernumm";
 "account-creation-password-placeholder-text" = "Passwuert";
 "account-creation-password-confirm-placeholder-text" = "Passwuert confirméieren";
 "account-creation-email-placeholder-text" = "E-Mail (Fakultativ)";
 "account-creation-missing-fields" = "Dir musst e Benotzernumm, e Passwuert an d'Confirmatioun vum Passwuert agi fir e Benotzerkont opzemaachen.";
+// Fuzzy
 "login-name-not-found" = "De Benotzernumm ass obligatoresch fir sech anzeloggen.";
+// Fuzzy
 "login-name-illegal" = "Dir hutt e falsche Benotzernumm uginn.";
+// Fuzzy
 "login-name-does-not-exist" = "De Benotzernumm deen Dir uginn hutt gëtt et net.";
 "login-password-empty" = "D'Passwuert ass obligatoresch fir sech anzeloggen.";
 "login-password-wrong" = "D'Passwuert dat Dir uginn hutt ass net richteg.";
 "login-throttled" = "Dir hutt a kuerzer Zäit ze dacks probéiert Iech anzeloggen.";
 "login-user-blocked" = "Benotzer ass gespaart.";
 "login-account-creation" = "Hutt Dir kee Benotzerkont? Da maacht mat bei Wikipedia.";
+// Fuzzy
 "login-username-placeholder-text" = "Benotzernumm";
 "login-password-placeholder-text" = "Passwuert";
 "wikitext-downloading" = "Inhalt gëtt gelueden...";
@@ -221,6 +228,7 @@
 "button-next" = "Weider";
 "button-done" = "Fäerdeg";
 "button-save" = "Späicheren";
+"button-ok" = "OK";
 "button-save-for-later" = "Fir spéider späicheren";
 "button-saved-for-later" = "Fir spéider gespäichert";
 "button-report-a-bug" = "E Feeler mellen";
@@ -361,6 +369,7 @@
 "explore-random-article-sub-heading" = "Wikipedia op Englesch";
 "explore-potd-heading" = "Bild vum Dag";
 "explore-most-read-heading" = "Am dackste geliest op der Wikipedia op $1";
+"explore-most-read-generic-heading" = "Am dackste geliest";
 "explore-most-read-footer" = "Déi am dackste geliest Artikelen";
 "explore-most-read-footer-for-date" = "Déi am dackste geliest Artikelen de(n) $1";
 "explore-most-read-more-list-title" = "Beléifst Artikelen";

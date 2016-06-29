@@ -46,24 +46,30 @@
 "zero-warn-when-leaving" = "გამაფრთხილე ვიკიპედია ზეროს დატოვებისას";
 "zero-settings-devmode" = "Zero devmode";
 "account-creation-captcha-required" = "საჭიროა CAPTCHA-ს დადასტურება.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "ახალი CAPTCHA-ს მიღება.";
 "account-creation-logging-in" = "შედიხართ სისტემაში...";
 "account-creation-passwords-mismatched" = "პაროლის ველები არ დაემთხვა.";
 "account-creation-saving" = "ინახება...";
 "account-creation-login" = "უკვე გაქვთ ანგარიში? გაიარეთ ავტორიზაცია";
+// Fuzzy
 "account-creation-username-placeholder-text" = "მომხმარებლის სახელი";
 "account-creation-password-placeholder-text" = "პაროლი";
 "account-creation-password-confirm-placeholder-text" = "დაადასტურეთ პაროლი";
 "account-creation-email-placeholder-text" = "ელ-ფოსტა (არასავალდებულო)";
 "account-creation-missing-fields" = "ანგარიშის შესაქმნელად, თქვენ უნდა შეიყვანოთ მომხმარებლის სახელი, პაროლი და პაროლის დადასტურება.";
+// Fuzzy
 "login-name-not-found" = "შესასვლელად საჭიროა მომხმარებლის სახელი.";
+// Fuzzy
 "login-name-illegal" = "თქვენ მიერ მითითებული მომხმარებლის სახელი არალეგალურია.";
+// Fuzzy
 "login-name-does-not-exist" = "თქვენ მიერ მითითებული მომხმარებლის სახელი არ არსებობს.";
 "login-password-empty" = "შესასვლელად საჭიროა პაროლი.";
 "login-password-wrong" = "თქვენ მიერ მითითებული პაროლი არასწორია.";
 "login-throttled" = "მოკლე დროის მანძილზე საკმაოდ ბევრჯერ შეხვედით.";
 "login-user-blocked" = "მომხმარებელი ბლოკირებულია.";
 "login-account-creation" = "არ გაქვს ანგარიში? შეუერთდი ვიკიპედიას.";
+// Fuzzy
 "login-username-placeholder-text" = "მომხმარებლის სახელი";
 "login-password-placeholder-text" = "პაროლი";
 "wikitext-downloading" = "შიგთავსი იტვირთება…";
