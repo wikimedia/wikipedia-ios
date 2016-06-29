@@ -25,8 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface WMFArticleViewController : UIViewController<WMFAnalyticsContextProviding, WMFAnalyticsViewNameProviding>
 
-- (instancetype)initWithArticleTitle:(MWKTitle*)title
+- (instancetype)initWithArticleTitle:(nullable MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore;
+
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
 @property (nonatomic, strong, readonly) MWKTitle* articleTitle;
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;

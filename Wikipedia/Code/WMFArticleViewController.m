@@ -146,9 +146,8 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (instancetype)initWithArticleTitle:(MWKTitle*)title
+- (instancetype)initWithArticleTitle:(nullable MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore {
-    NSParameterAssert(title);
     NSParameterAssert(dataStore);
 
     self = [super init];
@@ -160,6 +159,11 @@ NS_ASSUME_NONNULL_BEGIN
         [self.reachabilityManager startMonitoring];
     }
     return self;
+}
+
+
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
+    return [self initWithArticleTitle:nil dataStore:dataStore];
 }
 
 #pragma mark - Accessors
@@ -734,6 +738,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Article Fetching
 
 - (void)fetchArticleForce:(BOOL)force {
+    if (self.articleTitle == nil) {
+        return;
+    }
+    
     NSAssert([[NSThread currentThread] isMainThread], @"Not on main thread!");
     NSAssert(self.isViewLoaded, @"Should only fetch article when view is loaded so we can update its state.");
     if (!force && self.article) {
