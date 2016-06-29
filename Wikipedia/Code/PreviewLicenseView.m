@@ -21,21 +21,10 @@
 
 @property (nonatomic) BOOL hideTopDivider;
 @property (nonatomic) BOOL hideBottomDivider;
-@property (readonly) UIActionSheet* sheet;
 
 @end
 
-#define TERMS_LINK @"https://wikimediafoundation.org/wiki/Terms_of_Use"
-#define LICENSE_LINK @"https://creativecommons.org/licenses/by-sa/3.0/"
-
-typedef NS_ENUM (NSInteger, EnumActionSheetButtons) {
-    BUTTON_TERMS   = 0,
-    BUTTON_LICENSE = 1
-};
-
-@implementation PreviewLicenseView {
-    UIActionSheet* _sheet;
-}
+@implementation PreviewLicenseView
 
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
@@ -110,41 +99,10 @@ typedef NS_ENUM (NSInteger, EnumActionSheetButtons) {
 
 - (void)termsLicenseLabelTapped:(UITapGestureRecognizer*)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        [self.sheet showInView:self.superview];
+        [self.previewLicenseViewDelegate previewLicenseViewTermsLicenseLabelWasTapped:self];
     }
 }
 
-- (UIActionSheet*)sheet {
-    if (_sheet == nil) {
-        NSString* cancel;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            cancel = MWLocalizedString(@"open-link-title", nil);
-        } else {
-            cancel = MWLocalizedString(@"open-link-cancel", nil);
-        }
-        _sheet = [[UIActionSheet alloc] initWithTitle:nil
-                                             delegate:self
-                                    cancelButtonTitle:cancel
-                               destructiveButtonTitle:nil
-                                    otherButtonTitles:MWLocalizedString(@"wikitext-upload-save-terms-name", nil),
-                  MWLocalizedString(@"wikitext-upload-save-license-name", nil),
-                  nil];
-    }
-    return _sheet;
-}
-
-- (void)actionSheet:(UIActionSheet*)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    switch (buttonIndex) {
-        case BUTTON_TERMS:
-            [self.externalLinksOpenerDelegate wmf_openExternalUrl:[NSURL URLWithString:TERMS_LINK]];
-            break;
-        case BUTTON_LICENSE:
-            [self.externalLinksOpenerDelegate wmf_openExternalUrl:[NSURL URLWithString:LICENSE_LINK]];
-            break;
-        default:
-            NSLog(@"nooooo");
-    }
-}
 
 - (void)underlineSignIn:(UILabel*)label {
     NSDictionary* baseAttributes =
