@@ -156,14 +156,13 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 #pragma mark - WMFHeaderMenuProviding
 
-- (UIActionSheet*)menuActionSheet {
-    UIActionSheet* sheet = [[UIActionSheet alloc] bk_initWithTitle:nil];
-    [sheet bk_setDestructiveButtonWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil) handler:^{
+- (UIAlertController*)menuActionSheet {
+    UIAlertController* sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [self.blackList addBlackListTitle:self.title];
         [self.blackList save];
-    }];
-
-    [sheet bk_setCancelButtonWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) handler:NULL];
+    }]];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
     return sheet;
 }
 

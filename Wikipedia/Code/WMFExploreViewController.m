@@ -538,11 +538,17 @@ NS_ASSUME_NONNULL_BEGIN
             @strongify(controller);
             @strongify(self);
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                CGRect frame = ((UIButton*)sender).frame;
-                frame.origin.y = 0.f;
-                [[(id < WMFHeaderMenuProviding >)controller menuActionSheet] showFromRect:frame inView:((UIButton*)sender).superview animated:YES];
+                UIAlertController *menuActionSheet = [(id < WMFHeaderMenuProviding >)controller menuActionSheet];
+                menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
+                menuActionSheet.popoverPresentationController.sourceView = sender;
+                menuActionSheet.popoverPresentationController.sourceRect = [sender bounds];
+                menuActionSheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+                [self presentViewController:menuActionSheet animated:YES completion:nil];
             } else {
-                [[(id < WMFHeaderMenuProviding >)controller menuActionSheet] showFromTabBar:self.navigationController.tabBarController.tabBar];
+                UIAlertController *menuActionSheet = [(id < WMFHeaderMenuProviding >)controller menuActionSheet];
+                menuActionSheet.popoverPresentationController.sourceView = self.navigationController.tabBarController.tabBar.superview;
+                menuActionSheet.popoverPresentationController.sourceRect = self.navigationController.tabBarController.tabBar.frame;
+                [self presentViewController:menuActionSheet animated:YES completion:nil];
             }
         } forControlEvents:UIControlEventTouchUpInside];
     } else if ([controller conformsToProtocol:@protocol(WMFHeaderActionProviding)]) {
