@@ -35,7 +35,7 @@
     [self setupRandomButton];
 
 
-    [self loadAnotherRandomArticle:self];
+    [self loadRandomArticle:self];
 }
 
 - (void)setupRandomButton {
@@ -43,7 +43,7 @@
 
     self.randomButton.backgroundColor = [UIColor wmf_blueTintColor];
     [self.randomButton setTitle:@"!" forState:UIControlStateNormal];
-    [self.randomButton addTarget:self action:@selector(loadAnotherRandomArticle:) forControlEvents:UIControlEventTouchUpInside];
+    [self.randomButton addTarget:self action:@selector(loadRandomArticle:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.randomButton];
 }
 
@@ -57,18 +57,7 @@
 
 #pragma mark - Loading
 
-- (void)configureViewsForRandomArticleLoading:(BOOL)isRandomArticleLoading {
-    self.randomButton.enabled = !isRandomArticleLoading;
-    [UIView animateWithDuration:0.2 animations:^{
-        self.emptyFadeView.alpha = isRandomArticleLoading ? 1 : 0;
-    } completion:^(BOOL finished) {
-        if (finished && isRandomArticleLoading) {
-            [self showEmptyArticle];
-        }
-    }];
-}
-
-- (void)loadAnotherRandomArticle:(id)sender {
+- (void)loadRandomArticle:(id)sender {
     [self configureViewsForRandomArticleLoading:true];
     [self.randomArticleFetcher fetchRandomArticleWithSite:self.site failure:^(NSError* error) {
         [[WMFAlertManager sharedInstance] showErrorAlert:error
@@ -86,6 +75,11 @@
 
 #pragma mark - Layout
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self layoutRandomButtonForViewBounds:self.view.bounds hidden:self.isRandomButtonHidden];
+}
+
 - (void)layoutRandomButtonForViewBounds:(CGRect)bounds hidden:(BOOL)hidden {
     CGSize randomButtonSize     = CGSizeMake(44, 44);
     CGFloat randomButtonOriginX = (0.5 * bounds.size.width - 0.5 * randomButtonSize.width);
@@ -94,9 +88,15 @@
     self.randomButton.frame = (CGRect){randomButtonOrigin, randomButtonSize};
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    [self layoutRandomButtonForViewBounds:self.view.bounds hidden:self.isRandomButtonHidden];
+- (void)configureViewsForRandomArticleLoading:(BOOL)isRandomArticleLoading {
+    self.randomButton.enabled = !isRandomArticleLoading;
+    [UIView animateWithDuration:0.2 animations:^{
+        self.emptyFadeView.alpha = isRandomArticleLoading ? 1 : 0;
+    } completion:^(BOOL finished) {
+        if (finished && isRandomArticleLoading) {
+            [self showEmptyArticle];
+        }
+    }];
 }
 
 @end
