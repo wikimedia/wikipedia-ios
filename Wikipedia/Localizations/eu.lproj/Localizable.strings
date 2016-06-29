@@ -42,15 +42,20 @@
 "account-creation-passwords-mismatched" = "Pasahitza eremuak ez datoz bat.";
 "account-creation-saving" = "Gordetzen...";
 "account-creation-login" = "Ba al duzu konturen bat? Saioa hasi.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Erabiltzaile izena";
 "account-creation-password-placeholder-text" = "Pasahitza";
 "account-creation-password-confirm-placeholder-text" = "Berretsi pasahitza";
 "account-creation-email-placeholder-text" = "Helbide elektronikoa (aukerakoa)";
+// Fuzzy
 "login-name-not-found" = "Erabiltzaile izena beharrezkoa da saioa hasteko.";
+// Fuzzy
 "login-name-illegal" = "Eman duzun erabiltzaile izena ez da legezkoa.";
+// Fuzzy
 "login-name-does-not-exist" = "Sartu duzun erabiltzaile izena ez da esistitzen.";
 "login-password-empty" = "Pasahitza beharrezkoa da saioa hasteko.";
 "login-user-blocked" = "Erabiltzaile blokeatua.";
+// Fuzzy
 "login-username-placeholder-text" = "Erabiltzaile izena";
 "login-password-placeholder-text" = "Pasahitza";
 "wikitext-downloading" = "Edukia kargatzen...";

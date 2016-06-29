@@ -44,24 +44,30 @@
 "zero-warn-when-leaving" = "विकिपीडिया-शून्यस्य त्यागकाले सूच्यताम्";
 "zero-settings-devmode" = "शून्यं devmode";
 "account-creation-captcha-required" = "संभेपूस्वसाट्यूप (CAPTCHA) सत्यापनम् आवश्यकम् ।";
+// Fuzzy
 "account-creation-captcha-obtaining" = "नवीनं संभेपूस्वसाट्यूप प्राप्तम् ।";
 "account-creation-logging-in" = "प्रवेशः भवति...";
 "account-creation-passwords-mismatched" = "कूटशब्दौ असमानौ स्तः";
 "account-creation-saving" = "रक्षति...";
 "account-creation-login" = "पूर्वमेव लेखा अस्ति किं ? प्रविश्यताम्";
+// Fuzzy
 "account-creation-username-placeholder-text" = "सदस्यनाम";
 "account-creation-password-placeholder-text" = "कूटशब्दः";
 "account-creation-password-confirm-placeholder-text" = "कूटशब्दस्य पुष्टिं करोतु";
 "account-creation-email-placeholder-text" = "वि-पत्रम् (ऐच्छिकं)";
 "account-creation-missing-fields" = "सदस्यता प्राप्त्यै भवता/भवत्या सदस्यनाम-कूटशब्दयोः लेखनं, कूटशब्दस्य पुष्टिकरणं च अनिवार्यत्वेन करणीयं भवति ।";
+// Fuzzy
 "login-name-not-found" = "प्रवेशाय सदस्यनाम अनिवार्यम् अस्ति ।";
+// Fuzzy
 "login-name-illegal" = "भवता/भवत्या लिखितं सदस्यनाम अमान्यम् अस्ति ।";
+// Fuzzy
 "login-name-does-not-exist" = "भवता/भवत्या लिखितं सदस्यनाम न विद्यते ।";
 "login-password-empty" = "प्रवेशाय कूटशब्दः अनिवार्यः ।";
 "login-password-wrong" = "भवता/भवत्या लिखितः कूटशब्दः अमान्यः अस्ति ।";
 "login-throttled" = "लघुकाले भवान्/भवती बहुवारं प्रवेशं प्रापत् ।";
 "login-user-blocked" = "सदस्यनाम प्रतिबन्धितम्";
 "login-account-creation" = "सदस्यता नास्ति ? विकिपीडिया-जाले सदस्यता प्राप्यताम्";
+// Fuzzy
 "login-username-placeholder-text" = "सदस्यनाम";
 "login-password-placeholder-text" = "कूटशब्दः";
 "wikitext-downloading" = "सूचनायाः अवारोपणं....";

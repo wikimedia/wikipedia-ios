@@ -19,6 +19,7 @@
 "article-languages-label" = "Wybierz język";
 "article-languages-cancel" = "Anuluj";
 "article-languages-downloading" = "Ładowanie języków artykułu...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Znajdź język";
 "article-read-more-title" = "Czytaj więcej";
 "article-about-title" = "O tym artykule";
@@ -57,24 +58,30 @@
 "zero-warn-when-leaving" = "Ostrzegaj przed opuszczeniem Zero";
 "zero-settings-devmode" = "Tryb dewelopera Zero";
 "account-creation-captcha-required" = "Weryfikacja CAPTCHA jest wymagana.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Uzyskiwanie nowej CAPTCHA.";
 "account-creation-logging-in" = "Logowanie...";
 "account-creation-passwords-mismatched" = "Hasła nie są identyczne.";
 "account-creation-saving" = "Zapisywanie...";
 "account-creation-login" = "Masz już konto? Zaloguj się.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Nazwa użytkownika";
 "account-creation-password-placeholder-text" = "Hasło";
 "account-creation-password-confirm-placeholder-text" = "Potwierdź hasło";
 "account-creation-email-placeholder-text" = "E-mail (opcjonalnie)";
 "account-creation-missing-fields" = "W celu utworzenia konta, użytkownik musi wprowadzić nazwę użytkownika, hasło i potwierdzenie hasła.";
+// Fuzzy
 "login-name-not-found" = "Do logowania wymagana jest nazwa użytkownika.";
+// Fuzzy
 "login-name-illegal" = "Wpisałeś niedozwoloną nazwę użytkownika.";
+// Fuzzy
 "login-name-does-not-exist" = "Nazwa użytkownika, którą podałeś nie istnieje.";
 "login-password-empty" = "Do zalogowania potrzebne jest hasło.";
 "login-password-wrong" = "Podane hasło jest nieprawidłowe.";
 "login-throttled" = "Zalogowałeś się zbyt wiele razy w krótkim czasie.";
 "login-user-blocked" = "Użytkownik jest zablokowany.";
 "login-account-creation" = "Nie masz konta? Dołącz do Wikipedii.";
+// Fuzzy
 "login-username-placeholder-text" = "Nazwa użytkownika";
 "login-password-placeholder-text" = "Hasło";
 "wikitext-downloading" = "Wczytywanie treści...";
@@ -235,6 +242,7 @@
 "button-next" = "Następny";
 "button-done" = "Gotowe";
 "button-save" = "Zapisz";
+"button-ok" = "OK";
 "button-report-a-bug" = "Zgłoś błąd";
 "onboarding-create-account" = "Utwórz konto";
 "onboarding-login" = "Zaloguj się";
@@ -343,5 +351,6 @@
 "close-button-accessibility-label" = "Zamknij";
 "explore-nearby-heading" = "Miejsca w pobliżu";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
+"explore-most-read-generic-heading" = "Najczęściej czytane";
 "explore-most-read-more-list-title" = "Najczęściej czytane artykuły";
 "no-email-account-alert" = "Skonfiguruj konto e-mail w tym urządzeniu i spróbuj jeszcze raz.";

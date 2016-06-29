@@ -29,22 +29,28 @@
 "zero-warn-when-leaving" = "Дар вақти тарки Википедиа Сифр ҳушдор бидеҳ";
 "zero-settings-devmode" = "Ҳолати сохти Сифр";
 "account-creation-captcha-required" = "Баррасии CAPTCHA зарур аст.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Дарёфти як CAPTCHA нав.";
 "account-creation-logging-in" = "Дар ҳоли вуруд...";
 "account-creation-passwords-mismatched" = "Фазоҳои гузарвожа бо ҳам мутобиқат надоранд.";
 "account-creation-saving" = "Дар ҳоли захиракунӣ...";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Номи корбарӣ";
 "account-creation-password-placeholder-text" = "Гузарвожа";
 "account-creation-password-confirm-placeholder-text" = "Тасдиқи гузарвожа";
 "account-creation-email-placeholder-text" = "Почта (ихтиёрӣ)";
+// Fuzzy
 "login-name-not-found" = "Барои вуруд номи корбарӣ зарур аст.";
+// Fuzzy
 "login-name-illegal" = "Шумо номи корбарии ғайриқонуниро пешкаш кардед.";
+// Fuzzy
 "login-name-does-not-exist" = "Номи корбарии шумо ироанамуд вуҷуд надорад.";
 "login-password-empty" = "Барои вуруд гузарвожа зарур аст.";
 "login-password-wrong" = "Гузарвожаи ироанамудаатон нодуруст аст.";
 "login-throttled" = "Дар мӯҳлати кӯтоҳ шумо хеле зиёд вуруд кардед.";
 "login-user-blocked" = "Корбар баста шудааст.";
 "login-account-creation" = "Ҳисобе надоред? Ба Википедиа бипайвандед.";
+// Fuzzy
 "login-username-placeholder-text" = "Номи корбарӣ";
 "login-password-placeholder-text" = "Гузарвожа";
 "wikitext-downloading" = "Дар ҳоли кушодани мӯҳтаво...";

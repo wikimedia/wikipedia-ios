@@ -16,6 +16,7 @@
 "article-languages-label" = "Вибрати мову";
 "article-languages-cancel" = "Скасувати";
 "article-languages-downloading" = "Завантаження мов статті...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Знайти мову";
 "article-read-more-title" = "Детальніше";
 "article-about-title" = "Про цю статтю";
@@ -55,24 +56,30 @@
 "zero-warn-when-leaving" = "Попереджати, якщо залишаєте Zero";
 "zero-settings-devmode" = "Режим разробника Zero";
 "account-creation-captcha-required" = "Потрібно перевірка CAPTCHA";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Отримання нового зображення.";
 "account-creation-logging-in" = "Входимо до системи…";
 "account-creation-passwords-mismatched" = "Паролі не збігаються.";
 "account-creation-saving" = "Збереження...";
 "account-creation-login" = "Ви вже зареєстровані? Увійдіть.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Ім'я користувача";
 "account-creation-password-placeholder-text" = "Пароль";
 "account-creation-password-confirm-placeholder-text" = "Підтвердити пароль";
 "account-creation-email-placeholder-text" = "Електронна пошта (необов'язково)";
 "account-creation-missing-fields" = "Щоб створити обліковий запис, Ви маєте ввести ім'я користувача, пароль і підтвердження пароля.";
+// Fuzzy
 "login-name-not-found" = "Ім'я користувача необхідний для входу в систему.";
+// Fuzzy
 "login-name-illegal" = "Ви вказали незаконне ім'я користувача.";
+// Fuzzy
 "login-name-does-not-exist" = "Ім'я користувача, яке ви надали не існує.";
 "login-password-empty" = "Пароль необхідний для входу в систему.";
 "login-password-wrong" = "Ви вказали неправильний пароль.";
 "login-throttled" = "Ви увійшли в систему занадто багато разів за короткий час.";
 "login-user-blocked" = "Користувач заблокований.";
 "login-account-creation" = "Не маєте облікового запису? Приєднуйтеся до Вікіпедії.";
+// Fuzzy
 "login-username-placeholder-text" = "Ім'я користувача";
 "login-password-placeholder-text" = "Пароль";
 "wikitext-downloading" = "Завантаження змісту...";

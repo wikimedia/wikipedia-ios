@@ -19,6 +19,7 @@
 "article-languages-label" = "選擇語言";
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "正在讀取條目語言...";
+// Fuzzy
 "article-languages-filter-placeholder" = "語言篩選器";
 "article-read-more-title" = "閱讀更多";
 "article-about-title" = "關於此條目";
@@ -58,24 +59,30 @@
 "zero-warn-when-leaving" = "離開 Wikipedia Zero 時提示";
 "zero-settings-devmode" = "Zero 開發模式";
 "account-creation-captcha-required" = "需要使用驗証碼驗証。";
+// Fuzzy
 "account-creation-captcha-obtaining" = "取得新的驗證碼中。";
 "account-creation-logging-in" = "登入中...";
 "account-creation-passwords-mismatched" = "密碼欄位不符合。";
 "account-creation-saving" = "儲存中...";
 "account-creation-login" = "已經擁有帳號？請登入。";
+// Fuzzy
 "account-creation-username-placeholder-text" = "使用者名稱";
 "account-creation-password-placeholder-text" = "密碼";
 "account-creation-password-confirm-placeholder-text" = "確認密碼";
 "account-creation-email-placeholder-text" = "電子郵件 (選填)";
 "account-creation-missing-fields" = "您必須輸入使用者名稱與密碼，並且在確認密碼之後才能建立一個帳號。";
+// Fuzzy
 "login-name-not-found" = "需要填寫使用者名稱才能登入。";
+// Fuzzy
 "login-name-illegal" = "您提供的使用者名稱無效。";
+// Fuzzy
 "login-name-does-not-exist" = "您提供的使用者名稱不存在。";
 "login-password-empty" = "登入需要密碼。";
 "login-password-wrong" = "您提供的密碼不正確。";
 "login-throttled" = "你已在短時間內登入太多次。";
 "login-user-blocked" = "使用者已被封鎖。";
 "login-account-creation" = "沒有帳號嗎？加入維基百科。";
+// Fuzzy
 "login-username-placeholder-text" = "使用者名稱";
 "login-password-placeholder-text" = "密碼";
 "wikitext-downloading" = "讀取內容中…";
@@ -247,6 +254,7 @@
 "button-next" = "下一步";
 "button-done" = "已完成";
 "button-save" = "儲存";
+"button-ok" = "確定";
 "button-save-for-later" = "儲存以供日後使用";
 "button-saved-for-later" = "儲存以供日後使用";
 "button-report-a-bug" = "回報程式錯誤";
