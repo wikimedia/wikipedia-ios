@@ -138,15 +138,14 @@ typedef NS_ENUM (NSInteger, MigrationButtonIndexIds) {
 }
 
 - (void)displayErrorCondition {
-    UIActionSheet* actionSheet = [UIActionSheet bk_actionSheetWithTitle:@"Migration failure: submit old data to developers to help diagnose?"];
-    [actionSheet bk_setDestructiveButtonWithTitle:@"Discard old data" handler:^{
+    UIAlertController* actionSheet = [UIAlertController alertControllerWithTitle:@"Migration failure: submit old data to developers to help diagnose?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Discard old data" style:UIAlertActionStyleDestructive handler:^(UIAlertAction* _Nonnull action) {
         [self dispatchCOmpletionBlockWithStatus:NO];
-    }];
-    [actionSheet bk_addButtonWithTitle:@"Submit to developers" handler:^{
+    }]];
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Submit to developers" style:UIAlertActionStyleDefault handler:^(UIAlertAction* _Nonnull action) {
         [self submitDataToDevs];
-    }];
-
-    [actionSheet showInView:self.view];
+    }]];
+    [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 - (void)submitDataToDevs {
