@@ -1,6 +1,6 @@
 #import "WMFImageTagParser.h"
 #import "WMFImageTag.h"
-#import "WMFImageTag+TargetImageWidthURL.h"
+#import "WMFImageTagList.h"
 #import <BlocksKit/BlocksKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFImageTagParser
 
-- (nullable NSArray<NSURL*>*)parseImageURLsFromHTMLString:(NSString*)HTMLString targetWidth:(NSUInteger)targetWidth;{
+- (WMFImageTagList*)imageTagListFromParsingHTMLString:(NSString*)HTMLString{
 
     HTMLString = [HTMLString copy];
 
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self parseStringOfImgTags:imgTagsHtml];
     
     // Map parsedImgTagAttributeDicts to image tag model objects.
-    NSArray<WMFImageTag*>* imageTagModels = [self.parsedImgTagAttributeDicts bk_map:^id(NSDictionary* tagDict){
+    NSArray<WMFImageTag*>* imageTags = [self.parsedImgTagAttributeDicts bk_map:^id(NSDictionary* tagDict){
         return [[WMFImageTag alloc] initWithSrc:tagDict[@"src"]
                                          srcset:tagDict[@"srcset"]
                                             alt:tagDict[@"alt"]
@@ -37,13 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
                                  dataFileHeight:tagDict[@"data-file-height"]];
     }];
     
-    NSArray<NSURL*>* imageTagURLs = [[imageTagModels bk_select:^BOOL(WMFImageTag* tag){
-        return [tag isWideEnoughForGallery];
-    }] bk_map:^id(WMFImageTag* tag){
-        return [tag urlForTargetWidth:targetWidth];
-    }];
-    
-    return imageTagURLs;
+    return [[WMFImageTagList alloc] initWithImageTags:imageTags];
 }
 
 - (void)parseStringOfImgTags:(NSString*)imgTags {
@@ -56,7 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(nullable NSString *)namespaceURI qualifiedName:(nullable NSString *)qName attributes:(NSDictionary<NSString *, NSString *> *)attributeDict {
-    [self.parsedImgTagAttributeDicts addObject:attributeDict];
+    if ([[elementName lowercaseString] isEqualToString:@"img"]) {
+        [self.parsedImgTagAttributeDicts addObject:attributeDict];
+    }
 }
 
 - (NSString*)imgTagsOnlyFromHTMLString:(NSString*)HTMLString{

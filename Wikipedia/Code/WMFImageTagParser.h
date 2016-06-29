@@ -2,9 +2,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class WMFImageTagList;
+
 @interface WMFImageTagParser : NSObject
 
-- (nullable NSArray<NSURL*>*)parseImageURLsFromHTMLString:(NSString*)HTMLString targetWidth:(NSUInteger)targetWidth;
+- (WMFImageTagList*)imageTagListFromParsingHTMLString:(NSString*)HTMLString;
 
 @end
 

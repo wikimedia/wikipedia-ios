@@ -26,6 +26,14 @@ NS_ASSUME_NONNULL_BEGIN
 {
     self = [super init];
     if (self) {
+
+        // Strip protocol for consistency.
+        if ([src hasPrefix:@"http:"]){
+            src = [src substringFromIndex:5];
+        }else if ([src hasPrefix:@"https:"]){
+            src = [src substringFromIndex:6];
+        }
+
         self.src = src;
         self.srcset = srcset;
         self.alt = alt;
