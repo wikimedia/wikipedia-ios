@@ -4,6 +4,13 @@
 #import "MWKSearchResult.h"
 #import "Wikipedia-Swift.h"
 
+static const CGFloat WMFRandomAnimationDurationFade = 0.5;
+
+
+static const CGFloat WMFRandomAnimationDurationShowDice  = 0.4;
+static const CGFloat WMFRandomAnimationDurationHideDice  = 0.5;
+static const CGFloat WMFRandomAnimationSpringDampingDice = 0.5;
+
 @interface WMFRandomArticleViewController ()
 
 @property (nonatomic, strong) WMFRandomArticleFetcher* randomArticleFetcher;
@@ -43,7 +50,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.viewAppeared = YES;
-    [self setRandomButtonHidden:NO animated:YES];
 }
 
 - (void)setupRandomButton {
@@ -78,6 +84,7 @@
         self.articleTitle = [self.site titleWithString:searchResult.displayTitle];
         [self fetchArticleForce:YES completion:^{
             [self configureViewsForRandomArticleLoading:false];
+            [self setRandomButtonHidden:NO animated:YES];
         }];
     }];
 }
@@ -99,7 +106,7 @@
 
 - (void)configureViewsForRandomArticleLoading:(BOOL)isRandomArticleLoading {
     self.randomButton.enabled = !isRandomArticleLoading;
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:WMFRandomAnimationDurationFade animations:^{
         self.emptyFadeView.alpha = isRandomArticleLoading ? 1 : 0;
     } completion:^(BOOL finished) {
         if (finished && isRandomArticleLoading) {
@@ -109,11 +116,15 @@
 }
 
 - (void)setRandomButtonHidden:(BOOL)randomButtonHidden animated:(BOOL)animated {
+    if (self.randomButtonHidden == randomButtonHidden) {
+        return;
+    }
     self.randomButtonHidden = randomButtonHidden;
+    CGFloat duration            = randomButtonHidden ? WMFRandomAnimationDurationHideDice : WMFRandomAnimationDurationShowDice;
     dispatch_block_t hideOrShow = ^{
         [self layoutRandomButtonForViewBounds:self.view.bounds hidden:randomButtonHidden];
     };
-    [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:0 animations:hideOrShow completion:NULL];
+    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:WMFRandomAnimationSpringDampingDice initialSpringVelocity:0 options:0 animations:hideOrShow completion:NULL];
 }
 
 #pragma mark - WebViewControllerDelegate
@@ -127,11 +138,13 @@
         return;
     }
 
-    CGFloat newContentOffsetY   = scrollView.contentOffset.y;
-    BOOL shouldHideRandomButton = newContentOffsetY > 0 && newContentOffsetY > self.previousContentOffsetY;
+    CGFloat newContentOffsetY = scrollView.contentOffset.y;
 
-    if (shouldHideRandomButton != self.isRandomButtonHidden) {
-        [self setRandomButtonHidden:shouldHideRandomButton animated:YES];
+    if (scrollView.dragging) {
+        BOOL shouldHideRandomButton = newContentOffsetY > 0 && newContentOffsetY > self.previousContentOffsetY;
+        if (shouldHideRandomButton != self.isRandomButtonHidden) {
+            [self setRandomButtonHidden:shouldHideRandomButton animated:YES];
+        }
     }
 
     self.previousContentOffsetY = newContentOffsetY;
