@@ -4,6 +4,7 @@
 // Author: Chmee2
 // Author: Clon
 // Author: Cvanca
+// Author: Dvorapa
 // Author: Fitoschido
 // Author: H4nek
 // Author: Juandev
@@ -15,6 +16,7 @@
 "article-languages-label" = "Vybrat jazyk";
 "article-languages-cancel" = "Zrušit";
 "article-languages-downloading" = "Nahrávání článků v dalších jazycích…";
+// Fuzzy
 "article-languages-filter-placeholder" = "Najít jazyk";
 "article-unable-to-load-article" = "Není možné načíst článek.";
 "info-box-title" = "Stručná fakta";
@@ -44,19 +46,24 @@
 "account-creation-passwords-mismatched" = "Hesla se neshodují.";
 "account-creation-saving" = "Ukládá se…";
 "account-creation-login" = "Již máte účet? Přihlaste se.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Uživatelské jméno";
 "account-creation-password-placeholder-text" = "Heslo";
 "account-creation-password-confirm-placeholder-text" = "Potvrzení hesla";
 "account-creation-email-placeholder-text" = "E-mail (volitelné)";
 "account-creation-missing-fields" = "Pro vytvoření účtu musíte zadat uživatelské jméno, heslo a potvrzení hesla.";
+// Fuzzy
 "login-name-not-found" = "Pro přihlášení je požádováno uživatelské jméno.";
+// Fuzzy
 "login-name-illegal" = "Zadali jste nepovolené uživatelské heslo.";
+// Fuzzy
 "login-name-does-not-exist" = "Zadané uživatelské jméno neexistuje.";
 "login-password-empty" = "K přihlášení je vyžadováno heslo.";
 "login-password-wrong" = "Zadané heslo je nesprávné.";
 "login-throttled" = "Přihlásili jste se v krátké době přílíš mnohokrát.";
 "login-user-blocked" = "Uživatel je zablokován.";
 "login-account-creation" = "Nemáte účet? Přidejte se k Wikipedii.";
+// Fuzzy
 "login-username-placeholder-text" = "Uživatelské jméno";
 "login-password-placeholder-text" = "Heslo";
 "wikitext-downloading" = "Načítání obsahu...";
@@ -148,6 +155,7 @@
 "button-next" = "Další";
 "button-done" = "Hotovo";
 "button-save" = "Uložit";
+"button-ok" = "Jasně";
 "onboarding-create-account" = "Vytvořit účet";
 "onboarding-login" = "Přihlásit se";
 "onboarding-skip" = "Přeskočit";

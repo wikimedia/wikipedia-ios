@@ -137,6 +137,16 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
     return self.URL.wmf_textAlignment;
 }
 
+- (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return YES;
+    } else if ([object isKindOfClass:[MWKSite class]]) {
+        return [self isEqualToSite:object];
+    } else {
+        return NO;
+    }
+}
+
 - (BOOL)isEqualToSite:(MWKSite*)other {
     return WMF_EQUAL_PROPERTIES(self, language, isEqualToString:, other)
            && WMF_EQUAL_PROPERTIES(self, domain, isEqualToString:, other);

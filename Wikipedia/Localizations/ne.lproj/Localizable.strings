@@ -26,11 +26,13 @@
 "zero-learn-more-no-thanks" = "खारेज गर्ने";
 "zero-wikipedia-zero-heading" = "विकिपीडिया शुन्य";
 "account-creation-saving" = "सङ्ग्रह गर्दै...";
+// Fuzzy
 "account-creation-username-placeholder-text" = "प्रयोगकर्ता नाम";
 "account-creation-password-placeholder-text" = "पासवर्ड";
 "account-creation-password-confirm-placeholder-text" = "पासवर्ड निश्चित गर्नुहोस्";
 "account-creation-email-placeholder-text" = "इमेल (वैकल्पिक)";
 "login-user-blocked" = "प्रयोककर्तालाई रोक लगाइएको छ";
+// Fuzzy
 "login-username-placeholder-text" = "प्रयोगकर्ता नाम";
 "login-password-placeholder-text" = "पासवर्ड";
 "wikitext-upload-save" = "सङ्ग्रह गर्दै...";

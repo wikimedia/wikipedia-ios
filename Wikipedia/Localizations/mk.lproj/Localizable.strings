@@ -9,6 +9,7 @@
 "article-languages-label" = "Изберете јазик";
 "article-languages-cancel" = "Откажи";
 "article-languages-downloading" = "Ги вчитувам јазиците на статијата...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Најди јазик";
 "article-read-more-title" = "Прочитајте повеќе";
 "article-about-title" = "Уреди ја статијава";
@@ -48,24 +49,30 @@
 "zero-warn-when-leaving" = "Предупреди ме доколку ја напуштам Нулта";
 "zero-settings-devmode" = "Развоен режим на Нулта";
 "account-creation-captcha-required" = "Се бара потврда со сликичка";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Правам нова сликичка.";
 "account-creation-logging-in" = "Ве најавувам...";
 "account-creation-passwords-mismatched" = "Лозинките не се совпаѓаат.";
 "account-creation-saving" = "Зачувувам...";
 "account-creation-login" = "Веќе имате сметка? Најавете се";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Корисничко име";
 "account-creation-password-placeholder-text" = "Лозинка";
 "account-creation-password-confirm-placeholder-text" = "Потврда на лозинката";
 "account-creation-email-placeholder-text" = "Е-пошта (незадолжително)";
 "account-creation-missing-fields" = "Ќе мора да внесете корисничко име, лозинка и нејзина потврда за да направите сметка.";
+// Fuzzy
 "login-name-not-found" = "Се бара корисничко име.";
+// Fuzzy
 "login-name-illegal" = "Внесовте неправилно корисничко име.";
+// Fuzzy
 "login-name-does-not-exist" = "Внесеното корисничко име не постои.";
 "login-password-empty" = "Се бара лозинка.";
 "login-password-wrong" = "Внесената лозинка е неисправна.";
 "login-throttled" = "Направивте премногу обиди за најава за кратко време.";
 "login-user-blocked" = "Корисникот е блокиран";
 "login-account-creation" = "Немате сметка? Приклучете се на Википедија";
+// Fuzzy
 "login-username-placeholder-text" = "Корисничко име";
 "login-password-placeholder-text" = "Лозинка";
 "wikitext-downloading" = "Ги вчитувам содржините...";
@@ -237,6 +244,7 @@
 "button-next" = "Следно";
 "button-done" = "Готово";
 "button-save" = "Зачувај";
+"button-ok" = "ОК";
 "button-save-for-later" = "Зачувај за подоцна";
 "button-saved-for-later" = "Зачувано за подоцна";
 "button-report-a-bug" = "Пријави грешка";
@@ -390,6 +398,7 @@
 "explore-random-article-sub-heading" = "англиска Википедија";
 "explore-potd-heading" = "Слика на денот";
 "explore-most-read-heading" = "Најчистано на Википедија на $1";
+"explore-most-read-generic-heading" = "Најчитани";
 "explore-most-read-footer" = "Сите најчитани статии";
 "explore-most-read-footer-for-date" = "Сите најчитани статии на $1";
 "explore-most-read-more-list-title" = "Најчитани статии";
