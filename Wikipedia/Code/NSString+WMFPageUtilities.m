@@ -26,9 +26,7 @@ NSString* const WMFCitationFragmentSubstring = @"cite_note";
 
 - (NSString*)wmf_internalLinkPath {
     NSRange internalLinkRange = [self rangeOfString:WMFInternalLinkPathPrefix];
-    NSString *path = internalLinkRange.location == NSNotFound ?
-           self
-           : [self wmf_safeSubstringFromIndex:WMFRangeGetMaxIndex(internalLinkRange)];\
+    NSString* path            = internalLinkRange.location == NSNotFound ? self : [self wmf_safeSubstringFromIndex:WMFRangeGetMaxIndex(internalLinkRange)];
     return [path precomposedStringWithCanonicalMapping];
 }
 
