@@ -9,7 +9,6 @@
 
 // Utility
 #import "NSDate+Utilities.h"
-#import "MWKDataHousekeeping.h"
 #import "NSUserActivity+WMFExtensions.h"
 // Networking
 #import "SavedArticlesFetcher.h"
@@ -675,8 +674,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 #pragma mark - House Keeping
 
 - (void)performHousekeeping {
-    MWKDataHousekeeping* dataHouseKeeping = [[MWKDataHousekeeping alloc] init];
-    [dataHouseKeeping performHouseKeeping];
+    [self.dataStore.userDataStore.historyList prune];
 }
 
 #pragma mark - Download Assets

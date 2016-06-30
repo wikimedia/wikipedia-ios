@@ -495,6 +495,17 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     }
 }
 
+- (void)removeTitlesFromCache:(id<NSFastEnumeration>)titlesToRemove {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        for (MWKTitle* title in titlesToRemove) {
+            @autoreleasepool {
+                MWKArticle* article = [self articleWithTitle:title];
+                [article remove];
+            }
+        }
+    });
+}
+
 #pragma mark - Deletion
 
 - (NSError*)removeFolderAtBasePath {

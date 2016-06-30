@@ -100,11 +100,26 @@ NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidSaveNotification object:self userInfo:@{MWKTitleKey: entry.title}];
 }
 
+- (void)cleanupRemovedEntries:(NSArray<MWKSavedPageEntry*>*)entries {
+    if (entries == nil || entries.count == 0) {
+        return;
+    }
+    MWKHistoryList* historyList = self.dataStore.userDataStore.historyList;
+    NSSet* historyTitles        = [NSSet setWithArray:[historyList.entries valueForKey:@"title"]];
+    NSMutableSet* removedTitles = [NSMutableSet setWithArray:[entries valueForKey:@"title"]];
+    [removedTitles minusSet:historyTitles];
+    [self.dataStore removeTitlesFromCache:removedTitles];
+}
+
 - (void)removeEntryWithListIndex:(MWKTitle*)listIndex {
     if ([[listIndex text] length] == 0) {
         return;
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidUnsaveNotification object:self userInfo:@{MWKTitleKey: listIndex}];
+    MWKSavedPageEntry *entry = [self entryForListIndex:listIndex];
+    if (entry) {
+        [self cleanupRemovedEntries:@[entry]];
+    }
     [super removeEntryWithListIndex:listIndex];
 }
 
@@ -112,6 +127,7 @@ NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     [self.entries enumerateObjectsUsingBlock:^(MWKSavedPageEntry* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidUnsaveNotification object:self userInfo:@{MWKTitleKey: obj.title}];
     }];
+    [self cleanupRemovedEntries:self.entries];
     [super removeAllEntries];
 }
 
