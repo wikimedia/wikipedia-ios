@@ -19,6 +19,7 @@
 "article-languages-label" = "언어 선택";
 "article-languages-cancel" = "취소";
 "article-languages-downloading" = "문서 언어를 불러오는 중...";
+// Fuzzy
 "article-languages-filter-placeholder" = "언어 찾기";
 "article-read-more-title" = "더 읽어보기";
 "article-about-title" = "이 문서의 정보";
@@ -58,24 +59,30 @@
 "zero-warn-when-leaving" = "제로를 떠나면 경고";
 "zero-settings-devmode" = "제로 개발모드";
 "account-creation-captcha-required" = "자동입력방지 문자 확인이 필요합니다.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "새로운 캡차를 얻는 중입니다.";
 "account-creation-logging-in" = "로그인 중...";
 "account-creation-passwords-mismatched" = "비밀번호 필드가 일치하지 않습니다.";
 "account-creation-saving" = "저장 중...";
 "account-creation-login" = "계정이 이미 있습니까? 로그인하세요.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "사용자 이름";
 "account-creation-password-placeholder-text" = "비밀번호";
 "account-creation-password-confirm-placeholder-text" = "비밀번호 확인";
 "account-creation-email-placeholder-text" = "이메일 (선택 사항)";
 "account-creation-missing-fields" = "계정을 만드려면 사용자 이름, 비밀번호와 비밀번호 확인을 입력해야 합니다.";
+// Fuzzy
 "login-name-not-found" = "로그인하려면 사용자 이름이 필요합니다.";
+// Fuzzy
 "login-name-illegal" = "잘못된 사용자 이름을 제공했습니다.";
+// Fuzzy
 "login-name-does-not-exist" = "제공한 사용자 이름이 존재하지 않습니다.";
 "login-password-empty" = "로그인하려면 비밀번호가 필요합니다.";
 "login-password-wrong" = "제공한 비밀번호가 잘못되었습니다.";
 "login-throttled" = "짧은 시간에 너무 많이 로그인하려고 했습니다.";
 "login-user-blocked" = "사용자가 차단되었습니다.";
 "login-account-creation" = "계정이 없나요? 위키백과에 가입하세요.";
+// Fuzzy
 "login-username-placeholder-text" = "사용자 이름";
 "login-password-placeholder-text" = "비밀번호";
 "wikitext-downloading" = "내용을 불러오는 중...";
@@ -247,6 +254,7 @@
 "button-next" = "다음";
 "button-done" = "완료";
 "button-save" = "저장";
+"button-ok" = "확인";
 "button-save-for-later" = "나중에 쓰기 위해 저장";
 "button-saved-for-later" = "나중에 쓰기 위해 저장";
 "button-report-a-bug" = "버그 보고";
@@ -295,8 +303,8 @@
 "nearby-title" = "근처";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
-"nearby-distance-label-feet" = "$1 feet";
-"nearby-distance-label-miles" = "$1 miles";
+"nearby-distance-label-feet" = "$1 피트";
+"nearby-distance-label-miles" = "$1 마일";
 "nearby-pull-to-refresh-prompt" = "새로 고치려면 당기세요";
 "nearby-pull-to-refresh-is-refreshing" = "새로 고치는 중";
 "nearby-loading" = "근처 문서를 불러오는 중...";
@@ -308,21 +316,21 @@
 "nearby-location-updates-enable" = "위치 업데이트를 활성화하려면 설정 앱을 열고 다음을 선택하세요:";
 "nearby-location-updates-settings-menu" = "개인 정보 보호 > 위치 서비스 > 위키백과";
 "nearby-location-general-error" = "위치를 확정할 수 없습니다. 새로 고치려면 당기거나 나중에 다시 시도하세요.";
-"nearby-wifi" = "Wi-Fi를 활성화하면 장치가 위치를 더 정확하도록 도울 수 있습니다.";
+"nearby-wifi" = "Wi-Fi를 활성화하면 장치가 위치를 더 정확하게 찾도록 도울 수 있습니다.";
 "migration-update-progress-label" = "로컬 데이터 이동";
 "migration-update-progress-count-label" = "문서 이동 $2 중 $1 완료";
 "migration-prompt-title" = "역사가 존재하는 것 같습니다!";
 "migration-prompt-message" = "저희는 당신의 저장된 페이지나 최근 방문 페이지를 이동해야 합니다. 이 작업은 몇 분 정도 소요됩니다.";
 "migration-confirm-button-title" = "내 항목 이동";
 "migration-skip-button-title" = "항목 삭제";
-"image-gallery-unknown-owner" = "업로더 모름";
+"image-gallery-unknown-owner" = "업로더 알 수 없음.";
 "image-gallery-fetch-image-info-error-title" = "사진을 다운로드하지 못했습니다.";
 "image-gallery-fetch-image-info-error-message" = "이 문서를 위한 사진을 다운로드하지 못했습니다. 새로 고침을 하여, 다시 시도 해보세요.";
 "image-gallery-fetch-image-info-error-ok" = "확인";
 "hockeyapp-alert-question" = "리포트를 $1로 보내시겠습니까? 보내시면, 위키미디어가 문제를 확인해볼 수 있습니다.";
 "hockeyapp-alert-question-with-response-field" = "리포트를 $1로 보내시겠습니까? 보내시면, 위키미디어가 문제를 확인해볼 수 있습니다. 무엇이 일어났었고 언제 문제가 발생했는지 설명해주세요:";
-"hockeyapp-alert-title" = "죄송합니다, 어플리케이션이 저번에 고장났었습니다.";
-"hockeyapp-alert-send-report" = "리포트 보내기";
+"hockeyapp-alert-title" = "죄송합니다, 지난 번에 앱이 충돌했습니다";
+"hockeyapp-alert-send-report" = "보고서 보내기";
 "hockeyapp-alert-always-send" = "항상 보내기";
 "hockeyapp-alert-do-not-send" = "보내지 않기";
 "hockeyapp-alert-privacy" = "$1 개인 정보";
@@ -400,6 +408,7 @@
 "explore-random-article-sub-heading" = "영어 위키백과";
 "explore-potd-heading" = "오늘의 그림";
 "explore-most-read-heading" = "$1 위키백과에서 가장 많이 읽은 문서";
+"explore-most-read-generic-heading" = "가장 많이 읽은 글";
 "explore-most-read-footer" = "가장 많이 읽은 문서 전체";
 "explore-most-read-footer-for-date" = "$1의 가장 많이 읽은 문서 전체";
 "explore-most-read-more-list-title" = "상위 문서";

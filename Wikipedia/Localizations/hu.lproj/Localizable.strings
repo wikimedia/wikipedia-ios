@@ -35,18 +35,22 @@
 "zero-warn-when-leaving" = "Figyelmeztet, ha elhagyom a Wikipédia Zérót";
 "zero-settings-devmode" = "Zéró fejlesztőmód";
 "account-creation-captcha-required" = "CAPTCHA ellenőrzés szükséges.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Új CAPTCHA kérése";
 "account-creation-logging-in" = "Belépés...";
 "account-creation-passwords-mismatched" = "A jelszavak nem egyeznek";
 "account-creation-saving" = "Mentés…";
 "account-creation-login" = "Már van fiókod? Jelentkezz be!";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Felhasználónév";
 "account-creation-password-placeholder-text" = "Jelszó";
 "account-creation-password-confirm-placeholder-text" = "Jelszó megerősítése";
 "account-creation-email-placeholder-text" = "Email cím (opcionális)";
+// Fuzzy
 "login-name-not-found" = "Felhasználói név szükséges a belépéshez.";
 "login-user-blocked" = "Felhasználó van tiltva.";
 "login-account-creation" = "Nincs még fiókod? Csatlakozz a Wikipédiához!";
+// Fuzzy
 "login-username-placeholder-text" = "Felhasználónév";
 "login-password-placeholder-text" = "Jelszó";
 "wikitext-downloading" = "Tartalom betöltése...";

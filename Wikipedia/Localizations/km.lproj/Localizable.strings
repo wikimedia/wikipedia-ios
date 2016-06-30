@@ -36,24 +36,30 @@
 // Fuzzy
 "zero-warn-when-leaving" = "រំលឹកពេលចង់ចាកចេញពីវិគីសូន្យ";
 "account-creation-captcha-required" = "ត្រូវការផ្ទៀតផ្ទាត់ CAPTCHA";
+// Fuzzy
 "account-creation-captcha-obtaining" = "យក CAPTCHA ថ្មី។";
 "account-creation-logging-in" = "កំពុងកត់ឈ្មោះចូល...";
 "account-creation-passwords-mismatched" = "ពាក្យសម្ងាត់មិនត្រូវគ្នាទេ។";
 "account-creation-saving" = "កំពុង​រក្សា​ទុក...";
 "account-creation-login" = "តើអ្នកមានគណនីមួយរួចហើយឬ? សូមកត់ឈ្មោះចូល។";
+// Fuzzy
 "account-creation-username-placeholder-text" = "អត្តនាម";
 "account-creation-password-placeholder-text" = "ពាក្យ​សម្ងាត់";
 "account-creation-password-confirm-placeholder-text" = "បញ្ជាក់ពាក្យសម្ងាត់";
 "account-creation-email-placeholder-text" = "អ៊ីមែល(ដាក់ក៏បានមិនដាក់ក៏បាន)";
 "account-creation-missing-fields" = "អ្នកត្រូវតែវាយបញ្ចូលអត្តនាម ពាក្យសម្ងាត់ និងផ្ទៀងផ្ទាត់ពាក្យសម្ងាត់ដើម្បីបង្កើតគណនីមួយ។";
+// Fuzzy
 "login-name-not-found" = "ត្រូវមានអត្តនាមដើម្បីកត់ឈ្មោះចូល។";
+// Fuzzy
 "login-name-illegal" = "អ្នកបានបញ្ចូលអត្តនាមមិនត្រឹមត្រូវ។";
+// Fuzzy
 "login-name-does-not-exist" = "គ្មានអត្តនាមដូចដែលអ្នកបានវាយបញ្ចូលទេ។";
 "login-password-empty" = "ត្រូវមានពាក្យសម្ងាត់ដើម្បីកត់ឈ្មោះចូល។";
 "login-password-wrong" = "ពាក្យសម្ងាត់ដែលអ្នកបានវាយបញ្ចូលមិនត្រឹមត្រូវទេ។";
 "login-throttled" = "អ្នកបានកត់ឈ្មោះចូលច្រើនដងពេកហើយក្នុងរយៈពេលខ្លីមួយ។";
 "login-user-blocked" = "អ្នកប្រើនេះត្រូវបានហាមឃាត់ហើយ។";
 "login-account-creation" = "តើអ្នកមិនទាន់មានគណនីទេឬ? ចូលរួមជាមួយវិគីភីឌា។";
+// Fuzzy
 "login-username-placeholder-text" = "អត្តនាម";
 "login-password-placeholder-text" = "ពាក្យ​សម្ងាត់";
 "wikitext-downloading" = "កំពុងផ្ទុកខ្លឹមសារ...";

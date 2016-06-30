@@ -10,6 +10,7 @@
 "article-languages-label" = "Velja tungumál";
 "article-languages-cancel" = "Hætta við";
 "article-languages-downloading" = "Hleður greinartungumál...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Tungumálasía";
 "article-read-more-title" = "Lesa meira";
 "article-about-title" = "Um þessa grein";
@@ -47,24 +48,30 @@
 "zero-warn-when-leaving" = "Áminna mig ef ég fer burt af Wikipedia Zero";
 "zero-settings-devmode" = "Zero forritarastaða";
 "account-creation-captcha-required" = "Staðfesting með CAPTCHA krefst.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Hleður nýja CAPTCHA-mynd.";
 "account-creation-logging-in" = "Skrár inn...";
 "account-creation-passwords-mismatched" = "Lykilorðin passa ekki saman.";
 "account-creation-saving" = "Vistar...";
 "account-creation-login" = "Ert þú með aðgang? Skrá inn.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Notandanafn";
 "account-creation-password-placeholder-text" = "Lykilorð";
 "account-creation-password-confirm-placeholder-text" = "Staðfesting á lykilorði";
 "account-creation-email-placeholder-text" = "Netfang (valfrjálst)";
 "account-creation-missing-fields" = "Það verður að slá inn notandanafn, lykilorð og staðfesting á lykilorðinu til að stofna aðgang.";
+// Fuzzy
 "login-name-not-found" = "Notandanafn krefst til að skrá inn.";
+// Fuzzy
 "login-name-illegal" = "Þú hefur gefið upp ógilt notandnafn.";
+// Fuzzy
 "login-name-does-not-exist" = "Notandanafnið sem þú gafst upp er ekki til.";
 "login-password-empty" = "Lykilorð krefst til að skrá inn.";
 "login-password-wrong" = "Lykilorðið sem þú gafst upp er rangt.";
 "login-throttled" = "Þú hefur skráð inn of mörgum sinnum á stuttum tíma.";
 "login-user-blocked" = "Notandinn er bannaður.";
 "login-account-creation" = "Ert þú ekki með aðgang? Stofna aðgang.";
+// Fuzzy
 "login-username-placeholder-text" = "Notandanafn";
 "login-password-placeholder-text" = "Lykilorð";
 "wikitext-downloading" = "Hleður efni...";

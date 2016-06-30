@@ -13,6 +13,7 @@
 "article-languages-label" = "Velg språk";
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Laster artikkelspråk…";
+// Fuzzy
 "article-languages-filter-placeholder" = "Finn språk";
 "article-read-more-title" = "Les mer";
 "article-about-title" = "Om artikkelen";
@@ -50,24 +51,30 @@
 "zero-warn-when-leaving" = "Advar meg hvis jeg forlater Zero";
 "zero-settings-devmode" = "Zero-utviklermodus";
 "account-creation-captcha-required" = "CAPTCHA-verifisering kreves.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Henter en ny CAPTCHA.";
 "account-creation-logging-in" = "Logger inn…";
 "account-creation-passwords-mismatched" = "Passordfeltene stemmer ikke overens.";
 "account-creation-saving" = "Lagrer…";
 "account-creation-login" = "Har du en konto allerede? Logg inn";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Brukernavn";
 "account-creation-password-placeholder-text" = "Passord";
 "account-creation-password-confirm-placeholder-text" = "Bekreft passord";
 "account-creation-email-placeholder-text" = "Epost (valgfritt)";
 "account-creation-missing-fields" = "Du må skrive inn brukernavn, passord og passordbekreftelse for å opprette en konto.";
+// Fuzzy
 "login-name-not-found" = "Brukernavn kreves for å logge inn.";
+// Fuzzy
 "login-name-illegal" = "Du oppga et ugyldig brukernavn.";
+// Fuzzy
 "login-name-does-not-exist" = "Brukernavnet du oppga eksisterer ikke.";
 "login-password-empty" = "Passord kreves for å logge inn.";
 "login-password-wrong" = "Passordet du oppga er ugyldig.";
 "login-throttled" = "Du har prøvd å logge inn for mange ganger på kort tid.";
 "login-user-blocked" = "Brukeren er blokkert.";
 "login-account-creation" = "Har du ingen konto? Opprett en";
+// Fuzzy
 "login-username-placeholder-text" = "Brukernavn";
 "login-password-placeholder-text" = "Passord";
 "wikitext-downloading" = "Laster innhold ...";

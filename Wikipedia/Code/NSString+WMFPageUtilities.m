@@ -26,9 +26,8 @@ NSString* const WMFCitationFragmentSubstring = @"cite_note";
 
 - (NSString*)wmf_internalLinkPath {
     NSRange internalLinkRange = [self rangeOfString:WMFInternalLinkPathPrefix];
-    return internalLinkRange.location == NSNotFound ?
-           self
-           : [self wmf_safeSubstringFromIndex:WMFRangeGetMaxIndex(internalLinkRange)];
+    NSString* path            = internalLinkRange.location == NSNotFound ? self : [self wmf_safeSubstringFromIndex:WMFRangeGetMaxIndex(internalLinkRange)];
+    return [path precomposedStringWithCanonicalMapping];
 }
 
 - (NSString*)wmf_unescapedNormalizedPageTitle {
@@ -36,11 +35,11 @@ NSString* const WMFCitationFragmentSubstring = @"cite_note";
 }
 
 - (NSString*)wmf_normalizedPageTitle {
-    return [self stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+    return [[self stringByReplacingOccurrencesOfString:@"_" withString:@" "] precomposedStringWithCanonicalMapping];
 }
 
 - (NSString*)wmf_denormalizedPageTitle {
-    return [self stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    return [[self stringByReplacingOccurrencesOfString:@" " withString:@"_"] precomposedStringWithCanonicalMapping];
 }
 
 @end
