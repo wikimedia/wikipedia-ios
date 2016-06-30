@@ -44,37 +44,37 @@
     
     NSArray *expectedObamaGalleryURLs =
     [@[
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/1280px-President_Barack_Obama.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/1280px-Barack_Obama_signature.svg.png",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/640px-President_Barack_Obama.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/640px-Barack_Obama_signature.svg.png",
        @"//upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/b/b6/Obamamiltondavis1.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/5/50/2004_Illinois_Senate_results.svg/1280px-2004_Illinois_Senate_results.svg.png",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/1280px-BarackObamaportrait.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/5/50/2004_Illinois_Senate_results.svg/640px-2004_Illinois_Senate_results.svg.png",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/640px-BarackObamaportrait.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/7/79/Lugar-Obama.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/9/99/Flickr_Obama_Springfield_01.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/9/99/Flickr_Obama_Springfield_01.jpg/640px-Flickr_Obama_Springfield_01.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/a/a2/President_George_W._Bush_and_Barack_Obama_meet_in_Oval_Office.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/3/33/P112912PS-0444_-_President_Barack_Obama_and_Mitt_Romney_in_the_Oval_Office_-_crop.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/d/d7/US_President_Barack_Obama_taking_his_Oath_of_Office_-_2009Jan20.jpg/1280px-US_President_Barack_Obama_taking_his_Oath_of_Office_-_2009Jan20.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/3/33/P112912PS-0444_-_President_Barack_Obama_and_Mitt_Romney_in_the_Oval_Office_-_crop.jpg/640px-P112912PS-0444_-_President_Barack_Obama_and_Mitt_Romney_in_the_Oval_Office_-_crop.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/d/d7/US_President_Barack_Obama_taking_his_Oath_of_Office_-_2009Jan20.jpg/640px-US_President_Barack_Obama_taking_his_Oath_of_Office_-_2009Jan20.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/3/32/Barack_Obama_addresses_joint_session_of_Congress_2009-02-24.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/6/63/Obama_cabinet_meeting_2009-11.jpg/1280px-Obama_cabinet_meeting_2009-11.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/f/fc/U.S._Total_Deficits_vs._National_Debt_Increases_2001-2010.png",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/1280px-US_Employment_Statistics.svg.png",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/6/63/Obama-venice-la.jpg/1280px-Obama-venice-la.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/f/f5/Obama_signs_health_care-20100323.jpg",
-       @"//upload.wikimedia.org/wikipedia/en/7/79/PPACA_Premium_Chart.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Barack_Obama_visiting_victims_of_2012_Aurora_shooting.jpg/1280px-Barack_Obama_visiting_victims_of_2012_Aurora_shooting.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/4/42/Barack_Obama_at_Cairo_University_cropped.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/b/be/David_Cameron_and_Barack_Obama_at_the_G20_Summit_in_Toronto.jpg/1280px-David_Cameron_and_Barack_Obama_at_the_G20_Summit_in_Toronto.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Barack_Obama_welcomes_Shimon_Peres_in_the_Oval_Office.jpg/1280px-Barack_Obama_welcomes_Shimon_Peres_in_the_Oval_Office.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Obama_and_Biden_await_updates_on_bin_Laden.jpg/1280px-Obama_and_Biden_await_updates_on_bin_Laden.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Official_portrait_of_Barack_Obama.jpg/1280px-Official_portrait_of_Barack_Obama.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/6/63/Obama_cabinet_meeting_2009-11.jpg/640px-Obama_cabinet_meeting_2009-11.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/f/fc/U.S._Total_Deficits_vs._National_Debt_Increases_2001-2010.png/640px-U.S._Total_Deficits_vs._National_Debt_Increases_2001-2010.png",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/640px-US_Employment_Statistics.svg.png",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/6/63/Obama-venice-la.jpg/640px-Obama-venice-la.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Obama_signs_health_care-20100323.jpg/640px-Obama_signs_health_care-20100323.jpg",
+       @"//upload.wikimedia.org/wikipedia/en/thumb/7/79/PPACA_Premium_Chart.jpg/640px-PPACA_Premium_Chart.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Barack_Obama_visiting_victims_of_2012_Aurora_shooting.jpg/640px-Barack_Obama_visiting_victims_of_2012_Aurora_shooting.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/4/42/Barack_Obama_at_Cairo_University_cropped.jpg/640px-Barack_Obama_at_Cairo_University_cropped.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/b/be/David_Cameron_and_Barack_Obama_at_the_G20_Summit_in_Toronto.jpg/640px-David_Cameron_and_Barack_Obama_at_the_G20_Summit_in_Toronto.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Barack_Obama_welcomes_Shimon_Peres_in_the_Oval_Office.jpg/640px-Barack_Obama_welcomes_Shimon_Peres_in_the_Oval_Office.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Obama_and_Biden_await_updates_on_bin_Laden.jpg/640px-Obama_and_Biden_await_updates_on_bin_Laden.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Official_portrait_of_Barack_Obama.jpg/640px-Official_portrait_of_Barack_Obama.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/9/97/Barack_Obama_hangout.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/3/3f/G8_leaders_watching_football.jpg/1280px-G8_leaders_watching_football.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/2/26/Obama_family_portrait_in_the_Green_Room.jpg/1280px-Obama_family_portrait_in_the_Green_Room.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/1280px-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Obamas_at_church_on_Inauguration_Day_2013.jpg/1280px-Obamas_at_church_on_Inauguration_Day_2013.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/5/55/President_Barack_Obama%2C_2012_portrait_crop.jpg/1280px-President_Barack_Obama%2C_2012_portrait_crop.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/1280px-Seal_of_the_President_of_the_United_States.svg.png"
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/3/3f/G8_leaders_watching_football.jpg/640px-G8_leaders_watching_football.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/2/26/Obama_family_portrait_in_the_Green_Room.jpg/640px-Obama_family_portrait_in_the_Green_Room.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/640px-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Obamas_at_church_on_Inauguration_Day_2013.jpg/640px-Obamas_at_church_on_Inauguration_Day_2013.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/5/55/President_Barack_Obama%2C_2012_portrait_crop.jpg/640px-President_Barack_Obama%2C_2012_portrait_crop.jpg",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/640px-Seal_of_the_President_of_the_United_States.svg.png"
        ] bk_map:^NSURL*(NSString* stringURL){
            return [NSURL URLWithString:stringURL];
        }];
@@ -288,7 +288,7 @@
 NSArray *a = [parsedObamaGalleryURLS bk_map:^NSString*(NSURL* url){
     return url.absoluteString;
 }];
-NSLog(@"\n\n%@\n\n", a);
+NSLog(@"============\n\n%@\n\n=============", a);
 */
 
 @end

@@ -9,7 +9,7 @@
     return [[self.imageTags bk_select:^BOOL(WMFImageTag* tag){
         return [tag isWideEnoughForGallery];
     }] bk_map:^id(WMFImageTag* tag){
-        return [tag urlForTargetWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale].integerValue];
+        return [tag urlForTargetWidth:[[UIScreen mainScreen] wmf_articleImageWidthForScale]];
     }];
 }
 
