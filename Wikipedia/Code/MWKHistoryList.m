@@ -2,12 +2,7 @@
 #import "MediaWikiKit.h"
 #import "MWKList+Subclass.h"
 
-#if DEBUG
-#define MAX_HISTORY_ENTRIES 3
-#else
 #define MAX_HISTORY_ENTRIES 100
-#endif
-
 
 NS_ASSUME_NONNULL_BEGIN
 
