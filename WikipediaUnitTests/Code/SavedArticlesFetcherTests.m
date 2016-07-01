@@ -151,8 +151,6 @@
     assertThat(self.downloadedArticles, isEmpty());
     assertThat(self.downloadErrors, is(@{dummyTitle: downloadError}));
 }
-
-/*
  
 - (void)testReportArticleImageErrors {
     [self stubListWithEntries:0];
@@ -167,7 +165,7 @@
     [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
 
-    [stubbedArticle.imageURLsForSaving bk_each:^(NSURL* imageURL) {
+    [stubbedArticle.allImageURLs bk_each:^(NSURL* imageURL) {
         [MKTGiven([self.mockImageController cacheImageWithURLInBackground:imageURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
             NSArray *args = [invocation mkt_arguments];
             WMFErrorHandler failure = args[1];
@@ -190,8 +188,6 @@
     assertThat(self.downloadedArticles, isEmpty());
     assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
 }
-
-*/
 
 - (void)testReportGalleryInfoErrors {
     [self stubListWithEntries:0];
