@@ -13,19 +13,19 @@
 - (NSURL*)URLForTargetWidth:(NSUInteger)targetWidth {
     NSString *tagSrc = self.src;
     
-    // One of these widths was set for us to even get here.
-    NSNumber *safeCanonicalWidthAssumption = self.dataFileWidth ? self.dataFileWidth : self.width;
-    NSString *canonicalExtension = [[[tagSrc stringByDeletingLastPathComponent] lastPathComponent] pathExtension];
-    
-    if([canonicalExtension isEqualToString:@"svg"]){
-        // Ok to use desired width on svg.
-        safeCanonicalWidthAssumption = @(targetWidth);
-    }
-    
     NSInteger sizeFromSrcUrl = WMFParseSizePrefixFromSourceURL(tagSrc);
     
     if (sizeFromSrcUrl != NSNotFound) {
+
+        // One of these widths was set for us to even get here.
+        NSNumber *safeCanonicalWidthAssumption = self.dataFileWidth ? self.dataFileWidth : self.width;
+        NSString *canonicalExtension = [[[tagSrc stringByDeletingLastPathComponent] lastPathComponent] pathExtension];
         
+        if([canonicalExtension isEqualToString:@"svg"]){
+            // Ok to use desired width on svg.
+            safeCanonicalWidthAssumption = @(targetWidth);
+        }
+
         // We know we have a "px-" thumb variant at this point. Get as close to the
         // targetWidth as we can.
         NSUInteger width = MAX(sizeFromSrcUrl, safeCanonicalWidthAssumption.integerValue);
