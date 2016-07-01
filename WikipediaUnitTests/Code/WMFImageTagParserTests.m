@@ -34,7 +34,7 @@
 - (NSArray<NSURL*>*)urlsFromHMTL:(NSString*)html atTargetWidth:(NSUInteger)targetWidth {
     WMFImageTagList* tagList = [self.parser imageTagListFromParsingHTMLString:html];
     NSArray<NSURL*>* imageTags = [tagList.imageTags bk_map:^NSURL*(WMFImageTag* tag){
-        return [tag urlForTargetWidth:targetWidth];
+        return [tag URLForTargetWidth:targetWidth];
     }];
     return imageTags;
 }

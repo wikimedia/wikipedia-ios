@@ -10,7 +10,7 @@
  *
  *  @return The URL returned needs to be as close to equal to the targetWidth as possible. Because the image scaler will not scale raster images above their canonical resolution the URL returned here needs to sometimes be modified to just use the canonical URL.
  */
-- (NSURL*)urlForTargetWidth:(NSUInteger)targetWidth {
+- (NSURL*)URLForTargetWidth:(NSUInteger)targetWidth {
     NSString *tagSrc = self.src;
     
     // One of these widths was set for us to even get here.

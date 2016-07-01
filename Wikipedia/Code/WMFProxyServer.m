@@ -312,7 +312,7 @@
     
     WMFImageTag *imageTag = [[WMFImageTag alloc] initWithSrc:src srcset:nil alt:nil width:width height:nil dataFileWidth:dataFileWidth dataFileHeight:nil];
     if ([imageTag isWideEnoughForGallery]) {
-        resizedSrc = [[imageTag urlForTargetWidth:targetImageWidth] absoluteString];
+        resizedSrc = [[imageTag URLForTargetWidth:targetImageWidth] absoluteString];
         if (resizedSrc) {
             src = resizedSrc;
         }
