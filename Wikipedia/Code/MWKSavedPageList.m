@@ -108,7 +108,7 @@ NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     NSSet* historyTitles        = [NSSet setWithArray:[historyList.entries valueForKey:@"title"]];
     NSMutableSet* removedTitles = [NSMutableSet setWithArray:[entries valueForKey:@"title"]];
     [removedTitles minusSet:historyTitles];
-    [self.dataStore removeTitlesFromCache:removedTitles];
+    [self.dataStore removeTitlesFromCache:[removedTitles allObjects]];
 }
 
 - (void)removeEntryWithListIndex:(MWKTitle*)listIndex {

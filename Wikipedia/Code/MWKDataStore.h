@@ -206,6 +206,9 @@ extern NSString* const MWKArticleKey;
 
 - (void)clearMemoryCache;
 
-- (void)removeTitlesFromCache:(id<NSFastEnumeration>)titlesToRemove;
+- (void)removeTitlesFromCache:(NSArray *)titlesToRemove;
+
+- (void)startCacheRemoval;
+- (void)stopCacheRemoval;
 
 @end

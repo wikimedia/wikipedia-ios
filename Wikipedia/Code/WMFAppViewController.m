@@ -92,6 +92,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic, strong) NSUserActivity* unprocessedUserActivity;
 @property (nonatomic, strong) UIApplicationShortcutItem* unprocessedShortcutItem;
 
+@property (nonatomic) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 
 /// Use @c rootTabBarController instead.
 - (UITabBarController*)tabBarController NS_UNAVAILABLE;
@@ -102,6 +103,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
 }
 
 - (BOOL)isPresentingOnboarding {
@@ -159,7 +165,33 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)appDidEnterBackgroundWithNotification:(NSNotification*)note {
-    [self pauseApp];
+    [self startBackgroundTask];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self pauseApp];
+    });
+}
+
+#pragma mark - Background Tasks
+
+- (void)startBackgroundTask {
+    if (self.backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
+        return;
+    }
+
+    self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [self.dataStore stopCacheRemoval];
+        [self endBackgroundTask];
+    }];
+}
+
+- (void)endBackgroundTask {
+    if (self.backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+        return;
+    }
+
+    UIBackgroundTaskIdentifier backgroundTaskToStop = self.backgroundTaskIdentifier;
+    self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
+    [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskToStop];
 }
 
 #pragma mark - Launch
@@ -182,7 +214,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self showSplashView];
 
     @weakify(self)
-    [self runDataMigrationIfNeededWithCompletion :^{
+    [self runDataMigrationIfNeededWithCompletion:^{
         @strongify(self)
         [self.imageMigration setupAndStart];
         [self.savedArticlesFetcher fetchAndObserveSavedPageList];
@@ -235,7 +267,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)pauseApp {
     [[WMFImageController sharedInstance] clearMemoryCache];
     [self downloadAssetsFilesIfNecessary];
-    [self performHousekeeping];
+    [self.dataStore.userDataStore.historyList prune];
+    [self.dataStore startCacheRemoval];
     [[[SessionSingleton sharedInstance] dataStore] clearMemoryCache];
 }
 
@@ -671,12 +704,6 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];
 }
 
-#pragma mark - House Keeping
-
-- (void)performHousekeeping {
-    [self.dataStore.userDataStore.historyList prune];
-}
-
 #pragma mark - Download Assets
 
 - (void)downloadAssetsFilesIfNecessary {
@@ -717,9 +744,9 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     [self wmf_hideKeyboard];
 }
 
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    if (tabBarController.selectedIndex == WMFAppTabTypeExplore && viewController==tabBarController.selectedViewController) {
-        WMFExploreViewController *exploreViewController = (WMFExploreViewController *)[self exploreViewController];
+- (BOOL)tabBarController:(UITabBarController*)tabBarController shouldSelectViewController:(UIViewController*)viewController {
+    if (tabBarController.selectedIndex == WMFAppTabTypeExplore && viewController == tabBarController.selectedViewController) {
+        WMFExploreViewController* exploreViewController = (WMFExploreViewController*)[self exploreViewController];
         [exploreViewController scrollToTop:YES];
     }
     return YES;

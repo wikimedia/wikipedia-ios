@@ -2,7 +2,12 @@
 #import "MediaWikiKit.h"
 #import "MWKList+Subclass.h"
 
+#if DEBUG
+#define MAX_HISTORY_ENTRIES 3
+#else
 #define MAX_HISTORY_ENTRIES 100
+#endif
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -101,7 +106,7 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     NSSet* savedTitles              = [NSSet setWithArray:[savedPageList.entries valueForKey:@"title"]];
     NSMutableSet* removedTitles     = [NSMutableSet setWithArray:[entries valueForKey:@"title"]];
     [removedTitles minusSet:savedTitles];
-    [self.dataStore removeTitlesFromCache:removedTitles];
+    [self.dataStore removeTitlesFromCache:[removedTitles allObjects]];
 }
 
 - (void)removeEntry:(MWKListEntry)entry {
