@@ -1102,10 +1102,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable UIViewController*)viewControllerForImageURL:(nullable NSURL*)url {
-    if (!url || ![self.article.images imageSizeVariants:url.absoluteString]) {
+    
+//TODO: fix tangent bug with peeking first non-lead image - problem is the svg.png isn't using the article image width of 640 - it's still 220 from the html!
+    
+    if (!url || ![[self.article imageURLsForGallery] containsObject:url]) {
         return nil;
     }
-    
+
     MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:url];
     WMFArticleImageGalleryViewController* gallery =
     [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article

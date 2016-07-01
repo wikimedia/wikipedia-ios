@@ -20,10 +20,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @class MWKProtectionStatus;
 
 @interface MWKArticle : MWKSiteDataObject
-{
-    @protected
-    MWKImageList* _images;
-}
+
 /// Data store used for reading & writing related entities.
 @property (readonly, weak, nonatomic) MWKDataStore* dataStore;
 
@@ -64,7 +61,6 @@ static const NSInteger kMWKArticleSectionNone = -1;
 
 @property (readonly, strong, nonatomic) MWKSectionList* sections;
 
-@property (readonly, strong, nonatomic) MWKImageList* images;
 @property (readonly, strong, nonatomic) MWKImage* thumbnail;
 @property (readonly, strong, nonatomic) MWKImage* image;
 
@@ -101,25 +97,6 @@ static const NSInteger kMWKArticleSectionNone = -1;
  * Create a stub record for an image with given URL.
  */
 - (MWKImage*)importImageURL:(NSString*)url sectionId:(int)sectionId;
-
-/**
- *  Add the given URL to the receiver's image list, as well as to the corresponding section's image list.
- *
- *  @param sourceURL The URL string to add.
- *  @param sectionId The section whose image list the URL should also be added to.
- *  @param skipIfPresent @c YES if the image should only be added if the list doesn't contain it.
- */
-- (void)appendImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId skipIfPresent:(BOOL)skipIfPresent;
-
-/**
- *  Add the given URL to the receiver's image list, as well as to the corresponding section's image list.
- *
- *  @param sourceURL The URL string to add.
- *  @param sectionId The section whose image list the URL should also be added to.
- *
- *  @see updateImageListsWithSourceURL:inSection:skipIfPresent:
- */
-- (void)appendImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId;
 
 /**
  *  Check if the receiver is equal to the given article.
@@ -180,5 +157,13 @@ static const NSInteger kMWKArticleSectionNone = -1;
 - (NSSet<NSURL*>*)allImageURLs;
 
 - (NSString*)summary;
+
+- (NSArray<NSURL*>*)imageURLsForGallery;
+
+- (NSArray<MWKImage*>*)imagesForGallery;
+
+- (NSArray<NSURL*>*)imageURLsForSaving;
+
+- (NSArray<MWKImage*>*)imagesForSaving;
 
 @end

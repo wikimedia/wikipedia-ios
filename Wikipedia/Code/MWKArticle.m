@@ -18,6 +18,10 @@
 #import "WMFImageURLParsing.h"
 #import "UIScreen+WMFImageWidth.h"
 
+#import "WMFImageTagParser.h"
+#import "WMFImageTagList.h"
+#import "WMFImageTagList+ImageURLs.h"
+
 @import CoreText;
 
 typedef NS_ENUM (NSUInteger, MWKArticleSchemaVersion) {
@@ -52,7 +56,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 @property (readwrite, strong, nonatomic) MWKSectionList* sections;
 
-@property (readwrite, strong, nonatomic) MWKImageList* images;
 @property (readwrite, strong, nonatomic) MWKImage* thumbnail;
 @property (readwrite, strong, nonatomic) MWKImage* image;
 @property (readwrite, strong, nonatomic /*, nullable*/) NSArray* citations;
@@ -119,13 +122,11 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
            && self.articleId == other.articleId
            && self.languagecount == other.languagecount
            && self.isMain == other.isMain
-           && self.images.count == other.images.count
            && self.sections.count == other.sections.count;
 }
 
 - (BOOL)isDeeplyEqualToArticle:(MWKArticle*)article {
     return [self isEqual:article]
-           && WMF_IS_EQUAL(self.images, article.images)
            && WMF_IS_EQUAL(self.sections, article.sections);
 }
 
@@ -239,32 +240,10 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Image Helpers
 
-- (void)appendImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId skipIfPresent:(BOOL)skipIfPresent {
-    if (sourceURL && sourceURL.length > 0) {
-        if (skipIfPresent) {
-            [self.images addImageURLIfAbsent:sourceURL];
-        } else {
-            [self.images addImageURL:sourceURL];
-        }
-        if (sectionId != kMWKArticleSectionNone) {
-            if (skipIfPresent) {
-                [self.sections[sectionId].images addImageURLIfAbsent:sourceURL];
-            } else {
-                [self.sections[sectionId].images addImageURL:sourceURL];
-            }
-        }
-    }
-}
-
-- (void)appendImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId {
-    [self appendImageListsWithSourceURL:sourceURL inSection:sectionId skipIfPresent:NO];
-}
-
 /**
  * Create a stub record for an image with given URL.
  */
 - (MWKImage*)importImageURL:(NSString*)url sectionId:(int)sectionId {
-    [self appendImageListsWithSourceURL:url inSection:sectionId];
     return [[MWKImage alloc] initWithArticle:self sourceURLString:url];
 }
 
@@ -315,7 +294,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 - (void)save {
     [self.dataStore saveArticle:self];
-    [self.images save];
     [self.sections save];
 }
 
@@ -325,7 +303,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     [self.dataStore deleteArticle:self];
     // reset ivars to prevent state from persisting in memory
     self.sections = nil;
-    self.images   = nil;
 }
 
 #pragma mark - Accessors
@@ -362,12 +339,10 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 - (void)setThumbnailURL:(NSString*)thumbnailURL {
     _thumbnailURL = thumbnailURL;
-    [self.images addImageURLIfAbsent:thumbnailURL];
 }
 
 - (void)setImageURL:(NSString*)imageURL {
     _imageURL = imageURL;
-    [self.images addImageURLIfAbsent:imageURL];
 }
 
 - (MWKImage*)image {
@@ -398,13 +373,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     }
 
     return nil;
-}
-
-- (MWKImageList*)images {
-    if (_images == nil) {
-        _images = [self.dataStore imageListWithArticle:self section:nil];
-    }
-    return _images;
 }
 
 - (BOOL)hasMultipleLanguages {
@@ -439,7 +407,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
             "\tthumbnailURL: %@, \n"
             "\timageURL: %@, \n"
             "\tsections: %@, \n"
-            "\timages: %@, \n"
             "\tentityDescription: %@, \n"
             "}",
             self.description,
@@ -453,39 +420,74 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
             self.thumbnailURL,
             self.imageURL,
             self.sections.debugDescription,
-            self.images.debugDescription,
             self.entityDescription];
 }
 
+#pragma mark - Images
+
+- (NSArray<NSURL*>*)imageURLsForGallery {
+    WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML];
+    return [tagList imageURLsForGallery];
+}
+
+- (NSArray<MWKImage*>*)imagesForGallery {
+    return [[self imageURLsForGallery] bk_map:^id(NSURL* url){
+        return [[MWKImage alloc] initWithArticle:self sourceURL:url];
+    }];
+}
+
+- (NSArray<NSURL*>*)imageURLsForSaving {
+    WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML];
+    return [tagList imageURLsForSaving];
+}
+
+- (NSArray<MWKImage*>*)imagesForSaving {
+    return [[self imageURLsForSaving] bk_map:^id(NSURL* url){
+        return [[MWKImage alloc] initWithArticle:self sourceURL:url];
+    }];
+}
+
+-(NSArray<NSURL*>*)schemelessURLs:(NSArray<NSURL*>*)urls {
+    return [urls bk_map:^NSURL*(NSURL* url){
+        NSString* urlStr = url.absoluteString;
+        NSRange dividerRange = [urlStr rangeOfString:@"://"];
+        if (dividerRange.location != NSNotFound) {
+            return [NSURL URLWithString:[urlStr substringFromIndex:dividerRange.location + 1]];
+        }else{
+            return url;
+        }
+    }];
+}
+
 - (NSSet<NSURL*>*)allImageURLs {
-    NSMutableSet<NSURL*>* imageURLs = [NSMutableSet setWithArray:
-                                       [self.images.entries bk_map:^NSURL*(NSString* sourceURL) {
-        return [NSURL URLWithString:sourceURL];
-    }]];
+    WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML];
+    
+    NSMutableSet<NSURL*>* imageURLs = [[NSMutableSet alloc] init];
+    //Note: use the 'imageURLsForGallery' and 'imageURLsForSaving' methods on WMFImageTagList so we don't have to parse twice.
+    [imageURLs addObjectsFromArray:[tagList imageURLsForGallery]];
+    [imageURLs addObjectsFromArray:[tagList imageURLsForSaving]];
 
-    [imageURLs addObjectsFromArray:
-     [[self.dataStore imageInfoForTitle:self.title] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, canonicalFileURL)]];
-
-    [imageURLs addObjectsFromArray:
-     [[self.dataStore imageInfoForTitle:self.title] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, imageThumbURL)]];
-
+    NSArray<NSURL*>* lazilyFetchedHighResolutionGalleryImageURLs = [[self.dataStore imageInfoForTitle:self.title] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, canonicalFileURL)];
+    [imageURLs addObjectsFromArray:[self schemelessURLs:lazilyFetchedHighResolutionGalleryImageURLs]];
+    
+    NSArray<NSURL*>* thumbURLs = [[self.dataStore imageInfoForTitle:self.title] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, imageThumbURL)];
+    [imageURLs addObjectsFromArray:[self schemelessURLs:thumbURLs]];
+    
     NSURL* articleImageURL = [NSURL wmf_optionalURLWithString:self.imageURL];
-    if (articleImageURL) {
-        [imageURLs addObject:articleImageURL];
-    }
-
+    [imageURLs wmf_safeAddObject:articleImageURL];
+    
     NSURL* articleThumbnailURL = [NSURL wmf_optionalURLWithString:self.thumbnailURL];
-    if (articleThumbnailURL) {
-        [imageURLs addObject:articleThumbnailURL];
+    [imageURLs wmf_safeAddObject:articleThumbnailURL];
+
+    for (NSURL* url in imageURLs) {
+        NSAssert(url.scheme == nil, @"Non nil image url scheme detected! These must be nil here or we can get duplicate image urls in the set - ie the same url twice - once with the scheme and once without. This is because WMFImageTagParser returns urls without schemes because the html it parses does not have schemes - but the MWKImageInfo *does* have schemes in its 'canonicalFileURL' and 'imageThumbURL' properties because the api returns schemes.");
     }
 
     // remove any null objects inserted during above map/valueForKey operations
     return [imageURLs bk_reject:^BOOL (id obj) {
-        return [NSNull null] == obj;
+        return [obj isEqual:[NSNull null]];
     }];
 }
-
-#pragma mark - Extraction
 
 #pragma mark Citations
 

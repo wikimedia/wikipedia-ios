@@ -13,7 +13,6 @@
 #import "LSStubResponseDSL+WithJSON.h"
 #import "XCTestCase+PromiseKit.h"
 #import "WMFArticleFetcher.h"
-#import "MWKArticle+HTMLImageImport.h"
 
 static inline id articleRevisionResponseWithRevId(NSUInteger revID) {
     return @{
@@ -55,7 +54,6 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
                                                                 dataStore:tempDataStore
                                                                      dict:latestArticleJSON[@"mobileview"]];
             expect(cachedArticle.revisionId).to(equal(@3));
-            [cachedArticle importAndSaveImagesFromSectionHTML];
             [cachedArticle save];
 
             stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"rvprop" options:0 error:nil])
@@ -126,7 +124,6 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
                                                     dataStore:tempDataStore
                                                          dict:cachedArticleJSON[@"mobileview"]];
             expect(cachedArticle.revisionId).to(beNil());
-            [cachedArticle importAndSaveImagesFromSectionHTML];
             [cachedArticle save];
         });
 

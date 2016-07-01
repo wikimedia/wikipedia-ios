@@ -14,7 +14,6 @@
 #import "MWKSection.h"
 #import "MWKSectionList.h"
 #import "MWKSite.h"
-#import "MWKImageList.h"
 #import "MWKTitle.h"
 
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -35,6 +34,7 @@
 #import "WKProcessPool+WMFSharedProcessPool.h"
 #import "WMFPeekHTMLElement.h"
 #import "NSURL+WMFProxyServer.h"
+#import "WMFImageTag.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -170,7 +170,7 @@ NSString* const WMFCCBySALicenseURL =
                 imageSize = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
             }
             
-            if (![MWKImage isSizeLargeEnoughForGalleryInclusion:imageSize]) {
+            if (!(imageSize.width > WMFImageTagMinimumWidthForGalleryInclusion)) {
                 return;
             }
 

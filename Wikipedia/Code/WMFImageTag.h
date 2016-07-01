@@ -2,6 +2,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSUInteger const WMFImageTagMinimumWidthForGalleryInclusion = 80;
+
 @interface WMFImageTag : NSObject
 
 @property (nonatomic, strong, readonly) NSString* src;

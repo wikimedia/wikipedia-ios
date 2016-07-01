@@ -303,20 +303,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return [self saveDictionary:export path:path name:@"RecentSearches.plist" error:error];
 }
 
-- (void)saveImageList:(MWKImageList*)imageList {
-    if ([imageList.article isMain]) {
-        return;
-    }
-    NSString* path;
-    if (imageList.section) {
-        path = [self pathForSection:imageList.section];
-    } else {
-        path = [self pathForArticle:imageList.article];
-    }
-    NSDictionary* export = [imageList dataExport];
-    [self saveDictionary:export path:path name:@"Images.plist"];
-}
-
 - (void)saveImageInfo:(NSArray*)imageInfo forTitle:(MWKTitle*)title {
     [self saveArray:[imageInfo bk_map:^id (MWKImageInfo* obj) { return [obj dataExport]; }]
                path:[self pathForTitle:title]
@@ -448,22 +434,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
 #pragma mark - helper methods
 
-- (MWKImageList*)imageListWithArticle:(MWKArticle*)article section:(MWKSection*)section {
-    NSString* path;
-    if (section) {
-        path = [self pathForSection:section];
-    } else {
-        path = [self pathForArticle:article];
-    }
-    NSString* filePath = [path stringByAppendingPathComponent:@"Images.plist"];
-    NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    if (dict) {
-        return [[MWKImageList alloc] initWithArticle:article section:section dict:dict];
-    } else {
-        return [[MWKImageList alloc] initWithArticle:article section:section];
-    }
-}
-
 - (void)iterateOverArticles:(void (^)(MWKArticle*))block {
     NSFileManager* fm     = [NSFileManager defaultManager];
     NSString* articlePath = [self pathForSites];
@@ -507,7 +477,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     NSString* path = [self pathForArticle:article];
 
     // delete article images *before* metadata (otherwise we won't be able to retrieve image lists)
-    [[WMFImageController sharedInstance] deleteImagesWithURLs:[article.allImageURLs allObjects]];
+    [[WMFImageController sharedInstance] deleteImagesWithURLs:[[article allImageURLs] allObjects]];
 
     // delete article metadata last
     [[NSFileManager defaultManager] removeItemAtPath:path error:nil];

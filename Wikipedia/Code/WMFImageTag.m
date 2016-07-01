@@ -45,13 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-+ (NSUInteger)minimumImageWidthForGalleryInclusion {
-    return 80;
-}
-
 - (BOOL)isWideEnoughForGallery {
-    NSUInteger minWidth = [WMFImageTag minimumImageWidthForGalleryInclusion];
-    return self.width.integerValue > minWidth && self.dataFileWidth.integerValue > minWidth;
+    return self.width.integerValue > WMFImageTagMinimumWidthForGalleryInclusion && self.dataFileWidth.integerValue > WMFImageTagMinimumWidthForGalleryInclusion;
 }
 
 - (NSString*)description {

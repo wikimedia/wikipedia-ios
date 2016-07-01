@@ -123,14 +123,6 @@ extern NSString* const MWKArticleKey;
 - (BOOL)saveSavedPageList:(MWKSavedPageList*)list error:(NSError**)error;
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList*)list error:(NSError**)error;
 
-/**
- *  Saves the image list to the store
- *  This is a non-op if the image.article is a main page
- *
- *  @param imageList The image list to save
- */
-- (void)saveImageList:(MWKImageList*)imageList;
-
 - (void)deleteArticle:(MWKArticle*)article;
 
 /**
@@ -195,8 +187,6 @@ extern NSString* const MWKArticleKey;
 
 
 // Storage helper methods
-
-- (MWKImageList*)imageListWithArticle:(MWKArticle*)article section:(MWKSection*)section;
 
 - (void)iterateOverArticles:(void (^)(MWKArticle*))block;
 

@@ -1,7 +1,6 @@
 
 #import "WMFImageGalleryViewController.h"
 #import "MWKArticle.h"
-#import "MWKImageList.h"
 #import "MWKImage.h"
 #import "MWKImageInfo.h"
 #import "MWKDataStore.h"
@@ -406,7 +405,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(article);
     NSParameterAssert(article.dataStore);
 
-    NSArray* items = [article.images imagesForDisplayInGallery];
+    NSArray* items = [article imagesForGallery];
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
         items = [items wmf_reverseArrayIfApplicationIsRTL];

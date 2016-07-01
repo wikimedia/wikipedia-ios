@@ -116,13 +116,6 @@
 
 #pragma mark - Variants
 
-- (MWKImage*)largestVariant;
-- (MWKImage*)largestCachedVariant;
-
-- (MWKImage*)smallestVariant;
-- (MWKImage*)smallestCachedVariant;
-
-
 /**
  * Checks if two images are variants of each other <b>but not exactly the same image</b>.
  * @discussion For example: <br/>
@@ -181,10 +174,6 @@
 - (BOOL)isEqualToImage:(MWKImage*)image;
 
 - (BOOL)isLeadImage;
-
-- (BOOL)isLargeEnoughForGalleryInclusion;
-
-+ (BOOL)isSizeLargeEnoughForGalleryInclusion:(CGSize)size;
 
 @end
 

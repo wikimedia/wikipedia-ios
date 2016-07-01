@@ -252,13 +252,6 @@ static NSUInteger const kWMFLegacyCoreDataBackupExpirationTimeInDays = 30;
                 }
             }
 
-            // set the lead image to the first non-thumb image
-            if ([migratedArticle.images count]) {
-                // thumbnail should always be first, if it's present (see above assertion)
-                NSUInteger leadImageURLIndex = (thumbnail && migratedArticle.images.count > 1) ? 1 : 0;
-                migratedArticle.imageURL = [migratedArticle.images imageURLAtIndex:leadImageURLIndex];
-            }
-
             [migratedArticle save];
         }@catch (NSException* exception) {
             NSLog(@"Failed to migrate article due to exception: %@. Removing data.", exception);
