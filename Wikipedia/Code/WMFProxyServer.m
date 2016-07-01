@@ -8,6 +8,8 @@
 #import "NSString+WMFExtras.h"
 #import "NSURL+WMFProxyServer.h"
 #import "Wikipedia-swift.h"
+#import "WMFImageTag.h"
+#import "WMFImageTag+TargetImageWidthURL.h"
 
 @interface WMFProxyServer () <GCDWebServerDelegate>
 @property (nonatomic, strong) GCDWebServer* webServer;
@@ -279,20 +281,16 @@
 
 - (NSString *)stringByUpdatingImageTagAttributesForProxyAndScalingInImageTagContents:(NSString *)imageTagContents withTargetImageWidth:(NSUInteger)targetImageWidth {
     static NSRegularExpression* attributeRegex;
-    static NSRegularExpression* sizeRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSString *attributePattern = @"(src|data-file-width|width)=[\"']?((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\"']?"; //match on the three attributes we need to read: src, data-file-width, width
         attributeRegex = [NSRegularExpression regularExpressionWithPattern:attributePattern options:NSRegularExpressionCaseInsensitive error:nil];
-        
-        NSString *sizePattern = @"^[0-9]+(?=px-)";//match on numerals followed by px- at the beginning of the filename
-        sizeRegex = [NSRegularExpression regularExpressionWithPattern:sizePattern options:NSRegularExpressionCaseInsensitive error:nil];
     });
     
     __block NSString *src = nil; //the image src
     __block NSRange srcAttributeRange = NSMakeRange(NSNotFound, 0); //the range of the full src attribute - src=blah
-    __block NSInteger dataFileWidth = 0; //the original file width from data-file-width=
-    __block NSInteger width = 0; //the width of the image from width=
+    __block NSString *dataFileWidth = 0; //the original file width from data-file-width=
+    __block NSString *width = 0; //the width of the image from width=
     NSInteger attributeOffset = 0;
     [attributeRegex enumerateMatchesInString:imageTagContents options:0 range:NSMakeRange(0, imageTagContents.length) usingBlock:^(NSTextCheckingResult * _Nullable attributeResult, NSMatchingFlags flags, BOOL * _Nonnull stop) {
         NSString *attributeName = [[attributeRegex replacementStringForResult:attributeResult inString:imageTagContents offset:attributeOffset template:@"$1"] lowercaseString];
@@ -301,42 +299,23 @@
             src = attributeValue;
             srcAttributeRange = attributeResult.range;
         } else if ([attributeName isEqualToString:@"data-file-width"]) {
-            dataFileWidth = [attributeValue integerValue];
+            dataFileWidth = attributeValue;
         } else if ([attributeName isEqualToString:@"width"]) {
-            width = [attributeValue integerValue];
+            width = attributeValue;
         }
         *stop = dataFileWidth > 0 && srcAttributeRange.location != NSNotFound && width > 0;
     }];
     
     NSMutableString *newImageTagContents = [imageTagContents mutableCopy];
     
-    
-    NSMutableArray *srcPathComponents = [[src pathComponents] mutableCopy];
     NSString *resizedSrc = nil;
-    //check to see if we should change the image size being requested - if we know the original file width (dataFileWidth) and the width is present and greater than or equal to 64, and it's a thumbnail URL, we should request a larger size
-    if (dataFileWidth > 0 && (width == 0 || width >= 64) && srcPathComponents.count > 4 && [[srcPathComponents[srcPathComponents.count - 5] lowercaseString] isEqualToString:@"thumb"]) {
-        NSString *filename = srcPathComponents[srcPathComponents.count - 1];
-        if (dataFileWidth > targetImageWidth) { //if the original file width is larger than the target width
-            //replace the thumbnail width prefix with the target width
-            [sizeRegex enumerateMatchesInString:filename options:0 range:NSMakeRange(0, filename.length) usingBlock:^(NSTextCheckingResult * _Nullable sizeResult, NSMatchingFlags flags, BOOL * _Nonnull stop) {
-                NSMutableString *newFilename = [filename mutableCopy];
-                NSString *newSizeString = [NSString stringWithFormat:@"%llu", (unsigned long long)targetImageWidth];
-                [newFilename replaceCharactersInRange:sizeResult.range withString:newSizeString];
-                [srcPathComponents replaceObjectAtIndex:srcPathComponents.count - 1 withObject:newFilename];
-                *stop = YES;
-            }];
-        } else if ([filename rangeOfString:@".svg" options:NSCaseInsensitiveSearch].location == NSNotFound) { //otherwise the original file is smaller than the target width, and we should just request the original image (as long as it's not an svg)
-            //remove /thumb/ and the /##px- filename leaving only the original file path
-            NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSetWithIndex:srcPathComponents.count - 5];
-            [indexSet addIndex:srcPathComponents.count - 1];
-            [srcPathComponents removeObjectsAtIndexes:indexSet];
+    
+    WMFImageTag *imageTag = [[WMFImageTag alloc] initWithSrc:src srcset:nil alt:nil width:width height:nil dataFileWidth:dataFileWidth dataFileHeight:nil];
+    if ([imageTag isWideEnoughForGallery]) {
+        resizedSrc = [[imageTag urlForTargetWidth:targetImageWidth] absoluteString];
+        if (resizedSrc) {
+            src = resizedSrc;
         }
-
-        resizedSrc = [NSString pathWithComponents:srcPathComponents];
-        if (![resizedSrc hasPrefix:@"//"] && [resizedSrc hasPrefix:@"/"]) {
-            resizedSrc = [@[@"/", resizedSrc] componentsJoinedByString:@""];
-        }
-        src = resizedSrc;
     }
     
     if (src) {
