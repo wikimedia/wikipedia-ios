@@ -8,6 +8,12 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import <BlocksKit/BlocksKit.h>
 
+@interface WMFImageTagParser(Testing)
+
+- (NSString*)imgTagsOnlyFromHTMLString:(NSString*)HTMLString;
+
+@end
+
 @interface WMFImageTagParserTests : MWKTestCase
 
 @property(nonatomic, strong) WMFImageTagParser* parser;
@@ -220,7 +226,7 @@
        ] bk_map:^NSURL*(NSString* stringURL){
            return [NSURL URLWithString:stringURL];
        }];
-
+    
     assertThat([self urlsFromHMTL:tagsToParse atTargetWidth:1024], is(equalTo(expectedURLs)));
 }
 
@@ -284,11 +290,56 @@
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
 }
 
+- (void)testImgTagReductionStartsWithImg {
+    assertThat([self.parser imgTagsOnlyFromHTMLString:@"<img src=\"foo\"><bla bla>"], is(equalTo(@"<img src=\"foo\">")));
+}
+
+- (void)testImgTagReductionMultiple {
+    assertThat([self.parser imgTagsOnlyFromHTMLString:@"<img src=\"foo\"><bla bla><img src=\"foo\">"], is(equalTo(@"<img src=\"foo\"><img src=\"foo\">")));
+}
+
+- (void)testImgTagReductionStartsWithSpace {
+    assertThat([self.parser imgTagsOnlyFromHTMLString:@" <img src=\"foo\"><bla bla>"], is(equalTo(@"<img src=\"foo\">")));
+}
+
+- (void)testImgTagReductionStartsWithOtherTag {
+    assertThat([self.parser imgTagsOnlyFromHTMLString:@" <p>what</p> <img src=\"foo\"><bla bla>"], is(equalTo(@"<img src=\"foo\">")));
+}
+
+- (void)testImgTagReductionStartsWithOtherTagWithSpace {
+    assertThat([self.parser imgTagsOnlyFromHTMLString:@"<p>what</p> <img src=\"foo\"><bla bla>"], is(equalTo(@"<img src=\"foo\">")));
+}
+
+- (void)testImgTagReductionStartsWithOtherTagNoSpace {
+    assertThat([self.parser imgTagsOnlyFromHTMLString:@"<p>what</p><img src=\"foo\"><bla bla>"], is(equalTo(@"<img src=\"foo\">")));
+}
+
+- (void)testImgTagReductionSpace {
+    assertThat([self.parser imgTagsOnlyFromHTMLString:@" "], is(equalTo(@"")));
+}
+
+- (void)testImgTagReductionEmptyString {
+    assertThat([self.parser imgTagsOnlyFromHTMLString:@""], is(equalTo(@"")));
+}
+
+- (void)testImgTagParsing {
+    assertThat([self.parser imgTagsOnlyFromHTMLString:@"<img src=\"foo\"></img>"], is(equalTo(@"<img src=\"foo\">")));
+}
+
+- (void)testImgTagParsingStripsOtherElements {
+    assertThat([self.parser imgTagsOnlyFromHTMLString:@"<img src=\"foo\"/><div/><img src=\"bar\"/>"],
+               is(equalTo(@"<img src=\"foo\"/><img src=\"bar\"/>")));
+}
+
+- (void)testImgTagReductionNonHTMLString {
+    assertThat([self.parser imgTagsOnlyFromHTMLString:@"bla bla"], is(equalTo(@"")));
+}
+
 /*
-NSArray *a = [parsedObamaGalleryURLS bk_map:^NSString*(NSURL* url){
-    return url.absoluteString;
-}];
-NSLog(@"============\n\n%@\n\n=============", a);
-*/
+ NSArray *a = [parsedObamaGalleryURLS bk_map:^NSString*(NSURL* url){
+ return url.absoluteString;
+ }];
+ NSLog(@"============\n\n%@\n\n=============", a);
+ */
 
 @end
