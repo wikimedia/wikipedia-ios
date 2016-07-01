@@ -136,7 +136,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
     MWKTitle* title = [self titleForItemAtIndexPath:indexPath];
-    return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    return [[WMFRandomArticleViewController alloc] initWithArticleTitle:title randomArticleFetcher:self.fetcher site:self.searchSite dataStore:self.dataStore];
 }
 
 - (void)didEndDisplayingSection {
@@ -150,7 +150,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 }
 
 - (UIViewController*)moreViewController {
-    return [[WMFRandomArticleViewController alloc] initWithRandomArticleFetcher:self.fetcher site:self.searchSite dataStore:self.dataStore];
+    return [[WMFRandomArticleViewController alloc] initWithArticleTitle:nil randomArticleFetcher:self.fetcher site:self.searchSite dataStore:self.dataStore];
 }
 
 

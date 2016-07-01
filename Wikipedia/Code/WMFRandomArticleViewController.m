@@ -28,9 +28,9 @@ static const CGFloat WMFRandomAnimationSpringDampingDice = 0.5;
 
 @implementation WMFRandomArticleViewController
 
-- (instancetype)initWithRandomArticleFetcher:(WMFRandomArticleFetcher*)randomArticleFetcher site:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithArticleTitle:(nullable MWKTitle*)title randomArticleFetcher:(WMFRandomArticleFetcher*)randomArticleFetcher site:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(dataStore);
-    self = [super initWithDataStore:dataStore];
+    self = [super initWithArticleTitle:title dataStore:dataStore];
     if (self) {
         self.site                 = site;
         self.randomArticleFetcher = randomArticleFetcher;
@@ -43,13 +43,18 @@ static const CGFloat WMFRandomAnimationSpringDampingDice = 0.5;
 
     [self setupEmptyFadeView];
     [self setupRandomButton];
-
-    [self loadRandomArticle:self];
+    
+    if (!self.articleTitle) {
+        [self loadRandomArticle:self];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.viewAppeared = YES;
+    if (self.articleTitle) {
+        [self setRandomButtonHidden:NO animated:YES];
+    }
 }
 
 - (void)setupRandomButton {

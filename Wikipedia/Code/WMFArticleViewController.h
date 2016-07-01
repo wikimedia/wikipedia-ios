@@ -29,8 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithArticleTitle:(nullable MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore;
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
-
 @property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
 

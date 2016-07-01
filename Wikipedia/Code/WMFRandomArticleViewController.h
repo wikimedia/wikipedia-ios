@@ -6,6 +6,7 @@
 
 @interface WMFRandomArticleViewController : WMFArticleViewController
 
-- (instancetype)initWithRandomArticleFetcher:(WMFRandomArticleFetcher*)randomArticleFetcher site:(MWKSite*)site dataStore:(MWKDataStore*)dataStore;
+- (instancetype)initWithArticleTitle:(MWKTitle*)title randomArticleFetcher:(WMFRandomArticleFetcher*)randomArticleFetcher site:(MWKSite*)site dataStore:(MWKDataStore*)dataStore;
+
 
 @end

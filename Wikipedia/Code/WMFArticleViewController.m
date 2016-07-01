@@ -159,11 +159,6 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
-    return [self initWithArticleTitle:nil dataStore:dataStore];
-}
-
 #pragma mark - Accessors
 
 - (WMFArticleFooterMenuViewController*)footerMenuViewController {
@@ -1004,6 +999,10 @@ NS_ASSUME_NONNULL_BEGIN
     return nil;
 }
 
+- (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+}
+
 #pragma mark - Header Tap Gesture
 
 - (void)imageViewDidTap:(UITapGestureRecognizer*)tap {
@@ -1212,6 +1211,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)analyticsName {
     return [self.articleTitle.site urlDomainWithLanguage];
 }
+
 
 @end
 
