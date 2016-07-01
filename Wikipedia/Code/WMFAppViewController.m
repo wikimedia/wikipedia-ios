@@ -33,7 +33,6 @@
 #import "WMFExploreViewController.h"
 #import "WMFSearchViewController.h"
 #import "WMFArticleListTableViewController.h"
-#import "DataMigrationProgressViewController.h"
 #import "WMFWelcomeViewController.h"
 #import "WMFArticleBrowserViewController.h"
 #import "WMFNearbyListViewController.h"
@@ -82,7 +81,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic, strong, readonly) WMFArticleListTableViewController* savedArticlesViewController;
 @property (nonatomic, strong, readonly) WMFArticleListTableViewController* recentArticlesViewController;
 
-@property (nonatomic, strong) WMFLegacyImageDataMigration* imageMigration;
 @property (nonatomic, strong) SavedArticlesFetcher* savedArticlesFetcher;
 @property (nonatomic, strong) WMFRandomArticleFetcher* randomFetcher;
 @property (nonatomic, strong) SessionSingleton* session;
@@ -183,20 +181,16 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self showSplashView];
 
     @weakify(self)
-    [self runDataMigrationIfNeededWithCompletion :^{
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+        self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
+    }
+    [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
         @strongify(self)
-        [self.imageMigration setupAndStart];
-        [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-        if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-            self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
-        }
-        [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-            @strongify(self)
-            [self loadMainUI];
-            [self hideSplashViewAnimated:!didShowOnboarding];
-            [self resumeApp];
-            [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
-        }];
+        [self loadMainUI];
+        [self hideSplashViewAnimated:!didShowOnboarding];
+        [self resumeApp];
+        [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
     }];
 }
 
@@ -448,15 +442,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Accessors
 
-- (WMFLegacyImageDataMigration*)imageMigration {
-    if (!_imageMigration) {
-        _imageMigration = [[WMFLegacyImageDataMigration alloc]
-                           initWithImageController:[WMFImageController sharedInstance]
-                                   legacyDataStore:[MWKDataStore new]];
-    }
-    return _imageMigration;
-}
-
 - (SavedArticlesFetcher*)savedArticlesFetcher {
     if (!_savedArticlesFetcher) {
         _savedArticlesFetcher =
@@ -687,29 +672,6 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFileOfType:WMFAssetsFileTypeConfig
                                                           withManager:[QueuesSingleton sharedInstance].assetsFetchManager
                                                                maxAge:kWMFMaxAgeDefault];
-    }];
-}
-
-#pragma mark - Migration
-
-- (void)runDataMigrationIfNeededWithCompletion:(dispatch_block_t)completion {
-    DataMigrationProgressViewController* migrationVC = [[DataMigrationProgressViewController alloc] init];
-    [migrationVC removeOldDataBackupIfNeeded];
-
-    if (![migrationVC needsMigration]) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-
-    [self presentViewController:migrationVC animated:YES completion:^{
-        [migrationVC runMigrationWithCompletion:^(BOOL migrationCompleted) {
-            [migrationVC dismissViewControllerAnimated:YES completion:NULL];
-            if (completion) {
-                completion();
-            }
-        }];
     }];
 }
 
