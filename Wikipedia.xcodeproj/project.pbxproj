@@ -111,6 +111,7 @@
 		B0726DAA1C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0726DA81C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib */; };
 		B07963E31C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = B07963E21C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m */; };
 		B07D25DB1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D25DA1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m */; };
+		B07D25DE1D27538D00550721 /* WMFUpstreamHTMLFormatChangesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D25DC1D27537E00550721 /* WMFUpstreamHTMLFormatChangesTests.m */; };
 		B0866F461CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0866F441CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m */; };
 		B0866F471CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0866F451CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib */; };
 		B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = B08E7E9A1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m */; };
@@ -886,6 +887,7 @@
 		B07963E21C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+WMFHideEmptyToolbar.m"; path = "Wikipedia/Code/UINavigationController+WMFHideEmptyToolbar.m"; sourceTree = SOURCE_ROOT; };
 		B07D25D91D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableSet+WMFSafeAdd.h"; path = "Wikipedia/Code/NSMutableSet+WMFSafeAdd.h"; sourceTree = SOURCE_ROOT; };
 		B07D25DA1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableSet+WMFSafeAdd.m"; path = "Wikipedia/Code/NSMutableSet+WMFSafeAdd.m"; sourceTree = SOURCE_ROOT; };
+		B07D25DC1D27537E00550721 /* WMFUpstreamHTMLFormatChangesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFUpstreamHTMLFormatChangesTests.m; sourceTree = "<group>"; };
 		B0866F431CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionFooter.h; sourceTree = "<group>"; };
 		B0866F441CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionFooter.m; sourceTree = "<group>"; };
 		B0866F451CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionFooter.xib; sourceTree = "<group>"; };
@@ -4766,6 +4768,7 @@
 				BC2F51FA1C80D1FD004E93E5 /* WMFSectionControllerCacheTests.m */,
 				B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */,
 				B04393F11D21C04500FD2BD9 /* WMFImageTagParserTests.m */,
+				B07D25DC1D27537E00550721 /* WMFUpstreamHTMLFormatChangesTests.m */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests/Code;
@@ -5477,6 +5480,7 @@
 				B0E808F21C0D18280065EBC0 /* MWKProtectionStatusTests.m in Sources */,
 				B0E808D41C0D17A60065EBC0 /* MWKHistoryListCorruptDataTests.m in Sources */,
 				B0E809271C0D19BC0065EBC0 /* MWKSection+WMFSharingTests.m in Sources */,
+				B07D25DE1D27538D00550721 /* WMFUpstreamHTMLFormatChangesTests.m in Sources */,
 				B0E8095A1C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.m in Sources */,
 				B0E8093F1C0D1A760065EBC0 /* WMFCollectionViewExtensionTests.m in Sources */,
 				B0E809601C0D1BA30065EBC0 /* WMFSearchFetcherTests.m in Sources */,
