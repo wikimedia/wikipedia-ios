@@ -72,7 +72,6 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 #pragma mark - Tests
 
 - (void)testReadsFromDataStoreLazilyAndPopulatesFetchedIndices {
-    NSArray* mockImageList = MKTMock([NSArray class]);
     MWKDataStore* mockDataStore = MKTMock([MWKDataStore class]);
 
     MWKTitle* title = [[MWKTitle alloc] initWithSite:[MWKSite siteWithCurrentLocale]
@@ -86,7 +85,6 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     NSRange preFetchedRange    = NSMakeRange(0, 2);
     NSArray* expectedImageInfo = [[MWKImageInfo mappedFromImages:testImages] subarrayWithRange:preFetchedRange];
 
-    [MKTGiven(mockImageList) willReturn:testImages];
     [MKTGiven([mockDataStore imageInfoForTitle:title]) willReturn:expectedImageInfo];
 
     WMFImageInfoController* controller = [[WMFImageInfoController alloc] initWithDataStore:mockDataStore
