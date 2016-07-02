@@ -28,11 +28,11 @@
 
 - (void)testLoadNonexistentImage {
     // This should hand us a new image object
-    XCTAssertNotNil([self.article importImageURL:self.goldenGateImageURL sectionId:0]);
+    XCTAssertNotNil([[MWKImage alloc] initWithArticle:self.article sourceURLString:self.goldenGateImageURL]);
 }
 
 - (void)testLoadNonexistentImageData {
-    MWKImage* image = [self.article importImageURL:self.goldenGateImageURL sectionId:0];
+    MWKImage* image = [[MWKImage alloc] initWithArticle:self.article sourceURLString:self.goldenGateImageURL];
     XCTAssertNotNil(image);
 
     // But this data should explode
@@ -43,7 +43,7 @@
 - (void)testLoadExistentImageData {
     NSData* dataSample = [self loadDataFile:@"golden-gate" ofType:@"jpg"];
 
-    MWKImage* image = [self.article importImageURL:self.goldenGateImageURL sectionId:0];
+    MWKImage* image = [[MWKImage alloc] initWithArticle:self.article sourceURLString:self.goldenGateImageURL];
     //MWKImage *image = [self.articleStore imageWithURL:self.goldenGateImageURL];
     XCTAssertNotNil(image);
     XCTAssertNoThrow([self.article importImageData:dataSample image:image]);

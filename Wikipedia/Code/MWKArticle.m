@@ -241,13 +241,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 #pragma mark - Image Helpers
 
 /**
- * Create a stub record for an image with given URL.
- */
-- (MWKImage*)importImageURL:(NSString*)url sectionId:(int)sectionId {
-    return [[MWKImage alloc] initWithArticle:self sourceURLString:url];
-}
-
-/**
  * Import downloaded image data into our data store,
  * and update the image object/record
  */

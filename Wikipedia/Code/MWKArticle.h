@@ -94,11 +94,6 @@ static const NSInteger kMWKArticleSectionNone = -1;
 - (MWKImage*)existingImageWithURL:(NSString*)url;
 
 /**
- * Create a stub record for an image with given URL.
- */
-- (MWKImage*)importImageURL:(NSString*)url sectionId:(int)sectionId;
-
-/**
  *  Check if the receiver is equal to the given article.
  *
  *  This method is meant to be a good compromise between comprehensive equality checking and speed. For a more detailed
