@@ -32,7 +32,7 @@
         width = MIN(width, targetWidth);
         
         if (width == self.dataFileWidth.integerValue){
-            // The scaler wont scale raster images greater *or equal* to their canonial width.
+            // The scaler wont scale raster images greater *or equal* to their canonical width.
             // So we need to get rid of "/thumb/" path component and "px-" size prefix last
             // path component, but only if we're actually dealing with a "thumb" scaled variant.
             // This check for "/thumb/" is needed in case the canonical image name happens to
