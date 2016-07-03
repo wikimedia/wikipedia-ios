@@ -186,6 +186,5 @@
 
 - (UIImage*)asUIImage WMF_TECH_DEBT_DEPRECATED;
 - (NSData*)asNSData WMF_TECH_DEBT_DEPRECATED;
-- (NSString*)fullImageBinaryPath WMF_TECH_DEBT_DEPRECATED;
 
 @end

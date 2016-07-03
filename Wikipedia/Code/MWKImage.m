@@ -272,10 +272,6 @@
             [super description], self.article.title, self.sourceURLString];
 }
 
-- (NSString*)fullImageBinaryPath {
-    return [self.dataExport pathForImageData:self];
-}
-
 - (BOOL)isLeadImage {
     return [self.article.image isEqualToImage:self];
 }
