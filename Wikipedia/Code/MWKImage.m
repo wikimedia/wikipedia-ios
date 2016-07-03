@@ -198,20 +198,6 @@
     [self.article.dataStore saveImage:self];
 }
 
-- (UIImage*)asUIImage {
-    UIImage* image = [UIImage imageWithData:[self.article.dataStore imageDataWithImage:self]];
-
-    NSAssert((![self hasEstimatedSize] || [self isEstimatedSizeWithinPoints:10.f ofSize:image.size]),
-             (@"estimatedSize inaccuracy has exceeded acceptable threshold: { \n"
-              "\t" "sourceURL: %@, \n"
-              "\t" "estimatedSize: %@ \n"
-              "\t" "actualSize: %@ \n"
-              "}"),
-             self.sourceURL, [self estimatedSizeString], NSStringFromCGSize(image.size));
-
-    return image;
-}
-
 - (BOOL)hasEstimatedSize {
     return self.width && self.height;
 }
@@ -233,10 +219,6 @@
     CGSize estimatedSize = [self estimatedSize];
     return fabs(estimatedSize.width - size.width) <= points
            && fabs(estimatedSize.height - size.height) <= points;
-}
-
-- (NSData*)asNSData {
-    return nil;
 }
 
 - (BOOL)isDownloaded {

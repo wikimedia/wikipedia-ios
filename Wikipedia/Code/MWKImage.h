@@ -184,7 +184,4 @@
 - (void)importImageData:(NSData*)data WMF_TECH_DEBT_DEPRECATED;
 - (void)updateWithData:(NSData*)data WMF_TECH_DEBT_DEPRECATED;
 
-- (UIImage*)asUIImage WMF_TECH_DEBT_DEPRECATED;
-- (NSData*)asNSData WMF_TECH_DEBT_DEPRECATED;
-
 @end
