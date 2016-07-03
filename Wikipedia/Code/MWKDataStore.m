@@ -367,16 +367,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     }
 }
 
-- (NSString*)pathForImageData:(MWKImage*)image {
-    return [self pathForImageData:image.sourceURLString title:image.article.title];
-}
-
-- (NSString*)pathForImageData:(NSString*)sourceURL title:(MWKTitle*)title {
-    NSString* path     = [self pathForImageURL:sourceURL title:title];
-    NSString* fileName = [@"Image" stringByAppendingPathExtension:sourceURL.pathExtension];
-    return [path stringByAppendingPathComponent:fileName];
-}
-
 - (NSArray*)historyListData {
     NSString* path     = self.basePath;
     NSString* filePath = [path stringByAppendingPathComponent:@"History.plist"];

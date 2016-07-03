@@ -64,8 +64,6 @@ extern NSString* const MWKArticleKey;
 - (NSString*)pathForImagesWithTitle:(MWKTitle*)title;
 - (NSString*)pathForImageURL:(NSString*)url title:(MWKTitle*)title;
 - (NSString*)pathForImage:(MWKImage*)image;
-- (NSString*)pathForImageData:(MWKImage*)image;
-- (NSString*)pathForImageData:(NSString*)sourceURL title:(MWKTitle*)title;
 
 /**
  * The path where the image info is stored for a given article.
