@@ -176,11 +176,3 @@
 - (BOOL)isLeadImage;
 
 @end
-
-#pragma mark - Deprecated Methods
-
-@interface MWKImage ()
-
-- (void)updateWithData:(NSData*)data WMF_TECH_DEBT_DEPRECATED;
-
-@end

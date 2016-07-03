@@ -176,20 +176,6 @@
 
 #pragma mark - Import / Export
 
-- (void)updateWithData:(NSData*)data {
-    self.mimeType = [self getImageMimeTypeForExtension:self.extension];
-
-    if (!self.width || !self.height) {
-        UIImage* img = [UIImage imageWithData:data];
-        self.width  = [NSNumber numberWithInt:img.size.width];
-        self.height = [NSNumber numberWithInt:img.size.height];
-    }
-}
-
-- (NSString*)getImageMimeTypeForExtension:(NSString*)extension {
-    return [self.sourceURL wmf_mimeTypeForExtension];
-}
-
 - (void)save {
     [self.article.dataStore saveImage:self];
 }
