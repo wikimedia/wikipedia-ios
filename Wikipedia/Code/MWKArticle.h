@@ -141,12 +141,6 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @interface MWKArticle ()
 
 /**
- * Import downloaded image data into our data store,
- * and update the image object/record
- */
-- (MWKImage*)importImageData:(NSData*)data image:(MWKImage*)image WMF_TECH_DEBT_DEPRECATED;
-
-/**
  *  @return Set of all image URLs shown in the receiver.
  */
 - (NSSet<NSURL*>*)allImageURLs;

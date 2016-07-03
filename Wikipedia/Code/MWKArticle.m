@@ -240,15 +240,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Image Helpers
 
-/**
- * Import downloaded image data into our data store,
- * and update the image object/record
- */
-- (MWKImage*)importImageData:(NSData*)data image:(MWKImage*)image {
-    [self.dataStore saveImageData:data image:image];
-    return image;
-}
-
 - (MWKImage*)imageWithURL:(NSString*)url {
     return [self.dataStore imageWithURL:url article:self];
 }

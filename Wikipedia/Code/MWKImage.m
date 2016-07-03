@@ -176,10 +176,6 @@
 
 #pragma mark - Import / Export
 
-- (void)importImageData:(NSData*)data {
-    [self.article.dataStore saveImageData:data image:self];
-}
-
 - (void)updateWithData:(NSData*)data {
     self.mimeType = [self getImageMimeTypeForExtension:self.extension];
 

@@ -181,7 +181,6 @@
 
 @interface MWKImage ()
 
-- (void)importImageData:(NSData*)data WMF_TECH_DEBT_DEPRECATED;
 - (void)updateWithData:(NSData*)data WMF_TECH_DEBT_DEPRECATED;
 
 @end
