@@ -109,16 +109,6 @@ extern NSString* const MWKArticleKey;
  */
 - (void)saveImage:(MWKImage*)image;
 
-/**
- *  Saves the image to the store
- *  This is a non-op if the image.article is a main page
- *
- *  @param data  The data to save
- *  @param image The image to save
- */
-- (void)saveImageData:(NSData*)data image:(MWKImage*)image;
-
-
 - (BOOL)saveHistoryList:(MWKHistoryList*)list error:(NSError**)error;
 - (BOOL)saveSavedPageList:(MWKSavedPageList*)list error:(NSError**)error;
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList*)list error:(NSError**)error;

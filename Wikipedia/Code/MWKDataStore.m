@@ -271,19 +271,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     [self saveDictionary:export path:path name:@"Image.plist"];
 }
 
-- (void)saveImageData:(NSData*)data image:(MWKImage*)image {
-    if ([image.article isMain]) {
-        return;
-    }
-    NSString* path     = [self pathForImage:image];
-    NSString* filename = [@"Image" stringByAppendingPathExtension:image.extension];
-
-    [self saveData:data path:path name:filename];
-
-    [image updateWithData:data];
-    [self saveImage:image];
-}
-
 - (BOOL)saveHistoryList:(MWKHistoryList*)list error:(NSError**)error {
     NSString* path       = self.basePath;
     NSDictionary* export = @{@"entries": [list dataExport]};
