@@ -377,22 +377,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return [path stringByAppendingPathComponent:fileName];
 }
 
-- (NSData*)imageDataWithImage:(MWKImage*)image {
-    if (image == nil) {
-        NSLog(@"nil image passed to imageDataWithImage");
-        return nil;
-    }
-    NSString* filePath = [self pathForImageData:image];
-
-    NSError* err;
-    NSData* data = [NSData dataWithContentsOfFile:filePath options:0 error:&err];
-    if (err) {
-        NSLog(@"Failed to load image from %@: %@", filePath, [err description]);
-        return nil;
-    }
-    return data;
-}
-
 - (NSArray*)historyListData {
     NSString* path     = self.basePath;
     NSString* filePath = [path stringByAppendingPathComponent:@"History.plist"];

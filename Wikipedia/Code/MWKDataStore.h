@@ -166,7 +166,6 @@ extern NSString* const MWKArticleKey;
 - (MWKSection*)sectionWithId:(NSUInteger)sectionId article:(MWKArticle*)article;
 - (NSString*)sectionTextWithId:(NSUInteger)sectionId article:(MWKArticle*)article;
 - (MWKImage*)imageWithURL:(NSString*)url article:(MWKArticle*)article;
-- (NSData*)imageDataWithImage:(MWKImage*)image;
 - (NSArray*)imageInfoForTitle:(MWKTitle*)title;
 
 

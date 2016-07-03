@@ -34,10 +34,6 @@
 - (void)testLoadNonexistentImageData {
     MWKImage* image = [[MWKImage alloc] initWithArticle:self.article sourceURLString:self.goldenGateImageURL];
     XCTAssertNotNil(image);
-
-    // But this data should explode
-    NSData* data = [self.article.dataStore imageDataWithImage:image];
-    XCTAssertNil(data);
 }
 
 @end
