@@ -11,6 +11,7 @@
 "article-languages-label" = "Elekti lingvon";
 "article-languages-cancel" = "Nuligi";
 "article-languages-downloading" = "Ŝarĝante lingvojn de la artikolo...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Trovi lingvon";
 "article-read-more-title" = "Legi plu";
 "article-about-title" = "Pri ĉi tiu artikolo";
@@ -45,18 +46,23 @@
 "account-creation-logging-in" = "Ensalutante...";
 "account-creation-saving" = "Konservante...";
 "account-creation-login" = "Ĉu vi jam havas konton? Ensalutu.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Uzantnomo";
 "account-creation-password-placeholder-text" = "Pasvorto";
 "account-creation-password-confirm-placeholder-text" = "Konfirmu pasvorton";
 "account-creation-email-placeholder-text" = "Retpoŝto (Malnepra)";
 "account-creation-missing-fields" = "Vi devas enigi uzantnomon, pasvorton, kaj konfirmi vian pasvorton por krei konton.";
+// Fuzzy
 "login-name-not-found" = "Uzantnomo nepras por ensaluti.";
+// Fuzzy
 "login-name-illegal" = "Vi enigis ne-akcepteblan uzantnomon.";
+// Fuzzy
 "login-name-does-not-exist" = "La uzantnomo enigita ne ekzistas.";
 "login-password-empty" = "Pasvorto nepras por ensaluti.";
 "login-password-wrong" = "La enigita pasvorto estas malĝusta.";
 "login-user-blocked" = "Uzanto estas forbarita.";
 "login-account-creation" = "Ĉu vi ne havas konton? Aliĝi al Vikipedio.";
+// Fuzzy
 "login-username-placeholder-text" = "Uzantnomo";
 "login-password-placeholder-text" = "Pasvorto";
 "wikitext-downloading" = "Ŝarĝante enhavon...";

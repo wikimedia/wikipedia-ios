@@ -46,24 +46,30 @@
 "zero-warn-when-leaving" = "ৱিকিপিডিয়া জিৰ' এৰিলে সতৰ্ক কৰিব";
 "zero-settings-devmode" = "জিৰ' ডেভম'ড";
 "account-creation-captcha-required" = "কেপ্‌চা সত্যাসত্য নিৰ্ণয়ৰ প্ৰয়োজন।";
+// Fuzzy
 "account-creation-captcha-obtaining" = "এটা নতুন কেপ্‌চা লোৱা হৈছে।";
 "account-creation-logging-in" = "প্ৰৱেশ কৰিছে...";
 "account-creation-passwords-mismatched" = "গুপ্তশব্দ মিলা নাই।";
 "account-creation-saving" = "সাঁচি থোৱা হৈছে...";
 "account-creation-login" = "ইতিমধ্যে এটা একাউণ্ট আছে? প্ৰৱেশ কৰক।";
+// Fuzzy
 "account-creation-username-placeholder-text" = "সদস্যনাম";
 "account-creation-password-placeholder-text" = "গুপ্তশব্দ";
 "account-creation-password-confirm-placeholder-text" = "গুপ্তশব্দ নিশ্চিত কৰক";
 "account-creation-email-placeholder-text" = "ইমেইল (বৈকল্পিক)";
 "account-creation-missing-fields" = "একাউণ্ট সৃষ্টি কৰিবলৈ আপুনি এটা সদস্যনাম, গুপ্তশব্দ আৰু গুপ্তশব্দ নিশ্চিতকৰণ লিখিবলৈ লাগিব।";
+// Fuzzy
 "login-name-not-found" = "প্ৰৱেশ কৰিবলৈ সদস্যনামৰ প্ৰয়োজন।";
+// Fuzzy
 "login-name-illegal" = "আপুনি এটা অবৈধ সদস্যনাম দিছে।";
+// Fuzzy
 "login-name-does-not-exist" = "আপুনি দিয়াৰ দৰে কোনো সদস্যনাম নাই।";
 "login-password-empty" = "প্ৰৱেশ কৰিবলৈ গুপ্তশব্দৰ প্ৰয়োজন।";
 "login-password-wrong" = "আপুনি দিয়া গুপ্তশব্দটো ভুল।";
 "login-throttled" = "আপুনি কম সময়তে বহুবাৰ প্ৰৱেশ কৰিছে।";
 "login-user-blocked" = "সদস্যজনক অৱৰোধ কৰা হৈছে।";
 "login-account-creation" = "কোনো একাউণ্ট নাই? ৱিকিপিডিয়াত যোগ দিয়ক।";
+// Fuzzy
 "login-username-placeholder-text" = "সদস্যনাম";
 "login-password-placeholder-text" = "গুপ্তশব্দ";
 "wikitext-downloading" = "সমল ল’ড হৈ আছে...";

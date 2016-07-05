@@ -11,6 +11,7 @@
 "article-languages-label" = "ھەڵبژاردنی زمان";
 "article-languages-cancel" = "ھەڵوەشاندنەوە";
 "article-languages-downloading" = "ھێنانی زمانەکانی وتار...";
+// Fuzzy
 "article-languages-filter-placeholder" = "دۆزینەوەی زمان";
 "article-read-more-title" = "زیاتر بخوێنەوە";
 "article-about-title" = "سەبارەت بەم وتارە";
@@ -40,17 +41,21 @@
 "account-creation-logging-in" = "چوونە ناوەوە...";
 "account-creation-saving" = "خەریکە پاشەکەوت دەبێت...";
 "account-creation-login" = "ھەژمارێکت ھەیە؟ بڕۆ ناوەوە.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "ناوی بەکارھێنەر";
 "account-creation-password-placeholder-text" = "تێپەڕوشە";
 "account-creation-password-confirm-placeholder-text" = "تێپەروشە پشتڕاست بکەرەوە";
 "account-creation-email-placeholder-text" = "پۆستی ئەلکترۆنی (ئارەزوومەندانەیە)";
 "account-creation-missing-fields" = "پێویستە ھەژمارناوێک، تێپەڕوشەیەک، و دڵنیابوونەوەی تێپەڕوشە تۆماربکەی بۆ دروستکردنی ھەژمارێک.";
+// Fuzzy
 "login-name-not-found" = "ھەژمارناو داواکراوە بۆ چوونەناوەوە.";
+// Fuzzy
 "login-name-illegal" = "ھەژمارناوێکی ڕێپێنەدراوت پێشکەش کردووە.";
 "login-password-empty" = "تێپەڕوشە داواکراوە بۆ چوونەناوەوە.";
 "login-password-wrong" = "ئەو تێپەڕوشەیەی داتناوە ھەڵەیە.";
 "login-user-blocked" = "بەکارھێنەر بەربەست کراوە.";
 "login-account-creation" = "ھیچ ھەژمارێکت نییە؟ بەشداربە لە ویکیپیدیا.";
+// Fuzzy
 "login-username-placeholder-text" = "ناوی بەکارھێنەر";
 "login-password-placeholder-text" = "تێپەڕوشە";
 "wikitext-downloading" = "ھێنانی ناوەڕۆک...";

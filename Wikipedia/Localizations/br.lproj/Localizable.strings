@@ -48,24 +48,30 @@
 "zero-warn-when-leaving" = "Roit da c'houzout ma kuitait Wikipedia Zero";
 "zero-settings-devmode" = "Mod diorren zero";
 "account-creation-captcha-required" = "Rekis eo gwiriañ ar C'HAPTCHA";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Kaout ur C'HAPTCHA nevez.";
 "account-creation-logging-in" = "O kevreañ ouzh...";
 "account-creation-passwords-mismatched" = "Maeziennoù ar gerioù-tremen ne glotont ket an eil gant egile";
 "account-creation-saving" = "Oc'h enrollañ...";
 "account-creation-login" = "Ur gont ho peus dija ? Kevreit.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Anv implijer";
 "account-creation-password-placeholder-text" = "Ger-tremen";
 "account-creation-password-confirm-placeholder-text" = "Kadarnaat ar ger-tremen";
 "account-creation-email-placeholder-text" = "Postel (diret)";
 "account-creation-missing-fields" = "Rankout a rit ebarzhiñ un anv implijer, ur ger-tremen, hag ur ger-tremen kadarnaat evit krouiñ ur gont.";
+// Fuzzy
 "login-name-not-found" = "Rekis eo an anv implijer evit kevreañ.";
+// Fuzzy
 "login-name-illegal" = "Roet ho peus un anv implijer dilezenn.";
+// Fuzzy
 "login-name-does-not-exist" = "N'eus ket eus an anv implijer roet";
 "login-password-empty" = "Rekis eo ar ger-tremen evit kevreañ.";
 "login-password-wrong" = "Direizh eo ar ger-tremen pourchaset.";
 "login-throttled" = "Kevreet ho peus meur a wech e berr amzer.";
 "login-user-blocked" = "Prennet eo an implijer";
 "login-account-creation" = "N'ho peus kont ebet ? Deuit da-gaout Wikipedia";
+// Fuzzy
 "login-username-placeholder-text" = "Anv implijer";
 "login-password-placeholder-text" = "Ger-tremen";
 "wikitext-downloading" = "O kargañ un endalc'had...";

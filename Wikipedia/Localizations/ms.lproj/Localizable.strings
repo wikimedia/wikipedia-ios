@@ -47,24 +47,30 @@
 "zero-warn-when-leaving" = "Pesan apabila keluar dari Wikipedia Zero";
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-captcha-required" = "Pengesahan CAPTCHA diperlukan.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Mendapatkan CAPTCHA baru.";
 "account-creation-logging-in" = "Sedang log masuk...";
 "account-creation-passwords-mismatched" = "Kata laluan tidak sepadan.";
 "account-creation-saving" = "Menyimpan...";
 "account-creation-login" = "Sudah ada akaun? Log masuk.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Nama pengguna";
 "account-creation-password-placeholder-text" = "Kata laluan";
 "account-creation-password-confirm-placeholder-text" = "Sahkan kata laluan";
 "account-creation-email-placeholder-text" = "E-mel (pilihan)";
 "account-creation-missing-fields" = "Anda mesti menaipkan nama pengguna, kata laluan dan sekali lagi kata laluan untuk pengesahan untuk membuka akaun.";
+// Fuzzy
 "login-name-not-found" = "Nama pengguna diperlukan untuk log masuk.";
+// Fuzzy
 "login-name-illegal" = "Nama pengguna yang diberikan tidak sah.";
+// Fuzzy
 "login-name-does-not-exist" = "Nama pengguna yang diberikan tidak wujud.";
 "login-password-empty" = "Kata laluan diperlukan untuk log masuk.";
 "login-password-wrong" = "Kata laluan yang diberikan tidak betul.";
 "login-throttled" = "Anda telah log masuk terlalu banyak kali dalam masa yang singkat.";
 "login-user-blocked" = "Pengguna ini disekat.";
 "login-account-creation" = "Tiada akaun? Sertai Wikipedia.";
+// Fuzzy
 "login-username-placeholder-text" = "Nama pengguna";
 "login-password-placeholder-text" = "Kata laluan";
 "wikitext-downloading" = "Memuat kandungan...";

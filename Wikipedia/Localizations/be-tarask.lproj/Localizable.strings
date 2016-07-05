@@ -47,24 +47,30 @@
 "zero-warn-when-leaving" = "Папярэджваць, калі пакідаеце Вікіпэдыя Zero";
 "zero-settings-devmode" = "Рэжым распрацоўшчыка Zero";
 "account-creation-captcha-required" = "Патрабуецца праверка CAPTCHA.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Абнавіць выяву CAPTCHA.";
 "account-creation-logging-in" = "Уваход у сыстэму...";
 "account-creation-passwords-mismatched" = "Паролі не супадаюць.";
 "account-creation-saving" = "Захаваньне...";
 "account-creation-login" = "Ужо маеце рахунак? Увайсьці";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Імя ўдзельніка";
 "account-creation-password-placeholder-text" = "Пароль";
 "account-creation-password-confirm-placeholder-text" = "Пацьвердзіце пароль";
 "account-creation-email-placeholder-text" = "Адрас электроннай пошты (не абавязкова)";
 "account-creation-missing-fields" = "Вам неабходна ўвесьці імя ўдзельніка, пароль і пацьвердзіць пароль, каб стварыць рахунак.";
+// Fuzzy
 "login-name-not-found" = "Для ўваходу патрабуецца імя ўдзельніка.";
+// Fuzzy
 "login-name-illegal" = "Вы падалі няслушнае імя ўдзельніка.";
+// Fuzzy
 "login-name-does-not-exist" = "Паданае імя ўдзельніка не існуе.";
 "login-password-empty" = "Для ўваходу ў сыстэму неабходны пароль.";
 "login-password-wrong" = "Пададзены Вамі пароль зьяўляецца няслушным.";
 "login-throttled" = "Вы ўваходзілі зашмат разоў за кароткі пэрыяд часу.";
 "login-user-blocked" = "Удзельнік заблякаваны.";
 "login-account-creation" = "Ня маеце рахунак? Далучайцеся да Вікіпэдыі.";
+// Fuzzy
 "login-username-placeholder-text" = "Імя ўдзельніка";
 "login-password-placeholder-text" = "Пароль";
 "wikitext-downloading" = "Загрузка зьместу...";

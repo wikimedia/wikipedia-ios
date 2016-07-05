@@ -10,6 +10,7 @@
 "article-languages-label" = "Ընտրեք լեզուն";
 "article-languages-cancel" = "Չեղարկել";
 "article-languages-downloading" = "Հոդվածի լեզուների բեռնում...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Գտնել լեզուն";
 "article-read-more-title" = "Կարդալ ավելին";
 "article-about-title" = "Այս հոդվածի մասին";
@@ -41,19 +42,24 @@
 "account-creation-logging-in" = "Մուտք համակարգ...";
 "account-creation-saving" = "Պահպանվում է...";
 "account-creation-login" = "Դուք արդեն գրանցվա՞ծ եք։ Մուտք գործել:";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Մասնակցային անուն";
 "account-creation-password-placeholder-text" = "Գաղտնաբառ";
 "account-creation-password-confirm-placeholder-text" = "Հաստատեք գաղտնաբառը";
 "account-creation-email-placeholder-text" = "Էլփոստի հասցե (ոչ պարտադիր)";
 "account-creation-missing-fields" = "Դուք պետք է մուտքագրեք մասնակցային անուն, ծածկագիր և հաստատող ծածկագիր մասնակցային հաշիվ ստեղծելու համար";
+// Fuzzy
 "login-name-not-found" = "Մուտք գործելու համար պահանջվում է մասնակցային անունը:";
+// Fuzzy
 "login-name-illegal" = "Դուք նշել եք անթույլատրելի մասնակցային անունը:";
+// Fuzzy
 "login-name-does-not-exist" = "Ձեր նշած մասնակցային անունը գոյություն չունի:";
 "login-password-empty" = "Մուտք գործելու համար պահանջվում է գաղտնաբառ:";
 "login-password-wrong" = "Դուք նշել եք սխալ գաղտնաբառ:";
 "login-throttled" = "Դուք փորձել եք կարճ ժամանակում շատ անգամներ մուտք գործել:";
 "login-user-blocked" = "Մասնակիցը արգելափակված է:";
 "login-account-creation" = "Հաշիվ չունե՞ք։ Միացեք Վիքիպեդիա նախագծին:";
+// Fuzzy
 "login-username-placeholder-text" = "Մասնակցային անուն";
 "login-password-placeholder-text" = "Գաղտնաբառ";
 "wikitext-downloading" = "Բովանդակության բեռնում...";
