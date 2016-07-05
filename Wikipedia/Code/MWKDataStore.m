@@ -23,6 +23,9 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, copy, nonatomic) NSString* basePath;
 @property (readwrite, strong, nonatomic) NSCache* articleCache;
 
+@property (readwrite, nonatomic, strong) dispatch_queue_t cacheRemovalQueue;
+@property (readwrite, nonatomic, getter = isCacheRemovalActive) BOOL cacheRemovalActive;
+
 @end
 
 @implementation MWKDataStore
@@ -55,7 +58,9 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
         self.articleCache            = [[NSCache alloc] init];
         self.articleCache.countLimit = 50;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-        self.userDataStore = [[MWKUserDataStore alloc] initWithDataStore:self];
+        self.userDataStore     = [[MWKUserDataStore alloc] initWithDataStore:self];
+        self.cacheRemovalQueue = dispatch_queue_create("org.wikimedia.cache_removal", DISPATCH_QUEUE_SERIAL);
+        dispatch_async(self.cacheRemovalQueue, ^{ self.cacheRemovalActive = true; });
     }
     return self;
 }
@@ -387,6 +392,35 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return dict[@"entries"];
 }
 
+- (NSArray*)cacheRemovalListFromDisk {
+    NSString* path      = self.basePath;
+    NSString* filePath  = [path stringByAppendingPathComponent:@"TitlesToRemove.plist"];
+    NSArray* URLStrings = [NSArray arrayWithContentsOfFile:filePath];
+    NSArray* titles     = [URLStrings bk_map:^id (id obj) {
+        if (obj && [obj isKindOfClass:[NSString class]]) {
+            NSURL* URL = [NSURL URLWithString:obj];
+            if (URL) {
+                return [[MWKTitle alloc] initWithURL:URL];
+            } else {
+                return [NSNull null];
+            }
+        } else {
+            return [NSNull null];
+        }
+    }];
+    titles = [titles bk_select:^BOOL (id obj) {
+        return [obj isKindOfClass:[MWKTitle class]];
+    }];
+    return titles;
+}
+
+- (BOOL)saveCacheRemovalListToDisk:(NSArray*)cacheRemovalList error:(NSError**)error {
+    NSArray* URLStrings = [cacheRemovalList bk_map:^id (id obj) {
+        return [[obj URL] absoluteString];
+    }];
+    return [self saveArray:URLStrings path:self.basePath name:@"TitlesToRemove.plist" error:error];
+}
+
 - (NSArray*)imageInfoForTitle:(MWKTitle*)title {
     return [[NSArray arrayWithContentsOfFile:[self pathForTitleImageInfo:title]] bk_map:^MWKImageInfo*(id obj) {
         return [MWKImageInfo imageInfoWithExportedData:obj];
@@ -424,6 +458,53 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
             block(article);
         }
     }
+}
+
+- (void)startCacheRemoval {
+    dispatch_async(self.cacheRemovalQueue, ^{
+        self.cacheRemovalActive = true;
+        [self removeNextTitleFromCacheRemovalList];
+    });
+}
+
+- (void)stopCacheRemoval {
+    dispatch_sync(self.cacheRemovalQueue, ^{
+        self.cacheRemovalActive = false;
+    });
+}
+
+- (void)removeNextTitleFromCacheRemovalList {
+    if (!self.cacheRemovalActive) {
+        return;
+    }
+    NSMutableArray* titlesToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
+    if (titlesToRemove.count > 0) {
+        MWKTitle* titleToRemove = titlesToRemove[0];
+        MWKArticle* article     = [self articleFromDiskWithTitle:titleToRemove];
+        [article remove];
+        [titlesToRemove removeObjectAtIndex:0];
+        NSError* error = nil;
+        if ([self saveCacheRemovalListToDisk:titlesToRemove error:&error]) {
+            dispatch_async(self.cacheRemovalQueue, ^{ [self removeNextTitleFromCacheRemovalList]; });
+        } else {
+            DDLogError(@"Error saving cache removal list: %@", error);
+        }
+    }
+}
+
+- (void)removeTitlesFromCache:(NSArray*)titlesToRemove {
+    dispatch_async(self.cacheRemovalQueue, ^{
+        NSMutableArray* allTitlesToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
+        if (allTitlesToRemove == nil) {
+            allTitlesToRemove = [NSMutableArray arrayWithArray:titlesToRemove];
+        } else {
+            [allTitlesToRemove addObjectsFromArray:titlesToRemove];
+        }
+        NSError* error = nil;
+        if (![self saveCacheRemovalListToDisk:allTitlesToRemove error:&error]) {
+            DDLogError(@"Error saving cache removal list to disk: %@", error);
+        }
+    });
 }
 
 #pragma mark - Deletion
