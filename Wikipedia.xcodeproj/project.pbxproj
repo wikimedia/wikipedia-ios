@@ -112,6 +112,7 @@
 		B07963E31C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = B07963E21C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m */; };
 		B07D25DB1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D25DA1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m */; };
 		B07D25DE1D27538D00550721 /* WMFUpstreamHTMLFormatChangesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D25DC1D27537E00550721 /* WMFUpstreamHTMLFormatChangesTests.m */; };
+		B07D25E01D29974E00550721 /* MWKImageEqualityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D25DF1D29974E00550721 /* MWKImageEqualityTests.m */; };
 		B0866F461CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0866F441CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m */; };
 		B0866F471CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0866F451CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib */; };
 		B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = B08E7E9A1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m */; };
@@ -552,6 +553,7 @@
 		B0E809681C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809671C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m */; };
 		B0E8096A1C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E809691C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift */; };
 		B0E8096C1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8096B1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m */; };
+		B0EEB8571D29B0B200F2099B /* MWKImageVarianceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EEB8561D29B0B200F2099B /* MWKImageVarianceTests.m */; };
 		B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */; };
 		B0F087501C860E910086F710 /* WelcomeAnimationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0874F1C860E910086F710 /* WelcomeAnimationExtensions.swift */; };
 		B0F7CB541C8A895600996DE0 /* WelcomeAnimationShapeLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F7CB531C8A895600996DE0 /* WelcomeAnimationShapeLayers.swift */; };
@@ -888,6 +890,7 @@
 		B07D25D91D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableSet+WMFSafeAdd.h"; path = "Wikipedia/Code/NSMutableSet+WMFSafeAdd.h"; sourceTree = SOURCE_ROOT; };
 		B07D25DA1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableSet+WMFSafeAdd.m"; path = "Wikipedia/Code/NSMutableSet+WMFSafeAdd.m"; sourceTree = SOURCE_ROOT; };
 		B07D25DC1D27537E00550721 /* WMFUpstreamHTMLFormatChangesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFUpstreamHTMLFormatChangesTests.m; sourceTree = "<group>"; };
+		B07D25DF1D29974E00550721 /* MWKImageEqualityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageEqualityTests.m; path = WikipediaUnitTests/Code/MWKImageEqualityTests.m; sourceTree = SOURCE_ROOT; };
 		B0866F431CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionFooter.h; sourceTree = "<group>"; };
 		B0866F441CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionFooter.m; sourceTree = "<group>"; };
 		B0866F451CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionFooter.xib; sourceTree = "<group>"; };
@@ -1669,6 +1672,7 @@
 		B0E8096D1C0D1DD50065EBC0 /* WikipediaUnitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "WikipediaUnitTests-Bridging-Header.h"; path = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		B0E8096E1C0D21530065EBC0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0E809701C0D215D0065EBC0 /* WikipediaUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WikipediaUnitTests-Prefix.pch"; sourceTree = "<group>"; };
+		B0EEB8561D29B0B200F2099B /* MWKImageVarianceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageVarianceTests.m; path = WikipediaUnitTests/Code/MWKImageVarianceTests.m; sourceTree = SOURCE_ROOT; };
 		B0EF42CE1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIApplicationShortcutItem+WMFShortcutItem.h"; path = "Wikipedia/Code/UIApplicationShortcutItem+WMFShortcutItem.h"; sourceTree = SOURCE_ROOT; };
 		B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIApplicationShortcutItem+WMFShortcutItem.m"; path = "Wikipedia/Code/UIApplicationShortcutItem+WMFShortcutItem.m"; sourceTree = SOURCE_ROOT; };
 		B0F0874F1C860E910086F710 /* WelcomeAnimationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeAnimationExtensions.swift; path = Wikipedia/Code/WelcomeAnimationExtensions.swift; sourceTree = SOURCE_ROOT; };
@@ -4557,6 +4561,8 @@
 				B0E808F61C0D18410065EBC0 /* MWKTestCase.m */,
 				B0E808F81C0D184B0065EBC0 /* MWKTitleTests.m */,
 				B0E808FA1C0D18530065EBC0 /* MWKUserTests.m */,
+				B07D25DF1D29974E00550721 /* MWKImageEqualityTests.m */,
+				B0EEB8561D29B0B200F2099B /* MWKImageVarianceTests.m */,
 			);
 			name = MediaWikiKitTests;
 			path = WikipediaUnitTests/Code/MediaWikiKitTests;
@@ -5423,6 +5429,7 @@
 				B0E809011C0D188B0065EBC0 /* NSArray+PredicateTests.m in Sources */,
 				BC45FF4B1C1B22C200BAE501 /* NSObject+WMFReflection.m in Sources */,
 				B0E808E11C0D17C20065EBC0 /* MWKSavedPageListDataStoreTests.m in Sources */,
+				B0EEB8571D29B0B200F2099B /* MWKImageVarianceTests.m in Sources */,
 				B0E808FF1C0D18800065EBC0 /* WMFErrorForApiErrorObjectTests.m in Sources */,
 				BC0069D51C7D556C00F2C377 /* WMFMockLocationManager.m in Sources */,
 				B0E808741C0D154C0065EBC0 /* NSBundle+TestAssets.m in Sources */,
@@ -5452,6 +5459,7 @@
 				B0D530EB1CE151C10078BAED /* CodeFileLocationTests.m in Sources */,
 				B0E8093D1C0D1A6C0065EBC0 /* MWKLanguageLinkResponseSerializerTests.m in Sources */,
 				B0E808C11C0D17520065EBC0 /* MWKListLegacyTests.m in Sources */,
+				B07D25E01D29974E00550721 /* MWKImageEqualityTests.m in Sources */,
 				B0D7FC4F1D0A192500CDC2F0 /* ImageProxyParsingTests.m in Sources */,
 				B0E808F91C0D184B0065EBC0 /* MWKTitleTests.m in Sources */,
 				B0E809231C0D199E0065EBC0 /* ArticleLoadingTests.m in Sources */,

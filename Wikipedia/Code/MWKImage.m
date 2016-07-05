@@ -218,17 +218,21 @@
 }
 
 - (BOOL)isEqualToImage:(MWKImage*)image {
-    return self == image || [self.fileName isEqualToString:image.fileName];
+    return self == image || [[self.sourceURLString wmf_schemelessURL] isEqualToString:[image.sourceURLString wmf_schemelessURL]];
 }
 
 - (NSUInteger)hash {
     return [self.fileName hash];
 }
 
+- (BOOL)isPathEqualToImage:(MWKImage*)image {
+    return [[[self.sourceURLString wmf_schemelessURL] stringByDeletingLastPathComponent] isEqualToString:[[image.sourceURLString wmf_schemelessURL] stringByDeletingLastPathComponent]];
+}
+
 - (BOOL)isVariantOfImage:(MWKImage*)otherImage {
     // !!!: this might not be reliable due to underscore, percent encodings, and other unknowns w/ image filenames
     return [self.fileNameNoSizePrefix isEqualToString:otherImage.fileNameNoSizePrefix]
-           && ![self isEqualToImage:otherImage];
+           && [self isPathEqualToImage:otherImage];
 }
 
 - (NSString*)description {
