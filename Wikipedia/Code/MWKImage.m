@@ -214,9 +214,7 @@
 }
 
 - (BOOL)isVariantOfImage:(MWKImage*)otherImage {
-    // !!!: this might not be reliable due to underscore, percent encodings, and other unknowns w/ image filenames
-    return [self.fileNameNoSizePrefix isEqualToString:otherImage.fileNameNoSizePrefix]
-           && [self isPathEqualToImage:otherImage];
+    return otherImage.canonicalFilename && [self.canonicalFilename isEqualToString:otherImage.canonicalFilename];
 }
 
 - (NSString*)description {
