@@ -172,4 +172,10 @@
                is(equalTo(@"//upload.wikimedia.org/wikipedia//")));
 }
 
+- (void)testSVG {
+    NSString* testURLString = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg/640px-Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg.png";
+    assertThat(WMFParseImageNameFromSourceURL(testURLString),
+               is(equalTo(@"Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg")));
+}
+
 @end
