@@ -571,7 +571,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
         }
         NSError* error = nil;
         if (![self saveCacheRemovalListToDisk:allTitlesToRemove error:&error]) {
-            DDLogError(@"Errora saving cache removal list to disk: %@", error);
+            DDLogError(@"Error saving cache removal list to disk: %@", error);
         }
     });
 }
