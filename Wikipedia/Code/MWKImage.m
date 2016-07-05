@@ -209,10 +209,6 @@
     return [self.fileName hash];
 }
 
-- (BOOL)isPathEqualToImage:(MWKImage*)image {
-    return [[[self.sourceURLString wmf_schemelessURL] stringByDeletingLastPathComponent] isEqualToString:[[image.sourceURLString wmf_schemelessURL] stringByDeletingLastPathComponent]];
-}
-
 - (BOOL)isVariantOfImage:(MWKImage*)otherImage {
     return otherImage.canonicalFilename && [self.canonicalFilename isEqualToString:otherImage.canonicalFilename];
 }
