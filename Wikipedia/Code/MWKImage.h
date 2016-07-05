@@ -117,15 +117,15 @@
 #pragma mark - Variants
 
 /**
- * Checks if two images are variants of each other <b>but not exactly the same image</b>.
+ * Checks if two images are variants of each other or the same image.
  * @discussion For example: <br/>
    @code
    MWKImage *img; // sourceURL = .../foo.jpg/440px-foo.jpg
    MWKImage *imgAtOtherRes; // sourceURL = .../foo.jpg/7200px-foo.jpg
    MWKImage *otherImage; // sourceURL = .../bar.jpg/440px-bar.jpg
    [img isVariantOfImage:imgAtOtherRes]; //< returns YES
-   [img isVariantOfImage:otherImage]; //< returns YES
-   [img isVariantOfImage:img]; //< returns NO
+   [img isVariantOfImage:otherImage]; //< returns NO
+   [img isVariantOfImage:img]; //< returns YES
    @endcode
  */
 - (BOOL)isVariantOfImage:(MWKImage*)otherImage;
