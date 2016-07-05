@@ -410,7 +410,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 #pragma mark - Images
 
 - (NSArray<NSURL*>*)imageURLsForGallery {
-    WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML];
+    WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withLeadImageURL:self.leadImage.sourceURL];
     return [tagList imageURLsForGallery];
 }
 
