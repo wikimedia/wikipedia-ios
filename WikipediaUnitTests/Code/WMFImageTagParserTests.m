@@ -336,7 +336,7 @@
 }
 
 - (void)testObamaArticleGalleryImageListExtractionWithLeadImage {
-    NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:[self allObamaHTML] withLeadImageURL:[NSURL URLWithString:@"https//upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/640px-BarackObamaportrait.jpg"]] imageURLsForGallery];
+    NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:[self allObamaHTML] withLeadImageURL:[NSURL URLWithString:@"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/640px-BarackObamaportrait.jpg"]] imageURLsForGallery];
     
     NSArray *expectedObamaGalleryURLs =
     [@[
@@ -379,7 +379,7 @@
 }
 
 - (void)testObamaArticleGalleryImageListExtractionWithMistmatchedSizeLeadImage {
-    NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:[self allObamaHTML] withLeadImageURL:[NSURL URLWithString:@"https//upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/816px-BarackObamaportrait.jpg"]] imageURLsForGallery];
+    NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:[self allObamaHTML] withLeadImageURL:[NSURL URLWithString:@"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/816px-BarackObamaportrait.jpg"]] imageURLsForGallery];
     
     NSArray *expectedObamaGalleryURLs =
     [@[
