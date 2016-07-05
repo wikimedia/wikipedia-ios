@@ -52,6 +52,17 @@ NSString* WMFParseImageNameFromSourceURL(NSString* sourceURL)  __attribute__((ov
     }
 }
 
+NSString* WMFParseNormalizedImageNameFromSourceURL(NSString* sourceURL)  __attribute__((overloadable)){
+    NSString* imageName           = WMFParseImageNameFromSourceURL(sourceURL);
+    NSString* unescapedImageName  = [imageName stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString* normalizedImageName = [unescapedImageName precomposedStringWithCanonicalMapping];
+    return normalizedImageName;
+}
+
+NSString* WMFParseNormalizedImageNameFromSourceURL(NSURL* sourceURL)  __attribute__((overloadable)){
+    return WMFParseNormalizedImageNameFromSourceURL(sourceURL.absoluteString);
+}
+
 NSInteger WMFParseSizePrefixFromSourceURL(NSString* sourceURL)  __attribute__((overloadable)){
     if (!sourceURL) {
         return NSNotFound;
@@ -109,3 +120,6 @@ NSString* WMFChangeImageSourceURLSizePrefix(NSString* sourceURL, NSUInteger newS
                                                            withTemplate:[NSString stringWithFormat:@"%lupx-$1", (unsigned long)newSizePrefix]];
     }
 }
+
+
+
