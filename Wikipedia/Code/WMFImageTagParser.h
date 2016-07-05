@@ -8,6 +8,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFImageTagList*)imageTagListFromParsingHTMLString:(NSString*)HTMLString;
 
+- (WMFImageTagList*)imageTagListFromParsingHTMLString:(NSString*)HTMLString withLeadImageURL:(nullable NSURL *)leadImageURL;
+
 @end
 
 NS_ASSUME_NONNULL_END
