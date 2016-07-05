@@ -10,7 +10,6 @@
 "article-languages-label" = "भाषा निवडा";
 "article-languages-cancel" = "रद्द करा";
 "article-languages-downloading" = "लेखाच्या भाषेचे भारण करीत आहे...";
-// Fuzzy
 "article-languages-filter-placeholder" = "भाषा शोधा";
 "article-read-more-title" = "अधिक वाचन";
 "article-about-title" = "या लेखाबद्दल";
@@ -50,31 +49,25 @@
 "zero-warn-when-leaving" = "जर झिरो त्यागत असाल तर इशारा द्या";
 "zero-settings-devmode" = "झिरो डेव्हमोड";
 "account-creation-captcha-required" = "कॅपचा पडताळणी आवश्यक.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "नविन कॅपचा मिळवित आहे.";
+"account-creation-captcha-obtaining" = "नविन कॅपचा मिळवित आहे...";
 "account-creation-logging-in" = "सनोंद प्रवेश करीत आहे...";
 "account-creation-passwords-mismatched" = "परवलीचा शब्द जुळत नाही.";
 "account-creation-saving" = "जतन करीत आहे...";
 "account-creation-login" = "आपले खाते आहे? प्रवेश करा";
-// Fuzzy
-"account-creation-username-placeholder-text" = "सदस्य नाव";
+"account-creation-username-placeholder-text" = "सदस्यनाव";
 "account-creation-password-placeholder-text" = "परवलीचा शब्द";
 "account-creation-password-confirm-placeholder-text" = "परवलीच्या शब्दाची निश्चिती करा";
 "account-creation-email-placeholder-text" = "विपत्र (‌वैकल्पिक)";
 "account-creation-missing-fields" = "खाते उघडण्यास आपण सदस्यनाव,परवलीचा शब्द व परवलीचा शब्दाचे नक्कीकरण टाकणे आवश्यक आहे.";
-// Fuzzy
-"login-name-not-found" = "सनोद-प्रवेशास सदस्यनाव हवे.";
-// Fuzzy
-"login-name-illegal" = "आपण अवैध सदस्यनाव टाकले.";
-// Fuzzy
-"login-name-does-not-exist" = "आपण दिलेले सदस्यनाव अस्तित्वात नाही.";
+"login-name-not-found" = "सनोंद-प्रवेशास सदस्यनाव हवे.";
+"login-name-illegal" = "आपण अवैध सदस्यनाव पुरविले.";
+"login-name-does-not-exist" = "आपण पुरविलेले सदस्यनाव अस्तित्वात नाही.";
 "login-password-empty" = "सनोंद प्रवेशास परवलीचा शब्द आवश्यक.";
 "login-password-wrong" = "आपण पुरविलेला परवलीचा शब्द चूक आहे.";
 "login-throttled" = "कमी वेळात आपण अनेकदा प्रवेश केला आहे.";
 "login-user-blocked" = "सदस्यास प्रतिबंधित केले आहे.";
 "login-account-creation" = "आपले खाते नाही? विकिपीडियाशी जुळा.";
-// Fuzzy
-"login-username-placeholder-text" = "सदस्य नाव";
+"login-username-placeholder-text" = "सदस्यनाव";
 "login-password-placeholder-text" = "परवलीचा शब्द";
 "wikitext-downloading" = "आशयाचे भारण करीत आहे...";
 "wikitext-download-failed" = "अद्यतन आवृत्ती मिळवू शकलो नाही.";
