@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
     // First reduce HTMLString to only image tags so other funky/malformed html won't choke NSXMLParser.
     NSString* imgTagsHtml = [self imgTagsOnlyFromHTMLString:HTMLString];
 
-    self.leadImageNormalizedFilename = WMFParseNormalizedImageNameFromSourceURL(leadImageURL.absoluteString);
+    self.leadImageNormalizedFilename = WMFParseUnescapedNormalizedImageNameFromSourceURL(leadImageURL.absoluteString);
     
     // Then use NSXMLParser to auto-extract tag attribute key/values to a dictionary for each image tag.
     [self parseStringOfImgTags:imgTagsHtml];
@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)parser:(NSXMLParser*)parser didStartElement:(NSString*)elementName namespaceURI:(nullable NSString*)namespaceURI qualifiedName:(nullable NSString*)qName attributes:(NSDictionary<NSString*, NSString*>*)attributeDict {
     if ([[elementName lowercaseString] isEqualToString:@"img"]) {
-        if (self.leadImageNormalizedFilename && [WMFParseNormalizedImageNameFromSourceURL(attributeDict[@"src"]) isEqualToString:self.leadImageNormalizedFilename]) { //check if this is the image we want first in the list by comparing filenames
+        if (self.leadImageNormalizedFilename && [WMFParseUnescapedNormalizedImageNameFromSourceURL(attributeDict[@"src"]) isEqualToString:self.leadImageNormalizedFilename]) { //check if this is the image we want first in the list by comparing filenames
            [self.parsedImgTagAttributeDicts insertObject:attributeDict atIndex:0]; //if it's the image we want first, insert it at index 0
         } else {
             [self.parsedImgTagAttributeDicts addObject:attributeDict];

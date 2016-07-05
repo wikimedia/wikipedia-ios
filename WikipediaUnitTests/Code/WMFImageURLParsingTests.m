@@ -45,25 +45,25 @@
 
 - (void)testNormalizedImageWithPeriodInFileNameExample {
     NSString* testURL    = @"//upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg/360px-Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg";
-    NSString* normalized = WMFParseNormalizedImageNameFromSourceURL(testURL);
+    NSString* normalized = WMFParseUnescapedNormalizedImageNameFromSourceURL(testURL);
     assertThat(normalized,
-               is(equalTo(@"Claude_Monet,_1870,_Le_port_de_Trouville_(Breakwater_at_Trouville,_Low_Tide),_oil_on_canvas,_54_x_65.7_cm,_Museum_of_Fine_Arts,_Budapest.jpg")));
+               is(equalTo(@"Claude Monet, 1870, Le port de Trouville (Breakwater at Trouville, Low Tide), oil on canvas, 54 x 65.7 cm, Museum of Fine Arts, Budapest.jpg")));
 }
 
 - (void)testNormalizedImageWithPeriodInFileNameFromURLExample {
     NSURL* testURL       = [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg/360px-Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg"];
-    NSString* normalized = WMFParseNormalizedImageNameFromSourceURL(testURL);
+    NSString* normalized = WMFParseUnescapedNormalizedImageNameFromSourceURL(testURL);
     assertThat(normalized,
-               is(equalTo(@"Claude_Monet,_1870,_Le_port_de_Trouville_(Breakwater_at_Trouville,_Low_Tide),_oil_on_canvas,_54_x_65.7_cm,_Museum_of_Fine_Arts,_Budapest.jpg")));
+               is(equalTo(@"Claude Monet, 1870, Le port de Trouville (Breakwater at Trouville, Low Tide), oil on canvas, 54 x 65.7 cm, Museum of Fine Arts, Budapest.jpg")));
 }
 
 - (void)testNormalizedEquality {
     NSString* one   = @"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Olé.PNG";
     NSString* two   = @"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ol\u00E9.PNG";
     NSString* three = @"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ole\u0301.PNG";
-    NSString* fn1   = WMFParseNormalizedImageNameFromSourceURL(one);
-    NSString* fn2   = WMFParseNormalizedImageNameFromSourceURL(two);
-    NSString* fn3   = WMFParseNormalizedImageNameFromSourceURL(three);
+    NSString* fn1   = WMFParseUnescapedNormalizedImageNameFromSourceURL(one);
+    NSString* fn2   = WMFParseUnescapedNormalizedImageNameFromSourceURL(two);
+    NSString* fn3   = WMFParseUnescapedNormalizedImageNameFromSourceURL(three);
     XCTAssertEqualObjects(fn1, fn2);
     XCTAssertEqualObjects(fn2, fn3);
 }
@@ -72,9 +72,9 @@
     NSString* one   = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Olé.PNG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString* two   = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ol\u00E9.PNG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString* three = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ole\u0301.PNG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString* fn1   = WMFParseNormalizedImageNameFromSourceURL(one);
-    NSString* fn2   = WMFParseNormalizedImageNameFromSourceURL(two);
-    NSString* fn3   = WMFParseNormalizedImageNameFromSourceURL(three);
+    NSString* fn1   = WMFParseUnescapedNormalizedImageNameFromSourceURL(one);
+    NSString* fn2   = WMFParseUnescapedNormalizedImageNameFromSourceURL(two);
+    NSString* fn3   = WMFParseUnescapedNormalizedImageNameFromSourceURL(three);
     XCTAssertEqualObjects(fn1, fn2);
     XCTAssertEqualObjects(fn2, fn3);
 }

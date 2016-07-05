@@ -148,28 +148,12 @@
 }
 
 - (NSString*)canonicalFilename {
-    return [[self canonicalFilenameFromSourceURL] wmf_unescapedNormalizedPageTitle];
-}
-
-- (NSString*)canonicalFilenameFromSourceURL {
-    return [MWKImage canonicalFilenameFromSourceURL:self.sourceURLString];
-}
-
-+ (NSString*)fileNameNoSizePrefix:(NSString*)sourceURL {
-    return WMFParseImageNameFromSourceURL(sourceURL);
-}
-
-+ (NSString*)canonicalFilenameFromSourceURL:(NSString*)sourceURL {
-    return [[self fileNameNoSizePrefix:sourceURL] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-}
-
-+ (NSInteger)fileSizePrefix:(NSString*)sourceURL {
-    return WMFParseSizePrefixFromSourceURL(sourceURL);
+    return WMFParseUnescapedNormalizedImageNameFromSourceURL(self.sourceURL);
 }
 
 - (NSString*)fileNameNoSizePrefix {
     if (!_fileNameNoSizePrefix) {
-        _fileNameNoSizePrefix = [MWKImage fileNameNoSizePrefix:self.sourceURLString];
+        _fileNameNoSizePrefix = WMFParseImageNameFromSourceURL(self.sourceURLString);
     }
     return _fileNameNoSizePrefix;
 }
@@ -245,7 +229,7 @@
 }
 
 - (BOOL)isCanonical {
-    return [MWKImage fileSizePrefix:self.sourceURLString] == NSNotFound;
+    return WMFParseSizePrefixFromSourceURL(self.sourceURLString) == NSNotFound;
 }
 
 @end

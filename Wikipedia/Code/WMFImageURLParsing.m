@@ -1,5 +1,6 @@
 #import "WMFImageURLParsing.h"
 #import "NSString+WMFExtras.h"
+#import "NSString+WMFPageUtilities.h"
 
 static NSRegularExpression* WMFImageURLParsingRegex() {
     static NSRegularExpression* imageNameFromURLRegex = nil;
@@ -52,15 +53,14 @@ NSString* WMFParseImageNameFromSourceURL(NSString* sourceURL)  __attribute__((ov
     }
 }
 
-NSString* WMFParseNormalizedImageNameFromSourceURL(NSString* sourceURL)  __attribute__((overloadable)){
+NSString* WMFParseUnescapedNormalizedImageNameFromSourceURL(NSString* sourceURL)  __attribute__((overloadable)){
     NSString* imageName           = WMFParseImageNameFromSourceURL(sourceURL);
-    NSString* unescapedImageName  = [imageName stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString* normalizedImageName = [unescapedImageName precomposedStringWithCanonicalMapping];
+    NSString* normalizedImageName = [imageName wmf_unescapedNormalizedPageTitle];
     return normalizedImageName;
 }
 
-NSString* WMFParseNormalizedImageNameFromSourceURL(NSURL* sourceURL)  __attribute__((overloadable)){
-    return WMFParseNormalizedImageNameFromSourceURL(sourceURL.absoluteString);
+NSString* WMFParseUnescapedNormalizedImageNameFromSourceURL(NSURL* sourceURL)  __attribute__((overloadable)){
+    return WMFParseUnescapedNormalizedImageNameFromSourceURL(sourceURL.absoluteString);
 }
 
 NSInteger WMFParseSizePrefixFromSourceURL(NSString* sourceURL)  __attribute__((overloadable)){

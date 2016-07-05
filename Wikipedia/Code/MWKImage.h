@@ -149,26 +149,6 @@
  */
 - (NSString*)canonicalFilename;
 
-/**
- * The receiver's canonical filename, with any present percent encodings and underscores.
- * @see +canonicalFilenameFromSourceURL:
- */
-- (NSString*)canonicalFilenameFromSourceURL;
-
-/**
- * The name of the image "file" associatd with @c sourceURL (without the XXXpx prefix).
- * @param sourceURL A @c NSURL pointing to an image file in the format @c "//site/.../Filename.jpg[/XXXpx-Filename.jpg".
- * @note This method returns the filename <b>with</b> percent encodings.
- */
-+ (NSString*)fileNameNoSizePrefix:(NSString*)sourceURL;
-
-/**
- * The name of the image "file" associatd with the receiver, with percent encodings replaced.
- */
-+ (NSString*)canonicalFilenameFromSourceURL:(NSString*)sourceURL;
-
-+ (NSInteger)fileSizePrefix:(NSString*)sourceURL;
-
 #pragma mark - Comparison
 
 - (BOOL)isEqualToImage:(MWKImage*)image;
