@@ -454,7 +454,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSUInteger)indexOfImage:(MWKImage*)image inPhotos:(NSArray<id<NYTPhoto> >*)photos {
     return [photos
             indexOfObjectPassingTest:^BOOL (WMFArticlePhoto* anImage, NSUInteger _, BOOL* stop) {
-        if ([anImage.imageObject isEqualToImage:image] || [anImage.imageObject isVariantOfImage:image] || [anImage.thumbnailImageObject isEqualToImage:image] || [anImage.thumbnailImageObject isVariantOfImage:image]) {
+        if ([anImage.imageObject isVariantOfImage:image] || [anImage.thumbnailImageObject isVariantOfImage:image]) {
             *stop = YES;
             return YES;
         }

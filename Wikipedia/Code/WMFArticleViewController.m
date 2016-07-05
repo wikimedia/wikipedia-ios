@@ -1009,7 +1009,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIImageView*)referenceViewForImageController:(WMFArticleImageGalleryViewController*)controller {
     MWKImage* currentImage = [controller currentImage];
     MWKImage* leadImage    = self.article.leadImage;
-    if ([currentImage isEqualToImage:leadImage] || [currentImage isVariantOfImage:leadImage]) {
+    if ([currentImage isVariantOfImage:leadImage]) {
         return self.headerImageView;
     } else {
         return nil;
