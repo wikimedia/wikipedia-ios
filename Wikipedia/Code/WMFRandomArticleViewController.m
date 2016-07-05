@@ -129,7 +129,11 @@ static const CGFloat WMFRandomAnimationSpringDampingDice = 0.5;
     dispatch_block_t hideOrShow = ^{
         [self layoutRandomButtonForViewBounds:self.view.bounds hidden:randomButtonHidden];
     };
-    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:WMFRandomAnimationSpringDampingDice initialSpringVelocity:0 options:0 animations:hideOrShow completion:NULL];
+    if (animated) {
+        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:WMFRandomAnimationSpringDampingDice initialSpringVelocity:0 options:0 animations:hideOrShow completion:NULL];
+    } else {
+        hideOrShow();
+    }
 }
 
 #pragma mark - WebViewControllerDelegate
