@@ -55,6 +55,8 @@ typedef id<NSCopying, NSObject> MWKListIndex;
 
 - (void)removeAllEntries;
 
+- (NSArray *)pruneToMaximumCount:(NSUInteger)maximumCount;
+
 #pragma mark - Persisting Changes to the List
 
 /**
