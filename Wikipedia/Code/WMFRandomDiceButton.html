@@ -22,7 +22,6 @@ body {
   transform-style: preserve-3d;
   height: 100%;
   width: 100%;
-  transform: translateZ( -25px) rotateX( 0deg) rotateY( 0deg);
   -webkit-transform: translateZ( -25px) rotateX( 0deg) rotateY( 0deg);
 }
 
@@ -41,7 +40,6 @@ body {
   height: 10px;
   width: 10px;
   border-radius: 50%;
-  transform: translate3d(-50%, -50%, 0);
   -webkit-transform: translate3d(-50%, -50%, 0);
   backface-visibility: hidden;
 }
@@ -113,88 +111,29 @@ body {
 
 
 #dice.roll-1 {
-  animation: roll-one 2s 1 linear forwards;
   -webkit-animation: roll-one 2s 1 linear forwards;
 }
 
 #dice.roll-2 {
-  animation: roll-two 2s 1 linear forwards;
   -webkit-animation: roll-two 2s 1 linear forwards;
 }
 
 #dice.roll-3 {
-  animation: roll-three 2s 1 linear forwards;
   -webkit-animation: roll-three 2s 1 linear forwards;
 }
 
 #dice.roll-4 {
-  animation: roll-four 2s 1 linear forwards;
   -webkit-animation: roll-four 2s 1 linear forwards;
 }
 
 #dice.roll-5 {
-  animation: roll-five 2s 1 linear forwards;
   -webkit-animation: roll-five 2s 1 linear forwards;
 }
 
 #dice.roll-6 {
-  animation: roll-six 2s 1 linear forwards;
   -webkit-animation: roll-six 2s 1 linear forwards;
 }
 
-@keyframes roll-one {
-  0% {
-    transform: translateZ( -25px) rotateX( -10deg) rotateY( -10deg);
-  }
-  100% {
-    transform: translateZ( -25px) rotateX( -180deg) rotateY( -540deg);
-  }
-}
-
-@keyframes roll-two {
-  0% {
-    transform: translateZ( -25px) rotateX( -10deg) rotateY( -10deg);
-  }
-  100% {
-    transform: translateZ( -25px) rotateX( -360deg) rotateY( -540deg);
-  }
-}
-
-@keyframes roll-three {
-  0% {
-    transform: translateZ( -25px) rotateX( -10deg) rotateY( -10deg);
-  }
-  100% {
-    transform: translateZ( -25px) rotateX( -360deg) rotateY( -450deg);
-  }
-}
-
-@keyframes roll-four {
-  0% {
-    transform: translateZ( -25px) rotateX( -10deg) rotateY( -10deg);
-  }
-  100% {
-    transform: translateZ( -25px) rotateX( -360deg) rotateY( -630deg);
-  }
-}
-
-@keyframes roll-five {
-  0% {
-    -webkit-transform: translateZ( -25px) rotateX( -10deg) rotateY( -10deg) rotateZ(0deg);
-  }
-  100% {
-    -webkit-transform: translateZ( -25px) rotateX( -450deg) rotateY( -360deg) rotateZ(0deg);
-  }
-}
-
-@keyframes roll-six {
-  0% {
-    -webkit-transform: translateZ( -25px) rotateX( -10deg) rotateY( -10deg) rotateZ(0deg);
-  }
-  100% {
-    -webkit-transform: translateZ( -25px) rotateX( -450deg) rotateY( 0deg) rotateZ(-180deg);
-  }
-}
 
 @-webkit-keyframes roll-one {
   0% {
