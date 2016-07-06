@@ -283,7 +283,7 @@
     static NSRegularExpression* attributeRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString *attributePattern = @"(src|data-file-width|width)=[\"']?((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\"']?"; //match on the three attributes we need to read: src, data-file-width, width
+        NSString *attributePattern = @"(src|data-file-width|width|data-file-height|height)=[\"']?((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\"']?"; //match on the three attributes we need to read: src, data-file-width, width
         attributeRegex = [NSRegularExpression regularExpressionWithPattern:attributePattern options:NSRegularExpressionCaseInsensitive error:nil];
     });
     
@@ -291,6 +291,8 @@
     __block NSRange srcAttributeRange = NSMakeRange(NSNotFound, 0); //the range of the full src attribute - src=blah
     __block NSString *dataFileWidth = 0; //the original file width from data-file-width=
     __block NSString *width = 0; //the width of the image from width=
+    __block NSString *dataFileHeight = 0; //the original file height from data-file-height=
+    __block NSString *height = 0; //the height of the image from height=
     NSInteger attributeOffset = 0;
     [attributeRegex enumerateMatchesInString:imageTagContents options:0 range:NSMakeRange(0, imageTagContents.length) usingBlock:^(NSTextCheckingResult * _Nullable attributeResult, NSMatchingFlags flags, BOOL * _Nonnull stop) {
         NSString *attributeName = [[attributeRegex replacementStringForResult:attributeResult inString:imageTagContents offset:attributeOffset template:@"$1"] lowercaseString];
@@ -302,16 +304,19 @@
             dataFileWidth = attributeValue;
         } else if ([attributeName isEqualToString:@"width"]) {
             width = attributeValue;
+        } else if ([attributeName isEqualToString:@"data-file-height"]) {
+            dataFileHeight = attributeValue;
+        } else if ([attributeName isEqualToString:@"height"]) {
+            height = attributeValue;
         }
-        *stop = dataFileWidth > 0 && srcAttributeRange.location != NSNotFound && width > 0;
     }];
     
     NSMutableString *newImageTagContents = [imageTagContents mutableCopy];
     
     NSString *resizedSrc = nil;
     
-    WMFImageTag *imageTag = [[WMFImageTag alloc] initWithSrc:src srcset:nil alt:nil width:width height:nil dataFileWidth:dataFileWidth dataFileHeight:nil];
-    if ([imageTag isWideEnoughForGallery]) {
+    WMFImageTag *imageTag = [[WMFImageTag alloc] initWithSrc:src srcset:nil alt:nil width:width height:height dataFileWidth:dataFileWidth dataFileHeight:dataFileHeight];
+    if ([imageTag isSizeLargeEnoughForGalleryInclusion]) {
         resizedSrc = [[imageTag URLForTargetWidth:targetImageWidth] absoluteString];
         if (resizedSrc) {
             src = resizedSrc;
@@ -330,7 +335,7 @@
     [newImageTagContents replaceOccurrencesOfString:@"srcset" withString:@"data-srcset-disabled" options:0 range:NSMakeRange(0, newImageTagContents.length)]; //disable the srcset since we put the correct resolution image in the src
     
     if (resizedSrc) {
-        [newImageTagContents appendString:@" data-image-resized=\"true\""]; //the javascript looks for this so it doesn't try to change the src again
+        [newImageTagContents appendString:@" data-image-gallery=\"true\""]; //the javascript looks for this to know if it should attempt widening
     }
     
     return newImageTagContents;

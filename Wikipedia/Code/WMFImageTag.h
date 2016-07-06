@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSUInteger const WMFImageTagMinimumWidthForGalleryInclusion = 80;
+static CGSize const WMFImageTagMinimumSizeForGalleryInclusion = {64, 64};
 
 @interface WMFImageTag : NSObject
 
@@ -22,7 +22,7 @@ static NSUInteger const WMFImageTagMinimumWidthForGalleryInclusion = 80;
               dataFileWidth:(nullable NSString*)dataFileWidth
              dataFileHeight:(nullable NSString*)dataFileHeight NS_DESIGNATED_INITIALIZER;
 
-- (BOOL)isWideEnoughForGallery;
+- (BOOL)isSizeLargeEnoughForGalleryInclusion;
 
 @end
 

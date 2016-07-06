@@ -51,7 +51,6 @@
     NSArray *expectedObamaGalleryURLs =
     [@[
        @"//upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/640px-President_Barack_Obama.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/640px-Barack_Obama_signature.svg.png",
        @"//upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/b/b6/Obamamiltondavis1.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/5/50/2004_Illinois_Senate_results.svg/640px-2004_Illinois_Senate_results.svg.png",
@@ -80,7 +79,8 @@
        @"//upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/640px-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Obamas_at_church_on_Inauguration_Day_2013.jpg/640px-Obamas_at_church_on_Inauguration_Day_2013.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/5/55/President_Barack_Obama%2C_2012_portrait_crop.jpg/640px-President_Barack_Obama%2C_2012_portrait_crop.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/640px-Seal_of_the_President_of_the_United_States.svg.png"
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/640px-Seal_of_the_President_of_the_United_States.svg.png",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Seal_of_the_United_States_Senate.svg/640px-Seal_of_the_United_States_Senate.svg.png"
        ] bk_map:^NSURL*(NSString* stringURL){
            return [NSURL URLWithString:stringURL];
        }];
@@ -96,7 +96,7 @@
        @"//upload.wikimedia.org/wikipedia/en/thumb/e/e7/Cscr-featured.svg/15px-Cscr-featured.svg.png",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Padlock-silver.svg/20px-Padlock-silver.svg.png",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/640px-President_Barack_Obama.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/640px-Barack_Obama_signature.svg.png",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/128px-Barack_Obama_signature.svg.png",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Barack-Obama-portrait-PD.jpeg/30px-Barack-Obama-portrait-PD.jpeg",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Speakerlink-new.svg/11px-Speakerlink-new.svg.png",
        @"//upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg",
@@ -191,7 +191,7 @@
        @"//upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_Thailand.svg/23px-Flag_of_Thailand.svg.png",
        @"//upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/23px-Flag_of_the_United_States.svg.png",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/23px-Flag_of_Vietnam.svg.png",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Seal_of_the_United_States_Senate.svg/80px-Seal_of_the_United_States_Senate.svg.png",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Seal_of_the_United_States_Senate.svg/640px-Seal_of_the_United_States_Senate.svg.png",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Office-book.svg/30px-Office-book.svg.png",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Obama.svg/22px-Obama.svg.png",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Great_Seal_of_the_United_States_%28obverse%29.svg/30px-Great_Seal_of_the_United_States_%28obverse%29.svg.png",
@@ -342,7 +342,6 @@
     [@[
        @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/640px-BarackObamaportrait.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/640px-President_Barack_Obama.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/640px-Barack_Obama_signature.svg.png",
        @"//upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/b/b6/Obamamiltondavis1.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/5/50/2004_Illinois_Senate_results.svg/640px-2004_Illinois_Senate_results.svg.png",
@@ -370,7 +369,8 @@
        @"//upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/640px-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Obamas_at_church_on_Inauguration_Day_2013.jpg/640px-Obamas_at_church_on_Inauguration_Day_2013.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/5/55/President_Barack_Obama%2C_2012_portrait_crop.jpg/640px-President_Barack_Obama%2C_2012_portrait_crop.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/640px-Seal_of_the_President_of_the_United_States.svg.png"
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/640px-Seal_of_the_President_of_the_United_States.svg.png",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Seal_of_the_United_States_Senate.svg/640px-Seal_of_the_United_States_Senate.svg.png"
        ] bk_map:^NSURL*(NSString* stringURL){
            return [NSURL URLWithString:stringURL];
        }];
@@ -385,7 +385,6 @@
     [@[
        @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/640px-BarackObamaportrait.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/640px-President_Barack_Obama.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/640px-Barack_Obama_signature.svg.png",
        @"//upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/b/b6/Obamamiltondavis1.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/5/50/2004_Illinois_Senate_results.svg/640px-2004_Illinois_Senate_results.svg.png",
@@ -413,7 +412,8 @@
        @"//upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/640px-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Obamas_at_church_on_Inauguration_Day_2013.jpg/640px-Obamas_at_church_on_Inauguration_Day_2013.jpg",
        @"//upload.wikimedia.org/wikipedia/commons/thumb/5/55/President_Barack_Obama%2C_2012_portrait_crop.jpg/640px-President_Barack_Obama%2C_2012_portrait_crop.jpg",
-       @"//upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/640px-Seal_of_the_President_of_the_United_States.svg.png"
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/640px-Seal_of_the_President_of_the_United_States.svg.png",
+       @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Seal_of_the_United_States_Senate.svg/640px-Seal_of_the_United_States_Senate.svg.png"
        ] bk_map:^NSURL*(NSString* stringURL){
            return [NSURL URLWithString:stringURL];
        }];
@@ -422,10 +422,10 @@
 }
 
 /*
- NSArray *a = [parsedObamaGalleryURLS bk_map:^NSString*(NSURL* url){
- return url.absoluteString;
- }];
- NSLog(@"============\n\n%@\n\n=============", a);
- */
+NSArray *a = [parsedObamaGalleryURLS bk_map:^NSString*(NSURL* url){
+    return [NSString stringWithFormat:@"%@", url.absoluteString];
+}];
+NSLog(@"\n============\n\n%@\n\n=============\n", a);
+*/
 
 @end

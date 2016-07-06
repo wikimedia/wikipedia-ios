@@ -37,16 +37,22 @@ NS_ASSUME_NONNULL_BEGIN
         self.src = src;
         self.srcset = srcset;
         self.alt = alt;
-        self.width = @([width integerValue]);
-        self.height = @([height integerValue]);
-        self.dataFileWidth = @([dataFileWidth integerValue]);
-        self.dataFileHeight = @([dataFileHeight integerValue]);
+        self.width = [width isEqual:[NSNull null]] ? nil : @([width integerValue]);
+        self.height = [height isEqual:[NSNull null]] ? nil : @([height integerValue]);
+        self.dataFileWidth = [dataFileWidth isEqual:[NSNull null]] ? nil : @([dataFileWidth integerValue]);
+        self.dataFileHeight = [dataFileHeight isEqual:[NSNull null]] ? nil : @([dataFileHeight integerValue]);
     }
     return self;
 }
 
-- (BOOL)isWideEnoughForGallery {
-    return self.width.integerValue > WMFImageTagMinimumWidthForGalleryInclusion && self.dataFileWidth.integerValue > WMFImageTagMinimumWidthForGalleryInclusion;
+- (BOOL)isSizeLargeEnoughForGalleryInclusion {
+    return
+    // Ensure images which are just used as tiny icons are not included in gallery.
+    self.width.integerValue >= WMFImageTagMinimumSizeForGalleryInclusion.width &&
+    self.height.integerValue >= WMFImageTagMinimumSizeForGalleryInclusion.height &&
+    // Also make sure we only try to show them in the gallery if their canonical size is of sufficient resolution.
+    self.dataFileWidth.integerValue >= WMFImageTagMinimumSizeForGalleryInclusion.width &&
+    self.dataFileHeight.integerValue >= WMFImageTagMinimumSizeForGalleryInclusion.height;
 }
 
 - (NSString*)description {
