@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
     static NSRegularExpression* attributeRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString* attributePattern = @"(src|data-file-width|width|data-file-height|height)=[\"']?((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\"']?"; //match on the three attributes we need to read: src, data-file-width, width
+        NSString* attributePattern = @"(src|data-file-width|width|data-file-height|height)=[\"']?((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\"']?"; //match on the attributes we need to read: src, data-file-width, width, etc
         attributeRegex = [NSRegularExpression regularExpressionWithPattern:attributePattern options:NSRegularExpressionCaseInsensitive error:nil];
     });
 

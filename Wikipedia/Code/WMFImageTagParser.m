@@ -6,7 +6,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFImageTagParser () <NSXMLParserDelegate>
+@interface WMFImageTagParser ()
 
 @property (nonatomic, strong, nullable) NSString* leadImageNormalizedFilename;
 

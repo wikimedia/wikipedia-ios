@@ -381,7 +381,7 @@
     assertThat(parsedObamaGalleryURLS, is(equalTo(expectedObamaGalleryURLs)));
 }
 
-- (void)testAltTagWithFunkyCharactersDoesNotChokeNSXMLParser {
+- (void)testAltTagWithFunkyCharactersDoesNotChokeParser {
     // The second image below is from "enwiki > Logarithm > Applications". The first image is the last mathematical symbol image in the previous section.
     NSString* tags = @""
      "<img src=\"https://wikimedia.org/api/rest_v1/media/math/render/svg/f4f0044fb2bdba6bee5dcc5b57ac9fc62a5edbb9\" class=\"mwe-math-fallback-image-inline\" aria-hidden=\"true\" style=\"vertical-align: -3.005ex; width:35.142ex; height:5.843ex;\" alt=\"\\ln(x)\approx {\frac {\\pi }{2M(1,2^{2-m}/x)}}-m\\ln(2).\">"
