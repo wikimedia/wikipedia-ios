@@ -8,6 +8,12 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import <BlocksKit/BlocksKit.h>
 
+@interface NSString (WMFImageTagParser)
+
+- (NSString*)wmf_stringWithPercentEncodedTagAttributeValues;
+
+@end
+
 @interface WMFImageTagParser(Testing)
 
 - (NSString*)imgTagsOnlyFromHTMLString:(NSString*)HTMLString;
@@ -207,7 +213,6 @@
 }
 
 - (void)testParsingObamaHTMLPerformance {
-    // This is an example of a performance test case.
     [self measureBlock:^{
         NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:[self allObamaHTML]] imageURLsForGallery];
         assertThat(parsedObamaGalleryURLS, hasCountOf(31));
@@ -419,6 +424,36 @@
        }];
     
     assertThat(parsedObamaGalleryURLS, is(equalTo(expectedObamaGalleryURLs)));
+}
+
+- (void)testAltTagWithFunkyCharactersDoesNotChokeNSXMLParser {
+    // The second image below is from "enwiki > Logarithm > Applications". The first image is the last mathematical symbol image in the previous section.
+    NSString* tags = @""
+     "<img src=\"https://wikimedia.org/api/rest_v1/media/math/render/svg/f4f0044fb2bdba6bee5dcc5b57ac9fc62a5edbb9\" class=\"mwe-math-fallback-image-inline\" aria-hidden=\"true\" style=\"vertical-align: -3.005ex; width:35.142ex; height:5.843ex;\" alt=\"\\ln(x)\approx {\frac {\\pi }{2M(1,2^{2-m}/x)}}-m\\ln(2).\">"
+     "<img src=\"//upload.wikimedia.org/wikipedia/commons/thumb/0/08/NautilusCutawayLogarithmicSpiral.jpg/220px-NautilusCutawayLogarithmicSpiral.jpg\" width=\"220\" height=\"166\" class=\"thumbimage\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/0/08/NautilusCutawayLogarithmicSpiral.jpg/330px-NautilusCutawayLogarithmicSpiral.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/0/08/NautilusCutawayLogarithmicSpiral.jpg/440px-NautilusCutawayLogarithmicSpiral.jpg 2x\" data-file-width=\"2240\" data-file-height=\"1693\">";
+    
+    NSArray* parsedURLS = [self urlsFromHMTL:tags atTargetWidth:1024];
+    NSArray* expectedULRS = @[[NSURL URLWithString:@"//wikimedia.org/api/rest_v1/media/math/render/svg/f4f0044fb2bdba6bee5dcc5b57ac9fc62a5edbb9"],
+                              [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/0/08/NautilusCutawayLogarithmicSpiral.jpg/1024px-NautilusCutawayLogarithmicSpiral.jpg"]
+                              ];
+    assertThat(parsedURLS, is(equalTo(expectedULRS)));
+}
+
+- (void)testPercentEncodingTagAttributeValuesActuallyEncodesAllAttributeValues {
+    assertThat([@"<img src=\"{\" class=\"}\" alt=\"^\" bla=\"%\">" wmf_stringWithPercentEncodedTagAttributeValues], is(equalTo(@"<img src=\"%7B\" class=\"%7D\" alt=\"%5E\" bla=\"%25\">")));
+}
+
+- (void)testPercentEncodingTagAttributeValuesWhichAlreadyHadPercentEncodedValuesIsReversible {
+    NSString* string = @"<img src=\"//upload.wikimedia.org/wikipedia/commons/thumb/5/55/President_Barack_Obama%2C_2012_portrait_crop.jpg/640px-President_Barack_Obama%2C_2012_portrait_crop.jpg";
+    assertThat([[string wmf_stringWithPercentEncodedTagAttributeValues] stringByRemovingPercentEncoding], is(equalTo(string)));
+}
+
+- (void)testPercentEncodingTagAttributeValuesPerformance {
+    [self measureBlock:^{
+        for (NSUInteger i = 0; i < 5000; i++) {
+            [@"<img src=\"{\" class=\"}\" alt=\"^\" bla=\"%\">" wmf_stringWithPercentEncodedTagAttributeValues];
+        }
+    }];
 }
 
 /*

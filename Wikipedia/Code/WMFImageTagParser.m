@@ -6,6 +6,30 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+@interface NSString (WMFImageTagParser)
+
+- (NSString*)wmf_stringWithPercentEncodedTagAttributeValues;
+
+@end
+
+@implementation NSString (WMFImageTagParser)
+
+- (NSString*)wmf_stringWithPercentEncodedTagAttributeValues {
+    __block NSString*previousIntraQuoteStr = @"";
+    return [[[self componentsSeparatedByString:@"\""] bk_map:^NSString*(NSString* intraQuoteStr){
+        if ([previousIntraQuoteStr hasSuffix:@"="]) {
+            intraQuoteStr = [intraQuoteStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet alphanumericCharacterSet]];
+        }
+        previousIntraQuoteStr = intraQuoteStr;
+        return intraQuoteStr;
+    }] componentsJoinedByString:@"\""];
+}
+
+@end
+
+
+
 @interface WMFImageTagParser () <NSXMLParserDelegate>
 
 @property (nonatomic, strong, nullable) NSMutableArray<NSDictionary*>* parsedImgTagAttributeDicts;
@@ -32,13 +56,13 @@ NS_ASSUME_NONNULL_BEGIN
 
     // Map parsedImgTagAttributeDicts to image tag model objects.
     NSArray<WMFImageTag*>* imageTags = [self.parsedImgTagAttributeDicts bk_map:^id (NSDictionary* tagDict){
-        return [[WMFImageTag alloc] initWithSrc:tagDict[@"src"]
-                                         srcset:tagDict[@"srcset"]
-                                            alt:tagDict[@"alt"]
-                                          width:tagDict[@"width"]
-                                         height:tagDict[@"height"]
-                                  dataFileWidth:tagDict[@"data-file-width"]
-                                 dataFileHeight:tagDict[@"data-file-height"]];
+        return [[WMFImageTag alloc] initWithSrc:[tagDict[@"src"] stringByRemovingPercentEncoding]
+                                         srcset:[tagDict[@"srcset"] stringByRemovingPercentEncoding]
+                                            alt:[tagDict[@"alt"] stringByRemovingPercentEncoding]
+                                          width:[tagDict[@"width"] stringByRemovingPercentEncoding]
+                                         height:[tagDict[@"height"] stringByRemovingPercentEncoding]
+                                  dataFileWidth:[tagDict[@"data-file-width"] stringByRemovingPercentEncoding]
+                                 dataFileHeight:[tagDict[@"data-file-height"] stringByRemovingPercentEncoding]];
     }];
 
     return [[WMFImageTagList alloc] initWithImageTags:imageTags];
@@ -59,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)parser:(NSXMLParser*)parser didStartElement:(NSString*)elementName namespaceURI:(nullable NSString*)namespaceURI qualifiedName:(nullable NSString*)qName attributes:(NSDictionary<NSString*, NSString*>*)attributeDict {
     if ([[elementName lowercaseString] isEqualToString:@"img"]) {
-        if (self.leadImageNormalizedFilename && [WMFParseUnescapedNormalizedImageNameFromSourceURL(attributeDict[@"src"]) isEqualToString:self.leadImageNormalizedFilename]) { //check if this is the image we want first in the list by comparing filenames
+        if (self.leadImageNormalizedFilename && [WMFParseUnescapedNormalizedImageNameFromSourceURL([attributeDict[@"src"] stringByRemovingPercentEncoding]) isEqualToString:self.leadImageNormalizedFilename]) { //check if this is the image we want first in the list by comparing filenames
            [self.parsedImgTagAttributeDicts insertObject:attributeDict atIndex:0]; //if it's the image we want first, insert it at index 0
         } else {
             [self.parsedImgTagAttributeDicts addObject:attributeDict];
@@ -77,7 +101,12 @@ NS_ASSUME_NONNULL_BEGIN
     });
     NSArray<NSTextCheckingResult*>* matches = [imgTagRegex matchesInString:HTMLString options:0 range:NSMakeRange(0, HTMLString.length)];
     return [[matches bk_map:^id (NSTextCheckingResult* match){
-        return [HTMLString substringWithRange:match.range];
+        NSString *imgTag = [HTMLString substringWithRange:match.range];
+        
+        // Temporarily escape all tag attribute values so NSXMLParser doesn't encounter anything it can't handle.
+        imgTag = [imgTag wmf_stringWithPercentEncodedTagAttributeValues];
+        
+        return imgTag;
     }] componentsJoinedByString:@""];
 }
 
