@@ -1,6 +1,5 @@
 #import "SavedArticlesFetcherTests.h"
 #import "HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.h"
-#import "MWKArticle+HTMLImageImport.h"
 #import "WMFURLCache.h"
 #import <OCMockito/NSInvocation+OCMockito.h>
 
@@ -107,7 +106,6 @@
          initWithTitle:firstTitle
              dataStore:self.tempDataStore
                   dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
-    [cachedArticle importAndSaveImagesFromSectionHTML];
     [cachedArticle save];
     NSAssert(cachedArticle.isCached, @"Test depends on article being considered cached after save!");
 
@@ -153,7 +151,7 @@
     assertThat(self.downloadedArticles, isEmpty());
     assertThat(self.downloadErrors, is(@{dummyTitle: downloadError}));
 }
-
+ 
 - (void)testReportArticleImageErrors {
     [self stubListWithEntries:0];
 
@@ -205,8 +203,8 @@
      willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
 
     [self stubArticleImageResponsesForArticle:stubbedArticle];
-
-    [stubbedArticle.images.uniqueLargestVariants bk_each:^(MWKImage* image) {
+    
+    [[stubbedArticle imagesForGallery] bk_each:^(MWKImage* image) {
         NSString* canonicalPageTitle = [@"File:" stringByAppendingString:image.canonicalFilename];
         [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:canonicalPageTitle fromSite:stubbedArticle.title.site])
          willReturn:[AnyPromise promiseWithValue:downloadError]];
@@ -239,7 +237,7 @@
 
     [self stubArticleImageResponsesForArticle:stubbedArticle];
 
-    [stubbedArticle.images.uniqueLargestVariants bk_each:^(MWKImage* image) {
+    [[stubbedArticle imagesForGallery] bk_each:^(MWKImage* image) {
         MWKImageInfo* stubbedImageInfo = [self imageInfoStubForImage:image];
         [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:stubbedImageInfo.canonicalPageTitle
                                                              fromSite:stubbedArticle.title.site])
@@ -388,7 +386,7 @@
         // it will try to cancel the article fetch even though it's already downloaded (no effect)
         [MKTVerify(self.mockArticleFetcher) cancelFetchForPageTitle:firstTitle];
         // then it will cancel any download for its images
-        [firstArticle.allImageURLs bk_each:^(NSURL* imageURL) {
+        [firstArticle.imageURLsForSaving bk_each:^(NSURL* imageURL) {
             [MKTVerify(self.mockImageController) cancelFetchForURL:imageURL];
         }];
         [asyncFetcherWorkExpectation fulfill];
@@ -416,7 +414,7 @@
 }
 
 - (void)verifyPersistedImageInfoForArticle:(MWKArticle*)article {
-    NSArray<NSString*>* expectedCanonicalPageTitles = [MWKImage mapFilenamesFromImages:article.images.uniqueLargestVariants];
+    NSArray<NSString*>* expectedCanonicalPageTitles = [MWKImage mapFilenamesFromImages:[article imagesForGallery]];
     NSArray* persistedImageInfoCanonicalPageTitles  =
         [[self.tempDataStore imageInfoForTitle:article.title]
          valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, canonicalPageTitle)];
@@ -434,11 +432,6 @@
     MWKArticle* article = [[MWKArticle alloc] initWithTitle:title
                                                   dataStore:self.tempDataStore
                                                        dict:json];
-    // make sure article's image list is populated. shouldn't matter that image metadata is saved as long as the article
-    // itself is not. saving article data could interfere with the tests (since that would make it cached)
-    [article importAndSaveImagesFromSectionHTML];
-    NSParameterAssert([article.images count] > 1);
-    NSParameterAssert(article.images.uniqueLargestVariants.count > 1);
     [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:article.title progress:anything()])
      willReturn:[AnyPromise promiseWithValue:article]];
     return article;
@@ -475,7 +468,7 @@
 }
 
 - (void)stubArticleImageResponsesForArticle:(MWKArticle*)article {
-    [[article allImageURLs] bk_each:^(NSURL* imageURL) {
+    [[article imageURLsForSaving] bk_each:^(NSURL* imageURL) {
         [MKTGiven([self.mockImageController cacheImageWithURLInBackground:imageURL failure:anything() success:anything()]) willDo:^id (NSInvocation *invocation){
             NSArray *args = [invocation mkt_arguments];
             WMFSuccessBoolHandler success = args[2];
@@ -497,7 +490,7 @@
 }
 
 - (void)stubGalleryResponsesForArticle:(MWKArticle*)article {
-    [article.images.uniqueLargestVariants bk_each:^(MWKImage* image) {
+    [[article imagesForGallery] bk_each:^(MWKImage* image) {
         MWKImageInfo* stubbedImageInfo = [self imageInfoStubForImage:image];
 
         [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:stubbedImageInfo.canonicalPageTitle

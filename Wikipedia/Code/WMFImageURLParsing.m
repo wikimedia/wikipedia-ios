@@ -1,5 +1,6 @@
 #import "WMFImageURLParsing.h"
 #import "NSString+WMFExtras.h"
+#import "NSString+WMFPageUtilities.h"
 
 static NSRegularExpression* WMFImageURLParsingRegex() {
     static NSRegularExpression* imageNameFromURLRegex = nil;
@@ -50,6 +51,16 @@ NSString* WMFParseImageNameFromSourceURL(NSString* sourceURL)  __attribute__((ov
         // No "XXXpx-" prefix found, return the entire last component, as the URL is (probably) in the form //.../Filename.jpg
         return thumbOrFileComponent;
     }
+}
+
+NSString* WMFParseUnescapedNormalizedImageNameFromSourceURL(NSString* sourceURL)  __attribute__((overloadable)){
+    NSString* imageName           = WMFParseImageNameFromSourceURL(sourceURL);
+    NSString* normalizedImageName = [imageName wmf_unescapedNormalizedPageTitle];
+    return normalizedImageName;
+}
+
+NSString* WMFParseUnescapedNormalizedImageNameFromSourceURL(NSURL* sourceURL)  __attribute__((overloadable)){
+    return WMFParseUnescapedNormalizedImageNameFromSourceURL(sourceURL.absoluteString);
 }
 
 NSInteger WMFParseSizePrefixFromSourceURL(NSString* sourceURL)  __attribute__((overloadable)){
@@ -109,3 +120,6 @@ NSString* WMFChangeImageSourceURLSizePrefix(NSString* sourceURL, NSUInteger newS
                                                            withTemplate:[NSString stringWithFormat:@"%lupx-$1", (unsigned long)newSizePrefix]];
     }
 }
+
+
+

@@ -10,7 +10,6 @@
 #import <XCTest/XCTest.h>
 
 #import "MWKArticle.h"
-#import "MWKImageList.h"
 #import "MWKSectionList.h"
 #import "MWKTitle.h"
 

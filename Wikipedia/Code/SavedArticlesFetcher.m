@@ -175,9 +175,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     WMFURLCache* cache = (WMFURLCache*)[NSURLCache sharedURLCache];
     [cache permanentlyCacheImagesForArticle:article];
 
-    NSArray<NSURL*>* URLs = [[[article allImageURLs] allObjects] bk_reject:^BOOL (id obj) {
-        return [obj isEqual:[NSNull null]];
-    }];
+    NSArray<NSURL*>* URLs = [[article allImageURLs] allObjects];
     
     [self.imageController cacheImagesWithURLsInBackground:URLs failure:failure success:success];
 }
@@ -207,7 +205,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 - (void)fetchImageInfoForImagesInArticle:(MWKArticle*)article failure:(WMFErrorHandler)failure success:(WMFSuccessNSArrayHandler)success {
     @weakify(self);
     NSArray<NSString*>* imageFileTitles =
-        [[MWKImage mapFilenamesFromImages:article.images.uniqueLargestVariants] bk_reject:^BOOL (id obj) {
+        [[MWKImage mapFilenamesFromImages:[article imagesForGallery]] bk_reject:^BOOL (id obj) {
         return [obj isEqual:[NSNull null]];
     }];
 
