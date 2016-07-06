@@ -81,7 +81,7 @@
 }
 
 - (id<MWKListObject>)entryAtIndex:(NSUInteger)index {
-    return (id<MWKListObject>)[self objectInEntriesAtIndex : index];
+    return (id<MWKListObject>)[self objectInEntriesAtIndex:index];
 }
 
 - (id<MWKListObject> __nullable)entryForListIndex:(MWKListIndex)listIndex {
@@ -124,6 +124,18 @@
 - (void)removeAllEntries {
     [self.mutableEntries removeAllObjects];
     self.dirty = YES;
+}
+
+- (NSArray*)pruneToMaximumCount:(NSUInteger)maximumCount {
+    if (self.mutableEntries.count > maximumCount) {
+        NSRange range    = NSMakeRange(maximumCount, self.mutableEntries.count - maximumCount);
+        NSArray* removed = [self.mutableEntries subarrayWithRange:range];
+        [self.mutableEntries removeObjectsInRange:range];
+        self.dirty = YES;
+        return removed;
+    } else {
+        return nil;
+    }
 }
 
 - (void)sortEntries {
