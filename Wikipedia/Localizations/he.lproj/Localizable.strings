@@ -12,7 +12,6 @@
 "article-languages-label" = "בחירת שפה";
 "article-languages-cancel" = "ביטול";
 "article-languages-downloading" = "טעינת שפות הערך...";
-// Fuzzy
 "article-languages-filter-placeholder" = "מציאת שפה";
 "article-read-more-title" = "לקרוא עוד";
 "article-about-title" = "מידע על הערך הזה";
@@ -52,30 +51,24 @@
 "zero-warn-when-leaving" = "להזהיר בעת עזיבת אפס";
 "zero-settings-devmode" = "אפס – מצב מפתחים";
 "account-creation-captcha-required" = "נדרש אימות אנושיוּת";
-// Fuzzy
-"account-creation-captcha-obtaining" = "קבלת תמונת אימות חדשה.";
+"account-creation-captcha-obtaining" = "הצגת תמונת אימות חדשה...";
 "account-creation-logging-in" = "כניסה...";
 "account-creation-passwords-mismatched" = "הססמאות אינן זהות.";
 "account-creation-saving" = "שמירה...";
 "account-creation-login" = "כבר יש לך חשבון? כניסה";
-// Fuzzy
 "account-creation-username-placeholder-text" = "שם המשתמש";
 "account-creation-password-placeholder-text" = "ססמה";
 "account-creation-password-confirm-placeholder-text" = "אימות סיסמה";
 "account-creation-email-placeholder-text" = "דואר אלקטרוני (לא חובה)";
 "account-creation-missing-fields" = "יש להזין שם משתמש, ססמה ואישור ססמה כדי ליצור חשבון.";
-// Fuzzy
 "login-name-not-found" = "שם המשתמש נדרש כדי להיכנס.";
-// Fuzzy
-"login-name-illegal" = "נתת שם משתמש בלתי־תקין.";
-// Fuzzy
-"login-name-does-not-exist" = "שם המשתמש שנתת אינו קיים.";
+"login-name-illegal" = "שם המשתמש שסיפקת אינו תקין.";
+"login-name-does-not-exist" = "שם המשתמש שסיפקת אינו קיים.";
 "login-password-empty" = "נדרשת ססמה כדי להיכנס";
 "login-password-wrong" = "הססמה שנתת אינה נכונה.";
 "login-throttled" = "נכנסת יותר מדי פעמים בזמן קצר.";
 "login-user-blocked" = "המשתמש חסום.";
 "login-account-creation" = "אין לך חשבון? אנו מזמינים אותך להצטרף לוויקיפדיה";
-// Fuzzy
 "login-username-placeholder-text" = "שם המשתמש";
 "login-password-placeholder-text" = "ססמה";
 "wikitext-downloading" = "טעינת תוכן...";
