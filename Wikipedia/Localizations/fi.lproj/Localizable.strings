@@ -15,7 +15,6 @@
 "article-languages-label" = "Valitse kieli";
 "article-languages-cancel" = "Peruuta";
 "article-languages-downloading" = "Ladataan artikkelin kieliä...";
-// Fuzzy
 "article-languages-filter-placeholder" = "Löydä kieli";
 "article-read-more-title" = "Lue lisää";
 "article-about-title" = "Tietoja tästä artikkelista";
@@ -55,30 +54,24 @@
 "zero-warn-when-leaving" = "Varoita poistuttaessa Zerosta";
 "zero-settings-devmode" = "Zeron kehitystila";
 "account-creation-captcha-required" = "CAPTCHA-varmistus vaaditaan.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Haetaan uutta CAPTCHA-kuvaa.";
+"account-creation-captcha-obtaining" = "Haetaan uutta CAPTCHA-kuvaa...";
 "account-creation-logging-in" = "Kirjaudutaan...";
 "account-creation-passwords-mismatched" = "Salasanat eivät täsmää.";
 "account-creation-saving" = "Tallennetaan...";
 "account-creation-login" = "Onko sinulla jo tunnus? Kirjaudu sisään.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Käyttäjätunnus";
 "account-creation-password-placeholder-text" = "Salasana";
 "account-creation-password-confirm-placeholder-text" = "Vahvista salasana";
 "account-creation-email-placeholder-text" = "Sähköpostiosoite (vapaaehtoinen)";
 "account-creation-missing-fields" = "Tunnuksen luomiseen vaaditaan käyttäjänimi, salasana ja salasanan vahvistus.";
-// Fuzzy
 "login-name-not-found" = "Käyttäjänimi vaaditaan kirjautumiseen.";
-// Fuzzy
 "login-name-illegal" = "Antamasi käyttäjänimi ei kelpaa.";
-// Fuzzy
 "login-name-does-not-exist" = "Antamaasi käyttäjänimeä ei ole.";
 "login-password-empty" = "Kirjautumiseen tarvitaan salasana.";
 "login-password-wrong" = "Virheellinen salasana.";
 "login-throttled" = "Olet kirjautunut sisään liian monta kertaa lyhyen ajan sisällä.";
 "login-user-blocked" = "Käyttäjä on estetty.";
 "login-account-creation" = "Eikö sinulla ole tunnusta? Liity Wikipediaan.";
-// Fuzzy
 "login-username-placeholder-text" = "Käyttäjätunnus";
 "login-password-placeholder-text" = "Salasana";
 "wikitext-downloading" = "Ladataan sisältöä...";
@@ -223,8 +216,7 @@
 "about-repositories-app-source-license" = "Lähdekoodi on saatavilla $1-lisenssin ehtojen mukaisesti.";
 "about-repositories-app-source-license-mit" = "MIT";
 "about-send-feedback" = "Lähetä palautetta sovelluksesta";
-// Fuzzy
-"about-product-of" = "Tuote $1";
+"about-product-of" = "Tehnyt $1 sinunkaltaistesi vapaaehtoisten avustamana";
 "about-wikimedia-foundation" = "Wikimediasäätiö";
 "share-menu-save-page" = "Tallenna artikkeli";
 "share-menu-page-saved" = "Artikkeli tallennettu";
@@ -249,6 +241,7 @@
 "button-next" = "Seuraava";
 "button-done" = "Valmis";
 "button-save" = "Tallenna";
+"button-ok" = "OK";
 "button-save-for-later" = "Tallenna myöhemmäksi";
 "button-saved-for-later" = "Tallennettu myöhemmäksi";
 "button-report-a-bug" = "Ilmoita ongelmasta";

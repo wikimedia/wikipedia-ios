@@ -8,13 +8,14 @@
 "article-languages-label" = "ٻولي چونڊيو";
 "article-languages-cancel" = "رد";
 "article-languages-downloading" = "مضمون جون ٻوليون لاهيندي...";
-// Fuzzy
 "article-languages-filter-placeholder" = "ٻولي لھو";
 "article-read-more-title" = "وڌيڪ پڙهو";
 "article-about-title" = "هن مضمون بابت";
 "article-unable-to-load-section" = "هن حصي کي لوڊ ڪرڻ ۾ نالائق. مضمون کي تازو ڪرڻ جي ڪوشش ڪريو اهو ڏسڻ لاءِ ته ڇا اهو مسئلي کي حل ڪري ٿو.";
 "article-unable-to-load-article" = "مضمون لاهڻ لائق نه آهي.";
 "article-related-articles-title" = "لاڳاپيل مضمون";
+"article-languages-yours" = "توھان جون ٻوليون";
+"article-languages-others" = "ٻيون ٻوليون";
 "info-box-title" = "ترت معلومات";
 "info-box-close-text" = "بند ڪريو";
 "table-title-other" = "وڌيڪ معلومات";
@@ -45,31 +46,25 @@
 "zero-wikipedia-zero-heading" = "وڪيپيڊيا زيرو";
 "zero-warn-when-leaving" = "جيڪڏهن وڪيپيڊيا زيرو ڇڏي وڃي رهي هجي تہ خبردار ڪريو";
 "account-creation-captcha-required" = "CAPTCHA پڪ گھربل آھي.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "ھڪ نئون  CAPTCHA حاصل ڪندي.";
+"account-creation-captcha-obtaining" = "ھڪ نئون  CAPTCHA حاصل ڪندي...";
 "account-creation-logging-in" = "لاگ ان ڪندي...";
 "account-creation-passwords-mismatched" = "ڳجهي لفظ جون جڳهون مشابهت نٿيون رکن.";
 "account-creation-saving" = "سانڍيندي...";
 "account-creation-login" = "اڳ ئي کاتو رکو ٿا؟ لاگ ان ٿيو.";
-// Fuzzy
-"account-creation-username-placeholder-text" = "يوزر نانءُ";
+"account-creation-username-placeholder-text" = "يوزرنانءُ";
 "account-creation-password-placeholder-text" = "ڳجهو لفظ";
 "account-creation-password-confirm-placeholder-text" = "ڳجهي لفظ جي پڪ ڪريو";
 "account-creation-email-placeholder-text" = "ايميل (مرضيءَ موجب)";
 "account-creation-missing-fields" = "توهان کي کاتو کولڻ لاءِ هڪ يوزرنانءُ، ڳجهو لفظ، ۽ ڳجهي لفظ جي پڪ ضرور هجڻ گهرجي.";
-// Fuzzy
-"login-name-not-found" = "لاگ ان ٿيڻ لاءِ يوزر نانءُ گهربل آهي.";
-// Fuzzy
-"login-name-illegal" = "توهان هڪ غيرقانوني يوزر نانءُ فراهم ڪيو.";
-// Fuzzy
-"login-name-does-not-exist" = "جيڪو يوزر نانءُ توهان فراهم ڪيو اهو وجود نٿو رکي.";
+"login-name-not-found" = "لاگ ان ٿيڻ لاءِ يوزرنانءُ گهربل آهي.";
+"login-name-illegal" = "توهان هڪ غيرقانوني يوزرنانءُ فراهم ڪيو.";
+"login-name-does-not-exist" = "جيڪو يوزرنانءُ توهان فراهم ڪيو اهو وجود نٿو رکي.";
 "login-password-empty" = "لاگ ان ٿيڻ لاءِ ڳجهو لفظ گهربل آهي.";
 "login-password-wrong" = "جيڪو ڳجهو لفظ توهان فراهم ڪيو اهو درست نه آهي.";
 "login-throttled" = "توهان ٿورڙي وقت ۾ تمام گهڻا دفعا لاگ ان ٿيا آهيو.";
 "login-user-blocked" = "يوزر بلاڪ ٿيل آهي.";
 "login-account-creation" = "کاتو نٿا رکو؟ وڪيپيڊيا ۾ شامل ٿيو.";
-// Fuzzy
-"login-username-placeholder-text" = "يوزر نانءُ";
+"login-username-placeholder-text" = "يوزرنانءُ";
 "login-password-placeholder-text" = "ڳجهو لفظ";
 "wikitext-downloading" = "مواد لوڊ ڪندي...";
 "wikitext-download-failed" = "تازو ترين ورزن حاصل ڪرڻ ۾ نالائق.";
@@ -81,7 +76,9 @@
 "wikitext-upload-captcha-needed" = "CAPTCHA پڪ جي ضرورت آھي.";
 "wikitext-upload-save" = "سانڍيندي...";
 "wikitext-upload-save-sign-in" = "لاگ ان";
+"wikitext-upload-save-sign-in-benefits" = "ٻيا ڀاڱيدار توھان سان رابطو ڪري سگھن ٿا ۽ توھان ڏسي سگھو ٿا تہ توھان ڪھڙا مضمون ترميم ڪيا.";
 "wikitext-upload-save-anonymously" = "گمنامي سان سانڍيو";
+"wikitext-upload-save-terms-and-license" = "سانڍڻ سان، توھان $1 سان راضپو ڏيکاريو ٿا، ۽ اھو بہ تہ بغير ڪنھن شرط جي پنھنجون ڀاڱيداريون $2 لائسنس جي تحت ڏيو ٿا.";
 "wikitext-upload-save-terms-name" = "استعمال جا شرط";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "ڳنڍڻو کوليو";
@@ -108,6 +105,10 @@
 "settings-language" = "وڪيپيڊيا ٻولي";
 "settings-support" = "وڪيپيڊيا جي مدد ڪريو";
 "settings-language-bar" = "ڳولا تي ٻوليون ڏيکاريو";
+"settings-my-languages" = "منھنجون ٻوليون";
+"settings-help-and-feedback" = "مدد ۽ پذيرائي";
+"settings-primary-language" = "شروعاتي";
+"settings-primary-language-details" = "ھن فھرست جي پھرين ٻولي ايپ جي شروعاتي ٻولي طور استعمال ڪئي وڃي ٿي. اھا ٻولي تبديل ڪرڻ سان روزانو جو مواد تبديل ٿيندو (مثال طور نمايان مضمون) جيڪو ايڪسپلور تي ڏيکاريو وڃي ٿو.";
 "main-menu-title" = "وڌيڪ";
 "main-menu-heading-about" = "بابت";
 "main-menu-language-title" = "$1 وڪيپيڊيا ڳوليو";
@@ -151,6 +152,7 @@
 "saved-pages-refresh-cancel-alert-title" = "جدت رد ڪئي.";
 "saved-pages-refresh-cancel-alert-message" = "وڪيپيڊيا مضمونن ۾ هر وقت جدت آندي ويندي آهي. تازو ڪرڻ لاءِ ٽيپ ڪريو ته جيئن سڀني مضمونن جا تازا ترين ورزن ملن.";
 "saved-pages-refresh-cancel-alert-button" = "سمجھي ويس";
+"saved-pages-description" = "سانڍيل صفحا وڻندڙ آھن. انھن کي بڪ مارڪ طور سمجھو جيڪي توھان ان وقت بہ پڙھي سگھو ٿا جڏھن توھان آفلائين ھجو.";
 "saved-pages-none" = "اڃان ڪي به صفحا سانڍيل نه آهن.";
 "saved-pages-image-download-error" = "هن سانڍيل صفحي لاءِ عڪس لاھڻ ۾ ناڪامي ٿي.";
 "history-title" = "سوانح";
@@ -174,6 +176,7 @@
 "edit-summary-choice-fixed-typos" = "هجي جون چڪون درست ڪيون ويون";
 "edit-summary-choice-added-category" = "زمرو شامل ڪيو";
 "edit-summary-choice-added-missing-info" = "غير موجود معلومات شامل ڪئي وئي";
+"edit-summary-choice-added-clarification" = "وضاحت شامل ڪئي";
 "edit-summary-choice-other" = "ٻيو";
 "edit-summary-description" = "هڪ خاص تَتُ ٻين ايڊيٽرس کي ڦڙتي سان نظرثاني ڪرڻ ۾ مدد ڪندو آهي. توهان هيٺين ٽيگس مان پڻ کڻي سگهو ٿا.";
 "edit-summary-field-placeholder-text" = "ٻيا طريقا جن سان توهان مضمون کي بهتر بڻايو";
@@ -184,6 +187,7 @@
 "about-title" = "بانت";
 "about-wikipedia" = "وڪيپيڊيا";
 "about-contributors" = "ڀاڱيدارَ";
+"about-testers-details" = "$1 پاران ڪيواي ٽيسٽ ڪيل";
 "about-translators" = "ترجميڪارَ";
 "about-translators-details" = "$1 تي رضاڪارن طرفان ترجمو ڪيل";
 "about-libraries" = "مستعمل لائبريريون";
@@ -192,7 +196,9 @@
 "about-content-license" = "مواد جو لائسنس";
 "about-content-license-details" = "مواد $1 جي تحت موجود آھي، نہ تہ ٻي صورت ۾ وضاحت ڪيل آھي.";
 "about-content-license-details-share-alike-license" = "ڪريئيٽو ڪامنز اٽريبيوشن-شيئرالائيڪ لائسنس";
+"about-libraries-licenses-title" = "اسان اوپن سورس سافٽويئر $1 سان پيار ڪريون ٿا";
 "about-libraries-complete-list" = "مڪمل فھرست";
+"about-repositories-app-source-license" = "سورس ڪوڊ $1 تحت موجود آھي.";
 "about-repositories-app-source-license-mit" = "ايمآءِٽي لائسنس";
 "about-send-feedback" = "ايپ جي پذيرائي موڪليو";
 "about-product-of" = "توھان جھڙن رضاڪارن جي مدد سان $1 پاران ٺھيل";
@@ -216,12 +222,14 @@
 "timestamp-years" = "%d سال اڳ";
 "lastmodified-by-user" = "$1 $2 ترميم ڪئي";
 "lastmodified-by-anon" = "$1 گمنام يوزر پاران سنواريل";
+"button-edit" = "سنواريو";
 "button-next" = "اڳيون";
 "button-done" = "ٿي ويو";
 "button-save" = "سانڍيو";
 "button-ok" = "ٺيڪ";
 "button-save-for-later" = "بعد لاءِ سانڍيو";
 "button-saved-for-later" = "بعد لاءِ سانڍل";
+"button-report-a-bug" = "ڪنھن جيت جي رپورٽ ڪريو";
 "onboarding-create-account" = "کاتو کوليو";
 "onboarding-login" = "لاگ ان";
 "onboarding-already-have-account" = "اڳ ئي کاتو رکو ٿا؟ $1";
@@ -279,6 +287,8 @@
 "nearby-location-updates-settings-menu" = "ذاتيات > مڪاني سهولتون > وڪيپيڊيا";
 "nearby-location-general-error" = "مڪانيت سمجهڻ ۾ ناڪام. تازو ڪرڻ لاءِ ڇڪ ڏيو يا بعد ۾ ٻيهر ڪوشش ڪريو.";
 "nearby-wifi" = "واءِ-فاءِ کي قابل ڪار بڻائڻ سان توهانجو آلي کي مڪانيت سمجهڻ ۾ مدد ملي سگهي ٿي.";
+"migration-update-progress-label" = "لوڪل ڊيٽا منتقل ٿيندي";
+"migration-update-progress-count-label" = "مضمون $2 جو $1 منتقل ٿيندي";
 "migration-prompt-title" = "ايئن لڳي ٿو ڄڻ اسان کي ڪا سوانح آهي!";
 "migration-skip-button-title" = "انکي ختم ڪريو";
 "image-gallery-unknown-owner" = "اڻڄاتل چاڙهيندڙ.";
@@ -286,6 +296,7 @@
 "image-gallery-fetch-image-info-error-message" = "هن مضمون لاءِ عڪس لاهڻ ۾ ناڪام. براءِ مهرباني مضمون کي تازو ڪريو ۽ ٻيهر ڪوشش ڪريو.";
 "image-gallery-fetch-image-info-error-ok" = "ٺيڪ";
 "hockeyapp-alert-question" = "ڇا توهان $1 ڏانهن حادثي جي رپورٽ موڪلڻ  چاهيندئو ته جيئن وڪيميڊيا حادثي تي نظرثاني ڪري سگهي؟";
+"hockeyapp-alert-question-with-response-field" = "ڇا توھان $1 ڏانھن ڪريش رپورٽ موڪلڻ چاھيندئو تہ جيئن وڪيميڊيا توھان جي ڪريش جو جائزو وٺي سگھي؟ براءِ مھرباني بيان ڪريو تہ جنھن وقت ڪريش ٿيو ان وقت ڇا ٿيو:";
 "hockeyapp-alert-title" = "معاف ڪجو، پوئين ڀيري ايپ حادثاتاً خراب ٿي وئي";
 "hockeyapp-alert-send-report" = "رپورٽ موڪليو";
 "hockeyapp-alert-always-send" = "هميشه اماڻيو";
@@ -325,6 +336,9 @@
 "welcome-explore-sub-title" = "ھر روز دلچسپ مضمون ڳولڻ جو نئون طريقو";
 "welcome-explore-tell-me-more" = "مون کي وڌيڪ ٻڌايو";
 "welcome-explore-tell-me-more-about-explore" = "ايڪسپلور بابت وڌيڪ";
+"welcome-explore-tell-me-more-details" = "جڏھن توھان ڪو مضمون پڙھو ٿا، لاڳاپيل مضمون توھان جي ايڪسپلور فيڊ ۾ خودبخود شامل ڪيا ويندا آھن. اسان معلومات ڪيئن سھيڙيون ٿا اھو ان کي تبديل نٿو ڪري، ۽ توھان جي پڙھڻ جي سوانح اڃان بہ ذاتي آھي.";
+"welcome-explore-tell-me-more-related" = "ايڪسپلور فيڊ توھان کي توھان جي پڙھيل مضمونن سان لاڳاپيل مضمون ڏيکاري ٿي.";
+"welcome-explore-tell-me-more-privacy" = "ڪابہ پڙھڻ جي فھرست يا پروفائيل اسان جي سرورس تي اسٽور نہ ڪيو ويندو آھي.";
 "welcome-explore-tell-me-more-done-button" = "سمجھي ويا";
 "welcome-explore-continue-button" = "شروع ڪريو";
 "welcome-languages-title" = "ٻوليون";
@@ -367,3 +381,4 @@
 "explore-most-read-footer-for-date" = "$1 تي سڀ گھڻو پڙھيل مضمون";
 "explore-most-read-more-list-title" = "مٿيان مضمون";
 "explore-most-read-more-list-title-for-date" = "$1 تي مٿيان";
+"no-email-account-alert" = "براءِ مھرباني پنھنجي ڊوائس تي ڪو ايميل کاتو سيٽ اپ ڪريو ۽ ٻيھر ڪوشش ڪريو.";

@@ -10,7 +10,6 @@
 "article-languages-label" = "Zvoliť jazyk";
 "article-languages-cancel" = "Zrušiť";
 "article-languages-downloading" = "Načítam zoznam jazykov...";
-// Fuzzy
 "article-languages-filter-placeholder" = "Nájsť jazyk";
 "article-read-more-title" = "Ďalšie informácie";
 "article-about-title" = "O tomto článku";
@@ -49,30 +48,24 @@
 "zero-warn-when-leaving" = "Upozorniť ma ak opúšťam Zero";
 "zero-settings-devmode" = "Vývojársky režim";
 "account-creation-captcha-required" = "Je požadované overenie pomocou CAPTCHA.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Nahrávam nový obrázok.";
+"account-creation-captcha-obtaining" = "Generuje sa nová CAPTCHA...";
 "account-creation-logging-in" = "Prihlasujem...";
 "account-creation-passwords-mismatched" = "Heslá sa nezhodujú";
 "account-creation-saving" = "Ukladanie...";
 "account-creation-login" = "Máte už vytvorený účet? Prihláste sa.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Používateľské meno";
 "account-creation-password-placeholder-text" = "Heslo";
 "account-creation-password-confirm-placeholder-text" = "Potvrdiť heslo";
 "account-creation-email-placeholder-text" = "E-mail (voliteľné)";
 "account-creation-missing-fields" = "Aby ste si mohli vytvoriť účet, musíte zadať používateľské meno, heslo a potvrdenie hesla.";
-// Fuzzy
 "login-name-not-found" = "K prihláseniu je potrebné používateľské meno.";
-// Fuzzy
 "login-name-illegal" = "Zadali ste neplatné používateľské meno.";
-// Fuzzy
 "login-name-does-not-exist" = "Zadané používateľské meno neexistuje.";
 "login-password-empty" = "K prihláseniu je potrebné heslo.";
 "login-password-wrong" = "Zadané heslo je nesprávne.";
 "login-throttled" = "Prihlásili ste sa príliš veľa krát v krátkom čase.";
 "login-user-blocked" = "Používateľ je zablokovaný.";
 "login-account-creation" = "Nemáte ešte účet? Pripojte sa k Wikipédii.";
-// Fuzzy
 "login-username-placeholder-text" = "Používateľské meno";
 "login-password-placeholder-text" = "Heslo";
 "wikitext-downloading" = "Načítavam obsah...";
@@ -200,6 +193,7 @@
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
 "about-libraries-licenses-title" = "Máme radi open source softvér $1";
 "about-libraries-complete-list" = "Úplný zoznam";
+"about-repositories" = "Repozitáre";
 "about-repositories-app-source-license" = "Zdrojový kód je dostupný v rámci $1.";
 "about-repositories-app-source-license-mit" = "licenciou MIT";
 "about-send-feedback" = "Odoslať spätnú väzbu";
@@ -279,6 +273,7 @@
 "nearby-location-updates-denied" = "Táto aplikácia nemá prístup k údajom o polohe.";
 "nearby-location-updates-settings-menu" = "Súkromie > Služby polohy > Wikipedia";
 "nearby-wifi" = "Povolenie Wi-Fi môže pomôcť vášmu prístroju lepšie určiť vašu polohu.";
+"migration-update-progress-count-label" = "Presúvam článok $1 z $2";
 "migration-skip-button-title" = "Odstrániť položku";
 "image-gallery-unknown-owner" = "Uploader neznámy.";
 "image-gallery-fetch-image-info-error-title" = "Nepodarilo sa stiahnuť obrázky";
@@ -347,6 +342,7 @@
 "explore-main-page-heading" = "Dnes na Wikipédii";
 "explore-random-article-heading" = "Náhodný článok";
 "explore-potd-heading" = "Obrázok dňa";
+"explore-most-read-generic-heading" = "Najčítanejšie články";
 "explore-most-read-footer" = "Všetky najčítanejšie články";
 "explore-most-read-footer-for-date" = "Všetky najčítanejšie články z $1";
 "explore-most-read-more-list-title" = "Najčítanejšie články";
