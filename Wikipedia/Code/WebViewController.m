@@ -44,7 +44,8 @@ NSString* const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
 @interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler>
-
+@property (nonatomic, strong, nullable) MWKArticle* article;
+@property (nonatomic, strong, nullable) MWKTitle* articleTitle;
 @property (nonatomic, strong) MASConstraint* headerHeight;
 @property (nonatomic, strong) UIView* footerContainerView;
 @property (nonatomic, strong) NSMutableDictionary* footerViewHeadersByIndex;
@@ -164,7 +165,7 @@ NSString* const WMFCCBySALicenseURL =
                 DDLogError(@"Image clicked callback invoked with empty URL: %@", message.body[@"imageClicked"]);
                 return;
             }
-            
+
             NSURLComponents* selectedImageURLComponents = [NSURLComponents componentsWithString:selectedImageURLString];
             for (NSURLQueryItem* item in selectedImageURLComponents.queryItems) {
                 if ([item.name.lowercaseString isEqualToString:@"originalsrc"]) {
@@ -656,12 +657,10 @@ NSString* const WMFCCBySALicenseURL =
 
 #pragma mark - Display article
 
-- (void)setArticle:(MWKArticle*)article {
-    _article = article;
-
-    WMF_TECH_DEBT_TODO(remove dependency on session current article)
+- (void)loadTitle:(MWKTitle*)title forArticle:(MWKArticle*)article { //both title and article need to be passed because cached articles have cached titles which have fragments that don't match what the user actually tapped
+    self.articleTitle           = title;
+    self.article                = article;
     self.session.currentArticle = article;
-
     if ([self isViewLoaded]) {
         [self displayArticle];
     }
@@ -677,7 +676,7 @@ NSString* const WMFCCBySALicenseURL =
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     [self.headerHeight setOffset:headerHeight];
 
-    [self.webView loadHTML:[self.article articleHTML] withAssetsFile:@"index.html" scrolledToFragment:self.article.title.fragment topPadding:headerHeight];
+    [self.webView loadHTML:[self.article articleHTML] withAssetsFile:@"index.html" scrolledToFragment:self.articleTitle.fragment topPadding:headerHeight];
 
     UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
                                                           action:@selector(shareMenuItemTapped:)];
