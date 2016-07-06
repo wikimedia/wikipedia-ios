@@ -16,7 +16,7 @@
     
     fragment = fragment ? fragment : @"top";
     NSURL* requestURL = [[WMFProxyServer sharedProxyServer] proxyURLForRelativeFilePath:fileName fragment:fragment];
-    NSURLRequest* request = [NSURLRequest requestWithURL:requestURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
+    NSURLRequest* request = [NSURLRequest requestWithURL:requestURL];
     [self loadRequest:request];
 }
 
