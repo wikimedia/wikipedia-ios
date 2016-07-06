@@ -3,6 +3,7 @@
 #import "MWKSite.h"
 #import "MWKSearchResult.h"
 #import "Wikipedia-Swift.h"
+#import "WMFRandomDiceButton.h"
 
 static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
@@ -16,7 +17,7 @@ static const CGFloat WMFRandomAnimationSpringDampingDice = 0.5;
 @property (nonatomic, strong) WMFRandomArticleFetcher* randomArticleFetcher;
 @property (nonatomic, strong) MWKSite* site;
 
-@property (nonatomic, strong) UIButton* randomButton;
+@property (nonatomic, strong) WMFRandomDiceButton* randomButton;
 @property (nonatomic, strong) UIView* emptyFadeView;
 
 @property (nonatomic, getter = isRandomButtonHidden) BOOL randomButtonHidden;
@@ -28,7 +29,7 @@ static const CGFloat WMFRandomAnimationSpringDampingDice = 0.5;
 
 @implementation WMFRandomArticleViewController
 
-- (instancetype)initWithArticleTitle:(nullable MWKTitle*)title randomArticleFetcher:(WMFRandomArticleFetcher*)randomArticleFetcher site:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithArticleTitle:(nullable MWKTitle*)title randomArticleFetcher:(nonnull WMFRandomArticleFetcher*)randomArticleFetcher site:(nonnull MWKSite*)site dataStore:(nonnull MWKDataStore*)dataStore {
     NSParameterAssert(dataStore);
     self = [super initWithArticleTitle:title dataStore:dataStore];
     if (self) {
@@ -58,10 +59,7 @@ static const CGFloat WMFRandomAnimationSpringDampingDice = 0.5;
 }
 
 - (void)setupRandomButton {
-    self.randomButton = [UIButton buttonWithType:UIButtonTypeCustom];
-
-    self.randomButton.backgroundColor = [UIColor wmf_blueTintColor];
-    [self.randomButton setTitle:@"!" forState:UIControlStateNormal];
+    self.randomButton = [WMFRandomDiceButton buttonWithType:UIButtonTypeCustom];
     [self.randomButton addTarget:self action:@selector(loadRandomArticle:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.randomButton];
     [self setRandomButtonHidden:YES animated:NO];
@@ -102,14 +100,17 @@ static const CGFloat WMFRandomAnimationSpringDampingDice = 0.5;
 }
 
 - (void)layoutRandomButtonForViewBounds:(CGRect)bounds hidden:(BOOL)hidden {
-    CGSize randomButtonSize     = CGSizeMake(44, 44);
+    CGSize randomButtonSize     = CGSizeMake(90, 90);
     CGFloat randomButtonOriginX = (0.5 * bounds.size.width - 0.5 * randomButtonSize.width);
-    CGFloat randomButtonOriginY = hidden ? bounds.size.height : bounds.size.height - 100;
+    CGFloat randomButtonOriginY = hidden ? bounds.size.height : bounds.size.height - 134;
     CGPoint randomButtonOrigin  = CGPointMake(randomButtonOriginX, randomButtonOriginY);
     self.randomButton.frame = (CGRect){randomButtonOrigin, randomButtonSize};
 }
 
 - (void)configureViewsForRandomArticleLoading:(BOOL)isRandomArticleLoading {
+    if (isRandomArticleLoading) {
+        [self.randomButton roll];
+    }
     self.randomButton.enabled = !isRandomArticleLoading;
     [UIView animateWithDuration:WMFRandomAnimationDurationFade animations:^{
         self.emptyFadeView.alpha = isRandomArticleLoading ? 1 : 0;
