@@ -150,14 +150,16 @@ NSString* const WMFCCBySALicenseURL =
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                 if ([href hasPrefix:@"#"]) {
                     [self scrollToFragment:[href substringFromIndex:1]];
-                } else if ([href hasPrefix:@"//"]) {
-                    // Expand protocol-relative link to https -- secure by default!
-                    href = [@"https:" stringByAppendingString:href];
-                }
-                NSURL* url = [NSURL URLWithString:href];
-                NSCAssert(url, @"Failed to from URL from link %@", href);
-                if (url) {
-                    [self wmf_openExternalUrl:url];
+                } else {
+                    if ([href hasPrefix:@"//"]) {
+                        // Expand protocol-relative link to https -- secure by default!
+                        href = [@"https:" stringByAppendingString:href];
+                    }
+                    NSURL* url = [NSURL URLWithString:href];
+                    NSCAssert(url, @"Failed to from URL from link %@", href);
+                    if (url) {
+                        [self wmf_openExternalUrl:url];
+                    }
                 }
             }
         } else if (message.body[@"imageClicked"]) {
