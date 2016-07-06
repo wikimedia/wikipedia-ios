@@ -295,51 +295,6 @@
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
 }
 
-- (void)testImgTagReductionStartsWithImg {
-    assertThat([self.parser imgTagsOnlyFromHTMLString:@"<img src=\"foo\"><bla bla>"], is(equalTo(@"<img src=\"foo\">")));
-}
-
-- (void)testImgTagReductionMultiple {
-    assertThat([self.parser imgTagsOnlyFromHTMLString:@"<img src=\"foo\"><bla bla><img src=\"foo\">"], is(equalTo(@"<img src=\"foo\"><img src=\"foo\">")));
-}
-
-- (void)testImgTagReductionStartsWithSpace {
-    assertThat([self.parser imgTagsOnlyFromHTMLString:@" <img src=\"foo\"><bla bla>"], is(equalTo(@"<img src=\"foo\">")));
-}
-
-- (void)testImgTagReductionStartsWithOtherTag {
-    assertThat([self.parser imgTagsOnlyFromHTMLString:@" <p>what</p> <img src=\"foo\"><bla bla>"], is(equalTo(@"<img src=\"foo\">")));
-}
-
-- (void)testImgTagReductionStartsWithOtherTagWithSpace {
-    assertThat([self.parser imgTagsOnlyFromHTMLString:@"<p>what</p> <img src=\"foo\"><bla bla>"], is(equalTo(@"<img src=\"foo\">")));
-}
-
-- (void)testImgTagReductionStartsWithOtherTagNoSpace {
-    assertThat([self.parser imgTagsOnlyFromHTMLString:@"<p>what</p><img src=\"foo\"><bla bla>"], is(equalTo(@"<img src=\"foo\">")));
-}
-
-- (void)testImgTagReductionSpace {
-    assertThat([self.parser imgTagsOnlyFromHTMLString:@" "], is(equalTo(@"")));
-}
-
-- (void)testImgTagReductionEmptyString {
-    assertThat([self.parser imgTagsOnlyFromHTMLString:@""], is(equalTo(@"")));
-}
-
-- (void)testImgTagParsing {
-    assertThat([self.parser imgTagsOnlyFromHTMLString:@"<img src=\"foo\"></img>"], is(equalTo(@"<img src=\"foo\">")));
-}
-
-- (void)testImgTagParsingStripsOtherElements {
-    assertThat([self.parser imgTagsOnlyFromHTMLString:@"<img src=\"foo\"/><div/><img src=\"bar\"/>"],
-               is(equalTo(@"<img src=\"foo\"/><img src=\"bar\"/>")));
-}
-
-- (void)testImgTagReductionNonHTMLString {
-    assertThat([self.parser imgTagsOnlyFromHTMLString:@"bla bla"], is(equalTo(@"")));
-}
-
 - (void)testObamaArticleGalleryImageListExtractionWithLeadImage {
     NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:[self allObamaHTML] withLeadImageURL:[NSURL URLWithString:@"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/640px-BarackObamaportrait.jpg"]] imageURLsForGallery];
     
@@ -437,23 +392,6 @@
                               [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/0/08/NautilusCutawayLogarithmicSpiral.jpg/1024px-NautilusCutawayLogarithmicSpiral.jpg"]
                               ];
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
-}
-
-- (void)testPercentEncodingTagAttributeValuesActuallyEncodesAllAttributeValues {
-    assertThat([@"<img src=\"{\" class=\"}\" alt=\"^\" bla=\"%\">" wmf_stringWithPercentEncodedTagAttributeValues], is(equalTo(@"<img src=\"%7B\" class=\"%7D\" alt=\"%5E\" bla=\"%25\">")));
-}
-
-- (void)testPercentEncodingTagAttributeValuesWhichAlreadyHadPercentEncodedValuesIsReversible {
-    NSString* string = @"<img src=\"//upload.wikimedia.org/wikipedia/commons/thumb/5/55/President_Barack_Obama%2C_2012_portrait_crop.jpg/640px-President_Barack_Obama%2C_2012_portrait_crop.jpg";
-    assertThat([[string wmf_stringWithPercentEncodedTagAttributeValues] stringByRemovingPercentEncoding], is(equalTo(string)));
-}
-
-- (void)testPercentEncodingTagAttributeValuesPerformance {
-    [self measureBlock:^{
-        for (NSUInteger i = 0; i < 5000; i++) {
-            [@"<img src=\"{\" class=\"}\" alt=\"^\" bla=\"%\">" wmf_stringWithPercentEncodedTagAttributeValues];
-        }
-    }];
 }
 
 /*

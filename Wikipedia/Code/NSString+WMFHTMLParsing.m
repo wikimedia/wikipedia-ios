@@ -197,4 +197,22 @@
             wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons];
 }
 
+- (void)wmf_enumerateHTMLImageTagContentsWithHandler:(nonnull void (^)(NSString* imageTagContents, NSRange range))handler {
+    static NSRegularExpression* imageTagRegex;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString* pattern = @"(?:<img\\s)([^>]*)(?:>)";
+        imageTagRegex = [NSRegularExpression regularExpressionWithPattern:pattern
+                                                                  options:NSRegularExpressionCaseInsensitive
+                                                                    error:nil];
+    });
+
+    [imageTagRegex enumerateMatchesInString:self options:0 range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult* _Nullable imageTagResult, NSMatchingFlags flags, BOOL* _Nonnull stop) {
+        //get just the image tag contents - everything between <img and >
+        NSString* imageTagContents = [imageTagRegex replacementStringForResult:imageTagResult inString:self offset:0 template:@"$1"];
+        handler(imageTagContents, imageTagResult.range);
+        *stop = false;
+    }];
+}
+
 @end
