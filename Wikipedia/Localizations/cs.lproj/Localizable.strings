@@ -33,7 +33,7 @@
 "history-section-yesterday" = "Včera";
 "history-section-lastweek" = "Poslední týden";
 "history-section-lastmonth" = "Poslední měsíc";
-"history-clear-confirmation-heading" = "Jste si {{GENDER:|jistý|jistá|jistý/á}} že chcete smazat všechny vaše poslední položky?";
+"history-clear-confirmation-heading" = "Jste si jistý že chcete smazat všechny vaše poslední položky?";
 "history-clear-confirmation-sub-heading" = "Tato akce nemůže být vrácena zpět!";
 "history-clear-cancel" = "Zrušit";
 "history-clear-delete-all" = "Smazat vše";
