@@ -276,19 +276,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     [self saveDictionary:export path:path name:@"Image.plist"];
 }
 
-- (void)saveImageData:(NSData*)data image:(MWKImage*)image {
-    if ([image.article isMain]) {
-        return;
-    }
-    NSString* path     = [self pathForImage:image];
-    NSString* filename = [@"Image" stringByAppendingPathExtension:image.extension];
-
-    [self saveData:data path:path name:filename];
-
-    [image updateWithData:data];
-    [self saveImage:image];
-}
-
 - (BOOL)saveHistoryList:(MWKHistoryList*)list error:(NSError**)error {
     NSString* path       = self.basePath;
     NSDictionary* export = @{@"entries": [list dataExport]};
@@ -306,20 +293,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     NSString* path       = self.basePath;
     NSDictionary* export = @{@"entries": [list dataExport]};
     return [self saveDictionary:export path:path name:@"RecentSearches.plist" error:error];
-}
-
-- (void)saveImageList:(MWKImageList*)imageList {
-    if ([imageList.article isMain]) {
-        return;
-    }
-    NSString* path;
-    if (imageList.section) {
-        path = [self pathForSection:imageList.section];
-    } else {
-        path = [self pathForArticle:imageList.article];
-    }
-    NSDictionary* export = [imageList dataExport];
-    [self saveDictionary:export path:path name:@"Images.plist"];
 }
 
 - (void)saveImageInfo:(NSArray*)imageInfo forTitle:(MWKTitle*)title {
@@ -399,32 +372,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     }
 }
 
-- (NSString*)pathForImageData:(MWKImage*)image {
-    return [self pathForImageData:image.sourceURLString title:image.article.title];
-}
-
-- (NSString*)pathForImageData:(NSString*)sourceURL title:(MWKTitle*)title {
-    NSString* path     = [self pathForImageURL:sourceURL title:title];
-    NSString* fileName = [@"Image" stringByAppendingPathExtension:sourceURL.pathExtension];
-    return [path stringByAppendingPathComponent:fileName];
-}
-
-- (NSData*)imageDataWithImage:(MWKImage*)image {
-    if (image == nil) {
-        NSLog(@"nil image passed to imageDataWithImage");
-        return nil;
-    }
-    NSString* filePath = [self pathForImageData:image];
-
-    NSError* err;
-    NSData* data = [NSData dataWithContentsOfFile:filePath options:0 error:&err];
-    if (err) {
-        NSLog(@"Failed to load image from %@: %@", filePath, [err description]);
-        return nil;
-    }
-    return data;
-}
-
 - (NSArray*)historyListData {
     NSString* path     = self.basePath;
     NSString* filePath = [path stringByAppendingPathComponent:@"History.plist"];
@@ -481,22 +428,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 #pragma mark - helper methods
-
-- (MWKImageList*)imageListWithArticle:(MWKArticle*)article section:(MWKSection*)section {
-    NSString* path;
-    if (section) {
-        path = [self pathForSection:section];
-    } else {
-        path = [self pathForArticle:article];
-    }
-    NSString* filePath = [path stringByAppendingPathComponent:@"Images.plist"];
-    NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    if (dict) {
-        return [[MWKImageList alloc] initWithArticle:article section:section dict:dict];
-    } else {
-        return [[MWKImageList alloc] initWithArticle:article section:section];
-    }
-}
 
 - (void)iterateOverArticles:(void (^)(MWKArticle*))block {
     NSFileManager* fm     = [NSFileManager defaultManager];
@@ -588,7 +519,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     NSString* path = [self pathForArticle:article];
 
     // delete article images *before* metadata (otherwise we won't be able to retrieve image lists)
-    [[WMFImageController sharedInstance] deleteImagesWithURLs:[article.allImageURLs allObjects]];
+    [[WMFImageController sharedInstance] deleteImagesWithURLs:[[article allImageURLs] allObjects]];
 
     // delete article metadata last
     [[NSFileManager defaultManager] removeItemAtPath:path error:nil];

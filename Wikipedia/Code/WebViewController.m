@@ -14,7 +14,6 @@
 #import "MWKSection.h"
 #import "MWKSectionList.h"
 #import "MWKSite.h"
-#import "MWKImageList.h"
 #import "MWKTitle.h"
 
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -35,6 +34,7 @@
 #import "WKProcessPool+WMFSharedProcessPool.h"
 #import "WMFPeekHTMLElement.h"
 #import "NSURL+WMFProxyServer.h"
+#import "WMFImageTag.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -162,28 +162,27 @@ NSString* const WMFCCBySALicenseURL =
             }
         } else if (message.body[@"imageClicked"]) {
             NSDictionary* imageClicked = message.body[@"imageClicked"];
-            NSNumber* imageWidth       = imageClicked[@"data-file-width"] ? : imageClicked[@"width"];
-            NSNumber* imageHeight      = imageClicked[@"data-file-height"] ? : imageClicked[@"height"];
+            WMFImageTag* imageTagClicked = [[WMFImageTag alloc] initWithSrc:imageClicked[@"src"]
+                                                                     srcset:nil
+                                                                        alt:nil
+                                                                      width:imageClicked[@"width"]
+                                                                     height:imageClicked[@"height"]
+                                                              dataFileWidth:imageClicked[@"data-file-width"]
+                                                             dataFileHeight:imageClicked[@"data-file-height"]];
 
-            CGSize imageSize = CGSizeZero;
-            if ([imageWidth respondsToSelector:@selector(floatValue)] && [imageHeight respondsToSelector:@selector(floatValue)]) {
-                imageSize = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
-            }
-
-            if (![MWKImage isSizeLargeEnoughForGalleryInclusion:imageSize]) {
+            if (![imageTagClicked isSizeLargeEnoughForGalleryInclusion]) {
                 return;
             }
 
-            NSString* selectedImageURLString = message.body[@"imageClicked"][@"url"];
-            NSCParameterAssert(selectedImageURLString.length);
-            if (!selectedImageURLString.length) {
-                DDLogError(@"Image clicked callback invoked with empty URL: %@", message.body[@"imageClicked"]);
+            NSString* selectedImageSrcURLString = imageClicked[@"src"];
+            NSCParameterAssert(selectedImageSrcURLString.length);
+            if (!selectedImageSrcURLString.length) {
+                DDLogError(@"Image clicked callback invoked with empty src url: %@", imageClicked);
                 return;
             }
 
-
-            NSURL* selectedImageURL = [NSURL URLWithString:selectedImageURLString];
-
+            NSURL* selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
+            
             selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
 
             [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];

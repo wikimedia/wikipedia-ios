@@ -116,23 +116,16 @@
 
 #pragma mark - Variants
 
-- (MWKImage*)largestVariant;
-- (MWKImage*)largestCachedVariant;
-
-- (MWKImage*)smallestVariant;
-- (MWKImage*)smallestCachedVariant;
-
-
 /**
- * Checks if two images are variants of each other <b>but not exactly the same image</b>.
+ * Checks if two images are variants of each other or the same image.
  * @discussion For example: <br/>
    @code
    MWKImage *img; // sourceURL = .../foo.jpg/440px-foo.jpg
    MWKImage *imgAtOtherRes; // sourceURL = .../foo.jpg/7200px-foo.jpg
    MWKImage *otherImage; // sourceURL = .../bar.jpg/440px-bar.jpg
    [img isVariantOfImage:imgAtOtherRes]; //< returns YES
-   [img isVariantOfImage:otherImage]; //< returns YES
-   [img isVariantOfImage:img]; //< returns NO
+   [img isVariantOfImage:otherImage]; //< returns NO
+   [img isVariantOfImage:img]; //< returns YES
    @endcode
  */
 - (BOOL)isVariantOfImage:(MWKImage*)otherImage;
@@ -156,47 +149,10 @@
  */
 - (NSString*)canonicalFilename;
 
-/**
- * The receiver's canonical filename, with any present percent encodings and underscores.
- * @see +canonicalFilenameFromSourceURL:
- */
-- (NSString*)canonicalFilenameFromSourceURL;
-
-/**
- * The name of the image "file" associatd with @c sourceURL (without the XXXpx prefix).
- * @param sourceURL A @c NSURL pointing to an image file in the format @c "//site/.../Filename.jpg[/XXXpx-Filename.jpg".
- * @note This method returns the filename <b>with</b> percent encodings.
- */
-+ (NSString*)fileNameNoSizePrefix:(NSString*)sourceURL;
-
-/**
- * The name of the image "file" associatd with the receiver, with percent encodings replaced.
- */
-+ (NSString*)canonicalFilenameFromSourceURL:(NSString*)sourceURL;
-
-+ (NSInteger)fileSizePrefix:(NSString*)sourceURL;
-
 #pragma mark - Comparison
 
 - (BOOL)isEqualToImage:(MWKImage*)image;
 
 - (BOOL)isLeadImage;
-
-- (BOOL)isLargeEnoughForGalleryInclusion;
-
-+ (BOOL)isSizeLargeEnoughForGalleryInclusion:(CGSize)size;
-
-@end
-
-#pragma mark - Deprecated Methods
-
-@interface MWKImage ()
-
-- (void)importImageData:(NSData*)data WMF_TECH_DEBT_DEPRECATED;
-- (void)updateWithData:(NSData*)data WMF_TECH_DEBT_DEPRECATED;
-
-- (UIImage*)asUIImage WMF_TECH_DEBT_DEPRECATED;
-- (NSData*)asNSData WMF_TECH_DEBT_DEPRECATED;
-- (NSString*)fullImageBinaryPath WMF_TECH_DEBT_DEPRECATED;
 
 @end

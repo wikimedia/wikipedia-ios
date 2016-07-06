@@ -1,6 +1,5 @@
 #import "WMFSearchViewController.h"
 #import "PiwikTracker+WMFExtensions.h"
-#import "NSMutableArray+WMFSafeAdd.h"
 
 #import "RecentSearchesViewController.h"
 #import "WMFSearchResultsTableViewController.h"

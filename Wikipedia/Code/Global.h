@@ -30,6 +30,7 @@
 #import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 #import "NSArray+WMFMapping.h"
 #import "NSMutableArray+WMFSafeAdd.h"
+#import "NSMutableSet+WMFSafeAdd.h"
 
 #define URL_PRIVACY_POLICY @"https://m.wikimediafoundation.org/wiki/Privacy_policy"
 

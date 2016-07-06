@@ -122,7 +122,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
-@property (nonatomic, assign) BOOL isPreviewing;
+@property (nonatomic, weak) id<UIViewControllerPreviewing> leadImagePreviewingContext;
 
 @property (strong, nonatomic, nullable) NSTimer* significantlyViewedTimer;
 
@@ -1021,7 +1021,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIImageView*)referenceViewForImageController:(WMFArticleImageGalleryViewController*)controller {
     MWKImage* currentImage = [controller currentImage];
     MWKImage* leadImage    = self.article.leadImage;
-    if ([currentImage isEqualToImage:leadImage] || [currentImage isVariantOfImage:leadImage]) {
+    if ([currentImage isVariantOfImage:leadImage]) {
         return self.headerImageView;
     } else {
         return nil;
@@ -1070,6 +1070,9 @@ NS_ASSUME_NONNULL_BEGIN
         UIView* previewView = [self.webViewController.webView wmf_browserView];
         self.linkPreviewingContext =
             [self registerForPreviewingWithDelegate:self sourceView:previewView];
+        
+        self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.webViewController.headerView];
+        
         for (UIGestureRecognizer* r in previewView.gestureRecognizers) {
             if ([NSStringFromClass([r class]) isEqualToString:@"_UIPreviewGestureRecognizer"]) {
                 [r requireGestureRecognizerToFail:self.linkPreviewingContext.previewingGestureRecognizerForFailureRelationship];
@@ -1085,16 +1088,25 @@ NS_ASSUME_NONNULL_BEGIN
         [self unregisterForPreviewingWithContext:self.linkPreviewingContext];
         self.linkPreviewingContext = nil;
     }
+    if (self.leadImagePreviewingContext) {
+        [self unregisterForPreviewingWithContext:self.leadImagePreviewingContext];
+        self.leadImagePreviewingContext = nil;
+    }
 }
 
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
-
-    UIViewController* peekVC = [self peekViewControllerForPeekElement:self.webViewController.peekElement];
-    if (peekVC) {
+    if (previewingContext == self.linkPreviewingContext) {
+        UIViewController* peekVC = [self peekViewControllerForPeekElement:self.webViewController.peekElement];
+        if (peekVC) {
+            [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
+            self.webViewController.isPeeking = YES;
+            return peekVC;
+        }
+    }else if (previewingContext == self.leadImagePreviewingContext) {
         [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
-        self.webViewController.isPeeking = YES;
-        return peekVC;
+        WMFArticleImageGalleryViewController* fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article];
+        return fullscreenGallery;
     }
     return nil;
 }
@@ -1114,10 +1126,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable UIViewController*)viewControllerForImageURL:(nullable NSURL*)url {
-    if (!url || ![self.article.images imageSizeVariants:url.absoluteString]) {
+    if (!url || ![[self.article imageURLsForGallery] containsObject:url]) {
         return nil;
     }
-    
+
     MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:url];
     WMFArticleImageGalleryViewController* gallery =
     [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
