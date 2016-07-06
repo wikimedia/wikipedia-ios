@@ -8,7 +8,7 @@
 @implementation WMFShareCardImageContainer
 
 - (CGRect)getPrimaryFocalRectFromCanonicalLeadImage {
-    NSAssert([self.leadImage isEqualToImage:self.leadImage.article.image] || [self.leadImage isVariantOfImage:self.leadImage.article.image], @"Primary focal rect sought on non-lead image.");
+    NSAssert([self.leadImage isVariantOfImage:self.leadImage.article.image], @"Primary focal rect sought on non-lead image.");
 
     // Focal rect info is parked on the article.image which is the originally retrieved lead image.
     // self.leadImage is potentially a larger variant, which is why here the focal rect unit coords are

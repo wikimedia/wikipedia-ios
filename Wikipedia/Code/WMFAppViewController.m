@@ -9,7 +9,6 @@
 
 // Utility
 #import "NSDate+Utilities.h"
-#import "MWKDataHousekeeping.h"
 #import "NSUserActivity+WMFExtensions.h"
 // Networking
 #import "SavedArticlesFetcher.h"
@@ -33,7 +32,6 @@
 #import "WMFExploreViewController.h"
 #import "WMFSearchViewController.h"
 #import "WMFArticleListTableViewController.h"
-#import "DataMigrationProgressViewController.h"
 #import "WMFWelcomeViewController.h"
 #import "WMFArticleBrowserViewController.h"
 #import "WMFNearbyListViewController.h"
@@ -82,7 +80,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic, strong, readonly) WMFArticleListTableViewController* savedArticlesViewController;
 @property (nonatomic, strong, readonly) WMFArticleListTableViewController* recentArticlesViewController;
 
-@property (nonatomic, strong) WMFLegacyImageDataMigration* imageMigration;
 @property (nonatomic, strong) SavedArticlesFetcher* savedArticlesFetcher;
 @property (nonatomic, strong) WMFRandomArticleFetcher* randomFetcher;
 @property (nonatomic, strong) SessionSingleton* session;
@@ -93,6 +90,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic, strong) NSUserActivity* unprocessedUserActivity;
 @property (nonatomic, strong) UIApplicationShortcutItem* unprocessedShortcutItem;
 
+@property (nonatomic) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 
 /// Use @c rootTabBarController instead.
 - (UITabBarController*)tabBarController NS_UNAVAILABLE;
@@ -103,6 +101,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
 }
 
 - (BOOL)isPresentingOnboarding {
@@ -160,7 +163,33 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)appDidEnterBackgroundWithNotification:(NSNotification*)note {
-    [self pauseApp];
+    [self startBackgroundTask];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self pauseApp];
+    });
+}
+
+#pragma mark - Background Tasks
+
+- (void)startBackgroundTask {
+    if (self.backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
+        return;
+    }
+
+    self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [self.dataStore stopCacheRemoval];
+        [self endBackgroundTask];
+    }];
+}
+
+- (void)endBackgroundTask {
+    if (self.backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+        return;
+    }
+
+    UIBackgroundTaskIdentifier backgroundTaskToStop = self.backgroundTaskIdentifier;
+    self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
+    [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskToStop];
 }
 
 #pragma mark - Launch
@@ -183,20 +212,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self showSplashView];
 
     @weakify(self)
-    [self runDataMigrationIfNeededWithCompletion :^{
+
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+        self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
+    }
+    [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
         @strongify(self)
-        [self.imageMigration setupAndStart];
-        [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-        if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-            self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
-        }
-        [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-            @strongify(self)
-            [self loadMainUI];
-            [self hideSplashViewAnimated:!didShowOnboarding];
-            [self resumeApp];
-            [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
-        }];
+        [self loadMainUI];
+        [self hideSplashViewAnimated:!didShowOnboarding];
+        [self resumeApp];
+        [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
     }];
 }
 
@@ -236,7 +262,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)pauseApp {
     [[WMFImageController sharedInstance] clearMemoryCache];
     [self downloadAssetsFilesIfNecessary];
-    [self performHousekeeping];
+    [self.dataStore.userDataStore.historyList prune];
+    [self.dataStore startCacheRemoval];
     [[[SessionSingleton sharedInstance] dataStore] clearMemoryCache];
 }
 
@@ -447,15 +474,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 #pragma mark - Accessors
-
-- (WMFLegacyImageDataMigration*)imageMigration {
-    if (!_imageMigration) {
-        _imageMigration = [[WMFLegacyImageDataMigration alloc]
-                           initWithImageController:[WMFImageController sharedInstance]
-                                   legacyDataStore:[MWKDataStore new]];
-    }
-    return _imageMigration;
-}
 
 - (SavedArticlesFetcher*)savedArticlesFetcher {
     if (!_savedArticlesFetcher) {
@@ -672,13 +690,6 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];
 }
 
-#pragma mark - House Keeping
-
-- (void)performHousekeeping {
-    MWKDataHousekeeping* dataHouseKeeping = [[MWKDataHousekeeping alloc] init];
-    [dataHouseKeeping performHouseKeeping];
-}
-
 #pragma mark - Download Assets
 
 - (void)downloadAssetsFilesIfNecessary {
@@ -690,38 +701,15 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     }];
 }
 
-#pragma mark - Migration
-
-- (void)runDataMigrationIfNeededWithCompletion:(dispatch_block_t)completion {
-    DataMigrationProgressViewController* migrationVC = [[DataMigrationProgressViewController alloc] init];
-    [migrationVC removeOldDataBackupIfNeeded];
-
-    if (![migrationVC needsMigration]) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-
-    [self presentViewController:migrationVC animated:YES completion:^{
-        [migrationVC runMigrationWithCompletion:^(BOOL migrationCompleted) {
-            [migrationVC dismissViewControllerAnimated:YES completion:NULL];
-            if (completion) {
-                completion();
-            }
-        }];
-    }];
-}
-
 #pragma mark - UITabBarControllerDelegate
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
 }
 
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    if (tabBarController.selectedIndex == WMFAppTabTypeExplore && viewController==tabBarController.selectedViewController) {
-        WMFExploreViewController *exploreViewController = (WMFExploreViewController *)[self exploreViewController];
+- (BOOL)tabBarController:(UITabBarController*)tabBarController shouldSelectViewController:(UIViewController*)viewController {
+    if (tabBarController.selectedIndex == WMFAppTabTypeExplore && viewController == tabBarController.selectedViewController) {
+        WMFExploreViewController* exploreViewController = (WMFExploreViewController*)[self exploreViewController];
         [exploreViewController scrollToTop:YES];
     }
     return YES;

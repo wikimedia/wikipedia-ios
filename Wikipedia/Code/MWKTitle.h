@@ -11,6 +11,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Permanent Properties
 
 /**
+ * The URL of the receiver
+ */
+@property (nonatomic, copy, readonly) NSURL* URL;
+
+/**
  *  The site associated with the receiver.
  */
 @property (readonly, strong, nonatomic) MWKSite* site;
