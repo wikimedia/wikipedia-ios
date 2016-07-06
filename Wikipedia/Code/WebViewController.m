@@ -93,11 +93,11 @@ NSString* const WMFCCBySALicenseURL =
         NSDictionary* peekElementDict = message.body[@"peekElement"];
         if ([peekElementDict isMemberOfClass:[NSNull class]]) {
             self.peekElement = nil;
-        }else{
+        } else {
             self.peekElement =
-            [[WMFPeekHTMLElement alloc] initWithTagName:peekElementDict[@"tagName"]
-                                                    src:peekElementDict[@"src"]
-                                                   href:peekElementDict[@"href"]];
+                [[WMFPeekHTMLElement alloc] initWithTagName:peekElementDict[@"tagName"]
+                                                        src:peekElementDict[@"src"]
+                                                       href:peekElementDict[@"href"]];
         }
     } else if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
         if ([message.body isEqualToString:@"collapseTables"]) {
@@ -162,43 +162,42 @@ NSString* const WMFCCBySALicenseURL =
                     }
                 }
             }
-        } else if (message.body[@"imageClicked"]) {
-            NSDictionary* imageClicked = message.body[@"imageClicked"];
-            WMFImageTag* imageTagClicked = [[WMFImageTag alloc] initWithSrc:imageClicked[@"src"]
-                                                                     srcset:nil
-                                                                        alt:nil
-                                                                      width:imageClicked[@"width"]
-                                                                     height:imageClicked[@"height"]
-                                                              dataFileWidth:imageClicked[@"data-file-width"]
-                                                             dataFileHeight:imageClicked[@"data-file-height"]];
-
-            if (![imageTagClicked isSizeLargeEnoughForGalleryInclusion]) {
-                return;
-            }
-
-            NSString* selectedImageSrcURLString = imageClicked[@"src"];
-            NSCParameterAssert(selectedImageSrcURLString.length);
-            if (!selectedImageSrcURLString.length) {
-                DDLogError(@"Image clicked callback invoked with empty src url: %@", imageClicked);
-                return;
-            }
-
-            NSURL* selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
-            
-            selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
-
-            [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
-
-        } else if (message.body[@"referenceClicked"]) {
-            [self referencesShow:message.body[@"referenceClicked"]];
-        } else if (message.body[@"editClicked"]) {
-            NSUInteger sectionIndex = (NSUInteger)[message.body[@"editClicked"][@"sectionId"] integerValue];
-            if (sectionIndex < [self.article.sections count]) {
-                [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
-            }
-        } else if (message.body[@"nonAnchorTouchEndedWithoutDragging"]) {
-            [self referencesHide];
         }
+    } else if (message.body[@"imageClicked"]) {
+        NSDictionary* imageClicked   = message.body[@"imageClicked"];
+        WMFImageTag* imageTagClicked = [[WMFImageTag alloc] initWithSrc:imageClicked[@"src"]
+                                                                 srcset:nil
+                                                                    alt:nil
+                                                                  width:imageClicked[@"width"]
+                                                                 height:imageClicked[@"height"]
+                                                          dataFileWidth:imageClicked[@"data-file-width"]
+                                                         dataFileHeight:imageClicked[@"data-file-height"]];
+
+        if (![imageTagClicked isSizeLargeEnoughForGalleryInclusion]) {
+            return;
+        }
+
+        NSString* selectedImageSrcURLString = imageClicked[@"src"];
+        NSCParameterAssert(selectedImageSrcURLString.length);
+        if (!selectedImageSrcURLString.length) {
+            DDLogError(@"Image clicked callback invoked with empty src url: %@", imageClicked);
+            return;
+        }
+
+        NSURL* selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
+
+        selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
+
+        [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
+    } else if (message.body[@"referenceClicked"]) {
+        [self referencesShow:message.body[@"referenceClicked"]];
+    } else if (message.body[@"editClicked"]) {
+        NSUInteger sectionIndex = (NSUInteger)[message.body[@"editClicked"][@"sectionId"] integerValue];
+        if (sectionIndex < [self.article.sections count]) {
+            [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
+        }
+    } else if (message.body[@"nonAnchorTouchEndedWithoutDragging"]) {
+        [self referencesHide];
     }
 }
 
