@@ -64,8 +64,6 @@ extern NSString* const MWKArticleKey;
 - (NSString*)pathForImagesWithTitle:(MWKTitle*)title;
 - (NSString*)pathForImageURL:(NSString*)url title:(MWKTitle*)title;
 - (NSString*)pathForImage:(MWKImage*)image;
-- (NSString*)pathForImageData:(MWKImage*)image;
-- (NSString*)pathForImageData:(NSString*)sourceURL title:(MWKTitle*)title;
 
 /**
  * The path where the image info is stored for a given article.
@@ -109,27 +107,9 @@ extern NSString* const MWKArticleKey;
  */
 - (void)saveImage:(MWKImage*)image;
 
-/**
- *  Saves the image to the store
- *  This is a non-op if the image.article is a main page
- *
- *  @param data  The data to save
- *  @param image The image to save
- */
-- (void)saveImageData:(NSData*)data image:(MWKImage*)image;
-
-
 - (BOOL)saveHistoryList:(MWKHistoryList*)list error:(NSError**)error;
 - (BOOL)saveSavedPageList:(MWKSavedPageList*)list error:(NSError**)error;
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList*)list error:(NSError**)error;
-
-/**
- *  Saves the image list to the store
- *  This is a non-op if the image.article is a main page
- *
- *  @param imageList The image list to save
- */
-- (void)saveImageList:(MWKImageList*)imageList;
 
 - (void)deleteArticle:(MWKArticle*)article;
 
@@ -184,7 +164,6 @@ extern NSString* const MWKArticleKey;
 - (MWKSection*)sectionWithId:(NSUInteger)sectionId article:(MWKArticle*)article;
 - (NSString*)sectionTextWithId:(NSUInteger)sectionId article:(MWKArticle*)article;
 - (MWKImage*)imageWithURL:(NSString*)url article:(MWKArticle*)article;
-- (NSData*)imageDataWithImage:(MWKImage*)image;
 - (NSArray*)imageInfoForTitle:(MWKTitle*)title;
 
 
@@ -195,8 +174,6 @@ extern NSString* const MWKArticleKey;
 
 
 // Storage helper methods
-
-- (MWKImageList*)imageListWithArticle:(MWKArticle*)article section:(MWKSection*)section;
 
 - (void)iterateOverArticles:(void (^)(MWKArticle*))block;
 

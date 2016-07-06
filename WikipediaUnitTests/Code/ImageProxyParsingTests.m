@@ -13,7 +13,7 @@
 @interface ImageProxyParsingTests : MWKTestCase
 @property (nonatomic, copy) NSString* baseURLString;
 @property (nonatomic, copy) NSString* proxyOriginalSrcPrefix;
-@property (nonatomic, copy) NSString* resizedAttribute;
+@property (nonatomic, copy) NSString* galleryAttribute;
 @property (nonatomic, strong) WMFProxyServer* proxyServer;
 @property (nonatomic) NSUInteger imageSize;
 @end
@@ -27,7 +27,7 @@
     self.baseURLString = self.proxyServer.baseURL.absoluteString;
     self.proxyOriginalSrcPrefix = [NSString stringWithFormat:@"%@/imageProxy?originalSrc=", self.baseURLString];
     self.imageSize = 640;
-    self.resizedAttribute = @"data-image-resized=\"true\"";
+    self.galleryAttribute = @"data-image-gallery=\"true\"";
 }
 
 - (void)tearDown {
@@ -54,7 +54,7 @@
     
     string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
     
-    NSString* expected = [NSString stringWithFormat:@"<img alt=\"A young boy (preteen), a younger girl (toddler), a woman (about age thirty) and a man (in his mid-fifties) sit on a lawn wearing contemporary c.-1970 attire. The adults wear sunglasses and the boy wears sandals.\" src=\"%@//upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg\" width=\"220\" height=\"146\" class=\"thumbimage\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg 1.5x, //upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg 2x\" data-file-width=\"320\" data-file-height=\"212\" %@>", self.proxyOriginalSrcPrefix, self.resizedAttribute];
+    NSString* expected = [NSString stringWithFormat:@"<img alt=\"A young boy (preteen), a younger girl (toddler), a woman (about age thirty) and a man (in his mid-fifties) sit on a lawn wearing contemporary c.-1970 attire. The adults wear sunglasses and the boy wears sandals.\" src=\"%@//upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg\" width=\"220\" height=\"146\" class=\"thumbimage\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg 1.5x, //upload.wikimedia.org/wikipedia/en/3/33/Ann_Dunham_with_father_and_children.jpg 2x\" data-file-width=\"320\" data-file-height=\"212\" %@>", self.proxyOriginalSrcPrefix, self.galleryAttribute];
     
     assertThat(string, is(equalTo(expected)));
 }
@@ -66,19 +66,19 @@
     
     string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
     
-    NSString* expected = [NSString stringWithFormat:@"<img alt=\"Obama about to take a shot while three other players look at him. One of those players is holding is arms up in an attempt to block Obama.\" src=\"%@//upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/%llupx-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg\" width=\"170\" height=\"255\" class=\"thumbimage\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/255px-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/340px-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg 2x\" data-file-width=\"2333\" data-file-height=\"3500\" %@>", self.proxyOriginalSrcPrefix, (unsigned long long)self.imageSize, self.resizedAttribute];
+    NSString* expected = [NSString stringWithFormat:@"<img alt=\"Obama about to take a shot while three other players look at him. One of those players is holding is arms up in an attempt to block Obama.\" src=\"%@//upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/%llupx-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg\" width=\"170\" height=\"255\" class=\"thumbimage\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/255px-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg/340px-Barack_Obama_playing_basketball_with_members_of_Congress_and_Cabinet_secretaries_2.jpg 2x\" data-file-width=\"2333\" data-file-height=\"3500\" %@>", self.proxyOriginalSrcPrefix, (unsigned long long)self.imageSize, self.galleryAttribute];
     
     assertThat(string, is(equalTo(expected)));
 }
 
-- (void)testSVGSrcIsntSetToOriginal {
+- (void)testSVGSrcIsScaledBeyondDataFileWidth {
     self.imageSize = 800;
     NSString* string =
     @"<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/300px-US_Employment_Statistics.svg.png\" width=\"300\" height=\"200\" class=\"thumbimage\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/450px-US_Employment_Statistics.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/600px-US_Employment_Statistics.svg.png 2x\" data-file-width=\"720\" data-file-height=\"480\">";
     
     string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
     
-    NSString* expected = [NSString stringWithFormat:@"<img alt=\"\" src=\"%@//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/300px-US_Employment_Statistics.svg.png\" width=\"300\" height=\"200\" class=\"thumbimage\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/450px-US_Employment_Statistics.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/600px-US_Employment_Statistics.svg.png 2x\" data-file-width=\"720\" data-file-height=\"480\" %@>", self.proxyOriginalSrcPrefix, self.resizedAttribute];
+    NSString* expected = [NSString stringWithFormat:@"<img alt=\"\" src=\"%@//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/%llupx-US_Employment_Statistics.svg.png\" width=\"300\" height=\"200\" class=\"thumbimage\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/450px-US_Employment_Statistics.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/600px-US_Employment_Statistics.svg.png 2x\" data-file-width=\"720\" data-file-height=\"480\" %@>", self.proxyOriginalSrcPrefix, (unsigned long long)self.imageSize, self.galleryAttribute];
     
     assertThat(string, is(equalTo(expected)));
 }
@@ -90,7 +90,7 @@
     
     string = [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.imageSize];
     
-    NSString* expected = [NSString stringWithFormat:@"<img alt=\"\" src=\"%@/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/%llupx-US_Employment_Statistics.svg.png\" width=\"300\" height=\"200\" class=\"thumbimage\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/450px-US_Employment_Statistics.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/600px-US_Employment_Statistics.svg.png 2x\" data-file-width=\"720\" data-file-height=\"480\" data-image-resized=\"true\">", self.baseURLString, (unsigned long long)self.imageSize];
+    NSString* expected = [NSString stringWithFormat:@"<img alt=\"\" src=\"%@/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/%llupx-US_Employment_Statistics.svg.png\" width=\"300\" height=\"200\" class=\"thumbimage\" data-srcset-disabled=\"//upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/450px-US_Employment_Statistics.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/25/US_Employment_Statistics.svg/600px-US_Employment_Statistics.svg.png 2x\" data-file-width=\"720\" data-file-height=\"480\" data-image-gallery=\"true\">", self.baseURLString, (unsigned long long)self.imageSize];
     
     assertThat(string, is(equalTo(expected)));
 }
@@ -205,46 +205,6 @@
     [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:@"Small sample string <img alt=\"Example.jpg\" src=\"//upload.wikimedia.org/wikipedia/en/thumb/a/a9/Example.jpg/20px-Example.jpg\" width=\"20\" height=\"22\" srcset=\"//upload.wikimedia.org/wikipedia/en/thumb/a/a9/Example.jpg/30px-Example.jpg 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/a/a9/Example.jpg/40px-Example.jpg 2x\" data-file-width=\"275\" data-file-height=\"297\"> and stuff." targetImageWidth:self.imageSize];
     [self measureBlock:^{
         [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:[self allObamaHTML] targetImageWidth:self.imageSize];
-    }];
-}
-
-- (void)testFormatOfScaledImageTagsHasNotChanged {
-    XCTestExpectation *expectation =
-    [self expectationWithDescription:@"Fetch img tag html for a piece of image wikitext. Thus way we can be notified when image tag formatting changes in any way so we can ensure image widening/caching/proxying still work with whatever changes are made."];
-    
-    NSString* imgWikitext = @"[[File:Example.jpg|20px|link=MediaWiki]]";
-    
-    NSString* urlString = [NSString stringWithFormat:@"https://en.wikipedia.org/w/api.php"
-                           "?action=parse"
-                           "&format=json"
-                           "&text=%@"
-                           "&prop=%@"
-                           "&disableeditsection=1"
-                           "&mobileformat=1",
-                           [imgWikitext stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
-                           [@"text|images" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-                           ];
-    
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        NSString* html = json[@"parse"][@"text"][@"*"];
-        
-        NSString* expectedHTML = @""
-        "<div class=\"mf-section-0\"><p><a href=\"/wiki/MediaWiki\" title=\"MediaWiki\">"
-        "<img alt=\"Example.jpg\" src=\"//upload.wikimedia.org/wikipedia/en/thumb/a/a9/Example.jpg/20px-Example.jpg\" width=\"20\" height=\"22\" srcset=\"//upload.wikimedia.org/wikipedia/en/thumb/a/a9/Example.jpg/30px-Example.jpg 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/a/a9/Example.jpg/40px-Example.jpg 2x\" data-file-width=\"275\" data-file-height=\"297\">"
-        "</a></p>\n\n\n\n\n\n</div>";
-        
-        XCTAssert([html isEqualToString:expectedHTML]);
-        [expectation fulfill];
-        
-    }];
-    [dataTask resume];
-    
-    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
-        if (error) {
-            NSLog(@"Timeout Error: %@", error);
-        }
     }];
 }
 
