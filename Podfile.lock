@@ -67,7 +67,7 @@ PODS:
   - VTAcknowledgementsViewController (0.17)
 
 DEPENDENCIES:
-  - AFNetworking (~> 3.1.0)
+  - AFNetworking (from `https://github.com/wikimedia/AFNetworking.git`, branch `release/3.1.1`)
   - AnimatedGIFImageSerialization (from `https://github.com/wikimedia/AnimatedGIFImageSerialization.git`)
   - BlocksKit/Core (~> 2.2.0)
   - BlocksKit/UIKit (~> 2.2.0)
@@ -94,6 +94,9 @@ DEPENDENCIES:
   - VTAcknowledgementsViewController
 
 EXTERNAL SOURCES:
+  AFNetworking:
+    :branch: release/3.1.1
+    :git: https://github.com/wikimedia/AFNetworking.git
   AnimatedGIFImageSerialization:
     :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git
   NSDate-Extensions:
@@ -107,6 +110,9 @@ EXTERNAL SOURCES:
     :git: https://github.com/wikimedia/TSMessages.git
 
 CHECKOUT OPTIONS:
+  AFNetworking:
+    :commit: b3599dc9793478ae6faff6bc20f398d9fb199067
+    :git: https://github.com/wikimedia/AFNetworking.git
   AnimatedGIFImageSerialization:
     :commit: f0fcaa7d474672ecfdd8b7fd26ca2fca31940e0b
     :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git

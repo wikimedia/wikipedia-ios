@@ -13,7 +13,7 @@ xcodeproj 'Wikipedia'
 pod 'hpple', '~> 0.2'
 
 # Networking / Parsing
-pod 'AFNetworking', '~> 3.1.0'
+pod 'AFNetworking', :git => 'https://github.com/wikimedia/AFNetworking.git', :branch => 'release/3.1.1'
 pod 'Mantle', '~> 2.0.0'
 pod 'GCDWebServer', '~> 3.3'
 
