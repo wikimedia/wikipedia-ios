@@ -43,8 +43,10 @@ NSString* WMFParseImageNameFromSourceURL(NSString* sourceURL)  __attribute__((ov
     NSArray* matches               = [WMFImageURLParsingRegex() matchesInString:thumbOrFileComponent
                                                                         options:0
                                                                           range:NSMakeRange(0, [thumbOrFileComponent length])];
-
-    if (matches.count > 0) {
+    NSString* thumbString    = @"/thumb/";
+    NSRange thumbStringRange = [sourceURL rangeOfString:thumbString];
+    
+    if (matches.count > 0 && (thumbStringRange.location != NSNotFound)) {
         // Found a "XXXpx-" prefix, extract substring and return as filename
         return [thumbOrFileComponent substringWithRange:[matches[0] rangeAtIndex:1]];
     } else {
@@ -101,7 +103,10 @@ NSString* WMFChangeImageSourceURLSizePrefix(NSString* sourceURL, NSUInteger newS
 
     NSString* lastPathComponent = [sourceURL lastPathComponent];
 
-    if (WMFParseSizePrefixFromSourceURL(sourceURL) == NSNotFound) {
+    NSString* thumbString    = @"/thumb/";
+    NSRange thumbStringRange = [sourceURL rangeOfString:thumbString];
+    
+    if (WMFParseSizePrefixFromSourceURL(sourceURL) == NSNotFound || (thumbStringRange.location == NSNotFound)) {
         NSString* urlWithSizeVariantLastPathComponent = [sourceURL stringByAppendingString:[NSString stringWithFormat:@"/%lupx-%@", (unsigned long)newSizePrefix, lastPathComponent]];
 
         NSString* urlWithThumbPath = [urlWithSizeVariantLastPathComponent stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@%@/", wikipediaString, site] withString:[NSString stringWithFormat:@"%@%@/thumb/", wikipediaString, site]];
