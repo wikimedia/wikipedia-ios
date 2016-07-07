@@ -286,13 +286,10 @@ NS_ASSUME_NONNULL_BEGIN
     return _headerImageView;
 }
 
-- (WMFReadMoreViewController*)readMoreListViewController {
-    if (!_readMoreListViewController) {
-        _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithTitle:self.articleTitle
+- (void)setupReadMoreListViewController {
+    self.readMoreListViewController = [[WMFReadMoreViewController alloc] initWithTitle:self.articleTitle
                                                                              dataStore:self.dataStore];
-        _readMoreListViewController.delegate = self;
-    }
-    return _readMoreListViewController;
+    self.readMoreListViewController.delegate = self;
 }
 
 - (WMFArticleFetcher*)articleFetcher {
@@ -751,7 +748,10 @@ NS_ASSUME_NONNULL_BEGIN
         [self.pullToRefresh endRefreshing];
         return;
     }
-
+    
+    self.saveButtonController.title = self.articleTitle;
+    [self setupReadMoreListViewController];
+    
     //only show a blank view if we have nothing to show
     if (!self.article) {
         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank];
