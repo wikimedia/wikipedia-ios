@@ -14,11 +14,24 @@
     return [self.wmf_schemelessURLString isEqualToString:url.wmf_schemelessURLString];
 }
 
-- (NSString*)wmf_schemelessURLString {
+- (nullable NSString*)wmf_schemelessURLString {
     if (self.scheme.length) {
         return [self.absoluteString wmf_safeSubstringFromIndex:self.scheme.length + 1];
     } else {
         return self.absoluteString;
+    }
+}
+
+- (nullable NSURL*)wmf_schemelessURL {
+    if (self.scheme.length) {
+        NSString* string = [self wmf_schemelessURLString];
+        if(string.length > 0){
+            return [NSURL URLWithString:string];
+        }else{
+            return nil;
+        }
+    } else {
+        return self;
     }
 }
 

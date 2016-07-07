@@ -422,7 +422,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (NSArray*)imageInfoForTitle:(MWKTitle*)title {
-    return [[NSArray arrayWithContentsOfFile:[self pathForTitleImageInfo:title]] bk_map:^MWKImageInfo*(id obj) {
+    return [[NSArray arrayWithContentsOfFile:[self pathForTitleImageInfo:title]] wmf_mapAndRejectNil:^MWKImageInfo*(id obj) {
         return [MWKImageInfo imageInfoWithExportedData:obj];
     }];
 }
