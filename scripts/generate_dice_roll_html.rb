@@ -108,32 +108,35 @@ output = "<html>
 
 rx = [   0,   0,   0,   0, -90,  90]
 ry = [   0, 180, -90,  90,   0,   0]
-tz = [ -25, -25, -25, -25, -25, -25]
+rz = 0
+tz = -25
 
 for i in 0..5
   side = i+1
     output << "
 
-#dice.rolled-#{side} {
-    -webkit-transform: translateZ( #{tz[i]}px) rotateX( #{rx[i]}deg) rotateY( #{ry[i]}deg);
-}
+  #dice.rolled-#{side} {
+      -webkit-transform: translateZ(#{tz[i]}px) rotateX(#{rx[i]}deg) rotateY(#{ry[i]}deg) rotateZ(#{rz}deg);
+  }
 "
   for j in 0..5
     to_side = j+1
     output << "
+  #dice.roll-#{side}-#{to_side} {
+      -webkit-animation: roll-keyframes-#{side}-#{to_side} 1s 1 ease-in-out forwards;
+  }
 
-#dice.roll-#{side}-#{to_side} {
-    -webkit-animation: roll-keyframes-#{side}-#{to_side} 2s 1 linear forwards;
-}
-
-@-webkit-keyframes roll-keyframes-#{side}-#{to_side} {
-	0% {
-		-webkit-transform: translateZ( #{tz[i]}px) rotateX( #{rx[i]}deg) rotateY( #{ry[i]}deg);
-	}
-	100% {
-		-webkit-transform: translateZ( #{tz[j]}px) rotateX( #{rx[j]}deg) rotateY( #{ry[j]}deg);
-	}
-}
+  @-webkit-keyframes roll-keyframes-#{side}-#{to_side} {
+  	0% {
+  		-webkit-transform: translateZ(#{tz}px) rotateX(#{rx[i]}deg) rotateY(#{ry[i]}deg) rotateZ(#{rz}deg);
+  	}
+    75% {
+      -webkit-transform: translateZ(-500px) rotateX(#{360 + rx[j]}deg) rotateY(#{360 + ry[j]}deg) rotateZ(#{rz}deg);
+    }
+  	100% {
+  		-webkit-transform: translateZ(#{tz}px) rotateX(#{360 + rx[j]}deg) rotateY(#{360 + ry[j]}deg) rotateZ(#{rz}deg);
+  	}
+  }
 
     "
   end
