@@ -48,4 +48,7 @@
  */
 - (NSString*)wmf_decodeHTMLAmp;
 
+
+- (void)wmf_enumerateHTMLImageTagContentsWithHandler:(nonnull void (^)(NSString * imageTagContents, NSRange range))handler;
+
 @end

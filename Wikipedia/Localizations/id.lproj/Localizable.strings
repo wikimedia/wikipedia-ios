@@ -17,8 +17,7 @@
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batal";
 "article-languages-downloading" = "Memuat bahasa artikel...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Cari Bahasa";
+"article-languages-filter-placeholder" = "Cari bahasa";
 "article-read-more-title" = "Baca lebih lanjut";
 "article-about-title" = "Mengenai berkas ini";
 "article-unable-to-load-section" = "Tidak dapat memuat bagian ini. Coba menyegarkan artikel untuk melihat apakah itu bisa memperbaiki masalah.";
@@ -57,30 +56,24 @@
 "zero-warn-when-leaving" = "Peringatkan jika meninggalkan Zero";
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-captcha-required" = "Verifikasi CAPTCHA diperlukan.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Memperoleh CAPTCHA baru.";
+"account-creation-captcha-obtaining" = "Memperoleh CAPTCHA baru...";
 "account-creation-logging-in" = "Sedang masuk log...";
 "account-creation-passwords-mismatched" = "Kolom kata sandi tidak cocok.";
 "account-creation-saving" = "Sedang menyimpan...";
 "account-creation-login" = "Sudah memiliki akun? Silakan masuk log.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Nama pengguna";
 "account-creation-password-placeholder-text" = "Kata sandi";
 "account-creation-password-confirm-placeholder-text" = "Konfirmasi kata sandi";
 "account-creation-email-placeholder-text" = "Alamat surel/email (sebaiknya diisi)";
 "account-creation-missing-fields" = "Anda harus memasukkan nama pengguna, kata sandi, dan mengonfirmasi kata sandi untuk membuat sebuah akun.";
-// Fuzzy
 "login-name-not-found" = "Nama pengguna diperlukan untuk masuk log.";
-// Fuzzy
 "login-name-illegal" = "Anda memberikan nama pengguna yang tidak sah.";
-// Fuzzy
 "login-name-does-not-exist" = "Nama pengguna yang Anda berikan tidak ada.";
 "login-password-empty" = "Kata sandi diperlukan untuk masuk log.";
 "login-password-wrong" = "Kata sandi yang Anda berikan tidak benar.";
 "login-throttled" = "Anda telah masuk log berkali-kali dalam waktu singkat.";
 "login-user-blocked" = "Pengguna diblokir.";
 "login-account-creation" = "Belum punya akun? Bergabung dengan Wikipedia.";
-// Fuzzy
 "login-username-placeholder-text" = "Nama pengguna";
 "login-password-placeholder-text" = "Kata sandi";
 "wikitext-downloading" = "Memuat konten...";

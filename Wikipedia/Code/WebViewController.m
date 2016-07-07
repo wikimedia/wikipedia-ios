@@ -14,7 +14,6 @@
 #import "MWKSection.h"
 #import "MWKSectionList.h"
 #import "MWKSite.h"
-#import "MWKImageList.h"
 #import "MWKTitle.h"
 
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -35,6 +34,7 @@
 #import "WKProcessPool+WMFSharedProcessPool.h"
 #import "WMFPeekHTMLElement.h"
 #import "NSURL+WMFProxyServer.h"
+#import "WMFImageTag.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -93,11 +93,11 @@ NSString* const WMFCCBySALicenseURL =
         NSDictionary* peekElementDict = message.body[@"peekElement"];
         if ([peekElementDict isMemberOfClass:[NSNull class]]) {
             self.peekElement = nil;
-        }else{
+        } else {
             self.peekElement =
-            [[WMFPeekHTMLElement alloc] initWithTagName:peekElementDict[@"tagName"]
-                                                    src:peekElementDict[@"src"]
-                                                   href:peekElementDict[@"href"]];
+                [[WMFPeekHTMLElement alloc] initWithTagName:peekElementDict[@"tagName"]
+                                                        src:peekElementDict[@"src"]
+                                                       href:peekElementDict[@"href"]];
         }
     } else if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
         if ([message.body isEqualToString:@"collapseTables"]) {
@@ -136,13 +136,13 @@ NSString* const WMFCCBySALicenseURL =
                 self.isPeeking = NO;
                 return;
             }
-
+            
             NSString* href = message.body[@"linkClicked"][@"href"]; //payload[@"href"];
-
+            
             if (!(self).referencesHidden) {
                 [(self) referencesHide];
             }
-
+            
             if ([href wmf_isInternalLink]) {
                 MWKTitle* pageTitle = [self.article.site titleWithInternalLink:href];
                 [(self).delegate webViewController:(self) didTapOnLinkForTitle:pageTitle];
@@ -150,44 +150,44 @@ NSString* const WMFCCBySALicenseURL =
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                 if ([href hasPrefix:@"#"]) {
                     [self scrollToFragment:[href substringFromIndex:1]];
-                } else if ([href hasPrefix:@"//"]) {
-                    // Expand protocol-relative link to https -- secure by default!
-                    href = [@"https:" stringByAppendingString:href];
-                }
-                NSURL* url = [NSURL URLWithString:href];
-                NSCAssert(url, @"Failed to from URL from link %@", href);
-                if (url) {
-                    [self wmf_openExternalUrl:url];
+                } else {
+                    if ([href hasPrefix:@"//"]) {
+                        // Expand protocol-relative link to https -- secure by default!
+                        href = [@"https:" stringByAppendingString:href];
+                    }
+                    NSURL* url = [NSURL URLWithString:href];
+                    NSCAssert(url, @"Failed to from URL from link %@", href);
+                    if (url) {
+                        [self wmf_openExternalUrl:url];
+                    }
                 }
             }
         } else if (message.body[@"imageClicked"]) {
-            NSDictionary* imageClicked = message.body[@"imageClicked"];
-            NSNumber* imageWidth       = imageClicked[@"data-file-width"] ? : imageClicked[@"width"];
-            NSNumber* imageHeight      = imageClicked[@"data-file-height"] ? : imageClicked[@"height"];
+            NSDictionary* imageClicked   = message.body[@"imageClicked"];
+            WMFImageTag* imageTagClicked = [[WMFImageTag alloc] initWithSrc:imageClicked[@"src"]
+                                                                     srcset:nil
+                                                                        alt:nil
+                                                                      width:imageClicked[@"width"]
+                                                                     height:imageClicked[@"height"]
+                                                              dataFileWidth:imageClicked[@"data-file-width"]
+                                                             dataFileHeight:imageClicked[@"data-file-height"]];
             
-            CGSize imageSize = CGSizeZero;
-            if ([imageWidth respondsToSelector:@selector(floatValue)] && [imageHeight respondsToSelector:@selector(floatValue)]) {
-                imageSize = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
-            }
-            
-            if (![MWKImage isSizeLargeEnoughForGalleryInclusion:imageSize]) {
-                return;
-            }
-
-            NSString* selectedImageURLString = message.body[@"imageClicked"][@"url"];
-            NSCParameterAssert(selectedImageURLString.length);
-            if (!selectedImageURLString.length) {
-                DDLogError(@"Image clicked callback invoked with empty URL: %@", message.body[@"imageClicked"]);
+            if (![imageTagClicked isSizeLargeEnoughForGalleryInclusion]) {
                 return;
             }
             
-
-            NSURL* selectedImageURL = [NSURL URLWithString:selectedImageURLString];
+            NSString* selectedImageSrcURLString = imageClicked[@"src"];
+            NSCParameterAssert(selectedImageSrcURLString.length);
+            if (!selectedImageSrcURLString.length) {
+                DDLogError(@"Image clicked callback invoked with empty src url: %@", imageClicked);
+                return;
+            }
+            
+            NSURL* selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
             
             selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
-
+            
             [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
-
         } else if (message.body[@"referenceClicked"]) {
             [self referencesShow:message.body[@"referenceClicked"]];
         } else if (message.body[@"editClicked"]) {
@@ -692,7 +692,7 @@ NSString* const WMFCCBySALicenseURL =
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     [self.headerHeight setOffset:headerHeight];
 
-    [self.webView loadHTML:[self.article articleHTML] withAssetsFile:@"index.html" scrolledToFragment:self.article.title.fragment topPadding:headerHeight];
+    [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.title.URL withAssetsFile:@"index.html" scrolledToFragment:self.article.title.fragment topPadding:headerHeight];
 
     UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
                                                           action:@selector(shareMenuItemTapped:)];

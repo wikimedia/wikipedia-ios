@@ -10,65 +10,71 @@
 // Author: Juandev
 // Author: Mirek2
 // Author: Mormegil
+// Author: Walter Klosse
 
-// Fuzzy
-"languages-title" = "Jazyky";
+"languages-title" = "Změnit jazyk";
 "article-languages-label" = "Vybrat jazyk";
 "article-languages-cancel" = "Zrušit";
 "article-languages-downloading" = "Nahrávání článků v dalších jazycích…";
-// Fuzzy
 "article-languages-filter-placeholder" = "Najít jazyk";
+"article-read-more-title" = "Číst dál";
+"article-about-title" = "O tomto článku";
 "article-unable-to-load-article" = "Není možné načíst článek.";
+"article-related-articles-title" = "Související články";
+"article-languages-yours" = "Vaše jazyky";
+"article-languages-others" = "Jiné jazyky";
 "info-box-title" = "Stručná fakta";
 "info-box-close-text" = "Zavřít";
 "table-title-other" = "Další informace";
+"saved-clear-all" = "Vyprázdnit";
+"history-clear-all" = "Vyčistit";
 "history-label" = "Nedávné";
 "history-section-today" = "Dnes";
 "history-section-yesterday" = "Včera";
 "history-section-lastweek" = "Poslední týden";
 "history-section-lastmonth" = "Poslední měsíc";
-// Fuzzy
-"history-clear-confirmation-heading" = "Smazat všechny poslední položky?";
+"history-clear-confirmation-heading" = "Jste si jistý že chcete smazat všechny vaše poslední položky?";
 "history-clear-confirmation-sub-heading" = "Tato akce nemůže být vrácena zpět!";
 "history-clear-cancel" = "Zrušit";
 "history-clear-delete-all" = "Smazat vše";
+"history-none" = "Žádné nedávné stránky zde nejsou.";
 "zero-free-verbiage" = "Přístup k Wikipedii zdarma od vašeho mobilního operátora (bez účtování mobilních dat)";
 "zero-charged-verbiage" = "Wikipedie Zero je vypnuta";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Opustit Wikipedii Zero";
 "zero-interstitial-leave-app" = "Mohou být účtovány poplatky za přenesená data. Chcete pokračovat na externí stránku?";
 "zero-interstitial-continue" = "Odejít";
 "zero-interstitial-cancel" = "Zůstat tady";
+"zero-learn-more" = "Tato aplikace Wikipedie nebere v úvahu poplatky za přenos dat.";
 "zero-learn-more-learn-more" = "Více informací";
 "zero-learn-more-no-thanks" = "Zavřít";
 "zero-wikipedia-zero-heading" = "Wikipedie Zero";
 "account-creation-captcha-required" = "Vyžadováno CAPTCHA ověření.";
+"account-creation-captcha-obtaining" = "Příprava nového obrázku CAPTCHA...";
 "account-creation-logging-in" = "Přihlašování…";
 "account-creation-passwords-mismatched" = "Hesla se neshodují.";
 "account-creation-saving" = "Ukládá se…";
 "account-creation-login" = "Již máte účet? Přihlaste se.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Uživatelské jméno";
 "account-creation-password-placeholder-text" = "Heslo";
 "account-creation-password-confirm-placeholder-text" = "Potvrzení hesla";
 "account-creation-email-placeholder-text" = "E-mail (volitelné)";
 "account-creation-missing-fields" = "Pro vytvoření účtu musíte zadat uživatelské jméno, heslo a potvrzení hesla.";
-// Fuzzy
-"login-name-not-found" = "Pro přihlášení je požádováno uživatelské jméno.";
-// Fuzzy
-"login-name-illegal" = "Zadali jste nepovolené uživatelské heslo.";
-// Fuzzy
+"login-name-not-found" = "Pro přihlášení je požadováno uživatelské jméno.";
+"login-name-illegal" = "Zadali jste nepovolené uživatelské jméno.";
 "login-name-does-not-exist" = "Zadané uživatelské jméno neexistuje.";
 "login-password-empty" = "K přihlášení je vyžadováno heslo.";
 "login-password-wrong" = "Zadané heslo je nesprávné.";
 "login-throttled" = "Přihlásili jste se v krátké době přílíš mnohokrát.";
 "login-user-blocked" = "Uživatel je zablokován.";
 "login-account-creation" = "Nemáte účet? Přidejte se k Wikipedii.";
-// Fuzzy
 "login-username-placeholder-text" = "Uživatelské jméno";
 "login-password-placeholder-text" = "Heslo";
 "wikitext-downloading" = "Načítání obsahu...";
 "wikitext-download-failed" = "Poslední revizi se nepodařilo získat.";
 "wikitext-download-success" = "Obsah byl načten.";
+"wikitext-upload-captcha-error" = "Chyba v ověření CAPTCHA.";
+"wikitext-upload-captcha-needed" = "Je potřeba ověření pomocí CAPTCHA.";
 "wikitext-upload-save" = "Ukládá se...";
 "wikitext-upload-save-sign-in" = "Přihlásit se";
 "wikitext-upload-save-anonymously" = "Uložit anonymně";
@@ -76,6 +82,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Otevřít odkaz";
 "open-link-cancel" = "Zrušit";
+"search-title" = "Hledání";
 "search-searching" = "Hledání...";
 "search-no-matches" = "Nenalezena shoda pro hledaný výraz.";
 "search-field-placeholder-text" = "Hledat ve Wikipedii";
@@ -87,14 +94,20 @@
 "search-titles" = "Názvy";
 "search-within-articles" = "V článcích";
 "search-did-you-mean" = "Mysleli jste $1?";
-// Fuzzy
 "search-recent-title" = "Poslední hledání";
 "search-recent-clear-confirmation-heading" = "Smazat všechna poslední hledání?";
 "search-recent-clear-confirmation-sub-heading" = "Tato operace nemůže být vrácena zpět!";
 "search-recent-clear-cancel" = "Zrušit";
 "search-recent-clear-delete-all" = "Smazat vše";
+"search-result-redirected-from" = "Přesměrováno z: $1";
 "settings-title" = "Nastavení";
+"settings-language" = "Jazyk Wikipedie";
+"settings-support" = "Podpořte Wikipedii";
+"settings-my-languages" = "Moje jazyky";
+"settings-primary-language" = "Hlavní";
 "main-menu-title" = "Více";
+"main-menu-heading-about" = "O aplikaci";
+"main-menu-language-title" = "Vyhledávat v $1 Wikipedii";
 "main-menu-language-toggle-show" = "Zobrazit jazyky";
 "main-menu-language-toggle-hide" = "Skrýt jazyky";
 "main-menu-language-selection-saved" = "Výběr jazyka uložen";
@@ -102,6 +115,8 @@
 "main-menu-account-title-logged-in" = "Přihlášen jako: $1";
 "main-menu-account-login" = "Přihlásit se";
 "main-menu-account-logout" = "Odhlásit se";
+"main-menu-account-logout-cancel" = "Storno";
+"main-menu-show-title" = "Ukázat více...";
 "main-menu-show-history" = "Nedávné";
 "main-menu-show-saved" = "Uložené stránky";
 "main-menu-current-article-save" = "Uložit $1 pro čtení offline";
@@ -109,10 +124,14 @@
 "main-menu-feedback-heading" = "Zpětná vazba";
 "main-menu-send-feedback" = "Napište nám";
 "main-menu-show-page-history" = "Historie změn stránky $1";
+"main-menu-credits" = "Zásluhy";
+"main-menu-about" = "O aplikaci";
+"main-menu-zero-faq" = "FAQ Wikipedie Zero";
 "main-menu-privacy-policy" = "Ochrana osobních údajů";
 "main-menu-terms-of-use" = "Podmínky užití";
 "main-menu-rate-app" = "Ohodnotit aplikaci";
 "main-menu-heading-zero" = "Wikipedie Zero";
+"main-menu-heading-legal" = "Ochrana soukromí a podmínky užívání";
 "main-menu-show-today" = "Dnes";
 "main-menu-nearby" = "Poblíž";
 "main-menu-more" = "Více…";
@@ -194,3 +213,4 @@
 "image-gallery-fetch-image-info-error-title" = "Nelze stahovat obrázky";
 "image-gallery-fetch-image-info-error-ok" = "OK";
 "page-similar-titles" = "Podobné stránky";
+"explore-most-read-generic-heading" = "Nejvíc čtené";

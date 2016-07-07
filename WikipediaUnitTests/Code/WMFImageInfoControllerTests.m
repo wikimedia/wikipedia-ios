@@ -18,7 +18,6 @@
 #import "HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.h"
 #import "WMFAsyncTestCase.h"
 #import "WMFImageInfoController_Private.h"
-#import "MWKImageList.h"
 #import "MWKImage.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "MWKTitle.h"
@@ -52,14 +51,16 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 
     self.testArticle = [[MWKArticle alloc] initWithTitle:testTitle dataStore:self.tmpDataStore];
 
-    for (NSString* imageURL in [self generateSourceURLs:10]) {
-        [self.testArticle importImageURL:imageURL sectionId:kMWKArticleSectionNone];
-    }
+    NSArray<MWKImage*>* testImages = [[self generateSourceURLs:10] bk_map:^MWKImage*(NSString* urlString){
+        return [[MWKImage alloc] initWithArticle:self.testArticle sourceURLString:urlString];
+    }];
 
     self.controller = [[WMFImageInfoController alloc] initWithDataStore:self.tmpDataStore
                                                               batchSize:2
                                                             infoFetcher:self.mockInfoFetcher];
-    [self.controller setUniqueArticleImages:self.testArticle.images.uniqueLargestVariants forTitle:self.testArticle.title];
+    
+    [self.controller setUniqueArticleImages:testImages forTitle:self.testArticle.title];
+    
     self.controller.delegate = self;
 }
 
@@ -71,7 +72,6 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 #pragma mark - Tests
 
 - (void)testReadsFromDataStoreLazilyAndPopulatesFetchedIndices {
-    MWKImageList* mockImageList = MKTMock([MWKImageList class]);
     MWKDataStore* mockDataStore = MKTMock([MWKDataStore class]);
 
     MWKTitle* title = [[MWKTitle alloc] initWithSite:[MWKSite siteWithCurrentLocale]
@@ -85,14 +85,12 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     NSRange preFetchedRange    = NSMakeRange(0, 2);
     NSArray* expectedImageInfo = [[MWKImageInfo mappedFromImages:testImages] subarrayWithRange:preFetchedRange];
 
-    [MKTGiven([mockImageList uniqueLargestVariants]) willReturn:testImages];
     [MKTGiven([mockDataStore imageInfoForTitle:title]) willReturn:expectedImageInfo];
-    [MKTGiven([mockDataStore imageListWithArticle:dummyArticle section:nil]) willReturn:mockImageList];
 
     WMFImageInfoController* controller = [[WMFImageInfoController alloc] initWithDataStore:mockDataStore
                                                                                  batchSize:2
                                                                                infoFetcher:self.mockInfoFetcher];
-    [controller setUniqueArticleImages:dummyArticle.images.uniqueLargestVariants forTitle:dummyArticle.title];
+    [controller setUniqueArticleImages:testImages forTitle:dummyArticle.title];
 
     assertThat(controller.indexedImageInfo.allValues, containsItemsInCollectionInAnyOrder(expectedImageInfo));
     assertThat(controller.uniqueArticleImages, is(testImages));

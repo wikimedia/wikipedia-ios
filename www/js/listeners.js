@@ -1,6 +1,7 @@
 (function () {
 var refs = require("./refs");
 var utilities = require("./utilities");
+var tableCollapser = require("./transforms/collapseTables");
 
 document.onclick = function() {
     // Reminder: resist adding any click/tap handling here - they can
@@ -62,16 +63,18 @@ function maybeSendMessageForTarget(event, hrefTarget){
         // Handle reference links with a popup view instead of scrolling about!
         refs.sendNearbyReferences( hrefTarget );
     } else if (href && href[0] === "#") {
+ 
+        tableCollapser.openCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)));
+ 
         // If it is a link to an anchor in the current page, use existing link handling
         // so top floating native header height can be taken into account by the regular
         // fragment handling logic.
         window.webkit.messageHandlers.clicks.postMessage({"linkClicked": { 'href': href }});
     } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
-         var url = event.target.getAttribute('src');
          window.webkit.messageHandlers.clicks.postMessage({"imageClicked": {
-                                                          'url': url,
-                                                          'width': (event.target.naturalWidth / window.devicePixelRatio),
-                                                          'height': (event.target.naturalHeight / window.devicePixelRatio),
+                                                          'src': event.target.getAttribute('src'),
+                                                          'width': event.target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
+                                                          'height': event.target.naturalHeight,
  														  'data-file-width': event.target.getAttribute('data-file-width'),
  														  'data-file-height': event.target.getAttribute('data-file-height')
                                                           }});
