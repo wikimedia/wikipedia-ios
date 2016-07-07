@@ -16,6 +16,10 @@ static NSRegularExpression* WMFImageURLParsingRegex() {
     return imageNameFromURLRegex;
 }
 
+BOOL WMFIsThumbSourceURL(NSString* URLString){
+    return ([URLString rangeOfString:@"/thumb/"].location != NSNotFound);
+}
+
 NSString* WMFParseImageNameFromSourceURL(NSURL* sourceURL)  __attribute__((overloadable)){
     return WMFParseImageNameFromSourceURL(sourceURL.absoluteString);
 }
@@ -43,10 +47,8 @@ NSString* WMFParseImageNameFromSourceURL(NSString* sourceURL)  __attribute__((ov
     NSArray* matches               = [WMFImageURLParsingRegex() matchesInString:thumbOrFileComponent
                                                                         options:0
                                                                           range:NSMakeRange(0, [thumbOrFileComponent length])];
-    NSString* thumbString    = @"/thumb/";
-    NSRange thumbStringRange = [sourceURL rangeOfString:thumbString];
     
-    if (matches.count > 0 && (thumbStringRange.location != NSNotFound)) {
+    if (matches.count > 0 && WMFIsThumbSourceURL(sourceURL)) {
         // Found a "XXXpx-" prefix, extract substring and return as filename
         return [thumbOrFileComponent substringWithRange:[matches[0] rangeAtIndex:1]];
     } else {
@@ -102,11 +104,8 @@ NSString* WMFChangeImageSourceURLSizePrefix(NSString* sourceURL, NSUInteger newS
     }
 
     NSString* lastPathComponent = [sourceURL lastPathComponent];
-
-    NSString* thumbString    = @"/thumb/";
-    NSRange thumbStringRange = [sourceURL rangeOfString:thumbString];
     
-    if (WMFParseSizePrefixFromSourceURL(sourceURL) == NSNotFound || (thumbStringRange.location == NSNotFound)) {
+    if (WMFParseSizePrefixFromSourceURL(sourceURL) == NSNotFound || !WMFIsThumbSourceURL(sourceURL)) {
         NSString* urlWithSizeVariantLastPathComponent = [sourceURL stringByAppendingString:[NSString stringWithFormat:@"/%lupx-%@", (unsigned long)newSizePrefix, lastPathComponent]];
 
         NSString* urlWithThumbPath = [urlWithSizeVariantLastPathComponent stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@%@/", wikipediaString, site] withString:[NSString stringWithFormat:@"%@%@/thumb/", wikipediaString, site]];
