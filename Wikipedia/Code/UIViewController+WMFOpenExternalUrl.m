@@ -10,6 +10,7 @@
 #import "UIAlertView+BlocksKit.h"
 #import "WMFZeroMessage.h"
 #import <SafariServices/SFSafariViewController.h>
+#import "NSURL+WMFExtras.h"
 
 @implementation UIViewController (WMFOpenExternalLinkDelegate)
 
@@ -77,7 +78,13 @@
 }
 
 - (void)wmf_presentExternalUrlAsSFSafari:(NSURL*)url {
-    [self presentViewController:[[SFSafariViewController alloc] initWithURL:url] animated:YES completion:nil];
+    url = [url wmf_urlByPrependingSchemeIfSchemeless];
+    NSString *scheme = url.scheme.lowercaseString;
+    if (scheme && ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])) {
+         [self presentViewController:[[SFSafariViewController alloc] initWithURL:url] animated:YES completion:nil];
+    } else {
+        DDLogError(@"Attempted to open invalid external URL: %@", url);
+    }
 }
 
 - (BOOL)isPartnerInfoConfigValid:(WMFZeroMessage*)msg {
