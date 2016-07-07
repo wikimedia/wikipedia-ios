@@ -21,7 +21,6 @@ function setLanguage(lang, dir, uidir){
     html.dir = dir;
     html.classList.add( 'content-' + dir );
     html.classList.add( 'ui-' + uidir );
-    document.querySelector('base').href = 'https://' + lang + '.wikipedia.org/';
 }
 
 function setPageProtected(){
