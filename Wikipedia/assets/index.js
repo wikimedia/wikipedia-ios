@@ -67,6 +67,7 @@ exports.getElementFromPoint = function(x, y){
 (function () {
 var refs = require("./refs");
 var utilities = require("./utilities");
+var tableCollapser = require("./transforms/collapseTables");
 
 document.onclick = function() {
     // Reminder: resist adding any click/tap handling here - they can
@@ -128,6 +129,9 @@ function maybeSendMessageForTarget(event, hrefTarget){
         // Handle reference links with a popup view instead of scrolling about!
         refs.sendNearbyReferences( hrefTarget );
     } else if (href && href[0] === "#") {
+ 
+        tableCollapser.openCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)));
+ 
         // If it is a link to an anchor in the current page, use existing link handling
         // so top floating native header height can be taken into account by the regular
         // fragment handling logic.
@@ -167,7 +171,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
                            }, false);
 })();
 
-},{"./refs":4,"./utilities":12}],4:[function(require,module,exports){
+},{"./refs":4,"./transforms/collapseTables":7,"./utilities":12}],4:[function(require,module,exports){
 
 function isReference( href ) {
     return ( href.slice( 0, 10 ) === "#cite_note" );
@@ -518,6 +522,18 @@ transformer.register( "hideTables", function( content , isMainPage, titleInfobox
     }
 } );
 
+exports.openCollapsedTableIfItContainsElement = function(element){
+    if(element){
+        var container = utilities.findClosest(element, "[class*='app_table_container']");
+        if(container){
+            var collapsedDiv = container.firstChild;
+            if(collapsedDiv && collapsedDiv.classList.contains('app_table_collapsed_open')){
+                collapsedDiv.click();
+            }
+        }
+    }
+};
+
 },{"../transformer":5,"../utilities":12}],8:[function(require,module,exports){
 var transformer = require("../transformer");
 
@@ -725,7 +741,6 @@ function setLanguage(lang, dir, uidir){
     html.dir = dir;
     html.classList.add( 'content-' + dir );
     html.classList.add( 'ui-' + uidir );
-    document.querySelector('base').href = 'https://' + lang + '.wikipedia.org/';
 }
 
 function setPageProtected(){

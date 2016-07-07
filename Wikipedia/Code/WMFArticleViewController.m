@@ -201,6 +201,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self updateToolbar];
     [self createTableOfContentsViewControllerIfNeeded];
     [self updateWebviewFootersIfNeeded];
+    [self updateTableOfContentsForFootersIfNeeded];
     [self observeArticleUpdates];
 }
 
@@ -493,6 +494,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Article Footers
 
+- (void)updateTableOfContentsForFootersIfNeeded{
+    if ([self.article.title isNonStandardTitle]) {
+        return;
+    }
+    if(![self hasTableOfContents]){
+        return;
+    }
+    
+    BOOL includeReadMore = [self hasReadMore] && [self.readMoreListViewController hasResults];
+    
+    [self appendItemsToTableOfContentsIncludingAboutThisArticle:[self hasAboutThisArticle] includeReadMore:includeReadMore];
+
+}
+
 - (void)updateWebviewFootersIfNeeded {
     if ([self.article.title isNonStandardTitle]) {
         return;
@@ -509,8 +524,6 @@ NS_ASSUME_NONNULL_BEGIN
     if (includeReadMore) {
         [footerVCs addObject:self.readMoreListViewController];
     }
-    
-    [self appendItemsToTableOfContentsIncludingAboutThisArticle:[self hasAboutThisArticle] includeReadMore:includeReadMore];
     
     [self.webViewController setFooterViewControllers:footerVCs];
 }
@@ -838,6 +851,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
         // update footers to include read more if there are results
         [self updateWebviewFootersIfNeeded];
+        [self updateTableOfContentsForFootersIfNeeded];
     })
     .catch(^(NSError* error){
         DDLogError(@"Read More Fetch Error: %@", error);
