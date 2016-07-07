@@ -45,7 +45,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 NSString* const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
-@interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler, UIScrollViewDelegate>
+@interface WebViewController () <ReferencesVCDelegate, WKNavigationDelegate, WKScriptMessageHandler, UIScrollViewDelegate>
 
 @property (nonatomic, strong) MASConstraint* headerHeight;
 @property (nonatomic, strong) UIView* footerContainerView;
@@ -111,38 +111,19 @@ NSString* const WMFCCBySALicenseURL =
 #if DEBUG
         NSLog(@"\n\nMessage from Javascript console:\n\t%@\n\n", message.body[@"message"]);
 #endif
-    } else if ([message.name isEqualToString:@"articleState"]) {
-        if ([message.body isEqualToString:@"articleLoaded"]) {
-            //Need to introduce a delay here or the webview still might not be loaded.
-            //dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
-            NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
-            [self.delegate webViewController:self didLoadArticle:self.article];
-
-            [UIView animateWithDuration:0.3
-                                  delay:0.5f
-                                options:UIViewAnimationOptionBeginFromCurrentState
-                             animations:^{
-                self.headerView.alpha = 1.f;
-                self.footerContainerView.alpha = 1.f;
-            } completion:^(BOOL done) {
-            }];
-
-            // Force the footer bounds observers to fire - otherwise the html body tag's bottom-padding isn't updated on article refresh.
-            self.footerContainerView.bounds = self.footerContainerView.bounds;
-        }
     } else if ([message.name isEqualToString:@"clicks"]) {
         if (message.body[@"linkClicked"]) {
             if (self.isPeeking) {
                 self.isPeeking = NO;
                 return;
             }
-            
+
             NSString* href = message.body[@"linkClicked"][@"href"]; //payload[@"href"];
-            
+
             if (!(self).referencesHidden) {
                 [(self) referencesHide];
             }
-            
+
             if ([href wmf_isInternalLink]) {
                 MWKTitle* pageTitle = [self.article.site titleWithInternalLink:href];
                 [(self).delegate webViewController:(self) didTapOnLinkForTitle:pageTitle];
@@ -171,22 +152,22 @@ NSString* const WMFCCBySALicenseURL =
                                                                      height:imageClicked[@"height"]
                                                               dataFileWidth:imageClicked[@"data-file-width"]
                                                              dataFileHeight:imageClicked[@"data-file-height"]];
-            
+
             if (![imageTagClicked isSizeLargeEnoughForGalleryInclusion]) {
                 return;
             }
-            
+
             NSString* selectedImageSrcURLString = imageClicked[@"src"];
             NSCParameterAssert(selectedImageSrcURLString.length);
             if (!selectedImageSrcURLString.length) {
                 DDLogError(@"Image clicked callback invoked with empty src url: %@", imageClicked);
                 return;
             }
-            
+
             NSURL* selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
-            
+
             selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
-            
+
             [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
         } else if (message.body[@"referenceClicked"]) {
             [self referencesShow:message.body[@"referenceClicked"]];
@@ -218,8 +199,6 @@ NSString* const WMFCCBySALicenseURL =
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"sendJavascriptConsoleLogMessageToXcodeConsole"];
 
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"articleState"];
-
     NSString* earlyJavascriptTransforms = @""
                                           "window.wmf.transformer.transform( 'hideRedlinks', document );"
                                           "window.wmf.transformer.transform( 'disableFilePageEdit', document );"
@@ -228,7 +207,6 @@ NSString* const WMFCCBySALicenseURL =
                                           // See "enwiki > Counties of England > Scope and structure > Local government"
                                           "window.wmf.transformer.transform( 'widenImages', document );"
                                           "window.wmf.transformer.transform( 'moveFirstGoodParagraphUp', document );"
-                                          "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
                                           "console.log = function(message){window.webkit.messageHandlers.sendJavascriptConsoleLogMessageToXcodeConsole.postMessage({'message': message});};";
 
     [userContentController addUserScript:
@@ -246,6 +224,7 @@ NSString* const WMFCCBySALicenseURL =
     if (!_webView) {
         _webView                     = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
         _webView.scrollView.delegate = self;
+        _webView.navigationDelegate  = self;
     }
     return _webView;
 }
@@ -702,10 +681,6 @@ NSString* const WMFCCBySALicenseURL =
     [self.footerLicenseView setLicenseTextForSite:self.article.site];
 }
 
-- (void)showEmptyArticle {
-    [self.webView loadHTMLString:@"" baseURL:nil];
-}
-
 #pragma mark Bottom menu bar
 
 - (void)showProtectedDialog {
@@ -934,6 +909,31 @@ NSString* const WMFCCBySALicenseURL =
     if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidScroll:)]) {
         [self.delegate webViewController:self scrollViewDidScroll:scrollView];
     }
+}
+
+#pragma mark - WKNavigationDelegate
+
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    DDLogError(@"Error loading article: %@", error);
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    //Need to introduce a delay here or the webview still might not be loaded.
+    //dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
+    NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
+    [self.delegate webViewController:self didLoadArticle:self.article];
+    
+    [UIView animateWithDuration:0.3
+                          delay:0.5f
+                        options:UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         self.headerView.alpha = 1.f;
+                         self.footerContainerView.alpha = 1.f;
+                     } completion:^(BOOL done) {
+                     }];
+    
+    // Force the footer bounds observers to fire - otherwise the html body tag's bottom-padding isn't updated on article refresh.
+    self.footerContainerView.bounds = self.footerContainerView.bounds;
 }
 
 @end

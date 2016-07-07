@@ -85,11 +85,14 @@ static const CGFloat WMFRandomAnimationSpringDampingDice = 0.5;
         [self configureViewsForRandomArticleLoading:false];
     } success:^(MWKSearchResult* searchResult) {
         self.articleTitle = [self.site titleWithString:searchResult.displayTitle];
-        [self fetchArticleForce:YES completion:^{
-            [self configureViewsForRandomArticleLoading:false];
-            [self setRandomButtonHidden:NO animated:YES];
-        }];
+        [self fetchArticleForce:YES];
     }];
+}
+
+- (void)webViewController:(WebViewController *)controller didLoadArticle:(MWKArticle *)article {
+    [super webViewController:controller didLoadArticle:article];
+    [self configureViewsForRandomArticleLoading:false];
+    [self setRandomButtonHidden:NO animated:YES];
 }
 
 #pragma mark - Layout
@@ -115,9 +118,7 @@ static const CGFloat WMFRandomAnimationSpringDampingDice = 0.5;
     [UIView animateWithDuration:WMFRandomAnimationDurationFade animations:^{
         self.emptyFadeView.alpha = isRandomArticleLoading ? 1 : 0;
     } completion:^(BOOL finished) {
-        if (finished && isRandomArticleLoading) {
-            [self showEmptyArticle];
-        }
+
     }];
 }
 

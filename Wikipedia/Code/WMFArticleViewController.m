@@ -302,15 +302,6 @@ NS_ASSUME_NONNULL_BEGIN
     return _articleFetcher;
 }
 
-- (WebViewController*)webViewController {
-    if (!_webViewController) {
-        _webViewController            = [WebViewController wmf_initialViewControllerFromClassStoryboard];
-        _webViewController.delegate   = self;
-        _webViewController.headerView = self.headerView;
-    }
-    return _webViewController;
-}
-
 #pragma mark - Notifications and Observations
 
 - (void)applicationWillResignActiveWithNotification:(NSNotification*)note {
@@ -376,10 +367,6 @@ NS_ASSUME_NONNULL_BEGIN
             completion(text);
         }
     }];
-}
-
-- (void)showEmptyArticle {
-    [self.webViewController showEmptyArticle];
 }
 
 #pragma mark - Toolbar Setup
@@ -494,18 +481,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Article Footers
 
-- (void)updateTableOfContentsForFootersIfNeeded{
+- (void)updateTableOfContentsForFootersIfNeeded {
     if ([self.article.title isNonStandardTitle]) {
         return;
     }
-    if(![self hasTableOfContents]){
+    if (![self hasTableOfContents]) {
         return;
     }
-    
-    BOOL includeReadMore = [self hasReadMore] && [self.readMoreListViewController hasResults];
-    
-    [self appendItemsToTableOfContentsIncludingAboutThisArticle:[self hasAboutThisArticle] includeReadMore:includeReadMore];
 
+    BOOL includeReadMore = [self hasReadMore] && [self.readMoreListViewController hasResults];
+
+    [self appendItemsToTableOfContentsIncludingAboutThisArticle:[self hasAboutThisArticle] includeReadMore:includeReadMore];
 }
 
 - (void)updateWebviewFootersIfNeeded {
@@ -515,16 +501,16 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSMutableArray* footerVCs = [NSMutableArray arrayWithCapacity:2];
     [footerVCs wmf_safeAddObject:self.footerMenuViewController];
-    
+
     /*
-     NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
+       NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
      */
-    
+
     BOOL includeReadMore = [self hasReadMore] && [self.readMoreListViewController hasResults];
     if (includeReadMore) {
         [footerVCs addObject:self.readMoreListViewController];
     }
-    
+
     [self.webViewController setFooterViewControllers:footerVCs];
 }
 
@@ -718,6 +704,13 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Web View Setup
 
 - (void)setupWebView {
+    [self.webViewController willMoveToParentViewController:nil];
+    [self.webViewController.view removeFromSuperview];
+    [self.webViewController removeFromParentViewController];
+    
+    self.webViewController            = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+    self.webViewController.delegate   = self;
+    self.webViewController.headerView = self.headerView;
     [self addChildViewController:self.webViewController];
     [self.view addSubview:self.webViewController.view];
     [self.webViewController.view mas_makeConstraints:^(MASConstraintMaker* make) {
@@ -747,11 +740,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Article Fetching
 
-- (void)fetchArticleForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
+- (void)fetchArticleForce:(BOOL)force {
     if (self.articleTitle == nil) {
         return;
     }
-    
+
     NSAssert([[NSThread currentThread] isMainThread], @"Not on main thread!");
     NSAssert(self.isViewLoaded, @"Should only fetch article when view is loaded so we can update its state.");
     if (!force && self.article) {
@@ -824,18 +817,15 @@ NS_ASSUME_NONNULL_BEGIN
     }).finally(^{
         @strongify(self);
         self.articleFetcherPromise = nil;
-        if (completion != NULL) {
-            completion();
-        }
     });
 }
 
 - (void)fetchArticle {
-    [self fetchArticleForce:YES completion:NULL];
+    [self fetchArticleForce:YES];
 }
 
 - (void)fetchArticleIfNeeded {
-    [self fetchArticleForce:NO completion:NULL];
+    [self fetchArticleForce:NO];
 }
 
 - (void)fetchReadMoreIfNeeded {
@@ -969,9 +959,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFWebViewControllerDelegate
 
-- (void)         webViewController:(WebViewController*)controller
+- (void)   webViewController:(WebViewController*)controller
     didTapImageWithSourceURL:(nonnull NSURL*)imageSourceURL {
-    MWKImage* selectedImage                                = [[MWKImage alloc] initWithArticle:self.article sourceURL:imageSourceURL];
+    MWKImage* selectedImage                                 = [[MWKImage alloc] initWithArticle:self.article sourceURL:imageSourceURL];
     WMFArticleImageGalleryViewController* fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage];
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
@@ -1013,8 +1003,7 @@ NS_ASSUME_NONNULL_BEGIN
     return nil;
 }
 
-- (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
-    
+- (void)webViewController:(WebViewController*)controller scrollViewDidScroll:(UIScrollView*)scrollView {
 }
 
 #pragma mark - Header Tap Gesture
@@ -1084,9 +1073,9 @@ NS_ASSUME_NONNULL_BEGIN
         UIView* previewView = [self.webViewController.webView wmf_browserView];
         self.linkPreviewingContext =
             [self registerForPreviewingWithDelegate:self sourceView:previewView];
-        
+
         self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.webViewController.headerView];
-        
+
         for (UIGestureRecognizer* r in previewView.gestureRecognizers) {
             if ([NSStringFromClass([r class]) isEqualToString:@"_UIPreviewGestureRecognizer"]) {
                 [r requireGestureRecognizerToFail:self.linkPreviewingContext.previewingGestureRecognizerForFailureRelationship];
@@ -1117,7 +1106,7 @@ NS_ASSUME_NONNULL_BEGIN
             self.webViewController.isPeeking = YES;
             return peekVC;
         }
-    }else if (previewingContext == self.leadImagePreviewingContext) {
+    } else if (previewingContext == self.leadImagePreviewingContext) {
         [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
         WMFArticleImageGalleryViewController* fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article];
         return fullscreenGallery;
@@ -1144,15 +1133,15 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
 
-    MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:url];
+    MWKImage* selectedImage                       = [[MWKImage alloc] initWithArticle:self.article sourceURL:url];
     WMFArticleImageGalleryViewController* gallery =
-    [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
-                                                    selectedImage:selectedImage];
+        [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
+                                                        selectedImage:selectedImage];
     return gallery;
 }
 
 - (UIViewController*)viewControllerForPreviewURL:(NSURL*)url {
-    if(!url || [url.absoluteString isEqualToString:@""]){
+    if (!url || [url.absoluteString isEqualToString:@""]) {
         return nil;
     }
     if (![url wmf_isInternalLink]) {
@@ -1237,7 +1226,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)analyticsName {
     return [self.articleTitle.site urlDomainWithLanguage];
 }
-
 
 @end
 
