@@ -66,7 +66,7 @@
 - (void)wmf_presentExternalUrlWithinApp:(NSURL *)url {
     url = [url wmf_urlByPrependingSchemeIfSchemeless];
     NSString *scheme = url.scheme.lowercaseString;
-    if (!scheme || (![scheme isEqualToString:@"https"] && ![scheme isEqualToString:@"http"]) || url.host.length == 0) {
+    if (scheme.length == 0 || (![scheme isEqualToString:@"https"] && ![scheme isEqualToString:@"http"]) || url.host.length == 0) {
         DDLogError(@"Attempted to open invalid external URL: %@", url);
         return;
     }
