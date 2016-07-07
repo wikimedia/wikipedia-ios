@@ -64,11 +64,9 @@
 }
 
 - (void)wmf_presentExternalUrlWithinApp:(NSURL *)url {
-//    iOS 9 and later
-    if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){9, 0, 0}]) {
+    if ([SFSafariViewController class]) {
         [self wmf_presentExternalUrlAsSFSafari:url];
-    }
-    else {
+    } else {
         [self wmf_presentExternalUrlAsSVModal:url];
     }
 }
