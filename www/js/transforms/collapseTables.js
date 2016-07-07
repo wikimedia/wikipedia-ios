@@ -156,3 +156,15 @@ transformer.register( "hideTables", function( content , isMainPage, titleInfobox
         bottomDiv.onclick = tableCollapseClickHandler;
     }
 } );
+
+exports.openCollapsedTableIfItContainsElement = function(element){
+    if(element){
+        var container = utilities.findClosest(element, "[class*='app_table_container']");
+        if(container){
+            var collapsedDiv = container.firstChild;
+            if(collapsedDiv && collapsedDiv.classList.contains('app_table_collapsed_open')){
+                collapsedDiv.click();
+            }
+        }
+    }
+};
