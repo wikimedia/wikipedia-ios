@@ -80,7 +80,7 @@
 - (void)wmf_presentExternalUrlAsSFSafari:(NSURL*)url {
     url = [url wmf_urlByPrependingSchemeIfSchemeless];
     NSString *scheme = url.scheme.lowercaseString;
-    if (scheme && ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])) {
+    if (scheme && ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) && url.host.length > 0) {
          [self presentViewController:[[SFSafariViewController alloc] initWithURL:url] animated:YES completion:nil];
     } else {
         DDLogError(@"Attempted to open invalid external URL: %@", url);
