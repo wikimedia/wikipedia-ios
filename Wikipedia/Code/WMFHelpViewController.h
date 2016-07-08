@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFHelpViewController : WMFArticleViewController
 
-- (instancetype)initWithArticleTitle:(MWKTitle*)title
+- (instancetype)initWithArticleTitle:(nullable MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore NS_UNAVAILABLE;
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;

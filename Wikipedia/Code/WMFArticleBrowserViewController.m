@@ -442,7 +442,7 @@ BOOL useSingleBrowserController() {
 #pragma mark - Reload
 
 - (void)fetchArticleIfNeeded {
-    [[self currentViewController] fetchArticleIfNeeded];
+    [[self currentViewController] fetchArticleForce:NO];
 }
 
 #pragma mark - ToC

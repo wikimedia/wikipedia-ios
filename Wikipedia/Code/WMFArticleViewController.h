@@ -1,6 +1,7 @@
 @import UIKit;
 #import "WMFAnalyticsLogging.h"
 #import "MWKArticle.h"
+#import "WebViewController.h"
 
 @class MWKDataStore;
 @class MWKTitle;
@@ -23,12 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  View controller responsible for displaying article content.
  */
-@interface WMFArticleViewController : UIViewController<WMFAnalyticsContextProviding, WMFAnalyticsViewNameProviding>
+@interface WMFArticleViewController : UIViewController<WMFAnalyticsContextProviding, WMFAnalyticsViewNameProviding, WMFWebViewControllerDelegate>
 
-- (instancetype)initWithArticleTitle:(MWKTitle*)title
+- (instancetype)initWithArticleTitle:(nullable MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore;
 
-@property (nonatomic, strong, readonly) MWKTitle* articleTitle;
+@property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
 
 @property (nonatomic, strong, readonly, nullable) MWKArticle* article;
@@ -50,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)hasReadMore;
 - (BOOL)hasAboutThisArticle;
 
-- (void)fetchArticleIfNeeded;
+- (void)fetchArticleForce:(BOOL)force;
 
 - (void)shareArticleFromButton:(nullable UIBarButtonItem*)button;
 
