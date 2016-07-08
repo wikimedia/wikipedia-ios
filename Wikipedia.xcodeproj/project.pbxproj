@@ -2260,8 +2260,6 @@
 				B0E804A31C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m */,
 				BC45D5881C32FAFB007C72F3 /* UICollectionView+WMFExtensions.h */,
 				BC45D5891C32FAFB007C72F3 /* UICollectionView+WMFExtensions.m */,
-				0EC376311D3002830001D4BF /* NSDictionary+WMFExtensions.h */,
-				0EC376321D3002830001D4BF /* NSDictionary+WMFExtensions.m */,
 			);
 			name = Categories;
 			path = Wikipedia/Code/Categories;
@@ -3739,6 +3737,8 @@
 				B07D25DA1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m */,
 				B0E8049A1C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.h */,
 				B0E8049B1C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.m */,
+				0EC376311D3002830001D4BF /* NSDictionary+WMFExtensions.h */,
+				0EC376321D3002830001D4BF /* NSDictionary+WMFExtensions.m */,
 			);
 			name = Collections;
 			sourceTree = "<group>";
