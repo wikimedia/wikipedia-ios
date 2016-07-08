@@ -86,7 +86,7 @@ NSString* const WMFCCBySALicenseURL =
     return self;
 }
 
-#pragma mark - WebView Javascript configuration
+#pragma mark - WKScriptMessageHandler
 
 - (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message {
     /**
@@ -96,118 +96,147 @@ NSString* const WMFCCBySALicenseURL =
      * Additionally body is untyped, so its class must be
      * checked before proceeding.
      */
-    
-    if ([message.name isEqualToString:@"peek"]) {
-        NSDictionary* peekElementDict = message.body[@"peekElement"];
-        if ([peekElementDict isMemberOfClass:[NSNull class]]) {
-            self.peekElement = nil;
-        } else {
+
+    if ([message.body isKindOfClass:[NSNull class]]) {
+        return;
+    }
+
+    if ([message.body isKindOfClass:[NSDictionary class]]) {
+        if ([message.body containsNullObjects]) {
+            return;
+        }
+
+        if ([message.name isEqualToString:@"peek"]) {
+            NSDictionary* peekElementDict = message.body[@"peekElement"];
+
+            if ([peekElementDict containsNullObjects]) {
+                self.peekElement = nil;
+                return;
+            }
+
             self.peekElement =
                 [[WMFPeekHTMLElement alloc] initWithTagName:peekElementDict[@"tagName"]
                                                         src:peekElementDict[@"src"]
                                                        href:peekElementDict[@"href"]];
         }
-    } else if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
-        if ([message.body isEqualToString:@"collapseTables"]) {
-            [self.webView wmf_collapseTablesForArticle:self.article];
-        } else if ([message.body isEqualToString:@"setLanguage"]) {
-            [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.site.language]];
-        } else if ([message.body isEqualToString:@"setPageProtected"] && !self.article.editable) {
-            [self.webView wmf_setPageProtected];
-        }
-    } else if ([message.name isEqualToString:@"sendJavascriptConsoleLogMessageToXcodeConsole"]) {
-#if DEBUG
-        NSLog(@"\n\nMessage from Javascript console:\n\t%@\n\n", message.body[@"message"]);
-#endif
-    } else if ([message.name isEqualToString:@"articleState"]) {
-        if ([message.body isEqualToString:@"articleLoaded"]) {
-            //Need to introduce a delay here or the webview still might not be loaded.
-            //dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
-            NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
-            [self.delegate webViewController:self didLoadArticle:self.article];
 
-            [UIView animateWithDuration:0.3
-                                  delay:0.5f
-                                options:UIViewAnimationOptionBeginFromCurrentState
-                             animations:^{
-                self.headerView.alpha = 1.f;
-                self.footerContainerView.alpha = 1.f;
-            } completion:^(BOOL done) {
-            }];
-
-            // Force the footer bounds observers to fire - otherwise the html body tag's bottom-padding isn't updated on article refresh.
-            self.footerContainerView.bounds = self.footerContainerView.bounds;
+        if ([message.name isEqualToString:@"sendJavascriptConsoleLogMessageToXcodeConsole"]) {
+            DDLogDebug(@"\n\nMessage from Javascript console:\n\t%@\n\n", message.body[@"message"]);
         }
-    } else if ([message.name isEqualToString:@"clicks"]) {
-        if (message.body[@"linkClicked"]) {
-            if (self.isPeeking) {
-                self.isPeeking = NO;
-                return;
-            }
-            
-            NSString* href = message.body[@"linkClicked"][@"href"]; //payload[@"href"];
-            
-            if (!(self).referencesHidden) {
-                [(self) referencesHide];
-            }
-            
-            if ([href wmf_isInternalLink]) {
-                MWKTitle* pageTitle = [self.article.site titleWithInternalLink:href];
-                [(self).delegate webViewController:(self) didTapOnLinkForTitle:pageTitle];
-            } else {
-                // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
-                if ([href hasPrefix:@"#"]) {
-                    [self scrollToFragment:[href substringFromIndex:1]];
+
+        if ([message.name isEqualToString:@"clicks"]) {
+            if (message.body[@"linkClicked"]) {
+                if (self.isPeeking) {
+                    self.isPeeking = NO;
+                    return;
+                }
+
+                NSDictionary* linkClicked = message.body[@"linkClicked"];
+
+                if ([linkClicked containsNullObjects]) {
+                    return;
+                }
+
+                NSString* href = linkClicked[@"href"];
+
+                if (!(self).referencesHidden) {
+                    [(self) referencesHide];
+                }
+
+                if ([href wmf_isInternalLink]) {
+                    MWKTitle* pageTitle = [self.article.site titleWithInternalLink:href];
+                    [(self).delegate webViewController:(self) didTapOnLinkForTitle:pageTitle];
                 } else {
-                    if ([href hasPrefix:@"//"]) {
-                        // Expand protocol-relative link to https -- secure by default!
-                        href = [@"https:" stringByAppendingString:href];
-                    }
-                    NSURL* url = [NSURL URLWithString:href];
-                    NSCAssert(url, @"Failed to from URL from link %@", href);
-                    if (url) {
-                        [self wmf_openExternalUrl:url];
+                    // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
+                    if ([href hasPrefix:@"#"]) {
+                        [self scrollToFragment:[href substringFromIndex:1]];
+                    } else {
+                        if ([href hasPrefix:@"//"]) {
+                            // Expand protocol-relative link to https -- secure by default!
+                            href = [@"https:" stringByAppendingString:href];
+                        }
+                        NSURL* url = [NSURL URLWithString:href];
+                        NSCAssert(url, @"Failed to from URL from link %@", href);
+                        if (url) {
+                            [self wmf_openExternalUrl:url];
+                        }
                     }
                 }
             }
-        } else if (message.body[@"imageClicked"]) {
-            NSDictionary* imageClicked   = message.body[@"imageClicked"];
-            WMFImageTag* imageTagClicked = [[WMFImageTag alloc] initWithSrc:imageClicked[@"src"]
-                                                                     srcset:nil
-                                                                        alt:nil
-                                                                      width:imageClicked[@"width"]
-                                                                     height:imageClicked[@"height"]
-                                                              dataFileWidth:imageClicked[@"data-file-width"]
-                                                             dataFileHeight:imageClicked[@"data-file-height"]];
-            
-            if (![imageTagClicked isSizeLargeEnoughForGalleryInclusion]) {
-                return;
+
+            if (message.body[@"imageClicked"]) {
+                NSDictionary* imageClicked = message.body[@"imageClicked"];
+
+                if ([imageClicked containsNullObjects]) {
+                    return;
+                }
+
+                WMFImageTag* imageTagClicked = [[WMFImageTag alloc] initWithSrc:imageClicked[@"src"]
+                                                                         srcset:nil
+                                                                            alt:nil
+                                                                          width:imageClicked[@"width"]
+                                                                         height:imageClicked[@"height"]
+                                                                  dataFileWidth:imageClicked[@"data-file-width"]
+                                                                 dataFileHeight:imageClicked[@"data-file-height"]];
+
+                if (![imageTagClicked isSizeLargeEnoughForGalleryInclusion]) {
+                    return;
+                }
+
+                NSString* selectedImageSrcURLString = imageClicked[@"src"];
+                NSCParameterAssert(selectedImageSrcURLString.length);
+                if (!selectedImageSrcURLString.length) {
+                    DDLogError(@"Image clicked callback invoked with empty src url: %@", imageClicked);
+                    return;
+                }
+
+                NSURL* selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
+
+                selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
+
+                [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
+            } else if (message.body[@"referenceClicked"]) {
+                [self referencesShow:message.body[@"referenceClicked"]];
+            } else if (message.body[@"editClicked"]) {
+                NSUInteger sectionIndex = (NSUInteger)[message.body[@"editClicked"][@"sectionId"] integerValue];
+                if (sectionIndex < [self.article.sections count]) {
+                    [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
+                }
+            } else if (message.body[@"nonAnchorTouchEndedWithoutDragging"]) {
+                [self referencesHide];
             }
-            
-            NSString* selectedImageSrcURLString = imageClicked[@"src"];
-            NSCParameterAssert(selectedImageSrcURLString.length);
-            if (!selectedImageSrcURLString.length) {
-                DDLogError(@"Image clicked callback invoked with empty src url: %@", imageClicked);
-                return;
+        }
+    }
+
+    if ([message.body isKindOfClass:[NSString class]]) {
+        if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
+            if ([message.body isEqualToString:@"collapseTables"]) {
+                [self.webView wmf_collapseTablesForArticle:self.article];
+            } else if ([message.body isEqualToString:@"setLanguage"]) {
+                [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.site.language]];
+            } else if ([message.body isEqualToString:@"setPageProtected"] && !self.article.editable) {
+                [self.webView wmf_setPageProtected];
             }
-            
-            NSURL* selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
-            
-            selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
-            
-            [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
-        } else if (message.body[@"referenceClicked"]) {
-            [self referencesShow:message.body[@"referenceClicked"]];
-        } else if (message.body[@"editClicked"]) {
-            NSUInteger sectionIndex = (NSUInteger)[message.body[@"editClicked"][@"sectionId"] integerValue];
-            if (sectionIndex < [self.article.sections count]) {
-                [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
+        } else if ([message.name isEqualToString:@"articleState"]) {
+            if ([message.body isEqualToString:@"articleLoaded"]) {
+                NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
+                [self.delegate webViewController:self didLoadArticle:self.article];
+
+                [UIView animateWithDuration:0.3
+                                      delay:0.5f
+                                    options:UIViewAnimationOptionBeginFromCurrentState
+                                 animations:^{
+                    self.headerView.alpha = 1.f;
+                    self.footerContainerView.alpha = 1.f;
+                } completion:^(BOOL done) {
+                }];
+                [self forceUpdateWebviewPaddingForFooters];
             }
-        } else if (message.body[@"nonAnchorTouchEndedWithoutDragging"]) {
-            [self referencesHide];
         }
     }
 }
+
+#pragma mark - WebView configuration
 
 - (WKWebViewConfiguration*)configuration {
     WKUserContentController* userContentController = [[WKUserContentController alloc] init];
@@ -596,6 +625,10 @@ NSString* const WMFCCBySALicenseURL =
     } else {
         return 210;
     }
+}
+
+- (void)forceUpdateWebviewPaddingForFooters {
+    self.footerContainerView.bounds = self.footerContainerView.bounds;
 }
 
 #pragma mark - Scrolling
