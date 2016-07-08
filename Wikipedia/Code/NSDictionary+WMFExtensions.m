@@ -42,4 +42,12 @@
     return hasNull;
 }
 
+
+- (NSDictionary*)wmf_dictionaryByRemovingNullObjects{
+    return [self bk_reject:^BOOL(id key, id obj) {
+        return [obj isKindOfClass:[NSNull class]];
+    }];
+    
+}
+
 @end

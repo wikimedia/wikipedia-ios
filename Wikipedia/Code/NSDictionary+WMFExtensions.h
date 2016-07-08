@@ -18,4 +18,14 @@
  */
 - (BOOL)wmf_recursivelyContainsNullObjects;
 
+
+/**
+ *  Remove Nulls from a dictionary before returning it
+ *
+ *  @return A dictionary without any [NSNull nulls]
+ */
+- (NSDictionary*)wmf_dictionaryByRemovingNullObjects;
+
+
+
 @end
