@@ -38,7 +38,7 @@
 #import "UITableView+WMFLockedUpdates.h"
 
 // Child View Controllers
-#import "WMFArticleBrowserViewController.h"
+#import "UIViewController+WMFArticlePresentation.h"
 #import "WMFSettingsViewController.h"
 #import "WMFTitleListDataSource.h"
 #import "WMFArticleListTableViewController.h"

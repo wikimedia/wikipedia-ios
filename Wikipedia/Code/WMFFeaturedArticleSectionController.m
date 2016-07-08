@@ -12,7 +12,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
-#import "WMFArticleBrowserViewController.h"
+#import "UIViewController+WMFArticlePresentation.h"
 #import "MWKDataStore.h"
 #import "MWKUserDataStore.h"
 
