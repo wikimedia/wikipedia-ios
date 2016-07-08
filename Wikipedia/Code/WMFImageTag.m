@@ -27,6 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
                      height:(nullable NSString*)height
               dataFileWidth:(nullable NSString*)dataFileWidth
              dataFileHeight:(nullable NSString*)dataFileHeight {
+    NSParameterAssert(src);
+    if (!src) {
+        return nil;
+    }
     self = [super init];
     if (self) {
         // Strip protocol for consistency.
@@ -119,7 +123,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)imageTagContents {
     NSString* newImageTagContents   = nil;
     NSMutableDictionary* attributes = [self.additionalAttributes mutableCopy];
-    
+
     if (self.originalImageTagContents && self.originalImageTagContentsSrcAttributeRange.location != NSNotFound) {
         newImageTagContents = [self.originalImageTagContents stringByReplacingCharactersInRange:self.originalImageTagContentsSrcAttributeRange withString:self.src]; //only src is settable
     } else {
@@ -136,7 +140,7 @@ NS_ASSUME_NONNULL_BEGIN
     for (NSString* attribute in attributes) {
         NSString* value = attributes[attribute];
         if (value) {
-            NSString* attributeString = [@[@" ", attribute, @"=", value] componentsJoinedByString:@""];
+            NSString* attributeString = [@[@" ", attribute, @"=", value] componentsJoinedByString : @""];
             newImageTagContents = [newImageTagContents stringByAppendingString:attributeString];
         }
     }
