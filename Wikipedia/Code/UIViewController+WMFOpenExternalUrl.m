@@ -10,6 +10,7 @@
 #import "UIAlertView+BlocksKit.h"
 #import "WMFZeroMessage.h"
 #import <SafariServices/SFSafariViewController.h>
+#import "NSURL+WMFExtras.h"
 
 @implementation UIViewController (WMFOpenExternalLinkDelegate)
 
@@ -63,11 +64,16 @@
 }
 
 - (void)wmf_presentExternalUrlWithinApp:(NSURL *)url {
-//    iOS 9 and later
-    if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){9, 0, 0}]) {
-        [self wmf_presentExternalUrlAsSFSafari:url];
+    url = [url wmf_urlByPrependingSchemeIfSchemeless];
+    NSString *scheme = url.scheme.lowercaseString;
+    if (scheme.length == 0 || (![scheme isEqualToString:@"https"] && ![scheme isEqualToString:@"http"]) || url.host.length == 0) {
+        DDLogError(@"Attempted to open invalid external URL: %@", url);
+        return;
     }
-    else {
+    
+    if ([SFSafariViewController class]) {
+        [self wmf_presentExternalUrlAsSFSafari:url];
+    } else {
         [self wmf_presentExternalUrlAsSVModal:url];
     }
 }

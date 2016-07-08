@@ -17,7 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)wmf_isSchemeless;
 
-- (NSString*)wmf_schemelessURLString;
+- (nullable NSString*)wmf_schemelessURLString;
+
+- (nullable NSURL*)wmf_schemelessURL;
 
 - (NSString*)wmf_mimeTypeForExtension;
 
