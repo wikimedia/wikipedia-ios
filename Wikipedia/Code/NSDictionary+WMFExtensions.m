@@ -39,6 +39,7 @@
         
     }];
     
+    return hasNull;
 }
 
 @end
