@@ -102,33 +102,42 @@ NSString* const WMFCCBySALicenseURL =
     }
 
     if ([message.body isKindOfClass:[NSDictionary class]]) {
-        if ([message.body wmf_recursivelyContainsNullObjects]) {
-            return;
-        }
-
+        
+        NSDictionary* body = [message.body wmf_dictionaryByRemovingNullObjects];
+        
         if ([message.name isEqualToString:@"peek"]) {
-            NSDictionary* peekElementDict = message.body[@"peekElement"];
+            NSDictionary* peekElementDict = body[@"peekElement"];
+            
+            if(![peekElementDict isKindOfClass:[NSDictionary class]]){
+                return;
+            }
 
+            peekElementDict = [peekElementDict wmf_dictionaryByRemovingNullObjects];
+            
             self.peekElement =
-                [[WMFPeekHTMLElement alloc] initWithTagName:peekElementDict[@"tagName"]
-                                                        src:peekElementDict[@"src"]
-                                                       href:peekElementDict[@"href"]];
+            [[WMFPeekHTMLElement alloc] initWithTagName:peekElementDict[@"tagName"]
+                                                    src:peekElementDict[@"src"]
+                                                   href:peekElementDict[@"href"]];
         }
 
-        if ([message.name isEqualToString:@"sendJavascriptConsoleLogMessageToXcodeConsole"]) {
-            DDLogDebug(@"\n\nMessage from Javascript console:\n\t%@\n\n", message.body[@"message"]);
+        else if ([message.name isEqualToString:@"sendJavascriptConsoleLogMessageToXcodeConsole"]) {
+            DDLogDebug(@"\n\nMessage from Javascript console:\n\t%@\n\n", body[@"message"]);
         }
 
-        if ([message.name isEqualToString:@"clicks"]) {
-            if (message.body[@"linkClicked"]) {
+        else if ([message.name isEqualToString:@"clicks"]) {
+            if (body[@"linkClicked"]) {
                 if (self.isPeeking) {
                     self.isPeeking = NO;
                     return;
                 }
 
-                NSDictionary* linkClicked = message.body[@"linkClicked"];
+                NSDictionary* linkClicked = [body[@"linkClicked"] wmf_dictionaryByRemovingNullObjects];
 
                 NSString* href = linkClicked[@"href"];
+                
+                if([href length] == 0){
+                    return;
+                }
 
                 if (!(self).referencesHidden) {
                     [(self) referencesHide];
@@ -155,8 +164,8 @@ NSString* const WMFCCBySALicenseURL =
                 }
             }
 
-            if (message.body[@"imageClicked"]) {
-                NSDictionary* imageClicked = message.body[@"imageClicked"];
+            else if (body[@"imageClicked"]) {
+                NSDictionary* imageClicked = [body[@"imageClicked"] wmf_dictionaryByRemovingNullObjects];
 
                 WMFImageTag* imageTagClicked = [[WMFImageTag alloc] initWithSrc:imageClicked[@"src"]
                                                                          srcset:nil
@@ -182,14 +191,14 @@ NSString* const WMFCCBySALicenseURL =
                 selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
 
                 [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
-            } else if (message.body[@"referenceClicked"]) {
-                [self referencesShow:message.body[@"referenceClicked"]];
-            } else if (message.body[@"editClicked"]) {
-                NSUInteger sectionIndex = (NSUInteger)[message.body[@"editClicked"][@"sectionId"] integerValue];
+            } else if (body[@"referenceClicked"]) {
+                [self referencesShow:body[@"referenceClicked"]];
+            } else if (body[@"editClicked"]) {
+                NSUInteger sectionIndex = (NSUInteger)[body[@"editClicked"][@"sectionId"] integerValue];
                 if (sectionIndex < [self.article.sections count]) {
                     [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
                 }
-            } else if (message.body[@"nonAnchorTouchEndedWithoutDragging"]) {
+            } else if (body[@"nonAnchorTouchEndedWithoutDragging"]) {
                 [self referencesHide];
             }
         }
