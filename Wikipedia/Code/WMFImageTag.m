@@ -31,6 +31,10 @@ NS_ASSUME_NONNULL_BEGIN
     if (!src) {
         return nil;
     }
+    if([[src stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] == 0){
+        return nil;
+    }
+    
     self = [super init];
     if (self) {
         // Strip protocol for consistency.
@@ -84,9 +88,14 @@ NS_ASSUME_NONNULL_BEGIN
         *stop = width && height && dataFileWidth && dataFileHeight && src && srcAttributeRange.location != NSNotFound;
     }];
 
+    //Don't continue initialization if we have invalid src
+    if([src length] == 0){
+        return nil;
+    }
+    
     self.originalImageTagContentsSrcAttributeRange = srcAttributeRange;
     self.originalImageTagContents                  = imageTagContents;
-
+    
     return [self initWithSrc:src srcset:nil alt:nil width:width height:height dataFileWidth:dataFileWidth dataFileHeight:dataFileHeight];
 }
 
