@@ -172,10 +172,24 @@
                is(equalTo(@"//upload.wikimedia.org/wikipedia//")));
 }
 
-- (void)testSVG {
+- (void)testParseImageNameFromURLofSVG {
     NSString* testURLString = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg/640px-Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg.png";
     assertThat(WMFParseImageNameFromSourceURL(testURLString),
                is(equalTo(@"Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg")));
+}
+
+- (void)testSizePrefixChangeOnCanonicalImageURLWithSizePrefixInFileName {
+    // Normally images only have "XXXpx-" size prefix when returned from the thumbnail scaler, but there's nothing stopping users from uploading images with "XXXpx-" size prefix in the canonical name.
+    // (See last image on "enwiki > Geothermal gradient")
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/0/0b/300px-Geothermgradients.png", 100),
+               is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/0/0b/300px-Geothermgradients.png/100px-300px-Geothermgradients.png")));
+}
+
+- (void)testParseImageNameFromCanonicalImageURLWithSizePrefixInFileName {
+    NSString* testURLString = @"//upload.wikimedia.org/wikipedia/commons/0/0b/300px-Geothermgradients.png";
+    assertThat(WMFParseImageNameFromSourceURL(testURLString),
+               is(equalTo(@"300px-Geothermgradients.png")));
+    //                      ^ the canonical image has the size in the file name, so "300px-" is correct here.
 }
 
 @end

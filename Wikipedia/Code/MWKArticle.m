@@ -431,14 +431,12 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     }];
 }
 
--(NSArray<NSURL*>*)schemelessURLs:(NSArray<NSURL*>*)urls {
-    return [urls bk_map:^NSURL*(NSURL* url){
-        NSString* urlStr = url.absoluteString;
-        NSRange dividerRange = [urlStr rangeOfString:@"://"];
-        if (dividerRange.location != NSNotFound) {
-            return [NSURL URLWithString:[urlStr substringFromIndex:dividerRange.location + 1]];
+-(NSArray<NSURL*>*)schemelessURLsRejectingNilURLs:(NSArray<NSURL*>*)urls {
+    return [urls wmf_mapAndRejectNil:^NSURL*(NSURL* url){
+        if([url isKindOfClass:[NSURL class]]){
+            return [url wmf_schemelessURL];
         }else{
-            return url;
+            return nil;
         }
     }];
 }
@@ -451,11 +449,27 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     [imageURLs addObjectsFromArray:[tagList imageURLsForGallery]];
     [imageURLs addObjectsFromArray:[tagList imageURLsForSaving]];
 
-    NSArray<NSURL*>* lazilyFetchedHighResolutionGalleryImageURLs = [[self.dataStore imageInfoForTitle:self.title] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, canonicalFileURL)];
-    [imageURLs addObjectsFromArray:[self schemelessURLs:lazilyFetchedHighResolutionGalleryImageURLs]];
+    NSArray<MWKImageInfo*>* infos = [self.dataStore imageInfoForTitle:self.title];
     
-    NSArray<NSURL*>* thumbURLs = [[self.dataStore imageInfoForTitle:self.title] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, imageThumbURL)];
-    [imageURLs addObjectsFromArray:[self schemelessURLs:thumbURLs]];
+    NSArray<NSURL*>* lazilyFetchedHighResolutionGalleryImageURLs = [infos wmf_mapAndRejectNil:^id _Nullable(MWKImageInfo * _Nonnull obj) {
+        if([obj isKindOfClass:[MWKImageInfo class]]){
+            return [obj canonicalFileURL];
+        }else{
+            return nil;
+        }
+    }];
+    
+    [imageURLs addObjectsFromArray:[self schemelessURLsRejectingNilURLs:lazilyFetchedHighResolutionGalleryImageURLs]];
+    
+    NSArray<NSURL*>* thumbURLs = [infos wmf_mapAndRejectNil:^id _Nullable(MWKImageInfo * _Nonnull obj) {
+        if([obj isKindOfClass:[MWKImageInfo class]]){
+            return [obj imageThumbURL];
+        }else{
+            return nil;
+        }
+    }];
+
+    [imageURLs addObjectsFromArray:[self schemelessURLsRejectingNilURLs:thumbURLs]];
     
     NSURL* articleImageURL = [NSURL wmf_optionalURLWithString:self.imageURL];
     [imageURLs wmf_safeAddObject:articleImageURL];
