@@ -27,6 +27,14 @@ NS_ASSUME_NONNULL_BEGIN
                      height:(nullable NSString*)height
               dataFileWidth:(nullable NSString*)dataFileWidth
              dataFileHeight:(nullable NSString*)dataFileHeight {
+    NSParameterAssert(src);
+    if (!src) {
+        return nil;
+    }
+    if([[src stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] == 0){
+        return nil;
+    }
+    
     self = [super init];
     if (self) {
         // Strip protocol for consistency.
@@ -80,9 +88,14 @@ NS_ASSUME_NONNULL_BEGIN
         *stop = width && height && dataFileWidth && dataFileHeight && src && srcAttributeRange.location != NSNotFound;
     }];
 
+    //Don't continue initialization if we have invalid src
+    if([src length] == 0){
+        return nil;
+    }
+    
     self.originalImageTagContentsSrcAttributeRange = srcAttributeRange;
     self.originalImageTagContents                  = imageTagContents;
-
+    
     return [self initWithSrc:src srcset:nil alt:nil width:width height:height dataFileWidth:dataFileWidth dataFileHeight:dataFileHeight];
 }
 
@@ -119,7 +132,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)imageTagContents {
     NSString* newImageTagContents   = nil;
     NSMutableDictionary* attributes = [self.additionalAttributes mutableCopy];
-    
+
     if (self.originalImageTagContents && self.originalImageTagContentsSrcAttributeRange.location != NSNotFound) {
         newImageTagContents = [self.originalImageTagContents stringByReplacingCharactersInRange:self.originalImageTagContentsSrcAttributeRange withString:self.src]; //only src is settable
     } else {
@@ -136,7 +149,7 @@ NS_ASSUME_NONNULL_BEGIN
     for (NSString* attribute in attributes) {
         NSString* value = attributes[attribute];
         if (value) {
-            NSString* attributeString = [@[@" ", attribute, @"=", value] componentsJoinedByString:@""];
+            NSString* attributeString = [@[@" ", attribute, @"=", value] componentsJoinedByString : @""];
             newImageTagContents = [newImageTagContents stringByAppendingString:attributeString];
         }
     }
