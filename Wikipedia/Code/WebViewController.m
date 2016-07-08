@@ -89,6 +89,14 @@ NSString* const WMFCCBySALicenseURL =
 #pragma mark - WebView Javascript configuration
 
 - (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message {
+    /**
+     *  Warning!!
+     *  All messages from JS can contain NSNulls.
+     *  All elements must be checked for existence of NSNull before being passed on to any other methods.
+     * Additionally body is untyped, so its class must be
+     * checked before proceeding.
+     */
+    
     if ([message.name isEqualToString:@"peek"]) {
         NSDictionary* peekElementDict = message.body[@"peekElement"];
         if ([peekElementDict isMemberOfClass:[NSNull class]]) {
