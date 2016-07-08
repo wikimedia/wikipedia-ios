@@ -102,17 +102,12 @@ NSString* const WMFCCBySALicenseURL =
     }
 
     if ([message.body isKindOfClass:[NSDictionary class]]) {
-        if ([message.body containsNullObjects]) {
+        if ([message.body wmf_recursivelyContainsNullObjects]) {
             return;
         }
 
         if ([message.name isEqualToString:@"peek"]) {
             NSDictionary* peekElementDict = message.body[@"peekElement"];
-
-            if ([peekElementDict containsNullObjects]) {
-                self.peekElement = nil;
-                return;
-            }
 
             self.peekElement =
                 [[WMFPeekHTMLElement alloc] initWithTagName:peekElementDict[@"tagName"]
@@ -132,10 +127,6 @@ NSString* const WMFCCBySALicenseURL =
                 }
 
                 NSDictionary* linkClicked = message.body[@"linkClicked"];
-
-                if ([linkClicked containsNullObjects]) {
-                    return;
-                }
 
                 NSString* href = linkClicked[@"href"];
 
@@ -166,10 +157,6 @@ NSString* const WMFCCBySALicenseURL =
 
             if (message.body[@"imageClicked"]) {
                 NSDictionary* imageClicked = message.body[@"imageClicked"];
-
-                if ([imageClicked containsNullObjects]) {
-                    return;
-                }
 
                 WMFImageTag* imageTagClicked = [[WMFImageTag alloc] initWithSrc:imageClicked[@"src"]
                                                                          srcset:nil
