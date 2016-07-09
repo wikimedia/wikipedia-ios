@@ -35,6 +35,7 @@
 #import "WMFPeekHTMLElement.h"
 #import "NSURL+WMFProxyServer.h"
 #import "WMFImageTag.h"
+#import "WKScriptMessage+WMFScriptMessage.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -89,146 +90,164 @@ NSString* const WMFCCBySALicenseURL =
 #pragma mark - WKScriptMessageHandler
 
 - (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message {
-    /**
-     *  Warning!!
-     *  All messages from JS can contain NSNulls.
-     *  All elements must be checked for existence of NSNull before being passed on to any other methods.
-     * Additionally body is untyped, so its class must be
-     * checked before proceeding.
-     */
 
-    if ([message.body isKindOfClass:[NSNull class]]) {
+    WMFWKScriptMessageType messageType = [WKScriptMessage wmf_typeForMessageName:message.name];
+    if (![message.body isKindOfClass:[WKScriptMessage wmf_expectedMessageBodyClassForType:messageType]]) {
+        NSAssert(NO, @"Unexpected script message body kind of class!");
         return;
     }
 
-    if ([message.body isKindOfClass:[NSDictionary class]]) {
-        
-        NSDictionary* body = [message.body wmf_dictionaryByRemovingNullObjects];
-        
-        if ([message.name isEqualToString:@"peek"]) {
-            NSDictionary* peekElementDict = body[@"peekElement"];
-            
-            if(![peekElementDict isKindOfClass:[NSDictionary class]]){
-                return;
+    switch (messageType) {
+        case WMFWKScriptMessagePeek:
+            [self handlePeekScriptMessage:message.body];
+            break;
+        case WMFWKScriptMessageConsoleMessage:
+            [self handleMessageConsoleScriptMessage:message.body];
+            break;
+        case WMFWKScriptMessageClickLink:
+            [self handleClickLinkScriptMessage:message.body];
+            break;
+        case WMFWKScriptMessageClickImage:
+            [self handleClickImageScriptMessage:message.body];
+            break;
+        case WMFWKScriptMessageClickReference:
+            [self handleClickReferenceScriptMessage:message.body];
+            break;
+        case WMFWKScriptMessageClickEdit:
+            [self handleClickEditScriptMessage:message.body];
+            break;
+        case WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging:
+            [self handleNonAnchorTouchEndedWithoutDraggingScriptMessage];
+            break;
+        case WMFWKScriptMessageLateJavascriptTransform:
+            [self handleLateJavascriptTransformScriptMessage:message.body];
+            break;
+        case WMFWKScriptMessageArticleState:
+            [self handleArticleStateScriptMessage:message.body];
+            break;
+        case WMFWKScriptMessageUnknown:
+            NSAssert(NO, @"Unhandled script message type!");
+            break;
+    }
+}
+
+- (void)handlePeekScriptMessage:(NSDictionary*)messageDict {
+    if(messageDict.count == 0){
+        self.peekElement = nil;
+    }else{
+        self.peekElement = [[WMFPeekHTMLElement alloc] initWithTagName:messageDict[@"tagName"]
+                                                                   src:messageDict[@"src"]
+                                                                  href:messageDict[@"href"]];
+    }
+}
+
+- (void)handleMessageConsoleScriptMessage:(NSDictionary*)messageDict {
+    DDLogDebug(@"\n\nMessage from Javascript console:\n\t%@\n\n", messageDict[@"message"]);
+}
+
+- (void)handleClickLinkScriptMessage:(NSDictionary*)messageDict {
+    if (self.isPeeking) {
+        self.isPeeking = NO;
+        return;
+    }
+    
+    NSString* href = messageDict[@"href"];
+    
+    if(href.length == 0){
+        return;
+    }
+    
+    if (!self.referencesHidden) {
+        [self referencesHide];
+    }
+    
+    if ([href wmf_isInternalLink]) {
+        MWKTitle* pageTitle = [self.article.site titleWithInternalLink:href];
+        [(self).delegate webViewController:(self) didTapOnLinkForTitle:pageTitle];
+    } else {
+        // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
+        if ([href hasPrefix:@"#"]) {
+            [self scrollToFragment:[href substringFromIndex:1]];
+        } else {
+            if ([href hasPrefix:@"//"]) {
+                // Expand protocol-relative link to https -- secure by default!
+                href = [@"https:" stringByAppendingString:href];
             }
-
-            peekElementDict = [peekElementDict wmf_dictionaryByRemovingNullObjects];
-            
-            self.peekElement =
-            [[WMFPeekHTMLElement alloc] initWithTagName:peekElementDict[@"tagName"]
-                                                    src:peekElementDict[@"src"]
-                                                   href:peekElementDict[@"href"]];
-        }
-
-        else if ([message.name isEqualToString:@"sendJavascriptConsoleLogMessageToXcodeConsole"]) {
-            DDLogDebug(@"\n\nMessage from Javascript console:\n\t%@\n\n", body[@"message"]);
-        }
-
-        else if ([message.name isEqualToString:@"clicks"]) {
-            if (body[@"linkClicked"]) {
-                if (self.isPeeking) {
-                    self.isPeeking = NO;
-                    return;
-                }
-
-                NSDictionary* linkClicked = [body[@"linkClicked"] wmf_dictionaryByRemovingNullObjects];
-
-                NSString* href = linkClicked[@"href"];
-                
-                if([href length] == 0){
-                    return;
-                }
-
-                if (!(self).referencesHidden) {
-                    [(self) referencesHide];
-                }
-
-                if ([href wmf_isInternalLink]) {
-                    MWKTitle* pageTitle = [self.article.site titleWithInternalLink:href];
-                    [(self).delegate webViewController:(self) didTapOnLinkForTitle:pageTitle];
-                } else {
-                    // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
-                    if ([href hasPrefix:@"#"]) {
-                        [self scrollToFragment:[href substringFromIndex:1]];
-                    } else {
-                        if ([href hasPrefix:@"//"]) {
-                            // Expand protocol-relative link to https -- secure by default!
-                            href = [@"https:" stringByAppendingString:href];
-                        }
-                        NSURL* url = [NSURL URLWithString:href];
-                        NSCAssert(url, @"Failed to from URL from link %@", href);
-                        if (url) {
-                            [self wmf_openExternalUrl:url];
-                        }
-                    }
-                }
-            }
-
-            else if (body[@"imageClicked"]) {
-                NSDictionary* imageClicked = [body[@"imageClicked"] wmf_dictionaryByRemovingNullObjects];
-
-                WMFImageTag* imageTagClicked = [[WMFImageTag alloc] initWithSrc:imageClicked[@"src"]
-                                                                         srcset:nil
-                                                                            alt:nil
-                                                                          width:imageClicked[@"width"]
-                                                                         height:imageClicked[@"height"]
-                                                                  dataFileWidth:imageClicked[@"data-file-width"]
-                                                                 dataFileHeight:imageClicked[@"data-file-height"]];
-
-                if (![imageTagClicked isSizeLargeEnoughForGalleryInclusion]) {
-                    return;
-                }
-
-                NSString* selectedImageSrcURLString = imageClicked[@"src"];
-                NSCParameterAssert(selectedImageSrcURLString.length);
-                if (!selectedImageSrcURLString.length) {
-                    DDLogError(@"Image clicked callback invoked with empty src url: %@", imageClicked);
-                    return;
-                }
-
-                NSURL* selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
-
-                selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
-
-                [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
-            } else if (body[@"referenceClicked"]) {
-                [self referencesShow:body[@"referenceClicked"]];
-            } else if (body[@"editClicked"]) {
-                NSUInteger sectionIndex = (NSUInteger)[body[@"editClicked"][@"sectionId"] integerValue];
-                if (sectionIndex < [self.article.sections count]) {
-                    [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
-                }
-            } else if (body[@"nonAnchorTouchEndedWithoutDragging"]) {
-                [self referencesHide];
+            NSURL* url = [NSURL URLWithString:href];
+            NSCAssert(url, @"Failed to from URL from link %@", href);
+            if (url) {
+                [self wmf_openExternalUrl:url];
             }
         }
     }
+}
 
-    if ([message.body isKindOfClass:[NSString class]]) {
-        if ([message.name isEqualToString:@"lateJavascriptTransforms"]) {
-            if ([message.body isEqualToString:@"collapseTables"]) {
-                [self.webView wmf_collapseTablesForArticle:self.article];
-            } else if ([message.body isEqualToString:@"setLanguage"]) {
-                [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.site.language]];
-            } else if ([message.body isEqualToString:@"setPageProtected"] && !self.article.editable) {
-                [self.webView wmf_setPageProtected];
-            }
-        } else if ([message.name isEqualToString:@"articleState"]) {
-            if ([message.body isEqualToString:@"articleLoaded"]) {
-                NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
-                [self.delegate webViewController:self didLoadArticle:self.article];
+- (void)handleClickImageScriptMessage:(NSDictionary*)messageDict {
+    WMFImageTag* imageTagClicked = [[WMFImageTag alloc] initWithSrc:messageDict[@"src"]
+                                                             srcset:nil
+                                                                alt:nil
+                                                              width:messageDict[@"width"]
+                                                             height:messageDict[@"height"]
+                                                      dataFileWidth:messageDict[@"data-file-width"]
+                                                     dataFileHeight:messageDict[@"data-file-height"]];
+    
+    if (![imageTagClicked isSizeLargeEnoughForGalleryInclusion]) {
+        return;
+    }
+    
+    NSString* selectedImageSrcURLString = messageDict[@"src"];
+    NSCParameterAssert(selectedImageSrcURLString.length);
+    if (!selectedImageSrcURLString.length) {
+        DDLogError(@"Image clicked callback invoked with empty src url: %@", messageDict);
+        return;
+    }
+    
+    NSURL* selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
+    
+    selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
+    
+    [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
+}
 
-                [UIView animateWithDuration:0.3
-                                      delay:0.5f
-                                    options:UIViewAnimationOptionBeginFromCurrentState
-                                 animations:^{
-                    self.headerView.alpha = 1.f;
-                    self.footerContainerView.alpha = 1.f;
-                } completion:^(BOOL done) {
-                }];
-                [self forceUpdateWebviewPaddingForFooters];
-            }
-        }
+- (void)handleClickReferenceScriptMessage:(NSDictionary*)messageDict {
+    [self referencesShow:messageDict];
+}
+
+- (void)handleClickEditScriptMessage:(NSDictionary*)messageDict {
+    NSUInteger sectionIndex = (NSUInteger)[messageDict[@"sectionId"] integerValue];
+    if (sectionIndex < [self.article.sections count]) {
+        [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
+    }
+}
+
+- (void)handleNonAnchorTouchEndedWithoutDraggingScriptMessage {
+    [self referencesHide];
+}
+
+- (void)handleLateJavascriptTransformScriptMessage:(NSString*)messageString {
+    if ([messageString isEqualToString:@"collapseTables"]) {
+        [self.webView wmf_collapseTablesForArticle:self.article];
+    } else if ([messageString isEqualToString:@"setLanguage"]) {
+        [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.site.language]];
+    } else if ([messageString isEqualToString:@"setPageProtected"] && !self.article.editable) {
+        [self.webView wmf_setPageProtected];
+    }
+}
+
+- (void)handleArticleStateScriptMessage:(NSString*)messageString {
+    if ([messageString isEqualToString:@"articleLoaded"]) {
+        NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
+        [self.delegate webViewController:self didLoadArticle:self.article];
+        
+        [UIView animateWithDuration:0.3
+                              delay:0.5f
+                            options:UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             self.headerView.alpha = 1.f;
+                             self.footerContainerView.alpha = 1.f;
+                         } completion:^(BOOL done) {
+                         }];
+        [self forceUpdateWebviewPaddingForFooters];
     }
 }
 
@@ -237,17 +256,20 @@ NSString* const WMFCCBySALicenseURL =
 - (WKWebViewConfiguration*)configuration {
     WKUserContentController* userContentController = [[WKUserContentController alloc] init];
 
-    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransforms.postMessage('collapseTables');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
+    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('collapseTables');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
 
-    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransforms.postMessage('setPageProtected');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
+    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('setPageProtected');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
 
-    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransforms.postMessage('setLanguage');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
+    [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('setLanguage');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
 
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"lateJavascriptTransforms"];
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"lateJavascriptTransform"];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"peek"];
-
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"clicks"];
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"linkClicked"];
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"imageClicked"];
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"referenceClicked"];
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"editClicked"];
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"nonAnchorTouchEndedWithoutDragging"];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"sendJavascriptConsoleLogMessageToXcodeConsole"];
 
