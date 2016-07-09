@@ -108,12 +108,12 @@ function sendNearbyReferences( sourceNode ) {
     }
 
     // Special handling for references
-    window.webkit.messageHandlers.clicks.postMessage({"referenceClicked": {
+    window.webkit.messageHandlers.referenceClicked.postMessage({
                                                      "refs": refs,
                                                      "refsIndex": refsIndex,
                                                      "linkId": linkId,
                                                      "linkText": linkText
-                                                     }});
+                                                     });
 }
 
 exports.isReference = isReference;
