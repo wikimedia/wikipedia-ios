@@ -154,22 +154,21 @@ function maybeSendMessageForTarget(event, hrefTarget){
 
 document.addEventListener("touchend", handleTouchEnded, false);
 
+ function shouldPeekElement(element){
+    return (element.tagName == "IMG" || (element.tagName == "A" && !refs.isReference(element.href) && !refs.isCitation(element.href) && !refs.isEndnote(element.href)));
+ }
+ 
  // 3D Touch peeking listeners.
  document.addEventListener("touchstart", function (event) {
                            // Send message with url (if any) from touch element to native land.
                            var element = window.wmf.elementLocation.getElementFromPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY);
-                           
-                           if(element.tagName == "A"){
-                                if(refs.isReference(element.href) || refs.isCitation(element.href) || refs.isEndnote(element.href)){
-                                    return;
-                                }
+                           if(shouldPeekElement(element)){
+                               window.webkit.messageHandlers.peek.postMessage({
+                                                                              'tagName': element.tagName,
+                                                                              'href': element.href,
+                                                                              'src': element.src
+                                                                              });
                            }
-
-                           window.webkit.messageHandlers.peek.postMessage({
-                                                                          'tagName': element.tagName,
-                                                                          'href': element.href,
-                                                                          'src': element.src
-                                                                          });
                            }, false);
  
  document.addEventListener("touchend", function () {
