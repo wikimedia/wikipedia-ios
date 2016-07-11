@@ -74,6 +74,7 @@
 		0EC044791C7917860033D773 /* WMFArticleTextActivitySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC044781C7917860033D773 /* WMFArticleTextActivitySource.m */; };
 		0EC0447B1C796FEF0033D773 /* WMFImageTextActivitySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0447A1C796FEF0033D773 /* WMFImageTextActivitySource.swift */; };
 		0EC0447F1C797DC20033D773 /* WMFImageURLActivitySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0447E1C797DC20033D773 /* WMFImageURLActivitySource.swift */; };
+		0EC376331D3002830001D4BF /* NSDictionary+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC376321D3002830001D4BF /* NSDictionary+WMFExtensions.m */; };
 		0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED2E9F91CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift */; };
 		0EF2249A1CC5536200FDF78E /* WMFLanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF224991CC5536200FDF78E /* WMFLanguageCell.m */; };
 		0EF5BB6A1C110BFC00DE75E1 /* WMFLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB691C110BFC00DE75E1 /* WMFLocalization.m */; };
@@ -793,6 +794,8 @@
 		0EC044781C7917860033D773 /* WMFArticleTextActivitySource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleTextActivitySource.m; path = Wikipedia/Code/WMFArticleTextActivitySource.m; sourceTree = SOURCE_ROOT; };
 		0EC0447A1C796FEF0033D773 /* WMFImageTextActivitySource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFImageTextActivitySource.swift; path = Wikipedia/Code/WMFImageTextActivitySource.swift; sourceTree = SOURCE_ROOT; };
 		0EC0447E1C797DC20033D773 /* WMFImageURLActivitySource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFImageURLActivitySource.swift; path = Wikipedia/Code/WMFImageURLActivitySource.swift; sourceTree = SOURCE_ROOT; };
+		0EC376311D3002830001D4BF /* NSDictionary+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+WMFExtensions.h"; path = "Wikipedia/Code/NSDictionary+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
+		0EC376321D3002830001D4BF /* NSDictionary+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+WMFExtensions.m"; path = "Wikipedia/Code/NSDictionary+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
 		0ED2E9F91CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIVIewController+WMFCommonRotationSupport.swift"; path = "Wikipedia/Code/UIVIewController+WMFCommonRotationSupport.swift"; sourceTree = SOURCE_ROOT; };
 		0ED79A3B1CB5B507005D9AF5 /* Wikipedia-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wikipedia-Info.plist"; sourceTree = "<group>"; };
 		0EF224991CC5536200FDF78E /* WMFLanguageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLanguageCell.m; sourceTree = "<group>"; };
@@ -3754,6 +3757,8 @@
 				B07D25DA1D25EBAD00550721 /* NSMutableSet+WMFSafeAdd.m */,
 				B0E8049A1C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.h */,
 				B0E8049B1C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.m */,
+				0EC376311D3002830001D4BF /* NSDictionary+WMFExtensions.h */,
+				0EC376321D3002830001D4BF /* NSDictionary+WMFExtensions.m */,
 			);
 			name = Collections;
 			sourceTree = "<group>";
@@ -5752,6 +5757,7 @@
 				0E09EAC31C4426470058F2D8 /* WMFSearchResultsTableViewController.m in Sources */,
 				B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				B0E806991C0CEAC20065EBC0 /* AccountCreationViewController.m in Sources */,
+				0EC376331D3002830001D4BF /* NSDictionary+WMFExtensions.m in Sources */,
 				B0AB163A1C7E5A3F002E566A /* UIViewController+WMFWelcomeNavigation.m in Sources */,
 				B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */,
 				B06531601C220921003BD7DC /* WMFArticlePreviewDataSource.m in Sources */,
@@ -6258,7 +6264,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 891;
+				CURRENT_PROJECT_VERSION = 899;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6390,7 +6396,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 891;
+				CURRENT_PROJECT_VERSION = 899;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6660,7 +6666,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 891;
+				CURRENT_PROJECT_VERSION = 899;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
@@ -6705,7 +6711,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 891;
+				CURRENT_PROJECT_VERSION = 899;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
