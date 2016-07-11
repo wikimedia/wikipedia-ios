@@ -59,7 +59,7 @@ function maybeSendMessageForTarget(event, hrefTarget){
     var hrefClass = hrefTarget.getAttribute('class');
     if (hrefTarget.getAttribute( "data-action" ) === "edit_section") {
         window.webkit.messageHandlers.editClicked.postMessage({ sectionId: hrefTarget.getAttribute( "data-id" ) });
-    } else if (href && refs.isReference(href)) {
+    } else if (href && refs.isCitation(href)) {
         // Handle reference links with a popup view instead of scrolling about!
         refs.sendNearbyReferences( hrefTarget );
     } else if (href && href[0] === "#") {
@@ -92,6 +92,13 @@ document.addEventListener("touchend", handleTouchEnded, false);
  document.addEventListener("touchstart", function (event) {
                            // Send message with url (if any) from touch element to native land.
                            var element = window.wmf.elementLocation.getElementFromPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY);
+                           
+                           if(element.tagName == "A"){
+                                if(refs.isReference(element.href) || refs.isCitation(element.href) || refs.isEndnote(element.href)){
+                                    return;
+                                }
+                           }
+
                            window.webkit.messageHandlers.peek.postMessage({
                                                                           'tagName': element.tagName,
                                                                           'href': element.href,

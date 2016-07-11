@@ -1,6 +1,14 @@
 
+function isCitation( href ) {
+    return href.includes("#cite_note");
+}
+
+function isEndnote( href ) {
+    return href.includes("#endnote_");
+}
+
 function isReference( href ) {
-    return ( href.slice( 0, 10 ) === "#cite_note" );
+    return href.includes("#ref_");
 }
 
 function goDown( element ) {
@@ -38,9 +46,9 @@ var goRight = skipOverWhitespace( function( element ) {
     return element.nextSibling;
 });
 
-function hasReferenceLink( element ) {
+function hasCitationLink( element ) {
     try {
-        return isReference( goDown( element ).getAttribute( "href" ) );
+        return isCitation( goDown( element ).getAttribute( "href" ) );
     } catch (e) {
         return false;
     }
@@ -90,7 +98,7 @@ function sendNearbyReferences( sourceNode ) {
 
     // go left:
     curNode = sourceNode.parentElement;
-    while ( hasReferenceLink( goLeft( curNode ) ) ) {
+    while ( hasCitationLink( goLeft( curNode ) ) ) {
         refsIndex += 1;
         curNode = goLeft( curNode );
         refs.unshift( collectRefText( goDown ( curNode ) ) );
@@ -100,7 +108,7 @@ function sendNearbyReferences( sourceNode ) {
 
     // go right:
     curNode = sourceNode.parentElement;
-    while ( hasReferenceLink( goRight( curNode ) ) ) {
+    while ( hasCitationLink( goRight( curNode ) ) ) {
         curNode = goRight( curNode );
         refs.push( collectRefText( goDown ( curNode ) ) );
         linkId.push( collectRefLink( curNode ) );
@@ -116,5 +124,7 @@ function sendNearbyReferences( sourceNode ) {
                                                      });
 }
 
+exports.isEndnote = isEndnote;
 exports.isReference = isReference;
+exports.isCitation = isCitation;
 exports.sendNearbyReferences = sendNearbyReferences;
