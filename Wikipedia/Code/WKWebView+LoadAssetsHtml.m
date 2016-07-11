@@ -24,9 +24,6 @@ static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is
 
 - (void)loadHTML:(NSString*)string baseURL:(NSURL *)baseURL withAssetsFile:(NSString*)fileName scrolledToFragment:(NSString*)fragment topPadding:(NSUInteger)topPadding {
     
-    dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_HIGH), ^{
-        
-    });
     if (!string) {
         string = @"";
     }
