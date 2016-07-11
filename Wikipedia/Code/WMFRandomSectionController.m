@@ -13,6 +13,7 @@
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
 #import "WMFRandomArticleViewController.h"
+#import "WMFFirstRandomViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -149,7 +150,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 }
 
 - (UIViewController*)moreViewController {
-    return [[WMFRandomArticleViewController alloc] init];
+    return [[WMFFirstRandomViewController alloc] initWithSite:self.searchSite dataStore:self.dataStore];
 }
 
 

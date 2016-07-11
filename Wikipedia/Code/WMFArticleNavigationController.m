@@ -6,6 +6,7 @@
 @property (nullable, nonatomic, weak) id<UINavigationControllerDelegate> navigationDelegate;
 
 @property (nonatomic, strong) UIToolbar* secondToolbar;
+@property (nonatomic, getter = isSecondToolbarHidden) BOOL secondToolbarHidden;
 
 @end
 
@@ -15,9 +16,10 @@
     [super viewDidLoad];
     [super setDelegate:self];
 
-    self.secondToolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
-
+    self.secondToolbarHidden = YES;
+    self.secondToolbar       = [[UIToolbar alloc] initWithFrame:CGRectZero];
     [self.view addSubview:self.secondToolbar];
+    [self layoutSecondToolbarForViewBounds:self.view.bounds hidden:self.isSecondToolbarHidden animated:NO];
 }
 
 - (void)setDelegate:(id<UINavigationControllerDelegate>)delegate {
@@ -28,18 +30,38 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    [self layoutSecondToolbarForViewBounds:self.view.bounds hidden:NO];
+    [self layoutSecondToolbarForViewBounds:self.view.bounds hidden:self.isSecondToolbarHidden animated:NO];
 }
 
-- (void)layoutSecondToolbarForViewBounds:(CGRect)bounds hidden:(BOOL)hidden {
+- (void)layoutSecondToolbarForViewBounds:(CGRect)bounds hidden:(BOOL)hidden animated:(BOOL)animated {
     CGSize size = CGSizeMake(bounds.size.width, 60);
     CGPoint origin;
-    if (self.isToolbarHidden) {
-        origin = CGPointMake(0, bounds.size.height - size.height);
+    if (hidden) {
+        if (self.isToolbarHidden) {
+            origin = CGPointMake(0, bounds.size.height);
+        } else {
+            origin = CGPointMake(0, self.toolbar.frame.origin.y);
+        }
     } else {
-        origin = CGPointMake(0, self.toolbar.frame.origin.y - size.height);
+        if (self.isToolbarHidden) {
+            origin = CGPointMake(0, bounds.size.height - size.height);
+        } else {
+            origin = CGPointMake(0, self.toolbar.frame.origin.y - size.height);
+        }
     }
-    self.secondToolbar.frame = (CGRect){origin, size};
+    dispatch_block_t animations = ^{
+        self.secondToolbar.frame = (CGRect){origin, size};
+    };
+    if (animated) {
+        [UIView animateWithDuration:0.5 animations:animations];
+    } else {
+        animations();
+    }
+}
+
+- (void)setSecondToolbarHidden:(BOOL)secondToolbarHidden animated:(BOOL)animated {
+    self.secondToolbarHidden = secondToolbarHidden;
+    [self layoutSecondToolbarForViewBounds:self.view.bounds hidden:secondToolbarHidden animated:animated];
 }
 
 #pragma mark - UINavigationControllerDelegate
@@ -48,7 +70,14 @@
     if ([self.navigationDelegate respondsToSelector:@selector(navigationController:willShowViewController:animated:)]) {
         [self.navigationDelegate navigationController:navigationController willShowViewController:viewController animated:animated];
     }
-    self.secondToolbar.items = viewController.secondToolbarItems;
+    //Ideally this observes secondToolbarItems for changes, but this is all we need for our use case at the moment
+    NSArray* newItems = viewController.secondToolbarItems;
+    [self.secondToolbar setItems:newItems animated:animated];
+    if (newItems.count > 0) {
+        [self setSecondToolbarHidden:NO animated:YES];
+    } else {
+        [self setSecondToolbarHidden:YES animated:YES];
+    }
 }
 
 - (void)navigationController:(UINavigationController*)navigationController didShowViewController:(UIViewController*)viewController animated:(BOOL)animated {

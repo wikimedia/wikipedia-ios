@@ -66,6 +66,12 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    if (!self.articleTitle) {
+        [self configureViewsForRandomArticleLoading:YES animated:NO];
+        [self anotherOne:self];
+    }
+    
     [self.diceButton addTarget:self action:@selector(anotherOne:) forControlEvents:UIControlEventTouchUpInside];
 }
 
