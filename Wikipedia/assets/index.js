@@ -125,7 +125,7 @@ function maybeSendMessageForTarget(event, hrefTarget){
     var hrefClass = hrefTarget.getAttribute('class');
     if (hrefTarget.getAttribute( "data-action" ) === "edit_section") {
         window.webkit.messageHandlers.editClicked.postMessage({ sectionId: hrefTarget.getAttribute( "data-id" ) });
-    } else if (href && refs.isReference(href)) {
+    } else if (href && refs.isCitation(href)) {
         // Handle reference links with a popup view instead of scrolling about!
         refs.sendNearbyReferences( hrefTarget );
     } else if (href && href[0] === "#") {
@@ -158,6 +158,13 @@ document.addEventListener("touchend", handleTouchEnded, false);
  document.addEventListener("touchstart", function (event) {
                            // Send message with url (if any) from touch element to native land.
                            var element = window.wmf.elementLocation.getElementFromPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY);
+                           
+                           if(element.tagName == "A"){
+                                if(refs.isReference(element.href) || refs.isCitation(element.href) || refs.isEndnote(element.href)){
+                                    return;
+                                }
+                           }
+
                            window.webkit.messageHandlers.peek.postMessage({
                                                                           'tagName': element.tagName,
                                                                           'href': element.href,
@@ -173,8 +180,16 @@ document.addEventListener("touchend", handleTouchEnded, false);
 
 },{"./refs":4,"./transforms/collapseTables":7,"./utilities":12}],4:[function(require,module,exports){
 
+function isCitation( href ) {
+    return href.includes("#cite_note");
+}
+
+function isEndnote( href ) {
+    return href.includes("#endnote_");
+}
+
 function isReference( href ) {
-    return ( href.slice( 0, 10 ) === "#cite_note" );
+    return href.includes("#ref_");
 }
 
 function goDown( element ) {
@@ -212,9 +227,9 @@ var goRight = skipOverWhitespace( function( element ) {
     return element.nextSibling;
 });
 
-function hasReferenceLink( element ) {
+function hasCitationLink( element ) {
     try {
-        return isReference( goDown( element ).getAttribute( "href" ) );
+        return isCitation( goDown( element ).getAttribute( "href" ) );
     } catch (e) {
         return false;
     }
@@ -264,7 +279,7 @@ function sendNearbyReferences( sourceNode ) {
 
     // go left:
     curNode = sourceNode.parentElement;
-    while ( hasReferenceLink( goLeft( curNode ) ) ) {
+    while ( hasCitationLink( goLeft( curNode ) ) ) {
         refsIndex += 1;
         curNode = goLeft( curNode );
         refs.unshift( collectRefText( goDown ( curNode ) ) );
@@ -274,7 +289,7 @@ function sendNearbyReferences( sourceNode ) {
 
     // go right:
     curNode = sourceNode.parentElement;
-    while ( hasReferenceLink( goRight( curNode ) ) ) {
+    while ( hasCitationLink( goRight( curNode ) ) ) {
         curNode = goRight( curNode );
         refs.push( collectRefText( goDown ( curNode ) ) );
         linkId.push( collectRefLink( curNode ) );
@@ -290,7 +305,9 @@ function sendNearbyReferences( sourceNode ) {
                                                      });
 }
 
+exports.isEndnote = isEndnote;
 exports.isReference = isReference;
+exports.isCitation = isCitation;
 exports.sendNearbyReferences = sendNearbyReferences;
 
 },{}],5:[function(require,module,exports){
