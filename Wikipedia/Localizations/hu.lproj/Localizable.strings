@@ -9,22 +9,30 @@
 "languages-title" = "Nyelvváltás";
 "article-languages-label" = "Nyelvválasztás";
 "article-languages-cancel" = "Mégsem";
+"article-languages-downloading" = "Szócikknyelvek betöltése…";
+"article-languages-filter-placeholder" = "Nyelv keresése";
 "article-read-more-title" = "További információ";
+"article-about-title" = "Erről a szócikkről";
+"article-unable-to-load-section" = "A szakasz betöltése sikertelen. Próbáld meg újratölteni a cikket, hátha megoldja a problémát.";
 "article-unable-to-load-article" = "Nem sikerült betölteni a szócikket.";
 "article-related-articles-title" = "Kapcsolódó cikkek";
+"article-languages-yours" = "A te nyelveid";
+"article-languages-others" = "Más nyelvek";
+"info-box-title" = "Gyors adatok";
 "info-box-close-text" = "Bezárás";
 "table-title-other" = "További információk";
+"saved-clear-all" = "Törlés";
+"history-clear-all" = "Törlés";
 "history-label" = "Legutóbbi";
 "history-section-today" = "Ma";
 "history-section-yesterday" = "Tegnap";
 "history-section-lastweek" = "Múlt héten";
 "history-section-lastmonth" = "Múlt hónapban";
-// Fuzzy
-"history-clear-confirmation-heading" = "Törölje az összes legutóbbi elemeket?";
+"history-clear-confirmation-heading" = "Biztosan törölni akarod az összes korábbi elemet?";
 "history-clear-confirmation-sub-heading" = "Ez a művelet nem visszavonható!";
 "history-clear-cancel" = "Mégsem";
-// Fuzzy
-"history-clear-delete-all" = "Összes törlése";
+"history-clear-delete-all" = "Igen, összes törlése";
+"history-description" = "Talán mindet törölted. Amikor legközelebb meglátogatsz egy lapot, innen találsz vissza rá.";
 "history-none" = "Nincsenek korábbi lapok!";
 "zero-charged-verbiage" = "A Wikipédia Zero ki van kapcsolva";
 "zero-interstitial-continue" = "Elhagy";

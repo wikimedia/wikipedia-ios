@@ -3,32 +3,32 @@
 // Author: HalanTul
 // Author: Ай-Куо
 
-// Fuzzy
-"languages-title" = "Тыллар";
+"languages-title" = "Тылын уларыт";
 "article-languages-label" = "Тылгын тал";
 "article-languages-cancel" = "Таҕыс";
 "article-languages-downloading" = "Ыстатыйа тылларын хачайдааһын...";
-// Fuzzy
 "article-languages-filter-placeholder" = "Тыл сиидэтэ";
 "article-read-more-title" = "Бу туһунан сиһилии";
 "article-about-title" = "Бу ыстатыйа туһунан";
 "article-unable-to-load-section" = "Бу салааны көрдөрөр табыллыбата. Ыстатыйаны саҥаттан арыйан көр, баҕар оччоҕо сатаныа.";
 "article-unable-to-load-article" = "Ыстатыйаны хачайдаан ылар сатаммата.";
 "article-related-articles-title" = "Тиэмэннэн талыллыбыт";
+"article-languages-yours" = "Эн тылларыҥ";
+"article-languages-others" = "Атын омук тылынан";
 "info-box-title" = "Кылгас чахчылар";
 "info-box-close-text" = "Сап";
 "table-title-other" = "Сиһилии";
+"saved-clear-all" = "Сот";
+"history-clear-all" = "Сот";
 "history-label" = "Соторутааҥы";
 "history-section-today" = "Бүгүн";
 "history-section-yesterday" = "Бэҕэһээ";
 "history-section-lastweek" = "Бүтэһик нэдиэлэ";
 "history-section-lastmonth" = "Бүтэһик ый";
-// Fuzzy
-"history-clear-confirmation-heading" = "Сотортуааҥыны барытын сотоҕун дуо?";
+"history-clear-confirmation-heading" = "Соторутааҥыны барытын сотоору гынаҕын дуо?";
 "history-clear-confirmation-sub-heading" = "Маны төннөрөр кыах суох!";
 "history-clear-cancel" = "Салҕаама";
-// Fuzzy
-"history-clear-delete-all" = "Барытын сот";
+"history-clear-delete-all" = "Оннук, барытын сот";
 "history-description" = "Арааһа барытын соппуккун быһыылаах. Аныгыскыга, ханнык эрэ сирэйгэ киирэ сылдьыбыт буоллаххына, ону мантан буолуоххун сөп буолуо.";
 "history-none" = "Соторутааҕыта көрүллүбүт сирэй суох эбит.";
 "zero-free-verbiage" = "Бикипиэдьийэҕэ босхо киириини мобил оператор хааччыйыыта (трафик төлөммөт)";
@@ -43,18 +43,15 @@
 "zero-learn-more-learn-more" = "Эбии бу туһунан";
 "zero-learn-more-no-thanks" = "Сап";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
-// Fuzzy
 "zero-warn-when-leaving" = "Wikipedia Zero-ттан тахсаары гыннахпына сэрэтээр";
 "zero-settings-devmode" = "Zero тупсарааччы эрэсиимэ";
 "account-creation-captcha-required" = "Капча тургутуу ирдэнэр.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Саҥа капчаны ылыы.";
+"account-creation-captcha-obtaining" = "Саҥа капчаны ылыы...";
 "account-creation-logging-in" = "Киирии...";
 "account-creation-passwords-mismatched" = "Аһарыктар сөп түбэспэтилэр.";
 "account-creation-saving" = "Бигэргэнэр...";
 "account-creation-login" = "Бэлиэтэммитиҥ дуо? Киир.";
-// Fuzzy
-"account-creation-username-placeholder-text" = "Кыттааччы аата";
+"account-creation-username-placeholder-text" = "Бэлиэ-аат";
 "account-creation-password-placeholder-text" = "Аһарык";
 "account-creation-password-confirm-placeholder-text" = "Аһарыккын бигэргэт";
 "account-creation-email-placeholder-text" = "Электрон почта (булгуччута суох)";
