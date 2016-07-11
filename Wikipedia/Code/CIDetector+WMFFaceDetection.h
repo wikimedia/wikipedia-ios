@@ -1,21 +1,18 @@
-//
-//  CIDetector+WMFFaceDetection.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 7/20/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
-@class AnyPromise;
-
 NS_ASSUME_NONNULL_BEGIN
+
+extern NSString* const WMFFaceDetectionErrorDomain;
+
+typedef NS_ENUM (NSInteger, WMFFaceDectionError) {
+    WMFFaceDectionErrorUnknown         = 0,
+    WMFFaceDectionErrorAppInBackground = 1 //face detection on GPU not allowed in the background
+};
 
 @interface CIDetector (WMFFaceDetection)
 
 /**
- * Singleton `CIDetector` configured to detect faces in the background.
+ * Singleton `CIDetector` configured to detect faces.
  */
-+ (instancetype)wmf_sharedBackgroundFaceDetector;
++ (instancetype)wmf_sharedFaceDetector;
 
 /**
  * Asynchronously detect faces in `image`, without doing extra processing for smiles or eyes.
