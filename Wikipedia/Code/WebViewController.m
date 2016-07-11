@@ -132,12 +132,12 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)handlePeekScriptMessage:(NSDictionary*)messageDict {
-    if(messageDict.count == 0){
-        self.peekElement = nil;
-    }else{
+    if(messageDict[@"tagName"]){
         self.peekElement = [[WMFPeekHTMLElement alloc] initWithTagName:messageDict[@"tagName"]
                                                                    src:messageDict[@"src"]
                                                                   href:messageDict[@"href"]];
+    }else{
+        self.peekElement = nil;
     }
 }
 
