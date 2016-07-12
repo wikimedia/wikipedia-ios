@@ -11,15 +11,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) CLLocationManager* locationManager;
 
-@property (nonatomic, weak, nullable) id<WMFLocationManagerDelegate> delegate;
-
 @property (nonatomic, strong, readonly) CLLocation* location;
 
 @property (nonatomic, strong, readonly) CLHeading* heading;
 
-+ (instancetype)fineLocationManager;
++ (instancetype)sharedFineLocationManager;
 
-+ (instancetype)coarseLocationManager;
++ (instancetype)sharedCoarseLocationManager;
 
 /**
  *  Use one of the above factory methods instead.
@@ -29,29 +27,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)init NS_UNAVAILABLE;
 
-/**
- *  Start monitoring location and heading updates.
- *
- *  @note
- *  This method is idempotent. To force new values to be sent, use @c restartLocationMonitoring.
- */
-- (void)startMonitoringLocation;
-
-/**
- *  Stop monitoring location and heading updates.
- */
-- (void)stopMonitoringLocation;
-
-/**
- *  Restart location monitoring, forcing the receiver to emit new location and heading values (if possible).
- */
-- (void)restartLocationMonitoring;
-
 + (BOOL)isAuthorized;
 
 + (BOOL)isDeniedOrDisabled;
 
 - (AnyPromise*)reverseGeocodeLocation:(CLLocation*)location;
+
+- (void)addDelegate:(id<WMFLocationManagerDelegate>)delegate;
+- (void)removeDelegate:(id<WMFLocationManagerDelegate>)delegate;
 
 @end
 

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readwrite) CLLocationManager* locationManager;
 @property (nonatomic, strong, nullable) id orientationNotificationToken;
+@property (nonatomic, strong) NSMutableDictionary *delegates;
 
 /**
  *  @name Location Manager State
@@ -54,12 +55,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFLocationManager
 
-+ (instancetype)fineLocationManager {
-    return [[self alloc] initWithLocationManager:[CLLocationManager wmf_fineLocationManager]];
++ (instancetype)sharedFineLocationManager {
+    static dispatch_once_t onceToken;
+    static WMFLocationManager *fineLocationManager;
+    dispatch_once(&onceToken, ^{
+        fineLocationManager = [[self alloc] initWithLocationManager:[CLLocationManager wmf_fineLocationManager]];
+    });
+    return fineLocationManager;
 }
 
-+ (instancetype)coarseLocationManager {
-    return [[self alloc] initWithLocationManager:[CLLocationManager wmf_coarseLocationManager]];
++ (instancetype)sharedCoarseLocationManager {
+    static dispatch_once_t onceToken;
+    static WMFLocationManager *coarseLocationManager;
+    dispatch_once(&onceToken, ^{
+        coarseLocationManager = [[self alloc] initWithLocationManager:[CLLocationManager wmf_coarseLocationManager]];
+    });
+    return coarseLocationManager;
 }
 
 - (instancetype)initWithLocationManager:(CLLocationManager*)locationManager {
@@ -68,6 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.currentAuthorizationStatus = [CLLocationManager authorizationStatus];
         self.locationManager     = locationManager;
         locationManager.delegate = self;
+        self.delegates = [NSMutableDictionary dictionaryWithCapacity:10];
     }
     return self;
 }
@@ -85,12 +97,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (CLLocation*)location {
     return self.lastLocation;
-}
-
-- (NSString*)description {
-    NSString* delegateDesc = [self.delegate description] ? : @"nil";
-    return [NSString stringWithFormat:@"<%@ manager: %@ delegate: %@ is updating: %d>",
-            [super description], _locationManager, delegateDesc, self.isUpdating];
 }
 
 #pragma mark - Permissions
@@ -225,19 +231,24 @@ NS_ASSUME_NONNULL_BEGIN
         }
 
         case kCLAuthorizationStatusDenied: {
-            if ([self.delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
-                DDLogInfo(@"Informing delegate about denied access to user's location.");
-                [self.delegate nearbyController:self didChangeEnabledState:NO];
-            }
+            [self enumerateDelegatesWithBlock:^(id<WMFLocationManagerDelegate>  _Nonnull delegate) {
+                if ([delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
+                    DDLogInfo(@"Informing delegate about denied access to user's location.");
+                    [delegate nearbyController:self didChangeEnabledState:NO];
+                }
+            }];
             break;
         }
 
         case kCLAuthorizationStatusAuthorizedWhenInUse:
         case kCLAuthorizationStatusAuthorizedAlways: {
+            [self enumerateDelegatesWithBlock:^(id<WMFLocationManagerDelegate>  _Nonnull delegate) {
+                if ([delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
+                    [delegate nearbyController:self didChangeEnabledState:YES];
+                }
+            }];
             DDLogInfo(@"%@ was granted access to location when in use, attempting to monitor location.", self);
-            if ([self.delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
-                [self.delegate nearbyController:self didChangeEnabledState:YES];
-            }
+            
             if (self.isRequestingAuthorizationAndStart) { //only start if we requested as a part of a start
                 [self startMonitoringLocation];
             }
@@ -253,7 +264,10 @@ NS_ASSUME_NONNULL_BEGIN
     }
     self.lastLocation = manager.location;
     DDLogVerbose(@"%@ updated location: %@", self, self.lastLocation);
-    [self.delegate nearbyController:self didUpdateLocation:self.lastLocation];
+    
+    [self enumerateDelegatesWithBlock:^(id<WMFLocationManagerDelegate>  _Nonnull delegate) {
+        [delegate nearbyController:self didUpdateLocation:self.lastLocation];
+    }];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateHeading:(CLHeading*)newHeading {
@@ -263,7 +277,10 @@ NS_ASSUME_NONNULL_BEGIN
     }
     self.lastHeading = newHeading;
     DDLogVerbose(@"%@ updated heading to %@", self, self.lastHeading);
-    [self.delegate nearbyController:self didUpdateHeading:self.lastHeading];
+    [self enumerateDelegatesWithBlock:^(id<WMFLocationManagerDelegate>  _Nonnull delegate) {
+        [delegate nearbyController:self didUpdateHeading:self.lastHeading];
+    }];
+    
 }
 
 - (void)locationManager:(CLLocationManager*)manager didFailWithError:(NSError*)error {
@@ -278,7 +295,9 @@ NS_ASSUME_NONNULL_BEGIN
     }
     #endif
     DDLogError(@"%@ encountered error: %@", self, error);
-    [self.delegate nearbyController:self didReceiveError:error];
+    [self enumerateDelegatesWithBlock:^(id<WMFLocationManagerDelegate>  _Nonnull delegate) {
+        [delegate nearbyController:self didReceiveError:error];
+    }];
 }
 
 #pragma mark - Geocoding
@@ -293,6 +312,49 @@ NS_ASSUME_NONNULL_BEGIN
             }
         }];
     }];
+}
+
+#pragma mark - Delegates
+
+- (void)enumerateDelegatesWithBlock:(void (^)(id <WMFLocationManagerDelegate> delegate))block {
+    if (block == nil) {
+        return;
+    }
+    @synchronized (self.delegates) {
+        NSArray *delegateValues = [self.delegates.allValues copy];
+        for (NSValue *delegateValue in delegateValues) {
+            id <WMFLocationManagerDelegate> delegate = [delegateValue nonretainedObjectValue];
+            block(delegate);
+        }
+    }
+
+}
+
+- (void)addDelegate:(id<WMFLocationManagerDelegate>)delegate  {
+    @synchronized (self.delegates) {
+        BOOL shouldStart = self.delegates.count == 0;
+        self.delegates[@([delegate hash])] = [NSValue valueWithNonretainedObject:delegate];
+        if (shouldStart) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self startMonitoringLocation];
+            });
+        } else {
+            [delegate nearbyController:self didUpdateLocation:self.location];
+            [delegate nearbyController:self didUpdateHeading:self.heading];
+        }
+    }
+
+}
+
+- (void)removeDelegate:(id<WMFLocationManagerDelegate>)delegate  {
+    @synchronized (self.delegates) {
+        [self.delegates removeObjectForKey:@([delegate hash])];
+        if (self.delegates.count == 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self stopMonitoringLocation];
+            });
+        }
+    }
 }
 
 @end

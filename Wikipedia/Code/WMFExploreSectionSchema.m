@@ -70,6 +70,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
 
 #pragma mark - Setup
 
+
 + (instancetype)schemaWithSiteURL:(NSURL*)siteURL
                          savedPages:(MWKSavedPageList*)savedPages
                             history:(MWKHistoryList*)history
@@ -78,7 +79,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
                           savedPages:savedPages
                              history:history
                            blackList:blackList
-                     locationManager:[WMFLocationManager coarseLocationManager]
+                     locationManager:[WMFLocationManager sharedCoarseLocationManager]
                                 file:[self defaultSchemaURL]];
 }
 
@@ -101,11 +102,15 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     schema.blackList         = blackList;
     schema.fileURL           = fileURL;
     schema.locationManager   = locationManager;
-    locationManager.delegate = schema;
+    [locationManager addDelegate:schema];
 
     [schema update:YES];
 
     return schema;
+}
+
+- (void)dealloc {
+    [self.locationManager removeDelegate:self];
 }
 
 - (void)setBlackList:(WMFRelatedSectionBlackList*)blackList {
@@ -196,7 +201,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
 }
 
 - (BOOL)update:(BOOL)force {
-    [self.locationManager restartLocationMonitoring];
+
+    [self.locationManager addDelegate:self];
     
 #if POPULATE_FEED
     for (NSInteger i = WMFHomeFeedPopulationDays; i >= 0; i--) {
@@ -231,8 +237,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
         
         [self updateSections:sections];
 #if POPULATE_FEED
-    }
-    
     [self spoofLocation:WMFHomeFeedPopulationDays];
 #endif
     
@@ -660,7 +664,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
         //We don't want old cached values - fresh data please!
         return;
     }
-    [self.locationManager stopMonitoringLocation];
+
+    [self.locationManager removeDelegate:self];
     [self insertNearbySectionWithLocationIfNeeded:location completion:NULL];
 }
 
@@ -671,7 +676,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
 - (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error {
     if ([WMFLocationManager isDeniedOrDisabled]) {
         [self removeNearbySection];
-        [self.locationManager stopMonitoringLocation];
+        [self.locationManager removeDelegate:self];
         return;
     }
 
