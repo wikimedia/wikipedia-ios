@@ -252,6 +252,7 @@ NS_ASSUME_NONNULL_BEGIN
             if (self.isRequestingAuthorizationAndStart) { //only start if we requested as a part of a start
                 [self startMonitoringLocation];
             }
+
             break;
         }
     }
