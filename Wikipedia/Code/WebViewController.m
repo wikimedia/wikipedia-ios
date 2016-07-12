@@ -92,38 +92,35 @@ NSString* const WMFCCBySALicenseURL =
 - (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message {
 
     WMFWKScriptMessageType messageType = [WKScriptMessage wmf_typeForMessageName:message.name];
-    if (![message.body isKindOfClass:[WKScriptMessage wmf_expectedMessageBodyClassForType:messageType]]) {
-        NSAssert(NO, @"Unexpected script message body kind of class!");
-        return;
-    }
+    id safeMessageBody = [message wmf_safeMessageBodyForType:messageType];
 
     switch (messageType) {
         case WMFWKScriptMessagePeek:
-            [self handlePeekScriptMessage:message.body];
+            [self handlePeekScriptMessage:safeMessageBody];
             break;
         case WMFWKScriptMessageConsoleMessage:
-            [self handleMessageConsoleScriptMessage:message.body];
+            [self handleMessageConsoleScriptMessage:safeMessageBody];
             break;
         case WMFWKScriptMessageClickLink:
-            [self handleClickLinkScriptMessage:message.body];
+            [self handleClickLinkScriptMessage:safeMessageBody];
             break;
         case WMFWKScriptMessageClickImage:
-            [self handleClickImageScriptMessage:message.body];
+            [self handleClickImageScriptMessage:safeMessageBody];
             break;
         case WMFWKScriptMessageClickReference:
-            [self handleClickReferenceScriptMessage:message.body];
+            [self handleClickReferenceScriptMessage:safeMessageBody];
             break;
         case WMFWKScriptMessageClickEdit:
-            [self handleClickEditScriptMessage:message.body];
+            [self handleClickEditScriptMessage:safeMessageBody];
             break;
         case WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging:
             [self handleNonAnchorTouchEndedWithoutDraggingScriptMessage];
             break;
         case WMFWKScriptMessageLateJavascriptTransform:
-            [self handleLateJavascriptTransformScriptMessage:message.body];
+            [self handleLateJavascriptTransformScriptMessage:safeMessageBody];
             break;
         case WMFWKScriptMessageArticleState:
-            [self handleArticleStateScriptMessage:message.body];
+            [self handleArticleStateScriptMessage:safeMessageBody];
             break;
         case WMFWKScriptMessageUnknown:
             NSAssert(NO, @"Unhandled script message type!");
