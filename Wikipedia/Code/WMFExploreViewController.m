@@ -49,7 +49,9 @@
 // Controllers
 #import "WMFRelatedSectionBlackList.h"
 
-#if DEBUG
+#define ENABLE_RANDOM_DEBUGGING 0
+
+#if ENABLE_RANDOM_DEBUGGING
 #import "WMFFirstRandomViewController.h"
 #endif
 
@@ -325,7 +327,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
-#if DEBUG
+#if ENABLE_RANDOM_DEBUGGING
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSite:[MWKSite siteWithLanguage:@"en"] dataStore:self.dataStore];
     [self wmf_pushViewController:vc animated:YES];
 #endif
@@ -553,7 +555,7 @@ NS_ASSUME_NONNULL_BEGIN
                 [[(id < WMFHeaderMenuProviding >)controller menuActionSheet] showFromTabBar:self.navigationController.tabBarController.tabBar];
             }
         } forControlEvents:UIControlEventTouchUpInside];
-    } else if ([controller conformsToProtocol:@protocol(WMFHeaderActionProviding)]) {
+    } else if ([controller conformsToProtocol:@protocol(WMFHeaderActionProviding)] && (![controller respondsToSelector:@selector(isHeaderActionEnabled)] || [(id <WMFHeaderActionProviding>) controller isHeaderActionEnabled])) {
         header.rightButtonEnabled = YES;
         [[header rightButton] setImage:[(id < WMFHeaderActionProviding >)controller headerButtonIcon] forState:UIControlStateNormal];
         [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
@@ -576,7 +578,7 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
     WMFExploreSectionFooter* footer = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFExploreSectionFooter wmf_nibName]];
-    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)]) {
+    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id < WMFMoreFooterProviding >) controller isFooterEnabled])) {
         footer.visibleBackgroundView.alpha = 1.0;
         footer.moreLabel.text              = [(id < WMFMoreFooterProviding >)controller footerText];
         footer.moreLabel.textColor         = [UIColor wmf_exploreSectionFooterTextColor];

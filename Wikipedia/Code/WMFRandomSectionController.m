@@ -14,6 +14,7 @@
 #import "WMFSaveButtonController.h"
 #import "WMFRandomArticleViewController.h"
 #import "WMFFirstRandomViewController.h"
+#import <Tweaks/FBTweakInline.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,6 +28,8 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 @property (nonatomic, strong, nullable) MWKSearchResult* result;
 
 @property (nonatomic, weak, nullable) WMFArticlePreviewTableViewCell* cell;
+
+@property (nonatomic, readonly, getter=isNewInterfaceEnabled) BOOL newInterfaceEnabled;
 
 @end
 
@@ -136,14 +139,38 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
     MWKTitle* title = [self titleForItemAtIndexPath:indexPath];
-    return [[WMFRandomArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    if (self.isNewInterfaceEnabled) {
+        return [[WMFRandomArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    } else {
+        return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    }
 }
 
 - (void)didEndDisplayingSection {
     self.cell = nil;
 }
 
-#pragma mark Footer
+#pragma mark - Tweak
+
+- (BOOL)isNewInterfaceEnabled {
+    return FBTweakValue(@"Explore", @"Random", @"Show new interface", NO);
+}
+
+#pragma mark - WMFHeaderActionProviding
+
+- (UIImage*)headerButtonIcon {
+    return [UIImage imageNamed:@"refresh-mini"];
+}
+
+- (void)performHeaderButtonAction {
+   [self fetchDataUserInitiated];
+}
+
+- (BOOL)isHeaderActionEnabled {
+    return !self.isNewInterfaceEnabled;
+}
+
+#pragma mark - WMFMoreFooterProviding
 
 - (NSString*)footerText {
     return MWLocalizedString(@"explore-another-random", nil);
@@ -151,6 +178,10 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 - (UIViewController*)moreViewController {
     return [[WMFFirstRandomViewController alloc] initWithSite:self.searchSite dataStore:self.dataStore];
+}
+
+- (BOOL)isFooterEnabled {
+    return self.isNewInterfaceEnabled;
 }
 
 
