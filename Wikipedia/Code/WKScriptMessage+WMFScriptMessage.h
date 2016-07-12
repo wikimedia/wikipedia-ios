@@ -1,6 +1,7 @@
 #import <WebKit/WebKit.h>
 
 typedef NS_ENUM (NSInteger, WMFWKScriptMessageType) {
+    WMFWKScriptMessageUnknown,
     WMFWKScriptMessagePeek,
     WMFWKScriptMessageConsoleMessage,
     WMFWKScriptMessageClickLink,
@@ -9,8 +10,7 @@ typedef NS_ENUM (NSInteger, WMFWKScriptMessageType) {
     WMFWKScriptMessageClickEdit,
     WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging,
     WMFWKScriptMessageLateJavascriptTransform,
-    WMFWKScriptMessageArticleState,
-    WMFWKScriptMessageUnknown
+    WMFWKScriptMessageArticleState
 };
 
 @interface WKScriptMessage (WMFScriptMessage)
