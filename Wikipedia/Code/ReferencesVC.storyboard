@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1wG-t8-xjS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1wG-t8-xjS">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
         <!--ReferenceVC-->
@@ -27,7 +27,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="90R-X9-ZAd" secondAttribute="trailing" id="4QL-a7-pAf"/>
-                            <constraint firstItem="XwI-oB-1rV" firstAttribute="top" secondItem="90R-X9-ZAd" secondAttribute="bottom" id="JPe-qA-YBs"/>
+                            <constraint firstAttribute="bottom" secondItem="90R-X9-ZAd" secondAttribute="bottom" id="8uv-Uy-4Ox"/>
                             <constraint firstItem="90R-X9-ZAd" firstAttribute="leading" secondItem="rS5-jM-7C5" secondAttribute="leading" id="b3G-88-nvO"/>
                             <constraint firstItem="90R-X9-ZAd" firstAttribute="top" secondItem="rS5-jM-7C5" secondAttribute="top" id="jtu-qj-29x"/>
                         </constraints>
