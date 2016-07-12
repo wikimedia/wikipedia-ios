@@ -1,6 +1,8 @@
 #import "WMFArticleNavigationController.h"
 #import <objc/runtime.h>
 
+static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimationDuration = 0.3;
+
 @interface WMFArticleNavigationController () <UINavigationControllerDelegate>
 
 @property (nullable, nonatomic, weak) id<UINavigationControllerDelegate> navigationDelegate;
@@ -53,7 +55,7 @@
         self.secondToolbar.frame = (CGRect){origin, size};
     };
     if (animated) {
-        [UIView animateWithDuration:0.5 animations:animations];
+        [UIView animateWithDuration:WMFArticleNavigationControllerSecondToolbarAnimationDuration animations:animations];
     } else {
         animations();
     }

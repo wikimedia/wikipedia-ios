@@ -2,6 +2,9 @@
 
 @interface WMFArticleNavigationController : WMFRotationRespectingNavigationController
 
+@property (nonatomic, readonly, getter = isSecondToolbarHidden) BOOL secondToolbarHidden;
+- (void)setSecondToolbarHidden:(BOOL)secondToolbarHidden animated:(BOOL)animated;
+
 @end
 
 

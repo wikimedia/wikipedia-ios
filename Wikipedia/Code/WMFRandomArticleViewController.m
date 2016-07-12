@@ -6,6 +6,7 @@
 #import "WMFRandomDiceButton.h"
 #import "WMFArticleNavigationController.h"
 #import "UIViewController+WMFArticlePresentation.h"
+#import "WMFArticleNavigationController.h"
 
 static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
@@ -15,6 +16,8 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 @property (nonatomic, strong) UIBarButtonItem* diceButtonItem;
 @property (nonatomic, strong) UIView* emptyFadeView;
 @property (nonatomic, strong) WMFRandomArticleFetcher* randomArticleFetcher;
+@property (nonatomic, getter = viewHasAppeared) BOOL viewAppeared;
+@property (nonatomic) CGFloat previousContentOffsetY;
 @end
 
 @implementation WMFRandomArticleViewController
@@ -47,7 +50,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     [self.anotherRandomArticleButton setTitle:MWLocalizedString(@"explore-another-random", nil) forState:UIControlStateNormal];
     CGSize size = [self.anotherRandomArticleButton sizeThatFits:CGSizeMake(CGFLOAT_MAX, 57)];
     self.anotherRandomArticleButton.frame = (CGRect){CGPointZero, size};
-    [self.anotherRandomArticleButton addTarget:self action:@selector(anotherOne:) forControlEvents:UIControlEventTouchUpInside];
+    [self.anotherRandomArticleButton addTarget:self action:@selector(loadAndShowAnotherRandomArticle:) forControlEvents:UIControlEventTouchUpInside];
     [self.anotherRandomArticleButton setTintColor:[UIColor wmf_blueTintColor]];
     UIBarButtonItem* anotherRandomItem  = [[UIBarButtonItem alloc] initWithCustomView:self.anotherRandomArticleButton];
     
@@ -66,18 +69,17 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    if (!self.articleTitle) {
-        [self configureViewsForRandomArticleLoading:YES animated:NO];
-        [self anotherOne:self];
-    }
-    
-    [self.diceButton addTarget:self action:@selector(anotherOne:) forControlEvents:UIControlEventTouchUpInside];
+    [self.diceButton addTarget:self action:@selector(loadAndShowAnotherRandomArticle:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.viewAppeared = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.diceButton removeTarget:self action:@selector(anotherOne:) forControlEvents:UIControlEventTouchUpInside];
+    [self.diceButton removeTarget:self action:@selector(loadAndShowAnotherRandomArticle:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -103,7 +105,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 }
 
-- (void)anotherOne:(id)sender {
+- (void)loadAndShowAnotherRandomArticle:(id)sender {
     [self configureViewsForRandomArticleLoading:YES animated:YES];
     MWKSite* site = self.articleTitle.site;
     [self.randomArticleFetcher fetchRandomArticleWithSite:site failure:^(NSError* error) {
@@ -114,5 +116,36 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
         [self wmf_pushArticleViewController:randomArticleVC animated:YES];
     }];
 }
+
+
+#pragma mark - WebViewControllerDelegate
+
+- (void)webViewController:(WebViewController*)controller scrollViewDidScroll:(UIScrollView*)scrollView {
+    if (!self.viewHasAppeared) {
+        return;
+    }
+    
+    WMFArticleNavigationController *articleNavgiationController = (WMFArticleNavigationController *)self.navigationController;
+    if (![articleNavgiationController isKindOfClass:[WMFArticleNavigationController class]]) {
+        return;
+    }
+    
+    BOOL shouldHideRandomButton = YES;
+    CGFloat newContentOffsetY = scrollView.contentOffset.y;
+    
+    if (articleNavgiationController.secondToolbarHidden) {
+        BOOL shouldShowRandomButton = newContentOffsetY <= 0 || (!scrollView.tracking && scrollView.decelerating && newContentOffsetY < self.previousContentOffsetY && newContentOffsetY < (scrollView.contentSize.height - scrollView.bounds.size.height));
+        shouldHideRandomButton = !shouldShowRandomButton;
+    } else {
+        shouldHideRandomButton =  newContentOffsetY > 0 && newContentOffsetY > self.previousContentOffsetY;
+    }
+    
+    if (articleNavgiationController.secondToolbarHidden != shouldHideRandomButton) {
+        [articleNavgiationController setSecondToolbarHidden:shouldHideRandomButton animated:YES];
+    }
+    
+    self.previousContentOffsetY = newContentOffsetY;
+}
+
 
 @end

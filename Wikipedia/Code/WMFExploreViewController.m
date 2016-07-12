@@ -49,6 +49,10 @@
 // Controllers
 #import "WMFRelatedSectionBlackList.h"
 
+#if DEBUG
+#import "WMFFirstRandomViewController.h"
+#endif
+
 static DDLogLevel const WMFExploreVCLogLevel = DDLogLevelInfo;
 #undef LOG_LEVEL_DEF
 #define LOG_LEVEL_DEF WMFExploreVCLogLevel
@@ -321,6 +325,10 @@ NS_ASSUME_NONNULL_BEGIN
 
     [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
+#if DEBUG
+    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSite:[MWKSite siteWithLanguage:@"en"] dataStore:self.dataStore];
+    [self wmf_pushViewController:vc animated:YES];
+#endif
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
