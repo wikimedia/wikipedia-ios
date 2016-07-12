@@ -51,8 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (self) {
         self.dataStore                              = dataStore;
-        self.sectionControllersBySection            = [[NSCache alloc] init];
-        self.sectionControllersBySection.countLimit = [WMFExploreSection totalMaxNumberOfSections];
+        self.sectionControllersBySection            = [[NSMutableDictionary alloc] init];
         self.reverseLookup                          =
             [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory | NSMapTableObjectPointerPersonality
                                   valueOptions:NSMapTableWeakMemory];

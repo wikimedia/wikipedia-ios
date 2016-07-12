@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Controllers can be evicted at any time when the cache is asked to release memory by the operating system.
  */
-@property (nonatomic, strong) NSCache* sectionControllersBySection;
+@property (nonatomic, strong) NSMutableDictionary* sectionControllersBySection;
 
 /**
  *  Reverse map of @c sectionControllersBySection which is used to retrieve sections by their associated controller.
