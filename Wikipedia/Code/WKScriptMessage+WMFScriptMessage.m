@@ -2,7 +2,7 @@
 
 @implementation WKScriptMessage (WMFScriptMessage)
 
-+ (WMFWKScriptMessageType)wmf_typeForMessageName:(NSString*)name {
++ (WMFWKScriptMessageType)wmf_typeForMessageName:( NSString* _Nonnull )name {
     if ([name isEqualToString:@"nonAnchorTouchEndedWithoutDragging"]) {
         return WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging;
     } else if ([name isEqualToString:@"linkClicked"]) {
@@ -58,6 +58,15 @@
         case WMFWKScriptMessageUnknown:
             return [NSNull class];
             break;
+    }
+}
+
+- (nullable id) wmf_safeMessageBodyForType:(WMFWKScriptMessageType)messageType {
+    if ([self.body isKindOfClass:[WKScriptMessage wmf_expectedMessageBodyClassForType:messageType]]) {
+        return self.body;
+    }else{
+        NSAssert(NO, @"Unexpected script message body kind of class!");
+        return nil;
     }
 }
 

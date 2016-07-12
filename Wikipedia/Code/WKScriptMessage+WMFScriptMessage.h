@@ -15,7 +15,13 @@ typedef NS_ENUM (NSInteger, WMFWKScriptMessageType) {
 
 @interface WKScriptMessage (WMFScriptMessage)
 
-+ (WMFWKScriptMessageType)wmf_typeForMessageName:(NSString*)name;
-+ (Class)wmf_expectedMessageBodyClassForType:(WMFWKScriptMessageType)type;
+/*
+ *
+ * Returns the message body if it is of the expected type, or nil it is not.
+ *
+ */
+- (nullable id) wmf_safeMessageBodyForType:(WMFWKScriptMessageType)messageType;
+
++ (WMFWKScriptMessageType)wmf_typeForMessageName:( NSString* _Nonnull )name;
 
 @end
