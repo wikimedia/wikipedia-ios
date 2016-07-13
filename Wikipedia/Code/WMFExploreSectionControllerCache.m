@@ -25,7 +25,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#if DEBUG
+#define VERIFY_CACHE_CONSISTENCY DEBUG && 1
+#if VERIFY_CACHE_CONSISTENCY
 /**
  *  @function WMFVerifyCacheConsistency
  *
@@ -80,14 +81,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)verifyCacheConsistencyForSection:(WMFExploreSection*)section {
-    id<WMFExploreSectionController> reverseMapController =
-        [[[self.reverseLookup keyEnumerator] allObjects] bk_match:^BOOL (id obj) {
-        return [[self.reverseLookup objectForKey:obj] isEqual:section];
-    }];
     id<WMFExploreSectionController> cacheController = [self.sectionControllersBySection objectForKey:section];
-    if (reverseMapController != cacheController) {
+    WMFExploreSection *reverseSection = [self.reverseLookup objectForKey:cacheController];
+    if (cacheController && reverseSection && reverseSection != section) {
         DDLogWarn(@"Mismatch between cached controllers & reverse map! Reverse map: %@ cache: %@",
-                  reverseMapController, cacheController);
+                  reverseSection, section);
     }
 }
 
