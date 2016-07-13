@@ -301,11 +301,6 @@ NS_ASSUME_NONNULL_BEGIN
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(applicationDidEnterBackgroundWithNotification:)
-                                                 name:UIApplicationDidEnterBackgroundNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(tweaksDidChangeWithNotification:)
                                                  name:FBTweakShakeViewControllerDidDismissNotification
                                                object:nil];
@@ -413,10 +408,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeInvisibleSectionsFromCache {
     [self.sectionControllerCache removeSections:self.invisibleSections];
-}
-
-- (void)applicationDidEnterBackgroundWithNotification:(NSNotification *)note {
-    [self removeInvisibleSectionsFromCache];
 }
 
 - (void)appLanguageDidChangeWithNotification:(NSNotification*)note {
