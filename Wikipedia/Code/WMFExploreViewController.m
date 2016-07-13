@@ -79,6 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) AFNetworkReachabilityManager* reachabilityManager;
 
+@property (nonatomic, readonly) NSArray* invisibleSections;
 
 @end
 
@@ -204,6 +205,22 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.schemaManager.sections objectsAtIndexes:visibleSectionIndexes] wmf_mapAndRejectNil:^id (WMFExploreSection* obj) {
         return [self sectionControllerForSection:obj];
     }];
+}
+
+
+- (NSArray*)invisibleSections {
+    NSIndexSet* visibleSectionIndexes = [[self.tableView indexPathsForVisibleRows] bk_reduce:[NSMutableIndexSet indexSet] withBlock:^id (NSMutableIndexSet* sum, NSIndexPath* obj) {
+        [sum addIndex:(NSUInteger)obj.section];
+        return sum;
+    }];
+
+    if ([visibleSectionIndexes count] == 0) {
+        return self.schemaManager.sections;
+    }
+    
+    NSMutableArray* invisibleSections = [self.schemaManager.sections mutableCopy];
+    [invisibleSections removeObjectsAtIndexes:visibleSectionIndexes];
+    return invisibleSections;
 }
 
 /**
@@ -369,7 +386,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    [self.sectionControllerCache removeAllObjects];
+    [self removeInvisibleSectionsFromCache];
 }
 
 #pragma mark - Notifications
@@ -394,8 +411,12 @@ NS_ASSUME_NONNULL_BEGIN
     [self sendWillDisplayToVisibleSectionControllers];
 }
 
+- (void)removeInvisibleSectionsFromCache {
+    [self.sectionControllerCache removeSections:self.invisibleSections];
+}
+
 - (void)applicationDidEnterBackgroundWithNotification:(NSNotification *)note {
-    [self.sectionControllerCache removeAllObjects];
+    [self removeInvisibleSectionsFromCache];
 }
 
 - (void)appLanguageDidChangeWithNotification:(NSNotification*)note {

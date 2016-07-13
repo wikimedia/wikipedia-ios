@@ -196,7 +196,21 @@ NS_ASSUME_NONNULL_BEGIN
     return [[WMFFeaturedArticleSectionController alloc] initWithSite:item.site date:item.dateCreated dataStore:self.dataStore];
 }
 
-#pragma mark - removeAllObjects
+#pragma mark - Removal
+
+- (void)removeSection:(WMFExploreSection *)section {
+    id controller = [self.sectionControllersBySection objectForKey:section];
+    if (controller) {
+        [self.reverseLookup removeObjectForKey:controller];
+        [self.sectionControllersBySection removeObjectForKey:section];
+    }
+}
+
+- (void)removeSections:(NSArray *)sections {
+    for (WMFExploreSection *section in sections) {
+        [self removeSection:section];
+    }
+}
 
 - (void)removeAllObjects {
     [self.sectionControllersBySection removeAllObjects];
