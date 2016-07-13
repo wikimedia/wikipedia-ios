@@ -26,6 +26,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #define VERIFY_CACHE_CONSISTENCY DEBUG && 0
+
 #if VERIFY_CACHE_CONSISTENCY
 /**
  *  @function WMFVerifyCacheConsistency
