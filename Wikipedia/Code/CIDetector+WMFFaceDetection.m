@@ -15,7 +15,7 @@ NSString* const WMFFaceDetectionErrorDomain = @"org.wikimedia.face-detection-err
     dispatch_once(&onceToken, ^{
         defaultFaceDetector = [CIDetector detectorOfType:CIDetectorTypeFace
                                                  context:[CIContext wmf_sharedContext]
-                                                 options:nil];
+                                                 options:@{CIDetectorAccuracy: CIDetectorAccuracyLow}];
     });
     return defaultFaceDetector;
 }
