@@ -200,6 +200,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeAllObjects {
     [self.sectionControllersBySection removeAllObjects];
+    [self.reverseLookup removeAllObjects];
 }
 
 @end
