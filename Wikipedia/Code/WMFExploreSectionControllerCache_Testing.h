@@ -24,11 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Reverse map of @c sectionControllersBySection which is used to retrieve sections by their associated controller.
  *
- *  @note
- *  Internally created as weak-to-weak in order to ensure the canonical store (@c sectionControllersBySection) has full
- *  authority over lifecycle management.
  */
-@property (nonatomic, strong) NSMapTable* reverseLookup;
+@property (nonatomic, strong) NSMutableDictionary* reverseLookup;
 
 @end
 

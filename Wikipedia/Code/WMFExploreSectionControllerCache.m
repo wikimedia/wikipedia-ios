@@ -30,13 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  @function WMFVerifyCacheConsistency
  *
- *  Verify consistency between internal `NSCache` and reverse-section-lookup `NSMapTable`.
- *
- *  Need to be sure that when the `NSCache` evicts a controller, that its corresponding entry in the reverse lookup table
- *  is also removed.  There might be times when the two are temporarily out of sync (such as when a nearby section is
- *  removed due to restricted permissions, and the explore view controller delays fetching of its preceding section,
- *  which temporarily retains it), but seeing too many of these inconsistencies in the should point to a controller
- *  being retained somewhere it shoudln't be.
+ *  Verify consistency between forward and reverse lookup.
  *
  *  @param sectionOrController
  */
@@ -53,9 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         self.dataStore                              = dataStore;
         self.sectionControllersBySection            = [[NSMutableDictionary alloc] init];
-        self.reverseLookup                          =
-            [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory | NSMapTableObjectPointerPersonality
-                                  valueOptions:NSMapTableWeakMemory];
+        self.reverseLookup                          = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -69,9 +61,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)verifyCacheConsistencyForController:(id<WMFExploreSectionController>)controller {
-    WMFExploreSection* section = [self.reverseLookup objectForKey:controller];
+    WMFExploreSection* section = [self.reverseLookup objectForKey:@([controller hash])];
     if (!section) {
-        // can't check controller consistency w/o a key since NSCache doesn't tell you all the objects it contains
+        if ([self.sectionControllersBySection.allValues containsObject:controller]) {
+            DDLogWarn(@"Reverse map is missing a section for controller: %@", controller);
+        }
         return;
     }
     id<WMFExploreSectionController> cacheController = [self.sectionControllersBySection objectForKey:section];
@@ -82,8 +76,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)verifyCacheConsistencyForSection:(WMFExploreSection*)section {
     id<WMFExploreSectionController> cacheController = [self.sectionControllersBySection objectForKey:section];
-    WMFExploreSection *reverseSection = [self.reverseLookup objectForKey:cacheController];
-    if (cacheController && reverseSection && reverseSection != section) {
+    if (!cacheController) {
+        if ([self.reverseLookup.allValues containsObject:section]) {
+            DDLogWarn(@"Reverse map contains section for controller which is no longer cached: %@", section);
+        }
+        return;
+    }
+    WMFExploreSection *reverseSection = [self.reverseLookup objectForKey:@([cacheController hash])];
+    if (![reverseSection isEqual:section]) {
         DDLogWarn(@"Mismatch between cached controllers & reverse map! Reverse map: %@ cache: %@",
                   reverseSection, section);
     }
@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFExploreSection*)sectionForController:(id<WMFExploreSectionController>)controller {
     WMFVerifyCacheConsistency(controller);
-    return [self.reverseLookup objectForKey:controller];
+    return [self.reverseLookup objectForKey:@([controller hash])];
 }
 
 - (id<WMFExploreSectionController>)getOrCreateControllerForSection:(WMFExploreSection*)section
@@ -150,7 +150,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     [self.sectionControllersBySection setObject:controller forKey:section];
-    [self.reverseLookup setObject:section forKey:controller];
+    [self.reverseLookup setObject:section forKey:@([controller hash])];
 
     return controller;
 }
@@ -199,7 +199,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeSection:(WMFExploreSection *)section {
     id controller = [self.sectionControllersBySection objectForKey:section];
     if (controller) {
-        [self.reverseLookup removeObjectForKey:controller];
+        [self.reverseLookup removeObjectForKey:@([controller hash])];
         [self.sectionControllersBySection removeObjectForKey:section];
     }
 }
