@@ -226,10 +226,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self.reverseLookup removeAllObjects];
 }
 
-- (NSArray *)allSections {
-    return self.sectionControllersBySection.allKeys;
-}
-
 @end
 
 NS_ASSUME_NONNULL_END
