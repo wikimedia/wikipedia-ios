@@ -29,7 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeSection:(WMFExploreSection*)section;
 - (void)removeSections:(NSArray<WMFExploreSection*>*)sections;
-- (void)removeAllObjects;
+- (void)removeAllSectionsExcept:(NSArray<WMFExploreSection*>*)sections;
+- (void)removeAllSections;
+
 
 @end
 

@@ -206,15 +206,30 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)removeSections:(NSArray *)sections {
+- (void)removeSections:(NSArray<WMFExploreSection*>*)sections {
     for (WMFExploreSection *section in sections) {
         [self removeSection:section];
     }
 }
 
-- (void)removeAllObjects {
+- (void)removeAllSectionsExcept:(NSArray<WMFExploreSection*>*)sections {
+    if (sections == nil) {
+        return;
+    }
+    
+    NSMutableSet *sectionsToRemove = [NSMutableSet setWithArray:self.sectionControllersBySection.allKeys];
+    [sectionsToRemove minusSet:[NSSet setWithArray:sections]];
+    
+    [self removeSections:[sectionsToRemove allObjects]];
+}
+
+- (void)removeAllSections {
     [self.sectionControllersBySection removeAllObjects];
     [self.reverseLookup removeAllObjects];
+}
+
+- (NSArray *)allSections {
+    return self.sectionControllersBySection.allKeys;
 }
 
 @end

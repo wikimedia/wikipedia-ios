@@ -863,6 +863,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)sectionSchemaDidUpdateSections:(WMFExploreSectionSchema*)schema {
     [self wmf_hideEmptyView];
+    [self.sectionControllerCache removeAllSectionsExcept:schema.sections];
     [self loadSectionControllersForCurrentSectionSchema];
     [self.tableView reloadData];
     [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull obj) {
@@ -871,6 +872,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)sectionSchema:(WMFExploreSectionSchema*)schema didRemoveSection:(WMFExploreSection*)section atIndex:(NSUInteger)index {
+    [self.sectionControllerCache removeSection:section];
     [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
 }
 
