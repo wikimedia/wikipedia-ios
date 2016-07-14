@@ -201,7 +201,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 #pragma mark - WMFTitleProviding
 
-- (NSURL*)urlForIndexPath:(NSIndexPath*)indexPath {
+- (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath {
     MWKSearchResult* result = self.items[indexPath.row];
     return [self.url wmf_URLWithTitle:result.displayTitle];
 }

@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.url wmf_URLWithTitle:result.displayTitle];
 }
 
-- (NSArray<NSURL*>*)titles {
+- (NSArray<NSURL*>*)urls {
     return [self.relatedSearchResults.results bk_map:^id (MWKSearchResult* obj) {
         return [self.url wmf_URLWithTitle:obj.displayTitle];
     }];

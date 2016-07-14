@@ -137,7 +137,7 @@ static NSString* const WMFMostReadFailingProjectUserInfoKey             = @"WMFM
     }];
 }
 
-+ (MTLValueTransformer*)siteJSONTransformer {
++ (MTLValueTransformer*)siteURLJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id (NSString* value,
                                                                   BOOL* success,
                                                                   NSError* __autoreleasing* error) {
