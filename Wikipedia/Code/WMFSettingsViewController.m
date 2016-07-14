@@ -96,7 +96,7 @@ static NSString* const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
         @strongify(self)
-        [self dismissViewControllerAnimated : YES completion : nil];
+        [self dismissViewControllerAnimated: YES completion: nil];
     }];
     self.navigationItem.leftBarButtonItems = @[xButton];
 }
@@ -231,17 +231,16 @@ static NSString* const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)showLogoutActionSheet {
-    UIActionSheet* sheet = [UIActionSheet bk_actionSheetWithTitle:MWLocalizedString(@"main-menu-account-logout-are-you-sure", nil)];
-
+    UIAlertController* sheet = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"main-menu-account-logout-are-you-sure", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
     @weakify(self)
-    [sheet bk_setDestructiveButtonWithTitle : MWLocalizedString(@"main-menu-account-logout", nil) handler :^{
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"main-menu-account-logout", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction* _Nonnull action) {
         @strongify(self)
         [self logout];
         [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
-    }];
+    }]];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"main-menu-account-logout-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
 
-    [sheet bk_setCancelButtonWithTitle:MWLocalizedString(@"main-menu-account-logout-cancel", nil) handler:nil];
-    [sheet showInView:self.view];
+    [self presentViewController:sheet animated:YES completion:NULL];
 }
 
 - (void)logout {

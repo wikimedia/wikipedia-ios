@@ -4,7 +4,7 @@ import UIKit
 public class WMFRotationRespectingTabBarController: UITabBarController {
 
     public override func shouldAutorotate() -> Bool {
-        if let vc = self.presentedViewController {
+        if let vc = self.presentedViewController where !vc.isKindOfClass(UIAlertController) {
             return vc.shouldAutorotate()
         } else if let vc = self.selectedViewController {
             return vc.shouldAutorotate()
@@ -14,7 +14,7 @@ public class WMFRotationRespectingTabBarController: UITabBarController {
     }
     
     public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if let vc = self.presentedViewController {
+        if let vc = self.presentedViewController where !vc.isKindOfClass(UIAlertController) {
             return vc.supportedInterfaceOrientations()
         } else if let vc = self.selectedViewController {
             return vc.supportedInterfaceOrientations()
@@ -24,7 +24,7 @@ public class WMFRotationRespectingTabBarController: UITabBarController {
     }
     
     public override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        if let vc = self.presentedViewController {
+        if let vc = self.presentedViewController where !vc.isKindOfClass(UIAlertController) {
             return vc.preferredInterfaceOrientationForPresentation()
         } else if let vc = self.selectedViewController {
             return vc.preferredInterfaceOrientationForPresentation()
