@@ -3,30 +3,27 @@
 @implementation WMFRotationRespectingNavigationController
 
 - (BOOL)shouldAutorotate {
-    if (self.presentedViewController) {
-        return self.presentedViewController.shouldAutorotate;
-    } else if (self.topViewController) {
-        return self.topViewController.shouldAutorotate;
+    UIViewController* vcToRespect = self.presentedViewController ? self.presentedViewController : self.topViewController;
+    if (vcToRespect && [vcToRespect isKindOfClass:[UIAlertController class]]) {
+        return [vcToRespect shouldAutorotate];
     } else {
         return [super shouldAutorotate];
     }
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    if (self.presentedViewController) {
-        return self.presentedViewController.supportedInterfaceOrientations;
-    } else if (self.topViewController) {
-        return self.topViewController.supportedInterfaceOrientations;
+    UIViewController* vcToRespect = self.presentedViewController ? self.presentedViewController : self.topViewController;
+    if (vcToRespect && [vcToRespect isKindOfClass:[UIAlertController class]]) {
+        return [vcToRespect supportedInterfaceOrientations];
     } else {
         return [super supportedInterfaceOrientations];
     }
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    if (self.presentedViewController) {
-        return self.presentedViewController.preferredInterfaceOrientationForPresentation;
-    } else if (self.topViewController) {
-        return self.topViewController.preferredInterfaceOrientationForPresentation;
+    UIViewController* vcToRespect = self.presentedViewController ? self.presentedViewController : self.topViewController;
+    if (vcToRespect && [vcToRespect isKindOfClass:[UIAlertController class]]) {
+        return [vcToRespect preferredInterfaceOrientationForPresentation];
     } else {
         return [super preferredInterfaceOrientationForPresentation];
     }

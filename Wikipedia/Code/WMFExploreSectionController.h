@@ -169,7 +169,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Provide an action sheet with menu options
  * NOTE: you cannot currently implement both WMFHeaderMenuProviding and WMFHeaderActionProviding - they are implemented using the same button
  */
-- (UIActionSheet*)menuActionSheet;
+- (UIAlertController*)menuActionSheet;
 
 @end
 /**
