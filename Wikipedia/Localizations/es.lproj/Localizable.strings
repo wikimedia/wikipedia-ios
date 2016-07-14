@@ -406,3 +406,4 @@
 "explore-most-read-more-list-title" = "Los artículos más leídos";
 "explore-most-read-more-list-title-for-date" = "Los más leídos el $1";
 "no-email-account-alert" = "Configura una cuenta de correo electrónico en tu dispositivo e inténtalo de nuevo.";
+"request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
