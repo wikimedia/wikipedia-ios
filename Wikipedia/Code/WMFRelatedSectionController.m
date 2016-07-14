@@ -23,7 +23,7 @@
 #import "WMFSaveButtonController.h"
 
 #import "WMFRelatedTitleViewController.h"
-#import "WMFArticleBrowserViewController.h"
+#import "UIViewController+WMFArticlePresentation.h"
 
 // Style
 #import "UIFont+WMFStyle.h"

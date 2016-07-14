@@ -46,7 +46,7 @@
 		0E4A34721CBBFCD400A400F6 /* WMFImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4A34711CBBFCD400A400F6 /* WMFImageGalleryViewController.m */; };
 		0E4B5FBE1C56B3E70099B02E /* WMFBaseExploreSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FBD1C56B3E70099B02E /* WMFBaseExploreSectionController.m */; };
 		0E4B5FC11C5725C20099B02E /* WMFExploreSectionControllerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC01C5725C20099B02E /* WMFExploreSectionControllerCache.m */; };
-		0E4B5FC61C5BFFFB0099B02E /* WMFArticleBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC51C5BFFFB0099B02E /* WMFArticleBrowserViewController.m */; };
+		0E4B5FC61C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC51C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m */; };
 		0E4D071D1CC5526200AE968B /* WMFLanguageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E4D071C1CC5526200AE968B /* WMFLanguageCell.xib */; };
 		0E568D481C78273B00E68FC1 /* SavedPageSpotlightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E568D471C78273B00E68FC1 /* SavedPageSpotlightManager.swift */; };
 		0E5DC8631C6D716100C39A6F /* NSUserActivity+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5DC8621C6D716100C39A6F /* NSUserActivity+WMFExtensions.m */; };
@@ -752,8 +752,8 @@
 		0E4B5FBD1C56B3E70099B02E /* WMFBaseExploreSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBaseExploreSectionController.m; path = Wikipedia/Code/WMFBaseExploreSectionController.m; sourceTree = SOURCE_ROOT; };
 		0E4B5FBF1C5725C20099B02E /* WMFExploreSectionControllerCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreSectionControllerCache.h; path = Wikipedia/Code/WMFExploreSectionControllerCache.h; sourceTree = SOURCE_ROOT; };
 		0E4B5FC01C5725C20099B02E /* WMFExploreSectionControllerCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreSectionControllerCache.m; path = Wikipedia/Code/WMFExploreSectionControllerCache.m; sourceTree = SOURCE_ROOT; };
-		0E4B5FC41C5BFFFB0099B02E /* WMFArticleBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleBrowserViewController.h; path = Wikipedia/Code/WMFArticleBrowserViewController.h; sourceTree = SOURCE_ROOT; };
-		0E4B5FC51C5BFFFB0099B02E /* WMFArticleBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleBrowserViewController.m; path = Wikipedia/Code/WMFArticleBrowserViewController.m; sourceTree = SOURCE_ROOT; };
+		0E4B5FC41C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFArticlePresentation.h"; path = "Wikipedia/Code/UIViewController+WMFArticlePresentation.h"; sourceTree = SOURCE_ROOT; };
+		0E4B5FC51C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFArticlePresentation.m"; path = "Wikipedia/Code/UIViewController+WMFArticlePresentation.m"; sourceTree = SOURCE_ROOT; };
 		0E4D071C1CC5526200AE968B /* WMFLanguageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFLanguageCell.xib; sourceTree = "<group>"; };
 		0E568D471C78273B00E68FC1 /* SavedPageSpotlightManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedPageSpotlightManager.swift; sourceTree = "<group>"; };
 		0E5DC8611C6D716100C39A6F /* NSUserActivity+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserActivity+WMFExtensions.h"; sourceTree = "<group>"; };
@@ -2700,8 +2700,8 @@
 		0E87313E1C62C695008AF0AE /* Browser VIew Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0E4B5FC41C5BFFFB0099B02E /* WMFArticleBrowserViewController.h */,
-				0E4B5FC51C5BFFFB0099B02E /* WMFArticleBrowserViewController.m */,
+				0E4B5FC41C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.h */,
+				0E4B5FC51C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m */,
 			);
 			name = "Browser VIew Controller";
 			sourceTree = "<group>";
@@ -5702,7 +5702,7 @@
 				B0E807DD1C0CF04A0065EBC0 /* MWKSectionList.m in Sources */,
 				BCD31FFE1C6EB3EE00317D08 /* NSCalendar+WMFCommonCalendars.m in Sources */,
 				B0E807D81C0CF04A0065EBC0 /* MWKImageInfo.m in Sources */,
-				0E4B5FC61C5BFFFB0099B02E /* WMFArticleBrowserViewController.m in Sources */,
+				0E4B5FC61C5BFFFB0099B02E /* UIViewController+WMFArticlePresentation.m in Sources */,
 				B0E805601C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m in Sources */,
 				B0E807A31C0CEFBD0065EBC0 /* MWKProtectionStatus.m in Sources */,
 				B0E804DB1C0CE0B40065EBC0 /* NSString+WMFDistance.m in Sources */,

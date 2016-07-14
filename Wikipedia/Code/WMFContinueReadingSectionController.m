@@ -9,7 +9,7 @@
 #import "UITableViewCell+WMFLayout.h"
 #import "MWKSection.h"
 #import "MWKSectionList.h"
-#import "WMFArticleBrowserViewController.h"
+#import "UIViewController+WMFArticlePresentation.h"
 #import "Wikipedia-Swift.h"
 #import "NSDate+WMFRelativeDate.h"
 

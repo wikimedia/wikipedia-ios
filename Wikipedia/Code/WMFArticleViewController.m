@@ -14,7 +14,7 @@
 #import "WMFImageGalleryViewController.h"
 #import "SectionEditorViewController.h"
 #import "WMFArticleFooterMenuViewController.h"
-#import "WMFArticleBrowserViewController.h"
+#import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
 #import "MWKLanguageLinkController.h"
 #import "WMFShareOptionsController.h"

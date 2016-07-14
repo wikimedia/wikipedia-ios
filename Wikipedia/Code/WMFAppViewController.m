@@ -33,7 +33,7 @@
 #import "WMFSearchViewController.h"
 #import "WMFArticleListTableViewController.h"
 #import "WMFWelcomeViewController.h"
-#import "WMFArticleBrowserViewController.h"
+#import "UIViewController+WMFArticlePresentation.h"
 #import "WMFNearbyListViewController.h"
 #import "UIViewController+WMFSearch.h"
 #import "UINavigationController+WMFHideEmptyToolbar.h"
@@ -442,25 +442,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (BOOL)exploreViewControllerIsDisplayingContent {
     return [self navigationControllerForTab:WMFAppTabTypeExplore].viewControllers.count > 1;
 }
-
-- (BOOL)articleBrowserIsBeingDisplayed {
-    UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
-    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[WMFArticleBrowserViewController class]]) {
-        return YES;
-    }
-
-    return NO;
-}
-
 - (MWKTitle*)onscreenTitle {
     UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
     if ([navVC.topViewController isKindOfClass:[WMFArticleViewController class]]) {
         return ((WMFArticleViewController*)navVC.topViewController).articleTitle;
-    }
-
-    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[WMFArticleBrowserViewController class]]) {
-        WMFArticleBrowserViewController* vc = (id)navVC.presentedViewController;
-        return [vc titleOfCurrentArticle];
     }
     return nil;
 }
@@ -639,15 +624,6 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)showLastReadArticleAnimated:(BOOL)animated {
     MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
     [self showArticleForTitle:lastRead animated:animated];
-}
-
-- (WMFArticleBrowserViewController*)currentlyDisplayedArticleBrowser {
-    UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
-    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[WMFArticleBrowserViewController class]]) {
-        WMFArticleBrowserViewController* vc = (id)navVC.presentedViewController;
-        return vc;
-    }
-    return nil;
 }
 
 #pragma mark - Show Search
