@@ -1,5 +1,6 @@
 // Messages for Galician (galego)
 // Exported from translatewiki.net
+// Author: Banjo
 // Author: Chairego apc
 // Author: Elisardojm
 // Author: Estevoaei
@@ -399,3 +400,4 @@
 "explore-most-read-more-list-title" = "Os mellores artigos";
 "explore-most-read-more-list-title-for-date" = "Máis lidos en $1";
 "no-email-account-alert" = "Por favor, configure a súa conta de correo electrónico no seu dispositivo e inténteo de novo.";
+"request-feedback-on-error" = "A aplicación atopou un problema da que os nosos desenvolvedores querrían ter máis información. Por favor presiona aquí para enviarnos un correo electrónico cos detalles do erro.";

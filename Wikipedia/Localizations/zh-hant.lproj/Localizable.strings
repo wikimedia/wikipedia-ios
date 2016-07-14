@@ -63,24 +63,19 @@
 "account-creation-passwords-mismatched" = "密碼欄位不符合。";
 "account-creation-saving" = "儲存中...";
 "account-creation-login" = "已經擁有帳號？請登入。";
-// Fuzzy
 "account-creation-username-placeholder-text" = "使用者名稱";
 "account-creation-password-placeholder-text" = "密碼";
 "account-creation-password-confirm-placeholder-text" = "確認密碼";
 "account-creation-email-placeholder-text" = "電子郵件 (選填)";
 "account-creation-missing-fields" = "您必須輸入使用者名稱與密碼，並且在確認密碼之後才能建立一個帳號。";
-// Fuzzy
 "login-name-not-found" = "需要填寫使用者名稱才能登入。";
-// Fuzzy
-"login-name-illegal" = "您提供的使用者名稱無效。";
-// Fuzzy
+"login-name-illegal" = "您提供的使用者名稱不合法。";
 "login-name-does-not-exist" = "您提供的使用者名稱不存在。";
 "login-password-empty" = "登入需要密碼。";
 "login-password-wrong" = "您提供的密碼不正確。";
 "login-throttled" = "你已在短時間內登入太多次。";
 "login-user-blocked" = "使用者已被封鎖。";
 "login-account-creation" = "沒有帳號嗎？加入維基百科。";
-// Fuzzy
 "login-username-placeholder-text" = "使用者名稱";
 "login-password-placeholder-text" = "密碼";
 "wikitext-downloading" = "讀取內容中…";
@@ -412,3 +407,4 @@
 "explore-most-read-more-list-title" = "熱門條目";
 "explore-most-read-more-list-title-for-date" = "$1 熱門";
 "no-email-account-alert" = "請在您的裝置上設定一個電子郵件地址後，再試一次。";
+"request-feedback-on-error" = "此應用程式已發生了問題，我們的開發人員想要瞭解更多有關於此的資料。請輕觸這裡向我們傳送一份含有錯誤詳細資料的電子信件。";
