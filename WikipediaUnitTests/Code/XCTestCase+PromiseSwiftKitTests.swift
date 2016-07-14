@@ -29,7 +29,7 @@ class XCTestCasePromiseKitSwiftTests: XCTestCase {
 
     func testShouldNotFulfillExpectationWhenTimeoutExpires() {
         guard NSProcessInfo.processInfo().wmf_isOperatingSystemMajorVersionAtLeast(9) else {
-            print("Skipping \(self.dynamicType).\(__FUNCTION__) since it crashes with symbolication errors on iOS < 9")
+            print("Skipping \(self.dynamicType).\(#function) since it crashes with symbolication errors on iOS < 9")
             return
         }
 

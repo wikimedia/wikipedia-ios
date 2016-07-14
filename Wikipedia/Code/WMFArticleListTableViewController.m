@@ -91,13 +91,15 @@ NS_ASSUME_NONNULL_BEGIN
         @weakify(self);
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:[self deleteButtonText] style:UIBarButtonItemStylePlain handler:^(id sender) {
             @strongify(self);
-            UIActionSheet* sheet = [UIActionSheet bk_actionSheetWithTitle:[self deleteAllConfirmationText]];
-            [sheet bk_setDestructiveButtonWithTitle:[self deleteText] handler:^{
+            UIAlertController *sheet = [UIAlertController alertControllerWithTitle:[self deleteAllConfirmationText] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            [sheet addAction:[UIAlertAction actionWithTitle:[self deleteText] style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 [self.dataSource deleteAll];
                 [self.tableView reloadData];
-            }];
-            [sheet bk_setCancelButtonWithTitle:[self deleteCancelText] handler:NULL];
-            [sheet showFromBarButtonItem:sender animated:YES];
+            }]];
+            [sheet addAction:[UIAlertAction actionWithTitle:[self deleteCancelText] style:UIAlertActionStyleCancel handler:NULL]];
+            sheet.popoverPresentationController.barButtonItem = sender;
+            sheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+            [self presentViewController:sheet animated:YES completion:NULL];
         }];
     } else {
         self.navigationItem.leftBarButtonItem = nil;
