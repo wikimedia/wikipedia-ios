@@ -3,7 +3,7 @@
 #import "GCDWebServer.h"
 #import "GCDWebServerDataResponse.h"
 #import "GCDWebServerErrorResponse.h"
-#import "GCDWebServerFileResponse.h"
+#import "GCDWebServerFunctions.h"
 #import "NSURL+WMFExtras.h"
 #import "NSString+WMFExtras.h"
 #import "NSURL+WMFProxyServer.h"
@@ -12,7 +12,15 @@
 #import "WMFImageTag+TargetImageWidthURL.h"
 #import "NSString+WMFHTMLParsing.h"
 
+@interface WMFProxyServerResponse : NSObject
+@property (nonatomic, copy) NSData* data;
+@property (nonatomic, copy) NSString* contentType;
+@property (nonatomic, readonly) GCDWebServerResponse* GCDWebServerResponse;
++ (WMFProxyServerResponse*)responseWithData:(NSData*)data contentType:(NSString*)contentType;
+@end
+
 @interface WMFProxyServer () <GCDWebServerDelegate>
+@property (nonatomic, strong) NSMutableDictionary* responsesByPath;
 @property (nonatomic, strong) GCDWebServer* webServer;
 @property (nonatomic, copy, nonnull) NSString* secret;
 @property (nonatomic, copy, nonnull) NSString* hostedFolderPath;
@@ -40,6 +48,8 @@
 }
 
 - (void)setup {
+    self.responsesByPath = [NSMutableDictionary dictionaryWithCapacity:10];
+
     NSString* secret = [[NSUUID UUID] UUIDString];
     self.secret    = secret;
     
@@ -163,14 +173,23 @@
 #pragma mark - Specific Handlers
 
 - (void)handleFileRequestForRelativePath:(NSString*)relativePath completionBlock:(GCDWebServerCompletionBlock)completionBlock {
-    NSString* fullPath      = [self.hostedFolderPath stringByAppendingPathComponent:relativePath];
-    NSURL* localFileURL     = [NSURL fileURLWithPath:fullPath];
-    NSNumber* isRegularFile = nil;
-    NSError* fileReadError  = nil;
-    if ([localFileURL getResourceValue:&isRegularFile forKey:NSURLIsRegularFileKey error:&fileReadError] && [isRegularFile boolValue]) {
-        completionBlock([GCDWebServerFileResponse responseWithFile:localFileURL.path]);
+    WMFProxyServerResponse* response = [self responseForPath:relativePath];
+    if (response == nil) {
+        NSString* fullPath      = [self.hostedFolderPath stringByAppendingPathComponent:relativePath];
+        NSURL* localFileURL     = [NSURL fileURLWithPath:fullPath];
+        NSNumber* isRegularFile = nil;
+        NSError* fileReadError  = nil;
+        if ([localFileURL getResourceValue:&isRegularFile forKey:NSURLIsRegularFileKey error:&fileReadError] && [isRegularFile boolValue]) {
+            NSData* data          = [NSData dataWithContentsOfURL:localFileURL];
+            NSString* contentType = GCDWebServerGetMimeTypeForExtension([localFileURL pathExtension]);
+            response                           = [WMFProxyServerResponse responseWithData:data contentType:contentType];
+            self.responsesByPath[relativePath] = response;
+            completionBlock(response.GCDWebServerResponse);
+        } else {
+            completionBlock([GCDWebServerErrorResponse responseWithClientError:kGCDWebServerHTTPStatusCode_NotFound message:@"404"]);
+        }
     } else {
-        completionBlock([GCDWebServerErrorResponse responseWithClientError:kGCDWebServerHTTPStatusCode_NotFound message:@"404"]);
+        completionBlock(response.GCDWebServerResponse);
     }
 }
 
@@ -305,10 +324,40 @@
     return newImageTagContents;
 }
 
+#pragma mark - Cache 
+
+- (void)setResponseData:(NSData *)data withContentType:(NSString *)contentType forPath:(NSString *)path {
+    if (path == nil) {
+        return;
+    }
+    self.responsesByPath[path] = [WMFProxyServerResponse responseWithData:data contentType:contentType];
+}
+
+- (WMFProxyServerResponse *)responseForPath:(NSString *)path {
+    if (path == nil) {
+        return nil;
+    }
+    return self.responsesByPath[path];
+}
+
 #pragma mark - BaseURL (for testing only)
 
 - (NSURL*)baseURL {
     return [self.webServer.serverURL URLByAppendingPathComponent:self.secret];
+}
+
+@end
+
+@implementation WMFProxyServerResponse
++ (WMFProxyServerResponse*)responseWithData:(NSData*)data contentType:(NSString*)contentType {
+    WMFProxyServerResponse* response = [[WMFProxyServerResponse alloc] init];
+    response.data        = data;
+    response.contentType = contentType;
+    return response;
+}
+
+- (GCDWebServerResponse*)GCDWebServerResponse {
+    return [GCDWebServerDataResponse responseWithData:self.data contentType:self.contentType];
 }
 
 @end
