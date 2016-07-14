@@ -42,24 +42,22 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise*)fetchRandomArticleWithSite:(MWKSite*)site {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        NSDictionary* params = [[self class] params];
-
-        [self.operationManager wmf_GETWithSite:site
-                                    parameters:params
-                                         retry:NULL
-                                       success:^(NSURLSessionDataTask* operation, NSArray* responseObject) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-
-            MWKSearchResult* article = [self getBestRandomResultFromResults:responseObject];
-
-            resolve(article);
-        } failure:^(NSURLSessionDataTask* operation, NSError* error) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve(error);
-        }];
-    }];
+- (void)fetchRandomArticleWithSite:(MWKSite*)site failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSearchResultHandler)success {
+    NSDictionary* params = [[self class] params];
+    
+    [self.operationManager wmf_GETWithSite:site
+                                parameters:params
+                                     retry:NULL
+                                   success:^(NSURLSessionDataTask* operation, NSArray* responseObject) {
+                                       [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                                       
+                                       MWKSearchResult* article = [self getBestRandomResultFromResults:responseObject];
+                                       
+                                       success(article);
+                                   } failure:^(NSURLSessionDataTask* operation, NSError* error) {
+                                       [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                                       failure(error);
+                                   }];
 }
 
 - (MWKSearchResult*)getBestRandomResultFromResults:(NSArray*)results {
@@ -76,29 +74,29 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDictionary*)params {
     NSNumber* numberOfRandomItemsToFetch = @8;
     return @{
-               @"action": @"query",
-               @"prop": @"extracts|pageterms|pageimages|pageprops|revisions",
-               //random
-               @"generator": @"random",
-               @"grnnamespace": @0,
-               @"grnfilterredir": @"nonredirects",
-               @"grnlimit": numberOfRandomItemsToFetch,
-               // extracts
-               @"exintro": @YES,
-               @"exlimit": numberOfRandomItemsToFetch,
-               @"explaintext": @"",
-               @"exchars": @(WMFNumberOfExtractCharacters),
-               // pageterms
-               @"wbptterms": @"description",
-               // pageimage
-               @"piprop": @"thumbnail",
-               @"pithumbsize": [[UIScreen mainScreen] wmf_leadImageWidthForScale],
-               @"pilimit": numberOfRandomItemsToFetch,
-               // revision
-               @"rrvlimit": @(1),
-               @"rvprop": @"ids",
-               @"format": @"json",
-    };
+             @"action": @"query",
+             @"prop": @"extracts|pageterms|pageimages|pageprops|revisions",
+             //random
+             @"generator": @"random",
+             @"grnnamespace": @0,
+             @"grnfilterredir": @"nonredirects",
+             @"grnlimit": numberOfRandomItemsToFetch,
+             // extracts
+             @"exintro": @YES,
+             @"exlimit": numberOfRandomItemsToFetch,
+             @"explaintext": @"",
+             @"exchars": @(WMFNumberOfExtractCharacters),
+             // pageterms
+             @"wbptterms": @"description",
+             // pageimage
+             @"piprop": @"thumbnail",
+             @"pithumbsize": [[UIScreen mainScreen] wmf_leadImageWidthForScale],
+             @"pilimit": numberOfRandomItemsToFetch,
+             // revision
+             @"rrvlimit": @(1),
+             @"rvprop": @"ids",
+             @"format": @"json",
+             };
 }
 
 @end

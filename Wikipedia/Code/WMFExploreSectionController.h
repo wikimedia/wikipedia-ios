@@ -190,6 +190,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)performHeaderButtonAction;
 
+/**
+ *  @return A boolean indicating whether or not the footer is enabled.
+ */
+- (BOOL)isHeaderActionEnabled;
+
 @end
 
 /**
@@ -210,6 +215,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return A view controller with will provide a more data for this section.
  */
 - (UIViewController*)moreViewController;
+
+/**
+ *  @return A boolean indicating whether or not the footer is enabled.
+ */
+- (BOOL)isFooterEnabled;
 
 @end
 

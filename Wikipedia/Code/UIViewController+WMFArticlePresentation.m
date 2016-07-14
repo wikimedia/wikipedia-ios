@@ -50,6 +50,18 @@ NS_ASSUME_NONNULL_BEGIN
     });
 }
 
+- (void)wmf_pushViewController:(UIViewController*)viewController animated:(BOOL)animated {
+    if (self.navigationController != nil) {
+        [self.navigationController pushViewController:viewController animated:animated];
+    } else if ([[self.childViewControllers firstObject] isKindOfClass:[UITabBarController class]]) {
+        UITabBarController* tab     = (UITabBarController*)[self.childViewControllers firstObject];
+        UINavigationController* nav = [tab selectedViewController];
+        [nav pushViewController:viewController animated:animated];
+    } else {
+        NSAssert(0, @"Unexpected view controller hierarchy");
+    }
+}
+
 @end
 
 

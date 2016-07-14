@@ -455,3 +455,5 @@
 "no-email-account-alert" = "Please setup an email account on your device and try again.";
 
 "request-feedback-on-error" = "The app has encountered a problem that our developers would like to know more about. Please tap here to send us an email with the error details.";
+
+"explore-another-random" = "Another random article";

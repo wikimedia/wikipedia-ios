@@ -46,7 +46,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 NSString* const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
-@interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler>
+@interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler, UIScrollViewDelegate>
 
 @property (nonatomic, strong) MASConstraint* headerHeight;
 @property (nonatomic, strong) UIView* footerContainerView;
@@ -297,6 +297,7 @@ NSString* const WMFCCBySALicenseURL =
 - (WKWebView*)webView {
     if (!_webView) {
         _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
+        _webView.scrollView.delegate = self;
     }
     return _webView;
 }
@@ -977,6 +978,14 @@ NSString* const WMFCCBySALicenseURL =
     [self.webView wmf_setTextSize:fontSize.integerValue];
     [[NSUserDefaults standardUserDefaults] wmf_setReadingFontSize:fontSize];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
+    if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidScroll:)]) {
+        [self.delegate webViewController:self scrollViewDidScroll:scrollView];
+    }
 }
 
 @end
