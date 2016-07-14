@@ -64,7 +64,7 @@
 }
 
 - (void)getFaceBoundsInImage:(UIImage*)image failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
-    [[CIDetector wmf_sharedBackgroundFaceDetector] wmf_detectFeaturelessFacesInImage:image failure:failure success:^(NSArray* features) {
+    [[CIDetector wmf_sharedFaceDetector] wmf_detectFeaturelessFacesInImage:image failure:failure success:^(NSArray* features) {
         NSArray<NSValue*>* faceBounds = [image wmf_normalizeAndConvertBoundsFromCIFeatures:features];
         success(faceBounds);
     }];

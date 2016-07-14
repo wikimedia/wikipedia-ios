@@ -408,3 +408,4 @@
 "explore-most-read-more-list-title" = "En çok okunan maddeler";
 "explore-most-read-more-list-title-for-date" = "$1 tarihinde çok okunan maddeler";
 "no-email-account-alert" = "Lütfen cihazınızda bir e-posta hesabı kurulumu yapıp, yeniden deneyin.";
+"request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";

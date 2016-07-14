@@ -13,7 +13,7 @@ extension NSArray {
     /**
      *  Used to find arrays that contain Nulls
      
-     - returns: true if any objects are [NSNUll null], otherwise false
+     - returns: true if any objects are [NSNull null], otherwise false
      */
     public func wmf_containsNullObjects() -> Bool {
         var foundNull = false
@@ -28,7 +28,7 @@ extension NSArray {
     /**
      Used to find arrays that contain Nulls or contain sub-dictionaries or arrays that contain Nulls
      
-     - returns: true if any objects or sub-collection objects are [NSNUll null], otherwise false
+     - returns: true if any objects or sub-collection objects are [NSNull null], otherwise false
      */
     public func wmf_recursivelyContainsNullObjects() -> Bool {
         if self.wmf_containsNullObjects(){

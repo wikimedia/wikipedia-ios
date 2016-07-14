@@ -5,32 +5,32 @@
 // Author: MIKHEIL
 // Author: Otogi
 
-// Fuzzy
-"languages-title" = "ენები";
+"languages-title" = "ენის შეცვლა";
 "article-languages-label" = "აირჩიეთ ენა";
 "article-languages-cancel" = "გაუქმება";
 "article-languages-downloading" = "სტატიის ენები იტვირთება...";
-// Fuzzy
-"article-languages-filter-placeholder" = "ენის ფილტრი";
+"article-languages-filter-placeholder" = "მოძებნე ენა";
 "article-read-more-title" = "წაიკითხეთ მეტი";
 "article-about-title" = "ამ სტატიის შესახებ";
 "article-unable-to-load-section" = "სექციის ჩატვირთვა შეუძლებელია. სცადეთ გვერდის გადატვირთვა და ნახეთ გასწორდება თუ არა პრობლემა.";
 "article-unable-to-load-article" = "ამ სტატიის ჩატვირთვა ვერ ხერხდება.";
 "article-related-articles-title" = "დაკავშირებული სტატიები";
+"article-languages-yours" = "შენი ენები";
+"article-languages-others" = "სხვა ენები";
 "info-box-title" = "სწრაფი ფაქტები";
 "info-box-close-text" = "დახურვა";
 "table-title-other" = "მეტი ინფორმაცია";
+"saved-clear-all" = "გასუფთავება";
+"history-clear-all" = "გასუფთავება";
 "history-label" = "ბოლო";
 "history-section-today" = "დღეს";
 "history-section-yesterday" = "გუშინ";
 "history-section-lastweek" = "გასულ კვირას";
 "history-section-lastmonth" = "გასულ თვეს";
-// Fuzzy
-"history-clear-confirmation-heading" = "წავშალოთ ყველა ბოლო ელემენტი?";
+"history-clear-confirmation-heading" = "დარწმუნებული ხართ, რომ გსურთ წაშალოთ ყველა თქვენი ბოლო ელემენტი?";
 "history-clear-confirmation-sub-heading" = "ამ ქმედების გაუქმება შეუძლებელია!";
 "history-clear-cancel" = "გაუქმება";
-// Fuzzy
-"history-clear-delete-all" = "ყველას წაშლა";
+"history-clear-delete-all" = "დიახ, ყველას წაშლა";
 "history-description" = "შესაძლოა თქვენ ყველა მათგანი წაშალეთ. შემდეგში შეგიძლიათ გადახვიდეთ გვერდზე, სადაც გადასვლა აქედან შეგიძლიათ.";
 "history-none" = "ბოლო გვერდები ვერ მოიძებნა.";
 "zero-free-verbiage" = "ვიკიპედიაზე უფასო წვდომა თქვენი მობილური ოპერატორიდან.";
@@ -42,34 +42,27 @@
 "zero-learn-more-learn-more" = "წაიკითხე მეტი";
 "zero-learn-more-no-thanks" = "დამალვა";
 "zero-wikipedia-zero-heading" = "ვიკიპედია ზერო";
-// Fuzzy
-"zero-warn-when-leaving" = "გამაფრთხილე ვიკიპედია ზეროს დატოვებისას";
+"zero-warn-when-leaving" = "გამაფრთხილე ზეროს დატოვებისას";
 "zero-settings-devmode" = "Zero devmode";
 "account-creation-captcha-required" = "საჭიროა CAPTCHA-ს დადასტურება.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "ახალი CAPTCHA-ს მიღება.";
+"account-creation-captcha-obtaining" = "ახალი CAPTCHA-ს მიღება...";
 "account-creation-logging-in" = "შედიხართ სისტემაში...";
 "account-creation-passwords-mismatched" = "პაროლის ველები არ დაემთხვა.";
 "account-creation-saving" = "ინახება...";
 "account-creation-login" = "უკვე გაქვთ ანგარიში? გაიარეთ ავტორიზაცია";
-// Fuzzy
 "account-creation-username-placeholder-text" = "მომხმარებლის სახელი";
 "account-creation-password-placeholder-text" = "პაროლი";
 "account-creation-password-confirm-placeholder-text" = "დაადასტურეთ პაროლი";
 "account-creation-email-placeholder-text" = "ელ-ფოსტა (არასავალდებულო)";
 "account-creation-missing-fields" = "ანგარიშის შესაქმნელად, თქვენ უნდა შეიყვანოთ მომხმარებლის სახელი, პაროლი და პაროლის დადასტურება.";
-// Fuzzy
 "login-name-not-found" = "შესასვლელად საჭიროა მომხმარებლის სახელი.";
-// Fuzzy
 "login-name-illegal" = "თქვენ მიერ მითითებული მომხმარებლის სახელი არალეგალურია.";
-// Fuzzy
 "login-name-does-not-exist" = "თქვენ მიერ მითითებული მომხმარებლის სახელი არ არსებობს.";
 "login-password-empty" = "შესასვლელად საჭიროა პაროლი.";
 "login-password-wrong" = "თქვენ მიერ მითითებული პაროლი არასწორია.";
 "login-throttled" = "მოკლე დროის მანძილზე საკმაოდ ბევრჯერ შეხვედით.";
 "login-user-blocked" = "მომხმარებელი ბლოკირებულია.";
 "login-account-creation" = "არ გაქვს ანგარიში? შეუერთდი ვიკიპედიას.";
-// Fuzzy
 "login-username-placeholder-text" = "მომხმარებლის სახელი";
 "login-password-placeholder-text" = "პაროლი";
 "wikitext-downloading" = "შიგთავსი იტვირთება…";
@@ -107,38 +100,40 @@
 "search-recent-clear-confirmation-sub-heading" = "ამ ქმედების გაუქმება შეუძლებელია!";
 "search-recent-clear-cancel" = "გაუქმება";
 "search-recent-clear-delete-all" = "ყველას წაშლა";
+"search-result-redirected-from" = "გადამისამართებულია $1-დან";
 "settings-title" = "კონფიგურაცია";
+"settings-language" = "ვიკიპედიის ენები";
+"settings-support" = "მხარი დაუჭირე ვიკიპედიას";
+"settings-language-bar" = "ენების ჩვენება ძიებისას";
+"settings-my-languages" = "ჩემი ენები";
+"settings-help-and-feedback" = "დახმარება და უკუკავშირი";
+"settings-primary-language" = "ძირითადი";
 "main-menu-title" = "მეტი";
 "main-menu-heading-about" = "შესახებ";
 "main-menu-language-title" = "მოძებნე $1 ვიკიპედიაში";
-// Fuzzy
 "main-menu-faq" = "ხშირი შეკითხვები";
 "main-menu-language-toggle-show" = "ენების ჩვენება";
 "main-menu-language-toggle-hide" = "ენების დამალვა";
 "main-menu-language-selection-saved" = "ენის არჩევა დამახსოვრებულია";
 "main-menu-account-title-logged-out" = "ანგარიში";
-// Fuzzy
 "main-menu-account-title-logged-in" = "შესული ხართ როგორც $1.";
-// Fuzzy
 "main-menu-account-login" = "შესვლა";
 "main-menu-account-logout" = "გასვლა";
+"main-menu-account-logout-are-you-sure" = "დარწმუნებული ხართ, რომ გსურთ გასვლა?";
+"main-menu-account-logout-cancel" = "გაუქმება";
 "main-menu-show-title" = "მაჩვენე...";
 "main-menu-show-history" = "ბოლო";
 "main-menu-show-saved" = "შენახული გვერდები";
 "main-menu-current-article-save" = "შეინახეთ $1 ოფლაინ რეჟიმში წასაკითხად";
 "main-menu-random" = "შემთხვევითი";
 "main-menu-feedback-heading" = "უკუკავშირი";
-// Fuzzy
-"main-menu-send-feedback" = "შეაფასეთ აპლიკაცია";
+"main-menu-send-feedback" = "მოგვწერეთ";
 "main-menu-show-page-history" = "ცვლილებათა ისტორია $1-სთვის";
 "main-menu-credits" = "შემქმნელები";
-// Fuzzy
-"main-menu-about" = "ვიკიპედიის აპლიკაციის შესახებ";
+"main-menu-about" = "აპლიკაციის შესახებ";
 "main-menu-zero-faq" = "ვიკიპედია ზეროს ხშირი შეკითხვები";
 "main-menu-privacy-policy" = "კონფიდენციალურობის პოლიტიკა";
-// Fuzzy
 "main-menu-terms-of-use" = "გამოყენების პირობები";
-// Fuzzy
 "main-menu-rate-app" = "შეაფასეთ აპლიკაცია";
 "main-menu-heading-zero" = "ვიკიპედია ზერო";
 "main-menu-heading-legal" = "კონფიდენციალურობა და პირობები";
@@ -147,14 +142,13 @@
 "main-menu-more" = "მეტი...";
 "main-menu-heading-debug" = "დიბაგი";
 "main-menu-debug-crash" = "პრობლემა";
+"main-menu-debug-tweaks" = "დეველოპერის პარამეტრები";
 "saved-title" = "შენახულია";
 "saved-pages-title" = "შენახული გვერდები";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "წავშალოთ ყველა დამასხოვვრებული ელემენტი?";
+"saved-pages-clear-confirmation-heading" = "დარწმუნებული ხართ, რომ გსურთ ყველა დამასხოვრებული გვერდის წაშლა?";
 "saved-pages-clear-confirmation-sub-heading" = "ამ ქმედების გაუქმება შეუძლებელია!";
 "saved-pages-clear-cancel" = "გაუქმება";
-// Fuzzy
-"saved-pages-clear-delete-all" = "ყველაფრის წაშლა";
+"saved-pages-clear-delete-all" = "დიახ, ყველაფრის წაშლა";
 "saved-pages-refresh-cancel-alert-title" = "განახლება გაუქმდა";
 "saved-pages-refresh-cancel-alert-message" = "ვიკიპედიის სტატიები მუდმივად ახლდება. დააჭირეთ განახლებას, რათა ყველა სტატიის ბოლო ვერსია იხილოთ.";
 "saved-pages-refresh-cancel-alert-button" = "მიღება";
@@ -197,17 +191,15 @@
 "credits-external-libraries" = "გარე";
 "about-title" = "შესახებ";
 "about-wikipedia" = "ვიკიპედია";
-// Fuzzy
 "about-contributors" = "ავტორები";
-// Fuzzy
 "about-testers" = "ტესტერები";
 "about-testers-details" = "QA დატესტილი $1-ის მიერ";
-// Fuzzy
 "about-translators" = "მთარგმნელები";
 "about-translators-details" = "ეს აპლიკაცია ნათარგმნია მოხალისეების მიერ $1-ზე";
-// Fuzzy
 "about-libraries" = "გამოყენებული მასალები";
 "about-libraries-license" = "ლიცენზია";
+"about-libraries-licenses" = "ლიცენზიები";
+"about-content-license" = "კონტენტის ლიცენზია";
 // Fuzzy
 "about-repositories" = "რეპოზიტორები";
 "about-send-feedback" = "შეაფასეთ აპლიკაცია";

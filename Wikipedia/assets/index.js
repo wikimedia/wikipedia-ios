@@ -105,10 +105,10 @@ function touchEndedWithoutDragging(event){
     if (!didSendMessage && !hasSelectedText) {
         // Do NOT prevent default behavior -- this is needed to for instance
         // handle deselection of text.
-        window.webkit.messageHandlers.clicks.postMessage({"nonAnchorTouchEndedWithoutDragging": {
+        window.webkit.messageHandlers.nonAnchorTouchEndedWithoutDragging.postMessage({
                                                   id: event.target.getAttribute( "id" ),
                                                   tagName: event.target.tagName
-                                                  }});
+                                                  });
 
     }
 }
@@ -124,8 +124,8 @@ function maybeSendMessageForTarget(event, hrefTarget){
     var href = hrefTarget.getAttribute( "href" );
     var hrefClass = hrefTarget.getAttribute('class');
     if (hrefTarget.getAttribute( "data-action" ) === "edit_section") {
-        window.webkit.messageHandlers.clicks.postMessage({"editClicked": { sectionId: hrefTarget.getAttribute( "data-id" ) }});
-    } else if (href && refs.isReference(href)) {
+        window.webkit.messageHandlers.editClicked.postMessage({ sectionId: hrefTarget.getAttribute( "data-id" ) });
+    } else if (href && refs.isCitation(href)) {
         // Handle reference links with a popup view instead of scrolling about!
         refs.sendNearbyReferences( hrefTarget );
     } else if (href && href[0] === "#") {
@@ -135,17 +135,17 @@ function maybeSendMessageForTarget(event, hrefTarget){
         // If it is a link to an anchor in the current page, use existing link handling
         // so top floating native header height can be taken into account by the regular
         // fragment handling logic.
-        window.webkit.messageHandlers.clicks.postMessage({"linkClicked": { 'href': href }});
+        window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href });
     } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
-         window.webkit.messageHandlers.clicks.postMessage({"imageClicked": {
+         window.webkit.messageHandlers.imageClicked.postMessage({
                                                           'src': event.target.getAttribute('src'),
                                                           'width': event.target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
                                                           'height': event.target.naturalHeight,
  														  'data-file-width': event.target.getAttribute('data-file-width'),
  														  'data-file-height': event.target.getAttribute('data-file-height')
-                                                          }});
+                                                          });
     } else if (href) {
-        window.webkit.messageHandlers.clicks.postMessage({"linkClicked": { 'href': href }});
+        window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href });
     } else {
         return false;
     }
@@ -154,27 +154,41 @@ function maybeSendMessageForTarget(event, hrefTarget){
 
 document.addEventListener("touchend", handleTouchEnded, false);
 
+ function shouldPeekElement(element){
+    return (element.tagName == "IMG" || (element.tagName == "A" && !refs.isReference(element.href) && !refs.isCitation(element.href) && !refs.isEndnote(element.href)));
+ }
+ 
  // 3D Touch peeking listeners.
  document.addEventListener("touchstart", function (event) {
                            // Send message with url (if any) from touch element to native land.
                            var element = window.wmf.elementLocation.getElementFromPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY);
-                           window.webkit.messageHandlers.peek.postMessage({"peekElement": {
-                                                                          'tagName': element.tagName,
-                                                                          'href': element.href,
-                                                                          'src': element.src
-                                                                          }});
+                           if(shouldPeekElement(element)){
+                               window.webkit.messageHandlers.peek.postMessage({
+                                                                              'tagName': element.tagName,
+                                                                              'href': element.href,
+                                                                              'src': element.src
+                                                                              });
+                           }
                            }, false);
  
  document.addEventListener("touchend", function () {
                            // Tell native land to clear the url - important.
-                           window.webkit.messageHandlers.peek.postMessage({"peekElement": null});
+                           window.webkit.messageHandlers.peek.postMessage({});
                            }, false);
 })();
 
 },{"./refs":4,"./transforms/collapseTables":7,"./utilities":12}],4:[function(require,module,exports){
 
+function isCitation( href ) {
+    return href.includes("#cite_note");
+}
+
+function isEndnote( href ) {
+    return href.includes("#endnote_");
+}
+
 function isReference( href ) {
-    return ( href.slice( 0, 10 ) === "#cite_note" );
+    return href.includes("#ref_");
 }
 
 function goDown( element ) {
@@ -212,9 +226,9 @@ var goRight = skipOverWhitespace( function( element ) {
     return element.nextSibling;
 });
 
-function hasReferenceLink( element ) {
+function hasCitationLink( element ) {
     try {
-        return isReference( goDown( element ).getAttribute( "href" ) );
+        return isCitation( goDown( element ).getAttribute( "href" ) );
     } catch (e) {
         return false;
     }
@@ -264,7 +278,7 @@ function sendNearbyReferences( sourceNode ) {
 
     // go left:
     curNode = sourceNode.parentElement;
-    while ( hasReferenceLink( goLeft( curNode ) ) ) {
+    while ( hasCitationLink( goLeft( curNode ) ) ) {
         refsIndex += 1;
         curNode = goLeft( curNode );
         refs.unshift( collectRefText( goDown ( curNode ) ) );
@@ -274,7 +288,7 @@ function sendNearbyReferences( sourceNode ) {
 
     // go right:
     curNode = sourceNode.parentElement;
-    while ( hasReferenceLink( goRight( curNode ) ) ) {
+    while ( hasCitationLink( goRight( curNode ) ) ) {
         curNode = goRight( curNode );
         refs.push( collectRefText( goDown ( curNode ) ) );
         linkId.push( collectRefLink( curNode ) );
@@ -282,15 +296,17 @@ function sendNearbyReferences( sourceNode ) {
     }
 
     // Special handling for references
-    window.webkit.messageHandlers.clicks.postMessage({"referenceClicked": {
+    window.webkit.messageHandlers.referenceClicked.postMessage({
                                                      "refs": refs,
                                                      "refsIndex": refsIndex,
                                                      "linkId": linkId,
                                                      "linkText": linkText
-                                                     }});
+                                                     });
 }
 
+exports.isEndnote = isEndnote;
 exports.isReference = isReference;
+exports.isCitation = isCitation;
 exports.sendNearbyReferences = sendNearbyReferences;
 
 },{}],5:[function(require,module,exports){

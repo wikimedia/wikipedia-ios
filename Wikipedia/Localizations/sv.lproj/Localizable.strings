@@ -404,3 +404,4 @@
 "explore-most-read-more-list-title" = "Populära artiklar";
 "explore-most-read-more-list-title-for-date" = "Populärt den $1";
 "no-email-account-alert" = "Lägg in ett e-postkonto på din enhet och försök igen.";
+"request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";

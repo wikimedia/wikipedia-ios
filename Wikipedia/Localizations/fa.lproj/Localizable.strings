@@ -1,5 +1,6 @@
 // Messages for Persian (فارسی)
 // Exported from translatewiki.net
+// Author: Alifakoor
 // Author: Alirezaaa
 // Author: Arian Ar
 // Author: BaziOnline
@@ -21,7 +22,6 @@
 "article-languages-label" = "انتخاب زبان";
 "article-languages-cancel" = "لغو";
 "article-languages-downloading" = "در حال بارگیری زبان‌های مقاله...";
-// Fuzzy
 "article-languages-filter-placeholder" = "یافتن زبان";
 "article-read-more-title" = "بیشتر بخوانید";
 "article-about-title" = "دربارهٔ این مقاله";
@@ -61,30 +61,24 @@
 "zero-warn-when-leaving" = "هشدار برای خروج از صفر";
 "zero-settings-devmode" = "وضعیت برنامه‌نویسی صفر";
 "account-creation-captcha-required" = "نیازمند به وارد کردن کپچا.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "اخذ کپچا تازه.";
+"account-creation-captcha-obtaining" = "اخذ کپچا تازه...";
 "account-creation-logging-in" = "ورود به سیستم...";
 "account-creation-passwords-mismatched" = "گذرواژه‌ها همخوانی ندارند.";
 "account-creation-saving" = "در حال ذخیره‌سازی...";
 "account-creation-login" = "حساب کاربری دارید؟ وارد شوید.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "نام کاربری";
 "account-creation-password-placeholder-text" = "گذرواژه";
 "account-creation-password-confirm-placeholder-text" = "تأیید گذرواژه";
 "account-creation-email-placeholder-text" = "ایمیل (اختیاری)";
 "account-creation-missing-fields" = "شما باید نام کاربری، گذرواژه را وارد کنید و گذرواژه را تائید کنید تا حساب کاربری ساخته شود.";
-// Fuzzy
 "login-name-not-found" = "نام کاربری برای ورود به سیستم لازم است.";
-// Fuzzy
 "login-name-illegal" = "شما نام کاربر غیر قانونی ارائه دادید.";
-// Fuzzy
 "login-name-does-not-exist" = "نام کاربری ارائه‌داده شده وجود ندارد.";
 "login-password-empty" = "رمز عبور برای ورود به سیستم لازم است.";
 "login-password-wrong" = "رمز ورودی که ارائه دادید، نادرست است.";
 "login-throttled" = "شما در یک بازه زمانی کوتاه، برای ورود بیش از حد کوشش کرده اید.";
 "login-user-blocked" = "کاربر بسته شده‌است";
 "login-account-creation" = "حساب کاربری ندارید؟ به ویکی پدیا بپیوندید.";
-// Fuzzy
 "login-username-placeholder-text" = "نام کاربری";
 "login-password-placeholder-text" = "گذرواژه";
 "wikitext-downloading" = "بارگیری متن...";
@@ -416,3 +410,4 @@
 "explore-most-read-more-list-title" = "بالاترین مقالات";
 "explore-most-read-more-list-title-for-date" = "بالاترین در $1";
 "no-email-account-alert" = "لطفاً حساب ایمیل را بر روی دستگاهتان تنظیم کنید و مجدداً تلاش کنید.";
+"request-feedback-on-error" = "این برنامه با مشکلی مواجه شده است که توسعه دهندگان آن به دانستن بیشتر در مورد آن علاقه‌مند می‌باشند. لطفاً با ضربه زدن بر اینجا، برایمان یک پست الکترونیکی با جزئیات بیشتری بفرستید.";

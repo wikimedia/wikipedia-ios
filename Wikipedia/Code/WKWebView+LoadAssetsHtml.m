@@ -6,6 +6,8 @@
 #import "WMFProxyServer.h"
 #import "UIScreen+WMFImageWidth.h"
 
+static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is the default NSURLRequest timeout interval
+
 @implementation WKWebView (LoadAssetsHtml)
 
 - (void)loadHTMLFromAssetsFile:(NSString*)fileName scrolledToFragment:(NSString*)fragment {
@@ -16,11 +18,12 @@
     
     fragment = fragment ? fragment : @"top";
     NSURL* requestURL = [[WMFProxyServer sharedProxyServer] proxyURLForRelativeFilePath:fileName fragment:fragment];
-    NSURLRequest* request = [NSURLRequest requestWithURL:requestURL];
+    NSURLRequest* request = [NSURLRequest requestWithURL:requestURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:WKWebViewLoadAssetsHTMLRequestTimeout];
     [self loadRequest:request];
 }
 
 - (void)loadHTML:(NSString*)string baseURL:(NSURL *)baseURL withAssetsFile:(NSString*)fileName scrolledToFragment:(NSString*)fragment topPadding:(NSUInteger)topPadding {
+    
     if (!string) {
         string = @"";
     }
@@ -47,19 +50,12 @@
     // index.html and preview.html have four "%@" subsitition markers. Replace both of these with actual content.
     NSString* templateAndContent = [NSString stringWithFormat:fileContents, fontString, baseURL.absoluteString, @(topPadding), string];
 
-    // Get temp file name. For a fileName of "index.html" the temp file name would be "index.temp.html"
-    NSString* tempFileName = [[[fileName stringByDeletingPathExtension] stringByAppendingPathExtension:@"temp"] stringByAppendingPathExtension:[fileName pathExtension]];
+    
+    [proxyServer setResponseData:[templateAndContent dataUsingEncoding:NSUTF8StringEncoding] withContentType:@"text/html; charset=utf-8" forPath:fileName];
+    
+    
+    [self loadHTMLFromAssetsFile:fileName scrolledToFragment:fragment];
 
-    // Get path to tempFileName
-    NSString* tempFilePath = [proxyServer localFilePathForRelativeFilePath:tempFileName];
-
-    NSError* error = nil;
-    [templateAndContent writeToFile:tempFilePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    if (!error) {
-        [self loadHTMLFromAssetsFile:tempFileName scrolledToFragment:fragment];
-    } else {
-        NSAssert(NO, @"\nTemp file could not be written: \n%@\n", tempFilePath);
-    }
 }
 
 
