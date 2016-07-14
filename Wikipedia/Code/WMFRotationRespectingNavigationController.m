@@ -3,29 +3,32 @@
 @implementation WMFRotationRespectingNavigationController
 
 - (BOOL)shouldAutorotate {
-    UIViewController* vcToRespect = self.presentedViewController ? self.presentedViewController : self.topViewController;
-    if (vcToRespect && [vcToRespect isKindOfClass:[UIAlertController class]]) {
-        return [vcToRespect shouldAutorotate];
+    if (self.presentedViewController && ![self.presentedViewController isKindOfClass:[UIAlertController class]]) {
+        return self.presentedViewController.shouldAutorotate;
+    } else if (self.topViewController) {
+        return self.topViewController.shouldAutorotate;
     } else {
-        return [super shouldAutorotate];
+        return YES;
     }
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    UIViewController* vcToRespect = self.presentedViewController ? self.presentedViewController : self.topViewController;
-    if (vcToRespect && [vcToRespect isKindOfClass:[UIAlertController class]]) {
-        return [vcToRespect supportedInterfaceOrientations];
+    if (self.presentedViewController && ![self.presentedViewController isKindOfClass:[UIAlertController class]]) {
+        return self.presentedViewController.supportedInterfaceOrientations;
+    } else if (self.topViewController) {
+        return self.topViewController.supportedInterfaceOrientations;
     } else {
-        return [super supportedInterfaceOrientations];
+        return UIInterfaceOrientationMaskAll;
     }
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    UIViewController* vcToRespect = self.presentedViewController ? self.presentedViewController : self.topViewController;
-    if (vcToRespect && [vcToRespect isKindOfClass:[UIAlertController class]]) {
-        return [vcToRespect preferredInterfaceOrientationForPresentation];
+    if (self.presentedViewController && ![self.presentedViewController isKindOfClass:[UIAlertController class]]) {
+        return self.presentedViewController.preferredInterfaceOrientationForPresentation;
+    } else if (self.topViewController) {
+        return self.topViewController.preferredInterfaceOrientationForPresentation;
     } else {
-        return [super preferredInterfaceOrientationForPresentation];
+        return UIInterfaceOrientationPortrait;
     }
 }
 
