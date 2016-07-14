@@ -1,14 +1,14 @@
 
 function isCitation( href ) {
-    return href.includes("#cite_note");
+    return href.indexOf("#cite_note") > -1;
 }
 
 function isEndnote( href ) {
-    return href.includes("#endnote_");
+    return href.indexOf("#endnote_") > -1;
 }
 
 function isReference( href ) {
-    return href.includes("#ref_");
+    return href.indexOf("#ref_") > -1;
 }
 
 function goDown( element ) {
