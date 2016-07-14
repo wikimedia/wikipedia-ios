@@ -1,11 +1,3 @@
-//
-//  CIDetector+WMFFaceDetection.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 7/20/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "CIDetector+WMFFaceDetection.h"
 #import "Wikipedia-Swift.h"
 
@@ -13,15 +5,17 @@
 #import "CIContext+WMFImageProcessing.h"
 #import "UIImage+WMFImageProcessing.h"
 
+NSString* const WMFFaceDetectionErrorDomain = @"org.wikimedia.face-detection-error";
+
 @implementation CIDetector (WMFFaceDetection)
 
-+ (instancetype)wmf_sharedBackgroundFaceDetector {
++ (instancetype)wmf_sharedFaceDetector {
     static CIDetector* defaultFaceDetector;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         defaultFaceDetector = [CIDetector detectorOfType:CIDetectorTypeFace
-                                                 context:[CIContext wmf_sharedBackgroundContext]
-                                                 options:nil];
+                                                 context:[CIContext wmf_sharedContext]
+                                                 options:@{CIDetectorAccuracy: CIDetectorAccuracyLow}];
     });
     return defaultFaceDetector;
 }
@@ -31,8 +25,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         featurelessFaceOptions = @{
-//            CIDetectorEyeBlink: @NO,
-//            CIDetectorSmile: @NO
+            CIDetectorAccuracy: CIDetectorAccuracyLow
         };
     });
     return featurelessFaceOptions;
@@ -46,8 +39,12 @@
 
 - (void)wmf_detectFeaturesInImage:(UIImage*)image options:(NSDictionary*)options on:(dispatch_queue_t)queue failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
     dispatch_async(queue, ^{
-        id features = [self featuresInImage:[image wmf_getOrCreateCIImage] options:options];
-        success(features);
+        if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+            id features = [self featuresInImage:[image wmf_getOrCreateCIImage] options:options];
+            success(features);
+        } else {
+            failure([NSError errorWithDomain:WMFFaceDetectionErrorDomain code:WMFFaceDectionErrorAppInBackground userInfo:nil]);
+        }
     });
 }
 

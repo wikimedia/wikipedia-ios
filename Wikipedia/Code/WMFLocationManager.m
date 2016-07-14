@@ -41,6 +41,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign, readwrite, getter = isUpdating) BOOL updating;
 
+/**
+ *  Whether or not the receiver made the request for location authorization in order to begin updating location.
+ */
+@property (nonatomic, assign, readwrite, getter = isRequestingAuthorizationAndStart) BOOL requestingAuthorizationAndStart;
+
+@property (nonatomic, assign, readwrite) CLAuthorizationStatus currentAuthorizationStatus;
+
 - (instancetype)initWithLocationManager:(CLLocationManager*)locationManager NS_DESIGNATED_INITIALIZER;
 
 @end
@@ -58,6 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithLocationManager:(CLLocationManager*)locationManager {
     self = [super init];
     if (self) {
+        self.currentAuthorizationStatus = [CLLocationManager authorizationStatus];
         self.locationManager     = locationManager;
         locationManager.delegate = self;
     }
@@ -115,9 +123,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)startMonitoringLocation {
+    self.requestingAuthorizationAndStart = YES;
     if ([self requestAuthorizationIfNeeded] || [WMFLocationManager isDeniedOrDisabled] || self.isUpdating) {
         return;
     }
+    self.requestingAuthorizationAndStart = NO;
 
     NSParameterAssert([WMFLocationManager isAuthorized]);
 
@@ -202,6 +212,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager*)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    //only continue if there's a change in authorization status
+    if (self.currentAuthorizationStatus == status) {
+        return;
+    }
+    self.currentAuthorizationStatus = status;
     switch (status) {
         case kCLAuthorizationStatusNotDetermined:
         case kCLAuthorizationStatusRestricted: {
@@ -223,7 +238,9 @@ NS_ASSUME_NONNULL_BEGIN
             if ([self.delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
                 [self.delegate nearbyController:self didChangeEnabledState:YES];
             }
-            [self startMonitoringLocation];
+            if (self.isRequestingAuthorizationAndStart) { //only start if we requested as a part of a start
+                [self startMonitoringLocation];
+            }
             break;
         }
     }
