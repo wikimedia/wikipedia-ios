@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSString (WMFHTMLParsing)
 
 /// Parse the receiver as HTML and return the content of any text nodes found.
@@ -48,4 +50,9 @@
  */
 - (NSString*)wmf_decodeHTMLAmp;
 
+
+- (void)wmf_enumerateHTMLImageTagContentsWithHandler:(nonnull void (^)(NSString * imageTagContents, NSRange range))handler;
+
 @end
+
+NS_ASSUME_NONNULL_END

@@ -19,7 +19,6 @@
 "article-languages-label" = "언어 선택";
 "article-languages-cancel" = "취소";
 "article-languages-downloading" = "문서 언어를 불러오는 중...";
-// Fuzzy
 "article-languages-filter-placeholder" = "언어 찾기";
 "article-read-more-title" = "더 읽어보기";
 "article-about-title" = "이 문서의 정보";
@@ -59,30 +58,24 @@
 "zero-warn-when-leaving" = "제로를 떠나면 경고";
 "zero-settings-devmode" = "제로 개발모드";
 "account-creation-captcha-required" = "자동입력방지 문자 확인이 필요합니다.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "새로운 캡차를 얻는 중입니다.";
+"account-creation-captcha-obtaining" = "새로운 캡차를 얻는 중입니다...";
 "account-creation-logging-in" = "로그인 중...";
 "account-creation-passwords-mismatched" = "비밀번호 필드가 일치하지 않습니다.";
 "account-creation-saving" = "저장 중...";
 "account-creation-login" = "계정이 이미 있습니까? 로그인하세요.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "사용자 이름";
 "account-creation-password-placeholder-text" = "비밀번호";
 "account-creation-password-confirm-placeholder-text" = "비밀번호 확인";
 "account-creation-email-placeholder-text" = "이메일 (선택 사항)";
 "account-creation-missing-fields" = "계정을 만드려면 사용자 이름, 비밀번호와 비밀번호 확인을 입력해야 합니다.";
-// Fuzzy
 "login-name-not-found" = "로그인하려면 사용자 이름이 필요합니다.";
-// Fuzzy
 "login-name-illegal" = "잘못된 사용자 이름을 제공했습니다.";
-// Fuzzy
 "login-name-does-not-exist" = "제공한 사용자 이름이 존재하지 않습니다.";
 "login-password-empty" = "로그인하려면 비밀번호가 필요합니다.";
 "login-password-wrong" = "제공한 비밀번호가 잘못되었습니다.";
 "login-throttled" = "짧은 시간에 너무 많이 로그인하려고 했습니다.";
 "login-user-blocked" = "사용자가 차단되었습니다.";
 "login-account-creation" = "계정이 없나요? 위키백과에 가입하세요.";
-// Fuzzy
 "login-username-placeholder-text" = "사용자 이름";
 "login-password-placeholder-text" = "비밀번호";
 "wikitext-downloading" = "내용을 불러오는 중...";
@@ -334,7 +327,7 @@
 "hockeyapp-alert-always-send" = "항상 보내기";
 "hockeyapp-alert-do-not-send" = "보내지 않기";
 "hockeyapp-alert-privacy" = "$1 개인 정보";
-"page-issues" = "문서 문제";
+"page-issues" = "문서 이슈";
 "page-similar-titles" = "비슷한 문서";
 "page-read-in-other-languages" = "$1개의 다른 언어로 읽어보기";
 "page-last-edited" = "$1일 전에 마지막으로 편집";
@@ -414,3 +407,4 @@
 "explore-most-read-more-list-title" = "상위 문서";
 "explore-most-read-more-list-title-for-date" = "$1의 상위 문서";
 "no-email-account-alert" = "사용자의 장치에 이메일 계정을 설정한 뒤 다시 시도하십시오.";
+"request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";

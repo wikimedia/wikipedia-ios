@@ -34,7 +34,6 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 @property (readwrite, assign, nonatomic) BOOL references;         // optional; marked by presence of key with empty string in JSON
 
 @property (readwrite, copy, nonatomic, nullable) NSString* text;          // may be nil
-@property (readwrite, strong, nonatomic, nullable) MWKImageList* images;    // ?????
 
 @property (readwrite, weak, nonatomic, nullable) MWKSection* parent;
 @property (readwrite, strong, nonatomic, nullable) NSMutableArray* mutableChildren;
@@ -122,20 +121,10 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
     return _text;
 }
 
-- (nullable MWKImageList*)images {
-    if (_images == nil) {
-        _images = [self.article.dataStore imageListWithArticle:self.article section:self];
-    }
-    return _images;
-}
-
 - (void)save {
     [self.article.dataStore saveSection:self];
     if (_text != nil) {
         [self.article.dataStore saveSectionText:_text section:self];
-    }
-    if (_images != nil) {
-        [self.images save];
     }
 }
 
@@ -160,8 +149,7 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
            && WMF_EQUAL(self.index, isEqualToString:, section.index)
            && WMF_EQUAL(self.fromtitle, isEqual:, section.fromtitle)
            && WMF_EQUAL(self.anchor, isEqualToString:, section.anchor)
-           && WMF_EQUAL(self.text, isEqualToString:, section.text)
-           && WMF_EQUAL(self.images, isEqual:, section.images);
+           && WMF_EQUAL(self.text, isEqualToString:, section.text);
 }
 
 - (NSString*)description {

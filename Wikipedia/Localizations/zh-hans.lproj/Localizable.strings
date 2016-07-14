@@ -17,7 +17,6 @@
 "article-languages-label" = "选择语言";
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "条目语言载入中...";
-// Fuzzy
 "article-languages-filter-placeholder" = "查找语言";
 "article-read-more-title" = "阅读更多";
 "article-about-title" = "关于此条目";
@@ -57,30 +56,24 @@
 "zero-warn-when-leaving" = "离开Zero时警告";
 "zero-settings-devmode" = "零开发模式";
 "account-creation-captcha-required" = "需要验证码验证。";
-// Fuzzy
-"account-creation-captcha-obtaining" = "获取新验证码。";
+"account-creation-captcha-obtaining" = "获得新验证码...";
 "account-creation-logging-in" = "正在登录...";
 "account-creation-passwords-mismatched" = "密码字段不匹配。";
 "account-creation-saving" = "正在保存...";
 "account-creation-login" = "已有帐户？请登录。";
-// Fuzzy
 "account-creation-username-placeholder-text" = "用户名";
 "account-creation-password-placeholder-text" = "密码";
 "account-creation-password-confirm-placeholder-text" = "确认密码";
 "account-creation-email-placeholder-text" = "电子邮件（可选）";
 "account-creation-missing-fields" = "您必须输入用户名、密码并再一次确认密码后方能创建一个帐户。";
-// Fuzzy
-"login-name-not-found" = "需要用户名。";
-// Fuzzy
+"login-name-not-found" = "需提供用户名方可登录。";
 "login-name-illegal" = "您提供了无效的用户名。";
-// Fuzzy
 "login-name-does-not-exist" = "您提供的用户名不存在。";
 "login-password-empty" = "登录需要密码。";
 "login-password-wrong" = "您提供的密码不正确。";
 "login-throttled" = "在短时间内，您尝试的登录次数过多。";
 "login-user-blocked" = "用户被封禁";
 "login-account-creation" = "没有账户？加入维基百科";
-// Fuzzy
 "login-username-placeholder-text" = "用户名";
 "login-password-placeholder-text" = "密码";
 "wikitext-downloading" = "正在加载内容...";
@@ -412,3 +405,4 @@
 "explore-most-read-more-list-title" = "最多阅读的条目";
 "explore-most-read-more-list-title-for-date" = "在$1最多";
 "no-email-account-alert" = "请在您的设备上设置一个电子邮件地址，并重试。";
+"request-feedback-on-error" = "应用程序遇到问题，需要我们开发人员了解更多关于它的信息。请在此点按以向我们发送带有错误详情的电子邮件。";

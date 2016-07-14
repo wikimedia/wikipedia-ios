@@ -1,5 +1,6 @@
 // Messages for Galician (galego)
 // Exported from translatewiki.net
+// Author: Banjo
 // Author: Chairego apc
 // Author: Elisardojm
 // Author: Estevoaei
@@ -11,7 +12,6 @@
 "article-languages-label" = "Escolla unha lingua";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "Cargando as linguas do artigo...";
-// Fuzzy
 "article-languages-filter-placeholder" = "Atopar lingua";
 "article-read-more-title" = "Ler máis";
 "article-about-title" = "Acerca deste artigo";
@@ -51,30 +51,24 @@
 "zero-warn-when-leaving" = "Avisádeme ao saír de Zero";
 "zero-settings-devmode" = "Modo de desenvolvedor Zero";
 "account-creation-captcha-required" = "Requírese a verificación do código CAPTCHA.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Obtendo un novo código CAPTCHA.";
+"account-creation-captcha-obtaining" = "Obtendo un novo código CAPTCHA...";
 "account-creation-logging-in" = "Accedendo ao sistema...";
 "account-creation-passwords-mismatched" = "Os contrasinais non coinciden.";
 "account-creation-saving" = "Gardando...";
 "account-creation-login" = "Xa ten unha conta? Acceda ao sistema.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Nome de usuario";
 "account-creation-password-placeholder-text" = "Contrasinal";
 "account-creation-password-confirm-placeholder-text" = "Confirme contrasinal";
 "account-creation-email-placeholder-text" = "Correo electrónico (opcional)";
 "account-creation-missing-fields" = "Debe introducir un nome de usuario, un contrasinal e unha confirmación do contrasinal para crear unha conta.";
-// Fuzzy
 "login-name-not-found" = "O nome de usuario é necesario para iniciar sesión.";
-// Fuzzy
 "login-name-illegal" = "Escribiu un nome de usuario non válido.";
-// Fuzzy
 "login-name-does-not-exist" = "O nome de usuario proporcionado non existe.";
 "login-password-empty" = "Para iniciar sesión debe escribir o seu contrasinal.";
 "login-password-wrong" = "O contrasinal proporcionado é incorrecto.";
 "login-throttled" = "Iniciou a sesión demasiadas veces nun curto espazo de tempo.";
 "login-user-blocked" = "O usuario está bloqueado.";
 "login-account-creation" = "Non ten unha conta? Únase á Wikipedia.";
-// Fuzzy
 "login-username-placeholder-text" = "Nome de usuario";
 "login-password-placeholder-text" = "Contrasinal";
 "wikitext-downloading" = "Cargando o contido...";
@@ -406,3 +400,4 @@
 "explore-most-read-more-list-title" = "Os mellores artigos";
 "explore-most-read-more-list-title-for-date" = "Máis lidos en $1";
 "no-email-account-alert" = "Por favor, configure a súa conta de correo electrónico no seu dispositivo e inténteo de novo.";
+"request-feedback-on-error" = "A aplicación atopou un problema da que os nosos desenvolvedores querrían ter máis información. Por favor presiona aquí para enviarnos un correo electrónico cos detalles do erro.";

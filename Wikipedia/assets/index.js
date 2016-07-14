@@ -67,6 +67,7 @@ exports.getElementFromPoint = function(x, y){
 (function () {
 var refs = require("./refs");
 var utilities = require("./utilities");
+var tableCollapser = require("./transforms/collapseTables");
 
 document.onclick = function() {
     // Reminder: resist adding any click/tap handling here - they can
@@ -104,10 +105,10 @@ function touchEndedWithoutDragging(event){
     if (!didSendMessage && !hasSelectedText) {
         // Do NOT prevent default behavior -- this is needed to for instance
         // handle deselection of text.
-        window.webkit.messageHandlers.clicks.postMessage({"nonAnchorTouchEndedWithoutDragging": {
+        window.webkit.messageHandlers.nonAnchorTouchEndedWithoutDragging.postMessage({
                                                   id: event.target.getAttribute( "id" ),
                                                   tagName: event.target.tagName
-                                                  }});
+                                                  });
 
     }
 }
@@ -123,26 +124,28 @@ function maybeSendMessageForTarget(event, hrefTarget){
     var href = hrefTarget.getAttribute( "href" );
     var hrefClass = hrefTarget.getAttribute('class');
     if (hrefTarget.getAttribute( "data-action" ) === "edit_section") {
-        window.webkit.messageHandlers.clicks.postMessage({"editClicked": { sectionId: hrefTarget.getAttribute( "data-id" ) }});
-    } else if (href && refs.isReference(href)) {
+        window.webkit.messageHandlers.editClicked.postMessage({ sectionId: hrefTarget.getAttribute( "data-id" ) });
+    } else if (href && refs.isCitation(href)) {
         // Handle reference links with a popup view instead of scrolling about!
         refs.sendNearbyReferences( hrefTarget );
     } else if (href && href[0] === "#") {
+ 
+        tableCollapser.openCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)));
+ 
         // If it is a link to an anchor in the current page, use existing link handling
         // so top floating native header height can be taken into account by the regular
         // fragment handling logic.
-        window.webkit.messageHandlers.clicks.postMessage({"linkClicked": { 'href': href }});
+        window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href });
     } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
-         var url = event.target.getAttribute('src');
-         window.webkit.messageHandlers.clicks.postMessage({"imageClicked": {
-                                                          'url': url,
-                                                          'width': (event.target.naturalWidth / window.devicePixelRatio),
-                                                          'height': (event.target.naturalHeight / window.devicePixelRatio),
+         window.webkit.messageHandlers.imageClicked.postMessage({
+                                                          'src': event.target.getAttribute('src'),
+                                                          'width': event.target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
+                                                          'height': event.target.naturalHeight,
  														  'data-file-width': event.target.getAttribute('data-file-width'),
  														  'data-file-height': event.target.getAttribute('data-file-height')
-                                                          }});
+                                                          });
     } else if (href) {
-        window.webkit.messageHandlers.clicks.postMessage({"linkClicked": { 'href': href }});
+        window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href });
     } else {
         return false;
     }
@@ -151,27 +154,41 @@ function maybeSendMessageForTarget(event, hrefTarget){
 
 document.addEventListener("touchend", handleTouchEnded, false);
 
+ function shouldPeekElement(element){
+    return (element.tagName == "IMG" || (element.tagName == "A" && !refs.isReference(element.href) && !refs.isCitation(element.href) && !refs.isEndnote(element.href)));
+ }
+ 
  // 3D Touch peeking listeners.
  document.addEventListener("touchstart", function (event) {
                            // Send message with url (if any) from touch element to native land.
                            var element = window.wmf.elementLocation.getElementFromPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY);
-                           window.webkit.messageHandlers.peek.postMessage({"peekElement": {
-                                                                          'tagName': element.tagName,
-                                                                          'href': element.href,
-                                                                          'src': element.src
-                                                                          }});
+                           if(shouldPeekElement(element)){
+                               window.webkit.messageHandlers.peek.postMessage({
+                                                                              'tagName': element.tagName,
+                                                                              'href': element.href,
+                                                                              'src': element.src
+                                                                              });
+                           }
                            }, false);
  
  document.addEventListener("touchend", function () {
                            // Tell native land to clear the url - important.
-                           window.webkit.messageHandlers.peek.postMessage({"peekElement": null});
+                           window.webkit.messageHandlers.peek.postMessage({});
                            }, false);
 })();
 
-},{"./refs":4,"./utilities":12}],4:[function(require,module,exports){
+},{"./refs":4,"./transforms/collapseTables":7,"./utilities":12}],4:[function(require,module,exports){
+
+function isCitation( href ) {
+    return href.includes("#cite_note");
+}
+
+function isEndnote( href ) {
+    return href.includes("#endnote_");
+}
 
 function isReference( href ) {
-    return ( href.slice( 0, 10 ) === "#cite_note" );
+    return href.includes("#ref_");
 }
 
 function goDown( element ) {
@@ -209,9 +226,9 @@ var goRight = skipOverWhitespace( function( element ) {
     return element.nextSibling;
 });
 
-function hasReferenceLink( element ) {
+function hasCitationLink( element ) {
     try {
-        return isReference( goDown( element ).getAttribute( "href" ) );
+        return isCitation( goDown( element ).getAttribute( "href" ) );
     } catch (e) {
         return false;
     }
@@ -261,7 +278,7 @@ function sendNearbyReferences( sourceNode ) {
 
     // go left:
     curNode = sourceNode.parentElement;
-    while ( hasReferenceLink( goLeft( curNode ) ) ) {
+    while ( hasCitationLink( goLeft( curNode ) ) ) {
         refsIndex += 1;
         curNode = goLeft( curNode );
         refs.unshift( collectRefText( goDown ( curNode ) ) );
@@ -271,7 +288,7 @@ function sendNearbyReferences( sourceNode ) {
 
     // go right:
     curNode = sourceNode.parentElement;
-    while ( hasReferenceLink( goRight( curNode ) ) ) {
+    while ( hasCitationLink( goRight( curNode ) ) ) {
         curNode = goRight( curNode );
         refs.push( collectRefText( goDown ( curNode ) ) );
         linkId.push( collectRefLink( curNode ) );
@@ -279,15 +296,17 @@ function sendNearbyReferences( sourceNode ) {
     }
 
     // Special handling for references
-    window.webkit.messageHandlers.clicks.postMessage({"referenceClicked": {
+    window.webkit.messageHandlers.referenceClicked.postMessage({
                                                      "refs": refs,
                                                      "refsIndex": refsIndex,
                                                      "linkId": linkId,
                                                      "linkText": linkText
-                                                     }});
+                                                     });
 }
 
+exports.isEndnote = isEndnote;
 exports.isReference = isReference;
+exports.isCitation = isCitation;
 exports.sendNearbyReferences = sendNearbyReferences;
 
 },{}],5:[function(require,module,exports){
@@ -519,6 +538,18 @@ transformer.register( "hideTables", function( content , isMainPage, titleInfobox
     }
 } );
 
+exports.openCollapsedTableIfItContainsElement = function(element){
+    if(element){
+        var container = utilities.findClosest(element, "[class*='app_table_container']");
+        if(container){
+            var collapsedDiv = container.firstChild;
+            if(collapsedDiv && collapsedDiv.classList.contains('app_table_collapsed_open')){
+                collapsedDiv.click();
+            }
+        }
+    }
+};
+
 },{"../transformer":5,"../utilities":12}],8:[function(require,module,exports){
 var transformer = require("../transformer");
 
@@ -641,11 +672,7 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
-var maxStretchRatioAllowedBeforeRequestingHigherResolution = 1.3;
-
-// If enabled, widened images will have thin red dashed border and
-// and widened images for which a higher resolution version was
-// requested will have thick red dashed border.
+// If enabled, widened images will have thin red dashed border
 var enableDebugBorders = false;
 
 function widenAncestors (el) {
@@ -664,16 +691,7 @@ function widenAncestors (el) {
 }
 
 function shouldWidenImage(image) {
-    if (
-        image.width >= 64 &&
-        image.hasAttribute('data-file-width') &&
-        !image.hasAttribute('hasOverflowXContainer') &&
-        !utilities.isNestedInTable(image)
-        ) {
-        return true;
-    }else{
-        return false;
-    }
+    return (!image.hasAttribute('hasOverflowXContainer') && !utilities.isNestedInTable(image));
 }
 
 function makeRoomForImageWidening(image) {
@@ -685,52 +703,6 @@ function makeRoomForImageWidening(image) {
     image.removeAttribute("height");
 }
 
-function firstDivAncestor (el) {
-    while ((el = el.parentElement)){
-        if(el.tagName === 'DIV'){
-            return el;
-        }
-    }
-    return null;
-}
-
-function getStretchRatio(image){
-    var widthControllingDiv = firstDivAncestor(image);
-    if (widthControllingDiv){
-        return (widthControllingDiv.offsetWidth / image.naturalWidth);
-    }
-    return 1.0;
-}
-
-function useHigherResolutionImageSrcIfNecessary(image) {
-    var src = image.getAttribute('src');
-	var resized = image.getAttribute('data-image-resized');
-    if (resized !== "true" && src){
-        var stretchRatio = getStretchRatio(image);
-        if (stretchRatio > maxStretchRatioAllowedBeforeRequestingHigherResolution) {
-			var pathComponents = src.split("/");
-			var filename = pathComponents[pathComponents.length - 1];
-			var sizeRegex = /^[0-9]+(?=px-)/;
-			var sizeMatches = filename.match(sizeRegex);
-			if (sizeMatches.length > 0) {
-				var originalSize = parseInt(image.getAttribute('data-file-width'));
-				var newSize = window.devicePixelRatio < 2 ? 320 : 640; //actual width is size*stretchRatio*window.devicePixelRatio;
-				var newSrc = pathComponents.slice(0,-1).join('/');
-				if (newSize < originalSize) {
-					var newFilename = filename.replace(sizeRegex, newSize.toString());
-					newSrc = newSrc + '/' + newFilename;
-				} else if (filename.toLowerCase().indexOf('.svg') == -1) {
-					newSrc = newSrc.replace('/thumb/', '/');
-				}
-				image.src = newSrc;
-	            if(enableDebugBorders){
-	                image.style.borderWidth = '10px';
-	            }
-			}
-        } 
-    }
-}
-
 function widenImage(image) {
     makeRoomForImageWidening (image);
     image.classList.add("wideImageOverride");
@@ -740,13 +712,9 @@ function widenImage(image) {
         image.style.borderWidth = '1px';
         image.style.borderColor = '#f00';
     }
-
-    useHigherResolutionImageSrcIfNecessary(image);
 }
 
-function maybeWidenImage() {
-    var image = this;
-    image.removeEventListener('load', maybeWidenImage, false);
+function maybeWidenImage(image) {
     if (shouldWidenImage(image)) {
         widenImage(image);
     }
@@ -755,9 +723,14 @@ function maybeWidenImage() {
 transformer.register( "widenImages", function( content ) {
     var images = content.querySelectorAll( 'img' );
     for ( var i = 0; i < images.length; i++ ) {
-        // Load event used so images w/o style or inline width/height
-        // attributes can still have their size determined reliably.
-        images[i].addEventListener('load', maybeWidenImage, false);
+        var image = images[i];
+        // 'data-image-gallery' is added to "gallery worthy" img tags before html is sent
+        // to the web view. It is only added if an img is determined to be a good gallery img.
+        // We can just check for this instead of trying to make gallery-worthiness
+        // determinations again here in JS land.
+        if (image.getAttribute('data-image-gallery') == "true"){
+            maybeWidenImage(image);
+        }
     }
 } );
 
@@ -784,7 +757,6 @@ function setLanguage(lang, dir, uidir){
     html.dir = dir;
     html.classList.add( 'content-' + dir );
     html.classList.add( 'ui-' + uidir );
-    document.querySelector('base').href = 'https://' + lang + '.wikipedia.org/';
 }
 
 function setPageProtected(){

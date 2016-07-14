@@ -16,7 +16,6 @@
 "article-languages-label" = "Välj språk";
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Läser in artikelspråk...";
-// Fuzzy
 "article-languages-filter-placeholder" = "Hitta språk";
 "article-read-more-title" = "Läs mer";
 "article-about-title" = "Om den här artikeln";
@@ -56,30 +55,24 @@
 "zero-warn-when-leaving" = "Varna om jag lämnar Zero";
 "zero-settings-devmode" = "Zero-utvecklarläge";
 "account-creation-captcha-required" = "CAPTCHA-verifiering krävs.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Hämtar en ny CAPTCHA";
+"account-creation-captcha-obtaining" = "Hämtar en ny CAPTCHA...";
 "account-creation-logging-in" = "Loggar in...";
 "account-creation-passwords-mismatched" = "Lösenorden matchar inte.";
 "account-creation-saving" = "Sparar...";
 "account-creation-login" = "Har du redan ett konto? Logga in.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Användarnamn";
 "account-creation-password-placeholder-text" = "Lösenord";
 "account-creation-password-confirm-placeholder-text" = "Bekräfta lösenord";
 "account-creation-email-placeholder-text" = "E-post (valfritt)";
 "account-creation-missing-fields" = "Du måste ange ett användarnamn, lösenord och en lösenordsbekräftelse för att skapa ett konto.";
-// Fuzzy
 "login-name-not-found" = "Användarnamn krävs för att logga in.";
-// Fuzzy
 "login-name-illegal" = "Du angav ett ogiltigt användarnamn.";
-// Fuzzy
 "login-name-does-not-exist" = "Det användarnamn du angav finns inte.";
 "login-password-empty" = "Lösenord krävs för att logga in.";
 "login-password-wrong" = "Det lösenord som du angav är felaktigt.";
 "login-throttled" = "Du har loggat in för många gånger på kort tid.";
 "login-user-blocked" = "Användaren är blockerad.";
 "login-account-creation" = "Har du inget konto? Skapa ett.";
-// Fuzzy
 "login-username-placeholder-text" = "Användarnamn";
 "login-password-placeholder-text" = "Lösenord";
 "wikitext-downloading" = "Laddar innehåll...";
@@ -411,3 +404,4 @@
 "explore-most-read-more-list-title" = "Populära artiklar";
 "explore-most-read-more-list-title-for-date" = "Populärt den $1";
 "no-email-account-alert" = "Lägg in ett e-postkonto på din enhet och försök igen.";
+"request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";

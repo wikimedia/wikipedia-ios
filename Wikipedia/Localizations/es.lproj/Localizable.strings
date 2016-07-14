@@ -1,5 +1,6 @@
 // Messages for Spanish (español)
 // Exported from translatewiki.net
+// Author: Elisardojm
 // Author: Fitoschido
 // Author: Indiralena
 // Author: Koavf
@@ -17,7 +18,6 @@
 "article-languages-label" = "Elige un idioma";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "Cargando idiomas del artículo…";
-// Fuzzy
 "article-languages-filter-placeholder" = "Seleccionar idioma";
 "article-read-more-title" = "Leer más";
 "article-about-title" = "Acerca de este artículo";
@@ -57,30 +57,24 @@
 "zero-warn-when-leaving" = "Avisar al salir de Zero";
 "zero-settings-devmode" = "modo de desarrollo Zero";
 "account-creation-captcha-required" = "Verificación CAPTCHA requerido.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Obtener un nuevo CAPTCHA.";
+"account-creation-captcha-obtaining" = "Obtener un nuevo CAPTCHA...";
 "account-creation-logging-in" = "Iniciando sesión…";
 "account-creation-passwords-mismatched" = "Las contraseñas no coinciden.";
 "account-creation-saving" = "Guardando…";
 "account-creation-login" = "¿Ya tienes una cuenta? Accede.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Nombre de usuario";
 "account-creation-password-placeholder-text" = "Contraseña";
 "account-creation-password-confirm-placeholder-text" = "Confirmar la contraseña";
 "account-creation-email-placeholder-text" = "Correo electrónico (opcional)";
 "account-creation-missing-fields" = "Debes escribir un nombre de usuario, una contraseña y confirmar la contraseña para crear una cuenta.";
-// Fuzzy
 "login-name-not-found" = "Para iniciar sesión debes escribir el nombre de usuario.";
-// Fuzzy
 "login-name-illegal" = "Has escrito un nombre de usuario no válido.";
-// Fuzzy
 "login-name-does-not-exist" = "El nombre de usuario proporcionado no existe.";
 "login-password-empty" = "Para iniciar sesión debes escribir tu contraseña.";
 "login-password-wrong" = "La contraseña proporcionada es incorrecta.";
 "login-throttled" = "Has iniciado sesión demasiadas veces en poco tiempo.";
 "login-user-blocked" = "El usuario está bloqueado.";
 "login-account-creation" = "¿No tienes una cuenta? Únete a Wikipedia.";
-// Fuzzy
 "login-username-placeholder-text" = "Nombre de usuario";
 "login-password-placeholder-text" = "Contraseña";
 "wikitext-downloading" = "Cargando el contenido…";
@@ -412,3 +406,4 @@
 "explore-most-read-more-list-title" = "Los artículos más leídos";
 "explore-most-read-more-list-title-for-date" = "Los más leídos el $1";
 "no-email-account-alert" = "Configura una cuenta de correo electrónico en tu dispositivo e inténtalo de nuevo.";
+"request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";

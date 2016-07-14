@@ -3,6 +3,7 @@
 // Author: Barrel0116
 // Author: Dude1717
 // Author: Fryed-peach
+// Author: Hzy980512
 // Author: Kanon und wikipedia
 // Author: Los688
 // Author: Macofe
@@ -20,7 +21,6 @@
 "article-languages-label" = "言語を選択";
 "article-languages-cancel" = "中止";
 "article-languages-downloading" = "言語リストを取得中...";
-// Fuzzy
 "article-languages-filter-placeholder" = "言語の絞り込み";
 "article-read-more-title" = "さらに読む";
 "article-about-title" = "この記事について";
@@ -60,30 +60,24 @@
 "zero-warn-when-leaving" = "ゼロを離れる場合には警告";
 "zero-settings-devmode" = "ゼロ開発者モード";
 "account-creation-captcha-required" = "CAPTCHA 認証が必要です。";
-// Fuzzy
 "account-creation-captcha-obtaining" = "新しい CAPTCHA を取得しています";
 "account-creation-logging-in" = "ログイン中...";
 "account-creation-passwords-mismatched" = "入力したパスワードが一致しません。";
 "account-creation-saving" = "保存中...";
 "account-creation-login" = "アカウントを既にお持ちの場合は、ログインしてください。";
-// Fuzzy
 "account-creation-username-placeholder-text" = "利用者名";
 "account-creation-password-placeholder-text" = "パスワード";
 "account-creation-password-confirm-placeholder-text" = "パスワード再入力";
 "account-creation-email-placeholder-text" = "メール (省略可能)";
 "account-creation-missing-fields" = "アカウントの作成には利用者名とパスワード、さらに確認のためもう一度パスワードを入力する必要があります。";
-// Fuzzy
 "login-name-not-found" = "ログインするには利用者名が必要です。";
-// Fuzzy
 "login-name-illegal" = "入力した利用者名は無効です。";
-// Fuzzy
 "login-name-does-not-exist" = "指定した利用者名は存在しません。";
 "login-password-empty" = "ログインするにはパスワードが必要です。";
 "login-password-wrong" = "指定したパスワードは正しくありません。";
 "login-throttled" = "あなたは短時間に何回もログインしようとしました。";
 "login-user-blocked" = "利用者はブロックされています。";
 "login-account-creation" = "アカウントをお持ちではない場合は、こちらからウィキペディアに参加してください。";
-// Fuzzy
 "login-username-placeholder-text" = "利用者名";
 "login-password-placeholder-text" = "パスワード";
 "wikitext-downloading" = "本文を読み込み中...";
@@ -415,3 +409,4 @@
 "explore-most-read-more-list-title" = "よく読まれている記事";
 "explore-most-read-more-list-title-for-date" = "$1の上位記事";
 "no-email-account-alert" = "アカウントのメールアドレスを設定してから、もう一度お試しください。";
+"request-feedback-on-error" = "アプリが遭遇した問題について、開発者はもっと詳しく知りたいと考えています。こちらをタップして、エラーの詳細についてメールをご送信ください。";

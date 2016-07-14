@@ -478,7 +478,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [[WMFAlertManager sharedInstance] dismissAlert];
 
-                [self.previewWebViewContainer.webView loadHTML:fetchedData withAssetsFile:@"preview.html" scrolledToFragment:nil topPadding:0];
+                [self.previewWebViewContainer.webView loadHTML:fetchedData baseURL:[NSURL URLWithString:@"https://wikipedia.org"] withAssetsFile:@"preview.html" scrolledToFragment:nil topPadding:0];
             }
             break;
             case FETCH_FINAL_STATUS_FAILED: {

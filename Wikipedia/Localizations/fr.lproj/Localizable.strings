@@ -17,7 +17,6 @@
 "article-languages-label" = "Choisir langue";
 "article-languages-cancel" = "Annuler";
 "article-languages-downloading" = "Chargement des langues de l’article en cours…";
-// Fuzzy
 "article-languages-filter-placeholder" = "Trouver la langue";
 "article-read-more-title" = "En savoir plus";
 "article-about-title" = "À propos de cet article";
@@ -57,30 +56,24 @@
 "zero-warn-when-leaving" = "Avertir en quittant Zéro";
 "zero-settings-devmode" = "Devmode Zéro";
 "account-creation-captcha-required" = "Vérification par CAPTCHA obligatoire.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Obtention d’un nouveau CAPTCHA.";
+"account-creation-captcha-obtaining" = "Obtention d’un nouveau CAPTCHA…";
 "account-creation-logging-in" = "Connexion en cours…";
 "account-creation-passwords-mismatched" = "Les champs mot de passe ne correspondent pas.";
 "account-creation-saving" = "Enregistrement en cours…";
 "account-creation-login" = "Vous avez déjà un compte ? Connectez-vous.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Nom d’utilisateur";
 "account-creation-password-placeholder-text" = "Mot de passe";
 "account-creation-password-confirm-placeholder-text" = "Confirmer le mot de passe";
 "account-creation-email-placeholder-text" = "Courriel (facultatif)";
 "account-creation-missing-fields" = "Vous devez saisir un nom d’utilisateur, un mot de passe et une confirmation de mot de passe, pour créer un compte.";
-// Fuzzy
 "login-name-not-found" = "Le nom d’utilisateur est obligatoire pour se connecter.";
-// Fuzzy
 "login-name-illegal" = "Vous avez choisi un nom d’utilisateur non autorisé.";
-// Fuzzy
 "login-name-does-not-exist" = "Le nom d’utilisateur que vous avez fourni n’existe pas.";
 "login-password-empty" = "Le mot de passe est obligatoire pour se connecter.";
 "login-password-wrong" = "Le mot de passe que vous avez fourni n’est pas correct.";
 "login-throttled" = "Vous vous êtes connecté trop de fois en peu de temps.";
 "login-user-blocked" = "L’utilisateur est bloqué.";
 "login-account-creation" = "Vous n’avez pas de compte ? Rejoignez Wikipédia.";
-// Fuzzy
 "login-username-placeholder-text" = "Nom d’utilisateur";
 "login-password-placeholder-text" = "Mot de passe";
 "wikitext-downloading" = "Chargement du contenu…";
@@ -412,3 +405,4 @@
 "explore-most-read-more-list-title" = "Meilleurs articles";
 "explore-most-read-more-list-title-for-date" = "Les plus lus au $1";
 "no-email-account-alert" = "Veuillez configurer un compte de messagerie sur votre appareil et réessayer.";
+"request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";

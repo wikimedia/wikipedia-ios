@@ -9,7 +9,6 @@
 "article-languages-label" = "Sprache auswählen";
 "article-languages-cancel" = "Abbrechen";
 "article-languages-downloading" = "Lade Artikelsprachen …";
-// Fuzzy
 "article-languages-filter-placeholder" = "Sprache finden";
 "article-read-more-title" = "Mehr lesen";
 "article-about-title" = "Über diesen Artikel";
@@ -49,30 +48,24 @@
 "zero-warn-when-leaving" = "Beim Verlassen von Zero warnen";
 "zero-settings-devmode" = "Zero-Entwicklermodus";
 "account-creation-captcha-required" = "CAPTCHA-Überprüfung erforderlich.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Ein neues CAPTCHA abrufen.";
+"account-creation-captcha-obtaining" = "Rufe ein neues CAPTCHA ab …";
 "account-creation-logging-in" = "Anmelden …";
 "account-creation-passwords-mismatched" = "Die Passwortfelder stimmen nicht überein.";
 "account-creation-saving" = "Speichere …";
 "account-creation-login" = "Hast du bereits ein Benutzerkonto? Anmelden.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Benutzername";
 "account-creation-password-placeholder-text" = "Passwort";
 "account-creation-password-confirm-placeholder-text" = "Passwort bestätigen";
 "account-creation-email-placeholder-text" = "E-Mail (optional)";
 "account-creation-missing-fields" = "Du musst einen Benutzernamen, ein Passwort und eine Passwortbestätigung eingeben, um ein Benutzerkonto zu erstellen.";
-// Fuzzy
 "login-name-not-found" = "Der Benutzername ist zur Anmeldung erforderlich.";
-// Fuzzy
 "login-name-illegal" = "Du hast einen ungültigen Benutzernamen angegeben.";
-// Fuzzy
 "login-name-does-not-exist" = "Der angegebene Benutzername ist nicht vorhanden.";
 "login-password-empty" = "Das Passwort ist zur Anmeldung erforderlich.";
 "login-password-wrong" = "Das angegebene Passwort ist falsch.";
 "login-throttled" = "Du hast zu oft in kurzer Zeit vergeblich versucht, dich anzumelden.";
 "login-user-blocked" = "Benutzer ist gesperrt.";
 "login-account-creation" = "Hast du noch kein Benutzerkonto? Tritt der Wikipedia bei.";
-// Fuzzy
 "login-username-placeholder-text" = "Benutzername";
 "login-password-placeholder-text" = "Passwort";
 "wikitext-downloading" = "Lade Inhalt …";
@@ -404,3 +397,4 @@
 "explore-most-read-more-list-title" = "Beliebteste Artikel";
 "explore-most-read-more-list-title-for-date" = "Beliebt am $1";
 "no-email-account-alert" = "Bitte richte auf deinem Gerät ein E-Mail-Konto ein und versuche es erneut.";
+"request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";

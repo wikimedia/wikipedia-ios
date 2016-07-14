@@ -25,7 +25,6 @@
 "article-languages-label" = "Scegli la lingua";
 "article-languages-cancel" = "Annulla";
 "article-languages-downloading" = "Caricamento delle lingue in cui è disponibile la voce...";
-// Fuzzy
 "article-languages-filter-placeholder" = "Trova lingua";
 "article-read-more-title" = "Leggi altro";
 "article-about-title" = "Su questa voce";
@@ -65,30 +64,24 @@
 "zero-warn-when-leaving" = "Avvisa se sto uscendo da Zero";
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-captcha-required" = "Verifica CAPTCHA richiesta.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Creazione di un nuovo CAPTCHA.";
+"account-creation-captcha-obtaining" = "Creazione di un nuovo CAPTCHA...";
 "account-creation-logging-in" = "Accesso in corso...";
 "account-creation-passwords-mismatched" = "Le password non corrispondono.";
 "account-creation-saving" = "Salvataggio...";
 "account-creation-login" = "Hai già un'utenza? Accedi.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Nome utente";
 "account-creation-password-placeholder-text" = "Password";
 "account-creation-password-confirm-placeholder-text" = "Conferma password";
 "account-creation-email-placeholder-text" = "Email (opzionale)";
 "account-creation-missing-fields" = "È necessario immettere un nome utente, una password e la conferma della password per creare un account.";
-// Fuzzy
 "login-name-not-found" = "Il nome utente è necessario per effettuare l'accesso.";
-// Fuzzy
 "login-name-illegal" = "Hai fornito un nome utente non valido.";
-// Fuzzy
 "login-name-does-not-exist" = "Il nome utente fornito non esiste.";
 "login-password-empty" = "La password è necessaria per effettuare l'accesso.";
 "login-password-wrong" = "La password che hai fornito non è corretta.";
 "login-throttled" = "Hai tentato l'accesso troppe volte in breve tempo.";
 "login-user-blocked" = "L'utente è bloccato.";
 "login-account-creation" = "Non hai un'utenza? Iscriviti a Wikipedia.";
-// Fuzzy
 "login-username-placeholder-text" = "Nome utente";
 "login-password-placeholder-text" = "Password";
 "wikitext-downloading" = "Caricamento contenuto...";

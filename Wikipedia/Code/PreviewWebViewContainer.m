@@ -15,11 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation PreviewWebViewContainer
 
 - (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message {
-    if ([message.name isEqualToString:@"clicks"]) {
-        if (message.body[@"anchorClicked"]) {
-            NSString* href = message.body[@"anchorClicked"][@"href"];
-            [self.previewAnchorTapAlertDelegate wmf_showAlertForTappedAnchorHref:href];
-        }
+    if ([message.name isEqualToString:@"anchorClicked"]) {
+        [self.previewAnchorTapAlertDelegate wmf_showAlertForTappedAnchorHref:message.body[@"href"]];
     }
 }
 
@@ -35,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
          "    event.preventDefault();"
          "        if (event.target.tagName == 'A'){"
          "            var href = event.target.getAttribute( 'href' );"
-         "            window.webkit.messageHandlers.clicks.postMessage({'anchorClicked': { 'href': href }});"
+         "            window.webkit.messageHandlers.anchorClicked.postMessage({ 'href': href });"
          "        }"
          "};"
          "window.wmf.utilities.setLanguage('%@', '%@', '%@');",
@@ -50,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
                          forMainFrameOnly:YES]];
 
 
-    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"clicks"];
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"anchorClicked"];
 
 
     WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];

@@ -8,8 +8,7 @@
 "article-languages-label" = "Ziman hilbijêre";
 "article-languages-cancel" = "Betal bike";
 "article-languages-downloading" = "Zimanên gotarê tên barkirin...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Fîltreya Ziman";
+"article-languages-filter-placeholder" = "Zimanekî bibîne";
 "article-read-more-title" = "Zêdetir bixwine";
 "article-about-title" = "Di derbarê vê gotarê de";
 "article-related-articles-title" = "Gotarên têkilîdar";
@@ -32,13 +31,11 @@
 "zero-learn-more-learn-more" = "Zêdetir bixwîne";
 "zero-wikipedia-zero-heading" = "Wîkîpediya Zero";
 "account-creation-saving" = "Tê tomarkirin...";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Navê bikarhêner";
 "account-creation-password-placeholder-text" = " Şîfre";
 "login-password-empty" = "Bo têketinê nasnav pêwist e.";
 "login-user-blocked" = "Bikarhêner hatiye astengkirin.";
 "login-account-creation" = "Hesabê te tune ye? Tevlî Wîkîpediyayê bibe.";
-// Fuzzy
 "login-username-placeholder-text" = "Navê bikarhêner";
 "login-password-placeholder-text" = "Şîfre";
 "wikitext-downloading" = "Naverok tê barkirin...";
@@ -74,6 +71,7 @@
 "main-menu-account-login" = "Têkeve";
 "main-menu-account-logout" = "Derkeve";
 "main-menu-account-logout-cancel" = "Betal bike";
+"main-menu-show-title" = "Nîşanî min bide...";
 "main-menu-show-history" = "dawî";
 "main-menu-show-saved" = "Rûpelên tomarkirî";
 "main-menu-random" = "Ketober";
@@ -108,6 +106,7 @@
 "about-libraries-licenses" = "Destûr";
 "share-menu-save-page" = "Rûpelê tomar bike";
 "share-custom-menu-item" = "Parve bike";
+"share-on-twitter-sign-off" = "bi rêya @Wîkîpediya";
 "share-as-image" = "Wek wêne parve bike";
 "share-as-text" = "Wek nivîs parve bike";
 "share-cancel" = "Betal bike";
@@ -119,6 +118,7 @@
 "button-edit" = "Biguherîne";
 "button-done" = "Çêbû";
 "button-save" = "Tomar bike";
+"button-ok" = "Baş e";
 "onboarding-create-account" = "Hesabekî çêke";
 "onboarding-login" = "Têkeve";
 "onboarding-wikipedia" = "Wîkîpediya";
@@ -151,12 +151,17 @@
 "hockeyapp-alert-do-not-send" = "Neşîne";
 "page-issues" = "Pirsgirêkên rûpelê";
 "page-similar-titles" = "Peyamên wek hev";
+"page-last-edited" = "Berî $1 hate guherandin";
 "captcha-reload" = "Captcha'yek din nîşan bide";
+"home-empty-section-check-again" = "Dîsa hewl bide";
 "home-continue-related-heading" = "Ji ber ku tu $1 dixwînî";
+"home-last-update-label" = "Cara dawî hate rojanekirin:$1";
 "home-updating-label" = "Tê rojanekirin...";
+"home-hide-suggestion-prompt" = "Vê pêşniyariyê veşêre";
 "home-hide-suggestion-cancel" = "Betal bike";
 "welcome-volunteer-thanks" = "$1 Spas!";
 "empty-no-search-results-message" = "Ti encam nehatin dîtin";
+"icon-shortcut-continue-reading-title" = "Xwendinê bidomîne";
 "icon-shortcut-random-title" = "Gotara ketober";
 "close-button-accessibility-label" = "Bigre";
 "explore-continue-related-heading" = "Ji ber ku tu dixwînî";

@@ -14,8 +14,7 @@
 "article-languages-label" = "Chọn ngôn ngữ";
 "article-languages-cancel" = "Hủy bỏ";
 "article-languages-downloading" = "Đang tải các ngôn ngữ của bài…";
-// Fuzzy
-"article-languages-filter-placeholder" = "Tìm Ngôn ngữ";
+"article-languages-filter-placeholder" = "Tìm ngôn ngữ";
 "article-read-more-title" = "Đọc tiếp";
 "article-about-title" = "Thông tin về bài viết";
 "article-unable-to-load-section" = "Không thể tải lên phần này. Hãy thử tải lại bài để xem lỗi có được khắc phục hay không.";
@@ -54,30 +53,24 @@
 "zero-warn-when-leaving" = "Cảnh báo khi ra khỏi Miễn phí";
 "zero-settings-devmode" = "Chế độ phát triển Miễn phí";
 "account-creation-captcha-required" = "Cần xác nhận bằng CAPTCHA.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Đang lấy CAPTCHA mới.";
+"account-creation-captcha-obtaining" = "Đang lấy CAPTCHA mới…";
 "account-creation-logging-in" = "Đang đăng nhập…";
 "account-creation-passwords-mismatched" = "Mật khẩu không khớp.";
 "account-creation-saving" = "Đang lưu…";
 "account-creation-login" = "Đã có tài khoản? Đăng nhập.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Tên người dùng";
 "account-creation-password-placeholder-text" = "Mật khẩu";
 "account-creation-password-confirm-placeholder-text" = "Xác nhận mật khẩu";
 "account-creation-email-placeholder-text" = "Thư điện tử (tùy chọn)";
 "account-creation-missing-fields" = "Bạn phải nhập một tên người dùng và mật khẩu và xác nhận mật khẩu để mở tài khoản.";
-// Fuzzy
 "login-name-not-found" = "Cần tên người dùng để đăng nhập.";
-// Fuzzy
 "login-name-illegal" = "Bạn đã cung cấp một tên người dùng không hợp lệ.";
-// Fuzzy
 "login-name-does-not-exist" = "Bạn đã cung cấp một tên người dùng không tồn tại.";
 "login-password-empty" = "Cần mật khẩu để đăng nhập.";
 "login-password-wrong" = "Bạn đã cung cấp mật khẩu sai.";
 "login-throttled" = "Bạn đã thử đăng nhập quá nhiều lần trong một thời gian ngắn.";
 "login-user-blocked" = "Thành viên này đã bị cấm.";
 "login-account-creation" = "Chưa có tài khoản? Hãy tham gia Wikipedia.";
-// Fuzzy
 "login-username-placeholder-text" = "Tên người dùng";
 "login-password-placeholder-text" = "Mật khẩu";
 "wikitext-downloading" = "Đang tải nội dung…";

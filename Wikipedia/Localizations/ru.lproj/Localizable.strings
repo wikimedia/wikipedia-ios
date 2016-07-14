@@ -10,6 +10,7 @@
 // Author: Kaganer
 // Author: Kopcap94
 // Author: Macofe
+// Author: Mailman
 // Author: Mariya
 // Author: Oashnic
 // Author: Okras
@@ -20,9 +21,8 @@
 "article-languages-label" = "Выберите язык";
 "article-languages-cancel" = "Отмена";
 "article-languages-downloading" = "Загрузка языков статьи…";
-// Fuzzy
 "article-languages-filter-placeholder" = "Языковой фильтр";
-"article-read-more-title" = "Читать ещё";
+"article-read-more-title" = "Подробнее";
 "article-about-title" = "Об этой статье";
 "article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "article-unable-to-load-article" = "Не удается загрузить эту статью.";
@@ -60,30 +60,24 @@
 "zero-warn-when-leaving" = "Предупреждать, если покидаете Zero";
 "zero-settings-devmode" = "Режим разработчика Zero";
 "account-creation-captcha-required" = "Требуется проверка капчей.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Получение новой капчи.";
+"account-creation-captcha-obtaining" = "Получение новой капчи...";
 "account-creation-logging-in" = "Вход в систему…";
 "account-creation-passwords-mismatched" = "Пароли не совпадают.";
 "account-creation-saving" = "Сохраняется…";
 "account-creation-login" = "Вы уже зарегистрированы? Войдите.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Имя участника";
 "account-creation-password-placeholder-text" = "Пароль";
 "account-creation-password-confirm-placeholder-text" = "Подтвердите пароль";
 "account-creation-email-placeholder-text" = "Адрес электронной почты (необязательно)";
 "account-creation-missing-fields" = "Для создания учётной записи вы должны ввести имя пользователя, пароль и подтверждение пароля.";
-// Fuzzy
 "login-name-not-found" = "Для входа требуется имя участника.";
-// Fuzzy
 "login-name-illegal" = "Вы указали некорректное имя участника.";
-// Fuzzy
-"login-name-does-not-exist" = "Имя участника, которое вы указали, не существует.";
+"login-name-does-not-exist" = "Указанного вами имени участника не существует.";
 "login-password-empty" = "Для входа в систему требуется пароль.";
 "login-password-wrong" = "Вы указали неправильный пароль.";
 "login-throttled" = "Вы входили слишком много раз в течение короткого промежутка времени.";
 "login-user-blocked" = "Участник заблокирован.";
 "login-account-creation" = "У вас нет учётной записи? Присоединитесь к Википедии.";
-// Fuzzy
 "login-username-placeholder-text" = "Имя участника";
 "login-password-placeholder-text" = "Пароль";
 "wikitext-downloading" = "Загрузка содержимого…";
@@ -415,3 +409,4 @@
 "explore-most-read-more-list-title" = "Самые читаемые статьи";
 "explore-most-read-more-list-title-for-date" = "Самое читаемое на $1";
 "no-email-account-alert" = "Пожалуйста, настройте на вашем устройстве учетную запись электронной почты и попробуйте ещё раз.";
+"request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
