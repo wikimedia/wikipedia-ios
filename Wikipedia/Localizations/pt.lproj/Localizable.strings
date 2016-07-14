@@ -13,7 +13,7 @@
 "article-languages-label" = "Escolher idioma";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "A carregar idiomas do artigo...";
-"article-languages-filter-placeholder" = "Encontrar um idioma";
+"article-languages-filter-placeholder" = "Encontrar idioma";
 "article-read-more-title" = "Ler mais";
 "article-about-title" = "Sobre este artigo";
 "article-unable-to-load-section" = "Não foi possível carregar esta secção. Experimente recarregar o artigo para tentar corrigir o problema.";
@@ -52,7 +52,7 @@
 "zero-warn-when-leaving" = "Avisar-me se deixar a Zero";
 "zero-settings-devmode" = "Modo de programador Zero";
 "account-creation-captcha-required" = "A verificação do código CAPTCHA é necessária.";
-"account-creation-captcha-obtaining" = "A obter novo código CAPTCHA.";
+"account-creation-captcha-obtaining" = "A obter novo código CAPTCHA...";
 "account-creation-logging-in" = "A autenticar...";
 "account-creation-passwords-mismatched" = "As palavras-passe não correspondem.";
 "account-creation-saving" = "A gravar...";
@@ -62,9 +62,9 @@
 "account-creation-password-confirm-placeholder-text" = "Confirme a palavra-passe";
 "account-creation-email-placeholder-text" = "Endereço de correio eletrónico (opcional)";
 "account-creation-missing-fields" = "Deve inserir um nome de utilizador(a), uma palavra-passe e respetiva confirmação para criar uma conta.";
-"login-name-not-found" = "O nome de utilizador é necessário para iniciar sessão.";
-"login-name-illegal" = "Forneceu um nome de utilizador ilegal.";
-"login-name-does-not-exist" = "O nome de utilizador que forneceu não existe.";
+"login-name-not-found" = "O nome de utilizador(a) é necessário para iniciar sessão.";
+"login-name-illegal" = "Forneceu um nome de utilizador(a) ilegal.";
+"login-name-does-not-exist" = "O nome de utilizador(a) que forneceu não existe.";
 "login-password-empty" = "A palavra-passe é necessária para iniciar sessão.";
 "login-password-wrong" = "A palavra-passe que forneceu está incorreta.";
 "login-throttled" = "Iniciou a sessão demasiadas vezes num curto espaço de tempo.";
@@ -241,6 +241,7 @@
 "button-next" = "Seguinte";
 "button-done" = "Feito";
 "button-save" = "Gravar";
+"button-ok" = "OK";
 "button-save-for-later" = "Guardar para mais tarde";
 "button-saved-for-later" = "Guardado para depois";
 "button-report-a-bug" = "Reportar um erro";
@@ -394,8 +395,10 @@
 "explore-random-article-sub-heading" = "Wikipédia em inglês";
 "explore-potd-heading" = "Imagem do dia";
 "explore-most-read-heading" = "Os mais lidos na Wikipédia em $1";
+"explore-most-read-generic-heading" = "Mais lidos";
 "explore-most-read-footer" = "Todos os artigos mais lidos";
 "explore-most-read-footer-for-date" = "Todos os artigos mais lidos em $1";
 "explore-most-read-more-list-title" = "Artigos mais lidos";
 "explore-most-read-more-list-title-for-date" = "Mais lidos em $1";
 "no-email-account-alert" = "Por favor, configure um endereço de correio eletrónico no seu dispositivo e tente novamente.";
+"request-feedback-on-error" = "O aplicativo encontrou um problema sobre o qual os nossos programadores gostariam de saber mais. Por favor, toque aqui para nos enviar um e-mail com os detalhes do erro.";

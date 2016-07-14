@@ -45,24 +45,30 @@
 "zero-warn-when-leaving" = "Waarsku indien Wikipedia Zero verlaat word";
 "zero-settings-devmode" = "Zero-ontwikkelmodus";
 "account-creation-captcha-required" = "CAPTCHA-verifikasie vereis.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Verkry 'n nuwe CAPTCHA.";
 "account-creation-logging-in" = "Besig om aan te meld...";
 "account-creation-passwords-mismatched" = "Wagwoordvelde stem nie ooreen nie.";
 "account-creation-saving" = "Besig om te stoor…";
 "account-creation-login" = "Het u reeds 'n rekening? Meld aan.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Gebruikernaam";
 "account-creation-password-placeholder-text" = "Wagwoord";
 "account-creation-password-confirm-placeholder-text" = "Bevestig wagwoord";
 "account-creation-email-placeholder-text" = "E-posadres (opsioneel)";
 "account-creation-missing-fields" = "U moet 'n gebruikersnaam, wagwoord, en wagwoordbevestiging invoer om 'n gebruiker te skep.";
+// Fuzzy
 "login-name-not-found" = "Gebruikersnaam benodig vir aanmelding.";
+// Fuzzy
 "login-name-illegal" = "U het 'n ongeldige gebruikersnaam verskaf.";
+// Fuzzy
 "login-name-does-not-exist" = "Die gebruikersnaam verskaf bestaan nie.";
 "login-password-empty" = "Wagwoord word benodig vir aanmelding.";
 "login-password-wrong" = "Die wagwoord verskaf is verkeerd.";
 "login-throttled" = "U het te veel keer in 'n kort tyd aangemeld.";
 "login-user-blocked" = "Gebruiker is geblokkeer.";
 "login-account-creation" = "Nog nie 'n gebruiker? Word lid van Wikipedia.";
+// Fuzzy
 "login-username-placeholder-text" = "Gebruikernaam";
 "login-password-placeholder-text" = "Wagwoord";
 "wikitext-downloading" = "Laai inhoud...";

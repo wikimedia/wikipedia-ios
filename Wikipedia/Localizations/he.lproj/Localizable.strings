@@ -1,6 +1,7 @@
 // Messages for Hebrew (עברית)
 // Exported from translatewiki.net
 // Author: Amire80
+// Author: Guycn2
 // Author: Inkbug
 // Author: LaG roiL
 // Author: Macofe
@@ -50,7 +51,7 @@
 "zero-warn-when-leaving" = "להזהיר בעת עזיבת אפס";
 "zero-settings-devmode" = "אפס – מצב מפתחים";
 "account-creation-captcha-required" = "נדרש אימות אנושיוּת";
-"account-creation-captcha-obtaining" = "קבלת תמונת אימות חדשה.";
+"account-creation-captcha-obtaining" = "הצגת תמונת אימות חדשה...";
 "account-creation-logging-in" = "כניסה...";
 "account-creation-passwords-mismatched" = "הססמאות אינן זהות.";
 "account-creation-saving" = "שמירה...";
@@ -61,8 +62,8 @@
 "account-creation-email-placeholder-text" = "דואר אלקטרוני (לא חובה)";
 "account-creation-missing-fields" = "יש להזין שם משתמש, ססמה ואישור ססמה כדי ליצור חשבון.";
 "login-name-not-found" = "שם המשתמש נדרש כדי להיכנס.";
-"login-name-illegal" = "נתת שם משתמש בלתי־תקין.";
-"login-name-does-not-exist" = "שם המשתמש שנתת אינו קיים.";
+"login-name-illegal" = "שם המשתמש שסיפקת אינו תקין.";
+"login-name-does-not-exist" = "שם המשתמש שסיפקת אינו קיים.";
 "login-password-empty" = "נדרשת ססמה כדי להיכנס";
 "login-password-wrong" = "הססמה שנתת אינה נכונה.";
 "login-throttled" = "נכנסת יותר מדי פעמים בזמן קצר.";
@@ -239,6 +240,7 @@
 "button-next" = "הבא";
 "button-done" = "בוצע";
 "button-save" = "שמירה";
+"button-ok" = "אישור";
 "button-save-for-later" = "לשמור לאחר־כך";
 "button-saved-for-later" = "נשמרו לאחר־כך";
 "button-report-a-bug" = "דיווח באג";
@@ -392,8 +394,10 @@
 "explore-random-article-sub-heading" = "ויקיפדיה עברית";
 "explore-potd-heading" = "תמונת היום";
 "explore-most-read-heading" = "הכי נקרא בוויקיפדיה ה$1";
+"explore-most-read-generic-heading" = "הערכים הנקראים ביותר";
 "explore-most-read-footer" = "כל הערכים שנקראו הכי הרבה";
 "explore-most-read-footer-for-date" = "כל הערכים שנקראו הכי הרבה ב־$1";
 "explore-most-read-more-list-title" = "ערכים מובילים";
 "explore-most-read-more-list-title-for-date" = "מוביל ב־$1";
 "no-email-account-alert" = "נא להגדיר חשבון דואר אלקטרוני במכשיר שלך ולנסות שוב.";
+"request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";

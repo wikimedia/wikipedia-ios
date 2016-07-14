@@ -166,7 +166,9 @@ NS_ASSUME_NONNULL_BEGIN
         if (error.domain == WMFAccountLoginErrorDomain && error.code != LOGIN_ERROR_UNKNOWN && error.code != LOGIN_ERROR_API) {
             [self logout];
         }
-        [self finishAndSendFailureBlockWithError:error];
+        if (failure) {
+            failure(error);
+        }
     }];
 }
 

@@ -7,8 +7,10 @@
 // Author: Dyaydyasasha2015
 // Author: JackLantern
 // Author: Jackie
+// Author: Kaganer
 // Author: Kopcap94
 // Author: Macofe
+// Author: Mailman
 // Author: Mariya
 // Author: Oashnic
 // Author: Okras
@@ -20,7 +22,7 @@
 "article-languages-cancel" = "Отмена";
 "article-languages-downloading" = "Загрузка языков статьи…";
 "article-languages-filter-placeholder" = "Языковой фильтр";
-"article-read-more-title" = "Читать подробнее";
+"article-read-more-title" = "Подробнее";
 "article-about-title" = "Об этой статье";
 "article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "article-unable-to-load-article" = "Не удается загрузить эту статью.";
@@ -58,7 +60,7 @@
 "zero-warn-when-leaving" = "Предупреждать, если покидаете Zero";
 "zero-settings-devmode" = "Режим разработчика Zero";
 "account-creation-captcha-required" = "Требуется проверка капчей.";
-"account-creation-captcha-obtaining" = "Получение новой капчи.";
+"account-creation-captcha-obtaining" = "Получение новой капчи...";
 "account-creation-logging-in" = "Вход в систему…";
 "account-creation-passwords-mismatched" = "Пароли не совпадают.";
 "account-creation-saving" = "Сохраняется…";
@@ -70,7 +72,7 @@
 "account-creation-missing-fields" = "Для создания учётной записи вы должны ввести имя пользователя, пароль и подтверждение пароля.";
 "login-name-not-found" = "Для входа требуется имя участника.";
 "login-name-illegal" = "Вы указали некорректное имя участника.";
-"login-name-does-not-exist" = "Имя участника, которое вы указали, не существует.";
+"login-name-does-not-exist" = "Указанного вами имени участника не существует.";
 "login-password-empty" = "Для входа в систему требуется пароль.";
 "login-password-wrong" = "Вы указали неправильный пароль.";
 "login-throttled" = "Вы входили слишком много раз в течение короткого промежутка времени.";
@@ -247,6 +249,7 @@
 "button-next" = "Далее";
 "button-done" = "Готово";
 "button-save" = "Сохранить";
+"button-ok" = "OK";
 "button-save-for-later" = "Сохранить на потом";
 "button-saved-for-later" = "Сохранено на потом";
 "button-report-a-bug" = "Сообщить об ошибке";
@@ -400,8 +403,10 @@
 "explore-random-article-sub-heading" = "Английская Википедия";
 "explore-potd-heading" = "Изображение дня";
 "explore-most-read-heading" = "Самое читаемое в $1 Википедии";
+"explore-most-read-generic-heading" = "Наиболее читаемые";
 "explore-most-read-footer" = "Все самые читаемые статьи";
 "explore-most-read-footer-for-date" = "Все самые читаемые статьи на $1";
 "explore-most-read-more-list-title" = "Самые читаемые статьи";
 "explore-most-read-more-list-title-for-date" = "Самое читаемое на $1";
 "no-email-account-alert" = "Пожалуйста, настройте на вашем устройстве учетную запись электронной почты и попробуйте ещё раз.";
+"request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";

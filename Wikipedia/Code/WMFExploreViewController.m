@@ -37,7 +37,7 @@
 #import "UITableView+WMFLockedUpdates.h"
 
 // Child View Controllers
-#import "WMFArticleBrowserViewController.h"
+#import "UIViewController+WMFArticlePresentation.h"
 #import "WMFSettingsViewController.h"
 #import "WMFTitleListDataSource.h"
 #import "WMFArticleListTableViewController.h"
@@ -78,6 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) AFNetworkReachabilityManager* reachabilityManager;
 
+@property (nonatomic, readonly) NSArray* invisibleSections;
 
 @end
 
@@ -205,6 +206,22 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
+
+- (NSArray*)invisibleSections {
+    NSIndexSet* visibleSectionIndexes = [[self.tableView indexPathsForVisibleRows] bk_reduce:[NSMutableIndexSet indexSet] withBlock:^id (NSMutableIndexSet* sum, NSIndexPath* obj) {
+        [sum addIndex:(NSUInteger)obj.section];
+        return sum;
+    }];
+
+    if ([visibleSectionIndexes count] == 0) {
+        return self.schemaManager.sections;
+    }
+    
+    NSMutableArray* invisibleSections = [self.schemaManager.sections mutableCopy];
+    [invisibleSections removeObjectsAtIndexes:visibleSectionIndexes];
+    return invisibleSections;
+}
+
 /**
  * Sends `willDisplaySection` to controllers whose sections are currently visible in the receiver's `tableView`.
  *
@@ -280,11 +297,6 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(applicationWillEnterForegroundWithNotification:)
                                                  name:UIApplicationWillEnterForegroundNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(applicationDidEnterBackgroundWithNotification:)
-                                                 name:UIApplicationDidEnterBackgroundNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -368,7 +380,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    [self.sectionControllerCache removeAllObjects];
+    [self removeInvisibleSectionsFromCache];
 }
 
 #pragma mark - Notifications
@@ -393,8 +405,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self sendWillDisplayToVisibleSectionControllers];
 }
 
-- (void)applicationDidEnterBackgroundWithNotification:(NSNotification *)note {
-    [self.sectionControllerCache removeAllObjects];
+- (void)removeInvisibleSectionsFromCache {
+    [self.sectionControllerCache removeSections:self.invisibleSections];
 }
 
 - (void)appLanguageDidChangeWithNotification:(NSNotification*)note {
@@ -850,6 +862,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)sectionSchemaDidUpdateSections:(WMFExploreSectionSchema*)schema {
     [self wmf_hideEmptyView];
+    [self.sectionControllerCache removeAllSectionsExcept:schema.sections];
     [self loadSectionControllersForCurrentSectionSchema];
     [self.tableView reloadData];
     [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull obj) {
@@ -858,6 +871,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)sectionSchema:(WMFExploreSectionSchema*)schema didRemoveSection:(WMFExploreSection*)section atIndex:(NSUInteger)index {
+    [self.sectionControllerCache removeSection:section];
     [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
 }
 

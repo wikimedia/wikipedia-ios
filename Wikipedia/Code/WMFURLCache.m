@@ -5,7 +5,6 @@
 #import "SessionSingleton.h"
 #import "FBTweak+WikipediaZero.h"
 #import "MWKArticle.h"
-#import "MWKImageList.h"
 #import "MWKImage.h"
 #import "Wikipedia-Swift.h"
 
@@ -18,13 +17,7 @@ static NSString* const WMFURLCacheXCS           = @"X-CS";
 @implementation WMFURLCache
 
 - (void)permanentlyCacheImagesForArticle:(MWKArticle*)article {
-    [article.images.entries enumerateObjectsUsingBlock:^(NSString* _Nonnull imagePath, NSUInteger idx, BOOL* _Nonnull stop) {
-        MWKImage* image = [article.images objectAtIndexedSubscript:idx];
-        NSURL* url = image.sourceURL;
-        if (!url) {
-            return;
-        }
-
+    for (NSURL* url in [article imageURLsForSaving]) {
         NSURLRequest* request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
 
         NSCachedURLResponse* response = [self cachedResponseForRequest:request];
@@ -32,7 +25,7 @@ static NSString* const WMFURLCacheXCS           = @"X-CS";
         if (response.data.length > 0) {
             [[WMFImageController sharedInstance] cacheImageData:response.data url:url MIMEType:response.response.MIMEType];
         }
-    }];
+    };
 }
 
 - (UIImage*)cachedImageForURL:(NSURL*)url {

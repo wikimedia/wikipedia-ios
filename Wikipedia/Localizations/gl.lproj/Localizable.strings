@@ -1,5 +1,6 @@
 // Messages for Galician (galego)
 // Exported from translatewiki.net
+// Author: Banjo
 // Author: Chairego apc
 // Author: Elisardojm
 // Author: Estevoaei
@@ -50,7 +51,7 @@
 "zero-warn-when-leaving" = "Avisádeme ao saír de Zero";
 "zero-settings-devmode" = "Modo de desenvolvedor Zero";
 "account-creation-captcha-required" = "Requírese a verificación do código CAPTCHA.";
-"account-creation-captcha-obtaining" = "Obtendo un novo código CAPTCHA.";
+"account-creation-captcha-obtaining" = "Obtendo un novo código CAPTCHA...";
 "account-creation-logging-in" = "Accedendo ao sistema...";
 "account-creation-passwords-mismatched" = "Os contrasinais non coinciden.";
 "account-creation-saving" = "Gardando...";
@@ -239,6 +240,7 @@
 "button-next" = "Seguinte";
 "button-done" = "Feito";
 "button-save" = "Gardar";
+"button-ok" = "OK";
 "button-save-for-later" = "Gardar para máis tarde";
 "button-saved-for-later" = "Gardado para máis tarde";
 "button-report-a-bug" = "Informar dun erro";
@@ -392,8 +394,10 @@
 "explore-random-article-sub-heading" = "Wikipedia inglesa";
 "explore-potd-heading" = "Imaxe do día";
 "explore-most-read-heading" = "Os máis lidos en Wikipedia en $1";
+"explore-most-read-generic-heading" = "Máis lidos";
 "explore-most-read-footer" = "Todos os artigos máis lidos";
 "explore-most-read-footer-for-date" = "Todos os artigos máis lidos en $1";
 "explore-most-read-more-list-title" = "Os mellores artigos";
 "explore-most-read-more-list-title-for-date" = "Máis lidos en $1";
 "no-email-account-alert" = "Por favor, configure a súa conta de correo electrónico no seu dispositivo e inténteo de novo.";
+"request-feedback-on-error" = "A aplicación atopou un problema da que os nosos desenvolvedores querrían ter máis información. Por favor presiona aquí para enviarnos un correo electrónico cos detalles do erro.";

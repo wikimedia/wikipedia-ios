@@ -11,7 +11,7 @@
 @implementation MWKImage (CanonicalFilenames)
 
 + (NSArray*)mapFilenamesFromImages:(NSArray<MWKImage*>*)images {
-    return [images bk_map:^id (MWKImage* image) {
+    return [images wmf_mapAndRejectNil:^id (MWKImage* image) {
         NSString* canonicalFilename = image.canonicalFilename;
         if (canonicalFilename.length) {
             return [@"File:" stringByAppendingString:canonicalFilename];

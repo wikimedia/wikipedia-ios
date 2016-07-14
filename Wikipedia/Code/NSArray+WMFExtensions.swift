@@ -11,6 +11,42 @@ extension NSArray {
     }
 
     /**
+     *  Used to find arrays that contain Nulls
+     
+     - returns: true if any objects are [NSNull null], otherwise false
+     */
+    public func wmf_containsNullObjects() -> Bool {
+        var foundNull = false
+        for (_, value) in self.enumerate() {
+            if value is NSNull {
+                foundNull = true
+            }
+        }
+        return foundNull
+    }
+
+    /**
+     Used to find arrays that contain Nulls or contain sub-dictionaries or arrays that contain Nulls
+     
+     - returns: true if any objects or sub-collection objects are [NSNull null], otherwise false
+     */
+    public func wmf_recursivelyContainsNullObjects() -> Bool {
+        if self.wmf_containsNullObjects(){
+            return true
+        }
+
+        var foundNull = false
+        for (_, value) in self.enumerate() {
+            if let value = value as? NSDictionary {
+                foundNull = value.wmf_recursivelyContainsNullObjects()
+            }
+            if let value = value as? NSArray {
+                foundNull = value.wmf_recursivelyContainsNullObjects()
+            }
+        }
+        return foundNull
+    }
+    /**
     Select the first `n` elements from an array.
     
     - parameter length: The max length

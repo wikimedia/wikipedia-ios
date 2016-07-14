@@ -16,7 +16,7 @@
 #import "WMFArticleFooterMenuCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UINavigationController+WMFHideEmptyToolbar.h"
-#import "WMFArticleBrowserViewController.h"
+#import "UIViewController+WMFArticlePresentation.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 
 NS_ASSUME_NONNULL_BEGIN

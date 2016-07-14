@@ -64,7 +64,7 @@
 "zero-warn-when-leaving" = "Avvisa se sto uscendo da Zero";
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-captcha-required" = "Verifica CAPTCHA richiesta.";
-"account-creation-captcha-obtaining" = "Creazione di un nuovo CAPTCHA.";
+"account-creation-captcha-obtaining" = "Creazione di un nuovo CAPTCHA...";
 "account-creation-logging-in" = "Accesso in corso...";
 "account-creation-passwords-mismatched" = "Le password non corrispondono.";
 "account-creation-saving" = "Salvataggio...";
@@ -253,6 +253,7 @@
 "button-next" = "Successivo";
 "button-done" = "Fatto";
 "button-save" = "Salva";
+"button-ok" = "OK";
 "button-save-for-later" = "Salva per dopo";
 "button-saved-for-later" = "Salvato per dopo";
 "button-report-a-bug" = "Segnala un errore";
@@ -406,6 +407,7 @@
 "explore-random-article-sub-heading" = "Wikipedia in inglese";
 "explore-potd-heading" = "Immagine del giorno";
 "explore-most-read-heading" = "Più letti nella Wikipedia in $1";
+"explore-most-read-generic-heading" = "Più letti";
 "explore-most-read-footer" = "Tutte le voci più lette";
 "explore-most-read-footer-for-date" = "Tutte le voci più lette il $1";
 "explore-most-read-more-list-title" = "Voci migliori";

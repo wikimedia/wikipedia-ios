@@ -221,6 +221,7 @@
 "button-next" = "Weider";
 "button-done" = "Fäerdeg";
 "button-save" = "Späicheren";
+"button-ok" = "OK";
 "button-save-for-later" = "Fir spéider späicheren";
 "button-saved-for-later" = "Fir spéider gespäichert";
 "button-report-a-bug" = "E Feeler mellen";
@@ -361,6 +362,7 @@
 "explore-random-article-sub-heading" = "Wikipedia op Englesch";
 "explore-potd-heading" = "Bild vum Dag";
 "explore-most-read-heading" = "Am dackste geliest op der Wikipedia op $1";
+"explore-most-read-generic-heading" = "Am dackste geliest";
 "explore-most-read-footer" = "Déi am dackste geliest Artikelen";
 "explore-most-read-footer-for-date" = "Déi am dackste geliest Artikelen de(n) $1";
 "explore-most-read-more-list-title" = "Beléifst Artikelen";

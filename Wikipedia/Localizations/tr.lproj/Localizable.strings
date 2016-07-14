@@ -59,7 +59,7 @@
 "zero-warn-when-leaving" = "Zero'dan çıkılırsa uyar";
 "zero-settings-devmode" = "Zero geliştirme modu";
 "account-creation-captcha-required" = "CAPTCHA doğrulaması gerekli.";
-"account-creation-captcha-obtaining" = "Yeni CAPTCHA alınıyor.";
+"account-creation-captcha-obtaining" = "Yeni CAPTCHA alınıyor...";
 "account-creation-logging-in" = "Oturum açılıyor...";
 "account-creation-passwords-mismatched" = "Parola alanları uyuşmuyor.";
 "account-creation-saving" = "Kaydediliyor...";
@@ -248,6 +248,7 @@
 "button-next" = "Sonraki";
 "button-done" = "Tamamlandı";
 "button-save" = "Kaydet";
+"button-ok" = "Tamam";
 "button-save-for-later" = "Sonrası için kaydet";
 "button-saved-for-later" = "Sonrası için kaydedildi";
 "button-report-a-bug" = "Hata bildir";
@@ -401,8 +402,10 @@
 "explore-random-article-sub-heading" = "İngilizce Vikipedi";
 "explore-potd-heading" = "Günün resmi";
 "explore-most-read-heading" = "$1 Vikipedi'de en çok okunan maddeler";
+"explore-most-read-generic-heading" = "En çok okunanlar";
 "explore-most-read-footer" = "Bütün en çok okunan maddeler";
 "explore-most-read-footer-for-date" = "$1 tarihinde çok okunan bütün maddeler";
 "explore-most-read-more-list-title" = "En çok okunan maddeler";
 "explore-most-read-more-list-title-for-date" = "$1 tarihinde çok okunan maddeler";
 "no-email-account-alert" = "Lütfen cihazınızda bir e-posta hesabı kurulumu yapıp, yeniden deneyin.";
+"request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";

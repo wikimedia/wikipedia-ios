@@ -41,7 +41,6 @@ extern NSString* const MWKSectionShareSnippetXPath;
  * @return The HTML for this section of the receiver's `article` or `nil` if it doesn't exist on disk.
  */
 @property (readonly, copy, nonatomic, nullable) NSString* text;
-@property (readonly, strong, nonatomic, nullable) MWKImageList* images;
 
 - (instancetype)initWithArticle:(MWKArticle*)article dict:(NSDictionary*)dict;
 

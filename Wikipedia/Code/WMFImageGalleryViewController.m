@@ -1,7 +1,6 @@
 
 #import "WMFImageGalleryViewController.h"
 #import "MWKArticle.h"
-#import "MWKImageList.h"
 #import "MWKImage.h"
 #import "MWKImageInfo.h"
 #import "MWKDataStore.h"
@@ -406,7 +405,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(article);
     NSParameterAssert(article.dataStore);
 
-    NSArray* items = [article.images imagesForDisplayInGallery];
+    NSArray* items = [article imagesForGallery];
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
         items = [items wmf_reverseArrayIfApplicationIsRTL];
@@ -455,7 +454,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSUInteger)indexOfImage:(MWKImage*)image inPhotos:(NSArray<id<NYTPhoto> >*)photos {
     return [photos
             indexOfObjectPassingTest:^BOOL (WMFArticlePhoto* anImage, NSUInteger _, BOOL* stop) {
-        if ([anImage.imageObject isEqualToImage:image] || [anImage.imageObject isVariantOfImage:image] || [anImage.thumbnailImageObject isEqualToImage:image] || [anImage.thumbnailImageObject isVariantOfImage:image]) {
+        if ([anImage.imageObject isVariantOfImage:image] || [anImage.thumbnailImageObject isVariantOfImage:image]) {
             *stop = YES;
             return YES;
         }

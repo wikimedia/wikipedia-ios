@@ -138,7 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSAttributedString*)headerTitle {
     // fall back to language code if it can't be localized
-    NSString* language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.domainURL.wmf_language] ? : self.domainURL.wmf_language;
+    NSString* language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.domainURL.wmf_language];
 
     NSString* heading = nil;
 

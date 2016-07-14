@@ -3,6 +3,7 @@
 // Author: Barrel0116
 // Author: Dude1717
 // Author: Fryed-peach
+// Author: Hzy980512
 // Author: Kanon und wikipedia
 // Author: Los688
 // Author: Macofe
@@ -248,6 +249,7 @@
 "button-next" = "次へ";
 "button-done" = "完了";
 "button-save" = "保存";
+"button-ok" = "OK";
 "button-save-for-later" = "保存してあとで読む";
 "button-saved-for-later" = "保存しました";
 "button-report-a-bug" = "バグを報告";
@@ -401,8 +403,10 @@
 "explore-random-article-sub-heading" = "英語版ウィキペディア";
 "explore-potd-heading" = "今日の一枚";
 "explore-most-read-heading" = "$1 版ウィキペディアでよく読まれている記事";
+"explore-most-read-generic-heading" = "よく読まれている記事";
 "explore-most-read-footer" = "よく読まれている記事すべて";
 "explore-most-read-footer-for-date" = "$1 によく読まれている記事すべて";
 "explore-most-read-more-list-title" = "よく読まれている記事";
 "explore-most-read-more-list-title-for-date" = "$1の上位記事";
 "no-email-account-alert" = "アカウントのメールアドレスを設定してから、もう一度お試しください。";
+"request-feedback-on-error" = "アプリが遭遇した問題について、開発者はもっと詳しく知りたいと考えています。こちらをタップして、エラーの詳細についてメールをご送信ください。";

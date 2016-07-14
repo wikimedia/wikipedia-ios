@@ -10,7 +10,6 @@
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "MWKImageInfoResponseSerializer.h"
 #import "MWKArticle.h"
-#import "MWKImageList.h"
 #import "MediaWikiKit.h"
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "UIScreen+WMFImageWidth.h"

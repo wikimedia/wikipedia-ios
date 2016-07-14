@@ -2,6 +2,8 @@
 #import "MediaWikiKit.h"
 #import "MWKList+Subclass.h"
 
+#define MAX_HISTORY_ENTRIES 100
+
 NS_ASSUME_NONNULL_BEGIN
 
 NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateNotification";
@@ -91,8 +93,22 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     }];
 }
 
+- (void)cleanupRemovedEntries:(NSArray<MWKHistoryEntry*>*)entries {
+    if (entries == nil || entries.count == 0) {
+        return;
+    }
+    MWKSavedPageList* savedPageList = self.dataStore.userDataStore.savedPageList;
+    NSSet* savedURLs                = [NSSet setWithArray:[savedPageList.entries valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], url)]];
+    NSMutableSet* removedURLs       = [NSMutableSet setWithArray:[entries valueForKey:WMF_SAFE_KEYPATH([MWKHistoryEntry new], url)]];
+    [removedURLs minusSet:savedURLs];
+    [self.dataStore removeArticlesWithURLsFromCache:[removedURLs allObjects]];
+}
+
 - (void)removeEntry:(MWKListEntry)entry {
     [super removeEntry:entry];
+    if (entry != nil) {
+        [self cleanupRemovedEntries:@[entry]];
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
 
@@ -100,22 +116,39 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     if ([[listIndex text] length] == 0) {
         return;
     }
+    MWKHistoryEntry* entry = [self entryForListIndex:listIndex];
+    if (entry != nil) {
+        [self cleanupRemovedEntries:@[entry]];
+    }
     [super removeEntryWithListIndex:listIndex];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
 
 - (void)removeEntriesFromHistory:(NSArray*)historyEntries {
     if ([historyEntries count] == 0) {
         return;
     }
+    [self cleanupRemovedEntries:historyEntries];
     [historyEntries enumerateObjectsUsingBlock:^(MWKHistoryEntry* entry, NSUInteger idx, BOOL* stop) {
         [self removeEntryWithListIndex:entry.url];
     }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
 
 - (void)removeAllEntries {
+    [self cleanupRemovedEntries:[self.entries copy]];
     [super removeAllEntries];
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
+
+- (void)prune {
+    NSArray* removed = [super pruneToMaximumCount:MAX_HISTORY_ENTRIES];
+    [self cleanupRemovedEntries:removed];
+    [self save];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
+}
+
+#pragma mark - Sort Descriptors
 
 - (nullable NSArray<NSSortDescriptor*>*)sortDescriptors {
     static NSArray<NSSortDescriptor*>* sortDescriptors;

@@ -23,7 +23,7 @@
 #import "WMFNearbyPlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
-#import "WMFArticleBrowserViewController.h"
+#import "UIViewController+WMFArticlePresentation.h"
 
 #import "WMFLocationSearchListViewController.h"
 

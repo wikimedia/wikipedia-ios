@@ -1,6 +1,5 @@
 #import "WMFSearchViewController.h"
 #import "PiwikTracker+WMFExtensions.h"
-#import "NSMutableArray+WMFSafeAdd.h"
 
 #import "RecentSearchesViewController.h"
 #import "WMFSearchResultsTableViewController.h"
@@ -29,7 +28,7 @@
 #import "UIImage+WMFStyle.h"
 #import "UIFont+WMFStyle.h"
 
-#import "WMFArticleBrowserViewController.h"
+#import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
 #import "UIViewController+WMFEmptyView.h"
 

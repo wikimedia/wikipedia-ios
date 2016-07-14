@@ -48,7 +48,7 @@
 "zero-warn-when-leaving" = "Upozorniť ma ak opúšťam Zero";
 "zero-settings-devmode" = "Vývojársky režim";
 "account-creation-captcha-required" = "Je požadované overenie pomocou CAPTCHA.";
-"account-creation-captcha-obtaining" = "Nahrávam nový obrázok.";
+"account-creation-captcha-obtaining" = "Generuje sa nová CAPTCHA...";
 "account-creation-logging-in" = "Prihlasujem...";
 "account-creation-passwords-mismatched" = "Heslá sa nezhodujú";
 "account-creation-saving" = "Ukladanie...";
@@ -193,6 +193,7 @@
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
 "about-libraries-licenses-title" = "Máme radi open source softvér $1";
 "about-libraries-complete-list" = "Úplný zoznam";
+"about-repositories" = "Repozitáre";
 "about-repositories-app-source-license" = "Zdrojový kód je dostupný v rámci $1.";
 "about-repositories-app-source-license-mit" = "licenciou MIT";
 "about-send-feedback" = "Odoslať spätnú väzbu";
@@ -219,6 +220,7 @@
 "button-next" = "Ďalej";
 "button-done" = "Hotovo";
 "button-save" = "Uložiť";
+"button-ok" = "OK";
 "button-save-for-later" = "Uložiť na neskôr";
 "button-saved-for-later" = "Uložené na neskôr";
 "button-report-a-bug" = "Nahlásiť chybu";
@@ -271,6 +273,7 @@
 "nearby-location-updates-denied" = "Táto aplikácia nemá prístup k údajom o polohe.";
 "nearby-location-updates-settings-menu" = "Súkromie > Služby polohy > Wikipedia";
 "nearby-wifi" = "Povolenie Wi-Fi môže pomôcť vášmu prístroju lepšie určiť vašu polohu.";
+"migration-update-progress-count-label" = "Presúvam článok $1 z $2";
 "migration-skip-button-title" = "Odstrániť položku";
 "image-gallery-unknown-owner" = "Uploader neznámy.";
 "image-gallery-fetch-image-info-error-title" = "Nepodarilo sa stiahnuť obrázky";
@@ -306,6 +309,7 @@
 "potd-description-prefix" = "Obrázok dňa pre $1";
 "welcome-explore-sub-title" = "Nová možnosť, ako objavovať zaujímavé články každý deň";
 "welcome-explore-tell-me-more" = "Zistiť viac";
+"welcome-explore-tell-me-more-privacy" = "Na našich serveroch nie je uložený žiadny zoznam na prečítanie alebo profil.";
 "welcome-explore-tell-me-more-done-button" = "Rozumiem";
 "welcome-explore-continue-button" = "Začíname";
 "welcome-languages-title" = "Jazyky";
@@ -334,9 +338,11 @@
 "explore-featured-article-heading" = "Odporúčaný článok";
 "explore-continue-reading-heading" = "Pokračovať v čítaní";
 "explore-nearby-heading" = "Miesta v okolí";
+"explore-continue-related-heading" = "Pretože ste čítali";
 "explore-main-page-heading" = "Dnes na Wikipédii";
 "explore-random-article-heading" = "Náhodný článok";
 "explore-potd-heading" = "Obrázok dňa";
+"explore-most-read-generic-heading" = "Najčítanejšie články";
 "explore-most-read-footer" = "Všetky najčítanejšie články";
 "explore-most-read-footer-for-date" = "Všetky najčítanejšie články z $1";
 "explore-most-read-more-list-title" = "Najčítanejšie články";

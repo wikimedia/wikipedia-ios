@@ -1,5 +1,6 @@
 // Messages for Persian (فارسی)
 // Exported from translatewiki.net
+// Author: Alifakoor
 // Author: Alirezaaa
 // Author: Arian Ar
 // Author: BaziOnline
@@ -11,6 +12,7 @@
 // Author: Macofe
 // Author: Mahdiz
 // Author: Maspadana
+// Author: Namo
 // Author: Reza1615
 // Author: Sahehco
 // Author: Signal89
@@ -59,7 +61,7 @@
 "zero-warn-when-leaving" = "هشدار برای خروج از صفر";
 "zero-settings-devmode" = "وضعیت برنامه‌نویسی صفر";
 "account-creation-captcha-required" = "نیازمند به وارد کردن کپچا.";
-"account-creation-captcha-obtaining" = "اخذ کپچا تازه.";
+"account-creation-captcha-obtaining" = "اخذ کپچا تازه...";
 "account-creation-logging-in" = "ورود به سیستم...";
 "account-creation-passwords-mismatched" = "گذرواژه‌ها همخوانی ندارند.";
 "account-creation-saving" = "در حال ذخیره‌سازی...";
@@ -248,6 +250,7 @@
 "button-next" = "بعدی";
 "button-done" = "انجام شد";
 "button-save" = "ذخیره";
+"button-ok" = "تأیید";
 "button-save-for-later" = "ذخیره برای بعد";
 "button-saved-for-later" = "ذخیره برای بعد";
 "button-report-a-bug" = "گزارش خطا";
@@ -401,8 +404,10 @@
 "explore-random-article-sub-heading" = "ویکی‌پدیای انگلیسی";
 "explore-potd-heading" = "نگارهٔ برگزیدهٔ روز";
 "explore-most-read-heading" = "برای مطالعه در ویکی‌پدیای $1";
+"explore-most-read-generic-heading" = "بیشترین خوانده شده";
 "explore-most-read-footer" = "همهٔ مقالاتی که بیشترین بازدید را داشتند";
 "explore-most-read-footer-for-date" = "همهٔ مقالاتی که بیشترین بازدید را در $1 داشتند";
 "explore-most-read-more-list-title" = "بالاترین مقالات";
 "explore-most-read-more-list-title-for-date" = "بالاترین در $1";
 "no-email-account-alert" = "لطفاً حساب ایمیل را بر روی دستگاهتان تنظیم کنید و مجدداً تلاش کنید.";
+"request-feedback-on-error" = "این برنامه با مشکلی مواجه شده است که توسعه دهندگان آن به دانستن بیشتر در مورد آن علاقه‌مند می‌باشند. لطفاً با ضربه زدن بر اینجا، برایمان یک پست الکترونیکی با جزئیات بیشتری بفرستید.";

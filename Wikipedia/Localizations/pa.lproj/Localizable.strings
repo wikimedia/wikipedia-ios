@@ -48,24 +48,30 @@
 "zero-warn-when-leaving" = "ਵਿਕੀਪੀਡੀਆ ਜ਼ੀਰੋ ਛੱਡਣ 'ਤੇ ਸਚੇਤ ਕਰੋ";
 "zero-settings-devmode" = "ਜ਼ੀਰੋ ਵਿਕਾਸ ਤੌਰ";
 "account-creation-captcha-required" = "ਕੈਪਚਾ ਤਸਦੀਕੀ ਲੁੜੀਂਦੀ।";
+// Fuzzy
 "account-creation-captcha-obtaining" = "ਨਵਾਂ ਕੈਪਚਾ ਲਿਆਉਂਦਾ ਜਾ ਰਿਹਾ ਹੈ।";
 "account-creation-logging-in" = "...ਲਾਗ ਇਨ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ";
 "account-creation-passwords-mismatched" = "ਪਛਾਣ-ਸ਼ਬਦ ਦੇ ਡੱਬੇ ਮੇਲ ਨਹੀਂ ਖਾ ਰਹੇ।";
 "account-creation-saving" = "ਸਾਂਭਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "account-creation-login" = "ਪਹਿਲੋਂ ਹੀ ਖਾਤਾ ਹੈ? ਦਾਖ਼ਲ ਹੋਵੋ।";
+// Fuzzy
 "account-creation-username-placeholder-text" = "ਵਰਤੋਂਕਾਰ ਨਾਂ";
 "account-creation-password-placeholder-text" = "ਪਛਾਣ-ਸ਼ਬਦ";
 "account-creation-password-confirm-placeholder-text" = "ਪਛਾਣ ਸ਼ਬਦ ਤਸਦੀਕ ਕਰੋ";
 "account-creation-email-placeholder-text" = "ਈਮੇਲ (ਚੋਣਵੀਂ)";
 "account-creation-missing-fields" = "ਅਾਪਣਾ ਖਾਤਾ ਬਣਾੳੁਣ ਲੲੀ ਯੂਜ਼ਰ-ਨਾਂ ਅਤੇ ਗੁਪਤ-ਸ਼ਬਦ ਭਰੋ";
+// Fuzzy
 "login-name-not-found" = "ਦਾਖ਼ਲ ਹੋਣ ਵਾਸਤੇ ਵਰਤੋਂਕਾਰ-ਨਾਂ ਲੁੜੀਂਦਾ ਹੈ।";
+// Fuzzy
 "login-name-illegal" = "ਤੁਸੀਂ ਇੱਕ ਗ਼ੈਰ-ਕਨੂੰਨੀ ਵਰਤੋਂਕਾਰ ਨਾਂ ਦਿੱਤਾ।";
+// Fuzzy
 "login-name-does-not-exist" = "ਤੁਹਾਡੇ ਵੱਲੋਂ ਦਿੱਤਾ ਗਿਆ ਵਰਤੋਂਕਾਰ ਨਾਂ ਹੋਂਦ ਵਿੱਚ ਨਹੀਂ ਹੈ।";
 "login-password-empty" = "ਦਾਖ਼ਲ ਹੋਣ ਵਾਸਤੇ ਪਛਾਣ-ਸ਼ਬਦ ਲੁੜੀਂਦਾ ਹੈ।";
 "login-password-wrong" = "ਤੁਹਾਡਾ ਦਿੱਤਾ ਪਛਾਣ-ਸ਼ਬਦ ਗ਼ਲਤ ਹੈ।";
 "login-throttled" = "ਤੁਸੀਂ ਬਹੁਤ ਘੱਟ ਸਮੇਂ ਵਿੱਚ ਬਹੁਤ ਵਾਰ ਦਾਖ਼ਲ ਹੋਏ ਹੋ।";
 "login-user-blocked" = "ਵਰਤੋਂਕਾਰ ਉੱਤੇ ਰੋਕ ਲੱਗੀ ਹੋਈ ਹੈ।";
 "login-account-creation" = "ਖਾਤਾ ਨਹੀਂ ਹੈ? ਵਿਕੀਪੀਡੀਆ 'ਚ ਭਰਤੀ ਹੋਵੋ।";
+// Fuzzy
 "login-username-placeholder-text" = "ਵਰਤੋਂਕਾਰ ਨਾਂ";
 "login-password-placeholder-text" = "ਪਛਾਣ-ਸ਼ਬਦ";
 "wikitext-downloading" = "ਸਮੱਗਰੀ ਲੱਦ ਰਿਹਾ ਹੈ...";

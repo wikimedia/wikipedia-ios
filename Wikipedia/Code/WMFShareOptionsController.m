@@ -84,7 +84,8 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:[NSURL wmf_optionalURLWithString:self.article.imageURL] failure:^(NSError* _Nonnull error) {
         DDLogInfo(@"Ignoring share card image error: %@", error);
-    } success:^(WMFImageDownload* _Nonnull download) {
+        [self showShareOptionsWithImage:nil];
+    } success:^(WMFImageDownload * _Nonnull download) {
         @strongify(self);
         [self showShareOptionsWithImage:download.image];
     }];

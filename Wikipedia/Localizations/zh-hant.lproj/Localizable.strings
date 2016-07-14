@@ -19,7 +19,7 @@
 "article-languages-label" = "選擇語言";
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "正在讀取條目語言...";
-"article-languages-filter-placeholder" = "語言篩選器";
+"article-languages-filter-placeholder" = "尋找語言";
 "article-read-more-title" = "閱讀更多";
 "article-about-title" = "關於此條目";
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
@@ -58,7 +58,7 @@
 "zero-warn-when-leaving" = "離開 Wikipedia Zero 時提示";
 "zero-settings-devmode" = "Zero 開發模式";
 "account-creation-captcha-required" = "需要使用驗証碼驗証。";
-"account-creation-captcha-obtaining" = "取得新的驗證碼中。";
+"account-creation-captcha-obtaining" = "取得新驗證碼中…";
 "account-creation-logging-in" = "登入中...";
 "account-creation-passwords-mismatched" = "密碼欄位不符合。";
 "account-creation-saving" = "儲存中...";
@@ -69,7 +69,7 @@
 "account-creation-email-placeholder-text" = "電子郵件 (選填)";
 "account-creation-missing-fields" = "您必須輸入使用者名稱與密碼，並且在確認密碼之後才能建立一個帳號。";
 "login-name-not-found" = "需要填寫使用者名稱才能登入。";
-"login-name-illegal" = "您提供的使用者名稱無效。";
+"login-name-illegal" = "您提供的使用者名稱不合法。";
 "login-name-does-not-exist" = "您提供的使用者名稱不存在。";
 "login-password-empty" = "登入需要密碼。";
 "login-password-wrong" = "您提供的密碼不正確。";
@@ -247,6 +247,7 @@
 "button-next" = "下一步";
 "button-done" = "已完成";
 "button-save" = "儲存";
+"button-ok" = "確定";
 "button-save-for-later" = "儲存以供日後使用";
 "button-saved-for-later" = "儲存以供日後使用";
 "button-report-a-bug" = "回報程式錯誤";
@@ -400,8 +401,10 @@
 "explore-random-article-sub-heading" = "英語維基百科";
 "explore-potd-heading" = "每日圖片";
 "explore-most-read-heading" = "在 $1 維基百科上最多閱讀的條目";
+"explore-most-read-generic-heading" = "最多閱讀";
 "explore-most-read-footer" = "所有最多閱讀的條目";
 "explore-most-read-footer-for-date" = "所有在 $1 上閱讀最多的條目";
 "explore-most-read-more-list-title" = "熱門條目";
 "explore-most-read-more-list-title-for-date" = "$1 熱門";
 "no-email-account-alert" = "請在您的裝置上設定一個電子郵件地址後，再試一次。";
+"request-feedback-on-error" = "此應用程式已發生了問題，我們的開發人員想要瞭解更多有關於此的資料。請輕觸這裡向我們傳送一份含有錯誤詳細資料的電子信件。";

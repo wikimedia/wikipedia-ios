@@ -41,9 +41,9 @@
 "account-creation-password-placeholder-text" = "پټنوم";
 "account-creation-password-confirm-placeholder-text" = "پټنوم مو تاييد کړئ";
 "account-creation-email-placeholder-text" = "برېښليک (اختياري)";
-"login-name-not-found" = "د  ننوتلو لپاره کارن نوم ته اړتيا ده.";
-"login-name-illegal" = "تاسې يو ناقانونه کارن نوم ورکړی.";
-"login-name-does-not-exist" = "کوم کارن نوم مو چې ورکړی هغه نشته.";
+"login-name-not-found" = "د  ننوتلو لپاره کارن-نوم ته اړتيا ده.";
+"login-name-illegal" = "تاسې يو ناقانونه کارن-نوم ورکړی.";
+"login-name-does-not-exist" = "کوم کارن-نوم مو چې ورکړی هغه نشته.";
 "login-password-empty" = "د ننوتنې لپاره پټنوم ته اړتيا ده.";
 "login-password-wrong" = "کوم پټنوم مو چې ورکړی ناسم دی.";
 "login-user-blocked" = "پر کارن بنديز لگېدلی.";
@@ -160,6 +160,7 @@
 "button-next" = "راتلونکی";
 "button-done" = "ترسره شو";
 "button-save" = "خوندي کول";
+"button-ok" = "ښه";
 "button-save-for-later" = "د وروسته لوستلو لپاره خوندي کول";
 "button-saved-for-later" = "د وروسته لوستلو لپاره خوندي شو";
 "onboarding-create-account" = "گڼون جوړول";
@@ -260,6 +261,7 @@
 "explore-random-article-sub-heading" = "انگرېزي ويکيپېډيا";
 "explore-potd-heading" = "د نن ورځې انځور";
 "explore-most-read-heading" = "پر $1 ويکيپېډيا تر ټولو ډېر لوستل شوي";
+"explore-most-read-generic-heading" = "ډېر لوستل شوي";
 "explore-most-read-footer" = "ټولې ډېرې لوستل شوې ليکنې";
 "explore-most-read-footer-for-date" = "په $1 ټولې ډېرې لوستل شوې ليکنې";
 "explore-most-read-more-list-title" = "د سر ليکنې";

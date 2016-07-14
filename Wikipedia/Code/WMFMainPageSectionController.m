@@ -12,7 +12,7 @@
 #import "WMFMainPagePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
-#import "WMFArticleBrowserViewController.h"
+#import "UIViewController+WMFArticlePresentation.h"
 #import "NSDateFormatter+WMFExtensions.h"
 
 

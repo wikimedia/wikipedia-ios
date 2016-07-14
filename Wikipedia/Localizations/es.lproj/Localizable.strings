@@ -1,5 +1,6 @@
 // Messages for Spanish (español)
 // Exported from translatewiki.net
+// Author: Elisardojm
 // Author: Fitoschido
 // Author: Indiralena
 // Author: Koavf
@@ -56,7 +57,7 @@
 "zero-warn-when-leaving" = "Avisar al salir de Zero";
 "zero-settings-devmode" = "modo de desarrollo Zero";
 "account-creation-captcha-required" = "Verificación CAPTCHA requerido.";
-"account-creation-captcha-obtaining" = "Obtener un nuevo CAPTCHA.";
+"account-creation-captcha-obtaining" = "Obtener un nuevo CAPTCHA...";
 "account-creation-logging-in" = "Iniciando sesión…";
 "account-creation-passwords-mismatched" = "Las contraseñas no coinciden.";
 "account-creation-saving" = "Guardando…";
@@ -245,6 +246,7 @@
 "button-next" = "Siguiente";
 "button-done" = "Hecho";
 "button-save" = "Guardar";
+"button-ok" = "Aceptar";
 "button-save-for-later" = "Guardar para después";
 "button-saved-for-later" = "Guardado para después";
 "button-report-a-bug" = "Informar de un error";
@@ -398,8 +400,10 @@
 "explore-random-article-sub-heading" = "Wikipedia en inglés";
 "explore-potd-heading" = "Imagen del día";
 "explore-most-read-heading" = "Los más leídos en Wikipedia en $1";
+"explore-most-read-generic-heading" = "Más leídos";
 "explore-most-read-footer" = "Todos los artículos más leídos";
 "explore-most-read-footer-for-date" = "Todos los artículos más leídos el $1";
 "explore-most-read-more-list-title" = "Los artículos más leídos";
 "explore-most-read-more-list-title-for-date" = "Los más leídos el $1";
 "no-email-account-alert" = "Configura una cuenta de correo electrónico en tu dispositivo e inténtalo de nuevo.";
+"request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";

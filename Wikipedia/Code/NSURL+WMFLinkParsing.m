@@ -75,11 +75,11 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
              @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
              path);
     if ([path wmf_isInternalLink]) {
-        // recurse here after stripping internal link prefix
         return [NSURL wmf_URLWithSiteURL:siteURL unescapedDenormalizedInternalLink:path];
     } else {
         NSArray* bits = [path componentsSeparatedByString:@"#"];
-        return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_normalizedPageTitle] fragment:[bits wmf_safeObjectAtIndex:1]];
+        NSString *fragment = [[bits wmf_safeObjectAtIndex:1] precomposedStringWithCanonicalMapping];
+        return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_normalizedPageTitle] fragment:fragment];
     }
 }
 
@@ -89,7 +89,6 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
              path);
     NSAssert([[NSURL invalidPercentEscapesRegex] matchesInString:path options:0 range:NSMakeRange(0, path.length)].count == 0, @"%@ should only have valid percent escapes", path);
     if ([path wmf_isInternalLink]) {
-        // recurse here after stripping internal link prefix
         return [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:path];
     } else {
         NSArray* bits = [path componentsSeparatedByString:@"#"];
@@ -130,7 +129,7 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 
 - (NSURL*)wmf_URLWithPath:(NSString*)path isMobile:(BOOL)isMobile {
     NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-    components.path = path;
+    components.path = [path precomposedStringWithCanonicalMapping];
     if (isMobile != self.wmf_isMobile) {
         components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:isMobile];
     }

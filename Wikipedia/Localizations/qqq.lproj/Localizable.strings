@@ -12,6 +12,7 @@
 // Author: Robby
 // Author: Shirayuki
 // Author: Siebrand
+// Author: Tacsipacsi
 
 "languages-title" = "Title for language picker\n{{Identical|Language}}";
 "article-languages-label" = "Header label for per-article language selector screen.\n{{Identical|Choose language}}";
@@ -25,7 +26,7 @@
 "article-related-articles-title" = "The title shown above article titles related to the current article.";
 "article-languages-yours" = "Title for list of user's preferred languages";
 "article-languages-others" = "Title for list of languages not in user's preferred languages";
-"info-box-title" = "The title of info boxes - in collapsed and expanded form";
+"info-box-title" = "The title of infoboxes – in collapsed and expanded form";
 "info-box-close-text" = "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}";
 "table-title-other" = "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}";
 "saved-clear-all" = "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}";
@@ -245,7 +246,7 @@
 "button-next" = "Button text for next button used in various places.\n{{Identical|Next}}";
 "button-done" = "Button text for done button used in various places.\n{{Identical|Done}}";
 "button-save" = "Button text for save button used in various places.\n{{Identical|Save}}";
-"button-ok" = "Button text for ok button used in various places";
+"button-ok" = "Button text for ok button used in various places\n{{Identical|OK}}";
 "button-save-for-later" = "Longer button text for save button used in various places.";
 "button-saved-for-later" = "Longer button text for already saved button used in various places.";
 "button-report-a-bug" = "Button text for reporting a bug";
@@ -405,3 +406,4 @@
 "explore-most-read-more-list-title" = "Title for the view displaying longer list of top read articles.";
 "explore-most-read-more-list-title-for-date" = "Title with date for the view displaying longer list of top read articles. $1 will be substituted with the date";
 "no-email-account-alert" = "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device";
+"request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";

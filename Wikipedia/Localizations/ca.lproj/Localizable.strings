@@ -7,6 +7,7 @@
 // Author: Jaumeortola
 // Author: Joan manel
 // Author: Kippelboy
+// Author: Lluis tgn
 // Author: Maceleiro
 // Author: Macofe
 // Author: SMP
@@ -21,7 +22,7 @@
 "article-languages-downloading" = "Carregant els idiomes de l'article...";
 "article-languages-filter-placeholder" = "Cerca una llengua";
 "article-read-more-title" = "Més informació";
-"article-about-title" = "Sobre l'article";
+"article-about-title" = "Sobre aquest article";
 "article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
 "article-unable-to-load-article" = "No s'ha pogut carregar l'article.";
 "article-related-articles-title" = "Articles relacionats";
@@ -58,7 +59,7 @@
 "zero-warn-when-leaving" = "Avisa'm si se surt de Viquipèdia Zero";
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-captcha-required" = "Verificació de CAPTCHA requerida.";
-"account-creation-captcha-obtaining" = "Obtenint d'un CAPTCHA nou.";
+"account-creation-captcha-obtaining" = "Obtenint d'un CAPTCHA nou...";
 "account-creation-logging-in" = "Iniciant sessió...";
 "account-creation-passwords-mismatched" = "Les contrasenyes no coincideixen.";
 "account-creation-saving" = "S’està desant…";
@@ -247,6 +248,7 @@
 "button-next" = "Següent";
 "button-done" = "Fet";
 "button-save" = "Desa";
+"button-ok" = "D’acord";
 "button-save-for-later" = "Desa-ho per a més tard";
 "button-saved-for-later" = "Desat per a més tard";
 "button-report-a-bug" = "Informa d'un error";
@@ -400,6 +402,7 @@
 "explore-random-article-sub-heading" = "Viquipèdia en anglès";
 "explore-potd-heading" = "Foto del dia";
 "explore-most-read-heading" = "Els més llegits a la Viquipèdia en $1";
+"explore-most-read-generic-heading" = "El més llegit";
 "explore-most-read-footer" = "Tots els articles més llegits";
 "explore-most-read-footer-for-date" = "Tots els articles més llegits el $1";
 "explore-most-read-more-list-title" = "Primers articles";

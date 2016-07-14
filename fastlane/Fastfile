@@ -42,6 +42,7 @@ platform :ios do
 
   desc "Runs tests, version, tag, and push to the beta branch"
   lane :submitHotfixAndPushToMaster do
+    verifyTestPlatforms
     tagHotfix
     store
   end
@@ -118,10 +119,10 @@ platform :ios do
   desc "Increment the app's beta build number, add a tag, and push to the beta branch."
   lane :bumpAndTagBeta do |options|
     sh "git fetch"
-    sh "git checkout develop"
+    sh "git checkout release-beta"
     sh "git pull"
     sh "git checkout beta"
-    sh "git merge develop"
+    sh "git merge release-beta"
 
     increment_build_number
 
@@ -164,10 +165,10 @@ platform :ios do
   desc "Add a tag, and push to the master branch."
   lane :tagHotfix do |options|
     sh "git fetch"
-    sh "git checkout 5.0.5-hotfix"
+    sh "git checkout 5.0.5"
     sh "git pull"
     sh "git checkout master"
-    sh "git merge 5.0.5-hotfix"
+    sh "git merge 5.0.5"
 
     new_version = get_version_string
 

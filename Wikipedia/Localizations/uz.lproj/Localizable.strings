@@ -33,22 +33,28 @@
 // Fuzzy
 "zero-warn-when-leaving" = "Wikipedia Zerodan chiqilayotganda xabar bering";
 "account-creation-captcha-required" = "Mashina emasligingizni tasdiqlang.";
+// Fuzzy
 "account-creation-captcha-obtaining" = "Odam va mashinalarni aniqlovchi toʻla avtomatlashgan ochiq Tyuring testi yangilanyapti.";
 "account-creation-logging-in" = "Saytga kiryapsiz...";
 "account-creation-passwords-mismatched" = "Maxfiy soʻzlar mos kelmadi.";
 "account-creation-saving" = "Saqlanyapti...";
 "account-creation-login" = "Hisob yozuvingiz boʻlsa kirishingiz mumkin.";
+// Fuzzy
 "account-creation-username-placeholder-text" = "Foydalanuvchi nomi";
 "account-creation-password-placeholder-text" = "Maxfiy soʻz";
 "account-creation-password-confirm-placeholder-text" = "Maxfiy soʻzni tasdiqlang";
 "account-creation-email-placeholder-text" = "Elektron pochta (ixtiyoriy)";
+// Fuzzy
 "login-name-not-found" = "Saytga kirish uchun foydalanuvchining ismi boʻlishi kerak.";
+// Fuzzy
 "login-name-illegal" = "Siz notoʻgʻri foydalanuvchi ismini yozdingiz.";
+// Fuzzy
 "login-name-does-not-exist" = "Siz yozgan foydalanuvchining ismi mavjud emas.";
 "login-password-empty" = "Saytga kirish uchun maxfiy soʻz boʻlishi kerak.";
 "login-password-wrong" = "Siz yozgan maxfiy soʻz xato.";
 "login-throttled" = "Qisqa vaqt mobaynida siz juda ham koʻp kirdingiz.";
 "login-user-blocked" = "Foydalanuvchi chetlashtirilgan.";
+// Fuzzy
 "login-username-placeholder-text" = "Foydalanuvchi nomi";
 "login-password-placeholder-text" = "Maxfiy soʻz";
 "wikitext-downloading" = "Tarkib yuklanyapti...";

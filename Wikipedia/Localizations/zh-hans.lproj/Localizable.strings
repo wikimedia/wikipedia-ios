@@ -56,7 +56,7 @@
 "zero-warn-when-leaving" = "离开Zero时警告";
 "zero-settings-devmode" = "零开发模式";
 "account-creation-captcha-required" = "需要验证码验证。";
-"account-creation-captcha-obtaining" = "获取新验证码。";
+"account-creation-captcha-obtaining" = "获得新验证码...";
 "account-creation-logging-in" = "正在登录...";
 "account-creation-passwords-mismatched" = "密码字段不匹配。";
 "account-creation-saving" = "正在保存...";
@@ -66,7 +66,7 @@
 "account-creation-password-confirm-placeholder-text" = "确认密码";
 "account-creation-email-placeholder-text" = "电子邮件（可选）";
 "account-creation-missing-fields" = "您必须输入用户名、密码并再一次确认密码后方能创建一个帐户。";
-"login-name-not-found" = "需要用户名。";
+"login-name-not-found" = "需提供用户名方可登录。";
 "login-name-illegal" = "您提供了无效的用户名。";
 "login-name-does-not-exist" = "您提供的用户名不存在。";
 "login-password-empty" = "登录需要密码。";
@@ -245,6 +245,7 @@
 "button-next" = "下一个";
 "button-done" = "完成";
 "button-save" = "保存";
+"button-ok" = "确定";
 "button-save-for-later" = "保存以供日后使用";
 "button-saved-for-later" = "已保存以供日后使用";
 "button-report-a-bug" = "报告错误";
@@ -398,8 +399,10 @@
 "explore-random-article-sub-heading" = "英语维基百科";
 "explore-potd-heading" = "每日图片";
 "explore-most-read-heading" = "$1维基百科上的最多阅读";
+"explore-most-read-generic-heading" = "最多阅读";
 "explore-most-read-footer" = "所有最多阅读的条目";
 "explore-most-read-footer-for-date" = "在$1所有最多阅读的条目";
 "explore-most-read-more-list-title" = "最多阅读的条目";
 "explore-most-read-more-list-title-for-date" = "在$1最多";
 "no-email-account-alert" = "请在您的设备上设置一个电子邮件地址，并重试。";
+"request-feedback-on-error" = "应用程序遇到问题，需要我们开发人员了解更多关于它的信息。请在此点按以向我们发送带有错误详情的电子邮件。";

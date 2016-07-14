@@ -9,7 +9,6 @@
 #import "MWKArticle.h"
 #import "MWKDataStore.h"
 #import "MWKImage.h"
-#import "MWKImageList.h"
 #import "MWKImageInfo+MWKImageComparison.h"
 
 // Networking

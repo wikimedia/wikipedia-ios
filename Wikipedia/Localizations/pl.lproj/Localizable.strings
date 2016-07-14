@@ -57,7 +57,7 @@
 "zero-warn-when-leaving" = "Ostrzegaj przed opuszczeniem Zero";
 "zero-settings-devmode" = "Tryb dewelopera Zero";
 "account-creation-captcha-required" = "Weryfikacja CAPTCHA jest wymagana.";
-"account-creation-captcha-obtaining" = "Uzyskiwanie nowej CAPTCHA.";
+"account-creation-captcha-obtaining" = "Uzyskiwanie nowego CAPTCHA...";
 "account-creation-logging-in" = "Logowanie...";
 "account-creation-passwords-mismatched" = "Hasła nie są identyczne.";
 "account-creation-saving" = "Zapisywanie...";
@@ -69,7 +69,7 @@
 "account-creation-missing-fields" = "W celu utworzenia konta, użytkownik musi wprowadzić nazwę użytkownika, hasło i potwierdzenie hasła.";
 "login-name-not-found" = "Do logowania wymagana jest nazwa użytkownika.";
 "login-name-illegal" = "Wpisałeś niedozwoloną nazwę użytkownika.";
-"login-name-does-not-exist" = "Nazwa użytkownika, którą podałeś nie istnieje.";
+"login-name-does-not-exist" = "Nazwa użytkownika, którą podałeś, nie istnieje.";
 "login-password-empty" = "Do zalogowania potrzebne jest hasło.";
 "login-password-wrong" = "Podane hasło jest nieprawidłowe.";
 "login-throttled" = "Zalogowałeś się zbyt wiele razy w krótkim czasie.";
@@ -235,6 +235,7 @@
 "button-next" = "Następny";
 "button-done" = "Gotowe";
 "button-save" = "Zapisz";
+"button-ok" = "OK";
 "button-report-a-bug" = "Zgłoś błąd";
 "onboarding-create-account" = "Utwórz konto";
 "onboarding-login" = "Zaloguj się";
@@ -343,5 +344,6 @@
 "close-button-accessibility-label" = "Zamknij";
 "explore-nearby-heading" = "Miejsca w pobliżu";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
+"explore-most-read-generic-heading" = "Najczęściej czytane";
 "explore-most-read-more-list-title" = "Najczęściej czytane artykuły";
 "no-email-account-alert" = "Skonfiguruj konto e-mail w tym urządzeniu i spróbuj jeszcze raz.";

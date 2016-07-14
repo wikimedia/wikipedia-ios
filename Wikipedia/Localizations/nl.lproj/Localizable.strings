@@ -56,7 +56,7 @@
 "zero-warn-when-leaving" = "Waarschuwen bij verlaten Zero";
 "zero-settings-devmode" = "Zero-ontwikkelmodus";
 "account-creation-captcha-required" = "CAPTCHA-controle vereist.";
-"account-creation-captcha-obtaining" = "Nieuwe CAPTCHA aan het ophalen.";
+"account-creation-captcha-obtaining" = "Nieuwe CAPTCHA aan het ophalen...";
 "account-creation-logging-in" = "Aan het aanmelden...";
 "account-creation-passwords-mismatched" = "De wachtwoorden komen niet overeen.";
 "account-creation-saving" = "Aan het opslaan...";
@@ -245,6 +245,7 @@
 "button-next" = "Volgende";
 "button-done" = "Afgerond";
 "button-save" = "Opslaan";
+"button-ok" = "OK";
 "button-save-for-later" = "Opslaan voor later";
 "button-saved-for-later" = "Opgeslagen voor later";
 "button-report-a-bug" = "Probleem melden";
@@ -398,6 +399,7 @@
 "explore-random-article-sub-heading" = "Engelstalige Wikipedia";
 "explore-potd-heading" = "Afbeelding van de dag";
 "explore-most-read-heading" = "Meest gelezen op Wikipedia in het $1";
+"explore-most-read-generic-heading" = "Meest gelezen";
 "explore-most-read-footer" = "Alle meest gelezen pagina's";
 "explore-most-read-footer-for-date" = "Alle meest gelezen pagina's op $1";
 "explore-most-read-more-list-title" = "Meest gelezen pagina's";

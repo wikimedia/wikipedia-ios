@@ -23,6 +23,9 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, copy, nonatomic) NSString* basePath;
 @property (readwrite, strong, nonatomic) NSCache* articleCache;
 
+@property (readwrite, nonatomic, strong) dispatch_queue_t cacheRemovalQueue;
+@property (readwrite, nonatomic, getter = isCacheRemovalActive) BOOL cacheRemovalActive;
+
 @end
 
 @implementation MWKDataStore
@@ -55,7 +58,9 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
         self.articleCache            = [[NSCache alloc] init];
         self.articleCache.countLimit = 50;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-        self.userDataStore = [[MWKUserDataStore alloc] initWithDataStore:self];
+        self.userDataStore     = [[MWKUserDataStore alloc] initWithDataStore:self];
+        self.cacheRemovalQueue = dispatch_queue_create("org.wikimedia.cache_removal", DISPATCH_QUEUE_SERIAL);
+        dispatch_async(self.cacheRemovalQueue, ^{ self.cacheRemovalActive = true; });
     }
     return self;
 }
@@ -271,19 +276,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     [self saveDictionary:export path:path name:@"Image.plist"];
 }
 
-- (void)saveImageData:(NSData*)data image:(MWKImage*)image {
-    if ([image.article isMain]) {
-        return;
-    }
-    NSString* path     = [self pathForImage:image];
-    NSString* filename = [@"Image" stringByAppendingPathExtension:image.extension];
-
-    [self saveData:data path:path name:filename];
-
-    [image updateWithData:data];
-    [self saveImage:image];
-}
-
 - (BOOL)saveHistoryList:(MWKHistoryList*)list error:(NSError**)error {
     NSString* path       = self.basePath;
     NSDictionary* export = @{@"entries": [list dataExport]};
@@ -301,20 +293,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     NSString* path       = self.basePath;
     NSDictionary* export = @{@"entries": [list dataExport]};
     return [self saveDictionary:export path:path name:@"RecentSearches.plist" error:error];
-}
-
-- (void)saveImageList:(MWKImageList*)imageList {
-    if ([imageList.article isMain]) {
-        return;
-    }
-    NSString* path;
-    if (imageList.section) {
-        path = [self pathForSection:imageList.section];
-    } else {
-        path = [self pathForArticle:imageList.article];
-    }
-    NSDictionary* export = [imageList dataExport];
-    [self saveDictionary:export path:path name:@"Images.plist"];
 }
 
 - (void)saveImageInfo:(NSArray*)imageInfo forArticleURL:(NSURL*)url {
@@ -394,32 +372,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     }
 }
 
-- (NSString*)pathForImageData:(MWKImage*)image {
-    return [self pathForImageData:image.sourceURLString forArticleURL:image.article.url];
-}
-
-- (NSString*)pathForImageData:(NSString*)sourceURL forArticleURL:(NSURL*)url {
-    NSString* path     = [self pathForImageURL:sourceURL forArticleURL:url];
-    NSString* fileName = [@"Image" stringByAppendingPathExtension:sourceURL.pathExtension];
-    return [path stringByAppendingPathComponent:fileName];
-}
-
-- (NSData*)imageDataWithImage:(MWKImage*)image {
-    if (image == nil) {
-        NSLog(@"nil image passed to imageDataWithImage");
-        return nil;
-    }
-    NSString* filePath = [self pathForImageData:image];
-
-    NSError* err;
-    NSData* data = [NSData dataWithContentsOfFile:filePath options:0 error:&err];
-    if (err) {
-        NSLog(@"Failed to load image from %@: %@", filePath, [err description]);
-        return nil;
-    }
-    return data;
-}
-
 - (NSArray*)historyListData {
     NSString* path     = self.basePath;
     NSString* filePath = [path stringByAppendingPathComponent:@"History.plist"];
@@ -440,29 +392,34 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return dict[@"entries"];
 }
 
+- (NSArray<NSURL*>*)cacheRemovalListFromDisk {
+    NSString* path      = self.basePath;
+    NSString* filePath  = [path stringByAppendingPathComponent:@"TitlesToRemove.plist"];
+    NSArray* URLStrings = [NSArray arrayWithContentsOfFile:filePath];
+    NSArray<NSURL*>* urls     = [URLStrings wmf_mapAndRejectNil:^NSURL* (id obj) {
+        if (obj && [obj isKindOfClass:[NSString class]]) {
+            return [NSURL URLWithString:obj];
+        } else {
+            return nil;
+        }
+    }];
+    return urls;
+}
+
+- (BOOL)saveCacheRemovalListToDisk:(NSArray*)cacheRemovalList error:(NSError**)error {
+    NSArray* URLStrings = [cacheRemovalList bk_map:^id (id obj) {
+        return [[obj URL] absoluteString];
+    }];
+    return [self saveArray:URLStrings path:self.basePath name:@"TitlesToRemove.plist" error:error];
+}
+
 - (NSArray*)imageInfoForArticleWithURL:(NSURL*)url {
-    return [[NSArray arrayWithContentsOfFile:[self pathForImageInfoForArticleWithURL:url]] bk_map:^MWKImageInfo*(id obj) {
+    return [[NSArray arrayWithContentsOfFile:[self pathForImageInfoForArticleWithURL:url]] wmf_mapAndRejectNil:^MWKImageInfo*(id obj) {
         return [MWKImageInfo imageInfoWithExportedData:obj];
     }];
 }
 
 #pragma mark - helper methods
-
-- (MWKImageList*)imageListWithArticle:(MWKArticle*)article section:(MWKSection*)section {
-    NSString* path;
-    if (section) {
-        path = [self pathForSection:section];
-    } else {
-        path = [self pathForArticle:article];
-    }
-    NSString* filePath = [path stringByAppendingPathComponent:@"Images.plist"];
-    NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    if (dict) {
-        return [[MWKImageList alloc] initWithArticle:article section:section dict:dict];
-    } else {
-        return [[MWKImageList alloc] initWithArticle:article section:section];
-    }
-}
 
 - (void)iterateOverArticles:(void (^)(MWKArticle*))block {
     NSFileManager* fm     = [NSFileManager defaultManager];
@@ -494,6 +451,53 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     }
 }
 
+- (void)startCacheRemoval {
+    dispatch_async(self.cacheRemovalQueue, ^{
+        self.cacheRemovalActive = true;
+        [self removeNextArticleFromCacheRemovalList];
+    });
+}
+
+- (void)stopCacheRemoval {
+    dispatch_sync(self.cacheRemovalQueue, ^{
+        self.cacheRemovalActive = false;
+    });
+}
+
+- (void)removeNextArticleFromCacheRemovalList {
+    if (!self.cacheRemovalActive) {
+        return;
+    }
+    NSMutableArray<NSURL*>* urlsOfArticlesToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
+    if (urlsOfArticlesToRemove.count > 0) {
+        NSURL* urlToRemove = urlsOfArticlesToRemove[0];
+        MWKArticle* article     = [self articleFromDiskWithURL:urlToRemove];
+        [article remove];
+        [urlsOfArticlesToRemove removeObjectAtIndex:0];
+        NSError* error = nil;
+        if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
+            dispatch_async(self.cacheRemovalQueue, ^{ [self removeNextArticleFromCacheRemovalList]; });
+        } else {
+            DDLogError(@"Error saving cache removal list: %@", error);
+        }
+    }
+}
+
+- (void)removeArticlesWithURLsFromCache:(NSArray<NSURL*>*)urlsToRemove {
+    dispatch_async(self.cacheRemovalQueue, ^{
+        NSMutableArray<NSURL*>* allURLsToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
+        if (allURLsToRemove == nil) {
+            allURLsToRemove = [NSMutableArray arrayWithArray:urlsToRemove];
+        } else {
+            [allURLsToRemove addObjectsFromArray:urlsToRemove];
+        }
+        NSError* error = nil;
+        if (![self saveCacheRemovalListToDisk:allURLsToRemove error:&error]) {
+            DDLogError(@"Error saving cache removal list to disk: %@", error);
+        }
+    });
+}
+
 #pragma mark - Deletion
 
 - (NSError*)removeFolderAtBasePath {
@@ -506,7 +510,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     NSString* path = [self pathForArticle:article];
 
     // delete article images *before* metadata (otherwise we won't be able to retrieve image lists)
-    [[WMFImageController sharedInstance] deleteImagesWithURLs:[article.allImageURLs allObjects]];
+    [[WMFImageController sharedInstance] deleteImagesWithURLs:[[article allImageURLs] allObjects]];
 
     // delete article metadata last
     [[NSFileManager defaultManager] removeItemAtPath:path error:nil];

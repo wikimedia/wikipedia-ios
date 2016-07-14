@@ -56,7 +56,7 @@
 "zero-warn-when-leaving" = "Avertir en quittant Zéro";
 "zero-settings-devmode" = "Devmode Zéro";
 "account-creation-captcha-required" = "Vérification par CAPTCHA obligatoire.";
-"account-creation-captcha-obtaining" = "Obtention d’un nouveau CAPTCHA.";
+"account-creation-captcha-obtaining" = "Obtention d’un nouveau CAPTCHA…";
 "account-creation-logging-in" = "Connexion en cours…";
 "account-creation-passwords-mismatched" = "Les champs mot de passe ne correspondent pas.";
 "account-creation-saving" = "Enregistrement en cours…";
@@ -245,6 +245,7 @@
 "button-next" = "Suivant";
 "button-done" = "Terminé";
 "button-save" = "Enregistrer";
+"button-ok" = "OK";
 "button-save-for-later" = "Enregistrer pour plus tard";
 "button-saved-for-later" = "Enregistré pour plus tard";
 "button-report-a-bug" = "Signaler un bogue";
@@ -398,8 +399,10 @@
 "explore-random-article-sub-heading" = "Wikipédia anglais";
 "explore-potd-heading" = "Image du jour";
 "explore-most-read-heading" = "Meilleures lectures sur Wikipédia en $1";
+"explore-most-read-generic-heading" = "Les plus lus";
 "explore-most-read-footer" = "Tous les articles les plus lus";
 "explore-most-read-footer-for-date" = "Tous les articles les plus lus au $1";
 "explore-most-read-more-list-title" = "Meilleurs articles";
 "explore-most-read-more-list-title-for-date" = "Les plus lus au $1";
 "no-email-account-alert" = "Veuillez configurer un compte de messagerie sur votre appareil et réessayer.";
+"request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";

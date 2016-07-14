@@ -54,7 +54,7 @@
 "zero-warn-when-leaving" = "Varoita poistuttaessa Zerosta";
 "zero-settings-devmode" = "Zeron kehitystila";
 "account-creation-captcha-required" = "CAPTCHA-varmistus vaaditaan.";
-"account-creation-captcha-obtaining" = "Haetaan uutta CAPTCHA-kuvaa.";
+"account-creation-captcha-obtaining" = "Haetaan uutta CAPTCHA-kuvaa...";
 "account-creation-logging-in" = "Kirjaudutaan...";
 "account-creation-passwords-mismatched" = "Salasanat eivät täsmää.";
 "account-creation-saving" = "Tallennetaan...";
@@ -216,8 +216,7 @@
 "about-repositories-app-source-license" = "Lähdekoodi on saatavilla $1-lisenssin ehtojen mukaisesti.";
 "about-repositories-app-source-license-mit" = "MIT";
 "about-send-feedback" = "Lähetä palautetta sovelluksesta";
-// Fuzzy
-"about-product-of" = "Tuote $1";
+"about-product-of" = "Tehnyt $1 sinunkaltaistesi vapaaehtoisten avustamana";
 "about-wikimedia-foundation" = "Wikimediasäätiö";
 "share-menu-save-page" = "Tallenna artikkeli";
 "share-menu-page-saved" = "Artikkeli tallennettu";
@@ -242,6 +241,7 @@
 "button-next" = "Seuraava";
 "button-done" = "Valmis";
 "button-save" = "Tallenna";
+"button-ok" = "OK";
 "button-save-for-later" = "Tallenna myöhemmäksi";
 "button-saved-for-later" = "Tallennettu myöhemmäksi";
 "button-report-a-bug" = "Ilmoita ongelmasta";

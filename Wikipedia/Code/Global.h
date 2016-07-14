@@ -30,6 +30,8 @@
 #import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 #import "NSArray+WMFMapping.h"
 #import "NSMutableArray+WMFSafeAdd.h"
+#import "NSMutableSet+WMFSafeAdd.h"
+#import "NSDictionary+WMFExtensions.h"
 #import "NSURL+WMFExtras.h"
 #import "NSURL+WMFLinkParsing.h"
 

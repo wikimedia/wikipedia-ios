@@ -24,8 +24,8 @@
 "history-clear-cancel" = "रद्द करु";
 // Fuzzy
 "history-clear-delete-all" = "सभटाकेँ मेटाउ";
-"zero-free-verbiage" = "अपन मोबाइल ऑपरेटर (डाटा शुल्क माफ) से विकिपिडिया के उपयोग मुफ्त में कइर सकेत छी।";
-"zero-charged-verbiage" = "शून्य विकिपिडिया बन्द भ्यगेल अछि";
+"zero-free-verbiage" = "अपन मोबाइल अपरेटर (डाटा शुल्क माफ) सँ विकिपिडियाक उपयोग मुफ्तमे करि सकैत अछि ।";
+"zero-charged-verbiage" = "शून्य विकिपिडिया बन्द भ गेल अछि";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "शून्य विकिपिडिया निस्क्रमण";
 "zero-interstitial-continue" = "छोडु";
@@ -34,23 +34,28 @@
 "zero-learn-more-no-thanks" = "खारिज";
 "zero-wikipedia-zero-heading" = "शून्य विकिपिडिया";
 "account-creation-captcha-required" = "केप्चा प्रमाणिकरण।";
-"account-creation-captcha-obtaining" = "नयाँ केप्चा प्राप्त।";
+// Fuzzy
+"account-creation-captcha-obtaining" = "नयाँ क्याप्चा प्राप्त।";
 "account-creation-logging-in" = "प्रवेश करेत ...";
 "account-creation-passwords-mismatched" = "कुटशब्द मेल नै भेल";
 "account-creation-saving" = "आहाँ के सम्पादन सुरक्षित भ्यरहल अछि...";
 "account-creation-login" = "पहिलसे से खाता अछि ? लोग इन करु";
+// Fuzzy
 "account-creation-username-placeholder-text" = "प्रयोक्ता नाम";
 "account-creation-password-placeholder-text" = "कूटशब्द";
 "account-creation-password-confirm-placeholder-text" = "कूटशब्दके जाँच करु";
 "account-creation-email-placeholder-text" = "ई-पत्र चुनाव";
 "account-creation-missing-fields" = "आहाँ ईं खाता सिर्जना करबाक लेल प्रयोगकर्ता नाम, कुटशब्द, आर कुटशब्द पुष्टि प्रविष्टि करु।";
+// Fuzzy
 "login-name-not-found" = "प्रयोगकर्ता नाम लग इन करबाक लेल आवश्यक अछि।";
+// Fuzzy
 "login-name-illegal" = "आहाँ अवैध प्रयोगकर्ता नाम प्रदान कर्ने छी।";
 "login-password-empty" = "लोग इन करबक लेल कुटशब्द जरुरी";
 "login-password-wrong" = "आहाँ के कुटशब्द गलत अछि ।";
 "login-throttled" = "आहाँ आधिक बेर सम्प्रवेश कैर चुकल चिए";
 "login-user-blocked" = "प्रयोक्ता प्रतिबन्धित अछि।";
-"login-account-creation" = "कुनो खाता नई अछि? विकिपिडिया में जुडु";
+"login-account-creation" = "कोनो खाता नै अछि? विकिपिडिया सँ जुडी";
+// Fuzzy
 "login-username-placeholder-text" = "प्रयोक्ता नाम";
 "login-password-placeholder-text" = "कूटशब्द";
 "wikitext-downloading" = "सामग्री लोड भ्या रहल अछि ...";
@@ -68,8 +73,8 @@
 "open-link-title" = "खुला कडी";
 "open-link-cancel" = "रद्द करु";
 "search-searching" = "ताकिमे...";
-"search-field-placeholder-text" = "विकिपिडिया खोजु";
-"search-field-placeholder-text-zero" = "विकिपिडिया शून्य खोजु";
+"search-field-placeholder-text" = "विकिपिडिया खोजी";
+"search-field-placeholder-text-zero" = "विकिपिडिया शून्य खोजी";
 "search-loading-section-zero" = "लेख के पहील खण्ड लोड भऽ रहल अछि । ...";
 "search-loading-section-remaining" = "बाकी अनुच्छेद लोड भऽ रहल अछि ।";
 "search-loading-article-loaded" = "लेख प्रस्तुत अछि ।";
@@ -123,7 +128,7 @@
 // Fuzzy
 "saved-pages-clear-delete-all" = "सभटाकेँ मेटाउ";
 "saved-pages-refresh-cancel-alert-title" = "अद्यतन रद्द";
-"saved-pages-refresh-cancel-alert-message" = "विकिपिडिया लेख सब समय अद्यावधिक अछि। सब लेख के नवीनतम संस्करणसभ प्राप्त कईर ताजा ट्याप देखु।";
+"saved-pages-refresh-cancel-alert-message" = "विकिपिडियामे रहल लेख प्राय अद्यावधिक अछि। सब लेखक नवीनतम संस्करणसभ प्राप्त करिक लेल रिफ्रेस ट्याब दाबी।";
 "saved-pages-refresh-cancel-alert-button" = "बुझु";
 "page-history-title" = "लेख इतिहास";
 "page-history-downloading" = "लेख इतिहास लोड भ्या रहल अछि...";

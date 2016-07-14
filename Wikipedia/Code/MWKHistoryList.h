@@ -52,6 +52,8 @@ extern NSString* const MWKHistoryListDidUpdateNotification;
 
 - (NSArray*)dataExport;
 
+- (void)prune;
+
 @end
 
 NS_ASSUME_NONNULL_END

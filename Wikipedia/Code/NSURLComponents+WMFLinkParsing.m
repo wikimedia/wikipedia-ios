@@ -36,7 +36,7 @@
     URLComponents.scheme = @"https";
     URLComponents.host   = [NSURLComponents wmf_hostWithDomain:domain language:language isMobile:isMobile];
     if (fragment != nil) {
-        URLComponents.fragment = fragment;
+        URLComponents.wmf_fragment = fragment;
     }
     if (title != nil) {
         URLComponents.wmf_title = title;
@@ -83,11 +83,11 @@
 }
 
 - (void)setWmf_fragment:(NSString*)wmf_fragment {
-    self.fragment = wmf_fragment;
+    self.fragment = [wmf_fragment precomposedStringWithCanonicalMapping];
 }
 
 - (NSString*)wmf_fragment {
-    return self.fragment;
+    return [self.fragment precomposedStringWithCanonicalMapping];
 }
 
 @end

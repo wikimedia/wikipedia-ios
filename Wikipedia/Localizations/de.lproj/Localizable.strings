@@ -48,7 +48,7 @@
 "zero-warn-when-leaving" = "Beim Verlassen von Zero warnen";
 "zero-settings-devmode" = "Zero-Entwicklermodus";
 "account-creation-captcha-required" = "CAPTCHA-Überprüfung erforderlich.";
-"account-creation-captcha-obtaining" = "Ein neues CAPTCHA abrufen.";
+"account-creation-captcha-obtaining" = "Rufe ein neues CAPTCHA ab …";
 "account-creation-logging-in" = "Anmelden …";
 "account-creation-passwords-mismatched" = "Die Passwortfelder stimmen nicht überein.";
 "account-creation-saving" = "Speichere …";
@@ -237,6 +237,7 @@
 "button-next" = "Nächste";
 "button-done" = "Fertig";
 "button-save" = "Speichern";
+"button-ok" = "Okay";
 "button-save-for-later" = "Für später speichern";
 "button-saved-for-later" = "Für später gespeichert";
 "button-report-a-bug" = "Einen Fehler melden";
@@ -390,8 +391,10 @@
 "explore-random-article-sub-heading" = "Englischsprachige Wikipedia";
 "explore-potd-heading" = "Bild des Tages";
 "explore-most-read-heading" = "Meistgelesen in der Wikipedia auf $1";
+"explore-most-read-generic-heading" = "Am meisten gelesen";
 "explore-most-read-footer" = "Alle beliebtesten Artikel";
 "explore-most-read-footer-for-date" = "Alle beliebtesten Artikel auf $1";
 "explore-most-read-more-list-title" = "Beliebteste Artikel";
 "explore-most-read-more-list-title-for-date" = "Beliebt am $1";
 "no-email-account-alert" = "Bitte richte auf deinem Gerät ein E-Mail-Konto ein und versuche es erneut.";
+"request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";

@@ -43,6 +43,42 @@
                is(equalTo(@"Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg")));
 }
 
+- (void)testNormalizedImageWithPeriodInFileNameExample {
+    NSString* testURL    = @"//upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg/360px-Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg";
+    NSString* normalized = WMFParseUnescapedNormalizedImageNameFromSourceURL(testURL);
+    assertThat(normalized,
+               is(equalTo(@"Claude Monet, 1870, Le port de Trouville (Breakwater at Trouville, Low Tide), oil on canvas, 54 x 65.7 cm, Museum of Fine Arts, Budapest.jpg")));
+}
+
+- (void)testNormalizedImageWithPeriodInFileNameFromURLExample {
+    NSURL* testURL       = [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg/360px-Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg"];
+    NSString* normalized = WMFParseUnescapedNormalizedImageNameFromSourceURL(testURL);
+    assertThat(normalized,
+               is(equalTo(@"Claude Monet, 1870, Le port de Trouville (Breakwater at Trouville, Low Tide), oil on canvas, 54 x 65.7 cm, Museum of Fine Arts, Budapest.jpg")));
+}
+
+- (void)testNormalizedEquality {
+    NSString* one   = @"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Olé.PNG";
+    NSString* two   = @"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ol\u00E9.PNG";
+    NSString* three = @"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ole\u0301.PNG";
+    NSString* fn1   = WMFParseUnescapedNormalizedImageNameFromSourceURL(one);
+    NSString* fn2   = WMFParseUnescapedNormalizedImageNameFromSourceURL(two);
+    NSString* fn3   = WMFParseUnescapedNormalizedImageNameFromSourceURL(three);
+    XCTAssertEqualObjects(fn1, fn2);
+    XCTAssertEqualObjects(fn2, fn3);
+}
+
+- (void)testNormalizedEscapedEquality {
+    NSString* one   = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Olé.PNG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString* two   = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ol\u00E9.PNG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString* three = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ole\u0301.PNG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString* fn1   = WMFParseUnescapedNormalizedImageNameFromSourceURL(one);
+    NSString* fn2   = WMFParseUnescapedNormalizedImageNameFromSourceURL(two);
+    NSString* fn3   = WMFParseUnescapedNormalizedImageNameFromSourceURL(three);
+    XCTAssertEqualObjects(fn1, fn2);
+    XCTAssertEqualObjects(fn2, fn3);
+}
+
 - (void)testImageWithMultiplePeriodsInFilename {
     NSString* testURLString =
         @"//upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Blacksmith%27s_tools_-_geograph.org.uk_-_1483374.jpg/440px-Blacksmith%27s_tools_-_geograph.org.uk_-_1483374.jpg";
@@ -134,6 +170,26 @@
 - (void)testSizePrefixChangeOnURLEndingWithWikipediaAndDoubleSlashes {
     assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia//", 123),
                is(equalTo(@"//upload.wikimedia.org/wikipedia//")));
+}
+
+- (void)testParseImageNameFromURLofSVG {
+    NSString* testURLString = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg/640px-Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg.png";
+    assertThat(WMFParseImageNameFromSourceURL(testURLString),
+               is(equalTo(@"Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg")));
+}
+
+- (void)testSizePrefixChangeOnCanonicalImageURLWithSizePrefixInFileName {
+    // Normally images only have "XXXpx-" size prefix when returned from the thumbnail scaler, but there's nothing stopping users from uploading images with "XXXpx-" size prefix in the canonical name.
+    // (See last image on "enwiki > Geothermal gradient")
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/0/0b/300px-Geothermgradients.png", 100),
+               is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/0/0b/300px-Geothermgradients.png/100px-300px-Geothermgradients.png")));
+}
+
+- (void)testParseImageNameFromCanonicalImageURLWithSizePrefixInFileName {
+    NSString* testURLString = @"//upload.wikimedia.org/wikipedia/commons/0/0b/300px-Geothermgradients.png";
+    assertThat(WMFParseImageNameFromSourceURL(testURLString),
+               is(equalTo(@"300px-Geothermgradients.png")));
+    //                      ^ the canonical image has the size in the file name, so "300px-" is correct here.
 }
 
 @end

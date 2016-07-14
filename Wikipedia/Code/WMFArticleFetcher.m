@@ -24,7 +24,6 @@
 //Models
 #import "MWKSectionList.h"
 #import "MWKSection.h"
-#import "MWKArticle+HTMLImageImport.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WMFArticleBaseFetcher_Testing.h"
 
@@ -185,7 +184,6 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     MWKArticle* article = [[MWKArticle alloc] initWithURL:url dataStore:self.dataStore];
     @try {
         [article importMobileViewJSON:response];
-        [article importAndSaveImagesFromSectionHTML];
         [article save];
         return article;
     } @catch (NSException* e) {

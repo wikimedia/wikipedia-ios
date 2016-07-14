@@ -23,10 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation MWKTitle
 
 - (instancetype)initWithURL:(NSURL* __nonnull)url {
+    if (url == nil) {
+        return nil;
+    }
+    
     self = [super init];
     if (self) {
         self.URL = url;
     }
+    
     return self;
 }
 
@@ -39,6 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
             NSString* fragment = [self decodeValueForKey:@"fragment" withCoder:coder modelVersion:0];
             if (site && text) {
                 self.URL = [NSURL wmf_URLWithSiteURL:site.URL title:text fragment:fragment];
+            } else {
+                return nil;
             }
         }
     }
