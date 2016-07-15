@@ -21,6 +21,8 @@
         return WMFWKScriptMessageArticleState;
     } else if ([name isEqualToString:@"sendJavascriptConsoleLogMessageToXcodeConsole"]) {
         return WMFWKScriptMessageConsoleMessage;
+    }else if ([name isEqualToString:@"searchMatchesFound"]) {
+        return WMFWKScriptMessageSearchMatchesFound;
     } else{
         return WMFWKScriptMessageUnknown;
     }
@@ -54,6 +56,9 @@
             break;
         case WMFWKScriptMessageConsoleMessage:
             return [NSDictionary class];
+            break;
+        case WMFWKScriptMessageSearchMatchesFound:
+            return [NSArray class];
             break;
         case WMFWKScriptMessageUnknown:
             return [NSNull class];
