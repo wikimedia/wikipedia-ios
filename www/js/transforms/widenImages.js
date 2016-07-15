@@ -20,7 +20,37 @@ function widenAncestors (el) {
 }
 
 function shouldWidenImage(image) {
-    return (!image.hasAttribute('hasOverflowXContainer') && !utilities.isNestedInTable(image));
+    // 'data-image-gallery' is added to "gallery worthy" img tags before html is sent
+    // to the web view. It is only added if an img is determined to be a good gallery img.
+    // We can just check for this instead of trying to make gallery-worthiness
+    // determinations again here in JS land.
+    if(image.getAttribute('data-image-gallery') != "true"){
+        return false;
+    }
+    
+    // Some wide images are wrapped in a <div style="overflow-x:auto">...</div> so they can
+    // scroll side to side if needed without causing the entire section to scroll side to side.
+    // Such images don't need further widening.
+    if(image.hasAttribute('hasOverflowXContainer')){
+        return false;
+    }
+    
+    // Imagemap coordinates are specific to a specific image size, so we never want to widen
+    // these or the overlaying links will not be over the intended parts of the image.
+    // See:
+    //      "enwiki > Counties of England > Scope and structure > Local government"
+    //      "enwiki > Kingdom (biology) > first non lead image is an image map"
+    //      "enwiki > Kingdom (biology) > Three domains of life > Phylogenetic Tree of Life image is an image map"
+    if(image.hasAttribute("usemap")){
+        return false;
+    }
+
+    // Don't widen if the image is nested in a table or the table layout can be messed up.
+    if(utilities.isNestedInTable(image)){
+        return false;
+    }
+
+    return true;
 }
 
 function makeRoomForImageWidening(image) {
@@ -52,13 +82,6 @@ function maybeWidenImage(image) {
 transformer.register( "widenImages", function( content ) {
     var images = content.querySelectorAll( 'img' );
     for ( var i = 0; i < images.length; i++ ) {
-        var image = images[i];
-        // 'data-image-gallery' is added to "gallery worthy" img tags before html is sent
-        // to the web view. It is only added if an img is determined to be a good gallery img.
-        // We can just check for this instead of trying to make gallery-worthiness
-        // determinations again here in JS land.
-        if (image.getAttribute('data-image-gallery') == "true"){
-            maybeWidenImage(image);
-        }
+        maybeWidenImage(images[i]);
     }
 } );
