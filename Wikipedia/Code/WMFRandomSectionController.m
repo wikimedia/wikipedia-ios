@@ -11,7 +11,9 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
-#import "UIViewController+WMFArticlePresentation.h"
+#import "WMFRandomArticleViewController.h"
+#import "WMFFirstRandomViewController.h"
+#import <Tweaks/FBTweakInline.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,11 +28,13 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 @property (nonatomic, weak, nullable) WMFArticlePreviewTableViewCell* cell;
 
+@property (nonatomic, readonly, getter = isNewInterfaceEnabled) BOOL newInterfaceEnabled;
+
 @end
 
 @implementation WMFRandomSectionController
 
-- (instancetype)initWithSearchDomainURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore{
+- (instancetype)initWithSearchDomainURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
     self = [super initWithDataStore:dataStore];
     if (self) {
         self.searchDomainURL = url;
@@ -112,29 +116,43 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 - (AnyPromise*)fetchData {
     [self.cell setLoading:YES];
     @weakify(self);
-    return [self.fetcher fetchRandomArticleWithDomainURL:self.searchDomainURL].then(^(id result){
-        @strongify(self);
-        if (!self) {
-            return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
-        }
-        [self.cell setLoading:NO];
-        self.result = result;
-        return (id) @[result];
-    }).catch(^(NSError* error){
-        @strongify(self);
-        self.result = nil;
-        [self.cell setLoading:NO];
-        return error;
-    });
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+        [self.fetcher fetchRandomArticleWithDomainURL:self.searchDomainURL failure:^(NSError* error) {
+            @strongify(self);
+            self.result = nil;
+            [self.cell setLoading:NO];
+            resolve(error);
+        } success:^(MWKSearchResult* result) {
+            @strongify(self);
+            if (!self) {
+                resolve([NSError cancelledError]);
+                return;
+            }
+            [self.cell setLoading:NO];
+            self.result = result;
+            resolve(@[result]);
+        }];
+    }];
 }
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
     NSURL* url = [self urlForItemAtIndexPath:indexPath];
-    return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+
+    if (self.isNewInterfaceEnabled) {
+        return [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+    } else {
+        return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+    }
 }
 
 - (void)didEndDisplayingSection {
     self.cell = nil;
+}
+
+#pragma mark - Tweak
+
+- (BOOL)isNewInterfaceEnabled {
+    return FBTweakValue(@"Explore", @"Random", @"Show new interface", NO);
 }
 
 #pragma mark - WMFHeaderActionProviding
@@ -147,6 +165,24 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     [self fetchDataUserInitiated];
 }
 
+- (BOOL)isHeaderActionEnabled {
+    return !self.isNewInterfaceEnabled;
+}
+
+#pragma mark - WMFMoreFooterProviding
+
+- (NSString*)footerText {
+    return MWLocalizedString(@"explore-another-random", nil);
+}
+
+- (UIViewController*)moreViewController {
+    return [[WMFFirstRandomViewController alloc] initWithSiteURL:self.searchDomainURL dataStore:self.dataStore];
+}
+
+- (BOOL)isFooterEnabled {
+    return self.isNewInterfaceEnabled;
+}
+
 #pragma mark - WMFTitleProviding
 
 - (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath {
@@ -156,4 +192,3 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 @end
 
 NS_ASSUME_NONNULL_END
-

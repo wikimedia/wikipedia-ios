@@ -7,7 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRandomArticleFetcher : NSObject
 
-- (AnyPromise*)fetchRandomArticleWithDomainURL:(NSURL*)domainURL;
+- (void)fetchRandomArticleWithDomainURL:(NSURL*)domainURL failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSearchResultHandler)success;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
 

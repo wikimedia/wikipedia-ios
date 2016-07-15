@@ -48,6 +48,12 @@
 // Controllers
 #import "WMFRelatedSectionBlackList.h"
 
+#define ENABLE_RANDOM_DEBUGGING 0
+
+#if ENABLE_RANDOM_DEBUGGING
+#import "WMFFirstRandomViewController.h"
+#endif
+
 static DDLogLevel const WMFExploreVCLogLevel = DDLogLevelInfo;
 #undef LOG_LEVEL_DEF
 #define LOG_LEVEL_DEF WMFExploreVCLogLevel
@@ -332,6 +338,10 @@ NS_ASSUME_NONNULL_BEGIN
 
     [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
+#if ENABLE_RANDOM_DEBUGGING
+    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSite:[MWKSite siteWithLanguage:@"en"] dataStore:self.dataStore];
+    [self wmf_pushViewController:vc animated:YES];
+#endif
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -549,14 +559,20 @@ NS_ASSUME_NONNULL_BEGIN
             @strongify(controller);
             @strongify(self);
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                CGRect frame = ((UIButton*)sender).frame;
-                frame.origin.y = 0.f;
-                [[(id < WMFHeaderMenuProviding >)controller menuActionSheet] showFromRect:frame inView:((UIButton*)sender).superview animated:YES];
+                UIAlertController *menuActionSheet = [(id < WMFHeaderMenuProviding >)controller menuActionSheet];
+                menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
+                menuActionSheet.popoverPresentationController.sourceView = sender;
+                menuActionSheet.popoverPresentationController.sourceRect = [sender bounds];
+                menuActionSheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+                [self presentViewController:menuActionSheet animated:YES completion:nil];
             } else {
-                [[(id < WMFHeaderMenuProviding >)controller menuActionSheet] showFromTabBar:self.navigationController.tabBarController.tabBar];
+                UIAlertController *menuActionSheet = [(id < WMFHeaderMenuProviding >)controller menuActionSheet];
+                menuActionSheet.popoverPresentationController.sourceView = self.navigationController.tabBarController.tabBar.superview;
+                menuActionSheet.popoverPresentationController.sourceRect = self.navigationController.tabBarController.tabBar.frame;
+                [self presentViewController:menuActionSheet animated:YES completion:nil];
             }
         } forControlEvents:UIControlEventTouchUpInside];
-    } else if ([controller conformsToProtocol:@protocol(WMFHeaderActionProviding)]) {
+    } else if ([controller conformsToProtocol:@protocol(WMFHeaderActionProviding)] && (![controller respondsToSelector:@selector(isHeaderActionEnabled)] || [(id <WMFHeaderActionProviding>) controller isHeaderActionEnabled])) {
         header.rightButtonEnabled = YES;
         [[header rightButton] setImage:[(id < WMFHeaderActionProviding >)controller headerButtonIcon] forState:UIControlStateNormal];
         [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
@@ -579,7 +595,7 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
     WMFExploreSectionFooter* footer = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFExploreSectionFooter wmf_nibName]];
-    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)]) {
+    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id < WMFMoreFooterProviding >) controller isFooterEnabled])) {
         footer.visibleBackgroundView.alpha = 1.0;
         footer.moreLabel.text              = [(id < WMFMoreFooterProviding >)controller footerText];
         footer.moreLabel.textColor         = [UIColor wmf_exploreSectionFooterTextColor];

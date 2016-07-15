@@ -169,7 +169,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Provide an action sheet with menu options
  * NOTE: you cannot currently implement both WMFHeaderMenuProviding and WMFHeaderActionProviding - they are implemented using the same button
  */
-- (UIActionSheet*)menuActionSheet;
+- (UIAlertController*)menuActionSheet;
 
 @end
 /**
@@ -189,6 +189,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  Perform the action associated with the button
  */
 - (void)performHeaderButtonAction;
+
+/**
+ *  @return A boolean indicating whether or not the footer is enabled.
+ */
+- (BOOL)isHeaderActionEnabled;
 
 @end
 
@@ -210,6 +215,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return A view controller with will provide a more data for this section.
  */
 - (UIViewController*)moreViewController;
+
+/**
+ *  @return A boolean indicating whether or not the footer is enabled.
+ */
+- (BOOL)isFooterEnabled;
 
 @end
 

@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_pushArticleViewController:(WMFArticleViewController*)viewController animated:(BOOL)animated;
 
+- (void)wmf_pushViewController:(UIViewController*)viewController animated:(BOOL)animated;
+
 @end
 
 

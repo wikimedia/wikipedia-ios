@@ -69,12 +69,8 @@
     ;
 }
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED > __IPHONE_8_0
-#warning Remove method below in favor of -[UIViewController viewWillTransitionToSize:withTransitionCoordinator:]
-#endif
-// Needed for iOS 7 compatibility
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     // Ensure adjustScrollLimitForCaptchaVisiblity gets called again after rotating.
     [self.view setNeedsUpdateConstraints];
 }

@@ -39,6 +39,9 @@
 #import "WMFAuthenticationManager.h"
 #import "KeychainCredentials.h"
 
+#define TERMS_LINK @"https://wikimediafoundation.org/wiki/Terms_of_Use"
+#define LICENSE_LINK @"https://creativecommons.org/licenses/by-sa/3.0/"
+
 typedef NS_ENUM (NSInteger, WMFCannedSummaryChoices) {
     CANNED_SUMMARY_TYPOS,
     CANNED_SUMMARY_GRAMMAR,
@@ -54,7 +57,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
 };
 
-@interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate>
+@interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate, PreviewLicenseViewDelegate>
 
 @property (strong, nonatomic) KeychainCredentials* keychainCredentials;
 
@@ -199,10 +202,9 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.previewLicenseView.previewLicenseViewDelegate       = self;
     self.keychainCredentials                                 = [[KeychainCredentials alloc] init];
     self.previewWebViewContainer.externalLinksOpenerDelegate = self;
-    self.previewLicenseView.externalLinksOpenerDelegate      = self;
 
     @weakify(self)
     self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
@@ -762,6 +764,18 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)captchaTextFieldDidChange:(UITextField*)textField {
     [self highlightCaptchaSubmitButton:(textField.text.length == 0) ? NO : YES];
+}
+
+- (void)previewLicenseViewTermsLicenseLabelWasTapped:(PreviewLicenseView*)previewLicenseview {
+    UIAlertController* sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"wikitext-upload-save-terms-name", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* _Nonnull action) {
+        [self wmf_openExternalUrl:[NSURL URLWithString:TERMS_LINK]];
+    }]];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"wikitext-upload-save-license-name", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* _Nonnull action) {
+        [self wmf_openExternalUrl:[NSURL URLWithString:LICENSE_LINK]];
+    }]];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"open-link-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+    [self presentViewController:sheet animated:YES completion:NULL];
 }
 
 @end

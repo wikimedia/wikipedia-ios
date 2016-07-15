@@ -270,6 +270,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - Memory Warning
 
 - (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
     [[WMFImageController sharedInstance] clearMemoryCache];
     [[[SessionSingleton sharedInstance] dataStore] clearMemoryCache];
 }
@@ -647,12 +648,12 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
     NSURL* siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
-    [self.randomFetcher fetchRandomArticleWithDomainURL:siteURL].then(^(MWKSearchResult* result){
+    [self.randomFetcher fetchRandomArticleWithDomainURL:siteURL failure:^(NSError* error) {
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+    } success:^(MWKSearchResult* result) {
         NSURL* articleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
         [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore animated:YES];
-    }).catch(^(NSError* error){
-        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    });
+    }];
 }
 
 - (void)showNearbyListAnimated:(BOOL)animated {

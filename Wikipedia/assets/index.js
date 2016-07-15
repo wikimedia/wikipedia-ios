@@ -180,15 +180,15 @@ document.addEventListener("touchend", handleTouchEnded, false);
 },{"./refs":4,"./transforms/collapseTables":7,"./utilities":12}],4:[function(require,module,exports){
 
 function isCitation( href ) {
-    return href.includes("#cite_note");
+    return href.indexOf("#cite_note") > -1;
 }
 
 function isEndnote( href ) {
-    return href.includes("#endnote_");
+    return href.indexOf("#endnote_") > -1;
 }
 
 function isReference( href ) {
-    return href.includes("#ref_");
+    return href.indexOf("#ref_") > -1;
 }
 
 function goDown( element ) {
@@ -337,11 +337,7 @@ var transformer = require("../transformer");
 var utilities = require("../utilities");
 
 function shouldAddImageOverflowXContainer(image) {
-    if ((image.width > (window.screen.width * 0.8)) && !utilities.isNestedInTable(image)){
-        return true;
-    }else{
-        return false;
-    }
+    return ((image.width > (window.screen.width * 0.8)) && !utilities.isNestedInTable(image)) ? true : false;
 }
 
 function addImageOverflowXContainer(image, ancestor) {
@@ -357,8 +353,7 @@ function firstAncestorWithMultipleChildren (el) {
     return el;
 }
 
-function maybeAddImageOverflowXContainer() {
-    var image = this;
+function maybeAddImageOverflowXContainer(image) {
     if (shouldAddImageOverflowXContainer(image)){
         var ancestor = firstAncestorWithMultipleChildren (image);
         if(ancestor){
@@ -372,9 +367,7 @@ transformer.register( "addImageOverflowXContainers", function( content ) {
     // side to side if needed without causing the entire section to scroll side to side.
     var images = content.getElementsByTagName('img');
     for (var i = 0; i < images.length; ++i) {
-        // Load event used so images w/o style or inline width/height
-        // attributes can still have their size determined reliably.
-        images[i].addEventListener('load', maybeAddImageOverflowXContainer, false);
+        maybeAddImageOverflowXContainer(images[i]);
     }
 } );
 
@@ -691,7 +684,37 @@ function widenAncestors (el) {
 }
 
 function shouldWidenImage(image) {
-    return (!image.hasAttribute('hasOverflowXContainer') && !utilities.isNestedInTable(image));
+    // 'data-image-gallery' is added to "gallery worthy" img tags before html is sent
+    // to the web view. It is only added if an img is determined to be a good gallery img.
+    // We can just check for this instead of trying to make gallery-worthiness
+    // determinations again here in JS land.
+    if(image.getAttribute('data-image-gallery') != "true"){
+        return false;
+    }
+    
+    // Some wide images are wrapped in a <div style="overflow-x:auto">...</div> so they can
+    // scroll side to side if needed without causing the entire section to scroll side to side.
+    // Such images don't need further widening.
+    if(image.hasAttribute('hasOverflowXContainer')){
+        return false;
+    }
+    
+    // Imagemap coordinates are specific to a specific image size, so we never want to widen
+    // these or the overlaying links will not be over the intended parts of the image.
+    // See:
+    //      "enwiki > Counties of England > Scope and structure > Local government"
+    //      "enwiki > Kingdom (biology) > first non lead image is an image map"
+    //      "enwiki > Kingdom (biology) > Three domains of life > Phylogenetic Tree of Life image is an image map"
+    if(image.hasAttribute("usemap")){
+        return false;
+    }
+
+    // Don't widen if the image is nested in a table or the table layout can be messed up.
+    if(utilities.isNestedInTable(image)){
+        return false;
+    }
+
+    return true;
 }
 
 function makeRoomForImageWidening(image) {
@@ -723,14 +746,7 @@ function maybeWidenImage(image) {
 transformer.register( "widenImages", function( content ) {
     var images = content.querySelectorAll( 'img' );
     for ( var i = 0; i < images.length; i++ ) {
-        var image = images[i];
-        // 'data-image-gallery' is added to "gallery worthy" img tags before html is sent
-        // to the web view. It is only added if an img is determined to be a good gallery img.
-        // We can just check for this instead of trying to make gallery-worthiness
-        // determinations again here in JS land.
-        if (image.getAttribute('data-image-gallery') == "true"){
-            maybeWidenImage(image);
-        }
+        maybeWidenImage(images[i]);
     }
 } );
 
