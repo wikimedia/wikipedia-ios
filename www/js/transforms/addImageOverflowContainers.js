@@ -2,11 +2,7 @@ var transformer = require("../transformer");
 var utilities = require("../utilities");
 
 function shouldAddImageOverflowXContainer(image) {
-    if ((image.width > (window.screen.width * 0.8)) && !utilities.isNestedInTable(image)){
-        return true;
-    }else{
-        return false;
-    }
+    return ((image.width > (window.screen.width * 0.8)) && !utilities.isNestedInTable(image)) ? true : false;
 }
 
 function addImageOverflowXContainer(image, ancestor) {
@@ -22,8 +18,7 @@ function firstAncestorWithMultipleChildren (el) {
     return el;
 }
 
-function maybeAddImageOverflowXContainer() {
-    var image = this;
+function maybeAddImageOverflowXContainer(image) {
     if (shouldAddImageOverflowXContainer(image)){
         var ancestor = firstAncestorWithMultipleChildren (image);
         if(ancestor){
@@ -37,8 +32,6 @@ transformer.register( "addImageOverflowXContainers", function( content ) {
     // side to side if needed without causing the entire section to scroll side to side.
     var images = content.getElementsByTagName('img');
     for (var i = 0; i < images.length; ++i) {
-        // Load event used so images w/o style or inline width/height
-        // attributes can still have their size determined reliably.
-        images[i].addEventListener('load', maybeAddImageOverflowXContainer, false);
+        maybeAddImageOverflowXContainer(images[i]);
     }
 } );
