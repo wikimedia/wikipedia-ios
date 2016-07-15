@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFExploreViewController : UITableViewController<WMFAnalyticsViewNameProviding>
+@interface WMFExploreViewController : UICollectionViewController<WMFAnalyticsViewNameProviding>
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
 

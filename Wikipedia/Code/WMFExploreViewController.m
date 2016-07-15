@@ -86,6 +86,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) NSArray* invisibleSections;
 
+@property (nonatomic, strong) UIRefreshControl* refreshControl;
+
 @end
 
 @implementation WMFExploreViewController
@@ -106,7 +108,7 @@ NS_ASSUME_NONNULL_BEGIN
         @weakify(self);
         [b bk_addEventHandler:^(id sender) {
             @strongify(self);
-            [self.tableView setContentOffset:CGPointZero animated:YES];
+            [self.collectionView setContentOffset:CGPointZero animated:YES];
         } forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.titleView                        = b;
         self.navigationItem.titleView.isAccessibilityElement = YES;
@@ -161,20 +163,20 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)isDisplayingCellsForSection:(NSInteger)section {
-    //NOTE: numberOfSectionsInTableView returns 0 when isWaitingForNetworkToReconnect == YES
+    //NOTE: numberOfSectionsInCollectionView returns 0 when isWaitingForNetworkToReconnect == YES
     //so we need to bail here or the assertion below is tripped
     if (self.isWaitingForNetworkToReconnect) {
         return NO;
     }
     NSParameterAssert(section != NSNotFound);
-    NSParameterAssert(section < [self numberOfSectionsInTableView:self.tableView]);
-    return [self.tableView.indexPathsForVisibleRows bk_any:^BOOL (NSIndexPath* indexPath) {
+    NSParameterAssert(section < [self numberOfSectionsInCollectionView:self.collectionView]);
+    return [self.collectionView.indexPathsForVisibleItems bk_any:^BOOL (NSIndexPath* indexPath) {
         return indexPath.section == section;
     }];
 }
 
 - (BOOL)rowAtIndexPathIsOnlyRowVisibleInSection:(NSIndexPath*)indexPath {
-    NSArray<NSIndexPath*>* visibleIndexPathsInSection = [self.tableView.indexPathsForVisibleRows bk_select:^BOOL (NSIndexPath* i) {
+    NSArray<NSIndexPath*>* visibleIndexPathsInSection = [self.collectionView.indexPathsForVisibleItems bk_select:^BOOL (NSIndexPath* i) {
         return i.section == indexPath.section;
     }];
 
@@ -198,7 +200,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSArray*)visibleSectionControllers {
-    NSIndexSet* visibleSectionIndexes = [[self.tableView indexPathsForVisibleRows] bk_reduce:[NSMutableIndexSet indexSet] withBlock:^id (NSMutableIndexSet* sum, NSIndexPath* obj) {
+    NSIndexSet* visibleSectionIndexes = [[self.collectionView indexPathsForVisibleRows] bk_reduce:[NSMutableIndexSet indexSet] withBlock:^id (NSMutableIndexSet* sum, NSIndexPath* obj) {
         [sum addIndex:(NSUInteger)obj.section];
         return sum;
     }];
@@ -212,9 +214,8 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-
 - (NSArray*)invisibleSections {
-    NSIndexSet* visibleSectionIndexes = [[self.tableView indexPathsForVisibleRows] bk_reduce:[NSMutableIndexSet indexSet] withBlock:^id (NSMutableIndexSet* sum, NSIndexPath* obj) {
+    NSIndexSet* visibleSectionIndexes = [[self.collectionView indexPathsForVisibleRows] bk_reduce:[NSMutableIndexSet indexSet] withBlock:^id (NSMutableIndexSet* sum, NSIndexPath* obj) {
         [sum addIndex:(NSUInteger)obj.section];
         return sum;
     }];
@@ -222,18 +223,18 @@ NS_ASSUME_NONNULL_BEGIN
     if ([visibleSectionIndexes count] == 0) {
         return self.schemaManager.sections;
     }
-    
+
     NSMutableArray* invisibleSections = [self.schemaManager.sections mutableCopy];
     [invisibleSections removeObjectsAtIndexes:visibleSectionIndexes];
     return invisibleSections;
 }
 
 /**
- * Sends `willDisplaySection` to controllers whose sections are currently visible in the receiver's `tableView`.
+ * Sends `willDisplaySection` to controllers whose sections are currently visible in the receiver's `collectionView`.
  *
  * Must be called when the view (re)appears: `viewDidApppear` and when the application is resumed (will enter foreground).
  *
- * `tableView:willDisplayCell:forRowAtIndexPath:` will not trigger a `willDisplaySection` message, since it's only
+ * `collectionView:willDisplayCell:forRowAtIndexPath:` will not trigger a `willDisplaySection` message, since it's only
  * designed to trigger when sections are *scrolled* in and out of view.  This is mostly because we only want to call
  * `willDisplaySection` _once_ for each section as its (potentially multiple) cells scroll into view.
  *
@@ -262,8 +263,8 @@ NS_ASSUME_NONNULL_BEGIN
                      completion:nil];
 }
 
--(void)scrollToTop:(BOOL)animated {
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:animated];
+- (void)scrollToTop:(BOOL)animated {
+    [self.collectionView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:animated];
 }
 
 - (void)didTapSettingsButton:(UIBarButtonItem*)sender {
@@ -286,18 +287,19 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self resetRefreshControlWithCompletion:NULL];
 
-    self.tableView.scrollsToTop                 = YES;
-    self.tableView.dataSource                   = nil;
-    self.tableView.delegate                     = nil;
-    self.tableView.sectionHeaderHeight          = UITableViewAutomaticDimension;
-    self.tableView.estimatedSectionHeaderHeight = 66.0;
-    self.tableView.sectionFooterHeight          = UITableViewAutomaticDimension;
-    self.tableView.estimatedSectionFooterHeight = 50.0;
+    self.collectionView.scrollsToTop = YES;
+    self.collectionView.dataSource   = nil;
+    self.collectionView.delegate     = nil;
+#warning update
+    //    self.collectionView.sectionHeaderHeight          = UICollectionViewAutomaticDimension;
+    //    self.collectionView.estimatedSectionHeaderHeight = 66.0;
+    //    self.collectionView.sectionFooterHeight          = UICollectionViewAutomaticDimension;
+    //    self.collectionView.estimatedSectionFooterHeight = 50.0;
 
-    [self.tableView registerNib:[WMFExploreSectionHeader wmf_classNib]
+    [self.collectionView registerNib:[WMFExploreSectionHeader wmf_classNib]
      forHeaderFooterViewReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
 
-    [self.tableView registerNib:[WMFExploreSectionFooter wmf_classNib]
+    [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib]
      forHeaderFooterViewReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -361,8 +363,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
-    for (UITableViewCell* cell in self.tableView.visibleCells) {
-        [cell setSelected:NO animated:NO];
+    for (UICollectionViewCell* cell in self.collectionView.visibleCells) {
+        cell.selected = NO;
     }
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleURL:nil];
 }
@@ -375,7 +377,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)registerForPreviewingIfAvailable {
     [self wmf_ifForceTouchAvailable:^{
         [self unregisterForPreviewing];
-        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
+        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
     } unavailable:^{
         [self unregisterForPreviewing];
     }];
@@ -409,7 +411,7 @@ NS_ASSUME_NONNULL_BEGIN
            Ideally this data still be retrievable from disk caches, obviating the need to show placeholders again, but
            that will have to come later.
          */
-        [self.tableView reloadData];
+        [self.collectionView reloadData];
     }
 
     [self sendWillDisplayToVisibleSectionControllers];
@@ -445,10 +447,10 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.preNetworkTroubleScrollPosition = self.tableView.contentOffset;
+    self.preNetworkTroubleScrollPosition = self.collectionView.contentOffset;
     self.isWaitingForNetworkToReconnect  = YES;
     [self.refreshControl endRefreshing];
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
 
     [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
     @weakify(self);
@@ -459,8 +461,8 @@ NS_ASSUME_NONNULL_BEGIN
                 @strongify(self);
                 self.numberOfFailedFetches = 0;
                 self.isWaitingForNetworkToReconnect = NO;
-                [self.tableView reloadData];
-                [self.tableView setContentOffset:self.preNetworkTroubleScrollPosition animated:NO];
+                [self.collectionView reloadData];
+                [self.collectionView setContentOffset:self.preNetworkTroubleScrollPosition animated:NO];
                 self.preNetworkTroubleScrollPosition = CGPointZero;
                 [self wmf_hideEmptyView];
 
@@ -482,16 +484,16 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-#pragma mark - UITableViewDatasource
+#pragma mark - UICollectionViewDatasource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
     if (self.isWaitingForNetworkToReconnect) {
         return 0;
     }
     return [[self.schemaManager sections] count];
 }
 
-- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfRowsInSection:(NSInteger)section {
     if (self.isWaitingForNetworkToReconnect) {
         return 0;
     }
@@ -500,24 +502,21 @@ NS_ASSUME_NONNULL_BEGIN
     return [[controller items] count];
 }
 
-- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
+- (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:[controller cellIdentifierForItemIndexPath:indexPath] forIndexPath:indexPath];
-    [controller configureCell:cell atIndexPath:indexPath];
+    UICollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[controller cellIdentifierForItemIndexPath:indexPath] forIndexPath:indexPath];
+#warning update
+    //[controller configureCell:cell atIndexPath:indexPath];
     return cell;
 }
 
-#pragma mark - UITableViewDelegate
+#pragma mark - UICollectionViewDelegate
 
-- (CGFloat)tableView:(UITableView*)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath*)indexPath {
+- (CGFloat)collectionView:(UICollectionView*)collectionView estimatedHeightForRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
     return [controller estimatedRowHeight];
-}
-
-- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
-    return UITableViewCellEditingStyleNone;
 }
 
 - (void)configureHeader:(WMFExploreSectionHeader*)header withStylingFromController:(id<WMFExploreSectionController>)controller {
@@ -534,20 +533,32 @@ NS_ASSUME_NONNULL_BEGIN
     header.subTitle = subTitle;
 }
 
-- (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
-    id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:section];
+- (nonnull UICollectionReusableView*)collectionView:(UICollectionView*)collectionView viewForSupplementaryElementOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath {
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        return [self collectionView:collectionView viewForSectionHeaderAtIndexPath:indexPath];
+    } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
+        return [self collectionView:collectionView viewForSectionFooterAtIndexPath:indexPath];
+    } else {
+        assert(false);
+        return [UICollectionReusableView new];
+    }
+}
+
+- (nonnull UICollectionReusableView*)collectionView:(UICollectionView*)collectionView viewForSectionHeaderAtIndexPath:(NSIndexPath*)indexPath {
+    id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+
     if (!controller) {
         return nil;
     }
 
-    WMFExploreSectionHeader* header = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFExploreSectionHeader wmf_nibName]];
+    WMFExploreSectionHeader* header = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName] forIndexPath:indexPath];
 
     [self configureHeader:header withStylingFromController:controller];
 
     @weakify(self);
     header.whenTapped = ^{
         @strongify(self);
-        [self didTapHeaderInSection:section];
+        [self didTapHeaderInSection:indexPath.section];
     };
 
     if ([controller conformsToProtocol:@protocol(WMFHeaderMenuProviding)]) {
@@ -589,20 +600,20 @@ NS_ASSUME_NONNULL_BEGIN
     return header;
 }
 
-- (nullable UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section {
-    id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:section];
+- (nonnull UICollectionReusableView*)collectionView:(UICollectionView*)collectionView viewForSectionFooterAtIndexPath:(NSIndexPath*)indexPath {
+    id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     if (!controller) {
         return nil;
     }
-    WMFExploreSectionFooter* footer = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFExploreSectionFooter wmf_nibName]];
-    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id < WMFMoreFooterProviding >) controller isFooterEnabled])) {
+    WMFExploreSectionFooter* footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
+    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)]) {
         footer.visibleBackgroundView.alpha = 1.0;
         footer.moreLabel.text              = [(id < WMFMoreFooterProviding >)controller footerText];
         footer.moreLabel.textColor         = [UIColor wmf_exploreSectionFooterTextColor];
         @weakify(self);
         footer.whenTapped = ^{
             @strongify(self);
-            [self didTapFooterInSection:section];
+            [self didTapFooterInSection:indexPath.section];
         };
     } else {
         footer.visibleBackgroundView.alpha = 0.0;
@@ -612,7 +623,7 @@ NS_ASSUME_NONNULL_BEGIN
     return footer;
 }
 
-- (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
+- (void)collectionView:(UICollectionView*)collectionView willDisplayCell:(UICollectionViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
     if ([controller respondsToSelector:@selector(willDisplaySection)]) {
@@ -632,7 +643,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)tableView:(UITableView*)tableView didEndDisplayingCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
+- (void)collectionView:(UICollectionView*)collectionView didEndDisplayingCell:(UICollectionViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
     if ([controller respondsToSelector:@selector(didEndDisplayingSection)]) {
@@ -644,7 +655,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }
 
-    NSArray<NSIndexPath*>* visibleIndexPathsInSection = [tableView.indexPathsForVisibleRows bk_select:^BOOL (NSIndexPath* i) {
+    NSArray<NSIndexPath*>* visibleIndexPathsInSection = [collectionView.indexPathsForVisibleItems bk_select:^BOOL (NSIndexPath* i) {
         return i.section == indexPath.section;
     }];
 
@@ -659,14 +670,14 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (BOOL)tableView:(UITableView*)tableView shouldHighlightRowAtIndexPath:(NSIndexPath*)indexPath {
+- (BOOL)collectionView:(UICollectionView*)collectionView shouldHighlightRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
     return [controller shouldSelectItemAtIndexPath:indexPath];
     return YES;
 }
 
-- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+- (void)collectionView:(UICollectionView*)collectionView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
     if (![controller shouldSelectItemAtIndexPath:indexPath]) {
@@ -704,7 +715,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     //Don't hide the spinner so quickly - so users can see the change
-    //NOTE: CATransactions during tableview scrolling can cause jitters
+    //NOTE: CATransactions during collectionview scrolling can cause jitters
     dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
         [CATransaction begin];
         [self.refreshControl endRefreshing];
@@ -736,15 +747,15 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     self.schemaManager = [WMFExploreSectionSchema schemaWithDomainURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]
-                                                      savedPages:self.savedPages
-                                                         history:self.recentPages
-                                                       blackList:[WMFRelatedSectionBlackList sharedBlackList]];
+                                                           savedPages:self.savedPages
+                                                              history:self.recentPages
+                                                            blackList:[WMFRelatedSectionBlackList sharedBlackList]];
     self.schemaManager.delegate = self;
     [self loadSectionControllersForCurrentSectionSchema];
-    self.tableView.dataSource = self;
-    self.tableView.delegate   = self;
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate   = self;
 
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
 }
 
 #pragma mark - Section Update
@@ -822,7 +833,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    [controller registerCellsInTableView:self.tableView];
+    [controller registerCellsInCollectionView:self.collectionView];
 
     [self.KVOControllerNonRetaining unobserve:controller keyPath:WMF_SAFE_KEYPATH(controller, items)];
 
@@ -835,7 +846,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSUInteger sectionIndex = [observer indexForSectionController:observedController];
         if (sectionIndex != NSNotFound && [observer isDisplayingCellsForSection:sectionIndex]) {
             DDLogDebug(@"Reloading table to display results in controller %@", observedController);
-            [observer.tableView reloadData];
+            [observer.collectionView reloadData];
         }
     }];
 }
@@ -870,8 +881,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)selectFirstRowInSection:(NSUInteger)section {
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
-    [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+    [self.collectionView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    [self collectionView:self.collectionView didSelectRowAtIndexPath:indexPath];
 }
 
 #pragma mark - WMFExploreSectionSchemaDelegate
@@ -880,7 +891,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_hideEmptyView];
     [self.sectionControllerCache removeAllSectionsExcept:schema.sections];
     [self loadSectionControllersForCurrentSectionSchema];
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
     [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull obj) {
         [obj fetchDataIfError];
     }];
@@ -888,21 +899,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)sectionSchema:(WMFExploreSectionSchema*)schema didRemoveSection:(WMFExploreSection*)section atIndex:(NSUInteger)index {
     [self.sectionControllerCache removeSection:section];
-    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
+    [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:index]];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate
 
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
-    NSIndexPath* previewIndexPath                     = [self.tableView indexPathForRowAtPoint:location];
+    NSIndexPath* previewIndexPath                     = [self.collectionView indexPathForRowAtPoint:location];
     id<WMFExploreSectionController> sectionController = [self sectionControllerForSectionAtIndex:previewIndexPath.section];
 
     if (![sectionController shouldSelectItemAtIndexPath:previewIndexPath]) {
         return nil;
     }
 
-    previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
+    previewingContext.sourceRect = [self.collectionView cellForRowAtIndexPath:previewIndexPath].frame;
 
     UIViewController* vc = [sectionController detailViewControllerForItemAtIndexPath:previewIndexPath];
     self.sectionOfPreviewingTitle = sectionController;
@@ -936,6 +947,18 @@ NS_ASSUME_NONNULL_BEGIN
       willShowViewController:(UIViewController*)viewController
                     animated:(BOOL)animated {
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
+}
+
+#pragma mark - UIRefreshControl
+
+- (void)setRefreshControl:(UIRefreshControl*)refreshControl {
+    [_refreshControl removeFromSuperview];
+
+    _refreshControl = refreshControl;
+
+    if (_refreshControl) {
+        [self.collectionView addSubview:_refreshControl];
+    }
 }
 
 @end
