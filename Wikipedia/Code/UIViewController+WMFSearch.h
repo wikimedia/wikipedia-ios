@@ -3,7 +3,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MWKSite, MWKDataStore, WMFSearchViewController;
+@class MWKDataStore, WMFSearchViewController;
 
 @interface UIViewController (WMFSearchButton)
 

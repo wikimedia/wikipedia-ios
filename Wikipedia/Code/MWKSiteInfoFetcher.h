@@ -2,7 +2,6 @@
 @import Foundation;
 
 @class MWKSiteInfo;
-@class MWKSite;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,8 +1,6 @@
 
 #import "WMFBaseExploreSectionController.h"
 
-@class MWKSite;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFMainPageSectionController : WMFBaseExploreSectionController

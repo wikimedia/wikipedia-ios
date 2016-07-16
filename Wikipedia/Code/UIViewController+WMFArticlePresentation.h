@@ -3,7 +3,7 @@
 #import "WMFAnalyticsLogging.h"
 #import "WMFArticleViewController.h"
 
-@class MWKTitle, MWKDataStore;
+@class MWKDataStore;
 @class WMFTableOfContentsViewController;
 
 NS_ASSUME_NONNULL_BEGIN

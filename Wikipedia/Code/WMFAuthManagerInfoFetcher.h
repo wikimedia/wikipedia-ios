@@ -2,7 +2,6 @@
 #import <Foundation/Foundation.h>
 
 @class AnyPromise;
-@class MWKSite;
 @class WMFAuthManagerInfo;
 
 NS_ASSUME_NONNULL_BEGIN

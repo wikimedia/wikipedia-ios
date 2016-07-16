@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 #import "WMFExploreSectionController.h"
 
-@class WMFExploreSection, MWKSite, MWKDataStore;
+@class WMFExploreSection, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 

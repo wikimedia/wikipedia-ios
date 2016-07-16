@@ -1,14 +1,5 @@
-//
-//  MWKSiteInfo.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 5/29/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "MWKDataObject.h"
-
-@class MWKTitle, MWKSite;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @name Computed Properties
 ///
 
-/// @return Parsed @c MWKTitle from @c mainPage.
+/// @return Parsed @c NSURL from @c mainPage.
 - (NSURL*)mainPageURL;
 
 @end

@@ -1,7 +1,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class MWKSite;
 @class WMFSearchResults;
 
 NS_ASSUME_NONNULL_BEGIN

@@ -1,8 +1,6 @@
 
 #import <AFNetworking/AFNetworking.h>
 
-@class MWKSite;
-
 @interface AFHTTPSessionManager (WMFDesktopRetry)
 
 /**

@@ -2,7 +2,6 @@
 #import "UIKit/UIKit.h"
 #import "MWKSiteDataObject.h"
 
-@class MWKTitle;
 @class MWKArticle;
 @class MWKImageInfo;
 

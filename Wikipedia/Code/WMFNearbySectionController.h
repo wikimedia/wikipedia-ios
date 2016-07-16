@@ -1,7 +1,7 @@
 
 #import "WMFBaseExploreSectionController.h"
 @import CoreLocation;
-@class WMFLocationManager, MWKSite, MWKDataStore;
+@class WMFLocationManager, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 

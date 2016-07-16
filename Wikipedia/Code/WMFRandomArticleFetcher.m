@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRandomArticleFetcher ()
 
-@property (nonatomic, strong) MWKSite* site;
 @property (nonatomic, strong) AFHTTPSessionManager* operationManager;
 
 @end

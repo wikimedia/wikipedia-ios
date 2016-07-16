@@ -24,9 +24,6 @@ static const NSInteger kMWKArticleSectionNone = -1;
 /// Data store used for reading & writing related entities.
 @property (readonly, weak, nonatomic) MWKDataStore* dataStore;
 
-// Identifiers
-//@property (readonly, strong, nonatomic) MWKTitle* title;
-
 // Metadata
 @property (readonly, strong, nonatomic) NSURL* redirectedURL;                // optional
 @property (readonly, strong, nonatomic) NSDate* lastmodified;                // required

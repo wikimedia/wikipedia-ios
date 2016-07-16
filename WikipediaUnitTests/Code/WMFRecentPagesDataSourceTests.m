@@ -82,7 +82,7 @@ describe(@"partitioning by date", ^{
                 });
 
                 it(@"should have a single section with all entries from last week", ^{
-                    NSArray<MWKTitle*>* thirdSectionTitles =
+                    NSArray<NSURL*>* thirdSectionTitles =
                         [[SSBaseDataSource indexPathArrayWithRange:NSMakeRange(0, yesterdaysTitles.count) inSection:2]
                          bk_map:^NSURL*(NSIndexPath* indexPath) {
                         return [recentPagesDataSource urlForIndexPath:indexPath];

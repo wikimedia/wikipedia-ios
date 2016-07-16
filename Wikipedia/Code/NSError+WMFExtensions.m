@@ -11,10 +11,6 @@ NSString* const WMFFailingRequestParametersUserInfoKey = @"WMFFailingRequestPara
     return [NSError errorWithDomain:WMFErrorDomain code:type userInfo:userInfo];
 }
 
-+ (NSError*)wmf_redirectedErrorWithTitle:(MWKTitle*)redirectedTitle {
-    return [self wmf_errorWithType:WMFErrorTypeRedirected userInfo:redirectedTitle ? @{WMFRedirectTitleKey : redirectedTitle}:nil];
-}
-
 + (NSError*)wmf_unableToSaveErrorWithReason:(NSString*)reason {
     return [self wmf_errorWithType:WMFErrorTypeUnableToSave userInfo:reason ? @{NSLocalizedDescriptionKey : reason}:nil];
 }
@@ -83,11 +79,3 @@ NSString* const WMFFailingRequestParametersUserInfoKey = @"WMFFailingRequestPara
 
 @end
 
-
-@implementation NSDictionary (WMFErrorExtensions)
-
-- (MWKTitle*)wmf_redirectTitle {
-    return self[WMFRedirectTitleKey];
-}
-
-@end

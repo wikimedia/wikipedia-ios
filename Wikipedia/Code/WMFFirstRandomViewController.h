@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
 
-@class MWKSite, MWKDataStore;
+@class MWKDataStore;
 
 //This VC is a placeholder to load the first random article
 

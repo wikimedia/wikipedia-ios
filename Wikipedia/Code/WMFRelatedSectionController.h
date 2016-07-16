@@ -2,7 +2,7 @@
 #import "WMFBaseExploreSectionController.h"
 
 @class WMFRelatedSearchFetcher;
-@class MWKTitle;
+
 @class WMFRelatedSectionBlackList;
 @class MWKDataStore;
 

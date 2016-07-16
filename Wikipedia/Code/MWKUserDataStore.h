@@ -3,7 +3,6 @@
 
 #import "MWKHistoryEntry.h"
 
-@class MWKTitle;
 @class MWKDataStore;
 @class MWKHistoryList;
 @class MWKSavedPageList;

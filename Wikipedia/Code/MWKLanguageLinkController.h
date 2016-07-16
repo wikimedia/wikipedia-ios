@@ -2,7 +2,6 @@
 #import <Foundation/Foundation.h>
 #import "MWKLanguageFilter.h"
 
-@class MWKTitle;
 @class MWKLanguageLink;
 
 NS_ASSUME_NONNULL_BEGIN
