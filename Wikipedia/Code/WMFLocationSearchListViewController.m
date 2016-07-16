@@ -4,7 +4,6 @@
 #import "WMFNearbyArticleTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "MWKLocationSearchResult.h"
-#import "MWKSite.h"
 
 @interface WMFLocationSearchListViewController ()
 @property (nonatomic, strong) WMFNearbyTitleListDataSource* dataSource;

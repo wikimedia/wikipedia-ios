@@ -1,10 +1,3 @@
-//
-//  WMFArticleListCellVisualTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 9/3/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import "FBSnapshotTestCase+WMFConvenience.h"
@@ -12,7 +5,6 @@
 #import "WMFArticleListTableViewCell+WMFSearch.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIView+VisualTestSizingUtils.h"
-#import "MWKTitle.h"
 
 static NSString* const ShortSearchResultTitle = @"One line title";
 

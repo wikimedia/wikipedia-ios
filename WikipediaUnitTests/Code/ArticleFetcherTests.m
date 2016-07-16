@@ -1,18 +1,9 @@
-//
-//  ArticleFetcherTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 6/2/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "WMFArticleFetcher.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "MWKArticle.h"
-#import "MWKSite.h"
-#import "MWKTitle.h"
 #import "WMFTestFixtureUtilities.h"
 #import "SessionSingleton.h"
 #import <Nocilla/Nocilla.h>
@@ -53,10 +44,9 @@
 }
 
 - (void)testSuccessfulFetchWritesArticleToDataStoreWithoutDuplicatingData {
-    MWKSite* site        = [MWKSite siteWithDomain:@"wikipedia.org" language:@"en"];
-    MWKTitle* dummyTitle = [site titleWithString:@"Foo"];
-    NSURL* url           = [site mobileApiEndpoint];
-    url           = [site apiEndpoint];
+    NSURL* siteURL        = [NSURL wmf_URLWithLanguage:@"en"];
+    NSURL* dummyArticleURL = [siteURL wmf_URLWithTitle:@"Foo"];
+    NSURL* url           = [siteURL wmf_desktopAPIURL];
 
     NSData* json = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"Obama" ofType:@"json"];
 
@@ -78,10 +68,10 @@
 
     WMFArticleFetcher* fetcher = self.articleFetcher;
     expectResolutionWithTimeout(10, ^AnyPromise*{
-        return [fetcher fetchArticleForPageTitle:dummyTitle progress:NULL].then(^id (MWKArticle* article){
-            savedArticleAfterFirstFetch = [self.tempDataStore articleWithTitle:dummyTitle];
+        return [fetcher fetchArticleForURL:dummyArticleURL progress:NULL].then(^id (MWKArticle* article){
+            savedArticleAfterFirstFetch = [self.tempDataStore articleWithURL:dummyArticleURL];
             firstFetchResult = article;
-            return [fetcher fetchArticleForPageTitle:dummyTitle progress:NULL]
+            return [fetcher fetchArticleForURL:dummyArticleURL progress:NULL]
             .then(^(MWKArticle* article) {
                 secondFetchResult = article;
             });
@@ -94,7 +84,7 @@
                   @"Expected object returned from 2nd fetch to not be identical to 1st.");
     assertThat(@([secondFetchResult isDeeplyEqualToArticle:firstFetchResult]), isTrue());
 
-    MWKArticle* savedArticleAfterSecondFetch = [self.tempDataStore articleFromDiskWithTitle:dummyTitle];
+    MWKArticle* savedArticleAfterSecondFetch = [self.tempDataStore articleFromDiskWithURL:dummyArticleURL];
     assertThat(@([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]), isTrue());
 }
 

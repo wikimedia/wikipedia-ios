@@ -1,14 +1,8 @@
-//
-//  WMFAsyncTestCase.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 3/13/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
+
 
 #import "WMFAsyncTestCase.h"
 
-NSTimeInterval const WMFDefaultExpectationTimeout = 1.0;
+NSTimeInterval const WMFDefaultExpectationTimeout = 10000.0;
 
 @interface WMFAsyncTestCase ()
 @property NSMutableArray* expectations;

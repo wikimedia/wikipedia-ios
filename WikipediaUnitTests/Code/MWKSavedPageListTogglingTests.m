@@ -1,16 +1,8 @@
-//
-//  MWKSavedPageListTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 7/23/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
+
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "MWKSavedPageList.h"
-#import "MWKSite.h"
-#import "MWKTitle.h"
 #import "MWKSavedPageEntry+Random.h"
 
 #define MOCKITO_SHORTHAND 1
@@ -43,7 +35,7 @@
 - (void)testAddingExistingSavedPageIsIgnored {
     MWKSavedPageEntry* entry = [MWKSavedPageEntry random];
     [self.list addEntry:entry];
-    [self.list addEntry:[[MWKSavedPageEntry alloc] initWithTitle:entry.title]];
+    [self.list addEntry:[[MWKSavedPageEntry alloc] initWithURL:entry.url]];
     assertThat(self.list.entries, is(@[entry]));
 }
 
@@ -52,23 +44,22 @@
 - (void)testTogglingSavedPageReturnsNoAndRemovesFromList {
     MWKSavedPageEntry* savedEntry = [MWKSavedPageEntry random];
     [self.list addEntry:savedEntry];
-    [self.list toggleSavedPageForTitle:savedEntry.title];
-    XCTAssertFalse([self.list isSaved:savedEntry.title]);
-    XCTAssertNil([self.list entryForListIndex:savedEntry.title]);
+    [self.list toggleSavedPageForURL:savedEntry.url];
+    XCTAssertFalse([self.list isSaved:savedEntry.url]);
+    XCTAssertNil([self.list entryForListIndex:savedEntry.url]);
 }
 
 - (void)testToggleUnsavedPageReturnsYesAndAddsToList {
     MWKSavedPageEntry* unsavedEntry = [MWKSavedPageEntry random];
-    [self.list toggleSavedPageForTitle:unsavedEntry.title];
-    XCTAssertTrue([self.list isSaved:unsavedEntry.title]);
-    XCTAssertEqualObjects([self.list entryForListIndex:unsavedEntry.title], unsavedEntry);
+    [self.list toggleSavedPageForURL:unsavedEntry.url];
+    XCTAssertTrue([self.list isSaved:unsavedEntry.url]);
+    XCTAssertEqualObjects([self.list entryForListIndex:unsavedEntry.url], unsavedEntry);
 }
 
 - (void)testTogglePageWithEmptyTitleReturnsNilWithError {
-    MWKTitle* emptyTitle = MKTMock([MWKTitle class]);
-    [MKTGiven([emptyTitle text]) willReturn:@""];
-    [self.list toggleSavedPageForTitle:emptyTitle];
-    XCTAssertFalse([self.list isSaved:emptyTitle]);
+    NSURL* url = [[NSURL wmf_URLWithLanguage:@"en"] wmf_URLWithTitle:@""];
+    [self.list toggleSavedPageForURL:url];
+    XCTAssertFalse([self.list isSaved:url]);
 }
 
 @end

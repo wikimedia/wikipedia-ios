@@ -5,7 +5,6 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFAuthManagerInfo.h"
-#import "MWKSite.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

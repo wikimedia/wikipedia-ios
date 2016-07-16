@@ -406,9 +406,9 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return urls;
 }
 
-- (BOOL)saveCacheRemovalListToDisk:(NSArray*)cacheRemovalList error:(NSError**)error {
-    NSArray* URLStrings = [cacheRemovalList bk_map:^id (id obj) {
-        return [[obj URL] absoluteString];
+- (BOOL)saveCacheRemovalListToDisk:(NSArray<NSURL*>*)cacheRemovalList error:(NSError**)error {
+    NSArray* URLStrings = [cacheRemovalList bk_map:^id (NSURL* obj) {
+        return [obj absoluteString];
     }];
     return [self saveArray:URLStrings path:self.basePath name:@"TitlesToRemove.plist" error:error];
 }

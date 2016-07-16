@@ -9,7 +9,6 @@
 // Models
 #import "WMFSearchResultDistanceProvider.h"
 #import "WMFSearchResultBearingProvider.h"
-#import "MWKTitle.h"
 
 // Views
 #import "WMFCompassView.h"

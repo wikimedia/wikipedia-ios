@@ -5,7 +5,6 @@
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFNetworkUtilities.h"
 #import "WMFApiJsonResponseSerializer.h"
-#import "MWKSite.h"
 #import "MWKSiteInfo.h"
 
 @interface MWKSiteInfoFetcher ()

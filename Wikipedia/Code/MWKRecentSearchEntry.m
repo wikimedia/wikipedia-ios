@@ -25,8 +25,12 @@
 }
 
 - (instancetype)initWithDict:(NSDictionary*)dict {
-    NSURL* url = dict[@"url"];
-    if (!url) {
+    NSString* urlString = dict[@"url"];
+    NSURL* url;
+
+    if ([urlString length]) {
+        url = [NSURL URLWithString:urlString];
+    } else {
         NSString* domain   = dict[@"domain"];
         NSString* language = dict[@"language"];
         url = [NSURL wmf_URLWithDomain:domain language:language];
@@ -60,7 +64,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKRecentSearchEntry, isEqualToRecentSearch:)
 
 - (id)dataExport {
     return @{
-               @"url": self.url,
+               @"url": [self.url absoluteString],
                @"searchTerm": self.searchTerm
     };
 }

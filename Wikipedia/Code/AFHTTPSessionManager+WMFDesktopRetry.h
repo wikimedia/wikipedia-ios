@@ -47,38 +47,6 @@
                                         failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure;
 
 
-/**
- *  Send a @c GET request to the given site, falling back to desktop URL if the mobile URL fails.
- *
- *  @param site The site to send the request to, using its API endpoints. First mobile, then desktop.
- *
- *  @see wmf_GETWithMobileURLString:desktopURLString:parameters:retry:success:failure:
- *
- *  @return The operation which represents the state of the request.
- */
-- (NSURLSessionDataTask*)wmf_GETWithSite:(MWKSite*)site
-                              parameters:(id)parameters
-                                   retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
-                                 success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
-                                 failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure;
-
-
-/**
- *  Send a @c GET request to the given site, falling back to desktop URL if the mobile URL fails.
- *
- *  Convenience, promise-based alternative to block-based API.  Omits the retry parameter & operation return for the
- *  simple case which doesn't need cancellation.
- *
- *  @param site       The site to send the request to, using its API endpoints. First mobile, then desktop.
- *
- *  @param parameters The parameters which will be passed to the receiver's @c requestSerializer.
- *
- *  @return A promise which will be resolved with the successful response of the request, or rejected with any errors
- *          that occur.
- *
- *  @see wmf_GETWithMobileURLString:desktopURLString:parameters:retry:success:failure:
- */
-- (AnyPromise*)wmf_GETWithSite:(MWKSite*)site parameters:(id)parameters;
 
 /**
  *  Send a @c GET request to the mobile endpoint (see -[NSURL wmf_mobileAPIURL])
@@ -119,36 +87,5 @@
                                              success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
                                              failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure;
 
-/**
- *  Send a @c POST request to the given site, falling back to desktop URL if the mobile URL fails.
- *
- *  @param site The site to send the request to, using its API endpoints. First mobile, then desktop.
- *
- *  @see wmf_POSTWithMobileURLString:desktopURLString:parameters:retry:success:failure:
- *
- *  @return The operation which represents the state of the request.
- */
-- (NSURLSessionDataTask*)wmf_POSTWithSite:(MWKSite*)site
-                               parameters:(id)parameters
-                                    retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
-                                  success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
-                                  failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure;
-
-/**
- *  Send a @c POST request to the given site, falling back to desktop URL if the mobile URL fails.
- *
- *  Convenience, promise-based alternative to block-based API.  Omits the retry parameter & operation return for the
- *  simple case which doesn't need cancellation.
- *
- *  @param site       The site to send the request to, using its API endpoints. First mobile, then desktop.
- *
- *  @param parameters The parameters which will be passed to the receiver's @c requestSerializer.
- *
- *  @return A promise which will be resolved with the successful response of the request, or rejected with any errors
- *          that occur.
- *
- *  @see wmf_POSTWithMobileURLString:desktopURLString:parameters:retry:success:failure:
- */
-- (AnyPromise*)wmf_POSTWithSite:(MWKSite*)site parameters:(id)parameters;
 
 @end

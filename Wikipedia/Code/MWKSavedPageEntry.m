@@ -34,8 +34,12 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
 }
 
 - (instancetype)initWithDict:(NSDictionary*)dict {
-    NSURL* url = dict[@"url"];
-    if (!url) {
+    NSString* urlString = dict[@"url"];
+    NSURL* url;
+
+    if ([urlString length]) {
+        url = [NSURL URLWithString:urlString];
+    } else {
         NSString* domain   = dict[@"domain"];
         NSString* language = dict[@"language"];
         NSString* title    = dict[@"title"];
@@ -97,7 +101,7 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
 
     [dict wmf_maybeSetObject:@(MWKSavedPageEntrySchemaVersionCurrent) forKey:MWKSavedPageEntrySchemaVersionKey];
     [dict wmf_maybeSetObject:@(self.didMigrateImageData) forKey:MWKSavedPageEntryDidMigrateImageDataKey];
-    [dict wmf_maybeSetObject:self.url forKey:@"url"];
+    [dict wmf_maybeSetObject:[self.url absoluteString] forKey:@"url"];
     [dict wmf_maybeSetObject:[self iso8601DateString:self.date] forKey:@"date"];
     return [NSDictionary dictionaryWithDictionary:dict];
 }

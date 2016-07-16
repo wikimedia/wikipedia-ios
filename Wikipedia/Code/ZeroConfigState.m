@@ -6,7 +6,6 @@
 #import <BlocksKit/UIAlertView+BlocksKit.h>
 #import <Tweaks/FBTweakInline.h>
 
-#import "MWKSite.h"
 #import "WMFZeroMessage.h"
 #import "WMFZeroMessageFetcher.h"
 #import "MWKLanguageLinkController.h"

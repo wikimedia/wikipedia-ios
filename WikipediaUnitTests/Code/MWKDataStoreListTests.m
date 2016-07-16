@@ -71,6 +71,8 @@
 
     [list save].then(^(id obj){
         [promiseExpectation fulfill];
+    }).catch(^(NSError* error){
+        XCTFail(@"Save failed");
     });
 
     WaitForExpectations();

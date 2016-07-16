@@ -1,10 +1,4 @@
-//
-//  MWKLanguageLinkFetcherTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 7/22/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
+
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
@@ -37,7 +31,7 @@
 
 - (void)testFetchingNilTitle {
     PushExpectation();
-    [self.fetcher fetchLanguageLinksForTitle:nil success:^(NSArray* langLinks) {
+    [self.fetcher fetchLanguageLinksForArticleURL:nil success:^(NSArray* langLinks) {
         XCTFail(@"Expected nil title to result in failure.");
     } failure:^(NSError* error) {
         XCTAssertEqual(error.code, WMFNetworkingError_InvalidParameters);
@@ -53,11 +47,10 @@
 }
 
 - (void)testFetchingEmptyTitle {
-    MWKTitle* mockTitle = MKTMock([MWKTitle class]);
-    [MKTGiven([mockTitle text]) willReturn:@""];
+    NSURL* url = [[NSURL wmf_URLWithLanguage:@"en"] wmf_URLWithTitle:@""];
 
     PushExpectation();
-    [self.fetcher fetchLanguageLinksForTitle:mockTitle success:^(NSArray* langLinks) {
+    [self.fetcher fetchLanguageLinksForArticleURL:url success:^(NSArray* langLinks) {
         XCTFail(@"Expected empty title to result in failure.");
     } failure:^(NSError* error) {
         XCTAssertEqual(error.code, WMFNetworkingError_InvalidParameters);

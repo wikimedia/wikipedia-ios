@@ -7,7 +7,6 @@
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFNumberOfExtractCharacters.h"
 
-#import "MWKSite.h"
 #import "MWKSearchResult.h"
 
 //Promises

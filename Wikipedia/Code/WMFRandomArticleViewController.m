@@ -1,6 +1,5 @@
 #import "WMFRandomArticleViewController.h"
 #import "WMFRandomArticleFetcher.h"
-#import "MWKSite.h"
 #import "MWKSearchResult.h"
 #import "Wikipedia-Swift.h"
 #import "WMFRandomDiceButton.h"
