@@ -685,10 +685,26 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 }
 
 - (BOOL)tabBarController:(UITabBarController*)tabBarController shouldSelectViewController:(UIViewController*)viewController {
-    if (tabBarController.selectedIndex == WMFAppTabTypeExplore && viewController == tabBarController.selectedViewController) {
-        WMFExploreViewController* exploreViewController = (WMFExploreViewController*)[self exploreViewController];
-        [exploreViewController scrollToTop:YES];
+    if (viewController == tabBarController.selectedViewController) {
+        switch (tabBarController.selectedIndex) {
+            case WMFAppTabTypeExplore: {
+                WMFExploreViewController* exploreViewController = (WMFExploreViewController*)[self exploreViewController];
+                [exploreViewController.tableView setContentOffset:CGPointZero animated:YES];
+            }
+                break;
+            case WMFAppTabTypeSaved: {
+                WMFArticleListTableViewController *savedArticlesViewController = (WMFArticleListTableViewController *)[self savedArticlesViewController];
+                [savedArticlesViewController.tableView setContentOffset:CGPointZero animated:YES];
+            }
+                break;
+            case WMFAppTabTypeRecent: {
+                WMFArticleListTableViewController *historyArticlesViewController = (WMFArticleListTableViewController *)[self recentArticlesViewController];
+                [historyArticlesViewController.tableView setContentOffset:CGPointZero animated:YES];
+            }
+                break;
+        }
     }
+    
     return YES;
 }
 
