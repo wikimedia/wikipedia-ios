@@ -24,8 +24,9 @@ void _WMFRecordDataFixture(NSData* data, NSString* folder, NSString* filename) {
 void _WMFRecordFixtureWithBlock(NSString* folder,
                                 NSString* filename,
                                 WMFFixtureRecordingBlock block) {
-    NSCParameterAssert(folder.length);
-    NSCParameterAssert(filename.length);
+    if(folder.length == 0 || filename.length == 0){
+        return;
+    }
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         if (![[NSUserDefaults standardUserDefaults] boolForKey:@"WMFFixtureRecordingEnabled"] || NSClassFromString(@"XCTestCase")) {
             return;

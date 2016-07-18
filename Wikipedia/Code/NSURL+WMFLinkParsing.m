@@ -144,7 +144,7 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 }
 
 - (NSURL*)wmf_APIURL:(BOOL)isMobile {
-    return [self wmf_URLWithPath:@"/w/api.php" isMobile:isMobile];
+    return [[self wmf_siteURL] wmf_URLWithPath:@"/w/api.php" isMobile:isMobile];
 }
 
 - (NSURL*)wmf_mobileAPIURL {

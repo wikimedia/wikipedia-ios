@@ -16,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
      UIGestureRecognizerDelegate,
      UIAlertViewDelegate>
 
-@property (nonatomic, strong, nullable) MWKArticle* article;
+@property (nonatomic, strong, nullable, readonly) MWKArticle* article;
+@property (nonatomic, strong, nullable, readonly) NSURL* articleURL;
 
 @property (nonatomic, weak, nullable) id<WMFWebViewControllerDelegate> delegate;
 
@@ -26,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, nullable) WMFPeekHTMLElement* peekElement;
 
 @property (nonatomic) UIEdgeInsets contentInsets;
+
+- (void)setArticle:(MWKArticle * _Nullable)article articleURL:(NSURL*)articleURL;
 
 /**
  *  Scroll to the @c anchor of the given section.

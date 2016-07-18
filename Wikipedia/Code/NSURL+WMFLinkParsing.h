@@ -157,6 +157,7 @@ extern NSString* const WMFDefaultSiteDomain;
  *
  *  @return return value description
  */
++ (NSURL*)wmf_mobileAPIURLForURL:(NSURL*)URL;
 - (NSURL*)wmf_mobileAPIURL;
 
 /**
@@ -164,7 +165,11 @@ extern NSString* const WMFDefaultSiteDomain;
  *
  *  @return return value description
  */
++ (NSURL*)wmf_desktopAPIURLForURL:(NSURL*)URL;
 - (NSURL*)wmf_desktopAPIURL;
+
++ (NSURL*)wmf_mobileURLForURL:(NSURL*)url;
++ (NSURL*)wmf_desktopURLForURL:(NSURL*)url;
 
 /**
  *  Return YES is a URL is a link to a Wiki resource

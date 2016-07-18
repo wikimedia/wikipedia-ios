@@ -174,7 +174,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setArticle:(nullable MWKArticle*)article {
     NSAssert(self.isViewLoaded, @"Expecting article to only be set after the view loads.");
-    NSAssert([article.url isEqual:self.articleURL],
+    NSAssert([article.url isEqual:[self.articleURL wmf_URLWithFragment:nil]],
              @"Invalid article set for VC expecting article data for title: %@", self.articleURL);
 
     _shareFunnel            = nil;
@@ -185,7 +185,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     // always update webVC & headerGallery, even if nil so they are reset if needed
     self.footerMenuViewController.article = _article;
-    self.webViewController.article        = _article;
+    [self.webViewController setArticle:_article articleURL:self.articleURL];
 
     if (self.article) {
         if ([self.article.url wmf_isNonStandardURL]) {
