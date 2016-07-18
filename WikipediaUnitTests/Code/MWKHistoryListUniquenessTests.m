@@ -19,11 +19,11 @@
 @end
 
 @implementation MWKHistoryListUniquenessTests {
-    MWKSite* siteEn;
-    MWKSite* siteFr;
-    MWKTitle* titleSFEn;
-    MWKTitle* titleLAEn;
-    MWKTitle* titleSFFr;
+    NSURL* siteURLEn;
+    NSURL* siteURLFr;
+    NSURL* titleURLSFEn;
+    NSURL* titleURLLAEn;
+    NSURL* titleURLSFFr;
     MWKDataStore* dataStore;
     MWKHistoryList* historyList;
 }
@@ -31,12 +31,12 @@
 - (void)setUp {
     [super setUp];
 
-    siteEn = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
-    siteFr = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"fr"];
+    siteURLEn = [NSURL wmf_URLWithLanguage:@"en"];
+    siteURLFr = [NSURL wmf_URLWithLanguage:@"fr"];
 
-    titleSFEn = [siteEn titleWithString:@"San Francisco"];
-    titleLAEn = [siteEn titleWithString:@"Los Angeles"];
-    titleSFFr = [siteFr titleWithString:@"San Francisco"];
+    titleURLSFEn = [siteURLEn wmf_URLWithTitle:@"San Francisco"];
+    titleURLLAEn = [siteURLEn wmf_URLWithTitle:@"Los Angeles"];
+    titleURLSFFr = [siteURLFr wmf_URLWithTitle:@"San Francisco"];
 
     dataStore   = [MWKDataStore temporaryDataStore];
     historyList = [[MWKHistoryList alloc] initWithDataStore:dataStore];
@@ -49,8 +49,8 @@
 }
 
 - (void)testStatePersistsWhenSaved {
-    MWKHistoryEntry* losAngeles   = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn];
-    MWKHistoryEntry* sanFrancisco = [[MWKHistoryEntry alloc] initWithTitle:titleSFFr];
+    MWKHistoryEntry* losAngeles   = [[MWKHistoryEntry alloc] initWithURL:titleURLLAEn];
+    MWKHistoryEntry* sanFrancisco = [[MWKHistoryEntry alloc] initWithURL:titleURLSFFr];
 
     /*
        HAX: dates are not precisely stored, so the difference must be >1s for the order to be persisted accurately.
@@ -60,24 +60,31 @@
 
     [historyList addEntry:losAngeles];
     [historyList addEntry:sanFrancisco];
+    
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    [self->historyList save].then(^{
+        XCTAssertFalse(self->historyList.dirty, @"Dirty flag should be reset after saving.");
+        MWKHistoryList* persistedList = [[MWKHistoryList alloc] initWithDataStore:self->dataStore];
+        
+        // HAX: dates aren't exactly persisted, so we need to compare manually
+        [persistedList.entries enumerateObjectsUsingBlock:^(MWKHistoryEntry* actualEntry, NSUInteger idx, BOOL* _) {
+            MWKHistoryEntry* expectedEntry = self->historyList.entries[idx];
+            assertThat(actualEntry.url, is(expectedEntry.url));
+            assertThat(@([actualEntry.date timeIntervalSinceDate:expectedEntry.date]), is(lessThanOrEqualTo(@1)));
+        }];
 
-    [self expectAnyPromiseToResolve:^AnyPromise*{
-        return [self->historyList save];
-    } timeout:WMFDefaultExpectationTimeout WMFExpectFromHere];
+        [expectation fulfill];
+    }).catchWithPolicy(PMKCatchPolicyAllErrors, ^(NSError* e) {
+        XCTFail(@"Unexpected error: %@", e);
+    });
+;
+    
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 
-    XCTAssertFalse(historyList.dirty, @"Dirty flag should be reset after saving.");
-    MWKHistoryList* persistedList = [[MWKHistoryList alloc] initWithDataStore:dataStore];
-
-    // HAX: dates aren't exactly persisted, so we need to compare manually
-    [persistedList.entries enumerateObjectsUsingBlock:^(MWKHistoryEntry* actualEntry, NSUInteger idx, BOOL* _) {
-        MWKHistoryEntry* expectedEntry = self->historyList.entries[idx];
-        assertThat(actualEntry.title, is(expectedEntry.title));
-        assertThat(@([actualEntry.date timeIntervalSinceDate:expectedEntry.date]), is(lessThanOrEqualTo(@1)));
-    }];
 }
 
 - (void)testAddingIdenticalObjectUpdatesExistingEntryDate {
-    MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn];
+    MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithURL:titleURLSFEn];
     NSDate* previousDate   = entry.date;
     [historyList addEntry:entry];
     [historyList addEntry:entry];
@@ -86,10 +93,10 @@
 }
 
 - (void)testAddingEquivalentObjectUpdatesExistingEntryDate {
-    MWKTitle* title1              = [titleSFEn.site titleWithString:@"This is a title"];
-    MWKHistoryEntry* entry1       = [[MWKHistoryEntry alloc] initWithTitle:title1];
-    MWKTitle* copyOfTitle1        = [titleSFEn.site titleWithString:@"This is a title"];
-    MWKHistoryEntry* copyOfEntry1 = [[MWKHistoryEntry alloc] initWithTitle:copyOfTitle1];
+    NSURL* title1              = [titleURLSFEn wmf_URLWithTitle:@"This is a title"];
+    MWKHistoryEntry* entry1       = [[MWKHistoryEntry alloc] initWithURL:title1];
+    NSURL* copyOfTitle1        = [titleURLSFEn wmf_URLWithTitle:@"This is a title"];
+    MWKHistoryEntry* copyOfEntry1 = [[MWKHistoryEntry alloc] initWithURL:copyOfTitle1];
     [historyList addEntry:entry1];
     [historyList addEntry:copyOfEntry1];
     assertThat(historyList.entries, equalTo(@[copyOfEntry1]));
@@ -97,16 +104,16 @@
 }
 
 - (void)testAddingTheSameTitleFromDifferentSites {
-    MWKHistoryEntry* en = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn];
-    MWKHistoryEntry* fr = [[MWKHistoryEntry alloc] initWithTitle:titleSFFr];
+    MWKHistoryEntry* en = [[MWKHistoryEntry alloc] initWithURL:titleURLSFEn];
+    MWKHistoryEntry* fr = [[MWKHistoryEntry alloc] initWithURL:titleURLSFFr];
     [historyList addEntry:en];
     [historyList addEntry:fr];
     assertThat([historyList entries], is(@[fr, en]));
 }
 
 - (void)testListOrdersByDateDescending {
-    MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn];
-    MWKHistoryEntry* entry2 = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn];
+    MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithURL:titleURLSFEn];
+    MWKHistoryEntry* entry2 = [[MWKHistoryEntry alloc] initWithURL:titleURLLAEn];
     [historyList addEntry:entry1];
     [historyList addEntry:entry2];
     NSAssert([[entry2.date laterDate:entry1.date] isEqualToDate:entry2.date],
@@ -116,9 +123,9 @@
 }
 
 - (void)testListOrderAfterAddingSameEntry {
-    MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn];
+    MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithURL:titleURLSFEn];
     entry1.date = [[NSDate date] dateByAddingTimeInterval:-60]; //the past
-    MWKHistoryEntry* entry2 = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn];
+    MWKHistoryEntry* entry2 = [[MWKHistoryEntry alloc] initWithURL:titleURLLAEn];
     [historyList addEntry:entry1];
     [historyList addEntry:entry2];
     assertThat([historyList entries], is(@[entry2, entry1])); //ordered by date

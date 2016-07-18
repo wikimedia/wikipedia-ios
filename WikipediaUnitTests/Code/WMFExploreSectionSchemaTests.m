@@ -116,7 +116,7 @@ describe(@"initial state", ^{
 
                 WMFExploreSection* featuredArticleSection = schema.sections[0];
                 expect(@(featuredArticleSection.type)).to(equal(@(WMFExploreSectionTypeFeaturedArticle)));
-                expect(featuredArticleSection.site).to(equal(site));
+                expect(featuredArticleSection.domainURL).to(equal(siteURL));
                 expect(@([featuredArticleSection.dateCreated isToday])).to(beTrue());
 
                 WMFExploreSection* mostReadSection = schema.sections[1];
@@ -130,7 +130,7 @@ describe(@"initial state", ^{
 
                 WMFExploreSection* mainPageSection = schema.sections[3];
                 expect(@(mainPageSection.type)).to(equal(@(WMFExploreSectionTypeMainPage)));
-                expect(mainPageSection.site).to(equal(site));
+                expect(mainPageSection.domainURL).to(equal(siteURL));
                 expect(@([mainPageSection.dateCreated isToday])).to(beTrue());
 
                 WMFExploreSection* randomSection = schema.sections[4];
@@ -164,7 +164,7 @@ describe(@"initial state", ^{
 
                 WMFExploreSection* mostReadSection = schema.sections[0];
                 expect(@(mostReadSection.type)).to(equal(@(WMFExploreSectionTypeMostRead)));
-                expect(mostReadSection.site).to(equal(site));
+                expect(mostReadSection.domainURL).to(equal(siteURL));
                 // not asserting most read section date, see WMFMostReadDateTests
 
                 WMFExploreSection* potdSection = schema.sections[1];

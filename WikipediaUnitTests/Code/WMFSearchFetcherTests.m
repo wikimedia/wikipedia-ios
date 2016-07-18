@@ -47,7 +47,7 @@
     .withJSON(json);
 
     expectResolutionWithTimeout(10, ^{
-        return [self.fetcher fetchArticlesForSearchTerm:@"foo" site:[MWKSite random] resultLimit:15]
+        return [self.fetcher fetchArticlesForSearchTerm:@"foo" siteURL:[NSURL wmf_randomSiteURL] resultLimit:15]
         .then(^(WMFSearchResults* result) {
             assertThat(result.results, hasCountOf([[json valueForKeyPath:@"query.pages"] count]));
         });
@@ -63,7 +63,7 @@
     .withJSON(json);
 
     expectResolutionWithTimeout(10, ^{
-        return [self.fetcher fetchArticlesForSearchTerm:@"foo" site:[MWKSite random] resultLimit:15]
+        return [self.fetcher fetchArticlesForSearchTerm:@"foo" siteURL:[NSURL wmf_randomSiteURL] resultLimit:15]
         .then(^(WMFSearchResults* result) {
             assertThat(result.searchSuggestion, is([json valueForKeyPath:@"query.searchinfo.suggestion"]));
             assertThat(result.results, isEmpty());
@@ -118,7 +118,7 @@
 
     expectResolutionWithTimeout(10, ^{
         return [self.fetcher fetchArticlesForSearchTerm:expectedMergedResults.searchTerm
-                                                   site:[MWKSite random]
+                                                   siteURL:[NSURL wmf_randomSiteURL]
                                             resultLimit:15
                                          fullTextSearch:YES
                                 appendToPreviousResults:prefixResults]

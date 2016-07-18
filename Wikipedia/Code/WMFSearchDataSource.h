@@ -2,7 +2,7 @@
 #import <SSDataSources/SSDataSources.h>
 #import "WMFTitleListDataSource.h"
 
-@class MWKSite, WMFSearchResults;
+@class WMFSearchResults;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,5 +1,4 @@
 #import "WMFFirstRandomViewController.h"
-#import "MWKSite.h"
 #import "WMFRandomArticleFetcher.h"
 #import "Wikipedia-swift.h"
 #import "MWKDataStore.h"

@@ -1,8 +1,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class MWKSite;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRandomArticleFetcher : NSObject

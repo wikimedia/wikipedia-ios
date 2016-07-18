@@ -49,6 +49,14 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
     return [self wmf_URLWithDomain:WMFDefaultSiteDomain language:language];
 }
 
++ (NSURL*)wmf_URLWithDefaultSiteAndLocale:(NSLocale*)locale{
+    return [self wmf_URLWithDomain:WMFDefaultSiteDomain language:[locale objectForKey:NSLocaleLanguageCode]];
+}
+
++ (NSURL*)wmf_URLWithDefaultSiteAndCurrentLocale{
+    return [self wmf_URLWithDefaultSiteAndLocale:[NSLocale currentLocale]];
+}
+
 + (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(nullable NSString*)language {
     return [[NSURLComponents wmf_componentsWithDomain:domain language:language] URL];
 }
@@ -208,6 +216,7 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 }
 
 - (NSString*)wmf_title {
+#warning this should verify that the URL has /wiki/ in the path
     NSString* title = [[self.path wmf_internalLinkPath] wmf_normalizedPageTitle];
     if (title == nil) {
         title = @"";
@@ -216,6 +225,7 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 }
 
 - (NSString*)wmf_titleWithUnderScores {
+#warning this should verify that the URL has /wiki/ in the path
     NSString* title = [[self.path wmf_internalLinkPath] wmf_denormalizedPageTitle];
     if (title == nil) {
         title = @"";

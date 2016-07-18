@@ -1,21 +1,14 @@
-//
-//  MWKImage+AssociationTestUtils.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 3/30/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
+
 
 #import "MWKImage+AssociationTestUtils.h"
 #import <BlocksKit/BlocksKit.h>
-#import "MWKSite.h"
 #import "MWKArticle.h"
 
 @implementation MWKImage (AssociationTestUtils)
 
 + (instancetype)imageAssociatedWithSourceURL:(NSString*)imageURL {
-    MWKTitle* title     = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
-    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:nil];
+    NSURL* title     = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"foo"];
+    MWKArticle* article = [[MWKArticle alloc] initWithURL:title dataStore:nil];
     return [[self alloc] initWithArticle:article sourceURLString:imageURL];
 }
 

@@ -1,6 +1,6 @@
 #import "WMFArticleListTableViewCell.h"
 
-@class MWKTitle;
+
 @class MWKSavedPageList;
 @class MWKImage;
 @class WMFSaveButtonController;

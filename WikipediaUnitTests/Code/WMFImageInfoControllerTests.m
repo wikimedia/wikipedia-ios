@@ -1,10 +1,3 @@
-//
-//  WMFImageInfoControllerTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 3/12/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #define HC_SHORTHAND 1
 #define MOCKITO_SHORTHAND 1
@@ -20,8 +13,6 @@
 #import "WMFImageInfoController_Private.h"
 #import "MWKImage.h"
 #import "MWKDataStore+TemporaryDataStore.h"
-#import "MWKTitle.h"
-#import "MWKSite.h"
 #import "NSArray+WMFShuffle.h"
 #import "WMFRangeUtils.h"
 
@@ -46,10 +37,10 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     self.tmpDataStore    = [MWKDataStore temporaryDataStore];
     self.mockDelegate    = MKTMockProtocol(@protocol(WMFImageInfoControllerDelegate));
 
-    MWKTitle* testTitle = [MWKTitle titleWithString:@"foo"
-                                               site:[MWKSite siteWithDomain:@"wikipedia.org" language:@"en"]];
+    NSURL* testTitle = [[NSURL wmf_URLWithLanguage:@"en"]
+                        wmf_URLWithTitle:@"foo"];
 
-    self.testArticle = [[MWKArticle alloc] initWithTitle:testTitle dataStore:self.tmpDataStore];
+    self.testArticle = [[MWKArticle alloc] initWithURL:testTitle dataStore:self.tmpDataStore];
 
     NSArray<MWKImage*>* testImages = [[self generateSourceURLs:10] bk_map:^MWKImage*(NSString* urlString){
         return [[MWKImage alloc] initWithArticle:self.testArticle sourceURLString:urlString];
@@ -58,9 +49,9 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     self.controller = [[WMFImageInfoController alloc] initWithDataStore:self.tmpDataStore
                                                               batchSize:2
                                                             infoFetcher:self.mockInfoFetcher];
-    
-    [self.controller setUniqueArticleImages:testImages forTitle:self.testArticle.title];
-    
+
+    [self.controller setUniqueArticleImages:testImages forArticleURL:self.testArticle.url];
+
     self.controller.delegate = self;
 }
 
@@ -74,10 +65,10 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 - (void)testReadsFromDataStoreLazilyAndPopulatesFetchedIndices {
     MWKDataStore* mockDataStore = MKTMock([MWKDataStore class]);
 
-    MWKTitle* title = [[MWKTitle alloc] initWithSite:[MWKSite siteWithCurrentLocale]
-                                     normalizedTitle:@"foo"
-                                            fragment:nil];
-    MWKArticle* dummyArticle = [[MWKArticle alloc] initWithTitle:title dataStore:mockDataStore];
+    NSURL* testURL = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale]
+                      wmf_URLWithTitle:@"foo"];
+
+    MWKArticle* dummyArticle = [[MWKArticle alloc] initWithURL:testURL dataStore:mockDataStore];
 
     NSArray* testImages = [[self generateSourceURLs:5] bk_map:^MWKImage*(NSString* sourceURL) {
         return [[MWKImage alloc] initWithArticle:dummyArticle sourceURLString:sourceURL];
@@ -85,12 +76,12 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     NSRange preFetchedRange    = NSMakeRange(0, 2);
     NSArray* expectedImageInfo = [[MWKImageInfo mappedFromImages:testImages] subarrayWithRange:preFetchedRange];
 
-    [MKTGiven([mockDataStore imageInfoForTitle:title]) willReturn:expectedImageInfo];
+    [MKTGiven([mockDataStore imageInfoForArticleWithURL:testURL]) willReturn:expectedImageInfo];
 
     WMFImageInfoController* controller = [[WMFImageInfoController alloc] initWithDataStore:mockDataStore
                                                                                  batchSize:2
                                                                                infoFetcher:self.mockInfoFetcher];
-    [controller setUniqueArticleImages:testImages forTitle:dummyArticle.title];
+    [controller setUniqueArticleImages:testImages forArticleURL:dummyArticle.url];
 
     assertThat(controller.indexedImageInfo.allValues, containsItemsInCollectionInAnyOrder(expectedImageInfo));
     assertThat(controller.uniqueArticleImages, is(testImages));
@@ -115,7 +106,7 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
         assertThat(@(WMFRangeIsNotFoundOrEmpty(expectedRange)), isFalse());
         NSArray* expectedTitles = [self expectedTitlesForRange:expectedRange];
         [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(1)) fetchGalleryInfoForImageFiles:expectedTitles
-                                                                                fromSite:self.testArticle.site
+                                                                           fromDomainURL:self.testArticle.url.wmf_domainURL
                                                                                  success:anything()
                                                                                  failure:anything()];
     }];
@@ -129,13 +120,13 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 - (void)testFetchBatchAlongWithNeighborReturnsOneRequestForEachFetch {
     [MKTGiven([self.mockInfoFetcher
                fetchGalleryInfoForImageFiles:[self expectedTitlesForRange:[self.controller batchRangeForTargetIndex:0]]
-                                    fromSite:anything()
+                                    fromDomainURL:anything()
                                      success:anything()
                                      failure:anything()]) willReturn:@"dummy request"];
 
     [MKTGiven([self.mockInfoFetcher
                fetchGalleryInfoForImageFiles:[self expectedTitlesForRange:[self.controller batchRangeForTargetIndex:self.controller.infoBatchSize]]
-                                    fromSite:anything()
+                                    fromDomainURL:anything()
                                      success:anything()
                                      failure:anything()]) willReturn:@"dummy request 2"];
 
@@ -146,7 +137,7 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 - (void)testFetchBatchAlongWithNeighborIndexesInTheSameBatchOnlyResultsInOneFetch {
     [self.controller fetchBatchContainingIndex:0 withNthNeighbor:self.controller.infoBatchSize - 1];
     [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(1)) fetchGalleryInfoForImageFiles:anything()
-                                                                            fromSite:anything()
+                                                                            fromDomainURL:anything()
                                                                              success:anything()
                                                                              failure:anything()];
 }
@@ -172,7 +163,7 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     }
 
     [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(fetchedBatches.count)) fetchGalleryInfoForImageFiles:anything()
-                                                                                               fromSite:self.testArticle.site
+                                                                                               fromDomainURL:self.testArticle.url.wmf_domainURL
                                                                                                 success:anything()
                                                                                                 failure:anything()];
 }
@@ -217,7 +208,7 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
                               failure:(id)failure {
     NSArray* expectedTitles = [self expectedTitlesForRange:range];
     [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(1)) fetchGalleryInfoForImageFiles:expectedTitles
-                                                                            fromSite:self.testArticle.site
+                                                                            fromDomainURL:self.testArticle.url.wmf_domainURL
                                                                              success:success ? : anything()
                                                                              failure:failure ? : anything()];
 }
@@ -243,7 +234,7 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     assertThat(self.controller.indexedImageInfo.allValues,
                containsItemsInCollectionInAnyOrder(accumulatedFetchedImageInfos));
 
-    assertThat([self.tmpDataStore imageInfoForTitle:self.testArticle.title],
+    assertThat([self.tmpDataStore imageInfoForArticleWithURL:self.testArticle.url],
                containsItemsInCollectionInAnyOrder(accumulatedFetchedImageInfos));
 
     assertThat(@([self.controller hasFetchedAllItems]), isTrue());

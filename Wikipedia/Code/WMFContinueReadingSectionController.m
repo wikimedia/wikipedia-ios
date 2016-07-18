@@ -23,8 +23,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 @implementation WMFContinueReadingSectionController
 
 - (instancetype)initWithArticleURL:(NSURL*)articleURL
-                         dataStore:(MWKDataStore*)dataStore
-{
+                         dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(articleURL.wmf_title);
     self = [super initWithDataStore:dataStore items:@[articleURL]];
     if (self) {
@@ -94,7 +93,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 }
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
-    NSURL* url              = [self urlForItemAtIndexPath:indexPath];
+    NSURL* url                   = [self urlForItemAtIndexPath:indexPath];
     WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
     return vc;
 }
@@ -107,7 +106,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 
 #pragma mark - Utility
 
-- (NSString*)summaryForTitle:(MWKTitle*)title {
+- (NSString*)summaryForArticle {
     MWKArticle* cachedArticle = [self.dataStore existingArticleWithURL:self.articleURL];
     if (cachedArticle.entityDescription.length) {
         return [cachedArticle.entityDescription wmf_stringByCapitalizingFirstCharacter];

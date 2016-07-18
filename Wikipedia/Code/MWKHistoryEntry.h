@@ -2,8 +2,6 @@
 #import "MWKSiteDataObject.h"
 #import "MWKList.h"
 
-@class MWKTitle;
-
 @interface MWKHistoryEntry : MWKSiteDataObject
     <MWKListObject>
 

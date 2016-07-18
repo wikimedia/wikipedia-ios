@@ -7,7 +7,6 @@
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFNumberOfExtractCharacters.h"
 
-#import "MWKSite.h"
 #import "MWKSearchResult.h"
 
 //Promises
@@ -20,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRandomArticleFetcher ()
 
-@property (nonatomic, strong) MWKSite* site;
 @property (nonatomic, strong) AFHTTPSessionManager* operationManager;
 
 @end

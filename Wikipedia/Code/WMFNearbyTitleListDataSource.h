@@ -3,7 +3,7 @@
 #import "WMFTitleListDataSource.h"
 @import CoreLocation;
 
-@class WMFLocationManager, MWKSite, WMFSearchResultDistanceProvider, WMFSearchResultBearingProvider;
+@class WMFLocationManager, WMFSearchResultDistanceProvider, WMFSearchResultBearingProvider;
 
 NS_ASSUME_NONNULL_BEGIN
 

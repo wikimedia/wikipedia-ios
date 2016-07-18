@@ -1,16 +1,8 @@
-//
-//  NSURL+WMFLinkParsingTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 8/6/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "NSURL+WMFLinkParsing.h"
 #import "NSString+WMFPageUtilities.h"
-#import "MWKTitle.h"
 
 #define MOCKITO_SHORTHAND 1
 #import <OCMockito/OCMockito.h>

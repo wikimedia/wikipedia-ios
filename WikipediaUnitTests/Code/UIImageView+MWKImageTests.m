@@ -2,7 +2,6 @@
 #import "UIImageView+WMFImageFetchingInternal.h"
 #import "WMFFaceDetectionCache.h"
 #import "Wikipedia-Swift.h"
-#import "MWKTitle.h"
 #import "MWKArticle.h"
 #import "MWKImage.h"
 #import <Nocilla/Nocilla.h>
@@ -25,11 +24,9 @@
     [super setUp];
 
     self.imageView = [UIImageView new];
-
-    MWKTitle* dummyTitle = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"//en.wikipedia.org/wiki/Foo"]];
-    self.dummyArticle = [[MWKArticle alloc] initWithTitle:dummyTitle
+    NSURL* dummyURL = [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"en" title:@"Foo" fragment:nil];
+    self.dummyArticle = [[MWKArticle alloc] initWithURL:dummyURL
                                                 dataStore:nil];
-
     self.imageController    = [WMFImageController sharedInstance];
     self.faceDetectionCache = [[WMFFaceDetectionCache alloc] init];
 

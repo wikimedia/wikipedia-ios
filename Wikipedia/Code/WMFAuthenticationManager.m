@@ -17,8 +17,6 @@
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
 
-#import "MWKSite.h"
-
 #import "NSHTTPCookieStorage+WMFCloneCookie.h"
 
 NS_ASSUME_NONNULL_BEGIN

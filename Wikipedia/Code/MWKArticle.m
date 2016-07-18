@@ -66,8 +66,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 #pragma mark - Setup / Tear Down
 
 - (instancetype)initWithURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
-    NSParameterAssert(url);
-    self = [self initWithURL:url];
+    NSParameterAssert(url.wmf_title);
+    self = [self initWithURL:[url wmf_URLWithFragment:nil]];
     if (self) {
         self.dataStore = dataStore;
     }

@@ -19,7 +19,6 @@
 #import "MWKDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKHistoryList.h"
-#import "MWKSite.h"
 #import "MWKHistoryEntry.h"
 #import "MWKSavedPageEntry.h"
 #import "MWKArticle.h"

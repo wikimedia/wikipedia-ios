@@ -37,7 +37,15 @@ extern NSString* const WMFDefaultSiteDomain;
  *
  * @return A new URL with the default domain and language.
  **/
+#warning rename to wmf_URLWithDefaultSiteAndlanguage:
 + (NSURL*)wmf_URLWithLanguage:(nullable NSString*)language;
+
+
+/// @return A URL with the default domain and the language code returned by @c locale.
++ (NSURL*)wmf_URLWithDefaultSiteAndLocale:(NSLocale*)locale;
+
+/// @return A site with the default domain and the current locale's language code.
++ (NSURL*)wmf_URLWithDefaultSiteAndCurrentLocale;
 
 /**
  * Initialize a new URL with a Wikimedia `domain` and `language`.
@@ -82,6 +90,7 @@ extern NSString* const WMFDefaultSiteDomain;
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the `internalLink`.
  **/
+#warning this method should be folded into the above method and should handle the presence of /wiki/
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedInternalLink:(NSString*)internalLink;
 
 
@@ -93,6 +102,7 @@ extern NSString* const WMFDefaultSiteDomain;
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  **/
+#warning this method should be folded into the above method and should handle the presence of a #
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedTitleAndFragment:(NSString*)escapedDenormalizedTitleAndFragment;
 
 
@@ -104,6 +114,7 @@ extern NSString* const WMFDefaultSiteDomain;
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  **/
+#warning this method should be folded into the above method and should handle detection of escapedness
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL unescapedDenormalizedTitleAndFragment:(NSString*)escapedDenormalizedTitleAndFragment;
 
 /**
@@ -165,6 +176,7 @@ extern NSString* const WMFDefaultSiteDomain;
 - (NSURL*)wmf_desktopAPIURL;
 
 
+#warning rename to wmf_isWikiURL
 @property (nonatomic, readonly) BOOL wmf_isInternalLink;
 
 @property (nonatomic, readonly) BOOL wmf_isCitation;

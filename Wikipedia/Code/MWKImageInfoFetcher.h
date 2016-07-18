@@ -7,7 +7,6 @@
 #import "FetcherBase.h"
 
 @class MWKArticle;
-@class MWKSite;
 @class NSURLSessionDataTask;
 @class AFHTTPSessionManager;
 

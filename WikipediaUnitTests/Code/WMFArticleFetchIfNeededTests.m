@@ -120,7 +120,7 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
         __block MWKArticle* cachedArticle;
         beforeEach(^{
             cachedArticleJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"];
-            cachedArticle = [[MWKArticle alloc] initWithTitle:[MWKTitle random]
+            cachedArticle = [[MWKArticle alloc] initWithURL:[NSURL wmf_randomArticleURL]
                                                     dataStore:tempDataStore
                                                          dict:cachedArticleJSON[@"mobileview"]];
             expect(cachedArticle.revisionId).to(beNil());

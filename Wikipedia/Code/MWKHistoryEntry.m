@@ -28,11 +28,15 @@
 }
 
 - (instancetype)initWithDict:(NSDictionary*)dict {
-    NSURL* url = dict[@"url"];
-    if(!url){
+    NSString* urlString = dict[@"url"];
+    NSURL* url;
+
+    if ([urlString length]) {
+        url = [NSURL URLWithString:urlString];
+    } else {
         NSString* domain   = dict[@"domain"];
         NSString* language = dict[@"language"];
-        NSString* title = dict[@"title"];
+        NSString* title    = dict[@"title"];
         url = [NSURL wmf_URLWithDomain:domain language:language title:title fragment:nil];
     }
 
@@ -86,7 +90,7 @@
 - (id)dataExport {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
 
-    [dict wmf_maybeSetObject:self.url forKey:@"url"];
+    [dict wmf_maybeSetObject:[self.url absoluteString] forKey:@"url"];
     [dict wmf_maybeSetObject:[self iso8601DateString:self.date] forKey:@"date"];
     [dict wmf_maybeSetObject:@(self.scrollPosition) forKey:@"scrollPosition"];
     [dict wmf_maybeSetObject:@(self.titleWasSignificantlyViewed) forKey:@"titleWasSignificantlyViewed"];

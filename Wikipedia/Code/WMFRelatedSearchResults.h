@@ -1,6 +1,6 @@
 
 #import <Foundation/Foundation.h>
-@class MWKTitle, MWKSearchResult;
+@class MWKSearchResult;
 
 @interface WMFRelatedSearchResults : NSObject
 

@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class WMFRelatedSearchFetcher;
 @class MWKSavedPageList;
 @class MWKDataStore;
-@class MWKTitle;
+
 
 @interface WMFRelatedTitleListDataSource : SSArrayDataSource
     <WMFTitleListDataSource>

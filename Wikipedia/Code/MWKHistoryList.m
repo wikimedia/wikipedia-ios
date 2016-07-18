@@ -112,8 +112,8 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
 
-- (void)removeEntryWithListIndex:(id)listIndex {
-    if ([[listIndex text] length] == 0) {
+- (void)removeEntryWithListIndex:(NSURL*)listIndex {
+    if ([[listIndex wmf_title] length] == 0) {
         return;
     }
     MWKHistoryEntry* entry = [self entryForListIndex:listIndex];

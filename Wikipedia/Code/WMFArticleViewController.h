@@ -3,7 +3,7 @@
 #import "MWKArticle.h"
 
 @class MWKDataStore;
-@class MWKTitle;
+
 @class WMFShareFunnel;
 @class WMFArticleViewController;
 

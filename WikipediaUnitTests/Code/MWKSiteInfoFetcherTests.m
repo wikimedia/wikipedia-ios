@@ -1,15 +1,7 @@
-//
-//  MWKSiteInfoFetcherTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 5/29/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "WMFAsyncTestCase.h"
-#import "MWKSite.h"
 #import "MWKSiteInfo.h"
 #import "MWKSiteInfoFetcher.h"
 #import "XCTestCase+WMFLocaleTesting.h"
@@ -43,20 +35,21 @@
 }
 
 - (void)testENWikiFixture {
-    [self runSuccessfulCallbackTestWithFixture:@"ENWikiSiteInfo" site:[MWKSite siteWithLanguage:@"en"]];
+    [self runSuccessfulCallbackTestWithFixture:@"ENWikiSiteInfo" siteURL:[NSURL wmf_URLWithLanguage:@"en"]];
+
 }
 
 - (void)testNOWikiFixture {
-    [self runSuccessfulCallbackTestWithFixture:@"NOWikiSiteInfo" site:[MWKSite siteWithLanguage:@"no"]];
+    [self runSuccessfulCallbackTestWithFixture:@"NOWikiSiteInfo" siteURL:[NSURL wmf_URLWithLanguage:@"no"]];
 }
 
-- (void)runSuccessfulCallbackTestWithFixture:(NSString*)fixture site:(MWKSite*)testSite {
+- (void)runSuccessfulCallbackTestWithFixture:(NSString*)fixture siteURL:(NSURL*)testSiteURL {
     NSString* json               = [[self wmf_bundle] wmf_stringFromContentsOfFile:fixture ofType:@"json"];
     NSDictionary* jsonDictionary = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixture];
 
     NSRegularExpression* anyRequestFromTestSite =
         [NSRegularExpression regularExpressionWithPattern:
-         [NSString stringWithFormat:@"%@.*", [[testSite apiEndpoint:NO] absoluteString]] options:0 error:nil];
+         [NSString stringWithFormat:@"%@.*", [[testSiteURL wmf_desktopAPIURL] absoluteString]] options:0 error:nil];
 
     stubRequest(@"GET", anyRequestFromTestSite)
     .andReturn(200)
@@ -65,9 +58,9 @@
 
     XCTestExpectation* expectation = [self expectationWithDescription:@"response"];
 
-    [self.fetcher fetchSiteInfoForSite:testSite]
+    [self.fetcher fetchSiteInfoForDomainURL:testSiteURL]
     .then(^(MWKSiteInfo* result){
-        assertThat(result.site, is(equalTo(testSite)));
+        assertThat(result.domainURL, is(equalTo(testSiteURL)));
         assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
         [expectation fulfill];
     });
@@ -75,7 +68,7 @@
 }
 
 - (void)testDesktopFallback {
-    MWKSite* testSite            = [MWKSite siteWithLanguage:@"en"];
+    NSURL* testSiteURL            = [NSURL wmf_URLWithLanguage:@"en"];
     NSString* json               = [[self wmf_bundle] wmf_stringFromContentsOfFile:@"ENWikiSiteInfo" ofType:@"json"];
     NSDictionary* jsonDictionary = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"ENWikiSiteInfo"];
 
@@ -83,7 +76,7 @@
 
     NSRegularExpression* anyRequestFromTestSiteDesktop =
         [NSRegularExpression regularExpressionWithPattern:
-         [NSString stringWithFormat:@"%@.*", [[testSite URL] absoluteString]] options:0 error:nil];
+         [NSString stringWithFormat:@"%@.*", [testSiteURL  absoluteString]] options:0 error:nil];
 
     stubRequest(@"GET", @"https://en.m.wikipedia.org/w/api.php?action=query&format=json&meta=siteinfo&siprop=general")
     .andFailWithError(fallbackError);
@@ -95,9 +88,9 @@
 
     XCTestExpectation* expectation = [self expectationWithDescription:@"response"];
 
-    [self.fetcher fetchSiteInfoForSite:testSite]
+    [self.fetcher fetchSiteInfoForDomainURL:testSiteURL]
     .then(^(MWKSiteInfo* result){
-        assertThat(result.site, is(equalTo(testSite)));
+        assertThat(result.domainURL, is(equalTo(testSiteURL)));
         assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
         [expectation fulfill];
     }).catch(^(NSError* error){

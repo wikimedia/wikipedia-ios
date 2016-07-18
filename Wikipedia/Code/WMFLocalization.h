@@ -1,8 +1,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class MWKSite;
-
 // See docs/localizations.md for high-level documentation
 
 NSString* localizedStringForKeyFallingBackOnEnglish(NSString* key);
