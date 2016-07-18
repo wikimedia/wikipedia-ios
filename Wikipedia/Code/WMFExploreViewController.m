@@ -289,12 +289,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.collectionView.scrollsToTop = YES;
     self.collectionView.dataSource   = nil;
     self.collectionView.delegate     = nil;
-#warning update
-    //    self.collectionView.sectionHeaderHeight          = UICollectionViewAutomaticDimension;
-    //    self.collectionView.estimatedSectionHeaderHeight = 66.0;
-    //    self.collectionView.sectionFooterHeight          = UICollectionViewAutomaticDimension;
-    //    self.collectionView.estimatedSectionFooterHeight = 50.0;
-    
+
     [self.collectionView registerNib:[WMFExploreSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
 
     [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
@@ -515,6 +510,26 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(controller);
     CGFloat height = [controller estimatedRowHeight];
     return CGSizeMake(collectionView.bounds.size.width, height);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsZero;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 0;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 0;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    return CGSizeMake(collectionView.bounds.size.width, 66);
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    return CGSizeMake(collectionView.bounds.size.width, 50);
 }
 
 - (void)configureHeader:(WMFExploreSectionHeader*)header withStylingFromController:(id<WMFExploreSectionController>)controller {
