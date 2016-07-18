@@ -535,7 +535,7 @@ NS_ASSUME_NONNULL_BEGIN
         return CGSizeMake(collectionView.bounds.size.width, 50);
     }
 
-    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)]) {
+    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id<WMFMoreFooterProviding>) controller isFooterEnabled])) {
         return CGSizeMake(collectionView.bounds.size.width, 100);
     } else {
         return CGSizeMake(collectionView.bounds.size.width, 50);
@@ -629,7 +629,7 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
     WMFExploreSectionFooter* footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
-    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)]) {
+    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id<WMFMoreFooterProviding>) controller isFooterEnabled])) {
         footer.visibleBackgroundView.alpha = 1.0;
         footer.moreLabel.text              = [(id < WMFMoreFooterProviding >)controller footerText];
         footer.moreLabel.textColor         = [UIColor wmf_exploreSectionFooterTextColor];
