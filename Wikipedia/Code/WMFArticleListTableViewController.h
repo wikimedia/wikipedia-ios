@@ -44,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)deleteAllConfirmationText;
 - (NSString*)deleteText;
 - (NSString*)deleteCancelText;
+- (void)scrollToTop:(BOOL)animated;
 
 @end
 

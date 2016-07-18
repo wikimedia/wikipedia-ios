@@ -689,17 +689,17 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         switch (tabBarController.selectedIndex) {
             case WMFAppTabTypeExplore: {
                 WMFExploreViewController* exploreViewController = (WMFExploreViewController*)[self exploreViewController];
-                [exploreViewController.tableView setContentOffset:CGPointZero animated:YES];
+                [exploreViewController scrollToTop:YES];
             }
                 break;
             case WMFAppTabTypeSaved: {
                 WMFArticleListTableViewController *savedArticlesViewController = (WMFArticleListTableViewController *)[self savedArticlesViewController];
-                [savedArticlesViewController.tableView setContentOffset:CGPointZero animated:YES];
+                [savedArticlesViewController scrollToTop:YES];
             }
                 break;
             case WMFAppTabTypeRecent: {
                 WMFArticleListTableViewController *historyArticlesViewController = (WMFArticleListTableViewController *)[self recentArticlesViewController];
-                [historyArticlesViewController.tableView setContentOffset:CGPointZero animated:YES];
+                [historyArticlesViewController scrollToTop:YES];
             }
                 break;
         }
