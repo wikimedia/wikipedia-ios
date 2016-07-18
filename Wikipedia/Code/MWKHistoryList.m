@@ -19,14 +19,12 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
 #pragma mark - Setup
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
-    NSArray* entries = [[[dataStore historyListData] bk_map:^id (id obj) {
+    NSArray* entries = [[dataStore historyListData] wmf_mapAndRejectNil:^id (id obj) {
         @try {
             return [[MWKHistoryEntry alloc] initWithDict:obj];
         } @catch (NSException* exception) {
             return nil;
         }
-    }] bk_reject:^BOOL (id obj) {
-        return [obj isEqual:[NSNull null]];
     }];
 
     self = [super initWithEntries:entries];

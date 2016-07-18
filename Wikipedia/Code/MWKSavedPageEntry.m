@@ -35,15 +35,18 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
 
 - (instancetype)initWithDict:(NSDictionary*)dict {
     NSString* urlString = dict[@"url"];
+    NSString* domain    = dict[@"domain"];
+    NSString* language  = dict[@"language"];
+    NSString* title     = dict[@"title"];
+
     NSURL* url;
 
     if ([urlString length]) {
         url = [NSURL URLWithString:urlString];
-    } else {
-        NSString* domain   = dict[@"domain"];
-        NSString* language = dict[@"language"];
-        NSString* title    = dict[@"title"];
+    } else if (domain && language && title) {
         url = [NSURL wmf_URLWithDomain:domain language:language title:title fragment:nil];
+    } else {
+        return nil;
     }
 
     self = [self initWithURL:url];

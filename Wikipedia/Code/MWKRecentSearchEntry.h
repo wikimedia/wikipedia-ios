@@ -1,10 +1,3 @@
-//
-//  MWKRecentSearchEntry.h
-//  MediaWikiKit
-//
-//  Created by Brion on 11/18/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
 
 #import "MWKSiteDataObject.h"
 #import "MWKList.h"
