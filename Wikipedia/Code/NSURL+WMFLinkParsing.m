@@ -207,7 +207,7 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 }
 
 - (NSString*)wmf_title {
-    if ([self wmf_isWikiResource]) {
+    if (![self wmf_isWikiResource]) {
         return nil;
     }
     NSString* title = [[self.path wmf_pathWithoutWikiPrefix] wmf_normalizedPageTitle];
@@ -218,7 +218,7 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 }
 
 - (NSString*)wmf_titleWithUnderScores {
-    if ([self wmf_isWikiResource]) {
+    if (![self wmf_isWikiResource]) {
         return nil;
     }
     NSString* title = [[self.path wmf_pathWithoutWikiPrefix] wmf_denormalizedPageTitle];
