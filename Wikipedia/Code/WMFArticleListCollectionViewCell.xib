@@ -5,15 +5,15 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
-        <collectionViewCell contentMode="scaleToFill" id="KGk-i7-Jjw" customClass="MWFArticleListCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="458" height="61"/>
+        <collectionViewCell contentMode="scaleToFill" id="KGk-i7-Jjw" customClass="WMFArticleListCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="458" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="458" height="61"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="458" height="60"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="image-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="RMa-GF-kKq">
-                        <rect key="frame" x="15" y="11" width="40" height="40"/>
+                        <rect key="frame" x="15" y="10" width="40" height="40"/>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="iIg-cq-5h8"/>
@@ -26,10 +26,10 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6JK-c4-FJw" userLabel="Clipping Container View">
-                        <rect key="frame" x="55" y="0.0" width="403" height="61"/>
+                        <rect key="frame" x="55" y="0.0" width="403" height="60"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="999" verticalCompressionResistancePriority="751" text="Title" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Mxi-So-IXe">
-                                <rect key="frame" x="15" y="11" width="373" height="20"/>
+                                <rect key="frame" x="15" y="10" width="373" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -40,7 +40,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EoE-JS-HmV">
-                                <rect key="frame" x="15" y="34" width="373" height="17"/>
+                                <rect key="frame" x="15" y="33" width="373" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="500" constant="15" id="xb2-rO-Dug"/>
                                 </constraints>
@@ -73,17 +73,17 @@
                         </variation>
                     </view>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="RMa-GF-kKq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="0FL-Bb-pTQ"/>
-                    <constraint firstItem="6JK-c4-FJw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Cre-Ui-7AM"/>
-                    <constraint firstAttribute="bottom" secondItem="RMa-GF-kKq" secondAttribute="bottom" constant="10" id="KBp-WI-wU6"/>
-                    <constraint firstItem="6JK-c4-FJw" firstAttribute="leading" secondItem="RMa-GF-kKq" secondAttribute="trailing" id="W1o-QG-sBU"/>
-                    <constraint firstItem="RMa-GF-kKq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Zfh-bn-2Mj"/>
-                    <constraint firstAttribute="trailing" secondItem="6JK-c4-FJw" secondAttribute="trailing" id="bMC-sz-hcv"/>
-                    <constraint firstAttribute="bottom" secondItem="6JK-c4-FJw" secondAttribute="bottom" id="biR-ko-NB1"/>
-                    <constraint firstItem="RMa-GF-kKq" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="nl1-L3-ph3"/>
-                </constraints>
             </view>
+            <constraints>
+                <constraint firstItem="RMa-GF-kKq" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="10" id="0FL-Bb-pTQ"/>
+                <constraint firstItem="6JK-c4-FJw" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" id="Cre-Ui-7AM"/>
+                <constraint firstAttribute="bottom" secondItem="RMa-GF-kKq" secondAttribute="bottom" constant="10" id="KBp-WI-wU6"/>
+                <constraint firstItem="6JK-c4-FJw" firstAttribute="leading" secondItem="RMa-GF-kKq" secondAttribute="trailing" id="W1o-QG-sBU"/>
+                <constraint firstItem="RMa-GF-kKq" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="15" id="Zfh-bn-2Mj"/>
+                <constraint firstAttribute="trailing" secondItem="6JK-c4-FJw" secondAttribute="trailing" id="bMC-sz-hcv"/>
+                <constraint firstAttribute="bottom" secondItem="6JK-c4-FJw" secondAttribute="bottom" id="biR-ko-NB1"/>
+                <constraint firstItem="RMa-GF-kKq" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" id="nl1-L3-ph3"/>
+            </constraints>
             <size key="customSize" width="458" height="61"/>
             <connections>
                 <outlet property="articleImageView" destination="RMa-GF-kKq" id="JqO-Jp-ykw"/>
