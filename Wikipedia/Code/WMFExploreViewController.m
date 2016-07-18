@@ -285,7 +285,9 @@ NS_ASSUME_NONNULL_BEGIN
     } forControlEvents:UIControlEventValueChanged];
 
     [self resetRefreshControlWithCompletion:NULL];
-
+    
+    [self updateEstimatedItemSizeForViewSize:self.collectionView.bounds.size];
+    
     self.collectionView.scrollsToTop = YES;
     self.collectionView.dataSource   = nil;
     self.collectionView.delegate     = nil;
@@ -360,6 +362,16 @@ NS_ASSUME_NONNULL_BEGIN
         cell.selected = NO;
     }
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleURL:nil];
+}
+
+- (void)updateEstimatedItemSizeForViewSize:(CGSize)size {
+    UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
+    flowLayout.estimatedItemSize = CGSizeMake(size.width, 50);
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [self updateEstimatedItemSizeForViewSize:size];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
