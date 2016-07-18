@@ -2,6 +2,7 @@
 
 #import "WMFRelatedSectionBlackList.h"
 #import "MWKList+Subclass.h"
+#import "MWKTitle.h"
 
 static NSString* const WMFRelatedSectionBlackListFileName      = @"WMFRelatedSectionBlackList";
 static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
@@ -31,6 +32,21 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
     });
 
     return blackList;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        if([[self.entries firstObject] isKindOfClass:[MWKTitle class]]){
+            NSArray* fixed = [self.entries bk_map:^id (NSURL* obj) {
+                return [[obj wmf_desktopURL] mutableCopy];
+            }];
+            [self removeAllEntries];
+            [self importEntries:fixed];
+        }
+    }
+    return self;
 }
 
 + (NSUInteger)modelVersion {
