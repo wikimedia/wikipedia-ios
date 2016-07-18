@@ -32,7 +32,7 @@
         }
         context.invalidateFlowLayoutDelegateMetrics = NO;
         context.invalidateFlowLayoutAttributes = YES;
-        self.estimatedItemSize = CGSizeMake(self.previousBoundsSize.width, 150);
+        self.estimatedItemSize = CGSizeMake(self.previousBoundsSize.width, 50);
         [super invalidateLayoutWithContext:context];
     } else {
         [super invalidateLayoutWithContext:context];
