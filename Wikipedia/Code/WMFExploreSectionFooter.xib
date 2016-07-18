@@ -15,13 +15,13 @@
                     <rect key="frame" x="0.0" y="1" width="350" height="50"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="More…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CED-ZN-Pd2">
-                            <rect key="frame" x="14" y="16" width="300" height="21"/>
+                            <rect key="frame" x="14" y="16" width="300" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.56862745100000001" green="0.59215686270000001" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="chevron-right" translatesAutoresizingMaskIntoConstraints="NO" id="t3v-Hx-SzU">
-                            <rect key="frame" x="322" y="20" width="12" height="14"/>
+                            <rect key="frame" x="322" y="18" width="12" height="14"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="14" id="5DO-eb-FjX"/>
                                 <constraint firstAttribute="width" constant="12" id="dSt-Kj-LNu"/>
@@ -33,8 +33,10 @@
                         <constraint firstItem="CED-ZN-Pd2" firstAttribute="leading" secondItem="hIg-YX-yCN" secondAttribute="leading" constant="14" id="4rA-71-HUd"/>
                         <constraint firstAttribute="trailing" secondItem="t3v-Hx-SzU" secondAttribute="trailing" constant="16" id="AD6-HR-9wr"/>
                         <constraint firstItem="t3v-Hx-SzU" firstAttribute="leading" secondItem="CED-ZN-Pd2" secondAttribute="trailing" constant="8" id="As2-Qf-2rf"/>
+                        <constraint firstItem="CED-ZN-Pd2" firstAttribute="centerY" secondItem="hIg-YX-yCN" secondAttribute="centerY" id="Mfs-3F-n2G"/>
                         <constraint firstItem="t3v-Hx-SzU" firstAttribute="centerY" secondItem="CED-ZN-Pd2" secondAttribute="centerY" id="Ocx-y5-eLV"/>
                         <constraint firstAttribute="bottom" secondItem="CED-ZN-Pd2" secondAttribute="bottom" priority="999" constant="13" id="Y2J-jz-vqq"/>
+                        <constraint firstItem="t3v-Hx-SzU" firstAttribute="centerY" secondItem="hIg-YX-yCN" secondAttribute="centerY" id="aR9-v0-9YD"/>
                         <constraint firstItem="CED-ZN-Pd2" firstAttribute="top" secondItem="hIg-YX-yCN" secondAttribute="top" priority="999" constant="16" id="rfs-DV-bTi"/>
                     </constraints>
                 </view>
