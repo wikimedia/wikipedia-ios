@@ -11,7 +11,7 @@
         <collectionViewCell contentMode="scaleToFill" id="KGk-i7-Jjw" customClass="WMFEmptySectionCollectionViewCell">
             <rect key="frame" x="0.0" y="0.0" width="260" height="260"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="H2p-sc-9uM">
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="260" height="260"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -22,28 +22,23 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHo-Uq-Vpu">
-                        <rect key="frame" x="8" y="129" width="244" height="30"/>
+                        <rect key="frame" x="8" y="129" width="244" height="31"/>
                         <state key="normal" title="Check Again">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="ENx-R8-yeN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-20" id="8iT-ls-nDv"/>
-                    <constraint firstItem="ENx-R8-yeN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="B52-dT-OQo"/>
-                    <constraint firstAttribute="trailing" secondItem="PHo-Uq-Vpu" secondAttribute="trailing" constant="8" id="Qr9-Fq-sC6"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="PHo-Uq-Vpu" secondAttribute="bottom" constant="92" id="V4L-yV-viZ"/>
-                    <constraint firstItem="ENx-R8-yeN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="92" id="VZt-II-rYW"/>
-                    <constraint firstAttribute="trailing" secondItem="ENx-R8-yeN" secondAttribute="trailing" constant="8" id="XhB-53-0DN"/>
-                    <constraint firstItem="PHo-Uq-Vpu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="md4-BJ-7ft"/>
-                    <constraint firstItem="PHo-Uq-Vpu" firstAttribute="top" secondItem="ENx-R8-yeN" secondAttribute="bottom" constant="8" symbolic="YES" id="zhE-Xn-HV5"/>
-                </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="8iT-ls-nDv"/>
-                    </mask>
-                </variation>
             </view>
+            <constraints>
+                <constraint firstItem="ENx-R8-yeN" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" constant="-20" id="8iT-ls-nDv"/>
+                <constraint firstItem="ENx-R8-yeN" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="8" id="B52-dT-OQo"/>
+                <constraint firstAttribute="trailing" secondItem="PHo-Uq-Vpu" secondAttribute="trailing" constant="8" id="Qr9-Fq-sC6"/>
+                <constraint firstAttribute="bottomMargin" secondItem="PHo-Uq-Vpu" secondAttribute="bottom" constant="92" id="V4L-yV-viZ"/>
+                <constraint firstItem="ENx-R8-yeN" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="topMargin" constant="92" id="VZt-II-rYW"/>
+                <constraint firstAttribute="trailing" secondItem="ENx-R8-yeN" secondAttribute="trailing" constant="8" id="XhB-53-0DN"/>
+                <constraint firstItem="PHo-Uq-Vpu" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="8" id="md4-BJ-7ft"/>
+                <constraint firstItem="PHo-Uq-Vpu" firstAttribute="top" secondItem="ENx-R8-yeN" secondAttribute="bottom" constant="8" symbolic="YES" id="zhE-Xn-HV5"/>
+            </constraints>
             <connections>
                 <outlet property="emptyTextLabel" destination="ENx-R8-yeN" id="YUy-6L-8F6"/>
                 <outlet property="reloadButton" destination="PHo-Uq-Vpu" id="uAj-Vz-oCH"/>

@@ -10,21 +10,21 @@
         <collectionViewCell contentMode="scaleToFill" id="KGk-i7-Jjw" customClass="WMFNearbyPlaceholderCollectionViewCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="121"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="H2p-sc-9uM">
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="375" height="121"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nearby-card-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="GlP-Y9-NqN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="121"/>
                     </imageView>
                 </subviews>
-                <constraints>
-                    <constraint firstAttribute="bottom" secondItem="GlP-Y9-NqN" secondAttribute="bottom" id="4PE-xw-HRy"/>
-                    <constraint firstAttribute="trailing" secondItem="GlP-Y9-NqN" secondAttribute="trailing" id="Nyq-bL-Wdv"/>
-                    <constraint firstItem="GlP-Y9-NqN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ac9-U3-axe"/>
-                    <constraint firstItem="GlP-Y9-NqN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="j4u-z4-tf8"/>
-                </constraints>
             </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="GlP-Y9-NqN" secondAttribute="bottom" id="4PE-xw-HRy"/>
+                <constraint firstAttribute="trailing" secondItem="GlP-Y9-NqN" secondAttribute="trailing" id="Nyq-bL-Wdv"/>
+                <constraint firstItem="GlP-Y9-NqN" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" id="ac9-U3-axe"/>
+                <constraint firstItem="GlP-Y9-NqN" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" id="j4u-z4-tf8"/>
+            </constraints>
             <connections>
                 <outlet property="placeholderImageView" destination="GlP-Y9-NqN" id="o1j-dv-z2F"/>
             </connections>

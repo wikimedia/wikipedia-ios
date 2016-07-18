@@ -10,7 +10,7 @@
         <collectionViewCell contentMode="scaleToFill" id="KGk-i7-Jjw" customClass="WMFMainPagePlaceholderCollectionViewCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="H2p-sc-9uM">
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -18,13 +18,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
                     </imageView>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="AYL-oy-oqK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Gaf-jn-Vbd"/>
-                    <constraint firstItem="AYL-oy-oqK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="SlK-dS-gmp"/>
-                    <constraint firstAttribute="bottom" secondItem="AYL-oy-oqK" secondAttribute="bottom" id="n2Y-sf-mQd"/>
-                    <constraint firstAttribute="trailing" secondItem="AYL-oy-oqK" secondAttribute="trailing" id="soD-AY-40I"/>
-                </constraints>
             </view>
+            <constraints>
+                <constraint firstItem="AYL-oy-oqK" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" id="Gaf-jn-Vbd"/>
+                <constraint firstItem="AYL-oy-oqK" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" id="SlK-dS-gmp"/>
+                <constraint firstAttribute="bottom" secondItem="AYL-oy-oqK" secondAttribute="bottom" id="n2Y-sf-mQd"/>
+                <constraint firstAttribute="trailing" secondItem="AYL-oy-oqK" secondAttribute="trailing" id="soD-AY-40I"/>
+            </constraints>
             <connections>
                 <outlet property="placeholderImageView" destination="AYL-oy-oqK" id="OU7-R4-gcl"/>
             </connections>

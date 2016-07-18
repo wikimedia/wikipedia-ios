@@ -10,7 +10,7 @@
         <collectionViewCell contentMode="scaleToFill" id="KGk-i7-Jjw" customClass="WMFNearbyArticleCollectionViewCell">
             <rect key="frame" x="0.0" y="0.0" width="392" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="H2p-sc-9uM">
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="392" height="120"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -92,20 +92,20 @@
                         </variation>
                     </view>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="7Gw-jF-gnd" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="6I9-YY-eaY"/>
-                    <constraint firstAttribute="bottom" secondItem="Lbm-mF-DF1" secondAttribute="bottom" priority="250" constant="8" id="M6S-Jr-2Z6"/>
-                    <constraint firstItem="7Gw-jF-gnd" firstAttribute="leading" secondItem="Lbm-mF-DF1" secondAttribute="trailing" constant="8" id="OIh-aO-mAe"/>
-                    <constraint firstItem="Lbm-mF-DF1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Oww-42-Yt0"/>
-                    <constraint firstItem="Lbm-mF-DF1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" priority="250" constant="8" id="ZTf-zR-21k"/>
-                    <constraint firstItem="NGT-X1-Lla" firstAttribute="bottom" secondItem="Lbm-mF-DF1" secondAttribute="bottom" constant="-16" id="eCU-cY-j5D"/>
-                    <constraint firstItem="NGT-X1-Lla" firstAttribute="leading" secondItem="Lbm-mF-DF1" secondAttribute="leading" constant="16" id="ekO-YM-ytr"/>
-                    <constraint firstItem="NGT-X1-Lla" firstAttribute="top" secondItem="Lbm-mF-DF1" secondAttribute="top" constant="16" id="oe0-HM-5HJ"/>
-                    <constraint firstItem="Lbm-mF-DF1" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="tbq-3w-jDJ"/>
-                    <constraint firstAttribute="trailing" secondItem="7Gw-jF-gnd" secondAttribute="trailing" constant="8" id="v9J-wi-Izx"/>
-                    <constraint firstItem="NGT-X1-Lla" firstAttribute="trailing" secondItem="Lbm-mF-DF1" secondAttribute="trailing" constant="-16" id="z5Z-Op-SwL"/>
-                </constraints>
             </view>
+            <constraints>
+                <constraint firstItem="7Gw-jF-gnd" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" id="6I9-YY-eaY"/>
+                <constraint firstAttribute="bottom" secondItem="Lbm-mF-DF1" secondAttribute="bottom" priority="250" constant="8" id="M6S-Jr-2Z6"/>
+                <constraint firstItem="7Gw-jF-gnd" firstAttribute="leading" secondItem="Lbm-mF-DF1" secondAttribute="trailing" constant="8" id="OIh-aO-mAe"/>
+                <constraint firstItem="Lbm-mF-DF1" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="8" id="Oww-42-Yt0"/>
+                <constraint firstItem="Lbm-mF-DF1" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" priority="250" constant="8" id="ZTf-zR-21k"/>
+                <constraint firstItem="NGT-X1-Lla" firstAttribute="bottom" secondItem="Lbm-mF-DF1" secondAttribute="bottom" constant="-16" id="eCU-cY-j5D"/>
+                <constraint firstItem="NGT-X1-Lla" firstAttribute="leading" secondItem="Lbm-mF-DF1" secondAttribute="leading" constant="16" id="ekO-YM-ytr"/>
+                <constraint firstItem="NGT-X1-Lla" firstAttribute="top" secondItem="Lbm-mF-DF1" secondAttribute="top" constant="16" id="oe0-HM-5HJ"/>
+                <constraint firstItem="Lbm-mF-DF1" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" id="tbq-3w-jDJ"/>
+                <constraint firstAttribute="trailing" secondItem="7Gw-jF-gnd" secondAttribute="trailing" constant="8" id="v9J-wi-Izx"/>
+                <constraint firstItem="NGT-X1-Lla" firstAttribute="trailing" secondItem="Lbm-mF-DF1" secondAttribute="trailing" constant="-16" id="z5Z-Op-SwL"/>
+            </constraints>
             <connections>
                 <outlet property="articleImageView" destination="NGT-X1-Lla" id="5Rw-Bq-NHf"/>
                 <outlet property="compassView" destination="Lbm-mF-DF1" id="5Wo-tr-G5C"/>
