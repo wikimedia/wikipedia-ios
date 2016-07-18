@@ -11,12 +11,12 @@
         <collectionViewCell contentMode="scaleToFill" id="KGk-i7-Jjw" customClass="WMFArticlePlaceholderCollectionViewCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="421"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="H2p-sc-9uM">
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="375" height="421"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="article-card-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="RoZ-Ue-BfV">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="420"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="421"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="420" id="cRc-7K-8PK"/>
                         </constraints>
@@ -27,7 +27,7 @@
                         </variation>
                     </imageView>
                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pC6-LC-20b" userLabel="Save Button" customClass="WMFTitleInsetRespectingButton">
-                        <rect key="frame" x="13" y="372" width="341" height="40"/>
+                        <rect key="frame" x="13" y="373" width="341" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" priority="999" constant="40" id="AEV-vl-3YX"/>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="nQE-Ht-SAz"/>
@@ -45,16 +45,16 @@
                         </variation>
                     </button>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="pC6-LC-20b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="1vd-Gr-Mmq"/>
-                    <constraint firstItem="RoZ-Ue-BfV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="8hK-JT-Orq"/>
-                    <constraint firstAttribute="trailing" secondItem="RoZ-Ue-BfV" secondAttribute="trailing" id="FFH-2w-PSs"/>
-                    <constraint firstItem="RoZ-Ue-BfV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="FbC-nC-GOz"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="pC6-LC-20b" secondAttribute="trailing" constant="13" id="dM5-an-jcD"/>
-                    <constraint firstAttribute="bottom" secondItem="RoZ-Ue-BfV" secondAttribute="bottom" id="sCD-Go-kVG"/>
-                    <constraint firstAttribute="bottom" secondItem="pC6-LC-20b" secondAttribute="bottom" constant="8" id="v65-6H-bIH"/>
-                </constraints>
             </view>
+            <constraints>
+                <constraint firstItem="pC6-LC-20b" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="13" id="1vd-Gr-Mmq"/>
+                <constraint firstItem="RoZ-Ue-BfV" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" id="8hK-JT-Orq"/>
+                <constraint firstAttribute="trailing" secondItem="RoZ-Ue-BfV" secondAttribute="trailing" id="FFH-2w-PSs"/>
+                <constraint firstItem="RoZ-Ue-BfV" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" id="FbC-nC-GOz"/>
+                <constraint firstAttribute="trailingMargin" secondItem="pC6-LC-20b" secondAttribute="trailing" constant="13" id="dM5-an-jcD"/>
+                <constraint firstAttribute="bottom" secondItem="RoZ-Ue-BfV" secondAttribute="bottom" id="sCD-Go-kVG"/>
+                <constraint firstAttribute="bottom" secondItem="pC6-LC-20b" secondAttribute="bottom" constant="8" id="v65-6H-bIH"/>
+            </constraints>
             <connections>
                 <outlet property="placeholderImageView" destination="RoZ-Ue-BfV" id="lWS-2z-6Vu"/>
                 <outlet property="placeholderSaveButton" destination="pC6-LC-20b" id="0eV-Y1-lCy"/>
