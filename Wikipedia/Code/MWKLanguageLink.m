@@ -63,7 +63,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink :)
 #pragma mark - Computed Properties
 
 - (NSURL*)siteURL {
-    return [NSURL wmf_URLWithLanguage:self.languageCode];
+    return [NSURL wmf_URLWithDefaultSiteAndlanguage:self.languageCode];
 }
 
 - (NSURL*)articleURL {

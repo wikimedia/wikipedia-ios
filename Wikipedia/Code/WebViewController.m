@@ -155,7 +155,7 @@ NSString* const WMFCCBySALicenseURL =
         [self referencesHide];
     }
     
-    if ([href wmf_isInternalLink]) {
+    if ([href wmf_isWikiResource]) {
 #warning Fix internal links by properly parsing the language code here
         NSURL* url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
         [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];

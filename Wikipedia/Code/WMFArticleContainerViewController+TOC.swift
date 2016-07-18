@@ -54,7 +54,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
 
     public func tableOfContentsArticleLanguageURL() -> NSURL {
         if(self.articleURL.wmf_isNonStandardURL){
-            return NSURL.wmf_URLWithLanguage("en")
+            return NSURL.wmf_URLWithDefaultSiteAndlanguage("en")
         }else{
             return self.articleURL.wmf_domainURL()
         }

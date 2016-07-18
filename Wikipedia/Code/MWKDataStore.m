@@ -429,7 +429,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
         //HAX: We make assumptions about the length of paths below.
         //This is due to our title handling assumptions
-#warning We should remove this when we remove MWKTitle
+#warning We should remove this when we move to a DB
         if ([components count] < 5) {
             continue;
         }

@@ -17,7 +17,7 @@
 
 - (void)setUp {
     [super setUp];
-    NSURL* dummyURL = [[NSURL wmf_URLWithLanguage:@"en"] wmf_URLWithTitle:@"Foo"];
+    NSURL* dummyURL = [[NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"] wmf_URLWithTitle:@"Foo"];
     self.dummyArticle     = [[MWKArticle alloc] initWithURL:dummyURL dataStore:nil];
     self.sectionIdCounter = 0;
 }

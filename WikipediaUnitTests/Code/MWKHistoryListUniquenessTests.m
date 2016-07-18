@@ -31,8 +31,8 @@
 - (void)setUp {
     [super setUp];
 
-    siteURLEn = [NSURL wmf_URLWithLanguage:@"en"];
-    siteURLFr = [NSURL wmf_URLWithLanguage:@"fr"];
+    siteURLEn = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
+    siteURLFr = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"fr"];
 
     titleURLSFEn = [siteURLEn wmf_URLWithTitle:@"San Francisco"];
     titleURLLAEn = [siteURLEn wmf_URLWithTitle:@"Los Angeles"];

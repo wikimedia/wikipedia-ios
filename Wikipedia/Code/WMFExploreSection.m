@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
         switch (self.type) {
             case WMFExploreSectionTypeFeaturedArticle: {
                 if (self.domainURL == nil) {
-                    self.domainURL = [NSURL wmf_URLWithLanguage:@"en"];
+                    self.domainURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
                 }
                 break;
             }

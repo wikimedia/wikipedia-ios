@@ -145,7 +145,7 @@ extension NSUserDefaults {
         if let url = self.URLForKey(WMFSearchURLKey) {
             return url
         }else if let language = self.objectForKey(WMFSearchLanguageKey) as? String {
-            let url = NSURL.wmf_URLWithLanguage(language)
+            let url = NSURL.wmf_URLWithDefaultSiteAndlanguage(language)
             self.wmf_setCurrentSearchLanguageDomain(url)
             return url
         }else{

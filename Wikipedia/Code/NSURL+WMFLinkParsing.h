@@ -1,10 +1,3 @@
-//
-//  NSURL+WMFLinkParsing.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 8/5/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 
@@ -37,8 +30,7 @@ extern NSString* const WMFDefaultSiteDomain;
  *
  * @return A new URL with the default domain and language.
  **/
-#warning rename to wmf_URLWithDefaultSiteAndlanguage:
-+ (NSURL*)wmf_URLWithLanguage:(nullable NSString*)language;
++ (NSURL*)wmf_URLWithDefaultSiteAndlanguage:(nullable NSString*)language;
 
 
 /// @return A URL with the default domain and the language code returned by @c locale.
@@ -90,7 +82,7 @@ extern NSString* const WMFDefaultSiteDomain;
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the `internalLink`.
  **/
-#warning this method should be folded into the above method and should handle the presence of /wiki/
+#warning this method should be generecized to "path" and handle the presence of /wiki/
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedInternalLink:(NSString*)internalLink;
 
 
@@ -114,7 +106,6 @@ extern NSString* const WMFDefaultSiteDomain;
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  **/
-#warning this method should be folded into the above method and should handle detection of escapedness
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL unescapedDenormalizedTitleAndFragment:(NSString*)escapedDenormalizedTitleAndFragment;
 
 /**
@@ -175,15 +166,18 @@ extern NSString* const WMFDefaultSiteDomain;
  */
 - (NSURL*)wmf_desktopAPIURL;
 
-
-#warning rename to wmf_isWikiURL
-@property (nonatomic, readonly) BOOL wmf_isInternalLink;
+/**
+ *  Return YES is a URL is a link to a Wiki resource
+ */
+@property (nonatomic, readonly) BOOL wmf_isWikiResource;
 
 @property (nonatomic, readonly) BOOL wmf_isCitation;
 
 @property (nonatomic, readonly) BOOL wmf_isMobile;
 
-@property (nonatomic, copy, readonly, nullable) NSString* wmf_internalLinkPath;
+@property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
+
+@property (nonatomic, copy, readonly, nullable) NSString* wmf_pathWithoutWikiPrefix;
 
 @property (nonatomic, copy, readonly, nullable) NSString* wmf_domain;
 
@@ -196,8 +190,6 @@ extern NSString* const WMFDefaultSiteDomain;
 @property (nonatomic, copy, readonly) NSURL* wmf_mobileURL;
 
 @property (nonatomic, copy, readonly) NSURL* wmf_desktopURL;
-
-@property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
 
 @property (nonatomic, readonly) UIUserInterfaceLayoutDirection wmf_layoutDirection;
 @property (nonatomic, readonly) NSTextAlignment wmf_textAlignment;

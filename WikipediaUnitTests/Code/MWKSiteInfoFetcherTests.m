@@ -35,12 +35,12 @@
 }
 
 - (void)testENWikiFixture {
-    [self runSuccessfulCallbackTestWithFixture:@"ENWikiSiteInfo" siteURL:[NSURL wmf_URLWithLanguage:@"en"]];
+    [self runSuccessfulCallbackTestWithFixture:@"ENWikiSiteInfo" siteURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"]];
 
 }
 
 - (void)testNOWikiFixture {
-    [self runSuccessfulCallbackTestWithFixture:@"NOWikiSiteInfo" siteURL:[NSURL wmf_URLWithLanguage:@"no"]];
+    [self runSuccessfulCallbackTestWithFixture:@"NOWikiSiteInfo" siteURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:@"no"]];
 }
 
 - (void)runSuccessfulCallbackTestWithFixture:(NSString*)fixture siteURL:(NSURL*)testSiteURL {
@@ -68,7 +68,7 @@
 }
 
 - (void)testDesktopFallback {
-    NSURL* testSiteURL            = [NSURL wmf_URLWithLanguage:@"en"];
+    NSURL* testSiteURL            = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
     NSString* json               = [[self wmf_bundle] wmf_stringFromContentsOfFile:@"ENWikiSiteInfo" ofType:@"json"];
     NSDictionary* jsonDictionary = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"ENWikiSiteInfo"];
 

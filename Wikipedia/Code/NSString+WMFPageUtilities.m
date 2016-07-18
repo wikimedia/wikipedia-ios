@@ -16,7 +16,7 @@ NSString* const WMFCitationFragmentSubstring = @"cite_note";
 
 @implementation NSString (WMFPageUtilities)
 
-- (BOOL)wmf_isInternalLink {
+- (BOOL)wmf_isWikiResource {
     return [self containsString:WMFInternalLinkPathPrefix];
 }
 
@@ -24,7 +24,7 @@ NSString* const WMFCitationFragmentSubstring = @"cite_note";
     return [self containsString:WMFCitationFragmentSubstring];
 }
 
-- (NSString*)wmf_internalLinkPath {
+- (NSString*)wmf_pathWithoutWikiPrefix {
     NSRange internalLinkRange = [self rangeOfString:WMFInternalLinkPathPrefix];
     NSString* path            = internalLinkRange.location == NSNotFound ? self : [self wmf_safeSubstringFromIndex:WMFRangeGetMaxIndex(internalLinkRange)];
     return [path precomposedStringWithCanonicalMapping];

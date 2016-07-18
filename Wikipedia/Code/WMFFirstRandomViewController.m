@@ -28,7 +28,7 @@
 
 
 - (instancetype)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil {
-    return [self initWithSiteURL:[NSURL wmf_URLWithLanguage:@"en"] dataStore:[SessionSingleton sharedInstance].dataStore];
+    return [self initWithSiteURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"] dataStore:[SessionSingleton sharedInstance].dataStore];
 }
 
 - (instancetype)initWithCoder:(NSCoder*)aDecoder {

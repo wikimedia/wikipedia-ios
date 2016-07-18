@@ -43,7 +43,7 @@ describe(@"initial state", ^{
 
     context(@"en wiki", ^{
         beforeEach(^{
-            siteURL = [NSURL wmf_URLWithLanguage:@"en"];
+            siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
         });
 
         context(@"location allowed", ^{
@@ -142,7 +142,7 @@ describe(@"initial state", ^{
 
     context(@"es wiki", ^{
         beforeEach(^{
-            siteURL = [NSURL wmf_URLWithLanguage:@"es"];
+            siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"es"];
         });
 
         context(@"clean install, with location", ^{
@@ -192,7 +192,7 @@ describe(@"initial state", ^{
 describe(@"persistence", ^{
     beforeEach(^{
         [mockLocationManager setLocation:[[CLLocation alloc] initWithLatitude:0 longitude:0]];
-        setupSchemaWithSiteURL([NSURL wmf_URLWithLanguage:@"en"]);
+        setupSchemaWithSiteURL([NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"]);
     });
 
     it(@"should be equal to a copy read from data serialized to disk", ^{

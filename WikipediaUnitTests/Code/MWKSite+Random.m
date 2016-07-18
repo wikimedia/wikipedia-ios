@@ -8,7 +8,7 @@
 + (instancetype)wmf_randomSiteURL {
     NSArray<NSString*>* languageCodes = [NSLocale ISOLanguageCodes];
     NSUInteger randomIndex            = arc4random() % languageCodes.count;
-    return [NSURL wmf_URLWithLanguage:languageCodes[randomIndex]];
+    return [NSURL wmf_URLWithDefaultSiteAndlanguage:languageCodes[randomIndex]];
 }
 
 + (instancetype)wmf_randomArticleURL {

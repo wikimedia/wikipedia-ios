@@ -28,8 +28,8 @@
 
     self.dataStore = [MWKDataStore temporaryDataStore];
 
-    self.siteEn = [NSURL wmf_URLWithLanguage:@"en"];
-    self.siteFr = [NSURL wmf_URLWithLanguage:@"fr"];
+    self.siteEn = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
+    self.siteFr = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"fr"];
 
     self.titleSFEn = [self.siteEn wmf_URLWithTitle:@"San Francisco"];
     self.titleSFFr = [self.siteFr wmf_URLWithTitle:@"San Francisco"];

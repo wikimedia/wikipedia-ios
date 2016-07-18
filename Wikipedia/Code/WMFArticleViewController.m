@@ -1138,7 +1138,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!url || [url.absoluteString isEqualToString:@""]) {
         return nil;
     }
-    if (![url wmf_isInternalLink]) {
+    if (![url wmf_isWikiResource]) {
         if ([url wmf_isCitation]) {
             return nil;
         }

@@ -17,7 +17,7 @@
 
 - (void)setUp {
     [super setUp];
-    siteURL = [NSURL wmf_URLWithLanguage:@"en"];
+    siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
 }
 
 #pragma clang diagnostic push
@@ -83,7 +83,7 @@
     NSURL* title4 = [siteURL wmf_URLWithTitle:@"Foobie_Foo"];
     XCTAssertNotEqualObjects(title, title4);
 
-    NSURL* site2   = [NSURL wmf_URLWithLanguage:@"fr"];
+    NSURL* site2   = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"fr"];
     NSURL* title5 = [site2 wmf_URLWithTitle:@"Foobie foo"];
     XCTAssertNotEqualObjects(title, title5);
 }

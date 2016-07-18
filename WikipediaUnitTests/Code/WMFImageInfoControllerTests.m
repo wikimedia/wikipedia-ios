@@ -37,7 +37,7 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     self.tmpDataStore    = [MWKDataStore temporaryDataStore];
     self.mockDelegate    = MKTMockProtocol(@protocol(WMFImageInfoControllerDelegate));
 
-    NSURL* testTitle = [[NSURL wmf_URLWithLanguage:@"en"]
+    NSURL* testTitle = [[NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"]
                         wmf_URLWithTitle:@"foo"];
 
     self.testArticle = [[MWKArticle alloc] initWithURL:testTitle dataStore:self.tmpDataStore];

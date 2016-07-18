@@ -107,7 +107,7 @@
 #pragma mark - Last known/loaded
 
 - (NSURL*)lastKnownSite {
-    return [NSURL wmf_URLWithLanguage:[[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleDomain"]];
+    return [NSURL wmf_URLWithDefaultSiteAndlanguage:[[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleDomain"]];
 }
 
 - (NSURL*)lastLoadedArticleURL {
@@ -131,7 +131,7 @@
 #pragma mark - Language URL
 
 - (NSURL*)urlForLanguage:(NSString*)language {
-    return self.fallback ? [[NSURL wmf_URLWithLanguage:language] wmf_desktopAPIURL] : [[NSURL wmf_URLWithLanguage:language] wmf_mobileAPIURL];
+    return self.fallback ? [[NSURL wmf_URLWithDefaultSiteAndlanguage:language] wmf_desktopAPIURL] : [[NSURL wmf_URLWithDefaultSiteAndlanguage:language] wmf_mobileAPIURL];
 }
 
 #pragma mark - Usage Reports
