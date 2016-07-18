@@ -79,7 +79,7 @@ extension NSUserDefaults {
             return;
         }
         
-        self.setObject(url, forKey: WMFOpenArticleTitleKey)
+        self.setURL(url, forKey: WMFOpenArticleTitleKey)
         self.synchronize()
     }
 
@@ -163,7 +163,7 @@ extension NSUserDefaults {
             return;
         }
         
-        self.setObject(url, forKey: WMFSearchLanguageKey)
+        self.setURL(url, forKey: WMFSearchLanguageKey)
         self.synchronize()
     }
 
