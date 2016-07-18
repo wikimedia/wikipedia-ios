@@ -1,10 +1,3 @@
-//
-//  MWKRecentSearchEntry.m
-//  MediaWikiKit
-//
-//  Created by Brion on 11/18/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
 
 #import "MediaWikiKit.h"
 
@@ -17,6 +10,8 @@
 @implementation MWKRecentSearchEntry
 
 - (instancetype)initWithURL:(NSURL*)url searchTerm:(NSString*)searchTerm {
+    NSParameterAssert(url);
+    NSParameterAssert(searchTerm);
     self = [self initWithURL:url];
     if (self) {
         self.searchTerm = searchTerm;
@@ -26,14 +21,17 @@
 
 - (instancetype)initWithDict:(NSDictionary*)dict {
     NSString* urlString = dict[@"url"];
+    NSString* domain    = dict[@"domain"];
+    NSString* language  = dict[@"language"];
+
     NSURL* url;
 
     if ([urlString length]) {
         url = [NSURL URLWithString:urlString];
-    } else {
-        NSString* domain   = dict[@"domain"];
-        NSString* language = dict[@"language"];
+    } else if (domain && language) {
         url = [NSURL wmf_URLWithDomain:domain language:language];
+    }else{
+        return nil;
     }
 
     NSString* searchTerm = dict[@"searchTerm"];

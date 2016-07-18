@@ -5,6 +5,8 @@
 #import "NSDate+Utilities.h"
 #import "WMFLocationManager.h"
 #import "CLLocation+WMFComparison.h"
+#import "MWKTitle.h"
+#import "MWKSite.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,6 +35,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
     if (self) {
+        //Unarchive site and title
+        MWKSite* site      = [self decodeValueForKey:@"site" withCoder:coder modelVersion:0];
+        if(site && self.domainURL == nil){
+            self.domainURL = site.URL;
+        }
+        MWKTitle* title      = [self decodeValueForKey:@"title" withCoder:coder modelVersion:0];
+        if(title && !self.articleURL){
+            self.articleURL = title.mobileURL;
+        }
+        
         //site was added after persistence. We need to provide a default value.
         switch (self.type) {
             case WMFExploreSectionTypeFeaturedArticle: {

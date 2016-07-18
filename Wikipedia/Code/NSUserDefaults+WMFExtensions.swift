@@ -4,8 +4,12 @@ import Foundation
 let WMFAppLaunchDateKey = "WMFAppLaunchDateKey"
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
-let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
+let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
 let WMFAppSiteKey = "Domain"
+let WMFSearchURLKey = "WMFSearchURLKey"
+
+//Legacy Keys
+let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
 
@@ -51,7 +55,18 @@ extension NSUserDefaults {
     }
     
     public func wmf_openArticleURL() -> NSURL? {
-        return self.URLForKey(WMFOpenArticleTitleKey)
+        if let url = self.URLForKey(WMFOpenArticleURLKey) {
+            return url
+        }else if let data = self.dataForKey(WMFOpenArticleTitleKey){
+            if let title = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? MWKTitle {
+                self.wmf_setOpenArticleURL(title.mobileURL)
+                return title.mobileURL
+            }else{
+                return nil
+            }
+        }else{
+            return nil
+        }
     }
     
     public func wmf_setOpenArticleURL(url: NSURL?) {
@@ -127,7 +142,15 @@ extension NSUserDefaults {
     }
     
     public func wmf_currentSearchLanguageDomain() -> NSURL? {
-        return self.URLForKey(WMFSearchLanguageKey)
+        if let url = self.URLForKey(WMFSearchURLKey) {
+            return url
+        }else if let language = self.objectForKey(WMFSearchLanguageKey) as? String {
+            let url = NSURL.wmf_URLWithLanguage(language)
+            self.wmf_setCurrentSearchLanguageDomain(url)
+            return url
+        }else{
+            return nil
+        }
     }
     
     public func wmf_setCurrentSearchLanguageDomain(url: NSURL?) {
@@ -144,8 +167,6 @@ extension NSUserDefaults {
         self.synchronize()
     }
 
-    
-    
     public func wmf_setReadingFontSize(fontSize: NSNumber) {
         self.setObject(fontSize, forKey: "ReadingFontSize")
         self.synchronize()

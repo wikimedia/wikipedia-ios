@@ -24,20 +24,13 @@ NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
     NSArray* entries =
-        [[MWKSavedPageList savedEntryDataFromExportedData:[dataStore savedPageListData]] bk_map:^id (id obj) {
+        [[MWKSavedPageList savedEntryDataFromExportedData:[dataStore savedPageListData]]wmf_mapAndRejectNil:^id (id obj) {
         @try {
             return [[MWKSavedPageEntry alloc] initWithDict:obj];
         } @catch (NSException* e) {
             NSLog(@"Encountered exception while reading entry %@: %@", e, obj);
             return nil;
         }
-    }];
-
-    entries = [entries bk_reject:^BOOL (id obj) {
-        if ([obj isEqual:[NSNull null]]) {
-            return YES;
-        }
-        return NO;
     }];
 
     self = [super initWithEntries:entries];
