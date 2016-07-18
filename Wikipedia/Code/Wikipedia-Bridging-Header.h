@@ -19,6 +19,8 @@
 // Model
 #import "MediaWikiKit.h"
 #import "MWKLanguageLink.h"
+#import "MWKTitle.h"
+#import "MWKSite.h"
 
 // Utilities
 #import "WikipediaAppUtils.h"
