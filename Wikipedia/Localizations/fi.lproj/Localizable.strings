@@ -1,5 +1,6 @@
 // Messages for Finnish (suomi)
 // Exported from translatewiki.net
+// Author: 01miki10
 // Author: Alluk.
 // Author: ElmA
 // Author: Jack Phoenix
@@ -217,7 +218,7 @@
 "about-repositories-app-source-license-mit" = "MIT";
 "about-send-feedback" = "Lähetä palautetta sovelluksesta";
 "about-product-of" = "Tehnyt $1 sinunkaltaistesi vapaaehtoisten avustamana";
-"about-wikimedia-foundation" = "Wikimediasäätiö";
+"about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Tallenna artikkeli";
 "share-menu-page-saved" = "Artikkeli tallennettu";
 "share-menu-page-saved-access" = "Vihje: Päästäksesi tallentamillesi sivuille näpäytä kuvaketta $1 tai paina pitkään kuvaketta $2.";
