@@ -1,7 +1,6 @@
+#import "WMFExploreCollectionViewCell.h"
 
-#import <SSDataSources/SSDataSources.h>
-
-@interface WMFMainPagePlaceholderCollectionViewCell : SSBaseCollectionCell
+@interface WMFMainPagePlaceholderCollectionViewCell : WMFExploreCollectionViewCell
 
 @property (strong, nonatomic) IBOutlet UIImageView* placeholderImageView;
 

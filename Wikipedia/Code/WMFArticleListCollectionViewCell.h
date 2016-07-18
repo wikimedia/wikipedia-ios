@@ -1,9 +1,8 @@
-
-#import <SSDataSources/SSDataSources.h>
+#import "WMFExploreCollectionViewCell.h"
 
 @class MWKImage;
 
-@interface WMFArticleListCollectionViewCell : SSBaseCollectionCell
+@interface WMFArticleListCollectionViewCell : WMFExploreCollectionViewCell
 
 @property (nonatomic, strong) NSString* titleText;
 

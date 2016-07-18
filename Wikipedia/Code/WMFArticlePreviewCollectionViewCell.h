@@ -1,6 +1,5 @@
 #import "WMFArticleListCollectionViewCell.h"
 
-
 @class MWKSavedPageList;
 @class MWKImage;
 @class WMFSaveButtonController;
