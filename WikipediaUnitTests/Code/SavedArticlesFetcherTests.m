@@ -206,7 +206,7 @@
 //
 //    [[stubbedArticle imagesForGallery] bk_each:^(MWKImage* image) {
 //        NSString* canonicalPageTitle = [@"File:" stringByAppendingString:image.canonicalFilename];
-//        [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:canonicalPageTitle fromDomainURL:stubbedArticle.url.wmf_domainURL])
+//        [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:canonicalPageTitle fromSiteURL:stubbedArticle.url.wmf_siteURL])
 //         willReturn:[AnyPromise promiseWithValue:downloadError]];
 //    }];
 //
@@ -240,7 +240,7 @@
 //    [[stubbedArticle imagesForGallery] bk_each:^(MWKImage* image) {
 //        MWKImageInfo* stubbedImageInfo = [self imageInfoStubForImage:image];
 //        [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:stubbedImageInfo.canonicalPageTitle
-//                                                        fromDomainURL:stubbedArticle.url.wmf_domainURL])
+//                                                        fromSiteURL:stubbedArticle.url.wmf_siteURL])
 //         willReturn:[AnyPromise promiseWithValue:stubbedImageInfo]];
 //
 //        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL failure:anything() success:anything()]) willDo:^id (NSInvocation* invocation){
@@ -494,7 +494,7 @@
 //        MWKImageInfo* stubbedImageInfo = [self imageInfoStubForImage:image];
 //
 //        [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:stubbedImageInfo.canonicalPageTitle
-//                                                        fromDomainURL:article.url.wmf_domainURL])
+//                                                        fromSiteURL:article.url.wmf_siteURL])
 //         willReturn:[AnyPromise promiseWithValue:stubbedImageInfo]];
 //
 //        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL failure:anything() success:anything()]) willDo:^id (NSInvocation* invocation){

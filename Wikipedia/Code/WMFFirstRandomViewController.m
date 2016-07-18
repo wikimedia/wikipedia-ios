@@ -49,7 +49,7 @@
     [super viewDidAppear:animated];
     NSURL *siteURL = self.siteURL;
     WMFRandomArticleFetcher *fetcher = [[WMFRandomArticleFetcher alloc] init];
-    [fetcher fetchRandomArticleWithDomainURL:siteURL failure:^(NSError *error) {
+    [fetcher fetchRandomArticleWithSiteURL:siteURL failure:^(NSError *error) {
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     } success:^(MWKSearchResult* result) {
         NSURL* titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];

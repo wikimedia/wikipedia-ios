@@ -10,11 +10,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFNearbyTitleListDataSource : SSArrayDataSource
     <WMFTitleListDataSource>
 
-@property (nonatomic, strong, readonly) NSURL* searchDomainURL;
+@property (nonatomic, strong, readonly) NSURL* searchSiteURL;
 
 @property (nonatomic, strong) CLLocation* location;
 
-- (instancetype)initWithSearchDomainURL:(NSURL*)url NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSearchSiteURL:(NSURL*)url NS_DESIGNATED_INITIALIZER;
 
 @end
 

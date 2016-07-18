@@ -728,7 +728,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     self.captchaViewController.captchaTextBox.text = @"";
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
     [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleDomainURL.wmf_language
+        (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language
                                                         withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
                                                  thenNotifyDelegate:self];
     }];

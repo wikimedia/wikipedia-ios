@@ -5,19 +5,19 @@
 
 @interface WMFSearchDataSource ()
 
-@property (nonatomic, strong, readwrite) NSURL* searchDomainURL;
+@property (nonatomic, strong, readwrite) NSURL* searchSiteURL;
 @property (nonatomic, strong, readwrite) WMFSearchResults* searchResults;
 
 @end
 
 @implementation WMFSearchDataSource
 
-- (nonnull instancetype)initWithSearchDomainURL:(NSURL*)url searchResults:(WMFSearchResults*)searchResults {
+- (nonnull instancetype)initWithSearchSiteURL:(NSURL*)url searchResults:(WMFSearchResults*)searchResults {
     NSParameterAssert(url);
     NSParameterAssert(searchResults);
     self = [super initWithTarget:searchResults keyPath:WMF_SAFE_KEYPATH(searchResults, results)];
     if (self) {
-        self.searchDomainURL = url;
+        self.searchSiteURL = url;
         self.searchResults   = searchResults;
     }
     return self;
@@ -25,7 +25,7 @@
 
 - (NSArray<NSURL*>*)urls {
     return [[self.searchResults results] bk_map:^id (MWKSearchResult* obj) {
-        return [self.searchDomainURL wmf_URLWithTitle:obj.displayTitle];
+        return [self.searchSiteURL wmf_URLWithTitle:obj.displayTitle];
     }];
 }
 
@@ -40,7 +40,7 @@
 
 - (NSURL*)urlForIndexPath:(NSIndexPath*)indexPath {
     MWKSearchResult* result = [self searchResultForIndexPath:indexPath];
-    return [self.searchDomainURL wmf_URLWithTitle:result.displayTitle];
+    return [self.searchSiteURL wmf_URLWithTitle:result.displayTitle];
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {

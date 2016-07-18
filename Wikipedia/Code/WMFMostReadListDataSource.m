@@ -28,7 +28,7 @@
                                     NSIndexPath* indexPath) {
             @strongify(self);
             NSURL* articleURL = [self urlForIndexPath:indexPath];
-            NSParameterAssert([articleURL.wmf_domainURL isEqual:self.siteURL]);
+            NSParameterAssert([articleURL.wmf_siteURL isEqual:self.siteURL]);
 
             cell.titleText       = articleURL.wmf_title;
             cell.descriptionText = preview.wikidataDescription;

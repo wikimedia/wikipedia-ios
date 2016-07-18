@@ -6,10 +6,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticlePreviewFetcher : NSObject
 
 - (AnyPromise*)fetchArticlePreviewResultsForArticleURLs:(NSArray<NSURL*>*)articleURLs
-                                              domainURL:(NSURL*)domainURL;
+                                              siteURL:(NSURL*)siteURL;
 
 - (AnyPromise*)fetchArticlePreviewResultsForArticleURLs:(NSArray<NSURL*>*)articleURLs
-                                              domainURL:(NSURL*)domainURL
+                                              siteURL:(NSURL*)siteURL
                                           extractLength:(NSUInteger)extractLength
                                          thumbnailWidth:(NSUInteger)thumbnailWidth;
 

@@ -21,7 +21,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 @interface WMFRandomSectionController ()
 
-@property (nonatomic, strong, readwrite) NSURL* searchDomainURL;
+@property (nonatomic, strong, readwrite) NSURL* searchSiteURL;
 @property (nonatomic, strong) WMFRandomArticleFetcher* fetcher;
 
 @property (nonatomic, strong, nullable) MWKSearchResult* result;
@@ -34,10 +34,10 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 @implementation WMFRandomSectionController
 
-- (instancetype)initWithSearchDomainURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithSearchSiteURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
     self = [super initWithDataStore:dataStore];
     if (self) {
-        self.searchDomainURL = url;
+        self.searchSiteURL = url;
     }
     return self;
 }
@@ -70,7 +70,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 }
 
 - (NSAttributedString*)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:MWSiteLocalizedString(self.searchDomainURL, @"onboarding-wikipedia", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:MWSiteLocalizedString(self.searchSiteURL, @"onboarding-wikipedia", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString*)cellIdentifier {
@@ -117,7 +117,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     [self.cell setLoading:YES];
     @weakify(self);
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [self.fetcher fetchRandomArticleWithDomainURL:self.searchDomainURL failure:^(NSError* error) {
+        [self.fetcher fetchRandomArticleWithSiteURL:self.searchSiteURL failure:^(NSError* error) {
             @strongify(self);
             self.result = nil;
             [self.cell setLoading:NO];
@@ -176,7 +176,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 }
 
 - (UIViewController*)moreViewController {
-    return [[WMFFirstRandomViewController alloc] initWithSiteURL:self.searchDomainURL dataStore:self.dataStore];
+    return [[WMFFirstRandomViewController alloc] initWithSiteURL:self.searchSiteURL dataStore:self.dataStore];
 }
 
 - (BOOL)isFooterEnabled {
@@ -186,7 +186,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 #pragma mark - WMFTitleProviding
 
 - (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath {
-    return [self.searchDomainURL wmf_URLWithTitle:self.result.displayTitle];
+    return [self.searchSiteURL wmf_URLWithTitle:self.result.displayTitle];
 }
 
 @end

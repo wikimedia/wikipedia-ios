@@ -8,10 +8,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFSearchDataSource : SSArrayDataSource<WMFTitleListDataSource>
 
-@property (nonatomic, strong, readonly) NSURL* searchDomainURL;
+@property (nonatomic, strong, readonly) NSURL* searchSiteURL;
 @property (nonatomic, strong, readonly) WMFSearchResults* searchResults;
 
-- (nonnull instancetype)initWithSearchDomainURL:(NSURL*)url searchResults:(WMFSearchResults*)searchResults;
+- (nonnull instancetype)initWithSearchSiteURL:(NSURL*)url searchResults:(WMFSearchResults*)searchResults;
 
 @end
 

@@ -20,12 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The schema
  */
-+ (instancetype)schemaWithDomainURL:(NSURL*)domainURL
++ (instancetype)schemaWithSiteURL:(NSURL*)siteURL
                          savedPages:(MWKSavedPageList*)savedPages
                             history:(MWKHistoryList*)history
                           blackList:(WMFRelatedSectionBlackList*)blackList;
 
-@property (nonatomic, strong, readonly) NSURL* domainURL;
+@property (nonatomic, strong, readonly) NSURL* siteURL;
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* historyPages;
 @property (nonatomic, strong, readonly) WMFRelatedSectionBlackList* blackList;
@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSArray<WMFExploreSection*>* sections;
 
 
-- (void)updateDomainURL:(NSURL*)domainURL;
+- (void)updateSiteURL:(NSURL*)siteURL;
 
 /**
  *  Update the schema based on the internal business rules

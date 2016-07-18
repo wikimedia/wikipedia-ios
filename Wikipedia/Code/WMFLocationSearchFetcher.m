@@ -60,13 +60,13 @@ NS_ASSUME_NONNULL_BEGIN
     return (WMFLocationSearchRequestSerializer*)(self.operationManager.requestSerializer);
 }
 
-- (AnyPromise*)fetchArticlesWithDomainURL:(NSURL*)domainURL
+- (AnyPromise*)fetchArticlesWithSiteURL:(NSURL*)siteURL
                                  location:(CLLocation*)location
                               resultLimit:(NSUInteger)resultLimit
                               cancellable:(inout id<Cancellable> __nullable* __nullable)outCancellable {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
         id<Cancellable> cancellable =
-            [self fetchNearbyArticlesWithDomainURL:domainURL
+            [self fetchNearbyArticlesWithSiteURL:siteURL
                                           location:location
                                        resultLimit:resultLimit
                                      useDesktopURL:NO
@@ -75,12 +75,12 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (id<Cancellable>)fetchNearbyArticlesWithDomainURL:(NSURL*)domainURL
+- (id<Cancellable>)fetchNearbyArticlesWithSiteURL:(NSURL*)siteURL
                                            location:(CLLocation*)location
                                         resultLimit:(NSUInteger)resultLimit
                                       useDesktopURL:(BOOL)useDeskTopURL
                                            resolver:(PMKResolver)resolve {
-    NSURL* url = useDeskTopURL ? [domainURL wmf_desktopAPIURL] : [domainURL wmf_mobileAPIURL];
+    NSURL* url = useDeskTopURL ? [siteURL wmf_desktopAPIURL] : [siteURL wmf_mobileAPIURL];
 
     WMFLocationSearchRequestParameters* params = [WMFLocationSearchRequestParameters new];
     params.location        = location;
@@ -91,12 +91,12 @@ NS_ASSUME_NONNULL_BEGIN
                              progress:NULL
                               success:^(NSURLSessionDataTask* operation, id response) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        WMFLocationSearchResults* results = [[WMFLocationSearchResults alloc] initWithSearchDomainURL:domainURL location:location results:response];
+        WMFLocationSearchResults* results = [[WMFLocationSearchResults alloc] initWithSearchSiteURL:siteURL location:location results:response];
         resolve(results);
     }
                               failure:^(NSURLSessionDataTask* operation, NSError* error) {
-        if ([url isEqual:[domainURL wmf_mobileAPIURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
-            [self fetchNearbyArticlesWithDomainURL:domainURL
+        if ([url isEqual:[siteURL wmf_mobileAPIURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
+            [self fetchNearbyArticlesWithSiteURL:siteURL
                                           location:location
                                        resultLimit:resultLimit
                                      useDesktopURL:YES

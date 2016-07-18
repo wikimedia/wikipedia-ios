@@ -8,12 +8,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWKSiteInfo : NSObject
 
 /// Site described by the receiver.
-@property (readonly, copy, nonatomic) NSURL* domainURL;
+@property (readonly, copy, nonatomic) NSURL* siteURL;
 
 /// Raw title for the receiver's main page.
 @property (readonly, copy, nonatomic) NSString* mainPageTitleText;
 
-- (instancetype)initWithDomainURL:(NSURL*)domainURL
+- (instancetype)initWithSiteURL:(NSURL*)siteURL
                 mainPageTitleText:(NSString*)mainPage NS_DESIGNATED_INITIALIZER;
 
 - (BOOL)isEqualToSiteInfo:(MWKSiteInfo*)siteInfo;

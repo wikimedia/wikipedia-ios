@@ -211,7 +211,7 @@ NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
     NSURL* curentArticleURL = self.articleURL;
     @weakify(self);
     return [self.imageInfoFetcher fetchGalleryInfoForImageFiles:titlesToFetch
-                                                       fromDomainURL:self.articleURL.wmf_domainURL
+                                                       fromSiteURL:self.articleURL.wmf_siteURL
                                                         success:^(NSArray* infoObjects) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
         @strongify(self);

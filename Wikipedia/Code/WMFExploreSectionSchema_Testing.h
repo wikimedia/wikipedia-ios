@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFExploreSectionSchema ()
 
-+ (instancetype)schemaWithDomainURL:(NSURL*)siteURL
++ (instancetype)schemaWithSiteURL:(NSURL*)siteURL
                          savedPages:(MWKSavedPageList*)savedPages
                             history:(MWKHistoryList*)history
                           blackList:(WMFRelatedSectionBlackList*)blackList

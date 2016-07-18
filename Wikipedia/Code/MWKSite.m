@@ -26,7 +26,7 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 
     self = [super init];
     if (self) {
-        self.URL = [url wmf_domainURL];
+        self.URL = [url wmf_siteURL];
     }
 
     if (self.URL == nil) {

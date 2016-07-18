@@ -106,8 +106,8 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 - (void)loadAndShowAnotherRandomArticle:(id)sender {
     [self configureViewsForRandomArticleLoading:YES animated:YES];
-    NSURL* siteURL = self.articleURL.wmf_domainURL;
-    [self.randomArticleFetcher fetchRandomArticleWithDomainURL:siteURL failure:^(NSError* error) {
+    NSURL* siteURL = self.articleURL.wmf_siteURL;
+    [self.randomArticleFetcher fetchRandomArticleWithSiteURL:siteURL failure:^(NSError* error) {
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     } success:^(MWKSearchResult* result) {
         NSURL* titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];

@@ -211,11 +211,11 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     }
 
     for (NSString* canonicalFilename in imageFileTitles) {
-        [self.imageInfoFetcher fetchGalleryInfoForImage:canonicalFilename fromDomainURL:article.url];
+        [self.imageInfoFetcher fetchGalleryInfoForImage:canonicalFilename fromSiteURL:article.url];
     }
 
     PMKJoin([[imageFileTitles bk_map:^AnyPromise*(NSString* canonicalFilename) {
-        return [self.imageInfoFetcher fetchGalleryInfoForImage:canonicalFilename fromDomainURL:article.url];
+        return [self.imageInfoFetcher fetchGalleryInfoForImage:canonicalFilename fromSiteURL:article.url];
     }] bk_reject:^BOOL (id obj) {
         return [obj isEqual:[NSNull null]];
     }]).thenInBackground(^id (NSArray* infoObjects) {

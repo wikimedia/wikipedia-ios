@@ -150,7 +150,7 @@ extern NSString* const WMFDefaultSiteDomain;
  *
  *  @return The domain URL
  */
-- (NSURL*)wmf_domainURL;
+- (NSURL*)wmf_siteURL;
 
 /**
  *  Return a URL for the mobile API Endpoint for the current URL

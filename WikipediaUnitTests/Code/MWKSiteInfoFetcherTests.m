@@ -58,9 +58,9 @@
 
     XCTestExpectation* expectation = [self expectationWithDescription:@"response"];
 
-    [self.fetcher fetchSiteInfoForDomainURL:testSiteURL]
+    [self.fetcher fetchSiteInfoForSiteURL:testSiteURL]
     .then(^(MWKSiteInfo* result){
-        assertThat(result.domainURL, is(equalTo(testSiteURL)));
+        assertThat(result.siteURL, is(equalTo(testSiteURL)));
         assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
         [expectation fulfill];
     });
@@ -88,9 +88,9 @@
 
     XCTestExpectation* expectation = [self expectationWithDescription:@"response"];
 
-    [self.fetcher fetchSiteInfoForDomainURL:testSiteURL]
+    [self.fetcher fetchSiteInfoForSiteURL:testSiteURL]
     .then(^(MWKSiteInfo* result){
-        assertThat(result.domainURL, is(equalTo(testSiteURL)));
+        assertThat(result.siteURL, is(equalTo(testSiteURL)));
         assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
         [expectation fulfill];
     }).catch(^(NSError* error){

@@ -23,7 +23,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 
 @interface WMFFeaturedArticleSectionController ()
 
-@property (nonatomic, strong, readwrite) NSURL* domainURL;
+@property (nonatomic, strong, readwrite) NSURL* siteURL;
 @property (nonatomic, strong, readwrite) NSDate* date;
 
 @property (nonatomic, strong) WMFEnglishFeaturedTitleFetcher* featuredTitlePreviewFetcher;
@@ -34,14 +34,14 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 
 @implementation WMFFeaturedArticleSectionController
 
-- (instancetype)initWithDomainURL:(NSURL*)url
+- (instancetype)initWithSiteURL:(NSURL*)url
                              date:(NSDate*)date
                         dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(url);
     NSParameterAssert(date);
     self = [super initWithDataStore:dataStore];
     if (self) {
-        self.domainURL = url;
+        self.siteURL = url;
         self.date      = date;
     }
     return self;
@@ -145,7 +145,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 #pragma mark - WMFTitleProviding
 
 - (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath {
-    return [self.domainURL wmf_URLWithTitle:self.featuredArticlePreview.displayTitle];
+    return [self.siteURL wmf_URLWithTitle:self.featuredArticlePreview.displayTitle];
 }
 
 @end

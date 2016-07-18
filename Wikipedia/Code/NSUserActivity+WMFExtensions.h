@@ -22,7 +22,7 @@ typedef NS_ENUM (NSUInteger, WMFUserActivityType){
 + (instancetype)wmf_recentViewActivity;
 
 + (instancetype)wmf_searchViewActivity;
-+ (instancetype)wmf_searchResultsActivitySearchDomainURL:(NSURL*)url searchTerm:(NSString*)searchTerm;
++ (instancetype)wmf_searchResultsActivitySearchSiteURL:(NSURL*)url searchTerm:(NSString*)searchTerm;
 
 + (instancetype)wmf_articleViewActivityWithArticle:(MWKArticle*)article;
 

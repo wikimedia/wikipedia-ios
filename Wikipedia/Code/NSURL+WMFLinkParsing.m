@@ -136,7 +136,7 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
     return components.URL;
 }
 
-- (NSURL*)wmf_domainURL {
+- (NSURL*)wmf_siteURL {
     NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.path     = nil;
     components.fragment = nil;

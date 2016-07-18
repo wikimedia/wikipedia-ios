@@ -106,7 +106,7 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
         assertThat(@(WMFRangeIsNotFoundOrEmpty(expectedRange)), isFalse());
         NSArray* expectedTitles = [self expectedTitlesForRange:expectedRange];
         [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(1)) fetchGalleryInfoForImageFiles:expectedTitles
-                                                                           fromDomainURL:self.testArticle.url.wmf_domainURL
+                                                                           fromSiteURL:self.testArticle.url.wmf_siteURL
                                                                                  success:anything()
                                                                                  failure:anything()];
     }];
@@ -120,13 +120,13 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 - (void)testFetchBatchAlongWithNeighborReturnsOneRequestForEachFetch {
     [MKTGiven([self.mockInfoFetcher
                fetchGalleryInfoForImageFiles:[self expectedTitlesForRange:[self.controller batchRangeForTargetIndex:0]]
-                                    fromDomainURL:anything()
+                                    fromSiteURL:anything()
                                      success:anything()
                                      failure:anything()]) willReturn:@"dummy request"];
 
     [MKTGiven([self.mockInfoFetcher
                fetchGalleryInfoForImageFiles:[self expectedTitlesForRange:[self.controller batchRangeForTargetIndex:self.controller.infoBatchSize]]
-                                    fromDomainURL:anything()
+                                    fromSiteURL:anything()
                                      success:anything()
                                      failure:anything()]) willReturn:@"dummy request 2"];
 
@@ -137,7 +137,7 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 - (void)testFetchBatchAlongWithNeighborIndexesInTheSameBatchOnlyResultsInOneFetch {
     [self.controller fetchBatchContainingIndex:0 withNthNeighbor:self.controller.infoBatchSize - 1];
     [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(1)) fetchGalleryInfoForImageFiles:anything()
-                                                                            fromDomainURL:anything()
+                                                                            fromSiteURL:anything()
                                                                              success:anything()
                                                                              failure:anything()];
 }
@@ -163,7 +163,7 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     }
 
     [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(fetchedBatches.count)) fetchGalleryInfoForImageFiles:anything()
-                                                                                               fromDomainURL:self.testArticle.url.wmf_domainURL
+                                                                                               fromSiteURL:self.testArticle.url.wmf_siteURL
                                                                                                 success:anything()
                                                                                                 failure:anything()];
 }
@@ -208,7 +208,7 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
                               failure:(id)failure {
     NSArray* expectedTitles = [self expectedTitlesForRange:range];
     [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(1)) fetchGalleryInfoForImageFiles:expectedTitles
-                                                                            fromDomainURL:self.testArticle.url.wmf_domainURL
+                                                                            fromSiteURL:self.testArticle.url.wmf_siteURL
                                                                              success:success ? : anything()
                                                                              failure:failure ? : anything()];
 }

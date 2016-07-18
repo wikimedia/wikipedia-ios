@@ -7,7 +7,7 @@
 
 @interface WMFLocationSearchListViewController ()
 @property (nonatomic, strong) WMFNearbyTitleListDataSource* dataSource;
-@property (nonatomic, strong, readwrite) NSURL* searchDomainURL;
+@property (nonatomic, strong, readwrite) NSURL* searchSiteURL;
 @property (nonatomic, strong) WMFCompassViewModel* compassViewModel;
 @end
 
@@ -17,22 +17,22 @@
 
 - (instancetype)initWithLocation:(CLLocation*)location searchSiteURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(location);
-    self = [self initWithSearchDomainURL:url dataStore:dataStore];
+    self = [self initWithSearchSiteURL:url dataStore:dataStore];
     if (self) {
         self.location = location;
     }
     return self;
 }
 
-- (instancetype)initWithSearchDomainURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithSearchSiteURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(url);
     NSParameterAssert(dataStore);
     self = [super init];
     if (self) {
-        self.searchDomainURL      = url;
+        self.searchSiteURL      = url;
         self.dataStore            = dataStore;
         self.compassViewModel     = [[WMFCompassViewModel alloc] init];
-        self.dataSource           = [[WMFNearbyTitleListDataSource alloc] initWithSearchDomainURL:self.searchDomainURL];
+        self.dataSource           = [[WMFNearbyTitleListDataSource alloc] initWithSearchSiteURL:self.searchSiteURL];
         self.dataSource.cellClass = [WMFNearbyArticleTableViewCell class];
 
         @weakify(self);

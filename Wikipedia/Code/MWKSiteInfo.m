@@ -19,17 +19,17 @@ static NSString* const MWKSiteInfoNSCodingSchemaVersionKey = @"siteInfoSchemaVer
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKSiteInfo ()
-@property (readwrite, copy, nonatomic) NSURL* domainURL;
+@property (readwrite, copy, nonatomic) NSURL* siteURL;
 @property (readwrite, copy, nonatomic) NSString* mainPageTitleText;
 @end
 
 @implementation MWKSiteInfo
 
-- (instancetype)initWithDomainURL:(NSURL*)domainURL
+- (instancetype)initWithSiteURL:(NSURL*)siteURL
                 mainPageTitleText:(NSString*)mainPage {
     self = [super init];
     if (self) {
-        self.domainURL         = [domainURL wmf_domainURL];
+        self.siteURL         = [siteURL wmf_siteURL];
         self.mainPageTitleText = mainPage;
     }
     return self;
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [NSString stringWithFormat:@"%@ {"
             "\t site: %@,\n"
             "\t mainPage: %@ \n"
-            "}\n", [super description], self.domainURL, self.mainPageTitleText];
+            "}\n", [super description], self.siteURL, self.mainPageTitleText];
 }
 
 - (BOOL)isEqual:(id)object {
@@ -53,18 +53,18 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)isEqualToSiteInfo:(MWKSiteInfo*)siteInfo {
-    return WMF_EQUAL_PROPERTIES(self, domainURL, isEqual:, siteInfo)
+    return WMF_EQUAL_PROPERTIES(self, siteURL, isEqual:, siteInfo)
            && WMF_EQUAL_PROPERTIES(self, mainPageTitleText, isEqualToString:, siteInfo);
 }
 
 - (NSUInteger)hash {
-    return self.domainURL.hash ^ flipBitsWithAdditionalRotation(self.mainPageTitleText.hash, 1);
+    return self.siteURL.hash ^ flipBitsWithAdditionalRotation(self.mainPageTitleText.hash, 1);
 }
 
 #pragma mark - Computed Properties
 
 - (NSURL*)mainPageURL {
-    return [self.domainURL wmf_URLWithTitle:self.mainPageTitleText];
+    return [self.siteURL wmf_URLWithTitle:self.mainPageTitleText];
 }
 
 @end

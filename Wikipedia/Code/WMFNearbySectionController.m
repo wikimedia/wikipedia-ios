@@ -34,7 +34,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 @interface WMFNearbySectionController ()
 
-@property (nonatomic, strong, readwrite) NSURL* searchDomainURL;
+@property (nonatomic, strong, readwrite) NSURL* searchSiteURL;
 @property (nonatomic, strong, readwrite) CLLocation* location;
 @property (nonatomic, strong, readwrite) CLPlacemark* placemark;
 
@@ -50,7 +50,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 - (instancetype)initWithLocation:(CLLocation*)location
                        placemark:(nullable CLPlacemark*)placemark
-                 searchDomainURL:(NSURL*)url
+                 searchSiteURL:(NSURL*)url
                        dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(url);
     NSParameterAssert(location);
@@ -58,7 +58,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
     if (self) {
         self.location              = location;
         self.placemark             = placemark;
-        self.searchDomainURL       = url;
+        self.searchSiteURL       = url;
         self.locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
         self.compassViewModel      = [[WMFCompassViewModel alloc] init];
     }
@@ -173,7 +173,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 }
 
 - (UIViewController*)moreViewController {
-    WMFLocationSearchListViewController* vc = [[WMFLocationSearchListViewController alloc] initWithLocation:self.location searchSiteURL:self.searchDomainURL dataStore:self.dataStore];
+    WMFLocationSearchListViewController* vc = [[WMFLocationSearchListViewController alloc] initWithLocation:self.location searchSiteURL:self.searchSiteURL dataStore:self.dataStore];
     return vc;
 }
 
@@ -181,7 +181,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 - (BOOL)fetchedResultsAreCloseToLocation:(CLLocation*)location {
     if ([self.searchResults.location distanceFromLocation:location] < 500
-        && [self.searchResults.searchDomainURL isEqual:self.searchDomainURL] && [self.searchResults.results count] > 0) {
+        && [self.searchResults.searchSiteURL isEqual:self.searchSiteURL] && [self.searchResults.results count] > 0) {
         return YES;
     }
 
@@ -190,7 +190,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 - (AnyPromise*)fetchTitlesForLocation:(CLLocation* __nullable)location {
     @weakify(self);
-    return [self.locationSearchFetcher fetchArticlesWithDomainURL:self.searchDomainURL
+    return [self.locationSearchFetcher fetchArticlesWithSiteURL:self.searchSiteURL
                                                          location:location
                                                       resultLimit:WMFNearbySectionFetchCount
                                                       cancellable:NULL]
