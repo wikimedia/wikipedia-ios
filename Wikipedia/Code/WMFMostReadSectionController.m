@@ -5,14 +5,14 @@
 #import "UIScreen+WMFImageWidth.h"
 #import "WMFArticlePreviewFetcher.h"
 #import "NSDateFormatter+WMFExtensions.h"
-#import "WMFArticleListTableViewCell.h"
+#import "WMFArticleListCollectionViewCell.h"
 #import "MWKSearchResult.h"
 #import "WMFArticleViewController.h"
 #import "WMFMostReadTitleFetcher.h"
 #import "WMFMostReadTitlesResponse.h"
 #import "NSDate+Utilities.h"
 #import "UIView+WMFDefaultNib.h"
-#import "WMFMainPagePlaceholderTableViewCell.h"
+#import "WMFMainPagePlaceholderCollectionViewCell.h"
 #import "Wikipedia-Swift.h"
 #import "NSNumber+MWKTitleNamespace.h"
 #import <Tweaks/FBTweakInline.h>
@@ -127,7 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (CGFloat)estimatedRowHeight {
-    return [WMFArticleListTableViewCell estimatedRowHeight];
+    return [WMFArticleListCollectionViewCell estimatedRowHeight];
 }
 
 #pragma mark Header
@@ -207,11 +207,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFBaseExploreSectionController Subclass
 
 - (nullable NSString*)placeholderCellIdentifier {
-    return [WMFMainPagePlaceholderTableViewCell identifier];
+    return [WMFMainPagePlaceholderCollectionViewCell identifier];
 }
 
 - (nullable UINib*)placeholderCellNib {
-    return [WMFMainPagePlaceholderTableViewCell wmf_classNib];
+    return [WMFMainPagePlaceholderCollectionViewCell wmf_classNib];
 }
 
 - (NSUInteger)numberOfPlaceholderCells {
@@ -219,14 +219,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString*)cellIdentifier {
-    return [WMFArticleListTableViewCell wmf_nibName];
+    return [WMFArticleListCollectionViewCell wmf_nibName];
 }
 
 - (UINib*)cellNib {
-    return [WMFArticleListTableViewCell wmf_classNib];
+    return [WMFArticleListCollectionViewCell wmf_classNib];
 }
 
-- (void)configureCell:(WMFArticleListTableViewCell*)cell
+- (void)configureCell:(WMFArticleListCollectionViewCell*)cell
              withItem:(MWKSearchResult*)item
           atIndexPath:(NSIndexPath*)indexPath {
     [cell setImageURL:item.thumbnailURL];

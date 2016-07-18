@@ -1,7 +1,7 @@
 
-#import "WMFMainPagePlaceholderTableViewCell.h"
+#import "WMFMainPagePlaceholderCollectionViewCell.h"
 
-@implementation WMFMainPagePlaceholderTableViewCell
+@implementation WMFMainPagePlaceholderCollectionViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

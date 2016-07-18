@@ -1,7 +1,7 @@
 
 #import <SSDataSources/SSDataSources.h>
 
-@interface WMFNearbyPlaceholderTableViewCell : SSBaseTableCell
+@interface WMFMainPagePlaceholderCollectionViewCell : SSBaseCollectionCell
 
 @property (strong, nonatomic) IBOutlet UIImageView* placeholderImageView;
 

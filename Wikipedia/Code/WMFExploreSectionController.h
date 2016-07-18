@@ -102,7 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param cell      The cell to configure
  *  @param indexPath The indexPath of the cell
  */
-- (void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath;
+- (void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath*)indexPath;
 
 /**
  *  Estimated height of the cells in the section

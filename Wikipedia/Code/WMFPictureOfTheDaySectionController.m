@@ -2,7 +2,7 @@
 #import "WMFPictureOfTheDaySectionController.h"
 #import "MWKImageInfo.h"
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
-#import "WMFPicOfTheDayTableViewCell.h"
+#import "WMFPicOfTheDayCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "WMFImageGalleryViewController.h"
@@ -74,11 +74,11 @@ static NSString* const WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoT
 }
 
 - (NSString*)cellIdentifier {
-    return [WMFPicOfTheDayTableViewCell wmf_nibName];
+    return [WMFPicOfTheDayCollectionViewCell wmf_nibName];
 }
 
 - (UINib*)cellNib {
-    return [WMFPicOfTheDayTableViewCell wmf_classNib];
+    return [WMFPicOfTheDayCollectionViewCell wmf_classNib];
 }
 
 - (NSUInteger)numberOfPlaceholderCells {
@@ -86,14 +86,14 @@ static NSString* const WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoT
 }
 
 - (nullable NSString*)placeholderCellIdentifier {
-    return [WMFPicOfTheDayTableViewCell wmf_nibName];
+    return [WMFPicOfTheDayCollectionViewCell wmf_nibName];
 }
 
 - (nullable UINib*)placeholderCellNib {
-    return [WMFPicOfTheDayTableViewCell wmf_classNib];
+    return [WMFPicOfTheDayCollectionViewCell wmf_classNib];
 }
 
-- (void)configureCell:(WMFPicOfTheDayTableViewCell*)cell withItem:(MWKImageInfo*)item atIndexPath:(NSIndexPath*)indexPath {
+- (void)configureCell:(WMFPicOfTheDayCollectionViewCell*)cell withItem:(MWKImageInfo*)item atIndexPath:(NSIndexPath*)indexPath {
     [cell setImageURL:item.imageThumbURL];
     if (item.imageDescription.length) {
         [cell setDisplayTitle:item.imageDescription];
@@ -108,7 +108,7 @@ static NSString* const WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoT
 }
 
 - (CGFloat)estimatedRowHeight {
-    return [WMFPicOfTheDayTableViewCell estimatedRowHeight];
+    return [WMFPicOfTheDayCollectionViewCell estimatedRowHeight];
 }
 
 - (void)didEndDisplayingSection {

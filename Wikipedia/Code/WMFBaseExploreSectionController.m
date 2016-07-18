@@ -7,7 +7,7 @@
 //
 
 #import "WMFBaseExploreSectionController.h"
-#import "WMFEmptySectionTableViewCell.h"
+#import "WMFEmptySectionCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "MWKDataStore.h"
@@ -114,12 +114,12 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     return nil;
 }
 
-- (void)configureEmptyCell:(WMFEmptySectionTableViewCell*)cell {
+- (void)configureEmptyCell:(WMFEmptySectionCollectionViewCell*)cell {
     cell.emptyTextLabel.text = MWLocalizedString(@"home-empty-section", nil);
     [cell.reloadButton setTitle:MWLocalizedString(@"home-empty-section-check-again", nil) forState:UIControlStateNormal];
 }
 
-- (void)configureCell:(UITableViewCell*)cell withItem:(id)item atIndexPath:(nonnull NSIndexPath*)indexPath {
+- (void)configureCell:(UICollectionViewCell *)cell withItem:(id)item atIndexPath:(nonnull NSIndexPath*)indexPath {
     @throw [NSException exceptionWithName:WMFExploreSectionControllerException
                                    reason:@"Method must be implemented by subclass"
                                  userInfo:nil];
@@ -136,7 +136,7 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     if ([self placeholderCellIdentifier] && [self placeholderCellNib]) {
         [collectionView registerNib:[self placeholderCellNib] forCellWithReuseIdentifier:[self placeholderCellIdentifier]];
     }
-    [collectionView registerNib:[WMFEmptySectionTableViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFEmptySectionTableViewCell identifier]];
+    [collectionView registerNib:[WMFEmptySectionCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFEmptySectionCollectionViewCell identifier]];
 }
 
 - (NSString*)cellIdentifierForItemIndexPath:(NSIndexPath*)indexPath {
@@ -144,12 +144,12 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
         return [self placeholderCellIdentifier];
     }
     if ([self shouldShowEmptyCell]) {
-        return [WMFEmptySectionTableViewCell identifier];
+        return [WMFEmptySectionCollectionViewCell identifier];
     }
     return [self cellIdentifier];
 }
 
-- (void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
+- (void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath*)indexPath {
     NSParameterAssert(indexPath);
     NSParameterAssert(cell);
     if (!cell || !indexPath) {
@@ -158,7 +158,7 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     if ([self shouldShowPlaceholderCell]) {
         return;
     } else if ([self shouldShowEmptyCell]) {
-        WMFEmptySectionTableViewCell* emptyCell = (id)cell;
+        WMFEmptySectionCollectionViewCell* emptyCell = (id)cell;
         [emptyCell.reloadButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
 
         @weakify(self);

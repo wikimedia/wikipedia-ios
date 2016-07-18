@@ -174,7 +174,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (BOOL)rowAtIndexPathIsOnlyRowVisibleInSection:(NSIndexPath*)indexPath {
+- (BOOL)itemAtIndexPathIsOnlyItemVisibleInSection:(NSIndexPath*)indexPath {
     NSArray<NSIndexPath*>* visibleIndexPathsInSection = [self.collectionView.indexPathsForVisibleItems bk_select:^BOOL (NSIndexPath* i) {
         return i.section == indexPath.section;
     }];
@@ -189,13 +189,13 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Check whether or not a section is going in or out of view.
  *
- *  @param indexPath The index path of the row which will or did end displaying.
+ *  @param indexPath The index path of the item which will or did end displaying.
  *
- *  @return @c YES if that section isn't displaying or the given row is the only one visible in its section, otherwise @c NO.
+ *  @return @c YES if that section isn't displaying or the given item is the only one visible in its section, otherwise @c NO.
  */
-- (BOOL)isVisibilityTransitioningForRowIndexPath:(NSIndexPath*)indexPath {
+- (BOOL)isVisibilityTransitioningForItemAtIndexPath:(NSIndexPath*)indexPath {
     return ![self isDisplayingCellsForSection:indexPath.section]
-           || [self rowAtIndexPathIsOnlyRowVisibleInSection:indexPath];
+           || [self itemAtIndexPathIsOnlyItemVisibleInSection:indexPath];
 }
 
 - (NSArray*)visibleSectionControllers {
@@ -233,13 +233,13 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * Must be called when the view (re)appears: `viewDidApppear` and when the application is resumed (will enter foreground).
  *
- * `collectionView:willDisplayCell:forRowAtIndexPath:` will not trigger a `willDisplaySection` message, since it's only
+ * `collectionView:willDisplayCell:forItemAtIndexPath:` will not trigger a `willDisplaySection` message, since it's only
  * designed to trigger when sections are *scrolled* in and out of view.  This is mostly because we only want to call
  * `willDisplaySection` _once_ for each section as its (potentially multiple) cells scroll into view.
  *
  * This was manifested in the following issue: https://phabricator.wikimedia.org/T128217
  *
- * @see isVisibilityTransitioningForRowIndexPath:
+ * @see isVisibilityTransitioningForItemAtIndexPath:
  */
 - (void)sendWillDisplayToVisibleSectionControllers {
     [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull controller) {
@@ -263,7 +263,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)scrollToTop:(BOOL)animated {
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:animated];
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:animated];
 }
 
 - (void)didTapSettingsButton:(UIBarButtonItem*)sender {
@@ -504,8 +504,7 @@ NS_ASSUME_NONNULL_BEGIN
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
     UICollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[controller cellIdentifierForItemIndexPath:indexPath] forIndexPath:indexPath];
-#warning update
-    //[controller configureCell:cell atIndexPath:indexPath];
+    [controller configureCell:cell atIndexPath:indexPath];
     return cell;
 }
 
@@ -622,7 +621,7 @@ NS_ASSUME_NONNULL_BEGIN
     return footer;
 }
 
-- (void)collectionView:(UICollectionView*)collectionView willDisplayCell:(UICollectionViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
     if ([controller respondsToSelector:@selector(willDisplaySection)]) {
@@ -642,11 +641,11 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)collectionView:(UICollectionView*)collectionView didEndDisplayingCell:(UICollectionViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
+- (void)collectionView:(UICollectionView*)collectionView didEndDisplayingCell:(UICollectionViewCell*)cell forItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
     if ([controller respondsToSelector:@selector(didEndDisplayingSection)]) {
-        if ([self isVisibilityTransitioningForRowIndexPath:indexPath]) {
+        if ([self isVisibilityTransitioningForItemAtIndexPath:indexPath]) {
             DDLogDebug(@"Sending didEndDisplayingSection for controller %@ at indexPath %@", controller, indexPath);
             [controller didEndDisplayingSection];
         } else {
@@ -669,14 +668,14 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (BOOL)collectionView:(UICollectionView*)collectionView shouldHighlightRowAtIndexPath:(NSIndexPath*)indexPath {
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
     return [controller shouldSelectItemAtIndexPath:indexPath];
     return YES;
 }
 
-- (void)collectionView:(UICollectionView*)collectionView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
     if (![controller shouldSelectItemAtIndexPath:indexPath]) {
@@ -874,14 +873,14 @@ NS_ASSUME_NONNULL_BEGIN
     } else if (homeSection.type == WMFExploreSectionTypeHistory || homeSection.type == WMFExploreSectionTypeSaved) {
         [self wmf_pushArticleWithURL:homeSection.articleURL dataStore:self.dataStore animated:YES];
     } else {
-        [self selectFirstRowInSection:section];
+        [self selectFirstItemInSection:section];
     }
 }
 
-- (void)selectFirstRowInSection:(NSUInteger)section {
-    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+- (void)selectFirstItemInSection:(NSUInteger)section {
+    NSIndexPath* indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-    [self collectionView:self.collectionView didSelectRowAtIndexPath:indexPath];
+    [self collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
 }
 
 #pragma mark - WMFExploreSectionSchemaDelegate
@@ -905,14 +904,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
-    NSIndexPath* previewIndexPath                     = [self.collectionView indexPathForRowAtPoint:location];
+    NSIndexPath* previewIndexPath                     = [self.collectionView indexPathForItemAtPoint:location];
     id<WMFExploreSectionController> sectionController = [self sectionControllerForSectionAtIndex:previewIndexPath.section];
 
     if (![sectionController shouldSelectItemAtIndexPath:previewIndexPath]) {
         return nil;
     }
 
-    previewingContext.sourceRect = [self.collectionView cellForRowAtIndexPath:previewIndexPath].frame;
+    previewingContext.sourceRect = [self.collectionView cellForItemAtIndexPath:previewIndexPath].frame;
 
     UIViewController* vc = [sectionController detailViewControllerForItemAtIndexPath:previewIndexPath];
     self.sectionOfPreviewingTitle = sectionController;

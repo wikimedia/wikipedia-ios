@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WMFPicOfTheDayTableViewCell : UITableViewCell
+@interface WMFPicOfTheDayCollectionViewCell : UICollectionViewCell
 
 /**
  *  Do not use this to set the image url, this is only exposed

@@ -1,6 +1,6 @@
 
 #import "WMFContinueReadingSectionController.h"
-#import "WMFArticleListTableViewCell.h"
+#import "WMFArticleListCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "MWKDataStore.h"
 #import "MWKArticle.h"
@@ -65,18 +65,18 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 }
 
 - (NSString*)cellIdentifier {
-    return [WMFArticleListTableViewCell wmf_nibName];
+    return [WMFArticleListCollectionViewCell wmf_nibName];
 }
 
 - (UINib*)cellNib {
-    return [WMFArticleListTableViewCell wmf_classNib];
+    return [WMFArticleListCollectionViewCell wmf_classNib];
 }
 
 - (NSUInteger)numberOfPlaceholderCells {
     return 0;
 }
 
-- (void)configureCell:(WMFArticleListTableViewCell*)cell withItem:(NSURL*)item atIndexPath:(NSIndexPath*)indexPath {
+- (void)configureCell:(WMFArticleListCollectionViewCell*)cell withItem:(NSURL*)item atIndexPath:(NSIndexPath*)indexPath {
     MWKArticle* article = [self article];
     cell.titleText       = item.wmf_title;
     cell.descriptionText = [[article entityDescription] wmf_stringByCapitalizingFirstCharacter];
@@ -85,7 +85,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 }
 
 - (CGFloat)estimatedRowHeight {
-    return [WMFArticleListTableViewCell estimatedRowHeight];
+    return [WMFArticleListCollectionViewCell estimatedRowHeight];
 }
 
 - (NSString*)analyticsContentType {

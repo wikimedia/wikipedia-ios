@@ -6,8 +6,8 @@
 #import "MWKSearchResult.h"
 #import "MWKDataStore.h"
 
-#import "WMFArticlePreviewTableViewCell.h"
-#import "WMFArticlePlaceholderTableViewCell.h"
+#import "WMFArticlePreviewCollectionViewCell.h"
+#import "WMFArticlePlaceholderCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
@@ -26,7 +26,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 @property (nonatomic, strong, nullable) MWKSearchResult* result;
 
-@property (nonatomic, weak, nullable) WMFArticlePreviewTableViewCell* cell;
+@property (nonatomic, weak, nullable) WMFArticlePreviewCollectionViewCell* cell;
 
 @property (nonatomic, readonly, getter = isNewInterfaceEnabled) BOOL newInterfaceEnabled;
 
@@ -74,11 +74,11 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 }
 
 - (NSString*)cellIdentifier {
-    return [WMFArticlePreviewTableViewCell identifier];
+    return [WMFArticlePreviewCollectionViewCell identifier];
 }
 
 - (UINib*)cellNib {
-    return [WMFArticlePreviewTableViewCell wmf_classNib];
+    return [WMFArticlePreviewCollectionViewCell wmf_classNib];
 }
 
 - (NSUInteger)numberOfPlaceholderCells {
@@ -86,14 +86,14 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 }
 
 - (nullable NSString*)placeholderCellIdentifier {
-    return [WMFArticlePlaceholderTableViewCell identifier];
+    return [WMFArticlePlaceholderCollectionViewCell identifier];
 }
 
 - (nullable UINib*)placeholderCellNib {
-    return [WMFArticlePlaceholderTableViewCell wmf_classNib];
+    return [WMFArticlePlaceholderCollectionViewCell wmf_classNib];
 }
 
-- (void)configureCell:(WMFArticlePreviewTableViewCell*)cell withItem:(MWKSearchResult*)item atIndexPath:(NSIndexPath*)indexPath {
+- (void)configureCell:(WMFArticlePreviewCollectionViewCell*)cell withItem:(MWKSearchResult*)item atIndexPath:(NSIndexPath*)indexPath {
     cell.titleText       = item.displayTitle;
     cell.descriptionText = item.wikidataDescription;
     cell.snippetText     = item.extract;
@@ -106,7 +106,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 }
 
 - (CGFloat)estimatedRowHeight {
-    return [WMFArticlePreviewTableViewCell estimatedRowHeight];
+    return [WMFArticlePreviewCollectionViewCell estimatedRowHeight];
 }
 
 - (NSString*)analyticsContentType {

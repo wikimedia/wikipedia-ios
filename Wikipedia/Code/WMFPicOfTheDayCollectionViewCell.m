@@ -6,12 +6,12 @@
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFPicOfTheDayTableViewCell.h"
+#import "WMFPicOfTheDayCollectionViewCell.h"
 #import "UIImageView+WMFPlaceholder.h"
 #import "UIImageView+WMFImageFetchingInternal.h"
 #import "WMFGradientView.h"
 
-@interface WMFPicOfTheDayTableViewCell ()
+@interface WMFPicOfTheDayCollectionViewCell ()
 
 @property (weak, nonatomic) IBOutlet WMFGradientView* displayTitleBackgroundView;
 
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation WMFPicOfTheDayTableViewCell
+@implementation WMFPicOfTheDayCollectionViewCell
 
 - (void)dealloc {
     // This is guaranteed to be called before dealloc, since observation starts in -awakeFromNib
@@ -46,7 +46,7 @@
     [self.KVOControllerNonRetaining observe:self.potdImageView
                                     keyPath:WMF_SAFE_KEYPATH(self.potdImageView, image)
                                     options:NSKeyValueObservingOptionInitial
-                                      block:^(WMFPicOfTheDayTableViewCell* cell,
+                                      block:^(WMFPicOfTheDayCollectionViewCell* cell,
                                               UIImageView* potdImageView,
                                               NSDictionary* change) {
         BOOL didSetDesiredImage = [potdImageView wmf_imageURLToFetch] != nil;

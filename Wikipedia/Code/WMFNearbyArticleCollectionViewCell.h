@@ -5,7 +5,7 @@
 @class WMFSearchResultDistanceProvider;
 @class MWKImage;
 
-@interface WMFNearbyArticleTableViewCell : SSBaseTableCell
+@interface WMFNearbyArticleCollectionViewCell : SSBaseCollectionCell
 
 @property (nonatomic, copy) NSString* titleText;
 

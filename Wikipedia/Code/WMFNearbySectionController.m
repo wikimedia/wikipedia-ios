@@ -18,9 +18,9 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 
 // Views
-#import "WMFNearbyArticleTableViewCell.h"
-#import "WMFEmptySectionTableViewCell.h"
-#import "WMFNearbyPlaceholderTableViewCell.h"
+#import "WMFNearbyArticleCollectionViewCell.h"
+#import "WMFEmptySectionCollectionViewCell.h"
+#import "WMFNearbyPlaceholderCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 #import "UIViewController+WMFArticlePresentation.h"
@@ -98,24 +98,24 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 }
 
 - (NSString*)cellIdentifier {
-    return [WMFNearbyArticleTableViewCell identifier];
+    return [WMFNearbyArticleCollectionViewCell identifier];
 }
 
 - (UINib*)cellNib {
-    return [WMFNearbyArticleTableViewCell wmf_classNib];
+    return [WMFNearbyArticleCollectionViewCell wmf_classNib];
 }
 
 - (nullable NSString*)placeholderCellIdentifier {
-    return [WMFNearbyPlaceholderTableViewCell identifier];
+    return [WMFNearbyPlaceholderCollectionViewCell identifier];
 }
 
 - (nullable UINib*)placeholderCellNib {
-    return [WMFNearbyPlaceholderTableViewCell wmf_classNib];
+    return [WMFNearbyPlaceholderCollectionViewCell wmf_classNib];
 }
 
-- (void)configureCell:(WMFNearbyArticleTableViewCell*)cell withItem:(MWKLocationSearchResult*)item atIndexPath:(nonnull NSIndexPath*)indexPath {
+- (void)configureCell:(WMFNearbyArticleCollectionViewCell*)cell withItem:(MWKLocationSearchResult*)item atIndexPath:(nonnull NSIndexPath*)indexPath {
     NSParameterAssert([item isKindOfClass:[MWKLocationSearchResult class]]);
-    NSParameterAssert([cell isKindOfClass:[WMFNearbyArticleTableViewCell class]]);
+    NSParameterAssert([cell isKindOfClass:[WMFNearbyArticleCollectionViewCell class]]);
     cell.titleText       = item.displayTitle;
     cell.descriptionText = item.wikidataDescription;
     [cell setImageURL:item.thumbnailURL];
@@ -124,7 +124,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
 }
 
-- (void)configureEmptyCell:(WMFEmptySectionTableViewCell*)cell {
+- (void)configureEmptyCell:(WMFEmptySectionCollectionViewCell*)cell {
     cell.emptyTextLabel.text = MWLocalizedString(@"home-nearby-nothing", nil);
     [cell.reloadButton setTitle:MWLocalizedString(@"home-nearby-check-again", nil) forState:UIControlStateNormal];
 }
@@ -138,7 +138,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 }
 
 - (CGFloat)estimatedRowHeight {
-    return [WMFNearbyArticleTableViewCell estimatedRowHeight];
+    return [WMFNearbyArticleCollectionViewCell estimatedRowHeight];
 }
 
 - (NSString*)analyticsContentType {
