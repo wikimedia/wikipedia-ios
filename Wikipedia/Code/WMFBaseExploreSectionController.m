@@ -131,12 +131,12 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
 
 #pragma mark - WMFExploreSectionController
 
-- (void)registerCellsInTableView:(UITableView*)tableView {
-    [tableView registerNib:[self cellNib] forCellReuseIdentifier:[self cellIdentifier]];
+- (void)registerCellsInCollectionView:(UICollectionView*)collectionView {
+    [collectionView registerNib:[self cellNib] forCellWithReuseIdentifier:[self cellIdentifier]];
     if ([self placeholderCellIdentifier] && [self placeholderCellNib]) {
-        [tableView registerNib:[self placeholderCellNib] forCellReuseIdentifier:[self placeholderCellIdentifier]];
+        [collectionView registerNib:[self placeholderCellNib] forCellWithReuseIdentifier:[self placeholderCellIdentifier]];
     }
-    [tableView registerNib:[WMFEmptySectionTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFEmptySectionTableViewCell identifier]];
+    [collectionView registerNib:[WMFEmptySectionTableViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFEmptySectionTableViewCell identifier]];
 }
 
 - (NSString*)cellIdentifierForItemIndexPath:(NSIndexPath*)indexPath {

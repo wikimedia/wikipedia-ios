@@ -125,7 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise*)fetchDataUserInitiated;
 
-- (void)registerCellsInTableView:(UITableView*)tableView;
+- (void)registerCellsInCollectionView:(UICollectionView*)collectionView;
 
 - (NSString*)cellIdentifierForItemIndexPath:(NSIndexPath*)indexPath;
 

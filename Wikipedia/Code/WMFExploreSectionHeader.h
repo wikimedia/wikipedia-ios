@@ -1,7 +1,7 @@
 
 @import UIKit;
 
-@interface WMFExploreSectionHeader : UITableViewHeaderFooterView
+@interface WMFExploreSectionHeader : UICollectionReusableView
 
 - (void)setImage:(UIImage*)image;
 - (void)setImageTintColor:(UIColor*)imageTintColor;

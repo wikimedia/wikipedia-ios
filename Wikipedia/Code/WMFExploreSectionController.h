@@ -79,11 +79,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSAttributedString*)headerSubTitle;
 
 /**
- *  Called to allow the controller to register cells in the table view
+ *  Called to allow the controller to register cells in the collection view
  *
- *  @param tableView The tableView
+ *  @param collectionView
  */
-- (void)registerCellsInTableView:(UITableView*)tableView;
+- (void)registerCellsInCollectionView:(UICollectionView*)collectionView;
 
 /**
  *  Return the identifier for the cell at the specified index.
