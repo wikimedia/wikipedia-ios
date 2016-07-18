@@ -155,7 +155,7 @@ extension NSUserDefaults {
     
     public func wmf_setCurrentSearchLanguageDomain(url: NSURL?) {
         guard let url = url else{
-            self.removeObjectForKey(WMFSearchLanguageKey)
+            self.removeObjectForKey(WMFSearchURLKey)
             self.synchronize()
             return
         }
@@ -163,7 +163,7 @@ extension NSUserDefaults {
             return;
         }
         
-        self.setURL(url, forKey: WMFSearchLanguageKey)
+        self.setURL(url, forKey: WMFSearchURLKey)
         self.synchronize()
     }
 
