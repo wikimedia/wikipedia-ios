@@ -199,7 +199,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSArray*)visibleSectionControllers {
-    NSIndexSet* visibleSectionIndexes = [[self.collectionView indexPathsForVisibleRows] bk_reduce:[NSMutableIndexSet indexSet] withBlock:^id (NSMutableIndexSet* sum, NSIndexPath* obj) {
+    NSIndexSet* visibleSectionIndexes = [[self.collectionView indexPathsForVisibleItems] bk_reduce:[NSMutableIndexSet indexSet] withBlock:^id (NSMutableIndexSet* sum, NSIndexPath* obj) {
         [sum addIndex:(NSUInteger)obj.section];
         return sum;
     }];
@@ -214,7 +214,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSArray*)invisibleSections {
-    NSIndexSet* visibleSectionIndexes = [[self.collectionView indexPathsForVisibleRows] bk_reduce:[NSMutableIndexSet indexSet] withBlock:^id (NSMutableIndexSet* sum, NSIndexPath* obj) {
+    NSIndexSet* visibleSectionIndexes = [[self.collectionView indexPathsForVisibleItems] bk_reduce:[NSMutableIndexSet indexSet] withBlock:^id (NSMutableIndexSet* sum, NSIndexPath* obj) {
         [sum addIndex:(NSUInteger)obj.section];
         return sum;
     }];
@@ -263,7 +263,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)scrollToTop:(BOOL)animated {
-    [self.collectionView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:animated];
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:animated];
 }
 
 - (void)didTapSettingsButton:(UIBarButtonItem*)sender {
@@ -294,12 +294,11 @@ NS_ASSUME_NONNULL_BEGIN
     //    self.collectionView.estimatedSectionHeaderHeight = 66.0;
     //    self.collectionView.sectionFooterHeight          = UICollectionViewAutomaticDimension;
     //    self.collectionView.estimatedSectionFooterHeight = 50.0;
+    
+    [self.collectionView registerNib:[WMFExploreSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
 
-    [self.collectionView registerNib:[WMFExploreSectionHeader wmf_classNib]
-     forHeaderFooterViewReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
-
-    [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib]
-     forHeaderFooterViewReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
+    [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
+    
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(applicationWillEnterForegroundWithNotification:)
@@ -492,7 +491,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.schemaManager sections] count];
 }
 
-- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (self.isWaitingForNetworkToReconnect) {
         return 0;
     }
@@ -501,7 +500,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [[controller items] count];
 }
 
-- (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
     UICollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[controller cellIdentifierForItemIndexPath:indexPath] forIndexPath:indexPath];
@@ -512,10 +511,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UICollectionViewDelegate
 
-- (CGFloat)collectionView:(UICollectionView*)collectionView estimatedHeightForRowAtIndexPath:(NSIndexPath*)indexPath {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
-    return [controller estimatedRowHeight];
+    CGFloat height = [controller estimatedRowHeight];
+    return CGSizeMake(collectionView.bounds.size.width, height);
 }
 
 - (void)configureHeader:(WMFExploreSectionHeader*)header withStylingFromController:(id<WMFExploreSectionController>)controller {
@@ -880,7 +880,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)selectFirstRowInSection:(NSUInteger)section {
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
-    [self.collectionView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     [self collectionView:self.collectionView didSelectRowAtIndexPath:indexPath];
 }
 
