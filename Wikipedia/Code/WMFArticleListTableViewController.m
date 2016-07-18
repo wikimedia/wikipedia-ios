@@ -84,12 +84,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [NSString stringWithFormat:@"%@ dataSourceClass: %@", self, [self.dataSource class]];
 }
 
-- (void)scrollToTop:(BOOL)animated {
-    if (self.dataSource.numberOfItems > 0) {
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    }
-}
-
 #pragma mark - Delete Button
 
 - (void)updateDeleteButton {

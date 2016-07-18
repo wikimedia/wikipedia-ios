@@ -46,6 +46,8 @@
 // View Controllers
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
+#import "WMFArticleListTableViewController.h"
+#import "WMFExploreViewController.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"
