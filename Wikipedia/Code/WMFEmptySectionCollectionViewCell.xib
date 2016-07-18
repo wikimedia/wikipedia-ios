@@ -29,6 +29,7 @@
                     </button>
                 </subviews>
             </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="ENx-R8-yeN" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" constant="-20" id="8iT-ls-nDv"/>
                 <constraint firstItem="ENx-R8-yeN" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="8" id="B52-dT-OQo"/>

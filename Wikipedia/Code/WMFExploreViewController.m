@@ -513,11 +513,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsZero;
+    return UIEdgeInsetsMake(1, 0, 0, 0);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 0;
+    return 1;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
@@ -529,7 +529,17 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    return CGSizeMake(collectionView.bounds.size.width, 50);
+    id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:section];
+    
+    if (!controller) {
+        return CGSizeMake(collectionView.bounds.size.width, 50);
+    }
+
+    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)]) {
+        return CGSizeMake(collectionView.bounds.size.width, 100);
+    } else {
+        return CGSizeMake(collectionView.bounds.size.width, 50);
+    }
 }
 
 - (void)configureHeader:(WMFExploreSectionHeader*)header withStylingFromController:(id<WMFExploreSectionController>)controller {

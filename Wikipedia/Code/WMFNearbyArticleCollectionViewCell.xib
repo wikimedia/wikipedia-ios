@@ -93,6 +93,7 @@
                     </view>
                 </subviews>
             </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="7Gw-jF-gnd" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" id="6I9-YY-eaY"/>
                 <constraint firstAttribute="bottom" secondItem="Lbm-mF-DF1" secondAttribute="bottom" priority="250" constant="8" id="M6S-Jr-2Z6"/>

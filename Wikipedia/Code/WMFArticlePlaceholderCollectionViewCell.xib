@@ -46,6 +46,7 @@
                     </button>
                 </subviews>
             </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="pC6-LC-20b" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="13" id="1vd-Gr-Mmq"/>
                 <constraint firstItem="RoZ-Ue-BfV" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" id="8hK-JT-Orq"/>

@@ -19,6 +19,7 @@
                     </imageView>
                 </subviews>
             </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="AYL-oy-oqK" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" id="Gaf-jn-Vbd"/>
                 <constraint firstItem="AYL-oy-oqK" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" id="SlK-dS-gmp"/>
