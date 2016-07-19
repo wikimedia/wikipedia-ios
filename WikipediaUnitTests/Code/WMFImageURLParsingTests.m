@@ -178,11 +178,42 @@
                is(equalTo(@"Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg")));
 }
 
+- (void)testSizePrefixWhenCanonicalFileIsPDF {
+    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg";
+    XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), 240);
+}
+
+- (void)testParseCanonicalFileNameWhenCanonicalFileIsPDF {
+    NSString* testURLString = @"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg";
+    assertThat(WMFParseImageNameFromSourceURL(testURLString),
+               is(equalTo(@"A_Fish_and_a_Gift.pdf")));
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsPDFWithSizePrefix {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg", 480),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-480px-A_Fish_and_a_Gift.pdf.jpg")));
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsPDFWithSizePrefixPage2 {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page2-240px-A_Fish_and_a_Gift.pdf.jpg", 480),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page2-480px-A_Fish_and_a_Gift.pdf.jpg")));
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsPDFWithoutSizePrefix {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/6/65/A_Fish_and_a_Gift.pdf", 240),
+               is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg")));
+}
+
 - (void)testSizePrefixChangeOnCanonicalImageURLWithSizePrefixInFileName {
     // Normally images only have "XXXpx-" size prefix when returned from the thumbnail scaler, but there's nothing stopping users from uploading images with "XXXpx-" size prefix in the canonical name.
     // (See last image on "enwiki > Geothermal gradient")
     assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/0/0b/300px-Geothermgradients.png", 100),
                is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/0/0b/300px-Geothermgradients.png/100px-300px-Geothermgradients.png")));
+}
+
+- (void)testResizePrefixChangeOnCanonicalImageURLWithSizePrefixInFileName {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/0/0b/300px-Geothermgradients.png/100px-300px-Geothermgradients.png", 200),
+               is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/0/0b/300px-Geothermgradients.png/200px-300px-Geothermgradients.png")));
 }
 
 - (void)testParseImageNameFromCanonicalImageURLWithSizePrefixInFileName {
