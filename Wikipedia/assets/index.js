@@ -4,9 +4,10 @@ var wmf = {};
 wmf.elementLocation = require("./js/elementLocation");
 wmf.transformer = require("./js/transformer");
 wmf.utilities = require("./js/utilities");
+wmf.search = require("./js/search");
 
 window.wmf = wmf;
-},{"./js/elementLocation":2,"./js/transformer":5,"./js/utilities":12}],2:[function(require,module,exports){
+},{"./js/elementLocation":2,"./js/search":5,"./js/transformer":6,"./js/utilities":13}],2:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -177,7 +178,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
                            }, false);
 })();
 
-},{"./refs":4,"./transforms/collapseTables":7,"./utilities":12}],4:[function(require,module,exports){
+},{"./refs":4,"./transforms/collapseTables":8,"./utilities":13}],4:[function(require,module,exports){
 
 function isCitation( href ) {
     return href.indexOf("#cite_note") > -1;
@@ -310,6 +311,97 @@ exports.isCitation = isCitation;
 exports.sendNearbyReferences = sendNearbyReferences;
 
 },{}],5:[function(require,module,exports){
+
+// We're using a global variable to store the number of occurrences
+var MyApp_SearchResultCount = 0;
+var MyApp_SearchResultMatches = [];
+
+// helper function, recursively searches in elements and their child nodes
+function MyApp_HighlightAllOccurencesOfStringForElement(element,keyword) {
+    if (element) {
+        if (element.nodeType == 3) {        // Text node
+            while (true) {
+                var value = element.nodeValue;  // Search for keyword in text node
+                var idx = value.toLowerCase().indexOf(keyword);
+                
+                if (idx < 0) break;             // not found, abort
+                
+                var span = document.createElement("span");
+                var text = document.createTextNode(value.substr(idx,keyword.length));
+                span.appendChild(text);
+                span.setAttribute("class","MyAppHighlight");
+
+var highlightSpanId = "find_match|" + MyApp_SearchResultCount;
+span.setAttribute("id", highlightSpanId);
+MyApp_SearchResultMatches.push({
+                               'highlightSpanId': highlightSpanId
+                               });
+                
+                span.style.backgroundColor="yellow";
+                span.style.color="black";
+                text = document.createTextNode(value.substr(idx+keyword.length));
+                element.deleteData(idx, value.length - idx);
+                var next = element.nextSibling;
+                element.parentNode.insertBefore(span, next);
+                element.parentNode.insertBefore(text, next);
+                element = text;
+                MyApp_SearchResultCount++;	// update the counter
+            }
+        } else if (element.nodeType == 1) { // Element node
+            if (element.style.display != "none" && element.nodeName.toLowerCase() != 'select') {
+                for (var i=element.childNodes.length-1; i>=0; i--) {
+                    MyApp_HighlightAllOccurencesOfStringForElement(element.childNodes[i],keyword);
+                }
+            }
+        }
+    }
+}
+
+// helper function, recursively removes the highlights in elements and their childs
+function MyApp_RemoveAllHighlightsForElement(element) {
+    if (element) {
+        if (element.nodeType == 1) {
+            if (element.getAttribute("class") == "MyAppHighlight") {
+                var text = element.removeChild(element.firstChild);
+                element.parentNode.insertBefore(text,element);
+                element.parentNode.removeChild(element);
+                return true;
+            } else {
+                var normalize = false;
+                for (var i=element.childNodes.length-1; i>=0; i--) {
+                    if (MyApp_RemoveAllHighlightsForElement(element.childNodes[i])) {
+                        normalize = true;
+                    }
+                }
+                if (normalize) {
+                    element.normalize();
+                }
+            }
+        }
+    }
+    return false;
+}
+
+// the main entry point to remove the highlights
+function MyApp_RemoveAllHighlights() {
+    MyApp_SearchResultCount = 0;
+    MyApp_SearchResultMatches = [];
+    MyApp_RemoveAllHighlightsForElement(document.body);
+}
+
+// the main entry point to start the search
+function MyApp_HighlightAllOccurencesOfString(keyword) {
+    MyApp_RemoveAllHighlights();
+    MyApp_HighlightAllOccurencesOfStringForElement(document.body, keyword.toLowerCase());
+    
+window.webkit.messageHandlers.searchMatchesFound.postMessage(MyApp_SearchResultMatches);
+    
+}
+
+exports.MyApp_HighlightAllOccurencesOfString = MyApp_HighlightAllOccurencesOfString;
+exports.MyApp_RemoveAllHighlights = MyApp_RemoveAllHighlights;
+
+},{}],6:[function(require,module,exports){
 function Transformer() {
 }
 
@@ -332,7 +424,7 @@ Transformer.prototype.transform = function( transform ) {
 
 module.exports = new Transformer();
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -371,7 +463,7 @@ transformer.register( "addImageOverflowXContainers", function( content ) {
     }
 } );
 
-},{"../transformer":5,"../utilities":12}],7:[function(require,module,exports){
+},{"../transformer":6,"../utilities":13}],8:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -543,7 +635,7 @@ exports.openCollapsedTableIfItContainsElement = function(element){
     }
 };
 
-},{"../transformer":5,"../utilities":12}],8:[function(require,module,exports){
+},{"../transformer":6,"../utilities":13}],9:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "disableFilePageEdit", function( content ) {
@@ -569,7 +661,7 @@ transformer.register( "disableFilePageEdit", function( content ) {
     }
 } );
 
-},{"../transformer":5}],9:[function(require,module,exports){
+},{"../transformer":6}],10:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "hideRedlinks", function( content ) {
@@ -580,7 +672,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	}
 } );
 
-},{"../transformer":5}],10:[function(require,module,exports){
+},{"../transformer":6}],11:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
@@ -661,7 +753,7 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     block_0.insertBefore(fragmentOfItemsToRelocate, edit_section_button_0.nextSibling);
 });
 
-},{"../transformer":5}],11:[function(require,module,exports){
+},{"../transformer":6}],12:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -750,7 +842,7 @@ transformer.register( "widenImages", function( content ) {
     }
 } );
 
-},{"../transformer":5,"../utilities":12}],12:[function(require,module,exports){
+},{"../transformer":6,"../utilities":13}],13:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -803,4 +895,4 @@ exports.setLanguage = setLanguage;
 exports.findClosest = findClosest;
 exports.isNestedInTable = isNestedInTable;
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13]);

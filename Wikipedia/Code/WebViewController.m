@@ -56,6 +56,8 @@ NSString* const WMFCCBySALicenseURL =
 
 @property (strong, nonatomic) MASConstraint* footerContainerViewTopConstraint;
 
+@property (nonatomic, strong) NSArray* searchMatches;
+
 @end
 
 @implementation WebViewController
@@ -121,6 +123,9 @@ NSString* const WMFCCBySALicenseURL =
             break;
         case WMFWKScriptMessageArticleState:
             [self handleArticleStateScriptMessage:safeMessageBody];
+            break;
+        case WMFWKScriptMessageSearchMatchesFound:
+            [self handleSearchMatchesFoundMessage:safeMessageBody];
             break;
         case WMFWKScriptMessageUnknown:
             NSAssert(NO, @"Unhandled script message type!");
@@ -248,7 +253,87 @@ NSString* const WMFCCBySALicenseURL =
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+- (void)handleSearchMatchesFoundMessage:(NSArray*)messageArray {
+    self.searchMatches = messageArray;
+    NSLog(@"matches = %@", messageArray);
+
+}
+
 #pragma mark - WebView configuration
+
+- (void)didReceiveMemoryWarning {
+/*
+- handle match inside table if collapsed?
+- "pulse" the hightlighted entry as it is scrolled to?
+- if typing search term quickly, only perform search after half a second or so has passed
+*/
+
+    static NSUInteger searchResultCursorIndex = 0;
+    
+    if(self.searchMatches.count > 0){
+//        [self.webView evaluateJavaScript:@"window.wmf.search.MyApp_RemoveAllHighlights()"
+//                       completionHandler:^(id _Nullable index, NSError* _Nullable error) {
+//                           
+//                       }];
+        
+        if (searchResultCursorIndex >= self.searchMatches.count) {
+            searchResultCursorIndex = 0;
+        }
+        
+        NSUInteger reverseIndex = self.searchMatches.count - 1 - searchResultCursorIndex;
+        NSDictionary* matchDict = [self.searchMatches wmf_safeObjectAtIndex:reverseIndex];
+        NSString* matchId = matchDict[@"highlightSpanId"];
+        NSLog(@"matchId = %@", matchId);
+        
+        /*
+        @weakify(self);
+        [self.webView getScrollViewRectForHtmlElementWithId:matchId completion:^(CGRect rect){
+            @strongify(self);
+            [self.webView.scrollView setContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y - 20) animated:YES];
+        }];
+         */
+         
+[self scrollToFragment:matchId];
+        
+        
+        searchResultCursorIndex = searchResultCursorIndex +1;
+    
+    }else{
+        [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.search.MyApp_HighlightAllOccurencesOfString('%@')", @"Obama"]
+                       completionHandler:^(id _Nullable index, NSError* _Nullable error) {
+                           
+                       }];
+    
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 - (WKWebViewConfiguration*)configuration {
     WKUserContentController* userContentController = [[WKUserContentController alloc] init];
@@ -272,6 +357,10 @@ NSString* const WMFCCBySALicenseURL =
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"articleState"];
 
+    
+[userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"searchMatchesFound"];
+
+    
     NSString* earlyJavascriptTransforms = @""
                                           "window.wmf.transformer.transform( 'hideRedlinks', document );"
                                           "window.wmf.transformer.transform( 'disableFilePageEdit', document );"
