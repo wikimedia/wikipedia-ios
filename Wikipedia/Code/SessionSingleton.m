@@ -16,7 +16,7 @@
 
 @property (strong, nonatomic) WMFAssetsFile* mainPages;
 
-@property (strong, nonatomic, readwrite) NSURL* currentArticleDomainURL;
+@property (strong, nonatomic, readwrite) NSURL* currentArticleSiteURL;
 
 @property (strong, nonatomic) NSURL* currentArticleURL;
 
@@ -55,7 +55,7 @@
 
         self.dataStore = dataStore;
 
-        _currentArticleDomainURL = [self lastKnownSite];
+        _currentArticleSiteURL = [self lastKnownSite];
     }
     return self;
 }
@@ -66,13 +66,13 @@
 
 #pragma mark - Site
 
-- (void)setCurrentArticleDomainURL:(NSURL*)currentArticleDomainURL {
-    NSParameterAssert(currentArticleDomainURL);
-    if (!currentArticleDomainURL || [_currentArticleDomainURL isEqual:currentArticleDomainURL]) {
+- (void)setCurrentArticleSiteURL:(NSURL*)currentArticleSiteURL {
+    NSParameterAssert(currentArticleSiteURL);
+    if (!currentArticleSiteURL || [_currentArticleSiteURL isEqual:currentArticleSiteURL]) {
         return;
     }
-    _currentArticleDomainURL = [currentArticleDomainURL wmf_domainURL];
-    [[NSUserDefaults standardUserDefaults] setObject:currentArticleDomainURL.wmf_language forKey:@"CurrentArticleDomain"];
+    _currentArticleSiteURL = [currentArticleSiteURL wmf_siteURL];
+    [[NSUserDefaults standardUserDefaults] setObject:currentArticleSiteURL.wmf_language forKey:@"CurrentArticleDomain"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -94,7 +94,7 @@
     }
     _currentArticle              = currentArticle;
     self.currentArticleURL       = currentArticle.url;
-    self.currentArticleDomainURL = currentArticle.url;
+    self.currentArticleSiteURL = currentArticle.url;
 }
 
 - (MWKArticle*)currentArticle {
@@ -107,7 +107,7 @@
 #pragma mark - Last known/loaded
 
 - (NSURL*)lastKnownSite {
-    return [NSURL wmf_URLWithLanguage:[[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleDomain"]];
+    return [NSURL wmf_URLWithDefaultSiteAndlanguage:[[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleDomain"]];
 }
 
 - (NSURL*)lastLoadedArticleURL {
@@ -131,7 +131,7 @@
 #pragma mark - Language URL
 
 - (NSURL*)urlForLanguage:(NSString*)language {
-    return self.fallback ? [[NSURL wmf_URLWithLanguage:language] wmf_desktopAPIURL] : [[NSURL wmf_URLWithLanguage:language] wmf_mobileAPIURL];
+    return self.fallback ? [[NSURL wmf_URLWithDefaultSiteAndlanguage:language] wmf_desktopAPIURL] : [[NSURL wmf_URLWithDefaultSiteAndlanguage:language] wmf_mobileAPIURL];
 }
 
 #pragma mark - Usage Reports

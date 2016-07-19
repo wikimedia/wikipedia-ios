@@ -28,7 +28,7 @@
 
 
 - (instancetype)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil {
-    return [self initWithSiteURL:[NSURL wmf_URLWithLanguage:@"en"] dataStore:[SessionSingleton sharedInstance].dataStore];
+    return [self initWithSiteURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"] dataStore:[SessionSingleton sharedInstance].dataStore];
 }
 
 - (instancetype)initWithCoder:(NSCoder*)aDecoder {
@@ -49,7 +49,7 @@
     [super viewDidAppear:animated];
     NSURL *siteURL = self.siteURL;
     WMFRandomArticleFetcher *fetcher = [[WMFRandomArticleFetcher alloc] init];
-    [fetcher fetchRandomArticleWithDomainURL:siteURL failure:^(NSError *error) {
+    [fetcher fetchRandomArticleWithSiteURL:siteURL failure:^(NSError *error) {
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     } success:^(MWKSearchResult* result) {
         NSURL* titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];

@@ -75,7 +75,7 @@
 }
 
 - (NSString*)wmf_title {
-    NSString* title = [[self.path wmf_internalLinkPath] wmf_normalizedPageTitle];
+    NSString* title = [[self.path wmf_pathWithoutWikiPrefix] wmf_normalizedPageTitle];
     if (title == nil) {
         title = @"";
     }

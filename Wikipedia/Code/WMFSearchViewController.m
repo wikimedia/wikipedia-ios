@@ -109,8 +109,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     return [[self.resultsListController.dataSource searchResults] searchTerm];
 }
 
-- (NSURL*)currentResultsSearchDomainURL {
-    return [self.resultsListController.dataSource searchDomainURL];
+- (NSURL*)currentResultsSearchSiteURL {
+    return [self.resultsListController.dataSource searchSiteURL];
 }
 
 - (NSString*)searchSuggestion {
@@ -424,12 +424,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
            collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
          */
         WMFSearchDataSource* dataSource =
-            [[WMFSearchDataSource alloc] initWithSearchDomainURL:url searchResults:results];
+            [[WMFSearchDataSource alloc] initWithSearchSiteURL:url searchResults:results];
 
         self.resultsListController.dataSource = dataSource;
 
         [self updateUIWithResults:results];
-        [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchDomainURL:url searchTerm:results.searchTerm]];
+        [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
 
         if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
             return [self.fetcher fetchArticlesForSearchTerm:searchTerm
@@ -503,7 +503,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)saveLastSearch {
     if ([self currentResultsSearchTerm]) {
-        MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithURL:[self currentResultsSearchDomainURL]
+        MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithURL:[self currentResultsSearchSiteURL]
                                                                       searchTerm:[self currentResultsSearchTerm]];
         [self.dataStore.userDataStore.recentSearchList addEntry:entry];
         [self.dataStore.userDataStore.recentSearchList save];

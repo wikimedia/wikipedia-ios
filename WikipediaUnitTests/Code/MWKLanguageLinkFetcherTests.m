@@ -47,7 +47,7 @@
 }
 
 - (void)testFetchingEmptyTitle {
-    NSURL* url = [[NSURL wmf_URLWithLanguage:@"en"] wmf_URLWithTitle:@""];
+    NSURL* url = [[NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"] wmf_URLWithTitle:@""];
 
     PushExpectation();
     [self.fetcher fetchLanguageLinksForArticleURL:url success:^(NSArray* langLinks) {

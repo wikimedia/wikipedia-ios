@@ -65,7 +65,7 @@ static MWKImageInfoResolve addPictureOfTheDayToDescriptionForDate(NSDate* date) 
 - (AnyPromise*)fetchPicOfTheDaySectionInfoForDate:(NSDate*)date
                                  metadataLanguage:(nullable NSString*)metadataLanguage {
     return [self fetchPartialInfoForImagesOnPages:@[[date wmf_picOfTheDayPageTitle]]
-                                    fromDomainURL:[NSURL wmf_wikimediaCommonsURL]
+                                    fromSiteURL:[NSURL wmf_wikimediaCommonsURL]
                                  metadataLanguage:metadataLanguage]
            .then(selectFirstImageInfo(date));
 }
@@ -73,7 +73,7 @@ static MWKImageInfoResolve addPictureOfTheDayToDescriptionForDate(NSDate* date) 
 - (AnyPromise*)fetchPicOfTheDayGalleryInfoForDate:(NSDate*)date
                                  metadataLanguage:(nullable NSString*)metadataLanguage {
     return [self fetchGalleryInfoForImagesOnPages:@[[date wmf_picOfTheDayPageTitle]]
-                                    fromDomainURL:[NSURL wmf_wikimediaCommonsURL]
+                                    fromSiteURL:[NSURL wmf_wikimediaCommonsURL]
                                  metadataLanguage:metadataLanguage]
            .then(selectFirstImageInfo(date)).then(addPictureOfTheDayToDescriptionForDate(date));
 }

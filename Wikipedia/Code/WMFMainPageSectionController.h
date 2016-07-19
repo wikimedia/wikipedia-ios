@@ -6,9 +6,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFMainPageSectionController : WMFBaseExploreSectionController
     <WMFExploreSectionController, WMFTitleProviding, WMFAnalyticsContentTypeProviding>
 
-@property (nonatomic, strong, readonly) NSURL* domainURL;
+@property (nonatomic, strong, readonly) NSURL* siteURL;
 
-- (instancetype)initWithDomainURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore;
+- (instancetype)initWithSiteURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore;
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_UNAVAILABLE;
 

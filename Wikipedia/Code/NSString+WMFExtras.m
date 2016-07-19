@@ -104,7 +104,7 @@
 }
 
 - (NSLocale*)getLocaleForCurrentSearchDomain {
-    NSString* domain = [SessionSingleton sharedInstance].currentArticleDomainURL.wmf_language;
+    NSString* domain = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
 
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:domain];
 

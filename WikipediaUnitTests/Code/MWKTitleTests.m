@@ -17,7 +17,7 @@
 
 - (void)setUp {
     [super setUp];
-    siteURL = [NSURL wmf_URLWithLanguage:@"en"];
+    siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
 }
 
 #pragma clang diagnostic push
@@ -60,14 +60,14 @@
 
 - (void)testFragment {
     NSURL* title = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:@"foo#bar"];
-    assertThat(title.wmf_domainURL, is(siteURL));
+    assertThat(title.wmf_siteURL, is(siteURL));
     assertThat(title.wmf_title, is(@"foo"));
     assertThat(title.fragment, is(@"bar"));
 }
 
 - (void)testPercentEscaped {
     NSURL* title = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:@"foo%20baz#bar"];
-    assertThat(title.wmf_domainURL, is(siteURL));
+    assertThat(title.wmf_siteURL, is(siteURL));
     assertThat(title.wmf_title, is(@"foo baz"));
     assertThat(title.fragment, is(@"bar"));
 }
@@ -83,7 +83,7 @@
     NSURL* title4 = [siteURL wmf_URLWithTitle:@"Foobie_Foo"];
     XCTAssertNotEqualObjects(title, title4);
 
-    NSURL* site2   = [NSURL wmf_URLWithLanguage:@"fr"];
+    NSURL* site2   = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"fr"];
     NSURL* title5 = [site2 wmf_URLWithTitle:@"Foobie foo"];
     XCTAssertNotEqualObjects(title, title5);
 }

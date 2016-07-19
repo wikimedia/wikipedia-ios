@@ -28,13 +28,13 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
 
 @interface WMFExploreSection : MTLModel
 
-+ (instancetype)mostReadSectionForDate:(NSDate*)date domainURL:(NSURL*)url;
++ (instancetype)mostReadSectionForDate:(NSDate*)date siteURL:(NSURL*)url;
 + (instancetype)continueReadingSectionWithArticleURL:(NSURL*)url;
-+ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark domainURL:(NSURL*)url;
++ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark siteURL:(NSURL*)url;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
 + (instancetype)pictureOfTheDaySectionWithDate:(NSDate*)date;
-+ (instancetype)randomSectionWithDomainURL:(NSURL*)url;
++ (instancetype)randomSectionWithSiteURL:(NSURL*)url;
 
 /**
  *  Create a section which displays the featured article of the day for a specific site.
@@ -43,13 +43,13 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
  *
  *  @return A featured article section, or @c nil if the given site doesn't support featured articles.
  */
-+ (nullable instancetype)featuredArticleSectionWithDomainURLIfSupported:(NSURL*)url;
++ (nullable instancetype)featuredArticleSectionWithSiteURLIfSupported:(NSURL*)url;
 
 ///
 /// @name Static Sections
 ///
 
-+ (instancetype)mainPageSectionWithDomainURL:(NSURL*)url;
++ (instancetype)mainPageSectionWithSiteURL:(NSURL*)url;
 
 /**
  *  Returns the max number of sections for a section type
@@ -89,7 +89,7 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
  *
  *  Used for the featured article section
  */
-@property (nonatomic, strong, readonly) NSURL* domainURL;
+@property (nonatomic, strong, readonly) NSURL* siteURL;
 
 /**
  *  The title associated with the section, if any.

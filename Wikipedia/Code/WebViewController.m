@@ -155,9 +155,12 @@ NSString* const WMFCCBySALicenseURL =
         [self referencesHide];
     }
     
-    if ([href wmf_isInternalLink]) {
-#warning Fix internal links by properly parsing the language code here
-        NSURL* url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
+    if ([href wmf_isWikiResource]) {
+        NSURL* url = [NSURL URLWithString:href];
+        if(!url.wmf_domain){
+            url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
+        }
+        url = [url wmf_urlByPrependingSchemeIfSchemeless];
         [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
     } else {
         // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
@@ -723,6 +726,12 @@ NSString* const WMFCCBySALicenseURL =
 
 #pragma mark - Display article
 
+- (void)setArticle:(MWKArticle * _Nullable)article articleURL:(NSURL*)articleURL{
+    self.articleURL = articleURL;
+    self.article = article;
+}
+
+
 - (void)setArticle:(MWKArticle*)article {
     _article = article;
 
@@ -744,7 +753,7 @@ NSString* const WMFCCBySALicenseURL =
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     [self.headerHeight setOffset:headerHeight];
 
-    [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.article.url.fragment topPadding:headerHeight];
+    [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment topPadding:headerHeight];
 
     UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
                                                           action:@selector(shareMenuItemTapped:)];

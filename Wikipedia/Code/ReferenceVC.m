@@ -23,7 +23,7 @@
 @implementation ReferenceVC
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
-    NSString* domain             = [SessionSingleton sharedInstance].currentArticleDomainURL.wmf_language;
+    NSString* domain             = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:domain];
     NSString* baseUrl            = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
 
@@ -81,7 +81,7 @@
 
     self.referenceWebView.delegate = self;
 
-    NSString* domain             = [SessionSingleton sharedInstance].currentArticleDomainURL.wmf_language;
+    NSString* domain             = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:domain];
     NSString* baseUrl            = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
 

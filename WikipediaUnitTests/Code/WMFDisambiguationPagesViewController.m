@@ -21,7 +21,7 @@
         self.dataStore  = dataStore;
         self.dataSource =
             [[WMFArticlePreviewDataSource alloc] initWithArticleURLs:self.article.disambiguationURLs
-                                                           domainURL:self.article.url
+                                                           siteURL:self.article.url
                                                       dataStore:dataStore
                                                         fetcher:[[WMFArticlePreviewFetcher alloc] init]];
         self.dataSource.tableView = self.tableView;

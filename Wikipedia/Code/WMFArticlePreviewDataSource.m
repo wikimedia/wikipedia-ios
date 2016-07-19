@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) WMFArticlePreviewFetcher* titlesSearchFetcher;
 @property (nonatomic, strong, readwrite, nullable) NSArray<MWKSearchResult*>* previewResults;
-@property (nonatomic, strong) NSURL* domainURL;
+@property (nonatomic, strong) NSURL* siteURL;
 @property (nonatomic, strong) NSArray<NSURL*>* urls;
 @property (nonatomic, assign) NSUInteger resultLimit;
 
@@ -41,18 +41,18 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (instancetype)initWithArticleURLs:(NSArray<NSURL*>*)articleURLs
-                          domainURL:(NSURL*)domainURL
+                          siteURL:(NSURL*)siteURL
                           dataStore:(MWKDataStore*)dataStore
                             fetcher:(WMFArticlePreviewFetcher*)fetcher {
     NSParameterAssert(articleURLs);
     NSParameterAssert(fetcher);
     NSParameterAssert(dataStore);
-    NSParameterAssert(domainURL);
+    NSParameterAssert(siteURL);
     self = [super initWithItems:nil];
     if (self) {
         self.dataStore           = dataStore;
         self.urls                = articleURLs;
-        self.domainURL           = domainURL;
+        self.siteURL           = siteURL;
         self.titlesSearchFetcher = fetcher;
 
         self.cellClass = [WMFArticlePreviewTableViewCell class];
@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
                                     NSIndexPath* indexPath) {
             @strongify(self);
             NSURL* URL = [self urlForIndexPath:indexPath];
-            NSParameterAssert([URL.wmf_domain isEqual:domainURL.wmf_domain]);
+            NSParameterAssert([URL.wmf_domain isEqual:siteURL.wmf_domain]);
             cell.titleText       = URL.wmf_title;
             cell.descriptionText = searchResult.wikidataDescription;
             cell.snippetText     = searchResult.extract;
@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetch {
     @weakify(self);
-    [self.titlesSearchFetcher fetchArticlePreviewResultsForArticleURLs:self.urls domainURL:self.domainURL]
+    [self.titlesSearchFetcher fetchArticlePreviewResultsForArticleURLs:self.urls siteURL:self.siteURL]
     .then(^(NSArray<MWKSearchResult*>* searchResults) {
         @strongify(self);
         if (!self) {
@@ -110,7 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSURL*)urlForIndexPath:(NSIndexPath*)indexPath {
-    return [self.domainURL wmf_URLWithTitle:[self searchResultForIndexPath:indexPath].displayTitle];
+    return [self.siteURL wmf_URLWithTitle:[self searchResultForIndexPath:indexPath].displayTitle];
 }
 
 - (NSUInteger)titleCount {

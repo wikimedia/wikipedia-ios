@@ -3,7 +3,7 @@
 
 @interface WMFRelatedSearchResults ()
 
-@property (nonatomic, strong, readwrite) NSURL* domainURL;
+@property (nonatomic, strong, readwrite) NSURL* siteURL;
 @property (nonatomic, strong, readwrite) NSArray* results;
 
 @end
@@ -13,7 +13,7 @@
 - (instancetype)initWithURL:(NSURL*)URL results:(NSArray*)results {
     self = [super init];
     if (self) {
-        self.domainURL = URL.wmf_domainURL;
+        self.siteURL = URL.wmf_siteURL;
         self.results   = results;
     }
     return self;

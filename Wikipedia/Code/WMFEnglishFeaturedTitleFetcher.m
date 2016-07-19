@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise*)fetchFeaturedArticlePreviewForDate:(NSDate*)date {
     @weakify(self);
-    NSURL* siteURL = [NSURL wmf_URLWithLanguage:@"en"];
+    NSURL* siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
     return [self.featuredTitleOperationManager wmf_GETAndRetryWithURL:siteURL parameters:date]
            .thenInBackground(^(NSString* title) {
         @strongify(self);

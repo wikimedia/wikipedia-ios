@@ -29,7 +29,7 @@
 
 - (void)log:(NSDictionary*)eventData {
     SessionSingleton* session = [SessionSingleton sharedInstance];
-    NSString* wiki            = [session.currentArticleDomainURL.wmf_language stringByAppendingString:@"wiki"];
+    NSString* wiki            = [session.currentArticleSiteURL.wmf_language stringByAppendingString:@"wiki"];
     [self log:eventData wiki:wiki];
 }
 

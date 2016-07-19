@@ -14,7 +14,7 @@
 
 - (void)setUp {
     [super setUp];
-    siteURL = [NSURL wmf_URLWithLanguage:@"en"];
+    siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
 }
 
 - (void)tearDown {
@@ -31,10 +31,10 @@
 }
 
 - (void)testEquals {
-    NSURL* otherSiteURL = [NSURL wmf_URLWithLanguage:@"en"];
+    NSURL* otherSiteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
     XCTAssertEqualObjects(siteURL, otherSiteURL);
 
-    otherSiteURL = [NSURL wmf_URLWithLanguage:@"fr"];
+    otherSiteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"fr"];
     XCTAssertNotEqualObjects(siteURL, otherSiteURL);
 
     otherSiteURL = [NSURL wmf_URLWithDomain:@"wiktionary.org" language:@"en"];

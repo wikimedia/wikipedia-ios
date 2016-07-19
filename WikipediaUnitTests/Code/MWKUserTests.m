@@ -14,7 +14,7 @@
 
 - (void)setUp {
     [super setUp];
-    siteURL = [NSURL wmf_URLWithLanguage:@"en"];
+    siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
 }
 
 - (void)tearDown {

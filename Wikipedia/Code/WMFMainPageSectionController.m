@@ -22,7 +22,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 @interface WMFMainPageSectionController ()
 
-@property (nonatomic, strong, readwrite) NSURL* domainURL;
+@property (nonatomic, strong, readwrite) NSURL* siteURL;
 
 @property (nonatomic, strong) MWKSiteInfoFetcher* siteInfoFetcher;
 
@@ -36,11 +36,11 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 @implementation WMFMainPageSectionController
 
-- (instancetype)initWithDomainURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithSiteURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(url);
     self = [super initWithDataStore:dataStore];
     if (self) {
-        self.domainURL = url;
+        self.siteURL = url;
     }
     return self;
 }
@@ -109,7 +109,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 - (void)configureCell:(WMFArticleListCollectionViewCell*)cell withItem:(MWKSearchResult*)item atIndexPath:(NSIndexPath*)indexPath {
     cell.titleText                        = item.displayTitle;
-    cell.titleLabel.accessibilityLanguage = self.domainURL.wmf_language;
+    cell.titleLabel.accessibilityLanguage = self.siteURL.wmf_language;
     cell.descriptionText                  = item.wikidataDescription;
     [cell setImageURL:item.thumbnailURL];
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
@@ -125,13 +125,13 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 - (AnyPromise*)fetchData {
     @weakify(self);
-    return [self.siteInfoFetcher fetchSiteInfoForDomainURL:self.domainURL].then(^(MWKSiteInfo* data) {
+    return [self.siteInfoFetcher fetchSiteInfoForSiteURL:self.siteURL].then(^(MWKSiteInfo* data) {
         @strongify(self);
         if (!self || !data.mainPageURL) {
             return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
         }
         self.siteInfo = data;
-        return (id)[self.titleSearchFetcher fetchArticlePreviewResultsForArticleURLs:@[self.siteInfo.mainPageURL] domainURL:self.domainURL];
+        return (id)[self.titleSearchFetcher fetchArticlePreviewResultsForArticleURLs:@[self.siteInfo.mainPageURL] siteURL:self.siteURL];
     }).then(^(NSArray<MWKSearchResult*>* searchResults) {
         @strongify(self);
         if (!self) {

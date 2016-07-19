@@ -25,7 +25,7 @@ extern NSString* const WMFCitationFragmentSubstring;
  *
  * @see WMFInternalLinkPrefix
  */
-- (BOOL)wmf_isInternalLink;
+- (BOOL)wmf_isWikiResource;
 
 /**
  * Determine if a fragment points to a citation.
@@ -41,7 +41,7 @@ extern NSString* const WMFCitationFragmentSubstring;
  *
  * @warning If you need to be sure any query or fragment are also stripped, use this same category on `NSURL`.
  */
-- (NSString*)wmf_internalLinkPath;
+- (NSString*)wmf_pathWithoutWikiPrefix;
 
 /**
  *  @return Copy of the receiver after normalizing page titles extracted from URLs, replacing percent escapes

@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
 
 - (instancetype)initWithArticleURLs:(NSArray<NSURL*>*)articleURLs
-                     domainURL:(NSURL*)domainURL
+                     siteURL:(NSURL*)siteURL
                      dataStore:(MWKDataStore*)dataStore
                        fetcher:(WMFArticlePreviewFetcher*)fetcher NS_DESIGNATED_INITIALIZER;
 

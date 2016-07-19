@@ -40,10 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (void)fetchRandomArticleWithDomainURL:(NSURL*)domainURL failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSearchResultHandler)success {
+- (void)fetchRandomArticleWithSiteURL:(NSURL*)siteURL failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSearchResultHandler)success {
     NSDictionary* params = [[self class] params];
     
-    [self.operationManager wmf_GETAndRetryWithURL:domainURL
+    [self.operationManager wmf_GETAndRetryWithURL:siteURL
                                 parameters:params
                                      retry:NULL
                                    success:^(NSURLSessionDataTask* operation, NSArray* responseObject) {

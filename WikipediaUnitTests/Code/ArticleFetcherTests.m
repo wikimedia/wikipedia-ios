@@ -44,7 +44,7 @@
 }
 
 - (void)testSuccessfulFetchWritesArticleToDataStoreWithoutDuplicatingData {
-    NSURL* siteURL        = [NSURL wmf_URLWithLanguage:@"en"];
+    NSURL* siteURL        = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
     NSURL* dummyArticleURL = [siteURL wmf_URLWithTitle:@"Foo"];
     NSURL* url           = [siteURL wmf_desktopAPIURL];
 

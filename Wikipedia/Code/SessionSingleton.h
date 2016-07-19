@@ -32,7 +32,7 @@
  *  This will never be nil.
  *
  */
-@property (strong, nonatomic, readonly) NSURL* currentArticleDomainURL;
+@property (strong, nonatomic, readonly) NSURL* currentArticleSiteURL;
 
 /**
  *  The current artcle. Set this when an article is loaded.

@@ -6,7 +6,7 @@
 
 - (void)setUp {
     [super setUp];
-    self.siteURL = [NSURL wmf_URLWithLanguage:@"en"];
+    self.siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
     self.articleURL = [self.siteURL wmf_URLWithTitle:@"San Francisco"];
     self.json0    = [self loadJSON:@"section0"];
     self.json1    = [self loadJSON:@"section1-end"];

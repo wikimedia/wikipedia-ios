@@ -62,15 +62,15 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (AnyPromise*)fetchArticlePreviewResultsForArticleURLs:(NSArray<NSURL*>*)articleURLs
-                                              domainURL:(NSURL*)domainURL {
+                                              siteURL:(NSURL*)siteURL {
     return [self fetchArticlePreviewResultsForArticleURLs:articleURLs
-                                                domainURL:domainURL
+                                                siteURL:siteURL
                                             extractLength:WMFNumberOfExtractCharacters
                                            thumbnailWidth:[[UIScreen mainScreen] wmf_leadImageWidthForScale].unsignedIntegerValue];
 }
 
 - (AnyPromise*)fetchArticlePreviewResultsForArticleURLs:(NSArray<NSURL*>*)articleURLs
-                                              domainURL:(NSURL*)domainURL
+                                              siteURL:(NSURL*)siteURL
                                           extractLength:(NSUInteger)extractLength
                                          thumbnailWidth:(NSUInteger)thumbnailWidth {
     WMFArticlePreviewRequestParameters* params = [WMFArticlePreviewRequestParameters new];
@@ -79,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
     params.thumbnailWidth = thumbnailWidth;
 
     @weakify(self);
-    return [self.operationManager wmf_GETAndRetryWithURL:domainURL parameters:params]
+    return [self.operationManager wmf_GETAndRetryWithURL:siteURL parameters:params]
            .thenInBackground(^id (NSArray<MWKSearchResult*>* unsortedPreviews) {
         @strongify(self);
         if (!self) {

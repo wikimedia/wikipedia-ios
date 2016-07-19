@@ -1,10 +1,3 @@
-//
-//  NSURL+WMFLinkParsing.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 8/5/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "NSURL+WMFLinkParsing.h"
 #import "NSString+WMFExtras.h"
@@ -37,23 +30,22 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
     return [NSURL wmf_URLWithDomain:WMFDefaultSiteDomain language:language title:titleText fragment:nil];
 }
 
-+ (nullable NSURL*)wmf_wikimediaCommonsURL{
++ (nullable NSURL*)wmf_wikimediaCommonsURL {
     NSURLComponents* URLComponents = [[NSURLComponents alloc] init];
     URLComponents.scheme = @"https";
     URLComponents.host   = [NSURLComponents wmf_hostWithDomain:@"wikimedia.org" subDomain:@"commons" isMobile:NO];
     return [URLComponents URL];
 }
 
-
-+ (NSURL*)wmf_URLWithLanguage:(nullable NSString*)language {
++ (NSURL*)wmf_URLWithDefaultSiteAndlanguage:(nullable NSString*)language {
     return [self wmf_URLWithDomain:WMFDefaultSiteDomain language:language];
 }
 
-+ (NSURL*)wmf_URLWithDefaultSiteAndLocale:(NSLocale*)locale{
++ (NSURL*)wmf_URLWithDefaultSiteAndLocale:(NSLocale*)locale {
     return [self wmf_URLWithDomain:WMFDefaultSiteDomain language:[locale objectForKey:NSLocaleLanguageCode]];
 }
 
-+ (NSURL*)wmf_URLWithDefaultSiteAndCurrentLocale{
++ (NSURL*)wmf_URLWithDefaultSiteAndCurrentLocale {
     return [self wmf_URLWithDefaultSiteAndLocale:[NSLocale currentLocale]];
 }
 
@@ -79,24 +71,24 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 }
 
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL unescapedDenormalizedTitleAndFragment:(NSString*)path {
-    NSAssert(![path wmf_isInternalLink],
+    NSAssert(![path wmf_isWikiResource],
              @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
              path);
-    if ([path wmf_isInternalLink]) {
+    if ([path wmf_isWikiResource]) {
         return [NSURL wmf_URLWithSiteURL:siteURL unescapedDenormalizedInternalLink:path];
     } else {
-        NSArray* bits = [path componentsSeparatedByString:@"#"];
-        NSString *fragment = [[bits wmf_safeObjectAtIndex:1] precomposedStringWithCanonicalMapping];
+        NSArray* bits      = [path componentsSeparatedByString:@"#"];
+        NSString* fragment = [[bits wmf_safeObjectAtIndex:1] precomposedStringWithCanonicalMapping];
         return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_normalizedPageTitle] fragment:fragment];
     }
 }
 
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedTitleAndFragment:(NSString*)path {
-    NSAssert(![path wmf_isInternalLink],
+    NSAssert(![path wmf_isWikiResource],
              @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
              path);
     NSAssert([[NSURL invalidPercentEscapesRegex] matchesInString:path options:0 range:NSMakeRange(0, path.length)].count == 0, @"%@ should only have valid percent escapes", path);
-    if ([path wmf_isInternalLink]) {
+    if ([path wmf_isWikiResource]) {
         return [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:path];
     } else {
         NSArray* bits = [path componentsSeparatedByString:@"#"];
@@ -105,15 +97,15 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 }
 
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL unescapedDenormalizedInternalLink:(NSString*)internalLink {
-    NSAssert(internalLink.length == 0 || [internalLink wmf_isInternalLink],
+    NSAssert(internalLink.length == 0 || [internalLink wmf_isWikiResource],
              @"Expected string with internal link prefix but got: %@", internalLink);
-    return [self wmf_URLWithSiteURL:siteURL unescapedDenormalizedTitleAndFragment:[internalLink wmf_internalLinkPath]];
+    return [self wmf_URLWithSiteURL:siteURL unescapedDenormalizedTitleAndFragment:[internalLink wmf_pathWithoutWikiPrefix]];
 }
 
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedInternalLink:(NSString*)internalLink {
-    NSAssert(internalLink.length == 0 || [internalLink wmf_isInternalLink],
+    NSAssert(internalLink.length == 0 || [internalLink wmf_isWikiResource],
              @"Expected string with internal link prefix but got: %@", internalLink);
-    return [self wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:[internalLink wmf_internalLinkPath]];
+    return [self wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:[internalLink wmf_pathWithoutWikiPrefix]];
 }
 
 - (NSURL*)wmf_URLWithTitle:(NSString*)title {
@@ -144,30 +136,29 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
     return components.URL;
 }
 
-- (NSURL*)wmf_domainURL {
+- (NSURL*)wmf_siteURL {
     NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.path     = nil;
     components.fragment = nil;
     return [components URL];
 }
 
-- (NSURL*)wmf_APIURL:(BOOL)isMobile{
-    return [self wmf_URLWithPath:@"/w/api.php" isMobile:isMobile];
+- (NSURL*)wmf_APIURL:(BOOL)isMobile {
+    return [[self wmf_siteURL] wmf_URLWithPath:@"/w/api.php" isMobile:isMobile];
 }
 
-- (NSURL*)wmf_mobileAPIURL{
+- (NSURL*)wmf_mobileAPIURL {
     return [self wmf_APIURL:YES];
 }
 
-- (NSURL*)wmf_desktopAPIURL{
+- (NSURL*)wmf_desktopAPIURL {
     return [self wmf_APIURL:NO];
 }
 
-
 #pragma mark - Properties
 
-- (BOOL)wmf_isInternalLink {
-    return [self.path wmf_isInternalLink];
+- (BOOL)wmf_isWikiResource {
+    return [self.path wmf_isWikiResource];
 }
 
 - (BOOL)wmf_isCitation {
@@ -187,8 +178,8 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
     }
 }
 
-- (NSString*)wmf_internalLinkPath {
-    return [self.path wmf_internalLinkPath];
+- (NSString*)wmf_pathWithoutWikiPrefix {
+    return [self.path wmf_pathWithoutWikiPrefix];
 }
 
 - (NSString*)wmf_domain {
@@ -216,8 +207,10 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 }
 
 - (NSString*)wmf_title {
-#warning this should verify that the URL has /wiki/ in the path
-    NSString* title = [[self.path wmf_internalLinkPath] wmf_normalizedPageTitle];
+    if (![self wmf_isWikiResource]) {
+        return nil;
+    }
+    NSString* title = [[self.path wmf_pathWithoutWikiPrefix] wmf_normalizedPageTitle];
     if (title == nil) {
         title = @"";
     }
@@ -225,8 +218,10 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 }
 
 - (NSString*)wmf_titleWithUnderScores {
-#warning this should verify that the URL has /wiki/ in the path
-    NSString* title = [[self.path wmf_internalLinkPath] wmf_denormalizedPageTitle];
+    if (![self wmf_isWikiResource]) {
+        return nil;
+    }
+    NSString* title = [[self.path wmf_pathWithoutWikiPrefix] wmf_denormalizedPageTitle];
     if (title == nil) {
         title = @"";
     }

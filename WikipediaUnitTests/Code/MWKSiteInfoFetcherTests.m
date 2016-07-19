@@ -35,12 +35,12 @@
 }
 
 - (void)testENWikiFixture {
-    [self runSuccessfulCallbackTestWithFixture:@"ENWikiSiteInfo" siteURL:[NSURL wmf_URLWithLanguage:@"en"]];
+    [self runSuccessfulCallbackTestWithFixture:@"ENWikiSiteInfo" siteURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"]];
 
 }
 
 - (void)testNOWikiFixture {
-    [self runSuccessfulCallbackTestWithFixture:@"NOWikiSiteInfo" siteURL:[NSURL wmf_URLWithLanguage:@"no"]];
+    [self runSuccessfulCallbackTestWithFixture:@"NOWikiSiteInfo" siteURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:@"no"]];
 }
 
 - (void)runSuccessfulCallbackTestWithFixture:(NSString*)fixture siteURL:(NSURL*)testSiteURL {
@@ -58,9 +58,9 @@
 
     XCTestExpectation* expectation = [self expectationWithDescription:@"response"];
 
-    [self.fetcher fetchSiteInfoForDomainURL:testSiteURL]
+    [self.fetcher fetchSiteInfoForSiteURL:testSiteURL]
     .then(^(MWKSiteInfo* result){
-        assertThat(result.domainURL, is(equalTo(testSiteURL)));
+        assertThat(result.siteURL, is(equalTo(testSiteURL)));
         assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
         [expectation fulfill];
     });
@@ -68,7 +68,7 @@
 }
 
 - (void)testDesktopFallback {
-    NSURL* testSiteURL            = [NSURL wmf_URLWithLanguage:@"en"];
+    NSURL* testSiteURL            = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
     NSString* json               = [[self wmf_bundle] wmf_stringFromContentsOfFile:@"ENWikiSiteInfo" ofType:@"json"];
     NSDictionary* jsonDictionary = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"ENWikiSiteInfo"];
 
@@ -88,9 +88,9 @@
 
     XCTestExpectation* expectation = [self expectationWithDescription:@"response"];
 
-    [self.fetcher fetchSiteInfoForDomainURL:testSiteURL]
+    [self.fetcher fetchSiteInfoForSiteURL:testSiteURL]
     .then(^(MWKSiteInfo* result){
-        assertThat(result.domainURL, is(equalTo(testSiteURL)));
+        assertThat(result.siteURL, is(equalTo(testSiteURL)));
         assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
         [expectation fulfill];
     }).catch(^(NSError* error){

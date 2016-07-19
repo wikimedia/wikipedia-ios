@@ -79,7 +79,7 @@ extension NSUserDefaults {
             return;
         }
         
-        self.setObject(url, forKey: WMFOpenArticleTitleKey)
+        self.setURL(url, forKey: WMFOpenArticleTitleKey)
         self.synchronize()
     }
 
@@ -145,7 +145,7 @@ extension NSUserDefaults {
         if let url = self.URLForKey(WMFSearchURLKey) {
             return url
         }else if let language = self.objectForKey(WMFSearchLanguageKey) as? String {
-            let url = NSURL.wmf_URLWithLanguage(language)
+            let url = NSURL.wmf_URLWithDefaultSiteAndlanguage(language)
             self.wmf_setCurrentSearchLanguageDomain(url)
             return url
         }else{
@@ -155,7 +155,7 @@ extension NSUserDefaults {
     
     public func wmf_setCurrentSearchLanguageDomain(url: NSURL?) {
         guard let url = url else{
-            self.removeObjectForKey(WMFSearchLanguageKey)
+            self.removeObjectForKey(WMFSearchURLKey)
             self.synchronize()
             return
         }
@@ -163,7 +163,7 @@ extension NSUserDefaults {
             return;
         }
         
-        self.setObject(url, forKey: WMFSearchLanguageKey)
+        self.setURL(url, forKey: WMFSearchURLKey)
         self.synchronize()
     }
 

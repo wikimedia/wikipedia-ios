@@ -93,7 +93,7 @@
     return activity;
 }
 
-+ (instancetype)wmf_searchResultsActivitySearchDomainURL:(NSURL*)url searchTerm:(NSString*)searchTerm {
++ (instancetype)wmf_searchResultsActivitySearchSiteURL:(NSURL*)url searchTerm:(NSString*)searchTerm {
     NSURLComponents* components = [[NSURLComponents alloc] initWithURL:url resolvingAgainstBaseURL:NO];
     components.path = [NSString stringWithFormat:@"/w/index.php?search=%@&title=Special%%3ASearch&fulltext=1", searchTerm];
     url             = [components URL];

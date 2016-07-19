@@ -23,7 +23,7 @@
 
 - (void)setUp {
     [super setUp];
-    siteURL         = [NSURL wmf_URLWithLanguage:@"en"];
+    siteURL         = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
     articleURL        = [siteURL wmf_URLWithTitle:@"San Francisco"];
     articleURLUnicode = [siteURL wmf_URLWithTitle:@"Éclair"];
     articleURLEvil    = [siteURL wmf_URLWithTitle:@"AT&T/SBC \"merger\""];

@@ -27,10 +27,14 @@
 #import "MWKHistoryEntry.h"
 
 // TODO: rename the WebViewControllerVariableNames once we rename this class
+NS_ASSUME_NONNULL_BEGIN
 
 @interface WebViewController ()
 
 @property (nonatomic, strong, readwrite) WKWebView* webView;
+
+@property (nonatomic, strong, nullable, readwrite) MWKArticle* article;
+@property (nonatomic, strong, nullable, readwrite) NSURL* articleURL;
 
 @property (nonatomic, strong) SessionSingleton* session;
 
@@ -60,3 +64,6 @@
 - (instancetype)initWithSession:(SessionSingleton*)session;
 
 @end
+
+NS_ASSUME_NONNULL_END
+

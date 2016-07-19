@@ -153,7 +153,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFMostReadSectionController*)mostReadSectionControllerForSection:(WMFExploreSection*)section {
     return [[WMFMostReadSectionController alloc] initWithDate:section.mostReadFetchDate
-                                                    domainURL:section.domainURL
+                                                    siteURL:section.siteURL
                                                     dataStore:self.dataStore];
 }
 
@@ -168,16 +168,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFNearbySectionController*)nearbySectionControllerForSchemaItem:(WMFExploreSection*)item {
     return [[WMFNearbySectionController alloc] initWithLocation:item.location
                                                       placemark:item.placemark
-                                                searchDomainURL:item.domainURL
+                                                searchSiteURL:item.siteURL
                                                       dataStore:self.dataStore];
 }
 
 - (WMFRandomSectionController*)randomSectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFRandomSectionController alloc] initWithSearchDomainURL:item.domainURL dataStore:self.dataStore];
+    return [[WMFRandomSectionController alloc] initWithSearchSiteURL:item.siteURL dataStore:self.dataStore];
 }
 
 - (WMFMainPageSectionController*)mainPageSectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFMainPageSectionController alloc] initWithDomainURL:item.domainURL dataStore:self.dataStore];
+    return [[WMFMainPageSectionController alloc] initWithSiteURL:item.siteURL dataStore:self.dataStore];
 }
 
 - (WMFPictureOfTheDaySectionController*)picOfTheDaySectionControllerForSchemaItem:(WMFExploreSection*)item  {
@@ -185,7 +185,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (WMFFeaturedArticleSectionController*)featuredArticleSectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFFeaturedArticleSectionController alloc] initWithDomainURL:item.domainURL date:item.dateCreated dataStore:self.dataStore];
+    return [[WMFFeaturedArticleSectionController alloc] initWithSiteURL:item.siteURL date:item.dateCreated dataStore:self.dataStore];
 }
 
 #pragma mark - Removal

@@ -428,7 +428,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)appLanguageDidChangeWithNotification:(NSNotification*)note {
     [self createSectionSchemaIfNeeded];
-    [self.schemaManager updateDomainURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]];
+    [self.schemaManager updateSiteURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]];
 }
 
 - (void)tweaksDidChangeWithNotification:(NSNotification*)note {
@@ -781,10 +781,10 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.schemaManager = [WMFExploreSectionSchema schemaWithDomainURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]
-                                                           savedPages:self.savedPages
-                                                              history:self.recentPages
-                                                            blackList:[WMFRelatedSectionBlackList sharedBlackList]];
+    self.schemaManager = [WMFExploreSectionSchema schemaWithSiteURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]
+                                                      savedPages:self.savedPages
+                                                         history:self.recentPages
+                                                       blackList:[WMFRelatedSectionBlackList sharedBlackList]];
     self.schemaManager.delegate = self;
     [self loadSectionControllersForCurrentSectionSchema];
     self.collectionView.dataSource = self;

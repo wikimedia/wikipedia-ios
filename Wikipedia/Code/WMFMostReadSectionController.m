@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFMostReadSectionController ()
 
-@property (nonatomic, copy, readwrite) NSURL* domainURL;
+@property (nonatomic, copy, readwrite) NSURL* siteURL;
 @property (nonatomic, strong, readwrite) NSDate* date;
 @property (nonatomic, strong, readonly) NSString* localDateDisplayString;
 @property (nonatomic, strong, readonly) NSString* localDateShortDisplayString;
@@ -39,19 +39,19 @@ NS_ASSUME_NONNULL_BEGIN
 @synthesize localDateDisplayString      = _localDateDisplayString;
 @synthesize localDateShortDisplayString = _localDateShortDisplayString;
 
-- (instancetype)initWithDate:(NSDate*)date domainURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithDate:(NSDate*)date siteURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(url);
     NSParameterAssert(date);
     self = [super initWithDataStore:dataStore];
     if (self) {
-        self.domainURL = url;
+        self.siteURL = url;
         self.date      = date;
     }
     return self;
 }
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"%@ site = %@, date = %@", [super description], self.domainURL, [self englishUTCDateString]];
+    return [NSString stringWithFormat:@"%@ site = %@, date = %@", [super description], self.siteURL, [self englishUTCDateString]];
 }
 
 #pragma mark - Accessors
@@ -123,7 +123,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Meta
 
 - (NSString*)sectionIdentifier {
-    return [NSString stringWithFormat:@"%@_%@", self.domainURL.host, [self englishUTCDateString]];
+    return [NSString stringWithFormat:@"%@_%@", self.siteURL.host, [self englishUTCDateString]];
 }
 
 - (CGFloat)estimatedRowHeight {
@@ -138,7 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSAttributedString*)headerTitle {
     // fall back to language code if it can't be localized
-    NSString* language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.domainURL.wmf_language];
+    NSString* language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.siteURL.wmf_language];
 
     NSString* heading = nil;
 
@@ -179,7 +179,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIViewController*)moreViewController {
     return [[WMFMostReadListTableViewController alloc] initWithPreviews:self.previews
-                                                            fromSiteURL:self.domainURL
+                                                            fromSiteURL:self.siteURL
                                                                 forDate:self.date
                                                               dataStore:self.dataStore];
 }
@@ -201,7 +201,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (![result isKindOfClass:[MWKSearchResult class]]) {
         return nil;
     }
-    return [self.domainURL wmf_URLWithTitle:result.displayTitle];
+    return [self.siteURL wmf_URLWithTitle:result.displayTitle];
 }
 
 #pragma mark - WMFBaseExploreSectionController Subclass
@@ -236,10 +236,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise*)fetchData {
     @weakify(self);
-    return [self.mostReadTitlesFetcher fetchMostReadTitlesForSiteURL:self.domainURL date:self.date]
+    return [self.mostReadTitlesFetcher fetchMostReadTitlesForSiteURL:self.siteURL date:self.date]
            .then(^id (WMFMostReadTitlesResponseItem* mostReadResponse) {
         @strongify(self);
-        NSParameterAssert([mostReadResponse.siteURL isEqual:self.domainURL]);
+        NSParameterAssert([mostReadResponse.siteURL isEqual:self.siteURL]);
         if (!self) {
             return [NSError cancelledError];
         }
@@ -248,11 +248,11 @@ NS_ASSUME_NONNULL_BEGIN
         NSArray<NSURL*>* titlesToPreview = [mostReadResponse.articles
                                                bk_map:^NSURL*(WMFMostReadTitlesResponseItemArticle* article) {
             // HAX: must normalize title otherwise it won't match fetched previews. this is why pageid > title
-            return [self.domainURL wmf_URLWithTitle:article.titleText];
+            return [self.siteURL wmf_URLWithTitle:article.titleText];
         }];
         return [self.previewFetcher
                 fetchArticlePreviewResultsForArticleURLs:titlesToPreview
-                                               domainURL:mostReadResponse.siteURL
+                                               siteURL:mostReadResponse.siteURL
                                       extractLength:0
                                      thumbnailWidth:[[UIScreen mainScreen] wmf_listThumbnailWidthForScale].unsignedIntegerValue];
     })

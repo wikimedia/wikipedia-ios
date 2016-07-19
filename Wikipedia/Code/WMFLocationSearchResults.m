@@ -4,7 +4,7 @@
 
 @interface WMFLocationSearchResults ()
 
-@property (nonatomic, strong, readwrite) NSURL* searchDomainURL;
+@property (nonatomic, strong, readwrite) NSURL* searchSiteURL;
 @property (nonatomic, strong, readwrite) CLLocation* location;
 @property (nonatomic, strong, readwrite) NSArray<MWKLocationSearchResult*>* results;
 
@@ -12,10 +12,10 @@
 
 @implementation WMFLocationSearchResults
 
-- (instancetype)initWithSearchDomainURL:(NSURL*)url location:(CLLocation*)location results:(NSArray<MWKLocationSearchResult*>*)results {
+- (instancetype)initWithSearchSiteURL:(NSURL*)url location:(CLLocation*)location results:(NSArray<MWKLocationSearchResult*>*)results {
     self = [super init];
     if (self) {
-        self.searchDomainURL = url;
+        self.searchSiteURL = url;
         self.location        = location;
         self.results         = [results sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH([MWKLocationSearchResult new], distanceFromQueryCoordinates) ascending:YES]]];;
     }
@@ -27,7 +27,7 @@
 }
 
 - (NSURL*)urlForResult:(MWKLocationSearchResult*)result {
-    return [self.searchDomainURL wmf_URLWithTitle:result.displayTitle];
+    return [self.searchSiteURL wmf_URLWithTitle:result.displayTitle];
 }
 
 @end

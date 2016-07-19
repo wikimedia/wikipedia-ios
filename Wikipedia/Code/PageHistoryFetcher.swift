@@ -9,10 +9,10 @@ public class PageHistoryFetcher: NSObject {
         return manager
     }()
 
-    public func fetchRevisionInfo(domainURL: NSURL, requestParams: PageHistoryRequestParameters) -> AnyPromise {
+    public func fetchRevisionInfo(siteURL: NSURL, requestParams: PageHistoryRequestParameters) -> AnyPromise {
         return AnyPromise(resolverBlock: { [weak self] (resolve) in
             guard let strongSelf = self else { return }
-            strongSelf.operationManager.wmf_GETAndRetryWithURL(domainURL,
+            strongSelf.operationManager.wmf_GETAndRetryWithURL(siteURL,
                                                         parameters: requestParams,
                                                         retry: nil,
                                                         success: { (operation, responseObject) in

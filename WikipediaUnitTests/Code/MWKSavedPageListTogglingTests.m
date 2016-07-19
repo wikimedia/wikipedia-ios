@@ -57,7 +57,7 @@
 }
 
 - (void)testTogglePageWithEmptyTitleReturnsNilWithError {
-    NSURL* url = [[NSURL wmf_URLWithLanguage:@"en"] wmf_URLWithTitle:@""];
+    NSURL* url = [[NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"] wmf_URLWithTitle:@""];
     [self.list toggleSavedPageForURL:url];
     XCTAssertFalse([self.list isSaved:url]);
 }

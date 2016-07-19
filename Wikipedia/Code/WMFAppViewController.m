@@ -648,7 +648,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
     NSURL* siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
-    [self.randomFetcher fetchRandomArticleWithDomainURL:siteURL failure:^(NSError* error) {
+    [self.randomFetcher fetchRandomArticleWithSiteURL:siteURL failure:^(NSError* error) {
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     } success:^(MWKSearchResult* result) {
         NSURL* articleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
