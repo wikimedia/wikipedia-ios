@@ -216,7 +216,7 @@
 "about-libraries-license" = "Лицензия";
 "about-libraries-licenses" = "Лицензии";
 "about-content-license" = "Лицензия содержимого";
-"about-content-license-details" = "Если не указано иное, содержимое доступно в соответствии с $1.";
+"about-content-license-details" = "Если не указано иное, содержание доступно в соответствии с $1.";
 "about-content-license-details-share-alike-license" = "лицензией Creative Commons Attribution-ShareAlike";
 "about-libraries-licenses-title" = "Мы любим ПО с открытым исходным кодом $1";
 "about-libraries-complete-list" = "Полный список";
@@ -266,7 +266,7 @@
 "page_protected_other" = "Эта страница были защищена на следующих уровнях: $1";
 "page_protected_can_not_edit" = "У вас нет прав на редактирование этой страницы";
 "page_protected_can_not_edit_title" = "Эта страница защищена";
-"license-footer-text" = "Содержимое доступно по лицензии $1";
+"license-footer-text" = "Содержание доступно по лицензии $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содержание";
 "table-of-contents-button-label" = "Содержание";

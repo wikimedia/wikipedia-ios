@@ -12,7 +12,6 @@
 "article-languages-label" = "ভাষা নির্বাচন করুন";
 "article-languages-cancel" = "বাতিল";
 "article-languages-downloading" = "নিবন্ধের ভাষাসমূহ লোড হচ্ছে...";
-// Fuzzy
 "article-languages-filter-placeholder" = "ভাষা খুঁজুন";
 "article-read-more-title" = "আরো পড়ুন";
 "article-about-title" = "এই নিবন্ধ সম্পর্কে";
@@ -52,30 +51,24 @@
 "zero-warn-when-leaving" = "উইকিপিডিয়া জিরো প্রস্থানের সময় সতর্ক করো";
 "zero-settings-devmode" = "জিরো ডেভমোড";
 "account-creation-captcha-required" = "ক্যাপচা যাচাইকরণ প্রয়োজন।";
-// Fuzzy
-"account-creation-captcha-obtaining" = "একটি নতুন ক্যাপচা সংগ্রহ করা হচ্ছে।";
+"account-creation-captcha-obtaining" = "একটি নতুন ক্যাপচা সংগ্রহ করা হচ্ছে...";
 "account-creation-logging-in" = "প্রবেশ হচ্ছে...";
 "account-creation-passwords-mismatched" = "পাসওয়ার্ড মিলেনি";
 "account-creation-saving" = "সংরক্ষণ হচ্ছে ...";
 "account-creation-login" = "ইতিমধ্যে একটি অ্যাকাউন্ট আছে? প্রবেশ করুন।";
-// Fuzzy
 "account-creation-username-placeholder-text" = "ব্যবহারকারী নাম";
 "account-creation-password-placeholder-text" = "পাসওয়ার্ড";
 "account-creation-password-confirm-placeholder-text" = "পাসওয়ার্ড নিশ্চিত করুন";
 "account-creation-email-placeholder-text" = "ইমেইল (ঐচ্ছিক)";
 "account-creation-missing-fields" = "একাউন্ট তৈরি করার জন্য আপনাকে অবশ্যই একটি ব্যবহারকারী নাম, পাসওয়ার্ড, এবং পাসওয়ার্ড নিশ্চিতকরণ দিতে হবে।";
-// Fuzzy
 "login-name-not-found" = "প্রবেশ করার জন্য ব্যবহারকারী নাম প্রয়োজন।";
-// Fuzzy
 "login-name-illegal" = "আপনি একটি অবৈধ ব্যবহারকারী নাম দিয়েছেন।";
-// Fuzzy
 "login-name-does-not-exist" = "আপনার দেয়া নামে কোনো ব্যবহারকারী নেই।";
 "login-password-empty" = "প্রবেশ করার জন্য পাসওয়ার্ডের প্রয়োজন।";
 "login-password-wrong" = "আপনি যেই পাসওয়ার্ডটি দিয়েছেন তা সঠিক নয়।";
 "login-throttled" = "আপনি অল্প সময়ের মাঝে অনেকবার প্রবেশ করেছেন।";
 "login-user-blocked" = "ব্যবহারকারী অবরুদ্ধ।";
 "login-account-creation" = "কোন অ্যাকাউন্ট নেই? উইকিপিডিয়ায় যোগ দিন";
-// Fuzzy
 "login-username-placeholder-text" = "ব্যবহারকারী নাম";
 "login-password-placeholder-text" = "পাসওয়ার্ড";
 "wikitext-downloading" = "বিষয়বস্তু লোড হচ্ছে...";
@@ -245,6 +238,7 @@
 "button-next" = "পরবর্তী";
 "button-done" = "সম্পন্ন";
 "button-save" = "সংরক্ষণ";
+"button-ok" = "ঠিক আছে";
 "button-save-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "button-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "button-report-a-bug" = "বাগ রিপোর্ট করুন";
