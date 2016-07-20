@@ -43,6 +43,7 @@
 #import "WMFRelatedSectionController.h"
 #import "UIViewController+WMFSearch.h"
 #import "UINavigationController+WMFHideEmptyToolbar.h"
+#import "WMFCollectionViewLayout.h"
 
 // Controllers
 #import "WMFRelatedSectionBlackList.h"
@@ -64,7 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
  UIViewControllerPreviewingDelegate,
  WMFAnalyticsContextProviding,
  WMFAnalyticsViewNameProviding,
- UINavigationControllerDelegate>
+ UINavigationControllerDelegate,
+WMFCollectionViewLayoutDelegate>
 
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
@@ -285,9 +287,7 @@ NS_ASSUME_NONNULL_BEGIN
     } forControlEvents:UIControlEventValueChanged];
 
     [self resetRefreshControlWithCompletion:NULL];
-    
-    [self updateEstimatedItemSizeForViewSize:self.collectionView.bounds.size];
-    
+        
     self.collectionView.scrollsToTop = YES;
     self.collectionView.dataSource   = nil;
     self.collectionView.delegate     = nil;
@@ -362,16 +362,6 @@ NS_ASSUME_NONNULL_BEGIN
         cell.selected = NO;
     }
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleURL:nil];
-}
-
-- (void)updateEstimatedItemSizeForViewSize:(CGSize)size {
-    UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
-    flowLayout.estimatedItemSize = CGSizeMake(size.width, 50);
-}
-
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [self updateEstimatedItemSizeForViewSize:size];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
@@ -517,40 +507,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UICollectionViewDelegate
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
-    CGFloat height = [controller estimatedRowHeight];
-    return CGSizeMake(collectionView.bounds.size.width, height);
+    return [controller estimatedRowHeight];
 }
 
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(1, 0, 0, 0);
+- (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForHeaderInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
+    return 66;
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 1;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 0;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(collectionView.bounds.size.width, 66);
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+- (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForFooterInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:section];
     
     if (!controller) {
-        return CGSizeMake(collectionView.bounds.size.width, 50);
+        return 50;
     }
-
+    
     if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id<WMFMoreFooterProviding>) controller isFooterEnabled])) {
-        return CGSizeMake(collectionView.bounds.size.width, 100);
+        return 100;
     } else {
-        return CGSizeMake(collectionView.bounds.size.width, 50);
+        return 50;
     }
 }
 
