@@ -117,14 +117,28 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 }
 
 - (void)fetchUncachedTitles:(NSArray<MWKTitle*>*)titles {
+    dispatch_block_t didFinishLegacyMigration = ^{
+        [[NSUserDefaults standardUserDefaults] wmf_setDidFinishLegacySavedArticleImageMigration:YES];
+    };
     if (!titles.count) {
+        didFinishLegacyMigration();
         return;
     }
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
     for (MWKTitle* title in titles) {
+        dispatch_group_enter(group);
         dispatch_async(self.accessQueue, ^{
-            [self fetchTitle:title failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
+            [self fetchTitle:title failure:^(NSError *error) {
+                dispatch_group_leave(group);
+            } success:^{
+                dispatch_group_leave(group);
+            }];
         });
     }
+    dispatch_group_notify(group, dispatch_get_main_queue(), didFinishLegacyMigration);
+    dispatch_group_leave(group);
+
 }
 
 - (void)fetchTitle:(MWKTitle*)title failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
@@ -241,8 +255,10 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 }
 
 - (void)fetchAllImagesInArticle:(MWKArticle*)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
-    WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0.5)
-    [self migrateLegacyImagesInArticle:article];
+    if (![[NSUserDefaults standardUserDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
+        WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0.5)
+        [self migrateLegacyImagesInArticle:article];
+    }
     
     WMFURLCache* cache = (WMFURLCache*)[NSURLCache sharedURLCache];
     [cache permanentlyCacheImagesForArticle:article];
