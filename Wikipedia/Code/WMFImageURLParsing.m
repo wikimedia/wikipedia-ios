@@ -8,7 +8,7 @@ static NSRegularExpression* WMFImageURLParsingRegex() {
     dispatch_once(&onceToken, ^{
         // TODO: try to read serialized regex from disk to prevent needless pattern compilation on next app run
         NSError* patternCompilationError;
-        imageNameFromURLRegex = [NSRegularExpression regularExpressionWithPattern:@"^(page\\d+-)?\\d+px-(.*)"
+        imageNameFromURLRegex = [NSRegularExpression regularExpressionWithPattern:@"^(lossy-|lossless-)?(page\\d+-)?\\d+px-(.*)"
                                                                           options:0
                                                                             error:&patternCompilationError];
         NSCParameterAssert(!patternCompilationError);
@@ -71,16 +71,16 @@ NSInteger WMFParseSizePrefixFromSourceURL(NSString* sourceURL)  __attribute__((o
         return NSNotFound;
     } else {
         NSString *stringBeforePx = [fileName substringToIndex:pxRange.location];
-        NSRange dashRange = [stringBeforePx rangeOfString:@"-"];
+        NSRange lastDashRange = [stringBeforePx rangeOfString:@"-" options:NSBackwardsSearch];
         NSInteger result = NSNotFound;
-        if (dashRange.location == NSNotFound) {
+        if (lastDashRange.location == NSNotFound) {
              //stringBeforePx is "200" for the following:
              //upload.wikimedia.org/wikipedia/commons/thumb/4/41/200px-Potato.jpg/
             result = stringBeforePx.integerValue;
         }else{
              //stringBeforePx is "page1-240" for the following:
              //upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg
-            NSString *stringAfterDash = [stringBeforePx substringFromIndex:dashRange.location+1];
+            NSString *stringAfterDash = [stringBeforePx substringFromIndex:lastDashRange.location+1];
             result = stringAfterDash.integerValue;
         }
         return (result == 0) ? NSNotFound : result;
@@ -118,8 +118,11 @@ NSString* WMFChangeImageSourceURLSizePrefix(NSString* sourceURL, NSUInteger newS
     if (WMFParseSizePrefixFromSourceURL(sourceURL) == NSNotFound) {
         NSString* sizeVariantLastPathComponent = [NSString stringWithFormat:@"%lupx-%@", (unsigned long)newSizePrefix, lastPathComponent];
         
-        if([[sourceURL pathExtension] isEqualToString:@"pdf"]){
+        NSString* lowerCasePathExtension = [[sourceURL pathExtension] lowercaseString];
+        if([lowerCasePathExtension isEqualToString:@"pdf"]){
             sizeVariantLastPathComponent = [NSString stringWithFormat:@"page1-%@.jpg", sizeVariantLastPathComponent];
+        }else if([lowerCasePathExtension isEqualToString:@"tif"] || [lowerCasePathExtension isEqualToString:@"tiff"]){
+            sizeVariantLastPathComponent = [NSString stringWithFormat:@"lossy-page1-%@.jpg", sizeVariantLastPathComponent];
         }
         
         NSString* urlWithSizeVariantLastPathComponent = [[sourceURL stringByAppendingString:@"/" ] stringByAppendingString:sizeVariantLastPathComponent];
@@ -137,6 +140,6 @@ NSString* WMFChangeImageSourceURLSizePrefix(NSString* sourceURL, NSUInteger newS
             [WMFImageURLParsingRegex() stringByReplacingMatchesInString:sourceURL
                                                                 options:NSMatchingAnchored
                                                                   range:rangeOfLastPathComponent
-                                                           withTemplate:[NSString stringWithFormat:@"$1%lupx-$2", (unsigned long)newSizePrefix]];
+                                                           withTemplate:[NSString stringWithFormat:@"$1$2%lupx-$3", (unsigned long)newSizePrefix]];
     }
 }
