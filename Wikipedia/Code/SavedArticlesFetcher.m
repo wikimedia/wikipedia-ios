@@ -203,52 +203,34 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         NSDictionary *imageDictionary = [NSDictionary dictionaryWithContentsOfURL:imagePlistURL];
         NSString *imageURLString = imageDictionary[@"sourceURL"];
         
-        //if this is the article image, skip over it because it should be preserved
-        BOOL isArticleImage = [article.imageURL isEqualToString:imageURLString];
-        if (isArticleImage) {
-            continue;
-        }
-        
         NSUInteger width = WMFParseSizePrefixFromSourceURL(imageURLString);
-        if (width != articleImageWidth) {
+        if (width != articleImageWidth && width != NSNotFound) {
             NSURL *imageURL = [NSURL URLWithString:imageURLString];
-            
             if ([imageController hasDataOnDiskForImageWithURL:imageURL]) {
-                NSString *cachedPath = [imageController cachePathForImageWithURL:imageURL];
+                NSURL *cachedFileURL = [NSURL fileURLWithPath:[imageController cachePathForImageWithURL:imageURL] isDirectory:NO];
                 
                 NSString *articleURLString = WMFChangeImageSourceURLSizePrefix(imageURLString, articleImageWidth);
                 NSURL *articleURL = [NSURL URLWithString:articleURLString];
                 if (![imageController hasDataOnDiskForImageWithURL:articleURL]) {
-                    NSString *articlePath = [imageController cachePathForImageWithURL:articleURL];
-                    NSError *copyError = nil;
-                    if (![fileManager copyItemAtPath:cachedPath toPath:articlePath error:&copyError]) {
-                        DDLogError(@"Error copying cached image to article image: %@", copyError);
-                    }
+                    NSString *imageExtension = [imageURL pathExtension];
+                    NSString *imageMIMEType = [imageExtension wmf_asMIMEType];
+                    [imageController cacheImageFromFileURL:cachedFileURL forURL:articleURL MIMEType:imageMIMEType];
                 }
                 
-                NSString *originalURLString = WMFOriginalImageURLStringFromURLString(imageURLString);
-                NSURL *originalURL = [NSURL URLWithString:originalURLString];
-                if (![imageController hasDataOnDiskForImageWithURL:originalURL]) {
-                    NSString *originalPath = [imageController cachePathForImageWithURL:originalURL];
-                    NSError *copyError = nil;
-                    if (![fileManager copyItemAtPath:cachedPath toPath:originalPath error:&copyError]) {
-                        DDLogError(@"Error copying cached image to original image: %@", copyError);
-                    }
-                    
-                }
-                
-                if (width != NSNotFound) { //remove the cached image only if this isn't the original file
-                    NSError *removalError = nil;
-                    if (![fileManager removeItemAtPath:cachedPath error:&removalError]) {
-                        DDLogError(@"Error removing legacy cached image: %@", removalError);
-                    }
+                NSError *removalError = nil;
+                if (![fileManager removeItemAtURL:cachedFileURL error:&removalError]) {
+                    DDLogError(@"Error removing legacy cached image: %@", removalError);
                 }
             }
         }
         
-        NSError *removalError = nil;
-        if (![fileManager removeItemAtURL:imageFolderURL error:&removalError]) {
-            DDLogError(@"Error removing old image list image: %@", removalError);
+        //if this is the article image, don't delete it because it should be preserved
+        BOOL isArticleImage = [article.imageURL isEqualToString:imageURLString];
+        if (!isArticleImage) {
+            NSError *removalError = nil;
+            if (![fileManager removeItemAtURL:imageFolderURL error:&removalError]) {
+                DDLogError(@"Error removing old image list image: %@", removalError);
+            }
         }
     }
 }
