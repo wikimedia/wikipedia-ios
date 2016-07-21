@@ -184,7 +184,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     WMF_TECH_DEBT_TODO(check whether on - disk image info matches what we are about to fetch)
     @weakify(self);
     [self fetchImageInfoForImagesInArticle:article failure:^(NSError *error) {
-        
+        failure(error);
     } success:^(NSArray *info) {
         @strongify(self);
         if (!self) {
