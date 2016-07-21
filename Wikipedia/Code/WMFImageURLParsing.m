@@ -51,8 +51,15 @@ NSString* WMFParseUnescapedNormalizedImageNameFromSourceURL(NSURL* sourceURL)  _
     return WMFParseUnescapedNormalizedImageNameFromSourceURL(sourceURL.absoluteString);
 }
 
+NSInteger WMFParseSizePrefixFromSourceURL(NSURL* sourceURL)  __attribute__((overloadable)){
+    return WMFParseSizePrefixFromSourceURL(sourceURL.absoluteString);
+}
+
 NSInteger WMFParseSizePrefixFromSourceURL(NSString* sourceURL)  __attribute__((overloadable)){
     if (!sourceURL) {
+        return NSNotFound;
+    }
+    if (!WMFIsThumbURLString(sourceURL)) {
         return NSNotFound;
     }
     NSString* fileName = [sourceURL lastPathComponent];
@@ -101,7 +108,7 @@ NSString* WMFChangeImageSourceURLSizePrefix(NSString* sourceURL, NSUInteger newS
 
     NSString* lastPathComponent = [sourceURL lastPathComponent];
     
-    if (WMFParseSizePrefixFromSourceURL(sourceURL) == NSNotFound || !WMFIsThumbURLString(sourceURL)) {
+    if (WMFParseSizePrefixFromSourceURL(sourceURL) == NSNotFound) {
         NSString* sizeVariantLastPathComponent = [NSString stringWithFormat:@"%lupx-%@", (unsigned long)newSizePrefix, lastPathComponent];
         
         NSString* lowerCasePathExtension = [[sourceURL pathExtension] lowercaseString];
