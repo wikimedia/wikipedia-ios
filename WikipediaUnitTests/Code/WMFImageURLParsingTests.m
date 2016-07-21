@@ -223,30 +223,51 @@
     //                      ^ the canonical image has the size in the file name, so "300px-" is correct here.
 }
 
-- (void)testSizePrefixWhenCanonicalFileIsTIF {
+- (void)testSizePrefixWhenCanonicalFileIsTIF_lossy {
     NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.jpg";
     XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), 220);
 }
 
-- (void)testParseCanonicalFileNameWhenCanonicalFileIsTIF {
+- (void)testParseCanonicalFileNameWhenCanonicalFileIsTIF_lossy {
     NSString* testURLString = @"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.jpg";
     assertThat(WMFParseImageNameFromSourceURL(testURLString),
                is(equalTo(@"Gerald_Ford_-_NARA_-_530680.tif")));
 }
 
-- (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithSizePrefix {
+- (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithSizePrefix_lossy {
     assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.jpg", 480),
                is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page1-480px-Gerald_Ford_-_NARA_-_530680.tif.jpg")));
 }
 
-- (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithSizePrefixPage2 {
+- (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithSizePrefixPage2_lossy {
     assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page2-220px-Gerald_Ford_-_NARA_-_530680.tif.jpg", 480),
                is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page2-480px-Gerald_Ford_-_NARA_-_530680.tif.jpg"))); //Note: this page2 variant doesn't actually exist.
 }
 
-- (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithoutSizePrefix {
+- (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithoutSizePrefix_lossy {
     assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/d/d0/Gerald_Ford_-_NARA_-_530680.tif", 240),
                is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page1-240px-Gerald_Ford_-_NARA_-_530680.tif.jpg")));
+}
+
+- (void)testSizePrefixWhenCanonicalFileIsTIF_lossless {
+    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.png";
+    XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), 220);
+}
+
+- (void)testParseCanonicalFileNameWhenCanonicalFileIsTIF_lossless {
+    NSString* testURLString = @"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.png";
+    assertThat(WMFParseImageNameFromSourceURL(testURLString),
+               is(equalTo(@"Gerald_Ford_-_NARA_-_530680.tif")));
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithSizePrefix_lossless {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.png", 480),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page1-480px-Gerald_Ford_-_NARA_-_530680.tif.png")));
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithSizePrefixPage2_lossless {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page2-220px-Gerald_Ford_-_NARA_-_530680.tif.png", 480),
+               is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page2-480px-Gerald_Ford_-_NARA_-_530680.tif.png"))); //Note: this page2 variant doesn't actually exist.
 }
 
 @end
