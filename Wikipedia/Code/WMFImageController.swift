@@ -377,6 +377,10 @@ public class WMFImageController : NSObject {
             cancellables.setObject(cancellable, forKey: url.absoluteString)
         }
     }
+    
+    public func cachePathForImageWithURL(URL: NSURL) -> NSString {
+        return imageManager.imageCache.defaultCachePathForKey(cacheKeyForURL(URL))
+    }
 }
 
 

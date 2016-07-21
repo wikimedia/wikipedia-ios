@@ -10,6 +10,8 @@
 #import "MWKArticle.h"
 #import "MWKImage+CanonicalFilenames.h"
 #import "WMFURLCache.h"
+#import "WMFImageURLParsing.h"
+#import "UIScreen+WMFImageWidth.h"
 
 static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 
@@ -172,9 +174,79 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 
 
 - (void)fetchAllImagesInArticle:(MWKArticle*)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+    
+    NSString *path = [self.savedPageList.dataStore pathForImagesWithTitle:article.title];
+    NSEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtURL:[NSURL fileURLWithPath:path] includingPropertiesForKeys:@[NSURLIsDirectoryKey] options:NSDirectoryEnumerationSkipsSubdirectoryDescendants errorHandler:^BOOL(NSURL * _Nonnull url, NSError * _Nonnull error) {
+        DDLogError(@"Error enumerating image directory: %@", error);
+        return YES;
+    }];
+    
+    WMFImageController *imageController = [WMFImageController sharedInstance];
+    NSUInteger articleImageWidth = [[UIScreen mainScreen] wmf_articleImageWidthForScale];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    for (NSURL *imageFolderURL in enumerator) {
+        NSNumber *isDirectoryNumber = nil;
+        NSError *isDirectoryError = nil;
+        if (![imageFolderURL getResourceValue:&isDirectoryNumber forKey:NSURLIsDirectoryKey error:&isDirectoryError]) {
+            DDLogError(@"Error reading from article image cache: %@", isDirectoryError);
+            continue;
+        }
+        
+        if (![isDirectoryNumber boolValue]) {
+            continue;
+        }
+        
+        NSURL *imagePlistURL = [imageFolderURL URLByAppendingPathComponent:@"Image.plist"];
+        NSDictionary *imageDictionary = [NSDictionary dictionaryWithContentsOfURL:imagePlistURL];
+        NSString *imageURLString = imageDictionary[@"sourceURL"];
+        
+        BOOL isLeadImage = [[[article leadImage] sourceURLString] isEqualToString:imageURLString];
+        if (isLeadImage) {
+            continue;
+        }
+        
+        NSUInteger width = WMFParseSizePrefixFromSourceURL(imageURLString);
+        if (width != articleImageWidth) {
+            NSURL *imageURL = [NSURL URLWithString:imageURLString];
+            
+            if ([imageController hasDataOnDiskForImageWithURL:imageURL]) {
+                NSString *cachedPath = [imageController cachePathForImageWithURL:imageURL];
+                NSString *articleURLString = WMFChangeImageSourceURLSizePrefix(imageURLString, articleImageWidth);
+                NSString *originalURLString = WMFOriginalImageURLStringFromURLString(imageURLString);
+                NSURL *articleURL = [NSURL URLWithString:articleURLString];
+                NSURL *originalURL = [NSURL URLWithString:originalURLString];
+                if (![imageController hasDataOnDiskForImageWithURL:articleURL]) {
+                    NSString *articlePath = [imageController cachePathForImageWithURL:articleURL];
+                    NSError *copyError = nil;
+                    if (![fileManager copyItemAtPath:cachedPath toPath:articlePath error:&copyError]) {
+                        DDLogError(@"Error copying cached image to article image: %@", copyError);
+                    }
+                }
+                if (![imageController hasDataOnDiskForImageWithURL:originalURL]) {
+                    NSString *originalPath = [imageController cachePathForImageWithURL:originalURL];
+                    NSError *copyError = nil;
+                    if (![fileManager copyItemAtPath:cachedPath toPath:originalPath error:&copyError]) {
+                        DDLogError(@"Error copying cached image to original image: %@", copyError);
+                    }
+                    
+                }
+            }
+        }
+        
+        
+        NSError *removalError = nil;
+        if (![fileManager removeItemAtURL:imageFolderURL error:&removalError]) {
+            DDLogError(@"Error removing old image list image: %@", removalError);
+        }
+        
+    }
+    
+    
+    
     WMFURLCache* cache = (WMFURLCache*)[NSURLCache sharedURLCache];
     [cache permanentlyCacheImagesForArticle:article];
-
+    
     NSArray<NSURL*>* URLs = [[article allImageURLs] allObjects];
     
     [self cacheImagesWithURLsInBackground:URLs failure:failure success:success];
