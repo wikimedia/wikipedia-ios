@@ -84,7 +84,12 @@ NSInteger WMFParseSizePrefixFromSourceURL(NSString* sourceURL)  __attribute__((o
             result = stringAfterDash.integerValue;
         }
         return (result == 0) ? NSNotFound : result;
+
+NSString* WMFOriginalImageURLStringFromURLString(NSString *URLString) {
+    if ([URLString containsString:@"/thumb/"]) {
+        URLString = [[URLString stringByDeletingLastPathComponent] stringByReplacingOccurrencesOfString:@"/thumb/" withString:@"/"];
     }
+    return URLString;
 }
 
 NSString* WMFChangeImageSourceURLSizePrefix(NSString* sourceURL, NSUInteger newSizePrefix)  __attribute__((overloadable)){
