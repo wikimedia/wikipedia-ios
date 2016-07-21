@@ -221,7 +221,7 @@ public class WMFImageController : NSObject {
             let path = imageManager.imageCache.defaultCachePathForKey(cacheKeyForURL(url))
             var mimeType: String? = NSFileManager.defaultManager().wmf_valueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: path)
             if mimeType == nil {
-                let fileURL = NSURL(fileURLWithPath: path)
+                let fileURL = NSURL(fileURLWithPath: path, isDirectory: false)
                 mimeType = fileURL.pathExtension?.wmf_asMIMEType()
             }
             let data = NSFileManager.defaultManager().contentsAtPath(path)
