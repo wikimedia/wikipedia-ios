@@ -104,9 +104,10 @@ NSString* WMFChangeImageSourceURLSizePrefix(NSString* sourceURL, NSUInteger newS
     if (WMFParseSizePrefixFromSourceURL(sourceURL) == NSNotFound || !WMFIsThumbURLString(sourceURL)) {
         NSString* sizeVariantLastPathComponent = [NSString stringWithFormat:@"%lupx-%@", (unsigned long)newSizePrefix, lastPathComponent];
         
-        if([[sourceURL pathExtension] isEqualToString:@"pdf"]){
+        NSString* lowerCasePathExtension = [[sourceURL pathExtension] lowercaseString];
+        if([lowerCasePathExtension isEqualToString:@"pdf"]){
             sizeVariantLastPathComponent = [NSString stringWithFormat:@"page1-%@.jpg", sizeVariantLastPathComponent];
-        }else if([[sourceURL pathExtension] isEqualToString:@"tif"]){
+        }else if([lowerCasePathExtension isEqualToString:@"tif"] || [lowerCasePathExtension isEqualToString:@"tiff"]){
             sizeVariantLastPathComponent = [NSString stringWithFormat:@"lossy-page1-%@.jpg", sizeVariantLastPathComponent];
         }
         

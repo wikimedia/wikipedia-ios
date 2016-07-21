@@ -157,6 +157,16 @@
                is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/200px-/4/41/123px-Potato.jpg/")));
 }
 
+- (void)testSizePrefixChange_jpeg {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/4/48/Oat10.jpeg", 123),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Oat10.jpeg/123px-Oat10.jpeg")));
+}
+
+- (void)testSizePrefixChange_JPEG {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/4/48/Oat10.JPEG", 123),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Oat10.JPEG/123px-Oat10.JPEG")));
+}
+
 - (void)testSizePrefixChangeOnENWikiURL {
     assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/en/6/69/PercevalShooting.jpg", 123),
                is(equalTo(@"//upload.wikimedia.org/wikipedia/en/thumb/6/69/PercevalShooting.jpg/123px-PercevalShooting.jpg")));
@@ -268,6 +278,16 @@
 - (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithSizePrefixPage2_lossless {
     assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page2-220px-Gerald_Ford_-_NARA_-_530680.tif.png", 480),
                is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page2-480px-Gerald_Ford_-_NARA_-_530680.tif.png"))); //Note: this page2 variant doesn't actually exist.
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsTIFF_lowercase {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/f/f8/Funk.tiff", 797),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Funk.tiff/lossy-page1-797px-Funk.tiff.jpg")));
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsTIFF_uppercase {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/5/55/Charles_Vanderhoop%2C_Jr.%2C_Gay_Head_Light_Assistant_Keeper%2C_with_visiting_island_school_children.TIFF", 800),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Charles_Vanderhoop%2C_Jr.%2C_Gay_Head_Light_Assistant_Keeper%2C_with_visiting_island_school_children.TIFF/lossy-page1-800px-Charles_Vanderhoop%2C_Jr.%2C_Gay_Head_Light_Assistant_Keeper%2C_with_visiting_island_school_children.TIFF.jpg")));
 }
 
 @end
