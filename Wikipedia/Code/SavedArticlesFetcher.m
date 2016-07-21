@@ -238,11 +238,6 @@ static SavedArticlesFetcher* _articleFetcher = nil;
                         NSString *imageMIMEType = [imageExtension wmf_asMIMEType];
                         [imageController cacheImageFromFileURL:cachedFileURL forURL:articleURL MIMEType:imageMIMEType];
                     }
-                    
-                    NSError *removalError = nil;
-                    if (![fileManager removeItemAtURL:cachedFileURL error:&removalError]) {
-                        DDLogError(@"Error removing legacy cached image: %@", removalError);
-                    }
                 }
             }
         }
