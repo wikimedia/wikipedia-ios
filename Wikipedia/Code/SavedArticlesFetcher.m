@@ -172,11 +172,13 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     }];
 }
 
-
-- (void)fetchAllImagesInArticle:(MWKArticle*)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+- (void)migrateLegacyImagesInArticle:(MWKArticle *)article {
+    //  Removes up old saved article image list folders, copies old cached images to original and article image width locations. This ensures articles saved with 5.0.4 and older will still have images availble offline in 5.0.5. The migration is idempotent - the enumerated folders are removed so they won't be processed the next time around.
     
-    NSString *path = [self.savedPageList.dataStore pathForImagesWithTitle:article.title];
-    NSEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtURL:[NSURL fileURLWithPath:path] includingPropertiesForKeys:@[NSURLIsDirectoryKey] options:NSDirectoryEnumerationSkipsSubdirectoryDescendants errorHandler:^BOOL(NSURL * _Nonnull url, NSError * _Nonnull error) {
+    //Get the folder that contains legacy saved article images for example - articles/Barack_Obama/Images/
+    NSString *imagesFolderPath = [self.savedPageList.dataStore pathForImagesWithTitle:article.title];
+    NSURL *imagesFolderURL = [NSURL fileURLWithPath:imagesFolderPath isDirectory:YES];
+    NSEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtURL:imagesFolderURL includingPropertiesForKeys:@[NSURLIsDirectoryKey] options:NSDirectoryEnumerationSkipsSubdirectoryDescendants errorHandler:^BOOL(NSURL * _Nonnull url, NSError * _Nonnull error) {
         DDLogError(@"Error enumerating image directory: %@", error);
         return YES;
     }];
@@ -185,7 +187,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     NSUInteger articleImageWidth = [[UIScreen mainScreen] wmf_articleImageWidthForScale];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
-    for (NSURL *imageFolderURL in enumerator) {
+    for (NSURL *imageFolderURL in enumerator) { //Enumerate each subfolder of the image folder. There is one subfolder per saved image.
         NSNumber *isDirectoryNumber = nil;
         NSError *isDirectoryError = nil;
         if (![imageFolderURL getResourceValue:&isDirectoryNumber forKey:NSURLIsDirectoryKey error:&isDirectoryError]) {
@@ -201,6 +203,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         NSDictionary *imageDictionary = [NSDictionary dictionaryWithContentsOfURL:imagePlistURL];
         NSString *imageURLString = imageDictionary[@"sourceURL"];
         
+        //if this is the article image, skip over it because it should be preserved
         BOOL isArticleImage = [article.imageURL isEqualToString:imageURLString];
         if (isArticleImage) {
             continue;
@@ -212,10 +215,9 @@ static SavedArticlesFetcher* _articleFetcher = nil;
             
             if ([imageController hasDataOnDiskForImageWithURL:imageURL]) {
                 NSString *cachedPath = [imageController cachePathForImageWithURL:imageURL];
+                
                 NSString *articleURLString = WMFChangeImageSourceURLSizePrefix(imageURLString, articleImageWidth);
-                NSString *originalURLString = WMFOriginalImageURLStringFromURLString(imageURLString);
                 NSURL *articleURL = [NSURL URLWithString:articleURLString];
-                NSURL *originalURL = [NSURL URLWithString:originalURLString];
                 if (![imageController hasDataOnDiskForImageWithURL:articleURL]) {
                     NSString *articlePath = [imageController cachePathForImageWithURL:articleURL];
                     NSError *copyError = nil;
@@ -223,6 +225,9 @@ static SavedArticlesFetcher* _articleFetcher = nil;
                         DDLogError(@"Error copying cached image to article image: %@", copyError);
                     }
                 }
+                
+                NSString *originalURLString = WMFOriginalImageURLStringFromURLString(imageURLString);
+                NSURL *originalURL = [NSURL URLWithString:originalURLString];
                 if (![imageController hasDataOnDiskForImageWithURL:originalURL]) {
                     NSString *originalPath = [imageController cachePathForImageWithURL:originalURL];
                     NSError *copyError = nil;
@@ -231,7 +236,8 @@ static SavedArticlesFetcher* _articleFetcher = nil;
                     }
                     
                 }
-                if (width != NSNotFound) { //remove the original cached image only if this isn't the original {
+                
+                if (width != NSNotFound) { //remove the cached image only if this isn't the original file
                     NSError *removalError = nil;
                     if (![fileManager removeItemAtPath:cachedPath error:&removalError]) {
                         DDLogError(@"Error removing legacy cached image: %@", removalError);
@@ -240,15 +246,16 @@ static SavedArticlesFetcher* _articleFetcher = nil;
             }
         }
         
-        
         NSError *removalError = nil;
         if (![fileManager removeItemAtURL:imageFolderURL error:&removalError]) {
             DDLogError(@"Error removing old image list image: %@", removalError);
         }
-        
     }
-    
-    
+}
+
+- (void)fetchAllImagesInArticle:(MWKArticle*)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+    WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0.5)
+    [self migrateLegacyImagesInArticle:article];
     
     WMFURLCache* cache = (WMFURLCache*)[NSURLCache sharedURLCache];
     [cache permanentlyCacheImagesForArticle:article];
