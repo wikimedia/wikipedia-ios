@@ -97,9 +97,10 @@
 
     [self updateDynamicIconShortcutItems];
 
-    
-    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    NSLog(@"%@", documentsURL);
+#if DEBUG
+    NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
+          [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
+#endif
 
     return YES;
 }
