@@ -203,23 +203,28 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         NSDictionary *imageDictionary = [NSDictionary dictionaryWithContentsOfURL:imagePlistURL];
         NSString *imageURLString = imageDictionary[@"sourceURL"];
         
+        if (imageURLString == nil) {
+            continue;
+        }
+        
         NSUInteger width = WMFParseSizePrefixFromSourceURL(imageURLString);
         if (width != articleImageWidth && width != NSNotFound) {
             NSURL *imageURL = [NSURL URLWithString:imageURLString];
-            if ([imageController hasDataOnDiskForImageWithURL:imageURL]) {
+            if (imageURL != nil && [imageController hasDataOnDiskForImageWithURL:imageURL]) {
                 NSURL *cachedFileURL = [NSURL fileURLWithPath:[imageController cachePathForImageWithURL:imageURL] isDirectory:NO];
-                
-                NSString *articleURLString = WMFChangeImageSourceURLSizePrefix(imageURLString, articleImageWidth);
-                NSURL *articleURL = [NSURL URLWithString:articleURLString];
-                if (![imageController hasDataOnDiskForImageWithURL:articleURL]) {
-                    NSString *imageExtension = [imageURL pathExtension];
-                    NSString *imageMIMEType = [imageExtension wmf_asMIMEType];
-                    [imageController cacheImageFromFileURL:cachedFileURL forURL:articleURL MIMEType:imageMIMEType];
-                }
-                
-                NSError *removalError = nil;
-                if (![fileManager removeItemAtURL:cachedFileURL error:&removalError]) {
-                    DDLogError(@"Error removing legacy cached image: %@", removalError);
+                if (cachedFileURL != nil) {
+                    NSString *articleURLString = WMFChangeImageSourceURLSizePrefix(imageURLString, articleImageWidth);
+                    NSURL *articleURL = [NSURL URLWithString:articleURLString];
+                    if (articleURL != nil && ![imageController hasDataOnDiskForImageWithURL:articleURL]) {
+                        NSString *imageExtension = [imageURL pathExtension];
+                        NSString *imageMIMEType = [imageExtension wmf_asMIMEType];
+                        [imageController cacheImageFromFileURL:cachedFileURL forURL:articleURL MIMEType:imageMIMEType];
+                    }
+                    
+                    NSError *removalError = nil;
+                    if (![fileManager removeItemAtURL:cachedFileURL error:&removalError]) {
+                        DDLogError(@"Error removing legacy cached image: %@", removalError);
+                    }
                 }
             }
         }
