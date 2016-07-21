@@ -83,6 +83,11 @@
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
+#if DEBUG
+    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSLog(@"%@", documentsURL);
+#endif
+    
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
     [PiwikTracker wmf_start];
 
@@ -96,10 +101,6 @@
     self.appViewController = vc;
 
     [self updateDynamicIconShortcutItems];
-
-    
-    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    NSLog(@"%@", documentsURL);
 
     return YES;
 }
