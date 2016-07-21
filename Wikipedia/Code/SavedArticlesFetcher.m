@@ -231,6 +231,12 @@ static SavedArticlesFetcher* _articleFetcher = nil;
                     }
                     
                 }
+                if (width != NSNotFound) { //remove the original cached image only if this isn't the original {
+                    NSError *removalError = nil;
+                    if (![fileManager removeItemAtPath:cachedPath error:&removalError]) {
+                        DDLogError(@"Error removing legacy cached image: %@", removalError);
+                    }
+                }
             }
         }
         
