@@ -231,12 +231,19 @@ static SavedArticlesFetcher* _articleFetcher = nil;
             if (imageURL != nil && [imageController hasDataOnDiskForImageWithURL:imageURL]) {
                 NSURL *cachedFileURL = [NSURL fileURLWithPath:[imageController cachePathForImageWithURL:imageURL] isDirectory:NO];
                 if (cachedFileURL != nil) {
-                    NSString *articleURLString = WMFChangeImageSourceURLSizePrefix(imageURLString, articleImageWidth);
-                    NSURL *articleURL = [NSURL URLWithString:articleURLString];
-                    if (articleURL != nil && ![imageController hasDataOnDiskForImageWithURL:articleURL]) {
-                        NSString *imageExtension = [imageURL pathExtension];
-                        NSString *imageMIMEType = [imageExtension wmf_asMIMEType];
-                        [imageController cacheImageFromFileURL:cachedFileURL forURL:articleURL MIMEType:imageMIMEType];
+                    NSString *imageExtension = [imageURL pathExtension];
+                    NSString *imageMIMEType = [imageExtension wmf_asMIMEType];
+                    
+                    NSString *imageURLStringAtArticleWidth = WMFChangeImageSourceURLSizePrefix(imageURLString, articleImageWidth);
+                    NSURL *imageURLAtArticleWidth = [NSURL URLWithString:imageURLStringAtArticleWidth];
+                    if (imageURLAtArticleWidth != nil && ![imageController hasDataOnDiskForImageWithURL:imageURLAtArticleWidth]) {
+                        [imageController cacheImageFromFileURL:cachedFileURL forURL:imageURLAtArticleWidth MIMEType:imageMIMEType];
+                    }
+                    
+                    NSString *originalImageURLString = WMFOriginalImageURLStringFromURLString(imageURLString);
+                    NSURL *originalImageURL = [NSURL URLWithString:originalImageURLString];
+                    if (![imageController hasDataOnDiskForImageWithURL:originalImageURL]) {
+                        [imageController cacheImageFromFileURL:cachedFileURL forURL:originalImageURL MIMEType:imageMIMEType];
                     }
                 }
             }
