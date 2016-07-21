@@ -219,11 +219,7 @@ public class WMFImageController : NSObject {
     public func typedDiskDataForImageWithURL(url: NSURL?) -> WMFTypedImageData {
         if let url = url {
             let path = imageManager.imageCache.defaultCachePathForKey(cacheKeyForURL(url))
-            var mimeType: String? = NSFileManager.defaultManager().wmf_valueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: path)
-            if mimeType == nil {
-                let fileURL = NSURL(fileURLWithPath: path, isDirectory: false)
-                mimeType = fileURL.pathExtension?.wmf_asMIMEType()
-            }
+            let mimeType: String? = NSFileManager.defaultManager().wmf_valueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: path)
             let data = NSFileManager.defaultManager().contentsAtPath(path)
             return WMFTypedImageData(data: data, MIMEType: mimeType)
         } else {
