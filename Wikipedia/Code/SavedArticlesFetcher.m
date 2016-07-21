@@ -201,8 +201,8 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         NSDictionary *imageDictionary = [NSDictionary dictionaryWithContentsOfURL:imagePlistURL];
         NSString *imageURLString = imageDictionary[@"sourceURL"];
         
-        BOOL isLeadImage = [[[article leadImage] sourceURLString] isEqualToString:imageURLString];
-        if (isLeadImage) {
+        BOOL isArticleImage = [article.imageURL isEqualToString:imageURLString];
+        if (isArticleImage) {
             continue;
         }
         
