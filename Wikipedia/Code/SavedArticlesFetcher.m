@@ -219,9 +219,12 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         
         NSURL *imagePlistURL = [imageFolderURL URLByAppendingPathComponent:@"Image.plist"];
         NSDictionary *imageDictionary = [NSDictionary dictionaryWithContentsOfURL:imagePlistURL];
-        NSString *imageURLString = imageDictionary[@"sourceURL"];
+        if (![imageDictionary isKindOfClass:[NSDictionary class]]) {
+            continue;
+        }
         
-        if (imageURLString == nil) {
+        NSString *imageURLString = imageDictionary[@"sourceURL"];
+        if (![imageURLString isKindOfClass:[NSString class]]) {
             continue;
         }
         
