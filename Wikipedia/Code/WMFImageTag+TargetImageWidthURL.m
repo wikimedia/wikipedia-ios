@@ -37,9 +37,7 @@
             // path component, but only if we're actually dealing with a "thumb" scaled variant.
             // This check for "/thumb/" is needed in case the canonical image name happens to
             // start with "XXXpx-", as the last image on "enwiki > Geothermal gradient" does.
-            if ([tagSrc containsString:@"/thumb/"]) {
-                tagSrc = [[tagSrc stringByDeletingLastPathComponent] stringByReplacingOccurrencesOfString:@"/thumb/" withString:@"/"];
-            }
+            tagSrc = WMFOriginalImageURLStringFromURLString(tagSrc);
         }else{
             tagSrc = WMFChangeImageSourceURLSizePrefix(tagSrc, width);
         }
