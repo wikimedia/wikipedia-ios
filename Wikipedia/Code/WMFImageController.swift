@@ -257,19 +257,35 @@ public class WMFImageController : NSObject {
         self.imageManager.imageCache.clearDisk()
     }
     
-    public func cacheImageData(imageData: NSData, url: NSURL, MIMEType: String?){
-        let diskCachePath = self.imageManager.imageCache.defaultCachePathForKey(self.cacheKeyForURL(url))
-        
-        let success = NSFileManager.defaultManager().createFileAtPath(diskCachePath, contents: imageData, attributes:nil)
-        
+    private func updateCachedFileMimeTypeAtPath(path: String, toMIMEType MIMEType: String?) {
         if let MIMEType = MIMEType {
             do {
-                try NSFileManager.defaultManager().wmf_setValue(MIMEType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: diskCachePath)
+                try NSFileManager.defaultManager().wmf_setValue(MIMEType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: path)
             } catch let error {
                 DDLogError("Error setting extended file attribute for MIME Type: \(error)")
             }
         }
-        if(!success){
+    }
+    
+    public func cacheImageFromFileURL(fileURL: NSURL, forURL URL: NSURL, MIMEType: String?){
+        let diskCachePath = self.imageManager.imageCache.defaultCachePathForKey(self.cacheKeyForURL(URL))
+        let diskCacheURL = NSURL(fileURLWithPath: diskCachePath, isDirectory: false)
+        
+        do {
+            try NSFileManager.defaultManager().copyItemAtURL(fileURL, toURL: diskCacheURL)
+        } catch let error {
+            DDLogError("Error copying cached file: \(error)")
+        }
+        
+        updateCachedFileMimeTypeAtPath(diskCachePath, toMIMEType: MIMEType)
+    }
+    
+    public func cacheImageData(imageData: NSData, url: NSURL, MIMEType: String?){
+        let diskCachePath = self.imageManager.imageCache.defaultCachePathForKey(self.cacheKeyForURL(url))
+        
+        if (NSFileManager.defaultManager().createFileAtPath(diskCachePath, contents: imageData, attributes:nil)) {
+            updateCachedFileMimeTypeAtPath(diskCachePath, toMIMEType: MIMEType)
+        } else {
             DDLogDebug("Error caching image data")
         }
     }
@@ -376,6 +392,10 @@ public class WMFImageController : NSObject {
             DDLogVerbose("Adding cancellable for \(url)")
             cancellables.setObject(cancellable, forKey: url.absoluteString)
         }
+    }
+    
+    public func cachePathForImageWithURL(URL: NSURL) -> NSString {
+        return imageManager.imageCache.defaultCachePathForKey(cacheKeyForURL(URL))
     }
 }
 

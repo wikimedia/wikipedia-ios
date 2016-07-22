@@ -83,6 +83,11 @@
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
+#if DEBUG
+    NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
+          [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
+#endif
+    
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
     [PiwikTracker wmf_start];
 
@@ -96,11 +101,6 @@
     self.appViewController = vc;
 
     [self updateDynamicIconShortcutItems];
-
-#if DEBUG
-    NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
-          [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
-#endif
 
     return YES;
 }
