@@ -157,6 +157,16 @@
                is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/200px-/4/41/123px-Potato.jpg/")));
 }
 
+- (void)testSizePrefixChange_jpeg {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/4/48/Oat10.jpeg", 123),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Oat10.jpeg/123px-Oat10.jpeg")));
+}
+
+- (void)testSizePrefixChange_JPEG {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/4/48/Oat10.JPEG", 123),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Oat10.JPEG/123px-Oat10.JPEG")));
+}
+
 - (void)testSizePrefixChangeOnENWikiURL {
     assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/en/6/69/PercevalShooting.jpg", 123),
                is(equalTo(@"//upload.wikimedia.org/wikipedia/en/thumb/6/69/PercevalShooting.jpg/123px-PercevalShooting.jpg")));
@@ -178,6 +188,32 @@
                is(equalTo(@"Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg")));
 }
 
+- (void)testSizePrefixWhenCanonicalFileIsPDF {
+    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg";
+    XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), 240);
+}
+
+- (void)testParseCanonicalFileNameWhenCanonicalFileIsPDF {
+    NSString* testURLString = @"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg";
+    assertThat(WMFParseImageNameFromSourceURL(testURLString),
+               is(equalTo(@"A_Fish_and_a_Gift.pdf")));
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsPDFWithSizePrefix {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg", 480),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-480px-A_Fish_and_a_Gift.pdf.jpg")));
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsPDFWithSizePrefixPage2 {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page2-240px-A_Fish_and_a_Gift.pdf.jpg", 480),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page2-480px-A_Fish_and_a_Gift.pdf.jpg")));
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsPDFWithoutSizePrefix {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/6/65/A_Fish_and_a_Gift.pdf", 240),
+               is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg")));
+}
+
 - (void)testSizePrefixChangeOnCanonicalImageURLWithSizePrefixInFileName {
     // Normally images only have "XXXpx-" size prefix when returned from the thumbnail scaler, but there's nothing stopping users from uploading images with "XXXpx-" size prefix in the canonical name.
     // (See last image on "enwiki > Geothermal gradient")
@@ -185,11 +221,73 @@
                is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/0/0b/300px-Geothermgradients.png/100px-300px-Geothermgradients.png")));
 }
 
+- (void)testResizePrefixChangeOnCanonicalImageURLWithSizePrefixInFileName {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/0/0b/300px-Geothermgradients.png/100px-300px-Geothermgradients.png", 200),
+               is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/0/0b/300px-Geothermgradients.png/200px-300px-Geothermgradients.png")));
+}
+
 - (void)testParseImageNameFromCanonicalImageURLWithSizePrefixInFileName {
     NSString* testURLString = @"//upload.wikimedia.org/wikipedia/commons/0/0b/300px-Geothermgradients.png";
     assertThat(WMFParseImageNameFromSourceURL(testURLString),
                is(equalTo(@"300px-Geothermgradients.png")));
     //                      ^ the canonical image has the size in the file name, so "300px-" is correct here.
+}
+
+- (void)testSizePrefixWhenCanonicalFileIsTIF_lossy {
+    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.jpg";
+    XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), 220);
+}
+
+- (void)testParseCanonicalFileNameWhenCanonicalFileIsTIF_lossy {
+    NSString* testURLString = @"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.jpg";
+    assertThat(WMFParseImageNameFromSourceURL(testURLString),
+               is(equalTo(@"Gerald_Ford_-_NARA_-_530680.tif")));
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithSizePrefix_lossy {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.jpg", 480),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page1-480px-Gerald_Ford_-_NARA_-_530680.tif.jpg")));
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithSizePrefixPage2_lossy {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page2-220px-Gerald_Ford_-_NARA_-_530680.tif.jpg", 480),
+               is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page2-480px-Gerald_Ford_-_NARA_-_530680.tif.jpg"))); //Note: this page2 variant doesn't actually exist.
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithoutSizePrefix_lossy {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/d/d0/Gerald_Ford_-_NARA_-_530680.tif", 240),
+               is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page1-240px-Gerald_Ford_-_NARA_-_530680.tif.jpg")));
+}
+
+- (void)testSizePrefixWhenCanonicalFileIsTIF_lossless {
+    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.png";
+    XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), 220);
+}
+
+- (void)testParseCanonicalFileNameWhenCanonicalFileIsTIF_lossless {
+    NSString* testURLString = @"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.png";
+    assertThat(WMFParseImageNameFromSourceURL(testURLString),
+               is(equalTo(@"Gerald_Ford_-_NARA_-_530680.tif")));
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithSizePrefix_lossless {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.png", 480),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page1-480px-Gerald_Ford_-_NARA_-_530680.tif.png")));
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsTIFWithSizePrefixPage2_lossless {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page2-220px-Gerald_Ford_-_NARA_-_530680.tif.png", 480),
+               is(equalTo(@"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page2-480px-Gerald_Ford_-_NARA_-_530680.tif.png"))); //Note: this page2 variant doesn't actually exist.
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsTIFF_lowercase {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/f/f8/Funk.tiff", 797),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Funk.tiff/lossy-page1-797px-Funk.tiff.jpg")));
+}
+
+- (void)testSizePrefixChangeWhenCanonicalFileIsTIFF_uppercase {
+    assertThat(WMFChangeImageSourceURLSizePrefix(@"https://upload.wikimedia.org/wikipedia/commons/5/55/Charles_Vanderhoop%2C_Jr.%2C_Gay_Head_Light_Assistant_Keeper%2C_with_visiting_island_school_children.TIFF", 800),
+               is(equalTo(@"https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Charles_Vanderhoop%2C_Jr.%2C_Gay_Head_Light_Assistant_Keeper%2C_with_visiting_island_school_children.TIFF/lossy-page1-800px-Charles_Vanderhoop%2C_Jr.%2C_Gay_Head_Light_Assistant_Keeper%2C_with_visiting_island_school_children.TIFF.jpg")));
 }
 
 @end

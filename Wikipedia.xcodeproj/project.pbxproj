@@ -1690,6 +1690,8 @@
 		B0F956A71C481BC000691810 /* WMFArticleFooterMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleFooterMenuCell.h; path = Wikipedia/Code/WMFArticleFooterMenuCell.h; sourceTree = SOURCE_ROOT; };
 		B0F956A81C481BC000691810 /* WMFArticleFooterMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleFooterMenuCell.m; path = Wikipedia/Code/WMFArticleFooterMenuCell.m; sourceTree = SOURCE_ROOT; };
 		B0F956AA1C481C2100691810 /* WMFArticleFooterMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticleFooterMenuCell.xib; path = Wikipedia/Code/WMFArticleFooterMenuCell.xib; sourceTree = SOURCE_ROOT; };
+		B0FCB2391D3D5BEC00D80D57 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B0FCB23A1D3D5BEC00D80D57 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BC0069C71C7BD03700F2C377 /* FBTweak+WikipediaZero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBTweak+WikipediaZero.h"; sourceTree = "<group>"; };
 		BC0069C81C7BD03700F2C377 /* FBTweak+WikipediaZero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FBTweak+WikipediaZero.m"; sourceTree = "<group>"; };
 		BC0069D01C7D4A6600F2C377 /* WMFExploreSectionSchemaTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFExploreSectionSchemaTests.m; sourceTree = "<group>"; };
@@ -5230,6 +5232,7 @@
 				uz,
 				ckb,
 				ur,
+				el,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
@@ -6152,6 +6155,7 @@
 				B04876391C8FC248008F8920 /* uz */,
 				B02B76A11CA9ED4400EDB253 /* ckb */,
 				B09D5C051CFF58C4001C878A /* ur */,
+				B0FCB23A1D3D5BEC00D80D57 /* el */,
 			);
 			name = InfoPlist.strings;
 			path = Localizations;
@@ -6237,6 +6241,7 @@
 				B04876381C8FC248008F8920 /* uz */,
 				B02B76A01CA9ED4400EDB253 /* ckb */,
 				B09D5C041CFF58C3001C878A /* ur */,
+				B0FCB2391D3D5BEC00D80D57 /* el */,
 			);
 			name = Localizable.strings;
 			path = Localizations;

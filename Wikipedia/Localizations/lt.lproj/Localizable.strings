@@ -1,5 +1,6 @@
 // Messages for Lithuanian (lietuvių)
 // Exported from translatewiki.net
+// Author: Eitvys200
 // Author: Gediminas
 // Author: Hugo.arg
 // Author: Macofe
@@ -12,7 +13,6 @@
 "article-languages-label" = "Pasirinkite kalbą";
 "article-languages-cancel" = "Atšaukti";
 "article-languages-downloading" = "Įkeliamos straipsnio kalbos...";
-// Fuzzy
 "article-languages-filter-placeholder" = "Rasti kalbą";
 "article-read-more-title" = "Skaityti daugiau";
 "article-about-title" = "Apie šį straipsnį";
@@ -41,26 +41,24 @@
 "zero-wikipedia-zero-heading" = "Vikipedija Zero";
 "zero-warn-when-leaving" = "Perspėti, jeigu paliekamas „Zero“";
 "account-creation-captcha-required" = "Reikia patikrinimo saugos kodu.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Gaunamas naujas saugos kodas.";
+"account-creation-captcha-obtaining" = "Gaunamas naujas CAPTCHA...";
 "account-creation-logging-in" = "Jungiamasi...";
 "account-creation-passwords-mismatched" = "Slaptažodžių laukai nesutampa.";
 "account-creation-saving" = "Įrašoma...";
 "account-creation-login" = "Jau turite paskyrą? Prisijunkite.";
-// Fuzzy
-"account-creation-username-placeholder-text" = "Naudotojo vardas";
+"account-creation-username-placeholder-text" = "Vartotojo vardas";
 "account-creation-password-placeholder-text" = "Slaptažodis";
 "account-creation-password-confirm-placeholder-text" = "Patvirtinkite slaptažodį";
 "account-creation-email-placeholder-text" = "El. paštas (neprivaloma)";
-// Fuzzy
-"login-name-not-found" = "Prisijungti reikalingas naudotojo vardas.";
+"login-name-not-found" = "Prisijungimui būtinas vartotojo vardas.";
+"login-name-illegal" = "Jūs pateikėte negalimą vartotojo vardą.";
+"login-name-does-not-exist" = "Vartotojo vardas, kurį pateikėte neegzistuoja.";
 "login-password-empty" = "Prisijungti reikalingas slaptažodis.";
 "login-password-wrong" = "Slaptažodis, kurį pateikėte, yra neteisingas.";
 "login-throttled" = "Per trumpą laiką Jūs prisijungėte per daug kartų.";
 "login-user-blocked" = "Naudotojas yra užblokuotas.";
 "login-account-creation" = "Neturite paskyros? Prisijunkite prie Vikipedijos.";
-// Fuzzy
-"login-username-placeholder-text" = "Naudotojo vardas";
+"login-username-placeholder-text" = "Vartotojo vardas";
 "login-password-placeholder-text" = "Slaptažodis";
 "wikitext-downloading" = "Įkeliamas turinys...";
 "wikitext-download-failed" = "Nepavyko gauti naujausios redakcijos.";
@@ -187,6 +185,7 @@
 "button-next" = "Kitas";
 "button-done" = "Atlikta";
 "button-save" = "Įrašyti";
+"button-ok" = "Gerai";
 "onboarding-create-account" = "Kurti paskyrą";
 "onboarding-login" = "Prisijungti";
 "onboarding-already-have-account" = "Jau turite paskyrą? $1";
@@ -255,5 +254,6 @@
 "empty-no-search-results-message" = "Rezultatų nerasta";
 "alert-no-internet" = "Ten nėra interneto ryšio";
 "explore-nearby-heading" = "Artimos vietovės";
+"explore-most-read-generic-heading" = "Populiariausi skaitytiniai";
 "explore-most-read-more-list-title" = "Top straipsniai";
 "explore-most-read-more-list-title-for-date" = "Viršuje $1";
