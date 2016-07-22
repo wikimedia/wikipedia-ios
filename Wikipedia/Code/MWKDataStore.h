@@ -187,4 +187,6 @@ extern NSString* const MWKArticleKey;
 - (void)startCacheRemoval;
 - (void)stopCacheRemoval;
 
+- (NSArray *)legacyImageURLsForArticle:(MWKArticle *)article;
+
 @end

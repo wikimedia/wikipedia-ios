@@ -7,7 +7,6 @@
 "article-languages-label" = "Causir una lenga";
 "article-languages-cancel" = "Anullar";
 "article-languages-downloading" = "Cargament de las lengas de l’article en cors…";
-// Fuzzy
 "article-languages-filter-placeholder" = "Trobar la lenga";
 "article-read-more-title" = "Ne saber mai";
 "article-about-title" = "A prepaus d'aqueste article";
@@ -32,13 +31,11 @@
 "account-creation-logging-in" = "Connexion en cors…";
 "account-creation-passwords-mismatched" = "Los senhals son pas identics.";
 "account-creation-saving" = "Enregistrament en cors…";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Nom d'utilizaire";
 "account-creation-password-placeholder-text" = "Senhal";
 "account-creation-password-confirm-placeholder-text" = "Confirmatz lo senhal";
 "account-creation-email-placeholder-text" = "Corrièr electronic (facultatiu)";
 "login-user-blocked" = "L'utilizaire es blocat.";
-// Fuzzy
 "login-username-placeholder-text" = "Nom d'utilizaire";
 "login-password-placeholder-text" = "Senhal";
 "wikitext-downloading" = "Cargament del contengut...";

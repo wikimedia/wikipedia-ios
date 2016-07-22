@@ -8,7 +8,7 @@ static NSRegularExpression* WMFImageURLParsingRegex() {
     dispatch_once(&onceToken, ^{
         // TODO: try to read serialized regex from disk to prevent needless pattern compilation on next app run
         NSError* patternCompilationError;
-        imageNameFromURLRegex = [NSRegularExpression regularExpressionWithPattern:@"^\\d+px-(.*)"
+        imageNameFromURLRegex = [NSRegularExpression regularExpressionWithPattern:@"^(lossy-|lossless-)?(page\\d+-)?\\d+px-(.*)"
                                                                           options:0
                                                                             error:&patternCompilationError];
         NSCParameterAssert(!patternCompilationError);
@@ -34,26 +34,10 @@ NSString* WMFParseImageNameFromSourceURL(NSString* sourceURL)  __attribute__((ov
         return nil;
     }
 
-    /*
-       For URLs in form "https://upload.wikimedia.org/.../Filename.jpg/XXXpx-Filename.jpg" try to acquire filename via
-       the second to last path component, which has only one extension.
-     */
-    NSString* filenameComponent = pathComponents[pathComponents.count - 2];
-    if ([[filenameComponent.pathExtension wmf_asMIMEType] hasPrefix:@"image"]) {
-        return filenameComponent;
-    }
-
-    NSString* thumbOrFileComponent = [pathComponents lastObject];
-    NSArray* matches               = [WMFImageURLParsingRegex() matchesInString:thumbOrFileComponent
-                                                                        options:0
-                                                                          range:NSMakeRange(0, [thumbOrFileComponent length])];
-    
-    if (matches.count > 0 && WMFIsThumbURLString(sourceURL)) {
-        // Found a "XXXpx-" prefix, extract substring and return as filename
-        return [thumbOrFileComponent substringWithRange:[matches[0] rangeAtIndex:1]];
-    } else {
-        // No "XXXpx-" prefix found, return the entire last component, as the URL is (probably) in the form //.../Filename.jpg
-        return thumbOrFileComponent;
+    if (!WMFIsThumbURLString(sourceURL)) {
+        return [sourceURL lastPathComponent];
+    }else{
+        return pathComponents[pathComponents.count - 2];
     }
 }
 
@@ -67,21 +51,47 @@ NSString* WMFParseUnescapedNormalizedImageNameFromSourceURL(NSURL* sourceURL)  _
     return WMFParseUnescapedNormalizedImageNameFromSourceURL(sourceURL.absoluteString);
 }
 
+NSInteger WMFParseSizePrefixFromSourceURL(NSURL* sourceURL)  __attribute__((overloadable)){
+    return WMFParseSizePrefixFromSourceURL(sourceURL.absoluteString);
+}
+
 NSInteger WMFParseSizePrefixFromSourceURL(NSString* sourceURL)  __attribute__((overloadable)){
     if (!sourceURL) {
+        return NSNotFound;
+    }
+    if (!WMFIsThumbURLString(sourceURL)) {
         return NSNotFound;
     }
     NSString* fileName = [sourceURL lastPathComponent];
     if (!fileName || (fileName.length == 0)) {
         return NSNotFound;
     }
-    NSRange range = [fileName rangeOfString:@"px-"];
-    if (range.location == NSNotFound) {
+    NSRange pxRange = [fileName rangeOfString:@"px-"];
+    if (pxRange.location == NSNotFound) {
         return NSNotFound;
     } else {
-        NSInteger result = [fileName substringToIndex:range.location].integerValue;
+        NSString *stringBeforePx = [fileName substringToIndex:pxRange.location];
+        NSRange lastDashRange = [stringBeforePx rangeOfString:@"-" options:NSBackwardsSearch];
+        NSInteger result = NSNotFound;
+        if (lastDashRange.location == NSNotFound) {
+             //stringBeforePx is "200" for the following:
+             //upload.wikimedia.org/wikipedia/commons/thumb/4/41/200px-Potato.jpg/
+            result = stringBeforePx.integerValue;
+        }else{
+             //stringBeforePx is "page1-240" for the following:
+             //upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg
+            NSString *stringAfterDash = [stringBeforePx substringFromIndex:lastDashRange.location+1];
+            result = stringAfterDash.integerValue;
+        }
         return (result == 0) ? NSNotFound : result;
     }
+}
+
+NSString* WMFOriginalImageURLStringFromURLString(NSString *URLString) {
+    if ([URLString containsString:@"/thumb/"]) {
+        URLString = [[URLString stringByDeletingLastPathComponent] stringByReplacingOccurrencesOfString:@"/thumb/" withString:@"/"];
+    }
+    return URLString;
 }
 
 NSString* WMFChangeImageSourceURLSizePrefix(NSString* sourceURL, NSUInteger newSizePrefix)  __attribute__((overloadable)){
@@ -105,8 +115,17 @@ NSString* WMFChangeImageSourceURLSizePrefix(NSString* sourceURL, NSUInteger newS
 
     NSString* lastPathComponent = [sourceURL lastPathComponent];
     
-    if (WMFParseSizePrefixFromSourceURL(sourceURL) == NSNotFound || !WMFIsThumbURLString(sourceURL)) {
-        NSString* urlWithSizeVariantLastPathComponent = [sourceURL stringByAppendingString:[NSString stringWithFormat:@"/%lupx-%@", (unsigned long)newSizePrefix, lastPathComponent]];
+    if (WMFParseSizePrefixFromSourceURL(sourceURL) == NSNotFound) {
+        NSString* sizeVariantLastPathComponent = [NSString stringWithFormat:@"%lupx-%@", (unsigned long)newSizePrefix, lastPathComponent];
+        
+        NSString* lowerCasePathExtension = [[sourceURL pathExtension] lowercaseString];
+        if([lowerCasePathExtension isEqualToString:@"pdf"]){
+            sizeVariantLastPathComponent = [NSString stringWithFormat:@"page1-%@.jpg", sizeVariantLastPathComponent];
+        }else if([lowerCasePathExtension isEqualToString:@"tif"] || [lowerCasePathExtension isEqualToString:@"tiff"]){
+            sizeVariantLastPathComponent = [NSString stringWithFormat:@"lossy-page1-%@.jpg", sizeVariantLastPathComponent];
+        }
+        
+        NSString* urlWithSizeVariantLastPathComponent = [[sourceURL stringByAppendingString:@"/" ] stringByAppendingString:sizeVariantLastPathComponent];
 
         NSString* urlWithThumbPath = [urlWithSizeVariantLastPathComponent stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@%@/", wikipediaString, site] withString:[NSString stringWithFormat:@"%@%@/thumb/", wikipediaString, site]];
 
@@ -121,9 +140,6 @@ NSString* WMFChangeImageSourceURLSizePrefix(NSString* sourceURL, NSUInteger newS
             [WMFImageURLParsingRegex() stringByReplacingMatchesInString:sourceURL
                                                                 options:NSMatchingAnchored
                                                                   range:rangeOfLastPathComponent
-                                                           withTemplate:[NSString stringWithFormat:@"%lupx-$1", (unsigned long)newSizePrefix]];
+                                                           withTemplate:[NSString stringWithFormat:@"$1$2%lupx-$3", (unsigned long)newSizePrefix]];
     }
 }
-
-
-
