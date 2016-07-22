@@ -222,48 +222,48 @@
 //    assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
 //}
 
-- (void)testReportGalleryImageErrors {
-    [self stubListWithEntries:0];
-
-    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-
-    MWKTitle* dummyTitle       = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
-    MWKArticle* stubbedArticle = [self stubArticleResponsesForTitle:dummyTitle fixtureName:@"Obama"];
-
-    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
-
-    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
-     willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
-
-    [self stubArticleImageResponsesForArticle:stubbedArticle];
-
-    [[stubbedArticle imagesForGallery] bk_each:^(MWKImage* image) {
-        MWKImageInfo* stubbedImageInfo = [self imageInfoStubForImage:image];
-        [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:stubbedImageInfo.canonicalPageTitle
-                                                             fromSite:stubbedArticle.title.site])
-         willReturn:[AnyPromise promiseWithValue:stubbedImageInfo]];
-
-        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL failure:anything() success:anything()]) willDo:^id (NSInvocation* invocation){
-            NSArray* args = [invocation mkt_arguments];
-            WMFErrorHandler failure = args[1];
-            if (![failure isKindOfClass:[HCIsAnything class]]) {
-                failure(downloadError);
-            }
-            return nil;
-        }];
-    }];
-
-    [self stubMultipleImageCacheFailureWithError:downloadError];
-
-    [self.savedPageList addSavedPageWithTitle:dummyTitle];
-
-    [self expectFetcherToFinishWithError:[NSError wmf_savedPageImageDownloadError]];
-
-    [self waitForExpectationsWithTimeout:2 handler:nil];
-
-    assertThat(self.downloadedArticles, isEmpty());
-    assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
-}
+//- (void)testReportGalleryImageErrors {
+//    [self stubListWithEntries:0];
+//
+//    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+//
+//    MWKTitle* dummyTitle       = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
+//    MWKArticle* stubbedArticle = [self stubArticleResponsesForTitle:dummyTitle fixtureName:@"Obama"];
+//
+//    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
+//
+//    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
+//     willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
+//
+//    [self stubArticleImageResponsesForArticle:stubbedArticle];
+//
+//    [[stubbedArticle imagesForGallery] bk_each:^(MWKImage* image) {
+//        MWKImageInfo* stubbedImageInfo = [self imageInfoStubForImage:image];
+//        [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:stubbedImageInfo.canonicalPageTitle
+//                                                             fromSite:stubbedArticle.title.site])
+//         willReturn:[AnyPromise promiseWithValue:stubbedImageInfo]];
+//
+//        [MKTGiven([self.mockImageController cacheImageWithURLInBackground:stubbedImageInfo.imageThumbURL failure:anything() success:anything()]) willDo:^id (NSInvocation* invocation){
+//            NSArray* args = [invocation mkt_arguments];
+//            WMFErrorHandler failure = args[1];
+//            if (![failure isKindOfClass:[HCIsAnything class]]) {
+//                failure(downloadError);
+//            }
+//            return nil;
+//        }];
+//    }];
+//
+//    [self stubMultipleImageCacheFailureWithError:downloadError];
+//
+//    [self.savedPageList addSavedPageWithTitle:dummyTitle];
+//
+//    [self expectFetcherToFinishWithError:[NSError wmf_savedPageImageDownloadError]];
+//
+//    [self waitForExpectationsWithTimeout:2 handler:nil];
+//
+//    assertThat(self.downloadedArticles, isEmpty());
+//    assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
+//}
 
 - (void)testContinuesDownloadingIfArticleDownloadFails {
     [self stubListWithEntries:2];
