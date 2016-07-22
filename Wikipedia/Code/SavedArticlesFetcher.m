@@ -177,14 +177,14 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 
     NSArray<NSURL*>* URLs = [[article allImageURLs] allObjects];
     
-    [self.imageController cacheImagesWithURLsInBackground:URLs failure:failure success:success];
+    [self cacheImagesWithURLsInBackground:URLs failure:failure success:success];
 }
 
 - (void)fetchGalleryDataForArticle:(MWKArticle*)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     WMF_TECH_DEBT_TODO(check whether on - disk image info matches what we are about to fetch)
     @weakify(self);
     [self fetchImageInfoForImagesInArticle:article failure:^(NSError *error) {
-        
+        failure(error);
     } success:^(NSArray *info) {
         @strongify(self);
         if (!self) {
@@ -197,8 +197,8 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         }
         
         NSArray *URLs = [info valueForKey:@"imageThumbURL"];
-        [self.imageController cacheImagesWithURLsInBackground:URLs failure:failure success:success];
         
+        [self cacheImagesWithURLsInBackground:URLs failure:failure success:success];
     }];
 }
 
@@ -233,6 +233,22 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         return infoObjects;
     });
 }
+
+
+- (void)cacheImagesWithURLsInBackground:(NSArray<NSURL*>*)imageURLs failure:(void (^ _Nonnull)(NSError * _Nonnull error))failure success:(void (^ _Nonnull)(void))success{
+    
+    imageURLs = [imageURLs bk_select:^BOOL(id obj) {
+        return [obj isKindOfClass:[NSURL class]];
+    }];
+    
+    if([imageURLs count] == 0){
+        success();
+        return;
+    }
+    
+    [self.imageController cacheImagesWithURLsInBackground:imageURLs failure:failure success:success];
+}
+
 
 #pragma mark - Cancellation
 
