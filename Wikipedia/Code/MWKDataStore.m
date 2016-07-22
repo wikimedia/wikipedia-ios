@@ -507,17 +507,8 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     });
 }
 
-#pragma mark - Deletion
-
-- (NSError*)removeFolderAtBasePath {
-    NSError* err;
-    [[NSFileManager defaultManager] removeItemAtPath:self.basePath error:&err];
-    return err;
-}
-
-- (void)deleteArticle:(MWKArticle*)article {
+- (NSArray *)legacyImageURLsForArticle:(MWKArticle *)article {
     NSString* path = [self pathForArticle:article];
-    
     NSDictionary *legacyImageDictionary = [NSDictionary dictionaryWithContentsOfFile:[path stringByAppendingPathComponent:@"Images.plist"]];
     if ([legacyImageDictionary isKindOfClass:[NSDictionary class]]) {
         NSArray *legacyImageURLStrings = [legacyImageDictionary objectForKey:@"entries"];
@@ -529,10 +520,25 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
                     return nil;
                 }
             }];
-            [[WMFImageController sharedInstance] deleteImagesWithURLs:legacyImageURLs];
+            return legacyImageURLs;
         }
     }
+    return @[];
+}
 
+#pragma mark - Deletion
+
+- (NSError*)removeFolderAtBasePath {
+    NSError* err;
+    [[NSFileManager defaultManager] removeItemAtPath:self.basePath error:&err];
+    return err;
+}
+
+- (void)deleteArticle:(MWKArticle*)article {
+    NSString* path = [self pathForArticle:article];
+
+    [[WMFImageController sharedInstance] deleteImagesWithURLs:[self legacyImageURLsForArticle:article]];
+    
     // delete article images *before* metadata (otherwise we won't be able to retrieve image lists)
     [[WMFImageController sharedInstance] deleteImagesWithURLs:[[article allImageURLs] allObjects]];
 
