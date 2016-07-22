@@ -21,6 +21,11 @@ Runs tests, version, tag, and push to the beta branch
 fastlane ios submitAndPushToMaster
 ```
 Runs tests, version, tag, and push to the beta branch
+### ios submitHotfixAndPushToMaster
+```
+fastlane ios submitHotfixAndPushToMaster
+```
+Runs tests, version, tag, and push to the beta branch
 ### ios verifyTestPlatforms
 ```
 fastlane ios verifyTestPlatforms
@@ -60,7 +65,12 @@ Increment the app's beta build number, add a tag, and push to the beta branch.
 ```
 fastlane ios bumpAndTagRelease
 ```
-Increment the app's beta build number, add a tag, and push to the beta branch.
+Increment the app's build number, add a tag, and push to the master branch.
+### ios tagHotfix
+```
+fastlane ios tagHotfix
+```
+Add a tag, and push to the master branch.
 ### ios default_changelog
 ```
 fastlane ios default_changelog

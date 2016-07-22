@@ -179,5 +179,12 @@ extension NSUserDefaults {
         }
     }
 
-
+    public func wmf_setDidFinishLegacySavedArticleImageMigration(didFinish: Bool) {
+        self.setBool(didFinish, forKey: "DidFinishLegacySavedArticleImageMigration")
+        self.synchronize()
+    }
+    
+    public func wmf_didFinishLegacySavedArticleImageMigration() -> Bool {
+        return self.boolForKey("DidFinishLegacySavedArticleImageMigration")
+    }
 }
