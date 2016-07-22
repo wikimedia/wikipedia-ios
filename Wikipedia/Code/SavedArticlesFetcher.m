@@ -191,7 +191,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 }
 
 - (void)migrateLegacyImagesInArticle:(MWKArticle *)article {
-    //  Removes up old saved article image list folders, copies old cached images to original and article image width locations. This ensures articles saved with 5.0.4 and older will still have images availble offline in 5.0.5. The migration is idempotent - the enumerated folders are removed so they won't be processed the next time around.
+    //  Copies saved article images cached by versions 5.0.4 and older to the locations where 5.0.5 and newer are looking for them. Previously, the app cached at the width of the largest image in the srcset. Currently, we request a thumbnail at wmf_articleImageWidthForScale (or original if it's narrower than that width). By copying from the old size to the new expected sizes, we ensure that articles saved with these older versions will still have images availble offline in the newer versions.
     WMFImageController *imageController = [WMFImageController sharedInstance];
     NSArray *legacyImageURLs = [self.savedPageList.dataStore legacyImageURLsForArticle:article];
     NSUInteger articleImageWidth = [[UIScreen mainScreen] wmf_articleImageWidthForScale];
