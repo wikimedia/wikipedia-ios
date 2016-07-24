@@ -282,6 +282,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         if (info.count == 0) {
             DDLogVerbose(@"No gallery images to fetch.");
             success();
+            return;
         }
         
         NSArray *URLs = [info valueForKey:@"imageThumbURL"];
