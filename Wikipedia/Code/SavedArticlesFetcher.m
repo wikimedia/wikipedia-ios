@@ -12,6 +12,7 @@
 #import "WMFURLCache.h"
 #import "WMFImageURLParsing.h"
 #import "UIScreen+WMFImageWidth.h"
+#import "WMFTaskGroup.h"
 
 static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 
@@ -124,35 +125,20 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         didFinishLegacyMigration();
         return;
     }
-    dispatch_group_t group = dispatch_group_create();
-    NSMutableSet *titlesToLeave = [NSMutableSet setWithArray:titles];
+    
+    WMFTaskGroup *group = [WMFTaskGroup new];
     for (MWKTitle* title in titles) {
-        dispatch_group_enter(group);
+        [group enter];
         dispatch_async(self.accessQueue, ^{
             [self fetchTitle:title failure:^(NSError *error) {
-                 dispatch_async(self.accessQueue, ^{
-                    if ([titlesToLeave containsObject:title]) {
-                        [titlesToLeave removeObject:title];
-                        dispatch_group_leave(group);
-                    } else {
-                        DDLogError(@"Extraneous callback for title: %@", title);
-                    }
-                 });
-
+                [group leave];
             } success:^{
-                dispatch_async(self.accessQueue, ^{
-                    if ([titlesToLeave containsObject:title]) {
-                        [titlesToLeave removeObject:title];
-                        dispatch_group_leave(group);
-                    } else {
-                        DDLogError(@"Extraneous callback for title: %@", title);
-                    }
-                });
+                [group leave];
             }];
         });
     }
-    dispatch_group_notify(group, dispatch_get_main_queue(), didFinishLegacyMigration);
-
+    
+    [group waitInBackgroundWithCompletion:didFinishLegacyMigration];
 }
 
 - (void)fetchTitle:(MWKTitle*)title failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {

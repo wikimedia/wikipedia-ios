@@ -442,31 +442,31 @@ extension WMFImageController {
     
     
     @objc public func cacheImagesWithURLsInBackground(imageURLs: [NSURL], failure: (error: NSError) -> Void, success: () -> Void) -> AnyObject? {
-        let cacheGroup = dispatch_group_create()
+        let cacheGroup = WMFTaskGroup()
         var errors = [NSError]()
         
         for imageURL in imageURLs {
-            dispatch_group_enter(cacheGroup)
+            cacheGroup.enter()
             
             let failure = { (error: ErrorType) in
                 errors.append(error as NSError)
-                dispatch_group_leave(cacheGroup)
+                cacheGroup.leave()
             }
 
             let success = { (didCache: Bool) in
-                dispatch_group_leave(cacheGroup)
+                cacheGroup.leave()
             }
             
             cacheImageWithURLInBackground(imageURL, failure:failure, success: success)
         }
-
-        dispatch_group_notify(cacheGroup, dispatch_get_main_queue(), {
+        
+        cacheGroup.waitInBackgroundWithCompletion { 
             if let error = errors.first {
                 failure(error: error)
             } else {
                 success()
             }
-        })
+        }
         
         return nil
     }
