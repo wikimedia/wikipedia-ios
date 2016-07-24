@@ -125,19 +125,33 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         return;
     }
     dispatch_group_t group = dispatch_group_create();
-    dispatch_group_enter(group);
+    NSMutableSet *titlesToLeave = [NSMutableSet setWithArray:titles];
     for (MWKTitle* title in titles) {
         dispatch_group_enter(group);
         dispatch_async(self.accessQueue, ^{
             [self fetchTitle:title failure:^(NSError *error) {
-                dispatch_group_leave(group);
+                 dispatch_async(self.accessQueue, ^{
+                    if ([titlesToLeave containsObject:title]) {
+                        [titlesToLeave removeObject:title];
+                        dispatch_group_leave(group);
+                    } else {
+                        DDLogError(@"Extraneous callback for title: %@", title);
+                    }
+                 });
+
             } success:^{
-                dispatch_group_leave(group);
+                dispatch_async(self.accessQueue, ^{
+                    if ([titlesToLeave containsObject:title]) {
+                        [titlesToLeave removeObject:title];
+                        dispatch_group_leave(group);
+                    } else {
+                        DDLogError(@"Extraneous callback for title: %@", title);
+                    }
+                });
             }];
         });
     }
     dispatch_group_notify(group, dispatch_get_main_queue(), didFinishLegacyMigration);
-    dispatch_group_leave(group);
 
 }
 
