@@ -12,6 +12,7 @@
 #import "WMFURLCache.h"
 #import "WMFImageURLParsing.h"
 #import "UIScreen+WMFImageWidth.h"
+#import "WMFTaskGroup.h"
 
 static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 
@@ -124,21 +125,20 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         didFinishLegacyMigration();
         return;
     }
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_group_enter(group);
+    
+    WMFTaskGroup *group = [WMFTaskGroup new];
     for (MWKTitle* title in titles) {
-        dispatch_group_enter(group);
+        [group enter];
         dispatch_async(self.accessQueue, ^{
             [self fetchTitle:title failure:^(NSError *error) {
-                dispatch_group_leave(group);
+                [group leave];
             } success:^{
-                dispatch_group_leave(group);
+                [group leave];
             }];
         });
     }
-    dispatch_group_notify(group, dispatch_get_main_queue(), didFinishLegacyMigration);
-    dispatch_group_leave(group);
-
+    
+    [group waitInBackgroundWithCompletion:didFinishLegacyMigration];
 }
 
 - (void)fetchTitle:(MWKTitle*)title failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
@@ -282,6 +282,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         if (info.count == 0) {
             DDLogVerbose(@"No gallery images to fetch.");
             success();
+            return;
         }
         
         NSArray *URLs = [info valueForKey:@"imageThumbURL"];
