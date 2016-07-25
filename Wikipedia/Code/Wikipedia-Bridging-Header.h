@@ -41,6 +41,7 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "NSFileManager+WMFExtendedFileAttributes.h"
+#import "WMFTaskGroup.h"
 
 // View Controllers
 #import "WMFArticleViewController_Private.h"
