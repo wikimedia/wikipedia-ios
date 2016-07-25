@@ -30,7 +30,6 @@
             dispatch_group_leave(self.group);
         } else {
             DDLogError(@"Mismatched leave for group: %@", self);
-            assert(false);
         }
     }
 }
