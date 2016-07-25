@@ -278,7 +278,7 @@ DEPENDENCIES
   badge
   cocoapods (~> 0.39.0)
   fastlane (~> 1.98.0)
-  fastlane_core (~> 0.48.1)
+  fastlane_core (= 0.48.1)
 
 BUNDLED WITH
    1.12.5
