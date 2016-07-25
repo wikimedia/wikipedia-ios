@@ -965,7 +965,9 @@ NS_ASSUME_NONNULL_BEGIN
     didTapImageWithSourceURL:(nonnull NSURL*)imageSourceURL {
     MWKImage* selectedImage                                = [[MWKImage alloc] initWithArticle:self.article sourceURL:imageSourceURL];
     WMFArticleImageGalleryViewController* fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage];
-    [self presentViewController:fullscreenGallery animated:YES completion:nil];
+    if (fullscreenGallery != nil) {
+        [self presentViewController:fullscreenGallery animated:YES completion:nil];
+    }
 }
 
 - (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article {
@@ -1015,7 +1017,9 @@ NS_ASSUME_NONNULL_BEGIN
 
     WMFArticleImageGalleryViewController* fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article];
     fullscreenGallery.referenceViewDelegate = self;
-    [self presentViewController:fullscreenGallery animated:YES completion:nil];
+    if (fullscreenGallery != nil) {
+        [self presentViewController:fullscreenGallery animated:YES completion:nil];
+    }
 }
 
 #pragma mark - WMFImageGalleryViewControllerReferenceViewDelegate
