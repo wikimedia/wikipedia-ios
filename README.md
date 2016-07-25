@@ -61,15 +61,30 @@ We're doing what we can to optimize the build system to have as few dependencies
 
 > **Homebrew and many other tools require the Xcode command line tools, which can be installed by running `xcode-select --install` on newer versions of OS X. They can also be installed via Xcode or downloaded from the [Apple Developer downloads page](https://developer.apple.com/downloads) on older versions of OS X.**
 
+### Carthage
+ 
+`brew install carthage`
+ 
+[Carthage](https://github.com/Carthage/Carthage) is a dependency manager we use for dependencies that need to be linked as dynamic frameworks.
+
 ### Uncrustify
+ 
+`brew install uncrustify`
+ 
 As mentioned in [best practices and coding style](#best-practices-and-coding-style), we use [uncrustify](http://uncrustify.sourceforge.net/) to lint the project's Objective-C code. Installation via Homebrew is straightforward: `brew install uncrustify`. We've also provided a pre-push git hook which automatically lints the code before pushing, which can be installed by running `./scripts/setup_git_hooks.sh`.  In the event that you run uncrustify on the entire project (either via `make lint` or the provided pre-push hook), please commit the changes as a separate commit.  You'll see examples of this in other pull requests which have commits named simply: ["uncrustify."](https://github.com/wikimedia/wikipedia-ios/commit/52f291b536d5679a965169100ad3a151ca40f89f).
 
 > [BBUncrustifyPlugin](https://github.com/benoitsan/BBUncrustifyPlugin-Xcode) is an easy way to uncrustify files within the Xcode UI. You can install it from source or using [Alcatraz](http://alcatraz.io), the unofficial Xcode package/plugin manager.
 
 ### CocoaPods
+ 
+`sudo gem install cocoapods` or, if you have rbenv or similar installed: `gem install cocoapods`
+ 
 [CocoaPods](https://cocoapods.org) is a Ruby gem that the project uses to download and integrate third-party iOS components (see `Podfile` for an up-to-date list). We have committed all of these dependencies to the repository itself, removing the need to install the gem or run before building the project. However, if you want to do anything related to CocoaPods (such as upgrading the version of CocoaPods or adding a dependency), please refer to the [Working With Cocoapods documentation](docs/working-with-cocoapods.md).
 
 ### NPM
+ 
+`brew install npm`
+ 
 [npm](https://www.npmjs.com/) is a package manager for [nodejs](https://nodejs.org). With it, we install various node modules as Javascript dependencies and development tools (see `www/package.json` for an up-to-date list). Similar to our native dependencies, we have committed certain files to the repository to remove node and npm as build dependencies in an effort to streamline typical application development. Please see [Wikipedia iOS Web Development](docs/web-dev.md) for more information about how to work with the web components in this project.
 
 ## Continuous Integration
