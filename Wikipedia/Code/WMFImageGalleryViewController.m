@@ -397,15 +397,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticleImageGalleryViewController
 
-- (instancetype)initWithArticle:(MWKArticle*)article {
+- (nullable instancetype)initWithArticle:(MWKArticle*)article {
     return [self initWithArticle:article selectedImage:nil];
 }
 
-- (instancetype)initWithArticle:(MWKArticle*)article selectedImage:(nullable MWKImage*)image {
+- (nullable instancetype)initWithArticle:(MWKArticle*)article selectedImage:(nullable MWKImage*)image {
     NSParameterAssert(article);
     NSParameterAssert(article.dataStore);
 
     NSArray* items = [article imagesForGallery];
+    
+    if ([items count] == 0) {
+        return nil;
+    }
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
         items = [items wmf_reverseArrayIfApplicationIsRTL];
