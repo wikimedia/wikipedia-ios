@@ -103,7 +103,7 @@ GEM
       xcode-install (~> 2.0.0)
       xcodeproj (>= 0.20, < 2.0.0)
       xcpretty (>= 0.2.1)
-    fastlane_core (0.48.2)
+    fastlane_core (0.48.1)
       babosa
       colored
       commander (= 4.3.5)
