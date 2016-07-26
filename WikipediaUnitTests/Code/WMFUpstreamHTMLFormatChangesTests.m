@@ -3,6 +3,29 @@
 #import <BlocksKit/BlocksKit.h>
 #import "MWKTestCase.h"
 
+
+
+@interface NSString(WMFNormalizeWhitespace)
+
+- (NSString*)wmf_trimAndNormalizeWhiteSpaceAndNewlinesToSingleSpace;
+
+@end
+
+@implementation NSString(WMFNormalizeWhitespace)
+
+- (NSString*)wmf_trimAndNormalizeWhiteSpaceAndNewlinesToSingleSpace {
+    NSString *result = [self stringByReplacingOccurrencesOfString:@"\\s+"
+                                                       withString:@" "
+                                                          options:NSRegularExpressionSearch
+                                                            range:NSMakeRange(0, self.length)];
+    return [result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
+@end
+
+
+
+
 @interface WMFUpstreamHTMLFormatChangesTests : MWKTestCase
 @end
 
@@ -46,6 +69,10 @@
         "<div class=\"mf-section-0\"><p><a href=\"/wiki/MediaWiki\" title=\"MediaWiki\">"
         "<img alt=\"Example.jpg\" src=\"//upload.beta.wmflabs.org/wikipedia/commons/thumb/a/a9/Example.jpg/20px-Example.jpg\" width=\"20\" height=\"21\" srcset=\"//upload.beta.wmflabs.org/wikipedia/commons/thumb/a/a9/Example.jpg/30px-Example.jpg 1.5x, //upload.beta.wmflabs.org/wikipedia/commons/thumb/a/a9/Example.jpg/40px-Example.jpg 2x\" data-file-width=\"172\" data-file-height=\"178\">"
         "</a></p>\n\n\n\n\n\n</div>";
+        
+        // Don't fail on whitespace changes.
+        html = [html wmf_trimAndNormalizeWhiteSpaceAndNewlinesToSingleSpace];
+        expectedHTML = [expectedHTML wmf_trimAndNormalizeWhiteSpaceAndNewlinesToSingleSpace];
         
         XCTAssert([html isEqualToString:expectedHTML]);
         [expectation fulfill];
