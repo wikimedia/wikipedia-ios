@@ -1,284 +1,9 @@
 #import "WMFCollectionViewLayout.h"
-
-@interface WMFCVLInvalidationContext : UICollectionViewLayoutInvalidationContext
-@property (nonatomic, copy) UICollectionViewLayoutAttributes *originalLayoutAttributes;
-@property (nonatomic, copy) UICollectionViewLayoutAttributes *preferredLayoutAttributes;
-@property (nonatomic) BOOL boundsDidChange;
-@end
-
-@implementation WMFCVLInvalidationContext
-@end
-
-@interface WMFCVLAttributes : UICollectionViewLayoutAttributes
-@end
-
-@implementation WMFCVLAttributes
-@end
-
-@class WMFCVLColumn;
-
-@interface WMFCVLSection : NSObject
-@property (nonatomic) NSInteger index;
-@property (nonatomic) CGRect frame;
-@property (nonatomic, weak) WMFCVLColumn *column;
-@property (nonatomic) CGFloat interItemSpacing;
-@property (nonatomic, strong) NSMutableArray <WMFCVLAttributes *> *headers;
-@property (nonatomic, strong) NSMutableArray <WMFCVLAttributes *> *footers;
-@property (nonatomic, strong) NSMutableArray <WMFCVLAttributes *> *items;
-- (void)enumerateLayoutAttributesWithBlock:(void(^)(WMFCVLAttributes *layoutAttributes, BOOL *stop))block;
-@end
-
-@implementation WMFCVLSection
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        self.headers = [NSMutableArray array];
-        self.footers = [NSMutableArray array];
-        self.items = [NSMutableArray array];
-    }
-    return self;
-}
-
-- (void)enumerateLayoutAttributesWithBlock:(void(^)(WMFCVLAttributes *layoutAttributes, BOOL *stop))block {
-    __block BOOL bigStop = NO;
-    
-    [self.headers enumerateObjectsUsingBlock:^(WMFCVLAttributes * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        block(obj, &bigStop);
-        *stop = bigStop;
-    }];
-    
-    if (bigStop) {
-        return;
-    }
-    [self.items enumerateObjectsUsingBlock:^(WMFCVLAttributes * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        block(obj, &bigStop);
-        *stop = bigStop;
-    }];
-    
-    if (bigStop) {
-        return;
-    }
-    
-    [self.footers enumerateObjectsUsingBlock:^(WMFCVLAttributes * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        block(obj, &bigStop);
-        *stop = bigStop;
-    }];
-}
-
-- (void)offsetByDistance:(CGFloat)deltaY invalidationContext:(UICollectionViewLayoutInvalidationContext *)invalidationContext {
-    if (ABS(deltaY) > 0) {
-        [self offsetHeadersStartingAtIndex:0 distance:deltaY invalidationContext:invalidationContext];
-        [self offsetItemsStartingAtIndex:0 distance:deltaY invalidationContext:invalidationContext];
-        [self offsetFootersStartingAtIndex:0 distance:deltaY invalidationContext:invalidationContext];
-    }
-}
-
-- (CGFloat)setSize:(CGSize)size forHeaderAtIndex:(NSInteger)headerIndex invalidationContext:(UICollectionViewLayoutInvalidationContext *)invalidationContext {
-    CGFloat deltaH = [self setSize:size forAttributesAtIndex:headerIndex inArray:self.headers];
-    
-    if (ABS(deltaH) > 0) {
-        [self offsetHeadersStartingAtIndex:headerIndex + 1 distance:deltaH invalidationContext:invalidationContext];
-        [self offsetItemsStartingAtIndex:0 distance:deltaH invalidationContext:invalidationContext];
-        [self offsetFootersStartingAtIndex:0 distance:deltaH invalidationContext:invalidationContext];
-    }
-    
-    return deltaH;
-}
-
-- (CGFloat)setSize:(CGSize)size forFooterAtIndex:(NSInteger)footerIndex invalidationContext:(UICollectionViewLayoutInvalidationContext *)invalidationContext {
-    CGFloat deltaH = [self setSize:size forAttributesAtIndex:footerIndex inArray:self.footers];
-    
-    if (ABS(deltaH) > 0) {
-        [self offsetFootersStartingAtIndex:footerIndex + 1 distance:deltaH invalidationContext:invalidationContext];
-    }
-    
-    return deltaH;
-}
-
-- (CGFloat)setSize:(CGSize)size forItemAtIndex:(NSInteger)index invalidationContext:(UICollectionViewLayoutInvalidationContext *)invalidationContext {
-    CGFloat deltaH = [self setSize:size forAttributesAtIndex:index inArray:self.items];
-    
-    if (ABS(deltaH) > 0) {
-        [self offsetItemsStartingAtIndex:index + 1 distance:deltaH invalidationContext:invalidationContext];
-        [self offsetFootersStartingAtIndex:0 distance:deltaH invalidationContext:invalidationContext];
-    }
-    
-    return deltaH;
-}
-
-- (CGFloat)setSize:(CGSize)size forAttributesAtIndex:(NSInteger)index inArray:(NSMutableArray *)attributes {
-    WMFCVLAttributes *newAttributes = [attributes[index] copy];
-    
-    if (CGSizeEqualToSize(size, newAttributes.frame.size)) {
-        return 0;
-    }
-    
-    CGFloat deltaH = size.height - newAttributes.frame.size.height;
-    newAttributes.frame = (CGRect) {newAttributes.frame.origin, size};
-    attributes[index] = newAttributes;
-    return deltaH;
-}
-
-- (void)offsetHeadersStartingAtIndex:(NSInteger)headerIndex distance:(CGFloat)deltaY invalidationContext:(UICollectionViewLayoutInvalidationContext *)invalidationContext {
-    NSArray *invalidatedHeaderIndexPaths = [self offsetAttributesInArray:self.headers startingAtIndex:headerIndex distance:deltaY];
-    [invalidationContext invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:invalidatedHeaderIndexPaths];
-}
-
-- (void)offsetItemsStartingAtIndex:(NSInteger)itemIndex distance:(CGFloat)deltaY invalidationContext:(UICollectionViewLayoutInvalidationContext *)invalidationContext {
-    NSArray *invalidatedItemIndexPaths = [self offsetAttributesInArray:self.items startingAtIndex:itemIndex distance:deltaY];
-    [invalidationContext invalidateItemsAtIndexPaths:invalidatedItemIndexPaths];
-}
-
-- (void)offsetFootersStartingAtIndex:(NSInteger)footerIndex distance:(CGFloat)deltaY invalidationContext:(UICollectionViewLayoutInvalidationContext *)invalidationContext {
-    NSArray *invalidatedFooterIndexPaths = [self offsetAttributesInArray:self.footers startingAtIndex:footerIndex distance:deltaY];
-    [invalidationContext invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:invalidatedFooterIndexPaths];
-}
-
-- (NSArray *)offsetAttributesInArray:(NSMutableArray *)attributes startingAtIndex:(NSInteger)index distance:(CGFloat)deltaY {
-    NSInteger count = attributes.count - index;
-    if (count <= 0) {
-        return nil;
-    }
-    NSMutableArray *invalidatedIndexPaths = [NSMutableArray arrayWithCapacity:count];
-    while (index < attributes.count) {
-        WMFCVLAttributes *newAttributes = [attributes[index] copy];
-        newAttributes.frame = CGRectOffset(newAttributes.frame, 0, deltaY);
-        attributes[index] = newAttributes;
-        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:self.index];
-        [invalidatedIndexPaths addObject:indexPath];
-        index++;
-    }
-    return invalidatedIndexPaths;
-}
-
-@end
-
-
-@interface WMFCVLColumn : NSObject
-@property (nonatomic) NSInteger index;
-@property (nonatomic) CGFloat height;
-@property (nonatomic) CGFloat width;
-@property (nonatomic, strong) NSMutableArray <WMFCVLSection *> *sections;
-@property (nonatomic, strong) NSMutableDictionary <NSNumber *, WMFCVLSection *> *sectionsByIndex;
-- (void)addSection:(nonnull WMFCVLSection *)section;
-- (void)enumerateSectionsWithBlock:(nonnull void(^)(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop))block;
-@end
-
-@implementation WMFCVLColumn
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.sections = [NSMutableArray array];
-        self.sectionsByIndex = [NSMutableDictionary dictionary];
-    }
-    return self;
-}
-
-- (void)addSection:(nonnull WMFCVLSection *)section {
-    section.column = self;
-    self.sectionsByIndex[@(section.index)] = section;
-    [self.sections addObject:section];
-}
-
-- (void)enumerateSectionsWithBlock:(nonnull void(^)(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop))block {
-    [self.sections enumerateObjectsUsingBlock:block];
-}
-
-- (void)setSize:(CGSize)size forHeaderAtIndexPath:(NSIndexPath *)indexPath invalidationContext:(UICollectionViewLayoutInvalidationContext *)invalidationContext {
-    NSInteger sectionIndex = indexPath.section;
-    
-    WMFCVLSection *section = self.sectionsByIndex[@(sectionIndex)];
-    CGFloat deltaY = [section setSize:size forHeaderAtIndex:indexPath.item invalidationContext:invalidationContext];
-    [self offsetSectionsByDistance:deltaY startingAfterSection:section invalidationContext:invalidationContext];
-    self.height += deltaY;
-    invalidationContext.contentSizeAdjustment = CGSizeMake(0, deltaY);
-}
-
-- (void)setSize:(CGSize)size forFooterAtIndexPath:(NSIndexPath *)indexPath invalidationContext:(UICollectionViewLayoutInvalidationContext *)invalidationContext {
-    NSInteger sectionIndex = indexPath.section;
-    
-    WMFCVLSection *section = self.sectionsByIndex[@(sectionIndex)];
-    CGFloat deltaY = [section setSize:size forFooterAtIndex:indexPath.item invalidationContext:invalidationContext];
-    [self offsetSectionsByDistance:deltaY startingAfterSection:section invalidationContext:invalidationContext];
-    self.height += deltaY;
-    invalidationContext.contentSizeAdjustment = CGSizeMake(0, deltaY);
-}
-
-- (void)setSize:(CGSize)size forItemAtIndexPath:(NSIndexPath *)indexPath invalidationContext:(UICollectionViewLayoutInvalidationContext *)invalidationContext {
-    NSInteger sectionIndex = indexPath.section;
-    
-    WMFCVLSection *section = self.sectionsByIndex[@(sectionIndex)];
-    CGFloat deltaY = [section setSize:size forItemAtIndex:indexPath.item invalidationContext:invalidationContext];
-    [self offsetSectionsByDistance:deltaY startingAfterSection:section invalidationContext:invalidationContext];
-    self.height += deltaY;
-    invalidationContext.contentSizeAdjustment = CGSizeMake(0, deltaY);
-}
-
-- (void)offsetSectionsByDistance:(CGFloat)deltaY startingAfterSection:(WMFCVLSection *)afterSection invalidationContext:(UICollectionViewLayoutInvalidationContext *)invalidationContext {
-    if (ABS(deltaY) == 0) {
-        return;
-    }
-    
-    BOOL update = NO;
-    for (WMFCVLSection *section in self.sections) {
-        if (section == afterSection) {
-            update = YES;
-        } else if (update) {
-            [section offsetByDistance:deltaY invalidationContext:invalidationContext];
-        }
-    }
-}
-
-@end
-
-
-@interface WMFCVLInfo : NSObject
-@property (nonatomic) NSMutableArray <WMFCVLColumn *> *columns;
-@property (nonatomic) NSMutableArray <WMFCVLSection *> *sections;
-@property (nonatomic) CGFloat width;
-@property (nonatomic) CGFloat height;
-@property (nonatomic) CGSize collectionViewSize;
-
-- (instancetype)initWithNumberOfColumns:(NSInteger)numberOfColumns numberOfSections:(NSInteger)numberOfSections NS_DESIGNATED_INITIALIZER;
-- (void)enumerateSectionsWithBlock:(nonnull void(^)(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop))block;
-- (void)enumerateColumnsWithBlock:(nonnull void(^)(WMFCVLColumn * _Nonnull column, NSUInteger idx, BOOL * _Nonnull stop))block;
-@end
-
-@implementation WMFCVLInfo
-
-- (instancetype)initWithNumberOfColumns:(NSInteger)numberOfColumns numberOfSections:(NSInteger)numberOfSections
-{
-    self = [super init];
-    if (self) {
-        self.columns = [NSMutableArray arrayWithCapacity:numberOfColumns];
-        for (NSInteger i = 0; i < numberOfColumns; i++) {
-            WMFCVLColumn *column = [WMFCVLColumn new];
-            column.index = i;
-            [self.columns addObject:column];
-        }
-        
-        self.sections = [NSMutableArray arrayWithCapacity:numberOfSections];
-        for (NSInteger i = 0; i < numberOfSections; i++) {
-            WMFCVLSection *section = [WMFCVLSection new];
-            section.index = i;
-            [self.sections addObject:section];
-        }
-    }
-    return self;
-}
-
-- (void)enumerateSectionsWithBlock:(nonnull void(^)(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop))block {
-    [self.sections enumerateObjectsUsingBlock:block];
-}
-
-- (void)enumerateColumnsWithBlock:(nonnull void(^)(WMFCVLColumn * _Nonnull column, NSUInteger idx, BOOL * _Nonnull stop))block {
-    [self.columns enumerateObjectsUsingBlock:block];
-}
-
-@end
+#import "WMFCVLInfo.h"
+#import "WMFCVLColumn.h"
+#import "WMFCVLSection.h"
+#import "WMFCVLAttributes.h"
+#import "WMFCVLInvalidationContext.h"
 
 @interface WMFCollectionViewLayout ()
 
@@ -296,7 +21,7 @@
 @property (nonatomic, strong) WMFCVLInfo *info;
 @property (nonatomic, strong) WMFCVLInfo *oldInfo;
 
-@property (nonatomic) BOOL needsLayout;
+@property (nonatomic) BOOL needsLayoutEstimate;
 
 @end
 
@@ -319,7 +44,7 @@
 }
 
 - (void)setup {
-    self.needsLayout = YES;
+    self.needsLayoutEstimate = YES;
     self.numberOfColumns = 1;
     self.interColumnSpacing = 1;
     self.interItemSpacing = 1;
@@ -400,7 +125,7 @@
         WMFCVLAttributes *headerAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:supplementaryViewIndexPath];
         if (headerAttributes != nil) {
             headerAttributes.frame = CGRectMake(x, y, columnWidth, headerHeight);
-            [section.headers addObject:headerAttributes];
+            [section addHeader:headerAttributes];
         }
         
         sectionHeight += headerHeight;
@@ -414,7 +139,7 @@
             WMFCVLAttributes *itemAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForCellWithIndexPath:itemIndexPath];
             if (itemAttributes != nil) {
                 itemAttributes.frame = CGRectMake(x, y, columnWidth, itemHeight);
-                [section.items addObject:itemAttributes];
+                [section addItem:itemAttributes];
             }
             assert(itemHeight > 0);
             sectionHeight += itemHeight;
@@ -427,7 +152,7 @@
             assert(footerHeight > 0);
             footerAttributes.frame = CGRectMake(x, y, columnWidth, footerHeight);
             assert(footerAttributes.frame.size.width > 0);
-            [section.footers addObject:footerAttributes];
+            [section addFooter:footerAttributes];
         }
         
         sectionHeight += footerHeight;
@@ -516,9 +241,9 @@
 #pragma mark - Invalidation
 
 - (void)prepareLayout {
-    if (self.needsLayout) {
+    if (self.needsLayoutEstimate) {
         [self estimateLayout];
-        self.needsLayout = NO;
+        self.needsLayoutEstimate = NO;
     }
     [super prepareLayout];
 }
@@ -573,8 +298,8 @@
 }
 
 - (void)invalidateLayoutWithContext:(UICollectionViewLayoutInvalidationContext *)context {
-    if (context.invalidateDataSourceCounts || context.invalidateDataSourceCounts) {
-        self.needsLayout = YES;
+    if (context.invalidateEverything || context.invalidateDataSourceCounts) {
+        self.needsLayoutEstimate = YES;
     }
     [super invalidateLayoutWithContext:context];
 }
