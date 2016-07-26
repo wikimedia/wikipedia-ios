@@ -36,4 +36,49 @@
     [self.columns enumerateObjectsUsingBlock:block];
 }
 
+- (nullable WMFCVLAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger sectionIndex = indexPath.section;
+    
+    if (sectionIndex < 0 || sectionIndex >= self.sections.count) {
+        return nil;
+    }
+    
+    WMFCVLSection *section = self.sections[sectionIndex];
+    NSInteger itemIndex = indexPath.item;
+    if (itemIndex < 0 || itemIndex >= section.items.count) {
+        return nil;
+    }
+    
+    WMFCVLAttributes *attributes = section.items[itemIndex];
+    assert(attributes != nil);
+    return attributes;
+}
+
+- (nullable WMFCVLAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
+    NSInteger sectionIndex = indexPath.section;
+    if (sectionIndex < 0 || sectionIndex >= self.sections.count) {
+        return nil;
+    }
+    
+    WMFCVLSection *section = self.sections[sectionIndex];
+    
+    WMFCVLAttributes *attributes = nil;
+    if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
+        NSInteger itemIndex = indexPath.item;
+        if (itemIndex < 0 || itemIndex >= section.headers.count) {
+            return nil;
+        }
+        attributes = section.headers[itemIndex];
+    } else if ([elementKind isEqualToString:UICollectionElementKindSectionFooter]) {
+        NSInteger itemIndex = indexPath.item;
+        if (itemIndex < 0 || itemIndex >= section.footers.count) {
+            return nil;
+        }
+        attributes = section.footers[itemIndex];
+    }
+    
+    assert(attributes != nil);
+    return attributes;
+}
+
 @end
