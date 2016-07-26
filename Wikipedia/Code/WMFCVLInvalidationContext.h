@@ -5,5 +5,6 @@
 @property (nonatomic, copy) UICollectionViewLayoutAttributes *originalLayoutAttributes;
 @property (nonatomic, copy) UICollectionViewLayoutAttributes *preferredLayoutAttributes;
 @property (nonatomic) BOOL boundsDidChange;
+@property (nonatomic) CGRect newBounds;
 
 @end

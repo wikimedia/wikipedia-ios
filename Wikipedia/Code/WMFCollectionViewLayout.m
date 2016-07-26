@@ -12,7 +12,7 @@
 @property (nonatomic) CGFloat interSectionSpacing;
 @property (nonatomic) CGFloat interItemSpacing;
 
-@property (nonatomic) CGFloat height;
+@property (nonatomic) CGSize layoutSize;
 
 @property (nonatomic) NSInteger numberOfColumns;
 @property (nonatomic, readonly) NSInteger numberOfSections;
@@ -21,7 +21,7 @@
 @property (nonatomic, strong) WMFCVLInfo *info;
 @property (nonatomic, strong) WMFCVLInfo *oldInfo;
 
-@property (nonatomic) BOOL needsLayoutEstimate;
+@property (nonatomic) BOOL needsLayout;
 
 @end
 
@@ -44,7 +44,7 @@
 }
 
 - (void)setup {
-    self.needsLayoutEstimate = YES;
+    self.needsLayout = YES;
     self.numberOfColumns = 1;
     self.interColumnSpacing = 1;
     self.interItemSpacing = 1;
@@ -75,18 +75,18 @@
 }
 
 - (CGSize)collectionViewContentSize {
-    return CGSizeMake(self.collectionView.bounds.size.width, self.height);
+    return self.layoutSize;
 }
 
 
 
-- (void)estimateLayout {
+- (void)layoutForBoundsSize:(CGSize)size {
     if (self.delegate == nil) {
         return;
     }
     
     UICollectionView *collectionView = self.collectionView;
-    CGFloat columnWidth = floor(self.collectionView.bounds.size.width/self.numberOfColumns);
+    CGFloat columnWidth = floor(size.width/self.numberOfColumns);
     
     UIEdgeInsets contentInset = collectionView.contentInset;
     
@@ -98,7 +98,6 @@
     self.oldInfo = oldInfo;
     WMFCVLInfo *newInfo = [[WMFCVLInfo alloc] initWithNumberOfColumns:self.numberOfColumns numberOfSections:self.numberOfSections];
     
-    newInfo.collectionViewSize = collectionView.bounds.size;
     newInfo.width = width;
     newInfo.height = height;
     self.info = newInfo;
@@ -188,13 +187,15 @@
 }
 
 - (void)updateHeight {
-    self.height = 0;
+    __block CGSize newSize = self.layoutSize;
+    newSize.height = 0;
     [self.info enumerateColumnsWithBlock:^(WMFCVLColumn * _Nonnull column, NSUInteger idx, BOOL * _Nonnull stop) {
         CGFloat columnHeight = column.height;
-        if (columnHeight > self.height) { //switch to the shortest column
-            self.height = columnHeight;
+        if (columnHeight > newSize.height) {
+            newSize.height = columnHeight;
         }
     }];
+    self.layoutSize = newSize;
 }
 
 - (nullable NSArray<__kindof UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
@@ -231,9 +232,9 @@
 #pragma mark - Invalidation
 
 - (void)prepareLayout {
-    if (self.needsLayoutEstimate) {
-        [self estimateLayout];
-        self.needsLayoutEstimate = NO;
+    if (self.needsLayout) {
+        [self layoutForBoundsSize:self.collectionView.bounds.size];
+        self.needsLayout = NO;
     }
     [super prepareLayout];
 }
@@ -246,6 +247,7 @@
 - (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
     WMFCVLInvalidationContext *invalidationContext = (WMFCVLInvalidationContext *)[super invalidationContextForBoundsChange:newBounds];
     invalidationContext.boundsDidChange = YES;
+    invalidationContext.newBounds = newBounds;
     [self updateLayoutForInvalidationContext:invalidationContext];
     return invalidationContext;
 }
@@ -266,8 +268,36 @@
 }
 
 - (void)updateLayoutForInvalidationContext:(WMFCVLInvalidationContext *)context {
-    if (context.boundsDidChange || context.invalidateDataSourceCounts || context.invalidateDataSourceCounts) {
-        [self estimateLayout];
+    if (context.boundsDidChange) {
+        NSMutableArray *invalidatedItemIndexPaths = [NSMutableArray array];
+        NSMutableArray *invalidatedHeaderIndexPaths = [NSMutableArray array];
+        NSMutableArray *invalidatedFooterIndexPaths = [NSMutableArray array];
+        [self.info enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger sectionIndex, BOOL * _Nonnull stop) {
+            NSInteger i = 0;
+            while (i < section.headers.count) {
+                [invalidatedHeaderIndexPaths addObject:[NSIndexPath indexPathForItem:i inSection:sectionIndex]];
+                i++;
+            }
+            
+            i = 0;
+            while (i < section.items.count) {
+                [invalidatedItemIndexPaths addObject:[NSIndexPath indexPathForItem:i inSection:sectionIndex]];
+                i++;
+            }
+            
+            i = 0;
+            while (i < section.footers.count) {
+                [invalidatedFooterIndexPaths addObject:[NSIndexPath indexPathForItem:i inSection:sectionIndex]];
+                i++;
+            }
+        }];
+        [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:invalidatedHeaderIndexPaths];
+        [context invalidateItemsAtIndexPaths:invalidatedItemIndexPaths];
+        [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:invalidatedFooterIndexPaths];
+        self.oldInfo = nil;
+        self.info = nil;
+        [self layoutForBoundsSize:context.newBounds.size];
+        self.needsLayout = NO;
     } else if (context.originalLayoutAttributes && context.preferredLayoutAttributes) {
         UICollectionViewLayoutAttributes *originalAttributes = context.originalLayoutAttributes;
         UICollectionViewLayoutAttributes *preferredAttributes = context.preferredLayoutAttributes;
@@ -282,14 +312,14 @@
         
         [self updateHeight];
         
-        CGSize contentSizeAdjustment = CGSizeMake(0, self.height - self.collectionView.contentSize.height);
+        CGSize contentSizeAdjustment = CGSizeMake(0, self.layoutSize.height - self.collectionView.contentSize.height);
         context.contentSizeAdjustment = contentSizeAdjustment;
     }
 }
 
 - (void)invalidateLayoutWithContext:(UICollectionViewLayoutInvalidationContext *)context {
     if (context.invalidateEverything || context.invalidateDataSourceCounts) {
-        self.needsLayoutEstimate = YES;
+        self.needsLayout = YES;
     }
     [super invalidateLayoutWithContext:context];
 }
