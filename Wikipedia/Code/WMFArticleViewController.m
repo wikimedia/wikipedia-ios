@@ -872,10 +872,12 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray* items = [NSMutableArray array];
 
     [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self.article shareText:text]];
+    
+    NSURL* url = [NSURL wmf_desktopURLForURL:self.articleURL];
 
-    if (self.articleURL.wmf_desktopURL) {
-        NSURL* url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
-                                                    self.articleURL.wmf_desktopURL.absoluteString, @"wprov=sfsi1"]];
+    if (url) {
+        url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
+                                                    url.absoluteString, @"wprov=sfsi1"]];
 
         [items addObject:url];
     }
@@ -960,7 +962,9 @@ NS_ASSUME_NONNULL_BEGIN
     didTapImageWithSourceURL:(nonnull NSURL*)imageSourceURL {
     MWKImage* selectedImage                                 = [[MWKImage alloc] initWithArticle:self.article sourceURL:imageSourceURL];
     WMFArticleImageGalleryViewController* fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage];
-    [self presentViewController:fullscreenGallery animated:YES completion:nil];
+    if (fullscreenGallery != nil) {
+        [self presentViewController:fullscreenGallery animated:YES completion:nil];
+    }
 }
 
 - (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article {
@@ -1010,7 +1014,9 @@ NS_ASSUME_NONNULL_BEGIN
 
     WMFArticleImageGalleryViewController* fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article];
     fullscreenGallery.referenceViewDelegate = self;
-    [self presentViewController:fullscreenGallery animated:YES completion:nil];
+    if (fullscreenGallery != nil) {
+        [self presentViewController:fullscreenGallery animated:YES completion:nil];
+    }
 }
 
 #pragma mark - WMFImageGalleryViewControllerReferenceViewDelegate
@@ -1139,7 +1145,7 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
     if (![url wmf_isWikiResource]) {
-        if ([url wmf_isCitation]) {
+        if ([url wmf_isWikiCitation]) {
             return nil;
         }
         if ([url.scheme hasPrefix:@"http"]) {

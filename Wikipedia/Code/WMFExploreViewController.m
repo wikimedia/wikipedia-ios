@@ -264,8 +264,13 @@ WMFCollectionViewLayoutDelegate>
                      completion:nil];
 }
 
-- (void)scrollToTop:(BOOL)animated {
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:animated];
+- (BOOL)canScrollToTop {
+    if (self.isWaitingForNetworkToReconnect) {
+        return NO;
+    }
+    id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:0];
+    NSParameterAssert(controller);
+    return [[controller items] count] > 0;
 }
 
 - (void)didTapSettingsButton:(UIBarButtonItem*)sender {

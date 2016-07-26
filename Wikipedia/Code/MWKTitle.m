@@ -101,11 +101,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSURL*)mobileURL {
-    return self.URL.wmf_mobileURL;
+    return [NSURL wmf_mobileURLForURL:self.URL];
 }
 
 - (NSURL*)desktopURL {
-    return self.URL.wmf_desktopURL;
+    return [NSURL wmf_desktopURLForURL:self.URL];
 }
 
 - (BOOL)isNonStandardTitle {

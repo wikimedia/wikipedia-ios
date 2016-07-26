@@ -23,16 +23,16 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wnonnull"
 
-- (void)testNilResultsInEmptyString {
+- (void)testNilResultsInNil {
     NSURL* title;
     XCTAssertNoThrow((title = [siteURL wmf_URLWithTitle:nil]));
-    assertThat(title.wmf_title, is(@""));
+    assertThat(title.wmf_title, is(nilValue()));
 }
 
 - (void)testPermitsEmptyString {
     NSURL* title;
     XCTAssertNoThrow((title = [siteURL wmf_URLWithTitle:@""]));
-    assertThat(title.wmf_title, is(@""));
+    assertThat(title.wmf_title, is(nilValue()));
 }
 
 #pragma clang diagnostic pop

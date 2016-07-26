@@ -72,13 +72,12 @@
 }
 
 + (instancetype)wmf_articleViewActivityWithArticle:(MWKArticle*)article {
-    NSParameterAssert(article.url.wmf_desktopURL);
     NSParameterAssert(article.url.wmf_title);
     NSParameterAssert(article.displaytitle);
 
     NSUserActivity* activity = [self wmf_actvityWithType:@"article"];
     activity.title      = article.url.wmf_title;
-    activity.webpageURL = article.url.wmf_desktopURL;
+    activity.webpageURL = [NSURL wmf_desktopURLForURL:article.url];
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
         NSMutableSet* set = [activity.keywords mutableCopy];

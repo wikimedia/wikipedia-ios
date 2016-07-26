@@ -147,12 +147,34 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
     return [[self wmf_siteURL] wmf_URLWithPath:@"/w/api.php" isMobile:isMobile];
 }
 
-- (NSURL*)wmf_mobileAPIURL {
-    return [self wmf_APIURL:YES];
++ (NSURL*)wmf_APIURLForURL:(NSURL*)URL isMobile:(BOOL)isMobile {
+    return [[URL wmf_siteURL] wmf_URLWithPath:@"/w/api.php" isMobile:isMobile];
 }
 
-- (NSURL*)wmf_desktopAPIURL {
-    return [self wmf_APIURL:NO];
++ (NSURL*)wmf_mobileAPIURLForURL:(NSURL*)URL{
+    return [NSURL wmf_APIURLForURL:URL isMobile:YES];
+}
+
++ (NSURL*)wmf_desktopAPIURLForURL:(NSURL*)URL{
+    return [NSURL wmf_APIURLForURL:URL isMobile:NO];
+}
+
++ (NSURL*)wmf_mobileURLForURL:(NSURL*)url{
+    if (url.wmf_isMobile) {
+        return url;
+    } else {
+        NSURLComponents* components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+        components.host = [NSURLComponents wmf_hostWithDomain:url.wmf_domain language:url.wmf_language isMobile:YES];
+        NSURL* mobileURL = components.URL ? : url;
+        return mobileURL;
+    }
+}
+
++ (NSURL*)wmf_desktopURLForURL:(NSURL*)url{
+    NSURLComponents* components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+    components.host = [NSURLComponents wmf_hostWithDomain:url.wmf_domain language:url.wmf_language isMobile:NO];
+    NSURL* desktopURL = components.URL ? : url;
+    return desktopURL;
 }
 
 #pragma mark - Properties
@@ -161,7 +183,7 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
     return [self.path wmf_isWikiResource];
 }
 
-- (BOOL)wmf_isCitation {
+- (BOOL)wmf_isWikiCitation {
     return [self.fragment wmf_isCitationFragment];
 }
 
@@ -226,24 +248,6 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
         title = @"";
     }
     return title;
-}
-
-- (NSURL*)wmf_mobileURL {
-    if (self.wmf_isMobile) {
-        return self;
-    } else {
-        NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-        components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:YES];
-        NSURL* mobileURL = components.URL ? : self;
-        return mobileURL;
-    }
-}
-
-- (NSURL*)wmf_desktopURL {
-    NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-    components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
-    NSURL* desktopURL = components.URL ? : self;
-    return desktopURL;
 }
 
 - (BOOL)wmf_isNonStandardURL {

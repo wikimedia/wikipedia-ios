@@ -68,7 +68,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                      useDesktopURL:(BOOL)useDeskTopURL
                           resolver:(PMKResolver)resolve {
     NSParameterAssert(siteURL);
-    NSURL* url = useDeskTopURL ? siteURL.wmf_desktopAPIURL : siteURL.wmf_mobileAPIURL;
+    NSURL* url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:siteURL] : [NSURL wmf_mobileAPIURLForURL:siteURL];
 
     WMFSearchRequestParameters* params = [WMFSearchRequestParameters new];
     params.searchTerm      = searchTerm;
@@ -96,7 +96,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
         resolve(previousResults);
     }
                        failure:^(NSURLSessionDataTask* operation, NSError* error) {
-        if ([url isEqual:[siteURL wmf_mobileAPIURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
+        if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:siteURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
             [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:previousResults useDesktopURL:YES resolver:resolve];
         } else {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];

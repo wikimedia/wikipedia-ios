@@ -25,8 +25,8 @@ public extension CSSearchableItemAttributeSet {
         searchableItem.subject = article.entityDescription
         searchableItem.contentDescription = article.summary()
         searchableItem.displayName = article.url.wmf_title
-        searchableItem.identifier = article.url.wmf_desktopURL.absoluteString
-        searchableItem.relatedUniqueIdentifier = article.url.wmf_desktopURL.absoluteString
+        searchableItem.identifier = NSURL.wmf_desktopURLForURL(article.url).absoluteString
+        searchableItem.relatedUniqueIdentifier = NSURL.wmf_desktopURLForURL(article.url).absoluteString
 
         if (article.imageURL != nil) {
             if let url = NSURL(string: article.imageURL) {
@@ -85,7 +85,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
             let searchableItemAttributes = CSSearchableItemAttributeSet.attributes(article)
             searchableItemAttributes.keywords?.append("Saved")
             
-            let item = CSSearchableItem(uniqueIdentifier: url.wmf_desktopURL.absoluteString, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
+            let item = CSSearchableItem(uniqueIdentifier: NSURL.wmf_desktopURLForURL(url).absoluteString, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
             item.expirationDate = NSDate.distantFuture()
             
             CSSearchableIndex.defaultSearchableIndex().indexSearchableItems([item]) { (error: NSError?) -> Void in
@@ -99,7 +99,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
     }
     
     func removeFromIndex(url: NSURL) {
-        CSSearchableIndex.defaultSearchableIndex().deleteSearchableItemsWithIdentifiers([url.wmf_desktopURL.absoluteString]) { (error: NSError?) -> Void in
+        CSSearchableIndex.defaultSearchableIndex().deleteSearchableItemsWithIdentifiers([NSURL.wmf_desktopURLForURL(url).absoluteString]) { (error: NSError?) -> Void in
             if let error = error {
                 DDLogError("Deindexing error: \(error.localizedDescription)")
             } else {

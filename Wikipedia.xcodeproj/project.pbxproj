@@ -675,6 +675,7 @@
 		D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C0C00A1D144FF30019374D /* WMFProxyServer.m */; };
 		D8CDBA9F1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */; };
 		D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */; };
+		F6D265DF1D3D09100052D7A3 /* UITableViewController+WMFScrollToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D265DE1D3D09100052D7A3 /* UITableViewController+WMFScrollToTop.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -828,13 +829,14 @@
 		0EFD6C991D3CFED000E02F2B /* MWKSite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSite.m; path = Wikipedia/Code/MWKSite.m; sourceTree = SOURCE_ROOT; };
 		0EFD6C9A1D3CFED000E02F2B /* MWKTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKTitle.m; path = Wikipedia/Code/MWKTitle.m; sourceTree = SOURCE_ROOT; };
 		17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
-		1BC5FB470144D2C10C55A037 /* Pods-WikipediaUnitTests.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.alpha.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.alpha.xcconfig"; sourceTree = "<group>"; };
 		357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		429C152FC8B093B59D18CAD3 /* Pods-WikipediaUnitTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.beta.xcconfig"; sourceTree = "<group>"; };
+		4F7EEF5447FFD8A63B930FDC /* Pods.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.test.xcconfig; path = "Pods/Target Support Files/Pods/Pods.test.xcconfig"; sourceTree = "<group>"; };
 		59CB2F41D52F438BED356EF4 /* Pods-WikipediaUnitTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		644C62F6A8B8E2ED7DFA53D5 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
 		7DB90FB543FAD55052405CCC /* libPods-WikipediaUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WikipediaUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		859DC428B0D7F1986ECB5DBE /* Pods-WikipediaUnitTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.test.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.test.xcconfig"; sourceTree = "<group>"; };
 		ABE392A806A0FED4BDA6C5F2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B00050131C52D73800515F70 /* UIApplication+RTL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+RTL.swift"; sourceTree = "<group>"; };
 		B01162E61C24D3B200C3B52B /* WMFPageIssuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFPageIssuesViewController.h; path = WikipediaUnitTests/Code/WMFPageIssuesViewController.h; sourceTree = SOURCE_ROOT; };
@@ -1902,7 +1904,6 @@
 		BCFEEA441C286D3200CA2986 /* WMFArticleFetchIfNeededTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleFetchIfNeededTests.m; sourceTree = "<group>"; };
 		BCFEEA461C286DD600CA2986 /* LSNocilla+Quick.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "LSNocilla+Quick.h"; path = "WikipediaUnitTests/Code/LSNocilla+Quick.h"; sourceTree = SOURCE_ROOT; };
 		C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-acknowledgements.plist"; path = "Pods/Target Support Files/Pods/Pods-acknowledgements.plist"; sourceTree = SOURCE_ROOT; };
-		C7C26C8CB2ECA7439FB76EAE /* Pods.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.alpha.xcconfig; path = "Pods/Target Support Files/Pods/Pods.alpha.xcconfig"; sourceTree = "<group>"; };
 		D44F630918DA781400EAD1DD /* ast */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ast; path = ast.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D44F631218DA783000EAD1DD /* br */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = br; path = br.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D44F631918DA784200EAD1DD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2009,6 +2010,8 @@
 		D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLinkParsingTests.m; sourceTree = "<group>"; };
 		DC96DA4AAD521D734849D20F /* Pods-WikipediaUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EDA528BC357952A7D914F8E0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F6053A891D3C59340023759C /* UITableViewController+WMFScrollToTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewController+WMFScrollToTop.swift"; sourceTree = SOURCE_ROOT; };
+		F6D265DE1D3D09100052D7A3 /* UITableViewController+WMFScrollToTop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UITableViewController+WMFScrollToTop.swift"; path = "Wikipedia/Code/UITableViewController+WMFScrollToTop.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3719,6 +3722,7 @@
 				B0E805291C0CE0DC0065EBC0 /* UIViewController+WMFHideKeyboard.h */,
 				B0E8052A1C0CE0DC0065EBC0 /* UIViewController+WMFHideKeyboard.m */,
 				BC45D5801C32F68A007C72F3 /* External Link Handling */,
+				F6053A891D3C59340023759C /* UITableViewController+WMFScrollToTop.swift */,
 			);
 			name = UIViewController;
 			sourceTree = "<group>";
@@ -4968,6 +4972,7 @@
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
+				F6D265DE1D3D09100052D7A3 /* UITableViewController+WMFScrollToTop.swift */,
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				04E9A78218F73C7200F7ECF7 /* www */,
 				D4991453181D51DE00E6073C /* Images.xcassets */,
@@ -5085,12 +5090,12 @@
 				357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */,
 				DC96DA4AAD521D734849D20F /* Pods-WikipediaUnitTests.debug.xcconfig */,
 				17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */,
-				C7C26C8CB2ECA7439FB76EAE /* Pods.alpha.xcconfig */,
 				08F646F7D0488CE3C6D6A763 /* Pods.beta.xcconfig */,
-				1BC5FB470144D2C10C55A037 /* Pods-WikipediaUnitTests.alpha.xcconfig */,
 				429C152FC8B093B59D18CAD3 /* Pods-WikipediaUnitTests.beta.xcconfig */,
 				644C62F6A8B8E2ED7DFA53D5 /* Pods.adhoc.xcconfig */,
 				59CB2F41D52F438BED356EF4 /* Pods-WikipediaUnitTests.adhoc.xcconfig */,
+				4F7EEF5447FFD8A63B930FDC /* Pods.test.xcconfig */,
+				859DC428B0D7F1986ECB5DBE /* Pods-WikipediaUnitTests.test.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -5677,6 +5682,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6D265DF1D3D09100052D7A3 /* UITableViewController+WMFScrollToTop.swift in Sources */,
 				B0E8059A1C0CE2E40065EBC0 /* WMFSearchFunnel.m in Sources */,
 				B0E804BC1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m in Sources */,
 				0EC0447F1C797DC20033D773 /* WMFImageURLActivitySource.swift in Sources */,
@@ -6290,6 +6296,144 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0EAB7A201D47AF8000E7CF8E /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG=1",
+					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
+					"$(inherited)",
+				);
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				WARNING_CFLAGS = (
+					"$(inherited)",
+					"-Wno-error=nullability-completeness",
+					"-Wno-error=format",
+				);
+			};
+			name = Test;
+		};
+		0EAB7A211D47AF8000E7CF8E /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F7EEF5447FFD8A63B930FDC /* Pods.test.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_CODE_COVERAGE = NO;
+				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 899;
+				DEFINES_MODULE = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"PIWIK_ENABLED=1",
+				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) -DNDEBUG";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
+				PRODUCT_MODULE_NAME = Wikipedia;
+				PRODUCT_NAME = Wikipedia;
+				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
+				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Test;
+		};
+		0EAB7A221D47AF8000E7CF8E /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 859DC428B0D7F1986ECB5DBE /* Pods-WikipediaUnitTests.test.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_CODE_COVERAGE = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"LOCALIZATIONS_DIR=@\\\"\"$(SOURCE_ROOT)/Wikipedia/Localizations\"\\\"",
+					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
+					"MKT_SHORTHAND=1",
+					"HC_SHORTHAND=1",
+					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
+				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = (
+					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) /Applications/Xcode.app/Contents/Developer/Library/Frameworks/ @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
+			};
+			name = Test;
+		};
 		A69698A61AC9D08700208A11 /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -6313,6 +6457,7 @@
 				ENABLE_NS_ASSERTIONS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"BETA=1",
 					"DEBUG=1",
 					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
 					"$(inherited)",
@@ -6444,6 +6589,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"BETA=1",
 					"DEBUG=1",
 					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
 					"$(inherited)",
@@ -6613,12 +6759,22 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"LOCALIZATIONS_DIR=@\\\"\"$(SOURCE_ROOT)/Wikipedia/Localizations\"\\\"",
+					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
+					"MKT_SHORTHAND=1",
+					"HC_SHORTHAND=1",
+					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
+				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
@@ -6839,6 +6995,7 @@
 				BC42735B1A7C736800068882 /* Debug */,
 				BC12F2401B7968900042DB3C /* AdHoc */,
 				BC42735C1A7C736800068882 /* Release */,
+				0EAB7A221D47AF8000E7CF8E /* Test */,
 				A69698A81AC9D08700208A11 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -6850,6 +7007,7 @@
 				D4991468181D51DF00E6073C /* Debug */,
 				BC12F23E1B7968900042DB3C /* AdHoc */,
 				D4991469181D51DF00E6073C /* Release */,
+				0EAB7A201D47AF8000E7CF8E /* Test */,
 				A69698A61AC9D08700208A11 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -6861,6 +7019,7 @@
 				D499146B181D51DF00E6073C /* Debug */,
 				BC12F23F1B7968900042DB3C /* AdHoc */,
 				D499146C181D51DF00E6073C /* Release */,
+				0EAB7A211D47AF8000E7CF8E /* Test */,
 				A69698A71AC9D08700208A11 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;

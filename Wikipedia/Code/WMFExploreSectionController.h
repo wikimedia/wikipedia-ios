@@ -217,8 +217,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIViewController*)moreViewController;
 
 @optional
+
 /**
- *  @return A boolean indicating whether or not the footer is enabled.
+ *  @return A boolean indicating whether or not the footer is enabled. Defaults to YES if not implemented.
  */
 - (BOOL)isFooterEnabled;
 

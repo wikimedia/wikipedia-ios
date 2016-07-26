@@ -407,7 +407,17 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 - (NSArray<NSURL*>*)imageURLsForGallery {
     WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withLeadImageURL:self.leadImage.sourceURL];
-    return [tagList imageURLsForGallery];
+    NSArray *imageURLs = [tagList imageURLsForGallery];
+    if (imageURLs.count == 0 && self.imageURL) {
+        NSString *imageURLString = [self.imageURL copy];
+        if (imageURLString != nil) {
+            NSURL *imageURL = [NSURL URLWithString:imageURLString];
+            if (imageURL != nil) {
+                imageURLs = @[imageURL];
+            }
+        }
+    }
+    return imageURLs;
 }
 
 - (NSArray<MWKImage*>*)imagesForGallery {

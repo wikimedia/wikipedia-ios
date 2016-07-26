@@ -49,7 +49,7 @@
 
     NSRegularExpression* anyRequestFromTestSite =
         [NSRegularExpression regularExpressionWithPattern:
-         [NSString stringWithFormat:@"%@.*", [[testSiteURL wmf_desktopAPIURL] absoluteString]] options:0 error:nil];
+         [NSString stringWithFormat:@"%@.*", [[NSURL wmf_desktopAPIURLForURL:testSiteURL] absoluteString]] options:0 error:nil];
 
     stubRequest(@"GET", anyRequestFromTestSite)
     .andReturn(200)

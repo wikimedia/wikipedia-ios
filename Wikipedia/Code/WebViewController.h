@@ -81,6 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController*)controller didTapImageWithSourceURL:(NSURL*)imageSourceURL;
 
 @optional
+
 - (void)webViewController:(WebViewController*)controller scrollViewDidScroll:(UIScrollView *)scrollView;
 
 @end
