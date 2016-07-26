@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
                     shareFunnel:(WMFShareFunnel*)funnel {
     NSParameterAssert(article);
     NSParameterAssert(funnel);
-    NSParameterAssert(article.url.wmf_desktopURL.absoluteString);
+    NSParameterAssert(article.url.absoluteString);
 
     self = [super init];
 
@@ -295,7 +295,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString* parameter = image ? @"wprov=sfii1" : @"wprov=sfti1";
 
     NSURL* url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
-                                                self.article.url.wmf_desktopURL.absoluteString,
+                                                [NSURL wmf_desktopURLForURL:self.article.url].absoluteString,
                                                 parameter]];
 
     NSMutableArray* activityItems = @[title, url].mutableCopy;

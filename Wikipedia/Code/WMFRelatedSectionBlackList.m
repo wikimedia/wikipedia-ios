@@ -40,7 +40,7 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
     if (self) {
         if([[self.entries firstObject] isKindOfClass:[MWKTitle class]]){
             NSArray* fixed = [self.entries bk_map:^id (NSURL* obj) {
-                return [[obj wmf_desktopURL] mutableCopy];
+                return [[NSURL wmf_desktopURLForURL:obj] mutableCopy];
             }];
             [self removeAllEntries];
             [self importEntries:fixed];
@@ -57,7 +57,7 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
     if ([key isEqualToString:WMF_SAFE_KEYPATH(self, entries)] && modelVersion == 0) {
         NSArray* titles = [self decodeValueForKey:WMF_SAFE_KEYPATH(self, entries) withCoder:coder modelVersion:0];
         return [titles bk_map:^id (NSURL* obj) {
-            return [[obj wmf_desktopURL] mutableCopy];
+            return [[NSURL wmf_desktopURLForURL:obj] mutableCopy];
         }];
     } else {
         return [super decodeValueForKey:key withCoder:coder modelVersion:modelVersion];

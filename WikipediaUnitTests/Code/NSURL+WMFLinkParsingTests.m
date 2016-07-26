@@ -17,15 +17,15 @@
 @implementation NSURL_WMFLinkParsingTests
 
 - (void)testCitationURL {
-    XCTAssertTrue(([[NSURL URLWithString:[NSString stringWithFormat:@"#%@-0", WMFCitationFragmentSubstring]] wmf_isCitation]));
+    XCTAssertTrue(([[NSURL URLWithString:[NSString stringWithFormat:@"#%@-0", WMFCitationFragmentSubstring]] wmf_isWikiCitation]));
 }
 
 - (void)testURLWithoutFragmentIsNotCitation {
-    XCTAssertFalse([[NSURL URLWithString:@"/wiki/Foo"] wmf_isCitation]);
+    XCTAssertFalse([[NSURL URLWithString:@"/wiki/Foo"] wmf_isWikiCitation]);
 }
 
 - (void)testURLWithFragmentNotContainingCitaitonSubstringIsNotCitation {
-    XCTAssertFalse([[NSURL URLWithString:@"/wiki/Foo#bar"] wmf_isCitation]);
+    XCTAssertFalse([[NSURL URLWithString:@"/wiki/Foo#bar"] wmf_isWikiCitation]);
 }
 
 - (void)testRelativeInternalLink {

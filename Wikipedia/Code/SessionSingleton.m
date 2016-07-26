@@ -131,7 +131,7 @@
 #pragma mark - Language URL
 
 - (NSURL*)urlForLanguage:(NSString*)language {
-    return self.fallback ? [[NSURL wmf_URLWithDefaultSiteAndlanguage:language] wmf_desktopAPIURL] : [[NSURL wmf_URLWithDefaultSiteAndlanguage:language] wmf_mobileAPIURL];
+    return self.fallback ? [NSURL wmf_desktopAPIURLForURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:language]] : [NSURL wmf_mobileAPIURLForURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:language]];
 }
 
 #pragma mark - Usage Reports

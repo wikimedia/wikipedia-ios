@@ -56,7 +56,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
         if(self.articleURL.wmf_isNonStandardURL){
             return NSURL.wmf_URLWithDefaultSiteAndlanguage("en")
         }else{
-            return self.articleURL.wmf_siteURL()
+            return self.articleURL.wmf_siteURL
         }
     }
 }

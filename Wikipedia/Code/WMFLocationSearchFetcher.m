@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
                                         resultLimit:(NSUInteger)resultLimit
                                       useDesktopURL:(BOOL)useDeskTopURL
                                            resolver:(PMKResolver)resolve {
-    NSURL* url = useDeskTopURL ? [siteURL wmf_desktopAPIURL] : [siteURL wmf_mobileAPIURL];
+    NSURL* url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:siteURL] : [NSURL wmf_mobileAPIURLForURL:siteURL];
 
     WMFLocationSearchRequestParameters* params = [WMFLocationSearchRequestParameters new];
     params.location        = location;
@@ -95,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
         resolve(results);
     }
                               failure:^(NSURLSessionDataTask* operation, NSError* error) {
-        if ([url isEqual:[siteURL wmf_mobileAPIURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
+        if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:siteURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
             [self fetchNearbyArticlesWithSiteURL:siteURL
                                           location:location
                                        resultLimit:resultLimit

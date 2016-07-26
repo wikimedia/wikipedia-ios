@@ -7,6 +7,8 @@ extern NSString* const WMFDefaultSiteDomain;
 
 @interface NSURL (WMFLinkParsing)
 
+#pragma mark - URL Creation
+
 /**
  * Initialize a new URL with the main page URL for a given language anf the default domain - wikipedia.org.
  *
@@ -109,6 +111,41 @@ extern NSString* const WMFDefaultSiteDomain;
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL unescapedDenormalizedTitleAndFragment:(NSString*)escapedDenormalizedTitleAndFragment;
 
 /**
+ *  Return a URL for the mobile API Endpoint for the current URL
+ *
+ *  @return return value description
+ */
++ (NSURL*)wmf_mobileAPIURLForURL:(NSURL*)URL;
+
+/**
+ *  Return a URL for the desktop API Endpoint for the current URL
+ *
+ *  @return return value description
+ */
++ (NSURL*)wmf_desktopAPIURLForURL:(NSURL*)URL;
+
+/**
+ *  Return the mobile version of the given URL
+ *  by adding a m. subdomian
+ *
+ *  @param url The URL
+ *
+ *  @return Mobile version of the URL
+ */
++ (NSURL*)wmf_mobileURLForURL:(NSURL*)url;
+
+/**
+ *  Return the desktop version of the given URL
+ *  by removing a m. subdomian
+ *
+ *  @param url The URL
+ *
+ *  @return Mobile version of the URL
+ */
++ (NSURL*)wmf_desktopURLForURL:(NSURL*)url;
+
+
+/**
  * Return a new URL similar to the URL you call this method on but replace the title.
  *
  * @param title         A Wikimedia title. For exmaple: `Main Page`.
@@ -145,59 +182,60 @@ extern NSString* const WMFDefaultSiteDomain;
  **/
 - (NSURL*)wmf_URLWithPath:(NSString*)path isMobile:(BOOL)isMobile;
 
+
+#pragma mark - URL Componenets
+
 /**
- *  Return a URL with just the domain of the reciever
+ *  Return a URL with just the domain, language, and mobile subdomain of the reciever.
+ *  Everything but the path
  *
- *  @return The domain URL
+ *  @return The site URL
  */
-- (NSURL*)wmf_siteURL;
-
-/**
- *  Return a URL for the mobile API Endpoint for the current URL
- *
- *  @return return value description
- */
-+ (NSURL*)wmf_mobileAPIURLForURL:(NSURL*)URL;
-- (NSURL*)wmf_mobileAPIURL;
-
-/**
- *  Return a URL for the desktop API Endpoint for the current URL
- *
- *  @return return value description
- */
-+ (NSURL*)wmf_desktopAPIURLForURL:(NSURL*)URL;
-- (NSURL*)wmf_desktopAPIURL;
-
-+ (NSURL*)wmf_mobileURLForURL:(NSURL*)url;
-+ (NSURL*)wmf_desktopURLForURL:(NSURL*)url;
-
-/**
- *  Return YES is a URL is a link to a Wiki resource
- */
-@property (nonatomic, readonly) BOOL wmf_isWikiResource;
-
-@property (nonatomic, readonly) BOOL wmf_isCitation;
-
-@property (nonatomic, readonly) BOOL wmf_isMobile;
-
-@property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
-
-@property (nonatomic, copy, readonly, nullable) NSString* wmf_pathWithoutWikiPrefix;
+@property (nonatomic, copy, readonly) NSURL* wmf_siteURL;
 
 @property (nonatomic, copy, readonly, nullable) NSString* wmf_domain;
 
 @property (nonatomic, copy, readonly, nullable) NSString* wmf_language;
 
+@property (nonatomic, copy, readonly, nullable) NSString* wmf_pathWithoutWikiPrefix;
+
 @property (nonatomic, copy, readonly) NSString* wmf_title;
 
 @property (nonatomic, copy, readonly) NSString* wmf_titleWithUnderScores;
 
-@property (nonatomic, copy, readonly) NSURL* wmf_mobileURL;
 
-@property (nonatomic, copy, readonly) NSURL* wmf_desktopURL;
+#pragma mark - Introspection
+
+/**
+ *  Return YES is a URL is a link to a Wiki resource
+ *  Checks for the presence of "/wiki/" in the path
+ */
+@property (nonatomic, readonly) BOOL wmf_isWikiResource;
+
+/**
+ *  Return YES if the receiver has "cite_note" in the path
+ */
+@property (nonatomic, readonly) BOOL wmf_isWikiCitation;
+
+/**
+ *  Return YES if the URL has a .m subdomain
+ */
+@property (nonatomic, readonly) BOOL wmf_isMobile;
+
+/**
+ *  Return YES if the URL does not have a language subdomain
+ */
+@property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
+
+
+#pragma mark - Layout based on Language
+#warning These should be renamed and/or moved to indicate that they are based on the language subdomain of the receiver
 
 @property (nonatomic, readonly) UIUserInterfaceLayoutDirection wmf_layoutDirection;
+
 @property (nonatomic, readonly) NSTextAlignment wmf_textAlignment;
+
+
 
 @end
 

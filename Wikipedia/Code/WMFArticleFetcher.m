@@ -76,8 +76,8 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     if (![SessionSingleton sharedInstance].zeroConfigState.disposition) {
         useDeskTopURL = YES;
     }
-
-    NSURL* url = useDeskTopURL ? [articleURL wmf_desktopAPIURL] : [articleURL wmf_mobileAPIURL];
+    
+    NSURL* url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:articleURL] : [NSURL wmf_mobileAPIURLForURL:articleURL];
 
     NSURLSessionDataTask* operation = [self.operationManager GET:url.absoluteString parameters:articleURL progress:^(NSProgress* _Nonnull downloadProgress) {
         if (progress) {
@@ -92,7 +92,7 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
             resolve([self serializedArticleWithURL:articleURL response:response]);
         });
     } failure:^(NSURLSessionDataTask* operation, NSError* error) {
-        if ([url isEqual:[articleURL wmf_mobileAPIURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
+        if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:articleURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
             [self fetchArticleForURL:articleURL useDesktopURL:YES progress:progress resolver:resolve];
         } else {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];

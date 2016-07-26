@@ -58,8 +58,8 @@
                                           retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
                                         success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
                                         failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure {
-    return [self wmf_GETWithMobileURLString:[URL wmf_mobileAPIURL].absoluteString
-                           desktopURLString:[URL wmf_desktopAPIURL].absoluteString
+    return [self wmf_GETWithMobileURLString:[NSURL wmf_mobileAPIURLForURL:URL].absoluteString
+                           desktopURLString:[NSURL wmf_desktopAPIURLForURL:URL].absoluteString
                                  parameters:parameters
                                       retry:retry
                                     success:success

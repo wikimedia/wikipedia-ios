@@ -117,7 +117,7 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 }
 
 - (NSURL*)mobileURL {
-    return self.URL.wmf_mobileURL;
+    return [NSURL wmf_mobileURLForURL:self.URL];
 }
 
 - (NSURL*)apiEndpoint:(BOOL)isMobile {

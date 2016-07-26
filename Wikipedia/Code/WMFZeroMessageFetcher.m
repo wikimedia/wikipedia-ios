@@ -44,7 +44,7 @@
         if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
             params[@"X-CS"] = @"TEST";
         }
-        [self.operationManager GET:[[siteURL wmf_mobileAPIURL] absoluteString]
+        [self.operationManager GET:[[NSURL wmf_mobileAPIURLForURL:siteURL] absoluteString]
                         parameters:params
                           progress:NULL
                            success:^(NSURLSessionDataTask* _Nonnull _, id _Nonnull responseObject) {

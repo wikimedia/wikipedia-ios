@@ -46,7 +46,7 @@
 - (void)testSuccessfulFetchWritesArticleToDataStoreWithoutDuplicatingData {
     NSURL* siteURL        = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
     NSURL* dummyArticleURL = [siteURL wmf_URLWithTitle:@"Foo"];
-    NSURL* url           = [siteURL wmf_desktopAPIURL];
+    NSURL* url           = [NSURL wmf_desktopAPIURLForURL:siteURL];
 
     NSData* json = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"Obama" ofType:@"json"];
 
