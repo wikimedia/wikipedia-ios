@@ -30,14 +30,23 @@
 }
 
 - (void)addItem:(WMFCVLAttributes *)item {
+    if (item == nil) {
+        return;
+    }
     [_items addObject:item];
 }
 
 - (void)addHeader:(WMFCVLAttributes *)header {
+    if (header == nil) {
+        return;
+    }
     [_headers addObject:header];
 }
 
 - (void)addFooter:(WMFCVLAttributes *)footer {
+    if (footer == nil) {
+        return;
+    }
     [_footers addObject:footer];
 }
 
