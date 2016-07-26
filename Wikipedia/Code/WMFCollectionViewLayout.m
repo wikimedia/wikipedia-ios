@@ -212,7 +212,13 @@
         return nil;
     }
     
-    WMFCVLAttributes *attributes = self.info.sections[indexPath.section].items[indexPath.item];
+    WMFCVLSection *section = self.info.sections[sectionIndex];
+    NSInteger itemIndex = indexPath.item;
+    if (itemIndex < 0 || itemIndex >= section.items.count) {
+        return nil;
+    }
+    
+    WMFCVLAttributes *attributes = section.items[itemIndex];
     assert(attributes != nil);
     return attributes;
 }
@@ -223,11 +229,21 @@
         return nil;
     }
     
+    WMFCVLSection *section = self.info.sections[sectionIndex];
+    
     WMFCVLAttributes *attributes = nil;
     if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
-        attributes = self.info.sections[indexPath.section].headers[indexPath.item];
+        NSInteger itemIndex = indexPath.item;
+        if (itemIndex < 0 || itemIndex >= section.headers.count) {
+            return nil;
+        }
+        attributes = section.headers[itemIndex];
     } else if ([elementKind isEqualToString:UICollectionElementKindSectionFooter]) {
-        attributes = self.info.sections[indexPath.section].footers[indexPath.item];
+        NSInteger itemIndex = indexPath.item;
+        if (itemIndex < 0 || itemIndex >= section.footers.count) {
+            return nil;
+        }
+        attributes = section.footers[itemIndex];
     }
     
     assert(attributes != nil);
