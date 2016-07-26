@@ -88,6 +88,7 @@
     CGFloat deltaH = [self setSize:size forAttributesAtIndex:headerIndex inArray:_headers];
     
     if (ABS(deltaH) > 0) {
+         [invalidationContext invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:@[[NSIndexPath indexPathForItem:headerIndex inSection:self.index]]];
         [self offsetHeadersStartingAtIndex:headerIndex + 1 distance:deltaH invalidationContext:invalidationContext];
         [self offsetItemsStartingAtIndex:0 distance:deltaH invalidationContext:invalidationContext];
         [self offsetFootersStartingAtIndex:0 distance:deltaH invalidationContext:invalidationContext];
@@ -100,6 +101,7 @@
     CGFloat deltaH = [self setSize:size forAttributesAtIndex:footerIndex inArray:_footers];
     
     if (ABS(deltaH) > 0) {
+        [invalidationContext invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:@[[NSIndexPath indexPathForItem:footerIndex inSection:self.index]]];
         [self offsetFootersStartingAtIndex:footerIndex + 1 distance:deltaH invalidationContext:invalidationContext];
     }
     
@@ -108,8 +110,9 @@
 
 - (CGFloat)setSize:(CGSize)size forItemAtIndex:(NSInteger)index invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
     CGFloat deltaH = [self setSize:size forAttributesAtIndex:index inArray:_items];
-    
+
     if (ABS(deltaH) > 0) {
+        [invalidationContext invalidateItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:self.index]]];
         [self offsetItemsStartingAtIndex:index + 1 distance:deltaH invalidationContext:invalidationContext];
         [self offsetFootersStartingAtIndex:0 distance:deltaH invalidationContext:invalidationContext];
     }
