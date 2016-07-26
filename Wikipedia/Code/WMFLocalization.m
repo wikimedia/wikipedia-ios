@@ -17,8 +17,11 @@ NSString* localizedStringForKeyFallingBackOnEnglish(NSString* key){
 }
 
 NSString* localizedStringForURLWithKeyFallingBackOnEnglish(NSURL* url, NSString* key){
-#warning remove assumption that URL has a language
-    NSString* path           = [[NSBundle mainBundle] pathForResource:url.wmf_language ofType:@"lproj"];
+    NSString *language = url.wmf_language;
+    if (language == nil) {
+        language = @"en";
+    }
+    NSString* path           = [[NSBundle mainBundle] pathForResource:language ofType:@"lproj"];
     NSBundle* languageBundle = [NSBundle bundleWithPath:path];
     NSString* translation    = nil;
     if (languageBundle) {
