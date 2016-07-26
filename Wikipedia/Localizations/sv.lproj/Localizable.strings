@@ -6,6 +6,7 @@
 // Author: Freked
 // Author: Jenniesarina
 // Author: Jopparn
+// Author: Josve05a
 // Author: Lokal Profil
 // Author: Macofe
 // Author: Platinawolf
@@ -405,3 +406,4 @@
 "explore-most-read-more-list-title-for-date" = "Populärt den $1";
 "no-email-account-alert" = "Lägg in ett e-postkonto på din enhet och försök igen.";
 "request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";
+"explore-another-random" = "En annan slumpmässig artikel";

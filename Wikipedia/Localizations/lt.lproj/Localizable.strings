@@ -16,8 +16,10 @@
 "article-languages-filter-placeholder" = "Rasti kalbą";
 "article-read-more-title" = "Skaityti daugiau";
 "article-about-title" = "Apie šį straipsnį";
+"article-unable-to-load-article" = "Nepavyko įkelti straipsnio.";
 "article-related-articles-title" = "Susiję straipsniai";
 "article-languages-yours" = "Jūsų kalbos";
+"article-languages-others" = "Kitos kalbos";
 "info-box-title" = "Trumpi faktai";
 "info-box-close-text" = "Uždaryti";
 "table-title-other" = "Daugiau informacijos";
@@ -34,6 +36,7 @@
 "history-clear-cancel" = "Atšaukti";
 "history-clear-delete-all" = "Taip, ištrinti viską";
 "history-none" = "Naujausių puslapių nėra.";
+"zero-charged-verbiage" = "Vikipedija Zero išjungtas";
 "zero-interstitial-continue" = "Išeiti";
 "zero-interstitial-cancel" = "Likti čia";
 "zero-learn-more-learn-more" = "Skaityti daugiau";
@@ -90,6 +93,8 @@
 "settings-support" = "Paremti Vikipediją";
 "settings-language-bar" = "Rodyti kalbas paieškoje";
 "settings-my-languages" = "Mano kalbos";
+"settings-help-and-feedback" = "Pagalba ir atsiliepimai";
+"settings-primary-language" = "Pagrindinis";
 "main-menu-title" = "Daugiau";
 "main-menu-heading-about" = "Apie";
 "main-menu-language-title" = "Paieška $1 Vikipedijoje";
@@ -106,6 +111,7 @@
 "main-menu-show-title" = "Rodyti man...";
 "main-menu-show-history" = "Naujausi";
 "main-menu-show-saved" = "Įrašyti puslapiai";
+"main-menu-current-article-save" = "Išsaugoti $1 skaitymui neprisijungus";
 "main-menu-random" = "Atsitiktinis";
 "main-menu-feedback-heading" = "Atsiliepimas";
 "main-menu-send-feedback" = "Parašykite mums";
@@ -117,20 +123,23 @@
 "main-menu-terms-of-use" = "Naudojimo sąlygos";
 "main-menu-rate-app" = "Įvertinti programėlę";
 "main-menu-heading-zero" = "Vikipedija Zero";
+"main-menu-heading-legal" = "Privatumas ir sąlygos";
 "main-menu-show-today" = "Šiandien";
 "main-menu-nearby" = "Šalia";
 "main-menu-more" = "Daugiau...";
 "main-menu-heading-debug" = "Derinti";
 "main-menu-debug-crash" = "Užlūžo";
+"main-menu-debug-tweaks" = "Kūrėjo nustatymai";
 "saved-title" = "Išsaugota";
 "saved-pages-title" = "Įrašyti puslapiai";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Naikinti visus įrašytus elementus?";
+"saved-pages-clear-confirmation-heading" = "Ar jūs tikrai norite ištrinti visus išsaugotus puslapius?";
 "saved-pages-clear-confirmation-sub-heading" = "Šio veiksmo anuliuoti negalima!";
 "saved-pages-clear-cancel" = "Atšaukti";
 "saved-pages-clear-delete-all" = "Taip, ištrinti viską";
+"saved-pages-refresh-cancel-alert-title" = "Atnaujinimas atšauktas";
 "saved-pages-refresh-cancel-alert-button" = "Supratau";
 "saved-pages-none" = "Įrašytų puslapių dar nėra.";
+"history-title" = "Istorija";
 // Fuzzy
 "page-history-title" = "Straipsnio istorija";
 // Fuzzy
@@ -171,6 +180,7 @@
 "about-product-of" = "$1 produktas";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Įrašyti puslapį";
+"share-menu-page-saved" = "Išsaugoti skaitymui neprisijungus.";
 "share-custom-menu-item" = "Dalintis";
 "share-a-fact-share-menu-item" = "Dalintis faktu";
 "share-on-twitter-sign-off" = "per @Wikipedia";
@@ -186,6 +196,8 @@
 "button-done" = "Atlikta";
 "button-save" = "Įrašyti";
 "button-ok" = "Gerai";
+"button-save-for-later" = "Išsaugoti ateičiai";
+"button-report-a-bug" = "Pranešti apie klaidą";
 "onboarding-create-account" = "Kurti paskyrą";
 "onboarding-login" = "Prisijungti";
 "onboarding-already-have-account" = "Jau turite paskyrą? $1";
@@ -200,6 +212,8 @@
 "table-of-contents-heading" = "Turinys";
 "table-of-contents-close-accessibility-label" = "Uždaryti turinį";
 "table-of-contents-close-accessibility-hint" = "Uždaryti";
+"abuse-filter-warning-caps" = "Rašyti didžiosiomis";
+"abuse-filter-disallow-heading" = "Jūs negalite išsaugoti šio pakeitimo. Prašome grįžti ir pakeisti jį.";
 "menu-edit-accessibility-label" = "Redaguoti";
 "menu-close-accessibility-label" = "Uždaryti";
 "menu-preview-accessibility-label" = "Peržiūra";
@@ -231,13 +245,29 @@
 "hockeyapp-alert-send-report" = "Siųsti ataskaitą";
 "hockeyapp-alert-always-send" = "Visada siųsti";
 "hockeyapp-alert-do-not-send" = "Nesiųsti";
+"hockeyapp-alert-privacy" = "$1 privatumas";
+"page-issues" = "Puslapio klausimai";
 "page-similar-titles" = "Panašūs puslapiai";
 // Fuzzy
 "page-read-in-other-languages" = "Prieinama $1 kalbomis";
 "captcha-reload" = "Rodyti kitą saugos kodą";
+"home-title" = "Naršyti";
 "home-empty-section" = "Nėra rezultatų";
 "home-empty-section-check-again" = "Bandyti dar kartą";
+"home-continue-reading-heading" = "Skaityti toliau";
+"home-more-like-footer" = "Daugiau kaip $1";
 "home-nearby-location-footer" = "Daugiau netoliese $1";
+"home-nearby-nothing" = "Nieko netoliese";
+"home-nearby-check-again" = "Patikrinkite dar kartą";
+"home-featured-article-heading" = "Rinktinis straipsnis $1";
+"home-main-page-heading" = "Šiandien Vikipedijoje";
+"home-potd-heading" = "Dienos nuotrauka $1";
+"home-updating-label" = "Atnaujinama...";
+"home-hide-suggestion-prompt" = "Paslėpti šį pasiūlymą";
+"home-hide-suggestion-cancel" = "Atšaukti";
+"home-accessibility-label" = "Vikipedija, tyrinėti";
+"home-button-accessibility-label" = "Pradžia";
+"potd-description-prefix" = "Dienos nuotrauka $1";
 "welcome-explore-title" = "Tyrinėti";
 "welcome-explore-tell-me-more" = "Pasakykite man daugiau";
 "welcome-explore-tell-me-more-about-explore" = "Daugiau apie „Tyrinėti“";
@@ -251,9 +281,21 @@
 "welcome-volunteer-continue-button" = "Tęsti";
 "welcome-volunteer-thanks" = "$1 Ačiū!";
 "empty-no-feed-title" = "Nėra interneto ryšio";
+"empty-no-feed-action-message" = "Jūs dar galite skaityti išsaugotus puslapius";
 "empty-no-search-results-message" = "Rezultatų nerasta";
+"empty-no-saved-pages-title" = "Dar nėra išsaugotų puslapių";
 "alert-no-internet" = "Ten nėra interneto ryšio";
+"close-button-accessibility-label" = "Uždaryti";
+"back-button-accessibility-label" = "Atgal";
+"explore-featured-article-heading" = "Rinktinis straipsnis";
+"explore-continue-reading-heading" = "Skaityti toliau";
 "explore-nearby-heading" = "Artimos vietovės";
+"explore-continue-related-heading" = "Nes jūs skaitėte";
+"explore-main-page-heading" = "Šiandien Vikipedijoje";
+"explore-random-article-heading" = "Atsitiktinis straipsnis";
+"explore-random-article-sub-heading" = "Angliškoji Vikipedija";
+"explore-potd-heading" = "Dienos nuotrauka";
 "explore-most-read-generic-heading" = "Populiariausi skaitytiniai";
 "explore-most-read-more-list-title" = "Top straipsniai";
 "explore-most-read-more-list-title-for-date" = "Viršuje $1";
+"explore-another-random" = "Dar vienas atsitiktinis straipsnis";

@@ -1,5 +1,6 @@
 // Messages for Slovak (slovenčina)
 // Exported from translatewiki.net
+// Author: Hromoslav
 // Author: Kusavica
 // Author: Macofe
 // Author: Mhurd
@@ -348,3 +349,4 @@
 "explore-most-read-more-list-title" = "Najčítanejšie články";
 "explore-most-read-more-list-title-for-date" = "Najčítanejšie články z $1";
 "no-email-account-alert" = "Prosím, nastavte si na vašom zariadení e-mailový účet a skúste to znova.";
+"explore-another-random" = "Ďalší náhodný článok";

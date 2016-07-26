@@ -263,8 +263,13 @@ NS_ASSUME_NONNULL_BEGIN
                      completion:nil];
 }
 
--(void)scrollToTop:(BOOL)animated {
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:animated];
+- (BOOL)canScrollToTop {
+    if (self.isWaitingForNetworkToReconnect) {
+        return NO;
+    }
+    id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:0];
+    NSParameterAssert(controller);
+    return [[controller items] count] > 0;
 }
 
 - (void)didTapSettingsButton:(UIBarButtonItem*)sender {
