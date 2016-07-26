@@ -262,7 +262,7 @@
 "preference_summary_eventlogging_opt_in" = "Wikimedia'nın, uygulamayı geliştirmek için, kullanım alışkanlıklarınız hakkında bilgi toplamasına izin ver";
 "page_protected_autoconfirmed" = "Bu sayfa yarı korumalıdır.";
 "page_protected_sysop" = "Bu sayfa tam korumalıdır.";
-"page_protected_other" = "Bu sayfa aşağıdaki seviyelerde korunmaktadır: %1";
+"page_protected_other" = "Bu sayfa aşağıdaki seviyelerde korunmaktadır: $1";
 "page_protected_can_not_edit" = "Bu sayfayı düzenleme yetkiniz yok";
 "page_protected_can_not_edit_title" = "Bu sayfa korumalı";
 "license-footer-text" = "İçerik, aksi belirtilmedikçe $1 lisansı altında kullanılabilir";
@@ -409,3 +409,4 @@
 "explore-most-read-more-list-title-for-date" = "$1 tarihinde çok okunan maddeler";
 "no-email-account-alert" = "Lütfen cihazınızda bir e-posta hesabı kurulumu yapıp, yeniden deneyin.";
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
+"explore-another-random" = "Rastgele başka bir madde";

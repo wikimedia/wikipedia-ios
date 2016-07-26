@@ -95,7 +95,7 @@
 "search-titles" = "عنوان";
 "search-within-articles" = "مضمونن ۾";
 "search-did-you-mean" = "ڇا توهان جو مقصد $1 هيو؟";
-"search-recent-title" = "تازو ڳولهيل";
+"search-recent-title" = "تازو ڳولھيل";
 "search-recent-clear-confirmation-heading" = "سموريون تازيون ڳولائون ختم ڪريون؟";
 "search-recent-clear-confirmation-sub-heading" = "هي عمل واپس نٿو ڪري سگهجي!";
 "search-recent-clear-cancel" = "رد";
@@ -378,7 +378,8 @@
 "explore-most-read-heading" = "$1 وڪيپيڊيا تي گھڻو پڙھيل";
 "explore-most-read-generic-heading" = "گھڻو پڙھيل";
 "explore-most-read-footer" = "سڀ گھڻو پڙھيل مضمون";
-"explore-most-read-footer-for-date" = "$1 تي سڀ گھڻو پڙھيل مضمون";
+"explore-most-read-footer-for-date" = "$1 تي گھڻو پڙھيل مضمون";
 "explore-most-read-more-list-title" = "مٿيان مضمون";
 "explore-most-read-more-list-title-for-date" = "$1 تي مٿيان";
 "no-email-account-alert" = "براءِ مھرباني پنھنجي ڊوائس تي ڪو ايميل کاتو سيٽ اپ ڪريو ۽ ٻيھر ڪوشش ڪريو.";
+"explore-another-random" = "ھڪ ٻيو بلاترتيب مضمون";

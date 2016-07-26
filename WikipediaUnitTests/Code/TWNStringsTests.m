@@ -56,6 +56,20 @@
     }
 }
 
+- (void)test_incoming_translation_string_for_percent_number {
+    for (NSString* lprojFileName in self.lprojFiles) {
+        NSDictionary* stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+        for (NSString* key in stringsDict) {
+            NSString* localizedString = stringsDict[key];
+            assertThat(localizedString, isNot(containsSubstring(@"%1")));
+            assertThat(localizedString, isNot(containsSubstring(@"%2")));
+            assertThat(localizedString, isNot(containsSubstring(@"%3")));
+            assertThat(localizedString, isNot(containsSubstring(@"%4")));
+            assertThat(localizedString, isNot(containsSubstring(@"%5")));
+        }
+    }
+}
+
 - (void)test_incoming_translation_string_for_percent_s {
     for (NSString* lprojFileName in self.lprojFiles) {
         NSDictionary* stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];

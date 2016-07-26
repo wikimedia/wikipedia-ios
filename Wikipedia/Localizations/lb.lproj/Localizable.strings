@@ -306,6 +306,7 @@
 "captcha-reload" = "En anere Captcha weisen";
 "captcha-prompt" = "Gitt de Captcha-Text an";
 "mwk-empty-title-error" = "Operatioun kann net mat engem eidelen Titel gemaach ginn.";
+"home-title" = "Entdecken";
 "home-empty-section" = "Keng Resultater";
 "home-empty-section-check-again" = "Probéiert nach emol";
 "home-continue-reading-heading" = "Virufuere mat Liesen";
@@ -323,13 +324,16 @@
 "home-updating-label" = "Gëtt aktualiséiert...";
 "home-hide-suggestion-prompt" = "Dës Propos verstoppen";
 "home-hide-suggestion-cancel" = "Ofbriechen";
+"home-accessibility-label" = "Wikipedia, Entdecken";
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-description-prefix" = "Bild vum Dag vum $1";
+"welcome-explore-sub-title" = "En nei Manéier fir all Dag interessant Artikelen z'entdecken";
 "welcome-explore-tell-me-more" = "Ech wëll méi wëssen";
 "welcome-explore-tell-me-more-privacy" = "Lieslëschten a Profiller ginn net op eise Serveure gespäichert.";
 "welcome-explore-tell-me-more-done-button" = "Verstan";
 "welcome-explore-continue-button" = "Fir unzefänken";
 "welcome-languages-title" = "Sproochen";
+"welcome-languages-sub-title" = "Sicht Är léifst Sprooch eraus fir op Wikipedia ze sichen";
 "welcome-languages-add-button" = "Eng aner Sprooch derbäisetzen";
 "welcome-languages-continue-button" = "Virufueren";
 "welcome-volunteer-title" = "Fräiwëllegen";
@@ -367,3 +371,5 @@
 "explore-most-read-footer-for-date" = "Déi am dackste geliest Artikelen de(n) $1";
 "explore-most-read-more-list-title" = "Beléifst Artikelen";
 "explore-most-read-more-list-title-for-date" = "Déi beléifst de(n) $1";
+"request-feedback-on-error" = "Bei der App ass e Feeler geschitt iwwer deen eis Entwéckler méi wësse wëllen. Klickt w.e.g. hei fir eis eng E-Mail mat den Detailer vum Feeler ze schécken.";
+"explore-another-random" = "En aneren zoufällegen Artikel";

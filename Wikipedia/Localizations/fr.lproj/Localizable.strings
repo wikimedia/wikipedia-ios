@@ -88,7 +88,7 @@
 "wikitext-upload-save-sign-in" = "Se connecter";
 "wikitext-upload-save-sign-in-benefits" = "Les co-éditeurs peuvent ainsi interagir directement avec vous et vous pouvez voir quels articles vous avez modifiés.";
 "wikitext-upload-save-anonymously" = "Enregistrer anonymement";
-"wikitext-upload-save-anonymously-warning" = "Les modifications seront attribuées à l’adresse IP de votre appareil. Si vous $1, vous aurez davantage de confidentialité.";
+"wikitext-upload-save-anonymously-warning" = "Les modifications seront attribuées à l’adresse IP de votre équipement. Si vous $1, vous aurez davantage de confidentialité.";
 "wikitext-upload-save-terms-and-license" = "En enregistrant, vous acceptez les $1, et placez de façon irrévocable vos contributions sous la licence $2.";
 "wikitext-upload-save-terms-name" = "Conditions d’utilisation";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -406,3 +406,4 @@
 "explore-most-read-more-list-title-for-date" = "Les plus lus au $1";
 "no-email-account-alert" = "Veuillez configurer un compte de messagerie sur votre appareil et réessayer.";
 "request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
+"explore-another-random" = "Un autre article au hasard";
