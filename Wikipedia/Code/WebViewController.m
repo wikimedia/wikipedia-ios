@@ -34,6 +34,9 @@
 #import "WMFImageTag.h"
 #import "WKScriptMessage+WMFScriptMessage.h"
 
+#import "ViewWithFindInPageKeyboardBarInputAccessoryView.h"
+#import "FindInPageKeyboardBar.h"
+
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
     WMFWebViewAlertZeroCharged,
@@ -43,7 +46,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 NSString* const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
-@interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler, UIScrollViewDelegate>
+@interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler, UIScrollViewDelegate, FindInPageBarDelegate>
 
 @property (nonatomic, strong) MASConstraint* headerHeight;
 @property (nonatomic, strong) UIView* footerContainerView;
@@ -52,6 +55,13 @@ NSString* const WMFCCBySALicenseURL =
 @property (nonatomic, strong) IBOutlet UIView* containerView;
 
 @property (strong, nonatomic) MASConstraint* footerContainerViewTopConstraint;
+
+
+
+@property (nonatomic, strong) NSArray* findInPageMatches;
+@property (nonatomic) NSInteger findInPageResultCursorIndex;
+@property (nonatomic) BOOL disableMinimizeFindInPage;
+
 
 @end
 
@@ -118,6 +128,9 @@ NSString* const WMFCCBySALicenseURL =
             break;
         case WMFWKScriptMessageArticleState:
             [self handleArticleStateScriptMessage:safeMessageBody];
+            break;
+        case WMFWKScriptMessageFindInPageMatchesFound:
+            [self handleFindInPageMatchesFoundMessage:safeMessageBody];
             break;
         case WMFWKScriptMessageUnknown:
             NSAssert(NO, @"Unhandled script message type!");
@@ -208,10 +221,12 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)handleClickReferenceScriptMessage:(NSDictionary*)messageDict {
+    [self hideFindInPage];
     [self referencesShow:messageDict];
 }
 
 - (void)handleClickEditScriptMessage:(NSDictionary*)messageDict {
+    [self hideFindInPage];
     NSUInteger sectionIndex = (NSUInteger)[messageDict[@"sectionId"] integerValue];
     if (sectionIndex < [self.article.sections count]) {
         [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
@@ -249,6 +264,209 @@ NSString* const WMFCCBySALicenseURL =
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+- (void)handleFindInPageMatchesFoundMessage:(NSArray*)messageArray {
+    self.findInPageMatches = messageArray;
+    self.findInPageResultCursorIndex = -1;
+}
+
+#pragma mark - Find-in-page configuration
+
+/*
+ - [NO] handle match inside table if collapsed?
+ - [x] "pulse" the hightlighted entry as it is scrolled to?
+ - [ ] if typing search term quickly, only perform search after half a second or so has passed
+ - [ ] prob need threshold for returning single vs all matches? so single char search terms don't return 1000x matches...
+ 
+ - [x] add icon to bottom article toolbar 
+ - [ ]    ^ should all of this find in page code even be in the webviewcontroller? put it where other toolbar button handler methods live?
+ - [x] make holding touch on search field not cause shareafact options to appear
+ - [ ] message back to findinpage bar the number of matches
+ - [ ] add the search magnifying glass to left of searce field and style everything per mock
+ - [x] hook up prev button and dry the cursor logic
+ - [ ] note that find in page won't work with native read more bits at bottom - more reason to do as js injected html
+ - [x] on scroll make keyboard disappear so just search bar shows at bottom of screen until you give text field focus again?
+ - [x] fix out of order issue with result divs - messaged back in not quite the correct order is seems...
+ - [ ] auto scroll to first match if it is not onscreen?
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- (UITextField *)findInPageTextField {
+    return ((FindInPageKeyboardBar*)self.view.inputAccessoryView).textField;
+}
+
+- (BOOL)isFindInPageVisible {
+    return [[self findInPageTextField] isFirstResponder];
+}
+
+- (void)showFindInPage {
+    [self referencesHide];
+    [self.view becomeFirstResponder];
+    [[self findInPageTextField] becomeFirstResponder];
+}
+
+- (void)hideFindInPage {
+    [self clearFindInPage];
+    [[self findInPageTextField] resignFirstResponder];
+    [self.view resignFirstResponder];
+    [self.webView evaluateJavaScript:@"window.wmf.findInPage.removeSearchTermHighlights()"
+                   completionHandler:nil];
+}
+
+- (void)clearFindInPage {
+    self.findInPageMatches = @[];
+    [[self findInPageTextField] setText:@""];
+}
+
+-(void)minimizeFindInPage {
+    if (!self.disableMinimizeFindInPage) {
+        [[self findInPageTextField] resignFirstResponder];
+    }
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    self.disableMinimizeFindInPage = YES;
+    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        self.disableMinimizeFindInPage = NO;
+    }];
+}
+
+
+
+
+
+
+
+#pragma FindInPageBarDelegate
+
+- (void)findInPageTermChanged:(NSString *)text sender:(FindInPageKeyboardBar *)sender {
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightSearchTerm('%@')", text]
+                   completionHandler:nil];
+}
+
+- (void)findInPageCloseButtonTapped {
+    [self hideFindInPage];
+}
+
+- (void)findInPageClearButtonTapped {
+    [self clearFindInPage];
+}
+
+- (void)findInPagePreviousButtonTapped {
+    [self scrollToAndHightlightFindInPageResultReversed:YES];
+}
+
+- (void)findInPageNextButtonTapped {
+    [self scrollToAndHightlightFindInPageResultReversed:NO];
+}
+
+- (void)scrollToAndHightlightFindInPageResultReversed:(BOOL)isReversed {
+    if(self.findInPageMatches.count == 0){
+        return;
+    }
+
+    self.findInPageResultCursorIndex += (isReversed ? -1 : 1);
+    if (isReversed && (self.findInPageResultCursorIndex < 0)) {
+        self.findInPageResultCursorIndex = self.findInPageMatches.count - 1;
+    }else if (self.findInPageResultCursorIndex >= self.findInPageMatches.count) {
+        self.findInPageResultCursorIndex = 0;
+    }
+    
+    NSString* matchSpanId = [self.findInPageMatches wmf_safeObjectAtIndex:self.findInPageResultCursorIndex];
+    
+    @weakify(self);
+    [self.webView getScrollViewRectForHtmlElementWithId:matchSpanId completion:^(CGRect rect){
+        @strongify(self);
+        [UIView animateWithDuration:0.3
+                              delay:0.0f
+                            options:UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             @strongify(self);
+                             self.disableMinimizeFindInPage = YES;
+                             
+// this will need to be modified to scroll the match to the vertical point between top of keyboard and top of screen
+                             
+                             [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y - 80) animated:NO];
+                         } completion:^(BOOL done) {
+                             self.disableMinimizeFindInPage = NO;
+                         }];
+    }];
+    
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.useFocusStyleForHighlightedSearchTermWithId('%@')", matchSpanId] completionHandler:nil];
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #pragma mark - WebView configuration
 
 - (WKWebViewConfiguration*)configuration {
@@ -273,6 +491,10 @@ NSString* const WMFCCBySALicenseURL =
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"articleState"];
 
+    
+[userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"findInPageMatchesFound"];
+
+    
     NSString* earlyJavascriptTransforms = @""
                                           "window.wmf.transformer.transform( 'hideRedlinks', document );"
                                           "window.wmf.transformer.transform( 'disableFilePageEdit', document );"
@@ -308,6 +530,14 @@ NSString* const WMFCCBySALicenseURL =
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+
+    
+    
+((ViewWithFindInPageKeyboardBarInputAccessoryView *)self.view).findInPageBarDelegate = self;
+
+    
+    
+    
     self.isPeeking = NO;
 
     [self addFooterContainerView];
@@ -373,6 +603,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [self hideFindInPage];
     self.webView.scrollView.delegate = nil;
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroDispositionDidChange object:nil];
@@ -701,7 +932,7 @@ NSString* const WMFCCBySALicenseURL =
 - (void)tocScrollWebViewToPoint:(CGPoint)point
                        duration:(CGFloat)duration
                     thenHideTOC:(BOOL)hideTOC {
-    if (isnan(point.x) || isnan(point.y)) {
+    if (isnan(point.x) || isinf(point.x) || isnan(point.y) || isinf(point.y)) {
         return;
         DDLogError(@"Attempted to scroll ToC to Nan value, ignoring");
     }
@@ -956,6 +1187,10 @@ NSString* const WMFCCBySALicenseURL =
 #pragma mark - Sharing
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if ([self isFindInPageVisible]) {
+        return NO;
+    }
+    
     if (action == @selector(shareSnippet:)) {
         [self.webView wmf_getSelectedText:^(NSString* _Nonnull text) {
             [self.delegate webViewController:self didSelectText:text];
@@ -990,6 +1225,7 @@ NSString* const WMFCCBySALicenseURL =
     if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidScroll:)]) {
         [self.delegate webViewController:self scrollViewDidScroll:scrollView];
     }
+    [self minimizeFindInPage];
 }
 
 @end

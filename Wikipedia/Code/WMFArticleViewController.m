@@ -116,6 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite) UIBarButtonItem* shareToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem* fontSizeToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem* tableOfContentsToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem* findInPageToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
 @property (nonatomic, strong) UIRefreshControl* pullToRefresh;
 
@@ -350,6 +351,10 @@ NS_ASSUME_NONNULL_BEGIN
     return self.article != nil;
 }
 
+- (BOOL)canFindInPage {
+    return self.article != nil && (self.presentedViewController == nil);
+}
+
 - (BOOL)hasLanguages {
     return self.article.hasMultipleLanguages;
 }
@@ -383,11 +388,32 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<UIBarButtonItem*>*)articleToolBarItems {
     return [NSArray arrayWithObjects:
             self.languagesToolbarItem,
+            
             [UIBarButtonItem flexibleSpaceToolbarItem],
-            self.fontSizeToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:22.f],
-            self.shareToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:24.f],
-            self.saveToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.0],
+            
+            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f + 18.f],
+            self.saveToolbarItem,
+            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:4.f],
+            
             [UIBarButtonItem flexibleSpaceToolbarItem],
+            
+            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
+            self.shareToolbarItem,
+            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
+            
+            [UIBarButtonItem flexibleSpaceToolbarItem],
+            
+            self.fontSizeToolbarItem,
+            
+            [UIBarButtonItem flexibleSpaceToolbarItem],
+            
+            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
+            self.findInPageToolbarItem,
+            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.f + 18.f],
+            
+            [UIBarButtonItem flexibleSpaceToolbarItem],
+            
+            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:8.f],
             self.tableOfContentsToolbarItem,
             nil];
 }
@@ -415,6 +441,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.shareToolbarItem.enabled           = [self canShare];
     self.languagesToolbarItem.enabled       = [self hasLanguages];
     self.tableOfContentsToolbarItem.enabled = [self hasTableOfContents];
+    self.findInPageToolbarItem.enabled      = [self canFindInPage];
 }
 
 #pragma mark - Toolbar Items
@@ -461,6 +488,21 @@ NS_ASSUME_NONNULL_BEGIN
         }];
     }
     return _shareToolbarItem;
+}
+
+- (UIBarButtonItem*)findInPageToolbarItem {
+    if (!_findInPageToolbarItem) {
+        @weakify(self);
+        _findInPageToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"find-in-page"]
+                                                                   style:UIBarButtonItemStylePlain
+                                                                 handler:^(id sender){
+                                                                     @strongify(self);
+                                                                     if ([self canFindInPage]) { // Needed so you can't tap find icon when text size adjuster is onscreen.
+                                                                         [self showFindInPage];
+                                                                     }
+                                                                 }];
+    }
+    return _findInPageToolbarItem;
 }
 
 - (UIBarButtonItem*)languagesToolbarItem {
@@ -889,6 +931,12 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentViewController:vc animated:YES completion:NULL];
 }
 
+#pragma mark - Find-in-page
+
+- (void)showFindInPage {
+    [self.webViewController showFindInPage];
+}
+
 #pragma mark - Font Size
 
 - (void)showFontSizePopup {
@@ -1104,6 +1152,8 @@ NS_ASSUME_NONNULL_BEGIN
         if (peekVC) {
             [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
             self.webViewController.isPeeking = YES;
+            [self.webViewController hideFindInPage];
+            
             return peekVC;
         }
     } else if (previewingContext == self.leadImagePreviewingContext) {

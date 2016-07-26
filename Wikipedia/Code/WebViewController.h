@@ -49,6 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setFontSizeMultiplier:(NSNumber*)fontSize;
 
+- (void)showFindInPage;
+- (void)hideFindInPage;
+
 #pragma mark - Header & Footers
 
 @property (nonatomic, strong, nullable) UIView* headerView;
