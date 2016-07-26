@@ -12,9 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFExploreViewController : UITableViewController<WMFAnalyticsViewNameProviding>
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
+@property (nonatomic, assign) BOOL canScrollToTop;
 
-- (void)showSettings;
-- (void)scrollToTop:(BOOL)animated;
+- (void)showSettings;;
 
 @end
 
