@@ -72,7 +72,6 @@ platform :ios do
     opts = {
       :scheme =>  scheme,
       :workspace => 'Wikipedia.xcworkspace',
-      :configuration => 'Debug',
       :destination => destination,
       :buildlog_path => './build',
       :output_directory => './build/reports',
