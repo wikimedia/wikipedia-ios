@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) IBOutlet PaddedLabel* zeroStatusLabel;
 
-@property (strong, nonatomic) ReferencesVC* referencesVC;
+@property (strong, nonatomic, nullable) ReferencesVC* referencesVC;
 @property (weak, nonatomic) IBOutlet UIView* referencesContainerView;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* referencesContainerViewBottomConstraint;

@@ -84,7 +84,7 @@ extern NSString* const WMFDefaultSiteDomain;
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the `internalLink`.
  **/
-#warning this method should be generecized to "path" and handle the presence of /wiki/
+WMF_TECH_DEBT_TODO(this method should be generecized to 'path' and handle the presence of /wiki/)
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedInternalLink:(NSString*)internalLink;
 
 
@@ -96,7 +96,7 @@ extern NSString* const WMFDefaultSiteDomain;
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  **/
-#warning this method should be folded into the above method and should handle the presence of a #
+WMF_TECH_DEBT_TODO(this method should be folded into the above method and should handle the presence of a #)
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedTitleAndFragment:(NSString*)escapedDenormalizedTitleAndFragment;
 
 
@@ -229,8 +229,7 @@ extern NSString* const WMFDefaultSiteDomain;
 
 
 #pragma mark - Layout based on Language
-#warning These should be renamed and/or moved to indicate that they are based on the language subdomain of the receiver
-
+WMF_TECH_DEBT_TODO(These should be renamed and/or moved to indicate that they are based on the language subdomain of the receiver)
 @property (nonatomic, readonly) UIUserInterfaceLayoutDirection wmf_layoutDirection;
 
 @property (nonatomic, readonly) NSTextAlignment wmf_textAlignment;
