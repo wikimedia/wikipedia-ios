@@ -197,6 +197,15 @@
     GCDWebServerErrorResponse* notFound = [GCDWebServerErrorResponse responseWithClientError:kGCDWebServerHTTPStatusCode_NotFound message:@"Image not found"];
     NSAssert(imgURL, @"imageProxy URL should not be nil");
 
+    NSURLComponents* components = [NSURLComponents componentsWithURL:imgURL resolvingAgainstBaseURL:NO];
+    if(!components.scheme){
+        components.scheme = @"https";
+    }
+    if(!components.host){
+        components.host = @"wikipedia.org";
+    }
+    imgURL = components.URL;
+    
     NSURLCache* URLCache                = [NSURLCache sharedURLCache];
     NSURLRequest* request               = [NSURLRequest requestWithURL:imgURL];
     NSCachedURLResponse* cachedResponse = [URLCache cachedResponseForRequest:request];
