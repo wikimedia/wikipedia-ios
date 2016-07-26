@@ -1,10 +1,3 @@
-//
-//  WMFMostReadSectionController.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/10/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFMostReadSectionController.h"
 #import "Wikipedia-Swift.h"
@@ -13,7 +6,6 @@
 #import "WMFArticlePreviewFetcher.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "WMFArticleListTableViewCell.h"
-#import "MWKTitle.h"
 #import "MWKSearchResult.h"
 #import "WMFArticleViewController.h"
 #import "WMFMostReadTitleFetcher.h"
@@ -30,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFMostReadSectionController ()
 
-@property (nonatomic, copy, readwrite) MWKSite* site;
+@property (nonatomic, copy, readwrite) NSURL* siteURL;
 @property (nonatomic, strong, readwrite) NSDate* date;
 @property (nonatomic, strong, readonly) NSString* localDateDisplayString;
 @property (nonatomic, strong, readonly) NSString* localDateShortDisplayString;
@@ -47,17 +39,19 @@ NS_ASSUME_NONNULL_BEGIN
 @synthesize localDateDisplayString      = _localDateDisplayString;
 @synthesize localDateShortDisplayString = _localDateShortDisplayString;
 
-- (instancetype)initWithDate:(NSDate*)date site:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithDate:(NSDate*)date siteURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(url);
+    NSParameterAssert(date);
     self = [super initWithDataStore:dataStore];
     if (self) {
-        self.site = site;
-        self.date = date;
+        self.siteURL = url;
+        self.date      = date;
     }
     return self;
 }
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"%@ site = %@, date = %@", [super description], self.site, [self englishUTCDateString]];
+    return [NSString stringWithFormat:@"%@ site = %@, date = %@", [super description], self.siteURL, [self englishUTCDateString]];
 }
 
 #pragma mark - Accessors
@@ -129,7 +123,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Meta
 
 - (NSString*)sectionIdentifier {
-    return [NSString stringWithFormat:@"%@_%@", self.site.URL.host, [self englishUTCDateString]];
+    return [NSString stringWithFormat:@"%@_%@", self.siteURL.host, [self englishUTCDateString]];
 }
 
 - (CGFloat)estimatedRowHeight {
@@ -144,15 +138,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSAttributedString*)headerTitle {
     // fall back to language code if it can't be localized
-    NSString* language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.site.language];
+    NSString* language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.siteURL.wmf_language];
 
     NSString* heading = nil;
-    
+
     //crash protection if language is nil
     if (language) {
         heading =
-        [MWLocalizedString(@"explore-most-read-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                        withString:language];
+            [MWLocalizedString(@"explore-most-read-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                            withString:language];
     } else {
         heading = MWLocalizedString(@"explore-most-read-generic-heading", nil);
     }
@@ -185,7 +179,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIViewController*)moreViewController {
     return [[WMFMostReadListTableViewController alloc] initWithPreviews:self.previews
-                                                               fromSite:self.site
+                                                            fromSiteURL:self.siteURL
                                                                 forDate:self.date
                                                               dataStore:self.dataStore];
 }
@@ -193,13 +187,13 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Detail
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
-    return [[WMFArticleViewController alloc] initWithArticleTitle:[self titleForItemAtIndexPath:indexPath]
-                                                        dataStore:self.dataStore];
+    return [[WMFArticleViewController alloc] initWithArticleURL:[self urlForItemAtIndexPath:indexPath]
+                                                      dataStore:self.dataStore];
 }
 
 #pragma mark - TitleProviding
 
-- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath {
+- (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath {
     if (indexPath.row >= self.items.count) {
         return nil;
     }
@@ -207,7 +201,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (![result isKindOfClass:[MWKSearchResult class]]) {
         return nil;
     }
-    return [[MWKTitle alloc] initWithSite:self.site normalizedTitle:result.displayTitle fragment:nil];
+    return [self.siteURL wmf_URLWithTitle:result.displayTitle];
 }
 
 #pragma mark - WMFBaseExploreSectionController Subclass
@@ -242,23 +236,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise*)fetchData {
     @weakify(self);
-    return [self.mostReadTitlesFetcher fetchMostReadTitlesForSite:self.site date:self.date]
+    return [self.mostReadTitlesFetcher fetchMostReadTitlesForSiteURL:self.siteURL date:self.date]
            .then(^id (WMFMostReadTitlesResponseItem* mostReadResponse) {
         @strongify(self);
-        NSParameterAssert([mostReadResponse.site isEqualToSite:self.site]);
+        NSParameterAssert([mostReadResponse.siteURL isEqual:self.siteURL]);
         if (!self) {
             return [NSError cancelledError];
         }
         self.mostReadArticlesResponse = mostReadResponse;
         WMF_TECH_DEBT_TODO(need to test for issues with really long query strings);
-        NSArray<MWKTitle*>* titlesToPreview = [mostReadResponse.articles
-                                               bk_map:^MWKTitle*(WMFMostReadTitlesResponseItemArticle* article) {
+        NSArray<NSURL*>* titlesToPreview = [mostReadResponse.articles
+                                               bk_map:^NSURL*(WMFMostReadTitlesResponseItemArticle* article) {
             // HAX: must normalize title otherwise it won't match fetched previews. this is why pageid > title
-            return [[MWKTitle alloc] initWithString:article.titleText site:self.site];
+            return [self.siteURL wmf_URLWithTitle:article.titleText];
         }];
         return [self.previewFetcher
-                fetchArticlePreviewResultsForTitles:titlesToPreview
-                                               site:mostReadResponse.site
+                fetchArticlePreviewResultsForArticleURLs:titlesToPreview
+                                               siteURL:mostReadResponse.siteURL
                                       extractLength:0
                                      thumbnailWidth:[[UIScreen mainScreen] wmf_listThumbnailWidthForScale].unsignedIntegerValue];
     })

@@ -20,7 +20,7 @@ public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
      */
     func tableOfContentsControllerDidCancel(controller: WMFTableOfContentsViewController)
 
-    func tableOfContentsArticleSite() -> MWKSite
+    func tableOfContentsArticleLanguageURL() -> NSURL
 }
 
 public class WMFTableOfContentsViewController: UIViewController,
@@ -211,7 +211,7 @@ public class WMFTableOfContentsViewController: UIViewController,
     public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
         assert(delegate != nil, "TOC delegate not set!")
-        header.articleSite = delegate?.tableOfContentsArticleSite()
+        header.articleURL = delegate?.tableOfContentsArticleLanguageURL()
         return header
     }
     

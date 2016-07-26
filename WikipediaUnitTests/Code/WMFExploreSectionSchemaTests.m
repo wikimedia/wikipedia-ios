@@ -1,10 +1,4 @@
-//
-//  WMFExploreSectionSchemaTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/23/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
+
 
 @import Quick;
 @import Nimble;
@@ -13,7 +7,6 @@
 #import "WMFExploreSection.h"
 #import "WMFExploreSectionSchema_Testing.h"
 #import "MWKDataStore+TemporaryDataStore.h"
-#import "MWKSite.h"
 #import "WMFRandomFileUtilities.h"
 #import "WMFRelatedSectionBlacklist.h"
 #import "WMFMockLocationManager.h"
@@ -25,14 +18,14 @@ __block MWKDataStore* dataStore;
 __block WMFMockLocationManager* mockLocationManager;
 
 // Convenience setup method which creates a schema for the given site, injecting mocks & temporary stores for other fields.
-void (^ setupSchemaWithSite)(MWKSite*) = ^(MWKSite* site) {
+void (^ setupSchemaWithSiteURL)(NSURL*) = ^(NSURL* siteURL) {
     // TODO: setup w/ temp blacklist
-    schema = [WMFExploreSectionSchema schemaWithSite:site
-                                          savedPages:dataStore.userDataStore.savedPageList
-                                             history:dataStore.userDataStore.historyList
-                                           blackList:[WMFRelatedSectionBlackList new]
-                                     locationManager:mockLocationManager
-                                                file:[NSURL fileURLWithPath:WMFRandomTemporaryFileOfType(@"plist")]];
+    schema = [WMFExploreSectionSchema schemaWithSiteURL:siteURL
+                                               savedPages:dataStore.userDataStore.savedPageList
+                                                  history:dataStore.userDataStore.historyList
+                                                blackList:[WMFRelatedSectionBlackList new]
+                                          locationManager:mockLocationManager
+                                                     file:[NSURL fileURLWithPath:WMFRandomTemporaryFileOfType(@"plist")]];
 };
 
 beforeEach(^{
@@ -46,11 +39,11 @@ afterEach(^{
 });
 
 describe(@"initial state", ^{
-    __block MWKSite* site;
+    __block NSURL* siteURL;
 
     context(@"en wiki", ^{
         beforeEach(^{
-            site = [MWKSite siteWithLanguage:@"en"];
+            siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
         });
 
         context(@"location allowed", ^{
@@ -59,7 +52,7 @@ describe(@"initial state", ^{
             });
 
             it(@"should contain everything except 'because you read' sections", ^{
-                setupSchemaWithSite(site);
+                setupSchemaWithSiteURL(siteURL);
 
                 expect(@([schema.lastUpdatedAt isToday])).to(beTrue());
                 expect([schema.sections valueForKey:WMF_SAFE_KEYPATH([WMFExploreSection new], type)])
@@ -73,12 +66,12 @@ describe(@"initial state", ^{
 
                 WMFExploreSection* featuredArticleSection = schema.sections[0];
                 expect(@(featuredArticleSection.type)).to(equal(@(WMFExploreSectionTypeFeaturedArticle)));
-                expect(featuredArticleSection.site).to(equal(site));
+                expect(featuredArticleSection.siteURL).to(equal(siteURL));
                 expect(@([featuredArticleSection.dateCreated isToday])).to(beTrue());
 
                 WMFExploreSection* mostReadSection = schema.sections[1];
                 expect(@(mostReadSection.type)).to(equal(@(WMFExploreSectionTypeMostRead)));
-                expect(mostReadSection.site).to(equal(site));
+                expect(mostReadSection.siteURL).to(equal(siteURL));
                 // not asserting most read section date, see WMFMostReadDateTests
 
                 WMFExploreSection* potdSection = schema.sections[2];
@@ -87,7 +80,7 @@ describe(@"initial state", ^{
 
                 WMFExploreSection* mainPageSection = schema.sections[3];
                 expect(@(mainPageSection.type)).to(equal(@(WMFExploreSectionTypeMainPage)));
-                expect(mainPageSection.site).to(equal(site));
+                expect(mainPageSection.siteURL).to(equal(siteURL));
                 expect(@([mainPageSection.dateCreated isToday])).to(beTrue());
 
                 WMFExploreSection* randomSection = schema.sections[4];
@@ -111,7 +104,7 @@ describe(@"initial state", ^{
 
         context(@"no location", ^{
             it(@"should contain everything except 'because you read', continue reading, and location sections", ^{
-                setupSchemaWithSite(site);
+                setupSchemaWithSiteURL(siteURL);
                 expect(@([schema.lastUpdatedAt isToday])).to(beTrue());
                 expect([schema.sections valueForKey:WMF_SAFE_KEYPATH([WMFExploreSection new], type)])
                 .withTimeout(5)
@@ -123,12 +116,12 @@ describe(@"initial state", ^{
 
                 WMFExploreSection* featuredArticleSection = schema.sections[0];
                 expect(@(featuredArticleSection.type)).to(equal(@(WMFExploreSectionTypeFeaturedArticle)));
-                expect(featuredArticleSection.site).to(equal(site));
+                expect(featuredArticleSection.siteURL).to(equal(siteURL));
                 expect(@([featuredArticleSection.dateCreated isToday])).to(beTrue());
 
                 WMFExploreSection* mostReadSection = schema.sections[1];
                 expect(@(mostReadSection.type)).to(equal(@(WMFExploreSectionTypeMostRead)));
-                expect(mostReadSection.site).to(equal(site));
+                expect(mostReadSection.siteURL).to(equal(siteURL));
                 // not asserting most read section date, see WMFMostReadDateTests
 
                 WMFExploreSection* potdSection = schema.sections[2];
@@ -137,7 +130,7 @@ describe(@"initial state", ^{
 
                 WMFExploreSection* mainPageSection = schema.sections[3];
                 expect(@(mainPageSection.type)).to(equal(@(WMFExploreSectionTypeMainPage)));
-                expect(mainPageSection.site).to(equal(site));
+                expect(mainPageSection.siteURL).to(equal(siteURL));
                 expect(@([mainPageSection.dateCreated isToday])).to(beTrue());
 
                 WMFExploreSection* randomSection = schema.sections[4];
@@ -149,7 +142,7 @@ describe(@"initial state", ^{
 
     context(@"es wiki", ^{
         beforeEach(^{
-            site = [MWKSite siteWithLanguage:@"es"];
+            siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"es"];
         });
 
         context(@"clean install, with location", ^{
@@ -158,7 +151,7 @@ describe(@"initial state", ^{
             });
 
             it(@"should contain same as EN wiki, minus featured article", ^{
-                setupSchemaWithSite(site);
+                setupSchemaWithSiteURL(siteURL);
                 expect(@([schema.lastUpdatedAt isToday])).to(beTrue());
                 expect([schema.sections valueForKey:WMF_SAFE_KEYPATH([WMFExploreSection new], type)])
                 .withTimeout(5)
@@ -171,7 +164,7 @@ describe(@"initial state", ^{
 
                 WMFExploreSection* mostReadSection = schema.sections[0];
                 expect(@(mostReadSection.type)).to(equal(@(WMFExploreSectionTypeMostRead)));
-                expect(mostReadSection.site).to(equal(site));
+                expect(mostReadSection.siteURL).to(equal(siteURL));
                 // not asserting most read section date, see WMFMostReadDateTests
 
                 WMFExploreSection* potdSection = schema.sections[1];
@@ -180,7 +173,7 @@ describe(@"initial state", ^{
 
                 WMFExploreSection* mainPageSection = schema.sections[2];
                 expect(@(mainPageSection.type)).to(equal(@(WMFExploreSectionTypeMainPage)));
-                expect(mainPageSection.site).to(equal(site));
+                expect(mainPageSection.siteURL).to(equal(siteURL));
                 expect(@([mainPageSection.dateCreated isToday])).to(beTrue());
 
                 WMFExploreSection* randomSection = schema.sections[3];
@@ -199,7 +192,7 @@ describe(@"initial state", ^{
 describe(@"persistence", ^{
     beforeEach(^{
         [mockLocationManager setLocation:[[CLLocation alloc] initWithLatitude:0 longitude:0]];
-        setupSchemaWithSite([MWKSite siteWithLanguage:@"en"]);
+        setupSchemaWithSiteURL([NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"]);
     });
 
     it(@"should be equal to a copy read from data serialized to disk", ^{
@@ -208,12 +201,12 @@ describe(@"persistence", ^{
         AnyPromise* schemaSave = [schema save];
         expect(@(schemaSave.resolved)).withTimeout(5).toEventually(beTrue());
 
-        WMFExploreSectionSchema* schema2 = [WMFExploreSectionSchema schemaWithSite:schema.site
-                                                                        savedPages:schema.savedPages
-                                                                           history:schema.historyPages
-                                                                         blackList:schema.blackList
-                                                                   locationManager:mockLocationManager
-                                                                              file:schema.fileURL];
+        WMFExploreSectionSchema* schema2 = [WMFExploreSectionSchema schemaWithSiteURL:schema.siteURL
+                                                                             savedPages:schema.savedPages
+                                                                                history:schema.historyPages
+                                                                              blackList:schema.blackList
+                                                                        locationManager:mockLocationManager
+                                                                                   file:schema.fileURL];
         // lastUpdatedAt times will be slightly different, since it will forcibly update on creation
         expect(schema2.sections).to(equal(schema.sections));
     });

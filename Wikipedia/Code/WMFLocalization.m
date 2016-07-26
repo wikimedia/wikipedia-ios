@@ -1,6 +1,5 @@
 
 #import "WMFLocalization.h"
-#import "MWKSite.h"
 
 NSString* localizedStringForKeyFallingBackOnEnglish(NSString* key){
     NSString* outStr = NSLocalizedString(key, nil);
@@ -17,8 +16,12 @@ NSString* localizedStringForKeyFallingBackOnEnglish(NSString* key){
     return [englishBundle localizedStringForKey:key value:@"" table:nil];
 }
 
-NSString* localizedStringForSiteWithKeyFallingBackOnEnglish(MWKSite* site, NSString* key){
-    NSString* path           = [[NSBundle mainBundle] pathForResource:site.language ofType:@"lproj"];
+NSString* localizedStringForURLWithKeyFallingBackOnEnglish(NSURL* url, NSString* key){
+    NSString *language = url.wmf_language;
+    if (language == nil) {
+        language = @"en";
+    }
+    NSString* path           = [[NSBundle mainBundle] pathForResource:language ofType:@"lproj"];
     NSBundle* languageBundle = [NSBundle bundleWithPath:path];
     NSString* translation    = nil;
     if (languageBundle) {

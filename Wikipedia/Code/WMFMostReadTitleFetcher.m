@@ -1,10 +1,3 @@
-//
-//  WMFMostReadTitleFetcher.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/11/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFMostReadTitleFetcher.h"
 
@@ -12,7 +5,6 @@
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFNetworkUtilities.h"
-#import "MWKSite.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import <Mantle/MTLJSONAdapter.h>
 #import "WMFMostReadTitlesResponse.h"
@@ -41,8 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise*)fetchMostReadTitlesForSite:(MWKSite*)site date:(NSDate*)date {
-    NSParameterAssert(site);
+- (AnyPromise*)fetchMostReadTitlesForSiteURL:(NSURL*)siteURL date:(NSDate*)date {
+    NSParameterAssert(siteURL);
     NSParameterAssert(date);
     NSString* dateString = [[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:date];
     if (!date) {
@@ -53,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     NSString* path = [NSString stringWithFormat:@"/metrics/pageviews/top/%@.%@/all-access/%@",
-                      site.language, site.domain, dateString];
+                      siteURL.wmf_language, siteURL.wmf_domain, dateString];
 
     NSString* requestURLString = [WMFWikimediaRestAPIURLStringWithVersion(1) stringByAppendingPathComponent:path];
 

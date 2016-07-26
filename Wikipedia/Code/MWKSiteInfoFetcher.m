@@ -5,7 +5,6 @@
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFNetworkUtilities.h"
 #import "WMFApiJsonResponseSerializer.h"
-#import "MWKSite.h"
 #import "MWKSiteInfo.h"
 
 @interface MWKSiteInfoFetcher ()
@@ -28,8 +27,8 @@
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise*)fetchSiteInfoForSite:(MWKSite*)site {
-    NSParameterAssert(site);
+- (AnyPromise*)fetchSiteInfoForSiteURL:(NSURL*)siteURL {
+    NSParameterAssert(siteURL);
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
         NSDictionary* params = @{
             @"action": @"query",
@@ -38,16 +37,16 @@
             @"siprop": @"general"
         };
 
-        [self.operationManager wmf_GETWithSite:site
-                                    parameters:params
-                                         retry:NULL
-                                       success:^(NSURLSessionDataTask* operation, id responseObject) {
+        [self.operationManager wmf_GETAndRetryWithURL:siteURL
+                                           parameters:params
+                                                retry:NULL
+                                              success:^(NSURLSessionDataTask* operation, id responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             NSDictionary* generalProps = [responseObject valueForKeyPath:@"query.general"];
-            MWKSiteInfo* info = [[MWKSiteInfo alloc] initWithSite:site mainPageTitleText:generalProps[@"mainpage"]];
+            MWKSiteInfo* info = [[MWKSiteInfo alloc] initWithSiteURL:siteURL mainPageTitleText:generalProps[@"mainpage"]];
             resolve(info);
         }
-                                       failure:^(NSURLSessionDataTask* operation, NSError* error) {
+                                              failure:^(NSURLSessionDataTask* operation, NSError* error) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve(error);
         }];

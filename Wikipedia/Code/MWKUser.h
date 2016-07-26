@@ -18,7 +18,7 @@
 @property (readonly, copy, nonatomic) NSString* name;
 @property (readonly, copy, nonatomic) NSString* gender;
 
-- (instancetype)initWithSite:(MWKSite*)site data:(id)data;
+- (instancetype)initWithSiteURL:(NSURL*)siteURL data:(id)data;
 
 - (BOOL)isEqualToUser:(MWKUser*)user;
 

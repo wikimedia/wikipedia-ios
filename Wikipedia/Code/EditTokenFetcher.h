@@ -14,7 +14,7 @@ typedef NS_ENUM (NSInteger, EditTokenErrorType) {
 @interface EditTokenFetcher : FetcherBase
 
 @property (strong, nonatomic, readonly) NSString* wikiText;
-@property (strong, nonatomic, readonly) MWKTitle* title;
+@property (strong, nonatomic, readonly) NSURL* articleURL;
 @property (strong, nonatomic, readonly) NSString* section;
 @property (strong, nonatomic, readonly) NSString* summary;
 @property (strong, nonatomic, readonly) NSString* captchaId;
@@ -27,7 +27,7 @@ typedef NS_ENUM (NSInteger, EditTokenErrorType) {
 // parked here so the actual uploader can have quick read-only access to the
 // exact params which kicked off the token request.
 - (instancetype)initAndFetchEditTokenForWikiText:(NSString*)wikiText
-                                       pageTitle:(MWKTitle*)title
+                                       articleURL:(NSURL*)URL
                                          section:(NSString*)section
                                          summary:(NSString*)summary
                                        captchaId:(NSString*)captchaId

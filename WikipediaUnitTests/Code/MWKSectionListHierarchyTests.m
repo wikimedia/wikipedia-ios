@@ -1,17 +1,9 @@
-//
-//  MWKSectionListHierarchyTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 8/20/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "MWKSectionList.h"
 #import "MWKSection.h"
 #import "MWKArticle.h"
-#import "MWKTitle.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -25,8 +17,8 @@
 
 - (void)setUp {
     [super setUp];
-    MWKTitle* dummyTitle = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"//en.wikipedia.org/wiki/Foo"]];
-    self.dummyArticle     = [[MWKArticle alloc] initWithTitle:dummyTitle dataStore:nil];
+    NSURL* dummyURL = [[NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"] wmf_URLWithTitle:@"Foo"];
+    self.dummyArticle     = [[MWKArticle alloc] initWithURL:dummyURL dataStore:nil];
     self.sectionIdCounter = 0;
 }
 

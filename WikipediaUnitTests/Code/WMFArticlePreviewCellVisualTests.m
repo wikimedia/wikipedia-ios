@@ -96,11 +96,9 @@
                        description:(NSString*)description
                            extract:(NSString*)extract
                           imageURL:(NSURL*)imageURL {
-    MWKTitle* title = [[MWKTitle alloc] initWithSite:[MWKSite siteWithCurrentLocale]
-                                     normalizedTitle:titleText
-                                            fragment:nil];
+    NSURL* url = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:titleText];
 
-    [self.cell setSaveableTitle:title savedPageList:self.dataStore.userDataStore.savedPageList];
+    [self.cell setSaveableURL:url savedPageList:self.dataStore.userDataStore.savedPageList];
 
     [self.cell setDescriptionText:description];
 

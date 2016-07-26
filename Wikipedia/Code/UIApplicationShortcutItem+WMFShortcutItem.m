@@ -30,13 +30,13 @@ NSString* const WMFIconShortcutTypeNearby          = @"org.wikimedia.wikipedia.i
 }
 
 + (nullable UIApplicationShortcutItem*)wmf_continueReading {
-    MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
-    if (lastRead.text.length == 0) {
+    NSURL* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleURL];
+    if (lastRead.wmf_title.length == 0) {
         return nil;
     }
     return [[UIApplicationShortcutItem alloc] initWithType:WMFIconShortcutTypeContinueReading
                                             localizedTitle:MWLocalizedString(@"icon-shortcut-continue-reading-title", nil)
-                                         localizedSubtitle:lastRead.text
+                                         localizedSubtitle:lastRead.wmf_title
                                                       icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"home-continue-reading-mini"]
                                                   userInfo:nil];
 }

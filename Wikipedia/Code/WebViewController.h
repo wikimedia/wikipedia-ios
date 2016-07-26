@@ -4,7 +4,7 @@
 #import <UIKit/UIKit.h>
 @import WebKit;
 
-@class MWKSection, MWKArticle, MWKTitle, WMFPeekHTMLElement;
+@class MWKSection, MWKArticle, WMFPeekHTMLElement;
 
 @protocol WMFWebViewControllerDelegate;
 
@@ -16,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
      UIGestureRecognizerDelegate,
      UIAlertViewDelegate>
 
-@property (nonatomic, strong, nullable) MWKArticle* article;
+@property (nonatomic, strong, nullable, readonly) MWKArticle* article;
+@property (nonatomic, strong, nullable, readonly) NSURL* articleURL;
 
 @property (nonatomic, weak, nullable) id<WMFWebViewControllerDelegate> delegate;
 
@@ -26,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, nullable) WMFPeekHTMLElement* peekElement;
 
 @property (nonatomic) UIEdgeInsets contentInsets;
+
+- (void)setArticle:(MWKArticle * _Nullable)article articleURL:(NSURL*)articleURL;
 
 /**
  *  Scroll to the @c anchor of the given section.
@@ -72,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article;
 - (void)webViewController:(WebViewController*)controller didTapEditForSection:(MWKSection*)section;
-- (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title;
+- (void)webViewController:(WebViewController*)controller didTapOnLinkForArticleURL:(NSURL*)url;
 - (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text;
 - (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text;
 - (void)webViewController:(WebViewController*)controller didTapImageWithSourceURL:(NSURL*)imageSourceURL;

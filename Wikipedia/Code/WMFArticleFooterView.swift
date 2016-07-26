@@ -6,7 +6,7 @@ public class WMFArticleFooterView: UIView {
     @IBOutlet var licenseLabel: UILabel!
     @IBOutlet var showLicenseButton: UIButton!
 
-    public func setLicenseTextForSite(site: MWKSite) {
+    public func setLicenseTextForURL(url: NSURL) {
     
         let baseStyle = [NSForegroundColorAttributeName : UIColor.wmf_licenseTextColor(),
             NSFontAttributeName : UIFont.systemFontOfSize(12)
@@ -16,9 +16,9 @@ public class WMFArticleFooterView: UIView {
             NSFontAttributeName : UIFont.systemFontOfSize(12)
         ]
         
-        let footerText : NSString = localizedStringForSiteWithKeyFallingBackOnEnglish(site, "license-footer-text");
+        let footerText : NSString = localizedStringForURLWithKeyFallingBackOnEnglish(url, "license-footer-text");
         
-        let licenseText : NSString = localizedStringForSiteWithKeyFallingBackOnEnglish(site, "license-footer-name")
+        let licenseText : NSString = localizedStringForURLWithKeyFallingBackOnEnglish(url, "license-footer-name")
         
         let styledFooterText = footerText.attributedStringWithAttributes(baseStyle, substitutionStrings: [licenseText], substitutionAttributes: [substitutionStyle])
         

@@ -12,7 +12,7 @@
 @interface WikiTextSectionUploader ()
 
 @property (strong, nonatomic) NSString* wikiText;
-@property (strong, nonatomic) MWKTitle* title;
+@property (strong, nonatomic) NSURL* articleURL;
 @property (strong, nonatomic) NSString* section;
 @property (strong, nonatomic) NSString* summary;
 @property (strong, nonatomic) NSString* captchaId;
@@ -24,7 +24,7 @@
 @implementation WikiTextSectionUploader
 
 - (instancetype)initAndUploadWikiText:(NSString*)wikiText
-                         forPageTitle:(MWKTitle*)title
+                         forArticleURL:(NSURL*)articleURL
                               section:(NSString*)section
                               summary:(NSString*)summary
                             captchaId:(NSString*)captchaId
@@ -32,11 +32,11 @@
                                 token:(NSString*)token
                           withManager:(AFHTTPSessionManager*)manager
                    thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
+    NSParameterAssert(articleURL.wmf_title);
     self = [super init];
     if (self) {
         self.wikiText = wikiText ? wikiText : @"";
-        self.title    = title;
-        assert(title != nil);
+        self.articleURL    = articleURL;
         self.section     = section ? section : @"";
         self.summary     = summary ? summary : @"";
         self.captchaId   = captchaId ? captchaId : @"";
@@ -50,7 +50,7 @@
 }
 
 - (void)uploadWithManager:(AFHTTPSessionManager*)manager {
-    NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.title.site.language];
+    NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.articleURL.wmf_language];
 
     NSDictionary* params = [self getParams];
 
@@ -166,7 +166,7 @@
         @"text": self.wikiText,
         @"summary": self.summary,
         @"section": self.section,
-        @"title": self.title.text,
+        @"title": self.articleURL.wmf_title,
         @"format": @"json"
     }.mutableCopy;
 

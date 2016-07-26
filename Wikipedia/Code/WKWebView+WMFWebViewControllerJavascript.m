@@ -31,7 +31,7 @@ static int const kMinimumTextSelectionLength = 2;
 }
 
 - (NSString*)apostropheEscapedArticleLanguageLocalizedStringForKey:(NSString*)key article:(MWKArticle*)article {
-    return [MWSiteLocalizedString(article.site, key, nil) stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
+    return [MWSiteLocalizedString(article.url, key, nil) stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
 }
 
 - (void)wmf_setLanguage:(MWLanguageInfo*)languageInfo {

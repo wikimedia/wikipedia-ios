@@ -30,7 +30,7 @@
 }
 
 - (void)fetchWikiTextWithManager:(AFHTTPSessionManager*)manager {
-    NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.section.site.language];
+    NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.section.url.wmf_language];
 
     NSDictionary* params = [self getParams];
 
@@ -88,7 +88,7 @@
                @"rvprop": @"content",
                @"rvlimit": @1,
                @"rvsection": self.section.index ? self.section.index : @"0",
-               @"titles": [self.section sourceTitle].text,
+               @"titles": [self.section sourceURL].wmf_title,
                @"meta": @"userinfo", // we need the local user ID for event logging
                @"continue": @"",
                @"format": @"json"

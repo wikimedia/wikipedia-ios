@@ -1,13 +1,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class MWKSite;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRandomArticleFetcher : NSObject
 
-- (void)fetchRandomArticleWithSite:(MWKSite*)site failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSearchResultHandler)success;
+- (void)fetchRandomArticleWithSiteURL:(NSURL*)siteURL failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSearchResultHandler)success;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
 

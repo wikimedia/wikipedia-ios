@@ -45,13 +45,13 @@
 @end
 
 
-@class MWKTitle, MWKLanguageLink;
+@class MWKLanguageLink;
 
 @interface WMFArticleLanguagesViewController : WMFLanguagesViewController
 
-+ (instancetype)articleLanguagesViewControllerWithTitle:(MWKTitle*)title;
++ (instancetype)articleLanguagesViewControllerWithArticleURL:(NSURL*)url;
 
-@property (nonatomic, strong, readonly) MWKTitle* articleTitle;
+@property (nonatomic, strong, readonly) NSURL* articleURL;
 
 
 @end

@@ -1,10 +1,3 @@
-//
-//  WMFSavedArticleTableViewController.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 12/22/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFSavedArticleTableViewController.h"
 #import "PiwikTracker+WMFExtensions.h"
@@ -16,7 +9,6 @@
 #import "MWKUserDataStore.h"
 
 #import "MWKArticle.h"
-#import "MWKTitle.h"
 #import "MWKSavedPageEntry.h"
 
 #import "WMFSaveButtonController.h"
@@ -54,8 +46,8 @@
                               UITableView* tableView,
                               NSIndexPath* indexPath) {
         @strongify(self);
-        MWKArticle* article = [[self dataStore] articleWithTitle:entry.title];
-        cell.titleText       = article.title.text;
+        MWKArticle* article = [[self dataStore] articleWithURL:entry.url];
+        cell.titleText       = article.url.wmf_title;
         cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
         [cell setImage:[article bestThumbnailImage]];
     };

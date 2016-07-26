@@ -15,7 +15,6 @@
 //Models
 #import "WMFRelatedSearchResults.h"
 #import "MWKSearchResult.h"
-#import "MWKTitle.h"
 
 #import "NSDictionary+WMFCommonParams.h"
 
@@ -26,7 +25,7 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 #pragma mark - Internal Class Declarations
 
 @interface WMFRelatedSearchRequestParameters : NSObject
-@property (nonatomic, strong) MWKTitle* title;
+@property (nonatomic, strong) NSURL* articleURL;
 @property (nonatomic, assign) NSUInteger numberOfResults;
 
 @end
@@ -61,21 +60,22 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title
-                               resultLimit:(NSUInteger)resultLimit {
+- (AnyPromise*)fetchArticlesRelatedArticleWithURL:(NSURL*)URL
+                                      resultLimit:(NSUInteger)resultLimit {
+    NSParameterAssert(URL.wmf_title);
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
         WMFRelatedSearchRequestParameters* params = [WMFRelatedSearchRequestParameters new];
-        params.title = title;
+        params.articleURL = URL;
         params.numberOfResults = resultLimit;
 
-        [self.operationManager wmf_GETWithSite:title.site
-                                    parameters:params
-                                         retry:NULL
-                                       success:^(NSURLSessionDataTask* operation, id responseObject) {
+        [self.operationManager wmf_GETAndRetryWithURL:URL
+                                           parameters:params
+                                                retry:NULL
+                                              success:^(NSURLSessionDataTask* operation, id responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve([[WMFRelatedSearchResults alloc] initWithTitle:title results:responseObject]);
+            resolve([[WMFRelatedSearchResults alloc] initWithURL:URL results:responseObject]);
         }
-                                       failure:^(NSURLSessionDataTask* operation, NSError* error) {
+                                              failure:^(NSURLSessionDataTask* operation, NSError* error) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve(error);
         }];
@@ -116,7 +116,7 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
     [baseParams setValuesForKeysWithDictionary:@{
          @"generator": @"search",
          // search
-         @"gsrsearch": [NSString stringWithFormat:@"morelike:%@", params.title.text],
+         @"gsrsearch": [NSString stringWithFormat:@"morelike:%@", params.articleURL.wmf_title],
          @"gsrnamespace": @0,
          @"gsrwhat": @"text",
          @"gsrinfo": @"",

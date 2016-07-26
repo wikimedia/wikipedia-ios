@@ -2,7 +2,6 @@
 #import "UIKit/UIKit.h"
 #import "MWKSiteDataObject.h"
 
-@class MWKTitle;
 @class MWKArticle;
 @class MWKImageInfo;
 
@@ -77,6 +76,9 @@
  * Convenience initializer, @see initWithArtile:sourceURL:
  */
 - (instancetype)initWithArticle:(MWKArticle*)article sourceURLString:(NSString*)url;
+
+- (instancetype)initWithURL:(NSURL*)url NS_UNAVAILABLE;
+
 
 #pragma mark - Serialization
 

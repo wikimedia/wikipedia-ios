@@ -38,7 +38,7 @@ extern NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo);
  *  Technically, image info don't belong to an article, but it was done this way for historical/legacy reasons. Mainly,
  *  that image metadata is also associated with a title.
  */
-@property (nonatomic, strong, readwrite) MWKTitle* title;
+@property (nonatomic, strong, readwrite) NSURL* articleURL;
 
 /**
  *  Data store where image info will be read & written.

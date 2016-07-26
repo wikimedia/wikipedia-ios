@@ -6,7 +6,6 @@
 #import "MWKDataStore.h"
 #import "MWKUserDataStore.h"
 
-#import "MWKTitle.h"
 #import "MWKHistoryList.h"
 #import "MWKHistoryEntry.h"
 
@@ -19,16 +18,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation UIViewController (WMFArticlePresentation)
 
-- (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated {
+- (void)wmf_pushArticleWithURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated {
     if (!restoreScrollPosition) {
-        title = [title wmf_titleWithoutFragment];
+        url = [url wmf_URLWithFragment:nil];
     }
-    WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:dataStore];
+
+    WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:dataStore];
     [self wmf_pushArticleViewController:vc animated:animated];
 }
 
-- (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore animated:(BOOL)animated {
-    [self wmf_pushArticleWithTitle:title dataStore:dataStore restoreScrollPosition:NO animated:animated];
+- (void)wmf_pushArticleWithURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore animated:(BOOL)animated {
+    [self wmf_pushArticleWithURL:url dataStore:dataStore restoreScrollPosition:NO animated:animated];
 }
 
 - (void)wmf_pushArticleViewController:(WMFArticleViewController*)viewController animated:(BOOL)animated {
@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
         MWKHistoryList* historyList = viewController.dataStore.userDataStore.historyList;
-        [historyList addPageToHistoryWithTitle:viewController.articleTitle];
+        [historyList addPageToHistoryWithURL:viewController.articleURL];
         [historyList save];
     });
 }

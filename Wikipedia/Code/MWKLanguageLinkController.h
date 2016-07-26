@@ -2,7 +2,6 @@
 #import <Foundation/Foundation.h>
 #import "MWKLanguageFilter.h"
 
-@class MWKTitle;
 @class MWKLanguageLink;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -69,7 +68,7 @@ extern NSString* const WMFPreferredLanguagesDidChangeNotification;
 - (BOOL)languageIsOSLanguage:(MWKLanguageLink*)language;
 
 
-- (nullable MWKLanguageLink*)languageForSite:(MWKSite*)site;
+- (nullable MWKLanguageLink*)languageForSiteURL:(NSURL*)siteURL;
 
 @end
 

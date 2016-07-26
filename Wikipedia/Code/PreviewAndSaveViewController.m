@@ -466,7 +466,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (MWLanguageInfo*)wmf_editedSectionLanguageInfo {
-    return [MWLanguageInfo languageInfoForCode:self.section.site.language];
+    return [MWLanguageInfo languageInfoForCode:self.section.url.wmf_language];
 }
 
 - (void)fetchFinished:(id)sender
@@ -495,9 +495,9 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
         void (^ upload)() = ^void () {
             NSMutableDictionary* editTokens = self.keychainCredentials.editTokens;
-            NSString* editToken             = editTokens[tokenFetcher.title.site.language];
+            NSString* editToken             = editTokens[tokenFetcher.articleURL.wmf_language];
             (void)[[WikiTextSectionUploader alloc] initAndUploadWikiText:tokenFetcher.wikiText
-                                                            forPageTitle:tokenFetcher.title
+                                                           forArticleURL:tokenFetcher.articleURL
                                                                  section:tokenFetcher.section
                                                                  summary:tokenFetcher.summary
                                                                captchaId:tokenFetcher.captchaId
@@ -511,7 +511,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 NSMutableDictionary* editTokens =
                     self.keychainCredentials.editTokens;
-                NSString* domain = self.section.site.language;
+                NSString* domain = self.section.url.wmf_language;
                 if (domain && tokenFetcher.token) {
                     editTokens[domain]                  = tokenFetcher.token;
                     self.keychainCredentials.editTokens = editTokens;
@@ -640,7 +640,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             NSURL* captchaImageUrl = [NSURL URLWithString:
-                                      [NSString stringWithFormat:@"https://%@.m.%@%@", article.site.language, article.site.domain, self.captchaUrl]
+                                      [NSString stringWithFormat:@"https://%@.m.%@%@", article.url.wmf_language, article.url.wmf_domain, self.captchaUrl]
                                      ];
 
             UIImage* captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:captchaImageUrl]];
@@ -660,7 +660,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
     [[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
         (void)[[PreviewHtmlFetcher alloc] initAndFetchHtmlForWikiText:self.wikiText
-                                                                title:self.section.article.title
+                                                           articleURL:self.section.url
                                                           withManager:[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager
                                                    thenNotifyDelegate:self];
     }];
@@ -682,14 +682,14 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{
         // If fromTitle was set, the section was transcluded, so use the title of the page
         // it was transcluded from.
-        MWKTitle* editTitle = self.section.fromtitle ? self.section.fromtitle : self.section.article.title;
+        NSURL* editURL = self.section.fromURL ? self.section.fromURL : self.section.article.url;
 
         // First try to get an edit token for the page's domain before trying to upload the changes.
         // Only the domain is used to actually fetch the token, the other values are
         // parked in EditTokenFetcher so the actual uploader can have quick read-only
         // access to the exact params which kicked off the token request.
         (void)[[EditTokenFetcher alloc] initAndFetchEditTokenForWikiText:self.wikiText
-                                                               pageTitle:editTitle
+                                                              articleURL:editURL
                                                                  section:[NSString stringWithFormat:@"%d", self.section.sectionId]
                                                                  summary:[self getSummary]
                                                                captchaId:self.captchaId
@@ -728,7 +728,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     self.captchaViewController.captchaTextBox.text = @"";
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
     [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
+        (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language
                                                         withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
                                                  thenNotifyDelegate:self];
     }];

@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol SavedArticlesFetcherDelegate <FetchFinishedDelegate>
 
 - (void)savedArticlesFetcher:(SavedArticlesFetcher*)savedArticlesFetcher
-               didFetchTitle:(MWKTitle*)title
+                 didFetchURL:(NSURL*)url
                      article:(MWKArticle* __nullable)article
                     progress:(CGFloat)progress
                        error:(NSError* __nullable)error;

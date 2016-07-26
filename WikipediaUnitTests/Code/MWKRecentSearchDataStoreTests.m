@@ -20,7 +20,7 @@
 #pragma mark - MWKListTestBase
 
 + (id)uniqueListEntry {
-    return [[MWKRecentSearchEntry alloc] initWithSite:[MWKSite random] searchTerm:[[NSUUID UUID] UUIDString]];
+    return [[MWKRecentSearchEntry alloc] initWithURL:[NSURL wmf_randomSiteURL] searchTerm:[[NSUUID UUID] UUIDString]];
 }
 
 + (Class)listClass {

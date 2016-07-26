@@ -418,8 +418,8 @@
     [self.delegate referenceViewController:self didSelectInternalReferenceWithFragment:fragment];
 }
 
-- (void)referenceViewController:(ReferenceVC*)referenceViewController didSelectReferenceWithTitle:(MWKTitle*)title {
-    [self.delegate referenceViewController:self didSelectReferenceWithTitle:title];
+- (void)referenceViewController:(ReferenceVC*)referenceViewController didSelectReferenceWithURL:(NSURL*)url{
+    [self.delegate referenceViewController:self didSelectReferenceWithURL:url];
 }
 
 - (void)referenceViewController:(ReferenceVC*)referenceViewController didSelectExternalReferenceWithURL:(NSURL*)url {

@@ -13,7 +13,6 @@
 
 // Models
 #import "MWKLanguageLink.h"
-#import "MWKSite.h"
 
 // Utils
 #import "WikipediaAppUtils.h"

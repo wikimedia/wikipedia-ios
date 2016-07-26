@@ -1,11 +1,11 @@
 #import "WMFBaseExploreSectionController.h"
 
-@class MWKTitle, MWKDataStore;
+@class MWKDataStore;
 
 @interface WMFContinueReadingSectionController : WMFBaseExploreSectionController <WMFExploreSectionController, WMFTitleProviding, WMFAnalyticsContentTypeProviding>
 
-- (instancetype)initWithArticleTitle:(MWKTitle*)title
-                           dataStore:(MWKDataStore*)dataStore;
+- (instancetype)initWithArticleURL:(NSURL*)articleURL
+                         dataStore:(MWKDataStore*)dataStore;
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_UNAVAILABLE;
 

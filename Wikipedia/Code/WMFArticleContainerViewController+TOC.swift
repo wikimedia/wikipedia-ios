@@ -10,9 +10,9 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
             } else if let footerIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex(rawValue: self.webViewController.visibleFooterIndex()) {
                 switch footerIndex {
                 case .ReadMore:
-                    self.tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsReadMoreItem(site: self.articleTitle.site), animated: false)
+                    self.tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsReadMoreItem(url: self.articleURL), animated: false)
                 case .AboutThisArticle:
-                    self.tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsAboutThisArticleItem(site: self.articleTitle.site), animated: false)
+                    self.tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsAboutThisArticleItem(url: self.articleURL), animated: false)
                 }
             } else {
                 assertionFailure("Couldn't find current position of user at current offset!")
@@ -52,11 +52,11 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
-    public func tableOfContentsArticleSite() -> MWKSite {
-        if(self.articleTitle.isNonStandardTitle()){
-            return MWKSite.init(language: "en")
+    public func tableOfContentsArticleLanguageURL() -> NSURL {
+        if(self.articleURL.wmf_isNonStandardURL){
+            return NSURL.wmf_URLWithDefaultSiteAndlanguage("en")
         }else{
-            return self.articleTitle.site
+            return self.articleURL.wmf_siteURL
         }
     }
 }
@@ -94,10 +94,10 @@ extension WMFArticleViewController {
 
         if var items = createTableOfContentsSections() {
             if (includeAbout) {
-                items.append(TableOfContentsAboutThisArticleItem(site: self.articleTitle.site))
+                items.append(TableOfContentsAboutThisArticleItem(url: self.articleURL))
             }
             if (includeReadMore) {
-                items.append(TableOfContentsReadMoreItem(site: self.articleTitle.site))
+                items.append(TableOfContentsReadMoreItem(url: self.articleURL))
             }
             tvc.items = items
         }

@@ -14,7 +14,7 @@
     @try {
         html = [self getHTMLWrappedInTablesIfNeeded];
     }@catch (NSException* exception) {
-        NSAssert(html, @"html was not created from section %@: %@", self.title, self.text);
+        NSAssert(html, @"html was not created from section %@: %@", self.url, self.text);
     }
 
     if (!html) {
@@ -40,7 +40,7 @@
                 @"<h1 class='section_heading' %@ sectionId='%d'>%@</h1>%@",
                 self.anchorAsElementId,
                 self.sectionId,
-                self.article.displaytitle ? self.article.displaytitle : self.title.text,
+                self.article.displaytitle ? self.article.displaytitle : self.url.wmf_title,
                 [self articleEntityDescriptionAsParagraph]];
     } else {
         short headingTagSize = [self getHeadingTagSize];

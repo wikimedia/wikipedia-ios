@@ -49,20 +49,20 @@
     return self;
 }
 
-- (AnyPromise*)fetchGalleryInfoForImage:(NSString*)canonicalPageTitle fromSite:(MWKSite*)site {
+- (AnyPromise*)fetchGalleryInfoForImage:(NSString*)canonicalPageTitle fromSiteURL:(NSURL*)siteURL {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        [self fetchGalleryInfoForImageFiles:@[canonicalPageTitle] fromSite:site success:^(NSArray* infoObjects) {
+        [self fetchGalleryInfoForImageFiles:@[canonicalPageTitle] fromSiteURL:siteURL success:^(NSArray* infoObjects) {
             resolve(infoObjects.firstObject);
         } failure:resolve];
     }];
 }
 
 - (AnyPromise*)fetchGalleryInfoForImagesOnPages:(NSArray*)pageTitles
-                                       fromSite:(MWKSite*)site
-                               metadataLanguage:(nullable NSString*)metadataLanguage {
+                                  fromSiteURL:(NSURL*)siteURL
+                               metadataLanguage:(NSString*)metadataLanguage {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
         [self fetchInfoForTitles:pageTitles
-                        fromSite:site
+                   fromSiteURL:siteURL
                   thumbnailWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale]
                  extmetadataKeys:[MWKImageInfoResponseSerializer galleryExtMetadataKeys]
                 metadataLanguage:metadataLanguage
@@ -73,11 +73,11 @@
 }
 
 - (AnyPromise*)fetchPartialInfoForImagesOnPages:(NSArray*)pageTitles
-                                       fromSite:(MWKSite*)site
+                                  fromSiteURL:(NSURL*)siteURL
                                metadataLanguage:(nullable NSString*)metadataLanguage {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
         [self fetchInfoForTitles:pageTitles
-                        fromSite:site
+                   fromSiteURL:siteURL
                   thumbnailWidth:[[UIScreen mainScreen] wmf_potdImageWidthForScale]
                  extmetadataKeys:[MWKImageInfoResponseSerializer picOfTheDayExtMetadataKeys]
                 metadataLanguage:metadataLanguage
@@ -88,21 +88,21 @@
 }
 
 - (id<MWKImageInfoRequest>)fetchGalleryInfoForImageFiles:(NSArray*)imageTitles
-                                                fromSite:(MWKSite*)site
-                                                 success:(void (^)(NSArray*))success
-                                                 failure:(void (^)(NSError*))failure {
+                                           fromSiteURL:(NSURL*)siteURL
+                                                 success:(void (^)(NSArray* infoObjects))success
+                                                 failure:(void (^)(NSError* error))failure {
     return [self fetchInfoForTitles:imageTitles
-                           fromSite:site
+                      fromSiteURL:siteURL
                      thumbnailWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale]
                     extmetadataKeys:[MWKImageInfoResponseSerializer galleryExtMetadataKeys]
-                   metadataLanguage:site.language
+                   metadataLanguage:siteURL.wmf_language
                        useGenerator:NO
                             success:success
                             failure:failure];
 }
 
 - (id<MWKImageInfoRequest>)fetchInfoForTitles:(NSArray*)titles
-                                     fromSite:(MWKSite*)site
+                                fromSiteURL:(NSURL*)siteURL
                                thumbnailWidth:(NSNumber*)thumbnailWidth
                               extmetadataKeys:(NSArray<NSString*>*)extMetadataKeys
                              metadataLanguage:(nullable NSString*)metadataLanguage
@@ -111,7 +111,7 @@
                                       failure:(void (^)(NSError*))failure {
     NSParameterAssert([titles count]);
     NSAssert([titles count] <= 50, @"Only 50 titles can be queried at a time.");
-    NSParameterAssert(site);
+    NSParameterAssert(siteURL);
 
     NSMutableDictionary* params =
         [@{@"format": @"json",
@@ -134,17 +134,17 @@
 
     @weakify(self);
     NSURLSessionDataTask* request =
-        [self.manager wmf_GETWithSite:site
-                           parameters:params
-                                retry:nil
-                              success:^(NSURLSessionDataTask* operation, NSArray* galleryItems) {
+        [self.manager wmf_GETAndRetryWithURL:siteURL
+                                  parameters:params
+                                       retry:nil
+                                     success:^(NSURLSessionDataTask* operation, NSArray* galleryItems) {
         @strongify(self);
         [self finishWithError:nil fetchedData:galleryItems];
         if (success) {
             success(galleryItems);
         }
     }
-                              failure:^(NSURLSessionDataTask* operation, NSError* error) {
+                                     failure:^(NSURLSessionDataTask* operation, NSError* error) {
         @strongify(self);
         [self finishWithError:error fetchedData:nil];
         if (failure) {

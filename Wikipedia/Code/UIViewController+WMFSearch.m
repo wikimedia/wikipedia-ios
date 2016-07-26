@@ -3,7 +3,6 @@
 #import "WMFSearchViewController.h"
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 #import "SessionSingleton.h"
-#import "MWKSite.h"
 #import "Wikipedia-Swift.h"
 
 

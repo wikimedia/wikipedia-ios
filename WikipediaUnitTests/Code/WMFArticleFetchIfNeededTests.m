@@ -50,9 +50,9 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
         it(@"should fetch the latest if cache is out of date", ^{
             NSMutableDictionary* latestArticleJSON = [[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"] mutableCopy];
             [latestArticleJSON setValue:@3 forKeyPath:@"mobileview.revision"];
-            MWKArticle* cachedArticle = [[MWKArticle alloc] initWithTitle:[MWKTitle random]
-                                                                dataStore:tempDataStore
-                                                                     dict:latestArticleJSON[@"mobileview"]];
+            MWKArticle* cachedArticle = [[MWKArticle alloc] initWithURL:[NSURL wmf_randomArticleURL]
+                                                              dataStore:tempDataStore
+                                                                   dict:latestArticleJSON[@"mobileview"]];
             expect(cachedArticle.revisionId).to(equal(@3));
             [cachedArticle save];
 
@@ -66,7 +66,7 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
             .andReturn(200)
             .withJSON(latestArticleJSON);
 
-            AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfTitleIfNeeded:cachedArticle.title progress:nil];
+            AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfArticleWithURLIfNeeded:cachedArticle.url progress:nil];
             expect(@([fetchedArticlePromise resolved])).withTimeout(10).toEventually(beTrue());
             MWKArticle* fetchedArticle = [fetchedArticlePromise value];
             expect(fetchedArticle).toNotWithDescription(equal(cachedArticle), @"Should have fetched latest revision.");
@@ -77,7 +77,7 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
         it(@"should return cached article if cache is up to date", ^{
             NSMutableDictionary* latestArticleJSON = [[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"] mutableCopy];
             [latestArticleJSON setValue:@3 forKeyPath:@"mobileview.revision"];
-            MWKArticle* cachedArticle = [[MWKArticle alloc] initWithTitle:[MWKTitle random]
+            MWKArticle* cachedArticle = [[MWKArticle alloc] initWithURL:[NSURL wmf_randomArticleURL]
                                                                 dataStore:tempDataStore
                                                                      dict:latestArticleJSON[@"mobileview"]];
             expect(cachedArticle.revisionId).to(equal(@3));
@@ -90,7 +90,7 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
             stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"mobileview" options:0 error:nil])
             .andReturn(400);
 
-            AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfTitleIfNeeded:cachedArticle.title progress:nil];
+            AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfArticleWithURLIfNeeded:cachedArticle.url progress:nil];
             expect(@([fetchedArticlePromise resolved])).withTimeout(10).toEventually(beTrue());
             MWKArticle* fetchedArticle = [fetchedArticlePromise value];
             expect(fetchedArticle).to(beIdenticalTo(cachedArticle));
@@ -100,13 +100,13 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
             it(@"should fall back to the cached article", ^{
                 NSMutableDictionary* latestArticleJSON = [[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"] mutableCopy];
                 [latestArticleJSON setValue:@3 forKeyPath:@"mobileview.revision"];
-                MWKArticle* cachedArticle = [[MWKArticle alloc] initWithTitle:[MWKTitle random]
+                MWKArticle* cachedArticle = [[MWKArticle alloc] initWithURL:[NSURL wmf_randomArticleURL]
                                                                     dataStore:tempDataStore
                                                                          dict:latestArticleJSON[@"mobileview"]];
                 expect(cachedArticle.revisionId).to(equal(@3));
                 [cachedArticle save];
 
-                AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfTitleIfNeeded:cachedArticle.title progress:nil];
+                AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfArticleWithURLIfNeeded:cachedArticle.url progress:nil];
                 expect(@([fetchedArticlePromise rejected])).withTimeout(10).toEventually(beTrue());
                 NSError* error = [fetchedArticlePromise value];
                 expect(error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey])
@@ -120,7 +120,7 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
         __block MWKArticle* cachedArticle;
         beforeEach(^{
             cachedArticleJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"];
-            cachedArticle = [[MWKArticle alloc] initWithTitle:[MWKTitle random]
+            cachedArticle = [[MWKArticle alloc] initWithURL:[NSURL wmf_randomArticleURL]
                                                     dataStore:tempDataStore
                                                          dict:cachedArticleJSON[@"mobileview"]];
             expect(cachedArticle.revisionId).to(beNil());
@@ -135,7 +135,7 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
             stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"rvprop" options:0 error:nil])
             .andReturn(400);
 
-            AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfTitleIfNeeded:cachedArticle.title progress:nil];
+            AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfArticleWithURLIfNeeded:cachedArticle.url progress:nil];
             expect(@(fetchedArticlePromise.resolved)).withTimeout(10).toEventually(beTrue());
             MWKArticle* fetchedArticle = [fetchedArticlePromise value];
             expect(fetchedArticle).to(equal(cachedArticle));
@@ -143,7 +143,7 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
 
         whenOffline(^{
             it(@"should fall back to the cached article", ^{
-                AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfTitleIfNeeded:cachedArticle.title progress:nil];
+                AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfArticleWithURLIfNeeded:cachedArticle.url progress:nil];
                 expect(@(fetchedArticlePromise.rejected)).withTimeout(10).toEventually(beTrue());
                 NSError* error = [fetchedArticlePromise value];
                 MWKArticle* fetchedArticle = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];

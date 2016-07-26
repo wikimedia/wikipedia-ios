@@ -19,30 +19,27 @@ static NSString* const MWKSiteInfoNSCodingSchemaVersionKey = @"siteInfoSchemaVer
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKSiteInfo ()
-@property (readwrite, copy, nonatomic) MWKSite* site;
+@property (readwrite, copy, nonatomic) NSURL* siteURL;
 @property (readwrite, copy, nonatomic) NSString* mainPageTitleText;
 @end
 
 @implementation MWKSiteInfo
 
-- (instancetype)initWithSite:(MWKSite*)site mainPageTitleText:(NSString*)mainPage {
+- (instancetype)initWithSiteURL:(NSURL*)siteURL
+                mainPageTitleText:(NSString*)mainPage {
     self = [super init];
     if (self) {
-        self.site              = site;
+        self.siteURL         = [siteURL wmf_siteURL];
         self.mainPageTitleText = mainPage;
     }
     return self;
-}
-
-- (instancetype)initWithSite:(MWKSite*)site exportedData:(NSDictionary*)data {
-    return [self initWithSite:site mainPageTitleText:data[@"mainPage"]];
 }
 
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@ {"
             "\t site: %@,\n"
             "\t mainPage: %@ \n"
-            "}\n", [super description], self.site, self.mainPageTitleText];
+            "}\n", [super description], self.siteURL, self.mainPageTitleText];
 }
 
 - (BOOL)isEqual:(id)object {
@@ -56,18 +53,18 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)isEqualToSiteInfo:(MWKSiteInfo*)siteInfo {
-    return WMF_EQUAL_PROPERTIES(self, site, isEqualToSite:, siteInfo)
+    return WMF_EQUAL_PROPERTIES(self, siteURL, isEqual:, siteInfo)
            && WMF_EQUAL_PROPERTIES(self, mainPageTitleText, isEqualToString:, siteInfo);
 }
 
 - (NSUInteger)hash {
-    return self.site.hash ^ flipBitsWithAdditionalRotation(self.mainPageTitleText.hash, 1);
+    return self.siteURL.hash ^ flipBitsWithAdditionalRotation(self.mainPageTitleText.hash, 1);
 }
 
 #pragma mark - Computed Properties
 
-- (MWKTitle*)mainPageTitle {
-    return [self.site titleWithString:self.mainPageTitleText];
+- (NSURL*)mainPageURL {
+    return [self.siteURL wmf_URLWithTitle:self.mainPageTitleText];
 }
 
 @end

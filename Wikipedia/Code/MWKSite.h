@@ -1,11 +1,7 @@
-//  Created by Brion on 11/6/13.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import <Mantle/MTLModel.h>
+#import <Mantle/Mantle.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
-extern NSString* const WMFDefaultSiteDomain;
 
 @class MWKTitle;
 @class MWKUser;

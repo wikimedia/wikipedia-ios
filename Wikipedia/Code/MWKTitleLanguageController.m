@@ -1,6 +1,5 @@
 
 #import "MWKTitleLanguageController.h"
-#import "MWKTitle.h"
 #import "MWKLanguageLink.h"
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLinkFetcher.h"
@@ -11,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKTitleLanguageController ()
 
-@property (copy, nonatomic, readwrite) MWKTitle* title;
+@property (copy, nonatomic, readwrite) NSURL* articleURL;
 @property (strong, nonatomic, readwrite) MWKLanguageLinkController* languageController;
 @property (strong, nonatomic) MWKLanguageLinkFetcher* fetcher;
 @property (copy, nonatomic) NSArray* availableLanguages;
@@ -23,10 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation MWKTitleLanguageController
 
-- (instancetype)initWithTitle:(MWKTitle*)title languageController:(MWKLanguageLinkController*)controller {
+- (instancetype)initWithArticleURL:(NSURL*)url languageController:(MWKLanguageLinkController*)controller {
     self = [super init];
     if (self) {
-        self.title              = title;
+        self.articleURL         = url;
         self.languageController = controller;
     }
     return self;
@@ -43,14 +42,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchLanguagesWithSuccess:(dispatch_block_t)success
                           failure:(void (^ __nullable)(NSError* __nonnull))failure {
     [[QueuesSingleton sharedInstance].languageLinksFetcher wmf_cancelAllTasksWithCompletionHandler:^{
-        [self.fetcher fetchLanguageLinksForTitle:self.title
-                                         success:^(NSArray* languageLinks) {
+        [self.fetcher fetchLanguageLinksForArticleURL:self.articleURL
+                                              success:^(NSArray* languageLinks) {
             self.availableLanguages = languageLinks;
             if (success) {
                 success();
             }
         }
-                                         failure:failure];
+                                              failure:failure];
     }];
 }
 

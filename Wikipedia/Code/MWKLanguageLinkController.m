@@ -1,13 +1,5 @@
-//
-//  MWKLanguageLinkController.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 6/17/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "MWKLanguageLinkController_Private.h"
-#import "MWKTitle.h"
 #import "MWKLanguageLink.h"
 #import "NSObjectUtilities.h"
 #import "NSString+WMFExtras.h"
@@ -111,9 +103,9 @@ static id _sharedInstance;
     [self updateLanguageArrays];
 }
 
-- (nullable MWKLanguageLink*)languageForSite:(MWKSite*)site {
+- (nullable MWKLanguageLink*)languageForSiteURL:(NSURL*)siteURL {
     return [self.allLanguages bk_match:^BOOL (MWKLanguageLink* obj) {
-        return [obj.site isEqualToSite:site];
+        return [obj.siteURL isEqual:siteURL];
     }];
 }
 

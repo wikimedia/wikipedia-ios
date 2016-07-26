@@ -11,7 +11,7 @@
 @interface EditTokenFetcher ()
 
 @property (strong, nonatomic) NSString* wikiText;
-@property (strong, nonatomic) MWKTitle* title;
+@property (strong, nonatomic) NSURL* articleURL;
 @property (strong, nonatomic) NSString* section;
 @property (strong, nonatomic) NSString* summary;
 @property (strong, nonatomic) NSString* captchaId;
@@ -23,18 +23,18 @@
 @implementation EditTokenFetcher
 
 - (instancetype)initAndFetchEditTokenForWikiText:(NSString*)wikiText
-                                       pageTitle:(MWKTitle*)title
+                                      articleURL:(NSURL*)URL
                                          section:(NSString*)section
                                          summary:(NSString*)summary
                                        captchaId:(NSString*)captchaId
                                      captchaWord:(NSString*)captchaWord
                                      withManager:(AFHTTPSessionManager*)manager
                               thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
+    NSParameterAssert(URL.wmf_title);
     self = [super init];
     if (self) {
-        self.wikiText = wikiText ? wikiText : @"";
-        self.title    = title;
-        assert(title != nil);
+        self.wikiText    = wikiText ? wikiText : @"";
+        self.articleURL  = URL;
         self.section     = section ? section : @"";
         self.summary     = summary ? summary : @"";
         self.captchaId   = captchaId ? captchaId : @"";
@@ -48,7 +48,7 @@
 }
 
 - (void)fetchTokenWithManager:(AFHTTPSessionManager*)manager {
-    NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.title.site.language];
+    NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.articleURL.wmf_language];
 
     NSDictionary* params = [self getParams];
 
@@ -118,12 +118,5 @@
 
     return @{};
 }
-
-/*
-   -(void)dealloc
-   {
-    NSLog(@"DEALLOC'ING EDIT TOKEN FETCHER!");
-   }
- */
 
 @end

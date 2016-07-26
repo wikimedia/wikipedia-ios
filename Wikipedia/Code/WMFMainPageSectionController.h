@@ -1,16 +1,14 @@
 
 #import "WMFBaseExploreSectionController.h"
 
-@class MWKSite;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFMainPageSectionController : WMFBaseExploreSectionController
     <WMFExploreSectionController, WMFTitleProviding, WMFAnalyticsContentTypeProviding>
 
-@property (nonatomic, strong, readonly) MWKSite* site;
+@property (nonatomic, strong, readonly) NSURL* siteURL;
 
-- (instancetype)initWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore;
+- (instancetype)initWithSiteURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore;
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_UNAVAILABLE;
 

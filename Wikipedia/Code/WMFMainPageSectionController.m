@@ -5,8 +5,6 @@
 
 #import "MWKDataStore.h"
 #import "MWKUserDataStore.h"
-#import "MWKSite.h"
-#import "MWKTitle.h"
 #import "MWKSiteInfo.h"
 #import "MWKSearchResult.h"
 
@@ -24,7 +22,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 @interface WMFMainPageSectionController ()
 
-@property (nonatomic, strong, readwrite) MWKSite* site;
+@property (nonatomic, strong, readwrite) NSURL* siteURL;
 
 @property (nonatomic, strong) MWKSiteInfoFetcher* siteInfoFetcher;
 
@@ -38,11 +36,11 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 @implementation WMFMainPageSectionController
 
-- (instancetype)initWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
-    NSParameterAssert(site);
+- (instancetype)initWithSiteURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(url);
     self = [super initWithDataStore:dataStore];
     if (self) {
-        self.site = site;
+        self.siteURL = url;
     }
     return self;
 }
@@ -111,7 +109,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 - (void)configureCell:(WMFArticleListTableViewCell*)cell withItem:(MWKSearchResult*)item atIndexPath:(NSIndexPath*)indexPath {
     cell.titleText                        = item.displayTitle;
-    cell.titleLabel.accessibilityLanguage = self.site.language;
+    cell.titleLabel.accessibilityLanguage = self.siteURL.wmf_language;
     cell.descriptionText                  = item.wikidataDescription;
     [cell setImageURL:item.thumbnailURL];
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
@@ -127,13 +125,13 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 - (AnyPromise*)fetchData {
     @weakify(self);
-    return [self.siteInfoFetcher fetchSiteInfoForSite:self.site].then(^(MWKSiteInfo* data) {
+    return [self.siteInfoFetcher fetchSiteInfoForSiteURL:self.siteURL].then(^(MWKSiteInfo* data) {
         @strongify(self);
-        if (!self || !data.mainPageTitle) {
+        if (!self || !data.mainPageURL) {
             return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
         }
         self.siteInfo = data;
-        return (id)[self.titleSearchFetcher fetchArticlePreviewResultsForTitles:@[self.siteInfo.mainPageTitle] site:self.site];
+        return (id)[self.titleSearchFetcher fetchArticlePreviewResultsForArticleURLs:@[self.siteInfo.mainPageURL] siteURL:self.siteURL];
     }).then(^(NSArray<MWKSearchResult*>* searchResults) {
         @strongify(self);
         if (!self) {
@@ -150,14 +148,14 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 }
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
-    MWKTitle* title = [self titleForItemAtIndexPath:indexPath];
-    return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    NSURL* url = [self urlForItemAtIndexPath:indexPath];
+    return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
 }
 
 #pragma mark - WMFTitleProviding
 
-- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath {
-    return [self.siteInfo mainPageTitle];
+- (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return [self.siteInfo mainPageURL];
 }
 
 @end

@@ -13,7 +13,6 @@
 #import "Global.h"
 #import "WMFTestFixtureUtilities.h"
 #import "NSProcessInfo+WMFTestEnvironment.h"
-#import "MWKTitle+Random.h"
 #import "MWKSite+Random.h"
 #import "NSUserDefaults+WMFBatchRecordMode.h"
 

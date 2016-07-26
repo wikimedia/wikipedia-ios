@@ -1,6 +1,5 @@
 #import "WMFRandomArticleViewController.h"
 #import "WMFRandomArticleFetcher.h"
-#import "MWKSite.h"
 #import "MWKSearchResult.h"
 #import "Wikipedia-Swift.h"
 #import "WMFRandomDiceButton.h"
@@ -22,8 +21,8 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 @implementation WMFRandomArticleViewController
 
-- (instancetype)initWithArticleTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore diceButtonItem:(UIBarButtonItem*)diceButtonItem {
-    self                = [super initWithArticleTitle:title dataStore:dataStore];
+- (instancetype)initWithArticleURL:(NSURL*)articleURL dataStore:(MWKDataStore*)dataStore diceButtonItem:(UIBarButtonItem*)diceButtonItem {
+    self                = [super initWithArticleURL:articleURL dataStore:dataStore];
     self.diceButtonItem = diceButtonItem;
     self.diceButton     = (WMFRandomDiceButton*)diceButtonItem.customView;
     return self;
@@ -107,12 +106,12 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 - (void)loadAndShowAnotherRandomArticle:(id)sender {
     [self configureViewsForRandomArticleLoading:YES animated:YES];
-    MWKSite* site = self.articleTitle.site;
-    [self.randomArticleFetcher fetchRandomArticleWithSite:site failure:^(NSError* error) {
+    NSURL* siteURL = self.articleURL.wmf_siteURL;
+    [self.randomArticleFetcher fetchRandomArticleWithSiteURL:siteURL failure:^(NSError* error) {
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     } success:^(MWKSearchResult* result) {
-        MWKTitle* title = [site titleWithString:result.displayTitle];
-        WMFRandomArticleViewController* randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore diceButtonItem:self.diceButtonItem];
+        NSURL* titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
+        WMFRandomArticleViewController* randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore diceButtonItem:self.diceButtonItem];
         [self wmf_pushArticleViewController:randomArticleVC animated:YES];
     }];
 }

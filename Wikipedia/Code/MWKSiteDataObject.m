@@ -10,24 +10,24 @@
 
 @interface MWKSiteDataObject ()
 
-@property (readwrite, strong, nonatomic) MWKSite* site;
+@property (readwrite, strong, nonatomic) NSURL* url;
 
 @end
 
 @implementation MWKSiteDataObject
 
-- (instancetype)initWithSite:(MWKSite*)site {
-    NSParameterAssert(site);
-    self = [self init];
+- (instancetype)initWithURL:(NSURL*)url{
+    NSParameterAssert(url);
+    self = [super init];
     if (self) {
-        self.site = site;
+        self.url = url;
     }
     return self;
 }
 
 #pragma mark - title methods
 
-- (MWKTitle*)optionalTitle:(NSString*)key dict:(NSDictionary*)dict {
+- (NSURL*)optionalURL:(NSString*)key dict:(NSDictionary*)dict {
     if ([dict[key] isKindOfClass:[NSNumber class]] && ![dict[key] boolValue]) {
         // false sometimes happens. Thanks PHP and weak typing!
         return nil;
@@ -36,17 +36,17 @@
     if (str == nil || str.length == 0) {
         return nil;
     } else {
-        return [self.site titleWithString:str];
+        return [self.url wmf_URLWithTitle:str];
     }
 }
 
-- (MWKTitle*)requiredTitle:(NSString*)key dict:(NSDictionary*)dict {
-    return [self requiredTitle:key dict:dict allowEmpty:YES];
+- (NSURL*)requiredURL:(NSString*)key dict:(NSDictionary*)dict {
+    return [self requiredURL:key dict:dict allowEmpty:YES];
 }
 
-- (MWKTitle*)requiredTitle:(NSString*)key dict:(NSDictionary*)dict allowEmpty:(BOOL)allowEmpty {
+- (NSURL*)requiredURL:(NSString*)key dict:(NSDictionary*)dict allowEmpty:(BOOL)allowEmpty {
     NSString* str = [self requiredString:key dict:dict allowEmpty:allowEmpty];
-    return [self.site titleWithUnescapedString:str];
+    return [self.url wmf_URLWithTitle:str];
 }
 
 #pragma mark - user methods
@@ -56,7 +56,7 @@
     if (user == nil) {
         return nil;
     } else {
-        return [[MWKUser alloc] initWithSite:self.site data:user];
+        return [[MWKUser alloc] initWithSiteURL:self.url data:user];
     }
 }
 

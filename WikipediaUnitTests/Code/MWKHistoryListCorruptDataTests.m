@@ -1,17 +1,8 @@
-//
-//  MWKHistoryListCorruptDataTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 6/29/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "MWKHistoryList.h"
 #import "MWKHistoryEntry.h"
-#import "MWKSite.h"
-#import "MWKTitle.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -28,10 +19,10 @@
 
 - (void)testPrunesEntriesWithEmptyTitles {
     MWKHistoryList* list = [[MWKHistoryList alloc] initWithEntries:nil];
-    [list addPageToHistoryWithTitle:[[MWKSite siteWithCurrentLocale] titleWithString:@"Foo"]];
+    [list addPageToHistoryWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Foo"]];
     assertThat(@([list countOfEntries]), is(@1));
 
-    [list addPageToHistoryWithTitle:[[MWKSite siteWithCurrentLocale] titleWithString:@""]];
+    [list addPageToHistoryWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@""]];
     assertThat(@([list countOfEntries]), is(@1));
 }
 

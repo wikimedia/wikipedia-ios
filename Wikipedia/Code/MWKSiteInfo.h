@@ -1,14 +1,5 @@
-//
-//  MWKSiteInfo.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 5/29/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "MWKDataObject.h"
-
-@class MWKTitle, MWKSite;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,13 +8,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWKSiteInfo : NSObject
 
 /// Site described by the receiver.
-@property (readonly, copy, nonatomic) MWKSite* site;
+@property (readonly, copy, nonatomic) NSURL* siteURL;
 
 /// Raw title for the receiver's main page.
 @property (readonly, copy, nonatomic) NSString* mainPageTitleText;
 
-- (instancetype)initWithSite:(MWKSite*)site
-           mainPageTitleText:(NSString*)mainPage NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSiteURL:(NSURL*)siteURL
+                mainPageTitleText:(NSString*)mainPage NS_DESIGNATED_INITIALIZER;
 
 - (BOOL)isEqualToSiteInfo:(MWKSiteInfo*)siteInfo;
 
@@ -31,8 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// @name Computed Properties
 ///
 
-/// @return Parsed @c MWKTitle from @c mainPage.
-- (MWKTitle*)mainPageTitle;
+/// @return Parsed @c NSURL from @c mainPage.
+- (NSURL*)mainPageURL;
 
 @end
 

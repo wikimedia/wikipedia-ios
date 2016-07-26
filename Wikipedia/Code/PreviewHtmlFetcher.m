@@ -11,23 +11,23 @@
 @implementation PreviewHtmlFetcher
 
 - (instancetype)initAndFetchHtmlForWikiText:(NSString*)wikiText
-                                      title:(MWKTitle*)title
+                                 articleURL:(NSURL*)articleURL
                                 withManager:(AFHTTPSessionManager*)manager
-                         thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
+                         thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate{
     self = [super init];
     if (self) {
         self.fetchFinishedDelegate = delegate;
-        [self fetchPreviewForWikiText:wikiText title:title withManager:manager];
+        [self fetchPreviewForWikiText:wikiText articleURL:articleURL withManager:manager];
     }
     return self;
 }
 
 - (void)fetchPreviewForWikiText:(NSString*)wikiText
-                          title:(MWKTitle*)title
+                          articleURL:(NSURL*)articleURL
                     withManager:(AFHTTPSessionManager*)manager {
-    NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:title.site.language];
+    NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:articleURL.wmf_language];
 
-    NSDictionary* params = [self getParamsForTitle:title wikiText:wikiText];
+    NSDictionary* params = [self getParamsForArticleURL:articleURL wikiText:wikiText];
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
@@ -69,13 +69,13 @@
     }];
 }
 
-- (NSDictionary*)getParamsForTitle:(MWKTitle*)title wikiText:(NSString*)wikiText {
+- (NSDictionary*)getParamsForArticleURL:(NSURL*)articleURL wikiText:(NSString*)wikiText {
     return @{
                @"action": @"parse",
                @"sectionpreview": @"true",
                @"pst": @"true",
                @"mobileformat": @"true",
-               @"title": (title ? title.text : @""),
+               @"title": (articleURL.wmf_title ? articleURL.wmf_title : @""),
                @"prop": @"text",
                @"text": (wikiText ? wikiText : @""),
                @"format": @"json"

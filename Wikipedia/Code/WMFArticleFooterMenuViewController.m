@@ -134,7 +134,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)showLanguages {
-    WMFArticleLanguagesViewController* languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithTitle:self.article.title];
+    WMFArticleLanguagesViewController* languagesVC = [WMFArticleLanguagesViewController articleLanguagesViewControllerWithArticleURL:self.article.url];
     languagesVC.delegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
@@ -142,8 +142,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)languagesController:(WMFArticleLanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
     [self dismissViewControllerAnimated:YES completion:^{
         WMFArticleViewController* articleContainerVC =
-            [[WMFArticleViewController alloc] initWithArticleTitle:language.title
-                                                         dataStore:self.dataStore];
+            [[WMFArticleViewController alloc] initWithArticleURL:language.articleURL
+                                                       dataStore:self.dataStore];
         [self.navigationController pushViewController:articleContainerVC animated:YES];
     }];
 }

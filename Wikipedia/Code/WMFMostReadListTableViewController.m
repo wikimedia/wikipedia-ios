@@ -13,12 +13,12 @@
 @implementation WMFMostReadListTableViewController
 
 - (instancetype)initWithPreviews:(NSArray<MWKSearchResult*>*)previews
-                        fromSite:(MWKSite*)site
-                         forDate:(NSDate*)date
+                     fromSiteURL:(NSURL*)siteURL
+                         forDate:date
                        dataStore:(MWKDataStore*)dataStore {
     self = [super init];
     if (self) {
-        self.dataSource = [[WMFMostReadListDataSource alloc] initWithPreviews:previews fromSite:site];
+        self.dataSource = [[WMFMostReadListDataSource alloc] initWithPreviews:previews fromSiteURL:siteURL];
         self.dataStore  = dataStore;
         self.title      = [self titleForDate:date];
     }

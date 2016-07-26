@@ -2,7 +2,7 @@
 #import <Mantle/Mantle.h>
 @import CoreLocation;
 
-@class MWKTitle, MWKHistoryEntry, MWKSavedPageEntry;
+@class MWKHistoryEntry, MWKSavedPageEntry;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,12 +28,13 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
 
 @interface WMFExploreSection : MTLModel
 
-+ (instancetype)mostReadSectionForDate:(NSDate*)date site:(MWKSite*)site;
-+ (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title;
-+ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark site:(MWKSite*)site;
++ (instancetype)mostReadSectionForDate:(NSDate*)date siteURL:(NSURL*)url;
++ (instancetype)continueReadingSectionWithArticleURL:(NSURL*)url;
++ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark siteURL:(NSURL*)url;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
 + (instancetype)pictureOfTheDaySectionWithDate:(NSDate*)date;
++ (instancetype)randomSectionWithSiteURL:(NSURL*)url;
 
 /**
  *  Create a section which displays the featured article of the day for a specific site.
@@ -42,14 +43,13 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
  *
  *  @return A featured article section, or @c nil if the given site doesn't support featured articles.
  */
-+ (nullable instancetype)featuredArticleSectionWithSiteIfSupported:(MWKSite*)site;
++ (nullable instancetype)featuredArticleSectionWithSiteURLIfSupported:(NSURL*)url;
 
 ///
 /// @name Static Sections
 ///
 
-+ (instancetype)mainPageSectionWithSite:(MWKSite*)site;
-+ (instancetype)randomSectionWithSite:(MWKSite*)site;
++ (instancetype)mainPageSectionWithSiteURL:(NSURL*)url;
 
 /**
  *  Returns the max number of sections for a section type
@@ -89,14 +89,14 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
  *
  *  Used for the featured article section
  */
-@property (nonatomic, strong, readonly) MWKSite* site;
+@property (nonatomic, strong, readonly) NSURL* siteURL;
 
 /**
  *  The title associated with the section, if any.
  *
  *  For example, the "seed" title for saved or history items.
  */
-@property (nonatomic, strong, readonly) MWKTitle* title;
+@property (nonatomic, strong, readonly) NSURL* articleURL;
 
 /**
  *  The location associated with the section, if any.
