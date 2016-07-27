@@ -36,10 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [self imageTagListFromParsingHTMLString:HTMLString withBaseURL:baseURL leadImageURL:nil];
 }
 
-- (WMFImageTagList*)imageTagListFromParsingHTMLString:(NSString*)HTMLString {
-    return [self imageTagListFromParsingHTMLString:HTMLString withBaseURL:nil leadImageURL:nil];
-}
-
 @end
 
 NS_ASSUME_NONNULL_END
