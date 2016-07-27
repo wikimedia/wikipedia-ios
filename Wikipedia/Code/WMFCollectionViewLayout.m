@@ -18,6 +18,7 @@
 @property (nonatomic) CGSize layoutSize;
 
 @property (nonatomic) NSInteger numberOfColumns;
+@property (nonatomic, copy) NSArray *columnWeights;
 @property (nonatomic, readonly) NSInteger numberOfSections;
 
 
@@ -50,6 +51,7 @@
     BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
     self.needsLayout = YES;
     self.numberOfColumns = isPad ? 2 : 1;
+    self.columnWeights = isPad ? @[@1.20, @0.80] : @[@1];
     self.interColumnSpacing = isPad ? 22 : 0;
     self.interItemSpacing = 1;
     self.interSectionSpacing = isPad ? 22 : 50;
@@ -99,15 +101,21 @@
     
     CGFloat availableWidth = size.width - self.contentInsets.left - self.contentInsets.right - ((self.numberOfColumns - 1) * self.interColumnSpacing);
     
-    CGFloat columnWidth = floor(availableWidth/self.numberOfColumns);
+    CGFloat baselineColumnWidth = floor(availableWidth/self.numberOfColumns);
     
     self.info.boundsSize = size;
     
-    __block WMFCVLColumn *currentColumn = self.info.columns[0];
+    __block NSInteger currentColumnIndex = 0;
+    __block WMFCVLColumn *currentColumn = self.info.columns[currentColumnIndex];
     
     [self.info enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger sectionIndex, BOOL * _Nonnull stop) {
+        currentColumn.width = [self.columnWeights[currentColumnIndex] doubleValue]*baselineColumnWidth;
+        CGFloat columnWidth = currentColumn.width;
         
-        CGFloat x = self.contentInsets.left + currentColumn.index * columnWidth + (currentColumn.index * self.interColumnSpacing);
+        CGFloat x = self.contentInsets.left;
+        for (NSInteger i = 0; i < currentColumnIndex; i++) {
+            x += [self.columnWeights[i] doubleValue] * baselineColumnWidth + self.interColumnSpacing;
+        }
         if (sectionIndex == 0) {
             currentColumn.height += self.contentInsets.top;
         } else {
@@ -116,7 +124,7 @@
         CGFloat y = currentColumn.height;
         CGPoint sectionOrigin = CGPointMake(x, y);
         
-        currentColumn.width = columnWidth;
+        
         
         [currentColumn addSection:section];
         
@@ -178,6 +186,7 @@
         [self.info enumerateColumnsWithBlock:^(WMFCVLColumn * _Nonnull column, NSUInteger idx, BOOL * _Nonnull stop) {
             CGFloat columnHeight = column.height;
             if (columnHeight < shortestColumnHeight) { //switch to the shortest column
+                currentColumnIndex = idx;
                 currentColumn = column;
                 shortestColumnHeight = columnHeight;
             }
