@@ -51,7 +51,7 @@
     BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
     self.needsLayout = YES;
     self.numberOfColumns = isPad ? 2 : 1;
-    self.columnWeights = isPad ? @[@1.20, @0.80] : @[@1];
+    self.columnWeights = isPad ? @[@1, @1] : @[@1];
     self.interColumnSpacing = isPad ? 22 : 0;
     self.interItemSpacing = 1;
     self.interSectionSpacing = isPad ? 22 : 50;
@@ -116,6 +116,7 @@
         for (NSInteger i = 0; i < currentColumnIndex; i++) {
             x += [self.columnWeights[i] doubleValue] * baselineColumnWidth + self.interColumnSpacing;
         }
+        
         if (sectionIndex == 0) {
             currentColumn.height += self.contentInsets.top;
         } else {
