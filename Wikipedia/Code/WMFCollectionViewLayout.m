@@ -92,21 +92,25 @@
     [self resetLayout];
     
     UICollectionView *collectionView = self.collectionView;
-    CGFloat columnWidth = floor(size.width/self.numberOfColumns);
+    
     
     UIEdgeInsets contentInset = collectionView.contentInset;
     
     CGFloat width = CGRectGetWidth(collectionView.bounds) - contentInset.left - contentInset.right;
     CGFloat height = CGRectGetHeight(collectionView.bounds) - contentInset.bottom - contentInset.top;
 
+    CGFloat availableWidth = width - ((self.numberOfColumns + 1) * self.interColumnSpacing);
+    
+    CGFloat columnWidth = floor(availableWidth/self.numberOfColumns);
+    
     self.info.width = width;
     self.info.height = height;
 
     __block WMFCVLColumn *currentColumn = self.info.columns[0];
     
     [self.info enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger sectionIndex, BOOL * _Nonnull stop) {
-        CGFloat x = currentColumn.index * columnWidth;
-        CGFloat y = currentColumn.height;
+        CGFloat x = currentColumn.index * columnWidth + (currentColumn.index + 1)*self.interColumnSpacing;
+        CGFloat y = currentColumn.height + self.interSectionSpacing;
         CGPoint sectionOrigin = CGPointMake(x, y);
         
         currentColumn.width = columnWidth;
@@ -171,11 +175,12 @@
 
     }];
     
-    [self updateHeight];
+    
+    [self updateLayoutSizeForBoundsSize:size];
 }
 
-- (void)updateHeight {
-    __block CGSize newSize = self.layoutSize;
+- (void)updateLayoutSizeForBoundsSize:(CGSize)size {
+    __block CGSize newSize = size;
     newSize.height = 0;
     [self.info enumerateColumnsWithBlock:^(WMFCVLColumn * _Nonnull column, NSUInteger idx, BOOL * _Nonnull stop) {
         CGFloat columnHeight = column.height;
@@ -298,7 +303,7 @@
         sizeToSet.width = invalidatedColumn.width;
         [invalidatedColumn setSize:sizeToSet forItemAtIndexPath:indexPath invalidationContext:context];
         
-        [self updateHeight];
+        [self updateLayoutSizeForBoundsSize:self.layoutSize];
         
         CGSize contentSizeAdjustment = CGSizeMake(0, self.layoutSize.height - self.collectionView.contentSize.height);
         context.contentSizeAdjustment = contentSizeAdjustment;
