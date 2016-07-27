@@ -655,6 +655,7 @@
 		D81FB2631D47B5A20000C685 /* WMFCVLSection.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB2621D47B5A20000C685 /* WMFCVLSection.m */; };
 		D81FB2661D47B5BA0000C685 /* WMFCVLAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB2651D47B5BA0000C685 /* WMFCVLAttributes.m */; };
 		D81FB2691D47B5DC0000C685 /* WMFCVLInvalidationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB2681D47B5DC0000C685 /* WMFCVLInvalidationContext.m */; };
+		D81FB26C1D493E6A0000C685 /* WMFCVLMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB26B1D493E6A0000C685 /* WMFCVLMetrics.m */; };
 		D84649AD1D4514F7009DB4A0 /* WMFTaskGroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D84649AC1D4514F7009DB4A0 /* WMFTaskGroupTests.m */; };
 		D84F2BF21D2FE7ED00963D42 /* WMFArticleNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF11D2FE7ED00963D42 /* WMFArticleNavigationController.m */; };
 		D84F2BF51D2FE80A00963D42 /* WMFRotationRespectingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF41D2FE80A00963D42 /* WMFRotationRespectingNavigationController.m */; };
@@ -1976,6 +1977,8 @@
 		D81FB2651D47B5BA0000C685 /* WMFCVLAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCVLAttributes.m; path = Wikipedia/Code/WMFCVLAttributes.m; sourceTree = SOURCE_ROOT; };
 		D81FB2671D47B5DC0000C685 /* WMFCVLInvalidationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCVLInvalidationContext.h; path = Wikipedia/Code/WMFCVLInvalidationContext.h; sourceTree = SOURCE_ROOT; };
 		D81FB2681D47B5DC0000C685 /* WMFCVLInvalidationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCVLInvalidationContext.m; path = Wikipedia/Code/WMFCVLInvalidationContext.m; sourceTree = SOURCE_ROOT; };
+		D81FB26A1D493E6A0000C685 /* WMFCVLMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCVLMetrics.h; path = Wikipedia/Code/WMFCVLMetrics.h; sourceTree = SOURCE_ROOT; };
+		D81FB26B1D493E6A0000C685 /* WMFCVLMetrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCVLMetrics.m; path = Wikipedia/Code/WMFCVLMetrics.m; sourceTree = SOURCE_ROOT; };
 		D84649AC1D4514F7009DB4A0 /* WMFTaskGroupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFTaskGroupTests.m; sourceTree = "<group>"; };
 		D84F2BF01D2FE7ED00963D42 /* WMFArticleNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleNavigationController.h; sourceTree = "<group>"; };
 		D84F2BF11D2FE7ED00963D42 /* WMFArticleNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleNavigationController.m; sourceTree = "<group>"; };
@@ -5070,6 +5073,8 @@
 				D86706C21D3D4AF3003AB2FC /* WMFCollectionViewLayout.m */,
 				D81FB25B1D47B5830000C685 /* WMFCVLInfo.h */,
 				D81FB25C1D47B5830000C685 /* WMFCVLInfo.m */,
+				D81FB26A1D493E6A0000C685 /* WMFCVLMetrics.h */,
+				D81FB26B1D493E6A0000C685 /* WMFCVLMetrics.m */,
 				D81FB25E1D47B5940000C685 /* WMFCVLColumn.h */,
 				D81FB25F1D47B5940000C685 /* WMFCVLColumn.m */,
 				D81FB2611D47B5A20000C685 /* WMFCVLSection.h */,
@@ -5989,6 +5994,7 @@
 				B0E805561C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m in Sources */,
 				BCAF230A1C6BEB3A005F2D8D /* WMFMostReadSectionController.m in Sources */,
 				B0E806F91C0CEBC70065EBC0 /* SectionEditorViewController.m in Sources */,
+				D81FB26C1D493E6A0000C685 /* WMFCVLMetrics.m in Sources */,
 				BCA15AF41C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.m in Sources */,
 				B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */,
 				B0E807291C0CED530065EBC0 /* MWLanguageInfo.m in Sources */,

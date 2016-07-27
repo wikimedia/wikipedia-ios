@@ -7,8 +7,6 @@
 @interface WMFCVLSection : NSObject
 
 @property (nonatomic, readonly) NSInteger index;
-
-@property (nonatomic) CGFloat interItemSpacing;
 @property (nonatomic) CGRect frame;
 @property (nonatomic, weak, nullable) WMFCVLColumn *column;
 

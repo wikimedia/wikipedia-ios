@@ -23,6 +23,18 @@
     return self;
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    WMFCVLSection *copy = [[WMFCVLSection allocWithZone:zone] init];
+    copy.headers = [[NSMutableArray allocWithZone:zone] initWithArray:self.headers copyItems:YES];
+    copy.footers = [[NSMutableArray allocWithZone:zone] initWithArray:self.footers copyItems:YES];
+    copy.items = [[NSMutableArray allocWithZone:zone] initWithArray:self.items copyItems:YES];
+    copy.index = self.index;
+    copy.frame = self.frame;
+    copy.column = self.column;
+    return copy;
+}
+
+
 + (WMFCVLSection *)sectionWithIndex:(NSInteger)index {
     WMFCVLSection *section = [[WMFCVLSection alloc] init];
     section.index = index;

@@ -2,12 +2,14 @@
 
 @class WMFCVLSection;
 @class WMFCVLInvalidationContext;
+@class WMFCVLInfo;
 
-@interface WMFCVLColumn : NSObject
+@interface WMFCVLColumn : NSObject <NSCopying>
 
 @property (nonatomic) NSInteger index;
-@property (nonatomic) CGFloat height;
 @property (nonatomic) CGFloat width;
+@property (nonatomic) CGFloat height;
+@property (nonatomic, weak, nullable) WMFCVLInfo *info;
 
 - (void)addSection:(nonnull WMFCVLSection *)section;
 - (void)enumerateSectionsWithBlock:(nonnull void(^)(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop))block;
