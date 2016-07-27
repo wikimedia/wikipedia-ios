@@ -44,11 +44,12 @@
 }
 
 - (void)setup {
+    BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
     self.needsLayout = YES;
-    self.numberOfColumns = 1;
-    self.interColumnSpacing = 1;
+    self.numberOfColumns = isPad ? 2 : 1;
+    self.interColumnSpacing = isPad ? 22 : 0;
     self.interItemSpacing = 1;
-    self.interSectionSpacing = 0;
+    self.interSectionSpacing = isPad ? 22 : 0;
 }
 
 #pragma mark - Properties
