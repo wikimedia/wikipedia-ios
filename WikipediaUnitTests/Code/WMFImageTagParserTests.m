@@ -33,7 +33,7 @@
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     self.parser = [[WMFImageTagParser alloc] init];
-    self.obamaImageTagList = [self.parser imageTagListFromParsingHTMLString:[self allObamaHTML]];
+    self.obamaImageTagList = [self.parser imageTagListFromParsingHTMLString:self.allObamaHTML withBaseURL:self.obamaBaseURL];
 }
 
 - (void)tearDown {
@@ -214,7 +214,7 @@
 
 - (void)testParsingObamaHTMLPerformance {
     [self measureBlock:^{
-        NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:[self allObamaHTML]] imageURLsForGallery];
+        NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:self.allObamaHTML withBaseURL:self.obamaBaseURL] imageURLsForGallery];
         assertThat(parsedObamaGalleryURLS, hasCountOf(31));
     }];
 }
@@ -296,7 +296,7 @@
 }
 
 - (void)testObamaArticleGalleryImageListExtractionWithLeadImage {
-    NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:[self allObamaHTML] withLeadImageURL:[NSURL URLWithString:@"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/640px-BarackObamaportrait.jpg"]] imageURLsForGallery];
+    NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:self.allObamaHTML withBaseURL:self.obamaBaseURL leadImageURL:[NSURL URLWithString:@"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/640px-BarackObamaportrait.jpg"]] imageURLsForGallery];
     
     NSArray *expectedObamaGalleryURLs =
     [@[
@@ -339,7 +339,7 @@
 }
 
 - (void)testObamaArticleGalleryImageListExtractionWithMistmatchedSizeLeadImage {
-    NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:[self allObamaHTML] withLeadImageURL:[NSURL URLWithString:@"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/816px-BarackObamaportrait.jpg"]] imageURLsForGallery];
+    NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:self.allObamaHTML withBaseURL:self.obamaBaseURL leadImageURL:self.obamaLeadImageURL] imageURLsForGallery];
     
     NSArray *expectedObamaGalleryURLs =
     [@[
