@@ -84,7 +84,7 @@ extern NSString* const WMFDefaultSiteDomain;
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the `internalLink`.
  **/
-WMF_TECH_DEBT_TODO(this method should be generecized to 'path' and handle the presence of /wiki/)
+WMF_TECH_DEBT_TODO(this method should be generecized to "path" and handle the presence of /wiki/)
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedInternalLink:(NSString*)internalLink;
 
 
@@ -230,6 +230,7 @@ WMF_TECH_DEBT_TODO(this method should be folded into the above method and should
 
 #pragma mark - Layout based on Language
 WMF_TECH_DEBT_TODO(These should be renamed and/or moved to indicate that they are based on the language subdomain of the receiver)
+
 @property (nonatomic, readonly) UIUserInterfaceLayoutDirection wmf_layoutDirection;
 
 @property (nonatomic, readonly) NSTextAlignment wmf_textAlignment;
