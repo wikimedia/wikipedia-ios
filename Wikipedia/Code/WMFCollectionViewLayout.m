@@ -92,21 +92,12 @@
     
     [self resetLayout];
     
-    UICollectionView *collectionView = self.collectionView;
-    
-    
-    UIEdgeInsets contentInset = collectionView.contentInset;
-    
-    CGFloat width = CGRectGetWidth(collectionView.bounds) - contentInset.left - contentInset.right;
-    CGFloat height = CGRectGetHeight(collectionView.bounds) - contentInset.bottom - contentInset.top;
-
-    CGFloat availableWidth = width - ((self.numberOfColumns + 1) * self.interColumnSpacing);
+    CGFloat availableWidth = size.width - ((self.numberOfColumns + 1) * self.interColumnSpacing);
     
     CGFloat columnWidth = floor(availableWidth/self.numberOfColumns);
     
-    self.info.width = width;
-    self.info.height = height;
-
+    self.info.boundsSize = size;
+    
     __block WMFCVLColumn *currentColumn = self.info.columns[0];
     
     [self.info enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger sectionIndex, BOOL * _Nonnull stop) {
