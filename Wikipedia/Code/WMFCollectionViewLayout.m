@@ -79,11 +79,17 @@
 }
 
 
+- (void)resetLayout {
+    self.oldInfo = self.info;
+    self.info = [[WMFCVLInfo alloc] initWithNumberOfColumns:self.numberOfColumns numberOfSections:self.numberOfSections];
+}
 
 - (void)layoutForBoundsSize:(CGSize)size {
     if (self.delegate == nil) {
         return;
     }
+    
+    [self resetLayout];
     
     UICollectionView *collectionView = self.collectionView;
     CGFloat columnWidth = floor(size.width/self.numberOfColumns);
@@ -92,19 +98,13 @@
     
     CGFloat width = CGRectGetWidth(collectionView.bounds) - contentInset.left - contentInset.right;
     CGFloat height = CGRectGetHeight(collectionView.bounds) - contentInset.bottom - contentInset.top;
+
+    self.info.width = width;
+    self.info.height = height;
+
+    __block WMFCVLColumn *currentColumn = self.info.columns[0];
     
-    
-    WMFCVLInfo *oldInfo = self.info;
-    self.oldInfo = oldInfo;
-    WMFCVLInfo *newInfo = [[WMFCVLInfo alloc] initWithNumberOfColumns:self.numberOfColumns numberOfSections:self.numberOfSections];
-    
-    newInfo.width = width;
-    newInfo.height = height;
-    self.info = newInfo;
-    
-    __block WMFCVLColumn *currentColumn = newInfo.columns[0];
-    
-    [newInfo enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger sectionIndex, BOOL * _Nonnull stop) {
+    [self.info enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger sectionIndex, BOOL * _Nonnull stop) {
         CGFloat x = currentColumn.index * columnWidth;
         CGFloat y = currentColumn.height;
         CGPoint sectionOrigin = CGPointMake(x, y);
@@ -115,55 +115,43 @@
         
         CGFloat sectionHeight = 0;
         
+        CGFloat headerHeight = [self.delegate collectionView:self.collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
+        
+        
         NSIndexPath *supplementaryViewIndexPath = [NSIndexPath indexPathForRow:0 inSection:sectionIndex];
         
-        WMFCVLAttributes *headerAttributes = [[oldInfo layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:supplementaryViewIndexPath] copy];
-    
-        CGFloat headerHeight = 0;
-        if (headerAttributes == nil) {
-            headerAttributes = [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:supplementaryViewIndexPath];
-            headerHeight = [self.delegate collectionView:self.collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
-             headerAttributes.frame = CGRectMake(x, y, columnWidth, headerHeight);
-        } else {
-            headerHeight = CGRectGetHeight(headerAttributes.frame);
+        WMFCVLAttributes *headerAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:supplementaryViewIndexPath];
+        if (headerAttributes != nil) {
+            headerAttributes.frame = CGRectMake(x, y, columnWidth, headerHeight);
+            [section addHeader:headerAttributes];
         }
         
-        [section addHeader:headerAttributes];
-       
         sectionHeight += headerHeight;
         y += headerHeight;
         
         for (NSInteger item = 0; item < [self numberOfItemsInSection:sectionIndex]; item++) {
             y += self.interItemSpacing;
-
+            CGFloat itemHeight = [self.delegate collectionView:self.collectionView estimatedHeightForItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:sectionIndex] forColumnWidth:columnWidth];
+            
             NSIndexPath *itemIndexPath = [NSIndexPath indexPathForItem:item inSection:sectionIndex];
-            WMFCVLAttributes *itemAttributes = [[oldInfo layoutAttributesForItemAtIndexPath:itemIndexPath] copy];
-            
-            CGFloat itemHeight = 0;
-            if (itemAttributes == nil) {
-                itemAttributes = [WMFCVLAttributes layoutAttributesForCellWithIndexPath:itemIndexPath];
-                itemHeight = [self.delegate collectionView:self.collectionView estimatedHeightForItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:sectionIndex] forColumnWidth:columnWidth];
+            WMFCVLAttributes *itemAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForCellWithIndexPath:itemIndexPath];
+            if (itemAttributes != nil) {
                 itemAttributes.frame = CGRectMake(x, y, columnWidth, itemHeight);
-            } else {
-                itemHeight = CGRectGetHeight(itemAttributes.frame);
+                [section addItem:itemAttributes];
             }
-            
-            [section addItem:itemAttributes];
-
+            assert(itemHeight > 0);
             sectionHeight += itemHeight;
             y += itemHeight;
         }
         
-        CGFloat footerHeight = 0;
-        WMFCVLAttributes *footerAttributes = [[oldInfo layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter atIndexPath:supplementaryViewIndexPath] copy];
-        if (footerAttributes == nil) {
-            footerHeight = [self.delegate collectionView:self.collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
-            footerAttributes = [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:supplementaryViewIndexPath];
+        CGFloat footerHeight = [self.delegate collectionView:self.collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
+        WMFCVLAttributes *footerAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:supplementaryViewIndexPath];
+        if (footerAttributes != nil) {
+            assert(footerHeight > 0);
             footerAttributes.frame = CGRectMake(x, y, columnWidth, footerHeight);
-        } else {
-            footerHeight = CGRectGetHeight(footerAttributes.frame);
+            assert(footerAttributes.frame.size.width > 0);
+            [section addFooter:footerAttributes];
         }
-        [section addFooter:footerAttributes];
         
         sectionHeight += footerHeight;
         y+= footerHeight;
@@ -173,7 +161,7 @@
         currentColumn.height = currentColumn.height + sectionHeight;
 
         __block CGFloat shortestColumnHeight = CGFLOAT_MAX;
-        [newInfo enumerateColumnsWithBlock:^(WMFCVLColumn * _Nonnull column, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.info enumerateColumnsWithBlock:^(WMFCVLColumn * _Nonnull column, NSUInteger idx, BOOL * _Nonnull stop) {
             CGFloat columnHeight = column.height;
             if (columnHeight < shortestColumnHeight) { //switch to the shortest column
                 currentColumn = column;
@@ -182,7 +170,7 @@
         }];
 
     }];
-
+    
     [self updateHeight];
 }
 
