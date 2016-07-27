@@ -35,9 +35,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise*)fetchMostReadTitlesForSiteURL:(NSURL*)siteURL date:(NSDate*)date {
     NSParameterAssert(siteURL);
+    if (siteURL == nil) {
+        NSError* error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
+                                           userInfo:nil];
+        return [AnyPromise promiseWithValue:error];
+    }
+    
     NSParameterAssert(date);
+    if (date == nil) {
+        NSError* error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
+                                           userInfo:nil];
+        return [AnyPromise promiseWithValue:error];
+    }
+    
     NSString* dateString = [[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:date];
-    if (!date) {
+    if (dateString == nil) {
         DDLogError(@"Failed to format pageviews date URL component for date: %@", date);
         NSError* error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
                                            userInfo:@{WMFFailingRequestParametersUserInfoKey: date}];
