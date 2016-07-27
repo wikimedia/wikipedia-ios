@@ -246,7 +246,7 @@
 
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
-    return newBounds.size.width != self.collectionView.bounds.size.width;
+    return newBounds.size.width != self.info.boundsSize.width;
 }
 
 - (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
