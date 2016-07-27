@@ -309,8 +309,6 @@
         [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:invalidatedHeaderIndexPaths];
         [context invalidateItemsAtIndexPaths:invalidatedItemIndexPaths];
         [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:invalidatedFooterIndexPaths];
-        self.oldInfo = nil;
-        self.info = nil;
         [self layoutForBoundsSize:context.newBounds.size];
         self.needsLayout = NO;
     } else if (context.originalLayoutAttributes && context.preferredLayoutAttributes) {
@@ -332,7 +330,8 @@
     }
 }
 
-- (void)invalidateLayoutWithContext:(UICollectionViewLayoutInvalidationContext *)context {
+- (void)invalidateLayoutWithContext:(WMFCVLInvalidationContext *)context {
+    assert([context isKindOfClass:[WMFCVLInvalidationContext class]]);
     if (context.invalidateEverything || context.invalidateDataSourceCounts) {
         self.needsLayout = YES;
     }
