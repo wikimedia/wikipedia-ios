@@ -12,6 +12,9 @@
 @property (nonatomic) CGFloat interSectionSpacing;
 @property (nonatomic) CGFloat interItemSpacing;
 
+@property (nonatomic) UIEdgeInsets contentInsets;
+@property (nonatomic) UIEdgeInsets sectionInsets;
+
 @property (nonatomic) CGSize layoutSize;
 
 @property (nonatomic) NSInteger numberOfColumns;
@@ -49,7 +52,9 @@
     self.numberOfColumns = isPad ? 2 : 1;
     self.interColumnSpacing = isPad ? 22 : 0;
     self.interItemSpacing = 1;
-    self.interSectionSpacing = isPad ? 22 : 0;
+    self.interSectionSpacing = isPad ? 22 : 50;
+    self.contentInsets = isPad ? UIEdgeInsetsMake(22, 22, 22, 22) : UIEdgeInsetsMake(0, 0, 50, 0);
+    self.sectionInsets = UIEdgeInsetsMake(1, 0, 1, 0);
 }
 
 #pragma mark - Properties
@@ -92,7 +97,7 @@
     
     [self resetLayout];
     
-    CGFloat availableWidth = size.width - ((self.numberOfColumns + 1) * self.interColumnSpacing);
+    CGFloat availableWidth = size.width - self.contentInsets.left - self.contentInsets.right - ((self.numberOfColumns - 1) * self.interColumnSpacing);
     
     CGFloat columnWidth = floor(availableWidth/self.numberOfColumns);
     
@@ -101,8 +106,14 @@
     __block WMFCVLColumn *currentColumn = self.info.columns[0];
     
     [self.info enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger sectionIndex, BOOL * _Nonnull stop) {
-        CGFloat x = currentColumn.index * columnWidth + (currentColumn.index + 1)*self.interColumnSpacing;
-        CGFloat y = currentColumn.height + self.interSectionSpacing;
+        
+        CGFloat x = self.contentInsets.left + currentColumn.index * columnWidth + (currentColumn.index * self.interColumnSpacing);
+        if (sectionIndex == 0) {
+            currentColumn.height += self.contentInsets.top;
+        } else {
+            currentColumn.height += self.interSectionSpacing;
+        }
+        CGFloat y = currentColumn.height;
         CGPoint sectionOrigin = CGPointMake(x, y);
         
         currentColumn.width = columnWidth;
@@ -121,18 +132,24 @@
             headerAttributes.frame = CGRectMake(x, y, columnWidth, headerHeight);
             [section addHeader:headerAttributes];
         }
-        
+    
         sectionHeight += headerHeight;
         y += headerHeight;
         
+        CGFloat itemX = x + self.sectionInsets.left;
+        CGFloat itemWidth = columnWidth - self.sectionInsets.left - self.sectionInsets.right;
         for (NSInteger item = 0; item < [self numberOfItemsInSection:sectionIndex]; item++) {
-            y += self.interItemSpacing;
+            if (item == 0) {
+                y += self.sectionInsets.top;
+            } else {
+                y += self.interItemSpacing;
+            }
             CGFloat itemHeight = [self.delegate collectionView:self.collectionView estimatedHeightForItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:sectionIndex] forColumnWidth:columnWidth];
             
             NSIndexPath *itemIndexPath = [NSIndexPath indexPathForItem:item inSection:sectionIndex];
             WMFCVLAttributes *itemAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForCellWithIndexPath:itemIndexPath];
             if (itemAttributes != nil) {
-                itemAttributes.frame = CGRectMake(x, y, columnWidth, itemHeight);
+                itemAttributes.frame = CGRectMake(itemX, y, itemWidth, itemHeight);
                 [section addItem:itemAttributes];
             }
             assert(itemHeight > 0);
@@ -140,12 +157,13 @@
             y += itemHeight;
         }
         
+        sectionHeight += self.sectionInsets.bottom;
+        y += self.sectionInsets.bottom;
+        
         CGFloat footerHeight = [self.delegate collectionView:self.collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
         WMFCVLAttributes *footerAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:supplementaryViewIndexPath];
         if (footerAttributes != nil) {
-            assert(footerHeight > 0);
             footerAttributes.frame = CGRectMake(x, y, columnWidth, footerHeight);
-            assert(footerAttributes.frame.size.width > 0);
             [section addFooter:footerAttributes];
         }
         
@@ -167,7 +185,9 @@
 
     }];
     
-    
+    [self.info enumerateColumnsWithBlock:^(WMFCVLColumn * _Nonnull column, NSUInteger idx, BOOL * _Nonnull stop) {
+        column.height += self.contentInsets.bottom;
+    }];
     [self updateLayoutSizeForBoundsSize:size];
 }
 

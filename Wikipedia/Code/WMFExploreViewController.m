@@ -526,13 +526,13 @@ WMFCollectionViewLayoutDelegate>
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:section];
     
     if (!controller) {
-        return 50;
+        return 0;
     }
     
     if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id<WMFMoreFooterProviding>) controller isFooterEnabled])) {
-        return 100;
-    } else {
         return 50;
+    } else {
+        return 0;
     }
 }
 
