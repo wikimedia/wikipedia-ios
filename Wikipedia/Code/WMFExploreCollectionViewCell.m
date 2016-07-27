@@ -21,4 +21,9 @@
     }
 }
 
+-(void)setHighlighted:(BOOL)highlighted {
+    [super setHighlighted:highlighted];
+    self.backgroundColor = highlighted ? [UIColor wmf_tapHighlightColor] : [UIColor whiteColor];
+}
+
 @end
