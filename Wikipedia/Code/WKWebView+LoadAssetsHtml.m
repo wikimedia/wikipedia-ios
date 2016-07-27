@@ -31,7 +31,7 @@
         [proxyServer start];
     }
 
-    string = [proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string targetImageWidth:self.window.screen.wmf_articleImageWidthForScale];
+    string = [proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string withBaseURL:baseURL targetImageWidth:self.window.screen.wmf_articleImageWidthForScale];
 
     NSString* path = [[self getAssetsPath] stringByAppendingPathComponent:fileName];
 
