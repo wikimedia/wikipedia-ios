@@ -1,14 +1,5 @@
-//
-//  WMFMostReadTitlesResponse.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/11/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
 
 #import <Mantle/Mantle.h>
-
-@class MWKSite;
 
 @interface WMFMostReadTitlesResponseItemArticle : MTLModel
     <MTLJSONSerializing>
@@ -24,7 +15,7 @@
 
 @property (nonatomic, strong, readonly) NSDate* date;
 @property (nonatomic, strong, readonly) NSArray<WMFMostReadTitlesResponseItemArticle*>* articles;
-@property (nonatomic, strong, readonly) MWKSite* site;
+@property (nonatomic, strong, readonly) NSURL* siteURL;
 
 @end
 

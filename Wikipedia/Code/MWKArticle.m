@@ -10,7 +10,6 @@
 #import <hpple/TFHpple.h>
 #import <BlocksKit/BlocksKit.h>
 #import "WikipediaAppUtils.h"
-#import "NSURL+WMFExtras.h"
 #import "NSString+WMFHTMLParsing.h"
 #import "MWKCitation.h"
 #import "MWKSection+DisplayHtml.h"
@@ -36,11 +35,10 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @interface MWKArticle ()
 
 // Identifiers
-@property (readwrite, strong, nonatomic) MWKTitle* title;
 @property (readwrite, weak, nonatomic) MWKDataStore* dataStore;
 
 // Metadata
-@property (readwrite, strong, nonatomic) MWKTitle* redirected;                // optional
+@property (readwrite, strong, nonatomic) NSURL* redirectedURL;                // optional
 @property (readwrite, strong, nonatomic) NSDate* lastmodified;                // optional
 @property (readwrite, strong, nonatomic) MWKUser* lastmodifiedby;             // required
 @property (readwrite, assign, nonatomic) int articleId;                       // required; -> 'id'
@@ -67,33 +65,31 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Setup / Tear Down
 
-- (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore {
-    NSParameterAssert(title);
-    self = [self initWithSite:title.site];
+- (instancetype)initWithURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(url.wmf_title);
+    self = [self initWithURL:[url wmf_URLWithFragment:nil]];
     if (self) {
         self.dataStore = dataStore;
-        self.title     = title;
     }
     return self;
 }
 
-- (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore dict:(NSDictionary*)dict {
-    self = [self initWithTitle:title dataStore:dataStore];
+- (instancetype)initWithURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore dict:(NSDictionary*)dict {
+    self = [self initWithURL:url dataStore:dataStore];
     if (self) {
         [self importMobileViewJSON:dict];
     }
     return self;
 }
 
-- (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore searchResultsDict:(NSDictionary*)dict {
-    self = [self initWithTitle:title dataStore:dataStore];
+- (instancetype)initWithURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore searchResultsDict:(NSDictionary*)dict {
+    self = [self initWithURL:url dataStore:dataStore];
     if (self) {
         self.entityDescription = [self optionalString:@"description" dict:dict];
         self.snippet           = [self optionalString:@"snippet" dict:dict];
         self.imageURL          = dict[@"thumbnail"][@"source"];
         self.thumbnailURL      = [self thumbnailURLFromImageURL:self.imageURL];
     }
-
     return self;
 }
 
@@ -110,8 +106,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (BOOL)isEqualToArticle:(MWKArticle*)other {
-    return WMF_EQUAL(self.title, isEqualToTitle:, other.title)
-           && WMF_EQUAL(self.redirected, isEqual:, other.redirected)
+    return WMF_EQUAL(self.url, isEqual:, other.url)
+           && WMF_EQUAL(self.redirectedURL, isEqual:, other.redirectedURL)
            && WMF_EQUAL(self.lastmodified, isEqualToDate:, other.lastmodified)
            && WMF_IS_EQUAL(self.lastmodifiedby, other.lastmodifiedby)
            && WMF_EQUAL(self.displaytitle, isEqualToString:, other.displaytitle)
@@ -131,13 +127,13 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (NSUInteger)hash {
-    return self.title.hash
+    return self.url.hash
            ^ flipBitsWithAdditionalRotation(self.revisionId.hash, 1)
            ^ flipBitsWithAdditionalRotation(self.lastmodified.hash, 2);
 }
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"%@ %@", [super description], self.title.description];
+    return [NSString stringWithFormat:@"%@ %@", [super description], self.url.description];
 }
 
 #pragma mark - Import / Export
@@ -147,7 +143,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
     dict[@"schemaVersion"] = @(MWKArticleCurrentSchemaVersion);
 
-    [dict wmf_maybeSetObject:self.redirected.text forKey:@"redirect"];
+    [dict wmf_maybeSetObject:self.redirectedURL.wmf_title forKey:@"redirect"];
 
     [dict wmf_maybeSetObject:[self iso8601DateString:self.lastmodified] forKey:@"lastmodified"];
 
@@ -198,7 +194,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     self.editable = [[self requiredNumber:@"editable" dict:dict] boolValue];
 
     self.revisionId        = [self optionalNumber:@"revision" dict:dict];
-    self.redirected        = [self optionalTitle:@"redirected" dict:dict];
+    self.redirectedURL     = [self optionalURL:@"redirected" dict:dict];
     self.displaytitle      = [self optionalString:@"displaytitle" dict:dict];
     self.entityDescription = [self optionalString:@"description" dict:dict];
     // From mobileview API...
@@ -261,7 +257,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
  * else return nil
  */
 - (MWKImage*)existingImageWithURL:(NSString*)url {
-    NSString* imageCacheFolderPath = [self.dataStore pathForImageURL:url title:self.title];
+    NSString* imageCacheFolderPath = [self.dataStore pathForImageURL:url forArticleURL:self.url];
     if (!imageCacheFolderPath) {
         return nil;
     }
@@ -425,7 +421,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (NSArray<MWKImage*>*)imagesForGallery {
-    return [[self imageURLsForGallery] bk_map:^id(NSURL* url){
+    return [[self imageURLsForGallery] bk_map:^id (NSURL* url){
         return [[MWKImage alloc] initWithArticle:self sourceURL:url];
     }];
 }
@@ -436,16 +432,16 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (NSArray<MWKImage*>*)imagesForSaving {
-    return [[self imageURLsForSaving] bk_map:^id(NSURL* url){
+    return [[self imageURLsForSaving] bk_map:^id (NSURL* url){
         return [[MWKImage alloc] initWithArticle:self sourceURL:url];
     }];
 }
 
--(NSArray<NSURL*>*)schemelessURLsRejectingNilURLs:(NSArray<NSURL*>*)urls {
+- (NSArray<NSURL*>*)schemelessURLsRejectingNilURLs:(NSArray<NSURL*>*)urls {
     return [urls wmf_mapAndRejectNil:^NSURL*(NSURL* url){
-        if([url isKindOfClass:[NSURL class]]){
+        if ([url isKindOfClass:[NSURL class]]) {
             return [url wmf_schemelessURL];
-        }else{
+        } else {
             return nil;
         }
     }];
@@ -453,37 +449,37 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 - (NSSet<NSURL*>*)allImageURLs {
     WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML];
-    
+
     NSMutableSet<NSURL*>* imageURLs = [[NSMutableSet alloc] init];
     //Note: use the 'imageURLsForGallery' and 'imageURLsForSaving' methods on WMFImageTagList so we don't have to parse twice.
     [imageURLs addObjectsFromArray:[tagList imageURLsForGallery]];
     [imageURLs addObjectsFromArray:[tagList imageURLsForSaving]];
 
-    NSArray<MWKImageInfo*>* infos = [self.dataStore imageInfoForTitle:self.title];
-    
-    NSArray<NSURL*>* lazilyFetchedHighResolutionGalleryImageURLs = [infos wmf_mapAndRejectNil:^id _Nullable(MWKImageInfo * _Nonnull obj) {
-        if([obj isKindOfClass:[MWKImageInfo class]]){
+    NSArray<MWKImageInfo*>* infos = [self.dataStore imageInfoForArticleWithURL:self.url];
+
+    NSArray<NSURL*>* lazilyFetchedHighResolutionGalleryImageURLs = [infos wmf_mapAndRejectNil:^id _Nullable (MWKImageInfo* _Nonnull obj) {
+        if ([obj isKindOfClass:[MWKImageInfo class]]) {
             return [obj canonicalFileURL];
-        }else{
+        } else {
             return nil;
         }
     }];
-    
+
     [imageURLs addObjectsFromArray:[self schemelessURLsRejectingNilURLs:lazilyFetchedHighResolutionGalleryImageURLs]];
-    
-    NSArray<NSURL*>* thumbURLs = [infos wmf_mapAndRejectNil:^id _Nullable(MWKImageInfo * _Nonnull obj) {
-        if([obj isKindOfClass:[MWKImageInfo class]]){
+
+    NSArray<NSURL*>* thumbURLs = [infos wmf_mapAndRejectNil:^id _Nullable (MWKImageInfo* _Nonnull obj) {
+        if ([obj isKindOfClass:[MWKImageInfo class]]) {
             return [obj imageThumbURL];
-        }else{
+        } else {
             return nil;
         }
     }];
 
     [imageURLs addObjectsFromArray:[self schemelessURLsRejectingNilURLs:thumbURLs]];
-    
+
     NSURL* articleImageURL = [NSURL wmf_optionalURLWithString:self.imageURL];
     [imageURLs wmf_safeAddObject:articleImageURL];
-    
+
     NSURL* articleThumbnailURL = [NSURL wmf_optionalURLWithString:self.thumbnailURL];
     [imageURLs wmf_safeAddObject:articleThumbnailURL];
 
@@ -558,8 +554,8 @@ static NSString* const WMFArticleReflistColumnSelector = @"/html/body/*[contains
     return htmlStr;
 }
 
-- (nullable NSArray<MWKTitle*>*)disambiguationTitles {
-    return [[self.sections.entries firstObject] disambiguationTitles];
+- (nullable NSArray<NSURL*>*)disambiguationURLs {
+    return [[self.sections.entries firstObject] disambiguationURLs];
 }
 
 - (nullable NSArray<NSString*>*)pageIssues {

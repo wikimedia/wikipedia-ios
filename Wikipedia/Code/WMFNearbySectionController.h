@@ -1,7 +1,7 @@
 
 #import "WMFBaseExploreSectionController.h"
 @import CoreLocation;
-@class WMFLocationManager, MWKSite, MWKDataStore;
+@class WMFLocationManager, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -12,14 +12,14 @@ extern NSString* const WMFNearbySectionIdentifier;
 
 - (instancetype)initWithLocation:(CLLocation*)location
                        placemark:(nullable CLPlacemark*)placemark
-                            site:(MWKSite*)site
+                 searchSiteURL:(NSURL*)url
                        dataStore:(MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_UNAVAILABLE;
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore items:(NSArray*)items NS_UNAVAILABLE;
 
-@property (nonatomic, strong, readonly) MWKSite* searchSite;
+@property (nonatomic, strong, readonly) NSURL* searchSiteURL;
 @property (nonatomic, strong, readonly) CLLocation* location;
 @property (nonatomic, strong, readonly) CLPlacemark* placemark;
 

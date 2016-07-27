@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param uniqueArticleImages The images used to "batch" info requests.
  *  @param title               The title the images are associated with.
  */
-- (void)setUniqueArticleImages:(NSArray<MWKImage*>*)uniqueArticleImages forTitle:(MWKTitle*)title;
+- (void)setUniqueArticleImages:(NSArray<MWKImage*>*)uniqueArticleImages forArticleURL:(NSURL*)url;
 
 /**
  *  Reset image & info properties and cancel any fetches.

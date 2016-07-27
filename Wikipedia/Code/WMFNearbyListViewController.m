@@ -11,8 +11,8 @@
 
 @implementation WMFNearbyListViewController
 
-- (instancetype)initWithSearchSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
-    self = [super initWithSearchSite:site dataStore:dataStore];
+- (instancetype)initWithSearchSiteURL:(NSURL*)siteURL dataStore:(MWKDataStore*)dataStore{
+    self = [super initWithSearchSiteURL:siteURL dataStore:dataStore];
     if (self) {
         [self.locationManager startMonitoringLocation];
     }

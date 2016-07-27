@@ -3,7 +3,6 @@
 #import "MWKArticle.h"
 #import "NSDate+Utilities.h"
 #import "WMFArticleFooterMenuCell.h"
-#import "MWKTitle.h"
 #import <Tweaks/FBTweakInline.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -54,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     if (article.hasMultipleLanguages) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLanguages,
-                                      [MWSiteLocalizedString(article.title.site, @"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", article.languagecount]],
+                                      [MWSiteLocalizedString(article.url, @"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", article.languagecount]],
                                       nil, @"footer-switch-language")];
     }
 
@@ -63,25 +62,25 @@ NS_ASSUME_NONNULL_BEGIN
     if (FBTweakValue(@"Article", @"Article Metadata Footer", @"Show last edit timestamp", NO)) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
                                       [lastModified mediumString],
-                                      MWSiteLocalizedString(article.title.site, @"page-edit-history", nil),
+                                      MWSiteLocalizedString(article.url, @"page-edit-history", nil),
                                       @"footer-edit-history")];
     } else {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-                                      [MWSiteLocalizedString(article.title.site, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] daysAfterDate:lastModified]]],
-                                      MWSiteLocalizedString(article.title.site, @"page-edit-history", nil),
+                                      [MWSiteLocalizedString(article.url, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] daysAfterDate:lastModified]]],
+                                      MWSiteLocalizedString(article.url, @"page-edit-history", nil),
                                       @"footer-edit-history")];
     }
 
     if (article.pageIssues.count > 0) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypePageIssues,
-                                      MWSiteLocalizedString(article.title.site, @"page-issues", nil),
+                                      MWSiteLocalizedString(article.url, @"page-issues", nil),
                                       nil,
                                       @"footer-warnings")];
     }
 
-    if (article.disambiguationTitles.count > 0) {
+    if (article.disambiguationURLs.count > 0) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeDisambiguation,
-                                      MWSiteLocalizedString(article.title.site, @"page-similar-titles", nil),
+                                      MWSiteLocalizedString(article.url, @"page-similar-titles", nil),
                                       nil,
                                       @"footer-similar-pages")];
     }

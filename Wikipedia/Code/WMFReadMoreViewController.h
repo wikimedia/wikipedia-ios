@@ -3,9 +3,9 @@
 
 @interface WMFReadMoreViewController : WMFSelfSizingArticleListTableViewController
 
-@property (nonatomic, strong, readonly) MWKTitle* articleTitle;
+@property (nonatomic, strong, readonly) NSURL* articleURL;
 
-- (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore;
+- (instancetype)initWithURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore;
 
 /**
  *  Idempotently fetch new results.

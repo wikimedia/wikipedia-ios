@@ -1,6 +1,5 @@
 
 #import "WMFReadMoreViewController.h"
-#import "MWKTitle.h"
 #import "MWKDataStore.h"
 #import "MWKUserDataStore.h"
 #import "WMFRelatedTitleListDataSource.h"
@@ -13,7 +12,7 @@
 
 @interface WMFReadMoreViewController ()<WMFAnalyticsContentTypeProviding>
 
-@property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
+@property (nonatomic, strong, readwrite) NSURL* articleURL;
 @property (nonatomic, strong) WMFRelatedTitleListDataSource* dataSource;
 
 @end
@@ -22,14 +21,14 @@
 
 @dynamic dataSource;
 
-- (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore {
-    NSParameterAssert(title);
+- (instancetype)initWithURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(url.wmf_title);
     NSParameterAssert(dataStore);
     self = [super init];
     if (self) {
-        self.articleTitle         = title;
+        self.articleURL           = url;
         self.dataStore            = dataStore;
-        self.dataSource           = [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.articleTitle dataStore:self.dataStore resultLimit:3];
+        self.dataSource           = [[WMFRelatedTitleListDataSource alloc] initWithURL:self.articleURL dataStore:self.dataStore resultLimit:3];
         self.dataSource.cellClass = [WMFArticlePreviewTableViewCell class];
 
         @weakify(self);
@@ -38,8 +37,8 @@
                                                UITableView* tableView,
                                                NSIndexPath* indexPath) {
             @strongify(self);
-            MWKTitle* title = [self.articleTitle.site titleWithString:searchResult.displayTitle];
-            [cell setSaveableTitle:title savedPageList:self.savedPageList];
+            NSURL* url = [self.articleURL wmf_URLWithTitle:searchResult.displayTitle];
+            [cell setSaveableURL:url savedPageList:self.savedPageList];
             cell.titleText       = searchResult.displayTitle;
             cell.descriptionText = searchResult.wikidataDescription;
             cell.snippetText     = searchResult.extract;

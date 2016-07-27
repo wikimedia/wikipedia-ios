@@ -1,7 +1,7 @@
 
 #import <Mantle/Mantle.h>
 
-@class MWKSite, MWKSavedPageList, MWKHistoryList, WMFExploreSection, WMFRelatedSectionBlackList;
+@class MWKSavedPageList, MWKHistoryList, WMFExploreSection, WMFRelatedSectionBlackList;
 
 @protocol WMFExploreSectionSchemaDelegate;
 
@@ -20,12 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The schema
  */
-+ (instancetype)schemaWithSite:(MWKSite*)site
-                    savedPages:(MWKSavedPageList*)savedPages
-                       history:(MWKHistoryList*)history
-                     blackList:(WMFRelatedSectionBlackList*)blackList;
++ (instancetype)schemaWithSiteURL:(NSURL*)siteURL
+                         savedPages:(MWKSavedPageList*)savedPages
+                            history:(MWKHistoryList*)history
+                          blackList:(WMFRelatedSectionBlackList*)blackList;
 
-@property (nonatomic, strong, readonly) MWKSite* site;
+@property (nonatomic, strong, readonly) NSURL* siteURL;
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* historyPages;
 @property (nonatomic, strong, readonly) WMFRelatedSectionBlackList* blackList;
@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSArray<WMFExploreSection*>* sections;
 
 
-- (void)updateSite:(MWKSite*)site;
+- (void)updateSiteURL:(NSURL*)siteURL;
 
 /**
  *  Update the schema based on the internal business rules

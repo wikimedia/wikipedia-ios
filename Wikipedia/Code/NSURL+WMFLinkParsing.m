@@ -1,21 +1,53 @@
-//
-//  NSURL+WMFLinkParsing.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 8/5/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "NSURL+WMFLinkParsing.h"
 #import "NSString+WMFExtras.h"
 #import "NSString+WMFPageUtilities.h"
-#import "NSURL+WMFExtras.h"
 #import "NSURLComponents+WMFLinkParsing.h"
 #import "Wikipedia-Swift.h"
+#import "WMFAssetsFile.h"
+
+NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 
 @implementation NSURL (WMFLinkParsing)
 
+#pragma mark - Main Pages
+
++ (WMFAssetsFile*)mainPages {
+    static WMFAssetsFile* mainPages;
+    if (!mainPages) {
+        mainPages = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeMainPages];
+    }
+    return mainPages;
+}
+
 #pragma mark - Constructors
+
++ (nullable NSURL*)wmf_mainPageURLForLanguage:(NSString*)language {
+    NSString* titleText = [self mainPages].dictionary[language];
+    if (!titleText) {
+        return nil;
+    }
+    return [NSURL wmf_URLWithDomain:WMFDefaultSiteDomain language:language title:titleText fragment:nil];
+}
+
++ (nullable NSURL*)wmf_wikimediaCommonsURL {
+    NSURLComponents* URLComponents = [[NSURLComponents alloc] init];
+    URLComponents.scheme = @"https";
+    URLComponents.host   = [NSURLComponents wmf_hostWithDomain:@"wikimedia.org" subDomain:@"commons" isMobile:NO];
+    return [URLComponents URL];
+}
+
++ (NSURL*)wmf_URLWithDefaultSiteAndlanguage:(nullable NSString*)language {
+    return [self wmf_URLWithDomain:WMFDefaultSiteDomain language:language];
+}
+
++ (NSURL*)wmf_URLWithDefaultSiteAndLocale:(NSLocale*)locale {
+    return [self wmf_URLWithDomain:WMFDefaultSiteDomain language:[locale objectForKey:NSLocaleLanguageCode]];
+}
+
++ (NSURL*)wmf_URLWithDefaultSiteAndCurrentLocale {
+    return [self wmf_URLWithDefaultSiteAndLocale:[NSLocale currentLocale]];
+}
 
 + (NSURL*)wmf_URLWithDomain:(NSString*)domain language:(nullable NSString*)language {
     return [[NSURLComponents wmf_componentsWithDomain:domain language:language] URL];
@@ -29,9 +61,9 @@
     return [siteURL wmf_URLWithTitle:title fragment:fragment];
 }
 
-+ (NSRegularExpression *)invalidPercentEscapesRegex {
++ (NSRegularExpression*)invalidPercentEscapesRegex {
     static dispatch_once_t onceToken;
-    static NSRegularExpression *percentEscapesRegex;
+    static NSRegularExpression* percentEscapesRegex;
     dispatch_once(&onceToken, ^{
         percentEscapesRegex = [NSRegularExpression regularExpressionWithPattern:@"%[^0-9A-F]|%[0-9A-F][^0-9A-F]" options:NSRegularExpressionCaseInsensitive error:nil];
     });
@@ -39,24 +71,24 @@
 }
 
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL unescapedDenormalizedTitleAndFragment:(NSString*)path {
-    NSAssert(![path wmf_isInternalLink],
+    NSAssert(![path wmf_isWikiResource],
              @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
              path);
-    if ([path wmf_isInternalLink]) {
+    if ([path wmf_isWikiResource]) {
         return [NSURL wmf_URLWithSiteURL:siteURL unescapedDenormalizedInternalLink:path];
     } else {
-        NSArray* bits = [path componentsSeparatedByString:@"#"];
-        NSString *fragment = [[bits wmf_safeObjectAtIndex:1] precomposedStringWithCanonicalMapping];
+        NSArray* bits      = [path componentsSeparatedByString:@"#"];
+        NSString* fragment = [[bits wmf_safeObjectAtIndex:1] precomposedStringWithCanonicalMapping];
         return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_normalizedPageTitle] fragment:fragment];
     }
 }
 
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedTitleAndFragment:(NSString*)path {
-    NSAssert(![path wmf_isInternalLink],
+    NSAssert(![path wmf_isWikiResource],
              @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
              path);
     NSAssert([[NSURL invalidPercentEscapesRegex] matchesInString:path options:0 range:NSMakeRange(0, path.length)].count == 0, @"%@ should only have valid percent escapes", path);
-    if ([path wmf_isInternalLink]) {
+    if ([path wmf_isWikiResource]) {
         return [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:path];
     } else {
         NSArray* bits = [path componentsSeparatedByString:@"#"];
@@ -65,16 +97,15 @@
 }
 
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL unescapedDenormalizedInternalLink:(NSString*)internalLink {
-    NSAssert(internalLink.length == 0 || [internalLink wmf_isInternalLink],
+    NSAssert(internalLink.length == 0 || [internalLink wmf_isWikiResource],
              @"Expected string with internal link prefix but got: %@", internalLink);
-    return [self wmf_URLWithSiteURL:siteURL unescapedDenormalizedTitleAndFragment:[internalLink wmf_internalLinkPath]];
+    return [self wmf_URLWithSiteURL:siteURL unescapedDenormalizedTitleAndFragment:[internalLink wmf_pathWithoutWikiPrefix]];
 }
 
-
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedInternalLink:(NSString*)internalLink {
-    NSAssert(internalLink.length == 0 || [internalLink wmf_isInternalLink],
+    NSAssert(internalLink.length == 0 || [internalLink wmf_isWikiResource],
              @"Expected string with internal link prefix but got: %@", internalLink);
-    return [self wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:[internalLink wmf_internalLinkPath]];
+    return [self wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:[internalLink wmf_pathWithoutWikiPrefix]];
 }
 
 - (NSURL*)wmf_URLWithTitle:(NSString*)title {
@@ -90,6 +121,12 @@
     return components.URL;
 }
 
+- (NSURL*)wmf_URLWithFragment:(nullable NSString*)fragment {
+    NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.wmf_fragment = fragment;
+    return components.URL;
+}
+
 - (NSURL*)wmf_URLWithPath:(NSString*)path isMobile:(BOOL)isMobile {
     NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.path = [path precomposedStringWithCanonicalMapping];
@@ -99,13 +136,54 @@
     return components.URL;
 }
 
-#pragma mark - Properties
-
-- (BOOL)wmf_isInternalLink {
-    return [self.path wmf_isInternalLink];
+- (NSURL*)wmf_siteURL {
+    NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.path     = nil;
+    components.fragment = nil;
+    return [components URL];
 }
 
-- (BOOL)wmf_isCitation {
+- (NSURL*)wmf_APIURL:(BOOL)isMobile {
+    return [[self wmf_siteURL] wmf_URLWithPath:@"/w/api.php" isMobile:isMobile];
+}
+
++ (NSURL*)wmf_APIURLForURL:(NSURL*)URL isMobile:(BOOL)isMobile {
+    return [[URL wmf_siteURL] wmf_URLWithPath:@"/w/api.php" isMobile:isMobile];
+}
+
++ (NSURL*)wmf_mobileAPIURLForURL:(NSURL*)URL{
+    return [NSURL wmf_APIURLForURL:URL isMobile:YES];
+}
+
++ (NSURL*)wmf_desktopAPIURLForURL:(NSURL*)URL{
+    return [NSURL wmf_APIURLForURL:URL isMobile:NO];
+}
+
++ (NSURL*)wmf_mobileURLForURL:(NSURL*)url{
+    if (url.wmf_isMobile) {
+        return url;
+    } else {
+        NSURLComponents* components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+        components.host = [NSURLComponents wmf_hostWithDomain:url.wmf_domain language:url.wmf_language isMobile:YES];
+        NSURL* mobileURL = components.URL ? : url;
+        return mobileURL;
+    }
+}
+
++ (NSURL*)wmf_desktopURLForURL:(NSURL*)url{
+    NSURLComponents* components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+    components.host = [NSURLComponents wmf_hostWithDomain:url.wmf_domain language:url.wmf_language isMobile:NO];
+    NSURL* desktopURL = components.URL ? : url;
+    return desktopURL;
+}
+
+#pragma mark - Properties
+
+- (BOOL)wmf_isWikiResource {
+    return [self.path wmf_isWikiResource];
+}
+
+- (BOOL)wmf_isWikiCitation {
     return [self.fragment wmf_isCitationFragment];
 }
 
@@ -122,8 +200,8 @@
     }
 }
 
-- (NSString*)wmf_internalLinkPath {
-    return [self.path wmf_internalLinkPath];
+- (NSString*)wmf_pathWithoutWikiPrefix {
+    return [self.path wmf_pathWithoutWikiPrefix];
 }
 
 - (NSString*)wmf_domain {
@@ -151,29 +229,25 @@
 }
 
 - (NSString*)wmf_title {
-    NSString* title = [[self.path wmf_internalLinkPath] wmf_normalizedPageTitle];
+    if (![self wmf_isWikiResource]) {
+        return nil;
+    }
+    NSString* title = [[self.path wmf_pathWithoutWikiPrefix] wmf_normalizedPageTitle];
     if (title == nil) {
         title = @"";
     }
     return title;
 }
 
-- (NSURL*)wmf_mobileURL {
-    if (self.wmf_isMobile) {
-        return self;
-    } else {
-        NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-        components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:YES];
-        NSURL* mobileURL = components.URL ? : self;
-        return mobileURL;
+- (NSString*)wmf_titleWithUnderScores {
+    if (![self wmf_isWikiResource]) {
+        return nil;
     }
-}
-
-- (NSURL*)wmf_desktopURL {
-    NSURLComponents* components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
-    components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
-    NSURL* desktopURL = components.URL ? : self;
-    return desktopURL;
+    NSString* title = [[self.path wmf_pathWithoutWikiPrefix] wmf_denormalizedPageTitle];
+    if (title == nil) {
+        title = @"";
+    }
+    return title;
 }
 
 - (BOOL)wmf_isNonStandardURL {

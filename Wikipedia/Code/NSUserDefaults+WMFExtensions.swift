@@ -4,8 +4,12 @@ import Foundation
 let WMFAppLaunchDateKey = "WMFAppLaunchDateKey"
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
-let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
+let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
 let WMFAppSiteKey = "Domain"
+let WMFSearchURLKey = "WMFSearchURLKey"
+
+//Legacy Keys
+let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
 
@@ -50,26 +54,32 @@ extension NSUserDefaults {
         self.synchronize()
     }
     
-    public func wmf_openArticleTitle() -> MWKTitle? {
-        if let data = self.dataForKey(WMFOpenArticleTitleKey){
-            return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? MWKTitle
+    public func wmf_openArticleURL() -> NSURL? {
+        if let url = self.URLForKey(WMFOpenArticleURLKey) {
+            return url
+        }else if let data = self.dataForKey(WMFOpenArticleTitleKey){
+            if let title = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? MWKTitle {
+                self.wmf_setOpenArticleURL(title.mobileURL)
+                return title.mobileURL
+            }else{
+                return nil
+            }
         }else{
             return nil
         }
     }
     
-    public func wmf_setOpenArticleTitle(title: MWKTitle?) {
-        guard let title = title else{
+    public func wmf_setOpenArticleURL(url: NSURL?) {
+        guard let url = url else{
             self.removeObjectForKey(WMFOpenArticleTitleKey)
             self.synchronize()
             return
         }
-        guard !title.isNonStandardTitle() else{
+        guard !url.wmf_isNonStandardURL else{
             return;
         }
         
-        let data = NSKeyedArchiver.archivedDataWithRootObject(title)
-        self.setObject(data, forKey: WMFOpenArticleTitleKey)
+        self.setURL(url, forKey: WMFOpenArticleTitleKey)
         self.synchronize()
     }
 
@@ -131,26 +141,32 @@ extension NSUserDefaults {
         }
     }
     
-    public func wmf_currentSearchLanguageSite() -> MWKSite? {
-        if let data = self.objectForKey(WMFSearchLanguageKey) as? String{
-            return MWKSite.init(domain: WMFDefaultSiteDomain, language: data)
+    public func wmf_currentSearchLanguageDomain() -> NSURL? {
+        if let url = self.URLForKey(WMFSearchURLKey) {
+            return url
+        }else if let language = self.objectForKey(WMFSearchLanguageKey) as? String {
+            let url = NSURL.wmf_URLWithDefaultSiteAndlanguage(language)
+            self.wmf_setCurrentSearchLanguageDomain(url)
+            return url
         }else{
             return nil
         }
     }
     
-    public func wmf_setCurrentSearchLanguageSite(site: MWKSite) {
-        if let searchLanguage = self.wmf_currentSearchLanguageSite() {
-            if searchLanguage.isEqualToSite(site){
-                return;
-            }
+    public func wmf_setCurrentSearchLanguageDomain(url: NSURL?) {
+        guard let url = url else{
+            self.removeObjectForKey(WMFSearchURLKey)
+            self.synchronize()
+            return
         }
-        self.setObject(site.language, forKey: WMFSearchLanguageKey)
+        guard !url.wmf_isNonStandardURL else{
+            return;
+        }
+        
+        self.setURL(url, forKey: WMFSearchURLKey)
         self.synchronize()
     }
 
-    
-    
     public func wmf_setReadingFontSize(fontSize: NSNumber) {
         self.setObject(fontSize, forKey: "ReadingFontSize")
         self.synchronize()

@@ -49,14 +49,14 @@ static NSString* const kSelectionAssertVerbiage       = @"No selection provided"
 @implementation WMFShareFunnel
 
 - (id)initWithArticle:(MWKArticle*)article {
-    NSParameterAssert(article);
-    NSString* title = [[article title] text];
+    NSParameterAssert(article.url.wmf_title);
+    NSString* title = [[article url] wmf_title];
     // ...implicitly, the articleId is okay if the title is okay.
     // But in case the title is broken (and, implicitly, articleId is, too)
     if (!title) {
         NSAssert(false, @"%@ : %@",
                  kInitWithArticleAssertVerbiage,
-                 [article title]);
+                 [article url]);
         return nil;
     }
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppShareAFact

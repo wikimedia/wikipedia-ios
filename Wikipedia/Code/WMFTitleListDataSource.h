@@ -7,11 +7,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFTitleListDataSource
 
-@property (nonatomic, strong, readonly) NSArray* titles;
+@property (nonatomic, strong, readonly) NSArray<NSURL*>* urls;
 
 - (NSUInteger)titleCount;
 
-- (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath;
+- (NSURL*)urlForIndexPath:(NSIndexPath*)indexPath;
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath;
 

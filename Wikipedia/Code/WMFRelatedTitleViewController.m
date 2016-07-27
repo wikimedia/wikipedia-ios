@@ -1,6 +1,5 @@
 
 #import "WMFRelatedTitleViewController.h"
-#import "MWKTitle.h"
 #import "MWKSearchResult.h"
 #import "WMFArticlePreviewTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
@@ -25,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)setDataSource:(WMFRelatedTitleListDataSource*)dataSource {
-    self.title = [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1" withString:dataSource.title.text];
+    self.title = [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1" withString:dataSource.url.wmf_title];
 
     dataSource.cellClass = [WMFArticlePreviewTableViewCell class];
 
@@ -35,8 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
                                       UITableView* tableView,
                                       NSIndexPath* indexPath) {
         @strongify(self);
-        MWKTitle* title = [self.dataSource.title.site titleWithString:searchResult.displayTitle];
-        [cell setSaveableTitle:title savedPageList:self.dataSource.savedPageList];
+        NSURL* articleURL = [self.dataSource.url wmf_URLWithTitle:searchResult.displayTitle];
+        [cell setSaveableURL:articleURL savedPageList:self.dataSource.savedPageList];
         cell.titleText       = searchResult.displayTitle;
         cell.descriptionText = searchResult.wikidataDescription;
         cell.snippetText     = searchResult.extract;

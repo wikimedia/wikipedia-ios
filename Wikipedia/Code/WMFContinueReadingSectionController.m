@@ -2,7 +2,6 @@
 #import "WMFContinueReadingSectionController.h"
 #import "WMFArticleListTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
-#import "MWKTitle.h"
 #import "MWKDataStore.h"
 #import "MWKArticle.h"
 #import "NSString+WMFExtras.h"
@@ -17,24 +16,24 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 
 @interface WMFContinueReadingSectionController ()
 
-@property (nonatomic, strong, readwrite) MWKTitle* title;
+@property (nonatomic, strong, readwrite) NSURL* articleURL;
 
 @end
 
 @implementation WMFContinueReadingSectionController
 
-- (instancetype)initWithArticleTitle:(MWKTitle*)title
-                           dataStore:(MWKDataStore*)dataStore {
-    NSParameterAssert(title);
-    self = [super initWithDataStore:dataStore items:@[title]];
+- (instancetype)initWithArticleURL:(NSURL*)articleURL
+                         dataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(articleURL.wmf_title);
+    self = [super initWithDataStore:dataStore items:@[articleURL]];
     if (self) {
-        self.title = title;
+        self.articleURL = articleURL;
     }
     return self;
 }
 
 - (MWKArticle*)article {
-    return [self.dataStore existingArticleWithTitle:self.title];
+    return [self.dataStore existingArticleWithURL:self.articleURL];
 }
 
 #pragma mark - WMFBaseExploreSectionController
@@ -77,9 +76,9 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     return 0;
 }
 
-- (void)configureCell:(WMFArticleListTableViewCell*)cell withItem:(MWKTitle*)item atIndexPath:(NSIndexPath*)indexPath {
+- (void)configureCell:(WMFArticleListTableViewCell*)cell withItem:(NSURL*)item atIndexPath:(NSIndexPath*)indexPath {
     MWKArticle* article = [self article];
-    cell.titleText       = item.text;
+    cell.titleText       = item.wmf_title;
     cell.descriptionText = [[article entityDescription] wmf_stringByCapitalizingFirstCharacter];
     [cell setImage:article.image];
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
@@ -94,21 +93,21 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 }
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
-    MWKTitle* title              = [self titleForItemAtIndexPath:indexPath];
-    WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    NSURL* url                   = [self urlForItemAtIndexPath:indexPath];
+    WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
     return vc;
 }
 
 #pragma mark - WMFTitleProviding
 
-- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath {
-    return self.title;
+- (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return self.articleURL;
 }
 
 #pragma mark - Utility
 
-- (NSString*)summaryForTitle:(MWKTitle*)title {
-    MWKArticle* cachedArticle = [self.dataStore existingArticleWithTitle:self.title];
+- (NSString*)summaryForArticle {
+    MWKArticle* cachedArticle = [self.dataStore existingArticleWithURL:self.articleURL];
     if (cachedArticle.entityDescription.length) {
         return [cachedArticle.entityDescription wmf_stringByCapitalizingFirstCharacter];
     } else {

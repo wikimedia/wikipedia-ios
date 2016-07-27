@@ -1,10 +1,4 @@
-//
-//  MWKSavedPageListDataStoreTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/14/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
+
 
 #import "MWKDataStoreListTests.h"
 #import "MWKSavedPageEntry+ImageMigration.h"
@@ -25,7 +19,7 @@
 + (id)uniqueListEntry {
     static BOOL migrated = NO;
     migrated ^= YES;
-    MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithTitle:[MWKTitle random]];
+    MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithURL:[NSURL wmf_randomArticleURL]];
     entry.didMigrateImageData = migrated;
     return entry;
 }

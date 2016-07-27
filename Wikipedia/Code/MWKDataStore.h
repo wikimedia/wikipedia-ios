@@ -1,8 +1,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class MWKSite;
-@class MWKTitle;
 @class MWKArticle;
 @class MWKSection;
 @class MWKImage;
@@ -49,28 +47,29 @@ extern NSString* const MWKArticleKey;
 // Path methods
 - (NSString*)joinWithBasePath:(NSString*)path;
 - (NSString*)pathForSites; // Excluded from iCloud Backup. Includes every site, article, title.
-- (NSString*)pathForSite:(MWKSite*)site;
-- (NSString*)pathForArticlesWithSite:(MWKSite*)site;
-- (NSString*)pathForTitle:(MWKTitle*)title;
+- (NSString*)pathForDomainInURL:(NSURL*)url;
+- (NSString*)pathForArticlesInDomainFromURL:(NSURL*)url;
+- (NSString*)pathForArticleURL:(NSURL*)url;
 
 /**
  * Path to the directory which contains data for the specified article.
- * @see -pathForTitle:
+ * @see -pathForArticleURL:
  */
 - (NSString*)pathForArticle:(MWKArticle*)article;
-- (NSString*)pathForSectionsWithTitle:(MWKTitle*)title;
-- (NSString*)pathForSectionId:(NSUInteger)sectionId title:(MWKTitle*)title;
+- (NSString*)pathForSectionsInArticleWithURL:(NSURL*)url;
+- (NSString*)pathForSectionId:(NSUInteger)sectionId inArticleWithURL:(NSURL*)url;
 - (NSString*)pathForSection:(MWKSection*)section;
-- (NSString*)pathForImagesWithTitle:(MWKTitle*)title;
-- (NSString*)pathForImageURL:(NSString*)url title:(MWKTitle*)title;
+- (NSString*)pathForImagesWithArticleURL:(NSURL*)url;
+- (NSString*)pathForImageURL:(NSString*)imageURL forArticleURL:(NSURL*)articleURL;
+
 - (NSString*)pathForImage:(MWKImage*)image;
 
 /**
  * The path where the image info is stored for a given article.
- * @param article The @c MWKArticle which contains the desired image info.
+ * @param url The @c NSURL for the MWKArticle which contains the desired image info.
  * @return The path to the <b>.plist</b> file where image info for an article would be stored.
  */
-- (NSString*)pathForTitleImageInfo:(MWKTitle*)title;
+- (NSString*)pathForImageInfoForArticleWithURL:(NSURL*)url;
 
 // Raw save methods
 
@@ -116,11 +115,11 @@ extern NSString* const MWKArticleKey;
 /**
  * Save an array of image info objects which belong to the specified article.
  * @param imageInfo An array of @c MWKImageInfo objects belonging to the specified article.
- * @param article   The article which contains the specified images.
+ * @param url   The url for the article which contains the specified images.
  * @discussion Image info objects are stored under an article so they can be easily referenced and removed alongside
  *             the article.
  */
-- (void)saveImageInfo:(NSArray*)imageInfo forTitle:(MWKTitle*)title;
+- (void)saveImageInfo:(NSArray*)imageInfo forArticleURL:(NSURL*)url;
 
 ///
 /// @name Article Load Methods
@@ -132,20 +131,20 @@ extern NSString* const MWKArticleKey;
  *  This will check memory cache first, falling back to disk if necessary. If data is read from disk, it is inserted
  *  into the memory cache before returning, allowing subsequent calls to this method to hit the memory cache.
  *
- *  @param title The title under which article data was previously stored.
+ *  @param url The url under which article data was previously stored.
  *
  *  @return An article, or @c nil if none was found.
  */
-- (MWKArticle*)existingArticleWithTitle:(MWKTitle*)title;
+- (MWKArticle*)existingArticleWithURL:(NSURL*)url;
 
 /**
  *  Attempt to create an article object from data on disk.
  *
- *  @param title The title under which article data was previously stored.
+ *  @param url The url under which article data was previously stored.
  *
  *  @return An article, or @c nil if none was found.
  */
-- (MWKArticle*)articleFromDiskWithTitle:(MWKTitle*)title;
+- (MWKArticle*)articleFromDiskWithURL:(NSURL*)url;
 
 /**
  *  Get or create an article with a given title.
@@ -153,18 +152,18 @@ extern NSString* const MWKArticleKey;
  *  If an article already exists for this title return it. Otherwise, create a new object and return it without saving
  *  it.
  *
- *  @param title The title related to the article data.
+ *  @param url The url related to the article data.
  *
  *  @return An article object with the given title.
  *
- *  @see -existingArticleWithTitle:
+ *  @see -existingArticleWithURL:
  */
-- (MWKArticle*)articleWithTitle:(MWKTitle*)title;
+- (MWKArticle*)articleWithURL:(NSURL*)url;
 
 - (MWKSection*)sectionWithId:(NSUInteger)sectionId article:(MWKArticle*)article;
 - (NSString*)sectionTextWithId:(NSUInteger)sectionId article:(MWKArticle*)article;
 - (MWKImage*)imageWithURL:(NSString*)url article:(MWKArticle*)article;
-- (NSArray*)imageInfoForTitle:(MWKTitle*)title;
+- (NSArray*)imageInfoForArticleWithURL:(NSURL*)url;
 
 
 - (NSArray*)     historyListData;
@@ -183,7 +182,7 @@ extern NSString* const MWKArticleKey;
 
 - (void)clearMemoryCache;
 
-- (void)removeTitlesFromCache:(NSArray *)titlesToRemove;
+- (void)removeArticlesWithURLsFromCache:(NSArray<NSURL*>*)titlesToRemove;
 
 - (void)startCacheRemoval;
 - (void)stopCacheRemoval;

@@ -109,8 +109,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     return [[self.resultsListController.dataSource searchResults] searchTerm];
 }
 
-- (MWKSite*)currentResultsSearchSite {
-    return [self.resultsListController.dataSource searchSite];
+- (NSURL*)currentResultsSearchSiteURL {
+    return [self.resultsListController.dataSource searchSiteURL];
 }
 
 - (NSString*)searchSuggestion {
@@ -219,7 +219,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self configureSearchField];
     [self configureLanguageButtons];
     [self updateLanguageBarLanguages];
-    [self selectLanguageForSite:[self selectedLanguage].site];
+    [self selectLanguageForURL:[self selectedLanguage].siteURL];
 
     // move search field offscreen, preparing for transition in viewWillAppear
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
@@ -393,8 +393,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self searchForSearchTerm:searchTerm];
 }
 
-- (MWKSite*)currentlySelectedSearchSite {
-    return [self selectedLanguage].site;
+- (NSURL*)currentlySelectedSearchURL {
+    return [self selectedLanguage].siteURL;
 }
 
 - (void)didCancelSearch {
@@ -412,8 +412,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }
     @weakify(self);
     [self.resultsListController wmf_hideEmptyView];
-    MWKSite* site = [self currentlySelectedSearchSite];
-    [self.fetcher fetchArticlesForSearchTerm:searchTerm site:site resultLimit:WMFMaxSearchResultLimit].thenOn(dispatch_get_main_queue(), ^id (WMFSearchResults* results){
+    NSURL* url = [self currentlySelectedSearchURL];
+    [self.fetcher fetchArticlesForSearchTerm:searchTerm siteURL:url resultLimit:WMFMaxSearchResultLimit].thenOn(dispatch_get_main_queue(), ^id (WMFSearchResults* results){
         @strongify(self);
         if (![results.searchTerm isEqualToString:self.searchField.text]) {
             return [NSError cancelledError];
@@ -424,16 +424,16 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
            collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
          */
         WMFSearchDataSource* dataSource =
-            [[WMFSearchDataSource alloc] initWithSearchSite:site searchResults:results];
+            [[WMFSearchDataSource alloc] initWithSearchSiteURL:url searchResults:results];
 
         self.resultsListController.dataSource = dataSource;
 
         [self updateUIWithResults:results];
-        [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSite:site searchTerm:results.searchTerm]];
+        [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
 
         if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
             return [self.fetcher fetchArticlesForSearchTerm:searchTerm
-                                                       site:site
+                                                       siteURL:url
                                                 resultLimit:WMFMaxSearchResultLimit
                                              fullTextSearch:YES
                                     appendToPreviousResults:results];
@@ -503,7 +503,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)saveLastSearch {
     if ([self currentResultsSearchTerm]) {
-        MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithSite:[self currentResultsSearchSite]
+        MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithURL:[self currentResultsSearchSiteURL]
                                                                       searchTerm:[self currentResultsSearchTerm]];
         [self.dataStore.userDataStore.recentSearchList addEntry:entry];
         [self.dataStore.userDataStore.recentSearchList save];
@@ -514,10 +514,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Languages
 
 - (MWKLanguageLink*)selectedLanguage {
-    MWKSite* site         = [[NSUserDefaults standardUserDefaults] wmf_currentSearchLanguageSite];
+    NSURL* siteURL         = [[NSUserDefaults standardUserDefaults] wmf_currentSearchLanguageDomain];
     MWKLanguageLink* lang = nil;
-    if (site) {
-        lang = [[MWKLanguageLinkController sharedInstance] languageForSite:site];
+    if (siteURL) {
+        lang = [[MWKLanguageLinkController sharedInstance] languageForSiteURL:siteURL];
     } else {
         lang = [self appLanguage];
     }
@@ -525,9 +525,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)setSelectedLanguage:(MWKLanguageLink*)language {
-    [[NSUserDefaults standardUserDefaults] wmf_setCurrentSearchLanguageSite:language.site];
+    [[NSUserDefaults standardUserDefaults] wmf_setCurrentSearchLanguageDomain:language.siteURL];
     [self updateLanguageBarLanguages];
-    [self selectLanguageForSite:language.site];
+    [self selectLanguageForURL:language.siteURL];
 }
 
 - (NSArray<MWKLanguageLink*>*)languageBarLanguages {
@@ -560,9 +560,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }];
 }
 
-- (void)selectLanguageForSite:(MWKSite*)site {
+- (void)selectLanguageForURL:(NSURL*)url {
     [[self languageBarLanguages] enumerateObjectsUsingBlock:^(MWKLanguageLink* _Nonnull language, NSUInteger idx, BOOL* _Nonnull stop) {
-        if ([[language site] isEqual:site]) {
+        if ([[language siteURL] isEqual:url]) {
             UIButton* buttonToSelect = self.languageButtons[idx];
             [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
                 if (obj == buttonToSelect) {
@@ -627,7 +627,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         [self updateLanguageBarLanguages];
     }
     
-    [self selectLanguageForSite:language.site];
+    [self selectLanguageForURL:language.siteURL];
     [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -641,16 +641,16 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
-- (void)listViewController:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
+- (void)listViewController:(WMFArticleListTableViewController*)listController didSelectArticleURL:(nonnull NSURL *)url{
     //log tap through done in table
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
-        [presenter wmf_pushArticleWithTitle:title dataStore:self.dataStore animated:YES];
+        [presenter wmf_pushArticleWithURL:url dataStore:self.dataStore animated:YES];
     }];
 }
 
-- (UIViewController*)listViewController:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title {
-    WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+- (UIViewController*)listViewController:(WMFArticleListTableViewController*)listController viewControllerForPreviewingArticleURL:(nonnull NSURL *)url{
+    WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
     return vc;
 }
 

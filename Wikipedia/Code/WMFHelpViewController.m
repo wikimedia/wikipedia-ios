@@ -1,6 +1,5 @@
 
 #import "WMFHelpViewController.h"
-#import "MWKTitle.h"
 #import "MWKDataStore.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "WikipediaAppUtils.h"
@@ -26,8 +25,7 @@ static NSString* const WMFSettingsEmailSubject = @"Bug:";
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
     NSURL* faqURL   = [NSURL URLWithString:WMFSettingsURLFAQ];
-    MWKTitle* title = [[MWKTitle alloc] initWithURL:faqURL];
-    self = [super initWithArticleTitle:title dataStore:dataStore];
+    self = [super initWithArticleURL:faqURL dataStore:dataStore];
     return self;
 }
 

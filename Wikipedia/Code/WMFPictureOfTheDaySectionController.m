@@ -1,6 +1,5 @@
 
 #import "WMFPictureOfTheDaySectionController.h"
-#import "MWKSite.h"
 #import "MWKImageInfo.h"
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "WMFPicOfTheDayTableViewCell.h"

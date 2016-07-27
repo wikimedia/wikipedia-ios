@@ -1,10 +1,3 @@
-//
-//  MWKUserTests.m
-//  MediaWikiKit
-//
-//  Created by Brion on 10/16/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
@@ -12,7 +5,7 @@
 #import "MWKTestCase.h"
 
 @interface MWKUserTests : MWKTestCase {
-    MWKSite* site;
+    NSURL* siteURL;
 }
 
 @end
@@ -21,7 +14,7 @@
 
 - (void)setUp {
     [super setUp];
-    site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
+    siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
 }
 
 - (void)tearDown {
@@ -42,7 +35,7 @@
     MWKUser* user      = [self loadUser:@"user-loggedin"];
     NSDictionary* dict = @{@"sample": [user dataExport]};
 
-    MWKUser* user2 = [[MWKUser alloc] initWithSite:site data:dict[@"sample"]];
+    MWKUser* user2 = [[MWKUser alloc] initWithSiteURL:siteURL data:dict[@"sample"]];
     XCTAssertEqualObjects(user, user2, @"roundtrip a loggedin user");
 }
 
@@ -57,7 +50,7 @@
 
 - (MWKUser*)loadUser:(NSString*)name {
     NSDictionary* dict = [self loadJSON:name];
-    return [[MWKUser alloc] initWithSite:site data:dict[@"sample"]];
+    return [[MWKUser alloc] initWithSiteURL:siteURL data:dict[@"sample"]];
 }
 
 @end

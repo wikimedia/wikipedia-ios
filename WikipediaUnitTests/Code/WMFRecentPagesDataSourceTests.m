@@ -1,10 +1,3 @@
-//
-//  WMFSearchPagesDataSourceTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 11/13/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 @import XCTest;
 #import <Quick/Quick.h>
@@ -18,7 +11,7 @@
 
 @interface MWKHistoryList (SectionDataSourceTesting)
 
-- (NSArray<MWKTitle*>*)injectWithStubbedEntriesFromDate:(NSDate*)date;
+- (NSArray<NSURL*>*)injectWithStubbedEntriesFromDate:(NSDate*)date;
 
 @end
 
@@ -39,7 +32,7 @@ describe(@"partitioning by date", ^{
         NSDate* yesterday = [today dateBySubtractingDays:1];
         NSDate* lastWeek = [today dateBySubtractingDays:7];
 
-        __block NSArray<MWKTitle*>* todaysTitles;
+        __block NSArray<NSURL*>* todaysTitles;
 
         beforeEach(^{
             todaysTitles = [historyList injectWithStubbedEntriesFromDate:today];
@@ -47,10 +40,10 @@ describe(@"partitioning by date", ^{
 
         describe(@"first section", ^{
             it(@"should have items from today", ^{
-                NSArray<MWKTitle*>* firstSectionTitles =
+                NSArray<NSURL*>* firstSectionTitles =
                     [[SSBaseDataSource indexPathArrayWithRange:NSMakeRange(0, todaysTitles.count) inSection:0]
-                     bk_map:^MWKTitle*(NSIndexPath* indexPath) {
-                    return [recentPagesDataSource titleForIndexPath:indexPath];
+                     bk_map:^NSURL*(NSIndexPath* indexPath) {
+                    return [recentPagesDataSource urlForIndexPath:indexPath];
                 }];
                 expect(firstSectionTitles).to(equal(todaysTitles));
             });
@@ -61,7 +54,7 @@ describe(@"partitioning by date", ^{
         });
 
         context(@"history also contains items from yesterday", ^{
-            __block NSArray<MWKTitle*>* yesterdaysTitles;
+            __block NSArray<NSURL*>* yesterdaysTitles;
 
             beforeEach(^{
                 yesterdaysTitles = [historyList injectWithStubbedEntriesFromDate:yesterday];
@@ -69,10 +62,10 @@ describe(@"partitioning by date", ^{
 
             describe(@"yesterday section", ^{
                 it(@"should have items from yesterday", ^{
-                    NSArray<MWKTitle*>* secondSectionTitles =
+                    NSArray<NSURL*>* secondSectionTitles =
                         [[SSBaseDataSource indexPathArrayWithRange:NSMakeRange(0, yesterdaysTitles.count) inSection:1]
-                         bk_map:^MWKTitle*(NSIndexPath* indexPath) {
-                        return [recentPagesDataSource titleForIndexPath:indexPath];
+                         bk_map:^NSURL*(NSIndexPath* indexPath) {
+                        return [recentPagesDataSource urlForIndexPath:indexPath];
                     }];
                     expect(secondSectionTitles).to(equal(yesterdaysTitles));
                 });
@@ -83,16 +76,16 @@ describe(@"partitioning by date", ^{
             });
 
             context(@"history also contains items from last week", ^{
-                __block NSArray<MWKTitle*>* lastWeeksTitles;
+                __block NSArray<NSURL*>* lastWeeksTitles;
                 beforeEach(^{
                     lastWeeksTitles = [historyList injectWithStubbedEntriesFromDate:lastWeek];
                 });
 
                 it(@"should have a single section with all entries from last week", ^{
-                    NSArray<MWKTitle*>* thirdSectionTitles =
+                    NSArray<NSURL*>* thirdSectionTitles =
                         [[SSBaseDataSource indexPathArrayWithRange:NSMakeRange(0, yesterdaysTitles.count) inSection:2]
-                         bk_map:^MWKTitle*(NSIndexPath* indexPath) {
-                        return [recentPagesDataSource titleForIndexPath:indexPath];
+                         bk_map:^NSURL*(NSIndexPath* indexPath) {
+                        return [recentPagesDataSource urlForIndexPath:indexPath];
                     }];
                     expect(thirdSectionTitles).to(equal(lastWeeksTitles));
                 });
@@ -110,7 +103,7 @@ QuickSpecEnd
 
 @implementation MWKHistoryList (SectionDataSourceTesting)
 
-- (NSArray<MWKTitle*>*)injectWithStubbedEntriesFromDate:(NSDate*)date {
+- (NSArray<NSURL*>*)injectWithStubbedEntriesFromDate:(NSDate*)date {
     MWKHistoryEntry* entryFromDate = [MWKHistoryEntry random];
     entryFromDate.date = [date dateAtStartOfDay];
 
@@ -120,8 +113,8 @@ QuickSpecEnd
     [self addEntry:entryFromDate];
     [self addEntry:entryFromLaterThatDay];
 
-    NSArray<MWKTitle*>* orderedTitlesFromDate = [self.entries wmf_mapAndRejectNil:^id _Nullable (MWKHistoryEntry* _Nonnull obj) {
-        return [obj.date isEqualToDateIgnoringTime:date] ? obj.title : nil;
+    NSArray<NSURL*>* orderedTitlesFromDate = [self.entries wmf_mapAndRejectNil:^id _Nullable (MWKHistoryEntry* _Nonnull obj) {
+        return [obj.date isEqualToDateIgnoringTime:date] ? obj.url : nil;
     }];
 
     return orderedTitlesFromDate;

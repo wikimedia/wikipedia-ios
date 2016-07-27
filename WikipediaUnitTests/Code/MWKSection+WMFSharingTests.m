@@ -1,15 +1,6 @@
-//
-//  MWKSection+WMFSharingTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 5/6/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "MWKSite.h"
-#import "MWKTitle.h"
 #import "MWKArticle.h"
 #import "MWKSection.h"
 
@@ -27,8 +18,8 @@
 }
 
 - (void)testSimpleSnippet {
-    MWKTitle* title     = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
-    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:nil];
+    NSURL* url     = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"foo"];
+    MWKArticle* article = [[MWKArticle alloc] initWithURL:url dataStore:nil];
     self.section = [[MWKSection alloc] initWithArticle:article
                                                   dict:@{
                         @"id": @0,
@@ -38,8 +29,8 @@
 }
 
 - (void)testSimpleSnippetIncludingTable {
-    MWKTitle* title     = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
-    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:nil];
+    NSURL* url     = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"foo"];
+    MWKArticle* article = [[MWKArticle alloc] initWithURL:url dataStore:nil];
     self.section = [[MWKSection alloc] initWithArticle:article
                                                   dict:@{
                         @"id": @0,

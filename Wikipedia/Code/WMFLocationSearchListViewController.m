@@ -4,11 +4,10 @@
 #import "WMFNearbyArticleTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "MWKLocationSearchResult.h"
-#import "MWKSite.h"
 
 @interface WMFLocationSearchListViewController ()
 @property (nonatomic, strong) WMFNearbyTitleListDataSource* dataSource;
-@property (nonatomic, strong, readwrite) MWKSite* site;
+@property (nonatomic, strong, readwrite) NSURL* searchSiteURL;
 @property (nonatomic, strong) WMFCompassViewModel* compassViewModel;
 @end
 
@@ -16,24 +15,24 @@
 
 @dynamic dataSource;
 
-- (instancetype)initWithLocation:(CLLocation*)location searchSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithLocation:(CLLocation*)location searchSiteURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(location);
-    self = [self initWithSearchSite:site dataStore:dataStore];
+    self = [self initWithSearchSiteURL:url dataStore:dataStore];
     if (self) {
         self.location = location;
     }
     return self;
 }
 
-- (instancetype)initWithSearchSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
-    NSParameterAssert(site);
+- (instancetype)initWithSearchSiteURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(url);
     NSParameterAssert(dataStore);
     self = [super init];
     if (self) {
-        self.site                 = site;
+        self.searchSiteURL      = url;
         self.dataStore            = dataStore;
         self.compassViewModel     = [[WMFCompassViewModel alloc] init];
-        self.dataSource           = [[WMFNearbyTitleListDataSource alloc] initWithSite:self.site];
+        self.dataSource           = [[WMFNearbyTitleListDataSource alloc] initWithSearchSiteURL:self.searchSiteURL];
         self.dataSource.cellClass = [WMFNearbyArticleTableViewCell class];
 
         @weakify(self);

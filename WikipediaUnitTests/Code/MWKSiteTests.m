@@ -1,10 +1,3 @@
-//
-//  MWKSiteTests.m
-//  MediaWikiKit
-//
-//  Created by Brion on 10/7/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
@@ -16,12 +9,12 @@
 @end
 
 @implementation MWKSiteTests {
-    MWKSite* site;
+    NSURL* siteURL;
 }
 
 - (void)setUp {
     [super setUp];
-    site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
+    siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
 }
 
 - (void)tearDown {
@@ -30,37 +23,36 @@
 }
 
 - (void)testDomain {
-    XCTAssertEqualObjects(site.domain, @"wikipedia.org");
+    XCTAssertEqualObjects(siteURL.wmf_domain, @"wikipedia.org");
 }
 
 - (void)testLanguage {
-    XCTAssertEqualObjects(site.language, @"en");
+    XCTAssertEqualObjects(siteURL.wmf_language, @"en");
 }
 
 - (void)testEquals {
-    MWKSite* otherSite = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
-    XCTAssertEqualObjects(site, otherSite);
+    NSURL* otherSiteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
+    XCTAssertEqualObjects(siteURL, otherSiteURL);
 
-    otherSite = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"fr"];
-    XCTAssertNotEqualObjects(site, otherSite);
+    otherSiteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"fr"];
+    XCTAssertNotEqualObjects(siteURL, otherSiteURL);
 
-    otherSite = [[MWKSite alloc] initWithDomain:@"wiktionary.org" language:@"en"];
-    XCTAssertNotEqualObjects(site, otherSite);
+    otherSiteURL = [NSURL wmf_URLWithDomain:@"wiktionary.org" language:@"en"];
+    XCTAssertNotEqualObjects(siteURL, otherSiteURL);
 }
 
 - (void)testStrings {
-    XCTAssertEqualObjects([site titleWithString:@"India"].text, @"India");
-    XCTAssertEqualObjects([site titleWithString:@"Talk:India"].text, @"Talk:India");
-    XCTAssertEqualObjects([site titleWithString:@"Talk:India#History"].text, @"Talk:India");
+    XCTAssertEqualObjects([siteURL wmf_URLWithTitle:@"India"].wmf_title, @"India");
+    XCTAssertEqualObjects([siteURL wmf_URLWithTitle:@"Talk:India"].wmf_title, @"Talk:India");
+    XCTAssertEqualObjects([NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:@"Talk:India#History"].wmf_title, @"Talk:India");
 }
 
 - (void)testLinks {
-    XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/India"].text, @"India");
-    XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/Talk:India"].text, @"Talk:India");
-    XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/Talk:India#History"].text, @"Talk:India");
-    XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/2008 ACC Men%27s Basketball Tournament"].text,
-                          @"2008 ACC Men's Basketball Tournament");
-    //    XCTAssertThrows([site titleWithInternalLink:@"/upload/foobar"]);
+    XCTAssertEqualObjects([NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:@"/wiki/India"].wmf_title, @"India");
+    XCTAssertEqualObjects([NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:@"/wiki/Talk:India"].wmf_title, @"Talk:India");
+
+    XCTAssertEqualObjects([NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:@"/wiki/Talk:India#History"].wmf_title, @"Talk:India");
+    XCTAssertEqualObjects([NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:@"/wiki/2008 ACC Men%27s Basketball Tournament"].wmf_title, @"2008 ACC Men's Basketball Tournament");
 }
 
 @end

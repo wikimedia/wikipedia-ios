@@ -57,7 +57,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.historyFetcherParams = [[PageHistoryRequestParameters alloc] initWithTitle:self.article.title.text];
+    self.historyFetcherParams = [[PageHistoryRequestParameters alloc] initWithTitle:self.article.url.wmf_title];
     self.pageHistoryFetcher   = [PageHistoryFetcher new];
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
@@ -84,10 +84,10 @@
     self.isLoadingData = YES;
 
     @weakify(self);
-    [self.pageHistoryFetcher fetchRevisionInfo:self.article.title.site requestParams:self.historyFetcherParams].then(^(HistoryFetchResults* historyFetchResults){
+    [self.pageHistoryFetcher fetchRevisionInfo:self.article.url requestParams:self.historyFetcherParams].then(^(HistoryFetchResults* historyFetchResults){
         @strongify(self);
         [self.pageHistoryDataArray addObjectsFromArray:historyFetchResults.items];
-        self.historyFetcherParams = [historyFetchResults getPageHistoryRequestParameters:self.article.title.text];
+        self.historyFetcherParams = [historyFetchResults getPageHistoryRequestParameters:self.article.url];
         self.batchComplete = historyFetchResults.batchComplete;
         [[WMFAlertManager sharedInstance] dismissAlert];
         [self.tableView reloadData];

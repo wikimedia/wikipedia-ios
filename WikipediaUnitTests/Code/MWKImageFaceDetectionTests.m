@@ -1,10 +1,4 @@
-//
-//  MWKImageFaceDetectionTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 7/29/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
+
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
@@ -32,8 +26,8 @@
 - (void)setUp {
     [super setUp];
     self.mockDataStore = MKTMock([MWKDataStore class]);
-    self.dummyArticle  = [[MWKArticle alloc] initWithTitle:[[MWKSite siteWithCurrentLocale] titleWithString:@"foo"]
-                                                 dataStore:self.mockDataStore];
+    self.dummyArticle  = [[MWKArticle alloc] initWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"foo"]
+                                               dataStore:self.mockDataStore];
     self.faceDetectionCache = [[WMFFaceDetectionCache alloc] init];
 }
 

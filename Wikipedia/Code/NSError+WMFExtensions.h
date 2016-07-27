@@ -1,8 +1,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class MWKTitle;
-
 extern NSString* const WMFErrorDomain;
 
 extern NSString* const WMFRedirectTitleKey;
@@ -31,8 +29,6 @@ typedef NS_ENUM (NSInteger, WMFErrorType) {
 
 + (NSError*)wmf_errorWithType:(WMFErrorType)type userInfo:(NSDictionary*)userInfo;
 
-+ (NSError*)wmf_redirectedErrorWithTitle:(MWKTitle*)redirectedtitle;
-
 //reason is specfied as NSLocalizedDescriptionKey
 + (NSError*)wmf_unableToSaveErrorWithReason:(NSString*)reason;
 
@@ -60,10 +56,3 @@ typedef NS_ENUM (NSInteger, WMFErrorType) {
 - (BOOL)wmf_shouldFallbackToDesktopURLError;
 
 @end
-
-@interface NSDictionary (WMFErrorExtensions)
-
-- (MWKTitle*)wmf_redirectTitle;
-
-@end
-

@@ -19,10 +19,8 @@
 #import "MWKDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKHistoryList.h"
-#import "MWKSite.h"
 #import "MWKHistoryEntry.h"
 #import "MWKSavedPageEntry.h"
-#import "MWKTitle.h"
 #import "MWKArticle.h"
 #import "MWKLocationSearchResult.h"
 #import "MWKSavedPageList.h"
@@ -370,7 +368,7 @@ NS_ASSUME_NONNULL_BEGIN
     for (UITableViewCell* cell in self.tableView.visibleCells) {
         [cell setSelected:NO animated:NO];
     }
-    [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
+    [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleURL:nil];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
@@ -427,7 +425,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)appLanguageDidChangeWithNotification:(NSNotification*)note {
     [self createSectionSchemaIfNeeded];
-    [self.schemaManager updateSite:[[[MWKLanguageLinkController sharedInstance] appLanguage] site]];
+    [self.schemaManager updateSiteURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]];
 }
 
 - (void)tweaksDidChangeWithNotification:(NSNotification*)note {
@@ -629,10 +627,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self performSelector:@selector(fetchSectionIfShowing:) withObject:controller afterDelay:0.25 inModes:@[NSRunLoopCommonModes]];
 
     if ([controller conformsToProtocol:@protocol(WMFTitleProviding)]
-        && (![controller respondsToSelector:@selector(titleForItemAtIndexPath:)]
+        && (![controller respondsToSelector:@selector(urlForItemAtIndexPath:)]
             || [controller shouldSelectItemAtIndexPath:indexPath])) {
-        MWKTitle* title = [(id < WMFTitleProviding >)controller titleForItemAtIndexPath:indexPath];
-        if (title) {
+        NSURL* articleURL = [(id < WMFTitleProviding >)controller urlForItemAtIndexPath:indexPath];
+        if (articleURL) {
             [[PiwikTracker wmf_configuredInstance] wmf_logActionImpressionInContext:self contentType:controller];
         }
     }
@@ -741,7 +739,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.schemaManager = [WMFExploreSectionSchema schemaWithSite:[[[MWKLanguageLinkController sharedInstance] appLanguage] site]
+    self.schemaManager = [WMFExploreSectionSchema schemaWithSiteURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]
                                                       savedPages:self.savedPages
                                                          history:self.recentPages
                                                        blackList:[WMFRelatedSectionBlackList sharedBlackList]];
@@ -868,7 +866,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (homeSection.type == WMFExploreSectionTypeNearby) {
         [self didTapFooterInSection:section];
     } else if (homeSection.type == WMFExploreSectionTypeHistory || homeSection.type == WMFExploreSectionTypeSaved) {
-        [self wmf_pushArticleWithTitle:homeSection.title dataStore:self.dataStore animated:YES];
+        [self wmf_pushArticleWithURL:homeSection.articleURL dataStore:self.dataStore animated:YES];
     } else {
         [self selectFirstRowInSection:section];
     }

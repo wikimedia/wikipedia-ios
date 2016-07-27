@@ -20,7 +20,6 @@ extern NSString* const MWKSectionShareSnippetXPath;
 @interface MWKSection : MWKSiteDataObject
     <WMFSharing>
 
-@property (readonly, strong, nonatomic) MWKTitle* title;
 @property (readonly, weak, nonatomic) MWKArticle* article;
 
 @property (readonly, copy, nonatomic, nullable) NSNumber* toclevel;      // optional
@@ -28,7 +27,7 @@ extern NSString* const MWKSectionShareSnippetXPath;
 @property (readonly, copy, nonatomic, nullable) NSString* line;          // optional; HTML
 @property (readonly, copy, nonatomic, nullable) NSString* number;        // optional; can be "1.2.3"
 @property (readonly, copy, nonatomic, nullable) NSString* index;         // optional; can be "T-3" for transcluded sections
-@property (readonly, strong, nonatomic, nullable) MWKTitle* fromtitle; // optional
+@property (readonly, strong, nonatomic, nullable) NSURL* fromURL; // optional
 @property (readonly, copy, nonatomic, nullable) NSString* anchor;        // optional
 @property (readonly, assign, nonatomic) int sectionId;           // required; -> id
 @property (readonly, assign, nonatomic) BOOL references;         // optional; marked by presence of key with empty string in JSON
@@ -46,7 +45,7 @@ extern NSString* const MWKSectionShareSnippetXPath;
 - (instancetype)initWithArticle:(MWKArticle*)article dict:(NSDictionary*)dict;
 
 - (BOOL)              isLeadSection;
-- (nullable MWKTitle*)sourceTitle;
+- (nullable NSURL*)sourceURL;
 
 - (BOOL)isEqualToSection:(MWKSection*)section;
 
@@ -160,7 +159,7 @@ extern NSString* const MWKSectionShareSnippetXPath;
 
 - (NSString*)summary;
 
-- (nullable NSArray<MWKTitle*>*)disambiguationTitles;
+- (nullable NSArray<NSURL*>*)disambiguationURLs;
 
 - (nullable NSArray<NSString*>*)pageIssues;
 

@@ -24,15 +24,15 @@ typedef NS_ENUM (NSInteger, LanguageLinksFetchErrorType) {
 @interface MWKLanguageLinkFetcher : FetcherBase
 
 /// Fetches the language links for the given page title.
-- (instancetype)initAndFetchLanguageLinksForPageTitle:(MWKTitle*)title
-                                          withManager:(AFHTTPSessionManager*)manager
-                                   thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
+- (instancetype)initAndFetchLanguageLinksForArticleURL:(NSURL*)url
+                                           withManager:(AFHTTPSessionManager*)manager
+                                    thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 
 - (instancetype)initWithManager:(AFHTTPSessionManager*)manager
                        delegate:(id<FetchFinishedDelegate>)delegate;
 
-- (void)fetchLanguageLinksForTitle:(MWKTitle*)title
-                           success:(void (^)(NSArray* langLinks))success
-                           failure:(void (^)(NSError* error))error;
+- (void)fetchLanguageLinksForArticleURL:(NSURL*)url
+                                success:(void (^)(NSArray* langLinks))success
+                                failure:(void (^)(NSError* error))error;
 
 @end

@@ -1,16 +1,8 @@
-//
-//  NSURL+WMFLinkParsingTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 8/6/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "NSURL+WMFLinkParsing.h"
 #import "NSString+WMFPageUtilities.h"
-#import "MWKTitle.h"
 
 #define MOCKITO_SHORTHAND 1
 #import <OCMockito/OCMockito.h>
@@ -25,48 +17,48 @@
 @implementation NSURL_WMFLinkParsingTests
 
 - (void)testCitationURL {
-    XCTAssertTrue(([[NSURL URLWithString:[NSString stringWithFormat:@"#%@-0", WMFCitationFragmentSubstring]] wmf_isCitation]));
+    XCTAssertTrue(([[NSURL URLWithString:[NSString stringWithFormat:@"#%@-0", WMFCitationFragmentSubstring]] wmf_isWikiCitation]));
 }
 
 - (void)testURLWithoutFragmentIsNotCitation {
-    XCTAssertFalse([[NSURL URLWithString:@"/wiki/Foo"] wmf_isCitation]);
+    XCTAssertFalse([[NSURL URLWithString:@"/wiki/Foo"] wmf_isWikiCitation]);
 }
 
 - (void)testURLWithFragmentNotContainingCitaitonSubstringIsNotCitation {
-    XCTAssertFalse([[NSURL URLWithString:@"/wiki/Foo#bar"] wmf_isCitation]);
+    XCTAssertFalse([[NSURL URLWithString:@"/wiki/Foo#bar"] wmf_isWikiCitation]);
 }
 
 - (void)testRelativeInternalLink {
-    XCTAssertTrue([[NSURL URLWithString:@"/wiki/Foo"] wmf_isInternalLink]);
+    XCTAssertTrue([[NSURL URLWithString:@"/wiki/Foo"] wmf_isWikiResource]);
 }
 
 - (void)testAbsoluteInternalLink {
-    XCTAssertTrue([[NSURL URLWithString:@"https://en.wikipedia.org/wiki/Foo"] wmf_isInternalLink]);
+    XCTAssertTrue([[NSURL URLWithString:@"https://en.wikipedia.org/wiki/Foo"] wmf_isWikiResource]);
 }
 
 - (void)testAbsoluteInternalLinkWithOtherComponents {
-    XCTAssertTrue([[NSURL URLWithString:@"https://en.wikipedia.org/wiki/Foo?query=&string=value#fragment"] wmf_isInternalLink]);
+    XCTAssertTrue([[NSURL URLWithString:@"https://en.wikipedia.org/wiki/Foo?query=&string=value#fragment"] wmf_isWikiResource]);
 }
 
 - (void)testRelativeExternalLink {
-    XCTAssertFalse([[NSURL URLWithString:@"/Foo"] wmf_isInternalLink]);
+    XCTAssertFalse([[NSURL URLWithString:@"/Foo"] wmf_isWikiResource]);
 }
 
 - (void)testAbsoluteExternalLink {
-    XCTAssertFalse([[NSURL URLWithString:@"https://www.foo.com/bar"] wmf_isInternalLink]);
+    XCTAssertFalse([[NSURL URLWithString:@"https://www.foo.com/bar"] wmf_isWikiResource]);
 }
 
 - (void)testInternalLinkPath {
     NSString* testPath = @"foo/bar";
     NSURL* testURL     = [[NSURL URLWithString:WMFInternalLinkPathPrefix]
                       URLByAppendingPathComponent:testPath];
-    assertThat([testURL wmf_internalLinkPath], is(testPath));
+    assertThat([testURL wmf_pathWithoutWikiPrefix], is(testPath));
 }
 
 - (void)testInternalLinkPathForURLExcludesFragmentAndQuery {
     NSString* testPath                     = @"foo/bar";
     NSString* testPathWithQueryAndFragment = [WMFInternalLinkPathPrefix stringByAppendingFormat:@"%@?baz#buz", testPath];
-    assertThat([[NSURL URLWithString:testPathWithQueryAndFragment] wmf_internalLinkPath], is(testPath));
+    assertThat([[NSURL URLWithString:testPathWithQueryAndFragment] wmf_pathWithoutWikiPrefix], is(testPath));
 }
 
 @end

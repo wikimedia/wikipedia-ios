@@ -1,10 +1,3 @@
-//
-//  MWKRecentSearchEntry.m
-//  MediaWikiKit
-//
-//  Created by Brion on 11/18/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
 
 #import "MediaWikiKit.h"
 
@@ -16,8 +9,10 @@
 
 @implementation MWKRecentSearchEntry
 
-- (instancetype)initWithSite:(MWKSite*)site searchTerm:(NSString*)searchTerm {
-    self = [self initWithSite:site];
+- (instancetype)initWithURL:(NSURL*)url searchTerm:(NSString*)searchTerm {
+    NSParameterAssert(url);
+    NSParameterAssert(searchTerm);
+    self = [self initWithURL:url];
     if (self) {
         self.searchTerm = searchTerm;
     }
@@ -25,27 +20,38 @@
 }
 
 - (instancetype)initWithDict:(NSDictionary*)dict {
-    NSString* domain     = [self requiredString:@"domain" dict:dict];
-    NSString* language   = [self requiredString:@"language" dict:dict];
-    NSString* searchTerm = [self requiredString:@"searchTerm" dict:dict];
-    MWKSite* site        = [[MWKSite alloc] initWithDomain:domain language:language];
-    self = [self initWithSite:site searchTerm:searchTerm];
+    NSString* urlString = dict[@"url"];
+    NSString* domain    = dict[@"domain"];
+    NSString* language  = dict[@"language"];
+
+    NSURL* url;
+
+    if ([urlString length]) {
+        url = [NSURL URLWithString:urlString];
+    } else if (domain && language) {
+        url = [NSURL wmf_URLWithDomain:domain language:language];
+    }else{
+        return nil;
+    }
+
+    NSString* searchTerm = dict[@"searchTerm"];
+    self = [self initWithURL:url searchTerm:searchTerm];
     return self;
 }
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"%@ %@ %@", [super description], self.site, self.searchTerm];
+    return [NSString stringWithFormat:@"%@ %@", [super description], self.searchTerm];
 }
 
 WMF_SYNTHESIZE_IS_EQUAL(MWKRecentSearchEntry, isEqualToRecentSearch:)
 
 - (BOOL)isEqualToRecentSearch:(MWKRecentSearchEntry*)rhs {
-    return WMF_RHS_PROP_EQUAL(site, isEqualToSite:)
+    return WMF_RHS_PROP_EQUAL(url, isEqual:)
            && WMF_RHS_PROP_EQUAL(searchTerm, isEqualToString:);
 }
 
 - (NSUInteger)hash {
-    return self.searchTerm.hash ^ flipBitsWithAdditionalRotation(self.site.hash, 1);
+    return self.searchTerm.hash ^ flipBitsWithAdditionalRotation(self.url.hash, 1);
 }
 
 #pragma mark - MWKListObject
@@ -56,8 +62,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKRecentSearchEntry, isEqualToRecentSearch:)
 
 - (id)dataExport {
     return @{
-               @"domain": self.site.domain,
-               @"language": self.site.language,
+               @"url": [self.url absoluteString],
                @"searchTerm": self.searchTerm
     };
 }

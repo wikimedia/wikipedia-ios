@@ -3,20 +3,20 @@ import UIKit
 public class WMFTableOfContentsHeader: UIView {
     @IBOutlet public var contentsLabel: UILabel!
     
-    var site:MWKSite!
+    var url:NSURL!
     
-    public var articleSite:MWKSite! {
+    public var articleURL:NSURL! {
         get {
-            return site
+            return url
         }
-        set(newSite){
-            self.contentsLabel.text = self.headerTextForSite(newSite)
-            site = newSite
+        set(newURL){
+            self.contentsLabel.text = self.headerTextForURL(newURL)
+            url = newURL
         }
     }
     
-    public func headerTextForSite(site: MWKSite) -> String {
-        var headerString = localizedStringForSiteWithKeyFallingBackOnEnglish(site, "table-of-contents-heading")
+    public func headerTextForURL(url: NSURL) -> String {
+        var headerString = localizedStringForURLWithKeyFallingBackOnEnglish(url, "table-of-contents-heading")
         if(NSLocale.wmf_isCurrentLocaleEnglish()){
             headerString = headerString.uppercaseStringWithLocale(NSLocale.currentLocale())
         }

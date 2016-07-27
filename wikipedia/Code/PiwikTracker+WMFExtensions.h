@@ -2,8 +2,6 @@
 #import <PiwikTracker/PiwikTracker.h>
 #import "WMFAnalyticsLogging.h"
 
-@class MWKTitle;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PiwikTracker (WMFExtensions)

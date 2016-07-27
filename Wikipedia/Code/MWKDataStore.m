@@ -89,60 +89,60 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return [self joinWithBasePath:@"sites"];
 }
 
-- (NSString*)pathForSite:(MWKSite*)site {
+- (NSString*)pathForDomainInURL:(NSURL*)url {
     NSString* sitesPath  = [self pathForSites];
-    NSString* domainPath = [sitesPath stringByAppendingPathComponent:site.domain];
-    return [domainPath stringByAppendingPathComponent:site.language];
+    NSString* domainPath = [sitesPath stringByAppendingPathComponent:url.wmf_domain];
+    return [domainPath stringByAppendingPathComponent:url.wmf_language];
 }
 
-- (NSString*)pathForArticlesWithSite:(MWKSite*)site {
-    NSString* sitePath = [self pathForSite:site];
+- (NSString*)pathForArticlesInDomainFromURL:(NSURL*)url {
+    NSString* sitePath = [self pathForDomainInURL:url];
     return [sitePath stringByAppendingPathComponent:@"articles"];
 }
 
 /// Returns the folder where data for the correspnoding title is stored.
-- (NSString*)pathForTitle:(MWKTitle*)title {
-    NSString* articlesPath = [self pathForArticlesWithSite:title.site];
-    NSString* encTitle     = [self safeFilenameWithString:title.dataBaseKey];
+- (NSString*)pathForArticleURL:(NSURL*)url {
+    NSString* articlesPath = [self pathForArticlesInDomainFromURL:url];
+    NSString* encTitle     = [self safeFilenameWithString:url.wmf_titleWithUnderScores];
     return [articlesPath stringByAppendingPathComponent:encTitle];
 }
 
 - (NSString*)pathForArticle:(MWKArticle*)article {
-    return [self pathForTitle:article.title];
+    return [self pathForArticleURL:article.url];
 }
 
-- (NSString*)pathForSectionsWithTitle:(MWKTitle*)title {
-    NSString* articlePath = [self pathForTitle:title];
+- (NSString*)pathForSectionsInArticleWithURL:(NSURL*)url {
+    NSString* articlePath = [self pathForArticleURL:url];
     return [articlePath stringByAppendingPathComponent:@"sections"];
 }
 
-- (NSString*)pathForSectionId:(NSUInteger)sectionId title:(MWKTitle*)title {
-    NSString* sectionsPath = [self pathForSectionsWithTitle:title];
+- (NSString*)pathForSectionId:(NSUInteger)sectionId inArticleWithURL:(NSURL*)url {
+    NSString* sectionsPath = [self pathForSectionsInArticleWithURL:url];
     NSString* sectionName  = [NSString stringWithFormat:@"%d", (int)sectionId];
     return [sectionsPath stringByAppendingPathComponent:sectionName];
 }
 
 - (NSString*)pathForSection:(MWKSection*)section {
-    return [self pathForSectionId:section.sectionId title:section.title];
+    return [self pathForSectionId:section.sectionId inArticleWithURL:section.url];
 }
 
-- (NSString*)pathForImagesWithTitle:(MWKTitle*)title {
-    NSString* articlePath = [self pathForTitle:title];
+- (NSString*)pathForImagesWithArticleURL:(NSURL*)url {
+    NSString* articlePath = [self pathForArticleURL:url];
     return [articlePath stringByAppendingPathComponent:@"Images"];
 }
 
-- (NSString*)pathForImageURL:(NSString*)url title:(MWKTitle*)title {
-    NSString* imagesPath = [self pathForImagesWithTitle:title];
-    NSString* encURL     = [self safeFilenameWithImageURL:url];
+- (NSString*)pathForImageURL:(NSString*)imageURL forArticleURL:(NSURL*)articleURL{
+    NSString* imagesPath = [self pathForImagesWithArticleURL:articleURL];
+    NSString* encURL     = [self safeFilenameWithImageURL:imageURL];
     return encURL ? [imagesPath stringByAppendingPathComponent:encURL] : nil;
 }
 
 - (NSString*)pathForImage:(MWKImage*)image {
-    return [self pathForImageURL:image.sourceURLString title:image.article.title];
+    return [self pathForImageURL:image.sourceURLString forArticleURL:image.article.url];
 }
 
-- (NSString*)pathForTitleImageInfo:(MWKTitle*)title {
-    return [[self pathForTitle:title] stringByAppendingPathComponent:MWKImageInfoFilename];
+- (NSString*)pathForImageInfoForArticleWithURL:(NSURL*)url {
+    return [[self pathForArticleURL:url] stringByAppendingPathComponent:MWKImageInfoFilename];
 }
 
 - (NSString*)safeFilenameWithString:(NSString*)str {
@@ -231,20 +231,20 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (void)saveArticle:(MWKArticle*)article {
-    if (article.title.text == nil) {
+    if (article.url.wmf_title == nil) {
         return;
     }
     if ([article isMain]) {
         return;
     }
-    if ([article.title isNonStandardTitle]) {
+    if (article.url.wmf_isNonStandardURL) {
         return;
     }
 
     NSString* path       = [self pathForArticle:article];
     NSDictionary* export = [article dataExport];
     [self saveDictionary:export path:path name:@"Article.plist"];
-    [self.articleCache setObject:article forKey:article.title];
+    [self.articleCache setObject:article forKey:article.url];
     dispatchOnMainQueue(^{
         [[NSNotificationCenter defaultCenter] postNotificationName:MWKArticleSavedNotification object:self userInfo:@{MWKArticleKey: article}];
     });
@@ -295,50 +295,50 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return [self saveDictionary:export path:path name:@"RecentSearches.plist" error:error];
 }
 
-- (void)saveImageInfo:(NSArray*)imageInfo forTitle:(MWKTitle*)title {
+- (void)saveImageInfo:(NSArray*)imageInfo forArticleURL:(NSURL*)url {
     [self saveArray:[imageInfo bk_map:^id (MWKImageInfo* obj) { return [obj dataExport]; }]
-               path:[self pathForTitle:title]
+               path:[self pathForArticleURL:url]
                name:MWKImageInfoFilename];
 }
 
 #pragma mark - load methods
 
-- (MWKArticle*)memoryCachedArticleWithTitle:(MWKTitle*)title {
-    return [self.articleCache objectForKey:title];
+- (MWKArticle*)memoryCachedArticleWithURL:(NSURL*)url{
+    return [self.articleCache objectForKey:url];
 }
 
-- (MWKArticle*)existingArticleWithTitle:(MWKTitle*)title {
+- (MWKArticle*)existingArticleWithURL:(NSURL*)url {
     MWKArticle* existingArticle =
-        [self memoryCachedArticleWithTitle:title] ? : [self articleFromDiskWithTitle:title];
+        [self memoryCachedArticleWithURL:url] ? : [self articleFromDiskWithURL:url];
     if (existingArticle) {
-        [self.articleCache setObject:existingArticle forKey:existingArticle.title];
+        [self.articleCache setObject:existingArticle forKey:url];
     }
     return existingArticle;
 }
 
-- (MWKArticle*)articleFromDiskWithTitle:(MWKTitle*)title {
-    NSString* path     = [self pathForTitle:title];
+- (MWKArticle*)articleFromDiskWithURL:(NSURL*)url {
+    NSString* path     = [self pathForArticleURL:url];
     NSString* filePath = [path stringByAppendingPathComponent:@"Article.plist"];
     NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
     if (!dict) {
         return nil;
     }
-    return [[MWKArticle alloc] initWithTitle:title dataStore:self dict:dict];
+    return [[MWKArticle alloc] initWithURL:url dataStore:self dict:dict];
 }
 
-- (MWKArticle*)articleWithTitle:(MWKTitle*)title {
-    return [self existingArticleWithTitle:title] ? : [[MWKArticle alloc] initWithTitle:title dataStore:self];
+- (MWKArticle*)articleWithURL:(NSURL*)url {
+    return [self existingArticleWithURL:url] ? : [[MWKArticle alloc] initWithURL:url dataStore:self];
 }
 
 - (MWKSection*)sectionWithId:(NSUInteger)sectionId article:(MWKArticle*)article {
-    NSString* path     = [self pathForSectionId:sectionId title:article.title];
+    NSString* path     = [self pathForSectionId:sectionId inArticleWithURL:article.url];
     NSString* filePath = [path stringByAppendingPathComponent:@"Section.plist"];
     NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
     return [[MWKSection alloc] initWithArticle:article dict:dict];
 }
 
 - (NSString*)sectionTextWithId:(NSUInteger)sectionId article:(MWKArticle*)article {
-    NSString* path     = [self pathForSectionId:sectionId title:article.title];
+    NSString* path     = [self pathForSectionId:sectionId inArticleWithURL:article.url];
     NSString* filePath = [path stringByAppendingPathComponent:@"Section.html"];
 
     NSError* err;
@@ -351,7 +351,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (BOOL)hasHTMLFileForSection:(MWKSection*)section {
-    NSString* path     = [self pathForSectionId:section.sectionId title:section.title];
+    NSString* path     = [self pathForSectionId:section.sectionId inArticleWithURL:section.article.url];
     NSString* filePath = [path stringByAppendingPathComponent:@"Section.html"];
     return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
 }
@@ -360,7 +360,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     if (url == nil) {
         return nil;
     }
-    NSString* path     = [self pathForImageURL:url title:article.title];
+    NSString* path     = [self pathForImageURL:url forArticleURL:article.url];
     NSString* filePath = [path stringByAppendingPathComponent:@"Image.plist"];
     NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
     if (dict) {
@@ -392,37 +392,29 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return dict[@"entries"];
 }
 
-- (NSArray*)cacheRemovalListFromDisk {
+- (NSArray<NSURL*>*)cacheRemovalListFromDisk {
     NSString* path      = self.basePath;
     NSString* filePath  = [path stringByAppendingPathComponent:@"TitlesToRemove.plist"];
     NSArray* URLStrings = [NSArray arrayWithContentsOfFile:filePath];
-    NSArray* titles     = [URLStrings bk_map:^id (id obj) {
+    NSArray<NSURL*>* urls     = [URLStrings wmf_mapAndRejectNil:^NSURL* (id obj) {
         if (obj && [obj isKindOfClass:[NSString class]]) {
-            NSURL* URL = [NSURL URLWithString:obj];
-            if (URL) {
-                return [[MWKTitle alloc] initWithURL:URL];
-            } else {
-                return [NSNull null];
-            }
+            return [NSURL URLWithString:obj];
         } else {
-            return [NSNull null];
+            return nil;
         }
     }];
-    titles = [titles bk_select:^BOOL (id obj) {
-        return [obj isKindOfClass:[MWKTitle class]];
-    }];
-    return titles;
+    return urls;
 }
 
-- (BOOL)saveCacheRemovalListToDisk:(NSArray*)cacheRemovalList error:(NSError**)error {
-    NSArray* URLStrings = [cacheRemovalList bk_map:^id (id obj) {
-        return [[obj URL] absoluteString];
+- (BOOL)saveCacheRemovalListToDisk:(NSArray<NSURL*>*)cacheRemovalList error:(NSError**)error {
+    NSArray* URLStrings = [cacheRemovalList bk_map:^id (NSURL* obj) {
+        return [obj absoluteString];
     }];
     return [self saveArray:URLStrings path:self.basePath name:@"TitlesToRemove.plist" error:error];
 }
 
-- (NSArray*)imageInfoForTitle:(MWKTitle*)title {
-    return [[NSArray arrayWithContentsOfFile:[self pathForTitleImageInfo:title]] wmf_mapAndRejectNil:^MWKImageInfo*(id obj) {
+- (NSArray*)imageInfoForArticleWithURL:(NSURL*)url {
+    return [[NSArray arrayWithContentsOfFile:[self pathForImageInfoForArticleWithURL:url]] wmf_mapAndRejectNil:^MWKImageInfo*(id obj) {
         return [MWKImageInfo imageInfoWithExportedData:obj];
     }];
 }
@@ -437,7 +429,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
         //HAX: We make assumptions about the length of paths below.
         //This is due to our title handling assumptions
-        //We should remove this when we remove MWKTitle
+        WMF_TECH_DEBT_TODO(We should remove this when we move to a DB)
         if ([components count] < 5) {
             continue;
         }
@@ -451,10 +443,9 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
             NSString* language = components[count - 4];
             NSString* domain   = components[count - 5];
 
-            MWKSite* site   = [[MWKSite alloc] initWithDomain:domain language:language];
-            MWKTitle* title = [site titleWithString:titleText];
+            NSURL* url = [NSURL wmf_URLWithDomain:domain language:language title:titleText fragment:nil];
 
-            MWKArticle* article = [self articleWithTitle:title];
+            MWKArticle* article = [self articleWithURL:url];
             block(article);
         }
     }
@@ -463,7 +454,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 - (void)startCacheRemoval {
     dispatch_async(self.cacheRemovalQueue, ^{
         self.cacheRemovalActive = true;
-        [self removeNextTitleFromCacheRemovalList];
+        [self removeNextArticleFromCacheRemovalList];
     });
 }
 
@@ -473,35 +464,35 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     });
 }
 
-- (void)removeNextTitleFromCacheRemovalList {
+- (void)removeNextArticleFromCacheRemovalList {
     if (!self.cacheRemovalActive) {
         return;
     }
-    NSMutableArray* titlesToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
-    if (titlesToRemove.count > 0) {
-        MWKTitle* titleToRemove = titlesToRemove[0];
-        MWKArticle* article     = [self articleFromDiskWithTitle:titleToRemove];
+    NSMutableArray<NSURL*>* urlsOfArticlesToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
+    if (urlsOfArticlesToRemove.count > 0) {
+        NSURL* urlToRemove = urlsOfArticlesToRemove[0];
+        MWKArticle* article     = [self articleFromDiskWithURL:urlToRemove];
         [article remove];
-        [titlesToRemove removeObjectAtIndex:0];
+        [urlsOfArticlesToRemove removeObjectAtIndex:0];
         NSError* error = nil;
-        if ([self saveCacheRemovalListToDisk:titlesToRemove error:&error]) {
-            dispatch_async(self.cacheRemovalQueue, ^{ [self removeNextTitleFromCacheRemovalList]; });
+        if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
+            dispatch_async(self.cacheRemovalQueue, ^{ [self removeNextArticleFromCacheRemovalList]; });
         } else {
             DDLogError(@"Error saving cache removal list: %@", error);
         }
     }
 }
 
-- (void)removeTitlesFromCache:(NSArray*)titlesToRemove {
+- (void)removeArticlesWithURLsFromCache:(NSArray<NSURL*>*)urlsToRemove {
     dispatch_async(self.cacheRemovalQueue, ^{
-        NSMutableArray* allTitlesToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
-        if (allTitlesToRemove == nil) {
-            allTitlesToRemove = [NSMutableArray arrayWithArray:titlesToRemove];
+        NSMutableArray<NSURL*>* allURLsToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
+        if (allURLsToRemove == nil) {
+            allURLsToRemove = [NSMutableArray arrayWithArray:urlsToRemove];
         } else {
-            [allTitlesToRemove addObjectsFromArray:titlesToRemove];
+            [allURLsToRemove addObjectsFromArray:urlsToRemove];
         }
         NSError* error = nil;
-        if (![self saveCacheRemovalListToDisk:allTitlesToRemove error:&error]) {
+        if (![self saveCacheRemovalListToDisk:allURLsToRemove error:&error]) {
             DDLogError(@"Error saving cache removal list to disk: %@", error);
         }
     });

@@ -16,8 +16,6 @@
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
 #import "MWKArticle.h"
-#import "NSURL+WMFExtras.h"
-#import "MWKTitle.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -54,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
                     shareFunnel:(WMFShareFunnel*)funnel {
     NSParameterAssert(article);
     NSParameterAssert(funnel);
-    NSParameterAssert(article.title.desktopURL.absoluteString);
+    NSParameterAssert(article.url.absoluteString);
 
     self = [super init];
 
@@ -84,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchImageThenShowShareCard {
     @weakify(self);
-    [[WMFImageController sharedInstance] fetchImageWithURL:[NSURL wmf_optionalURLWithString:self.article.imageURL] failure:^(NSError * _Nonnull error) {
+    [[WMFImageController sharedInstance] fetchImageWithURL:[NSURL wmf_optionalURLWithString:self.article.imageURL] failure:^(NSError* _Nonnull error) {
         DDLogInfo(@"Ignoring share card image error: %@", error);
         [self showShareOptionsWithImage:nil];
     } success:^(WMFImageDownload * _Nonnull download) {
@@ -263,7 +261,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Snippet and Title Conversion
 
 - (NSString*)shareTitle {
-    return [self.article.title.text length] > 0 ? [self.article.title.text copy] : @"";
+    return [self.article.url.wmf_title length] > 0 ? [self.article.url.wmf_title copy] : @"";
 }
 
 - (NSString*)snippetForTextOnlySharing {
@@ -297,7 +295,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString* parameter = image ? @"wprov=sfii1" : @"wprov=sfti1";
 
     NSURL* url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
-                                                self.article.title.desktopURL.absoluteString,
+                                                [NSURL wmf_desktopURLForURL:self.article.url].absoluteString,
                                                 parameter]];
 
     NSMutableArray* activityItems = @[title, url].mutableCopy;

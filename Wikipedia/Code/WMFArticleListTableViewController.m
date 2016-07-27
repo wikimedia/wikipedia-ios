@@ -3,7 +3,6 @@
 
 #import "MWKDataStore.h"
 #import "MWKArticle.h"
-#import "MWKTitle.h"
 
 #import <SSDataSources/SSDataSources.h>
 
@@ -40,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
     // NOTE(bgerstle): must check if dataSource was set to prevent creation of KVOControllerNonRetaining during dealloc
     // happens during tests, creating KVOControllerNonRetaining during dealloc attempts to create weak ref, causing crash
     if (self.dataSource) {
-        [self.KVOControllerNonRetaining unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles)];
+        [self.KVOControllerNonRetaining unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, urls)];
     }
 }
 
@@ -54,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
     _dataSource.tableView     = nil;
     self.tableView.dataSource = nil;
 
-    [self.KVOControllerNonRetaining unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles)];
+    [self.KVOControllerNonRetaining unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, urls)];
 
     _dataSource = dataSource;
 
@@ -70,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self updateDeleteButton];
     [self.KVOControllerNonRetaining observe:self.dataSource
-                                    keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles)
+                                    keyPath:WMF_SAFE_KEYPATH(self.dataSource, urls)
                                     options:NSKeyValueObservingOptionInitial
                                       block:^(WMFArticleListTableViewController* observer,
                                               SSBaseDataSource < WMFTitleListDataSource > * object,
@@ -142,13 +141,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)articleUpdatedWithNotification:(NSNotification*)note {
     MWKArticle* article = note.userInfo[MWKArticleKey];
     [self updateDeleteButtonEnabledState];
-    [self refreshAnyVisibleCellsWhichAreShowingTitle:article.title];
+    [self refreshAnyVisibleCellsWhichAreShowingArticleURL:article.url];
 }
 
-- (void)refreshAnyVisibleCellsWhichAreShowingTitle:(MWKTitle*)title {
+- (void)refreshAnyVisibleCellsWhichAreShowingArticleURL:(NSURL*)url {
     NSArray* indexPathsToRefresh = [[self.tableView indexPathsForVisibleRows] bk_select:^BOOL (NSIndexPath* indexPath) {
-        MWKTitle* otherTitle = [self.dataSource titleForIndexPath:indexPath];
-        return [title isEqualToTitle:otherTitle];
+        NSURL* otherURL = [self.dataSource urlForIndexPath:indexPath];
+        return [url isEqual:otherURL];
     }];
 
     [self.dataSource reloadCellsAtIndexPaths:indexPathsToRefresh];
@@ -237,12 +236,12 @@ NS_ASSUME_NONNULL_BEGIN
     [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:nil];
     [self wmf_hideKeyboard];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    MWKTitle* title = [self.dataSource titleForIndexPath:indexPath];
+    NSURL* url = [self.dataSource urlForIndexPath:indexPath];
     if (self.delegate) {
-        [self.delegate listViewController:self didSelectTitle:title];
+        [self.delegate listViewController:self didSelectArticleURL:url];
         return;
     }
-    [self wmf_pushArticleWithTitle:title dataStore:self.dataStore animated:YES];
+    [self wmf_pushArticleWithURL:url dataStore:self.dataStore animated:YES];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate
@@ -256,7 +255,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
-    MWKTitle* title                                  = [self.dataSource titleForIndexPath:previewIndexPath];
+    NSURL* url                                       = [self.dataSource urlForIndexPath:previewIndexPath];
     id<WMFAnalyticsContentTypeProviding> contentType = nil;
     if ([self conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
         contentType = (id<WMFAnalyticsContentTypeProviding>)self;
@@ -264,9 +263,9 @@ NS_ASSUME_NONNULL_BEGIN
     [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:contentType];
 
     if (self.delegate) {
-        return [self.delegate listViewController:self viewControllerForPreviewingTitle:title];
+        return [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url];
     } else {
-        return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+        return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
     }
 }
 

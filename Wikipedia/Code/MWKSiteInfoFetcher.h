@@ -2,13 +2,12 @@
 @import Foundation;
 
 @class MWKSiteInfo;
-@class MWKSite;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKSiteInfoFetcher : NSObject
 
-- (AnyPromise*)fetchSiteInfoForSite:(MWKSite*)site;
+- (AnyPromise*)fetchSiteInfoForSiteURL:(NSURL*)siteURL;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
 

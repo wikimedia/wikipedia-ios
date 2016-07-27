@@ -1,10 +1,3 @@
-//
-//  MWKSavedPageEntry.h
-//  MediaWikiKit
-//
-//  Created by Brion on 11/10/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
 
 #import "MWKSiteDataObject.h"
 #import "MWKList.h"
@@ -12,10 +5,9 @@
 @interface MWKSavedPageEntry : MWKSiteDataObject
     <MWKListObject>
 
-@property (readonly, strong, nonatomic) MWKTitle* title;
 @property (readonly, strong, nonatomic) NSDate* date;
 
-- (instancetype)initWithTitle:(MWKTitle*)title;
+- (instancetype)initWithURL:(NSURL*)url NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithDict:(NSDictionary*)dict;
 
 ///

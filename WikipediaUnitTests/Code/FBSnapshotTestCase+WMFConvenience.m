@@ -1,5 +1,3 @@
-//  Created by Monte Hurd on 8/21/15.
-//  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "FBSnapshotTestCase+WMFConvenience.h"
 #import "XCTestCase+WMFVisualTestConvenience.h"

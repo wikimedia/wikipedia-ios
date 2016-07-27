@@ -34,11 +34,11 @@ static NSString* const kInitMustUseSpecificInitializer = @"Wrong initializer. Us
 
 - (id)initWithArticle:(MWKArticle*)article
       suggestedTitles:(NSArray*)suggestedTitles {
-    NSString* title = [[article title] text];
+    NSString* title = [[article url] wmf_title];
     if (!title || ![suggestedTitles count]) {
         NSAssert(false, @"%@...ARTICLE TITLE: %@ SUGGESTED: %@",
                  kInitWithArticleAssertVerbiage,
-                 [article title],
+                 [article url].wmf_title,
                  suggestedTitles);
         return nil;
     }

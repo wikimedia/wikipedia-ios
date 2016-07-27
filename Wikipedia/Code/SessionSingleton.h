@@ -7,8 +7,6 @@
 
 @class MWKDataStore;
 @class MWKUserDataStore;
-@class MWKSite;
-@class MWKTitle;
 @class MWKArticle;
 
 @interface SessionSingleton : NSObject
@@ -34,7 +32,7 @@
  *  This will never be nil.
  *
  */
-@property (strong, nonatomic, readonly) MWKSite* currentArticleSite;
+@property (strong, nonatomic, readonly) NSURL* currentArticleSiteURL;
 
 /**
  *  The current artcle. Set this when an article is loaded.
@@ -50,7 +48,7 @@
 
 @property (nonatomic) BOOL fallback WMF_TECH_DEBT_DEPRECATED; //< Is this really necessary?
 
-- (NSURL*)urlForLanguage:(NSString*)language WMF_TECH_DEBT_DEPRECATED_MSG("Use -[MWKSite apiEndpoint] instead.");
+- (NSURL*)urlForLanguage:(NSString*)language WMF_TECH_DEBT_DEPRECATED_MSG("Use -[NSURL apiEndpoint] instead.");
 
 
 @end

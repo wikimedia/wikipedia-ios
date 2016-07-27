@@ -1,16 +1,45 @@
-//
-//  NSURL+WMFLinkParsing.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 8/5/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString* const WMFDefaultSiteDomain;
+
 @interface NSURL (WMFLinkParsing)
+
+#pragma mark - URL Creation
+
+/**
+ * Initialize a new URL with the main page URL for a given language anf the default domain - wikipedia.org.
+ *
+ * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for example: `en`.
+ *
+ * @return A main page URL for the given language.
+ **/
++ (nullable NSURL*)wmf_mainPageURLForLanguage:(NSString*)language;
+
+/**
+ * Initialize a new URL with the commons URL -commons.wikimedia.org.
+ *
+ * @return A main page URL for the commons.wikimedia.org.
+ **/
++ (nullable NSURL*)wmf_wikimediaCommonsURL;
+
+/**
+ * Initialize a new URL with the default Site domain -wikipedia.org - and `language`.
+ *
+ * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for example: `en`.
+ *
+ * @return A new URL with the default domain and language.
+ **/
++ (NSURL*)wmf_URLWithDefaultSiteAndlanguage:(nullable NSString*)language;
+
+
+/// @return A URL with the default domain and the language code returned by @c locale.
++ (NSURL*)wmf_URLWithDefaultSiteAndLocale:(NSLocale*)locale;
+
+/// @return A site with the default domain and the current locale's language code.
++ (NSURL*)wmf_URLWithDefaultSiteAndCurrentLocale;
 
 /**
  * Initialize a new URL with a Wikimedia `domain` and `language`.
@@ -55,6 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the `internalLink`.
  **/
+WMF_TECH_DEBT_TODO(this method should be generecized to "path" and handle the presence of /wiki/)
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedInternalLink:(NSString*)internalLink;
 
 
@@ -66,6 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  **/
+WMF_TECH_DEBT_TODO(this method should be folded into the above method and should handle the presence of a #)
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL escapedDenormalizedTitleAndFragment:(NSString*)escapedDenormalizedTitleAndFragment;
 
 
@@ -78,6 +109,41 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  **/
 + (NSURL*)wmf_URLWithSiteURL:(NSURL*)siteURL unescapedDenormalizedTitleAndFragment:(NSString*)escapedDenormalizedTitleAndFragment;
+
+/**
+ *  Return a URL for the mobile API Endpoint for the current URL
+ *
+ *  @return return value description
+ */
++ (NSURL*)wmf_mobileAPIURLForURL:(NSURL*)URL;
+
+/**
+ *  Return a URL for the desktop API Endpoint for the current URL
+ *
+ *  @return return value description
+ */
++ (NSURL*)wmf_desktopAPIURLForURL:(NSURL*)URL;
+
+/**
+ *  Return the mobile version of the given URL
+ *  by adding a m. subdomian
+ *
+ *  @param url The URL
+ *
+ *  @return Mobile version of the URL
+ */
++ (NSURL*)wmf_mobileURLForURL:(NSURL*)url;
+
+/**
+ *  Return the desktop version of the given URL
+ *  by removing a m. subdomian
+ *
+ *  @param url The URL
+ *
+ *  @return Mobile version of the URL
+ */
++ (NSURL*)wmf_desktopURLForURL:(NSURL*)url;
+
 
 /**
  * Return a new URL similar to the URL you call this method on but replace the title.
@@ -99,6 +165,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURL*)wmf_URLWithTitle:(NSString*)title fragment:(nullable NSString*)fragment;
 
 /**
+ * Return a new URL similar to the URL you call this method on but replace the fragemnt.
+ *
+ * @param fragment      An optional fragment, for example if you want the URL to contain `#section`, the fragment is `section`.
+ *
+ * @return A new URL based on the URL you call this method on with the given fragment.
+ **/
+- (NSURL*)wmf_URLWithFragment:(nullable NSString*)fragment;
+
+/**
  * Return a new URL similar to the URL you call this method on but replace the path.
  *
  * @param path         A full path - for example `/w/api.php`
@@ -107,28 +182,60 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 - (NSURL*)wmf_URLWithPath:(NSString*)path isMobile:(BOOL)isMobile;
 
-@property (nonatomic, readonly) BOOL wmf_isInternalLink;
 
-@property (nonatomic, readonly) BOOL wmf_isCitation;
+#pragma mark - URL Componenets
 
-@property (nonatomic, readonly) BOOL wmf_isMobile;
-
-@property (nonatomic, copy, readonly, nullable) NSString* wmf_internalLinkPath;
+/**
+ *  Return a URL with just the domain, language, and mobile subdomain of the reciever.
+ *  Everything but the path
+ *
+ *  @return The site URL
+ */
+@property (nonatomic, copy, readonly) NSURL* wmf_siteURL;
 
 @property (nonatomic, copy, readonly, nullable) NSString* wmf_domain;
 
 @property (nonatomic, copy, readonly, nullable) NSString* wmf_language;
 
+@property (nonatomic, copy, readonly, nullable) NSString* wmf_pathWithoutWikiPrefix;
+
 @property (nonatomic, copy, readonly) NSString* wmf_title;
 
-@property (nonatomic, copy, readonly) NSURL* wmf_mobileURL;
+@property (nonatomic, copy, readonly) NSString* wmf_titleWithUnderScores;
 
-@property (nonatomic, copy, readonly) NSURL* wmf_desktopURL;
 
+#pragma mark - Introspection
+
+/**
+ *  Return YES is a URL is a link to a Wiki resource
+ *  Checks for the presence of "/wiki/" in the path
+ */
+@property (nonatomic, readonly) BOOL wmf_isWikiResource;
+
+/**
+ *  Return YES if the receiver has "cite_note" in the path
+ */
+@property (nonatomic, readonly) BOOL wmf_isWikiCitation;
+
+/**
+ *  Return YES if the URL has a .m subdomain
+ */
+@property (nonatomic, readonly) BOOL wmf_isMobile;
+
+/**
+ *  Return YES if the URL does not have a language subdomain
+ */
 @property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
 
+
+#pragma mark - Layout based on Language
+WMF_TECH_DEBT_TODO(These should be renamed and/or moved to indicate that they are based on the language subdomain of the receiver)
+
 @property (nonatomic, readonly) UIUserInterfaceLayoutDirection wmf_layoutDirection;
+
 @property (nonatomic, readonly) NSTextAlignment wmf_textAlignment;
+
+
 
 @end
 

@@ -48,7 +48,7 @@
 - (void)prepareForReuse {
     [super prepareForReuse];
     self.snippetLabel.attributedText        = nil;
-    self.saveButtonController.title         = nil;
+    self.saveButtonController.url           = nil;
     self.saveButtonController.savedPageList = nil;
     self.loading                            = NO;
 }
@@ -180,9 +180,9 @@
     return _saveButtonController;
 }
 
-- (void)setSaveableTitle:(MWKTitle*)title savedPageList:(MWKSavedPageList*)savedPageList {
+- (void)setSaveableURL:(NSURL*)url savedPageList:(MWKSavedPageList*)savedPageList {
     self.saveButtonController.savedPageList = savedPageList;
-    self.saveButtonController.title         = title;
+    self.saveButtonController.url           = url;
 }
 
 #pragma mark - Height Estimation

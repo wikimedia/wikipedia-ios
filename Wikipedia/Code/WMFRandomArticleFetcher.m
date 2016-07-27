@@ -7,7 +7,6 @@
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFNumberOfExtractCharacters.h"
 
-#import "MWKSite.h"
 #import "MWKSearchResult.h"
 
 //Promises
@@ -20,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRandomArticleFetcher ()
 
-@property (nonatomic, strong) MWKSite* site;
 @property (nonatomic, strong) AFHTTPSessionManager* operationManager;
 
 @end
@@ -42,10 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (void)fetchRandomArticleWithSite:(MWKSite*)site failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSearchResultHandler)success {
+- (void)fetchRandomArticleWithSiteURL:(NSURL*)siteURL failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSearchResultHandler)success {
     NSDictionary* params = [[self class] params];
     
-    [self.operationManager wmf_GETWithSite:site
+    [self.operationManager wmf_GETAndRetryWithURL:siteURL
                                 parameters:params
                                      retry:NULL
                                    success:^(NSURLSessionDataTask* operation, NSArray* responseObject) {

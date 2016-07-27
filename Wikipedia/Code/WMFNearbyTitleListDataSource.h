@@ -3,18 +3,18 @@
 #import "WMFTitleListDataSource.h"
 @import CoreLocation;
 
-@class WMFLocationManager, MWKSite, WMFSearchResultDistanceProvider, WMFSearchResultBearingProvider;
+@class WMFLocationManager, WMFSearchResultDistanceProvider, WMFSearchResultBearingProvider;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFNearbyTitleListDataSource : SSArrayDataSource
     <WMFTitleListDataSource>
 
-@property (nonatomic, strong, readonly) MWKSite* site;
+@property (nonatomic, strong, readonly) NSURL* searchSiteURL;
 
 @property (nonatomic, strong) CLLocation* location;
 
-- (instancetype)initWithSite:(MWKSite*)site NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSearchSiteURL:(NSURL*)url NS_DESIGNATED_INITIALIZER;
 
 @end
 

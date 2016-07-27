@@ -48,7 +48,7 @@
     MWKSavedPageList* list = self.dataStore.userDataStore.savedPageList;
 
     // migration from legacy/unknown schema puts the last-saved entry first
-    assertThat([list.entries valueForKeyPath:@"title.text"], contains(
+    assertThat([list.entries valueForKeyPath:@"url.wmf_title"], contains(
                    @"Freemanbreen",
                    @"Glacier",
                    @"Crevasse",

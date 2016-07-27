@@ -149,11 +149,11 @@
 #pragma mark - Utils
 
 - (MWKArticle*)storeDummyArticleWithTitle:(NSString*)title {
-    MWKTitle* dummyTitle =
-        [MWKTitle titleWithString:title site:[MWKSite siteWithDomain:@"wikipedia.org" language:@"en"]];
+    NSURL* dummyTitle =
+        [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"en" title:title fragment:nil];
 
     MWKArticle* dummyArticle =
-        [[MWKArticle alloc] initWithTitle:dummyTitle dataStore:self.session.dataStore];
+        [[MWKArticle alloc] initWithURL:dummyTitle dataStore:self.session.dataStore];
 
     // least-tedious way to create a testing article that can be persisted
     [dummyArticle importMobileViewJSON:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];

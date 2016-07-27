@@ -346,7 +346,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             }
             break;
         case WMFUserActivityTypeArticle: {
-            if (![[MWKTitle alloc] initWithURL:activity.webpageURL]) {
+            if (!activity.webpageURL) {
                 return NO;
             } else {
                 return YES;
@@ -394,11 +394,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             [[UIViewController wmf_sharedSearchViewController] setSearchTerm:[activity wmf_searchTerm]];
             break;
         case WMFUserActivityTypeArticle: {
-            MWKTitle* title = [[MWKTitle alloc] initWithURL:activity.webpageURL];
-            if (!title) {
+            NSURL* URL = activity.webpageURL;
+            if (!URL) {
                 return NO;
             }
-            [self showArticleForTitle:title animated:NO];
+            [self showArticleForURL:URL animated:NO];
         }
         break;
         case WMFUserActivityTypeSettings:
@@ -417,15 +417,15 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 #pragma mark - Utilities
 
-- (void)showArticleForTitle:(MWKTitle*)title animated:(BOOL)animated {
-    if (!title) {
+- (void)showArticleForURL:(NSURL*)articleURL animated:(BOOL)animated {
+    if (!articleURL.wmf_title) {
         return;
     }
-    if ([[self onscreenTitle] isEqualToTitle:title]) {
+    if ([[self onscreenURL] isEqual:articleURL]) {
         return;
     }
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-    [[self exploreViewController] wmf_pushArticleWithTitle:title dataStore:self.session.dataStore restoreScrollPosition:YES animated:animated];
+    [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore restoreScrollPosition:YES animated:animated];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -443,10 +443,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (BOOL)exploreViewControllerIsDisplayingContent {
     return [self navigationControllerForTab:WMFAppTabTypeExplore].viewControllers.count > 1;
 }
-- (MWKTitle*)onscreenTitle {
+
+- (NSURL*)onscreenURL {
     UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
     if ([navVC.topViewController isKindOfClass:[WMFArticleViewController class]]) {
-        return ((WMFArticleViewController*)navVC.topViewController).articleTitle;
+        return ((WMFArticleViewController*)navVC.topViewController).articleURL;
     }
     return nil;
 }
@@ -599,7 +600,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 #pragma mark - Last Read Article
 
 - (BOOL)shouldShowLastReadArticleOnLaunch {
-    MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
+    NSURL* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleURL];
     if (!lastRead) {
         return NO;
     }
@@ -623,8 +624,8 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 }
 
 - (void)showLastReadArticleAnimated:(BOOL)animated {
-    MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
-    [self showArticleForTitle:lastRead animated:animated];
+    NSURL* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleURL];
+    [self showArticleForURL:lastRead animated:animated];
 }
 
 #pragma mark - Show Search
@@ -646,12 +647,12 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     if (exploreNavController.presentedViewController) {
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
-    MWKSite* site = [[[MWKLanguageLinkController sharedInstance] appLanguage] site];
-    [self.randomFetcher fetchRandomArticleWithSite:site failure:^(NSError *error) {
+    NSURL* siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
+    [self.randomFetcher fetchRandomArticleWithSiteURL:siteURL failure:^(NSError* error) {
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    } success:^(MWKSearchResult *result) {
-        MWKTitle* title = [site titleWithString:result.displayTitle];
-        [[self exploreViewController] wmf_pushArticleWithTitle:title dataStore:self.session.dataStore animated:YES];
+    } success:^(MWKSearchResult* result) {
+        NSURL* articleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
+        [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore animated:YES];
     }];
 }
 
@@ -662,8 +663,8 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
     [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-    MWKSite* site                   = [[[MWKLanguageLinkController sharedInstance] appLanguage] site];
-    WMFNearbyListViewController* vc = [[WMFNearbyListViewController alloc] initWithSearchSite:site dataStore:self.dataStore];
+    NSURL* siteURL                  = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
+    WMFNearbyListViewController* vc = [[WMFNearbyListViewController alloc] initWithSearchSiteURL:siteURL dataStore:self.dataStore];
     [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];
 }
 

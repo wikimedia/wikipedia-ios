@@ -22,7 +22,6 @@
 #import "Wikipedia-Swift.h"
 
 //Models
-#import "MWKTitle.h"
 #import "MWKSectionList.h"
 #import "MWKSection.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
@@ -61,15 +60,15 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 #pragma mark - Fetching
 
-- (id)serializedArticleWithTitle:(MWKTitle*)title response:(id)response {
+- (id)serializedArticleWithURL:(NSURL*)articleURL response:(id)response {
     return response;
 }
 
-- (void)fetchArticleForPageTitle:(MWKTitle*)pageTitle
-                   useDesktopURL:(BOOL)useDeskTopURL
-                        progress:(WMFProgressHandler __nullable)progress
-                        resolver:(PMKResolver)resolve {
-    if (!pageTitle.text || !pageTitle.site) {
+- (void)fetchArticleForURL:(NSURL*)articleURL
+                    useDesktopURL:(BOOL)useDeskTopURL
+                         progress:(WMFProgressHandler __nullable)progress
+                         resolver:(PMKResolver)resolve {
+    if (!articleURL.wmf_title) {
         resolve([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
     }
 
@@ -77,10 +76,10 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     if (![SessionSingleton sharedInstance].zeroConfigState.disposition) {
         useDeskTopURL = YES;
     }
+    
+    NSURL* url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:articleURL] : [NSURL wmf_mobileAPIURLForURL:articleURL];
 
-    NSURL* url = useDeskTopURL ? [pageTitle.site apiEndpoint] : [pageTitle.site mobileApiEndpoint];
-
-    NSURLSessionDataTask* operation = [self.operationManager GET:url.absoluteString parameters:pageTitle progress:^(NSProgress* _Nonnull downloadProgress) {
+    NSURLSessionDataTask* operation = [self.operationManager GET:url.absoluteString parameters:articleURL progress:^(NSProgress* _Nonnull downloadProgress) {
         if (progress) {
             CGFloat currentProgress = downloadProgress.fractionCompleted;
             dispatchOnMainQueue(^{
@@ -90,18 +89,18 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     } success:^(NSURLSessionDataTask* operation, id response) {
         dispatchOnBackgroundQueue(^{
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve([self serializedArticleWithTitle:pageTitle response:response]);
+            resolve([self serializedArticleWithURL:articleURL response:response]);
         });
     } failure:^(NSURLSessionDataTask* operation, NSError* error) {
-        if ([url isEqual:[pageTitle.site mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
-            [self fetchArticleForPageTitle:pageTitle useDesktopURL:YES progress:progress resolver:resolve];
+        if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:articleURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
+            [self fetchArticleForURL:articleURL useDesktopURL:YES progress:progress resolver:resolve];
         } else {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve(error);
         }
     }];
 
-    [self trackOperation:operation forTitle:pageTitle];
+    [self trackOperation:operation forArticleURL:articleURL];
 }
 
 - (BOOL)isFetching {
@@ -110,46 +109,36 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 #pragma mark - Operation Tracking / Cancelling
 
-- (NSURLSessionDataTask*)trackedOperationForTitle:(MWKTitle*)title {
-    if ([title.text length] == 0) {
+- (NSURLSessionDataTask*)trackedOperationForArticleURL:(NSURL*)articleURL {
+    if ([articleURL.wmf_title length] == 0) {
         return nil;
     }
 
     __block NSURLSessionDataTask* op = nil;
 
     dispatch_sync(self.operationsQueue, ^{
-        op = [self.operationsKeyedByTitle objectForKey:title.text];
+        op = [self.operationsKeyedByTitle objectForKey:articleURL];
     });
 
     return op;
 }
 
-- (void)trackOperation:(NSURLSessionDataTask*)operation forTitle:(MWKTitle*)title {
-    if ([title.text length] == 0) {
+- (void)trackOperation:(NSURLSessionDataTask*)operation forArticleURL:(NSURL*)articleURL {
+    if ([articleURL.wmf_title length] == 0) {
         return;
     }
 
     dispatch_sync(self.operationsQueue, ^{
-        [self.operationsKeyedByTitle setObject:operation forKey:title];
+        [self.operationsKeyedByTitle setObject:operation forKey:articleURL];
     });
 }
 
-- (BOOL)isFetchingArticleForTitle:(MWKTitle*)pageTitle {
-    return [self trackedOperationForTitle:pageTitle] != nil;
+- (BOOL)isFetchingArticleForURL:(NSURL*)articleURL {
+    return [self trackedOperationForArticleURL:articleURL] != nil;
 }
 
-- (void)cancelFetchForPageTitle:(MWKTitle*)pageTitle {
-    if ([pageTitle.text length] == 0) {
-        return;
-    }
-
-    __block NSURLSessionDataTask* op = nil;
-
-    dispatch_sync(self.operationsQueue, ^{
-        op = [self.operationsKeyedByTitle objectForKey:pageTitle];
-    });
-
-    [op cancel];
+- (void)cancelFetchForArticleURL:(NSURL*)articleURL {
+    [[self trackedOperationForArticleURL:articleURL] cancel];
 }
 
 - (void)cancelAllFetches {
@@ -191,8 +180,8 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     return self;
 }
 
-- (id)serializedArticleWithTitle:(MWKTitle*)title response:(NSDictionary*)response {
-    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore];
+- (id)serializedArticleWithURL:(NSURL*)url response:(NSDictionary*)response {
+    MWKArticle* article = [[MWKArticle alloc] initWithURL:url dataStore:self.dataStore];
     @try {
         [article importMobileViewJSON:response];
         [article save];
@@ -203,30 +192,30 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     }
 }
 
-- (AnyPromise*)fetchLatestVersionOfTitleIfNeeded:(MWKTitle*)title
-                                        progress:(WMFProgressHandler __nullable)progress {
-    NSParameterAssert(title);
-    if (!title) {
+- (AnyPromise*)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL*)url
+                                                 progress:(WMFProgressHandler __nullable)progress {
+    NSParameterAssert(url.wmf_title);
+    if (!url.wmf_title) {
         DDLogError(@"Can't fetch nil title, cancelling implicitly.");
         return [AnyPromise promiseWithValue:[NSError cancelledError]];
     }
 
-    MWKArticle* cachedArticle = [self.dataStore existingArticleWithTitle:title];
+    MWKArticle* cachedArticle = [self.dataStore existingArticleWithURL:url];
 
     @weakify(self);
     AnyPromise* promisedArticle;
     if (!cachedArticle || !cachedArticle.revisionId || [cachedArticle isMain]) {
         if (!cachedArticle) {
-            DDLogInfo(@"No cached article found for %@, fetching immediately.", title);
+            DDLogInfo(@"No cached article found for %@, fetching immediately.", url);
         } else if (!cachedArticle.revisionId) {
-            DDLogInfo(@"Cached article for %@ doesn't have revision ID, fetching immediately.", title);
+            DDLogInfo(@"Cached article for %@ doesn't have revision ID, fetching immediately.", url);
         } else {
             //Main pages dont neccesarily have revisions every day. We can't rely on the revision check
-            DDLogInfo(@"Cached article for main page: %@, fetching immediately.", title);
+            DDLogInfo(@"Cached article for main page: %@, fetching immediately.", url);
         }
-        promisedArticle = [self fetchArticleForPageTitle:title progress:progress];
+        promisedArticle = [self fetchArticleForURL:url progress:progress];
     } else {
-        promisedArticle = [self.revisionFetcher fetchLatestRevisionsForTitle:title
+        promisedArticle = [self.revisionFetcher fetchLatestRevisionsForArticleURL:url
                                                                  resultLimit:1
                                                           endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue]
                           .then(^(WMFRevisionQueryResults* results) {
@@ -234,13 +223,13 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
             if (!self) {
                 return [AnyPromise promiseWithValue:[NSError cancelledError]];
             } else if ([results.revisions.firstObject.revisionId isEqualToNumber:cachedArticle.revisionId]) {
-                DDLogInfo(@"Returning up-to-date local revision of %@", title);
+                DDLogInfo(@"Returning up-to-date local revision of %@", url);
                 if (progress) {
                     progress(1.0);
                 }
                 return [AnyPromise promiseWithValue:cachedArticle];
             } else {
-                return [self fetchArticleForPageTitle:title progress:progress];
+                return [self fetchArticleForURL:url progress:progress];
             }
         });
     }
@@ -254,13 +243,13 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     });
 }
 
-- (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress {
-    NSAssert(pageTitle.text != nil, @"Title text nil");
+- (AnyPromise*)fetchArticleForURL:(NSURL*)articleURL progress:(WMFProgressHandler __nullable)progress {
+    NSAssert(articleURL.wmf_title != nil, @"Title text nil");
     NSAssert(self.dataStore != nil, @"Store nil");
     NSAssert(self.operationManager != nil, @"Manager nil");
 
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [self fetchArticleForPageTitle:pageTitle useDesktopURL:NO progress:progress resolver:resolve];
+        [self fetchArticleForURL:articleURL useDesktopURL:NO progress:progress resolver:resolve];
     }];
 }
 

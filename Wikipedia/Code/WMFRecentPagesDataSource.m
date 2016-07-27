@@ -46,15 +46,15 @@ NS_ASSUME_NONNULL_BEGIN
 
             if (isPrior) {
                 if (changeKind == NSKeyValueChangeSetting) {
-                    [observer willChangeValueForKey:WMF_SAFE_KEYPATH(observer, titles)];
+                    [observer willChangeValueForKey:WMF_SAFE_KEYPATH(observer, urls)];
                 } else {
-                    [observer willChange:changeKind valuesAtIndexes:indexes forKey:WMF_SAFE_KEYPATH(observer, titles)];
+                    [observer willChange:changeKind valuesAtIndexes:indexes forKey:WMF_SAFE_KEYPATH(observer, urls)];
                 }
             } else {
                 if (changeKind == NSKeyValueChangeSetting) {
-                    [observer didChangeValueForKey:WMF_SAFE_KEYPATH(observer, titles)];
+                    [observer didChangeValueForKey:WMF_SAFE_KEYPATH(observer, urls)];
                 } else {
-                    [observer didChange:changeKind valuesAtIndexes:indexes forKey:WMF_SAFE_KEYPATH(observer, titles)];
+                    [observer didChange:changeKind valuesAtIndexes:indexes forKey:WMF_SAFE_KEYPATH(observer, urls)];
                 }
             }
         }];
@@ -109,9 +109,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self.tableView endUpdates];
 }
 
-- (NSArray*)titles {
+- (NSArray<NSURL*>*)urls {
     return [[self.recentPages entries] bk_map:^id (MWKHistoryEntry* obj) {
-        return obj.title;
+        return obj.url;
     }];
 }
 
@@ -127,8 +127,8 @@ NS_ASSUME_NONNULL_BEGIN
     return (MWKHistoryEntry*)[self itemAtIndexPath:indexPath];
 }
 
-- (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
-    return [[self recentPageForIndexPath:indexPath] title];
+- (NSURL*)urlForIndexPath:(NSIndexPath*)indexPath {
+    return [[self recentPageForIndexPath:indexPath] url];
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {
@@ -138,7 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteArticleAtIndexPath:(NSIndexPath*)indexPath {
     MWKHistoryEntry* entry = [self recentPageForIndexPath:indexPath];
     if (entry) {
-        [self.recentPages removeEntryWithListIndex:entry.title];
+        [self.recentPages removeEntryWithListIndex:entry.url];
         [self.recentPages save];
     }
 }

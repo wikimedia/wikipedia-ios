@@ -2,16 +2,16 @@
 #import <SSDataSources/SSDataSources.h>
 #import "WMFTitleListDataSource.h"
 
-@class MWKSite, WMFSearchResults;
+@class WMFSearchResults;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFSearchDataSource : SSArrayDataSource<WMFTitleListDataSource>
 
-@property (nonatomic, strong, readonly) MWKSite* searchSite;
+@property (nonatomic, strong, readonly) NSURL* searchSiteURL;
 @property (nonatomic, strong, readonly) WMFSearchResults* searchResults;
 
-- (nonnull instancetype)initWithSearchSite:(MWKSite*)site searchResults:(WMFSearchResults*)searchResults;
+- (nonnull instancetype)initWithSearchSiteURL:(NSURL*)url searchResults:(WMFSearchResults*)searchResults;
 
 @end
 

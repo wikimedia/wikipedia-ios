@@ -2,7 +2,6 @@
 
 #import "WMFAnalyticsLogging.h"
 
-@class MWKSite;
 @class MWKDataStore;
 @class MWKSavedPageList;
 @class MWKHistoryList;

@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 #import "WMFAnalyticsLogging.h"
 
-@class MWKSite, MWKDataStore;
+@class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,14 +1,14 @@
 import Foundation
 
 public class TableOfContentsAboutThisArticleItem : NSObject, TableOfContentsFooterItem {
-    let site:MWKSite
-    init(site: MWKSite) {
-        self.site = site
+    let url:NSURL
+    init(url: NSURL) {
+        self.url = url
         super.init()
     }
     
     public var titleText:String {
-        return localizedStringForSiteWithKeyFallingBackOnEnglish(self.site, "article-about-title")
+        return localizedStringForURLWithKeyFallingBackOnEnglish(self.url, "article-about-title")
     }
     
     public let itemType: TableOfContentsItemType = TableOfContentsItemType.Primary

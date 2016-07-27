@@ -1,10 +1,3 @@
-//
-//  MWKTitleTests.m
-//  MediaWikiKit
-//
-//  Created by Brion on 10/7/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
@@ -19,95 +12,95 @@
 @end
 
 @implementation MWKTitleTests {
-    MWKSite* site;
+    NSURL* siteURL;
 }
 
 - (void)setUp {
     [super setUp];
-    site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
+    siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
 }
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wnonnull"
 
-- (void)testNilResultsInEmptyString {
-    MWKTitle* title;
-    XCTAssertNoThrow((title = [site titleWithString:nil]));
-    assertThat(title.text, is(@""));
+- (void)testNilResultsInNil {
+    NSURL* title;
+    XCTAssertNoThrow((title = [siteURL wmf_URLWithTitle:nil]));
+    assertThat(title.wmf_title, is(nilValue()));
 }
 
 - (void)testPermitsEmptyString {
-    MWKTitle* title;
-    XCTAssertNoThrow((title = [site titleWithString:@""]));
-    assertThat(title.text, is(@""));
+    NSURL* title;
+    XCTAssertNoThrow((title = [siteURL wmf_URLWithTitle:@""]));
+    assertThat(title.wmf_title, is(nilValue()));
 }
 
 #pragma clang diagnostic pop
 
 - (void)testSimple {
-    MWKTitle* title = [MWKTitle titleWithString:@"Simple" site:site];
-    XCTAssertEqualObjects(title.text, @"Simple", @"Text form is full");
+    NSURL* title = [siteURL wmf_URLWithTitle:@"Simple"];
+    XCTAssertEqualObjects(title.wmf_title, @"Simple", @"Text form is full");
     XCTAssertNil(title.fragment, @"Fragment is nil");
 }
 
 - (void)testUnderscoresAndSpaces {
-    NSArray* inputs = @[[MWKTitle titleWithString:@"Fancy title with spaces" site:site],
-                        [MWKTitle titleWithString:@"Fancy_title with_spaces" site:site]];
-    for (MWKTitle* title in inputs) {
-        XCTAssertEqualObjects(title.text, @"Fancy title with spaces", @"Text form has spaces");
+    NSArray* inputs = @[[siteURL wmf_URLWithTitle:@"Fancy title with spaces"],
+                        [siteURL wmf_URLWithTitle:@"Fancy_title with_spaces"]];
+    for (NSURL* title in inputs) {
+        XCTAssertEqualObjects(title.wmf_title, @"Fancy title with spaces", @"Text form has spaces");
         XCTAssertNil(title.fragment, @"Fragment is nil");
     }
 }
 
 - (void)testUnicode {
-    MWKTitle* title = [MWKTitle titleWithString:@"Éclair" site:site];
-    XCTAssertEqualObjects(title.text, @"Éclair", @"Text form has unicode");
+    NSURL* title = [siteURL wmf_URLWithTitle:@"Éclair"];
+    XCTAssertEqualObjects(title.wmf_title, @"Éclair", @"Text form has unicode");
     XCTAssertNil(title.fragment, @"Fragment is nil");
 }
 
 - (void)testFragment {
-    MWKTitle* title = [MWKTitle titleWithString:@"foo#bar" site:site];
-    assertThat(title.site, is(site));
-    assertThat(title.text, is(@"foo"));
+    NSURL* title = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:@"foo#bar"];
+    assertThat(title.wmf_siteURL, is(siteURL));
+    assertThat(title.wmf_title, is(@"foo"));
     assertThat(title.fragment, is(@"bar"));
 }
 
 - (void)testPercentEscaped {
-    MWKTitle* title = [MWKTitle titleWithString:@"foo%20baz#bar" site:site];
-    assertThat(title.site, is(site));
-    assertThat(title.text, is(@"foo baz"));
+    NSURL* title = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:@"foo%20baz#bar"];
+    assertThat(title.wmf_siteURL, is(siteURL));
+    assertThat(title.wmf_title, is(@"foo baz"));
     assertThat(title.fragment, is(@"bar"));
 }
 
 - (void)testEquals {
-    MWKTitle* title  = [site titleWithString:@"Foobie foo"];
-    MWKTitle* title2 = [site titleWithString:@"Foobie foo"];
+    NSURL* title  = [siteURL wmf_URLWithTitle:@"Foobie foo"];
+    NSURL* title2 = [siteURL wmf_URLWithTitle:@"Foobie foo"];
     XCTAssertEqualObjects(title, title2);
 
-    MWKTitle* title3 = [site titleWithString:@"Foobie_foo"];
+    NSURL* title3 = [siteURL wmf_URLWithTitle:@"Foobie_foo"];
     XCTAssertEqualObjects(title, title3);
 
-    MWKTitle* title4 = [site titleWithString:@"Foobie_Foo"];
+    NSURL* title4 = [siteURL wmf_URLWithTitle:@"Foobie_Foo"];
     XCTAssertNotEqualObjects(title, title4);
 
-    MWKSite* site2   = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"fr"];
-    MWKTitle* title5 = [site2 titleWithString:@"Foobie foo"];
+    NSURL* site2   = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"fr"];
+    NSURL* title5 = [site2 wmf_URLWithTitle:@"Foobie foo"];
     XCTAssertNotEqualObjects(title, title5);
 }
 
 - (void)testCanonicalMappingEquality {
-    MWKTitle* title  = [site titleWithString:@"Olé"];
-    MWKTitle* title2 = [site titleWithString:@"Ol\u00E9"];
+    NSURL* title  = [siteURL wmf_URLWithTitle:@"Olé"];
+    NSURL* title2 = [siteURL wmf_URLWithTitle:@"Ol\u00E9"];
     XCTAssertEqualObjects(title, title2);
 
-    MWKTitle* title3 = [site titleWithString:@"Ole\u0301"];
+    NSURL* title3 = [siteURL wmf_URLWithTitle:@"Ole\u0301"];
     XCTAssertEqualObjects(title, title3);
 
-    title  = [site titleWithString:@"Olé#Olé"];
-    title2 = [site titleWithString:@"Ol\u00E9#Ol\u00E9"];
+    title  = [siteURL wmf_URLWithTitle:@"Olé#Olé"];
+    title2 = [siteURL wmf_URLWithTitle:@"Ol\u00E9#Ol\u00E9"];
     XCTAssertEqualObjects(title, title2);
 
-    title3 = [site titleWithString:@"Ole\u0301#Ole\u0301"];
+    title3 = [siteURL wmf_URLWithTitle:@"Ole\u0301#Ole\u0301"];
     XCTAssertEqualObjects(title, title3);
 }
 

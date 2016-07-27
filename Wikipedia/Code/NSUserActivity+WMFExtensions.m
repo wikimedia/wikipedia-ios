@@ -1,8 +1,6 @@
 
 #import "NSUserActivity+WMFExtensions.h"
 #import "MWKArticle.h"
-#import "MWKTitle.h"
-#import "MWKSite.h"
 #import "Wikipedia-Swift.h"
 
 @import CoreSpotlight;
@@ -74,17 +72,16 @@
 }
 
 + (instancetype)wmf_articleViewActivityWithArticle:(MWKArticle*)article {
-    NSParameterAssert(article.title.desktopURL);
-    NSParameterAssert(article.title.text);
+    NSParameterAssert(article.url.wmf_title);
     NSParameterAssert(article.displaytitle);
 
     NSUserActivity* activity = [self wmf_actvityWithType:@"article"];
-    activity.title      = article.title.text;
-    activity.webpageURL = article.title.desktopURL;
+    activity.title      = article.url.wmf_title;
+    activity.webpageURL = [NSURL wmf_desktopURLForURL:article.url];
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
         NSMutableSet* set = [activity.keywords mutableCopy];
-        [set addObjectsFromArray:[article.title.text componentsSeparatedByString:@" "]];
+        [set addObjectsFromArray:[article.url.wmf_title componentsSeparatedByString:@" "]];
         activity.keywords       = set;
         activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60 * 60 * 24 * 7];
 
@@ -95,8 +92,7 @@
     return activity;
 }
 
-+ (instancetype)wmf_searchResultsActivitySearchSite:(MWKSite*)site searchTerm:(NSString*)searchTerm {
-    NSURL* url                  = [site URL];
++ (instancetype)wmf_searchResultsActivitySearchSiteURL:(NSURL*)url searchTerm:(NSString*)searchTerm {
     NSURLComponents* components = [[NSURLComponents alloc] initWithURL:url resolvingAgainstBaseURL:NO];
     components.path = [NSString stringWithFormat:@"/w/index.php?search=%@&title=Special%%3ASearch&fulltext=1", searchTerm];
     url             = [components URL];

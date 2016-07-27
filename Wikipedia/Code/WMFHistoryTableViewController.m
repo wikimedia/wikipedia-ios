@@ -10,7 +10,6 @@
 #import "MWKUserDataStore.h"
 
 #import "MWKArticle.h"
-#import "MWKTitle.h"
 #import "MWKSavedPageEntry.h"
 
 #import "WMFArticleListTableViewCell.h"
@@ -49,8 +48,8 @@
                               UITableView* tableView,
                               NSIndexPath* indexPath) {
         @strongify(self);
-        MWKArticle* article = [[self dataStore] articleWithTitle:entry.title];
-        cell.titleText       = article.title.text;
+        MWKArticle* article = [[self dataStore] articleWithURL:entry.url];
+        cell.titleText       = article.url.wmf_title;
         cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
         [cell setImage:[article bestThumbnailImage]];
     };

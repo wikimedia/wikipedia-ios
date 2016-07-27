@@ -85,7 +85,7 @@
 }
 
 - (BOOL)isEqualToSectionList:(MWKSectionList*)sectionList {
-    return WMF_EQUAL(self.article.title, isEqualToTitle:, sectionList.article.title)
+    return WMF_EQUAL(self.article.url, isEqual:, sectionList.article.url)
            && WMF_EQUAL(self.sections, isEqualToArray:, [sectionList sections]);
 }
 
@@ -103,7 +103,7 @@
 
 - (NSArray*)sectionsFromDataStore {
     NSFileManager* fm = [NSFileManager defaultManager];
-    NSString* path    = [[self.article.dataStore pathForTitle:self.article.title] stringByAppendingPathComponent:@"sections"];
+    NSString* path    = [[self.article.dataStore pathForArticleURL:self.article.url] stringByAppendingPathComponent:@"sections"];
 
     NSArray* files = [fm contentsOfDirectoryAtPath:path error:nil];
     files = [files sortedArrayUsingComparator:^NSComparisonResult (NSString* obj1, NSString* obj2) {

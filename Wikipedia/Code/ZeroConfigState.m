@@ -6,7 +6,6 @@
 #import <BlocksKit/UIAlertView+BlocksKit.h>
 #import <Tweaks/FBTweakInline.h>
 
-#import "MWKSite.h"
 #import "WMFZeroMessage.h"
 #import "WMFZeroMessageFetcher.h"
 #import "MWKLanguageLinkController.h"
@@ -111,7 +110,7 @@ NSString* const ZeroWarnWhenLeaving   = @"ZeroWarnWhenLeaving";
 - (AnyPromise*)fetchZeroMessage {
     [self.zeroMessageFetcher cancelAllFetches];
     WMF_TECH_DEBT_TODO(fall back to default zero warning on fetch error);
-    return [self.zeroMessageFetcher fetchZeroMessageForSite:[[[MWKLanguageLinkController sharedInstance] appLanguage] site]];
+    return [self.zeroMessageFetcher fetchZeroMessageForSiteURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]];
 }
 
 #pragma mark - Prompts

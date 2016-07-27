@@ -1,7 +1,6 @@
 
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "NSError+WMFExtensions.h"
-#import "MWKSite.h"
 #import "SessionSingleton.h"
 
 @implementation AFHTTPSessionManager (WMFDesktopRetry)
@@ -54,23 +53,22 @@
     }
 }
 
-- (NSURLSessionDataTask*)wmf_GETWithSite:(MWKSite*)site
-                              parameters:(id)parameters
-                                   retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
-                                 success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
-                                 failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure {
-    return [self wmf_GETWithMobileURLString:[site apiEndpoint:YES].absoluteString
-                           desktopURLString:[site apiEndpoint:NO].absoluteString
+- (NSURLSessionDataTask*)wmf_GETAndRetryWithURL:(NSURL*)URL
+                                     parameters:(id)parameters
+                                          retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
+                                        success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
+                                        failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure {
+    return [self wmf_GETWithMobileURLString:[NSURL wmf_mobileAPIURLForURL:URL].absoluteString
+                           desktopURLString:[NSURL wmf_desktopAPIURLForURL:URL].absoluteString
                                  parameters:parameters
                                       retry:retry
                                     success:success
                                     failure:failure];
 }
 
-- (AnyPromise*)wmf_GETWithSite:(MWKSite*)site
-                    parameters:(id)parameters {
+- (AnyPromise*)wmf_GETAndRetryWithURL:(NSURL*)URL parameters:(id)parameters {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        [self wmf_GETWithSite:site parameters:parameters retry:nil success:^(NSURLSessionDataTask* operation, id responseObject) {
+        [self wmf_GETAndRetryWithURL:URL parameters:parameters retry:nil success:^(NSURLSessionDataTask* operation, id responseObject) {
             resolve(responseObject);
         } failure:^(NSURLSessionDataTask* operation, NSError* error) {
             resolve(error);
@@ -107,30 +105,6 @@
                 failure(operation, error);
             }
         }
-    }];
-}
-
-- (NSURLSessionDataTask*)wmf_POSTWithSite:(MWKSite*)site
-                               parameters:(id)parameters
-                                    retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
-                                  success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
-                                  failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure {
-    return [self wmf_POSTWithMobileURLString:[site apiEndpoint:YES].absoluteString
-                            desktopURLString:[site apiEndpoint:NO].absoluteString
-                                  parameters:parameters
-                                       retry:retry
-                                     success:success
-                                     failure:failure];
-}
-
-- (AnyPromise*)wmf_POSTWithSite:(MWKSite*)site
-                     parameters:(id)parameters {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        [self wmf_POSTWithSite:site parameters:parameters retry:nil success:^(NSURLSessionDataTask* operation, id responseObject) {
-            resolve(responseObject);
-        } failure:^(NSURLSessionDataTask* operation, NSError* error) {
-            resolve(error);
-        }];
     }];
 }
 

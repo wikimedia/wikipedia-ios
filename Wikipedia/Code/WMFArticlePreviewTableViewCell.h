@@ -1,6 +1,6 @@
 #import "WMFArticleListTableViewCell.h"
 
-@class MWKTitle;
+
 @class MWKSavedPageList;
 @class MWKImage;
 @class WMFSaveButtonController;
@@ -15,10 +15,10 @@
  *  Wire up the save button with the title and saved page list
  *  to enable saving.
  *
- *  @param title         The title to save/unsave
+ *  @param url         The url to save/unsave
  *  @param savedPageList The saved page list to update
  */
-- (void)setSaveableTitle:(MWKTitle*)title savedPageList:(MWKSavedPageList*)savedPageList;
+- (void)setSaveableURL:(NSURL*)url savedPageList:(MWKSavedPageList*)savedPageList;
 
 @end
 

@@ -1,34 +1,33 @@
 
 #import "MWKList.h"
-#import "MWKTitle.h"
 
-@interface MWKTitle (MWKListObject)<MWKListObject>
+@interface NSURL (MWKListObject)<MWKListObject>
 @end
 
-@interface WMFRelatedSectionBlackList : MWKList<MWKTitle*, MWKTitle*>
+@interface WMFRelatedSectionBlackList : MWKList<NSURL*, NSURL*>
 
 + (instancetype)sharedBlackList;
 
 /**
- *  Add a title to the black list
+ *  Add a url to the black list
  *
- *  @param title The title to add
+ *  @param url The url to add
  */
-- (void)addBlackListTitle:(MWKTitle*)title;
+- (void)addBlackListArticleURL:(NSURL*)url;
 
 /**
- *  Remove a title to the black list
+ *  Remove a url to the black list
  *
- *  @param title The title to remove
+ *  @param url The url to remove
  */
-- (void)removeBlackListTitle:(MWKTitle*)title;
+- (void)removeBlackListArticleURL:(NSURL*)url;
 
 /**
- *  Check if a title is blacklisted
+ *  Check if a url is blacklisted
  *
- *  @param title The title to check
+ *  @param url The url to check
  */
-- (BOOL)titleIsBlackListed:(MWKTitle*)title;
+- (BOOL)articleURLIsBlackListed:(NSURL*)url;
 
 
 @end

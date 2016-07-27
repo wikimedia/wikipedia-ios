@@ -19,14 +19,12 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
 #pragma mark - Setup
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
-    NSArray* entries = [[[dataStore historyListData] bk_map:^id (id obj) {
+    NSArray* entries = [[dataStore historyListData] wmf_mapAndRejectNil:^id (id obj) {
         @try {
             return [[MWKHistoryEntry alloc] initWithDict:obj];
         } @catch (NSException* exception) {
             return nil;
         }
-    }] bk_reject:^BOOL (id obj) {
-        return [obj isEqual:[NSNull null]];
     }];
 
     self = [super initWithEntries:entries];
@@ -42,27 +40,27 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     return [self.entries firstObject];
 }
 
-- (nullable MWKHistoryEntry*)entryForTitle:(MWKTitle*)title {
-    return [self entryForListIndex:title];
+- (nullable MWKHistoryEntry*)entryForURL:(NSURL*)url {
+    return [self entryForListIndex:url];
 }
 
 #pragma mark - Update Methods
 
-- (MWKHistoryEntry*)addPageToHistoryWithTitle:(MWKTitle*)title {
-    NSParameterAssert(title);
-    if ([title isNonStandardTitle]) {
+- (MWKHistoryEntry*)addPageToHistoryWithURL:(NSURL*)url {
+    NSParameterAssert(url);
+    if ([url wmf_isNonStandardURL]) {
         return nil;
     }
-    MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title];
+    MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithURL:url];
     [self addEntry:entry];
     return entry;
 }
 
 - (void)addEntry:(MWKHistoryEntry*)entry {
-    if ([entry.title.text length] == 0) {
+    if ([entry.url.wmf_title length] == 0) {
         return;
     }
-    MWKHistoryEntry* oldEntry = [self entryForListIndex:entry.title];
+    MWKHistoryEntry* oldEntry = [self entryForListIndex:entry.url];
     if (oldEntry) {
         [super removeEntry:oldEntry];
     }
@@ -70,21 +68,21 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
 
-- (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithTitle:(MWKTitle*)title {
-    if ([title.text length] == 0) {
+- (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithURL:(NSURL*)url {
+    if ([url.wmf_title length] == 0) {
         return;
     }
-    [self updateEntryWithListIndex:title update:^BOOL (MWKHistoryEntry* __nullable entry) {
+    [self updateEntryWithListIndex:url update:^BOOL (MWKHistoryEntry* __nullable entry) {
         entry.scrollPosition = scrollposition;
         return YES;
     }];
 }
 
-- (void)setSignificantlyViewedOnPageInHistoryWithTitle:(MWKTitle*)title {
-    if ([title.text length] == 0) {
+- (void)setSignificantlyViewedOnPageInHistoryWithURL:(NSURL*)url {
+    if ([url.wmf_title length] == 0) {
         return;
     }
-    [self updateEntryWithListIndex:title update:^BOOL (MWKHistoryEntry* __nullable entry) {
+    [self updateEntryWithListIndex:url update:^BOOL (MWKHistoryEntry* __nullable entry) {
         if (entry.titleWasSignificantlyViewed) {
             return NO;
         }
@@ -98,10 +96,10 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
         return;
     }
     MWKSavedPageList* savedPageList = self.dataStore.userDataStore.savedPageList;
-    NSSet* savedTitles              = [NSSet setWithArray:[savedPageList.entries valueForKey:@"title"]];
-    NSMutableSet* removedTitles     = [NSMutableSet setWithArray:[entries valueForKey:@"title"]];
-    [removedTitles minusSet:savedTitles];
-    [self.dataStore removeTitlesFromCache:[removedTitles allObjects]];
+    NSSet* savedURLs                = [NSSet setWithArray:[savedPageList.entries valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], url)]];
+    NSMutableSet* removedURLs       = [NSMutableSet setWithArray:[entries valueForKey:WMF_SAFE_KEYPATH([MWKHistoryEntry new], url)]];
+    [removedURLs minusSet:savedURLs];
+    [self.dataStore removeArticlesWithURLsFromCache:[removedURLs allObjects]];
 }
 
 - (void)removeEntry:(MWKListEntry)entry {
@@ -112,8 +110,8 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
 
-- (void)removeEntryWithListIndex:(id)listIndex {
-    if ([[listIndex text] length] == 0) {
+- (void)removeEntryWithListIndex:(NSURL*)listIndex {
+    if ([[listIndex wmf_title] length] == 0) {
         return;
     }
     MWKHistoryEntry* entry = [self entryForListIndex:listIndex];
@@ -130,7 +128,7 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     }
     [self cleanupRemovedEntries:historyEntries];
     [historyEntries enumerateObjectsUsingBlock:^(MWKHistoryEntry* entry, NSUInteger idx, BOOL* stop) {
-        [self removeEntryWithListIndex:entry.title];
+        [self removeEntryWithListIndex:entry.url];
     }];
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }

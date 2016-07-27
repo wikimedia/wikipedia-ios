@@ -1,15 +1,7 @@
-//
-//  WMFBlacklistTests.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 1/21/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
 
 #import <XCTest/XCTest.h>
 #import "WMFAsyncTestCase.h"
 #import "WMFRelatedSectionBlackList.h"
-#import "MWKTitle.h"
 
 @interface WMFRelatedSectionBlackList (WMFTesting)
 
@@ -33,9 +25,9 @@
 
 - (void)testPersistsToDisk {
     PushExpectation();
-    MWKTitle* title                = [[MWKTitle alloc] initWithString:@"some-title" site:[MWKSite siteWithCurrentLocale]];
+    NSURL* url                = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"some-title"];
     WMFRelatedSectionBlackList* bl = [[WMFRelatedSectionBlackList alloc] init];
-    [bl addEntry:title];
+    [bl addBlackListArticleURL:url];
     [bl save].then(^(){
         [self popExpectationAfter:nil];
     }).catch(^(NSError* error){
@@ -44,9 +36,9 @@
     WaitForExpectations();
 
     bl = [WMFRelatedSectionBlackList loadFromDisk];
-    MWKTitle* first = [[bl entries] firstObject];
+    NSURL* first = [[bl entries] firstObject];
 
-    XCTAssertTrue([title isEqual:first],
+    XCTAssertTrue([url isEqual:first],
                   @"Title persisted should be equal to the title loaded from disk");
 }
 
