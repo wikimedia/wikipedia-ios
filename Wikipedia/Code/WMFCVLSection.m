@@ -78,6 +78,7 @@
 
 - (void)offsetByDeltaY:(CGFloat)deltaY withInvalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
     if (ABS(deltaY) > 0) {
+        self.frame = CGRectOffset(self.frame, 0, deltaY);
         [self offsetHeadersStartingAtIndex:0 distance:deltaY invalidationContext:invalidationContext];
         [self offsetItemsStartingAtIndex:0 distance:deltaY invalidationContext:invalidationContext];
         [self offsetFootersStartingAtIndex:0 distance:deltaY invalidationContext:invalidationContext];
@@ -130,6 +131,11 @@
     CGFloat deltaH = size.height - newAttributes.frame.size.height;
     newAttributes.frame = (CGRect) {newAttributes.frame.origin, size};
     attributes[index] = newAttributes;
+    
+    CGSize newSize = self.frame.size;
+    newSize.height += deltaH;
+    self.frame = (CGRect){self.frame.origin, newSize};
+    
     return deltaH;
 }
 
