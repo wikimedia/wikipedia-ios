@@ -323,8 +323,6 @@
         sizeToSet.width = invalidatedColumn.width;
         [invalidatedColumn setSize:sizeToSet forItemAtIndexPath:indexPath invalidationContext:context];
         
-        [self updateLayoutSizeForBoundsSize:self.layoutSize];
-        
         CGSize contentSizeAdjustment = CGSizeMake(0, self.layoutSize.height - self.collectionView.contentSize.height);
         context.contentSizeAdjustment = contentSizeAdjustment;
     }
