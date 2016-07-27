@@ -284,6 +284,8 @@
 
 - (void)updateLayoutForInvalidationContext:(WMFCVLInvalidationContext *)context {
     if (context.boundsDidChange) {
+        [self layoutForBoundsSize:context.newBounds.size];
+        self.needsLayout = NO;
         NSMutableArray *invalidatedItemIndexPaths = [NSMutableArray array];
         NSMutableArray *invalidatedHeaderIndexPaths = [NSMutableArray array];
         NSMutableArray *invalidatedFooterIndexPaths = [NSMutableArray array];
@@ -309,8 +311,6 @@
         [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:invalidatedHeaderIndexPaths];
         [context invalidateItemsAtIndexPaths:invalidatedItemIndexPaths];
         [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:invalidatedFooterIndexPaths];
-        [self layoutForBoundsSize:context.newBounds.size];
-        self.needsLayout = NO;
     } else if (context.originalLayoutAttributes && context.preferredLayoutAttributes) {
         UICollectionViewLayoutAttributes *originalAttributes = context.originalLayoutAttributes;
         UICollectionViewLayoutAttributes *preferredAttributes = context.preferredLayoutAttributes;
