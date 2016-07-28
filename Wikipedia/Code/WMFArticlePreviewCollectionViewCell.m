@@ -161,11 +161,10 @@
 }
 
 - (void)restoreImageToFullHeight {
-    self.imageHeightConstraint.constant = [self sixteenByNineHeightForImageWithSameHeightForLandscape];
+    self.imageHeightConstraint.constant = [self sixteenByNineImageHeight];
 }
 
-- (CGFloat)sixteenByNineHeightForImageWithSameHeightForLandscape {
-    // Design said landscape should use same height used for portrait.
+- (CGFloat)sixteenByNineImageHeight {
     CGFloat horizontalPadding = self.paddingConstraintLeading.constant + self.paddingConstraintTrailing.constant;
     CGFloat ratio             = (9.0 / 16.0);
     return floor((self.bounds.size.width - horizontalPadding) * ratio);
