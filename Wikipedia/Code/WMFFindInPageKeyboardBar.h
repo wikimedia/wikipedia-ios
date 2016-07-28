@@ -4,7 +4,7 @@
 
 @protocol WMFFindInPageBarDelegate <NSObject>
 
-- (void)findInPageTermChanged:(NSString *)text sender:(WMFFindInPageKeyboardBar *)sender;
+- (void)findInPageSearchTermChanged:(NSString *)term;
 - (void)findInPageCloseButtonTapped;
 - (void)findInPageClearButtonTapped;
 - (void)findInPagePreviousButtonTapped;

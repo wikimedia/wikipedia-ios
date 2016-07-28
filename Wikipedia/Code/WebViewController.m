@@ -374,8 +374,8 @@ NSString* const WMFCCBySALicenseURL =
 
 #pragma FindInPageBarDelegate
 
-- (void)findInPageTermChanged:(NSString *)text sender:(WMFFindInPageKeyboardBar *)sender {
-    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm('%@')", text] completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
+- (void)findInPageSearchTermChanged:(NSString *)term {
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm('%@')", term] completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
         [self scrollToAndFocusOnFirstMatch];
     }];
 }
