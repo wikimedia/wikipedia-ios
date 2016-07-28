@@ -18,13 +18,12 @@
     self = [super init];
     if (self) {
         self.metrics = metrics;
-        [self resetColumns];
-        [self resetSections];
+        [self resetColumnsAndSections];
     }
     return self;
 }
 
-- (void)resetColumns {
+- (void)resetColumnsAndSections {
     self.columns = [NSMutableArray arrayWithCapacity:self.metrics.numberOfColumns];
     for (NSInteger i = 0; i < self.metrics.numberOfColumns; i++) {
         WMFCVLColumn *column = [WMFCVLColumn new];
@@ -32,9 +31,6 @@
         column.info = self;
         [_columns addObject:column];
     }
-}
-
-- (void)resetSections {
     self.sections = [NSMutableArray array];
 }
 
@@ -130,7 +126,7 @@
 
 - (void)updateWithInvalidationContext:(nonnull WMFCVLInvalidationContext *)context delegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
     if (context.boundsDidChange) {
-        [self resetSections];
+        [self resetColumnsAndSections];
         [self layoutForBoundsSize:context.newBounds.size withDelegate:delegate collectionView:collectionView invalidationContext:context];
     } else if (context.originalLayoutAttributes && context.preferredLayoutAttributes) {
         UICollectionViewLayoutAttributes *originalAttributes = context.originalLayoutAttributes;
@@ -154,13 +150,10 @@
         if (self.metrics.numberOfColumns == 1 && originalAttributes.frame.origin.y < collectionView.contentOffset.y) {
             context.contentOffsetAdjustment = CGPointMake(0, context.contentSizeAdjustment.height);
         }
-    } else if (context.invalidateDataSourceCounts) {
-        [self layoutForBoundsSize:self.boundsSize withDelegate:delegate collectionView:collectionView invalidationContext:context];
     }
 }
 
 - (void)layoutForBoundsSize:(CGSize)size withDelegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView invalidationContext:(nullable WMFCVLInvalidationContext *)context {
-    [self resetColumns];
     NSUInteger numberOfColumns = self.metrics.numberOfColumns;
     UIEdgeInsets contentInsets = self.metrics.contentInsets;
     UIEdgeInsets sectionInsets = self.metrics.sectionInsets;
@@ -182,16 +175,12 @@
     NSMutableArray *invalidatedItemIndexPaths = [NSMutableArray array];
     NSMutableArray *invalidatedHeaderIndexPaths = [NSMutableArray array];
     NSMutableArray *invalidatedFooterIndexPaths = [NSMutableArray array];
-
+    
+    assert([_sections count] == 0);
     
     for (NSUInteger sectionIndex = 0; sectionIndex < numberOfSections; sectionIndex++) {
-        WMFCVLSection *section = nil;
-        if (sectionIndex >= [_sections count]) {
-            section = [WMFCVLSection sectionWithIndex:sectionIndex];
-            [_sections addObject:section];
-        } else {
-            section = _sections[sectionIndex];
-        }
+        WMFCVLSection *section = [WMFCVLSection sectionWithIndex:sectionIndex];
+        [_sections addObject:section];
 
         currentColumn.width = [columnWeights[currentColumnIndex] doubleValue]*baselineColumnWidth;
         CGFloat columnWidth = currentColumn.width;
@@ -213,20 +202,16 @@
         
         CGFloat sectionHeight = 0;
         
-            NSIndexPath *supplementaryViewIndexPath = [NSIndexPath indexPathForRow:0 inSection:sectionIndex];
+        CGFloat headerHeight = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
+    
+        NSIndexPath *supplementaryViewIndexPath = [NSIndexPath indexPathForRow:0 inSection:sectionIndex];
+        [invalidatedHeaderIndexPaths addObject:supplementaryViewIndexPath];
+        [invalidatedFooterIndexPaths addObject:supplementaryViewIndexPath];
         
-        CGFloat headerHeight = 0;
-        
-        if (section.headers.count == 0) {
-            headerHeight = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
-            WMFCVLAttributes *headerAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:supplementaryViewIndexPath];
-            if (headerAttributes != nil) {
-                headerAttributes.frame = CGRectMake(x, y, columnWidth, headerHeight);
-                [section addHeader:headerAttributes];
-            }
-            [invalidatedHeaderIndexPaths addObject:supplementaryViewIndexPath];
-        } else {
-            headerHeight = section.headers[0].frame.size.height;
+        WMFCVLAttributes *headerAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:supplementaryViewIndexPath];
+        if (headerAttributes != nil) {
+            headerAttributes.frame = CGRectMake(x, y, columnWidth, headerHeight);
+            [section addHeader:headerAttributes];
         }
         
         sectionHeight += headerHeight;
@@ -240,24 +225,15 @@
             } else {
                 y += interItemSpacing;
             }
+            CGFloat itemHeight = [delegate collectionView:collectionView estimatedHeightForItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:sectionIndex] forColumnWidth:columnWidth];
             
-            CGFloat itemHeight = 0;
             NSIndexPath *itemIndexPath = [NSIndexPath indexPathForItem:item inSection:sectionIndex];
-            
-            if (item >= section.items.count) {
-                itemHeight = [delegate collectionView:collectionView estimatedHeightForItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:sectionIndex] forColumnWidth:columnWidth];
-                
-                
-                [invalidatedItemIndexPaths addObject:itemIndexPath];
-                WMFCVLAttributes *itemAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForCellWithIndexPath:itemIndexPath];
-                if (itemAttributes != nil) {
-                    itemAttributes.frame = CGRectMake(itemX, y, itemWidth, itemHeight);
-                    [section addItem:itemAttributes];
-                }
-            } else {
-                itemHeight = section.items[item].frame.size.height;
+            [invalidatedItemIndexPaths addObject:itemIndexPath];
+            WMFCVLAttributes *itemAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForCellWithIndexPath:itemIndexPath];
+            if (itemAttributes != nil) {
+                itemAttributes.frame = CGRectMake(itemX, y, itemWidth, itemHeight);
+                [section addItem:itemAttributes];
             }
-            
             assert(itemHeight > 0);
             sectionHeight += itemHeight;
             y += itemHeight;
@@ -266,18 +242,11 @@
         sectionHeight += sectionInsets.bottom;
         y += sectionInsets.bottom;
         
-        CGFloat footerHeight = 0;
-        if (section.footers.count == 0) {
-            footerHeight = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
-            WMFCVLAttributes *footerAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:supplementaryViewIndexPath];
-            [invalidatedFooterIndexPaths addObject:supplementaryViewIndexPath];
-            if (footerAttributes != nil) {
-                footerAttributes.frame = CGRectMake(x, y, columnWidth, footerHeight);
-                [section addFooter:footerAttributes];
-            }
-            [invalidatedFooterIndexPaths addObject:supplementaryViewIndexPath];
-        } else {
-            footerHeight = section.footers[0].frame.size.height;
+        CGFloat footerHeight = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
+        WMFCVLAttributes *footerAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:supplementaryViewIndexPath];
+        if (footerAttributes != nil) {
+            footerAttributes.frame = CGRectMake(x, y, columnWidth, footerHeight);
+            [section addFooter:footerAttributes];
         }
         
         sectionHeight += footerHeight;
