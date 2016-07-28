@@ -126,7 +126,8 @@
 
 - (BOOL)updateWithInvalidationContext:(nonnull WMFCVLInvalidationContext *)context delegate:(id <WMFCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
     if (context.boundsDidChange) {
-        return YES;
+        [self resetColumnsAndSections];
+        [self layoutForBoundsSize:context.newBounds.size withDelegate:delegate collectionView:collectionView invalidationContext:context];
     } else if (context.originalLayoutAttributes && context.preferredLayoutAttributes) {
         UICollectionViewLayoutAttributes *originalAttributes = context.originalLayoutAttributes;
         UICollectionViewLayoutAttributes *preferredAttributes = context.preferredLayoutAttributes;
