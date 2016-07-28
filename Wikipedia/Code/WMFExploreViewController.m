@@ -54,6 +54,7 @@
 #import "WMFFirstRandomViewController.h"
 #endif
 
+NSString * const WMFExploreEmptyFooterReuseIdentifier = @"empty";
 static DDLogLevel const WMFExploreVCLogLevel = DDLogLevelInfo;
 #undef LOG_LEVEL_DEF
 #define LOG_LEVEL_DEF WMFExploreVCLogLevel
@@ -300,6 +301,8 @@ WMFColumnarCollectionViewLayoutDelegate>
     [self.collectionView registerNib:[WMFExploreSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
 
     [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
+    
+    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFExploreEmptyFooterReuseIdentifier];
     
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -622,8 +625,9 @@ WMFColumnarCollectionViewLayoutDelegate>
     if (!controller) {
         return nil;
     }
-    WMFExploreSectionFooter* footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
+   
     if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id<WMFMoreFooterProviding>) controller isFooterEnabled])) {
+         WMFExploreSectionFooter* footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
         footer.visibleBackgroundView.alpha = 1.0;
         footer.moreLabel.text              = [(id < WMFMoreFooterProviding >)controller footerText];
         footer.moreLabel.textColor         = [UIColor wmf_exploreSectionFooterTextColor];
@@ -632,12 +636,11 @@ WMFColumnarCollectionViewLayoutDelegate>
             @strongify(self);
             [self didTapFooterInSection:indexPath.section];
         };
+        return footer;
     } else {
-        footer.visibleBackgroundView.alpha = 0.0;
-        footer.moreLabel.text              = nil;
-        footer.whenTapped                  = NULL;
+        return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFExploreEmptyFooterReuseIdentifier forIndexPath:indexPath];
     }
-    return footer;
+ 
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
