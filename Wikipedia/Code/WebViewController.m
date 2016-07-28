@@ -46,7 +46,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 NSString* const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
-@interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageBarDelegate>
+@interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate>
 
 @property (nonatomic, strong) MASConstraint* headerHeight;
 @property (nonatomic, strong) UIView* footerContainerView;
@@ -369,31 +369,31 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)scrollToAndFocusOnFirstMatch {
     self.findInPageResultCursorIndex = -1;
-    [self findInPageNextButtonTapped];
+    [self keyboardBarNextButtonTapped:nil];
 }
 
-#pragma FindInPageBarDelegate
+#pragma FindInPageKeyboardBarDelegate
 
-- (void)findInPageSearchTermChanged:(NSString *)term {
+- (void)keyboardBar:(WMFFindInPageKeyboardBar*)keyboardBar searchTermChanged:(NSString *)term {
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm('%@')", term] completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
         [self scrollToAndFocusOnFirstMatch];
     }];
 }
 
-- (void)findInPageCloseButtonTapped {
+- (void)keyboardBarCloseButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
     [self hideFindInPage];
 }
 
-- (void)findInPageClearButtonTapped {
+- (void)keyboardBarClearButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
     [self clearFindInPage];
 }
 
-- (void)findInPagePreviousButtonTapped {
+- (void)keyboardBarPreviousButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
     [self advanceFindInPageResultCursorIndexReversed:YES];
     [self scrollToAndFocusOnResultForCurrentFindInPageCursorIndex];
 }
 
-- (void)findInPageNextButtonTapped {
+- (void)keyboardBarNextButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
     [self advanceFindInPageResultCursorIndexReversed:NO];
     [self scrollToAndFocusOnResultForCurrentFindInPageCursorIndex];
 }
@@ -459,7 +459,7 @@ NSString* const WMFCCBySALicenseURL =
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    ((WMFViewWithFindInPageKeyboardBarInputAccessoryView *)self.view).findInPageBarDelegate = self;
+    ((WMFViewWithFindInPageKeyboardBarInputAccessoryView *)self.view).findInPageKeyboardBarDelegate = self;
     
     self.isPeeking = NO;
 

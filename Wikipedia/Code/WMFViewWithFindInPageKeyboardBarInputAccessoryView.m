@@ -17,7 +17,7 @@
 - (UIView *)inputAccessoryView {
     if(!_inputAccessoryView) {
         WMFFindInPageKeyboardBar* bar = [WMFFindInPageKeyboardBar wmf_viewFromClassNib];
-        bar.delegate = self.findInPageBarDelegate;
+        bar.delegate = self.findInPageKeyboardBarDelegate;
         _inputAccessoryView = bar;
     }
     return _inputAccessoryView;

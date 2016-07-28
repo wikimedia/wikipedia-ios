@@ -35,29 +35,29 @@
 }
 
 - (IBAction)didTouchPrevious{
-    [self.delegate findInPagePreviousButtonTapped];
+    [self.delegate keyboardBarPreviousButtonTapped:self];
 }
 
 - (IBAction)didTouchNext{
-    [self.delegate findInPageNextButtonTapped];
+    [self.delegate keyboardBarNextButtonTapped:self];
 }
 
 - (void)textDidChange:(NSNotification*)notification {
     if (notification.object == self.textField) {
-        [self.delegate findInPageSearchTermChanged:[[notification object] text]];
+        [self.delegate keyboardBar:self searchTermChanged:[[notification object] text]];
         self.clearButton.hidden = (self.textField.text.length == 0) ? YES : NO;
     }
 }
 
 - (IBAction)didTouchClose{
     [self didTouchClear];
-    [self.delegate findInPageCloseButtonTapped];
+    [self.delegate keyboardBarCloseButtonTapped:self];
 }
 
 - (IBAction)didTouchClear{
     [self.textField setText:@""];
-    [self.delegate findInPageSearchTermChanged:@""];
-    [self.delegate findInPageClearButtonTapped];
+    [self.delegate keyboardBar:self searchTermChanged:@""];
+    [self.delegate keyboardBarClearButtonTapped:self];
     self.clearButton.hidden = YES;
 }
 

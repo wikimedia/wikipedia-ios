@@ -2,19 +2,19 @@
 
 @class WMFFindInPageKeyboardBar;
 
-@protocol WMFFindInPageBarDelegate <NSObject>
+@protocol WMFFindInPageKeyboardBarDelegate <NSObject>
 
-- (void)findInPageSearchTermChanged:(NSString *)term;
-- (void)findInPageCloseButtonTapped;
-- (void)findInPageClearButtonTapped;
-- (void)findInPagePreviousButtonTapped;
-- (void)findInPageNextButtonTapped;
+- (void)keyboardBar:(WMFFindInPageKeyboardBar*)keyboardBar searchTermChanged:(NSString *)term;
+- (void)keyboardBarCloseButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar;
+- (void)keyboardBarClearButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar;
+- (void)keyboardBarPreviousButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar;
+- (void)keyboardBarNextButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar;
 
 @end
 
 @interface WMFFindInPageKeyboardBar : UIInputView
 
-@property (weak, nonatomic) id<WMFFindInPageBarDelegate> delegate;
+@property (weak, nonatomic) id<WMFFindInPageKeyboardBarDelegate> delegate;
 
 @property (strong, nonatomic) IBOutlet UITextField *textField;
 

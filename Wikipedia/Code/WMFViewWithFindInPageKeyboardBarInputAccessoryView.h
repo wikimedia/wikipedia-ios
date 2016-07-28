@@ -3,6 +3,6 @@
 
 @interface WMFViewWithFindInPageKeyboardBarInputAccessoryView : UIView
 
-@property (weak, nonatomic) id<WMFFindInPageBarDelegate> findInPageBarDelegate;
+@property (weak, nonatomic) id<WMFFindInPageKeyboardBarDelegate> findInPageKeyboardBarDelegate;
 
 @end
