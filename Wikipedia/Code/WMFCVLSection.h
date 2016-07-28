@@ -25,6 +25,10 @@
 - (void)addHeader:(nonnull WMFCVLAttributes *)header;
 - (void)addFooter:(nonnull WMFCVLAttributes *)footer;
 
+- (void)replaceItemAtIndex:(NSInteger)index withItem:(nonnull WMFCVLAttributes *)item;
+- (void)replaceHeaderAtIndex:(NSInteger)index withHeader:(nonnull WMFCVLAttributes *)header;
+- (void)replaceFooterAtIndex:(NSInteger)index withFooter:(nonnull WMFCVLAttributes *)footer;
+
 - (void)enumerateLayoutAttributesWithBlock:(nonnull void(^)(WMFCVLAttributes * _Nonnull layoutAttributes, BOOL * _Nonnull stop))block;
 
 - (void)offsetByDeltaY:(CGFloat)deltaY withInvalidationContext:(nonnull UICollectionViewLayoutInvalidationContext *)invalidationContext;
