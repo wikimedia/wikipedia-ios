@@ -352,6 +352,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)canFindInPage {
+    // The presentedViewController check is to prevent the find-in-page icon from responding if
+    // the text size adjustment slider is onscreen. Appears to be a UIKit bug.
     return self.article != nil && (self.presentedViewController == nil);
 }
 
