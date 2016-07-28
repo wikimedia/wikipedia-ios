@@ -147,7 +147,7 @@
             [invalidatedColumn setSize:sizeToSet forItemAtIndexPath:indexPath invalidationContext:context];
         } else if ([originalAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader]) {
             [invalidatedColumn setSize:sizeToSet forHeaderAtIndexPath:indexPath invalidationContext:context];
-        } else if ([originalAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader]) {
+        } else if ([originalAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter]) {
             [invalidatedColumn setSize:sizeToSet forFooterAtIndexPath:indexPath invalidationContext:context];
         }
         [self updateContentSizeWithInvalidationContext:context];
