@@ -327,16 +327,21 @@ NSString* const WMFCCBySALicenseURL =
     [self findInPageKeyboardBar].currentCursorIndex = findInPageResultCursorIndex;
 }
 
-- (void)scrollToAndHightlightFindInPageResultReversed:(BOOL)isReversed {
+- (void)advanceFindInPageResultCursorIndexReversed:(BOOL)reversed {
     if(self.findInPageMatches.count == 0){
         return;
     }
-    
-    self.findInPageResultCursorIndex += (isReversed ? -1 : 1);
-    if (isReversed && (self.findInPageResultCursorIndex < 0)) {
+    self.findInPageResultCursorIndex += (reversed ? -1 : 1);
+    if (reversed && (self.findInPageResultCursorIndex < 0)) {
         self.findInPageResultCursorIndex = self.findInPageMatches.count - 1;
     }else if (self.findInPageResultCursorIndex >= self.findInPageMatches.count) {
         self.findInPageResultCursorIndex = 0;
+    }
+}
+
+- (void)scrollToAndFocusOnResultForCurrentFindInPageCursorIndex {
+    if(self.findInPageMatches.count == 0){
+        return;
     }
     
     NSString* matchSpanId = [self.findInPageMatches wmf_safeObjectAtIndex:self.findInPageResultCursorIndex];
@@ -351,7 +356,7 @@ NSString* const WMFCCBySALicenseURL =
                              @strongify(self);
                              self.disableMinimizeFindInPage = YES;
                              
-                             //TODO: modified to scroll the match to the vertical point between top of keyboard and top of screen
+//TODO: modified to scroll the match to the vertical point between top of keyboard and top of screen
                              
                              [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, fmaxf(rect.origin.y - 80.f, 0.f)) animated:NO];
                          } completion:^(BOOL done) {
@@ -362,16 +367,16 @@ NSString* const WMFCCBySALicenseURL =
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.useFocusStyleForHighlightedSearchTermWithId('%@')", matchSpanId] completionHandler:nil];
 }
 
-- (void)scrollToAndHightlightFirstMatch {
+- (void)scrollToAndFocusOnFirstMatch {
     self.findInPageResultCursorIndex = -1;
-    [self scrollToAndHightlightFindInPageResultReversed:NO];
+    [self findInPageNextButtonTapped];
 }
 
 #pragma FindInPageBarDelegate
 
 - (void)findInPageTermChanged:(NSString *)text sender:(FindInPageKeyboardBar *)sender {
-    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightSearchTerm('%@')", text] completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
-        [self scrollToAndHightlightFirstMatch];
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm('%@')", text] completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
+        [self scrollToAndFocusOnFirstMatch];
     }];
 }
 
@@ -384,11 +389,13 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)findInPagePreviousButtonTapped {
-    [self scrollToAndHightlightFindInPageResultReversed:YES];
+    [self advanceFindInPageResultCursorIndexReversed:YES];
+    [self scrollToAndFocusOnResultForCurrentFindInPageCursorIndex];
 }
 
 - (void)findInPageNextButtonTapped {
-    [self scrollToAndHightlightFindInPageResultReversed:NO];
+    [self advanceFindInPageResultCursorIndexReversed:NO];
+    [self scrollToAndFocusOnResultForCurrentFindInPageCursorIndex];
 }
 
 #pragma mark - WebView configuration

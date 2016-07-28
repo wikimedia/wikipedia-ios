@@ -142,7 +142,7 @@ function removeSearchTermHighlights() {
     recursivelyRemoveSearchTermHighlightsStartingWithElement(document.body);
 }
 
-function findAndHighlightSearchTerm(searchTerm) {
+function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
     removeSearchTermHighlights();
     if (searchTerm.trim().length === 0){
         window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches);
@@ -176,7 +176,7 @@ function useFocusStyleForHighlightedSearchTermWithId(id) {
     }, 0);
 }
 
-exports.findAndHighlightSearchTerm = findAndHighlightSearchTerm;
+exports.findAndHighlightAllMatchesForSearchTerm = findAndHighlightAllMatchesForSearchTerm;
 exports.useFocusStyleForHighlightedSearchTermWithId = useFocusStyleForHighlightedSearchTermWithId;
 exports.removeSearchTermHighlights = removeSearchTermHighlights;
 
