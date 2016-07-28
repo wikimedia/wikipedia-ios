@@ -213,7 +213,7 @@
         
         CGFloat sectionHeight = 0;
         
-            NSIndexPath *supplementaryViewIndexPath = [NSIndexPath indexPathForRow:0 inSection:sectionIndex];
+        NSIndexPath *supplementaryViewIndexPath = [NSIndexPath indexPathForRow:0 inSection:sectionIndex];
         
         CGFloat headerHeight = 0;
         
