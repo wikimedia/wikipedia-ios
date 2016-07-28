@@ -168,7 +168,7 @@
     // Design said landscape should use same height used for portrait.
     CGFloat horizontalPadding = self.paddingConstraintLeading.constant + self.paddingConstraintTrailing.constant;
     CGFloat ratio             = (9.0 / 16.0);
-    return floor((MIN(CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds)) - horizontalPadding) * ratio);
+    return floor((self.bounds.size.width - horizontalPadding) * ratio);
 }
 
 #pragma mark - Saving
