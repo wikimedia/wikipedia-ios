@@ -982,6 +982,7 @@ WMFColumnarCollectionViewLayoutDelegate>
     _refreshControl = refreshControl;
 
     if (_refreshControl) {
+        _refreshControl.layer.zPosition = -100;
         [self.collectionView addSubview:_refreshControl];
     }
 }
