@@ -12,7 +12,6 @@
 @property (nonatomic, strong) WMFCVLMetrics *metrics;
 @property (nonatomic, strong) WMFCVLInfo *info;
 @property (nonatomic) BOOL needsNewLayout;
-@property (nonatomic) BOOL needsLayout;
 
 @end
 
@@ -23,7 +22,6 @@
     if (self) {
         self.metrics = metrics;
         self.needsNewLayout = YES;
-        self.needsLayout = NO;
     }
     return self;
 }
@@ -99,14 +97,9 @@
 }
 
 - (void)prepareLayout {
-    if (self.needsLayout || self.needsNewLayout) {
-        if (self.needsNewLayout) {
-            self.info = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
-        } else {
-            self.info = [self.info copy];
-        }
+    if (self.needsNewLayout) {
+        self.info = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
         [self layoutForBoundsSize:self.collectionView.bounds.size];
-        self.needsLayout = NO;
         self.needsNewLayout = NO;
     }
     [super prepareLayout];
@@ -150,7 +143,7 @@
 }
 
 - (void)updateLayoutForInvalidationContext:(WMFCVLInvalidationContext *)context {
-    self.info = [self.info copy];
+   self.info = [self.info copy];
    [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
 }
 
