@@ -274,7 +274,6 @@
                 }
             }
             
-            assert(itemHeight > 0);
             sectionHeight += itemHeight;
             y += itemHeight;
         }
