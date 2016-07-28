@@ -16,7 +16,8 @@
         if (fitSize.height == CGFLOAT_MAX) {
             fitSize.height = attributesToFit.size.height;
         }
-        fitAttributes.size = fitSize;
+
+        fitAttributes.frame = (CGRect) {attributesToFit.frame.origin, fitSize};
         return fitAttributes;
     }
 }
