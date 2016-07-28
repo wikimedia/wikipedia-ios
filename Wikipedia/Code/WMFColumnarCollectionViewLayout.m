@@ -102,6 +102,8 @@
     if (self.needsLayout || self.needsNewLayout) {
         if (self.needsNewLayout) {
             self.info = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
+        } else {
+            self.info = [self.info copy];
         }
         [self layoutForBoundsSize:self.collectionView.bounds.size];
         self.needsLayout = NO;
