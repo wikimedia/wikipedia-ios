@@ -78,6 +78,7 @@ function removeSearchTermHighlights() {
 function findAndHighlightSearchTerm(searchTerm) {
     removeSearchTermHighlights();
     if (searchTerm.trim().length === 0){
+        window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches);
         return;
     }
     searchTerm = searchTerm.trim();
@@ -102,8 +103,10 @@ function findAndHighlightSearchTerm(searchTerm) {
 
 function useFocusStyleForHighlightedSearchTermWithId(id) {
     deFocusPreviouslyFocusedSpan();
-    document.getElementById(id).classList.add("findInPageMatch_Focus");
-    FindInPagePreviousFocusMatchSpanId = id;
+    setTimeout(function(){
+        document.getElementById(id).classList.add("findInPageMatch_Focus");
+        FindInPagePreviousFocusMatchSpanId = id;
+    }, 0);
 }
 
 exports.findAndHighlightSearchTerm = findAndHighlightSearchTerm;

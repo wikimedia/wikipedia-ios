@@ -97,7 +97,6 @@
 		B01662B01D1B8997006F4544 /* NSURL+WMFQueryParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662AF1D1B8997006F4544 /* NSURL+WMFQueryParameters.m */; };
 		B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662B11D1B8A40006F4544 /* NSURL+WMFQueryParametersTests.m */; };
 		B01662B51D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662B41D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m */; };
-		B016DCE41D4960BB005BABA1 /* FindInPageTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B016DCE31D4960BB005BABA1 /* FindInPageTextField.m */; };
 		B016DCEB1D497C74005BABA1 /* FindInPageKeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = B016DCEA1D497C74005BABA1 /* FindInPageKeyboardBar.xib */; };
 		B0265F291CB8988F00740525 /* WMFBaseRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0265F281CB8988F00740525 /* WMFBaseRequestSerializer.m */; };
 		B0265F2C1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.m in Sources */ = {isa = PBXBuildFile; fileRef = B0265F2B1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.m */; };
@@ -845,8 +844,6 @@
 		B01662AF1D1B8997006F4544 /* NSURL+WMFQueryParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFQueryParameters.m"; path = "Wikipedia/Code/NSURL+WMFQueryParameters.m"; sourceTree = SOURCE_ROOT; };
 		B01662B11D1B8A40006F4544 /* NSURL+WMFQueryParametersTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFQueryParametersTests.m"; sourceTree = "<group>"; };
 		B01662B41D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFProxyServerTests.m"; sourceTree = "<group>"; };
-		B016DCE21D4960BB005BABA1 /* FindInPageTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FindInPageTextField.h; path = Wikipedia/Code/FindInPageTextField.h; sourceTree = SOURCE_ROOT; };
-		B016DCE31D4960BB005BABA1 /* FindInPageTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FindInPageTextField.m; path = Wikipedia/Code/FindInPageTextField.m; sourceTree = SOURCE_ROOT; };
 		B016DCEA1D497C74005BABA1 /* FindInPageKeyboardBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FindInPageKeyboardBar.xib; path = Wikipedia/Code/FindInPageKeyboardBar.xib; sourceTree = SOURCE_ROOT; };
 		B0265F271CB8988F00740525 /* WMFBaseRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBaseRequestSerializer.h; path = Wikipedia/Code/WMFBaseRequestSerializer.h; sourceTree = SOURCE_ROOT; };
 		B0265F281CB8988F00740525 /* WMFBaseRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBaseRequestSerializer.m; path = Wikipedia/Code/WMFBaseRequestSerializer.m; sourceTree = SOURCE_ROOT; };
@@ -3103,8 +3100,6 @@
 				B011FA481D470F5A00AD7C5E /* FindInPageKeyboardBar.h */,
 				B011FA491D470F5A00AD7C5E /* FindInPageKeyboardBar.m */,
 				B016DCEA1D497C74005BABA1 /* FindInPageKeyboardBar.xib */,
-				B016DCE21D4960BB005BABA1 /* FindInPageTextField.h */,
-				B016DCE31D4960BB005BABA1 /* FindInPageTextField.m */,
 				B011FA4A1D470F5A00AD7C5E /* ViewWithFindInPageKeyboardBarInputAccessoryView.h */,
 				B011FA4B1D470F5A00AD7C5E /* ViewWithFindInPageKeyboardBarInputAccessoryView.m */,
 			);
@@ -6015,7 +6010,6 @@
 				B0E806821C0CE9C70065EBC0 /* WMFNetworkUtilities.m in Sources */,
 				B0E804CB1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m in Sources */,
 				B0E805901C0CE2C60065EBC0 /* EventLoggingFunnel.m in Sources */,
-				B016DCE41D4960BB005BABA1 /* FindInPageTextField.m in Sources */,
 				0E3268BC1C52A91000131F5F /* WMFCompassViewModel.m in Sources */,
 				B0E803AE1C0CDBC00065EBC0 /* WMFRecentPagesDataSource.m in Sources */,
 				B0E8033C1C0CD76B0065EBC0 /* WMFSearchViewController.m in Sources */,

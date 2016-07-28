@@ -1,5 +1,4 @@
 #import "FindInPageKeyboardBar.h"
-#import "FindInPageTextField.h"
 #import "UIControl+BlocksKit.h"
 
 @interface FindInPageKeyboardBar()
@@ -9,16 +8,17 @@
 @property (strong, nonatomic) IBOutlet UIButton *previousButton;
 @property (strong, nonatomic) IBOutlet UIButton *nextButton;
 @property (strong, nonatomic) IBOutlet UIImageView *magnifyImageView;
+@property (strong, nonatomic) IBOutlet UILabel *currentMatchLabel;
 
 @end
 
 @implementation FindInPageKeyboardBar
 
 - (CGSize)intrinsicContentSize {
-    return CGSizeMake(UIViewNoIntrinsicMetric, 48);
+    return CGSizeMake(UIViewNoIntrinsicMetric, 46);
 }
 
--(void)dealloc {
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -26,7 +26,6 @@
     self = [super initWithCoder:coder];
     if (self) {
         self.tintColor = [UIColor colorWithRed:0.3373 green:0.3373 blue:0.3373 alpha:1.0];
-        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(textDidChange:)
                                                      name:UITextFieldTextDidChangeNotification
@@ -58,6 +57,31 @@
     [self.textField setText:@""];
     [self.delegate findInPageTermChanged:@"" sender:self];
     [self.delegate findInPageClearButtonTapped];
+}
+
+- (void)setNumberOfMatches:(NSUInteger)numberOfMatches {
+    _numberOfMatches = numberOfMatches;
+    [self setCurrentMatchLabelText];
+}
+
+- (void)setCurrentCursorIndex:(NSInteger)currentCursorIndex {
+    _currentCursorIndex = currentCursorIndex;
+    [self setCurrentMatchLabelText];
+    
+}
+
+- (void)setCurrentMatchLabelText {
+    NSString *labelText = nil;
+    if (self.textField.text.length == 0) {
+        labelText = @"";
+    } else if (self.numberOfMatches > 0 && self.currentCursorIndex == -1) {
+        labelText = [NSString stringWithFormat:@"%lu", self.numberOfMatches];
+    } else if (self.numberOfMatches == 0) {
+        labelText = @"0";
+    }else{
+        labelText = [NSString stringWithFormat:@"%lu / %lu", self.currentCursorIndex + 1, self.numberOfMatches];
+    }
+    [self.currentMatchLabel setText:labelText];
 }
 
 @end

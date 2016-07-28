@@ -56,12 +56,9 @@ NSString* const WMFCCBySALicenseURL =
 
 @property (strong, nonatomic) MASConstraint* footerContainerViewTopConstraint;
 
-
-
 @property (nonatomic, strong) NSArray* findInPageMatches;
 @property (nonatomic) NSInteger findInPageResultCursorIndex;
 @property (nonatomic) BOOL disableMinimizeFindInPage;
-
 
 @end
 
@@ -235,6 +232,7 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)handleNonAnchorTouchEndedWithoutDraggingScriptMessage {
     [self referencesHide];
+    [self hideFindInPage];
 }
 
 - (void)handleLateJavascriptTransformScriptMessage:(NSString*)messageString {
@@ -264,68 +262,19 @@ NSString* const WMFCCBySALicenseURL =
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 - (void)handleFindInPageMatchesFoundMessage:(NSArray*)messageArray {
     self.findInPageMatches = messageArray;
     self.findInPageResultCursorIndex = -1;
 }
 
-#pragma mark - Find-in-page configuration
+#pragma mark - Find-in-page
 
-/*
- - [NO] handle match inside table if collapsed?
- - [x] "pulse" the hightlighted entry as it is scrolled to?
- - [ ] if typing search term quickly, only perform search after half a second or so has passed
- - [ ] prob need threshold for returning single vs all matches? so single char search terms don't return 1000x matches...
- 
- - [x] add icon to bottom article toolbar 
- - [ ]    ^ should all of this find in page code even be in the webviewcontroller? put it where other toolbar button handler methods live?
- - [x] make holding touch on search field not cause shareafact options to appear
- - [ ] message back to findinpage bar the number of matches
- - [ ] add the search magnifying glass to left of searce field and style everything per mock
- - [x] hook up prev button and dry the cursor logic
- - [ ] note that find in page won't work with native read more bits at bottom - more reason to do as js injected html
- - [x] on scroll make keyboard disappear so just search bar shows at bottom of screen until you give text field focus again?
- - [x] fix out of order issue with result divs - messaged back in not quite the correct order is seems...
- - [ ] auto scroll to first match if it is not onscreen?
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- (FindInPageKeyboardBar *)findInPageKeyboardBar {
+    return self.view.inputAccessoryView;
+}
 
 - (UITextField *)findInPageTextField {
-    return ((FindInPageKeyboardBar*)self.view.inputAccessoryView).textField;
+    return [self findInPageKeyboardBar].textField;
 }
 
 - (BOOL)isFindInPageVisible {
@@ -348,10 +297,11 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)clearFindInPage {
     self.findInPageMatches = @[];
+    self.findInPageResultCursorIndex = -1;
     [[self findInPageTextField] setText:@""];
 }
 
--(void)minimizeFindInPage {
+- (void)minimizeFindInPage {
     if (!self.disableMinimizeFindInPage) {
         [[self findInPageTextField] resignFirstResponder];
     }
@@ -365,40 +315,23 @@ NSString* const WMFCCBySALicenseURL =
     }];
 }
 
-
-
-
-
-
-
-#pragma FindInPageBarDelegate
-
-- (void)findInPageTermChanged:(NSString *)text sender:(FindInPageKeyboardBar *)sender {
-    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightSearchTerm('%@')", text]
-                   completionHandler:nil];
+- (void)setFindInPageMatches:(NSArray *)findInPageMatches {
+    _findInPageMatches = findInPageMatches;
+    [self findInPageKeyboardBar].numberOfMatches = [findInPageMatches count];
 }
 
-- (void)findInPageCloseButtonTapped {
-    [self hideFindInPage];
-}
+#pragma FindInPageBar cursor
 
-- (void)findInPageClearButtonTapped {
-    [self clearFindInPage];
-}
-
-- (void)findInPagePreviousButtonTapped {
-    [self scrollToAndHightlightFindInPageResultReversed:YES];
-}
-
-- (void)findInPageNextButtonTapped {
-    [self scrollToAndHightlightFindInPageResultReversed:NO];
+- (void)setFindInPageResultCursorIndex:(NSInteger)findInPageResultCursorIndex {
+    _findInPageResultCursorIndex = findInPageResultCursorIndex;
+    [self findInPageKeyboardBar].currentCursorIndex = findInPageResultCursorIndex;
 }
 
 - (void)scrollToAndHightlightFindInPageResultReversed:(BOOL)isReversed {
     if(self.findInPageMatches.count == 0){
         return;
     }
-
+    
     self.findInPageResultCursorIndex += (isReversed ? -1 : 1);
     if (isReversed && (self.findInPageResultCursorIndex < 0)) {
         self.findInPageResultCursorIndex = self.findInPageMatches.count - 1;
@@ -418,54 +351,38 @@ NSString* const WMFCCBySALicenseURL =
                              @strongify(self);
                              self.disableMinimizeFindInPage = YES;
                              
-// this will need to be modified to scroll the match to the vertical point between top of keyboard and top of screen
+                             //TODO: modified to scroll the match to the vertical point between top of keyboard and top of screen
                              
-                             [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y - 80) animated:NO];
+                             [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, fmaxf(rect.origin.y - 80.f, 0.f)) animated:NO];
                          } completion:^(BOOL done) {
                              self.disableMinimizeFindInPage = NO;
                          }];
     }];
     
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.useFocusStyleForHighlightedSearchTermWithId('%@')", matchSpanId] completionHandler:nil];
-    
 }
 
+#pragma FindInPageBarDelegate
 
+- (void)findInPageTermChanged:(NSString *)text sender:(FindInPageKeyboardBar *)sender {
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightSearchTerm('%@')", text] completionHandler:nil];
+}
 
+- (void)findInPageCloseButtonTapped {
+    [self hideFindInPage];
+}
 
+- (void)findInPageClearButtonTapped {
+    [self clearFindInPage];
+}
 
+- (void)findInPagePreviousButtonTapped {
+    [self scrollToAndHightlightFindInPageResultReversed:YES];
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- (void)findInPageNextButtonTapped {
+    [self scrollToAndHightlightFindInPageResultReversed:NO];
+}
 
 #pragma mark - WebView configuration
 
@@ -490,11 +407,9 @@ NSString* const WMFCCBySALicenseURL =
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"sendJavascriptConsoleLogMessageToXcodeConsole"];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"articleState"];
-
     
-[userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"findInPageMatchesFound"];
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"findInPageMatchesFound"];
 
-    
     NSString* earlyJavascriptTransforms = @""
                                           "window.wmf.transformer.transform( 'hideRedlinks', document );"
                                           "window.wmf.transformer.transform( 'disableFilePageEdit', document );"
@@ -530,13 +445,7 @@ NSString* const WMFCCBySALicenseURL =
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-
-    
-    
-((ViewWithFindInPageKeyboardBarInputAccessoryView *)self.view).findInPageBarDelegate = self;
-
-    
-    
+    ((ViewWithFindInPageKeyboardBarInputAccessoryView *)self.view).findInPageBarDelegate = self;
     
     self.isPeeking = NO;
 

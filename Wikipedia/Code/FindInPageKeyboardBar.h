@@ -18,4 +18,7 @@
 
 @property (strong, nonatomic) IBOutlet UITextField *textField;
 
+@property (nonatomic) NSUInteger numberOfMatches;
+@property (nonatomic) NSInteger currentCursorIndex;
+
 @end
