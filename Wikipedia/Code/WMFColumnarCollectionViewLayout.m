@@ -147,8 +147,10 @@
 
 - (void)invalidateLayoutWithContext:(WMFCVLInvalidationContext *)context {
     assert([context isKindOfClass:[WMFCVLInvalidationContext class]]);
-    if (context.invalidateEverything || context.invalidateDataSourceCounts) {
+    if (context.invalidateEverything) {
         self.needsLayout = YES;
+    } else if (context.invalidateDataSourceCounts) {
+        [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
     }
     [super invalidateLayoutWithContext:context];
 }
