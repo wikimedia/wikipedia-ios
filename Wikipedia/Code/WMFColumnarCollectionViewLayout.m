@@ -22,33 +22,27 @@
 
 @implementation WMFColumnarCollectionViewLayout
 
-- (instancetype)init {
+- (nonnull instancetype)initWithMetrics:(nonnull WMFCVLMetrics *)metrics {
     self = [super init];
     if (self) {
-        [self setup];
+        self.metrics = metrics;
+        self.needsLayout = YES;
     }
     return self;
+}
+
+- (instancetype)init {
+    return [self initWithMetrics:[WMFCVLMetrics defaultMetrics]];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [self setup];
+        if (!self.metrics) {
+            self.metrics = [WMFCVLMetrics defaultMetrics];
+        }
     }
     return self;
-}
-
-- (void)setup {
-    self.metrics = [[WMFCVLMetrics alloc] init];
-    BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
-    self.needsLayout = YES;
-    self.metrics.nurmberOfColumns = isPad ? 2 : 1;
-    self.metrics.columnWeights = isPad ? @[@1, @1] : @[@1];
-    self.metrics.interColumnSpacing = isPad ? 22 : 0;
-    self.metrics.interItemSpacing = 1;
-    self.metrics.interSectionSpacing = isPad ? 22 : 50;
-    self.metrics.contentInsets = isPad ? UIEdgeInsetsMake(22, 22, 22, 22) : UIEdgeInsetsMake(0, 0, 50, 0);
-    self.metrics.sectionInsets = UIEdgeInsetsMake(1, 0, 1, 0);
 }
 
 #pragma mark - Properties
