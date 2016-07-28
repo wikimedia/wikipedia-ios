@@ -665,7 +665,7 @@
 		D84F2C001D2FEEF600963D42 /* WMFRandomArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BFF1D2FEEF600963D42 /* WMFRandomArticleViewController.m */; };
 		D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2C021D30162700963D42 /* WMFFirstRandomViewController.m */; };
 		D86706BE1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */; };
-		D86706C31D3D4AF3003AB2FC /* WMFCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706C21D3D4AF3003AB2FC /* WMFCollectionViewLayout.m */; };
+		D86706C31D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706C21D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m */; };
 		D86C1BAE1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = D86C1BAD1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m */; };
 		D87A55991D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87A55971D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m */; };
 		D87A559A1D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87A55981D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.xib */; };
@@ -1994,8 +1994,8 @@
 		D84F2C021D30162700963D42 /* WMFFirstRandomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFFirstRandomViewController.m; sourceTree = "<group>"; };
 		D86706BC1D3D4566003AB2FC /* WMFExploreCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreCollectionViewCell.h; path = Wikipedia/Code/WMFExploreCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreCollectionViewCell.m; path = Wikipedia/Code/WMFExploreCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
-		D86706C11D3D4AF3003AB2FC /* WMFCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCollectionViewLayout.h; path = Wikipedia/Code/WMFCollectionViewLayout.h; sourceTree = SOURCE_ROOT; };
-		D86706C21D3D4AF3003AB2FC /* WMFCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCollectionViewLayout.m; path = Wikipedia/Code/WMFCollectionViewLayout.m; sourceTree = SOURCE_ROOT; };
+		D86706C11D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFColumnarCollectionViewLayout.h; path = Wikipedia/Code/WMFColumnarCollectionViewLayout.h; sourceTree = SOURCE_ROOT; };
+		D86706C21D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFColumnarCollectionViewLayout.m; path = Wikipedia/Code/WMFColumnarCollectionViewLayout.m; sourceTree = SOURCE_ROOT; };
 		D86C1BAC1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURLComponents+WMFLinkParsing.h"; path = "Wikipedia/Code/NSURLComponents+WMFLinkParsing.h"; sourceTree = SOURCE_ROOT; };
 		D86C1BAD1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURLComponents+WMFLinkParsing.m"; path = "Wikipedia/Code/NSURLComponents+WMFLinkParsing.m"; sourceTree = SOURCE_ROOT; };
 		D87A55961D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleListCollectionViewCell.h; path = Wikipedia/Code/WMFArticleListCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -5069,8 +5069,8 @@
 		D86706C01D3D4AD3003AB2FC /* Layout */ = {
 			isa = PBXGroup;
 			children = (
-				D86706C11D3D4AF3003AB2FC /* WMFCollectionViewLayout.h */,
-				D86706C21D3D4AF3003AB2FC /* WMFCollectionViewLayout.m */,
+				D86706C11D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.h */,
+				D86706C21D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m */,
 				D81FB25B1D47B5830000C685 /* WMFCVLInfo.h */,
 				D81FB25C1D47B5830000C685 /* WMFCVLInfo.m */,
 				D81FB26A1D493E6A0000C685 /* WMFCVLMetrics.h */,
@@ -5985,7 +5985,7 @@
 				B0E804C91C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				B0E805481C0CE0DC0065EBC0 /* UIImage+WMFSerialization.m in Sources */,
 				0E331BF51C49647600DDE02A /* WMFRelatedSectionBlackList.m in Sources */,
-				D86706C31D3D4AF3003AB2FC /* WMFCollectionViewLayout.m in Sources */,
+				D86706C31D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m in Sources */,
 				B0726DA91C216F4300E57B2A /* WMFArticleFooterMenuViewController.m in Sources */,
 				0E3268BF1C52C35900131F5F /* WMFNearbyListViewController.m in Sources */,
 				B0E806D01C0CEB6E0065EBC0 /* PageHistoryResultCell.m in Sources */,

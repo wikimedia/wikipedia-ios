@@ -4,9 +4,9 @@
 @class WMFCVLSection;
 @class WMFCVLAttributes;
 @class WMFCVLInvalidationContext;
-@class WMFCollectionViewLayout;
+@class WMFColumnarCollectionViewLayout;
 @class WMFCVLMetrics;
-@protocol WMFCollectionViewLayoutDelegate;
+@protocol WMFColumnarCollectionViewLayoutDelegate;
 
 @interface WMFCVLInfo : NSObject <NSCopying>
 
@@ -25,9 +25,9 @@
 - (nullable WMFCVLAttributes *)layoutAttributesForItemAtIndexPath:(nonnull NSIndexPath *)indexPath;
 - (nullable WMFCVLAttributes *)layoutAttributesForSupplementaryViewOfKind:(nonnull NSString *)elementKind atIndexPath:(nonnull NSIndexPath *)indexPath;
 
-- (void)layoutForBoundsSize:(CGSize)size withDelegate:(nullable id <WMFCollectionViewLayoutDelegate>)delegate collectionView:(nullable UICollectionView *)collectionView;
+- (void)layoutForBoundsSize:(CGSize)size withDelegate:(nullable id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(nullable UICollectionView *)collectionView;
 
-- (BOOL)updateWithInvalidationContext:(nonnull WMFCVLInvalidationContext *)context delegate:(nullable id <WMFCollectionViewLayoutDelegate>)delegate collectionView:(nullable UICollectionView *)collectionView;
+- (BOOL)updateWithInvalidationContext:(nonnull WMFCVLInvalidationContext *)context delegate:(nullable id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(nullable UICollectionView *)collectionView;
 
 - (void)updateContentSize;
 

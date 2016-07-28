@@ -2,7 +2,7 @@
 #import "WMFCVLColumn.h"
 #import "WMFCVLSection.h"
 #import "WMFCVLInvalidationContext.h"
-#import "WMFCollectionViewLayout.h"
+#import "WMFColumnarCollectionViewLayout.h"
 #import "WMFCVLMetrics.h"
 #import "WMFCVLAttributes.h"
 
@@ -124,7 +124,7 @@
     context.contentSizeAdjustment = contentSizeAdjustment;
 }
 
-- (BOOL)updateWithInvalidationContext:(nonnull WMFCVLInvalidationContext *)context delegate:(id <WMFCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
+- (BOOL)updateWithInvalidationContext:(nonnull WMFCVLInvalidationContext *)context delegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
     if (context.boundsDidChange) {
         [self resetColumnsAndSections];
         [self layoutForBoundsSize:context.newBounds.size withDelegate:delegate collectionView:collectionView invalidationContext:context];
@@ -151,7 +151,7 @@
     return NO;
 }
 
-- (void)layoutForBoundsSize:(CGSize)size withDelegate:(id <WMFCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView invalidationContext:(nullable WMFCVLInvalidationContext *)context {
+- (void)layoutForBoundsSize:(CGSize)size withDelegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView invalidationContext:(nullable WMFCVLInvalidationContext *)context {
     NSUInteger numberOfColumns = self.metrics.numberOfColumns;
     UIEdgeInsets contentInsets = self.metrics.contentInsets;
     UIEdgeInsets sectionInsets = self.metrics.sectionInsets;
@@ -275,7 +275,7 @@
     [self updateContentSizeWithInvalidationContext:context];
 }
 
-- (void)layoutForBoundsSize:(CGSize)size withDelegate:(id <WMFCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
+- (void)layoutForBoundsSize:(CGSize)size withDelegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
     [self layoutForBoundsSize:size withDelegate:delegate collectionView:collectionView invalidationContext:nil];
 }
 

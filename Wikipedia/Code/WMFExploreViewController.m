@@ -43,7 +43,7 @@
 #import "WMFRelatedSectionController.h"
 #import "UIViewController+WMFSearch.h"
 #import "UINavigationController+WMFHideEmptyToolbar.h"
-#import "WMFCollectionViewLayout.h"
+#import "WMFColumnarCollectionViewLayout.h"
 
 // Controllers
 #import "WMFRelatedSectionBlackList.h"
@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
  WMFAnalyticsContextProviding,
  WMFAnalyticsViewNameProviding,
  UINavigationControllerDelegate,
-WMFCollectionViewLayoutDelegate>
+WMFColumnarCollectionViewLayoutDelegate>
 
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* recentPages;

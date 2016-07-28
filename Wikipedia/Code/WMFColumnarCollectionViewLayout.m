@@ -1,4 +1,4 @@
-#import "WMFCollectionViewLayout.h"
+#import "WMFColumnarCollectionViewLayout.h"
 #import "WMFCVLInfo.h"
 #import "WMFCVLColumn.h"
 #import "WMFCVLSection.h"
@@ -6,9 +6,9 @@
 #import "WMFCVLInvalidationContext.h"
 #import "WMFCVLMetrics.h"
 
-@interface WMFCollectionViewLayout ()
+@interface WMFColumnarCollectionViewLayout ()
 
-@property (nonatomic, readonly) id <WMFCollectionViewLayoutDelegate> delegate;
+@property (nonatomic, readonly) id <WMFColumnarCollectionViewLayoutDelegate> delegate;
 
 @property (nonatomic, strong) WMFCVLMetrics *metrics;
 
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation WMFCollectionViewLayout
+@implementation WMFColumnarCollectionViewLayout
 
 - (instancetype)init {
     self = [super init];
@@ -42,7 +42,7 @@
     self.metrics = [[WMFCVLMetrics alloc] init];
     BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
     self.needsLayout = YES;
-    self.metrics.numberOfColumns = isPad ? 2 : 1;
+    self.metrics.nurmberOfColumns = isPad ? 2 : 1;
     self.metrics.columnWeights = isPad ? @[@1, @1] : @[@1];
     self.metrics.interColumnSpacing = isPad ? 22 : 0;
     self.metrics.interItemSpacing = 1;
@@ -53,9 +53,9 @@
 
 #pragma mark - Properties
 
-- (id <WMFCollectionViewLayoutDelegate>)delegate {
-    assert(self.collectionView.delegate == nil || [self.collectionView.delegate conformsToProtocol:@protocol(WMFCollectionViewLayoutDelegate)]);
-    return (id <WMFCollectionViewLayoutDelegate>)self.collectionView.delegate;
+- (id <WMFColumnarCollectionViewLayoutDelegate>)delegate {
+    assert(self.collectionView.delegate == nil || [self.collectionView.delegate conformsToProtocol:@protocol(WMFColumnarCollectionViewLayoutDelegate)]);
+    return (id <WMFColumnarCollectionViewLayoutDelegate>)self.collectionView.delegate;
 }
 
 - (NSInteger)numberOfItemsInSection:(NSInteger)section {
