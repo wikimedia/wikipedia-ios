@@ -147,6 +147,9 @@
             [invalidatedColumn setSize:sizeToSet forFooterAtIndexPath:indexPath invalidationContext:context];
         }
         [self updateContentSizeWithInvalidationContext:context];
+        if (self.metrics.numberOfColumns == 1 && originalAttributes.frame.origin.y < collectionView.contentOffset.y) {
+            context.contentOffsetAdjustment = CGPointMake(0, context.contentSizeAdjustment.height);
+        }
     }
 }
 
