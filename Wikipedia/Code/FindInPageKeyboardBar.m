@@ -45,6 +45,7 @@
 - (void)textDidChange:(NSNotification*)notification {
     if (notification.object == self.textField) {
         [self.delegate findInPageTermChanged:[[notification object] text] sender:self];
+        self.clearButton.hidden = (self.textField.text.length == 0) ? YES : NO;
     }
 }
 
@@ -57,6 +58,7 @@
     [self.textField setText:@""];
     [self.delegate findInPageTermChanged:@"" sender:self];
     [self.delegate findInPageClearButtonTapped];
+    self.clearButton.hidden = YES;
 }
 
 - (void)setNumberOfMatches:(NSUInteger)numberOfMatches {
