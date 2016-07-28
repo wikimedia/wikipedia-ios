@@ -740,18 +740,11 @@ WMFColumnarCollectionViewLayoutDelegate>
         return;
     }
     //Don't hide the spinner so quickly - so users can see the change
-    //NOTE: CATransactions during collectionview scrolling can cause jitters
     dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
-        [CATransaction begin];
         [self.refreshControl endRefreshing];
-        [CATransaction setCompletionBlock:^{
-            dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-                if (completion) {
-                    completion();
-                }
-            });
-        }];
-        [CATransaction commit];
+        if (completion) {
+            completion();
+        }
     });
 }
 
