@@ -124,10 +124,9 @@
     context.contentSizeAdjustment = contentSizeAdjustment;
 }
 
-- (void)updateWithInvalidationContext:(nonnull WMFCVLInvalidationContext *)context delegate:(id <WMFCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
+- (BOOL)updateWithInvalidationContext:(nonnull WMFCVLInvalidationContext *)context delegate:(id <WMFCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
     if (context.boundsDidChange) {
-        [self resetColumnsAndSections];
-        [self layoutForBoundsSize:context.newBounds.size withDelegate:delegate collectionView:collectionView invalidationContext:context];
+        return YES;
     } else if (context.originalLayoutAttributes && context.preferredLayoutAttributes) {
         UICollectionViewLayoutAttributes *originalAttributes = context.originalLayoutAttributes;
         UICollectionViewLayoutAttributes *preferredAttributes = context.preferredLayoutAttributes;
@@ -148,6 +147,7 @@
         }
         [self updateContentSizeWithInvalidationContext:context];
     }
+    return NO;
 }
 
 - (void)layoutForBoundsSize:(CGSize)size withDelegate:(id <WMFCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView invalidationContext:(nullable WMFCVLInvalidationContext *)context {
