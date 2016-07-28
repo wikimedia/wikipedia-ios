@@ -362,10 +362,17 @@ NSString* const WMFCCBySALicenseURL =
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.useFocusStyleForHighlightedSearchTermWithId('%@')", matchSpanId] completionHandler:nil];
 }
 
+- (void)scrollToAndHightlightFirstMatch {
+    self.findInPageResultCursorIndex = -1;
+    [self scrollToAndHightlightFindInPageResultReversed:NO];
+}
+
 #pragma FindInPageBarDelegate
 
 - (void)findInPageTermChanged:(NSString *)text sender:(FindInPageKeyboardBar *)sender {
-    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightSearchTerm('%@')", text] completionHandler:nil];
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightSearchTerm('%@')", text] completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
+        [self scrollToAndHightlightFirstMatch];
+    }];
 }
 
 - (void)findInPageCloseButtonTapped {
