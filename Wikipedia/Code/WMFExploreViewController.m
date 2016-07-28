@@ -867,7 +867,7 @@ WMFColumnarCollectionViewLayoutDelegate>
         NSUInteger sectionIndex = [observer indexForSectionController:observedController];
         if (sectionIndex != NSNotFound && [observer isDisplayingCellsForSection:sectionIndex]) {
             DDLogDebug(@"Reloading table to display results in controller %@", observedController);
-            [observer.collectionView reloadData];
+            [observer.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
         }
     }];
 }
