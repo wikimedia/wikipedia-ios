@@ -62,19 +62,6 @@
     [_footers addObject:footer];
 }
 
-- (void)replaceItemAtIndex:(NSInteger)index withItem:(nonnull WMFCVLAttributes *)item {
-    [_items replaceObjectAtIndex:index withObject:item];
-}
-
-- (void)replaceHeaderAtIndex:(NSInteger)index withHeader:(nonnull WMFCVLAttributes *)header {
-    [_headers replaceObjectAtIndex:index withObject:header];
-}
-
-- (void)replaceFooterAtIndex:(NSInteger)index withFooter:(nonnull WMFCVLAttributes *)footer {
-    [_footers replaceObjectAtIndex:index withObject:footer];
-}
-
-
 - (void)enumerateLayoutAttributesWithBlock:(void(^)(WMFCVLAttributes *layoutAttributes, BOOL *stop))block {
     __block BOOL bigStop = NO;
     

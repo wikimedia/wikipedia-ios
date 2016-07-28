@@ -154,6 +154,8 @@
         if (self.metrics.numberOfColumns == 1 && originalAttributes.frame.origin.y < collectionView.contentOffset.y) {
             context.contentOffsetAdjustment = CGPointMake(0, context.contentSizeAdjustment.height);
         }
+    } else if (context.invalidateDataSourceCounts) {
+        [self layoutForBoundsSize:self.boundsSize withDelegate:delegate collectionView:collectionView invalidationContext:context];
     }
 }
 
@@ -224,15 +226,7 @@
             }
             [invalidatedHeaderIndexPaths addObject:supplementaryViewIndexPath];
         } else {
-            WMFCVLAttributes *headerAttributes = section.headers[0];
-            headerHeight = headerAttributes.frame.size.height;
-            CGRect headerFrame =  CGRectMake(x, y, columnWidth, headerHeight);
-            if (!CGRectEqualToRect(headerFrame, headerAttributes.frame)) {
-                WMFCVLAttributes *newAttributes = [headerAttributes copy];
-                newAttributes.frame = headerFrame;
-                [section replaceHeaderAtIndex:0 withHeader:newAttributes];
-                [invalidatedHeaderIndexPaths addObject:supplementaryViewIndexPath];
-            }
+            headerHeight = section.headers[0].frame.size.height;
         }
         
         sectionHeight += headerHeight;
@@ -261,15 +255,7 @@
                     [section addItem:itemAttributes];
                 }
             } else {
-                WMFCVLAttributes *itemAttributes = section.items[item];
-                itemHeight = itemAttributes.frame.size.height;
-                CGRect itemFrame = CGRectMake(itemX, y, itemWidth, itemHeight);
-                if (!CGRectEqualToRect(itemFrame, itemAttributes.frame)) {
-                    WMFCVLAttributes *newAttributes = [itemAttributes copy];
-                    newAttributes.frame = itemFrame;
-                    [section replaceItemAtIndex:item withItem:newAttributes];
-                    [invalidatedItemIndexPaths addObject:itemIndexPath];
-                }
+                itemHeight = section.items[item].frame.size.height;
             }
             
             assert(itemHeight > 0);
@@ -291,15 +277,7 @@
             }
             [invalidatedFooterIndexPaths addObject:supplementaryViewIndexPath];
         } else {
-            WMFCVLAttributes *footerAttributes = section.footers[0];
-            footerHeight = footerAttributes.frame.size.height;
-            CGRect footerFrame =  CGRectMake(x, y, columnWidth, footerHeight);
-            if (!CGRectEqualToRect(footerFrame, footerAttributes.frame)) {
-                WMFCVLAttributes *newAttributes = [footerAttributes copy];
-                newAttributes.frame = footerFrame;
-                [section replaceFooterAtIndex:0 withFooter:newAttributes];
-                [invalidatedFooterIndexPaths addObject:supplementaryViewIndexPath];
-            }
+            footerHeight = section.footers[0].frame.size.height;
         }
         
         sectionHeight += footerHeight;

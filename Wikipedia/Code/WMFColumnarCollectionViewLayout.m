@@ -11,7 +11,6 @@
 @property (nonatomic, readonly) id <WMFColumnarCollectionViewLayoutDelegate> delegate;
 @property (nonatomic, strong) WMFCVLMetrics *metrics;
 @property (nonatomic, strong) WMFCVLInfo *info;
-@property (nonatomic) BOOL needsNewLayout;
 @property (nonatomic) BOOL needsLayout;
 
 @end
@@ -22,8 +21,7 @@
     self = [super init];
     if (self) {
         self.metrics = metrics;
-        self.needsNewLayout = YES;
-        self.needsLayout = NO;
+        self.needsLayout = YES;
     }
     return self;
 }
@@ -99,13 +97,9 @@
 }
 
 - (void)prepareLayout {
-    if (self.needsLayout || self.needsNewLayout) {
-        if (self.needsNewLayout) {
-            self.info = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
-        }
+    if (self.needsLayout) {
         [self layoutForBoundsSize:self.collectionView.bounds.size];
         self.needsLayout = NO;
-        self.needsNewLayout = NO;
     }
     [super prepareLayout];
 }
@@ -114,7 +108,7 @@
     if (self.delegate == nil) {
         return;
     }
-    
+    self.info = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
     [self.info layoutForBoundsSize:size withDelegate:self.delegate collectionView:self.collectionView];
 }
 
@@ -154,9 +148,9 @@
 - (void)invalidateLayoutWithContext:(WMFCVLInvalidationContext *)context {
     assert([context isKindOfClass:[WMFCVLInvalidationContext class]]);
     if (context.invalidateEverything) {
-        self.needsNewLayout = YES;
-    } else if (context.invalidateDataSourceCounts) {
         self.needsLayout = YES;
+    } else if (context.invalidateDataSourceCounts) {
+        [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
     }
     [super invalidateLayoutWithContext:context];
 }
