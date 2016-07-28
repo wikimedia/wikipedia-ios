@@ -242,7 +242,8 @@
         
         CGFloat itemX = x + sectionInsets.left;
         CGFloat itemWidth = columnWidth - sectionInsets.left - sectionInsets.right;
-        for (NSInteger item = 0; item < [collectionView.dataSource collectionView:collectionView numberOfItemsInSection:sectionIndex]; item++) {
+        NSInteger numberOfItems = [collectionView.dataSource collectionView:collectionView numberOfItemsInSection:sectionIndex];
+        for (NSInteger item = 0; item < numberOfItems; item++) {
             if (item == 0) {
                 y += sectionInsets.top;
             } else {
@@ -253,9 +254,7 @@
             NSIndexPath *itemIndexPath = [NSIndexPath indexPathForItem:item inSection:sectionIndex];
             
             if (item >= section.items.count) {
-                itemHeight = [delegate collectionView:collectionView estimatedHeightForItemAtIndexPath:[NSIndexPath indexPathForItem:item inSection:sectionIndex] forColumnWidth:columnWidth];
-                
-                
+                itemHeight = [delegate collectionView:collectionView estimatedHeightForItemAtIndexPath:itemIndexPath forColumnWidth:columnWidth];
                 [invalidatedItemIndexPaths addObject:itemIndexPath];
                 WMFCVLAttributes *itemAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForCellWithIndexPath:itemIndexPath];
                 if (itemAttributes != nil) {
