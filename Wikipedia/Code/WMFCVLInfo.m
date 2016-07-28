@@ -154,6 +154,8 @@
         if (self.metrics.numberOfColumns == 1 && originalAttributes.frame.origin.y < collectionView.contentOffset.y) {
             context.contentOffsetAdjustment = CGPointMake(0, context.contentSizeAdjustment.height);
         }
+    } else {
+        [self layoutForBoundsSize:self.boundsSize withDelegate:delegate collectionView:collectionView];
     }
 }
 

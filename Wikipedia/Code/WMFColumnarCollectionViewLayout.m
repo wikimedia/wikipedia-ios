@@ -150,6 +150,7 @@
 }
 
 - (void)updateLayoutForInvalidationContext:(WMFCVLInvalidationContext *)context {
+    self.info = [self.info copy];
    [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
 }
 
@@ -158,7 +159,7 @@
     if (context.invalidateEverything) {
         self.needsNewLayout = YES;
     } else if (context.invalidateDataSourceCounts) {
-        self.needsLayout = YES;
+        [self updateLayoutForInvalidationContext:context];
     }
     [super invalidateLayoutWithContext:context];
 }
