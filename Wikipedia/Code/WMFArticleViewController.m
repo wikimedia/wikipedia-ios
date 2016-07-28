@@ -391,7 +391,7 @@ NS_ASSUME_NONNULL_BEGIN
             
             [UIBarButtonItem flexibleSpaceToolbarItem],
             
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f + 18.f],
+            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
             self.saveToolbarItem,
             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:4.f],
             
@@ -409,7 +409,7 @@ NS_ASSUME_NONNULL_BEGIN
             
             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
             self.findInPageToolbarItem,
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.f + 18.f],
+            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.f],
             
             [UIBarButtonItem flexibleSpaceToolbarItem],
             
