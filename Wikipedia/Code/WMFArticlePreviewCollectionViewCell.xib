@@ -45,8 +45,8 @@
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" priority="998" constant="160" id="EnI-0P-X4A"/>
-                            <constraint firstAttribute="width" secondItem="owd-9L-ejU" secondAttribute="height" multiplier="16:9" priority="999" id="IKr-AG-eTS"/>
+                            <constraint firstAttribute="height" priority="999" constant="160" id="EnI-0P-X4A"/>
+                            <constraint firstAttribute="width" secondItem="owd-9L-ejU" secondAttribute="height" multiplier="16:9" id="IKr-AG-eTS"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
