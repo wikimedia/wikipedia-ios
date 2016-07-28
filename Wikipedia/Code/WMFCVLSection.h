@@ -4,6 +4,11 @@
 @class WMFCVLAttributes;
 @class WMFCVLInvalidationContext;
 
+/*!
+ @class        WMFCVLSection
+ @abstract     A WMFCVLSection represents a section within a column of a WMFColumnarCollectionViewLayout. It handles adjusting the size and offset of items within the section.
+ @discussion   ...
+ */
 @interface WMFCVLSection : NSObject
 
 @property (nonatomic, readonly) NSInteger index;

@@ -2,6 +2,11 @@
 
 @class WMFCVLMetrics;
 
+/*!
+ @class        WMFColumnarCollectionViewLayout
+ @abstract     A WMFColumnarCollectionViewLayout organizes a collection view into columns grouped by section - all items from the same section will be in the same column.
+ @discussion   ...
+ */
 @interface WMFColumnarCollectionViewLayout : UICollectionViewLayout
 
 - (nonnull instancetype)initWithMetrics:(nonnull WMFCVLMetrics *)metrics NS_DESIGNATED_INITIALIZER;

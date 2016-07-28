@@ -4,6 +4,11 @@
 @class WMFCVLInvalidationContext;
 @class WMFCVLInfo;
 
+/*!
+ @class        WMFCVLColumn
+ @abstract     A WMFCVLColumn is a snapshot of a column within a WMFColumnarCollecitonViewLayout. It handles adjustment of the size of items and supplementary views within it.
+ @discussion   ...
+ */
 @interface WMFCVLColumn : NSObject <NSCopying>
 
 @property (nonatomic) NSInteger index;
