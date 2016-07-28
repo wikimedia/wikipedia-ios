@@ -142,7 +142,6 @@
 }
 
 - (BOOL)shouldInvalidateLayoutForPreferredLayoutAttributes:(UICollectionViewLayoutAttributes *)preferredAttributes withOriginalAttributes:(UICollectionViewLayoutAttributes *)originalAttributes {
-    return originalAttributes.representedElementCategory == UICollectionElementCategoryCell && preferredAttributes.size.height != originalAttributes.size.height;
 }
 
 - (UICollectionViewLayoutInvalidationContext *)invalidationContextForPreferredLayoutAttributes:(UICollectionViewLayoutAttributes *)preferredAttributes withOriginalAttributes:(UICollectionViewLayoutAttributes *)originalAttributes {
@@ -157,7 +156,7 @@
 }
 
 - (void)updateLayoutForInvalidationContext:(WMFCVLInvalidationContext *)context {
-    [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
+    self.needsLayout = [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
 }
 
 - (void)invalidateLayoutWithContext:(WMFCVLInvalidationContext *)context {
