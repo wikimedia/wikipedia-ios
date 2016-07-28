@@ -67,7 +67,6 @@
 - (void)setCurrentCursorIndex:(NSInteger)currentCursorIndex {
     _currentCursorIndex = currentCursorIndex;
     [self setCurrentMatchLabelText];
-    
 }
 
 - (void)setCurrentMatchLabelText {
@@ -77,7 +76,7 @@
     } else if (self.numberOfMatches > 0 && self.currentCursorIndex == -1) {
         labelText = [NSString stringWithFormat:@"%lu", self.numberOfMatches];
     } else if (self.numberOfMatches == 0) {
-        labelText = @"0";
+        labelText = MWLocalizedString(@"find-in-page-no-matches", nil);
     }else{
         labelText = [NSString stringWithFormat:@"%lu / %lu", self.currentCursorIndex + 1, self.numberOfMatches];
     }
