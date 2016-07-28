@@ -124,7 +124,7 @@
     context.contentSizeAdjustment = contentSizeAdjustment;
 }
 
-- (BOOL)updateWithInvalidationContext:(nonnull WMFCVLInvalidationContext *)context delegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
+- (void)updateWithInvalidationContext:(nonnull WMFCVLInvalidationContext *)context delegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
     if (context.boundsDidChange) {
         [self resetColumnsAndSections];
         [self layoutForBoundsSize:context.newBounds.size withDelegate:delegate collectionView:collectionView invalidationContext:context];
@@ -148,7 +148,6 @@
         }
         [self updateContentSizeWithInvalidationContext:context];
     }
-    return NO;
 }
 
 - (void)layoutForBoundsSize:(CGSize)size withDelegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView invalidationContext:(nullable WMFCVLInvalidationContext *)context {

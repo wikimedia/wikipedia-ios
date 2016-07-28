@@ -9,13 +9,8 @@
 @interface WMFColumnarCollectionViewLayout ()
 
 @property (nonatomic, readonly) id <WMFColumnarCollectionViewLayoutDelegate> delegate;
-
 @property (nonatomic, strong) WMFCVLMetrics *metrics;
-
-@property (nonatomic, strong) WMFCVLInfo *oldInfo;
 @property (nonatomic, strong) WMFCVLInfo *info;
-@property (nonatomic, strong) WMFCVLInfo *nextInfo;
-
 @property (nonatomic) BOOL needsLayout;
 
 @end
@@ -45,6 +40,16 @@
     return self;
 }
 
+#pragma mark - Classes
+
++ (Class)invalidationContextClass {
+    return [WMFCVLInvalidationContext class];
+}
+
++ (Class)layoutAttributesClass {
+    return [WMFCVLAttributes class];
+}
+
 #pragma mark - Properties
 
 - (id <WMFColumnarCollectionViewLayoutDelegate>)delegate {
@@ -56,26 +61,11 @@
     return [self.collectionView.dataSource collectionView:self.collectionView numberOfItemsInSection:section];
 }
 
-+ (Class)invalidationContextClass {
-    return [WMFCVLInvalidationContext class];
-}
-
-+ (Class)layoutAttributesClass {
-    return [WMFCVLAttributes class];
-}
-
 - (CGSize)collectionViewContentSize {
     return self.info.contentSize;
 }
 
-- (void)layoutForBoundsSize:(CGSize)size {
-    if (self.delegate == nil) {
-        return;
-    }
-    self.oldInfo = self.info;
-    self.info = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
-    [self.info layoutForBoundsSize:size withDelegate:self.delegate collectionView:self.collectionView];
-}
+#pragma mark - Layout
 
 - (nullable NSArray<__kindof UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
     
@@ -94,8 +84,6 @@
     return attributesArray;
 }
 
-
-
 - (nullable UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     return [self.info layoutAttributesForItemAtIndexPath:indexPath];
 }
@@ -108,20 +96,23 @@
     return nil;
 }
 
-#pragma mark - Invalidation
-
 - (void)prepareLayout {
     if (self.needsLayout) {
         [self layoutForBoundsSize:self.collectionView.bounds.size];
-    } else if (self.nextInfo) {
-        self.oldInfo = self.info;
-        self.info = self.nextInfo;
+        self.needsLayout = NO;
     }
-    self.needsLayout = NO;
-    self.nextInfo = nil;
     [super prepareLayout];
 }
 
+- (void)layoutForBoundsSize:(CGSize)size {
+    if (self.delegate == nil) {
+        return;
+    }
+    self.info = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
+    [self.info layoutForBoundsSize:size withDelegate:self.delegate collectionView:self.collectionView];
+}
+
+#pragma mark - Invalidation
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
     return newBounds.size.width != self.info.boundsSize.width;
@@ -151,7 +142,7 @@
 }
 
 - (void)updateLayoutForInvalidationContext:(WMFCVLInvalidationContext *)context {
-    self.needsLayout = [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
+   [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
 }
 
 - (void)invalidateLayoutWithContext:(WMFCVLInvalidationContext *)context {
@@ -161,5 +152,6 @@
     }
     [super invalidateLayoutWithContext:context];
 }
+
 @end
 

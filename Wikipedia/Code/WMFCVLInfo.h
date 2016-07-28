@@ -27,7 +27,7 @@
 
 - (void)layoutForBoundsSize:(CGSize)size withDelegate:(nullable id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(nullable UICollectionView *)collectionView;
 
-- (BOOL)updateWithInvalidationContext:(nonnull WMFCVLInvalidationContext *)context delegate:(nullable id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(nullable UICollectionView *)collectionView;
+- (void)updateWithInvalidationContext:(nonnull WMFCVLInvalidationContext *)context delegate:(nullable id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(nullable UICollectionView *)collectionView;
 
 - (void)updateContentSize;
 

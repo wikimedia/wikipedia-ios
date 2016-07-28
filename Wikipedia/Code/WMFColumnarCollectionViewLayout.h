@@ -10,8 +10,10 @@
 @end
 
 @protocol WMFColumnarCollectionViewLayoutDelegate <UICollectionViewDelegate>
+
 @required
 - (CGFloat)collectionView:(nonnull UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(nonnull NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth;
 - (CGFloat)collectionView:(nonnull UICollectionView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth;
 - (CGFloat)collectionView:(nonnull UICollectionView *)tableView estimatedHeightForFooterInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth;
+
 @end
