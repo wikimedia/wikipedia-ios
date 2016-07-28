@@ -146,12 +146,7 @@
         } else if ([originalAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader]) {
             [invalidatedColumn setSize:sizeToSet forFooterAtIndexPath:indexPath invalidationContext:context];
         }
-
         [self updateContentSizeWithInvalidationContext:context];
-        
-        if (CGRectGetMaxY(originalAttributes.frame) < collectionView.contentOffset.y) {
-            context.contentOffsetAdjustment = CGPointMake(0, context.contentSizeAdjustment.height);
-        }
     }
 }
 
