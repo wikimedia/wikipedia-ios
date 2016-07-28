@@ -1,10 +1,10 @@
 #import <UIKit/UIKit.h>
 
-@class FindInPageKeyboardBar;
+@class WMFFindInPageKeyboardBar;
 
-@protocol FindInPageBarDelegate <NSObject>
+@protocol WMFFindInPageBarDelegate <NSObject>
 
-- (void)findInPageTermChanged:(NSString *)text sender:(FindInPageKeyboardBar *)sender;
+- (void)findInPageTermChanged:(NSString *)text sender:(WMFFindInPageKeyboardBar *)sender;
 - (void)findInPageCloseButtonTapped;
 - (void)findInPageClearButtonTapped;
 - (void)findInPagePreviousButtonTapped;
@@ -12,9 +12,9 @@
 
 @end
 
-@interface FindInPageKeyboardBar : UIInputView
+@interface WMFFindInPageKeyboardBar : UIInputView
 
-@property (weak, nonatomic) id<FindInPageBarDelegate> delegate;
+@property (weak, nonatomic) id<WMFFindInPageBarDelegate> delegate;
 
 @property (strong, nonatomic) IBOutlet UITextField *textField;
 

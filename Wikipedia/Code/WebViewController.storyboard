@@ -14,7 +14,7 @@
                         <viewControllerLayoutGuide type="top" id="C8y-0k-FBq"/>
                         <viewControllerLayoutGuide type="bottom" id="Xeb-oh-gct"/>
                     </layoutGuides>
-                    <view key="view" autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="kh9-bI-dsS" customClass="ViewWithFindInPageKeyboardBarInputAccessoryView">
+                    <view key="view" autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="kh9-bI-dsS" customClass="WMFViewWithFindInPageKeyboardBarInputAccessoryView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>

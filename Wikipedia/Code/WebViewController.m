@@ -34,8 +34,8 @@
 #import "WMFImageTag.h"
 #import "WKScriptMessage+WMFScriptMessage.h"
 
-#import "ViewWithFindInPageKeyboardBarInputAccessoryView.h"
-#import "FindInPageKeyboardBar.h"
+#import "WMFViewWithFindInPageKeyboardBarInputAccessoryView.h"
+#import "WMFFindInPageKeyboardBar.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -46,7 +46,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 NSString* const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
-@interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler, UIScrollViewDelegate, FindInPageBarDelegate>
+@interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageBarDelegate>
 
 @property (nonatomic, strong) MASConstraint* headerHeight;
 @property (nonatomic, strong) UIView* footerContainerView;
@@ -269,7 +269,7 @@ NSString* const WMFCCBySALicenseURL =
 
 #pragma mark - Find-in-page
 
-- (FindInPageKeyboardBar *)findInPageKeyboardBar {
+- (WMFFindInPageKeyboardBar *)findInPageKeyboardBar {
     return self.view.inputAccessoryView;
 }
 
@@ -374,7 +374,7 @@ NSString* const WMFCCBySALicenseURL =
 
 #pragma FindInPageBarDelegate
 
-- (void)findInPageTermChanged:(NSString *)text sender:(FindInPageKeyboardBar *)sender {
+- (void)findInPageTermChanged:(NSString *)text sender:(WMFFindInPageKeyboardBar *)sender {
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm('%@')", text] completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
         [self scrollToAndFocusOnFirstMatch];
     }];
@@ -459,7 +459,7 @@ NSString* const WMFCCBySALicenseURL =
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    ((ViewWithFindInPageKeyboardBarInputAccessoryView *)self.view).findInPageBarDelegate = self;
+    ((WMFViewWithFindInPageKeyboardBarInputAccessoryView *)self.view).findInPageBarDelegate = self;
     
     self.isPeeking = NO;
 

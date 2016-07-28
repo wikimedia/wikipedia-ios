@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="FindInPageKeyboardBar">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WMFFindInPageKeyboardBar">
             <rect key="frame" x="0.0" y="0.0" width="449" height="77"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>

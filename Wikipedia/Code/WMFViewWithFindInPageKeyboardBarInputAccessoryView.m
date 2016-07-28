@@ -1,14 +1,14 @@
-#import "ViewWithFindInPageKeyboardBarInputAccessoryView.h"
-#import "FindInPageKeyboardBar.h"
+#import "WMFViewWithFindInPageKeyboardBarInputAccessoryView.h"
+#import "WMFFindInPageKeyboardBar.h"
 #import "UIView+WMFDefaultNib.h"
 
-@interface ViewWithFindInPageKeyboardBarInputAccessoryView()
+@interface WMFViewWithFindInPageKeyboardBarInputAccessoryView()
 
 @property (nonatomic, readwrite, retain) UIView *inputAccessoryView;
     
 @end
 
-@implementation ViewWithFindInPageKeyboardBarInputAccessoryView
+@implementation WMFViewWithFindInPageKeyboardBarInputAccessoryView
 
 - (BOOL)canBecomeFirstResponder {
     return YES;
@@ -16,7 +16,7 @@
 
 - (UIView *)inputAccessoryView {
     if(!_inputAccessoryView) {
-        FindInPageKeyboardBar* bar = [FindInPageKeyboardBar wmf_viewFromClassNib];
+        WMFFindInPageKeyboardBar* bar = [WMFFindInPageKeyboardBar wmf_viewFromClassNib];
         bar.delegate = self.findInPageBarDelegate;
         _inputAccessoryView = bar;
     }

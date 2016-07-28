@@ -1,7 +1,7 @@
-#import "FindInPageKeyboardBar.h"
+#import "WMFFindInPageKeyboardBar.h"
 #import "UIControl+BlocksKit.h"
 
-@interface FindInPageKeyboardBar()
+@interface WMFFindInPageKeyboardBar()
 
 @property (strong, nonatomic) IBOutlet UIButton *closeButton;
 @property (strong, nonatomic) IBOutlet UIButton *clearButton;
@@ -12,7 +12,7 @@
 
 @end
 
-@implementation FindInPageKeyboardBar
+@implementation WMFFindInPageKeyboardBar
 
 - (CGSize)intrinsicContentSize {
     return CGSizeMake(UIViewNoIntrinsicMetric, 46);
