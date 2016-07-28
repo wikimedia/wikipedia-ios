@@ -9,7 +9,7 @@
 #import "FBSnapshotTestCase+WMFConvenience.h"
 #import <Nocilla/LSNocilla.h>
 
-#import "WMFPicOfTheDayTableViewCell.h"
+#import "WMFPicOfTheDayCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIImageView+WMFImageFetchingInternal.h"
 #import "WMFImageController+Testing.h"
@@ -19,7 +19,7 @@
 
 @interface WMFPicOfTheDayTableViewCellVisualTests : FBSnapshotTestCase
 
-@property (nonatomic, strong) WMFPicOfTheDayTableViewCell* cell;
+@property (nonatomic, strong) WMFPicOfTheDayCollectionViewCell* cell;
 
 @end
 
@@ -29,7 +29,7 @@
     [super setUp];
     self.recordMode     = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
     self.deviceAgnostic = YES;
-    self.cell           = [WMFPicOfTheDayTableViewCell wmf_viewFromClassNib];
+    self.cell           = [WMFPicOfTheDayCollectionViewCell wmf_viewFromClassNib];
     [self.cell setDisplayTitle:@"Hey! I'm a display title!"];
     self.cell.potdImageView.wmf_imageController = [WMFImageController temporaryController];
 }
