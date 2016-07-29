@@ -305,7 +305,7 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     NSMutableArray* names = [NSMutableArray new];
     for (NSUInteger i = 0; i < count; i++) {
         NSString* sourceURL =
-            MWKCreateImageURLWithPath([NSString stringWithFormat:@"/foobar/foo%lu.jpg/440px-foo%lu.jpg", i, i]);
+            MWKCreateImageURLWithPath([NSString stringWithFormat:@"/foobar/foo%lu.jpg/440px-foo%lu.jpg", (unsigned long)i, (unsigned long)i]);
         [names addObject:sourceURL];
     }
     return [names copy];

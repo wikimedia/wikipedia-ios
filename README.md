@@ -77,7 +77,7 @@ As mentioned in [best practices and coding style](#best-practices-and-coding-sty
 
 ### CocoaPods
  
-`sudo gem install cocoapods` or, if you have rbenv or similar installed: `gem install cocoapods`
+`sudo gem install cocoapods` or, if you have rbenv or similar installed: `gem install cocoapods`.
  
 [CocoaPods](https://cocoapods.org) is a Ruby gem that the project uses to download and integrate third-party iOS components (see `Podfile` for an up-to-date list). We have committed all of these dependencies to the repository itself, removing the need to install the gem or run before building the project. However, if you want to do anything related to CocoaPods (such as upgrading the version of CocoaPods or adding a dependency), please refer to the [Working With Cocoapods documentation](docs/working-with-cocoapods.md).
 

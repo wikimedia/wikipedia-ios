@@ -202,7 +202,8 @@ NSString* const WMFCCBySALicenseURL =
                                                               width:messageDict[@"width"]
                                                              height:messageDict[@"height"]
                                                       dataFileWidth:messageDict[@"data-file-width"]
-                                                     dataFileHeight:messageDict[@"data-file-height"]];
+                                                     dataFileHeight:messageDict[@"data-file-height"]
+                                                            baseURL:nil];
     
     if (![imageTagClicked isSizeLargeEnoughForGalleryInclusion]) {
         return;

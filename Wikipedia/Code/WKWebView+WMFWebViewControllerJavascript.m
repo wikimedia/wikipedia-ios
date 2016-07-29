@@ -13,7 +13,7 @@ static int const kMinimumTextSelectionLength = 2;
 @implementation WKWebView (WMFWebViewControllerJavascript)
 
 - (void)wmf_setTextSize:(NSInteger)textSize {
-    [self evaluateJavaScript:[NSString stringWithFormat:@"document.querySelector('body').style['-webkit-text-size-adjust'] = '%ld%%';", textSize] completionHandler:NULL];
+    [self evaluateJavaScript:[NSString stringWithFormat:@"document.querySelector('body').style['-webkit-text-size-adjust'] = '%ld%%';", (long)textSize] completionHandler:NULL];
 }
 
 - (void)wmf_collapseTablesForArticle:(MWKArticle*)article {

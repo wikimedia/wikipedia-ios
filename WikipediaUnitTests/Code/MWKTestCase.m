@@ -1,11 +1,3 @@
-//
-//  MWKTestCase.m
-//  MediaWikiKit
-//
-//  Created by Brion on 10/21/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MWKTestCase.h"
 #import "WMFTestFixtureUtilities.h"
 
@@ -23,6 +15,14 @@
     return [[[self loadJSON:@"Obama"][@"mobileview"][@"sections"] bk_map:^NSString*(NSDictionary* section) {
         return section[@"text"];
     }] componentsJoinedByString:@""];
+}
+
+- (NSURL *)obamaBaseURL {
+    return [NSURL URLWithString:@"https://en.m.wikipedia.org/wiki/Barack_Obama"];
+}
+
+- (NSURL *)obamaLeadImageURL {
+    return [NSURL URLWithString:@"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/816px-BarackObamaportrait.jpg"];
 }
 
 @end

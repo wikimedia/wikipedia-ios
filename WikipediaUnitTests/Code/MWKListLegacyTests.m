@@ -43,7 +43,8 @@
                          @"not expecting invalid entries for this test");
         return entry;
     }];
-    NSAssert(legacyEntries.count > 1, @"Need more than 1 legacy entry for this test.");
+    
+    XCTAssert(legacyEntries.count > 1, @"Need more than 1 legacy entry for this test.");
 
     MWKSavedPageList* list = self.dataStore.userDataStore.savedPageList;
 
