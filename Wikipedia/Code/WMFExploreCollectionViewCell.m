@@ -4,7 +4,7 @@
 
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)attributesToFit {
     CGSize sizeToFit = attributesToFit.size;
-    sizeToFit.height = 0;
+    sizeToFit.height = UIViewNoIntrinsicMetric;
     
     CGSize fitSize = [self systemLayoutSizeFittingSize:sizeToFit withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
 
