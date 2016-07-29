@@ -8,6 +8,15 @@
 @property (nonatomic, strong) NSMutableArray <WMFCVLAttributes *> *headers;
 @property (nonatomic, strong) NSMutableArray <WMFCVLAttributes *> *footers;
 @property (nonatomic, strong) NSMutableArray <WMFCVLAttributes *> *items;
+
+- (void)offsetItemsStartingAtIndex:(NSInteger)itemIndex distance:(CGFloat)deltaY invalidationContext:(nonnull WMFCVLInvalidationContext *)invalidationContext;
+- (void)offsetHeadersStartingAtIndex:(NSInteger)headerIndex distance:(CGFloat)deltaY invalidationContext:(nonnull WMFCVLInvalidationContext *)invalidationContext;
+- (void)offsetFootersStartingAtIndex:(NSInteger)footerIndex distance:(CGFloat)deltaY invalidationContext:(nonnull WMFCVLInvalidationContext *)invalidationContext;
+
+- (BOOL)addOrUpdateAttributesAtIndex:(NSInteger)index inArray:(nonnull NSMutableArray *)array withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider attributesProvider:(nonnull WMFCVLAttributes * (^)(NSIndexPath *indexPath))attributesProvider;
+- (CGFloat)setSize:(CGSize)size forAttributesAtIndex:(NSInteger)index inArray:(NSMutableArray *)attributes;
+- (NSArray *)offsetAttributesInArray:(NSMutableArray *)attributes startingAtIndex:(NSInteger)index distance:(CGFloat)deltaY;
+
 @end
 
 @implementation WMFCVLSection
@@ -33,46 +42,29 @@
     return copy;
 }
 
-
 + (WMFCVLSection *)sectionWithIndex:(NSInteger)index {
     WMFCVLSection *section = [[WMFCVLSection alloc] init];
     section.index = index;
     return section;
 }
 
-- (void)addItem:(WMFCVLAttributes *)item {
-    if (item == nil) {
-        return;
-    }
-    [_items addObject:item];
+- (BOOL)addOrUpdateItemAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider {
+    return [self addOrUpdateAttributesAtIndex:index inArray:_items withFrameProvider:frameProvider attributesProvider:^WMFCVLAttributes *(NSIndexPath *indexPath) {
+        return [WMFCVLAttributes layoutAttributesForCellWithIndexPath:indexPath];
+    }];
 }
 
-- (void)addHeader:(WMFCVLAttributes *)header {
-    if (header == nil) {
-        return;
-    }
-    [_headers addObject:header];
+- (BOOL)addOrUpdateHeaderAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider {
+    return [self addOrUpdateAttributesAtIndex:index inArray:_headers withFrameProvider:frameProvider attributesProvider:^WMFCVLAttributes *(NSIndexPath *indexPath) {
+        return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:indexPath];
+    }];
 }
 
-- (void)addFooter:(WMFCVLAttributes *)footer {
-    if (footer == nil) {
-        return;
-    }
-    [_footers addObject:footer];
+- (BOOL)addOrUpdateFooterAtIndex:(NSInteger)index withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider {
+    return [self addOrUpdateAttributesAtIndex:index inArray:_footers withFrameProvider:frameProvider attributesProvider:^WMFCVLAttributes *(NSIndexPath *indexPath) {
+        return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:indexPath];
+    }];
 }
-
-- (void)replaceItemAtIndex:(NSInteger)index withItem:(nonnull WMFCVLAttributes *)item {
-    [_items replaceObjectAtIndex:index withObject:item];
-}
-
-- (void)replaceHeaderAtIndex:(NSInteger)index withHeader:(nonnull WMFCVLAttributes *)header {
-    [_headers replaceObjectAtIndex:index withObject:header];
-}
-
-- (void)replaceFooterAtIndex:(NSInteger)index withFooter:(nonnull WMFCVLAttributes *)footer {
-    [_footers replaceObjectAtIndex:index withObject:footer];
-}
-
 
 - (void)enumerateLayoutAttributesWithBlock:(void(^)(WMFCVLAttributes *layoutAttributes, BOOL *stop))block {
     __block BOOL bigStop = NO;
@@ -145,6 +137,47 @@
     return deltaH;
 }
 
+
+#pragma mark - Internal
+
+- (void)offsetHeadersStartingAtIndex:(NSInteger)headerIndex distance:(CGFloat)deltaY invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
+    NSArray *invalidatedHeaderIndexPaths = [self offsetAttributesInArray:_headers startingAtIndex:headerIndex distance:deltaY];
+    [invalidationContext invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:invalidatedHeaderIndexPaths];
+}
+
+- (void)offsetItemsStartingAtIndex:(NSInteger)itemIndex distance:(CGFloat)deltaY invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
+    NSArray *invalidatedItemIndexPaths = [self offsetAttributesInArray:_items startingAtIndex:itemIndex distance:deltaY];
+    [invalidationContext invalidateItemsAtIndexPaths:invalidatedItemIndexPaths];
+}
+
+- (void)offsetFootersStartingAtIndex:(NSInteger)footerIndex distance:(CGFloat)deltaY invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
+    NSArray *invalidatedFooterIndexPaths = [self offsetAttributesInArray:_footers startingAtIndex:footerIndex distance:deltaY];
+    [invalidationContext invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:invalidatedFooterIndexPaths];
+}
+
+- (BOOL)addOrUpdateAttributesAtIndex:(NSInteger)index inArray:(nonnull NSMutableArray *)array withFrameProvider:(nonnull CGRect (^)(BOOL wasCreated, CGRect existingFrame))frameProvider attributesProvider:(nonnull WMFCVLAttributes * (^)(NSIndexPath *indexPath))attributesProvider {
+    if (index >= array.count) {
+        CGRect frame = frameProvider(YES, CGRectZero);
+        WMFCVLAttributes *attributes = attributesProvider([NSIndexPath indexPathForItem:index inSection:self.index]);
+        attributes.frame = frame;
+        if (attributes != nil) {
+            [array addObject:attributes];
+        }
+        return YES;
+    } else {
+        WMFCVLAttributes *attributes = array[index];
+        CGRect newFrame = frameProvider(NO, attributes.frame);
+        if (CGRectEqualToRect(newFrame, attributes.frame)) {
+            return NO;
+        } else {
+            WMFCVLAttributes *newAttributes = [array[index] copy];
+            newAttributes.frame = newFrame;
+            [array replaceObjectAtIndex:index withObject:newAttributes];
+            return YES;
+        }
+    }
+}
+
 - (CGFloat)setSize:(CGSize)size forAttributesAtIndex:(NSInteger)index inArray:(NSMutableArray *)attributes {
     WMFCVLAttributes *newAttributes = [attributes[index] copy];
     
@@ -161,21 +194,6 @@
     self.frame = (CGRect){self.frame.origin, newSize};
     
     return deltaH;
-}
-
-- (void)offsetHeadersStartingAtIndex:(NSInteger)headerIndex distance:(CGFloat)deltaY invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
-    NSArray *invalidatedHeaderIndexPaths = [self offsetAttributesInArray:_headers startingAtIndex:headerIndex distance:deltaY];
-    [invalidationContext invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:invalidatedHeaderIndexPaths];
-}
-
-- (void)offsetItemsStartingAtIndex:(NSInteger)itemIndex distance:(CGFloat)deltaY invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
-    NSArray *invalidatedItemIndexPaths = [self offsetAttributesInArray:_items startingAtIndex:itemIndex distance:deltaY];
-    [invalidationContext invalidateItemsAtIndexPaths:invalidatedItemIndexPaths];
-}
-
-- (void)offsetFootersStartingAtIndex:(NSInteger)footerIndex distance:(CGFloat)deltaY invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
-    NSArray *invalidatedFooterIndexPaths = [self offsetAttributesInArray:_footers startingAtIndex:footerIndex distance:deltaY];
-    [invalidationContext invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:invalidatedFooterIndexPaths];
 }
 
 - (NSArray *)offsetAttributesInArray:(NSMutableArray *)attributes startingAtIndex:(NSInteger)index distance:(CGFloat)deltaY {

@@ -9,7 +9,7 @@
 @interface WMFCVLInfo ()
 @property (nonatomic, strong, nonnull) NSMutableArray <WMFCVLColumn *> *columns;
 @property (nonatomic, strong, nonnull) NSMutableArray <WMFCVLSection *> *sections;
-@property (nonatomic, strong, nonnull) NSMutableArray <WMFCVLColumn *> *columnsBySection;
+@property (nonatomic, strong, nonnull) NSMutableArray <NSNumber *> *columnIndexBySectionIndex;
 @property (nonatomic, copy, nonnull) WMFCVLMetrics *metrics;
 @end
 
@@ -37,18 +37,21 @@
 
 - (void)resetSections {
     self.sections = [NSMutableArray array];
-    self.columnsBySection = [NSMutableArray array];
+    self.columnIndexBySectionIndex = [NSMutableArray array];
 }
 
 - (id)copyWithZone:(NSZone *)zone {
     WMFCVLInfo *copy = [[WMFCVLInfo allocWithZone:zone] initWithMetrics:self.metrics];
     copy.sections = [[NSMutableArray allocWithZone:zone] initWithArray:self.sections copyItems:YES];
+    
     NSMutableArray *columns = [[NSMutableArray allocWithZone:zone] initWithCapacity:self.columns.count];
     for (WMFCVLColumn *column in self.columns) {
         WMFCVLColumn *newColumn = [column copy];
         newColumn.info = copy;
         [columns addObject:newColumn];
     }
+    
+    copy.columnIndexBySectionIndex = [self.columnIndexBySectionIndex mutableCopy];
     copy.columns = columns;
     copy.boundsSize = self.boundsSize;
     copy.contentSize = self.contentSize;
@@ -140,7 +143,8 @@
         NSIndexPath *indexPath = originalAttributes.indexPath;
         
         NSInteger sectionIndex = indexPath.section;
-        WMFCVLColumn *invalidatedColumn = self.columnsBySection[sectionIndex];
+        NSInteger invalidatedColumnIndex = [self.columnIndexBySectionIndex[sectionIndex] integerValue];
+        WMFCVLColumn *invalidatedColumn = self.columns[invalidatedColumnIndex];
         
         CGSize sizeToSet = preferredAttributes.frame.size;
         sizeToSet.width = invalidatedColumn.width;
@@ -190,7 +194,7 @@
         if (sectionIndex >= [_sections count]) {
             section = [WMFCVLSection sectionWithIndex:sectionIndex];
             [_sections addObject:section];
-            [_columnsBySection addObject:currentColumn];
+            [_columnIndexBySectionIndex addObject:@(currentColumnIndex)];
         } else {
             section = _sections[sectionIndex];
         }
@@ -217,26 +221,21 @@
         
         NSIndexPath *supplementaryViewIndexPath = [NSIndexPath indexPathForRow:0 inSection:sectionIndex];
         
-        CGFloat headerHeight = 0;
-        
-        if (section.headers.count == 0) {
-            headerHeight = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
-            WMFCVLAttributes *headerAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:supplementaryViewIndexPath];
-            if (headerAttributes != nil) {
-                headerAttributes.frame = CGRectMake(x, y, columnWidth, headerHeight);
-                [section addHeader:headerAttributes];
+        __block CGFloat headerHeight = 0;
+        BOOL didCreateOrUpdate = [section addOrUpdateHeaderAtIndex:0 withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame) {
+            if (wasCreated) {
+                headerHeight = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
+                return CGRectMake(x, y, columnWidth, headerHeight);
+            } else {
+                CGRect newFrame = existingFrame;
+                headerHeight = newFrame.size.height;
+                newFrame.origin = CGPointMake(x, y);
+                newFrame.size.width = columnWidth;
+                return newFrame;
             }
+        }];
+        if (didCreateOrUpdate) {
             [invalidatedHeaderIndexPaths addObject:supplementaryViewIndexPath];
-        } else {
-            WMFCVLAttributes *headerAttributes = section.headers[0];
-            headerHeight = headerAttributes.frame.size.height;
-            CGRect headerFrame =  CGRectMake(x, y, columnWidth, headerHeight);
-            if (!CGRectEqualToRect(headerFrame, headerAttributes.frame)) {
-                WMFCVLAttributes *newAttributes = [headerAttributes copy];
-                newAttributes.frame = headerFrame;
-                [section replaceHeaderAtIndex:0 withHeader:newAttributes];
-                [invalidatedHeaderIndexPaths addObject:supplementaryViewIndexPath];
-            }
         }
         
         sectionHeight += headerHeight;
@@ -252,57 +251,46 @@
                 y += interItemSpacing;
             }
             
-            CGFloat itemHeight = 0;
             NSIndexPath *itemIndexPath = [NSIndexPath indexPathForItem:item inSection:sectionIndex];
             
-            
-            if (item >= section.items.count) {
-                itemHeight = [delegate collectionView:collectionView estimatedHeightForItemAtIndexPath:itemIndexPath forColumnWidth:columnWidth];
+            __block CGFloat itemHeight = 0;
+            BOOL didCreateOrUpdate = [section addOrUpdateItemAtIndex:item withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame) {
+                if (wasCreated) {
+                     itemHeight = [delegate collectionView:collectionView estimatedHeightForItemAtIndexPath:itemIndexPath forColumnWidth:columnWidth];
+                    return CGRectMake(itemX, y, itemWidth, itemHeight);
+                } else {
+                    CGRect newFrame = existingFrame;
+                    itemHeight = existingFrame.size.height;
+                    newFrame.origin = CGPointMake(itemX, y);
+                    newFrame.size.width = itemWidth;
+                    return newFrame;
+                }}];
+            if (didCreateOrUpdate) {
                 [invalidatedItemIndexPaths addObject:itemIndexPath];
-                WMFCVLAttributes *itemAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForCellWithIndexPath:itemIndexPath];
-                if (itemAttributes != nil) {
-                    itemAttributes.frame = CGRectMake(itemX, y, itemWidth, itemHeight);
-                    [section addItem:itemAttributes];
-                }
-            } else {
-                WMFCVLAttributes *itemAttributes = section.items[item];
-                itemHeight = itemAttributes.frame.size.height;
-                CGRect itemFrame = CGRectMake(itemX, y, itemWidth, itemHeight);
-                if (!CGRectEqualToRect(itemFrame, itemAttributes.frame)) {
-                    WMFCVLAttributes *newAttributes = [itemAttributes copy];
-                    newAttributes.frame = itemFrame;
-                    [section replaceItemAtIndex:item withItem:newAttributes];
-                    [invalidatedItemIndexPaths addObject:itemIndexPath];
-                }
             }
-            
+
             sectionHeight += itemHeight;
             y += itemHeight;
         }
-        
+    
         sectionHeight += sectionInsets.bottom;
         y += sectionInsets.bottom;
-        
-        CGFloat footerHeight = 0;
-        if (section.footers.count == 0) {
-            footerHeight = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
-            WMFCVLAttributes *footerAttributes = (WMFCVLAttributes *)[WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:supplementaryViewIndexPath];
-            [invalidatedFooterIndexPaths addObject:supplementaryViewIndexPath];
-            if (footerAttributes != nil) {
-                footerAttributes.frame = CGRectMake(x, y, columnWidth, footerHeight);
-                [section addFooter:footerAttributes];
+
+        __block CGFloat footerHeight = 0;
+        didCreateOrUpdate = [section addOrUpdateFooterAtIndex:0 withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame) {
+            if (wasCreated) {
+                footerHeight = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
+                return CGRectMake(x, y, columnWidth, footerHeight);
+            } else {
+                CGRect newFrame = existingFrame;
+                footerHeight = newFrame.size.height;
+                newFrame.origin = CGPointMake(x, y);
+                newFrame.size.width = columnWidth;
+                return newFrame;
             }
+        }];
+        if (didCreateOrUpdate) {
             [invalidatedFooterIndexPaths addObject:supplementaryViewIndexPath];
-        } else {
-            WMFCVLAttributes *footerAttributes = section.footers[0];
-            footerHeight = footerAttributes.frame.size.height;
-            CGRect footerFrame =  CGRectMake(x, y, columnWidth, footerHeight);
-            if (!CGRectEqualToRect(footerFrame, footerAttributes.frame)) {
-                WMFCVLAttributes *newAttributes = [footerAttributes copy];
-                newAttributes.frame = footerFrame;
-                [section replaceFooterAtIndex:0 withFooter:newAttributes];
-                [invalidatedFooterIndexPaths addObject:supplementaryViewIndexPath];
-            }
         }
         
         sectionHeight += footerHeight;
