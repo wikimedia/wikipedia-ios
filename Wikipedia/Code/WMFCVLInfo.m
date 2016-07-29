@@ -133,7 +133,13 @@
     context.contentSizeAdjustment = contentSizeAdjustment;
 }
 
-- (void)updateWithInvalidationContext:(nonnull WMFCVLInvalidationContext *)context delegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
+- (void)updateWithInvalidationContext:(nullable WMFCVLInvalidationContext *)context delegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
+    if (delegate == nil) {
+        return;
+    }
+    if (collectionView == nil) {
+        return;
+    }
     if (context.boundsDidChange) {
         [self resetSections];
         [self layoutForBoundsSize:context.newBounds.size withDelegate:delegate collectionView:collectionView invalidationContext:context];
@@ -161,7 +167,8 @@
             context.contentOffsetAdjustment = CGPointMake(0, context.contentSizeAdjustment.height);
         }
     } else {
-        [self layoutForBoundsSize:self.boundsSize withDelegate:delegate collectionView:collectionView];
+        self.boundsSize = collectionView.bounds.size;
+        [self layoutForBoundsSize:self.boundsSize withDelegate:delegate collectionView:collectionView invalidationContext:context];
     }
 }
 

@@ -11,8 +11,7 @@
 @property (nonatomic, readonly) id <WMFColumnarCollectionViewLayoutDelegate> delegate;
 @property (nonatomic, strong) WMFCVLMetrics *metrics;
 @property (nonatomic, strong) WMFCVLInfo *info;
-@property (nonatomic) BOOL needsNewLayout;
-@property (nonatomic) BOOL needsLayout;
+@property (nonatomic, strong) WMFCVLInfo *nextInfo;
 
 @end
 
@@ -22,7 +21,6 @@
     self = [super init];
     if (self) {
         self.metrics = metrics;
-        self.needsNewLayout = YES;
     }
     return self;
 }
@@ -98,15 +96,9 @@
 }
 
 - (void)prepareLayout {
-    if (self.delegate != nil && (self.needsNewLayout || self.needsLayout)) {
-        if (self.needsNewLayout) {
-            self.info = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
-        } else {
-            self.info = [self.info copy];
-        }
-        [self.info layoutForBoundsSize:self.collectionView.bounds.size withDelegate:self.delegate collectionView:self.collectionView];
-        self.needsNewLayout = NO;
-        self.needsLayout = NO;
+    if (self.nextInfo != nil) {
+        self.info = self.nextInfo;
+        self.nextInfo = nil;
     }
     [super prepareLayout];
 }
@@ -118,11 +110,12 @@
 }
 
 - (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
-    WMFCVLInvalidationContext *invalidationContext = (WMFCVLInvalidationContext *)[super invalidationContextForBoundsChange:newBounds];
-    invalidationContext.boundsDidChange = YES;
-    invalidationContext.newBounds = newBounds;
-    [self updateLayoutForInvalidationContext:invalidationContext];
-    return invalidationContext;
+    WMFCVLInvalidationContext *context = (WMFCVLInvalidationContext *)[super invalidationContextForBoundsChange:newBounds];
+    context.boundsDidChange = YES;
+    context.newBounds = newBounds;
+    self.info = [self.info copy];
+    [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
+    return context;
 }
 
 - (BOOL)shouldInvalidateLayoutForPreferredLayoutAttributes:(UICollectionViewLayoutAttributes *)preferredAttributes withOriginalAttributes:(UICollectionViewLayoutAttributes *)originalAttributes {
@@ -130,27 +123,27 @@
 }
 
 - (UICollectionViewLayoutInvalidationContext *)invalidationContextForPreferredLayoutAttributes:(UICollectionViewLayoutAttributes *)preferredAttributes withOriginalAttributes:(UICollectionViewLayoutAttributes *)originalAttributes {
-    WMFCVLInvalidationContext *invalidationContext = (WMFCVLInvalidationContext *)[super invalidationContextForPreferredLayoutAttributes:preferredAttributes withOriginalAttributes:originalAttributes];
-    if (invalidationContext == nil) {
-        invalidationContext = [WMFCVLInvalidationContext new];
+    WMFCVLInvalidationContext *context = (WMFCVLInvalidationContext *)[super invalidationContextForPreferredLayoutAttributes:preferredAttributes withOriginalAttributes:originalAttributes];
+    if (context == nil) {
+        context = [WMFCVLInvalidationContext new];
     }
-    invalidationContext.preferredLayoutAttributes = preferredAttributes;
-    invalidationContext.originalLayoutAttributes = originalAttributes;
-    [self updateLayoutForInvalidationContext:invalidationContext];
-    return invalidationContext;
+    context.preferredLayoutAttributes = preferredAttributes;
+    context.originalLayoutAttributes = originalAttributes;
+    self.info = [self.info copy];
+    [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
+    return context;
 }
 
-- (void)updateLayoutForInvalidationContext:(WMFCVLInvalidationContext *)context {
-   self.info = [self.info copy];
-   [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
-}
 
 - (void)invalidateLayoutWithContext:(WMFCVLInvalidationContext *)context {
     assert([context isKindOfClass:[WMFCVLInvalidationContext class]]);
     if (context.invalidateEverything) {
-        self.needsNewLayout = YES;
+        self.nextInfo = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
+
+        [self.nextInfo updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
     } else if (context.invalidateDataSourceCounts) {
-        self.needsLayout = YES;
+        self.nextInfo = [self.info copy];
+        [self.nextInfo updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
     }
     [super invalidateLayoutWithContext:context];
 }
