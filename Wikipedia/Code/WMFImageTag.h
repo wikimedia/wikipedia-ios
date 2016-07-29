@@ -22,10 +22,11 @@ static CGSize const WMFImageTagMinimumSizeForGalleryInclusion = {64, 64};
                       width:(nullable NSString*)width
                      height:(nullable NSString*)height
               dataFileWidth:(nullable NSString*)dataFileWidth
-             dataFileHeight:(nullable NSString*)dataFileHeight NS_DESIGNATED_INITIALIZER;
+             dataFileHeight:(nullable NSString*)dataFileHeight
+                    baseURL:(nullable NSURL*)baseURL NS_DESIGNATED_INITIALIZER;
 
 
-- (instancetype)initWithImageTagContents:(NSString *)imageTagContents;
+- (instancetype)initWithImageTagContents:(NSString *)imageTagContents baseURL:(nullable NSURL *)baseURL;
 
 - (BOOL)isSizeLargeEnoughForGalleryInclusion;
 

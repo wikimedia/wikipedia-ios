@@ -24,6 +24,7 @@
 
 @property(nonatomic, strong) WMFImageTagParser* parser;
 @property(nonatomic, strong) WMFImageTagList* obamaImageTagList;
+@property (nonatomic, strong) NSURL *baseURL;
 
 @end
 
@@ -33,7 +34,8 @@
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     self.parser = [[WMFImageTagParser alloc] init];
-    self.obamaImageTagList = [self.parser imageTagListFromParsingHTMLString:[self allObamaHTML]];
+    self.obamaImageTagList = [self.parser imageTagListFromParsingHTMLString:self.allObamaHTML withBaseURL:self.obamaBaseURL];
+    self.baseURL = self.obamaBaseURL;
 }
 
 - (void)tearDown {
@@ -44,7 +46,7 @@
 }
 
 - (NSArray<NSURL*>*)urlsFromHMTL:(NSString*)html atTargetWidth:(NSUInteger)targetWidth {
-    WMFImageTagList* tagList = [self.parser imageTagListFromParsingHTMLString:html];
+    WMFImageTagList* tagList = [self.parser imageTagListFromParsingHTMLString:html withBaseURL:self.baseURL];
     NSArray<NSURL*>* imageTags = [tagList.imageTags bk_map:^NSURL*(WMFImageTag* tag){
         return [tag URLForTargetWidth:targetWidth];
     }];
@@ -214,7 +216,7 @@
 
 - (void)testParsingObamaHTMLPerformance {
     [self measureBlock:^{
-        NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:[self allObamaHTML]] imageURLsForGallery];
+        NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:self.allObamaHTML withBaseURL:self.obamaBaseURL] imageURLsForGallery];
         assertThat(parsedObamaGalleryURLS, hasCountOf(31));
     }];
 }
@@ -296,7 +298,7 @@
 }
 
 - (void)testObamaArticleGalleryImageListExtractionWithLeadImage {
-    NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:[self allObamaHTML] withLeadImageURL:[NSURL URLWithString:@"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/640px-BarackObamaportrait.jpg"]] imageURLsForGallery];
+    NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:self.allObamaHTML withBaseURL:self.obamaBaseURL leadImageURL:[NSURL URLWithString:@"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/640px-BarackObamaportrait.jpg"]] imageURLsForGallery];
     
     NSArray *expectedObamaGalleryURLs =
     [@[
@@ -339,7 +341,7 @@
 }
 
 - (void)testObamaArticleGalleryImageListExtractionWithMistmatchedSizeLeadImage {
-    NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:[self allObamaHTML] withLeadImageURL:[NSURL URLWithString:@"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/BarackObamaportrait.jpg/816px-BarackObamaportrait.jpg"]] imageURLsForGallery];
+    NSArray* parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:self.allObamaHTML withBaseURL:self.obamaBaseURL leadImageURL:self.obamaLeadImageURL] imageURLsForGallery];
     
     NSArray *expectedObamaGalleryURLs =
     [@[
@@ -400,5 +402,18 @@ NSArray *a = [parsedObamaGalleryURLS bk_map:^NSString*(NSURL* url){
 }];
 NSLog(@"\n============\n\n%@\n\n=============\n", a);
 */
+
+- (void)testBaseURL {
+    NSString* tags = @""
+    "<img src=\"/w/extensions/wikihiero/img/hiero_V4.png?e648c\">"
+    "<img src=\"w/extensions/wikihiero/img/hiero_V4.png?e648c\">"
+    "<img src=\"//upload.wikimedia.org/wikipedia/commons/thumb/4/42/Barack_Obama_at_Cairo_University_cropped.jpg/640px-Barack_Obama_at_Cairo_University_cropped.jpg\">";
+    NSArray* parsedURLs = [self urlsFromHMTL:tags atTargetWidth:1024];
+    NSArray* expectedULRs = @[[NSURL URLWithString:@"//en.m.wikipedia.org/w/extensions/wikihiero/img/hiero_V4.png?e648c"],
+                              [NSURL URLWithString:@"//en.m.wikipedia.org/wiki/Barack_Obama/w/extensions/wikihiero/img/hiero_V4.png%3Fe648c?e648c"],
+                              [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/4/42/Barack_Obama_at_Cairo_University_cropped.jpg/640px-Barack_Obama_at_Cairo_University_cropped.jpg"]
+                              ];
+    assertThat(parsedURLs, is(equalTo(expectedULRs)));
+}
 
 @end
