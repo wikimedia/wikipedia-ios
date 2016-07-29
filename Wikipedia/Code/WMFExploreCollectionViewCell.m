@@ -4,10 +4,11 @@
 
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)attributesToFit {
     CGSize sizeToFit = attributesToFit.size;
-    sizeToFit.height = 0;
+    sizeToFit.height = CGFLOAT_MAX;
     
-    CGSize fitSize = [self systemLayoutSizeFittingSize:sizeToFit withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
-
+    CGSize fitSize = [self sizeThatFits:sizeToFit];
+    fitSize.width = sizeToFit.width;
+    
     if (CGSizeEqualToSize(fitSize, attributesToFit.size)) {
         return attributesToFit;
     } else {
