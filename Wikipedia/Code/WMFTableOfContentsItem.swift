@@ -48,7 +48,7 @@ public protocol TableOfContentsItem : NSObjectProtocol {
     var titleText: String { get }
     var itemType: TableOfContentsItemType { get }
     var borderType: TableOfContentsBorderType { get }
-    var indentationLevel: UInt { get }
+    var indentationLevel: Int { get }
 
     func shouldBeHighlightedAlongWithItem(item: TableOfContentsItem) -> Bool
 }
@@ -62,6 +62,6 @@ extension TableOfContentsItem {
 
     public var borderType: TableOfContentsBorderType { get { return TableOfContentsBorderType.TopOnly } }
 
-    public var indentationLevel: UInt { get { return 0 } }
+    public var indentationLevel: Int { get { return 0 } }
 }
 

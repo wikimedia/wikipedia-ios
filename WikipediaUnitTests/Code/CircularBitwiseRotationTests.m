@@ -24,7 +24,7 @@
         NSUInteger expectedResult = powl(2, exponent);
         XCTAssertEqual(actualResult, expectedResult,
                        @"Rotating 1 by %lu should be equal to 2^%lu (%lu). Got %lu instead",
-                       rotation, exponent, expectedResult, actualResult);
+                      (unsigned long)rotation, (unsigned long)exponent, (unsigned long)expectedResult, (unsigned long)actualResult);
     }
 }
 
@@ -38,7 +38,7 @@
             XCTAssertEqual(original, symmetrical,
                            @"Rotating %lu by %lu should be the same as rotating by %lu + NSUINT_BIT (%lu)."
                            "Got %lu expected %lu",
-                           testValue, rotation, rotation, symmetricalRotation, symmetrical, original);
+                           (unsigned long)testValue, (unsigned long)rotation, (unsigned long)rotation, (unsigned long)symmetricalRotation, (unsigned long)symmetrical, (unsigned long)original);
         }
     }
 }
