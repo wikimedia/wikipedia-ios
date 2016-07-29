@@ -5,7 +5,7 @@
 
 #import "AppDelegate.h"
 
-#if DEBUG
+#if TEST
 #import "WikipediaAppUtils.h"
 
 /**
@@ -46,7 +46,7 @@
 int main(int argc, char* argv[]) {
     @autoreleasepool {
         NSString* delegateClass = NSStringFromClass([AppDelegate class]);
-#if DEBUG
+#if TEST
         // disable app when unit testing to allow tests to run in isolation (w/o side effects)
         if (NSClassFromString(@"XCTestCase") != nil) {
             delegateClass = NSStringFromClass([WMFDummyAppDelegate class]);
