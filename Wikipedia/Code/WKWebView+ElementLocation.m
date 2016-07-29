@@ -58,7 +58,7 @@
 }
 
 - (void)getIndexOfTopOnScreenElementWithPrefix:(NSString*)prefix count:(NSUInteger)count completion:(void (^)(id index, NSError* error))completion {
-    [self evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.elementLocation.getIndexOfFirstOnScreenElement('%@', %lu)", prefix, count]
+    [self evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.elementLocation.getIndexOfFirstOnScreenElement('%@', %lu)", prefix, (unsigned long)count]
            completionHandler:^(id _Nullable index, NSError* _Nullable error) {
         completion(index, error);
     }];
