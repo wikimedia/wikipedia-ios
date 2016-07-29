@@ -406,7 +406,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 #pragma mark - Images
 
 - (NSArray<NSURL*>*)imageURLsForGallery {
-    WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withLeadImageURL:self.leadImage.sourceURL];
+    WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withBaseURL:self.url leadImageURL:self.leadImage.sourceURL];
     NSArray *imageURLs = [tagList imageURLsForGallery];
     if (imageURLs.count == 0 && self.imageURL) {
         NSString *imageURLString = [self.imageURL copy];
@@ -427,7 +427,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (NSArray<NSURL*>*)imageURLsForSaving {
-    WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML];
+    WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withBaseURL:self.url];
     return [tagList imageURLsForSaving];
 }
 
@@ -448,7 +448,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (NSSet<NSURL*>*)allImageURLs {
-    WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML];
+    WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withBaseURL:self.url];
 
     NSMutableSet<NSURL*>* imageURLs = [[NSMutableSet alloc] init];
     //Note: use the 'imageURLsForGallery' and 'imageURLsForSaving' methods on WMFImageTagList so we don't have to parse twice.
@@ -483,9 +483,11 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     NSURL* articleThumbnailURL = [NSURL wmf_optionalURLWithString:self.thumbnailURL];
     [imageURLs wmf_safeAddObject:articleThumbnailURL];
 
+#if DEBUG
     for (NSURL* url in imageURLs) {
         NSAssert(url.scheme == nil, @"Non nil image url scheme detected! These must be nil here or we can get duplicate image urls in the set - ie the same url twice - once with the scheme and once without. This is because WMFImageTagParser returns urls without schemes because the html it parses does not have schemes - but the MWKImageInfo *does* have schemes in its 'canonicalFileURL' and 'imageThumbURL' properties because the api returns schemes.");
     }
+#endif
 
     // remove any null objects inserted during above map/valueForKey operations
     return [imageURLs bk_reject:^BOOL (id obj) {

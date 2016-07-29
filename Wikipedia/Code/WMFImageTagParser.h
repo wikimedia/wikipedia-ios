@@ -6,9 +6,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFImageTagParser : NSObject
 
-- (WMFImageTagList*)imageTagListFromParsingHTMLString:(NSString*)HTMLString;
+- (WMFImageTagList*)imageTagListFromParsingHTMLString:(NSString*)HTMLString withBaseURL:(nullable NSURL *)baseURL; // baseURL will be used to complete src if it is missing a host
 
-- (WMFImageTagList*)imageTagListFromParsingHTMLString:(NSString*)HTMLString withLeadImageURL:(nullable NSURL *)leadImageURL;
+- (WMFImageTagList*)imageTagListFromParsingHTMLString:(NSString*)HTMLString withBaseURL:(nullable NSURL *)baseURL leadImageURL:(nullable NSURL *)leadImageURL;
 
 @end
 

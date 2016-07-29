@@ -34,7 +34,7 @@
         block(locale, expectationsForLocale[localeID]);
     });
     // allow 1 sec per locale
-    NSLog(@"Waiting %f seconds to run a test with %lu locales...", timeout, localeIdentifiers.count);
+    NSLog(@"Waiting %f seconds to run a test with %lu locales...", timeout, (unsigned long)localeIdentifiers.count);
     [self waitForExpectationsWithTimeout:localeIdentifiers.count handler:nil];
 }
 
