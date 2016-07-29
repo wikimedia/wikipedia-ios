@@ -67,15 +67,15 @@
 }
 
 - (void)reset {
-    [self.textField setText:@""];
-    [self.currentMatchLabel setText:@""];
+    [self.textField setText:nil];
+    [self.currentMatchLabel setText:nil];
     self.clearButton.hidden = YES;
 }
 
 - (void)updateLabelTextForCurrentMatchIndex:(NSInteger)index matchesCount:(NSUInteger)count {
     NSString *labelText = nil;
     if (self.textField.text.length == 0) {
-        labelText = @"";
+        labelText = nil;
     } else if (count > 0 && index == -1) {
         labelText = [NSString stringWithFormat:@"%lu", count];
     } else if (count == 0) {
