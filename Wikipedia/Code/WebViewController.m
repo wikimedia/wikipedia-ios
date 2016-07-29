@@ -539,7 +539,6 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [self hideFindInPage];
     self.webView.scrollView.delegate = nil;
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroDispositionDidChange object:nil];
