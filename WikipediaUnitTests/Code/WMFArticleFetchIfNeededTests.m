@@ -1,10 +1,3 @@
-//
-//  WMFArticleFetchIfNeededTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 12/21/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 @import Quick;
 @import Nimble;
@@ -67,7 +60,7 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
             .withJSON(latestArticleJSON);
 
             AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfArticleWithURLIfNeeded:cachedArticle.url progress:nil];
-            expect(@([fetchedArticlePromise resolved])).withTimeout(10).toEventually(beTrue());
+            expect(@([fetchedArticlePromise resolved])).withTimeout(WMFDefaultExpectationTimeout).toEventually(beTrue());
             MWKArticle* fetchedArticle = [fetchedArticlePromise value];
             expect(fetchedArticle).toNotWithDescription(equal(cachedArticle), @"Should have fetched latest revision.");
             expect(fetchedArticle.entityDescription).to(equal(cachedArticle.entityDescription));
@@ -91,11 +84,40 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
             .andReturn(400);
 
             AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfArticleWithURLIfNeeded:cachedArticle.url progress:nil];
-            expect(@([fetchedArticlePromise resolved])).withTimeout(10).toEventually(beTrue());
+            expect(@([fetchedArticlePromise resolved])).withTimeout(WMFDefaultExpectationTimeout).toEventually(beTrue());
             MWKArticle* fetchedArticle = [fetchedArticlePromise value];
             expect(fetchedArticle).to(beIdenticalTo(cachedArticle));
         });
+        
+        it(@"should ignore the cache if force is passed", ^{
+            NSMutableDictionary* latestArticleJSON = [[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"] mutableCopy];
+            [latestArticleJSON setValue:@3 forKeyPath:@"mobileview.revision"];
+            MWKArticle* cachedArticle = [[MWKArticle alloc] initWithURL:[NSURL wmf_randomArticleURL]
+                                                              dataStore:tempDataStore
+                                                                   dict:latestArticleJSON[@"mobileview"]];
+            expect(cachedArticle.revisionId).to(equal(@3));
+            [cachedArticle save];
+            
+            stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"rvprop" options:0 error:nil])
+            .andReturn(200)
+            .withJSON(articleRevisionResponseWithRevId(3));
+            
+            [latestArticleJSON setValue:@1 forKeyPath:@"mobileview.revision"];
+            
+            stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"mobileview" options:0 error:nil])
+            .andReturn(200)
+            .withJSON(latestArticleJSON);
+            
+            AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfArticleWithURL:cachedArticle.url forceDownload:YES progress:nil];
+            expect(@([fetchedArticlePromise resolved])).withTimeout(WMFDefaultExpectationTimeout).toEventually(beTrue());
+            MWKArticle* fetchedArticle = [fetchedArticlePromise value];
+            expect(fetchedArticle).toNotWithDescription(equal(cachedArticle), @"Should have fetched.");
+            expect(fetchedArticle.entityDescription).to(equal(cachedArticle.entityDescription));
+            expect(fetchedArticle.sections).to(equal(cachedArticle.sections));
+            expect(fetchedArticle.revisionId).to(equal(@1));
 
+        });
+        
         whenOffline(^{
             it(@"should fall back to the cached article", ^{
                 NSMutableDictionary* latestArticleJSON = [[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"] mutableCopy];
@@ -107,7 +129,7 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
                 [cachedArticle save];
 
                 AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfArticleWithURLIfNeeded:cachedArticle.url progress:nil];
-                expect(@([fetchedArticlePromise rejected])).withTimeout(10).toEventually(beTrue());
+                expect(@([fetchedArticlePromise rejected])).withTimeout(WMFDefaultExpectationTimeout).toEventually(beTrue());
                 NSError* error = [fetchedArticlePromise value];
                 expect(error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey])
                 .to(beIdenticalTo(cachedArticle));
@@ -136,7 +158,7 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
             .andReturn(400);
 
             AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfArticleWithURLIfNeeded:cachedArticle.url progress:nil];
-            expect(@(fetchedArticlePromise.resolved)).withTimeout(10).toEventually(beTrue());
+            expect(@(fetchedArticlePromise.resolved)).withTimeout(WMFDefaultExpectationTimeout).toEventually(beTrue());
             MWKArticle* fetchedArticle = [fetchedArticlePromise value];
             expect(fetchedArticle).to(equal(cachedArticle));
         });
@@ -144,7 +166,7 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
         whenOffline(^{
             it(@"should fall back to the cached article", ^{
                 AnyPromise* fetchedArticlePromise = [articleFetcher fetchLatestVersionOfArticleWithURLIfNeeded:cachedArticle.url progress:nil];
-                expect(@(fetchedArticlePromise.rejected)).withTimeout(10).toEventually(beTrue());
+                expect(@(fetchedArticlePromise.rejected)).withTimeout(WMFDefaultExpectationTimeout).toEventually(beTrue());
                 NSError* error = [fetchedArticlePromise value];
                 MWKArticle* fetchedArticle = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
                 expect(fetchedArticle).to(beIdenticalTo(cachedArticle));
