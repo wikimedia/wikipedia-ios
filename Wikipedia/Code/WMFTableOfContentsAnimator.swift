@@ -1,6 +1,5 @@
 
 import UIKit
-import CocoaLumberjackSwift
 
 // MARK: - Delegate
 @objc public protocol WMFTableOfContentsAnimatorDelegate {
