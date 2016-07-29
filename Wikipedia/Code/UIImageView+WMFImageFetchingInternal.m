@@ -162,15 +162,15 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
             animated:(BOOL)animated
              failure:(WMFErrorHandler)failure
              success:(WMFSuccessHandler)success {
-    CGRect faceBounds = [faceBoundsValue CGRectValue];
-    if (!CGRectIsEmpty(faceBounds)) {
-        [self wmf_cropContentsByVerticallyCenteringFrame:[image wmf_denormalizeRect:faceBounds]
-                                     insideBoundsOfImage:image];
-    } else {
-        [self wmf_resetContentsRect];
-    }
-    
     dispatch_async(dispatch_get_main_queue(), ^{
+        CGRect faceBounds = [faceBoundsValue CGRectValue];
+        if (!CGRectIsEmpty(faceBounds)) {
+            [self wmf_cropContentsByVerticallyCenteringFrame:[image wmf_denormalizeRect:faceBounds]
+                                         insideBoundsOfImage:image];
+        } else {
+            [self wmf_resetContentsRect];
+        }
+        
         [UIView transitionWithView:self
                           duration:animated ? [CATransaction animationDuration] : 0.0
                            options:UIViewAnimationOptionTransitionCrossDissolve
@@ -183,8 +183,6 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
                             success();
                         }];
     });
-
-
 }
 
 - (void)wmf_cancelImageDownload {
