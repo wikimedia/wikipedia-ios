@@ -1,0 +1,1 @@
+../../../YapDatabase/YapDatabase/Extensions/CloudKit/Internal/YDBCKMappingTableInfo.h

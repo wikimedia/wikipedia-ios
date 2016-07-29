@@ -20,6 +20,14 @@ PODS:
   - BlocksKit/UIKit (2.2.5):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
+  - CocoaLumberjack (2.3.0):
+    - CocoaLumberjack/Default (= 2.3.0)
+    - CocoaLumberjack/Extensions (= 2.3.0)
+  - CocoaLumberjack/Core (2.3.0)
+  - CocoaLumberjack/Default (2.3.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.3.0):
+    - CocoaLumberjack/Default
   - FLAnimatedImage (1.0.12)
   - GCDWebServer (3.3.2):
     - GCDWebServer/Core (= 3.3.2)
@@ -54,6 +62,7 @@ PODS:
   - PiwikTracker (HEAD based on 3.3.0):
     - PiwikTracker/Core (= HEAD based on 3.3.0)
   - PiwikTracker/Core (HEAD based on 3.3.0)
+  - Reachability (3.2)
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
@@ -65,6 +74,56 @@ PODS:
   - TUSafariActivity (1.0.4)
   - Tweaks (HEAD based on 2.0.0)
   - VTAcknowledgementsViewController (0.17)
+  - YapDatabase (2.9.1):
+    - YapDatabase/Standard (= 2.9.1)
+  - YapDatabase/Standard (2.9.1):
+    - YapDatabase/Standard/Core (= 2.9.1)
+    - YapDatabase/Standard/Extensions (= 2.9.1)
+  - YapDatabase/Standard/Core (2.9.1):
+    - CocoaLumberjack (~> 2)
+  - YapDatabase/Standard/Extensions (2.9.1):
+    - YapDatabase/Standard/Core
+    - YapDatabase/Standard/Extensions/ActionManager (= 2.9.1)
+    - YapDatabase/Standard/Extensions/CloudKit (= 2.9.1)
+    - YapDatabase/Standard/Extensions/ConnectionProxy (= 2.9.1)
+    - YapDatabase/Standard/Extensions/CrossProcessNotification (= 2.9.1)
+    - YapDatabase/Standard/Extensions/FilteredViews (= 2.9.1)
+    - YapDatabase/Standard/Extensions/FullTextSearch (= 2.9.1)
+    - YapDatabase/Standard/Extensions/Hooks (= 2.9.1)
+    - YapDatabase/Standard/Extensions/Relationships (= 2.9.1)
+    - YapDatabase/Standard/Extensions/RTreeIndex (= 2.9.1)
+    - YapDatabase/Standard/Extensions/SearchResults (= 2.9.1)
+    - YapDatabase/Standard/Extensions/SecondaryIndex (= 2.9.1)
+    - YapDatabase/Standard/Extensions/Views (= 2.9.1)
+  - YapDatabase/Standard/Extensions/ActionManager (2.9.1):
+    - Reachability (~> 3)
+    - YapDatabase/Standard/Core
+    - YapDatabase/Standard/Extensions/Views
+  - YapDatabase/Standard/Extensions/CloudKit (2.9.1):
+    - YapDatabase/Standard/Core
+  - YapDatabase/Standard/Extensions/ConnectionProxy (2.9.1):
+    - YapDatabase/Standard/Core
+  - YapDatabase/Standard/Extensions/CrossProcessNotification (2.9.1):
+    - YapDatabase/Standard/Core
+  - YapDatabase/Standard/Extensions/FilteredViews (2.9.1):
+    - YapDatabase/Standard/Core
+    - YapDatabase/Standard/Extensions/Views
+  - YapDatabase/Standard/Extensions/FullTextSearch (2.9.1):
+    - YapDatabase/Standard/Core
+  - YapDatabase/Standard/Extensions/Hooks (2.9.1):
+    - YapDatabase/Standard/Core
+  - YapDatabase/Standard/Extensions/Relationships (2.9.1):
+    - YapDatabase/Standard/Core
+  - YapDatabase/Standard/Extensions/RTreeIndex (2.9.1):
+    - YapDatabase/Standard/Core
+  - YapDatabase/Standard/Extensions/SearchResults (2.9.1):
+    - YapDatabase/Standard/Core
+    - YapDatabase/Standard/Extensions/FullTextSearch
+    - YapDatabase/Standard/Extensions/Views
+  - YapDatabase/Standard/Extensions/SecondaryIndex (2.9.1):
+    - YapDatabase/Standard/Core
+  - YapDatabase/Standard/Extensions/Views (2.9.1):
+    - YapDatabase/Standard/Core
 
 DEPENDENCIES:
   - AFNetworking (from `https://github.com/wikimedia/AFNetworking.git`, branch `release/3.1.1`)
@@ -92,6 +151,7 @@ DEPENDENCIES:
   - TUSafariActivity
   - Tweaks (HEAD)
   - VTAcknowledgementsViewController
+  - YapDatabase
 
 EXTERNAL SOURCES:
   AFNetworking:
@@ -133,6 +193,7 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AnimatedGIFImageSerialization: b0f0cfe71eac1ee45a3d57ae533c23b8e6f29501
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
+  CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   GCDWebServer: 2a375ec42839a41d7187d04e5b688d32fa5c4cd5
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
@@ -149,6 +210,7 @@ SPEC CHECKSUMS:
   OCHamcrest: c14c0b3f4c4e99363e5b87d97bae38c4438b6d5d
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
   PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
   SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
@@ -156,5 +218,6 @@ SPEC CHECKSUMS:
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
   VTAcknowledgementsViewController: 6056f5f5e5ed995bbf0581bed6ddd29355ca9a80
+  YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
 
 COCOAPODS: 0.39.0

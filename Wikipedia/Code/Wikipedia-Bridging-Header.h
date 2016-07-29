@@ -1,6 +1,7 @@
 #import "Global.h"
 
 //3rd Party
+#import <CocoaLumberjack/CocoaLumberjack.h>
 #import <SDWebImage/SDWebImageManager.h>
 #import <SDWebImage/SDImageCache.h>
 #import <SDWebImage/SDWebImageDownloader.h>
