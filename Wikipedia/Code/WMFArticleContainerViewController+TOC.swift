@@ -33,7 +33,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                 }
             }
         } else if let footerItem = item as? TableOfContentsFooterItem {
-            let footerIndex = UInt(footerItem.footerViewIndex.rawValue)
+            let footerIndex = Int(footerItem.footerViewIndex.rawValue)
             self.webViewController.scrollToFooterAtIndex(footerIndex)
             dismissVCCompletionHandler = {
                 self.webViewController.accessibilityCursorToFooterAtIndex(footerIndex)

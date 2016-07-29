@@ -10,7 +10,7 @@ import Foundation
 import PromiseKit
 import XCTest
 
-public func descriptionfromFunction(fn: StaticString, line: UInt) -> String {
+public func descriptionfromFunction(fn: StaticString, line: Int) -> String {
     return "\(fn):L\(line)"
 }
 
@@ -28,7 +28,7 @@ extension XCTestCase {
         timeout: NSTimeInterval = WMFDefaultExpectationTimeout,
         expirationHandler: XCWaitCompletionHandler? = nil,
         function: StaticString = #function,
-        line: UInt = #line,
+        line: Int = #line,
         pipe: ((U) -> Void)? = nil,
         test: () -> Promise<T>) {
         expectPromise(
@@ -58,7 +58,7 @@ extension XCTestCase {
                                      timeout: NSTimeInterval = WMFDefaultExpectationTimeout,
                                      expirationHandler: XCWaitCompletionHandler? = nil,
                                      function: StaticString = #function,
-                                     line: UInt = #line,
+                                     line: Int = #line,
                                      pipe: ((T) -> Void)? = nil) {
         expectPromise(
             callback,
