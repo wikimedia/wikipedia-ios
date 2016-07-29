@@ -77,11 +77,11 @@
     if (self.textField.text.length == 0) {
         labelText = nil;
     } else if (count > 0 && index == -1) {
-        labelText = [NSString stringWithFormat:@"%lu", count];
+        labelText = [NSString stringWithFormat:@"%lu", (unsigned long)count];
     } else if (count == 0) {
         labelText = MWLocalizedString(@"find-in-page-no-matches", nil);
     }else{
-        labelText = [NSString stringWithFormat:@"%lu / %lu", index + 1, count];
+        labelText = [NSString stringWithFormat:@"%lu / %lu", (unsigned long)(index + 1), (unsigned long)count];
     }
     [self.currentMatchLabel setText:labelText];
 }
