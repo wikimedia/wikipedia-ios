@@ -42,39 +42,11 @@
 }
 
 - (IBAction)didTouchClose{
-    [self didTouchClear];
     [self.delegate keyboardBarCloseButtonTapped:self];
 }
 
 - (IBAction)didTouchClear{
-    [self.textField setText:@""];
-    [self.delegate keyboardBar:self searchTermChanged:@""];
     [self.delegate keyboardBarClearButtonTapped:self];
-    self.clearButton.hidden = YES;
-}
-
-- (void)setNumberOfMatches:(NSUInteger)numberOfMatches {
-    _numberOfMatches = numberOfMatches;
-    [self setCurrentMatchLabelText];
-}
-
-- (void)setCurrentCursorIndex:(NSInteger)currentCursorIndex {
-    _currentCursorIndex = currentCursorIndex;
-    [self setCurrentMatchLabelText];
-}
-
-- (void)setCurrentMatchLabelText {
-    NSString *labelText = nil;
-    if (self.textField.text.length == 0) {
-        labelText = @"";
-    } else if (self.numberOfMatches > 0 && self.currentCursorIndex == -1) {
-        labelText = [NSString stringWithFormat:@"%lu", self.numberOfMatches];
-    } else if (self.numberOfMatches == 0) {
-        labelText = MWLocalizedString(@"find-in-page-no-matches", nil);
-    }else{
-        labelText = [NSString stringWithFormat:@"%lu / %lu", self.currentCursorIndex + 1, self.numberOfMatches];
-    }
-    [self.currentMatchLabel setText:labelText];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -96,6 +68,22 @@
 
 - (void)reset {
     [self.textField setText:@""];
+    [self.currentMatchLabel setText:@""];
+    self.clearButton.hidden = YES;
+}
+
+- (void)updateLabelTextForCurrentMatchIndex:(NSInteger)index matchesCount:(NSUInteger)count {
+    NSString *labelText = nil;
+    if (self.textField.text.length == 0) {
+        labelText = @"";
+    } else if (count > 0 && index == -1) {
+        labelText = [NSString stringWithFormat:@"%lu", count];
+    } else if (count == 0) {
+        labelText = MWLocalizedString(@"find-in-page-no-matches", nil);
+    }else{
+        labelText = [NSString stringWithFormat:@"%lu / %lu", index + 1, count];
+    }
+    [self.currentMatchLabel setText:labelText];
 }
 
 @end

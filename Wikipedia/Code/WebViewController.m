@@ -280,14 +280,13 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)hideFindInPage {
-    [self clearFindInPage];
+    [self resetFindInPage];
     [[self findInPageKeyboardBar] hide];
     [self.view resignFirstResponder];
-    [self.webView evaluateJavaScript:@"window.wmf.findInPage.removeSearchTermHighlights()"
-                   completionHandler:nil];
 }
 
-- (void)clearFindInPage {
+- (void)resetFindInPage {
+    [self.webView evaluateJavaScript:@"window.wmf.findInPage.removeSearchTermHighlights()" completionHandler:nil];
     self.findInPageMatches = @[];
     self.findInPageResultCursorIndex = -1;
     [[self findInPageKeyboardBar] reset];
@@ -309,14 +308,21 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)setFindInPageMatches:(NSArray *)findInPageMatches {
     _findInPageMatches = findInPageMatches;
-    [self findInPageKeyboardBar].numberOfMatches = [findInPageMatches count];
+    [self updateFindInPageKeyboardBarLabel];
+}
+
+#pragma FindInPage label
+
+- (void)updateFindInPageKeyboardBarLabel {
+    [[self findInPageKeyboardBar] updateLabelTextForCurrentMatchIndex:self.findInPageResultCursorIndex
+                                                         matchesCount:self.findInPageMatches.count];
 }
 
 #pragma FindInPageBar cursor
 
 - (void)setFindInPageResultCursorIndex:(NSInteger)findInPageResultCursorIndex {
     _findInPageResultCursorIndex = findInPageResultCursorIndex;
-    [self findInPageKeyboardBar].currentCursorIndex = findInPageResultCursorIndex;
+    [self updateFindInPageKeyboardBarLabel];
 }
 
 - (void)advanceFindInPageResultCursorIndexReversed:(BOOL)reversed {
@@ -377,7 +383,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)keyboardBarClearButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
-    [self clearFindInPage];
+    [self resetFindInPage];
 }
 
 - (void)keyboardBarPreviousButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
