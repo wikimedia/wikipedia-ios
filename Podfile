@@ -30,6 +30,9 @@ pod 'KVOController'
 # Dates
 pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'
 
+# Database
+pod 'YapDatabase'
+
 # Datasources
 pod 'SSDataSources', '~> 0.8.0'
 

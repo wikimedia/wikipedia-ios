@@ -32,7 +32,7 @@ class WMFImageControllerTests: XCTestCase {
     // MARK: - Simple fetching
     
     func testReceivingDataResponseResolves() {
-        let testURL = NSURL(string: "https://upload.wikimedia.org/foo@\(UInt(UIScreen.mainScreen().scale))x.png")!
+        let testURL = NSURL(string: "https://upload.wikimedia.org/foo@\(Int(UIScreen.mainScreen().scale))x.png")!
         let testImage = UIImage(named: "image-placeholder")!
         let stubbedData = UIImagePNGRepresentation(testImage)
 
@@ -121,7 +121,7 @@ class WMFImageControllerTests: XCTestCase {
     }
 
     func testCancellationDoesNotAffectRetry() {
-        let testURL = NSURL(string:"https://foo@\(UInt(UIScreen.mainScreen().scale))x.png")!
+        let testURL = NSURL(string:"https://foo@\(Int(UIScreen.mainScreen().scale))x.png")!
         let testImage = UIImage(named: "image-placeholder")!
         let stubbedData = UIImagePNGRepresentation(testImage)!
         
