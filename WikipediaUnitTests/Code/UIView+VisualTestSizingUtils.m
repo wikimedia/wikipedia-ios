@@ -16,7 +16,7 @@
                                          verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
     return (CGRect){
                .origin = CGPointZero,
-               .size   = CGSizeMake(floor(sizeThatFitsWidth.width), floor(sizeThatFitsWidth.height))
+               .size   = CGSizeMake(floor(width), floor(sizeThatFitsWidth.height))
     };
 }
 
