@@ -273,23 +273,15 @@ NSString* const WMFCCBySALicenseURL =
     return self.view.inputAccessoryView;
 }
 
-- (UITextField *)findInPageTextField {
-    return [self findInPageKeyboardBar].textField;
-}
-
-- (BOOL)isFindInPageVisible {
-    return [[self findInPageTextField] isFirstResponder];
-}
-
 - (void)showFindInPage {
     [self referencesHide];
     [self.view becomeFirstResponder];
-    [[self findInPageTextField] becomeFirstResponder];
+    [[self findInPageKeyboardBar] show];
 }
 
 - (void)hideFindInPage {
     [self clearFindInPage];
-    [[self findInPageTextField] resignFirstResponder];
+    [[self findInPageKeyboardBar] hide];
     [self.view resignFirstResponder];
     [self.webView evaluateJavaScript:@"window.wmf.findInPage.removeSearchTermHighlights()"
                    completionHandler:nil];
@@ -298,12 +290,12 @@ NSString* const WMFCCBySALicenseURL =
 - (void)clearFindInPage {
     self.findInPageMatches = @[];
     self.findInPageResultCursorIndex = -1;
-    [[self findInPageTextField] setText:@""];
+    [[self findInPageKeyboardBar] reset];
 }
 
 - (void)minimizeFindInPage {
     if (!self.disableMinimizeFindInPage) {
-        [[self findInPageTextField] resignFirstResponder];
+        [[self findInPageKeyboardBar] hide];
     }
 }
 
@@ -1110,7 +1102,7 @@ NSString* const WMFCCBySALicenseURL =
 #pragma mark - Sharing
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
-    if ([self isFindInPageVisible]) {
+    if ([[self findInPageKeyboardBar] isVisible]) {
         return NO;
     }
     

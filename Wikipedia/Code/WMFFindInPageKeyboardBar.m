@@ -10,6 +10,8 @@
 @property (strong, nonatomic) IBOutlet UIImageView *magnifyImageView;
 @property (strong, nonatomic) IBOutlet UILabel *currentMatchLabel;
 
+@property (strong, nonatomic) IBOutlet UITextField *textField;
+
 @end
 
 @implementation WMFFindInPageKeyboardBar
@@ -78,6 +80,22 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self didTouchClose];
     return YES;
+}
+
+- (BOOL)isVisible {
+    return [self.textField isFirstResponder];
+}
+
+- (void)show {
+    [self.textField becomeFirstResponder];
+}
+
+- (void)hide {
+    [self.textField resignFirstResponder];
+}
+
+- (void)reset {
+    [self.textField setText:@""];
 }
 
 @end

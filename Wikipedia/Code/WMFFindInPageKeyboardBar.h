@@ -15,10 +15,12 @@
 @interface WMFFindInPageKeyboardBar : UIInputView
 
 @property (weak, nonatomic) id<WMFFindInPageKeyboardBarDelegate> delegate;
-
-@property (strong, nonatomic) IBOutlet UITextField *textField;
-
 @property (nonatomic) NSUInteger numberOfMatches;
 @property (nonatomic) NSInteger currentCursorIndex;
+
+- (BOOL)isVisible;
+- (void)show;
+- (void)hide;
+- (void)reset;
 
 @end
