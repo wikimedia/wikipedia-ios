@@ -12,6 +12,7 @@
 @property (nonatomic, strong) WMFCVLMetrics *metrics;
 @property (nonatomic, strong) WMFCVLInfo *info;
 @property (nonatomic) BOOL needsNewLayout;
+@property (nonatomic) BOOL needsLayout;
 
 @end
 
@@ -97,20 +98,17 @@
 }
 
 - (void)prepareLayout {
-    if (self.needsNewLayout) {
-        self.info = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
-        [self layoutForBoundsSize:self.collectionView.bounds.size];
+    if (self.delegate != nil && (self.needsNewLayout || self.needsLayout)) {
+        if (self.needsNewLayout) {
+            self.info = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
+        } else {
+            self.info = [self.info copy];
+        }
+        [self.info layoutForBoundsSize:self.collectionView.bounds.size withDelegate:self.delegate collectionView:self.collectionView];
         self.needsNewLayout = NO;
+        self.needsLayout = NO;
     }
     [super prepareLayout];
-}
-
-- (void)layoutForBoundsSize:(CGSize)size {
-    if (self.delegate == nil) {
-        return;
-    }
-    
-    [self.info layoutForBoundsSize:size withDelegate:self.delegate collectionView:self.collectionView];
 }
 
 #pragma mark - Invalidation
@@ -152,7 +150,7 @@
     if (context.invalidateEverything) {
         self.needsNewLayout = YES;
     } else if (context.invalidateDataSourceCounts) {
-        [self updateLayoutForInvalidationContext:context];
+        self.needsLayout = YES;
     }
     [super invalidateLayoutWithContext:context];
 }
