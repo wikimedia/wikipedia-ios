@@ -16,6 +16,18 @@
 
 @implementation WMFFindInPageKeyboardBar
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self hideCopyPasteIcons];
+}
+
+- (void)hideCopyPasteIcons {
+    if ([self.textField respondsToSelector:@selector(inputAssistantItem)]) {
+        self.textField.inputAssistantItem.leadingBarButtonGroups = @[];
+        self.textField.inputAssistantItem.trailingBarButtonGroups = @[];
+    }
+}
+
 - (CGSize)intrinsicContentSize {
     return CGSizeMake(UIViewNoIntrinsicMetric, 46);
 }
