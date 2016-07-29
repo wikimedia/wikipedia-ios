@@ -1,7 +1,7 @@
 #import "WMFFindInPageKeyboardBar.h"
 #import "UIControl+BlocksKit.h"
 
-@interface WMFFindInPageKeyboardBar()
+@interface WMFFindInPageKeyboardBar() <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UIButton *closeButton;
 @property (strong, nonatomic) IBOutlet UIButton *clearButton;
@@ -83,6 +83,11 @@
         labelText = [NSString stringWithFormat:@"%lu / %lu", self.currentCursorIndex + 1, self.numberOfMatches];
     }
     [self.currentMatchLabel setText:labelText];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self didTouchClose];
+    return YES;
 }
 
 @end
