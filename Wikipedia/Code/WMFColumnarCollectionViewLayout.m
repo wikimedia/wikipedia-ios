@@ -139,7 +139,6 @@
     assert([context isKindOfClass:[WMFCVLInvalidationContext class]]);
     if (context.invalidateEverything) {
         self.nextInfo = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
-
         [self.nextInfo updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
     } else if (context.invalidateDataSourceCounts) {
         self.nextInfo = [self.info copy];
