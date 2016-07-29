@@ -9,6 +9,7 @@
 @interface WMFCVLInfo ()
 @property (nonatomic, strong, nonnull) NSMutableArray <WMFCVLColumn *> *columns;
 @property (nonatomic, strong, nonnull) NSMutableArray <WMFCVLSection *> *sections;
+@property (nonatomic, strong, nonnull) NSMutableArray <WMFCVLColumn *> *columnsBySection;
 @property (nonatomic, copy, nonnull) WMFCVLMetrics *metrics;
 @end
 
@@ -36,6 +37,7 @@
 
 - (void)resetSections {
     self.sections = [NSMutableArray array];
+    self.columnsBySection = [NSMutableArray array];
 }
 
 - (id)copyWithZone:(NSZone *)zone {
@@ -138,13 +140,7 @@
         NSIndexPath *indexPath = originalAttributes.indexPath;
         
         NSInteger sectionIndex = indexPath.section;
-        __block WMFCVLColumn *invalidatedColumn = nil;
-        [self enumerateColumnsWithBlock:^(WMFCVLColumn * _Nonnull column, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([column containsSectionWithSectionIndex:sectionIndex]) {
-                invalidatedColumn = column;
-                *stop = YES;
-            }
-        }];
+        WMFCVLColumn *invalidatedColumn = self.columnsBySection[sectionIndex];
         
         CGSize sizeToSet = preferredAttributes.frame.size;
         sizeToSet.width = invalidatedColumn.width;
@@ -189,12 +185,12 @@
     NSMutableArray *invalidatedHeaderIndexPaths = [NSMutableArray array];
     NSMutableArray *invalidatedFooterIndexPaths = [NSMutableArray array];
 
-    
     for (NSUInteger sectionIndex = 0; sectionIndex < numberOfSections; sectionIndex++) {
         WMFCVLSection *section = nil;
         if (sectionIndex >= [_sections count]) {
             section = [WMFCVLSection sectionWithIndex:sectionIndex];
             [_sections addObject:section];
+            [_columnsBySection addObject:currentColumn];
         } else {
             section = _sections[sectionIndex];
         }
