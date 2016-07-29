@@ -164,11 +164,8 @@
         }
         [self updateContentSizeWithInvalidationContext:context];
         
-        CGFloat contentOffsetYMax = collectionView.contentSize.height + collectionView.contentInset.bottom - collectionView.bounds.size.height;
-        if (collectionView.contentOffset.y == contentOffsetYMax) {
-            context.contentOffsetAdjustment = CGPointMake(0, contentOffsetYMax - collectionView.contentOffset.y);
-        } else if (self.metrics.numberOfColumns == 1 && originalAttributes.frame.origin.y < collectionView.contentOffset.y) {
-            context.contentOffsetAdjustment = CGPointMake(0, MIN(contentOffsetYMax, context.contentSizeAdjustment.height));
+        if (self.metrics.numberOfColumns == 1 && originalAttributes.frame.origin.y < collectionView.contentOffset.y) {
+            context.contentOffsetAdjustment = CGPointMake(0, context.contentSizeAdjustment.height);
         }
     } else {
         self.boundsSize = collectionView.bounds.size;
