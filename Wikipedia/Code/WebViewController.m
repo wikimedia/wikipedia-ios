@@ -190,6 +190,11 @@ NSString* const WMFCCBySALicenseURL =
                                                      dataFileHeight:messageDict[@"data-file-height"]
                                                             baseURL:nil];
     
+    if (imageTagClicked == nil) {
+        //yes, this would have caught in the if below, but keeping this here in case that check ever goes away
+        return;
+    }
+    
     if (![imageTagClicked isSizeLargeEnoughForGalleryInclusion]) {
         return;
     }

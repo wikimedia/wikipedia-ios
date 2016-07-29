@@ -297,6 +297,10 @@
     
     WMFImageTag *imageTag = [[WMFImageTag alloc] initWithImageTagContents:imageTagContents baseURL:baseURL];
     
+    if (imageTag == nil) {
+        return imageTagContents;
+    }
+    
     NSString *src = imageTag.src;
     
     if ([imageTag isSizeLargeEnoughForGalleryInclusion]) {
