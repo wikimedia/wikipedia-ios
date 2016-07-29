@@ -465,13 +465,13 @@ NSString* const WMFCCBySALicenseURL =
 
 #pragma mark - Headers & Footers
 
-- (UIView*)footerAtIndex:(NSUInteger)index {
+- (UIView*)footerAtIndex:(NSInteger)index {
     UIView* footerView       = self.footerViewControllers[index].view;
     UIView* footerViewHeader = self.footerViewHeadersByIndex[@(index)];
     return footerViewHeader ? : footerView;
 }
 
-- (void)scrollToFooterAtIndex:(NSUInteger)index {
+- (void)scrollToFooterAtIndex:(NSInteger)index {
     UIView* viewToScrollTo   = [self footerAtIndex:index];
     CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:viewToScrollTo.frame.origin
                                                             fromView:self.footerContainerView];
@@ -479,7 +479,7 @@ NSString* const WMFCCBySALicenseURL =
     [self.webView.scrollView setContentOffset:footerViewOrigin animated:YES];
 }
 
-- (void)accessibilityCursorToFooterAtIndex:(NSUInteger)index {
+- (void)accessibilityCursorToFooterAtIndex:(NSInteger)index {
     UIView* viewToScrollTo = [self footerAtIndex:index];
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, viewToScrollTo);
 }
