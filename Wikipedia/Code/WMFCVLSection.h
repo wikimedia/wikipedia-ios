@@ -13,7 +13,6 @@
 
 @property (nonatomic, readonly) NSInteger index;
 @property (nonatomic) CGRect frame;
-@property (nonatomic, weak, nullable) WMFCVLColumn *column;
 
 @property (nonatomic, strong, readonly, nonnull) NSArray <WMFCVLAttributes *> *headers;
 @property (nonatomic, strong, readonly, nonnull) NSArray <WMFCVLAttributes *> *footers;

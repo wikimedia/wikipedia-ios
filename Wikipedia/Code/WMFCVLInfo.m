@@ -41,13 +41,13 @@
 - (id)copyWithZone:(NSZone *)zone {
     WMFCVLInfo *copy = [[WMFCVLInfo allocWithZone:zone] initWithMetrics:self.metrics];
     copy.sections = [[NSMutableArray allocWithZone:zone] initWithArray:self.sections copyItems:YES];
-    copy.columns = [[NSMutableArray allocWithZone:zone] initWithArray:self.columns copyItems:YES];
-    for (WMFCVLColumn *column in copy.columns) {
-        column.info = copy;
-        [column enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop) {
-            section.column = column;
-        }];
+    NSMutableArray *columns = [[NSMutableArray allocWithZone:zone] initWithCapacity:self.columns.count];
+    for (WMFCVLColumn *column in self.columns) {
+        WMFCVLColumn *newColumn = [column copy];
+        newColumn.info = copy;
+        [columns addObject:newColumn];
     }
+    copy.columns = columns;
     copy.boundsSize = self.boundsSize;
     copy.contentSize = self.contentSize;
     copy.metrics = self.metrics;
@@ -137,8 +137,14 @@
         UICollectionViewLayoutAttributes *preferredAttributes = context.preferredLayoutAttributes;
         NSIndexPath *indexPath = originalAttributes.indexPath;
         
-        WMFCVLSection *invalidatedSection = self.sections[indexPath.section];
-        WMFCVLColumn *invalidatedColumn = invalidatedSection.column;
+        NSInteger sectionIndex = indexPath.section;
+        __block WMFCVLColumn *invalidatedColumn = nil;
+        [self enumerateColumnsWithBlock:^(WMFCVLColumn * _Nonnull column, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([column containsSectionWithSectionIndex:sectionIndex]) {
+                invalidatedColumn = column;
+                *stop = YES;
+            }
+        }];
         
         CGSize sizeToSet = preferredAttributes.frame.size;
         sizeToSet.width = invalidatedColumn.width;
@@ -252,6 +258,7 @@
             
             CGFloat itemHeight = 0;
             NSIndexPath *itemIndexPath = [NSIndexPath indexPathForItem:item inSection:sectionIndex];
+            
             
             if (item >= section.items.count) {
                 itemHeight = [delegate collectionView:collectionView estimatedHeightForItemAtIndexPath:itemIndexPath forColumnWidth:columnWidth];

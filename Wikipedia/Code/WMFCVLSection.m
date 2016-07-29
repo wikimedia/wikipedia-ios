@@ -30,7 +30,6 @@
     copy.items = [[NSMutableArray allocWithZone:zone] initWithArray:self.items copyItems:YES];
     copy.index = self.index;
     copy.frame = self.frame;
-    copy.column = self.column;
     return copy;
 }
 

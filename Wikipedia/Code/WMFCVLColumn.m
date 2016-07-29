@@ -28,8 +28,11 @@
 }
 
 - (void)addSection:(nonnull WMFCVLSection *)section {
-    section.column = self;
     [self.sectionIndexes addIndex:section.index];
+}
+
+- (BOOL)containsSectionWithSectionIndex:(NSInteger)sectionIndex {
+    return [self.sectionIndexes containsIndex:sectionIndex];
 }
 
 - (void)enumerateSectionsWithBlock:(nonnull void(^)(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop))block {
