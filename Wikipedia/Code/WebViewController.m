@@ -43,6 +43,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroInterstitial
 };
 
+typedef NS_ENUM (NSUInteger, WMFFindInPageScrollDirection) {
+    WMFFindInPageScrollDirectionNext,
+    WMFFindInPageScrollDirectionPrevious
+};
+
 NSString* const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
@@ -57,7 +62,7 @@ NSString* const WMFCCBySALicenseURL =
 @property (strong, nonatomic) MASConstraint* footerContainerViewTopConstraint;
 
 @property (nonatomic, strong) NSArray* findInPageMatches;
-@property (nonatomic) NSInteger findInPageResultCursorIndex;
+@property (nonatomic) NSInteger findInPageSelectedMatchIndex;
 @property (nonatomic) BOOL disableMinimizeFindInPage;
 
 @end
@@ -264,7 +269,7 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)handleFindInPageMatchesFoundMessage:(NSArray*)messageArray {
     self.findInPageMatches = messageArray;
-    self.findInPageResultCursorIndex = -1;
+    self.findInPageSelectedMatchIndex = -1;
 }
 
 #pragma mark - Find-in-page
@@ -288,7 +293,7 @@ NSString* const WMFCCBySALicenseURL =
 - (void)resetFindInPage {
     [self.webView evaluateJavaScript:@"window.wmf.findInPage.removeSearchTermHighlights()" completionHandler:nil];
     self.findInPageMatches = @[];
-    self.findInPageResultCursorIndex = -1;
+    self.findInPageSelectedMatchIndex = -1;
     [[self findInPageKeyboardBar] reset];
 }
 
@@ -314,36 +319,45 @@ NSString* const WMFCCBySALicenseURL =
 #pragma FindInPage label
 
 - (void)updateFindInPageKeyboardBarLabel {
-    [[self findInPageKeyboardBar] updateLabelTextForCurrentMatchIndex:self.findInPageResultCursorIndex
+    [[self findInPageKeyboardBar] updateLabelTextForCurrentMatchIndex:self.findInPageSelectedMatchIndex
                                                          matchesCount:self.findInPageMatches.count];
 }
 
-#pragma FindInPageBar cursor
+#pragma FindInPageBar selected match
 
-- (void)setFindInPageResultCursorIndex:(NSInteger)findInPageResultCursorIndex {
-    _findInPageResultCursorIndex = findInPageResultCursorIndex;
+- (void)setFindInPageSelectedMatchIndex:(NSInteger)findInPageSelectedMatchIndex {
+    _findInPageSelectedMatchIndex = findInPageSelectedMatchIndex;
     [self updateFindInPageKeyboardBarLabel];
 }
 
-- (void)advanceFindInPageResultCursorIndexReversed:(BOOL)reversed {
+- (void)moveFindInPageSelectedMatchIndexInDirection:(WMFFindInPageScrollDirection)direction {
     if(self.findInPageMatches.count == 0){
         return;
     }
-    self.findInPageResultCursorIndex += (reversed ? -1 : 1);
-    if (reversed && (self.findInPageResultCursorIndex < 0)) {
-        self.findInPageResultCursorIndex = self.findInPageMatches.count - 1;
-    }else if (self.findInPageResultCursorIndex >= self.findInPageMatches.count) {
-        self.findInPageResultCursorIndex = 0;
+    switch (direction) {
+        case WMFFindInPageScrollDirectionNext:
+            self.findInPageSelectedMatchIndex += 1;
+            if (self.findInPageSelectedMatchIndex >= self.findInPageMatches.count) {
+                self.findInPageSelectedMatchIndex = 0;
+            }
+            break;
+        case WMFFindInPageScrollDirectionPrevious:
+            self.findInPageSelectedMatchIndex -= 1;
+            if (self.findInPageSelectedMatchIndex < 0) {
+                self.findInPageSelectedMatchIndex = self.findInPageMatches.count - 1;
+            }
+            break;
     }
 }
 
-- (void)scrollToAndFocusOnResultForCurrentFindInPageCursorIndex {
+- (void)scrollToAndFocusOnSelectedMatch {
     if(self.findInPageMatches.count == 0){
         return;
     }
-    
-    NSString* matchSpanId = [self.findInPageMatches wmf_safeObjectAtIndex:self.findInPageResultCursorIndex];
-    
+    NSString* matchSpanId = [self.findInPageMatches wmf_safeObjectAtIndex:self.findInPageSelectedMatchIndex];
+    if (matchSpanId == nil) {
+        return;
+    }
     @weakify(self);
     [self.webView getScrollViewRectForHtmlElementWithId:matchSpanId completion:^(CGRect rect){
         @strongify(self);
@@ -366,7 +380,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)scrollToAndFocusOnFirstMatch {
-    self.findInPageResultCursorIndex = -1;
+    self.findInPageSelectedMatchIndex = -1;
     [self keyboardBarNextButtonTapped:nil];
 }
 
@@ -387,13 +401,13 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)keyboardBarPreviousButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
-    [self advanceFindInPageResultCursorIndexReversed:YES];
-    [self scrollToAndFocusOnResultForCurrentFindInPageCursorIndex];
+    [self moveFindInPageSelectedMatchIndexInDirection:WMFFindInPageScrollDirectionPrevious];
+    [self scrollToAndFocusOnSelectedMatch];
 }
 
 - (void)keyboardBarNextButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
-    [self advanceFindInPageResultCursorIndexReversed:NO];
-    [self scrollToAndFocusOnResultForCurrentFindInPageCursorIndex];
+    [self moveFindInPageSelectedMatchIndexInDirection:WMFFindInPageScrollDirectionNext];
+    [self scrollToAndFocusOnSelectedMatch];
 }
 
 #pragma mark - WebView configuration
