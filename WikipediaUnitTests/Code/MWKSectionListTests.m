@@ -71,7 +71,7 @@
                                                           withIntermediateDirectories:YES
                                                                            attributes:nil
                                                                                 error:nil];
-    NSParameterAssert(didCreateRandomPath);
+    XCTAssert(didCreateRandomPath);
     [MKTGiven([mockDataStore pathForArticleURL:anything()]) willReturn:randomDirectory];
 }
 

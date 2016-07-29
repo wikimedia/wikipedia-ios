@@ -37,10 +37,10 @@ extension MWKSection : TableOfContentsItem {
         }
     }
 
-    public var indentationLevel: UInt {
+    public var indentationLevel: Int {
         get {
-            if let level = toclevel?.unsignedIntegerValue where level > 1 {
-                return max(UInt(level - 2), 0)
+            if let level = toclevel?.integerValue where level > 1 {
+                return max((level - 2), 0)
             } else {
                 return 0
             }

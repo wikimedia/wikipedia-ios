@@ -262,7 +262,7 @@
     return components.URL;
 }
 
-- (NSString*)stringByReplacingImageURLsWithProxyURLsInHTMLString:(NSString*)HTMLString targetImageWidth:(NSUInteger)targetImageWidth {
+- (NSString*)stringByReplacingImageURLsWithProxyURLsInHTMLString:(NSString*)HTMLString withBaseURL:(NSURL *)baseURL targetImageWidth:(NSUInteger)targetImageWidth {
 
     
     //defensively copy
@@ -276,7 +276,7 @@
         [newHTMLString appendString:nonMatchingStringToAppend];
         
         //update imageTagContents by changing the src, disabling the srcset, and adding other attributes used for scaling
-        NSString *newImageTagContents = [self stringByUpdatingImageTagAttributesForProxyAndScalingInImageTagContents:imageTagContents withTargetImageWidth:targetImageWidth];
+        NSString *newImageTagContents = [self stringByUpdatingImageTagAttributesForProxyAndScalingInImageTagContents:imageTagContents withBaseURL:baseURL targetImageWidth:targetImageWidth];
         //append the updated image tag to the new string
         [newHTMLString appendString:[@[@"<img ", newImageTagContents, @">"] componentsJoinedByString:@""]];
         
@@ -289,13 +289,13 @@
     return newHTMLString;
 }
 
-- (NSString *)stringByUpdatingImageTagAttributesForProxyAndScalingInImageTagContents:(NSString *)imageTagContents withTargetImageWidth:(NSUInteger)targetImageWidth {
+- (NSString *)stringByUpdatingImageTagAttributesForProxyAndScalingInImageTagContents:(NSString *)imageTagContents withBaseURL:(NSURL *)baseURL targetImageWidth:(NSUInteger)targetImageWidth {
     
     NSMutableString *newImageTagContents = [imageTagContents mutableCopy];
     
     NSString *resizedSrc = nil;
     
-    WMFImageTag *imageTag = [[WMFImageTag alloc] initWithImageTagContents:imageTagContents];
+    WMFImageTag *imageTag = [[WMFImageTag alloc] initWithImageTagContents:imageTagContents baseURL:baseURL];
     
     NSString *src = imageTag.src;
     

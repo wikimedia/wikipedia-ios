@@ -18,7 +18,7 @@
 @implementation XCTestCase (Util)
 
 - (XCTestExpectation*)expectationForMethod:(SEL)method line:(NSUInteger)line {
-    return [self expectationWithDescription:[NSString stringWithFormat:@"%@:L%lu", NSStringFromSelector(method), line]];
+    return [self expectationWithDescription:[NSString stringWithFormat:@"%@:L%lu", NSStringFromSelector(method), (unsigned long)line]];
 }
 
 @end

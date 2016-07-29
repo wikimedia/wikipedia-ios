@@ -12,7 +12,7 @@
 
 - (NSURL*)proxyURLForRelativeFilePath:(NSString*)relativeFilePath fragment:(NSString*)fragment;    //returns the proxy url for a given relative path
 
-- (NSString*)stringByReplacingImageURLsWithProxyURLsInHTMLString:(NSString*)HTMLstring targetImageWidth:(NSUInteger)targetImageWidth;   //replaces image URLs in an HTML string with URLs that will be routed through this proxy
+- (NSString*)stringByReplacingImageURLsWithProxyURLsInHTMLString:(NSString*)HTMLString withBaseURL:(NSURL *)baseURL targetImageWidth:(NSUInteger)targetImageWidth;  //replaces image URLs in an HTML string with URLs that will be routed through this proxy
 
 - (void)setResponseData:(NSData *)data withContentType:(NSString *)contentType forPath:(NSString *)path;
 
