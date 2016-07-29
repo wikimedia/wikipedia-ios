@@ -55,6 +55,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
                             <connections>
+                                <action selector="textFieldDidChange:" destination="iN0-l3-epB" eventType="editingChanged" id="8yj-ZH-46M"/>
                                 <outlet property="delegate" destination="iN0-l3-epB" id="LDX-LI-4nu"/>
                             </connections>
                         </textField>

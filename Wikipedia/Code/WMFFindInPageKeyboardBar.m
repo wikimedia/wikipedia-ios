@@ -18,18 +18,10 @@
     return CGSizeMake(UIViewNoIntrinsicMetric, 46);
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (instancetype)initWithCoder:(NSCoder *)coder{
     self = [super initWithCoder:coder];
     if (self) {
         self.tintColor = [UIColor colorWithRed:0.3373 green:0.3373 blue:0.3373 alpha:1.0];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(textDidChange:)
-                                                     name:UITextFieldTextDidChangeNotification
-                                                   object:nil];
     }
     return self;
 }
@@ -42,11 +34,9 @@
     [self.delegate keyboardBarNextButtonTapped:self];
 }
 
-- (void)textDidChange:(NSNotification*)notification {
-    if (notification.object == self.textField) {
-        [self.delegate keyboardBar:self searchTermChanged:[[notification object] text]];
-        self.clearButton.hidden = (self.textField.text.length == 0) ? YES : NO;
-    }
+- (IBAction)textFieldDidChange:(UITextField *)textField {
+    [self.delegate keyboardBar:self searchTermChanged:textField.text];
+    self.clearButton.hidden = (textField.text.length == 0) ? YES : NO;
 }
 
 - (IBAction)didTouchClose{
