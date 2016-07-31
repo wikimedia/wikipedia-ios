@@ -1,15 +1,7 @@
-//
-//  SavedPageSpotlightManager.swift
-//  Wikipedia
-//
-//  Created by Corey Floyd on 2/19/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
 
 import UIKit
 import MobileCoreServices
 import CoreSpotlight
-import CocoaLumberjackSwift
 
 @available(iOS 9.0, *)
 

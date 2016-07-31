@@ -1,0 +1,1 @@
+../../../YapDatabase/YapDatabase/Extensions/FullTextSearch/YapDatabaseFullTextSearchHandler.h

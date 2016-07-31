@@ -36,8 +36,22 @@
     assertThat([self.array wmf_safeObjectAtIndex:2], is(nilValue()));
 }
 
+- (void)test_wmf_safeObjectAtIndex_NegativeReturnsNil {
+    assertThat([self.array wmf_safeObjectAtIndex:-100], is(nilValue()));
+}
+
 - (void)test_wmf_safeObjectAtIndex_emptyOutOfRangeReturnsNil {
     assertThat([@[] wmf_safeObjectAtIndex: 1], is(nilValue()));
+}
+
+- (void)test_wmf_arrayByTrimmingToLength_ZeroReturnsEmpty {
+    NSArray* array = @[@"bla"];
+    assertThat([array wmf_arrayByTrimmingToLength:0], is(@[]));
+}
+
+- (void)test_wmf_arrayByTrimmingToLength_NegativeReturnsSelf {
+    NSArray* array = @[@"bla"];
+    assertThat([array wmf_arrayByTrimmingToLength:-10], is(array));
 }
 
 - (void)test_wmf_arrayByTrimmingToLength_countZeroReturnsSelf {
@@ -55,6 +69,21 @@
 
 - (void)test_wmf_arrayByTrimmingToLength_trimToExpectedResult {
     assertThat([self.array wmf_arrayByTrimmingToLength:1][0], is(@"one"));
+}
+
+- (void)test_wmf_arrayByTrimmingToLengthFromEnd_emptyZeroReturnsSelf {
+    NSArray* array = @[];
+    assertThat([array wmf_arrayByTrimmingToLengthFromEnd:0], is(array));
+}
+
+- (void)test_wmf_arrayByTrimmingToLengthFromEnd_nonEmptyZeroReturnsEmpty {
+    NSArray* array = @[@"one"];
+    assertThat([array wmf_arrayByTrimmingToLengthFromEnd:0], is(@[]));
+}
+
+- (void)test_wmf_arrayByTrimmingToLengthFromEnd_nonEmptyNegativeReturnsSelf {
+    NSArray* array = @[@"one"];
+    assertThat([array wmf_arrayByTrimmingToLengthFromEnd:-10], is(array));
 }
 
 - (void)test_wmf_arrayByTrimmingToLengthFromEnd_countZeroReturnsSelf {
