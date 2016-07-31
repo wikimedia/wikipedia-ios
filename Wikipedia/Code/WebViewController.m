@@ -156,44 +156,46 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)handleClickLinkScriptMessage:(NSDictionary*)messageDict {
-    if (self.isPeeking) {
-        self.isPeeking = NO;
-        return;
-    }
-    
-    NSString* href = messageDict[@"href"];
-    
-    if(href.length == 0){
-        return;
-    }
-    
-    if (!self.referencesHidden) {
-        [self referencesHide];
-    }
-    
-    if ([href wmf_isWikiResource]) {
-        NSURL* url = [NSURL URLWithString:href];
-        if(!url.wmf_domain){
-            url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
+    [self hideFindInPageWithCompletion:^{
+        if (self.isPeeking) {
+            self.isPeeking = NO;
+            return;
         }
-        url = [url wmf_urlByPrependingSchemeIfSchemeless];
-        [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
-    } else {
-        // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
-        if ([href hasPrefix:@"#"]) {
-            [self scrollToFragment:[href substringFromIndex:1]];
-        } else {
-            if ([href hasPrefix:@"//"]) {
-                // Expand protocol-relative link to https -- secure by default!
-                href = [@"https:" stringByAppendingString:href];
-            }
+        
+        NSString* href = messageDict[@"href"];
+        
+        if(href.length == 0){
+            return;
+        }
+        
+        if (!self.referencesHidden) {
+            [self referencesHide];
+        }
+        
+        if ([href wmf_isWikiResource]) {
             NSURL* url = [NSURL URLWithString:href];
-            NSCAssert(url, @"Failed to from URL from link %@", href);
-            if (url) {
-                [self wmf_openExternalUrl:url];
+            if(!url.wmf_domain){
+                url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
+            }
+            url = [url wmf_urlByPrependingSchemeIfSchemeless];
+            [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
+        } else {
+            // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
+            if ([href hasPrefix:@"#"]) {
+                [self scrollToFragment:[href substringFromIndex:1]];
+            } else {
+                if ([href hasPrefix:@"//"]) {
+                    // Expand protocol-relative link to https -- secure by default!
+                    href = [@"https:" stringByAppendingString:href];
+                }
+                NSURL* url = [NSURL URLWithString:href];
+                NSCAssert(url, @"Failed to from URL from link %@", href);
+                if (url) {
+                    [self wmf_openExternalUrl:url];
+                }
             }
         }
-    }
+    }];
 }
 
 - (void)handleClickImageScriptMessage:(NSDictionary*)messageDict {
@@ -225,21 +227,24 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)handleClickReferenceScriptMessage:(NSDictionary*)messageDict {
-    [self hideFindInPage];
-    [self referencesShow:messageDict];
+    [self hideFindInPageWithCompletion:^{
+        [self referencesShow:messageDict];
+    }];
 }
 
 - (void)handleClickEditScriptMessage:(NSDictionary*)messageDict {
-    [self hideFindInPage];
-    NSUInteger sectionIndex = (NSUInteger)[messageDict[@"sectionId"] integerValue];
-    if (sectionIndex < [self.article.sections count]) {
-        [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
-    }
+    [self hideFindInPageWithCompletion:^{
+        NSUInteger sectionIndex = (NSUInteger)[messageDict[@"sectionId"] integerValue];
+        if (sectionIndex < [self.article.sections count]) {
+            [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
+        }
+    }];
 }
 
 - (void)handleNonAnchorTouchEndedWithoutDraggingScriptMessage {
-    [self referencesHide];
-    [self hideFindInPage];
+    [self hideFindInPageWithCompletion:^{
+        [self referencesHide];
+    }];
 }
 
 - (void)handleLateJavascriptTransformScriptMessage:(NSString*)messageString {
@@ -298,17 +303,25 @@ NSString* const WMFCCBySALicenseURL =
     [[self findInPageKeyboardBar] show];
 }
 
-- (void)hideFindInPage {
-    [self resetFindInPage];
-    [[self findInPageKeyboardBar] hide];
-    [self resignFirstResponder];
+- (void)hideFindInPageWithCompletion:(nullable dispatch_block_t)completion {
+    [self resetFindInPageWithCompletion:^{
+        [[self findInPageKeyboardBar] hide];
+        [self resignFirstResponder];
+        if (completion) {
+            completion();
+        }
+    }];
 }
 
-- (void)resetFindInPage {
-    [self.webView evaluateJavaScript:@"window.wmf.findInPage.removeSearchTermHighlights()" completionHandler:nil];
-    self.findInPageMatches = @[];
-    self.findInPageSelectedMatchIndex = -1;
-    [[self findInPageKeyboardBar] reset];
+- (void)resetFindInPageWithCompletion:(nullable dispatch_block_t)completion {
+    [self.webView evaluateJavaScript:@"window.wmf.findInPage.removeSearchTermHighlights()" completionHandler:^(id obj, NSError* _Nullable error) {
+        self.findInPageMatches = @[];
+        self.findInPageSelectedMatchIndex = -1;
+        [[self findInPageKeyboardBar] reset];
+        if (completion) {
+            completion();
+        }
+    }];
 }
 
 - (void)minimizeFindInPage {
@@ -407,11 +420,11 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)keyboardBarCloseButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
-    [self hideFindInPage];
+    [self hideFindInPageWithCompletion:nil];
 }
 
 - (void)keyboardBarClearButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
-    [self resetFindInPage];
+    [self resetFindInPageWithCompletion:nil];
 }
 
 - (void)keyboardBarPreviousButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {

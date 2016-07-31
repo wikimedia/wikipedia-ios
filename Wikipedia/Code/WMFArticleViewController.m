@@ -1154,7 +1154,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (peekVC) {
             [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
             self.webViewController.isPeeking = YES;
-            [self.webViewController hideFindInPage];
+            [self.webViewController hideFindInPageWithCompletion:nil];
             
             return peekVC;
         }

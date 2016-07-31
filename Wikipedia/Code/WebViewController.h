@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setFontSizeMultiplier:(NSNumber*)fontSize;
 
 - (void)showFindInPage;
-- (void)hideFindInPage;
+- (void)hideFindInPageWithCompletion:(nullable dispatch_block_t)completion;
 
 #pragma mark - Header & Footers
 
