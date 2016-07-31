@@ -5,9 +5,8 @@ import Foundation
 
 extension NSArray {
     /// @return The object at `index` if it's within range of the receiver, otherwise `nil`.
-    public func wmf_safeObjectAtIndex(index: UInt) -> AnyObject? {
-        let intIndex = Int(index);
-        return (intIndex < self.count) ? self[intIndex] : nil;
+    public func wmf_safeObjectAtIndex(index: Int) -> AnyObject? {
+        return (index > -1 && index < self.count) ? self[index] : nil;
     }
 
     /**
@@ -54,12 +53,11 @@ extension NSArray {
     - returns: A new array with the first `n` items in the receiver, or the receiver if `n` exceeds the number of items 
               in the array.
     */
-    public func wmf_arrayByTrimmingToLength(n: UInt) -> NSArray {
-        let intLength = Int(n);
+    public func wmf_arrayByTrimmingToLength(intLength: Int) -> NSArray {
         if (self.count == 0 || self.count < intLength) {
             return self;
         }
-        return self.subarrayWithRange(NSMakeRange(0, intLength));
+        return self.wmf_safeSubarrayWithRange(NSMakeRange(0, intLength));
     }
 
     /**
@@ -70,12 +68,11 @@ extension NSArray {
     :returns: A new array with the last `n` items in the receiver, or the receiver if `n` exceeds the number of items
     in the array.
     */
-    public func wmf_arrayByTrimmingToLengthFromEnd(n: UInt) -> NSArray {
-        let intLength = Int(n);
-        if (self.count == 0 || self.count < intLength) {
+    public func wmf_arrayByTrimmingToLengthFromEnd(intLength: Int) -> NSArray {
+        if (self.count == 0 || self.count < intLength || intLength < 0) {
             return self;
         }
-        return self.subarrayWithRange(NSMakeRange(self.count-intLength, intLength));
+        return self.wmf_safeSubarrayWithRange(NSMakeRange(self.count-intLength, intLength));
     }
 
     /**

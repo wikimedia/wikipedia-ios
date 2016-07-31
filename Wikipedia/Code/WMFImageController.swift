@@ -1,5 +1,4 @@
 import Foundation
-import CocoaLumberjackSwift
 
 ///
 /// @name Constants

@@ -804,7 +804,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self unobserveArticleUpdates];
 
     @weakify(self);
-    self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURLIfNeeded:self.articleURL progress:^(CGFloat progress) {
+    self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURL:self.articleURL forceDownload:force progress:^(CGFloat progress) {
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
     }].then(^(MWKArticle* article) {
         @strongify(self);
