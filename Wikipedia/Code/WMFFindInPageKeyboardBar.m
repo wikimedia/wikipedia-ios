@@ -18,10 +18,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self hideCopyPasteIcons];
+    [self hideUndoRedoIcons];
 }
 
-- (void)hideCopyPasteIcons {
+- (void)hideUndoRedoIcons {
     if ([self.textField respondsToSelector:@selector(inputAssistantItem)]) {
         self.textField.inputAssistantItem.leadingBarButtonGroups = @[];
         self.textField.inputAssistantItem.trailingBarButtonGroups = @[];
