@@ -297,28 +297,25 @@
     
     WMFImageTag *imageTag = [[WMFImageTag alloc] initWithImageTagContents:imageTagContents baseURL:baseURL];
     
-    if (imageTag == nil) {
-        return imageTagContents;
-    }
-    
-    NSString *src = imageTag.src;
-    
-    if ([imageTag isSizeLargeEnoughForGalleryInclusion]) {
-        resizedSrc = [[imageTag URLForTargetWidth:targetImageWidth] absoluteString];
-        if (resizedSrc) {
-            src = resizedSrc;
+    if (imageTag != nil) {
+        NSString *src = imageTag.src;
+        
+        if ([imageTag isSizeLargeEnoughForGalleryInclusion]) {
+            resizedSrc = [[imageTag URLForTargetWidth:targetImageWidth] absoluteString];
+            if (resizedSrc) {
+                src = resizedSrc;
+            }
+        }
+        
+        if (src) {
+            NSString *srcWithProxy = [self proxyURLForImageURLString:src].absoluteString;
+            if (srcWithProxy) {
+                NSString *newSrcAttribute = [@[@"src=\"", srcWithProxy, @"\""] componentsJoinedByString:@""];
+                imageTag.src = newSrcAttribute;
+                newImageTagContents = [imageTag.imageTagContents mutableCopy];
+            }
         }
     }
-    
-    if (src) {
-        NSString *srcWithProxy = [self proxyURLForImageURLString:src].absoluteString;
-        if (srcWithProxy) {
-            NSString *newSrcAttribute = [@[@"src=\"", srcWithProxy, @"\""] componentsJoinedByString:@""];
-            imageTag.src = newSrcAttribute;
-            newImageTagContents = [imageTag.imageTagContents mutableCopy];
-        }
-    }
-    
     
     [newImageTagContents replaceOccurrencesOfString:@"srcset" withString:@"data-srcset-disabled" options:0 range:NSMakeRange(0, newImageTagContents.length)]; //disable the srcset since we put the correct resolution image in the src
     
