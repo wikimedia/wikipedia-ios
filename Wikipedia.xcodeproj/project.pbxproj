@@ -89,7 +89,6 @@
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
 		B01162E81C24D3B200C3B52B /* WMFPageIssuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */; };
 		B011FA4C1D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B011FA491D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.m */; };
-		B011FA4D1D470F5A00AD7C5E /* WMFViewWithFindInPageKeyboardBarInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = B011FA4B1D470F5A00AD7C5E /* WMFViewWithFindInPageKeyboardBarInputAccessoryView.m */; };
 		B014E99B1CD03AFF00A887D9 /* WMFCustomDeleteButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B014E99A1CD03AFF00A887D9 /* WMFCustomDeleteButtonTableViewCell.m */; };
 		B014E99F1CD189F600A887D9 /* Tharlon-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B014E99E1CD189F600A887D9 /* Tharlon-Regular.ttf */; };
 		B014E9A11CD2C4A800A887D9 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = B014E9A01CD2C4A800A887D9 /* OFL.txt */; };
@@ -833,8 +832,6 @@
 		B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPageIssuesViewController.m; path = WikipediaUnitTests/Code/WMFPageIssuesViewController.m; sourceTree = SOURCE_ROOT; };
 		B011FA481D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFFindInPageKeyboardBar.h; path = Wikipedia/Code/WMFFindInPageKeyboardBar.h; sourceTree = SOURCE_ROOT; };
 		B011FA491D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFFindInPageKeyboardBar.m; path = Wikipedia/Code/WMFFindInPageKeyboardBar.m; sourceTree = SOURCE_ROOT; };
-		B011FA4A1D470F5A00AD7C5E /* WMFViewWithFindInPageKeyboardBarInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFViewWithFindInPageKeyboardBarInputAccessoryView.h; path = Wikipedia/Code/WMFViewWithFindInPageKeyboardBarInputAccessoryView.h; sourceTree = SOURCE_ROOT; };
-		B011FA4B1D470F5A00AD7C5E /* WMFViewWithFindInPageKeyboardBarInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFViewWithFindInPageKeyboardBarInputAccessoryView.m; path = Wikipedia/Code/WMFViewWithFindInPageKeyboardBarInputAccessoryView.m; sourceTree = SOURCE_ROOT; };
 		B014E99A1CD03AFF00A887D9 /* WMFCustomDeleteButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCustomDeleteButtonTableViewCell.m; path = Wikipedia/Code/WMFCustomDeleteButtonTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		B014E99E1CD189F600A887D9 /* Tharlon-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Tharlon-Regular.ttf"; sourceTree = "<group>"; };
 		B014E9A01CD2C4A800A887D9 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
@@ -3100,8 +3097,6 @@
 				B011FA481D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.h */,
 				B011FA491D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.m */,
 				B016DCEA1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib */,
-				B011FA4A1D470F5A00AD7C5E /* WMFViewWithFindInPageKeyboardBarInputAccessoryView.h */,
-				B011FA4B1D470F5A00AD7C5E /* WMFViewWithFindInPageKeyboardBarInputAccessoryView.m */,
 			);
 			name = FindInPage;
 			sourceTree = "<group>";
@@ -5692,7 +5687,6 @@
 				BCD320181C73992F00317D08 /* WMFMostReadListDataSource.m in Sources */,
 				BCA15AE51C0E213300D0A3EA /* LoggingDefaults.swift in Sources */,
 				B0E804D21C0CE0B40065EBC0 /* NSLocale+WMFExtras.swift in Sources */,
-				B011FA4D1D470F5A00AD7C5E /* WMFViewWithFindInPageKeyboardBarInputAccessoryView.m in Sources */,
 				B0E803C81C0CDC5F0065EBC0 /* WMFArticlePlaceholderTableViewCell.m in Sources */,
 				B0E803C31C0CDC4D0065EBC0 /* WMFArticlePreviewTableViewCell.m in Sources */,
 				B07963E31C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */,

@@ -34,8 +34,8 @@
 #import "WMFImageTag.h"
 #import "WKScriptMessage+WMFScriptMessage.h"
 
-#import "WMFViewWithFindInPageKeyboardBarInputAccessoryView.h"
 #import "WMFFindInPageKeyboardBar.h"
+#import "UIView+WMFDefaultNib.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -64,6 +64,7 @@ NSString* const WMFCCBySALicenseURL =
 @property (nonatomic, strong) NSArray* findInPageMatches;
 @property (nonatomic) NSInteger findInPageSelectedMatchIndex;
 @property (nonatomic) BOOL disableMinimizeFindInPage;
+@property (nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
 
 @end
 
@@ -275,20 +276,32 @@ NSString* const WMFCCBySALicenseURL =
 
 #pragma mark - Find-in-page
 
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (WMFFindInPageKeyboardBar *)inputAccessoryView {
+    if(!_inputAccessoryView) {
+        _inputAccessoryView = [WMFFindInPageKeyboardBar wmf_viewFromClassNib];
+        _inputAccessoryView.delegate = self;
+    }
+    return _inputAccessoryView;
+}
+
 - (WMFFindInPageKeyboardBar *)findInPageKeyboardBar {
     return self.view.inputAccessoryView;
 }
 
 - (void)showFindInPage {
     [self referencesHide];
-    [self.view becomeFirstResponder];
+    [self becomeFirstResponder];
     [[self findInPageKeyboardBar] show];
 }
 
 - (void)hideFindInPage {
     [self resetFindInPage];
     [[self findInPageKeyboardBar] hide];
-    [self.view resignFirstResponder];
+    [self resignFirstResponder];
 }
 
 - (void)resetFindInPage {
@@ -471,8 +484,6 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    ((WMFViewWithFindInPageKeyboardBarInputAccessoryView *)self.view).findInPageKeyboardBarDelegate = self;
     
     self.isPeeking = NO;
 
