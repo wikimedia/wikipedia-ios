@@ -21,8 +21,6 @@
 		0E09EAC31C4426470058F2D8 /* WMFSearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09EABD1C4426470058F2D8 /* WMFSearchResultsTableViewController.m */; };
 		0E09EAC41C4426470058F2D8 /* WMFSavedArticleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09EABF1C4426470058F2D8 /* WMFSavedArticleTableViewController.m */; };
 		0E09EAC51C4426470058F2D8 /* WMFHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09EAC11C4426470058F2D8 /* WMFHistoryTableViewController.m */; };
-		0E1E1A351CE6170D002B474C /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3B71CE2B2E1004A9DF0 /* CocoaLumberjack.framework */; };
-		0E1E1A361CE6170D002B474C /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3B81CE2B2E1004A9DF0 /* CocoaLumberjackSwift.framework */; };
 		0E1E1A371CE6170D002B474C /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3B91CE2B2E1004A9DF0 /* PromiseKit.framework */; };
 		0E1E1A381CE6170D002B474C /* SWStepSlider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3BA1CE2B2E1004A9DF0 /* SWStepSlider.framework */; };
 		0E26628A1D08D950006D4A46 /* WMFAuthManagerInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2662891D08D950006D4A46 /* WMFAuthManagerInfoFetcher.m */; };
@@ -54,8 +52,6 @@
 		0E67DDA61CE3AE8A0061620F /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E67DDA31CE3AE8A0061620F /* Quick.framework */; };
 		0E67DDA71CE3AE8A0061620F /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E67DDA41CE3AE8A0061620F /* Nimble.framework */; };
 		0E67DDAA1CE3BEDF0061620F /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3B91CE2B2E1004A9DF0 /* PromiseKit.framework */; };
-		0E67DDAB1CE3BEE00061620F /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3B71CE2B2E1004A9DF0 /* CocoaLumberjack.framework */; };
-		0E67DDAC1CE3C17C0061620F /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0BE3B81CE2B2E1004A9DF0 /* CocoaLumberjackSwift.framework */; };
 		0E67DDB61CE3C3470061620F /* FBSnapshotTestCase.framework in Embed Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 0E67DDAF1CE3C3470061620F /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E67DDB81CE3C3470061620F /* Quick.framework in Embed Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 0E67DDB11CE3C3470061620F /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E67DDB91CE3C3470061620F /* Nimble.framework in Embed Carthage Frameworks */ = {isa = PBXBuildFile; fileRef = 0E67DDB21CE3C3470061620F /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -76,6 +72,8 @@
 		0EC0447F1C797DC20033D773 /* WMFImageURLActivitySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0447E1C797DC20033D773 /* WMFImageURLActivitySource.swift */; };
 		0EC376331D3002830001D4BF /* NSDictionary+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC376321D3002830001D4BF /* NSDictionary+WMFExtensions.m */; };
 		0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED2E9F91CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift */; };
+		0EE489031D4ADCA00088505C /* UITableViewController+WMFScrollToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE489021D4ADCA00088505C /* UITableViewController+WMFScrollToTop.swift */; };
+		0EE489051D4AE0900088505C /* CocoaLumberjack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE489041D4AE0900088505C /* CocoaLumberjack.swift */; };
 		0EF2249A1CC5536200FDF78E /* WMFLanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF224991CC5536200FDF78E /* WMFLanguageCell.m */; };
 		0EF5BB6A1C110BFC00DE75E1 /* WMFLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB691C110BFC00DE75E1 /* WMFLocalization.m */; };
 		0EF5BB6D1C110C2100DE75E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6C1C110C2100DE75E1 /* AppDelegate.m */; };
@@ -662,7 +660,6 @@
 		D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C0C00A1D144FF30019374D /* WMFProxyServer.m */; };
 		D8CDBA9F1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */; };
 		D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */; };
-		F6D265DF1D3D09100052D7A3 /* UITableViewController+WMFScrollToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D265DE1D3D09100052D7A3 /* UITableViewController+WMFScrollToTop.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -718,8 +715,6 @@
 		0E09EAC01C4426470058F2D8 /* WMFSavedArticleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSavedArticleTableViewController.h; sourceTree = "<group>"; };
 		0E09EAC11C4426470058F2D8 /* WMFHistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFHistoryTableViewController.m; sourceTree = "<group>"; };
 		0E09EAC21C4426470058F2D8 /* WMFHistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFHistoryTableViewController.h; sourceTree = "<group>"; };
-		0E0BE3B71CE2B2E1004A9DF0 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/iOS/CocoaLumberjack.framework; sourceTree = "<group>"; };
-		0E0BE3B81CE2B2E1004A9DF0 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Carthage/Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
 		0E0BE3B91CE2B2E1004A9DF0 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		0E0BE3BA1CE2B2E1004A9DF0 /* SWStepSlider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWStepSlider.framework; path = Carthage/Build/iOS/SWStepSlider.framework; sourceTree = "<group>"; };
 		0E10C4FD1C81046300CEB5C2 /* Wikipedia Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Wikipedia Debug.entitlements"; sourceTree = "<group>"; };
@@ -798,6 +793,8 @@
 		0EC376321D3002830001D4BF /* NSDictionary+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+WMFExtensions.m"; path = "Wikipedia/Code/NSDictionary+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
 		0ED2E9F91CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIVIewController+WMFCommonRotationSupport.swift"; path = "Wikipedia/Code/UIVIewController+WMFCommonRotationSupport.swift"; sourceTree = SOURCE_ROOT; };
 		0ED79A3B1CB5B507005D9AF5 /* Wikipedia-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wikipedia-Info.plist"; sourceTree = "<group>"; };
+		0EE489021D4ADCA00088505C /* UITableViewController+WMFScrollToTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UITableViewController+WMFScrollToTop.swift"; path = "Wikipedia/Code/UITableViewController+WMFScrollToTop.swift"; sourceTree = SOURCE_ROOT; };
+		0EE489041D4AE0900088505C /* CocoaLumberjack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CocoaLumberjack.swift; path = Pods/CocoaLumberjack/Classes/CocoaLumberjack.swift; sourceTree = SOURCE_ROOT; };
 		0EF224991CC5536200FDF78E /* WMFLanguageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLanguageCell.m; sourceTree = "<group>"; };
 		0EF5BB651C110BFC00DE75E1 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Global.h; path = Wikipedia/Code/Global.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBlockDefinitions.h; path = Wikipedia/Code/WMFBlockDefinitions.h; sourceTree = SOURCE_ROOT; };
@@ -1975,7 +1972,6 @@
 		DC96DA4AAD521D734849D20F /* Pods-WikipediaUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EDA528BC357952A7D914F8E0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F6053A891D3C59340023759C /* UITableViewController+WMFScrollToTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewController+WMFScrollToTop.swift"; sourceTree = SOURCE_ROOT; };
-		F6D265DE1D3D09100052D7A3 /* UITableViewController+WMFScrollToTop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UITableViewController+WMFScrollToTop.swift"; path = "Wikipedia/Code/UITableViewController+WMFScrollToTop.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1983,9 +1979,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E67DDAC1CE3C17C0061620F /* CocoaLumberjackSwift.framework in Frameworks */,
 				0E67DDAA1CE3BEDF0061620F /* PromiseKit.framework in Frameworks */,
-				0E67DDAB1CE3BEE00061620F /* CocoaLumberjack.framework in Frameworks */,
 				0E67DDA51CE3AE8A0061620F /* FBSnapshotTestCase.framework in Frameworks */,
 				0E67DDA61CE3AE8A0061620F /* Quick.framework in Frameworks */,
 				0E67DDA71CE3AE8A0061620F /* Nimble.framework in Frameworks */,
@@ -1997,8 +1991,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E1E1A351CE6170D002B474C /* CocoaLumberjack.framework in Frameworks */,
-				0E1E1A361CE6170D002B474C /* CocoaLumberjackSwift.framework in Frameworks */,
 				0E1E1A371CE6170D002B474C /* PromiseKit.framework in Frameworks */,
 				0E1E1A381CE6170D002B474C /* SWStepSlider.framework in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
@@ -2276,6 +2268,7 @@
 				BC45D5811C32F6BC007C72F3 /* UIViewController */,
 				B0AB16341C7E570F002E566A /* UINavigationBar */,
 				B07963E41C5857890015D2D4 /* UINavigationController */,
+				0EE489021D4ADCA00088505C /* UITableViewController+WMFScrollToTop.swift */,
 				B0E804A21C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.h */,
 				B0E804A31C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m */,
 				BC45D5881C32FAFB007C72F3 /* UICollectionView+WMFExtensions.h */,
@@ -2989,6 +2982,22 @@
 			name = "Compass View";
 			path = "Wikipedia/Code/Compass View";
 			sourceTree = SOURCE_ROOT;
+		};
+		0EE488FE1D4AD5D10088505C /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				0EE488FF1D4AD5D10088505C /* CocoaLumberjack */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		0EE488FF1D4AD5D10088505C /* CocoaLumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				0EE489041D4AE0900088505C /* CocoaLumberjack.swift */,
+			);
+			path = CocoaLumberjack;
+			sourceTree = "<group>";
 		};
 		0EEAF0F61B8229E6000D4232 /* Explore */ = {
 			isa = PBXGroup;
@@ -4924,10 +4933,10 @@
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
-				F6D265DE1D3D09100052D7A3 /* UITableViewController+WMFScrollToTop.swift */,
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				04E9A78218F73C7200F7ECF7 /* www */,
 				D4991453181D51DE00E6073C /* Images.xcassets */,
+				0EE488FE1D4AD5D10088505C /* Vendor */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
@@ -4951,8 +4960,6 @@
 				0E67DDA31CE3AE8A0061620F /* Quick.framework */,
 				0E67DDA41CE3AE8A0061620F /* Nimble.framework */,
 				04649CA619F72B360071E8FA /* libPods.a */,
-				0E0BE3B71CE2B2E1004A9DF0 /* CocoaLumberjack.framework */,
-				0E0BE3B81CE2B2E1004A9DF0 /* CocoaLumberjackSwift.framework */,
 				0E0BE3B91CE2B2E1004A9DF0 /* PromiseKit.framework */,
 				0E0BE3BA1CE2B2E1004A9DF0 /* SWStepSlider.framework */,
 				041EFC361996A1F800B2CB28 /* MapKit.framework */,
@@ -5331,8 +5338,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/SWStepSlider.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PromiseKit.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjackSwift.framework",
 			);
 			name = "Copy Carthage Frameworks";
 			outputPaths = (
@@ -5611,7 +5616,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F6D265DF1D3D09100052D7A3 /* UITableViewController+WMFScrollToTop.swift in Sources */,
 				B0E8059A1C0CE2E40065EBC0 /* WMFSearchFunnel.m in Sources */,
 				B0E804BC1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m in Sources */,
 				0EC0447F1C797DC20033D773 /* WMFImageURLActivitySource.swift in Sources */,
@@ -5768,6 +5772,7 @@
 				B0E806691C0CE9030065EBC0 /* LoginTokenFetcher.m in Sources */,
 				BCB00EC41C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				0E09EAC31C4426470058F2D8 /* WMFSearchResultsTableViewController.m in Sources */,
+				0EE489051D4AE0900088505C /* CocoaLumberjack.swift in Sources */,
 				B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				B0E806991C0CEAC20065EBC0 /* AccountCreationViewController.m in Sources */,
 				0EC376331D3002830001D4BF /* NSDictionary+WMFExtensions.m in Sources */,
@@ -5856,6 +5861,7 @@
 				0E26B0841C0F4F720004D687 /* WMFWelcomeViewController.m in Sources */,
 				B0E804DD1C0CE0B40065EBC0 /* NSString+WMFHTMLParsing.m in Sources */,
 				B0E8054B1C0CE0DC0065EBC0 /* UILabel+WMFStyling.m in Sources */,
+				0EE489031D4ADCA00088505C /* UITableViewController+WMFScrollToTop.swift in Sources */,
 				B0E804471C0CDF850065EBC0 /* WMFBorderButton.m in Sources */,
 				B0E805411C0CE0DC0065EBC0 /* UIColor+WMFHexColor.m in Sources */,
 				B0E803131C0CD6430065EBC0 /* WMFEmptySectionTableViewCell.m in Sources */,
@@ -6238,6 +6244,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"TEST=1",
 					"NDEBUG=1",
 					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
 					"$(inherited)",

@@ -1,6 +1,5 @@
 
 # Release Libraries
-github "CocoaLumberjack/CocoaLumberjack"
 github "mxcl/PromiseKit"
 github "wikimedia/SWStepSlider"
 

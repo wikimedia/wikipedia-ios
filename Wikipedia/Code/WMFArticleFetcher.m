@@ -192,20 +192,28 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     }
 }
 
-- (AnyPromise*)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL*)url
-                                                 progress:(WMFProgressHandler __nullable)progress {
+- (AnyPromise*)fetchLatestVersionOfArticleWithURL:(NSURL*)url
+                                    forceDownload:(BOOL)forceDownload
+                                         progress:(WMFProgressHandler __nullable)progress{
+    
     NSParameterAssert(url.wmf_title);
     if (!url.wmf_title) {
         DDLogError(@"Can't fetch nil title, cancelling implicitly.");
         return [AnyPromise promiseWithValue:[NSError cancelledError]];
     }
-
-    MWKArticle* cachedArticle = [self.dataStore existingArticleWithURL:url];
+ 
+    MWKArticle* cachedArticle;
+    
+    if(!forceDownload){
+       cachedArticle = [self.dataStore existingArticleWithURL:url];
+    }
 
     @weakify(self);
     AnyPromise* promisedArticle;
-    if (!cachedArticle || !cachedArticle.revisionId || [cachedArticle isMain]) {
-        if (!cachedArticle) {
+    if (forceDownload || !cachedArticle || !cachedArticle.revisionId || [cachedArticle isMain]) {
+        if(forceDownload){
+            DDLogInfo(@"Forcing Download for %@, fetching immediately", url);
+        } else if (!cachedArticle) {
             DDLogInfo(@"No cached article found for %@, fetching immediately.", url);
         } else if (!cachedArticle.revisionId) {
             DDLogInfo(@"Cached article for %@ doesn't have revision ID, fetching immediately.", url);
@@ -216,9 +224,9 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         promisedArticle = [self fetchArticleForURL:url progress:progress];
     } else {
         promisedArticle = [self.revisionFetcher fetchLatestRevisionsForArticleURL:url
-                                                                 resultLimit:1
-                                                          endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue]
-                          .then(^(WMFRevisionQueryResults* results) {
+                                                                      resultLimit:1
+                                                               endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue]
+        .then(^(WMFRevisionQueryResults* results) {
             @strongify(self);
             if (!self) {
                 return [AnyPromise promiseWithValue:[NSError cancelledError]];
@@ -233,7 +241,7 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
             }
         });
     }
-
+    
     return promisedArticle.catch(^(NSError* error) {
         NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ? : @{}];
         userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] = cachedArticle;
@@ -241,7 +249,14 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                    code:error.code
                                userInfo:userInfo];
     });
+
 }
+
+
+- (AnyPromise*)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL*)url
+                                                 progress:(WMFProgressHandler __nullable)progress {
+    return [self fetchLatestVersionOfArticleWithURL:url forceDownload:NO progress:progress];
+  }
 
 - (AnyPromise*)fetchArticleForURL:(NSURL*)articleURL progress:(WMFProgressHandler __nullable)progress {
     NSAssert(articleURL.wmf_title != nil, @"Title text nil");
