@@ -19,6 +19,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #if POPULATE_FEED
+static CLLocationDegrees const WMFHomePopulateFeedLatitude = 40.783333;//39.952247
+static CLLocationDegrees const WMFHomePopulateFeedLongitude = -73.966667;//-75.163894
+
 static NSInteger const WMFHomeFeedPopulationDays = 30;
 #else
 static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
@@ -237,6 +240,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
         
         [self updateSections:sections];
 #if POPULATE_FEED
+    }
     [self spoofLocation:WMFHomeFeedPopulationDays];
 #endif
     
@@ -249,8 +253,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     }
     CLLocationDegrees randLatitude = (.1 - arc4random_uniform(200)/1000.0);
     CLLocationDegrees randLongitude = (.1 - arc4random_uniform(200)/1000.0);
-    CLLocationDegrees latitude = 39.952247 + randLatitude;
-    CLLocationDegrees longitude = -75.163894 + randLongitude;
+
+    CLLocationDegrees latitude = WMFHomePopulateFeedLatitude + randLatitude;
+    CLLocationDegrees longitude = WMFHomePopulateFeedLongitude + randLongitude;
     
     CLLocation *location = [[CLLocation alloc] initWithLatitude:latitude
                                                       longitude:longitude];
