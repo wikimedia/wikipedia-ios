@@ -109,6 +109,7 @@
 "settings-my-languages" = "Мин тылларым";
 "settings-help-and-feedback" = "К6м6 уонна ситим";
 "settings-primary-language" = "Сүрүн";
+"settings-primary-language-details" = "Бу тиһиликкэ бастакыннан ааттаммыт тыл дьибилгэт сүрүн тылын быһыытынан туттуллар. Бу тылы уларыттаххына Эйиэхэ күн аайы көрдөрүллэр уларыйан сөп (холобура Бастыҥ ыстатыйа).";
 "main-menu-title" = "Эбии";
 "main-menu-heading-about" = "Бу туһунан";
 "main-menu-language-title" = "$1 Бикипиэдьийэни көрдөөһүн";
@@ -348,19 +349,24 @@
 "welcome-explore-sub-title" = "Сэргэх ыстатыйаны күн аайы булан ылыы саҥа ньымата";
 "welcome-explore-tell-me-more" = "Бу туһунан сиһилии кэпсээ";
 "welcome-explore-tell-me-more-about-explore" = "Чинчийии туһунан сиһилии";
+"welcome-explore-tell-me-more-details" = "Ханнык эрэ ыстатыйаны көрөр түгэҥҥэр кинини кытта ситимнээх ыстатыйалар Эн \"Чинчий\" лиэнтэҕэр эбиллэн биэрэллэр. Бу нарылааһыны уларыппат, тугу көрбүккүн урут да буоларын курдук туора киһи көрбөт.";
+"welcome-explore-tell-me-more-related" = "\"Чинчий\" лиэнтэ урут аахпыт ыстатыйаларгар сыһыаннаах ыстатыйалары көрдөрөр.";
+"welcome-explore-tell-me-more-privacy" = "Аахпытыҥ испииһэгэ биһиги сиэрбэрбитигэр суруллубуат.";
 "welcome-explore-tell-me-more-done-button" = "Бу өйдөнөр";
 "welcome-explore-continue-button" = "Саҕалыырга";
 "welcome-languages-title" = "Омугун тыла";
 "welcome-languages-sub-title" = "Бикипиэдьийэҕэ көрдүүргэ тыллары тал";
 "welcome-languages-add-button" = "Атын тылла эп";
 "welcome-languages-continue-button" = "Салгыы";
+"welcome-volunteer-sub-title" = "Бикипиэдьийэ бу дьибилгэтин туһаммытыҥ туһунан дьоҥҥо кэпсээҥҥин, кинини тупсарарга көмөлөс";
+"welcome-volunteer-send-usage-reports" = "Туһаныы отчуотун ыытар буол";
+"welcome-volunteer-continue-button" = "Салгыы";
+"welcome-volunteer-thanks" = "$1 Махтал!";
 "empty-no-feed-title" = "Интэриниэти кытта ситим суох";
 "empty-no-feed-message" = "Сүбэлиир ыстатыйаларбытын ситим баар буоллаҕына көрүөххүн сөп";
-// Fuzzy
-"empty-no-feed-action-message" = "Билигин урут хаалларыллыбыт ыстатыйалары көрүөххүн сөп";
+"empty-no-feed-action-message" = "Урут хаалларыллыбыт ыстатыйалары көрө түһүөххүн сөп";
 "empty-no-article-message" = "Баалаама, ыстатыйа кыайан хачайдаммата";
-// Fuzzy
-"empty-no-search-results-message" = "Баалаама, түмүк хачайдыыр табыллыбата";
+"empty-no-search-results-message" = "Туох да көстүбэтэ";
 "empty-no-saved-pages-title" = "Хараллыбыт сирэй суох эбит";
 "empty-no-saved-pages-message" = "Билигин хааллардаххына, кэлин ситимэ да суох ааҕыаххын сөп";
 "empty-no-history-title" = "Устуоруйата суох эбит";
@@ -375,10 +381,18 @@
 "compass-direction" = "$1 чааска";
 "explore-featured-article-heading" = "Бастыҥ ыстатыйалар";
 "explore-continue-reading-heading" = "Салгыы ааҕыы";
-// Fuzzy
-"explore-nearby-heading" = "чугастааҕы сирдэр";
+"explore-nearby-heading" = "Чугастааҕы сирдэр";
 "explore-continue-related-heading" = "Тоҕо диэтэххэ ыстатыйаны аахпыккын";
 "explore-main-page-heading" = "Бикипиэдьийэҕэ бүгүн";
 "explore-random-article-heading" = "Түбэспиччэ ыстатыйа";
 "explore-random-article-sub-heading" = "Ааҥыл Бикипиэдьийэтэ";
 "explore-potd-heading" = "Күннээҕи ойуу";
+"explore-most-read-heading" = "$1 Бикипиэдьийэҕэ элбэхтэ ааҕыллар";
+"explore-most-read-generic-heading" = "Элбэхтэ ааҕыллар";
+"explore-most-read-footer" = "Элбэхтэ ааҕыллар ыстатыйалар барыта";
+"explore-most-read-footer-for-date" = "Манна $1 элбэхтэ ааҕыллар ыстатыйалар барыта";
+"explore-most-read-more-list-title" = "Элбэхтэ ааҕыллар ыстатыйалар";
+"explore-most-read-more-list-title-for-date" = "Манна $1 элбэхтэ ааҕыллар";
+"no-email-account-alert" = "Бука диэн, ҕааддьыккар электрон почталаах бэлиэ-аатта оҥоһун, онтон киирэн көрөөр.";
+"request-feedback-on-error" = "Дьибилгэт биллибэт алҕаһы кытта көрүстэ, бу туһунан оҥорооччулар сиһилии билиэхтэрин баҕараллара саарбаҕа суох. бука диэн, маны баттаан биһиэхэ бу туһунан сиһилии сурукта ыыт.";
+"explore-another-random" = "Атын түбэспиччэ ыстатыйа";

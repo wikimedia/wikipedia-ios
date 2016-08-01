@@ -8,7 +8,6 @@
 "article-languages-label" = "Escoyer llingua";
 "article-languages-cancel" = "Encaboxar";
 "article-languages-downloading" = "Cargando llingües del artículu...";
-// Fuzzy
 "article-languages-filter-placeholder" = "Alcontrar llingua";
 "article-read-more-title" = "Lleer más";
 "article-about-title" = "Tocante a esti artículu";
@@ -48,30 +47,24 @@
 "zero-warn-when-leaving" = "Avisar si s'abandones Zero";
 "zero-settings-devmode" = "Zero devmode";
 "account-creation-captcha-required" = "Comprobación de CAPTCHA obligatoria.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Baxando un CAPTCHA nuevu.";
+"account-creation-captcha-obtaining" = "Baxando un CAPTCHA nuevu...";
 "account-creation-logging-in" = "Aniciando sesión...";
 "account-creation-passwords-mismatched" = "Los campos de contraseña nun casen.";
 "account-creation-saving" = "Guardando...";
 "account-creation-login" = "¿Yá tienes una cuenta? Anicia sesión.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Nome d'usuariu";
 "account-creation-password-placeholder-text" = "Contraseña";
 "account-creation-password-confirm-placeholder-text" = "Confirmar la contraseña";
 "account-creation-email-placeholder-text" = "Corréu electrónicu (opcional)";
 "account-creation-missing-fields" = "Tienes d'escribir un nome d'usuariu, una contraseña, y la confirmación de la contraseña pa crear una cuenta.";
-// Fuzzy
-"login-name-not-found" = "Ye necesariu un nome d'usuariu p'aniciar sesión.";
-// Fuzzy
-"login-name-illegal" = "Disti un nome d'usuariu illegal.";
-// Fuzzy
-"login-name-does-not-exist" = "El nome d'usuariu que disti nun esiste.";
+"login-name-not-found" = "Ye obligatoriu un nome d'usuariu p'aniciar sesión.";
+"login-name-illegal" = "Apurristi un nome d'usuariu illegal.";
+"login-name-does-not-exist" = "El nome d'usuariu qu'apurristi nun esiste.";
 "login-password-empty" = "P'aniciar sesión ye necesaria la contraseña.";
 "login-password-wrong" = "La contraseña que disti ye incorreuta.";
 "login-throttled" = "Aniciasti sesión demasiaes veces en poco tiempu.";
 "login-user-blocked" = "L'usuariu ta bloquiáu.";
 "login-account-creation" = "¿Nun tienes una cuenta? Xúnite a Wikipedia.";
-// Fuzzy
 "login-username-placeholder-text" = "Nome d'usuariu";
 "login-password-placeholder-text" = "Contraseña";
 "wikitext-downloading" = "Cargando'l conteníu...";
@@ -243,6 +236,7 @@
 "button-next" = "Siguiente";
 "button-done" = "Fecho";
 "button-save" = "Guardar";
+"button-ok" = "Aceutar";
 "button-save-for-later" = "Guardar pa después";
 "button-saved-for-later" = "Guardao pa después";
 "button-report-a-bug" = "Informar d'un fallu";
@@ -396,8 +390,11 @@
 "explore-random-article-sub-heading" = "Wikipedia n'inglés";
 "explore-potd-heading" = "Imaxen del día";
 "explore-most-read-heading" = "Los más lleíos na Wikipedia en $1";
+"explore-most-read-generic-heading" = "Más lleíos";
 "explore-most-read-footer" = "Tolos artículos más lleíos";
 "explore-most-read-footer-for-date" = "Tolos artículos más lleíos el $1";
 "explore-most-read-more-list-title" = "Artículos más lleíos";
 "explore-most-read-more-list-title-for-date" = "Los más lleíos el $1";
 "no-email-account-alert" = "Configura una cuenta de corréu electrónicu nel preséu y téntalo otra vuelta.";
+"request-feedback-on-error" = "L'aplicación detectó un problema del que los nuesos desendolcadores quedríen saber más. Toca equí pa unvianos un corréu electrónicu colos detalles del fallu.";
+"explore-another-random" = "Otru artículu al debalu";

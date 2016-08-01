@@ -197,7 +197,7 @@
 "preference_title_eventlogging_opt_in" = "Használati jelentés küldése";
 "page_protected_autoconfirmed" = "Ez az oldal félig védett.";
 "page_protected_sysop" = "Ez a lap teljesen védett.";
-"page_protected_other" = "Az a lap az alábbi szinten védett: $1";
+"page_protected_other" = "Az a lap az alábbi szinten védett: %1";
 "page_protected_can_not_edit" = "Nincs jogosultságod az oldal szerkesztéséhez";
 "page_protected_can_not_edit_title" = "Ez a lap védett";
 "license-footer-name" = "CC-BY-SA 3.0";
