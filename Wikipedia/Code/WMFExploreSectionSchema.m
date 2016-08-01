@@ -660,6 +660,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location {
+#if POPULATE_FEED
+    return;
+#endif
     if (!location) {
         return;
     }
