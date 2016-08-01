@@ -363,7 +363,6 @@ public class WMFImageController : NSObject {
         guard let url = url else {
             return
         }
-        assert(NSThread.isMainThread());
         dispatch_sync(self.cancellingQueue) { [weak self] in
             if let strongSelf = self,
                 cancellable = strongSelf.cancellables.objectForKey(url.absoluteString) as? Cancellable {
@@ -375,7 +374,6 @@ public class WMFImageController : NSObject {
     }
     
     public func cancelAllFetches() {
-        assert(NSThread.isMainThread());
         dispatch_sync(self.cancellingQueue) {
             let currentCancellables = self.cancellables.objectEnumerator()!.allObjects as! [Cancellable]
             currentCancellables.forEach({ $0.cancel() })
@@ -383,7 +381,6 @@ public class WMFImageController : NSObject {
     }
     
     private func addCancellableForURL(cancellable: Cancellable, url: NSURL) {
-        assert(NSThread.isMainThread());
         dispatch_sync(self.cancellingQueue) { [weak self] in
             guard let cancellables = self?.cancellables else {
                 return
