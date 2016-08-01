@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFImageTag
 
-- (instancetype)initWithSrc:(NSString*)src
+- (nullable instancetype)initWithSrc:(NSString*)src
                      srcset:(nullable NSString*)srcset
                         alt:(nullable NSString*)alt
                       width:(nullable NSString*)width
@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (instancetype)initWithImageTagContents:(NSString*)imageTagContents baseURL:(nullable NSURL *)baseURL {
+- (nullable instancetype)initWithImageTagContents:(NSString*)imageTagContents baseURL:(nullable NSURL *)baseURL {
     static NSRegularExpression* attributeRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
