@@ -8,8 +8,8 @@
 #import "MWKSiteInfo.h"
 #import "MWKSearchResult.h"
 
-#import "WMFArticleListTableViewCell.h"
-#import "WMFMainPagePlaceholderTableViewCell.h"
+#import "WMFArticleListCollectionViewCell.h"
+#import "WMFMainPagePlaceholderCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 #import "UIViewController+WMFArticlePresentation.h"
@@ -88,11 +88,11 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 }
 
 - (NSString*)cellIdentifier {
-    return [WMFArticleListTableViewCell identifier];
+    return [WMFArticleListCollectionViewCell identifier];
 }
 
 - (UINib*)cellNib {
-    return [WMFArticleListTableViewCell wmf_classNib];
+    return [WMFArticleListCollectionViewCell wmf_classNib];
 }
 
 - (NSUInteger)numberOfPlaceholderCells {
@@ -100,14 +100,14 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 }
 
 - (nullable NSString*)placeholderCellIdentifier {
-    return [WMFMainPagePlaceholderTableViewCell identifier];
+    return [WMFMainPagePlaceholderCollectionViewCell identifier];
 }
 
 - (nullable UINib*)placeholderCellNib {
-    return [WMFMainPagePlaceholderTableViewCell wmf_classNib];
+    return [WMFMainPagePlaceholderCollectionViewCell wmf_classNib];
 }
 
-- (void)configureCell:(WMFArticleListTableViewCell*)cell withItem:(MWKSearchResult*)item atIndexPath:(NSIndexPath*)indexPath {
+- (void)configureCell:(WMFArticleListCollectionViewCell*)cell withItem:(MWKSearchResult*)item atIndexPath:(NSIndexPath*)indexPath {
     cell.titleText                        = item.displayTitle;
     cell.titleLabel.accessibilityLanguage = self.siteURL.wmf_language;
     cell.descriptionText                  = item.wikidataDescription;
@@ -120,7 +120,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 }
 
 - (CGFloat)estimatedRowHeight {
-    return [WMFArticleListTableViewCell estimatedRowHeight];
+    return [WMFArticleListCollectionViewCell estimatedRowHeight];
 }
 
 - (AnyPromise*)fetchData {

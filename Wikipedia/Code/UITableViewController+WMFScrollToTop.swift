@@ -3,7 +3,6 @@
 //  Wikipedia
 //
 //  Created by Kevin Taniguchi on 7/17/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
 //
 
 extension UITableViewController {
@@ -11,6 +10,13 @@ extension UITableViewController {
         tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0) , atScrollPosition: .Top, animated: true)
     }
 }
+
+extension UICollectionViewController {
+    private func scrollToFirstIndexPath() {
+        collectionView?.scrollToItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0) , atScrollPosition: .Top, animated: true)
+    }
+}
+
 
 extension WMFArticleListTableViewController {
     func scrollToTop(isScrollable: Bool) {

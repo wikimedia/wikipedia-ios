@@ -11,12 +11,12 @@
 @implementation UIView (VisualTestSizingUtils)
 
 - (CGRect)wmf_sizeThatFitsWidth:(CGFloat)width {
-    CGSize sizeThatFitsWidth = [self systemLayoutSizeFittingSize:CGSizeMake(width, 0)
+    CGSize sizeThatFitsWidth = [self systemLayoutSizeFittingSize:CGSizeMake(width, UIViewNoIntrinsicMetric)
                                    withHorizontalFittingPriority:UILayoutPriorityRequired
                                          verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
     return (CGRect){
                .origin = CGPointZero,
-               .size   = CGSizeMake(floor(sizeThatFitsWidth.width), floor(sizeThatFitsWidth.height))
+               .size   = CGSizeMake(floor(width), floor(sizeThatFitsWidth.height))
     };
 }
 

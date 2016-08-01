@@ -1,9 +1,9 @@
 
-#import "WMFNearbyPlaceholderTableViewCell.h"
+#import "WMFNearbyPlaceholderCollectionViewCell.h"
 #import "UIColor+WMFStyle.h"
 #import "UIImage+WMFStyle.h"
 
-@implementation WMFNearbyPlaceholderTableViewCell
+@implementation WMFNearbyPlaceholderCollectionViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

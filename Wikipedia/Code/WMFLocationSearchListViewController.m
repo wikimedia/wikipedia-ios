@@ -1,7 +1,7 @@
 
 #import "WMFLocationSearchListViewController.h"
 #import "WMFCompassViewModel.h"
-#import "WMFNearbyArticleTableViewCell.h"
+#import "WMFNearbyArticleCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "MWKLocationSearchResult.h"
 
@@ -32,11 +32,12 @@
         self.searchSiteURL      = url;
         self.dataStore            = dataStore;
         self.compassViewModel     = [[WMFCompassViewModel alloc] init];
+
         self.dataSource           = [[WMFNearbyTitleListDataSource alloc] initWithSearchSiteURL:self.searchSiteURL];
-        self.dataSource.cellClass = [WMFNearbyArticleTableViewCell class];
+        self.dataSource.cellClass = [WMFNearbyArticleCollectionViewCell class];
 
         @weakify(self);
-        self.dataSource.cellConfigureBlock = ^(WMFNearbyArticleTableViewCell* nearbyCell,
+        self.dataSource.cellConfigureBlock = ^(WMFNearbyArticleCollectionViewCell* nearbyCell,
                                                MWKLocationSearchResult* result,
                                                UITableView* tableView,
                                                NSIndexPath* indexPath) {
@@ -62,8 +63,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = MWLocalizedString(@"main-menu-nearby", nil);
-    [self.tableView registerNib:[WMFNearbyArticleTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFNearbyArticleTableViewCell identifier]];
-    self.tableView.estimatedRowHeight = [WMFNearbyArticleTableViewCell estimatedRowHeight];
+    [self.tableView registerNib:[WMFNearbyArticleCollectionViewCell wmf_classNib] forCellReuseIdentifier:[WMFNearbyArticleCollectionViewCell identifier]];
+    self.tableView.estimatedRowHeight = [WMFNearbyArticleCollectionViewCell estimatedRowHeight];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

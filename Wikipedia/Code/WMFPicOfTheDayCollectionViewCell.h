@@ -1,14 +1,6 @@
-//
-//  WMFPicOfTheDayTableViewCell.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 11/23/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
+#import "WMFExploreCollectionViewCell.h"
 
-#import <UIKit/UIKit.h>
-
-@interface WMFPicOfTheDayTableViewCell : UITableViewCell
+@interface WMFPicOfTheDayCollectionViewCell : WMFExploreCollectionViewCell
 
 /**
  *  Do not use this to set the image url, this is only exposed
