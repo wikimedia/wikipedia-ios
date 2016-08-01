@@ -117,7 +117,6 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     });
 }
 
-
 - (void)fetchUncachedArticleURLs:(NSArray<NSURL*>*)urls {
     dispatch_block_t didFinishLegacyMigration = ^{
         [[NSUserDefaults standardUserDefaults] wmf_setDidFinishLegacySavedArticleImageMigration:YES];
@@ -255,7 +254,6 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         }
         
         NSArray *URLs = [info valueForKey:@"imageThumbURL"];
-
         [self cacheImagesWithURLsInBackground:URLs failure:failure success:success];
     }];
 }
