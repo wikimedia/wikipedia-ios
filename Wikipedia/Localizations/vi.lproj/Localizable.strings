@@ -256,7 +256,7 @@
 "preference_summary_eventlogging_opt_in" = "Cho phép Wikimedia thu thập thông tin về cách bạn sử dụng ứng dụng để giúp cải thiện ứng dụng";
 "page_protected_autoconfirmed" = "Trang này đã bị bán khóa.";
 "page_protected_sysop" = "Trang này đã bị khóa hẳn.";
-"page_protected_other" = "Trang này đã bị khóa ở các mức độ sau: $1";
+"page_protected_other" = "Trang này đã bị khóa ở các mức độ sau: %1";
 "page_protected_can_not_edit" = "Bạn không có quyền sửa đổi trang này.";
 "page_protected_can_not_edit_title" = "Trang này bị khóa";
 "license-footer-text" = "Nội dung được phát hành theo $1, trừ khi có ghi chú khác.";

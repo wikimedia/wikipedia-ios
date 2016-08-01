@@ -113,7 +113,7 @@
 "main-menu-show-title" = "Më trego...";
 "main-menu-show-history" = "Të fundit";
 "main-menu-show-saved" = "Faqet e ruajtura";
-"main-menu-current-article-save" = "Ruani $1 për lexim pa internet";
+"main-menu-current-article-save" = "Ruani %1 për lexim pa internet";
 "main-menu-random" = "I rastit";
 "main-menu-feedback-heading" = "Komente";
 // Fuzzy

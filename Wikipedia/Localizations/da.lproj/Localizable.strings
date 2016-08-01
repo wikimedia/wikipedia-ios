@@ -11,7 +11,6 @@
 "article-languages-label" = "Vælg sprog";
 "article-languages-cancel" = "Annuller";
 "article-languages-downloading" = "Indlæser artikelsprog...";
-// Fuzzy
 "article-languages-filter-placeholder" = "Find sprog";
 "article-read-more-title" = "Læs mere";
 "article-about-title" = "Om denne artikel";
@@ -51,30 +50,24 @@
 "zero-warn-when-leaving" = "Advar hvis Zero forlades";
 "zero-settings-devmode" = "Zero udviklertilstand";
 "account-creation-captcha-required" = "CAPTCHA kontrol kræves.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Henter en ny CAPTCHA.";
+"account-creation-captcha-obtaining" = "Henter en ny CAPTCHA...";
 "account-creation-logging-in" = "Logger på...";
 "account-creation-passwords-mismatched" = "Adgangskoderne stemmer ikke overens.";
 "account-creation-saving" = "Gemmer...";
 "account-creation-login" = "Har du allerede en konto? Log på.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Brugernavn";
 "account-creation-password-placeholder-text" = "Adgangskode";
 "account-creation-password-confirm-placeholder-text" = "Bekræft adgangskode";
 "account-creation-email-placeholder-text" = "E-mail (valgfri)";
 "account-creation-missing-fields" = "Du skal indtaste et brugernavn, en adgangskode og en adgangskodebekræftelse for at oprette en konto.";
-// Fuzzy
 "login-name-not-found" = "Brugernavn er påkrævet for at logge på.";
-// Fuzzy
-"login-name-illegal" = "Du har angivet et ulovlig brugernavn.";
-// Fuzzy
-"login-name-does-not-exist" = "Det brugernavn, du har angivet, findes ikke.";
+"login-name-illegal" = "Du har angivet et ugyldigt brugernavn.";
+"login-name-does-not-exist" = "Brugernavnet du angav findes ikke.";
 "login-password-empty" = "Der kræves en adgangskode for at logge på.";
 "login-password-wrong" = "Den adgangskode du indtastede er forkert.";
 "login-throttled" = "Du har logget på for mange gange i løbet af kort tid.";
 "login-user-blocked" = "Brugeren er blokeret.";
 "login-account-creation" = "Har du ikke en konto? Opret en.";
-// Fuzzy
 "login-username-placeholder-text" = "Brugernavn";
 "login-password-placeholder-text" = "Adgangskode";
 "wikitext-downloading" = "Henter indhold...";
@@ -246,6 +239,7 @@
 "button-next" = "Næste";
 "button-done" = "Færdig";
 "button-save" = "Gem";
+"button-ok" = "OK";
 "button-save-for-later" = "Gem til senere";
 "button-saved-for-later" = "Gemt til senere";
 "button-report-a-bug" = "Rapportér en fejl";
@@ -368,6 +362,7 @@
 "welcome-languages-sub-title" = "Vælg dine foretrukne sprog at søge på i Wikipedia";
 "welcome-languages-add-button" = "Tilføj et andet sprog";
 "welcome-languages-continue-button" = "Fortsæt";
+"welcome-volunteer-title" = "Meld dig";
 "welcome-volunteer-sub-title" = "Hjælpe med at forbedre Wikipedia appen ved at dele hvordan du bruger den";
 "welcome-volunteer-send-usage-reports" = "Send anvendelsesrapporter";
 "welcome-volunteer-continue-button" = "Fortsæt";
@@ -398,8 +393,11 @@
 "explore-random-article-sub-heading" = "Engelsk Wikipedia";
 "explore-potd-heading" = "Dagens billede";
 "explore-most-read-heading" = "Mest læste på $1 Wikipedia";
+"explore-most-read-generic-heading" = "Mest læst";
 "explore-most-read-footer" = "Alle mest læste artikler";
 "explore-most-read-footer-for-date" = "Alle mest læste artikler på $1";
 "explore-most-read-more-list-title" = "Top artikler";
 "explore-most-read-more-list-title-for-date" = "Mest læst d. $1";
 "no-email-account-alert" = "Opsæt venligst en e-mail-konto på din enhed og forsøg igen.";
+"request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
+"explore-another-random" = "En anden tilfældig artikel";
