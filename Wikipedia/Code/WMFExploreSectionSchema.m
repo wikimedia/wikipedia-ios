@@ -21,12 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 #if POPULATE_FEED
 static CLLocationDegrees const WMFHomePopulateFeedLatitude = 40.783333;//39.952247
 static CLLocationDegrees const WMFHomePopulateFeedLongitude = -73.966667;//-75.163894
-
-static NSInteger const WMFHomeFeedPopulationDays = 30;
+static NSInteger const WMFHomeFeedPopulationDays = 14;
 #else
-static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 static NSTimeInterval const WMFHomeMinimumAutomaticReloadTime      = 600.0; //10 minutes
 #endif
+static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 24 * 60 * 60; //24 hours
 static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 24 * 7; //7 days
 
@@ -247,10 +246,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     return YES;
 }
 
+#if POPULATE_FEED
 - (void)spoofLocation:(NSInteger)count {
     if (count <= 0) {
         return;
     }
+    
+    NSDate *fakeDate = [NSDate dateWithTimeIntervalSinceNow:0 - 86400*count];
+    
     CLLocationDegrees randLatitude = (.1 - arc4random_uniform(200)/1000.0);
     CLLocationDegrees randLongitude = (.1 - arc4random_uniform(200)/1000.0);
 
@@ -260,10 +263,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     CLLocation *location = [[CLLocation alloc] initWithLatitude:latitude
                                                       longitude:longitude];
     
-    [self insertNearbySectionWithLocationIfNeeded:location completion:^{
+    [self insertNearbySectionWithLocationIfNeeded:location date:fakeDate completion:^{
         [self spoofLocation:count - 1];
     }];
 }
+#endif
 
 - (BOOL)updateContinueReading {
     WMFExploreSection* old = [self existingContinueReadingSection];
@@ -283,15 +287,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     return YES;
 }
 
-- (void)insertNearbySectionWithLocationIfNeeded:(nonnull CLLocation*)location completion:(nullable dispatch_block_t)completion {
+- (void)insertNearbySectionWithLocationIfNeeded:(nonnull CLLocation*)location date:(NSDate *)date completion:(nullable dispatch_block_t)completion {
     NSParameterAssert(location);
 
     NSMutableArray<WMFExploreSection*>* existingNearbySections = [[self nearbySections] mutableCopy];
 
     WMFExploreSection* closeEnough = [existingNearbySections bk_match:^BOOL (WMFExploreSection* oldNearby) {
         
-#if POPULATE_FEED
-#else
         //Don't add a new one if we have one that is minimum distance
         if (oldNearby.location
             && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby
@@ -300,15 +302,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
         }
 
         //Don't add more than one more in a single day
-        if (oldNearby.location && [oldNearby.dateCreated isToday] && oldNearby.placemark != nil) {
+        if (oldNearby.location && [oldNearby.dateCreated isEqualToDateIgnoringTime:date] && oldNearby.placemark != nil) {
             return YES;
         }
-#endif
         
         return NO;
     }];
 
     if (closeEnough != nil) {
+        if (completion) {
+            completion();
+        }
         return;
     }
 
@@ -316,6 +320,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     [self.locationManager reverseGeocodeLocation:location].then(^(CLPlacemark* _Nullable placemark) {
         @strongify(self);
         if (!self) {
+            if (completion) {
+                completion();
+            }
             return;
         }
         
@@ -324,7 +331,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
             return obj.type == WMFExploreSectionTypeNearby;
         }];
 
-        WMFExploreSection *nearbySection = [self nearbySectionWithLocation:location placemark:placemark];
+        WMFExploreSection *nearbySection = [self nearbySectionWithLocation:location placemark:placemark date:date];
         if (nearbySection != nil) {
             [existingNearbySections addObject:nearbySection];
         }
@@ -336,8 +343,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
             return -[obj1.dateCreated compare:obj2.dateCreated];
         }];
 
-        [existingNearbySections wmf_arrayByTrimmingToLength:max];
-        [sections addObjectsFromArray:existingNearbySections];
+        NSArray *sectionsToAdd = [existingNearbySections wmf_arrayByTrimmingToLength:max];
+        [sections addObjectsFromArray:sectionsToAdd];
         [self updateSections:sections];
     }).catch(^(NSError* error) {
         DDLogWarn(@"Suppressing geocoding error: %@", error);
@@ -415,12 +422,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     return nearby;
 }
 
-- (nullable WMFExploreSection*)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark {
+- (nullable WMFExploreSection*)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark date:(NSDate *)date {
     NSParameterAssert(location);
+   
+#if POPULATE_FEED
+    if (!location) {
+#else
     if (!location || [WMFLocationManager isDeniedOrDisabled]) {
+#endif
         return nil;
     }
-    WMFExploreSection *section = [WMFExploreSection nearbySectionWithLocation:location placemark:placemark siteURL:self.siteURL dateCreated:self.date];
+    WMFExploreSection *section = [WMFExploreSection nearbySectionWithLocation:location placemark:placemark siteURL:self.siteURL dateCreated:date];
     return section;
 
 }
@@ -486,11 +498,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     BOOL const containsTodaysFeaturedArticle = [featured bk_any:^BOOL (WMFExploreSection* obj) {
         NSAssert(obj.type == WMFExploreSectionTypeFeaturedArticle,
                  @"List should only contain featured sections, got %@", featured);
-        return [obj.dateCreated isToday];
+        return [self.date isEqualToDateIgnoringTime:obj.dateCreated];
     }];
 
     if (!containsTodaysFeaturedArticle) {
-        [featured wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteURLIfSupported:self.siteURL]];
+        [featured wmf_safeAddObject:[WMFExploreSection featuredArticleSectionForDate:self.date withSiteURLIfSupported:self.siteURL]];
     }
 
     NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of featured", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeFeaturedArticle]);
@@ -513,7 +525,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     }];
 
     //If it's a new day and we havent created a new main page section, create it now
-    if ([main.dateCreated isToday] && [main.siteURL isEqual:self.siteURL]) {
+    if ([self.date isEqualToDateIgnoringTime:main.dateCreated] && [main.siteURL isEqual:self.siteURL]) {
         return main;
     }
 
@@ -530,7 +542,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
 
     WMFExploreSection* todaySection = [existingSections bk_match:^BOOL (WMFExploreSection* existingSection) {
         //Only one section per day
-        if ([existingSection.dateCreated isToday]) {
+        if ([self.date isEqualToDateIgnoringTime:existingSection.dateCreated]) {
             return YES;
         }
 
@@ -665,13 +677,16 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     if (!location) {
         return;
     }
-    if ([self.date timeIntervalSinceDate:[location timestamp]] > 60 * 5) {
+    
+    NSDate *now = [NSDate date];
+    
+    if ([now timeIntervalSinceDate:[location timestamp]] > 60 * 5) {
         //We don't want old cached values - fresh data please!
         return;
     }
 
     [self.locationManager removeDelegate:self];
-    [self insertNearbySectionWithLocationIfNeeded:location completion:NULL];
+    [self insertNearbySectionWithLocationIfNeeded:location date:now completion:NULL];
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading {

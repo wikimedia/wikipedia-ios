@@ -31,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDateCreated:(NSDate *)dateCreated {
     self = [super init];
     if (self) {
+        if (dateCreated == nil) {
+            dateCreated = [NSDate date];
+        }
         self.dateCreated = dateCreated;
     }
     return self;
@@ -157,6 +160,7 @@ NS_ASSUME_NONNULL_BEGIN
     trending.type              = WMFExploreSectionTypeMostRead;
     trending.mostReadFetchDate = date;
     trending.siteURL         = [url wmf_siteURL];
+    trending.dateCreated = date;
     return trending;
 }
 
@@ -175,7 +179,7 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
-+ (nullable instancetype)featuredArticleSectionWithSiteURLIfSupported:(NSURL*)url {
++ (nullable instancetype)featuredArticleSectionForDate:(NSDate *)date withSiteURLIfSupported:(NSURL*)url {
     NSParameterAssert(url);
     if (![url.wmf_language isEqualToString:@"en"] || ![url.wmf_domain isEqualToString:@"wikipedia.org"]) {
         /*
@@ -183,7 +187,7 @@ NS_ASSUME_NONNULL_BEGIN
          */
         return nil;
     }
-    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    WMFExploreSection* item = [[WMFExploreSection alloc] initWithDateCreated:date];
     item.type      = WMFExploreSectionTypeFeaturedArticle;
     item.siteURL = [url wmf_siteURL];
     return item;

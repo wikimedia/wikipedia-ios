@@ -43,7 +43,7 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
  *
  *  @return A featured article section, or @c nil if the given site doesn't support featured articles.
  */
-+ (nullable instancetype)featuredArticleSectionWithSiteURLIfSupported:(NSURL*)url;
++ (nullable instancetype)featuredArticleSectionForDate:(NSDate *)date withSiteURLIfSupported:(NSURL*)url;
 
 ///
 /// @name Static Sections
