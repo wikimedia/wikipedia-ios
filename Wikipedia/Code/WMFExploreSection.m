@@ -25,9 +25,13 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFExploreSection
 
 - (instancetype)init {
+    return [self initWithDateCreated:[NSDate date]];
+}
+
+- (instancetype)initWithDateCreated:(NSDate *)dateCreated {
     self = [super init];
     if (self) {
-        self.dateCreated = [NSDate date];
+        self.dateCreated = dateCreated;
     }
     return self;
 }
@@ -139,7 +143,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Factory Methods
 
 + (instancetype)mostReadSectionForDate:(NSDate*)date site:(MWKSite*)site {
-    WMFExploreSection* trending = [[WMFExploreSection alloc] init];
+    WMFExploreSection* trending = [[WMFExploreSection alloc] initWithDateCreated:date];
     trending.type              = WMFExploreSectionTypeMostRead;
     trending.mostReadFetchDate = date;
     trending.site              = site;
@@ -147,9 +151,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (instancetype)pictureOfTheDaySectionWithDate:(NSDate*)date {
-    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    WMFExploreSection* item = [[WMFExploreSection alloc] initWithDateCreated:date];
     item.type        = WMFExploreSectionTypePictureOfTheDay;
-    item.dateCreated = date;
     return item;
 }
 
@@ -181,10 +184,10 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
-+ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark site:(MWKSite*)site {
++ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark site:(MWKSite*)site dateCreated:(nonnull NSDate *)dateCreated {
     NSParameterAssert(location);
     NSParameterAssert(site);
-    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    WMFExploreSection* item = [[WMFExploreSection alloc] initWithDateCreated:dateCreated];
     item.type      = WMFExploreSectionTypeNearby;
     item.location  = location;
     item.placemark = placemark;
@@ -202,20 +205,18 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry {
     NSParameterAssert(entry.title);
     NSParameterAssert(entry.date);
-    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    WMFExploreSection* item = [[WMFExploreSection alloc] initWithDateCreated:entry.date];
     item.type        = WMFExploreSectionTypeHistory;
     item.title       = entry.title;
-    item.dateCreated = entry.date;
     return item;
 }
 
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry {
     NSParameterAssert(entry.title);
     NSParameterAssert(entry.date);
-    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    WMFExploreSection* item = [[WMFExploreSection alloc] initWithDateCreated:entry.date];
     item.type        = WMFExploreSectionTypeSaved;
     item.title       = entry.title;
-    item.dateCreated = entry.date;
     return item;
 }
 

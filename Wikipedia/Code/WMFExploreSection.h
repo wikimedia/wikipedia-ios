@@ -30,7 +30,7 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
 
 + (instancetype)mostReadSectionForDate:(NSDate*)date site:(MWKSite*)site;
 + (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title;
-+ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark site:(MWKSite*)site;
++ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark site:(MWKSite*)site dateCreated:(NSDate *)dateCreated;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
 + (instancetype)pictureOfTheDaySectionWithDate:(NSDate*)date;
