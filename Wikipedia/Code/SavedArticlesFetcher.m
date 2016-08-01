@@ -117,6 +117,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     });
 }
 
+
 - (void)fetchUncachedArticleURLs:(NSArray<NSURL*>*)urls {
     dispatch_block_t didFinishLegacyMigration = ^{
         [[NSUserDefaults standardUserDefaults] wmf_setDidFinishLegacySavedArticleImageMigration:YES];
@@ -136,11 +137,9 @@ static SavedArticlesFetcher* _articleFetcher = nil;
             } success:^{
                 [group leave];
             }];
-            
         });
     }
     [group waitInBackgroundWithCompletion:didFinishLegacyMigration];
-    
 }
 
 - (void)fetchArticleURL:(NSURL*)articleURL failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
@@ -192,7 +191,6 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     }];
 }
 
-
 - (void)migrateLegacyImagesInArticle:(MWKArticle *)article {
     //  Copies saved article images cached by versions 5.0.4 and older to the locations where 5.0.5 and newer are looking for them. Previously, the app cached at the width of the largest image in the srcset. Currently, we request a thumbnail at wmf_articleImageWidthForScale (or original if it's narrower than that width). By copying from the old size to the new expected sizes, we ensure that articles saved with these older versions will still have images availble offline in the newer versions.
     WMFImageController *imageController = [WMFImageController sharedInstance];
@@ -226,6 +224,11 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 }
 
 - (void)fetchAllImagesInArticle:(MWKArticle*)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+    if (![[NSUserDefaults standardUserDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
+        WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0.5)
+        [self migrateLegacyImagesInArticle:article];
+    }
+    
     WMFURLCache* cache = (WMFURLCache*)[NSURLCache sharedURLCache];
     [cache permanentlyCacheImagesForArticle:article];
     
@@ -252,6 +255,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         }
         
         NSArray *URLs = [info valueForKey:@"imageThumbURL"];
+
         [self cacheImagesWithURLsInBackground:URLs failure:failure success:success];
     }];
 }

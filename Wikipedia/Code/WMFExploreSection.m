@@ -25,9 +25,13 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFExploreSection
 
 - (instancetype)init {
+    return [self initWithDateCreated:[NSDate date]];
+}
+
+- (instancetype)initWithDateCreated:(NSDate *)dateCreated {
     self = [super init];
     if (self) {
-        self.dateCreated = [NSDate date];
+        self.dateCreated = dateCreated;
     }
     return self;
 }
@@ -158,9 +162,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)pictureOfTheDaySectionWithDate:(NSDate*)date {
     NSParameterAssert(date);
-    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    WMFExploreSection* item = [[WMFExploreSection alloc] initWithDateCreated:date];
     item.type        = WMFExploreSectionTypePictureOfTheDay;
-    item.dateCreated = date;
     return item;
 }
 
@@ -193,10 +196,10 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
-+ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark siteURL:(NSURL*)url {
++ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark siteURL:(NSURL*)url dateCreated:(nonnull NSDate *)dateCreated {
     NSParameterAssert(location);
     NSParameterAssert(url);
-    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    WMFExploreSection* item = [[WMFExploreSection alloc] initWithDateCreated:dateCreated];
     item.type      = WMFExploreSectionTypeNearby;
     item.location  = location;
     item.placemark = placemark;
@@ -214,7 +217,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry {
     NSParameterAssert(entry.url.wmf_title);
     NSParameterAssert(entry.date);
-    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    WMFExploreSection* item = [[WMFExploreSection alloc] initWithDateCreated:entry.date];
     item.type        = WMFExploreSectionTypeHistory;
     item.articleURL  = entry.url;
     item.dateCreated = entry.date;
@@ -224,7 +227,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry {
     NSParameterAssert(entry.url.wmf_title);
     NSParameterAssert(entry.date);
-    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    WMFExploreSection* item = [[WMFExploreSection alloc] initWithDateCreated:entry.date];
     item.type        = WMFExploreSectionTypeSaved;
     item.articleURL  = entry.url;
     item.dateCreated = entry.date;

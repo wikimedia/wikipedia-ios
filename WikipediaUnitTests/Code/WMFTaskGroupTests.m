@@ -29,21 +29,6 @@
     }];
 }
 
-- (void)testTimeout {
-    WMFTaskGroup *group = [WMFTaskGroup new];
-    [group enter];
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for group"];
-    [group waitInBackgroundWithTimeout:1 completion:^{
-        XCTAssertTrue(true);
-        [expectation fulfill];
-    }];
-    [self waitForExpectationsWithTimeout:5 handler:^(NSError * _Nullable error) {
-        if (error) {
-            XCTFail();
-        }
-    }];
-}
-
 - (void)testSimple {
     WMFTaskGroup *group = [WMFTaskGroup new];
     [group enter];

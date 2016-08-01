@@ -5,6 +5,7 @@ group :dev do
 end
 
 group :ci do
-  gem 'fastlane', '~> 1.87.0'
+  gem 'fastlane', '~> 1.98.0'
+  gem 'fastlane_core', '0.48.1'
   gem 'badge'
 end

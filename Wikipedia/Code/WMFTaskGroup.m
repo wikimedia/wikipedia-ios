@@ -34,15 +34,6 @@
     }
 }
 
-- (void)waitInBackgroundWithTimeout:(NSTimeInterval)timeout completion:(nonnull dispatch_block_t)completion {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        dispatch_group_wait(self.group, dispatch_time(DISPATCH_TIME_NOW, (int64_t)timeout* NSEC_PER_SEC));
-        if (completion != nil) {
-            completion();
-        }
-    });
-}
-
 - (void)waitInBackgroundWithCompletion:(nonnull dispatch_block_t)completion {
     dispatch_group_notify(self.group, dispatch_get_main_queue(), completion);
 }
