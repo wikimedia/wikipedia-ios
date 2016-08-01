@@ -315,7 +315,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
             return obj.type == WMFExploreSectionTypeNearby;
         }];
 
-        [existingNearbySections addObject:[self nearbySectionWithLocation:location placemark:placemark]];
+        WMFExploreSection *nearbySection = [self nearbySectionWithLocation:location placemark:placemark];
+        if (nearbySection != nil) {
+            [existingNearbySections addObject:nearbySection];
+        }
 
         NSUInteger max = [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeNearby];
 
