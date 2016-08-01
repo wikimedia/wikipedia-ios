@@ -1,5 +1,5 @@
 
-#import "WMFNearbyArticleTableViewCell.h"
+#import "WMFNearbyArticleCollectionViewCell.h"
 
 @import CoreLocation;
 #import <Tweaks/FBTweakInline.h>
@@ -23,7 +23,7 @@
 #import "UIImageView+WMFPlaceholder.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 
-@interface WMFNearbyArticleTableViewCell ()
+@interface WMFNearbyArticleCollectionViewCell ()
 
 @property (strong, nonatomic) IBOutlet UIImageView* articleImageView;
 @property (strong, nonatomic) IBOutlet WMFCompassView* compassView;
@@ -36,7 +36,7 @@
 
 @end
 
-@implementation WMFNearbyArticleTableViewCell
+@implementation WMFNearbyArticleCollectionViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -83,7 +83,7 @@
         [self.KVOController observe:_bearingProvider
                             keyPath:WMF_SAFE_KEYPATH(_bearingProvider, bearingToLocation)
                             options:NSKeyValueObservingOptionInitial
-                              block:^(WMFNearbyArticleTableViewCell* cell,
+                              block:^(WMFNearbyArticleCollectionViewCell* cell,
                                       WMFSearchResultBearingProvider* provider,
                                       NSDictionary* change) {
             [cell setBearing:provider.bearingToLocation];
@@ -167,7 +167,7 @@
         [self.KVOController observe:_distanceProvider
                             keyPath:WMF_SAFE_KEYPATH(_distanceProvider, distanceToUser)
                             options:NSKeyValueObservingOptionInitial
-                              block:^(WMFNearbyArticleTableViewCell* cell,
+                              block:^(WMFNearbyArticleCollectionViewCell* cell,
                                       WMFSearchResultDistanceProvider* provider,
                                       NSDictionary* change) {
             [cell setDistance:provider.distanceToUser];

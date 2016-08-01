@@ -23,7 +23,7 @@
 }
 
 - (void)wmf_safeSetContentOffset:(CGPoint)offset animated:(BOOL)animated {
-    if (!isnan(offset.x) && !isnan(offset.y)) {
+    if (!isnan(offset.x) && !isinf(offset.x) && !isnan(offset.y) && !isinf(offset.y)) {
         #if DEBUG
         // log warning, but still scroll, if we get an out-of-bounds offset
         if (self.contentSize.width < offset.x || self.contentSize.height < offset.y) {

@@ -12,3 +12,13 @@
 }
 
 @end
+
+
+@implementation UICollectionViewCell (WMFEdgeToEdgeSeparator)
+
+- (void)wmf_makeCellDividerBeEdgeToEdge {
+    self.layoutMargins  = UIEdgeInsetsZero;
+    [self setPreservesSuperviewLayoutMargins:NO];
+}
+
+@end

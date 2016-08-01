@@ -34,16 +34,24 @@
 #import "WMFImageTag.h"
 #import "WKScriptMessage+WMFScriptMessage.h"
 
+#import "WMFFindInPageKeyboardBar.h"
+#import "UIView+WMFDefaultNib.h"
+
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
     WMFWebViewAlertZeroCharged,
     WMFWebViewAlertZeroInterstitial
 };
 
+typedef NS_ENUM (NSUInteger, WMFFindInPageScrollDirection) {
+    WMFFindInPageScrollDirectionNext,
+    WMFFindInPageScrollDirectionPrevious
+};
+
 NSString* const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
-@interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler, UIScrollViewDelegate>
+@interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate>
 
 @property (nonatomic, strong) MASConstraint* headerHeight;
 @property (nonatomic, strong) UIView* footerContainerView;
@@ -52,6 +60,11 @@ NSString* const WMFCCBySALicenseURL =
 @property (nonatomic, strong) IBOutlet UIView* containerView;
 
 @property (strong, nonatomic) MASConstraint* footerContainerViewTopConstraint;
+
+@property (nonatomic, strong) NSArray* findInPageMatches;
+@property (nonatomic) NSInteger findInPageSelectedMatchIndex;
+@property (nonatomic) BOOL disableMinimizeFindInPage;
+@property (nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
 
 @end
 
@@ -119,6 +132,9 @@ NSString* const WMFCCBySALicenseURL =
         case WMFWKScriptMessageArticleState:
             [self handleArticleStateScriptMessage:safeMessageBody];
             break;
+        case WMFWKScriptMessageFindInPageMatchesFound:
+            [self handleFindInPageMatchesFoundMessage:safeMessageBody];
+            break;
         case WMFWKScriptMessageUnknown:
             NSAssert(NO, @"Unhandled script message type!");
             break;
@@ -140,44 +156,46 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)handleClickLinkScriptMessage:(NSDictionary*)messageDict {
-    if (self.isPeeking) {
-        self.isPeeking = NO;
-        return;
-    }
-    
-    NSString* href = messageDict[@"href"];
-    
-    if(href.length == 0){
-        return;
-    }
-    
-    if (!self.referencesHidden) {
-        [self referencesHide];
-    }
-    
-    if ([href wmf_isWikiResource]) {
-        NSURL* url = [NSURL URLWithString:href];
-        if(!url.wmf_domain){
-            url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
+    [self hideFindInPageWithCompletion:^{
+        if (self.isPeeking) {
+            self.isPeeking = NO;
+            return;
         }
-        url = [url wmf_urlByPrependingSchemeIfSchemeless];
-        [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
-    } else {
-        // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
-        if ([href hasPrefix:@"#"]) {
-            [self scrollToFragment:[href substringFromIndex:1]];
-        } else {
-            if ([href hasPrefix:@"//"]) {
-                // Expand protocol-relative link to https -- secure by default!
-                href = [@"https:" stringByAppendingString:href];
-            }
+        
+        NSString* href = messageDict[@"href"];
+        
+        if(href.length == 0){
+            return;
+        }
+        
+        if (!self.referencesHidden) {
+            [self referencesHide];
+        }
+        
+        if ([href wmf_isWikiResource]) {
             NSURL* url = [NSURL URLWithString:href];
-            NSCAssert(url, @"Failed to from URL from link %@", href);
-            if (url) {
-                [self wmf_openExternalUrl:url];
+            if(!url.wmf_domain){
+                url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
+            }
+            url = [url wmf_urlByPrependingSchemeIfSchemeless];
+            [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
+        } else {
+            // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
+            if ([href hasPrefix:@"#"]) {
+                [self scrollToFragment:[href substringFromIndex:1]];
+            } else {
+                if ([href hasPrefix:@"//"]) {
+                    // Expand protocol-relative link to https -- secure by default!
+                    href = [@"https:" stringByAppendingString:href];
+                }
+                NSURL* url = [NSURL URLWithString:href];
+                NSCAssert(url, @"Failed to from URL from link %@", href);
+                if (url) {
+                    [self wmf_openExternalUrl:url];
+                }
             }
         }
-    }
+    }];
 }
 
 - (void)handleClickImageScriptMessage:(NSDictionary*)messageDict {
@@ -189,6 +207,11 @@ NSString* const WMFCCBySALicenseURL =
                                                       dataFileWidth:messageDict[@"data-file-width"]
                                                      dataFileHeight:messageDict[@"data-file-height"]
                                                             baseURL:nil];
+    
+    if (imageTagClicked == nil) {
+        //yes, this would have caught in the if below, but keeping this here in case that check ever goes away
+        return;
+    }
     
     if (![imageTagClicked isSizeLargeEnoughForGalleryInclusion]) {
         return;
@@ -209,18 +232,24 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)handleClickReferenceScriptMessage:(NSDictionary*)messageDict {
-    [self referencesShow:messageDict];
+    [self hideFindInPageWithCompletion:^{
+        [self referencesShow:messageDict];
+    }];
 }
 
 - (void)handleClickEditScriptMessage:(NSDictionary*)messageDict {
-    NSUInteger sectionIndex = (NSUInteger)[messageDict[@"sectionId"] integerValue];
-    if (sectionIndex < [self.article.sections count]) {
-        [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
-    }
+    [self hideFindInPageWithCompletion:^{
+        NSUInteger sectionIndex = (NSUInteger)[messageDict[@"sectionId"] integerValue];
+        if (sectionIndex < [self.article.sections count]) {
+            [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
+        }
+    }];
 }
 
 - (void)handleNonAnchorTouchEndedWithoutDraggingScriptMessage {
-    [self referencesHide];
+    [self hideFindInPageWithCompletion:^{
+        [self referencesHide];
+    }];
 }
 
 - (void)handleLateJavascriptTransformScriptMessage:(NSString*)messageString {
@@ -250,6 +279,169 @@ NSString* const WMFCCBySALicenseURL =
     }
 }
 
+- (void)handleFindInPageMatchesFoundMessage:(NSArray*)messageArray {
+    self.findInPageMatches = messageArray;
+    self.findInPageSelectedMatchIndex = -1;
+}
+
+#pragma mark - Find-in-page
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (WMFFindInPageKeyboardBar *)inputAccessoryView {
+    if(!_inputAccessoryView) {
+        _inputAccessoryView = [WMFFindInPageKeyboardBar wmf_viewFromClassNib];
+        _inputAccessoryView.delegate = self;
+    }
+    return _inputAccessoryView;
+}
+
+- (WMFFindInPageKeyboardBar *)findInPageKeyboardBar {
+    return self.view.inputAccessoryView;
+}
+
+- (void)showFindInPage {
+    [self referencesHide];
+    [self becomeFirstResponder];
+    [[self findInPageKeyboardBar] show];
+}
+
+- (void)hideFindInPageWithCompletion:(nullable dispatch_block_t)completion {
+    [self resetFindInPageWithCompletion:^{
+        [[self findInPageKeyboardBar] hide];
+        [self resignFirstResponder];
+        if (completion) {
+            completion();
+        }
+    }];
+}
+
+- (void)resetFindInPageWithCompletion:(nullable dispatch_block_t)completion {
+    [self.webView evaluateJavaScript:@"window.wmf.findInPage.removeSearchTermHighlights()" completionHandler:^(id obj, NSError* _Nullable error) {
+        self.findInPageMatches = @[];
+        self.findInPageSelectedMatchIndex = -1;
+        [[self findInPageKeyboardBar] reset];
+        if (completion) {
+            completion();
+        }
+    }];
+}
+
+- (void)minimizeFindInPage {
+    if (!self.disableMinimizeFindInPage) {
+        [[self findInPageKeyboardBar] hide];
+    }
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    self.disableMinimizeFindInPage = YES;
+    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        self.disableMinimizeFindInPage = NO;
+    }];
+}
+
+- (void)setFindInPageMatches:(NSArray *)findInPageMatches {
+    _findInPageMatches = findInPageMatches;
+    [self updateFindInPageKeyboardBarLabel];
+}
+
+#pragma FindInPage label
+
+- (void)updateFindInPageKeyboardBarLabel {
+    [[self findInPageKeyboardBar] updateLabelTextForCurrentMatchIndex:self.findInPageSelectedMatchIndex
+                                                         matchesCount:self.findInPageMatches.count];
+}
+
+#pragma FindInPageBar selected match
+
+- (void)setFindInPageSelectedMatchIndex:(NSInteger)findInPageSelectedMatchIndex {
+    _findInPageSelectedMatchIndex = findInPageSelectedMatchIndex;
+    [self updateFindInPageKeyboardBarLabel];
+}
+
+- (void)moveFindInPageSelectedMatchIndexInDirection:(WMFFindInPageScrollDirection)direction {
+    if(self.findInPageMatches.count == 0){
+        return;
+    }
+    switch (direction) {
+        case WMFFindInPageScrollDirectionNext:
+            self.findInPageSelectedMatchIndex += 1;
+            if (self.findInPageSelectedMatchIndex >= self.findInPageMatches.count) {
+                self.findInPageSelectedMatchIndex = 0;
+            }
+            break;
+        case WMFFindInPageScrollDirectionPrevious:
+            self.findInPageSelectedMatchIndex -= 1;
+            if (self.findInPageSelectedMatchIndex < 0) {
+                self.findInPageSelectedMatchIndex = self.findInPageMatches.count - 1;
+            }
+            break;
+    }
+}
+
+- (void)scrollToAndFocusOnSelectedMatch {
+    if(self.findInPageMatches.count == 0){
+        return;
+    }
+    NSString* matchSpanId = [self.findInPageMatches wmf_safeObjectAtIndex:self.findInPageSelectedMatchIndex];
+    if (matchSpanId == nil) {
+        return;
+    }
+    @weakify(self);
+    [self.webView getScrollViewRectForHtmlElementWithId:matchSpanId completion:^(CGRect rect){
+        @strongify(self);
+        [UIView animateWithDuration:0.3
+                              delay:0.0f
+                            options:UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             @strongify(self);
+                             self.disableMinimizeFindInPage = YES;
+                             
+//TODO: modified to scroll the match to the vertical point between top of keyboard and top of screen
+                             
+                             [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, fmaxf(rect.origin.y - 80.f, 0.f)) animated:NO];
+                         } completion:^(BOOL done) {
+                             self.disableMinimizeFindInPage = NO;
+                         }];
+    }];
+    
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.useFocusStyleForHighlightedSearchTermWithId('%@')", matchSpanId] completionHandler:nil];
+}
+
+- (void)scrollToAndFocusOnFirstMatch {
+    self.findInPageSelectedMatchIndex = -1;
+    [self keyboardBarNextButtonTapped:nil];
+}
+
+#pragma FindInPageKeyboardBarDelegate
+
+- (void)keyboardBar:(WMFFindInPageKeyboardBar*)keyboardBar searchTermChanged:(NSString *)term {
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm('%@')", term] completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
+        [self scrollToAndFocusOnFirstMatch];
+    }];
+}
+
+- (void)keyboardBarCloseButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
+    [self hideFindInPageWithCompletion:nil];
+}
+
+- (void)keyboardBarClearButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
+    [self resetFindInPageWithCompletion:nil];
+}
+
+- (void)keyboardBarPreviousButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
+    [self moveFindInPageSelectedMatchIndexInDirection:WMFFindInPageScrollDirectionPrevious];
+    [self scrollToAndFocusOnSelectedMatch];
+}
+
+- (void)keyboardBarNextButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
+    [self moveFindInPageSelectedMatchIndexInDirection:WMFFindInPageScrollDirectionNext];
+    [self scrollToAndFocusOnSelectedMatch];
+}
+
 #pragma mark - WebView configuration
 
 - (WKWebViewConfiguration*)configuration {
@@ -273,6 +465,8 @@ NSString* const WMFCCBySALicenseURL =
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"sendJavascriptConsoleLogMessageToXcodeConsole"];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"articleState"];
+    
+    [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"findInPageMatchesFound"];
 
     NSString* earlyJavascriptTransforms = @""
                                           "window.wmf.transformer.transform( 'hideRedlinks', document );"
@@ -308,7 +502,7 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.isPeeking = NO;
 
     [self addFooterContainerView];
@@ -702,7 +896,7 @@ NSString* const WMFCCBySALicenseURL =
 - (void)tocScrollWebViewToPoint:(CGPoint)point
                        duration:(CGFloat)duration
                     thenHideTOC:(BOOL)hideTOC {
-    if (isnan(point.x) || isnan(point.y)) {
+    if (isnan(point.x) || isinf(point.x) || isnan(point.y) || isinf(point.y)) {
         return;
         DDLogError(@"Attempted to scroll ToC to Nan value, ignoring");
     }
@@ -957,6 +1151,10 @@ NSString* const WMFCCBySALicenseURL =
 #pragma mark - Sharing
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if ([[self findInPageKeyboardBar] isVisible]) {
+        return NO;
+    }
+    
     if (action == @selector(shareSnippet:)) {
         [self.webView wmf_getSelectedText:^(NSString* _Nonnull text) {
             [self.delegate webViewController:self didSelectText:text];
@@ -991,6 +1189,7 @@ NSString* const WMFCCBySALicenseURL =
     if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidScroll:)]) {
         [self.delegate webViewController:self scrollViewDidScroll:scrollView];
     }
+    [self minimizeFindInPage];
 }
 
 @end

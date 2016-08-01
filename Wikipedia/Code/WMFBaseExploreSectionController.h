@@ -3,7 +3,7 @@
 #import "WMFExploreSectionController.h"
 #import "WMFAnalyticsLogging.h"
 
-@class WMFEmptySectionTableViewCell, MWKDataStore, MWKSavedPageList, MWKHistoryList;
+@class WMFEmptySectionCollectionViewCell, MWKDataStore, MWKSavedPageList, MWKHistoryList;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UINib*)cellNib;
 
-- (void)configureCell:(UITableViewCell*)cell withItem:(id)item atIndexPath:(NSIndexPath*)indexPath;
+- (void)configureCell:(UICollectionViewCell *)cell withItem:(id)item atIndexPath:(NSIndexPath*)indexPath;
 
 @end
 
@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param cell The cell to configure
  */
-- (void)configureEmptyCell:(WMFEmptySectionTableViewCell*)cell;
+- (void)configureEmptyCell:(WMFEmptySectionCollectionViewCell *)cell;
 
 
 @end
@@ -125,11 +125,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise*)fetchDataUserInitiated;
 
-- (void)registerCellsInTableView:(UITableView*)tableView;
+- (void)registerCellsInCollectionView:(UICollectionView*)collectionView;
 
 - (NSString*)cellIdentifierForItemIndexPath:(NSIndexPath*)indexPath;
 
-- (void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath;
+- (void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath*)indexPath;
 
 @end
 

@@ -1,7 +1,6 @@
+#import "WMFExploreCollectionViewCell.h"
 
-#import <SSDataSources/SSDataSources.h>
-
-@interface WMFEmptySectionTableViewCell : SSBaseTableCell
+@interface WMFEmptySectionCollectionViewCell : WMFExploreCollectionViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel* emptyTextLabel;
 @property (strong, nonatomic) IBOutlet UIButton* reloadButton;

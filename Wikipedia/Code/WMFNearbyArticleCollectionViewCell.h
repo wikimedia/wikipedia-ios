@@ -1,11 +1,11 @@
 
-#import <SSDataSources/SSDataSources.h>
+#import "WMFExploreCollectionViewCell.h"
 
 @class WMFSearchResultBearingProvider;
 @class WMFSearchResultDistanceProvider;
 @class MWKImage;
 
-@interface WMFNearbyArticleTableViewCell : SSBaseTableCell
+@interface WMFNearbyArticleCollectionViewCell : WMFExploreCollectionViewCell
 
 @property (nonatomic, copy) NSString* titleText;
 

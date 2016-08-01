@@ -15,8 +15,8 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 
 // View
-#import "WMFArticlePreviewTableViewCell.h"
-#import "WMFArticlePlaceholderTableViewCell.h"
+#import "WMFArticlePreviewCollectionViewCell.h"
+#import "WMFArticlePlaceholderCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
@@ -99,22 +99,22 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (NSString*)cellIdentifier {
-    return [WMFArticlePreviewTableViewCell identifier];
+    return [WMFArticlePreviewCollectionViewCell identifier];
 }
 
 - (UINib*)cellNib {
-    return [WMFArticlePreviewTableViewCell wmf_classNib];
+    return [WMFArticlePreviewCollectionViewCell wmf_classNib];
 }
 
 - (nullable NSString*)placeholderCellIdentifier {
-    return [WMFArticlePlaceholderTableViewCell identifier];
+    return [WMFArticlePlaceholderCollectionViewCell identifier];
 }
 
 - (nullable UINib*)placeholderCellNib {
-    return [WMFArticlePlaceholderTableViewCell wmf_classNib];
+    return [WMFArticlePlaceholderCollectionViewCell wmf_classNib];
 }
 
-- (void)configureCell:(WMFArticlePreviewTableViewCell*)cell withItem:(MWKSearchResult*)item atIndexPath:(NSIndexPath*)indexPath {
+- (void)configureCell:(WMFArticlePreviewCollectionViewCell*)cell withItem:(MWKSearchResult*)item atIndexPath:(NSIndexPath*)indexPath {
     cell.titleText       = item.displayTitle;
     cell.descriptionText = item.wikidataDescription;
     cell.snippetText     = item.extract;
@@ -126,7 +126,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (CGFloat)estimatedRowHeight {
-    return [WMFArticlePreviewTableViewCell estimatedRowHeight];
+    return [WMFArticlePreviewCollectionViewCell estimatedRowHeight];
 }
 
 - (NSString*)analyticsContentType {
