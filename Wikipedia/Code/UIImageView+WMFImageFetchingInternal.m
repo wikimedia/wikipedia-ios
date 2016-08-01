@@ -106,6 +106,8 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
 #pragma mark - Set Image
 
 - (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+    NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
+    
     NSURL* imageURL = [self wmf_imageURLToFetch];
 
     if (!imageURL) {
@@ -122,12 +124,14 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
     @weakify(self);
 
     [self.wmf_imageController fetchImageWithURL:imageURL failure:failure success:^(WMFImageDownload* _Nonnull download) {
-        @strongify(self);
-        if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
-            failure([NSError cancelledError]);
-        } else {
-            [self wmf_setImage:download.image detectFaces:detectFaces animated:YES failure:failure success:success];
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @strongify(self);
+            if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
+                failure([NSError cancelledError]);
+            } else {
+                [self wmf_setImage:download.image detectFaces:detectFaces animated:YES failure:failure success:success];
+            }
+        });
     }];
 }
 
@@ -136,6 +140,7 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
             animated:(BOOL)animated
              failure:(WMFErrorHandler)failure
              success:(WMFSuccessHandler)success {
+    NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
     if (!detectFaces) {
         [self wmf_setImage:image faceBoundsValue:nil animated:animated failure:failure success:success];
         return;
@@ -149,11 +154,13 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
 
     NSURL* imageURL = [self wmf_imageURLToFetch];
     [self wmf_getFaceBoundsInImage:image failure:failure success:^(NSValue* bounds) {
-        if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
-            failure([NSError cancelledError]);
-        } else {
-            [self wmf_setImage:image faceBoundsValue:bounds animated:animated failure:failure success:success];
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
+                failure([NSError cancelledError]);
+            } else {
+                [self wmf_setImage:image faceBoundsValue:bounds animated:animated failure:failure success:success];
+            }
+        });
     }];
 }
 
@@ -162,27 +169,26 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
             animated:(BOOL)animated
              failure:(WMFErrorHandler)failure
              success:(WMFSuccessHandler)success {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        CGRect faceBounds = [faceBoundsValue CGRectValue];
-        if (!CGRectIsEmpty(faceBounds)) {
-            [self wmf_cropContentsByVerticallyCenteringFrame:[image wmf_denormalizeRect:faceBounds]
-                                         insideBoundsOfImage:image];
-        } else {
-            [self wmf_resetContentsRect];
-        }
-        
-        [UIView transitionWithView:self
-                          duration:animated ? [CATransaction animationDuration] : 0.0
-                           options:UIViewAnimationOptionTransitionCrossDissolve
-                        animations:^{
-                            self.contentMode = UIViewContentModeScaleAspectFill;
-                            self.backgroundColor = [UIColor whiteColor];
-                            self.image = image;
-                        }
-                        completion:^(BOOL finished) {
-                            success();
-                        }];
-    });
+    NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
+    CGRect faceBounds = [faceBoundsValue CGRectValue];
+    if (!CGRectIsEmpty(faceBounds)) {
+        [self wmf_cropContentsByVerticallyCenteringFrame:[image wmf_denormalizeRect:faceBounds]
+                                     insideBoundsOfImage:image];
+    } else {
+        [self wmf_resetContentsRect];
+    }
+    
+    [UIView transitionWithView:self
+                      duration:animated ? [CATransaction animationDuration] : 0.0
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        self.contentMode = UIViewContentModeScaleAspectFill;
+                        self.backgroundColor = [UIColor whiteColor];
+                        self.image = image;
+                    }
+                    completion:^(BOOL finished) {
+                        success();
+                    }];
 }
 
 - (void)wmf_cancelImageDownload {
