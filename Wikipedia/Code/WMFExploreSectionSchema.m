@@ -261,6 +261,17 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
         [self updateSections:sections];
 #if POPULATE_FEED
     }
+    
+    [self spoofLocation:WMFHomeFeedPopulationDays];
+#endif
+    
+    return YES;
+}
+
+- (void)spoofLocation:(NSInteger)count {
+    if (count <= 0) {
+        return;
+    }
     CLLocationDegrees randLatitude = (.1 - arc4random_uniform(200)/1000.0);
     CLLocationDegrees randLongitude = (.1 - arc4random_uniform(200)/1000.0);
     CLLocationDegrees latitude = 39.952247 + randLatitude;
@@ -269,10 +280,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     CLLocation *location = [[CLLocation alloc] initWithLatitude:latitude
                                                       longitude:longitude];
     
-    [self insertNearbySectionWithLocationIfNeeded:location];
-#endif
-    
-    return YES;
+    [self insertNearbySectionWithLocationIfNeeded:location completion:^{
+        [self spoofLocation:count - 1];
+    }];
 }
 
 - (BOOL)updateContinueReading {
@@ -293,7 +303,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     return YES;
 }
 
-- (void)insertNearbySectionWithLocationIfNeeded:(CLLocation*)location {
+- (void)insertNearbySectionWithLocationIfNeeded:(CLLocation*)location completion:(dispatch_block_t)completion {
     NSParameterAssert(location);
 
     NSMutableArray<WMFExploreSection*>* existingNearbySections = [[self nearbySections] mutableCopy];
@@ -349,6 +359,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     }).catch(^(NSError* error) {
         DDLogWarn(@"Suppressing geocoding error: %@", error);
         return nil;
+    }).finally(^{
+        if (completion) {
+            completion();
+        }
     });
 }
 
@@ -671,7 +685,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
         return;
     }
     [self.locationManager stopMonitoringLocation];
-    [self insertNearbySectionWithLocationIfNeeded:location];
+    [self insertNearbySectionWithLocationIfNeeded:location completion:NULL];
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading {
