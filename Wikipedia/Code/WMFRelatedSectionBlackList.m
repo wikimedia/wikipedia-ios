@@ -38,10 +38,23 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
 {
     self = [super initWithCoder:coder];
     if (self) {
-        if([[self.entries firstObject] isKindOfClass:[MWKTitle class]]){
-            NSArray* fixed = [self.entries bk_map:^id (NSURL* obj) {
-                return [[NSURL wmf_desktopURLForURL:obj] mutableCopy];
-            }];
+        
+        __block BOOL foundNonURL = NO;
+
+        NSArray* fixed = [self.entries wmf_mapAndRejectNil:^id _Nullable(id _Nonnull obj) {
+            
+            if([obj isKindOfClass:[NSURL class]]){
+                return obj;
+            }else if([obj isKindOfClass:[MWKTitle class]]){
+                foundNonURL = YES;
+                return [(MWKTitle*)obj URL];
+            }else{
+                foundNonURL = YES;
+                return nil;
+            }
+        }];
+
+        if(foundNonURL){
             [self removeAllEntries];
             [self importEntries:fixed];
         }
@@ -56,8 +69,14 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
 - (id)decodeValueForKey:(NSString*)key withCoder:(NSCoder*)coder modelVersion:(NSUInteger)modelVersion {
     if ([key isEqualToString:WMF_SAFE_KEYPATH(self, entries)] && modelVersion == 0) {
         NSArray* titles = [self decodeValueForKey:WMF_SAFE_KEYPATH(self, entries) withCoder:coder modelVersion:0];
-        return [titles bk_map:^id (NSURL* obj) {
-            return [[NSURL wmf_desktopURLForURL:obj] mutableCopy];
+        return [titles wmf_mapAndRejectNil:^id (NSURL* obj) {
+            if([obj isKindOfClass:[NSURL class]]){
+                return obj;
+            }else if([obj isKindOfClass:[MWKTitle class]]){
+                return [(MWKTitle*)obj URL];
+            }else{
+                return nil;
+            }
         }];
     } else {
         return [super decodeValueForKey:key withCoder:coder modelVersion:modelVersion];

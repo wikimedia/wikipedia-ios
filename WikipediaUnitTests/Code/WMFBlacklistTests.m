@@ -2,6 +2,7 @@
 #import <XCTest/XCTest.h>
 #import "WMFAsyncTestCase.h"
 #import "WMFRelatedSectionBlackList.h"
+#import "MWKTitle.h"
 
 @interface WMFRelatedSectionBlackList (WMFTesting)
 
@@ -39,6 +40,25 @@
     NSURL* first = [[bl entries] firstObject];
 
     XCTAssertTrue([url isEqual:first],
+                  @"Title persisted should be equal to the title loaded from disk");
+}
+
+- (void)testMigratesMWKTitle {
+    PushExpectation();
+    id title = [[MWKTitle alloc] initWithSite:[MWKSite siteWithCurrentLocale] normalizedTitle:@"some-title" fragment:nil];
+    WMFRelatedSectionBlackList* bl = [[WMFRelatedSectionBlackList alloc] init];
+    [bl addBlackListArticleURL:title];
+    [bl save].then(^(){
+        [self popExpectationAfter:nil];
+    }).catch(^(NSError* error){
+        XCTFail(@"Error callback erroneously called with error %@", error);
+    });
+    WaitForExpectations();
+    
+    bl = [WMFRelatedSectionBlackList loadFromDisk];
+    NSURL* first = [[bl entries] firstObject];
+    
+    XCTAssertTrue([[title URL] isEqual:first],
                   @"Title persisted should be equal to the title loaded from disk");
 }
 
