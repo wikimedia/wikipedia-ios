@@ -20,13 +20,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFImageTag
 
-- (instancetype)initWithSrc:(NSString*)src
+- (nullable instancetype)initWithSrc:(NSString*)src
                      srcset:(nullable NSString*)srcset
                         alt:(nullable NSString*)alt
                       width:(nullable NSString*)width
                      height:(nullable NSString*)height
               dataFileWidth:(nullable NSString*)dataFileWidth
-             dataFileHeight:(nullable NSString*)dataFileHeight {
+             dataFileHeight:(nullable NSString*)dataFileHeight
+                    baseURL:(nullable NSURL*)baseURL {
     NSParameterAssert(src);
     if (!src) {
         return nil;
@@ -35,15 +36,30 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
     
+    NSURLComponents *srcURLComponents = [NSURLComponents componentsWithString:src];
+    if (srcURLComponents == nil) {
+        return nil;
+    }
+    
+    // remove scheme for consistency.
+    if (srcURLComponents.scheme != nil) {
+        srcURLComponents.scheme = nil;
+    }
+    
+    if (srcURLComponents.host == nil) {
+        if (![src hasPrefix:@"/"]) {
+            srcURLComponents.path = [baseURL.path stringByAppendingPathComponent:src];
+        }
+        srcURLComponents.host = baseURL.host;
+    }
+    
+    src = srcURLComponents.URL.absoluteString;
+    if (src == nil) {
+        return nil;
+    }
+    
     self = [super init];
     if (self) {
-        // Strip protocol for consistency.
-        if ([src hasPrefix:@"http:"]) {
-            src = [src substringFromIndex:5];
-        } else if ([src hasPrefix:@"https:"]) {
-            src = [src substringFromIndex:6];
-        }
-
         self.src            = src;
         self.srcset         = srcset;
         self.alt            = alt;
@@ -55,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (instancetype)initWithImageTagContents:(NSString*)imageTagContents {
+- (nullable instancetype)initWithImageTagContents:(NSString*)imageTagContents baseURL:(nullable NSURL *)baseURL {
     static NSRegularExpression* attributeRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -96,7 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.originalImageTagContentsSrcAttributeRange = srcAttributeRange;
     self.originalImageTagContents                  = imageTagContents;
     
-    return [self initWithSrc:src srcset:nil alt:nil width:width height:height dataFileWidth:dataFileWidth dataFileHeight:dataFileHeight];
+    return [self initWithSrc:src srcset:nil alt:nil width:width height:height dataFileWidth:dataFileWidth dataFileHeight:dataFileHeight baseURL:baseURL];
 }
 
 - (BOOL)isSizeLargeEnoughForGalleryInclusion {

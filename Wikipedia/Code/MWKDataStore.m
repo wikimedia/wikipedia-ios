@@ -507,6 +507,25 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     });
 }
 
+- (NSArray *)legacyImageURLsForArticle:(MWKArticle *)article {
+    NSString* path = [self pathForArticle:article];
+    NSDictionary *legacyImageDictionary = [NSDictionary dictionaryWithContentsOfFile:[path stringByAppendingPathComponent:@"Images.plist"]];
+    if ([legacyImageDictionary isKindOfClass:[NSDictionary class]]) {
+        NSArray *legacyImageURLStrings = [legacyImageDictionary objectForKey:@"entries"];
+        if ([legacyImageURLStrings isKindOfClass:[NSArray class]]) {
+            NSArray *legacyImageURLs = [legacyImageURLStrings wmf_mapAndRejectNil:^id(id obj) {
+                if ([obj isKindOfClass:[NSString class]]) {
+                    return [NSURL URLWithString:obj];
+                } else {
+                    return nil;
+                }
+            }];
+            return legacyImageURLs;
+        }
+    }
+    return @[];
+}
+
 #pragma mark - Deletion
 
 - (NSError*)removeFolderAtBasePath {
@@ -518,6 +537,8 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 - (void)deleteArticle:(MWKArticle*)article {
     NSString* path = [self pathForArticle:article];
 
+    [[WMFImageController sharedInstance] deleteImagesWithURLs:[self legacyImageURLsForArticle:article]];
+    
     // delete article images *before* metadata (otherwise we won't be able to retrieve image lists)
     [[WMFImageController sharedInstance] deleteImagesWithURLs:[[article allImageURLs] allObjects]];
 
