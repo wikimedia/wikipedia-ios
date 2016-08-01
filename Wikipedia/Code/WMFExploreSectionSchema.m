@@ -12,7 +12,7 @@
 #import "NSCalendar+WMFCommonCalendars.h"
 #import <Tweaks/FBTweakInline.h>
 
-#define POPULATE_FEED DEBUG && 1
+#define POPULATE_FEED DEBUG && 0
 
 @import CoreLocation;
 
@@ -274,7 +274,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     return YES;
 }
 
-- (void)insertNearbySectionWithLocationIfNeeded:(CLLocation*)location completion:(dispatch_block_t)completion {
+- (void)insertNearbySectionWithLocationIfNeeded:(nonnull CLLocation*)location completion:(nullable dispatch_block_t)completion {
     NSParameterAssert(location);
 
     NSMutableArray<WMFExploreSection*>* existingNearbySections = [[self nearbySections] mutableCopy];
