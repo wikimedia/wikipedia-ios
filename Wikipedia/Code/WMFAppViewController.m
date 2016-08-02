@@ -692,20 +692,20 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
                 WMFExploreViewController* exploreViewController = (WMFExploreViewController*)[self exploreViewController];
                 [exploreViewController scrollToTop];
             }
-                break;
+            break;
             case WMFAppTabTypeSaved: {
-                WMFArticleListTableViewController *savedArticlesViewController = (WMFArticleListTableViewController *)[self savedArticlesViewController];
+                WMFArticleListTableViewController* savedArticlesViewController = (WMFArticleListTableViewController*)[self savedArticlesViewController];
                 [savedArticlesViewController scrollToTop:savedArticlesViewController.dataStore.userDataStore.savedPageList.countOfEntries > 0];
             }
-                break;
+            break;
             case WMFAppTabTypeRecent: {
-                WMFArticleListTableViewController *historyArticlesViewController = (WMFArticleListTableViewController *)[self recentArticlesViewController];
+                WMFArticleListTableViewController* historyArticlesViewController = (WMFArticleListTableViewController*)[self recentArticlesViewController];
                 [historyArticlesViewController scrollToTop:historyArticlesViewController.dataStore.userDataStore.historyList.countOfEntries > 0];
             }
-                break;
+            break;
         }
     }
-    
+
     return YES;
 }
 
