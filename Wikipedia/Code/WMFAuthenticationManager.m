@@ -92,6 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.captchaBlock = captcha;
     self.failBlock    = failure;
+    self.successBlock = nil;
 
     [self fetchCreationAuthManagerInfoWithSuccess:^(WMFAuthManagerInfo* _Nonnull info) {
         self.accountCreationAuthManagerInfo = info;
@@ -290,13 +291,27 @@ NS_ASSUME_NONNULL_BEGIN
             case FETCH_FINAL_STATUS_CANCELLED:
             case FETCH_FINAL_STATUS_FAILED:
                 if (error.code == ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA) {
-                    [self sendCaptchaBlockWithURLString:self.accountCreationAuthManagerInfo.captchaURLFragment];
+                    if ([self isInitialAccountCreationAtempt]) {
+                        //First time attempting to create an account with this captcha URL.
+                        //By design, no captcha text was sent
+                        //This is because we want to get any errors back from the API about duplicate user names before we present the captcha
+                        //In this case, the user name is fine and we can fire the block and have them solve the captcha
+                        [self sendCaptchaBlockWithURLString:self.accountCreationAuthManagerInfo.captchaURLFragment];
+                    } else {
+                        //The user tried to solve the captch and failed
+                        //Get another captcha URL and have the user try again
+                        [self getAccountCreationCaptchaWithHandler:self.captchaBlock failure:self.failBlock];
+                    }
                 } else {
                     [self finishAndSendFailureBlockWithError:error];
                 }
                 break;
         }
     }
+}
+
+- (BOOL)isInitialAccountCreationAtempt {
+    return self.successBlock == nil;
 }
 
 #pragma mark - Logout
