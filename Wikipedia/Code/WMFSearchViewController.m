@@ -565,18 +565,26 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)selectLanguageForURL:(NSURL*)url {
+    __block BOOL foundLanguageInBar = NO;
     [[self languageBarLanguages] enumerateObjectsUsingBlock:^(MWKLanguageLink* _Nonnull language, NSUInteger idx, BOOL* _Nonnull stop) {
         if ([[language siteURL] isEqual:url]) {
             UIButton* buttonToSelect = self.languageButtons[idx];
             [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
                 if (obj == buttonToSelect) {
                     [obj setSelected:YES];
+                    foundLanguageInBar = YES;
                 } else {
                     [obj setSelected:NO];
                 }
             }];
         }
     }];
+    
+    //If we didn't find the last selected Language, jsut select the first one
+    if(!foundLanguageInBar){
+        [self setSelectedLanguage:[[self languageBarLanguages] firstObject]];
+        return;
+    }
     
     NSString* query = self.searchField.text;
     
