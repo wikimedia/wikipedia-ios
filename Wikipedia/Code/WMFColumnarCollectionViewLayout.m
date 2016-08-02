@@ -103,6 +103,14 @@
     [super prepareLayout];
 }
 
+- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset {
+    return proposedContentOffset;
+}
+
+- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
+    return proposedContentOffset;
+}
+
 #pragma mark - Invalidation
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
