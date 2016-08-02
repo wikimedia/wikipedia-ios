@@ -257,6 +257,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (FBTweakValue(@"Alerts", @"General", @"Show message on launch", NO)) {
         [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
+    DDLogWarn(@"Resuming… Logging Important Statistics");
+    [self logImportantStatistics];
 }
 
 - (void)pauseApp {
@@ -265,6 +267,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self.dataStore.userDataStore.historyList prune];
     [self.dataStore startCacheRemoval];
     [[[SessionSingleton sharedInstance] dataStore] clearMemoryCache];
+
+    DDLogWarn(@"Backgrounding… Logging Important Statistics");
+    [self logImportantStatistics];
 }
 
 #pragma mark - Memory Warning
@@ -272,6 +277,21 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)didReceiveMemoryWarning {
     [[WMFImageController sharedInstance] clearMemoryCache];
     [[[SessionSingleton sharedInstance] dataStore] clearMemoryCache];
+}
+
+#pragma mark - Logging
+
+- (void)logImportantStatistics {
+    NSUInteger historyCount       = [self.session.dataStore.userDataStore.historyList countOfEntries];
+    NSUInteger saveCount          = [self.session.dataStore.userDataStore.historyList countOfEntries];
+    NSUInteger exploreCount       = [self.exploreViewController numberOfSectionsInExploreFeed];
+    UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
+    NSUInteger stackCount         = [[navVC viewControllers] count];
+
+    DDLogWarn(@"History Count %lu", (unsigned long)historyCount);
+    DDLogWarn(@"Saved Count %lu", (unsigned long)saveCount);
+    DDLogWarn(@"Explore Count %lu", (unsigned long)exploreCount);
+    DDLogWarn(@"Article Stack Count %lu", (unsigned long)stackCount);
 }
 
 #pragma mark - Shortcut
@@ -721,6 +741,11 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
       willShowViewController:(UIViewController*)viewController
                     animated:(BOOL)animated {
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
+}
+
+- (void)navigationController:(UINavigationController*)navigationController didShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
+    DDLogWarn(@"Pushing/Popping article… Logging Important Statistics");
+    [self logImportantStatistics];
 }
 
 @end

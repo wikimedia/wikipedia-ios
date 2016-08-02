@@ -145,6 +145,10 @@ NS_ASSUME_NONNULL_BEGIN
     return _sectionControllerCache;
 }
 
+- (NSUInteger)numberOfSectionsInExploreFeed{
+    return [[self.schemaManager sections] count];
+}
+
 #pragma mark - Visibility
 
 - (BOOL)isDisplayingCellsForSectionController:(id<WMFExploreSectionController>)controller {

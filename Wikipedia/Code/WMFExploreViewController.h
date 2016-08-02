@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showSettings;
 - (void)scrollToTop:(BOOL)animated;
 
+- (NSUInteger)numberOfSectionsInExploreFeed;
+
 @end
 
 NS_ASSUME_NONNULL_END
