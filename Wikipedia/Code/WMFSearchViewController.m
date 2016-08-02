@@ -203,6 +203,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
 
         [self updateLanguageBarLanguages];
+        [self selectLanguageForURL:[self currentlySelectedSearchURL]];
     } else {
         [self.languageBarContainer removeFromSuperview];
         [self.searchContentContainer mas_makeConstraints:^(MASConstraintMaker* make) {
@@ -247,6 +248,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         [self.view layoutIfNeeded];
         [self.searchField becomeFirstResponder];
     } completion:nil];
+    
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -561,20 +565,32 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)selectLanguageForURL:(NSURL*)url {
+    __block BOOL foundLanguageInBar = NO;
     [[self languageBarLanguages] enumerateObjectsUsingBlock:^(MWKLanguageLink* _Nonnull language, NSUInteger idx, BOOL* _Nonnull stop) {
         if ([[language siteURL] isEqual:url]) {
             UIButton* buttonToSelect = self.languageButtons[idx];
             [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
                 if (obj == buttonToSelect) {
                     [obj setSelected:YES];
+                    foundLanguageInBar = YES;
                 } else {
                     [obj setSelected:NO];
                 }
             }];
         }
     }];
+    
+    //If we didn't find the last selected Language, jsut select the first one
+    if(!foundLanguageInBar){
+        [self setSelectedLanguage:[[self languageBarLanguages] firstObject]];
+        return;
+    }
+    
     NSString* query = self.searchField.text;
-    [self searchForSearchTerm:query];
+    
+    if(![url isEqual:[self.resultsListController.dataSource searchSiteURL]] || [query isEqualToString:[self.resultsListController.dataSource searchResults].searchTerm]){
+        [self searchForSearchTerm:query];
+    }
 }
 
 - (void)selectLanguageForButton:(UIButton*)button {
@@ -627,7 +643,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         [self updateLanguageBarLanguages];
     }
     
-    [self selectLanguageForURL:language.siteURL];
+    [self setSelectedLanguage:language];
     [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
