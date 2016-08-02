@@ -121,17 +121,17 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     dispatch_block_t didFinishLegacyMigration = ^{
         [[NSUserDefaults standardUserDefaults] wmf_setDidFinishLegacySavedArticleImageMigration:YES];
     };
-    
+
     if (!urls.count) {
         didFinishLegacyMigration();
         return;
     }
 
-    WMFTaskGroup *group = [WMFTaskGroup new];
+    WMFTaskGroup* group = [WMFTaskGroup new];
     for (NSURL* url in urls) {
         [group enter];
         dispatch_async(self.accessQueue, ^{
-            [self fetchArticleURL:url failure:^(NSError *error) {
+            [self fetchArticleURL:url failure:^(NSError* error) {
                 [group leave];
             } success:^{
                 [group leave];
@@ -181,38 +181,42 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 - (void)downloadImageDataForArticle:(MWKArticle*)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     if (![[NSUserDefaults standardUserDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
         WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0.5)
-        [self migrateLegacyImagesInArticle:article];
+        [self migrateLegacyImagesInArticle : article];
     }
-    [self fetchAllImagesInArticle:article failure:^(NSError *error) {
+    [self fetchAllImagesInArticle:article failure:^(NSError* error) {
         failure([NSError wmf_savedPageImageDownloadError]);
     } success:^{
-        [self fetchGalleryDataForArticle:article failure:failure success:success];
+        //NOTE: turning off gallery image fetching as users are potentially downloading large amounts of data up front when upgrading to a new version of the app.
+//        [self fetchGalleryDataForArticle:article failure:failure success:success];
+        if (success) {
+            success();
+        }
     }];
 }
 
-- (void)migrateLegacyImagesInArticle:(MWKArticle *)article {
+- (void)migrateLegacyImagesInArticle:(MWKArticle*)article {
     //  Copies saved article images cached by versions 5.0.4 and older to the locations where 5.0.5 and newer are looking for them. Previously, the app cached at the width of the largest image in the srcset. Currently, we request a thumbnail at wmf_articleImageWidthForScale (or original if it's narrower than that width). By copying from the old size to the new expected sizes, we ensure that articles saved with these older versions will still have images availble offline in the newer versions.
-    WMFImageController *imageController = [WMFImageController sharedInstance];
-    NSArray *legacyImageURLs = [self.savedPageList.dataStore legacyImageURLsForArticle:article];
-    NSUInteger articleImageWidth = [[UIScreen mainScreen] wmf_articleImageWidthForScale];
-    for (NSURL *legacyImageURL in legacyImageURLs) {
-        NSString *legacyImageURLString = legacyImageURL.absoluteString;
-        NSUInteger width = WMFParseSizePrefixFromSourceURL(legacyImageURLString);
+    WMFImageController* imageController = [WMFImageController sharedInstance];
+    NSArray* legacyImageURLs            = [self.savedPageList.dataStore legacyImageURLsForArticle:article];
+    NSUInteger articleImageWidth        = [[UIScreen mainScreen] wmf_articleImageWidthForScale];
+    for (NSURL* legacyImageURL in legacyImageURLs) {
+        NSString* legacyImageURLString = legacyImageURL.absoluteString;
+        NSUInteger width               = WMFParseSizePrefixFromSourceURL(legacyImageURLString);
         if (width != articleImageWidth && width != NSNotFound) {
             if (legacyImageURL != nil && [imageController hasDataOnDiskForImageWithURL:legacyImageURL]) {
-                NSURL *cachedFileURL = [NSURL fileURLWithPath:[imageController cachePathForImageWithURL:legacyImageURL] isDirectory:NO];
+                NSURL* cachedFileURL = [NSURL fileURLWithPath:[imageController cachePathForImageWithURL:legacyImageURL] isDirectory:NO];
                 if (cachedFileURL != nil) {
-                    NSString *imageExtension = [legacyImageURL pathExtension];
-                    NSString *imageMIMEType = [imageExtension wmf_asMIMEType];
-                    
-                    NSString *imageURLStringAtArticleWidth = WMFChangeImageSourceURLSizePrefix(legacyImageURLString, articleImageWidth);
-                    NSURL *imageURLAtArticleWidth = [NSURL URLWithString:imageURLStringAtArticleWidth];
+                    NSString* imageExtension = [legacyImageURL pathExtension];
+                    NSString* imageMIMEType  = [imageExtension wmf_asMIMEType];
+
+                    NSString* imageURLStringAtArticleWidth = WMFChangeImageSourceURLSizePrefix(legacyImageURLString, articleImageWidth);
+                    NSURL* imageURLAtArticleWidth          = [NSURL URLWithString:imageURLStringAtArticleWidth];
                     if (imageURLAtArticleWidth != nil && ![imageController hasDataOnDiskForImageWithURL:imageURLAtArticleWidth]) {
                         [imageController cacheImageFromFileURL:cachedFileURL forURL:imageURLAtArticleWidth MIMEType:imageMIMEType];
                     }
-                    
-                    NSString *originalImageURLString = WMFOriginalImageURLStringFromURLString(legacyImageURLString);
-                    NSURL *originalImageURL = [NSURL URLWithString:originalImageURLString];
+
+                    NSString* originalImageURLString = WMFOriginalImageURLStringFromURLString(legacyImageURLString);
+                    NSURL* originalImageURL          = [NSURL URLWithString:originalImageURLString];
                     if (![imageController hasDataOnDiskForImageWithURL:originalImageURL]) {
                         [imageController cacheImageFromFileURL:cachedFileURL forURL:originalImageURL MIMEType:imageMIMEType];
                     }
@@ -224,13 +228,13 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 
 - (void)fetchAllImagesInArticle:(MWKArticle*)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     if (![[NSUserDefaults standardUserDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
-        WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0.5)
-        [self migrateLegacyImagesInArticle:article];
+        WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0 .5)
+        [self migrateLegacyImagesInArticle : article];
     }
-    
+
     WMFURLCache* cache = (WMFURLCache*)[NSURLCache sharedURLCache];
     [cache permanentlyCacheImagesForArticle:article];
-    
+
     NSArray<NSURL*>* URLs = [[article allImageURLs] allObjects];
     [self cacheImagesWithURLsInBackground:URLs failure:failure success:success];
 }
@@ -239,9 +243,9 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     WMF_TECH_DEBT_TODO(check whether on - disk image info matches what we are about to fetch)
     @weakify(self);
 
-    [self fetchImageInfoForImagesInArticle:article failure:^(NSError *error) {
+    [self fetchImageInfoForImagesInArticle:article failure:^(NSError* error) {
         failure(error);
-    } success:^(NSArray *info) {
+    } success:^(NSArray* info) {
         @strongify(self);
         if (!self) {
             failure([NSError cancelledError]);
@@ -252,8 +256,8 @@ static SavedArticlesFetcher* _articleFetcher = nil;
             success();
             return;
         }
-        
-        NSArray *URLs = [info valueForKey:@"imageThumbURL"];
+
+        NSArray* URLs = [info valueForKey:@"imageThumbURL"];
         [self cacheImagesWithURLsInBackground:URLs failure:failure success:success];
     }];
 }
@@ -288,21 +292,18 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     });
 }
 
-
-- (void)cacheImagesWithURLsInBackground:(NSArray<NSURL*>*)imageURLs failure:(void (^ _Nonnull)(NSError * _Nonnull error))failure success:(void (^ _Nonnull)(void))success{
-    
-    imageURLs = [imageURLs bk_select:^BOOL(id obj) {
+- (void)cacheImagesWithURLsInBackground:(NSArray<NSURL*>*)imageURLs failure:(void (^ _Nonnull)(NSError* _Nonnull error))failure success:(void (^ _Nonnull)(void))success {
+    imageURLs = [imageURLs bk_select:^BOOL (id obj) {
         return [obj isKindOfClass:[NSURL class]];
     }];
-    
-    if([imageURLs count] == 0){
+
+    if ([imageURLs count] == 0) {
         success();
         return;
     }
-    
+
     [self.imageController cacheImagesWithURLsInBackground:imageURLs failure:failure success:success];
 }
-
 
 #pragma mark - Cancellation
 
