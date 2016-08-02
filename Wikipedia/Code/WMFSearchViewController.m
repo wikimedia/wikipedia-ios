@@ -635,7 +635,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         [self updateLanguageBarLanguages];
     }
     
-    [self selectLanguageForSite:language.site];
+    [self setSelectedLanguage:language];
     [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
