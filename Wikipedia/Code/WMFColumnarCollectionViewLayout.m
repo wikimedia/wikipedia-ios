@@ -145,11 +145,8 @@
 
 - (void)invalidateLayoutWithContext:(WMFCVLInvalidationContext *)context {
     assert([context isKindOfClass:[WMFCVLInvalidationContext class]]);
-    if (context.invalidateEverything) {
+    if (context.invalidateEverything || context.invalidateDataSourceCounts) {
         self.nextInfo = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
-        [self.nextInfo updateWithInvalidationContext:nil delegate:self.delegate collectionView:self.collectionView];
-    } else if (context.invalidateDataSourceCounts) {
-        self.nextInfo = [self.info copy];
         [self.nextInfo updateWithInvalidationContext:nil delegate:self.delegate collectionView:self.collectionView];
     }
     [super invalidateLayoutWithContext:context];
