@@ -10,8 +10,7 @@
 "article-languages-label" = "Hizkuntza aukeratu";
 "article-languages-cancel" = "Utzi";
 "article-languages-downloading" = "Artikuluaren hizkuntzak kargatzen...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Hizkuntza Iragazkia";
+"article-languages-filter-placeholder" = "Aurkitu hizkuntza";
 "article-read-more-title" = "Irakurri gehiago";
 "article-about-title" = "Artikulu honi buruz";
 "article-unable-to-load-article" = "Ezin da artikulua kargatu.";
@@ -26,11 +25,10 @@
 "history-section-yesterday" = "Atzo";
 "history-section-lastweek" = "Azken astea";
 "history-section-lastmonth" = "Azken hilabetea";
-// Fuzzy
-"history-clear-confirmation-heading" = "Ezabatu azken elementu guztiak?";
+"history-clear-confirmation-heading" = "Ziur al zaude zure azken elementu guztiak ezabatu nahi dituzula?";
+"history-clear-confirmation-sub-heading" = "Ekintza hau ezin da desegin!";
 "history-clear-cancel" = "Utzi";
-// Fuzzy
-"history-clear-delete-all" = "Denak ezabatu";
+"history-clear-delete-all" = "Bai, dena ezabatu";
 "history-none" = "Ez dago azkenaldiko orririk hemen.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-continue" = "Irten";
@@ -42,7 +40,6 @@
 "account-creation-passwords-mismatched" = "Pasahitza eremuak ez datoz bat.";
 "account-creation-saving" = "Gordetzen...";
 "account-creation-login" = "Ba al duzu konturen bat? Saioa hasi.";
-// Fuzzy
 "account-creation-username-placeholder-text" = "Erabiltzaile izena";
 "account-creation-password-placeholder-text" = "Pasahitza";
 "account-creation-password-confirm-placeholder-text" = "Berretsi pasahitza";
@@ -123,8 +120,7 @@
 "saved-pages-clear-confirmation-heading" = "Ezabatu gordetako elementu guztiak?";
 "saved-pages-clear-confirmation-sub-heading" = "Ekintza hau ezin da desegin!";
 "saved-pages-clear-cancel" = "Utzi";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Dena ezabatu";
+"saved-pages-clear-delete-all" = "Bai, dena ezabatu";
 "saved-pages-none" = "Hizkuntzaren izena";
 "page-history-title" = "Artikuluaren historia";
 "page-history-downloading" = "Artikuluaren historia kargatzen...";
