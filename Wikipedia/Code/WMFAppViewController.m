@@ -284,7 +284,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 - (void)logImportantStatistics {
     NSUInteger historyCount       = [self.session.dataStore.userDataStore.historyList countOfEntries];
-    NSUInteger saveCount          = [self.session.dataStore.userDataStore.historyList countOfEntries];
+    NSUInteger saveCount          = [self.session.dataStore.userDataStore.savedPageList countOfEntries];
     NSUInteger exploreCount       = [self.exploreViewController numberOfSectionsInExploreFeed];
     UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
     NSUInteger stackCount         = [[navVC viewControllers] count];
