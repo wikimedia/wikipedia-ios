@@ -203,6 +203,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
 
         [self updateLanguageBarLanguages];
+        [self selectLanguageForURL:[self currentlySelectedSearchURL]];
     } else {
         [self.languageBarContainer removeFromSuperview];
         [self.searchContentContainer mas_makeConstraints:^(MASConstraintMaker* make) {
@@ -247,6 +248,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         [self.view layoutIfNeeded];
         [self.searchField becomeFirstResponder];
     } completion:nil];
+    
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -573,8 +577,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             }];
         }
     }];
+    
     NSString* query = self.searchField.text;
-    [self searchForSearchTerm:query];
+    
+    if(![url isEqual:[self.resultsListController.dataSource searchSiteURL]] || [query isEqualToString:[self.resultsListController.dataSource searchResults].searchTerm]){
+        [self searchForSearchTerm:query];
+    }
 }
 
 - (void)selectLanguageForButton:(UIButton*)button {
