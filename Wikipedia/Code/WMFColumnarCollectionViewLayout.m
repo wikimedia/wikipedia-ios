@@ -113,7 +113,6 @@
     WMFCVLInvalidationContext *context = (WMFCVLInvalidationContext *)[super invalidationContextForBoundsChange:newBounds];
     context.boundsDidChange = YES;
     context.newBounds = newBounds;
-    self.info = [self.info copy];
     [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
     return context;
 }
@@ -129,7 +128,6 @@
     }
     context.preferredLayoutAttributes = preferredAttributes;
     context.originalLayoutAttributes = originalAttributes;
-    self.info = [self.info copy];
     [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
     return context;
 }
