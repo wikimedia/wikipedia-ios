@@ -203,7 +203,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
 
         [self updateLanguageBarLanguages];
-        [self selectLanguageForURL:[self currentlySelectedSearchURL]];
+        [self selectLanguageForSite:[self currentResultsSearchSite]];
     } else {
         [self.languageBarContainer removeFromSuperview];
         [self.searchContentContainer mas_makeConstraints:^(MASConstraintMaker* make) {
@@ -588,7 +588,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     
     NSString* query = self.searchField.text;
     
-    if(![url isEqual:[self.resultsListController.dataSource searchSiteURL]] || [query isEqualToString:[self.resultsListController.dataSource searchResults].searchTerm]){
+    if(![site isEqual:[self.resultsListController.dataSource searchSite]] || [query isEqualToString:[self.resultsListController.dataSource searchResults].searchTerm]){
         [self searchForSearchTerm:query];
     }
 }
