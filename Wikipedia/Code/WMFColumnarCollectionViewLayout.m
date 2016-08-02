@@ -103,6 +103,25 @@
     [super prepareLayout];
 }
 
+- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
+    return proposedContentOffset;
+}
+
+- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset {
+    //From AdvancedCollectionView https://developer.apple.com/sample-code/wwdc/2015/?q=advancedcollectionview
+    UICollectionView *collectionView = self.collectionView;
+    UIEdgeInsets insets = collectionView.contentInset;
+    CGPoint targetContentOffset = proposedContentOffset;
+    targetContentOffset.y += insets.top;
+    
+    CGFloat availableHeight = CGRectGetHeight(UIEdgeInsetsInsetRect(collectionView.bounds, insets));
+    targetContentOffset.y = MIN(targetContentOffset.y, MAX(0, self.info.contentSize.height - availableHeight));
+    
+    targetContentOffset.y -= insets.top;
+    
+    return targetContentOffset;
+}
+
 #pragma mark - Invalidation
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
