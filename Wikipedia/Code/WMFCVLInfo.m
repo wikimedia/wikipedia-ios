@@ -280,6 +280,10 @@
             sectionHeight += itemHeight;
             y += itemHeight;
         }
+        
+        if (numberOfItems > section.items.count) {
+            [section trimItemsToCount:numberOfItems];
+        }
     
         sectionHeight += sectionInsets.bottom;
         y += sectionInsets.bottom;
@@ -317,6 +321,10 @@
                 shortestColumnHeight = columnHeight;
             }
         }];
+    }
+    
+    if (numberOfSections > _sections.count) {
+        [_sections removeObjectsInRange:NSMakeRange(numberOfSections, _sections.count - numberOfSections)];
     }
     
     [self enumerateColumnsWithBlock:^(WMFCVLColumn * _Nonnull column, NSUInteger idx, BOOL * _Nonnull stop) {

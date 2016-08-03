@@ -11,7 +11,6 @@
 @property (nonatomic, readonly) id <WMFColumnarCollectionViewLayoutDelegate> delegate;
 @property (nonatomic, strong) WMFCVLMetrics *metrics;
 @property (nonatomic, strong) WMFCVLInfo *info;
-@property (nonatomic, strong) WMFCVLInfo *nextInfo;
 
 @end
 
@@ -95,10 +94,14 @@
     return nil;
 }
 
+- (void)resetLayout {
+    self.info = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
+    [self.info updateWithInvalidationContext:nil delegate:self.delegate collectionView:self.collectionView];
+}
+
 - (void)prepareLayout {
-    if (self.nextInfo != nil) {
-        self.info = self.nextInfo;
-        self.nextInfo = nil;
+    if (self.info == nil) {
+        [self resetLayout];
     }
     [super prepareLayout];
 }
@@ -140,12 +143,12 @@
     return context;
 }
 
-
 - (void)invalidateLayoutWithContext:(WMFCVLInvalidationContext *)context {
     assert([context isKindOfClass:[WMFCVLInvalidationContext class]]);
-    if (context.invalidateEverything || context.invalidateDataSourceCounts) {
-        self.nextInfo = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
-        [self.nextInfo updateWithInvalidationContext:nil delegate:self.delegate collectionView:self.collectionView];
+    if (context.invalidateEverything) {
+        [self resetLayout];
+    } else if (context.invalidateDataSourceCounts) {
+        [self.info updateWithInvalidationContext:nil delegate:self.delegate collectionView:self.collectionView];
     }
     [super invalidateLayoutWithContext:context];
 }

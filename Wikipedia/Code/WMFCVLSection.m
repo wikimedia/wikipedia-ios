@@ -213,4 +213,8 @@
     return invalidatedIndexPaths;
 }
 
+- (void)trimItemsToCount:(NSInteger)count {
+    [_items removeObjectsInRange:NSMakeRange(count, _items.count - count)];
+}
+
 @end
