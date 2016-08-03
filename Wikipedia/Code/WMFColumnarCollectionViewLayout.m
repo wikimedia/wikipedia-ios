@@ -148,7 +148,7 @@
     if (context.invalidateEverything) {
         [self resetLayout];
     } else if (context.invalidateDataSourceCounts) {
-        [self.info updateWithInvalidationContext:nil delegate:self.delegate collectionView:self.collectionView];
+        [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
     }
     [super invalidateLayoutWithContext:context];
 }
