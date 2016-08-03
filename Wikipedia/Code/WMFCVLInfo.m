@@ -281,7 +281,7 @@
             y += itemHeight;
         }
         
-        if (numberOfItems > section.items.count) {
+        if (section.items.count > numberOfItems) {
             [section trimItemsToCount:numberOfItems];
         }
     
@@ -323,7 +323,7 @@
         }];
     }
     
-    if (numberOfSections > _sections.count) {
+    if (_sections.count > numberOfSections) {
         [_sections removeObjectsInRange:NSMakeRange(numberOfSections, _sections.count - numberOfSections)];
     }
     
