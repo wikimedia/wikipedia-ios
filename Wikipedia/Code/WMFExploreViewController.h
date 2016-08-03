@@ -13,7 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @property (nonatomic, assign) BOOL canScrollToTop;
 
-- (void)showSettings;;
+- (void)showSettings;
+
+- (NSUInteger)numberOfSectionsInExploreFeed;
 
 @end
 

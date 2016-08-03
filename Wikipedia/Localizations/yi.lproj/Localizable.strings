@@ -8,7 +8,6 @@
 "article-languages-label" = "קלויבן שפראך…";
 "article-languages-cancel" = "אַנולירן";
 "article-languages-downloading" = "לאדן ארטיקל שפראכן…";
-// Fuzzy
 "article-languages-filter-placeholder" = "טרעפן שפראך";
 "article-read-more-title" = "לייענט ווײטער";
 "article-about-title" = "וועגן דעם ארטיקל";
@@ -39,23 +38,18 @@
 "account-creation-passwords-mismatched" = "פאסווארט פעלדער שטימען נישט.";
 "account-creation-saving" = "אויפהיטנדיק…";
 "account-creation-login" = "איר האט שוין א קאנטע? לאגירט אריין";
-// Fuzzy
 "account-creation-username-placeholder-text" = "באַניצער־נאָמען";
 "account-creation-password-placeholder-text" = "פאַסווארט";
 "account-creation-password-confirm-placeholder-text" = "באשטעטיקן פאסווארט";
 "account-creation-email-placeholder-text" = "ע־פאסט (אפציאנאל)";
-// Fuzzy
 "login-name-not-found" = "באניצער־נאמען איז נייטיק כדי ארײַנלאגירן.";
-// Fuzzy
 "login-name-illegal" = "איר האט באזארגט אן אומלעגאלן באניצער־נאמען.";
-// Fuzzy
 "login-name-does-not-exist" = "דער באניצער־נאמען וואס איר האט באזארגט עקזיסטירט נישט.";
 "login-password-empty" = "פאסווארט געפאדערט כדי ארײַנלאגירן.";
 "login-password-wrong" = "דאס פאסווארט איר האט אײַנגעגעבן איז פאלש.";
 "login-throttled" = "איר האט אריינלאגירט צופיל מאל אין א קורצער צייט.";
 "login-user-blocked" = "באַניצער איז בלאקירט";
 "login-account-creation" = "איר האט נישט קיין קאנטע?טרעט ארײן מיט וויקיפעדיע.";
-// Fuzzy
 "login-username-placeholder-text" = "באַניצער־נאָמען";
 "login-password-placeholder-text" = "פאַסווארט";
 "wikitext-downloading" = "אנלאדן אינהאלט…";

@@ -178,7 +178,7 @@
 "about-send-feedback" = "Siųsti atsiliepimą apie programėlę";
 // Fuzzy
 "about-product-of" = "$1 produktas";
-"about-wikimedia-foundation" = "Wikimedia Foundation";
+"about-wikimedia-foundation" = "Vikimedijos fondas";
 "share-menu-save-page" = "Įrašyti puslapį";
 "share-menu-page-saved" = "Išsaugoti skaitymui neprisijungus.";
 "share-custom-menu-item" = "Dalintis";
@@ -186,7 +186,7 @@
 "share-on-twitter-sign-off" = "per @Wikipedia";
 "share-as-image" = "Dalintis kaip vaizdu";
 "share-as-text" = "Dalintis kaip tekstu";
-"timestamp-just-now" = "tik ką";
+"timestamp-just-now" = "ką tik";
 "timestamp-hours" = "Prieš %d valandas";
 "timestamp-days" = "Prieš %d dienas";
 "timestamp-months" = "Prieš %d mėnesius";
@@ -235,13 +235,13 @@
 "nearby-distance-label-miles" = "$1 mylių";
 "nearby-pull-to-refresh-prompt" = "Traukite, kad atnaujintumėte";
 "nearby-pull-to-refresh-is-refreshing" = "Naujinama";
-"nearby-open-in-maps" = "Atidaryti Žemėlapiuose";
+"nearby-open-in-maps" = "Atidaryti žemėlapiuose";
 "nearby-cancel" = "Atšaukti";
 "nearby-location-updates-denied" = "Ši programėlė neturi leidimo gauti vietos atnaujinimus.";
 "migration-skip-button-title" = "Ištrinti";
-"image-gallery-unknown-owner" = "Talpintojas nežinomas";
+"image-gallery-unknown-owner" = "Talpintojas nežinomas.";
 "image-gallery-fetch-image-info-error-ok" = "Gerai";
-"hockeyapp-alert-title" = "Atleiskite, programėlė praeitą kartą užlūžo";
+"hockeyapp-alert-title" = "Atsiprašome, programėlė praeitą kartą užlūžo";
 "hockeyapp-alert-send-report" = "Siųsti ataskaitą";
 "hockeyapp-alert-always-send" = "Visada siųsti";
 "hockeyapp-alert-do-not-send" = "Nesiųsti";
@@ -295,7 +295,7 @@
 "explore-random-article-heading" = "Atsitiktinis straipsnis";
 "explore-random-article-sub-heading" = "Angliškoji Vikipedija";
 "explore-potd-heading" = "Dienos nuotrauka";
-"explore-most-read-generic-heading" = "Populiariausi skaitytiniai";
+"explore-most-read-generic-heading" = "Populiariausi skaitiniai";
 "explore-most-read-more-list-title" = "Top straipsniai";
 "explore-most-read-more-list-title-for-date" = "Viršuje $1";
-"explore-another-random" = "Dar vienas atsitiktinis straipsnis";
+"explore-another-random" = "Kitas atsitiktinis straipsnis";
