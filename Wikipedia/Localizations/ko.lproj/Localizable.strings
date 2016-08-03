@@ -222,7 +222,7 @@
 "about-repositories-app-source-license" = "소스 코드는 $1 하에 이용이 가능합니다.";
 "about-repositories-app-source-license-mit" = "MIT 라이선스";
 "about-send-feedback" = "앱 피드백 보내기";
-"about-product-of" = "여러분과 같은 기여자들의 도움으로 $1 사용자가 개발하였습니다.";
+"about-product-of" = "여러분과 같은 기여자들의 도움으로 $1이 개발하였습니다";
 "about-wikimedia-foundation" = "위키미디어 재단";
 "share-menu-save-page" = "문서 저장";
 "share-menu-page-saved" = "문서가 저장되었습니다";
@@ -242,7 +242,7 @@
 "timestamp-months" = "%d개월 전";
 "timestamp-years" = "%d년 전";
 "lastmodified-by-user" = "$1에 $2님이 수정";
-"lastmodified-by-anon" = "$1에 익명 사용자가 수정";
+"lastmodified-by-anon" = "$1에 익명 사용자가 편집함";
 "button-edit" = "편집";
 "button-next" = "다음";
 "button-done" = "완료";
@@ -362,7 +362,7 @@
 "welcome-explore-tell-me-more" = "더 보기";
 "welcome-explore-tell-me-more-about-explore" = "찾아보기 정보";
 "welcome-explore-tell-me-more-details" = "글을 읽을 때 관련 글들은 찾아보기 피드에 자동으로 추가됩니다. 사용자 정보의 수집 방식은 변경되지 않으며, 읽기 역사는 개인에게 그대로 보존됩니다.";
-"welcome-explore-tell-me-more-related" = "찾아보기 피드는 사용자가 읽은 글과 관련한 글들을 보여줍니다.";
+"welcome-explore-tell-me-more-related" = "찾아보기 피드는 당신이 읽은 글과 관련한 글들을 보여줍니다.";
 "welcome-explore-tell-me-more-privacy" = "서버에 읽기 목록 또는 프로필이 저장되어 있지 않습니다.";
 "welcome-explore-tell-me-more-done-button" = "알겠습니다";
 "welcome-explore-continue-button" = "시작하기";
@@ -383,7 +383,7 @@
 "empty-no-saved-pages-title" = "아직 저장된 문서가 없습니다.";
 "empty-no-saved-pages-message" = "오프라인 상태에서도 나중에 보기 위해 문서를 저장합니다";
 "empty-no-history-title" = "표시할 역사가 없습니다";
-"empty-no-history-message" = "여기에는 사용자가 읽은 문서들이 표시됩니다";
+"empty-no-history-message" = "여기에는 당신이 읽은 문서들이 표시됩니다";
 "alert-no-internet" = "인터넷 연결이 없습니다";
 "icon-shortcut-search-title" = "위키백과 검색";
 "icon-shortcut-continue-reading-title" = "계속 읽기";
@@ -406,6 +406,6 @@
 "explore-most-read-footer-for-date" = "$1의 가장 많이 읽은 문서 전체";
 "explore-most-read-more-list-title" = "상위 문서";
 "explore-most-read-more-list-title-for-date" = "$1의 상위 문서";
-"no-email-account-alert" = "사용자의 장치에 이메일 계정을 설정한 뒤 다시 시도하십시오.";
+"no-email-account-alert" = "장치에 이메일 계정을 설정한 뒤 다시 시도하세요.";
 "request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";
 "explore-another-random" = "다른 임의 문서";
