@@ -246,6 +246,8 @@
             [invalidatedHeaderIndexPaths addObject:supplementaryViewIndexPath];
         }
         
+        assert(section.headers.count == 1);
+        
         sectionHeight += headerHeight;
         y += headerHeight;
         
@@ -284,6 +286,8 @@
         if (section.items.count > numberOfItems) {
             [section trimItemsToCount:numberOfItems];
         }
+        
+        assert(section.items.count == numberOfItems);
     
         sectionHeight += sectionInsets.bottom;
         y += sectionInsets.bottom;
@@ -304,6 +308,8 @@
         if (didCreateOrUpdate) {
             [invalidatedFooterIndexPaths addObject:supplementaryViewIndexPath];
         }
+        
+        assert(section.footers.count == 1);
         
         sectionHeight += footerHeight;
         y+= footerHeight;
@@ -327,6 +333,8 @@
         [_sections removeObjectsInRange:NSMakeRange(numberOfSections, _sections.count - numberOfSections)];
     }
     
+    assert(_sections.count == numberOfSections);
+    
     [self enumerateColumnsWithBlock:^(WMFCVLColumn * _Nonnull column, NSUInteger idx, BOOL * _Nonnull stop) {
         column.height += contentInsets.bottom;
     }];
@@ -335,6 +343,7 @@
     [context invalidateItemsAtIndexPaths:invalidatedItemIndexPaths];
     [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:invalidatedFooterIndexPaths];
     [self updateContentSizeWithInvalidationContext:context];
+    
 }
 
 - (void)layoutForBoundsSize:(CGSize)size withDelegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
