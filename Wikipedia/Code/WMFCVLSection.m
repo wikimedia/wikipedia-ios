@@ -170,24 +170,22 @@
         if (CGRectEqualToRect(newFrame, attributes.frame)) {
             return NO;
         } else {
-            WMFCVLAttributes *newAttributes = [array[index] copy];
-            newAttributes.frame = newFrame;
-            [array replaceObjectAtIndex:index withObject:newAttributes];
+            WMFCVLAttributes *attributes = array[index];
+            attributes.frame = newFrame;
             return YES;
         }
     }
 }
 
-- (CGFloat)setSize:(CGSize)size forAttributesAtIndex:(NSInteger)index inArray:(NSMutableArray *)attributes {
-    WMFCVLAttributes *newAttributes = [attributes[index] copy];
+- (CGFloat)setSize:(CGSize)size forAttributesAtIndex:(NSInteger)index inArray:(NSMutableArray *)array {
+    WMFCVLAttributes *attributes = array[index];
     
-    if (CGSizeEqualToSize(size, newAttributes.frame.size)) {
+    if (CGSizeEqualToSize(size, attributes.frame.size)) {
         return 0;
     }
     
-    CGFloat deltaH = size.height - newAttributes.frame.size.height;
-    newAttributes.frame = (CGRect) {newAttributes.frame.origin, size};
-    attributes[index] = newAttributes;
+    CGFloat deltaH = size.height - attributes.frame.size.height;
+    attributes.frame = (CGRect) {.origin = attributes.frame.origin, .size = size};
     
     CGSize newSize = self.frame.size;
     newSize.height += deltaH;
@@ -196,16 +194,15 @@
     return deltaH;
 }
 
-- (NSArray *)offsetAttributesInArray:(NSMutableArray *)attributes startingAtIndex:(NSInteger)index distance:(CGFloat)deltaY {
-    NSInteger count = attributes.count - index;
+- (NSArray *)offsetAttributesInArray:(NSMutableArray *)array startingAtIndex:(NSInteger)index distance:(CGFloat)deltaY {
+    NSInteger count = array.count - index;
     if (count <= 0) {
         return nil;
     }
     NSMutableArray *invalidatedIndexPaths = [NSMutableArray arrayWithCapacity:count];
-    while (index < attributes.count) {
-        WMFCVLAttributes *newAttributes = [attributes[index] copy];
-        newAttributes.frame = CGRectOffset(newAttributes.frame, 0, deltaY);
-        attributes[index] = newAttributes;
+    while (index < array.count) {
+        WMFCVLAttributes *attributes = array[index];
+        attributes.frame = CGRectOffset(attributes.frame, 0, deltaY);
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:self.index];
         [invalidatedIndexPaths addObject:indexPath];
         index++;
