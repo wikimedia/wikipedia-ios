@@ -312,7 +312,6 @@
         assert(section.footers.count == 1);
         
         sectionHeight += footerHeight;
-        y+= footerHeight;
         
         section.frame = (CGRect){sectionOrigin,  CGSizeMake(columnWidth, sectionHeight)};
         
