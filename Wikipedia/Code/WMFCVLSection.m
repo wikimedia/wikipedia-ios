@@ -93,23 +93,19 @@
 }
 
 - (void)offsetByDeltaY:(CGFloat)deltaY withInvalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
-    if (ABS(deltaY) > 0) {
-        self.frame = CGRectOffset(self.frame, 0, deltaY);
-        [self offsetHeadersStartingAtIndex:0 distance:deltaY invalidationContext:invalidationContext];
-        [self offsetItemsStartingAtIndex:0 distance:deltaY invalidationContext:invalidationContext];
-        [self offsetFootersStartingAtIndex:0 distance:deltaY invalidationContext:invalidationContext];
-    }
+    self.frame = CGRectOffset(self.frame, 0, deltaY);
+    [self offsetHeadersStartingAtIndex:0 distance:deltaY invalidationContext:invalidationContext];
+    [self offsetItemsStartingAtIndex:0 distance:deltaY invalidationContext:invalidationContext];
+    [self offsetFootersStartingAtIndex:0 distance:deltaY invalidationContext:invalidationContext];
 }
 
 - (CGFloat)setSize:(CGSize)size forHeaderAtIndex:(NSInteger)headerIndex invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
     CGFloat deltaH = [self setSize:size forAttributesAtIndex:headerIndex inArray:_headers];
     
-    if (ABS(deltaH) > 0) {
-         [invalidationContext invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:@[[NSIndexPath indexPathForItem:headerIndex inSection:self.index]]];
-        [self offsetHeadersStartingAtIndex:headerIndex + 1 distance:deltaH invalidationContext:invalidationContext];
-        [self offsetItemsStartingAtIndex:0 distance:deltaH invalidationContext:invalidationContext];
-        [self offsetFootersStartingAtIndex:0 distance:deltaH invalidationContext:invalidationContext];
-    }
+    [invalidationContext invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:@[[NSIndexPath indexPathForItem:headerIndex inSection:self.index]]];
+    [self offsetHeadersStartingAtIndex:headerIndex + 1 distance:deltaH invalidationContext:invalidationContext];
+    [self offsetItemsStartingAtIndex:0 distance:deltaH invalidationContext:invalidationContext];
+    [self offsetFootersStartingAtIndex:0 distance:deltaH invalidationContext:invalidationContext];
     
     return deltaH;
 }
@@ -117,22 +113,18 @@
 - (CGFloat)setSize:(CGSize)size forFooterAtIndex:(NSInteger)footerIndex invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
     CGFloat deltaH = [self setSize:size forAttributesAtIndex:footerIndex inArray:_footers];
     
-    if (ABS(deltaH) > 0) {
-        [invalidationContext invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:@[[NSIndexPath indexPathForItem:footerIndex inSection:self.index]]];
-        [self offsetFootersStartingAtIndex:footerIndex + 1 distance:deltaH invalidationContext:invalidationContext];
-    }
-    
+    [invalidationContext invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:@[[NSIndexPath indexPathForItem:footerIndex inSection:self.index]]];
+    [self offsetFootersStartingAtIndex:footerIndex + 1 distance:deltaH invalidationContext:invalidationContext];
+
     return deltaH;
 }
 
 - (CGFloat)setSize:(CGSize)size forItemAtIndex:(NSInteger)index invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {
     CGFloat deltaH = [self setSize:size forAttributesAtIndex:index inArray:_items];
 
-    if (ABS(deltaH) > 0) {
-        [invalidationContext invalidateItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:self.index]]];
-        [self offsetItemsStartingAtIndex:index + 1 distance:deltaH invalidationContext:invalidationContext];
-        [self offsetFootersStartingAtIndex:0 distance:deltaH invalidationContext:invalidationContext];
-    }
+    [invalidationContext invalidateItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:self.index]]];
+    [self offsetItemsStartingAtIndex:index + 1 distance:deltaH invalidationContext:invalidationContext];
+    [self offsetFootersStartingAtIndex:0 distance:deltaH invalidationContext:invalidationContext];
     
     return deltaH;
 }
@@ -170,24 +162,22 @@
         if (CGRectEqualToRect(newFrame, attributes.frame)) {
             return NO;
         } else {
-            WMFCVLAttributes *newAttributes = [array[index] copy];
-            newAttributes.frame = newFrame;
-            [array replaceObjectAtIndex:index withObject:newAttributes];
+            WMFCVLAttributes *attributes = array[index];
+            attributes.frame = newFrame;
             return YES;
         }
     }
 }
 
-- (CGFloat)setSize:(CGSize)size forAttributesAtIndex:(NSInteger)index inArray:(NSMutableArray *)attributes {
-    WMFCVLAttributes *newAttributes = [attributes[index] copy];
+- (CGFloat)setSize:(CGSize)size forAttributesAtIndex:(NSInteger)index inArray:(NSMutableArray *)array {
+    WMFCVLAttributes *attributes = array[index];
     
-    if (CGSizeEqualToSize(size, newAttributes.frame.size)) {
+    if (CGSizeEqualToSize(size, attributes.frame.size)) {
         return 0;
     }
     
-    CGFloat deltaH = size.height - newAttributes.frame.size.height;
-    newAttributes.frame = (CGRect) {newAttributes.frame.origin, size};
-    attributes[index] = newAttributes;
+    CGFloat deltaH = size.height - attributes.frame.size.height;
+    attributes.frame = (CGRect) {.origin = attributes.frame.origin, .size = size};
     
     CGSize newSize = self.frame.size;
     newSize.height += deltaH;
@@ -196,21 +186,24 @@
     return deltaH;
 }
 
-- (NSArray *)offsetAttributesInArray:(NSMutableArray *)attributes startingAtIndex:(NSInteger)index distance:(CGFloat)deltaY {
-    NSInteger count = attributes.count - index;
+- (NSArray *)offsetAttributesInArray:(NSMutableArray *)array startingAtIndex:(NSInteger)index distance:(CGFloat)deltaY {
+    NSInteger count = array.count - index;
     if (count <= 0) {
         return nil;
     }
     NSMutableArray *invalidatedIndexPaths = [NSMutableArray arrayWithCapacity:count];
-    while (index < attributes.count) {
-        WMFCVLAttributes *newAttributes = [attributes[index] copy];
-        newAttributes.frame = CGRectOffset(newAttributes.frame, 0, deltaY);
-        attributes[index] = newAttributes;
+    while (index < array.count) {
+        WMFCVLAttributes *attributes = array[index];
+        attributes.frame = CGRectOffset(attributes.frame, 0, deltaY);
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:self.index];
         [invalidatedIndexPaths addObject:indexPath];
         index++;
     }
     return invalidatedIndexPaths;
+}
+
+- (void)trimItemsToCount:(NSInteger)count {
+    [_items removeObjectsInRange:NSMakeRange(count, _items.count - count)];
 }
 
 @end

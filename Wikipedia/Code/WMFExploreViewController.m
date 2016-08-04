@@ -911,7 +911,7 @@ WMFColumnarCollectionViewLayoutDelegate>
 
 - (void)sectionSchema:(WMFExploreSectionSchema*)schema didRemoveSection:(WMFExploreSection*)section atIndex:(NSUInteger)index {
     [self.sectionControllerCache removeSection:section];
-    [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:index]];
+    [self.collectionView reloadData];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate
