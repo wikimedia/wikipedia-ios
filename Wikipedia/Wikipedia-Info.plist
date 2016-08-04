@@ -60,7 +60,7 @@
 		<string>Tharlon-Regular.ttf</string>
 	</array>
 	<key>UIFileSharingEnabled</key>
-	<false/>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIPrerenderedIcon</key>

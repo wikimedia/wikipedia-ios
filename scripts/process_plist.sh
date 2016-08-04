@@ -13,7 +13,6 @@ set -e
 if [[ "${CONFIGURATION}" != "Release" ]]; then
   echo "Showing debug menu for ${CONFIGURATION} build."
   defaults write "${INFO_PLIST}" WMFShowDebugMenu -bool YES
-  defaults write "${INFO_PLIST}" UIFileSharingEnabled -bool YES
 fi
 
 if [[ "${CONFIGURATION}" == "Debug" ]]; then
