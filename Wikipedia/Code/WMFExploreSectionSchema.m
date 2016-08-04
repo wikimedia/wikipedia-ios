@@ -333,8 +333,8 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
         return NO;
     }];
 
-    MWKHistoryEntry* lastEntry = [self.historyPages.entries firstObject];
-    if (lastEntry && [[NSDate date] timeIntervalSinceDate:lastEntry.date] > WMFTimeBeforeRefreshingRandom) {
+    MWKHistoryEntry* lastEntry = [self.historyPages mostRecentEntry];
+    if (lastEntry && [[NSDate date] timeIntervalSinceDate:lastEntry.dateViewed] > WMFTimeBeforeRefreshingRandom) {
         random = [WMFExploreSection randomSectionWithSiteURL:self.siteURL];
     }
 

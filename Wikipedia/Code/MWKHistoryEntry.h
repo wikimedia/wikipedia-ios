@@ -5,7 +5,7 @@
 @interface MWKHistoryEntry : MWKSiteDataObject
     <MWKListObject>
 
-@property (readwrite, strong, nonatomic) NSDate* date;
+@property (readwrite, strong, nonatomic) NSDate* dateViewed;
 @property (readwrite, assign, nonatomic) CGFloat scrollPosition;
 @property (readwrite, assign, nonatomic) BOOL titleWasSignificantlyViewed;
 

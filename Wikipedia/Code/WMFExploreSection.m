@@ -213,11 +213,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry {
     NSParameterAssert(entry.url.wmf_title);
-    NSParameterAssert(entry.date);
+    NSParameterAssert(entry.dateViewed);
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
     item.type        = WMFExploreSectionTypeHistory;
     item.articleURL  = entry.url;
-    item.dateCreated = entry.date;
+    item.dateCreated = entry.dateViewed;
     return item;
 }
 
