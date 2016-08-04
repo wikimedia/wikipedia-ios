@@ -10,12 +10,7 @@ declare -r INFO_PLIST="${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER
 # Fail if any subsequent commands fail
 set -e
 
-if [[ "${CONFIGURATION}" != "Release" || $WMF_FORCE_ITUNES_FILE_SHARING == "1" ]]; then
-  echo "Enabling iTunes File Sharing for ${CONFIGURATION} build."
-  defaults write "${INFO_PLIST}" UIFileSharingEnabled -bool YES
-fi
-
-if [[ "${CONFIGURATION}" != "Release" || $WMF_FORCE_DEBUG_MENU == "1" ]]; then
+if [[ "${CONFIGURATION}" != "Release" ]]; then
   echo "Showing debug menu for ${CONFIGURATION} build."
   defaults write "${INFO_PLIST}" WMFShowDebugMenu -bool YES
 fi
