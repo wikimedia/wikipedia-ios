@@ -142,6 +142,10 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
     return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
 }
 
+- (BOOL)prefersWiderColumn {
+    return YES;
+}
+
 #pragma mark - WMFTitleProviding
 
 - (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath {

@@ -30,7 +30,7 @@
     metrics.boundsSize = boundsSize;
     BOOL isPad = boundsSize.width >= 600;
     metrics.numberOfColumns = isPad ? 2 : 1;
-    metrics.columnWeights = isPad ? @[@1, @1] : @[@1];
+    metrics.columnWeights = isPad ? @[@1.179, @0.821] : @[@1];
     metrics.interColumnSpacing = isPad ? 22 : 0;
     metrics.interItemSpacing = 1;
     metrics.interSectionSpacing = isPad ? 22 : 50;

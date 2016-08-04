@@ -133,6 +133,10 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     return @"Recommended";
 }
 
+- (BOOL)prefersWiderColumn {
+    return YES;
+}
+
 - (AnyPromise*)fetchData {
     @weakify(self);
     return [self.relatedTitleDataSource fetch]

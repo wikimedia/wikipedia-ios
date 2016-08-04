@@ -24,6 +24,7 @@
     copy.height = self.height;
     copy.sectionIndexes = [self.sectionIndexes mutableCopy];
     copy.info = self.info;
+    copy.originX = self.originX;
     return copy;
 }
 

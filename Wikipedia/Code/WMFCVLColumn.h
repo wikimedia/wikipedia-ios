@@ -14,6 +14,7 @@
 @property (nonatomic) NSInteger index;
 @property (nonatomic) CGFloat width;
 @property (nonatomic) CGFloat height;
+@property (nonatomic) CGFloat originX;
 @property (nonatomic, weak, nullable) WMFCVLInfo *info;
 
 - (void)addSection:(nonnull WMFCVLSection *)section;
