@@ -10,30 +10,9 @@
 @property (nonatomic, strong, nonnull) NSMutableArray <WMFCVLColumn *> *columns;
 @property (nonatomic, strong, nonnull) NSMutableArray <WMFCVLSection *> *sections;
 @property (nonatomic, strong, nonnull) NSMutableArray <NSNumber *> *columnIndexBySectionIndex;
-@property (nonatomic, copy, nonnull) WMFCVLMetrics *metrics;
 @end
 
 @implementation WMFCVLInfo
-
-- (instancetype)initWithMetrics:(WMFCVLMetrics *)metrics {
-    self = [super init];
-    if (self) {
-        self.metrics = metrics;
-        [self resetColumns];
-        [self resetSections];
-    }
-    return self;
-}
-
-- (void)resetColumns {
-    self.columns = [NSMutableArray arrayWithCapacity:self.metrics.numberOfColumns];
-    for (NSInteger i = 0; i < self.metrics.numberOfColumns; i++) {
-        WMFCVLColumn *column = [WMFCVLColumn new];
-        column.index = i;
-        column.info = self;
-        [_columns addObject:column];
-    }
-}
 
 - (void)resetSections {
     self.sections = [NSMutableArray array];
@@ -41,7 +20,7 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    WMFCVLInfo *copy = [[WMFCVLInfo allocWithZone:zone] initWithMetrics:self.metrics];
+    WMFCVLInfo *copy = [[WMFCVLInfo allocWithZone:zone] init];
     copy.sections = [[NSMutableArray allocWithZone:zone] initWithArray:self.sections copyItems:YES];
     
     NSMutableArray *columns = [[NSMutableArray allocWithZone:zone] initWithCapacity:self.columns.count];
@@ -53,9 +32,7 @@
     
     copy.columnIndexBySectionIndex = [self.columnIndexBySectionIndex mutableCopy];
     copy.columns = columns;
-    copy.boundsSize = self.boundsSize;
     copy.contentSize = self.contentSize;
-    copy.metrics = self.metrics;
     return copy;
 }
 
@@ -112,8 +89,8 @@
     return attributes;
 }
 
-- (void)updateContentSize {
-    __block CGSize newSize = self.boundsSize;
+- (void)updateContentSizeWithMetrics:(WMFCVLMetrics *)metrics {
+    __block CGSize newSize = metrics.boundsSize;
     newSize.height = 0;
     [self enumerateColumnsWithBlock:^(WMFCVLColumn * _Nonnull column, NSUInteger idx, BOOL * _Nonnull stop) {
         CGFloat columnHeight = column.height;
@@ -124,16 +101,16 @@
     self.contentSize = newSize;
 }
 
-- (void)updateContentSizeWithInvalidationContext:(WMFCVLInvalidationContext *)context {
+- (void)updateContentSizeWithMetrics:(WMFCVLMetrics *)metrics invalidationContext:(WMFCVLInvalidationContext *)context {
     CGSize oldContentSize = self.contentSize;
     
-    [self updateContentSize];
+    [self updateContentSizeWithMetrics:metrics];
     
     CGSize contentSizeAdjustment = CGSizeMake(self.contentSize.width - oldContentSize.width, self.contentSize.height - oldContentSize.height);
     context.contentSizeAdjustment = contentSizeAdjustment;
 }
 
-- (void)updateWithInvalidationContext:(nullable WMFCVLInvalidationContext *)context delegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
+- (void)updateWithMetrics:(WMFCVLMetrics *)metrics invalidationContext:(nullable WMFCVLInvalidationContext *)context delegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
     if (delegate == nil) {
         return;
     }
@@ -142,7 +119,7 @@
     }
     if (context.boundsDidChange) {
         [self resetSections];
-        [self layoutForBoundsSize:context.newBounds.size withDelegate:delegate collectionView:collectionView invalidationContext:context];
+        [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:context];
     } else if (context.originalLayoutAttributes && context.preferredLayoutAttributes) {
         UICollectionViewLayoutAttributes *originalAttributes = context.originalLayoutAttributes;
         UICollectionViewLayoutAttributes *preferredAttributes = context.preferredLayoutAttributes;
@@ -162,33 +139,41 @@
         } else if ([originalAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter]) {
             [invalidatedColumn setSize:sizeToSet forFooterAtIndexPath:indexPath invalidationContext:context];
         }
-        [self updateContentSizeWithInvalidationContext:context];
+        [self updateContentSizeWithMetrics:metrics invalidationContext:context];
         
-        if (self.metrics.numberOfColumns == 1 && originalAttributes.frame.origin.y < collectionView.contentOffset.y) {
+        if (self.columns.count == 1 && originalAttributes.frame.origin.y < collectionView.contentOffset.y) {
             context.contentOffsetAdjustment = CGPointMake(0, context.contentSizeAdjustment.height);
         }
     } else {
-        self.boundsSize = collectionView.bounds.size;
-        [self layoutForBoundsSize:self.boundsSize withDelegate:delegate collectionView:collectionView invalidationContext:context];
+        [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:context];
     }
 }
 
-- (void)layoutForBoundsSize:(CGSize)size withDelegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView invalidationContext:(nullable WMFCVLInvalidationContext *)context {
-    [self resetColumns];
-    NSUInteger numberOfColumns = self.metrics.numberOfColumns;
-    UIEdgeInsets contentInsets = self.metrics.contentInsets;
-    UIEdgeInsets sectionInsets = self.metrics.sectionInsets;
-    CGFloat interColumnSpacing = self.metrics.interColumnSpacing;
-    CGFloat interItemSpacing = self.metrics.interItemSpacing;
-    CGFloat interSectionSpacing = self.metrics.interSectionSpacing;
-    NSArray *columnWeights = self.metrics.columnWeights;
+- (void)layoutWithMetrics:(nonnull WMFCVLMetrics *)metrics delegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView invalidationContext:(nullable WMFCVLInvalidationContext *)context {
+    if (self.sections == nil) {
+        [self resetSections];
+    }
+    NSInteger numberOfColumns = metrics.numberOfColumns;
+    self.columns = [NSMutableArray arrayWithCapacity:numberOfColumns];
+    for (NSInteger i = 0; i < numberOfColumns; i++) {
+        WMFCVLColumn *column = [WMFCVLColumn new];
+        column.index = i;
+        column.info = self;
+        [_columns addObject:column];
+    }
+    UIEdgeInsets contentInsets = metrics.contentInsets;
+    UIEdgeInsets sectionInsets = metrics.sectionInsets;
+    CGFloat interColumnSpacing = metrics.interColumnSpacing;
+    CGFloat interItemSpacing =  metrics.interItemSpacing;
+    CGFloat interSectionSpacing = metrics.interSectionSpacing;
+    NSArray *columnWeights = metrics.columnWeights;
+    CGSize size = metrics.boundsSize;
+    
     NSInteger numberOfSections = [collectionView.dataSource numberOfSectionsInCollectionView:collectionView];
     
     CGFloat availableWidth = size.width - contentInsets.left - contentInsets.right - ((numberOfColumns - 1) * interColumnSpacing);
     
     CGFloat baselineColumnWidth = floor(availableWidth/numberOfColumns);
-    
-    self.boundsSize = size;
     
     __block NSInteger currentColumnIndex = 0;
     __block WMFCVLColumn *currentColumn = self.columns[currentColumnIndex];
@@ -341,12 +326,8 @@
     [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:invalidatedHeaderIndexPaths];
     [context invalidateItemsAtIndexPaths:invalidatedItemIndexPaths];
     [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:invalidatedFooterIndexPaths];
-    [self updateContentSizeWithInvalidationContext:context];
+    [self updateContentSizeWithMetrics:metrics invalidationContext:context];
     
-}
-
-- (void)layoutForBoundsSize:(CGSize)size withDelegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView {
-    [self layoutForBoundsSize:size withDelegate:delegate collectionView:collectionView invalidationContext:nil];
 }
 
 @end

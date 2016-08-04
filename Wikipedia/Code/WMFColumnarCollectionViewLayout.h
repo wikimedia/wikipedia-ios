@@ -9,9 +9,6 @@
  */
 @interface WMFColumnarCollectionViewLayout : UICollectionViewLayout
 
-- (nonnull instancetype)initWithMetrics:(nonnull WMFCVLMetrics *)metrics NS_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(nonnull NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
-
 @end
 
 @protocol WMFColumnarCollectionViewLayoutDelegate <UICollectionViewDelegate>

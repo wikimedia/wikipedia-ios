@@ -1,5 +1,15 @@
 #import "WMFCVLMetrics.h"
 
+@interface WMFCVLMetrics ()
+@property (nonatomic) CGSize boundsSize;
+@property (nonatomic) NSInteger numberOfColumns;
+@property (nonatomic) UIEdgeInsets contentInsets;
+@property (nonatomic) UIEdgeInsets sectionInsets;
+@property (nonatomic) CGFloat interColumnSpacing;
+@property (nonatomic) CGFloat interSectionSpacing;
+@property (nonatomic) CGFloat interItemSpacing;
+@property (nonatomic, copy) NSArray *columnWeights;
+@end
 @implementation WMFCVLMetrics
 
 - (id)copyWithZone:(NSZone *)zone {
@@ -11,12 +21,14 @@
     copy.contentInsets = self.contentInsets;
     copy.numberOfColumns = self.numberOfColumns;
     copy.columnWeights = self.columnWeights;
+    copy.boundsSize = self.boundsSize;
     return copy;
 }
 
-+ (WMFCVLMetrics *)defaultMetrics {
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize {
     WMFCVLMetrics *metrics = [[WMFCVLMetrics alloc] init];
-    BOOL isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+    metrics.boundsSize = boundsSize;
+    BOOL isPad = boundsSize.width >= 600;
     metrics.numberOfColumns = isPad ? 2 : 1;
     metrics.columnWeights = isPad ? @[@1, @1] : @[@1];
     metrics.interColumnSpacing = isPad ? 22 : 0;
