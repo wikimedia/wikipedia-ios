@@ -148,7 +148,7 @@
         if (context.invalidateEverything) {
             [self reset];
         }
-        [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:context];
+        [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:nil]; //context is intentionally nil - apparently .invalidateEverything and .invalidateDataSourceCounts contexts shouldn't be updated
     }
 }
 
