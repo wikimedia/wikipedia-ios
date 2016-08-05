@@ -88,7 +88,7 @@
     __block CGSize newSize = metrics.boundsSize;
     newSize.height = 0;
     [self enumerateColumnsWithBlock:^(WMFCVLColumn * _Nonnull column, NSUInteger idx, BOOL * _Nonnull stop) {
-        CGFloat columnHeight = column.height;
+        CGFloat columnHeight = column.frame.size.height;
         if (columnHeight > newSize.height) {
             newSize.height = columnHeight;
         }
@@ -125,7 +125,7 @@
         WMFCVLColumn *invalidatedColumn = self.columns[invalidatedColumnIndex];
         
         CGSize sizeToSet = preferredAttributes.frame.size;
-        sizeToSet.width = invalidatedColumn.width;
+        sizeToSet.width = invalidatedColumn.frame.size.width;
         
         if (originalAttributes.representedElementCategory == UICollectionElementCategoryCell) {
             [invalidatedColumn setSize:sizeToSet forItemAtIndexPath:indexPath invalidationContext:context];
@@ -171,16 +171,26 @@
         CGFloat x = contentInsets.left;
         for (NSInteger i = 0; i < numberOfColumns; i++) {
             WMFCVLColumn *column = [WMFCVLColumn new];
-            column.width = [columnWeights[i] doubleValue]*baselineColumnWidth;
-            column.originX = x;
+            CGFloat columnWidth = [columnWeights[i] doubleValue]*baselineColumnWidth;
+            CGRect columnFrame = CGRectMake(x, 0, columnWidth, 0);
+            column.frame = columnFrame;
             column.index = i;
             column.info = self;
             [_columns addObject:column];
-            x += column.width + interColumnSpacing;
+            x += columnWidth + interColumnSpacing;
         }
     } else {
         for (WMFCVLColumn *column in self.columns) {
-            column.height = 0;
+            CGRect newFrame = column.frame;
+            newFrame.size.height = 0;
+            column.frame = newFrame;
+#if DEBUG
+            CGFloat availableWidth = size.width - contentInsets.left - contentInsets.right - ((numberOfColumns - 1) * interColumnSpacing);
+            
+            CGFloat baselineColumnWidth = floor(availableWidth/numberOfColumns);
+            CGFloat columnWidth = [columnWeights[column.index] doubleValue]*baselineColumnWidth;
+            assert(column.frame.size.width == columnWidth);
+#endif
         }
     }
 
@@ -200,15 +210,15 @@
             section = _sections[sectionIndex];
         }
 
-        CGFloat columnWidth = currentColumn.width;
-        CGFloat x = currentColumn.originX;
+        CGFloat columnWidth = currentColumn.frame.size.width;
+        CGFloat x = currentColumn.frame.origin.x;
         
         if (sectionIndex == 0) {
-            currentColumn.height += contentInsets.top;
+            [currentColumn updateHeightWithDelta:contentInsets.top];
         } else {
-            currentColumn.height += interSectionSpacing;
+            [currentColumn updateHeightWithDelta:interSectionSpacing];
         }
-        CGFloat y = currentColumn.height;
+        CGFloat y = currentColumn.frame.size.height;
         CGPoint sectionOrigin = CGPointMake(x, y);
         
         if (![currentColumn containsSectionWithSectionIndex:sectionIndex]) {
@@ -305,7 +315,7 @@
         
         section.frame = (CGRect){sectionOrigin,  CGSizeMake(columnWidth, sectionHeight)};
         
-        currentColumn.height = currentColumn.height + sectionHeight;
+        [currentColumn updateHeightWithDelta:sectionHeight];
     }
     
     if (_sections.count > numberOfSections) {
@@ -315,7 +325,7 @@
     assert(_sections.count == numberOfSections);
     
     [self enumerateColumnsWithBlock:^(WMFCVLColumn * _Nonnull column, NSUInteger idx, BOOL * _Nonnull stop) {
-        column.height += contentInsets.bottom;
+        [column updateHeightWithDelta:contentInsets.bottom];
     }];
     
     [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:invalidatedHeaderIndexPaths];
@@ -336,11 +346,11 @@
     }
     
     for (WMFCVLColumn *column in self.columns) {
-        assert(column.originX < self.contentSize.width);
+        assert(column.frame.origin.x < self.contentSize.width);
         [column enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop) {
-            assert(section.frame.origin.x == column.originX);
+            assert(section.frame.origin.x == column.frame.origin.x);
             [section enumerateLayoutAttributesWithBlock:^(WMFCVLAttributes * _Nonnull layoutAttributes, BOOL * _Nonnull stop) {
-                assert(layoutAttributes.frame.origin.x == column.originX);
+                assert(layoutAttributes.frame.origin.x == column.frame.origin.x);
                 assert(layoutAttributes.alpha == 1);
                 assert(layoutAttributes.hidden == NO);
                 assert(layoutAttributes.frame.origin.y < self.contentSize.height);

@@ -20,11 +20,9 @@
 - (id)copyWithZone:(NSZone *)zone {
     WMFCVLColumn *copy = [[WMFCVLColumn allocWithZone:zone] init];
     copy.index = self.index;
-    copy.width = self.width;
-    copy.height = self.height;
+    copy.frame = self.frame;
     copy.sectionIndexes = [self.sectionIndexes mutableCopy];
     copy.info = self.info;
-    copy.originX = self.originX;
     return copy;
 }
 
@@ -41,7 +39,9 @@
 }
 
 - (void)updateHeightWithDelta:(CGFloat)deltaH {
-    self.height += deltaH;
+    CGRect newFrame = self.frame;
+    newFrame.size.height += deltaH;
+    self.frame = newFrame;
 }
 
 - (void)setSize:(CGSize)size forHeaderAtIndexPath:(NSIndexPath *)indexPath invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {

@@ -12,9 +12,7 @@
 @interface WMFCVLColumn : NSObject <NSCopying>
 
 @property (nonatomic) NSInteger index;
-@property (nonatomic) CGFloat width;
-@property (nonatomic) CGFloat height;
-@property (nonatomic) CGFloat originX;
+@property (nonatomic) CGRect frame;
 @property (nonatomic, weak, nullable) WMFCVLInfo *info;
 
 - (void)addSection:(nonnull WMFCVLSection *)section;
@@ -24,5 +22,7 @@
 - (void)setSize:(CGSize)size forItemAtIndexPath:(nonnull NSIndexPath *)indexPath invalidationContext:(nonnull WMFCVLInvalidationContext *)invalidationContext;
 - (void)setSize:(CGSize)size forHeaderAtIndexPath:(nonnull NSIndexPath *)indexPath invalidationContext:(nonnull WMFCVLInvalidationContext *)invalidationContext;
 - (void)setSize:(CGSize)size forFooterAtIndexPath:(nonnull NSIndexPath *)indexPath invalidationContext:(nonnull WMFCVLInvalidationContext *)invalidationContext;
+
+- (void)updateHeightWithDelta:(CGFloat)deltaH;
 
 @end
