@@ -421,7 +421,7 @@ WMFColumnarCollectionViewLayoutDelegate>
 }
 
 - (void)tweaksDidChangeWithNotification:(NSNotification*)note {
-    [self updateSectionSchemaIfNeeded];
+    [self updateSectionSchemaForce:YES];
 }
 
 #pragma mark - Offline Handling
