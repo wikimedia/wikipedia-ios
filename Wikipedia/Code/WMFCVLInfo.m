@@ -140,6 +140,9 @@
             context.contentOffsetAdjustment = CGPointMake(0, context.contentSizeAdjustment.height);
         }
     } else {
+        if (context.invalidateEverything) {
+            self.sections = nil;
+        }
         [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:context];
     }
 }

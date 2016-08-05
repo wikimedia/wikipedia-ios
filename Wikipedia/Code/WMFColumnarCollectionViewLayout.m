@@ -72,15 +72,11 @@
     return nil;
 }
 
-- (void)resetLayout {
-    self.info = [[WMFCVLInfo alloc] init];
-    self.metrics = [WMFCVLMetrics metricsWithBoundsSize:self.collectionView.bounds.size];
-    [self.info layoutWithMetrics:self.metrics delegate:self.delegate collectionView:self.collectionView invalidationContext:nil];
-}
-
 - (void)prepareLayout {
     if (self.info == nil) {
-        [self resetLayout];
+        self.info = [[WMFCVLInfo alloc] init];
+        self.metrics = [WMFCVLMetrics metricsWithBoundsSize:self.collectionView.bounds.size];
+        [self.info layoutWithMetrics:self.metrics delegate:self.delegate collectionView:self.collectionView invalidationContext:nil];
     }
     [super prepareLayout];
 }
@@ -124,9 +120,8 @@
 
 - (void)invalidateLayoutWithContext:(WMFCVLInvalidationContext *)context {
     assert([context isKindOfClass:[WMFCVLInvalidationContext class]]);
-    if (context.invalidateEverything) {
-        [self resetLayout];
-    } else if (context.invalidateDataSourceCounts) {
+    if (context.invalidateEverything || context.invalidateDataSourceCounts) {
+        self.metrics = [WMFCVLMetrics metricsWithBoundsSize:self.collectionView.bounds.size];
         [self.info updateWithMetrics:self.metrics invalidationContext:context delegate:self.delegate collectionView:self.collectionView];
     }
     [super invalidateLayoutWithContext:context];
