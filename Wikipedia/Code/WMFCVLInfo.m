@@ -376,7 +376,7 @@
             
             CGFloat heightDelta = lastSectionInTallestColumn.frame.size.height + interSectionSpacing;
             [tallestColumn updateHeightWithDelta:-1*heightDelta];
-            [shortestColumn updateHeightWithDelta:heightDelta];
+            [shortestColumn updateHeightWithDelta:heightDelta]; // this is potentially error prone - the height will be different for different width columns
             
             lastSectionInTallestColumn = tallestColumn.lastSection;
         }
