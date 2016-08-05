@@ -7,7 +7,7 @@
 #import "WMFCVLAttributes.h"
 
 @interface WMFCVLInfo ()
-@property (nonatomic, strong, nonnull) NSMutableArray <WMFCVLColumn *> *columns;
+@property (nonatomic, strong, nullable) NSMutableArray <WMFCVLColumn *> *columns;
 @property (nonatomic, strong, nullable) NSMutableArray <WMFCVLSection *> *sections;
 @property (nonatomic, strong, nonnull) NSMutableArray <NSNumber *> *columnIndexBySectionIndex;
 @end
@@ -29,6 +29,11 @@
     copy.columns = columns;
     copy.contentSize = self.contentSize;
     return copy;
+}
+
+- (void)reset {
+    self.columns = nil;
+    self.sections = nil;
 }
 
 - (void)enumerateSectionsWithBlock:(nonnull void(^)(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop))block {
@@ -113,7 +118,7 @@
         return;
     }
     if (context.boundsDidChange) {
-        self.sections = nil;
+        [self reset];
         [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:context];
     } else if (context.originalLayoutAttributes && context.preferredLayoutAttributes) {
         UICollectionViewLayoutAttributes *originalAttributes = context.originalLayoutAttributes;
@@ -141,7 +146,7 @@
         }
     } else {
         if (context.invalidateEverything) {
-            self.sections = nil;
+            [self reset];
         }
         [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:context];
     }
@@ -162,11 +167,12 @@
     if (self.sections == nil) {
         self.sections = [NSMutableArray arrayWithCapacity:numberOfSections];
         self.columnIndexBySectionIndex = [NSMutableArray arrayWithCapacity:numberOfSections];
-        
+    }
+    
+    if (self.columns == nil) {
         CGFloat availableWidth = size.width - contentInsets.left - contentInsets.right - ((numberOfColumns - 1) * interColumnSpacing);
         
         CGFloat baselineColumnWidth = floor(availableWidth/numberOfColumns);
-
         self.columns = [NSMutableArray arrayWithCapacity:numberOfColumns];
         CGFloat x = contentInsets.left;
         for (NSInteger i = 0; i < numberOfColumns; i++) {
@@ -198,31 +204,35 @@
     NSMutableArray *invalidatedHeaderIndexPaths = [NSMutableArray array];
     NSMutableArray *invalidatedFooterIndexPaths = [NSMutableArray array];
 
-    for (NSUInteger sectionIndex = 0; sectionIndex < numberOfSections; sectionIndex++) {
+    for (NSInteger sectionIndex = 0; sectionIndex < numberOfSections; sectionIndex++) {
         WMFCVLSection *section = nil;
-        NSInteger currentColumnIndex = numberOfColumns == 1 ? 0 : [delegate collectionView:collectionView prefersWiderColumnForSectionAtIndex:sectionIndex] ? 0 : 1;
-        WMFCVLColumn *currentColumn = self.columns[currentColumnIndex];
+        
+        WMFCVLColumn *column = nil;
         if (sectionIndex >= [_sections count]) {
+            NSInteger currentColumnIndex = numberOfColumns == 1 ? 0 : [delegate collectionView:collectionView prefersWiderColumnForSectionAtIndex:sectionIndex] ? 0 : 1;
+            column = self.columns[currentColumnIndex];
             section = [WMFCVLSection sectionWithIndex:sectionIndex];
             [_sections addObject:section];
             [_columnIndexBySectionIndex addObject:@(currentColumnIndex)];
         } else {
             section = _sections[sectionIndex];
+            NSInteger columnIndex = [_columnIndexBySectionIndex[sectionIndex] integerValue];
+            column = _columns[columnIndex];
         }
 
-        CGFloat columnWidth = currentColumn.frame.size.width;
-        CGFloat x = currentColumn.frame.origin.x;
+        CGFloat columnWidth = column.frame.size.width;
+        CGFloat x = column.frame.origin.x;
         
         if (sectionIndex == 0) {
-            [currentColumn updateHeightWithDelta:contentInsets.top];
+            [column updateHeightWithDelta:contentInsets.top];
         } else {
-            [currentColumn updateHeightWithDelta:interSectionSpacing];
+            [column updateHeightWithDelta:interSectionSpacing];
         }
-        CGFloat y = currentColumn.frame.size.height;
+        CGFloat y = column.frame.size.height;
         CGPoint sectionOrigin = CGPointMake(x, y);
         
-        if (![currentColumn containsSectionWithSectionIndex:sectionIndex]) {
-            [currentColumn addSection:section];
+        if (![column containsSectionWithSectionIndex:sectionIndex]) {
+            [column addSection:section];
         }
         
         CGFloat sectionHeight = 0;
@@ -315,7 +325,7 @@
         
         section.frame = (CGRect){sectionOrigin,  CGSizeMake(columnWidth, sectionHeight)};
         
-        [currentColumn updateHeightWithDelta:sectionHeight];
+        [column updateHeightWithDelta:sectionHeight];
     }
     
     if (_sections.count > numberOfSections) {
@@ -331,34 +341,71 @@
     [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:invalidatedHeaderIndexPaths];
     [context invalidateItemsAtIndexPaths:invalidatedItemIndexPaths];
     [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:invalidatedFooterIndexPaths];
-    [self updateContentSizeWithMetrics:metrics invalidationContext:context];
     
-#if DEBUG
-    NSArray *indexes = [self.columns valueForKey:@"sectionIndexes"];
-    for (NSIndexSet *set in indexes) {
-        for (NSIndexSet *otherSet in indexes) {
-            if (set != otherSet) {
-                [set enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-                    assert(![otherSet containsIndex:idx]);
-                }];
+    NSInteger countOfColumns = self.columns.count;
+    if (metrics.shouldMatchColumnHeights && countOfColumns > 1) {
+        WMFCVLColumn *shortestColumn = nil;
+        CGFloat shortestColumnHeight = CGFLOAT_MAX;
+        WMFCVLColumn *tallestColumn = nil;
+        CGFloat tallestColumnHeight = 0;
+        for (NSInteger columnIndex = 0; columnIndex < countOfColumns; columnIndex++) {
+            WMFCVLColumn *column = self.columns[columnIndex];
+            CGFloat columnHeight = column.frame.size.height;
+            if (columnHeight < shortestColumnHeight) {
+                shortestColumn = column;
+                shortestColumnHeight = columnHeight;
+            }
+            if (columnHeight > tallestColumnHeight) {
+                tallestColumn = column;
+                tallestColumnHeight = columnHeight;
             }
         }
-    }
-    
-    for (WMFCVLColumn *column in self.columns) {
-        assert(column.frame.origin.x < self.contentSize.width);
-        [column enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop) {
-            assert(section.frame.origin.x == column.frame.origin.x);
-            [section enumerateLayoutAttributesWithBlock:^(WMFCVLAttributes * _Nonnull layoutAttributes, BOOL * _Nonnull stop) {
-                assert(layoutAttributes.frame.origin.x == column.frame.origin.x);
-                assert(layoutAttributes.alpha == 1);
-                assert(layoutAttributes.hidden == NO);
-                assert(layoutAttributes.frame.origin.y < self.contentSize.height);
+        
+        CGFloat deltaHeightLimit = size.height; //bounds size
+        CGFloat heightDelta = tallestColumnHeight - shortestColumnHeight;
+        
+        if (heightDelta > deltaHeightLimit) {
+            while (heightDelta > deltaHeightLimit && tallestColumn) {
+                NSInteger sectionIndex = [tallestColumn removeLastSection];
+                _columnIndexBySectionIndex[sectionIndex] = @(shortestColumn.index);
+                heightDelta -= self.sections[sectionIndex].frame.size.height;
+                
+            }
+            
+            self.columns = nil;
+            WMFCVLMetrics *newMetrics = [metrics copy];
+            newMetrics.shouldMatchColumnHeights = NO;
+            [self layoutWithMetrics:newMetrics delegate:delegate collectionView:collectionView invalidationContext:context];
+        }
+    } else {
+        [self updateContentSizeWithMetrics:metrics invalidationContext:context];
+#if DEBUG
+        NSArray *indexes = [self.columns valueForKey:@"sectionIndexes"];
+        for (NSIndexSet *set in indexes) {
+            for (NSIndexSet *otherSet in indexes) {
+                if (set != otherSet) {
+                    [set enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+                        assert(![otherSet containsIndex:idx]);
+                    }];
+                }
+            }
+        }
+        
+        for (WMFCVLColumn *column in self.columns) {
+            assert(column.frame.origin.x < self.contentSize.width);
+            [column enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop) {
+                assert(section.frame.origin.x == column.frame.origin.x);
+                [section enumerateLayoutAttributesWithBlock:^(WMFCVLAttributes * _Nonnull layoutAttributes, BOOL * _Nonnull stop) {
+                    assert(layoutAttributes.frame.origin.x == column.frame.origin.x);
+                    assert(layoutAttributes.alpha == 1);
+                    assert(layoutAttributes.hidden == NO);
+                    assert(layoutAttributes.frame.origin.y < self.contentSize.height);
+                }];
             }];
-        }];
-    }
-
+        }
+        
 #endif
+    }
 }
 
 @end

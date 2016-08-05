@@ -50,6 +50,9 @@
 @property (nonnull, nonatomic, copy, readonly) NSArray *columnWeights;
 
 
+@property (nonatomic) BOOL shouldMatchColumnHeights;
+
+
 + (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize;
 
 @end

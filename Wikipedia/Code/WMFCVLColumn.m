@@ -34,6 +34,12 @@
     return [self.sectionIndexes containsIndex:sectionIndex];
 }
 
+- (NSInteger)removeLastSection {
+    NSInteger lastIndex = [self.sectionIndexes lastIndex];
+    [self.sectionIndexes removeIndex:lastIndex];
+    return lastIndex;
+}
+
 - (void)enumerateSectionsWithBlock:(nonnull void(^)(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop))block {
     [self.info.sections enumerateObjectsAtIndexes:self.sectionIndexes options:0 usingBlock:block];
 }
