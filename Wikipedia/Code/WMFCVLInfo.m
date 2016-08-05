@@ -323,6 +323,32 @@
     [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:invalidatedFooterIndexPaths];
     [self updateContentSizeWithMetrics:metrics invalidationContext:context];
     
+#if DEBUG
+    NSArray *indexes = [self.columns valueForKey:@"sectionIndexes"];
+    for (NSIndexSet *set in indexes) {
+        for (NSIndexSet *otherSet in indexes) {
+            if (set != otherSet) {
+                [set enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+                    assert(![otherSet containsIndex:idx]);
+                }];
+            }
+        }
+    }
+    
+    for (WMFCVLColumn *column in self.columns) {
+        assert(column.originX < self.contentSize.width);
+        [column enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop) {
+            assert(section.frame.origin.x == column.originX);
+            [section enumerateLayoutAttributesWithBlock:^(WMFCVLAttributes * _Nonnull layoutAttributes, BOOL * _Nonnull stop) {
+                assert(layoutAttributes.frame.origin.x == column.originX);
+                assert(layoutAttributes.alpha == 1);
+                assert(layoutAttributes.hidden == NO);
+                assert(layoutAttributes.frame.origin.y < self.contentSize.height);
+            }];
+        }];
+    }
+
+#endif
 }
 
 @end
