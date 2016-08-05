@@ -342,6 +342,8 @@
     [context invalidateItemsAtIndexPaths:invalidatedItemIndexPaths];
     [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionFooter atIndexPaths:invalidatedFooterIndexPaths];
     
+    BOOL needsAnotherLayoutPass = NO;
+    
     NSInteger countOfColumns = self.columns.count;
     if (metrics.shouldMatchColumnHeights && countOfColumns > 1) {
         WMFCVLColumn *shortestColumn = nil;
@@ -361,22 +363,31 @@
             }
         }
         
-        CGFloat deltaHeightLimit = size.height; //bounds size
-        CGFloat heightDelta = tallestColumnHeight - shortestColumnHeight;
+        WMFCVLSection *lastSectionInTallestColumn = tallestColumn.lastSection;
         
-        if (heightDelta > deltaHeightLimit) {
-            while (heightDelta > deltaHeightLimit && tallestColumn) {
-                NSInteger sectionIndex = [tallestColumn removeLastSection];
-                _columnIndexBySectionIndex[sectionIndex] = @(shortestColumn.index);
-                heightDelta -= self.sections[sectionIndex].frame.size.height;
-                
-            }
+     
+        
+        while (lastSectionInTallestColumn && lastSectionInTallestColumn.frame.origin.y > shortestColumn.frame.size.height) {
+            needsAnotherLayoutPass = YES;
+            [tallestColumn removeSection:lastSectionInTallestColumn];
+            [shortestColumn addSection:lastSectionInTallestColumn];
             
-            self.columns = nil;
-            WMFCVLMetrics *newMetrics = [metrics copy];
-            newMetrics.shouldMatchColumnHeights = NO;
-            [self layoutWithMetrics:newMetrics delegate:delegate collectionView:collectionView invalidationContext:context];
+            _columnIndexBySectionIndex[lastSectionInTallestColumn.index] = @(shortestColumn.index);
+            
+            CGFloat heightDelta = lastSectionInTallestColumn.frame.size.height + interSectionSpacing;
+            [tallestColumn updateHeightWithDelta:-1*heightDelta];
+            [shortestColumn updateHeightWithDelta:heightDelta];
+            
+            lastSectionInTallestColumn = tallestColumn.lastSection;
         }
+    }
+
+
+
+    if (needsAnotherLayoutPass) {
+        WMFCVLMetrics *newMetrics = [metrics copy];
+        newMetrics.shouldMatchColumnHeights = NO;
+        [self layoutWithMetrics:newMetrics delegate:delegate collectionView:collectionView invalidationContext:context];
     } else {
         [self updateContentSizeWithMetrics:metrics invalidationContext:context];
 #if DEBUG

@@ -16,10 +16,13 @@
 @property (nonatomic, weak, nullable) WMFCVLInfo *info;
 @property (nonatomic, readonly) NSInteger sectionCount;
 
+@property (nonatomic, readonly, nullable) WMFCVLSection *lastSection;
+
 - (void)addSection:(nonnull WMFCVLSection *)section;
+- (void)removeSection:(nonnull WMFCVLSection *)section;
+
 - (BOOL)containsSectionWithSectionIndex:(NSInteger)sectionIndex; //Index of the section in the data source, not based on the order in which it appears in this column
 - (void)enumerateSectionsWithBlock:(nonnull void(^)(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop))block;
-- (NSInteger)removeLastSection; // returns last section index
 
 - (void)setSize:(CGSize)size forItemAtIndexPath:(nonnull NSIndexPath *)indexPath invalidationContext:(nonnull WMFCVLInvalidationContext *)invalidationContext;
 - (void)setSize:(CGSize)size forHeaderAtIndexPath:(nonnull NSIndexPath *)indexPath invalidationContext:(nonnull WMFCVLInvalidationContext *)invalidationContext;

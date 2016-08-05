@@ -30,14 +30,20 @@
     [self.sectionIndexes addIndex:section.index];
 }
 
+- (void)removeSection:(nonnull WMFCVLSection *)section {
+    [self.sectionIndexes removeIndex:section.index];
+}
+
 - (BOOL)containsSectionWithSectionIndex:(NSInteger)sectionIndex {
     return [self.sectionIndexes containsIndex:sectionIndex];
 }
 
-- (NSInteger)removeLastSection {
-    NSInteger lastIndex = [self.sectionIndexes lastIndex];
-    [self.sectionIndexes removeIndex:lastIndex];
-    return lastIndex;
+- (nullable WMFCVLSection *)lastSection {
+    if (self.sectionIndexes.count == 0) {
+        return nil;
+    } else {
+        return self.info.sections[[self.sectionIndexes lastIndex]];
+    }
 }
 
 - (void)enumerateSectionsWithBlock:(nonnull void(^)(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop))block {
