@@ -34,6 +34,10 @@
     [self.sectionIndexes removeIndex:section.index];
 }
 
+- (void)removeSectionsWithSectionIndexesInRange:(NSRange)range {
+    [self.sectionIndexes removeIndexesInRange:range];
+}
+
 - (BOOL)containsSectionWithSectionIndex:(NSInteger)sectionIndex {
     return [self.sectionIndexes containsIndex:sectionIndex];
 }

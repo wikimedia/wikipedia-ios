@@ -329,7 +329,13 @@
     }
     
     if (_sections.count > numberOfSections) {
-        [_sections removeObjectsInRange:NSMakeRange(numberOfSections, _sections.count - numberOfSections)];
+        NSRange invalidSectionRange = NSMakeRange(numberOfSections, _sections.count - numberOfSections);
+        [_sections removeObjectsInRange:invalidSectionRange];
+        [_columnIndexBySectionIndex removeObjectsInRange:invalidSectionRange];
+        for (WMFCVLColumn *column in self.columns) {
+            [column removeSectionsWithSectionIndexesInRange:invalidSectionRange];
+        }
+        
     }
     
     assert(_sections.count == numberOfSections);

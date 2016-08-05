@@ -20,6 +20,7 @@
 
 - (void)addSection:(nonnull WMFCVLSection *)section;
 - (void)removeSection:(nonnull WMFCVLSection *)section;
+- (void)removeSectionsWithSectionIndexesInRange:(NSRange)range;
 
 - (BOOL)containsSectionWithSectionIndex:(NSInteger)sectionIndex; //Index of the section in the data source, not based on the order in which it appears in this column
 - (void)enumerateSectionsWithBlock:(nonnull void(^)(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop))block;
