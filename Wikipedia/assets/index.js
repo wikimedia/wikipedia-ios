@@ -304,6 +304,14 @@ function isEndnote( href ) {
     return href.indexOf("#endnote_") > -1;
 }
 
+function isCitation( href ) {
+    return href.indexOf("#cite_note") > -1;
+}
+
+function isEndnote( href ) {
+    return href.indexOf("#endnote_") > -1;
+}
+
 function isReference( href ) {
     return href.indexOf("#ref_") > -1;
 }

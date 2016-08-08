@@ -3,7 +3,6 @@
 #import "GCDWebServer.h"
 #import "GCDWebServerDataResponse.h"
 #import "GCDWebServerErrorResponse.h"
-#import "GCDWebServerFileResponse.h"
 #import "GCDWebServerFunctions.h"
 #import "NSURL+WMFExtras.h"
 #import "NSString+WMFExtras.h"

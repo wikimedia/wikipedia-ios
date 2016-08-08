@@ -103,7 +103,6 @@
         -webkit-text-size-adjust: none;\
         -webkit-hyphens: auto;\
         word-break: break-word;\
-        -webkit-touch-callout: none !important; /* Hide the Safari 'Add to reading list' menu on long-press on links and other elements. */ \
      }\
     BODY{\
         padding-left:%f;\

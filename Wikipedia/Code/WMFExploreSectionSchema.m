@@ -282,8 +282,8 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
             return -[obj1.dateCreated compare:obj2.dateCreated];
         }];
 
-        [existingNearbySections wmf_arrayByTrimmingToLength:max];
-        [sections addObjectsFromArray:existingNearbySections];
+        NSArray *trimmedExistingNearbySections = [existingNearbySections wmf_arrayByTrimmingToLength:max];
+        [sections addObjectsFromArray:trimmedExistingNearbySections];
         [self updateSections:sections];
     }).catch(^(NSError* error) {
         DDLogWarn(@"Suppressing geocoding error: %@", error);
