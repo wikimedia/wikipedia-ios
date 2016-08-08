@@ -67,8 +67,13 @@
 }
 
 - (nullable id) wmf_safeMessageBodyForType:(WMFWKScriptMessageType)messageType {
-    if ([self.body isKindOfClass:[WKScriptMessage wmf_expectedMessageBodyClassForType:messageType]]) {
-        return self.body;
+    Class class = [WKScriptMessage wmf_expectedMessageBodyClassForType:messageType];
+    if ([self.body isKindOfClass:class]) {
+        if (class == [NSDictionary class]) {
+            return [self.body wmf_dictionaryByRemovingNullObjects];
+        } else {
+            return self.body;
+        }
     }else{
         NSAssert(NO, @"Unexpected script message body kind of class!");
         return nil;
