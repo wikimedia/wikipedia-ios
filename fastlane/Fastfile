@@ -264,11 +264,6 @@ platform :ios do
       force: false
     )
 
-    # force iTunes file sharing to be enabled (normally disabled for release builds)
-    ENV['WMF_FORCE_ITUNES_FILE_SHARING'] = '1'
-    # force debug menu to be shown
-    ENV['WMF_FORCE_DEBUG_MENU'] = '1'
-
     gym(
       configuration: "AdHoc",
       scheme: "Wikipedia AdHoc",

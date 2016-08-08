@@ -413,3 +413,5 @@
 "explore-most-read-more-list-title" = "Voci migliori";
 "explore-most-read-more-list-title-for-date" = "Voci migliori il $1";
 "no-email-account-alert" = "Configura un account di posta elettronica sul tuo dispositivo e riprova.";
+"request-feedback-on-error" = "L'applicazione ha riscontrato un problema su cui i nostri sviluppatori vorrebbero saperne di più. Si prega di toccare qui per inviarci una email con i dettagli dell'errore.";
+"explore-another-random" = "Un'altra voce a caso";

@@ -325,7 +325,7 @@
 "hockeyapp-alert-always-send" = "Toujours envoyer";
 "hockeyapp-alert-do-not-send" = "Ne pas envoyer";
 "hockeyapp-alert-privacy" = "Confidentialité de $1";
-"page-issues" = "Problèmes de la page";
+"page-issues" = "Problèmes de page";
 "page-similar-titles" = "Pages similaires";
 "page-read-in-other-languages" = "Disponible en $1 autres langues";
 "page-last-edited" = "Modifié il y a $1 jours";
@@ -369,7 +369,7 @@
 "welcome-languages-add-button" = "Ajouter une autre langue";
 "welcome-languages-continue-button" = "Continuer";
 "welcome-volunteer-title" = "Volontaire";
-"welcome-volunteer-sub-title" = "Aider à améliorer l’application Wikipédia en partageant comment vous l’utilisez";
+"welcome-volunteer-sub-title" = "Aider à améliorer l’application Wikipédia en partageant la manière dont vous l’utilisez";
 "welcome-volunteer-send-usage-reports" = "Envoyer les rapports d’utilisation";
 "welcome-volunteer-continue-button" = "Continuer";
 "welcome-volunteer-thanks" = "$1 Merci !";

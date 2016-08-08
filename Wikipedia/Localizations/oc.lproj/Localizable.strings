@@ -189,6 +189,7 @@
 "home-title" = "Explorar";
 "home-hide-suggestion-cancel" = "Anullar";
 "home-accessibility-label" = "Wikipèdia, Explòra";
+"empty-no-search-results-message" = "Cap de resultat pas trobat";
 "icon-shortcut-search-title" = "Recercar dins Wikipèdia";
 "close-button-accessibility-label" = "Tampar";
 "back-button-accessibility-label" = "Retorn";
