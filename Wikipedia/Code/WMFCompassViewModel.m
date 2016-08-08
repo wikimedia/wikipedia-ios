@@ -44,20 +44,23 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.locationManager          = [WMFLocationManager fineLocationManager];
-        self.locationManager.delegate = self;
+        self.locationManager          = [WMFLocationManager sharedFineLocationManager];
     }
     return self;
+}
+
+- (void)dealloc {
+    [self.locationManager removeDelegate:self];
 }
 
 #pragma mark - Updates
 
 - (void)startUpdates {
-    [self.locationManager startMonitoringLocation];
+    [self.locationManager addDelegate:self];
 }
 
 - (void)stopUpdates {
-    [self.locationManager stopMonitoringLocation];
+    [self.locationManager removeDelegate:self];
 }
 
 #pragma mark - Value Providers
