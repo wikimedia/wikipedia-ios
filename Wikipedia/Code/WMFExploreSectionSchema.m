@@ -302,7 +302,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
         }
 
         //Don't add more than one more in a single day
-        if (oldNearby.location && [oldNearby.dateCreated isEqualToDateIgnoringTime:date] && oldNearby.placemark != nil) {
+        if (oldNearby.location && date && [oldNearby.dateCreated isEqualToDateIgnoringTime:date] && oldNearby.placemark != nil) {
             return YES;
         }
         
@@ -498,7 +498,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     BOOL const containsTodaysFeaturedArticle = [featured bk_any:^BOOL (WMFExploreSection* obj) {
         NSAssert(obj.type == WMFExploreSectionTypeFeaturedArticle,
                  @"List should only contain featured sections, got %@", featured);
-        return [self.date isEqualToDateIgnoringTime:obj.dateCreated];
+        return obj.dateCreated && [self.date isEqualToDateIgnoringTime:obj.dateCreated];
     }];
 
     if (!containsTodaysFeaturedArticle) {
@@ -525,7 +525,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
     }];
 
     //If it's a new day and we havent created a new main page section, create it now
-    if ([self.date isEqualToDateIgnoringTime:main.dateCreated] && [main.siteURL isEqual:self.siteURL]) {
+    if (main.dateCreated && [self.date isEqualToDateIgnoringTime:main.dateCreated] && [main.siteURL isEqual:self.siteURL]) {
         return main;
     }
 
@@ -542,7 +542,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
 
     WMFExploreSection* todaySection = [existingSections bk_match:^BOOL (WMFExploreSection* existingSection) {
         //Only one section per day
-        if ([self.date isEqualToDateIgnoringTime:existingSection.dateCreated]) {
+        if (existingSection.dateCreated && [self.date isEqualToDateIgnoringTime:existingSection.dateCreated]) {
             return YES;
         }
 
