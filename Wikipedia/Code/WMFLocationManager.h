@@ -36,6 +36,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addDelegate:(id<WMFLocationManagerDelegate>)delegate;
 - (void)removeDelegate:(id<WMFLocationManagerDelegate>)delegate;
 
+// Subclass hooks for the delegate methods. Subclassers must call super.
+- (void)didUpdateLocation:(CLLocation*)location;
+- (void)didUpdateHeading:(CLHeading*)heading;
+- (void)didReceiveError:(NSError*)error;
+- (void)didChangeEnabledState:(BOOL)enabled;
+
 @end
 
 

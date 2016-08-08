@@ -1,11 +1,3 @@
-//
-//  WMFMockLocationManager.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/23/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFMockLocationManager.h"
 
 @interface WMFMockLocationManager ()
@@ -23,12 +15,12 @@
 
 - (void)setLocation:(CLLocation*)location {
     self.mockLocation = location;
-    [self.delegate nearbyController:self didUpdateLocation:self.location];
+    [self didUpdateLocation:self.location];
 }
 
 - (void)setHeading:(CLHeading*)heading {
     self.mockHeading = heading;
-    [self.delegate nearbyController:self didUpdateHeading:self.heading];
+    [self didUpdateHeading:heading];
 }
 
 - (CLHeading*)heading {
@@ -42,10 +34,10 @@
 
 - (void)startMonitoringLocation {
     if (self.location) {
-        [self.delegate nearbyController:self didUpdateLocation:self.location];
+        [self didUpdateLocation:self.location];
     }
     if (self.heading) {
-        [self.delegate nearbyController:self didUpdateHeading:self.heading];
+        [self didUpdateHeading:self.heading];
     }
 }
 

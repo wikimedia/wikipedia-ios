@@ -231,22 +231,14 @@ NS_ASSUME_NONNULL_BEGIN
         }
 
         case kCLAuthorizationStatusDenied: {
-            [self enumerateDelegatesWithBlock:^(id<WMFLocationManagerDelegate>  _Nonnull delegate) {
-                if ([delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
-                    DDLogInfo(@"Informing delegate about denied access to user's location.");
-                    [delegate nearbyController:self didChangeEnabledState:NO];
-                }
-            }];
+            DDLogInfo(@"Informing delegate about denied access to user's location.");
+            [self didChangeEnabledState:NO];
             break;
         }
 
         case kCLAuthorizationStatusAuthorizedWhenInUse:
         case kCLAuthorizationStatusAuthorizedAlways: {
-            [self enumerateDelegatesWithBlock:^(id<WMFLocationManagerDelegate>  _Nonnull delegate) {
-                if ([delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
-                    [delegate nearbyController:self didChangeEnabledState:YES];
-                }
-            }];
+            [self didChangeEnabledState:YES];
             DDLogInfo(@"%@ was granted access to location when in use, attempting to monitor location.", self);
             
             if (self.isRequestingAuthorizationAndStart) { //only start if we requested as a part of a start
@@ -266,9 +258,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.lastLocation = manager.location;
     DDLogVerbose(@"%@ updated location: %@", self, self.lastLocation);
     
-    [self enumerateDelegatesWithBlock:^(id<WMFLocationManagerDelegate>  _Nonnull delegate) {
-        [delegate nearbyController:self didUpdateLocation:self.lastLocation];
-    }];
+    [self didUpdateLocation:self.lastLocation];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateHeading:(CLHeading*)newHeading {
@@ -278,10 +268,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     self.lastHeading = newHeading;
     DDLogVerbose(@"%@ updated heading to %@", self, self.lastHeading);
-    [self enumerateDelegatesWithBlock:^(id<WMFLocationManagerDelegate>  _Nonnull delegate) {
-        [delegate nearbyController:self didUpdateHeading:self.lastHeading];
-    }];
-    
+    [self didUpdateHeading:self.lastHeading];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didFailWithError:(NSError*)error {
@@ -296,9 +283,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     #endif
     DDLogError(@"%@ encountered error: %@", self, error);
-    [self enumerateDelegatesWithBlock:^(id<WMFLocationManagerDelegate>  _Nonnull delegate) {
-        [delegate nearbyController:self didReceiveError:error];
-    }];
+    [self didReceiveError:error];
 }
 
 #pragma mark - Geocoding
@@ -356,6 +341,35 @@ NS_ASSUME_NONNULL_BEGIN
             });
         }
     }
+}
+
+#pragma mark - Subclass Hooks
+
+- (void)didUpdateLocation:(CLLocation*)location {
+    [self enumerateDelegatesWithBlock:^(id<WMFLocationManagerDelegate>  _Nonnull delegate) {
+        [delegate nearbyController:self didUpdateLocation:location];
+    }];
+}
+
+- (void)didUpdateHeading:(CLHeading*)heading {
+    [self enumerateDelegatesWithBlock:^(id<WMFLocationManagerDelegate>  _Nonnull delegate) {
+        [delegate nearbyController:self didUpdateHeading:heading];
+    }];
+    
+}
+
+- (void)didReceiveError:(NSError*)error {
+    [self enumerateDelegatesWithBlock:^(id<WMFLocationManagerDelegate>  _Nonnull delegate) {
+        [delegate nearbyController:self didReceiveError:error];
+    }];
+}
+
+- (void)didChangeEnabledState:(BOOL)enabled {
+    [self enumerateDelegatesWithBlock:^(id<WMFLocationManagerDelegate>  _Nonnull delegate) {
+        if ([delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
+            [delegate nearbyController:self didChangeEnabledState:enabled];
+        }
+    }];
 }
 
 @end
