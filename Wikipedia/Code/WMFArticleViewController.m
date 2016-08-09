@@ -8,7 +8,6 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 
 // Controller
-#import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFReadMoreViewController.h"
 #import "WMFImageGalleryViewController.h"
@@ -69,13 +68,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static const CGFloat WMFArticleViewControllerExpandedTableOfContentsPercentage = 0.33;
+static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercentage = 0.33;
 static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
+static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 10;
 
 
 @interface WMFArticleViewController ()
-<WMFWebViewControllerDelegate,
- UINavigationControllerDelegate,
+<UINavigationControllerDelegate,
  WMFImageGalleryViewControllerReferenceViewDelegate,
  SectionEditorViewControllerDelegate,
  UIViewControllerPreviewingDelegate,
@@ -124,6 +123,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
 @property (strong, nonatomic) UIProgressView* progressView;
 @property (nonatomic, strong) UIRefreshControl* pullToRefresh;
 @property (nonatomic, strong) UIView *tableOfContentsSeparatorView;
+
+@property (nonatomic) CGFloat previousContentOffsetYForTOCUpdate;
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
@@ -777,8 +778,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
 
 - (void)layoutForSize:(CGSize)size {
     CGFloat separatorWidth = WMFArticleViewControllerTableOfContentsSeparatorWidth;
-    CGFloat tocWidth = size.width*WMFArticleViewControllerExpandedTableOfContentsPercentage;
-    BOOL isTOCVisible = !self.isTableOfContentsModal && self.isTableOfContentsVisible;
+    CGFloat tocWidth = size.width*WMFArticleViewControllerExpandedTableOfContentsWidthPercentage;
+    BOOL isTOCVisible = !self.isTableOfContentsModal && [self hasTableOfContents] && self.isTableOfContentsVisible;
     CGFloat tocOriginX = isTOCVisible ? 0 : 0 - tocWidth - separatorWidth;
     CGFloat separatorOriginX = isTOCVisible ? tocWidth : 0 - separatorWidth;
     
@@ -1158,6 +1159,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
     }
     return nil;
 }
+
+- (void)webViewController:(WebViewController*)controller scrollViewDidScroll:(UIScrollView*)scrollView {
+    if (ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
+        
+        [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection * _Nullable section, NSError * _Nullable error) {
+            if (section) {
+                [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
+            }
+        }];
+        self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
+    }
+}
+
 
 #pragma mark - Header Tap Gesture
 

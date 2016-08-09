@@ -120,6 +120,8 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 #pragma mark - WebViewControllerDelegate
 
 - (void)webViewController:(WebViewController*)controller scrollViewDidScroll:(UIScrollView*)scrollView {
+    [super webViewController:controller scrollViewDidScroll:scrollView];
+    
     if (!self.viewHasAppeared) {
         return;
     }

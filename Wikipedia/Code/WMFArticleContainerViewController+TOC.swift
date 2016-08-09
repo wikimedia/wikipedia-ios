@@ -201,4 +201,8 @@ extension WMFArticleViewController {
                 })
         }
     }
+    
+    public func selectAndScrollToTableOfContentsItemForSection(section: MWKSection, animated: Bool) {
+        tableOfContentsViewController?.selectAndScrollToItem(section, animated: animated)
+    }
 }

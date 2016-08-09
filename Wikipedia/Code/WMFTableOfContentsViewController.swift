@@ -88,7 +88,15 @@ public class WMFTableOfContentsViewController: UIViewController,
             assertionFailure("No indexPath known for TOC item \(item)")
             return
         }
-        deselectAllRows()
+        
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            if selectedIndexPath.isEqual(indexPath) {
+                return
+            } else {
+                deselectAllRows()
+            }
+        }
+        
         tableView.selectRowAtIndexPath(indexPath, animated: animated, scrollPosition: UITableViewScrollPosition.Top)
         addHighlightOfItemsRelatedTo(item, animated: false)
     }
