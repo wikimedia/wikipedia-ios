@@ -808,7 +808,7 @@ static const CGFloat WMFArticleViewControllerExpandedTableOfContentsPercentage =
 
 - (void)setupWebView {
     [self addChildViewController:self.webViewController];
-    [self.view addSubview:self.webViewController.view];
+    [self.view insertSubview:self.webViewController.view atIndex:0];
     [self.webViewController didMoveToParentViewController:self];
 
     self.pullToRefresh         = [[UIRefreshControl alloc] init];
@@ -846,7 +846,7 @@ static const CGFloat WMFArticleViewControllerExpandedTableOfContentsPercentage =
         }
         [self createTableOfContentsViewControllerIfNeeded];
         [self addChildViewController:self.tableOfContentsViewController];
-        [self.view addSubview:self.tableOfContentsViewController.view];
+        [self.view insertSubview:self.tableOfContentsViewController.view atIndex:0];
         [self.tableOfContentsViewController didMoveToParentViewController:self];
     }
 }
