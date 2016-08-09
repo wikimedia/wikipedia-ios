@@ -70,6 +70,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 static const CGFloat WMFArticleViewControllerExpandedTableOfContentsPercentage = 0.33;
+static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
+
 
 @interface WMFArticleViewController ()
 <WMFWebViewControllerDelegate,
@@ -121,6 +123,7 @@ static const CGFloat WMFArticleViewControllerExpandedTableOfContentsPercentage =
 @property (nonatomic, strong, readwrite) UIBarButtonItem* findInPageToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
 @property (nonatomic, strong) UIRefreshControl* pullToRefresh;
+@property (nonatomic, strong) UIView *tableOfContentsSeparatorView;
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
@@ -768,17 +771,20 @@ static const CGFloat WMFArticleViewControllerExpandedTableOfContentsPercentage =
 #pragma mark - Layout
 
 - (void)layoutForSize:(CGSize)size {
+    CGFloat separatorWidth = WMFArticleViewControllerTableOfContentsSeparatorWidth;
     CGFloat tocWidth = size.width*WMFArticleViewControllerExpandedTableOfContentsPercentage;
-    CGFloat tocOriginX = !self.isTableOfContentsModal && self.isTableOfContentsVisible ? 0 : 0 - tocWidth;
+    BOOL isTOCVisible = !self.isTableOfContentsModal && self.isTableOfContentsVisible;
+    CGFloat tocOriginX = isTOCVisible ? 0 : 0 - tocWidth - separatorWidth;
+    CGFloat separatorOriginX = isTOCVisible ? tocWidth : 0 - separatorWidth;
     
     CGPoint origin = CGPointZero;
     if (!self.isTableOfContentsModal) {
-        CGRect tocFrame = CGRectMake(tocOriginX, origin.y, tocWidth, size.height);
-        self.tableOfContentsViewController.view.frame = tocFrame;
+        self.tableOfContentsViewController.view.frame = CGRectMake(tocOriginX, origin.y, tocWidth, size.height);
+        self.tableOfContentsSeparatorView.frame = CGRectMake(separatorOriginX, origin.y, separatorWidth, size.height);
     }
     
-    CGFloat effectiveTOCWidth = tocOriginX + tocWidth;
-    CGRect webFrame = CGRectMake(effectiveTOCWidth, origin.y, size.width - effectiveTOCWidth, size.height);
+    CGFloat webFrameOriginX = tocOriginX + tocWidth + separatorWidth;
+    CGRect webFrame = CGRectMake(webFrameOriginX, origin.y, size.width - webFrameOriginX, size.height);
     self.webViewController.view.frame = webFrame;
 }
 
@@ -838,12 +844,18 @@ static const CGFloat WMFArticleViewControllerExpandedTableOfContentsPercentage =
             [self.tableOfContentsViewController willMoveToParentViewController:nil];
             [self.tableOfContentsViewController.view removeFromSuperview];
             [self.tableOfContentsViewController removeFromParentViewController];
+            [self.tableOfContentsSeparatorView removeFromSuperview];
         }
     } else if (self.tableOfContentsViewController.parentViewController != self) {
         if (!modal && self.presentedViewController == self.tableOfContentsViewController) {
             [self dismissViewControllerAnimated:NO completion:NULL];
             self.tableOfContentsVisible = YES;
         }
+        if (self.tableOfContentsSeparatorView == nil) {
+            self.tableOfContentsSeparatorView = [[UIView alloc] init];
+            self.tableOfContentsSeparatorView.backgroundColor = [UIColor wmf_lightGrayColor];
+        }
+        [self.view insertSubview:self.tableOfContentsSeparatorView atIndex:0];
         [self createTableOfContentsViewControllerIfNeeded];
         [self addChildViewController:self.tableOfContentsViewController];
         [self.view insertSubview:self.tableOfContentsViewController.view atIndex:0];
