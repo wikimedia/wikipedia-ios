@@ -132,6 +132,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL skipFetchOnViewDidAppear;
 
+@property (nonatomic, getter=isTableOfContentsModal) BOOL tableOfContentsModal;
+@property (nonatomic, getter=isTableOfContentsVisible) BOOL tableOfContentsVisible;
+
 @end
 
 @implementation WMFArticleViewController
@@ -156,6 +159,8 @@ NS_ASSUME_NONNULL_BEGIN
         self.hidesBottomBarWhenPushed = YES;
         self.reachabilityManager      = [AFNetworkReachabilityManager manager];
         [self.reachabilityManager startMonitoring];
+        self.tableOfContentsModal = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone;
+        self.tableOfContentsVisible = !self.tableOfContentsModal;
     }
     return self;
 }
@@ -705,6 +710,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self setUpTitleBarButton];
     self.view.clipsToBounds                   = NO;
     self.automaticallyAdjustsScrollViewInsets = YES;
+    self.view.backgroundColor = [UIColor whiteColor];
 
     self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
 
@@ -754,20 +760,39 @@ NS_ASSUME_NONNULL_BEGIN
     [self registerForPreviewingIfAvailable];
 }
 
+#pragma mark - Layout
+
+- (void)layoutForBounds:(CGRect)bounds {
+    CGFloat tocWidth = !self.isTableOfContentsModal && self.isTableOfContentsVisible ? 300 : 0;
+    
+    if (!self.isTableOfContentsModal) {
+        CGRect tocFrame = CGRectMake(bounds.origin.x, bounds.origin.y, tocWidth, bounds.size.height);
+        self.tableOfContentsViewController.view.frame = tocFrame;
+    }
+    
+    CGRect webFrame = CGRectMake(tocWidth, bounds.origin.y, bounds.size.width - tocWidth, bounds.size.height);
+    self.webViewController.view.frame = webFrame;
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self layoutForBounds:self.view.bounds];
+}
+
 #pragma mark - Web View Setup
 
 - (void)setupWebView {
+    
     [self addChildViewController:self.webViewController];
     [self.view addSubview:self.webViewController.view];
-    [self.webViewController.view mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.leading.trailing.top.and.bottom.equalTo(self.view);
-    }];
     [self.webViewController didMoveToParentViewController:self];
 
     self.pullToRefresh         = [[UIRefreshControl alloc] init];
     self.pullToRefresh.enabled = [self canRefresh];
     [self.pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
     [self.webViewController.webView.scrollView addSubview:_pullToRefresh];
+    
+    [self layoutForBounds:self.view.bounds];
 }
 
 #pragma mark - Save Offset
@@ -1025,6 +1050,17 @@ NS_ASSUME_NONNULL_BEGIN
         });
     }];
 
+    if (!self.isTableOfContentsModal) {
+        if (self.tableOfContentsViewController.parentViewController != self) {
+            [self createTableOfContentsViewControllerIfNeeded];
+            [self addChildViewController:self.tableOfContentsViewController];
+            [self.view addSubview:self.tableOfContentsViewController.view];
+            [self.tableOfContentsViewController didMoveToParentViewController:self];
+            [self layoutForBounds:self.view.bounds];
+        }
+        [self.tableOfContentsViewController selectAndScrollToItemAtIndex:0 animated:NO];
+    }
+    
     [self.delegate articleControllerDidLoadArticle:self];
     [self fetchReadMoreIfNeeded];
 }

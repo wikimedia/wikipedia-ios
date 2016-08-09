@@ -35,7 +35,11 @@ public class WMFTableOfContentsViewController: UIViewController,
     var items: [TableOfContentsItem] {
         didSet{
             if isViewLoaded() {
+                let selectedIndexPathBeforeReload = tableView.indexPathForSelectedRow
                 tableView.reloadData()
+                if let indexPathToReselect = selectedIndexPathBeforeReload where indexPathToReselect.section < tableView.numberOfSections && indexPathToReselect.row < tableView.numberOfRowsInSection(indexPathToReselect.section) {
+                    tableView.selectRowAtIndexPath(indexPathToReselect, animated: false, scrollPosition: .None)
+                }
             }
         }
     }
