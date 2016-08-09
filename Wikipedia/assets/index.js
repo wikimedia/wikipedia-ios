@@ -16,13 +16,6 @@ function stringEndsWith(str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
 
-function getZoomLevel() {
-    // From: http://stackoverflow.com/a/5078596/135557
-    var deviceWidth = (Math.abs(window.orientation) === 90) ? screen.height : screen.width;
-    var zoom = deviceWidth / window.innerWidth;
-    return zoom;
-}
-
 exports.getImageWithSrc = function(src) {
     var images = document.getElementsByTagName('img');
     for (var i = 0; i < images.length; ++i) {
@@ -35,15 +28,13 @@ exports.getImageWithSrc = function(src) {
 
 exports.getElementRect = function(element) {
     var rect = element.getBoundingClientRect();
-    var zoom = getZoomLevel();
     // Important: use "X", "Y", "Width" and "Height" keys so we can use CGRectMakeWithDictionaryRepresentation in native land to convert to CGRect.
-    var zoomedRect = {
-        Y: rect.top * zoom,
-        X: rect.left * zoom,
-        Width: rect.width * zoom,
-        Height: rect.height * zoom
+    return {
+        Y: rect.top,
+        X: rect.left,
+        Width: rect.width,
+        Height: rect.height
     };
-    return zoomedRect;
 };
 
 exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
