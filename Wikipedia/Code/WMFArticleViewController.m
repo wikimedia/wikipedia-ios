@@ -396,7 +396,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
 #pragma mark - Toolbar Setup
 
 - (NSArray<UIBarButtonItem*>*)articleToolBarItems {
-    return [NSArray arrayWithObjects:
+    NSMutableArray *articleToolbarItems = [NSMutableArray arrayWithObjects:
             self.languagesToolbarItem,
             
             [UIBarButtonItem flexibleSpaceToolbarItem],
@@ -420,12 +420,17 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
             self.findInPageToolbarItem,
             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.f],
-            
-            [UIBarButtonItem flexibleSpaceToolbarItem],
-            
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:8.f],
-            self.tableOfContentsToolbarItem,
             nil];
+    if (self.isTableOfContentsModal) {
+        [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
+        [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8.f]];
+        [articleToolbarItems addObject:self.tableOfContentsToolbarItem];
+    } else {
+        [articleToolbarItems insertObject:self.tableOfContentsToolbarItem atIndex:0];
+        [articleToolbarItems insertObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8.f] atIndex:1];
+        [articleToolbarItems insertObject:[UIBarButtonItem flexibleSpaceToolbarItem] atIndex:2];
+    }
+    return articleToolbarItems;
 }
 
 - (void)updateToolbar {
@@ -440,7 +445,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
 
     NSArray<UIBarButtonItem*>* toolbarItems = [self articleToolBarItems];
 
-    if (self.toolbarItems.count != toolbarItems.count) {
+    if (![self.toolbarItems isEqualToArray:toolbarItems]) {
         // HAX: only update toolbar if # of items has changed, otherwise items will (somehow) get lost
         [self setToolbarItems:toolbarItems animated:YES];
     }
@@ -861,6 +866,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
         [self.view insertSubview:self.tableOfContentsViewController.view atIndex:0];
         [self.tableOfContentsViewController didMoveToParentViewController:self];
     }
+    [self updateToolbar];
 }
 
 #pragma mark - Save Offset
