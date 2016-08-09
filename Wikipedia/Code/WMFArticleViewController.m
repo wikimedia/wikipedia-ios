@@ -735,8 +735,6 @@ static const CGFloat WMFArticleViewControllerExpandedTableOfContentsPercentage =
     }
     self.skipFetchOnViewDidAppear = NO;
     [self startSignificantlyViewedTimer];
-    
-    [self layoutForSize:self.view.bounds.size];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -782,6 +780,11 @@ static const CGFloat WMFArticleViewControllerExpandedTableOfContentsPercentage =
     CGFloat effectiveTOCWidth = tocOriginX + tocWidth;
     CGRect webFrame = CGRectMake(effectiveTOCWidth, origin.y, size.width - effectiveTOCWidth, size.height);
     self.webViewController.view.frame = webFrame;
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self layoutForSize:self.view.bounds.size];
 }
 
 - (void)updateTableOfContentsWithTraitCollection:(UITraitCollection *)traitCollection {
