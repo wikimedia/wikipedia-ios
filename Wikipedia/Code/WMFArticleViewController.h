@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
 
+@property (nonatomic, getter=isTableOfContentsSectionUpdateEnabled) BOOL tableOfContentsSectionUpdateEnabled;
+
 @end
 
 
