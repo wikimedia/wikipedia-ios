@@ -789,7 +789,6 @@ static const CGFloat WMFArticleViewControllerExpandedTableOfContentsPercentage =
 
 - (void)updateTableOfContentsWithTraitCollection:(UITraitCollection *)traitCollection {
     self.tableOfContentsModal = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact;
-    [self setupTableOfContentsViewControllerForDisplayModal:self.tableOfContentsModal];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -802,6 +801,7 @@ static const CGFloat WMFArticleViewControllerExpandedTableOfContentsPercentage =
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
     [self updateTableOfContentsWithTraitCollection:newCollection];
+    [self setupTableOfContentsViewControllerForDisplayModal:self.tableOfContentsModal];
 }
 
 #pragma mark - Web View Setup
