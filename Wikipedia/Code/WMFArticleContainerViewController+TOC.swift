@@ -144,7 +144,7 @@ extension WMFArticleViewController {
             }
         #endif
         
-        return !NSUserDefaults.standardUserDefaults().wmf_didPeekTableOfContents()
+        return tableOfContentsModal && !NSUserDefaults.standardUserDefaults().wmf_didPeekTableOfContents()
     }
 
     public func peekTableOfContentsIfNeccesary() {

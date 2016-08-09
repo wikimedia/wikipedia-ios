@@ -138,9 +138,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
  */
 @property (nonatomic, assign) BOOL skipFetchOnViewDidAppear;
 
-@property (nonatomic, getter=isTableOfContentsModal) BOOL tableOfContentsModal;
-@property (nonatomic, getter=isTableOfContentsVisible) BOOL tableOfContentsVisible;
-
 @end
 
 @implementation WMFArticleViewController
