@@ -69,6 +69,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static const CGFloat WMFArticleViewControllerExpandedTableOfContentsPercentage = 0.33;
+
 @interface WMFArticleViewController ()
 <WMFWebViewControllerDelegate,
  UINavigationControllerDelegate,
@@ -159,8 +161,6 @@ NS_ASSUME_NONNULL_BEGIN
         self.hidesBottomBarWhenPushed = YES;
         self.reachabilityManager      = [AFNetworkReachabilityManager manager];
         [self.reachabilityManager startMonitoring];
-        self.tableOfContentsModal = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone;
-        self.tableOfContentsVisible = !self.tableOfContentsModal;
     }
     return self;
 }
@@ -458,7 +458,7 @@ NS_ASSUME_NONNULL_BEGIN
         _tableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toc"]
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
-                                                                      action:@selector(showTableOfContents)];
+                                                                      action:@selector(hideOrShowTableOfContents)];
         _tableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
         return _tableOfContentsToolbarItem;
     }
@@ -703,6 +703,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self updateTableOfContentsWithTraitCollection:self.traitCollection];
+    self.tableOfContentsVisible = !self.tableOfContentsModal;
+    
     [self.navigationController.toolbar wmf_applySolidWhiteBackgroundWithTopShadow];
 
     [self updateToolbar];
@@ -723,6 +727,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
     [self registerForPreviewingIfAvailable];
 
     if (!self.skipFetchOnViewDidAppear) {
@@ -730,6 +735,8 @@ NS_ASSUME_NONNULL_BEGIN
     }
     self.skipFetchOnViewDidAppear = NO;
     [self startSignificantlyViewedTimer];
+    
+    [self layoutForSize:self.view.bounds.size];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -762,27 +769,41 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Layout
 
-- (void)layoutForBounds:(CGRect)bounds {
-    CGFloat tocWidth = !self.isTableOfContentsModal && self.isTableOfContentsVisible ? 300 : 0;
+- (void)layoutForSize:(CGSize)size {
+    CGFloat tocWidth = size.width*WMFArticleViewControllerExpandedTableOfContentsPercentage;
+    CGFloat tocOriginX = !self.isTableOfContentsModal && self.isTableOfContentsVisible ? 0 : 0 - tocWidth;
     
+    CGPoint origin = CGPointZero;
     if (!self.isTableOfContentsModal) {
-        CGRect tocFrame = CGRectMake(bounds.origin.x, bounds.origin.y, tocWidth, bounds.size.height);
+        CGRect tocFrame = CGRectMake(tocOriginX, origin.y, tocWidth, size.height);
         self.tableOfContentsViewController.view.frame = tocFrame;
     }
     
-    CGRect webFrame = CGRectMake(tocWidth, bounds.origin.y, bounds.size.width - tocWidth, bounds.size.height);
+    CGFloat effectiveTOCWidth = tocOriginX + tocWidth;
+    CGRect webFrame = CGRectMake(effectiveTOCWidth, origin.y, size.width - effectiveTOCWidth, size.height);
     self.webViewController.view.frame = webFrame;
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    [self layoutForBounds:self.view.bounds];
+- (void)updateTableOfContentsWithTraitCollection:(UITraitCollection *)traitCollection {
+    self.tableOfContentsModal = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact;
+    [self setupTableOfContentsViewControllerForDisplayModal:self.tableOfContentsModal];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self layoutForSize:size];
+    } completion:NULL];
+}
+
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+    [self updateTableOfContentsWithTraitCollection:newCollection];
 }
 
 #pragma mark - Web View Setup
 
 - (void)setupWebView {
-    
     [self addChildViewController:self.webViewController];
     [self.view addSubview:self.webViewController.view];
     [self.webViewController didMoveToParentViewController:self];
@@ -792,7 +813,39 @@ NS_ASSUME_NONNULL_BEGIN
     [self.pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
     [self.webViewController.webView.scrollView addSubview:_pullToRefresh];
     
-    [self layoutForBounds:self.view.bounds];
+    [self layoutForSize:self.view.bounds.size];
+}
+
+#pragma mark - Table of Contents
+
+- (void)hideOrShowTableOfContents {
+    if (self.tableOfContentsModal) {
+        [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
+    } else {
+        self.tableOfContentsVisible = !self.tableOfContentsVisible;
+        [UIView animateWithDuration:0.25 animations:^{
+            [self layoutForSize:self.view.bounds.size];
+        }];
+    }
+}
+
+- (void)setupTableOfContentsViewControllerForDisplayModal:(BOOL)modal {
+    if (modal) {
+        if (self.tableOfContentsViewController.parentViewController == self) {
+            [self.tableOfContentsViewController willMoveToParentViewController:nil];
+            [self.tableOfContentsViewController.view removeFromSuperview];
+            [self.tableOfContentsViewController removeFromParentViewController];
+        }
+    } else if (self.tableOfContentsViewController.parentViewController != self) {
+        if (!modal && self.presentedViewController == self.tableOfContentsViewController) {
+            [self dismissViewControllerAnimated:NO completion:NULL];
+            self.tableOfContentsVisible = YES;
+        }
+        [self createTableOfContentsViewControllerIfNeeded];
+        [self addChildViewController:self.tableOfContentsViewController];
+        [self.view addSubview:self.tableOfContentsViewController.view];
+        [self.tableOfContentsViewController didMoveToParentViewController:self];
+    }
 }
 
 #pragma mark - Save Offset
@@ -1051,13 +1104,8 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 
     if (!self.isTableOfContentsModal) {
-        if (self.tableOfContentsViewController.parentViewController != self) {
-            [self createTableOfContentsViewControllerIfNeeded];
-            [self addChildViewController:self.tableOfContentsViewController];
-            [self.view addSubview:self.tableOfContentsViewController.view];
-            [self.tableOfContentsViewController didMoveToParentViewController:self];
-            [self layoutForBounds:self.view.bounds];
-        }
+        [self setupTableOfContentsViewControllerForDisplayModal:self.isTableOfContentsModal];
+        [self layoutForSize:self.view.bounds.size];
         [self.tableOfContentsViewController selectAndScrollToItemAtIndex:0 animated:NO];
     }
     

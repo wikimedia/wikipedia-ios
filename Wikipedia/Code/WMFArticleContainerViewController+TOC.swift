@@ -102,11 +102,6 @@ extension WMFArticleViewController {
             tvc.items = items
         }
     }
-
-    public func showTableOfContents() {
-        presentViewController(self.tableOfContentsViewController!, animated: true, completion: nil)
-
-    }
     
     func backgroundView() -> UIVisualEffectView {
         let view = UIVisualEffectView(frame: CGRectZero)
