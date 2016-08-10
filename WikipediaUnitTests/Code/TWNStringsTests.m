@@ -10,6 +10,7 @@
 
 @property (strong, nonatomic) NSArray* lprojFiles;
 @property (strong, nonatomic) NSString* bundleRoot;
+@property (strong, nonatomic) NSArray* infoPlistFilePaths;
 
 @end
 
@@ -19,6 +20,9 @@
     [super setUp];
     self.bundleRoot = [[NSBundle mainBundle] bundlePath];
     self.lprojFiles = [self bundledLprogFiles];
+    self.infoPlistFilePaths = [self.lprojFiles bk_map:^NSString*(NSString* lprojFileName) {
+        return [[LOCALIZATIONS_DIR stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"InfoPlist.strings"];
+    }];
 }
 
 - (NSArray*)bundledLprogFiles {
@@ -31,9 +35,13 @@
 
 - (NSDictionary*)getTranslationStringsDictFromLprogAtPath:(NSString*)lprojPath {
     NSString* stringsFilePath = [lprojPath stringByAppendingPathComponent:@"Localizable.strings"];
-    BOOL isDirectory          = NO;
-    if ([[NSFileManager defaultManager] fileExistsAtPath:stringsFilePath isDirectory:&isDirectory]) {
-        return [NSDictionary dictionaryWithContentsOfFile:stringsFilePath];
+    return [self getDictFromPListAtPath:stringsFilePath];
+}
+
+- (NSDictionary*)getDictFromPListAtPath:(NSString*)path {
+    BOOL isDirectory = NO;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory]) {
+        return [NSDictionary dictionaryWithContentsOfFile:path];
     }
     return nil;
 }
@@ -152,10 +160,28 @@
     ];
 }
 
+- (void)test_each_lproj_contains_an_InfoPlist_strings_file {
+    for (NSString* path in [self infoPlistFilePaths]) {
+        BOOL isDir = NO;
+        if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir]) {
+            XCTAssert(NO, @"Required file not found: %@", path);
+        }
+    }
+}
+
+- (void)test_each_InfoPlist_strings_file_contains_CFBundleDisplayName_key {
+    for (NSString* path in [self infoPlistFilePaths]) {
+        if (![[[self getDictFromPListAtPath:path] allKeys] containsObject:@"CFBundleDisplayName"]) {
+            XCTAssert(NO, @"Required CFBundleDisplayName key not found in: %@", path);
+        }
+    }
+}
+
 - (void)tearDown {
     [super tearDown];
     self.lprojFiles = nil;
     self.bundleRoot = nil;
+    self.infoPlistFilePaths = nil;
 }
 
 @end
