@@ -515,10 +515,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (UIBarButtonItem*)hideTableOfContentsToolbarItem {
     if (!_hideTableOfContentsToolbarItem) {
-        _hideTableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toc"]
-                                                                       style:UIBarButtonItemStylePlain
-                                                                      target:self
-                                                                      action:@selector(hideTableOfContents)];
+        UIImage *closeImage = [UIImage imageNamed:@"toc-close"];
+        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [closeButton setImage:closeImage forState:UIControlStateNormal];
+        [closeButton addTarget:self action:@selector(hideTableOfContents) forControlEvents:UIControlEventTouchUpInside];
+        closeButton.frame = (CGRect){.origin = CGPointZero, .size = closeImage.size};
+        _hideTableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
         _hideTableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
         return _hideTableOfContentsToolbarItem;
     }
