@@ -35,24 +35,11 @@
     self.sectionWikiTextUploadManager   = [AFHTTPSessionManager wmf_createDefaultManager];
     self.sectionPreviewHtmlFetchManager = [AFHTTPSessionManager wmf_createDefaultManager];
     self.languageLinksFetcher           = [AFHTTPSessionManager wmf_createDefaultManager];
-    self.zeroRatedMessageFetchManager   = [AFHTTPSessionManager wmf_createDefaultManager];
     self.accountCreationFetchManager    = [AFHTTPSessionManager wmf_createDefaultManager];
-    self.pageHistoryFetchManager        = [AFHTTPSessionManager wmf_createDefaultManager];
 
     self.assetsFetchManager        = [AFHTTPSessionManager wmf_createDefaultManager];
-    self.nearbyFetchManager        = [AFHTTPSessionManager wmf_createDefaultManager];
-    self.articleFetchManager       = [AFHTTPSessionManager wmf_createDefaultManager];
-    self.searchResultsFetchManager = [AFHTTPSessionManager wmf_createDefaultManager];
 
-    NSArray* fetchers = @[self.assetsFetchManager,
-                          self.nearbyFetchManager,
-                          self.articleFetchManager,
-                          self.searchResultsFetchManager,
-    ];
-
-    [fetchers bk_each:^(AFHTTPSessionManager* manager) {
-        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    }];
+    self.assetsFetchManager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
     self.languageLinksFetcher.responseSerializer = [MWKLanguageLinkResponseSerializer serializer];
 }
