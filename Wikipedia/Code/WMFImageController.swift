@@ -73,13 +73,13 @@ public class WMFImageController : NSObject {
         let downloader = SDWebImageDownloader.sharedDownloader()
         let cache = SDImageCache.wmf_appSupportCacheWithNamespace(defaultNamespace)
         let memory = NSProcessInfo.processInfo().physicalMemory
+        //Don't enable this, it causes crazy memory consumption
+        //https://github.com/rs/SDWebImage/issues/586
+        cache.shouldDecompressImages = false
+        downloader.shouldDecompressImages = false
         if memory < 805306368 {
-            cache.shouldDecompressImages = false
-            downloader.shouldDecompressImages = false
             downloader.maxConcurrentDownloads = 4
         }else{
-            cache.shouldDecompressImages = true
-            downloader.shouldDecompressImages = true
             downloader.maxConcurrentDownloads = 6
         }
         return WMFImageController(manager: SDWebImageManager(downloader: downloader, cache: cache),
@@ -454,6 +454,7 @@ extension WMFImageController {
             }
 
             let success = { (didCache: Bool) in
+                self.imageManager.wmf_removeImageForURL(imageURL, fromDisk: false)
                 cacheGroup.leave()
             }
             
