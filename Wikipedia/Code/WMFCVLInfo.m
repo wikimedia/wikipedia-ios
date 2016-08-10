@@ -9,7 +9,6 @@
 @interface WMFCVLInfo ()
 @property (nonatomic, strong, nullable) NSMutableArray <WMFCVLColumn *> *columns;
 @property (nonatomic, strong, nullable) NSMutableArray <WMFCVLSection *> *sections;
-@property (nonatomic, strong, nonnull) NSMutableArray <NSNumber *> *columnIndexBySectionIndex;
 @end
 
 @implementation WMFCVLInfo
@@ -25,7 +24,6 @@
         [columns addObject:newColumn];
     }
     
-    copy.columnIndexBySectionIndex = [self.columnIndexBySectionIndex mutableCopy];
     copy.columns = columns;
     copy.contentSize = self.contentSize;
     return copy;
@@ -126,7 +124,7 @@
         NSIndexPath *indexPath = originalAttributes.indexPath;
         
         NSInteger sectionIndex = indexPath.section;
-        NSInteger invalidatedColumnIndex = [self.columnIndexBySectionIndex[sectionIndex] integerValue];
+        NSInteger invalidatedColumnIndex = self.sections[sectionIndex].columnIndex;
         WMFCVLColumn *invalidatedColumn = self.columns[invalidatedColumnIndex];
         
         CGSize sizeToSet = preferredAttributes.frame.size;
@@ -166,7 +164,6 @@
     
     if (self.sections == nil) {
         self.sections = [NSMutableArray arrayWithCapacity:numberOfSections];
-        self.columnIndexBySectionIndex = [NSMutableArray arrayWithCapacity:numberOfSections];
     }
     
     if (self.columns == nil) {
@@ -213,11 +210,16 @@
             column = self.columns[currentColumnIndex];
             section = [WMFCVLSection sectionWithIndex:sectionIndex];
             [_sections addObject:section];
-            [_columnIndexBySectionIndex addObject:@(currentColumnIndex)];
+            [column addSection:section];
         } else {
             section = _sections[sectionIndex];
-            NSInteger columnIndex = [_columnIndexBySectionIndex[sectionIndex] integerValue];
-            column = _columns[columnIndex];
+            column = _columns[section.columnIndex];
+            if (![column containsSectionWithSectionIndex:sectionIndex]) {
+                if (section.columnIndex != NSNotFound) {
+                    [_columns[section.columnIndex] removeSection:section];
+                }
+                [column addSection:section];
+            }
         }
 
         CGFloat columnWidth = column.frame.size.width;
@@ -230,11 +232,7 @@
         }
         CGFloat y = column.frame.size.height;
         CGPoint sectionOrigin = CGPointMake(x, y);
-        
-        if (![column containsSectionWithSectionIndex:sectionIndex]) {
-            [column addSection:section];
-        }
-        
+
         CGFloat sectionHeight = 0;
         
         NSIndexPath *supplementaryViewIndexPath = [NSIndexPath indexPathForRow:0 inSection:sectionIndex];
@@ -331,7 +329,6 @@
     if (_sections.count > numberOfSections) {
         NSRange invalidSectionRange = NSMakeRange(numberOfSections, _sections.count - numberOfSections);
         [_sections removeObjectsInRange:invalidSectionRange];
-        [_columnIndexBySectionIndex removeObjectsInRange:invalidSectionRange];
         for (WMFCVLColumn *column in self.columns) {
             [column removeSectionsWithSectionIndexesInRange:invalidSectionRange];
         }
@@ -378,7 +375,7 @@
             [tallestColumn removeSection:lastSectionInTallestColumn];
             [shortestColumn addSection:lastSectionInTallestColumn];
             
-            _columnIndexBySectionIndex[lastSectionInTallestColumn.index] = @(shortestColumn.index);
+            lastSectionInTallestColumn.columnIndex = shortestColumn.index;
             
             CGFloat heightDelta = lastSectionInTallestColumn.frame.size.height + interSectionSpacing;
             [tallestColumn updateHeightWithDelta:-1*heightDelta];

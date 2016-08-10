@@ -27,6 +27,7 @@
 }
 
 - (void)addSection:(nonnull WMFCVLSection *)section {
+    section.columnIndex = self.index;
     [self.sectionIndexes addIndex:section.index];
 }
 

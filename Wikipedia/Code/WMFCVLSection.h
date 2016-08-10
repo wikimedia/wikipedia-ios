@@ -12,6 +12,7 @@
 @interface WMFCVLSection : NSObject
 
 @property (nonatomic, readonly) NSInteger index;
+@property (nonatomic) NSInteger columnIndex;
 @property (nonatomic) CGRect frame;
 
 @property (nonatomic, strong, readonly, nonnull) NSArray <WMFCVLAttributes *> *headers;
