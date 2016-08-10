@@ -449,7 +449,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 - (NSSet<NSURL*>*)allImageURLs {
     WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withBaseURL:self.url];
-
     NSMutableSet<NSURL*>* imageURLs = [[NSMutableSet alloc] init];
     //Note: use the 'imageURLsForGallery' and 'imageURLsForSaving' methods on WMFImageTagList so we don't have to parse twice.
     [imageURLs addObjectsFromArray:[tagList imageURLsForGallery]];

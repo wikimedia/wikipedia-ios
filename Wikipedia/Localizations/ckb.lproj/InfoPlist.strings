@@ -1,4 +1,3 @@
-// Messages for Central Kurdish
-// Exported from translatewiki.net
-// Author: fjalapeno
-// Author: fjalapeno
+/* Localized versions of Info.plist keys */
+
+"CFBundleDisplayName" = "Wikipedia";

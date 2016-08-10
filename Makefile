@@ -94,7 +94,7 @@ exec-check:  ##Check that executable dependencies are installed
 web: ##Make web assets
 web: css grunt
 
-PROD_CSS_PREFIX="http://bits.wikimedia.org/en.wikipedia.org"
+PROD_CSS_PREFIX="https://en.wikipedia.org/w"
 LOCAL_CSS_PREFIX="http://127.0.0.1:8080/w"
 
 # Switch to LOCAL_CSS_PREFIX when testing CSS changes in a local MW instance (in vagrant).

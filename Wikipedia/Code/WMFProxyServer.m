@@ -3,7 +3,6 @@
 #import "GCDWebServer.h"
 #import "GCDWebServerDataResponse.h"
 #import "GCDWebServerErrorResponse.h"
-#import "GCDWebServerFileResponse.h"
 #import "GCDWebServerFunctions.h"
 #import "NSURL+WMFExtras.h"
 #import "NSString+WMFExtras.h"
@@ -35,6 +34,7 @@
     static dispatch_once_t onceToken;
     static WMFProxyServer* sharedProxyServer;
     dispatch_once(&onceToken, ^{
+        [GCDWebServer setLogLevel:3]; // 3 = Warning
         sharedProxyServer = [[WMFProxyServer alloc] init];
     });
     return sharedProxyServer;

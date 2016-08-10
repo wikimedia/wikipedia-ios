@@ -33,9 +33,9 @@
 #import "NSURL+WMFProxyServer.h"
 #import "WMFImageTag.h"
 #import "WKScriptMessage+WMFScriptMessage.h"
-
 #import "WMFFindInPageKeyboardBar.h"
 #import "UIView+WMFDefaultNib.h"
+
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
