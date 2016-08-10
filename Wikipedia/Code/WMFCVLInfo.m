@@ -29,9 +29,17 @@
     return copy;
 }
 
-- (void)reset {
+- (void)resetColumns {
     self.columns = nil;
+}
+
+- (void)resetSections {
     self.sections = nil;
+}
+
+- (void)reset {
+    [self resetColumns];
+    [self resetSections];
 }
 
 - (void)enumerateSectionsWithBlock:(nonnull void(^)(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop))block {
@@ -116,7 +124,7 @@
         return;
     }
     if (context.boundsDidChange) {
-        [self reset];
+        [self resetColumns];
         [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:context];
     } else if (context.originalLayoutAttributes && context.preferredLayoutAttributes) {
         UICollectionViewLayoutAttributes *originalAttributes = context.originalLayoutAttributes;
@@ -204,18 +212,19 @@
     for (NSInteger sectionIndex = 0; sectionIndex < numberOfSections; sectionIndex++) {
         WMFCVLSection *section = nil;
         
-        WMFCVLColumn *column = nil;
+        
+        
+        NSInteger currentColumnIndex = numberOfColumns == 1 ? 0 : [delegate collectionView:collectionView prefersWiderColumnForSectionAtIndex:sectionIndex] ? 0 : 1;
+        WMFCVLColumn *column = self.columns[currentColumnIndex];
+        
         if (sectionIndex >= [_sections count]) {
-            NSInteger currentColumnIndex = numberOfColumns == 1 ? 0 : [delegate collectionView:collectionView prefersWiderColumnForSectionAtIndex:sectionIndex] ? 0 : 1;
-            column = self.columns[currentColumnIndex];
             section = [WMFCVLSection sectionWithIndex:sectionIndex];
             [_sections addObject:section];
             [column addSection:section];
         } else {
             section = _sections[sectionIndex];
-            column = _columns[section.columnIndex];
             if (![column containsSectionWithSectionIndex:sectionIndex]) {
-                if (section.columnIndex != NSNotFound) {
+                if (section.columnIndex != NSNotFound && section.columnIndex < _columns.count) {
                     [_columns[section.columnIndex] removeSection:section];
                 }
                 [column addSection:section];
