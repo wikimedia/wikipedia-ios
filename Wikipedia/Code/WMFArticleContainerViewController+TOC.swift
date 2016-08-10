@@ -22,30 +22,54 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
 
     public func tableOfContentsController(controller: WMFTableOfContentsViewController,
                                           didSelectItem item: TableOfContentsItem) {
-        var dismissVCCompletionHandler: (() -> Void)?
-        if let section = item as? MWKSection {
-            // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
-            self.webViewController.scrollToSection(section, animated: true)
-            dismissVCCompletionHandler = {
-                // HAX: This is terrible, but iOS events not under our control would steal our focus if we didn't wait long enough here and due to problems in UIWebView, we cannot work around it either.
+        
+        switch tableOfContentsDisplayMode {
+        case WMFTableOfContentsDisplayModeInline:
+            updateTableOfContentsSectionOnScrollEnabled = false
+            if let section = item as? MWKSection {
+                self.webViewController.scrollToSection(section, animated: true)
                 dispatchOnMainQueueAfterDelayInSeconds(1) {
                     self.webViewController.accessibilityCursorToSection(section)
+                     self.updateTableOfContentsSectionOnScrollEnabled = true
+                }
+            } else if let footerItem = item as? TableOfContentsFooterItem {
+                let footerIndex = Int(footerItem.footerViewIndex.rawValue)
+                self.webViewController.scrollToFooterAtIndex(footerIndex)
+                dispatchOnMainQueueAfterDelayInSeconds(1) {
+                    self.webViewController.accessibilityCursorToFooterAtIndex(footerIndex)
+                    self.updateTableOfContentsSectionOnScrollEnabled = true
                 }
             }
-        } else if let footerItem = item as? TableOfContentsFooterItem {
-            let footerIndex = Int(footerItem.footerViewIndex.rawValue)
-            self.webViewController.scrollToFooterAtIndex(footerIndex)
-            dismissVCCompletionHandler = {
-                self.webViewController.accessibilityCursorToFooterAtIndex(footerIndex)
+        case WMFTableOfContentsDisplayModeModal:
+            fallthrough
+        default:
+            tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalHidden
+            var dismissVCCompletionHandler: (() -> Void)?
+            if let section = item as? MWKSection {
+                // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
+                self.webViewController.scrollToSection(section, animated: true)
+                dismissVCCompletionHandler = {
+                    // HAX: This is terrible, but iOS events not under our control would steal our focus if we didn't wait long enough here and due to problems in UIWebView, we cannot work around it either.
+                    dispatchOnMainQueueAfterDelayInSeconds(1) {
+                        self.webViewController.accessibilityCursorToSection(section)
+                    }
+                }
+            } else if let footerItem = item as? TableOfContentsFooterItem {
+                let footerIndex = Int(footerItem.footerViewIndex.rawValue)
+                self.webViewController.scrollToFooterAtIndex(footerIndex)
+                dismissVCCompletionHandler = {
+                    self.webViewController.accessibilityCursorToFooterAtIndex(footerIndex)
+                }
+            } else {
+                assertionFailure("Unsupported selection of TOC item \(item)")
             }
-        } else {
-            assertionFailure("Unsupported selection of TOC item \(item)")
+            
+            // Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
+            dispatchOnMainQueueAfterDelayInSeconds(0.25) {
+                self.dismissViewControllerAnimated(true, completion: dismissVCCompletionHandler)
+            }
         }
-
-        // Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
-        dispatchOnMainQueueAfterDelayInSeconds(0.25) {
-            self.dismissViewControllerAnimated(true, completion: dismissVCCompletionHandler)
-        }
+        
     }
 
     public func tableOfContentsControllerDidCancel(controller: WMFTableOfContentsViewController) {
@@ -144,7 +168,7 @@ extension WMFArticleViewController {
             }
         #endif
         
-        return tableOfContentsModal && !NSUserDefaults.standardUserDefaults().wmf_didPeekTableOfContents()
+        return (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeModal) && !NSUserDefaults.standardUserDefaults().wmf_didPeekTableOfContents()
     }
 
     public func peekTableOfContentsIfNeccesary() {

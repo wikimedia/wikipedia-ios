@@ -8,6 +8,18 @@
 @class WMFShareFunnel;
 @class WMFArticleViewController;
 
+typedef enum : NSUInteger {
+    WMFTableOfContentsDisplayModeModal,
+    WMFTableOfContentsDisplayModeInline
+} WMFTableOfContentsDisplayMode;
+
+typedef enum : NSUInteger {
+    WMFTableOfContentsDisplayStateInlineVisible,
+    WMFTableOfContentsDisplayStateInlineHidden,
+    WMFTableOfContentsDisplayStateModalVisible,
+    WMFTableOfContentsDisplayStateModalHidden
+} WMFTableOfContentsDisplayState;
+
 NS_ASSUME_NONNULL_BEGIN
 
 
@@ -36,9 +48,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
 
-@property (nonatomic, getter=isTableOfContentsModal) BOOL tableOfContentsModal; //whether or not the TOC is or should be presented modally
-@property (nonatomic, getter=isTableOfContentsVisible) BOOL tableOfContentsVisible; //whether or not the TOC is visible in non-modal mode
-@property (nonatomic, getter=isTableOfContentsSectionUpdateEnabled) BOOL tableOfContentsSectionUpdateEnabled;
+@property (nonatomic) WMFTableOfContentsDisplayMode tableOfContentsDisplayMode;
+@property (nonatomic) WMFTableOfContentsDisplayState tableOfContentsDisplayState;
+@property (nonatomic, getter=isUpdateTableOfContentsSectionOnScrollEnabled) BOOL updateTableOfContentsSectionOnScrollEnabled;
 
 @end
 

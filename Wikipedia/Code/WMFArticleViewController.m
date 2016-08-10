@@ -419,14 +419,23 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             self.findInPageToolbarItem,
             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.f],
             nil];
-    if (self.isTableOfContentsModal) {
-        [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
-        [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8.f]];
-        [articleToolbarItems addObject:self.tableOfContentsToolbarItem];
-    } else {
-        [articleToolbarItems insertObject:self.tableOfContentsToolbarItem atIndex:0];
-        [articleToolbarItems insertObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8.f] atIndex:1];
-        [articleToolbarItems insertObject:[UIBarButtonItem flexibleSpaceToolbarItem] atIndex:2];
+    
+    switch (self.tableOfContentsDisplayMode) {
+        case WMFTableOfContentsDisplayModeModal:
+        {
+            [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
+            [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8.f]];
+            [articleToolbarItems addObject:self.tableOfContentsToolbarItem];
+        }
+            break;
+        case WMFTableOfContentsDisplayModeInline:
+        default:
+        {
+            [articleToolbarItems insertObject:self.tableOfContentsToolbarItem atIndex:0];
+            [articleToolbarItems insertObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8.f] atIndex:1];
+            [articleToolbarItems insertObject:[UIBarButtonItem flexibleSpaceToolbarItem] atIndex:2];
+        }
+            break;
     }
     return articleToolbarItems;
 }
@@ -710,15 +719,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self updateTableOfContentsWithTraitCollection:self.traitCollection];
-    self.tableOfContentsVisible = !self.tableOfContentsModal;
+    [self updateTableOfContentsDisplayModeWithTraitCollection:self.traitCollection];
+    
+    self.tableOfContentsDisplayState = self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline ? WMFTableOfContentsDisplayStateInlineVisible : WMFTableOfContentsDisplayStateModalHidden;
     
     [self.navigationController.toolbar wmf_applySolidWhiteBackgroundWithTopShadow];
 
     [self updateToolbar];
 
     [self setUpTitleBarButton];
-    self.view.clipsToBounds                   = NO;
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.view.backgroundColor = [UIColor whiteColor];
 
@@ -775,13 +784,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)layoutForSize:(CGSize)size {
     CGFloat separatorWidth = WMFArticleViewControllerTableOfContentsSeparatorWidth;
-    CGFloat tocWidth = size.width*WMFArticleViewControllerExpandedTableOfContentsWidthPercentage;
-    BOOL isTOCVisible = !self.isTableOfContentsModal && [self hasTableOfContents] && self.isTableOfContentsVisible;
+    CGFloat tocWidth = round(size.width*WMFArticleViewControllerExpandedTableOfContentsWidthPercentage);
+    BOOL isTOCVisible = self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineVisible;
     CGFloat tocOriginX = isTOCVisible ? 0 : 0 - tocWidth - separatorWidth;
     CGFloat separatorOriginX = isTOCVisible ? tocWidth : 0 - separatorWidth;
     
     CGPoint origin = CGPointZero;
-    if (!self.isTableOfContentsModal) {
+    if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
         self.tableOfContentsViewController.view.frame = CGRectMake(tocOriginX, origin.y, tocWidth, size.height);
         self.tableOfContentsSeparatorView.frame = CGRectMake(separatorOriginX, origin.y, separatorWidth, size.height);
     }
@@ -796,8 +805,17 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self layoutForSize:self.view.bounds.size];
 }
 
-- (void)updateTableOfContentsWithTraitCollection:(UITraitCollection *)traitCollection {
-    self.tableOfContentsModal = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact;
+- (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
+    self.tableOfContentsDisplayMode = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
+    switch (self.tableOfContentsDisplayMode) {
+        case WMFTableOfContentsDisplayModeInline:
+            self.updateTableOfContentsSectionOnScrollEnabled = YES;
+            break;
+        case WMFTableOfContentsDisplayModeModal:
+        default:
+            self.updateTableOfContentsSectionOnScrollEnabled = NO;
+            break;
+    }
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -809,8 +827,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
-    [self updateTableOfContentsWithTraitCollection:newCollection];
-    [self setupTableOfContentsViewControllerForDisplayModal:self.tableOfContentsModal];
+    [self updateTableOfContentsDisplayModeWithTraitCollection:newCollection];
+    [self setupTableOfContentsViewController];
 }
 
 #pragma mark - Web View Setup
@@ -831,38 +849,77 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Table of Contents
 
 - (void)hideOrShowTableOfContents {
-    if (self.tableOfContentsModal) {
-        [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
-    } else {
-        self.tableOfContentsVisible = !self.tableOfContentsVisible;
-        [UIView animateWithDuration:0.25 animations:^{
-            [self layoutForSize:self.view.bounds.size];
-        }];
+    switch (self.tableOfContentsDisplayMode) {
+        case WMFTableOfContentsDisplayModeInline:
+        {
+            self.tableOfContentsDisplayState = self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineVisible ? WMFTableOfContentsDisplayStateInlineHidden : WMFTableOfContentsDisplayStateInlineVisible;
+            [UIView animateWithDuration:0.25 animations:^{
+                [self layoutForSize:self.view.bounds.size];
+            }];
+        }
+            break;
+        case WMFTableOfContentsDisplayModeModal:
+        default:
+        {
+            self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalVisible;
+            [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
+        }
+            break;
     }
 }
 
-- (void)setupTableOfContentsViewControllerForDisplayModal:(BOOL)modal {
-    if (modal) {
-        if (self.tableOfContentsViewController.parentViewController == self) {
-            [self.tableOfContentsViewController willMoveToParentViewController:nil];
-            [self.tableOfContentsViewController.view removeFromSuperview];
-            [self.tableOfContentsViewController removeFromParentViewController];
-            [self.tableOfContentsSeparatorView removeFromSuperview];
+- (void)setupTableOfContentsViewController {
+    switch (self.tableOfContentsDisplayMode) {
+        case WMFTableOfContentsDisplayModeInline:
+        {
+            if (self.tableOfContentsViewController.parentViewController != self) {
+                if (self.presentedViewController == self.tableOfContentsViewController) {
+                    [self dismissViewControllerAnimated:NO completion:NULL];
+                    
+                }
+                
+                switch (self.tableOfContentsDisplayState) {
+                    case WMFTableOfContentsDisplayStateModalHidden:
+                        self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
+                        break;
+                    case WMFTableOfContentsDisplayStateModalVisible:
+                        self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineVisible;
+                    default:
+                        break;
+                }
+
+                if (self.tableOfContentsSeparatorView == nil) {
+                    self.tableOfContentsSeparatorView = [[UIView alloc] init];
+                    self.tableOfContentsSeparatorView.backgroundColor = [UIColor wmf_lightGrayColor];
+                }
+                [self.view insertSubview:self.tableOfContentsSeparatorView atIndex:0];
+                [self createTableOfContentsViewControllerIfNeeded];
+                [self addChildViewController:self.tableOfContentsViewController];
+                [self.view insertSubview:self.tableOfContentsViewController.view atIndex:0];
+                [self.tableOfContentsViewController didMoveToParentViewController:self];
+            }
         }
-    } else if (self.tableOfContentsViewController.parentViewController != self) {
-        if (!modal && self.presentedViewController == self.tableOfContentsViewController) {
-            [self dismissViewControllerAnimated:NO completion:NULL];
-            self.tableOfContentsVisible = YES;
+        break;
+        default:
+        case WMFTableOfContentsDisplayModeModal:
+        {
+            switch (self.tableOfContentsDisplayState) {
+                case WMFTableOfContentsDisplayStateInlineVisible:
+                case WMFTableOfContentsDisplayStateInlineHidden:
+                    self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalHidden;
+                    break;
+                default:
+                    break;
+            }
+            if (self.tableOfContentsViewController.parentViewController == self) {
+                [self.tableOfContentsViewController willMoveToParentViewController:nil];
+                [self.tableOfContentsViewController.view removeFromSuperview];
+                [self.tableOfContentsViewController removeFromParentViewController];
+                [self.tableOfContentsSeparatorView removeFromSuperview];
+            }
+
         }
-        if (self.tableOfContentsSeparatorView == nil) {
-            self.tableOfContentsSeparatorView = [[UIView alloc] init];
-            self.tableOfContentsSeparatorView.backgroundColor = [UIColor wmf_lightGrayColor];
-        }
-        [self.view insertSubview:self.tableOfContentsSeparatorView atIndex:0];
-        [self createTableOfContentsViewControllerIfNeeded];
-        [self addChildViewController:self.tableOfContentsViewController];
-        [self.view insertSubview:self.tableOfContentsViewController.view atIndex:0];
-        [self.tableOfContentsViewController didMoveToParentViewController:self];
+        break;
     }
     [self updateToolbar];
 }
@@ -1122,8 +1179,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         });
     }];
 
-    if (!self.isTableOfContentsModal) {
-        [self setupTableOfContentsViewControllerForDisplayModal:self.isTableOfContentsModal];
+    if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
+        [self setupTableOfContentsViewController];
         [self layoutForSize:self.view.bounds.size];
         [self.tableOfContentsViewController selectAndScrollToItemAtIndex:0 animated:NO];
     }
@@ -1158,7 +1215,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)webViewController:(WebViewController*)controller scrollViewDidScroll:(UIScrollView*)scrollView {
-    if (self.isTableOfContentsSectionUpdateEnabled && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
+    if (self.isUpdateTableOfContentsSectionOnScrollEnabled && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
         
         [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection * _Nullable section, NSError * _Nullable error) {
             if (section) {
