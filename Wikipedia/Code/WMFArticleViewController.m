@@ -1287,17 +1287,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)webViewController:(WebViewController*)controller scrollViewDidScroll:(UIScrollView*)scrollView {
     if (self.isUpdateTableOfContentsSectionOnScrollEnabled && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
-        NSInteger visibleFooterIndex = self.webViewController.visibleFooterIndex;
-        if (visibleFooterIndex == NSNotFound) {
-            [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection * _Nullable section, NSError * _Nullable error) {
-                if (section) {
-                    [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
+
+        [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection * _Nullable section, NSError * _Nullable error) {
+            if (section) {
+                [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
+            } else {
+                NSInteger visibleFooterIndex = self.webViewController.visibleFooterIndex;
+                if (visibleFooterIndex != NSNotFound) {
+                    [self selectAndScrollToTableOfContentsFooterItemAtIndex:visibleFooterIndex animated:YES];
+                    
                 }
-            }];
-        } else {
-            [self selectAndScrollToTableOfContentsFooterItemAtIndex:visibleFooterIndex animated:YES];
-        }
-       
+            }
+        }];
+        
         self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
     }
 }
