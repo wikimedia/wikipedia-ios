@@ -118,7 +118,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong, readwrite) UIBarButtonItem* languagesToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem* shareToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem* fontSizeToolbarItem;
-@property (nonatomic, strong, readwrite) UIBarButtonItem* tableOfContentsToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem* showTableOfContentsToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem* hideTableOfContentsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem* findInPageToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
 @property (nonatomic, strong) UIRefreshControl* pullToRefresh;
@@ -394,46 +395,78 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Toolbar Setup
 
 - (NSArray<UIBarButtonItem*>*)articleToolBarItems {
-    NSMutableArray *articleToolbarItems = [NSMutableArray arrayWithObjects:
-            self.languagesToolbarItem,
-            
-            [UIBarButtonItem flexibleSpaceToolbarItem],
-            
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
-            self.saveToolbarItem,
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:4.f],
-            
-            [UIBarButtonItem flexibleSpaceToolbarItem],
-            
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
-            self.shareToolbarItem,
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
-            
-            [UIBarButtonItem flexibleSpaceToolbarItem],
-            
-            self.fontSizeToolbarItem,
-            
-            [UIBarButtonItem flexibleSpaceToolbarItem],
-            
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
-            self.findInPageToolbarItem,
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.f],
-            nil];
+    NSMutableArray *articleToolbarItems = [NSMutableArray arrayWithCapacity:18];
+    
+    CGFloat spacing = 0;
+    switch (self.tableOfContentsDisplayMode) {
+        case WMFTableOfContentsDisplayModeInline:
+            spacing = 15;
+            break;
+        default:
+            break;
+    }
+    
+    NSArray *itemGroups = @[@[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing],
+                              self.languagesToolbarItem,
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing]],
+                            
+                            @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
+                              self.saveToolbarItem,
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:4 + spacing]],
+                            
+                            @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
+                              self.shareToolbarItem,
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing]],
+                            
+                            @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing],
+                              self.fontSizeToolbarItem,
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing]],
+                            
+                            @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
+                              self.findInPageToolbarItem,
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2 + spacing]]];
+    
+    
+    for (NSArray *itemGroup in itemGroups) {
+        [articleToolbarItems addObjectsFromArray:itemGroup];
+        switch (self.tableOfContentsDisplayMode) {
+            case WMFTableOfContentsDisplayModeInline:
+                break;
+            case WMFTableOfContentsDisplayModeModal:
+            default:
+                [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
+                break;
+        }
+    }
+    
+    
+    UIBarButtonItem *tocItem = nil;
+    switch (self.tableOfContentsDisplayState) {
+        case WMFTableOfContentsDisplayStateInlineVisible:
+            tocItem = self.hideTableOfContentsToolbarItem;
+            break;
+        default:
+            tocItem = self.showTableOfContentsToolbarItem;
+            break;
+    }
     
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeModal:
         {
-            [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
-            [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8.f]];
-            [articleToolbarItems addObject:self.tableOfContentsToolbarItem];
+            [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]];
+            [articleToolbarItems addObject:tocItem];
         }
             break;
         case WMFTableOfContentsDisplayModeInline:
         default:
         {
-            [articleToolbarItems insertObject:self.tableOfContentsToolbarItem atIndex:0];
-            [articleToolbarItems insertObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8.f] atIndex:1];
+            [articleToolbarItems insertObject:tocItem atIndex:0];
+            [articleToolbarItems insertObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8] atIndex:1];
             [articleToolbarItems insertObject:[UIBarButtonItem flexibleSpaceToolbarItem] atIndex:2];
+            [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
+            [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:tocItem.width + 8]];
+
+            
         }
             break;
     }
@@ -462,22 +495,34 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.fontSizeToolbarItem.enabled        = [self canAdjustText];
     self.shareToolbarItem.enabled           = [self canShare];
     self.languagesToolbarItem.enabled       = [self hasLanguages];
-    self.tableOfContentsToolbarItem.enabled = [self hasTableOfContents];
+    self.showTableOfContentsToolbarItem.enabled = [self hasTableOfContents];
     self.findInPageToolbarItem.enabled      = [self canFindInPage];
 }
 
 #pragma mark - Toolbar Items
 
-- (UIBarButtonItem*)tableOfContentsToolbarItem {
-    if (!_tableOfContentsToolbarItem) {
-        _tableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toc"]
+- (UIBarButtonItem*)showTableOfContentsToolbarItem {
+    if (!_showTableOfContentsToolbarItem) {
+        _showTableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toc"]
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
-                                                                      action:@selector(hideOrShowTableOfContents)];
-        _tableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
-        return _tableOfContentsToolbarItem;
+                                                                      action:@selector(showTableOfContents)];
+        _showTableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
+        return _showTableOfContentsToolbarItem;
     }
-    return _tableOfContentsToolbarItem;
+    return _showTableOfContentsToolbarItem;
+}
+
+- (UIBarButtonItem*)hideTableOfContentsToolbarItem {
+    if (!_hideTableOfContentsToolbarItem) {
+        _hideTableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toc"]
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:self
+                                                                      action:@selector(hideTableOfContents)];
+        _hideTableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
+        return _hideTableOfContentsToolbarItem;
+    }
+    return _hideTableOfContentsToolbarItem;
 }
 
 - (UIBarButtonItem*)saveToolbarItem {
@@ -850,11 +895,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Table of Contents
 
-- (void)hideOrShowTableOfContents {
+- (void)showTableOfContents {
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
         {
-            self.tableOfContentsDisplayState = self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineVisible ? WMFTableOfContentsDisplayStateInlineHidden : WMFTableOfContentsDisplayStateInlineVisible;
+            self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineVisible;
             [UIView animateWithDuration:0.25 animations:^{
                 [self layoutForSize:self.view.bounds.size];
             }];
@@ -868,6 +913,28 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         }
             break;
     }
+    [self updateToolbar];
+}
+
+- (void)hideTableOfContents {
+    switch (self.tableOfContentsDisplayMode) {
+        case WMFTableOfContentsDisplayModeInline:
+        {
+            self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
+            [UIView animateWithDuration:0.25 animations:^{
+                [self layoutForSize:self.view.bounds.size];
+            }];
+        }
+            break;
+        case WMFTableOfContentsDisplayModeModal:
+        default:
+        {
+            self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalHidden;
+            [self dismissViewControllerAnimated:YES completion:NULL];
+        }
+            break;
+    }
+    [self updateToolbar];
 }
 
 - (void)setupTableOfContentsViewController {
