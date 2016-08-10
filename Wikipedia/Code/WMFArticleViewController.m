@@ -793,6 +793,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
         self.tableOfContentsViewController.view.frame = CGRectMake(tocOriginX, origin.y, tocWidth, size.height);
         self.tableOfContentsSeparatorView.frame = CGRectMake(separatorOriginX, origin.y, separatorWidth, size.height);
+        self.tableOfContentsViewController.view.alpha = isTOCVisible ? 1 : 0;
+        self.tableOfContentsSeparatorView.alpha = isTOCVisible ? 1 : 0;
     }
     
     CGFloat webFrameOriginX = tocOriginX + tocWidth + separatorWidth;
