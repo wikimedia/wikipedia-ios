@@ -27,6 +27,8 @@
 // Style
 #import "UIFont+WMFStyle.h"
 
+#import <Tweaks/FBTweakInline.h>
+
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString* const WMFRelatedSectionIdentifierPrefix = @"WMFRelatedSectionIdentifier";
@@ -134,7 +136,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (BOOL)prefersWiderColumn {
-    return YES;
+    return FBTweakValue(@"Explore", @"General", @"Put 'Because You Read' in Wider Column", YES);
 }
 
 - (AnyPromise*)fetchData {
