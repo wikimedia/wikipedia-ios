@@ -229,4 +229,8 @@ extension WMFArticleViewController {
     public func selectAndScrollToTableOfContentsItemForSection(section: MWKSection, animated: Bool) {
         tableOfContentsViewController?.selectAndScrollToItem(section, animated: animated)
     }
+    
+    public func selectAndScrollToTableOfContentsFooterItemAtIndex(index: Int, animated: Bool) {
+        tableOfContentsViewController?.selectAndScrollToFooterItem(atIndex: index, animated: animated)
+    }
 }

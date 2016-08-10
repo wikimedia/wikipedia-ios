@@ -82,6 +82,15 @@ public class WMFTableOfContentsViewController: UIViewController,
     public func selectAndScrollToItem(atIndex index: Int, animated: Bool) {
         selectAndScrollToItem(items[index], animated: animated)
     }
+    
+    public func selectAndScrollToFooterItem(atIndex index: Int, animated: Bool) {
+        if let firstFooterIndex = items.indexOf({ return $0 as? TableOfContentsFooterItem != nil }) {
+            let itemIndex = firstFooterIndex + index
+            if itemIndex < items.count {
+                selectAndScrollToItem(atIndex: itemIndex, animated: animated)
+            }
+        }
+    }
 
     public func selectAndScrollToItem(item: TableOfContentsItem, animated: Bool) {
         guard let indexPath = indexPathForItem(item) else {
