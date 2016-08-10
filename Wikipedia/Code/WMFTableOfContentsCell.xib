@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -8,24 +8,24 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="77" id="uO4-kI-VPN" customClass="WMFTableOfContentsCell" customModule="Wikipedia" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uO4-kI-VPN" id="KCX-Ys-ehz">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="76.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bfs-Qt-Ofl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
+                        <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ew3-L9-lHp">
-                        <rect key="frame" x="34" y="15" width="278" height="47"/>
+                        <rect key="frame" x="34" y="11" width="278" height="17.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.19997376203536987" green="0.20001503825187683" blue="0.19997122883796692" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WnM-xO-Ywd">
-                        <rect key="frame" x="14" y="33" width="10" height="10"/>
+                        <rect key="frame" x="14" y="15" width="10" height="10"/>
                         <color key="backgroundColor" red="0.18405178189277649" green="0.33496212959289551" blue="0.82250326871871948" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="AUf-YD-XQT"/>
@@ -37,59 +37,36 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rjc-ni-9zr" userLabel="Bottom Section Border">
-                        <rect key="frame" x="34" y="76" width="286" height="1"/>
-                        <color key="backgroundColor" red="0.92931067943572998" green="0.92946994304656982" blue="0.92930072546005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hBO-JQ-0r9" userLabel="Section Line">
+                        <rect key="frame" x="19" y="0.0" width="1" height="39.5"/>
+                        <color key="backgroundColor" white="0.80000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="Xca-Js-lUH"/>
-                        </constraints>
-                    </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hBO-JQ-0r9" userLabel="Top Section Border">
-                        <rect key="frame" x="34" y="0.0" width="286" height="1"/>
-                        <color key="backgroundColor" red="0.92931067940000001" green="0.92946994299999997" blue="0.92930072549999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="toC-6D-aHj"/>
+                            <constraint firstAttribute="width" constant="1" id="wSo-zT-dpK"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="rjc-ni-9zr" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" id="0fd-Ez-aH6"/>
-                    <constraint firstAttribute="bottom" secondItem="rjc-ni-9zr" secondAttribute="bottom" id="7VV-AZ-SDF"/>
-                    <constraint firstAttribute="trailing" secondItem="hBO-JQ-0r9" secondAttribute="trailing" id="DVE-DJ-zax"/>
-                    <constraint firstAttribute="trailing" secondItem="rjc-ni-9zr" secondAttribute="trailing" id="Fst-Ae-20o"/>
-                    <constraint firstAttribute="bottom" secondItem="ew3-L9-lHp" secondAttribute="bottom" priority="999" constant="15" id="IjA-fh-GRc"/>
-                    <constraint firstItem="rjc-ni-9zr" firstAttribute="leading" secondItem="ew3-L9-lHp" secondAttribute="leading" id="LdV-Fa-7uu"/>
+                    <constraint firstItem="ew3-L9-lHp" firstAttribute="leading" secondItem="hBO-JQ-0r9" secondAttribute="trailing" constant="14" id="3jL-ZD-T8d"/>
+                    <constraint firstAttribute="bottom" secondItem="ew3-L9-lHp" secondAttribute="bottom" priority="999" constant="11" id="IjA-fh-GRc"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="leading" secondItem="WnM-xO-Ywd" secondAttribute="trailing" priority="999" constant="10" id="Tr2-mk-KE5"/>
                     <constraint firstAttribute="bottom" secondItem="Bfs-Qt-Ofl" secondAttribute="bottom" id="UqM-FY-QuJ"/>
                     <constraint firstItem="Bfs-Qt-Ofl" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" id="VIr-yC-IiC"/>
                     <constraint firstAttribute="trailing" secondItem="ew3-L9-lHp" secondAttribute="trailing" priority="999" constant="8" id="VmJ-Qh-cO8"/>
                     <constraint firstAttribute="trailing" secondItem="Bfs-Qt-Ofl" secondAttribute="trailing" id="g7K-oD-Wpv"/>
-                    <constraint firstItem="hBO-JQ-0r9" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" id="j8J-2C-AIb"/>
+                    <constraint firstAttribute="bottom" secondItem="hBO-JQ-0r9" secondAttribute="bottom" id="j7n-4y-c7J"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="centerY" secondItem="WnM-xO-Ywd" secondAttribute="centerY" id="lrX-Jk-Lsp"/>
                     <constraint firstItem="hBO-JQ-0r9" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" id="qgM-RG-XeE"/>
-                    <constraint firstItem="ew3-L9-lHp" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" priority="999" constant="15" id="tkc-3N-nXV"/>
-                    <constraint firstItem="hBO-JQ-0r9" firstAttribute="leading" secondItem="ew3-L9-lHp" secondAttribute="leading" id="vvn-Hr-f7n"/>
+                    <constraint firstItem="ew3-L9-lHp" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" priority="999" constant="11" id="tkc-3N-nXV"/>
                     <constraint firstItem="Bfs-Qt-Ofl" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" id="x5g-e2-QgP"/>
                     <constraint firstItem="WnM-xO-Ywd" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" constant="14" id="zHI-TZ-cZu"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="j8J-2C-AIb"/>
-                        <exclude reference="0fd-Ez-aH6"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <connections>
-                <outlet property="bottomSectionBorder" destination="rjc-ni-9zr" id="N81-8V-W5X"/>
-                <outlet property="bottomSectionBorderAlignLeadingToSuperview" destination="0fd-Ez-aH6" id="n7o-Jv-ksS"/>
-                <outlet property="bottomSectionBorderAlignToText" destination="LdV-Fa-7uu" id="umV-MU-HH5"/>
                 <outlet property="indentationConstraint" destination="Tr2-mk-KE5" id="t2k-NA-mrW"/>
+                <outlet property="sectionLine" destination="hBO-JQ-0r9" id="77l-aS-yM9"/>
                 <outlet property="sectionSelectionBackground" destination="Bfs-Qt-Ofl" id="7AO-BD-fec"/>
                 <outlet property="sectionTitle" destination="ew3-L9-lHp" id="09m-Wa-PKk"/>
                 <outlet property="selectedSectionIndicator" destination="WnM-xO-Ywd" id="oAl-20-dvE"/>
-                <outlet property="topSectionBorder" destination="hBO-JQ-0r9" id="osV-Re-bwM"/>
-                <outlet property="topSectionBorderAlignLeadingToSuperview" destination="j8J-2C-AIb" id="ggI-LF-fP3"/>
-                <outlet property="topSectionBorderAlignToText" destination="vvn-Hr-f7n" id="Rto-G0-Muy"/>
             </connections>
             <point key="canvasLocation" x="425" y="373.5"/>
         </tableViewCell>

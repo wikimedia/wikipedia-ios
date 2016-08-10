@@ -39,8 +39,8 @@ extension MWKSection : TableOfContentsItem {
 
     public var indentationLevel: Int {
         get {
-            if let level = toclevel?.integerValue where level > 1 {
-                return max((level - 2), 0)
+            if let level = toclevel?.integerValue {
+                return max(level - 1, 0)
             } else {
                 return 0
             }

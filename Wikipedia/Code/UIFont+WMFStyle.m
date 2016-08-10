@@ -27,10 +27,6 @@
     return [self wmf_copyWithSizeScaledBy:MENUS_SCALE_MULTIPLIER];
 }
 
-+ (instancetype)wmf_tableOfContentsHeaderFont {
-    return [UIFont systemFontOfSize:12];
-}
-
 + (instancetype)wmf_tableOfContentsSectionFont {
     static UIFont* f = nil;
 

@@ -19,7 +19,7 @@
 
 + (instancetype)wmf_articleBackgroundColor;
 
-+ (instancetype)wmf_tableOfContentsHeaderTextColor;
++ (instancetype)wmf_tableOfContentsBackgroundColor;
 
 + (instancetype)wmf_tableOfContentsSelectionBackgroundColor;
 

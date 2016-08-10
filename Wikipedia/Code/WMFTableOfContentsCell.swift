@@ -7,13 +7,8 @@ public class WMFTableOfContentsCell: UITableViewCell {
     @IBOutlet var sectionTitle: UILabel!
     @IBOutlet var selectedSectionIndicator: UIView!
     @IBOutlet var indentationConstraint: NSLayoutConstraint!
-    @IBOutlet var topSectionBorder: UIView!
-    @IBOutlet var bottomSectionBorder: UIView!
-    @IBOutlet var topSectionBorderAlignLeadingToSuperview: NSLayoutConstraint!
-    @IBOutlet var topSectionBorderAlignToText: NSLayoutConstraint!
-    @IBOutlet var bottomSectionBorderAlignLeadingToSuperview: NSLayoutConstraint!
-    @IBOutlet var bottomSectionBorderAlignToText: NSLayoutConstraint!
     
+    @IBOutlet weak var sectionLine: UIView!
     // MARK: - Init
 
     public required init?(coder aDecoder: NSCoder) {
@@ -25,6 +20,7 @@ public class WMFTableOfContentsCell: UITableViewCell {
 
     public override func awakeFromNib() {
         super.awakeFromNib()
+        contentView.backgroundColor = UIColor.wmf_tableOfContentsBackgroundColor()
         selectedSectionIndicator.alpha = 0.0
         sectionSelectionBackground.backgroundColor = UIColor.wmf_tableOfContentsSelectionBackgroundColor()
         sectionSelectionBackground.alpha = 0.0
@@ -39,21 +35,14 @@ public class WMFTableOfContentsCell: UITableViewCell {
             sectionTitle.font = newItem.itemType.titleFont
             sectionTitle.textColor = newItem.itemType.titleColor
 
-            switch (newItem.borderType) {
-            case .TopOnly:
-                topSectionBorder.hidden = false
-                bottomSectionBorder.hidden = true
-                topSectionBorderAlignToText.active = true
-                topSectionBorderAlignLeadingToSuperview.active = false
-                bottomSectionBorderAlignToText.active = true
-                bottomSectionBorderAlignLeadingToSuperview.active = false
-            case .None:
-                topSectionBorder.hidden = true
-                bottomSectionBorder.hidden = true
-            }
-
             indentationConstraint.constant =
                 WMFTableOfContentsCell.indentationConstantForItem(item)
+            
+            if let level = item?.indentationLevel where level > 1 {
+                sectionLine.hidden = false
+            } else {
+                sectionLine.hidden = true
+            }
 
             layoutIfNeeded()
         } else {
@@ -104,10 +93,18 @@ public class WMFTableOfContentsCell: UITableViewCell {
     // MARK: - Indentation
 
     static let minimumIndentationWidth: CGFloat = 10
-    static let indentationLevelSpacing: CGFloat = 10
+    static let firstIndendationWidth: CGFloat = 9
+    static let indentationLevelSpacing: CGFloat = 18
 
     static func indentationConstantForItem(item: TableOfContentsItem?) -> CGFloat {
-        return WMFTableOfContentsCell.minimumIndentationWidth
-               + WMFTableOfContentsCell.indentationLevelSpacing * CGFloat(item?.indentationLevel ?? 0)
+        let level = item?.indentationLevel ?? 0
+        var indent = WMFTableOfContentsCell.minimumIndentationWidth;
+        if level > 0 {
+            indent += WMFTableOfContentsCell.firstIndendationWidth
+        }
+        if level > 1 {
+           indent += WMFTableOfContentsCell.indentationLevelSpacing * CGFloat(level - 1)
+        }
+        return indent
     }
 }

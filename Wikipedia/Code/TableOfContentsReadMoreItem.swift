@@ -23,7 +23,6 @@ public class TableOfContentsReadMoreItem : NSObject, TableOfContentsFooterItem {
             return self === item
                 || (titleText == item.titleText
                     && itemType == item.itemType
-                    && borderType == item.borderType
                     && indentationLevel == item.indentationLevel)
         } else {
             return false

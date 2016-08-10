@@ -167,10 +167,8 @@ public class WMFTableOfContentsViewController: UIViewController,
 
     public override func loadView() {
         super.loadView()
-        tableView = UITableView(frame: self.view.bounds, style: .Grouped)
-        
-        assert(tableView.style == .Grouped, "Use grouped UITableView layout so our WMFTableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our WMFTableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use WMFTableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
-        
+        tableView = UITableView(frame: self.view.bounds, style: .Plain)
+        tableView.separatorStyle = .None
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
@@ -178,7 +176,7 @@ public class WMFTableOfContentsViewController: UIViewController,
             make.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
         tableView.backgroundView = nil
-        tableView.backgroundColor = UIColor.whiteColor()
+        tableView.backgroundColor = UIColor.wmf_tableOfContentsBackgroundColor()
     }
 
     // MARK: - UIViewController
@@ -186,12 +184,8 @@ public class WMFTableOfContentsViewController: UIViewController,
         super.viewDidLoad()
         tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(),
                               forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
-        tableView.estimatedRowHeight = 44.0
+        tableView.estimatedRowHeight = 40.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
-        tableView.estimatedSectionHeaderHeight = 25
-        automaticallyAdjustsScrollViewInsets = false
-        tableView.contentInset = UIEdgeInsetsMake(UIApplication.sharedApplication().statusBarFrame.size.height, 0, 0, 0)
         tableView.separatorStyle = .None
     }
 
@@ -229,13 +223,7 @@ public class WMFTableOfContentsViewController: UIViewController,
     }
 
     // MARK: - UITableViewDelegate
-    public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
-        assert(delegate != nil, "TOC delegate not set!")
-        header.articleURL = delegate?.tableOfContentsArticleLanguageURL()
-        return header
-    }
-    
+
     public func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         let item = items[indexPath.row]
         addHighlightToItem(item, animated: true)
