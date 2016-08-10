@@ -11,10 +11,10 @@
 @implementation MWKHistoryEntry
 
 - (instancetype)initWithURL:(NSURL*)url {
+    url = [NSURL wmf_desktopURLForURL:url];
     NSParameterAssert(url.wmf_title);
     self = [super initWithURL:url];
     if (self) {
-        self.dateViewed           = [NSDate date];
     }
     return self;
 }
@@ -37,7 +37,7 @@
 
     self = [self initWithURL:url];
     if (self) {
-        self.dateViewed                        = [self requiredDate:@"date" dict:dict];
+        self.dateViewed                  = [self requiredDate:@"date" dict:dict];
         self.scrollPosition              = [[self requiredNumber:@"scrollPosition" dict:dict] floatValue];
         self.titleWasSignificantlyViewed = [[self optionalNumber:@"titleWasSignificantlyViewed" dict:dict] boolValue];
     }
