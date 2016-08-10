@@ -252,11 +252,8 @@
                 headerHeight = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
                 return CGRectMake(x, y, columnWidth, headerHeight);
             } else {
-                CGRect newFrame = existingFrame;
-                headerHeight = newFrame.size.height;
-                newFrame.origin = CGPointMake(x, y);
-                newFrame.size.width = columnWidth;
-                return newFrame;
+                headerHeight = existingFrame.size.height;
+                return CGRectMake(x, y, columnWidth, headerHeight);
             }
         }];
         if (didCreateOrUpdate) {
@@ -286,11 +283,8 @@
                      itemHeight = [delegate collectionView:collectionView estimatedHeightForItemAtIndexPath:itemIndexPath forColumnWidth:columnWidth];
                     return CGRectMake(itemX, y, itemWidth, itemHeight);
                 } else {
-                    CGRect newFrame = existingFrame;
                     itemHeight = existingFrame.size.height;
-                    newFrame.origin = CGPointMake(itemX, y);
-                    newFrame.size.width = itemWidth;
-                    return newFrame;
+                    return CGRectMake(itemX, y, itemWidth, itemHeight);
                 }}];
             if (didCreateOrUpdate) {
                 [invalidatedItemIndexPaths addObject:itemIndexPath];
@@ -315,11 +309,8 @@
                 footerHeight = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
                 return CGRectMake(x, y, columnWidth, footerHeight);
             } else {
-                CGRect newFrame = existingFrame;
-                footerHeight = newFrame.size.height;
-                newFrame.origin = CGPointMake(x, y);
-                newFrame.size.width = columnWidth;
-                return newFrame;
+                footerHeight = existingFrame.size.height;
+                return CGRectMake(x, y, columnWidth, footerHeight);
             }
         }];
         if (didCreateOrUpdate) {
