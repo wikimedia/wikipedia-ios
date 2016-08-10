@@ -4,8 +4,6 @@
 
 @property (nonatomic, copy) UICollectionViewLayoutAttributes *originalLayoutAttributes;
 @property (nonatomic, copy) UICollectionViewLayoutAttributes *preferredLayoutAttributes;
-
-@property (nonatomic) BOOL sizeDidChange;
-@property (nonatomic) CGSize size;
+@property (nonatomic) BOOL boundsDidChange;
 
 @end

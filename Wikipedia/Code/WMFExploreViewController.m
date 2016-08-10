@@ -48,8 +48,6 @@
 // Controllers
 #import "WMFRelatedSectionBlackList.h"
 
-#import "WMFCVLInvalidationContext.h"
-
 #define ENABLE_RANDOM_DEBUGGING 0
 
 #if ENABLE_RANDOM_DEBUGGING
@@ -376,14 +374,6 @@ WMFColumnarCollectionViewLayoutDelegate>
         cell.selected = NO;
     }
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleURL:nil];
-}
-
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    WMFCVLInvalidationContext *context = [WMFCVLInvalidationContext new];
-    context.sizeDidChange = YES;
-    context.size = size;
-    [self.collectionViewLayout invalidateLayoutWithContext:context];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {

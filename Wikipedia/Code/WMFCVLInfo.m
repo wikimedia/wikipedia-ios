@@ -123,10 +123,9 @@
     if (collectionView == nil) {
         return;
     }
-    
-    if (context.sizeDidChange) {
+    if (context.boundsDidChange) {
         [self resetColumns];
-        [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:nil];
+        [self layoutWithMetrics:metrics delegate:delegate collectionView:collectionView invalidationContext:context];
     } else if (context.originalLayoutAttributes && context.preferredLayoutAttributes) {
         UICollectionViewLayoutAttributes *originalAttributes = context.originalLayoutAttributes;
         UICollectionViewLayoutAttributes *preferredAttributes = context.preferredLayoutAttributes;

@@ -91,6 +91,18 @@
 
 #pragma mark - Invalidation
 
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+    return newBounds.size.width != self.metrics.boundsSize.width;
+}
+
+- (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
+    WMFCVLInvalidationContext *context = (WMFCVLInvalidationContext *)[super invalidationContextForBoundsChange:newBounds];
+    context.boundsDidChange = YES;
+    self.metrics = [WMFCVLMetrics metricsWithBoundsSize:newBounds.size];
+    [self.info updateWithMetrics:self.metrics invalidationContext:context delegate:self.delegate collectionView:self.collectionView];
+    return context;
+}
+
 - (BOOL)shouldInvalidateLayoutForPreferredLayoutAttributes:(UICollectionViewLayoutAttributes *)preferredAttributes withOriginalAttributes:(UICollectionViewLayoutAttributes *)originalAttributes {
     return !CGRectEqualToRect(preferredAttributes.frame, originalAttributes.frame);
 }
@@ -110,9 +122,6 @@
     assert([context isKindOfClass:[WMFCVLInvalidationContext class]]);
     if (context.invalidateEverything || context.invalidateDataSourceCounts) {
         self.metrics = [WMFCVLMetrics metricsWithBoundsSize:self.collectionView.bounds.size];
-        [self.info updateWithMetrics:self.metrics invalidationContext:context delegate:self.delegate collectionView:self.collectionView];
-    } else if (context.sizeDidChange) {
-        self.metrics = [WMFCVLMetrics metricsWithBoundsSize:context.size];
         [self.info updateWithMetrics:self.metrics invalidationContext:context delegate:self.delegate collectionView:self.collectionView];
     }
     [super invalidateLayoutWithContext:context];
