@@ -135,7 +135,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath;
 
-
 @optional
 
 /**
@@ -156,6 +155,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  table view disappears (e.g. switching tabs). Note that cells can also rapidly appear & disappear as the result of table reloads.
  */
 - (void)didEndDisplayingSection;
+
+
+- (BOOL)prefersWiderColumn;
 
 @end
 

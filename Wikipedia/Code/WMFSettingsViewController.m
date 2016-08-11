@@ -279,6 +279,7 @@ static NSString* const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)tweakViewControllerPressedDone:(FBTweakViewController*)tweakViewController {
+    [[NSNotificationCenter defaultCenter] postNotificationName:FBTweakShakeViewControllerDidDismissNotification object:tweakViewController];
     [tweakViewController dismissViewControllerAnimated:YES completion:nil];
 }
 

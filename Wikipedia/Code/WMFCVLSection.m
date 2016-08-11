@@ -25,6 +25,7 @@
 {
     self = [super init];
     if (self) {
+        self.columnIndex = NSNotFound;
         self.headers = [NSMutableArray array];
         self.footers = [NSMutableArray array];
         self.items = [NSMutableArray array];
@@ -39,6 +40,7 @@
     copy.items = [[NSMutableArray allocWithZone:zone] initWithArray:self.items copyItems:YES];
     copy.index = self.index;
     copy.frame = self.frame;
+    copy.columnIndex = self.columnIndex;
     return copy;
 }
 

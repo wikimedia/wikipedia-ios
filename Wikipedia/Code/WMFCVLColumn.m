@@ -20,19 +20,35 @@
 - (id)copyWithZone:(NSZone *)zone {
     WMFCVLColumn *copy = [[WMFCVLColumn allocWithZone:zone] init];
     copy.index = self.index;
-    copy.width = self.width;
-    copy.height = self.height;
+    copy.frame = self.frame;
     copy.sectionIndexes = [self.sectionIndexes mutableCopy];
     copy.info = self.info;
     return copy;
 }
 
 - (void)addSection:(nonnull WMFCVLSection *)section {
+    section.columnIndex = self.index;
     [self.sectionIndexes addIndex:section.index];
+}
+
+- (void)removeSection:(nonnull WMFCVLSection *)section {
+    [self.sectionIndexes removeIndex:section.index];
+}
+
+- (void)removeSectionsWithSectionIndexesInRange:(NSRange)range {
+    [self.sectionIndexes removeIndexesInRange:range];
 }
 
 - (BOOL)containsSectionWithSectionIndex:(NSInteger)sectionIndex {
     return [self.sectionIndexes containsIndex:sectionIndex];
+}
+
+- (nullable WMFCVLSection *)lastSection {
+    if (self.sectionIndexes.count == 0) {
+        return nil;
+    } else {
+        return self.info.sections[[self.sectionIndexes lastIndex]];
+    }
 }
 
 - (void)enumerateSectionsWithBlock:(nonnull void(^)(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop))block {
@@ -40,7 +56,9 @@
 }
 
 - (void)updateHeightWithDelta:(CGFloat)deltaH {
-    self.height += deltaH;
+    CGRect newFrame = self.frame;
+    newFrame.size.height += deltaH;
+    self.frame = newFrame;
 }
 
 - (void)setSize:(CGSize)size forHeaderAtIndexPath:(NSIndexPath *)indexPath invalidationContext:(WMFCVLInvalidationContext *)invalidationContext {

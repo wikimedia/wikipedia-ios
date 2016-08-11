@@ -9,34 +9,12 @@
 @interface WMFColumnarCollectionViewLayout ()
 
 @property (nonatomic, readonly) id <WMFColumnarCollectionViewLayoutDelegate> delegate;
-@property (nonatomic, strong) WMFCVLMetrics *metrics;
 @property (nonatomic, strong) WMFCVLInfo *info;
+@property (nonatomic, strong) WMFCVLMetrics *metrics;
 
 @end
 
 @implementation WMFColumnarCollectionViewLayout
-
-- (nonnull instancetype)initWithMetrics:(nonnull WMFCVLMetrics *)metrics {
-    self = [super init];
-    if (self) {
-        self.metrics = metrics;
-    }
-    return self;
-}
-
-- (instancetype)init {
-    return [self initWithMetrics:[WMFCVLMetrics defaultMetrics]];
-}
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        if (!self.metrics) {
-            self.metrics = [WMFCVLMetrics defaultMetrics];
-        }
-    }
-    return self;
-}
 
 #pragma mark - Classes
 
@@ -94,14 +72,11 @@
     return nil;
 }
 
-- (void)resetLayout {
-    self.info = [[WMFCVLInfo alloc] initWithMetrics:self.metrics];
-    [self.info updateWithInvalidationContext:nil delegate:self.delegate collectionView:self.collectionView];
-}
-
 - (void)prepareLayout {
     if (self.info == nil) {
-        [self resetLayout];
+        self.info = [[WMFCVLInfo alloc] init];
+        self.metrics = [WMFCVLMetrics metricsWithBoundsSize:self.collectionView.bounds.size];
+        [self.info layoutWithMetrics:self.metrics delegate:self.delegate collectionView:self.collectionView invalidationContext:nil];
     }
     [super prepareLayout];
 }
@@ -117,14 +92,14 @@
 #pragma mark - Invalidation
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
-    return newBounds.size.width != self.info.boundsSize.width;
+    return newBounds.size.width != self.metrics.boundsSize.width;
 }
 
 - (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
     WMFCVLInvalidationContext *context = (WMFCVLInvalidationContext *)[super invalidationContextForBoundsChange:newBounds];
     context.boundsDidChange = YES;
-    context.newBounds = newBounds;
-    [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
+    self.metrics = [WMFCVLMetrics metricsWithBoundsSize:newBounds.size];
+    [self.info updateWithMetrics:self.metrics invalidationContext:context delegate:self.delegate collectionView:self.collectionView];
     return context;
 }
 
@@ -139,16 +114,15 @@
     }
     context.preferredLayoutAttributes = preferredAttributes;
     context.originalLayoutAttributes = originalAttributes;
-    [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
+    [self.info updateWithMetrics:self.metrics invalidationContext:context delegate:self.delegate collectionView:self.collectionView];
     return context;
 }
 
 - (void)invalidateLayoutWithContext:(WMFCVLInvalidationContext *)context {
     assert([context isKindOfClass:[WMFCVLInvalidationContext class]]);
-    if (context.invalidateEverything) {
-        [self resetLayout];
-    } else if (context.invalidateDataSourceCounts) {
-        [self.info updateWithInvalidationContext:context delegate:self.delegate collectionView:self.collectionView];
+    if (context.invalidateEverything || context.invalidateDataSourceCounts) {
+        self.metrics = [WMFCVLMetrics metricsWithBoundsSize:self.collectionView.bounds.size];
+        [self.info updateWithMetrics:self.metrics invalidationContext:context delegate:self.delegate collectionView:self.collectionView];
     }
     [super invalidateLayoutWithContext:context];
 }

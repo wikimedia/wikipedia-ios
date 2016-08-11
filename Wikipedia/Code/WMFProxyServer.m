@@ -34,6 +34,7 @@
     static dispatch_once_t onceToken;
     static WMFProxyServer* sharedProxyServer;
     dispatch_once(&onceToken, ^{
+        [GCDWebServer setLogLevel:3]; // 3 = Warning
         sharedProxyServer = [[WMFProxyServer alloc] init];
     });
     return sharedProxyServer;
