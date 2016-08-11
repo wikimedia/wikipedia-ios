@@ -5,7 +5,8 @@
        MWKSavedPageList,
        WMFArticleFetcher,
        SavedArticlesFetcher,
-       WMFImageController;
+       WMFImageController,
+       MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,13 +35,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, nullable) id<SavedArticlesFetcherDelegate> fetchFinishedDelegate;
 
-- (instancetype)initWithSavedPageList:(MWKSavedPageList*)savedPageList;
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore savedPageList:(MWKSavedPageList*)savedPageList;
 
 - (void)getProgress:(WMFProgressHandler)progressBlock;
 
-- (void)fetchAndObserveSavedPageList;
+- (void)start;
 
-- (void)cancelFetch;
+- (void)stop;
 
 @end
 
