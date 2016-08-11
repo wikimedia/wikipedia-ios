@@ -207,7 +207,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     [self updateToolbar];
-    [self createTableOfContentsViewControllerIfNeeded];
+    [self setupTableOfContentsViewController];
     [self updateWebviewFootersIfNeeded];
     [self updateTableOfContentsForFootersIfNeeded];
     [self observeArticleUpdates];
