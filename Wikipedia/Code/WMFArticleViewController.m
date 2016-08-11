@@ -946,8 +946,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             if (self.tableOfContentsViewController.parentViewController != self) {
                 if (self.presentedViewController == self.tableOfContentsViewController) {
                     [self dismissViewControllerAnimated:NO completion:NULL];
-                    
                 }
+                self.tableOfContentsViewController = nil;
                 
                 switch (self.tableOfContentsDisplayState) {
                     case WMFTableOfContentsDisplayStateModalHidden:
@@ -987,7 +987,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 [self.tableOfContentsViewController.view removeFromSuperview];
                 [self.tableOfContentsViewController removeFromParentViewController];
                 [self.tableOfContentsSeparatorView removeFromSuperview];
+                self.tableOfContentsViewController = nil;
             }
+            [self createTableOfContentsViewControllerIfNeeded];
 
         }
         break;

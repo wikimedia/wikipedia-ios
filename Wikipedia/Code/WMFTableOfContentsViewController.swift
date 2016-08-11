@@ -52,15 +52,17 @@ public class WMFTableOfContentsViewController: UIViewController,
     weak var delegate: WMFTableOfContentsViewControllerDelegate?
 
     // MARK: - Init
-    public required init(presentingViewController: UIViewController,
+    public required init(presentingViewController: UIViewController?,
                          items: [TableOfContentsItem],
                          delegate: WMFTableOfContentsViewControllerDelegate) {
         self.items = items
         self.delegate = delegate
         tableOfContentsFunnel = ToCInteractionFunnel()
         super.init(nibName: nil, bundle: nil)
-        animator = WMFTableOfContentsAnimator(presentingViewController: presentingViewController, presentedViewController: self)
-        animator?.delegate = self
+        if let presentingViewController = presentingViewController {
+            animator = WMFTableOfContentsAnimator(presentingViewController: presentingViewController, presentedViewController: self)
+            animator?.delegate = self
+        }
         modalPresentationStyle = .Custom
         transitioningDelegate = self.animator
                             

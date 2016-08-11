@@ -105,7 +105,7 @@ extension WMFArticleViewController {
     */
     public func createTableOfContentsViewControllerIfNeeded() {
         if let items = createTableOfContentsSections() {
-            self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: self, items: items, delegate: self)
+            self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeModal ? self : nil , items: items, delegate: self)
         }
     }
 
