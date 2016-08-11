@@ -847,6 +847,17 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     CGFloat webFrameOriginX = tocOriginX + tocWidth + separatorWidth;
     CGRect webFrame = CGRectMake(webFrameOriginX, origin.y, size.width - webFrameOriginX, size.height);
     self.webViewController.view.frame = webFrame;
+    switch (self.tableOfContentsDisplayState) {
+        case WMFTableOfContentsDisplayStateInlineHidden:
+            self.webViewController.contentWidthPercentage = 0.71;
+            break;
+        case WMFTableOfContentsDisplayStateInlineVisible:
+            self.webViewController.contentWidthPercentage = 0.90;
+            break;
+        default:
+            self.webViewController.contentWidthPercentage = 1;
+            break;
+    }
 }
 
 - (void)viewDidLayoutSubviews {

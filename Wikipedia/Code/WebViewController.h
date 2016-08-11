@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL isPeeking;
 @property (strong, nonatomic, nullable) WMFPeekHTMLElement* peekElement;
 
-@property (nonatomic) UIEdgeInsets contentInsets;
+@property (nonatomic) CGFloat contentWidthPercentage;
 
 - (void)setArticle:(MWKArticle * _Nullable)article articleURL:(NSURL*)articleURL;
 
