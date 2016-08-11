@@ -130,11 +130,13 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     for (MWKTitle* title in titles) {
         [group enter];
         dispatch_async(self.accessQueue, ^{
-            [self fetchTitle:title failure:^(NSError *error) {
-                [group leave];
-            } success:^{
-                [group leave];
-            }];
+            @autoreleasepool {
+                [self fetchTitle:title failure:^(NSError *error) {
+                    [group leave];
+                } success:^{
+                    [group leave];
+                }];
+            }
         });
     }
     
@@ -200,25 +202,27 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     NSArray* legacyImageURLs            = [self.savedPageList.dataStore legacyImageURLsForArticle:article];
     NSUInteger articleImageWidth        = [[UIScreen mainScreen] wmf_articleImageWidthForScale];
     for (NSURL* legacyImageURL in legacyImageURLs) {
-        NSString* legacyImageURLString = legacyImageURL.absoluteString;
-        NSUInteger width               = WMFParseSizePrefixFromSourceURL(legacyImageURLString);
-        if (width != articleImageWidth && width != NSNotFound) {
-            if (legacyImageURL != nil && [imageController hasDataOnDiskForImageWithURL:legacyImageURL]) {
-                NSURL* cachedFileURL = [NSURL fileURLWithPath:[imageController cachePathForImageWithURL:legacyImageURL] isDirectory:NO];
-                if (cachedFileURL != nil) {
-                    NSString* imageExtension = [legacyImageURL pathExtension];
-                    NSString* imageMIMEType  = [imageExtension wmf_asMIMEType];
-
-                    NSString* imageURLStringAtArticleWidth = WMFChangeImageSourceURLSizePrefix(legacyImageURLString, articleImageWidth);
-                    NSURL* imageURLAtArticleWidth          = [NSURL URLWithString:imageURLStringAtArticleWidth];
-                    if (imageURLAtArticleWidth != nil && ![imageController hasDataOnDiskForImageWithURL:imageURLAtArticleWidth]) {
-                        [imageController cacheImageFromFileURL:cachedFileURL forURL:imageURLAtArticleWidth MIMEType:imageMIMEType];
-                    }
-
-                    NSString* originalImageURLString = WMFOriginalImageURLStringFromURLString(legacyImageURLString);
-                    NSURL* originalImageURL          = [NSURL URLWithString:originalImageURLString];
-                    if (![imageController hasDataOnDiskForImageWithURL:originalImageURL]) {
-                        [imageController cacheImageFromFileURL:cachedFileURL forURL:originalImageURL MIMEType:imageMIMEType];
+        @autoreleasepool {
+            NSString* legacyImageURLString = legacyImageURL.absoluteString;
+            NSUInteger width               = WMFParseSizePrefixFromSourceURL(legacyImageURLString);
+            if (width != articleImageWidth && width != NSNotFound) {
+                if (legacyImageURL != nil && [imageController hasDataOnDiskForImageWithURL:legacyImageURL]) {
+                    NSURL* cachedFileURL = [NSURL fileURLWithPath:[imageController cachePathForImageWithURL:legacyImageURL] isDirectory:NO];
+                    if (cachedFileURL != nil) {
+                        NSString* imageExtension = [legacyImageURL pathExtension];
+                        NSString* imageMIMEType  = [imageExtension wmf_asMIMEType];
+                        
+                        NSString* imageURLStringAtArticleWidth = WMFChangeImageSourceURLSizePrefix(legacyImageURLString, articleImageWidth);
+                        NSURL* imageURLAtArticleWidth          = [NSURL URLWithString:imageURLStringAtArticleWidth];
+                        if (imageURLAtArticleWidth != nil && ![imageController hasDataOnDiskForImageWithURL:imageURLAtArticleWidth]) {
+                            [imageController cacheImageFromFileURL:cachedFileURL forURL:imageURLAtArticleWidth MIMEType:imageMIMEType];
+                        }
+                        
+                        NSString* originalImageURLString = WMFOriginalImageURLStringFromURLString(legacyImageURLString);
+                        NSURL* originalImageURL          = [NSURL URLWithString:originalImageURLString];
+                        if (![imageController hasDataOnDiskForImageWithURL:originalImageURL]) {
+                            [imageController cacheImageFromFileURL:cachedFileURL forURL:originalImageURL MIMEType:imageMIMEType];
+                        }
                     }
                 }
             }
