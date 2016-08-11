@@ -1,9 +1,10 @@
 
 #import <UIKit/UIKit.h>
-#import "WMFTitleListDataSource.h"
+#import "UIViewController+WMFEmptyView.h"
 #import "WMFAnalyticsLogging.h"
 
-@class SSBaseDataSource, MWKDataStore, WMFArticleListTableViewController;
+@class MWKDataStore;
+@class WMFArticleListTableViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,11 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
 @interface WMFArticleListTableViewController : UITableViewController<WMFAnalyticsContextProviding>
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
-@property (nonatomic, strong, nullable) SSBaseDataSource<WMFTitleListDataSource>* dataSource;
 
 /**
  *  Optional delegate which will is informed of selection.
@@ -45,6 +44,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)deleteText;
 - (NSString*)deleteCancelText;
 
+- (void)deleteAll;
+
+- (NSInteger)numberOfItems;
+
+- (NSURL*)urlAtIndexPath:(NSIndexPath*)indexPath;
+
+- (void)updateEmptyAndDeleteState;
+
+
+
 @end
+
 
 NS_ASSUME_NONNULL_END
