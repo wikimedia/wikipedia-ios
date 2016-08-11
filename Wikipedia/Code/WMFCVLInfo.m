@@ -31,6 +31,9 @@
 
 - (void)resetColumns {
     self.columns = nil;
+    [self enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop) {
+        section.columnIndex = NSNotFound;
+    }];
 }
 
 - (void)resetSections {
@@ -223,6 +226,13 @@
             [column addSection:section];
         } else {
             section = _sections[sectionIndex];
+            if (section.columnIndex == NSNotFound) {
+                [column addSection:section];
+            } else {
+                currentColumnIndex = section.columnIndex;
+                column = self.columns[currentColumnIndex];
+            }
+            column = self.columns[currentColumnIndex];
             if (![column containsSectionWithSectionIndex:sectionIndex]) {
                 if (section.columnIndex != NSNotFound && section.columnIndex < _columns.count) {
                     [_columns[section.columnIndex] removeSection:section];
