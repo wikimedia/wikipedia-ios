@@ -1,27 +1,32 @@
 
-#import "MWKList.h"
-#import "MWKHistoryEntry.h"
-#import "MWKDataStoreList.h"
+#import <Foundation/Foundation.h>
 
-@class MWKDataStore;
+@class MWKHistoryEntry, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString* const MWKHistoryListDidUpdateNotification;
+@interface MWKHistoryList : NSObject
 
-@interface MWKHistoryList : MWKList<MWKHistoryEntry*, NSURL*>
-    < MWKDataStoreList >
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
+
+@property (readonly, weak, nonatomic) MWKDataStore* dataStore;
+
+#pragma mark - Convienence Methods
+
+- (NSInteger)numberOfItems;
 
 - (nullable MWKHistoryEntry*)mostRecentEntry;
 
 - (nullable MWKHistoryEntry*)entryForURL:(NSURL*)url;
+
+#pragma mark - Update Methods
 
 /**
  *  Add a page to the user history.
  *
  *  Calling this on a page already in the history will simply update its @c date.
  *
- *  @param url           The url of the page to add
+ *  @param url The url of the page to add
  */
 - (MWKHistoryEntry*)addPageToHistoryWithURL:(NSURL*)url;
 
@@ -44,16 +49,20 @@ extern NSString* const MWKHistoryListDidUpdateNotification;
 - (void)setSignificantlyViewedOnPageInHistoryWithURL:(NSURL*)url;
 
 /**
- *  Remove the given history entries from the history.
+ *  Remove a page from the user history
  *
- *  @param historyEntries An array of instances of MWKHistoryEntry
+ *  @param url The url of the page to remove
  */
-- (void)removeEntriesFromHistory:(NSArray*)historyEntries;
+- (void)removeEntryWithURL:(NSURL*)url;
 
-- (NSArray*)dataExport;
 
-- (void)prune;
+/**
+ *  Remove all history entries
+ */
+- (void)removeAllEntries;
+
 
 @end
+
 
 NS_ASSUME_NONNULL_END
