@@ -5,10 +5,19 @@
 #import "NSString+WMFExtras.h"
 #import "Wikipedia-Swift.h"
 
-#import <BlocksKit/BlocksKit.h>
+#import "YapDatabase+WMFExtensions.h"
+#import "YapDatabase+WMFViews.h"
+#import "YapDatabaseConnection+WMFExtensions.h"
+#import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
+#import "MWKHistoryEntry+WMFDatabaseStorable.h"
+
+
 
 NSString* const MWKArticleSavedNotification      = @"MWKArticleSavedNotification";
 NSString* const MWKArticleKey                    = @"MWKArticleKey";
+NSString* const MWKItemUpdatedNotification      = @"MWKItemUpdatedNotification";
+NSString* const MWKURLKey                    = @"MWKURLKey";
+
 NSString* const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
 NSString* MWKCreateImageURLWithPath(NSString* path) {
@@ -18,6 +27,20 @@ NSString* MWKCreateImageURLWithPath(NSString* path) {
 static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @interface MWKDataStore ()
+
+- (instancetype)initWithDatabase:(YapDatabase*)database legacyDataBasePath:(NSString*)basePath NS_DESIGNATED_INITIALIZER;
+
+@property (readwrite, strong, nonatomic) YapDatabase* database;
+
+/**
+ *  Connection to read article references on.
+ *  This connection has cache settings optimized for reading article references in the UI.
+ *  It is reccomended to use this connection to make sure these cache settings are enforced app wide
+ */
+@property (readwrite, strong, nonatomic) YapDatabaseConnection* articleReferenceReadConnection;
+@property (readwrite, strong, nonatomic) YapDatabaseConnection* writeConnection;
+
+@property (readwrite, nonatomic, strong) NSPointerArray* changeHandlers;
 
 @property (readwrite, strong, nonatomic) MWKUserDataStore* userDataStore;
 @property (readwrite, copy, nonatomic) NSString* basePath;
@@ -31,46 +54,35 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 @implementation MWKDataStore
 
 
-#pragma mark - Setup / Teardown
+#pragma mark - NSObject
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (instancetype)init {
-    return [self initWithBasePath:[[self class] mainDataStorePath]];
-}
-
-- (instancetype)initWithBasePath:(NSString*)basePath {
-    self = [super init];
+- (instancetype)init
+{
+    self = [self initWithDatabase:[[YapDatabase alloc] initWithPath:[YapDatabase wmf_databasePath]] legacyDataBasePath:[[MWKDataStore class] mainDataStorePath]];
     if (self) {
-        self.basePath = basePath;
-        NSString* pathToExclude         = [self pathForSites];
-        NSError* directoryCreationError = nil;
-        if (![[NSFileManager defaultManager] createDirectoryAtPath:pathToExclude withIntermediateDirectories:YES attributes:nil error:&directoryCreationError]) {
-            DDLogError(@"Error creating MWKDataStore path: %@", directoryCreationError);
-        }
-        NSURL* directoryURL         = [NSURL fileURLWithPath:pathToExclude isDirectory:YES];
-        NSError* excludeBackupError = nil;
-        if (![directoryURL setResourceValue:@(YES) forKey:NSURLIsExcludedFromBackupKey error:&excludeBackupError]) {
-            DDLogError(@"Error excluding MWKDataStore path from backup: %@", excludeBackupError);
-        }
-        self.articleCache            = [[NSCache alloc] init];
-        self.articleCache.countLimit = 50;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-        self.userDataStore     = [[MWKUserDataStore alloc] initWithDataStore:self];
-        self.cacheRemovalQueue = dispatch_queue_create("org.wikimedia.cache_removal", DISPATCH_QUEUE_SERIAL);
-        dispatch_async(self.cacheRemovalQueue, ^{ self.cacheRemovalActive = true; });
     }
     return self;
 }
 
-#pragma mark - Class methods
-
-+ (NSString*)mainDataStorePath {
-    NSString* documentsFolder =
-        [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    return [documentsFolder stringByAppendingPathComponent:@"Data"];
+- (instancetype)initWithDatabase:(YapDatabase*)database legacyDataBasePath:(NSString*)basePath{
+    self = [super init];
+    if (self) {
+        self.changeHandlers = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsWeakMemory];
+        self.database = database;
+        [self.database wmf_registerViews];
+        self.basePath = basePath;
+        [self setupLegacyDataStore];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(yapDatabaseModified:)
+                                                     name:YapDatabaseModifiedNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+    }
+    return self;
 }
 
 #pragma mark - Memory
@@ -78,6 +90,113 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 - (void)didRecievememoryWarningWithNotifcation:(NSNotification*)note {
     [self.articleCache removeAllObjects];
 }
+
+#pragma mark - Database
+
+- (YapDatabaseConnection*)articleReferenceReadConnection {
+    if (!_articleReferenceReadConnection) {
+        _articleReferenceReadConnection = [self.database wmf_newLongLivedReadConnection];
+    }
+    return _articleReferenceReadConnection;
+}
+
+- (YapDatabaseConnection*)writeConnection{
+    if(!_writeConnection){
+        _writeConnection = [self.database wmf_newWriteConnection];
+    }
+    return _writeConnection;
+}
+
+//- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
+//    [self.articleReferenceReadConnection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
+//        block(transaction);
+//    }];
+//}
+//
+//- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
+//    return [self.articleReferenceReadConnection wmf_readAndReturnResultsWithBlock:block];
+//}
+//
+//- (void)readViewNamed:(NSString*)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
+//    [self.articleReferenceReadConnection wmf_readInViewWithName:viewName withBlock:block];
+//}
+//
+//- (nullable id)readAndReturnResultsWithViewNamed:(NSString*)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
+//    return [self.articleReferenceReadConnection wmf_readAndReturnResultsInViewWithName:viewName withBlock:block];
+//}
+//
+//
+//- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block{
+//    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction * _Nonnull transaction) {
+//        block(transaction);
+//    }];
+//}
+
+- (void)yapDatabaseModified:(NSNotification*)notification {
+    
+    // Jump to the most recent commit.
+    // End & Re-Begin the long-lived transaction atomically.
+    // Also grab all the notifications for all the commits that I jump.
+    // If the UI is a bit backed up, I may jump multiple commits.
+    NSArray* notifications = [self.articleReferenceReadConnection beginLongLivedReadTransaction];
+    if ([notifications count] == 0) {
+        return;
+    }
+    NSArray<NSString*>* updatedItemKeys = [notification wmf_updatedItemKeys];
+    
+    [updatedItemKeys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:obj];
+    }];
+    
+    [self.changeHandlers compact];
+    for (id<WMFDatabaseChangeHandler> obj in self.changeHandlers){
+        [obj processChanges:notifications onConnection:self.articleReferenceReadConnection];
+    }
+    
+    [self cleanup];
+}
+
+- (void)cleanup{
+    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction * _Nonnull transaction) {
+        YapDatabaseViewTransaction* view = [transaction ext:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
+        if([view numberOfItemsInAllGroups] == 0){
+            return;
+        }
+        NSMutableArray* keysToRemove = [NSMutableArray array];
+        [view enumerateKeysInGroup:[[view allGroups] firstObject] usingBlock:^(NSString * _Nonnull collection, NSString * _Nonnull key, NSUInteger index, BOOL * _Nonnull stop) {
+            [keysToRemove addObject:key];
+        }];
+        [transaction removeObjectsForKeys:keysToRemove inCollection:[MWKHistoryEntry databaseCollectionName]];
+    }];
+}
+
+#pragma mark - Legacy DataStore
+
++ (NSString*)mainDataStorePath {
+    NSString* documentsFolder =
+    [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    return [documentsFolder stringByAppendingPathComponent:@"Data"];
+}
+
+- (void)setupLegacyDataStore{
+    NSString* pathToExclude         = [self pathForSites];
+    NSError* directoryCreationError = nil;
+    if (![[NSFileManager defaultManager] createDirectoryAtPath:pathToExclude withIntermediateDirectories:YES attributes:nil error:&directoryCreationError]) {
+        DDLogError(@"Error creating MWKDataStore path: %@", directoryCreationError);
+    }
+    NSURL* directoryURL         = [NSURL fileURLWithPath:pathToExclude isDirectory:YES];
+    NSError* excludeBackupError = nil;
+    if (![directoryURL setResourceValue:@(YES) forKey:NSURLIsExcludedFromBackupKey error:&excludeBackupError]) {
+        DDLogError(@"Error excluding MWKDataStore path from backup: %@", excludeBackupError);
+    }
+    self.articleCache            = [[NSCache alloc] init];
+    self.articleCache.countLimit = 50;
+    self.userDataStore     = [[MWKUserDataStore alloc] initWithDataStore:self];
+    self.cacheRemovalQueue = dispatch_queue_create("org.wikimedia.cache_removal", DISPATCH_QUEUE_SERIAL);
+    dispatch_async(self.cacheRemovalQueue, ^{ self.cacheRemovalActive = true; });
+}
+
+
 
 #pragma mark - path methods
 
@@ -276,19 +395,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     [self saveDictionary:export path:path name:@"Image.plist"];
 }
 
-- (BOOL)saveHistoryList:(MWKHistoryList*)list error:(NSError**)error {
-    NSString* path       = self.basePath;
-    NSDictionary* export = @{@"entries": [list dataExport]};
-    return [self saveDictionary:export path:path name:@"History.plist" error:error];
-}
-
-- (BOOL)saveSavedPageList:(MWKSavedPageList*)list error:(NSError**)error {
-    return [self saveDictionary:[list dataExport]
-                           path:self.basePath
-                           name:@"SavedPages.plist"
-                          error:error];
-}
-
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList*)list error:(NSError**)error {
     NSString* path       = self.basePath;
     NSDictionary* export = @{@"entries": [list dataExport]};
@@ -307,7 +413,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return [self.articleCache objectForKey:url];
 }
 
-- (MWKArticle*)existingArticleWithURL:(NSURL*)url {
+- (nullable MWKArticle*)existingArticleWithURL:(NSURL*)url {
     MWKArticle* existingArticle =
         [self memoryCachedArticleWithURL:url] ? : [self articleFromDiskWithURL:url];
     if (existingArticle) {
