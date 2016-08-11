@@ -1288,7 +1288,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)webViewController:(WebViewController*)controller scrollViewDidScroll:(UIScrollView*)scrollView {
-    if (self.isUpdateTableOfContentsSectionOnScrollEnabled && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
+    if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
 
         [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection * _Nullable section, NSError * _Nullable error) {
             if (section) {

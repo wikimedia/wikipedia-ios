@@ -25,19 +25,16 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
         
         switch tableOfContentsDisplayMode {
         case WMFTableOfContentsDisplayModeInline:
-            updateTableOfContentsSectionOnScrollEnabled = false
             if let section = item as? MWKSection {
                 self.webViewController.scrollToSection(section, animated: true)
                 dispatchOnMainQueueAfterDelayInSeconds(1) {
                     self.webViewController.accessibilityCursorToSection(section)
-                     self.updateTableOfContentsSectionOnScrollEnabled = true
                 }
             } else if let footerItem = item as? TableOfContentsFooterItem {
                 let footerIndex = Int(footerItem.footerViewIndex.rawValue)
                 self.webViewController.scrollToFooterAtIndex(footerIndex)
                 dispatchOnMainQueueAfterDelayInSeconds(1) {
                     self.webViewController.accessibilityCursorToFooterAtIndex(footerIndex)
-                    self.updateTableOfContentsSectionOnScrollEnabled = true
                 }
             }
         case WMFTableOfContentsDisplayModeModal:
