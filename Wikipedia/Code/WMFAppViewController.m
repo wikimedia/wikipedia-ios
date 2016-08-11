@@ -214,7 +214,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     @weakify(self)
 
-    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
         self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
     }
@@ -235,6 +234,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     }
 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
+    [self.savedArticlesFetcher start];
 
     if (self.unprocessedUserActivity) {
         [self processUserActivity:self.unprocessedUserActivity];
@@ -265,9 +265,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)pauseApp {
     [[WMFImageController sharedInstance] clearMemoryCache];
     [self downloadAssetsFilesIfNecessary];
-    [self.dataStore.userDataStore.historyList prune];
     [self.dataStore startCacheRemoval];
     [[[SessionSingleton sharedInstance] dataStore] clearMemoryCache];
+    [self.savedArticlesFetcher stop];
 
     DDLogWarn(@"Backgrounding… Logging Important Statistics");
     [self logImportantStatistics];
@@ -716,12 +716,12 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
             break;
             case WMFAppTabTypeSaved: {
                 WMFArticleListTableViewController* savedArticlesViewController = (WMFArticleListTableViewController*)[self savedArticlesViewController];
-                [savedArticlesViewController scrollToTop:savedArticlesViewController.dataStore.userDataStore.savedPageList.countOfEntries > 0];
+                [savedArticlesViewController scrollToTop:savedArticlesViewController.dataStore.userDataStore.savedPageList.numberOfItems > 0];
             }
             break;
             case WMFAppTabTypeRecent: {
-                WMFArticleListTableViewController* historyArticlesViewController = (WMFArticleListTableViewController*)[self recentArticlesViewController];
-                [historyArticlesViewController scrollToTop:historyArticlesViewController.dataStore.userDataStore.historyList.countOfEntries > 0];
+                WMFArticleListDataSourceTableViewController* historyArticlesViewController = (WMFArticleListDataSourceTableViewController*)[self recentArticlesViewController];
+                [historyArticlesViewController scrollToTop:[historyArticlesViewController.dataStore.userDataStore.historyList numberOfItems] > 0];
             }
             break;
         }
