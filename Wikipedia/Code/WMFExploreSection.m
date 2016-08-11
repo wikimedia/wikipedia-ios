@@ -1,7 +1,6 @@
 
 #import "WMFExploreSection.h"
 #import "MWKHistoryEntry.h"
-#import "MWKSavedPageEntry.h"
 #import "NSDate+Utilities.h"
 #import "WMFLocationManager.h"
 #import "CLLocation+WMFComparison.h"
@@ -221,13 +220,13 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
-+ (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry {
++ (instancetype)savedSectionWithSavedPageEntry:(MWKHistoryEntry*)entry {
     NSParameterAssert(entry.url.wmf_title);
-    NSParameterAssert(entry.date);
+    NSParameterAssert(entry.dateSaved);
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
     item.type        = WMFExploreSectionTypeSaved;
     item.articleURL  = entry.url;
-    item.dateCreated = entry.date;
+    item.dateCreated = entry.dateSaved;
     return item;
 }
 

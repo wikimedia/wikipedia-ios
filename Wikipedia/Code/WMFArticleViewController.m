@@ -390,31 +390,31 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<UIBarButtonItem*>*)articleToolBarItems {
     return [NSArray arrayWithObjects:
             self.languagesToolbarItem,
-            
+
             [UIBarButtonItem flexibleSpaceToolbarItem],
-            
+
             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
             self.saveToolbarItem,
             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:4.f],
-            
+
             [UIBarButtonItem flexibleSpaceToolbarItem],
-            
+
             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
             self.shareToolbarItem,
             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
-            
+
             [UIBarButtonItem flexibleSpaceToolbarItem],
-            
+
             self.fontSizeToolbarItem,
-            
+
             [UIBarButtonItem flexibleSpaceToolbarItem],
-            
+
             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
             self.findInPageToolbarItem,
             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.f],
-            
+
             [UIBarButtonItem flexibleSpaceToolbarItem],
-            
+
             [UIBarButtonItem wmf_barButtonItemOfFixedWidth:8.f],
             self.tableOfContentsToolbarItem,
             nil];
@@ -496,13 +496,13 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_findInPageToolbarItem) {
         @weakify(self);
         _findInPageToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"find-in-page"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                 handler:^(id sender){
-                                                                     @strongify(self);
-                                                                     if ([self canFindInPage]) { // Needed so you can't tap find icon when text size adjuster is onscreen.
-                                                                         [self showFindInPage];
-                                                                     }
-                                                                 }];
+                                                                     style:UIBarButtonItemStylePlain
+                                                                   handler:^(id sender){
+            @strongify(self);
+            if ([self canFindInPage]) {                                                          // Needed so you can't tap find icon when text size adjuster is onscreen.
+                [self showFindInPage];
+            }
+        }];
     }
     return _findInPageToolbarItem;
 }
@@ -667,7 +667,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self stopSignificantlyViewedTimer];
     MWKHistoryList* historyList = self.dataStore.userDataStore.historyList;
     [historyList setSignificantlyViewedOnPageInHistoryWithURL:self.articleURL];
-    [historyList save];
 }
 
 - (void)stopSignificantlyViewedTimer {
@@ -780,7 +779,6 @@ NS_ASSUME_NONNULL_BEGIN
     CGFloat offset = [self.webViewController currentVerticalOffset];
     if (offset > 0) {
         [self.recentPages setPageScrollPosition:offset onPageInHistoryWithURL:self.articleURL];
-        [self.recentPages save];
     }
 }
 
@@ -916,12 +914,12 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray* items = [NSMutableArray array];
 
     [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self.article shareText:text]];
-    
+
     NSURL* url = [NSURL wmf_desktopURLForURL:self.articleURL];
 
     if (url) {
         url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
-                                                    url.absoluteString, @"wprov=sfsi1"]];
+                                             url.absoluteString, @"wprov=sfsi1"]];
 
         [items addObject:url];
     }
@@ -1155,7 +1153,7 @@ NS_ASSUME_NONNULL_BEGIN
             [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
             self.webViewController.isPeeking = YES;
             [self.webViewController hideFindInPageWithCompletion:nil];
-            
+
             return peekVC;
         }
     } else if (previewingContext == self.leadImagePreviewingContext) {

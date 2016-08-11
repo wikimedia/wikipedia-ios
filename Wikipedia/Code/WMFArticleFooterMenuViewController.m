@@ -2,7 +2,7 @@
 #import "WMFIntrinsicSizeTableView.h"
 #import "MWKArticle.h"
 #import <SSDataSources/SSDataSources.h>
-#import "WMFArticleListTableViewController.h"
+#import "WMFArticleListDataSourceTableViewController.h"
 #import "WMFArticlePreviewFetcher.h"
 #import "WMFArticleFooterMenuItem.h"
 #import "PageHistoryViewController.h"

@@ -31,7 +31,8 @@
 // View Controllers
 #import "WMFExploreViewController.h"
 #import "WMFSearchViewController.h"
-#import "WMFArticleListTableViewController.h"
+#import "WMFHistoryTableViewController.h"
+#import "WMFSavedArticleTableViewController.h"
 #import "WMFWelcomeViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFNearbyListViewController.h"
@@ -77,8 +78,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic, strong) UITabBarController* rootTabBarController;
 
 @property (nonatomic, strong, readonly) WMFExploreViewController* exploreViewController;
-@property (nonatomic, strong, readonly) WMFArticleListTableViewController* savedArticlesViewController;
-@property (nonatomic, strong, readonly) WMFArticleListTableViewController* recentArticlesViewController;
+@property (nonatomic, strong, readonly) WMFSavedArticleTableViewController* savedArticlesViewController;
+@property (nonatomic, strong, readonly) WMFHistoryTableViewController* recentArticlesViewController;
 
 @property (nonatomic, strong) SavedArticlesFetcher* savedArticlesFetcher;
 @property (nonatomic, strong) WMFRandomArticleFetcher* randomFetcher;
@@ -283,8 +284,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - Logging
 
 - (void)logImportantStatistics {
-    NSUInteger historyCount       = [self.session.dataStore.userDataStore.historyList countOfEntries];
-    NSUInteger saveCount          = [self.session.dataStore.userDataStore.savedPageList countOfEntries];
+    NSUInteger historyCount       = [self.session.dataStore.userDataStore.historyList numberOfItems];
+    NSUInteger saveCount          = [self.session.dataStore.userDataStore.savedPageList numberOfItems];
     NSUInteger exploreCount       = [self.exploreViewController numberOfSectionsInExploreFeed];
     UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
     NSUInteger stackCount         = [[navVC viewControllers] count];
@@ -485,7 +486,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (SavedArticlesFetcher*)savedArticlesFetcher {
     if (!_savedArticlesFetcher) {
         _savedArticlesFetcher =
-            [[SavedArticlesFetcher alloc] initWithSavedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]];
+            [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore] savedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]];
     }
     return _savedArticlesFetcher;
 }

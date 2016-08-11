@@ -291,7 +291,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[WMFArticleListTableViewController class]]) {
+    if ([segue.destinationViewController isKindOfClass:[WMFArticleListDataSourceTableViewController class]]) {
         self.resultsListController = segue.destinationViewController;
         [self configureArticleList];
     }

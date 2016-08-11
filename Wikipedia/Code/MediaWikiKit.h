@@ -1,10 +1,3 @@
-//
-//  MediaWikiKit.h
-//  MediaWikiKit
-//
-//  Created by Brion on 10/7/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
 
 #pragma once
 
@@ -24,7 +17,6 @@
 #import "MWKHistoryEntry.h"
 #import "MWKHistoryList.h"
 
-#import "MWKSavedPageEntry.h"
 #import "MWKSavedPageList.h"
 
 #import "MWKRecentSearchEntry.h"

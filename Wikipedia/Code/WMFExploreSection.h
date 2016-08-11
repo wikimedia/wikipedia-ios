@@ -2,7 +2,7 @@
 #import <Mantle/Mantle.h>
 @import CoreLocation;
 
-@class MWKHistoryEntry, MWKSavedPageEntry;
+@class MWKHistoryEntry;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,7 +32,7 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
 + (instancetype)continueReadingSectionWithArticleURL:(NSURL*)url;
 + (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark siteURL:(NSURL*)url;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
-+ (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
++ (instancetype)savedSectionWithSavedPageEntry:(MWKHistoryEntry*)entry;
 + (instancetype)pictureOfTheDaySectionWithDate:(NSDate*)date;
 + (instancetype)randomSectionWithSiteURL:(NSURL*)url;
 

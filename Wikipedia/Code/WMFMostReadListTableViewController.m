@@ -38,7 +38,7 @@
     self.dataSource.tableView = self.tableView;
 }
 
-#pragma mark - WMFArticleListTableViewController
+#pragma mark - WMFArticleListDataSourceTableViewController
 
 - (NSString*)analyticsContext {
     return @"More Most Read";

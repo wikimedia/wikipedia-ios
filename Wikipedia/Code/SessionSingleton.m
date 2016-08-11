@@ -1,5 +1,3 @@
-//  Created by Monte Hurd on 12/6/13.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "SessionSingleton.h"
 #import "WikipediaAppUtils.h"
@@ -37,7 +35,7 @@
 }
 
 - (instancetype)init {
-    return [self initWithDataStore:[[MWKDataStore alloc] initWithBasePath:[[MWKDataStore class] mainDataStorePath]]];
+    return [self initWithDataStore:[[MWKDataStore alloc] init]];
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {

@@ -46,7 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
     dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
         MWKHistoryList* historyList = viewController.dataStore.userDataStore.historyList;
         [historyList addPageToHistoryWithURL:viewController.articleURL];
-        [historyList save];
     });
 }
 
