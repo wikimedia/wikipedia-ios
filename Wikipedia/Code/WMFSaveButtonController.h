@@ -13,11 +13,11 @@
 
 - (instancetype)initWithControl:(UIControl*)button
                   savedPageList:(MWKSavedPageList*)savedPageList
-                            url:(NSURL*)url NS_DESIGNATED_INITIALIZER;
+                            url:(NSURL*)url;
 
 - (instancetype)initWithBarButtonItem:(UIBarButtonItem*)barButtonItem
                         savedPageList:(MWKSavedPageList*)savedPageList
-                                  url:(NSURL*)url NS_DESIGNATED_INITIALIZER;
+                                  url:(NSURL*)url;
 /**
  *  Set to provide a source for logging saved pages
  */
