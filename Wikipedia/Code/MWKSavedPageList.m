@@ -1,7 +1,7 @@
 #import "MWKSavedPageList.h"
 #import "MWKDataStore+WMFDataSources.h"
 #import <YapDataBase/YapDatabase.h>
-#import "YapDatabaseConnection+WMFExtensions.h"
+#import <YapDataBase/YapDatabaseView.h>
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "Wikipedia-Swift.h"
 
@@ -122,6 +122,22 @@ NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 #pragma mark - Update Methods
 
+- (MWKHistoryEntry*)addEntry:(MWKHistoryEntry*)entry {
+    NSParameterAssert(entry.url);
+    if ([entry.url wmf_isNonStandardURL]) {
+        return nil;
+    }
+    if ([entry.url.wmf_title length] == 0) {
+        return nil;
+    }
+    
+    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray* _Nonnull (YapDatabaseReadWriteTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
+        [transaction setObject:entry forKey:[entry databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        return @[[entry databaseKey]];
+    }];
+    
+    return entry;
+}
 - (void)toggleSavedPageForURL:(NSURL*)url {
     if ([self isSaved:url]) {
         [self removeEntryWithURL:url];

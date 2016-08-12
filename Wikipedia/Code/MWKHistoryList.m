@@ -2,6 +2,7 @@
 #import "MWKHistoryList.h"
 #import "MWKDataStore+WMFDataSources.h"
 #import <YapDataBase/YapDatabase.h>
+#import <YapDataBase/YapDatabaseView.h>
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "Wikipedia-Swift.h"
@@ -86,7 +87,41 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
+- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry* _Nonnull entry, BOOL* stop))block {
+    if (!block) {
+        return;
+    }
+    [self.dataSource readWithBlock:^(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
+        if ([view numberOfItemsInAllGroups] == 0) {
+            return;
+        }
+        [view enumerateKeysAndObjectsInGroup:[[view allGroups] firstObject] usingBlock:^(NSString* _Nonnull collection, NSString* _Nonnull key, MWKHistoryEntry* _Nonnull object, NSUInteger index, BOOL* _Nonnull stop) {
+            if (object.dateViewed) {
+                block(object, stop);
+            }
+        }];
+    }];
+}
+
 #pragma mark - Update Methods
+
+- (MWKHistoryEntry*)addEntry:(MWKHistoryEntry*)entry {
+    NSParameterAssert(entry.url);
+    if ([entry.url wmf_isNonStandardURL]) {
+        return nil;
+    }
+    if ([entry.url.wmf_title length] == 0) {
+        return nil;
+    }
+    
+    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray* _Nonnull (YapDatabaseReadWriteTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
+        [transaction setObject:entry forKey:[entry databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        return @[[entry databaseKey]];
+    }];
+    
+    return entry;
+}
+
 
 - (MWKHistoryEntry*)addPageToHistoryWithURL:(NSURL*)url {
     NSParameterAssert(url);

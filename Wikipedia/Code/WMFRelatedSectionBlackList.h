@@ -14,9 +14,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Convienence Methods
 
+- (NSInteger)numberOfItems;
+
 - (nullable MWKHistoryEntry*)entryForURL:(NSURL*)url;
 
+- (nullable MWKHistoryEntry*)mostRecentEntry;
+
 - (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry* _Nonnull entry, BOOL* stop))block;
+
+/**
+ *  Check if a url is blacklisted
+ *
+ *  @param url The url to check
+ */
+- (BOOL)articleURLIsBlackListed:(NSURL*)url;
 
 #pragma mark - Update Methods
 
@@ -34,13 +45,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)removeBlackListArticleURL:(NSURL*)url;
 
-/**
- *  Check if a url is blacklisted
- *
- *  @param url The url to check
- */
-- (BOOL)articleURLIsBlackListed:(NSURL*)url;
 
+/**
+ *  Remove all blacklist items
+ */
+- (void)removeAllEntries;
 
 @end
 

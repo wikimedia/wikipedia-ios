@@ -108,11 +108,19 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
 
 #pragma mark - Convienence Methods
 
+- (NSInteger)numberOfItems {
+    return [self.dataSource numberOfItems];
+}
+
 - (nullable MWKHistoryEntry*)entryForURL:(NSURL*)url {
     return [self.dataSource readAndReturnResultsWithBlock:^id _Nonnull (YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
         MWKHistoryEntry* entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
         return entry;
     }];
+}
+
+- (nullable MWKHistoryEntry*)mostRecentEntry {
+    return [self.dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 - (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry* _Nonnull entry, BOOL* stop))block {
@@ -169,6 +177,18 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
         entry.blackListed = NO;
         [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
         return @[[MWKHistoryEntry databaseKeyForURL:url]];
+    }];
+}
+
+- (void)removeAllEntries {
+    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray < NSString* > * _Nonnull (YapDatabaseReadWriteTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
+        NSMutableArray* urls = [NSMutableArray arrayWithCapacity:[self numberOfItems]];
+        [transaction enumerateKeysAndObjectsInCollection:[MWKHistoryEntry databaseCollectionName] usingBlock:^(NSString* _Nonnull key, MWKHistoryEntry* _Nonnull object, BOOL* _Nonnull stop) {
+            object.blackListed = NO;
+            [transaction setObject:object forKey:key inCollection:[MWKHistoryEntry databaseCollectionName]];
+            [urls addObject:key];
+        }];
+        return urls;
     }];
 }
 

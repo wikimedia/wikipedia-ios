@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable MWKHistoryEntry*)entryForURL:(NSURL*)url;
 
+- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry* _Nonnull entry, BOOL* stop))block;
+
 #pragma mark - Update Methods
 
 /**
