@@ -94,6 +94,7 @@
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="7Gw-jF-gnd" secondAttribute="bottom" constant="8" id="5gL-tk-Pic"/>
                 <constraint firstItem="7Gw-jF-gnd" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" id="6I9-YY-eaY"/>
                 <constraint firstAttribute="bottom" secondItem="Lbm-mF-DF1" secondAttribute="bottom" priority="250" constant="8" id="M6S-Jr-2Z6"/>
                 <constraint firstItem="7Gw-jF-gnd" firstAttribute="leading" secondItem="Lbm-mF-DF1" secondAttribute="trailing" constant="8" id="OIh-aO-mAe"/>
@@ -101,6 +102,7 @@
                 <constraint firstItem="Lbm-mF-DF1" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" priority="250" constant="8" id="ZTf-zR-21k"/>
                 <constraint firstItem="NGT-X1-Lla" firstAttribute="bottom" secondItem="Lbm-mF-DF1" secondAttribute="bottom" constant="-16" id="eCU-cY-j5D"/>
                 <constraint firstItem="NGT-X1-Lla" firstAttribute="leading" secondItem="Lbm-mF-DF1" secondAttribute="leading" constant="16" id="ekO-YM-ytr"/>
+                <constraint firstItem="7Gw-jF-gnd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="8" id="f8h-dr-pIX"/>
                 <constraint firstItem="NGT-X1-Lla" firstAttribute="top" secondItem="Lbm-mF-DF1" secondAttribute="top" constant="16" id="oe0-HM-5HJ"/>
                 <constraint firstItem="Lbm-mF-DF1" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" id="tbq-3w-jDJ"/>
                 <constraint firstAttribute="trailing" secondItem="7Gw-jF-gnd" secondAttribute="trailing" constant="8" id="v9J-wi-Izx"/>
