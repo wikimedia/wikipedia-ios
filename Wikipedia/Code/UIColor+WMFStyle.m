@@ -83,16 +83,43 @@
     return [self wmf_articleListBackgroundColor];
 }
 
-+ (instancetype)wmf_tableOfContentsHeaderTextColor {
-    return [self wmf_tableOfContentsSectionTextColor];
+
++ (instancetype)wmf_inlineTableOfContentsBackgroundColor {
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithWhite:0.95 alpha:1];
+    });
+    return c;
 }
 
-+ (instancetype)wmf_tableOfContentsSelectionBackgroundColor {
++ (instancetype)wmf_modalTableOfContentsBackgroundColor {
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithWhite:1 alpha:1];
+    });
+    return c;
+}
+
++ (instancetype)wmf_modalTableOfContentsSelectionBackgroundColor {
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithWhite:1 alpha:1];
+    });
+    return c;
+}
+
++ (instancetype)wmf_inlineTableOfContentsSelectionBackgroundColor {
     static UIColor* c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        c = [UIColor colorWithRed:0.929 green:0.929 blue:0.929 alpha:1];
+        c = [UIColor colorWithWhite:0.95 alpha:1];
     });
     return c;
 }

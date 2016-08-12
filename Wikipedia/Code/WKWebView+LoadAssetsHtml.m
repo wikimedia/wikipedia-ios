@@ -22,7 +22,7 @@ static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is
     [self loadRequest:request];
 }
 
-- (void)loadHTML:(NSString*)string baseURL:(NSURL *)baseURL withAssetsFile:(NSString*)fileName scrolledToFragment:(NSString*)fragment topPadding:(NSUInteger)topPadding {
+- (void)loadHTML:(NSString*)string baseURL:(NSURL *)baseURL withAssetsFile:(NSString*)fileName scrolledToFragment:(NSString*)fragment padding:(UIEdgeInsets)padding {
     
     if (!string) {
         string = @"";
@@ -45,10 +45,10 @@ static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is
     NSNumber* fontSize   = [[NSUserDefaults standardUserDefaults] wmf_readingFontSize];
     NSString* fontString = [NSString stringWithFormat:@"%ld%%", (long)fontSize.integerValue];
 
-    NSAssert([fileContents componentsSeparatedByString:@"%@"].count == (4 + 1), @"\nHTML template file does not have required number of percent-ampersand occurences (4).\nNumber of percent-ampersands must match number of values passed to  'stringWithFormat:'");
+    NSAssert([fileContents componentsSeparatedByString:@"%@"].count == (7 + 1), @"\nHTML template file does not have required number of percent-ampersand occurences (7).\nNumber of percent-ampersands must match number of values passed to  'stringWithFormat:'");
 
     // index.html and preview.html have four "%@" subsitition markers. Replace both of these with actual content.
-    NSString* templateAndContent = [NSString stringWithFormat:fileContents, fontString, baseURL.absoluteString, @(topPadding), string];
+    NSString* templateAndContent = [NSString stringWithFormat:fileContents, fontString, baseURL.absoluteString, @(padding.top), @(padding.right), @(padding.bottom), @(padding.left), string];
 
     
     [proxyServer setResponseData:[templateAndContent dataUsingEncoding:NSUTF8StringEncoding] withContentType:@"text/html; charset=utf-8" forPath:fileName];

@@ -163,6 +163,7 @@
 
 - (void)layoutWithMetrics:(nonnull WMFCVLMetrics *)metrics delegate:(id <WMFColumnarCollectionViewLayoutDelegate>)delegate collectionView:(UICollectionView *)collectionView invalidationContext:(nullable WMFCVLInvalidationContext *)context {
     
+
     NSInteger numberOfSections = [collectionView.dataSource numberOfSectionsInCollectionView:collectionView];
     UIEdgeInsets contentInsets = metrics.contentInsets;
     UIEdgeInsets sectionInsets = metrics.sectionInsets;
@@ -172,6 +173,9 @@
     NSArray *columnWeights = metrics.columnWeights;
     CGSize size = metrics.boundsSize;
     NSInteger numberOfColumns = metrics.numberOfColumns;
+    NSInteger widestColumnIndex = 0;
+    NSInteger defaultColumnIndex = 0;
+    CGFloat widestColumnWidth = 0;
     
     if (self.sections == nil) {
         self.sections = [NSMutableArray arrayWithCapacity:numberOfSections];
@@ -185,7 +189,12 @@
         CGFloat x = contentInsets.left;
         for (NSInteger i = 0; i < numberOfColumns; i++) {
             WMFCVLColumn *column = [WMFCVLColumn new];
-            CGFloat columnWidth = [columnWeights[i] doubleValue]*baselineColumnWidth;
+            CGFloat columnWeight = [columnWeights[i] doubleValue];
+            CGFloat columnWidth = columnWeight*baselineColumnWidth;
+            if (columnWidth > widestColumnWidth) {
+                widestColumnWidth = columnWidth;
+                widestColumnIndex = i;
+            }
             CGRect columnFrame = CGRectMake(x, 0, columnWidth, 0);
             column.frame = columnFrame;
             column.index = i;
@@ -194,18 +203,31 @@
             x += columnWidth + interColumnSpacing;
         }
     } else {
+        NSInteger i = 0;
         for (WMFCVLColumn *column in self.columns) {
             CGRect newFrame = column.frame;
             newFrame.size.height = 0;
+            CGFloat columnWidth = newFrame.size.width;
+            if (columnWidth > widestColumnWidth) {
+                widestColumnWidth = columnWidth;
+                widestColumnIndex = i;
+            }
             column.frame = newFrame;
 #if DEBUG
             CGFloat availableWidth = size.width - contentInsets.left - contentInsets.right - ((numberOfColumns - 1) * interColumnSpacing);
             
             CGFloat baselineColumnWidth = floor(availableWidth/numberOfColumns);
-            CGFloat columnWidth = [columnWeights[column.index] doubleValue]*baselineColumnWidth;
-            assert(column.frame.size.width == columnWidth);
+            CGFloat columnWidthToCheck = [columnWeights[column.index] doubleValue]*baselineColumnWidth;
+            assert(column.frame.size.width == columnWidthToCheck);
 #endif
+            i++;
         }
+    }
+    
+    if (numberOfColumns > 1 && widestColumnIndex == 0) {
+        defaultColumnIndex = 1;
+    } else {
+        defaultColumnIndex = 0;
     }
 
     NSMutableArray *invalidatedItemIndexPaths = [NSMutableArray array];
@@ -214,10 +236,8 @@
 
     for (NSInteger sectionIndex = 0; sectionIndex < numberOfSections; sectionIndex++) {
         WMFCVLSection *section = nil;
-        
-        
-        
-        NSInteger currentColumnIndex = numberOfColumns == 1 ? 0 : [delegate collectionView:collectionView prefersWiderColumnForSectionAtIndex:sectionIndex] ? 0 : 1;
+
+        NSInteger currentColumnIndex = numberOfColumns == 1 ? 0 : [delegate collectionView:collectionView prefersWiderColumnForSectionAtIndex:sectionIndex] ? widestColumnIndex : defaultColumnIndex;
         WMFCVLColumn *column = self.columns[currentColumnIndex];
         
         if (sectionIndex >= [_sections count]) {

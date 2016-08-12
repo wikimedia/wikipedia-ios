@@ -19,7 +19,6 @@ public class TableOfContentsAboutThisArticleItem : NSObject, TableOfContentsFoot
             return self === item
                 || (titleText == item.titleText
                     && itemType == item.itemType
-                    && borderType == item.borderType
                     && indentationLevel == item.indentationLevel)
         } else {
             return false
