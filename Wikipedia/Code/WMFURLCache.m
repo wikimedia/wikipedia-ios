@@ -18,13 +18,16 @@ static NSString* const WMFURLCacheXCS           = @"X-CS";
 @implementation WMFURLCache
 
 - (void)permanentlyCacheImagesForArticle:(MWKArticle*)article {
-    for (NSURL* url in [article imageURLsForSaving]) {
-        NSURLRequest* request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
-
-        NSCachedURLResponse* response = [self cachedResponseForRequest:request];
-
-        if (response.data.length > 0) {
-            [[WMFImageController sharedInstance] cacheImageData:response.data url:url MIMEType:response.response.MIMEType];
+    NSArray *imageURLsForSaving = [article imageURLsForSaving];
+    for (NSURL* url in imageURLsForSaving) {
+        @autoreleasepool {
+            NSURLRequest* request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
+            
+            NSCachedURLResponse* response = [self cachedResponseForRequest:request];
+            
+            if (response.data.length > 0) {
+                [[WMFImageController sharedInstance] cacheImageData:response.data url:url MIMEType:response.response.MIMEType];
+            }
         }
     };
 }
