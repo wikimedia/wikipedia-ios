@@ -704,11 +704,9 @@ NSString* const WMFCCBySALicenseURL =
     if (!CGRectIntersectsRect(scrollViewContentFrame, self.footerContainerView.frame)) {
         return NSNotFound;
     }
-    return
-        [self.footerContainerView.subviews indexOfObjectPassingTest:^BOOL (__kindof UIView* _Nonnull footerView,
-                                                                           NSUInteger idx,
-                                                                           BOOL* _Nonnull stop) {
-        CGRect absoluteFooterViewFrame = [self.webView.scrollView convertRect:footerView.frame
+    
+    return [self.footerViewControllers indexOfObjectPassingTest:^BOOL(UIViewController * _Nonnull vc, NSUInteger idx, BOOL * _Nonnull stop) {
+        CGRect absoluteFooterViewFrame = [self.webView.scrollView convertRect:vc.view.frame
                                                                      fromView:self.footerContainerView];
         if (CGRectIntersectsRect(scrollViewContentFrame, absoluteFooterViewFrame)) {
             *stop = YES;
