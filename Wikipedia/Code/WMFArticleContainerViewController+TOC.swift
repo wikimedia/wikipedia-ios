@@ -7,15 +7,13 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
         webViewController.getCurrentVisibleSectionCompletion({(section: MWKSection?, error: NSError?) -> Void in
             if let item: TableOfContentsItem = section {
                 self.tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)
-            } else if let footerIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex(rawValue: self.webViewController.visibleFooterIndex()) {
-                switch footerIndex {
-                case .ReadMore:
-                    self.tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsReadMoreItem(url: self.articleURL), animated: false)
-                case .AboutThisArticle:
-                    self.tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsAboutThisArticleItem(url: self.articleURL), animated: false)
-                }
             } else {
-                assertionFailure("Couldn't find current position of user at current offset!")
+                let footerIndex = self.webViewController.visibleFooterIndex()
+                if footerIndex != NSNotFound {
+                    self.tableOfContentsViewController!.selectAndScrollToFooterItem(atIndex: footerIndex, animated: false)
+                } else {
+                    assertionFailure("Couldn't find current position of user at current offset!")
+                }
             }
         })
     }
