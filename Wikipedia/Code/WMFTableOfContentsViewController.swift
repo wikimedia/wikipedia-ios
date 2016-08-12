@@ -110,7 +110,11 @@ public class WMFTableOfContentsViewController: UIViewController,
             }
         }
         
-        tableView.selectRowAtIndexPath(indexPath, animated: animated, scrollPosition: UITableViewScrollPosition.Top)
+        var scrollPosition = UITableViewScrollPosition.Top
+        if let indexPaths = tableView.indexPathsForVisibleRows where indexPaths.contains(indexPath) {
+            scrollPosition = .None
+        }
+        tableView.selectRowAtIndexPath(indexPath, animated: animated, scrollPosition: scrollPosition)
         addHighlightOfItemsRelatedTo(item, animated: false)
     }
 
