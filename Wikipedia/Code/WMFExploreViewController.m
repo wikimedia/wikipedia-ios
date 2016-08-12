@@ -421,7 +421,7 @@ WMFColumnarCollectionViewLayoutDelegate>
 }
 
 - (void)tweaksDidChangeWithNotification:(NSNotification*)note {
-    [self updateSectionSchemaIfNeeded];
+    [self updateSectionSchemaForce:YES];
 }
 
 #pragma mark - Offline Handling
@@ -528,6 +528,11 @@ WMFColumnarCollectionViewLayoutDelegate>
     } else {
         return 0;
     }
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView prefersWiderColumnForSectionAtIndex:(NSUInteger)index {
+    id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:index];
+    return [controller respondsToSelector:@selector(prefersWiderColumn)] && [controller prefersWiderColumn];
 }
 
 - (void)configureHeader:(WMFExploreSectionHeader*)header withStylingFromController:(id<WMFExploreSectionController>)controller {
