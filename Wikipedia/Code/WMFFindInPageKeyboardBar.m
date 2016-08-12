@@ -19,6 +19,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self hideUndoRedoIcons];
+    self.previousButton.enabled = NO;
+    self.nextButton.enabled = NO;
 }
 
 - (void)hideUndoRedoIcons {
@@ -82,6 +84,21 @@
     [self.textField setText:nil];
     [self.currentMatchLabel setText:nil];
     self.clearButton.hidden = YES;
+}
+
+- (void)updateForCurrentMatchIndex:(NSInteger)index matchesCount:(NSUInteger)count {
+    [self updateLabelTextForCurrentMatchIndex:index matchesCount:count];
+    [self updatePreviousNextButtonsEnabledForMatchesCount:count];
+}
+
+- (void)updatePreviousNextButtonsEnabledForMatchesCount:(NSUInteger)count {
+    if(count < 2){
+        self.previousButton.enabled = NO;
+        self.nextButton.enabled = NO;
+    }else{
+        self.previousButton.enabled = YES;
+        self.nextButton.enabled = YES;
+    }
 }
 
 - (void)updateLabelTextForCurrentMatchIndex:(NSInteger)index matchesCount:(NSUInteger)count {

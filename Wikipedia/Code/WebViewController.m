@@ -345,21 +345,21 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)setFindInPageMatches:(NSArray *)findInPageMatches {
     _findInPageMatches = findInPageMatches;
-    [self updateFindInPageKeyboardBarLabel];
+    [self updateFindInPageKeyboardBar];
 }
 
-#pragma FindInPage label
+#pragma FindInPage label and prev/next button state
 
-- (void)updateFindInPageKeyboardBarLabel {
-    [[self findInPageKeyboardBar] updateLabelTextForCurrentMatchIndex:self.findInPageSelectedMatchIndex
-                                                         matchesCount:self.findInPageMatches.count];
+- (void)updateFindInPageKeyboardBar {
+    [[self findInPageKeyboardBar] updateForCurrentMatchIndex:self.findInPageSelectedMatchIndex
+                                                matchesCount:self.findInPageMatches.count];
 }
 
 #pragma FindInPageBar selected match
 
 - (void)setFindInPageSelectedMatchIndex:(NSInteger)findInPageSelectedMatchIndex {
     _findInPageSelectedMatchIndex = findInPageSelectedMatchIndex;
-    [self updateFindInPageKeyboardBarLabel];
+    [self updateFindInPageKeyboardBar];
 }
 
 - (void)moveFindInPageSelectedMatchIndexInDirection:(WMFFindInPageScrollDirection)direction {
