@@ -158,7 +158,9 @@
 
 - (void)save {
     for (MWKSection* section in self) {
-        [section save];
+        @autoreleasepool {
+            [section save];
+        }
     }
 }
 
