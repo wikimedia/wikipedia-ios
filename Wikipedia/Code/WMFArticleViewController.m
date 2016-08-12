@@ -455,20 +455,40 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeModal:
         {
-            [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]];
-            [articleToolbarItems addObject:tocItem];
+            switch (self.tableOfContentsDisplaySide) {
+                case WMFTableOfContentsDisplaySideRight:
+                    [articleToolbarItems insertObject:tocItem atIndex:0];
+                    [articleToolbarItems insertObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8] atIndex:1];
+                    break;
+                case WMFTableOfContentsDisplaySideLeft:
+                default:
+                    [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]];
+                    [articleToolbarItems addObject:tocItem];
+                    break;
+            }
         }
             break;
         case WMFTableOfContentsDisplayModeInline:
         default:
         {
-            [articleToolbarItems insertObject:tocItem atIndex:0];
-            [articleToolbarItems insertObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8] atIndex:1];
-            [articleToolbarItems insertObject:[UIBarButtonItem flexibleSpaceToolbarItem] atIndex:2];
-            [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
-            [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:tocItem.width + 8]];
-
-            
+            switch (self.tableOfContentsDisplaySide) {
+                case WMFTableOfContentsDisplaySideRight:
+                    [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
+                    [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]];
+                    [articleToolbarItems addObject:tocItem];
+                    
+                    [articleToolbarItems insertObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:tocItem.width + 8] atIndex:0];
+                    [articleToolbarItems insertObject:[UIBarButtonItem flexibleSpaceToolbarItem] atIndex:1];
+                    break;
+                case WMFTableOfContentsDisplaySideLeft:
+                default:
+                    [articleToolbarItems insertObject:tocItem atIndex:0];
+                    [articleToolbarItems insertObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8] atIndex:1];
+                    [articleToolbarItems insertObject:[UIBarButtonItem flexibleSpaceToolbarItem] atIndex:2];
+                    [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
+                    [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:tocItem.width + 8]];
+                    break;
+            }
         }
             break;
     }
@@ -832,11 +852,29 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Layout
 
 - (void)layoutForSize:(CGSize)size {
+    BOOL isTOCVisible = self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineVisible;
+    
     CGFloat separatorWidth = WMFArticleViewControllerTableOfContentsSeparatorWidth;
     CGFloat tocWidth = round(size.width*WMFArticleViewControllerExpandedTableOfContentsWidthPercentage);
-    BOOL isTOCVisible = self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineVisible;
-    CGFloat tocOriginX = isTOCVisible ? 0 : 0 - tocWidth - separatorWidth;
-    CGFloat separatorOriginX = isTOCVisible ? tocWidth : 0 - separatorWidth;
+    CGFloat webFrameWidth =  size.width - (isTOCVisible ? (separatorWidth + tocWidth) : 0);
+
+    CGFloat webFrameOriginX;
+    CGFloat tocOriginX;
+    CGFloat separatorOriginX;
+    
+    switch (self.tableOfContentsDisplaySide) {
+        case WMFTableOfContentsDisplaySideRight:
+            tocOriginX = isTOCVisible ? webFrameWidth + separatorWidth : size.width + separatorWidth;
+            separatorOriginX = isTOCVisible ? webFrameWidth : size.width;
+            webFrameOriginX = 0;
+            break;
+        case WMFTableOfContentsDisplaySideLeft:
+        default:
+            tocOriginX = isTOCVisible ? 0 : 0 - tocWidth - separatorWidth;
+            separatorOriginX = isTOCVisible ? tocWidth : 0 - separatorWidth;
+            webFrameOriginX = tocOriginX + tocWidth + separatorWidth;
+            break;
+    }
     
     CGPoint origin = CGPointZero;
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
@@ -846,8 +884,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.tableOfContentsSeparatorView.alpha = isTOCVisible ? 1 : 0;
     }
     
-    CGFloat webFrameOriginX = tocOriginX + tocWidth + separatorWidth;
-    CGRect webFrame = CGRectMake(webFrameOriginX, origin.y, size.width - webFrameOriginX, size.height);
+    CGRect webFrame = CGRectMake(webFrameOriginX, origin.y, webFrameWidth, size.height);
     self.webViewController.view.frame = webFrame;
     switch (self.tableOfContentsDisplayState) {
         case WMFTableOfContentsDisplayStateInlineHidden:
@@ -868,7 +905,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
-    self.tableOfContentsDisplaySide = WMFTableOfContentsDisplaySideLeft;
+    self.tableOfContentsDisplaySide =  [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideRight : WMFTableOfContentsDisplaySideLeft; //inverse of the modal ToC
     self.tableOfContentsDisplayMode = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
@@ -977,11 +1014,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                     self.tableOfContentsSeparatorView = [[UIView alloc] init];
                     self.tableOfContentsSeparatorView.backgroundColor = [UIColor wmf_lightGrayColor];
                 }
-                [self.view insertSubview:self.tableOfContentsSeparatorView atIndex:0];
+      
                 [self createTableOfContentsViewControllerIfNeeded];
                 [self addChildViewController:self.tableOfContentsViewController];
-                [self.view insertSubview:self.tableOfContentsViewController.view atIndex:0];
+                [self.view insertSubview:self.tableOfContentsViewController.view aboveSubview:self.webViewController.view];
                 [self.tableOfContentsViewController didMoveToParentViewController:self];
+                
+                [self.view insertSubview:self.tableOfContentsSeparatorView aboveSubview:self.tableOfContentsViewController.view];
                 
                 self.tableOfContentsCloseGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleTableOfContentsCloseGesture:)];
                 UISwipeGestureRecognizerDirection closeDirection;
