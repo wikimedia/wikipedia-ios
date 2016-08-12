@@ -8,7 +8,6 @@ public class WMFTableOfContentsCell: UITableViewCell {
     @IBOutlet var selectedSectionIndicator: UIView!
     @IBOutlet var indentationConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var sectionLine: UIView!
     // MARK: - Init
 
     public required init?(coder aDecoder: NSCoder) {
@@ -35,12 +34,6 @@ public class WMFTableOfContentsCell: UITableViewCell {
 
             indentationConstraint.constant =
                 WMFTableOfContentsCell.indentationConstantForItem(item)
-            
-            if let level = item?.indentationLevel where level > 1 {
-                sectionLine.hidden = false
-            } else {
-                sectionLine.hidden = true
-            }
 
             layoutIfNeeded()
         } else {
@@ -90,19 +83,11 @@ public class WMFTableOfContentsCell: UITableViewCell {
     
     // MARK: - Indentation
 
-    static let minimumIndentationWidth: CGFloat = 10
-    static let firstIndendationWidth: CGFloat = 9
-    static let indentationLevelSpacing: CGFloat = 18
+    static let indentationLevelWidth: CGFloat = 10
 
     static func indentationConstantForItem(item: TableOfContentsItem?) -> CGFloat {
         let level = item?.indentationLevel ?? 0
-        var indent = WMFTableOfContentsCell.minimumIndentationWidth;
-        if level > 0 {
-            indent += WMFTableOfContentsCell.firstIndendationWidth
-        }
-        if level > 1 {
-           indent += WMFTableOfContentsCell.indentationLevelSpacing * CGFloat(level - 1)
-        }
+        let indent = WMFTableOfContentsCell.indentationLevelWidth + WMFTableOfContentsCell.indentationLevelWidth * CGFloat(level)
         return indent
     }
 }

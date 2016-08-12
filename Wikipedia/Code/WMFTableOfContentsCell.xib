@@ -36,26 +36,16 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hBO-JQ-0r9" userLabel="Section Line">
-                        <rect key="frame" x="15" y="0.0" width="1" height="39.5"/>
-                        <color key="backgroundColor" white="0.80000000000000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="1" id="wSo-zT-dpK"/>
-                        </constraints>
-                    </view>
                 </subviews>
                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="ew3-L9-lHp" firstAttribute="leading" secondItem="hBO-JQ-0r9" secondAttribute="trailing" constant="14" id="3jL-ZD-T8d"/>
                     <constraint firstAttribute="bottom" secondItem="ew3-L9-lHp" secondAttribute="bottom" priority="999" constant="11" id="IjA-fh-GRc"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="leading" secondItem="WnM-xO-Ywd" secondAttribute="trailing" priority="999" constant="10" id="Tr2-mk-KE5"/>
                     <constraint firstAttribute="bottom" secondItem="Bfs-Qt-Ofl" secondAttribute="bottom" id="UqM-FY-QuJ"/>
                     <constraint firstItem="Bfs-Qt-Ofl" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" id="VIr-yC-IiC"/>
                     <constraint firstAttribute="trailing" secondItem="ew3-L9-lHp" secondAttribute="trailing" priority="999" constant="8" id="VmJ-Qh-cO8"/>
                     <constraint firstAttribute="trailing" secondItem="Bfs-Qt-Ofl" secondAttribute="trailing" id="g7K-oD-Wpv"/>
-                    <constraint firstAttribute="bottom" secondItem="hBO-JQ-0r9" secondAttribute="bottom" id="j7n-4y-c7J"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="centerY" secondItem="WnM-xO-Ywd" secondAttribute="centerY" id="lrX-Jk-Lsp"/>
-                    <constraint firstItem="hBO-JQ-0r9" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" id="qgM-RG-XeE"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" priority="999" constant="11" id="tkc-3N-nXV"/>
                     <constraint firstItem="Bfs-Qt-Ofl" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" id="x5g-e2-QgP"/>
                     <constraint firstItem="WnM-xO-Ywd" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" constant="10" id="zHI-TZ-cZu"/>
@@ -63,7 +53,6 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="indentationConstraint" destination="Tr2-mk-KE5" id="t2k-NA-mrW"/>
-                <outlet property="sectionLine" destination="hBO-JQ-0r9" id="77l-aS-yM9"/>
                 <outlet property="sectionSelectionBackground" destination="Bfs-Qt-Ofl" id="7AO-BD-fec"/>
                 <outlet property="sectionTitle" destination="ew3-L9-lHp" id="09m-Wa-PKk"/>
                 <outlet property="selectedSectionIndicator" destination="WnM-xO-Ywd" id="oAl-20-dvE"/>
