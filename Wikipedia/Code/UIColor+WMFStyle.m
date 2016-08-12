@@ -83,7 +83,8 @@
     return [self wmf_articleListBackgroundColor];
 }
 
-+ (instancetype)wmf_tableOfContentsBackgroundColor {
+
++ (instancetype)wmf_inlineTableOfContentsBackgroundColor {
     static UIColor* c = nil;
     
     static dispatch_once_t onceToken;
@@ -93,7 +94,27 @@
     return c;
 }
 
-+ (instancetype)wmf_tableOfContentsSelectionBackgroundColor {
++ (instancetype)wmf_modalTableOfContentsBackgroundColor {
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithWhite:1 alpha:1];
+    });
+    return c;
+}
+
++ (instancetype)wmf_modalTableOfContentsSelectionBackgroundColor {
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithWhite:1 alpha:1];
+    });
+    return c;
+}
+
++ (instancetype)wmf_inlineTableOfContentsSelectionBackgroundColor {
     static UIColor* c = nil;
 
     static dispatch_once_t onceToken;

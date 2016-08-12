@@ -21,6 +21,8 @@ public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
     func tableOfContentsControllerDidCancel(controller: WMFTableOfContentsViewController)
 
     func tableOfContentsArticleLanguageURL() -> NSURL
+    
+    func tableOfContentsDisplayModeIsModal() -> Bool;
 }
 
 public class WMFTableOfContentsViewController: UIViewController,
@@ -169,7 +171,10 @@ public class WMFTableOfContentsViewController: UIViewController,
 
     public override func loadView() {
         super.loadView()
-        tableView = UITableView(frame: self.view.bounds, style: .Plain)
+        tableView = UITableView(frame: self.view.bounds, style: .Grouped)
+        
+        assert(tableView.style == .Grouped, "Use grouped UITableView layout so our WMFTableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our WMFTableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use WMFTableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
+        
         tableView.separatorStyle = .None
         tableView.delegate = self
         tableView.dataSource = self
@@ -178,7 +183,6 @@ public class WMFTableOfContentsViewController: UIViewController,
             make.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
         tableView.backgroundView = nil
-        tableView.backgroundColor = UIColor.wmf_tableOfContentsBackgroundColor()
     }
 
     // MARK: - UIViewController
@@ -188,6 +192,17 @@ public class WMFTableOfContentsViewController: UIViewController,
                               forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
         tableView.estimatedRowHeight = 40.0
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.estimatedSectionHeaderHeight = 32
+        
+        if let delegate = delegate where delegate.tableOfContentsDisplayModeIsModal() {
+            tableView.backgroundColor = UIColor.wmf_modalTableOfContentsBackgroundColor()
+        } else {
+            tableView.backgroundColor = UIColor.wmf_inlineTableOfContentsBackgroundColor()
+        }
+        automaticallyAdjustsScrollViewInsets = false
+        tableView.contentInset = UIEdgeInsetsMake(UIApplication.sharedApplication().statusBarFrame.size.height, 0, 0, 0)
         tableView.separatorStyle = .None
     }
 
@@ -219,9 +234,22 @@ public class WMFTableOfContentsViewController: UIViewController,
         let shouldHighlight = selectedItems.reduce(false) { shouldHighlight, selectedItem in
             shouldHighlight || item.shouldBeHighlightedAlongWithItem(selectedItem)
         }
+        cell.backgroundColor = tableView.backgroundColor
+        cell.contentView.backgroundColor = tableView.backgroundColor
         cell.setItem(item)
         cell.setSectionSelected(shouldHighlight, animated: false)
         return cell
+    }
+    
+    public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if let delegate = delegate {
+            let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
+            header.articleURL = delegate.tableOfContentsArticleLanguageURL()
+            header.backgroundColor = tableView.backgroundColor
+            return header
+        } else {
+            return nil
+        }
     }
 
     // MARK: - UITableViewDelegate

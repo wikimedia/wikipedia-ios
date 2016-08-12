@@ -80,6 +80,10 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
             return self.articleURL.wmf_siteURL
         }
     }
+    
+    public func tableOfContentsDisplayModeIsModal() -> Bool {
+        return self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeModal;
+    }
 }
 
 extension WMFArticleViewController {

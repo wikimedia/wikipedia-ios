@@ -20,9 +20,7 @@ public class WMFTableOfContentsCell: UITableViewCell {
 
     public override func awakeFromNib() {
         super.awakeFromNib()
-        contentView.backgroundColor = UIColor.wmf_tableOfContentsBackgroundColor()
         selectedSectionIndicator.alpha = 0.0
-        sectionSelectionBackground.backgroundColor = UIColor.wmf_tableOfContentsSelectionBackgroundColor()
         sectionSelectionBackground.alpha = 0.0
         selectionStyle = .None
     }
