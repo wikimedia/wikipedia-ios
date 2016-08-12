@@ -290,6 +290,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+//TEMP for testing...
+    self.view.layer.affineTransform = CGAffineTransformMakeScale(0.5, 0.5);
+    
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl bk_addEventHandler:^(id sender) {
         [self updateSectionSchemaForce:YES];

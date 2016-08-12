@@ -205,6 +205,9 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     NSMutableArray<WMFExploreSection*>* sections = [[self staticSections] mutableCopy];
 
     [sections addObjectsFromArray:[self featuredSections]];
+
+    [sections addObjectsFromArray:[self randomSections]];
+
     [sections addObjectsFromArray:[self mostReadSectionsWithUpdateIfNeeded]];
     [sections addObjectsFromArray:[self nearbySections]];
 
@@ -326,7 +329,6 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 - (NSArray<WMFExploreSection*>*)staticSections {
     NSMutableArray<WMFExploreSection*>* sections = [NSMutableArray array];
 
-    [sections wmf_safeAddObject:[self randomSection]];
     [sections addObject:[self mainPageSection]];
     [sections wmf_safeAddObject:[self continueReadingSection]];
 
@@ -352,6 +354,34 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     }
 
     return random;
+}
+
+- (NSArray<WMFExploreSection*>*)randomSections {
+    NSArray* existingRandomArticleSections = [self.sections bk_select:^BOOL (WMFExploreSection* obj) {
+        return obj.type == WMFExploreSectionTypeRandom;
+    }];
+    
+    NSMutableArray* randomArray = [existingRandomArticleSections mutableCopy];
+    
+    BOOL const containsTodaysRandomArticle = [randomArray bk_any:^BOOL (WMFExploreSection* obj) {
+        NSAssert(obj.type == WMFExploreSectionTypeRandom,
+                 @"List should only contain random sections, got %@", randomArray);
+        return [obj.dateCreated isToday];
+    }];
+    
+    if (!containsTodaysRandomArticle) {
+        [randomArray wmf_safeAddObject:[self randomSection]];
+    }
+    
+    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of random", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeRandom]);
+    
+    //Sort by date
+    [randomArray sortWithOptions:NSSortStable
+              usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
+                  return -[obj1.dateCreated compare:obj2.dateCreated];
+              }];
+    
+    return [randomArray wmf_arrayByTrimmingToLength:max];
 }
 
 - (NSArray<WMFExploreSection*>*)nearbySections {
