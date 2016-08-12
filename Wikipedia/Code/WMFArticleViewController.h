@@ -8,7 +8,6 @@
 @class WMFShareFunnel;
 @class WMFArticleViewController;
 
-
 typedef enum : NSUInteger {
     WMFTableOfContentsDisplaySideLeft,
     WMFTableOfContentsDisplaySideRight
@@ -27,7 +26,6 @@ typedef enum : NSUInteger {
 } WMFTableOfContentsDisplayState;
 
 NS_ASSUME_NONNULL_BEGIN
-
 
 @protocol WMFArticleViewControllerDelegate <NSObject>
 
