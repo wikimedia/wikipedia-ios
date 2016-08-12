@@ -8,6 +8,12 @@
 @class WMFShareFunnel;
 @class WMFArticleViewController;
 
+
+typedef enum : NSUInteger {
+    WMFTableOfContentsDisplaySideLeft,
+    WMFTableOfContentsDisplaySideRight
+} WMFTableOfContentsDisplaySide;
+
 typedef enum : NSUInteger {
     WMFTableOfContentsDisplayModeModal,
     WMFTableOfContentsDisplayModeInline
@@ -49,6 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
 
 @property (nonatomic) WMFTableOfContentsDisplayMode tableOfContentsDisplayMode;
+@property (nonatomic) WMFTableOfContentsDisplaySide tableOfContentsDisplaySide;
 @property (nonatomic) WMFTableOfContentsDisplayState tableOfContentsDisplayState;
 @property (nonatomic, getter=isUpdateTableOfContentsSectionOnScrollEnabled) BOOL updateTableOfContentsSectionOnScrollEnabled;
 

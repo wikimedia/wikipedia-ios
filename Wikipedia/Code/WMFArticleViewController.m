@@ -123,8 +123,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong, readwrite) UIBarButtonItem* findInPageToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
 @property (nonatomic, strong) UIRefreshControl* pullToRefresh;
-@property (nonatomic, strong) UIView *tableOfContentsSeparatorView;
 
+// Table of Contents
+@property (nonatomic, strong) UISwipeGestureRecognizer *tableOfContentsCloseGestureRecognizer;
+@property (nonatomic, strong) UIView *tableOfContentsSeparatorView;
 @property (nonatomic) CGFloat previousContentOffsetYForTOCUpdate;
 
 // Previewing
@@ -866,6 +868,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
+    self.tableOfContentsDisplaySide = WMFTableOfContentsDisplaySideLeft;
     self.tableOfContentsDisplayMode = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
@@ -979,6 +982,20 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 [self addChildViewController:self.tableOfContentsViewController];
                 [self.view insertSubview:self.tableOfContentsViewController.view atIndex:0];
                 [self.tableOfContentsViewController didMoveToParentViewController:self];
+                
+                self.tableOfContentsCloseGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleTableOfContentsCloseGesture:)];
+                UISwipeGestureRecognizerDirection closeDirection;
+                switch (self.tableOfContentsDisplaySide) {
+                    case WMFTableOfContentsDisplaySideRight:
+                        closeDirection = UISwipeGestureRecognizerDirectionRight;
+                        break;
+                    case WMFTableOfContentsDisplaySideLeft:
+                    default:
+                        closeDirection = UISwipeGestureRecognizerDirectionLeft;
+                        break;
+                }
+                self.tableOfContentsCloseGestureRecognizer.direction = closeDirection;
+                [self.tableOfContentsViewController.view addGestureRecognizer:self.tableOfContentsCloseGestureRecognizer];
             }
         }
         break;
@@ -1006,6 +1023,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         break;
     }
     [self updateToolbar];
+}
+
+- (void)handleTableOfContentsCloseGesture:(UISwipeGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        if (self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineVisible) {
+            [self hideTableOfContents];
+        }
+    }
 }
 
 #pragma mark - Save Offset
