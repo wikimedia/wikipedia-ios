@@ -236,7 +236,14 @@ public class WMFTableOfContentsViewController: UIViewController,
         }
         cell.backgroundColor = tableView.backgroundColor
         cell.contentView.backgroundColor = tableView.backgroundColor
-        cell.setItem(item)
+        
+        cell.titleIndentationLevel = item.indentationLevel
+        cell.titleLabel.text = item.titleText
+        cell.titleLabel.font = item.itemType.titleFont
+        cell.titleColor = item.itemType.titleColor
+        
+        cell.setNeedsLayout()
+        
         cell.setSectionSelected(shouldHighlight, animated: false)
         return cell
     }
