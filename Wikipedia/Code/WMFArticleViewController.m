@@ -1341,22 +1341,32 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return nil;
 }
 
+- (void)updateTableOfContentsHighlightWithScrollView:(UIScrollView *)scrollView {
+    [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection * _Nullable section, NSError * _Nullable error) {
+        if (section) {
+            [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
+        } else {
+            NSInteger visibleFooterIndex = self.webViewController.visibleFooterIndex;
+            if (visibleFooterIndex != NSNotFound) {
+                [self selectAndScrollToTableOfContentsFooterItemAtIndex:visibleFooterIndex animated:YES];
+                
+            }
+        }
+    }];
+    
+    self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
+}
+
 - (void)webViewController:(WebViewController*)controller scrollViewDidScroll:(UIScrollView*)scrollView {
     if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
+        [self updateTableOfContentsHighlightWithScrollView:scrollView];
+    }
+}
 
-        [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection * _Nullable section, NSError * _Nullable error) {
-            if (section) {
-                [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
-            } else {
-                NSInteger visibleFooterIndex = self.webViewController.visibleFooterIndex;
-                if (visibleFooterIndex != NSNotFound) {
-                    [self selectAndScrollToTableOfContentsFooterItemAtIndex:visibleFooterIndex animated:YES];
-                    
-                }
-            }
-        }];
-        
-        self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
+
+- (void)webViewController:(WebViewController*)controller scrollViewDidScrollToTop:(UIScrollView*)scrollView {
+    if (self.isUpdateTableOfContentsSectionOnScrollEnabled) {
+        [self updateTableOfContentsHighlightWithScrollView:scrollView];
     }
 }
 

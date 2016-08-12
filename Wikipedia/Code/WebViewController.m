@@ -1212,6 +1212,12 @@ NSString* const WMFCCBySALicenseURL =
     [self minimizeFindInPage];
 }
 
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidScrollToTop:)]) {
+        [self.delegate webViewController:self scrollViewDidScrollToTop:scrollView];
+    }
+}
+
 #pragma mark -
 - (void)setContentWidthPercentage:(CGFloat)contentWidthPercentage {
     if (_contentWidthPercentage != contentWidthPercentage) {
