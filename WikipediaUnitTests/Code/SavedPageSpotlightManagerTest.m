@@ -3,7 +3,7 @@
 
 
 @interface NSURL(SpotlightExtensions)
-- (CSSearchableItemAttributeSet *)searchableItemAttributes;
+- (CSSearchableItemAttributeSet * _Nullable)searchableItemAttributes;
 @end
 
 @interface MWKArticle(SpotlightExtensions)
@@ -28,6 +28,11 @@
     XCTAssertEqualObjects(attributes.keywords, keywords);
     XCTAssertEqualObjects(attributes.identifier, @"https://en.wikipedia.org/wiki/This_Is_A_Test");
     XCTAssertEqualObjects(attributes.relatedUniqueIdentifier, @"https://en.wikipedia.org/wiki/This_Is_A_Test");
+}
+
+- (void)testSearchableItemAttributeSetURLReturnsNilForNonWikiResources {
+    NSURL *url = [NSURL URLWithString:@"https://en.foo.org/"];
+    XCTAssertNil(url.searchableItemAttributes);
 }
 @end
 

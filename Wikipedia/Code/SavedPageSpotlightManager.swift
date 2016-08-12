@@ -6,7 +6,10 @@ import CoreSpotlight
 
 public extension NSURL {
     @available(iOS 9.0, *)
-    func searchableItemAttributes() -> CSSearchableItemAttributeSet {
+    func searchableItemAttributes() -> CSSearchableItemAttributeSet? {
+        guard wmf_isWikiResource else {
+            return nil
+        }
         let searchableItem = CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
         searchableItem.keywords = ["Wikipedia","Wikimedia","Wiki"] + wmf_title.componentsSeparatedByString(" ")
         searchableItem.title = wmf_title
@@ -20,7 +23,8 @@ public extension NSURL {
 public extension MWKArticle {
     @available(iOS 9.0, *)
     func searchableItemAttributes() -> CSSearchableItemAttributeSet {
-        let searchableItem = url.searchableItemAttributes()
+        let searchableItem = url.searchableItemAttributes() ??
+                CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
 
         searchableItem.subject = entityDescription
         searchableItem.contentDescription = summary()
