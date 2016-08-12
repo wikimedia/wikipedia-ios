@@ -3,62 +3,43 @@
 #import "WMFAsyncTestCase.h"
 #import "WMFRelatedSectionBlackList.h"
 #import "MWKTitle.h"
+#import "MWKDataStore+TemporaryDataStore.h"
 
 @interface WMFRelatedSectionBlackList (WMFTesting)
-
-+ (instancetype)loadFromDisk;
 
 @end
 
 
 @interface WMFBlacklistTests : WMFAsyncTestCase
 
+@property (nonatomic, strong) MWKDataStore* dataStore;
+
 @end
 
 @implementation WMFBlacklistTests
 
+- (void)setUp {
+    self.dataStore = [MWKDataStore temporaryDataStore];
+    [super setUp];
+}
+
 - (void)tearDown {
-    WMFRelatedSectionBlackList* bl = [[WMFRelatedSectionBlackList alloc] init];
+    WMFRelatedSectionBlackList* bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
     [bl removeAllEntries];
-    [bl save];
+    self.dataStore = nil;
     [super tearDown];
 }
 
 - (void)testPersistsToDisk {
     PushExpectation();
-    NSURL* url                = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"some-title"];
-    WMFRelatedSectionBlackList* bl = [[WMFRelatedSectionBlackList alloc] init];
+    NSURL* url                     = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"some-title"];
+    WMFRelatedSectionBlackList* bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
     [bl addBlackListArticleURL:url];
-    [bl save].then(^(){
-        [self popExpectationAfter:nil];
-    }).catch(^(NSError* error){
-        XCTFail(@"Error callback erroneously called with error %@", error);
-    });
-    WaitForExpectations();
+    bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
 
-    bl = [WMFRelatedSectionBlackList loadFromDisk];
-    NSURL* first = [[bl entries] firstObject];
+    MWKHistoryEntry* first = [bl mostRecentEntry];
 
-    XCTAssertTrue([url isEqual:first],
-                  @"Title persisted should be equal to the title loaded from disk");
-}
-
-- (void)testMigratesMWKTitle {
-    PushExpectation();
-    id title = [[MWKTitle alloc] initWithSite:[MWKSite siteWithCurrentLocale] normalizedTitle:@"some-title" fragment:nil];
-    WMFRelatedSectionBlackList* bl = [[WMFRelatedSectionBlackList alloc] init];
-    [bl addBlackListArticleURL:title];
-    [bl save].then(^(){
-        [self popExpectationAfter:nil];
-    }).catch(^(NSError* error){
-        XCTFail(@"Error callback erroneously called with error %@", error);
-    });
-    WaitForExpectations();
-    
-    bl = [WMFRelatedSectionBlackList loadFromDisk];
-    NSURL* first = [[bl entries] firstObject];
-    
-    XCTAssertTrue([[title URL] isEqual:first],
+    XCTAssertTrue([url isEqual:first.url],
                   @"Title persisted should be equal to the title loaded from disk");
 }
 

@@ -3,6 +3,7 @@
 #import <XCTest/XCTest.h>
 #import "MWKHistoryList.h"
 #import "MWKHistoryEntry.h"
+#import "MWKDataStore+TemporaryDataStore.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -18,12 +19,13 @@
 #pragma clang diagnostic ignored "-Wnonnull"
 
 - (void)testPrunesEntriesWithEmptyTitles {
-    MWKHistoryList* list = [[MWKHistoryList alloc] initWithEntries:nil];
+    MWKDataStore* dataStore = [MWKDataStore temporaryDataStore];
+    MWKHistoryList* list = [[MWKHistoryList alloc] initWithDataStore:dataStore];
     [list addPageToHistoryWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Foo"]];
-    assertThat(@([list countOfEntries]), is(@1));
+    assertThat(@([list numberOfItems]), is(@1));
 
     [list addPageToHistoryWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@""]];
-    assertThat(@([list countOfEntries]), is(@1));
+    assertThat(@([list numberOfItems]), is(@1));
 }
 
 #pragma clang diagnostic pop

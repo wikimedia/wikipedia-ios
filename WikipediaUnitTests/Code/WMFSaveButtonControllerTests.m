@@ -42,7 +42,7 @@
                                                                    savedPageList:self.savedPagesList
                                                                            url:nil];
 
-    assertThat(@([self.savedPagesList countOfEntries]), is(equalToInt(0)));
+    assertThat(@([self.savedPagesList numberOfItems]), is(equalToInt(0)));
 }
 
 - (void)tearDown {
@@ -84,7 +84,7 @@
     [self.savedPagesList addSavedPageWithURL:self.titleSFEn];
     self.saveButtonController.url = self.titleSFEn;
     assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
-    [self.savedPagesList removeEntryWithListIndex:self.titleSFEn];
+    [self.savedPagesList removeEntryWithURL:self.titleSFEn];
     assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
 }
 
