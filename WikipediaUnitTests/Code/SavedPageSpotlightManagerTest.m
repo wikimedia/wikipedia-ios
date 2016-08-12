@@ -16,6 +16,11 @@
 @implementation NSURL_searchableItemAttributes_Test
 
 - (void)testSearchableItemAttributeSetURL {
+    
+    if([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]){
+        return;
+    }
+    
     NSURL *url = [NSURL URLWithString:@"https://en.wikipedia.org/wiki/This_Is_A_Test"];
     CSSearchableItemAttributeSet *attributes = url.searchableItemAttributes;
 
@@ -41,6 +46,11 @@
 
 @implementation MWKArticle_searchableItemAttributes_Test
 - (void)testSearchableItemAttributeSetURL {
+    
+    if([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]){
+        return;
+    }
+    
     NSURL *url = [NSURL URLWithString:@"https://en.wikipedia.org/wiki/This_Is_A_Test"];
     MWKArticle *article = [[MWKArticle alloc] initWithURL:url];
     [article setValue:@"entityDescription" forKey:@"entityDescription"];
