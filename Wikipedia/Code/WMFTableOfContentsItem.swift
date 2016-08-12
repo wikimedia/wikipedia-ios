@@ -48,7 +48,7 @@ public protocol TableOfContentsItem : NSObjectProtocol {
 
 extension TableOfContentsItem {
     public func shouldBeHighlightedAlongWithItem(item: TableOfContentsItem) -> Bool {
-        return false
+        return item === self
     }
     
     public var indentationLevel: Int { get { return 0 } }
