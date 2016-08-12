@@ -8,6 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWKHistoryList : NSObject
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
 
 @property (readonly, weak, nonatomic) MWKDataStore* dataStore;
 
