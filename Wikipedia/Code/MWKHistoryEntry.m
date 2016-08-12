@@ -64,18 +64,6 @@
            && self.scrollPosition == entry.scrollPosition;
 }
 
-- (NSString*)description {
-    return [NSString stringWithFormat:@"%@: {\n"
-            "\turl: %@,\n"
-            "\tdate: %@,\n"
-            "\tscrollPosition: %f\n"
-            "}",
-            [super description],
-            self.url.description,
-            self.dateViewed,
-            self.scrollPosition];
-}
-
 #pragma mark - MWKListObject
 
 - (id <NSCopying>)listIndex {

@@ -61,10 +61,6 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (NSString*)debugDescription {
-    return [NSString stringWithFormat:@"%@ dataSourceClass: %@", self, [self.dataSource class]];
-}
-
 #pragma mark - Stay Fresh... yo
 
 - (void)observeArticleUpdates {

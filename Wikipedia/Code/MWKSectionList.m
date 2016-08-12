@@ -164,10 +164,11 @@
     }
 }
 
-- (NSString*)debugDescription {
-    return [NSString stringWithFormat:@"%@ { \n"
+- (NSString*)description {
+    //Do not use MTLModel's description as it will cuase recursion since this instance has a reference to the article, which also has a reference to this section list
+    return [NSString stringWithFormat:@"{ \n"
             "\t sections: %@ \n"
-            "}", [self description], self.sections];
+            "}", self.sections];
 }
 
 - (MWKSection*)firstNonEmptySection {
