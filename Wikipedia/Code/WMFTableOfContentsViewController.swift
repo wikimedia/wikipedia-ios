@@ -98,7 +98,7 @@ public class WMFTableOfContentsViewController: UIViewController,
 
     public func selectAndScrollToItem(item: TableOfContentsItem, animated: Bool) {
         guard let indexPath = indexPathForItem(item) else {
-            assertionFailure("No indexPath known for TOC item \(item)")
+            //assertionFailure("No indexPath known for TOC item \(item)")
             return
         }
         
@@ -194,7 +194,7 @@ public class WMFTableOfContentsViewController: UIViewController,
         super.viewDidLoad()
         tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(),
                               forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
-        tableView.estimatedRowHeight = 40.0
+        tableView.estimatedRowHeight = 41
         tableView.rowHeight = UITableViewAutomaticDimension
         
         tableView.sectionHeaderHeight = UITableViewAutomaticDimension
