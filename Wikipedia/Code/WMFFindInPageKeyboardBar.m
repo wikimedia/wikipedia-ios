@@ -92,7 +92,7 @@
 }
 
 - (void)updatePreviousNextButtonsEnabledForMatchesCount:(NSUInteger)count {
-    if(count < 1){
+    if(count < 2){
         self.previousButton.enabled = NO;
         self.nextButton.enabled = NO;
     }else{
