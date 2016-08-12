@@ -455,40 +455,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeModal:
         {
-            switch (self.tableOfContentsDisplaySide) {
-                case WMFTableOfContentsDisplaySideRight:
-                    [articleToolbarItems insertObject:tocItem atIndex:0];
-                    [articleToolbarItems insertObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8] atIndex:1];
-                    break;
-                case WMFTableOfContentsDisplaySideLeft:
-                default:
-                    [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]];
-                    [articleToolbarItems addObject:tocItem];
-                    break;
-            }
+            [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]];
+            [articleToolbarItems addObject:tocItem];
         }
             break;
         case WMFTableOfContentsDisplayModeInline:
         default:
         {
-            switch (self.tableOfContentsDisplaySide) {
-                case WMFTableOfContentsDisplaySideRight:
-                    [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
-                    [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]];
-                    [articleToolbarItems addObject:tocItem];
-                    
-                    [articleToolbarItems insertObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:tocItem.width + 8] atIndex:0];
-                    [articleToolbarItems insertObject:[UIBarButtonItem flexibleSpaceToolbarItem] atIndex:1];
-                    break;
-                case WMFTableOfContentsDisplaySideLeft:
-                default:
-                    [articleToolbarItems insertObject:tocItem atIndex:0];
-                    [articleToolbarItems insertObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8] atIndex:1];
-                    [articleToolbarItems insertObject:[UIBarButtonItem flexibleSpaceToolbarItem] atIndex:2];
-                    [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
-                    [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:tocItem.width + 8]];
-                    break;
-            }
+            [articleToolbarItems insertObject:tocItem atIndex:0];
+            [articleToolbarItems insertObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8] atIndex:1];
+            [articleToolbarItems insertObject:[UIBarButtonItem flexibleSpaceToolbarItem] atIndex:2];
+            [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
+            [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:tocItem.width + 8]];
+
         }
             break;
     }
