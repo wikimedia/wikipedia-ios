@@ -21,6 +21,6 @@
 - (void)hide;
 - (void)reset;
 
-- (void)updateLabelTextForCurrentMatchIndex:(NSInteger)index matchesCount:(NSUInteger)count;
+- (void)updateForCurrentMatchIndex:(NSInteger)index matchesCount:(NSUInteger)count;
 
 @end

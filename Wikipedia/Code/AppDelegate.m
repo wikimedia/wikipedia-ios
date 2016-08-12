@@ -10,6 +10,7 @@
 #import "WMFDailyStatsLoggingFunnel.h"
 #import <Tweaks/FBTweakShakeWindow.h>
 #import "ZeroConfigState.h"
+#import "NSUserActivity+WMFExtensions.h"
 
 @interface AppDelegate ()
 
@@ -121,6 +122,24 @@
 
 - (BOOL)application:(UIApplication*)application continueUserActivity:(NSUserActivity*)userActivity restorationHandler:(void (^)(NSArray* restorableObjects))restorationHandler {
     return [self.appViewController processUserActivity:userActivity];
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    return [self application:application openURL:url options:@{}];
+}
+
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<NSString *, id> *)options {
+    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+    if (activity) {
+        return [self.appViewController processUserActivity:activity];
+    } else {
+        return NO;
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication*)application {
