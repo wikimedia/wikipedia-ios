@@ -402,7 +402,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     CGFloat spacing = 0;
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
-            spacing = 15;
+            spacing = 22;
             break;
         default:
             break;
