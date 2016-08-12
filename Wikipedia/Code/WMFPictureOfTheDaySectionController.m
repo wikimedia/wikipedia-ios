@@ -143,6 +143,10 @@ static NSString* const WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoT
     return self.referenceImageView;
 }
 
+- (BOOL)prefersWiderColumn {
+    return YES;
+}
+
 @end
 
 

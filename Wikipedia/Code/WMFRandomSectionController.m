@@ -149,6 +149,10 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     self.cell = nil;
 }
 
+- (BOOL)prefersWiderColumn {
+    return YES;
+}
+
 #pragma mark - Tweak
 
 - (BOOL)isNewInterfaceEnabled {
@@ -182,6 +186,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 - (BOOL)isFooterEnabled {
     return self.isNewInterfaceEnabled;
 }
+
 
 #pragma mark - WMFTitleProviding
 

@@ -98,6 +98,10 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     return vc;
 }
 
+- (BOOL)prefersWiderColumn {
+    return YES;
+}
+
 #pragma mark - WMFTitleProviding
 
 - (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath {
