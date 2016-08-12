@@ -129,23 +129,7 @@ public class WMFTableOfContentsViewController: UIViewController,
             }
         }
     }
-    func deselectAllRowsExceptForIndexPath(indexpath: NSIndexPath?, animated: Bool) {
-        guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
-            return
-        }
-        for (_, element) in visibleIndexPaths.enumerate() {
-            
-            if let cell: WMFTableOfContentsCell = tableView.cellForRowAtIndexPath(element) as? WMFTableOfContentsCell  {
-                if let indexpath = indexpath{
-                    if element.isEqual(indexpath){
-                        cell.setSectionSelected(true, animated: false)
-                        continue
-                    }
-                }
-                cell.setSectionSelected(false, animated: false)
-            }
-        }
-    }
+
 
     public func addHighlightOfItemsRelatedTo(item: TableOfContentsItem, animated: Bool) {
         guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
@@ -273,7 +257,6 @@ public class WMFTableOfContentsViewController: UIViewController,
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let item = items[indexPath.row]
-        deselectAllRowsExceptForIndexPath(indexPath, animated: false)
         tableOfContentsFunnel.logClick()
         addHighlightOfItemsRelatedTo(item, animated: true)
         delegate?.tableOfContentsController(self, didSelectItem: item)
