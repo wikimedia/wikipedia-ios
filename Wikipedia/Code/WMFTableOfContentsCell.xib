@@ -21,7 +21,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WnM-xO-Ywd">
-                        <rect key="frame" x="10" y="15" width="10" height="10"/>
+                        <rect key="frame" x="10" y="17" width="10" height="10"/>
                         <color key="backgroundColor" red="0.18405178189277649" green="0.33496212959289551" blue="0.82250326871871948" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="AUf-YD-XQT"/>
@@ -37,9 +37,9 @@
                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="ew3-L9-lHp" secondAttribute="bottom" priority="999" constant="11" id="IjA-fh-GRc"/>
+                    <constraint firstItem="ew3-L9-lHp" firstAttribute="top" secondItem="WnM-xO-Ywd" secondAttribute="top" constant="-6" id="R7j-NH-xK2"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="leading" secondItem="WnM-xO-Ywd" secondAttribute="trailing" priority="999" constant="10" id="Tr2-mk-KE5"/>
                     <constraint firstAttribute="trailing" secondItem="ew3-L9-lHp" secondAttribute="trailing" priority="999" constant="8" id="VmJ-Qh-cO8"/>
-                    <constraint firstItem="ew3-L9-lHp" firstAttribute="centerY" secondItem="WnM-xO-Ywd" secondAttribute="centerY" id="lrX-Jk-Lsp"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" priority="999" constant="11" id="tkc-3N-nXV"/>
                     <constraint firstItem="WnM-xO-Ywd" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" constant="10" id="zHI-TZ-cZu"/>
                 </constraints>
