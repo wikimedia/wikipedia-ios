@@ -182,13 +182,18 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
 
 - (void)removeAllEntries {
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray < NSString* > * _Nonnull (YapDatabaseReadWriteTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
-        NSMutableArray* urls = [NSMutableArray arrayWithCapacity:[self numberOfItems]];
+        NSMutableArray<NSString*>* keys = [NSMutableArray arrayWithCapacity:[self numberOfItems]];
         [transaction enumerateKeysAndObjectsInCollection:[MWKHistoryEntry databaseCollectionName] usingBlock:^(NSString* _Nonnull key, MWKHistoryEntry* _Nonnull object, BOOL* _Nonnull stop) {
-            object.blackListed = NO;
-            [transaction setObject:object forKey:key inCollection:[MWKHistoryEntry databaseCollectionName]];
-            [urls addObject:key];
+            if (object.isBlackListed) {
+                [keys addObject:key];
+            }
         }];
-        return urls;
+        [keys enumerateObjectsUsingBlock:^(NSString* _Nonnull key, NSUInteger idx, BOOL* _Nonnull stop) {
+            MWKHistoryEntry* entry = [[transaction objectForKey:key inCollection:[MWKHistoryEntry databaseCollectionName]] copy];
+            entry.blackListed = NO;
+            [transaction setObject:entry forKey:key inCollection:[MWKHistoryEntry databaseCollectionName]];
+        }];
+        return keys;
     }];
 }
 

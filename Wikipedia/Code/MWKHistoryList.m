@@ -113,15 +113,14 @@ NS_ASSUME_NONNULL_BEGIN
     if ([entry.url.wmf_title length] == 0) {
         return nil;
     }
-    
+
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray* _Nonnull (YapDatabaseReadWriteTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
         [transaction setObject:entry forKey:[entry databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
         return @[[entry databaseKey]];
     }];
-    
+
     return entry;
 }
-
 
 - (MWKHistoryEntry*)addPageToHistoryWithURL:(NSURL*)url {
     NSParameterAssert(url);
@@ -138,7 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
         entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
         if (!entry) {
             entry = [[MWKHistoryEntry alloc] initWithURL:url];
-        }else{
+        } else {
             entry = [entry copy];
         }
         entry.dateViewed = [NSDate date];
@@ -192,14 +191,19 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)removeAllEntries {
-    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray* _Nonnull (YapDatabaseReadWriteTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
-        NSMutableArray* urls = [NSMutableArray arrayWithCapacity:[self numberOfItems]];
+    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray < NSString* > * _Nonnull (YapDatabaseReadWriteTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
+        NSMutableArray<NSString*>* keys = [NSMutableArray arrayWithCapacity:[self numberOfItems]];
         [transaction enumerateKeysAndObjectsInCollection:[MWKHistoryEntry databaseCollectionName] usingBlock:^(NSString* _Nonnull key, MWKHistoryEntry* _Nonnull object, BOOL* _Nonnull stop) {
-            object.dateViewed = nil;
-            [transaction setObject:object forKey:key inCollection:[MWKHistoryEntry databaseCollectionName]];
-            [urls addObject:key];
+            if (object.dateViewed != nil) {
+                [keys addObject:key];
+            }
         }];
-        return urls;
+        [keys enumerateObjectsUsingBlock:^(NSString* _Nonnull key, NSUInteger idx, BOOL* _Nonnull stop) {
+            MWKHistoryEntry* entry = [[transaction objectForKey:key inCollection:[MWKHistoryEntry databaseCollectionName]] copy];
+            entry.dateViewed = nil;
+            [transaction setObject:entry forKey:key inCollection:[MWKHistoryEntry databaseCollectionName]];
+        }];
+        return keys;
     }];
 }
 
