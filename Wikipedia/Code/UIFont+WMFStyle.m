@@ -27,16 +27,12 @@
     return [self wmf_copyWithSizeScaledBy:MENUS_SCALE_MULTIPLIER];
 }
 
-+ (instancetype)wmf_tableOfContentsHeaderFont {
-    return [UIFont systemFontOfSize:12];
-}
-
 + (instancetype)wmf_tableOfContentsSectionFont {
     static UIFont* f = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        f = [UIFont fontWithName:@"Georgia" size:22];
+        f = [UIFont fontWithName:@"Georgia" size:18];
     });
     return f;
 }

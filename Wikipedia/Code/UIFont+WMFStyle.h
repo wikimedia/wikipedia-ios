@@ -16,7 +16,6 @@
 + (UIFont*)wmf_htmlBodyFont;
 
 
-+ (instancetype)wmf_tableOfContentsHeaderFont;
 + (instancetype)wmf_tableOfContentsSectionFont;
 + (instancetype)wmf_tableOfContentsSubsectionFont;
 

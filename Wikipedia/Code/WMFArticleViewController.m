@@ -8,7 +8,6 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 
 // Controller
-#import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFReadMoreViewController.h"
 #import "WMFImageGalleryViewController.h"
@@ -69,9 +68,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercentage = 0.33;
+static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
+static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 10;
+
+
 @interface WMFArticleViewController ()
-<WMFWebViewControllerDelegate,
- UINavigationControllerDelegate,
+<UINavigationControllerDelegate,
  WMFImageGalleryViewControllerReferenceViewDelegate,
  SectionEditorViewControllerDelegate,
  UIViewControllerPreviewingDelegate,
@@ -115,10 +118,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite) UIBarButtonItem* languagesToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem* shareToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem* fontSizeToolbarItem;
-@property (nonatomic, strong, readwrite) UIBarButtonItem* tableOfContentsToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem* showTableOfContentsToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem* hideTableOfContentsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem* findInPageToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
 @property (nonatomic, strong) UIRefreshControl* pullToRefresh;
+
+// Table of Contents
+@property (nonatomic, strong) UISwipeGestureRecognizer *tableOfContentsCloseGestureRecognizer;
+@property (nonatomic, strong) UIView *tableOfContentsSeparatorView;
+@property (nonatomic) CGFloat previousContentOffsetYForTOCUpdate;
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
@@ -200,7 +209,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     [self updateToolbar];
-    [self createTableOfContentsViewControllerIfNeeded];
+    [self setupTableOfContentsViewController];
     [self updateWebviewFootersIfNeeded];
     [self updateTableOfContentsForFootersIfNeeded];
     [self observeArticleUpdates];
@@ -388,36 +397,81 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Toolbar Setup
 
 - (NSArray<UIBarButtonItem*>*)articleToolBarItems {
-    return [NSArray arrayWithObjects:
-            self.languagesToolbarItem,
+    NSMutableArray *articleToolbarItems = [NSMutableArray arrayWithCapacity:18];
+    
+    CGFloat spacing = 0;
+    switch (self.tableOfContentsDisplayMode) {
+        case WMFTableOfContentsDisplayModeInline:
+            spacing = 22;
+            break;
+        default:
+            break;
+    }
+    
+    NSArray *itemGroups = @[@[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing],
+                              self.languagesToolbarItem,
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing]],
+                            
+                            @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
+                              self.saveToolbarItem,
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:4 + spacing]],
+                            
+                            @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
+                              self.shareToolbarItem,
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing]],
+                            
+                            @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing],
+                              self.fontSizeToolbarItem,
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing]],
+                            
+                            @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
+                              self.findInPageToolbarItem,
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2 + spacing]]];
+    
+    
+    for (NSArray *itemGroup in itemGroups) {
+        [articleToolbarItems addObjectsFromArray:itemGroup];
+        switch (self.tableOfContentsDisplayMode) {
+            case WMFTableOfContentsDisplayModeInline:
+                break;
+            case WMFTableOfContentsDisplayModeModal:
+            default:
+                [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
+                break;
+        }
+    }
+    
+    
+    UIBarButtonItem *tocItem = nil;
+    switch (self.tableOfContentsDisplayState) {
+        case WMFTableOfContentsDisplayStateInlineVisible:
+            tocItem = self.hideTableOfContentsToolbarItem;
+            break;
+        default:
+            tocItem = self.showTableOfContentsToolbarItem;
+            break;
+    }
+    
+    switch (self.tableOfContentsDisplayMode) {
+        case WMFTableOfContentsDisplayModeModal:
+        {
+            [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]];
+            [articleToolbarItems addObject:tocItem];
+        }
+            break;
+        case WMFTableOfContentsDisplayModeInline:
+        default:
+        {
+            [articleToolbarItems insertObject:tocItem atIndex:0];
+            [articleToolbarItems insertObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8] atIndex:1];
+            [articleToolbarItems insertObject:[UIBarButtonItem flexibleSpaceToolbarItem] atIndex:2];
+            [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
+            [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:tocItem.width + 8]];
 
-            [UIBarButtonItem flexibleSpaceToolbarItem],
-
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
-            self.saveToolbarItem,
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:4.f],
-
-            [UIBarButtonItem flexibleSpaceToolbarItem],
-
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
-            self.shareToolbarItem,
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
-
-            [UIBarButtonItem flexibleSpaceToolbarItem],
-
-            self.fontSizeToolbarItem,
-
-            [UIBarButtonItem flexibleSpaceToolbarItem],
-
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3.f],
-            self.findInPageToolbarItem,
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.f],
-
-            [UIBarButtonItem flexibleSpaceToolbarItem],
-
-            [UIBarButtonItem wmf_barButtonItemOfFixedWidth:8.f],
-            self.tableOfContentsToolbarItem,
-            nil];
+        }
+            break;
+    }
+    return articleToolbarItems;
 }
 
 - (void)updateToolbar {
@@ -432,7 +486,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSArray<UIBarButtonItem*>* toolbarItems = [self articleToolBarItems];
 
-    if (self.toolbarItems.count != toolbarItems.count) {
+    if (![self.toolbarItems isEqualToArray:toolbarItems]) {
         // HAX: only update toolbar if # of items has changed, otherwise items will (somehow) get lost
         [self setToolbarItems:toolbarItems animated:YES];
     }
@@ -442,22 +496,36 @@ NS_ASSUME_NONNULL_BEGIN
     self.fontSizeToolbarItem.enabled        = [self canAdjustText];
     self.shareToolbarItem.enabled           = [self canShare];
     self.languagesToolbarItem.enabled       = [self hasLanguages];
-    self.tableOfContentsToolbarItem.enabled = [self hasTableOfContents];
+    self.showTableOfContentsToolbarItem.enabled = [self hasTableOfContents];
     self.findInPageToolbarItem.enabled      = [self canFindInPage];
 }
 
 #pragma mark - Toolbar Items
 
-- (UIBarButtonItem*)tableOfContentsToolbarItem {
-    if (!_tableOfContentsToolbarItem) {
-        _tableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toc"]
+- (UIBarButtonItem*)showTableOfContentsToolbarItem {
+    if (!_showTableOfContentsToolbarItem) {
+        _showTableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toc"]
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
                                                                       action:@selector(showTableOfContents)];
-        _tableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
-        return _tableOfContentsToolbarItem;
+        _showTableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
+        return _showTableOfContentsToolbarItem;
     }
-    return _tableOfContentsToolbarItem;
+    return _showTableOfContentsToolbarItem;
+}
+
+- (UIBarButtonItem*)hideTableOfContentsToolbarItem {
+    if (!_hideTableOfContentsToolbarItem) {
+        UIImage *closeImage = [UIImage imageNamed:@"toc-close"];
+        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [closeButton setImage:closeImage forState:UIControlStateNormal];
+        [closeButton addTarget:self action:@selector(hideTableOfContents) forControlEvents:UIControlEventTouchUpInside];
+        closeButton.frame = (CGRect){.origin = CGPointZero, .size = closeImage.size};
+        _hideTableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
+        _hideTableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
+        return _hideTableOfContentsToolbarItem;
+    }
+    return _hideTableOfContentsToolbarItem;
 }
 
 - (UIBarButtonItem*)saveToolbarItem {
@@ -697,13 +765,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self updateTableOfContentsDisplayModeWithTraitCollection:self.traitCollection];
+    
+    self.tableOfContentsDisplayState = self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline ? WMFTableOfContentsDisplayStateInlineVisible : WMFTableOfContentsDisplayStateModalHidden;
+    
     [self.navigationController.toolbar wmf_applySolidWhiteBackgroundWithTopShadow];
 
     [self updateToolbar];
 
     [self setUpTitleBarButton];
-    self.view.clipsToBounds                   = NO;
     self.automaticallyAdjustsScrollViewInsets = YES;
+    self.view.backgroundColor = [UIColor whiteColor];
 
     self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
 
@@ -716,6 +789,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
     [self registerForPreviewingIfAvailable];
 
     if (!self.skipFetchOnViewDidAppear) {
@@ -753,20 +827,227 @@ NS_ASSUME_NONNULL_BEGIN
     [self registerForPreviewingIfAvailable];
 }
 
+#pragma mark - Layout
+
+- (void)layoutForSize:(CGSize)size {
+    BOOL isTOCVisible = self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineVisible;
+    
+    CGFloat separatorWidth = WMFArticleViewControllerTableOfContentsSeparatorWidth;
+    CGFloat tocWidth = round(size.width*WMFArticleViewControllerExpandedTableOfContentsWidthPercentage);
+    CGFloat webFrameWidth =  size.width - (isTOCVisible ? (separatorWidth + tocWidth) : 0);
+
+    CGFloat webFrameOriginX;
+    CGFloat tocOriginX;
+    CGFloat separatorOriginX;
+    
+    switch (self.tableOfContentsDisplaySide) {
+        case WMFTableOfContentsDisplaySideRight:
+            tocOriginX = isTOCVisible ? webFrameWidth + separatorWidth : size.width + separatorWidth;
+            separatorOriginX = isTOCVisible ? webFrameWidth : size.width;
+            webFrameOriginX = 0;
+            break;
+        case WMFTableOfContentsDisplaySideLeft:
+        default:
+            tocOriginX = isTOCVisible ? 0 : 0 - tocWidth - separatorWidth;
+            separatorOriginX = isTOCVisible ? tocWidth : 0 - separatorWidth;
+            webFrameOriginX = tocOriginX + tocWidth + separatorWidth;
+            break;
+    }
+    
+    CGPoint origin = CGPointZero;
+    if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
+        self.tableOfContentsViewController.view.frame = CGRectMake(tocOriginX, origin.y, tocWidth, size.height);
+        self.tableOfContentsSeparatorView.frame = CGRectMake(separatorOriginX, origin.y, separatorWidth, size.height);
+        self.tableOfContentsViewController.view.alpha = isTOCVisible ? 1 : 0;
+        self.tableOfContentsSeparatorView.alpha = isTOCVisible ? 1 : 0;
+    }
+    
+    CGRect webFrame = CGRectMake(webFrameOriginX, origin.y, webFrameWidth, size.height);
+    self.webViewController.view.frame = webFrame;
+    switch (self.tableOfContentsDisplayState) {
+        case WMFTableOfContentsDisplayStateInlineHidden:
+            self.webViewController.contentWidthPercentage = 0.71;
+            break;
+        case WMFTableOfContentsDisplayStateInlineVisible:
+            self.webViewController.contentWidthPercentage = 0.90;
+            break;
+        default:
+            self.webViewController.contentWidthPercentage = 1;
+            break;
+    }
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self layoutForSize:self.view.bounds.size];
+}
+
+- (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
+    self.tableOfContentsDisplaySide =  [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideRight : WMFTableOfContentsDisplaySideLeft; //inverse of the modal ToC
+    self.tableOfContentsDisplayMode = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
+    switch (self.tableOfContentsDisplayMode) {
+        case WMFTableOfContentsDisplayModeInline:
+            self.updateTableOfContentsSectionOnScrollEnabled = YES;
+            break;
+        case WMFTableOfContentsDisplayModeModal:
+        default:
+            self.updateTableOfContentsSectionOnScrollEnabled = NO;
+            break;
+    }
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self layoutForSize:size];
+    } completion:NULL];
+}
+
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+    [self updateTableOfContentsDisplayModeWithTraitCollection:newCollection];
+    [self setupTableOfContentsViewController];
+}
+
 #pragma mark - Web View Setup
 
 - (void)setupWebView {
     [self addChildViewController:self.webViewController];
-    [self.view addSubview:self.webViewController.view];
-    [self.webViewController.view mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.leading.trailing.top.and.bottom.equalTo(self.view);
-    }];
+    [self.view insertSubview:self.webViewController.view atIndex:0];
     [self.webViewController didMoveToParentViewController:self];
 
     self.pullToRefresh         = [[UIRefreshControl alloc] init];
     self.pullToRefresh.enabled = [self canRefresh];
     [self.pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
     [self.webViewController.webView.scrollView addSubview:_pullToRefresh];
+    
+    [self layoutForSize:self.view.bounds.size];
+}
+
+#pragma mark - Table of Contents
+
+- (void)showTableOfContents {
+    switch (self.tableOfContentsDisplayMode) {
+        case WMFTableOfContentsDisplayModeInline:
+        {
+            self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineVisible;
+            [UIView animateWithDuration:0.25 animations:^{
+                [self layoutForSize:self.view.bounds.size];
+            }];
+        }
+            break;
+        case WMFTableOfContentsDisplayModeModal:
+        default:
+        {
+            self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalVisible;
+            [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
+        }
+            break;
+    }
+    [self updateToolbar];
+}
+
+- (void)hideTableOfContents {
+    switch (self.tableOfContentsDisplayMode) {
+        case WMFTableOfContentsDisplayModeInline:
+        {
+            self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
+            [UIView animateWithDuration:0.25 animations:^{
+                [self layoutForSize:self.view.bounds.size];
+            }];
+        }
+            break;
+        case WMFTableOfContentsDisplayModeModal:
+        default:
+        {
+            self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalHidden;
+            [self dismissViewControllerAnimated:YES completion:NULL];
+        }
+            break;
+    }
+    [self updateToolbar];
+}
+
+- (void)setupTableOfContentsViewController {
+    switch (self.tableOfContentsDisplayMode) {
+        case WMFTableOfContentsDisplayModeInline:
+        {
+            if (self.tableOfContentsViewController.parentViewController != self) {
+                if (self.presentedViewController == self.tableOfContentsViewController) {
+                    [self dismissViewControllerAnimated:NO completion:NULL];
+                }
+                self.tableOfContentsViewController = nil;
+                
+                switch (self.tableOfContentsDisplayState) {
+                    case WMFTableOfContentsDisplayStateModalHidden:
+                        self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
+                        break;
+                    case WMFTableOfContentsDisplayStateModalVisible:
+                        self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineVisible;
+                    default:
+                        break;
+                }
+
+                if (self.tableOfContentsSeparatorView == nil) {
+                    self.tableOfContentsSeparatorView = [[UIView alloc] init];
+                    self.tableOfContentsSeparatorView.backgroundColor = [UIColor wmf_lightGrayColor];
+                }
+      
+                [self createTableOfContentsViewControllerIfNeeded];
+                [self addChildViewController:self.tableOfContentsViewController];
+                [self.view insertSubview:self.tableOfContentsViewController.view aboveSubview:self.webViewController.view];
+                [self.tableOfContentsViewController didMoveToParentViewController:self];
+                
+                [self.view insertSubview:self.tableOfContentsSeparatorView aboveSubview:self.tableOfContentsViewController.view];
+                
+                self.tableOfContentsCloseGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleTableOfContentsCloseGesture:)];
+                UISwipeGestureRecognizerDirection closeDirection;
+                switch (self.tableOfContentsDisplaySide) {
+                    case WMFTableOfContentsDisplaySideRight:
+                        closeDirection = UISwipeGestureRecognizerDirectionRight;
+                        break;
+                    case WMFTableOfContentsDisplaySideLeft:
+                    default:
+                        closeDirection = UISwipeGestureRecognizerDirectionLeft;
+                        break;
+                }
+                self.tableOfContentsCloseGestureRecognizer.direction = closeDirection;
+                [self.tableOfContentsViewController.view addGestureRecognizer:self.tableOfContentsCloseGestureRecognizer];
+            }
+        }
+        break;
+        default:
+        case WMFTableOfContentsDisplayModeModal:
+        {
+            switch (self.tableOfContentsDisplayState) {
+                case WMFTableOfContentsDisplayStateInlineVisible:
+                case WMFTableOfContentsDisplayStateInlineHidden:
+                    self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalHidden;
+                    break;
+                default:
+                    break;
+            }
+            if (self.tableOfContentsViewController.parentViewController == self) {
+                [self.tableOfContentsViewController willMoveToParentViewController:nil];
+                [self.tableOfContentsViewController.view removeFromSuperview];
+                [self.tableOfContentsViewController removeFromParentViewController];
+                [self.tableOfContentsSeparatorView removeFromSuperview];
+                self.tableOfContentsViewController = nil;
+            }
+            [self createTableOfContentsViewControllerIfNeeded];
+
+        }
+        break;
+    }
+    [self updateToolbar];
+}
+
+- (void)handleTableOfContentsCloseGesture:(UISwipeGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        if (self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineVisible) {
+            [self hideTableOfContents];
+        }
+    }
 }
 
 #pragma mark - Save Offset
@@ -1023,6 +1304,12 @@ NS_ASSUME_NONNULL_BEGIN
         });
     }];
 
+    if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
+        [self setupTableOfContentsViewController];
+        [self layoutForSize:self.view.bounds.size];
+        [self.tableOfContentsViewController selectAndScrollToItemAtIndex:0 animated:NO];
+    }
+    
     [self.delegate articleControllerDidLoadArticle:self];
     [self fetchReadMoreIfNeeded];
 }
@@ -1051,6 +1338,36 @@ NS_ASSUME_NONNULL_BEGIN
     }
     return nil;
 }
+
+- (void)updateTableOfContentsHighlightWithScrollView:(UIScrollView *)scrollView {
+    [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection * _Nullable section, NSError * _Nullable error) {
+        if (section) {
+            [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
+        } else {
+            NSInteger visibleFooterIndex = self.webViewController.visibleFooterIndex;
+            if (visibleFooterIndex != NSNotFound) {
+                [self selectAndScrollToTableOfContentsFooterItemAtIndex:visibleFooterIndex animated:YES];
+                
+            }
+        }
+    }];
+    
+    self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
+}
+
+- (void)webViewController:(WebViewController*)controller scrollViewDidScroll:(UIScrollView*)scrollView {
+    if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
+        [self updateTableOfContentsHighlightWithScrollView:scrollView];
+    }
+}
+
+
+- (void)webViewController:(WebViewController*)controller scrollViewDidScrollToTop:(UIScrollView*)scrollView {
+    if (self.isUpdateTableOfContentsSectionOnScrollEnabled) {
+        [self updateTableOfContentsHighlightWithScrollView:scrollView];
+    }
+}
+
 
 #pragma mark - Header Tap Gesture
 

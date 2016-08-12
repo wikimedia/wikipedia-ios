@@ -1,11 +1,3 @@
-//
-//  WMFTableOfContentsItem.swift
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/20/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 import Foundation
 
 // MARK: - TOC Item Types
@@ -47,7 +39,6 @@ public enum TableOfContentsBorderType {
 public protocol TableOfContentsItem : NSObjectProtocol {
     var titleText: String { get }
     var itemType: TableOfContentsItemType { get }
-    var borderType: TableOfContentsBorderType { get }
     var indentationLevel: Int { get }
 
     func shouldBeHighlightedAlongWithItem(item: TableOfContentsItem) -> Bool
@@ -57,11 +48,9 @@ public protocol TableOfContentsItem : NSObjectProtocol {
 
 extension TableOfContentsItem {
     public func shouldBeHighlightedAlongWithItem(item: TableOfContentsItem) -> Bool {
-        return false
+        return item === self
     }
-
-    public var borderType: TableOfContentsBorderType { get { return TableOfContentsBorderType.TopOnly } }
-
+    
     public var indentationLevel: Int { get { return 0 } }
 }
 

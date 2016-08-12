@@ -19,9 +19,13 @@
 
 + (instancetype)wmf_articleBackgroundColor;
 
-+ (instancetype)wmf_tableOfContentsHeaderTextColor;
++ (instancetype)wmf_inlineTableOfContentsBackgroundColor;
 
-+ (instancetype)wmf_tableOfContentsSelectionBackgroundColor;
++ (instancetype)wmf_modalTableOfContentsBackgroundColor;
+
++ (instancetype)wmf_modalTableOfContentsSelectionBackgroundColor;
+
++ (instancetype)wmf_inlineTableOfContentsSelectionBackgroundColor;
 
 + (instancetype)wmf_tableOfContentsSelectionIndicatorColor;
 

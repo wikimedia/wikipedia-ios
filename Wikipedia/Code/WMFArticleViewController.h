@@ -1,14 +1,31 @@
 @import UIKit;
 #import "WMFAnalyticsLogging.h"
 #import "MWKArticle.h"
+#import "WebViewController.h"
 
 @class MWKDataStore;
 
 @class WMFShareFunnel;
 @class WMFArticleViewController;
 
-NS_ASSUME_NONNULL_BEGIN
+typedef enum : NSUInteger {
+    WMFTableOfContentsDisplaySideLeft,
+    WMFTableOfContentsDisplaySideRight
+} WMFTableOfContentsDisplaySide;
 
+typedef enum : NSUInteger {
+    WMFTableOfContentsDisplayModeModal,
+    WMFTableOfContentsDisplayModeInline
+} WMFTableOfContentsDisplayMode;
+
+typedef enum : NSUInteger {
+    WMFTableOfContentsDisplayStateInlineVisible,
+    WMFTableOfContentsDisplayStateInlineHidden,
+    WMFTableOfContentsDisplayStateModalVisible,
+    WMFTableOfContentsDisplayStateModalHidden
+} WMFTableOfContentsDisplayState;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFArticleViewControllerDelegate <NSObject>
 
@@ -23,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  View controller responsible for displaying article content.
  */
-@interface WMFArticleViewController : UIViewController<WMFAnalyticsContextProviding, WMFAnalyticsViewNameProviding>
+@interface WMFArticleViewController : UIViewController<WMFAnalyticsContextProviding, WMFAnalyticsViewNameProviding, WMFWebViewControllerDelegate>
 
 - (instancetype)initWithArticleURL:(NSURL*)url
                          dataStore:(MWKDataStore*)dataStore;
@@ -34,6 +51,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly, nullable) MWKArticle* article;
 
 @property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
+
+@property (nonatomic) WMFTableOfContentsDisplayMode tableOfContentsDisplayMode;
+@property (nonatomic) WMFTableOfContentsDisplaySide tableOfContentsDisplaySide;
+@property (nonatomic) WMFTableOfContentsDisplayState tableOfContentsDisplayState;
+@property (nonatomic, getter=isUpdateTableOfContentsSectionOnScrollEnabled) BOOL updateTableOfContentsSectionOnScrollEnabled;
 
 @end
 
@@ -63,7 +85,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) UIBarButtonItem* languagesToolbarItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem* shareToolbarItem;
 @property (nonatomic, strong, readonly) UIBarButtonItem* fontSizeToolbarItem;
-@property (nonatomic, strong, readonly) UIBarButtonItem* tableOfContentsToolbarItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem* showTableOfContentsToolbarItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem* hideTableOfContentsToolbarItem;
 
 
 - (NSArray<UIBarButtonItem*>*)articleToolBarItems;

@@ -264,6 +264,7 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)handleArticleStateScriptMessage:(NSString*)messageString {
     if ([messageString isEqualToString:@"articleLoaded"]) {
+        [self updateWebContentMarginForSize:self.view.bounds.size];
         NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
         [self.delegate webViewController:self didLoadArticle:self.article];
         
@@ -335,6 +336,23 @@ NSString* const WMFCCBySALicenseURL =
     }
 }
 
+- (CGFloat)marginWidthForSize:(CGSize)size {
+    return floor(0.5*size.width*(1 - self.contentWidthPercentage));
+}
+
+- (void)updateWebContentMarginForSize:(CGSize)size {
+    NSString *jsFormat = @"document.body.style.paddingLeft='%ipx';document.body.style.paddingRight='%ipx';";
+    CGFloat marginWidth = [self marginWidthForSize:size];
+    int padding = (int)MAX(0, marginWidth);
+    NSString *js = [NSString stringWithFormat:jsFormat, padding, padding];
+    [self.webView evaluateJavaScript:js completionHandler:NULL];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self updateWebContentMarginForSize:self.view.bounds.size];
+}
+
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     self.disableMinimizeFindInPage = YES;
@@ -345,21 +363,21 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)setFindInPageMatches:(NSArray *)findInPageMatches {
     _findInPageMatches = findInPageMatches;
-    [self updateFindInPageKeyboardBarLabel];
+    [self updateFindInPageKeyboardBar];
 }
 
-#pragma FindInPage label
+#pragma FindInPage label and prev/next button state
 
-- (void)updateFindInPageKeyboardBarLabel {
-    [[self findInPageKeyboardBar] updateLabelTextForCurrentMatchIndex:self.findInPageSelectedMatchIndex
-                                                         matchesCount:self.findInPageMatches.count];
+- (void)updateFindInPageKeyboardBar {
+    [[self findInPageKeyboardBar] updateForCurrentMatchIndex:self.findInPageSelectedMatchIndex
+                                                matchesCount:self.findInPageMatches.count];
 }
 
 #pragma FindInPageBar selected match
 
 - (void)setFindInPageSelectedMatchIndex:(NSInteger)findInPageSelectedMatchIndex {
     _findInPageSelectedMatchIndex = findInPageSelectedMatchIndex;
-    [self updateFindInPageKeyboardBarLabel];
+    [self updateFindInPageKeyboardBar];
 }
 
 - (void)moveFindInPageSelectedMatchIndexInDirection:(WMFFindInPageScrollDirection)direction {
@@ -502,6 +520,8 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.contentWidthPercentage = 1;
     
     self.isPeeking = NO;
 
@@ -684,11 +704,9 @@ NSString* const WMFCCBySALicenseURL =
     if (!CGRectIntersectsRect(scrollViewContentFrame, self.footerContainerView.frame)) {
         return NSNotFound;
     }
-    return
-        [self.footerContainerView.subviews indexOfObjectPassingTest:^BOOL (__kindof UIView* _Nonnull footerView,
-                                                                           NSUInteger idx,
-                                                                           BOOL* _Nonnull stop) {
-        CGRect absoluteFooterViewFrame = [self.webView.scrollView convertRect:footerView.frame
+    
+    return [self.footerViewControllers indexOfObjectPassingTest:^BOOL(UIViewController * _Nonnull vc, NSUInteger idx, BOOL * _Nonnull stop) {
+        CGRect absoluteFooterViewFrame = [self.webView.scrollView convertRect:vc.view.frame
                                                                      fromView:self.footerContainerView];
         if (CGRectIntersectsRect(scrollViewContentFrame, absoluteFooterViewFrame)) {
             *stop = YES;
@@ -947,8 +965,8 @@ NSString* const WMFCCBySALicenseURL =
     self.footerContainerView.alpha = 0.f;
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     [self.headerHeight setOffset:headerHeight];
-
-    [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment topPadding:headerHeight];
+    CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
+    [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth)];
 
     UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
                                                           action:@selector(shareMenuItemTapped:)];
@@ -1192,10 +1210,21 @@ NSString* const WMFCCBySALicenseURL =
     [self minimizeFindInPage];
 }
 
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidScrollToTop:)]) {
+        [self.delegate webViewController:self scrollViewDidScrollToTop:scrollView];
+    }
+}
+
+#pragma mark -
+- (void)setContentWidthPercentage:(CGFloat)contentWidthPercentage {
+    if (_contentWidthPercentage != contentWidthPercentage) {
+        _contentWidthPercentage = contentWidthPercentage;
+        [self updateWebContentMarginForSize:self.view.bounds.size];
+    }
+}
+
 @end
-
-
-
 
 @interface WMFWebView : WKWebView
 

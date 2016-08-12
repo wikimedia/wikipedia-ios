@@ -1,11 +1,3 @@
-//
-//  TableOfContentsReadMoreItem.swift
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/20/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 import Foundation
 
 public protocol TableOfContentsFooterItem : TableOfContentsItem {
@@ -31,7 +23,6 @@ public class TableOfContentsReadMoreItem : NSObject, TableOfContentsFooterItem {
             return self === item
                 || (titleText == item.titleText
                     && itemType == item.itemType
-                    && borderType == item.borderType
                     && indentationLevel == item.indentationLevel)
         } else {
             return false

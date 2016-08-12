@@ -2,6 +2,7 @@
 #import "NSUserActivity+WMFExtensions.h"
 #import "MWKArticle.h"
 #import "Wikipedia-Swift.h"
+#import "NSURL+WMFQueryParameters.h"
 
 @import CoreSpotlight;
 @import MobileCoreServices;
@@ -20,7 +21,7 @@
     [_current becomeCurrent];
 }
 
-+ (instancetype)wmf_actvityWithType:(NSString*)type {
++ (instancetype)wmf_activityWithType:(NSString*)type {
     NSUserActivity* activity = [[NSUserActivity alloc] initWithActivityType:[NSString stringWithFormat:@"org.wikimedia.wikipedia.%@", [type lowercaseString]]];
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
@@ -33,7 +34,7 @@
 }
 
 + (instancetype)wmf_pageActivityWithName:(NSString*)pageName {
-    NSUserActivity* activity = [self wmf_actvityWithType:[pageName lowercaseString]];
+    NSUserActivity* activity = [self wmf_activityWithType:[pageName lowercaseString]];
     activity.title    = pageName;
     activity.userInfo = @{@"WMFPage": pageName};
 
@@ -71,33 +72,68 @@
     return activity;
 }
 
++ (instancetype)wmf_activityForWikipediaScheme:(NSURL *)url {
+    if (![url.scheme isEqualToString:@"wikipedia"]) {
+        return nil;
+    }
+
+    if ([url.host isEqualToString:@"explore"]) {
+        return [self wmf_exploreViewActivity];
+    } else if ([url.host isEqualToString:@"saved"]) {
+        return [self wmf_savedPagesViewActivity];
+    } else if ([url.host isEqualToString:@"history"]) {
+        return [self wmf_recentViewActivity];
+    } else if ([url wmf_valueForQueryKey:@"search"] != nil) {
+        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+        components.scheme = @"https";
+        return [self wmf_searchResultsActivitySearchSiteURL:components.URL
+                                                 searchTerm:[url wmf_valueForQueryKey:@"search"]];
+    } else {
+        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+        components.scheme = @"https";
+        NSURL *wikipediaURL = components.URL;
+        if ([wikipediaURL wmf_isWikiResource]) {
+            return [self wmf_articleViewActivityWithURL:wikipediaURL];
+        }
+    }
+    return nil;
+}
+
 + (instancetype)wmf_articleViewActivityWithArticle:(MWKArticle*)article {
     NSParameterAssert(article.url.wmf_title);
     NSParameterAssert(article.displaytitle);
 
-    NSUserActivity* activity = [self wmf_actvityWithType:@"article"];
-    activity.title      = article.url.wmf_title;
-    activity.webpageURL = [NSURL wmf_desktopURLForURL:article.url];
+    NSUserActivity* activity = [self wmf_articleViewActivityWithURL:article.url];
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+        activity.contentAttributeSet = article.searchableItemAttributes;
+    }
+    return activity;
+}
+
++ (instancetype)wmf_articleViewActivityWithURL:(NSURL*)url  {
+    NSParameterAssert(url.wmf_title);
+
+    NSUserActivity* activity = [self wmf_activityWithType:@"article"];
+    activity.title      = url.wmf_title;
+    activity.webpageURL = [NSURL wmf_desktopURLForURL:url];
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
         NSMutableSet* set = [activity.keywords mutableCopy];
-        [set addObjectsFromArray:[article.url.wmf_title componentsSeparatedByString:@" "]];
+        [set addObjectsFromArray:[url.wmf_title componentsSeparatedByString:@" "]];
         activity.keywords       = set;
         activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60 * 60 * 24 * 7];
-
-        CSSearchableItemAttributeSet* attributes = [CSSearchableItemAttributeSet attributes:article];
-        activity.contentAttributeSet = attributes;
+        activity.contentAttributeSet = url.searchableItemAttributes;
     }
-
     return activity;
 }
 
 + (instancetype)wmf_searchResultsActivitySearchSiteURL:(NSURL*)url searchTerm:(NSString*)searchTerm {
     NSURLComponents* components = [[NSURLComponents alloc] initWithURL:url resolvingAgainstBaseURL:NO];
-    components.path = [NSString stringWithFormat:@"/w/index.php?search=%@&title=Special%%3ASearch&fulltext=1", searchTerm];
-    url             = [components URL];
+    components.path  = @"/w/index.php";
+    components.query = [NSString stringWithFormat:@"search=%@&title=Special:Search&fulltext=1", searchTerm];
+    url              = [components URL];
 
-    NSUserActivity* activity = [self wmf_actvityWithType:@"Searchresults"];
+    NSUserActivity* activity = [self wmf_activityWithType:@"Searchresults"];
 
     activity.title      = [NSString stringWithFormat:@"Search for %@", searchTerm];
     activity.webpageURL = url;

@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL isPeeking;
 @property (strong, nonatomic, nullable) WMFPeekHTMLElement* peekElement;
 
-@property (nonatomic) UIEdgeInsets contentInsets;
+@property (nonatomic) CGFloat contentWidthPercentage;
 
 - (void)setArticle:(MWKArticle * _Nullable)article articleURL:(NSURL*)articleURL;
 
@@ -82,10 +82,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text;
 - (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text;
 - (void)webViewController:(WebViewController*)controller didTapImageWithSourceURL:(NSURL*)imageSourceURL;
-
-@optional
-
 - (void)webViewController:(WebViewController*)controller scrollViewDidScroll:(UIScrollView *)scrollView;
+- (void)webViewController:(WebViewController*)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView;
 
 @end
 

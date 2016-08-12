@@ -53,7 +53,7 @@ static NSString* const WMFSettingsEmailSubject = @"Bug:";
     return [NSArray arrayWithObjects:
             self.sendEmailToolbarItem,
             [UIBarButtonItem flexibleSpaceToolbarItem],
-            self.tableOfContentsToolbarItem,
+            self.showTableOfContentsToolbarItem,
             nil];
 }
 

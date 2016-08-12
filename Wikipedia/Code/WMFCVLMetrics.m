@@ -29,10 +29,11 @@
 + (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize {
     WMFCVLMetrics *metrics = [[WMFCVLMetrics alloc] init];
     metrics.boundsSize = boundsSize;
+    BOOL isRTL = [[UIApplication sharedApplication] userInterfaceLayoutDirection] == UIUserInterfaceLayoutDirectionRightToLeft;
     BOOL isPad = boundsSize.width >= 600;
     BOOL isWide = boundsSize.width >= 1000;
     metrics.numberOfColumns = isPad ? 2 : 1;
-    metrics.columnWeights = isPad ? @[@1.179, @0.821] : @[@1];
+    metrics.columnWeights = isPad ? isRTL ? @[@0.821, @1.179] : @[@1.179, @0.821]  : @[@1];
     metrics.interColumnSpacing = isPad ? 20 : 0;
     metrics.interItemSpacing = 1;
     metrics.interSectionSpacing = isPad ? 20 : 50;

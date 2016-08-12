@@ -3,25 +3,33 @@ import UIKit
 import MobileCoreServices
 import CoreSpotlight
 
-@available(iOS 9.0, *)
 
-public extension CSSearchableItemAttributeSet {
-    
-    public class func attributes(article: MWKArticle) -> CSSearchableItemAttributeSet {
-        
+public extension NSURL {
+    @available(iOS 9.0, *)
+    func searchableItemAttributes() -> CSSearchableItemAttributeSet? {
+        guard wmf_isWikiResource else {
+            return nil
+        }
         let searchableItem = CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
+        searchableItem.keywords = ["Wikipedia","Wikimedia","Wiki"] + wmf_title.componentsSeparatedByString(" ")
+        searchableItem.title = wmf_title
+        searchableItem.displayName = wmf_title
+        searchableItem.identifier = NSURL.wmf_desktopURLForURL(self).absoluteString
+        searchableItem.relatedUniqueIdentifier = NSURL.wmf_desktopURLForURL(self).absoluteString
+        return searchableItem
+    }
+}
 
-        searchableItem.keywords = ["Wikipedia","Wikimedia","Wiki"] + article.url.wmf_title.componentsSeparatedByString(" ")
-        
-        searchableItem.title = article.url.wmf_title
-        searchableItem.subject = article.entityDescription
-        searchableItem.contentDescription = article.summary()
-        searchableItem.displayName = article.url.wmf_title
-        searchableItem.identifier = NSURL.wmf_desktopURLForURL(article.url).absoluteString
-        searchableItem.relatedUniqueIdentifier = NSURL.wmf_desktopURLForURL(article.url).absoluteString
+public extension MWKArticle {
+    @available(iOS 9.0, *)
+    func searchableItemAttributes() -> CSSearchableItemAttributeSet {
+        let searchableItem = url.searchableItemAttributes() ??
+                CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
 
-        if (article.imageURL != nil) {
-            if let url = NSURL(string: article.imageURL) {
+        searchableItem.subject = entityDescription
+        searchableItem.contentDescription = summary()
+        if (imageURL != nil) {
+            if let url = NSURL(string: imageURL) {
                 searchableItem.thumbnailData = WMFImageController.sharedInstance().diskDataForImageWithURL(url);
             }
         }
@@ -69,7 +77,8 @@ public class WMFSavedPageSpotlightManager: NSObject {
     func addToIndex(url: NSURL) {
         if let article = dataStore.existingArticleWithURL(url) {
             
-            let searchableItemAttributes = CSSearchableItemAttributeSet.attributes(article)
+
+            let searchableItemAttributes = article.searchableItemAttributes()
             searchableItemAttributes.keywords?.append("Saved")
             
             let item = CSSearchableItem(uniqueIdentifier: NSURL.wmf_desktopURLForURL(url).absoluteString, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)

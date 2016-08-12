@@ -44,12 +44,6 @@
     [self getPageHistoryData];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [[QueuesSingleton sharedInstance].pageHistoryFetchManager wmf_cancelAllTasks];
-
-    [super viewWillDisappear:animated];
-}
-
 - (BOOL)prefersStatusBarHidden {
     return NO;
 }
