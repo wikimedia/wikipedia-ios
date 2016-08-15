@@ -887,7 +887,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)layoutHeaderImageViewForSize:(CGSize)size {
-    [self.webViewController.view layoutSubviews];
     CGRect headerViewBounds = self.headerView.bounds;
     headerViewBounds.size.width = self.webViewController.view.bounds.size.width; // the frame is not being updated by the set of the frame or the call to layoutSubviews. perhaps this all should switch to constraints or webVC should switch away from constraints.
     self.headerView.bounds = headerViewBounds;
