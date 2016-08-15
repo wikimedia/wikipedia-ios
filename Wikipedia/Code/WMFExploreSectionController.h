@@ -9,22 +9,22 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The items of the section. Must be KVO-able
  */
-@property(nonatomic, strong, readonly) NSArray *items;
+@property (nonatomic, strong, readonly) NSArray* items;
 
 /**
  *  Called to update data if no items or errors
  */
-- (AnyPromise *)fetchDataIfNeeded;
+- (AnyPromise*)fetchDataIfNeeded;
 
 /**
  *  Called to update data if no items and previously recieved an error
  */
-- (AnyPromise *)fetchDataIfError;
+- (AnyPromise*)fetchDataIfError;
 
 /**
  *  Called to update data no matter what state
  */
-- (AnyPromise *)fetchDataUserInitiated;
+- (AnyPromise*)fetchDataUserInitiated;
 
 /**
  *  Clear items and errors
@@ -36,28 +36,28 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The identifier
  */
-- (NSString *)sectionIdentifier;
+- (NSString*)sectionIdentifier;
 
 /**
  *  An icon to be displayed in the section's header
  *
  *  @return An image
  */
-- (UIImage *)headerIcon;
+- (UIImage*)headerIcon;
 
 /**
  *  Color used for icon tint
  *
  *  @return A color
  */
-- (UIColor *)headerIconTintColor;
+- (UIColor*)headerIconTintColor;
 
 /**
  *  Background color of section's header icon container view
  *
  *  @return A color
  */
-- (UIColor *)headerIconBackgroundColor;
+- (UIColor*)headerIconBackgroundColor;
 
 /**
  *  The text to be displayed on the first line of the header.
@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The header title string
  */
-- (NSAttributedString *)headerTitle;
+- (NSAttributedString*)headerTitle;
 
 /**
  *  The text to be displayed on the second line of the header.
@@ -75,14 +75,14 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The header sub-title string
  */
-- (NSAttributedString *)headerSubTitle;
+- (NSAttributedString*)headerSubTitle;
 
 /**
  *  Called to allow the controller to register cells in the collection view
  *
  *  @param collectionView
  */
-- (void)registerCellsInCollectionView:(UICollectionView *)collectionView;
+- (void)registerCellsInCollectionView:(UICollectionView*)collectionView;
 
 /**
  *  Return the identifier for the cell at the specified index.
@@ -92,7 +92,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The identifer for the cell to be dequeued
  */
-- (NSString *)cellIdentifierForItemIndexPath:(NSIndexPath *)indexPath;
+- (NSString*)cellIdentifierForItemIndexPath:(NSIndexPath*)indexPath;
+
 
 /**
  *  Description
@@ -100,8 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param cell      The cell to configure
  *  @param indexPath The indexPath of the cell
  */
-- (void)configureCell:(UICollectionViewCell *)cell
-          atIndexPath:(NSIndexPath *)indexPath;
+- (void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath*)indexPath;
 
 /**
  *  Estimated height of the cells in the section
@@ -113,15 +113,15 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Determine whether or not an item is selectable.
  *
- *  For example, if the item is just a placeholder which shouldn't be selected.
- * Not implementing this method
+ *  For example, if the item is just a placeholder which shouldn't be selected. Not implementing this method
  *  assumes that all items should always be selectable.
  *
  *  @param index The index of the item the user is attempting to select.
  *
  *  @return Whether or not the item at the given index should be selected.
  */
-- (BOOL)shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath;
+
 
 /**
  *  Return a view controller to be presented when an item is tapped.
@@ -130,60 +130,52 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param indexPath The indexPath of the cell that was tapped.
  *
- *  @return A view controller which displays more details of the content at @c
- * index.
+ *  @return A view controller which displays more details of the content at @c index.
  */
-- (UIViewController *)detailViewControllerForItemAtIndexPath:
-    (NSIndexPath *)indexPath;
+- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath;
 
 @optional
 
 /**
  *  Called when a section is about to be displayed.
  *
- *  This can happen when one of a section's cells scrolls on screen, or the
- * entire table view appears and the receiver's section is visible. Note that
+ *  This can happen when one of a section's cells scrolls on screen, or the entire table view appears and the receiver's section is visible. Note that
  *  cells can also rapidly appear & disappear as the result of table reloads.
  *
  *  @warning
- *  This method must be idempotent, as it will be called multiple times for each
- * cell appearance.
+ *  This method must be idempotent, as it will be called multiple times for each cell appearance.
  */
 - (void)willDisplaySection;
 
 /**
  *  Called when the receiver's section in the table is no longer visible.
  *
- *  This can happen when either the cells are scolled offscreen (invoked after
- * last cell scolls away) or when the entire
- *  table view disappears (e.g. switching tabs). Note that cells can also
- * rapidly appear & disappear as the result of table reloads.
+ *  This can happen when either the cells are scolled offscreen (invoked after last cell scolls away) or when the entire
+ *  table view disappears (e.g. switching tabs). Note that cells can also rapidly appear & disappear as the result of table reloads.
  */
 - (void)didEndDisplayingSection;
+
 
 - (BOOL)prefersWiderColumn;
 
 @end
 
 /**
- *  Protocol for sections with an overflow button on the right side of the
- * header
+ *  Protocol for sections with an overflow button on the right side of the header
  */
 @protocol WMFHeaderMenuProviding <NSObject>
 
+
 /**
  * Provide an action sheet with menu options
- * NOTE: you cannot currently implement both WMFHeaderMenuProviding and
- * WMFHeaderActionProviding - they are implemented using the same button
+ * NOTE: you cannot currently implement both WMFHeaderMenuProviding and WMFHeaderActionProviding - they are implemented using the same button
  */
-- (UIAlertController *)menuActionSheet;
+- (UIAlertController*)menuActionSheet;
 
 @end
 /**
- *  Protocol for sections with an custom action button on the right side of the
- * header.
- * NOTE: you cannot currently implement both WMFHeaderMenuProviding and
- * WMFHeaderActionProviding - they are implemented using the same button
+ *  Protocol for sections with an custom action button on the right side of the header.
+ * NOTE: you cannot currently implement both WMFHeaderMenuProviding and WMFHeaderActionProviding - they are implemented using the same button
  */
 @protocol WMFHeaderActionProviding <NSObject>
 
@@ -192,7 +184,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The image
  */
-- (UIImage *)headerButtonIcon;
+- (UIImage*)headerButtonIcon;
 
 /**
  *  Perform the action associated with the button
@@ -212,34 +204,30 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol WMFMoreFooterProviding <NSObject>
 
 /**
- *  Specify the text for an optional footer which allows the user to see a list
- * of more content.
+ *  Specify the text for an optional footer which allows the user to see a list of more content.
  *
  *  No footer will be displayed if this isn't implemented.
  *
- *  @return The "More" footer text that prompts a user to get more items from a
- * section.
+ *  @return The "More" footer text that prompts a user to get more items from a section.
  */
-- (NSString *)footerText;
+- (NSString*)footerText;
 
 /**
  *  @return A view controller with will provide a more data for this section.
  */
-- (UIViewController *)moreViewController;
+- (UIViewController*)moreViewController;
 
 @optional
 
 /**
- *  @return A boolean indicating whether or not the footer is enabled. Defaults
- * to YES if not implemented.
+ *  @return A boolean indicating whether or not the footer is enabled. Defaults to YES if not implemented.
  */
 - (BOOL)isFooterEnabled;
 
 @end
 
 /**
- *  Protocol for sections which display articles in some form (e.g. nearby or
- * related articles).
+ *  Protocol for sections which display articles in some form (e.g. nearby or related articles).
  *  Used primarily for event logging
  */
 @protocol WMFTitleProviding <NSObject>
@@ -251,8 +239,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The title of the item at @c indexPath.
  */
-- (nullable NSURL *)urlForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath;
 
 @end
+
 
 NS_ASSUME_NONNULL_END

@@ -1,6 +1,6 @@
 @interface MWNetworkActivityIndicatorManager : NSObject
 
-+ (MWNetworkActivityIndicatorManager *)sharedManager;
++ (MWNetworkActivityIndicatorManager*)sharedManager;
 
 - (void)push;
 - (void)pop;

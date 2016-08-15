@@ -21,8 +21,7 @@
 #import <KVOController/FBKVOController.h>
 #import <BlocksKit/BlocksKit.h>
 
-// Need to import it this way since umbrella header doesn't have AnyPromise
-// declarations
+// Need to import it this way since umbrella header doesn't have AnyPromise declarations
 #import <PromiseKit/PromiseKit.h>
 
 #import "WMFBlockDefinitions.h"
@@ -36,7 +35,7 @@
 #import "NSURL+WMFExtras.h"
 #import "NSURL+WMFLinkParsing.h"
 
-#define URL_PRIVACY_POLICY                                                     \
-  @"https://m.wikimediafoundation.org/wiki/Privacy_policy"
+
+#define URL_PRIVACY_POLICY @"https://m.wikimediafoundation.org/wiki/Privacy_policy"
 
 #endif

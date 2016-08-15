@@ -12,7 +12,6 @@
 
 - (NSUInteger)wmf_startingIndexForApplicationLayoutDirection;
 
-- (NSUInteger)wmf_startingIndexForLayoutDirection:
-    (UIUserInterfaceLayoutDirection)layoutDirection;
+- (NSUInteger)wmf_startingIndexForLayoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection;
 
 @end

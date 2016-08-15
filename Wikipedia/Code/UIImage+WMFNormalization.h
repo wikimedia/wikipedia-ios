@@ -33,8 +33,7 @@
 - (CGRect)wmf_denormalizeRect:(CGRect)rect;
 
 /**
- * Convert the bounds of the given feature into UIKit coordinate space, then
- * normalize it using the receiver's size.
+ * Convert the bounds of the given feature into UIKit coordinate space, then normalize it using the receiver's size.
  *
  * @param rect The rect to be normalized, e.g. the bounds of a `CIFeature`.
  *
@@ -44,18 +43,18 @@
  */
 - (CGRect)wmf_normalizeAndConvertCGCoordinateRect:(CGRect)rect;
 
+
 /**
- * Convert the bounds of each given feature into UIKit coordinate space, then
- * normalize it using the receiver's size.
+ * Convert the bounds of each given feature into UIKit coordinate space, then normalize it using the receiver's size.
  *
  * @param features The array of features to be normalized
  *
- * @return An array of normalized `CGRect`s wrapped in `NSValue`s in the UIKit
- * coordinate space.
+ * @return An array of normalized `CGRect`s wrapped in `NSValue`s in the UIKit coordinate space.
  *
  * @see wmf_normalizeAndConvertCGCoordinateRect
  */
-- (NSArray<NSValue *> *)wmf_normalizeAndConvertBoundsFromCIFeatures:
-    (NSArray<CIFeature *> *)features;
+- (NSArray<NSValue*>*)wmf_normalizeAndConvertBoundsFromCIFeatures:(NSArray<CIFeature*>*)features;
+
+
 
 @end

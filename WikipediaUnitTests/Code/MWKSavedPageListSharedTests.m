@@ -7,11 +7,11 @@
 @implementation MWKSavedPageListSharedTests
 
 + (Class)listClass {
-  return [MWKSavedPageList class];
+    return [MWKSavedPageList class];
 }
 
 + (id)uniqueListEntry {
-  return [[MWKSavedPageEntry alloc] initWithURL:[NSURL wmf_randomArticleURL]];
+    return [[MWKSavedPageEntry alloc] initWithURL:[NSURL wmf_randomArticleURL]];
 }
 
 @end

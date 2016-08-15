@@ -1,11 +1,9 @@
 #import "WMFArticleListTableViewController.h"
 
-@interface WMFDisambiguationPagesViewController
-    : WMFArticleListTableViewController
+@interface WMFDisambiguationPagesViewController : WMFArticleListTableViewController
 
-@property(nonatomic, strong, readonly) MWKArticle *article;
+@property (nonatomic, strong, readonly) MWKArticle* article;
 
-- (instancetype)initWithArticle:(MWKArticle *)article
-                      dataStore:(MWKDataStore *)dataStore;
+- (instancetype)initWithArticle:(MWKArticle*)article dataStore:(MWKDataStore*)dataStore;
 
 @end

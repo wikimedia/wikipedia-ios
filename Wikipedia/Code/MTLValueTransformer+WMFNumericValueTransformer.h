@@ -9,8 +9,7 @@
 #import <Mantle/MTLValueTransformer.h>
 
 /**
- *  Transformer which can handle both numbers or strings on input, and produces
- * numbers on ouput.
+ *  Transformer which can handle both numbers or strings on input, and produces numbers on ouput.
  */
 @interface MTLValueTransformer (WMFNumericValueTransformer)
 

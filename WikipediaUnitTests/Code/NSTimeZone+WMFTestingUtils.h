@@ -10,18 +10,14 @@
 
 @import Quick;
 
-#define resetTimeZoneAfterEach()                                               \
-  afterEach(^{                                                                 \
-    [NSTimeZone wmf_resetDefaultTimeZone];                                     \
-  })
+#define resetTimeZoneAfterEach() afterEach(^{ [NSTimeZone wmf_resetDefaultTimeZone]; })
 
 @interface NSTimeZone (WMFTestingUtils)
 
-+ (void)wmf_setDefaultTimeZoneForName:(NSString *)name;
++ (void)wmf_setDefaultTimeZoneForName:(NSString*)name;
 
 /**
- *  Resets the @c defaultTimeZone to its default value, the current @c
- * systemTimeZone.
+ *  Resets the @c defaultTimeZone to its default value, the current @c systemTimeZone.
  */
 + (void)wmf_resetDefaultTimeZone;
 

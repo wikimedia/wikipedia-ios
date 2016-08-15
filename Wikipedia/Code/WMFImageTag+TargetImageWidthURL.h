@@ -2,6 +2,6 @@
 
 @interface WMFImageTag (TargetImageWidthURL)
 
-- (NSURL *)URLForTargetWidth:(NSUInteger)targetWidth;
+- (NSURL*)URLForTargetWidth:(NSUInteger)targetWidth;
 
 @end

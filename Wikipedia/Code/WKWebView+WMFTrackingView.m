@@ -3,9 +3,8 @@
 
 @implementation WKWebView (TrackingView)
 
-- (UIView *)wmf_browserView {
-  return [self.scrollView
-      wmf_firstSubviewOfClass:NSClassFromString(@"WKContentView")];
+- (UIView*)wmf_browserView {
+    return [self.scrollView wmf_firstSubviewOfClass:NSClassFromString(@"WKContentView")];
 }
 
 @end

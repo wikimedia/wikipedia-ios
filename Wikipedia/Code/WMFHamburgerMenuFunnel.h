@@ -1,14 +1,14 @@
 #import "EventLoggingFunnel.h"
 
-typedef NS_ENUM(NSUInteger, WMFHamburgerMenuItemType) {
-  WMFHamburgerMenuItemTypeLogin,
-  WMFHamburgerMenuItemTypeToday,
-  WMFHamburgerMenuItemTypeRandom,
-  WMFHamburgerMenuItemTypeNearby,
-  WMFHamburgerMenuItemTypeRecent,
-  WMFHamburgerMenuItemTypeSavedPages,
-  WMFHamburgerMenuItemTypeMore,
-  WMFHamburgerMenuItemTypeUnknown
+typedef NS_ENUM (NSUInteger, WMFHamburgerMenuItemType) {
+    WMFHamburgerMenuItemTypeLogin,
+    WMFHamburgerMenuItemTypeToday,
+    WMFHamburgerMenuItemTypeRandom,
+    WMFHamburgerMenuItemTypeNearby,
+    WMFHamburgerMenuItemTypeRecent,
+    WMFHamburgerMenuItemTypeSavedPages,
+    WMFHamburgerMenuItemTypeMore,
+    WMFHamburgerMenuItemTypeUnknown
 };
 
 @interface WMFHamburgerMenuFunnel : EventLoggingFunnel

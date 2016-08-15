@@ -8,9 +8,9 @@
 
 #import "EventLoggingFunnel.h"
 
-typedef NS_ENUM(NSUInteger, WMFSearchType) {
-  WMFSearchTypePrefix = 0,
-  WMFSearchTypeFull
+typedef NS_ENUM (NSUInteger, WMFSearchType) {
+    WMFSearchTypePrefix = 0,
+    WMFSearchTypeFull
 };
 
 @interface WMFSearchFunnel : EventLoggingFunnel
@@ -21,11 +21,10 @@ typedef NS_ENUM(NSUInteger, WMFSearchType) {
 - (void)logSearchResultTap;
 - (void)logSearchCancel;
 
-- (void)logSearchResultsWithTypeOfSearch:(WMFSearchType)type
-                             resultCount:(NSUInteger)count
-                             elapsedTime:(NSTimeInterval)searchTime;
+- (void)logSearchResultsWithTypeOfSearch:(WMFSearchType)type resultCount:(NSUInteger)count elapsedTime:(NSTimeInterval)searchTime;
 
-- (void)logShowSearchErrorWithTypeOfSearch:(WMFSearchType)type
-                               elapsedTime:(NSTimeInterval)searchTime;
+- (void)logShowSearchErrorWithTypeOfSearch:(WMFSearchType)type elapsedTime:(NSTimeInterval)searchTime;
+
+
 
 @end

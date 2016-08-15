@@ -1,16 +1,17 @@
 #import "MWKSiteDataObject.h"
 #import "MWKList.h"
 
-@interface MWKHistoryEntry : MWKSiteDataObject <MWKListObject>
+@interface MWKHistoryEntry : MWKSiteDataObject
+    <MWKListObject>
 
-@property(readwrite, strong, nonatomic) NSDate *date;
-@property(readwrite, assign, nonatomic) CGFloat scrollPosition;
-@property(readwrite, assign, nonatomic) BOOL titleWasSignificantlyViewed;
+@property (readwrite, strong, nonatomic) NSDate* date;
+@property (readwrite, assign, nonatomic) CGFloat scrollPosition;
+@property (readwrite, assign, nonatomic) BOOL titleWasSignificantlyViewed;
 
-- (instancetype)initWithURL:(NSURL *)url NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithURL:(NSURL*)url NS_DESIGNATED_INITIALIZER;
 
-- (instancetype)initWithDict:(NSDictionary *)dict;
+- (instancetype)initWithDict:(NSDictionary*)dict;
 
-- (BOOL)isEqualToHistoryEntry:(MWKHistoryEntry *)entry;
+- (BOOL)isEqualToHistoryEntry:(MWKHistoryEntry*)entry;
 
 @end

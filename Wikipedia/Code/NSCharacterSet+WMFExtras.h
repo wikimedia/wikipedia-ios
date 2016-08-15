@@ -2,6 +2,6 @@
 
 @interface NSCharacterSet (WMFExtras)
 
-+ (NSCharacterSet *)wmf_invertedWhitespaceCharSet;
++ (NSCharacterSet*)wmf_invertedWhitespaceCharSet;
 
 @end

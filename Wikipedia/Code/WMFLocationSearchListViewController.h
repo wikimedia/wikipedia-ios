@@ -2,17 +2,14 @@
 #import "WMFNearbyTitleListDataSource.h"
 @import CoreLocation;
 
-@interface WMFLocationSearchListViewController
-    : WMFArticleListTableViewController
 
-@property(nonatomic, strong, readonly) NSURL *searchSiteURL;
-@property(nonatomic, strong) CLLocation *location;
+@interface WMFLocationSearchListViewController : WMFArticleListTableViewController
 
-- (instancetype)initWithLocation:(CLLocation *)location
-                   searchSiteURL:(NSURL *)url
-                       dataStore:(MWKDataStore *)dataStore;
+@property (nonatomic, strong, readonly) NSURL* searchSiteURL;
+@property (nonatomic, strong) CLLocation* location;
 
-- (instancetype)initWithSearchSiteURL:(NSURL *)url
-                            dataStore:(MWKDataStore *)dataStore;
+- (instancetype)initWithLocation:(CLLocation*)location searchSiteURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore;
+
+- (instancetype)initWithSearchSiteURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore;
 
 @end

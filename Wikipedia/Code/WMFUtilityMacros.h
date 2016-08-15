@@ -2,8 +2,7 @@
 //  WMFUtilityMacros.h
 //  Wikipedia
 //
-//  This header contains utils general macros that could be used accross the
-//  application.
+//  This header contains utils general macros that could be used accross the application.
 //
 //
 //  Created by Barbara Rodeker on 1/28/16.

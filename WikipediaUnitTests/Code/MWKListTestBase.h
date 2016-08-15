@@ -13,13 +13,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Base class for verifying universal behaviors which should hold for an @c
- * MWKList or subclass.
+ *  Base class for verifying universal behaviors which should hold for an @c MWKList or subclass.
  */
 @interface MWKListTestBase : XCTestCase
 
 /// An array of test objects created in @c setUp.
-@property(nonatomic, strong, nullable) NSArray *testObjects;
+@property (nonatomic, strong, nullable) NSArray* testObjects;
 
 /**
  *  @return A unique entry object for use with the receiver's @c listClass.
@@ -36,23 +35,22 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Create a list with the given entries.
  *
- *  Override this method if your @c MWKList subclass has other initializer
- * parameters.
+ *  Override this method if your @c MWKList subclass has other initializer parameters.
  *
  *  @param entries The entries to pass to @c initWithEntries:
  *
  *  @return A new @c MWKList (or subclass) initialized with the given entries.
  */
-- (MWKList *)listWithEntries:(nullable NSArray *)entries;
+- (MWKList*)listWithEntries:(nullable NSArray*)entries;
 
 @end
 
 /**
  *  Dummy entry class used when testing a generic @c MWKList.
  */
-@interface MWKListDummyEntry : NSObject <MWKListObject>
+@interface MWKListDummyEntry : NSObject<MWKListObject>
 
-@property(nonatomic, strong) NSString *listIndex;
+@property (nonatomic, strong) NSString* listIndex;
 
 @end
 

@@ -2,15 +2,13 @@
 
 @interface UIImage (WMFStyle)
 
-+ (UIImage *)wmf_placeholderImage;
++ (UIImage*)wmf_placeholderImage;
 
-+ (instancetype)wmf_imageFromColor:(UIColor *)color;
++ (instancetype)wmf_imageFromColor:(UIColor*)color;
 
-// Can directly use 'imageFlippedForRightToLeftLayoutDirection' once iOS 8 is no
-// longer supported.
-- (UIImage *)wmf_imageFlippedForRTLLayoutDirectionIfAtLeastiOS9
-    WMF_DEPRECATED_WHEN_DEPLOY_AT_LEAST_9;
+// Can directly use 'imageFlippedForRightToLeftLayoutDirection' once iOS 8 is no longer supported.
+- (UIImage*)wmf_imageFlippedForRTLLayoutDirectionIfAtLeastiOS9 WMF_DEPRECATED_WHEN_DEPLOY_AT_LEAST_9;
 
-+ (UIImage *)wmf_imageFlippedForRTLLayoutDirectionNamed:(NSString *)name;
++ (UIImage*)wmf_imageFlippedForRTLLayoutDirectionNamed:(NSString*)name;
 
 @end

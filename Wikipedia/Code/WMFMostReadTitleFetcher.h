@@ -4,8 +4,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFMostReadTitleFetcher : NSObject
 
-- (AnyPromise *)fetchMostReadTitlesForSiteURL:(NSURL *)siteURL
-                                         date:(NSDate *)date;
+- (AnyPromise*)fetchMostReadTitlesForSiteURL:(NSURL*)siteURL date:(NSDate*)date;
 
 @end
 

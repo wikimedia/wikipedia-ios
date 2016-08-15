@@ -13,11 +13,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Fetches a preview of the featured article for a given day from
- * en.wikipedia.org.
+ *  Fetches a preview of the featured article for a given day from en.wikipedia.org.
  *
- *  This uses the TFA_title template which is (at time of writing and to the
- * best of my knowledge) specific to EN wiki.
+ *  This uses the TFA_title template which is (at time of writing and to the best of my knowledge) specific to EN wiki.
  */
 @interface WMFEnglishFeaturedTitleFetcher : NSObject
 
@@ -28,9 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A promise with resolves to an @c MWKSearchResult.
  */
-- (AnyPromise *)fetchFeaturedArticlePreviewForDate:(NSDate *)date;
+- (AnyPromise*)fetchFeaturedArticlePreviewForDate:(NSDate*)date;
 
-@property(nonatomic, assign, readonly) BOOL isFetching;
+@property (nonatomic, assign, readonly) BOOL isFetching;
 
 @end
 

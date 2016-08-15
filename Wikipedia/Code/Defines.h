@@ -5,10 +5,7 @@
 #define CHROME_MENUS_HEIGHT_TABLET 66.0
 #define CHROME_MENUS_HEIGHT_PHONE 46.0
 
-#define CHROME_MENUS_HEIGHT                                                    \
-  ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)                      \
-       ? CHROME_MENUS_HEIGHT_TABLET                                            \
-       : CHROME_MENUS_HEIGHT_PHONE)
+#define CHROME_MENUS_HEIGHT ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? CHROME_MENUS_HEIGHT_TABLET : CHROME_MENUS_HEIGHT_PHONE)
 
 // Use this and UIView+ConstraintsScale to make scale for iPads.
 // Make layouts work for phone first, then apply multiplier to scalar values

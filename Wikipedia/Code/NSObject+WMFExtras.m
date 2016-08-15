@@ -3,11 +3,11 @@
 @implementation NSObject (WMFExtras)
 
 - (BOOL)isNull {
-  return [self isKindOfClass:[NSNull class]];
+    return [self isKindOfClass:[NSNull class]];
 }
 
 - (BOOL)isDict {
-  return [self isKindOfClass:[NSDictionary class]];
+    return [self isKindOfClass:[NSDictionary class]];
 }
 
 @end

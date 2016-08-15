@@ -1,17 +1,17 @@
 #import <WebKit/WebKit.h>
 
-typedef NS_ENUM(NSInteger, WMFWKScriptMessageType) {
-  WMFWKScriptMessageUnknown,
-  WMFWKScriptMessagePeek,
-  WMFWKScriptMessageConsoleMessage,
-  WMFWKScriptMessageClickLink,
-  WMFWKScriptMessageClickImage,
-  WMFWKScriptMessageClickReference,
-  WMFWKScriptMessageClickEdit,
-  WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging,
-  WMFWKScriptMessageLateJavascriptTransform,
-  WMFWKScriptMessageArticleState,
-  WMFWKScriptMessageFindInPageMatchesFound
+typedef NS_ENUM (NSInteger, WMFWKScriptMessageType) {
+    WMFWKScriptMessageUnknown,
+    WMFWKScriptMessagePeek,
+    WMFWKScriptMessageConsoleMessage,
+    WMFWKScriptMessageClickLink,
+    WMFWKScriptMessageClickImage,
+    WMFWKScriptMessageClickReference,
+    WMFWKScriptMessageClickEdit,
+    WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging,
+    WMFWKScriptMessageLateJavascriptTransform,
+    WMFWKScriptMessageArticleState,
+    WMFWKScriptMessageFindInPageMatchesFound
 };
 
 @interface WKScriptMessage (WMFScriptMessage)
@@ -21,8 +21,8 @@ typedef NS_ENUM(NSInteger, WMFWKScriptMessageType) {
  * Returns the message body if it is of the expected type, or nil it is not.
  *
  */
-- (nullable id)wmf_safeMessageBodyForType:(WMFWKScriptMessageType)messageType;
+- (nullable id) wmf_safeMessageBodyForType:(WMFWKScriptMessageType)messageType;
 
-+ (WMFWKScriptMessageType)wmf_typeForMessageName:(NSString *_Nonnull)name;
++ (WMFWKScriptMessageType)wmf_typeForMessageName:( NSString* _Nonnull )name;
 
 @end

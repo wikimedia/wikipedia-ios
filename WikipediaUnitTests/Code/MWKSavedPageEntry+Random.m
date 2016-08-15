@@ -4,9 +4,8 @@
 @implementation MWKSavedPageEntry (Random)
 
 + (instancetype)random {
-  MWKSavedPageEntry *entry =
-      [[MWKSavedPageEntry alloc] initWithURL:[NSURL wmf_randomArticleURL]];
-  return entry;
+    MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithURL:[NSURL wmf_randomArticleURL]];
+    return entry;
 }
 
 @end

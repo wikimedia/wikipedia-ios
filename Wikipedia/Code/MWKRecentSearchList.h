@@ -4,9 +4,9 @@
 
 @class MWKDataStore;
 
-@interface MWKRecentSearchList : MWKList <MWKRecentSearchEntry *, NSString *>
-<MWKDataStoreList>
+@interface MWKRecentSearchList : MWKList<MWKRecentSearchEntry*, NSString*>
+    < MWKDataStoreList >
 
-    - (NSArray *)dataExport;
+- (NSArray*)dataExport;
 
 @end

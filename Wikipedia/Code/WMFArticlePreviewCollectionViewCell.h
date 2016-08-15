@@ -4,10 +4,9 @@
 @class MWKImage;
 @class WMFSaveButtonController;
 
-@interface WMFArticlePreviewCollectionViewCell
-    : WMFArticleListCollectionViewCell
+@interface WMFArticlePreviewCollectionViewCell : WMFArticleListCollectionViewCell
 
-@property(nonatomic, strong) NSString *snippetText;
+@property (nonatomic, strong) NSString* snippetText;
 
 + (CGFloat)estimatedRowHeight;
 
@@ -18,10 +17,10 @@
  *  @param url         The url to save/unsave
  *  @param savedPageList The saved page list to update
  */
-- (void)setSaveableURL:(NSURL *)url
-         savedPageList:(MWKSavedPageList *)savedPageList;
+- (void)setSaveableURL:(NSURL*)url savedPageList:(MWKSavedPageList*)savedPageList;
 
 @end
+
 
 @interface WMFArticlePreviewCollectionViewCell (Outlets)
 
@@ -32,10 +31,10 @@
  */
 - (void)setLoading:(BOOL)loading;
 
+
 /**
  *  Exposed so the analytics source can be set.
  */
-@property(strong, nonatomic, readonly)
-    WMFSaveButtonController *saveButtonController;
+@property (strong, nonatomic, readonly) WMFSaveButtonController* saveButtonController;
 
 @end

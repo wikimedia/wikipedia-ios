@@ -2,7 +2,7 @@
 
 @interface WMFDailyStatsLoggingFunnel : EventLoggingFunnel
 
-@property NSString *appInstallId;
+@property NSString* appInstallId;
 
 - (void)logAppNumberOfDaysSinceInstall;
 

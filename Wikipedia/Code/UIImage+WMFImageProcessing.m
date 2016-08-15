@@ -10,8 +10,8 @@
 
 @implementation UIImage (WMFImageProcessing)
 
-- (CIImage *__nonnull)wmf_getOrCreateCIImage {
-  return self.CIImage ?: [[CIImage alloc] initWithCGImage:self.CGImage];
+- (CIImage* __nonnull)wmf_getOrCreateCIImage {
+    return self.CIImage ? : [[CIImage alloc] initWithCGImage:self.CGImage];
 }
 
 @end

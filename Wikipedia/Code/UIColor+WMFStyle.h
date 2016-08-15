@@ -45,10 +45,10 @@
 + (instancetype)wmf_exploreSectionHeaderIconBackgroundColor;
 
 /**
- *  Color which is used in places like cell separators & various 1px lines in
- * the interface.
+ *  Color which is used in places like cell separators & various 1px lines in the interface.
  */
 + (instancetype)wmf_lightGrayColor;
+
 
 + (instancetype)wmf_999999Color;
 
@@ -94,8 +94,7 @@
 - (instancetype)wmf_colorByApplyingDim;
 
 /**
- *  @return A copy of the receiver, applying @c amount as a scalar to its red,
- * green, blue, and alpha values.
+ *  @return A copy of the receiver, applying @c amount as a scalar to its red, green, blue, and alpha values.
  */
 - (instancetype)wmf_colorByScalingComponents:(CGFloat)amount;
 

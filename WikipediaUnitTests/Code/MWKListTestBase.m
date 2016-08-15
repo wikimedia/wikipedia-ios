@@ -13,11 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation MWKListDummyEntry
 
 - (instancetype)init {
-  self = [super init];
-  if (self) {
-    self.listIndex = [[NSUUID UUID] UUIDString];
-  }
-  return self;
+    self = [super init];
+    if (self) {
+        self.listIndex = [[NSUUID UUID] UUIDString];
+    }
+    return self;
 }
 
 @end
@@ -25,34 +25,34 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation MWKListTestBase
 
 - (void)setUp {
-  [super setUp];
+    [super setUp];
 
-  NSMutableArray *array = [NSMutableArray array];
+    NSMutableArray* array = [NSMutableArray array];
 
-  for (int i = 0; i < 10; i++) {
-    [array addObject:[[self class] uniqueListEntry]];
-  }
+    for (int i = 0; i < 10; i++) {
+        [array addObject:[[self class] uniqueListEntry]];
+    }
 
-  self.testObjects = array;
+    self.testObjects = array;
 }
 
 - (void)tearDown {
-  self.testObjects = nil;
-  [super tearDown];
+    self.testObjects = nil;
+    [super tearDown];
 }
 
 #pragma mark - Testing Data
 
 + (Class)listClass {
-  return [MWKList class];
+    return [MWKList class];
 }
 
-- (MWKList *)listWithEntries:(nullable NSArray *)entries {
-  return [[[[self class] listClass] alloc] initWithEntries:entries];
+- (MWKList*)listWithEntries:(nullable NSArray*)entries {
+    return [[[[self class] listClass] alloc] initWithEntries:entries];
 }
 
 + (id)uniqueListEntry {
-  return [[MWKListDummyEntry alloc] init];
+    return [[MWKListDummyEntry alloc] init];
 }
 
 @end
