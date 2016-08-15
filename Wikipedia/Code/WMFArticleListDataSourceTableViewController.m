@@ -96,7 +96,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    NSParameterAssert(self.dataSource);
     self.dataSource.tableView = self.tableView;
     [super viewWillAppear:animated];
 }
