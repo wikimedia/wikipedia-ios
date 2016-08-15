@@ -98,14 +98,12 @@ public class WMFTableOfContentsViewController: UIViewController,
 
     public func selectAndScrollToItem(item: TableOfContentsItem, animated: Bool) {
         guard let indexPath = indexPathForItem(item) else {
-            //assertionFailure("No indexPath known for TOC item \(item)")
+            assertionFailure("No indexPath known for TOC item \(item)")
             return
         }
         
         if let selectedIndexPath = tableView.indexPathForSelectedRow {
-            if selectedIndexPath.isEqual(indexPath) {
-                return
-            } else {
+            if !selectedIndexPath.isEqual(indexPath) {
                 deselectAllRows()
             }
         }
@@ -129,23 +127,7 @@ public class WMFTableOfContentsViewController: UIViewController,
             }
         }
     }
-    func deselectAllRowsExceptForIndexPath(indexpath: NSIndexPath?, animated: Bool) {
-        guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
-            return
-        }
-        for (_, element) in visibleIndexPaths.enumerate() {
-            
-            if let cell: WMFTableOfContentsCell = tableView.cellForRowAtIndexPath(element) as? WMFTableOfContentsCell  {
-                if let indexpath = indexpath{
-                    if element.isEqual(indexpath){
-                        cell.setSectionSelected(true, animated: false)
-                        continue
-                    }
-                }
-                cell.setSectionSelected(false, animated: false)
-            }
-        }
-    }
+
 
     public func addHighlightOfItemsRelatedTo(item: TableOfContentsItem, animated: Bool) {
         guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
@@ -247,7 +229,7 @@ public class WMFTableOfContentsViewController: UIViewController,
         cell.titleColor = item.itemType.titleColor
         
         cell.setNeedsLayout()
-        
+
         cell.setSectionSelected(shouldHighlight, animated: false)
         return cell
     }
@@ -273,7 +255,6 @@ public class WMFTableOfContentsViewController: UIViewController,
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let item = items[indexPath.row]
-        deselectAllRowsExceptForIndexPath(indexPath, animated: false)
         tableOfContentsFunnel.logClick()
         addHighlightOfItemsRelatedTo(item, animated: true)
         delegate?.tableOfContentsController(self, didSelectItem: item)
