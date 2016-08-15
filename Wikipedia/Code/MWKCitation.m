@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString*)description {
-    //Do not use MTLModel's description as it will cuase recursion since this instance has a reference to the article, which also has a reference to this citation
+    //Do not use MTLModel's description as it will cause recursion since this instance has a reference to the article, which also has a reference to this citation
     return [NSString stringWithFormat:@"citation: %@", self.citationIdentifier];
 }
 

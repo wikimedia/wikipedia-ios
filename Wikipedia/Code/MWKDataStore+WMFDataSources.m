@@ -32,7 +32,7 @@
 }
 
 - (id<WMFDataSource>)historyGroupedByDateDataSource {
-    return [self registeredDataSourceWithMappings:[self.database wmf_groupsAsTimeIntervalsSortedDecendingMappingsWithView:WMFHistorySortedByDateGroupedByDateView]];
+    return [self registeredDataSourceWithMappings:[self.database wmf_groupsAsTimeIntervalsSortedDescendingMappingsWithView:WMFHistorySortedByDateGroupedByDateView]];
 }
 
 - (id<WMFDataSource>)savedDataSource {

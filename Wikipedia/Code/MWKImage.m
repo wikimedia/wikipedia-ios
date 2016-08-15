@@ -213,7 +213,7 @@
 }
 
 - (NSString*)description {
-    //Do not use MTLModel's description as it will cuase recursion since this instance has a reference to the article, which also has a reference to this image
+    //Do not use MTLModel's description as it will cause recursion since this instance has a reference to the article, which also has a reference to this image
     return [NSString stringWithFormat:@"article: %@ sourceURL: %@", self.article.url, self.sourceURLString];
 }
 

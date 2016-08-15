@@ -148,7 +148,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
         [obj processChanges:notifications onConnection:self.articleReferenceReadConnection];
     }
     
-    //Order is simportant.
+    //Order is important.
     //Be sure to post notifications after all change handlers are updated.
     //This way if notifications query a datasource/list, they will be up do date
     NSArray<NSString*>* updatedItemKeys = [notification wmf_updatedItemKeys];
@@ -406,7 +406,11 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (void)saveImageInfo:(NSArray*)imageInfo forArticleURL:(NSURL*)url {
-    [self saveArray:[imageInfo bk_map:^id (MWKImageInfo* obj) { return [obj dataExport]; }]
+    NSArray* export = [imageInfo bk_map:^id (MWKImageInfo* obj) {
+        return [obj dataExport];
+    }];
+    
+    [self saveArray:export
                path:[self pathForArticleURL:url]
                name:MWKImageInfoFilename];
 }

@@ -8,17 +8,17 @@
 
 - (void)wmf_registerViews {
     YapDatabaseViewGrouping* grouping = [self wmf_historyGroupingUngrouped];
-    YapDatabaseViewSorting* sorting   = [self wmf_historySortedByDateDecending];
+    YapDatabaseViewSorting* sorting   = [self wmf_historySortedByDateDescending];
     YapDatabaseView* databaseView     = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
     [self wmf_registerView:databaseView withName:WMFHistorySortedByDateUngroupedView];
 
     grouping     = [self wmf_historyGroupingByDate];
-    sorting      = [self wmf_historySortedByDateDecending];
+    sorting      = [self wmf_historySortedByDateDescending];
     databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
     [self wmf_registerView:databaseView withName:WMFHistorySortedByDateGroupedByDateView];
 
     grouping     = [self wmf_savedGroupingUngrouped];
-    sorting      = [self wmf_savedSortedByDateDecending];
+    sorting      = [self wmf_savedSortedByDateDescending];
     databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
     [self wmf_registerView:databaseView withName:WMFSavedSortedByDateUngroupedView];
 
@@ -118,13 +118,13 @@
     }];
 }
 
-- (YapDatabaseViewSorting*)wmf_historySortedByDateDecending {
+- (YapDatabaseViewSorting*)wmf_historySortedByDateDescending {
     return [YapDatabaseViewSorting withObjectBlock:^NSComparisonResult (YapDatabaseReadTransaction* _Nonnull transaction, NSString* _Nonnull group, NSString* _Nonnull collection1, NSString* _Nonnull key1, MWKHistoryEntry* _Nonnull object1, NSString* _Nonnull collection2, NSString* _Nonnull key2, MWKHistoryEntry* _Nonnull object2) {
         return -[object1.dateViewed compare:object2.dateViewed];
     }];
 }
 
-- (YapDatabaseViewSorting*)wmf_savedSortedByDateDecending {
+- (YapDatabaseViewSorting*)wmf_savedSortedByDateDescending {
     return [YapDatabaseViewSorting withObjectBlock:^NSComparisonResult (YapDatabaseReadTransaction* _Nonnull transaction, NSString* _Nonnull group, NSString* _Nonnull collection1, NSString* _Nonnull key1, MWKHistoryEntry* _Nonnull object1, NSString* _Nonnull collection2, NSString* _Nonnull key2, MWKHistoryEntry* _Nonnull object2) {
         return -[object1.dateSaved compare:object2.dateSaved];
     }];
@@ -186,7 +186,7 @@ NSString* const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView         
     } view:viewName];
 }
 
-- (YapDatabaseViewMappings*)wmf_groupsAsTimeIntervalsSortedDecendingMappingsWithView:(NSString*)viewName {
+- (YapDatabaseViewMappings*)wmf_groupsAsTimeIntervalsSortedDescendingMappingsWithView:(NSString*)viewName {
     return [[YapDatabaseViewMappings alloc] initWithGroupFilterBlock:^BOOL (NSString* _Nonnull group, YapDatabaseReadTransaction* _Nonnull transaction) {
         return YES;
     } sortBlock:^NSComparisonResult (NSString* _Nonnull group1, NSString* _Nonnull group2, YapDatabaseReadTransaction* _Nonnull transaction) {

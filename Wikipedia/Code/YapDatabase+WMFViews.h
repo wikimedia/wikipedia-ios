@@ -24,8 +24,8 @@
 - (YapDatabaseViewGrouping*)wmf_blackListGroupingUngrouped;
 - (YapDatabaseViewGrouping*)wmf_notInHistorySavedOrBlackListGroupingUngrouped;
 
-- (YapDatabaseViewSorting*)wmf_historySortedByDateDecending;
-- (YapDatabaseViewSorting*)wmf_savedSortedByDateDecending;
+- (YapDatabaseViewSorting*)wmf_historySortedByDateDescending;
+- (YapDatabaseViewSorting*)wmf_savedSortedByDateDescending;
 - (YapDatabaseViewSorting*)wmf_historyOrSavedSortedByURL;
 
 - (YapDatabaseViewFiltering*)wmf_historyOrSavedSignificantlyViewedAndNotBlacklistedAndNotMainPageFilter;
@@ -45,17 +45,17 @@
 
 
 /**
- *  historyOrSavedGroupingUngrouped + historySortedByDateDecending
+ *  historyOrSavedGroupingUngrouped + historySortedByDateDescending
  */
 extern NSString* const WMFHistorySortedByDateGroupedByDateView;
 
 /**
- *  historyGroupingUngrouped + historySortedByDateDecending
+ *  historyGroupingUngrouped + historySortedByDateDescending
  */
 extern NSString* const WMFHistorySortedByDateUngroupedView;
 
 /**
- *  savedGroupingUngrouped + savedSortedByDateDecending
+ *  savedGroupingUngrouped + savedSortedByDateDescending
  */
 extern NSString* const WMFSavedSortedByDateUngroupedView;
 
@@ -88,10 +88,10 @@ extern NSString* const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView;
 #pragma mark - Mappings
 /**
  *  Mappings are used to sort groups in to sections fit for collection views / table views
- *  Mappings are required for views with mutliple sections that must be displayed in a collection view or table view. They are not for views with a single section.
+ *  Mappings are required for views with multiple sections that must be displayed in a collection view or table view. They are not for views with a single section.
  *  Mappings are also useful for views with single groups simply to provide access via indexPath.
  *
- *  Although mappings are seperate objects, they are explicitly tied to a view on a instantiation
+ *  Although mappings are separate objects, they are explicitly tied to a view on a instantiation
  */
 
 /**
@@ -115,12 +115,12 @@ extern NSString* const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView;
 
 /**
  *  Mappings for Views where group names are stringified NSTimeIntervals 
- *  This sorts them in decending order.
+ *  This sorts them in descending order.
  *
  *  @param viewName The view to apply mappings to
  *
  *  @return The mappings
  */
-- (YapDatabaseViewMappings*)wmf_groupsAsTimeIntervalsSortedDecendingMappingsWithView:(NSString*)viewName;
+- (YapDatabaseViewMappings*)wmf_groupsAsTimeIntervalsSortedDescendingMappingsWithView:(NSString*)viewName;
 
 @end

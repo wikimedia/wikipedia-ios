@@ -178,7 +178,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     self.languagecount  = [[self requiredNumber:@"languagecount" dict:dict] intValue];
 
 
-    //We are getting crashes becuase of the protection status.
+    //We are getting crashes because of the protection status.
     //Set this up
     @try {
         self.protection = [self requiredProtectionStatus:@"protection" dict:dict];

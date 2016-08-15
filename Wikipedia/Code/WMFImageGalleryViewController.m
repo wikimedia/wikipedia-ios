@@ -207,7 +207,7 @@ NS_ASSUME_NONNULL_BEGIN
          *  We are performing the following asserts to ensure that the
          *  implmentation of of NYTPhotosViewController does not change.
          *  We exposed these properties and methods via a category
-         *  in lieu of subclassing. (and then maintaining a seperate fork)
+         *  in lieu of subclassing. (and then maintaining a separate fork)
          */
         NSParameterAssert(self.dataSource);
         NSParameterAssert(self.photos);
