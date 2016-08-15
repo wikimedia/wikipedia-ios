@@ -18,8 +18,7 @@
  *
  *  @return The distance as a localized string.
  */
-+ (NSString*)wmf_localizedStringForDistance:(CLLocationDistance)distance useMetricUnits:(BOOL)useMetricUnits;
-
++ (NSString *)wmf_localizedStringForDistance:(CLLocationDistance)distance useMetricUnits:(BOOL)useMetricUnits;
 
 /**
  *  Convenience for @c +wmf_localizedStringForDistance:useMetricUnits: that determines whether to use metric units
@@ -29,6 +28,6 @@
  *
  *  @return The distaince as a localized string.
  */
-+ (NSString*)wmf_localizedStringForDistance:(CLLocationDistance)distance;
++ (NSString *)wmf_localizedStringForDistance:(CLLocationDistance)distance;
 
 @end

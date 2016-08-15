@@ -12,16 +12,16 @@
 
 @implementation MWKDataStore (TempDataStoreForEach)
 
-+ (instancetype)configureTempDataStoreForEach:(void (^)(MWKDataStore* dataStore))configure {
-    __block MWKDataStore* dataStore;
-    beforeEach(^{
-        dataStore = [self temporaryDataStore];
-        configure(dataStore);
-    });
-    afterEach(^{
-        [dataStore removeFolderAtBasePath];
-    });
-    return dataStore;
++ (instancetype)configureTempDataStoreForEach:(void (^)(MWKDataStore *dataStore))configure {
+  __block MWKDataStore *dataStore;
+  beforeEach(^{
+    dataStore = [self temporaryDataStore];
+    configure(dataStore);
+  });
+  afterEach(^{
+    [dataStore removeFolderAtBasePath];
+  });
+  return dataStore;
 }
 
 @end

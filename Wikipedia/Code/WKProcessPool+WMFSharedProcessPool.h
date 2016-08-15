@@ -2,6 +2,6 @@
 
 @interface WKProcessPool (WMFSharedProcessPool)
 
-+ (WKProcessPool*)wmf_sharedProcessPool;
++ (WKProcessPool *)wmf_sharedProcessPool;
 
 @end

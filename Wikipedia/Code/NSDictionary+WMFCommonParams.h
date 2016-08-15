@@ -13,6 +13,6 @@
 + (instancetype)wmf_titlePreviewRequestParameters;
 
 + (instancetype)wmf_titlePreviewRequestParametersWithExtractLength:(NSUInteger)extractLength
-                                                        imageWidth:(NSNumber*)imageWidth;
+                                                        imageWidth:(NSNumber *)imageWidth;
 
 @end

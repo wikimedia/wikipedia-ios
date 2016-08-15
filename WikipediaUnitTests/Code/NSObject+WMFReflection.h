@@ -10,7 +10,7 @@
 
 #import <objc/runtime.h>
 
-typedef void (^ WMFObjCPropertyEnumerator)(objc_property_t, BOOL* stop);
+typedef void (^WMFObjCPropertyEnumerator)(objc_property_t, BOOL *stop);
 
 /**
  *  Reflection utilities inspired by Mantle's runtime methods.

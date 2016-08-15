@@ -10,7 +10,7 @@
  *  @return Copy of the attributed string with attribute adjustments.
  */
 
-- (NSAttributedString*)wmf_attributedStringChangingAttribute:(NSString*)attribute
-                                                   withBlock:(id (^)(id thisAttributeObject))block;
+- (NSAttributedString *)wmf_attributedStringChangingAttribute:(NSString *)attribute
+                                                    withBlock:(id (^)(id thisAttributeObject))block;
 
 @end

@@ -17,6 +17,6 @@
  */
 @interface WMFSearchResultDistanceProvider : NSObject
 
-@property (nonatomic, assign) CLLocationDistance distanceToUser;
+@property(nonatomic, assign) CLLocationDistance distanceToUser;
 
 @end

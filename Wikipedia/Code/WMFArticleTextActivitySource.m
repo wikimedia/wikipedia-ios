@@ -5,40 +5,40 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleTextActivitySource ()
 
-@property (nonatomic, strong) MWKArticle* article;
-@property (nonatomic, copy, nullable) NSString* shareText;
+@property(nonatomic, strong) MWKArticle *article;
+@property(nonatomic, copy, nullable) NSString *shareText;
 
 @end
 
 @implementation WMFArticleTextActivitySource
 
-- (instancetype)initWithArticle:(MWKArticle*)article shareText:(nullable NSString*)text {
-    self = [super init];
-    if (self) {
-        self.article   = article;
-        self.shareText = text;
-    }
-    return self;
+- (instancetype)initWithArticle:(MWKArticle *)article shareText:(nullable NSString *)text {
+  self = [super init];
+  if (self) {
+    self.article = article;
+    self.shareText = text;
+  }
+  return self;
 }
 
-- (id)activityViewControllerPlaceholderItem:(UIActivityViewController*)activityViewController {
-    return [NSString string];
+- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController {
+  return [NSString string];
 }
 
-- (nullable id)activityViewController:(UIActivityViewController*)activityViewController itemForActivityType:(NSString*)activityType {
-    if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard] || [activityType isEqualToString:UIActivityTypeAirDrop]) {
-        if (self.shareText.length > 0) {
-            return self.shareText;
-        } else {
-            return nil; //just send the URL
-        }
+- (nullable id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(NSString *)activityType {
+  if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard] || [activityType isEqualToString:UIActivityTypeAirDrop]) {
+    if (self.shareText.length > 0) {
+      return self.shareText;
+    } else {
+      return nil; //just send the URL
     }
+  }
 
-    return [MWLocalizedString(@"share-article-name-on-wikipedia", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.article.url.wmf_title]; //send just the title for other sharing services
+  return [MWLocalizedString(@"share-article-name-on-wikipedia", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.article.url.wmf_title]; //send just the title for other sharing services
 }
 
 - (NSString *)activityViewController:(UIActivityViewController *)activityViewController subjectForActivityType:(nullable NSString *)activityType {
-    return self.article.url.wmf_title;
+  return self.article.url.wmf_title;
 }
 
 @end

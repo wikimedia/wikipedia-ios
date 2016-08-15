@@ -10,8 +10,8 @@
 
 @interface WMFSuggestedPagesFunnel : EventLoggingFunnel
 
-- (id)initWithArticle:(MWKArticle*)article
-      suggestedTitles:(NSArray*)suggestedTitles;
+- (id)initWithArticle:(MWKArticle *)article
+      suggestedTitles:(NSArray *)suggestedTitles;
 - (void)logShown;
 - (void)logClickedAtIndex:(NSUInteger)index;
 

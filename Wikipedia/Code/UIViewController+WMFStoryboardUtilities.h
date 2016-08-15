@@ -14,19 +14,19 @@
 /**
  * @return The name of the storyboard used in @c wmf_initialViewControllerFromClassStoryboard. Defaults to @c NSStringFromClass(self).
  */
-+ (NSString*)wmf_classStoryboardName;
++ (NSString *)wmf_classStoryboardName;
 
 /**
  *  @return Storyboard loaded from the receiver's bundle using the name returned by @c wmf_classStoryboardName.
  */
-+ (UIStoryboard*)wmf_classStoryboard;
++ (UIStoryboard *)wmf_classStoryboard;
 
 /**
  *  Create a new view controller from a storyboard by name.
  *  @see wmf_viewControllerWithIdentifier:fromStoryboard:
  */
-+ (instancetype)wmf_viewControllerWithIdentifier:(NSString*)identifier
-                             fromStoryboardNamed:(NSString*)storyboard;
++ (instancetype)wmf_viewControllerWithIdentifier:(NSString *)identifier
+                             fromStoryboardNamed:(NSString *)storyboard;
 
 /**
  *  Instantiate an instance of the receiver from a storyboard.
@@ -39,7 +39,7 @@
  *
  *  @return A new instance of the receiver.
  */
-+ (instancetype)wmf_viewControllerWithIdentifier:(NSString*)identifier
-                                  fromStoryboard:(UIStoryboard*)storyboard;
++ (instancetype)wmf_viewControllerWithIdentifier:(NSString *)identifier
+                                  fromStoryboard:(UIStoryboard *)storyboard;
 
 @end

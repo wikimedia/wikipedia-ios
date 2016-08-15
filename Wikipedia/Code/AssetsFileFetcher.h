@@ -19,7 +19,7 @@ extern NSTimeInterval const kWMFMaxAgeDefault;
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
 - (instancetype)initAndFetchAssetsFileOfType:(WMFAssetsFileType)file
-                                 withManager:(AFHTTPSessionManager*)manager
+                                 withManager:(AFHTTPSessionManager *)manager
                                       maxAge:(NSTimeInterval)maxAge;
 
 @end

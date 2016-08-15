@@ -1,18 +1,18 @@
 #import <Foundation/Foundation.h>
 #import "FetcherBase.h"
 
-extern NSString* const WMFAccountLoginErrorDomain;
+extern NSString *const WMFAccountLoginErrorDomain;
 
-typedef NS_ENUM (NSInteger, LoginErrorType) {
-    LOGIN_ERROR_UNKNOWN,
-    LOGIN_ERROR_API,
-    LOGIN_ERROR_NAME_REQUIRED,
-    LOGIN_ERROR_NAME_ILLEGAL,
-    LOGIN_ERROR_NAME_NOT_FOUND,
-    LOGIN_ERROR_PASSWORD_REQUIRED,
-    LOGIN_ERROR_PASSWORD_WRONG,
-    LOGIN_ERROR_THROTTLED,
-    LOGIN_ERROR_BLOCKED
+typedef NS_ENUM(NSInteger, LoginErrorType) {
+  LOGIN_ERROR_UNKNOWN,
+  LOGIN_ERROR_API,
+  LOGIN_ERROR_NAME_REQUIRED,
+  LOGIN_ERROR_NAME_ILLEGAL,
+  LOGIN_ERROR_NAME_NOT_FOUND,
+  LOGIN_ERROR_PASSWORD_REQUIRED,
+  LOGIN_ERROR_PASSWORD_WRONG,
+  LOGIN_ERROR_THROTTLED,
+  LOGIN_ERROR_BLOCKED
 };
 
 @class AFHTTPSessionManager;
@@ -20,10 +20,10 @@ typedef NS_ENUM (NSInteger, LoginErrorType) {
 @interface AccountLogin : FetcherBase
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
-- (instancetype)initAndLoginForDomain:(NSString*)domain
-                             userName:(NSString*)userName
-                             password:(NSString*)password
-                                token:(NSString*)token
-                          withManager:(AFHTTPSessionManager*)manager
-                   thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
+- (instancetype)initAndLoginForDomain:(NSString *)domain
+                             userName:(NSString *)userName
+                             password:(NSString *)password
+                                token:(NSString *)token
+                          withManager:(AFHTTPSessionManager *)manager
+                   thenNotifyDelegate:(id<FetchFinishedDelegate>)delegate;
 @end

@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wmf_logActionUnsaveInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType;
 - (void)wmf_logActionSwitchLanguageInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType;
 
-
 @end
 
 NS_ASSUME_NONNULL_END

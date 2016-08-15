@@ -16,18 +16,17 @@
 #pragma clang diagnostic ignored "-Wnonnull"
 
 - (void)testPrunesEntriesWithEmptyOrAbsentTitles {
-    MWKSavedPageList* list = [[MWKSavedPageList alloc] initWithEntries:nil];
-    [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Foo"]];
-    assertThat(@([list countOfEntries]), is(@1));
+  MWKSavedPageList *list = [[MWKSavedPageList alloc] initWithEntries:nil];
+  [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Foo"]];
+  assertThat(@([list countOfEntries]), is(@1));
 
-    [list addSavedPageWithURL:nil];
-    assertThat(@([list countOfEntries]), is(@1));
+  [list addSavedPageWithURL:nil];
+  assertThat(@([list countOfEntries]), is(@1));
 
-    [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@""]];
-    assertThat(@([list countOfEntries]), is(@1));
+  [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@""]];
+  assertThat(@([list countOfEntries]), is(@1));
 }
 
 #pragma clang diagnostic pop
-
 
 @end

@@ -10,7 +10,7 @@
 
 @interface HCIsCollectionContainingInAnyOrder (WMFCollectionMatcherUtils)
 
-+ (instancetype)wmf_isCollectionContainingItemsInAnyOrder:(NSArray*)itemsOrMatchers;
++ (instancetype)wmf_isCollectionContainingItemsInAnyOrder:(NSArray *)itemsOrMatchers;
 
 @end
 

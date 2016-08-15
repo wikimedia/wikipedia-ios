@@ -34,7 +34,6 @@
  */
 - (CGRect)wmf_contentFrame;
 
-
 /**
  *  Set offset if within bounds and valid (i.e. not NaN).
  *

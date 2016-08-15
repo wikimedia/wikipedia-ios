@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation MWKDataStore (Testing)
 
 + (instancetype)temporaryDataStore {
-    return [[MWKDataStore alloc] initWithBasePath:WMFRandomTemporaryPath()];
+  return [[MWKDataStore alloc] initWithBasePath:WMFRandomTemporaryPath()];
 }
 
 @end

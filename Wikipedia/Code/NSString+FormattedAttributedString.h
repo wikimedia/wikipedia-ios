@@ -36,8 +36,8 @@
      ];
  */
 
-- (NSAttributedString*)attributedStringWithAttributes:(NSDictionary*)attributes
-                                  substitutionStrings:(NSArray*)substitutionStrings
-                               substitutionAttributes:(NSArray*)substitutionAttributes;
+- (NSAttributedString *)attributedStringWithAttributes:(NSDictionary *)attributes
+                                   substitutionStrings:(NSArray *)substitutionStrings
+                                substitutionAttributes:(NSArray *)substitutionAttributes;
 
 @end

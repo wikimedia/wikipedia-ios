@@ -6,21 +6,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (WMFSearchButton)
 
-+ (WMFSearchViewController*)wmf_sharedSearchViewController;
++ (WMFSearchViewController *)wmf_sharedSearchViewController;
 
 /**
  *  This datastore is passed to the search VC
  *
  *  @param dataStore The datastore
  */
-+ (void)wmf_setSearchButtonDataStore:(MWKDataStore*)dataStore;
++ (void)wmf_setSearchButtonDataStore:(MWKDataStore *)dataStore;
 
 /**
  *  Standard way of creating a search button for installation in the receiver's toolbar or navigation bar.
  *
  *  @return A new bar button item which will call @c wmf_showSearchAnimated: when pressed.
  */
-- (UIBarButtonItem*)wmf_searchBarButtonItem;
+- (UIBarButtonItem *)wmf_searchBarButtonItem;
 
 /**
  *  Present a search view controller

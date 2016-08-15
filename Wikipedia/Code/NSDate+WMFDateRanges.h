@@ -20,8 +20,8 @@
  *
  *  @return A range of dates between now and the receiver, ordered in descending order (latest to earliest).
  */
-- (NSArray<NSDate*>*)wmf_datesUntilDate:(NSDate*)date;
+- (NSArray<NSDate *> *)wmf_datesUntilDate:(NSDate *)date;
 
-- (NSArray<NSDate*>*)wmf_datesUntilToday;
+- (NSArray<NSDate *> *)wmf_datesUntilToday;
 
 @end

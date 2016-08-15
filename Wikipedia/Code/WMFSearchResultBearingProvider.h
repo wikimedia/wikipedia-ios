@@ -17,6 +17,6 @@
  */
 @interface WMFSearchResultBearingProvider : NSObject
 
-@property (nonatomic, assign) CLLocationDegrees bearingToLocation;
+@property(nonatomic, assign) CLLocationDegrees bearingToLocation;
 
 @end

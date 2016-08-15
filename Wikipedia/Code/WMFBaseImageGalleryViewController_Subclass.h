@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @c currentPage as needed for RTL compliance and, if the view is loaded, the data source is connected to the
  *  collection view.
  */
-@property (nonatomic, strong, nullable, readwrite) SSBaseDataSource<WMFImageGalleryDataSource>* dataSource;
+@property(nonatomic, strong, nullable, readwrite) SSBaseDataSource<WMFImageGalleryDataSource> *dataSource;
 
 @end
 

@@ -8,18 +8,18 @@
  *
  */
 - (CGSize)sizeByAddingInsetsToSize:(CGSize)size {
-    return CGSizeMake(size.width + self.titleEdgeInsets.left + self.titleEdgeInsets.right,
-                      size.height + self.titleEdgeInsets.top + self.titleEdgeInsets.bottom);
+  return CGSizeMake(size.width + self.titleEdgeInsets.left + self.titleEdgeInsets.right,
+                    size.height + self.titleEdgeInsets.top + self.titleEdgeInsets.bottom);
 }
 
 - (CGSize)intrinsicContentSize {
-    CGSize s = [super intrinsicContentSize];
-    return [self sizeByAddingInsetsToSize:s];
+  CGSize s = [super intrinsicContentSize];
+  return [self sizeByAddingInsetsToSize:s];
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
-    CGSize s = [super sizeThatFits:size];
-    return [self sizeByAddingInsetsToSize:s];
+  CGSize s = [super sizeThatFits:size];
+  return [self sizeByAddingInsetsToSize:s];
 }
 
 @end

@@ -10,10 +10,10 @@
 
 @interface ToCInteractionFunnel : EventLoggingFunnel
 
-@property NSString* appInstallID;
+@property NSString *appInstallID;
 
-- (id)           init;
-- (NSDictionary*)preprocessData:(NSDictionary*)eventData;
+- (id)init;
+- (NSDictionary *)preprocessData:(NSDictionary *)eventData;
 
 - (void)logOpen;
 - (void)logClose;

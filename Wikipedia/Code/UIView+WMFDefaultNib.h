@@ -8,7 +8,7 @@
  * The default implementation returns the name of the receiver's class (similar to
  * <code>+[UIViewController nibName]</code>).
  */
-+ (NSString*)wmf_nibName;
++ (NSString *)wmf_nibName;
 
 /**
  * Create a view by returning the top level object of the nib matching <code>+[UIView wmf_nibName]</code>.
@@ -21,6 +21,6 @@
  * @return The nib matching @c wmf_nibName in the main bundle.
  * @see wmf_nibName
  */
-+ (UINib*)wmf_classNib;
++ (UINib *)wmf_classNib;
 
 @end

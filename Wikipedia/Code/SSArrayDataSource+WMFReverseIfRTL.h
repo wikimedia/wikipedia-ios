@@ -21,6 +21,6 @@
  *
  *  @return A new data source.
  */
-- (instancetype)initWithItemsAndReverseIfNeeded:(NSArray*)items;
+- (instancetype)initWithItemsAndReverseIfNeeded:(NSArray *)items;
 
 @end

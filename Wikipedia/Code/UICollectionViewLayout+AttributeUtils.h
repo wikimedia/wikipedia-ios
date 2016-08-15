@@ -16,7 +16,7 @@
 @interface UICollectionViewLayout (AttributeUtils)
 
 /// The @c NSIndexPath for the item closest to the current @c contentOffset.x of the receiver's @c collectionView.
-- (NSIndexPath*)wmf_indexPathHorizontallyClosestToContentOffset;
+- (NSIndexPath *)wmf_indexPathHorizontallyClosestToContentOffset;
 
 /**
  * Sort an array of @c UICollectionViewLayoutAttribute objects by their distance to @c point in ascending order.
@@ -24,7 +24,7 @@
  * @param point      A point within the @c contentSize of the receiver's @c collectionView.
  * @return A sorted version of the given @c attributes array.
  */
-- (NSArray*)wmf_sortAttributesByLeadingEdgeDistance:(NSArray*)attributes toPoint:(CGPoint)point;
+- (NSArray *)wmf_sortAttributesByLeadingEdgeDistance:(NSArray *)attributes toPoint:(CGPoint)point;
 
 /**
  * Get an array of the currently visible items' attributes, sorted by distance to @c point in ascending order.
@@ -32,12 +32,12 @@
  * @return An array of @c UICollectionViewLayoutAttributes.
  * @see -wmf_sortAttributesByLeadingEdgeDistance:toPoint
  */
-- (NSArray*)wmf_layoutAttributesByDistanceToPoint:(CGPoint)point;
+- (NSArray *)wmf_layoutAttributesByDistanceToPoint:(CGPoint)point;
 
 /**
  * Map the receiver's <code>collectionView.indexPathsForVisibleItems</code> into an array of their layout attributes.
  * @return An array of @c UICollectionViewLayoutAttributes.
  */
-- (NSArray*)wmf_layoutAttributesForVisibleIndexPaths;
+- (NSArray *)wmf_layoutAttributesForVisibleIndexPaths;
 
 @end

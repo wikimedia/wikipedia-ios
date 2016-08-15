@@ -10,8 +10,8 @@
 
 @interface MWKImageInfoResponseSerializer : WMFApiJsonResponseSerializer
 
-+ (NSArray<NSString*>*)galleryExtMetadataKeys;
++ (NSArray<NSString *> *)galleryExtMetadataKeys;
 
-+ (NSArray<NSString*>*)picOfTheDayExtMetadataKeys;
++ (NSArray<NSString *> *)picOfTheDayExtMetadataKeys;
 
 @end

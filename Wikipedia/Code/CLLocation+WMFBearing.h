@@ -20,7 +20,7 @@
  *
  *  @see -wmf_bearingToLocation:
  */
-- (CLLocationDegrees)wmf_bearingToLocation:(CLLocation*)destination forCurrentHeading:(CLHeading*)currentHeading;
+- (CLLocationDegrees)wmf_bearingToLocation:(CLLocation *)destination forCurrentHeading:(CLHeading *)currentHeading;
 
 /**
  *  Calculate the bearing from the receiver to a given location.
@@ -32,6 +32,6 @@
  *
  *  @return The relative bearing in degrees, where a positive value goes in the clockwise direction.
  */
-- (CLLocationDegrees)wmf_bearingToLocation:(CLLocation*)destination;
+- (CLLocationDegrees)wmf_bearingToLocation:(CLLocation *)destination;
 
 @end

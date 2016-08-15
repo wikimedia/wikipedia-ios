@@ -43,7 +43,7 @@
  * @param x         The number to round.
  * @param precision The number of significant digits to round to after the decimal point.
  */
-extern double RoundWithPrecision(double (* rounder)(double), double x, unsigned int precision);
+extern double RoundWithPrecision(double (*rounder)(double), double x, unsigned int precision);
 
 /**
  *  Round @c x to 2 significant digits after the decimal point.
@@ -78,7 +78,6 @@ NSInteger WMFRadiansToClock(double radians);
  *  @return Number of bytes equivalent to `m` megabytes.
  */
 static inline NSUInteger MegabytesToBytes(NSUInteger m) {
-    static NSUInteger const MEGABYTE = 1 << 20;
-    return m * MEGABYTE;
+  static NSUInteger const MEGABYTE = 1 << 20;
+  return m * MEGABYTE;
 }
-

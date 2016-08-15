@@ -2,9 +2,9 @@
 
 // See docs/localizations.md for high-level documentation
 
-NSString* localizedStringForKeyFallingBackOnEnglish(NSString* key);
+NSString *localizedStringForKeyFallingBackOnEnglish(NSString *key);
 
-NSString* localizedStringForURLWithKeyFallingBackOnEnglish(NSURL* url, NSString* key);
+NSString *localizedStringForURLWithKeyFallingBackOnEnglish(NSURL *url, NSString *key);
 
 #define MWLocalizedString(key, throwaway) localizedStringForKeyFallingBackOnEnglish(key)
 

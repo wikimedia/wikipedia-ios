@@ -2,7 +2,7 @@
 
 @interface UIFont (WMF_Style)
 
-+ (UIFont*)wmf_glyphFontOfSize:(CGFloat)fontSize;
++ (UIFont *)wmf_glyphFontOfSize:(CGFloat)fontSize;
 
 /// @return A copy of the receiver whose font size has been multiplied by @c scalar.
 - (instancetype)wmf_copyWithSizeScaledBy:(CGFloat)scalar;
@@ -10,8 +10,7 @@
 /// @return A copy of the receiver whose font size has been multipiled by `MENUS_SCALE_MULTIPLIER`.
 - (instancetype)wmf_copyWithSizeScaledByMenuMultiplier;
 
-+ (UIFont*)wmf_htmlBodyFont;
-
++ (UIFont *)wmf_htmlBodyFont;
 
 + (instancetype)wmf_tableOfContentsSectionFont;
 + (instancetype)wmf_tableOfContentsSubsectionFont;

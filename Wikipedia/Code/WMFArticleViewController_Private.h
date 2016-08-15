@@ -2,9 +2,9 @@
 
 @class WMFTableOfContentsViewController, WebViewController;
 
-typedef NS_ENUM (NSInteger, WMFArticleFooterViewIndex) {
-    WMFArticleFooterViewIndexAboutThisArticle = 0,
-    WMFArticleFooterViewIndexReadMore = 1
+typedef NS_ENUM(NSInteger, WMFArticleFooterViewIndex) {
+  WMFArticleFooterViewIndexAboutThisArticle = 0,
+  WMFArticleFooterViewIndexReadMore = 1
 };
 
 NS_ASSUME_NONNULL_BEGIN
@@ -12,11 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleViewController (WMFPrivate)
 
 // Data
-@property (nonatomic, strong, readwrite, nullable) MWKArticle* article;
+@property(nonatomic, strong, readwrite, nullable) MWKArticle *article;
 
 // Children
-@property (nonatomic, strong, nullable) WMFTableOfContentsViewController* tableOfContentsViewController;
-@property (nonatomic, strong) WebViewController* webViewController;
+@property(nonatomic, strong, nullable) WMFTableOfContentsViewController *tableOfContentsViewController;
+@property(nonatomic, strong) WebViewController *webViewController;
 
 @end
 

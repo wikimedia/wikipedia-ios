@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param image The image to crop.
  */
 - (void)wmf_cropContentsByVerticallyCenteringFrame:(CGRect)rect
-                               insideBoundsOfImage:(UIImage*)image;
+                               insideBoundsOfImage:(UIImage *)image;
 
 /**
  *  Crop the receiver using a normalized coordinate rectangle relative to a given image.
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param rect  A normalized rect which represents the area to be cropped.
  *  @param image The image whose bounds are used to denormalize @c rect.
  */
-- (void)wmf_cropContentsToFrame:(CGRect)rect insideBoundsOfImage:(UIImage*)image;
+- (void)wmf_cropContentsToFrame:(CGRect)rect insideBoundsOfImage:(UIImage *)image;
 
 /**
  *  Crop and shift the receiver's contents by a normalized amount relative to a given image.
@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param image  The image whose bounds will be used to normalize @c offset when calculating
  *                the receiver's new @c contentsRect.
  */
-- (void)wmf_setContentOffset:(CGPoint)offset image:(UIImage*)image;
+- (void)wmf_setContentOffset:(CGPoint)offset image:(UIImage *)image;
 
 /**
  *  Reset the @c contentsRect of the receiver.

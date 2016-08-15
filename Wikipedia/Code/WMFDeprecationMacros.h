@@ -37,7 +37,8 @@
  */
 #define WMF_TECH_DEBT_DEPRECATED_MSG(...) __deprecated_msg(__VA_ARGS__)
 
-#define WMF_TECH_DEBT_TODO(t) WMF_TECH_DEBT_WARN(TODO: t)
+#define WMF_TECH_DEBT_TODO(t) WMF_TECH_DEBT_WARN(TODO \
+                                                 : t)
 
 /**
  *  @function WMF_TECH_DEBUG_WARN
@@ -73,6 +74,5 @@
 #else
 #define WMF_DEPRECATED_WHEN_DEPLOY_AT_LEAST_9
 #endif
-
 
 #endif /* WMFDeprecationMacros_h */

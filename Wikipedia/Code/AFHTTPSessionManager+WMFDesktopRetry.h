@@ -16,13 +16,12 @@
  *
  *  @return The operation
  */
-- (NSURLSessionDataTask*)wmf_GETWithMobileURLString:(NSString*)mobileURLString
-                                   desktopURLString:(NSString*)desktopURLString
-                                         parameters:(id)parameters
-                                              retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
-                                            success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
-                                            failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure;
-
+- (NSURLSessionDataTask *)wmf_GETWithMobileURLString:(NSString *)mobileURLString
+                                    desktopURLString:(NSString *)desktopURLString
+                                          parameters:(id)parameters
+                                               retry:(void (^)(NSURLSessionDataTask *retryOperation, NSError *error))retry
+                                             success:(void (^)(NSURLSessionDataTask *operation, id responseObject))success
+                                             failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure;
 
 /**
  *  Send a @c GET request to the mobile endpoint (see -[NSURL wmf_mobileAPIURL])
@@ -37,13 +36,11 @@
  *
  *  @return The operation which represents the state of the request.
  */
-- (NSURLSessionDataTask*)wmf_GETAndRetryWithURL:(NSURL*)URL
-                                     parameters:(id)parameters
-                                          retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
-                                        success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
-                                        failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure;
-
-
+- (NSURLSessionDataTask *)wmf_GETAndRetryWithURL:(NSURL *)URL
+                                      parameters:(id)parameters
+                                           retry:(void (^)(NSURLSessionDataTask *retryOperation, NSError *error))retry
+                                         success:(void (^)(NSURLSessionDataTask *operation, id responseObject))success
+                                         failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure;
 
 /**
  *  Send a @c GET request to the mobile endpoint (see -[NSURL wmf_mobileAPIURL])
@@ -62,7 +59,7 @@
  *
  *  @see wmf_GETWithMobileURLString:desktopURLString:parameters:retry:success:failure:
  */
-- (AnyPromise*)wmf_GETAndRetryWithURL:(NSURL*)URL parameters:(id)parameters;
+- (AnyPromise *)wmf_GETAndRetryWithURL:(NSURL *)URL parameters:(id)parameters;
 /**
  *  Executes a POST using a mobile url.
  *  If the request fails with the mobile URL for a known reason,
@@ -77,12 +74,11 @@
  *
  *  @return The operation
  */
-- (NSURLSessionDataTask*)wmf_POSTWithMobileURLString:(NSString*)mobileURLString
-                                    desktopURLString:(NSString*)desktopURLString
-                                          parameters:(id)parameters
-                                               retry:(void (^)(NSURLSessionDataTask* retryOperation, NSError* error))retry
-                                             success:(void (^)(NSURLSessionDataTask* operation, id responseObject))success
-                                             failure:(void (^)(NSURLSessionDataTask* operation, NSError* error))failure;
-
+- (NSURLSessionDataTask *)wmf_POSTWithMobileURLString:(NSString *)mobileURLString
+                                     desktopURLString:(NSString *)desktopURLString
+                                           parameters:(id)parameters
+                                                retry:(void (^)(NSURLSessionDataTask *retryOperation, NSError *error))retry
+                                              success:(void (^)(NSURLSessionDataTask *operation, id responseObject))success
+                                              failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure;
 
 @end

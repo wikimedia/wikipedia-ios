@@ -20,11 +20,11 @@
 #pragma mark - MWKListTestBase
 
 + (id)uniqueListEntry {
-    return [[MWKRecentSearchEntry alloc] initWithURL:[NSURL wmf_randomSiteURL] searchTerm:[[NSUUID UUID] UUIDString]];
+  return [[MWKRecentSearchEntry alloc] initWithURL:[NSURL wmf_randomSiteURL] searchTerm:[[NSUUID UUID] UUIDString]];
 }
 
 + (Class)listClass {
-    return [MWKRecentSearchList class];
+  return [MWKRecentSearchList class];
 }
 
 @end

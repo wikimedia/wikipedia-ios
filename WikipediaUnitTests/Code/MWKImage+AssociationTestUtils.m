@@ -4,46 +4,46 @@
 
 @implementation MWKImage (AssociationTestUtils)
 
-+ (instancetype)imageAssociatedWithSourceURL:(NSString*)imageURL {
-    NSURL* title     = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"foo"];
-    MWKArticle* article = [[MWKArticle alloc] initWithURL:title dataStore:nil];
-    return [[self alloc] initWithArticle:article sourceURLString:imageURL];
++ (instancetype)imageAssociatedWithSourceURL:(NSString *)imageURL {
+  NSURL *title = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"foo"];
+  MWKArticle *article = [[MWKArticle alloc] initWithURL:title dataStore:nil];
+  return [[self alloc] initWithArticle:article sourceURLString:imageURL];
 }
 
-- (MWKImageInfo*)createAssociatedInfo {
-    return [MWKImageInfo infoAssociatedWithSourceURL:self.sourceURLString];
+- (MWKImageInfo *)createAssociatedInfo {
+  return [MWKImageInfo infoAssociatedWithSourceURL:self.sourceURLString];
 }
 
 + (id)mappedFromInfoObjects:(id)infoObjectList {
-    return [infoObjectList bk_map:^MWKImage*(MWKImageInfo* info) {
-        return [info createAssociatedImage];
-    }];
+  return [infoObjectList bk_map:^MWKImage *(MWKImageInfo *info) {
+    return [info createAssociatedImage];
+  }];
 }
 
 @end
 
 @implementation MWKImageInfo (AssociationTestUtils)
 
-+ (instancetype)infoAssociatedWithSourceURL:(NSString*)imageURL {
-    return [[self alloc] initWithCanonicalPageTitle:imageURL
-                                   canonicalFileURL:[NSURL URLWithString:imageURL]
-                                   imageDescription:nil
-                                            license:nil
-                                        filePageURL:nil
-                                      imageThumbURL:nil
-                                              owner:nil
-                                          imageSize:CGSizeZero
-                                          thumbSize:CGSizeZero];
++ (instancetype)infoAssociatedWithSourceURL:(NSString *)imageURL {
+  return [[self alloc] initWithCanonicalPageTitle:imageURL
+                                 canonicalFileURL:[NSURL URLWithString:imageURL]
+                                 imageDescription:nil
+                                          license:nil
+                                      filePageURL:nil
+                                    imageThumbURL:nil
+                                            owner:nil
+                                        imageSize:CGSizeZero
+                                        thumbSize:CGSizeZero];
 }
 
-- (MWKImage*)createAssociatedImage {
-    return [MWKImage imageAssociatedWithSourceURL:self.canonicalFileURL.absoluteString];
+- (MWKImage *)createAssociatedImage {
+  return [MWKImage imageAssociatedWithSourceURL:self.canonicalFileURL.absoluteString];
 }
 
 + (id)mappedFromImages:(id)imageList {
-    return [imageList bk_map:^MWKImageInfo*(MWKImage* img) {
-        return [img createAssociatedInfo];
-    }];
+  return [imageList bk_map:^MWKImageInfo *(MWKImage *img) {
+    return [img createAssociatedInfo];
+  }];
 }
 
 @end

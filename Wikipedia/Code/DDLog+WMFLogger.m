@@ -5,36 +5,36 @@
 @implementation DDLog (WMFLogger)
 
 + (void)load {
-    [self wmf_addLoggersForCurrentConfiguration];
-    [self wmf_setSwiftDefaultLogLevel:LOG_LEVEL_DEF];
+  [self wmf_addLoggersForCurrentConfiguration];
+  [self wmf_setSwiftDefaultLogLevel:LOG_LEVEL_DEF];
 }
 
 + (void)wmf_addLoggersForCurrentConfiguration {
-    // only add TTY in debug mode
+// only add TTY in debug mode
 #if DEBUG
-    [self wmf_addWMFFormattedLogger:[DDTTYLogger sharedInstance]];
+  [self wmf_addWMFFormattedLogger:[DDTTYLogger sharedInstance]];
 #endif
-    // always add ASLLogger
-    [self wmf_addWMFFormattedLogger:[DDASLLogger sharedInstance]];
+  // always add ASLLogger
+  [self wmf_addWMFFormattedLogger:[DDASLLogger sharedInstance]];
 
-    DDFileLogger* fileLogger = [[DDFileLogger alloc] init];
-    fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
-    [self wmf_addWMFFormattedLogger:fileLogger];
+  DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
+  fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
+  [self wmf_addWMFFormattedLogger:fileLogger];
 }
 
 + (void)wmf_addWMFFormattedLogger:(id<DDLogger>)logger {
-    [logger setLogFormatter:[WMFLogFormatter new]];
-    [DDLog addLogger:logger];
+  [logger setLogFormatter:[WMFLogFormatter new]];
+  [DDLog addLogger:logger];
 }
 
-+ (NSString*)wmf_currentLogFile {
-    DDFileLogger* logger = [[DDLog allLoggers] bk_match:^BOOL (id obj) {
-        return [obj isKindOfClass:[DDFileLogger class]];
-    }];
++ (NSString *)wmf_currentLogFile {
+  DDFileLogger *logger = [[DDLog allLoggers] bk_match:^BOOL(id obj) {
+    return [obj isKindOfClass:[DDFileLogger class]];
+  }];
 
-    NSString* logPath     = [[logger.logFileManager sortedLogFilePaths] firstObject];
-    NSString* logContents = [NSString stringWithContentsOfFile:logPath encoding:NSUTF8StringEncoding error:nil];
-    return logContents;
+  NSString *logPath = [[logger.logFileManager sortedLogFilePaths] firstObject];
+  NSString *logContents = [NSString stringWithContentsOfFile:logPath encoding:NSUTF8StringEncoding error:nil];
+  return logContents;
 }
 
 @end

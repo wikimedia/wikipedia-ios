@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface XCTestCase (MWKDataStoreFixtureTesting)
 
-- (nullable MWKDataStore*)wmf_temporaryCopyOfDataStoreFixtureAtPath:(NSString*)relativeFolderPath;
+- (nullable MWKDataStore *)wmf_temporaryCopyOfDataStoreFixtureAtPath:(NSString *)relativeFolderPath;
 
 @end
 

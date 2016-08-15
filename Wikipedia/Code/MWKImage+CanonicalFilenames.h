@@ -21,6 +21,6 @@
  * @return An array of @c NSString objects for successfully constructed "File:..." titles or <code>[NSNull null]</code>
  *         for images whose URLs could not be parsed successfully.
  */
-+ (NSArray*)mapFilenamesFromImages:(NSArray<MWKImage*>*)images;
++ (NSArray *)mapFilenamesFromImages:(NSArray<MWKImage *> *)images;
 
 @end

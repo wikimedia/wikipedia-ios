@@ -29,7 +29,6 @@ FOUNDATION_EXPORT CGPoint WMFCenterOfCGSize(CGSize size) __attribute__((const)) 
  */
 - (void)wmf_expandWidth:(float)width height:(float)height;
 
-
 - (void)wmf_centerInSuperview;
 
 @end

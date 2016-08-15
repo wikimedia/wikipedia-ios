@@ -18,9 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface WMFMockLocationManager : WMFLocationManager
 
-- (void)setLocation:(CLLocation*)location;
+- (void)setLocation:(CLLocation *)location;
 
-- (void)setHeading:(CLHeading*)heading;
+- (void)setHeading:(CLHeading *)heading;
 
 @end
 

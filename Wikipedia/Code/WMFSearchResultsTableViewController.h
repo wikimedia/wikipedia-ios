@@ -3,6 +3,6 @@
 
 @interface WMFSearchResultsTableViewController : WMFArticleListTableViewController
 
-@property (nonatomic, strong) WMFSearchDataSource* dataSource;
+@property(nonatomic, strong) WMFSearchDataSource *dataSource;
 
 @end

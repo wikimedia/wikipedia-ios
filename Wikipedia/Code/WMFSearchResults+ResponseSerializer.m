@@ -12,8 +12,8 @@
 
 @implementation WMFSearchResults (ResponseSerializer)
 
-+ (AFHTTPResponseSerializer*)responseSerializer {
-    return [WMFMantleJSONResponseSerializer serializerForInstancesOf:self fromKeypath:@"query"];
++ (AFHTTPResponseSerializer *)responseSerializer {
+  return [WMFMantleJSONResponseSerializer serializerForInstancesOf:self fromKeypath:@"query"];
 }
 
 @end

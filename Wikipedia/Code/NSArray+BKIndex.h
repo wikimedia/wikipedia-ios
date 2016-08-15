@@ -21,14 +21,14 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A dictionary where keys are the values returned by @c index and the values are the corresponding objects.
  * @see -bk_reduce:withBlock:
  */
-- (NSDictionary*)bk_index:(id<NSCopying>(^)(id))index;
+- (NSDictionary *)bk_index:(id<NSCopying> (^)(id))index;
 
 /**
  * Index objects in the receiver using their values for @c keypath as the index.
  * @param keypath A keypath which is KVC-compliant for all objects in the receiver.
  * @see -bk_index:
  */
-- (NSDictionary*)bk_indexWithKeypath:(NSString*)keypath;
+- (NSDictionary *)bk_indexWithKeypath:(NSString *)keypath;
 
 @end
 
