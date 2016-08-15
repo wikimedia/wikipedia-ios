@@ -201,7 +201,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         if ([self.article.url wmf_isNonStandardURL]) {
             self.headerImageView.image = nil;
         } else {
-            [self.headerImageView wmf_setImageWithMetadata:_article.leadImage detectFaces:YES failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
+            [self.headerImageView wmf_setImageWithMetadata:_article.leadImage detectFaces:YES failure:WMFIgnoreErrorHandler success:^{
+                [self layoutHeaderImageViewForSize:self.view.bounds.size];
+            }];
         }
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
@@ -270,14 +272,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         CGFloat height       = 10;
 
         _headerView                 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, height)];
-        _headerView.backgroundColor = [UIColor whiteColor];
+        _headerView.backgroundColor = [UIColor wmf_lightGrayColor];
+
 
         UIView* headerBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, height - borderHeight, 1, borderHeight)];
         headerBorderView.backgroundColor  = [UIColor colorWithWhite:0 alpha:0.2];
         headerBorderView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
 
         self.headerImageView.frame            = CGRectMake(0, 0, 1, height - borderHeight);
-        self.headerImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [_headerView addSubview:self.headerImageView];
         [_headerView addSubview:headerBorderView];
     }
@@ -876,6 +878,22 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             self.webViewController.contentWidthPercentage = 1;
             break;
     }
+    
+    [self layoutHeaderImageViewForSize:size];
+}
+
+- (void)layoutHeaderImageViewForSize:(CGSize)size {
+    [self.webViewController.view layoutSubviews];
+    CGRect headerViewBounds = self.headerView.bounds;
+    headerViewBounds.size.width = self.webViewController.view.bounds.size.width; // the frame is not being updated by the set of the frame or the call to layoutSubviews. perhaps this all should switch to constraints or webVC should switch away from constraints.
+    self.headerView.bounds = headerViewBounds;
+    CGSize imageSize = self.headerImageView.image.size;
+    BOOL isImageNarrow = imageSize.width/imageSize.height < 2;
+    CGFloat marginWidth = 0;
+    if (isImageNarrow && self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineHidden) {
+        marginWidth = [self.webViewController marginWidthForSize:size];
+    }
+    self.headerImageView.frame = CGRectMake(marginWidth, 0, headerViewBounds.size.width - 2*marginWidth, headerViewBounds.size.height);
 }
 
 - (void)viewDidLayoutSubviews {
