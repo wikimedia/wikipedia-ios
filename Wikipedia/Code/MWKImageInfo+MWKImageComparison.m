@@ -13,7 +13,7 @@
 @implementation MWKImageInfo (MWKImageComparison)
 
 - (BOOL)isAssociatedWithImage:(MWKImage *)image {
-  return [self.imageAssociationValue isEqual:image.infoAssociationValue];
+    return [self.imageAssociationValue isEqual:image.infoAssociationValue];
 }
 
 @end
@@ -21,11 +21,11 @@
 @implementation MWKImage (MWKImageInfoComparison)
 
 - (id)infoAssociationValue {
-  return self.fileNameNoSizePrefix;
+    return self.fileNameNoSizePrefix;
 }
 
 - (BOOL)isAssociatedWithInfo:(MWKImageInfo *)info {
-  return [info isAssociatedWithImage:self];
+    return [info isAssociatedWithImage:self];
 }
 
 @end

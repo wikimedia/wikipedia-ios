@@ -3,8 +3,8 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString *const WMFFaceDetectionErrorDomain;
 
 typedef NS_ENUM(NSInteger, WMFFaceDectionError) {
-  WMFFaceDectionErrorUnknown = 0,
-  WMFFaceDectionErrorAppInBackground = 1 //face detection on GPU not allowed in the background
+    WMFFaceDectionErrorUnknown = 0,
+    WMFFaceDectionErrorAppInBackground = 1 //face detection on GPU not allowed in the background
 };
 
 @interface CIDetector (WMFFaceDetection)

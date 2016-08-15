@@ -40,72 +40,72 @@
 @implementation WMFCompassViewModel
 
 - (instancetype)init {
-  self = [super init];
-  if (self) {
-    self.locationManager = [WMFLocationManager fineLocationManager];
-    self.locationManager.delegate = self;
-  }
-  return self;
+    self = [super init];
+    if (self) {
+        self.locationManager = [WMFLocationManager fineLocationManager];
+        self.locationManager.delegate = self;
+    }
+    return self;
 }
 
 #pragma mark - Updates
 
 - (void)startUpdates {
-  [self.locationManager startMonitoringLocation];
+    [self.locationManager startMonitoringLocation];
 }
 
 - (void)stopUpdates {
-  [self.locationManager stopMonitoringLocation];
+    [self.locationManager stopMonitoringLocation];
 }
 
 #pragma mark - Value Providers
 
 - (WMFSearchResultDistanceProvider *)distanceProviderForResult:(MWKLocationSearchResult *)result {
-  WMFSearchResultDistanceProvider *provider = [WMFSearchResultDistanceProvider new];
-  [provider.KVOController
-      observe:self
-      keyPath:WMF_SAFE_KEYPATH(self, lastLocation)
-      options:NSKeyValueObservingOptionInitial
-        block:^(WMFSearchResultDistanceProvider *observer, WMFCompassViewModel *compassViewModel, NSDictionary *_) {
-          observer.distanceToUser = [result.location distanceFromLocation:compassViewModel.lastLocation];
-        }];
-  return provider;
+    WMFSearchResultDistanceProvider *provider = [WMFSearchResultDistanceProvider new];
+    [provider.KVOController
+        observe:self
+        keyPath:WMF_SAFE_KEYPATH(self, lastLocation)
+        options:NSKeyValueObservingOptionInitial
+          block:^(WMFSearchResultDistanceProvider *observer, WMFCompassViewModel *compassViewModel, NSDictionary *_) {
+            observer.distanceToUser = [result.location distanceFromLocation:compassViewModel.lastLocation];
+          }];
+    return provider;
 }
 
 - (WMFSearchResultBearingProvider *)bearingProviderForResult:(MWKLocationSearchResult *)result {
-  WMFSearchResultBearingProvider *provider = [WMFSearchResultBearingProvider new];
-  [provider.KVOController
-      observe:self
-      keyPath:WMF_SAFE_KEYPATH(self, lastHeading)
-      options:NSKeyValueObservingOptionInitial
-        block:^(WMFSearchResultBearingProvider *observer, WMFCompassViewModel *compassViewModel, NSDictionary *_) {
-          observer.bearingToLocation =
-              [compassViewModel.lastLocation wmf_bearingToLocation:result.location
-                                                 forCurrentHeading:compassViewModel.lastHeading];
-        }];
-  return provider;
+    WMFSearchResultBearingProvider *provider = [WMFSearchResultBearingProvider new];
+    [provider.KVOController
+        observe:self
+        keyPath:WMF_SAFE_KEYPATH(self, lastHeading)
+        options:NSKeyValueObservingOptionInitial
+          block:^(WMFSearchResultBearingProvider *observer, WMFCompassViewModel *compassViewModel, NSDictionary *_) {
+            observer.bearingToLocation =
+                [compassViewModel.lastLocation wmf_bearingToLocation:result.location
+                                                   forCurrentHeading:compassViewModel.lastHeading];
+          }];
+    return provider;
 }
 
 #pragma mark - WMFNearbyControllerDelegate
 
 - (void)nearbyController:(WMFLocationManager *)controller didUpdateLocation:(CLLocation *)location {
-  self.lastLocation = location;
+    self.lastLocation = location;
 }
 
 - (void)nearbyController:(WMFLocationManager *)controller didUpdateHeading:(CLHeading *)heading {
-  self.lastHeading = heading;
+    self.lastHeading = heading;
 }
 
 - (void)nearbyController:(WMFLocationManager *)controller didReceiveError:(NSError *)error {
-  WMF_TECH_DEBT_TODO(implement compass error handling);
-  //    if ([WMFLocationManager isDeniedOrDisabled]) {
-  //        //TODO: anything we need to handle?
-  //    }
-  //    if (![error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorLocationUnknown) {
-  //        //TODO: anything we need to handle?
-  //    }
-  //    // should we stop updates?
-  //    [self stopUpdates];
+    WMF_TECH_DEBT_TODO(implement compass error handling);
+    //    if ([WMFLocationManager isDeniedOrDisabled]) {
+    //        //TODO: anything we need to handle?
+    //    }
+    //    if (![error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorLocationUnknown) {
+    //        //TODO: anything we need to handle?
+    //    }
+    //    // should we stop updates?
+    //    [self stopUpdates];
 }
 
 @end

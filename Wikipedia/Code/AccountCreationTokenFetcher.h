@@ -2,8 +2,8 @@
 #import "FetcherBase.h"
 
 typedef NS_ENUM(NSInteger, AccountCreationTokenErrorType) {
-  ACCOUNT_CREATION_TOKEN_ERROR_UNKNOWN = 0,
-  ACCOUNT_CREATION_TOKEN_ERROR_API = 1
+    ACCOUNT_CREATION_TOKEN_ERROR_UNKNOWN = 0,
+    ACCOUNT_CREATION_TOKEN_ERROR_API = 1
 };
 
 @class AFHTTPSessionManager;

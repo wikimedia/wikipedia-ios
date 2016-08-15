@@ -23,50 +23,50 @@ static NSString *const kFormatString = @"$1$2$3$4$5";
 + (NSAttributedString *)wmf_attributedStringWithTitle:(NSString *)title
                                           description:(NSString *)description
                                              language:(NSString *)language {
-  description = [description wmf_stringByCapitalizingFirstCharacter];
+    description = [description wmf_stringByCapitalizingFirstCharacter];
 
-  // Shrink super long titles.
-  CGFloat titleSizeMultiplier = 1.0f;
-  if (title.length > 100) {
-    titleSizeMultiplier = 0.75f;
-  }
+    // Shrink super long titles.
+    CGFloat titleSizeMultiplier = 1.0f;
+    if (title.length > 100) {
+        titleSizeMultiplier = 0.75f;
+    }
 
-  NSDictionary *titleAttribs =
-      @{
-        NSFontAttributeName : [UIFont systemFontOfSize:titleSizeMultiplier * kTitleFontSize * MENUS_SCALE_MULTIPLIER],
-        NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:kTitleColor alpha:1.0f]
-      };
+    NSDictionary *titleAttribs =
+        @{
+           NSFontAttributeName : [UIFont systemFontOfSize:titleSizeMultiplier * kTitleFontSize * MENUS_SCALE_MULTIPLIER],
+           NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:kTitleColor alpha:1.0f]
+        };
 
-  static NSDictionary *descripAttribs = nil;
-  if (!descripAttribs) {
-    NSMutableParagraphStyle *descParagraphStyle = [[NSMutableParagraphStyle alloc] init];
-    descParagraphStyle.paragraphSpacingBefore = kDescriptionSpaceAbove;
-    descripAttribs = @{
-      NSFontAttributeName : [UIFont systemFontOfSize:kDescriptionFontSize * MENUS_SCALE_MULTIPLIER],
-      NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:kDescriptionColor alpha:1.0f],
-      NSParagraphStyleAttributeName : descParagraphStyle
-    };
-  }
+    static NSDictionary *descripAttribs = nil;
+    if (!descripAttribs) {
+        NSMutableParagraphStyle *descParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+        descParagraphStyle.paragraphSpacingBefore = kDescriptionSpaceAbove;
+        descripAttribs = @{
+            NSFontAttributeName : [UIFont systemFontOfSize:kDescriptionFontSize * MENUS_SCALE_MULTIPLIER],
+            NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:kDescriptionColor alpha:1.0f],
+            NSParagraphStyleAttributeName : descParagraphStyle
+        };
+    }
 
-  static NSDictionary *langAttribs = nil;
-  if (!langAttribs) {
-    NSMutableParagraphStyle *langParagraphStyle = [[NSMutableParagraphStyle alloc] init];
-    langParagraphStyle.paragraphSpacingBefore = kLanguageSpaceAbove;
-    langAttribs = @{
-      NSFontAttributeName : [UIFont systemFontOfSize:kLanguageFontSize * MENUS_SCALE_MULTIPLIER],
-      NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:kLanguageColor alpha:1.0f],
-      NSParagraphStyleAttributeName : langParagraphStyle
-    };
-  }
+    static NSDictionary *langAttribs = nil;
+    if (!langAttribs) {
+        NSMutableParagraphStyle *langParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+        langParagraphStyle.paragraphSpacingBefore = kLanguageSpaceAbove;
+        langAttribs = @{
+            NSFontAttributeName : [UIFont systemFontOfSize:kLanguageFontSize * MENUS_SCALE_MULTIPLIER],
+            NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:kLanguageColor alpha:1.0f],
+            NSParagraphStyleAttributeName : langParagraphStyle
+        };
+    }
 
-  NSString *descripLineBreak = (description.length == 0) ? @"" : kLineBreak;
-  description = description ? description : @"";
-  language = language ? language : @"";
+    NSString *descripLineBreak = (description.length == 0) ? @"" : kLineBreak;
+    description = description ? description : @"";
+    language = language ? language : @"";
 
-  return
-      [kFormatString attributedStringWithAttributes:@{}
-                                substitutionStrings:@[ title, kLineBreak, description, descripLineBreak, language ]
-                             substitutionAttributes:@[ titleAttribs, @{}, descripAttribs, @{}, langAttribs ]];
+    return
+        [kFormatString attributedStringWithAttributes:@{}
+                                  substitutionStrings:@[ title, kLineBreak, description, descripLineBreak, language ]
+                               substitutionAttributes:@[ titleAttribs, @{}, descripAttribs, @{}, langAttribs ]];
 }
 
 @end

@@ -17,29 +17,29 @@ NSString *const WMFCitationFragmentSubstring = @"cite_note";
 @implementation NSString (WMFPageUtilities)
 
 - (BOOL)wmf_isWikiResource {
-  return [self containsString:WMFInternalLinkPathPrefix];
+    return [self containsString:WMFInternalLinkPathPrefix];
 }
 
 - (BOOL)wmf_isCitationFragment {
-  return [self containsString:WMFCitationFragmentSubstring];
+    return [self containsString:WMFCitationFragmentSubstring];
 }
 
 - (NSString *)wmf_pathWithoutWikiPrefix {
-  NSRange internalLinkRange = [self rangeOfString:WMFInternalLinkPathPrefix];
-  NSString *path = internalLinkRange.location == NSNotFound ? self : [self wmf_safeSubstringFromIndex:WMFRangeGetMaxIndex(internalLinkRange)];
-  return [path precomposedStringWithCanonicalMapping];
+    NSRange internalLinkRange = [self rangeOfString:WMFInternalLinkPathPrefix];
+    NSString *path = internalLinkRange.location == NSNotFound ? self : [self wmf_safeSubstringFromIndex:WMFRangeGetMaxIndex(internalLinkRange)];
+    return [path precomposedStringWithCanonicalMapping];
 }
 
 - (NSString *)wmf_unescapedNormalizedPageTitle {
-  return [[self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] wmf_normalizedPageTitle];
+    return [[self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] wmf_normalizedPageTitle];
 }
 
 - (NSString *)wmf_normalizedPageTitle {
-  return [[self stringByReplacingOccurrencesOfString:@"_" withString:@" "] precomposedStringWithCanonicalMapping];
+    return [[self stringByReplacingOccurrencesOfString:@"_" withString:@" "] precomposedStringWithCanonicalMapping];
 }
 
 - (NSString *)wmf_denormalizedPageTitle {
-  return [[self stringByReplacingOccurrencesOfString:@" " withString:@"_"] precomposedStringWithCanonicalMapping];
+    return [[self stringByReplacingOccurrencesOfString:@" " withString:@"_"] precomposedStringWithCanonicalMapping];
 }
 
 @end

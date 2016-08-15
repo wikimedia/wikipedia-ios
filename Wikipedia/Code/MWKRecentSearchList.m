@@ -13,63 +13,63 @@
 #pragma mark - Setup
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
-  NSArray *entries = [[dataStore recentSearchListData] wmf_mapAndRejectNil:^id(id obj) {
-    @try {
-      return [[MWKRecentSearchEntry alloc] initWithDict:obj];
-    } @catch (NSException *e) {
-      NSLog(@"Encountered exception while reading entry %@: %@", e, obj);
-      return nil;
-    }
-  }];
+    NSArray *entries = [[dataStore recentSearchListData] wmf_mapAndRejectNil:^id(id obj) {
+      @try {
+          return [[MWKRecentSearchEntry alloc] initWithDict:obj];
+      } @catch (NSException *e) {
+          NSLog(@"Encountered exception while reading entry %@: %@", e, obj);
+          return nil;
+      }
+    }];
 
-  self = [super initWithEntries:entries];
-  if (self) {
-    self.dataStore = dataStore;
-  }
-  return self;
+    self = [super initWithEntries:entries];
+    if (self) {
+        self.dataStore = dataStore;
+    }
+    return self;
 }
 
 #pragma mark - Validation
 
 - (BOOL)isEntryValid:(MWKRecentSearchEntry *)entry {
-  return entry.searchTerm.length > 0 && entry.url;
+    return entry.searchTerm.length > 0 && entry.url;
 }
 
 #pragma mark - Data Update
 
 - (void)importEntries:(NSArray *)entries {
-  [super importEntries:[entries bk_select:^BOOL(MWKRecentSearchEntry *entry) {
-           return [self isEntryValid:entry];
-         }]];
+    [super importEntries:[entries bk_select:^BOOL(MWKRecentSearchEntry *entry) {
+             return [self isEntryValid:entry];
+           }]];
 }
 
 - (void)addEntry:(MWKRecentSearchEntry *)entry {
-  if (![self isEntryValid:entry]) {
-    return;
-  }
-  [self removeEntryWithListIndex:entry.searchTerm];
-  [self insertEntry:entry atIndex:0];
+    if (![self isEntryValid:entry]) {
+        return;
+    }
+    [self removeEntryWithListIndex:entry.searchTerm];
+    [self insertEntry:entry atIndex:0];
 }
 
 #pragma mark - Save
 
 - (void)performSaveWithCompletion:(dispatch_block_t)completion error:(WMFErrorHandler)errorHandler {
-  NSError *error;
-  if ([self.dataStore saveRecentSearchList:self error:&error]) {
-    if (completion) {
-      completion();
+    NSError *error;
+    if ([self.dataStore saveRecentSearchList:self error:&error]) {
+        if (completion) {
+            completion();
+        }
+    } else {
+        if (errorHandler) {
+            errorHandler(error);
+        }
     }
-  } else {
-    if (errorHandler) {
-      errorHandler(error);
-    }
-  }
 }
 
 - (NSArray *)dataExport {
-  return [self.entries bk_map:^id(MWKRecentSearchEntry *obj) {
-    return [obj dataExport];
-  }];
+    return [self.entries bk_map:^id(MWKRecentSearchEntry *obj) {
+      return [obj dataExport];
+    }];
 }
 
 @end

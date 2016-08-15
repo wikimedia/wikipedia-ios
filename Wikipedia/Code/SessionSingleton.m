@@ -24,124 +24,124 @@
 #pragma mark - Setup
 
 + (SessionSingleton *)sharedInstance {
-  static dispatch_once_t onceToken;
-  static SessionSingleton *sharedInstance;
-  dispatch_once(&onceToken, ^{
-    sharedInstance = [self new];
-  });
-  return sharedInstance;
+    static dispatch_once_t onceToken;
+    static SessionSingleton *sharedInstance;
+    dispatch_once(&onceToken, ^{
+      sharedInstance = [self new];
+    });
+    return sharedInstance;
 }
 
 - (instancetype)init {
-  return [self initWithDataStore:[[MWKDataStore alloc] initWithBasePath:[[MWKDataStore class] mainDataStorePath]]];
+    return [self initWithDataStore:[[MWKDataStore alloc] initWithBasePath:[[MWKDataStore class] mainDataStorePath]]];
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
-  self = [super init];
-  if (self) {
-    [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
+    self = [super init];
+    if (self) {
+        [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
 
-    WMFURLCache *urlCache = [[WMFURLCache alloc] initWithMemoryCapacity:MegabytesToBytes(64)
-                                                           diskCapacity:MegabytesToBytes(128)
-                                                               diskPath:nil];
-    [NSURLCache setSharedURLCache:urlCache];
+        WMFURLCache *urlCache = [[WMFURLCache alloc] initWithMemoryCapacity:MegabytesToBytes(64)
+                                                               diskCapacity:MegabytesToBytes(128)
+                                                                   diskPath:nil];
+        [NSURLCache setSharedURLCache:urlCache];
 
-    self.zeroConfigState = [[ZeroConfigState alloc] init];
-    self.zeroConfigState.disposition = NO;
+        self.zeroConfigState = [[ZeroConfigState alloc] init];
+        self.zeroConfigState.disposition = NO;
 
-    self.dataStore = dataStore;
+        self.dataStore = dataStore;
 
-    _currentArticleSiteURL = [self lastKnownSite];
-  }
-  return self;
+        _currentArticleSiteURL = [self lastKnownSite];
+    }
+    return self;
 }
 
 - (MWKUserDataStore *)userDataStore {
-  return self.dataStore.userDataStore;
+    return self.dataStore.userDataStore;
 }
 
 #pragma mark - Site
 
 - (void)setCurrentArticleSiteURL:(NSURL *)currentArticleSiteURL {
-  NSParameterAssert(currentArticleSiteURL);
-  if (!currentArticleSiteURL || [_currentArticleSiteURL isEqual:currentArticleSiteURL]) {
-    return;
-  }
-  _currentArticleSiteURL = [currentArticleSiteURL wmf_siteURL];
-  [[NSUserDefaults standardUserDefaults] setObject:currentArticleSiteURL.wmf_language forKey:@"CurrentArticleDomain"];
-  [[NSUserDefaults standardUserDefaults] synchronize];
+    NSParameterAssert(currentArticleSiteURL);
+    if (!currentArticleSiteURL || [_currentArticleSiteURL isEqual:currentArticleSiteURL]) {
+        return;
+    }
+    _currentArticleSiteURL = [currentArticleSiteURL wmf_siteURL];
+    [[NSUserDefaults standardUserDefaults] setObject:currentArticleSiteURL.wmf_language forKey:@"CurrentArticleDomain"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - Article
 
 - (void)setCurrentArticleURL:(NSURL *)currentArticleURL {
-  NSParameterAssert(currentArticleURL);
-  if (!_currentArticleURL || [_currentArticleURL isEqual:currentArticleURL]) {
-    return;
-  }
-  _currentArticleURL = currentArticleURL;
-  [[NSUserDefaults standardUserDefaults] setObject:currentArticleURL.wmf_title forKey:@"CurrentArticleTitle"];
-  [[NSUserDefaults standardUserDefaults] synchronize];
+    NSParameterAssert(currentArticleURL);
+    if (!_currentArticleURL || [_currentArticleURL isEqual:currentArticleURL]) {
+        return;
+    }
+    _currentArticleURL = currentArticleURL;
+    [[NSUserDefaults standardUserDefaults] setObject:currentArticleURL.wmf_title forKey:@"CurrentArticleTitle"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)setCurrentArticle:(MWKArticle *)currentArticle {
-  if (!currentArticle || [_currentArticle isEqual:currentArticle]) {
-    return;
-  }
-  _currentArticle = currentArticle;
-  self.currentArticleURL = currentArticle.url;
-  self.currentArticleSiteURL = currentArticle.url;
+    if (!currentArticle || [_currentArticle isEqual:currentArticle]) {
+        return;
+    }
+    _currentArticle = currentArticle;
+    self.currentArticleURL = currentArticle.url;
+    self.currentArticleSiteURL = currentArticle.url;
 }
 
 - (MWKArticle *)currentArticle {
-  if (!_currentArticle) {
-    self.currentArticle = [self lastLoadedArticle];
-  }
-  return _currentArticle;
+    if (!_currentArticle) {
+        self.currentArticle = [self lastLoadedArticle];
+    }
+    return _currentArticle;
 }
 
 #pragma mark - Last known/loaded
 
 - (NSURL *)lastKnownSite {
-  return [NSURL wmf_URLWithDefaultSiteAndlanguage:[[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleDomain"]];
+    return [NSURL wmf_URLWithDefaultSiteAndlanguage:[[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleDomain"]];
 }
 
 - (NSURL *)lastLoadedArticleURL {
-  NSURL *lastKnownSite = [self lastKnownSite];
-  NSString *titleText = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
-  if (!titleText.length) {
-    return nil;
-  }
-  return [lastKnownSite wmf_URLWithTitle:titleText];
+    NSURL *lastKnownSite = [self lastKnownSite];
+    NSString *titleText = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
+    if (!titleText.length) {
+        return nil;
+    }
+    return [lastKnownSite wmf_URLWithTitle:titleText];
 }
 
 - (MWKArticle *)lastLoadedArticle {
-  NSURL *lastLoadedURL = [self lastLoadedArticleURL];
-  if (!lastLoadedURL) {
-    return nil;
-  }
-  MWKArticle *article = [self.dataStore articleWithURL:lastLoadedURL];
-  return article;
+    NSURL *lastLoadedURL = [self lastLoadedArticleURL];
+    if (!lastLoadedURL) {
+        return nil;
+    }
+    MWKArticle *article = [self.dataStore articleWithURL:lastLoadedURL];
+    return article;
 }
 
 #pragma mark - Language URL
 
 - (NSURL *)urlForLanguage:(NSString *)language {
-  return self.fallback ? [NSURL wmf_desktopAPIURLForURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:language]] : [NSURL wmf_mobileAPIURLForURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:language]];
+    return self.fallback ? [NSURL wmf_desktopAPIURLForURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:language]] : [NSURL wmf_mobileAPIURLForURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:language]];
 }
 
 #pragma mark - Usage Reports
 
 - (BOOL)shouldSendUsageReports {
-  return [[NSUserDefaults standardUserDefaults] wmf_sendUsageReports];
+    return [[NSUserDefaults standardUserDefaults] wmf_sendUsageReports];
 }
 
 - (void)setShouldSendUsageReports:(BOOL)sendUsageReports {
-  if (sendUsageReports == [self shouldSendUsageReports]) {
-    return;
-  }
-  [[NSUserDefaults standardUserDefaults] wmf_setSendUsageReports:sendUsageReports];
-  [[QueuesSingleton sharedInstance] reset];
+    if (sendUsageReports == [self shouldSendUsageReports]) {
+        return;
+    }
+    [[NSUserDefaults standardUserDefaults] wmf_setSendUsageReports:sendUsageReports];
+    [[QueuesSingleton sharedInstance] reset];
 }
 
 @end

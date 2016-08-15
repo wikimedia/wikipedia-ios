@@ -11,7 +11,7 @@
 @implementation NSProcessInfo (WMFTestEnvironment)
 
 - (BOOL)wmf_isTravis {
-  return self.environment[@"TRAVIS"].length > 0;
+    return self.environment[@"TRAVIS"].length > 0;
 }
 
 @end

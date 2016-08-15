@@ -2,8 +2,8 @@
 #import "FetcherBase.h"
 
 typedef NS_ENUM(NSInteger, LoginTokenErrorType) {
-  LOGIN_TOKEN_ERROR_UNKNOWN = 0,
-  LOGIN_TOKEN_ERROR_API = 1
+    LOGIN_TOKEN_ERROR_UNKNOWN = 0,
+    LOGIN_TOKEN_ERROR_API = 1
 };
 
 @class AFHTTPSessionManager;

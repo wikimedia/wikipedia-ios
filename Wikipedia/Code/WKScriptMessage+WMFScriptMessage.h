@@ -1,17 +1,17 @@
 #import <WebKit/WebKit.h>
 
 typedef NS_ENUM(NSInteger, WMFWKScriptMessageType) {
-  WMFWKScriptMessageUnknown,
-  WMFWKScriptMessagePeek,
-  WMFWKScriptMessageConsoleMessage,
-  WMFWKScriptMessageClickLink,
-  WMFWKScriptMessageClickImage,
-  WMFWKScriptMessageClickReference,
-  WMFWKScriptMessageClickEdit,
-  WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging,
-  WMFWKScriptMessageLateJavascriptTransform,
-  WMFWKScriptMessageArticleState,
-  WMFWKScriptMessageFindInPageMatchesFound
+    WMFWKScriptMessageUnknown,
+    WMFWKScriptMessagePeek,
+    WMFWKScriptMessageConsoleMessage,
+    WMFWKScriptMessageClickLink,
+    WMFWKScriptMessageClickImage,
+    WMFWKScriptMessageClickReference,
+    WMFWKScriptMessageClickEdit,
+    WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging,
+    WMFWKScriptMessageLateJavascriptTransform,
+    WMFWKScriptMessageArticleState,
+    WMFWKScriptMessageFindInPageMatchesFound
 };
 
 @interface WKScriptMessage (WMFScriptMessage)

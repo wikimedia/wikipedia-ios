@@ -12,31 +12,31 @@
 static NSString *const WMFNumericTransformerErrorDomain = @"WMFNumericTransformerErrorDomain";
 
 typedef NS_ENUM(NSInteger, WMFNumericTransformerErrorCode) {
-  WMFNumericTransformerErrorDomainInvalidString
+    WMFNumericTransformerErrorDomainInvalidString
 };
 
 @implementation MTLValueTransformer (WMFNumericValueTransformer)
 
 + (instancetype)wmf_numericValueTransformer {
-  NSValueTransformer<MTLTransformerErrorHandling> *validatingNumberTransformer =
-      [MTLValueTransformer mtl_validatingTransformerForClass:[NSNumber class]];
-  return [MTLValueTransformer transformerUsingForwardBlock:^id(id stringOrNumber, BOOL *success, NSError *__autoreleasing *error) {
-    if ([stringOrNumber isKindOfClass:[NSString class]]) {
-      double value = 0.0;
-      if ([[NSScanner scannerWithString:stringOrNumber] scanDouble:&value]) {
-        return @(value);
+    NSValueTransformer<MTLTransformerErrorHandling> *validatingNumberTransformer =
+        [MTLValueTransformer mtl_validatingTransformerForClass:[NSNumber class]];
+    return [MTLValueTransformer transformerUsingForwardBlock:^id(id stringOrNumber, BOOL *success, NSError *__autoreleasing *error) {
+      if ([stringOrNumber isKindOfClass:[NSString class]]) {
+          double value = 0.0;
+          if ([[NSScanner scannerWithString:stringOrNumber] scanDouble:&value]) {
+              return @(value);
+          } else {
+              *success = NO;
+              WMFSafeAssign(error,
+                            [NSError errorWithDomain:WMFNumericTransformerErrorDomain
+                                                code:WMFNumericTransformerErrorDomainInvalidString
+                                            userInfo:nil]);
+              return nil;
+          }
       } else {
-        *success = NO;
-        WMFSafeAssign(error,
-                      [NSError errorWithDomain:WMFNumericTransformerErrorDomain
-                                          code:WMFNumericTransformerErrorDomainInvalidString
-                                      userInfo:nil]);
-        return nil;
+          return [validatingNumberTransformer transformedValue:stringOrNumber success:success error:error];
       }
-    } else {
-      return [validatingNumberTransformer transformedValue:stringOrNumber success:success error:error];
-    }
-  }];
+    }];
 }
 
 @end

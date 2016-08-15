@@ -78,6 +78,6 @@ NSInteger WMFRadiansToClock(double radians);
  *  @return Number of bytes equivalent to `m` megabytes.
  */
 static inline NSUInteger MegabytesToBytes(NSUInteger m) {
-  static NSUInteger const MEGABYTE = 1 << 20;
-  return m * MEGABYTE;
+    static NSUInteger const MEGABYTE = 1 << 20;
+    return m * MEGABYTE;
 }

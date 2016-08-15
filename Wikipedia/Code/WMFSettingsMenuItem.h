@@ -1,28 +1,28 @@
 #import <Mantle/Mantle.h>
 
 typedef NS_ENUM(NSUInteger, WMFSettingsMenuItemDisclosureType) {
-  WMFSettingsMenuItemDisclosureType_None,
-  WMFSettingsMenuItemDisclosureType_ViewController,
-  WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText,
-  WMFSettingsMenuItemDisclosureType_ExternalLink,
-  WMFSettingsMenuItemDisclosureType_Switch
+    WMFSettingsMenuItemDisclosureType_None,
+    WMFSettingsMenuItemDisclosureType_ViewController,
+    WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText,
+    WMFSettingsMenuItemDisclosureType_ExternalLink,
+    WMFSettingsMenuItemDisclosureType_Switch
 };
 
 typedef NS_ENUM(NSUInteger, WMFSettingsMenuItemType) {
-  WMFSettingsMenuItemType_Login,
-  WMFSettingsMenuItemType_Support,
-  WMFSettingsMenuItemType_SearchLanguage,
-  WMFSettingsMenuItemType_SearchLanguageBarVisibility,
-  WMFSettingsMenuItemType_PrivacyPolicy,
-  WMFSettingsMenuItemType_Terms,
-  WMFSettingsMenuItemType_SendUsageReports,
-  WMFSettingsMenuItemType_ZeroWarnWhenLeaving,
-  WMFSettingsMenuItemType_ZeroFAQ,
-  WMFSettingsMenuItemType_RateApp,
-  WMFSettingsMenuItemType_SendFeedback,
-  WMFSettingsMenuItemType_About,
-  WMFSettingsMenuItemType_DebugCrash,
-  WMFSettingsMenuItemType_DevSettings,
+    WMFSettingsMenuItemType_Login,
+    WMFSettingsMenuItemType_Support,
+    WMFSettingsMenuItemType_SearchLanguage,
+    WMFSettingsMenuItemType_SearchLanguageBarVisibility,
+    WMFSettingsMenuItemType_PrivacyPolicy,
+    WMFSettingsMenuItemType_Terms,
+    WMFSettingsMenuItemType_SendUsageReports,
+    WMFSettingsMenuItemType_ZeroWarnWhenLeaving,
+    WMFSettingsMenuItemType_ZeroFAQ,
+    WMFSettingsMenuItemType_RateApp,
+    WMFSettingsMenuItemType_SendFeedback,
+    WMFSettingsMenuItemType_About,
+    WMFSettingsMenuItemType_DebugCrash,
+    WMFSettingsMenuItemType_DevSettings,
 };
 
 @interface WMFSettingsMenuItem : MTLModel

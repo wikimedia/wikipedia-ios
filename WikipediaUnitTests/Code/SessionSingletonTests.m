@@ -98,26 +98,26 @@ QuickSpecEnd
         QuickConfigurationBegin(SessionSingletonSharedExamples)
 
     + (void)configure : (Configuration *)configuration {
-  sharedExamples(@"a persistent property", ^(QCKDSLSharedExampleContext getContext) {
-    __block SessionSingleton *session;
-    __block id value;
-    __block NSString *key;
+    sharedExamples(@"a persistent property", ^(QCKDSLSharedExampleContext getContext) {
+      __block SessionSingleton *session;
+      __block id value;
+      __block NSString *key;
 
-    beforeEach(^{
-      [[NSUserDefaults standardUserDefaults] wmf_resetToDefaultValues];
-      NSDictionary *context = getContext();
-      session = context[@"session"];
-      value = context[@"value"];
-      key = context[@"key"];
-    });
+      beforeEach(^{
+        [[NSUserDefaults standardUserDefaults] wmf_resetToDefaultValues];
+        NSDictionary *context = getContext();
+        session = context[@"session"];
+        value = context[@"value"];
+        key = context[@"key"];
+      });
 
-    it(@"a persistent property", ^{
-      [session setValue:value forKey:key];
-      SessionSingleton *newSession = [[SessionSingleton alloc] initWithDataStore:[MWKDataStore temporaryDataStore]];
-      expect([newSession valueForKey:key]).to(equal(value));
-      [newSession.dataStore removeFolderAtBasePath];
+      it(@"a persistent property", ^{
+        [session setValue:value forKey:key];
+        SessionSingleton *newSession = [[SessionSingleton alloc] initWithDataStore:[MWKDataStore temporaryDataStore]];
+        expect([newSession valueForKey:key]).to(equal(value));
+        [newSession.dataStore removeFolderAtBasePath];
+      });
     });
-  });
 }
 
 QuickConfigurationEnd

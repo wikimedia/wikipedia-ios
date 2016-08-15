@@ -3,13 +3,13 @@
 @class MWKArticle;
 
 typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
-  WMFUserActivityTypeExplore,
-  WMFUserActivityTypeSavedPages,
-  WMFUserActivityTypeHistory,
-  WMFUserActivityTypeSearch,
-  WMFUserActivityTypeSearchResults,
-  WMFUserActivityTypeArticle,
-  WMFUserActivityTypeSettings
+    WMFUserActivityTypeExplore,
+    WMFUserActivityTypeSavedPages,
+    WMFUserActivityTypeHistory,
+    WMFUserActivityTypeSearch,
+    WMFUserActivityTypeSearchResults,
+    WMFUserActivityTypeArticle,
+    WMFUserActivityTypeSettings
 };
 
 @interface NSUserActivity (WMFExtensions)

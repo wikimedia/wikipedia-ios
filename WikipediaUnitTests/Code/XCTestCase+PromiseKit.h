@@ -12,23 +12,23 @@
 
 /// Macro to make passing the last to arguments easier
 #define WMFExpectFromHere \
-  testMethod:             \
-  _cmd line : __LINE__
+    testMethod:           \
+    _cmd line : __LINE__
 
 /// Shorthand macro to expect a promise to resolve within the default timeout.
 #define expectResolution(promiseBlock) expectResolutionWithTimeout(WMFDefaultExpectationTimeout, (promiseBlock))
 
 /// Shorthand macro to expect a promise to resolve with the given timeout.
 #define expectResolutionWithTimeout(timeoutSecs, promiseBlock) \
-  [self expectAnyPromiseToResolve:(promiseBlock) timeout:(timeoutSecs)WMFExpectFromHere]
+    [self expectAnyPromiseToResolve:(promiseBlock) timeout:(timeoutSecs)WMFExpectFromHere]
 
 /// Shorthand macro to expect a promise to catch with an error within the given timeout.
 #define expectCaughtErrorForPolicyWithTimeout(policy, aTimeout, promiseBlock) \
-  [self expectAnyPromiseToCatch:(promiseBlock) withPolicy:(policy) timeout:(aTimeout)WMFExpectFromHere]
+    [self expectAnyPromiseToCatch:(promiseBlock) withPolicy:(policy) timeout:(aTimeout)WMFExpectFromHere]
 
 /// Shorthand macro to expect a promise to catch with an error within the given timeout, using default policy (except cancellation).
 #define expectCaughtErrorWithTimeout(timeout, promiseBlock) \
-  expectCaughtErrorForPolicyWithTimeout(PMKCatchPolicyAllErrorsExceptCancellation, timeout, promiseBlock)
+    expectCaughtErrorForPolicyWithTimeout(PMKCatchPolicyAllErrorsExceptCancellation, timeout, promiseBlock)
 
 /**
  * Utility for testing promises in ObjC.

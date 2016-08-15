@@ -81,7 +81,7 @@ configureTempDataStoreForEach(tempDataStore, ^{
 afterEach(^{
   // tear down search
   if ([UIViewController wmf_sharedSearchViewController].view.window) {
-    dismissSearchAndWait();
+      dismissSearchAndWait();
   }
   [UIViewController wmf_clearSearchViewController];
   testVC.view.window.rootViewController = nil;

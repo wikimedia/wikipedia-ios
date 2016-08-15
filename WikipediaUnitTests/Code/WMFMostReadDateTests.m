@@ -30,23 +30,23 @@ describe(@"most read date", ^{
 
   it(@"should be yesterday if the hour is >= threshold, otherwise day before yesterday", ^{
     for (int i = 0; i < 24; i++) {
-      NSDate *nowAtHour =
-          [[NSCalendar wmf_utcGregorianCalendar]
-              dateBySettingHour:i
-                         minute:0
-                         second:0
-                         ofDate:[NSDate date]
-                        options:NSCalendarMatchStrictly];
-      NSDate *bestDate = [nowAtHour wmf_bestMostReadFetchDate];
+        NSDate *nowAtHour =
+            [[NSCalendar wmf_utcGregorianCalendar]
+                dateBySettingHour:i
+                           minute:0
+                           second:0
+                           ofDate:[NSDate date]
+                          options:NSCalendarMatchStrictly];
+        NSDate *bestDate = [nowAtHour wmf_bestMostReadFetchDate];
 
-      NSInteger bestDateDaysSinceNowAtHour = [[NSCalendar wmf_utcGregorianCalendar]
-                                                 components:NSCalendarUnitDay
-                                                   fromDate:nowAtHour
-                                                     toDate:bestDate
-                                                    options:NSCalendarMatchStrictly]
-                                                 .day;
-      NSNumber *expectedDayDelta = i >= WMFPageviewDataAvailabilityThreshold ? @(-1) : @(-2);
-      expect(@(bestDateDaysSinceNowAtHour)).to(equal(expectedDayDelta));
+        NSInteger bestDateDaysSinceNowAtHour = [[NSCalendar wmf_utcGregorianCalendar]
+                                                   components:NSCalendarUnitDay
+                                                     fromDate:nowAtHour
+                                                       toDate:bestDate
+                                                      options:NSCalendarMatchStrictly]
+                                                   .day;
+        NSNumber *expectedDayDelta = i >= WMFPageviewDataAvailabilityThreshold ? @(-1) : @(-2);
+        expect(@(bestDateDaysSinceNowAtHour)).to(equal(expectedDayDelta));
     }
   });
 });

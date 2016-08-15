@@ -14,96 +14,96 @@
 @implementation WMFSettingsTableViewCell
 
 - (void)setTitle:(NSString *)title {
-  _title = title;
-  self.titleLabel.text = title;
+    _title = title;
+    self.titleLabel.text = title;
 }
 
 - (void)setIconName:(NSString *)iconName {
-  _iconName = iconName;
-  self.titleIcon.image = [[UIImage imageNamed:iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    _iconName = iconName;
+    self.titleIcon.image = [[UIImage imageNamed:iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
 - (void)setDisclosureText:(NSString *)disclosureText {
-  _disclosureText = disclosureText;
-  self.disclosureLabel.text = disclosureText;
+    _disclosureText = disclosureText;
+    self.disclosureLabel.text = disclosureText;
 }
 
 - (void)setIconColor:(UIColor *)iconColor {
-  _iconColor = iconColor;
-  self.titleIcon.backgroundColor = iconColor;
-  self.titleIcon.tintColor = [UIColor whiteColor];
+    _iconColor = iconColor;
+    self.titleIcon.backgroundColor = iconColor;
+    self.titleIcon.tintColor = [UIColor whiteColor];
 }
 
 - (UIImage *)backChevronImage {
-  static dispatch_once_t once;
-  static UIImage *image;
-  dispatch_once(&once, ^{
-    image = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-  });
-  return image;
+    static dispatch_once_t once;
+    static UIImage *image;
+    dispatch_once(&once, ^{
+      image = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    });
+    return image;
 }
 
 - (UIImage *)externalLinkImage {
-  static dispatch_once_t once;
-  static UIImage *image;
-  dispatch_once(&once, ^{
-    image = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"mini-external"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-  });
-  return image;
+    static dispatch_once_t once;
+    static UIImage *image;
+    dispatch_once(&once, ^{
+      image = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"mini-external"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    });
+    return image;
 }
 
 - (void)setDisclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType {
-  _disclosureType = disclosureType;
-  switch (disclosureType) {
-  case WMFSettingsMenuItemDisclosureType_None:
-    self.disclosureIcon.hidden = YES;
-    self.disclosureLabel.hidden = YES;
-    self.disclosureIcon.image = nil;
-    self.disclosureSwitch.hidden = YES;
-    break;
-  case WMFSettingsMenuItemDisclosureType_ExternalLink:
-    self.disclosureIcon.hidden = NO;
-    self.disclosureLabel.hidden = YES;
-    self.disclosureIcon.image = [self externalLinkImage];
-    self.disclosureSwitch.hidden = YES;
-    break;
-  case WMFSettingsMenuItemDisclosureType_Switch:
-    self.disclosureIcon.hidden = YES;
-    self.disclosureLabel.hidden = YES;
-    self.disclosureIcon.image = nil;
-    self.disclosureSwitch.hidden = NO;
-    break;
-  case WMFSettingsMenuItemDisclosureType_ViewController:
-    self.disclosureIcon.hidden = NO;
-    self.disclosureLabel.hidden = YES;
-    self.disclosureIcon.image = [self backChevronImage];
-    self.disclosureSwitch.hidden = YES;
-    break;
-  case WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText:
-    self.disclosureIcon.hidden = NO;
-    self.disclosureLabel.hidden = NO;
-    self.disclosureIcon.image = [self backChevronImage];
-    self.disclosureSwitch.hidden = YES;
-    break;
-  default:
-    break;
-  }
+    _disclosureType = disclosureType;
+    switch (disclosureType) {
+    case WMFSettingsMenuItemDisclosureType_None:
+        self.disclosureIcon.hidden = YES;
+        self.disclosureLabel.hidden = YES;
+        self.disclosureIcon.image = nil;
+        self.disclosureSwitch.hidden = YES;
+        break;
+    case WMFSettingsMenuItemDisclosureType_ExternalLink:
+        self.disclosureIcon.hidden = NO;
+        self.disclosureLabel.hidden = YES;
+        self.disclosureIcon.image = [self externalLinkImage];
+        self.disclosureSwitch.hidden = YES;
+        break;
+    case WMFSettingsMenuItemDisclosureType_Switch:
+        self.disclosureIcon.hidden = YES;
+        self.disclosureLabel.hidden = YES;
+        self.disclosureIcon.image = nil;
+        self.disclosureSwitch.hidden = NO;
+        break;
+    case WMFSettingsMenuItemDisclosureType_ViewController:
+        self.disclosureIcon.hidden = NO;
+        self.disclosureLabel.hidden = YES;
+        self.disclosureIcon.image = [self backChevronImage];
+        self.disclosureSwitch.hidden = YES;
+        break;
+    case WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText:
+        self.disclosureIcon.hidden = NO;
+        self.disclosureLabel.hidden = NO;
+        self.disclosureIcon.image = [self backChevronImage];
+        self.disclosureSwitch.hidden = YES;
+        break;
+    default:
+        break;
+    }
 }
 
 - (void)awakeFromNib {
-  self.disclosureIcon.tintColor = [UIColor wmf_colorWithHex:0xC7C7C7 alpha:1.0];
+    self.disclosureIcon.tintColor = [UIColor wmf_colorWithHex:0xC7C7C7 alpha:1.0];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-  [super setSelected:selected animated:animated];
-  //HAX: reset the titleIcon's background color so it remains during the selection cell selection animation.
-  self.iconColor = self.iconColor;
+    [super setSelected:selected animated:animated];
+    //HAX: reset the titleIcon's background color so it remains during the selection cell selection animation.
+    self.iconColor = self.iconColor;
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-  [super setHighlighted:highlighted animated:animated];
-  //HAX: reset the titleIcon's background color so there's not a tiny flicker at the beginning of the selection cell selection animation.
-  self.iconColor = self.iconColor;
+    [super setHighlighted:highlighted animated:animated];
+    //HAX: reset the titleIcon's background color so there's not a tiny flicker at the beginning of the selection cell selection animation.
+    self.iconColor = self.iconColor;
 }
 
 @end

@@ -19,76 +19,76 @@
 @implementation WMFSavedArticleTableViewController
 
 - (void)awakeFromNib {
-  [super awakeFromNib];
-  self.title = MWLocalizedString(@"saved-title", nil);
+    [super awakeFromNib];
+    self.title = MWLocalizedString(@"saved-title", nil);
 }
 
 - (MWKSavedPageList *)savedPageList {
-  return self.dataStore.userDataStore.savedPageList;
+    return self.dataStore.userDataStore.savedPageList;
 }
 
 - (void)viewDidLoad {
-  [super viewDidLoad];
+    [super viewDidLoad];
 
-  [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
+    [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
-  self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
+    self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
 
-  WMFSavedPagesDataSource *ds = [[WMFSavedPagesDataSource alloc] initWithSavedPagesList:[self savedPageList]];
+    WMFSavedPagesDataSource *ds = [[WMFSavedPagesDataSource alloc] initWithSavedPagesList:[self savedPageList]];
 
-  ds.cellClass = [WMFArticleListTableViewCell class];
+    ds.cellClass = [WMFArticleListTableViewCell class];
 
-  @weakify(self);
-  ds.cellConfigureBlock = ^(WMFArticleListTableViewCell *cell,
-                            MWKSavedPageEntry *entry,
-                            UITableView *tableView,
-                            NSIndexPath *indexPath) {
-    @strongify(self);
-    MWKArticle *article = [[self dataStore] articleWithURL:entry.url];
-    cell.titleText = article.url.wmf_title;
-    cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
-    [cell setImage:[article bestThumbnailImage]];
-  };
+    @weakify(self);
+    ds.cellConfigureBlock = ^(WMFArticleListTableViewCell *cell,
+                              MWKSavedPageEntry *entry,
+                              UITableView *tableView,
+                              NSIndexPath *indexPath) {
+      @strongify(self);
+      MWKArticle *article = [[self dataStore] articleWithURL:entry.url];
+      cell.titleText = article.url.wmf_title;
+      cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
+      [cell setImage:[article bestThumbnailImage]];
+    };
 
-  self.dataSource = ds;
+    self.dataSource = ds;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-  [super viewDidAppear:animated];
-  [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
-  [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_savedPagesViewActivity]];
+    [super viewDidAppear:animated];
+    [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
+    [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_savedPagesViewActivity]];
 }
 
 - (WMFEmptyViewType)emptyViewType {
-  return WMFEmptyViewTypeNoSavedPages;
+    return WMFEmptyViewTypeNoSavedPages;
 }
 
 - (NSString *)analyticsContext {
-  return @"Saved";
+    return @"Saved";
 }
 
 - (NSString *)analyticsName {
-  return [self analyticsContext];
+    return [self analyticsContext];
 }
 
 - (BOOL)showsDeleteAllButton {
-  return YES;
+    return YES;
 }
 
 - (NSString *)deleteButtonText {
-  return MWLocalizedString(@"saved-clear-all", nil);
+    return MWLocalizedString(@"saved-clear-all", nil);
 }
 
 - (NSString *)deleteAllConfirmationText {
-  return MWLocalizedString(@"saved-pages-clear-confirmation-heading", nil);
+    return MWLocalizedString(@"saved-pages-clear-confirmation-heading", nil);
 }
 
 - (NSString *)deleteText {
-  return MWLocalizedString(@"saved-pages-clear-delete-all", nil);
+    return MWLocalizedString(@"saved-pages-clear-delete-all", nil);
 }
 
 - (NSString *)deleteCancelText {
-  return MWLocalizedString(@"saved-pages-clear-cancel", nil);
+    return MWLocalizedString(@"saved-pages-clear-cancel", nil);
 }
 
 @end

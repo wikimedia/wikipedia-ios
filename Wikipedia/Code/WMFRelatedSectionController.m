@@ -54,163 +54,163 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
 - (instancetype)initWithArticleURL:(NSURL *)url
                          blackList:(WMFRelatedSectionBlackList *)blackList
                          dataStore:(MWKDataStore *)dataStore {
-  return [self initWithArticleURL:url
-                        blackList:blackList
-                        dataStore:dataStore
-             relatedSearchFetcher:[[WMFRelatedSearchFetcher alloc] init]];
+    return [self initWithArticleURL:url
+                          blackList:blackList
+                          dataStore:dataStore
+               relatedSearchFetcher:[[WMFRelatedSearchFetcher alloc] init]];
 }
 
 - (instancetype)initWithArticleURL:(NSURL *)url
                          blackList:(WMFRelatedSectionBlackList *)blackList
                          dataStore:(MWKDataStore *)dataStore
               relatedSearchFetcher:(WMFRelatedSearchFetcher *)relatedSearchFetcher {
-  NSParameterAssert(url);
-  NSParameterAssert(blackList);
-  NSParameterAssert(relatedSearchFetcher);
-  self = [super initWithDataStore:dataStore];
-  if (self) {
-    self.relatedSearchFetcher = relatedSearchFetcher;
-    self.url = url;
-    self.blackList = blackList;
-  }
-  return self;
+    NSParameterAssert(url);
+    NSParameterAssert(blackList);
+    NSParameterAssert(relatedSearchFetcher);
+    self = [super initWithDataStore:dataStore];
+    if (self) {
+        self.relatedSearchFetcher = relatedSearchFetcher;
+        self.url = url;
+        self.blackList = blackList;
+    }
+    return self;
 }
 
 - (id)sectionIdentifier {
-  return [WMFRelatedSectionIdentifierPrefix stringByAppendingString:self.url.wmf_title];
+    return [WMFRelatedSectionIdentifierPrefix stringByAppendingString:self.url.wmf_title];
 }
 
 - (UIImage *)headerIcon {
-  return [UIImage imageNamed:@"recent-mini"];
+    return [UIImage imageNamed:@"recent-mini"];
 }
 
 - (UIColor *)headerIconTintColor {
-  return [UIColor wmf_exploreSectionHeaderIconTintColor];
+    return [UIColor wmf_exploreSectionHeaderIconTintColor];
 }
 
 - (UIColor *)headerIconBackgroundColor {
-  return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
+    return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
 }
 
 - (NSAttributedString *)headerTitle {
-  return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-related-heading", nil) attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-related-heading", nil) attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
 - (NSAttributedString *)headerSubTitle {
-  return [[NSAttributedString alloc] initWithString:self.url.wmf_title attributes:@{NSForegroundColorAttributeName : [UIColor wmf_blueTintColor]}];
+    return [[NSAttributedString alloc] initWithString:self.url.wmf_title attributes:@{NSForegroundColorAttributeName : [UIColor wmf_blueTintColor]}];
 }
 
 - (NSString *)cellIdentifier {
-  return [WMFArticlePreviewCollectionViewCell identifier];
+    return [WMFArticlePreviewCollectionViewCell identifier];
 }
 
 - (UINib *)cellNib {
-  return [WMFArticlePreviewCollectionViewCell wmf_classNib];
+    return [WMFArticlePreviewCollectionViewCell wmf_classNib];
 }
 
 - (nullable NSString *)placeholderCellIdentifier {
-  return [WMFArticlePlaceholderCollectionViewCell identifier];
+    return [WMFArticlePlaceholderCollectionViewCell identifier];
 }
 
 - (nullable UINib *)placeholderCellNib {
-  return [WMFArticlePlaceholderCollectionViewCell wmf_classNib];
+    return [WMFArticlePlaceholderCollectionViewCell wmf_classNib];
 }
 
 - (void)configureCell:(WMFArticlePreviewCollectionViewCell *)cell withItem:(MWKSearchResult *)item atIndexPath:(NSIndexPath *)indexPath {
-  cell.titleText = item.displayTitle;
-  cell.descriptionText = item.wikidataDescription;
-  cell.snippetText = item.extract;
-  [cell setImageURL:item.thumbnailURL];
-  [cell setSaveableURL:[self urlForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
-  [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-  cell.saveButtonController.analyticsContext = self;
-  cell.saveButtonController.analyticsContentType = self;
+    cell.titleText = item.displayTitle;
+    cell.descriptionText = item.wikidataDescription;
+    cell.snippetText = item.extract;
+    [cell setImageURL:item.thumbnailURL];
+    [cell setSaveableURL:[self urlForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
+    [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+    cell.saveButtonController.analyticsContext = self;
+    cell.saveButtonController.analyticsContentType = self;
 }
 
 - (CGFloat)estimatedRowHeight {
-  return [WMFArticlePreviewCollectionViewCell estimatedRowHeight];
+    return [WMFArticlePreviewCollectionViewCell estimatedRowHeight];
 }
 
 - (NSString *)analyticsContentType {
-  return @"Recommended";
+    return @"Recommended";
 }
 
 - (BOOL)prefersWiderColumn {
-  return FBTweakValue(@"Explore", @"General", @"Put 'Because You Read' in Wider Column", YES);
+    return FBTweakValue(@"Explore", @"General", @"Put 'Because You Read' in Wider Column", YES);
 }
 
 - (AnyPromise *)fetchData {
-  @weakify(self);
-  return [self.relatedTitleDataSource fetch]
-      .then(^(WMFRelatedSearchResults *results) {
-        @strongify(self);
-        self.searchResults = results;
-        return [self.searchResults.results wmf_safeSubarrayWithRange:NSMakeRange(0, WMFRelatedSectionMaxResults)];
-      })
-      .catch(^(NSError *error) {
-        @strongify(self);
-        self.searchResults = nil;
-        return error;
-      });
+    @weakify(self);
+    return [self.relatedTitleDataSource fetch]
+        .then(^(WMFRelatedSearchResults *results) {
+          @strongify(self);
+          self.searchResults = results;
+          return [self.searchResults.results wmf_safeSubarrayWithRange:NSMakeRange(0, WMFRelatedSectionMaxResults)];
+        })
+        .catch(^(NSError *error) {
+          @strongify(self);
+          self.searchResults = nil;
+          return error;
+        });
 }
 
 - (UIViewController *)detailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
-  NSURL *url = [self urlForItemAtIndexPath:indexPath];
-  return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+    NSURL *url = [self urlForItemAtIndexPath:indexPath];
+    return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
 }
 
 #pragma mark - WMFHeaderMenuProviding
 
 - (UIAlertController *)menuActionSheet {
-  UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-  [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
-                                            style:UIAlertActionStyleDestructive
-                                          handler:^(UIAlertAction *_Nonnull action) {
-                                            [self.blackList addBlackListArticleURL:self.url];
-                                            [self.blackList save];
-                                          }]];
-  [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
-  return sheet;
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
+                                              style:UIAlertActionStyleDestructive
+                                            handler:^(UIAlertAction *_Nonnull action) {
+                                              [self.blackList addBlackListArticleURL:self.url];
+                                              [self.blackList save];
+                                            }]];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+    return sheet;
 }
 
 #pragma mark - WMFMoreFooterProviding
 
 - (NSString *)footerText {
-  return
-      [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                  withString:self.url.wmf_title];
+    return
+        [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                    withString:self.url.wmf_title];
 }
 
 - (WMFRelatedTitleListDataSource *)relatedTitleDataSource {
-  if (!_relatedTitleDataSource) {
-    /*
+    if (!_relatedTitleDataSource) {
+        /*
            HAX: Need to use the "more" data source to fetch data and keep it around since morelike: searches for the same
            title don't have the same results in order. might need to look into continuation soon
          */
-    _relatedTitleDataSource = [[WMFRelatedTitleListDataSource alloc]
-        initWithURL:self.url
-          dataStore:self.dataStore
-        resultLimit:WMFMaxRelatedSearchResultLimit
-            fetcher:self.relatedSearchFetcher];
-  }
-  return _relatedTitleDataSource;
+        _relatedTitleDataSource = [[WMFRelatedTitleListDataSource alloc]
+            initWithURL:self.url
+              dataStore:self.dataStore
+            resultLimit:WMFMaxRelatedSearchResultLimit
+                fetcher:self.relatedSearchFetcher];
+    }
+    return _relatedTitleDataSource;
 }
 
 - (UIViewController *)moreViewController {
-  if (!self.relatedSearchFetcher.isFetching && !self.relatedTitleDataSource.relatedSearchResults) {
-    [self.relatedTitleDataSource fetch];
-  }
-  WMFRelatedTitleViewController *vc = [[WMFRelatedTitleViewController alloc] init];
-  vc.dataSource = self.relatedTitleDataSource;
-  vc.dataStore = self.dataStore;
-  return vc;
+    if (!self.relatedSearchFetcher.isFetching && !self.relatedTitleDataSource.relatedSearchResults) {
+        [self.relatedTitleDataSource fetch];
+    }
+    WMFRelatedTitleViewController *vc = [[WMFRelatedTitleViewController alloc] init];
+    vc.dataSource = self.relatedTitleDataSource;
+    vc.dataStore = self.dataStore;
+    return vc;
 }
 
 #pragma mark - WMFTitleProviding
 
 - (nullable NSURL *)urlForItemAtIndexPath:(NSIndexPath *)indexPath {
-  MWKSearchResult *result = self.items[indexPath.row];
-  return [self.url wmf_URLWithTitle:result.displayTitle];
+    MWKSearchResult *result = self.items[indexPath.row];
+    return [self.url wmf_URLWithTitle:result.displayTitle];
 }
 
 @end

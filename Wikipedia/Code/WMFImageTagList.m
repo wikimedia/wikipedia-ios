@@ -12,11 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFImageTagList
 
 - (instancetype)initWithImageTags:(nullable NSArray<WMFImageTag *> *)imageTags {
-  self = [super init];
-  if (self) {
-    self.imageTags = imageTags;
-  }
-  return self;
+    self = [super init];
+    if (self) {
+        self.imageTags = imageTags;
+    }
+    return self;
 }
 
 @end

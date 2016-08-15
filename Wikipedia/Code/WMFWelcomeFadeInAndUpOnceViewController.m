@@ -11,18 +11,18 @@
 @implementation WMFWelcomeFadeInAndUpOnceViewController
 
 - (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-  if (!self.hasAlreadyFaded) {
-    [self.containerView wmf_zeroLayerOpacity];
-  }
+    [super viewWillAppear:animated];
+    if (!self.hasAlreadyFaded) {
+        [self.containerView wmf_zeroLayerOpacity];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-  [super viewDidAppear:animated];
-  if (!self.hasAlreadyFaded) {
-    [self.containerView wmf_fadeInAndUpAfterDelay:[self.fadeInAndUpDelay floatValue]];
-  }
-  self.hasAlreadyFaded = YES;
+    [super viewDidAppear:animated];
+    if (!self.hasAlreadyFaded) {
+        [self.containerView wmf_fadeInAndUpAfterDelay:[self.fadeInAndUpDelay floatValue]];
+    }
+    self.hasAlreadyFaded = YES;
 }
 
 @end

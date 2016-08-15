@@ -11,17 +11,17 @@
 @implementation WMFExploreSectionFooter
 
 - (void)awakeFromNib {
-  [super awakeFromNib];
+    [super awakeFromNib];
 
-  self.clipsToBounds = NO;
-  self.moreChevronImageView.image = [UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-right"];
-  @weakify(self);
-  [self bk_whenTapped:^{
-    @strongify(self);
-    if (self.whenTapped) {
-      self.whenTapped();
-    }
-  }];
+    self.clipsToBounds = NO;
+    self.moreChevronImageView.image = [UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-right"];
+    @weakify(self);
+    [self bk_whenTapped:^{
+      @strongify(self);
+      if (self.whenTapped) {
+          self.whenTapped();
+      }
+    }];
 }
 
 @end

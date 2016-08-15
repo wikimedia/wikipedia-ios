@@ -35,127 +35,127 @@ static NSString *const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 @implementation WMFMainPageSectionController
 
 - (instancetype)initWithSiteURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore {
-  NSParameterAssert(url);
-  self = [super initWithDataStore:dataStore];
-  if (self) {
-    self.siteURL = url;
-  }
-  return self;
+    NSParameterAssert(url);
+    self = [super initWithDataStore:dataStore];
+    if (self) {
+        self.siteURL = url;
+    }
+    return self;
 }
 
 #pragma mark - Accessors
 
 - (MWKSiteInfoFetcher *)siteInfoFetcher {
-  if (_siteInfoFetcher == nil) {
-    _siteInfoFetcher = [[MWKSiteInfoFetcher alloc] init];
-  }
-  return _siteInfoFetcher;
+    if (_siteInfoFetcher == nil) {
+        _siteInfoFetcher = [[MWKSiteInfoFetcher alloc] init];
+    }
+    return _siteInfoFetcher;
 }
 
 - (WMFArticlePreviewFetcher *)titleSearchFetcher {
-  if (_titleSearchFetcher == nil) {
-    _titleSearchFetcher = [[WMFArticlePreviewFetcher alloc] init];
-  }
-  return _titleSearchFetcher;
+    if (_titleSearchFetcher == nil) {
+        _titleSearchFetcher = [[WMFArticlePreviewFetcher alloc] init];
+    }
+    return _titleSearchFetcher;
 }
 
 #pragma mark - HomeSectionController
 
 - (id)sectionIdentifier {
-  return WMFMainPageSectionIdentifier;
+    return WMFMainPageSectionIdentifier;
 }
 
 - (UIImage *)headerIcon {
-  return [UIImage imageNamed:@"news-mini"];
+    return [UIImage imageNamed:@"news-mini"];
 }
 
 - (UIColor *)headerIconTintColor {
-  return [UIColor wmf_exploreSectionHeaderIconTintColor];
+    return [UIColor wmf_exploreSectionHeaderIconTintColor];
 }
 
 - (UIColor *)headerIconBackgroundColor {
-  return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
+    return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
 }
 
 - (NSAttributedString *)headerTitle {
-  return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-main-page-heading", nil) attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-main-page-heading", nil) attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
 - (NSAttributedString *)headerSubTitle {
-  return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]] attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]] attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString *)cellIdentifier {
-  return [WMFArticleListCollectionViewCell identifier];
+    return [WMFArticleListCollectionViewCell identifier];
 }
 
 - (UINib *)cellNib {
-  return [WMFArticleListCollectionViewCell wmf_classNib];
+    return [WMFArticleListCollectionViewCell wmf_classNib];
 }
 
 - (NSUInteger)numberOfPlaceholderCells {
-  return 1;
+    return 1;
 }
 
 - (nullable NSString *)placeholderCellIdentifier {
-  return [WMFMainPagePlaceholderCollectionViewCell identifier];
+    return [WMFMainPagePlaceholderCollectionViewCell identifier];
 }
 
 - (nullable UINib *)placeholderCellNib {
-  return [WMFMainPagePlaceholderCollectionViewCell wmf_classNib];
+    return [WMFMainPagePlaceholderCollectionViewCell wmf_classNib];
 }
 
 - (void)configureCell:(WMFArticleListCollectionViewCell *)cell withItem:(MWKSearchResult *)item atIndexPath:(NSIndexPath *)indexPath {
-  cell.titleText = item.displayTitle;
-  cell.titleLabel.accessibilityLanguage = self.siteURL.wmf_language;
-  cell.descriptionText = item.wikidataDescription;
-  [cell setImageURL:item.thumbnailURL];
-  [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+    cell.titleText = item.displayTitle;
+    cell.titleLabel.accessibilityLanguage = self.siteURL.wmf_language;
+    cell.descriptionText = item.wikidataDescription;
+    [cell setImageURL:item.thumbnailURL];
+    [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
 }
 
 - (NSString *)analyticsContentType {
-  return @"Main Page";
+    return @"Main Page";
 }
 
 - (CGFloat)estimatedRowHeight {
-  return [WMFArticleListCollectionViewCell estimatedRowHeight];
+    return [WMFArticleListCollectionViewCell estimatedRowHeight];
 }
 
 - (AnyPromise *)fetchData {
-  @weakify(self);
-  return [self.siteInfoFetcher fetchSiteInfoForSiteURL:self.siteURL].then(^(MWKSiteInfo *data) {
-                                                                      @strongify(self);
-                                                                      if (!self || !data.mainPageURL) {
-                                                                        return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
-                                                                      }
-                                                                      self.siteInfo = data;
-                                                                      return (id)[self.titleSearchFetcher fetchArticlePreviewResultsForArticleURLs:@[ self.siteInfo.mainPageURL ] siteURL:self.siteURL];
-                                                                    })
-      .then(^(NSArray<MWKSearchResult *> *searchResults) {
-        @strongify(self);
-        if (!self) {
-          return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
-        }
-        self.mainPageSearchResult = [searchResults firstObject];
-        return (id) @[ [searchResults firstObject] ];
-      })
-      .catch(^(NSError *error) {
-        @strongify(self);
-        self.siteInfo = nil;
-        self.mainPageSearchResult = nil;
-        return error;
-      });
+    @weakify(self);
+    return [self.siteInfoFetcher fetchSiteInfoForSiteURL:self.siteURL].then(^(MWKSiteInfo *data) {
+                                                                        @strongify(self);
+                                                                        if (!self || !data.mainPageURL) {
+                                                                            return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
+                                                                        }
+                                                                        self.siteInfo = data;
+                                                                        return (id)[self.titleSearchFetcher fetchArticlePreviewResultsForArticleURLs:@[ self.siteInfo.mainPageURL ] siteURL:self.siteURL];
+                                                                      })
+        .then(^(NSArray<MWKSearchResult *> *searchResults) {
+          @strongify(self);
+          if (!self) {
+              return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
+          }
+          self.mainPageSearchResult = [searchResults firstObject];
+          return (id) @[ [searchResults firstObject] ];
+        })
+        .catch(^(NSError *error) {
+          @strongify(self);
+          self.siteInfo = nil;
+          self.mainPageSearchResult = nil;
+          return error;
+        });
 }
 
 - (UIViewController *)detailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
-  NSURL *url = [self urlForItemAtIndexPath:indexPath];
-  return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+    NSURL *url = [self urlForItemAtIndexPath:indexPath];
+    return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
 }
 
 #pragma mark - WMFTitleProviding
 
 - (nullable NSURL *)urlForItemAtIndexPath:(NSIndexPath *)indexPath {
-  return [self.siteInfo mainPageURL];
+    return [self.siteInfo mainPageURL];
 }
 
 @end

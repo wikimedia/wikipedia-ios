@@ -103,20 +103,20 @@ QuickSpecEnd
     @implementation MWKHistoryList(SectionDataSourceTesting)
 
     - (NSArray<NSURL *> *)injectWithStubbedEntriesFromDate : (NSDate *)date {
-  MWKHistoryEntry *entryFromDate = [MWKHistoryEntry random];
-  entryFromDate.date = [date dateAtStartOfDay];
+    MWKHistoryEntry *entryFromDate = [MWKHistoryEntry random];
+    entryFromDate.date = [date dateAtStartOfDay];
 
-  MWKHistoryEntry *entryFromLaterThatDay = [MWKHistoryEntry random];
-  entryFromLaterThatDay.date = [NSDate dateWithTimeInterval:10 sinceDate:entryFromDate.date];
+    MWKHistoryEntry *entryFromLaterThatDay = [MWKHistoryEntry random];
+    entryFromLaterThatDay.date = [NSDate dateWithTimeInterval:10 sinceDate:entryFromDate.date];
 
-  [self addEntry:entryFromDate];
-  [self addEntry:entryFromLaterThatDay];
+    [self addEntry:entryFromDate];
+    [self addEntry:entryFromLaterThatDay];
 
-  NSArray<NSURL *> *orderedTitlesFromDate = [self.entries wmf_mapAndRejectNil:^id _Nullable(MWKHistoryEntry *_Nonnull obj) {
-    return [obj.date isEqualToDateIgnoringTime:date] ? obj.url : nil;
-  }];
+    NSArray<NSURL *> *orderedTitlesFromDate = [self.entries wmf_mapAndRejectNil:^id _Nullable(MWKHistoryEntry *_Nonnull obj) {
+      return [obj.date isEqualToDateIgnoringTime:date] ? obj.url : nil;
+    }];
 
-  return orderedTitlesFromDate;
+    return orderedTitlesFromDate;
 }
 
 @end

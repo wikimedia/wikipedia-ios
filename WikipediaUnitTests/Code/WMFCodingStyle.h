@@ -3,8 +3,8 @@
 extern NSString *const WMFCodingStyleConstant;
 
 typedef NS_ENUM(NSInteger, WMFCodingStyle) {
-  WMFCodingStyleDefault = 0,
-  WMFCodingStyleValue = 1
+    WMFCodingStyleDefault = 0,
+    WMFCodingStyleValue = 1
 };
 
 extern NSString *WMFCodingStyleAsString(WMFCodingStyle style);

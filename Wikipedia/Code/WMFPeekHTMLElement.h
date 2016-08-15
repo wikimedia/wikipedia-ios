@@ -3,9 +3,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, WMFPeekElementType) {
-  WMFPeekElementTypeUnpeekable,
-  WMFPeekElementTypeAnchor,
-  WMFPeekElementTypeImage
+    WMFPeekElementTypeUnpeekable,
+    WMFPeekElementTypeAnchor,
+    WMFPeekElementTypeImage
 };
 
 @interface WMFPeekHTMLElement : NSObject

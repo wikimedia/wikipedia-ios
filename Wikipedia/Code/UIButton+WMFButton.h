@@ -1,8 +1,8 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, WMFButtonType) {
-  WMFButtonTypeX,
-  WMFButtonTypeCaretLeft
+    WMFButtonTypeX,
+    WMFButtonTypeCaretLeft
 };
 
 NS_ASSUME_NONNULL_BEGIN

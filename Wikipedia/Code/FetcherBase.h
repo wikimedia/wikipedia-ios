@@ -2,9 +2,9 @@
 
 // Enums for the FetchFinishedDelegate protocol method.
 typedef NS_ENUM(NSInteger, FetchFinalStatus) {
-  FETCH_FINAL_STATUS_SUCCEEDED,
-  FETCH_FINAL_STATUS_CANCELLED,
-  FETCH_FINAL_STATUS_FAILED
+    FETCH_FINAL_STATUS_SUCCEEDED,
+    FETCH_FINAL_STATUS_CANCELLED,
+    FETCH_FINAL_STATUS_FAILED
 };
 
 // Protocol for notifying fetchFinishedDelegate that download has completed.

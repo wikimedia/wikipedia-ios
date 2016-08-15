@@ -12,23 +12,23 @@
 @implementation WMFArticleFooterMenuCell
 
 - (void)setTitle:(NSString *)title {
-  _title = title;
-  self.titleLabel.text = title;
+    _title = title;
+    self.titleLabel.text = title;
 }
 
 - (void)setSubTitle:(NSString *)subTitle {
-  _subTitle = subTitle;
-  self.descriptionLabel.text = subTitle;
+    _subTitle = subTitle;
+    self.descriptionLabel.text = subTitle;
 }
 
 - (void)setImageName:(NSString *)imageName {
-  _imageName = imageName;
-  self.iconImageView.image = [UIImage imageNamed:imageName];
+    _imageName = imageName;
+    self.iconImageView.image = [UIImage imageNamed:imageName];
 }
 
 - (void)awakeFromNib {
-  [super awakeFromNib];
-  [self wmf_makeCellDividerBeEdgeToEdge];
+    [super awakeFromNib];
+    [self wmf_makeCellDividerBeEdgeToEdge];
 }
 
 @end

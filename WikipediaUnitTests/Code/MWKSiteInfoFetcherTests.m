@@ -23,84 +23,84 @@
 @implementation MWKSiteInfoFetcherTests
 
 - (void)setUp {
-  [super setUp];
-  self.fetcher = [MWKSiteInfoFetcher new];
-  [[LSNocilla sharedInstance] start];
+    [super setUp];
+    self.fetcher = [MWKSiteInfoFetcher new];
+    [[LSNocilla sharedInstance] start];
 }
 
 - (void)tearDown {
-  [[LSNocilla sharedInstance] stop];
-  [super tearDown];
+    [[LSNocilla sharedInstance] stop];
+    [super tearDown];
 }
 
 - (void)testENWikiFixture {
-  [self runSuccessfulCallbackTestWithFixture:@"ENWikiSiteInfo" siteURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"]];
+    [self runSuccessfulCallbackTestWithFixture:@"ENWikiSiteInfo" siteURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"]];
 }
 
 - (void)testNOWikiFixture {
-  [self runSuccessfulCallbackTestWithFixture:@"NOWikiSiteInfo" siteURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:@"no"]];
+    [self runSuccessfulCallbackTestWithFixture:@"NOWikiSiteInfo" siteURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:@"no"]];
 }
 
 - (void)runSuccessfulCallbackTestWithFixture:(NSString *)fixture siteURL:(NSURL *)testSiteURL {
-  NSString *json = [[self wmf_bundle] wmf_stringFromContentsOfFile:fixture ofType:@"json"];
-  NSDictionary *jsonDictionary = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixture];
+    NSString *json = [[self wmf_bundle] wmf_stringFromContentsOfFile:fixture ofType:@"json"];
+    NSDictionary *jsonDictionary = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixture];
 
-  NSRegularExpression *anyRequestFromTestSite =
-      [NSRegularExpression regularExpressionWithPattern:
-                               [NSString stringWithFormat:@"%@.*", [[NSURL wmf_desktopAPIURLForURL:testSiteURL] absoluteString]]
-                                                options:0
-                                                  error:nil];
+    NSRegularExpression *anyRequestFromTestSite =
+        [NSRegularExpression regularExpressionWithPattern:
+                                 [NSString stringWithFormat:@"%@.*", [[NSURL wmf_desktopAPIURLForURL:testSiteURL] absoluteString]]
+                                                  options:0
+                                                    error:nil];
 
-  stubRequest(@"GET", anyRequestFromTestSite)
-      .andReturn(200)
-      .withHeaders(@{ @"Content-Type" : @"application/json" })
-      .withBody(json);
+    stubRequest(@"GET", anyRequestFromTestSite)
+        .andReturn(200)
+        .withHeaders(@{ @"Content-Type" : @"application/json" })
+        .withBody(json);
 
-  XCTestExpectation *expectation = [self expectationWithDescription:@"response"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"response"];
 
-  [self.fetcher fetchSiteInfoForSiteURL:testSiteURL]
-      .then(^(MWKSiteInfo *result) {
-        assertThat(result.siteURL, is(equalTo(testSiteURL)));
-        assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
-        [expectation fulfill];
-      });
-  [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    [self.fetcher fetchSiteInfoForSiteURL:testSiteURL]
+        .then(^(MWKSiteInfo *result) {
+          assertThat(result.siteURL, is(equalTo(testSiteURL)));
+          assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
+          [expectation fulfill];
+        });
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
 - (void)testDesktopFallback {
-  NSURL *testSiteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
-  NSString *json = [[self wmf_bundle] wmf_stringFromContentsOfFile:@"ENWikiSiteInfo" ofType:@"json"];
-  NSDictionary *jsonDictionary = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"ENWikiSiteInfo"];
+    NSURL *testSiteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
+    NSString *json = [[self wmf_bundle] wmf_stringFromContentsOfFile:@"ENWikiSiteInfo" ofType:@"json"];
+    NSDictionary *jsonDictionary = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"ENWikiSiteInfo"];
 
-  NSError *fallbackError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorSecureConnectionFailed userInfo:nil];
+    NSError *fallbackError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorSecureConnectionFailed userInfo:nil];
 
-  NSRegularExpression *anyRequestFromTestSiteDesktop =
-      [NSRegularExpression regularExpressionWithPattern:
-                               [NSString stringWithFormat:@"%@.*", [testSiteURL absoluteString]]
-                                                options:0
-                                                  error:nil];
+    NSRegularExpression *anyRequestFromTestSiteDesktop =
+        [NSRegularExpression regularExpressionWithPattern:
+                                 [NSString stringWithFormat:@"%@.*", [testSiteURL absoluteString]]
+                                                  options:0
+                                                    error:nil];
 
-  stubRequest(@"GET", @"https://en.m.wikipedia.org/w/api.php?action=query&format=json&meta=siteinfo&siprop=general")
-      .andFailWithError(fallbackError);
+    stubRequest(@"GET", @"https://en.m.wikipedia.org/w/api.php?action=query&format=json&meta=siteinfo&siprop=general")
+        .andFailWithError(fallbackError);
 
-  stubRequest(@"GET", anyRequestFromTestSiteDesktop)
-      .andReturn(200)
-      .withHeaders(@{ @"Content-Type" : @"application/json" })
-      .withBody(json);
+    stubRequest(@"GET", anyRequestFromTestSiteDesktop)
+        .andReturn(200)
+        .withHeaders(@{ @"Content-Type" : @"application/json" })
+        .withBody(json);
 
-  XCTestExpectation *expectation = [self expectationWithDescription:@"response"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"response"];
 
-  [self.fetcher fetchSiteInfoForSiteURL:testSiteURL]
-      .then(^(MWKSiteInfo *result) {
-        assertThat(result.siteURL, is(equalTo(testSiteURL)));
-        assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
-        [expectation fulfill];
-      })
-      .catch(^(NSError *error) {
-        NSLog(@"%@", [error localizedDescription]);
-      });
+    [self.fetcher fetchSiteInfoForSiteURL:testSiteURL]
+        .then(^(MWKSiteInfo *result) {
+          assertThat(result.siteURL, is(equalTo(testSiteURL)));
+          assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
+          [expectation fulfill];
+        })
+        .catch(^(NSError *error) {
+          NSLog(@"%@", [error localizedDescription]);
+        });
 
-  [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
 #pragma mark - (Flaky) Integration Tests

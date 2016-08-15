@@ -14,14 +14,14 @@ extern NSString *const WMFRedirectTitleKey;
 extern NSString *const WMFFailingRequestParametersUserInfoKey;
 
 typedef NS_ENUM(NSInteger, WMFErrorType) {
-  WMFErrorTypeStringLength,
-  WMFErrorTypeStringMissingParameter,
-  WMFErrorTypeRedirected,
-  WMFErrorTypeUnableToSave,
-  WMFErrorTypeArticleResponseSerialization,
-  WMFErrorTypeUnexpectedResponseType,
-  WMFErrorTypeInvalidRequestParameters,
-  WMFErrorTypeFetchAlreadyInProgress
+    WMFErrorTypeStringLength,
+    WMFErrorTypeStringMissingParameter,
+    WMFErrorTypeRedirected,
+    WMFErrorTypeUnableToSave,
+    WMFErrorTypeArticleResponseSerialization,
+    WMFErrorTypeUnexpectedResponseType,
+    WMFErrorTypeInvalidRequestParameters,
+    WMFErrorTypeFetchAlreadyInProgress
 };
 
 @interface NSError (WMFExtensions)

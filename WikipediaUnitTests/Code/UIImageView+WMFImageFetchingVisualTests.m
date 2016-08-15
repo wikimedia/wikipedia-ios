@@ -27,69 +27,69 @@
 @implementation UIImageViewWMFImageFetchingVisualTests
 
 - (void)setUp {
-  [super setUp];
+    [super setUp];
 
-  self.recordMode = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
-  self.deviceAgnostic = YES;
+    self.recordMode = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
+    self.deviceAgnostic = YES;
 
-  [[LSNocilla sharedInstance] start];
-  self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
-  self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-  self.imageView.wmf_imageController = [WMFImageController temporaryController];
+    [[LSNocilla sharedInstance] start];
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView.wmf_imageController = [WMFImageController temporaryController];
 }
 
 - (void)tearDown {
-  [[LSNocilla sharedInstance] stop];
-  [[UIImageView faceDetectionCache] clearCache];
-  [self.imageView.wmf_imageController deleteAllImages];
-  [super tearDown];
+    [[LSNocilla sharedInstance] stop];
+    [[UIImageView faceDetectionCache] clearCache];
+    [self.imageView.wmf_imageController deleteAllImages];
+    [super tearDown];
 }
 
 - (void)testCentersPresObamasFaceVertically {
-  [self verifyCenteringOfFacesInFixtureNamed:@"640px-President_Barack_Obama.jpg"];
+    [self verifyCenteringOfFacesInFixtureNamed:@"640px-President_Barack_Obama.jpg"];
 }
 
 - (void)testCentersBothActorsFacesVertically {
-  [self verifyCenteringOfFacesInFixtureNamed:@"Spider-Man_actors.jpg"];
+    [self verifyCenteringOfFacesInFixtureNamed:@"Spider-Man_actors.jpg"];
 }
 
 - (void)testUsesSpecifiedContentModeBehaviorOnFeaturelessImage {
-  [self verifyCenteringOfFacesInFixtureNamed:@"golden-gate.jpg"];
+    [self verifyCenteringOfFacesInFixtureNamed:@"golden-gate.jpg"];
 }
 
 #pragma mark - Utils
 
 - (void)verifyCenteringOfFacesInFixtureNamed:(NSString *)imageFixtureName {
-  // !!!: Need to use different URLs to prevent reusing face detection data for different images
-  NSURL *testURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://test/%@.jpg", imageFixtureName]];
+    // !!!: Need to use different URLs to prevent reusing face detection data for different images
+    NSURL *testURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://test/%@.jpg", imageFixtureName]];
 
-  UIImage *testImage =
-      [UIImage imageNamed:imageFixtureName
-                               inBundle:[self wmf_bundle]
-          compatibleWithTraitCollection:nil];
+    UIImage *testImage =
+        [UIImage imageNamed:imageFixtureName
+                                 inBundle:[self wmf_bundle]
+            compatibleWithTraitCollection:nil];
 
-  NSAssert(testImage,
-           @"Couldn't find image fixture named %@. Make sure it's included in the unit testing target.",
-           imageFixtureName);
+    NSAssert(testImage,
+             @"Couldn't find image fixture named %@. Make sure it's included in the unit testing target.",
+             imageFixtureName);
 
-  stubRequest(@"GET", testURL.absoluteString)
-      .andReturn(200)
-      .withBody(UIImageJPEGRepresentation(testImage, 1.f));
+    stubRequest(@"GET", testURL.absoluteString)
+        .andReturn(200)
+        .withBody(UIImageJPEGRepresentation(testImage, 1.f));
 
-  XCTestExpectation *expectation = [self expectationWithDescription:@"waiting for image set"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"waiting for image set"];
 
-  [self.imageView wmf_setImageWithURL:testURL
-      detectFaces:YES
-      failure:^(NSError *error) {
-        XCTFail();
-        [expectation fulfill];
-      }
-      success:^{
-        WMFSnapshotVerifyView(self.imageView);
-        [expectation fulfill];
-      }];
+    [self.imageView wmf_setImageWithURL:testURL
+        detectFaces:YES
+        failure:^(NSError *error) {
+          XCTFail();
+          [expectation fulfill];
+        }
+        success:^{
+          WMFSnapshotVerifyView(self.imageView);
+          [expectation fulfill];
+        }];
 
-  WaitForExpectationsWithTimeout(10);
+    WaitForExpectationsWithTimeout(10);
 }
 
 @end

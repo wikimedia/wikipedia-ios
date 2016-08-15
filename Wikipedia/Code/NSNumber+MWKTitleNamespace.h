@@ -14,25 +14,25 @@
  *  see https://www.mediawiki.org/wiki/Manual:Namespace#Built-in_namespaces
  */
 typedef NS_ENUM(NSInteger, MWKTitleNamespace) {
-  MWKTitleNamespaceUnknown = NSNotFound,
-  MWKTitleNamespaceMedia = -2,
-  MWKTitleNamespaceSpecial = -1,
-  MWKTitleNamespaceMain = 0,
-  MWKTitleNamespaceTalk = 1,
-  MWKTitleNamespaceUser = 2,
-  MWKTitleNamespaceUserTalk = 3,
-  MWKTitleNamespaceProject = 4,
-  MWKTitleNamespaceProjectTalk = 5,
-  MWKTitleNamespaceFile = 6,
-  MWKTitleNamespaceFileTalk = 7,
-  MWKTitleNamespaceMediaWiki = 8,
-  MWKTitleNamespaceMediaWikiTalk = 9,
-  MWKTitleNamespaceTemplate = 10,
-  MWKTitleNamespaceTemplateTalk = 11,
-  MWKTitleNamespaceHelp = 12,
-  MWKTitleNamespaceHelpTalk = 13,
-  MWKTitleNamespaceCategory = 14,
-  MWKTitleNamespaceCategoryTalk = 15
+    MWKTitleNamespaceUnknown = NSNotFound,
+    MWKTitleNamespaceMedia = -2,
+    MWKTitleNamespaceSpecial = -1,
+    MWKTitleNamespaceMain = 0,
+    MWKTitleNamespaceTalk = 1,
+    MWKTitleNamespaceUser = 2,
+    MWKTitleNamespaceUserTalk = 3,
+    MWKTitleNamespaceProject = 4,
+    MWKTitleNamespaceProjectTalk = 5,
+    MWKTitleNamespaceFile = 6,
+    MWKTitleNamespaceFileTalk = 7,
+    MWKTitleNamespaceMediaWiki = 8,
+    MWKTitleNamespaceMediaWikiTalk = 9,
+    MWKTitleNamespaceTemplate = 10,
+    MWKTitleNamespaceTemplateTalk = 11,
+    MWKTitleNamespaceHelp = 12,
+    MWKTitleNamespaceHelpTalk = 13,
+    MWKTitleNamespaceCategory = 14,
+    MWKTitleNamespaceCategoryTalk = 15
 };
 
 @interface NSNumber (MWKTitleNamespace)

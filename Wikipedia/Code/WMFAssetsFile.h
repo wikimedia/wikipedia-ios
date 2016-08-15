@@ -1,10 +1,10 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, WMFAssetsFileType) {
-  WMFAssetsFileTypeUndefined = 0,
-  WMFAssetsFileTypeConfig,
-  WMFAssetsFileTypeLanguages,
-  WMFAssetsFileTypeMainPages
+    WMFAssetsFileTypeUndefined = 0,
+    WMFAssetsFileTypeConfig,
+    WMFAssetsFileTypeLanguages,
+    WMFAssetsFileTypeMainPages
 };
 
 @interface WMFAssetsFile : NSObject

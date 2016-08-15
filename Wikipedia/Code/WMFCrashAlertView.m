@@ -16,18 +16,18 @@ NSString *const kHockyAppPrivacyUrl = @"http://hockeyapp.net/privacy/";
 @implementation WMFCrashAlertView
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated {
-  NSString *buttonText = [self buttonTitleAtIndex:buttonIndex];
-  if ([buttonText isEqualToString:[WMFCrashAlertView wmf_hockeyAppPrivacyButtonText]]) {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kHockyAppPrivacyUrl]];
-    return;
-  }
-  [super dismissWithClickedButtonIndex:buttonIndex animated:animated];
+    NSString *buttonText = [self buttonTitleAtIndex:buttonIndex];
+    if ([buttonText isEqualToString:[WMFCrashAlertView wmf_hockeyAppPrivacyButtonText]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kHockyAppPrivacyUrl]];
+        return;
+    }
+    [super dismissWithClickedButtonIndex:buttonIndex animated:animated];
 }
 
 + (NSString *)wmf_hockeyAppPrivacyButtonText {
-  return [MWLocalizedString(kHockeyAppPrivacyStringsKey, nil)
-      stringByReplacingOccurrencesOfString:@"$1"
-                                withString:WMFHockeyAppServiceName];
+    return [MWLocalizedString(kHockeyAppPrivacyStringsKey, nil)
+        stringByReplacingOccurrencesOfString:@"$1"
+                                  withString:WMFHockeyAppServiceName];
 }
 
 @end

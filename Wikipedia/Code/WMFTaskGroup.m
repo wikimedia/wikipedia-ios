@@ -10,32 +10,32 @@
 @implementation WMFTaskGroup
 
 - (instancetype)init {
-  self = [super init];
-  if (self) {
-    self.group = dispatch_group_create();
-  }
-  return self;
+    self = [super init];
+    if (self) {
+        self.group = dispatch_group_create();
+    }
+    return self;
 }
 - (void)enter {
-  @synchronized(self) {
-    self.count++;
-    dispatch_group_enter(_group);
-  }
+    @synchronized(self) {
+        self.count++;
+        dispatch_group_enter(_group);
+    }
 }
 
 - (void)leave {
-  @synchronized(self) {
-    if (self.count > 0) {
-      self.count--;
-      dispatch_group_leave(self.group);
-    } else {
-      DDLogError(@"Mismatched leave for group: %@", self);
+    @synchronized(self) {
+        if (self.count > 0) {
+            self.count--;
+            dispatch_group_leave(self.group);
+        } else {
+            DDLogError(@"Mismatched leave for group: %@", self);
+        }
     }
-  }
 }
 
 - (void)waitInBackgroundWithCompletion:(nonnull dispatch_block_t)completion {
-  dispatch_group_notify(self.group, dispatch_get_main_queue(), completion);
+    dispatch_group_notify(self.group, dispatch_get_main_queue(), completion);
 }
 
 @end

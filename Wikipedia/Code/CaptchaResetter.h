@@ -2,8 +2,8 @@
 #import "FetcherBase.h"
 
 typedef NS_ENUM(NSInteger, CaptchaResetterErrorType) {
-  CAPTCHA_RESET_ERROR_UNKNOWN = 0,
-  CAPTCHA_RESET_ERROR_API = 1
+    CAPTCHA_RESET_ERROR_UNKNOWN = 0,
+    CAPTCHA_RESET_ERROR_API = 1
 };
 
 @class AFHTTPSessionManager;

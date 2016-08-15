@@ -12,17 +12,17 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation MWKSearchRedirectMapping
 
 + (instancetype)mappingFromTitle:(NSString *)from toTitle:(NSString *)to {
-  MWKSearchRedirectMapping *instance = [self new];
-  instance.redirectFromTitle = from;
-  instance.redirectToTitle = to;
-  return instance;
+    MWKSearchRedirectMapping *instance = [self new];
+    instance.redirectFromTitle = from;
+    instance.redirectToTitle = to;
+    return instance;
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-  return @{
-    WMF_SAFE_KEYPATH(MWKSearchRedirectMapping.new, redirectFromTitle) : @"from",
-    WMF_SAFE_KEYPATH(MWKSearchRedirectMapping.new, redirectToTitle) : @"to",
-  };
+    return @{
+        WMF_SAFE_KEYPATH(MWKSearchRedirectMapping.new, redirectFromTitle) : @"from",
+        WMF_SAFE_KEYPATH(MWKSearchRedirectMapping.new, redirectToTitle) : @"to",
+    };
 }
 
 @end

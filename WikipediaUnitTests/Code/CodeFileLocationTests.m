@@ -10,38 +10,38 @@
 @implementation CodeFileLocationTests
 
 - (void)setUp {
-  [super setUp];
+    [super setUp];
 }
 
 - (void)test_code_files_are_not_in_root_folder {
-  // There are project and testing "code" folders.
-  // This test ensures we keep code files out of the project's root directory.
-  NSArray *extensionsToKeepOutOfRoot =
-      @[
-        @"h",
-        @"m",
-        @"c",
-        @"mm",
-        @"cpp",
-        @"swift",
-        @"xib",
-        @"json",
-        @"storyboard",
-        @"plist",
-        @"xcdatamodeld"
-      ];
+    // There are project and testing "code" folders.
+    // This test ensures we keep code files out of the project's root directory.
+    NSArray *extensionsToKeepOutOfRoot =
+        @[
+           @"h",
+           @"m",
+           @"c",
+           @"mm",
+           @"cpp",
+           @"swift",
+           @"xib",
+           @"json",
+           @"storyboard",
+           @"plist",
+           @"xcdatamodeld"
+        ];
 
-  NSPredicate *extensionsPredicate =
-      [NSPredicate predicateWithFormat:@"pathExtension IN %@", extensionsToKeepOutOfRoot];
+    NSPredicate *extensionsPredicate =
+        [NSPredicate predicateWithFormat:@"pathExtension IN %@", extensionsToKeepOutOfRoot];
 
-  NSArray *filesWhichShouldNotBeInRoot =
-      [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:SOURCE_ROOT_DIR error:nil] filteredArrayUsingPredicate:extensionsPredicate];
+    NSArray *filesWhichShouldNotBeInRoot =
+        [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:SOURCE_ROOT_DIR error:nil] filteredArrayUsingPredicate:extensionsPredicate];
 
-  assertThat(filesWhichShouldNotBeInRoot, hasCountOf(0));
+    assertThat(filesWhichShouldNotBeInRoot, hasCountOf(0));
 }
 
 - (void)tearDown {
-  [super tearDown];
+    [super tearDown];
 }
 
 @end

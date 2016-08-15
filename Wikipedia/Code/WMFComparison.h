@@ -62,9 +62,9 @@
  */
 #define WMF_RHS_PROP_EQUAL(prop, sel) WMF_EQUAL_PROPERTIES(self, prop, sel, rhs)
 
-#define WMF_SYNTHESIZE_IS_EQUAL(CLASS_NAME, CLASS_EQ_SEL)                                                \
-  -(BOOL)isEqual : (id)obj {                                                                             \
-    return [super isEqual:obj] || [obj isKindOfClass:[CLASS_NAME class]] ? [self CLASS_EQ_SEL obj] : NO; \
-  }
+#define WMF_SYNTHESIZE_IS_EQUAL(CLASS_NAME, CLASS_EQ_SEL)                                                    \
+    -(BOOL)isEqual : (id)obj {                                                                               \
+        return [super isEqual:obj] || [obj isKindOfClass:[CLASS_NAME class]] ? [self CLASS_EQ_SEL obj] : NO; \
+    }
 
 #endif

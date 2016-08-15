@@ -11,18 +11,18 @@ static CGFloat const WMFLanguageHeaderFontSize = 12.f;
 @implementation WMFArticleLanguagesSectionHeader
 
 - (void)setTitle:(NSString *)title {
-  self.titleLabel.text = title;
+    self.titleLabel.text = title;
 }
 
 - (void)awakeFromNib {
-  [super awakeFromNib];
+    [super awakeFromNib];
 
-  UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
-  backgroundView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
-  self.backgroundView = backgroundView;
+    UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
+    backgroundView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
+    self.backgroundView = backgroundView;
 
-  self.titleLabel.font = [UIFont systemFontOfSize:WMFLanguageHeaderFontSize];
-  self.titleLabel.textColor = [UIColor wmf_777777Color];
+    self.titleLabel.font = [UIFont systemFontOfSize:WMFLanguageHeaderFontSize];
+    self.titleLabel.textColor = [UIColor wmf_777777Color];
 }
 
 @end

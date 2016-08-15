@@ -9,20 +9,20 @@
 @class WMFArticleViewController;
 
 typedef enum : NSUInteger {
-  WMFTableOfContentsDisplaySideLeft,
-  WMFTableOfContentsDisplaySideRight
+    WMFTableOfContentsDisplaySideLeft,
+    WMFTableOfContentsDisplaySideRight
 } WMFTableOfContentsDisplaySide;
 
 typedef enum : NSUInteger {
-  WMFTableOfContentsDisplayModeModal,
-  WMFTableOfContentsDisplayModeInline
+    WMFTableOfContentsDisplayModeModal,
+    WMFTableOfContentsDisplayModeInline
 } WMFTableOfContentsDisplayMode;
 
 typedef enum : NSUInteger {
-  WMFTableOfContentsDisplayStateInlineVisible,
-  WMFTableOfContentsDisplayStateInlineHidden,
-  WMFTableOfContentsDisplayStateModalVisible,
-  WMFTableOfContentsDisplayStateModalHidden
+    WMFTableOfContentsDisplayStateInlineVisible,
+    WMFTableOfContentsDisplayStateInlineHidden,
+    WMFTableOfContentsDisplayStateModalVisible,
+    WMFTableOfContentsDisplayStateModalHidden
 } WMFTableOfContentsDisplayState;
 
 NS_ASSUME_NONNULL_BEGIN

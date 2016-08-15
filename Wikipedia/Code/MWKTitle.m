@@ -20,136 +20,136 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation MWKTitle
 
 - (instancetype)initWithURL:(NSURL *__nonnull)url {
-  if (url == nil) {
-    return nil;
-  }
+    if (url == nil) {
+        return nil;
+    }
 
-  self = [super init];
-  if (self) {
-    self.URL = url;
-  }
+    self = [super init];
+    if (self) {
+        self.URL = url;
+    }
 
-  return self;
+    return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
-  self = [super initWithCoder:coder];
-  if (self) {
-    if (!self.URL) {
-      NSString *text = [self decodeValueForKey:@"text" withCoder:coder modelVersion:0];
-      MWKSite *site = [self decodeValueForKey:@"site" withCoder:coder modelVersion:0];
-      NSString *fragment = [self decodeValueForKey:@"fragment" withCoder:coder modelVersion:0];
-      if (site && text) {
-        self.URL = [NSURL wmf_URLWithSiteURL:site.URL title:text fragment:fragment];
-      } else {
-        return nil;
-      }
+    self = [super initWithCoder:coder];
+    if (self) {
+        if (!self.URL) {
+            NSString *text = [self decodeValueForKey:@"text" withCoder:coder modelVersion:0];
+            MWKSite *site = [self decodeValueForKey:@"site" withCoder:coder modelVersion:0];
+            NSString *fragment = [self decodeValueForKey:@"fragment" withCoder:coder modelVersion:0];
+            if (site && text) {
+                self.URL = [NSURL wmf_URLWithSiteURL:site.URL title:text fragment:fragment];
+            } else {
+                return nil;
+            }
+        }
     }
-  }
-  return self;
+    return self;
 }
 
 - (instancetype)initWithSite:(MWKSite *)site
              normalizedTitle:(NSString *)text
                     fragment:(NSString *__nullable)fragment {
-  NSURL *titleURL = [site.URL wmf_URLWithTitle:text fragment:fragment];
-  return [self initWithURL:titleURL];
+    NSURL *titleURL = [site.URL wmf_URLWithTitle:text fragment:fragment];
+    return [self initWithURL:titleURL];
 }
 
 - (instancetype)initWithInternalLink:(NSString *)relativeInternalLink site:(MWKSite *)site {
-  NSURL *URL = [NSURL wmf_URLWithSiteURL:site.URL escapedDenormalizedInternalLink:relativeInternalLink];
-  return [self initWithURL:URL];
+    NSURL *URL = [NSURL wmf_URLWithSiteURL:site.URL escapedDenormalizedInternalLink:relativeInternalLink];
+    return [self initWithURL:URL];
 }
 
 - (instancetype)initWithString:(NSString *)string site:(MWKSite *)site {
-  NSURL *URL = [NSURL wmf_URLWithSiteURL:site.URL escapedDenormalizedTitleAndFragment:string];
-  return [self initWithURL:URL];
+    NSURL *URL = [NSURL wmf_URLWithSiteURL:site.URL escapedDenormalizedTitleAndFragment:string];
+    return [self initWithURL:URL];
 }
 
 - (instancetype)initWithUnescapedString:(NSString *)string site:(MWKSite *)site {
-  NSURL *URL = [NSURL wmf_URLWithSiteURL:site.URL unescapedDenormalizedTitleAndFragment:string];
-  return [self initWithURL:URL];
+    NSURL *URL = [NSURL wmf_URLWithSiteURL:site.URL unescapedDenormalizedTitleAndFragment:string];
+    return [self initWithURL:URL];
 }
 
 + (MWKTitle *)titleWithString:(NSString *)str site:(MWKSite *)site {
-  return [[MWKTitle alloc] initWithString:str site:site];
+    return [[MWKTitle alloc] initWithString:str site:site];
 }
 
 + (MWKTitle *)titleWithUnescapedString:(NSString *)str site:(MWKSite *)site {
-  return [[MWKTitle alloc] initWithUnescapedString:str site:site];
+    return [[MWKTitle alloc] initWithUnescapedString:str site:site];
 }
 
 #pragma mark - Computed Properties
 
 - (NSString *)text {
-  return self.URL.wmf_title;
+    return self.URL.wmf_title;
 }
 
 - (NSString *__nullable)fragment {
-  return self.URL.fragment;
+    return self.URL.fragment;
 }
 
 - (MWKSite *)site {
-  return [[MWKSite alloc] initWithURL:self.URL];
+    return [[MWKSite alloc] initWithURL:self.URL];
 }
 
 - (NSString *)dataBaseKey {
-  return [self.text wmf_denormalizedPageTitle];
+    return [self.text wmf_denormalizedPageTitle];
 }
 
 - (NSURL *)mobileURL {
-  return [NSURL wmf_mobileURLForURL:self.URL];
+    return [NSURL wmf_mobileURLForURL:self.URL];
 }
 
 - (NSURL *)desktopURL {
-  return [NSURL wmf_desktopURLForURL:self.URL];
+    return [NSURL wmf_desktopURLForURL:self.URL];
 }
 
 - (BOOL)isNonStandardTitle {
-  return self.URL.wmf_isNonStandardURL;
+    return self.URL.wmf_isNonStandardURL;
 }
 
 - (BOOL)isEqual:(id)object {
-  if (self == object) {
-    return YES;
-  } else if ([object isKindOfClass:[MWKTitle class]]) {
-    return [self isEqualToTitle:object];
-  } else {
-    return NO;
-  }
+    if (self == object) {
+        return YES;
+    } else if ([object isKindOfClass:[MWKTitle class]]) {
+        return [self isEqualToTitle:object];
+    } else {
+        return NO;
+    }
 }
 
 - (BOOL)isEqualToTitle:(MWKTitle *)otherTitle {
-  return WMF_IS_EQUAL_PROPERTIES(self, site, otherTitle) && WMF_EQUAL_PROPERTIES(self, text, isEqualToString:, otherTitle);
+    return WMF_IS_EQUAL_PROPERTIES(self, site, otherTitle) && WMF_EQUAL_PROPERTIES(self, text, isEqualToString:, otherTitle);
 }
 
 - (BOOL)isEqualToTitleIncludingFragment:(MWKTitle *)otherTitle {
-  return WMF_IS_EQUAL_PROPERTIES(self, site, otherTitle) && WMF_EQUAL_PROPERTIES(self, text, isEqualToString:, otherTitle) && WMF_EQUAL_PROPERTIES(self, fragment, isEqualToString:, otherTitle);
+    return WMF_IS_EQUAL_PROPERTIES(self, site, otherTitle) && WMF_EQUAL_PROPERTIES(self, text, isEqualToString:, otherTitle) && WMF_EQUAL_PROPERTIES(self, fragment, isEqualToString:, otherTitle);
 }
 
 - (NSUInteger)hash {
-  return self.site.hash ^ flipBitsWithAdditionalRotation(self.text.hash, 1);
+    return self.site.hash ^ flipBitsWithAdditionalRotation(self.text.hash, 1);
 }
 
 - (MWKTitle *)wmf_titleWithoutFragment {
-  return [[MWKTitle alloc] initWithSite:self.site normalizedTitle:self.text fragment:nil];
+    return [[MWKTitle alloc] initWithSite:self.site normalizedTitle:self.text fragment:nil];
 }
 
 #pragma mark - MTLModel
 
 + (NSUInteger)modelVersion {
-  return 1;
+    return 1;
 }
 
 // Need to specify storage properties since text & site are readonly, which Mantle interprets as transitory.
 + (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString *)propertyKey {
 #define IS_MWKTITLE_KEY(key) [propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKTitle new], key)]
-  if (IS_MWKTITLE_KEY(URL)) {
-    return MTLPropertyStoragePermanent;
-  } else {
-    // all other properties are computed from site and/or text
-    return MTLPropertyStorageNone;
-  }
+    if (IS_MWKTITLE_KEY(URL)) {
+        return MTLPropertyStoragePermanent;
+    } else {
+        // all other properties are computed from site and/or text
+        return MTLPropertyStorageNone;
+    }
 }
 
 @end

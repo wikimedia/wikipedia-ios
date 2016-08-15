@@ -18,35 +18,35 @@
 @implementation WMFMockLocationManager
 
 - (CLLocation *)location {
-  return self.mockLocation;
+    return self.mockLocation;
 }
 
 - (void)setLocation:(CLLocation *)location {
-  self.mockLocation = location;
-  [self.delegate nearbyController:self didUpdateLocation:self.location];
+    self.mockLocation = location;
+    [self.delegate nearbyController:self didUpdateLocation:self.location];
 }
 
 - (void)setHeading:(CLHeading *)heading {
-  self.mockHeading = heading;
-  [self.delegate nearbyController:self didUpdateHeading:self.heading];
+    self.mockHeading = heading;
+    [self.delegate nearbyController:self didUpdateHeading:self.heading];
 }
 
 - (CLHeading *)heading {
-  return self.mockHeading;
+    return self.mockHeading;
 }
 
 - (CLLocationManager *)locationManager {
-  // return new manager w/o setting self as delegate
-  return [[CLLocationManager alloc] init];
+    // return new manager w/o setting self as delegate
+    return [[CLLocationManager alloc] init];
 }
 
 - (void)startMonitoringLocation {
-  if (self.location) {
-    [self.delegate nearbyController:self didUpdateLocation:self.location];
-  }
-  if (self.heading) {
-    [self.delegate nearbyController:self didUpdateHeading:self.heading];
-  }
+    if (self.location) {
+        [self.delegate nearbyController:self didUpdateLocation:self.location];
+    }
+    if (self.heading) {
+        [self.delegate nearbyController:self didUpdateHeading:self.heading];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -57,7 +57,7 @@
 }
 
 - (AnyPromise *)reverseGeocodeLocation:(CLLocation *)location {
-  return [AnyPromise promiseWithValue:nil];
+    return [AnyPromise promiseWithValue:nil];
 }
 
 @end

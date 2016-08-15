@@ -24,11 +24,11 @@
 @implementation MenuButton
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
-  return [self initWithText:@"" fontSize:16.0 * MENUS_SCALE_MULTIPLIER bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero margin:UIEdgeInsetsZero];
+    return [self initWithText:@"" fontSize:16.0 * MENUS_SCALE_MULTIPLIER bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero margin:UIEdgeInsetsZero];
 }
 
 - (instancetype)init {
-  return [self initWithText:@"" fontSize:16.0 * MENUS_SCALE_MULTIPLIER bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero margin:UIEdgeInsetsZero];
+    return [self initWithText:@"" fontSize:16.0 * MENUS_SCALE_MULTIPLIER bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero margin:UIEdgeInsetsZero];
 }
 
 - (instancetype)initWithText:(NSString *)text
@@ -37,77 +37,77 @@
                        color:(UIColor *)color
                      padding:(UIEdgeInsets)padding
                       margin:(UIEdgeInsets)margin {
-  self = [super init];
-  if (self) {
-    self.translatesAutoresizingMaskIntoConstraints = NO;
-    self.fontSize = size * MENUS_SCALE_MULTIPLIER;
-    self.padding = padding;
-    self.text = text;
-    self.enabled = NO;
-    self.clipsToBounds = YES;
-    self.fontBold = bold;
-    self.label = [[MenuLabel alloc] initWithText:text fontSize:size bold:bold color:color padding:padding];
-    self.color = color;
-    self.oldColor = color;
-    [self addSubview:self.label];
-    self.margin = margin;
-    [self constrainLabel];
-    self.isAccessibilityElement = YES;
-    self.accessibilityTraits = UIAccessibilityTraitButton;
-  }
-  return self;
+    self = [super init];
+    if (self) {
+        self.translatesAutoresizingMaskIntoConstraints = NO;
+        self.fontSize = size * MENUS_SCALE_MULTIPLIER;
+        self.padding = padding;
+        self.text = text;
+        self.enabled = NO;
+        self.clipsToBounds = YES;
+        self.fontBold = bold;
+        self.label = [[MenuLabel alloc] initWithText:text fontSize:size bold:bold color:color padding:padding];
+        self.color = color;
+        self.oldColor = color;
+        [self addSubview:self.label];
+        self.margin = margin;
+        [self constrainLabel];
+        self.isAccessibilityElement = YES;
+        self.accessibilityTraits = UIAccessibilityTraitButton;
+    }
+    return self;
 }
 
 - (void)setColor:(UIColor *)color {
-  _color = color;
+    _color = color;
 
-  if (self.enabled) {
-    self.label.backgroundColor = color;
-    self.label.layer.borderColor = color.CGColor;
-    self.label.color = [UIColor whiteColor];
-  } else {
-    self.label.backgroundColor = [UIColor clearColor];
-    self.label.layer.borderColor = color.CGColor;
-    self.label.color = color;
-  }
+    if (self.enabled) {
+        self.label.backgroundColor = color;
+        self.label.layer.borderColor = color.CGColor;
+        self.label.color = [UIColor whiteColor];
+    } else {
+        self.label.backgroundColor = [UIColor clearColor];
+        self.label.layer.borderColor = color.CGColor;
+        self.label.color = color;
+    }
 }
 
 - (void)setEnabled:(BOOL)enabled {
-  _enabled = enabled;
+    _enabled = enabled;
 
-  // Force the color to changes to proper scheme for this enabled state.
-  [self setColor:self.color];
+    // Force the color to changes to proper scheme for this enabled state.
+    [self setColor:self.color];
 }
 
 - (void)constrainLabel {
-  [self.label removeConstraintsOfViewFromView:self];
+    [self.label removeConstraintsOfViewFromView:self];
 
-  NSDictionary *metrics = @{
-    @"marginTop" : @(self.margin.top * MENUS_SCALE_MULTIPLIER),
-    @"marginLeft" : @(self.margin.left * MENUS_SCALE_MULTIPLIER),
-    @"marginBottom" : @(self.margin.bottom * MENUS_SCALE_MULTIPLIER),
-    @"marginRight" : @(self.margin.right * MENUS_SCALE_MULTIPLIER)
-  };
+    NSDictionary *metrics = @{
+        @"marginTop" : @(self.margin.top * MENUS_SCALE_MULTIPLIER),
+        @"marginLeft" : @(self.margin.left * MENUS_SCALE_MULTIPLIER),
+        @"marginBottom" : @(self.margin.bottom * MENUS_SCALE_MULTIPLIER),
+        @"marginRight" : @(self.margin.right * MENUS_SCALE_MULTIPLIER)
+    };
 
-  NSDictionary *views = @{
-    @"label" : self.label
-  };
+    NSDictionary *views = @{
+        @"label" : self.label
+    };
 
-  NSArray *constraintArrays = @[
+    NSArray *constraintArrays = @[
 
-    [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(marginLeft)-[label]-(marginRight)-|"
-                                            options:0
-                                            metrics:metrics
-                                              views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(marginLeft)-[label]-(marginRight)-|"
+                                                options:0
+                                                metrics:metrics
+                                                  views:views],
 
-    [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(marginTop)-[label]-(marginBottom)-|"
-                                            options:0
-                                            metrics:metrics
-                                              views:views]
+        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(marginTop)-[label]-(marginBottom)-|"
+                                                options:0
+                                                metrics:metrics
+                                                  views:views]
 
-  ];
+    ];
 
-  [self addConstraints:[constraintArrays valueForKeyPath:@"@unionOfArrays.self"]];
+    [self addConstraints:[constraintArrays valueForKeyPath:@"@unionOfArrays.self"]];
 }
 
 @end

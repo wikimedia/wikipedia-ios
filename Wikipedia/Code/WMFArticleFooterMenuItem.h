@@ -1,10 +1,10 @@
 #import <Mantle/Mantle.h>
 
 typedef NS_ENUM(NSUInteger, WMFArticleFooterMenuItemType) {
-  WMFArticleFooterMenuItemTypeLanguages,
-  WMFArticleFooterMenuItemTypeLastEdited,
-  WMFArticleFooterMenuItemTypePageIssues,
-  WMFArticleFooterMenuItemTypeDisambiguation
+    WMFArticleFooterMenuItemTypeLanguages,
+    WMFArticleFooterMenuItemTypeLastEdited,
+    WMFArticleFooterMenuItemTypePageIssues,
+    WMFArticleFooterMenuItemTypeDisambiguation
 };
 
 @interface WMFArticleFooterMenuItem : MTLModel

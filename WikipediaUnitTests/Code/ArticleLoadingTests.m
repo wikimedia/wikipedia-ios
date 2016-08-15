@@ -26,17 +26,17 @@
 @implementation ArticleLoadingTests
 
 - (void)setUp {
-  [super setUp];
+    [super setUp];
 
-  self.session = [[SessionSingleton alloc] initWithDataStore:[MWKDataStore temporaryDataStore]];
-  self.webVC = [[WebViewController alloc] initWithSession:self.session];
+    self.session = [[SessionSingleton alloc] initWithDataStore:[MWKDataStore temporaryDataStore]];
+    self.webVC = [[WebViewController alloc] initWithSession:self.session];
 
-  // disable TOC stuff since it breaks when the WebVC isn't properly attached to a window/parent-VC
+    // disable TOC stuff since it breaks when the WebVC isn't properly attached to a window/parent-VC
 }
 
 - (void)tearDown {
-  [self.session.dataStore removeFolderAtBasePath];
-  [super tearDown];
+    [self.session.dataStore removeFolderAtBasePath];
+    [super tearDown];
 }
 
 //- (void)testReloadDoesNotAffectHistory {
@@ -149,21 +149,21 @@
 #pragma mark - Utils
 
 - (MWKArticle *)storeDummyArticleWithTitle:(NSString *)title {
-  NSURL *dummyTitle =
-      [NSURL wmf_URLWithDomain:@"wikipedia.org"
-                      language:@"en"
-                         title:title
-                      fragment:nil];
+    NSURL *dummyTitle =
+        [NSURL wmf_URLWithDomain:@"wikipedia.org"
+                        language:@"en"
+                           title:title
+                        fragment:nil];
 
-  MWKArticle *dummyArticle =
-      [[MWKArticle alloc] initWithURL:dummyTitle
-                            dataStore:self.session.dataStore];
+    MWKArticle *dummyArticle =
+        [[MWKArticle alloc] initWithURL:dummyTitle
+                              dataStore:self.session.dataStore];
 
-  // least-tedious way to create a testing article that can be persisted
-  [dummyArticle importMobileViewJSON:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
+    // least-tedious way to create a testing article that can be persisted
+    [dummyArticle importMobileViewJSON:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
 
-  [dummyArticle save];
-  return dummyArticle;
+    [dummyArticle save];
+    return dummyArticle;
 }
 
 @end

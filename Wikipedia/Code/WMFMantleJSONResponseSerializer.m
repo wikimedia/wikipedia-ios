@@ -45,49 +45,49 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFMantleJSONResponseSerializer
 
 + (instancetype)serializerForValuesInDictionaryOfType:(Class)model fromKeypath:(NSString *__nullable)keypath {
-  return [[WMFMantleJSONDictionaryValueResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath];
+    return [[WMFMantleJSONDictionaryValueResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath];
 }
 
 + (instancetype)serializerForInstancesOf:(Class __nonnull)model fromKeypath:(NSString *__nullable)keypath {
-  return [[WMFMantleJSONObjectResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath];
+    return [[WMFMantleJSONObjectResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath];
 }
 
 + (instancetype)serializerForArrayOf:(Class)model fromKeypath:(NSString *__nullable)keypath {
-  return [[WMFMantleArrayResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath];
+    return [[WMFMantleArrayResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath];
 }
 
 - (instancetype)initWithModelClass:(Class __nonnull)modelClass jsonKeypath:(NSString *__nullable)keypath {
-  self = [super init];
-  if (self) {
-    NSAssert([modelClass isSubclassOfClass:[MTLModel class]],
-             @"%@ must be a subclass of %@ to be used with %@",
-             modelClass, NSStringFromClass([MTLModel class]), self);
-    NSAssert([modelClass conformsToProtocol:@protocol(MTLJSONSerializing)],
-             @"%@ must conform to %@ to be used with %@",
-             modelClass, NSStringFromProtocol(@protocol(MTLJSONSerializing)), self);
-    _modelClass = modelClass;
-    _jsonKeypath = [keypath copy] ?: @"";
-  }
-  return self;
+    self = [super init];
+    if (self) {
+        NSAssert([modelClass isSubclassOfClass:[MTLModel class]],
+                 @"%@ must be a subclass of %@ to be used with %@",
+                 modelClass, NSStringFromClass([MTLModel class]), self);
+        NSAssert([modelClass conformsToProtocol:@protocol(MTLJSONSerializing)],
+                 @"%@ must conform to %@ to be used with %@",
+                 modelClass, NSStringFromProtocol(@protocol(MTLJSONSerializing)), self);
+        _modelClass = modelClass;
+        _jsonKeypath = [keypath copy] ?: @"";
+    }
+    return self;
 }
 
 - (nullable id)responseObjectForResponse:(nullable NSURLResponse *)response
                                     data:(nullable NSData *)data
                                    error:(NSError *__autoreleasing *)error {
-  NSDictionary *json = [super responseObjectForResponse:response data:data error:error];
-  if (!json) {
-    return nil;
-  }
-  id value = self.jsonKeypath.length ? [json valueForKeyPath:self.jsonKeypath] : json;
-  if (!value && self.jsonKeypath.length) {
-    DDLogWarn(@"No value returned when serializing %@ with keypath %@ from response: %@",
-              self.modelClass, self.jsonKeypath, json);
-  }
-  return value;
+    NSDictionary *json = [super responseObjectForResponse:response data:data error:error];
+    if (!json) {
+        return nil;
+    }
+    id value = self.jsonKeypath.length ? [json valueForKeyPath:self.jsonKeypath] : json;
+    if (!value && self.jsonKeypath.length) {
+        DDLogWarn(@"No value returned when serializing %@ with keypath %@ from response: %@",
+                  self.modelClass, self.jsonKeypath, json);
+    }
+    return value;
 }
 
 - (NSString *)description {
-  return [NSString stringWithFormat:@"%@ %@ %@", [super description], self.modelClass, self.jsonKeypath];
+    return [NSString stringWithFormat:@"%@ %@ %@", [super description], self.modelClass, self.jsonKeypath];
 }
 
 @end
@@ -97,20 +97,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable id)responseObjectForResponse:(nullable NSURLResponse *)response
                                     data:(nullable NSData *)data
                                    error:(NSError *__autoreleasing *)error {
-  NSDictionary *jsonObject = [super responseObjectForResponse:response data:data error:error];
-  if (![jsonObject isKindOfClass:[NSDictionary class]]) {
-    if (jsonObject) {
-      DDLogError(@"%@ expected dictionary value, got: %@", self, jsonObject);
-      NSError *unexpectedResponseError =
-          [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
-                            userInfo:@{
-                              NSURLErrorFailingURLErrorKey : response.URL
-                            }];
-      WMFSafeAssign(error, unexpectedResponseError);
+    NSDictionary *jsonObject = [super responseObjectForResponse:response data:data error:error];
+    if (![jsonObject isKindOfClass:[NSDictionary class]]) {
+        if (jsonObject) {
+            DDLogError(@"%@ expected dictionary value, got: %@", self, jsonObject);
+            NSError *unexpectedResponseError =
+                [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
+                                  userInfo:@{
+                                      NSURLErrorFailingURLErrorKey : response.URL
+                                  }];
+            WMFSafeAssign(error, unexpectedResponseError);
+        }
+        return nil;
     }
-    return nil;
-  }
-  return [MTLJSONAdapter modelOfClass:self.modelClass fromJSONDictionary:jsonObject error:error];
+    return [MTLJSONAdapter modelOfClass:self.modelClass fromJSONDictionary:jsonObject error:error];
 }
 
 @end
@@ -120,20 +120,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable id)responseObjectForResponse:(nullable NSURLResponse *)response
                                     data:(nullable NSData *)data
                                    error:(NSError *__autoreleasing *)error {
-  id value = [super responseObjectForResponse:response data:data error:error];
-  if (![value isKindOfClass:[NSDictionary class]]) {
-    if (value) {
-      DDLogError(@"%@ expected JSON value to be a dictionary, got %@", self, value);
-      NSError *unexpectedResponseError =
-          [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
-                            userInfo:@{
-                              NSURLErrorFailingURLErrorKey : response.URL
-                            }];
-      WMFSafeAssign(error, unexpectedResponseError);
+    id value = [super responseObjectForResponse:response data:data error:error];
+    if (![value isKindOfClass:[NSDictionary class]]) {
+        if (value) {
+            DDLogError(@"%@ expected JSON value to be a dictionary, got %@", self, value);
+            NSError *unexpectedResponseError =
+                [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
+                                  userInfo:@{
+                                      NSURLErrorFailingURLErrorKey : response.URL
+                                  }];
+            WMFSafeAssign(error, unexpectedResponseError);
+        }
+        return nil;
     }
-    return nil;
-  }
-  return [MTLJSONAdapter modelsOfClass:self.modelClass fromJSONArray:[(NSDictionary *)value allValues] error:error];
+    return [MTLJSONAdapter modelsOfClass:self.modelClass fromJSONArray:[(NSDictionary *)value allValues] error:error];
 }
 
 @end
@@ -143,20 +143,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable id)responseObjectForResponse:(nullable NSURLResponse *)response
                                     data:(nullable NSData *)data
                                    error:(NSError *__autoreleasing *)error {
-  id value = [super responseObjectForResponse:response data:data error:error];
-  if (![value isKindOfClass:[NSArray class]]) {
-    if (value) {
-      DDLogError(@"%@ expected JSON value to be an array, got %@", self, value);
-      NSError *unexpectedResponseError =
-          [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
-                            userInfo:@{
-                              NSURLErrorFailingURLErrorKey : response.URL
-                            }];
-      WMFSafeAssign(error, unexpectedResponseError);
+    id value = [super responseObjectForResponse:response data:data error:error];
+    if (![value isKindOfClass:[NSArray class]]) {
+        if (value) {
+            DDLogError(@"%@ expected JSON value to be an array, got %@", self, value);
+            NSError *unexpectedResponseError =
+                [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
+                                  userInfo:@{
+                                      NSURLErrorFailingURLErrorKey : response.URL
+                                  }];
+            WMFSafeAssign(error, unexpectedResponseError);
+        }
+        return nil;
     }
-    return nil;
-  }
-  return [MTLJSONAdapter modelsOfClass:self.modelClass fromJSONArray:value error:error];
+    return [MTLJSONAdapter modelsOfClass:self.modelClass fromJSONArray:value error:error];
 }
 
 @end

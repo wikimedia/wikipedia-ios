@@ -25,54 +25,54 @@
            icon:(NSString *)icon
         summary:(NSString *)summary
       separator:(BOOL)separator {
-  self.nameLabel.text = name;
+    self.nameLabel.text = name;
 
-  self.timeLabel.text = [[NSDateFormatter wmf_shortTimeFormatter] stringFromDate:date];
+    self.timeLabel.text = [[NSDateFormatter wmf_shortTimeFormatter] stringFromDate:date];
 
-  self.deltaLabel.text =
-      [NSString stringWithFormat:@"%@%@", (delta.integerValue > 0) ? @"+" : @"", delta.stringValue];
+    self.deltaLabel.text =
+        [NSString stringWithFormat:@"%@%@", (delta.integerValue > 0) ? @"+" : @"", delta.stringValue];
 
-  if (delta.integerValue == 0) {
-    self.deltaLabel.textColor = WMF_COLOR_BLUE;
-  } else if (delta.integerValue > 0) {
-    self.deltaLabel.textColor = WMF_COLOR_GREEN;
-  } else {
-    self.deltaLabel.textColor = WMF_COLOR_RED;
-  }
+    if (delta.integerValue == 0) {
+        self.deltaLabel.textColor = WMF_COLOR_BLUE;
+    } else if (delta.integerValue > 0) {
+        self.deltaLabel.textColor = WMF_COLOR_GREEN;
+    } else {
+        self.deltaLabel.textColor = WMF_COLOR_RED;
+    }
 
-  NSDictionary *iconAttributes =
-      @{
-        NSFontAttributeName : [UIFont wmf_glyphFontOfSize:23.0 * MENUS_SCALE_MULTIPLIER],
-        NSForegroundColorAttributeName : [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0],
-        NSBaselineOffsetAttributeName : @1
-      };
+    NSDictionary *iconAttributes =
+        @{
+            NSFontAttributeName : [UIFont wmf_glyphFontOfSize:23.0 * MENUS_SCALE_MULTIPLIER],
+            NSForegroundColorAttributeName : [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0],
+            NSBaselineOffsetAttributeName : @1
+        };
 
-  self.iconLabel.attributedText =
-      [[NSAttributedString alloc] initWithString:icon
-                                      attributes:iconAttributes];
+    self.iconLabel.attributedText =
+        [[NSAttributedString alloc] initWithString:icon
+                                        attributes:iconAttributes];
 
-  self.summaryLabel.text = [summary wmf_stringByRemovingHTML];
+    self.summaryLabel.text = [summary wmf_stringByRemovingHTML];
 
-  self.separatorHeightConstraint.constant =
-      (separator) ? (1.0f / [UIScreen mainScreen].scale) : 0.0f;
+    self.separatorHeightConstraint.constant =
+        (separator) ? (1.0f / [UIScreen mainScreen].scale) : 0.0f;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-  self = [super initWithCoder:aDecoder];
-  if (self) {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-  }
-  return self;
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    return self;
 }
 
 - (void)awakeFromNib {
-  [super awakeFromNib];
+    [super awakeFromNib];
 
-  // Initial changes to ui elements go here.
-  // See: http://stackoverflow.com/a/15591474 for details.
+    // Initial changes to ui elements go here.
+    // See: http://stackoverflow.com/a/15591474 for details.
 
-  [self adjustConstraintsScaleForViews:
-            @[ self.summaryLabel, self.nameLabel, self.timeLabel, self.deltaLabel, self.iconLabel ]];
+    [self adjustConstraintsScaleForViews:
+              @[ self.summaryLabel, self.nameLabel, self.timeLabel, self.deltaLabel, self.iconLabel ]];
 }
 
 @end

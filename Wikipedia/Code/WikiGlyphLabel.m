@@ -13,42 +13,42 @@
 @implementation WikiGlyphLabel
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
-  self = [super initWithCoder:coder];
-  if (self) {
-    [self setup];
-  }
-  return self;
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self setup];
+    }
+    return self;
 }
 
 - (instancetype)init {
-  self = [super init];
-  if (self) {
-    [self setup];
-  }
-  return self;
+    self = [super init];
+    if (self) {
+        [self setup];
+    }
+    return self;
 }
 
 - (void)setup {
-  self.textAlignment = NSTextAlignmentCenter;
-  self.adjustsFontSizeToFitWidth = YES;
-  self.backgroundColor = [UIColor clearColor];
+    self.textAlignment = NSTextAlignmentCenter;
+    self.adjustsFontSizeToFitWidth = YES;
+    self.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setWikiText:(NSString *)text color:(UIColor *)color size:(CGFloat)size baselineOffset:(CGFloat)baselineOffset {
-  self.color = color;
-  self.size = size;
-  self.baselineOffset = baselineOffset;
+    self.color = color;
+    self.size = size;
+    self.baselineOffset = baselineOffset;
 
-  NSDictionary *attributes =
-      @{
-        NSFontAttributeName : [UIFont wmf_glyphFontOfSize:size],
-        NSForegroundColorAttributeName : color,
-        NSBaselineOffsetAttributeName : @(baselineOffset)
-      };
+    NSDictionary *attributes =
+        @{
+            NSFontAttributeName : [UIFont wmf_glyphFontOfSize:size],
+            NSForegroundColorAttributeName : color,
+            NSBaselineOffsetAttributeName : @(baselineOffset)
+        };
 
-  self.attributedText =
-      [[NSAttributedString alloc] initWithString:text
-                                      attributes:attributes];
+    self.attributedText =
+        [[NSAttributedString alloc] initWithString:text
+                                        attributes:attributes];
 }
 
 @end

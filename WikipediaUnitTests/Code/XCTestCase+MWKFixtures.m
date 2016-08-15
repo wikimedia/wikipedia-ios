@@ -9,9 +9,9 @@
 - (MWKArticle *)articleWithMobileViewJSONFixture:(NSString *)fixtureName
                                          withURL:(NSURL *)url
                                        dataStore:(MWKDataStore *)dataStore {
-  return [[MWKArticle alloc] initWithURL:url
-                               dataStore:dataStore
-                                    dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureName][@"mobileview"]];
+    return [[MWKArticle alloc] initWithURL:url
+                                 dataStore:dataStore
+                                      dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureName][@"mobileview"]];
 }
 
 @end

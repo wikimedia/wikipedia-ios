@@ -43,42 +43,42 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 @implementation WMFRelatedSearchFetcher
 
 - (instancetype)init {
-  self = [super init];
-  if (self) {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
-    manager.requestSerializer = [WMFRelatedSearchRequestSerializer serializer];
-    manager.responseSerializer =
-        [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class]
-                                                                   fromKeypath:@"query.pages"];
-    self.operationManager = manager;
-  }
-  return self;
+    self = [super init];
+    if (self) {
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
+        manager.requestSerializer = [WMFRelatedSearchRequestSerializer serializer];
+        manager.responseSerializer =
+            [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class]
+                                                                       fromKeypath:@"query.pages"];
+        self.operationManager = manager;
+    }
+    return self;
 }
 
 - (BOOL)isFetching {
-  return [[self.operationManager operationQueue] operationCount] > 0;
+    return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
 - (AnyPromise *)fetchArticlesRelatedArticleWithURL:(NSURL *)URL
                                        resultLimit:(NSUInteger)resultLimit {
-  NSParameterAssert(URL.wmf_title);
-  return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-    WMFRelatedSearchRequestParameters *params = [WMFRelatedSearchRequestParameters new];
-    params.articleURL = URL;
-    params.numberOfResults = resultLimit;
+    NSParameterAssert(URL.wmf_title);
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+      WMFRelatedSearchRequestParameters *params = [WMFRelatedSearchRequestParameters new];
+      params.articleURL = URL;
+      params.numberOfResults = resultLimit;
 
-    [self.operationManager wmf_GETAndRetryWithURL:URL
-        parameters:params
-        retry:NULL
-        success:^(NSURLSessionDataTask *operation, id responseObject) {
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
-          resolve([[WMFRelatedSearchResults alloc] initWithURL:URL results:responseObject]);
-        }
-        failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
-          resolve(error);
-        }];
-  }];
+      [self.operationManager wmf_GETAndRetryWithURL:URL
+          parameters:params
+          retry:NULL
+          success:^(NSURLSessionDataTask *operation, id responseObject) {
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            resolve([[WMFRelatedSearchResults alloc] initWithURL:URL results:responseObject]);
+          }
+          failure:^(NSURLSessionDataTask *operation, NSError *error) {
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            resolve(error);
+          }];
+    }];
 }
 
 @end
@@ -88,12 +88,12 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 @implementation WMFRelatedSearchRequestParameters
 
 - (void)setNumberOfResults:(NSUInteger)numberOfResults {
-  if (numberOfResults > WMFMaxRelatedSearchResultLimit) {
-    DDLogError(@"Illegal attempt to request %lu articles, limiting to %lu.",
-               (unsigned long)numberOfResults, (unsigned long)WMFMaxRelatedSearchResultLimit);
-    numberOfResults = WMFMaxRelatedSearchResultLimit;
-  }
-  _numberOfResults = numberOfResults;
+    if (numberOfResults > WMFMaxRelatedSearchResultLimit) {
+        DDLogError(@"Illegal attempt to request %lu articles, limiting to %lu.",
+                   (unsigned long)numberOfResults, (unsigned long)WMFMaxRelatedSearchResultLimit);
+        numberOfResults = WMFMaxRelatedSearchResultLimit;
+    }
+    _numberOfResults = numberOfResults;
 }
 
 @end
@@ -105,29 +105,29 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 - (nullable NSURLRequest *)requestBySerializingRequest:(NSURLRequest *)request
                                         withParameters:(nullable id)parameters
                                                  error:(NSError *__autoreleasing *)error {
-  NSDictionary *serializedParams = [self serializedParams:(WMFRelatedSearchRequestParameters *)parameters];
-  return [super requestBySerializingRequest:request withParameters:serializedParams error:error];
+    NSDictionary *serializedParams = [self serializedParams:(WMFRelatedSearchRequestParameters *)parameters];
+    return [super requestBySerializingRequest:request withParameters:serializedParams error:error];
 }
 
 - (NSDictionary *)serializedParams:(WMFRelatedSearchRequestParameters *)params {
-  NSNumber *numResults = @(params.numberOfResults);
-  NSMutableDictionary *baseParams = [NSMutableDictionary wmf_titlePreviewRequestParameters];
-  [baseParams setValuesForKeysWithDictionary:@{
-    @"generator" : @"search",
-    // search
-    @"gsrsearch" : [NSString stringWithFormat:@"morelike:%@", params.articleURL.wmf_title],
-    @"gsrnamespace" : @0,
-    @"gsrwhat" : @"text",
-    @"gsrinfo" : @"",
-    @"gsrprop" : @"redirecttitle",
-    @"gsroffset" : @0,
-    @"gsrlimit" : numResults,
-    // extracts
-    @"exlimit" : numResults,
-    // pageimage
-    @"pilimit" : numResults,
-  }];
-  return baseParams;
+    NSNumber *numResults = @(params.numberOfResults);
+    NSMutableDictionary *baseParams = [NSMutableDictionary wmf_titlePreviewRequestParameters];
+    [baseParams setValuesForKeysWithDictionary:@{
+        @"generator" : @"search",
+        // search
+        @"gsrsearch" : [NSString stringWithFormat:@"morelike:%@", params.articleURL.wmf_title],
+        @"gsrnamespace" : @0,
+        @"gsrwhat" : @"text",
+        @"gsrinfo" : @"",
+        @"gsrprop" : @"redirecttitle",
+        @"gsroffset" : @0,
+        @"gsrlimit" : numResults,
+        // extracts
+        @"exlimit" : numResults,
+        // pageimage
+        @"pilimit" : numResults,
+    }];
+    return baseParams;
 }
 
 @end

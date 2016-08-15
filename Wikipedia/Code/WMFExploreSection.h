@@ -12,15 +12,15 @@ NS_ASSUME_NONNULL_BEGIN
  *
  */
 typedef NS_ENUM(NSUInteger, WMFExploreSectionType) {
-  WMFExploreSectionTypeContinueReading = 0,
-  WMFExploreSectionTypeMainPage = 1,
-  WMFExploreSectionTypeRandom = 2,
-  WMFExploreSectionTypeNearby = 3,
-  WMFExploreSectionTypeHistory = 4,
-  WMFExploreSectionTypeSaved = 5,
-  WMFExploreSectionTypeFeaturedArticle = 6,
-  WMFExploreSectionTypePictureOfTheDay = 7,
-  WMFExploreSectionTypeMostRead = 8
+    WMFExploreSectionTypeContinueReading = 0,
+    WMFExploreSectionTypeMainPage = 1,
+    WMFExploreSectionTypeRandom = 2,
+    WMFExploreSectionTypeNearby = 3,
+    WMFExploreSectionTypeHistory = 4,
+    WMFExploreSectionTypeSaved = 5,
+    WMFExploreSectionTypeFeaturedArticle = 6,
+    WMFExploreSectionTypePictureOfTheDay = 7,
+    WMFExploreSectionTypeMostRead = 8
 };
 
 @interface WMFExploreSection : MTLModel

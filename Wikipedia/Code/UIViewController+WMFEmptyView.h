@@ -1,13 +1,13 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, WMFEmptyViewType) {
-  WMFEmptyViewTypeNone,
-  WMFEmptyViewTypeBlank,
-  WMFEmptyViewTypeNoFeed,
-  WMFEmptyViewTypeArticleDidNotLoad,
-  WMFEmptyViewTypeNoSearchResults,
-  WMFEmptyViewTypeNoSavedPages,
-  WMFEmptyViewTypeNoHistory
+    WMFEmptyViewTypeNone,
+    WMFEmptyViewTypeBlank,
+    WMFEmptyViewTypeNoFeed,
+    WMFEmptyViewTypeArticleDidNotLoad,
+    WMFEmptyViewTypeNoSearchResults,
+    WMFEmptyViewTypeNoSavedPages,
+    WMFEmptyViewTypeNoHistory
 };
 
 @interface UIViewController (WMFEmptyView)

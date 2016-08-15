@@ -15,18 +15,18 @@
 #import "NSNumber+MWKTitleNamespace.h"
 
 static MWKSearchResult *dummySearchResultWithIndex(NSUInteger index) {
-  static NSUInteger articleId = 0;
-  // increase articleId monotonically to make them unique
-  return [[MWKSearchResult alloc] initWithArticleID:articleId++
-                                              revID:0
-                                       displayTitle:@"foo"
-                                wikidataDescription:@"bar"
-                                            extract:@"baz"
-                                       thumbnailURL:[NSURL URLWithString:@"http://foo.bar/baz"]
-                                              index:@(index)
-                                   isDisambiguation:NO
-                                             isList:NO
-                                     titleNamespace:@(MWKTitleNamespaceMain)];
+    static NSUInteger articleId = 0;
+    // increase articleId monotonically to make them unique
+    return [[MWKSearchResult alloc] initWithArticleID:articleId++
+                                                revID:0
+                                         displayTitle:@"foo"
+                                  wikidataDescription:@"bar"
+                                              extract:@"baz"
+                                         thumbnailURL:[NSURL URLWithString:@"http://foo.bar/baz"]
+                                                index:@(index)
+                                     isDisambiguation:NO
+                                               isList:NO
+                                       titleNamespace:@(MWKTitleNamespaceMain)];
 }
 
 QuickSpecBegin(WMFSearchResultMergeTests)
@@ -71,9 +71,9 @@ QuickSpecBegin(WMFSearchResultMergeTests)
       it(@"should not insert results already present in the original", ^{
         NSArray *originalResults = @[ dummySearchResultWithIndex(0) ];
         NSArray *newResults = @[
-          dummySearchResultWithIndex(0),
-          dummySearchResultWithIndex(1),
-          dummySearchResultWithIndex(2)
+            dummySearchResultWithIndex(0),
+            dummySearchResultWithIndex(1),
+            dummySearchResultWithIndex(2)
         ];
 
         WMFSearchResults *r1 =

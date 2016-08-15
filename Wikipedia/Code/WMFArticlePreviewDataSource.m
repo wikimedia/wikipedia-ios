@@ -34,92 +34,92 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFArticlePreviewDataSource
 
 - (NSString *)analyticsContext {
-  return @"Article Disambiguation";
+    return @"Article Disambiguation";
 }
 
 - (instancetype)initWithArticleURLs:(NSArray<NSURL *> *)articleURLs
                             siteURL:(NSURL *)siteURL
                           dataStore:(MWKDataStore *)dataStore
                             fetcher:(WMFArticlePreviewFetcher *)fetcher {
-  NSParameterAssert(articleURLs);
-  NSParameterAssert(fetcher);
-  NSParameterAssert(dataStore);
-  NSParameterAssert(siteURL);
-  self = [super initWithItems:nil];
-  if (self) {
-    self.dataStore = dataStore;
-    self.urls = articleURLs;
-    self.siteURL = siteURL;
-    self.titlesSearchFetcher = fetcher;
+    NSParameterAssert(articleURLs);
+    NSParameterAssert(fetcher);
+    NSParameterAssert(dataStore);
+    NSParameterAssert(siteURL);
+    self = [super initWithItems:nil];
+    if (self) {
+        self.dataStore = dataStore;
+        self.urls = articleURLs;
+        self.siteURL = siteURL;
+        self.titlesSearchFetcher = fetcher;
 
-    self.cellClass = [WMFArticlePreviewTableViewCell class];
+        self.cellClass = [WMFArticlePreviewTableViewCell class];
 
-    @weakify(self);
-    self.cellConfigureBlock = ^(WMFArticlePreviewTableViewCell *cell,
-                                MWKSearchResult *searchResult,
-                                UITableView *tableView,
-                                NSIndexPath *indexPath) {
-      @strongify(self);
-      NSURL *URL = [self urlForIndexPath:indexPath];
-      NSParameterAssert([URL.wmf_domain isEqual:siteURL.wmf_domain]);
-      cell.titleText = URL.wmf_title;
-      cell.descriptionText = searchResult.wikidataDescription;
-      cell.snippetText = searchResult.extract;
-      [cell setImageURL:searchResult.thumbnailURL];
+        @weakify(self);
+        self.cellConfigureBlock = ^(WMFArticlePreviewTableViewCell *cell,
+                                    MWKSearchResult *searchResult,
+                                    UITableView *tableView,
+                                    NSIndexPath *indexPath) {
+          @strongify(self);
+          NSURL *URL = [self urlForIndexPath:indexPath];
+          NSParameterAssert([URL.wmf_domain isEqual:siteURL.wmf_domain]);
+          cell.titleText = URL.wmf_title;
+          cell.descriptionText = searchResult.wikidataDescription;
+          cell.snippetText = searchResult.extract;
+          [cell setImageURL:searchResult.thumbnailURL];
 
-      [cell setSaveableURL:URL savedPageList:self.savedPageList];
+          [cell setSaveableURL:URL savedPageList:self.savedPageList];
 
-      [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-    };
-  }
-  return self;
+          [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+        };
+    }
+    return self;
 }
 
 - (MWKSavedPageList *)savedPageList {
-  return self.dataStore.userDataStore.savedPageList;
+    return self.dataStore.userDataStore.savedPageList;
 }
 
 - (void)setTableView:(nullable UITableView *)tableView {
-  [super setTableView:tableView];
-  [self.tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
+    [super setTableView:tableView];
+    [self.tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
 }
 
 #pragma mark - Fetching
 
 - (void)fetch {
-  @weakify(self);
-  [self.titlesSearchFetcher fetchArticlePreviewResultsForArticleURLs:self.urls siteURL:self.siteURL]
-      .then(^(NSArray<MWKSearchResult *> *searchResults) {
-        @strongify(self);
-        if (!self) {
-          return;
-        }
-        self.previewResults = searchResults;
-        [self updateItems:searchResults];
-      });
+    @weakify(self);
+    [self.titlesSearchFetcher fetchArticlePreviewResultsForArticleURLs:self.urls siteURL:self.siteURL]
+        .then(^(NSArray<MWKSearchResult *> *searchResults) {
+          @strongify(self);
+          if (!self) {
+              return;
+          }
+          self.previewResults = searchResults;
+          [self updateItems:searchResults];
+        });
 }
 
 #pragma mark - WMFArticleListDataSource
 
 - (MWKSearchResult *)searchResultForIndexPath:(NSIndexPath *)indexPath {
-  MWKSearchResult *result = self.previewResults[indexPath.row];
-  return result;
+    MWKSearchResult *result = self.previewResults[indexPath.row];
+    return result;
 }
 
 - (NSURL *)urlForIndexPath:(NSIndexPath *)indexPath {
-  return [self.siteURL wmf_URLWithTitle:[self searchResultForIndexPath:indexPath].displayTitle];
+    return [self.siteURL wmf_URLWithTitle:[self searchResultForIndexPath:indexPath].displayTitle];
 }
 
 - (NSUInteger)titleCount {
-  return [self.previewResults count];
+    return [self.previewResults count];
 }
 
 - (nullable NSString *)displayTitle {
-  return MWLocalizedString(@"page-similar-titles", nil);
+    return MWLocalizedString(@"page-similar-titles", nil);
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath *__nonnull)indexPath {
-  return NO;
+    return NO;
 }
 
 @end

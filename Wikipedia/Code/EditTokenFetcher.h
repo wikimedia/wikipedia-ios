@@ -2,8 +2,8 @@
 #import "FetcherBase.h"
 
 typedef NS_ENUM(NSInteger, EditTokenErrorType) {
-  EDIT_TOKEN_ERROR_UNKNOWN = 0,
-  EDIT_TOKEN_ERROR_API = 1
+    EDIT_TOKEN_ERROR_UNKNOWN = 0,
+    EDIT_TOKEN_ERROR_API = 1
 };
 
 @class AFHTTPSessionManager;

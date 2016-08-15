@@ -20,51 +20,51 @@
 @implementation MWKLanguageLinkFetcherTests
 
 - (void)setUp {
-  self.mockDelegate = mockProtocol(@protocol(FetchFinishedDelegate));
-  self.mockManager = MKTMock([AFHTTPSessionManager class]);
-  self.fetcher = [[MWKLanguageLinkFetcher alloc] initWithManager:self.mockManager
-                                                        delegate:self.mockDelegate];
-  [super setUp];
+    self.mockDelegate = mockProtocol(@protocol(FetchFinishedDelegate));
+    self.mockManager = MKTMock([AFHTTPSessionManager class]);
+    self.fetcher = [[MWKLanguageLinkFetcher alloc] initWithManager:self.mockManager
+                                                          delegate:self.mockDelegate];
+    [super setUp];
 }
 
 - (void)testFetchingNilTitle {
-  PushExpectation();
-  [self.fetcher fetchLanguageLinksForArticleURL:nil
-      success:^(NSArray *langLinks) {
-        XCTFail(@"Expected nil title to result in failure.");
-      }
-      failure:^(NSError *error) {
-        XCTAssertEqual(error.code, WMFNetworkingError_InvalidParameters);
-        [self popExpectationAfter:nil];
-      }];
-  WaitForExpectations();
-  [[MKTVerify(self.mockDelegate) withMatcher:equalTo(@(FETCH_FINAL_STATUS_FAILED))
-                                 forArgument:2]
-      fetchFinished:self.fetcher
-        fetchedData:nil
-             status:0
-              error:[NSError errorWithDomain:WMFNetworkingErrorDomain code:WMFNetworkingError_InvalidParameters userInfo:nil]];
+    PushExpectation();
+    [self.fetcher fetchLanguageLinksForArticleURL:nil
+        success:^(NSArray *langLinks) {
+          XCTFail(@"Expected nil title to result in failure.");
+        }
+        failure:^(NSError *error) {
+          XCTAssertEqual(error.code, WMFNetworkingError_InvalidParameters);
+          [self popExpectationAfter:nil];
+        }];
+    WaitForExpectations();
+    [[MKTVerify(self.mockDelegate) withMatcher:equalTo(@(FETCH_FINAL_STATUS_FAILED))
+                                   forArgument:2]
+        fetchFinished:self.fetcher
+          fetchedData:nil
+               status:0
+                error:[NSError errorWithDomain:WMFNetworkingErrorDomain code:WMFNetworkingError_InvalidParameters userInfo:nil]];
 }
 
 - (void)testFetchingEmptyTitle {
-  NSURL *url = [[NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"] wmf_URLWithTitle:@""];
+    NSURL *url = [[NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"] wmf_URLWithTitle:@""];
 
-  PushExpectation();
-  [self.fetcher fetchLanguageLinksForArticleURL:url
-      success:^(NSArray *langLinks) {
-        XCTFail(@"Expected empty title to result in failure.");
-      }
-      failure:^(NSError *error) {
-        XCTAssertEqual(error.code, WMFNetworkingError_InvalidParameters);
-        [self popExpectationAfter:nil];
-      }];
-  WaitForExpectations();
-  [[MKTVerify(self.mockDelegate) withMatcher:equalTo(@(FETCH_FINAL_STATUS_FAILED))
-                                 forArgument:2]
-      fetchFinished:self.fetcher
-        fetchedData:nil
-             status:0
-              error:[NSError errorWithDomain:WMFNetworkingErrorDomain code:WMFNetworkingError_InvalidParameters userInfo:nil]];
+    PushExpectation();
+    [self.fetcher fetchLanguageLinksForArticleURL:url
+        success:^(NSArray *langLinks) {
+          XCTFail(@"Expected empty title to result in failure.");
+        }
+        failure:^(NSError *error) {
+          XCTAssertEqual(error.code, WMFNetworkingError_InvalidParameters);
+          [self popExpectationAfter:nil];
+        }];
+    WaitForExpectations();
+    [[MKTVerify(self.mockDelegate) withMatcher:equalTo(@(FETCH_FINAL_STATUS_FAILED))
+                                   forArgument:2]
+        fetchFinished:self.fetcher
+          fetchedData:nil
+               status:0
+                error:[NSError errorWithDomain:WMFNetworkingErrorDomain code:WMFNetworkingError_InvalidParameters userInfo:nil]];
 }
 
 @end
