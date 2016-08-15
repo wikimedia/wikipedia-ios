@@ -16,13 +16,13 @@
  */
 
 
-- (YapDatabaseViewGrouping*)wmf_historyGroupingUngrouped;
-- (YapDatabaseViewGrouping*)wmf_savedGroupingUngrouped;
-- (YapDatabaseViewGrouping*)wmf_historyOrSavedGroupingUngrouped;
+- (YapDatabaseViewGrouping*)wmf_historyGroupingSingleGroup;
+- (YapDatabaseViewGrouping*)wmf_savedGroupingSingleGroup;
+- (YapDatabaseViewGrouping*)wmf_historyOrSavedGroupingSingleGroup;
 - (YapDatabaseViewGrouping*)wmf_historyGroupingByDate;
 
-- (YapDatabaseViewGrouping*)wmf_blackListGroupingUngrouped;
-- (YapDatabaseViewGrouping*)wmf_notInHistorySavedOrBlackListGroupingUngrouped;
+- (YapDatabaseViewGrouping*)wmf_blackListGroupingSingleGroup;
+- (YapDatabaseViewGrouping*)wmf_notInHistorySavedOrBlackListGroupingSingleGroup;
 
 - (YapDatabaseViewSorting*)wmf_historySortedByDateDescending;
 - (YapDatabaseViewSorting*)wmf_savedSortedByDateDescending;
@@ -45,27 +45,27 @@
 
 
 /**
- *  historyOrSavedGroupingUngrouped + historySortedByDateDescending
+ *  historyOrSavedGroupingSingleGroup + historySortedByDateDescending
  */
 extern NSString* const WMFHistorySortedByDateGroupedByDateView;
 
 /**
- *  historyGroupingUngrouped + historySortedByDateDescending
+ *  historyGroupingSingleGroup + historySortedByDateDescending
  */
 extern NSString* const WMFHistorySortedByDateUngroupedView;
 
 /**
- *  savedGroupingUngrouped + savedSortedByDateDescending
+ *  savedGroupingSingleGroup + savedSortedByDateDescending
  */
 extern NSString* const WMFSavedSortedByDateUngroupedView;
 
 /**
- *  historyOrSavedGroupingUngrouped + historyOrSavedSortedByURL
+ *  historyOrSavedGroupingSingleGroup + historyOrSavedSortedByURL
  */
 extern NSString* const WMFHistoryOrSavedSortedByURLUngroupedView;
 
 /**
- *  blackListGroupingUngrouped + historyOrSavedSortedByURL
+ *  blackListGroupingSingleGroup + historyOrSavedSortedByURL
  */
 extern NSString* const WMFBlackListSortedByURLUngroupedView;
 
@@ -75,7 +75,7 @@ extern NSString* const WMFBlackListSortedByURLUngroupedView;
 extern NSString* const WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificnatlyViewedAndNotBlacklistedAndNotMainPageView;
 
 /**
- *  notInHistorySavedOrBlackListGroupingUngrouped + historyOrSavedSortedByURL
+ *  notInHistorySavedOrBlackListGroupingSingleGroup + historyOrSavedSortedByURL
  */
 extern NSString* const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView;
 

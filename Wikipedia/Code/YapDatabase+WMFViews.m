@@ -7,7 +7,7 @@
 @implementation YapDatabase (WMFViews)
 
 - (void)wmf_registerViews {
-    YapDatabaseViewGrouping* grouping = [self wmf_historyGroupingUngrouped];
+    YapDatabaseViewGrouping* grouping = [self wmf_historyGroupingSingleGroup];
     YapDatabaseViewSorting* sorting   = [self wmf_historySortedByDateDescending];
     YapDatabaseView* databaseView     = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
     [self wmf_registerView:databaseView withName:WMFHistorySortedByDateUngroupedView];
@@ -17,22 +17,22 @@
     databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
     [self wmf_registerView:databaseView withName:WMFHistorySortedByDateGroupedByDateView];
 
-    grouping     = [self wmf_savedGroupingUngrouped];
+    grouping     = [self wmf_savedGroupingSingleGroup];
     sorting      = [self wmf_savedSortedByDateDescending];
     databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
     [self wmf_registerView:databaseView withName:WMFSavedSortedByDateUngroupedView];
 
-    grouping     = [self wmf_historyOrSavedGroupingUngrouped];
+    grouping     = [self wmf_historyOrSavedGroupingSingleGroup];
     sorting      = [self wmf_historyOrSavedSortedByURL];
     databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting versionTag:@"1"];
     [self wmf_registerView:databaseView withName:WMFHistoryOrSavedSortedByURLUngroupedView];
 
-    grouping     = [self wmf_blackListGroupingUngrouped];
+    grouping     = [self wmf_blackListGroupingSingleGroup];
     sorting      = [self wmf_historyOrSavedSortedByURL];
     databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
     [self wmf_registerView:databaseView withName:WMFBlackListSortedByURLUngroupedView];
 
-    grouping     = [self wmf_notInHistorySavedOrBlackListGroupingUngrouped];
+    grouping     = [self wmf_notInHistorySavedOrBlackListGroupingSingleGroup];
     sorting      = [self wmf_historyOrSavedSortedByURL];
     databaseView = [[YapDatabaseView alloc] initWithGrouping:grouping sorting:sorting];
     [self wmf_registerView:databaseView withName:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
@@ -43,7 +43,7 @@
     [self wmf_registerView:filteredView withName:WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificnatlyViewedAndNotBlacklistedAndNotMainPageView];
 }
 
-- (YapDatabaseViewGrouping*)wmf_historyGroupingUngrouped {
+- (YapDatabaseViewGrouping*)wmf_historyGroupingSingleGroup {
     return [YapDatabaseViewGrouping withObjectBlock:^NSString* _Nullable (YapDatabaseReadTransaction* _Nonnull transaction, NSString* _Nonnull collection, NSString* _Nonnull key, MWKHistoryEntry* _Nonnull object) {
         if (![collection isEqualToString:[MWKHistoryEntry databaseCollectionName]]) {
             return nil;
@@ -55,7 +55,7 @@
     }];
 }
 
-- (YapDatabaseViewGrouping*)wmf_savedGroupingUngrouped {
+- (YapDatabaseViewGrouping*)wmf_savedGroupingSingleGroup {
     return [YapDatabaseViewGrouping withObjectBlock:^NSString* _Nullable (YapDatabaseReadTransaction* _Nonnull transaction, NSString* _Nonnull collection, NSString* _Nonnull key, MWKHistoryEntry* _Nonnull object) {
         if (![collection isEqualToString:[MWKHistoryEntry databaseCollectionName]]) {
             return nil;
@@ -67,7 +67,7 @@
     }];
 }
 
-- (YapDatabaseViewGrouping*)wmf_historyOrSavedGroupingUngrouped {
+- (YapDatabaseViewGrouping*)wmf_historyOrSavedGroupingSingleGroup {
     return [YapDatabaseViewGrouping withObjectBlock:^NSString* _Nullable (YapDatabaseReadTransaction* _Nonnull transaction, NSString* _Nonnull collection, NSString* _Nonnull key, MWKHistoryEntry* _Nonnull object) {
         if (![collection isEqualToString:[MWKHistoryEntry databaseCollectionName]]) {
             return nil;
@@ -92,7 +92,7 @@
     }];
 }
 
-- (YapDatabaseViewGrouping*)wmf_blackListGroupingUngrouped {
+- (YapDatabaseViewGrouping*)wmf_blackListGroupingSingleGroup {
     return [YapDatabaseViewGrouping withObjectBlock:^NSString* _Nullable (YapDatabaseReadTransaction* _Nonnull transaction, NSString* _Nonnull collection, NSString* _Nonnull key, MWKHistoryEntry* _Nonnull object) {
         if (![collection isEqualToString:[MWKHistoryEntry databaseCollectionName]]) {
             return nil;
@@ -105,7 +105,7 @@
     }];
 }
 
-- (YapDatabaseViewGrouping*)wmf_notInHistorySavedOrBlackListGroupingUngrouped {
+- (YapDatabaseViewGrouping*)wmf_notInHistorySavedOrBlackListGroupingSingleGroup {
     return [YapDatabaseViewGrouping withObjectBlock:^NSString* _Nullable (YapDatabaseReadTransaction* _Nonnull transaction, NSString* _Nonnull collection, NSString* _Nonnull key, MWKHistoryEntry* _Nonnull object) {
         if (![collection isEqualToString:[MWKHistoryEntry databaseCollectionName]]) {
             return nil;
