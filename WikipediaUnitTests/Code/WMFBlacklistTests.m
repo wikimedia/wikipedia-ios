@@ -38,7 +38,7 @@
     
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         WMFRelatedSectionBlackList* bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
         
         MWKHistoryEntry* first = [bl mostRecentEntry];

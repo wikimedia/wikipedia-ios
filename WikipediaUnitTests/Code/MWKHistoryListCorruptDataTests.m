@@ -27,11 +27,11 @@
 
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         assertThat(@([list numberOfItems]), is(@1));
         [list addPageToHistoryWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@""]];
 
-        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
             assertThat(@([list numberOfItems]), is(@1));
             [expectation fulfill];
         });

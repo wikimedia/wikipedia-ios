@@ -42,7 +42,7 @@
 
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         XCTAssertTrue([self.list numberOfItems] == 2);
         assertThat(self.list.mostRecentEntry, is(e2));
         [expectation fulfill];
@@ -59,7 +59,7 @@
     
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         XCTAssertTrue([self.list numberOfItems] == 1);
         assertThat(self.list.mostRecentEntry, is(entry));
         [expectation fulfill];
@@ -85,7 +85,7 @@
     
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         XCTAssertTrue([self.list isSaved:unsavedEntry.url]);
         XCTAssertEqualObjects([self.list entryForURL:unsavedEntry.url], unsavedEntry);
         [expectation fulfill];

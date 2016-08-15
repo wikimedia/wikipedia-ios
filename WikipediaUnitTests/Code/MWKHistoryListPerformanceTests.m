@@ -33,7 +33,7 @@
 
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         [self measureBlock:^{
             [list enumerateItemsWithBlock:^(MWKHistoryEntry* _Nonnull entry, BOOL* _Nonnull stop) {
             }];

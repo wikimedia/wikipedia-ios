@@ -48,7 +48,7 @@
     
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         MWKHistoryList* persistedList = [[MWKHistoryList alloc] initWithDataStore:self->dataStore];
         
         MWKHistoryEntry* losAngeles2 = [persistedList entryForURL:self->titleURLLAEn];
@@ -70,7 +70,7 @@
 
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         MWKHistoryEntry* entry3 = [self->historyList entryForURL:self->titleURLSFEn];
         
         XCTAssertTrue([self->historyList numberOfItems] == 1);
@@ -93,7 +93,7 @@
     
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         MWKHistoryEntry* copyOfEntry2 = [self->historyList entryForURL:copyOfTitle1];
         
         assertThat(copyOfEntry2, is(copyOfEntry1));
@@ -112,7 +112,7 @@
     
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         MWKHistoryEntry* entry = [self->historyList mostRecentEntry];
         assertThat(fr, is(entry));
         XCTAssertTrue(![en isEqual:entry]);
@@ -130,7 +130,7 @@
     
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         assertThat([self->historyList mostRecentEntry], is(entry2));
         [expectation fulfill];
     });
@@ -144,13 +144,13 @@
     
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         MWKHistoryEntry* entry3 = [self->historyList entryForURL:self->titleURLSFEn];
         
         assertThat([self->historyList mostRecentEntry], is(entry2));
         [self->historyList addPageToHistoryWithURL:self->titleURLSFEn];
         
-        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
             assertThat([self->historyList mostRecentEntry].url, is(entry1.url));
             [expectation fulfill];
         });

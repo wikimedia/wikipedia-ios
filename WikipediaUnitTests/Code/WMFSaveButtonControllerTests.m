@@ -71,7 +71,7 @@
 
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         self.saveButtonController.url = self.titleSFEn;
         assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
         [expectation fulfill];
@@ -103,12 +103,12 @@
     
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         self.saveButtonController.url = self.titleSFEn;
         assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
         [self.savedPagesList removeEntryWithURL:self.titleSFEn];
 
-        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
             assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
             [expectation fulfill];
         });
@@ -122,10 +122,10 @@
     assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         [self.savedPagesList addSavedPageWithURL:self.titleSFEn];
         
-        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
             assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
             assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
             [expectation fulfill];
@@ -142,7 +142,7 @@
     
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         self.saveButtonController.control = [UIButton new];
         assertThat(@(self.saveButtonController.control.state), is(equalToInt(UIControlStateSelected)));
         [expectation fulfill];
@@ -158,11 +158,11 @@
 
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
         [self.button sendActionsForControlEvents:UIControlEventTouchUpInside];
 
-        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
             assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(NO)));
             [expectation fulfill];
         });
@@ -179,7 +179,7 @@
     
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
         [expectation fulfill];
     });
@@ -195,9 +195,9 @@
     
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
         [self.button sendActionsForControlEvents:UIControlEventTouchUpInside];
-        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
             assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(NO)));
             assertThat(@([self.savedPagesList isSaved:self.titleSFFr]), is(@(YES)));
             [expectation fulfill];

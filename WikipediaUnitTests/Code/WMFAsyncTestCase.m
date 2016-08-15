@@ -5,7 +5,7 @@
 #if DEBUG
 NSTimeInterval const WMFDefaultExpectationTimeout = 1000.0;
 #else
-NSTimeInterval const WMFDefaultExpectationTimeout = 2.0;
+NSTimeInterval const WMFDefaultExpectationTimeout = 5.0;
 #endif
 
 @interface WMFAsyncTestCase ()
