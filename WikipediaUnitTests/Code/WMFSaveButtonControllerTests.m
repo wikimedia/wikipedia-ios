@@ -1,7 +1,7 @@
 //  Created by Monte Hurd on 8/31/15.
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import <XCTest/XCTest.h>
+#import "WMFAsyncTestCase.h"
 
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "MWKSavedPageList.h"
@@ -40,7 +40,7 @@
     self.button               = [[UIButton alloc] init];
     self.saveButtonController = [[WMFSaveButtonController alloc] initWithControl:self.button
                                                                    savedPageList:self.savedPagesList
-                                                                           url:nil];
+                                                                             url:nil];
 
     assertThat(@([self.savedPagesList numberOfItems]), is(equalToInt(0)));
 }
@@ -68,62 +68,144 @@
 
 - (void)testShouldUpdateToSavedStateWhenSetWithSavedTitle {
     [self.savedPagesList addSavedPageWithURL:self.titleSFEn];
-    self.saveButtonController.url = self.titleSFEn;
-    assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
+
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        self.saveButtonController.url = self.titleSFEn;
+        assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
+        [expectation fulfill];
+    });
+
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+
 }
 
 - (void)testShouldUpdateToUnsavedStateWhenTitleIsNullified {
     [self.savedPagesList addSavedPageWithURL:self.titleSFEn];
-    self.saveButtonController.url = self.titleSFEn;
-    assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
-    self.saveButtonController.url = nil;
-    assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
+    
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    
+    dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
+        self.saveButtonController.url = self.titleSFEn;
+        assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
+        self.saveButtonController.url = nil;
+        assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+
 }
 
 - (void)testShouldUpdateSavedStateWhenTitleIsRemovedFromListByAnotherObject {
     [self.savedPagesList addSavedPageWithURL:self.titleSFEn];
-    self.saveButtonController.url = self.titleSFEn;
-    assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
-    [self.savedPagesList removeEntryWithURL:self.titleSFEn];
-    assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
+    
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        self.saveButtonController.url = self.titleSFEn;
+        assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
+        [self.savedPagesList removeEntryWithURL:self.titleSFEn];
+
+        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+            assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
+            [expectation fulfill];
+        });
+    });
+    
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
 
 - (void)testShouldUpdateSavedStateWhenTitleIsAddedToListByAnotherObject {
     self.saveButtonController.url = self.titleSFEn;
     assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
-    [self.savedPagesList addSavedPageWithURL:self.titleSFEn];
-    assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        [self.savedPagesList addSavedPageWithURL:self.titleSFEn];
+        
+        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+            assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
+            assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
+            [expectation fulfill];
+        });
+    });
+    
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+
 }
 
 - (void)testShouldUpdateButtonStateWhenSet {
     self.saveButtonController.url = self.titleSFEn;
     [self.savedPagesList addSavedPageWithURL:self.titleSFEn];
-    self.saveButtonController.control = [UIButton new];
-    assertThat(@(self.saveButtonController.control.state), is(equalToInt(UIControlStateSelected)));
+    
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        self.saveButtonController.control = [UIButton new];
+        assertThat(@(self.saveButtonController.control.state), is(equalToInt(UIControlStateSelected)));
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+
 }
 
 - (void)testToggleFromSavedToUnsaved {
     [self.savedPagesList addSavedPageWithURL:self.titleSFEn];
     self.saveButtonController.url = self.titleSFEn;
-    assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
-    [self.button sendActionsForControlEvents:UIControlEventTouchUpInside];
-    assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(NO)));
+
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
+        [self.button sendActionsForControlEvents:UIControlEventTouchUpInside];
+
+        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+            assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(NO)));
+            [expectation fulfill];
+        });
+    });
+    
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+
 }
 
 - (void)testToggleFromUnSavedTosaved {
     self.saveButtonController.url = self.titleSFEn;
     assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(NO)));
     [self.button sendActionsForControlEvents:UIControlEventTouchUpInside];
-    assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
+    
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+
 }
 
 - (void)testNoChangeForTitleWhenOtherTitleToggled {
     [self.savedPagesList addSavedPageWithURL:self.titleSFEn];
     [self.savedPagesList addSavedPageWithURL:self.titleSFFr];
     self.saveButtonController.url = self.titleSFEn;
-    [self.button sendActionsForControlEvents:UIControlEventTouchUpInside];
-    assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(NO)));
-    assertThat(@([self.savedPagesList isSaved:self.titleSFFr]), is(@(YES)));
+    
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        [self.button sendActionsForControlEvents:UIControlEventTouchUpInside];
+        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+            assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(NO)));
+            assertThat(@([self.savedPagesList isSaved:self.titleSFFr]), is(@(YES)));
+            [expectation fulfill];
+        });
+    });
+    
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+
 }
 
 @end

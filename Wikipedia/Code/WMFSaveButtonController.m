@@ -108,7 +108,7 @@
     if (!url) {
         return;
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSavedButtonState) name:MWKItemUpdatedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemWasUpdatedWithNotification:) name:MWKItemUpdatedNotification object:nil];
 }
 
 - (void)unobserveURL:(NSURL*)url {
@@ -116,6 +116,12 @@
         return;
     }
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)itemWasUpdatedWithNotification:(NSNotification*)note{
+    if([note.object isEqual:[self.url absoluteString]]){
+        [self updateSavedButtonState];
+    }
 }
 
 #pragma mark - Save State
@@ -128,6 +134,8 @@
         return;
     }
     if (self.url == nil) {
+        self.control.selected    = NO;
+        self.barButtonItem.image = [UIImage imageNamed:@"save"];
         return;
     }
     BOOL isSaved = [self isSaved];

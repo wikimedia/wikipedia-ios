@@ -33,6 +33,7 @@
     articleURLForbiddenCity = [siteURL wmf_URLWithTitle:@"Forbidden City"];
 
     dataStore = [MWKDataStore temporaryDataStore];
+    basePath = dataStore.basePath;
 
     json    = [self loadJSON:@"section0"];
     article = [[MWKArticle alloc] initWithURL:articleURL dataStore:dataStore dict:json[@"mobileview"]];

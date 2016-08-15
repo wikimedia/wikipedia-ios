@@ -35,12 +35,20 @@
     NSURL* url                     = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"some-title"];
     WMFRelatedSectionBlackList* bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
     [bl addBlackListArticleURL:url];
-    bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
-
-    MWKHistoryEntry* first = [bl mostRecentEntry];
-
-    XCTAssertTrue([url isEqual:first.url],
-                  @"Title persisted should be equal to the title loaded from disk");
+    
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        WMFRelatedSectionBlackList* bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
+        
+        MWKHistoryEntry* first = [bl mostRecentEntry];
+        
+        XCTAssertTrue([url isEqual:first.url],
+                      @"Title persisted should be equal to the title loaded from disk");
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
 
 @end

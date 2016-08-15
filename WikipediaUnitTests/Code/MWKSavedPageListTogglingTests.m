@@ -5,6 +5,7 @@
 #import "MWKSavedPageList.h"
 #import "MWKHistoryEntry+MWKRandom.h"
 #import "MWKDataStore+TemporaryDataStore.h"
+#import "WMFAsyncTestCase.h"
 
 #define MOCKITO_SHORTHAND 1
 #import <OCMockito/OCMockito.h>
@@ -39,16 +40,33 @@
     [self.list addEntry:e1];
     [self.list addEntry:e2];
 
-    XCTAssertTrue([self.list numberOfItems] == 2);
-    assertThat(self.list.mostRecentEntry, is(e2));
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        XCTAssertTrue([self.list numberOfItems] == 2);
+        assertThat(self.list.mostRecentEntry, is(e2));
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+
 }
 
 - (void)testAddingExistingSavedPageIsIgnored {
     MWKHistoryEntry* entry = [MWKHistoryEntry random];
     [self.list addEntry:entry];
     [self.list addEntry:[[MWKHistoryEntry alloc] initWithURL:entry.url]];
-    XCTAssertTrue([self.list numberOfItems] == 1);
-    assertThat(self.list.mostRecentEntry, is(entry));
+    
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        XCTAssertTrue([self.list numberOfItems] == 1);
+        assertThat(self.list.mostRecentEntry, is(entry));
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+
 }
 
 #pragma mark - Toggling
@@ -64,8 +82,17 @@
 - (void)testToggleUnsavedPageReturnsYesAndAddsToList {
     MWKHistoryEntry* unsavedEntry = [MWKHistoryEntry random];
     [self.list toggleSavedPageForURL:unsavedEntry.url];
-    XCTAssertTrue([self.list isSaved:unsavedEntry.url]);
-    XCTAssertEqualObjects([self.list entryForURL:unsavedEntry.url], unsavedEntry);
+    
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        XCTAssertTrue([self.list isSaved:unsavedEntry.url]);
+        XCTAssertEqualObjects([self.list entryForURL:unsavedEntry.url], unsavedEntry);
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+
 }
 
 - (void)testTogglePageWithEmptyTitleReturnsNilWithError {

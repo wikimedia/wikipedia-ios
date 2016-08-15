@@ -7,6 +7,7 @@
 #import "WMFTestFixtureUtilities.h"
 #import "MWKHistoryList.h"
 #import "MWKDataStore+TemporaryDataStore.h"
+#import "WMFAsyncTestCase.h"
 
 
 @interface MWKHistoryList (WMFHistoryListPerformanceTests)
@@ -30,11 +31,18 @@
         [list addEntry:entry];
     }
 
-    [self measureBlock:^{
-        [list enumerateItemsWithBlock:^(MWKHistoryEntry* _Nonnull entry, BOOL* _Nonnull stop) {
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        [self measureBlock:^{
+            [list enumerateItemsWithBlock:^(MWKHistoryEntry* _Nonnull entry, BOOL* _Nonnull stop) {
+            }];
+            XCTAssertEqual([list numberOfItems], count);
         }];
-        XCTAssertEqual([list numberOfItems], count);
-    }];
+        [expectation fulfill];
+    });
+
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
 
 @end
