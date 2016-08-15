@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 1/29/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "PreviewWebViewContainer.h"
 #import <Masonry/Masonry.h>
 #import "Wikipedia-Swift.h"
@@ -14,59 +11,56 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation PreviewWebViewContainer
 
-- (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message {
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     if ([message.name isEqualToString:@"anchorClicked"]) {
         [self.previewAnchorTapAlertDelegate wmf_showAlertForTappedAnchorHref:message.body[@"href"]];
     }
 }
 
-- (WKWebViewConfiguration*)configuration {
-    WKUserContentController* userContentController = [[WKUserContentController alloc] init];
+- (WKWebViewConfiguration *)configuration {
+    WKUserContentController *userContentController = [[WKUserContentController alloc] init];
 
-    MWLanguageInfo* langInfo = [self.previewSectionLanguageInfoDelegate wmf_editedSectionLanguageInfo];
-    NSString* uidir          = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
+    MWLanguageInfo *langInfo = [self.previewSectionLanguageInfoDelegate wmf_editedSectionLanguageInfo];
+    NSString *uidir = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
 
-    NSString* earlyJavascriptTransforms =
+    NSString *earlyJavascriptTransforms =
         [NSString stringWithFormat:@""
-         "document.onclick = function() {"
-         "    event.preventDefault();"
-         "        if (event.target.tagName == 'A'){"
-         "            var href = event.target.getAttribute( 'href' );"
-         "            window.webkit.messageHandlers.anchorClicked.postMessage({ 'href': href });"
-         "        }"
-         "};"
-         "window.wmf.utilities.setLanguage('%@', '%@', '%@');",
-         langInfo.code,
-         langInfo.dir,
-         uidir
-        ];
+                                    "document.onclick = function() {"
+                                    "    event.preventDefault();"
+                                    "        if (event.target.tagName == 'A'){"
+                                    "            var href = event.target.getAttribute( 'href' );"
+                                    "            window.webkit.messageHandlers.anchorClicked.postMessage({ 'href': href });"
+                                    "        }"
+                                    "};"
+                                    "window.wmf.utilities.setLanguage('%@', '%@', '%@');",
+                                   langInfo.code,
+                                   langInfo.dir,
+                                   uidir];
 
     [userContentController addUserScript:
-     [[WKUserScript alloc] initWithSource:earlyJavascriptTransforms
-                            injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
-                         forMainFrameOnly:YES]];
-
+                               [[WKUserScript alloc] initWithSource:earlyJavascriptTransforms
+                                                      injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
+                                                   forMainFrameOnly:YES]];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"anchorClicked"];
 
-
-    WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.userContentController = userContentController;
-    configuration.processPool           = [WKProcessPool wmf_sharedProcessPool];
+    configuration.processPool = [WKProcessPool wmf_sharedProcessPool];
     return configuration;
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    WKWebView* webview = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
+    WKWebView *webview = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
     webview.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:webview];
-    self.webView                    = webview;
-    self.backgroundColor            = [UIColor whiteColor];
+    self.webView = webview;
+    self.backgroundColor = [UIColor whiteColor];
     self.webView.navigationDelegate = self;
-    self.userInteractionEnabled     = YES;
-    [self.webView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.top.bottom.leading.and.trailing.equalTo(self.webView.superview);
+    self.userInteractionEnabled = YES;
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+      make.top.bottom.leading.and.trailing.equalTo(self.webView.superview);
     }];
 }
 
@@ -84,27 +78,24 @@ NS_ASSUME_NONNULL_BEGIN
     lastWidth = self.webView.scrollView.frame.size.width;
 
     CGRect f = self.frame;
-    f.size     = CGSizeMake(f.size.width, 1);
+    f.size = CGSizeMake(f.size.width, 1);
     self.frame = f;
-    f.size     = [self sizeThatFits:CGSizeZero];
+    f.size = [self sizeThatFits:CGSizeZero];
     self.frame = f;
 }
 
 // Force web view links to open in Safari.
 // From: http://stackoverflow.com/a/2532884
 
-- (void)webView:(WKWebView*)webView decidePolicyForNavigationAction:(WKNavigationAction*)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    NSURLRequest* request = navigationAction.request;
-    NSURL* requestURL     = [request URL];
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSURLRequest *request = navigationAction.request;
+    NSURL *requestURL = [request URL];
     if (
         (
-            [[requestURL scheme] isEqualToString:@"http"]
-            ||
-            [[requestURL scheme] isEqualToString:@"https"]
-            ||
-            [[requestURL scheme] isEqualToString:@"mailto"])
-        && (navigationAction.navigationType == WKNavigationTypeLinkActivated)
-        ) {
+            [[requestURL scheme] isEqualToString:@"http"] ||
+            [[requestURL scheme] isEqualToString:@"https"] ||
+            [[requestURL scheme] isEqualToString:@"mailto"]) &&
+        (navigationAction.navigationType == WKNavigationTypeLinkActivated)) {
         [self.externalLinksOpenerDelegate wmf_openExternalUrl:requestURL];
         decisionHandler(WKNavigationActionPolicyCancel);
     }

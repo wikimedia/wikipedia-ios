@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 8/31/15.
-//  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import <XCTest/XCTest.h>
 
 #import "MWKDataStore+TemporaryDataStore.h"
@@ -11,14 +8,14 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 @interface WMFSaveButtonControllerTests : XCTestCase
-@property(nonatomic, strong) NSURL* siteEn;
-@property(nonatomic, strong) NSURL* siteFr;
-@property(nonatomic, strong) NSURL* titleSFEn;
-@property(nonatomic, strong) NSURL* titleSFFr;
-@property(nonatomic, strong) MWKDataStore* dataStore;
-@property(nonatomic, strong) MWKSavedPageList* savedPagesList;
-@property(nonatomic, strong) WMFSaveButtonController* saveButtonController;
-@property(nonatomic, strong) UIButton* button;
+@property(nonatomic, strong) NSURL *siteEn;
+@property(nonatomic, strong) NSURL *siteFr;
+@property(nonatomic, strong) NSURL *titleSFEn;
+@property(nonatomic, strong) NSURL *titleSFFr;
+@property(nonatomic, strong) MWKDataStore *dataStore;
+@property(nonatomic, strong) MWKSavedPageList *savedPagesList;
+@property(nonatomic, strong) WMFSaveButtonController *saveButtonController;
+@property(nonatomic, strong) UIButton *button;
 @end
 
 @implementation WMFSaveButtonControllerTests
@@ -34,13 +31,13 @@
     self.titleSFEn = [self.siteEn wmf_URLWithTitle:@"San Francisco"];
     self.titleSFFr = [self.siteFr wmf_URLWithTitle:@"San Francisco"];
 
-    self.dataStore      = [MWKDataStore temporaryDataStore];
+    self.dataStore = [MWKDataStore temporaryDataStore];
     self.savedPagesList = [[MWKSavedPageList alloc] initWithDataStore:self.dataStore];
 
-    self.button               = [[UIButton alloc] init];
+    self.button = [[UIButton alloc] init];
     self.saveButtonController = [[WMFSaveButtonController alloc] initWithControl:self.button
                                                                    savedPageList:self.savedPagesList
-                                                                           url:nil];
+                                                                             url:nil];
 
     assertThat(@([self.savedPagesList countOfEntries]), is(equalToInt(0)));
 }

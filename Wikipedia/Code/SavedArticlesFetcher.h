@@ -1,11 +1,10 @@
-
 #import "FetcherBase.h"
 
 @class MWKArticle,
-       MWKSavedPageList,
-       WMFArticleFetcher,
-       SavedArticlesFetcher,
-       WMFImageController;
+    MWKSavedPageList,
+    WMFArticleFetcher,
+    SavedArticlesFetcher,
+    WMFImageController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,21 +19,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol SavedArticlesFetcherDelegate <FetchFinishedDelegate>
 
-- (void)savedArticlesFetcher:(SavedArticlesFetcher*)savedArticlesFetcher
-                 didFetchURL:(NSURL*)url
-                     article:(MWKArticle* __nullable)article
+- (void)savedArticlesFetcher:(SavedArticlesFetcher *)savedArticlesFetcher
+                 didFetchURL:(NSURL *)url
+                     article:(MWKArticle *__nullable)article
                     progress:(CGFloat)progress
-                       error:(NSError* __nullable)error;
+                       error:(NSError *__nullable)error;
 
 @end
 
 @interface SavedArticlesFetcher : FetcherBase
 
-@property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
+@property(nonatomic, strong, readonly) MWKSavedPageList *savedPageList;
 
-@property (nonatomic, weak, nullable) id<SavedArticlesFetcherDelegate> fetchFinishedDelegate;
+@property(nonatomic, weak, nullable) id<SavedArticlesFetcherDelegate> fetchFinishedDelegate;
 
-- (instancetype)initWithSavedPageList:(MWKSavedPageList*)savedPageList;
+- (instancetype)initWithSavedPageList:(MWKSavedPageList *)savedPageList;
 
 - (void)getProgress:(WMFProgressHandler)progressBlock;
 

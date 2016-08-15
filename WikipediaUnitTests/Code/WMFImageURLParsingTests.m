@@ -1,11 +1,3 @@
-//
-//  WMFImageURLParsingTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 3/4/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "WMFImageURLParsing.h"
@@ -20,100 +12,100 @@
 @implementation WMFImageURLParsingTests
 
 - (void)testNoPrefixExample {
-    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg";
+    NSString *testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg";
     assertThat(WMFParseImageNameFromSourceURL(testURL),
                is(equalTo(@"Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg")));
 }
 
 - (void)testImageWithOneExtensionExample {
-    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/640px-Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg";
+    NSString *testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/640px-Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg";
     assertThat(WMFParseImageNameFromSourceURL(testURL),
                is(equalTo(@"Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg")));
 }
 
 - (void)testImageWithTwoExtensionsExample {
-    NSString* testURL = @"http://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Access_to_drinking_water_in_third_world.svg/320px-Access_to_drinking_water_in_third_world.svg.png";
+    NSString *testURL = @"http://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Access_to_drinking_water_in_third_world.svg/320px-Access_to_drinking_water_in_third_world.svg.png";
     assertThat(WMFParseImageNameFromSourceURL(testURL),
                is(equalTo(@"Access_to_drinking_water_in_third_world.svg")));
 }
 
 - (void)testImageWithPeriodInFileNameExample {
-    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg/360px-Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg";
+    NSString *testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg/360px-Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg";
     assertThat(WMFParseImageNameFromSourceURL(testURL),
                is(equalTo(@"Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg")));
 }
 
 - (void)testNormalizedImageWithPeriodInFileNameExample {
-    NSString* testURL    = @"//upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg/360px-Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg";
-    NSString* normalized = WMFParseUnescapedNormalizedImageNameFromSourceURL(testURL);
+    NSString *testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg/360px-Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg";
+    NSString *normalized = WMFParseUnescapedNormalizedImageNameFromSourceURL(testURL);
     assertThat(normalized,
                is(equalTo(@"Claude Monet, 1870, Le port de Trouville (Breakwater at Trouville, Low Tide), oil on canvas, 54 x 65.7 cm, Museum of Fine Arts, Budapest.jpg")));
 }
 
 - (void)testNormalizedImageWithPeriodInFileNameFromURLExample {
-    NSURL* testURL       = [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg/360px-Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg"];
-    NSString* normalized = WMFParseUnescapedNormalizedImageNameFromSourceURL(testURL);
+    NSURL *testURL = [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg/360px-Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg"];
+    NSString *normalized = WMFParseUnescapedNormalizedImageNameFromSourceURL(testURL);
     assertThat(normalized,
                is(equalTo(@"Claude Monet, 1870, Le port de Trouville (Breakwater at Trouville, Low Tide), oil on canvas, 54 x 65.7 cm, Museum of Fine Arts, Budapest.jpg")));
 }
 
 - (void)testNormalizedEquality {
-    NSString* one   = @"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Olé.PNG";
-    NSString* two   = @"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ol\u00E9.PNG";
-    NSString* three = @"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ole\u0301.PNG";
-    NSString* fn1   = WMFParseUnescapedNormalizedImageNameFromSourceURL(one);
-    NSString* fn2   = WMFParseUnescapedNormalizedImageNameFromSourceURL(two);
-    NSString* fn3   = WMFParseUnescapedNormalizedImageNameFromSourceURL(three);
+    NSString *one = @"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Olé.PNG";
+    NSString *two = @"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ol\u00E9.PNG";
+    NSString *three = @"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ole\u0301.PNG";
+    NSString *fn1 = WMFParseUnescapedNormalizedImageNameFromSourceURL(one);
+    NSString *fn2 = WMFParseUnescapedNormalizedImageNameFromSourceURL(two);
+    NSString *fn3 = WMFParseUnescapedNormalizedImageNameFromSourceURL(three);
     XCTAssertEqualObjects(fn1, fn2);
     XCTAssertEqualObjects(fn2, fn3);
 }
 
 - (void)testNormalizedEscapedEquality {
-    NSString* one   = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Olé.PNG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString* two   = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ol\u00E9.PNG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString* three = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ole\u0301.PNG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString* fn1   = WMFParseUnescapedNormalizedImageNameFromSourceURL(one);
-    NSString* fn2   = WMFParseUnescapedNormalizedImageNameFromSourceURL(two);
-    NSString* fn3   = WMFParseUnescapedNormalizedImageNameFromSourceURL(three);
+    NSString *one = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Olé.PNG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *two = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ol\u00E9.PNG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *three = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ole\u0301.PNG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *fn1 = WMFParseUnescapedNormalizedImageNameFromSourceURL(one);
+    NSString *fn2 = WMFParseUnescapedNormalizedImageNameFromSourceURL(two);
+    NSString *fn3 = WMFParseUnescapedNormalizedImageNameFromSourceURL(three);
     XCTAssertEqualObjects(fn1, fn2);
     XCTAssertEqualObjects(fn2, fn3);
 }
 
 - (void)testImageWithMultiplePeriodsInFilename {
-    NSString* testURLString =
+    NSString *testURLString =
         @"//upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Blacksmith%27s_tools_-_geograph.org.uk_-_1483374.jpg/440px-Blacksmith%27s_tools_-_geograph.org.uk_-_1483374.jpg";
     assertThat(WMFParseImageNameFromSourceURL(testURLString),
                is(equalTo(@"Blacksmith%27s_tools_-_geograph.org.uk_-_1483374.jpg")));
 }
 
 - (void)testPrefixFromNoPrefixFileName {
-    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg";
+    NSString *testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg";
 
     XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), NSNotFound);
 }
 
 - (void)testPrefixFromImageWithOneExtensionExample {
-    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/640px-Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg";
+    NSString *testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/640px-Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg";
     XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), 640);
 }
 
 - (void)testPrefixFromUrlWithoutImageFileLastPathComponent {
-    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/";
+    NSString *testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/";
     XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), NSNotFound);
 }
 
 - (void)testPrefixFromZeroWidthImage {
-    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/0px-Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg";
+    NSString *testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/0px-Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg";
     XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), NSNotFound);
 }
 
 - (void)testPrefixFromEmptyStringUrl {
-    NSString* testURL = @"";
+    NSString *testURL = @"";
     XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), NSNotFound);
 }
 
 - (void)testPrefixFromNilUrl {
-    NSString* testURL = nil;
+    NSString *testURL = nil;
     XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), NSNotFound);
 }
 
@@ -183,18 +175,18 @@
 }
 
 - (void)testParseImageNameFromURLofSVG {
-    NSString* testURLString = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg/640px-Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg.png";
+    NSString *testURLString = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg/640px-Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg.png";
     assertThat(WMFParseImageNameFromSourceURL(testURLString),
                is(equalTo(@"Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.svg")));
 }
 
 - (void)testSizePrefixWhenCanonicalFileIsPDF {
-    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg";
+    NSString *testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg";
     XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), 240);
 }
 
 - (void)testParseCanonicalFileNameWhenCanonicalFileIsPDF {
-    NSString* testURLString = @"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg";
+    NSString *testURLString = @"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/A_Fish_and_a_Gift.pdf/page1-240px-A_Fish_and_a_Gift.pdf.jpg";
     assertThat(WMFParseImageNameFromSourceURL(testURLString),
                is(equalTo(@"A_Fish_and_a_Gift.pdf")));
 }
@@ -227,19 +219,19 @@
 }
 
 - (void)testParseImageNameFromCanonicalImageURLWithSizePrefixInFileName {
-    NSString* testURLString = @"//upload.wikimedia.org/wikipedia/commons/0/0b/300px-Geothermgradients.png";
+    NSString *testURLString = @"//upload.wikimedia.org/wikipedia/commons/0/0b/300px-Geothermgradients.png";
     assertThat(WMFParseImageNameFromSourceURL(testURLString),
                is(equalTo(@"300px-Geothermgradients.png")));
     //                      ^ the canonical image has the size in the file name, so "300px-" is correct here.
 }
 
 - (void)testSizePrefixWhenCanonicalFileIsTIF_lossy {
-    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.jpg";
+    NSString *testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.jpg";
     XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), 220);
 }
 
 - (void)testParseCanonicalFileNameWhenCanonicalFileIsTIF_lossy {
-    NSString* testURLString = @"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.jpg";
+    NSString *testURLString = @"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossy-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.jpg";
     assertThat(WMFParseImageNameFromSourceURL(testURLString),
                is(equalTo(@"Gerald_Ford_-_NARA_-_530680.tif")));
 }
@@ -260,12 +252,12 @@
 }
 
 - (void)testSizePrefixWhenCanonicalFileIsTIF_lossless {
-    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.png";
+    NSString *testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.png";
     XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), 220);
 }
 
 - (void)testParseCanonicalFileNameWhenCanonicalFileIsTIF_lossless {
-    NSString* testURLString = @"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.png";
+    NSString *testURLString = @"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Gerald_Ford_-_NARA_-_530680.tif/lossless-page1-220px-Gerald_Ford_-_NARA_-_530680.tif.png";
     assertThat(WMFParseImageNameFromSourceURL(testURLString),
                is(equalTo(@"Gerald_Ford_-_NARA_-_530680.tif")));
 }

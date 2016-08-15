@@ -1,11 +1,10 @@
-
 #import "WMFWelcomeViewController.h"
 #import "WMFWelcomeIntroductionViewController.h"
 #import "WMFBoringNavigationTransition.h"
 
-@interface WMFWelcomeViewController ()<UINavigationControllerDelegate, UIGestureRecognizerDelegate>
+@interface WMFWelcomeViewController () <UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) UINavigationController* welcomeNavigationController;
+@property(nonatomic, strong) UINavigationController *welcomeNavigationController;
 
 @end
 
@@ -16,7 +15,7 @@
     self.welcomeNavigationController.interactivePopGestureRecognizer.delegate = self;
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     return YES;
 }
 
@@ -36,27 +35,28 @@
     return NO;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
-        self.welcomeNavigationController          = segue.destinationViewController;
+        self.welcomeNavigationController = segue.destinationViewController;
         self.welcomeNavigationController.delegate = self;
     }
 }
 
 - (IBAction)dismiss:(id)sender {
     dispatch_block_t completion = self.completionBlock;
-    [self dismissViewControllerAnimated:YES completion:^{
-        if (completion) {
-            completion();
-        }
-    }];
+    [self dismissViewControllerAnimated:YES
+                             completion:^{
+                               if (completion) {
+                                   completion();
+                               }
+                             }];
 }
 
-- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController*)navigationController
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
                                   animationControllerForOperation:(UINavigationControllerOperation)operation
-                                               fromViewController:(UIViewController*)fromVC
-                                                 toViewController:(UIViewController*)toVC {
-    WMFBoringNavigationTransition* animation = [[WMFBoringNavigationTransition alloc] init];
+                                               fromViewController:(UIViewController *)fromVC
+                                                 toViewController:(UIViewController *)toVC {
+    WMFBoringNavigationTransition *animation = [[WMFBoringNavigationTransition alloc] init];
     animation.operation = operation;
     return animation;
 }

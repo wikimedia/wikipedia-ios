@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 6/17/15.
-//  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import <UIKit/UIKit.h>
 
 @interface UIViewController (WMFStoryboardUtilities)
@@ -17,19 +14,19 @@
 /**
  * @return The name of the storyboard used in @c wmf_initialViewControllerFromClassStoryboard. Defaults to @c NSStringFromClass(self).
  */
-+ (NSString*)wmf_classStoryboardName;
++ (NSString *)wmf_classStoryboardName;
 
 /**
  *  @return Storyboard loaded from the receiver's bundle using the name returned by @c wmf_classStoryboardName.
  */
-+ (UIStoryboard*)wmf_classStoryboard;
++ (UIStoryboard *)wmf_classStoryboard;
 
 /**
  *  Create a new view controller from a storyboard by name.
  *  @see wmf_viewControllerWithIdentifier:fromStoryboard:
  */
-+ (instancetype)wmf_viewControllerWithIdentifier:(NSString*)identifier
-                             fromStoryboardNamed:(NSString*)storyboard;
++ (instancetype)wmf_viewControllerWithIdentifier:(NSString *)identifier
+                             fromStoryboardNamed:(NSString *)storyboard;
 
 /**
  *  Instantiate an instance of the receiver from a storyboard.
@@ -42,7 +39,7 @@
  *
  *  @return A new instance of the receiver.
  */
-+ (instancetype)wmf_viewControllerWithIdentifier:(NSString*)identifier
-                                  fromStoryboard:(UIStoryboard*)storyboard;
++ (instancetype)wmf_viewControllerWithIdentifier:(NSString *)identifier
+                                  fromStoryboard:(UIStoryboard *)storyboard;
 
 @end

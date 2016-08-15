@@ -1,7 +1,6 @@
-
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM (NSUInteger, WMFEmptyViewType) {
+typedef NS_ENUM(NSUInteger, WMFEmptyViewType) {
     WMFEmptyViewTypeNone,
     WMFEmptyViewTypeBlank,
     WMFEmptyViewTypeNoFeed,

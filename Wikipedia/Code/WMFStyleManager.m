@@ -1,23 +1,22 @@
-
 #import "WMFStyleManager.h"
 #import "UIColor+WMFStyle.h"
 #import "UIImage+WMFStyle.h"
 
-static WMFStyleManager* _styleManager = nil;
+static WMFStyleManager *_styleManager = nil;
 
 @implementation WMFStyleManager
 
-+ (void)setSharedStyleManager:(WMFStyleManager*)styleManger {
++ (void)setSharedStyleManager:(WMFStyleManager *)styleManger {
     _styleManager = styleManger;
 }
 
-- (void)applyStyleToWindow:(UIWindow*)window {
+- (void)applyStyleToWindow:(UIWindow *)window {
     window.backgroundColor = [UIColor whiteColor];
     [[UIButton appearance] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
     [[UIButton appearance] setBackgroundImage:[UIImage imageNamed:@"clear.png"] forState:UIControlStateNormal];
     [[UIButton appearance] setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
 
-    UIImage* backChevron = [UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"];
+    UIImage *backChevron = [UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"];
     [[UINavigationBar appearance] setBackIndicatorImage:backChevron];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backChevron];
 
@@ -27,9 +26,9 @@ static WMFStyleManager* _styleManager = nil;
 
     [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"clear.png"]];
     [[UITabBar appearance] setShadowImage:[UIImage imageNamed:@"tabbar-shadow"]];
-    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor wmf_customGray] }
+    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor wmf_customGray] }
                                              forState:UIControlStateNormal];
-    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor wmf_blueTintColor] }
+    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor wmf_blueTintColor] }
                                              forState:UIControlStateSelected];
 
     [[UITabBar appearance] setTintColor:[UIColor wmf_blueTintColor]];
@@ -40,10 +39,9 @@ static WMFStyleManager* _styleManager = nil;
 
 @end
 
-
 @implementation UIViewController (WMFStyleManager)
 
-- (WMFStyleManager*)wmf_styleManager {
+- (WMFStyleManager *)wmf_styleManager {
     return _styleManager;
 }
 
@@ -51,7 +49,7 @@ static WMFStyleManager* _styleManager = nil;
 
 @implementation UIView (WMFStyleManager)
 
-- (WMFStyleManager*)wmf_styleManager {
+- (WMFStyleManager *)wmf_styleManager {
     return _styleManager;
 }
 

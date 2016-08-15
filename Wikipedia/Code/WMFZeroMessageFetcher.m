@@ -1,11 +1,3 @@
-//
-//  WMFZeroMessageFetcher.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/29/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFZeroMessageFetcher.h"
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFMantleJSONResponseSerializer.h"
@@ -14,10 +6,9 @@
 #import "FBTweak+WikipediaZero.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 
-
 @interface WMFZeroMessageFetcher ()
 
-@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
+@property(nonatomic, strong) AFHTTPSessionManager *operationManager;
 
 @end
 
@@ -26,7 +17,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.operationManager                    = [[AFHTTPSessionManager alloc] init];
+        self.operationManager = [[AFHTTPSessionManager alloc] init];
         self.operationManager.responseSerializer =
             [WMFMantleJSONResponseSerializer serializerForInstancesOf:[WMFZeroMessage class]
                                                           fromKeypath:nil];
@@ -34,24 +25,25 @@
     return self;
 }
 
-- (AnyPromise*)fetchZeroMessageForSiteURL:(NSURL*)siteURL{
+- (AnyPromise *)fetchZeroMessageForSiteURL:(NSURL *)siteURL {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        NSMutableDictionary* params = [NSMutableDictionary dictionaryWithDictionary:@{
-                                           @"action": @"zeroconfig",
-                                           @"type": @"message",
-                                           @"agent": [WikipediaAppUtils versionedUserAgent]
-                                       }];
-        if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
-            params[@"X-CS"] = @"TEST";
-        }
-        [self.operationManager GET:[[NSURL wmf_mobileAPIURLForURL:siteURL] absoluteString]
-                        parameters:params
-                          progress:NULL
-                           success:^(NSURLSessionDataTask* _Nonnull _, id _Nonnull responseObject) {
+      NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
+          @"action" : @"zeroconfig",
+          @"type" : @"message",
+          @"agent" : [WikipediaAppUtils versionedUserAgent]
+      }];
+      if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
+          params[@"X-CS"] = @"TEST";
+      }
+      [self.operationManager GET:[[NSURL wmf_mobileAPIURLForURL:siteURL] absoluteString]
+          parameters:params
+          progress:NULL
+          success:^(NSURLSessionDataTask *_Nonnull _, id _Nonnull responseObject) {
             resolve(responseObject);
-        } failure:^(NSURLSessionDataTask* _Nullable _, NSError* _Nonnull error) {
+          }
+          failure:^(NSURLSessionDataTask *_Nullable _, NSError *_Nonnull error) {
             resolve(error);
-        }];
+          }];
     }];
 }
 

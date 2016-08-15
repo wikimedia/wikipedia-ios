@@ -1,17 +1,14 @@
-//  Created by Monte Hurd on 5/9/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "WMFAssetsFile.h"
 
 @interface WMFAssetsFile ()
 
-@property (nonatomic) WMFAssetsFileType fileType;
+@property(nonatomic) WMFAssetsFileType fileType;
 
-@property (nonatomic, strong) NSData* data;
+@property(nonatomic, strong) NSData *data;
 
-@property (nonatomic, strong, readwrite) NSDictionary* dictionary;
+@property(nonatomic, strong, readwrite) NSDictionary *dictionary;
 
-@property (nonatomic, strong, readwrite) NSArray* array;
+@property(nonatomic, strong, readwrite) NSArray *array;
 
 @end
 
@@ -25,25 +22,25 @@
     return self;
 }
 
-- (NSString*)documentsAssetsPath {
-    NSArray* documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+- (NSString *)documentsAssetsPath {
+    NSArray *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     return [[documentsPath firstObject] stringByAppendingPathComponent:@"assets"];
 }
 
-- (NSString*)path {
+- (NSString *)path {
     return [[self documentsAssetsPath] stringByAppendingPathComponent:self.name];
 }
 
-- (NSData*)data {
+- (NSData *)data {
     if (!_data) {
         _data = [NSData dataWithContentsOfFile:self.path options:0 error:nil];
     }
     return _data;
 }
 
-- (NSDictionary*)dictionary {
+- (NSDictionary *)dictionary {
     if (!_dictionary && self.data) {
-        NSError* error = nil;
+        NSError *error = nil;
         _dictionary = [NSJSONSerialization JSONObjectWithData:self.data options:0 error:&error];
         if (![_dictionary isKindOfClass:[NSDictionary class]]) {
             _dictionary = nil;
@@ -52,9 +49,9 @@
     return _dictionary;
 }
 
-- (NSArray*)array {
+- (NSArray *)array {
     if (!_array && self.data) {
-        NSError* error = nil;
+        NSError *error = nil;
         _array = [NSJSONSerialization JSONObjectWithData:self.data options:0 error:&error];
         NSAssert([_array isKindOfClass:[NSArray class]], @"Expected array, got %@", _array);
         NSAssert(!error, @"Unexpected JSON error: %@", error);
@@ -65,29 +62,29 @@
     return _array;
 }
 
-- (NSString*)name {
+- (NSString *)name {
     switch (self.fileType) {
-        case WMFAssetsFileTypeConfig:
-            return @"ios.json";
-        case WMFAssetsFileTypeLanguages:
-            return @"languages.json";
-        case WMFAssetsFileTypeMainPages:
-            return @"mainpages.json";
-        default:
-            return nil;
+    case WMFAssetsFileTypeConfig:
+        return @"ios.json";
+    case WMFAssetsFileTypeLanguages:
+        return @"languages.json";
+    case WMFAssetsFileTypeMainPages:
+        return @"mainpages.json";
+    default:
+        return nil;
     }
 }
 
-- (NSURL*)url {
-    NSString* urlString;
+- (NSURL *)url {
+    NSString *urlString;
 
     switch (self.fileType) {
-        case WMFAssetsFileTypeConfig:
-            urlString = @"https://meta.wikimedia.org/static/current/extensions/MobileApp/config/ios.json";
-            break;
+    case WMFAssetsFileTypeConfig:
+        urlString = @"https://meta.wikimedia.org/static/current/extensions/MobileApp/config/ios.json";
+        break;
 
-        default:
-            break;
+    default:
+        break;
     }
 
     if (!urlString) {
@@ -104,9 +101,9 @@
         return YES;
     }
 
-    NSDate* lastModified = nil;
-    NSError* error       = nil;
-    NSURL* url           = [NSURL fileURLWithPath:self.path];
+    NSDate *lastModified = nil;
+    NSError *error = nil;
+    NSURL *url = [NSURL fileURLWithPath:self.path];
 
     [url getResourceValue:&lastModified
                    forKey:NSURLContentModificationDateKey

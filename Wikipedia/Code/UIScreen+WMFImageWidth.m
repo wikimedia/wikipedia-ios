@@ -1,11 +1,3 @@
-//
-//  UIScreen+WMFImageWidth.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 12/2/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "UIScreen+WMFImageWidth.h"
 #import <Tweaks/FBTweakInline.h>
 
@@ -14,7 +6,7 @@
  *
  *  This prevents us from fragmenting the image thumbnail caches on the back-end.
  */
-typedef NS_ENUM (NSUInteger, WMFImageWidth) {
+typedef NS_ENUM(NSUInteger, WMFImageWidth) {
     /**
      *  The smallest image width we will show, e.g. in search cell thumbnails.
      *
@@ -43,23 +35,23 @@ typedef NS_ENUM (NSUInteger, WMFImageWidth) {
     return MIN((NSUInteger)self.scale, scaleMultiplierCeiling);
 }
 
-- (NSNumber*)wmf_listThumbnailWidthForScale {
+- (NSNumber *)wmf_listThumbnailWidthForScale {
     return @(self.wmf_maxScale * WMFImageWidthExtraSmall);
 }
 
-- (NSNumber*)wmf_nearbyThumbnailWidthForScale {
+- (NSNumber *)wmf_nearbyThumbnailWidthForScale {
     return @(self.wmf_maxScale * WMFImageWidthSmall);
 }
 
-- (NSNumber*)wmf_leadImageWidthForScale {
+- (NSNumber *)wmf_leadImageWidthForScale {
     return @(self.wmf_maxScale * WMFImageWidthMedium);
 }
 
-- (NSNumber*)wmf_potdImageWidthForScale {
+- (NSNumber *)wmf_potdImageWidthForScale {
     return @(self.wmf_maxScale * WMFImageWidthMedium);
 }
 
-- (NSNumber*)wmf_galleryImageWidthForScale {
+- (NSNumber *)wmf_galleryImageWidthForScale {
     return @(self.wmf_maxScale * WMFImageWidthLarge);
 }
 

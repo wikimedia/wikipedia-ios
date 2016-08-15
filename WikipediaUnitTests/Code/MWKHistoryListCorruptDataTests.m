@@ -1,4 +1,3 @@
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "MWKHistoryList.h"
@@ -8,7 +7,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 @interface MWKHistoryListCorruptDataTests : XCTestCase
-@property (strong, nonatomic) MWKHistoryList* historyList;
+@property(strong, nonatomic) MWKHistoryList *historyList;
 
 @end
 
@@ -18,7 +17,7 @@
 #pragma clang diagnostic ignored "-Wnonnull"
 
 - (void)testPrunesEntriesWithEmptyTitles {
-    MWKHistoryList* list = [[MWKHistoryList alloc] initWithEntries:nil];
+    MWKHistoryList *list = [[MWKHistoryList alloc] initWithEntries:nil];
     [list addPageToHistoryWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Foo"]];
     assertThat(@([list countOfEntries]), is(@1));
 
@@ -27,6 +26,5 @@
 }
 
 #pragma clang diagnostic pop
-
 
 @end

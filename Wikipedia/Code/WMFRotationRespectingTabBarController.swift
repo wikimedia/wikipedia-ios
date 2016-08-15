@@ -1,4 +1,3 @@
-
 import UIKit
 
 public class WMFRotationRespectingTabBarController: UITabBarController {

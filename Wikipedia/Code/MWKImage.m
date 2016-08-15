@@ -1,4 +1,3 @@
-
 #import "UIKit/UIKit.h"
 #import "WikipediaAppUtils.h"
 #import "MediaWikiKit.h"
@@ -12,27 +11,27 @@
 /// readwrite redeclarations
 ///
 
-@property (readwrite, weak, nonatomic) MWKArticle* article;
-@property (readwrite, copy, nonatomic) NSURL* sourceURL;
-@property (readwrite, assign, nonatomic) BOOL isCached;
+@property(readwrite, weak, nonatomic) MWKArticle *article;
+@property(readwrite, copy, nonatomic) NSURL *sourceURL;
+@property(readwrite, assign, nonatomic) BOOL isCached;
 
 ///
 /// Lazy property storage
 ///
 
-@property (readwrite, copy, nonatomic) NSString* extension;
-@property (readwrite, copy, nonatomic) NSString* fileName;
-@property (readwrite, copy, nonatomic) NSString* fileNameNoSizePrefix;
+@property(readwrite, copy, nonatomic) NSString *extension;
+@property(readwrite, copy, nonatomic) NSString *fileName;
+@property(readwrite, copy, nonatomic) NSString *fileNameNoSizePrefix;
 
 @end
 
 @implementation MWKImage
 
-- (instancetype)initWithArticle:(MWKArticle*)article sourceURLString:(NSString*)urlString {
+- (instancetype)initWithArticle:(MWKArticle *)article sourceURLString:(NSString *)urlString {
     return [self initWithArticle:article sourceURL:[NSURL wmf_optionalURLWithString:urlString]];
 }
 
-- (instancetype)initWithArticle:(MWKArticle*)article sourceURL:(NSURL*)sourceURL {
+- (instancetype)initWithArticle:(MWKArticle *)article sourceURL:(NSURL *)sourceURL {
     self = [super initWithURL:article.url];
     if (self) {
         self.article = article;
@@ -46,24 +45,24 @@
 
 #pragma mark - Serialization
 
-- (instancetype)initWithArticle:(MWKArticle*)article dict:(NSDictionary*)dict {
-    NSString* sourceURL = [self requiredString:@"sourceURL" dict:dict];
+- (instancetype)initWithArticle:(MWKArticle *)article dict:(NSDictionary *)dict {
+    NSString *sourceURL = [self requiredString:@"sourceURL" dict:dict];
     self = [self initWithArticle:article sourceURLString:sourceURL];
     if (self) {
-        self.mimeType            = [self optionalString:@"mimeType" dict:dict];
-        self.width               = [self optionalNumber:@"width" dict:dict];
-        self.height              = [self optionalNumber:@"height" dict:dict];
-        self.originalFileWidth   = [self optionalNumber:@"originalFileWidth" dict:dict];
-        self.originalFileHeight  = [self optionalNumber:@"originalFileHeight" dict:dict];
-        _allNormalizedFaceBounds = [dict[@"focalRects"] bk_map:^NSValue*(NSString* rectString) {
-            return [NSValue valueWithCGRect:CGRectFromString(rectString)];
+        self.mimeType = [self optionalString:@"mimeType" dict:dict];
+        self.width = [self optionalNumber:@"width" dict:dict];
+        self.height = [self optionalNumber:@"height" dict:dict];
+        self.originalFileWidth = [self optionalNumber:@"originalFileWidth" dict:dict];
+        self.originalFileHeight = [self optionalNumber:@"originalFileHeight" dict:dict];
+        _allNormalizedFaceBounds = [dict[@"focalRects"] bk_map:^NSValue *(NSString *rectString) {
+          return [NSValue valueWithCGRect:CGRectFromString(rectString)];
         }];
     }
     return self;
 }
 
 - (id)dataExport {
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     dict[@"sourceURL"] = self.sourceURLString;
 
     if (self.mimeType) {
@@ -82,8 +81,8 @@
         dict[@"originalFileHeight"] = self.originalFileHeight;
     }
     if (self.allNormalizedFaceBounds) {
-        dict[@"focalRects"] = [self.allNormalizedFaceBounds bk_map:^id (NSValue* rectValue) {
-            return NSStringFromCGRect(rectValue.CGRectValue);
+        dict[@"focalRects"] = [self.allNormalizedFaceBounds bk_map:^id(NSValue *rectValue) {
+          return NSStringFromCGRect(rectValue.CGRectValue);
         }];
     }
 
@@ -101,18 +100,18 @@
 }
 
 - (CGRect)firstFaceBounds {
-    NSValue* firstFace = [self.allNormalizedFaceBounds firstObject];
+    NSValue *firstFace = [self.allNormalizedFaceBounds firstObject];
     return firstFace ? [firstFace CGRectValue] : CGRectZero;
 }
 
-- (void)setAllNormalizedFaceBounds:(NSArray*)allNormalizedFaceBounds {
+- (void)setAllNormalizedFaceBounds:(NSArray *)allNormalizedFaceBounds {
     if (!allNormalizedFaceBounds) {
         allNormalizedFaceBounds = @[];
     }
     _allNormalizedFaceBounds = allNormalizedFaceBounds;
 }
 
-- (NSString*)sourceURLString {
+- (NSString *)sourceURLString {
     return self.sourceURL.absoluteString;
 }
 
@@ -132,25 +131,25 @@
     }
 }
 
-- (NSString*)extension {
+- (NSString *)extension {
     return [self.sourceURLString pathExtension];
 }
 
-- (NSString*)fileName {
+- (NSString *)fileName {
     return [self.sourceURLString lastPathComponent];
 }
 
-- (NSString*)basename {
-    NSArray* sourceURLComponents = [self.sourceURLString componentsSeparatedByString:@"/"];
+- (NSString *)basename {
+    NSArray *sourceURLComponents = [self.sourceURLString componentsSeparatedByString:@"/"];
     NSParameterAssert(sourceURLComponents.count >= 2);
     return sourceURLComponents[sourceURLComponents.count - 2];
 }
 
-- (NSString*)canonicalFilename {
+- (NSString *)canonicalFilename {
     return WMFParseUnescapedNormalizedImageNameFromSourceURL(self.sourceURL);
 }
 
-- (NSString*)fileNameNoSizePrefix {
+- (NSString *)fileNameNoSizePrefix {
     if (!_fileNameNoSizePrefix) {
         _fileNameNoSizePrefix = WMFParseImageNameFromSourceURL(self.sourceURLString);
     }
@@ -175,15 +174,14 @@
     }
 }
 
-- (NSString*)estimatedSizeString {
+- (NSString *)estimatedSizeString {
     return NSStringFromCGSize(self.estimatedSize);
 }
 
 /// @return @c YES if @c size is within @c points of <code>self.estimatedSize</code>, otherwise @c NO.
 - (BOOL)isEstimatedSizeWithinPoints:(float)points ofSize:(CGSize)size {
     CGSize estimatedSize = [self estimatedSize];
-    return fabs(estimatedSize.width - size.width) <= points
-           && fabs(estimatedSize.height - size.height) <= points;
+    return fabs(estimatedSize.width - size.width) <= points && fabs(estimatedSize.height - size.height) <= points;
 }
 
 - (BOOL)isDownloaded {
@@ -200,7 +198,7 @@
     }
 }
 
-- (BOOL)isEqualToImage:(MWKImage*)image {
+- (BOOL)isEqualToImage:(MWKImage *)image {
     return self == image || [[self.sourceURLString wmf_schemelessURL] isEqualToString:[image.sourceURLString wmf_schemelessURL]];
 }
 
@@ -208,13 +206,13 @@
     return [self.fileName hash];
 }
 
-- (BOOL)isVariantOfImage:(MWKImage*)otherImage {
+- (BOOL)isVariantOfImage:(MWKImage *)otherImage {
     return otherImage.canonicalFilename && [self.canonicalFilename isEqualToString:otherImage.canonicalFilename];
 }
 
-- (NSString*)description {
+- (NSString *)description {
     return [NSString stringWithFormat:@"%@ article: %@ sourceURL: %@",
-            [super description], self.article.url, self.sourceURLString];
+                                      [super description], self.article.url, self.sourceURLString];
 }
 
 - (BOOL)isLeadImage {

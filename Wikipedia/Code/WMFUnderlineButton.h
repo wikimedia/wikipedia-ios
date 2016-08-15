@@ -1,8 +1,7 @@
-
 #import "WMFTitleInsetRespectingButton.h"
 
 @interface WMFUnderlineButton : WMFTitleInsetRespectingButton
 
-@property (nonatomic, assign) CGFloat underlineHeight;
+@property(nonatomic, assign) CGFloat underlineHeight;
 
 @end

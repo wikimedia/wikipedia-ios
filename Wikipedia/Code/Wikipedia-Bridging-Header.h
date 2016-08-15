@@ -16,7 +16,6 @@
 #import <Tweaks/FBTweakStore.h>
 #import <Tweaks/FBTweakCategory.h>
 
-
 // Model
 #import "MediaWikiKit.h"
 #import "MWKLanguageLink.h"

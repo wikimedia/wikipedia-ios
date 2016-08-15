@@ -1,15 +1,7 @@
-//
-//  WMFHashing.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 5/28/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #ifndef Wikipedia_WMFHashing_h
 #define Wikipedia_WMFHashing_h
 
-static NSUInteger const NSUINT_BIT   = sizeof(NSUInteger) * CHAR_BIT;
+static NSUInteger const NSUINT_BIT = sizeof(NSUInteger) * CHAR_BIT;
 static NSUInteger const NSUINT_BIT_2 = NSUINT_BIT / 2;
 
 // taken from MA's blog:

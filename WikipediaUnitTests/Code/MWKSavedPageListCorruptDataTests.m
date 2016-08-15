@@ -1,4 +1,3 @@
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "MWKSavedPageList.h"
@@ -17,7 +16,7 @@
 #pragma clang diagnostic ignored "-Wnonnull"
 
 - (void)testPrunesEntriesWithEmptyOrAbsentTitles {
-    MWKSavedPageList* list = [[MWKSavedPageList alloc] initWithEntries:nil];
+    MWKSavedPageList *list = [[MWKSavedPageList alloc] initWithEntries:nil];
     [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Foo"]];
     assertThat(@([list countOfEntries]), is(@1));
 
@@ -29,6 +28,5 @@
 }
 
 #pragma clang diagnostic pop
-
 
 @end

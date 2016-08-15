@@ -1,11 +1,3 @@
-//
-//  SSArrayDataSource+WMFReverseIfRTL.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 12/8/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <SSDataSources/SSDataSources.h>
 
 @interface SSArrayDataSource (WMFReverseIfRTL)
@@ -21,6 +13,6 @@
  *
  *  @return A new data source.
  */
-- (instancetype)initWithItemsAndReverseIfNeeded:(NSArray*)items;
+- (instancetype)initWithItemsAndReverseIfNeeded:(NSArray *)items;
 
 @end

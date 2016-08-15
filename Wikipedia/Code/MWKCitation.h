@@ -1,11 +1,3 @@
-//
-//  MWKCitation.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 8/6/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MTLModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -18,19 +10,19 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Identifier for the citation element in the reference list.
  */
-@property (nonatomic, copy, readonly) NSString* citationIdentifier;
+@property(nonatomic, copy, readonly) NSString *citationIdentifier;
 
 /**
  *  HTML representation of the receiver, as parsed from the reference list.
  */
-@property (nonatomic, copy, readonly) NSString* rawHTML;
+@property(nonatomic, copy, readonly) NSString *rawHTML;
 
 /**
  *  Lazily computed property containing "id" attributes of backlinks from the receiver.
  *
  *  Used to allow users to jump back to one of the locations where the receiver was cited.
  */
-@property (nonatomic, copy, readonly) NSArray* backlinkIdentifiers;
+@property(nonatomic, copy, readonly) NSArray *backlinkIdentifiers;
 
 /**
  *  Lazily computed property which returns the HTML inside the citation element, excluding the back-links.
@@ -39,15 +31,14 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see rawHTML
  */
-@property (nonatomic, copy, readonly) NSString* citationHTML;
+@property(nonatomic, copy, readonly) NSString *citationHTML;
 
+- (MWKCitation *__nullable)initWithCitationIdentifier:(NSString *)citationIdentifier
+                                              rawHTML:(NSString *)rawHTML;
 
-- (MWKCitation* __nullable)initWithCitationIdentifier:(NSString*)citationIdentifier
-                                              rawHTML:(NSString*)rawHTML;
-
-- (MWKCitation* __nullable)initWithCitationIdentifier:(NSString*)citationIdentifier
-                                              rawHTML:(NSString*)rawHTML
-                                                error:(out NSError* __autoreleasing* __nullable)error;
+- (MWKCitation *__nullable)initWithCitationIdentifier:(NSString *)citationIdentifier
+                                              rawHTML:(NSString *)rawHTML
+                                                error:(out NSError *__autoreleasing *__nullable)error;
 
 @end
 

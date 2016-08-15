@@ -1,7 +1,6 @@
 #import <XCTest/XCTest.h>
 #import "NSUserActivity+WMFExtensions.h"
 
-
 @interface NSUserActivity_WMFExtensions_wmf_activityForWikipediaScheme_Test : XCTestCase
 @end
 
@@ -49,7 +48,7 @@
     NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
     XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeSearchResults);
     XCTAssertEqualObjects(activity.webpageURL.absoluteString,
-            @"https://en.wikipedia.org/w/index.php?search=dog&title=Special:Search&fulltext=1");
+                          @"https://en.wikipedia.org/w/index.php?search=dog&title=Special:Search&fulltext=1");
 }
 
 @end

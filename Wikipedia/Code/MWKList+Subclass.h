@@ -1,11 +1,3 @@
-//
-//  MWKList+Subclass.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/14/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MWKList.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -17,8 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Whether or not the list should be considered dirty after the update.
  */
-typedef BOOL (^ MWKListUpdateBlock)(MWKListEntry entry);
-
+typedef BOOL (^MWKListUpdateBlock)(MWKListEntry entry);
 
 @interface MWKList (Subclasses)
 
@@ -30,7 +21,7 @@ typedef BOOL (^ MWKListUpdateBlock)(MWKListEntry entry);
  *
  *  @param entries The entries to be set in the receiver.
  */
-- (void)importEntries:(nullable NSArray*)entries;
+- (void)importEntries:(nullable NSArray *)entries;
 
 /**
  *  Update the entry associated with @c listIndex, updating the internal @c dirty flag if necessary.
@@ -57,12 +48,12 @@ typedef BOOL (^ MWKListUpdateBlock)(MWKListEntry entry);
  *
  *  @return The sort descriptors to use for sorting the entries
  */
-- (nullable NSArray<NSSortDescriptor*>*)sortDescriptors;
+- (nullable NSArray<NSSortDescriptor *> *)sortDescriptors;
 
 /*
  * Indicates if the list has been mutated since the last save.
  */
-@property (nonatomic, assign, readonly) BOOL dirty;
+@property(nonatomic, assign, readonly) BOOL dirty;
 
 /**
  *  Subclasses must implement to support saving

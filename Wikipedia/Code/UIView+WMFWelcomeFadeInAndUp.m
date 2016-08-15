@@ -12,9 +12,10 @@
                           delay:delay
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-        self.layer.opacity = 1.0;
-        self.layer.transform = CATransform3DIdentity;
-    } completion:nil];
+                       self.layer.opacity = 1.0;
+                       self.layer.transform = CATransform3DIdentity;
+                     }
+                     completion:nil];
 }
 
 @end

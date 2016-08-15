@@ -1,4 +1,3 @@
-
 var currentClassName = dice.className;
 var split = currentClassName.split("-");
 var currentRoll = parseInt(split[split.length - 1]);

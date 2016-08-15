@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 4/2/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import <UIKit/UIKit.h>
 
 @interface UIView (WMFSearchSubviews)
@@ -16,6 +13,6 @@
  * @c aClass.
  * @return A possibly empty array of matching subviews.
  */
-- (NSArray*)wmf_subviewsOfClass:(Class)aClass;
+- (NSArray *)wmf_subviewsOfClass:(Class)aClass;
 
 @end

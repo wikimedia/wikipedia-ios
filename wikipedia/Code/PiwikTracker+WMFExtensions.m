@@ -1,4 +1,3 @@
-
 #import "PiwikTracker+WMFExtensions.h"
 #import "NSBundle+WMFInfoUtils.h"
 
@@ -14,8 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
         DDLogError(@"Not starting Piwik becuase no URL or app ID was found");
         return;
     }
-    NSString* piwikHostURLString = [[NSBundle mainBundle] wmf_piwikURL];
-    NSString* appID              = [[NSBundle mainBundle] wmf_piwikAppID];
+    NSString *piwikHostURLString = [[NSBundle mainBundle] wmf_piwikURL];
+    NSString *appID = [[NSBundle mainBundle] wmf_piwikAppID];
     [PiwikTracker sharedInstanceWithSiteID:appID baseURL:[NSURL URLWithString:piwikHostURLString]];
     [[PiwikTracker wmf_configuredInstance] setDispatchInterval:WMFDispatchInterval];
     [PiwikTracker wmf_configuredInstance].sampleRate = 10;
@@ -33,9 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 #endif
 }
 
-- (void)wmf_sendEventWithCategory:(NSString*)category action:(NSString*)action name:(nullable NSString*)name value:(nullable NSNumber*)value {
+- (void)wmf_sendEventWithCategory:(NSString *)category action:(NSString *)action name:(nullable NSString *)name value:(nullable NSNumber *)value {
 #ifdef PIWIK_ENABLED
-    [self sendEventWithCategory:category action:action name:name value:value];
+    [self sendEventWithCategory:category
+                         action:action
+                           name:name
+                          value:value];
 #endif
 }
 

@@ -1,10 +1,9 @@
-
 #import "WMFDailyStatsLoggingFunnel.h"
 #import "Wikipedia-Swift.h"
 #import "NSDate+Utilities.h"
 
-static NSString* const kAppInstallAgeKey = @"appInstallAgeDays";
-static NSString* const kAppInstallIdKey  = @"appInstallID";
+static NSString *const kAppInstallAgeKey = @"appInstallAgeDays";
+static NSString *const kAppInstallIdKey = @"appInstallID";
 
 @implementation WMFDailyStatsLoggingFunnel
 
@@ -18,7 +17,7 @@ static NSString* const kAppInstallIdKey  = @"appInstallID";
 }
 
 - (BOOL)shouldLogInstallDays {
-    NSDate* date = [[NSUserDefaults standardUserDefaults] wmf_dateLastDailyLoggingStatsSent];
+    NSDate *date = [[NSUserDefaults standardUserDefaults] wmf_dateLastDailyLoggingStatsSent];
     if (date == nil) {
         return YES;
     } else if ([[NSCalendar currentCalendar] isDateInToday:date]) {
@@ -33,22 +32,22 @@ static NSString* const kAppInstallIdKey  = @"appInstallID";
         return;
     }
 
-    NSDate* date = [[NSUserDefaults standardUserDefaults] wmf_appInstallDate];
+    NSDate *date = [[NSUserDefaults standardUserDefaults] wmf_appInstallDate];
     NSParameterAssert(date);
     if (!date) {
         return;
     }
 
     NSInteger days = [[NSDate date] distanceInDaysToDate:date];
-    [self log:@{kAppInstallAgeKey: @(days)}];
+    [self log:@{ kAppInstallAgeKey : @(days) }];
     [[NSUserDefaults standardUserDefaults] wmf_setDateLastDailyLoggingStatsSent:date];
 }
 
-- (NSDictionary*)preprocessData:(NSDictionary*)eventData {
+- (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     if (!eventData) {
         return nil;
     }
-    NSMutableDictionary* dict = [eventData mutableCopy];
+    NSMutableDictionary *dict = [eventData mutableCopy];
     dict[kAppInstallIdKey] = self.appInstallId;
     return [dict copy];
 }

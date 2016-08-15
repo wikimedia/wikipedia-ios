@@ -12,62 +12,62 @@
 @implementation NSURL_WMFQueryParametersTests
 
 - (void)testValueForQueryKeyForURLWithSingleQueryParameter {
-    NSURL* url = [NSURL URLWithString:@"https://foo.org/bar?key=value"];
+    NSURL *url = [NSURL URLWithString:@"https://foo.org/bar?key=value"];
     assertThat([url wmf_valueForQueryKey:@"key"], is(@"value"));
 }
 
 - (void)testValueForQueryKeyForURLWithMultipleQueryParameters {
-    NSURL* url = [NSURL URLWithString:@"https://foo.org/bar?key=value&otherkey=othervalue"];
+    NSURL *url = [NSURL URLWithString:@"https://foo.org/bar?key=value&otherkey=othervalue"];
     assertThat([url wmf_valueForQueryKey:@"otherkey"], is(@"othervalue"));
 }
 
 - (void)testValueForUnfoundQueryKeyForURLWithMultipleQueryParameters {
-    NSURL* url = [NSURL URLWithString:@"https://foo.org/bar?key=value&otherkey=othervalue"];
+    NSURL *url = [NSURL URLWithString:@"https://foo.org/bar?key=value&otherkey=othervalue"];
     assertThat([url wmf_valueForQueryKey:@"nonexistentkey"], is(nilValue()));
 }
 
 - (void)testValueForQueryKeyForURLNoQueryParameters {
-    NSURL* url = [NSURL URLWithString:@"https://foo.org/bar"];
+    NSURL *url = [NSURL URLWithString:@"https://foo.org/bar"];
     assertThat([url wmf_valueForQueryKey:@"otherkey"], is(nilValue()));
 }
 
 - (void)testValueForQueryKeyForURLWithKeyButNoValueForIt {
-    NSURL* url = [NSURL URLWithString:@"https://foo.org/bar?key=&otherkey=othervalue"];
+    NSURL *url = [NSURL URLWithString:@"https://foo.org/bar?key=&otherkey=othervalue"];
     assertThat([url wmf_valueForQueryKey:@"key"], is(@""));
 }
 
 - (void)testAddingValueAndQueryKeyToURLWithoutAnyQueryKeys {
-    NSURL* url = [NSURL URLWithString:@"http://localhost:8080"];
+    NSURL *url = [NSURL URLWithString:@"http://localhost:8080"];
     url = [url wmf_urlWithValue:@"NEWVALUE" forQueryKey:@"KEY"];
     assertThat([url absoluteString], is(@"http://localhost:8080?KEY=NEWVALUE"));
 }
 
 - (void)testChangingValueForQueryKeyWithoutChangingOtherKeysOrValues {
-    NSURL* url = [NSURL URLWithString:@"http://localhost:8080?KEY=VALUE&originalSrc=http://this.jpg"];
+    NSURL *url = [NSURL URLWithString:@"http://localhost:8080?KEY=VALUE&originalSrc=http://this.jpg"];
     url = [url wmf_urlWithValue:@"NEWVALUE" forQueryKey:@"KEY"];
     assertThat([url absoluteString], is(@"http://localhost:8080?KEY=NEWVALUE&originalSrc=http://this.jpg"));
 }
 
 - (void)testRemovingValueForQueryKey {
-    NSURL* url = [NSURL URLWithString:@"http://localhost:8080?KEY=VALUE"];
+    NSURL *url = [NSURL URLWithString:@"http://localhost:8080?KEY=VALUE"];
     url = [url wmf_urlWithoutQueryKey:@"KEY"];
     assertThat([url absoluteString], is(@"http://localhost:8080?"));
 }
 
 - (void)testRemovingValueForQueryKeyWithoutChangingOtherKeysOrValues {
-    NSURL* url = [NSURL URLWithString:@"http://localhost:8080?KEY=VALUE&originalSrc=http://this.jpg"];
+    NSURL *url = [NSURL URLWithString:@"http://localhost:8080?KEY=VALUE&originalSrc=http://this.jpg"];
     url = [url wmf_urlWithoutQueryKey:@"KEY"];
     assertThat([url absoluteString], is(@"http://localhost:8080?originalSrc=http://this.jpg"));
 }
 
 - (void)testAttemptToRemoveQueryKeyWhichDoesNotExist {
-    NSURL* url = [NSURL URLWithString:@"http://localhost:8080?KEY=VALUE"];
+    NSURL *url = [NSURL URLWithString:@"http://localhost:8080?KEY=VALUE"];
     url = [url wmf_urlWithoutQueryKey:@"BLA"];
     assertThat([url absoluteString], is(@"http://localhost:8080?KEY=VALUE"));
 }
 
 - (void)testAttemptToRemoveQueryKeyWhenNoneExist {
-    NSURL* url = [NSURL URLWithString:@"http://localhost:8080"];
+    NSURL *url = [NSURL URLWithString:@"http://localhost:8080"];
     url = [url wmf_urlWithoutQueryKey:@"BLA"];
     assertThat([url absoluteString], is(@"http://localhost:8080"));
 }

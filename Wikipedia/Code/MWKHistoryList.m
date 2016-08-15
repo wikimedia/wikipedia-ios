@@ -1,4 +1,3 @@
-
 #import "MediaWikiKit.h"
 #import "MWKList+Subclass.h"
 
@@ -6,11 +5,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateNotification";
+NSString *const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateNotification";
 
 @interface MWKHistoryList ()
 
-@property (readwrite, weak, nonatomic) MWKDataStore* dataStore;
+@property(readwrite, weak, nonatomic) MWKDataStore *dataStore;
 
 @end
 
@@ -18,13 +17,13 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
 
 #pragma mark - Setup
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
-    NSArray* entries = [[dataStore historyListData] wmf_mapAndRejectNil:^id (id obj) {
-        @try {
-            return [[MWKHistoryEntry alloc] initWithDict:obj];
-        } @catch (NSException* exception) {
-            return nil;
-        }
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
+    NSArray *entries = [[dataStore historyListData] wmf_mapAndRejectNil:^id(id obj) {
+      @try {
+          return [[MWKHistoryEntry alloc] initWithDict:obj];
+      } @catch (NSException *exception) {
+          return nil;
+      }
     }];
 
     self = [super initWithEntries:entries];
@@ -36,31 +35,31 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
 
 #pragma mark - Entry Access
 
-- (nullable MWKHistoryEntry*)mostRecentEntry {
+- (nullable MWKHistoryEntry *)mostRecentEntry {
     return [self.entries firstObject];
 }
 
-- (nullable MWKHistoryEntry*)entryForURL:(NSURL*)url {
+- (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
     return [self entryForListIndex:url];
 }
 
 #pragma mark - Update Methods
 
-- (MWKHistoryEntry*)addPageToHistoryWithURL:(NSURL*)url {
+- (MWKHistoryEntry *)addPageToHistoryWithURL:(NSURL *)url {
     NSParameterAssert(url);
     if ([url wmf_isNonStandardURL]) {
         return nil;
     }
-    MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithURL:url];
+    MWKHistoryEntry *entry = [[MWKHistoryEntry alloc] initWithURL:url];
     [self addEntry:entry];
     return entry;
 }
 
-- (void)addEntry:(MWKHistoryEntry*)entry {
+- (void)addEntry:(MWKHistoryEntry *)entry {
     if ([entry.url.wmf_title length] == 0) {
         return;
     }
-    MWKHistoryEntry* oldEntry = [self entryForListIndex:entry.url];
+    MWKHistoryEntry *oldEntry = [self entryForListIndex:entry.url];
     if (oldEntry) {
         [super removeEntry:oldEntry];
     }
@@ -68,36 +67,38 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
 
-- (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithURL:(NSURL*)url {
+- (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithURL:(NSURL *)url {
     if ([url.wmf_title length] == 0) {
         return;
     }
-    [self updateEntryWithListIndex:url update:^BOOL (MWKHistoryEntry* __nullable entry) {
-        entry.scrollPosition = scrollposition;
-        return YES;
-    }];
+    [self updateEntryWithListIndex:url
+                            update:^BOOL(MWKHistoryEntry *__nullable entry) {
+                              entry.scrollPosition = scrollposition;
+                              return YES;
+                            }];
 }
 
-- (void)setSignificantlyViewedOnPageInHistoryWithURL:(NSURL*)url {
+- (void)setSignificantlyViewedOnPageInHistoryWithURL:(NSURL *)url {
     if ([url.wmf_title length] == 0) {
         return;
     }
-    [self updateEntryWithListIndex:url update:^BOOL (MWKHistoryEntry* __nullable entry) {
-        if (entry.titleWasSignificantlyViewed) {
-            return NO;
-        }
-        entry.titleWasSignificantlyViewed = YES;
-        return YES;
-    }];
+    [self updateEntryWithListIndex:url
+                            update:^BOOL(MWKHistoryEntry *__nullable entry) {
+                              if (entry.titleWasSignificantlyViewed) {
+                                  return NO;
+                              }
+                              entry.titleWasSignificantlyViewed = YES;
+                              return YES;
+                            }];
 }
 
-- (void)cleanupRemovedEntries:(NSArray<MWKHistoryEntry*>*)entries {
+- (void)cleanupRemovedEntries:(NSArray<MWKHistoryEntry *> *)entries {
     if (entries == nil || entries.count == 0) {
         return;
     }
-    MWKSavedPageList* savedPageList = self.dataStore.userDataStore.savedPageList;
-    NSSet* savedURLs                = [NSSet setWithArray:[savedPageList.entries valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], url)]];
-    NSMutableSet* removedURLs       = [NSMutableSet setWithArray:[entries valueForKey:WMF_SAFE_KEYPATH([MWKHistoryEntry new], url)]];
+    MWKSavedPageList *savedPageList = self.dataStore.userDataStore.savedPageList;
+    NSSet *savedURLs = [NSSet setWithArray:[savedPageList.entries valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], url)]];
+    NSMutableSet *removedURLs = [NSMutableSet setWithArray:[entries valueForKey:WMF_SAFE_KEYPATH([MWKHistoryEntry new], url)]];
     [removedURLs minusSet:savedURLs];
     [self.dataStore removeArticlesWithURLsFromCache:[removedURLs allObjects]];
 }
@@ -105,30 +106,30 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
 - (void)removeEntry:(MWKListEntry)entry {
     [super removeEntry:entry];
     if (entry != nil) {
-        [self cleanupRemovedEntries:@[entry]];
+        [self cleanupRemovedEntries:@[ entry ]];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
 
-- (void)removeEntryWithListIndex:(NSURL*)listIndex {
+- (void)removeEntryWithListIndex:(NSURL *)listIndex {
     if ([[listIndex wmf_title] length] == 0) {
         return;
     }
-    MWKHistoryEntry* entry = [self entryForListIndex:listIndex];
+    MWKHistoryEntry *entry = [self entryForListIndex:listIndex];
     if (entry != nil) {
-        [self cleanupRemovedEntries:@[entry]];
+        [self cleanupRemovedEntries:@[ entry ]];
     }
     [super removeEntryWithListIndex:listIndex];
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
 
-- (void)removeEntriesFromHistory:(NSArray*)historyEntries {
+- (void)removeEntriesFromHistory:(NSArray *)historyEntries {
     if ([historyEntries count] == 0) {
         return;
     }
     [self cleanupRemovedEntries:historyEntries];
-    [historyEntries enumerateObjectsUsingBlock:^(MWKHistoryEntry* entry, NSUInteger idx, BOOL* stop) {
-        [self removeEntryWithListIndex:entry.url];
+    [historyEntries enumerateObjectsUsingBlock:^(MWKHistoryEntry *entry, NSUInteger idx, BOOL *stop) {
+      [self removeEntryWithListIndex:entry.url];
     }];
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
@@ -140,7 +141,7 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
 }
 
 - (void)prune {
-    NSArray* removed = [super pruneToMaximumCount:MAX_HISTORY_ENTRIES];
+    NSArray *removed = [super pruneToMaximumCount:MAX_HISTORY_ENTRIES];
     [self cleanupRemovedEntries:removed];
     [self save];
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
@@ -148,12 +149,12 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
 
 #pragma mark - Sort Descriptors
 
-- (nullable NSArray<NSSortDescriptor*>*)sortDescriptors {
-    static NSArray<NSSortDescriptor*>* sortDescriptors;
+- (nullable NSArray<NSSortDescriptor *> *)sortDescriptors {
+    static NSArray<NSSortDescriptor *> *sortDescriptors;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH([MWKHistoryEntry new], date)
-                                                          ascending:NO]];
+      sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH([MWKHistoryEntry new], date)
+                                                         ascending:NO] ];
     });
     return sortDescriptors;
 }
@@ -161,7 +162,7 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
 #pragma mark - Save
 
 - (void)performSaveWithCompletion:(dispatch_block_t)completion error:(WMFErrorHandler)errorHandler {
-    NSError* error;
+    NSError *error;
     if ([self.dataStore saveHistoryList:self error:&error]) {
         if (completion) {
             completion();
@@ -175,9 +176,9 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
 
 #pragma mark - Export
 
-- (NSArray*)dataExport {
-    return [self.entries bk_map:^id (MWKHistoryEntry* obj) {
-        return [obj dataExport];
+- (NSArray *)dataExport {
+    return [self.entries bk_map:^id(MWKHistoryEntry *obj) {
+      return [obj dataExport];
     }];
 }
 

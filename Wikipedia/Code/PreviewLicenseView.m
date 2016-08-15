@@ -1,5 +1,3 @@
-//  Created by Monte Hurd on 4/25/14.
-
 #import "PreviewLicenseView.h"
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
@@ -16,20 +14,20 @@
 
 @interface PreviewLicenseView ()
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* topDividerHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* bottomDividerHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint *topDividerHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint *bottomDividerHeight;
 
-@property (nonatomic) BOOL hideTopDivider;
-@property (nonatomic) BOOL hideBottomDivider;
+@property(nonatomic) BOOL hideTopDivider;
+@property(nonatomic) BOOL hideBottomDivider;
 
 @end
 
 @implementation PreviewLicenseView
 
-- (instancetype)initWithCoder:(NSCoder*)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        self.hideTopDivider    = YES;
+        self.hideTopDivider = YES;
         self.hideBottomDivider = YES;
     }
     return self;
@@ -50,7 +48,7 @@
 
     self.licenseCCLabel.attributedText = [self getCCIconAttributedString];
 
-    [self adjustConstraintsScaleForViews:@[self.licenseCCLabel, self.licenseTitleLabel, self.licenseLoginLabel]];
+    [self adjustConstraintsScaleForViews:@[ self.licenseCCLabel, self.licenseTitleLabel, self.licenseLoginLabel ]];
 
     self.bottomDividerHeight.constant = self.hideBottomDivider ? 0.0 : 1.0f / [UIScreen mainScreen].scale;
 
@@ -59,78 +57,75 @@
     //self.licenseTitleLabel.text = [@" abc " randomlyRepeatMaxTimes:100];
 }
 
-- (id)awakeAfterUsingCoder:(NSCoder*)aDecoder {
+- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder {
     BOOL isPlaceholder = ([[self subviews] count] == 0); // From: https://blog.compeople.eu/apps/?p=142
     if (!isPlaceholder) {
         return self;
     }
 
-    UINib* previewLicenseViewNib = [UINib nibWithNibName:@"PreviewLicenseView" bundle:nil];
+    UINib *previewLicenseViewNib = [UINib nibWithNibName:@"PreviewLicenseView" bundle:nil];
 
-    PreviewLicenseView* previewLicenseView =
+    PreviewLicenseView *previewLicenseView =
         [[previewLicenseViewNib instantiateWithOwner:nil options:nil] firstObject];
 
-    self.translatesAutoresizingMaskIntoConstraints               = NO;
+    self.translatesAutoresizingMaskIntoConstraints = NO;
     previewLicenseView.translatesAutoresizingMaskIntoConstraints = NO;
 
     return previewLicenseView;
 }
 
-- (void)styleLinks:(UILabel*)label {
-    NSDictionary* baseAttributes =
+- (void)styleLinks:(UILabel *)label {
+    NSDictionary *baseAttributes =
         @{
-        NSForegroundColorAttributeName: label.textColor,
-        NSFontAttributeName: label.font
-    };
+           NSForegroundColorAttributeName : label.textColor,
+           NSFontAttributeName : label.font
+        };
 
-    NSDictionary* linkAttributes =
+    NSDictionary *linkAttributes =
         @{
-        //NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-        NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR
-    };
+           //NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+           NSForegroundColorAttributeName : PREVIEW_BLUE_COLOR
+        };
 
     label.attributedText =
         [label.text attributedStringWithAttributes:baseAttributes
-                               substitutionStrings:@[MWLocalizedString(@"wikitext-upload-save-terms-name", nil),
-                                                     MWLocalizedString(@"wikitext-upload-save-license-name", nil)]
-                            substitutionAttributes:@[linkAttributes, linkAttributes]
-        ];
+                               substitutionStrings:@[ MWLocalizedString(@"wikitext-upload-save-terms-name", nil),
+                                                      MWLocalizedString(@"wikitext-upload-save-license-name", nil) ]
+                            substitutionAttributes:@[ linkAttributes, linkAttributes ]];
 }
 
-- (void)termsLicenseLabelTapped:(UITapGestureRecognizer*)recognizer {
+- (void)termsLicenseLabelTapped:(UITapGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         [self.previewLicenseViewDelegate previewLicenseViewTermsLicenseLabelWasTapped:self];
     }
 }
 
-
-- (void)underlineSignIn:(UILabel*)label {
-    NSDictionary* baseAttributes =
+- (void)underlineSignIn:(UILabel *)label {
+    NSDictionary *baseAttributes =
         @{
-        NSForegroundColorAttributeName: label.textColor,
-        NSFontAttributeName: label.font
-    };
+           NSForegroundColorAttributeName : label.textColor,
+           NSFontAttributeName : label.font
+        };
 
-    NSDictionary* substitutionAttributes =
+    NSDictionary *substitutionAttributes =
         @{
-        NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-        NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR
-    };
+            NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle),
+            NSForegroundColorAttributeName : PREVIEW_BLUE_COLOR
+        };
 
     label.attributedText =
         [label.text attributedStringWithAttributes:baseAttributes
-                               substitutionStrings:@[MWLocalizedString(@"wikitext-upload-save-sign-in", nil)]
-                            substitutionAttributes:@[substitutionAttributes]
-        ];
+                               substitutionStrings:@[ MWLocalizedString(@"wikitext-upload-save-sign-in", nil) ]
+                            substitutionAttributes:@[ substitutionAttributes ]];
 }
 
-- (NSAttributedString*)getCCIconAttributedString {
+- (NSAttributedString *)getCCIconAttributedString {
     return [[NSAttributedString alloc] initWithString:WIKIGLYPH_CC
                                            attributes:@{
-                NSFontAttributeName: [UIFont wmf_glyphFontOfSize:42.0 * MENUS_SCALE_MULTIPLIER],
-                NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR,
-                NSBaselineOffsetAttributeName: @1.5
-            }];
+                                               NSFontAttributeName : [UIFont wmf_glyphFontOfSize:42.0 * MENUS_SCALE_MULTIPLIER],
+                                               NSForegroundColorAttributeName : PREVIEW_BLUE_COLOR,
+                                               NSBaselineOffsetAttributeName : @1.5
+                                           }];
 }
 
 @end

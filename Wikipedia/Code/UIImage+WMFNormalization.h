@@ -1,11 +1,3 @@
-//
-//  UIImage+WMFNormalization.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 7/21/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 
 @interface UIImage (WMFNormalization)
@@ -43,7 +35,6 @@
  */
 - (CGRect)wmf_normalizeAndConvertCGCoordinateRect:(CGRect)rect;
 
-
 /**
  * Convert the bounds of each given feature into UIKit coordinate space, then normalize it using the receiver's size.
  *
@@ -53,8 +44,6 @@
  *
  * @see wmf_normalizeAndConvertCGCoordinateRect
  */
-- (NSArray<NSValue*>*)wmf_normalizeAndConvertBoundsFromCIFeatures:(NSArray<CIFeature*>*)features;
-
-
+- (NSArray<NSValue *> *)wmf_normalizeAndConvertBoundsFromCIFeatures:(NSArray<CIFeature *> *)features;
 
 @end

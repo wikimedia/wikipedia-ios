@@ -1,4 +1,3 @@
-
 #import "WMFHistoryTableViewController.h"
 #import "PiwikTracker+WMFExtensions.h"
 #import "NSUserActivity+WMFExtensions.h"
@@ -23,11 +22,11 @@
     self.title = MWLocalizedString(@"history-title", nil);
 }
 
-- (MWKHistoryList*)historyList {
+- (MWKHistoryList *)historyList {
     return self.dataStore.userDataStore.historyList;
 }
 
-- (MWKSavedPageList*)savedPageList {
+- (MWKSavedPageList *)savedPageList {
     return self.dataStore.userDataStore.savedPageList;
 }
 
@@ -38,20 +37,20 @@
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
 
-    WMFRecentPagesDataSource* ds = [[WMFRecentPagesDataSource alloc] initWithRecentPagesList:[self historyList]];
+    WMFRecentPagesDataSource *ds = [[WMFRecentPagesDataSource alloc] initWithRecentPagesList:[self historyList]];
 
     ds.cellClass = [WMFArticleListTableViewCell class];
 
     @weakify(self);
-    ds.cellConfigureBlock = ^(WMFArticleListTableViewCell* cell,
-                              MWKHistoryEntry* entry,
-                              UITableView* tableView,
-                              NSIndexPath* indexPath) {
-        @strongify(self);
-        MWKArticle* article = [[self dataStore] articleWithURL:entry.url];
-        cell.titleText       = article.url.wmf_title;
-        cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
-        [cell setImage:[article bestThumbnailImage]];
+    ds.cellConfigureBlock = ^(WMFArticleListTableViewCell *cell,
+                              MWKHistoryEntry *entry,
+                              UITableView *tableView,
+                              NSIndexPath *indexPath) {
+      @strongify(self);
+      MWKArticle *article = [[self dataStore] articleWithURL:entry.url];
+      cell.titleText = article.url.wmf_title;
+      cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
+      [cell setImage:[article bestThumbnailImage]];
     };
 
     self.dataSource = ds;
@@ -67,11 +66,11 @@
     return WMFEmptyViewTypeNoHistory;
 }
 
-- (NSString*)analyticsContext {
+- (NSString *)analyticsContext {
     return @"Recent";
 }
 
-- (NSString*)analyticsName {
+- (NSString *)analyticsName {
     return [self analyticsContext];
 }
 
@@ -79,19 +78,19 @@
     return YES;
 }
 
-- (NSString*)deleteButtonText {
+- (NSString *)deleteButtonText {
     return MWLocalizedString(@"history-clear-all", nil);
 }
 
-- (NSString*)deleteAllConfirmationText {
+- (NSString *)deleteAllConfirmationText {
     return MWLocalizedString(@"history-clear-confirmation-heading", nil);
 }
 
-- (NSString*)deleteText {
+- (NSString *)deleteText {
     return MWLocalizedString(@"history-clear-delete-all", nil);
 }
 
-- (NSString*)deleteCancelText {
+- (NSString *)deleteCancelText {
     return MWLocalizedString(@"history-clear-cancel", nil);
 }
 

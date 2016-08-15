@@ -1,4 +1,3 @@
-
 #import "WMFSavedArticleTableViewController.h"
 #import "PiwikTracker+WMFExtensions.h"
 #import "NSString+WMFExtras.h"
@@ -17,7 +16,6 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 
-
 @implementation WMFSavedArticleTableViewController
 
 - (void)awakeFromNib {
@@ -25,7 +23,7 @@
     self.title = MWLocalizedString(@"saved-title", nil);
 }
 
-- (MWKSavedPageList*)savedPageList {
+- (MWKSavedPageList *)savedPageList {
     return self.dataStore.userDataStore.savedPageList;
 }
 
@@ -36,20 +34,20 @@
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
 
-    WMFSavedPagesDataSource* ds = [[WMFSavedPagesDataSource alloc] initWithSavedPagesList:[self savedPageList]];
+    WMFSavedPagesDataSource *ds = [[WMFSavedPagesDataSource alloc] initWithSavedPagesList:[self savedPageList]];
 
     ds.cellClass = [WMFArticleListTableViewCell class];
 
     @weakify(self);
-    ds.cellConfigureBlock = ^(WMFArticleListTableViewCell* cell,
-                              MWKSavedPageEntry* entry,
-                              UITableView* tableView,
-                              NSIndexPath* indexPath) {
-        @strongify(self);
-        MWKArticle* article = [[self dataStore] articleWithURL:entry.url];
-        cell.titleText       = article.url.wmf_title;
-        cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
-        [cell setImage:[article bestThumbnailImage]];
+    ds.cellConfigureBlock = ^(WMFArticleListTableViewCell *cell,
+                              MWKSavedPageEntry *entry,
+                              UITableView *tableView,
+                              NSIndexPath *indexPath) {
+      @strongify(self);
+      MWKArticle *article = [[self dataStore] articleWithURL:entry.url];
+      cell.titleText = article.url.wmf_title;
+      cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
+      [cell setImage:[article bestThumbnailImage]];
     };
 
     self.dataSource = ds;
@@ -65,11 +63,11 @@
     return WMFEmptyViewTypeNoSavedPages;
 }
 
-- (NSString*)analyticsContext {
+- (NSString *)analyticsContext {
     return @"Saved";
 }
 
-- (NSString*)analyticsName {
+- (NSString *)analyticsName {
     return [self analyticsContext];
 }
 
@@ -77,19 +75,19 @@
     return YES;
 }
 
-- (NSString*)deleteButtonText {
+- (NSString *)deleteButtonText {
     return MWLocalizedString(@"saved-clear-all", nil);
 }
 
-- (NSString*)deleteAllConfirmationText {
+- (NSString *)deleteAllConfirmationText {
     return MWLocalizedString(@"saved-pages-clear-confirmation-heading", nil);
 }
 
-- (NSString*)deleteText {
+- (NSString *)deleteText {
     return MWLocalizedString(@"saved-pages-clear-delete-all", nil);
 }
 
-- (NSString*)deleteCancelText {
+- (NSString *)deleteCancelText {
     return MWLocalizedString(@"saved-pages-clear-cancel", nil);
 }
 
