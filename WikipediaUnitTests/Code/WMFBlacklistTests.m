@@ -31,7 +31,6 @@
 }
 
 - (void)testPersistsToDisk {
-    PushExpectation();
     NSURL* url                     = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"some-title"];
     WMFRelatedSectionBlackList* bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
     [bl addBlackListArticleURL:url];
