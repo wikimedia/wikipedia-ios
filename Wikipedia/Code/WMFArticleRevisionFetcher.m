@@ -1,4 +1,3 @@
-
 #import "WMFArticleRevisionFetcher.h"
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"

@@ -1,4 +1,3 @@
-
 #import "WMFRandomArticleFetcher.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "AFHTTPSessionManager+WMFConfig.h"

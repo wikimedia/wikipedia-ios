@@ -1,4 +1,3 @@
-
 #import "WMFNearbyTitleListDataSource.h"
 #import "WMFLocationSearchFetcher.h"
 

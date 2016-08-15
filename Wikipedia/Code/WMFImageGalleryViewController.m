@@ -1,4 +1,3 @@
-
 #import "WMFImageGalleryViewController.h"
 #import "MWKArticle.h"
 #import "MWKImage.h"

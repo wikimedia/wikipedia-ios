@@ -1,4 +1,3 @@
-
 #import "NSDictionary+WMFExtensions.h"
 
 @implementation NSDictionary (WMFExtensions)

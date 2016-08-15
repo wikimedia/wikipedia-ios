@@ -1,4 +1,3 @@
-
 import UIKit
 
 public class WMFImageURLActivitySource: NSObject, UIActivityItemSource {

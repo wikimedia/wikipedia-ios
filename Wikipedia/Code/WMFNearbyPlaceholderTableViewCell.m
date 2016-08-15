@@ -1,4 +1,3 @@
-
 #import "WMFNearbyPlaceholderTableViewCell.h"
 #import "UIColor+WMFStyle.h"
 #import "UIImage+WMFStyle.h"

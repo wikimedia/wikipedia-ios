@@ -1,4 +1,3 @@
-
 #import "WMFMainPageSectionController.h"
 #import "MWKSiteInfoFetcher.h"
 #import "WMFArticlePreviewFetcher.h"

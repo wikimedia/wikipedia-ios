@@ -1,4 +1,3 @@
-
 #import "MWKListSharedTests.h"
 
 @interface MWKSavedPageListSharedTests : MWKListSharedTests

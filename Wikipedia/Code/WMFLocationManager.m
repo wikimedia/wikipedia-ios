@@ -1,4 +1,3 @@
-
 #import "WMFLocationManager.h"
 #import "WMFLocationSearchFetcher.h"
 #import "CLLocationManager+WMFLocationManagers.h"

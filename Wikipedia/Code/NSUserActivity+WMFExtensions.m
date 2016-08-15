@@ -1,4 +1,3 @@
-
 #import "NSUserActivity+WMFExtensions.h"
 #import "MWKArticle.h"
 #import "Wikipedia-Swift.h"

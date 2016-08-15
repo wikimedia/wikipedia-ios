@@ -1,4 +1,3 @@
-
 #import "WMFNearbyArticleCollectionViewCell.h"
 
 @import CoreLocation;

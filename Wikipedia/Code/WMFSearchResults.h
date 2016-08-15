@@ -1,4 +1,3 @@
-
 #import <Mantle/Mantle.h>
 
 @class MWKSearchResult, MWKSearchRedirectMapping;

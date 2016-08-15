@@ -1,4 +1,3 @@
-
 #import "WMFHelpViewController.h"
 #import "MWKDataStore.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"

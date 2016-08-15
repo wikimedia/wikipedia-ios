@@ -1,4 +1,3 @@
-
 #import "NSArray+WMFMapping.h"
 
 NS_ASSUME_NONNULL_BEGIN

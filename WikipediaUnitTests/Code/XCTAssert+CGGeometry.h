@@ -1,4 +1,3 @@
-
 #define XCTAssertEqualPointsWithAccuracy(p1, p2, accuracy) do { \
         XCTAssertEqualWithAccuracy((p1).x, (p2).x, (accuracy)); \
         XCTAssertEqualWithAccuracy((p1).y, (p2).y, (accuracy)); \

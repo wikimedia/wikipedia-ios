@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 2/27/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "PreviewAndSaveViewController.h"
 #import "WikipediaAppUtils.h"
 #import "PreviewHtmlFetcher.h"

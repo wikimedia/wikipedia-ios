@@ -1,4 +1,3 @@
-
 #import "WMFArticlePlaceholderCollectionViewCell.h"
 #import "UIColor+WMFStyle.h"
 #import "UIImage+WMFStyle.h"

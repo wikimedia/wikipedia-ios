@@ -1,5 +1,3 @@
-
-
 #import "WMFCompassView.h"
 #import "WMFGeometry.h"
 #import "UIColor+WMFStyle.h"

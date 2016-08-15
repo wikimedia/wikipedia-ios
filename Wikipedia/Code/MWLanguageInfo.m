@@ -1,6 +1,3 @@
-//  Created by Brion on 3/12/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "MWLanguageInfo.h"
 #import "MediaWikiKit.h"
 

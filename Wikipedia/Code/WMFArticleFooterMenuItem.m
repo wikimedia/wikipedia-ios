@@ -1,4 +1,3 @@
-
 #import "WMFArticleFooterMenuItem.h"
 
 @interface WMFArticleFooterMenuItem ()

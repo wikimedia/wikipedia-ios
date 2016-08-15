@@ -1,4 +1,3 @@
-
 #import "SavedPagesFunnel.h"
 
 static NSString* const kEventDataAssertVerbiage = @"Event data not present";

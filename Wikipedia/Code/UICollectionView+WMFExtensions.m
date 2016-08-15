@@ -1,4 +1,3 @@
-
 #import "UICollectionView+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN

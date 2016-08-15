@@ -1,4 +1,3 @@
-
 #import "WMFSelfSizingArticleListTableViewController.h"
 
 @interface WMFReadMoreViewController : WMFSelfSizingArticleListTableViewController

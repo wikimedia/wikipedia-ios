@@ -1,4 +1,3 @@
-
 #import "WMFArticleListTableViewController.h"
 
 #import "MWKDataStore.h"

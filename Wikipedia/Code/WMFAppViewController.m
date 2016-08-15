@@ -1,4 +1,3 @@
-
 #import "WMFAppViewController.h"
 #import "Wikipedia-Swift.h"
 

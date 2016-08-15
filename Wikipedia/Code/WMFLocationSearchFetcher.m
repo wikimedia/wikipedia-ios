@@ -1,5 +1,3 @@
-
-
 #import "WMFLocationSearchFetcher.h"
 
 //Networking

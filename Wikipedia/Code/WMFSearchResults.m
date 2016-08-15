@@ -1,4 +1,3 @@
-
 #import "WMFSearchResults_Internal.h"
 #import "MWKArticle.h"
 #import "UIView+WMFDefaultNib.h"

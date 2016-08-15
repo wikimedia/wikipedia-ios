@@ -1,4 +1,3 @@
-
 #import "WMFIntrinsicSizeTableView.h"
 
 @implementation WMFIntrinsicSizeTableView

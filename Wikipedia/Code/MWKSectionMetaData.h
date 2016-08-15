@@ -1,4 +1,3 @@
-
 #import <Mantle/Mantle.h>
 
 @interface MWKSectionMetaData : MTLModel<MTLJSONSerializing>

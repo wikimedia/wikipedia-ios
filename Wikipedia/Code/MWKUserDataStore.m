@@ -1,4 +1,3 @@
-
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 

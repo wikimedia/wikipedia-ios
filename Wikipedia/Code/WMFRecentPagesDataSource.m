@@ -1,4 +1,3 @@
-
 #import "WMFRecentPagesDataSource.h"
 #import "MWKDataStore.h"
 #import "MWKHistoryList.h"

@@ -1,5 +1,3 @@
-
-
 #import "MWKTestCase.h"
 
 @interface MWKArticleStoreTestCase : MWKTestCase

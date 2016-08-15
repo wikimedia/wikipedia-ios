@@ -1,4 +1,3 @@
-
 #import "DDLog+WMFLogger.h"
 #import "WMFLogFormatter.h"
 #import "Wikipedia-Swift.h"

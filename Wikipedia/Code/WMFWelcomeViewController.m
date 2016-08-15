@@ -1,4 +1,3 @@
-
 #import "WMFWelcomeViewController.h"
 #import "WMFWelcomeIntroductionViewController.h"
 #import "WMFBoringNavigationTransition.h"

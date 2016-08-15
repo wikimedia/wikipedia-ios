@@ -1,4 +1,3 @@
-
 #import "NSURL+WMFQueryParameters.h"
 
 @implementation NSURL (WMFQueryParameters)

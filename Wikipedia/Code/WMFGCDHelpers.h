@@ -1,5 +1,3 @@
-
-
 @import Foundation;
 
 #ifndef Wikipedia_WMFGCDHelpers_h

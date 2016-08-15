@@ -1,4 +1,3 @@
-
 #import "WMFMostReadSectionController.h"
 #import "Wikipedia-Swift.h"
 

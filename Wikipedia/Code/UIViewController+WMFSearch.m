@@ -1,4 +1,3 @@
-
 #import "UIViewController+WMFSearch.h"
 #import "WMFSearchViewController.h"
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>

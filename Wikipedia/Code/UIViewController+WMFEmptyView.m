@@ -1,4 +1,3 @@
-
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFEmptyView.h"
 

@@ -1,6 +1,3 @@
-//  Created by Brion on 11/1/13.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "MWKTitle.h"
 #import "NSString+WMFPageUtilities.h"
 #import "Wikipedia-Swift.h"

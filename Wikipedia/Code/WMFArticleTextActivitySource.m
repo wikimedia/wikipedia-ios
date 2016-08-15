@@ -1,4 +1,3 @@
-
 #import "WMFArticleTextActivitySource.h"
 #import "MWKArticle+WMFSharing.h"
 

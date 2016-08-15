@@ -1,4 +1,3 @@
-
 #import "WMFLocationSearchListViewController.h"
 #import "WMFCompassViewModel.h"
 #import "WMFNearbyArticleTableViewCell.h"

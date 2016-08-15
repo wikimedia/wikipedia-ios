@@ -1,4 +1,3 @@
-
 @import WebKit;
 @interface WKWebView (WMF_TrackingView)
 

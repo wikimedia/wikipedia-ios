@@ -1,4 +1,3 @@
-
 #import "BITHockeyManager+WMFExtensions.h"
 #import "WikipediaAppUtils.h"
 #import "NSBundle+WMFInfoUtils.h"

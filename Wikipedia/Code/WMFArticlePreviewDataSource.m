@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 12/16/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-
 #import "WMFArticlePreviewDataSource.h"
 
 // Frameworks

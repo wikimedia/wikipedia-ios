@@ -1,4 +1,3 @@
-
 #import "WMFRandomSectionController.h"
 #import "WMFRandomArticleFetcher.h"
 

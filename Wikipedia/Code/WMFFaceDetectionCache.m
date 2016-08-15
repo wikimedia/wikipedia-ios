@@ -1,4 +1,3 @@
-
 #import "WMFFaceDetectionCache.h"
 #import "Wikipedia-Swift.h"
 #import "CIDetector+WMFFaceDetection.h"

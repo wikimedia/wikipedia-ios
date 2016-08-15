@@ -1,4 +1,3 @@
-
 #import "WMFWelcomeAnalyticsViewController.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFOpenExternalUrl.h"

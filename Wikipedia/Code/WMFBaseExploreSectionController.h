@@ -1,4 +1,3 @@
-
 #import <Foundation/Foundation.h>
 #import "WMFExploreSectionController.h"
 #import "WMFAnalyticsLogging.h"

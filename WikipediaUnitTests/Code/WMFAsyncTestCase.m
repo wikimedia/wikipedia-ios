@@ -1,5 +1,3 @@
-
-
 #import "WMFAsyncTestCase.h"
 
 NSTimeInterval const WMFDefaultExpectationTimeout = 2.0;

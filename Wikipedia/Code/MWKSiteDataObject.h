@@ -1,4 +1,3 @@
-
 #import "MWKDataObject.h"
 
 @class MWKUser;

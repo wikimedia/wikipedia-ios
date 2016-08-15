@@ -1,4 +1,3 @@
-
 // Views
 #import "WMFSettingsTableViewCell.h"
 #import "Wikipedia-Swift.h"

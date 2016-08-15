@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 9/22/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-
 #import "XCTestCase+MWKFixtures.h"
 #import <XCTest/XCTest.h>
 #import "MWKDataStore+TemporaryDataStore.h"

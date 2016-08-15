@@ -1,4 +1,3 @@
-
 // From: https://trello.com/c/IRqbu8p4/15-color-swatches
 
 #define WMF_COLOR_GREEN [UIColor colorWithRed:0.00 green:0.69 blue:0.54 alpha:1.0]

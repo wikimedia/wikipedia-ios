@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 4/2/15.
-//  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "NSAttributedString+WMFSavedPagesAttributedStrings.h"
 #import "NSString+FormattedAttributedString.h"
 #import "Defines.h"

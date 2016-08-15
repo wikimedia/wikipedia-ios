@@ -1,4 +1,3 @@
-
 #import "WMFWelcomeLanguageViewController_Testing.h"
 #import "Wikipedia-Swift.h"
 #import "WMFWelcomeLanguageTableViewCell.h"

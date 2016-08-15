@@ -1,4 +1,3 @@
-
 #import "MWKSavedPageEntry+ImageMigration.h"
 #import "NSObjectUtilities.h"
 #import "NSMutableDictionary+WMFMaybeSet.h"

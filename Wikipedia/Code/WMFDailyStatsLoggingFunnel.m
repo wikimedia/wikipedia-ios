@@ -1,4 +1,3 @@
-
 #import "WMFDailyStatsLoggingFunnel.h"
 #import "Wikipedia-Swift.h"
 #import "NSDate+Utilities.h"

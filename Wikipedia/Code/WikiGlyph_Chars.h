@@ -1,4 +1,3 @@
-
 #define WIKIGLYPH_FORWARD                        @"\ue954"
 #define WIKIGLYPH_BACKWARD                       @"\ue955"
 #define WIKIGLYPH_DOWN                           @"\ue956"

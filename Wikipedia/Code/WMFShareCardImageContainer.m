@@ -1,5 +1,3 @@
-
-
 #import "WMFShareCardImageContainer.h"
 #import "UIImage+WMFFocalImageDrawing.h"
 #import "WMFGeometry.h"

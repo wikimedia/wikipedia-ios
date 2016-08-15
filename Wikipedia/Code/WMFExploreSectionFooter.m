@@ -1,4 +1,3 @@
-
 #import "WMFExploreSectionFooter.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "UIImage+WMFStyle.h"

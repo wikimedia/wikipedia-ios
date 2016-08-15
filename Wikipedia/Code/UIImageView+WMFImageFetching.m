@@ -1,4 +1,3 @@
-
 #import "UIImageView+WMFImageFetchingInternal.h"
 #import "UIImageView+WMFContentOffset.h"
 

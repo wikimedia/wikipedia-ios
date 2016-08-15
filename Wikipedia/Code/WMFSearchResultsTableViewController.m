@@ -1,4 +1,3 @@
-
 #import "WMFSearchResultsTableViewController.h"
 #import "WMFArticleListTableViewCell+WMFSearch.h"
 #import "UIView+WMFDefaultNib.h"
