@@ -1,11 +1,3 @@
-//
-//  NSDate+WMFRelativeDate.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 2/23/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
-
 #import "NSDate+WMFRelativeDate.h"
 
 @implementation NSDate (WMFRelativeDate)

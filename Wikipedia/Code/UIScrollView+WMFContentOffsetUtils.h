@@ -1,11 +1,3 @@
-//
-//  UIScrollView+WMFContentOffsetUtils.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 8/8/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 
 @interface UIScrollView (WMFContentOffsetUtils)

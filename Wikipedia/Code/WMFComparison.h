@@ -1,11 +1,3 @@
-//
-//  WMFComparison.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 5/28/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #ifndef Wikipedia_WMFComparison_h
 #define Wikipedia_WMFComparison_h
 

@@ -1,5 +1,3 @@
-//  Html page shown by webview must reference elementLocation.js for these methods to work.
-
 @import WebKit;
 
 @interface WKWebView (ElementLocation)

@@ -1,5 +1,3 @@
-//Thanks to https://www.cocoanetics.com/2012/03/reading-and-writing-extended-file-attributes/
-
 #import "NSFileManager+WMFExtendedFileAttributes.h"
 #import <sys/xattr.h>
 

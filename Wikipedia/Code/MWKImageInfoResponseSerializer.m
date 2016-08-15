@@ -1,11 +1,3 @@
-//
-//  WMFImageMetadataSerializer.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/5/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MWKImageInfoResponseSerializer.h"
 #import "MWKImageInfo.h"
 #import "NSString+WMFHTMLParsing.h"

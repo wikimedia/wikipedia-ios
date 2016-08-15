@@ -10,7 +10,7 @@ def iterate_and_remove(dir)
       new_file = ''
       skip = true
       File.foreach(full_path) do |line|
-        if skip && (/^\/\/ +Created/.match(line) || /^\/\/ +Copyright/.match(line) || line.strip.length == 0)
+        if skip && (/^\/\/*+/.match(line) || line.strip.length == 0)
           
         else
           skip = false

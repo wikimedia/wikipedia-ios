@@ -1,11 +1,3 @@
-//
-//  NSArray+PredicateTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 1/30/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
 

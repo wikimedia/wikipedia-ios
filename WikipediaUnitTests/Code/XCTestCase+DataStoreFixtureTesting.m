@@ -1,11 +1,3 @@
-//
-//  XCTestCase+DataStoreFixtureTesting.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/15/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "XCTestCase+DataStoreFixtureTesting.h"
 #import "WMFRandomFileUtilities.h"
 #import "XCTestCase+WMFBundleConvenience.h"

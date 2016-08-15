@@ -1,11 +1,3 @@
-//
-//  WMFZeroMessage.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/29/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFZeroMessage.h"
 #import "MTLValueTransformer+WMFColorTransformer.h"
 

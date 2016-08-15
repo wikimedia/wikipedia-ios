@@ -1,11 +1,3 @@
-//
-//  MWKLicense+ToGlyph.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/10/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MWKLicense+ToGlyph.h"
 #import "WikiGlyph_Chars.h"
 

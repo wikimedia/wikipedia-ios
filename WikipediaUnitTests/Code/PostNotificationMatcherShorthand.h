@@ -1,11 +1,3 @@
-//
-//  PostNotificationMatcherShorthand.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 12/10/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WikipediaUnitTests-Swift.h"
 @import Nimble;
 

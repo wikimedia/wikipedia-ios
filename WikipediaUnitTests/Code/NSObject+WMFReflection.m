@@ -1,11 +1,3 @@
-//
-//  NSObject+WMFReflection.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 12/11/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "NSObject+WMFReflection.h"
 
 static inline void objc_propertyListRelease(objc_property_t **objectRef) __attribute__((overloadable));

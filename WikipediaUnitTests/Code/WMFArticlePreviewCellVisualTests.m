@@ -1,11 +1,3 @@
-//
-//  WMFArticlePreviewCellVisualTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/1/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
-
 #import <XCTest/XCTest.h>
 #import "FBSnapshotTestCase+WMFConvenience.h"
 #import "UIView+VisualTestSizingUtils.h"

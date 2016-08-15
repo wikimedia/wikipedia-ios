@@ -1,11 +1,3 @@
-//
-//  WMFMockLocationManager.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/23/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFLocationManager.h"
 
 NS_ASSUME_NONNULL_BEGIN

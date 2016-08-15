@@ -1,11 +1,3 @@
-//
-//  MWKLanguageLinkControllerTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 6/19/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "MWKLanguageLinkController_Private.h"

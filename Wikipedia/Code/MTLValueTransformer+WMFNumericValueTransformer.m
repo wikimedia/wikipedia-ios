@@ -1,11 +1,3 @@
-//
-//  MTLValueTransformer+WMFNumericValueTransformer.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/12/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MTLValueTransformer+WMFNumericValueTransformer.h"
 #import <Mantle/NSValueTransformer+MTLPredefinedTransformerAdditions.h>
 

@@ -1,11 +1,3 @@
-//
-//  HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 3/30/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.h"
 #import <BlocksKit/BlocksKit.h>
 #import <OCHamcrest/HCIsEqual.h>

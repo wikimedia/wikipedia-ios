@@ -1,5 +1,3 @@
-//
-
 #import "WMFImageInfoController_Private.h"
 
 #import <BlocksKit/BlocksKit.h>

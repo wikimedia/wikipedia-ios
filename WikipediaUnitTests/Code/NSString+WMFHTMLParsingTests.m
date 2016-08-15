@@ -1,11 +1,3 @@
-//
-//  NSString+WMFExtrasTests.m
-//  Wikipedia
-//
-//  Created by Adam Baso on 3/2/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <XCTest/XCTest.h>
 #import "NSString+WMFHTMLParsing.h"
 #import "WikipediaAppUtils.h"

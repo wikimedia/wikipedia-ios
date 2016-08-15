@@ -1,11 +1,3 @@
-//
-//  XCTestCase+PromiseKit.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 7/29/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <XCTest/XCTest.h>
 #import <PromiseKit/PromiseKit.h>
 #import "WMFAsyncTestCase.h"

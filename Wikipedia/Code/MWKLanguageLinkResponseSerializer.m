@@ -1,11 +1,3 @@
-//
-//  MWKLanguageLinkResponseSerializer.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 6/8/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MWKLanguageLinkResponseSerializer.h"
 #import "MWKLanguageLink.h"
 #import <BlocksKit/BlocksKit.h>

@@ -1,11 +1,3 @@
-//
-//  NSAttributedString+WMFModifyTests.m
-//  Wikipedia
-//
-//  Created by Monte Hurd on 8/18/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import <FBSnapshotTestCase/FBSnapshotTestCase.h>

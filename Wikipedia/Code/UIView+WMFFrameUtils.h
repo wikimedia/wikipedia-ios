@@ -1,11 +1,3 @@
-//
-//  UIView+WMFFrameUtils.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/27/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 
 FOUNDATION_EXPORT CGPoint WMFCenterOfCGSize(CGSize size) __attribute__((const)) __attribute__((pure));

@@ -1,4 +1,3 @@
-/**
  * Unsafe, do not use.
  * @see WMFStrictClamp
  * @see WMFClamp

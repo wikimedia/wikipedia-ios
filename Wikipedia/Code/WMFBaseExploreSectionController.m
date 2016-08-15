@@ -1,11 +1,3 @@
-//
-//  WMFBaseExploreSectionController.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 1/25/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFBaseExploreSectionController.h"
 #import "WMFEmptySectionCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"

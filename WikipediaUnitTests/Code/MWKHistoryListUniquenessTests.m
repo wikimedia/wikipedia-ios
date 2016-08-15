@@ -1,11 +1,3 @@
-//
-//  MWKHistoryListTests.m
-//  MediaWikiKit
-//
-//  Created by Brion on 11/18/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MWKTestCase.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "XCTestCase+PromiseKit.h"

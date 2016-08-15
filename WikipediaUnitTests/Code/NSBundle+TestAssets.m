@@ -1,11 +1,3 @@
-//
-//  NSBundle+TestAssets.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 3/19/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "NSBundle+TestAssets.h"
 
 @implementation NSBundle (TestAssets)
