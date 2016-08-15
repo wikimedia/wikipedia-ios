@@ -195,6 +195,20 @@ extension NSUserDefaults {
         }
     }
 
+    public func wmf_setTableOfContentsIsVisibleInline(visibleInline: Bool) {
+        self.setObject(NSNumber(bool: visibleInline), forKey: "TableOfContentsIsVisibleInline")
+        self.synchronize()
+        
+    }
+    
+    public func wmf_isTableOfContentsVisibleInline() -> Bool {
+        if let enabled = self.objectForKey("TableOfContentsIsVisibleInline") as? NSNumber {
+            return enabled.boolValue
+        }else{
+            return true
+        }
+    }
+    
     public func wmf_setDidFinishLegacySavedArticleImageMigration(didFinish: Bool) {
         self.setBool(didFinish, forKey: "DidFinishLegacySavedArticleImageMigration")
         self.synchronize()
