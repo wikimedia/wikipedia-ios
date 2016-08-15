@@ -11,8 +11,6 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                 let footerIndex = self.webViewController.visibleFooterIndex()
                 if footerIndex != NSNotFound {
                     self.tableOfContentsViewController!.selectAndScrollToFooterItem(atIndex: footerIndex, animated: false)
-                } else {
-                    assertionFailure("Couldn't find current position of user at current offset!")
                 }
             }
         })
