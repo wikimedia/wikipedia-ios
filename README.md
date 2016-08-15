@@ -34,7 +34,7 @@ You can find our current thinking on [iOS best practices](https://www.mediawiki.
 ### Dependencies
 We use [CocoaPods](#cocoapods) to manage third-party native dependencies and [npm](#npm) for web.  We've committed our CocoaPods dependencies and npm build artifacts to the repo so you don't need them to build the project.
 ## Testing
-The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action. In addition to unit testing, we enforce our coding style using [uncrustify](#uncrustify). You can also use the project's [Makefile](./Makefile) to run both in one action: `make verify`.
+The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action. You can also use the project's [Makefile](./Makefile) to run both in one action: `make verify`.
 
 ## Contributing
 If you're interested in contributing to the project, you can find our current product, bug, and engineering backlogs on the [iOS App Phabricator project board](https://phabricator.wikimedia.org/project/view/782/). Once you pick a task, make sure you assign it to yourself to ensure nobody else duplicates your work.  The **#Easy** tag in Phabricator can also help you find tasks that are ideal for new contributors because they're small and/or well-defined.  We suggest you [filter the **#Easy** project to only show tasks in the Wikipedia iOS app projects](https://phabricator.wikimedia.org/project/board/169/query/OuulRzaqbmPh/).
