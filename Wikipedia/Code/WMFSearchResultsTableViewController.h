@@ -1,8 +1,8 @@
 
-#import "WMFArticleListTableViewController.h"
+#import "WMFArticleListDataSourceTableViewController.h"
 #import "WMFSearchDataSource.h"
 
-@interface WMFSearchResultsTableViewController : WMFArticleListTableViewController
+@interface WMFSearchResultsTableViewController : WMFArticleListDataSourceTableViewController
 
 @property (nonatomic, strong) WMFSearchDataSource* dataSource;
 

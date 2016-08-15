@@ -64,4 +64,10 @@
     return self;
 }
 
+- (NSString*)description {
+    //Do not use MTLModel's description as it will cause recursion since this instance has a reference to the article, which also has a reference to this image
+    return [NSString stringWithFormat:@"Protection Status: %@", [self.protection description]];
+}
+
+
 @end

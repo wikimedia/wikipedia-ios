@@ -132,10 +132,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
            ^ flipBitsWithAdditionalRotation(self.lastmodified.hash, 2);
 }
 
-- (NSString*)description {
-    return [NSString stringWithFormat:@"%@ %@", [super description], self.url.description];
-}
-
 #pragma mark - Import / Export
 
 - (id)dataExport {
@@ -182,7 +178,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     self.languagecount  = [[self requiredNumber:@"languagecount" dict:dict] intValue];
 
 
-    //We are getting crashes becuase of the protection status.
+    //We are getting crashes because of the protection status.
     //Set this up
     @try {
         self.protection = [self requiredProtectionStatus:@"protection" dict:dict];
@@ -375,33 +371,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     }
 }
 
-- (NSString*)debugDescription {
-    return [NSString stringWithFormat:@"%@ { \n"
-            "\tlastModifiedBy: %@, \n"
-            "\tlastModified: %@, \n"
-            "\tarticleId: %d, \n"
-            "\tlanguageCount: %d, \n"
-            "\tdisplayTitle: %@, \n"
-            "\tprotection: %@, \n"
-            "\teditable: %d, \n"
-            "\tthumbnailURL: %@, \n"
-            "\timageURL: %@, \n"
-            "\tsections: %@, \n"
-            "\tentityDescription: %@, \n"
-            "}",
-            self.description,
-            self.lastmodifiedby,
-            self.lastmodified,
-            self.articleId,
-            self.languagecount,
-            self.displaytitle,
-            self.protection,
-            self.editable,
-            self.thumbnailURL,
-            self.imageURL,
-            self.sections.debugDescription,
-            self.entityDescription];
-}
 
 #pragma mark - Images
 

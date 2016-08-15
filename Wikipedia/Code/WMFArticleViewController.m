@@ -564,13 +564,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (!_findInPageToolbarItem) {
         @weakify(self);
         _findInPageToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"find-in-page"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                 handler:^(id sender){
-                                                                     @strongify(self);
-                                                                     if ([self canFindInPage]) { // Needed so you can't tap find icon when text size adjuster is onscreen.
-                                                                         [self showFindInPage];
-                                                                     }
-                                                                 }];
+                                                                     style:UIBarButtonItemStylePlain
+                                                                   handler:^(id sender){
+            @strongify(self);
+            if ([self canFindInPage]) {                                                          // Needed so you can't tap find icon when text size adjuster is onscreen.
+                [self showFindInPage];
+            }
+        }];
     }
     return _findInPageToolbarItem;
 }
@@ -735,7 +735,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self stopSignificantlyViewedTimer];
     MWKHistoryList* historyList = self.dataStore.userDataStore.historyList;
     [historyList setSignificantlyViewedOnPageInHistoryWithURL:self.articleURL];
-    [historyList save];
 }
 
 - (void)stopSignificantlyViewedTimer {
@@ -1066,7 +1065,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     CGFloat offset = [self.webViewController currentVerticalOffset];
     if (offset > 0) {
         [self.recentPages setPageScrollPosition:offset onPageInHistoryWithURL:self.articleURL];
-        [self.recentPages save];
     }
 }
 
@@ -1202,12 +1200,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     NSMutableArray* items = [NSMutableArray array];
 
     [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self.article shareText:text]];
-    
+
     NSURL* url = [NSURL wmf_desktopURLForURL:self.articleURL];
 
     if (url) {
         url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
-                                                    url.absoluteString, @"wprov=sfsi1"]];
+                                             url.absoluteString, @"wprov=sfsi1"]];
 
         [items addObject:url];
     }
@@ -1477,7 +1475,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
             self.webViewController.isPeeking = YES;
             [self.webViewController hideFindInPageWithCompletion:nil];
-            
+
             return peekVC;
         }
     } else if (previewingContext == self.leadImagePreviewingContext) {

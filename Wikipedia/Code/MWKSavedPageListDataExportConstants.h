@@ -1,10 +1,3 @@
-//
-//  MWKSavedPageListDataExportConstants.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/15/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 typedef NS_ENUM (NSUInteger, MWKSavedPageListSchemaVersion) {
     /// Legacy version, pre-5.0

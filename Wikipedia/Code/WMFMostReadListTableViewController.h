@@ -6,14 +6,14 @@
 //  Copyright © 2016 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFArticleListTableViewController.h"
+#import "WMFArticleListDataSourceTableViewController.h"
 
 @class MWKSearchResult;
 
-@interface WMFMostReadListTableViewController : WMFArticleListTableViewController
+@interface WMFMostReadListTableViewController : WMFArticleListDataSourceTableViewController
 
 - (instancetype)initWithPreviews:(NSArray<MWKSearchResult*>*)previews
-                        fromSiteURL:(NSURL*)siteURL
+                     fromSiteURL:(NSURL*)siteURL
                          forDate:date
                        dataStore:(MWKDataStore*)dataStore;
 

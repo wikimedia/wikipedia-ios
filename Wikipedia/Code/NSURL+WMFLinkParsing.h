@@ -217,6 +217,9 @@ WMF_TECH_DEBT_TODO(this method should be folded into the above method and should
  */
 @property (nonatomic, readonly) BOOL wmf_isWikiCitation;
 
+
+@property (nonatomic, readonly) BOOL wmf_isMainPage;
+
 /**
  *  Return YES if the URL has a .m subdomain
  */

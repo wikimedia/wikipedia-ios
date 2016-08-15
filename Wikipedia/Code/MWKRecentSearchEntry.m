@@ -10,6 +10,7 @@
 @implementation MWKRecentSearchEntry
 
 - (instancetype)initWithURL:(NSURL*)url searchTerm:(NSString*)searchTerm {
+    url = [NSURL wmf_desktopURLForURL:url];
     NSParameterAssert(url);
     NSParameterAssert(searchTerm);
     self = [self initWithURL:url];

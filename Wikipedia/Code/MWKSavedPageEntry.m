@@ -18,11 +18,14 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
 
 @property (readwrite, strong, nonatomic) NSDate* date;
 
+@property (nonatomic, readwrite) BOOL didMigrateImageData;
+
 @end
 
 @implementation MWKSavedPageEntry
 
 - (instancetype)initWithURL:(NSURL*)url {
+    url = [NSURL wmf_desktopURLForURL:url];
     NSParameterAssert(url.wmf_title);
     self = [super initWithURL:url];
     if (self) {

@@ -10,6 +10,14 @@
 @class MWKUserDataStore;
 @class MWKImageInfo;
 @class MWKImageList;
+@class YapDatabase;
+@class YapDatabaseConnection;
+@class YapDatabaseViewRowChange;
+@class YapDatabaseReadTransaction;
+@class YapDatabaseReadWriteTransaction;
+@class YapDatabaseViewTransaction;
+
+NS_ASSUME_NONNULL_BEGIN
 
 FOUNDATION_EXPORT NSString* const MWKDataStoreValidImageSitePrefix;
 
@@ -28,9 +36,39 @@ extern NSString* MWKCreateImageURLWithPath(NSString* path);
 extern NSString* const MWKArticleSavedNotification;
 extern NSString* const MWKArticleKey;
 
+/**
+ * Subscribe to get notifications when an item is
+ * added to saved pages, history, blacklist, etc…
+ * The object posting the notification will be the 
+ * URL of the item
+ */
+extern NSString* const MWKItemUpdatedNotification;
+
+
+@protocol WMFDatabaseChangeHandler <NSObject>
+
+- (void)processChanges:(NSArray<YapDatabaseViewRowChange*>*)changes onConnection:(YapDatabaseConnection*)connection;
+
+@end
+
 @interface MWKDataStore : NSObject
 
+
+/**
+ *  Initialize with default database and legacyDataBasePath
+ *
+ *  @return A data store
+ */
+- (instancetype)init;
+
+- (instancetype)initWithDatabase:(YapDatabase*)database legacyDataBasePath:(NSString*)basePath NS_DESIGNATED_INITIALIZER;
+
+
+#pragma mark - Legacy Datastore methods
+
+
 @property (readonly, copy, nonatomic) NSString* basePath;
+
 
 @property (readonly, strong, nonatomic) MWKUserDataStore* userDataStore;
 
@@ -42,7 +80,6 @@ extern NSString* const MWKArticleKey;
  */
 + (NSString*)mainDataStorePath;
 
-- (instancetype)initWithBasePath:(NSString*)basePath;
 
 // Path methods
 - (NSString*)joinWithBasePath:(NSString*)path;
@@ -106,8 +143,6 @@ extern NSString* const MWKArticleKey;
  */
 - (void)saveImage:(MWKImage*)image;
 
-- (BOOL)saveHistoryList:(MWKHistoryList*)list error:(NSError**)error;
-- (BOOL)saveSavedPageList:(MWKSavedPageList*)list error:(NSError**)error;
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList*)list error:(NSError**)error;
 
 - (void)deleteArticle:(MWKArticle*)article;
@@ -135,7 +170,7 @@ extern NSString* const MWKArticleKey;
  *
  *  @return An article, or @c nil if none was found.
  */
-- (MWKArticle*)existingArticleWithURL:(NSURL*)url;
+- (nullable MWKArticle*)existingArticleWithURL:(NSURL*)url;
 
 /**
  *  Attempt to create an article object from data on disk.
@@ -187,6 +222,8 @@ extern NSString* const MWKArticleKey;
 - (void)startCacheRemoval;
 - (void)stopCacheRemoval;
 
-- (NSArray *)legacyImageURLsForArticle:(MWKArticle *)article;
+- (NSArray*)legacyImageURLsForArticle:(MWKArticle*)article;
 
 @end
+
+NS_ASSUME_NONNULL_END

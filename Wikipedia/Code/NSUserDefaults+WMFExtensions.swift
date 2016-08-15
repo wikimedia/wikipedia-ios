@@ -7,6 +7,9 @@ let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
+let WMFMigrateHistoryListKey = "WMFMigrateHistoryListKey"
+let WMFMigrateSavedPageListKey = "WMFMigrateSavedPageListKey"
+let WMFMigrateBlackListKey = "WMFMigrateBlackListKey"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -203,4 +206,32 @@ extension NSUserDefaults {
     public func wmf_didFinishLegacySavedArticleImageMigration() -> Bool {
         return self.boolForKey("DidFinishLegacySavedArticleImageMigration")
     }
+    
+    public func wmf_setDidMigrateHistoryList(didFinish: Bool) {
+        self.setBool(didFinish, forKey: WMFMigrateHistoryListKey)
+        self.synchronize()
+    }
+    
+    public func wmf_didMigrateHistoryList() -> Bool {
+        return self.boolForKey(WMFMigrateHistoryListKey)
+    }
+
+    public func wmf_setDidMigrateSavedPageList(didFinish: Bool) {
+        self.setBool(didFinish, forKey: WMFMigrateSavedPageListKey)
+        self.synchronize()
+    }
+    
+    public func wmf_didMigrateSavedPageList() -> Bool {
+        return self.boolForKey(WMFMigrateSavedPageListKey)
+    }
+
+    public func wmf_setDidMigrateBlackList(didFinish: Bool) {
+        self.setBool(didFinish, forKey: WMFMigrateBlackListKey)
+        self.synchronize()
+    }
+    
+    public func wmf_didMigrateBlackList() -> Bool {
+        return self.boolForKey(WMFMigrateBlackListKey)
+    }
+
 }

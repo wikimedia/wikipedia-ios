@@ -1,14 +1,8 @@
-//
-//  MWKDataObject.h
-//  MediaWikiKit
-//
-//  Created by Brion on 10/14/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
+#import <Mantle/Mantle.h>
 
-@interface MWKDataObject : NSObject
+@interface MWKDataObject : MTLModel
 
 - (id)dataExport;
 

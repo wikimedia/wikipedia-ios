@@ -5,7 +5,7 @@
 #import "WMFArticleFetcher.h"
 #import "MWKImageInfoFetcher.h"
 
-#import "MWKDataStore.h"
+#import "MWKDataStore+WMFDataSources.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
 #import "MWKImage+CanonicalFilenames.h"
@@ -21,8 +21,12 @@ static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SavedArticlesFetcher ()
+@interface SavedArticlesFetcher ()<WMFDataSourceDelegate>
 
+@property (nonatomic, strong, readwrite) dispatch_queue_t accessQueue;
+
+@property (nonatomic, strong) MWKDataStore* dataStore;
+@property (nonatomic, strong) id<WMFDataSource> dataSource;
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong) WMFImageController* imageController;
@@ -31,121 +35,142 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableDictionary<NSURL*, AnyPromise*>* fetchOperationsByArticleTitle;
 @property (nonatomic, strong) NSMutableDictionary<NSURL*, NSError*>* errorsByArticleTitle;
 
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore
+                    savedPageList:(MWKSavedPageList*)savedPageList
+                   articleFetcher:(WMFArticleFetcher*)articleFetcher
+                  imageController:(WMFImageController*)imageController
+                 imageInfoFetcher:(MWKImageInfoFetcher*)imageInfoFetcher NS_DESIGNATED_INITIALIZER;
 @end
 
 @implementation SavedArticlesFetcher
 
 @dynamic fetchFinishedDelegate;
 
-#pragma mark - Shared Access
+#pragma mark - NSObject
 
 static SavedArticlesFetcher* _articleFetcher = nil;
 
-- (instancetype)initWithSavedPageList:(MWKSavedPageList*)savedPageList
-                       articleFetcher:(WMFArticleFetcher*)articleFetcher
-                      imageController:(WMFImageController*)imageController
-                     imageInfoFetcher:(MWKImageInfoFetcher*)imageInfoFetcher {
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore
+                    savedPageList:(MWKSavedPageList*)savedPageList
+                   articleFetcher:(WMFArticleFetcher*)articleFetcher
+                  imageController:(WMFImageController*)imageController
+                 imageInfoFetcher:(MWKImageInfoFetcher*)imageInfoFetcher {
+    NSParameterAssert(dataStore);
     NSParameterAssert(savedPageList);
-    NSParameterAssert(savedPageList.dataStore);
     NSParameterAssert(articleFetcher);
     NSParameterAssert(imageController);
     NSParameterAssert(imageInfoFetcher);
     self = [super init];
     if (self) {
-        _accessQueue                       = dispatch_queue_create("org.wikipedia.savedarticlesarticleFetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
+        self.accessQueue                   = dispatch_queue_create("org.wikipedia.savedarticlesarticleFetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
         self.fetchOperationsByArticleTitle = [NSMutableDictionary new];
         self.errorsByArticleTitle          = [NSMutableDictionary new];
+        self.dataStore                     = dataStore;
         self.articleFetcher                = articleFetcher;
         self.imageController               = imageController;
         self.savedPageList                 = savedPageList;
         self.imageInfoFetcher              = imageInfoFetcher;
+        self.dataSource = [self.dataStore savedDataSource];
+        self.dataSource.delegate = self;
     }
     return self;
 }
 
-- (instancetype)initWithSavedPageList:(MWKSavedPageList*)savedPageList {
-    return [self initWithSavedPageList:savedPageList
-                        articleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:savedPageList.dataStore]
-                       imageController:[WMFImageController sharedInstance]
-                      imageInfoFetcher:[[MWKImageInfoFetcher alloc] init]];
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore
+                    savedPageList:(MWKSavedPageList*)savedPageList {
+    return [self initWithDataStore:dataStore
+                     savedPageList:savedPageList
+                    articleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:dataStore]
+                   imageController:[WMFImageController sharedInstance]
+                  imageInfoFetcher:[[MWKImageInfoFetcher alloc] init]];
 }
 
-#pragma mark - Fetching
+#pragma mark - Public
 
-- (void)fetchAndObserveSavedPageList {
-    // build up initial state of current list
-    [self fetchUncachedEntries:self.savedPageList.entries];
-
-    // observe subsequent changes
-    [self.KVOControllerNonRetaining observe:self.savedPageList
-                                    keyPath:WMF_SAFE_KEYPATH(self.savedPageList, entries)
-                                    options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
-                                     action:@selector(savedPageListDidChange:)];
+- (void)start {
+    [self fetchUncachedArticlesInSavedPages];
+    [self observeSavedPages];
 }
 
-- (void)cancelFetch {
-    [self cancelFetchForEntries:self.savedPageList.entries];
+- (void)stop {
+    [self unobserveSavedPages];
+    [self cancelFetchForSavedPages];
 }
 
-#pragma mark Internal Methods
+#pragma mark - Observing
 
-- (void)fetchUncachedEntries:(NSArray<MWKSavedPageEntry*>*)insertedEntries {
+- (void)itemWasUpdated:(NSNotification*)note{
+    NSString* urlString = note.object;
+    if(urlString){
+        NSURL* url = [NSURL URLWithString:urlString];
+        if(url){
+            if([self.savedPageList isSaved:url]){
+                [self fetchUncachedArticleURLs:@[url]];
+            }else{
+                [self cancelFetchForArticleURL:url];
+            }
+        }
+    }
+}
+
+- (void)observeSavedPages {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemWasUpdated:) name:MWKItemUpdatedNotification object:nil];
+}
+
+- (void)unobserveSavedPages {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Fetch
+
+- (void)fetchUncachedEntries:(NSArray<MWKHistoryEntry*>*)insertedEntries {
     if (!insertedEntries.count) {
         return;
     }
-    [self fetchUncachedArticleURLs:[insertedEntries valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], url)]];
+    [self fetchUncachedArticleURLs:[insertedEntries valueForKey:WMF_SAFE_KEYPATH([MWKHistoryEntry new], url)]];
 }
 
-- (void)cancelFetchForEntries:(NSArray<MWKSavedPageEntry*>*)deletedEntries {
-    if (!deletedEntries.count) {
-        return;
-    }
-    @weakify(self);
-    dispatch_async(self.accessQueue, ^{
-        @strongify(self);
-        BOOL wasFetching = self.fetchOperationsByArticleTitle.count > 0;
-        [deletedEntries bk_each:^(MWKSavedPageEntry* entry) {
-            [self cancelFetchForArticleURL:entry.url];
-        }];
-        if (wasFetching) {
-            /*
-               only notify delegate if deletion occurs during a download session. if deletion occurs
-               after the fact, we don't need to inform delegate of completion
-             */
-            [self notifyDelegateIfFinished];
-        }
-    });
-}
-
-- (void)fetchUncachedArticleURLs:(NSArray<NSURL*>*)urls {
+- (void)fetchUncachedArticlesInSavedPages {
     dispatch_block_t didFinishLegacyMigration = ^{
         [[NSUserDefaults standardUserDefaults] wmf_setDidFinishLegacySavedArticleImageMigration:YES];
     };
-
-    if (!urls.count) {
+    if ([self.savedPageList numberOfItems] == 0) {
         didFinishLegacyMigration();
         return;
     }
 
     WMFTaskGroup* group = [WMFTaskGroup new];
-    for (NSURL* url in urls) {
+    [self.savedPageList enumerateItemsWithBlock:^(MWKHistoryEntry* _Nonnull entry, BOOL* _Nonnull stop) {
         [group enter];
         dispatch_async(self.accessQueue, ^{
             @autoreleasepool {
-                [self fetchArticleURL:url failure:^(NSError* error) {
+                [self fetchArticleURL:entry.url failure:^(NSError* error) {
                     [group leave];
                 } success:^{
                     [group leave];
                 }];
             }
         });
-    }
+    }];
     [group waitInBackgroundWithCompletion:didFinishLegacyMigration];
+}
+
+- (void)fetchUncachedArticleURLs:(NSArray<NSURL*>*)urls {
+    if (!urls.count) {
+        return;
+    }
+    for (NSURL* url in urls) {
+        dispatch_async(self.accessQueue, ^{
+            [self fetchArticleURL:url failure:^(NSError* error) {
+            } success:^{
+            }];
+        });
+    }
 }
 
 - (void)fetchArticleURL:(NSURL*)articleURL failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     // NOTE: must check isCached to determine that all article data has been downloaded
-    MWKArticle* articleFromDisk = [self.savedPageList.dataStore articleWithURL:articleURL];
+    MWKArticle* articleFromDisk = [self.dataStore articleWithURL:articleURL];
     @weakify(self);
     if (articleFromDisk.isCached) {
         // only fetch images if article was cached
@@ -182,7 +207,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 
 - (void)downloadImageDataForArticle:(MWKArticle*)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     if (![[NSUserDefaults standardUserDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
-        WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0.5)
+        WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0 .5)
         [self migrateLegacyImagesInArticle : article];
     }
     [self fetchAllImagesInArticle:article failure:^(NSError* error) {
@@ -199,7 +224,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 - (void)migrateLegacyImagesInArticle:(MWKArticle*)article {
     //  Copies saved article images cached by versions 5.0.4 and older to the locations where 5.0.5 and newer are looking for them. Previously, the app cached at the width of the largest image in the srcset. Currently, we request a thumbnail at wmf_articleImageWidthForScale (or original if it's narrower than that width). By copying from the old size to the new expected sizes, we ensure that articles saved with these older versions will still have images availble offline in the newer versions.
     WMFImageController* imageController = [WMFImageController sharedInstance];
-    NSArray* legacyImageURLs            = [self.savedPageList.dataStore legacyImageURLsForArticle:article];
+    NSArray* legacyImageURLs            = [self.dataStore legacyImageURLsForArticle:article];
     NSUInteger articleImageWidth        = [[UIScreen mainScreen] wmf_articleImageWidthForScale];
     for (NSURL* legacyImageURL in legacyImageURLs) {
         @autoreleasepool {
@@ -290,7 +315,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         if (!self) {
             return [NSError cancelledError];
         }
-        [self.savedPageList.dataStore saveImageInfo:infoObjects forArticleURL:article.url];
+        [self.dataStore saveImageInfo:infoObjects forArticleURL:article.url];
         success(infoObjects);
         return infoObjects;
     });
@@ -311,32 +336,30 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 
 #pragma mark - Cancellation
 
+- (void)cancelFetchForSavedPages {
+    BOOL wasFetching = self.fetchOperationsByArticleTitle.count > 0;
+    [self.savedPageList enumerateItemsWithBlock:^(MWKHistoryEntry* _Nonnull entry, BOOL* _Nonnull stop) {
+        dispatch_async(self.accessQueue, ^{
+            [self cancelFetchForArticleURL:entry.url];
+        });
+    }];
+    if (wasFetching) {
+        /*
+           only notify delegate if deletion occurs during a download session. if deletion occurs
+           after the fact, we don't need to inform delegate of completion
+         */
+        [self notifyDelegateIfFinished];
+    }
+}
+
 - (void)cancelFetchForArticleURL:(NSURL*)URL {
     DDLogVerbose(@"Canceling saved page download for title: %@", URL);
     [self.articleFetcher cancelFetchForArticleURL:URL];
-    [[[self.savedPageList.dataStore existingArticleWithURL:URL] allImageURLs] bk_each:^(NSURL* imageURL) {
+    [[[self.dataStore existingArticleWithURL:URL] allImageURLs] bk_each:^(NSURL* imageURL) {
         [self.imageController cancelFetchForURL:imageURL];
     }];
     WMF_TECH_DEBT_TODO(cancel image info & high - res image requests)
     [self.fetchOperationsByArticleTitle removeObjectForKey : URL];
-}
-
-#pragma mark - KVO
-
-- (void)savedPageListDidChange:(NSDictionary*)change {
-    switch ([change[NSKeyValueChangeKindKey] integerValue]) {
-        case NSKeyValueChangeInsertion: {
-            [self fetchUncachedEntries:change[NSKeyValueChangeNewKey]];
-            break;
-        }
-        case NSKeyValueChangeRemoval: {
-            [self cancelFetchForEntries:change[NSKeyValueChangeOldKey]];
-            break;
-        }
-        default:
-            NSAssert(NO, @"Unsupported KVO operation %@ on saved page list %@", change, self.savedPageList);
-            break;
-    }
 }
 
 #pragma mark - Progress
@@ -357,12 +380,12 @@ static SavedArticlesFetcher* _articleFetcher = nil;
        FIXME: Handle progress when only downloading a subset of saved pages (e.g. if some were already downloaded in
        a previous session)?
      */
-    if ([self.savedPageList countOfEntries] == 0) {
+    if ([self.savedPageList numberOfItems] == 0) {
         return 0.0;
     }
 
-    return (CGFloat)([self.savedPageList countOfEntries] - [self.fetchOperationsByArticleTitle count])
-           / (CGFloat)[self.savedPageList countOfEntries];
+    return (CGFloat)([self.savedPageList numberOfItems] - [self.fetchOperationsByArticleTitle count])
+           / (CGFloat)[self.savedPageList numberOfItems];
 }
 
 #pragma mark - Delegate Notification

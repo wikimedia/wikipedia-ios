@@ -1,26 +1,26 @@
 
-#import "MWKList.h"
+#import <Mantle/Mantle.h>
 
-@interface NSURL (MWKListObject)<MWKListObject>
-@end
+NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFRelatedSectionBlackList : MWKList<NSURL*, NSURL*>
+@class MWKHistoryEntry, MWKDataStore;
 
-+ (instancetype)sharedBlackList;
+@interface WMFRelatedSectionBlackList : MTLModel
 
-/**
- *  Add a url to the black list
- *
- *  @param url The url to add
- */
-- (void)addBlackListArticleURL:(NSURL*)url;
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
 
-/**
- *  Remove a url to the black list
- *
- *  @param url The url to remove
- */
-- (void)removeBlackListArticleURL:(NSURL*)url;
+@property (readonly, weak, nonatomic) MWKDataStore* dataStore;
+
+#pragma mark - Convienence Methods
+
+- (NSInteger)numberOfItems;
+
+- (nullable MWKHistoryEntry*)entryForURL:(NSURL*)url;
+
+- (nullable MWKHistoryEntry*)mostRecentEntry;
+
+- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry* _Nonnull entry, BOOL* stop))block;
 
 /**
  *  Check if a url is blacklisted
@@ -29,5 +29,29 @@
  */
 - (BOOL)articleURLIsBlackListed:(NSURL*)url;
 
+#pragma mark - Update Methods
+
+/**
+ *  Add a url to the black list
+ *
+ *  @param url The url to add
+ */
+- (MWKHistoryEntry*)addBlackListArticleURL:(NSURL*)url;
+
+/**
+ *  Remove a url to the black list
+ *
+ *  @param url The url to remove
+ */
+- (void)removeBlackListArticleURL:(NSURL*)url;
+
+
+/**
+ *  Remove all blacklist items
+ */
+- (void)removeAllEntries;
 
 @end
+
+NS_ASSUME_NONNULL_END
+

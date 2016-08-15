@@ -1,18 +1,19 @@
 #import "MWKSavedPageList.h"
-#import "MWKDataStore.h"
-#import "MWKSavedPageListDataExportConstants.h"
-#import "MWKList+Subclass.h"
+#import "MWKDataStore+WMFDataSources.h"
+#import <YapDataBase/YapDatabase.h>
+#import <YapDataBase/YapDatabaseView.h>
+#import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "Wikipedia-Swift.h"
 
-NSString* const MWKSavedPageListDidSaveNotification   = @"MWKSavedPageListDidSaveNotification";
-NSString* const MWKSavedPageListDidUnsaveNotification = @"MWKSavedPageListDidUnsaveNotification";
-
-NSString* const MWKURLKey = @"MWKURLKey";
-
+//Legacy
+#import "MWKSavedPageListDataExportConstants.h"
+#import "MWKSavedPageEntry.h"
 NSString* const MWKSavedPageExportedEntriesKey       = @"entries";
 NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 @interface MWKSavedPageList ()
+
+@property(nonatomic, strong) id<WMFDataSource> dataSource;
 
 @property (readwrite, weak, nonatomic) MWKDataStore* dataStore;
 
@@ -23,123 +24,185 @@ NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 #pragma mark - Setup
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
-    NSArray* entries =
-        [[MWKSavedPageList savedEntryDataFromExportedData:[dataStore savedPageListData]]wmf_mapAndRejectNil:^id (id obj) {
-        @try {
-            return [[MWKSavedPageEntry alloc] initWithDict:obj];
-        } @catch (NSException* e) {
-            NSLog(@"Encountered exception while reading entry %@: %@", e, obj);
-            return nil;
-        }
-    }];
-
-    self = [super initWithEntries:entries];
+    NSParameterAssert(dataStore);
+    self = [super init];
     if (self) {
-        self.dataStore = dataStore;
+        self.dataStore  = dataStore;
+        self.dataSource = [self.dataStore savedDataSource];
+        [self migrateLegacyDataIfNeeded];
     }
     return self;
 }
 
-- (void)importEntries:(NSArray*)entries {
-    NSArray<MWKSavedPageEntry*>* validEntries = [entries bk_reject:^BOOL (MWKSavedPageEntry* entry) {
-        return entry.url.wmf_title.length == 0;
-    }];
-    NSArray<MWKSavedPageEntry*>* uniqueValidEntries = [[NSOrderedSet orderedSetWithArray:validEntries] array];
-    [super importEntries:uniqueValidEntries];
+#pragma mark - Legacy Migration
+
+- (MWKHistoryEntry*)historyEntryWithSavedPageEntry:(MWKSavedPageEntry*)entry {
+    MWKHistoryEntry* history = [[MWKHistoryEntry alloc] initWithURL:entry.url];
+    history.dateSaved = entry.date;
+    return history;
 }
 
-#pragma mark - Entry Access
-
-- (MWKSavedPageEntry*)mostRecentEntry {
-    return [self.entries firstObject];
-}
-
-- (MWKSavedPageEntry* __nullable)entryForListIndex:(NSURL*)url {
-    if ([url.wmf_title length] == 0) {
-        return nil;
+- (void)migrateLegacyDataIfNeeded {
+    if ([[NSUserDefaults standardUserDefaults] wmf_didMigrateSavedPageList]) {
+        return;
     }
-    return [super entryForListIndex:url];
+
+    NSArray<MWKSavedPageEntry*>* entries =
+        [[MWKSavedPageList savedEntryDataFromExportedData:[self.dataStore savedPageListData]] wmf_mapAndRejectNil:^id (id obj) {
+        @try {
+            return [[MWKSavedPageEntry alloc] initWithDict:obj];
+        } @catch (NSException* e) {
+            return nil;
+        }
+    }];
+
+    if ([entries count] > 0) {
+        [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray < NSString* > * _Nonnull (YapDatabaseReadWriteTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
+            NSMutableArray* urls = [NSMutableArray arrayWithCapacity:[entries count]];
+            [entries enumerateObjectsUsingBlock:^(MWKSavedPageEntry* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+                if (obj.url.wmf_title.length == 0) {
+                    //HACK: Added check from pre-existing logic. Apparently there was a time when this URL could be bad. Copying here to keep exisitng functionality
+                    return;
+                }
+                MWKHistoryEntry* history = [self historyEntryWithSavedPageEntry:obj];
+                MWKHistoryEntry* existing = [transaction objectForKey:[history databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
+                if (existing) {
+                    existing.dateSaved = history.dateSaved;
+                    history = existing;
+                }
+                [transaction setObject:history forKey:[history databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
+                [urls addObject:[history databaseKey]];
+            }];
+            return urls;
+        }];
+
+        [[NSUserDefaults standardUserDefaults] wmf_setDidMigrateSavedPageList:YES];
+    }
+}
+
+#pragma mark - Convienence Methods
+
+- (NSInteger)numberOfItems {
+    return [self.dataSource numberOfItems];
+}
+
+- (nullable MWKHistoryEntry*)mostRecentEntry {
+    return [self.dataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+}
+
+- (nullable MWKHistoryEntry*)entryForURL:(NSURL*)url {
+    return [self.dataSource readAndReturnResultsWithBlock:^id _Nonnull (YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
+        MWKHistoryEntry* entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        return entry;
+    }];
+}
+
+- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry* _Nonnull entry, BOOL* stop))block {
+    if (!block) {
+        return;
+    }
+    [self.dataSource readWithBlock:^(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
+        if ([view numberOfItemsInAllGroups] == 0) {
+            return;
+        }
+        [view enumerateKeysAndObjectsInGroup:[[view allGroups] firstObject] usingBlock:^(NSString* _Nonnull collection, NSString* _Nonnull key, MWKHistoryEntry* _Nonnull object, NSUInteger index, BOOL* _Nonnull stop) {
+            if (object.dateSaved) {
+                block(object, stop);
+            }
+        }];
+    }];
 }
 
 - (BOOL)isSaved:(NSURL*)url {
     if ([url.wmf_title length] == 0) {
         return NO;
     }
-    return [self containsEntryForListIndex:url];
+    return [self entryForURL:url].dateSaved != nil;
 }
 
 #pragma mark - Update Methods
 
+- (MWKHistoryEntry*)addEntry:(MWKHistoryEntry*)entry {
+    NSParameterAssert(entry.url);
+    if ([entry.url wmf_isNonStandardURL]) {
+        return nil;
+    }
+    if ([entry.url.wmf_title length] == 0) {
+        return nil;
+    }
+    
+    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray* _Nonnull (YapDatabaseReadWriteTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
+        [transaction setObject:entry forKey:[entry databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        return @[[entry databaseKey]];
+    }];
+    
+    return entry;
+}
 - (void)toggleSavedPageForURL:(NSURL*)url {
     if ([self isSaved:url]) {
-        [self removeEntryWithListIndex:url];
+        [self removeEntryWithURL:url];
     } else {
         [self addSavedPageWithURL:url];
     }
 }
 
-- (void)addSavedPageWithURL:(NSURL*)url {
+- (MWKHistoryEntry*)addSavedPageWithURL:(NSURL*)url {
+    if ([url wmf_isNonStandardURL]) {
+        return nil;
+    }
+    if ([url.wmf_title length] == 0) {
+        return nil;
+    }
+
+    __block MWKHistoryEntry* entry = nil;
+
+    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray < NSString* > * _Nonnull (YapDatabaseReadWriteTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
+        entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        if (!entry) {
+            entry = [[MWKHistoryEntry alloc] initWithURL:url];
+        }
+        if (!entry.dateSaved) {
+            entry.dateSaved = [NSDate date];
+        }
+
+        [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+
+        return @[[entry databaseKey]];
+    }];
+
+    return entry;
+}
+
+- (void)removeEntryWithURL:(NSURL*)url {
     if ([url.wmf_title length] == 0) {
         return;
     }
-    [self addEntry:[[MWKSavedPageEntry alloc] initWithURL:url]];
-}
-
-- (void)addEntry:(MWKSavedPageEntry*)entry {
-    if ([self isSaved:entry.url]) {
-        return;
-    }
-    [self insertEntry:entry atIndex:0];
-    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidSaveNotification object:self userInfo:@{MWKURLKey: entry.url}];
-}
-
-- (void)cleanupRemovedEntries:(NSArray<MWKSavedPageEntry*>*)entries {
-    if (entries == nil || entries.count == 0) {
-        return;
-    }
-    MWKHistoryList* historyList = self.dataStore.userDataStore.historyList;
-    NSSet* historyTitles        = [NSSet setWithArray:[historyList.entries valueForKey:WMF_SAFE_KEYPATH([MWKHistoryEntry new], url)]];
-    NSMutableSet* removedTitles = [NSMutableSet setWithArray:[entries valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], url)]];
-    [removedTitles minusSet:historyTitles];
-    [self.dataStore removeArticlesWithURLsFromCache:[removedTitles allObjects]];
-}
-
-- (void)removeEntryWithListIndex:(NSURL*)url {
-    if ([url.wmf_title length] == 0) {
-        return;
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidUnsaveNotification object:self userInfo:@{MWKURLKey: url}];
-    MWKSavedPageEntry* entry = [self entryForListIndex:url];
-    if (entry) {
-        [self cleanupRemovedEntries:@[entry]];
-    }
-    [super removeEntryWithListIndex:url];
+    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray < NSString* > * _Nonnull (YapDatabaseReadWriteTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
+        MWKHistoryEntry* entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        entry.dateSaved = nil;
+        [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        return @[[MWKHistoryEntry databaseKeyForURL:url]];
+    }];
 }
 
 - (void)removeAllEntries {
-    [self.entries enumerateObjectsUsingBlock:^(MWKSavedPageEntry* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidUnsaveNotification object:self userInfo:@{MWKURLKey: obj.url}];
+    [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray < NSString* > * _Nonnull (YapDatabaseReadWriteTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
+        NSMutableArray<NSString*>* keys = [NSMutableArray arrayWithCapacity:[self numberOfItems]];
+        [transaction enumerateKeysAndObjectsInCollection:[MWKHistoryEntry databaseCollectionName] usingBlock:^(NSString* _Nonnull key, MWKHistoryEntry* _Nonnull object, BOOL* _Nonnull stop) {
+            if(object.dateSaved != nil){
+                [keys addObject:key];
+            }
+        }];
+        [keys enumerateObjectsUsingBlock:^(NSString * _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
+            MWKHistoryEntry* entry = [[transaction objectForKey:key inCollection:[MWKHistoryEntry databaseCollectionName]] copy];
+            entry.dateSaved = nil;
+            [transaction setObject:entry forKey:key inCollection:[MWKHistoryEntry databaseCollectionName]];
+        }];
+        return keys;
     }];
-    [self cleanupRemovedEntries:self.entries];
-    [super removeAllEntries];
 }
 
-#pragma mark - Save
-
-- (void)performSaveWithCompletion:(dispatch_block_t)completion error:(WMFErrorHandler)errorHandler {
-    NSError* error;
-    if ([self.dataStore saveSavedPageList:self error:&error]) {
-        if (completion) {
-            completion();
-        }
-    } else {
-        if (errorHandler) {
-            errorHandler(error);
-        }
-    }
-}
-
-#pragma mark - Schema Migration
+#pragma mark - Legacy Schema Migration
 
 + (NSArray<NSDictionary*>*)savedEntryDataFromExportedData:(NSDictionary*)savedPageListData {
     NSNumber* schemaVersionValue                = savedPageListData[MWKSavedPageExportedSchemaVersionKey];
@@ -157,21 +220,6 @@ NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 + (NSArray<NSDictionary*>*)savedEntryDataFromListWithUnknownSchema:(NSDictionary*)data {
     return [data[MWKSavedPageExportedEntriesKey] wmf_reverseArray];
-}
-
-#pragma mark - Export
-
-- (NSArray<NSDictionary*>*)exportedEntries {
-    return [self.entries bk_map:^NSDictionary*(MWKSavedPageEntry* entry) {
-        return [entry dataExport];
-    }];
-}
-
-- (NSDictionary*)dataExport {
-    return @{
-               MWKSavedPageExportedSchemaVersionKey: @(MWKSavedPageListSchemaVersionCurrent),
-               MWKSavedPageExportedEntriesKey: [self exportedEntries]
-    };
 }
 
 @end

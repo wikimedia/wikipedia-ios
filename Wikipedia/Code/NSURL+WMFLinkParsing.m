@@ -200,6 +200,14 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
     }
 }
 
+- (BOOL)wmf_isMainPage{
+    if(self.wmf_isNonStandardURL){
+        return NO;
+    }
+    NSURL* mainArticleURL = [NSURL wmf_mainPageURLForLanguage:self.wmf_language];
+    return ([self isEqual:mainArticleURL]);
+}
+
 - (NSString*)wmf_pathWithoutWikiPrefix {
     return [self.path wmf_pathWithoutWikiPrefix];
 }

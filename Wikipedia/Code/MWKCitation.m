@@ -90,6 +90,11 @@ NS_ASSUME_NONNULL_BEGIN
     return _backlinkIdentifiers;
 }
 
+- (NSString*)description {
+    //Do not use MTLModel's description as it will cause recursion since this instance has a reference to the article, which also has a reference to this citation
+    return [NSString stringWithFormat:@"citation: %@", self.citationIdentifier];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

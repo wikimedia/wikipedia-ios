@@ -1,6 +1,7 @@
 
 #import "WMFExploreSectionSchema_Testing.h"
-#import "MWKDataStore.h"
+#import "MWKDataStore+WMFDataSources.h"
+#import "WMFDatabaseDataSource.h"
 #import "MWKSavedPageList.h"
 #import "MWKHistoryList.h"
 #import "WMFExploreSection.h"
@@ -10,6 +11,9 @@
 #import "WMFRelatedSectionBlackList.h"
 #import "NSDate+WMFMostReadDate.h"
 #import "NSCalendar+WMFCommonCalendars.h"
+#import "YapDatabaseConnection+WMFExtensions.h"
+#import "YapDatabaseViewOptions.h"
+#import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import <Tweaks/FBTweakInline.h>
 
 @import CoreLocation;
@@ -23,7 +27,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
 
 static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
-@interface WMFExploreSectionSchema ()<WMFLocationManagerDelegate>
+@interface WMFExploreSectionSchema ()<WMFLocationManagerDelegate, WMFDataSourceDelegate>
+
+@property (readonly, strong, nonatomic) MWKDataStore* dataStore;
+
+@property (nonatomic, strong, readwrite) id<WMFDataSource> blackListDataSource;
+@property (nonatomic, strong, readwrite) id<WMFDataSource> becauseYouReadDataSource;
 
 @property (nonatomic, strong, readwrite) NSURL* siteURL;
 @property (nonatomic, strong, readwrite) MWKSavedPageList* savedPages;
@@ -63,23 +72,23 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 #pragma mark - Setup
 
 + (instancetype)schemaWithSiteURL:(NSURL*)siteURL
-                         savedPages:(MWKSavedPageList*)savedPages
-                            history:(MWKHistoryList*)history
-                          blackList:(WMFRelatedSectionBlackList*)blackList {
+                       savedPages:(MWKSavedPageList*)savedPages
+                          history:(MWKHistoryList*)history
+                        blackList:(WMFRelatedSectionBlackList*)blackList {
     return [self schemaWithSiteURL:siteURL
-                          savedPages:savedPages
-                             history:history
-                           blackList:blackList
-                     locationManager:[WMFLocationManager coarseLocationManager]
-                                file:[self defaultSchemaURL]];
+                        savedPages:savedPages
+                           history:history
+                         blackList:blackList
+                   locationManager:[WMFLocationManager coarseLocationManager]
+                              file:[self defaultSchemaURL]];
 }
 
 + (instancetype)schemaWithSiteURL:(NSURL*)siteURL
-                         savedPages:(MWKSavedPageList*)savedPages
-                            history:(MWKHistoryList*)history
-                          blackList:(WMFRelatedSectionBlackList*)blackList
-                    locationManager:(WMFLocationManager*)locationManager
-                               file:(NSURL*)fileURL {
+                       savedPages:(MWKSavedPageList*)savedPages
+                          history:(MWKHistoryList*)history
+                        blackList:(WMFRelatedSectionBlackList*)blackList
+                  locationManager:(WMFLocationManager*)locationManager
+                             file:(NSURL*)fileURL {
     NSParameterAssert(siteURL);
     NSParameterAssert(savedPages);
     NSParameterAssert(history);
@@ -87,29 +96,24 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     NSParameterAssert(fileURL);
 
     WMFExploreSectionSchema* schema = [self schemaFromFileAtURL:fileURL] ? : [[WMFExploreSectionSchema alloc] init];
-    schema.siteURL         = [siteURL wmf_siteURL];
-    schema.savedPages        = savedPages;
-    schema.historyPages      = history;
-    schema.blackList         = blackList;
-    schema.fileURL           = fileURL;
-    schema.locationManager   = locationManager;
-    locationManager.delegate = schema;
+    schema.siteURL                      = [siteURL wmf_siteURL];
+    schema.savedPages                   = savedPages;
+    schema.historyPages                 = history;
+    schema.blackList                    = blackList;
+    schema.fileURL                      = fileURL;
+    schema.locationManager              = locationManager;
+    locationManager.delegate            = schema;
+    schema.blackListDataSource          = [savedPages.dataStore blackListDataSource];
+    schema.blackListDataSource.delegate = schema;
+    schema.becauseYouReadDataSource     = [savedPages.dataStore becauseYouReadSeedsDataSource];
 
     [schema update:YES];
 
     return schema;
 }
 
-- (void)setBlackList:(WMFRelatedSectionBlackList*)blackList {
-    if (_blackList) {
-        [self.KVOController unobserve:_blackList];
-    }
-
-    _blackList = blackList;
-
-    [self.KVOController observe:_blackList keyPath:WMF_SAFE_KEYPATH(_blackList, entries) options:0 block:^(WMFExploreSectionSchema* observer, WMFRelatedSectionBlackList* object, NSDictionary* change) {
-        [observer updateWithChangesInBlackList:object];
-    }];
+- (MWKDataStore*)dataStore {
+    return self.savedPages.dataStore;
 }
 
 /**
@@ -282,7 +286,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
             return -[obj1.dateCreated compare:obj2.dateCreated];
         }];
 
-        NSArray *trimmedExistingNearbySections = [existingNearbySections wmf_arrayByTrimmingToLength:max];
+        NSArray* trimmedExistingNearbySections = [existingNearbySections wmf_arrayByTrimmingToLength:max];
         [sections addObjectsFromArray:trimmedExistingNearbySections];
         [self updateSections:sections];
     }).catch(^(NSError* error) {
@@ -299,13 +303,17 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     [self updateSections:sections];
 }
 
-- (void)updateWithChangesInBlackList:(WMFRelatedSectionBlackList*)blackList {
-    //enumerate in reverse so that indexes are always correct
-    [[blackList.entries wmf_mapAndRejectNil:^id (NSURL* obj) {
-        return [self existingSectionForArticleURL:obj];
-    }] enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(WMFExploreSection* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        [self removeSection:obj];
-    }];
+#pragma mark - WMFDataSourceDelegate
+
+- (void)dataSourceDidFinishUpdates:(id<WMFDataSource>)dataSource {
+    if (dataSource == self.blackListDataSource) {
+        [self.blackList enumerateItemsWithBlock:^(MWKHistoryEntry* _Nonnull entry, BOOL* stop) {
+            WMFExploreSection* section = [self existingSectionForArticleURL:entry.url];
+            if (section) {
+                [self removeSection:section];
+            }
+        }];
+    }
 }
 
 #pragma mmrk - Section Creation
@@ -333,8 +341,8 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
         return NO;
     }];
 
-    MWKHistoryEntry* lastEntry = [self.historyPages.entries firstObject];
-    if (lastEntry && [[NSDate date] timeIntervalSinceDate:lastEntry.date] > WMFTimeBeforeRefreshingRandom) {
+    MWKHistoryEntry* lastEntry = [self.historyPages mostRecentEntry];
+    if (lastEntry && [[NSDate date] timeIntervalSinceDate:lastEntry.dateViewed] > WMFTimeBeforeRefreshingRandom) {
         random = [WMFExploreSection randomSectionWithSiteURL:self.siteURL];
     }
 
@@ -406,7 +414,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 - (nullable WMFExploreSection*)newMostReadSectionWithLatestPopulatedDate {
     WMFExploreSection* section = [WMFExploreSection mostReadSectionForDate:[NSDate wmf_latestMostReadDataWithLikelyAvailableData]
-                                                                 siteURL:self.siteURL];
+                                                                   siteURL:self.siteURL];
 
     if (!section.siteURL || !section.mostReadFetchDate) {
         return nil;
@@ -526,63 +534,60 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     }];
 }
 
+- (nullable NSArray<WMFExploreSection*>*)existingHistoryAndSavedSections {
+    return [self.sections bk_select:^BOOL (WMFExploreSection* obj) {
+        return (obj.type == WMFExploreSectionTypeSaved || obj.type == WMFExploreSectionTypeHistory);
+    }];
+}
+
 - (NSArray<WMFExploreSection*>*)historyAndSavedPageSections {
-    NSMutableArray<WMFExploreSection*>* sections = [NSMutableArray array];
+    NSArray<WMFExploreSection*>* existing = [self existingHistoryAndSavedSections];
 
     NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of history/saved", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeSaved] + [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeHistory]);
 
-    NSArray<WMFExploreSection*>* saved   = [self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:max];
-    NSArray<WMFExploreSection*>* history = [self sectionsFromHistoryEntriesExcludingExistingTitlesInSections:saved maxLength:max];
+    NSMutableArray<WMFExploreSection*>* history = [[self sectionsFromHistoryEntriesExcludingExistingTitlesInSections:existing maxLength:max] mutableCopy];
 
-    [sections addObjectsFromArray:saved];
-    [sections addObjectsFromArray:history];
+    [history addObjectsFromArray:existing];
 
     //Sort by date
-    [sections sortWithOptions:NSSortStable | NSSortConcurrent usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
+    [history sortWithOptions:NSSortStable | NSSortConcurrent usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
         return -[obj1.dateCreated compare:obj2.dateCreated];
     }];
 
-    return [sections wmf_arrayByTrimmingToLength:max];
+    return [history wmf_arrayByTrimmingToLength:max];
 }
 
 - (NSArray<WMFExploreSection*>*)sectionsFromHistoryEntriesExcludingExistingTitlesInSections:(nullable NSArray<WMFExploreSection*>*)existingSections maxLength:(NSUInteger)maxLength {
-    NSArray<NSURL*>* existingTitles = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFExploreSection new], articleURL)];
+    if ([self.becauseYouReadDataSource numberOfItems] == 0) {
+        return @[];
+    }
 
-    NSArray<MWKHistoryEntry*>* entries = [self.historyPages.entries bk_select:^BOOL (MWKHistoryEntry* obj) {
-        return obj.titleWasSignificantlyViewed;
+    NSArray<NSURL*>* existingURLs    = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFExploreSection new], articleURL)];
+    NSArray<NSString*>* existingKeys = [existingURLs wmf_mapAndRejectNil:^id (NSURL* obj) {
+        if ([obj isKindOfClass:[NSURL class]]) {
+            return [MWKHistoryEntry databaseKeyForURL:obj];
+        } else {
+            return nil;
+        }
     }];
 
-    entries = [entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
-        return [self.blackList articleURLIsBlackListed:obj.url];
+    NSMutableArray* array = [self.becauseYouReadDataSource readAndReturnResultsWithBlock:^id _Nonnull (YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view) {
+        NSMutableArray* array = [NSMutableArray arrayWithCapacity:[self.becauseYouReadDataSource numberOfItems]];
+        [view enumerateKeysAndObjectsInGroup:[[view allGroups] firstObject] usingBlock:^(NSString* _Nonnull collection, NSString* _Nonnull key, MWKHistoryEntry* _Nonnull object, NSUInteger index, BOOL* _Nonnull stop) {
+            if (![existingKeys containsObject:key]) {
+                if (object.dateViewed) {
+                    WMFExploreSection* section = [WMFExploreSection historySectionWithHistoryEntry:object];
+                    [array addObject:section];
+                } else {
+                    WMFExploreSection* section = [WMFExploreSection savedSectionWithSavedPageEntry:object];
+                    [array addObject:section];
+                }
+            }
+        }];
+        return array;
     }];
 
-    entries = [entries wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
-
-    entries = [entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
-        return [self urlIsForMainArticle:obj.url] || [existingTitles containsObject:obj.url];
-    }];
-
-    return [[entries bk_map:^id (MWKHistoryEntry* obj) {
-        return [WMFExploreSection historySectionWithHistoryEntry:obj];
-    }] wmf_arrayByTrimmingToLength:maxLength];
-}
-
-- (NSArray<WMFExploreSection*>*)sectionsFromSavedEntriesExcludingExistingTitlesInSections:(nullable NSArray<WMFExploreSection*>*)existingSections maxLength:(NSUInteger)maxLength {
-    NSArray<NSURL*>* existingTitles = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFExploreSection new], articleURL)];
-
-    NSArray<MWKHistoryEntry*>* entries = [self.savedPages.entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
-        return [self.blackList articleURLIsBlackListed:obj.url];
-    }];
-
-    entries = [entries wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
-
-    entries = [entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
-        return [self urlIsForMainArticle:obj.url] || [existingTitles containsObject:obj.url];
-    }];
-
-    return [[entries bk_map:^id (MWKSavedPageEntry* obj) {
-        return [WMFExploreSection savedSectionWithSavedPageEntry:obj];
-    }] wmf_arrayByTrimmingToLength:maxLength];
+    return [array wmf_arrayByTrimmingToLength:maxLength];
 }
 
 #pragma mark - WMFLocationManagerDelegate
@@ -633,14 +638,17 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
     #define WMFExploreSectionSchemaKey(key) WMF_SAFE_KEYPATH([WMFExploreSectionSchema new], key)
 
-    behaviors[WMFExploreSectionSchemaKey(siteURL)]       = @(MTLModelEncodingBehaviorExcluded);
-    behaviors[WMFExploreSectionSchemaKey(savedPages)]      = @(MTLModelEncodingBehaviorExcluded);
-    behaviors[WMFExploreSectionSchemaKey(historyPages)]    = @(MTLModelEncodingBehaviorExcluded);
-    behaviors[WMFExploreSectionSchemaKey(delegate)]        = @(MTLModelEncodingBehaviorExcluded);
-    behaviors[WMFExploreSectionSchemaKey(locationManager)] = @(MTLModelEncodingBehaviorExcluded);
-    behaviors[WMFExploreSectionSchemaKey(blackList)]       = @(MTLModelEncodingBehaviorExcluded);
-    behaviors[WMFExploreSectionSchemaKey(fileURL)]         = @(MTLModelEncodingBehaviorExcluded);
-    behaviors[WMFExploreSectionSchemaKey(saveQueue)]       = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(dataStore)]                = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(blackListDataSource)]      = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(becauseYouReadDataSource)] = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(siteURL)]                  = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(savedPages)]               = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(historyPages)]             = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(delegate)]                 = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(locationManager)]          = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(blackList)]                = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(fileURL)]                  = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(saveQueue)]                = @(MTLModelEncodingBehaviorExcluded);
 
     return behaviors;
 }

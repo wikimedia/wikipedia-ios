@@ -4,6 +4,8 @@
 #import <XCTest/XCTest.h>
 
 #import "MWKTestCase.h"
+#import "MWKDataStore+TemporaryDataStore.h"
+
 
 @interface MWKDataStorePathTests : MWKTestCase {
     NSURL* siteURL;
@@ -30,9 +32,8 @@
 
     articleURLForbiddenCity = [siteURL wmf_URLWithTitle:@"Forbidden City"];
 
-    NSString* documentsFolder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    basePath  = [documentsFolder stringByAppendingPathComponent:@"unit-test-data0"];
-    dataStore = [[MWKDataStore alloc] initWithBasePath:basePath];
+    dataStore = [MWKDataStore temporaryDataStore];
+    basePath = dataStore.basePath;
 
     json    = [self loadJSON:@"section0"];
     article = [[MWKArticle alloc] initWithURL:articleURL dataStore:dataStore dict:json[@"mobileview"]];
