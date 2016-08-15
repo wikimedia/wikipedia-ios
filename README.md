@@ -71,7 +71,7 @@ We're doing what we can to optimize the build system to have as few dependencies
  
 `brew install clang-format`
 
-As mentioned in [best practices and coding style](#best-practices-and-coding-style), we use clang-format to lint the project's Objective-C code. Installation via Homebrew is straightforward: `brew install clang-format`. We use the [ClangFormat-Xcode plugin](https://github.com/travisjeffery/ClangFormat-Xcode) to format code on save.
+As mentioned in [best practices and coding style](#best-practices-and-coding-style), we use clang-format to lint the project's Objective-C code. Installation via Homebrew is straightforward: `brew install clang-format`. We use the [ClangFormat-Xcode plugin](https://github.com/travisjeffery/ClangFormat-Xcode) to format code on save. After installing the Xcode plugin, select "Format on Save", "Use System ClangFormat" and "File" (to use our .clang-format file) from the Edit > Clang Format menu.
 
 ### CocoaPods
  
