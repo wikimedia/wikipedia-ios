@@ -142,16 +142,20 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     if ([notifications count] == 0) {
         return;
     }
-    NSArray<NSString*>* updatedItemKeys = [notification wmf_updatedItemKeys];
-    
-    [updatedItemKeys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:obj];
-    }];
     
     [self.changeHandlers compact];
     for (id<WMFDatabaseChangeHandler> obj in self.changeHandlers){
         [obj processChanges:notifications onConnection:self.articleReferenceReadConnection];
     }
+    
+    //Order is simportant.
+    //Be sure to post notifications after all change handlers are updated.
+    //This way if notifications query a datasource/list, they will be up do date
+    NSArray<NSString*>* updatedItemKeys = [notification wmf_updatedItemKeys];
+    
+    [updatedItemKeys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:obj];
+    }];
     
     [self cleanup];
 }
