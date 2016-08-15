@@ -98,14 +98,12 @@ public class WMFTableOfContentsViewController: UIViewController,
 
     public func selectAndScrollToItem(item: TableOfContentsItem, animated: Bool) {
         guard let indexPath = indexPathForItem(item) else {
-            //assertionFailure("No indexPath known for TOC item \(item)")
+            assertionFailure("No indexPath known for TOC item \(item)")
             return
         }
         
         if let selectedIndexPath = tableView.indexPathForSelectedRow {
-            if selectedIndexPath.isEqual(indexPath) {
-                return
-            } else {
+            if !selectedIndexPath.isEqual(indexPath) {
                 deselectAllRows()
             }
         }
@@ -231,7 +229,7 @@ public class WMFTableOfContentsViewController: UIViewController,
         cell.titleColor = item.itemType.titleColor
         
         cell.setNeedsLayout()
-        
+
         cell.setSectionSelected(shouldHighlight, animated: false)
         return cell
     }
