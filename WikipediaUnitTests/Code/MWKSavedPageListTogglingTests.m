@@ -6,18 +6,13 @@
 #import "MWKHistoryEntry+MWKRandom.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFAsyncTestCase.h"
+#import "NSDate+Utilities.h"
 
 #define MOCKITO_SHORTHAND 1
 #import <OCMockito/OCMockito.h>
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
-
-@interface MWKSavedPageList (WMFSavedPageListTests)
-
-- (MWKHistoryEntry*)addEntry:(MWKHistoryEntry*)entry;
-
-@end
 
 @interface MWKSavedPageListTogglingTests : XCTestCase
 @property (nonatomic, strong) MWKSavedPageList* list;
@@ -35,14 +30,12 @@
 #pragma mark - Manual Saving
 
 - (void)testAddedTitlesArePrepended {
-    MWKHistoryEntry* e1 = [MWKHistoryEntry random];
-    MWKHistoryEntry* e2 = [MWKHistoryEntry random];
-    [self.list addEntry:e1];
-    [self.list addEntry:e2];
-
+    [self.list addSavedPageWithURL:[NSURL wmf_randomArticleURL]];
+    MWKHistoryEntry* e2 = [self.list addSavedPageWithURL:[NSURL wmf_randomArticleURL]];
+    
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
         XCTAssertTrue([self.list numberOfItems] == 2);
         assertThat(self.list.mostRecentEntry, is(e2));
         [expectation fulfill];
@@ -53,15 +46,14 @@
 }
 
 - (void)testAddingExistingSavedPageIsIgnored {
-    MWKHistoryEntry* entry = [MWKHistoryEntry random];
-    [self.list addEntry:entry];
-    [self.list addEntry:[[MWKHistoryEntry alloc] initWithURL:entry.url]];
+    MWKHistoryEntry* entry = [self.list addSavedPageWithURL:[NSURL wmf_randomArticleURL]];
+    [self.list addSavedPageWithURL:entry.url];
     
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
         XCTAssertTrue([self.list numberOfItems] == 1);
-        assertThat(self.list.mostRecentEntry, is(entry));
+        assertThat(self.list.mostRecentEntry.url, is(entry.url));
         [expectation fulfill];
     });
     
@@ -72,11 +64,21 @@
 #pragma mark - Toggling
 
 - (void)testTogglingSavedPageReturnsNoAndRemovesFromList {
-    MWKHistoryEntry* savedEntry = [MWKHistoryEntry random];
-    [self.list addEntry:savedEntry];
-    [self.list toggleSavedPageForURL:savedEntry.url];
-    XCTAssertFalse([self.list isSaved:savedEntry.url]);
-    XCTAssertNil([self.list entryForURL:savedEntry.url]);
+    MWKHistoryEntry* savedEntry = [self.list addSavedPageWithURL:[NSURL wmf_randomArticleURL]];
+    
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        [self.list toggleSavedPageForURL:savedEntry.url];
+        dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+            XCTAssertFalse([self.list isSaved:savedEntry.url]);
+            XCTAssertNil([self.list entryForURL:savedEntry.url]);
+            [expectation fulfill];
+        });
+    });
+
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+
 }
 
 - (void)testToggleUnsavedPageReturnsYesAndAddsToList {
@@ -85,9 +87,9 @@
     
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
     
-    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
         XCTAssertTrue([self.list isSaved:unsavedEntry.url]);
-        XCTAssertEqualObjects([self.list entryForURL:unsavedEntry.url], unsavedEntry);
+        XCTAssertEqualObjects([self.list entryForURL:unsavedEntry.url].url, unsavedEntry.url);
         [expectation fulfill];
     });
     
@@ -98,7 +100,16 @@
 - (void)testTogglePageWithEmptyTitleReturnsNilWithError {
     NSURL* url = [[NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"] wmf_URLWithTitle:@""];
     [self.list toggleSavedPageForURL:url];
-    XCTAssertFalse([self.list isSaved:url]);
+    
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    
+    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+        XCTAssertFalse([self.list isSaved:url]);
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+
 }
 
 @end

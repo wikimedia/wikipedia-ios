@@ -10,12 +10,6 @@
 #import "WMFAsyncTestCase.h"
 
 
-@interface MWKHistoryList (WMFHistoryListPerformanceTests)
-
-- (MWKHistoryEntry*)addEntry:(MWKHistoryEntry*)entry;
-
-@end
-
 @interface MWKHistoryListPerformanceTests : XCTestCase
 
 @end
@@ -27,18 +21,13 @@
     MWKHistoryList* list    = [[MWKHistoryList alloc] initWithDataStore:dataStore];
     int count               = 1000;
     for (int i = 0; i < count; i++) {
-        MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithURL:[NSURL wmf_randomArticleURL]];
-        [list addEntry:entry];
+        [list addPageToHistoryWithURL:[NSURL wmf_randomArticleURL]];
     }
 
     __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
 
-    dispatchOnMainQueueAfterDelayInSeconds(2.0, ^{
-        [self measureBlock:^{
-            [list enumerateItemsWithBlock:^(MWKHistoryEntry* _Nonnull entry, BOOL* _Nonnull stop) {
-            }];
-            XCTAssertEqual([list numberOfItems], count);
-        }];
+    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+        XCTAssertEqual([list numberOfItems], count);
         [expectation fulfill];
     });
 
