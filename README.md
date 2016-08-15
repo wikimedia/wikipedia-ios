@@ -30,7 +30,7 @@ At this point, you should be able to open `Wikipedia.xcworkspace` and run the ap
 ### Architecture
 *TODO: We hope to have some high-level documentation on the application's architecture soon.*
 ### Best practices and coding style
-You can find our current thinking on [iOS best practices](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/BestPractices) and [coding style](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/ObjectiveCStyleGuide) on our [team page](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS). The [WMFCodingStyle](./WikipediaUnitTests/Code/WMFCodingStyle.h) files are also canonical examples of our coding style, which are enforced using [uncrustify](#uncrustify).
+You can find our current thinking on [iOS best practices](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/BestPractices) and [coding style](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/ObjectiveCStyleGuide) on our [team page](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS). The [WMFCodingStyle](./WikipediaUnitTests/Code/WMFCodingStyle.h) files are also canonical examples of our coding style, which are enforced using [clang-format](#clang-format).
 ### Dependencies
 We use [CocoaPods](#cocoapods) to manage third-party native dependencies and [npm](#npm) for web.  We've committed our CocoaPods dependencies and npm build artifacts to the repo so you don't need them to build the project.
 ## Testing
@@ -67,13 +67,11 @@ We're doing what we can to optimize the build system to have as few dependencies
  
 [Carthage](https://github.com/Carthage/Carthage) is a dependency manager we use for dependencies that need to be linked as dynamic frameworks.
 
-### Uncrustify
+### Clang-Format
  
-`brew install uncrustify`
- 
-As mentioned in [best practices and coding style](#best-practices-and-coding-style), we use [uncrustify](http://uncrustify.sourceforge.net/) to lint the project's Objective-C code. Installation via Homebrew is straightforward: `brew install uncrustify`. We've also provided a pre-push git hook which automatically lints the code before pushing, which can be installed by running `./scripts/setup_git_hooks.sh`.  In the event that you run uncrustify on the entire project (either via `make lint` or the provided pre-push hook), please commit the changes as a separate commit.  You'll see examples of this in other pull requests which have commits named simply: ["uncrustify."](https://github.com/wikimedia/wikipedia-ios/commit/52f291b536d5679a965169100ad3a151ca40f89f).
+`brew install clang-format`
 
-> [BBUncrustifyPlugin](https://github.com/benoitsan/BBUncrustifyPlugin-Xcode) is an easy way to uncrustify files within the Xcode UI. You can install it from source or using [Alcatraz](http://alcatraz.io), the unofficial Xcode package/plugin manager.
+As mentioned in [best practices and coding style](#best-practices-and-coding-style), we use clang-format to lint the project's Objective-C code. Installation via Homebrew is straightforward: `brew install clang-format`. We use the [ClangFormat-Xcode plugin](https://github.com/travisjeffery/ClangFormat-Xcode) to format code on save.
 
 ### CocoaPods
  
