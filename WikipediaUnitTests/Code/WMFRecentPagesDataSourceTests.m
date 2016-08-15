@@ -8,6 +8,8 @@
 #import "MWKDataStore+TempDataStoreForEach.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "MWKDataStore+WMFDataSources.h"
+#import "WMFAsyncTestCase.h"
+#import "MWKDataStore+TemporaryDataStore.h"
 
 @interface MWKHistoryList (WMFDataSourceTesting)
 
@@ -18,107 +20,13 @@
 
 @interface MWKHistoryList (SectionDataSourceTesting)
 
-- (NSArray<NSURL*>*)injectWithStubbedEntriesFromDate:(NSDate*)date;
+- (NSArray<MWKHistoryEntry*>*)injectWithStubbedEntriesFromDate:(NSDate*)date;
 
 @end
 
-QuickSpecBegin(WMFRecentPagesDataSourceTests)
-
-__block MWKHistoryList * historyList;
-__block id<WMFDataSource> recentPagesDataSource;
-
-configureTempDataStoreForEach(tempDataStore, ^{
-    MWKUserDataStore* userDataStore = tempDataStore.userDataStore;
-    historyList = userDataStore.historyList;
-    recentPagesDataSource = [tempDataStore historyDataSource];
-});
-
-describe(@"partitioning by date", ^{
-    context(@"history contains items from today", ^{
-        NSDate* today = [NSDate date];
-        NSDate* yesterday = [today dateBySubtractingDays:1];
-        NSDate* lastWeek = [today dateBySubtractingDays:7];
-
-        __block NSArray<NSURL*>* todaysTitles;
-
-        beforeEach(^{
-            todaysTitles = [historyList injectWithStubbedEntriesFromDate:today];
-        });
-
-        describe(@"first section", ^{
-            it(@"should have items from today", ^{
-                MWKHistoryEntry* entry = [recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-                expect([entry.dateViewed dateAtStartOfDay]).to(equal([today dateAtStartOfDay]));
-                
-                for (int i = 0; i < [recentPagesDataSource numberOfItemsInSection:0]; i++){
-                    MWKHistoryEntry* entry = [recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-                    expect(entry.url).to(equal(todaysTitles[i]));
-                }
-            });
-
-            it(@"First section header should be today", ^{
-                NSString* title = [recentPagesDataSource titleForSectionIndex:0];
-                NSDate* date = [NSDate dateWithTimeIntervalSince1970:[title doubleValue]];
-                expect([date dateAtStartOfDay]).to(equal([today dateAtStartOfDay]));
-            });
-        });
-
-        context(@"history also contains items from yesterday", ^{
-            __block NSArray<NSURL*>* yesterdaysTitles;
-
-            beforeEach(^{
-                yesterdaysTitles = [historyList injectWithStubbedEntriesFromDate:yesterday];
-            });
-
-            describe(@"yesterday section", ^{
-                it(@"should have items from yesterday", ^{
-                    MWKHistoryEntry* entry = [recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-                    expect([entry.dateViewed dateAtStartOfDay]).to(equal([yesterday dateAtStartOfDay]));
-
-                    for (int i = 0; i < [recentPagesDataSource numberOfItemsInSection:0]; i++){
-                        MWKHistoryEntry* entry = [recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-                        expect(entry.url).to(equal(yesterdaysTitles[i]));
-                    }
-                });
-
-                it(@"First section header should be yesterday", ^{
-                    NSString* title = [recentPagesDataSource titleForSectionIndex:0];
-                    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[title doubleValue]];
-                    expect([date dateAtStartOfDay]).to(equal([yesterday dateAtStartOfDay]));
-                });
-            });
-
-            context(@"history also contains items from last week", ^{
-                __block NSArray<NSURL*>* lastWeeksTitles;
-                beforeEach(^{
-                    lastWeeksTitles = [historyList injectWithStubbedEntriesFromDate:lastWeek];
-                });
-
-                it(@"should have a single section with all entries from last week", ^{
-                    MWKHistoryEntry* entry = [recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-                    expect([entry.dateViewed dateAtStartOfDay]).to(equal([lastWeek dateAtStartOfDay]));
-
-                    for (int i = 0; i < [recentPagesDataSource numberOfItemsInSection:0]; i++){
-                        MWKHistoryEntry* entry = [recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-                        expect(entry.url).to(equal(lastWeeksTitles[i]));
-                    }
-                });
-
-                it(@"should have a header with last week's date", ^{
-                    NSString* title = [recentPagesDataSource titleForSectionIndex:0];
-                    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[title doubleValue]];
-                    expect([date dateAtStartOfDay]).to(equal([lastWeek dateAtStartOfDay]));
-                });
-            });
-        });
-    });
-});
-
-QuickSpecEnd
-
 @implementation MWKHistoryList (SectionDataSourceTesting)
 
-- (NSArray<NSURL*>*)injectWithStubbedEntriesFromDate:(NSDate*)date {
+- (NSArray<MWKHistoryEntry*>*)injectWithStubbedEntriesFromDate:(NSDate*)date {
     MWKHistoryEntry* entryFromDate = [MWKHistoryEntry random];
     entryFromDate.dateViewed = [date dateAtStartOfDay];
 
@@ -132,3 +40,116 @@ QuickSpecEnd
 }
 
 @end
+
+@interface MWKHistoryDataSourceTests : XCTestCase
+
+@property(nonatomic, strong) MWKDataStore* dataStore;
+@property(nonatomic, strong) MWKHistoryList* historyList;
+@property(nonatomic, strong) id<WMFDataSource> recentPagesDataSource;
+
+@property(nonatomic, strong) NSArray<MWKHistoryEntry*>* todaysTitles;
+@property(nonatomic, strong) NSArray<MWKHistoryEntry*>* yesterdaysTitles;
+@property(nonatomic, strong) NSArray<MWKHistoryEntry*>* lastWeeksTitles;
+
+@end
+
+@implementation MWKHistoryDataSourceTests
+
+- (void)setUp {
+    [super setUp];
+
+    self.dataStore   = [MWKDataStore temporaryDataStore];
+    self.historyList = [[MWKHistoryList alloc] initWithDataStore:self.dataStore];
+    NSAssert([self.historyList numberOfItems] == 0, @"History list must be empty before tests begin.");
+    self.recentPagesDataSource = [self.dataStore historyGroupedByDateDataSource];
+    NSAssert([self.recentPagesDataSource numberOfItems] == 0, @"History datasource must be empty before tests begin.");
+
+    NSDate* today     = [NSDate date];
+    NSDate* yesterday = [today dateBySubtractingDays:1];
+    NSDate* lastWeek  = [today dateBySubtractingDays:7];
+
+    self.todaysTitles     = [self.historyList injectWithStubbedEntriesFromDate:today];
+    self.yesterdaysTitles = [self.historyList injectWithStubbedEntriesFromDate:yesterday];
+    self.lastWeeksTitles  = [self.historyList injectWithStubbedEntriesFromDate:lastWeek];
+}
+
+- (void)tearDown {
+    [self.dataStore removeFolderAtBasePath];
+    [super tearDown];
+}
+
+- (void)testToday {
+    NSDate* today = [NSDate date];
+
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+
+    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+        MWKHistoryEntry* entry = [self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        expect([entry.dateViewed dateAtStartOfDay]).to(equal([today dateAtStartOfDay]));
+        for (int i = 0; i < [self.recentPagesDataSource numberOfItemsInSection:0]; i++) {
+            MWKHistoryEntry* entry = [self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            expect(entry).to(equal(self.todaysTitles[i]));
+        }
+        NSString* title = [self.recentPagesDataSource titleForSectionIndex:0];
+        NSDate* date = [NSDate dateWithTimeIntervalSince1970:[title doubleValue]];
+        expect([date dateAtStartOfDay]).to(equal([today dateAtStartOfDay]));
+
+        [expectation fulfill];
+    });
+
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+}
+
+- (void)testYesterday {
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+
+    NSDate* today     = [NSDate date];
+    NSDate* yesterday = [today dateBySubtractingDays:1];
+
+    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+        MWKHistoryEntry* entry = [self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+        expect([entry.dateViewed dateAtStartOfDay]).to(equal([yesterday dateAtStartOfDay]));
+
+        for (int i = 0; i < [self.recentPagesDataSource numberOfItemsInSection:1]; i++) {
+            MWKHistoryEntry* entry = [self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
+            expect(entry).to(equal(self.yesterdaysTitles[i]));
+        }
+
+        NSString* title = [self.recentPagesDataSource titleForSectionIndex:1];
+        NSDate* date = [NSDate dateWithTimeIntervalSince1970:[title doubleValue]];
+        expect([date dateAtStartOfDay]).to(equal([yesterday dateAtStartOfDay]));
+
+        [expectation fulfill];
+    });
+
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+}
+
+- (void)testLastWeek {
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+
+    NSDate* today    = [NSDate date];
+    NSDate* lastWeek = [today dateBySubtractingDays:7];
+
+    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+        MWKHistoryEntry* entry = [self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
+        expect([entry.dateViewed dateAtStartOfDay]).to(equal([lastWeek dateAtStartOfDay]));
+
+        for (int i = 0; i < [self.recentPagesDataSource numberOfItemsInSection:2]; i++) {
+            MWKHistoryEntry* entry = [self.recentPagesDataSource objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:2]];
+            expect(entry).to(equal(self.lastWeeksTitles[i]));
+        }
+
+        NSString* title = [self.recentPagesDataSource titleForSectionIndex:2];
+        NSDate* date = [NSDate dateWithTimeIntervalSince1970:[title doubleValue]];
+        expect([date dateAtStartOfDay]).to(equal([lastWeek dateAtStartOfDay]));
+
+        [expectation fulfill];
+    });
+
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
+}
+
+@end
+
+
