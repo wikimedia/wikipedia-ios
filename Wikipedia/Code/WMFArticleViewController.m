@@ -1027,25 +1027,30 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 }
       
                 [self createTableOfContentsViewControllerIfNeeded];
-                [self addChildViewController:self.tableOfContentsViewController];
-                [self.view insertSubview:self.tableOfContentsViewController.view aboveSubview:self.webViewController.view];
-                [self.tableOfContentsViewController didMoveToParentViewController:self];
                 
-                [self.view insertSubview:self.tableOfContentsSeparatorView aboveSubview:self.tableOfContentsViewController.view];
-                
-                self.tableOfContentsCloseGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleTableOfContentsCloseGesture:)];
-                UISwipeGestureRecognizerDirection closeDirection;
-                switch (self.tableOfContentsDisplaySide) {
-                    case WMFTableOfContentsDisplaySideRight:
-                        closeDirection = UISwipeGestureRecognizerDirectionRight;
-                        break;
-                    case WMFTableOfContentsDisplaySideLeft:
-                    default:
-                        closeDirection = UISwipeGestureRecognizerDirectionLeft;
-                        break;
+                if (self.tableOfContentsViewController == nil) {
+                    self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
+                } else {
+                    [self addChildViewController:self.tableOfContentsViewController];
+                    [self.view insertSubview:self.tableOfContentsViewController.view aboveSubview:self.webViewController.view];
+                    [self.tableOfContentsViewController didMoveToParentViewController:self];
+                    
+                    [self.view insertSubview:self.tableOfContentsSeparatorView aboveSubview:self.tableOfContentsViewController.view];
+                    
+                    self.tableOfContentsCloseGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleTableOfContentsCloseGesture:)];
+                    UISwipeGestureRecognizerDirection closeDirection;
+                    switch (self.tableOfContentsDisplaySide) {
+                        case WMFTableOfContentsDisplaySideRight:
+                            closeDirection = UISwipeGestureRecognizerDirectionRight;
+                            break;
+                        case WMFTableOfContentsDisplaySideLeft:
+                        default:
+                            closeDirection = UISwipeGestureRecognizerDirectionLeft;
+                            break;
+                    }
+                    self.tableOfContentsCloseGestureRecognizer.direction = closeDirection;
+                    [self.tableOfContentsViewController.view addGestureRecognizer:self.tableOfContentsCloseGestureRecognizer];
                 }
-                self.tableOfContentsCloseGestureRecognizer.direction = closeDirection;
-                [self.tableOfContentsViewController.view addGestureRecognizer:self.tableOfContentsCloseGestureRecognizer];
             }
         }
         break;
