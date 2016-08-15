@@ -2,7 +2,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFSelfSizingArticleListTableViewController : WMFArticleListTableViewController
+@interface WMFSelfSizingArticleListTableViewController
+    : WMFArticleListTableViewController
 
 @end
 

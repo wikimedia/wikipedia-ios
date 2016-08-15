@@ -11,6 +11,6 @@
 
 @interface WMFSearchResults (ResponseSerializer)
 
-+ (AFHTTPResponseSerializer*)responseSerializer;
++ (AFHTTPResponseSerializer *)responseSerializer;
 
 @end

@@ -20,7 +20,8 @@
  *
  *  @return The Section List
  */
-- (instancetype)initWithArticle:(MWKArticle*)article sections:(NSArray*)sections;
+- (instancetype)initWithArticle:(MWKArticle *)article
+                       sections:(NSArray *)sections;
 
 /**
  *  Creates a section list and loads sections from disks
@@ -29,21 +30,22 @@
  *
  *  @return The Section List
  */
-- (instancetype)initWithArticle:(MWKArticle*)article;
+- (instancetype)initWithArticle:(MWKArticle *)article;
 
-@property (readonly, weak, nonatomic) MWKArticle* article;
+@property(readonly, weak, nonatomic) MWKArticle *article;
 
-@property (readonly, strong, nonatomic) NSArray* entries;
+@property(readonly, strong, nonatomic) NSArray *entries;
 
-- (NSUInteger) count;
-- (MWKSection*)objectAtIndexedSubscript:(NSUInteger)idx;
+- (NSUInteger)count;
+- (MWKSection *)objectAtIndexedSubscript:(NSUInteger)idx;
 
-/// @return The first section whose `text` is not empty, or `nil` if all sections (or the receiver) are empty.
-- (MWKSection*)firstNonEmptySection;
+/// @return The first section whose `text` is not empty, or `nil` if all
+/// sections (or the receiver) are empty.
+- (MWKSection *)firstNonEmptySection;
 
 - (void)save;
 
-- (BOOL)isEqualToSectionList:(MWKSectionList*)sectionList;
+- (BOOL)isEqualToSectionList:(MWKSectionList *)sectionList;
 
 ///
 /// @name Hierarchical Sections
@@ -52,10 +54,11 @@
 /**
  *  Retrieve all child-less sections in the receiver.
  *
- *  Can be used to retrieve root sections from which the hierarchy can be traversed as a tree.
+ *  Can be used to retrieve root sections from which the hierarchy can be
+ * traversed as a tree.
  *
  *  @return An array of `MWKSection` objects.
  */
-- (NSArray*)topLevelSections;
+- (NSArray *)topLevelSections;
 
 @end

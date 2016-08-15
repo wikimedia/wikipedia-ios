@@ -9,12 +9,12 @@
 
 @interface MWKUserDataStore : NSObject
 
-@property (readonly, weak, nonatomic) MWKDataStore* dataStore;
-@property (readonly, strong, nonatomic) MWKHistoryList* historyList;
-@property (readonly, strong, nonatomic) MWKSavedPageList* savedPageList;
-@property (readonly, strong, nonatomic) MWKRecentSearchList* recentSearchList;
+@property(readonly, weak, nonatomic) MWKDataStore *dataStore;
+@property(readonly, strong, nonatomic) MWKHistoryList *historyList;
+@property(readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
+@property(readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
 /**
  *  Save changes to any of the lists managed by the user data store.
@@ -23,13 +23,13 @@
  *
  *  @return The task. The result will be nil.
  */
-- (AnyPromise*)save;
+- (AnyPromise *)save;
 
 /**
  *  Clear out any cached list and force them to be reloaded on demand.
  *
  *  @return The task. The result will be nil.
  */
-- (AnyPromise*)reset;
+- (AnyPromise *)reset;
 
 @end

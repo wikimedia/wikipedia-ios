@@ -8,181 +8,201 @@
 
 @implementation NSUserActivity (WMFExtensions)
 
-+ (void)wmf_makeActivityActive:(NSUserActivity*)activity {
-    static NSUserActivity* _current = nil;
++ (void)wmf_makeActivityActive:(NSUserActivity *)activity {
+  static NSUserActivity *_current = nil;
 
-    if (_current) {
-        [_current invalidate];
-        _current = nil;
-    }
+  if (_current) {
+    [_current invalidate];
+    _current = nil;
+  }
 
-    _current = activity;
-    [_current becomeCurrent];
+  _current = activity;
+  [_current becomeCurrent];
 }
 
-+ (instancetype)wmf_activityWithType:(NSString*)type {
-    NSUserActivity* activity = [[NSUserActivity alloc] initWithActivityType:[NSString stringWithFormat:@"org.wikimedia.wikipedia.%@", [type lowercaseString]]];
++ (instancetype)wmf_activityWithType:(NSString *)type {
+  NSUserActivity *activity = [[NSUserActivity alloc]
+      initWithActivityType:[NSString
+                               stringWithFormat:@"org.wikimedia.wikipedia.%@",
+                                                [type lowercaseString]]];
 
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-        activity.eligibleForHandoff        = YES;
-        activity.eligibleForSearch         = YES;
-        activity.eligibleForPublicIndexing = YES;
-        activity.keywords                  = [NSSet setWithArray:@[@"Wikipedia", @"Wikimedia", @"Wiki"]];
-    }
-    return activity;
+  if ([[NSProcessInfo processInfo]
+          wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+    activity.eligibleForHandoff = YES;
+    activity.eligibleForSearch = YES;
+    activity.eligibleForPublicIndexing = YES;
+    activity.keywords =
+        [NSSet setWithArray:@[ @"Wikipedia", @"Wikimedia", @"Wiki" ]];
+  }
+  return activity;
 }
 
-+ (instancetype)wmf_pageActivityWithName:(NSString*)pageName {
-    NSUserActivity* activity = [self wmf_activityWithType:[pageName lowercaseString]];
-    activity.title    = pageName;
-    activity.userInfo = @{@"WMFPage": pageName};
++ (instancetype)wmf_pageActivityWithName:(NSString *)pageName {
+  NSUserActivity *activity =
+      [self wmf_activityWithType:[pageName lowercaseString]];
+  activity.title = pageName;
+  activity.userInfo = @{ @"WMFPage" : pageName };
 
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-        NSMutableSet* set = [activity.keywords mutableCopy];
-        [set addObjectsFromArray:[pageName componentsSeparatedByString:@" "]];
-        activity.keywords = set;
-    }
+  if ([[NSProcessInfo processInfo]
+          wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+    NSMutableSet *set = [activity.keywords mutableCopy];
+    [set addObjectsFromArray:[pageName componentsSeparatedByString:@" "]];
+    activity.keywords = set;
+  }
 
-    return activity;
+  return activity;
 }
 
 + (instancetype)wmf_exploreViewActivity {
-    NSUserActivity* activity = [self wmf_pageActivityWithName:@"Explore"];
-    return activity;
+  NSUserActivity *activity = [self wmf_pageActivityWithName:@"Explore"];
+  return activity;
 }
 
 + (instancetype)wmf_savedPagesViewActivity {
-    NSUserActivity* activity = [self wmf_pageActivityWithName:@"Saved"];
-    return activity;
+  NSUserActivity *activity = [self wmf_pageActivityWithName:@"Saved"];
+  return activity;
 }
 
 + (instancetype)wmf_recentViewActivity {
-    NSUserActivity* activity = [self wmf_pageActivityWithName:@"History"];
-    return activity;
+  NSUserActivity *activity = [self wmf_pageActivityWithName:@"History"];
+  return activity;
 }
 
 + (instancetype)wmf_searchViewActivity {
-    NSUserActivity* activity = [self wmf_pageActivityWithName:@"Search"];
-    return activity;
+  NSUserActivity *activity = [self wmf_pageActivityWithName:@"Search"];
+  return activity;
 }
 
 + (instancetype)wmf_settingsViewActivity {
-    NSUserActivity* activity = [self wmf_pageActivityWithName:@"Settings"];
-    return activity;
+  NSUserActivity *activity = [self wmf_pageActivityWithName:@"Settings"];
+  return activity;
 }
 
 + (instancetype)wmf_activityForWikipediaScheme:(NSURL *)url {
-    if (![url.scheme isEqualToString:@"wikipedia"]) {
-        return nil;
-    }
-
-    if ([url.host isEqualToString:@"explore"]) {
-        return [self wmf_exploreViewActivity];
-    } else if ([url.host isEqualToString:@"saved"]) {
-        return [self wmf_savedPagesViewActivity];
-    } else if ([url.host isEqualToString:@"history"]) {
-        return [self wmf_recentViewActivity];
-    } else if ([url wmf_valueForQueryKey:@"search"] != nil) {
-        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-        components.scheme = @"https";
-        return [self wmf_searchResultsActivitySearchSiteURL:components.URL
-                                                 searchTerm:[url wmf_valueForQueryKey:@"search"]];
-    } else {
-        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-        components.scheme = @"https";
-        NSURL *wikipediaURL = components.URL;
-        if ([wikipediaURL wmf_isWikiResource]) {
-            return [self wmf_articleViewActivityWithURL:wikipediaURL];
-        }
-    }
+  if (![url.scheme isEqualToString:@"wikipedia"]) {
     return nil;
+  }
+
+  if ([url.host isEqualToString:@"explore"]) {
+    return [self wmf_exploreViewActivity];
+  } else if ([url.host isEqualToString:@"saved"]) {
+    return [self wmf_savedPagesViewActivity];
+  } else if ([url.host isEqualToString:@"history"]) {
+    return [self wmf_recentViewActivity];
+  } else if ([url wmf_valueForQueryKey:@"search"] != nil) {
+    NSURLComponents *components =
+        [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+    components.scheme = @"https";
+    return [self
+        wmf_searchResultsActivitySearchSiteURL:components.URL
+                                    searchTerm:
+                                        [url wmf_valueForQueryKey:@"search"]];
+  } else {
+    NSURLComponents *components =
+        [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+    components.scheme = @"https";
+    NSURL *wikipediaURL = components.URL;
+    if ([wikipediaURL wmf_isWikiResource]) {
+      return [self wmf_articleViewActivityWithURL:wikipediaURL];
+    }
+  }
+  return nil;
 }
 
-+ (instancetype)wmf_articleViewActivityWithArticle:(MWKArticle*)article {
-    NSParameterAssert(article.url.wmf_title);
-    NSParameterAssert(article.displaytitle);
++ (instancetype)wmf_articleViewActivityWithArticle:(MWKArticle *)article {
+  NSParameterAssert(article.url.wmf_title);
+  NSParameterAssert(article.displaytitle);
 
-    NSUserActivity* activity = [self wmf_articleViewActivityWithURL:article.url];
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-        activity.contentAttributeSet = article.searchableItemAttributes;
-    }
-    return activity;
+  NSUserActivity *activity = [self wmf_articleViewActivityWithURL:article.url];
+  if ([[NSProcessInfo processInfo]
+          wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+    activity.contentAttributeSet = article.searchableItemAttributes;
+  }
+  return activity;
 }
 
-+ (instancetype)wmf_articleViewActivityWithURL:(NSURL*)url  {
-    NSParameterAssert(url.wmf_title);
++ (instancetype)wmf_articleViewActivityWithURL:(NSURL *)url {
+  NSParameterAssert(url.wmf_title);
 
-    NSUserActivity* activity = [self wmf_activityWithType:@"article"];
-    activity.title      = url.wmf_title;
-    activity.webpageURL = [NSURL wmf_desktopURLForURL:url];
+  NSUserActivity *activity = [self wmf_activityWithType:@"article"];
+  activity.title = url.wmf_title;
+  activity.webpageURL = [NSURL wmf_desktopURLForURL:url];
 
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-        NSMutableSet* set = [activity.keywords mutableCopy];
-        [set addObjectsFromArray:[url.wmf_title componentsSeparatedByString:@" "]];
-        activity.keywords       = set;
-        activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60 * 60 * 24 * 7];
-        activity.contentAttributeSet = url.searchableItemAttributes;
-    }
-    return activity;
+  if ([[NSProcessInfo processInfo]
+          wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+    NSMutableSet *set = [activity.keywords mutableCopy];
+    [set addObjectsFromArray:[url.wmf_title componentsSeparatedByString:@" "]];
+    activity.keywords = set;
+    activity.expirationDate =
+        [[NSDate date] dateByAddingTimeInterval:60 * 60 * 24 * 7];
+    activity.contentAttributeSet = url.searchableItemAttributes;
+  }
+  return activity;
 }
 
-+ (instancetype)wmf_searchResultsActivitySearchSiteURL:(NSURL*)url searchTerm:(NSString*)searchTerm {
-    NSURLComponents* components = [[NSURLComponents alloc] initWithURL:url resolvingAgainstBaseURL:NO];
-    components.path  = @"/w/index.php";
-    components.query = [NSString stringWithFormat:@"search=%@&title=Special:Search&fulltext=1", searchTerm];
-    url              = [components URL];
++ (instancetype)wmf_searchResultsActivitySearchSiteURL:(NSURL *)url
+                                            searchTerm:(NSString *)searchTerm {
+  NSURLComponents *components =
+      [[NSURLComponents alloc] initWithURL:url resolvingAgainstBaseURL:NO];
+  components.path = @"/w/index.php";
+  components.query =
+      [NSString stringWithFormat:@"search=%@&title=Special:Search&fulltext=1",
+                                 searchTerm];
+  url = [components URL];
 
-    NSUserActivity* activity = [self wmf_activityWithType:@"Searchresults"];
+  NSUserActivity *activity = [self wmf_activityWithType:@"Searchresults"];
 
-    activity.title      = [NSString stringWithFormat:@"Search for %@", searchTerm];
-    activity.webpageURL = url;
+  activity.title = [NSString stringWithFormat:@"Search for %@", searchTerm];
+  activity.webpageURL = url;
 
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-        activity.eligibleForSearch         = NO;
-        activity.eligibleForPublicIndexing = NO;
-    }
+  if ([[NSProcessInfo processInfo]
+          wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+    activity.eligibleForSearch = NO;
+    activity.eligibleForPublicIndexing = NO;
+  }
 
-    return activity;
+  return activity;
 }
 
 - (WMFUserActivityType)wmf_type {
-    if (self.userInfo[@"WMFPage"] != nil) {
-        NSString* page = self.userInfo[@"WMFPage"];
-        if ([page isEqualToString:@"Explore"]) {
-            return WMFUserActivityTypeExplore;
-        } else if ([page isEqualToString:@"Saved"]) {
-            return WMFUserActivityTypeSavedPages;
-        } else if ([page isEqualToString:@"History"]) {
-            return WMFUserActivityTypeHistory;
-        } else if ([page isEqualToString:@"Search"]) {
-            return WMFUserActivityTypeSearch;
-        } else {
-            return WMFUserActivityTypeSettings;
-        }
-    } else if ([self.webpageURL.absoluteString containsString:@"/w/index.php?search="]) {
-        return WMFUserActivityTypeSearchResults;
+  if (self.userInfo[@"WMFPage"] != nil) {
+    NSString *page = self.userInfo[@"WMFPage"];
+    if ([page isEqualToString:@"Explore"]) {
+      return WMFUserActivityTypeExplore;
+    } else if ([page isEqualToString:@"Saved"]) {
+      return WMFUserActivityTypeSavedPages;
+    } else if ([page isEqualToString:@"History"]) {
+      return WMFUserActivityTypeHistory;
+    } else if ([page isEqualToString:@"Search"]) {
+      return WMFUserActivityTypeSearch;
     } else {
-        return WMFUserActivityTypeArticle;
+      return WMFUserActivityTypeSettings;
     }
+  } else if ([self.webpageURL.absoluteString
+                 containsString:@"/w/index.php?search="]) {
+    return WMFUserActivityTypeSearchResults;
+  } else {
+    return WMFUserActivityTypeArticle;
+  }
 }
 
-- (NSString*)wmf_searchTerm {
-    if (self.wmf_type != WMFUserActivityTypeSearchResults) {
-        return nil;
+- (NSString *)wmf_searchTerm {
+  if (self.wmf_type != WMFUserActivityTypeSearchResults) {
+    return nil;
+  }
+
+  NSURLComponents *components =
+      [NSURLComponents componentsWithString:self.webpageURL.absoluteString];
+  NSArray *queryItems = components.queryItems;
+  NSURLQueryItem *item = [queryItems bk_match:^BOOL(NSURLQueryItem *obj) {
+    if ([[obj name] isEqualToString:@"search"]) {
+      return YES;
+    } else {
+      return NO;
     }
+  }];
 
-    NSURLComponents* components = [NSURLComponents componentsWithString:self.webpageURL.absoluteString];
-    NSArray* queryItems         = components.queryItems;
-    NSURLQueryItem* item        = [queryItems bk_match:^BOOL (NSURLQueryItem* obj) {
-        if ([[obj name] isEqualToString:@"search"]) {
-            return YES;
-        } else {
-            return NO;
-        }
-    }];
-
-    return [item value];
+  return [item value];
 }
 
 @end
-

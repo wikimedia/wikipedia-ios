@@ -24,13 +24,14 @@
    }
    @endcode
  *
- * @note This needs to be a macro due to problems casting between ObjC & C indirect pointers.
+ * @note This needs to be a macro due to problems casting between ObjC & C
+ indirect pointers.
  */
-#define WMFSafeAssign(outParam, value) \
-    do { \
-        if (outParam != NULL) { \
-            *(outParam) = (value); \
-        } \
-    } while (0)
+#define WMFSafeAssign(outParam, value)                                         \
+  do {                                                                         \
+    if (outParam != NULL) {                                                    \
+      *(outParam) = (value);                                                   \
+    }                                                                          \
+  } while (0)
 
 #endif

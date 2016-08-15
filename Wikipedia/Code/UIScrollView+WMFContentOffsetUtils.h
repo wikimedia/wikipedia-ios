@@ -11,14 +11,16 @@
 @interface UIScrollView (WMFContentOffsetUtils)
 
 /**
- *  @return The offset at which the receiver would rest after scrolling to the top.
+ *  @return The offset at which the receiver would rest after scrolling to the
+ * top.
  */
 - (CGPoint)wmf_topContentOffset;
 
 /**
  *  Scroll the receiver to the top of its content.
  *
- *  Use this instead of setting `contentOffset = CGPointZero`, as some scroll views have `contentInset != CGPointZero`.
+ *  Use this instead of setting `contentOffset = CGPointZero`, as some scroll
+ * views have `contentInset != CGPointZero`.
  *
  *  @see wmf_topContentOffset
  */
@@ -27,18 +29,20 @@
 /**
  *  The frame representing the visible area of the receiver's content.
  *
- *  Incorporates the receiver's @c contentOffset and @c contentInset, ensuring that any content offscreen or under
- *  elements assumed to be taken up by @c contentInset are outside the returned @c CGRect.
+ *  Incorporates the receiver's @c contentOffset and @c contentInset, ensuring
+ * that any content offscreen or under
+ *  elements assumed to be taken up by @c contentInset are outside the returned
+ * @c CGRect.
  *
  *  @return A @c CGRect describing the origin and size of the visible content.
  */
 - (CGRect)wmf_contentFrame;
 
-
 /**
  *  Set offset if within bounds and valid (i.e. not NaN).
  *
- *  Use this when setting offsets that might have invalid values, e.g. those obtained from the
+ *  Use this when setting offsets that might have invalid values, e.g. those
+ * obtained from the
  *  web view.
  *
  *  @param offset   The offset to apply.

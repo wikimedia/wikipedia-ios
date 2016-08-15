@@ -1,7 +1,8 @@
 #import <Foundation/Foundation.h>
 
-@interface WMFBoringNavigationTransition : NSObject <UIViewControllerAnimatedTransitioning>
+@interface WMFBoringNavigationTransition
+    : NSObject <UIViewControllerAnimatedTransitioning>
 
-@property (nonatomic, assign) UINavigationControllerOperation operation;
+@property(nonatomic, assign) UINavigationControllerOperation operation;
 
 @end

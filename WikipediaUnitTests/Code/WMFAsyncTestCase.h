@@ -4,8 +4,11 @@
 
 extern NSTimeInterval const WMFDefaultExpectationTimeout;
 
-#define WaitForExpectations() ([self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:nil])
-#define WaitForExpectationsWithTimeout(timeout) ([self waitForExpectationsWithTimeout:timeout handler:nil])
+#define WaitForExpectations()                                                  \
+  ([self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout           \
+                                handler:nil])
+#define WaitForExpectationsWithTimeout(timeout)                                \
+  ([self waitForExpectationsWithTimeout:timeout handler:nil])
 
 @interface WMFAsyncTestCase : XCTestCase
 
@@ -13,6 +16,6 @@ extern NSTimeInterval const WMFDefaultExpectationTimeout;
 
 - (void)popExpectationAfter:(dispatch_block_t)block;
 
-- (void)pushExpectation:(const char*)file line:(int)line;
+- (void)pushExpectation:(const char *)file line:(int)line;
 
 @end

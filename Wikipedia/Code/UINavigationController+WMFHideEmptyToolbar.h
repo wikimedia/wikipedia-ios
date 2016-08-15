@@ -2,6 +2,7 @@
 
 @interface UINavigationController (WMFHideEmptyToolbar)
 
-- (void)wmf_hideToolbarIfViewControllerHasNoToolbarItems:(UIViewController*)viewController;
+- (void)wmf_hideToolbarIfViewControllerHasNoToolbarItems:
+    (UIViewController *)viewController;
 
 @end

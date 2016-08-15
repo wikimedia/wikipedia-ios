@@ -2,10 +2,12 @@
 
 @class MWKDataStore;
 
-//This VC is a placeholder to load the first random article
+// This VC is a placeholder to load the first random article
 
-@interface WMFFirstRandomViewController: UIViewController
+@interface WMFFirstRandomViewController : UIViewController
 
-- (nonnull instancetype)initWithSiteURL:(nonnull NSURL*)siteURL dataStore:(nonnull MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithSiteURL:(nonnull NSURL *)siteURL
+                              dataStore:(nonnull MWKDataStore *)dataStore
+    NS_DESIGNATED_INITIALIZER;
 
 @end

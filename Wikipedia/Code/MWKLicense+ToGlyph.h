@@ -10,6 +10,6 @@
 
 @interface MWKLicense (ToGlyph)
 
-- (NSString*)toGlyph;
+- (NSString *)toGlyph;
 
 @end

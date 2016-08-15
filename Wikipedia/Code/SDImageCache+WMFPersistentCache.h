@@ -10,6 +10,6 @@
 
 @interface SDImageCache (WMFPersistentCache)
 
-+ (instancetype)wmf_appSupportCacheWithNamespace:(NSString*)ns;
++ (instancetype)wmf_appSupportCacheWithNamespace:(NSString *)ns;
 
 @end

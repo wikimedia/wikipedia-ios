@@ -12,16 +12,17 @@
 @implementation MWKHistoryListPerformanceTests
 
 - (void)testReadPerformance {
-    NSMutableArray* entries = [NSMutableArray arrayWithCapacity:1000];
-    for (int i = 0; i < 1000; i++) {
-        MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithURL:[NSURL wmf_randomArticleURL]];
-        [entries addObject:entry];
-    }
+  NSMutableArray *entries = [NSMutableArray arrayWithCapacity:1000];
+  for (int i = 0; i < 1000; i++) {
+    MWKHistoryEntry *entry =
+        [[MWKHistoryEntry alloc] initWithURL:[NSURL wmf_randomArticleURL]];
+    [entries addObject:entry];
+  }
 
-    [self measureBlock:^{
-        MWKHistoryList* list = [[MWKHistoryList alloc] initWithEntries:entries];
-        XCTAssertEqual([list countOfEntries], [entries count]);
-    }];
+  [self measureBlock:^{
+    MWKHistoryList *list = [[MWKHistoryList alloc] initWithEntries:entries];
+    XCTAssertEqual([list countOfEntries], [entries count]);
+  }];
 }
 
 @end

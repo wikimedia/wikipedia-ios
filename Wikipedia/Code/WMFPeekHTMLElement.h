@@ -2,18 +2,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM (NSUInteger, WMFPeekElementType) {
-    WMFPeekElementTypeUnpeekable,
-    WMFPeekElementTypeAnchor,
-    WMFPeekElementTypeImage
+typedef NS_ENUM(NSUInteger, WMFPeekElementType) {
+  WMFPeekElementTypeUnpeekable,
+  WMFPeekElementTypeAnchor,
+  WMFPeekElementTypeImage
 };
 
 @interface WMFPeekHTMLElement : NSObject
 
-@property (nonatomic, readonly) WMFPeekElementType type;
-@property (nonatomic, strong, readonly, nullable) NSURL* url;
+@property(nonatomic, readonly) WMFPeekElementType type;
+@property(nonatomic, strong, readonly, nullable) NSURL *url;
 
-- (instancetype)initWithTagName:(NSString*)tagName src:(nullable NSString*)src href:(nullable NSString*)href NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithTagName:(NSString *)tagName
+                            src:(nullable NSString *)src
+                           href:(nullable NSString *)href
+    NS_DESIGNATED_INITIALIZER;
 
 @end
 

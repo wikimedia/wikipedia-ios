@@ -1,32 +1,32 @@
 #import <UIKit/UIKit.h>
 
-//IB_DESIGNABLE
+// IB_DESIGNABLE
 @interface WMFLeadingImageTrailingTextButton : UIControl
 
 /**
  *  The image view shown to the left (in LTR) of the text.
  */
-@property (nonatomic, strong) UIImage* iconImage;
+@property(nonatomic, strong) UIImage *iconImage;
 
 /**
  *  The selected image view shown to the left (in LTR) of the text.
  */
-@property (nonatomic, strong) UIImage* selectedIconImage;
+@property(nonatomic, strong) UIImage *selectedIconImage;
 
 /**
  *  The text shown to the right of the image.
  */
-@property (nonatomic, strong) NSString* labelText;
+@property(nonatomic, strong) NSString *labelText;
 
 /**
  *  The selected text shown to the right of the image.
  */
-@property (nonatomic, strong) NSString* selectedLabelText;
+@property(nonatomic, strong) NSString *selectedLabelText;
 
 /**
  *  The space between the elements. Default == 12
  */
-@property (nonatomic, assign) CGFloat spaceBetweenIconAndText;
+@property(nonatomic, assign) CGFloat spaceBetweenIconAndText;
 
 @end
 
@@ -37,7 +37,6 @@
  *
  */
 - (void)configureAsSaveButton;
-
 
 /**
  *  COnfigured button with bug icon and text

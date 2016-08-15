@@ -8,13 +8,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationManager : NSObject
 
-@property (nonatomic, strong, readonly) CLLocationManager* locationManager;
+@property(nonatomic, strong, readonly) CLLocationManager *locationManager;
 
-@property (nonatomic, weak, nullable) id<WMFLocationManagerDelegate> delegate;
+@property(nonatomic, weak, nullable) id<WMFLocationManagerDelegate> delegate;
 
-@property (nonatomic, strong, readonly) CLLocation* location;
+@property(nonatomic, strong, readonly) CLLocation *location;
 
-@property (nonatomic, strong, readonly) CLHeading* heading;
+@property(nonatomic, strong, readonly) CLHeading *heading;
 
 + (instancetype)fineLocationManager;
 
@@ -32,7 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Start monitoring location and heading updates.
  *
  *  @note
- *  This method is idempotent. To force new values to be sent, use @c restartLocationMonitoring.
+ *  This method is idempotent. To force new values to be sent, use @c
+ * restartLocationMonitoring.
  */
 - (void)startMonitoringLocation;
 
@@ -42,7 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stopMonitoringLocation;
 
 /**
- *  Restart location monitoring, forcing the receiver to emit new location and heading values (if possible).
+ *  Restart location monitoring, forcing the receiver to emit new location and
+ * heading values (if possible).
  */
 - (void)restartLocationMonitoring;
 
@@ -50,22 +52,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)isDeniedOrDisabled;
 
-- (AnyPromise*)reverseGeocodeLocation:(CLLocation*)location;
+- (AnyPromise *)reverseGeocodeLocation:(CLLocation *)location;
 
 @end
 
-
 @protocol WMFLocationManagerDelegate <NSObject>
 
-- (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location;
+- (void)nearbyController:(WMFLocationManager *)controller
+       didUpdateLocation:(CLLocation *)location;
 
-- (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading;
+- (void)nearbyController:(WMFLocationManager *)controller
+        didUpdateHeading:(CLHeading *)heading;
 
-- (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error;
+- (void)nearbyController:(WMFLocationManager *)controller
+         didReceiveError:(NSError *)error;
 
 @optional
 
-- (void)nearbyController:(WMFLocationManager*)controller didChangeEnabledState:(BOOL)enabled;
+- (void)nearbyController:(WMFLocationManager *)controller
+    didChangeEnabledState:(BOOL)enabled;
 
 @end
 

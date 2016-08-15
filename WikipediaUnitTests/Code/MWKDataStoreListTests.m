@@ -22,68 +22,72 @@
 @implementation MWKDataStoreListTests
 
 - (void)setUp {
-    [super setUp];
-    self.tempDataStore = [MWKDataStore temporaryDataStore];
+  [super setUp];
+  self.tempDataStore = [MWKDataStore temporaryDataStore];
 }
 
 - (void)tearDown {
-    [self.tempDataStore removeFolderAtBasePath];
-    [super tearDown];
+  [self.tempDataStore removeFolderAtBasePath];
+  [super tearDown];
 }
 
-+ (NSArray<NSInvocation*>*)testInvocations {
-    return self == [MWKDataStoreListTests class] ? @[] : [super testInvocations];
++ (NSArray<NSInvocation *> *)testInvocations {
+  return self == [MWKDataStoreListTests class] ? @[] : [super testInvocations];
 }
 
-- (MWKList<MWKDataStoreList>*)listWithDataStore {
-    Class listClass = [[self class] listClass];
-    NSAssert([listClass conformsToProtocol:@protocol(MWKDataStoreList)],
-             @"listClass %@ must conform to MWKDataStoreList to run MWKDataStoreListTests.",
-             listClass);
-    return [[listClass alloc] initWithDataStore:self.tempDataStore];
+- (MWKList<MWKDataStoreList> *)listWithDataStore {
+  Class listClass = [[self class] listClass];
+  NSAssert([listClass conformsToProtocol:@protocol(MWKDataStoreList)],
+           @"listClass %@ must conform to MWKDataStoreList to run "
+           @"MWKDataStoreListTests.",
+           listClass);
+  return [[listClass alloc] initWithDataStore:self.tempDataStore];
 }
 
 - (void)testSavedListIsEqualToListWithAddedEntries {
-    [self verifyListRoundTripAfter:^(MWKList* list) {
-        [self.testObjects bk_each:^(id entry) {
-            [list addEntry:entry];
-        }];
+  [self verifyListRoundTripAfter:^(MWKList *list) {
+    [self.testObjects bk_each:^(id entry) {
+      [list addEntry:entry];
     }];
+  }];
 }
 
 - (void)testSavedListIsEqualToListWithAddedAndRemovedEntries {
-    [self verifyListRoundTripAfter:^(MWKList* list) {
-        [self.testObjects bk_each:^(id entry) {
-        }];
-        [list removeEntryWithListIndex:[self.testObjects.firstObject listIndex]];
-        [list removeEntryWithListIndex:[self.testObjects.lastObject listIndex]];
+  [self verifyListRoundTripAfter:^(MWKList *list) {
+    [self.testObjects bk_each:^(id entry){
     }];
+    [list removeEntryWithListIndex:[self.testObjects.firstObject listIndex]];
+    [list removeEntryWithListIndex:[self.testObjects.lastObject listIndex]];
+  }];
 }
 
 #pragma mark - Utils
 
-- (void)verifyListRoundTripAfter:(void (^)(MWKList*))mutatingBlock {
-    MWKList* list = [self listWithDataStore];
+- (void)verifyListRoundTripAfter:(void (^)(MWKList *))mutatingBlock {
+  MWKList *list = [self listWithDataStore];
 
-    mutatingBlock(list);
+  mutatingBlock(list);
 
-    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
+  XCTestExpectation *promiseExpectation =
+      [self expectationWithDescription:@"promise was fullfilled"];
 
-    [list save].then(^(id obj){
+  [list save]
+      .then(^(id obj) {
         [promiseExpectation fulfill];
-    }).catch(^(NSError* error){
+      })
+      .catch(^(NSError *error) {
         XCTFail(@"Save failed");
-    });
+      });
 
-    WaitForExpectations();
+  WaitForExpectations();
 
-    MWKList* otherList = [self listWithDataStore];
+  MWKList *otherList = [self listWithDataStore];
 
-    [self verifyList:list isEqualToList:otherList];
+  [self verifyList:list isEqualToList:otherList];
 }
 
-- (void)verifyList:(MWKList*)list isEqualToList:(MWKList*)otherList {
-    assertThat(otherList, is(equalTo(list)));
+- (void)verifyList:(MWKList *)list isEqualToList:(MWKList *)otherList {
+  assertThat(otherList, is(equalTo(list)));
 }
 
 @end

@@ -8,67 +8,70 @@ NS_ASSUME_NONNULL_BEGIN
 /// Represents a mediawiki instance dedicated to a specific language.
 @interface MWKSite : MTLModel <NSCopying>
 
-@property (nonatomic, copy, readonly) NSURL* URL;
+@property(nonatomic, copy, readonly) NSURL *URL;
 
 /// The hostname for the site, defaults to @c WMFDefaultSiteDomain.
-@property (nonatomic, copy, readonly) NSString* domain;
+@property(nonatomic, copy, readonly) NSString *domain;
 
 /// The language code for the site. Should be ISO 639-x/IETF BCP 47
 /// @see kCFLocaleLanguageCode
-@property (nonatomic, copy, readonly, nullable) NSString* language;
+@property(nonatomic, copy, readonly, nullable) NSString *language;
 
 ///
 /// @name Initialization
 ///
-
 
 /**
  * Initialize a site with a URL.
  *
  * @param url URL pointing to a Wikipedia site (e.g. https://en.wikipedia.org).
  *
- * @return A site with properties parsed from the given URL, or `nil` if parsing failed.
+ * @return A site with properties parsed from the given URL, or `nil` if parsing
+ * failed.
  */
 
-- (instancetype)initWithURL:(NSURL*)url NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithURL:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 
 /**
  * Initialize a new site with a coder.
  *
  * @param coder for a MWKSite.
  */
-- (instancetype)initWithCoder:(NSCoder*)coder NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
 
-- (instancetype)initWithDomain:(NSString*)domain language:(nullable NSString*)language;
+- (instancetype)initWithDomain:(NSString *)domain
+                      language:(nullable NSString *)language;
 
 /// Create a site using @c language and the default domain.
-- (instancetype)initWithLanguage:(NSString*)language;
+- (instancetype)initWithLanguage:(NSString *)language;
 
-+ (instancetype)siteWithDomain:(NSString*)domain language:(nullable NSString*)language;
++ (instancetype)siteWithDomain:(NSString *)domain
+                      language:(nullable NSString *)language;
 
-+ (instancetype)siteWithLanguage:(NSString*)language;
++ (instancetype)siteWithLanguage:(NSString *)language;
 
-/// @return A site with the default domain and the language code returned by @c locale.
-+ (instancetype)siteWithLocale:(NSLocale*)locale;
+/// @return A site with the default domain and the language code returned by @c
+/// locale.
++ (instancetype)siteWithLocale:(NSLocale *)locale;
 
-/// @return A site with the default domain and the current locale's language code.
+/// @return A site with the default domain and the current locale's language
+/// code.
 + (instancetype)siteWithCurrentLocale;
 
-- (BOOL)isEqualToSite:(MWKSite* __nullable)other;
+- (BOOL)isEqualToSite:(MWKSite *__nullable)other;
 
 ///
 /// @name Computed Properties
 ///
 
-- (NSString*)urlDomainWithLanguage;
+- (NSString *)urlDomainWithLanguage;
 
+- (NSURL *)mobileURL;
 
-- (NSURL*)mobileURL;
+- (NSURL *)apiEndpoint;
+- (NSURL *)mobileApiEndpoint;
 
-- (NSURL*)apiEndpoint;
-- (NSURL*)mobileApiEndpoint;
-
-- (NSURL*)apiEndpoint:(BOOL)isMobile;
+- (NSURL *)apiEndpoint:(BOOL)isMobile;
 
 ///
 /// @name User Interface Properties
@@ -86,25 +89,25 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A title initialized with the receiver as its @c site.
  * @see -[MWKTitle initWithString:site:]
  */
-- (MWKTitle*)titleWithString:(NSString*)string;
+- (MWKTitle *)titleWithString:(NSString *)string;
 
 /**
  * @return A title initialized with the receiver as its @c site.
  * @see -[MWKTitle initWithUnescapedString:site:]
  */
-- (MWKTitle*)titleWithUnescapedString:(NSString*)string;
+- (MWKTitle *)titleWithUnescapedString:(NSString *)string;
 
 /**
  * @return A title initialized with the receiver as its @c site.
  * @see -[MWKTitle initWithString:site:]
  */
-- (MWKTitle*)titleWithInternalLink:(NSString*)path;
+- (MWKTitle *)titleWithInternalLink:(NSString *)path;
 
 /**
  * @return A title initialized with the receiver as its @c site.
  * @see -[MWKTitle initWithSite:normalizedTitle:fragment:]
  */
-- (MWKTitle*)titleWithNormalizedTitle:(NSString*)normalizedTitle;
+- (MWKTitle *)titleWithNormalizedTitle:(NSString *)normalizedTitle;
 
 @end
 

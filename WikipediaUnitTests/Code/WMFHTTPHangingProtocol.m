@@ -10,20 +10,20 @@
 
 @implementation WMFHTTPHangingProtocol
 
-+ (BOOL)canInitWithRequest:(NSURLRequest*)request {
-    return [request.URL.scheme hasPrefix:@"http"];
++ (BOOL)canInitWithRequest:(NSURLRequest *)request {
+  return [request.URL.scheme hasPrefix:@"http"];
 }
 
-+ (NSURLRequest*)canonicalRequestForRequest:(NSURLRequest*)request {
-    return request;
++ (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
+  return request;
 }
 
 - (void)startLoading {
-    // Nope
+  // Nope
 }
 
 - (void)stopLoading {
-    // Double nope
+  // Double nope
 }
 
 @end

@@ -25,22 +25,28 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Value Providers
 
 /**
- *  Create a bearing provider for the location of the search result at the specified index.
+ *  Create a bearing provider for the location of the search result at the
+ * specified index.
  *
  *  @param result The search result which the bearing should point to.
  *
- *  @return An object whose @c bearingToLocation property is automatically updated when the user's heading changes.
+ *  @return An object whose @c bearingToLocation property is automatically
+ * updated when the user's heading changes.
  */
-- (WMFSearchResultDistanceProvider*)distanceProviderForResult:(MWKLocationSearchResult*)result;
+- (WMFSearchResultDistanceProvider *)distanceProviderForResult:
+    (MWKLocationSearchResult *)result;
 
 /**
- *  Create a distance provider for the location of the search result at the specified index.
+ *  Create a distance provider for the location of the search result at the
+ * specified index.
  *
  *  @param result The search result which the bearing should point to.
  *
- *  @return An object whose @c distanceToUser property is automatically updated when the user's location changes.
+ *  @return An object whose @c distanceToUser property is automatically updated
+ * when the user's location changes.
  */
-- (WMFSearchResultBearingProvider*)bearingProviderForResult:(MWKLocationSearchResult*)result;
+- (WMFSearchResultBearingProvider *)bearingProviderForResult:
+    (MWKLocationSearchResult *)result;
 
 @end
 

@@ -18,11 +18,11 @@
 #pragma mark - MWKListTestBase
 
 + (id)uniqueListEntry {
-    return [MWKHistoryEntry random];
+  return [MWKHistoryEntry random];
 }
 
 + (Class)listClass {
-    return [MWKHistoryList class];
+  return [MWKHistoryList class];
 }
 
 @end

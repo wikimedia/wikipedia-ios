@@ -6,18 +6,22 @@
 
 /*
  * Protocol for notifying languageSelectionDelegate that selection was made.
- * It is the receiver's responsibility to perform the appropriate action and dismiss the sender.
+ * It is the receiver's responsibility to perform the appropriate action and
+ * dismiss the sender.
  */
 @protocol WMFLanguagesViewControllerDelegate <NSObject>
 
 @optional
-- (void)languagesController:(WMFLanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language;
+- (void)languagesController:(WMFLanguagesViewController *)controller
+          didSelectLanguage:(MWKLanguageLink *)language;
 
 @end
 
-@interface WMFLanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, WMFAnalyticsContentTypeProviding>
+@interface WMFLanguagesViewController
+    : UIViewController <UITableViewDataSource, UITableViewDelegate,
+                        WMFAnalyticsContentTypeProviding>
 
-@property (nonatomic, weak) id <WMFLanguagesViewControllerDelegate> delegate;
+@property(nonatomic, weak) id<WMFLanguagesViewControllerDelegate> delegate;
 
 + (instancetype)languagesViewController;
 
@@ -25,13 +29,14 @@
 
 @end
 
-
 @class WMFPreferredLanguagesViewController;
 
-@protocol WMFPreferredLanguagesViewControllerDelegate <WMFLanguagesViewControllerDelegate>
+@protocol WMFPreferredLanguagesViewControllerDelegate <
+    WMFLanguagesViewControllerDelegate>
 
 @optional
-- (void)languagesController:(WMFPreferredLanguagesViewController*)controller didUpdatePreferredLanguages:(NSArray<MWKLanguageLink*>*)languages;
+- (void)languagesController:(WMFPreferredLanguagesViewController *)controller
+    didUpdatePreferredLanguages:(NSArray<MWKLanguageLink *> *)languages;
 
 @end
 
@@ -39,19 +44,17 @@
 
 + (instancetype)preferredLanguagesViewController;
 
-@property (nonatomic, weak) id <WMFPreferredLanguagesViewControllerDelegate> delegate;
+@property(nonatomic, weak) id<WMFPreferredLanguagesViewControllerDelegate>
+    delegate;
 
 @end
-
 
 @class MWKLanguageLink;
 
 @interface WMFArticleLanguagesViewController : WMFLanguagesViewController
 
-+ (instancetype)articleLanguagesViewControllerWithArticleURL:(NSURL*)url;
++ (instancetype)articleLanguagesViewControllerWithArticleURL:(NSURL *)url;
 
-@property (nonatomic, strong, readonly) NSURL* articleURL;
-
+@property(nonatomic, strong, readonly) NSURL *articleURL;
 
 @end
-

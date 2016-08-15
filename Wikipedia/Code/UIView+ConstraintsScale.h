@@ -2,6 +2,7 @@
 
 @interface UIView (ConstraintsScale)
 
-- (void)adjustConstraintsFor:(NSLayoutAttribute)firstAttribute byMultiplier:(CGFloat)multiplier;
+- (void)adjustConstraintsFor:(NSLayoutAttribute)firstAttribute
+                byMultiplier:(CGFloat)multiplier;
 
 @end

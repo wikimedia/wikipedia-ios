@@ -10,7 +10,7 @@
 
 @interface ProtectedEditAttemptFunnel : EventLoggingFunnel
 
-- (id)  init;
-- (void)logProtectionStatus:(NSString*)protectionStatus;
+- (id)init;
+- (void)logProtectionStatus:(NSString *)protectionStatus;
 
 @end

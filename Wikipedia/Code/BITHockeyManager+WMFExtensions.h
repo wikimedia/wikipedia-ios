@@ -1,6 +1,6 @@
 #import <HockeySDK/HockeySDK.h>
 
-@interface BITHockeyManager (WMFExtensions)<BITHockeyManagerDelegate>
+@interface BITHockeyManager (WMFExtensions) <BITHockeyManagerDelegate>
 
 /**
  *  Configure and startup in one line.
@@ -10,7 +10,8 @@
 - (void)wmf_setupAndStart;
 
 /**
- *  Configure the alert to be displayed when a user is prompeted to send a crash report
+ *  Configure the alert to be displayed when a user is prompeted to send a crash
+ * report
  */
 - (void)wmf_setupCrashNotificationAlert;
 

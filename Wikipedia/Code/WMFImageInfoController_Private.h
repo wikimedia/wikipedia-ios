@@ -19,39 +19,42 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo);
+extern NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo);
 
 @interface WMFImageInfoController ()
 
-@property (nonatomic, strong, readonly) NSMutableIndexSet* fetchedIndices;
+@property(nonatomic, strong, readonly) NSMutableIndexSet *fetchedIndices;
 
 /// Map of canonical filenames to image info objects.
-@property (nonatomic, strong, readonly) NSDictionary* indexedImageInfo;
+@property(nonatomic, strong, readonly) NSDictionary *indexedImageInfo;
 
-@property (nonatomic, strong) NSArray<MWKImage*>* uniqueArticleImages;
+@property(nonatomic, strong) NSArray<MWKImage *> *uniqueArticleImages;
 
-@property (nonatomic, strong, readonly) MWKImageInfoFetcher* imageInfoFetcher;
+@property(nonatomic, strong, readonly) MWKImageInfoFetcher *imageInfoFetcher;
 
 /**
  *  Title of the page that is associated with these image info objects.
  *
- *  Technically, image info don't belong to an article, but it was done this way for historical/legacy reasons. Mainly,
+ *  Technically, image info don't belong to an article, but it was done this way
+ * for historical/legacy reasons. Mainly,
  *  that image metadata is also associated with a title.
  */
-@property (nonatomic, strong, readwrite) NSURL* articleURL;
+@property(nonatomic, strong, readwrite) NSURL *articleURL;
 
 /**
  *  Data store where image info will be read & written.
  */
-@property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
+@property(nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
 /**
- *  Lazily calculated array of "File:" titles from the contents of @c uniqueArticleImages.
+ *  Lazily calculated array of "File:" titles from the contents of @c
+ * uniqueArticleImages.
  *
- *  @warning The elements in this array can either be strings or @c NSNull in the event that a "File:" title couldn't
+ *  @warning The elements in this array can either be strings or @c NSNull in
+ * the event that a "File:" title couldn't
  *           be derived from the image URL.
  */
-@property (nonatomic, strong, readonly) NSArray* imageFilePageTitles;
+@property(nonatomic, strong, readonly) NSArray *imageFilePageTitles;
 
 - (BOOL)hasFetchedAllItems;
 

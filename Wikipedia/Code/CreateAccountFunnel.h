@@ -10,12 +10,12 @@
 
 @interface CreateAccountFunnel : EventLoggingFunnel
 
-@property NSString* createAccountSessionToken;
+@property NSString *createAccountSessionToken;
 
-- (void)logStartFromLogin:(NSString*)loginSessionToken;
+- (void)logStartFromLogin:(NSString *)loginSessionToken;
 - (void)logSuccess;
 - (void)logCaptchaShown;
 - (void)logCaptchaFailure;
-- (void)logError:(NSString*)code;
+- (void)logError:(NSString *)code;
 
 @end

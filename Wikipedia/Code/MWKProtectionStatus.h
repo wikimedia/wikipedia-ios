@@ -16,7 +16,7 @@
 
 - (instancetype)initWithData:(id)data;
 
-- (NSArray*)protectedActions;
-- (NSArray*)allowedGroupsForAction:(NSString*)action;
+- (NSArray *)protectedActions;
+- (NSArray *)allowedGroupsForAction:(NSString *)action;
 
 @end
