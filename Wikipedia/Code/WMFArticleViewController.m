@@ -937,11 +937,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Table of Contents
 
-- (void)setupTableOfContents {
-    
-}
-
 - (void)showTableOfContents:(id)sender {
+    if (self.tableOfContentsViewController == nil) {
+        return;
+    }
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
         {
@@ -1046,14 +1045,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         default:
         case WMFTableOfContentsDisplayModeModal:
         {
-            switch (self.tableOfContentsDisplayState) {
-                case WMFTableOfContentsDisplayStateInlineVisible:
-                case WMFTableOfContentsDisplayStateInlineHidden:
-                    self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalHidden;
-                    break;
-                default:
-                    break;
-            }
             if (self.tableOfContentsViewController.parentViewController == self) {
                 [self.tableOfContentsViewController willMoveToParentViewController:nil];
                 [self.tableOfContentsViewController.view removeFromSuperview];
@@ -1062,6 +1053,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 self.tableOfContentsViewController = nil;
             }
             [self createTableOfContentsViewControllerIfNeeded];
+            switch (self.tableOfContentsDisplayState) {
+                case WMFTableOfContentsDisplayStateInlineVisible:
+                    self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalVisible;
+                    [self showTableOfContents:self];
+                    break;
+                case WMFTableOfContentsDisplayStateInlineHidden:
+                default:
+                    self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalHidden;
+                    break;
+            }
 
         }
         break;
