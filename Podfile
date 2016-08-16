@@ -51,7 +51,6 @@ abstract_target 'Foundation' do
     pod 'GCDWebServer', '~> 3.3'
 
     # Views
-    pod 'OAStackView', :git => 'git@github.com:wikimedia/OAStackView.git'
     pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git'
     pod 'SVWebViewController', '~> 1.0'
     pod "SWStepSlider", :git => 'https://github.com/wikimedia/SWStepSlider.git'

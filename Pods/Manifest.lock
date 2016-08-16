@@ -60,8 +60,6 @@ PODS:
     - FLAnimatedImage (~> 1.0.8)
     - NYTPhotoViewer/Core
   - NYTPhotoViewer/Core (1.1.0)
-  - OAStackView (0.2.0):
-    - KVOController (~> 1.0)
   - OCHamcrest (4.2.0)
   - OCMockito (1.4.0):
     - OCHamcrest (~> 4.0)
@@ -169,7 +167,6 @@ DEPENDENCIES:
   - Nocilla
   - NSDate-Extensions (from `git@github.com:wikimedia/NSDate-Extensions.git`)
   - NYTPhotoViewer
-  - OAStackView (from `git@github.com:wikimedia/OAStackView.git`)
   - OCHamcrest (~> 4.2.0)
   - OCMockito (~> 1.4.0)
   - PiwikTracker
@@ -193,8 +190,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git
   NSDate-Extensions:
     :git: git@github.com:wikimedia/NSDate-Extensions.git
-  OAStackView:
-    :git: git@github.com:wikimedia/OAStackView.git
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
@@ -213,9 +208,6 @@ CHECKOUT OPTIONS:
   NSDate-Extensions:
     :commit: 388ab1b864b742feadc1cf94063968953fc6a6a1
     :git: git@github.com:wikimedia/NSDate-Extensions.git
-  OAStackView:
-    :commit: f2adee6f7b66bf1192a4bd551fa343abf6d5aa2d
-    :git: git@github.com:wikimedia/OAStackView.git
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
@@ -245,7 +237,6 @@ SPEC CHECKSUMS:
   Nocilla: 7af7a386071150cc8aa5da4da97d060f049dd61c
   NSDate-Extensions: 5bd64f8815dc6b3c9d08e1f620229567e2b4771c
   NYTPhotoViewer: e80e8767f3780d2df37c6f72cbab15d6c7232911
-  OAStackView: 323757cd34a1bc5fcc9ed3c903b51dbfe192f355
   OCHamcrest: c14c0b3f4c4e99363e5b87d97bae38c4438b6d5d
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
   OMGHTTPURLRQ: 1e54807cb7d5dbb506926e53498e1e9ac5720c79
@@ -263,6 +254,6 @@ SPEC CHECKSUMS:
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
 
-PODFILE CHECKSUM: 9cc213b401d7201296060d42588691accc4c5da9
+PODFILE CHECKSUM: bec542de79feae90a5fc9a1b38e4bbc5f445a41e
 
 COCOAPODS: 1.0.1
