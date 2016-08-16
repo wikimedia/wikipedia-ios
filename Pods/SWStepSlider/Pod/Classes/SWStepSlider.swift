@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SWStepSliderAccessibilityElement: UIAccessibilityElement {
+public class SWStepSliderAccessibilityElement: UIAccessibilityElement {
     var minimumValue: Int = 0
     var maximumValue: Int = 4
     var value: Int = 2
@@ -20,16 +20,16 @@ open class SWStepSliderAccessibilityElement: UIAccessibilityElement {
         super.init(accessibilityContainer: container)
     }
 
-    override open func accessibilityActivate() -> Bool {
+    override public func accessibilityActivate() -> Bool {
         return true
     }
     
-    override open func accessibilityIncrement() {
+    override public func accessibilityIncrement() {
         let new = value + 1
         self.slider?.setValueAndUpdateView(new)
     }
     
-    override open func accessibilityDecrement() {
+    override public func accessibilityDecrement() {
         let new = value - 1
         self.slider?.setValueAndUpdateView(new)
     }
@@ -38,8 +38,8 @@ open class SWStepSliderAccessibilityElement: UIAccessibilityElement {
 
 
 @IBDesignable
-open class SWStepSlider: UIControl {
-    @IBInspectable open var minimumValue: Int = 0 {
+public class SWStepSlider: UIControl {
+    @IBInspectable public var minimumValue: Int = 0 {
         didSet {
             if self.minimumValue != oldValue {
                 if let e = self.thumbAccessabilityElement {
@@ -49,7 +49,7 @@ open class SWStepSlider: UIControl {
             }
         }
     }
-    @IBInspectable open var maximumValue: Int = 4 {
+    @IBInspectable public var maximumValue: Int = 4 {
         didSet {
             if self.maximumValue != oldValue {
                 if let e = self.thumbAccessabilityElement {
@@ -59,7 +59,7 @@ open class SWStepSlider: UIControl {
             }
         }
     }
-    @IBInspectable open var value: Int = 2 {
+    @IBInspectable public var value: Int = 2 {
         didSet {
             if self.value != oldValue {
                 if let e = self.thumbAccessabilityElement {
@@ -74,22 +74,22 @@ open class SWStepSlider: UIControl {
         }
     }
     
-    @IBInspectable open var continuous: Bool = true // if set, value change events are generated any time the value changes due to dragging. default = YES
+    @IBInspectable public var continuous: Bool = true // if set, value change events are generated any time the value changes due to dragging. default = YES
     
     let trackLayer = CALayer()
-    open var trackHeight: CGFloat = 2
-    open var trackColor = UIColor(red: 152.0/255.0, green: 152.0/255.0, blue: 152.0/255.0, alpha: 1)
+    public var trackHeight: CGFloat = 2
+    public var trackColor = UIColor(red: 152.0/255.0, green: 152.0/255.0, blue: 152.0/255.0, alpha: 1)
     
-    open var tickHeight: CGFloat = 8
-    open var tickWidth: CGFloat = 2
-    open var tickColor = UIColor(red: 152.0/255.0, green: 152.0/255.0, blue: 152.0/255.0, alpha: 1)
+    public var tickHeight: CGFloat = 8
+    public var tickWidth: CGFloat = 2
+    public var tickColor = UIColor(red: 152.0/255.0, green: 152.0/255.0, blue: 152.0/255.0, alpha: 1)
     
     let thumbLayer = CAShapeLayer()
-    var thumbFillColor = UIColor.white
+    var thumbFillColor = UIColor.white()
     var thumbStrokeColor = UIColor(red: 222.0/255.0, green: 222.0/255.0, blue: 222.0/255.0, alpha: 1)
     var thumbDimension: CGFloat = 28
 
-    fileprivate var thumbAccessabilityElement: SWStepSliderAccessibilityElement?
+    private var thumbAccessabilityElement: SWStepSliderAccessibilityElement?
 
     var stepWidth: CGFloat {
         return self.trackWidth / CGFloat(self.maximumValue)
@@ -117,11 +117,11 @@ open class SWStepSlider: UIControl {
         self.commonInit()
     }
     
-    fileprivate func commonInit() {
+    private func commonInit() {
         self.trackLayer.backgroundColor = self.trackColor.cgColor
         self.layer.addSublayer(trackLayer)
         
-        self.thumbLayer.backgroundColor = UIColor.clear.cgColor
+        self.thumbLayer.backgroundColor = UIColor.clear().cgColor
         self.thumbLayer.fillColor = self.thumbFillColor.cgColor
         self.thumbLayer.strokeColor = self.thumbStrokeColor.cgColor
         self.thumbLayer.lineWidth = 0.5
@@ -130,10 +130,10 @@ open class SWStepSlider: UIControl {
         
         // Shadow
         self.thumbLayer.shadowOffset = CGSize(width: 0, height: 2)
-        self.thumbLayer.shadowColor = UIColor.black.cgColor
+        self.thumbLayer.shadowColor = UIColor.black().cgColor
         self.thumbLayer.shadowOpacity = 0.3
         self.thumbLayer.shadowRadius = 2
-        self.thumbLayer.contentsScale = UIScreen.main.scale
+        self.thumbLayer.contentsScale = UIScreen.main().scale
         
         self.layer.addSublayer(self.thumbLayer)
         
@@ -146,7 +146,7 @@ open class SWStepSlider: UIControl {
         }
     }
     
-    open override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         
         var rect = self.bounds
@@ -165,7 +165,7 @@ open class SWStepSlider: UIControl {
         }
     }
     
-    open override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         super.draw(rect)
         
         let ctx = UIGraphicsGetCurrentContext()
@@ -188,12 +188,12 @@ open class SWStepSlider: UIControl {
         ctx?.restoreGState()
     }
     
-    open override var intrinsicContentSize: CGSize {
+    public override func intrinsicContentSize() -> CGSize {
         return CGSize(width: self.thumbDimension * CGFloat(self.numberOfSteps), height: self.thumbDimension)
     }
     
     
-    open func setValueAndUpdateView(_ value: Int) {
+    public func setValueAndUpdateView(_ value: Int) {
         self.value = self.clipValue(value)
 
         CATransaction.begin()
@@ -209,7 +209,7 @@ open class SWStepSlider: UIControl {
     var dragging = false
     var originalValue: Int!
     
-    open override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+    public override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let location = touch.location(in: self)
         self.originalValue = self.value
         
@@ -226,7 +226,7 @@ open class SWStepSlider: UIControl {
         return self.dragging
     }
     
-    open override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+    public override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let location = touch.location(in: self)
         
         let deltaLocation = location.x - self.previousLocation.x
@@ -250,7 +250,7 @@ open class SWStepSlider: UIControl {
         return true
     }
     
-    open override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+    public override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         self.previousLocation = nil
         self.originalValue = nil
         self.dragging = false
@@ -270,7 +270,7 @@ open class SWStepSlider: UIControl {
     }
     
     // MARK: - Accessibility
-    override open var isAccessibilityElement: Bool {
+    override public var isAccessibilityElement: Bool {
         get {
             return false //return NO to be a container
         }
@@ -279,15 +279,15 @@ open class SWStepSlider: UIControl {
         }
     }
     
-    override open func accessibilityElementCount() -> Int {
+    override public func accessibilityElementCount() -> Int {
         return 1
     }
     
-    override open func accessibilityElement(at index: Int) -> Any? {
+    override public func accessibilityElement(at index: Int) -> AnyObject? {
         return self.thumbAccessabilityElement
     }
     
-    override open func index(ofAccessibilityElement element: Any) -> Int {
+    override public func index(ofAccessibilityElement element: AnyObject) -> Int {
         return 0
     }
     
