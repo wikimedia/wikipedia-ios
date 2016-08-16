@@ -363,9 +363,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (BOOL)canFindInPage {
-    // The presentedViewController check is to prevent the find-in-page icon from responding if
-    // the text size adjustment slider is onscreen. Appears to be a UIKit bug.
-    return self.article != nil && (self.presentedViewController == nil);
+    return self.article != nil;
 }
 
 - (BOOL)hasLanguages {
@@ -1244,6 +1242,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Find-in-page
 
 - (void)showFindInPage {
+    if (self.presentedViewController != nil) {
+        return;
+    }
+    
     [self.webViewController showFindInPage];
 }
 
