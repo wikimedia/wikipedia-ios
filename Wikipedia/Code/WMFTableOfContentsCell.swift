@@ -2,18 +2,18 @@
 import UIKit
 
 // MARK: - Cell
-public class WMFTableOfContentsCell: UITableViewCell {
+open class WMFTableOfContentsCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var selectedSectionIndicator: UIView!
     @IBOutlet var indentationConstraint: NSLayoutConstraint!
     
-    public var titleIndentationLevel: Int = 0 {
+    open var titleIndentationLevel: Int = 0 {
         didSet {
             indentationConstraint.constant =  indentationWidth * CGFloat(1 + titleIndentationLevel)
         }
     }
     
-    public var titleColor: UIColor = UIColor.blackColor() {
+    open var titleColor: UIColor = UIColor.black {
         didSet {
             titleLabel.textColor = titleColor
         }
@@ -28,15 +28,15 @@ public class WMFTableOfContentsCell: UITableViewCell {
     
     // MARK: - UIView
 
-    public override func awakeFromNib() {
+    open override func awakeFromNib() {
         super.awakeFromNib()
         selectedSectionIndicator.alpha = 0.0
-        selectionStyle = .None
+        selectionStyle = .none
     }
     
     // MARK: - Accessors
     
-    public func setSectionSelected(selected: Bool, animated: Bool) {
+    open func setSectionSelected(_ selected: Bool, animated: Bool) {
         if (selected) {
             setSelectionIndicatorVisible(titleIndentationLevel == 0)
         } else {
@@ -46,18 +46,18 @@ public class WMFTableOfContentsCell: UITableViewCell {
     
     // MARK: - UITableVIewCell
 
-    public class func reuseIdentifier() -> String{
+    open class func reuseIdentifier() -> String{
         return wmf_nibName()
     }
     
-    public override func prepareForReuse() {
+    open override func prepareForReuse() {
         super.prepareForReuse()
         indentationLevel = 0
         setSectionSelected(false, animated: false)
         setSelected(false, animated: false)
     }
     
-    public override func setSelected(selected: Bool, animated: Bool) {
+    open override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if(selected){
             setTitleLabelHighlighted(true)
@@ -66,17 +66,17 @@ public class WMFTableOfContentsCell: UITableViewCell {
         }
     }
     
-    public func setTitleLabelHighlighted(highlighted: Bool) {
+    open func setTitleLabelHighlighted(_ highlighted: Bool) {
         if highlighted {
-            titleLabel.textColor = UIColor.wmf_tableOfContentsSelectionIndicatorColor()
+            titleLabel.textColor = UIColor.wmf_tableOfContentsSelectionIndicator()
         } else {
             titleLabel.textColor = titleColor
         }
     }
     
-    public func setSelectionIndicatorVisible(visible: Bool) {
+    open func setSelectionIndicatorVisible(_ visible: Bool) {
         if (visible) {
-            selectedSectionIndicator.backgroundColor = UIColor.wmf_tableOfContentsSelectionIndicatorColor()
+            selectedSectionIndicator.backgroundColor = UIColor.wmf_tableOfContentsSelectionIndicator()
             selectedSectionIndicator.alpha = 1.0
         } else {
             selectedSectionIndicator.alpha = 0.0

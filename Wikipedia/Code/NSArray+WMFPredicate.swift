@@ -6,15 +6,15 @@ import Foundation
 // Fast retrieval of first object in array matching predicate.
 
 extension NSArray {
-    func wmf_firstMatchForPredicate(predicate: NSPredicate) -> AnyObject? {
-        let i = self.indexOfObjectPassingTest{ (obj, idx, stop) -> Bool in
-            if(predicate.evaluateWithObject(obj)){
-                stop.initialize(true)
+    func wmf_firstMatchForPredicate(_ predicate: NSPredicate) -> AnyObject? {
+        let i = self.indexOfObject{ (obj, idx, stop) -> Bool in
+            if(predicate.evaluate(with: obj)){
+                stop.initialize(to: true)
                 return true
             }else{
                 return false
             }
         }
-        return i == NSNotFound ? nil : self.objectAtIndex(i)
+        return i == NSNotFound ? nil : self.object(at: i)
     }
 }

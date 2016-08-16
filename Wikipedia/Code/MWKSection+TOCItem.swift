@@ -29,7 +29,7 @@ extension MWKSection : TableOfContentsItem {
         get {
             if isLeadSection() {
                 return .None
-            } else if let level = level?.unsignedIntegerValue where level <= 2 {
+            } else if let level = level?.unsignedIntegerValue , level <= 2 {
                 return .TopOnly
             } else {
                 return .None
@@ -47,7 +47,7 @@ extension MWKSection : TableOfContentsItem {
         }
     }
 
-    public func shouldBeHighlightedAlongWithItem(item: TableOfContentsItem) -> Bool {
+    public func shouldBeHighlightedAlongWithItem(_ item: TableOfContentsItem) -> Bool {
         guard let sectionItem = item as? MWKSection else {
             return false
         }

@@ -23,16 +23,16 @@ extension NSError {
 }
 
 
-public class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewControllerDelegate {
+open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewControllerDelegate {
     
-    public static let sharedInstance = WMFAlertManager()
+    open static let sharedInstance = WMFAlertManager()
 
     override init() {
         TSMessage.addCustomDesignFromFileWithName("AlertDesign.json")
         super.init()
     }
     
-    public func showAlert(message: String, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
+    open func showAlert(_ message: String, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: @escaping ()->()?) {
     
          if (message ?? "").isEmpty {
              return
@@ -52,7 +52,7 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeView
         })
     }
 
-    public func showSuccessAlert(message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
+    open func showSuccessAlert(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: @escaping ()->()?) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
             TSMessage.showNotificationInViewController(nil,
@@ -70,7 +70,7 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeView
         })
     }
 
-    public func showWarningAlert(message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
+    open func showWarningAlert(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: @escaping ()->()?) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
             TSMessage.showNotificationInViewController(nil,
@@ -87,7 +87,7 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeView
         })
     }
 
-    public func showErrorAlert(error: NSError, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
+    open func showErrorAlert(_ error: NSError, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: @escaping ()->()?) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
             TSMessage.showNotificationInViewController(nil,
@@ -104,7 +104,7 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeView
         })
     }
     
-    public func showErrorAlertWithMessage(message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
+    open func showErrorAlertWithMessage(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: @escaping ()->()?) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
             TSMessage.showNotificationInViewController(nil,
@@ -121,7 +121,7 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeView
         })
     }
 
-    func showAlert(dismissPreviousAlerts:Bool, alertBlock: dispatch_block_t){
+    func showAlert(_ dismissPreviousAlerts:Bool, alertBlock: @escaping ()->()){
         
         if(dismissPreviousAlerts){
             TSMessage.dismissAllNotificationsWithCompletion({ () -> Void in
@@ -132,22 +132,22 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeView
         }
     }
     
-    public func dismissAlert() {
+    open func dismissAlert() {
         
         TSMessage.dismissActiveNotification()
     }
 
-    public func dismissAllAlerts() {
+    open func dismissAllAlerts() {
         
         TSMessage.dismissAllNotifications()
     }
 
-    public func customizeMessageView(messageView: TSMessageView!) {
+    open func customizeMessageView(_ messageView: TSMessageView!) {
         
         
     }
     
-    public func showEmailFeedbackAlertViewWithError(error: NSError) {
+    open func showEmailFeedbackAlertViewWithError(_ error: NSError) {
         let message = localizedStringForKeyFallingBackOnEnglish("request-feedback-on-error")
         showErrorAlertWithMessage(message, sticky: true, dismissPreviousAlerts: true) {
             self.dismissAllAlerts()
@@ -167,7 +167,7 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeView
         }
     }
     
-    public func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        controller.dismissViewControllerAnimated(true, completion: nil)
+    open func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }

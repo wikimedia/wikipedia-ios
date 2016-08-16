@@ -10,7 +10,7 @@ class WeakScriptMessageDelegate : NSObject, WKScriptMessageHandler {
         self.delegate = delegate
         super.init()
     }
-    func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
+    func userContentController(_ userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
         self.delegate?.userContentController(userContentController, didReceiveScriptMessage: message)
     }
 }

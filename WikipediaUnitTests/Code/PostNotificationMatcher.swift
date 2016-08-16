@@ -8,10 +8,10 @@
 
 import Nimble
 
-public func postNotification<T where T: Equatable, T: AnyObject>(
-                name: String,
+public func postNotification<T>(
+                _ name: String,
                 object: T? = nil,
-                fromCenter center: NSNotificationCenter = NSNotificationCenter.defaultCenter()) -> MatcherFunc<T> {
+                fromCenter center: NSNotificationCenter = NSNotificationCenter.defaultCenter()) -> MatcherFunc<T> where T: Equatable, T: AnyObject {
     return MatcherFunc { actual, failureMessage in
         var postedNotification: NSNotification? = nil
         let token = center.addObserverForName(name, object: object, queue: nil) { notification in
@@ -39,7 +39,7 @@ public func postNotification<T where T: Equatable, T: AnyObject>(
             return false
         }
 
-        if let postedObject = notification.object as? T where
+        if let postedObject = notification.object as? T ,
                postedObject != object {
             return false
         }

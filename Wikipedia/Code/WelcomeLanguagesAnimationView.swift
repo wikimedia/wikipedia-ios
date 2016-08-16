@@ -1,6 +1,6 @@
 import Foundation
 
-public class WelcomeLanguagesAnimationView : WelcomeAnimationView {
+open class WelcomeLanguagesAnimationView : WelcomeAnimationView {
 
     lazy var bubbleLeftImgView: UIImageView = {
         let imgView = UIImageView(frame: self.bounds)
@@ -104,7 +104,7 @@ public class WelcomeLanguagesAnimationView : WelcomeAnimationView {
         )
     }()
     
-    override public func didMoveToSuperview() {
+    override open func didMoveToSuperview() {
         super.didMoveToSuperview()
         
         self.addSubview(self.bubbleLeftImgView)
@@ -124,7 +124,7 @@ public class WelcomeLanguagesAnimationView : WelcomeAnimationView {
             })
     }
 
-    public func beginAnimations() {
+    open func beginAnimations() {
         CATransaction.begin()
         
         bubbleLeftImgView.layer.wmf_animateToOpacity(1.0,

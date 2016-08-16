@@ -13,7 +13,7 @@ import PromiseKit
 import Nimble
 
 class WMFImageControllerTests: XCTestCase {
-    private typealias ImageDownloadPromiseErrorCallback = (Promise<WMFImageDownload>) -> ((ErrorType) -> Void) -> Void
+    fileprivate typealias ImageDownloadPromiseErrorCallback = (Promise<WMFImageDownload>) -> ((ErrorType) -> Void) -> Void
 
     var imageController: WMFImageController!
 
@@ -32,16 +32,16 @@ class WMFImageControllerTests: XCTestCase {
     // MARK: - Simple fetching
     
     func testReceivingDataResponseResolves() {
-        let testURL = NSURL(string: "https://upload.wikimedia.org/foo@\(Int(UIScreen.mainScreen().scale))x.png")!
+        let testURL = URL(string: "https://upload.wikimedia.org/foo@\(Int(UIScreen.main.scale))x.png")!
         let testImage = UIImage(named: "image-placeholder")!
         let stubbedData = UIImagePNGRepresentation(testImage)
 
         LSNocilla.sharedInstance().start()
         stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
         
-        let expectation = expectationWithDescription("wait for image download")
+        let expectation = self.expectation(description: "wait for image download")
         
-        let failure = { (error: ErrorType) in
+        let failure = { (error: Error) in
             XCTFail()
         }
         
@@ -52,21 +52,21 @@ class WMFImageControllerTests: XCTestCase {
         
         self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
-        waitForExpectationsWithTimeout(60) { (error) in
+        waitForExpectations(timeout: 60) { (error) in
         }
     }
 
 
     func testReceivingErrorResponseRejects() {
-        let testURL = NSURL(string: "https://upload.wikimedia.org/foo")!
+        let testURL = URL(string: "https://upload.wikimedia.org/foo")!
         let stubbedError = NSError(domain: NSURLErrorDomain, code: NSURLErrorNetworkConnectionLost, userInfo: nil)
 
         LSNocilla.sharedInstance().start()
         stubRequest("GET", testURL.absoluteString).andFailWithError(stubbedError)
         
-        let expectation = expectationWithDescription("wait for image download");
+        let expectation = self.expectation(description: "wait for image download");
         
-        let failure = { (error: ErrorType) in
+        let failure = { (error: Error) in
             let error = error as NSError
             // ErrorType <-> NSError conversions lose userInfo? https://forums.developer.apple.com/thread/4809
             // let failingURL = error.userInfo[NSURLErrorFailingURLErrorKey] as! NSURL
@@ -83,27 +83,27 @@ class WMFImageControllerTests: XCTestCase {
         
         self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
-        waitForExpectationsWithTimeout(60) { (error) in
+        waitForExpectations(timeout: 60) { (error) in
         }
     }
 
     // MARK: - Cancellation
 
     func testCancelingDownloadCatchesWithCancellationError() {
-        let testURL = NSURL(string:"https://foo")!
+        let testURL = URL(string:"https://foo")!
         let observationToken =
-            NSNotificationCenter.defaultCenter().addObserverForName(SDWebImageDownloadStartNotification, object: nil, queue: nil) { _ -> Void in
+            NotificationCenter.defaultCenter().addObserverForName(SDWebImageDownloadStartNotification, object: nil, queue: nil) { _ -> Void in
             self.imageController.cancelFetchForURL(testURL)
         }
-        NSURLProtocol.registerClass(WMFHTTPHangingProtocol)
+        URLProtocol.registerClass(WMFHTTPHangingProtocol)
         defer {
-            NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
-            NSNotificationCenter.defaultCenter().removeObserver(observationToken)
+            URLProtocol.unregisterClass(WMFHTTPHangingProtocol)
+            NotificationCenter.defaultCenter().removeObserver(observationToken)
         }
         
-        let expectation = expectationWithDescription("wait for image download");
+        let expectation = self.expectation(description: "wait for image download");
         
-        let failure = { (error: ErrorType) in
+        let failure = { (error: Error) in
             let error = error as NSError
             XCTAssert(error.code == NSURLErrorCancelled)
             expectation.fulfill()
@@ -116,21 +116,21 @@ class WMFImageControllerTests: XCTestCase {
         
         self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
-        waitForExpectationsWithTimeout(60) { (error) in
+        waitForExpectations(timeout: 60) { (error) in
         }
     }
 
     func testCancellationDoesNotAffectRetry() {
-        let testURL = NSURL(string:"https://foo@\(Int(UIScreen.mainScreen().scale))x.png")!
+        let testURL = URL(string:"https://foo@\(Int(UIScreen.main.scale))x.png")!
         let testImage = UIImage(named: "image-placeholder")!
         let stubbedData = UIImagePNGRepresentation(testImage)!
         
         [0...100].forEach { _ in
-            NSURLProtocol.registerClass(WMFHTTPHangingProtocol)
+            URLProtocol.registerClass(WMFHTTPHangingProtocol)
             
-            let expectation = expectationWithDescription("wait for image download");
+            let expectation = self.expectation(description: "wait for image download");
             
-            let failure = { (error: ErrorType) in
+            let failure = { (error: Error) in
                 let error = error as NSError
                 XCTAssert(error.code == NSURLErrorCancelled)
                 expectation.fulfill()
@@ -148,10 +148,10 @@ class WMFImageControllerTests: XCTestCase {
 
             imageController.cancelFetchForURL(testURL)
             
-            waitForExpectationsWithTimeout(60) { (error) in
+            waitForExpectations(timeout: 60) { (error) in
             }
 
-            NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
+            URLProtocol.unregisterClass(WMFHTTPHangingProtocol)
             LSNocilla.sharedInstance().start()
             defer {
                 LSNocilla.sharedInstance().stop()
@@ -159,9 +159,9 @@ class WMFImageControllerTests: XCTestCase {
             
             stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
             
-            let secondExpectation = expectationWithDescription("wait for image download");
+            let secondExpectation = self.expectation(description: "wait for image download");
             
-            let secondFailure = { (error: ErrorType) in
+            let secondFailure = { (error: Error) in
                 XCTFail()
                 secondExpectation.fulfill()
             }
@@ -173,7 +173,7 @@ class WMFImageControllerTests: XCTestCase {
             
             self.imageController.fetchImageWithURL(testURL, failure:secondFailure, success: secondsuccess)
             
-            waitForExpectationsWithTimeout(60) { (error) in
+            waitForExpectations(timeout: 60) { (error) in
             }
         }
     }
@@ -227,17 +227,17 @@ class WMFImageControllerTests: XCTestCase {
 //
     func testImportImageMovesFileToCorrespondingPathInDiskCache() {
         let testFixtureDataPath =
-            NSURL(fileURLWithPath: wmf_bundle().resourcePath!).URLByAppendingPathComponent("golden-gate.jpg")
+            URL(fileURLWithPath: wmf_bundle().resourcePath!).appendingPathComponent("golden-gate.jpg")
 
-        let tempImageCopyURL = NSURL(fileURLWithPath: WMFRandomTemporaryFileOfType("jpg"))
+        let tempImageCopyURL = URL(fileURLWithPath: WMFRandomTemporaryFileOfType("jpg"))
 
-        try! NSFileManager.defaultManager().copyItemAtURL(testFixtureDataPath, toURL: tempImageCopyURL)
+        try! FileManager.defaultManager().copyItemAtURL(testFixtureDataPath, toURL: tempImageCopyURL)
 
-        let testURL = NSURL(string: "//foo/bar")!
+        let testURL = URL(string: "//foo/bar")!
         
-        let expectation = expectationWithDescription("wait");
+        let expectation = self.expectation(description: "wait");
         
-        let failure = { (error: ErrorType) in
+        let failure = { (error: Error) in
             XCTFail()
             expectation.fulfill()
         }
@@ -248,7 +248,7 @@ class WMFImageControllerTests: XCTestCase {
         
         self.imageController.importImage(fromFile: tempImageCopyURL.path!, withURL: testURL, failure: failure, success: success)
         
-        waitForExpectationsWithTimeout(60) { (error) in
+        waitForExpectations(timeout: 60) { (error) in
         }
 
 
@@ -258,6 +258,6 @@ class WMFImageControllerTests: XCTestCase {
         XCTAssertTrue(self.imageController.hasDataOnDiskForImageWithURL(testURL))
 
         XCTAssertEqual(self.imageController.diskDataForImageWithURL(testURL),
-                       NSFileManager.defaultManager().contentsAtPath(testFixtureDataPath.path!))
+                       FileManager.defaultManager().contentsAtPath(testFixtureDataPath.path!))
     }
 }

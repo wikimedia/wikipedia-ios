@@ -17,7 +17,7 @@ extension UIImage {
         self.drawInRect(wmf_frame)
     }
 
-    func wmf_imageByDrawingInContext(draw: ()->Void) -> UIImage {
+    func wmf_imageByDrawingInContext(_ draw: ()->Void) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
         draw()
         let result = UIGraphicsGetImageFromCurrentImageContext()

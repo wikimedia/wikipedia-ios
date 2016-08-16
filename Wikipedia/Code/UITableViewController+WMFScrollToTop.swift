@@ -1,18 +1,18 @@
 
 extension UITableViewController {
-    private func scrollToFirstIndexPath() {
+    fileprivate func scrollToFirstIndexPath() {
         tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0) , atScrollPosition: .Top, animated: true)
     }
 }
 
 extension UICollectionViewController {
-    private func scrollToFirstIndexPath() {
+    fileprivate func scrollToFirstIndexPath() {
         collectionView?.scrollToItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0) , atScrollPosition: .Top, animated: true)
     }
 }
 
 extension WMFArticleListTableViewController {
-    func scrollToTop(isScrollable: Bool) {
+    func scrollToTop(_ isScrollable: Bool) {
         guard isScrollable else { return }
         scrollToFirstIndexPath()
     }

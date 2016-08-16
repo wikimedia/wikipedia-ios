@@ -16,51 +16,51 @@ let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
 
-extension NSUserDefaults {
+extension UserDefaults {
 
-    public func wmf_dateForKey(key: String) -> NSDate? {
-        return self.objectForKey(key) as? NSDate
+    public func wmf_dateForKey(_ key: String) -> Date? {
+        return self.object(forKey: key) as? Date
     }
 
-    public func wmf_appLaunchDate() -> NSDate? {
+    public func wmf_appLaunchDate() -> Date? {
         return self.wmf_dateForKey(WMFAppLaunchDateKey)
     }
     
-    public func wmf_setAppLaunchDate(date: NSDate) {
-        self.setObject(date, forKey: WMFAppLaunchDateKey)
+    public func wmf_setAppLaunchDate(_ date: Date) {
+        self.set(date, forKey: WMFAppLaunchDateKey)
         self.synchronize()
     }
     
-    public func wmf_appBecomeActiveDate() -> NSDate? {
+    public func wmf_appBecomeActiveDate() -> Date? {
         return self.wmf_dateForKey(WMFAppBecomeActiveDateKey)
     }
     
-    public func wmf_setAppBecomeActiveDate(date: NSDate?) {
+    public func wmf_setAppBecomeActiveDate(_ date: Date?) {
         if let date = date {
-            self.setObject(date, forKey: WMFAppBecomeActiveDateKey)
+            self.set(date, forKey: WMFAppBecomeActiveDateKey)
         }else{
-            self.removeObjectForKey(WMFAppBecomeActiveDateKey)
+            self.removeObject(forKey: WMFAppBecomeActiveDateKey)
         }
         self.synchronize()
     }
     
-    public func wmf_appResignActiveDate() -> NSDate? {
+    public func wmf_appResignActiveDate() -> Date? {
         return self.wmf_dateForKey(WMFAppResignActiveDateKey)
     }
     
-    public func wmf_setAppResignActiveDate(date: NSDate?) {
+    public func wmf_setAppResignActiveDate(_ date: Date?) {
         if let date = date {
-            self.setObject(date, forKey: WMFAppResignActiveDateKey)
+            self.set(date, forKey: WMFAppResignActiveDateKey)
         }else{
-            self.removeObjectForKey(WMFAppResignActiveDateKey)
+            self.removeObject(forKey: WMFAppResignActiveDateKey)
         }
         self.synchronize()
     }
     
-    public func wmf_openArticleURL() -> NSURL? {
-        if let url = self.URLForKey(WMFOpenArticleURLKey) {
+    public func wmf_openArticleURL() -> URL? {
+        if let url = self.url(forKey: WMFOpenArticleURLKey) {
             return url
-        }else if let data = self.dataForKey(WMFOpenArticleTitleKey){
+        }else if let data = self.data(forKey: WMFOpenArticleTitleKey){
             if let title = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? MWKTitle {
                 self.wmf_setOpenArticleURL(title.mobileURL)
                 return title.mobileURL
@@ -72,83 +72,83 @@ extension NSUserDefaults {
         }
     }
     
-    public func wmf_setOpenArticleURL(url: NSURL?) {
+    public func wmf_setOpenArticleURL(_ url: URL?) {
         guard let url = url else{
-            self.removeObjectForKey(WMFOpenArticleTitleKey)
+            self.removeObject(forKey: WMFOpenArticleTitleKey)
             self.synchronize()
             return
         }
-        guard !url.wmf_isNonStandardURL else{
+        guard !(url as NSURL).wmf_isNonStandardURL else{
             return;
         }
         
-        self.setURL(url, forKey: WMFOpenArticleTitleKey)
+        self.set(url, forKey: WMFOpenArticleTitleKey)
         self.synchronize()
     }
 
-    public func wmf_setSendUsageReports(enabled: Bool) {
-        self.setObject(NSNumber(bool: enabled), forKey: "SendUsageReports")
+    public func wmf_setSendUsageReports(_ enabled: Bool) {
+        self.set(NSNumber(value: enabled), forKey: "SendUsageReports")
         self.synchronize()
 
     }
 
     public func wmf_sendUsageReports() -> Bool {
-        if let enabled = self.objectForKey("SendUsageReports") as? NSNumber {
+        if let enabled = self.object(forKey: "SendUsageReports") as? NSNumber {
             return enabled.boolValue
         }else{
             return false
         }
     }
     
-    public func wmf_setAppInstallDateIfNil(date: NSDate) {
+    public func wmf_setAppInstallDateIfNil(_ date: Date) {
         let previous = self.wmf_appInstallDate()
         
         if previous == nil {
-            self.setObject(date, forKey: "AppInstallDate")
+            self.set(date, forKey: "AppInstallDate")
             self.synchronize()
         }
     }
     
-    public func wmf_appInstallDate() -> NSDate? {
-        if let date = self.objectForKey("AppInstallDate") as? NSDate {
+    public func wmf_appInstallDate() -> Date? {
+        if let date = self.object(forKey: "AppInstallDate") as? Date {
             return date
         }else{
             return nil
         }
     }
     
-    public func wmf_setDateLastDailyLoggingStatsSent(date: NSDate) {
-        self.setObject(date, forKey: "DailyLoggingStatsDate")
+    public func wmf_setDateLastDailyLoggingStatsSent(_ date: Date) {
+        self.set(date, forKey: "DailyLoggingStatsDate")
         self.synchronize()
     }
 
-    public func wmf_dateLastDailyLoggingStatsSent() -> NSDate? {
-        if let date = self.objectForKey("DailyLoggingStatsDate") as? NSDate {
+    public func wmf_dateLastDailyLoggingStatsSent() -> Date? {
+        if let date = self.object(forKey: "DailyLoggingStatsDate") as? Date {
             return date
         }else{
             return nil
         }
     }
 
-    public func wmf_setShowSearchLanguageBar(enabled: Bool) {
-        self.setObject(NSNumber(bool: enabled), forKey: "ShowLanguageBar")
+    public func wmf_setShowSearchLanguageBar(_ enabled: Bool) {
+        self.set(NSNumber(value: enabled), forKey: "ShowLanguageBar")
         self.synchronize()
         
     }
     
     public func wmf_showSearchLanguageBar() -> Bool {
-        if let enabled = self.objectForKey("ShowLanguageBar") as? NSNumber {
+        if let enabled = self.object(forKey: "ShowLanguageBar") as? NSNumber {
             return enabled.boolValue
         }else{
             return false
         }
     }
     
-    public func wmf_currentSearchLanguageDomain() -> NSURL? {
-        if let url = self.URLForKey(WMFSearchURLKey) {
+    public func wmf_currentSearchLanguageDomain() -> URL? {
+        if let url = self.url(forKey: WMFSearchURLKey) {
             return url
-        }else if let language = self.objectForKey(WMFSearchLanguageKey) as? String {
-            let url = NSURL.wmf_URLWithDefaultSiteAndlanguage(language)
+        }else if let language = self.object(forKey: WMFSearchLanguageKey) as? String {
+            let url = URL.wmf_URL(withDefaultSiteAndlanguage: language)
             self.wmf_setCurrentSearchLanguageDomain(url)
             return url
         }else{
@@ -156,82 +156,82 @@ extension NSUserDefaults {
         }
     }
     
-    public func wmf_setCurrentSearchLanguageDomain(url: NSURL?) {
+    public func wmf_setCurrentSearchLanguageDomain(_ url: URL?) {
         guard let url = url else{
-            self.removeObjectForKey(WMFSearchURLKey)
+            self.removeObject(forKey: WMFSearchURLKey)
             self.synchronize()
             return
         }
-        guard !url.wmf_isNonStandardURL else{
+        guard !(url as NSURL).wmf_isNonStandardURL else{
             return;
         }
         
-        self.setURL(url, forKey: WMFSearchURLKey)
+        self.set(url, forKey: WMFSearchURLKey)
         self.synchronize()
     }
 
-    public func wmf_setReadingFontSize(fontSize: NSNumber) {
-        self.setObject(fontSize, forKey: "ReadingFontSize")
+    public func wmf_setReadingFontSize(_ fontSize: NSNumber) {
+        self.set(fontSize, forKey: "ReadingFontSize")
         self.synchronize()
         
     }
     
     public func wmf_readingFontSize() -> NSNumber {
-        if let fontSize = self.objectForKey("ReadingFontSize") as? NSNumber {
+        if let fontSize = self.object(forKey: "ReadingFontSize") as? NSNumber {
             return fontSize
         }else{
-            return NSNumber(integer:100) //default is 100%
+            return NSNumber(value:100) //default is 100%
         }
     }
     
-    public func wmf_setDidPeekTableOfContents(peeked: Bool) {
-        self.setObject(NSNumber(bool: peeked), forKey: "PeekTableOfContents")
+    public func wmf_setDidPeekTableOfContents(_ peeked: Bool) {
+        self.set(NSNumber(value: peeked), forKey: "PeekTableOfContents")
         self.synchronize()
         
     }
     
     public func wmf_didPeekTableOfContents() -> Bool {
-        if let enabled = self.objectForKey("PeekTableOfContents") as? NSNumber {
+        if let enabled = self.object(forKey: "PeekTableOfContents") as? NSNumber {
             return enabled.boolValue
         }else{
             return false
         }
     }
 
-    public func wmf_setDidFinishLegacySavedArticleImageMigration(didFinish: Bool) {
-        self.setBool(didFinish, forKey: "DidFinishLegacySavedArticleImageMigration")
+    public func wmf_setDidFinishLegacySavedArticleImageMigration(_ didFinish: Bool) {
+        self.set(didFinish, forKey: "DidFinishLegacySavedArticleImageMigration")
         self.synchronize()
     }
     
     public func wmf_didFinishLegacySavedArticleImageMigration() -> Bool {
-        return self.boolForKey("DidFinishLegacySavedArticleImageMigration")
+        return self.bool(forKey: "DidFinishLegacySavedArticleImageMigration")
     }
     
-    public func wmf_setDidMigrateHistoryList(didFinish: Bool) {
-        self.setBool(didFinish, forKey: WMFMigrateHistoryListKey)
+    public func wmf_setDidMigrateHistoryList(_ didFinish: Bool) {
+        self.set(didFinish, forKey: WMFMigrateHistoryListKey)
         self.synchronize()
     }
     
     public func wmf_didMigrateHistoryList() -> Bool {
-        return self.boolForKey(WMFMigrateHistoryListKey)
+        return self.bool(forKey: WMFMigrateHistoryListKey)
     }
 
-    public func wmf_setDidMigrateSavedPageList(didFinish: Bool) {
-        self.setBool(didFinish, forKey: WMFMigrateSavedPageListKey)
+    public func wmf_setDidMigrateSavedPageList(_ didFinish: Bool) {
+        self.set(didFinish, forKey: WMFMigrateSavedPageListKey)
         self.synchronize()
     }
     
     public func wmf_didMigrateSavedPageList() -> Bool {
-        return self.boolForKey(WMFMigrateSavedPageListKey)
+        return self.bool(forKey: WMFMigrateSavedPageListKey)
     }
 
-    public func wmf_setDidMigrateBlackList(didFinish: Bool) {
-        self.setBool(didFinish, forKey: WMFMigrateBlackListKey)
+    public func wmf_setDidMigrateBlackList(_ didFinish: Bool) {
+        self.set(didFinish, forKey: WMFMigrateBlackListKey)
         self.synchronize()
     }
     
     public func wmf_didMigrateBlackList() -> Bool {
-        return self.boolForKey(WMFMigrateBlackListKey)
+        return self.bool(forKey: WMFMigrateBlackListKey)
     }
 
 }
