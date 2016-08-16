@@ -42,7 +42,7 @@ PODS:
     - HockeySDK/AllFeaturesLib (= 3.8.6)
   - HockeySDK/AllFeaturesLib (3.8.6)
   - hpple (0.2.0)
-  - KVOController (1.1.0)
+  - KVOController (1.0.3)
   - libextobjc/EXTScope (0.4.1):
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.4.1)
@@ -159,7 +159,7 @@ DEPENDENCIES:
   - GCDWebServer (~> 3.3)
   - HockeySDK (~> 3.8.2)
   - hpple (~> 0.2)
-  - KVOController
+  - KVOController (= 1.0.3)
   - libextobjc/EXTScope (~> 0.4.1)
   - Mantle (~> 2.0.0)
   - Masonry (= 0.6.2)
@@ -229,7 +229,7 @@ SPEC CHECKSUMS:
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
   HockeySDK: ab68303eec6680f6b539de65d747742dd276e934
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
-  KVOController: 321b5fc59300fcaabd42c0f679baa7a27efbb2fd
+  KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Mantle: bc40bb061d8c2c6fb48d5083e04d928c3b7f73d9
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
@@ -254,6 +254,6 @@ SPEC CHECKSUMS:
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
 
-PODFILE CHECKSUM: bec542de79feae90a5fc9a1b38e4bbc5f445a41e
+PODFILE CHECKSUM: f9e3ddeb09fa912d1d140f55754c63070ecb6c56
 
 COCOAPODS: 1.0.1

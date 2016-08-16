@@ -23,7 +23,7 @@ abstract_target 'Foundation' do
   pod 'libextobjc/EXTScope', '~> 0.4.1'
   pod 'BlocksKit/Core', '~> 2.2.0'
   pod 'BlocksKit/UIKit', '~> 2.2.0'
-  pod 'KVOController'
+  pod 'KVOController', '= 1.0.3'
 
   # Dates
   pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'
