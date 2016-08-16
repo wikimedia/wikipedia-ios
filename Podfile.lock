@@ -220,7 +220,7 @@ CHECKOUT OPTIONS:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
   SWStepSlider:
-    :commit: 0e6a74f03b4c05d0c9bad60807cf383f4f219e5d
+    :commit: 2e857008b8e251a2cd669f7c288944592e02e7c4
     :git: https://github.com/wikimedia/SWStepSlider.git
   TSMessages:
     :commit: ec0aa9be29ab79083e4957ac500f3af2f622605d
