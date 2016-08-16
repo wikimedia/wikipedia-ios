@@ -31,7 +31,8 @@
 // View Controllers
 #import "WMFExploreViewController.h"
 #import "WMFSearchViewController.h"
-#import "WMFArticleListTableViewController.h"
+#import "WMFHistoryTableViewController.h"
+#import "WMFSavedArticleTableViewController.h"
 #import "WMFWelcomeViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFNearbyListViewController.h"
@@ -77,8 +78,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic, strong) UITabBarController* rootTabBarController;
 
 @property (nonatomic, strong, readonly) WMFExploreViewController* exploreViewController;
-@property (nonatomic, strong, readonly) WMFArticleListTableViewController* savedArticlesViewController;
-@property (nonatomic, strong, readonly) WMFArticleListTableViewController* recentArticlesViewController;
+@property (nonatomic, strong, readonly) WMFSavedArticleTableViewController* savedArticlesViewController;
+@property (nonatomic, strong, readonly) WMFHistoryTableViewController* recentArticlesViewController;
 
 @property (nonatomic, strong) SavedArticlesFetcher* savedArticlesFetcher;
 @property (nonatomic, strong) WMFRandomArticleFetcher* randomFetcher;
@@ -213,7 +214,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     @weakify(self)
 
-    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
         self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
     }
@@ -234,6 +234,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     }
 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
+    [self.savedArticlesFetcher start];
 
     if (self.unprocessedUserActivity) {
         [self processUserActivity:self.unprocessedUserActivity];
@@ -264,9 +265,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)pauseApp {
     [[WMFImageController sharedInstance] clearMemoryCache];
     [self downloadAssetsFilesIfNecessary];
-    [self.dataStore.userDataStore.historyList prune];
     [self.dataStore startCacheRemoval];
     [[[SessionSingleton sharedInstance] dataStore] clearMemoryCache];
+    [self.savedArticlesFetcher stop];
 
     DDLogWarn(@"Backgrounding… Logging Important Statistics");
     [self logImportantStatistics];
@@ -283,8 +284,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - Logging
 
 - (void)logImportantStatistics {
-    NSUInteger historyCount       = [self.session.dataStore.userDataStore.historyList countOfEntries];
-    NSUInteger saveCount          = [self.session.dataStore.userDataStore.savedPageList countOfEntries];
+    NSUInteger historyCount       = [self.session.dataStore.userDataStore.historyList numberOfItems];
+    NSUInteger saveCount          = [self.session.dataStore.userDataStore.savedPageList numberOfItems];
     NSUInteger exploreCount       = [self.exploreViewController numberOfSectionsInExploreFeed];
     UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
     NSUInteger stackCount         = [[navVC viewControllers] count];
@@ -485,7 +486,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (SavedArticlesFetcher*)savedArticlesFetcher {
     if (!_savedArticlesFetcher) {
         _savedArticlesFetcher =
-            [[SavedArticlesFetcher alloc] initWithSavedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]];
+            [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore] savedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]];
     }
     return _savedArticlesFetcher;
 }
@@ -715,12 +716,12 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
             break;
             case WMFAppTabTypeSaved: {
                 WMFArticleListTableViewController* savedArticlesViewController = (WMFArticleListTableViewController*)[self savedArticlesViewController];
-                [savedArticlesViewController scrollToTop:savedArticlesViewController.dataStore.userDataStore.savedPageList.countOfEntries > 0];
+                [savedArticlesViewController scrollToTop:savedArticlesViewController.dataStore.userDataStore.savedPageList.numberOfItems > 0];
             }
             break;
             case WMFAppTabTypeRecent: {
-                WMFArticleListTableViewController* historyArticlesViewController = (WMFArticleListTableViewController*)[self recentArticlesViewController];
-                [historyArticlesViewController scrollToTop:historyArticlesViewController.dataStore.userDataStore.historyList.countOfEntries > 0];
+                WMFArticleListDataSourceTableViewController* historyArticlesViewController = (WMFArticleListDataSourceTableViewController*)[self recentArticlesViewController];
+                [historyArticlesViewController scrollToTop:[historyArticlesViewController.dataStore.userDataStore.historyList numberOfItems] > 0];
             }
             break;
         }

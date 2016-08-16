@@ -10,13 +10,14 @@
 
 @class MWKImageInfoFetcher;
 
-@interface SavedArticlesFetcher ()
+@interface SavedArticlesFetcher (WMFTesting)
 
 @property (nonatomic, strong, readonly) dispatch_queue_t accessQueue;
 
-- (instancetype)initWithSavedPageList:(MWKSavedPageList*)savedPageList
-                       articleFetcher:(WMFArticleFetcher*)articleFetcher
-                      imageController:(WMFImageController*)imageController
-                     imageInfoFetcher:(MWKImageInfoFetcher*)imageInfoFetcher NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore
+                    savedPageList:(MWKSavedPageList*)savedPageList
+                   articleFetcher:(WMFArticleFetcher*)articleFetcher
+                  imageController:(WMFImageController*)imageController
+                 imageInfoFetcher:(MWKImageInfoFetcher*)imageInfoFetcher;
 
 @end

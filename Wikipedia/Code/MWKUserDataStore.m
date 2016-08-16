@@ -1,6 +1,12 @@
 
-#import "MediaWikiKit.h"
+#import "MWKUserDataStore.h"
+#import "MWKDataStore.h"
+#import "MWKHistoryList.h"
+#import "MWKSavedPageList.h"
+#import "MWKRecentSearchList.h"
+#import "WMFRelatedSectionBlackList.h"
 #import "Wikipedia-Swift.h"
+#import <YapDataBase/YapDatabase.h>
 
 
 @interface MWKUserDataStore ()
@@ -9,6 +15,7 @@
 @property (readwrite, strong, nonatomic) MWKHistoryList* historyList;
 @property (readwrite, strong, nonatomic) MWKSavedPageList* savedPageList;
 @property (readwrite, strong, nonatomic) MWKRecentSearchList* recentSearchList;
+@property (readwrite, strong, nonatomic) WMFRelatedSectionBlackList* blackList;
 
 @end
 
@@ -43,15 +50,18 @@
     return _recentSearchList;
 }
 
-- (AnyPromise*)save {
-    return [self.historyList save].then([self.savedPageList save]).then([self.recentSearchList save]);
+- (WMFRelatedSectionBlackList*)blackList {
+    if (!_blackList) {
+        _blackList = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
+    }
+    return _blackList;
 }
 
 - (AnyPromise*)reset {
     self.historyList      = nil;
     self.savedPageList    = nil;
     self.recentSearchList = nil;
-
+    self.blackList        = nil;
     return [AnyPromise promiseWithValue:nil];
 }
 

@@ -53,29 +53,24 @@ public class WMFSavedPageSpotlightManager: NSObject {
     public required init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
         super.init()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WMFSavedPageSpotlightManager.didSaveTitle(_:)), name: MWKSavedPageListDidSaveNotification, object: nil)
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WMFSavedPageSpotlightManager.didUnsaveTitle(_:)), name: MWKSavedPageListDidUnsaveNotification, object: nil)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WMFSavedPageSpotlightManager.didUpdateItem(_:)), name: MWKItemUpdatedNotification, object: nil)
     }
     
     public func reindexSavedPages() {
-        for element in savedPageList.entries {
-            if let element = element as? MWKSavedPageEntry {
-                addToIndex(element.url)
-            }
+        self.savedPageList.enumerateItemsWithBlock { (item, stop) in
+            self.addToIndex(item.url)
         }
     }
     
-    func didSaveTitle(notification: NSNotification){
-        if let url = notification.userInfo?[MWKURLKey] as? NSURL {
-            addToIndex(url)
-        }
-    }
-
-    func didUnsaveTitle(notification: NSNotification){
-        if let url = notification.userInfo?[MWKURLKey] as? NSURL {
-            removeFromIndex(url)
+    func didUpdateItem(notification: NSNotification){
+        if let urlString = notification.object as? String {
+            if let url = NSURL.init(string: urlString) {
+                if self.savedPageList.isSaved(url){
+                    addToIndex(url)
+                }else{
+                    removeFromIndex(url)
+                }
+            }
         }
     }
     

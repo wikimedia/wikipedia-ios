@@ -1,30 +1,36 @@
 
-#import "MWKList.h"
-#import "MWKSavedPageEntry.h"
-#import "MWKDataStoreList.h"
+#import <Foundation/Foundation.h>
 
-@class MWKDataStore;
+@class MWKHistoryEntry, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString* const MWKSavedPageListDidSaveNotification;
-extern NSString* const MWKSavedPageListDidUnsaveNotification;
+@interface MWKSavedPageList : NSObject
 
-extern NSString* const MWKURLKey;
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
 
+@property (readonly, weak, nonatomic) MWKDataStore* dataStore;
 
-@interface MWKSavedPageList : MWKList<MWKSavedPageEntry*, NSURL*>
-    < MWKDataStoreList >
+#pragma mark - Convienence Methods
 
-- (MWKSavedPageEntry* __nullable)entryForListIndex:(NSURL*)url;
-- (MWKSavedPageEntry*)           mostRecentEntry;
+- (NSInteger)numberOfItems;
+
+- (nullable MWKHistoryEntry*)mostRecentEntry;
+
+- (nullable MWKHistoryEntry*)entryForURL:(NSURL*)url;
+
+- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry* _Nonnull entry, BOOL* stop))block;
 
 - (BOOL)isSaved:(NSURL*)url;
 
+
+#pragma mark - Update Methods
+
 /**
- * Toggle the save state for `title`.
+ * Toggle the save state for `url`.
  *
- * @param title Title to toggle state for, either saving or un-saving it.
+ * @param url URL to toggle state for, either saving or un-saving it.
  */
 - (void)toggleSavedPageForURL:(NSURL*)url;
 
@@ -33,9 +39,20 @@ extern NSString* const MWKURLKey;
  *
  *  @param title The title of the page to add
  */
-- (void)addSavedPageWithURL:(NSURL*)url;
+- (MWKHistoryEntry*)addSavedPageWithURL:(NSURL*)url;
 
-- (NSDictionary*)dataExport;
+/**
+ *  Remove a saved page
+ *
+ *  @param url The url of the page to remove
+ */
+- (void)removeEntryWithURL:(NSURL*)url;
+
+/**
+ *  Remove all history entries
+ */
+- (void)removeAllEntries;
+
 
 @end
 

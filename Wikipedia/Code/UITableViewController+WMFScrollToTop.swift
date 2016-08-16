@@ -1,9 +1,3 @@
-//
-//  UITableViewController+WMFScrollToTop.swift
-//  Wikipedia
-//
-//  Created by Kevin Taniguchi on 7/17/16.
-//
 
 extension UITableViewController {
     private func scrollToFirstIndexPath() {
@@ -16,7 +10,6 @@ extension UICollectionViewController {
         collectionView?.scrollToItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0) , atScrollPosition: .Top, animated: true)
     }
 }
-
 
 extension WMFArticleListTableViewController {
     func scrollToTop(isScrollable: Bool) {

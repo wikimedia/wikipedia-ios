@@ -3,6 +3,8 @@
 #import <XCTest/XCTest.h>
 #import "MWKSavedPageList.h"
 #import "MWKSavedPageEntry.h"
+#import "MWKDataStore+TemporaryDataStore.h"
+#import "WMFAsyncTestCase.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -17,15 +19,20 @@
 #pragma clang diagnostic ignored "-Wnonnull"
 
 - (void)testPrunesEntriesWithEmptyOrAbsentTitles {
-    MWKSavedPageList* list = [[MWKSavedPageList alloc] initWithEntries:nil];
+    MWKDataStore* dataStore = [MWKDataStore temporaryDataStore];
+    MWKSavedPageList* list  = [[MWKSavedPageList alloc] initWithDataStore:dataStore];
     [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Foo"]];
-    assertThat(@([list countOfEntries]), is(@1));
-
     [list addSavedPageWithURL:nil];
-    assertThat(@([list countOfEntries]), is(@1));
-
     [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@""]];
-    assertThat(@([list countOfEntries]), is(@1));
+
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+        assertThat(@([list numberOfItems]), is(@1));
+
+        [expectation fulfill];
+    });
+
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
 
 #pragma clang diagnostic pop

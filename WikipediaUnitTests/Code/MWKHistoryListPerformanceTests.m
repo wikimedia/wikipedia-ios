@@ -6,6 +6,9 @@
 #import "NSDateFormatter+WMFExtensions.h"
 #import "WMFTestFixtureUtilities.h"
 #import "MWKHistoryList.h"
+#import "MWKDataStore+TemporaryDataStore.h"
+#import "WMFAsyncTestCase.h"
+
 
 @interface MWKHistoryListPerformanceTests : XCTestCase
 
@@ -14,16 +17,21 @@
 @implementation MWKHistoryListPerformanceTests
 
 - (void)testReadPerformance {
-    NSMutableArray* entries = [NSMutableArray arrayWithCapacity:1000];
-    for (int i = 0; i < 1000; i++) {
-        MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithURL:[NSURL wmf_randomArticleURL]];
-        [entries addObject:entry];
+    MWKDataStore* dataStore = [MWKDataStore temporaryDataStore];
+    MWKHistoryList* list    = [[MWKHistoryList alloc] initWithDataStore:dataStore];
+    int count               = 1000;
+    for (int i = 0; i < count; i++) {
+        [list addPageToHistoryWithURL:[NSURL wmf_randomArticleURL]];
     }
 
-    [self measureBlock:^{
-        MWKHistoryList* list = [[MWKHistoryList alloc] initWithEntries:entries];
-        XCTAssertEqual([list countOfEntries], [entries count]);
-    }];
+    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+
+    dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+        XCTAssertEqual([list numberOfItems], count);
+        [expectation fulfill];
+    });
+
+    [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
 
 @end

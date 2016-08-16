@@ -291,7 +291,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[WMFArticleListTableViewController class]]) {
+    if ([segue.destinationViewController isKindOfClass:[WMFArticleListDataSourceTableViewController class]]) {
         self.resultsListController = segue.destinationViewController;
         [self configureArticleList];
     }
@@ -637,7 +637,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     
     NSUInteger index = [[self languageBarLanguages] indexOfObject:language];
     
-    //The selected preferred language will not be displayed becuase we only dsiplay max 3 languages, move it to index 2
+    //The selected preferred language will not be displayed because we only dsiplay max 3 languages, move it to index 2
     if(index == NSNotFound){
         [[MWKLanguageLinkController sharedInstance] reorderPreferredLanguage:language toIndex:2];
         [self updateLanguageBarLanguages];

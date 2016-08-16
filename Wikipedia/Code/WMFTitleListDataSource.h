@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 #import "MWKHistoryEntry.h"
-#import "UIViewController+WMFEmptyView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @class MWKSavedPageList;

@@ -20,7 +20,6 @@
 #import "MWKSavedPageList.h"
 #import "MWKHistoryList.h"
 #import "MWKHistoryEntry.h"
-#import "MWKSavedPageEntry.h"
 #import "MWKArticle.h"
 #import "MWKLocationSearchResult.h"
 #import "MWKSavedPageList.h"
@@ -39,7 +38,7 @@
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFSettingsViewController.h"
 #import "WMFTitleListDataSource.h"
-#import "WMFArticleListTableViewController.h"
+#import "WMFArticleListDataSourceTableViewController.h"
 #import "WMFRelatedSectionController.h"
 #import "UIViewController+WMFSearch.h"
 #import "UINavigationController+WMFHideEmptyToolbar.h"
@@ -54,8 +53,8 @@
 #import "WMFFirstRandomViewController.h"
 #endif
 
-NSString * const WMFExploreEmptyFooterReuseIdentifier = @"empty";
-static DDLogLevel const WMFExploreVCLogLevel = DDLogLevelInfo;
+NSString* const WMFExploreEmptyFooterReuseIdentifier = @"empty";
+static DDLogLevel const WMFExploreVCLogLevel         = DDLogLevelInfo;
 #undef LOG_LEVEL_DEF
 #define LOG_LEVEL_DEF WMFExploreVCLogLevel
 
@@ -67,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
  WMFAnalyticsContextProviding,
  WMFAnalyticsViewNameProviding,
  UINavigationControllerDelegate,
-WMFColumnarCollectionViewLayoutDelegate>
+ WMFColumnarCollectionViewLayoutDelegate>
 
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
@@ -154,7 +153,7 @@ WMFColumnarCollectionViewLayoutDelegate>
     return _sectionControllerCache;
 }
 
-- (NSUInteger)numberOfSectionsInExploreFeed{
+- (NSUInteger)numberOfSectionsInExploreFeed {
     return [[self.schemaManager sections] count];
 }
 
@@ -297,7 +296,7 @@ WMFColumnarCollectionViewLayoutDelegate>
     } forControlEvents:UIControlEventValueChanged];
 
     [self resetRefreshControlWithCompletion:NULL];
-        
+
     self.collectionView.scrollsToTop = YES;
     self.collectionView.dataSource   = nil;
     self.collectionView.delegate     = nil;
@@ -305,15 +304,15 @@ WMFColumnarCollectionViewLayoutDelegate>
     [self.collectionView registerNib:[WMFExploreSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
 
     [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
-    
+
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFExploreEmptyFooterReuseIdentifier];
-    
+
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(applicationWillEnterForegroundWithNotification:)
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(tweaksDidChangeWithNotification:)
                                                  name:FBTweakShakeViewControllerDidDismissNotification
@@ -348,7 +347,7 @@ WMFColumnarCollectionViewLayoutDelegate>
     [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
 #if ENABLE_RANDOM_DEBUGGING
-    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSite:[MWKSite siteWithLanguage:@"en"] dataStore:self.dataStore];
+    WMFFirstRandomViewController* vc = [[WMFFirstRandomViewController alloc] initWithSite:[MWKSite siteWithLanguage:@"en"] dataStore:self.dataStore];
     [self wmf_pushViewController:vc animated:YES];
 #endif
 }
@@ -487,7 +486,7 @@ WMFColumnarCollectionViewLayoutDelegate>
     return [[self.schemaManager sections] count];
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
     if (self.isWaitingForNetworkToReconnect) {
         return 0;
     }
@@ -496,7 +495,7 @@ WMFColumnarCollectionViewLayoutDelegate>
     return [[controller items] count];
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView cellForItemAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
     UICollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[controller cellIdentifierForItemIndexPath:indexPath] forIndexPath:indexPath];
@@ -506,24 +505,24 @@ WMFColumnarCollectionViewLayoutDelegate>
 
 #pragma mark - UICollectionViewDelegate
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth {
+- (CGFloat)collectionView:(UICollectionView*)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath*)indexPath forColumnWidth:(CGFloat)columnWidth {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
     return [controller estimatedRowHeight];
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForHeaderInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
+- (CGFloat)collectionView:(UICollectionView*)collectionView estimatedHeightForHeaderInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
     return 66;
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForFooterInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
+- (CGFloat)collectionView:(UICollectionView*)collectionView estimatedHeightForFooterInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:section];
-    
+
     if (!controller) {
         return 0;
     }
-    
-    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id<WMFMoreFooterProviding>) controller isFooterEnabled])) {
+
+    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id < WMFMoreFooterProviding >) controller isFooterEnabled])) {
         return 50;
     } else {
         return 0;
@@ -586,20 +585,20 @@ WMFColumnarCollectionViewLayoutDelegate>
             @strongify(controller);
             @strongify(self);
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                UIAlertController *menuActionSheet = [(id < WMFHeaderMenuProviding >)controller menuActionSheet];
+                UIAlertController* menuActionSheet = [(id < WMFHeaderMenuProviding >)controller menuActionSheet];
                 menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
                 menuActionSheet.popoverPresentationController.sourceView = sender;
                 menuActionSheet.popoverPresentationController.sourceRect = [sender bounds];
                 menuActionSheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
                 [self presentViewController:menuActionSheet animated:YES completion:nil];
             } else {
-                UIAlertController *menuActionSheet = [(id < WMFHeaderMenuProviding >)controller menuActionSheet];
+                UIAlertController* menuActionSheet = [(id < WMFHeaderMenuProviding >)controller menuActionSheet];
                 menuActionSheet.popoverPresentationController.sourceView = self.navigationController.tabBarController.tabBar.superview;
                 menuActionSheet.popoverPresentationController.sourceRect = self.navigationController.tabBarController.tabBar.frame;
                 [self presentViewController:menuActionSheet animated:YES completion:nil];
             }
         } forControlEvents:UIControlEventTouchUpInside];
-    } else if ([controller conformsToProtocol:@protocol(WMFHeaderActionProviding)] && (![controller respondsToSelector:@selector(isHeaderActionEnabled)] || [(id <WMFHeaderActionProviding>) controller isHeaderActionEnabled])) {
+    } else if ([controller conformsToProtocol:@protocol(WMFHeaderActionProviding)] && (![controller respondsToSelector:@selector(isHeaderActionEnabled)] || [(id < WMFHeaderActionProviding >) controller isHeaderActionEnabled])) {
         header.rightButtonEnabled = YES;
         [[header rightButton] setImage:[(id < WMFHeaderActionProviding >)controller headerButtonIcon] forState:UIControlStateNormal];
         [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
@@ -621,9 +620,9 @@ WMFColumnarCollectionViewLayoutDelegate>
     if (!controller) {
         return nil;
     }
-   
-    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id<WMFMoreFooterProviding>) controller isFooterEnabled])) {
-         WMFExploreSectionFooter* footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
+
+    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id < WMFMoreFooterProviding >) controller isFooterEnabled])) {
+        WMFExploreSectionFooter* footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
         footer.visibleBackgroundView.alpha = 1.0;
         footer.moreLabel.text              = [(id < WMFMoreFooterProviding >)controller footerText];
         footer.moreLabel.textColor         = [UIColor wmf_exploreSectionFooterTextColor];
@@ -636,10 +635,9 @@ WMFColumnarCollectionViewLayoutDelegate>
     } else {
         return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFExploreEmptyFooterReuseIdentifier forIndexPath:indexPath];
     }
- 
 }
 
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView*)collectionView willDisplayCell:(UICollectionViewCell*)cell forItemAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
     if ([controller respondsToSelector:@selector(willDisplaySection)]) {
@@ -659,7 +657,7 @@ WMFColumnarCollectionViewLayoutDelegate>
     }
 }
 
-- (void)collectionView:(UICollectionView*)collectionView didEndDisplayingCell:(UICollectionViewCell*)cell forItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView*)collectionView didEndDisplayingCell:(UICollectionViewCell*)cell forItemAtIndexPath:(nonnull NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
     if ([controller respondsToSelector:@selector(didEndDisplayingSection)]) {
@@ -686,7 +684,7 @@ WMFColumnarCollectionViewLayoutDelegate>
     }
 }
 
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)collectionView:(UICollectionView*)collectionView shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
     if (controller != nil) {
@@ -696,11 +694,11 @@ WMFColumnarCollectionViewLayoutDelegate>
     }
 }
 
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)collectionView:(UICollectionView*)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath*)indexPath {
     return [self collectionView:collectionView shouldSelectItemAtIndexPath:indexPath];
 }
 
-- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath*)indexPath {
     [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
@@ -764,9 +762,9 @@ WMFColumnarCollectionViewLayoutDelegate>
     }
 
     self.schemaManager = [WMFExploreSectionSchema schemaWithSiteURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]
-                                                      savedPages:self.savedPages
-                                                         history:self.recentPages
-                                                       blackList:[WMFRelatedSectionBlackList sharedBlackList]];
+                                                         savedPages:self.savedPages
+                                                            history:self.recentPages
+                                                          blackList:self.dataStore.userDataStore.blackList];
     self.schemaManager.delegate = self;
     [self loadSectionControllersForCurrentSectionSchema];
     self.collectionView.dataSource = self;

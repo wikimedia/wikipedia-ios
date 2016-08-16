@@ -154,7 +154,8 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 }
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"%@ id: %d line: %@ level: %@", [super description], self.sectionId, self.line, self.level];
+    //Do not use MTLModel's description as it will cause recursion since this instance has a reference to the article, which also has a reference to this section section
+    return [NSString stringWithFormat:@"section id: %d line: %@ level: %@", self.sectionId, self.line, self.level];
 }
 
 #pragma mark - Extraction

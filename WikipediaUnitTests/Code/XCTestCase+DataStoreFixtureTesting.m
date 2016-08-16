@@ -1,15 +1,10 @@
-//
-//  XCTestCase+DataStoreFixtureTesting.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/15/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
+
 
 #import "XCTestCase+DataStoreFixtureTesting.h"
 #import "WMFRandomFileUtilities.h"
 #import "XCTestCase+WMFBundleConvenience.h"
 #import "MWKDataStore.h"
+#import "YapDatabase+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
                     format:@"Failed to copy legacy data from %@ to %@. %@",
          absFolderPath, tmpCopyPath, error];
     }
-    return [[MWKDataStore alloc] initWithBasePath:tmpCopyPath];
+    return [[MWKDataStore alloc] initWithDatabase:[[YapDatabase alloc] initWithPath:WMFRandomTemporaryPath()] legacyDataBasePath:tmpCopyPath];
 }
 
 @end

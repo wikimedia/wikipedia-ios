@@ -48,7 +48,7 @@ public class WMFTableOfContentsViewController: UIViewController,
     
     var previousStatusbarStyle: UIStatusBarStyle?
 
-    //optional becuase it requires a reference to self to inititialize
+    //optional because it requires a reference to self to inititialize
     var animator: WMFTableOfContentsAnimator?
 
     weak var delegate: WMFTableOfContentsViewControllerDelegate?

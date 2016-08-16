@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
     static NSTimeInterval const WMFDispatchInterval = 60;
 
     if (![[NSBundle mainBundle] wmf_isPiwikEnabledAndConfigured]) {
-        DDLogError(@"Not starting Piwik becuase no URL or app ID was found");
+        DDLogError(@"Not starting Piwik because no URL or app ID was found");
         return;
     }
     NSString* piwikHostURLString = [[NSBundle mainBundle] wmf_piwikURL];
