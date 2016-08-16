@@ -4,10 +4,10 @@ import UIKit
 // MARK: - Delegate
 @objc public protocol WMFTableOfContentsAnimatorDelegate {
     
-    func tableOfContentsAnimatorDidTapBackground(_ controller: WMFTableOfContentsAnimator)
+    func tableOfContentsAnimatorDidTapBackground(controller: WMFTableOfContentsAnimator)
 }
 
-open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIGestureRecognizerDelegate, WMFTableOfContentsPresentationControllerTapDelegate {
+public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIGestureRecognizerDelegate, WMFTableOfContentsPresentationControllerTapDelegate {
     
     // MARK: - init
     public required init(presentingViewController: UIViewController, presentedViewController: UIViewController) {
@@ -29,28 +29,28 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
     
     weak var presentedViewController: UIViewController?
 
-    open var gesturePercentage: CGFloat = 0.4
+    public var gesturePercentage: CGFloat = 0.4
 
-    weak open var delegate: WMFTableOfContentsAnimatorDelegate?
+    weak public var delegate: WMFTableOfContentsAnimatorDelegate?
     
-    fileprivate(set) open var isPresenting: Bool
+    private(set) public var isPresenting: Bool
     
-    fileprivate(set) open var isInteractive: Bool
+    private(set) public var isInteractive: Bool
     
     // MARK: - WMFTableOfContentsPresentationControllerTapDelegate
-    open func tableOfContentsPresentationControllerDidTapBackground(_ controller: WMFTableOfContentsPresentationController) {
+    public func tableOfContentsPresentationControllerDidTapBackground(controller: WMFTableOfContentsPresentationController) {
         delegate?.tableOfContentsAnimatorDidTapBackground(self)
     }
     
     // MARK: - UIViewControllerTransitioningDelegate
-    open func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+    public func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
         guard presented == self.presentedViewController else {
             return nil
         }
-        return WMFTableOfContentsPresentationController(presentedViewController: presented, presentingViewController: presenting!, tapDelegate: self)
+        return WMFTableOfContentsPresentationController(presentedViewController: presented, presentingViewController: presenting, tapDelegate: self)
     }
     
-    open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard presented == self.presentedViewController else {
             return nil
         }
@@ -58,7 +58,7 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
         return self
     }
     
-    open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard dismissed == self.presentedViewController else {
             return nil
         }
@@ -66,7 +66,7 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
         return self
     }
     
-    open func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    public func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         if self.isInteractive {
             return self
         }else{
@@ -74,7 +74,7 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
         }
     }
     
-    open func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    public func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         if self.isInteractive {
             return self
         }else{
@@ -83,14 +83,14 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
     }
 
     // MARK: - UIViewControllerAnimatedTransitioning
-    open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return self.isPresenting ? 0.5 : 0.8
     }
     
-    open func animateTransition(using transitionContext: UIViewControllerContextTransitioning)  {
+    public func animateTransition(transitionContext: UIViewControllerContextTransitioning)  {
         if isPresenting {
             removeDismissalGestureRecognizer()
-            addDismissalGestureRecognizer(transitionContext.containerView)
+            addDismissalGestureRecognizer(transitionContext.containerView()!)
             animatePresentationWithTransitionContext(transitionContext)
         }
         else {
@@ -99,53 +99,53 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
     }
     
     // MARK: - Animation
-    func animatePresentationWithTransitionContext(_ transitionContext: UIViewControllerContextTransitioning) {
-        let presentedController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
-        let presentedControllerView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
-        let containerView = transitionContext.containerView
+    func animatePresentationWithTransitionContext(transitionContext: UIViewControllerContextTransitioning) {
+        let presentedController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        let presentedControllerView = transitionContext.viewForKey(UITransitionContextToViewKey)!
+        let containerView = transitionContext.containerView()!
         
         // Position the presented view off the top of the container view
-        var f = transitionContext.finalFrame(for: presentedController)
-        f.origin.x += f.size.width * UIApplication.shared.wmf_tocRTLMultiplier
+        var f = transitionContext.finalFrameForViewController(presentedController)
+        f.origin.x += f.size.width * UIApplication.sharedApplication().wmf_tocRTLMultiplier
         presentedControllerView.frame = f
         
         containerView.addSubview(presentedControllerView)
         
-        animateTransition(self.isInteractive, duration: self.transitionDuration(using: transitionContext), animations: { () -> Void in
+        animateTransition(self.isInteractive, duration: self.transitionDuration(transitionContext), animations: { () -> Void in
             var f = presentedControllerView.frame
-            f.origin.x -= f.size.width * UIApplication.shared.wmf_tocRTLMultiplier
+            f.origin.x -= f.size.width * UIApplication.sharedApplication().wmf_tocRTLMultiplier
             presentedControllerView.frame = f
             }, completion: {(completed: Bool) -> Void in
-                let cancelled = transitionContext.transitionWasCancelled
+                let cancelled = transitionContext.transitionWasCancelled()
                 transitionContext.completeTransition(!cancelled)
         })
     }
     
-    func animateDismissalWithTransitionContext(_ transitionContext: UIViewControllerContextTransitioning) {
-        let presentedControllerView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
+    func animateDismissalWithTransitionContext(transitionContext: UIViewControllerContextTransitioning) {
+        let presentedControllerView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
         
-        animateTransition(self.isInteractive, duration: self.transitionDuration(using: transitionContext), animations: { () -> Void in
+        animateTransition(self.isInteractive, duration: self.transitionDuration(transitionContext), animations: { () -> Void in
             var f = presentedControllerView.frame
-            f.origin.x += f.size.width * UIApplication.shared.wmf_tocRTLMultiplier
+            f.origin.x += f.size.width * UIApplication.sharedApplication().wmf_tocRTLMultiplier
             presentedControllerView.frame = f
 
             }, completion: {(completed: Bool) -> Void in
-                let cancelled = transitionContext.transitionWasCancelled
+                let cancelled = transitionContext.transitionWasCancelled()
                 transitionContext.completeTransition(!cancelled)
         })
     }
     
-    func animateTransition(_ interactive: Bool, duration: TimeInterval, animations: @escaping () -> Void, completion: ((Bool) -> Void)?){
+    func animateTransition(interactive: Bool, duration: NSTimeInterval, animations: () -> Void, completion: ((Bool) -> Void)?){
         
         if(interactive){
-            UIView.animate(withDuration: duration, delay: 0.0, options: UIViewAnimationOptions(), animations: { () -> Void in
+            UIView.animateWithDuration(duration, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
                 animations()
                 }, completion: { (completed: Bool) -> Void in
                     completion?(completed)
             })
     
         }else{
-            UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: {
+            UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .AllowUserInteraction, animations: {
                 animations()
                 }, completion: {(completed: Bool) -> Void in
                     completion?(completed)
@@ -164,7 +164,7 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
     
     var dismissalGesture: UIPanGestureRecognizer?
     
-    func addDismissalGestureRecognizer(_ containerView: UIView) {
+    func addDismissalGestureRecognizer(containerView: UIView) {
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(WMFTableOfContentsAnimator.handleDismissalGesture(_:)))
         gesture.delegate = self
         containerView.addGestureRecognizer(gesture)
@@ -178,89 +178,89 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
         }
         self.dismissalGesture = nil
     }
-    func handlePresentationGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
+    func handlePresentationGesture(gesture: UIScreenEdgePanGestureRecognizer) {
         
         switch(gesture.state) {
-        case (.began):
+        case (.Began):
             self.isInteractive = true
-            self.presentingViewController?.present(self.presentedViewController!, animated: true, completion: nil)
-        case (.changed):
-            let translation = gesture.translation(in: gesture.view)
-            let transitionProgress = translation.x * -UIApplication.shared.wmf_tocRTLMultiplier / (self.presentedViewController!.view.bounds).maxX
+            self.presentingViewController?.presentViewController(self.presentedViewController!, animated: true, completion: nil)
+        case (.Changed):
+            let translation = gesture.translationInView(gesture.view)
+            let transitionProgress = translation.x * -UIApplication.sharedApplication().wmf_tocRTLMultiplier / CGRectGetMaxX(self.presentedViewController!.view.bounds)
             self.updateInteractiveTransition(transitionProgress)
-        case (.ended):
+        case (.Ended):
             self.isInteractive = false
-            let velocityRequiredToPresent = -gesture.view!.bounds.width * UIApplication.shared.wmf_tocRTLMultiplier
+            let velocityRequiredToPresent = -CGRectGetWidth(gesture.view!.bounds) * UIApplication.sharedApplication().wmf_tocRTLMultiplier
             let velocityRequiredToDismiss = -velocityRequiredToPresent
             
-            let velocityX = gesture.velocity(in: gesture.view).x
+            let velocityX = gesture.velocityInView(gesture.view).x
             if velocityX*velocityRequiredToDismiss > 1 && abs(velocityX) > abs(velocityRequiredToDismiss){
-                cancel()
+                cancelInteractiveTransition()
                 return
             }
             
             if velocityX*velocityRequiredToPresent > 1 && abs(velocityX) > abs(velocityRequiredToPresent){
-                finish()
+                finishInteractiveTransition()
                 return
             }
             
             let progressRequiredToPresent = 0.33
             
             if(self.percentComplete >= CGFloat(progressRequiredToPresent)){
-                finish()
+                finishInteractiveTransition()
                 return
             }
             
-            cancel()
+            cancelInteractiveTransition()
             
-        case (.cancelled):
+        case (.Cancelled):
             self.isInteractive = false
-            cancel()
+            cancelInteractiveTransition()
             
         default :
             break
         }
     }
     
-    func handleDismissalGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
+    func handleDismissalGesture(gesture: UIScreenEdgePanGestureRecognizer) {
         
         switch(gesture.state) {
-        case .began:
+        case .Began:
             self.isInteractive = true
-            self.presentingViewController?.dismiss(animated: true, completion: nil)
-        case .changed:
-            let translation = gesture.translation(in: gesture.view)
-            let transitionProgress = translation.x * UIApplication.shared.wmf_tocRTLMultiplier / (self.presentedViewController!.view.bounds).maxX
+            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        case .Changed:
+            let translation = gesture.translationInView(gesture.view)
+            let transitionProgress = translation.x * UIApplication.sharedApplication().wmf_tocRTLMultiplier / CGRectGetMaxX(self.presentedViewController!.view.bounds)
             self.updateInteractiveTransition(transitionProgress)
             DDLogVerbose("TOC transition progress: \(transitionProgress)")
-        case .ended:
+        case .Ended:
             self.isInteractive = false
-            let velocityRequiredToPresent = -gesture.view!.bounds.width * UIApplication.shared.wmf_tocRTLMultiplier
+            let velocityRequiredToPresent = -CGRectGetWidth(gesture.view!.bounds) * UIApplication.sharedApplication().wmf_tocRTLMultiplier
             let velocityRequiredToDismiss = -velocityRequiredToPresent
             
-            let velocityX = gesture.velocity(in: gesture.view).x
+            let velocityX = gesture.velocityInView(gesture.view).x
             if velocityX*velocityRequiredToDismiss > 1 && abs(velocityX) > abs(velocityRequiredToDismiss){
-                finish()
+                finishInteractiveTransition()
                 return
             }
             
             if velocityX*velocityRequiredToPresent > 1 && abs(velocityX) > abs(velocityRequiredToPresent){
-                cancel()
+                cancelInteractiveTransition()
                 return
             }
             
             let progressRequiredToDismiss = 0.50
             
             if(self.percentComplete >= CGFloat(progressRequiredToDismiss)){
-                finish()
+                finishInteractiveTransition()
                 return
             }
             
-            cancel()
+            cancelInteractiveTransition()
             
-        case .cancelled:
+        case .Cancelled:
             self.isInteractive = false
-            cancel()
+            cancelInteractiveTransition()
             
         default :
             break
@@ -268,11 +268,11 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
     }
     
     // MARK: - UIGestureRecognizerDelegate
-    open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer == self.dismissalGesture {
             
-            if let translation = self.dismissalGesture?.translation(in: dismissalGesture?.view) {
-                if(translation.x * UIApplication.shared.wmf_tocRTLMultiplier > 0){
+            if let translation = self.dismissalGesture?.translationInView(dismissalGesture?.view) {
+                if(translation.x * UIApplication.sharedApplication().wmf_tocRTLMultiplier > 0){
                     return true
                 }else{
                     return false
@@ -283,10 +283,10 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
             
         }else if gestureRecognizer == self.presentationGesture {
             
-            let translation = self.presentationGesture.translation(in: presentationGesture.view)
-            let location = self.presentationGesture.location(in: presentationGesture.view)
+            let translation = self.presentationGesture.translationInView(presentationGesture.view)
+            let location = self.presentationGesture.locationInView(presentationGesture.view)
             let gestureWidth = presentationGesture.view!.frame.width * gesturePercentage
-            let maxLocation = UIApplication.shared.wmf_tocShouldBeOnLeft ? gestureWidth: presentationGesture.view!.frame.maxX - gestureWidth
+            let maxLocation = UIApplication.sharedApplication().wmf_tocShouldBeOnLeft ? gestureWidth: presentationGesture.view!.frame.maxX - gestureWidth
             let isInStartBoundry = UIApplication.sharedApplication().wmf_tocShouldBeOnLeft ? maxLocation - location.x > 0 : location.x - maxLocation > 0
             if(translation.x * UIApplication.sharedApplication().wmf_tocRTLMultiplier < 0) && isInStartBoundry{
                 return true

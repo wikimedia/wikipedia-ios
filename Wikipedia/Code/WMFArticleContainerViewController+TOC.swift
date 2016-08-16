@@ -3,7 +3,7 @@ import Foundation
 
 extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
 
-    public func tableOfContentsControllerWillDisplay(_ controller: WMFTableOfContentsViewController){
+    public func tableOfContentsControllerWillDisplay(controller: WMFTableOfContentsViewController){
         webViewController.getCurrentVisibleSectionCompletion({(section: MWKSection?, error: NSError?) -> Void in
             if let item: TableOfContentsItem = section {
                 self.tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)
@@ -18,7 +18,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
         })
     }
 
-    public func tableOfContentsController(_ controller: WMFTableOfContentsViewController,
+    public func tableOfContentsController(controller: WMFTableOfContentsViewController,
                                           didSelectItem item: TableOfContentsItem) {
         
         switch tableOfContentsDisplayMode {
@@ -67,7 +67,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
         
     }
 
-    public func tableOfContentsControllerDidCancel(_ controller: WMFTableOfContentsViewController) {
+    public func tableOfContentsControllerDidCancel(controller: WMFTableOfContentsViewController) {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
@@ -111,7 +111,7 @@ extension WMFArticleViewController {
     /**
      Append a read more section to the table of contents.
      */
-    public func appendItemsToTableOfContentsIncludingAboutThisArticle(_ includeAbout: Bool, includeReadMore: Bool) {
+    public func appendItemsToTableOfContentsIncludingAboutThisArticle(includeAbout: Bool, includeReadMore: Bool) {
         assert(self.tableOfContentsViewController != nil, "Attempting to add read more when toc is nil")
         guard let tvc = self.tableOfContentsViewController else { return; }
 
@@ -225,11 +225,11 @@ extension WMFArticleViewController {
         }
     }
     
-    public func selectAndScrollToTableOfContentsItemForSection(_ section: MWKSection, animated: Bool) {
+    public func selectAndScrollToTableOfContentsItemForSection(section: MWKSection, animated: Bool) {
         tableOfContentsViewController?.selectAndScrollToItem(section, animated: animated)
     }
     
-    public func selectAndScrollToTableOfContentsFooterItemAtIndex(_ index: Int, animated: Bool) {
+    public func selectAndScrollToTableOfContentsFooterItemAtIndex(index: Int, animated: Bool) {
         tableOfContentsViewController?.selectAndScrollToFooterItem(atIndex: index, animated: animated)
     }
 }

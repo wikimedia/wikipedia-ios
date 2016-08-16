@@ -1,7 +1,7 @@
 
 import UIKit
 
-open class WMFImageTextActivitySource: NSObject, UIActivityItemSource  {
+public class WMFImageTextActivitySource: NSObject, UIActivityItemSource  {
 
     let info: MWKImageInfo
     
@@ -10,19 +10,19 @@ open class WMFImageTextActivitySource: NSObject, UIActivityItemSource  {
         super.init()
     }
     
-    open func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+    public func activityViewControllerPlaceholderItem(activityViewController: UIActivityViewController) -> AnyObject {
         return String()
     }
     
-    open func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType) -> Any? {
+    public func activityViewController(activityViewController: UIActivityViewController, itemForActivityType activityType: String) -> AnyObject? {
         
         var text: String?
 
-        if activityType == UIActivityType.postToTwitter {
+        if activityType == UIActivityTypePostToTwitter {
             text = localizedStringForKeyFallingBackOnEnglish("share-on-twitter-sign-off")
-        }else if activityType == UIActivityType.postToFacebook ||
-        activityType == UIActivityType.mail ||
-        activityType == UIActivityType.postToFlickr {
+        }else if activityType == UIActivityTypePostToFacebook ||
+        activityType == UIActivityTypeMail ||
+        activityType == UIActivityTypePostToFlickr {
             text = info.filePageURL.absoluteString
         }else {
             text = nil

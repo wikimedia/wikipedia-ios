@@ -10,7 +10,7 @@ import Foundation
 import PromiseKit
 import XCTest
 
-public func descriptionfromFunction(_ fn: StaticString, line: Int) -> String {
+public func descriptionfromFunction(fn: StaticString, line: Int) -> String {
     return "\(fn):L\(line)"
 }
 
@@ -18,14 +18,14 @@ func toResolve<T>() -> (Promise<T>) -> ((T) -> Void) -> Promise<Void> {
     return Promise.thenInBackground
 }
 
-func toReport<T>(_ policy: ErrorPolicy = ErrorPolicy.AllErrorsExceptCancellation) -> (Promise<T>) -> ((ErrorType) -> Void) -> Void {
+func toReport<T>(policy: ErrorPolicy = ErrorPolicy.AllErrorsExceptCancellation) -> (Promise<T>) -> ((ErrorType) -> Void) -> Void {
     return { p in { errF in Promise<T>.error(p)(policy: policy, errF) } }
 }
 
 extension XCTestCase {
     public func expectPromise<T, U, V>(
-        _ callback: (Promise<T>) -> ((U) -> Void) -> V,
-        timeout: TimeInterval = WMFDefaultExpectationTimeout,
+        callback: (Promise<T>) -> ((U) -> Void) -> V,
+        timeout: NSTimeInterval = WMFDefaultExpectationTimeout,
         expirationHandler: XCWaitCompletionHandler? = nil,
         function: StaticString = #function,
         line: Int = #line,
@@ -40,9 +40,9 @@ extension XCTestCase {
             test: test)
     }
 
-    public func expectPromise<T, U, V>(_ callback: (Promise<T>) -> ((U) -> Void) -> V,
+    public func expectPromise<T, U, V>(callback: (Promise<T>) -> ((U) -> Void) -> V,
                                        description: String,
-                                       timeout: TimeInterval = WMFDefaultExpectationTimeout,
+                                       timeout: NSTimeInterval = WMFDefaultExpectationTimeout,
                                        expirationHandler: XCWaitCompletionHandler? = nil,
                                        pipe: ((U) -> Void)? = nil,
                                        test: () -> Promise<T>) {
@@ -54,8 +54,8 @@ extension XCTestCase {
             pipe: pipe)
     }
 
-    fileprivate func expectPromise<T, U>(_ callback: ((T) -> Void) -> U,
-                                     timeout: TimeInterval = WMFDefaultExpectationTimeout,
+    private func expectPromise<T, U>(callback: ((T) -> Void) -> U,
+                                     timeout: NSTimeInterval = WMFDefaultExpectationTimeout,
                                      expirationHandler: XCWaitCompletionHandler? = nil,
                                      function: StaticString = #function,
                                      line: Int = #line,
@@ -68,12 +68,12 @@ extension XCTestCase {
             pipe: pipe)
     }
 
-    fileprivate func expectPromise<T, U>(_ callback: ((T) -> Void) -> U,
+    private func expectPromise<T, U>(callback: ((T) -> Void) -> U,
                                      description: String,
-                                     timeout: TimeInterval = WMFDefaultExpectationTimeout,
+                                     timeout: NSTimeInterval = WMFDefaultExpectationTimeout,
                                      expirationHandler: XCWaitCompletionHandler? = nil,
                                      pipe: ((T) -> Void)? = nil) {
-            var pendingExpectation: XCTestExpectation? = expectation(description: description)
+            var pendingExpectation: XCTestExpectation? = expectationWithDescription(description)
             callback() { x in
                 guard let expectation = pendingExpectation else {
                     return

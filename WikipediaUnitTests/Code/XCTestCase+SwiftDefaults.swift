@@ -16,8 +16,8 @@ let defaultHandler: XCWaitCompletionHandler = { (err: NSError?) -> Void in
 }
 
 extension XCTestCase {
-    public func wmf_waitForExpectations(_ timeout: TimeInterval = WMFDefaultExpectationTimeout,
+    public func wmf_waitForExpectations(timeout: NSTimeInterval = WMFDefaultExpectationTimeout,
                                         handler: XCWaitCompletionHandler? = nil) {
-        self.waitForExpectations(timeout: timeout, handler: handler != nil ? handler : defaultHandler)
+        self.waitForExpectationsWithTimeout(timeout, handler: handler != nil ? handler : defaultHandler)
     }
 }

@@ -4,18 +4,18 @@ import SWStepSlider
 
 @objc public protocol WMFFontSliderViewControllerDelegate{
     
-    func sliderValueChangedInController(_ controller: WMFFontSliderViewController, value: Int)
+    func sliderValueChangedInController(controller: WMFFontSliderViewController, value: Int)
 }
 
-open class WMFFontSliderViewController: UIViewController {
+public class WMFFontSliderViewController: UIViewController {
 
-    @IBOutlet fileprivate var slider: SWStepSlider!
-    fileprivate var maximumValue: Int?
-    fileprivate var currentValue: Int?
+    @IBOutlet private var slider: SWStepSlider!
+    private var maximumValue: Int?
+    private var currentValue: Int?
     
-    open weak var delegate: WMFFontSliderViewControllerDelegate?
+    public weak var delegate: WMFFontSliderViewControllerDelegate?
     
-    open override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         if let max = self.maximumValue {
             if let current = self.currentValue {
@@ -26,8 +26,8 @@ open class WMFFontSliderViewController: UIViewController {
         }
     }
     
-    open func setValuesWithSteps(_ steps: Int, current: Int) {
-        if self.isViewLoaded {
+    public func setValuesWithSteps(steps: Int, current: Int) {
+        if self.isViewLoaded() {
             self.setValues(0, maximum: steps-1, current: current)
         }else{
             maximumValue = steps-1
@@ -35,13 +35,13 @@ open class WMFFontSliderViewController: UIViewController {
         }
     }
     
-    func setValues(_ minimum: Int, maximum: Int, current: Int){
+    func setValues(minimum: Int, maximum: Int, current: Int){
         self.slider.minimumValue = minimum
         self.slider.maximumValue = maximum
         self.slider.value = current
     }
     
-    @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
+    @IBAction func fontSliderValueChanged(slider: SWStepSlider) {
         if let delegate = self.delegate {
             delegate.sliderValueChangedInController(self, value: self.slider.value)
         }

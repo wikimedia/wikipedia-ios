@@ -1,6 +1,6 @@
 
 import UIKit
 
-open class WMFArticleFooterViewHeader: UIView {
-    @IBOutlet open var headerLabel: UILabel!
+public class WMFArticleFooterViewHeader: UIView {
+    @IBOutlet public var headerLabel: UILabel!
 }

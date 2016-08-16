@@ -1,35 +1,35 @@
 
 import UIKit
 
-open class WMFRotationRespectingTabBarController: UITabBarController {
+public class WMFRotationRespectingTabBarController: UITabBarController {
 
-    open override func shouldAutorotate() -> Bool {
-        if let vc = self.presentedViewController , !vc.isKind(of: UIAlertController.self) {
-            return vc.shouldAutorotate
+    public override func shouldAutorotate() -> Bool {
+        if let vc = self.presentedViewController where !vc.isKindOfClass(UIAlertController) {
+            return vc.shouldAutorotate()
         } else if let vc = self.selectedViewController {
-            return vc.shouldAutorotate
+            return vc.shouldAutorotate()
         }else{
-            return super.shouldAutorotate
+            return super.shouldAutorotate()
         }
     }
     
-    open override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if let vc = self.presentedViewController , !vc.isKind(of: UIAlertController.self) {
-            return vc.supportedInterfaceOrientations
+    public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        if let vc = self.presentedViewController where !vc.isKindOfClass(UIAlertController) {
+            return vc.supportedInterfaceOrientations()
         } else if let vc = self.selectedViewController {
-            return vc.supportedInterfaceOrientations
+            return vc.supportedInterfaceOrientations()
         }else{
-            return super.supportedInterfaceOrientations
+            return super.supportedInterfaceOrientations()
         }
     }
     
-    open override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        if let vc = self.presentedViewController , !vc.isKind(of: UIAlertController.self) {
-            return vc.preferredInterfaceOrientationForPresentation
+    public override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+        if let vc = self.presentedViewController where !vc.isKindOfClass(UIAlertController) {
+            return vc.preferredInterfaceOrientationForPresentation()
         } else if let vc = self.selectedViewController {
-            return vc.preferredInterfaceOrientationForPresentation
+            return vc.preferredInterfaceOrientationForPresentation()
         }else{
-            return super.preferredInterfaceOrientationForPresentation
+            return super.preferredInterfaceOrientationForPresentation()
         }
     }
 }

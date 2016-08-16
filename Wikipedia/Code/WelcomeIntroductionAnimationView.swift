@@ -1,6 +1,6 @@
 import Foundation
 
-open class WelcomeIntroAnimationView : WelcomeAnimationView {
+public class WelcomeIntroAnimationView : WelcomeAnimationView {
 
     lazy var tubeImgView: UIImageView = {
         let tubeRotationPoint = CGPointMake(0.576, 0.38)
@@ -101,7 +101,7 @@ open class WelcomeIntroAnimationView : WelcomeAnimationView {
         )
     }()
     
-    override open func didMoveToSuperview() {
+    override public func didMoveToSuperview() {
         super.didMoveToSuperview()
 
         self.addSubview(self.baseImgView)
@@ -120,7 +120,7 @@ open class WelcomeIntroAnimationView : WelcomeAnimationView {
             })
     }
     
-    open func beginAnimations() {
+    public func beginAnimations() {
         CATransaction.begin()
         
         let tubeOvershootRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(15.0)

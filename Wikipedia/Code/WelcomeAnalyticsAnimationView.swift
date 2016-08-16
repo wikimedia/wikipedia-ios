@@ -1,6 +1,6 @@
 import Foundation
 
-open class WelcomeAnalyticsAnimationView : WelcomeAnimationView {
+public class WelcomeAnalyticsAnimationView : WelcomeAnimationView {
 
     lazy var fileImgView: UIImageView = {
         let imgView = UIImageView(frame: self.bounds)
@@ -180,7 +180,7 @@ open class WelcomeAnalyticsAnimationView : WelcomeAnimationView {
         )
     }()
     
-    override open func didMoveToSuperview() {
+    override public func didMoveToSuperview() {
         super.didMoveToSuperview()
 
         self.addSubview(self.fileImgView)
@@ -211,7 +211,7 @@ open class WelcomeAnalyticsAnimationView : WelcomeAnimationView {
             })
     }
     
-    open func beginAnimations() {
+    public func beginAnimations() {
         CATransaction.begin()
         
         fileImgView.layer.wmf_animateToOpacity(1.0,

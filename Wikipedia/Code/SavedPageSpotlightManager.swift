@@ -4,18 +4,18 @@ import MobileCoreServices
 import CoreSpotlight
 
 
-public extension URL {
+public extension NSURL {
     @available(iOS 9.0, *)
     func searchableItemAttributes() -> CSSearchableItemAttributeSet? {
         guard wmf_isWikiResource else {
             return nil
         }
         let searchableItem = CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
-        searchableItem.keywords = ["Wikipedia","Wikimedia","Wiki"] + wmf_title.components(separatedBy: " ")
+        searchableItem.keywords = ["Wikipedia","Wikimedia","Wiki"] + wmf_title.componentsSeparatedByString(" ")
         searchableItem.title = wmf_title
         searchableItem.displayName = wmf_title
-        searchableItem.identifier = URL.wmf_desktopURL(for: self).absoluteString
-        searchableItem.relatedUniqueIdentifier = URL.wmf_desktopURL(for: self).absoluteString
+        searchableItem.identifier = NSURL.wmf_desktopURLForURL(self).absoluteString
+        searchableItem.relatedUniqueIdentifier = NSURL.wmf_desktopURLForURL(self).absoluteString
         return searchableItem
     }
 }
@@ -39,7 +39,7 @@ public extension MWKArticle {
 
 @available(iOS 9.0, *)
 
-open class WMFSavedPageSpotlightManager: NSObject {
+public class WMFSavedPageSpotlightManager: NSObject {
     
     let dataStore: MWKDataStore
     var savedPageList: MWKSavedPageList {
@@ -47,7 +47,7 @@ open class WMFSavedPageSpotlightManager: NSObject {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     public required init(dataStore: MWKDataStore) {
@@ -56,15 +56,15 @@ open class WMFSavedPageSpotlightManager: NSObject {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WMFSavedPageSpotlightManager.didUpdateItem(_:)), name: MWKItemUpdatedNotification, object: nil)
     }
     
-    open func reindexSavedPages() {
+    public func reindexSavedPages() {
         self.savedPageList.enumerateItemsWithBlock { (item, stop) in
             self.addToIndex(item.url)
         }
     }
     
-    func didUpdateItem(_ notification: Notification){
+    func didUpdateItem(notification: NSNotification){
         if let urlString = notification.object as? String {
-            if let url = URL.init(string: urlString) {
+            if let url = NSURL.init(string: urlString) {
                 if self.savedPageList.isSaved(url){
                     addToIndex(url)
                 }else{
@@ -74,15 +74,15 @@ open class WMFSavedPageSpotlightManager: NSObject {
         }
     }
     
-    func addToIndex(_ url: URL) {
+    func addToIndex(url: NSURL) {
         if let article = dataStore.existingArticleWithURL(url) {
             
 
             let searchableItemAttributes = article.searchableItemAttributes()
             searchableItemAttributes.keywords?.append("Saved")
             
-            let item = CSSearchableItem(uniqueIdentifier: URL.wmf_desktopURLForURL(url).absoluteString, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
-            item.expirationDate = Date.distantFuture()
+            let item = CSSearchableItem(uniqueIdentifier: NSURL.wmf_desktopURLForURL(url).absoluteString, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
+            item.expirationDate = NSDate.distantFuture()
             
             CSSearchableIndex.defaultSearchableIndex().indexSearchableItems([item]) { (error: NSError?) -> Void in
                 if let error = error {
@@ -94,8 +94,8 @@ open class WMFSavedPageSpotlightManager: NSObject {
         }
     }
     
-    func removeFromIndex(_ url: URL) {
-        CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [URL.wmf_desktopURL(for: url).absoluteString]) { (error: NSError?) -> Void in
+    func removeFromIndex(url: NSURL) {
+        CSSearchableIndex.defaultSearchableIndex().deleteSearchableItemsWithIdentifiers([NSURL.wmf_desktopURLForURL(url).absoluteString]) { (error: NSError?) -> Void in
             if let error = error {
                 DDLogError("Deindexing error: \(error.localizedDescription)")
             } else {

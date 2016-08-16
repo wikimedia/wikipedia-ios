@@ -4,21 +4,21 @@ public protocol TableOfContentsFooterItem : TableOfContentsItem {
     var footerViewIndex: WMFArticleFooterViewIndex { get }
 }
 
-open class TableOfContentsReadMoreItem : NSObject, TableOfContentsFooterItem {
-    let url:URL
-    init(url: URL) {
+public class TableOfContentsReadMoreItem : NSObject, TableOfContentsFooterItem {
+    let url:NSURL
+    init(url: NSURL) {
         self.url = url
         super.init()
     }
     
-    open var titleText:String {
+    public var titleText:String {
         return localizedStringForURLWithKeyFallingBackOnEnglish(self.url, "article-read-more-title")
     }
     
-    open let itemType: TableOfContentsItemType = TableOfContentsItemType.primary
-    open let footerViewIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex.ReadMore
+    public let itemType: TableOfContentsItemType = TableOfContentsItemType.Primary
+    public let footerViewIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex.ReadMore
 
-    open override func isEqual(_ object: Any?) -> Bool {
+    public override func isEqual(object: AnyObject?) -> Bool {
         if let item = object as? TableOfContentsReadMoreItem {
             return self === item
                 || (titleText == item.titleText

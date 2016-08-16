@@ -10,16 +10,16 @@ import Foundation
 import PromiseKit
 
 enum BackgroundTaskError : CancellableErrorType {
-    case `deinit`
-    case taskExpired
-    case invalidTask
+    case Deinit
+    case TaskExpired
+    case InvalidTask
 
     var cancelled: Bool {
         get {
             switch(self) {
-            case .deinit, .taskExpired:
+            case .Deinit, .TaskExpired:
                 return true
-            case .invalidTask:
+            case .InvalidTask:
                 return false
             }
         }
@@ -27,20 +27,20 @@ enum BackgroundTaskError : CancellableErrorType {
 }
 
 /// Serially process items returned by a function, managing a background task for each one.
-open class WMFBackgroundTaskManager<T> {
+public class WMFBackgroundTaskManager<T> {
     /**
     * Function called to retrieve the next item for processing.
     *
     * Returns: The next item to process, or `nil` if there aren't any items left to process.
     */
-    fileprivate let next: ()->T?
+    private let next: ()->T?
 
     /**
     * Function called to process items.
     *
     * Returns: A promise which resolves when the processing is done.
     */
-    fileprivate let processor: (T) -> Promise<Void>
+    private let processor: (T) -> Promise<Void>
 
     /**
     * Function called when the manager stops processing tasks, e.g. to do any necessary clean up work.
@@ -50,30 +50,30 @@ open class WMFBackgroundTaskManager<T> {
     * - One of the items failed to process, canceling all further processing
     * - One of the tasks' expiration handlers was invoked, canceling all further processing.
     */
-    fileprivate let finalize: () -> Promise<Void>
+    private let finalize: () -> Promise<Void>
 
     /**
     * Dispatch queue where all of the above functions will be invoked.
     *
     * Defaults to the global queue with "background" priority.
     */
-    fileprivate let queue: DispatchQueue
+    private let queue: dispatch_queue_t
 
     /**
     * Internal. Function called to resolve the promise returned by `start()`.
     *
     * See: start()
     */
-    fileprivate typealias WMFBackgroundTaskResolver = () -> Void
-    fileprivate var resolve: WMFBackgroundTaskResolver!
+    private typealias WMFBackgroundTaskResolver = () -> Void
+    private var resolve: WMFBackgroundTaskResolver!
 
     /**
     * Internal. Function called to reject the promise returned by `start()`.
     *
     * See: start()
     */
-    fileprivate typealias WMFBackgroundTaskRejecter = (Error) -> Void
-    fileprivate var reject: WMFBackgroundTaskRejecter!
+    private typealias WMFBackgroundTaskRejecter = (ErrorType) -> Void
+    private var reject: WMFBackgroundTaskRejecter!
 
     /**
     * Initialize a new background task manager with the given functions and queue.
@@ -83,7 +83,7 @@ open class WMFBackgroundTaskManager<T> {
     public required init(next: ()->T?,
                          processor: (T) -> Promise<Void>,
                          finalize: () -> Promise<Void>,
-                         queue: DispatchQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+                         queue: dispatch_queue_t = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
             self.next = next
             self.processor = processor
             self.finalize = finalize
@@ -101,14 +101,14 @@ open class WMFBackgroundTaskManager<T> {
     *
     * Returns: A promise which will resolve when all are completed successfully or rejected in case one fails or expires.
     */
-    open func start () -> Promise<Void> {
+    public func start () -> Promise<Void> {
         // need to track recursion manually since promises aren't recursive
         let (promise, resolve, reject) = Promise<Void>.pendingPromise()
         self.resolve = resolve
         self.reject = { reject($0) }
 
         // recursively process items until all are done or one fails
-        queue.async {
+        dispatch_async(queue) {
             self.processNext()
         }
 
@@ -122,7 +122,7 @@ open class WMFBackgroundTaskManager<T> {
     }
 
     /// Process the next item returned by `next`, or resolve if `nil`.
-    fileprivate func processNext() {
+    private func processNext() {
         if let nextItem = next() {
             return processNext(nextItem)
         } else {
@@ -132,10 +132,10 @@ open class WMFBackgroundTaskManager<T> {
     }
 
     /// Start a background task and process `nextItem`, then invoke `processNext()` to continue recursive processing.
-    fileprivate func processNext(_ nextItem: T) {
+    private func processNext(nextItem: T) {
         let (taskPromise, resolveTask, rejectTask) = Promise<Void>.pendingPromise()
         // start a new background task, which will represent this "link" in the promise chain
-        let taskId = type(of: self).startTask() {
+        let taskId = self.dynamicType.startTask() {
             // if we run out of time, cancel this (and subsequent) tasks
             rejectTask(BackgroundTaskError.TaskExpired)
         }
@@ -148,7 +148,7 @@ open class WMFBackgroundTaskManager<T> {
         }
 
         // grab ref to polymorphic stopTask function (mocked during testing)
-        let stopTask = type(of: self).stopTask
+        let stopTask = self.dynamicType.stopTask
 
         // start task, propagating its state to our internal promise (which is also rejected on expiration)
         processor(nextItem)
@@ -172,12 +172,12 @@ open class WMFBackgroundTaskManager<T> {
     // MARK: - Background Task Wrappers
 
     /// Create a background task (modified during testing).
-    internal class func startTask(_ expirationHandler: ()->Void) -> UIBackgroundTaskIdentifier {
+    internal class func startTask(expirationHandler: ()->Void) -> UIBackgroundTaskIdentifier {
         return UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(expirationHandler)
     }
 
     /// Stop a background task (modified during testing).
-    internal class func stopTask(_ task: UIBackgroundTaskIdentifier) {
+    internal class func stopTask(task: UIBackgroundTaskIdentifier) {
         UIApplication.sharedApplication().endBackgroundTask(task)
     }
 }

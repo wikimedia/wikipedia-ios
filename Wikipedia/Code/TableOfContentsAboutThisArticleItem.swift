@@ -1,20 +1,20 @@
 import Foundation
 
-open class TableOfContentsAboutThisArticleItem : NSObject, TableOfContentsFooterItem {
-    let url:URL
-    init(url: URL) {
+public class TableOfContentsAboutThisArticleItem : NSObject, TableOfContentsFooterItem {
+    let url:NSURL
+    init(url: NSURL) {
         self.url = url
         super.init()
     }
     
-    open var titleText:String {
+    public var titleText:String {
         return localizedStringForURLWithKeyFallingBackOnEnglish(self.url, "article-about-title")
     }
     
-    open let itemType: TableOfContentsItemType = TableOfContentsItemType.primary
-    open let footerViewIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex.AboutThisArticle
+    public let itemType: TableOfContentsItemType = TableOfContentsItemType.Primary
+    public let footerViewIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex.AboutThisArticle
 
-    open override func isEqual(_ object: Any?) -> Bool {
+    public override func isEqual(object: AnyObject?) -> Bool {
         if let item = object as? TableOfContentsAboutThisArticleItem {
             return self === item
                 || (titleText == item.titleText

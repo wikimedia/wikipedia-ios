@@ -13,8 +13,8 @@ public protocol Cancellable {
     func cancel() -> Void
 }
 
-extension Operation: Cancellable {}
+extension NSOperation: Cancellable {}
 
 extension NSURLConnection: Cancellable {}
 
-extension URLSessionTask: Cancellable {}
+extension NSURLSessionTask: Cancellable {}

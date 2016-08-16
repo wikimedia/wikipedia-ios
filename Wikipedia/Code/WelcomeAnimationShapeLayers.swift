@@ -1,6 +1,6 @@
 import Foundation
 
-open class WelcomeShapeLayer : CAShapeLayer {
+public class WelcomeShapeLayer : CAShapeLayer {
     public init(referenceSize: CGSize, transform: CATransform3D, opacity: CGFloat) {
         super.init()
 
@@ -22,7 +22,7 @@ open class WelcomeShapeLayer : CAShapeLayer {
     }
 }
 
-open class WelcomeBarShapeLayer : WelcomeShapeLayer {
+public class WelcomeBarShapeLayer : WelcomeShapeLayer {
     public required init(unitRect: CGRect, referenceSize: CGSize, transform: CATransform3D) {
         super.init(referenceSize: referenceSize, transform: transform, opacity:1.0)
 
@@ -41,7 +41,7 @@ open class WelcomeBarShapeLayer : WelcomeShapeLayer {
     }
 }
 
-open class WelcomeCircleShapeLayer : WelcomeShapeLayer {
+public class WelcomeCircleShapeLayer : WelcomeShapeLayer {
     public required init(unitRadius: CGFloat, unitOrigin:CGPoint, referenceSize: CGSize, isDashed: Bool, transform: CATransform3D, opacity: CGFloat) {
         super.init(referenceSize: referenceSize, transform: transform, opacity: opacity)
 
@@ -72,7 +72,7 @@ open class WelcomeCircleShapeLayer : WelcomeShapeLayer {
     }
 }
 
-open class WelcomePlusShapeLayer : WelcomeShapeLayer {
+public class WelcomePlusShapeLayer : WelcomeShapeLayer {
     public required init(unitOrigin: CGPoint, unitWidth: CGFloat, referenceSize: CGSize, transform: CATransform3D, opacity: CGFloat) {
         super.init(referenceSize: referenceSize, transform: transform, opacity: opacity)
 
@@ -94,7 +94,7 @@ open class WelcomePlusShapeLayer : WelcomeShapeLayer {
     }
 }
 
-open class WelcomeLineShapeLayer : WelcomeShapeLayer {
+public class WelcomeLineShapeLayer : WelcomeShapeLayer {
     public required init(unitOrigin: CGPoint, unitWidth: CGFloat, referenceSize: CGSize, transform: CATransform3D, opacity: CGFloat) {
         super.init(referenceSize: referenceSize, transform: transform, opacity: opacity)
 

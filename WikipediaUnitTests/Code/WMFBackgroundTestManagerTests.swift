@@ -16,16 +16,16 @@ var stoppedTasks: [Int] = []
  * Mock of background task manager that allows for testing of start/stop/expiration cases by replacing UIApplication
  * calls with our own.
  */
-open class WMFMockedBackgroundTaskManager<T> : WMFBackgroundTaskManager<T> {
+public class WMFMockedBackgroundTaskManager<T> : WMFBackgroundTaskManager<T> {
     public required init(next: () -> T?,
                          processor: (T) -> Promise<Void>,
                          finalize: () -> Promise<Void>,
-                         queue: DispatchQueue = dispatch_get_global_queue(0, 0)) {
+                         queue: dispatch_queue_t = dispatch_get_global_queue(0, 0)) {
         super.init(next: next, processor: processor, finalize: finalize, queue: queue)
     }
 
     // Instead of starting a background task, increment our task counter and store the expiration handler for later.
-    override class func startTask(_ expirationHandler: @escaping () -> Void) -> UIBackgroundTaskIdentifier {
+    override class func startTask(expirationHandler: () -> Void) -> UIBackgroundTaskIdentifier {
         expirationHandlers.append(expirationHandler)
         let oldValue = currentTask
         currentTask += 1
@@ -33,12 +33,12 @@ open class WMFMockedBackgroundTaskManager<T> : WMFBackgroundTaskManager<T> {
     }
 
     // Instead of stopping a task, store it as a task that we would have stopped.
-    override class func stopTask(_ task: UIBackgroundTaskIdentifier) {
+    override class func stopTask(task: UIBackgroundTaskIdentifier) {
         stoppedTasks.append(task)
     }
 }
 
-
+@objc
 class WMFBackgroundTaskManagerTests : WMFAsyncTestCase {
     var didFinalize: Bool = false
 
@@ -76,7 +76,7 @@ class WMFBackgroundTaskManagerTests : WMFAsyncTestCase {
     func testResolvesWhenNextReturnsNilAfterReturningNonNilValues() {
         var items = Array(0...10)
         var processedItems: [Int] = []
-        let expectedItems = Array(items.reversed())
+        let expectedItems = Array(items.reverse())
         let taskMgr = WMFMockedBackgroundTaskManager(
         next: { () -> Int? in
             let item: Int? = items.count > 0 ? items.removeLast() : nil
@@ -106,9 +106,9 @@ class WMFBackgroundTaskManagerTests : WMFAsyncTestCase {
     func testRejectsWithoutProcessingFurtherItemsWhenRejected() {
         var items: [AnyObject] = Array(1...10)
         let errIndex = 5
-        items.insert(NSError(domain: "OH NO", code: 0, userInfo: nil), at: errIndex)
+        items.insert(NSError(domain: "OH NO", code: 0, userInfo: nil), atIndex: errIndex)
         var processedItems: [Int] = []
-        let expectedItems: [Int] = Array(items.reversed()[0...errIndex - 1].map({ $0 as! Int }))
+        let expectedItems: [Int] = Array(items.reverse()[0...errIndex - 1].map({ $0 as! Int }))
 
         let taskMgr = WMFMockedBackgroundTaskManager(
         next: { () -> AnyObject? in
@@ -141,7 +141,7 @@ class WMFBackgroundTaskManagerTests : WMFAsyncTestCase {
         let indexOfItemToExpire = 5
         let itemToExpire = items[indexOfItemToExpire]
         var processedItems: [Int] = []
-        let expectedItems = Array(items.reversed()[0...items.count - indexOfItemToExpire - 1])
+        let expectedItems = Array(items.reverse()[0...items.count - indexOfItemToExpire - 1])
 
         let taskMgr = WMFMockedBackgroundTaskManager(
         next: { () -> Int? in
@@ -203,7 +203,7 @@ class WMFBackgroundTaskManagerTests : WMFAsyncTestCase {
         }
     }
 
-    func verifyExpectedNumberOfStartedAndStoppedBackgroundTasks(_ expectedNumberOfTasks: Int) {
+    func verifyExpectedNumberOfStartedAndStoppedBackgroundTasks(expectedNumberOfTasks: Int) {
         // task identifiers start at 1, so the counter should be at the expected number of tasks + 1
         XCTAssertEqual(currentTask, expectedNumberOfTasks + 1)
         // since we should stop every task before starting the next, the stoppedTasks should contain all tasks up to

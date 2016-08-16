@@ -3,15 +3,15 @@ import Foundation
 // MARK: - TOC Item Types
 
 public enum TableOfContentsItemType {
-    case primary
-    case secondary
+    case Primary
+    case Secondary
 
     var titleFont: UIFont {
         get {
             switch (self) {
-            case .primary:
+            case .Primary:
                 return UIFont.wmf_tableOfContentsSectionFont()
-            case .secondary:
+            case .Secondary:
                 return UIFont.wmf_tableOfContentsSubsectionFont()
             }
         }
@@ -20,9 +20,9 @@ public enum TableOfContentsItemType {
     var titleColor: UIColor {
         get {
             switch (self) {
-            case .primary:
+            case .Primary:
                 return UIColor.wmf_tableOfContentsSectionTextColor()
-            case .secondary:
+            case .Secondary:
                 return UIColor.wmf_tableOfContentsSubsectionTextColor()
             }
         }
@@ -30,8 +30,8 @@ public enum TableOfContentsItemType {
 }
 
 public enum TableOfContentsBorderType {
-    case topOnly
-    case none
+    case TopOnly
+    case None
 }
 
 // MARK: - TOC Item
@@ -41,13 +41,13 @@ public protocol TableOfContentsItem : NSObjectProtocol {
     var itemType: TableOfContentsItemType { get }
     var indentationLevel: Int { get }
 
-    func shouldBeHighlightedAlongWithItem(_ item: TableOfContentsItem) -> Bool
+    func shouldBeHighlightedAlongWithItem(item: TableOfContentsItem) -> Bool
 }
 
 // MARK: - TOC Item Defaults
 
 extension TableOfContentsItem {
-    public func shouldBeHighlightedAlongWithItem(_ item: TableOfContentsItem) -> Bool {
+    public func shouldBeHighlightedAlongWithItem(item: TableOfContentsItem) -> Bool {
         return item === self
     }
     

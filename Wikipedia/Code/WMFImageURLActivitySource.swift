@@ -1,7 +1,7 @@
 
 import UIKit
 
-open class WMFImageURLActivitySource: NSObject, UIActivityItemSource {
+public class WMFImageURLActivitySource: NSObject, UIActivityItemSource {
 
     let info: MWKImageInfo
     
@@ -10,19 +10,19 @@ open class WMFImageURLActivitySource: NSObject, UIActivityItemSource {
         super.init()
     }
     
-    open func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
-        return URL()
+    public func activityViewControllerPlaceholderItem(activityViewController: UIActivityViewController) -> AnyObject {
+        return NSURL()
     }
     
-    open func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType) -> Any? {
+    public func activityViewController(activityViewController: UIActivityViewController, itemForActivityType activityType: String) -> AnyObject? {
         
-        var url: URL?
+        var url: NSURL?
         
-        if activityType == UIActivityType.postToTwitter
-        || activityType == UIActivityType.postToWeibo
-        || activityType == UIActivityType.postToTencentWeibo{
+        if activityType == UIActivityTypePostToTwitter
+        || activityType == UIActivityTypePostToWeibo
+        || activityType == UIActivityTypePostToTencentWeibo{
             let string = "\(info.filePageURL.absoluteString)?wprov=sfii1"
-            url = URL(string: string)
+            url = NSURL(string: string)
         }else {
             url = nil
         }
