@@ -75,24 +75,17 @@ PODS:
   - PiwikTracker (3.3.0):
     - PiwikTracker/Core (= 3.3.0)
   - PiwikTracker/Core (3.3.0)
-  - PromiseKit (4.0.0):
-    - PromiseKit/Foundation (= 4.0.0)
-    - PromiseKit/QuartzCore (= 4.0.0)
-    - PromiseKit/UIKit (= 4.0.0)
-  - PromiseKit/CorePromise (4.0.0)
-  - PromiseKit/Foundation (4.0.0):
+  - PromiseKit (3.5.0):
+    - PromiseKit/Foundation (= 3.5.0)
+    - PromiseKit/QuartzCore (= 3.5.0)
+    - PromiseKit/UIKit (= 3.5.0)
+  - PromiseKit/CorePromise (3.5.0)
+  - PromiseKit/Foundation (3.5.0):
     - OMGHTTPURLRQ (~> 3.2.0)
     - PromiseKit/CorePromise
-    - PromiseKit/Foundation/Deprecated (= 4.0.0)
-  - PromiseKit/Foundation/Deprecated (4.0.0):
-    - OMGHTTPURLRQ (~> 3.2.0)
+  - PromiseKit/QuartzCore (3.5.0):
     - PromiseKit/CorePromise
-  - PromiseKit/QuartzCore (4.0.0):
-    - PromiseKit/CorePromise
-  - PromiseKit/UIKit (4.0.0):
-    - PromiseKit/CorePromise
-    - PromiseKit/UIKit/Deprecated (= 4.0.0)
-  - PromiseKit/UIKit/Deprecated (4.0.0):
+  - PromiseKit/UIKit (3.5.0):
     - PromiseKit/CorePromise
   - Quick (0.9.3)
   - Reachability (3.2)
@@ -180,7 +173,7 @@ DEPENDENCIES:
   - OCHamcrest (~> 4.2.0)
   - OCMockito (~> 1.4.0)
   - PiwikTracker
-  - PromiseKit (from `https://github.com/mxcl/PromiseKit.git`, tag `4.0.0`)
+  - PromiseKit (~> 3.4)
   - Quick (~> 0.9.0)
   - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `bb49df83e72f2231a191e9477a85f0effe13430a`)
   - SSDataSources (~> 0.8.0)
@@ -202,9 +195,6 @@ EXTERNAL SOURCES:
     :git: git@github.com:wikimedia/NSDate-Extensions.git
   OAStackView:
     :git: git@github.com:wikimedia/OAStackView.git
-  PromiseKit:
-    :git: https://github.com/mxcl/PromiseKit.git
-    :tag: 4.0.0
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
@@ -226,9 +216,6 @@ CHECKOUT OPTIONS:
   OAStackView:
     :commit: f2adee6f7b66bf1192a4bd551fa343abf6d5aa2d
     :git: git@github.com:wikimedia/OAStackView.git
-  PromiseKit:
-    :git: https://github.com/mxcl/PromiseKit.git
-    :tag: 4.0.0
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
@@ -263,7 +250,7 @@ SPEC CHECKSUMS:
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
   OMGHTTPURLRQ: 1e54807cb7d5dbb506926e53498e1e9ac5720c79
   PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
-  PromiseKit: 98c258f5e43cff92d87c54067865a59aeb53cca7
+  PromiseKit: 3a8a529c0571f8c2c423dba0897ff39bc060bf92
   Quick: 13a2a2b19a5d8e3ed4fd0c36ee46597fd77ebf71
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
@@ -276,6 +263,6 @@ SPEC CHECKSUMS:
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
 
-PODFILE CHECKSUM: 0716f3ef7a3b4bc016af401ac0e25099cf1b8b69
+PODFILE CHECKSUM: c9b4ab74e016a9627337c0863f2866a80c18db1d
 
 COCOAPODS: 1.0.1
