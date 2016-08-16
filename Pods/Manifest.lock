@@ -181,7 +181,7 @@ DEPENDENCIES:
   - OCHamcrest (~> 4.2.0)
   - OCMockito (~> 1.4.0)
   - PiwikTracker
-  - PromiseKit (from `https://github.com/mxcl/PromiseKit.git`, tag `4.0.0`)
+  - PromiseKit (from `https://github.com/mxcl/PromiseKit.git`, branch `swift-3.0`)
   - Quick (~> 0.9.0)
   - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `bb49df83e72f2231a191e9477a85f0effe13430a`)
   - SSDataSources (~> 0.8.0)
@@ -204,8 +204,8 @@ EXTERNAL SOURCES:
   OAStackView:
     :git: git@github.com:wikimedia/OAStackView.git
   PromiseKit:
+    :branch: swift-3.0
     :git: https://github.com/mxcl/PromiseKit.git
-    :tag: 4.0.0
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
@@ -228,8 +228,8 @@ CHECKOUT OPTIONS:
     :commit: f2adee6f7b66bf1192a4bd551fa343abf6d5aa2d
     :git: git@github.com:wikimedia/OAStackView.git
   PromiseKit:
+    :commit: c0481ef2f08a980f608e7cb823b8645318ef9158
     :git: https://github.com/mxcl/PromiseKit.git
-    :tag: 4.0.0
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
@@ -277,6 +277,6 @@ SPEC CHECKSUMS:
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
 
-PODFILE CHECKSUM: f3344405e952923e93f10079c7ce11bad44d14a1
+PODFILE CHECKSUM: 197e27b43e37411d7becb010bbd047bcd390f169
 
 COCOAPODS: 1.0.1

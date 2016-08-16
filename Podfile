@@ -33,7 +33,7 @@ abstract_target 'Foundation' do
   pod 'YapDatabase'
 
   # Promises
-  pod 'PromiseKit', :git => 'https://github.com/mxcl/PromiseKit.git', :tag => '4.0.0'
+  pod 'PromiseKit', :git => 'https://github.com/mxcl/PromiseKit.git', :branch => 'swift-3.0'
 
   # Datasources
   pod 'SSDataSources', '~> 0.8.0'
