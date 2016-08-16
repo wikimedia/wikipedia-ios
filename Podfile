@@ -77,11 +77,15 @@ abstract_target 'Foundation' do
   end
 end
 
-
-
 post_install do |installer|
   plist_buddy = "/usr/libexec/PlistBuddy"
   version = `#{plist_buddy} -c "Print CFBundleShortVersionString" Wikipedia/Wikipedia-Info.plist`.strip
+
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = '2.3'
+    end
+  end
 
   def enable_tweaks(target)
     target.build_configurations.each { |c|
