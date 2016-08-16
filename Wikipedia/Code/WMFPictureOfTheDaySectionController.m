@@ -10,7 +10,7 @@
 #import "NSDateFormatter+WMFExtensions.h"
 #import "Wikipedia-Swift.h"
 #import "NSDate+WMFDateRanges.h"
-#import <NSDate-Extensions/NSDate+Utilities.h>
+@import NSDate_Extensions;
 
 NS_ASSUME_NONNULL_BEGIN
 

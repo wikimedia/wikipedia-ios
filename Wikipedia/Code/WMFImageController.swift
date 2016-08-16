@@ -1,4 +1,5 @@
 import Foundation
+import SDWebImage
 
 ///
 /// @name Constants
