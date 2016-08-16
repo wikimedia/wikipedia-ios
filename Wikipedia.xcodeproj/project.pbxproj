@@ -71,6 +71,7 @@
 		0EC376331D3002830001D4BF /* NSDictionary+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC376321D3002830001D4BF /* NSDictionary+WMFExtensions.m */; };
 		0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED2E9F91CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift */; };
 		0EE489031D4ADCA00088505C /* UITableViewController+WMFScrollToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE489021D4ADCA00088505C /* UITableViewController+WMFScrollToTop.swift */; };
+		0EE489051D4AE0900088505C /* CocoaLumberjack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE489041D4AE0900088505C /* CocoaLumberjack.swift */; };
 		0EE489101D4C1C920088505C /* MWKHistoryEntry+WMFDatabaseStorable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE4890F1D4C1C920088505C /* MWKHistoryEntry+WMFDatabaseStorable.m */; };
 		0EF2249A1CC5536200FDF78E /* WMFLanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF224991CC5536200FDF78E /* WMFLanguageCell.m */; };
 		0EF5BB6A1C110BFC00DE75E1 /* WMFLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB691C110BFC00DE75E1 /* WMFLocalization.m */; };
@@ -661,7 +662,6 @@
 		D84F2BFD1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BFA1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js */; };
 		D84F2C001D2FEEF600963D42 /* WMFRandomArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BFF1D2FEEF600963D42 /* WMFRandomArticleViewController.m */; };
 		D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2C021D30162700963D42 /* WMFFirstRandomViewController.m */; };
-		D85E03A41D636DC7006916E2 /* CocoaLumberjack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E03A31D636DC7006916E2 /* CocoaLumberjack.swift */; };
 		D86706BE1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */; };
 		D86706C31D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706C21D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m */; };
 		D86C1BAE1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = D86C1BAD1D05CFDC001B6300 /* NSURLComponents+WMFLinkParsing.m */; };
@@ -801,6 +801,7 @@
 		0ED2E9F91CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIVIewController+WMFCommonRotationSupport.swift"; path = "Wikipedia/Code/UIVIewController+WMFCommonRotationSupport.swift"; sourceTree = SOURCE_ROOT; };
 		0ED79A3B1CB5B507005D9AF5 /* Wikipedia-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Wikipedia-Info.plist"; sourceTree = "<group>"; };
 		0EE489021D4ADCA00088505C /* UITableViewController+WMFScrollToTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UITableViewController+WMFScrollToTop.swift"; path = "Wikipedia/Code/UITableViewController+WMFScrollToTop.swift"; sourceTree = SOURCE_ROOT; };
+		0EE489041D4AE0900088505C /* CocoaLumberjack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CocoaLumberjack.swift; path = Pods/CocoaLumberjack/Classes/CocoaLumberjack.swift; sourceTree = SOURCE_ROOT; };
 		0EE4890C1D4C1BEE0088505C /* WMFDatabaseStorable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDatabaseStorable.h; path = Wikipedia/Code/WMFDatabaseStorable.h; sourceTree = SOURCE_ROOT; };
 		0EE4890E1D4C1C920088505C /* MWKHistoryEntry+WMFDatabaseStorable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKHistoryEntry+WMFDatabaseStorable.h"; path = "Wikipedia/Code/MWKHistoryEntry+WMFDatabaseStorable.h"; sourceTree = SOURCE_ROOT; };
 		0EE4890F1D4C1C920088505C /* MWKHistoryEntry+WMFDatabaseStorable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKHistoryEntry+WMFDatabaseStorable.m"; path = "Wikipedia/Code/MWKHistoryEntry+WMFDatabaseStorable.m"; sourceTree = SOURCE_ROOT; };
@@ -1984,7 +1985,6 @@
 		D84F2BFF1D2FEEF600963D42 /* WMFRandomArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFRandomArticleViewController.m; sourceTree = "<group>"; };
 		D84F2C011D30162700963D42 /* WMFFirstRandomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFFirstRandomViewController.h; sourceTree = "<group>"; };
 		D84F2C021D30162700963D42 /* WMFFirstRandomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFFirstRandomViewController.m; sourceTree = "<group>"; };
-		D85E03A31D636DC7006916E2 /* CocoaLumberjack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CocoaLumberjack.swift; path = Wikipedia/Code/CocoaLumberjack.swift; sourceTree = SOURCE_ROOT; };
 		D86706BC1D3D4566003AB2FC /* WMFExploreCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreCollectionViewCell.h; path = Wikipedia/Code/WMFExploreCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreCollectionViewCell.m; path = Wikipedia/Code/WMFExploreCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		D86706C11D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFColumnarCollectionViewLayout.h; path = Wikipedia/Code/WMFColumnarCollectionViewLayout.h; sourceTree = SOURCE_ROOT; };
@@ -3058,7 +3058,7 @@
 		0EE488FF1D4AD5D10088505C /* CocoaLumberjack */ = {
 			isa = PBXGroup;
 			children = (
-				D85E03A31D636DC7006916E2 /* CocoaLumberjack.swift */,
+				0EE489041D4AE0900088505C /* CocoaLumberjack.swift */,
 			);
 			path = CocoaLumberjack;
 			sourceTree = "<group>";
@@ -5848,6 +5848,7 @@
 				B0E806691C0CE9030065EBC0 /* LoginTokenFetcher.m in Sources */,
 				BCB00EC41C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				0E09EAC31C4426470058F2D8 /* WMFSearchResultsTableViewController.m in Sources */,
+				0EE489051D4AE0900088505C /* CocoaLumberjack.swift in Sources */,
 				B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				B0E806991C0CEAC20065EBC0 /* AccountCreationViewController.m in Sources */,
 				0EC376331D3002830001D4BF /* NSDictionary+WMFExtensions.m in Sources */,
@@ -6003,7 +6004,6 @@
 				D81FB26C1D493E6A0000C685 /* WMFCVLMetrics.m in Sources */,
 				BCA15AF41C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.m in Sources */,
 				B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */,
-				D85E03A41D636DC7006916E2 /* CocoaLumberjack.swift in Sources */,
 				B0E807291C0CED530065EBC0 /* MWLanguageInfo.m in Sources */,
 				0E0361741C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m in Sources */,
 				D81082F81D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m in Sources */,
