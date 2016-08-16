@@ -24,6 +24,7 @@ abstract_target 'Foundation' do
   pod 'BlocksKit/Core', '~> 2.2.0'
   pod 'BlocksKit/UIKit', '~> 2.2.0'
   pod 'KVOController'
+  pod 'CocoaLumberjack'
 
   # Dates
   pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'

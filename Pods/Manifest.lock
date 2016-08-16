@@ -164,6 +164,7 @@ DEPENDENCIES:
   - AnimatedGIFImageSerialization (from `https://github.com/wikimedia/AnimatedGIFImageSerialization.git`)
   - BlocksKit/Core (~> 2.2.0)
   - BlocksKit/UIKit (~> 2.2.0)
+  - CocoaLumberjack
   - FBSnapshotTestCase
   - GCDWebServer (~> 3.3)
   - HockeySDK (~> 3.8.2)
@@ -276,6 +277,6 @@ SPEC CHECKSUMS:
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
 
-PODFILE CHECKSUM: 0716f3ef7a3b4bc016af401ac0e25099cf1b8b69
+PODFILE CHECKSUM: f3344405e952923e93f10079c7ce11bad44d14a1
 
 COCOAPODS: 1.0.1
