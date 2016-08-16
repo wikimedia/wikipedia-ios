@@ -335,27 +335,6 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     return sections;
 }
 
-- (WMFExploreSection*)randomSection {
-    WMFExploreSection* random = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
-        if (obj.type == WMFExploreSectionTypeRandom && [obj.siteURL isEqual:self.siteURL]) {
-            return YES;
-        }
-        return NO;
-    }];
-
-    MWKHistoryEntry* lastEntry = [self.historyPages mostRecentEntry];
-    if (lastEntry && [[NSDate date] timeIntervalSinceDate:lastEntry.dateViewed] > WMFTimeBeforeRefreshingRandom) {
-        random = [WMFExploreSection randomSectionWithSiteURL:self.siteURL];
-    }
-
-    //Always return a random section
-    if (!random) {
-        random = [WMFExploreSection randomSectionWithSiteURL:self.siteURL];
-    }
-
-    return random;
-}
-
 - (NSArray<WMFExploreSection*>*)randomSections {
     NSArray* existingRandomArticleSections = [self.sections bk_select:^BOOL (WMFExploreSection* obj) {
         return obj.type == WMFExploreSectionTypeRandom;
@@ -370,7 +349,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     }];
     
     if (!containsTodaysRandomArticle) {
-        [randomArray wmf_safeAddObject:[self randomSection]];
+        [randomArray wmf_safeAddObject:[WMFExploreSection randomSectionWithSiteURL:self.siteURL]];
     }
     
     NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of random", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeRandom]);
