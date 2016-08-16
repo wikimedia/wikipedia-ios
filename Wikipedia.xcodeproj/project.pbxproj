@@ -631,7 +631,7 @@
 		BCF73DA71BD064AD000A13DB /* 4.1.7 in Resources */ = {isa = PBXBuildFile; fileRef = BCF73DA61BD064AD000A13DB /* 4.1.7 */; };
 		BCF8DCA81B7009B100149C26 /* MobileView in Resources */ = {isa = PBXBuildFile; fileRef = BCF8DCA71B7009B100149C26 /* MobileView */; };
 		BCFEEA451C286D3200CA2986 /* WMFArticleFetchIfNeededTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFEEA441C286D3200CA2986 /* WMFArticleFetchIfNeededTests.m */; };
-		C46FBA4B1A8530EE00C5730F /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */; };
+		C46FBA4B1A8530EE00C5730F /* Pods-Foundation-Wikipedia-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C46FBA4A1A8530EE00C5730F /* Pods-Foundation-Wikipedia-acknowledgements.plist */; };
 		D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
@@ -1886,7 +1886,7 @@
 		BCF8DCA71B7009B100149C26 /* MobileView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MobileView; sourceTree = "<group>"; };
 		BCFEEA441C286D3200CA2986 /* WMFArticleFetchIfNeededTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleFetchIfNeededTests.m; sourceTree = "<group>"; };
 		BCFEEA461C286DD600CA2986 /* LSNocilla+Quick.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "LSNocilla+Quick.h"; path = "WikipediaUnitTests/Code/LSNocilla+Quick.h"; sourceTree = SOURCE_ROOT; };
-		C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-acknowledgements.plist"; path = "Pods/Target Support Files/Pods/Pods-acknowledgements.plist"; sourceTree = SOURCE_ROOT; };
+		C46FBA4A1A8530EE00C5730F /* Pods-Foundation-Wikipedia-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-Foundation-Wikipedia-acknowledgements.plist"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia-acknowledgements.plist"; sourceTree = SOURCE_ROOT; };
 		C533DA84362E404EFDEA476E /* Pods-WikipediaUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C94B16BCF4DB992FA6D86FA3 /* Pods-WikipediaUnitTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		CE42A9EB8C30892466EEBE74 /* Pods-Foundation-Wikipedia.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.beta.xcconfig"; sourceTree = "<group>"; };
@@ -4441,7 +4441,7 @@
 			children = (
 				0ED79A3B1CB5B507005D9AF5 /* Wikipedia-Info.plist */,
 				0E10C4FD1C81046300CEB5C2 /* Wikipedia Debug.entitlements */,
-				C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */,
+				C46FBA4A1A8530EE00C5730F /* Pods-Foundation-Wikipedia-acknowledgements.plist */,
 				B0E808281C0D07EA0065EBC0 /* Wikipedia-Bridging-Header.h */,
 				D4991446181D51DE00E6073C /* Wikipedia-Prefix.pch */,
 				BC2F420B1BE9385C0033E185 /* Wikipedia.entitlements */,
@@ -5399,7 +5399,7 @@
 				0E06FD611CC2D5E3002F3A72 /* WMFArticleLanguagesViewController.storyboard in Resources */,
 				B016DCEB1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib in Resources */,
 				B0E802E91C0CD4350065EBC0 /* WMFMainPagePlaceholderCollectionViewCell.xib in Resources */,
-				C46FBA4B1A8530EE00C5730F /* Pods-acknowledgements.plist in Resources */,
+				C46FBA4B1A8530EE00C5730F /* Pods-Foundation-Wikipedia-acknowledgements.plist in Resources */,
 				B0E803C91C0CDC5F0065EBC0 /* WMFArticlePlaceholderTableViewCell.xib in Resources */,
 				B014E9A11CD2C4A800A887D9 /* OFL.txt in Resources */,
 				B0E8040B1C0CDE480065EBC0 /* AccountCreationViewController.storyboard in Resources */,
