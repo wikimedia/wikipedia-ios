@@ -363,9 +363,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (BOOL)canFindInPage {
-    // The presentedViewController check is to prevent the find-in-page icon from responding if
-    // the text size adjustment slider is onscreen. Appears to be a UIKit bug.
-    return self.article != nil && (self.presentedViewController == nil);
+    return self.article != nil;
 }
 
 - (BOOL)hasLanguages {
@@ -427,12 +425,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                               [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing]],
                             
                             @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
-                              self.findInPageToolbarItem,
-                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2 + spacing]]];
+                              self.findInPageToolbarItem]];
     
     
     for (NSArray *itemGroup in itemGroups) {
-        [articleToolbarItems addObjectsFromArray:itemGroup];
         switch (self.tableOfContentsDisplayMode) {
             case WMFTableOfContentsDisplayModeInline:
                 break;
@@ -441,6 +437,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
                 break;
         }
+        [articleToolbarItems addObjectsFromArray:itemGroup];
     }
     
     
@@ -455,21 +452,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     
     switch (self.tableOfContentsDisplayMode) {
-        case WMFTableOfContentsDisplayModeModal:
-        {
-            [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]];
-            [articleToolbarItems addObject:tocItem];
-        }
-            break;
         case WMFTableOfContentsDisplayModeInline:
+            [articleToolbarItems insertObject:[UIBarButtonItem flexibleSpaceToolbarItem] atIndex:0];
+            [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
+            [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:tocItem.width + 8]];
+        case WMFTableOfContentsDisplayModeModal:
         default:
         {
             [articleToolbarItems insertObject:tocItem atIndex:0];
-            [articleToolbarItems insertObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:8] atIndex:1];
-            [articleToolbarItems insertObject:[UIBarButtonItem flexibleSpaceToolbarItem] atIndex:2];
-            [articleToolbarItems addObject:[UIBarButtonItem flexibleSpaceToolbarItem]];
-            [articleToolbarItems addObject:[UIBarButtonItem wmf_barButtonItemOfFixedWidth:tocItem.width + 8]];
-
         }
             break;
     }
@@ -906,7 +896,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
-    self.tableOfContentsDisplaySide =  [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideRight : WMFTableOfContentsDisplaySideLeft; //inverse of the modal ToC
+    self.tableOfContentsDisplaySide =  [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
     self.tableOfContentsDisplayMode = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
@@ -947,11 +937,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Table of Contents
 
-- (void)setupTableOfContents {
-    
-}
-
 - (void)showTableOfContents:(id)sender {
+    if (self.tableOfContentsViewController == nil) {
+        return;
+    }
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
         {
@@ -1056,14 +1045,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         default:
         case WMFTableOfContentsDisplayModeModal:
         {
-            switch (self.tableOfContentsDisplayState) {
-                case WMFTableOfContentsDisplayStateInlineVisible:
-                case WMFTableOfContentsDisplayStateInlineHidden:
-                    self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalHidden;
-                    break;
-                default:
-                    break;
-            }
             if (self.tableOfContentsViewController.parentViewController == self) {
                 [self.tableOfContentsViewController willMoveToParentViewController:nil];
                 [self.tableOfContentsViewController.view removeFromSuperview];
@@ -1072,6 +1053,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 self.tableOfContentsViewController = nil;
             }
             [self createTableOfContentsViewControllerIfNeeded];
+            switch (self.tableOfContentsDisplayState) {
+                case WMFTableOfContentsDisplayStateInlineVisible:
+                    self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalVisible;
+                    [self showTableOfContents:self];
+                    break;
+                case WMFTableOfContentsDisplayStateInlineHidden:
+                default:
+                    self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalHidden;
+                    break;
+            }
 
         }
         break;
@@ -1252,6 +1243,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Find-in-page
 
 - (void)showFindInPage {
+    if (self.presentedViewController != nil) {
+        return;
+    }
+    
     [self.webViewController showFindInPage];
 }
 
