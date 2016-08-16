@@ -69,6 +69,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSInteger)visibleFooterIndex;
 
+- (CGFloat)marginWidthForSize:(CGSize)size;
+
 @end
 
 
