@@ -52,7 +52,7 @@ typedef GCDWebServerRequest* (^GCDWebServerMatchBlock)(NSString* requestMethod, 
  *  recommended to return a GCDWebServerErrorResponse on error so more useful
  *  information can be returned to the client.
  */
-typedef GCDWebServerResponse* (^GCDWebServerProcessBlock)(GCDWebServerRequest* request);
+typedef GCDWebServerResponse* (^GCDWebServerProcessBlock)(__kindof GCDWebServerRequest* request);
 
 /**
  *  The GCDWebServerAsynchronousProcessBlock works like the GCDWebServerProcessBlock
@@ -65,7 +65,7 @@ typedef GCDWebServerResponse* (^GCDWebServerProcessBlock)(GCDWebServerRequest* r
  *  useful information can be returned to the client.
  */
 typedef void (^GCDWebServerCompletionBlock)(GCDWebServerResponse* response);
-typedef void (^GCDWebServerAsyncProcessBlock)(GCDWebServerRequest* request, GCDWebServerCompletionBlock completionBlock);
+typedef void (^GCDWebServerAsyncProcessBlock)(__kindof GCDWebServerRequest* request, GCDWebServerCompletionBlock completionBlock);
 
 /**
  *  The port used by the GCDWebServer (NSNumber / NSUInteger).
@@ -175,6 +175,15 @@ extern NSString* const GCDWebServerOption_AutomaticallyMapHEADToGET;
  *  The default value is 1.0 second.
  */
 extern NSString* const GCDWebServerOption_ConnectedStateCoalescingInterval;
+
+/**
+ *  Set the dispatch queue priority on which server connection will be 
+ *  run (NSNumber / long).
+ *
+ *
+ *  The default value is DISPATCH_QUEUE_PRIORITY_DEFAULT.
+ */
+extern NSString* const GCDWebServerOption_DispatchQueuePriority;
 
 #if TARGET_OS_IPHONE
 
@@ -537,12 +546,10 @@ extern NSString* const GCDWebServerAuthenticationMethod_DigestAccess;
  *    GWS_LOG_INFO(...)
  *    GWS_LOG_WARNING(...)
  *    GWS_LOG_ERROR(...)
- *    GWS_LOG_EXCEPTION(__EXCEPTION__)
  *
- *  IMPORTANT: Except for GWS_LOG_EXCEPTION() which gets passed an NSException,
- *  these macros must behave like NSLog(). Furthermore the GWS_LOG_DEBUG() macro
- *  should not do anything unless the preprocessor constant "DEBUG" evaluates to
- *  non-zero.
+ *  IMPORTANT: These macros must behave like NSLog(). Furthermore the GWS_LOG_DEBUG()
+ *  macro should not do anything unless the preprocessor constant "DEBUG" evaluates
+ *  to non-zero.
  *
  *  The logging methods below send log messages to the same logging facility
  *  used by GCDWebServer. They can be used for consistency wherever you interact
@@ -562,7 +569,6 @@ extern NSString* const GCDWebServerAuthenticationMethod_DigestAccess;
  *  INFO = 2
  *  WARNING = 3
  *  ERROR = 4
- *  EXCEPTION = 5
  */
 + (void)setLogLevel:(int)level;
 
@@ -585,11 +591,6 @@ extern NSString* const GCDWebServerAuthenticationMethod_DigestAccess;
  *  Logs a message to the logging facility at the ERROR level.
  */
 - (void)logError:(NSString*)format, ... NS_FORMAT_FUNCTION(1,2);
-
-/**
- *  Logs an exception to the logging facility at the EXCEPTION level.
- */
-- (void)logException:(NSException*)exception;
 
 @end
 

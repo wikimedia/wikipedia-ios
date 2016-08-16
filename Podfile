@@ -3,70 +3,80 @@ source 'https://github.com/CocoaPods/Specs.git'
 # Configurations which are not compiled for release on the App Store
 # NOT_APP_STORE_CONFIGS = ['Debug', 'Alpha', 'Beta', 'AdHoc'].freeze
 
-platform :ios, :deployment_target => '8.0'
+platform :ios, :deployment_target => '9.0'
 
 inhibit_all_warnings!
+use_frameworks!
 
-xcodeproj 'Wikipedia'
+project 'Wikipedia'
 
-# HTML
-pod 'hpple', '~> 0.2'
+abstract_target 'Foundation' do
+  # Networking / Parsing
+  pod 'AFNetworking', :git => 'https://github.com/wikimedia/AFNetworking.git', :branch => 'release/3.1.1'
+  pod 'Mantle', '~> 2.0.0'
 
-# Networking / Parsing
-pod 'AFNetworking', :git => 'https://github.com/wikimedia/AFNetworking.git', :branch => 'release/3.1.1'
-pod 'Mantle', '~> 2.0.0'
-pod 'GCDWebServer', '~> 3.3'
+  # Images
+  pod 'SDWebImage', :git => 'https://github.com/wikimedia/SDWebImage.git', :commit => 'bb49df83e72f2231a191e9477a85f0effe13430a'
+  pod 'AnimatedGIFImageSerialization', :git => 'https://github.com/wikimedia/AnimatedGIFImageSerialization.git'
 
-# Images
-pod 'SDWebImage', :git => 'https://github.com/wikimedia/SDWebImage.git', :commit => 'bb49df83e72f2231a191e9477a85f0effe13430a'
-pod 'AnimatedGIFImageSerialization', :git => 'https://github.com/wikimedia/AnimatedGIFImageSerialization.git'
+  # Utilities
+  pod 'libextobjc/EXTScope', '~> 0.4.1'
+  pod 'BlocksKit/Core', '~> 2.2.0'
+  pod 'BlocksKit/UIKit', '~> 2.2.0'
+  pod 'KVOController'
 
-# Utilities
-pod 'libextobjc/EXTScope', '~> 0.4.1'
-pod 'BlocksKit/Core', '~> 2.2.0'
-pod 'BlocksKit/UIKit', '~> 2.2.0'
-pod 'KVOController'
+  # Dates
+  pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'
 
-# Dates
-pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'
+  # Database
+  pod 'YapDatabase'
 
-# Database
-pod 'YapDatabase'
+  # Promises
+  pod 'PromiseKit', :git => 'https://github.com/mxcl/PromiseKit.git', :tag => '4.0.0'
 
-# Datasources
-pod 'SSDataSources', '~> 0.8.0'
+  # Datasources
+  pod 'SSDataSources', '~> 0.8.0'
 
-# Autolayout
-pod 'Masonry', '0.6.2'
+  # Autolayout
+  pod 'Masonry', '0.6.2'
 
-# Views
-pod 'OAStackView', :git => 'git@github.com:wikimedia/OAStackView.git'
-pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git'
-pod 'SVWebViewController', '~> 1.0'
-# pod "SWStepSlider", :git => 'https://github.com/wikimedia/SWStepSlider.git'
+  # Diagnostics
+  pod 'PiwikTracker'
+  pod 'HockeySDK', '~> 3.8.2'
+  pod 'Tweaks'
 
-# Activities
-pod 'TUSafariActivity'
+  target 'Wikipedia' do
+    # HTML
+    pod 'hpple', '~> 0.2'
+    pod 'GCDWebServer', '~> 3.3'
 
-# Licenses
-pod 'VTAcknowledgementsViewController'
+    # Views
+    pod 'OAStackView', :git => 'git@github.com:wikimedia/OAStackView.git'
+    pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git'
+    pod 'SVWebViewController', '~> 1.0'
+    pod "SWStepSlider", :git => 'https://github.com/wikimedia/SWStepSlider.git'
 
-# Photo Gallery
-pod 'NYTPhotoViewer'
+    # Activities
+    pod 'TUSafariActivity'
 
-# Diagnostics
-pod 'PiwikTracker', :head
-pod 'HockeySDK', '~> 3.8.2'
-pod 'Tweaks', :head
+    # Licenses
+    pod 'VTAcknowledgementsViewController'
 
-target 'WikipediaUnitTests', :exclusive => true do
-  pod 'OCMockito', '~> 1.4.0'
-  pod 'OCHamcrest', '~> 4.2.0'
-  pod 'Nocilla'
-  # pod 'FBSnapshotTestCase', :head
-  # pod 'Quick', '~> 0.9.0'
-  # pod 'Nimble', '~> 4.0.0'
+    # Photo Gallery
+    pod 'NYTPhotoViewer'
+  end
+
+  target 'WikipediaUnitTests' do
+    inherit! :search_paths
+    pod 'OCMockito', '~> 1.4.0'
+    pod 'OCHamcrest', '~> 4.2.0'
+    pod 'Nocilla'
+    pod 'FBSnapshotTestCase'
+    pod 'Quick', '~> 0.9.0'
+    pod 'Nimble', '~> 4.0.0'
+  end
 end
+
 
 
 post_install do |installer|

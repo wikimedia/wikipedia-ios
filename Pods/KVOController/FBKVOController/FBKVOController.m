@@ -16,6 +16,8 @@
 #error This file must be compiled with ARC. Convert your project to ARC or specify the -fobjc-arc flag.
 #endif
 
+NS_ASSUME_NONNULL_BEGIN
+
 #pragma mark Utilities -
 
 static NSString *describe_option(NSKeyValueObservingOptions option)
@@ -80,6 +82,17 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
 
 #pragma mark _FBKVOInfo -
 
+typedef NS_ENUM(uint8_t, _FBKVOInfoState) {
+  _FBKVOInfoStateInitial = 0,
+
+  // whether the observer registration in Foundation has completed
+  _FBKVOInfoStateObserving,
+
+  // whether `unobserve` was called before observer registration in Foundation has completed
+  // this could happen when `NSKeyValueObservingOptionInitial` is one of the NSKeyValueObservingOptions
+  _FBKVOInfoStateNotObserving,
+};
+
 /**
  @abstract The key-value observation info.
  @discussion Object equality is only used within the scope of a controller instance. Safely omit controller from equality definition.
@@ -96,9 +109,15 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   SEL _action;
   void *_context;
   FBKVONotificationBlock _block;
+  _FBKVOInfoState _state;
 }
 
-- (instancetype)initWithController:(FBKVOController *)controller keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block action:(SEL)action context:(void *)context
+- (instancetype)initWithController:(FBKVOController *)controller
+                           keyPath:(NSString *)keyPath
+                           options:(NSKeyValueObservingOptions)options
+                             block:(nullable FBKVONotificationBlock)block
+                            action:(nullable SEL)action
+                           context:(nullable void *)context
 {
   self = [super init];
   if (nil != self) {
@@ -184,19 +203,19 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
 + (instancetype)sharedController;
 
 /** observe an object, info pair */
-- (void)observe:(id)object info:(_FBKVOInfo *)info;
+- (void)observe:(id)object info:(nullable _FBKVOInfo *)info;
 
 /** unobserve an object, info pair */
-- (void)unobserve:(id)object info:(_FBKVOInfo *)info;
+- (void)unobserve:(id)object info:(nullable _FBKVOInfo *)info;
 
 /** unobserve an object with a set of infos */
-- (void)unobserve:(id)object infos:(NSSet *)infos;
+- (void)unobserve:(id)object infos:(nullable NSSet *)infos;
 
 @end
 
 @implementation _FBKVOSharedController
 {
-  NSHashTable *_infos;
+  NSHashTable<_FBKVOInfo *> *_infos;
   OSSpinLock _lock;
 }
 
@@ -255,7 +274,7 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   return s;
 }
 
-- (void)observe:(id)object info:(_FBKVOInfo *)info
+- (void)observe:(id)object info:(nullable _FBKVOInfo *)info
 {
   if (nil == info) {
     return;
@@ -268,9 +287,19 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   
   // add observer
   [object addObserver:self forKeyPath:info->_keyPath options:info->_options context:(void *)info];
+
+  if (info->_state == _FBKVOInfoStateInitial) {
+    info->_state = _FBKVOInfoStateObserving;
+  } else if (info->_state == _FBKVOInfoStateNotObserving) {
+    // this could happen when `NSKeyValueObservingOptionInitial` is one of the NSKeyValueObservingOptions,
+    // and the observer is unregistered within the callback block.
+    // at this time the object has been registered as an observer (in Foundation KVO),
+    // so we can safely unobserve it.
+    [object removeObserver:self forKeyPath:info->_keyPath context:(void *)info];
+  }
 }
 
-- (void)unobserve:(id)object info:(_FBKVOInfo *)info
+- (void)unobserve:(id)object info:(nullable _FBKVOInfo *)info
 {
   if (nil == info) {
     return;
@@ -282,10 +311,13 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   OSSpinLockUnlock(&_lock);
   
   // remove observer
-  [object removeObserver:self forKeyPath:info->_keyPath context:(void *)info];
+  if (info->_state == _FBKVOInfoStateObserving) {
+    [object removeObserver:self forKeyPath:info->_keyPath context:(void *)info];
+  }
+  info->_state = _FBKVOInfoStateNotObserving;
 }
 
-- (void)unobserve:(id)object infos:(NSSet *)infos
+- (void)unobserve:(id)object infos:(nullable NSSet<_FBKVOInfo *> *)infos
 {
   if (0 == infos.count) {
     return;
@@ -300,11 +332,17 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   
   // remove observer
   for (_FBKVOInfo *info in infos) {
-    [object removeObserver:self forKeyPath:info->_keyPath context:(void *)info];
+    if (info->_state == _FBKVOInfoStateObserving) {
+      [object removeObserver:self forKeyPath:info->_keyPath context:(void *)info];
+    }
+    info->_state = _FBKVOInfoStateNotObserving;
   }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath
+                      ofObject:(nullable id)object
+                        change:(nullable NSDictionary<NSString *, id> *)change
+                       context:(nullable void *)context
 {
   NSAssert(context, @"missing context keyPath:%@ object:%@ change:%@", keyPath, object, change);
   
@@ -349,18 +387,18 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
 
 @implementation FBKVOController
 {
-  NSMapTable *_objectInfosMap;
+  NSMapTable<id, NSMutableSet<_FBKVOInfo *> *> *_objectInfosMap;
   OSSpinLock _lock;
 }
 
 #pragma mark Lifecycle -
 
-+ (instancetype)controllerWithObserver:(id)observer
++ (instancetype)controllerWithObserver:(nullable id)observer
 {
   return [[self alloc] initWithObserver:observer];
 }
 
-- (instancetype)initWithObserver:(id)observer retainObserved:(BOOL)retainObserved
+- (instancetype)initWithObserver:(nullable id)observer retainObserved:(BOOL)retainObserved
 {
   self = [super init];
   if (nil != self) {
@@ -372,7 +410,7 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   return self;
 }
 
-- (instancetype)initWithObserver:(id)observer
+- (instancetype)initWithObserver:(nullable id)observer
 {
   return [self initWithObserver:observer retainObserved:YES];
 }
@@ -424,7 +462,7 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   // check for info existence
   _FBKVOInfo *existingInfo = [infos member:info];
   if (nil != existingInfo) {
-    NSLog(@"observation info already exists %@", existingInfo);
+    // observation info already exists; do not observe it again
     
     // unlock and return
     OSSpinLockUnlock(&_lock);
@@ -514,7 +552,7 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
 
 #pragma mark API -
 
-- (void)observe:(id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block
+- (void)observe:(nullable id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block
 {
   NSAssert(0 != keyPath.length && NULL != block, @"missing required parameters observe:%@ keyPath:%@ block:%p", object, keyPath, block);
   if (nil == object || 0 == keyPath.length || NULL == block) {
@@ -529,20 +567,19 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
 }
 
 
-- (void)observe:(id)object keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block
+- (void)observe:(nullable id)object keyPaths:(NSArray<NSString *> *)keyPaths options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block
 {
   NSAssert(0 != keyPaths.count && NULL != block, @"missing required parameters observe:%@ keyPath:%@ block:%p", object, keyPaths, block);
   if (nil == object || 0 == keyPaths.count || NULL == block) {
     return;
   }
   
-  for (NSString *keyPath in keyPaths)
-  {
+  for (NSString *keyPath in keyPaths) {
     [self observe:object keyPath:keyPath options:options block:block];
   }
 }
 
-- (void)observe:(id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options action:(SEL)action
+- (void)observe:(nullable id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options action:(SEL)action
 {
   NSAssert(0 != keyPath.length && NULL != action, @"missing required parameters observe:%@ keyPath:%@ action:%@", object, keyPath, NSStringFromSelector(action));
   NSAssert([_observer respondsToSelector:action], @"%@ does not respond to %@", _observer, NSStringFromSelector(action));
@@ -557,7 +594,7 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   [self _observe:object info:info];
 }
 
-- (void)observe:(id)object keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options action:(SEL)action
+- (void)observe:(nullable id)object keyPaths:(NSArray<NSString *> *)keyPaths options:(NSKeyValueObservingOptions)options action:(SEL)action
 {
   NSAssert(0 != keyPaths.count && NULL != action, @"missing required parameters observe:%@ keyPath:%@ action:%@", object, keyPaths, NSStringFromSelector(action));
   NSAssert([_observer respondsToSelector:action], @"%@ does not respond to %@", _observer, NSStringFromSelector(action));
@@ -565,13 +602,12 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
     return;
   }
   
-  for (NSString *keyPath in keyPaths)
-  {
+  for (NSString *keyPath in keyPaths) {
     [self observe:object keyPath:keyPath options:options action:action];
   }
 }
 
-- (void)observe:(id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context
+- (void)observe:(nullable id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(nullable void *)context
 {
   NSAssert(0 != keyPath.length, @"missing required parameters observe:%@ keyPath:%@", object, keyPath);
   if (nil == object || 0 == keyPath.length) {
@@ -585,20 +621,19 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   [self _observe:object info:info];
 }
 
-- (void)observe:(id)object keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options context:(void *)context
+- (void)observe:(nullable id)object keyPaths:(NSArray<NSString *> *)keyPaths options:(NSKeyValueObservingOptions)options context:(nullable void *)context
 {
   NSAssert(0 != keyPaths.count, @"missing required parameters observe:%@ keyPath:%@", object, keyPaths);
   if (nil == object || 0 == keyPaths.count) {
     return;
   }
   
-  for (NSString *keyPath in keyPaths)
-  {
+  for (NSString *keyPath in keyPaths) {
     [self observe:object keyPath:keyPath options:options context:context];
   }
 }
 
-- (void)unobserve:(id)object keyPath:(NSString *)keyPath
+- (void)unobserve:(nullable id)object keyPath:(NSString *)keyPath
 {
   // create representative info
   _FBKVOInfo *info = [[_FBKVOInfo alloc] initWithController:self keyPath:keyPath];
@@ -607,7 +642,7 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   [self _unobserve:object info:info];
 }
 
-- (void)unobserve:(id)object
+- (void)unobserve:(nullable id)object
 {
   if (nil == object) {
     return;
@@ -623,47 +658,4 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
 
 @end
 
-#pragma mark NSObject Category -
-
-static void *NSObjectKVOControllerKey = &NSObjectKVOControllerKey;
-static void *NSObjectKVOControllerNonRetainingKey = &NSObjectKVOControllerNonRetainingKey;
-
-@implementation NSObject (FBKVOController)
-
-- (FBKVOController *)KVOController
-{
-  id controller = objc_getAssociatedObject(self, NSObjectKVOControllerKey);
-  
-  // lazily create the KVOController
-  if (nil == controller) {
-    controller = [FBKVOController controllerWithObserver:self];
-    self.KVOController = controller;
-  }
-  
-  return controller;
-}
-
-- (void)setKVOController:(FBKVOController *)KVOController
-{
-  objc_setAssociatedObject(self, NSObjectKVOControllerKey, KVOController, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (FBKVOController *)KVOControllerNonRetaining
-{
-  id controller = objc_getAssociatedObject(self, NSObjectKVOControllerNonRetainingKey);
-  
-  if (nil == controller) {
-    controller = [[FBKVOController alloc] initWithObserver:self retainObserved:NO];
-    self.KVOControllerNonRetaining = controller;
-  }
-  
-  return controller;
-}
-
-- (void)setKVOControllerNonRetaining:(FBKVOController *)KVOControllerNonRetaining
-{
-  objc_setAssociatedObject(self, NSObjectKVOControllerNonRetainingKey, KVOControllerNonRetaining, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-@end
-
+NS_ASSUME_NONNULL_END

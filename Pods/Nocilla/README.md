@@ -165,20 +165,40 @@ withBody(@"{\"name\":\"foo\"}").
 andFailWithError([NSError errorWithDomain:@"foo" code:123 userInfo:nil]);
 ```
 
+#### Replacing a request stub
+
+If you need to change the response of a single request, simply re-stub the request:
+
+```objc
+stubRequest(@"POST", @"https://api.example.com/authorize/").
+andReturn(401);
+
+// Some test expectation...
+
+stubRequest(@"POST", @"https://api.example.com/authorize/").
+andReturn(200);
+```
+
 ### Unexpected requests
 If some request is made but it wasn't stubbed, Nocilla won't let that request hit the real world. In that case your test should fail.
 At this moment Nocilla will raise an exception with a meaningful message about the error and how to solve it, including a snippet of code on how to stub the unexpected request.
+
+### Testing asynchronous requests
+When testing asynchrounous requests your request will be sent on a different thread from the one on which your test is executed. It is important to keep this in mind, and design your test in such a way that is has enough time to finish. For instance  ```tearDown()``` when using ```XCTest``` and ```afterEach()``` when using [Quick](https://github.com/Quick/Quick) and [Nimble](https://github.com/Quick/Nimble) will cause the request never to complete.
+
 
 ## Who uses Nocilla.
 
 ### Submit a PR to add your company here!
 
+- [MessageBird](https://www.messagebird.com)
 - [Groupon](http://www.groupon.com)
 - [Pixable](http://www.pixable.com)
 - [Jackthreads](https://www.jackthreads.com)
 - [ShopKeep](http://www.shopkeep.com)
 - [Venmo](https://www.venmo.com)
 - [Lighthouse](http://www.lighthouselabs.co.uk)
+- [GE Digital](http://www.ge.com/digital/)
 
 ## Other alternatives
 * [ILTesting](https://github.com/InfiniteLoopDK/ILTesting)

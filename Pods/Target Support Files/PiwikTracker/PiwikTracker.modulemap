@@ -1,0 +1,6 @@
+framework module PiwikTracker {
+  umbrella header "PiwikTracker-umbrella.h"
+
+  export *
+  module * { export * }
+}
