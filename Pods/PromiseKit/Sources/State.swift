@@ -1,131 +1,76 @@
-import class Dispatch.DispatchQueue
-import func Dispatch.__dispatch_barrier_sync
-import func Foundation.NSLog
+import Dispatch
+import Foundation  // NSLog
 
-enum Seal<T> {
-    case pending(Handlers<T>)
-    case resolved(Resolution<T>)
+enum Seal<R> {
+    case Pending(Handlers<R>)
+    case Resolved(R)
 }
 
 enum Resolution<T> {
-    case fulfilled(T)
-    case rejected(Error, ErrorConsumptionToken)
-
-    init(_ error: Error) {
-        self = .rejected(error, ErrorConsumptionToken(error))
-    }
+    case Fulfilled(T)
+    case Rejected(ErrorType, ErrorConsumptionToken)
 }
 
-class State<T> {
-
-    // would be a protocol, but you can't have typed variables of “generic”
-    // protocols in Swift 2. That is, I couldn’t do var state: State<R> when
-    // it was a protocol. There is no work around. Update: nor Swift 3
-
-    func get() -> Resolution<T>? { fatalError("Abstract Base Class") }
-    func get(body: (Seal<T>) -> Void) { fatalError("Abstract Base Class") }
-
-    final func pipe(_ body: (Resolution<T>) -> Void) {
-        get { seal in
-            switch seal {
-            case .pending(let handlers):
-                handlers.append(body)
-            case .resolved(let resolution):
-                body(resolution)
-            }
-        }
-    }
-
-    final func then<U>(on q: DispatchQueue, else rejecter: (Resolution<U>) -> Void, execute body: (T) throws -> Void) {
-        pipe { resolution in
-            switch resolution {
-            case .fulfilled(let value):
-                contain_zalgo(q, rejecter: rejecter) {
-                    try body(value)
-                }
-            case .rejected(let error, let token):
-                rejecter(.rejected(error, token))
-            }
-        }
-    }
-
-    final func always(on q: DispatchQueue, body: (Resolution<T>) -> Void) {
-        pipe { resolution in
-            contain_zalgo(q) {
-                body(resolution)
-            }
-        }
-    }
-
-    final func `catch`(on q: DispatchQueue, policy: CatchPolicy, else resolve: (Resolution<T>) -> Void, execute body: (Error) throws -> Void) {
-        pipe { resolution in
-            switch (resolution, policy) {
-            case (.fulfilled, _):
-                resolve(resolution)
-            case (.rejected(let error, _), .allErrorsExceptCancellation) where error.isCancelledError:
-                resolve(resolution)
-            case (let .rejected(error, token), _):
-                contain_zalgo(q, rejecter: resolve) {
-                    token.consumed = true
-                    try body(error)
-                }
-            }
-        }
-    }
+// would be a protocol, but you can't have typed variables of “generic”
+// protocols in Swift 2. That is, I couldn’t do var state: State<R> when
+// it was a protocol. There is no work around.
+class State<R> {
+    func get() -> R? { fatalError("Abstract Base Class") }
+    func get(body: (Seal<R>) -> Void) { fatalError("Abstract Base Class") }
 }
 
-class UnsealedState<T>: State<T> {
-    private let barrier = DispatchQueue(label: "org.promisekit.barrier", attributes: .concurrent)
-    private var seal: Seal<T>
+class UnsealedState<R>: State<R> {
+    private let barrier = dispatch_queue_create("org.promisekit.barrier", DISPATCH_QUEUE_CONCURRENT)
+    private var seal: Seal<R>
 
     /**
      Quick return, but will not provide the handlers array because
      it could be modified while you are using it by another thread.
      If you need the handlers, use the second `get` variant.
     */
-    override func get() -> Resolution<T>? {
-        var result: Resolution<T>?
-        barrier.sync {
-            if case .resolved(let resolution) = self.seal {
+    override func get() -> R? {
+        var result: R?
+        dispatch_sync(barrier) {
+            if case .Resolved(let resolution) = self.seal {
                 result = resolution
             }
         }
         return result
     }
 
-    override func get(body: (Seal<T>) -> Void) {
+    override func get(body: (Seal<R>) -> Void) {
         var sealed = false
-        barrier.sync {
+        dispatch_sync(barrier) {
             switch self.seal {
-            case .resolved:
+            case .Resolved:
                 sealed = true
-            case .pending:
+            case .Pending:
                 sealed = false
             }
         }
         if !sealed {
-            __dispatch_barrier_sync(barrier) {
+            dispatch_barrier_sync(barrier) {
                 switch (self.seal) {
-                case .pending:
+                case .Pending:
                     body(self.seal)
-                case .resolved:
+                case .Resolved:
                     sealed = true  // welcome to race conditions
                 }
             }
         }
         if sealed {
-            body(seal)  // as much as possible we do things OUTSIDE the barrier_sync
+            body(seal)
         }
     }
 
-    required init(resolver: inout ((Resolution<T>) -> Void)!) {
-        seal = .pending(Handlers<T>())
+    required init(inout resolver: ((R) -> Void)!) {
+        seal = .Pending(Handlers<R>())
         super.init()
         resolver = { resolution in
-            var handlers: Handlers<T>?
-            __dispatch_barrier_sync(self.barrier) {
-                if case .pending(let hh) = self.seal {
-                    self.seal = .resolved(resolution)
+            var handlers: Handlers<R>?
+            dispatch_barrier_sync(self.barrier) {
+                if case .Pending(let hh) = self.seal {
+                    self.seal = .Resolved(resolution)
                     handlers = hh
                 }
             }
@@ -136,41 +81,40 @@ class UnsealedState<T>: State<T> {
             }
         }
     }
-#if !PMKDisableWarnings
+
     deinit {
-        if case .pending = seal {
+        if case .Pending = seal {
             NSLog("PromiseKit: Pending Promise deallocated! This is usually a bug")
         }
     }
-#endif
 }
 
-class SealedState<T>: State<T> {
-    private let resolution: Resolution<T>
+class SealedState<R>: State<R> {
+    private let resolution: R
     
-    init(resolution: Resolution<T>) {
+    init(resolution: R) {
         self.resolution = resolution
     }
     
-    override func get() -> Resolution<T>? {
+    override func get() -> R? {
         return resolution
     }
 
-    override func get(body: (Seal<T>) -> Void) {
-        body(.resolved(resolution))
+    override func get(body: (Seal<R>) -> Void) {
+        body(.Resolved(resolution))
     }
 }
 
 
-class Handlers<T>: Sequence {
-    var bodies: [(Resolution<T>) -> Void] = []
+class Handlers<R>: SequenceType {
+    var bodies: [(R)->Void] = []
 
-    func append(_ body: (Resolution<T>) -> Void) {
+    func append(body: (R)->Void) {
         bodies.append(body)
     }
 
-    func makeIterator() -> IndexingIterator<[(Resolution<T>) -> Void]> {
-        return bodies.makeIterator()
+    func generate() -> IndexingGenerator<[(R)->Void]> {
+        return bodies.generate()
     }
 
     var count: Int {
@@ -182,9 +126,9 @@ class Handlers<T>: Sequence {
 extension Resolution: CustomStringConvertible {
     var description: String {
         switch self {
-        case .fulfilled(let value):
+        case .Fulfilled(let value):
             return "Fulfilled with value: \(value)"
-        case .rejected(let error):
+        case .Rejected(let error):
             return "Rejected with error: \(error)"
         }
     }
@@ -195,9 +139,9 @@ extension UnsealedState: CustomStringConvertible {
         var rv: String!
         get { seal in
             switch seal {
-            case .pending(let handlers):
+            case .Pending(let handlers):
                 rv = "Pending with \(handlers.count) handlers"
-            case .resolved(let resolution):
+            case .Resolved(let resolution):
                 rv = "\(resolution)"
             }
         }

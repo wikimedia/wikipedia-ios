@@ -1,30 +1,14 @@
-#import <Foundation/NSObject.h>
+#if defined(__cplusplus)
+  #import <dispatch/dispatch.h>
+#else
+  #import <dispatch/queue.h>
+#endif
 #import <Foundation/NSDate.h>
-#import <dispatch/dispatch.h>
-#import "AnyPromise.h"
+#import <Foundation/NSObject.h>
+#import <PromiseKit/AnyPromise.h>
+#import <PromiseKit/NSError+Cancellation.h>
+#import <PromiseKit/Umbrella.h>
 
-FOUNDATION_EXPORT double PromiseKitVersionNumber;
-FOUNDATION_EXPORT const unsigned char PromiseKitVersionString[];
-
-extern NSString * __nonnull const PMKErrorDomain;
-
-#define PMKFailingPromiseIndexKey @"PMKFailingPromiseIndexKey"
-#define PMKURLErrorFailingURLResponseKey @"PMKURLErrorFailingURLResponseKey"
-#define PMKURLErrorFailingDataKey @"PMKURLErrorFailingDataKey"
-#define PMKURLErrorFailingStringKey @"PMKURLErrorFailingStringKey"
-#define PMKJSONErrorJSONObjectKey @"PMKJSONErrorJSONObjectKey"
-#define PMKJoinPromisesKey @"PMKJoinPromisesKey"
-
-#define PMKUnexpectedError 1l
-#define PMKUnknownError 2l
-#define PMKInvalidUsageError 3l
-#define PMKAccessDeniedError 4l
-#define PMKOperationCancelled 5l
-#define PMKNotFoundError 6l
-#define PMKJSONError 7l
-#define PMKOperationFailed 8l
-#define PMKTaskError 9l
-#define PMKJoinError 10l
 
 #if __cplusplus
 extern "C" {
@@ -41,7 +25,7 @@ extern "C" {
         //…
     });
 */
-extern AnyPromise * __nonnull PMKAfter(NSTimeInterval duration) NS_REFINED_FOR_SWIFT;
+extern AnyPromise * __nonnull PMKAfter(NSTimeInterval duration);
 
 
 
@@ -73,7 +57,7 @@ extern AnyPromise * __nonnull PMKAfter(NSTimeInterval duration) NS_REFINED_FOR_S
  @see PMKJoin
 
 */
-extern AnyPromise * __nonnull PMKWhen(id __nonnull input) NS_REFINED_FOR_SWIFT;
+extern AnyPromise * __nonnull PMKWhen(id __nonnull input);
 
 
 
@@ -108,7 +92,7 @@ extern AnyPromise * __nonnull PMKWhen(id __nonnull input) NS_REFINED_FOR_SWIFT;
 
  @see when
 */
-AnyPromise *__nonnull PMKJoin(NSArray * __nonnull promises) NS_REFINED_FOR_SWIFT;
+AnyPromise *__nonnull PMKJoin(NSArray * __nonnull promises);
 
 
 
@@ -153,24 +137,7 @@ extern id __nullable PMKHang(AnyPromise * __nonnull promise);
 */
 extern void PMKSetUnhandledExceptionHandler(NSError * __nullable (^__nonnull handler)(id __nullable));
 
-/**
- If an error cascades through a promise chain and is not handled by any
- `catch`, the unhandled error handler is called. The default logs all
- non-cancelled errors.
 
- This handler can only be set once, and must be set before any promises
- are rejected in your application.
-
-     PMKSetUnhandledErrorHandler({ error in
-        mylogf("Unhandled error: \(error)")
-     })
-
- - Warning: *Important* The handler is executed on an undefined queue.
- - Warning: *Important* Don’t use promises in your handler, or you risk an infinite error loop.
-*/
-extern void PMKSetUnhandledErrorHandler(void (^__nonnull handler)(NSError * __nonnull));
-
-extern void PMKUnhandledErrorHandler(NSError * __nonnull error);
 
 /**
  Executes the provided block on a background queue.
@@ -190,7 +157,7 @@ extern void PMKUnhandledErrorHandler(NSError * __nonnull error);
 
  @see dispatch_async
 */
-extern AnyPromise * __nonnull dispatch_promise(id __nonnull block) NS_SWIFT_UNAVAILABLE("Use our `DispatchQueue.async` override instead");
+extern AnyPromise * __nonnull dispatch_promise(id __nonnull block);
 
 
 
@@ -209,7 +176,12 @@ extern AnyPromise * __nonnull dispatch_promise(id __nonnull block) NS_SWIFT_UNAV
 
  @see dispatch_promise
 */
-extern AnyPromise * __nonnull dispatch_promise_on(dispatch_queue_t __nonnull queue, id __nonnull block) NS_SWIFT_UNAVAILABLE("Use our `DispatchQueue.async` override instead");
+extern AnyPromise * __nonnull dispatch_promise_on(dispatch_queue_t __nonnull queue, id __nonnull block);
+
+
+#if __cplusplus
+}   // Extern C
+#endif
 
 
 #define PMKJSONDeserializationOptions ((NSJSONReadingOptions)(NSJSONReadingAllowFragments | NSJSONReadingMutableContainers))
@@ -224,27 +196,67 @@ extern AnyPromise * __nonnull dispatch_promise_on(dispatch_queue_t __nonnull que
 #define PMKHTTPURLResponseIsImage(rsp) [@[@"image/tiff", @"image/jpeg", @"image/gif", @"image/png", @"image/ico", @"image/x-icon", @"image/bmp", @"image/x-bmp", @"image/x-xbitmap", @"image/x-win-bitmap"] containsObject:[rsp MIMEType]]
 #define PMKHTTPURLResponseIsText(rsp) [[rsp MIMEType] hasPrefix:@"text/"]
 
-/**
- The default queue for all calls to `then`, `catch` etc. is the main queue.
 
- By default this returns dispatch_get_main_queue()
- */
-extern __nonnull dispatch_queue_t PMKDefaultDispatchQueue();
 
-/**
- You may alter the default dispatch queue, but you may only alter it once, and you must alter it before any `then`, etc. calls are made in your app.
- 
- The primary motivation for this function is so that your tests can operate off the main thread preventing dead-locking, or with `zalgo` to speed them up.
-*/
-extern void PMKSetDefaultDispatchQueue(__nonnull dispatch_queue_t);
-
-#if __cplusplus
-}   // Extern C
+#if defined(__has_include)
+  #if __has_include(<PromiseKit/ACAccountStore+AnyPromise.h>)
+    #import <PromiseKit/ACAccountStore+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/AVAudioSession+AnyPromise.h>)
+    #import <PromiseKit/AVAudioSession+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/CKContainer+AnyPromise.h>)
+    #import <PromiseKit/CKContainer+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/CKDatabase+AnyPromise.h>)
+    #import <PromiseKit/CKDatabase+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/CLGeocoder+AnyPromise.h>)
+    #import <PromiseKit/CLGeocoder+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/CLLocationManager+AnyPromise.h>)
+    #import <PromiseKit/CLLocationManager+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/NSNotificationCenter+AnyPromise.h>)
+    #import <PromiseKit/NSNotificationCenter+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/NSTask+AnyPromise.h>)
+    #import <PromiseKit/NSTask+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/NSURLConnection+AnyPromise.h>)
+    #import <PromiseKit/NSURLConnection+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/NSURLSession+AnyPromise.h>)
+    #import <PromiseKit/NSURLSession+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/MKDirections+AnyPromise.h>)
+    #import <PromiseKit/MKDirections+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/MKMapSnapshotter+AnyPromise.h>)
+    #import <PromiseKit/MKMapSnapshotter+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/CALayer+AnyPromise.h>)
+    #import <PromiseKit/CALayer+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/SLRequest+AnyPromise.h>)
+    #import <PromiseKit/SLRequest+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/SKRequest+AnyPromise.h>)
+    #import <PromiseKit/SKRequest+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/SCNetworkReachability+AnyPromise.h>)
+    #import <PromiseKit/SCNetworkReachability+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/UIActionSheet+AnyPromise.h>)
+    #import <PromiseKit/UIActionSheet+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/UIAlertView+AnyPromise.h>)
+    #import <PromiseKit/UIAlertView+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/UIView+AnyPromise.h>)
+    #import <PromiseKit/UIView+AnyPromise.h>
+  #endif
+  #if __has_include(<PromiseKit/UIViewController+AnyPromise.h>)
+    #import <PromiseKit/UIViewController+AnyPromise.h>
+  #endif
 #endif
-
-
-typedef NS_OPTIONS(NSInteger, PMKAnimationOptions) {
-    PMKAnimationOptionsNone = 1 << 0,
-    PMKAnimationOptionsAppear = 1 << 1,
-    PMKAnimationOptionsDisappear = 1 << 2,
-};
