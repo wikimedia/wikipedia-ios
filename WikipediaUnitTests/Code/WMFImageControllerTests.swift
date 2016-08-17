@@ -11,6 +11,7 @@ import XCTest
 @testable import Wikipedia
 import PromiseKit
 import Nimble
+import Nocilla
 
 class WMFImageControllerTests: XCTestCase {
     private typealias ImageDownloadPromiseErrorCallback = (Promise<WMFImageDownload>) -> ((ErrorType) -> Void) -> Void
@@ -231,7 +232,7 @@ class WMFImageControllerTests: XCTestCase {
 
         let tempImageCopyURL = NSURL(fileURLWithPath: WMFRandomTemporaryFileOfType("jpg"))
 
-        try! NSFileManager.defaultManager().copyItemAtURL(testFixtureDataPath, toURL: tempImageCopyURL)
+        try! NSFileManager.defaultManager().copyItemAtURL(testFixtureDataPath!, toURL: tempImageCopyURL)
 
         let testURL = NSURL(string: "//foo/bar")!
         
@@ -258,6 +259,6 @@ class WMFImageControllerTests: XCTestCase {
         XCTAssertTrue(self.imageController.hasDataOnDiskForImageWithURL(testURL))
 
         XCTAssertEqual(self.imageController.diskDataForImageWithURL(testURL),
-                       NSFileManager.defaultManager().contentsAtPath(testFixtureDataPath.path!))
+                       NSFileManager.defaultManager().contentsAtPath(testFixtureDataPath!.path!))
     }
 }

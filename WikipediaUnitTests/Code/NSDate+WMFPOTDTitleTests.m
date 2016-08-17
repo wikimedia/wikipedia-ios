@@ -8,7 +8,7 @@
 
 @import Quick;
 @import Nimble;
-#import <NSDate-Extensions/NSDate+Utilities.h>
+@import NSDate_Extensions;
 #import "NSDate+WMFPOTDTitle.h"
 
 static inline NSString* expectedPOTDTitleStringForYearMonthDay(NSInteger year, NSInteger month, NSInteger day) {

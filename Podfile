@@ -69,17 +69,18 @@ abstract_target 'Foundation' do
 
     # Photo Gallery
     pod 'NYTPhotoViewer'
+
+    target 'WikipediaUnitTests' do
+      pod 'OCMockito', '~> 1.4.0'
+      pod 'OCHamcrest', '~> 4.2.0'
+      pod 'Nocilla'
+      pod 'FBSnapshotTestCase'
+      pod 'Quick', '~> 0.9.0'
+      pod 'Nimble', '~> 4.0.0'
+    end
+
   end
 
-  target 'WikipediaUnitTests' do
-    inherit! :search_paths
-    pod 'OCMockito', '~> 1.4.0'
-    pod 'OCHamcrest', '~> 4.2.0'
-    pod 'Nocilla'
-    pod 'FBSnapshotTestCase'
-    pod 'Quick', '~> 0.9.0'
-    pod 'Nimble', '~> 4.0.0'
-  end
 end
 
 

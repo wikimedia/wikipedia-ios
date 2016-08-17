@@ -2,7 +2,7 @@
 @import XCTest;
 #import <Quick/Quick.h>
 @import Nimble;
-#import <NSDate-Extensions/NSDate+Utilities.h>
+@import NSDate_Extensions;
 
 #import "MWKHistoryEntry+MWKRandom.h"
 #import "MWKDataStore+TempDataStoreForEach.h"
