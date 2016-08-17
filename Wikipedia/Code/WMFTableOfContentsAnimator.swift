@@ -43,7 +43,7 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
         guard presented == self.presentedViewController else {
             return nil
         }
-        return WMFTableOfContentsPresentationController(presentedViewController: presented, presentingViewController: presenting!, tapDelegate: self)
+        return WMFTableOfContentsPresentationController(presentedViewController: presented, presentingViewController: self.presentingViewController, tapDelegate: self)
     }
     
     public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {

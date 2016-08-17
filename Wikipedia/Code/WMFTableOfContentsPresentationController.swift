@@ -11,7 +11,7 @@ import Masonry
 public class WMFTableOfContentsPresentationController: UIPresentationController {
     
     // MARK: - init
-    public required init(presentedViewController: UIViewController, presentingViewController: UIViewController, tapDelegate: WMFTableOfContentsPresentationControllerTapDelegate) {
+    public required init(presentedViewController: UIViewController, presentingViewController: UIViewController?, tapDelegate: WMFTableOfContentsPresentationControllerTapDelegate) {
         self.tapDelegate = tapDelegate
         super.init(presentedViewController: presentedViewController, presentingViewController: presentedViewController)
     }
