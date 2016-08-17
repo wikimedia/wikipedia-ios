@@ -809,6 +809,7 @@
 		0E8380681D64989F0076EDE4 /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
 		0E83806B1D64989F0076EDE4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		0E83806D1D64989F0076EDE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0E8380781D649DE10076EDE4 /* ContinueReadingWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ContinueReadingWidget.entitlements; sourceTree = "<group>"; };
 		0E8DC0931C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDailyStatsLoggingFunnel.h; path = Wikipedia/Code/WMFDailyStatsLoggingFunnel.h; sourceTree = SOURCE_ROOT; };
 		0E8DC0941C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFDailyStatsLoggingFunnel.m; path = Wikipedia/Code/WMFDailyStatsLoggingFunnel.m; sourceTree = SOURCE_ROOT; };
 		0E8E94141D55111900066FC0 /* WMFArticleListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleListTableViewController.h; path = Wikipedia/Code/WMFArticleListTableViewController.h; sourceTree = SOURCE_ROOT; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
@@ -2823,6 +2824,7 @@
 		0E8380661D64989F0076EDE4 /* ContinueReadingWidget */ = {
 			isa = PBXGroup;
 			children = (
+				0E8380781D649DE10076EDE4 /* ContinueReadingWidget.entitlements */,
 				0E8380671D64989F0076EDE4 /* TodayViewController.h */,
 				0E8380681D64989F0076EDE4 /* TodayViewController.m */,
 				0E83806A1D64989F0076EDE4 /* MainInterface.storyboard */,
@@ -5301,7 +5303,13 @@
 				TargetAttributes = {
 					0E8380621D64989F0076EDE4 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = AKK7J2GV64;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					BC4273511A7C736800068882 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -5312,6 +5320,9 @@
 						DevelopmentTeam = AKK7J2GV64;
 						LastSwiftMigration = 0800;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.SafariKeychain = {
 								enabled = 1;
 							};
@@ -6502,9 +6513,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -6528,9 +6541,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -6550,9 +6565,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -6572,9 +6589,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -6594,9 +6613,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = ContinueReadingWidget/ContinueReadingWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = ContinueReadingWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
