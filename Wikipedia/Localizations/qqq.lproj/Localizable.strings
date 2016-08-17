@@ -299,8 +299,6 @@
 "nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* $1 - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}\n{{Identical|Mile}}";
 "nearby-pull-to-refresh-prompt" = "Shown when user pulls down to refresh list of nearby articles";
 "nearby-pull-to-refresh-is-refreshing" = "Shown when refreshing list of nearby articles.";
-"nearby-loading" = "Show when downloading list of nearby articles";
-"nearby-loaded" = "Shown when nearby articles list has loaded successfully";
 "nearby-none" = "Shown when no nearby pages (in a geographical sense) were found.";
 "nearby-open-in-maps" = "Title for button for opening nearby article's coordinates in maps app";
 "nearby-cancel" = "Cancel button for menu presented when user long-presses on nearby article item\n{{Identical|Cancel}}";
