@@ -1,5 +1,5 @@
 framework module BlocksKit {
-  umbrella header "BlocksKit-umbrella.h"
+  umbrella header "BlocksKit-Core-umbrella.h"
 
   export *
   module * { export * }

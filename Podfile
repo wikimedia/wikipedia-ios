@@ -22,7 +22,6 @@ abstract_target 'Foundation' do
   # Utilities
   pod 'libextobjc/EXTScope', '~> 0.4.1'
   pod 'BlocksKit/Core', '~> 2.2.0'
-  pod 'BlocksKit/UIKit', '~> 2.2.0'
   pod 'KVOController', '= 1.0.3'
 
   # Dates
@@ -43,9 +42,12 @@ abstract_target 'Foundation' do
   # Diagnostics
   pod 'PiwikTracker'
   pod 'HockeySDK', '~> 3.8.2'
-  pod 'Tweaks'
 
   target 'Wikipedia' do
+    # Utilities
+    pod 'Tweaks'
+    pod 'BlocksKit/UIKit', '~> 2.2.0'
+
     # HTML
     pod 'hpple', '~> 0.2'
     pod 'GCDWebServer', '~> 3.3'
@@ -74,6 +76,42 @@ abstract_target 'Foundation' do
     pod 'Quick', '~> 0.9.0'
     pod 'Nimble', '~> 4.0.0'
   end
+end
+
+target 'ContinueReadingWidget' do
+
+  # Networking / Parsing
+  pod 'AFNetworking', :git => 'https://github.com/wikimedia/AFNetworking.git', :branch => 'release/3.1.1'
+  pod 'Mantle', '~> 2.0.0'
+
+  # Images
+  pod 'SDWebImage', :git => 'https://github.com/wikimedia/SDWebImage.git', :commit => 'bb49df83e72f2231a191e9477a85f0effe13430a'
+  pod 'AnimatedGIFImageSerialization', :git => 'https://github.com/wikimedia/AnimatedGIFImageSerialization.git'
+
+  # Utilities
+  pod 'libextobjc/EXTScope', '~> 0.4.1'
+  pod 'BlocksKit/Core', '~> 2.2.0'
+  pod 'KVOController', '= 1.0.3'
+
+  # Dates
+  pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'
+
+  # Database
+  pod 'YapDatabase'
+
+  # Promises
+  pod 'PromiseKit', '~> 3.4'
+
+  # Datasources
+  pod 'SSDataSources', '~> 0.8.0'
+
+  # Autolayout
+  pod 'Masonry', '0.6.2'
+
+  # Diagnostics
+  pod 'PiwikTracker'
+  pod 'HockeySDK', '~> 3.8.2'
+
 end
 
 post_install do |installer|
