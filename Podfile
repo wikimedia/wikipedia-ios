@@ -43,6 +43,10 @@ abstract_target 'Foundation' do
   pod 'PiwikTracker'
   pod 'HockeySDK', '~> 3.8.2'
 
+  target 'ContinueReadingWidget' do
+
+  end
+
   target 'Wikipedia' do
     # Utilities
     pod 'Tweaks'
@@ -78,41 +82,6 @@ abstract_target 'Foundation' do
   end
 end
 
-target 'ContinueReadingWidget' do
-
-  # Networking / Parsing
-  pod 'AFNetworking', :git => 'https://github.com/wikimedia/AFNetworking.git', :branch => 'release/3.1.1'
-  pod 'Mantle', '~> 2.0.0'
-
-  # Images
-  pod 'SDWebImage', :git => 'https://github.com/wikimedia/SDWebImage.git', :commit => 'bb49df83e72f2231a191e9477a85f0effe13430a'
-  pod 'AnimatedGIFImageSerialization', :git => 'https://github.com/wikimedia/AnimatedGIFImageSerialization.git'
-
-  # Utilities
-  pod 'libextobjc/EXTScope', '~> 0.4.1'
-  pod 'BlocksKit/Core', '~> 2.2.0'
-  pod 'KVOController', '= 1.0.3'
-
-  # Dates
-  pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'
-
-  # Database
-  pod 'YapDatabase'
-
-  # Promises
-  pod 'PromiseKit', '~> 3.4'
-
-  # Datasources
-  pod 'SSDataSources', '~> 0.8.0'
-
-  # Autolayout
-  pod 'Masonry', '0.6.2'
-
-  # Diagnostics
-  pod 'PiwikTracker'
-  pod 'HockeySDK', '~> 3.8.2'
-
-end
 
 post_install do |installer|
   plist_buddy = "/usr/libexec/PlistBuddy"

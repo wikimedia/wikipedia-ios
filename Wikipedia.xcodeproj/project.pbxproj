@@ -5564,7 +5564,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ContinueReadingWidget/Pods-ContinueReadingWidget-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4B7662A4A7802D35804B4084 /* [CP] Check Pods Manifest.lock */ = {
@@ -5639,7 +5639,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ContinueReadingWidget/Pods-ContinueReadingWidget-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BC44DB9E1B161839008FCD0C /* Modify App Info.plist */ = {
@@ -6496,7 +6496,7 @@
 /* Begin XCBuildConfiguration section */
 		0E8380711D64989F0076EDE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1CD1FD5D17D4DD00152EF5CC /* Pods-ContinueReadingWidget.debug.xcconfig */;
+			baseConfigurationReference = 797B0A69B19726007DD97387 /* Pods-Foundation-ContinueReadingWidget.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -6522,7 +6522,7 @@
 		};
 		0E8380721D64989F0076EDE4 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AB7A8F2B6BBA6AD88149C45B /* Pods-ContinueReadingWidget.adhoc.xcconfig */;
+			baseConfigurationReference = E3E349C6CEDD6F205DC75A3B /* Pods-Foundation-ContinueReadingWidget.adhoc.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -6544,7 +6544,7 @@
 		};
 		0E8380731D64989F0076EDE4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8BB40B5BDD408601BBFEFA58 /* Pods-ContinueReadingWidget.release.xcconfig */;
+			baseConfigurationReference = 1F2788162695080322BD2F70 /* Pods-Foundation-ContinueReadingWidget.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -6566,7 +6566,7 @@
 		};
 		0E8380741D64989F0076EDE4 /* Test */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0532528B595222DEF94A824C /* Pods-ContinueReadingWidget.test.xcconfig */;
+			baseConfigurationReference = E79DF2D31BE05ECBA57FC824 /* Pods-Foundation-ContinueReadingWidget.test.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -6588,7 +6588,7 @@
 		};
 		0E8380751D64989F0076EDE4 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD0FB60ACC3B099E6EF0CCD0 /* Pods-ContinueReadingWidget.beta.xcconfig */;
+			baseConfigurationReference = 144FD4C992AD7C5D74554EA9 /* Pods-Foundation-ContinueReadingWidget.beta.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
