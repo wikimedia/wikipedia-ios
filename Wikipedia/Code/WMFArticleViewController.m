@@ -946,7 +946,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)updateTableOfContentsLayoutAnimated:(BOOL)animated {
     if (animated) {
         [self.webViewController prepareForAnimatedResize];
-        [UIView animateWithDuration:0.25 animations:^{
+        [UIView animateWithDuration:0.20 animations:^{
             [self layoutForSize:self.view.bounds.size];
             [self.webViewController performAnimatedResize];
         } completion:^(BOOL finished) {

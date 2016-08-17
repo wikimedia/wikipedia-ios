@@ -63,8 +63,7 @@ NSString* const WMFCCBySALicenseURL =
 @property (strong, nonatomic) MASConstraint* footerContainerViewLeftMarginConstraint;
 @property (strong, nonatomic) MASConstraint* footerContainerViewRightMarginConstraint;
 
-@property (nonatomic, strong) UIView *animatedResizeSnapshotBeforeView;
-@property (nonatomic, strong) UIView *animatedResizeSnapshotAfterView;
+@property (nonatomic, strong) UIView *animatedResizeSnapshotView;
 @property (nonatomic, strong) UIView *animatedResizeBackgroundView;
 
 @property (nonatomic, strong) NSArray* findInPageMatches;
@@ -1263,7 +1262,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)prepareForAnimatedResize {
-    if (self.animatedResizeSnapshotBeforeView) {
+    if (self.animatedResizeSnapshotView) {
         return;
     }
     
@@ -1277,43 +1276,33 @@ NSString* const WMFCCBySALicenseURL =
     [self.containerView addSubview:self.animatedResizeBackgroundView];
     
     CGRect snapshotRect = UIEdgeInsetsInsetRect(self.webView.bounds, insets);
-    self.animatedResizeSnapshotBeforeView = [self.webView resizableSnapshotViewFromRect:snapshotRect afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
-    self.animatedResizeSnapshotBeforeView.backgroundColor = [UIColor orangeColor];
-    self.animatedResizeSnapshotBeforeView.frame = UIEdgeInsetsInsetRect(self.webView.frame, insets);
-    [self.containerView addSubview: self.animatedResizeSnapshotBeforeView];
+    self.animatedResizeSnapshotView = [self.webView resizableSnapshotViewFromRect:snapshotRect afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
+    self.animatedResizeSnapshotView.backgroundColor = [UIColor orangeColor];
+    self.animatedResizeSnapshotView.frame = UIEdgeInsetsInsetRect(self.webView.frame, insets);
+    [self.containerView addSubview: self.animatedResizeSnapshotView];
 }
 
 - (void)performAnimatedResize {
     UIEdgeInsets insets = self.animatedResizeSnapshotInsets;
-    
 
-    [UIView performWithoutAnimation:^{
-        self.webView.frame = self.containerView.bounds;
-        [self.webView layoutIfNeeded];
-        //CGRect snapshotRect = UIEdgeInsetsInsetRect(self.webView.bounds, insets);
-        self.animatedResizeSnapshotAfterView = [UIView new];
-        self.animatedResizeSnapshotAfterView.backgroundColor = [UIColor orangeColor];
-        self.animatedResizeSnapshotAfterView.frame = self.animatedResizeSnapshotBeforeView.frame;
-        [self.containerView insertSubview:self.animatedResizeSnapshotAfterView belowSubview:self.animatedResizeSnapshotBeforeView];
-    }];
-    
-    self.animatedResizeSnapshotBeforeView.alpha = 0;
-    self.animatedResizeSnapshotBeforeView.frame = UIEdgeInsetsInsetRect(self.webView.frame, insets);
-    self.animatedResizeSnapshotAfterView.frame = UIEdgeInsetsInsetRect(self.webView.frame, insets);
+    self.animatedResizeSnapshotView.frame = UIEdgeInsetsInsetRect(self.webView.frame, insets);
 
     UIEdgeInsets backgroundViewInsets = UIEdgeInsetsMake(insets.top, 0, insets.bottom, 0);
     self.animatedResizeBackgroundView.frame = UIEdgeInsetsInsetRect(self.webView.frame, backgroundViewInsets);
 }
 
 - (void)completeAnimatedResize {
-    [self.animatedResizeBackgroundView removeFromSuperview];
-    self.animatedResizeBackgroundView = nil;
-    
-    [self.animatedResizeSnapshotBeforeView removeFromSuperview];
-    self.animatedResizeSnapshotBeforeView = nil;
-    
-    [self.animatedResizeSnapshotAfterView removeFromSuperview];
-    self.animatedResizeSnapshotAfterView = nil;
+    [UIView animateWithDuration:0.1 animations:^{
+        self.animatedResizeBackgroundView.alpha = 0;
+        self.animatedResizeSnapshotView.alpha = 0;
+     
+    } completion:^(BOOL finished) {
+        [self.animatedResizeBackgroundView removeFromSuperview];
+        self.animatedResizeBackgroundView = nil;
+        
+        [self.animatedResizeSnapshotView removeFromSuperview];
+        self.animatedResizeSnapshotView = nil;
+    }];
 }
 
 @end
