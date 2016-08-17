@@ -272,7 +272,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         CGFloat height       = 10;
 
         _headerView                 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, height)];
-        _headerView.backgroundColor = [UIColor wmf_lightGrayColor];
+        _headerView.backgroundColor = [UIColor wmf_articleBackgroundColor];
 
 
         UIView* headerBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, height - borderHeight, 1, borderHeight)];
