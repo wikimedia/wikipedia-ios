@@ -200,7 +200,7 @@
 "about-libraries-license" = "ლიცენზია";
 "about-libraries-licenses" = "ლიცენზიები";
 "about-content-license" = "კონტენტის ლიცენზია";
-// Fuzzy
+"about-libraries-complete-list" = "სრული სია";
 "about-repositories" = "რეპოზიტორები";
 "about-send-feedback" = "შეაფასეთ აპლიკაცია";
 // Fuzzy
@@ -223,11 +223,14 @@
 "timestamp-years" = "% წლის წინ";
 "lastmodified-by-user" = "$1 რედაქტირებულია $2-ის მიერ";
 "lastmodified-by-anon" = "$1 რედაქტირებულია ანონიმური მომხმარებლის მიერ";
+"button-edit" = "რედაქტირება";
 "button-next" = "შემდეგი";
 "button-done" = "გაკეთდა";
 "button-save" = "შენახვა";
+"button-ok" = "კარგი";
 "button-save-for-later" = "შეინახეთ";
 "button-saved-for-later" = "შენახულია";
+"button-report-a-bug" = "განაცხადე ხარვეზის შესახებ";
 "onboarding-create-account" = "ანგარიშის შექმნა";
 "onboarding-login" = "შესვლა";
 "onboarding-already-have-account" = "უკვე რეგისტრირებული ხართ? $1";
@@ -246,6 +249,7 @@
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "შინაარსი";
 "table-of-contents-button-label" = "სარჩევი";
+"table-of-contents-close-accessibility-hint" = "დახურვა";
 "abuse-filter-warning-heading" = "თქვენი რედაქტირება არაკონსტრუქციულს ჰგავს, დარწმუნებული ხართ, რომ მისი შენახვა გსურთ?";
 "abuse-filter-warning-subheading" = "თქვენი რედაქტირება შესაძლოა შეიცავდეს ერთ ან რამდენიმე შემდეგ ელემენტს:";
 "abuse-filter-warning-caps" = "იკრიფება დიდ ასოებზე";
@@ -305,15 +309,15 @@
 "hockeyapp-alert-privacy" = "$1 კონფიდენციალურობა";
 "page-issues" = "გვერდის საკითხები";
 "page-similar-titles" = "მსგავსი გვერდები";
-// Fuzzy
-"page-read-in-other-languages" = "წაიკითხეთ $1 ენებზე";
+"page-read-in-other-languages" = "ხელმისაწვდომია $1-სა და სხვა ენებზე";
 "page-last-edited" = "რედაქტირებულია $1 დღის წინ";
 "page-edit-history" = "მთლიანი რედაქტირების ისტორია";
 "captcha-reload" = "სხვა captcha-ს ჩვენება";
-// Fuzzy
-"captcha-prompt" = "შეიყვანეთ CAPTCHA-ს ტექსტი ზემოთ ნაჩვენები სურათიდან";
+"captcha-prompt" = "შეიყვანეთ CAPTCHA-ს ტექსტი";
 "mwk-empty-title-error" = "შეუძლებელია ოპერაციის შესრულება ცარიელი სათაურით.";
 "home-title" = "გამოიკვლიე";
+"home-empty-section" = "შედეგები ვერ მოიძებნა";
+"home-empty-section-check-again" = "კიდევ სცადეთ";
 "home-continue-reading-heading" = "განაგრძე კითხვა";
 "home-continue-related-heading" = "იმიტომ რომ თქვენ წაიკითხეთ $1";
 "home-more-like-footer" = "$1-ის მსგავსად";
@@ -323,24 +327,26 @@
 "home-featured-article-heading" = "რჩეული სტატია $1-სთვის";
 "home-main-page-heading" = "დღეს ვიკიპედიაზე";
 "home-potd-heading" = "დღის სურათი $1-სთვის";
-// Fuzzy
 "home-last-update-label" = "ბოლოს განახლდა: $1";
-// Fuzzy
 "home-last-update-never-label" = "ბოლოს განახლდა: არასდროს";
 "home-updating-label" = "განახლება...";
+"home-hide-suggestion-prompt" = "შეთავაზებების დამალვა";
 "home-hide-suggestion-cancel" = "გაუქმება";
 "home-button-accessibility-label" = "სახლის ღილაკი";
 "potd-empty-error-description" = "შეუძლებელია $1-სთვის დღის სურათის ჩატვირთვა";
 "potd-description-prefix" = "დღის სურათი $1-სთვის";
-// Fuzzy
-"welcome-languages-title" = "ენების მოძებნა";
+"welcome-explore-tell-me-more-done-button" = "მიღება";
+"welcome-explore-continue-button" = "დაწყება";
+"welcome-languages-title" = "ენები";
+"welcome-languages-continue-button" = "გაგრძელება";
+"welcome-volunteer-title" = "მოხალისე";
+"welcome-volunteer-continue-button" = "გაგრძელება";
+"welcome-volunteer-thanks" = "$1 მადლობა!";
 "empty-no-feed-title" = "ინტერნეტ-კავშირი არ არის";
 "empty-no-feed-message" = "თქვენ შეძლებთ რეკომენდებული სტატიების ნახვას, როდესაც გექნებათ ინტერნეტი";
-// Fuzzy
 "empty-no-feed-action-message" = "შეგიძლიათ იხილოთ შენახული გვერდები";
 "empty-no-article-message" = "უკაცრავად, სტატიის ჩატვირთვა ვერ მოხერხდა";
-// Fuzzy
-"empty-no-search-results-message" = "უკაცრავად, შედეგების ჩატვირთვა ვერ მოხერხდა";
+"empty-no-search-results-message" = "შედეგები ვერ მოიძებნა";
 "empty-no-saved-pages-title" = "გვერდები არ არის შენახული";
 "empty-no-saved-pages-message" = "შეინახეთ გვერდები მათ მოგვიანებით სანახავად";
 "empty-no-history-title" = "სანახავი ისტორია არ არსებობს";
@@ -349,6 +355,7 @@
 "icon-shortcut-search-title" = "ძიება ვიკიპედიაში";
 "icon-shortcut-continue-reading-title" = "განაგრძეთ კითხვა";
 "icon-shortcut-random-title" = "შემთხვევითი სტატია";
+"icon-shortcut-nearby-title" = "ახლომახლო სტატიები";
 "close-button-accessibility-label" = "დახურვა";
 "back-button-accessibility-label" = "უკან";
 "explore-featured-article-heading" = "რჩეული სტატია";

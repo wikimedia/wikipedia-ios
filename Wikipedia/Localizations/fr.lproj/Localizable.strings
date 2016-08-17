@@ -407,3 +407,4 @@
 "no-email-account-alert" = "Veuillez configurer un compte de messagerie sur votre appareil et réessayer.";
 "request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
 "explore-another-random" = "Un autre article au hasard";
+"find-in-page-no-matches" = "Aucune correspondance";
