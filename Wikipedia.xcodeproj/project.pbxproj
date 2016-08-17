@@ -85,6 +85,7 @@
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
 		0EFD6C9B1D3CFED000E02F2B /* MWKSite.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EFD6C991D3CFED000E02F2B /* MWKSite.m */; };
 		0EFD6C9C1D3CFED000E02F2B /* MWKTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EFD6C9A1D3CFED000E02F2B /* MWKTitle.m */; };
+		1160755191922EFFA7A8239E /* Pods_Foundation_ContinueReadingWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22B93ECBAEAC2A23EDF8D82 /* Pods_Foundation_ContinueReadingWidget.framework */; };
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
 		19A17B36FFB48307FF04C07F /* SavedPageSpotlightManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */; };
 		546FBAB748BC2D8A825AC3E7 /* Pods_WikipediaUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB42E6E68D82F6B976C9C626 /* Pods_WikipediaUnitTests.framework */; };
@@ -853,12 +854,15 @@
 		0EFD6C981D3CFED000E02F2B /* MWKTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKTitle.h; path = Wikipedia/Code/MWKTitle.h; sourceTree = SOURCE_ROOT; };
 		0EFD6C991D3CFED000E02F2B /* MWKSite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSite.m; path = Wikipedia/Code/MWKSite.m; sourceTree = SOURCE_ROOT; };
 		0EFD6C9A1D3CFED000E02F2B /* MWKTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKTitle.m; path = Wikipedia/Code/MWKTitle.m; sourceTree = SOURCE_ROOT; };
+		144FD4C992AD7C5D74554EA9 /* Pods-Foundation-ContinueReadingWidget.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.beta.xcconfig"; sourceTree = "<group>"; };
 		19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedPageSpotlightManagerTest.m; sourceTree = "<group>"; };
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
+		1F2788162695080322BD2F70 /* Pods-Foundation-ContinueReadingWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.release.xcconfig"; sourceTree = "<group>"; };
 		31E7C203CCF88A767224D5D0 /* Pods-WikipediaUnitTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.test.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.test.xcconfig"; sourceTree = "<group>"; };
 		45F9AD5FD5AA496781AC6CE2 /* Pods-Foundation-Wikipedia.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.adhoc.xcconfig"; sourceTree = "<group>"; };
 		5A20F6A5103B7E041702B30E /* Pods-Foundation-Wikipedia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.debug.xcconfig"; sourceTree = "<group>"; };
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
+		797B0A69B19726007DD97387 /* Pods-Foundation-ContinueReadingWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.debug.xcconfig"; sourceTree = "<group>"; };
 		805FC844F4FFA25D9E8E82ED /* Pods-Foundation-Wikipedia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.release.xcconfig"; sourceTree = "<group>"; };
 		8C921FC6F5110CC2F96ED94A /* Pods-WikipediaUnitTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.beta.xcconfig"; sourceTree = "<group>"; };
 		9CB721C3D602C783A80C89B5 /* Pods_Foundation_Wikipedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_Wikipedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1917,6 +1921,7 @@
 		BCF8DCA71B7009B100149C26 /* MobileView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MobileView; sourceTree = "<group>"; };
 		BCFEEA441C286D3200CA2986 /* WMFArticleFetchIfNeededTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleFetchIfNeededTests.m; sourceTree = "<group>"; };
 		BCFEEA461C286DD600CA2986 /* LSNocilla+Quick.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "LSNocilla+Quick.h"; path = "WikipediaUnitTests/Code/LSNocilla+Quick.h"; sourceTree = SOURCE_ROOT; };
+		C22B93ECBAEAC2A23EDF8D82 /* Pods_Foundation_ContinueReadingWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_ContinueReadingWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46FBA4A1A8530EE00C5730F /* Pods-Foundation-Wikipedia-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-Foundation-Wikipedia-acknowledgements.plist"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia-acknowledgements.plist"; sourceTree = SOURCE_ROOT; };
 		C533DA84362E404EFDEA476E /* Pods-WikipediaUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C94B16BCF4DB992FA6D86FA3 /* Pods-WikipediaUnitTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.adhoc.xcconfig"; sourceTree = "<group>"; };
@@ -2038,6 +2043,8 @@
 		DB42E6E68D82F6B976C9C626 /* Pods_WikipediaUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WikipediaUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C7C81C06391649384FE27F /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		E0CAA3626B2D691E69E163BD /* Pods-Foundation-Wikipedia.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.test.xcconfig"; sourceTree = "<group>"; };
+		E3E349C6CEDD6F205DC75A3B /* Pods-Foundation-ContinueReadingWidget.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.adhoc.xcconfig"; sourceTree = "<group>"; };
+		E79DF2D31BE05ECBA57FC824 /* Pods-Foundation-ContinueReadingWidget.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.test.xcconfig"; sourceTree = "<group>"; };
 		F6053A891D3C59340023759C /* UITableViewController+WMFScrollToTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewController+WMFScrollToTop.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -2047,6 +2054,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E8380651D64989F0076EDE4 /* NotificationCenter.framework in Frameworks */,
+				1160755191922EFFA7A8239E /* Pods_Foundation_ContinueReadingWidget.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5104,6 +5112,7 @@
 				9CB721C3D602C783A80C89B5 /* Pods_Foundation_Wikipedia.framework */,
 				DB42E6E68D82F6B976C9C626 /* Pods_WikipediaUnitTests.framework */,
 				0E8380641D64989F0076EDE4 /* NotificationCenter.framework */,
+				C22B93ECBAEAC2A23EDF8D82 /* Pods_Foundation_ContinueReadingWidget.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -5189,6 +5198,11 @@
 				E0C7C81C06391649384FE27F /* Pods-WikipediaUnitTests.release.xcconfig */,
 				31E7C203CCF88A767224D5D0 /* Pods-WikipediaUnitTests.test.xcconfig */,
 				8C921FC6F5110CC2F96ED94A /* Pods-WikipediaUnitTests.beta.xcconfig */,
+				797B0A69B19726007DD97387 /* Pods-Foundation-ContinueReadingWidget.debug.xcconfig */,
+				E3E349C6CEDD6F205DC75A3B /* Pods-Foundation-ContinueReadingWidget.adhoc.xcconfig */,
+				1F2788162695080322BD2F70 /* Pods-Foundation-ContinueReadingWidget.release.xcconfig */,
+				E79DF2D31BE05ECBA57FC824 /* Pods-Foundation-ContinueReadingWidget.test.xcconfig */,
+				144FD4C992AD7C5D74554EA9 /* Pods-Foundation-ContinueReadingWidget.beta.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -5200,9 +5214,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0E8380761D64989F0076EDE4 /* Build configuration list for PBXNativeTarget "ContinueReadingWidget" */;
 			buildPhases = (
+				4B7662A4A7802D35804B4084 /* [CP] Check Pods Manifest.lock */,
 				0E83805F1D64989F0076EDE4 /* Sources */,
 				0E8380601D64989F0076EDE4 /* Frameworks */,
 				0E8380611D64989F0076EDE4 /* Resources */,
+				2481645BC89FC09A3FAE919A /* [CP] Embed Pods Frameworks */,
+				B0CEC780D8C9F9D2E4B90317 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -5521,6 +5538,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2481645BC89FC09A3FAE919A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4B7662A4A7802D35804B4084 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		65C7DDCCEB87BCA5544C55B7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5564,6 +5611,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0CEC780D8C9F9D2E4B90317 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BC44DB9E1B161839008FCD0C /* Modify App Info.plist */ = {
@@ -6420,6 +6482,7 @@
 /* Begin XCBuildConfiguration section */
 		0E8380711D64989F0076EDE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 797B0A69B19726007DD97387 /* Pods-Foundation-ContinueReadingWidget.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -6445,6 +6508,7 @@
 		};
 		0E8380721D64989F0076EDE4 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E3E349C6CEDD6F205DC75A3B /* Pods-Foundation-ContinueReadingWidget.adhoc.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -6466,6 +6530,7 @@
 		};
 		0E8380731D64989F0076EDE4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F2788162695080322BD2F70 /* Pods-Foundation-ContinueReadingWidget.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -6487,6 +6552,7 @@
 		};
 		0E8380741D64989F0076EDE4 /* Test */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E79DF2D31BE05ECBA57FC824 /* Pods-Foundation-ContinueReadingWidget.test.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -6508,6 +6574,7 @@
 		};
 		0E8380751D64989F0076EDE4 /* Beta */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 144FD4C992AD7C5D74554EA9 /* Pods-Foundation-ContinueReadingWidget.beta.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -7262,6 +7329,7 @@
 				0E8380751D64989F0076EDE4 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BC42735A1A7C736800068882 /* Build configuration list for PBXNativeTarget "WikipediaUnitTests" */ = {
 			isa = XCConfigurationList;
