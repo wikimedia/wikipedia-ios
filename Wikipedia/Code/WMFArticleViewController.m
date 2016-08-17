@@ -898,8 +898,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
+    BOOL isCompact = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact;
     self.tableOfContentsDisplaySide =  [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
-    self.tableOfContentsDisplayMode = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
+    self.tableOfContentsDisplayMode = isCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
             self.updateTableOfContentsSectionOnScrollEnabled = YES;
