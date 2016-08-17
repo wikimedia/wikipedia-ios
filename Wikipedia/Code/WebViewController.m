@@ -68,8 +68,6 @@ NSString* const WMFCCBySALicenseURL =
 @property (nonatomic, strong) UIView *animatedResizeSnapshotView;
 @property (nonatomic, strong) UIView *animatedResizeBackgroundView;
 
-@property (nonatomic) CGFloat percentageOffsetBeforeResize;
-
 @property (nonatomic, strong) NSArray* findInPageMatches;
 @property (nonatomic) NSInteger findInPageSelectedMatchIndex;
 @property (nonatomic) BOOL disableMinimizeFindInPage;
@@ -902,7 +900,7 @@ NSString* const WMFCCBySALicenseURL =
         [self.webView getScrollViewRectForHtmlElementWithId:fragment completion:^(CGRect rect) {
             if (!CGRectIsNull(rect)) {
                 [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y)
-                                                         animated:YES];
+                                                         animated:animated];
             }
         }];
     }
@@ -1270,10 +1268,7 @@ NSString* const WMFCCBySALicenseURL =
         return;
     }
     
-    self.percentageOffsetBeforeResize = self.webView.scrollView.contentOffset.y / self.webView.scrollView.contentSize.height;
-    
     UIEdgeInsets insets = self.animatedResizeSnapshotInsets;
- 
     
     self.animatedResizeBackgroundView = [UIView new];
     self.animatedResizeBackgroundView.backgroundColor = [UIColor whiteColor];
@@ -1297,15 +1292,9 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)completeAnimatedResize {
-    CGFloat contentSizeHeight = self.webView.scrollView.contentSize.height;
-    CGFloat boundsSizeHeight = self.webView.scrollView.bounds.size.height;
-    CGFloat newContentOffsetY = self.percentageOffsetBeforeResize*contentSizeHeight;
-    newContentOffsetY = MIN(MAX(0, newContentOffsetY), contentSizeHeight - boundsSizeHeight);
-    [self.webView.scrollView setContentOffset:CGPointMake(0, newContentOffsetY) animated:NO];
     [UIView animateWithDuration:0.1 animations:^{
         self.animatedResizeBackgroundView.alpha = 0;
         self.animatedResizeSnapshotView.alpha = 0;
-     
     } completion:^(BOOL finished) {
         [self.animatedResizeBackgroundView removeFromSuperview];
         self.animatedResizeBackgroundView = nil;

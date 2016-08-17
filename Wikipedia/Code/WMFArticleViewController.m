@@ -73,6 +73,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
 static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 10;
 
 
+
 @interface WMFArticleViewController ()
 <UINavigationControllerDelegate,
  WMFImageGalleryViewControllerReferenceViewDelegate,
@@ -160,6 +161,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self = [super init];
     if (self) {
+        self.currentFooterIndex = NSNotFound;
         self.articleURL               = url;
         self.dataStore                = dataStore;
         self.hidesBottomBarWhenPushed = YES;
@@ -945,10 +947,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)updateTableOfContentsLayoutAnimated:(BOOL)animated {
     if (animated) {
+        UIScrollView *scrollView = self.webViewController.webView.scrollView;
+        CGFloat previousOffsetPercentage = scrollView.contentOffset.y/scrollView.contentSize.height;
         [self.webViewController prepareForAnimatedResize];
         [UIView animateWithDuration:0.20 animations:^{
             [self layoutForSize:self.view.bounds.size];
             [self.webViewController performAnimatedResize];
+            if (self.currentSection) {
+                [self.webViewController scrollToSection:self.currentSection animated:NO];
+            } else if (self.currentFooterIndex != NSNotFound) {
+                [self.webViewController scrollToFooterAtIndex:self.currentFooterIndex];
+            } else {
+                scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage*scrollView.contentSize.height);
+            }
         } completion:^(BOOL finished) {
             [self.webViewController completeAnimatedResize];
         }];
@@ -1387,6 +1398,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)updateTableOfContentsHighlightWithScrollView:(UIScrollView *)scrollView {
+    self.currentFooterIndex = NSNotFound;
+    self.currentSection = nil;
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection * _Nullable section, NSError * _Nullable error) {
         if (section) {
             [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
