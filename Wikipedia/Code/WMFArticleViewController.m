@@ -625,6 +625,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     [self.webViewController setFooterViewControllers:footerVCs];
+    
+    [self updateTableOfContentsDisplayModeWithTraitCollection:self.traitCollection];
 }
 
 #pragma mark - Progress
@@ -896,8 +898,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
+    BOOL isCompact = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact;
     self.tableOfContentsDisplaySide =  [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
-    self.tableOfContentsDisplayMode = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
+    self.tableOfContentsDisplayMode = isCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
             self.updateTableOfContentsSectionOnScrollEnabled = YES;
@@ -907,6 +910,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             self.updateTableOfContentsSectionOnScrollEnabled = NO;
             break;
     }
+    
+    self.readMoreListViewController.tableView.separatorStyle = isCompact ? UITableViewCellSeparatorStyleSingleLine : UITableViewCellSeparatorStyleNone;
+    self.footerMenuViewController.tableView.separatorStyle = isCompact ? UITableViewCellSeparatorStyleSingleLine : UITableViewCellSeparatorStyleNone;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
