@@ -1283,7 +1283,6 @@ NSString* const WMFCCBySALicenseURL =
     
     CGRect snapshotRect = UIEdgeInsetsInsetRect(self.webView.bounds, insets);
     self.animatedResizeSnapshotView = [self.webView resizableSnapshotViewFromRect:snapshotRect afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
-    self.animatedResizeSnapshotView.backgroundColor = [UIColor orangeColor];
     self.animatedResizeSnapshotView.frame = UIEdgeInsetsInsetRect(self.webView.frame, insets);
     [self.containerView addSubview: self.animatedResizeSnapshotView];
 }
