@@ -63,8 +63,12 @@ NSString* const WMFCCBySALicenseURL =
 @property (strong, nonatomic) MASConstraint* footerContainerViewLeftMarginConstraint;
 @property (strong, nonatomic) MASConstraint* footerContainerViewRightMarginConstraint;
 
+@property (nonatomic) CGFloat marginWidth;
+
 @property (nonatomic, strong) UIView *animatedResizeSnapshotView;
 @property (nonatomic, strong) UIView *animatedResizeBackgroundView;
+
+@property (nonatomic) CGFloat percentageOffsetBeforeResize;
 
 @property (nonatomic, strong) NSArray* findInPageMatches;
 @property (nonatomic) NSInteger findInPageSelectedMatchIndex;
@@ -345,10 +349,6 @@ NSString* const WMFCCBySALicenseURL =
     return floor(0.5*size.width*(1 - self.contentWidthPercentage));
 }
 
-- (CGFloat)marginWidth {
-    return [self marginWidthForSize:self.view.bounds.size];
-}
-
 - (void)updateFooterMarginForSize:(CGSize)size {
     CGFloat marginWidth = [self marginWidthForSize:size];
     self.footerContainerViewLeftMarginConstraint.offset = marginWidth;
@@ -360,11 +360,15 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)updateWebContentMarginForSize:(CGSize)size {
-    NSString *jsFormat = @"document.body.style.paddingLeft='%ipx';document.body.style.paddingRight='%ipx';";
-    CGFloat marginWidth = [self marginWidthForSize:size];
-    int padding = (int)MAX(0, marginWidth);
-    NSString *js = [NSString stringWithFormat:jsFormat, padding, padding];
-    [self.webView evaluateJavaScript:js completionHandler:NULL];
+    CGFloat newMarginWidth = [self marginWidthForSize:self.view.bounds.size];
+    if (ABS(self.marginWidth - newMarginWidth) >= 0.5) {
+        self.marginWidth = newMarginWidth;
+        NSString *jsFormat = @"document.body.style.paddingLeft='%ipx';document.body.style.paddingRight='%ipx';";
+        CGFloat marginWidth = [self marginWidthForSize:size];
+        int padding = (int)MAX(0, marginWidth);
+        NSString *js = [NSString stringWithFormat:jsFormat, padding, padding];
+        [self.webView evaluateJavaScript:js completionHandler:NULL];
+    }
 }
 
 - (void)viewDidLayoutSubviews {
@@ -1266,6 +1270,8 @@ NSString* const WMFCCBySALicenseURL =
         return;
     }
     
+    self.percentageOffsetBeforeResize = self.webView.scrollView.contentOffset.y / self.webView.scrollView.contentSize.height;
+    
     UIEdgeInsets insets = self.animatedResizeSnapshotInsets;
  
     
@@ -1292,6 +1298,11 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)completeAnimatedResize {
+    CGFloat contentSizeHeight = self.webView.scrollView.contentSize.height;
+    CGFloat boundsSizeHeight = self.webView.scrollView.bounds.size.height;
+    CGFloat newContentOffsetY = self.percentageOffsetBeforeResize*contentSizeHeight;
+    newContentOffsetY = MIN(MAX(0, newContentOffsetY), contentSizeHeight - boundsSizeHeight);
+    [self.webView.scrollView setContentOffset:CGPointMake(0, newContentOffsetY) animated:NO];
     [UIView animateWithDuration:0.1 animations:^{
         self.animatedResizeBackgroundView.alpha = 0;
         self.animatedResizeSnapshotView.alpha = 0;
