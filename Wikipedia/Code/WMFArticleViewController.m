@@ -943,6 +943,20 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Table of Contents
 
+- (void)updateTableOfContentsLayoutAnimated:(BOOL)animated {
+    if (animated) {
+        [self.webViewController prepareForAnimatedResize];
+        [UIView animateWithDuration:0.25 animations:^{
+            [self layoutForSize:self.view.bounds.size];
+            [self.webViewController performAnimatedResize];
+        } completion:^(BOOL finished) {
+            [self.webViewController completeAnimatedResize];
+        }];
+    } else {
+        [self layoutForSize:self.view.bounds.size];
+    }
+}
+
 - (void)showTableOfContents:(id)sender {
     if (self.tableOfContentsViewController == nil) {
         return;
@@ -954,9 +968,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 [[NSUserDefaults standardUserDefaults] wmf_setTableOfContentsIsVisibleInline:YES];
             }
             self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineVisible;
-            [UIView animateWithDuration:0.25 animations:^{
-                [self layoutForSize:self.view.bounds.size];
-            }];
+            [self updateTableOfContentsLayoutAnimated:YES];
         }
             break;
         case WMFTableOfContentsDisplayModeModal:
@@ -978,10 +990,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 [[NSUserDefaults standardUserDefaults] wmf_setTableOfContentsIsVisibleInline:NO];
             }
             self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
-            [UIView animateWithDuration:0.25 animations:^{
-                [self layoutForSize:self.view.bounds.size];
-            }];
-            
+            [self updateTableOfContentsLayoutAnimated:YES];
         }
             break;
         case WMFTableOfContentsDisplayModeModal:
