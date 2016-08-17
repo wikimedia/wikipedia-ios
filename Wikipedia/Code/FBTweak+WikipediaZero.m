@@ -14,20 +14,21 @@ static NSString* const WMFWikipediaZeroHeaderTweakIdentifier = @"org.wikimedia.w
 @implementation FBTweak (WikipediaZero)
 
 + (void)load {
-    FBTweakCategory* networkingCategory = [[FBTweakStore sharedInstance] tweakCategoryWithName:@"Networking"];
-    NSParameterAssert(networkingCategory);
-
-    FBTweakCollection* zeroTweakCollection = [[FBTweakCollection alloc] initWithName:@"Wikipedia Zero"];
-    [networkingCategory addTweakCollection:zeroTweakCollection];
-
-    FBTweak* zeroHeaders = [[FBTweak alloc] initWithIdentifier:WMFWikipediaZeroHeaderTweakIdentifier];
-    zeroHeaders.name         = @"Mock Wikipedia Zero headers.";
-    zeroHeaders.defaultValue = @NO;
-
-    [zeroTweakCollection addTweak:zeroHeaders];
+//    FBTweakCategory* networkingCategory = [[FBTweakStore sharedInstance] tweakCategoryWithName:@"Networking"];
+//    NSParameterAssert(networkingCategory);
+//
+//    FBTweakCollection* zeroTweakCollection = [[FBTweakCollection alloc] initWithName:@"Wikipedia Zero"];
+//    [networkingCategory addTweakCollection:zeroTweakCollection];
+//
+//    FBTweak* zeroHeaders = [[FBTweak alloc] initWithIdentifier:WMFWikipediaZeroHeaderTweakIdentifier];
+//    zeroHeaders.name         = @"Mock Wikipedia Zero headers.";
+//    zeroHeaders.defaultValue = @NO;
+//
+//    [zeroTweakCollection addTweak:zeroHeaders];
 }
 
 + (BOOL)wmf_shouldMockWikipediaZeroHeaders {
+    return NO;
     return [[[[[[FBTweakStore sharedInstance] tweakCategoryWithName:@"Networking"]
                tweakCollectionWithName:@"Wikipedia Zero"]
               tweakWithIdentifier:WMFWikipediaZeroHeaderTweakIdentifier] currentValue] boolValue];

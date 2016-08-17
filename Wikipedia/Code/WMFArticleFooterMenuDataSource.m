@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSDate* lastModified = article.lastmodified ? article.lastmodified : [NSDate date];
 
-    if (FBTweakValue(@"Article", @"Article Metadata Footer", @"Show last edit timestamp", NO)) {
+    if (NO /*FBTweakValue(@"Article", @"Article Metadata Footer", @"Show last edit timestamp", NO)*/) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
                                       [lastModified mediumString],
                                       MWSiteLocalizedString(article.url, @"page-edit-history", nil),

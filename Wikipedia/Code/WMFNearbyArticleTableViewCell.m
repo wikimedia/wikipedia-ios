@@ -186,11 +186,11 @@
 }
 
 - (void)setDistance:(CLLocationDistance)distance {
-    if (FBTweakValue(@"Explore", @"Nearby", @"Show raw distance", NO)) {
-        self.distanceLabel.text = [NSString stringWithFormat:@"%f", distance];
-    } else {
+//    if (FBTweakValue(@"Explore", @"Nearby", @"Show raw distance", NO)) {
+//        self.distanceLabel.text = [NSString stringWithFormat:@"%f", distance];
+//    } else {
         self.distanceLabel.text = [NSString wmf_localizedStringForDistance:distance];
-    }
+//    }
 }
 
 #pragma mark - Image
