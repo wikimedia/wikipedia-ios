@@ -6,9 +6,11 @@ public class WMFTableOfContentsCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var selectedSectionIndicator: UIView!
     @IBOutlet var indentationConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
     
     public var titleIndentationLevel: Int = 0 {
         didSet {
+            titleLabelTopConstraint.constant = titleIndentationLevel == 0 ? 19 : 11;
             indentationConstraint.constant =  indentationWidth * CGFloat(1 + titleIndentationLevel)
         }
     }

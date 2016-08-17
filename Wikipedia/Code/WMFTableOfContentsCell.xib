@@ -48,6 +48,7 @@
                 <outlet property="indentationConstraint" destination="Tr2-mk-KE5" id="t2k-NA-mrW"/>
                 <outlet property="selectedSectionIndicator" destination="WnM-xO-Ywd" id="oAl-20-dvE"/>
                 <outlet property="titleLabel" destination="ew3-L9-lHp" id="Ybf-FX-7hZ"/>
+                <outlet property="titleLabelTopConstraint" destination="tkc-3N-nXV" id="aBK-mY-5He"/>
             </connections>
             <point key="canvasLocation" x="425" y="373.5"/>
         </tableViewCell>
