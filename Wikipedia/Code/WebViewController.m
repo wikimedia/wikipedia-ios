@@ -511,6 +511,7 @@ NSString* const WMFCCBySALicenseURL =
 - (WKWebView*)webView {
     if (!_webView) {
         _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
+        _webView.allowsLinkPreview = NO;
         _webView.scrollView.delegate = self;
     }
     return _webView;
