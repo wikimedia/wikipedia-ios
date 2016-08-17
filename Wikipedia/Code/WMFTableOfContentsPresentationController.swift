@@ -69,7 +69,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         self.closeButton.mas_remakeConstraints({ make in
             make.width.equalTo()(44)
             make.height.equalTo()(44)
-            make.leading.equalTo()(self.closeButton.superview!.mas_leading).offset()(self.closeButtonLeadingPadding)
+            make.trailing.equalTo()(self.closeButton.superview!.mas_trailing).offset()(0 - self.closeButtonLeadingPadding)
             if(self.traitCollection.verticalSizeClass == .Compact){
                 make.top.equalTo()(self.closeButtonTopPadding)
             }else{
