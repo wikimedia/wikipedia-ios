@@ -1,17 +1,16 @@
-
 #import "WMFUnderlineButton.h"
 #import "UIFont+WMFStyle.h"
 #import <Masonry/Masonry.h>
 
 @interface WMFUnderlineButton ()
 
-@property (nonatomic, strong) UIView* underline;
+@property(nonatomic, strong) UIView *underline;
 
 @end
 
 @implementation WMFUnderlineButton
 
-- (instancetype)initWithCoder:(NSCoder*)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
         [self configureStyle];
@@ -33,7 +32,7 @@
     [self setTitleColor:self.tintColor forState:UIControlStateSelected];
 }
 
-- (void)setTintColor:(UIColor*)tintColor {
+- (void)setTintColor:(UIColor *)tintColor {
     [super setTintColor:tintColor];
     self.underline.backgroundColor = self.tintColor;
     [self setTitleColor:self.tintColor forState:UIControlStateSelected];
@@ -41,7 +40,7 @@
 
 - (void)addUnderline {
     self.underlineHeight = 1.0;
-    UIView* v = [[UIView alloc] initWithFrame:CGRectZero];
+    UIView *v = [[UIView alloc] initWithFrame:CGRectZero];
     v.backgroundColor = self.tintColor;
     [self addSubview:v];
     self.underline = v;
@@ -50,10 +49,10 @@
 }
 
 - (void)updateUnderlineConstraints {
-    [self.underline mas_remakeConstraints:^(MASConstraintMaker* make) {
-        make.leading.and.trailing.equalTo(self);
-        make.height.equalTo(@(self.underlineHeight));
-        make.bottom.equalTo(self.mas_bottom);
+    [self.underline mas_remakeConstraints:^(MASConstraintMaker *make) {
+      make.leading.and.trailing.equalTo(self);
+      make.height.equalTo(@(self.underlineHeight));
+      make.bottom.equalTo(self.mas_bottom);
     }];
 }
 

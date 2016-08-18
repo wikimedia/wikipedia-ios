@@ -1,11 +1,3 @@
-//
-//  WMFNetworkUtilitiesTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/5/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "WMFNetworkUtilities.h"
@@ -20,11 +12,11 @@
 @implementation WMFJoinedPropertyParametersTests
 
 - (void)testNonEmptyArray {
-    assertThat(WMFJoinedPropertyParameters(@[@"foo", @"bar", @"baz"]), is(@"foo|bar|baz"));
+    assertThat(WMFJoinedPropertyParameters(@[ @"foo", @"bar", @"baz" ]), is(@"foo|bar|baz"));
 }
 
 - (void)testUnaryArray {
-    assertThat(WMFJoinedPropertyParameters(@[@"foo"]), is(@"foo"));
+    assertThat(WMFJoinedPropertyParameters(@[ @"foo" ]), is(@"foo"));
 }
 
 - (void)testEmptyArray {

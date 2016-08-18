@@ -1,11 +1,3 @@
-//
-//  ReadingActionFunnel.m
-//  Wikipedia
-//
-//  Created by Brion on 5/28/14.
-//  Copyright (c) 2014 Wikimedia Foundation. Some rights reserved.
-//
-
 #import "ReadingActionFunnel.h"
 
 @implementation ReadingActionFunnel
@@ -20,9 +12,9 @@
 }
 
 - (void)logSomethingHappened {
-    NSNumber* number = [NSNumber numberWithLong:time(NULL)];
-    [self log:@{@"appInstallReadActionID": self.appInstallID,
-                @"clientSideTS": (number ? number : @"")}];
+    NSNumber *number = [NSNumber numberWithLong:time(NULL)];
+    [self log:@{ @"appInstallReadActionID" : self.appInstallID,
+                 @"clientSideTS" : (number ? number : @"") }];
 }
 
 @end

@@ -26,7 +26,6 @@
 #import "MWKRecentSearchList.h"
 #import "MWKLanguageLinkController.h"
 
-
 // Views
 #import "UIViewController+WMFEmptyView.h"
 #import "UIView+WMFDefaultNib.h"
@@ -53,41 +52,40 @@
 #import "WMFFirstRandomViewController.h"
 #endif
 
-NSString* const WMFExploreEmptyFooterReuseIdentifier = @"empty";
-static DDLogLevel const WMFExploreVCLogLevel         = DDLogLevelInfo;
+NSString *const WMFExploreEmptyFooterReuseIdentifier = @"empty";
+static DDLogLevel const WMFExploreVCLogLevel = DDLogLevelInfo;
 #undef LOG_LEVEL_DEF
 #define LOG_LEVEL_DEF WMFExploreVCLogLevel
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFExploreViewController ()
-<WMFExploreSectionSchemaDelegate,
- UIViewControllerPreviewingDelegate,
- WMFAnalyticsContextProviding,
- WMFAnalyticsViewNameProviding,
- UINavigationControllerDelegate,
- WMFColumnarCollectionViewLayoutDelegate>
+@interface WMFExploreViewController () <WMFExploreSectionSchemaDelegate,
+                                        UIViewControllerPreviewingDelegate,
+                                        WMFAnalyticsContextProviding,
+                                        WMFAnalyticsViewNameProviding,
+                                        UINavigationControllerDelegate,
+                                        WMFColumnarCollectionViewLayoutDelegate>
 
-@property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
-@property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
+@property(nonatomic, strong, readonly) MWKSavedPageList *savedPages;
+@property(nonatomic, strong, readonly) MWKHistoryList *recentPages;
 
-@property (nonatomic, strong, nullable) WMFExploreSectionSchema* schemaManager;
+@property(nonatomic, strong, nullable) WMFExploreSectionSchema *schemaManager;
 
-@property (nonatomic, strong) WMFExploreSectionControllerCache* sectionControllerCache;
+@property(nonatomic, strong) WMFExploreSectionControllerCache *sectionControllerCache;
 
-@property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
+@property(nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
-@property (nonatomic, assign) NSUInteger numberOfFailedFetches;
-@property (nonatomic, assign) BOOL isWaitingForNetworkToReconnect;
-@property (nonatomic, assign) CGPoint preNetworkTroubleScrollPosition;
+@property(nonatomic, assign) NSUInteger numberOfFailedFetches;
+@property(nonatomic, assign) BOOL isWaitingForNetworkToReconnect;
+@property(nonatomic, assign) CGPoint preNetworkTroubleScrollPosition;
 
-@property (nonatomic, strong, nullable) id<WMFExploreSectionController> sectionOfPreviewingTitle;
+@property(nonatomic, strong, nullable) id<WMFExploreSectionController> sectionOfPreviewingTitle;
 
-@property (nonatomic, strong, nullable) AFNetworkReachabilityManager* reachabilityManager;
+@property(nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
 
-@property (nonatomic, readonly) NSArray* invisibleSections;
+@property(nonatomic, readonly) NSArray *invisibleSections;
 
-@property (nonatomic, strong) UIRefreshControl* refreshControl;
+@property(nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -97,27 +95,28 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (nullable instancetype)initWithCoder:(NSCoder*)aDecoder {
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.preNetworkTroubleScrollPosition = CGPointZero;
-        UIButton* b = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
         [b adjustsImageWhenHighlighted];
-        UIImage* w = [UIImage imageNamed:@"W"];
+        UIImage *w = [UIImage imageNamed:@"W"];
         [b setImage:w forState:UIControlStateNormal];
         [b sizeToFit];
         @weakify(self);
         [b bk_addEventHandler:^(id sender) {
-            @strongify(self);
-            [self.collectionView setContentOffset:CGPointZero animated:YES];
-        } forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.titleView                        = b;
+          @strongify(self);
+          [self.collectionView setContentOffset:CGPointZero animated:YES];
+        }
+              forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.titleView = b;
         self.navigationItem.titleView.isAccessibilityElement = YES;
-        self.navigationItem.titleView.accessibilityLabel     = MWLocalizedString(@"home-accessibility-label", nil);
-        self.navigationItem.titleView.accessibilityTraits   |= UIAccessibilityTraitHeader;
-        self.navigationItem.leftBarButtonItem                = [self settingsBarButtonItem];
-        self.navigationItem.rightBarButtonItem               = [self wmf_searchBarButtonItem];
-        self.reachabilityManager                             = [AFNetworkReachabilityManager manager];
+        self.navigationItem.titleView.accessibilityLabel = MWLocalizedString(@"home-accessibility-label", nil);
+        self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitHeader;
+        self.navigationItem.leftBarButtonItem = [self settingsBarButtonItem];
+        self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
+        self.reachabilityManager = [AFNetworkReachabilityManager manager];
         [self.reachabilityManager startMonitoring];
     }
     return self;
@@ -130,22 +129,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
-- (MWKSavedPageList*)savedPages {
+- (MWKSavedPageList *)savedPages {
     return self.dataStore.userDataStore.savedPageList;
 }
 
-- (MWKHistoryList*)recentPages {
+- (MWKHistoryList *)recentPages {
     return self.dataStore.userDataStore.historyList;
 }
 
-- (UIBarButtonItem*)settingsBarButtonItem {
+- (UIBarButtonItem *)settingsBarButtonItem {
     return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"]
                                             style:UIBarButtonItemStylePlain
                                            target:self
                                            action:@selector(didTapSettingsButton:)];
 }
 
-- (WMFExploreSectionControllerCache*)sectionControllerCache {
+- (WMFExploreSectionControllerCache *)sectionControllerCache {
     NSParameterAssert(self.dataStore);
     if (!_sectionControllerCache) {
         _sectionControllerCache = [[WMFExploreSectionControllerCache alloc] initWithDataStore:self.dataStore];
@@ -175,14 +174,14 @@ NS_ASSUME_NONNULL_BEGIN
     }
     NSParameterAssert(section != NSNotFound);
     NSParameterAssert(section < [self numberOfSectionsInCollectionView:self.collectionView]);
-    return [self.collectionView.indexPathsForVisibleItems bk_any:^BOOL (NSIndexPath* indexPath) {
-        return indexPath.section == section;
+    return [self.collectionView.indexPathsForVisibleItems bk_any:^BOOL(NSIndexPath *indexPath) {
+      return indexPath.section == section;
     }];
 }
 
-- (BOOL)itemAtIndexPathIsOnlyItemVisibleInSection:(NSIndexPath*)indexPath {
-    NSArray<NSIndexPath*>* visibleIndexPathsInSection = [self.collectionView.indexPathsForVisibleItems bk_select:^BOOL (NSIndexPath* i) {
-        return i.section == indexPath.section;
+- (BOOL)itemAtIndexPathIsOnlyItemVisibleInSection:(NSIndexPath *)indexPath {
+    NSArray<NSIndexPath *> *visibleIndexPathsInSection = [self.collectionView.indexPathsForVisibleItems bk_select:^BOOL(NSIndexPath *i) {
+      return i.section == indexPath.section;
     }];
 
     if ([visibleIndexPathsInSection count] == 1 && [[visibleIndexPathsInSection firstObject] isEqual:indexPath]) {
@@ -199,37 +198,38 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return @c YES if that section isn't displaying or the given item is the only one visible in its section, otherwise @c NO.
  */
-- (BOOL)isVisibilityTransitioningForItemAtIndexPath:(NSIndexPath*)indexPath {
-    return ![self isDisplayingCellsForSection:indexPath.section]
-           || [self itemAtIndexPathIsOnlyItemVisibleInSection:indexPath];
+- (BOOL)isVisibilityTransitioningForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return ![self isDisplayingCellsForSection:indexPath.section] || [self itemAtIndexPathIsOnlyItemVisibleInSection:indexPath];
 }
 
-- (NSArray*)visibleSectionControllers {
-    NSIndexSet* visibleSectionIndexes = [[self.collectionView indexPathsForVisibleItems] bk_reduce:[NSMutableIndexSet indexSet] withBlock:^id (NSMutableIndexSet* sum, NSIndexPath* obj) {
-        [sum addIndex:(NSUInteger)obj.section];
-        return sum;
-    }];
+- (NSArray *)visibleSectionControllers {
+    NSIndexSet *visibleSectionIndexes = [[self.collectionView indexPathsForVisibleItems] bk_reduce:[NSMutableIndexSet indexSet]
+                                                                                         withBlock:^id(NSMutableIndexSet *sum, NSIndexPath *obj) {
+                                                                                           [sum addIndex:(NSUInteger)obj.section];
+                                                                                           return sum;
+                                                                                         }];
 
     if ([visibleSectionIndexes count] == 0) {
         return @[];
     }
 
-    return [[self.schemaManager.sections objectsAtIndexes:visibleSectionIndexes] wmf_mapAndRejectNil:^id (WMFExploreSection* obj) {
-        return [self sectionControllerForSection:obj];
+    return [[self.schemaManager.sections objectsAtIndexes:visibleSectionIndexes] wmf_mapAndRejectNil:^id(WMFExploreSection *obj) {
+      return [self sectionControllerForSection:obj];
     }];
 }
 
-- (NSArray*)invisibleSections {
-    NSIndexSet* visibleSectionIndexes = [[self.collectionView indexPathsForVisibleItems] bk_reduce:[NSMutableIndexSet indexSet] withBlock:^id (NSMutableIndexSet* sum, NSIndexPath* obj) {
-        [sum addIndex:(NSUInteger)obj.section];
-        return sum;
-    }];
+- (NSArray *)invisibleSections {
+    NSIndexSet *visibleSectionIndexes = [[self.collectionView indexPathsForVisibleItems] bk_reduce:[NSMutableIndexSet indexSet]
+                                                                                         withBlock:^id(NSMutableIndexSet *sum, NSIndexPath *obj) {
+                                                                                           [sum addIndex:(NSUInteger)obj.section];
+                                                                                           return sum;
+                                                                                         }];
 
     if ([visibleSectionIndexes count] == 0) {
         return self.schemaManager.sections;
     }
 
-    NSMutableArray* invisibleSections = [self.schemaManager.sections mutableCopy];
+    NSMutableArray *invisibleSections = [self.schemaManager.sections mutableCopy];
     [invisibleSections removeObjectsAtIndexes:visibleSectionIndexes];
     return invisibleSections;
 }
@@ -249,19 +249,19 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)sendWillDisplayToVisibleSectionControllers {
     [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull controller) {
-        if ([controller respondsToSelector:@selector(willDisplaySection)]) {
-            DDLogInfo(@"Manually sending willDisplaySection to controller %@", controller);
-            [controller willDisplaySection];
-        }
+      if ([controller respondsToSelector:@selector(willDisplaySection)]) {
+          DDLogInfo(@"Manually sending willDisplaySection to controller %@", controller);
+          [controller willDisplaySection];
+      }
     }];
 }
 
 #pragma mark - Actions
 
 - (void)showSettings {
-    UINavigationController* settingsContainer =
+    UINavigationController *settingsContainer =
         [[UINavigationController alloc] initWithRootViewController:
-         [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore]];
+                                            [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore]];
     settingsContainer.delegate = self;
     [self presentViewController:settingsContainer
                        animated:YES
@@ -277,7 +277,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [[controller items] count] > 0;
 }
 
-- (void)didTapSettingsButton:(UIBarButtonItem*)sender {
+- (void)didTapSettingsButton:(UIBarButtonItem *)sender {
     [self showSettings];
 }
 
@@ -292,21 +292,21 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl bk_addEventHandler:^(id sender) {
-        [self updateSectionSchemaForce:YES];
-    } forControlEvents:UIControlEventValueChanged];
+      [self updateSectionSchemaForce:YES];
+    }
+                           forControlEvents:UIControlEventValueChanged];
 
     [self resetRefreshControlWithCompletion:NULL];
 
     self.collectionView.scrollsToTop = YES;
-    self.collectionView.dataSource   = nil;
-    self.collectionView.delegate     = nil;
+    self.collectionView.dataSource = nil;
+    self.collectionView.delegate = nil;
 
     [self.collectionView registerNib:[WMFExploreSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
 
     [self.collectionView registerNib:[WMFExploreSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
 
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:WMFExploreEmptyFooterReuseIdentifier];
-
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(applicationWillEnterForegroundWithNotification:)
@@ -347,7 +347,7 @@ NS_ASSUME_NONNULL_BEGIN
     [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
 #if ENABLE_RANDOM_DEBUGGING
-    WMFFirstRandomViewController* vc = [[WMFFirstRandomViewController alloc] initWithSite:[MWKSite siteWithLanguage:@"en"] dataStore:self.dataStore];
+    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSite:[MWKSite siteWithLanguage:@"en"] dataStore:self.dataStore];
     [self wmf_pushViewController:vc animated:YES];
 #endif
 }
@@ -359,34 +359,35 @@ NS_ASSUME_NONNULL_BEGIN
 
     // stop location manager from updating.
     [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull obj) {
-        if ([obj respondsToSelector:@selector(didEndDisplayingSection)]) {
-            DDLogDebug(@"Sending didEndDisplayingSection to controller %@ on view disappearance", obj);
-            [obj didEndDisplayingSection];
-        }
+      if ([obj respondsToSelector:@selector(didEndDisplayingSection)]) {
+          DDLogDebug(@"Sending didEndDisplayingSection to controller %@ on view disappearance", obj);
+          [obj didEndDisplayingSection];
+      }
     }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
-    for (UICollectionViewCell* cell in self.collectionView.visibleCells) {
+    for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
         cell.selected = NO;
     }
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleURL:nil];
 }
 
-- (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
 }
 
 - (void)registerForPreviewingIfAvailable {
     [self wmf_ifForceTouchAvailable:^{
-        [self unregisterForPreviewing];
-        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
-    } unavailable:^{
-        [self unregisterForPreviewing];
-    }];
+      [self unregisterForPreviewing];
+      self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+    }
+        unavailable:^{
+          [self unregisterForPreviewing];
+        }];
 }
 
 - (void)unregisterForPreviewing {
@@ -403,7 +404,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Notifications
 
-- (void)applicationWillEnterForegroundWithNotification:(NSNotification*)note {
+- (void)applicationWillEnterForegroundWithNotification:(NSNotification *)note {
     if (!self.isViewLoaded || !self.view.window) {
         return;
     }
@@ -414,12 +415,12 @@ NS_ASSUME_NONNULL_BEGIN
     [self.sectionControllerCache removeSections:self.invisibleSections];
 }
 
-- (void)appLanguageDidChangeWithNotification:(NSNotification*)note {
+- (void)appLanguageDidChangeWithNotification:(NSNotification *)note {
     [self createSectionSchemaIfNeeded];
     [self.schemaManager updateSiteURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]];
 }
 
-- (void)tweaksDidChangeWithNotification:(NSNotification*)note {
+- (void)tweaksDidChangeWithNotification:(NSNotification *)note {
     [self updateSectionSchemaForce:YES];
 }
 
@@ -441,52 +442,51 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     self.preNetworkTroubleScrollPosition = self.collectionView.contentOffset;
-    self.isWaitingForNetworkToReconnect  = YES;
+    self.isWaitingForNetworkToReconnect = YES;
     [self.refreshControl endRefreshing];
     [self.collectionView reloadData];
 
     [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
     @weakify(self);
     [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-            case AFNetworkReachabilityStatusReachableViaWiFi: {
-                @strongify(self);
-                self.numberOfFailedFetches = 0;
-                self.isWaitingForNetworkToReconnect = NO;
-                [self.collectionView reloadData];
-                [self.collectionView setContentOffset:self.preNetworkTroubleScrollPosition animated:NO];
-                self.preNetworkTroubleScrollPosition = CGPointZero;
-                [self wmf_hideEmptyView];
+      switch (status) {
+      case AFNetworkReachabilityStatusReachableViaWWAN:
+      case AFNetworkReachabilityStatusReachableViaWiFi: {
+          @strongify(self);
+          self.numberOfFailedFetches = 0;
+          self.isWaitingForNetworkToReconnect = NO;
+          [self.collectionView reloadData];
+          [self.collectionView setContentOffset:self.preNetworkTroubleScrollPosition animated:NO];
+          self.preNetworkTroubleScrollPosition = CGPointZero;
+          [self wmf_hideEmptyView];
 
-                [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController>  _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-                    @weakify(self);
-                    [obj resetData];
-                    [obj fetchDataIfError].catch(^(NSError* error){
-                        @strongify(self);
-                        if ([error wmf_isNetworkConnectionError]) {
-                            [self showOfflineEmptyViewAndReloadWhenReachable];
-                        }
-                    });
-                }];
-            }
-            break;
-            default:
-                break;
-        }
+          [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+            @weakify(self);
+            [obj resetData];
+            [obj fetchDataIfError].catch(^(NSError *error) {
+              @strongify(self);
+              if ([error wmf_isNetworkConnectionError]) {
+                  [self showOfflineEmptyViewAndReloadWhenReachable];
+              }
+            });
+          }];
+      } break;
+      default:
+          break;
+      }
     }];
 }
 
 #pragma mark - UICollectionViewDatasource
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     if (self.isWaitingForNetworkToReconnect) {
         return 0;
     }
     return [[self.schemaManager sections] count];
 }
 
-- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (self.isWaitingForNetworkToReconnect) {
         return 0;
     }
@@ -495,34 +495,34 @@ NS_ASSUME_NONNULL_BEGIN
     return [[controller items] count];
 }
 
-- (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView cellForItemAtIndexPath:(NSIndexPath*)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
-    UICollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:[controller cellIdentifierForItemIndexPath:indexPath] forIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[controller cellIdentifierForItemIndexPath:indexPath] forIndexPath:indexPath];
     [controller configureCell:cell atIndexPath:indexPath];
     return cell;
 }
 
 #pragma mark - UICollectionViewDelegate
 
-- (CGFloat)collectionView:(UICollectionView*)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath*)indexPath forColumnWidth:(CGFloat)columnWidth {
+- (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
     return [controller estimatedRowHeight];
 }
 
-- (CGFloat)collectionView:(UICollectionView*)collectionView estimatedHeightForHeaderInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
+- (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForHeaderInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
     return 66;
 }
 
-- (CGFloat)collectionView:(UICollectionView*)collectionView estimatedHeightForFooterInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
+- (CGFloat)collectionView:(UICollectionView *)collectionView estimatedHeightForFooterInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:section];
 
     if (!controller) {
         return 0;
     }
 
-    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id < WMFMoreFooterProviding >) controller isFooterEnabled])) {
+    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id<WMFMoreFooterProviding>)controller isFooterEnabled])) {
         return 50;
     } else {
         return 0;
@@ -534,21 +534,21 @@ NS_ASSUME_NONNULL_BEGIN
     return [controller respondsToSelector:@selector(prefersWiderColumn)] && [controller prefersWiderColumn];
 }
 
-- (void)configureHeader:(WMFExploreSectionHeader*)header withStylingFromController:(id<WMFExploreSectionController>)controller {
-    header.image                = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    header.imageTintColor       = [controller headerIconTintColor];
+- (void)configureHeader:(WMFExploreSectionHeader *)header withStylingFromController:(id<WMFExploreSectionController>)controller {
+    header.image = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    header.imageTintColor = [controller headerIconTintColor];
     header.imageBackgroundColor = [controller headerIconBackgroundColor];
 
-    NSMutableAttributedString* title = [[controller headerTitle] mutableCopy];
+    NSMutableAttributedString *title = [[controller headerTitle] mutableCopy];
     [title addAttribute:NSFontAttributeName value:[UIFont wmf_exploreSectionHeaderTitleFont] range:NSMakeRange(0, title.length)];
     header.title = title;
 
-    NSMutableAttributedString* subTitle = [[controller headerSubTitle] mutableCopy];
+    NSMutableAttributedString *subTitle = [[controller headerSubTitle] mutableCopy];
     [subTitle addAttribute:NSFontAttributeName value:[UIFont wmf_exploreSectionHeaderSubTitleFont] range:NSMakeRange(0, subTitle.length)];
     header.subTitle = subTitle;
 }
 
-- (nonnull UICollectionReusableView*)collectionView:(UICollectionView*)collectionView viewForSupplementaryElementOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath {
+- (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         return [self collectionView:collectionView viewForSectionHeaderAtIndexPath:indexPath];
     } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
@@ -559,21 +559,21 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (nonnull UICollectionReusableView*)collectionView:(UICollectionView*)collectionView viewForSectionHeaderAtIndexPath:(NSIndexPath*)indexPath {
+- (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionHeaderAtIndexPath:(NSIndexPath *)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
     if (!controller) {
         return nil;
     }
 
-    WMFExploreSectionHeader* header = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName] forIndexPath:indexPath];
+    WMFExploreSectionHeader *header = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFExploreSectionHeader wmf_nibName] forIndexPath:indexPath];
 
     [self configureHeader:header withStylingFromController:controller];
 
     @weakify(self);
     header.whenTapped = ^{
-        @strongify(self);
-        [self didTapHeaderInSection:indexPath.section];
+      @strongify(self);
+      [self didTapHeaderInSection:indexPath.section];
     };
 
     if ([controller conformsToProtocol:@protocol(WMFHeaderMenuProviding)]) {
@@ -582,31 +582,33 @@ NS_ASSUME_NONNULL_BEGIN
         [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
         @weakify(controller);
         [header.rightButton bk_addEventHandler:^(id sender) {
-            @strongify(controller);
-            @strongify(self);
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                UIAlertController* menuActionSheet = [(id < WMFHeaderMenuProviding >)controller menuActionSheet];
-                menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
-                menuActionSheet.popoverPresentationController.sourceView = sender;
-                menuActionSheet.popoverPresentationController.sourceRect = [sender bounds];
-                menuActionSheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
-                [self presentViewController:menuActionSheet animated:YES completion:nil];
-            } else {
-                UIAlertController* menuActionSheet = [(id < WMFHeaderMenuProviding >)controller menuActionSheet];
-                menuActionSheet.popoverPresentationController.sourceView = self.navigationController.tabBarController.tabBar.superview;
-                menuActionSheet.popoverPresentationController.sourceRect = self.navigationController.tabBarController.tabBar.frame;
-                [self presentViewController:menuActionSheet animated:YES completion:nil];
-            }
-        } forControlEvents:UIControlEventTouchUpInside];
-    } else if ([controller conformsToProtocol:@protocol(WMFHeaderActionProviding)] && (![controller respondsToSelector:@selector(isHeaderActionEnabled)] || [(id < WMFHeaderActionProviding >) controller isHeaderActionEnabled])) {
+          @strongify(controller);
+          @strongify(self);
+          if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+              UIAlertController *menuActionSheet = [(id<WMFHeaderMenuProviding>)controller menuActionSheet];
+              menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
+              menuActionSheet.popoverPresentationController.sourceView = sender;
+              menuActionSheet.popoverPresentationController.sourceRect = [sender bounds];
+              menuActionSheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+              [self presentViewController:menuActionSheet animated:YES completion:nil];
+          } else {
+              UIAlertController *menuActionSheet = [(id<WMFHeaderMenuProviding>)controller menuActionSheet];
+              menuActionSheet.popoverPresentationController.sourceView = self.navigationController.tabBarController.tabBar.superview;
+              menuActionSheet.popoverPresentationController.sourceRect = self.navigationController.tabBarController.tabBar.frame;
+              [self presentViewController:menuActionSheet animated:YES completion:nil];
+          }
+        }
+                              forControlEvents:UIControlEventTouchUpInside];
+    } else if ([controller conformsToProtocol:@protocol(WMFHeaderActionProviding)] && (![controller respondsToSelector:@selector(isHeaderActionEnabled)] || [(id<WMFHeaderActionProviding>)controller isHeaderActionEnabled])) {
         header.rightButtonEnabled = YES;
-        [[header rightButton] setImage:[(id < WMFHeaderActionProviding >)controller headerButtonIcon] forState:UIControlStateNormal];
+        [[header rightButton] setImage:[(id<WMFHeaderActionProviding>)controller headerButtonIcon] forState:UIControlStateNormal];
         [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
         @weakify(controller);
         [header.rightButton bk_addEventHandler:^(id sender) {
-            @strongify(controller);
-            [(id < WMFHeaderActionProviding >)controller performHeaderButtonAction];
-        } forControlEvents:UIControlEventTouchUpInside];
+          @strongify(controller);
+          [(id<WMFHeaderActionProviding>)controller performHeaderButtonAction];
+        }
+                              forControlEvents:UIControlEventTouchUpInside];
     } else {
         header.rightButtonEnabled = NO;
         [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
@@ -615,21 +617,21 @@ NS_ASSUME_NONNULL_BEGIN
     return header;
 }
 
-- (nonnull UICollectionReusableView*)collectionView:(UICollectionView*)collectionView viewForSectionFooterAtIndexPath:(NSIndexPath*)indexPath {
+- (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSectionFooterAtIndexPath:(NSIndexPath *)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     if (!controller) {
         return nil;
     }
 
-    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id < WMFMoreFooterProviding >) controller isFooterEnabled])) {
-        WMFExploreSectionFooter* footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
+    if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)] && (![controller respondsToSelector:@selector(isFooterEnabled)] || [(id<WMFMoreFooterProviding>)controller isFooterEnabled])) {
+        WMFExploreSectionFooter *footer = (id)[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFExploreSectionFooter wmf_nibName] forIndexPath:indexPath];
         footer.visibleBackgroundView.alpha = 1.0;
-        footer.moreLabel.text              = [(id < WMFMoreFooterProviding >)controller footerText];
-        footer.moreLabel.textColor         = [UIColor wmf_exploreSectionFooterTextColor];
+        footer.moreLabel.text = [(id<WMFMoreFooterProviding>)controller footerText];
+        footer.moreLabel.textColor = [UIColor wmf_exploreSectionFooterTextColor];
         @weakify(self);
         footer.whenTapped = ^{
-            @strongify(self);
-            [self didTapFooterInSection:indexPath.section];
+          @strongify(self);
+          [self didTapFooterInSection:indexPath.section];
         };
         return footer;
     } else {
@@ -637,7 +639,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)collectionView:(UICollectionView*)collectionView willDisplayCell:(UICollectionViewCell*)cell forItemAtIndexPath:(NSIndexPath*)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
     if ([controller respondsToSelector:@selector(willDisplaySection)]) {
@@ -645,19 +647,17 @@ NS_ASSUME_NONNULL_BEGIN
         [controller willDisplaySection];
     }
 
-    [self performSelector:@selector(fetchSectionIfShowing:) withObject:controller afterDelay:0.25 inModes:@[NSRunLoopCommonModes]];
+    [self performSelector:@selector(fetchSectionIfShowing:) withObject:controller afterDelay:0.25 inModes:@[ NSRunLoopCommonModes ]];
 
-    if ([controller conformsToProtocol:@protocol(WMFTitleProviding)]
-        && (![controller respondsToSelector:@selector(urlForItemAtIndexPath:)]
-            || [controller shouldSelectItemAtIndexPath:indexPath])) {
-        NSURL* articleURL = [(id < WMFTitleProviding >)controller urlForItemAtIndexPath:indexPath];
+    if ([controller conformsToProtocol:@protocol(WMFTitleProviding)] && (![controller respondsToSelector:@selector(urlForItemAtIndexPath:)] || [controller shouldSelectItemAtIndexPath:indexPath])) {
+        NSURL *articleURL = [(id<WMFTitleProviding>)controller urlForItemAtIndexPath:indexPath];
         if (articleURL) {
             [[PiwikTracker wmf_configuredInstance] wmf_logActionImpressionInContext:self contentType:controller];
         }
     }
 }
 
-- (void)collectionView:(UICollectionView*)collectionView didEndDisplayingCell:(UICollectionViewCell*)cell forItemAtIndexPath:(nonnull NSIndexPath*)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
     if ([controller respondsToSelector:@selector(didEndDisplayingSection)]) {
@@ -669,13 +669,13 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }
 
-    NSArray<NSIndexPath*>* visibleIndexPathsInSection = [collectionView.indexPathsForVisibleItems bk_select:^BOOL (NSIndexPath* i) {
-        return i.section == indexPath.section;
+    NSArray<NSIndexPath *> *visibleIndexPathsInSection = [collectionView.indexPathsForVisibleItems bk_select:^BOOL(NSIndexPath *i) {
+      return i.section == indexPath.section;
     }];
 
     //the cell disappearing may still appear in this list
-    visibleIndexPathsInSection = [visibleIndexPathsInSection bk_reject:^BOOL (id obj) {
-        return [indexPath isEqual:obj];
+    visibleIndexPathsInSection = [visibleIndexPathsInSection bk_reject:^BOOL(id obj) {
+      return [indexPath isEqual:obj];
     }];
 
     if (visibleIndexPathsInSection.count == 0) {
@@ -684,7 +684,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (BOOL)collectionView:(UICollectionView*)collectionView shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath {
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
     if (controller != nil) {
@@ -694,11 +694,11 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (BOOL)collectionView:(UICollectionView*)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath*)indexPath {
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     return [self collectionView:collectionView shouldSelectItemAtIndexPath:indexPath];
 }
 
-- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath*)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
@@ -707,9 +707,9 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:controller];
-    UIViewController* vc = [controller detailViewControllerForItemAtIndexPath:indexPath];
+    UIViewController *vc = [controller detailViewControllerForItemAtIndexPath:indexPath];
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
-        [self wmf_pushArticleViewController:(WMFArticleViewController*)vc animated:YES];
+        [self wmf_pushArticleViewController:(WMFArticleViewController *)vc animated:YES];
     } else {
         [self presentViewController:vc animated:YES completion:nil];
     }
@@ -717,14 +717,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Refresh Control
 
-- (NSString*)lastUpdatedString {
+- (NSString *)lastUpdatedString {
     if (!self.schemaManager.lastUpdatedAt) {
         return MWLocalizedString(@"home-last-update-never-label", nil);
     }
 
-    static NSDateFormatter* formatter;
+    static NSDateFormatter *formatter;
     if (!formatter) {
-        formatter           = [NSDateFormatter new];
+        formatter = [NSDateFormatter new];
         formatter.dateStyle = NSDateFormatterMediumStyle;
         formatter.timeStyle = NSDateFormatterShortStyle;
     }
@@ -738,10 +738,10 @@ NS_ASSUME_NONNULL_BEGIN
     }
     //Don't hide the spinner so quickly - so users can see the change
     dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
-        [self.refreshControl endRefreshing];
-        if (completion) {
-            completion();
-        }
+      [self.refreshControl endRefreshing];
+      if (completion) {
+          completion();
+      }
     });
 }
 
@@ -768,7 +768,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.schemaManager.delegate = self;
     [self loadSectionControllersForCurrentSectionSchema];
     self.collectionView.dataSource = self;
-    self.collectionView.delegate   = self;
+    self.collectionView.delegate = self;
 
     [self.collectionView reloadData];
 }
@@ -799,14 +799,15 @@ NS_ASSUME_NONNULL_BEGIN
     if ([self isDisplayingCellsForSectionController:controller]) {
         DDLogDebug(@"Fetching section after delay: %@", controller);
         @weakify(self);
-        [controller fetchDataIfNeeded].catch(^(NSError* error){
-            @strongify(self);
-            if ([error wmf_isNetworkConnectionError]) {
-                [self showOfflineEmptyViewAndReloadWhenReachable];
-            }
-        }).finally(^{
-            [self resetRefreshControlWithCompletion:NULL];
-        });
+        [controller fetchDataIfNeeded].catch(^(NSError *error) {
+                                        @strongify(self);
+                                        if ([error wmf_isNetworkConnectionError]) {
+                                            [self showOfflineEmptyViewAndReloadWhenReachable];
+                                        }
+                                      })
+            .finally(^{
+              [self resetRefreshControlWithCompletion:NULL];
+            });
     } else {
         DDLogInfo(@"Section for controller %@ is no longer visible, skipping fetch.", controller);
     }
@@ -814,12 +815,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Section Info
 
-- (id<WMFExploreSectionController>)sectionControllerForSection:(WMFExploreSection*)section {
+- (id<WMFExploreSectionController>)sectionControllerForSection:(WMFExploreSection *)section {
     id<WMFExploreSectionController> sectionController =
         [self.sectionControllerCache getOrCreateControllerForSection:section
-                                                       creationBlock:^(id < WMFExploreSectionController > _Nonnull newController) {
-        [self registerSectionForSectionController:newController];
-    }];
+                                                       creationBlock:^(id<WMFExploreSectionController> _Nonnull newController) {
+                                                         [self registerSectionForSectionController:newController];
+                                                       }];
     return sectionController;
 }
 
@@ -827,7 +828,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (index >= self.schemaManager.sections.count) {
         return nil;
     }
-    WMFExploreSection* section = self.schemaManager.sections[index];
+    WMFExploreSection *section = self.schemaManager.sections[index];
     return [self sectionControllerForSection:section];
 }
 
@@ -838,8 +839,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Section Loading
 
 - (void)loadSectionControllersForCurrentSectionSchema {
-    [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFExploreSection* obj, NSUInteger idx, BOOL* stop) {
-        [self sectionControllerForSection:obj];
+    [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFExploreSection *obj, NSUInteger idx, BOOL *stop) {
+      [self sectionControllerForSection:obj];
     }];
 }
 
@@ -855,15 +856,15 @@ NS_ASSUME_NONNULL_BEGIN
     [self.KVOControllerNonRetaining observe:controller
                                     keyPath:WMF_SAFE_KEYPATH(controller, items)
                                     options:0
-                                      block:^(WMFExploreViewController* observer,
-                                              id < WMFExploreSectionController > observedController,
-                                              NSDictionary* _) {
-        NSUInteger sectionIndex = [observer indexForSectionController:observedController];
-        if (sectionIndex != NSNotFound && [observer isDisplayingCellsForSection:sectionIndex]) {
-            DDLogDebug(@"Reloading table to display results in controller %@", observedController);
-            [observer.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-        }
-    }];
+                                      block:^(WMFExploreViewController *observer,
+                                              id<WMFExploreSectionController> observedController,
+                                              NSDictionary *_) {
+                                        NSUInteger sectionIndex = [observer indexForSectionController:observedController];
+                                        if (sectionIndex != NSNotFound && [observer isDisplayingCellsForSection:sectionIndex]) {
+                                            DDLogDebug(@"Reloading table to display results in controller %@", observedController);
+                                            [observer.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                                        }
+                                      }];
 }
 
 - (void)didTapFooterInSection:(NSUInteger)section {
@@ -878,13 +879,13 @@ NS_ASSUME_NONNULL_BEGIN
     }
     id<WMFExploreSectionController, WMFMoreFooterProviding> articleSectionController = (id<WMFExploreSectionController, WMFMoreFooterProviding>)controllerForSection;
 
-    UIViewController* moreVC = [articleSectionController moreViewController];
+    UIViewController *moreVC = [articleSectionController moreViewController];
     [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughMoreInContext:self contentType:controllerForSection];
     [self.navigationController pushViewController:moreVC animated:YES];
 }
 
 - (void)didTapHeaderInSection:(NSUInteger)section {
-    WMFExploreSection* homeSection = self.schemaManager.sections[section];
+    WMFExploreSection *homeSection = self.schemaManager.sections[section];
     if (homeSection.type == WMFExploreSectionTypeNearby) {
         [self didTapFooterInSection:section];
     } else if (homeSection.type == WMFExploreSectionTypeHistory || homeSection.type == WMFExploreSectionTypeSaved) {
@@ -895,33 +896,33 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)selectFirstItemInSection:(NSUInteger)section {
-    NSIndexPath* indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:section];
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     [self collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
 }
 
 #pragma mark - WMFExploreSectionSchemaDelegate
 
-- (void)sectionSchemaDidUpdateSections:(WMFExploreSectionSchema*)schema {
+- (void)sectionSchemaDidUpdateSections:(WMFExploreSectionSchema *)schema {
     [self wmf_hideEmptyView];
     [self.sectionControllerCache removeAllSectionsExcept:schema.sections];
     [self loadSectionControllersForCurrentSectionSchema];
     [self.collectionView reloadData];
     [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull obj) {
-        [obj fetchDataIfError];
+      [obj fetchDataIfError];
     }];
 }
 
-- (void)sectionSchema:(WMFExploreSectionSchema*)schema didRemoveSection:(WMFExploreSection*)section atIndex:(NSUInteger)index {
+- (void)sectionSchema:(WMFExploreSectionSchema *)schema didRemoveSection:(WMFExploreSection *)section atIndex:(NSUInteger)index {
     [self.sectionControllerCache removeSection:section];
     [self.collectionView reloadData];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate
 
-- (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
-                      viewControllerForLocation:(CGPoint)location {
-    NSIndexPath* previewIndexPath                     = [self.collectionView indexPathForItemAtPoint:location];
+- (nullable UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+                       viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *previewIndexPath = [self.collectionView indexPathForItemAtPoint:location];
     id<WMFExploreSectionController> sectionController = [self sectionControllerForSectionAtIndex:previewIndexPath.section];
 
     if (![sectionController shouldSelectItemAtIndexPath:previewIndexPath]) {
@@ -930,43 +931,43 @@ NS_ASSUME_NONNULL_BEGIN
 
     previewingContext.sourceRect = [self.collectionView cellForItemAtIndexPath:previewIndexPath].frame;
 
-    UIViewController* vc = [sectionController detailViewControllerForItemAtIndexPath:previewIndexPath];
+    UIViewController *vc = [sectionController detailViewControllerForItemAtIndexPath:previewIndexPath];
     self.sectionOfPreviewingTitle = sectionController;
     [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:sectionController];
     return vc;
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
-     commitViewController:(UIViewController*)viewControllerToCommit {
+     commitViewController:(UIViewController *)viewControllerToCommit {
     [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:self.sectionOfPreviewingTitle];
     self.sectionOfPreviewingTitle = nil;
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
-        [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit animated:YES];
+        [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
 }
 
-- (NSString*)analyticsContext {
+- (NSString *)analyticsContext {
     return @"Explore";
 }
 
-- (NSString*)analyticsName {
+- (NSString *)analyticsName {
     return [self analyticsContext];
 }
 
 #pragma mark - UINavigationControllerDelegate
 
-- (void)navigationController:(UINavigationController*)navigationController
-      willShowViewController:(UIViewController*)viewController
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated {
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
 }
 
 #pragma mark - UIRefreshControl
 
-- (void)setRefreshControl:(UIRefreshControl*)refreshControl {
+- (void)setRefreshControl:(UIRefreshControl *)refreshControl {
     [_refreshControl removeFromSuperview];
 
     _refreshControl = refreshControl;

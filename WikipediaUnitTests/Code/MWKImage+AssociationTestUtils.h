@@ -1,19 +1,11 @@
-//
-//  MWKImage+AssociationTestUtils.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 3/30/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MWKImage.h"
 #import "MWKImageInfo.h"
 
 @interface MWKImage (AssociationTestUtils)
 
-+ (instancetype)imageAssociatedWithSourceURL:(NSString*)imageURL;
++ (instancetype)imageAssociatedWithSourceURL:(NSString *)imageURL;
 
-- (MWKImageInfo*)createAssociatedInfo;
+- (MWKImageInfo *)createAssociatedInfo;
 
 + (id)mappedFromInfoObjects:(id)infoObjects;
 
@@ -21,9 +13,9 @@
 
 @interface MWKImageInfo (AssociationTestUtils)
 
-+ (instancetype)infoAssociatedWithSourceURL:(NSString*)imageURL;
++ (instancetype)infoAssociatedWithSourceURL:(NSString *)imageURL;
 
-- (MWKImage*)createAssociatedImage;
+- (MWKImage *)createAssociatedImage;
 
 + (id)mappedFromImages:(id)images;
 

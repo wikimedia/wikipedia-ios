@@ -1,4 +1,3 @@
-
 #import "WMFLeadingImageTrailingTextButton.h"
 #import <Masonry/Masonry.h>
 
@@ -22,25 +21,23 @@
 
 @interface WMFLeadingImageTrailingTextButton ()
 
-@property (nonatomic, assign, readwrite, getter = isInterfaceBuilderPreviewing) BOOL interfaceBuilderPreviewing;
+@property(nonatomic, assign, readwrite, getter=isInterfaceBuilderPreviewing) BOOL interfaceBuilderPreviewing;
 
 /**
  *  The image view shown to the left (in LTR) of the text.
  */
-@property (nonatomic, strong) UIImageView* iconImageView;
+@property(nonatomic, strong) UIImageView *iconImageView;
 
 /**
  *  The text shown to the right of the image.
  */
-@property (nonatomic, strong) UILabel* textLabel;
-
+@property(nonatomic, strong) UILabel *textLabel;
 
 @end
 
 @implementation WMFLeadingImageTrailingTextButton
 
-
-- (instancetype)initWithCoder:(NSCoder*)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         _spaceBetweenIconAndText = 12.0;
@@ -63,7 +60,7 @@
 - (void)sizeToFit {
     [super sizeToFit];
     CGRect f = self.frame;
-    f.size     = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    f.size = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     self.frame = f;
 }
 
@@ -82,22 +79,22 @@
     [self applyConstraints];
 }
 
-- (void)setIconImage:(UIImage*)iconImage {
+- (void)setIconImage:(UIImage *)iconImage {
     _iconImage = iconImage;
     [self applySelectedState:NO];
 }
 
-- (void)setSelectedIconImage:(UIImage*)selectedIconImage {
+- (void)setSelectedIconImage:(UIImage *)selectedIconImage {
     _selectedIconImage = selectedIconImage;
     [self applySelectedState:NO];
 }
 
-- (void)setLabelText:(NSString*)labelText {
+- (void)setLabelText:(NSString *)labelText {
     _labelText = labelText;
     [self applySelectedState:NO];
 }
 
-- (void)setSelectedLabelText:(NSString*)selectedLabelText {
+- (void)setSelectedLabelText:(NSString *)selectedLabelText {
     _selectedLabelText = selectedLabelText;
     [self applySelectedState:NO];
 }
@@ -105,33 +102,33 @@
 #pragma mark - View Setup
 
 - (void)setupSubviews {
-    self.iconImageView                    = [UIImageView new];
-    self.iconImageView.contentMode        = UIViewContentModeCenter;
+    self.iconImageView = [UIImageView new];
+    self.iconImageView.contentMode = UIViewContentModeCenter;
     self.iconImageView.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
     [self addSubview:self.iconImageView];
 
     // imageView must hug content, otherwise it will expand and "push" label towards opposite edge
     [self.iconImageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 
-    self.textLabel                      = [UILabel new];
-    self.textLabel.numberOfLines        = 1;
-    self.textLabel.textAlignment        = NSTextAlignmentNatural;
-    self.textLabel.font                 = [UIFont boldSystemFontOfSize:14.f];
+    self.textLabel = [UILabel new];
+    self.textLabel.numberOfLines = 1;
+    self.textLabel.textAlignment = NSTextAlignmentNatural;
+    self.textLabel.font = [UIFont boldSystemFontOfSize:14.f];
     self.textLabel.highlightedTextColor = [UIColor lightGrayColor];
-    self.textLabel.tintAdjustmentMode   = UIViewTintAdjustmentModeAutomatic;
+    self.textLabel.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
     [self.textLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     [self addSubview:self.textLabel];
     [self applyConstraints];
 }
 
 - (void)applyConstraints {
-    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.leading.top.and.bottom.equalTo(self);
+    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+      make.leading.top.and.bottom.equalTo(self);
     }];
-    [self.textLabel mas_remakeConstraints:^(MASConstraintMaker* make) {
-        make.trailing.top.and.bottom.equalTo(self);
-        // make sure icon & button aren't squished together
-        make.leading.equalTo(self.iconImageView.mas_trailing).with.offset(self.spaceBetweenIconAndText);
+    [self.textLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+      make.trailing.top.and.bottom.equalTo(self);
+      // make sure icon & button aren't squished together
+      make.leading.equalTo(self.iconImageView.mas_trailing).with.offset(self.spaceBetweenIconAndText);
     }];
 }
 
@@ -142,9 +139,9 @@
 
 - (void)applySelectedState:(BOOL)animated {
     dispatch_block_t animations = ^{
-        self.iconImageView.image = self.selected && self.selectedIconImage ? self.selectedIconImage : self.iconImage;
-        self.textLabel.text      = self.selected && self.selectedLabelText ? self.selectedLabelText : self.labelText;
-        self.accessibilityHint   = self.textLabel.text;
+      self.iconImageView.image = self.selected && self.selectedIconImage ? self.selectedIconImage : self.iconImage;
+      self.textLabel.text = self.selected && self.selectedLabelText ? self.selectedLabelText : self.labelText;
+      self.accessibilityHint = self.textLabel.text;
     };
     if (!animated) {
         animations();
@@ -158,7 +155,7 @@
 }
 
 - (void)applyTintColor {
-    self.textLabel.textColor     = self.highlighted ? [self.tintColor wmf_colorByApplyingDim] : self.tintColor;
+    self.textLabel.textColor = self.highlighted ? [self.tintColor wmf_colorByApplyingDim] : self.tintColor;
     self.iconImageView.tintColor = self.tintColor;
 }
 
@@ -199,13 +196,13 @@
 
 - (void)configureAsReportBugButton {
     self.spaceBetweenIconAndText = 5.0;
-    self.iconImage               = [UIImage imageNamed:@"settings-feedback"
-                                              inBundle:[NSBundle bundleForClass:[self class]]
-                         compatibleWithTraitCollection:self.traitCollection];
+    self.iconImage = [UIImage imageNamed:@"settings-feedback"
+                                inBundle:[NSBundle bundleForClass:[self class]]
+           compatibleWithTraitCollection:self.traitCollection];
     self.labelText = [self localizedStringForKeyFromCurrentBundle:@"button-report-a-bug"];
 }
 
-- (NSString*)localizedStringForKeyFromCurrentBundle:(NSString*)key {
+- (NSString *)localizedStringForKeyFromCurrentBundle:(NSString *)key {
     if (self.isInterfaceBuilderPreviewing) {
         // HAX: NSBundle.mainBundle is _not_ the application when the view is being created by IB
         return [[NSBundle bundleForClass:[self class]] localizedStringForKey:key value:nil table:nil];
@@ -215,4 +212,3 @@
 }
 
 @end
-

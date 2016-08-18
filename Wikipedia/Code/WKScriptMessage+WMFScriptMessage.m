@@ -2,7 +2,7 @@
 
 @implementation WKScriptMessage (WMFScriptMessage)
 
-+ (WMFWKScriptMessageType)wmf_typeForMessageName:( NSString* _Nonnull )name {
++ (WMFWKScriptMessageType)wmf_typeForMessageName:(NSString *_Nonnull)name {
     if ([name isEqualToString:@"nonAnchorTouchEndedWithoutDragging"]) {
         return WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging;
     } else if ([name isEqualToString:@"linkClicked"]) {
@@ -21,52 +21,52 @@
         return WMFWKScriptMessageArticleState;
     } else if ([name isEqualToString:@"sendJavascriptConsoleLogMessageToXcodeConsole"]) {
         return WMFWKScriptMessageConsoleMessage;
-    }else if ([name isEqualToString:@"findInPageMatchesFound"]) {
+    } else if ([name isEqualToString:@"findInPageMatchesFound"]) {
         return WMFWKScriptMessageFindInPageMatchesFound;
-    } else{
+    } else {
         return WMFWKScriptMessageUnknown;
     }
 }
 
 + (Class)wmf_expectedMessageBodyClassForType:(WMFWKScriptMessageType)type {
     switch (type) {
-        case WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging:
-            return [NSDictionary class];
-            break;
-        case WMFWKScriptMessageClickLink:
-            return [NSDictionary class];
-            break;
-        case WMFWKScriptMessageClickImage:
-            return [NSDictionary class];
-            break;
-        case WMFWKScriptMessagePeek:
-            return [NSDictionary class];
-            break;
-        case WMFWKScriptMessageClickReference:
-            return [NSDictionary class];
-            break;
-        case WMFWKScriptMessageClickEdit:
-            return [NSDictionary class];
-            break;
-        case WMFWKScriptMessageLateJavascriptTransform:
-            return [NSString class];
-            break;
-        case WMFWKScriptMessageArticleState:
-            return [NSString class];
-            break;
-        case WMFWKScriptMessageConsoleMessage:
-            return [NSDictionary class];
-            break;
-        case WMFWKScriptMessageFindInPageMatchesFound:
-            return [NSArray class];
-            break;
-        case WMFWKScriptMessageUnknown:
-            return [NSNull class];
-            break;
+    case WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging:
+        return [NSDictionary class];
+        break;
+    case WMFWKScriptMessageClickLink:
+        return [NSDictionary class];
+        break;
+    case WMFWKScriptMessageClickImage:
+        return [NSDictionary class];
+        break;
+    case WMFWKScriptMessagePeek:
+        return [NSDictionary class];
+        break;
+    case WMFWKScriptMessageClickReference:
+        return [NSDictionary class];
+        break;
+    case WMFWKScriptMessageClickEdit:
+        return [NSDictionary class];
+        break;
+    case WMFWKScriptMessageLateJavascriptTransform:
+        return [NSString class];
+        break;
+    case WMFWKScriptMessageArticleState:
+        return [NSString class];
+        break;
+    case WMFWKScriptMessageConsoleMessage:
+        return [NSDictionary class];
+        break;
+    case WMFWKScriptMessageFindInPageMatchesFound:
+        return [NSArray class];
+        break;
+    case WMFWKScriptMessageUnknown:
+        return [NSNull class];
+        break;
     }
 }
 
-- (nullable id) wmf_safeMessageBodyForType:(WMFWKScriptMessageType)messageType {
+- (nullable id)wmf_safeMessageBodyForType:(WMFWKScriptMessageType)messageType {
     Class class = [WKScriptMessage wmf_expectedMessageBodyClassForType:messageType];
     if ([self.body isKindOfClass:class]) {
         if (class == [NSDictionary class]) {
@@ -74,7 +74,7 @@
         } else {
             return self.body;
         }
-    }else{
+    } else {
         NSAssert(NO, @"Unexpected script message body kind of class!");
         return nil;
     }

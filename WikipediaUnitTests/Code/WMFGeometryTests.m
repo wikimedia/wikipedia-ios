@@ -1,11 +1,3 @@
-//
-//  WMFGeometryTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 7/21/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "WMFGeometry.h"
@@ -19,7 +11,7 @@
 
 - (void)testCoordinateConversionOfRegularRect {
     CGRect testUIRect = CGRectMake(50, 10, 100, 100);
-    CGSize testSize   = CGSizeMake(200, 200);
+    CGSize testSize = CGSizeMake(200, 200);
 
     CGRect ui2cgConversion = WMFConvertUICoordinateRectToCGCoordinateRectUsingSize(testUIRect, testSize);
 
@@ -35,7 +27,7 @@
 
 - (void)testNormalization {
     CGRect testUIRect = CGRectMake(50, 10, 100, 100);
-    CGSize testSize   = CGSizeMake(200, 200);
+    CGSize testSize = CGSizeMake(200, 200);
 
     CGRect normalizedRect = WMFNormalizeRectUsingSize(testUIRect, testSize);
     XCTAssertEqualRectsWithAccuracy(normalizedRect,
@@ -50,9 +42,9 @@
 
 - (void)testConcatTransforms {
     CGRect testUIRect = CGRectMake(50, 10, 100, 100);
-    CGSize testSize   = CGSizeMake(200, 200);
+    CGSize testSize = CGSizeMake(200, 200);
 
-    CGRect convertedRect              = WMFConvertUICoordinateRectToCGCoordinateRectUsingSize(testUIRect, testSize);
+    CGRect convertedRect = WMFConvertUICoordinateRectToCGCoordinateRectUsingSize(testUIRect, testSize);
     CGRect convertedAndNormalizedRect = WMFNormalizeRectUsingSize(convertedRect, testSize);
 
     CGRect transformedRect = WMFConvertAndNormalizeCGRectUsingSize(testUIRect, testSize);

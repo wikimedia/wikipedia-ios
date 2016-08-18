@@ -1,4 +1,3 @@
-
 #import <Foundation/Foundation.h>
 #import "WMFExploreSectionController.h"
 
@@ -8,13 +7,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFExploreSectionControllerCache : NSObject
 
-@property (nonatomic, strong, readonly) MWKDataStore* dataStore;
+@property(nonatomic, strong, readonly) MWKDataStore *dataStore;
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
-- (nullable id<WMFExploreSectionController>)controllerForSection:(WMFExploreSection*)section;
+- (nullable id<WMFExploreSectionController>)controllerForSection:(WMFExploreSection *)section;
 
-- (nullable WMFExploreSection*)sectionForController:(id<WMFExploreSectionController>)controller;
+- (nullable WMFExploreSection *)sectionForController:(id<WMFExploreSectionController>)controller;
 
 /**
  *  Get a controller for a particular section, or create one if it doesn't exist.
@@ -24,14 +23,13 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A section controller for `section`.
  */
-- (id<WMFExploreSectionController>)getOrCreateControllerForSection:(WMFExploreSection*)section
+- (id<WMFExploreSectionController>)getOrCreateControllerForSection:(WMFExploreSection *)section
                                                      creationBlock:(nullable void (^)(id<WMFExploreSectionController> newController))creationBlock;
 
-- (void)removeSection:(WMFExploreSection*)section;
-- (void)removeSections:(NSArray<WMFExploreSection*>*)sections;
-- (void)removeAllSectionsExcept:(NSArray<WMFExploreSection*>*)sections;
+- (void)removeSection:(WMFExploreSection *)section;
+- (void)removeSections:(NSArray<WMFExploreSection *> *)sections;
+- (void)removeAllSectionsExcept:(NSArray<WMFExploreSection *> *)sections;
 - (void)removeAllSections;
-
 
 @end
 

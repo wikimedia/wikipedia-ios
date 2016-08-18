@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 1/13/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "SectionEditorViewController.h"
 
 #import "WikipediaAppUtils.h"
@@ -18,17 +15,16 @@
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 
-
 #define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f * MENUS_SCALE_MULTIPLIER]
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f * MENUS_SCALE_MULTIPLIER)
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f * MENUS_SCALE_MULTIPLIER)
 
 @interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextView* editTextView;
-@property (strong, nonatomic) NSString* unmodifiedWikiText;
-@property (nonatomic) CGRect viewKeyboardRect;
-@property (strong, nonatomic) UIBarButtonItem* rightButton;
+@property(weak, nonatomic) IBOutlet UITextView *editTextView;
+@property(strong, nonatomic) NSString *unmodifiedWikiText;
+@property(nonatomic) CGRect viewKeyboardRect;
+@property(strong, nonatomic) UIBarButtonItem *rightButton;
 
 @end
 
@@ -45,23 +41,26 @@
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 
     @weakify(self)
-    UIBarButtonItem * buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
-        @strongify(self)
-        [self.delegate sectionEditorFinishedEditing : self];
-    }];
-    buttonX.accessibilityLabel            = MWLocalizedString(@"back-button-accessibility-label", nil);
+        UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
+                                                           handler:^(id sender) {
+                                                             @strongify(self)
+                                                                 [self.delegate sectionEditorFinishedEditing:self];
+                                                           }];
+    buttonX.accessibilityLabel = MWLocalizedString(@"back-button-accessibility-label", nil);
     self.navigationItem.leftBarButtonItem = buttonX;
 
+    self.rightButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-next", nil)
+                                                           style:UIBarButtonItemStylePlain
+                                                         handler:^(id sender) {
+                                                           @strongify(self)
 
-    self.rightButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-next", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
-        @strongify(self)
-
-        if (![self changesMade]) {
-            [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-        } else {
-            [self preview];
-        }
-    }];
+                                                               if (![self changesMade]) {
+                                                               [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+                                                           }
+                                                           else {
+                                                               [self preview];
+                                                           }
+                                                         }];
     self.navigationItem.rightBarButtonItem = self.rightButton;
 
     self.unmodifiedWikiText = nil;
@@ -83,7 +82,7 @@
     self.viewKeyboardRect = CGRectNull;
 }
 
-- (void)textViewDidChange:(UITextView*)textView {
+- (void)textViewDidChange:(UITextView *)textView {
     [self highlightProgressiveButton:[self changesMade]];
 
     [self scrollTextViewSoCursorNotUnderKeyboard:textView];
@@ -126,48 +125,45 @@
 - (void)fetchFinished:(id)sender
           fetchedData:(id)fetchedData
                status:(FetchFinalStatus)status
-                error:(NSError*)error {
+                error:(NSError *)error {
     if ([sender isKindOfClass:[WikiTextSectionFetcher class]]) {
         switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                WikiTextSectionFetcher* wikiTextSectionFetcher = (WikiTextSectionFetcher*)sender;
-                NSDictionary* resultsDict                      = (NSDictionary*)fetchedData;
-                NSString* revision                             = resultsDict[@"revision"];
-                NSDictionary* userInfo                         = resultsDict[@"userInfo"];
+        case FETCH_FINAL_STATUS_SUCCEEDED: {
+            WikiTextSectionFetcher *wikiTextSectionFetcher = (WikiTextSectionFetcher *)sender;
+            NSDictionary *resultsDict = (NSDictionary *)fetchedData;
+            NSString *revision = resultsDict[@"revision"];
+            NSDictionary *userInfo = resultsDict[@"userInfo"];
 
-                self.funnel = [[EditFunnel alloc] initWithUserId:[userInfo[@"id"] intValue]];
-                [self.funnel logStart];
+            self.funnel = [[EditFunnel alloc] initWithUserId:[userInfo[@"id"] intValue]];
+            [self.funnel logStart];
 
-                MWKProtectionStatus* protectionStatus = wikiTextSectionFetcher.section.article.protection;
+            MWKProtectionStatus *protectionStatus = wikiTextSectionFetcher.section.article.protection;
 
-                if (protectionStatus && [[protectionStatus allowedGroupsForAction:@"edit"] count] > 0) {
-                    NSArray* groups = [protectionStatus allowedGroupsForAction:@"edit"];
-                    NSString* msg;
-                    if ([groups indexOfObject:@"autoconfirmed"] != NSNotFound) {
-                        msg = MWLocalizedString(@"page_protected_autoconfirmed", nil);
-                    } else if ([groups indexOfObject:@"sysop"] != NSNotFound) {
-                        msg = MWLocalizedString(@"page_protected_sysop", nil);
-                    } else {
-                        msg = MWLocalizedString(@"page_protected_other", nil);
-                    }
-                    [[WMFAlertManager sharedInstance] showAlert:msg sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+            if (protectionStatus && [[protectionStatus allowedGroupsForAction:@"edit"] count] > 0) {
+                NSArray *groups = [protectionStatus allowedGroupsForAction:@"edit"];
+                NSString *msg;
+                if ([groups indexOfObject:@"autoconfirmed"] != NSNotFound) {
+                    msg = MWLocalizedString(@"page_protected_autoconfirmed", nil);
+                } else if ([groups indexOfObject:@"sysop"] != NSNotFound) {
+                    msg = MWLocalizedString(@"page_protected_sysop", nil);
                 } else {
-                    //[self showAlert:MWLocalizedString(@"wikitext-download-success", nil) type:ALERT_TYPE_TOP duration:1];
-                    [[WMFAlertManager sharedInstance] dismissAlert];
+                    msg = MWLocalizedString(@"page_protected_other", nil);
                 }
-                self.unmodifiedWikiText          = revision;
-                self.editTextView.attributedText = [self getAttributedString:revision];
-                //[self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
+                [[WMFAlertManager sharedInstance] showAlert:msg sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+            } else {
+                //[self showAlert:MWLocalizedString(@"wikitext-download-success", nil) type:ALERT_TYPE_TOP duration:1];
+                [[WMFAlertManager sharedInstance] dismissAlert];
             }
-            break;
-            case FETCH_FINAL_STATUS_CANCELLED: {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-            }
-            break;
-            case FETCH_FINAL_STATUS_FAILED: {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-            }
-            break;
+            self.unmodifiedWikiText = revision;
+            self.editTextView.attributedText = [self getAttributedString:revision];
+            //[self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
+        } break;
+        case FETCH_FINAL_STATUS_CANCELLED: {
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+        } break;
+        case FETCH_FINAL_STATUS_FAILED: {
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+        } break;
         }
     }
 }
@@ -176,40 +172,40 @@
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-downloading", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
     [[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[WikiTextSectionFetcher alloc] initAndFetchWikiTextForSection:self.section
-                                                                 withManager:[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager
-                                                          thenNotifyDelegate:self];
+      (void)[[WikiTextSectionFetcher alloc] initAndFetchWikiTextForSection:self.section
+                                                               withManager:[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager
+                                                        thenNotifyDelegate:self];
     }];
 }
 
-- (NSAttributedString*)getAttributedString:(NSString*)string {
-    NSMutableParagraphStyle* paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+- (NSAttributedString *)getAttributedString:(NSString *)string {
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.maximumLineHeight = EDIT_TEXT_VIEW_LINE_HEIGHT_MIN;
     paragraphStyle.minimumLineHeight = EDIT_TEXT_VIEW_LINE_HEIGHT_MAX;
 
-    paragraphStyle.headIndent          = 10.0;
+    paragraphStyle.headIndent = 10.0;
     paragraphStyle.firstLineHeadIndent = 10.0;
-    paragraphStyle.tailIndent          = -10.0;
+    paragraphStyle.tailIndent = -10.0;
 
     return
         [[NSAttributedString alloc] initWithString:string
                                         attributes:@{
-             NSParagraphStyleAttributeName: paragraphStyle,
-             NSFontAttributeName: EDIT_TEXT_VIEW_FONT,
-         }];
+                                            NSParagraphStyleAttributeName : paragraphStyle,
+                                            NSFontAttributeName : EDIT_TEXT_VIEW_FONT,
+                                        }];
 }
 
 - (void)preview {
-    PreviewAndSaveViewController* previewVC = [PreviewAndSaveViewController wmf_initialViewControllerFromClassStoryboard];
-    previewVC.section          = self.section;
-    previewVC.wikiText         = self.editTextView.text;
-    previewVC.funnel           = self.funnel;
+    PreviewAndSaveViewController *previewVC = [PreviewAndSaveViewController wmf_initialViewControllerFromClassStoryboard];
+    previewVC.section = self.section;
+    previewVC.wikiText = self.editTextView.text;
+    previewVC.funnel = self.funnel;
     previewVC.savedPagesFunnel = self.savedPagesFunnel;
-    previewVC.delegate         = self;
+    previewVC.delegate = self;
     [self.navigationController pushViewController:previewVC animated:YES];
 }
 
-- (void)previewViewControllerDidSave:(PreviewAndSaveViewController*)previewViewController {
+- (void)previewViewControllerDidSave:(PreviewAndSaveViewController *)previewViewController {
     [self.delegate sectionEditorFinishedEditing:self];
 }
 
@@ -223,11 +219,13 @@
 - (void)registerForKeyboardNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardDidShowNotification object:nil];
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillBeHidden:)
-                                                 name:UIKeyboardWillHideNotification object:nil];
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 - (void)unRegisterForKeyboardNotifications {
@@ -240,8 +238,8 @@
                                                   object:nil];
 }
 
-- (void)keyboardWasShown:(NSNotification*)aNotification {
-    NSDictionary* info = [aNotification userInfo];
+- (void)keyboardWasShown:(NSNotification *)aNotification {
+    NSDictionary *info = [aNotification userInfo];
 
     CGRect windowKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
 
@@ -252,7 +250,7 @@
     // This makes it so you can always scroll to the bottom of the text view's text
     // even if the keyboard is onscreen.
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, viewKeyboardRect.size.height, 0.0);
-    self.editTextView.contentInset          = contentInsets;
+    self.editTextView.contentInset = contentInsets;
     self.editTextView.scrollIndicatorInsets = contentInsets;
 
     // Mark the text view as needing a layout update so the inset changes above will
@@ -264,19 +262,19 @@
     [self scrollTextViewSoCursorNotUnderKeyboard:self.editTextView];
 }
 
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification {
+- (void)keyboardWillBeHidden:(NSNotification *)aNotification {
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    self.editTextView.contentInset          = contentInsets;
+    self.editTextView.contentInset = contentInsets;
     self.editTextView.scrollIndicatorInsets = contentInsets;
 
     self.viewKeyboardRect = CGRectNull;
 }
 
-- (void)scrollTextViewSoCursorNotUnderKeyboard:(UITextView*)textView {
+- (void)scrollTextViewSoCursorNotUnderKeyboard:(UITextView *)textView {
     // If cursor is hidden by keyboard, scroll the text view so cursor is onscreen.
     if (!CGRectIsNull(self.viewKeyboardRect)) {
         CGRect cursorRectInTextView = [textView caretRectForPosition:textView.selectedTextRange.start];
-        CGRect cursorRectInView     = [textView convertRect:cursorRectInTextView toView:self.view];
+        CGRect cursorRectInView = [textView convertRect:cursorRectInTextView toView:self.view];
         if (CGRectIntersectsRect(self.viewKeyboardRect, cursorRectInView)) {
             CGFloat margin = -20;
             // Margin here is the amount the cursor will be scrolled above the top of the keyboard.

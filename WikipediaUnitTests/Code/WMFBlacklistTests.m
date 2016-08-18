@@ -1,4 +1,3 @@
-
 #import <XCTest/XCTest.h>
 #import "WMFAsyncTestCase.h"
 #import "WMFRelatedSectionBlackList.h"
@@ -9,10 +8,9 @@
 
 @end
 
-
 @interface WMFBlacklistTests : WMFAsyncTestCase
 
-@property (nonatomic, strong) MWKDataStore* dataStore;
+@property(nonatomic, strong) MWKDataStore *dataStore;
 
 @end
 
@@ -24,29 +22,29 @@
 }
 
 - (void)tearDown {
-    WMFRelatedSectionBlackList* bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
+    WMFRelatedSectionBlackList *bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
     [bl removeAllEntries];
     self.dataStore = nil;
     [super tearDown];
 }
 
 - (void)testPersistsToDisk {
-    NSURL* url                     = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"some-title"];
-    WMFRelatedSectionBlackList* bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
+    NSURL *url = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"some-title"];
+    WMFRelatedSectionBlackList *bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
     [bl addBlackListArticleURL:url];
-    
-    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
-    
+
+    __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
+
     dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-        WMFRelatedSectionBlackList* bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
-        
-        MWKHistoryEntry* first = [bl mostRecentEntry];
-        
-        XCTAssertTrue([url isEqual:first.url],
-                      @"Title persisted should be equal to the title loaded from disk");
-        [expectation fulfill];
+      WMFRelatedSectionBlackList *bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
+
+      MWKHistoryEntry *first = [bl mostRecentEntry];
+
+      XCTAssertTrue([url isEqual:first.url],
+                    @"Title persisted should be equal to the title loaded from disk");
+      [expectation fulfill];
     });
-    
+
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
 

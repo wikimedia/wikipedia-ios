@@ -1,11 +1,11 @@
-
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSArray<__covariant ObjectType> (WMFMapping)
+@interface NSArray <__covariant ObjectType>
+(WMFMapping)
 
-/**
+    /**
  *  Map the array using the provided block.
  *  If nil is returned by the block an assertion will be thrown in DEBUG
  *  If not in debug, then [NSNull null] will be added to the array
@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The new array of mapped objects
  */
-- (NSArray*)wmf_strictMap:(id (^)(id obj))block;
+    - (NSArray *)wmf_strictMap : (id (^)(id obj))block;
 
 /**
  *  Transform the elements in the receiver, returning @c nil for those that should be excluded.
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A new array with the objects transformed by @c flatMap, excluding the @c nil results.
  */
-- (NSArray*)wmf_mapAndRejectNil:(id _Nullable (^ _Nonnull)(ObjectType _Nonnull obj))flatMap;
+- (NSArray *)wmf_mapAndRejectNil:(id _Nullable (^_Nonnull)(ObjectType _Nonnull obj))flatMap;
 
 @end
 

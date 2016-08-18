@@ -1,4 +1,3 @@
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "MWKSavedPageList.h"
@@ -19,23 +18,22 @@
 #pragma clang diagnostic ignored "-Wnonnull"
 
 - (void)testPrunesEntriesWithEmptyOrAbsentTitles {
-    MWKDataStore* dataStore = [MWKDataStore temporaryDataStore];
-    MWKSavedPageList* list  = [[MWKSavedPageList alloc] initWithDataStore:dataStore];
+    MWKDataStore *dataStore = [MWKDataStore temporaryDataStore];
+    MWKSavedPageList *list = [[MWKSavedPageList alloc] initWithDataStore:dataStore];
     [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Foo"]];
     [list addSavedPageWithURL:nil];
     [list addSavedPageWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@""]];
 
-    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
     dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-        assertThat(@([list numberOfItems]), is(@1));
+      assertThat(@([list numberOfItems]), is(@1));
 
-        [expectation fulfill];
+      [expectation fulfill];
     });
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
 
 #pragma clang diagnostic pop
-
 
 @end

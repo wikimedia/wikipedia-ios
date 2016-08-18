@@ -1,11 +1,3 @@
-//
-//  WMFPagingCollectionViewController.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 7/17/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFPageCollectionViewController.h"
 #import "UICollectionViewLayout+AttributeUtils.h"
 
@@ -24,10 +16,12 @@
     NSParameterAssert(self.currentPage < [self.collectionView.dataSource collectionView:self.collectionView numberOfItemsInSection:0]);
 
     // can't use scrollToItem because it doesn't handle post-rotation scrolling well on iOS 6
-    WMF_TECH_DEBT_TODO(try using scrollToItem: animated:)
-    UICollectionViewLayoutAttributes * currentPageAttributes =
+    WMF_TECH_DEBT_TODO(try using scrollToItem
+                       : animated:)
+    UICollectionViewLayoutAttributes *currentPageAttributes =
         [self.collectionViewLayout layoutAttributesForItemAtIndexPath:
-         [NSIndexPath indexPathForItem:self.currentPage inSection:0]];
+                                       [NSIndexPath indexPathForItem:self.currentPage
+                                                           inSection:0]];
     NSAssert(currentPageAttributes,
              @"Layout attributes for current page were nil because %@ was called too early!",
              NSStringFromSelector(_cmd));
@@ -74,8 +68,8 @@
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     NSUInteger const currentImageIndex = [self mostVisibleItemIndex];
-    [coordinator notifyWhenInteractionEndsUsingBlock:^(id < UIViewControllerTransitionCoordinatorContext > _) {
-        [self setCurrentPage:currentImageIndex animated:NO forceViewUpdate:YES];
+    [coordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> _) {
+      [self setCurrentPage:currentImageIndex animated:NO forceViewUpdate:YES];
     }];
 }
 
@@ -95,13 +89,13 @@
     }
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView*)scrollView willDecelerate:(BOOL)decelerate {
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (!decelerate) {
         [self primitiveSetCurrentPage:[self mostVisibleItemIndex]];
     }
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView*)scrollView {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [self primitiveSetCurrentPage:[self mostVisibleItemIndex]];
 }
 

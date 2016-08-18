@@ -1,4 +1,3 @@
-
 #import "WMFSearchResponseSerializer.h"
 #import "MWKSearchResult.h"
 
@@ -12,12 +11,12 @@
     return self;
 }
 
-- (id)responseObjectForResponse:(NSURLResponse*)response
-                           data:(NSData*)data
-                          error:(NSError* __autoreleasing*)error {
-    NSDictionary* JSON                    = [super responseObjectForResponse:response data:data error:error];
-    NSDictionary* nearbyResultsDictionary = JSON[@"query"][@"pages"];
-    NSArray* nearbyResultsArray           = [nearbyResultsDictionary allValues];
+- (id)responseObjectForResponse:(NSURLResponse *)response
+                           data:(NSData *)data
+                          error:(NSError *__autoreleasing *)error {
+    NSDictionary *JSON = [super responseObjectForResponse:response data:data error:error];
+    NSDictionary *nearbyResultsDictionary = JSON[@"query"][@"pages"];
+    NSArray *nearbyResultsArray = [nearbyResultsDictionary allValues];
 
     return [MTLJSONAdapter modelsOfClass:[self.searchResultClass class] fromJSONArray:nearbyResultsArray error:error];
 }

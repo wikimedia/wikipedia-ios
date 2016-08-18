@@ -3,17 +3,17 @@
 
 @implementation MWKTestCase
 
-- (NSData*)loadDataFile:(NSString*)name ofType:(NSString*)extension {
+- (NSData *)loadDataFile:(NSString *)name ofType:(NSString *)extension {
     return [[self wmf_bundle] wmf_dataFromContentsOfFile:name ofType:extension];
 }
 
-- (id)loadJSON:(NSString*)name {
+- (id)loadJSON:(NSString *)name {
     return [[self wmf_bundle] wmf_jsonFromContentsOfFile:name];
 }
 
-- (NSString*)allObamaHTML {
-    return [[[self loadJSON:@"Obama"][@"mobileview"][@"sections"] bk_map:^NSString*(NSDictionary* section) {
-        return section[@"text"];
+- (NSString *)allObamaHTML {
+    return [[[self loadJSON:@"Obama"][@"mobileview"][@"sections"] bk_map:^NSString *(NSDictionary *section) {
+      return section[@"text"];
     }] componentsJoinedByString:@""];
 }
 

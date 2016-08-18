@@ -1,11 +1,3 @@
-//
-//  MWKDataStoreList.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/14/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
 
 @class MWKDataStore;
@@ -21,8 +13,8 @@
  *
  *  @return A new list.
  */
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
-@property (nonatomic, weak, readonly) MWKDataStore* dataStore;
+@property(nonatomic, weak, readonly) MWKDataStore *dataStore;
 
 @end

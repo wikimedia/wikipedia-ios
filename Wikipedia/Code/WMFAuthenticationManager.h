@@ -1,9 +1,8 @@
-
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^ WMFCaptchaHandler)(NSURL* captchaURL);
+typedef void (^WMFCaptchaHandler)(NSURL *captchaURL);
 
 /**
  *  This class manages all aspects of authentication.
@@ -20,12 +19,12 @@ typedef void (^ WMFCaptchaHandler)(NSURL* captchaURL);
 /**
  *  The current logged in user. If nil, no user is logged in
  */
-@property (strong, nonatomic, readonly, nullable) NSString* loggedInUsername;
+@property(strong, nonatomic, readonly, nullable) NSString *loggedInUsername;
 
 /**
  *  Returns YES if a user is logged in, NO otherwise
  */
-@property (assign, nonatomic, readonly) BOOL isLoggedIn;
+@property(assign, nonatomic, readonly) BOOL isLoggedIn;
 
 /**
  *  Get the shared instance of this class
@@ -43,7 +42,7 @@ typedef void (^ WMFCaptchaHandler)(NSURL* captchaURL);
  *  @param captcha  The handler for the returned captcha URL
  *  @param failure  The handler for any errors
  */
-- (void)getAccountCreationCaptchaWithUsername:(NSString*)username password:(NSString*)password email:(nullable NSString*)email captcha:(WMFCaptchaHandler)captcha failure:(WMFErrorHandler)failure;
+- (void)getAccountCreationCaptchaWithUsername:(NSString *)username password:(NSString *)password email:(nullable NSString *)email captcha:(WMFCaptchaHandler)captcha failure:(WMFErrorHandler)failure;
 
 /**
  *  Create an account for the username in the above method passing in the answer to the captcha.
@@ -55,7 +54,7 @@ typedef void (^ WMFCaptchaHandler)(NSURL* captchaURL);
  *  @param captcha     The handler for the returned captcha URL
  *  @param failure     The handler for any errors
  */
-- (void)createAccountWithCaptchaText:(NSString*)captchaText success:(dispatch_block_t)success captcha:(WMFCaptchaHandler)captcha failure:(WMFErrorHandler)failure;
+- (void)createAccountWithCaptchaText:(NSString *)captchaText success:(dispatch_block_t)success captcha:(WMFCaptchaHandler)captcha failure:(WMFErrorHandler)failure;
 
 /**
  *  Login with the given username and password
@@ -65,7 +64,7 @@ typedef void (^ WMFCaptchaHandler)(NSURL* captchaURL);
  *  @param success  The handler for success - at this point the user is logged in
  *  @param failure     The handler for any errors
  */
-- (void)loginWithUsername:(NSString*)username password:(NSString*)password success:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure;
+- (void)loginWithUsername:(NSString *)username password:(NSString *)password success:(nullable dispatch_block_t)success failure:(nullable WMFErrorHandler)failure;
 
 /**
  *  Logs in a user using saved credentials in the keychain
@@ -79,7 +78,6 @@ typedef void (^ WMFCaptchaHandler)(NSURL* captchaURL);
  *  Logs out any authenticated user and clears out any associated cookies
  */
 - (void)logout;
-
 
 @end
 

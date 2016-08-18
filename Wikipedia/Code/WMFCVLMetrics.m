@@ -2,14 +2,14 @@
 #import <Tweaks/FBTweakInline.h>
 
 @interface WMFCVLMetrics ()
-@property (nonatomic) CGSize boundsSize;
-@property (nonatomic) NSInteger numberOfColumns;
-@property (nonatomic) UIEdgeInsets contentInsets;
-@property (nonatomic) UIEdgeInsets sectionInsets;
-@property (nonatomic) CGFloat interColumnSpacing;
-@property (nonatomic) CGFloat interSectionSpacing;
-@property (nonatomic) CGFloat interItemSpacing;
-@property (nonatomic, copy) NSArray *columnWeights;
+@property(nonatomic) CGSize boundsSize;
+@property(nonatomic) NSInteger numberOfColumns;
+@property(nonatomic) UIEdgeInsets contentInsets;
+@property(nonatomic) UIEdgeInsets sectionInsets;
+@property(nonatomic) CGFloat interColumnSpacing;
+@property(nonatomic) CGFloat interSectionSpacing;
+@property(nonatomic) CGFloat interItemSpacing;
+@property(nonatomic, copy) NSArray *columnWeights;
 @end
 @implementation WMFCVLMetrics
 
@@ -33,7 +33,7 @@
     BOOL isPad = boundsSize.width >= 600;
     BOOL isWide = boundsSize.width >= 1000;
     metrics.numberOfColumns = isPad ? 2 : 1;
-    metrics.columnWeights = isPad ? isRTL ? @[@0.821, @1.179] : @[@1.179, @0.821]  : @[@1];
+    metrics.columnWeights = isPad ? isRTL ? @[ @0.821, @1.179 ] : @[ @1.179, @0.821 ] : @[ @1 ];
     metrics.interColumnSpacing = isPad ? 20 : 0;
     metrics.interItemSpacing = 1;
     metrics.interSectionSpacing = isPad ? 20 : 50;
@@ -44,5 +44,3 @@
 }
 
 @end
-
-

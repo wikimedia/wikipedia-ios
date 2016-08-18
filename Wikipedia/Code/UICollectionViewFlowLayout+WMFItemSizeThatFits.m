@@ -3,15 +3,9 @@
 @implementation UICollectionViewFlowLayout (WMFItemSizeThatFits)
 
 - (CGSize)wmf_itemSizeThatFits:(CGSize)size {
-    return CGSizeMake(fmaxf(size.width
-                            - self.sectionInset.left
-                            - self.sectionInset.right
-                            - self.minimumInteritemSpacing,
+    return CGSizeMake(fmaxf(size.width - self.sectionInset.left - self.sectionInset.right - self.minimumInteritemSpacing,
                             0.f),
-                      fmaxf(size.height
-                            - self.sectionInset.top
-                            - self.sectionInset.bottom
-                            - self.minimumLineSpacing,
+                      fmaxf(size.height - self.sectionInset.top - self.sectionInset.bottom - self.minimumLineSpacing,
                             0.f));
 }
 

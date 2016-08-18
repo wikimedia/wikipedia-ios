@@ -1,14 +1,13 @@
-
 #import "WMFWelcomeIntroductionViewController.h"
 #import "Wikipedia-Swift.h"
 
 @interface WMFWelcomeIntroductionViewController ()
 
-@property (strong, nonatomic) IBOutlet UILabel* titleLabel;
-@property (strong, nonatomic) IBOutlet UILabel* subTitleLabel;
-@property (strong, nonatomic) IBOutlet UIButton* tellMeMoreButton;
-@property (strong, nonatomic) IBOutlet UIButton* nextButton;
-@property (strong, nonatomic) IBOutlet WelcomeIntroAnimationView* animationView;
+@property(strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property(strong, nonatomic) IBOutlet UILabel *subTitleLabel;
+@property(strong, nonatomic) IBOutlet UIButton *tellMeMoreButton;
+@property(strong, nonatomic) IBOutlet UIButton *nextButton;
+@property(strong, nonatomic) IBOutlet WelcomeIntroAnimationView *animationView;
 
 @end
 
@@ -34,7 +33,7 @@
 }
 
 - (IBAction)showHowThisWorksAlert:(id)sender {
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"welcome-explore-tell-me-more-about-explore", nil) message:[NSString stringWithFormat:@"%@\n\n%@", MWLocalizedString(@"welcome-explore-tell-me-more-related", nil), MWLocalizedString(@"welcome-explore-tell-me-more-privacy", nil)] delegate:nil cancelButtonTitle:MWLocalizedString(@"welcome-explore-tell-me-more-done-button", nil) otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"welcome-explore-tell-me-more-about-explore", nil) message:[NSString stringWithFormat:@"%@\n\n%@", MWLocalizedString(@"welcome-explore-tell-me-more-related", nil), MWLocalizedString(@"welcome-explore-tell-me-more-privacy", nil)] delegate:nil cancelButtonTitle:MWLocalizedString(@"welcome-explore-tell-me-more-done-button", nil) otherButtonTitles:nil];
     [alert show];
 }
 

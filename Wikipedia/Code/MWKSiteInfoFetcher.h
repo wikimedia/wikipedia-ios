@@ -1,4 +1,3 @@
-
 @import Foundation;
 
 @class MWKSiteInfo;
@@ -7,9 +6,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKSiteInfoFetcher : NSObject
 
-- (AnyPromise*)fetchSiteInfoForSiteURL:(NSURL*)siteURL;
+- (AnyPromise *)fetchSiteInfoForSiteURL:(NSURL *)siteURL;
 
-@property (nonatomic, assign, readonly) BOOL isFetching;
+@property(nonatomic, assign, readonly) BOOL isFetching;
 
 @end
 

@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 3/12/15.
-//  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "UIImage+WMFFocalImageDrawing.h"
 
 @implementation UIImage (WMFFocalImageDrawing)
@@ -17,15 +14,15 @@
     // Aspect fill.
     float xScale = rect.size.width / self.size.width;
     float yScale = rect.size.height / self.size.height;
-    float scale  = MAX(xScale, yScale);
-    CGSize size  = CGSizeMake(self.size.width * scale, self.size.height * scale);
+    float scale = MAX(xScale, yScale);
+    CGSize size = CGSizeMake(self.size.width * scale, self.size.height * scale);
 
     // Align top.
     CGRect r = (CGRect){{0, 0}, size};
 
     // Center horizontally.
-    CGFloat m1     = CGRectGetMidX(r);
-    CGFloat m2     = CGRectGetMidX(rect);
+    CGFloat m1 = CGRectGetMidX(r);
+    CGFloat m2 = CGRectGetMidX(rect);
     CGFloat offset = (m2 - m1);
     r = CGRectOffset(r, offset, 0.0);
 
@@ -34,9 +31,9 @@
     if (bottomOverlap > 0.0) {
         if (!CGRectIsEmpty(focalBounds)) {
             // Move image up to vertically center focal bounds (as much as possible).
-            CGFloat yMidSelf        = CGRectGetMidY(rect);
+            CGFloat yMidSelf = CGRectGetMidY(rect);
             CGFloat yMidFocalBounds = CGRectGetMidY(focalBounds) * scale;
-            CGFloat yShift          = fminf(yMidFocalBounds - yMidSelf, bottomOverlap);
+            CGFloat yShift = fminf(yMidFocalBounds - yMidSelf, bottomOverlap);
             if (yShift > 0) {
                 r = CGRectOffset(r, 0.0, -yShift);
             }
@@ -56,15 +53,14 @@
                 (focalBounds.origin.x * scale) + r.origin.x,
                 (focalBounds.origin.y * scale) + r.origin.y,
                 focalBounds.size.width * scale,
-                focalBounds.size.height * scale
-                );
+                focalBounds.size.height * scale);
         [self fillFocalBounds:scaledfocalBounds];
     }
 }
 
 - (void)fillFocalBounds:(CGRect)bounds {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context       = UIGraphicsGetCurrentContext();
+    CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetRGBFillColor(context, 0.0, 1.0, 0.0, 0.3);
     CGContextFillRect(context, bounds);
     CGColorSpaceRelease(colorSpace);

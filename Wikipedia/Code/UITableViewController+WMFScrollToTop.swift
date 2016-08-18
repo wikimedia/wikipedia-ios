@@ -1,4 +1,3 @@
-
 extension UITableViewController {
     private func scrollToFirstIndexPath() {
         tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0) , atScrollPosition: .Top, animated: true)

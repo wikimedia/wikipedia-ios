@@ -1,11 +1,3 @@
-//
-//  MWKDataStoreListTests.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/14/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MWKListTestBase.h"
 
 @class MWKDataStore;
@@ -16,7 +8,7 @@
 @interface MWKDataStoreListTests : MWKListTestBase
 
 /// Temporary data store which is setup & torn down between tests.
-@property (nonatomic, strong) MWKDataStore* tempDataStore;
+@property(nonatomic, strong) MWKDataStore *tempDataStore;
 
 /**
  *  Assert equality of two lists.
@@ -27,6 +19,6 @@
  *  @param list      A list which was exercised by a test.
  *  @param otherList The same list read from disk after the test.
  */
-- (void)verifyList:(MWKList*)list isEqualToList:(MWKList*)otherList;
+- (void)verifyList:(MWKList *)list isEqualToList:(MWKList *)otherList;
 
 @end

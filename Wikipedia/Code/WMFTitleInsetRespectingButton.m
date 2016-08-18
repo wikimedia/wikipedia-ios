@@ -1,4 +1,3 @@
-
 #import "WMFTitleInsetRespectingButton.h"
 
 @implementation WMFTitleInsetRespectingButton
