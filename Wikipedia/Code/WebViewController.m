@@ -340,10 +340,6 @@ NSString *const WMFCCBySALicenseURL =
     return floor(0.5 * size.width * (1 - self.contentWidthPercentage));
 }
 
-- (CGFloat)marginWidth {
-    return [self marginWidthForSize:self.view.bounds.size];
-}
-
 - (void)updateFooterMarginForSize:(CGSize)size {
     CGFloat marginWidth = [self marginWidthForSize:size];
     self.footerContainerViewLeftMarginConstraint.offset = marginWidth;
@@ -354,11 +350,15 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)updateWebContentMarginForSize:(CGSize)size {
-    NSString *jsFormat = @"document.body.style.paddingLeft='%ipx';document.body.style.paddingRight='%ipx';";
-    CGFloat marginWidth = [self marginWidthForSize:size];
-    int padding = (int)MAX(0, marginWidth);
-    NSString *js = [NSString stringWithFormat:jsFormat, padding, padding];
-    [self.webView evaluateJavaScript:js completionHandler:NULL];
+    CGFloat newMarginWidth = [self marginWidthForSize:self.view.bounds.size];
+    if (ABS(self.marginWidth - newMarginWidth) >= 0.5) {
+        self.marginWidth = newMarginWidth;
+        NSString *jsFormat = @"document.body.style.paddingLeft='%ipx';document.body.style.paddingRight='%ipx';";
+        CGFloat marginWidth = [self marginWidthForSize:size];
+        int padding = (int)MAX(0, marginWidth);
+        NSString *js = [NSString stringWithFormat:jsFormat, padding, padding];
+        [self.webView evaluateJavaScript:js completionHandler:NULL];
+    }
 }
 
 - (void)viewDidLayoutSubviews {
@@ -899,7 +899,7 @@ NSString *const WMFCCBySALicenseURL =
                                                  completion:^(CGRect rect) {
                                                    if (!CGRectIsNull(rect)) {
                                                        [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y)
-                                                                                                animated:YES];
+                                                                                                animated:animated];
                                                    }
                                                  }];
     }
@@ -1244,12 +1244,26 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 #pragma mark -
+
 - (void)setContentWidthPercentage:(CGFloat)contentWidthPercentage {
     if (_contentWidthPercentage != contentWidthPercentage) {
         _contentWidthPercentage = contentWidthPercentage;
         [self updateWebContentMarginForSize:self.view.bounds.size];
         [self updateFooterMarginForSize:self.view.bounds.size];
     }
+}
+
+#pragma mark - Animation
+
+- (UIEdgeInsets)animatedResizeSnapshotInsets {
+    CGFloat marginWidth = self.marginWidth;
+
+    CGFloat contentOffsetY = self.webView.scrollView.contentOffset.y;
+    CGFloat boundsHeight = self.webView.scrollView.bounds.size.height;
+    CGFloat topInset = MAX(0, self.headerView.frame.size.height - contentOffsetY);
+    CGFloat bottomInset = MAX(0, MIN((contentOffsetY + boundsHeight) - (self.webView.scrollView.contentSize.height - self.footerContainerView.frame.size.height), boundsHeight));
+
+    return UIEdgeInsetsMake(topInset, marginWidth, bottomInset, marginWidth);
 }
 
 @end

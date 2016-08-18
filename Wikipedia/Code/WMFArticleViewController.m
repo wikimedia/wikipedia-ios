@@ -157,6 +157,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self = [super init];
     if (self) {
+        self.currentFooterIndex = NSNotFound;
         self.articleURL = url;
         self.dataStore = dataStore;
         self.hidesBottomBarWhenPushed = YES;
@@ -945,48 +946,61 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Table of Contents
 
+- (void)updateTableOfContentsLayoutAnimated:(BOOL)animated {
+    if (animated) {
+        UIScrollView *scrollView = self.webViewController.webView.scrollView;
+        CGFloat previousOffsetPercentage = scrollView.contentOffset.y / scrollView.contentSize.height;
+        [UIView animateWithDuration:0.20
+            animations:^{
+              [self layoutForSize:self.view.bounds.size];
+              if (self.currentSection) {
+                  [self.webViewController scrollToSection:self.currentSection animated:NO];
+              } else if (self.currentFooterIndex != NSNotFound) {
+                  [self.webViewController scrollToFooterAtIndex:self.currentFooterIndex];
+              } else {
+                  scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
+              }
+            }
+            completion:^(BOOL finished) {
+            }];
+    } else {
+        [self layoutForSize:self.view.bounds.size];
+    }
+}
+
 - (void)showTableOfContents:(id)sender {
     if (self.tableOfContentsViewController == nil) {
         return;
     }
     switch (self.tableOfContentsDisplayMode) {
-    case WMFTableOfContentsDisplayModeInline: {
+    case WMFTableOfContentsDisplayModeInline:
         if (sender != self) {
             [[NSUserDefaults standardUserDefaults] wmf_setTableOfContentsIsVisibleInline:YES];
         }
         self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineVisible;
-        [UIView animateWithDuration:0.25
-                         animations:^{
-                           [self layoutForSize:self.view.bounds.size];
-                         }];
-    } break;
+        [self updateTableOfContentsLayoutAnimated:YES];
+        break;
     case WMFTableOfContentsDisplayModeModal:
-    default: {
+    default:
         self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalVisible;
         [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
-    } break;
     }
     [self updateToolbar];
 }
 
 - (void)hideTableOfContents:(id)sender {
     switch (self.tableOfContentsDisplayMode) {
-    case WMFTableOfContentsDisplayModeInline: {
+    case WMFTableOfContentsDisplayModeInline:
         if (sender != self) {
             [[NSUserDefaults standardUserDefaults] wmf_setTableOfContentsIsVisibleInline:NO];
         }
         self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
-        [UIView animateWithDuration:0.25
-                         animations:^{
-                           [self layoutForSize:self.view.bounds.size];
-                         }];
-
-    } break;
+        [self updateTableOfContentsLayoutAnimated:YES];
+     break;
     case WMFTableOfContentsDisplayModeModal:
-    default: {
+    default:
         self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalHidden;
         [self dismissViewControllerAnimated:YES completion:NULL];
-    } break;
     }
     [self updateToolbar];
 }
@@ -1377,6 +1391,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)updateTableOfContentsHighlightWithScrollView:(UIScrollView *)scrollView {
+    self.currentFooterIndex = NSNotFound;
+    self.currentSection = nil;
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *_Nullable section, NSError *_Nullable error) {
       if (section) {
           [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];

@@ -49,6 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong, nonatomic, nullable) ReferencesVC *referencesVC;
 @property(weak, nonatomic) IBOutlet UIView *referencesContainerView;
 
+@property(nonatomic) CGFloat marginWidth;
+
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *referencesContainerViewBottomConstraint;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *referencesContainerViewHeightConstraint;
 
