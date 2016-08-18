@@ -22,7 +22,7 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="oF1-jo-N7w" secondAttribute="trailing" id="S5z-Bd-dAa"/>
                 <constraint firstItem="oF1-jo-N7w" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="V9E-eY-960"/>
-                <constraint firstAttribute="bottom" secondItem="oF1-jo-N7w" secondAttribute="bottom" constant="12" id="ayl-SF-Uiv"/>
+                <constraint firstAttribute="bottom" secondItem="oF1-jo-N7w" secondAttribute="bottom" constant="5" id="ayl-SF-Uiv"/>
                 <constraint firstItem="oF1-jo-N7w" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="j0J-ho-Jo4"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
