@@ -329,16 +329,16 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (editingStyle) {
-    case UITableViewCellEditingStyleInsert: {
-        MWKLanguageLink *langLink = self.languageFilter.filteredOtherLanguages[indexPath.row];
-        [[MWKLanguageLinkController sharedInstance] appendPreferredLanguage:langLink];
-    } break;
-    case UITableViewCellEditingStyleDelete: {
-        MWKLanguageLink *langLink = self.languageFilter.filteredPreferredLanguages[indexPath.row];
-        [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
-    } break;
-    case UITableViewCellEditingStyleNone:
-        break;
+        case UITableViewCellEditingStyleInsert: {
+            MWKLanguageLink *langLink = self.languageFilter.filteredOtherLanguages[indexPath.row];
+            [[MWKLanguageLinkController sharedInstance] appendPreferredLanguage:langLink];
+        } break;
+        case UITableViewCellEditingStyleDelete: {
+            MWKLanguageLink *langLink = self.languageFilter.filteredPreferredLanguages[indexPath.row];
+            [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
+        } break;
+        case UITableViewCellEditingStyleNone:
+            break;
     }
     self.languageFilter.languageFilter = @"";
     self.languageFilterField.text = @"";

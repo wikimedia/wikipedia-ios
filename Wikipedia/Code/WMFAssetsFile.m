@@ -64,14 +64,14 @@
 
 - (NSString *)name {
     switch (self.fileType) {
-    case WMFAssetsFileTypeConfig:
-        return @"ios.json";
-    case WMFAssetsFileTypeLanguages:
-        return @"languages.json";
-    case WMFAssetsFileTypeMainPages:
-        return @"mainpages.json";
-    default:
-        return nil;
+        case WMFAssetsFileTypeConfig:
+            return @"ios.json";
+        case WMFAssetsFileTypeLanguages:
+            return @"languages.json";
+        case WMFAssetsFileTypeMainPages:
+            return @"mainpages.json";
+        default:
+            return nil;
     }
 }
 
@@ -79,12 +79,12 @@
     NSString *urlString;
 
     switch (self.fileType) {
-    case WMFAssetsFileTypeConfig:
-        urlString = @"https://meta.wikimedia.org/static/current/extensions/MobileApp/config/ios.json";
-        break;
+        case WMFAssetsFileTypeConfig:
+            urlString = @"https://meta.wikimedia.org/static/current/extensions/MobileApp/config/ios.json";
+            break;
 
-    default:
-        break;
+        default:
+            break;
     }
 
     if (!urlString) {

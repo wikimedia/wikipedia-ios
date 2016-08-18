@@ -149,14 +149,14 @@
     }
 
     switch (self.orientation) {
-    case TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL:
-        [self constrainContainerViewSubviewsHorizontally];
-        break;
-    case TABULAR_SCROLLVIEW_LAYOUT_VERTICAL:
-        [self constrainContainerViewSubviewsVertically];
-        break;
-    default:
-        break;
+        case TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL:
+            [self constrainContainerViewSubviewsHorizontally];
+            break;
+        case TABULAR_SCROLLVIEW_LAYOUT_VERTICAL:
+            [self constrainContainerViewSubviewsVertically];
+            break;
+        default:
+            break;
     }
 }
 

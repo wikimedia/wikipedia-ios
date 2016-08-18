@@ -148,28 +148,28 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     UIBarButtonItem *forwardButton = nil;
 
     switch (mode) {
-    case PREVIEW_MODE_EDIT_WIKITEXT:
-        backButton = self.buttonLeftCaret;
-        forwardButton = self.buttonNext;
-        break;
-    case PREVIEW_MODE_EDIT_WIKITEXT_WARNING:
-        backButton = self.buttonLeftCaret;
-        forwardButton = self.buttonSave;
-        break;
-    case PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW:
-        backButton = self.buttonLeftCaret;
-        forwardButton = nil;
-        break;
-    case PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW:
-        backButton = self.buttonLeftCaret;
-        forwardButton = self.buttonSave;
-        break;
-    case PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA:
-        backButton = self.buttonX;
-        forwardButton = self.buttonSave;
-        break;
-    default:
-        break;
+        case PREVIEW_MODE_EDIT_WIKITEXT:
+            backButton = self.buttonLeftCaret;
+            forwardButton = self.buttonNext;
+            break;
+        case PREVIEW_MODE_EDIT_WIKITEXT_WARNING:
+            backButton = self.buttonLeftCaret;
+            forwardButton = self.buttonSave;
+            break;
+        case PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW:
+            backButton = self.buttonLeftCaret;
+            forwardButton = nil;
+            break;
+        case PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW:
+            backButton = self.buttonLeftCaret;
+            forwardButton = self.buttonSave;
+            break;
+        case PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA:
+            backButton = self.buttonX;
+            forwardButton = self.buttonSave;
+            break;
+        default:
+            break;
     }
 
     self.navigationItem.leftBarButtonItem = backButton;
@@ -186,16 +186,16 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)goForward {
     switch (self.mode) {
-    case PREVIEW_MODE_EDIT_WIKITEXT_WARNING:
-        [self save];
-        [self.funnel logAbuseFilterWarningIgnore:self.abuseFilterCode];
-        break;
-    case PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA:
-        [self save];
-        break;
-    default:
-        [self save];
-        break;
+        case PREVIEW_MODE_EDIT_WIKITEXT_WARNING:
+            [self save];
+            [self.funnel logAbuseFilterWarningIgnore:self.abuseFilterCode];
+            break;
+        case PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA:
+            [self save];
+            break;
+        default:
+            [self save];
+            break;
     }
 }
 
@@ -387,32 +387,32 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
         NSString *summaryKey;
         switch (tappedButton.tag) {
-        case CANNED_SUMMARY_TYPOS:
-            summaryKey = @"typo";
-            break;
-        case CANNED_SUMMARY_GRAMMAR:
-            summaryKey = @"grammar";
-            break;
-        case CANNED_SUMMARY_LINKS:
-            summaryKey = @"links";
-            break;
-        case CANNED_SUMMARY_OTHER:
-            summaryKey = @"other";
-            break;
-        default:
-            NSLog(@"unrecognized button");
+            case CANNED_SUMMARY_TYPOS:
+                summaryKey = @"typo";
+                break;
+            case CANNED_SUMMARY_GRAMMAR:
+                summaryKey = @"grammar";
+                break;
+            case CANNED_SUMMARY_LINKS:
+                summaryKey = @"links";
+                break;
+            case CANNED_SUMMARY_OTHER:
+                summaryKey = @"other";
+                break;
+            default:
+                NSLog(@"unrecognized button");
         }
         [self.funnel logEditSummaryTap:summaryKey];
 
         switch (tappedButton.tag) {
-        case CANNED_SUMMARY_OTHER:
-            [self showSummaryOverlay];
-            break;
+            case CANNED_SUMMARY_OTHER:
+                [self showSummaryOverlay];
+                break;
 
-        default:
-            tappedButton.enabled = !tappedButton.enabled;
+            default:
+                tappedButton.enabled = !tappedButton.enabled;
 
-            break;
+                break;
         }
     }
 }
@@ -496,16 +496,16 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                 error:(NSError *)error {
     if ([sender isKindOfClass:[PreviewHtmlFetcher class]]) {
         switch (status) {
-        case FETCH_FINAL_STATUS_SUCCEEDED: {
-            [[WMFAlertManager sharedInstance] dismissAlert];
-            [self.previewWebViewContainer.webView loadHTML:fetchedData baseURL:[NSURL URLWithString:@"https://wikipedia.org"] withAssetsFile:@"preview.html" scrolledToFragment:nil padding:UIEdgeInsetsZero];
-        } break;
-        case FETCH_FINAL_STATUS_FAILED: {
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-        } break;
-        case FETCH_FINAL_STATUS_CANCELLED: {
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-        } break;
+            case FETCH_FINAL_STATUS_SUCCEEDED: {
+                [[WMFAlertManager sharedInstance] dismissAlert];
+                [self.previewWebViewContainer.webView loadHTML:fetchedData baseURL:[NSURL URLWithString:@"https://wikipedia.org"] withAssetsFile:@"preview.html" scrolledToFragment:nil padding:UIEdgeInsetsZero];
+            } break;
+            case FETCH_FINAL_STATUS_FAILED: {
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+            } break;
+            case FETCH_FINAL_STATUS_CANCELLED: {
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+            } break;
         }
     } else if ([sender isKindOfClass:[EditTokenFetcher class]]) {
         EditTokenFetcher *tokenFetcher = (EditTokenFetcher *)sender;
@@ -525,111 +525,111 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
         };
 
         switch (status) {
-        case FETCH_FINAL_STATUS_SUCCEEDED: {
-            NSMutableDictionary *editTokens =
-                self.keychainCredentials.editTokens;
-            NSString *domain = self.section.url.wmf_language;
-            if (domain && tokenFetcher.token) {
-                editTokens[domain] = tokenFetcher.token;
-                self.keychainCredentials.editTokens = editTokens;
-            }
-            upload();
-        } break;
-        case FETCH_FINAL_STATUS_CANCELLED:
-            [[WMFAlertManager sharedInstance] dismissAlert];
-            break;
-        case FETCH_FINAL_STATUS_FAILED:
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+            case FETCH_FINAL_STATUS_SUCCEEDED: {
+                NSMutableDictionary *editTokens =
+                    self.keychainCredentials.editTokens;
+                NSString *domain = self.section.url.wmf_language;
+                if (domain && tokenFetcher.token) {
+                    editTokens[domain] = tokenFetcher.token;
+                    self.keychainCredentials.editTokens = editTokens;
+                }
+                upload();
+            } break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                [[WMFAlertManager sharedInstance] dismissAlert];
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
-            // Still try the uploadWikiTextOp even if EditTokenFetcher fails to get a token.
-            // EditTokenFetcher return an anonymous "+\" edit token if it doesn't find an edit token.
-            upload();
+                // Still try the uploadWikiTextOp even if EditTokenFetcher fails to get a token.
+                // EditTokenFetcher return an anonymous "+\" edit token if it doesn't find an edit token.
+                upload();
 
-            break;
+                break;
         }
     } else if ([sender isKindOfClass:[WikiTextSectionUploader class]]) {
         //WikiTextSectionUploader* uploader = (WikiTextSectionUploader*)sender;
 
         switch (status) {
-        case FETCH_FINAL_STATUS_SUCCEEDED: {
-            [self.funnel logSavedRevision:[fetchedData[@"newrevid"] intValue]];
-            dispatchOnMainQueue(^{
-              [self.delegate previewViewControllerDidSave:self];
-            });
-        } break;
+            case FETCH_FINAL_STATUS_SUCCEEDED: {
+                [self.funnel logSavedRevision:[fetchedData[@"newrevid"] intValue]];
+                dispatchOnMainQueue(^{
+                  [self.delegate previewViewControllerDidSave:self];
+                });
+            } break;
 
-        case FETCH_FINAL_STATUS_CANCELLED: {
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-        } break;
+            case FETCH_FINAL_STATUS_CANCELLED: {
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+            } break;
 
-        case FETCH_FINAL_STATUS_FAILED: {
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-
-            switch (error.code) {
-            case WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA: {
-                if (self.mode == PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA) {
-                    [self.funnel logCaptchaFailure];
-                }
-
-                self.captchaUrl = error.userInfo[@"captchaUrl"];
-                self.captchaId = error.userInfo[@"captchaId"];
+            case FETCH_FINAL_STATUS_FAILED: {
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
-                [self showImageForCaptcha];
-            } break;
+                switch (error.code) {
+                    case WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA: {
+                        if (self.mode == PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA) {
+                            [self.funnel logCaptchaFailure];
+                        }
 
-            case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED:
-            case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING:
-            case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER: {
-                //NSString *warningHtml = error.userInfo[@"warning"];
+                        self.captchaUrl = error.userInfo[@"captchaUrl"];
+                        self.captchaId = error.userInfo[@"captchaId"];
+                        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
-                [self wmf_hideKeyboard];
+                        [self showImageForCaptcha];
+                    } break;
 
-                if ((error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED)) {
-                    self.mode = PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW;
-                    self.abuseFilterCode = error.userInfo[@"code"];
-                    [self.funnel logAbuseFilterError:self.abuseFilterCode];
-                } else {
-                    self.mode = PREVIEW_MODE_EDIT_WIKITEXT_WARNING;
-                    self.abuseFilterCode = error.userInfo[@"code"];
-                    [self.funnel logAbuseFilterWarning:self.abuseFilterCode];
+                    case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED:
+                    case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING:
+                    case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER: {
+                        //NSString *warningHtml = error.userInfo[@"warning"];
+
+                        [self wmf_hideKeyboard];
+
+                        if ((error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED)) {
+                            self.mode = PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW;
+                            self.abuseFilterCode = error.userInfo[@"code"];
+                            [self.funnel logAbuseFilterError:self.abuseFilterCode];
+                        } else {
+                            self.mode = PREVIEW_MODE_EDIT_WIKITEXT_WARNING;
+                            self.abuseFilterCode = error.userInfo[@"code"];
+                            [self.funnel logAbuseFilterWarning:self.abuseFilterCode];
+                        }
+
+                        // Hides the license panel. Needed if logged in and a disallow is triggered.
+                        [[WMFAlertManager sharedInstance] dismissAlert];
+
+                        AbuseFilterAlertType alertType =
+                            (error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? ABUSE_FILTER_DISALLOW : ABUSE_FILTER_WARNING;
+                        [self showAbuseFilterAlertOfType:alertType];
+                    } break;
+
+                    case WIKITEXT_UPLOAD_ERROR_SERVER:
+                    case WIKITEXT_UPLOAD_ERROR_UNKNOWN:
+
+                        [self.funnel logError:error.localizedDescription]; // @fixme is this right msg?
+                        break;
+
+                    default:
+                        break;
                 }
-
-                // Hides the license panel. Needed if logged in and a disallow is triggered.
-                [[WMFAlertManager sharedInstance] dismissAlert];
-
-                AbuseFilterAlertType alertType =
-                    (error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? ABUSE_FILTER_DISALLOW : ABUSE_FILTER_WARNING;
-                [self showAbuseFilterAlertOfType:alertType];
             } break;
-
-            case WIKITEXT_UPLOAD_ERROR_SERVER:
-            case WIKITEXT_UPLOAD_ERROR_UNKNOWN:
-
-                [self.funnel logError:error.localizedDescription]; // @fixme is this right msg?
-                break;
-
-            default:
-                break;
-            }
-        } break;
         }
     } else if ([sender isKindOfClass:[CaptchaResetter class]]) {
         switch (status) {
-        case FETCH_FINAL_STATUS_SUCCEEDED: {
-            self.captchaId = fetchedData[@"index"];
-            NSString *newCaptchaUrl = [CaptchaResetter newCaptchaImageUrlFromOldUrl:self.captchaUrl andNewId:self.captchaId];
-            if (newCaptchaUrl) {
-                self.captchaUrl = newCaptchaUrl;
-                [self showImageForCaptcha];
-            }
-        } break;
-        case FETCH_FINAL_STATUS_CANCELLED:
-            [[WMFAlertManager sharedInstance] dismissAlert];
-            break;
-        case FETCH_FINAL_STATUS_FAILED:
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-            break;
+            case FETCH_FINAL_STATUS_SUCCEEDED: {
+                self.captchaId = fetchedData[@"index"];
+                NSString *newCaptchaUrl = [CaptchaResetter newCaptchaImageUrlFromOldUrl:self.captchaUrl andNewId:self.captchaId];
+                if (newCaptchaUrl) {
+                    self.captchaUrl = newCaptchaUrl;
+                    [self showImageForCaptcha];
+                }
+            } break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                [[WMFAlertManager sharedInstance] dismissAlert];
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+                break;
         }
     }
 }

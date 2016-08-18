@@ -114,23 +114,23 @@
                   }
 
                   switch (errorType) {
-                  case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING:
-                  case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED:
-                  case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER: {
-                      NSMutableDictionary *errorDict = [@{} mutableCopy];
+                      case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING:
+                      case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED:
+                      case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER: {
+                          NSMutableDictionary *errorDict = [@{} mutableCopy];
 
-                      errorDict[NSLocalizedDescriptionKey] = responseObject[@"edit"][@"info"];
+                          errorDict[NSLocalizedDescriptionKey] = responseObject[@"edit"][@"info"];
 
-                      // Make the verbose warning available from the error.
-                      errorDict[@"warning"] = responseObject[@"edit"][@"warning"];
-                      errorDict[@"code"] = abuseFilterCode;
+                          // Make the verbose warning available from the error.
+                          errorDict[@"warning"] = responseObject[@"edit"][@"warning"];
+                          errorDict[@"code"] = abuseFilterCode;
 
-                      // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
-                      error = [NSError errorWithDomain:@"Upload Wikitext Op" code:errorType userInfo:errorDict];
-                  } break;
+                          // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
+                          error = [NSError errorWithDomain:@"Upload Wikitext Op" code:errorType userInfo:errorDict];
+                      } break;
 
-                  default:
-                      break;
+                      default:
+                          break;
                   }
               }
           }

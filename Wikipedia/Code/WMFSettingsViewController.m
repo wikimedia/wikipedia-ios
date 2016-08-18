@@ -136,16 +136,16 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn {
     switch (type) {
-    case WMFSettingsMenuItemType_SendUsageReports:
-        [SessionSingleton sharedInstance].shouldSendUsageReports = isOn;
-        break;
-    case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
-        [SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving = isOn;
-        break;
-    case WMFSettingsMenuItemType_SearchLanguageBarVisibility:
-        [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:isOn];
-    default:
-        break;
+        case WMFSettingsMenuItemType_SendUsageReports:
+            [SessionSingleton sharedInstance].shouldSendUsageReports = isOn;
+            break;
+        case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
+            [SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving = isOn;
+            break;
+        case WMFSettingsMenuItemType_SearchLanguageBarVisibility:
+            [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:isOn];
+        default:
+            break;
     }
 }
 
@@ -153,46 +153,46 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch ([(WMFSettingsMenuItem *)[self.elementDataSource itemAtIndexPath:indexPath] type]) {
-    case WMFSettingsMenuItemType_Login:
-        [self showLoginOrLogout];
-        break;
-    case WMFSettingsMenuItemType_SearchLanguage:
-        [self showLanguages];
-        break;
-    case WMFSettingsMenuItemType_Support:
-        [self wmf_openExternalUrl:[self donationURL]];
-        break;
-    case WMFSettingsMenuItemType_PrivacyPolicy:
-        [self wmf_openExternalUrl:[NSURL URLWithString:URL_PRIVACY_POLICY]];
-        break;
-    case WMFSettingsMenuItemType_Terms:
-        [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLTerms]];
-        break;
-    case WMFSettingsMenuItemType_ZeroFAQ:
-        [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLZeroFAQ]];
-        break;
-    case WMFSettingsMenuItemType_RateApp:
-        [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLRate] useSafari:YES];
-        break;
-    case WMFSettingsMenuItemType_SendFeedback: {
-        WMFHelpViewController *vc = [[WMFHelpViewController alloc] initWithDataStore:self.dataStore];
-        [self.navigationController pushViewController:vc animated:YES];
-    } break;
-    case WMFSettingsMenuItemType_About:
-        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[AboutViewController wmf_initialViewControllerFromClassStoryboard]]
-                           animated:YES
-                         completion:nil];
-        break;
-    case WMFSettingsMenuItemType_DebugCrash:
-        [[self class] generateTestCrash];
-        break;
-    case WMFSettingsMenuItemType_DevSettings: {
-        FBTweakViewController *tweaksVC = [[FBTweakViewController alloc] initWithStore:[FBTweakStore sharedInstance]];
-        tweaksVC.tweaksDelegate = self;
-        [self presentViewController:tweaksVC animated:YES completion:nil];
-    }
-    default:
-        break;
+        case WMFSettingsMenuItemType_Login:
+            [self showLoginOrLogout];
+            break;
+        case WMFSettingsMenuItemType_SearchLanguage:
+            [self showLanguages];
+            break;
+        case WMFSettingsMenuItemType_Support:
+            [self wmf_openExternalUrl:[self donationURL]];
+            break;
+        case WMFSettingsMenuItemType_PrivacyPolicy:
+            [self wmf_openExternalUrl:[NSURL URLWithString:URL_PRIVACY_POLICY]];
+            break;
+        case WMFSettingsMenuItemType_Terms:
+            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLTerms]];
+            break;
+        case WMFSettingsMenuItemType_ZeroFAQ:
+            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLZeroFAQ]];
+            break;
+        case WMFSettingsMenuItemType_RateApp:
+            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLRate] useSafari:YES];
+            break;
+        case WMFSettingsMenuItemType_SendFeedback: {
+            WMFHelpViewController *vc = [[WMFHelpViewController alloc] initWithDataStore:self.dataStore];
+            [self.navigationController pushViewController:vc animated:YES];
+        } break;
+        case WMFSettingsMenuItemType_About:
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[AboutViewController wmf_initialViewControllerFromClassStoryboard]]
+                               animated:YES
+                             completion:nil];
+            break;
+        case WMFSettingsMenuItemType_DebugCrash:
+            [[self class] generateTestCrash];
+            break;
+        case WMFSettingsMenuItemType_DevSettings: {
+            FBTweakViewController *tweaksVC = [[FBTweakViewController alloc] initWithStore:[FBTweakStore sharedInstance]];
+            tweaksVC.tweaksDelegate = self;
+            [self presentViewController:tweaksVC animated:YES completion:nil];
+        }
+        default:
+            break;
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

@@ -47,12 +47,12 @@
 
 - (NSString *)getBulletString {
     switch (self.bulletType) {
-    case BULLET_TYPE_ROUND:
-        return BULLET_ROUND;
-        break;
-    default:
-        return @"";
-        break;
+        case BULLET_TYPE_ROUND:
+            return BULLET_ROUND;
+            break;
+        default:
+            return @"";
+            break;
     }
 }
 

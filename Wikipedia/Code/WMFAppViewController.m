@@ -353,29 +353,29 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         return NO;
     }
     switch ([activity wmf_type]) {
-    case WMFUserActivityTypeExplore:
-    case WMFUserActivityTypeSavedPages:
-    case WMFUserActivityTypeHistory:
-    case WMFUserActivityTypeSearch:
-    case WMFUserActivityTypeSettings:
-        return YES;
-    case WMFUserActivityTypeSearchResults:
-        if ([activity wmf_searchTerm]) {
+        case WMFUserActivityTypeExplore:
+        case WMFUserActivityTypeSavedPages:
+        case WMFUserActivityTypeHistory:
+        case WMFUserActivityTypeSearch:
+        case WMFUserActivityTypeSettings:
             return YES;
-        } else {
+        case WMFUserActivityTypeSearchResults:
+            if ([activity wmf_searchTerm]) {
+                return YES;
+            } else {
+                return NO;
+            }
+            break;
+        case WMFUserActivityTypeArticle: {
+            if (!activity.webpageURL) {
+                return NO;
+            } else {
+                return YES;
+            }
+        } break;
+        default:
             return NO;
-        }
-        break;
-    case WMFUserActivityTypeArticle: {
-        if (!activity.webpageURL) {
-            return NO;
-        } else {
-            return YES;
-        }
-    } break;
-    default:
-        return NO;
-        break;
+            break;
     }
 }
 
@@ -390,44 +390,44 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     self.unprocessedUserActivity = nil;
     [self dismissViewControllerAnimated:NO completion:NULL];
     switch ([activity wmf_type]) {
-    case WMFUserActivityTypeExplore:
-        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-        [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-        break;
-    case WMFUserActivityTypeSavedPages:
-        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];
-        [[self navigationControllerForTab:WMFAppTabTypeSaved] popToRootViewControllerAnimated:NO];
-        break;
-    case WMFUserActivityTypeHistory:
-        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeRecent];
-        [[self navigationControllerForTab:WMFAppTabTypeRecent] popToRootViewControllerAnimated:NO];
-        break;
-    case WMFUserActivityTypeSearch:
-        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-        [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-        [[self rootViewControllerForTab:WMFAppTabTypeExplore] wmf_showSearchAnimated:NO];
-        break;
-    case WMFUserActivityTypeSearchResults:
-        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-        [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-        [[self rootViewControllerForTab:WMFAppTabTypeExplore] wmf_showSearchAnimated:NO];
-        [[UIViewController wmf_sharedSearchViewController] setSearchTerm:[activity wmf_searchTerm]];
-        break;
-    case WMFUserActivityTypeArticle: {
-        NSURL *URL = activity.webpageURL;
-        if (!URL) {
+        case WMFUserActivityTypeExplore:
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            break;
+        case WMFUserActivityTypeSavedPages:
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];
+            [[self navigationControllerForTab:WMFAppTabTypeSaved] popToRootViewControllerAnimated:NO];
+            break;
+        case WMFUserActivityTypeHistory:
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeRecent];
+            [[self navigationControllerForTab:WMFAppTabTypeRecent] popToRootViewControllerAnimated:NO];
+            break;
+        case WMFUserActivityTypeSearch:
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            [[self rootViewControllerForTab:WMFAppTabTypeExplore] wmf_showSearchAnimated:NO];
+            break;
+        case WMFUserActivityTypeSearchResults:
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            [[self rootViewControllerForTab:WMFAppTabTypeExplore] wmf_showSearchAnimated:NO];
+            [[UIViewController wmf_sharedSearchViewController] setSearchTerm:[activity wmf_searchTerm]];
+            break;
+        case WMFUserActivityTypeArticle: {
+            NSURL *URL = activity.webpageURL;
+            if (!URL) {
+                return NO;
+            }
+            [self showArticleForURL:URL animated:NO];
+        } break;
+        case WMFUserActivityTypeSettings:
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            [self.exploreViewController showSettings];
+            break;
+        default:
             return NO;
-        }
-        [self showArticleForURL:URL animated:NO];
-    } break;
-    case WMFUserActivityTypeSettings:
-        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-        [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-        [self.exploreViewController showSettings];
-        break;
-    default:
-        return NO;
-        break;
+            break;
     }
 
     return YES;
@@ -710,18 +710,18 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     if (viewController == tabBarController.selectedViewController) {
         switch (tabBarController.selectedIndex) {
-        case WMFAppTabTypeExplore: {
-            WMFExploreViewController *exploreViewController = (WMFExploreViewController *)[self exploreViewController];
-            [exploreViewController scrollToTop];
-        } break;
-        case WMFAppTabTypeSaved: {
-            WMFArticleListTableViewController *savedArticlesViewController = (WMFArticleListTableViewController *)[self savedArticlesViewController];
-            [savedArticlesViewController scrollToTop:savedArticlesViewController.dataStore.userDataStore.savedPageList.numberOfItems > 0];
-        } break;
-        case WMFAppTabTypeRecent: {
-            WMFArticleListDataSourceTableViewController *historyArticlesViewController = (WMFArticleListDataSourceTableViewController *)[self recentArticlesViewController];
-            [historyArticlesViewController scrollToTop:[historyArticlesViewController.dataStore.userDataStore.historyList numberOfItems] > 0];
-        } break;
+            case WMFAppTabTypeExplore: {
+                WMFExploreViewController *exploreViewController = (WMFExploreViewController *)[self exploreViewController];
+                [exploreViewController scrollToTop];
+            } break;
+            case WMFAppTabTypeSaved: {
+                WMFArticleListTableViewController *savedArticlesViewController = (WMFArticleListTableViewController *)[self savedArticlesViewController];
+                [savedArticlesViewController scrollToTop:savedArticlesViewController.dataStore.userDataStore.savedPageList.numberOfItems > 0];
+            } break;
+            case WMFAppTabTypeRecent: {
+                WMFArticleListDataSourceTableViewController *historyArticlesViewController = (WMFArticleListDataSourceTableViewController *)[self recentArticlesViewController];
+                [historyArticlesViewController scrollToTop:[historyArticlesViewController.dataStore.userDataStore.historyList numberOfItems] > 0];
+            } break;
         }
     }
 

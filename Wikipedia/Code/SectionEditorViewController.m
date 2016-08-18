@@ -128,42 +128,42 @@
                 error:(NSError *)error {
     if ([sender isKindOfClass:[WikiTextSectionFetcher class]]) {
         switch (status) {
-        case FETCH_FINAL_STATUS_SUCCEEDED: {
-            WikiTextSectionFetcher *wikiTextSectionFetcher = (WikiTextSectionFetcher *)sender;
-            NSDictionary *resultsDict = (NSDictionary *)fetchedData;
-            NSString *revision = resultsDict[@"revision"];
-            NSDictionary *userInfo = resultsDict[@"userInfo"];
+            case FETCH_FINAL_STATUS_SUCCEEDED: {
+                WikiTextSectionFetcher *wikiTextSectionFetcher = (WikiTextSectionFetcher *)sender;
+                NSDictionary *resultsDict = (NSDictionary *)fetchedData;
+                NSString *revision = resultsDict[@"revision"];
+                NSDictionary *userInfo = resultsDict[@"userInfo"];
 
-            self.funnel = [[EditFunnel alloc] initWithUserId:[userInfo[@"id"] intValue]];
-            [self.funnel logStart];
+                self.funnel = [[EditFunnel alloc] initWithUserId:[userInfo[@"id"] intValue]];
+                [self.funnel logStart];
 
-            MWKProtectionStatus *protectionStatus = wikiTextSectionFetcher.section.article.protection;
+                MWKProtectionStatus *protectionStatus = wikiTextSectionFetcher.section.article.protection;
 
-            if (protectionStatus && [[protectionStatus allowedGroupsForAction:@"edit"] count] > 0) {
-                NSArray *groups = [protectionStatus allowedGroupsForAction:@"edit"];
-                NSString *msg;
-                if ([groups indexOfObject:@"autoconfirmed"] != NSNotFound) {
-                    msg = MWLocalizedString(@"page_protected_autoconfirmed", nil);
-                } else if ([groups indexOfObject:@"sysop"] != NSNotFound) {
-                    msg = MWLocalizedString(@"page_protected_sysop", nil);
+                if (protectionStatus && [[protectionStatus allowedGroupsForAction:@"edit"] count] > 0) {
+                    NSArray *groups = [protectionStatus allowedGroupsForAction:@"edit"];
+                    NSString *msg;
+                    if ([groups indexOfObject:@"autoconfirmed"] != NSNotFound) {
+                        msg = MWLocalizedString(@"page_protected_autoconfirmed", nil);
+                    } else if ([groups indexOfObject:@"sysop"] != NSNotFound) {
+                        msg = MWLocalizedString(@"page_protected_sysop", nil);
+                    } else {
+                        msg = MWLocalizedString(@"page_protected_other", nil);
+                    }
+                    [[WMFAlertManager sharedInstance] showAlert:msg sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
                 } else {
-                    msg = MWLocalizedString(@"page_protected_other", nil);
+                    //[self showAlert:MWLocalizedString(@"wikitext-download-success", nil) type:ALERT_TYPE_TOP duration:1];
+                    [[WMFAlertManager sharedInstance] dismissAlert];
                 }
-                [[WMFAlertManager sharedInstance] showAlert:msg sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-            } else {
-                //[self showAlert:MWLocalizedString(@"wikitext-download-success", nil) type:ALERT_TYPE_TOP duration:1];
-                [[WMFAlertManager sharedInstance] dismissAlert];
-            }
-            self.unmodifiedWikiText = revision;
-            self.editTextView.attributedText = [self getAttributedString:revision];
-            //[self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
-        } break;
-        case FETCH_FINAL_STATUS_CANCELLED: {
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-        } break;
-        case FETCH_FINAL_STATUS_FAILED: {
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-        } break;
+                self.unmodifiedWikiText = revision;
+                self.editTextView.attributedText = [self getAttributedString:revision];
+                //[self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
+            } break;
+            case FETCH_FINAL_STATUS_CANCELLED: {
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+            } break;
+            case FETCH_FINAL_STATUS_FAILED: {
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+            } break;
         }
     }
 }

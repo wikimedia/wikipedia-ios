@@ -98,50 +98,50 @@ NS_ASSUME_NONNULL_BEGIN
 
     for (YapDatabaseViewSectionChange *sectionChange in sectionChanges) {
         switch (sectionChange.type) {
-        case YapDatabaseViewChangeDelete: {
-            if ([self.delegate respondsToSelector:@selector(dataSource:didDeleteSectionsAtIndexes:)]) {
-                [self.delegate dataSource:self didDeleteSectionsAtIndexes:[NSIndexSet indexSetWithIndex:sectionChange.index]];
+            case YapDatabaseViewChangeDelete: {
+                if ([self.delegate respondsToSelector:@selector(dataSource:didDeleteSectionsAtIndexes:)]) {
+                    [self.delegate dataSource:self didDeleteSectionsAtIndexes:[NSIndexSet indexSetWithIndex:sectionChange.index]];
+                }
+                break;
             }
-            break;
-        }
-        case YapDatabaseViewChangeInsert: {
-            if ([self.delegate respondsToSelector:@selector(dataSource:didInsertSectionsAtIndexes:)]) {
-                [self.delegate dataSource:self didInsertSectionsAtIndexes:[NSIndexSet indexSetWithIndex:sectionChange.index]];
+            case YapDatabaseViewChangeInsert: {
+                if ([self.delegate respondsToSelector:@selector(dataSource:didInsertSectionsAtIndexes:)]) {
+                    [self.delegate dataSource:self didInsertSectionsAtIndexes:[NSIndexSet indexSetWithIndex:sectionChange.index]];
+                }
+                break;
             }
-            break;
-        }
-        default: {
-            //no other possible cases
-        }
+            default: {
+                //no other possible cases
+            }
         }
     }
 
     for (YapDatabaseViewRowChange *rowChange in rowChanges) {
         switch (rowChange.type) {
-        case YapDatabaseViewChangeDelete: {
-            if ([self.delegate respondsToSelector:@selector(dataSource:didDeleteRowsAtIndexPaths:)]) {
-                [self.delegate dataSource:self didDeleteRowsAtIndexPaths:@[ rowChange.indexPath ]];
+            case YapDatabaseViewChangeDelete: {
+                if ([self.delegate respondsToSelector:@selector(dataSource:didDeleteRowsAtIndexPaths:)]) {
+                    [self.delegate dataSource:self didDeleteRowsAtIndexPaths:@[ rowChange.indexPath ]];
+                }
+                break;
             }
-            break;
-        }
-        case YapDatabaseViewChangeInsert: {
-            if ([self.delegate respondsToSelector:@selector(dataSource:didInsertRowsAtIndexPaths:)]) {
-                [self.delegate dataSource:self didInsertRowsAtIndexPaths:@[ rowChange.newIndexPath ]];
+            case YapDatabaseViewChangeInsert: {
+                if ([self.delegate respondsToSelector:@selector(dataSource:didInsertRowsAtIndexPaths:)]) {
+                    [self.delegate dataSource:self didInsertRowsAtIndexPaths:@[ rowChange.newIndexPath ]];
+                }
+                break;
             }
-            break;
-        }
-        case YapDatabaseViewChangeMove: {
-            if ([self.delegate respondsToSelector:@selector(dataSource:didMoveRowFromIndexPath:toIndexPath:)]) {
-                [self.delegate dataSource:self didMoveRowFromIndexPath:rowChange.indexPath toIndexPath:rowChange.newIndexPath];
+            case YapDatabaseViewChangeMove: {
+                if ([self.delegate respondsToSelector:@selector(dataSource:didMoveRowFromIndexPath:toIndexPath:)]) {
+                    [self.delegate dataSource:self didMoveRowFromIndexPath:rowChange.indexPath toIndexPath:rowChange.newIndexPath];
+                }
+                break;
             }
-            break;
-        }
-        case YapDatabaseViewChangeUpdate: {
-            if ([self.delegate respondsToSelector:@selector(dataSource:didUpdateRowsAtIndexPaths:)]) {
-                [self.delegate dataSource:self didUpdateRowsAtIndexPaths:@[ rowChange.indexPath ]];
+            case YapDatabaseViewChangeUpdate: {
+                if ([self.delegate respondsToSelector:@selector(dataSource:didUpdateRowsAtIndexPaths:)]) {
+                    [self.delegate dataSource:self didUpdateRowsAtIndexPaths:@[ rowChange.indexPath ]];
+                }
+                break;
             }
-            break;
-        }
         }
     }
 

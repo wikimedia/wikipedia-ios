@@ -103,39 +103,39 @@ NSString *const WMFCCBySALicenseURL =
     id safeMessageBody = [message wmf_safeMessageBodyForType:messageType];
 
     switch (messageType) {
-    case WMFWKScriptMessagePeek:
-        [self handlePeekScriptMessage:safeMessageBody];
-        break;
-    case WMFWKScriptMessageConsoleMessage:
-        [self handleMessageConsoleScriptMessage:safeMessageBody];
-        break;
-    case WMFWKScriptMessageClickLink:
-        [self handleClickLinkScriptMessage:safeMessageBody];
-        break;
-    case WMFWKScriptMessageClickImage:
-        [self handleClickImageScriptMessage:safeMessageBody];
-        break;
-    case WMFWKScriptMessageClickReference:
-        [self handleClickReferenceScriptMessage:safeMessageBody];
-        break;
-    case WMFWKScriptMessageClickEdit:
-        [self handleClickEditScriptMessage:safeMessageBody];
-        break;
-    case WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging:
-        [self handleNonAnchorTouchEndedWithoutDraggingScriptMessage];
-        break;
-    case WMFWKScriptMessageLateJavascriptTransform:
-        [self handleLateJavascriptTransformScriptMessage:safeMessageBody];
-        break;
-    case WMFWKScriptMessageArticleState:
-        [self handleArticleStateScriptMessage:safeMessageBody];
-        break;
-    case WMFWKScriptMessageFindInPageMatchesFound:
-        [self handleFindInPageMatchesFoundMessage:safeMessageBody];
-        break;
-    case WMFWKScriptMessageUnknown:
-        NSAssert(NO, @"Unhandled script message type!");
-        break;
+        case WMFWKScriptMessagePeek:
+            [self handlePeekScriptMessage:safeMessageBody];
+            break;
+        case WMFWKScriptMessageConsoleMessage:
+            [self handleMessageConsoleScriptMessage:safeMessageBody];
+            break;
+        case WMFWKScriptMessageClickLink:
+            [self handleClickLinkScriptMessage:safeMessageBody];
+            break;
+        case WMFWKScriptMessageClickImage:
+            [self handleClickImageScriptMessage:safeMessageBody];
+            break;
+        case WMFWKScriptMessageClickReference:
+            [self handleClickReferenceScriptMessage:safeMessageBody];
+            break;
+        case WMFWKScriptMessageClickEdit:
+            [self handleClickEditScriptMessage:safeMessageBody];
+            break;
+        case WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging:
+            [self handleNonAnchorTouchEndedWithoutDraggingScriptMessage];
+            break;
+        case WMFWKScriptMessageLateJavascriptTransform:
+            [self handleLateJavascriptTransformScriptMessage:safeMessageBody];
+            break;
+        case WMFWKScriptMessageArticleState:
+            [self handleArticleStateScriptMessage:safeMessageBody];
+            break;
+        case WMFWKScriptMessageFindInPageMatchesFound:
+            [self handleFindInPageMatchesFoundMessage:safeMessageBody];
+            break;
+        case WMFWKScriptMessageUnknown:
+            NSAssert(NO, @"Unhandled script message type!");
+            break;
     }
 }
 
@@ -400,18 +400,18 @@ NSString *const WMFCCBySALicenseURL =
         return;
     }
     switch (direction) {
-    case WMFFindInPageScrollDirectionNext:
-        self.findInPageSelectedMatchIndex += 1;
-        if (self.findInPageSelectedMatchIndex >= self.findInPageMatches.count) {
-            self.findInPageSelectedMatchIndex = 0;
-        }
-        break;
-    case WMFFindInPageScrollDirectionPrevious:
-        self.findInPageSelectedMatchIndex -= 1;
-        if (self.findInPageSelectedMatchIndex < 0) {
-            self.findInPageSelectedMatchIndex = self.findInPageMatches.count - 1;
-        }
-        break;
+        case WMFFindInPageScrollDirectionNext:
+            self.findInPageSelectedMatchIndex += 1;
+            if (self.findInPageSelectedMatchIndex >= self.findInPageMatches.count) {
+                self.findInPageSelectedMatchIndex = 0;
+            }
+            break;
+        case WMFFindInPageScrollDirectionPrevious:
+            self.findInPageSelectedMatchIndex -= 1;
+            if (self.findInPageSelectedMatchIndex < 0) {
+                self.findInPageSelectedMatchIndex = self.findInPageMatches.count - 1;
+            }
+            break;
     }
 }
 

@@ -213,10 +213,10 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
         schemaVersion = schemaVersionValue.unsignedIntegerValue;
     }
     switch (schemaVersion) {
-    case MWKSavedPageListSchemaVersionCurrent:
-        return savedPageListData[MWKSavedPageExportedEntriesKey];
-    case MWKSavedPageListSchemaVersionUnknown:
-        return [MWKSavedPageList savedEntryDataFromListWithUnknownSchema:savedPageListData];
+        case MWKSavedPageListSchemaVersionCurrent:
+            return savedPageListData[MWKSavedPageExportedEntriesKey];
+        case MWKSavedPageListSchemaVersionUnknown:
+            return [MWKSavedPageList savedEntryDataFromListWithUnknownSchema:savedPageListData];
     }
 }
 

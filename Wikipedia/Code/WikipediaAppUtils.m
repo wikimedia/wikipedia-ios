@@ -25,17 +25,17 @@ NS_ASSUME_NONNULL_BEGIN
     UIUserInterfaceIdiom ff = UI_USER_INTERFACE_IDIOM();
     // We'll break; on each case, just to follow good form.
     switch (ff) {
-    case UIUserInterfaceIdiomPad:
-        return @"Tablet";
-        break;
+        case UIUserInterfaceIdiomPad:
+            return @"Tablet";
+            break;
 
-    case UIUserInterfaceIdiomPhone:
-        return @"Phone";
-        break;
+        case UIUserInterfaceIdiomPhone:
+            return @"Phone";
+            break;
 
-    default:
-        return @"Other";
-        break;
+        default:
+            return @"Other";
+            break;
     }
 }
 

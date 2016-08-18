@@ -170,28 +170,28 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateHeadingOrientation {
     switch ([[UIDevice currentDevice] orientation]) {
-    case UIDeviceOrientationFaceDown:
-        self.locationManager.headingOrientation = CLDeviceOrientationFaceDown;
-        break;
-    case UIDeviceOrientationLandscapeLeft:
-        self.locationManager.headingOrientation = CLDeviceOrientationLandscapeLeft;
-        break;
-    case UIDeviceOrientationLandscapeRight:
-        self.locationManager.headingOrientation = CLDeviceOrientationLandscapeRight;
-        break;
-    case UIDeviceOrientationFaceUp:
-        self.locationManager.headingOrientation = CLDeviceOrientationFaceUp;
-        break;
-    case UIDeviceOrientationPortrait:
-        self.locationManager.headingOrientation = CLDeviceOrientationPortrait;
-        break;
-    case UIDeviceOrientationPortraitUpsideDown:
-        self.locationManager.headingOrientation = CLDeviceOrientationPortraitUpsideDown;
-        break;
-    case UIDeviceOrientationUnknown:
-    default:
-        self.locationManager.headingOrientation = CLDeviceOrientationUnknown;
-        break;
+        case UIDeviceOrientationFaceDown:
+            self.locationManager.headingOrientation = CLDeviceOrientationFaceDown;
+            break;
+        case UIDeviceOrientationLandscapeLeft:
+            self.locationManager.headingOrientation = CLDeviceOrientationLandscapeLeft;
+            break;
+        case UIDeviceOrientationLandscapeRight:
+            self.locationManager.headingOrientation = CLDeviceOrientationLandscapeRight;
+            break;
+        case UIDeviceOrientationFaceUp:
+            self.locationManager.headingOrientation = CLDeviceOrientationFaceUp;
+            break;
+        case UIDeviceOrientationPortrait:
+            self.locationManager.headingOrientation = CLDeviceOrientationPortrait;
+            break;
+        case UIDeviceOrientationPortraitUpsideDown:
+            self.locationManager.headingOrientation = CLDeviceOrientationPortraitUpsideDown;
+            break;
+        case UIDeviceOrientationUnknown:
+        default:
+            self.locationManager.headingOrientation = CLDeviceOrientationUnknown;
+            break;
     }
     // Force location manager to re-emit the current heading which will take into account the current device orientation
     [self.locationManager stopUpdatingHeading];
@@ -217,31 +217,31 @@ NS_ASSUME_NONNULL_BEGIN
     }
     self.currentAuthorizationStatus = status;
     switch (status) {
-    case kCLAuthorizationStatusNotDetermined:
-    case kCLAuthorizationStatusRestricted: {
-        DDLogVerbose(@"Ignoring not determined status call, should have already requested authorization.");
-        break;
-    }
+        case kCLAuthorizationStatusNotDetermined:
+        case kCLAuthorizationStatusRestricted: {
+            DDLogVerbose(@"Ignoring not determined status call, should have already requested authorization.");
+            break;
+        }
 
-    case kCLAuthorizationStatusDenied: {
-        if ([self.delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
-            DDLogInfo(@"Informing delegate about denied access to user's location.");
-            [self.delegate nearbyController:self didChangeEnabledState:NO];
+        case kCLAuthorizationStatusDenied: {
+            if ([self.delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
+                DDLogInfo(@"Informing delegate about denied access to user's location.");
+                [self.delegate nearbyController:self didChangeEnabledState:NO];
+            }
+            break;
         }
-        break;
-    }
 
-    case kCLAuthorizationStatusAuthorizedWhenInUse:
-    case kCLAuthorizationStatusAuthorizedAlways: {
-        DDLogInfo(@"%@ was granted access to location when in use, attempting to monitor location.", self);
-        if ([self.delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
-            [self.delegate nearbyController:self didChangeEnabledState:YES];
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+        case kCLAuthorizationStatusAuthorizedAlways: {
+            DDLogInfo(@"%@ was granted access to location when in use, attempting to monitor location.", self);
+            if ([self.delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
+                [self.delegate nearbyController:self didChangeEnabledState:YES];
+            }
+            if (self.isRequestingAuthorizationAndStart) { //only start if we requested as a part of a start
+                [self startMonitoringLocation];
+            }
+            break;
         }
-        if (self.isRequestingAuthorizationAndStart) { //only start if we requested as a part of a start
-            [self startMonitoringLocation];
-        }
-        break;
-    }
     }
 }
 

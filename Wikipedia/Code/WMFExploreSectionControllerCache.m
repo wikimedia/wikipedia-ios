@@ -111,31 +111,31 @@ NS_ASSUME_NONNULL_BEGIN
 
     id<WMFExploreSectionController> controller;
     switch (section.type) {
-    case WMFExploreSectionTypeHistory:
-    case WMFExploreSectionTypeSaved:
-        controller = [self relatedSectionControllerForSectionSchemaItem:section];
-        break;
-    case WMFExploreSectionTypeNearby:
-        controller = [self nearbySectionControllerForSchemaItem:section];
-        break;
-    case WMFExploreSectionTypeContinueReading:
-        controller = [self continueReadingSectionControllerForSchemaItem:section];
-        break;
-    case WMFExploreSectionTypeRandom:
-        controller = [self randomSectionControllerForSchemaItem:section];
-        break;
-    case WMFExploreSectionTypeMainPage:
-        controller = [self mainPageSectionControllerForSchemaItem:section];
-        break;
-    case WMFExploreSectionTypeFeaturedArticle:
-        controller = [self featuredArticleSectionControllerForSchemaItem:section];
-        break;
-    case WMFExploreSectionTypePictureOfTheDay:
-        controller = [self picOfTheDaySectionControllerForSchemaItem:section];
-        break;
-    case WMFExploreSectionTypeMostRead:
-        controller = [self mostReadSectionControllerForSection:section];
-        /*
+        case WMFExploreSectionTypeHistory:
+        case WMFExploreSectionTypeSaved:
+            controller = [self relatedSectionControllerForSectionSchemaItem:section];
+            break;
+        case WMFExploreSectionTypeNearby:
+            controller = [self nearbySectionControllerForSchemaItem:section];
+            break;
+        case WMFExploreSectionTypeContinueReading:
+            controller = [self continueReadingSectionControllerForSchemaItem:section];
+            break;
+        case WMFExploreSectionTypeRandom:
+            controller = [self randomSectionControllerForSchemaItem:section];
+            break;
+        case WMFExploreSectionTypeMainPage:
+            controller = [self mainPageSectionControllerForSchemaItem:section];
+            break;
+        case WMFExploreSectionTypeFeaturedArticle:
+            controller = [self featuredArticleSectionControllerForSchemaItem:section];
+            break;
+        case WMFExploreSectionTypePictureOfTheDay:
+            controller = [self picOfTheDaySectionControllerForSchemaItem:section];
+            break;
+        case WMFExploreSectionTypeMostRead:
+            controller = [self mostReadSectionControllerForSection:section];
+            /*
                !!!: do not add a default case, it is intentionally omitted so an error/warning is triggered when
                a new case is added to the enum, enforcing that all sections are handled here.
              */

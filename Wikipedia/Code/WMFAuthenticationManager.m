@@ -250,72 +250,72 @@ NS_ASSUME_NONNULL_BEGIN
                 error:(NSError *)error {
     if ([sender isKindOfClass:[LoginTokenFetcher class]]) {
         switch (status) {
-        case FETCH_FINAL_STATUS_SUCCEEDED: {
-            self.loginToken = [sender token];
-            [self login];
-        } break;
-        case FETCH_FINAL_STATUS_CANCELLED:
-        case FETCH_FINAL_STATUS_FAILED:
-            [self finishAndSendFailureBlockWithError:error];
-            break;
+            case FETCH_FINAL_STATUS_SUCCEEDED: {
+                self.loginToken = [sender token];
+                [self login];
+            } break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+            case FETCH_FINAL_STATUS_FAILED:
+                [self finishAndSendFailureBlockWithError:error];
+                break;
         }
     }
 
     if ([sender isKindOfClass:[AccountLogin class]]) {
         switch (status) {
-        case FETCH_FINAL_STATUS_SUCCEEDED: {
-            NSString *normalizedUserName = fetchedData[@"username"];
-            self.loggedInUsername = normalizedUserName;
-            self.keychainCredentials.userName = normalizedUserName;
-            self.keychainCredentials.password = self.authenticatingPassword;
-            self.authenticatingPassword = nil;
-            self.authenticatingUsername = nil;
-            [self cloneSessionCookies];
-            [self finishAndSendSuccessBlock];
-        } break;
-        case FETCH_FINAL_STATUS_CANCELLED:
-        case FETCH_FINAL_STATUS_FAILED:
-            [self finishAndSendFailureBlockWithError:error];
-            break;
+            case FETCH_FINAL_STATUS_SUCCEEDED: {
+                NSString *normalizedUserName = fetchedData[@"username"];
+                self.loggedInUsername = normalizedUserName;
+                self.keychainCredentials.userName = normalizedUserName;
+                self.keychainCredentials.password = self.authenticatingPassword;
+                self.authenticatingPassword = nil;
+                self.authenticatingUsername = nil;
+                [self cloneSessionCookies];
+                [self finishAndSendSuccessBlock];
+            } break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+            case FETCH_FINAL_STATUS_FAILED:
+                [self finishAndSendFailureBlockWithError:error];
+                break;
         }
     }
     if ([sender isKindOfClass:[AccountCreationTokenFetcher class]]) {
         switch (status) {
-        case FETCH_FINAL_STATUS_SUCCEEDED:
-            self.accountCreationToken = [sender token];
-            //Need to attempt account create to verify username and password
-            [self createAccountWithCaptchaID:nil];
-            break;
-        case FETCH_FINAL_STATUS_CANCELLED:
-        case FETCH_FINAL_STATUS_FAILED:
-            [self finishAndSendFailureBlockWithError:error];
-            break;
+            case FETCH_FINAL_STATUS_SUCCEEDED:
+                self.accountCreationToken = [sender token];
+                //Need to attempt account create to verify username and password
+                [self createAccountWithCaptchaID:nil];
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+            case FETCH_FINAL_STATUS_FAILED:
+                [self finishAndSendFailureBlockWithError:error];
+                break;
         }
     }
 
     if ([sender isKindOfClass:[AccountCreator class]]) {
         switch (status) {
-        case FETCH_FINAL_STATUS_SUCCEEDED:
-            [self loginWithSuccess:self.successBlock failure:self.failBlock];
-            break;
-        case FETCH_FINAL_STATUS_CANCELLED:
-        case FETCH_FINAL_STATUS_FAILED:
-            if (error.code == ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA) {
-                if ([self isInitialAccountCreationAtempt]) {
-                    //First time attempting to create an account with this captcha URL.
-                    //By design, no captcha text was sent
-                    //This is because we want to get any errors back from the API about duplicate user names before we present the captcha
-                    //In this case, the user name is fine and we can fire the block and have them solve the captcha
-                    [self sendCaptchaBlockWithURLString:self.accountCreationAuthManagerInfo.captchaURLFragment];
+            case FETCH_FINAL_STATUS_SUCCEEDED:
+                [self loginWithSuccess:self.successBlock failure:self.failBlock];
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+            case FETCH_FINAL_STATUS_FAILED:
+                if (error.code == ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA) {
+                    if ([self isInitialAccountCreationAtempt]) {
+                        //First time attempting to create an account with this captcha URL.
+                        //By design, no captcha text was sent
+                        //This is because we want to get any errors back from the API about duplicate user names before we present the captcha
+                        //In this case, the user name is fine and we can fire the block and have them solve the captcha
+                        [self sendCaptchaBlockWithURLString:self.accountCreationAuthManagerInfo.captchaURLFragment];
+                    } else {
+                        //The user tried to solve the captch and failed
+                        //Get another captcha URL and have the user try again
+                        [self getAccountCreationCaptchaWithHandler:self.captchaBlock failure:self.failBlock];
+                    }
                 } else {
-                    //The user tried to solve the captch and failed
-                    //Get another captcha URL and have the user try again
-                    [self getAccountCreationCaptchaWithHandler:self.captchaBlock failure:self.failBlock];
+                    [self finishAndSendFailureBlockWithError:error];
                 }
-            } else {
-                [self finishAndSendFailureBlockWithError:error];
-            }
-            break;
+                break;
         }
     }
 }

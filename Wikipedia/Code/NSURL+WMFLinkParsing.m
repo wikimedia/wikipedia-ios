@@ -263,19 +263,19 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
 
 - (UIUserInterfaceLayoutDirection)wmf_layoutDirection {
     switch (CFLocaleGetLanguageCharacterDirection((__bridge CFStringRef)self.wmf_language)) {
-    case kCFLocaleLanguageDirectionRightToLeft:
-        return UIUserInterfaceLayoutDirectionRightToLeft;
-    default:
-        return UIUserInterfaceLayoutDirectionLeftToRight;
+        case kCFLocaleLanguageDirectionRightToLeft:
+            return UIUserInterfaceLayoutDirectionRightToLeft;
+        default:
+            return UIUserInterfaceLayoutDirectionLeftToRight;
     }
 }
 
 - (NSTextAlignment)wmf_textAlignment {
     switch (self.wmf_layoutDirection) {
-    case UIUserInterfaceLayoutDirectionRightToLeft:
-        return NSTextAlignmentRight;
-    case UIUserInterfaceLayoutDirectionLeftToRight:
-        return NSTextAlignmentLeft;
+        case UIUserInterfaceLayoutDirectionRightToLeft:
+            return NSTextAlignmentRight;
+        case UIUserInterfaceLayoutDirectionLeftToRight:
+            return NSTextAlignmentLeft;
     }
 }
 

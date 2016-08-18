@@ -450,29 +450,29 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
       switch (status) {
-      case AFNetworkReachabilityStatusReachableViaWWAN:
-      case AFNetworkReachabilityStatusReachableViaWiFi: {
-          @strongify(self);
-          self.numberOfFailedFetches = 0;
-          self.isWaitingForNetworkToReconnect = NO;
-          [self.collectionView reloadData];
-          [self.collectionView setContentOffset:self.preNetworkTroubleScrollPosition animated:NO];
-          self.preNetworkTroubleScrollPosition = CGPointZero;
-          [self wmf_hideEmptyView];
-
-          [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            @weakify(self);
-            [obj resetData];
-            [obj fetchDataIfError].catch(^(NSError *error) {
+          case AFNetworkReachabilityStatusReachableViaWWAN:
+          case AFNetworkReachabilityStatusReachableViaWiFi: {
               @strongify(self);
-              if ([error wmf_isNetworkConnectionError]) {
-                  [self showOfflineEmptyViewAndReloadWhenReachable];
-              }
-            });
-          }];
-      } break;
-      default:
-          break;
+              self.numberOfFailedFetches = 0;
+              self.isWaitingForNetworkToReconnect = NO;
+              [self.collectionView reloadData];
+              [self.collectionView setContentOffset:self.preNetworkTroubleScrollPosition animated:NO];
+              self.preNetworkTroubleScrollPosition = CGPointZero;
+              [self wmf_hideEmptyView];
+
+              [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                @weakify(self);
+                [obj resetData];
+                [obj fetchDataIfError].catch(^(NSError *error) {
+                  @strongify(self);
+                  if ([error wmf_isNetworkConnectionError]) {
+                      [self showOfflineEmptyViewAndReloadWhenReachable];
+                  }
+                });
+              }];
+          } break;
+          default:
+              break;
       }
     }];
 }

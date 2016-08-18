@@ -4,12 +4,12 @@ NSString *const WMFCodingStyleConstant = @"WMFCodingStyleConstant";
 
 NSString *WMFCodingStyleAsString(WMFCodingStyle style) {
     switch (style) {
-    case WMFCodingStyleDefault: {
-        return @"default";
-    }
-    case WMFCodingStyleValue: {
-        return @"value";
-    }
+        case WMFCodingStyleDefault: {
+            return @"default";
+        }
+        case WMFCodingStyleValue: {
+            return @"value";
+        }
     }
 }
 

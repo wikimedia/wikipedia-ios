@@ -10,10 +10,10 @@
 
 - (NSString *)wmf_userInterfaceLayoutDirectionAsString {
     switch (self.userInterfaceLayoutDirection) {
-    case UIUserInterfaceLayoutDirectionLeftToRight:
-        return @"LTR";
-    case UIUserInterfaceLayoutDirectionRightToLeft:
-        return @"RTL";
+        case UIUserInterfaceLayoutDirectionLeftToRight:
+            return @"LTR";
+        case UIUserInterfaceLayoutDirectionRightToLeft:
+            return @"RTL";
     }
 }
 

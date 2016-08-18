@@ -55,38 +55,38 @@
 - (void)setDisclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType {
     _disclosureType = disclosureType;
     switch (disclosureType) {
-    case WMFSettingsMenuItemDisclosureType_None:
-        self.disclosureIcon.hidden = YES;
-        self.disclosureLabel.hidden = YES;
-        self.disclosureIcon.image = nil;
-        self.disclosureSwitch.hidden = YES;
-        break;
-    case WMFSettingsMenuItemDisclosureType_ExternalLink:
-        self.disclosureIcon.hidden = NO;
-        self.disclosureLabel.hidden = YES;
-        self.disclosureIcon.image = [self externalLinkImage];
-        self.disclosureSwitch.hidden = YES;
-        break;
-    case WMFSettingsMenuItemDisclosureType_Switch:
-        self.disclosureIcon.hidden = YES;
-        self.disclosureLabel.hidden = YES;
-        self.disclosureIcon.image = nil;
-        self.disclosureSwitch.hidden = NO;
-        break;
-    case WMFSettingsMenuItemDisclosureType_ViewController:
-        self.disclosureIcon.hidden = NO;
-        self.disclosureLabel.hidden = YES;
-        self.disclosureIcon.image = [self backChevronImage];
-        self.disclosureSwitch.hidden = YES;
-        break;
-    case WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText:
-        self.disclosureIcon.hidden = NO;
-        self.disclosureLabel.hidden = NO;
-        self.disclosureIcon.image = [self backChevronImage];
-        self.disclosureSwitch.hidden = YES;
-        break;
-    default:
-        break;
+        case WMFSettingsMenuItemDisclosureType_None:
+            self.disclosureIcon.hidden = YES;
+            self.disclosureLabel.hidden = YES;
+            self.disclosureIcon.image = nil;
+            self.disclosureSwitch.hidden = YES;
+            break;
+        case WMFSettingsMenuItemDisclosureType_ExternalLink:
+            self.disclosureIcon.hidden = NO;
+            self.disclosureLabel.hidden = YES;
+            self.disclosureIcon.image = [self externalLinkImage];
+            self.disclosureSwitch.hidden = YES;
+            break;
+        case WMFSettingsMenuItemDisclosureType_Switch:
+            self.disclosureIcon.hidden = YES;
+            self.disclosureLabel.hidden = YES;
+            self.disclosureIcon.image = nil;
+            self.disclosureSwitch.hidden = NO;
+            break;
+        case WMFSettingsMenuItemDisclosureType_ViewController:
+            self.disclosureIcon.hidden = NO;
+            self.disclosureLabel.hidden = YES;
+            self.disclosureIcon.image = [self backChevronImage];
+            self.disclosureSwitch.hidden = YES;
+            break;
+        case WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText:
+            self.disclosureIcon.hidden = NO;
+            self.disclosureLabel.hidden = NO;
+            self.disclosureIcon.image = [self backChevronImage];
+            self.disclosureSwitch.hidden = YES;
+            break;
+        default:
+            break;
     }
 }
 

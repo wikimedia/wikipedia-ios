@@ -26,41 +26,41 @@
 
     //NSLog(@"request = %@ \ntype = %d", request, navigationType);
     switch (navigationType) {
-    case UIWebViewNavigationTypeOther:
-        // YES allows the reference html to actually be loaded/displayed.
-        return YES;
-        break;
-    case UIWebViewNavigationTypeLinkClicked: {
-        NSURL *requestURL = [request URL];
+        case UIWebViewNavigationTypeOther:
+            // YES allows the reference html to actually be loaded/displayed.
+            return YES;
+            break;
+        case UIWebViewNavigationTypeLinkClicked: {
+            NSURL *requestURL = [request URL];
 
-        // Jump to fragment.
-        if ([requestURL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"#"]]) {
-            [self.delegate referenceViewController:self didSelectInternalReferenceWithFragment:requestURL.fragment];
-            return NO;
-        }
+            // Jump to fragment.
+            if ([requestURL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"#"]]) {
+                [self.delegate referenceViewController:self didSelectInternalReferenceWithFragment:requestURL.fragment];
+                return NO;
+            }
 
-        // Open wiki link in the WebViewController's web view.
-        if ([requestURL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"wiki/"]]) {
+            // Open wiki link in the WebViewController's web view.
+            if ([requestURL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"wiki/"]]) {
 #pragma warning Assuming that the url is on the same language wiki - what about other wikis ?
-            [self.delegate referenceViewController:self
-                         didSelectReferenceWithURL:requestURL];
+                [self.delegate referenceViewController:self
+                             didSelectReferenceWithURL:requestURL];
 
-            return NO;
-        }
+                return NO;
+            }
 
-        // Open external link in Safari.
-        NSString *scheme = [requestURL scheme];
-        if (
-            [scheme isEqualToString:@"http"] ||
-            [scheme isEqualToString:@"https"] ||
-            [scheme isEqualToString:@"mailto"]) {
-            [self.delegate referenceViewController:self didSelectExternalReferenceWithURL:requestURL];
-            return NO;
+            // Open external link in Safari.
+            NSString *scheme = [requestURL scheme];
+            if (
+                [scheme isEqualToString:@"http"] ||
+                [scheme isEqualToString:@"https"] ||
+                [scheme isEqualToString:@"mailto"]) {
+                [self.delegate referenceViewController:self didSelectExternalReferenceWithURL:requestURL];
+                return NO;
+            }
         }
-    }
-    default:
-        return NO;
-        break;
+        default:
+            return NO;
+            break;
     }
     return NO;
 }

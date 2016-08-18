@@ -95,18 +95,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch ([(WMFArticleFooterMenuItem *)[self.footerDataSource itemAtIndexPath:indexPath] type]) {
-    case WMFArticleFooterMenuItemTypeLanguages:
-        [self showLanguages];
-        break;
-    case WMFArticleFooterMenuItemTypeLastEdited:
-        [self showEditHistory];
-        break;
-    case WMFArticleFooterMenuItemTypePageIssues:
-        [self showPageIssues];
-        break;
-    case WMFArticleFooterMenuItemTypeDisambiguation:
-        [self showDisambiguationItems];
-        break;
+        case WMFArticleFooterMenuItemTypeLanguages:
+            [self showLanguages];
+            break;
+        case WMFArticleFooterMenuItemTypeLastEdited:
+            [self showEditHistory];
+            break;
+        case WMFArticleFooterMenuItemTypePageIssues:
+            [self showPageIssues];
+            break;
+        case WMFArticleFooterMenuItemTypeDisambiguation:
+            [self showDisambiguationItems];
+            break;
     }
 }
 

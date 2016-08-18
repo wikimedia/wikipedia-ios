@@ -45,22 +45,22 @@ NS_ASSUME_NONNULL_BEGIN
 
         //site was added after persistence. We need to provide a default value.
         switch (self.type) {
-        case WMFExploreSectionTypeFeaturedArticle: {
-            if (self.siteURL == nil) {
-                self.siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
+            case WMFExploreSectionTypeFeaturedArticle: {
+                if (self.siteURL == nil) {
+                    self.siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
+                }
+                break;
             }
-            break;
-        }
 
-        case WMFExploreSectionTypeMostRead: {
-            if (!self.mostReadFetchDate) {
-                // fall back for legacy beta "most read" sections
-                self.mostReadFetchDate = self.dateCreated;
+            case WMFExploreSectionTypeMostRead: {
+                if (!self.mostReadFetchDate) {
+                    // fall back for legacy beta "most read" sections
+                    self.mostReadFetchDate = self.dateCreated;
+                }
+                break;
             }
-            break;
-        }
-        default:
-            break;
+            default:
+                break;
         }
     }
     return self;
@@ -88,24 +88,24 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSInteger)dailyOrderingIndex {
     switch (self.type) {
-    case WMFExploreSectionTypeContinueReading:
-        return 0;
-    case WMFExploreSectionTypeFeaturedArticle:
-        return 1;
-    case WMFExploreSectionTypeMostRead:
-        return 2;
-    case WMFExploreSectionTypePictureOfTheDay:
-        return 3;
-    case WMFExploreSectionTypeMainPage:
-        return 4;
-    case WMFExploreSectionTypeRandom:
-        return 5;
-    case WMFExploreSectionTypeNearby:
-        return 6;
-    case WMFExploreSectionTypeSaved:
-    case WMFExploreSectionTypeHistory:
-        // Saved & History have identical same-day sorting behavior
-        return 7;
+        case WMFExploreSectionTypeContinueReading:
+            return 0;
+        case WMFExploreSectionTypeFeaturedArticle:
+            return 1;
+        case WMFExploreSectionTypeMostRead:
+            return 2;
+        case WMFExploreSectionTypePictureOfTheDay:
+            return 3;
+        case WMFExploreSectionTypeMainPage:
+            return 4;
+        case WMFExploreSectionTypeRandom:
+            return 5;
+        case WMFExploreSectionTypeNearby:
+            return 6;
+        case WMFExploreSectionTypeSaved:
+        case WMFExploreSectionTypeHistory:
+            // Saved & History have identical same-day sorting behavior
+            return 7;
     }
 }
 
@@ -221,19 +221,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSUInteger)maxNumberOfSectionsForType:(WMFExploreSectionType)type {
     switch (type) {
-    case WMFExploreSectionTypeHistory:
-    case WMFExploreSectionTypeSaved:
-    case WMFExploreSectionTypeFeaturedArticle:
-    case WMFExploreSectionTypeMostRead:
-    case WMFExploreSectionTypeNearby:
-    case WMFExploreSectionTypePictureOfTheDay:
-    case WMFExploreSectionTypeRandom:
-        return 10;
-        break;
-    case WMFExploreSectionTypeContinueReading:
-    case WMFExploreSectionTypeMainPage:
-        return 1;
-        break;
+        case WMFExploreSectionTypeHistory:
+        case WMFExploreSectionTypeSaved:
+        case WMFExploreSectionTypeFeaturedArticle:
+        case WMFExploreSectionTypeMostRead:
+        case WMFExploreSectionTypeNearby:
+        case WMFExploreSectionTypePictureOfTheDay:
+        case WMFExploreSectionTypeRandom:
+            return 10;
+            break;
+        case WMFExploreSectionTypeContinueReading:
+        case WMFExploreSectionTypeMainPage:
+            return 1;
+            break;
     }
 }
 

@@ -16,26 +16,26 @@ static NSString *WMFEmptyViewKey = @"WMFEmptyView";
 
     UIView *view = nil;
     switch (type) {
-    case WMFEmptyViewTypeBlank:
-        view = [WMFEmptyView blankEmptyView];
-        break;
-    case WMFEmptyViewTypeNoFeed:
-        view = [WMFEmptyView noFeedEmptyView];
-        break;
-    case WMFEmptyViewTypeArticleDidNotLoad:
-        view = [WMFEmptyView noArticleEmptyView];
-        break;
-    case WMFEmptyViewTypeNoSearchResults:
-        view = [WMFEmptyView noSearchResultsEmptyView];
-        break;
-    case WMFEmptyViewTypeNoSavedPages:
-        view = [WMFEmptyView noSavedPagesEmptyView];
-        break;
-    case WMFEmptyViewTypeNoHistory:
-        view = [WMFEmptyView noHistoryEmptyView];
-        break;
-    default:
-        return;
+        case WMFEmptyViewTypeBlank:
+            view = [WMFEmptyView blankEmptyView];
+            break;
+        case WMFEmptyViewTypeNoFeed:
+            view = [WMFEmptyView noFeedEmptyView];
+            break;
+        case WMFEmptyViewTypeArticleDidNotLoad:
+            view = [WMFEmptyView noArticleEmptyView];
+            break;
+        case WMFEmptyViewTypeNoSearchResults:
+            view = [WMFEmptyView noSearchResultsEmptyView];
+            break;
+        case WMFEmptyViewTypeNoSavedPages:
+            view = [WMFEmptyView noSavedPagesEmptyView];
+            break;
+        case WMFEmptyViewTypeNoHistory:
+            view = [WMFEmptyView noHistoryEmptyView];
+            break;
+        default:
+            return;
     }
 
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

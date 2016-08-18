@@ -89,118 +89,118 @@ typedef NS_ENUM(NSInteger, ViewType) {
     UIColor *grayColor = UIColorFromRGBWithAlpha(0x999999, 1.0);
 
     switch (self.alertType) {
-    case ABUSE_FILTER_WARNING:
+        case ABUSE_FILTER_WARNING:
 
-        [self.subViewData addObjectsFromArray:
-                              @[
-                                 @{
-                                     @"type" : @(VIEW_TYPE_HEADING),
-                                     @"string" : MWLocalizedString(@"abuse-filter-warning-heading", nil),
-                                     @"backgroundColor" : [UIColor whiteColor],
-                                     @"fontColor" : [UIColor darkGrayColor]
-                                 }.mutableCopy,
-                                 @{
-                                     @"type" : @(VIEW_TYPE_SUBHEADING),
-                                     @"string" : MWLocalizedString(@"abuse-filter-warning-subheading", nil),
-                                     @"backgroundColor" : [UIColor whiteColor],
-                                     @"fontColor" : grayColor
-                                 }.mutableCopy,
-                                 @{
-                                     @"type" : @(VIEW_TYPE_ITEM),
-                                     @"string" : MWLocalizedString(@"abuse-filter-warning-caps", nil),
-                                     @"backgroundColor" : [UIColor whiteColor],
-                                     @"fontColor" : grayColor
-                                 }.mutableCopy,
-                                 @{
-                                     @"type" : @(VIEW_TYPE_ITEM),
-                                     @"string" : MWLocalizedString(@"abuse-filter-warning-blanking", nil),
-                                     @"backgroundColor" : [UIColor whiteColor],
-                                     @"fontColor" : grayColor
-                                 }.mutableCopy,
-                                 @{
-                                     @"type" : @(VIEW_TYPE_ITEM),
-                                     @"string" : MWLocalizedString(@"abuse-filter-warning-irrelevant", nil),
-                                     @"backgroundColor" : [UIColor whiteColor],
-                                     @"fontColor" : grayColor
-                                 }.mutableCopy,
-                                 @{
-                                     @"type" : @(VIEW_TYPE_ITEM),
-                                     @"string" : MWLocalizedString(@"abuse-filter-warning-repeat", nil),
-                                     @"backgroundColor" : [UIColor whiteColor],
-                                     @"fontColor" : grayColor
-                                 }.mutableCopy
-                              ]];
+            [self.subViewData addObjectsFromArray:
+                                  @[
+                                     @{
+                                         @"type" : @(VIEW_TYPE_HEADING),
+                                         @"string" : MWLocalizedString(@"abuse-filter-warning-heading", nil),
+                                         @"backgroundColor" : [UIColor whiteColor],
+                                         @"fontColor" : [UIColor darkGrayColor]
+                                     }.mutableCopy,
+                                     @{
+                                         @"type" : @(VIEW_TYPE_SUBHEADING),
+                                         @"string" : MWLocalizedString(@"abuse-filter-warning-subheading", nil),
+                                         @"backgroundColor" : [UIColor whiteColor],
+                                         @"fontColor" : grayColor
+                                     }.mutableCopy,
+                                     @{
+                                         @"type" : @(VIEW_TYPE_ITEM),
+                                         @"string" : MWLocalizedString(@"abuse-filter-warning-caps", nil),
+                                         @"backgroundColor" : [UIColor whiteColor],
+                                         @"fontColor" : grayColor
+                                     }.mutableCopy,
+                                     @{
+                                         @"type" : @(VIEW_TYPE_ITEM),
+                                         @"string" : MWLocalizedString(@"abuse-filter-warning-blanking", nil),
+                                         @"backgroundColor" : [UIColor whiteColor],
+                                         @"fontColor" : grayColor
+                                     }.mutableCopy,
+                                     @{
+                                         @"type" : @(VIEW_TYPE_ITEM),
+                                         @"string" : MWLocalizedString(@"abuse-filter-warning-irrelevant", nil),
+                                         @"backgroundColor" : [UIColor whiteColor],
+                                         @"fontColor" : grayColor
+                                     }.mutableCopy,
+                                     @{
+                                         @"type" : @(VIEW_TYPE_ITEM),
+                                         @"string" : MWLocalizedString(@"abuse-filter-warning-repeat", nil),
+                                         @"backgroundColor" : [UIColor whiteColor],
+                                         @"fontColor" : grayColor
+                                     }.mutableCopy
+                                  ]];
 
-        break;
-    case ABUSE_FILTER_DISALLOW:
+            break;
+        case ABUSE_FILTER_DISALLOW:
 
-        [self.subViewData addObjectsFromArray:
-                              @[
-                                 @{
-                                     @"type" : @(VIEW_TYPE_HEADING),
-                                     @"string" : MWLocalizedString(@"abuse-filter-disallow-heading", nil),
-                                     @"backgroundColor" : [UIColor whiteColor],
-                                     @"fontColor" : [UIColor darkGrayColor]
-                                 }.mutableCopy,
-                                 @{
-                                     @"type" : @(VIEW_TYPE_ITEM),
-                                     @"string" : MWLocalizedString(@"abuse-filter-disallow-unconstructive", nil),
-                                     @"backgroundColor" : [UIColor whiteColor],
-                                     @"fontColor" : grayColor
-                                 }.mutableCopy,
-                                 @{
-                                     @"type" : @(VIEW_TYPE_ITEM),
-                                     @"string" : MWLocalizedString(@"abuse-filter-disallow-notable", nil),
-                                     @"backgroundColor" : [UIColor whiteColor],
-                                     @"fontColor" : grayColor
-                                 }.mutableCopy
-                              ]];
+            [self.subViewData addObjectsFromArray:
+                                  @[
+                                     @{
+                                         @"type" : @(VIEW_TYPE_HEADING),
+                                         @"string" : MWLocalizedString(@"abuse-filter-disallow-heading", nil),
+                                         @"backgroundColor" : [UIColor whiteColor],
+                                         @"fontColor" : [UIColor darkGrayColor]
+                                     }.mutableCopy,
+                                     @{
+                                         @"type" : @(VIEW_TYPE_ITEM),
+                                         @"string" : MWLocalizedString(@"abuse-filter-disallow-unconstructive", nil),
+                                         @"backgroundColor" : [UIColor whiteColor],
+                                         @"fontColor" : grayColor
+                                     }.mutableCopy,
+                                     @{
+                                         @"type" : @(VIEW_TYPE_ITEM),
+                                         @"string" : MWLocalizedString(@"abuse-filter-disallow-notable", nil),
+                                         @"backgroundColor" : [UIColor whiteColor],
+                                         @"fontColor" : grayColor
+                                     }.mutableCopy
+                                  ]];
 
-        break;
-    default:
-        break;
+            break;
+        default:
+            break;
     }
 
     for (NSMutableDictionary *viewData in self.subViewData) {
         NSNumber *type = viewData[@"type"];
         switch (type.integerValue) {
-        case VIEW_TYPE_ICON:
-            viewData[@"topPadding"] = @0;
-            viewData[@"bottomPadding"] = @0;
-            viewData[@"leftPadding"] = @0;
-            viewData[@"rightPadding"] = @0;
-            viewData[@"fontSize"] = @((self.alertType == ABUSE_FILTER_DISALLOW) ? (74.0 * MENUS_SCALE_MULTIPLIER) : (70.0 * MENUS_SCALE_MULTIPLIER));
-            break;
-        case VIEW_TYPE_HEADING:
-            viewData[@"topPadding"] = @35;
-            viewData[@"bottomPadding"] = @15;
-            viewData[@"leftPadding"] = @20;
-            viewData[@"rightPadding"] = @20;
-            viewData[@"lineSpacing"] = @3;
-            viewData[@"kearning"] = @0.4;
-            viewData[@"font"] = [UIFont boldSystemFontOfSize:23.0 * MENUS_SCALE_MULTIPLIER];
-            break;
-        case VIEW_TYPE_SUBHEADING:
-            viewData[@"topPadding"] = @0;
-            viewData[@"bottomPadding"] = @8;
-            viewData[@"leftPadding"] = @20;
-            viewData[@"rightPadding"] = @20;
-            viewData[@"lineSpacing"] = @2;
-            viewData[@"kearning"] = @0;
-            viewData[@"font"] = [UIFont systemFontOfSize:16.0 * MENUS_SCALE_MULTIPLIER];
-            break;
-        case VIEW_TYPE_ITEM:
-            viewData[@"topPadding"] = @0;
-            viewData[@"bottomPadding"] = (self.alertType == ABUSE_FILTER_WARNING) ? @8 : @15;
-            viewData[@"leftPadding"] = (self.alertType == ABUSE_FILTER_WARNING) ? @30 : @20;
-            viewData[@"rightPadding"] = @20;
-            viewData[@"lineSpacing"] = @6;
-            viewData[@"kearning"] = @0;
-            viewData[@"bulletType"] = (self.alertType == ABUSE_FILTER_WARNING) ? @(BULLET_TYPE_ROUND) : @(BULLET_TYPE_NONE);
-            viewData[@"font"] = [UIFont systemFontOfSize:16.0 * MENUS_SCALE_MULTIPLIER];
-            break;
-        default:
-            break;
+            case VIEW_TYPE_ICON:
+                viewData[@"topPadding"] = @0;
+                viewData[@"bottomPadding"] = @0;
+                viewData[@"leftPadding"] = @0;
+                viewData[@"rightPadding"] = @0;
+                viewData[@"fontSize"] = @((self.alertType == ABUSE_FILTER_DISALLOW) ? (74.0 * MENUS_SCALE_MULTIPLIER) : (70.0 * MENUS_SCALE_MULTIPLIER));
+                break;
+            case VIEW_TYPE_HEADING:
+                viewData[@"topPadding"] = @35;
+                viewData[@"bottomPadding"] = @15;
+                viewData[@"leftPadding"] = @20;
+                viewData[@"rightPadding"] = @20;
+                viewData[@"lineSpacing"] = @3;
+                viewData[@"kearning"] = @0.4;
+                viewData[@"font"] = [UIFont boldSystemFontOfSize:23.0 * MENUS_SCALE_MULTIPLIER];
+                break;
+            case VIEW_TYPE_SUBHEADING:
+                viewData[@"topPadding"] = @0;
+                viewData[@"bottomPadding"] = @8;
+                viewData[@"leftPadding"] = @20;
+                viewData[@"rightPadding"] = @20;
+                viewData[@"lineSpacing"] = @2;
+                viewData[@"kearning"] = @0;
+                viewData[@"font"] = [UIFont systemFontOfSize:16.0 * MENUS_SCALE_MULTIPLIER];
+                break;
+            case VIEW_TYPE_ITEM:
+                viewData[@"topPadding"] = @0;
+                viewData[@"bottomPadding"] = (self.alertType == ABUSE_FILTER_WARNING) ? @8 : @15;
+                viewData[@"leftPadding"] = (self.alertType == ABUSE_FILTER_WARNING) ? @30 : @20;
+                viewData[@"rightPadding"] = @20;
+                viewData[@"lineSpacing"] = @6;
+                viewData[@"kearning"] = @0;
+                viewData[@"bulletType"] = (self.alertType == ABUSE_FILTER_WARNING) ? @(BULLET_TYPE_ROUND) : @(BULLET_TYPE_NONE);
+                viewData[@"font"] = [UIFont systemFontOfSize:16.0 * MENUS_SCALE_MULTIPLIER];
+                break;
+            default:
+                break;
         }
     }
 }
@@ -211,102 +211,102 @@ typedef NS_ENUM(NSInteger, ViewType) {
     for (NSDictionary *viewData in self.subViewData) {
         NSNumber *type = viewData[@"type"];
         switch (type.integerValue) {
-        case VIEW_TYPE_ICON: {
-            UIView *view = [[UIView alloc] init];
-            view.backgroundColor = CHROME_COLOR;
+            case VIEW_TYPE_ICON: {
+                UIView *view = [[UIView alloc] init];
+                view.backgroundColor = CHROME_COLOR;
 
-            WikiGlyphLabel *label = [[WikiGlyphLabel alloc] init];
-            label.translatesAutoresizingMaskIntoConstraints = NO;
-            label.textAlignment = NSTextAlignmentCenter;
+                WikiGlyphLabel *label = [[WikiGlyphLabel alloc] init];
+                label.translatesAutoresizingMaskIntoConstraints = NO;
+                label.textAlignment = NSTextAlignmentCenter;
 
-            label.backgroundColor = viewData[@"backgroundColor"];
-            NSNumber *fontSize = viewData[@"fontSize"];
-            NSNumber *baselineOffset = viewData[@"baselineOffset"];
+                label.backgroundColor = viewData[@"backgroundColor"];
+                NSNumber *fontSize = viewData[@"fontSize"];
+                NSNumber *baselineOffset = viewData[@"baselineOffset"];
 
-            [label setWikiText:viewData[@"string"]
-                         color:viewData[@"fontColor"]
-                          size:fontSize.floatValue
-                baselineOffset:baselineOffset.floatValue];
+                [label setWikiText:viewData[@"string"]
+                             color:viewData[@"fontColor"]
+                              size:fontSize.floatValue
+                    baselineOffset:baselineOffset.floatValue];
 
-            CGFloat iconHeight = 78.0 * MENUS_SCALE_MULTIPLIER;
-            CGFloat topBarHeight = 125.0 * MENUS_SCALE_MULTIPLIER;
-            label.layer.cornerRadius = iconHeight / 2.0;
-            label.clipsToBounds = YES;
+                CGFloat iconHeight = 78.0 * MENUS_SCALE_MULTIPLIER;
+                CGFloat topBarHeight = 125.0 * MENUS_SCALE_MULTIPLIER;
+                label.layer.cornerRadius = iconHeight / 2.0;
+                label.clipsToBounds = YES;
 
-            [view addSubview:label];
+                [view addSubview:label];
 
-            NSDictionary *views = @{ @"label" : label,
-                                     @"v1" : view };
-            NSDictionary *metrics = @{
-                @"iconHeight" : @(iconHeight),
-                @"topBarHeight" : @(topBarHeight)
-            };
+                NSDictionary *views = @{ @"label" : label,
+                                         @"v1" : view };
+                NSDictionary *metrics = @{
+                    @"iconHeight" : @(iconHeight),
+                    @"topBarHeight" : @(topBarHeight)
+                };
 
-            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[v1(topBarHeight)]"
-                                                                         options:0
-                                                                         metrics:metrics
-                                                                           views:views]];
+                [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[v1(topBarHeight)]"
+                                                                             options:0
+                                                                             metrics:metrics
+                                                                               views:views]];
 
-            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[label(iconHeight)]"
-                                                                         options:0
-                                                                         metrics:metrics
-                                                                           views:views]];
+                [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[label(iconHeight)]"
+                                                                             options:0
+                                                                             metrics:metrics
+                                                                               views:views]];
 
-            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[label(iconHeight)]"
-                                                                         options:0
-                                                                         metrics:metrics
-                                                                           views:views]];
+                [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[label(iconHeight)]"
+                                                                             options:0
+                                                                             metrics:metrics
+                                                                               views:views]];
 
-            [view addConstraint:[NSLayoutConstraint constraintWithItem:label
-                                                             attribute:NSLayoutAttributeCenterX
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:view
-                                                             attribute:NSLayoutAttributeCenterX
-                                                            multiplier:1
-                                                              constant:0]];
+                [view addConstraint:[NSLayoutConstraint constraintWithItem:label
+                                                                 attribute:NSLayoutAttributeCenterX
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:view
+                                                                 attribute:NSLayoutAttributeCenterX
+                                                                multiplier:1
+                                                                  constant:0]];
 
-            [view addConstraint:[NSLayoutConstraint constraintWithItem:label
-                                                             attribute:NSLayoutAttributeCenterY
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:view
-                                                             attribute:NSLayoutAttributeCenterY
-                                                            multiplier:1
-                                                              constant:0]];
-            [self.subViews addObject:view];
-        } break;
-        default: {
-            BulletedLabel *item =
-                [[bulletedLabelNib instantiateWithOwner:self options:nil] firstObject];
+                [view addConstraint:[NSLayoutConstraint constraintWithItem:label
+                                                                 attribute:NSLayoutAttributeCenterY
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:view
+                                                                 attribute:NSLayoutAttributeCenterY
+                                                                multiplier:1
+                                                                  constant:0]];
+                [self.subViews addObject:view];
+            } break;
+            default: {
+                BulletedLabel *item =
+                    [[bulletedLabelNib instantiateWithOwner:self options:nil] firstObject];
 
-            item.translatesAutoresizingMaskIntoConstraints = NO;
-            item.backgroundColor = viewData[@"backgroundColor"];
+                item.translatesAutoresizingMaskIntoConstraints = NO;
+                item.backgroundColor = viewData[@"backgroundColor"];
 
-            NSNumber *topPadding = viewData[@"topPadding"];
-            NSNumber *bottomPadding = viewData[@"bottomPadding"];
-            NSNumber *leftPadding = viewData[@"leftPadding"];
-            NSNumber *rightPadding = viewData[@"rightPadding"];
+                NSNumber *topPadding = viewData[@"topPadding"];
+                NSNumber *bottomPadding = viewData[@"bottomPadding"];
+                NSNumber *leftPadding = viewData[@"leftPadding"];
+                NSNumber *rightPadding = viewData[@"rightPadding"];
 
-            NSNumber *bulletType = [viewData objectForKey:@"bulletType"];
-            if (bulletType) {
-                item.bulletType = bulletType.integerValue;
+                NSNumber *bulletType = [viewData objectForKey:@"bulletType"];
+                if (bulletType) {
+                    item.bulletType = bulletType.integerValue;
 
-                // Use same top and left padding.
-                item.bulletLabel.padding = UIEdgeInsetsMake(topPadding.floatValue, leftPadding.floatValue, 0, 4);
+                    // Use same top and left padding.
+                    item.bulletLabel.padding = UIEdgeInsetsMake(topPadding.floatValue, leftPadding.floatValue, 0, 4);
 
-                // Zero out left padding because we already have the left padding applied
-                // to the prefixLabel so no longer need it for the titleLabel.
-                leftPadding = @0;
+                    // Zero out left padding because we already have the left padding applied
+                    // to the prefixLabel so no longer need it for the titleLabel.
+                    leftPadding = @0;
 
-                UIColor *color = viewData[@"fontColor"];
-                item.bulletColor = color;
-            }
+                    UIColor *color = viewData[@"fontColor"];
+                    item.bulletColor = color;
+                }
 
-            item.titleLabel.padding = UIEdgeInsetsMake(topPadding.floatValue, leftPadding.floatValue, bottomPadding.floatValue, rightPadding.floatValue);
+                item.titleLabel.padding = UIEdgeInsetsMake(topPadding.floatValue, leftPadding.floatValue, bottomPadding.floatValue, rightPadding.floatValue);
 
-            [self setText:MWLocalizedString(viewData[@"string"], nil) forLabel:item.titleLabel subViewData:viewData];
+                [self setText:MWLocalizedString(viewData[@"string"], nil) forLabel:item.titleLabel subViewData:viewData];
 
-            [self.subViews addObject:item];
-        } break;
+                [self.subViews addObject:item];
+            } break;
         }
     }
 }

@@ -30,39 +30,39 @@
 
 + (Class)wmf_expectedMessageBodyClassForType:(WMFWKScriptMessageType)type {
     switch (type) {
-    case WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging:
-        return [NSDictionary class];
-        break;
-    case WMFWKScriptMessageClickLink:
-        return [NSDictionary class];
-        break;
-    case WMFWKScriptMessageClickImage:
-        return [NSDictionary class];
-        break;
-    case WMFWKScriptMessagePeek:
-        return [NSDictionary class];
-        break;
-    case WMFWKScriptMessageClickReference:
-        return [NSDictionary class];
-        break;
-    case WMFWKScriptMessageClickEdit:
-        return [NSDictionary class];
-        break;
-    case WMFWKScriptMessageLateJavascriptTransform:
-        return [NSString class];
-        break;
-    case WMFWKScriptMessageArticleState:
-        return [NSString class];
-        break;
-    case WMFWKScriptMessageConsoleMessage:
-        return [NSDictionary class];
-        break;
-    case WMFWKScriptMessageFindInPageMatchesFound:
-        return [NSArray class];
-        break;
-    case WMFWKScriptMessageUnknown:
-        return [NSNull class];
-        break;
+        case WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging:
+            return [NSDictionary class];
+            break;
+        case WMFWKScriptMessageClickLink:
+            return [NSDictionary class];
+            break;
+        case WMFWKScriptMessageClickImage:
+            return [NSDictionary class];
+            break;
+        case WMFWKScriptMessagePeek:
+            return [NSDictionary class];
+            break;
+        case WMFWKScriptMessageClickReference:
+            return [NSDictionary class];
+            break;
+        case WMFWKScriptMessageClickEdit:
+            return [NSDictionary class];
+            break;
+        case WMFWKScriptMessageLateJavascriptTransform:
+            return [NSString class];
+            break;
+        case WMFWKScriptMessageArticleState:
+            return [NSString class];
+            break;
+        case WMFWKScriptMessageConsoleMessage:
+            return [NSDictionary class];
+            break;
+        case WMFWKScriptMessageFindInPageMatchesFound:
+            return [NSArray class];
+            break;
+        case WMFWKScriptMessageUnknown:
+            return [NSNull class];
+            break;
     }
 }
 
