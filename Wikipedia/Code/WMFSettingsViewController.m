@@ -203,10 +203,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSString *url = WMFSettingsURLDonation;
 
     NSString *languageCode = [[MWKLanguageLinkController sharedInstance] appLanguage].languageCode;
-    languageCode = [languageCode stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    languageCode = [languageCode stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 
     NSString *appVersion = [[NSBundle mainBundle] wmf_debugVersion];
-    appVersion = [appVersion stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    appVersion = [appVersion stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 
     url = [url stringByReplacingOccurrencesOfString:@"<langcode>" withString:languageCode];
     url = [url stringByReplacingOccurrencesOfString:@"<app-version>" withString:appVersion];
