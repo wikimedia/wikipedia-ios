@@ -1,4 +1,4 @@
-*Unsafe, do not use.* @see WMFStrictClamp * @see WMFClamp * /
+/* Unsafe, do not use.* @see WMFStrictClamp * @see WMFClamp */
 #define _WMFStrictClamp(min, x, max) MAX(MIN((max), (x)), (min))
 
 /**
