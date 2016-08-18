@@ -30,7 +30,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                 }
             } else if let footerItem = item as? TableOfContentsFooterItem {
                 let footerIndex = Int(footerItem.footerViewIndex.rawValue)
-                self.webViewController.scrollToFooterAtIndex(footerIndex)
+                self.webViewController.scrollToFooterAtIndex(footerIndex, animated: true)
                 dispatchOnMainQueueAfterDelayInSeconds(1) {
                     self.webViewController.accessibilityCursorToFooterAtIndex(footerIndex)
                 }
@@ -55,7 +55,7 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                 }
             } else if let footerItem = item as? TableOfContentsFooterItem {
                 let footerIndex = Int(footerItem.footerViewIndex.rawValue)
-                self.webViewController.scrollToFooterAtIndex(footerIndex)
+                self.webViewController.scrollToFooterAtIndex(footerIndex, animated: true)
                 dismissVCCompletionHandler = {
                     self.webViewController.accessibilityCursorToFooterAtIndex(footerIndex)
                 }

@@ -949,19 +949,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (animated) {
         UIScrollView *scrollView = self.webViewController.webView.scrollView;
         CGFloat previousOffsetPercentage = scrollView.contentOffset.y/scrollView.contentSize.height;
-        [self.webViewController prepareForAnimatedResize];
+        UIColor *previousBackgrondColor = scrollView.backgroundColor;
+        scrollView.backgroundColor = [UIColor whiteColor];
         [UIView animateWithDuration:0.20 animations:^{
             [self layoutForSize:self.view.bounds.size];
-            [self.webViewController performAnimatedResize];
             if (self.currentSection) {
                 [self.webViewController scrollToSection:self.currentSection animated:NO];
             } else if (self.currentFooterIndex != NSNotFound) {
-                [self.webViewController scrollToFooterAtIndex:self.currentFooterIndex];
+                [self.webViewController scrollToFooterAtIndex:self.currentFooterIndex animated:true];
             } else {
                 scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage*scrollView.contentSize.height);
             }
         } completion:^(BOOL finished) {
-            [self.webViewController completeAnimatedResize];
+            scrollView.backgroundColor = previousBackgrondColor;
         }];
     } else {
         [self layoutForSize:self.view.bounds.size];
