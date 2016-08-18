@@ -408,4 +408,4 @@
 "no-email-account-alert" = "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
 "explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";
-"find-in-page-no-matches" = "Displayed when zero matches were found for the search term. Space is limited for this message so please try to keep this text small";
+"find-in-page-no-matches" = "Displayed when zero matches were found for the search term. Space is limited for this message so please try to keep this text small\n{{Identical|Match}}";

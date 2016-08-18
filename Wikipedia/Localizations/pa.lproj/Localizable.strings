@@ -113,6 +113,7 @@
 "settings-my-languages" = "ਮੇਰੀਆੰ ਭਾਸ਼ਾਵਾੰ";
 "settings-help-and-feedback" = "ਮਦਦ ਅਤੇ ਫੀਡਬੈਕ";
 "settings-primary-language" = "ਮੁੱਢਲਾ";
+"settings-primary-language-details" = "ਇਸ ਸੂਚੀ ਦੀ ਪਹਿਲੀ ਭਾਸ਼ਾ ਐਪ ਦੀ ਮੁੱਖ ਭਾਸ਼ਾ ਦੇ ਤੌਰ ਤੇ ਵਰਤੀ ਜਾੰਦੀ ਹੈ। ਇਸ ਨੂੰ ਬਦਲਣ ਨਾਲ ਤੁਹਾਡੀ ਰੋਜ਼ਾਨਾ ਸਮੱਗਰੀ (ਜਿਵੇੰ ਵਿਸ਼ੇਸ਼ ਲੇਖ) ਜੋ ਕਿ ਪੜਚੋਲ ਵਿੱਚ ਵਿਖਾਈ ਜਾੰਦੀ ਹੈ ਵੀ ਬਦਲ ਜਾਏਗੀ।";
 "main-menu-title" = "ਹੋਰ";
 "main-menu-heading-about" = "ਸਾਡੇ ਬਾਰੇ";
 "main-menu-language-title" = "$1 ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਭਾਲੋ਼";
@@ -157,6 +158,7 @@
 "saved-pages-refresh-cancel-alert-title" = "ਨਵੀਨੀਕਰਨ ਰੱਦ ਕੀਤਾ ਗਿਅਾ ਹੈ";
 "saved-pages-refresh-cancel-alert-message" = "ਵਿਕੀਪੀਡੀਅਾ ਦੇ ਲੇਖਾਂ ਦਾ ਹਰ ਸਮੇਂ ਨਵੀਨੀਕਰਨ ਹੁੰਦਾ ਰਹਿੰਦਾ ਹੈ। ਲੇਖ ਦੇ ਨਵੇਂ ਸੰਸਕਰਨ ਲੲੀ ਮੁੜ-ਤਾਜ਼ਾ ਕਰੋ।";
 "saved-pages-refresh-cancel-alert-button" = "ਜਾਣਦਾ ਹਾਂ।";
+"saved-pages-description" = "ਸਾੰਭੇ ਸਫੇ ਬਹੁਤ ਸ਼ਾਨਦਾਰ ਹਨ। ਤੁਸੀੰ ਇਹਨਾੰ ਬਾਰੇ ਨਿਸ਼ਾਨਾੰ ਵਾੰਗੂ ਸੋਚ ਸੱਕਦੇ ਹੋ ਜੋ ਕਿ ਤੁਸੀੰ ਆੱਫਲਾਈਨ ਵੀ ਪੜ੍ਹ ਸਕਦੇ ਹੋ।";
 "saved-pages-none" = "ਹਾਲੇ ਤੱਕ ਕੋੲੀ ਸਫ਼ਾ ਨਹੀ ਸੰਭਾਲਿਅਾ ਗਿਅਾ।";
 "saved-pages-image-download-error" = "ਇਸ ਸਾਂਭੇ ਹੋਏ ਸਾਫ਼ ਲਈ ਤਸਵੀਰਾਂ ਉਤਾਰੀਆਂ ਨਹੀਂ ਜਾ ਸਕੀਆਂ।";
 "history-title" = "ਅਤੀਤ";
@@ -356,6 +358,7 @@
 "welcome-languages-add-button" = "ਕੋਈ ਹੋਰ ਭਾਸ਼ਾ ਪਾਓ";
 "welcome-languages-continue-button" = "ਜਾਰੀ ਰੱਖੋ";
 "welcome-volunteer-title" = "ਵਾਲੰਟੀਅਰ ਕਰੋ";
+"welcome-volunteer-sub-title" = "ਆਪਣੀ ਵਰਤੋੰ ਸਾੰਝੀ ਕਰਕੇ ਵਿਕੀਪੀਡੀਆ ਐਪ ਨੂੰ ਸੁਧਾਰਨ ਵਿੱਚ ਮਦਦ ਕਰੋ";
 "welcome-volunteer-send-usage-reports" = "ਵਰਤੋਂ ਦੀਆਂ ਇਤਲਾਹਾਂ ਘੱਲੋ";
 "welcome-volunteer-continue-button" = "ਜਾਰੀ ਰੱਖੋ";
 "welcome-volunteer-thanks" = "$1 ਧੰਨਵਾਦ!";
@@ -390,3 +393,4 @@
 "explore-most-read-more-list-title-for-date" = "$1 ਉੱਤੇ ਚੋਟੀ ਦੇ";
 "no-email-account-alert" = "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਜੰਤਰ ਤੇ ਇੱਕ ਈਮੇਲ ਖਾਤਾ ਸਥਾਪਤ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
 "explore-another-random" = "ਇੱਕ ਹੋਰ ਰਲ਼ਵਾਂ ਲੇਖ";
+"find-in-page-no-matches" = "0 ਮਿਲਦੇ";

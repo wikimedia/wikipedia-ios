@@ -130,7 +130,7 @@
 "main-menu-language-toggle-hide" = "언어 숨기기";
 "main-menu-language-selection-saved" = "언어 선택이 저장됨";
 "main-menu-account-title-logged-out" = "계정";
-"main-menu-account-title-logged-in" = "$1 사용자로 로그인됨";
+"main-menu-account-title-logged-in" = "$1님으로 로그인됨";
 "main-menu-account-login" = "로그인";
 "main-menu-account-logout" = "로그아웃";
 "main-menu-account-logout-are-you-sure" = "로그아웃하시겠습니까?";
@@ -409,3 +409,4 @@
 "no-email-account-alert" = "장치에 이메일 계정을 설정한 뒤 다시 시도하세요.";
 "request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";
 "explore-another-random" = "다른 임의 문서";
+"find-in-page-no-matches" = "0개 일치";

@@ -15,7 +15,6 @@
 "article-languages-label" = "भाषा चुनें";
 "article-languages-cancel" = "रद्द करें";
 "article-languages-downloading" = "आर्टिकल की भाषाओं को लोड किया जा रहा है...";
-// Fuzzy
 "article-languages-filter-placeholder" = "भाषा ढूंढें";
 "article-read-more-title" = "और पढ़ें";
 "article-about-title" = "इस लेख के बारे में";
@@ -55,30 +54,24 @@
 "zero-warn-when-leaving" = "चेतावनी दें अगर ज़ीरो को छोड़ा जा रहा है";
 "zero-settings-devmode" = "ज़ीरो डेवमोड";
 "account-creation-captcha-required" = "कैप्चा सत्यापन की आवश्यकता है";
-// Fuzzy
-"account-creation-captcha-obtaining" = "एक नया कैप्चा प्राप्त किया जा रहा है।";
+"account-creation-captcha-obtaining" = "एक नया कैप्चा प्राप्त किया जा रहा है...";
 "account-creation-logging-in" = "लॉग इन हो रहा है...";
 "account-creation-passwords-mismatched" = "पासवर्ड मैच नहीं हो रहा है।";
 "account-creation-saving" = "सहेज रहा है...";
 "account-creation-login" = "पहले से ही ख़ाता है? लॉगिन करें।";
-// Fuzzy
 "account-creation-username-placeholder-text" = "सदस्यनाम";
 "account-creation-password-placeholder-text" = "कूटशब्द";
 "account-creation-password-confirm-placeholder-text" = "कूटशब्द की पुष्टि करें";
 "account-creation-email-placeholder-text" = "ईमेल (वैकल्पिक)";
 "account-creation-missing-fields" = "आपको खाता बनाने के लिए एक यूज़रनेम और पासवर्ड , और प्रमाणित किया गया पासवर्ड डालना आवश्यक है।";
-// Fuzzy
-"login-name-not-found" = "यूज़रनेम लॉगिन के लिए आवश्यक है।";
-// Fuzzy
-"login-name-illegal" = "आपने एक अवैध यूज़रनेम दिया है।";
-// Fuzzy
-"login-name-does-not-exist" = "यूज़रनेम जो अपने दिया है वो अस्तित्व में नहीं है।";
+"login-name-not-found" = "लॉगिन के लिए सदस्यनाम आवश्यक है।";
+"login-name-illegal" = "आपने एक अवैध सदस्यनाम दिया है।";
+"login-name-does-not-exist" = "जो सदस्यमाम अपने दिया है वो अस्तित्व में नहीं है।";
 "login-password-empty" = "लॉगिन के लिए पासवर्ड आवश्यक है।";
 "login-password-wrong" = "अपने जो पासवर्ड दिया है वो गलत है।";
 "login-throttled" = "अपने थोड़े से समय में बहुत ज़्यादा बार लॉगिन किया है।";
 "login-user-blocked" = "सदस्य अवरोधित है।";
 "login-account-creation" = "कोई खाता नहीं है? विकिपीडिया से जुड़ें।";
-// Fuzzy
 "login-username-placeholder-text" = "सदस्यनाम";
 "login-password-placeholder-text" = "कूटशब्द";
 "wikitext-downloading" = "सामग्री को लोड किया जा रहा है...";
@@ -250,6 +243,7 @@
 "button-next" = "अगला";
 "button-done" = "पूर्ण हुआ";
 "button-save" = "सहेजें";
+"button-ok" = "ठीक है";
 "button-save-for-later" = "बाद के लिए सहेजें";
 "button-saved-for-later" = "बाद के लिए सहेजा गया";
 "button-report-a-bug" = "बग की रिपोर्ट करें";
@@ -403,8 +397,12 @@
 "explore-random-article-sub-heading" = "हिन्दी विकिपीडिया";
 "explore-potd-heading" = "आज का चित्र";
 "explore-most-read-heading" = "$1 विकिपीडिया पर सर्वाधिक पढ़े गए";
+"explore-most-read-generic-heading" = "सर्वाधिक पढ़े गए";
 "explore-most-read-footer" = "सारे सर्वाधिक पढ़े गए लेख";
 "explore-most-read-footer-for-date" = "$1 को सर्वाधिक पढ़े गए लेख";
 "explore-most-read-more-list-title" = "शीर्ष लेख";
 "explore-most-read-more-list-title-for-date" = "$1 के प्रमुख लेख";
 "no-email-account-alert" = "कृपया अपनी डिवाइस पर एक ईमेल अकाउंट स्थापित करें और पुनः प्रयास करें।";
+"request-feedback-on-error" = "ऐप ने एक समस्या का सामना किया है जिसके बारे में हमारे डेवलपर्स अधिक जानना चाहेंगे। एरर डिटेल्स के साथ हमें ईमेल भेजने के किये कृपया यहाँ टैप करें।";
+"explore-another-random" = "दूसरा बेतरतीब लेख";
+"find-in-page-no-matches" = "0 समानताएं";

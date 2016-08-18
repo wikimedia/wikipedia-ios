@@ -409,3 +409,5 @@
 "explore-most-read-more-list-title-for-date" = "Primers el $1";
 "no-email-account-alert" = "Configureu un compte de correu en el vostre dispositiu i torneu-ho a provar.";
 "request-feedback-on-error" = "L'aplicació s'ha trobat amb un problema que els nostres desenvolupadors voldrien conèixer més en detall. Toqueu aquí per enviar-nos un correu amb els detalls de l'error.";
+"explore-another-random" = "Un altre article a l'atzar";
+"find-in-page-no-matches" = "0 coincidències";
