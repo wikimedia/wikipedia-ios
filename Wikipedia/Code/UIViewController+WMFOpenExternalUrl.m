@@ -24,23 +24,21 @@
         NSString *exitDialogTitle = zeroMessage.exitTitle ?: MWLocalizedString(@"zero-interstitial-title", nil);
         NSString *messageWithHost = [NSString stringWithFormat:@"%@\n\n%@", zeroMessage.exitWarning ?: MWLocalizedString(@"zero-interstitial-leave-app", nil), url.host];
 
-        UIAlertView *zeroAlert = [UIAlertView bk_alertViewWithTitle:exitDialogTitle
-                                                            message:messageWithHost];
-        [zeroAlert bk_setCancelButtonWithTitle:MWLocalizedString(@"zero-interstitial-cancel", nil) handler:nil];
-        [zeroAlert bk_addButtonWithTitle:MWLocalizedString(@"zero-interstitial-continue", nil)
-                                 handler:^{
-                                     [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
-                                 }];
+        UIAlertController *zeroAlert = [UIAlertController alertControllerWithTitle:exitDialogTitle message:messageWithHost preferredStyle:UIAlertControllerStyleAlert];
+        [zeroAlert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-interstitial-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+        [zeroAlert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-interstitial-continue", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+             [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
+        }]];
+
         if ([self isPartnerInfoConfigValid:zeroMessage]) {
             NSString *partnerInfoText = zeroMessage.partnerInfoText;
             NSURL *partnerInfoUrl = [NSURL URLWithString:zeroMessage.partnerInfoUrl];
-            [zeroAlert bk_addButtonWithTitle:partnerInfoText
-                                     handler:^{
-                                         [self wmf_openExternalUrlModallyIfNeeded:partnerInfoUrl forceSafari:useSafari];
-                                     }];
+            [zeroAlert addAction:[UIAlertAction actionWithTitle:partnerInfoText style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self wmf_openExternalUrlModallyIfNeeded:partnerInfoUrl forceSafari:useSafari];
+            }]];
         }
 
-        [zeroAlert show];
+         [self presentViewController:zeroAlert animated:YES completion:NULL];
     } else {
         [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
     }
