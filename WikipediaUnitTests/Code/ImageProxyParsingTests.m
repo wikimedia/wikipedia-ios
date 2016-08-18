@@ -206,7 +206,7 @@
     //initial run compiles regexes
     [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:@"Small sample string <img alt=\"Example.jpg\" src=\"//upload.wikimedia.org/wikipedia/en/thumb/a/a9/Example.jpg/20px-Example.jpg\" width=\"20\" height=\"22\" srcset=\"//upload.wikimedia.org/wikipedia/en/thumb/a/a9/Example.jpg/30px-Example.jpg 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/a/a9/Example.jpg/40px-Example.jpg 2x\" data-file-width=\"275\" data-file-height=\"297\"> and stuff." withBaseURL:self.obamaBaseURL targetImageWidth:self.imageSize];
     [self measureBlock:^{
-      [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:[self allObamaHTML] withBaseURL:self.obamaBaseURL targetImageWidth:self.imageSize];
+        [self.proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:[self allObamaHTML] withBaseURL:self.obamaBaseURL targetImageWidth:self.imageSize];
     }];
 }
 

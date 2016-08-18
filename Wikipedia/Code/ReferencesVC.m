@@ -357,17 +357,17 @@
                                   direction:direction
                                    animated:animated
                                  completion:^(BOOL finished) {
-                                   if (!weakSelf.pageController) {
-                                       return;
-                                   }
-                                   dispatch_async(dispatch_get_main_queue(), ^{
-                                     [weakSelf.pageController setViewControllers:viewControllers
-                                                                       direction:direction
-                                                                        animated:NO
-                                                                      completion:^(BOOL done) {
-                                                                        [weakSelf refViewDidAppear:weakSelf.topPageControl.currentPage];
-                                                                      }];
-                                   });
+                                     if (!weakSelf.pageController) {
+                                         return;
+                                     }
+                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                         [weakSelf.pageController setViewControllers:viewControllers
+                                                                           direction:direction
+                                                                            animated:NO
+                                                                          completion:^(BOOL done) {
+                                                                              [weakSelf refViewDidAppear:weakSelf.topPageControl.currentPage];
+                                                                          }];
+                                     });
                                  }];
 }
 

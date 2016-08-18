@@ -44,8 +44,8 @@
         [self getFaceBoundsInImage:image
                            failure:failure
                            success:^(NSArray *faceBounds) {
-                             [self cacheFaceDetectionBounds:faceBounds forURL:url];
-                             success([faceBounds firstObject]);
+                               [self cacheFaceDetectionBounds:faceBounds forURL:url];
+                               success([faceBounds firstObject]);
                            }];
     }
 }
@@ -58,9 +58,9 @@
         [self getFaceBoundsInImage:image
                            failure:failure
                            success:^(NSArray *faceBounds) {
-                             imageMetadata.allNormalizedFaceBounds = faceBounds;
-                             [imageMetadata save];
-                             success([faceBounds firstObject]);
+                               imageMetadata.allNormalizedFaceBounds = faceBounds;
+                               [imageMetadata save];
+                               success([faceBounds firstObject]);
                            }];
     }
 }
@@ -69,8 +69,8 @@
     [[CIDetector wmf_sharedFaceDetector] wmf_detectFeaturelessFacesInImage:image
                                                                    failure:failure
                                                                    success:^(NSArray *features) {
-                                                                     NSArray<NSValue *> *faceBounds = [image wmf_normalizeAndConvertBoundsFromCIFeatures:features];
-                                                                     success(faceBounds);
+                                                                       NSArray<NSValue *> *faceBounds = [image wmf_normalizeAndConvertBoundsFromCIFeatures:features];
+                                                                       success(faceBounds);
                                                                    }];
 }
 

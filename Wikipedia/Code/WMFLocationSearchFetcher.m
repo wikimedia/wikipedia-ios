@@ -63,13 +63,13 @@ NS_ASSUME_NONNULL_BEGIN
                              resultLimit:(NSUInteger)resultLimit
                              cancellable:(inout id<Cancellable> __nullable *__nullable)outCancellable {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-      id<Cancellable> cancellable =
-          [self fetchNearbyArticlesWithSiteURL:siteURL
-                                      location:location
-                                   resultLimit:resultLimit
-                                 useDesktopURL:NO
-                                      resolver:resolve];
-      WMFSafeAssign(outCancellable, cancellable);
+        id<Cancellable> cancellable =
+            [self fetchNearbyArticlesWithSiteURL:siteURL
+                                        location:location
+                                     resultLimit:resultLimit
+                                   useDesktopURL:NO
+                                        resolver:resolve];
+        WMFSafeAssign(outCancellable, cancellable);
     }];
 }
 
@@ -88,21 +88,21 @@ NS_ASSUME_NONNULL_BEGIN
         parameters:params
         progress:NULL
         success:^(NSURLSessionDataTask *operation, id response) {
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
-          WMFLocationSearchResults *results = [[WMFLocationSearchResults alloc] initWithSearchSiteURL:siteURL location:location results:response];
-          resolve(results);
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            WMFLocationSearchResults *results = [[WMFLocationSearchResults alloc] initWithSearchSiteURL:siteURL location:location results:response];
+            resolve(results);
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:siteURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
-              [self fetchNearbyArticlesWithSiteURL:siteURL
-                                          location:location
-                                       resultLimit:resultLimit
-                                     useDesktopURL:YES
-                                          resolver:resolve];
-          } else {
-              [[MWNetworkActivityIndicatorManager sharedManager] pop];
-              resolve(error);
-          }
+            if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:siteURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
+                [self fetchNearbyArticlesWithSiteURL:siteURL
+                                            location:location
+                                         resultLimit:resultLimit
+                                       useDesktopURL:YES
+                                            resolver:resolve];
+            } else {
+                [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                resolve(error);
+            }
         }];
 }
 

@@ -25,15 +25,15 @@
                                     MWKSearchResult *preview,
                                     UITableView *tableView,
                                     NSIndexPath *indexPath) {
-          @strongify(self);
-          NSURL *articleURL = [self urlForIndexPath:indexPath];
-          NSParameterAssert([articleURL.wmf_siteURL isEqual:self.siteURL]);
+            @strongify(self);
+            NSURL *articleURL = [self urlForIndexPath:indexPath];
+            NSParameterAssert([articleURL.wmf_siteURL isEqual:self.siteURL]);
 
-          cell.titleText = articleURL.wmf_title;
-          cell.descriptionText = preview.wikidataDescription;
-          [cell setImageURL:preview.thumbnailURL];
+            cell.titleText = articleURL.wmf_title;
+            cell.descriptionText = preview.wikidataDescription;
+            [cell setImageURL:preview.thumbnailURL];
 
-          [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+            [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
         };
     }
     return self;
@@ -69,7 +69,7 @@
 - (NSArray<NSURL *> *)urls {
     if (!_urls) {
         self.urls = [self.allItems bk_map:^NSURL *(MWKSearchResult *preview) {
-          return [self articleURLForPreview:preview];
+            return [self articleURLForPreview:preview];
         }];
     }
     return _urls;

@@ -84,10 +84,10 @@
 
 - (id<MWKListObject> __nullable)entryForListIndex:(MWKListIndex)listIndex {
     return [self.entries bk_match:^BOOL(id<MWKListObject> obj) {
-      if ([[obj listIndex] isEqual:listIndex]) {
-          return YES;
-      }
-      return NO;
+        if ([[obj listIndex] isEqual:listIndex]) {
+            return YES;
+        }
+        return NO;
     }];
 }
 
@@ -150,20 +150,20 @@
 
 - (AnyPromise *)save {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-      dispatchOnMainQueue(^{
-        if (self.dirty) {
-            [self performSaveWithCompletion:^{
-              self.dirty = NO;
-              resolve(nil);
+        dispatchOnMainQueue(^{
+            if (self.dirty) {
+                [self performSaveWithCompletion:^{
+                    self.dirty = NO;
+                    resolve(nil);
+                }
+                    error:^(NSError *error) {
+                        resolve(error);
+                    }];
+            } else {
+                self.dirty = NO;
+                resolve(nil);
             }
-                error:^(NSError *error) {
-                  resolve(error);
-                }];
-        } else {
-            self.dirty = NO;
-            resolve(nil);
-        }
-      });
+        });
     }];
 }
 

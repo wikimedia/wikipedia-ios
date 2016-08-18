@@ -29,26 +29,26 @@
 - (AnyPromise *)fetchSiteInfoForSiteURL:(NSURL *)siteURL {
     NSParameterAssert(siteURL);
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-      NSDictionary *params = @{
-          @"action" : @"query",
-          @"meta" : @"siteinfo",
-          @"format" : @"json",
-          @"siprop" : @"general"
-      };
+        NSDictionary *params = @{
+            @"action" : @"query",
+            @"meta" : @"siteinfo",
+            @"format" : @"json",
+            @"siprop" : @"general"
+        };
 
-      [self.operationManager wmf_GETAndRetryWithURL:siteURL
-          parameters:params
-          retry:NULL
-          success:^(NSURLSessionDataTask *operation, id responseObject) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            NSDictionary *generalProps = [responseObject valueForKeyPath:@"query.general"];
-            MWKSiteInfo *info = [[MWKSiteInfo alloc] initWithSiteURL:siteURL mainPageTitleText:generalProps[@"mainpage"]];
-            resolve(info);
-          }
-          failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve(error);
-          }];
+        [self.operationManager wmf_GETAndRetryWithURL:siteURL
+            parameters:params
+            retry:NULL
+            success:^(NSURLSessionDataTask *operation, id responseObject) {
+                [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                NSDictionary *generalProps = [responseObject valueForKeyPath:@"query.general"];
+                MWKSiteInfo *info = [[MWKSiteInfo alloc] initWithSiteURL:siteURL mainPageTitleText:generalProps[@"mainpage"]];
+                resolve(info);
+            }
+            failure:^(NSURLSessionDataTask *operation, NSError *error) {
+                [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                resolve(error);
+            }];
     }];
 }
 

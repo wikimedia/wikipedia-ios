@@ -63,21 +63,21 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
                                        resultLimit:(NSUInteger)resultLimit {
     NSParameterAssert(URL.wmf_title);
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-      WMFRelatedSearchRequestParameters *params = [WMFRelatedSearchRequestParameters new];
-      params.articleURL = URL;
-      params.numberOfResults = resultLimit;
+        WMFRelatedSearchRequestParameters *params = [WMFRelatedSearchRequestParameters new];
+        params.articleURL = URL;
+        params.numberOfResults = resultLimit;
 
-      [self.operationManager wmf_GETAndRetryWithURL:URL
-          parameters:params
-          retry:NULL
-          success:^(NSURLSessionDataTask *operation, id responseObject) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve([[WMFRelatedSearchResults alloc] initWithURL:URL results:responseObject]);
-          }
-          failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve(error);
-          }];
+        [self.operationManager wmf_GETAndRetryWithURL:URL
+            parameters:params
+            retry:NULL
+            success:^(NSURLSessionDataTask *operation, id responseObject) {
+                [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                resolve([[WMFRelatedSearchResults alloc] initWithURL:URL results:responseObject]);
+            }
+            failure:^(NSURLSessionDataTask *operation, NSError *error) {
+                [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                resolve(error);
+            }];
     }];
 }
 

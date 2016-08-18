@@ -54,7 +54,7 @@
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-      [self.tableView reloadData];
+        [self.tableView reloadData];
     }
                                  completion:NULL];
 }
@@ -77,12 +77,12 @@
 
 - (void)registerForPreviewingIfAvailable {
     [self wmf_ifForceTouchAvailable:^{
-      [self unregisterPreviewing];
-      self.previewingContext = [self registerForPreviewingWithDelegate:self
-                                                            sourceView:self.tableView];
+        [self unregisterPreviewing];
+        self.previewingContext = [self registerForPreviewingWithDelegate:self
+                                                              sourceView:self.tableView];
     }
         unavailable:^{
-          [self unregisterPreviewing];
+            [self unregisterPreviewing];
         }];
 }
 
@@ -137,18 +137,18 @@
             self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:[self deleteButtonText]
                                                                                         style:UIBarButtonItemStylePlain
                                                                                       handler:^(id sender) {
-                                                                                        @strongify(self);
-                                                                                        UIAlertController *sheet = [UIAlertController alertControllerWithTitle:[self deleteAllConfirmationText] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-                                                                                        [sheet addAction:[UIAlertAction actionWithTitle:[self deleteText]
-                                                                                                                                  style:UIAlertActionStyleDestructive
-                                                                                                                                handler:^(UIAlertAction *_Nonnull action) {
-                                                                                                                                  [self deleteAll];
-                                                                                                                                  [self.tableView reloadData];
-                                                                                                                                }]];
-                                                                                        [sheet addAction:[UIAlertAction actionWithTitle:[self deleteCancelText] style:UIAlertActionStyleCancel handler:NULL]];
-                                                                                        sheet.popoverPresentationController.barButtonItem = sender;
-                                                                                        sheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
-                                                                                        [self presentViewController:sheet animated:YES completion:NULL];
+                                                                                          @strongify(self);
+                                                                                          UIAlertController *sheet = [UIAlertController alertControllerWithTitle:[self deleteAllConfirmationText] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+                                                                                          [sheet addAction:[UIAlertAction actionWithTitle:[self deleteText]
+                                                                                                                                    style:UIAlertActionStyleDestructive
+                                                                                                                                  handler:^(UIAlertAction *_Nonnull action) {
+                                                                                                                                      [self deleteAll];
+                                                                                                                                      [self.tableView reloadData];
+                                                                                                                                  }]];
+                                                                                          [sheet addAction:[UIAlertAction actionWithTitle:[self deleteCancelText] style:UIAlertActionStyleCancel handler:NULL]];
+                                                                                          sheet.popoverPresentationController.barButtonItem = sender;
+                                                                                          sheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+                                                                                          [self presentViewController:sheet animated:YES completion:NULL];
                                                                                       }];
         }
 

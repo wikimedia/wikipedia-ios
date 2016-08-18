@@ -14,13 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         self.cellClass = [WMFArticleFooterMenuCell class];
         self.cellConfigureBlock = ^(WMFArticleFooterMenuCell *cell, WMFArticleFooterMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
-          cell.title = menuItem.title;
-          cell.subTitle = menuItem.subTitle;
-          cell.imageName = menuItem.imageName;
+            cell.title = menuItem.title;
+            cell.subTitle = menuItem.subTitle;
+            cell.imageName = menuItem.imageName;
         };
 
         self.tableActionBlock = ^BOOL(SSCellActionType action, UITableView *tableView, NSIndexPath *indexPath) {
-          return NO;
+            return NO;
         };
 
         self.article = article;
@@ -60,18 +60,18 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSDate *lastModified = article.lastmodified ? article.lastmodified : [NSDate date];
 
-    if (NO /*FBTweakValue(@"Article", @"Article Metadata Footer", @"Show last edit timestamp", NO)*/) {
-        [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-                                      [lastModified mediumString],
-                                      MWSiteLocalizedString(article.url, @"page-edit-history", nil),
-                                      @"footer-edit-history")];
-    } else {
-        [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-                                      [MWSiteLocalizedString(article.url, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                                              withString:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] daysAfterDate:lastModified]]],
-                                      MWSiteLocalizedString(article.url, @"page-edit-history", nil),
-                                      @"footer-edit-history")];
-    }
+    //    if (NO /*FBTweakValue(@"Article", @"Article Metadata Footer", @"Show last edit timestamp", NO)*/) {
+    //        [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
+    //                                      [lastModified mediumString],
+    //                                      MWSiteLocalizedString(article.url, @"page-edit-history", nil),
+    //                                      @"footer-edit-history")];
+    //    } else {
+    [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
+                                  [MWSiteLocalizedString(article.url, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                                                          withString:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] daysAfterDate:lastModified]]],
+                                  MWSiteLocalizedString(article.url, @"page-edit-history", nil),
+                                  @"footer-edit-history")];
+    //    }
 
     if (article.pageIssues.count > 0) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypePageIssues,

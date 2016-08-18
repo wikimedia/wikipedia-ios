@@ -61,61 +61,61 @@
         transformerUsingForwardBlock:^NSURL *(NSString *urlString,
                                               BOOL *success,
                                               NSError *__autoreleasing *error) {
-          return [NSURL wmf_optionalURLWithString:urlString];
+            return [NSURL wmf_optionalURLWithString:urlString];
         }
         reverseBlock:^NSString *(NSURL *thumbnailURL,
                                  BOOL *success,
                                  NSError *__autoreleasing *error) {
-          return [thumbnailURL absoluteString];
+            return [thumbnailURL absoluteString];
         }];
 }
 
 + (NSValueTransformer *)wikidataDescriptionJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *value, BOOL *success, NSError *__autoreleasing *error) {
-      NSString *description = [value firstObject];
-      return [description wmf_stringByCapitalizingFirstCharacter];
+        NSString *description = [value firstObject];
+        return [description wmf_stringByCapitalizingFirstCharacter];
     }];
 }
 
 + (MTLValueTransformer *)extractJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *extract, BOOL *success, NSError *__autoreleasing *error) {
-      // HAX: sometimes the api gives us "..." for the extract, which is not useful and messes up how random
-      // weights relative quality of the random titles it retrieves.
-      if ([extract isEqualToString:@"..."]) {
-          extract = nil;
-      }
+        // HAX: sometimes the api gives us "..." for the extract, which is not useful and messes up how random
+        // weights relative quality of the random titles it retrieves.
+        if ([extract isEqualToString:@"..."]) {
+            extract = nil;
+        }
 
-      return [extract wmf_summaryFromText];
+        return [extract wmf_summaryFromText];
     }];
 }
 
 + (NSValueTransformer *)isDisambiguationJSONTransformer {
     return [MTLValueTransformer
         transformerUsingForwardBlock:^(NSDictionary *value, BOOL *success, NSError **error) {
-          NSString *disambiguation = value[@"pageprops.disambiguation"];
-          if (disambiguation) {
-              return @YES;
-          }
-          // HAX: occasionally the search api doesn't report back "disambiguation" page term ( T121288 ),
-          // so double-check wiki data description for "disambiguation page" string.
-          NSArray *descriptions = value[@"terms.description"];
-          return @(descriptions.count && [descriptions.firstObject containsString:@"disambiguation page"]);
+            NSString *disambiguation = value[@"pageprops.disambiguation"];
+            if (disambiguation) {
+                return @YES;
+            }
+            // HAX: occasionally the search api doesn't report back "disambiguation" page term ( T121288 ),
+            // so double-check wiki data description for "disambiguation page" string.
+            NSArray *descriptions = value[@"terms.description"];
+            return @(descriptions.count && [descriptions.firstObject containsString:@"disambiguation page"]);
         }];
 }
 
 + (NSValueTransformer *)isListJSONTransformer {
     return [MTLValueTransformer
         transformerUsingForwardBlock:^(NSArray *value, BOOL *success, NSError **error) {
-          // HAX: check wiki data description for "Wikimedia list article" string. Not perfect
-          // and enwiki specific, but confirmed with max that without doing separate wikidata query, there's no way to tell if it's a list at the moment.
-          return @(value.count && [value.firstObject containsString:@"Wikimedia list article"]);
+            // HAX: check wiki data description for "Wikimedia list article" string. Not perfect
+            // and enwiki specific, but confirmed with max that without doing separate wikidata query, there's no way to tell if it's a list at the moment.
+            return @(value.count && [value.firstObject containsString:@"Wikimedia list article"]);
         }];
 }
 
 + (NSValueTransformer *)revIDJSONTransformer {
     return [MTLValueTransformer
         transformerUsingForwardBlock:^id(NSArray *value, BOOL *success, NSError **error) {
-          return (value.count > 0 && value.firstObject[@"revid"]) ? value.firstObject[@"revid"] : @(0);
+            return (value.count > 0 && value.firstObject[@"revid"]) ? value.firstObject[@"revid"] : @(0);
         }];
 }
 

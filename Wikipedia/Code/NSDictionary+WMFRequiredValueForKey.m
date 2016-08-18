@@ -12,11 +12,11 @@ NSString *const WMFFailingDictionaryUserInfoKey = @"WMFFailingDictionaryUserInfo
                              error:(NSError *_Nullable __autoreleasing *)outError {
     NSParameterAssert(key);
     NSError * (^errorWithCode)(WMFInvalidValueForKeyError) = ^(WMFInvalidValueForKeyError code) {
-      return [NSError errorWithDomain:WMFInvalidValueForKeyErrorDomain
-                                 code:code
-                             userInfo:@{
-                                 WMFFailingDictionaryUserInfoKey : self
-                             }];
+        return [NSError errorWithDomain:WMFInvalidValueForKeyErrorDomain
+                                   code:code
+                               userInfo:@{
+                                   WMFFailingDictionaryUserInfoKey : self
+                               }];
     };
     id value = self[key];
     if (!value) {

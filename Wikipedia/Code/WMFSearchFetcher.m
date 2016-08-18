@@ -55,7 +55,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
                             fullTextSearch:(BOOL)fullTextSearch
                    appendToPreviousResults:(nullable WMFSearchResults *)results {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-      [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:results useDesktopURL:NO resolver:resolve];
+        [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:results useDesktopURL:NO resolver:resolve];
     }];
 }
 
@@ -80,27 +80,27 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
         parameters:params
         progress:NULL
         success:^(NSURLSessionDataTask *operation, id response) {
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          WMFSearchResults *searchResults = response;
-          searchResults.searchTerm = searchTerm;
+            WMFSearchResults *searchResults = response;
+            searchResults.searchTerm = searchTerm;
 
-          if (!previousResults) {
-              resolve(searchResults);
-              return;
-          }
+            if (!previousResults) {
+                resolve(searchResults);
+                return;
+            }
 
-          [previousResults mergeValuesForKeysFromModel:searchResults];
+            [previousResults mergeValuesForKeysFromModel:searchResults];
 
-          resolve(previousResults);
+            resolve(previousResults);
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:siteURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
-              [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:previousResults useDesktopURL:YES resolver:resolve];
-          } else {
-              [[MWNetworkActivityIndicatorManager sharedManager] pop];
-              resolve(error);
-          }
+            if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:siteURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
+                [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:previousResults useDesktopURL:YES resolver:resolve];
+            } else {
+                [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                resolve(error);
+            }
         }];
 }
 

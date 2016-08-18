@@ -48,7 +48,7 @@
 - (NSArray<NSURL *> *)urlsFromHMTL:(NSString *)html atTargetWidth:(NSUInteger)targetWidth {
     WMFImageTagList *tagList = [self.parser imageTagListFromParsingHTMLString:html withBaseURL:self.baseURL];
     NSArray<NSURL *> *imageTags = [tagList.imageTags bk_map:^NSURL *(WMFImageTag *tag) {
-      return [tag URLForTargetWidth:targetWidth];
+        return [tag URLForTargetWidth:targetWidth];
     }];
     return imageTags;
 }
@@ -90,7 +90,7 @@
             @"//upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/640px-Seal_of_the_President_of_the_United_States.svg.png",
             @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Seal_of_the_United_States_Senate.svg/640px-Seal_of_the_United_States_Senate.svg.png"
         ] bk_map:^NSURL *(NSString *stringURL) {
-          return [NSURL URLWithString:stringURL];
+            return [NSURL URLWithString:stringURL];
         }];
 
     assertThat(parsedObamaGalleryURLS, is(equalTo(expectedObamaGalleryURLs)));
@@ -208,7 +208,7 @@
             @"//upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/25px-Wikiquote-logo.svg.png",
             @"//upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/29px-Wikisource-logo.svg.png"
         ] bk_map:^NSURL *(NSString *stringURL) {
-          return [NSURL URLWithString:stringURL];
+            return [NSURL URLWithString:stringURL];
         }];
 
     assertThat(parsedObamaGalleryURLS, is(equalTo(expectedObamaGalleryURLs)));
@@ -216,8 +216,8 @@
 
 - (void)testParsingObamaHTMLPerformance {
     [self measureBlock:^{
-      NSArray *parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:self.allObamaHTML withBaseURL:self.obamaBaseURL] imageURLsForGallery];
-      assertThat(parsedObamaGalleryURLS, hasCountOf(31));
+        NSArray *parsedObamaGalleryURLS = [[self.parser imageTagListFromParsingHTMLString:self.allObamaHTML withBaseURL:self.obamaBaseURL] imageURLsForGallery];
+        assertThat(parsedObamaGalleryURLS, hasCountOf(31));
     }];
 }
 
@@ -231,7 +231,7 @@
         [@[
             @"//upload.wikimedia.org/wikipedia/commons/0/0b/300px-Geothermgradients.png",
         ] bk_map:^NSURL *(NSString *stringURL) {
-          return [NSURL URLWithString:stringURL];
+            return [NSURL URLWithString:stringURL];
         }];
 
     assertThat([self urlsFromHMTL:tagsToParse atTargetWidth:1024], is(equalTo(expectedURLs)));
@@ -334,7 +334,7 @@
             @"//upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/640px-Seal_of_the_President_of_the_United_States.svg.png",
             @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Seal_of_the_United_States_Senate.svg/640px-Seal_of_the_United_States_Senate.svg.png"
         ] bk_map:^NSURL *(NSString *stringURL) {
-          return [NSURL URLWithString:stringURL];
+            return [NSURL URLWithString:stringURL];
         }];
 
     assertThat(parsedObamaGalleryURLS, is(equalTo(expectedObamaGalleryURLs)));
@@ -377,7 +377,7 @@
             @"//upload.wikimedia.org/wikipedia/commons/thumb/3/36/Seal_of_the_President_of_the_United_States.svg/640px-Seal_of_the_President_of_the_United_States.svg.png",
             @"//upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Seal_of_the_United_States_Senate.svg/640px-Seal_of_the_United_States_Senate.svg.png"
         ] bk_map:^NSURL *(NSString *stringURL) {
-          return [NSURL URLWithString:stringURL];
+            return [NSURL URLWithString:stringURL];
         }];
 
     assertThat(parsedObamaGalleryURLS, is(equalTo(expectedObamaGalleryURLs)));

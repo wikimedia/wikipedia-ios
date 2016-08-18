@@ -51,7 +51,7 @@ static NSUInteger const WMFNearbyDataSourceFetchCount = 20;
 
 - (NSArray<NSURL *> *)urls {
     return [self.searchResults.results bk_map:^id(MWKLocationSearchResult *obj) {
-      return [self.searchSiteURL wmf_URLWithTitle:obj.displayTitle];
+        return [self.searchSiteURL wmf_URLWithTitle:obj.displayTitle];
     }];
 }
 
@@ -102,16 +102,16 @@ static NSUInteger const WMFNearbyDataSourceFetchCount = 20;
                                              resultLimit:WMFNearbyDataSourceFetchCount
                                              cancellable:&fetch]
         .then(^(WMFLocationSearchResults *locationSearchResults) {
-          @strongify(self);
-          self.searchResults = locationSearchResults;
-          [self updateItems:locationSearchResults.results];
+            @strongify(self);
+            self.searchResults = locationSearchResults;
+            [self updateItems:locationSearchResults.results];
         })
         .catch(^(NSError *error) {
-          //This means there were 0 results - not neccesarily a "real" error.
-          //Only inform the delegate if we get a real error.
-          if (!([error.domain isEqualToString:MTLJSONAdapterErrorDomain] && error.code == MTLJSONAdapterErrorInvalidJSONDictionary)) {
-              // TODO: propagate error to view controller
-          }
+            //This means there were 0 results - not neccesarily a "real" error.
+            //Only inform the delegate if we get a real error.
+            if (!([error.domain isEqualToString:MTLJSONAdapterErrorDomain] && error.code == MTLJSONAdapterErrorInvalidJSONDictionary)) {
+                // TODO: propagate error to view controller
+            }
         });
     self.lastFetch = fetch;
 }

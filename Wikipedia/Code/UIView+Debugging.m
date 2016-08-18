@@ -6,7 +6,7 @@
     // Add borders and random background colors to view and its subviews
     // Makes debugging autolayout easier
     float (^color)() = ^float() {
-      return (float)arc4random_uniform(100) / 100.0f;
+        return (float)arc4random_uniform(100) / 100.0f;
     };
     for (UIView *subView in self.subviews.copy) {
         subView.layer.borderWidth = 1.0f;

@@ -8,7 +8,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithRed:0.118 green:0.118 blue:0.118 alpha:1];
+        c = [UIColor colorWithRed:0.118 green:0.118 blue:0.118 alpha:1];
     });
     return c;
 }
@@ -18,7 +18,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor wmf_colorWithHex:0x565656 alpha:1.0];
+        c = [UIColor wmf_colorWithHex:0x565656 alpha:1.0];
     });
     return c;
 }
@@ -32,7 +32,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithWhite:0.870588 alpha:1.0];
+        c = [UIColor colorWithWhite:0.870588 alpha:1.0];
     });
     return c;
 }
@@ -42,7 +42,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithWhite:0.975 alpha:1];
+        c = [UIColor colorWithWhite:0.975 alpha:1];
     });
     return c;
 }
@@ -52,7 +52,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithWhite:0.7 alpha:1.0];
+        c = [UIColor colorWithWhite:0.7 alpha:1.0];
     });
     return c;
 }
@@ -62,7 +62,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithWhite:0.96 alpha:1.0];
+        c = [UIColor colorWithWhite:0.96 alpha:1.0];
     });
     return c;
 }
@@ -72,8 +72,8 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor wmf_colorWithHex:0xEAECF0 alpha:1.0];
-      ;
+        c = [UIColor wmf_colorWithHex:0xEAECF0 alpha:1.0];
+        ;
     });
     return c;
 }
@@ -87,7 +87,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithRed:244.0 / 255.0 green:245.0 / 255.0 blue:247.0 / 255.0 alpha:1];
+        c = [UIColor colorWithRed:244.0 / 255.0 green:245.0 / 255.0 blue:247.0 / 255.0 alpha:1];
     });
     return c;
 }
@@ -97,7 +97,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithWhite:1 alpha:1];
+        c = [UIColor colorWithWhite:1 alpha:1];
     });
     return c;
 }
@@ -107,7 +107,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithWhite:1 alpha:1];
+        c = [UIColor colorWithWhite:1 alpha:1];
     });
     return c;
 }
@@ -117,7 +117,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithWhite:0.95 alpha:1];
+        c = [UIColor colorWithWhite:0.95 alpha:1];
     });
     return c;
 }
@@ -127,7 +127,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithRed:51.0 / 255.0 green:102.0 / 255.0 blue:204.0 / 255.0 alpha:1];
+        c = [UIColor colorWithRed:51.0 / 255.0 green:102.0 / 255.0 blue:204.0 / 255.0 alpha:1];
     });
     return c;
 }
@@ -137,7 +137,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
+        c = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
     });
     return c;
 }
@@ -147,7 +147,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithRed:85.0 / 255.0 green:90.0 / 255.0 blue:95.0 / 255.0 alpha:1];
+        c = [UIColor colorWithRed:85.0 / 255.0 green:90.0 / 255.0 blue:95.0 / 255.0 alpha:1];
     });
     return c;
 }
@@ -181,7 +181,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithHue:0.611 saturation:0.75 brightness:0.8 alpha:1];
+        c = [UIColor colorWithHue:0.611 saturation:0.75 brightness:0.8 alpha:1];
     });
     return c;
 }
@@ -195,7 +195,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithRed:238.0f / 255.0f green:238.0f / 255.0f blue:238.0f / 255.0f alpha:1];
+        c = [UIColor colorWithRed:238.0f / 255.0f green:238.0f / 255.0f blue:238.0f / 255.0f alpha:1];
     });
     return c;
 }
@@ -217,7 +217,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor wmf_colorWithHex:0x666666 alpha:1.0];
+        c = [UIColor wmf_colorWithHex:0x666666 alpha:1.0];
     });
     return c;
 }
@@ -231,7 +231,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor wmf_colorWithHex:0x999999 alpha:1.0];
+        c = [UIColor wmf_colorWithHex:0x999999 alpha:1.0];
     });
     return c;
 }
@@ -241,7 +241,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor wmf_colorWithHex:0x777777 alpha:1.0];
+        c = [UIColor wmf_colorWithHex:0x777777 alpha:1.0];
     });
     return c;
 }
@@ -251,7 +251,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor wmf_colorWithHex:0x9AA0A7 alpha:1.0];
+        c = [UIColor wmf_colorWithHex:0x9AA0A7 alpha:1.0];
     });
     return c;
 }
@@ -261,7 +261,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor wmf_colorWithHex:0x444444 alpha:1.0];
+        c = [UIColor wmf_colorWithHex:0x444444 alpha:1.0];
     });
     return c;
 }
@@ -279,7 +279,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
+        c = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
     });
     return c;
 }
@@ -306,7 +306,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor wmf_colorWithHex:0x00AF89 alpha:1.0];
+        c = [UIColor wmf_colorWithHex:0x00AF89 alpha:1.0];
     });
     return c;
 }
@@ -316,7 +316,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor wmf_colorWithHex:0xE8F3FE alpha:1.0];
+        c = [UIColor wmf_colorWithHex:0xE8F3FE alpha:1.0];
     });
     return c;
 }
@@ -326,7 +326,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor wmf_colorWithHex:0xC5D1EA alpha:1.0];
+        c = [UIColor wmf_colorWithHex:0xC5D1EA alpha:1.0];
     });
     return c;
 }
@@ -336,7 +336,7 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      c = [UIColor colorWithRed:0.8039 green:0.8039 blue:0.8039 alpha:1.0];
+        c = [UIColor colorWithRed:0.8039 green:0.8039 blue:0.8039 alpha:1.0];
     });
     return c;
 }

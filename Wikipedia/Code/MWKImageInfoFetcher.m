@@ -43,12 +43,12 @@
 
 - (AnyPromise *)fetchGalleryInfoForImage:(NSString *)canonicalPageTitle fromSiteURL:(NSURL *)siteURL {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-      [self fetchGalleryInfoForImageFiles:@[ canonicalPageTitle ]
-                              fromSiteURL:siteURL
-                                  success:^(NSArray *infoObjects) {
-                                    resolve(infoObjects.firstObject);
-                                  }
-                                  failure:resolve];
+        [self fetchGalleryInfoForImageFiles:@[ canonicalPageTitle ]
+                                fromSiteURL:siteURL
+                                    success:^(NSArray *infoObjects) {
+                                        resolve(infoObjects.firstObject);
+                                    }
+                                    failure:resolve];
     }];
 }
 
@@ -56,14 +56,14 @@
                                      fromSiteURL:(NSURL *)siteURL
                                 metadataLanguage:(NSString *)metadataLanguage {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-      [self fetchInfoForTitles:pageTitles
-                   fromSiteURL:siteURL
-                thumbnailWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale]
-               extmetadataKeys:[MWKImageInfoResponseSerializer galleryExtMetadataKeys]
-              metadataLanguage:metadataLanguage
-                  useGenerator:YES
-                       success:resolve
-                       failure:resolve];
+        [self fetchInfoForTitles:pageTitles
+                     fromSiteURL:siteURL
+                  thumbnailWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale]
+                 extmetadataKeys:[MWKImageInfoResponseSerializer galleryExtMetadataKeys]
+                metadataLanguage:metadataLanguage
+                    useGenerator:YES
+                         success:resolve
+                         failure:resolve];
     }];
 }
 
@@ -71,14 +71,14 @@
                                      fromSiteURL:(NSURL *)siteURL
                                 metadataLanguage:(nullable NSString *)metadataLanguage {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-      [self fetchInfoForTitles:pageTitles
-                   fromSiteURL:siteURL
-                thumbnailWidth:[[UIScreen mainScreen] wmf_potdImageWidthForScale]
-               extmetadataKeys:[MWKImageInfoResponseSerializer picOfTheDayExtMetadataKeys]
-              metadataLanguage:metadataLanguage
-                  useGenerator:YES
-                       success:resolve
-                       failure:resolve];
+        [self fetchInfoForTitles:pageTitles
+                     fromSiteURL:siteURL
+                  thumbnailWidth:[[UIScreen mainScreen] wmf_potdImageWidthForScale]
+                 extmetadataKeys:[MWKImageInfoResponseSerializer picOfTheDayExtMetadataKeys]
+                metadataLanguage:metadataLanguage
+                    useGenerator:YES
+                         success:resolve
+                         failure:resolve];
     }];
 }
 
@@ -133,18 +133,18 @@
             parameters:params
             retry:nil
             success:^(NSURLSessionDataTask *operation, NSArray *galleryItems) {
-              @strongify(self);
-              [self finishWithError:nil fetchedData:galleryItems];
-              if (success) {
-                  success(galleryItems);
-              }
+                @strongify(self);
+                [self finishWithError:nil fetchedData:galleryItems];
+                if (success) {
+                    success(galleryItems);
+                }
             }
             failure:^(NSURLSessionDataTask *operation, NSError *error) {
-              @strongify(self);
-              [self finishWithError:error fetchedData:nil];
-              if (failure) {
-                  failure(error);
-              }
+                @strongify(self);
+                [self finishWithError:error fetchedData:nil];
+                if (failure) {
+                    failure(error);
+                }
             }];
     NSParameterAssert(request);
     return (id<MWKImageInfoRequest>)request;

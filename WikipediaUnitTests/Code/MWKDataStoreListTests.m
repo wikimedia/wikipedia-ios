@@ -37,18 +37,18 @@
 
 - (void)testSavedListIsEqualToListWithAddedEntries {
     [self verifyListRoundTripAfter:^(MWKList *list) {
-      [self.testObjects bk_each:^(id entry) {
-        [list addEntry:entry];
-      }];
+        [self.testObjects bk_each:^(id entry) {
+            [list addEntry:entry];
+        }];
     }];
 }
 
 - (void)testSavedListIsEqualToListWithAddedAndRemovedEntries {
     [self verifyListRoundTripAfter:^(MWKList *list) {
-      [self.testObjects bk_each:^(id entry){
-      }];
-      [list removeEntryWithListIndex:[self.testObjects.firstObject listIndex]];
-      [list removeEntryWithListIndex:[self.testObjects.lastObject listIndex]];
+        [self.testObjects bk_each:^(id entry){
+        }];
+        [list removeEntryWithListIndex:[self.testObjects.firstObject listIndex]];
+        [list removeEntryWithListIndex:[self.testObjects.lastObject listIndex]];
     }];
 }
 
@@ -62,10 +62,10 @@
     XCTestExpectation *promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
 
     [list save].then(^(id obj) {
-                 [promiseExpectation fulfill];
+                   [promiseExpectation fulfill];
                })
         .catch(^(NSError *error) {
-          XCTFail(@"Save failed");
+            XCTFail(@"Save failed");
         });
 
     WaitForExpectations();

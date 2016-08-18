@@ -54,7 +54,7 @@
                                       inArray:_items
                             withFrameProvider:frameProvider
                            attributesProvider:^WMFCVLAttributes *(NSIndexPath *indexPath) {
-                             return [WMFCVLAttributes layoutAttributesForCellWithIndexPath:indexPath];
+                               return [WMFCVLAttributes layoutAttributesForCellWithIndexPath:indexPath];
                            }];
 }
 
@@ -63,7 +63,7 @@
                                       inArray:_headers
                             withFrameProvider:frameProvider
                            attributesProvider:^WMFCVLAttributes *(NSIndexPath *indexPath) {
-                             return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:indexPath];
+                               return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:indexPath];
                            }];
 }
 
@@ -72,7 +72,7 @@
                                       inArray:_footers
                             withFrameProvider:frameProvider
                            attributesProvider:^WMFCVLAttributes *(NSIndexPath *indexPath) {
-                             return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:indexPath];
+                               return [WMFCVLAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter withIndexPath:indexPath];
                            }];
 }
 
@@ -80,16 +80,16 @@
     __block BOOL bigStop = NO;
 
     [self.headers enumerateObjectsUsingBlock:^(WMFCVLAttributes *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-      block(obj, &bigStop);
-      *stop = bigStop;
+        block(obj, &bigStop);
+        *stop = bigStop;
     }];
 
     if (bigStop) {
         return;
     }
     [self.items enumerateObjectsUsingBlock:^(WMFCVLAttributes *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-      block(obj, &bigStop);
-      *stop = bigStop;
+        block(obj, &bigStop);
+        *stop = bigStop;
     }];
 
     if (bigStop) {
@@ -97,8 +97,8 @@
     }
 
     [self.footers enumerateObjectsUsingBlock:^(WMFCVLAttributes *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-      block(obj, &bigStop);
-      *stop = bigStop;
+        block(obj, &bigStop);
+        *stop = bigStop;
     }];
 }
 

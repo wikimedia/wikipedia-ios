@@ -98,11 +98,11 @@
 
     __block BOOL update = NO;
     [self enumerateSectionsWithBlock:^(WMFCVLSection *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
-      if (section == afterSection) {
-          update = YES;
-      } else if (update) {
-          [section offsetByDeltaY:deltaY withInvalidationContext:invalidationContext];
-      }
+        if (section == afterSection) {
+            update = YES;
+        } else if (update) {
+            [section offsetByDeltaY:deltaY withInvalidationContext:invalidationContext];
+        }
     }];
 }
 

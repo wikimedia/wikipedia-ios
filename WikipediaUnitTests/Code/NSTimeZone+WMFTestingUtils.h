@@ -3,7 +3,7 @@
 @import Quick;
 
 #define resetTimeZoneAfterEach() afterEach(^{ \
-  [NSTimeZone wmf_resetDefaultTimeZone];      \
+    [NSTimeZone wmf_resetDefaultTimeZone];    \
 })
 
 @interface NSTimeZone (WMFTestingUtils)

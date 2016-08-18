@@ -76,46 +76,46 @@ extern void WMFMultilineFunctionDeclaration(int arg1,
 - (void)chainedBlockExample {
     [[[self multiLineArrayExample]
         filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-          // block body
-          // goes here
-          return YES;
+            // block body
+            // goes here
+            return YES;
         }]]
         filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-          // block body
-          // goes here
-          return YES;
+            // block body
+            // goes here
+            return YES;
         }]];
 }
 
 - (void)animationExample {
     [UIView animateWithDuration:0
         animations:^{
-          if (YES) {
-              NSLog(@"Foo!");
-          }
+            if (YES) {
+                NSLog(@"Foo!");
+            }
         }
         completion:^(BOOL finished) {
-          if (YES) {
-              NSLog(@"Foo!");
-          }
+            if (YES) {
+                NSLog(@"Foo!");
+            }
         }];
 }
 
 - (void)animationExampleWithInternalBlocks {
     [UIView animateWithDuration:0
         animations:^{
-          dispatch_async(dispatch_get_main_queue(), ^{
-            // body
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // body
 
-            if (YES) {
-                NSLog(@"Foo!");
-            }
-          });
+                if (YES) {
+                    NSLog(@"Foo!");
+                }
+            });
         }
         completion:^(BOOL finished) {
-          dispatch_async(dispatch_get_main_queue(), ^{
-                             // body
-                         });
+            dispatch_async(dispatch_get_main_queue(), ^{
+                               // body
+                           });
         }];
 }
 

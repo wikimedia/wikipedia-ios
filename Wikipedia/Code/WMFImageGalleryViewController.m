@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSArray<WMFArticlePhoto *> *)photosWithThumbnailImageObjects:(NSArray<MWKImage *> *)imageObjects {
     return [imageObjects bk_map:^id(MWKImage *obj) {
-      return [[WMFArticlePhoto alloc] initWithThumbnailImage:obj];
+        return [[WMFArticlePhoto alloc] initWithThumbnailImage:obj];
     }];
 }
 
@@ -303,27 +303,27 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:url
         failure:^(NSError *_Nonnull error) {
-          [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
         }
         success:^(WMFImageDownload *_Nonnull download) {
-          @strongify(self);
-          NSMutableArray *items = [NSMutableArray array];
+            @strongify(self);
+            NSMutableArray *items = [NSMutableArray array];
 
-          WMFImageTextActivitySource *textSource = [[WMFImageTextActivitySource alloc] initWithInfo:info];
-          [items addObject:textSource];
+            WMFImageTextActivitySource *textSource = [[WMFImageTextActivitySource alloc] initWithInfo:info];
+            [items addObject:textSource];
 
-          WMFImageURLActivitySource *imageSource = [[WMFImageURLActivitySource alloc] initWithInfo:info];
-          [items addObject:imageSource];
+            WMFImageURLActivitySource *imageSource = [[WMFImageURLActivitySource alloc] initWithInfo:info];
+            [items addObject:imageSource];
 
-          if (download.image) {
-              [items addObject:download.image];
-          }
+            if (download.image) {
+                [items addObject:download.image];
+            }
 
-          UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
-          vc.excludedActivityTypes = @[ UIActivityTypeAddToReadingList ];
-          UIPopoverPresentationController *presenter = [vc popoverPresentationController];
-          presenter.barButtonItem = self.rightBarButtonItem;
-          [self presentViewController:vc animated:YES completion:NULL];
+            UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
+            vc.excludedActivityTypes = @[ UIActivityTypeAddToReadingList ];
+            UIPopoverPresentationController *presenter = [vc popoverPresentationController];
+            presenter.barButtonItem = self.rightBarButtonItem;
+            [self presentViewController:vc animated:YES completion:NULL];
         }];
 }
 
@@ -368,12 +368,12 @@ NS_ASSUME_NONNULL_BEGIN
 
     @weakify(self)
         caption.ownerTapCallback = ^{
-      @strongify(self)
-          [self wmf_openExternalUrl:imageInfo.license.URL];
+        @strongify(self)
+            [self wmf_openExternalUrl:imageInfo.license.URL];
     };
     caption.infoTapCallback = ^{
-      @strongify(self)
-          [self wmf_openExternalUrl:imageInfo.filePageURL];
+        @strongify(self)
+            [self wmf_openExternalUrl:imageInfo.filePageURL];
     };
 
     return caption;
@@ -421,7 +421,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.infoController = [[WMFImageInfoController alloc] initWithDataStore:article.dataStore batchSize:50];
         [self.infoController setUniqueArticleImages:items forArticleURL:article.url];
         [self.photos enumerateObjectsUsingBlock:^(WMFArticlePhoto *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-          obj.imageInfo = [self.infoController infoForImage:[obj bestImageObject]];
+            obj.imageInfo = [self.infoController infoForImage:[obj bestImageObject]];
         }];
         self.infoController.delegate = self;
     }
@@ -452,11 +452,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSUInteger)indexOfImage:(MWKImage *)image inPhotos:(NSArray<id<NYTPhoto>> *)photos {
     return [photos
         indexOfObjectPassingTest:^BOOL(WMFArticlePhoto *anImage, NSUInteger _, BOOL *stop) {
-          if ([anImage.imageObject isVariantOfImage:image] || [anImage.thumbnailImageObject isVariantOfImage:image]) {
-              *stop = YES;
-              return YES;
-          }
-          return NO;
+            if ([anImage.imageObject isVariantOfImage:image] || [anImage.thumbnailImageObject isVariantOfImage:image]) {
+                *stop = YES;
+                return YES;
+            }
+            return NO;
         }];
 }
 
@@ -494,11 +494,11 @@ NS_ASSUME_NONNULL_BEGIN
         @weakify(self);
         [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage imageURL]
             failure:^(NSError *_Nonnull error) {
-              //show error
+                //show error
             }
             success:^(WMFImageDownload *_Nonnull download) {
-              @strongify(self);
-              [self updateImageForPhoto:galleryImage];
+                @strongify(self);
+                [self updateImageForPhoto:galleryImage];
             }];
     } else {
         [self updateImageForPhoto:galleryImage];
@@ -521,15 +521,15 @@ NS_ASSUME_NONNULL_BEGIN
     [self.photos enumerateObjectsAtIndexes:fetchedIndexes
                                    options:0
                                 usingBlock:^(WMFArticlePhoto *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                                  MWKImageInfo *info = [controller infoForImage:[obj imageObject]];
-                                  if (!info) {
-                                      info = [controller infoForImage:[obj thumbnailImageObject]];
-                                  }
-                                  NSParameterAssert(info);
-                                  obj.imageInfo = info;
-                                  if ([self.currentlyDisplayedPhoto isEqual:obj]) {
-                                      [self fetchImageForPhoto:obj];
-                                  }
+                                    MWKImageInfo *info = [controller infoForImage:[obj imageObject]];
+                                    if (!info) {
+                                        info = [controller infoForImage:[obj thumbnailImageObject]];
+                                    }
+                                    NSParameterAssert(info);
+                                    obj.imageInfo = info;
+                                    if ([self.currentlyDisplayedPhoto isEqual:obj]) {
+                                        [self fetchImageForPhoto:obj];
+                                    }
                                 }];
 
     [self updateOverlayInformation];
@@ -568,7 +568,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSArray<WMFPOTDPhoto *> *)photosWithDates:(NSArray<NSDate *> *)dates {
     return [dates bk_map:^id(NSDate *obj) {
-      return [[WMFPOTDPhoto alloc] initWithPOTDDate:obj];
+        return [[WMFPOTDPhoto alloc] initWithPOTDDate:obj];
     }];
 }
 
@@ -713,10 +713,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self.infoFetcher fetchPicOfTheDayGalleryInfoForDate:date
                                         metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]
         .then(^(MWKImageInfo *info) {
-          @strongify(self);
-          galleryImage.imageInfo = info;
-          [self updateOverlayInformation];
-          [self fetchImageForPhoto:galleryImage];
+            @strongify(self);
+            galleryImage.imageInfo = info;
+            [self updateOverlayInformation];
+            [self fetchImageForPhoto:galleryImage];
         })
         .catch(^(NSError *error){
             //show error
@@ -729,11 +729,11 @@ NS_ASSUME_NONNULL_BEGIN
     if (memoryCachedImage == nil) {
         [[WMFImageController sharedInstance] fetchImageWithURL:[galleryImage bestImageURL]
             failure:^(NSError *_Nonnull error) {
-              //show error
+                //show error
             }
             success:^(WMFImageDownload *_Nonnull download) {
-              @strongify(self);
-              [self updateImageForPhoto:galleryImage];
+                @strongify(self);
+                [self updateImageForPhoto:galleryImage];
             }];
     } else {
         [self updateImageForPhoto:galleryImage];

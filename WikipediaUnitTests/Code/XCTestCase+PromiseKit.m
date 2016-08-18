@@ -24,18 +24,18 @@
     __block XCTestExpectation *expectation = [self expectationForMethod:method line:line];
     AnyPromise *promise = testBlock();
     promise.then(^{
-             [expectation fulfill];
+               [expectation fulfill];
            })
         .catchWithPolicy(PMKCatchPolicyAllErrors, ^(NSError *e) {
-          XCTFail(@"Unexpected error: %@", e);
+            XCTFail(@"Unexpected error: %@", e);
         });
     [self waitForExpectationsWithTimeout:timeout
                                  handler:^(NSError *_Nullable error) {
-                                   if (error) {
-                                       // don't fulfill the expectation after the timeout expires, XCTest will raise an assertion and wreak all sorts of havoc
-                                       DDLogError(@"Timeout expired with error: %@", error);
-                                       expectation = nil;
-                                   }
+                                     if (error) {
+                                         // don't fulfill the expectation after the timeout expires, XCTest will raise an assertion and wreak all sorts of havoc
+                                         DDLogError(@"Timeout expired with error: %@", error);
+                                         expectation = nil;
+                                     }
                                  }];
 }
 
@@ -58,18 +58,18 @@
     __block XCTestExpectation *expectation = [self expectationForMethod:method line:line];
     AnyPromise *promise = testBlock();
     promise.then(^(id val) {
-             XCTFail(@"Unexpected resolution: %@", val);
+               XCTFail(@"Unexpected resolution: %@", val);
            })
         .catchWithPolicy(policy, ^{
-          [expectation fulfill];
+            [expectation fulfill];
         });
     [self waitForExpectationsWithTimeout:timeout
                                  handler:^(NSError *_Nullable error) {
-                                   if (error) {
-                                       // don't fulfill the expectation after the timeout expires, XCTest will raise an assertion and wreak all sorts of havoc
-                                       DDLogError(@"Timeout expired with error: %@", error);
-                                       expectation = nil;
-                                   }
+                                     if (error) {
+                                         // don't fulfill the expectation after the timeout expires, XCTest will raise an assertion and wreak all sorts of havoc
+                                         DDLogError(@"Timeout expired with error: %@", error);
+                                         expectation = nil;
+                                     }
                                  }];
 }
 

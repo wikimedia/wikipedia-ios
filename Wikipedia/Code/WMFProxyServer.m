@@ -34,8 +34,8 @@
     static dispatch_once_t onceToken;
     static WMFProxyServer *sharedProxyServer;
     dispatch_once(&onceToken, ^{
-      [GCDWebServer setLogLevel:3]; // 3 = Warning
-      sharedProxyServer = [[WMFProxyServer alloc] init];
+        [GCDWebServer setLogLevel:3]; // 3 = Warning
+        sharedProxyServer = [[WMFProxyServer alloc] init];
     });
     return sharedProxyServer;
 }
@@ -95,7 +95,7 @@
                                                                      sticky:YES
                                                       dismissPreviousAlerts:YES
                                                                 tapCallBack:^{
-                                                                  [self start];
+                                                                    [self start];
                                                                 }];
 #endif
             }
@@ -120,56 +120,56 @@
 - (GCDWebServerAsyncProcessBlock)defaultHandler {
     @weakify(self);
     return ^(GCDWebServerRequest *request, GCDWebServerCompletionBlock completionBlock) {
-      dispatch_block_t notFound = ^{
-        completionBlock([GCDWebServerErrorResponse responseWithClientError:kGCDWebServerHTTPStatusCode_NotFound message:@"404"]);
-      };
+        dispatch_block_t notFound = ^{
+            completionBlock([GCDWebServerErrorResponse responseWithClientError:kGCDWebServerHTTPStatusCode_NotFound message:@"404"]);
+        };
 
-      @strongify(self);
-      if (!self) {
-          notFound();
-          return;
-      }
+        @strongify(self);
+        if (!self) {
+            notFound();
+            return;
+        }
 
-      NSString *path = request.path;
-      NSArray *components = [path pathComponents];
+        NSString *path = request.path;
+        NSArray *components = [path pathComponents];
 
-      if (components.count < 3) { //ensure components exist and there are at least three
-          notFound();
-          return;
-      }
+        if (components.count < 3) { //ensure components exist and there are at least three
+            notFound();
+            return;
+        }
 
-      if (![components[1] isEqualToString:self.secret]) { //ensure the second component is the secret
-          notFound();
-          return;
-      }
+        if (![components[1] isEqualToString:self.secret]) { //ensure the second component is the secret
+            notFound();
+            return;
+        }
 
-      NSString *baseComponent = components[2];
+        NSString *baseComponent = components[2];
 
-      if ([baseComponent isEqualToString:WMFProxyFileBasePath]) {
-          NSArray *localPathComponents = [components subarrayWithRange:NSMakeRange(3, components.count - 3)];
-          NSString *relativePath = [NSString pathWithComponents:localPathComponents];
-          [self handleFileRequestForRelativePath:relativePath completionBlock:completionBlock];
-      } else if ([baseComponent isEqualToString:WMFProxyImageBasePath]) {
-          NSString *originalSrc = request.query[WMFProxyImageOriginalSrcKey];
-          if (!originalSrc) {
-              notFound();
-              return;
-          }
+        if ([baseComponent isEqualToString:WMFProxyFileBasePath]) {
+            NSArray *localPathComponents = [components subarrayWithRange:NSMakeRange(3, components.count - 3)];
+            NSString *relativePath = [NSString pathWithComponents:localPathComponents];
+            [self handleFileRequestForRelativePath:relativePath completionBlock:completionBlock];
+        } else if ([baseComponent isEqualToString:WMFProxyImageBasePath]) {
+            NSString *originalSrc = request.query[WMFProxyImageOriginalSrcKey];
+            if (!originalSrc) {
+                notFound();
+                return;
+            }
 
-          if ([originalSrc hasPrefix:@"//"]) {
-              originalSrc = [@"https:" stringByAppendingString:originalSrc];
-          }
+            if ([originalSrc hasPrefix:@"//"]) {
+                originalSrc = [@"https:" stringByAppendingString:originalSrc];
+            }
 
-          NSURL *imgURL = [NSURL URLWithString:originalSrc];
-          if (!imgURL) {
-              notFound();
-              return;
-          }
+            NSURL *imgURL = [NSURL URLWithString:originalSrc];
+            if (!imgURL) {
+                notFound();
+                return;
+            }
 
-          [self handleImageRequestForURL:imgURL completionBlock:completionBlock];
-      } else {
-          notFound();
-      }
+            [self handleImageRequestForURL:imgURL completionBlock:completionBlock];
+        } else {
+            notFound();
+        }
     };
 }
 
@@ -215,14 +215,14 @@
     } else {
         NSURLSessionDataTask *downloadImgTask = [[NSURLSession sharedSession] dataTaskWithRequest:request
                                                                                 completionHandler:^(NSData *imgData, NSURLResponse *response, NSError *error) {
-                                                                                  if (response && imgData) {
-                                                                                      GCDWebServerDataResponse *gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:imgData contentType:response.MIMEType];
-                                                                                      completionBlock(gcdResponse);
-                                                                                      NSCachedURLResponse *responseToCache = [[NSCachedURLResponse alloc] initWithResponse:response data:imgData];
-                                                                                      [URLCache storeCachedResponse:responseToCache forRequest:request];
-                                                                                  } else {
-                                                                                      completionBlock(notFound);
-                                                                                  }
+                                                                                    if (response && imgData) {
+                                                                                        GCDWebServerDataResponse *gcdResponse = [[GCDWebServerDataResponse alloc] initWithData:imgData contentType:response.MIMEType];
+                                                                                        completionBlock(gcdResponse);
+                                                                                        NSCachedURLResponse *responseToCache = [[NSCachedURLResponse alloc] initWithResponse:response data:imgData];
+                                                                                        [URLCache storeCachedResponse:responseToCache forRequest:request];
+                                                                                    } else {
+                                                                                        completionBlock(notFound);
+                                                                                    }
                                                                                 }];
         [downloadImgTask resume];
     }
@@ -273,16 +273,16 @@
     NSMutableString *newHTMLString = [NSMutableString stringWithString:@""];
     __block NSInteger location = 0;
     [HTMLString wmf_enumerateHTMLImageTagContentsWithHandler:^(NSString *imageTagContents, NSRange range) {
-      //append the next chunk that we didn't match on to the new string
-      NSString *nonMatchingStringToAppend = [HTMLString substringWithRange:NSMakeRange(location, range.location - location)];
-      [newHTMLString appendString:nonMatchingStringToAppend];
+        //append the next chunk that we didn't match on to the new string
+        NSString *nonMatchingStringToAppend = [HTMLString substringWithRange:NSMakeRange(location, range.location - location)];
+        [newHTMLString appendString:nonMatchingStringToAppend];
 
-      //update imageTagContents by changing the src, disabling the srcset, and adding other attributes used for scaling
-      NSString *newImageTagContents = [self stringByUpdatingImageTagAttributesForProxyAndScalingInImageTagContents:imageTagContents withBaseURL:baseURL targetImageWidth:targetImageWidth];
-      //append the updated image tag to the new string
-      [newHTMLString appendString:[@[ @"<img ", newImageTagContents, @">" ] componentsJoinedByString:@""]];
+        //update imageTagContents by changing the src, disabling the srcset, and adding other attributes used for scaling
+        NSString *newImageTagContents = [self stringByUpdatingImageTagAttributesForProxyAndScalingInImageTagContents:imageTagContents withBaseURL:baseURL targetImageWidth:targetImageWidth];
+        //append the updated image tag to the new string
+        [newHTMLString appendString:[@[ @"<img ", newImageTagContents, @">" ] componentsJoinedByString:@""]];
 
-      location = range.location + range.length;
+        location = range.location + range.length;
     }];
 
     //append the final chunk of the original string

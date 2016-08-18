@@ -78,7 +78,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                                     keyPath:WMF_SAFE_KEYPATH([WMFAuthenticationManager sharedInstance], loggedInUsername)
                                     options:NSKeyValueObservingOptionInitial
                                       block:^(WMFSettingsViewController *observer, id object, NSDictionary *change) {
-                                        [observer reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
+                                          [observer reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
                                       }];
 }
 
@@ -91,9 +91,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     @weakify(self)
         UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
                                                            handler:^(id sender) {
-                                                             @strongify(self)
-                                                                 [self dismissViewControllerAnimated:YES
-                                                                                          completion:nil];
+                                                               @strongify(self)
+                                                                   [self dismissViewControllerAnimated:YES
+                                                                                            completion:nil];
                                                            }];
     self.navigationItem.leftBarButtonItems = @[ xButton ];
 }
@@ -108,26 +108,26 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.elementDataSource.tableView = self.tableView;
     self.elementDataSource.cellClass = [WMFSettingsTableViewCell class];
     self.elementDataSource.tableActionBlock = ^BOOL(SSCellActionType action, UITableView *tableView, NSIndexPath *indexPath) {
-      return NO;
+        return NO;
     };
 
     @weakify(self)
         self.elementDataSource.cellConfigureBlock = ^(WMFSettingsTableViewCell *cell, WMFSettingsMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
-      cell.title = menuItem.title;
-      cell.iconColor = menuItem.iconColor;
-      cell.iconName = menuItem.iconName;
-      cell.disclosureType = menuItem.disclosureType;
-      cell.disclosureText = menuItem.disclosureText;
-      [cell.disclosureSwitch setOn:menuItem.isSwitchOn];
-      cell.selectionStyle = (menuItem.disclosureType == WMFSettingsMenuItemDisclosureType_Switch) ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
+        cell.title = menuItem.title;
+        cell.iconColor = menuItem.iconColor;
+        cell.iconName = menuItem.iconName;
+        cell.disclosureType = menuItem.disclosureType;
+        cell.disclosureText = menuItem.disclosureText;
+        [cell.disclosureSwitch setOn:menuItem.isSwitchOn];
+        cell.selectionStyle = (menuItem.disclosureType == WMFSettingsMenuItemDisclosureType_Switch) ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
 
-      [cell.disclosureSwitch bk_removeEventHandlersForControlEvents:UIControlEventValueChanged];
-      [cell.disclosureSwitch bk_addEventHandler:^(UISwitch *sender) {
-        @strongify(self)
-            menuItem.isSwitchOn = sender.isOn;
-        [self updateStateForMenuItemType:menuItem.type isSwitchOnValue:sender.isOn];
-      }
-                               forControlEvents:UIControlEventValueChanged];
+        [cell.disclosureSwitch bk_removeEventHandlersForControlEvents:UIControlEventValueChanged];
+        [cell.disclosureSwitch bk_addEventHandler:^(UISwitch *sender) {
+            @strongify(self)
+                menuItem.isSwitchOn = sender.isOn;
+            [self updateStateForMenuItemType:menuItem.type isSwitchOnValue:sender.isOn];
+        }
+                                 forControlEvents:UIControlEventValueChanged];
     };
     [self loadSections];
 }
@@ -233,9 +233,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"main-menu-account-logout", nil)
                                                   style:UIAlertActionStyleDestructive
                                                 handler:^(UIAlertAction *_Nonnull action) {
-                                                  @strongify(self)
-                                                      [self logout];
-                                                  [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
+                                                    @strongify(self)
+                                                        [self logout];
+                                                    [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
                                                 }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"main-menu-account-logout-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
 
@@ -287,7 +287,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (nullable NSIndexPath *)indexPathForVisibleCellOfType:(WMFSettingsMenuItemType)type {
     return [self.tableView.indexPathsForVisibleRows bk_match:^BOOL(NSIndexPath *indexPath) {
-      return ((WMFSettingsMenuItem *)[self.elementDataSource itemAtIndexPath:indexPath]).type == type;
+        return ((WMFSettingsMenuItem *)[self.elementDataSource itemAtIndexPath:indexPath]).type == type;
     }];
 }
 

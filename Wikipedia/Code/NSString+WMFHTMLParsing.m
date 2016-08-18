@@ -45,9 +45,9 @@
     static NSRegularExpression *newlinesRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      newlinesRegex = [NSRegularExpression regularExpressionWithPattern:@"\n{2,}"
-                                                                options:0
-                                                                  error:nil];
+        newlinesRegex = [NSRegularExpression regularExpressionWithPattern:@"\n{2,}"
+                                                                  options:0
+                                                                    error:nil];
     });
     return [newlinesRegex stringByReplacingMatchesInString:self
                                                    options:0
@@ -60,10 +60,10 @@
     static NSRegularExpression *parensRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      parensRegex = [NSRegularExpression
-          regularExpressionWithPattern:@"[(][^()]+[)]"
-                               options:0
-                                 error:nil];
+        parensRegex = [NSRegularExpression
+            regularExpressionWithPattern:@"[(][^()]+[)]"
+                                 options:0
+                                   error:nil];
     });
 
     NSString *string = [self copy];
@@ -86,10 +86,10 @@
     static NSRegularExpression *bracketedRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      bracketedRegex = [NSRegularExpression
-          regularExpressionWithPattern:@"\\[[^]]+]"
-                               options:0
-                                 error:nil];
+        bracketedRegex = [NSRegularExpression
+            regularExpressionWithPattern:@"\\[[^]]+]"
+                                 options:0
+                                   error:nil];
     });
 
     return [bracketedRegex stringByReplacingMatchesInString:self
@@ -103,10 +103,10 @@
     static NSRegularExpression *spacePeriodRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      spacePeriodRegex = [NSRegularExpression
-          regularExpressionWithPattern:@"\\s+([\\.。．｡,、;\\-\u2014])"
-                               options:0
-                                 error:nil];
+        spacePeriodRegex = [NSRegularExpression
+            regularExpressionWithPattern:@"\\s+([\\.。．｡,、;\\-\u2014])"
+                                 options:0
+                                   error:nil];
     });
 
     return [spacePeriodRegex stringByReplacingMatchesInString:self
@@ -121,10 +121,10 @@
     static NSRegularExpression *spacesRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      spacesRegex = [NSRegularExpression
-          regularExpressionWithPattern:@" {2,}"
-                               options:0
-                                 error:nil];
+        spacesRegex = [NSRegularExpression
+            regularExpressionWithPattern:@" {2,}"
+                                 options:0
+                                   error:nil];
     });
 
     return [spacesRegex stringByReplacingMatchesInString:self
@@ -137,10 +137,10 @@
     static NSRegularExpression *whitespaceRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      whitespaceRegex = [NSRegularExpression
-          regularExpressionWithPattern:@"\\s+"
-                               options:0
-                                 error:nil];
+        whitespaceRegex = [NSRegularExpression
+            regularExpressionWithPattern:@"\\s+"
+                                 options:0
+                                   error:nil];
     });
 
     return [whitespaceRegex stringByReplacingMatchesInString:self
@@ -160,10 +160,10 @@
     static NSRegularExpression *leadTrailColonRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      leadTrailColonRegex = [NSRegularExpression
-          regularExpressionWithPattern:@"^[\\s\n]+|[\\s\n:]+$"
-                               options:0
-                                 error:nil];
+        leadTrailColonRegex = [NSRegularExpression
+            regularExpressionWithPattern:@"^[\\s\n]+|[\\s\n:]+$"
+                                 options:0
+                                   error:nil];
     });
 
     return [leadTrailColonRegex stringByReplacingMatchesInString:self
@@ -202,20 +202,20 @@
     static NSRegularExpression *imageTagRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      NSString *pattern = @"(?:<img\\s)([^>]*)(?:>)";
-      imageTagRegex = [NSRegularExpression regularExpressionWithPattern:pattern
-                                                                options:NSRegularExpressionCaseInsensitive
-                                                                  error:nil];
+        NSString *pattern = @"(?:<img\\s)([^>]*)(?:>)";
+        imageTagRegex = [NSRegularExpression regularExpressionWithPattern:pattern
+                                                                  options:NSRegularExpressionCaseInsensitive
+                                                                    error:nil];
     });
 
     [imageTagRegex enumerateMatchesInString:self
                                     options:0
                                       range:NSMakeRange(0, self.length)
                                  usingBlock:^(NSTextCheckingResult *_Nullable imageTagResult, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-                                   //get just the image tag contents - everything between <img and >
-                                   NSString *imageTagContents = [imageTagRegex replacementStringForResult:imageTagResult inString:self offset:0 template:@"$1"];
-                                   handler(imageTagContents, imageTagResult.range);
-                                   *stop = false;
+                                     //get just the image tag contents - everything between <img and >
+                                     NSString *imageTagContents = [imageTagRegex replacementStringForResult:imageTagResult inString:self offset:0 template:@"$1"];
+                                     handler(imageTagContents, imageTagResult.range);
+                                     *stop = false;
                                  }];
 }
 

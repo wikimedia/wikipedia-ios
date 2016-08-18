@@ -123,12 +123,12 @@
 
 - (void)applyConstraints {
     [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.leading.top.and.bottom.equalTo(self);
+        make.leading.top.and.bottom.equalTo(self);
     }];
     [self.textLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-      make.trailing.top.and.bottom.equalTo(self);
-      // make sure icon & button aren't squished together
-      make.leading.equalTo(self.iconImageView.mas_trailing).with.offset(self.spaceBetweenIconAndText);
+        make.trailing.top.and.bottom.equalTo(self);
+        // make sure icon & button aren't squished together
+        make.leading.equalTo(self.iconImageView.mas_trailing).with.offset(self.spaceBetweenIconAndText);
     }];
 }
 
@@ -139,9 +139,9 @@
 
 - (void)applySelectedState:(BOOL)animated {
     dispatch_block_t animations = ^{
-      self.iconImageView.image = self.selected && self.selectedIconImage ? self.selectedIconImage : self.iconImage;
-      self.textLabel.text = self.selected && self.selectedLabelText ? self.selectedLabelText : self.labelText;
-      self.accessibilityHint = self.textLabel.text;
+        self.iconImageView.image = self.selected && self.selectedIconImage ? self.selectedIconImage : self.iconImage;
+        self.textLabel.text = self.selected && self.selectedLabelText ? self.selectedLabelText : self.labelText;
+        self.accessibilityHint = self.textLabel.text;
     };
     if (!animated) {
         animations();

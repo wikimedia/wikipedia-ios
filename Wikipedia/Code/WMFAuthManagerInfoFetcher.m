@@ -47,12 +47,12 @@ NS_ASSUME_NONNULL_BEGIN
         parameters:params
         retry:NULL
         success:^(NSURLSessionDataTask *operation, id responseObject) {
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
-          success(responseObject);
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            success(responseObject);
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
-          failure(error);
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            failure(error);
         }];
 }
 

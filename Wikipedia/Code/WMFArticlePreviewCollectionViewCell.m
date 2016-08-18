@@ -68,15 +68,15 @@
     self.blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     [self.contentView addSubview:self.blurView];
     [self.blurView mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.edges.equalTo(self.contentView);
+        make.edges.equalTo(self.contentView);
     }];
 
     self.activityIndicator = [[UIActivityIndicatorView alloc] init];
     self.activityIndicator.color = [UIColor blackColor];
     [self.blurView.contentView addSubview:self.activityIndicator];
     [self.activityIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.height.and.width.equalTo(@50);
-      make.center.equalTo(self.activityIndicator.superview);
+        make.height.and.width.equalTo(@50);
+        make.center.equalTo(self.activityIndicator.superview);
     }];
 }
 
@@ -124,13 +124,13 @@
     static NSDictionary *attributes;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
-      pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
-      pStyle.baseWritingDirection = NSWritingDirectionNatural;
-      pStyle.lineHeightMultiple = 1.35;
-      attributes = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0],
-                     NSForegroundColorAttributeName : [UIColor darkGrayColor],
-                     NSParagraphStyleAttributeName : pStyle};
+        NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
+        pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+        pStyle.baseWritingDirection = NSWritingDirectionNatural;
+        pStyle.lineHeightMultiple = 1.35;
+        attributes = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0],
+                       NSForegroundColorAttributeName : [UIColor darkGrayColor],
+                       NSParagraphStyleAttributeName : pStyle};
     });
     return attributes;
 }

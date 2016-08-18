@@ -59,9 +59,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSValueTransformer *)resultsJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSDictionary *value, BOOL *success, NSError *__autoreleasing *error) {
-      NSArray *pages = [value allValues];
-      NSValueTransformer *transformer = [MTLJSONAdapter arrayTransformerWithModelClass:[MWKSearchResult class]];
-      return [[transformer transformedValue:pages] sortedArrayUsingDescriptors:@[ [self indexSortDescriptor] ]];
+        NSArray *pages = [value allValues];
+        NSValueTransformer *transformer = [MTLJSONAdapter arrayTransformerWithModelClass:[MWKSearchResult class]];
+        return [[transformer transformedValue:pages] sortedArrayUsingDescriptors:@[ [self indexSortDescriptor] ]];
     }];
 }
 
@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
     static NSSortDescriptor *indexSortDescriptor;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      indexSortDescriptor = [[NSSortDescriptor alloc] initWithKey:WMF_SAFE_KEYPATH(MWKSearchResult.new, index) ascending:YES];
+        indexSortDescriptor = [[NSSortDescriptor alloc] initWithKey:WMF_SAFE_KEYPATH(MWKSearchResult.new, index) ascending:YES];
     });
     return indexSortDescriptor;
 }
@@ -90,14 +90,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)mergeRedirectMappingsFromModel:(WMFSearchResults *)searchResults {
     NSArray *newMappings = [searchResults.redirectMappings bk_reject:^BOOL(MWKSearchRedirectMapping *mapping) {
-      return [self.redirectMappings containsObject:mapping];
+        return [self.redirectMappings containsObject:mapping];
     }];
     self.redirectMappings = [self.redirectMappings arrayByAddingObjectsFromArray:newMappings];
 }
 
 - (void)mergeResultsFromModel:(WMFSearchResults *)searchResults {
     NSArray *newResults = [searchResults.results bk_reject:^BOOL(MWKSearchResult *obj) {
-      return [self.results containsObject:obj];
+        return [self.results containsObject:obj];
     }];
     [self.mutableResults addObjectsFromArray:newResults];
 }

@@ -24,10 +24,10 @@
     self.rightButton.tintColor = [UIColor wmf_blueTintColor];
     @weakify(self);
     [self bk_whenTapped:^{
-      @strongify(self);
-      if (self.whenTapped) {
-          self.whenTapped();
-      }
+        @strongify(self);
+        if (self.whenTapped) {
+            self.whenTapped();
+        }
     }];
 }
 

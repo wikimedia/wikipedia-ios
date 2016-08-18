@@ -64,13 +64,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (AnyPromise *)fetch {
     @weakify(self);
     return [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:self.url resultLimit:self.resultLimit].then(^(WMFRelatedSearchResults *searchResults) {
-      @strongify(self);
-      if (!self) {
-          return (id)nil;
-      }
-      self.relatedSearchResults = searchResults;
-      [self updateItems:searchResults.results];
-      return (id)searchResults;
+        @strongify(self);
+        if (!self) {
+            return (id)nil;
+        }
+        self.relatedSearchResults = searchResults;
+        [self updateItems:searchResults.results];
+        return (id)searchResults;
     });
 }
 
@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray<NSURL *> *)urls {
     return [self.relatedSearchResults.results bk_map:^id(MWKSearchResult *obj) {
-      return [self.url wmf_URLWithTitle:obj.displayTitle];
+        return [self.url wmf_URLWithTitle:obj.displayTitle];
     }];
 }
 

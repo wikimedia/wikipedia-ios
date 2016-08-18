@@ -42,7 +42,7 @@ static NSValue *WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     self.testArticle = [[MWKArticle alloc] initWithURL:testTitle dataStore:self.tmpDataStore];
 
     NSArray<MWKImage *> *testImages = [[self generateSourceURLs:10] bk_map:^MWKImage *(NSString *urlString) {
-      return [[MWKImage alloc] initWithArticle:self.testArticle sourceURLString:urlString];
+        return [[MWKImage alloc] initWithArticle:self.testArticle sourceURLString:urlString];
     }];
 
     self.controller = [[WMFImageInfoController alloc] initWithDataStore:self.tmpDataStore
@@ -70,7 +70,7 @@ static NSValue *WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     MWKArticle *dummyArticle = [[MWKArticle alloc] initWithURL:testURL dataStore:mockDataStore];
 
     NSArray *testImages = [[self generateSourceURLs:5] bk_map:^MWKImage *(NSString *sourceURL) {
-      return [[MWKImage alloc] initWithArticle:dummyArticle sourceURLString:sourceURL];
+        return [[MWKImage alloc] initWithArticle:dummyArticle sourceURLString:sourceURL];
     }];
     NSRange preFetchedRange = NSMakeRange(0, 2);
     NSArray *expectedImageInfo = [[MWKImageInfo mappedFromImages:testImages] subarrayWithRange:preFetchedRange];
@@ -101,13 +101,13 @@ static NSValue *WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     [indexesToFetch addIndex:self.controller.uniqueArticleImages.count - 1];
     [self.controller fetchBatchesContainingIndexes:indexesToFetch];
     [indexesToFetch enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-      NSRange expectedRange = [self.controller batchRangeForTargetIndex:idx];
-      assertThat(@(WMFRangeIsNotFoundOrEmpty(expectedRange)), isFalse());
-      NSArray *expectedTitles = [self expectedTitlesForRange:expectedRange];
-      [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(1)) fetchGalleryInfoForImageFiles:expectedTitles
-                                                                           fromSiteURL:self.testArticle.url.wmf_siteURL
-                                                                               success:anything()
-                                                                               failure:anything()];
+        NSRange expectedRange = [self.controller batchRangeForTargetIndex:idx];
+        assertThat(@(WMFRangeIsNotFoundOrEmpty(expectedRange)), isFalse());
+        NSArray *expectedTitles = [self expectedTitlesForRange:expectedRange];
+        [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(1)) fetchGalleryInfoForImageFiles:expectedTitles
+                                                                             fromSiteURL:self.testArticle.url.wmf_siteURL
+                                                                                 success:anything()
+                                                                                 failure:anything()];
     }];
 }
 
@@ -196,9 +196,9 @@ static NSValue *WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 
 - (void)verifyInfoFetcherCallForIndexes:(NSIndexSet *)indexes {
     [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-      NSRange expectedRange = [self.controller batchRangeForTargetIndex:idx];
-      assertThat(@(WMFRangeIsNotFoundOrEmpty(expectedRange)), isFalse());
-      [self verifyInfoFetcherCallForRange:expectedRange withSuccess:nil failure:nil];
+        NSRange expectedRange = [self.controller batchRangeForTargetIndex:idx];
+        assertThat(@(WMFRangeIsNotFoundOrEmpty(expectedRange)), isFalse());
+        [self verifyInfoFetcherCallForRange:expectedRange withSuccess:nil failure:nil];
     }];
 }
 
@@ -263,13 +263,13 @@ static NSValue *WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 
 - (void)imageInfoController:(WMFImageInfoController *)controller failedToFetchBatch:(NSRange)range error:(NSError *)error {
     [self popExpectationAfter:^{
-      [self.mockDelegate imageInfoController:controller failedToFetchBatch:range error:error];
+        [self.mockDelegate imageInfoController:controller failedToFetchBatch:range error:error];
     }];
 }
 
 - (void)imageInfoController:(WMFImageInfoController *)controller didFetchBatch:(NSRange)range {
     [self popExpectationAfter:^{
-      [self.mockDelegate imageInfoController:controller didFetchBatch:range];
+        [self.mockDelegate imageInfoController:controller didFetchBatch:range];
     }];
 }
 

@@ -62,14 +62,14 @@
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{
-      // Put the code you want to measure the time of here.
+        // Put the code you want to measure the time of here.
 
-      for (NSInteger i = 0; i < 10000; i++) {
-          [@"Large orange text and some $1 and $2 text. More $1 text."
-              attributedStringWithAttributes:self.largeOrangeText
-                         substitutionStrings:@[ @"small green", @"medium blue" ]
-                      substitutionAttributes:@[ self.smallGreenText, self.mediumBlueText ]];
-      }
+        for (NSInteger i = 0; i < 10000; i++) {
+            [@"Large orange text and some $1 and $2 text. More $1 text."
+                attributedStringWithAttributes:self.largeOrangeText
+                           substitutionStrings:@[ @"small green", @"medium blue" ]
+                        substitutionAttributes:@[ self.smallGreenText, self.mediumBlueText ]];
+        }
     }];
 }
 

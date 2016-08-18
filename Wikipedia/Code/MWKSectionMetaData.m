@@ -5,14 +5,14 @@
 
 + (NSValueTransformer *)numberJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *value, BOOL *success, NSError *__autoreleasing *error) {
-      NSArray *indexes = [value componentsSeparatedByString:@"."];
+        NSArray *indexes = [value componentsSeparatedByString:@"."];
 
-      NSIndexPath *indexPath = [indexes bk_reduce:[NSIndexPath new]
-                                        withBlock:^id(NSIndexPath *sum, NSString *obj) {
-                                          return [sum indexPathByAddingIndex:(NSUInteger)[obj integerValue]];
-                                        }];
+        NSIndexPath *indexPath = [indexes bk_reduce:[NSIndexPath new]
+                                          withBlock:^id(NSIndexPath *sum, NSString *obj) {
+                                              return [sum indexPathByAddingIndex:(NSUInteger)[obj integerValue]];
+                                          }];
 
-      return indexPath;
+        return indexPath;
     }];
 }
 

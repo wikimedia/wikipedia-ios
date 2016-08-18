@@ -11,8 +11,8 @@
     @weakify(self)
         UIButton *button = [UIButton wmf_buttonType:WMFButtonTypeCaretLeft
                                             handler:^(id sender) {
-                                              @strongify(self)
-                                                  [self.navigationController popViewControllerAnimated:YES];
+                                                @strongify(self)
+                                                    [self.navigationController popViewControllerAnimated:YES];
                                             }];
     button.tintColor = [UIColor wmf_blueTintColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];

@@ -38,7 +38,7 @@
     static dispatch_once_t once;
     static UIImage *image;
     dispatch_once(&once, ^{
-      image = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        image = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     });
     return image;
 }
@@ -47,7 +47,7 @@
     static dispatch_once_t once;
     static UIImage *image;
     dispatch_once(&once, ^{
-      image = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"mini-external"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        image = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"mini-external"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     });
     return image;
 }
@@ -91,6 +91,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.disclosureIcon.tintColor = [UIColor wmf_colorWithHex:0xC7C7C7 alpha:1.0];
 }
 

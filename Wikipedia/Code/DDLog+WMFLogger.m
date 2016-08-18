@@ -29,7 +29,7 @@
 
 + (NSString *)wmf_currentLogFile {
     DDFileLogger *logger = [[DDLog allLoggers] bk_match:^BOOL(id obj) {
-      return [obj isKindOfClass:[DDFileLogger class]];
+        return [obj isKindOfClass:[DDFileLogger class]];
     }];
 
     NSString *logPath = [[logger.logFileManager sortedLogFilePaths] firstObject];

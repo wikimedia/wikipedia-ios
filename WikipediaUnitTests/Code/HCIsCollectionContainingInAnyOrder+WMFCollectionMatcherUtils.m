@@ -10,7 +10,7 @@ id HC_containsItemsInCollectionInAnyOrder(id itemsOrMatchers) {
 
 + (instancetype)wmf_isCollectionContainingItemsInAnyOrder:(NSArray *)itemsOrMatchers {
     return [self isCollectionContainingInAnyOrder:[itemsOrMatchers bk_map:^id(id obj) {
-                   return [obj conformsToProtocol:@protocol(HCMatcher)] ? obj : HC_equalTo(obj);
+                     return [obj conformsToProtocol:@protocol(HCMatcher)] ? obj : HC_equalTo(obj);
                  }]];
 }
 

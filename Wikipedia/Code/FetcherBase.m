@@ -6,13 +6,13 @@
 - (void)finishWithError:(NSError *)error
             fetchedData:(id)fetchedData {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-      [self setConnectionManagementFallbackForError:error];
-      //TODO: this could also be a good place to log error.domain string and error.code?
+        [self setConnectionManagementFallbackForError:error];
+        //TODO: this could also be a good place to log error.domain string and error.code?
 
-      [self.fetchFinishedDelegate fetchFinished:self
-                                    fetchedData:fetchedData
-                                         status:[self getStatusFromError:error]
-                                          error:error];
+        [self.fetchFinishedDelegate fetchFinished:self
+                                      fetchedData:fetchedData
+                                           status:[self getStatusFromError:error]
+                                            error:error];
     }];
 }
 

@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setPreviews:(nullable NSArray<MWKSearchResult *> *)previews {
     _previews = [previews bk_select:^BOOL(MWKSearchResult *preview) {
-      return [preview.titleNamespace wmf_isMainNamespace];
+        return [preview.titleNamespace wmf_isMainNamespace];
     }];
 }
 
@@ -237,17 +237,17 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     return [self.mostReadTitlesFetcher fetchMostReadTitlesForSiteURL:self.siteURL date:self.date]
         .then(^id(WMFMostReadTitlesResponseItem *mostReadResponse) {
-          @strongify(self);
-          NSParameterAssert([mostReadResponse.siteURL isEqual:self.siteURL]);
-          if (!self) {
-              return [NSError cancelledError];
-          }
-          self.mostReadArticlesResponse = mostReadResponse;
+            @strongify(self);
+            NSParameterAssert([mostReadResponse.siteURL isEqual:self.siteURL]);
+            if (!self) {
+                return [NSError cancelledError];
+            }
+            self.mostReadArticlesResponse = mostReadResponse;
         WMF_TECH_DEBT_TODO(need to test for issues with really long query strings);
         NSArray<NSURL *> *titlesToPreview = [mostReadResponse.articles
             bk_map:^NSURL *(WMFMostReadTitlesResponseItemArticle *article) {
-              // HAX: must normalize title otherwise it won't match fetched previews. this is why pageid > title
-              return [self.siteURL wmf_URLWithTitle:article.titleText];
+                // HAX: must normalize title otherwise it won't match fetched previews. this is why pageid > title
+                return [self.siteURL wmf_URLWithTitle:article.titleText];
             }];
         return [self.previewFetcher
             fetchArticlePreviewResultsForArticleURLs:titlesToPreview
@@ -256,17 +256,17 @@ NS_ASSUME_NONNULL_BEGIN
                                       thumbnailWidth:[[UIScreen mainScreen] wmf_listThumbnailWidthForScale].unsignedIntegerValue];
         })
         .then(^NSArray<MWKSearchResult *> *(NSArray<MWKSearchResult *> *previews) {
-          @strongify(self);
+            @strongify(self);
 
-          // Now that we have preview data we can check for articleID. If articleID is zero
-          // it's not a regular article. Rejecting these hides most special pages.
-          previews = [previews bk_reject:^BOOL(MWKSearchResult *previews) {
-            return (previews.articleID == 0);
-          }];
+            // Now that we have preview data we can check for articleID. If articleID is zero
+            // it's not a regular article. Rejecting these hides most special pages.
+            previews = [previews bk_reject:^BOOL(MWKSearchResult *previews) {
+                return (previews.articleID == 0);
+            }];
 
-          self.previews = previews;
-          // only return first 5 previews to the section, store the rest internally for the full list view
-          return [self.previews wmf_safeSubarrayWithRange:NSMakeRange(0, 5)];
+            self.previews = previews;
+            // only return first 5 previews to the section, store the rest internally for the full list view
+            return [self.previews wmf_safeSubarrayWithRange:NSMakeRange(0, 5)];
         });
 }
 

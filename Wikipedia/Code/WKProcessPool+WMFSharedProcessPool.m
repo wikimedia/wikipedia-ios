@@ -6,7 +6,7 @@
     static WKProcessPool *WMFSharedProcessPool;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      WMFSharedProcessPool = [[WKProcessPool alloc] init];
+        WMFSharedProcessPool = [[WKProcessPool alloc] init];
     });
     return WMFSharedProcessPool;
 }

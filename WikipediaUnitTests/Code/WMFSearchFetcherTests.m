@@ -38,10 +38,10 @@
         .withJSON(json);
 
     expectResolutionWithTimeout(10, ^{
-      return [self.fetcher fetchArticlesForSearchTerm:@"foo" siteURL:[NSURL wmf_randomSiteURL] resultLimit:15]
-          .then(^(WMFSearchResults *result) {
-            assertThat(result.results, hasCountOf([[json valueForKeyPath:@"query.pages"] count]));
-          });
+        return [self.fetcher fetchArticlesForSearchTerm:@"foo" siteURL:[NSURL wmf_randomSiteURL] resultLimit:15]
+            .then(^(WMFSearchResults *result) {
+                assertThat(result.results, hasCountOf([[json valueForKeyPath:@"query.pages"] count]));
+            });
     });
 }
 
@@ -54,11 +54,11 @@
         .withJSON(json);
 
     expectResolutionWithTimeout(10, ^{
-      return [self.fetcher fetchArticlesForSearchTerm:@"foo" siteURL:[NSURL wmf_randomSiteURL] resultLimit:15]
-          .then(^(WMFSearchResults *result) {
-            assertThat(result.searchSuggestion, is([json valueForKeyPath:@"query.searchinfo.suggestion"]));
-            assertThat(result.results, isEmpty());
-          });
+        return [self.fetcher fetchArticlesForSearchTerm:@"foo" siteURL:[NSURL wmf_randomSiteURL] resultLimit:15]
+            .then(^(WMFSearchResults *result) {
+                assertThat(result.searchSuggestion, is([json valueForKeyPath:@"query.searchinfo.suggestion"]));
+                assertThat(result.results, isEmpty());
+            });
     });
 }
 
@@ -108,14 +108,14 @@
     __block WMFSearchResults *appendedResults;
 
     expectResolutionWithTimeout(10, ^{
-      return [self.fetcher fetchArticlesForSearchTerm:expectedMergedResults.searchTerm
-                                              siteURL:[NSURL wmf_randomSiteURL]
-                                          resultLimit:15
-                                       fullTextSearch:YES
-                              appendToPreviousResults:prefixResults]
-          .then(^(WMFSearchResults *fullTextResults) {
-            appendedResults = fullTextResults;
-          });
+        return [self.fetcher fetchArticlesForSearchTerm:expectedMergedResults.searchTerm
+                                                siteURL:[NSURL wmf_randomSiteURL]
+                                            resultLimit:15
+                                         fullTextSearch:YES
+                                appendToPreviousResults:prefixResults]
+            .then(^(WMFSearchResults *fullTextResults) {
+                appendedResults = fullTextResults;
+            });
     });
 
     XCTAssertEqual(prefixResults, appendedResults, @"Expected full text results to be appended to prefix results object.");

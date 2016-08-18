@@ -59,7 +59,7 @@
         keyPath:WMF_SAFE_KEYPATH(self, lastLocation)
         options:NSKeyValueObservingOptionInitial
           block:^(WMFSearchResultDistanceProvider *observer, WMFCompassViewModel *compassViewModel, NSDictionary *_) {
-            observer.distanceToUser = [result.location distanceFromLocation:compassViewModel.lastLocation];
+              observer.distanceToUser = [result.location distanceFromLocation:compassViewModel.lastLocation];
           }];
     return provider;
 }
@@ -71,9 +71,9 @@
         keyPath:WMF_SAFE_KEYPATH(self, lastHeading)
         options:NSKeyValueObservingOptionInitial
           block:^(WMFSearchResultBearingProvider *observer, WMFCompassViewModel *compassViewModel, NSDictionary *_) {
-            observer.bearingToLocation =
-                [compassViewModel.lastLocation wmf_bearingToLocation:result.location
-                                                   forCurrentHeading:compassViewModel.lastHeading];
+              observer.bearingToLocation =
+                  [compassViewModel.lastLocation wmf_bearingToLocation:result.location
+                                                     forCurrentHeading:compassViewModel.lastHeading];
           }];
     return provider;
 }

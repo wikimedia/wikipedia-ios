@@ -36,17 +36,17 @@
     @weakify(self)
         UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
                                                            handler:^(id sender) {
-                                                             @strongify(self)
-                                                                 [self dismissViewControllerAnimated:YES
-                                                                                          completion:nil];
+                                                               @strongify(self)
+                                                                   [self dismissViewControllerAnimated:YES
+                                                                                            completion:nil];
                                                            }];
     self.navigationItem.leftBarButtonItem = buttonX;
 
     self.buttonDone = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-done", nil)
                                                           style:UIBarButtonItemStylePlain
                                                         handler:^(id sender) {
-                                                          @strongify(self)
-                                                              [self save];
+                                                            @strongify(self)
+                                                                [self save];
                                                         }];
     self.navigationItem.rightBarButtonItem = self.buttonDone;
 

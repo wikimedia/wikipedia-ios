@@ -149,8 +149,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                           delay:0
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-                       self.recentSearchesContainerView.alpha = self.isRecentSearchesHidden ? 0.0 : 1.0;
-                       self.resultsListContainerView.alpha = 1.0 - self.recentSearchesContainerView.alpha;
+                         self.recentSearchesContainerView.alpha = self.isRecentSearchesHidden ? 0.0 : 1.0;
+                         self.resultsListContainerView.alpha = 1.0 - self.recentSearchesContainerView.alpha;
                      }
                      completion:nil];
 }
@@ -182,15 +182,15 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     if ([[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]) {
         [self.view addSubview:self.languageBarContainer];
         [self.languageBarContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
-          make.top.equalTo(self.searchFieldContainer.mas_bottom);
-          make.leading.and.trailing.equalTo(self.searchFieldContainer);
+            make.top.equalTo(self.searchFieldContainer.mas_bottom);
+            make.leading.and.trailing.equalTo(self.searchFieldContainer);
         }];
         [self.searchContentContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
-          make.top.equalTo(self.languageBarContainer.mas_bottom);
+            make.top.equalTo(self.languageBarContainer.mas_bottom);
         }];
 
         [self.languageButtons enumerateObjectsUsingBlock:^(UIButton *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-          obj.tintColor = [UIColor wmf_blueTintColor];
+            obj.tintColor = [UIColor wmf_blueTintColor];
         }];
 
         UIImage *buttonBackground = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
@@ -208,7 +208,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     } else {
         [self.languageBarContainer removeFromSuperview];
         [self.searchContentContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-          make.top.equalTo(self.searchFieldContainer.mas_bottom);
+            make.top.equalTo(self.searchFieldContainer.mas_bottom);
         }];
     }
 }
@@ -246,8 +246,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.view setNeedsUpdateConstraints];
 
     [self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
-      [self.view layoutIfNeeded];
-      [self.searchField becomeFirstResponder];
+        [self.view layoutIfNeeded];
+        [self.searchField becomeFirstResponder];
     }
                                                 completion:nil];
 }
@@ -272,8 +272,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         self.searchFieldTop.constant = -self.searchFieldHeight.constant;
 
         [self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
-          [self.searchField resignFirstResponder];
-          [self.view layoutIfNeeded];
+            [self.searchField resignFirstResponder];
+            [self.view layoutIfNeeded];
         }
                                                     completion:nil];
     }
@@ -285,7 +285,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     if (self.traitCollection.verticalSizeClass != newCollection.verticalSizeClass) {
         [self.view setNeedsUpdateConstraints];
         [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
-          [self.view layoutSubviews];
+            [self.view layoutSubviews];
         }
                                      completion:nil];
     }
@@ -307,7 +307,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)setSeparatorViewHidden:(BOOL)hidden animated:(BOOL)animated {
     [UIView animateWithDuration:animated ? 0.25 : 0.0
                      animations:^{
-                       self.separatorView.alpha = hidden ? 0.0 : 1.0;
+                         self.separatorView.alpha = hidden ? 0.0 : 1.0;
                      }];
 }
 
@@ -339,9 +339,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     NSString *query = self.searchField.text;
 
     dispatchOnMainQueueAfterDelayInSeconds(0.4, ^{
-      DDLogDebug(@"Search field text changed to: %@", query);
+        DDLogDebug(@"Search field text changed to: %@", query);
 
-      /**
+        /**
          *  This check must performed before checking isEmpty and calling didCancelSearch
          *  This is to work around a "feature" of Siri which sets the textfield.text to nil
          *  when cancelling the Siri interface, and then immediately sets the text to its original value
@@ -357,23 +357,23 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
          *  The event setting the textfield.text == nil causes many side effects which can cause crashes like:
          *  https://phabricator.wikimedia.org/T123241
          */
-      if (![query isEqualToString:self.searchField.text]) {
-          DDLogInfo(@"Aborting search for %@ since query has changed to %@", query, self.searchField.text);
-          return;
-      }
+        if (![query isEqualToString:self.searchField.text]) {
+            DDLogInfo(@"Aborting search for %@ since query has changed to %@", query, self.searchField.text);
+            return;
+        }
 
-      BOOL isFieldEmpty = [query wmf_trim].length == 0;
-      [self setSeparatorViewHidden:isFieldEmpty animated:YES];
+        BOOL isFieldEmpty = [query wmf_trim].length == 0;
+        [self setSeparatorViewHidden:isFieldEmpty animated:YES];
 
-      if (isFieldEmpty) {
-          [self didCancelSearch];
-          return;
-      }
+        if (isFieldEmpty) {
+            [self didCancelSearch];
+            return;
+        }
 
-      [self setRecentSearchesHidden:YES animated:YES];
+        [self setRecentSearchesHidden:YES animated:YES];
 
-      DDLogDebug(@"Searching for %@ after delay.", query);
-      [self searchForSearchTerm:query];
+        DDLogDebug(@"Searching for %@ after delay.", query);
+        [self searchForSearchTerm:query];
     });
 }
 
@@ -420,56 +420,56 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.resultsListController wmf_hideEmptyView];
     NSURL *url = [self currentlySelectedSearchURL];
     [self.fetcher fetchArticlesForSearchTerm:searchTerm siteURL:url resultLimit:WMFMaxSearchResultLimit].thenOn(dispatch_get_main_queue(), ^id(WMFSearchResults *results) {
-                                                                                                          @strongify(self);
-                                                                                                          if (![results.searchTerm isEqualToString:self.searchField.text]) {
-                                                                                                              return [NSError cancelledError];
-                                                                                                          }
+                                                                                                            @strongify(self);
+                                                                                                            if (![results.searchTerm isEqualToString:self.searchField.text]) {
+                                                                                                                return [NSError cancelledError];
+                                                                                                            }
 
-                                                                                                          /*
+                                                                                                            /*
            HAX: must set dataSource before starting the animation since dataSource is _unsafely_ assigned to the
            collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
          */
-                                                                                                          WMFSearchDataSource *dataSource =
-                                                                                                              [[WMFSearchDataSource alloc] initWithSearchSiteURL:url
-                                                                                                                                                   searchResults:results];
+                                                                                                            WMFSearchDataSource *dataSource =
+                                                                                                                [[WMFSearchDataSource alloc] initWithSearchSiteURL:url
+                                                                                                                                                     searchResults:results];
 
-                                                                                                          self.resultsListController.dataSource = dataSource;
+                                                                                                            self.resultsListController.dataSource = dataSource;
 
-                                                                                                          [self updateUIWithResults:results];
-                                                                                                          [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
+                                                                                                            [self updateUIWithResults:results];
+                                                                                                            [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
 
-                                                                                                          if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
-                                                                                                              return [self.fetcher fetchArticlesForSearchTerm:searchTerm
-                                                                                                                                                      siteURL:url
-                                                                                                                                                  resultLimit:WMFMaxSearchResultLimit
-                                                                                                                                               fullTextSearch:YES
-                                                                                                                                      appendToPreviousResults:results];
-                                                                                                          }
-                                                                                                          return [AnyPromise promiseWithValue:results];
+                                                                                                            if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
+                                                                                                                return [self.fetcher fetchArticlesForSearchTerm:searchTerm
+                                                                                                                                                        siteURL:url
+                                                                                                                                                    resultLimit:WMFMaxSearchResultLimit
+                                                                                                                                                 fullTextSearch:YES
+                                                                                                                                        appendToPreviousResults:results];
+                                                                                                            }
+                                                                                                            return [AnyPromise promiseWithValue:results];
                                                                                                         })
         .then(^(WMFSearchResults *results) {
-          if ([searchTerm isEqualToString:results.searchTerm]) {
-              if (results.results.count == 0) {
-                  dispatchOnMainQueueAfterDelayInSeconds(0.25, ^{
-                    //Without the delay there is a weird animation due to the table also reloading simultaneously
-                    [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults];
-                  });
-              }
-          }
+            if ([searchTerm isEqualToString:results.searchTerm]) {
+                if (results.results.count == 0) {
+                    dispatchOnMainQueueAfterDelayInSeconds(0.25, ^{
+                        //Without the delay there is a weird animation due to the table also reloading simultaneously
+                        [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults];
+                    });
+                }
+            }
 
-          // change recent search visibility if no prefix results returned, and update suggestion if needed
-          [UIView animateWithDuration:0.25
-                           animations:^{
-                             [self updateUIWithResults:results];
-                           }];
+            // change recent search visibility if no prefix results returned, and update suggestion if needed
+            [UIView animateWithDuration:0.25
+                             animations:^{
+                                 [self updateUIWithResults:results];
+                             }];
         })
         .catch(^(NSError *error) {
-          @strongify(self);
-          if ([searchTerm isEqualToString:self.searchField.text]) {
-              [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults];
-              [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-              DDLogError(@"Encountered search error: %@", error);
-          }
+            @strongify(self);
+            if ([searchTerm isEqualToString:self.searchField.text]) {
+                [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+                DDLogError(@"Encountered search error: %@", error);
+            }
         });
 }
 
@@ -551,38 +551,38 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateLanguageBarLanguages {
     [[self languageBarLanguages] enumerateObjectsUsingBlock:^(MWKLanguageLink *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-      if (idx >= [self.languageButtons count]) {
-          *stop = YES;
-      }
-      UIButton *button = self.languageButtons[idx];
-      [button setTitle:[obj localizedName] forState:UIControlStateNormal];
+        if (idx >= [self.languageButtons count]) {
+            *stop = YES;
+        }
+        UIButton *button = self.languageButtons[idx];
+        [button setTitle:[obj localizedName] forState:UIControlStateNormal];
     }];
 
     [self.languageButtons enumerateObjectsUsingBlock:^(UIButton *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-      if (idx >= [[self languageBarLanguages] count]) {
-          obj.enabled = NO;
-          obj.hidden = YES;
-      } else {
-          obj.enabled = YES;
-          obj.hidden = NO;
-      }
+        if (idx >= [[self languageBarLanguages] count]) {
+            obj.enabled = NO;
+            obj.hidden = YES;
+        } else {
+            obj.enabled = YES;
+            obj.hidden = NO;
+        }
     }];
 }
 
 - (void)selectLanguageForURL:(NSURL *)url {
     __block BOOL foundLanguageInBar = NO;
     [[self languageBarLanguages] enumerateObjectsUsingBlock:^(MWKLanguageLink *_Nonnull language, NSUInteger idx, BOOL *_Nonnull stop) {
-      if ([[language siteURL] isEqual:url]) {
-          UIButton *buttonToSelect = self.languageButtons[idx];
-          [self.languageButtons enumerateObjectsUsingBlock:^(UIButton *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            if (obj == buttonToSelect) {
-                [obj setSelected:YES];
-                foundLanguageInBar = YES;
-            } else {
-                [obj setSelected:NO];
-            }
-          }];
-      }
+        if ([[language siteURL] isEqual:url]) {
+            UIButton *buttonToSelect = self.languageButtons[idx];
+            [self.languageButtons enumerateObjectsUsingBlock:^(UIButton *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                if (obj == buttonToSelect) {
+                    [obj setSelected:YES];
+                    foundLanguageInBar = YES;
+                } else {
+                    [obj setSelected:NO];
+                }
+            }];
+        }
     }];
 
     //If we didn't find the last selected Language, jsut select the first one
@@ -622,7 +622,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self setSearchFieldText:[self searchSuggestion]];
     [UIView animateWithDuration:0.25
                      animations:^{
-                       [self updateSearchSuggestion:nil];
+                         [self updateSearchSuggestion:nil];
                      }];
     [self searchForSearchTerm:self.searchField.text];
 }
@@ -667,7 +667,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     UIViewController *presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                               [presenter wmf_pushArticleWithURL:url dataStore:self.dataStore animated:YES];
+                                 [presenter wmf_pushArticleWithURL:url dataStore:self.dataStore animated:YES];
                              }];
 }
 
@@ -681,7 +681,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     UIViewController *presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                               [presenter wmf_pushArticleViewController:(WMFArticleViewController *)viewController animated:YES];
+                                 [presenter wmf_pushArticleViewController:(WMFArticleViewController *)viewController animated:YES];
                              }];
 }
 

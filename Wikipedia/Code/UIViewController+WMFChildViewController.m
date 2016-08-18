@@ -17,10 +17,10 @@
     [self wmf_addChildController:childController
                withContainerView:containerView
                      constraints:^(MASConstraintMaker *make) {
-                       // IMPORTANT: must use "leading" and "trailing" not "left" and "right"
-                       // (or "make.edges.equalTo").
-                       // This because leading and trailing respect language direction.
-                       make.leading.trailing.top.and.bottom.equalTo(containerView);
+                         // IMPORTANT: must use "leading" and "trailing" not "left" and "right"
+                         // (or "make.edges.equalTo").
+                         // This because leading and trailing respect language direction.
+                         make.leading.trailing.top.and.bottom.equalTo(containerView);
                      }];
 }
 

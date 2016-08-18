@@ -17,10 +17,10 @@
     self.moreChevronImageView.image = [UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-right"];
     @weakify(self);
     [self bk_whenTapped:^{
-      @strongify(self);
-      if (self.whenTapped) {
-          self.whenTapped();
-      }
+        @strongify(self);
+        if (self.whenTapped) {
+            self.whenTapped();
+        }
     }];
 }
 

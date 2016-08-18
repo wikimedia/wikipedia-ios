@@ -106,8 +106,8 @@ NS_ASSUME_NONNULL_BEGIN
         [b sizeToFit];
         @weakify(self);
         [b bk_addEventHandler:^(id sender) {
-          @strongify(self);
-          [self.collectionView setContentOffset:CGPointZero animated:YES];
+            @strongify(self);
+            [self.collectionView setContentOffset:CGPointZero animated:YES];
         }
               forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.titleView = b;
@@ -175,13 +175,13 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(section != NSNotFound);
     NSParameterAssert(section < [self numberOfSectionsInCollectionView:self.collectionView]);
     return [self.collectionView.indexPathsForVisibleItems bk_any:^BOOL(NSIndexPath *indexPath) {
-      return indexPath.section == section;
+        return indexPath.section == section;
     }];
 }
 
 - (BOOL)itemAtIndexPathIsOnlyItemVisibleInSection:(NSIndexPath *)indexPath {
     NSArray<NSIndexPath *> *visibleIndexPathsInSection = [self.collectionView.indexPathsForVisibleItems bk_select:^BOOL(NSIndexPath *i) {
-      return i.section == indexPath.section;
+        return i.section == indexPath.section;
     }];
 
     if ([visibleIndexPathsInSection count] == 1 && [[visibleIndexPathsInSection firstObject] isEqual:indexPath]) {
@@ -205,8 +205,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)visibleSectionControllers {
     NSIndexSet *visibleSectionIndexes = [[self.collectionView indexPathsForVisibleItems] bk_reduce:[NSMutableIndexSet indexSet]
                                                                                          withBlock:^id(NSMutableIndexSet *sum, NSIndexPath *obj) {
-                                                                                           [sum addIndex:(NSUInteger)obj.section];
-                                                                                           return sum;
+                                                                                             [sum addIndex:(NSUInteger)obj.section];
+                                                                                             return sum;
                                                                                          }];
 
     if ([visibleSectionIndexes count] == 0) {
@@ -214,15 +214,15 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     return [[self.schemaManager.sections objectsAtIndexes:visibleSectionIndexes] wmf_mapAndRejectNil:^id(WMFExploreSection *obj) {
-      return [self sectionControllerForSection:obj];
+        return [self sectionControllerForSection:obj];
     }];
 }
 
 - (NSArray *)invisibleSections {
     NSIndexSet *visibleSectionIndexes = [[self.collectionView indexPathsForVisibleItems] bk_reduce:[NSMutableIndexSet indexSet]
                                                                                          withBlock:^id(NSMutableIndexSet *sum, NSIndexPath *obj) {
-                                                                                           [sum addIndex:(NSUInteger)obj.section];
-                                                                                           return sum;
+                                                                                             [sum addIndex:(NSUInteger)obj.section];
+                                                                                             return sum;
                                                                                          }];
 
     if ([visibleSectionIndexes count] == 0) {
@@ -249,10 +249,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)sendWillDisplayToVisibleSectionControllers {
     [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull controller) {
-      if ([controller respondsToSelector:@selector(willDisplaySection)]) {
-          DDLogInfo(@"Manually sending willDisplaySection to controller %@", controller);
-          [controller willDisplaySection];
-      }
+        if ([controller respondsToSelector:@selector(willDisplaySection)]) {
+            DDLogInfo(@"Manually sending willDisplaySection to controller %@", controller);
+            [controller willDisplaySection];
+        }
     }];
 }
 
@@ -292,7 +292,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl bk_addEventHandler:^(id sender) {
-      [self updateSectionSchemaForce:YES];
+        [self updateSectionSchemaForce:YES];
     }
                            forControlEvents:UIControlEventValueChanged];
 
@@ -359,10 +359,10 @@ NS_ASSUME_NONNULL_BEGIN
 
     // stop location manager from updating.
     [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull obj) {
-      if ([obj respondsToSelector:@selector(didEndDisplayingSection)]) {
-          DDLogDebug(@"Sending didEndDisplayingSection to controller %@ on view disappearance", obj);
-          [obj didEndDisplayingSection];
-      }
+        if ([obj respondsToSelector:@selector(didEndDisplayingSection)]) {
+            DDLogDebug(@"Sending didEndDisplayingSection to controller %@ on view disappearance", obj);
+            [obj didEndDisplayingSection];
+        }
     }];
 }
 
@@ -382,11 +382,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)registerForPreviewingIfAvailable {
     [self wmf_ifForceTouchAvailable:^{
-      [self unregisterForPreviewing];
-      self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+        [self unregisterForPreviewing];
+        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
     }
         unavailable:^{
-          [self unregisterForPreviewing];
+            [self unregisterForPreviewing];
         }];
 }
 
@@ -449,31 +449,31 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
     @weakify(self);
     [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-      switch (status) {
-          case AFNetworkReachabilityStatusReachableViaWWAN:
-          case AFNetworkReachabilityStatusReachableViaWiFi: {
-              @strongify(self);
-              self.numberOfFailedFetches = 0;
-              self.isWaitingForNetworkToReconnect = NO;
-              [self.collectionView reloadData];
-              [self.collectionView setContentOffset:self.preNetworkTroubleScrollPosition animated:NO];
-              self.preNetworkTroubleScrollPosition = CGPointZero;
-              [self wmf_hideEmptyView];
+        switch (status) {
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            case AFNetworkReachabilityStatusReachableViaWiFi: {
+                @strongify(self);
+                self.numberOfFailedFetches = 0;
+                self.isWaitingForNetworkToReconnect = NO;
+                [self.collectionView reloadData];
+                [self.collectionView setContentOffset:self.preNetworkTroubleScrollPosition animated:NO];
+                self.preNetworkTroubleScrollPosition = CGPointZero;
+                [self wmf_hideEmptyView];
 
-              [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                @weakify(self);
-                [obj resetData];
-                [obj fetchDataIfError].catch(^(NSError *error) {
-                  @strongify(self);
-                  if ([error wmf_isNetworkConnectionError]) {
-                      [self showOfflineEmptyViewAndReloadWhenReachable];
-                  }
-                });
-              }];
-          } break;
-          default:
-              break;
-      }
+                [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                    @weakify(self);
+                    [obj resetData];
+                    [obj fetchDataIfError].catch(^(NSError *error) {
+                        @strongify(self);
+                        if ([error wmf_isNetworkConnectionError]) {
+                            [self showOfflineEmptyViewAndReloadWhenReachable];
+                        }
+                    });
+                }];
+            } break;
+            default:
+                break;
+        }
     }];
 }
 
@@ -572,8 +572,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     @weakify(self);
     header.whenTapped = ^{
-      @strongify(self);
-      [self didTapHeaderInSection:indexPath.section];
+        @strongify(self);
+        [self didTapHeaderInSection:indexPath.section];
     };
 
     if ([controller conformsToProtocol:@protocol(WMFHeaderMenuProviding)]) {
@@ -582,21 +582,21 @@ NS_ASSUME_NONNULL_BEGIN
         [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
         @weakify(controller);
         [header.rightButton bk_addEventHandler:^(id sender) {
-          @strongify(controller);
-          @strongify(self);
-          if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-              UIAlertController *menuActionSheet = [(id<WMFHeaderMenuProviding>)controller menuActionSheet];
-              menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
-              menuActionSheet.popoverPresentationController.sourceView = sender;
-              menuActionSheet.popoverPresentationController.sourceRect = [sender bounds];
-              menuActionSheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
-              [self presentViewController:menuActionSheet animated:YES completion:nil];
-          } else {
-              UIAlertController *menuActionSheet = [(id<WMFHeaderMenuProviding>)controller menuActionSheet];
-              menuActionSheet.popoverPresentationController.sourceView = self.navigationController.tabBarController.tabBar.superview;
-              menuActionSheet.popoverPresentationController.sourceRect = self.navigationController.tabBarController.tabBar.frame;
-              [self presentViewController:menuActionSheet animated:YES completion:nil];
-          }
+            @strongify(controller);
+            @strongify(self);
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                UIAlertController *menuActionSheet = [(id<WMFHeaderMenuProviding>)controller menuActionSheet];
+                menuActionSheet.modalPresentationStyle = UIModalPresentationPopover;
+                menuActionSheet.popoverPresentationController.sourceView = sender;
+                menuActionSheet.popoverPresentationController.sourceRect = [sender bounds];
+                menuActionSheet.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+                [self presentViewController:menuActionSheet animated:YES completion:nil];
+            } else {
+                UIAlertController *menuActionSheet = [(id<WMFHeaderMenuProviding>)controller menuActionSheet];
+                menuActionSheet.popoverPresentationController.sourceView = self.navigationController.tabBarController.tabBar.superview;
+                menuActionSheet.popoverPresentationController.sourceRect = self.navigationController.tabBarController.tabBar.frame;
+                [self presentViewController:menuActionSheet animated:YES completion:nil];
+            }
         }
                               forControlEvents:UIControlEventTouchUpInside];
     } else if ([controller conformsToProtocol:@protocol(WMFHeaderActionProviding)] && (![controller respondsToSelector:@selector(isHeaderActionEnabled)] || [(id<WMFHeaderActionProviding>)controller isHeaderActionEnabled])) {
@@ -605,8 +605,8 @@ NS_ASSUME_NONNULL_BEGIN
         [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
         @weakify(controller);
         [header.rightButton bk_addEventHandler:^(id sender) {
-          @strongify(controller);
-          [(id<WMFHeaderActionProviding>)controller performHeaderButtonAction];
+            @strongify(controller);
+            [(id<WMFHeaderActionProviding>)controller performHeaderButtonAction];
         }
                               forControlEvents:UIControlEventTouchUpInside];
     } else {
@@ -630,8 +630,8 @@ NS_ASSUME_NONNULL_BEGIN
         footer.moreLabel.textColor = [UIColor wmf_exploreSectionFooterTextColor];
         @weakify(self);
         footer.whenTapped = ^{
-          @strongify(self);
-          [self didTapFooterInSection:indexPath.section];
+            @strongify(self);
+            [self didTapFooterInSection:indexPath.section];
         };
         return footer;
     } else {
@@ -670,12 +670,12 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     NSArray<NSIndexPath *> *visibleIndexPathsInSection = [collectionView.indexPathsForVisibleItems bk_select:^BOOL(NSIndexPath *i) {
-      return i.section == indexPath.section;
+        return i.section == indexPath.section;
     }];
 
     //the cell disappearing may still appear in this list
     visibleIndexPathsInSection = [visibleIndexPathsInSection bk_reject:^BOOL(id obj) {
-      return [indexPath isEqual:obj];
+        return [indexPath isEqual:obj];
     }];
 
     if (visibleIndexPathsInSection.count == 0) {
@@ -738,10 +738,10 @@ NS_ASSUME_NONNULL_BEGIN
     }
     //Don't hide the spinner so quickly - so users can see the change
     dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
-      [self.refreshControl endRefreshing];
-      if (completion) {
-          completion();
-      }
+        [self.refreshControl endRefreshing];
+        if (completion) {
+            completion();
+        }
     });
 }
 
@@ -800,13 +800,13 @@ NS_ASSUME_NONNULL_BEGIN
         DDLogDebug(@"Fetching section after delay: %@", controller);
         @weakify(self);
         [controller fetchDataIfNeeded].catch(^(NSError *error) {
-                                        @strongify(self);
-                                        if ([error wmf_isNetworkConnectionError]) {
-                                            [self showOfflineEmptyViewAndReloadWhenReachable];
-                                        }
+                                          @strongify(self);
+                                          if ([error wmf_isNetworkConnectionError]) {
+                                              [self showOfflineEmptyViewAndReloadWhenReachable];
+                                          }
                                       })
             .finally(^{
-              [self resetRefreshControlWithCompletion:NULL];
+                [self resetRefreshControlWithCompletion:NULL];
             });
     } else {
         DDLogInfo(@"Section for controller %@ is no longer visible, skipping fetch.", controller);
@@ -819,7 +819,7 @@ NS_ASSUME_NONNULL_BEGIN
     id<WMFExploreSectionController> sectionController =
         [self.sectionControllerCache getOrCreateControllerForSection:section
                                                        creationBlock:^(id<WMFExploreSectionController> _Nonnull newController) {
-                                                         [self registerSectionForSectionController:newController];
+                                                           [self registerSectionForSectionController:newController];
                                                        }];
     return sectionController;
 }
@@ -840,7 +840,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)loadSectionControllersForCurrentSectionSchema {
     [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFExploreSection *obj, NSUInteger idx, BOOL *stop) {
-      [self sectionControllerForSection:obj];
+        [self sectionControllerForSection:obj];
     }];
 }
 
@@ -859,11 +859,11 @@ NS_ASSUME_NONNULL_BEGIN
                                       block:^(WMFExploreViewController *observer,
                                               id<WMFExploreSectionController> observedController,
                                               NSDictionary *_) {
-                                        NSUInteger sectionIndex = [observer indexForSectionController:observedController];
-                                        if (sectionIndex != NSNotFound && [observer isDisplayingCellsForSection:sectionIndex]) {
-                                            DDLogDebug(@"Reloading table to display results in controller %@", observedController);
-                                            [observer.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-                                        }
+                                          NSUInteger sectionIndex = [observer indexForSectionController:observedController];
+                                          if (sectionIndex != NSNotFound && [observer isDisplayingCellsForSection:sectionIndex]) {
+                                              DDLogDebug(@"Reloading table to display results in controller %@", observedController);
+                                              [observer.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                                          }
                                       }];
 }
 
@@ -909,7 +909,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self loadSectionControllersForCurrentSectionSchema];
     [self.collectionView reloadData];
     [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull obj) {
-      [obj fetchDataIfError];
+        [obj fetchDataIfError];
     }];
 }
 

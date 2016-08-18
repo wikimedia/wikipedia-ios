@@ -52,7 +52,7 @@
     NSAttributedString *attrStr =
         [[self getTestAttrStr] wmf_attributedStringChangingAttribute:NSStrikethroughStyleAttributeName
                                                            withBlock:^NSNumber *(NSNumber *strike) {
-                                                             return nil;
+                                                               return nil;
                                                            }];
     [self wmf_verifyMultilineLabelWithText:attrStr width:320.f];
 }
@@ -61,7 +61,7 @@
     NSAttributedString *attrStr =
         [[self getTestAttrStr] wmf_attributedStringChangingAttribute:NSBackgroundColorAttributeName
                                                            withBlock:^UIColor *(UIColor *color) {
-                                                             return [color isEqual:[UIColor greenColor]] ? [UIColor blueColor] : color;
+                                                               return [color isEqual:[UIColor greenColor]] ? [UIColor blueColor] : color;
                                                            }];
     [self wmf_verifyMultilineLabelWithText:attrStr width:320.f];
 }
@@ -70,9 +70,9 @@
     NSAttributedString *attrStr =
         [[self getTestAttrStr] wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
                                                            withBlock:^NSParagraphStyle *(NSParagraphStyle *paragraphStyle) {
-                                                             NSMutableParagraphStyle *mutablePStyle = paragraphStyle.mutableCopy;
-                                                             mutablePStyle.lineSpacing = 2;
-                                                             return mutablePStyle;
+                                                               NSMutableParagraphStyle *mutablePStyle = paragraphStyle.mutableCopy;
+                                                               mutablePStyle.lineSpacing = 2;
+                                                               return mutablePStyle;
                                                            }];
 
     [self wmf_verifyMultilineLabelWithText:attrStr width:320.f];
@@ -82,11 +82,11 @@
     NSAttributedString *attrStr =
         [[self getTestAttrStr] wmf_attributedStringChangingAttribute:NSLinkAttributeName
                                                            withBlock:^id(id link) {
-                                                             return nil;
+                                                               return nil;
                                                            }];
     attrStr = [attrStr wmf_attributedStringChangingAttribute:NSForegroundColorAttributeName
                                                    withBlock:^UIColor *(UIColor *color) {
-                                                     return nil;
+                                                       return nil;
                                                    }];
     [self wmf_verifyMultilineLabelWithText:attrStr width:320.f];
 }

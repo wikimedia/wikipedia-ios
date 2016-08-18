@@ -48,13 +48,13 @@
     NSMutableArray *attributesArray = [NSMutableArray array];
 
     [self.info enumerateSectionsWithBlock:^(WMFCVLSection *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
-      if (CGRectIntersectsRect(section.frame, rect)) {
-          [section enumerateLayoutAttributesWithBlock:^(WMFCVLAttributes *attributes, BOOL *stop) {
-            if (CGRectIntersectsRect(attributes.frame, rect)) {
-                [attributesArray addObject:attributes];
-            }
-          }];
-      }
+        if (CGRectIntersectsRect(section.frame, rect)) {
+            [section enumerateLayoutAttributesWithBlock:^(WMFCVLAttributes *attributes, BOOL *stop) {
+                if (CGRectIntersectsRect(attributes.frame, rect)) {
+                    [attributesArray addObject:attributes];
+                }
+            }];
+        }
     }];
 
     return attributesArray;

@@ -27,7 +27,7 @@
     static dispatch_once_t onceToken;
     static SessionSingleton *sharedInstance;
     dispatch_once(&onceToken, ^{
-      sharedInstance = [self new];
+        sharedInstance = [self new];
     });
     return sharedInstance;
 }

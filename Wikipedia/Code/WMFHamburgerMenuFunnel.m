@@ -49,16 +49,16 @@ static NSString *const kMenuTypeKey = @"menuItem";
     static NSDictionary *map = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      map = @{
-          @(WMFHamburgerMenuItemTypeLogin) : @"Login",
-          @(WMFHamburgerMenuItemTypeToday) : @"Today",
-          @(WMFHamburgerMenuItemTypeRandom) : @"Random",
-          @(WMFHamburgerMenuItemTypeNearby) : @"Nearby",
-          @(WMFHamburgerMenuItemTypeRecent) : @"Recent",
-          @(WMFHamburgerMenuItemTypeSavedPages) : @"SavedPages",
-          @(WMFHamburgerMenuItemTypeMore) : @"More",
-          @(WMFHamburgerMenuItemTypeUnknown) : @"Unknown"
-      };
+        map = @{
+            @(WMFHamburgerMenuItemTypeLogin) : @"Login",
+            @(WMFHamburgerMenuItemTypeToday) : @"Today",
+            @(WMFHamburgerMenuItemTypeRandom) : @"Random",
+            @(WMFHamburgerMenuItemTypeNearby) : @"Nearby",
+            @(WMFHamburgerMenuItemTypeRecent) : @"Recent",
+            @(WMFHamburgerMenuItemTypeSavedPages) : @"SavedPages",
+            @(WMFHamburgerMenuItemTypeMore) : @"More",
+            @(WMFHamburgerMenuItemTypeUnknown) : @"Unknown"
+        };
     });
     return map[@(type)] ?: map[@(WMFHamburgerMenuItemTypeUnknown)];
 }

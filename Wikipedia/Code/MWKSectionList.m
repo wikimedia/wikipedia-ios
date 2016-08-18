@@ -96,15 +96,15 @@
 
     NSArray *files = [fm contentsOfDirectoryAtPath:path error:nil];
     files = [files sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
-      int sectionId1 = [obj1 intValue];
-      int sectionId2 = [obj2 intValue];
-      if (sectionId1 < sectionId2) {
-          return NSOrderedAscending;
-      } else if (sectionId1 == sectionId2) {
-          return NSOrderedSame;
-      } else {
-          return NSOrderedDescending;
-      }
+        int sectionId1 = [obj1 intValue];
+        int sectionId2 = [obj2 intValue];
+        if (sectionId1 < sectionId2) {
+            return NSOrderedAscending;
+        } else if (sectionId1 == sectionId2) {
+            return NSOrderedSame;
+        } else {
+            return NSOrderedDescending;
+        }
     }];
 
     NSMutableArray *sections = [[NSMutableArray alloc] init];
@@ -180,20 +180,20 @@
     __block MWKSection *currentParent = nil;
     [self.sections makeObjectsPerformSelector:@selector(removeAllChildren)];
     [self.sections enumerateObjectsUsingBlock:^(MWKSection *currentSection, NSUInteger idx, BOOL *stop) {
-      if (!currentSection.level) {
-          currentParent = nil;
-          return;
-      }
-      if ([currentParent isAtLevelAboveSection:currentSection]) {
-          MWKSection *lastChild = currentParent.children.lastObject;
-          if ([lastChild isAtSameLevelAsSection:currentSection] || ![lastChild isAtLevelAboveSection:currentSection]) {
-              [currentParent addChild:currentSection];
-          } else {
-              [lastChild addChild:currentSection];
-          }
-      } else {
-          currentParent = currentSection;
-      }
+        if (!currentSection.level) {
+            currentParent = nil;
+            return;
+        }
+        if ([currentParent isAtLevelAboveSection:currentSection]) {
+            MWKSection *lastChild = currentParent.children.lastObject;
+            if ([lastChild isAtSameLevelAsSection:currentSection] || ![lastChild isAtLevelAboveSection:currentSection]) {
+                [currentParent addChild:currentSection];
+            } else {
+                [lastChild addChild:currentSection];
+            }
+        } else {
+            currentParent = currentSection;
+        }
     }];
 }
 
@@ -201,14 +201,14 @@
     __block MWKSection *currentParent = nil;
     return [self.sections bk_reduce:[NSMutableArray arrayWithCapacity:self.sections.count]
                           withBlock:^NSMutableArray *(NSMutableArray *topLevelSections, MWKSection *section) {
-                            if (!section.level) {
-                                [topLevelSections addObject:section];
-                                currentParent = nil;
-                            } else if (currentParent == nil || ![currentParent isAtLevelAboveSection:section]) {
-                                currentParent = section;
-                                [topLevelSections addObject:section];
-                            }
-                            return topLevelSections;
+                              if (!section.level) {
+                                  [topLevelSections addObject:section];
+                                  currentParent = nil;
+                              } else if (currentParent == nil || ![currentParent isAtLevelAboveSection:section]) {
+                                  currentParent = section;
+                                  [topLevelSections addObject:section];
+                              }
+                              return topLevelSections;
                           }];
 }
 

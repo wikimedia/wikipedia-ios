@@ -243,7 +243,7 @@ static NSString *const WMFSectionSummaryXPathSelector = @"\
         return nil;
     }
     return [[[textNodes bk_map:^id(TFHppleElement *node) {
-      return node.raw;
+        return node.raw;
     }] componentsJoinedByString:@" "] wmf_summaryFromText];
 }
 
@@ -252,10 +252,10 @@ static NSString *const WMFSectionDisambiguationTitlesXPathSelector = @"//div[@cl
 - (nullable NSArray<NSURL *> *)disambiguationURLs {
     NSArray *textNodes = [self elementsInTextMatchingXPath:WMFSectionDisambiguationTitlesXPathSelector];
     return [textNodes wmf_mapAndRejectNil:^id(TFHppleElement *node) {
-      if (node.text.length == 0 || [node.text containsString:@"redlink=1"] || ![node.text containsString:WMFInternalLinkPathPrefix]) {
-          return nil;
-      }
-      return [NSURL wmf_URLWithSiteURL:self.url escapedDenormalizedInternalLink:node.text];
+        if (node.text.length == 0 || [node.text containsString:@"redlink=1"] || ![node.text containsString:WMFInternalLinkPathPrefix]) {
+            return nil;
+        }
+        return [NSURL wmf_URLWithSiteURL:self.url escapedDenormalizedInternalLink:node.text];
     }];
 }
 
@@ -276,16 +276,16 @@ static NSString *const WMFSectionPageIssueUnhiddenXPathSelector =
 - (nullable NSArray<NSString *> *)pageIssues {
     NSArray *issueNodes = [self elementsInTextMatchingXPath:WMFSectionPageIssuesXPathSelector];
     return [issueNodes wmf_mapAndRejectNil:^id(TFHppleElement *node) {
-      if (node.raw.length == 0) {
-          return nil;
-      }
-      NSArray *unhiddenIssueNodes = [[TFHpple hppleWithHTMLData:[node.raw dataUsingEncoding:NSUTF8StringEncoding]] searchWithXPathQuery:WMFSectionPageIssueUnhiddenXPathSelector];
+        if (node.raw.length == 0) {
+            return nil;
+        }
+        NSArray *unhiddenIssueNodes = [[TFHpple hppleWithHTMLData:[node.raw dataUsingEncoding:NSUTF8StringEncoding]] searchWithXPathQuery:WMFSectionPageIssueUnhiddenXPathSelector];
 
-      NSArray *issuesStrings = [unhiddenIssueNodes wmf_mapAndRejectNil:^id(TFHppleElement *node) {
-        return ([[node.content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0) ? nil : node.content;
-      }];
+        NSArray *issuesStrings = [unhiddenIssueNodes wmf_mapAndRejectNil:^id(TFHppleElement *node) {
+            return ([[node.content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0) ? nil : node.content;
+        }];
 
-      return issuesStrings.count > 0 ? [issuesStrings componentsJoinedByString:@""] : nil;
+        return issuesStrings.count > 0 ? [issuesStrings componentsJoinedByString:@""] : nil;
     }];
 }
 

@@ -18,8 +18,8 @@
                             withCompletion:
 #if LOG_POST_REMOVAL_CACHE_SIZE
                                 ^{
-                                  @strongify(self)
-                                      [self wmf_calculateAndLogCacheSize];
+                                    @strongify(self)
+                                        [self wmf_calculateAndLogCacheSize];
                                 }
 #else
                             nil
@@ -43,11 +43,11 @@
 #if LOG_POST_REMOVAL_CACHE_SIZE
 - (void)wmf_calculateAndLogCacheSize {
     [self.imageCache calculateSizeWithCompletionBlock:^(NSUInteger fileCount, NSUInteger totalSize) {
-      DDLogInfo(@"Current cache size:\n"
-                 "\t- files: %lu\n"
-                 "\t- totalSize: %lu\n",
-                (unsigned long)fileCount,
-                (unsigned long)totalSize);
+        DDLogInfo(@"Current cache size:\n"
+                   "\t- files: %lu\n"
+                   "\t- totalSize: %lu\n",
+                  (unsigned long)fileCount,
+                  (unsigned long)totalSize);
     }];
 }
 

@@ -119,17 +119,17 @@ static NSString *const WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoT
     return [self.fetcher fetchPicOfTheDaySectionInfoForDate:self.fetchedDate
                                            metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]
         .then(^(MWKImageInfo *info) {
-          @strongify(self);
-          if (!self) {
-              return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
-          }
-          self.imageInfo = info;
-          return (id) @[ info ];
+            @strongify(self);
+            if (!self) {
+                return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
+            }
+            self.imageInfo = info;
+            return (id) @[ info ];
         })
         .catch(^(NSError *error) {
-          @strongify(self);
-          self.imageInfo = nil;
-          return error;
+            @strongify(self);
+            self.imageInfo = nil;
+            return error;
         });
 }
 

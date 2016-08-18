@@ -13,9 +13,9 @@ NSString *const WMFFaceDetectionErrorDomain = @"org.wikimedia.face-detection-err
     static CIDetector *defaultFaceDetector;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      defaultFaceDetector = [CIDetector detectorOfType:CIDetectorTypeFace
-                                               context:[CIContext wmf_sharedContext]
-                                               options:@{CIDetectorAccuracy : CIDetectorAccuracyLow}];
+        defaultFaceDetector = [CIDetector detectorOfType:CIDetectorTypeFace
+                                                 context:[CIContext wmf_sharedContext]
+                                                 options:@{CIDetectorAccuracy : CIDetectorAccuracyLow}];
     });
     return defaultFaceDetector;
 }
@@ -24,9 +24,9 @@ NSString *const WMFFaceDetectionErrorDomain = @"org.wikimedia.face-detection-err
     static NSDictionary *featurelessFaceOptions;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      featurelessFaceOptions = @{
-          CIDetectorAccuracy : CIDetectorAccuracyLow
-      };
+        featurelessFaceOptions = @{
+            CIDetectorAccuracy : CIDetectorAccuracyLow
+        };
     });
     return featurelessFaceOptions;
 }
@@ -41,12 +41,12 @@ NSString *const WMFFaceDetectionErrorDomain = @"org.wikimedia.face-detection-err
 
 - (void)wmf_detectFeaturesInImage:(UIImage *)image options:(NSDictionary *)options on:(dispatch_queue_t)queue failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
     dispatch_async(queue, ^{
-      if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
-          id features = [self featuresInImage:[image wmf_getOrCreateCIImage] options:options];
-          success(features);
-      } else {
-          failure([NSError errorWithDomain:WMFFaceDetectionErrorDomain code:WMFFaceDectionErrorAppInBackground userInfo:nil]);
-      }
+        if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+            id features = [self featuresInImage:[image wmf_getOrCreateCIImage] options:options];
+            success(features);
+        } else {
+            failure([NSError errorWithDomain:WMFFaceDetectionErrorDomain code:WMFFaceDectionErrorAppInBackground userInfo:nil]);
+        }
     });
 }
 

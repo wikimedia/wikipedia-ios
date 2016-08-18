@@ -105,14 +105,14 @@
         @weakify(self)
             [self.cell setImageURL:imageURL
                 failure:^(NSError *error) {
-                  @strongify(self)
-                      XCTFail(@"failed to set image: %@", error.description);
-                  [expectation fulfill];
+                    @strongify(self)
+                        XCTFail(@"failed to set image: %@", error.description);
+                    [expectation fulfill];
                 }
                 success:^{
-                  @strongify(self)
-                      XCTAssert(true);
-                  [expectation fulfill];
+                    @strongify(self)
+                        XCTAssert(true);
+                    [expectation fulfill];
                 }];
 
         WaitForExpectationsWithTimeout(10);

@@ -13,7 +13,7 @@
 
 - (NSString *)allObamaHTML {
     return [[[self loadJSON:@"Obama"][@"mobileview"][@"sections"] bk_map:^NSString *(NSDictionary *section) {
-      return section[@"text"];
+        return section[@"text"];
     }] componentsJoinedByString:@""];
 }
 

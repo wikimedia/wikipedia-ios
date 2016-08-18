@@ -5,7 +5,7 @@
 - (nullable NSString *)wmf_valueForQueryKey:(NSString *)key {
     NSURLQueryItem *matchingItem = [[[NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES] queryItems]
         bk_match:^BOOL(NSURLQueryItem *item) {
-          return [item.name isEqualToString:key];
+            return [item.name isEqualToString:key];
         }];
     return matchingItem.value;
 }
@@ -17,11 +17,11 @@
         // Change the value if the key already exists.
         NSArray<NSURLQueryItem *> *queryItems = [components.queryItems
             bk_map:^id(NSURLQueryItem *item) {
-              if ([item.name isEqualToString:key]) {
-                  return [NSURLQueryItem queryItemWithName:item.name value:value];
-              } else {
-                  return item;
-              }
+                if ([item.name isEqualToString:key]) {
+                    return [NSURLQueryItem queryItemWithName:item.name value:value];
+                } else {
+                    return item;
+                }
             }];
         components.queryItems = queryItems;
     } else {
@@ -43,7 +43,7 @@
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES];
     NSArray<NSURLQueryItem *> *queryItems = [components.queryItems
         bk_select:^BOOL(NSURLQueryItem *item) {
-          return ([item.name isEqualToString:key]) ? NO : YES;
+            return ([item.name isEqualToString:key]) ? NO : YES;
         }];
     components.queryItems = queryItems;
     return components.URL;

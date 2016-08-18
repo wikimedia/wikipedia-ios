@@ -39,13 +39,13 @@
     toViewController.view.frame = f;
     [UIView animateWithDuration:[self transitionDuration:transitionContext]
         animations:^{
-          toViewController.view.frame = CGRectOffset(toViewController.view.frame, -startX, 0);
-          fromViewController.view.frame = CGRectOffset(screenFrame, endX, 0);
+            toViewController.view.frame = CGRectOffset(toViewController.view.frame, -startX, 0);
+            fromViewController.view.frame = CGRectOffset(screenFrame, endX, 0);
         }
         completion:^(BOOL finished) {
-          toViewController = toViewController;
-          [fromViewController.view removeFromSuperview];
-          [transitionContext completeTransition:YES];
+            toViewController = toViewController;
+            [fromViewController.view removeFromSuperview];
+            [transitionContext completeTransition:YES];
         }];
 }
 @end

@@ -8,12 +8,12 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     static NSDateFormatter *iso8601Formatter = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      // need to use "en" locale, otherwise the timestamp will fail to parse when the current locale is arabic on iOS 6
-      iso8601Formatter = [NSDateFormatter new];
-      iso8601Formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
-      iso8601Formatter.dateFormat = WMF_ISO8601_FORMAT;
-      ;
-      iso8601Formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en"];
+        // need to use "en" locale, otherwise the timestamp will fail to parse when the current locale is arabic on iOS 6
+        iso8601Formatter = [NSDateFormatter new];
+        iso8601Formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+        iso8601Formatter.dateFormat = WMF_ISO8601_FORMAT;
+        ;
+        iso8601Formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en"];
     });
     return iso8601Formatter;
 }
@@ -56,8 +56,8 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     static NSDateFormatter *_dateFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      _dateFormatter = [[self wmf_mediumDateFormatterWithoutTime] copy];
-      _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+        _dateFormatter = [[self wmf_mediumDateFormatterWithoutTime] copy];
+        _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     });
     return _dateFormatter;
 }
@@ -66,9 +66,9 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     static NSDateFormatter *_dateFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      _dateFormatter = [[NSDateFormatter alloc] init];
-      _dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-      _dateFormatter.timeStyle = NSDateFormatterNoStyle;
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        _dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+        _dateFormatter.timeStyle = NSDateFormatterNoStyle;
     });
     return _dateFormatter;
 }
@@ -77,7 +77,7 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     static NSDateFormatter *_dateFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      _dateFormatter = [self wmf_newEnglishYearMonthDayFormatterWithSeparator:@"-"];
+        _dateFormatter = [self wmf_newEnglishYearMonthDayFormatterWithSeparator:@"-"];
     });
     return _dateFormatter;
 }
@@ -86,8 +86,8 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     static NSDateFormatter *_dateFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      _dateFormatter = [self wmf_newEnglishYearMonthDayFormatterWithSeparator:@"/"];
-      _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+        _dateFormatter = [self wmf_newEnglishYearMonthDayFormatterWithSeparator:@"/"];
+        _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     });
     return _dateFormatter;
 }
@@ -104,8 +104,8 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     static NSDateFormatter *_dateFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      _dateFormatter = [[NSDateFormatter alloc] init];
-      [_dateFormatter setLocalizedDateFormatFromTemplate:@"EEEEMMMMdd"];
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setLocalizedDateFormatFromTemplate:@"EEEEMMMMdd"];
     });
     return _dateFormatter;
 }
@@ -114,8 +114,8 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     static NSDateFormatter *_dateFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      _dateFormatter = [[self wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] copy];
-      _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+        _dateFormatter = [[self wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] copy];
+        _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     });
     return _dateFormatter;
 }
@@ -124,8 +124,8 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     static NSDateFormatter *_dateFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      _dateFormatter = [[NSDateFormatter alloc] init];
-      [_dateFormatter setLocalizedDateFormatFromTemplate:@"EEEMMMdd"];
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setLocalizedDateFormatFromTemplate:@"EEEMMMdd"];
     });
     return _dateFormatter;
 }
@@ -134,8 +134,8 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     static NSDateFormatter *_dateFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      _dateFormatter = [[self wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] copy];
-      _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+        _dateFormatter = [[self wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter] copy];
+        _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     });
     return _dateFormatter;
 }

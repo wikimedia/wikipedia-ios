@@ -49,12 +49,12 @@ static WMFSearchViewController *_sharedSearchViewController = nil;
     return [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"search"]
                                                style:UIBarButtonItemStylePlain
                                              handler:^(id sender) {
-                                               @strongify(self);
-                                               if (!self) {
-                                                   return;
-                                               }
+                                                 @strongify(self);
+                                                 if (!self) {
+                                                     return;
+                                                 }
 
-                                               [self wmf_showSearchAnimated:YES];
+                                                 [self wmf_showSearchAnimated:YES];
                                              }];
 }
 

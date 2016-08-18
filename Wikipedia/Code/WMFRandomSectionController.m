@@ -116,23 +116,23 @@ NSString *const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     [self.cell setLoading:YES];
     @weakify(self);
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-      [self.fetcher fetchRandomArticleWithSiteURL:self.searchSiteURL
-          failure:^(NSError *error) {
-            @strongify(self);
-            self.result = nil;
-            [self.cell setLoading:NO];
-            resolve(error);
-          }
-          success:^(MWKSearchResult *result) {
-            @strongify(self);
-            if (!self) {
-                resolve([NSError cancelledError]);
-                return;
+        [self.fetcher fetchRandomArticleWithSiteURL:self.searchSiteURL
+            failure:^(NSError *error) {
+                @strongify(self);
+                self.result = nil;
+                [self.cell setLoading:NO];
+                resolve(error);
             }
-            [self.cell setLoading:NO];
-            self.result = result;
-            resolve(@[ result ]);
-          }];
+            success:^(MWKSearchResult *result) {
+                @strongify(self);
+                if (!self) {
+                    resolve([NSError cancelledError]);
+                    return;
+                }
+                [self.cell setLoading:NO];
+                self.result = result;
+                resolve(@[ result ]);
+            }];
     }];
 }
 

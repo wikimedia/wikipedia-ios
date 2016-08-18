@@ -194,17 +194,17 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
                                                     resultLimit:WMFNearbySectionFetchCount
                                                     cancellable:NULL]
         .then(^(WMFLocationSearchResults *locationSearchResults) {
-          @strongify(self);
-          self.searchResults = locationSearchResults;
-          return self.searchResults.results;
+            @strongify(self);
+            self.searchResults = locationSearchResults;
+            return self.searchResults.results;
         })
         .catch(^(NSError *error) {
-          //This means there were 0 results - not neccesarily a "real" error.
-          //Only inform the delegate if we get a real error.
-          if (!([error.domain isEqualToString:MTLJSONAdapterErrorDomain] && error.code == MTLJSONAdapterErrorInvalidJSONDictionary)) {
-              return error;
-          }
-          return (NSError *)nil;
+            //This means there were 0 results - not neccesarily a "real" error.
+            //Only inform the delegate if we get a real error.
+            if (!([error.domain isEqualToString:MTLJSONAdapterErrorDomain] && error.code == MTLJSONAdapterErrorInvalidJSONDictionary)) {
+                return error;
+            }
+            return (NSError *)nil;
         });
 }
 

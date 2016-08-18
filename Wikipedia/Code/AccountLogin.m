@@ -48,35 +48,35 @@ NSString *const WMFAccountLoginErrorDomain = @"WMFAccountLoginErrorDomain";
         parameters:params
         progress:NULL
         success:^(NSURLSessionDataTask *operation, id responseObject) {
-          //NSLog(@"JSON: %@", responseObject);
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            //NSLog(@"JSON: %@", responseObject);
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          // Fake out an error if non-dictionary response received.
-          if (![responseObject isDict]) {
-              responseObject = @{ @"error" : @{@"info" : @"Account login info not found."} };
-          }
+            // Fake out an error if non-dictionary response received.
+            if (![responseObject isDict]) {
+                responseObject = @{ @"error" : @{@"info" : @"Account login info not found."} };
+            }
 
-          NSError *error = nil;
-          NSDictionary *output = @{};
-          if ([responseObject[@"clientlogin"][@"status"] isEqualToString:@"FAIL"]) {
-              NSMutableDictionary *errorDict = [responseObject[@"clientlogin"] mutableCopy];
-              errorDict[NSLocalizedDescriptionKey] = errorDict[@"message"];
-              error = [NSError errorWithDomain:WMFAccountLoginErrorDomain
-                                          code:LOGIN_ERROR_API
-                                      userInfo:errorDict];
-          } else {
-              output = responseObject[@"clientlogin"];
-          }
-          [self finishWithError:error
-                    fetchedData:output];
+            NSError *error = nil;
+            NSDictionary *output = @{};
+            if ([responseObject[@"clientlogin"][@"status"] isEqualToString:@"FAIL"]) {
+                NSMutableDictionary *errorDict = [responseObject[@"clientlogin"] mutableCopy];
+                errorDict[NSLocalizedDescriptionKey] = errorDict[@"message"];
+                error = [NSError errorWithDomain:WMFAccountLoginErrorDomain
+                                            code:LOGIN_ERROR_API
+                                        userInfo:errorDict];
+            } else {
+                output = responseObject[@"clientlogin"];
+            }
+            [self finishWithError:error
+                      fetchedData:output];
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          //NSLog(@"LOGIN FAIL = %@", error);
+            //NSLog(@"LOGIN FAIL = %@", error);
 
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          [self finishWithError:error
-                    fetchedData:nil];
+            [self finishWithError:error
+                      fetchedData:nil];
         }];
 }
 

@@ -28,16 +28,16 @@
     self.deleteButton = [self wmf_deleteButton];
     [self.contentView.superview addSubview:self.deleteButton];
     [self.deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.width.equalTo(@(50));
+        make.width.equalTo(@(50));
 
-      // Attach leading edge to contentView so it tracks horizonally
-      // with cell animations such as when enabling table view editing with
-      // animations.
-      make.leading.equalTo(self.contentView).offset(-40);
+        // Attach leading edge to contentView so it tracks horizonally
+        // with cell animations such as when enabling table view editing with
+        // animations.
+        make.leading.equalTo(self.contentView).offset(-40);
 
-      // Use offsets for top and bottom so as not to overlap separators.
-      make.top.equalTo(self.deleteButton.superview).offset(1);
-      make.bottom.equalTo(self.deleteButton.superview).offset(-1);
+        // Use offsets for top and bottom so as not to overlap separators.
+        make.top.equalTo(self.deleteButton.superview).offset(1);
+        make.bottom.equalTo(self.deleteButton.superview).offset(-1);
     }];
 
     self.cellWhiteLayer = [self whiteLayer];

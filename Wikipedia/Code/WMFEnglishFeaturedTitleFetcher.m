@@ -62,14 +62,14 @@ NS_ASSUME_NONNULL_BEGIN
     NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
     return [self.featuredTitleOperationManager wmf_GETAndRetryWithURL:siteURL parameters:date]
         .thenInBackground(^(NSString *title) {
-          @strongify(self);
-          if (!self) {
-              return [AnyPromise promiseWithValue:[NSError cancelledError]];
-          }
-          return [self.titlePreviewOperationManager wmf_GETAndRetryWithURL:siteURL parameters:title]
-              .then(^(NSArray<MWKSearchResult *> *featuredTitlePreviews) {
-                return featuredTitlePreviews.firstObject;
-              });
+            @strongify(self);
+            if (!self) {
+                return [AnyPromise promiseWithValue:[NSError cancelledError]];
+            }
+            return [self.titlePreviewOperationManager wmf_GETAndRetryWithURL:siteURL parameters:title]
+                .then(^(NSArray<MWKSearchResult *> *featuredTitlePreviews) {
+                    return featuredTitlePreviews.firstObject;
+                });
         });
 }
 
@@ -81,10 +81,10 @@ NS_ASSUME_NONNULL_BEGIN
     static NSDateFormatter *feedItemDateFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      feedItemDateFormatter = [[NSDateFormatter alloc] init];
-      feedItemDateFormatter.dateFormat = @"MMMM d, YYYY";
-      // feed format uses US dates—specifically month names
-      feedItemDateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en-US"];
+        feedItemDateFormatter = [[NSDateFormatter alloc] init];
+        feedItemDateFormatter.dateFormat = @"MMMM d, YYYY";
+        // feed format uses US dates—specifically month names
+        feedItemDateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en-US"];
     });
     return feedItemDateFormatter;
 }

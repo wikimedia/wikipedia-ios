@@ -66,7 +66,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     static WMFFaceDetectionCache *_faceDetectionCache = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      _faceDetectionCache = [[WMFFaceDetectionCache alloc] init];
+        _faceDetectionCache = [[WMFFaceDetectionCache alloc] init];
     });
     return _faceDetectionCache;
 }
@@ -118,14 +118,14 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     [self.wmf_imageController fetchImageWithURL:imageURL
                                         failure:failure
                                         success:^(WMFImageDownload *_Nonnull download) {
-                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                            @strongify(self);
-                                            if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
-                                                failure([NSError cancelledError]);
-                                            } else {
-                                                [self wmf_setImage:download.image detectFaces:detectFaces animated:YES failure:failure success:success];
-                                            }
-                                          });
+                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                @strongify(self);
+                                                if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
+                                                    failure([NSError cancelledError]);
+                                                } else {
+                                                    [self wmf_setImage:download.image detectFaces:detectFaces animated:YES failure:failure success:success];
+                                                }
+                                            });
                                         }];
 }
 
@@ -150,13 +150,13 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     [self wmf_getFaceBoundsInImage:image
                            failure:failure
                            success:^(NSValue *bounds) {
-                             dispatch_async(dispatch_get_main_queue(), ^{
-                               if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
-                                   failure([NSError cancelledError]);
-                               } else {
-                                   [self wmf_setImage:image faceBoundsValue:bounds animated:animated failure:failure success:success];
-                               }
-                             });
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                   if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
+                                       failure([NSError cancelledError]);
+                                   } else {
+                                       [self wmf_setImage:image faceBoundsValue:bounds animated:animated failure:failure success:success];
+                                   }
+                               });
                            }];
 }
 
@@ -178,12 +178,12 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
         duration:animated ? [CATransaction animationDuration] : 0.0
         options:UIViewAnimationOptionTransitionCrossDissolve
         animations:^{
-          self.contentMode = UIViewContentModeScaleAspectFill;
-          self.backgroundColor = [UIColor whiteColor];
-          self.image = image;
+            self.contentMode = UIViewContentModeScaleAspectFill;
+            self.backgroundColor = [UIColor whiteColor];
+            self.image = image;
         }
         completion:^(BOOL finished) {
-          success();
+            success();
         }];
 }
 

@@ -69,14 +69,14 @@
 
     WMFArticleFetcher *fetcher = self.articleFetcher;
     expectResolutionWithTimeout(10, ^AnyPromise * {
-      return [fetcher fetchArticleForURL:dummyArticleURL progress:NULL].then(^id(MWKArticle *article) {
-        savedArticleAfterFirstFetch = [self.tempDataStore articleWithURL:dummyArticleURL];
-        firstFetchResult = article;
-        return [fetcher fetchArticleForURL:dummyArticleURL progress:NULL]
-            .then(^(MWKArticle *article) {
-              secondFetchResult = article;
-            });
-      });
+        return [fetcher fetchArticleForURL:dummyArticleURL progress:NULL].then(^id(MWKArticle *article) {
+            savedArticleAfterFirstFetch = [self.tempDataStore articleWithURL:dummyArticleURL];
+            firstFetchResult = article;
+            return [fetcher fetchArticleForURL:dummyArticleURL progress:NULL]
+                .then(^(MWKArticle *article) {
+                    secondFetchResult = article;
+                });
+        });
     });
 
     assertThat(@([firstFetchResult isDeeplyEqualToArticle:savedArticleAfterFirstFetch]), isTrue());

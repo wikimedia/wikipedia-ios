@@ -40,7 +40,7 @@
     [super finishWithError:error fetchedData:fetchedData];
     if (block) {
         dispatchOnMainQueue(^{
-          block(error ?: fetchedData);
+            block(error ?: fetchedData);
         });
     }
 }
@@ -71,16 +71,16 @@
         parameters:params
         progress:NULL
         success:^(NSURLSessionDataTask *operation, NSDictionary *indexedLanguageLinks) {
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
-          NSAssert(indexedLanguageLinks.count < 2,
-                   @"Expected language links to return one or no objects for the title we fetched, but got: %@",
-                   indexedLanguageLinks);
-          NSArray *languageLinksForTitle = [[indexedLanguageLinks allValues] firstObject];
-          [self finishWithError:nil fetchedData:languageLinksForTitle block:success];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            NSAssert(indexedLanguageLinks.count < 2,
+                     @"Expected language links to return one or no objects for the title we fetched, but got: %@",
+                     indexedLanguageLinks);
+            NSArray *languageLinksForTitle = [[indexedLanguageLinks allValues] firstObject];
+            [self finishWithError:nil fetchedData:languageLinksForTitle block:success];
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
-          [self finishWithError:error fetchedData:nil block:failure];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            [self finishWithError:error fetchedData:nil block:failure];
         }];
 }
 

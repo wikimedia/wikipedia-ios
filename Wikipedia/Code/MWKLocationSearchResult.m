@@ -6,16 +6,16 @@
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *value,
                                                                  BOOL *success,
                                                                  NSError *__autoreleasing *error) {
-      NSDictionary *coords = [value firstObject];
-      NSNumber *lat = coords[@"lat"];
-      NSNumber *lon = coords[@"lon"];
+        NSDictionary *coords = [value firstObject];
+        NSNumber *lat = coords[@"lat"];
+        NSNumber *lon = coords[@"lon"];
 
-      if (![lat isKindOfClass:[NSNumber class]] || ![lon isKindOfClass:[NSNumber class]]) {
-          WMFSafeAssign(success, NO);
-          return nil;
-      }
+        if (![lat isKindOfClass:[NSNumber class]] || ![lon isKindOfClass:[NSNumber class]]) {
+            WMFSafeAssign(success, NO);
+            return nil;
+        }
 
-      return [[CLLocation alloc] initWithLatitude:[lat doubleValue] longitude:[lon doubleValue]];
+        return [[CLLocation alloc] initWithLatitude:[lat doubleValue] longitude:[lon doubleValue]];
     }];
 }
 
@@ -23,13 +23,13 @@
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *value,
                                                                  BOOL *success,
                                                                  NSError *__autoreleasing *error) {
-      NSDictionary *coords = [value firstObject];
-      NSNumber *distance = coords[@"dist"];
-      if (![distance isKindOfClass:[NSNumber class]]) {
-          WMFSafeAssign(success, NO);
-          return nil;
-      }
-      return distance;
+        NSDictionary *coords = [value firstObject];
+        NSNumber *distance = coords[@"dist"];
+        if (![distance isKindOfClass:[NSNumber class]]) {
+            WMFSafeAssign(success, NO);
+            return nil;
+        }
+        return distance;
     }];
 }
 

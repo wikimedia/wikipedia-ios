@@ -81,26 +81,26 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     NSURLSessionDataTask *operation = [self.operationManager GET:url.absoluteString
         parameters:articleURL
         progress:^(NSProgress *_Nonnull downloadProgress) {
-          if (progress) {
-              CGFloat currentProgress = downloadProgress.fractionCompleted;
-              dispatchOnMainQueue(^{
-                progress(currentProgress);
-              });
-          }
+            if (progress) {
+                CGFloat currentProgress = downloadProgress.fractionCompleted;
+                dispatchOnMainQueue(^{
+                    progress(currentProgress);
+                });
+            }
         }
         success:^(NSURLSessionDataTask *operation, id response) {
-          dispatchOnBackgroundQueue(^{
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve([self serializedArticleWithURL:articleURL response:response]);
-          });
+            dispatchOnBackgroundQueue(^{
+                [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                resolve([self serializedArticleWithURL:articleURL response:response]);
+            });
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:articleURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
-              [self fetchArticleForURL:articleURL useDesktopURL:YES progress:progress resolver:resolve];
-          } else {
-              [[MWNetworkActivityIndicatorManager sharedManager] pop];
-              resolve(error);
-          }
+            if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:articleURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
+                [self fetchArticleForURL:articleURL useDesktopURL:YES progress:progress resolver:resolve];
+            } else {
+                [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                resolve(error);
+            }
         }];
 
     [self trackOperation:operation forArticleURL:articleURL];
@@ -120,7 +120,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     __block NSURLSessionDataTask *op = nil;
 
     dispatch_sync(self.operationsQueue, ^{
-      op = [self.operationsKeyedByTitle objectForKey:articleURL];
+        op = [self.operationsKeyedByTitle objectForKey:articleURL];
     });
 
     return op;
@@ -132,7 +132,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     }
 
     dispatch_sync(self.operationsQueue, ^{
-      [self.operationsKeyedByTitle setObject:operation forKey:articleURL];
+        [self.operationsKeyedByTitle setObject:operation forKey:articleURL];
     });
 }
 
@@ -230,27 +230,27 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                       resultLimit:1
                                                                endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue]
                               .then(^(WMFRevisionQueryResults *results) {
-                                @strongify(self);
-                                if (!self) {
-                                    return [AnyPromise promiseWithValue:[NSError cancelledError]];
-                                } else if ([results.revisions.firstObject.revisionId isEqualToNumber:cachedArticle.revisionId]) {
-                                    DDLogInfo(@"Returning up-to-date local revision of %@", url);
-                                    if (progress) {
-                                        progress(1.0);
-                                    }
-                                    return [AnyPromise promiseWithValue:cachedArticle];
-                                } else {
-                                    return [self fetchArticleForURL:url progress:progress];
-                                }
+                                  @strongify(self);
+                                  if (!self) {
+                                      return [AnyPromise promiseWithValue:[NSError cancelledError]];
+                                  } else if ([results.revisions.firstObject.revisionId isEqualToNumber:cachedArticle.revisionId]) {
+                                      DDLogInfo(@"Returning up-to-date local revision of %@", url);
+                                      if (progress) {
+                                          progress(1.0);
+                                      }
+                                      return [AnyPromise promiseWithValue:cachedArticle];
+                                  } else {
+                                      return [self fetchArticleForURL:url progress:progress];
+                                  }
                               });
     }
 
     return promisedArticle.catch(^(NSError *error) {
-      NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ?: @{}];
-      userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] = cachedArticle;
-      return [NSError errorWithDomain:error.domain
-                                 code:error.code
-                             userInfo:userInfo];
+        NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ?: @{}];
+        userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] = cachedArticle;
+        return [NSError errorWithDomain:error.domain
+                                   code:error.code
+                               userInfo:userInfo];
     });
 }
 
@@ -265,7 +265,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     NSAssert(self.operationManager != nil, @"Manager nil");
 
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-      [self fetchArticleForURL:articleURL useDesktopURL:NO progress:progress resolver:resolve];
+        [self fetchArticleForURL:articleURL useDesktopURL:NO progress:progress resolver:resolve];
     }];
 }
 

@@ -28,8 +28,8 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 + (void)load {
     [super load];
     FBTweakAction(@"Networking", @"Wikipedia Zero", @"Reset ZeroOnDialogShownOnce", ^{
-      [[NSUserDefaults standardUserDefaults] setBool:NO forKey:ZeroOnDialogShownOnce];
-      [[NSUserDefaults standardUserDefaults] synchronize];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:ZeroOnDialogShownOnce];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     });
 }
 
@@ -82,23 +82,23 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 - (void)postNotification {
     BOOL const didEnter = _disposition;
     dispatch_async(dispatch_get_main_queue(), ^{
-      @weakify(self);
-      AnyPromise *promise = [AnyPromise promiseWithValue:nil];
-      if (didEnter) {
-          promise = [self fetchZeroMessage].then(^(WMFZeroMessage *zeroMessage) {
-            @strongify(self);
-            self.zeroMessage = zeroMessage;
-            [self showFirstTimeZeroOnAlertIfNeeded];
-          });
-      } else {
-          self.zeroMessage = nil;
-          [self showZeroOffAlert];
-      }
+        @weakify(self);
+        AnyPromise *promise = [AnyPromise promiseWithValue:nil];
+        if (didEnter) {
+            promise = [self fetchZeroMessage].then(^(WMFZeroMessage *zeroMessage) {
+                @strongify(self);
+                self.zeroMessage = zeroMessage;
+                [self showFirstTimeZeroOnAlertIfNeeded];
+            });
+        } else {
+            self.zeroMessage = nil;
+            [self showZeroOffAlert];
+        }
 
-      promise.then(^{
-        @strongify(self);
-        [[NSNotificationCenter defaultCenter] postNotificationName:WMFZeroDispositionDidChange object:self];
-      });
+        promise.then(^{
+            @strongify(self);
+            [[NSNotificationCenter defaultCenter] postNotificationName:WMFZeroDispositionDidChange object:self];
+        });
     });
 }
 
@@ -124,7 +124,7 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
                                            otherButtonTitles:MWLocalizedString(@"zero-learn-more-learn-more", nil), nil];
 
     [dialog bk_setHandler:^{
-      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MWLocalizedString(@"zero-webpage-url", nil)]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MWLocalizedString(@"zero-webpage-url", nil)]];
     }
          forButtonAtIndex:dialog.firstOtherButtonIndex];
 

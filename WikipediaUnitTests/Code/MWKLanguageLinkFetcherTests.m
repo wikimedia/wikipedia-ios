@@ -31,11 +31,11 @@
     PushExpectation();
     [self.fetcher fetchLanguageLinksForArticleURL:nil
         success:^(NSArray *langLinks) {
-          XCTFail(@"Expected nil title to result in failure.");
+            XCTFail(@"Expected nil title to result in failure.");
         }
         failure:^(NSError *error) {
-          XCTAssertEqual(error.code, WMFNetworkingError_InvalidParameters);
-          [self popExpectationAfter:nil];
+            XCTAssertEqual(error.code, WMFNetworkingError_InvalidParameters);
+            [self popExpectationAfter:nil];
         }];
     WaitForExpectations();
     [[MKTVerify(self.mockDelegate) withMatcher:equalTo(@(FETCH_FINAL_STATUS_FAILED))
@@ -52,11 +52,11 @@
     PushExpectation();
     [self.fetcher fetchLanguageLinksForArticleURL:url
         success:^(NSArray *langLinks) {
-          XCTFail(@"Expected empty title to result in failure.");
+            XCTFail(@"Expected empty title to result in failure.");
         }
         failure:^(NSError *error) {
-          XCTAssertEqual(error.code, WMFNetworkingError_InvalidParameters);
-          [self popExpectationAfter:nil];
+            XCTAssertEqual(error.code, WMFNetworkingError_InvalidParameters);
+            [self popExpectationAfter:nil];
         }];
     WaitForExpectations();
     [[MKTVerify(self.mockDelegate) withMatcher:equalTo(@(FETCH_FINAL_STATUS_FAILED))

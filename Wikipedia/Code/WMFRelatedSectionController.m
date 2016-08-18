@@ -143,14 +143,14 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
     @weakify(self);
     return [self.relatedTitleDataSource fetch]
         .then(^(WMFRelatedSearchResults *results) {
-          @strongify(self);
-          self.searchResults = results;
-          return [self.searchResults.results wmf_safeSubarrayWithRange:NSMakeRange(0, WMFRelatedSectionMaxResults)];
+            @strongify(self);
+            self.searchResults = results;
+            return [self.searchResults.results wmf_safeSubarrayWithRange:NSMakeRange(0, WMFRelatedSectionMaxResults)];
         })
         .catch(^(NSError *error) {
-          @strongify(self);
-          self.searchResults = nil;
-          return error;
+            @strongify(self);
+            self.searchResults = nil;
+            return error;
         });
 }
 
@@ -166,7 +166,7 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil)
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                              [self.blackList addBlackListArticleURL:self.url];
+                                                [self.blackList addBlackListArticleURL:self.url];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
     return sheet;

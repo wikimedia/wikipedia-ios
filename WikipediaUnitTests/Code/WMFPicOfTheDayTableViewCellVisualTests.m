@@ -56,8 +56,8 @@
     [self.cell setImageURL:testURL];
 
     [self expectationForPredicate:[NSPredicate predicateWithBlock:^BOOL(UIImageView *_Nonnull potdImageView, NSDictionary<NSString *, id> *_Nullable bindings) {
-            NSData *currentImageData = UIImagePNGRepresentation(potdImageView.image);
-            return [currentImageData isEqualToData:imageData];
+              NSData *currentImageData = UIImagePNGRepresentation(potdImageView.image);
+              return [currentImageData isEqualToData:imageData];
           }]
               evaluatedWithObject:self.cell.potdImageView
                           handler:nil];

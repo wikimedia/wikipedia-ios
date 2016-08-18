@@ -208,28 +208,28 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     @weakify(self)
         self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
                                                handler:^(id sender) {
-                                                 @strongify(self)
-                                                     [self goBack];
+                                                   @strongify(self)
+                                                       [self goBack];
                                                }];
 
     self.buttonLeftCaret = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft
                                                    handler:^(id sender) {
-                                                     @strongify(self)
-                                                         [self goBack];
+                                                       @strongify(self)
+                                                           [self goBack];
                                                    }];
 
     self.buttonSave = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-save", nil)
                                                           style:UIBarButtonItemStylePlain
                                                         handler:^(id sender) {
-                                                          @strongify(self)
-                                                              [self goForward];
+                                                            @strongify(self)
+                                                                [self goForward];
                                                         }];
 
     self.buttonNext = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-next", nil)
                                                           style:UIBarButtonItemStylePlain
                                                         handler:^(id sender) {
-                                                          @strongify(self)
-                                                              [self goForward];
+                                                            @strongify(self)
+                                                                [self goForward];
                                                         }];
 
     self.mode = PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW;
@@ -511,17 +511,17 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
         EditTokenFetcher *tokenFetcher = (EditTokenFetcher *)sender;
 
         void (^upload)() = ^void() {
-          NSMutableDictionary *editTokens = self.keychainCredentials.editTokens;
-          NSString *editToken = editTokens[tokenFetcher.articleURL.wmf_language];
-          (void)[[WikiTextSectionUploader alloc] initAndUploadWikiText:tokenFetcher.wikiText
-                                                         forArticleURL:tokenFetcher.articleURL
-                                                               section:tokenFetcher.section
-                                                               summary:tokenFetcher.summary
-                                                             captchaId:tokenFetcher.captchaId
-                                                           captchaWord:tokenFetcher.captchaWord
-                                                                 token:editToken
-                                                           withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
-                                                    thenNotifyDelegate:self];
+            NSMutableDictionary *editTokens = self.keychainCredentials.editTokens;
+            NSString *editToken = editTokens[tokenFetcher.articleURL.wmf_language];
+            (void)[[WikiTextSectionUploader alloc] initAndUploadWikiText:tokenFetcher.wikiText
+                                                           forArticleURL:tokenFetcher.articleURL
+                                                                 section:tokenFetcher.section
+                                                                 summary:tokenFetcher.summary
+                                                               captchaId:tokenFetcher.captchaId
+                                                             captchaWord:tokenFetcher.captchaWord
+                                                                   token:editToken
+                                                             withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
+                                                      thenNotifyDelegate:self];
         };
 
         switch (status) {
@@ -554,7 +554,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [self.funnel logSavedRevision:[fetchedData[@"newrevid"] intValue]];
                 dispatchOnMainQueue(^{
-                  [self.delegate previewViewControllerDidSave:self];
+                    [self.delegate previewViewControllerDidSave:self];
                 });
             } break;
 
@@ -639,26 +639,26 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     MWKArticle *article = self.section.article;
     [UIView animateWithDuration:0.2f
                      animations:^{
-                       [self revealCaptcha];
+                         [self revealCaptcha];
 
-                       [self.captchaViewController.captchaTextBox performSelector:@selector(becomeFirstResponder)
-                                                                       withObject:nil
-                                                                       afterDelay:0.4f];
+                         [self.captchaViewController.captchaTextBox performSelector:@selector(becomeFirstResponder)
+                                                                         withObject:nil
+                                                                         afterDelay:0.4f];
 
-                       self.captchaViewController.captchaImageView.image = nil;
+                         self.captchaViewController.captchaImageView.image = nil;
 
-                       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-                         NSURL *captchaImageUrl = [NSURL URLWithString:
-                                                             [NSString stringWithFormat:@"https://%@.m.%@%@", article.url.wmf_language, article.url.wmf_domain, self.captchaUrl]];
+                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+                             NSURL *captchaImageUrl = [NSURL URLWithString:
+                                                                 [NSString stringWithFormat:@"https://%@.m.%@%@", article.url.wmf_language, article.url.wmf_domain, self.captchaUrl]];
 
-                         UIImage *captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:captchaImageUrl]];
+                             UIImage *captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:captchaImageUrl]];
 
-                         dispatch_async(dispatch_get_main_queue(), ^(void) {
-                           self.captchaViewController.captchaTextBox.text = @"";
-                           self.captchaViewController.captchaImageView.image = captchaImage;
-                           [self.view layoutIfNeeded];
+                             dispatch_async(dispatch_get_main_queue(), ^(void) {
+                                 self.captchaViewController.captchaTextBox.text = @"";
+                                 self.captchaViewController.captchaImageView.image = captchaImage;
+                                 [self.view layoutIfNeeded];
+                             });
                          });
-                       });
                      }
                      completion:^(BOOL done){
                      }];
@@ -668,10 +668,10 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-preview-changes", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
     [[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-      (void)[[PreviewHtmlFetcher alloc] initAndFetchHtmlForWikiText:self.wikiText
-                                                         articleURL:self.section.url
-                                                        withManager:[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager
-                                                 thenNotifyDelegate:self];
+        (void)[[PreviewHtmlFetcher alloc] initAndFetchHtmlForWikiText:self.wikiText
+                                                           articleURL:self.section.url
+                                                          withManager:[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager
+                                                   thenNotifyDelegate:self];
     }];
 }
 
@@ -689,22 +689,22 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     }
 
     [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{
-      // If fromTitle was set, the section was transcluded, so use the title of the page
-      // it was transcluded from.
-      NSURL *editURL = self.section.fromURL ? self.section.fromURL : self.section.article.url;
+        // If fromTitle was set, the section was transcluded, so use the title of the page
+        // it was transcluded from.
+        NSURL *editURL = self.section.fromURL ? self.section.fromURL : self.section.article.url;
 
-      // First try to get an edit token for the page's domain before trying to upload the changes.
-      // Only the domain is used to actually fetch the token, the other values are
-      // parked in EditTokenFetcher so the actual uploader can have quick read-only
-      // access to the exact params which kicked off the token request.
-      (void)[[EditTokenFetcher alloc] initAndFetchEditTokenForWikiText:self.wikiText
-                                                            articleURL:editURL
-                                                               section:[NSString stringWithFormat:@"%d", self.section.sectionId]
-                                                               summary:[self getSummary]
-                                                             captchaId:self.captchaId
-                                                           captchaWord:self.captchaViewController.captchaTextBox.text
-                                                           withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
-                                                    thenNotifyDelegate:self];
+        // First try to get an edit token for the page's domain before trying to upload the changes.
+        // Only the domain is used to actually fetch the token, the other values are
+        // parked in EditTokenFetcher so the actual uploader can have quick read-only
+        // access to the exact params which kicked off the token request.
+        (void)[[EditTokenFetcher alloc] initAndFetchEditTokenForWikiText:self.wikiText
+                                                              articleURL:editURL
+                                                                 section:[NSString stringWithFormat:@"%d", self.section.sectionId]
+                                                                 summary:[self getSummary]
+                                                               captchaId:self.captchaId
+                                                             captchaWord:self.captchaViewController.captchaTextBox.text
+                                                             withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
+                                                      thenNotifyDelegate:self];
     }];
 }
 
@@ -737,9 +737,9 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     self.captchaViewController.captchaTextBox.text = @"";
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
     [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{
-      (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language
-                                                      withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
-                                               thenNotifyDelegate:self];
+        (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language
+                                                        withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
+                                                 thenNotifyDelegate:self];
     }];
 }
 
@@ -780,12 +780,12 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"wikitext-upload-save-terms-name", nil)
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                              [self wmf_openExternalUrl:[NSURL URLWithString:TERMS_LINK]];
+                                                [self wmf_openExternalUrl:[NSURL URLWithString:TERMS_LINK]];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"wikitext-upload-save-license-name", nil)
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                              [self wmf_openExternalUrl:[NSURL URLWithString:LICENSE_LINK]];
+                                                [self wmf_openExternalUrl:[NSURL URLWithString:LICENSE_LINK]];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"open-link-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
     [self presentViewController:sheet animated:YES completion:NULL];

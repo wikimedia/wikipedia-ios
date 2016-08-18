@@ -52,29 +52,29 @@
         parameters:params
         progress:NULL
         success:^(NSURLSessionDataTask *operation, id responseObject) {
-          //NSLog(@"JSON: %@", responseObject);
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            //NSLog(@"JSON: %@", responseObject);
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          NSError *error = nil;
-          if (![responseObject isDict]) {
-              error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
-          } else if (responseObject[@"error"]) {
-              NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
-              errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
-              error = [NSError errorWithDomain:@"Acct Creation Token Fetcher"
-                                          code:ACCOUNT_CREATION_TOKEN_ERROR_API
-                                      userInfo:errorDict];
-          }
+            NSError *error = nil;
+            if (![responseObject isDict]) {
+                error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
+            } else if (responseObject[@"error"]) {
+                NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
+                errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
+                error = [NSError errorWithDomain:@"Acct Creation Token Fetcher"
+                                            code:ACCOUNT_CREATION_TOKEN_ERROR_API
+                                        userInfo:errorDict];
+            }
 
-          self.token = responseObject[@"query"][@"tokens"][@"createaccounttoken"];
-          [self finishWithError:error
-                    fetchedData:self.token];
+            self.token = responseObject[@"query"][@"tokens"][@"createaccounttoken"];
+            [self finishWithError:error
+                      fetchedData:self.token];
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          [self finishWithError:error
-                    fetchedData:nil];
+            [self finishWithError:error
+                      fetchedData:nil];
         }];
 }
 

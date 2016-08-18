@@ -61,30 +61,30 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *requestURLString = [WMFWikimediaRestAPIURLStringWithVersion(1) stringByAppendingPathComponent:path];
 
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-             [self.operationManager GET:requestURLString
-                 parameters:nil
-                 progress:NULL
-                 success:^(NSURLSessionDataTask *operation, NSDictionary *responseObject) {
-                   NSError *parseError;
-                   WMFMostReadTitlesResponse *titlesResponse = [MTLJSONAdapter modelOfClass:[WMFMostReadTitlesResponse class]
-                                                                         fromJSONDictionary:responseObject
-                                                                                      error:&parseError];
-                   WMFMostReadTitlesResponseItem *firstItem = titlesResponse.items.firstObject;
+               [self.operationManager GET:requestURLString
+                   parameters:nil
+                   progress:NULL
+                   success:^(NSURLSessionDataTask *operation, NSDictionary *responseObject) {
+                       NSError *parseError;
+                       WMFMostReadTitlesResponse *titlesResponse = [MTLJSONAdapter modelOfClass:[WMFMostReadTitlesResponse class]
+                                                                             fromJSONDictionary:responseObject
+                                                                                          error:&parseError];
+                       WMFMostReadTitlesResponseItem *firstItem = titlesResponse.items.firstObject;
 
-                   NSCAssert([[NSCalendar wmf_utcGregorianCalendar] compareDate:date
-                                                                         toDate:firstItem.date
-                                                              toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame,
-                             @"Date for most-read articles (%@) doesn't match original fetch date: %@",
-                             firstItem.date, date);
+                       NSCAssert([[NSCalendar wmf_utcGregorianCalendar] compareDate:date
+                                                                             toDate:firstItem.date
+                                                                  toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame,
+                                 @"Date for most-read articles (%@) doesn't match original fetch date: %@",
+                                 firstItem.date, date);
 
-                   resolve(firstItem ?: parseError);
-                 }
-                 failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                   resolve(error);
-                 }];
+                       resolve(firstItem ?: parseError);
+                   }
+                   failure:^(NSURLSessionDataTask *operation, NSError *error) {
+                       resolve(error);
+                   }];
            }]
         .finally(^{
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
         });
 }
 

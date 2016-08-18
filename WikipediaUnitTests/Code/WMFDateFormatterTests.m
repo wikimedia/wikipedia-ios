@@ -23,18 +23,18 @@
     NSString *testTimestamp = @"2015-02-10T10:31:27Z";
     [self wmf_runParallelTestsWithLocales:[NSLocale availableLocaleIdentifiers]
                                     block:^(NSLocale *locale, XCTestExpectation *e) {
-                                      // need to parse date using the "regular" formatter
-                                      NSDate *decodedDate = [[NSDateFormatter wmf_iso8601Formatter] dateFromString:testTimestamp];
-                                      NSParameterAssert(decodedDate);
+                                        // need to parse date using the "regular" formatter
+                                        NSDate *decodedDate = [[NSDateFormatter wmf_iso8601Formatter] dateFromString:testTimestamp];
+                                        NSParameterAssert(decodedDate);
 
-                                      // TODO: check for "AM" for corresponding time locales
-                                      assertThat([[NSDateFormatter wmf_shortTimeFormatterWithLocale:locale] stringFromDate:decodedDate],
-                                                 describedAs(@"expected non-nil for locale: %0 from timestamp %1",
-                                                             notNilValue(),
-                                                             locale.localeIdentifier,
-                                                             testTimestamp,
-                                                             nil));
-                                      [e fulfill];
+                                        // TODO: check for "AM" for corresponding time locales
+                                        assertThat([[NSDateFormatter wmf_shortTimeFormatterWithLocale:locale] stringFromDate:decodedDate],
+                                                   describedAs(@"expected non-nil for locale: %0 from timestamp %1",
+                                                               notNilValue(),
+                                                               locale.localeIdentifier,
+                                                               testTimestamp,
+                                                               nil));
+                                        [e fulfill];
                                     }];
 }
 

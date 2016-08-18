@@ -43,8 +43,8 @@
     @weakify(self)
         UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
                                                            handler:^(id sender) {
-                                                             @strongify(self)
-                                                                 [self.delegate sectionEditorFinishedEditing:self];
+                                                               @strongify(self)
+                                                                   [self.delegate sectionEditorFinishedEditing:self];
                                                            }];
     buttonX.accessibilityLabel = MWLocalizedString(@"back-button-accessibility-label", nil);
     self.navigationItem.leftBarButtonItem = buttonX;
@@ -52,14 +52,14 @@
     self.rightButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-next", nil)
                                                            style:UIBarButtonItemStylePlain
                                                          handler:^(id sender) {
-                                                           @strongify(self)
+                                                             @strongify(self)
 
-                                                               if (![self changesMade]) {
-                                                               [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-                                                           }
-                                                           else {
-                                                               [self preview];
-                                                           }
+                                                                 if (![self changesMade]) {
+                                                                 [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+                                                             }
+                                                             else {
+                                                                 [self preview];
+                                                             }
                                                          }];
     self.navigationItem.rightBarButtonItem = self.rightButton;
 
@@ -172,9 +172,9 @@
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-downloading", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
     [[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager wmf_cancelAllTasksWithCompletionHandler:^{
-      (void)[[WikiTextSectionFetcher alloc] initAndFetchWikiTextForSection:self.section
-                                                               withManager:[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager
-                                                        thenNotifyDelegate:self];
+        (void)[[WikiTextSectionFetcher alloc] initAndFetchWikiTextForSection:self.section
+                                                                 withManager:[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager
+                                                          thenNotifyDelegate:self];
     }];
 }
 

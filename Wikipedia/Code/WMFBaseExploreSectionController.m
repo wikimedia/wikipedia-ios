@@ -70,7 +70,7 @@ static NSString *const WMFExploreSectionControllerException = @"WMFExploreSectio
 
 - (BOOL)containsPlaceholders {
     return [self.items bk_all:^BOOL(id obj) {
-      return [obj isKindOfClass:[NSNumber class]];
+        return [obj isKindOfClass:[NSNumber class]];
     }];
 }
 
@@ -155,9 +155,9 @@ static NSString *const WMFExploreSectionControllerException = @"WMFExploreSectio
 
         @weakify(self);
         [emptyCell.reloadButton bk_addEventHandler:^(id sender) {
-          @strongify(self);
-          [self resetData];
-          [self fetchDataUserInitiated];
+            @strongify(self);
+            [self resetData];
+            [self fetchDataUserInitiated];
         }
                                   forControlEvents:UIControlEventTouchUpInside];
 
@@ -199,17 +199,17 @@ static NSString *const WMFExploreSectionControllerException = @"WMFExploreSectio
     } else {
         @weakify(self);
         self.fetcherPromise = [self fetchData].then(^(NSArray *items) {
-                                                @strongify(self);
-                                                self.fetcherPromise = nil;
-                                                self.fetchedItems = items;
-                                                return self.items;
+                                                  @strongify(self);
+                                                  self.fetcherPromise = nil;
+                                                  self.fetchedItems = items;
+                                                  return self.items;
                                               })
                                   .catch(^(NSError *error) {
-                                    @strongify(self);
-                                    DDLogError(@"Failed to fetch items for section %@. %@", self, error);
-                                    self.fetcherPromise = nil;
-                                    self.fetchError = error;
-                                    return error;
+                                      @strongify(self);
+                                      DDLogError(@"Failed to fetch items for section %@. %@", self, error);
+                                      self.fetcherPromise = nil;
+                                      self.fetchError = error;
+                                      return error;
                                   });
         return self.fetcherPromise;
     }

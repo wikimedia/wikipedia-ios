@@ -20,7 +20,7 @@
     self.bundleRoot = [[NSBundle mainBundle] bundlePath];
     self.lprojFiles = [self bundledLprogFiles];
     self.infoPlistFilePaths = [self.lprojFiles bk_map:^NSString *(NSString *lprojFileName) {
-      return [[LOCALIZATIONS_DIR stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"InfoPlist.strings"];
+        return [[LOCALIZATIONS_DIR stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"InfoPlist.strings"];
     }];
 }
 
@@ -120,10 +120,10 @@
     // unbundled lProj's containing "Localizable.strings"
     return
         [self.unbundledLprojFiles bk_select:^BOOL(NSString *lprojFileName) {
-          BOOL isDirectory = NO;
-          NSString *localizableStringsFilePath =
-              [[LOCALIZATIONS_DIR stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"Localizable.strings"];
-          return [[NSFileManager defaultManager] fileExistsAtPath:localizableStringsFilePath isDirectory:&isDirectory];
+            BOOL isDirectory = NO;
+            NSString *localizableStringsFilePath =
+                [[LOCALIZATIONS_DIR stringByAppendingPathComponent:lprojFileName] stringByAppendingPathComponent:@"Localizable.strings"];
+            return [[NSFileManager defaultManager] fileExistsAtPath:localizableStringsFilePath isDirectory:&isDirectory];
         }];
 }
 

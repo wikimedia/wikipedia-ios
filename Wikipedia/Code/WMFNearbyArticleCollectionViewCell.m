@@ -85,7 +85,7 @@
                               block:^(WMFNearbyArticleCollectionViewCell *cell,
                                       WMFSearchResultBearingProvider *provider,
                                       NSDictionary *change) {
-                                [cell setBearing:provider.bearingToLocation];
+                                  [cell setBearing:provider.bearingToLocation];
                               }];
     } else {
         self.compassView.hidden = YES;
@@ -171,7 +171,7 @@
                               block:^(WMFNearbyArticleCollectionViewCell *cell,
                                       WMFSearchResultDistanceProvider *provider,
                                       NSDictionary *change) {
-                                [cell setDistance:provider.distanceToUser];
+                                  [cell setDistance:provider.distanceToUser];
                               }];
     } else {
         [self setDistance:0];
@@ -179,11 +179,11 @@
 }
 
 - (void)setDistance:(CLLocationDistance)distance {
-    if (NO /*FBTweakValue(@"Explore", @"Nearby", @"Show raw distance", NO)*/) {
-        self.distanceLabel.text = [NSString stringWithFormat:@"%f", distance];
-    } else {
-        self.distanceLabel.text = [NSString wmf_localizedStringForDistance:distance];
-    }
+    //if (NO /*FBTweakValue(@"Explore", @"Nearby", @"Show raw distance", NO)*/) {
+    //    self.distanceLabel.text = [NSString stringWithFormat:@"%f", distance];
+    //} else {
+    self.distanceLabel.text = [NSString wmf_localizedStringForDistance:distance];
+    //}
 }
 
 #pragma mark - Image

@@ -13,21 +13,21 @@ typedef NS_ENUM(NSInteger, WMFNumericTransformerErrorCode) {
     NSValueTransformer<MTLTransformerErrorHandling> *validatingNumberTransformer =
         [MTLValueTransformer mtl_validatingTransformerForClass:[NSNumber class]];
     return [MTLValueTransformer transformerUsingForwardBlock:^id(id stringOrNumber, BOOL *success, NSError *__autoreleasing *error) {
-      if ([stringOrNumber isKindOfClass:[NSString class]]) {
-          double value = 0.0;
-          if ([[NSScanner scannerWithString:stringOrNumber] scanDouble:&value]) {
-              return @(value);
-          } else {
-              *success = NO;
-              WMFSafeAssign(error,
-                            [NSError errorWithDomain:WMFNumericTransformerErrorDomain
-                                                code:WMFNumericTransformerErrorDomainInvalidString
-                                            userInfo:nil]);
-              return nil;
-          }
-      } else {
-          return [validatingNumberTransformer transformedValue:stringOrNumber success:success error:error];
-      }
+        if ([stringOrNumber isKindOfClass:[NSString class]]) {
+            double value = 0.0;
+            if ([[NSScanner scannerWithString:stringOrNumber] scanDouble:&value]) {
+                return @(value);
+            } else {
+                *success = NO;
+                WMFSafeAssign(error,
+                              [NSError errorWithDomain:WMFNumericTransformerErrorDomain
+                                                  code:WMFNumericTransformerErrorDomainInvalidString
+                                              userInfo:nil]);
+                return nil;
+            }
+        } else {
+            return [validatingNumberTransformer transformedValue:stringOrNumber success:success error:error];
+        }
     }];
 }
 

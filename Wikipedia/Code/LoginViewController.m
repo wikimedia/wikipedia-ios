@@ -51,17 +51,17 @@
     @weakify(self)
         UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
                                                            handler:^(id sender) {
-                                                             @strongify(self)
-                                                                 [self dismissViewControllerAnimated:YES
-                                                                                          completion:nil];
+                                                               @strongify(self)
+                                                                   [self dismissViewControllerAnimated:YES
+                                                                                            completion:nil];
                                                            }];
     self.navigationItem.leftBarButtonItems = @[ xButton ];
 
     self.doneButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"main-menu-account-login", nil)
                                                           style:UIBarButtonItemStylePlain
                                                         handler:^(id sender) {
-                                                          @strongify(self)
-                                                              [self save];
+                                                            @strongify(self)
+                                                                [self save];
                                                         }];
     self.navigationItem.rightBarButtonItem = self.doneButton;
 
@@ -165,18 +165,18 @@
     [[WMFAuthenticationManager sharedInstance] loginWithUsername:self.usernameField.text
         password:self.passwordField.text
         success:^{
-          NSString *loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
-          loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
-                                                                       withString:self.usernameField.text];
-          [[WMFAlertManager sharedInstance] showAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+            NSString *loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
+            loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
+                                                                         withString:self.usernameField.text];
+            [[WMFAlertManager sharedInstance] showAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
 
-          [self dismissViewControllerAnimated:YES completion:nil];
-          [self.funnel logSuccess];
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [self.funnel logSuccess];
         }
         failure:^(NSError *error) {
-          [self enableProgressiveButton:YES];
-          [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-          [self.funnel logError:error.localizedDescription];
+            [self enableProgressiveButton:YES];
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+            [self.funnel logError:error.localizedDescription];
         }];
 }
 
@@ -192,14 +192,14 @@
         UIViewController *presenter = self.presentingViewController;
         [self dismissViewControllerAnimated:YES
                                  completion:^{
-                                   AccountCreationViewController *createAcctVC = [AccountCreationViewController wmf_initialViewControllerFromClassStoryboard];
+                                     AccountCreationViewController *createAcctVC = [AccountCreationViewController wmf_initialViewControllerFromClassStoryboard];
 
-                                   createAcctVC.funnel = [[CreateAccountFunnel alloc] init];
-                                   [createAcctVC.funnel logStartFromLogin:self.funnel.loginSessionToken];
+                                     createAcctVC.funnel = [[CreateAccountFunnel alloc] init];
+                                     [createAcctVC.funnel logStartFromLogin:self.funnel.loginSessionToken];
 
-                                   UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:createAcctVC];
+                                     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:createAcctVC];
 
-                                   [presenter presentViewController:nc animated:YES completion:nil];
+                                     [presenter presentViewController:nc animated:YES completion:nil];
                                  }];
     }
 }

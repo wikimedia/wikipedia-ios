@@ -93,7 +93,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     self.diceButton.enabled = !isRandomArticleLoading;
 
     dispatch_block_t animations = ^{
-      self.emptyFadeView.alpha = isRandomArticleLoading ? 1 : 0;
+        self.emptyFadeView.alpha = isRandomArticleLoading ? 1 : 0;
     };
 
     if (animated) {
@@ -108,12 +108,12 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     NSURL *siteURL = self.articleURL.wmf_siteURL;
     [self.randomArticleFetcher fetchRandomArticleWithSiteURL:siteURL
         failure:^(NSError *error) {
-          [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
         }
         success:^(MWKSearchResult *result) {
-          NSURL *titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
-          WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore diceButtonItem:self.diceButtonItem];
-          [self wmf_pushArticleViewController:randomArticleVC animated:YES];
+            NSURL *titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
+            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore diceButtonItem:self.diceButtonItem];
+            [self wmf_pushArticleViewController:randomArticleVC animated:YES];
         }];
 }
 

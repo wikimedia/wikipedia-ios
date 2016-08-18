@@ -22,11 +22,11 @@ static NSString *const MWKArticleMainPageLeadingTextXPath = MWKArticleMainPageLe
 - (NSString *)shareSnippet {
     if ([self isMain]) {
         return [self firstNonEmptyResultFromIteratingSectionsWithBlock:^NSString *(MWKSection *section) {
-          return [[section textForXPath:MWKArticleMainPageLeadingTextXPath] wmf_shareSnippetFromText];
+            return [[section textForXPath:MWKArticleMainPageLeadingTextXPath] wmf_shareSnippetFromText];
         }];
     } else {
         return [self firstNonEmptyResultFromIteratingSectionsWithBlock:^NSString *(MWKSection *section) {
-          return [section shareSnippet];
+            return [section shareSnippet];
         }];
     }
 }

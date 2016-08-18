@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.webView.navigationDelegate = self;
     self.userInteractionEnabled = YES;
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.top.bottom.leading.and.trailing.equalTo(self.webView.superview);
+        make.top.bottom.leading.and.trailing.equalTo(self.webView.superview);
     }];
 }
 

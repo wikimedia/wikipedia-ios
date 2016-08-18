@@ -110,7 +110,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     wv.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:wv];
     [wv mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.leading.and.trailing.top.and.bottom.equalTo(wv.superview);
+        make.leading.and.trailing.top.and.bottom.equalTo(wv.superview);
     }];
 
     wv.navigationDelegate = self;
@@ -120,16 +120,16 @@ static NSString *const kWMFContributorsKey = @"contributors";
     @weakify(self)
         self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
                                                handler:^(id sender) {
-                                                 @strongify(self)
-                                                     [self dismissViewControllerAnimated:YES
-                                                                              completion:nil];
+                                                   @strongify(self)
+                                                       [self dismissViewControllerAnimated:YES
+                                                                                completion:nil];
                                                }];
 
     self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft
                                                    handler:^(id sender) {
-                                                     @strongify(self)
-                                                         [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile
-                                                                           scrolledToFragment:nil];
+                                                       @strongify(self)
+                                                           [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile
+                                                                             scrolledToFragment:nil];
                                                    }];
 
     [self updateNavigationBar];
@@ -198,7 +198,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
 - (void)injectAboutPageContentIntoWebView:(WKWebView *)webView {
     void (^setDivHTML)(NSString *, NSString *) = ^void(NSString *divId, NSString *twnString) {
-      [self.webView wmf_setInnerHTML:twnString ofElementId:divId];
+        [self.webView wmf_setInnerHTML:twnString ofElementId:divId];
     };
 
     setDivHTML(@"version", [[NSBundle mainBundle] wmf_versionForCurrentBundleIdentifier]);

@@ -152,7 +152,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     if (sections) {
         self.sections = [sections sortedArrayWithOptions:NSSortStable
                                          usingComparator:^NSComparisonResult(WMFExploreSection *_Nonnull obj1, WMFExploreSection *_Nonnull obj2) {
-                                           return [obj1 compare:obj2];
+                                             return [obj1 compare:obj2];
                                          }];
     } else {
         // must be nonnull
@@ -247,17 +247,17 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     NSMutableArray<WMFExploreSection *> *existingNearbySections = [[self nearbySections] mutableCopy];
 
     WMFExploreSection *closeEnough = [existingNearbySections bk_match:^BOOL(WMFExploreSection *oldNearby) {
-      //Don't add a new one if we have one that is minimum distance
-      if (oldNearby.location && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby && oldNearby.placemark != nil) {
-          return YES;
-      }
+        //Don't add a new one if we have one that is minimum distance
+        if (oldNearby.location && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby && oldNearby.placemark != nil) {
+            return YES;
+        }
 
-      //Don't add more than one more in a single day
-      if (oldNearby.location && [oldNearby.dateCreated isToday] && oldNearby.placemark != nil) {
-          return YES;
-      }
+        //Don't add more than one more in a single day
+        if (oldNearby.location && [oldNearby.dateCreated isToday] && oldNearby.placemark != nil) {
+            return YES;
+        }
 
-      return NO;
+        return NO;
     }];
 
     if (closeEnough != nil) {
@@ -266,38 +266,38 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
     @weakify(self);
     [self.locationManager reverseGeocodeLocation:location].then(^(CLPlacemark *_Nullable placemark) {
-                                                            @strongify(self);
-                                                            if (!self) {
-                                                                return;
-                                                            }
-                                                            NSMutableArray<WMFExploreSection *> *sections = [self.sections mutableCopy];
-                                                            [sections bk_performReject:^BOOL(WMFExploreSection *obj) {
-                                                              return obj.type == WMFExploreSectionTypeNearby;
-                                                            }];
+                                                              @strongify(self);
+                                                              if (!self) {
+                                                                  return;
+                                                              }
+                                                              NSMutableArray<WMFExploreSection *> *sections = [self.sections mutableCopy];
+                                                              [sections bk_performReject:^BOOL(WMFExploreSection *obj) {
+                                                                  return obj.type == WMFExploreSectionTypeNearby;
+                                                              }];
 
-                                                            [existingNearbySections addObject:[self nearbySectionWithLocation:location placemark:placemark]];
+                                                              [existingNearbySections addObject:[self nearbySectionWithLocation:location placemark:placemark]];
 
-                                                            NSUInteger max = [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeNearby];
+                                                              NSUInteger max = [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeNearby];
 
-                                                            [existingNearbySections sortWithOptions:NSSortStable
-                                                                                    usingComparator:^NSComparisonResult(WMFExploreSection *_Nonnull obj1, WMFExploreSection *_Nonnull obj2) {
-                                                                                      return -[obj1.dateCreated compare:obj2.dateCreated];
-                                                                                    }];
+                                                              [existingNearbySections sortWithOptions:NSSortStable
+                                                                                      usingComparator:^NSComparisonResult(WMFExploreSection *_Nonnull obj1, WMFExploreSection *_Nonnull obj2) {
+                                                                                          return -[obj1.dateCreated compare:obj2.dateCreated];
+                                                                                      }];
 
-                                                            NSArray *trimmedExistingNearbySections = [existingNearbySections wmf_arrayByTrimmingToLength:max];
-                                                            [sections addObjectsFromArray:trimmedExistingNearbySections];
-                                                            [self updateSections:sections];
+                                                              NSArray *trimmedExistingNearbySections = [existingNearbySections wmf_arrayByTrimmingToLength:max];
+                                                              [sections addObjectsFromArray:trimmedExistingNearbySections];
+                                                              [self updateSections:sections];
                                                           })
         .catch(^(NSError *error) {
-          DDLogWarn(@"Suppressing geocoding error: %@", error);
-          return nil;
+            DDLogWarn(@"Suppressing geocoding error: %@", error);
+            return nil;
         });
 }
 
 - (void)removeNearbySection {
     NSMutableArray<WMFExploreSection *> *sections = [self.sections mutableCopy];
     [sections bk_performReject:^BOOL(WMFExploreSection *obj) {
-      return obj.type == WMFExploreSectionTypeNearby;
+        return obj.type == WMFExploreSectionTypeNearby;
     }];
     [self updateSections:sections];
 }
@@ -307,10 +307,10 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 - (void)dataSourceDidFinishUpdates:(id<WMFDataSource>)dataSource {
     if (dataSource == self.blackListDataSource) {
         [self.blackList enumerateItemsWithBlock:^(MWKHistoryEntry *_Nonnull entry, BOOL *stop) {
-          WMFExploreSection *section = [self existingSectionForArticleURL:entry.url];
-          if (section) {
-              [self removeSection:section];
-          }
+            WMFExploreSection *section = [self existingSectionForArticleURL:entry.url];
+            if (section) {
+                [self removeSection:section];
+            }
         }];
     }
 }
@@ -333,15 +333,15 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 - (NSArray<WMFExploreSection *> *)randomSections {
     NSArray *existingRandomArticleSections = [self.sections bk_select:^BOOL(WMFExploreSection *obj) {
-      return obj.type == WMFExploreSectionTypeRandom;
+        return obj.type == WMFExploreSectionTypeRandom;
     }];
 
     NSMutableArray *randomArray = [existingRandomArticleSections mutableCopy];
 
     BOOL const containsTodaysRandomArticle = [randomArray bk_any:^BOOL(WMFExploreSection *obj) {
-      NSAssert(obj.type == WMFExploreSectionTypeRandom,
-               @"List should only contain random sections, got %@", randomArray);
-      return [obj.dateCreated isToday];
+        NSAssert(obj.type == WMFExploreSectionTypeRandom,
+                 @"List should only contain random sections, got %@", randomArray);
+        return [obj.dateCreated isToday];
     }];
 
     if (!containsTodaysRandomArticle) {
@@ -353,7 +353,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     //Sort by date
     [randomArray sortWithOptions:NSSortStable
                  usingComparator:^NSComparisonResult(WMFExploreSection *_Nonnull obj1, WMFExploreSection *_Nonnull obj2) {
-                   return -[obj1.dateCreated compare:obj2.dateCreated];
+                     return -[obj1.dateCreated compare:obj2.dateCreated];
                  }];
 
     return [randomArray wmf_arrayByTrimmingToLength:max];
@@ -361,10 +361,10 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 - (NSArray<WMFExploreSection *> *)nearbySections {
     NSArray<WMFExploreSection *> *nearby = [self.sections bk_select:^BOOL(WMFExploreSection *obj) {
-      if (obj.type == WMFExploreSectionTypeNearby && obj.location != nil && obj.siteURL != nil) {
-          return YES;
-      }
-      return NO;
+        if (obj.type == WMFExploreSectionTypeNearby && obj.location != nil && obj.siteURL != nil) {
+            return YES;
+        }
+        return NO;
     }];
 
     return nearby;
@@ -388,18 +388,18 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
  */
 - (NSArray<WMFExploreSection *> *)mostReadSectionsWithUpdateIfNeeded {
     NSMutableArray<WMFExploreSection *> *mostReadSections = [[self.sections bk_select:^BOOL(WMFExploreSection *section) {
-      return section.type == WMFExploreSectionTypeMostRead && section.siteURL != nil && section.mostReadFetchDate != nil;
+        return section.type == WMFExploreSectionTypeMostRead && section.siteURL != nil && section.mostReadFetchDate != nil;
     }] mutableCopy];
 
     WMFExploreSection *latestMostReadSection = [self newMostReadSectionWithLatestPopulatedDate];
 
     BOOL containsLatestSectionEquivalent = [mostReadSections bk_any:^BOOL(WMFExploreSection *mostReadSection) {
-      BOOL const matchesDay = [[NSCalendar wmf_utcGregorianCalendar]
-                                        compareDate:mostReadSection.mostReadFetchDate
-                                             toDate:latestMostReadSection.mostReadFetchDate
-                                  toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame;
-      BOOL const matchesSite = [mostReadSection.siteURL isEqual:latestMostReadSection.siteURL];
-      return matchesDay && matchesSite;
+        BOOL const matchesDay = [[NSCalendar wmf_utcGregorianCalendar]
+                                          compareDate:mostReadSection.mostReadFetchDate
+                                               toDate:latestMostReadSection.mostReadFetchDate
+                                    toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame;
+        BOOL const matchesSite = [mostReadSection.siteURL isEqual:latestMostReadSection.siteURL];
+        return matchesDay && matchesSite;
     }];
 
     if (!containsLatestSectionEquivalent) {
@@ -411,7 +411,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     //Sort by date
     [mostReadSections sortWithOptions:NSSortStable
                       usingComparator:^NSComparisonResult(WMFExploreSection *_Nonnull obj1, WMFExploreSection *_Nonnull obj2) {
-                        return -[obj1.dateCreated compare:obj2.dateCreated];
+                          return -[obj1.dateCreated compare:obj2.dateCreated];
                       }];
 
     return [mostReadSections wmf_arrayByTrimmingToLength:max];
@@ -430,16 +430,16 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 - (NSArray<WMFExploreSection *> *)featuredSections {
     NSArray *existingFeaturedArticleSections = [self.sections bk_select:^BOOL(WMFExploreSection *obj) {
-      return obj.type == WMFExploreSectionTypeFeaturedArticle;
+        return obj.type == WMFExploreSectionTypeFeaturedArticle;
     }];
 
     //Don't add new ones if we aren't in english
     NSMutableArray *featured = [existingFeaturedArticleSections mutableCopy];
 
     BOOL const containsTodaysFeaturedArticle = [featured bk_any:^BOOL(WMFExploreSection *obj) {
-      NSAssert(obj.type == WMFExploreSectionTypeFeaturedArticle,
-               @"List should only contain featured sections, got %@", featured);
-      return [obj.dateCreated isToday];
+        NSAssert(obj.type == WMFExploreSectionTypeFeaturedArticle,
+                 @"List should only contain featured sections, got %@", featured);
+        return [obj.dateCreated isToday];
     }];
 
     if (!containsTodaysFeaturedArticle) {
@@ -451,7 +451,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     //Sort by date
     [featured sortWithOptions:NSSortStable
               usingComparator:^NSComparisonResult(WMFExploreSection *_Nonnull obj1, WMFExploreSection *_Nonnull obj2) {
-                return -[obj1.dateCreated compare:obj2.dateCreated];
+                  return -[obj1.dateCreated compare:obj2.dateCreated];
               }];
 
     return [featured wmf_arrayByTrimmingToLength:max];
@@ -459,10 +459,10 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 - (WMFExploreSection *)mainPageSection {
     WMFExploreSection *main = [self.sections bk_match:^BOOL(WMFExploreSection *obj) {
-      if (obj.type == WMFExploreSectionTypeMainPage && [obj.siteURL isEqual:self.siteURL]) {
-          return YES;
-      }
-      return NO;
+        if (obj.type == WMFExploreSectionTypeMainPage && [obj.siteURL isEqual:self.siteURL]) {
+            return YES;
+        }
+        return NO;
     }];
 
     //If it's a new day and we havent created a new main page section, create it now
@@ -475,19 +475,19 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 - (NSArray<WMFExploreSection *> *)pictureOfTheDaySections {
     NSMutableArray<WMFExploreSection *> *existingSections = [[self.sections bk_select:^BOOL(WMFExploreSection *obj) {
-      if (obj.type == WMFExploreSectionTypePictureOfTheDay) {
-          return YES;
-      }
-      return NO;
+        if (obj.type == WMFExploreSectionTypePictureOfTheDay) {
+            return YES;
+        }
+        return NO;
     }] mutableCopy];
 
     WMFExploreSection *todaySection = [existingSections bk_match:^BOOL(WMFExploreSection *existingSection) {
-      //Only one section per day
-      if ([existingSection.dateCreated isToday]) {
-          return YES;
-      }
+        //Only one section per day
+        if ([existingSection.dateCreated isToday]) {
+            return YES;
+        }
 
-      return NO;
+        return NO;
     }];
 
     if (todaySection == nil) {
@@ -499,7 +499,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     //Sort by date
     [existingSections sortWithOptions:NSSortStable
                       usingComparator:^NSComparisonResult(WMFExploreSection *_Nonnull obj1, WMFExploreSection *_Nonnull obj2) {
-                        return -[obj1.dateCreated compare:obj2.dateCreated];
+                          return -[obj1.dateCreated compare:obj2.dateCreated];
                       }];
 
     return [existingSections wmf_arrayByTrimmingToLength:max];
@@ -523,25 +523,25 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 - (nullable WMFExploreSection *)existingContinueReadingSection {
     return [self.sections bk_match:^BOOL(WMFExploreSection *obj) {
-      if (obj.type == WMFExploreSectionTypeContinueReading) {
-          return YES;
-      }
-      return NO;
+        if (obj.type == WMFExploreSectionTypeContinueReading) {
+            return YES;
+        }
+        return NO;
     }];
 }
 
 - (nullable WMFExploreSection *)existingSectionForArticleURL:(NSURL *)articleURL {
     return [self.sections bk_match:^BOOL(WMFExploreSection *obj) {
-      if ([obj.articleURL isEqual:articleURL]) {
-          return YES;
-      }
-      return NO;
+        if ([obj.articleURL isEqual:articleURL]) {
+            return YES;
+        }
+        return NO;
     }];
 }
 
 - (nullable NSArray<WMFExploreSection *> *)existingHistoryAndSavedSections {
     return [self.sections bk_select:^BOOL(WMFExploreSection *obj) {
-      return (obj.type == WMFExploreSectionTypeSaved || obj.type == WMFExploreSectionTypeHistory);
+        return (obj.type == WMFExploreSectionTypeSaved || obj.type == WMFExploreSectionTypeHistory);
     }];
 }
 
@@ -557,7 +557,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     //Sort by date
     [history sortWithOptions:NSSortStable | NSSortConcurrent
              usingComparator:^NSComparisonResult(WMFExploreSection *_Nonnull obj1, WMFExploreSection *_Nonnull obj2) {
-               return -[obj1.dateCreated compare:obj2.dateCreated];
+                 return -[obj1.dateCreated compare:obj2.dateCreated];
              }];
 
     return [history wmf_arrayByTrimmingToLength:max];
@@ -570,28 +570,28 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
     NSArray<NSURL *> *existingURLs = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFExploreSection new], articleURL)];
     NSArray<NSString *> *existingKeys = [existingURLs wmf_mapAndRejectNil:^id(NSURL *obj) {
-      if ([obj isKindOfClass:[NSURL class]]) {
-          return [MWKHistoryEntry databaseKeyForURL:obj];
-      } else {
-          return nil;
-      }
+        if ([obj isKindOfClass:[NSURL class]]) {
+            return [MWKHistoryEntry databaseKeyForURL:obj];
+        } else {
+            return nil;
+        }
     }];
 
     NSMutableArray *array = [self.becauseYouReadDataSource readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-      NSMutableArray *array = [NSMutableArray arrayWithCapacity:[self.becauseYouReadDataSource numberOfItems]];
-      [view enumerateKeysAndObjectsInGroup:[[view allGroups] firstObject]
-                                usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, MWKHistoryEntry *_Nonnull object, NSUInteger index, BOOL *_Nonnull stop) {
-                                  if (![existingKeys containsObject:key]) {
-                                      if (object.dateViewed) {
-                                          WMFExploreSection *section = [WMFExploreSection historySectionWithHistoryEntry:object];
-                                          [array addObject:section];
-                                      } else {
-                                          WMFExploreSection *section = [WMFExploreSection savedSectionWithSavedPageEntry:object];
-                                          [array addObject:section];
+        NSMutableArray *array = [NSMutableArray arrayWithCapacity:[self.becauseYouReadDataSource numberOfItems]];
+        [view enumerateKeysAndObjectsInGroup:[[view allGroups] firstObject]
+                                  usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, MWKHistoryEntry *_Nonnull object, NSUInteger index, BOOL *_Nonnull stop) {
+                                      if (![existingKeys containsObject:key]) {
+                                          if (object.dateViewed) {
+                                              WMFExploreSection *section = [WMFExploreSection historySectionWithHistoryEntry:object];
+                                              [array addObject:section];
+                                          } else {
+                                              WMFExploreSection *section = [WMFExploreSection savedSectionWithSavedPageEntry:object];
+                                              [array addObject:section];
+                                          }
                                       }
-                                  }
-                                }];
-      return array;
+                                  }];
+        return array;
     }];
 
     return [array wmf_arrayByTrimmingToLength:maxLength];
@@ -605,7 +605,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
                   [self.sections filteredArrayUsingPredicate:
                                      [NSPredicate predicateWithBlock:^BOOL(WMFExploreSection *_Nonnull evaluatedObject,
                                                                            NSDictionary<NSString *, id> *_Nullable _) {
-                                       return evaluatedObject.type != WMFExploreSectionTypeNearby;
+                                         return evaluatedObject.type != WMFExploreSectionTypeNearby;
                                      }]]];
     }
 }
@@ -667,39 +667,39 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     WMFExploreSectionSchema *backgroundCopy = [self copy];
 
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-      dispatch_async(self.saveQueue, ^{
-        NSError *error;
-        if (![[NSFileManager defaultManager] createDirectoryAtURL:[self.fileURL URLByDeletingLastPathComponent]
-                                      withIntermediateDirectories:YES
-                                                       attributes:nil
-                                                            error:&error]) {
-            DDLogError(@"Failed to save sections to disk: %@", error);
+        dispatch_async(self.saveQueue, ^{
+            NSError *error;
+            if (![[NSFileManager defaultManager] createDirectoryAtURL:[self.fileURL URLByDeletingLastPathComponent]
+                                          withIntermediateDirectories:YES
+                                                           attributes:nil
+                                                                error:&error]) {
+                DDLogError(@"Failed to save sections to disk: %@", error);
+                resolve(error);
+                return;
+            }
+
+            NSMutableData *result = [NSMutableData data];
+            NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:result];
+
+            @try {
+                [archiver encodeObject:backgroundCopy forKey:NSKeyedArchiveRootObjectKey];
+                [archiver finishEncoding];
+                [result writeToURL:self.fileURL
+                           options:NSDataWritingAtomic
+                             error:&error];
+            } @catch (NSException *exception) {
+                error = [NSError errorWithDomain:NSInvalidArchiveOperationException
+                                            code:-1
+                                        userInfo:@{NSLocalizedDescriptionKey : exception.name,
+                                                   NSLocalizedFailureReasonErrorKey : exception.reason}];
+            }
+
+            NSAssert(!error, @"Failed to save sections: %@", error);
+            if (error) {
+                DDLogError(@"Failed to save sections to disk: %@", error);
+            }
             resolve(error);
-            return;
-        }
-
-        NSMutableData *result = [NSMutableData data];
-        NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:result];
-
-        @try {
-            [archiver encodeObject:backgroundCopy forKey:NSKeyedArchiveRootObjectKey];
-            [archiver finishEncoding];
-            [result writeToURL:self.fileURL
-                       options:NSDataWritingAtomic
-                         error:&error];
-        } @catch (NSException *exception) {
-            error = [NSError errorWithDomain:NSInvalidArchiveOperationException
-                                        code:-1
-                                    userInfo:@{NSLocalizedDescriptionKey : exception.name,
-                                               NSLocalizedFailureReasonErrorKey : exception.reason}];
-        }
-
-        NSAssert(!error, @"Failed to save sections: %@", error);
-        if (error) {
-            DDLogError(@"Failed to save sections to disk: %@", error);
-        }
-        resolve(error);
-      });
+        });
     }];
 }
 

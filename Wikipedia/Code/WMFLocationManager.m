@@ -161,8 +161,8 @@ NS_ASSUME_NONNULL_BEGIN
                                                           object:nil
                                                            queue:nil
                                                       usingBlock:^(NSNotification *_) {
-                                                        @strongify(self);
-                                                        [self updateHeadingOrientation];
+                                                          @strongify(self);
+                                                          [self updateHeadingOrientation];
                                                       }];
     [self updateHeadingOrientation];
     [self.locationManager startUpdatingHeading];
@@ -284,14 +284,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise *)reverseGeocodeLocation:(CLLocation *)location {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-      [[[CLGeocoder alloc] init] reverseGeocodeLocation:location
-                                      completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError *_Nullable error) {
-                                        if (error) {
-                                            resolve(error);
-                                        } else {
-                                            resolve(placemarks.firstObject);
-                                        }
-                                      }];
+        [[[CLGeocoder alloc] init] reverseGeocodeLocation:location
+                                        completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError *_Nullable error) {
+                                            if (error) {
+                                                resolve(error);
+                                            } else {
+                                                resolve(placemarks.firstObject);
+                                            }
+                                        }];
     }];
 }
 

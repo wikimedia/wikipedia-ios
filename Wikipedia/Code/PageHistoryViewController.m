@@ -52,9 +52,9 @@
     @weakify(self)
         UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
                                                            handler:^(id sender) {
-                                                             @strongify(self)
-                                                                 [self dismissViewControllerAnimated:YES
-                                                                                          completion:nil];
+                                                               @strongify(self)
+                                                                   [self dismissViewControllerAnimated:YES
+                                                                                            completion:nil];
                                                            }];
     self.navigationItem.leftBarButtonItem = xButton;
 
@@ -77,21 +77,21 @@
 
     @weakify(self);
     [self.pageHistoryFetcher fetchRevisionInfo:self.article.url requestParams:self.historyFetcherParams].then(^(HistoryFetchResults *historyFetchResults) {
-                                                                                                          @strongify(self);
-                                                                                                          [self.pageHistoryDataArray addObjectsFromArray:historyFetchResults.items];
-                                                                                                          self.historyFetcherParams = [historyFetchResults getPageHistoryRequestParameters:self.article.url];
-                                                                                                          self.batchComplete = historyFetchResults.batchComplete;
-                                                                                                          [[WMFAlertManager sharedInstance] dismissAlert];
-                                                                                                          [self.tableView reloadData];
+                                                                                                            @strongify(self);
+                                                                                                            [self.pageHistoryDataArray addObjectsFromArray:historyFetchResults.items];
+                                                                                                            self.historyFetcherParams = [historyFetchResults getPageHistoryRequestParameters:self.article.url];
+                                                                                                            self.batchComplete = historyFetchResults.batchComplete;
+                                                                                                            [[WMFAlertManager sharedInstance] dismissAlert];
+                                                                                                            [self.tableView reloadData];
                                                                                                         })
         .catch(^(NSError *error) {
-          @strongify(self);
-          DDLogError(@"Failed to fetch items for section %@. %@", self, error);
-          [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
+            @strongify(self);
+            DDLogError(@"Failed to fetch items for section %@. %@", self, error);
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
         })
         .finally(^{
-          @strongify(self);
-          self.isLoadingData = NO;
+            @strongify(self);
+            self.isLoadingData = NO;
         });
 }
 

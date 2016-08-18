@@ -42,32 +42,32 @@ static NSString *const WMFRelatedSectionBlackListFileExtension = @"plist";
 
     WMFRelatedSectionBlackList *blackList = [[self class] loadFromDisk];
     NSArray<NSURL *> *entries = [blackList.entries wmf_mapAndRejectNil:^id _Nullable(id _Nonnull obj) {
-      if ([obj isKindOfClass:[NSURL class]]) {
-          return obj;
-      } else if ([obj isKindOfClass:[MWKTitle class]]) {
-          return [(MWKTitle *)obj URL];
-      } else {
-          return nil;
-      }
+        if ([obj isKindOfClass:[NSURL class]]) {
+            return obj;
+        } else if ([obj isKindOfClass:[MWKTitle class]]) {
+            return [(MWKTitle *)obj URL];
+        } else {
+            return nil;
+        }
     }];
 
     if ([entries count] > 0) {
         [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-          NSMutableArray *urls = [NSMutableArray arrayWithCapacity:[entries count]];
-          [entries enumerateObjectsUsingBlock:^(NSURL *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            MWKHistoryEntry *entry = nil;
-            MWKHistoryEntry *existing = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:obj] inCollection:[MWKHistoryEntry databaseCollectionName]];
-            if (existing) {
-                entry = [existing copy];
-            } else {
-                entry = [[MWKHistoryEntry alloc] initWithURL:obj];
-            }
-            entry.blackListed = YES;
+            NSMutableArray *urls = [NSMutableArray arrayWithCapacity:[entries count]];
+            [entries enumerateObjectsUsingBlock:^(NSURL *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                MWKHistoryEntry *entry = nil;
+                MWKHistoryEntry *existing = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:obj] inCollection:[MWKHistoryEntry databaseCollectionName]];
+                if (existing) {
+                    entry = [existing copy];
+                } else {
+                    entry = [[MWKHistoryEntry alloc] initWithURL:obj];
+                }
+                entry.blackListed = YES;
 
-            [transaction setObject:entry forKey:[entry databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
-            [urls addObject:[entry databaseKey]];
-          }];
-          return urls;
+                [transaction setObject:entry forKey:[entry databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
+                [urls addObject:[entry databaseKey]];
+            }];
+            return urls;
         }];
 
         [[NSUserDefaults standardUserDefaults] wmf_setDidMigrateBlackList:YES];
@@ -82,13 +82,13 @@ static NSString *const WMFRelatedSectionBlackListFileExtension = @"plist";
     if ([key isEqualToString:WMF_SAFE_KEYPATH(self, entries)] && modelVersion == 0) {
         NSArray *titles = [self decodeValueForKey:WMF_SAFE_KEYPATH(self, entries) withCoder:coder modelVersion:0];
         return [titles wmf_mapAndRejectNil:^id(NSURL *obj) {
-          if ([obj isKindOfClass:[NSURL class]]) {
-              return obj;
-          } else if ([obj isKindOfClass:[MWKTitle class]]) {
-              return [(MWKTitle *)obj URL];
-          } else {
-              return nil;
-          }
+            if ([obj isKindOfClass:[NSURL class]]) {
+                return obj;
+            } else if ([obj isKindOfClass:[MWKTitle class]]) {
+                return [(MWKTitle *)obj URL];
+            } else {
+                return nil;
+            }
         }];
     } else {
         return [super decodeValueForKey:key withCoder:coder modelVersion:modelVersion];
@@ -111,8 +111,8 @@ static NSString *const WMFRelatedSectionBlackListFileExtension = @"plist";
 
 - (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
     return [self.dataSource readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-      MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-      return entry;
+        MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        return entry;
     }];
 }
 
@@ -125,15 +125,15 @@ static NSString *const WMFRelatedSectionBlackListFileExtension = @"plist";
         return;
     }
     [self.dataSource readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-      if ([view numberOfItemsInAllGroups] == 0) {
-          return;
-      }
-      [view enumerateKeysAndObjectsInGroup:[[view allGroups] firstObject]
-                                usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, MWKHistoryEntry *_Nonnull object, NSUInteger index, BOOL *_Nonnull stop) {
-                                  if (object.isBlackListed) {
-                                      block(object, stop);
-                                  }
-                                }];
+        if ([view numberOfItemsInAllGroups] == 0) {
+            return;
+        }
+        [view enumerateKeysAndObjectsInGroup:[[view allGroups] firstObject]
+                                  usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, MWKHistoryEntry *_Nonnull object, NSUInteger index, BOOL *_Nonnull stop) {
+                                      if (object.isBlackListed) {
+                                          block(object, stop);
+                                      }
+                                  }];
     }];
 }
 
@@ -151,16 +151,16 @@ static NSString *const WMFRelatedSectionBlackListFileExtension = @"plist";
     __block MWKHistoryEntry *entry = nil;
 
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-      entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-      if (!entry) {
-          entry = [[MWKHistoryEntry alloc] initWithURL:url];
-      } else {
-          entry = [entry copy];
-      }
-      entry.blackListed = YES;
+        entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        if (!entry) {
+            entry = [[MWKHistoryEntry alloc] initWithURL:url];
+        } else {
+            entry = [entry copy];
+        }
+        entry.blackListed = YES;
 
-      [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-      return @[ [MWKHistoryEntry databaseKeyForURL:url] ];
+        [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        return @[ [MWKHistoryEntry databaseKeyForURL:url] ];
     }];
 
     return entry;
@@ -171,28 +171,28 @@ static NSString *const WMFRelatedSectionBlackListFileExtension = @"plist";
         return;
     }
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-      MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-      entry.blackListed = NO;
-      [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-      return @[ [MWKHistoryEntry databaseKeyForURL:url] ];
+        MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        entry.blackListed = NO;
+        [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        return @[ [MWKHistoryEntry databaseKeyForURL:url] ];
     }];
 }
 
 - (void)removeAllEntries {
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray<NSString *> *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-      NSMutableArray<NSString *> *keys = [NSMutableArray arrayWithCapacity:[self numberOfItems]];
-      [transaction enumerateKeysAndObjectsInCollection:[MWKHistoryEntry databaseCollectionName]
-                                            usingBlock:^(NSString *_Nonnull key, MWKHistoryEntry *_Nonnull object, BOOL *_Nonnull stop) {
-                                              if (object.isBlackListed) {
-                                                  [keys addObject:key];
-                                              }
-                                            }];
-      [keys enumerateObjectsUsingBlock:^(NSString *_Nonnull key, NSUInteger idx, BOOL *_Nonnull stop) {
-        MWKHistoryEntry *entry = [[transaction objectForKey:key inCollection:[MWKHistoryEntry databaseCollectionName]] copy];
-        entry.blackListed = NO;
-        [transaction setObject:entry forKey:key inCollection:[MWKHistoryEntry databaseCollectionName]];
-      }];
-      return keys;
+        NSMutableArray<NSString *> *keys = [NSMutableArray arrayWithCapacity:[self numberOfItems]];
+        [transaction enumerateKeysAndObjectsInCollection:[MWKHistoryEntry databaseCollectionName]
+                                              usingBlock:^(NSString *_Nonnull key, MWKHistoryEntry *_Nonnull object, BOOL *_Nonnull stop) {
+                                                  if (object.isBlackListed) {
+                                                      [keys addObject:key];
+                                                  }
+                                              }];
+        [keys enumerateObjectsUsingBlock:^(NSString *_Nonnull key, NSUInteger idx, BOOL *_Nonnull stop) {
+            MWKHistoryEntry *entry = [[transaction objectForKey:key inCollection:[MWKHistoryEntry databaseCollectionName]] copy];
+            entry.blackListed = NO;
+            [transaction setObject:entry forKey:key inCollection:[MWKHistoryEntry databaseCollectionName]];
+        }];
+        return keys;
     }];
 }
 

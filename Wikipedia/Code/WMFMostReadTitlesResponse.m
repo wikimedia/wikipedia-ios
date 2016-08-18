@@ -52,7 +52,7 @@ static NSString *const WMFMostReadFailingProjectUserInfoKey = @"WMFMostReadFaili
     ];
 
     _articles = [_articles bk_reject:^BOOL(WMFMostReadTitlesResponseItemArticle *article) {
-      return [titleBlacklist containsObject:article.titleText] || [self isArticleTitleMainPage:article];
+        return [titleBlacklist containsObject:article.titleText] || [self isArticleTitleMainPage:article];
     }];
 }
 
@@ -61,7 +61,7 @@ static NSString *const WMFMostReadFailingProjectUserInfoKey = @"WMFMostReadFaili
     static dispatch_once_t onceToken;
     static NSDictionary *mainPages;
     dispatch_once(&onceToken, ^{
-      mainPages = [[[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeMainPages] dictionary];
+        mainPages = [[[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeMainPages] dictionary];
     });
     return [mainPages[self.siteURL.wmf_language] isEqualToString:[article.titleText wmf_normalizedPageTitle]];
 }
@@ -77,21 +77,21 @@ static NSString *const WMFMostReadFailingProjectUserInfoKey = @"WMFMostReadFaili
 
 + (MTLValueTransformer *)articlesJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
-      NSArray<WMFMostReadTitlesResponseItemArticle *> *rawArticles =
-          [MTLJSONAdapter modelsOfClass:[WMFMostReadTitlesResponseItemArticle class]
-                          fromJSONArray:value
-                                  error:error];
-      return [[rawArticles sortedArrayUsingComparator:
-                               ^NSComparisonResult(WMFMostReadTitlesResponseItemArticle *_Nonnull a1,
-                                                   WMFMostReadTitlesResponseItemArticle *_Nonnull a2) {
-                                 if (a1.rank > a2.rank) {
-                                     return NSOrderedDescending;
-                                 } else if (a1.rank < a2.rank) {
-                                     return NSOrderedAscending;
-                                 } else {
-                                     return NSOrderedAscending;
-                                 }
-                               }] wmf_safeSubarrayWithRange:NSMakeRange(0, 50)];
+        NSArray<WMFMostReadTitlesResponseItemArticle *> *rawArticles =
+            [MTLJSONAdapter modelsOfClass:[WMFMostReadTitlesResponseItemArticle class]
+                            fromJSONArray:value
+                                    error:error];
+        return [[rawArticles sortedArrayUsingComparator:
+                                 ^NSComparisonResult(WMFMostReadTitlesResponseItemArticle *_Nonnull a1,
+                                                     WMFMostReadTitlesResponseItemArticle *_Nonnull a2) {
+                                     if (a1.rank > a2.rank) {
+                                         return NSOrderedDescending;
+                                     } else if (a1.rank < a2.rank) {
+                                         return NSOrderedAscending;
+                                     } else {
+                                         return NSOrderedAscending;
+                                     }
+                                 }] wmf_safeSubarrayWithRange:NSMakeRange(0, 50)];
     }];
 }
 
@@ -99,40 +99,40 @@ static NSString *const WMFMostReadFailingProjectUserInfoKey = @"WMFMostReadFaili
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSDictionary *componentsMap,
                                                                  BOOL *outSuccess,
                                                                  NSError *__autoreleasing *outError) {
-      NSDateComponents *components = [[NSDateComponents alloc] init];
+        NSDateComponents *components = [[NSDateComponents alloc] init];
 
-      __block BOOL success = YES;
-      NSDate *date;
+        __block BOOL success = YES;
+        NSDate *date;
 
-      NSInteger (^nonnullComponentForKey)(NSString *) = ^(NSString *key) {
-        NSNumber *value = [componentsMap wmf_instanceOfClass:[NSString class]
-                                                      forKey:key
-                                                       error:outError];
-        if (!value) {
-            success = NO;
+        NSInteger (^nonnullComponentForKey)(NSString *) = ^(NSString *key) {
+            NSNumber *value = [componentsMap wmf_instanceOfClass:[NSString class]
+                                                          forKey:key
+                                                           error:outError];
+            if (!value) {
+                success = NO;
+            }
+            return value.integerValue;
+        };
+
+        components.day = nonnullComponentForKey(@"day");
+        components.month = nonnullComponentForKey(@"month");
+        components.year = nonnullComponentForKey(@"year");
+
+        if (success) {
+            components.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+            date = [[NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian] dateFromComponents:components];
+            if (!date) {
+                success = NO;
+                DDLogError(@"Failed to serialize date from components %@", components);
+                NSError *error = [NSError errorWithDomain:NSStringFromClass(self)
+                                                     code:WMFMostReadTitlesResponseErrorDateParseFailure
+                                                 userInfo:@{WMFMostReadTitlesFailingURLComponentsUserInfoKey : componentsMap}];
+                WMFSafeAssign(outError, error);
+            }
         }
-        return value.integerValue;
-      };
 
-      components.day = nonnullComponentForKey(@"day");
-      components.month = nonnullComponentForKey(@"month");
-      components.year = nonnullComponentForKey(@"year");
-
-      if (success) {
-          components.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
-          date = [[NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian] dateFromComponents:components];
-          if (!date) {
-              success = NO;
-              DDLogError(@"Failed to serialize date from components %@", components);
-              NSError *error = [NSError errorWithDomain:NSStringFromClass(self)
-                                                   code:WMFMostReadTitlesResponseErrorDateParseFailure
-                                               userInfo:@{WMFMostReadTitlesFailingURLComponentsUserInfoKey : componentsMap}];
-              WMFSafeAssign(outError, error);
-          }
-      }
-
-      WMFSafeAssign(outSuccess, success);
-      return date;
+        WMFSafeAssign(outSuccess, success);
+        return date;
     }];
 }
 
@@ -140,15 +140,15 @@ static NSString *const WMFMostReadFailingProjectUserInfoKey = @"WMFMostReadFaili
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *value,
                                                                  BOOL *success,
                                                                  NSError *__autoreleasing *error) {
-      NSArray *components = [value componentsSeparatedByString:@"."];
-      if (!value.length || components.count < 2) {
-          WMFSafeAssign(error,
-                        [NSError errorWithDomain:NSStringFromClass(self)
-                                            code:0
-                                        userInfo:value ? @{WMFMostReadFailingProjectUserInfoKey : value} : nil]);
-          return nil;
-      }
-      return [NSURL wmf_URLWithDomain:[components[1] stringByAppendingString:@".org"] language:components[0]];
+        NSArray *components = [value componentsSeparatedByString:@"."];
+        if (!value.length || components.count < 2) {
+            WMFSafeAssign(error,
+                          [NSError errorWithDomain:NSStringFromClass(self)
+                                              code:0
+                                          userInfo:value ? @{WMFMostReadFailingProjectUserInfoKey : value} : nil]);
+            return nil;
+        }
+        return [NSURL wmf_URLWithDomain:[components[1] stringByAppendingString:@".org"] language:components[0]];
     }];
 }
 

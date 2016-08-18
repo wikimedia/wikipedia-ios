@@ -85,11 +85,11 @@
 - (MWKSectionList *)sectionListWithLevels:(NSArray *)levels {
     MWKSectionList *list = [[MWKSectionList alloc] initWithArticle:self.dummyArticle
                                                           sections:[levels bk_map:^MWKSection *(id levelOrNull) {
-                                                            NSMutableDictionary *dict = [@{ @"id" : @(self.sectionIdCounter++) } mutableCopy];
-                                                            if (![[NSNull null] isEqual:levelOrNull]) {
-                                                                dict[@"level"] = levelOrNull;
-                                                            }
-                                                            return [[MWKSection alloc] initWithArticle:self.dummyArticle dict:dict];
+                                                              NSMutableDictionary *dict = [@{ @"id" : @(self.sectionIdCounter++) } mutableCopy];
+                                                              if (![[NSNull null] isEqual:levelOrNull]) {
+                                                                  dict[@"level"] = levelOrNull;
+                                                              }
+                                                              return [[MWKSection alloc] initWithArticle:self.dummyArticle dict:dict];
                                                           }]];
     return list;
 }

@@ -24,13 +24,13 @@
 
 + (NSValueTransformer *)revisionDateJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^(NSString *timeStamp, BOOL *success, NSError *__autoreleasing *error) {
-      return [timeStamp wmf_iso8601Date];
+        return [timeStamp wmf_iso8601Date];
     }];
 }
 
 + (NSValueTransformer *)authorIconJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^(NSString *anon, BOOL *success, NSError *__autoreleasing *error) {
-      return WIKIGLYPH_USER_SLEEP;
+        return WIKIGLYPH_USER_SLEEP;
     }];
 }
 

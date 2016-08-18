@@ -7,13 +7,13 @@
     NSMutableArray<NSString *> *managerKeys = [NSMutableArray new];
     [QueuesSingleton wmf_enumeratePropertiesUntilSuperclass:[NSObject class]
                                                  usingBlock:^(objc_property_t prop, BOOL *stop) {
-                                                   NSString *name = [NSString stringWithCString:property_getName(prop) encoding:NSUTF8StringEncoding];
-                                                   if ([name hasSuffix:@"Manager"]) {
-                                                       [managerKeys addObject:name];
-                                                   }
+                                                     NSString *name = [NSString stringWithCString:property_getName(prop) encoding:NSUTF8StringEncoding];
+                                                     if ([name hasSuffix:@"Manager"]) {
+                                                         [managerKeys addObject:name];
+                                                     }
                                                  }];
     return [managerKeys bk_map:^id(NSString *key) {
-      return [[QueuesSingleton sharedInstance] valueForKey:key];
+        return [[QueuesSingleton sharedInstance] valueForKey:key];
     }];
 }
 

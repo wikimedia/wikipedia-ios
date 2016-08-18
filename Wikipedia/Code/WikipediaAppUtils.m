@@ -60,7 +60,7 @@ static WMFAssetsFile *languageFile = nil;
     }
 
     return [languageFile.array bk_match:^BOOL(NSDictionary *obj) {
-      return [obj[@"code"] isEqualToString:code];
+        return [obj[@"code"] isEqualToString:code];
     }][@"name"];
 }
 
@@ -102,11 +102,11 @@ static WMFAssetsFile *languageFile = nil;
     NSString *bundledPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:folderName];
 
     void (^copy)(NSString *, NSString *) = ^void(NSString *path1, NSString *path2) {
-      NSError *error = nil;
-      [[NSFileManager defaultManager] copyItemAtPath:path1 toPath:path2 error:&error];
-      if (error) {
-          NSLog(@"Could not copy '%@' to '%@'", path1, path2);
-      }
+        NSError *error = nil;
+        [[NSFileManager defaultManager] copyItemAtPath:path1 toPath:path2 error:&error];
+        if (error) {
+            NSLog(@"Could not copy '%@' to '%@'", path1, path2);
+        }
     };
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {

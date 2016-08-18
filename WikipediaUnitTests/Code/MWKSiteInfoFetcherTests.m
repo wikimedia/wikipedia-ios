@@ -60,9 +60,9 @@
 
     [self.fetcher fetchSiteInfoForSiteURL:testSiteURL]
         .then(^(MWKSiteInfo *result) {
-          assertThat(result.siteURL, is(equalTo(testSiteURL)));
-          assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
-          [expectation fulfill];
+            assertThat(result.siteURL, is(equalTo(testSiteURL)));
+            assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
+            [expectation fulfill];
         });
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
@@ -92,12 +92,12 @@
 
     [self.fetcher fetchSiteInfoForSiteURL:testSiteURL]
         .then(^(MWKSiteInfo *result) {
-          assertThat(result.siteURL, is(equalTo(testSiteURL)));
-          assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
-          [expectation fulfill];
+            assertThat(result.siteURL, is(equalTo(testSiteURL)));
+            assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
+            [expectation fulfill];
         })
         .catch(^(NSError *error) {
-          NSLog(@"%@", [error localizedDescription]);
+            NSLog(@"%@", [error localizedDescription]);
         });
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];

@@ -52,7 +52,7 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
         }
     }
     dispatch_block_t animations = ^{
-      self.secondToolbar.frame = (CGRect){origin, size};
+        self.secondToolbar.frame = (CGRect){origin, size};
     };
     if (animated) {
         [UIView animateWithDuration:WMFArticleNavigationControllerSecondToolbarAnimationDuration animations:animations];

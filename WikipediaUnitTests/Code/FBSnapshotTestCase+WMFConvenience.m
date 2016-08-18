@@ -7,11 +7,11 @@
 - (void)wmf_verifyMultilineLabelWithText:(id)stringOrAttributedString width:(CGFloat)width {
     WMFSnapshotVerifyView([self wmf_getLabelSizedToFitWidth:width
                                         configuredWithBlock:^(UILabel *label) {
-                                          if ([stringOrAttributedString isKindOfClass:[NSString class]]) {
-                                              label.text = stringOrAttributedString;
-                                          } else if ([stringOrAttributedString isKindOfClass:[NSAttributedString class]]) {
-                                              label.attributedText = stringOrAttributedString;
-                                          }
+                                            if ([stringOrAttributedString isKindOfClass:[NSString class]]) {
+                                                label.text = stringOrAttributedString;
+                                            } else if ([stringOrAttributedString isKindOfClass:[NSAttributedString class]]) {
+                                                label.attributedText = stringOrAttributedString;
+                                            }
                                         }]);
 }
 
@@ -23,9 +23,9 @@
                                             fromTableView:tableView
                                           sizedToFitWidth:width
                                       configuredWithBlock:^(UITableViewCell *cell) {
-                                        if (block) {
-                                            block(cell);
-                                        }
+                                          if (block) {
+                                              block(cell);
+                                          }
                                       }]);
 }
 

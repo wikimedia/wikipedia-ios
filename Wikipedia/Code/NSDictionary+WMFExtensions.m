@@ -4,7 +4,7 @@
 
 - (BOOL)wmf_containsNullObjects {
     NSNull *null = [self bk_match:^BOOL(id key, id obj) {
-      return [obj isKindOfClass:[NSNull class]];
+        return [obj isKindOfClass:[NSNull class]];
     }];
     return (null != nil);
 }
@@ -18,23 +18,23 @@
     __block BOOL hasNull = NO;
     [self enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id _Nonnull obj, BOOL *_Nonnull stop) {
 
-      if ([obj isKindOfClass:[NSDictionary class]]) {
+        if ([obj isKindOfClass:[NSDictionary class]]) {
 
-          hasNull = [obj wmf_recursivelyContainsNullObjects];
-          if (hasNull) {
-              *stop = YES;
-              return;
-          }
-      }
+            hasNull = [obj wmf_recursivelyContainsNullObjects];
+            if (hasNull) {
+                *stop = YES;
+                return;
+            }
+        }
 
-      if ([obj isKindOfClass:[NSArray class]]) {
+        if ([obj isKindOfClass:[NSArray class]]) {
 
-          hasNull = [obj wmf_recursivelyContainsNullObjects];
-          if (hasNull) {
-              *stop = YES;
-              return;
-          }
-      }
+            hasNull = [obj wmf_recursivelyContainsNullObjects];
+            if (hasNull) {
+                *stop = YES;
+                return;
+            }
+        }
 
     }];
 
@@ -43,7 +43,7 @@
 
 - (NSDictionary *)wmf_dictionaryByRemovingNullObjects {
     return [self bk_reject:^BOOL(id key, id obj) {
-      return [obj isKindOfClass:[NSNull class]];
+        return [obj isKindOfClass:[NSNull class]];
     }];
 }
 

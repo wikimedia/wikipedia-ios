@@ -6,7 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray *)wmf_indexPathsForIndexes:(NSIndexSet *__nonnull)indexes inSection:(NSInteger)section {
     return [indexes bk_mapIndex:^id(NSUInteger index) {
-      return [NSIndexPath indexPathForRow:(NSInteger)index inSection:section];
+        return [NSIndexPath indexPathForRow:(NSInteger)index inSection:section];
     }];
 }
 
@@ -29,18 +29,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_enumerateVisibleIndexPathsUsingBlock:(WMFIndexPathEnumerator)block {
     [self.indexPathsForVisibleItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-      if (block) {
-          block(obj, stop);
-      }
+        if (block) {
+            block(obj, stop);
+        }
     }];
 }
 
 - (void)wmf_enumerateVisibleCellsUsingBlock:(WMFCellEnumerator)block {
     [self wmf_enumerateVisibleIndexPathsUsingBlock:^(NSIndexPath *path, BOOL *stop) {
-      id cell = [self cellForItemAtIndexPath:path];
-      if (cell) {
-          block(cell, path, stop);
-      }
+        id cell = [self cellForItemAtIndexPath:path];
+        if (cell) {
+            block(cell, path, stop);
+        }
     }];
 }
 
@@ -81,9 +81,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self setCollectionViewLayout:layout
                          animated:animated
                        completion:^(BOOL finished) {
-                         if (animated && completion) {
-                             completion(finished);
-                         }
+                           if (animated && completion) {
+                               completion(finished);
+                           }
                        }];
 
     if (!animated && completion) {
@@ -93,29 +93,29 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray *)wmf_visibleIndexPathsOfItemsBeforeIndexPath:(NSIndexPath *)indexPath {
     return [[self indexPathsForVisibleItems] bk_select:^BOOL(NSIndexPath *obj) {
-      if (obj.section > indexPath.section) {
-          return NO;
-      }
+        if (obj.section > indexPath.section) {
+            return NO;
+        }
 
-      if (obj.row < indexPath.row) {
-          return YES;
-      }
+        if (obj.row < indexPath.row) {
+            return YES;
+        }
 
-      return NO;
+        return NO;
     }];
 }
 
 - (NSArray *)wmf_visibleIndexPathsOfItemsAfterIndexPath:(NSIndexPath *)indexPath {
     return [[self indexPathsForVisibleItems] bk_select:^BOOL(NSIndexPath *obj) {
-      if (obj.section < indexPath.section) {
-          return NO;
-      }
+        if (obj.section < indexPath.section) {
+            return NO;
+        }
 
-      if (obj.row > indexPath.row) {
-          return YES;
-      }
+        if (obj.row > indexPath.row) {
+            return YES;
+        }
 
-      return NO;
+        return NO;
     }];
 }
 
@@ -123,17 +123,17 @@ NS_ASSUME_NONNULL_BEGIN
     __block CGRect enclosingRect = CGRectZero;
 
     [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath *obj, NSUInteger idx, BOOL *stop) {
-      UICollectionViewCell *cell = [self cellForItemAtIndexPath:obj];
+        UICollectionViewCell *cell = [self cellForItemAtIndexPath:obj];
 
-      if (!cell) {
-          return;
-      }
+        if (!cell) {
+            return;
+        }
 
-      if (CGRectIsEmpty(enclosingRect)) {
-          enclosingRect = cell.frame;
-      } else {
-          enclosingRect = CGRectUnion(enclosingRect, cell.frame);
-      }
+        if (CGRectIsEmpty(enclosingRect)) {
+            enclosingRect = cell.frame;
+        } else {
+            enclosingRect = CGRectUnion(enclosingRect, cell.frame);
+        }
     }];
 
     return enclosingRect;

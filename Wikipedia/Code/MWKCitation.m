@@ -69,10 +69,10 @@ NS_ASSUME_NONNULL_BEGIN
         _backlinkIdentifiers = [[[[TFHpple hppleWithHTMLData:[self.rawHTML dataUsingEncoding:NSUTF8StringEncoding]]
             searchWithXPathQuery:@"/html/body//*[contains(@class,'mw-cite-backlink')]//a"]
             bk_map:^NSString *(TFHppleElement *el) {
-              return el.attributes[@"id"];
+                return el.attributes[@"id"];
             }]
             bk_reject:^BOOL(id obj) {
-              return WMF_IS_EQUAL(obj, [NSNull null]);
+                return WMF_IS_EQUAL(obj, [NSNull null]);
             }];
         if (!_backlinkIdentifiers) {
             _backlinkIdentifiers = @[];

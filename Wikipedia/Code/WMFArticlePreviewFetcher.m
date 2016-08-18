@@ -80,19 +80,19 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     return [self.operationManager wmf_GETAndRetryWithURL:siteURL parameters:params]
         .thenInBackground(^id(NSArray<MWKSearchResult *> *unsortedPreviews) {
-          @strongify(self);
-          if (!self) {
-              return [NSError cancelledError];
-          }
+            @strongify(self);
+            if (!self) {
+                return [NSError cancelledError];
+            }
         WMF_TECH_DEBT_TODO(handle case where no preview is retrieved for url)
         return [articleURLs wmf_mapAndRejectNil:^(NSURL *articleURL) {
-          MWKSearchResult *matchingPreview = [unsortedPreviews bk_match:^BOOL(MWKSearchResult *preview) {
-            return [preview.displayTitle isEqualToString:articleURL.wmf_title];
-          }];
-          if (!matchingPreview) {
-              DDLogWarn(@"Couldn't find requested preview for %@. Returned previews: %@", articleURL, unsortedPreviews);
-          }
-          return matchingPreview;
+            MWKSearchResult *matchingPreview = [unsortedPreviews bk_match:^BOOL(MWKSearchResult *preview) {
+                return [preview.displayTitle isEqualToString:articleURL.wmf_title];
+            }];
+            if (!matchingPreview) {
+                DDLogWarn(@"Couldn't find requested preview for %@. Returned previews: %@", articleURL, unsortedPreviews);
+            }
+            return matchingPreview;
         }];
         });
 }
@@ -142,7 +142,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)barSeparatedTitlesStringFromURLs:(NSArray<NSURL *> *)URLs {
     return WMFJoinedPropertyParameters([URLs bk_map:^NSString *(NSURL *URL) {
-      return URL.wmf_title;
+        return URL.wmf_title;
     }]);
 }
 

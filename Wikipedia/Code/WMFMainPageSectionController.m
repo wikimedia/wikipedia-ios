@@ -124,26 +124,26 @@ static NSString *const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 - (AnyPromise *)fetchData {
     @weakify(self);
     return [self.siteInfoFetcher fetchSiteInfoForSiteURL:self.siteURL].then(^(MWKSiteInfo *data) {
-                                                                        @strongify(self);
-                                                                        if (!self || !data.mainPageURL) {
-                                                                            return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
-                                                                        }
-                                                                        self.siteInfo = data;
-                                                                        return (id)[self.titleSearchFetcher fetchArticlePreviewResultsForArticleURLs:@[ self.siteInfo.mainPageURL ] siteURL:self.siteURL];
+                                                                          @strongify(self);
+                                                                          if (!self || !data.mainPageURL) {
+                                                                              return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
+                                                                          }
+                                                                          self.siteInfo = data;
+                                                                          return (id)[self.titleSearchFetcher fetchArticlePreviewResultsForArticleURLs:@[ self.siteInfo.mainPageURL ] siteURL:self.siteURL];
                                                                       })
         .then(^(NSArray<MWKSearchResult *> *searchResults) {
-          @strongify(self);
-          if (!self) {
-              return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
-          }
-          self.mainPageSearchResult = [searchResults firstObject];
-          return (id) @[ [searchResults firstObject] ];
+            @strongify(self);
+            if (!self) {
+                return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
+            }
+            self.mainPageSearchResult = [searchResults firstObject];
+            return (id) @[ [searchResults firstObject] ];
         })
         .catch(^(NSError *error) {
-          @strongify(self);
-          self.siteInfo = nil;
-          self.mainPageSearchResult = nil;
-          return error;
+            @strongify(self);
+            self.siteInfo = nil;
+            self.mainPageSearchResult = nil;
+            return error;
         });
 }
 

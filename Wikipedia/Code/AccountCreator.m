@@ -59,55 +59,55 @@
         parameters:params
         progress:NULL
         success:^(NSURLSessionDataTask *operation, id responseObject) {
-          //NSLog(@"JSON: %@", responseObject);
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            //NSLog(@"JSON: %@", responseObject);
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          // Fake out an error if non-dictionary response received.
-          if (![responseObject isDict]) {
-              responseObject = @{ @"error" : @{@"info" : @"Account creation data not found."} };
-          }
+            // Fake out an error if non-dictionary response received.
+            if (![responseObject isDict]) {
+                responseObject = @{ @"error" : @{@"info" : @"Account creation data not found."} };
+            }
 
-          //NSLog(@"ACCT CREATION DATA RETRIEVED = %@", responseObject);
+            //NSLog(@"ACCT CREATION DATA RETRIEVED = %@", responseObject);
 
-          // Handle case where response is received, but API reports error.
-          NSError *error = nil;
-          if (responseObject[@"error"]) {
-              NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
-              errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
-              error = [NSError errorWithDomain:@"Acct Creation Fetcher"
-                                          code:ACCOUNT_CREATION_ERROR_API
-                                      userInfo:errorDict];
-          }
+            // Handle case where response is received, but API reports error.
+            NSError *error = nil;
+            if (responseObject[@"error"]) {
+                NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
+                errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
+                error = [NSError errorWithDomain:@"Acct Creation Fetcher"
+                                            code:ACCOUNT_CREATION_ERROR_API
+                                        userInfo:errorDict];
+            }
 
-          if ([responseObject[@"createaccount"][@"status"] isEqualToString:@"FAIL"] && ![responseObject[@"createaccount"][@"message"] isEqualToString:@"Incorrect or missing CAPTCHA."]) {
-              NSMutableDictionary *errorDict = [responseObject[@"createaccount"] mutableCopy];
-              errorDict[NSLocalizedDescriptionKey] = responseObject[@"createaccount"][@"message"];
-              error = [NSError errorWithDomain:@"Acct Creation Fetcher"
-                                          code:ACCOUNT_CREATION_ERROR_API
-                                      userInfo:errorDict];
-          }
+            if ([responseObject[@"createaccount"][@"status"] isEqualToString:@"FAIL"] && ![responseObject[@"createaccount"][@"message"] isEqualToString:@"Incorrect or missing CAPTCHA."]) {
+                NSMutableDictionary *errorDict = [responseObject[@"createaccount"] mutableCopy];
+                errorDict[NSLocalizedDescriptionKey] = responseObject[@"createaccount"][@"message"];
+                error = [NSError errorWithDomain:@"Acct Creation Fetcher"
+                                            code:ACCOUNT_CREATION_ERROR_API
+                                        userInfo:errorDict];
+            }
 
-          NSString *result = @"";
-          if (!error) {
-              if ([responseObject[@"createaccount"][@"status"] isEqualToString:@"FAIL"] && [responseObject[@"createaccount"][@"message"] isEqualToString:@"Incorrect or missing CAPTCHA."]) {
-                  NSMutableDictionary *errorDict = @{}.mutableCopy;
+            NSString *result = @"";
+            if (!error) {
+                if ([responseObject[@"createaccount"][@"status"] isEqualToString:@"FAIL"] && [responseObject[@"createaccount"][@"message"] isEqualToString:@"Incorrect or missing CAPTCHA."]) {
+                    NSMutableDictionary *errorDict = @{}.mutableCopy;
 
-                  errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"account-creation-captcha-required", nil);
+                    errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"account-creation-captcha-required", nil);
 
-                  error = [NSError errorWithDomain:@"Account Creation Fetcher"
-                                              code:ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA
-                                          userInfo:errorDict];
-              }
-          }
+                    error = [NSError errorWithDomain:@"Account Creation Fetcher"
+                                                code:ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA
+                                            userInfo:errorDict];
+                }
+            }
 
-          [self finishWithError:error
-                    fetchedData:result];
+            [self finishWithError:error
+                      fetchedData:result];
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          [self finishWithError:error
-                    fetchedData:nil];
+            [self finishWithError:error
+                      fetchedData:nil];
         }];
 }
 

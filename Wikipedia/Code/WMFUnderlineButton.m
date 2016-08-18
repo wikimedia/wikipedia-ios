@@ -50,9 +50,9 @@
 
 - (void)updateUnderlineConstraints {
     [self.underline mas_remakeConstraints:^(MASConstraintMaker *make) {
-      make.leading.and.trailing.equalTo(self);
-      make.height.equalTo(@(self.underlineHeight));
-      make.bottom.equalTo(self.mas_bottom);
+        make.leading.and.trailing.equalTo(self);
+        make.height.equalTo(@(self.underlineHeight));
+        make.bottom.equalTo(self.mas_bottom);
     }];
 }
 

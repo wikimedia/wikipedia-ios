@@ -31,27 +31,27 @@
         parameters:nil
         progress:NULL
         success:^(NSURLSessionDataTask *operation, id responseObject) {
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          NSError *error = nil;
-          if (
-              ![self isDataResponseValid:responseObject] ||
-              !self.url ||
-              (self.url.length == 0)) {
-              NSString *errorUrl = self.url ? self.url : @"No URL specified.";
-              error = [NSError errorWithDomain:@"Thumbnail Fetcher"
-                                          code:THUMBNAIL_FETCH_ERROR_NOT_FOUND
-                                      userInfo:@{ NSLocalizedDescriptionKey : [@"Thumbnail not retrieved. URL: " stringByAppendingString:errorUrl] }];
-          }
+            NSError *error = nil;
+            if (
+                ![self isDataResponseValid:responseObject] ||
+                !self.url ||
+                (self.url.length == 0)) {
+                NSString *errorUrl = self.url ? self.url : @"No URL specified.";
+                error = [NSError errorWithDomain:@"Thumbnail Fetcher"
+                                            code:THUMBNAIL_FETCH_ERROR_NOT_FOUND
+                                        userInfo:@{ NSLocalizedDescriptionKey : [@"Thumbnail not retrieved. URL: " stringByAppendingString:errorUrl] }];
+            }
 
-          [self finishWithError:error
-                    fetchedData:responseObject];
+            [self finishWithError:error
+                      fetchedData:responseObject];
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          [self finishWithError:error
-                    fetchedData:nil];
+            [self finishWithError:error
+                      fetchedData:nil];
         }];
 }
 

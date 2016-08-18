@@ -76,26 +76,26 @@
     @weakify(self)
         UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
                                                            handler:^(id sender) {
-                                                             @strongify(self) if (self.showCaptchaContainer) {
-                                                                 self.showCaptchaContainer = NO;
-                                                             }
-                                                             else {
-                                                                 [self dismissViewControllerAnimated:YES completion:nil];
-                                                             }
+                                                               @strongify(self) if (self.showCaptchaContainer) {
+                                                                   self.showCaptchaContainer = NO;
+                                                               }
+                                                               else {
+                                                                   [self dismissViewControllerAnimated:YES completion:nil];
+                                                               }
                                                            }];
     self.navigationItem.leftBarButtonItems = @[ xButton ];
 
     self.rightButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-next", nil)
                                                            style:UIBarButtonItemStylePlain
                                                          handler:^(id sender) {
-                                                           @strongify(self)
+                                                             @strongify(self)
 
-                                                               [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-saving", nil)
-                                                                                                    sticky:YES
-                                                                                     dismissPreviousAlerts:YES
-                                                                                               tapCallBack:NULL];
+                                                                 [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-saving", nil)
+                                                                                                      sticky:YES
+                                                                                       dismissPreviousAlerts:YES
+                                                                                                 tapCallBack:NULL];
 
-                                                           [self save];
+                                                             [self save];
                                                          }];
     self.navigationItem.rightBarButtonItem = self.rightButton;
 
@@ -163,9 +163,9 @@
 
         [self dismissViewControllerAnimated:YES
                                  completion:^{
-                                   UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:[LoginViewController wmf_initialViewControllerFromClassStoryboard]];
+                                     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:[LoginViewController wmf_initialViewControllerFromClassStoryboard]];
 
-                                   [presenter presentViewController:nc animated:YES completion:nil];
+                                     [presenter presentViewController:nc animated:YES completion:nil];
                                  }];
     }
 }
@@ -275,29 +275,29 @@
                                                         afterDelay:0.4f];
         [self.funnel logCaptchaShown];
         dispatch_async(dispatch_get_main_queue(), ^(void) {
-          [UIView animateWithDuration:duration
-              animations:^{
-                self.captchaContainer.alpha = 1;
-                [self.scrollView scrollSubViewToTop:self.captchaContainer animated:NO];
-              }
-              completion:^(BOOL done) {
-                [self enableProgressiveButton:NO];
-              }];
+            [UIView animateWithDuration:duration
+                animations:^{
+                    self.captchaContainer.alpha = 1;
+                    [self.scrollView scrollSubViewToTop:self.captchaContainer animated:NO];
+                }
+                completion:^(BOOL done) {
+                    [self enableProgressiveButton:NO];
+                }];
         });
     } else {
         dispatch_async(dispatch_get_main_queue(), ^(void) {
-          [[WMFAlertManager sharedInstance] dismissAlert];
-          [UIView animateWithDuration:duration
-              animations:^{
-                self.captchaContainer.alpha = 0;
-                [self.scrollView setContentOffset:CGPointZero animated:NO];
-              }
-              completion:^(BOOL done) {
-                self.captchaViewController.captchaTextBox.text = @"";
-                self.captchaViewController.captchaImageView.image = nil;
-                // Pretent a text field changed so the progressive button state gets updated.
-                [self textFieldDidChange:nil];
-              }];
+            [[WMFAlertManager sharedInstance] dismissAlert];
+            [UIView animateWithDuration:duration
+                animations:^{
+                    self.captchaContainer.alpha = 0;
+                    [self.scrollView setContentOffset:CGPointZero animated:NO];
+                }
+                completion:^(BOOL done) {
+                    self.captchaViewController.captchaTextBox.text = @"";
+                    self.captchaViewController.captchaImageView.image = nil;
+                    // Pretent a text field changed so the progressive button state gets updated.
+                    [self textFieldDidChange:nil];
+                }];
         });
     }
 }
@@ -330,14 +330,14 @@
     [[WMFAuthenticationManager sharedInstance] loginWithUsername:self.usernameField.text
         password:self.passwordField.text
         success:^{
-          NSString *loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
-          loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
-                                                                       withString:self.usernameField.text];
-          [[WMFAlertManager sharedInstance] showSuccessAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-          [self dismissViewControllerAnimated:YES completion:nil];
+            NSString *loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
+            loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
+                                                                         withString:self.usernameField.text];
+            [[WMFAlertManager sharedInstance] showSuccessAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
         failure:^(NSError *error) {
-          [self enableProgressiveButton:YES];
+            [self enableProgressiveButton:YES];
         }];
 }
 
@@ -354,12 +354,12 @@
 - (BOOL)areRequiredFieldsPopulated {
     return NSNotFound ==
            [[self requiredInputFields] indexOfObjectPassingTest:^BOOL(UITextField *field, NSUInteger idx, BOOL *stop) {
-             if (field.text.length == 0) {
-                 *stop = YES;
-                 return YES;
-             } else {
-                 return NO;
-             }
+               if (field.text.length == 0) {
+                   *stop = YES;
+                   return YES;
+               } else {
+                   return NO;
+               }
            }];
 }
 
@@ -380,32 +380,32 @@
             password:self.passwordField.text
             email:self.emailField.text
             captcha:^(NSURL *_Nonnull captchaURL) {
-              self.captchaUrl = captchaURL;
+                self.captchaUrl = captchaURL;
 
-              [[WMFAlertManager sharedInstance] showWarningAlert:MWLocalizedString(@"account-creation-captcha-required", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showWarningAlert:MWLocalizedString(@"account-creation-captcha-required", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
             }
             failure:^(NSError *error) {
-              [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-              [self.funnel logError:error.localizedDescription];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+                [self.funnel logError:error.localizedDescription];
             }];
     } else {
         [[WMFAuthenticationManager sharedInstance] createAccountWithCaptchaText:self.captchaViewController.captchaTextBox.text
             success:^{
-              NSString *loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
-              loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
-                                                                           withString:self.usernameField.text];
-              [[WMFAlertManager sharedInstance] showSuccessAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-              [self dismissViewControllerAnimated:YES completion:nil];
+                NSString *loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
+                loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
+                                                                             withString:self.usernameField.text];
+                [[WMFAlertManager sharedInstance] showSuccessAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+                [self dismissViewControllerAnimated:YES completion:nil];
             }
             captcha:^(NSURL *_Nonnull captchaURL) {
-              self.captchaUrl = captchaURL;
+                self.captchaUrl = captchaURL;
 
-              [[WMFAlertManager sharedInstance] showWarningAlert:MWLocalizedString(@"account-creation-captcha-required", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showWarningAlert:MWLocalizedString(@"account-creation-captcha-required", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
             }
             failure:^(NSError *error) {
-              [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-              [self.funnel logError:error.localizedDescription];
-              [self enableProgressiveButton:YES];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+                [self.funnel logError:error.localizedDescription];
+                [self enableProgressiveButton:YES];
             }];
     }
 }

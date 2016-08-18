@@ -59,17 +59,17 @@ NS_ASSUME_NONNULL_BEGIN
                                     MWKSearchResult *searchResult,
                                     UITableView *tableView,
                                     NSIndexPath *indexPath) {
-          @strongify(self);
-          NSURL *URL = [self urlForIndexPath:indexPath];
-          NSParameterAssert([URL.wmf_domain isEqual:siteURL.wmf_domain]);
-          cell.titleText = URL.wmf_title;
-          cell.descriptionText = searchResult.wikidataDescription;
-          cell.snippetText = searchResult.extract;
-          [cell setImageURL:searchResult.thumbnailURL];
+            @strongify(self);
+            NSURL *URL = [self urlForIndexPath:indexPath];
+            NSParameterAssert([URL.wmf_domain isEqual:siteURL.wmf_domain]);
+            cell.titleText = URL.wmf_title;
+            cell.descriptionText = searchResult.wikidataDescription;
+            cell.snippetText = searchResult.extract;
+            [cell setImageURL:searchResult.thumbnailURL];
 
-          [cell setSaveableURL:URL savedPageList:self.savedPageList];
+            [cell setSaveableURL:URL savedPageList:self.savedPageList];
 
-          [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+            [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
         };
     }
     return self;
@@ -90,12 +90,12 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [self.titlesSearchFetcher fetchArticlePreviewResultsForArticleURLs:self.urls siteURL:self.siteURL]
         .then(^(NSArray<MWKSearchResult *> *searchResults) {
-          @strongify(self);
-          if (!self) {
-              return;
-          }
-          self.previewResults = searchResults;
-          [self updateItems:searchResults];
+            @strongify(self);
+            if (!self) {
+                return;
+            }
+            self.previewResults = searchResults;
+            [self updateItems:searchResults];
         });
 }
 

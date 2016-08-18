@@ -32,15 +32,15 @@ NS_ASSUME_NONNULL_BEGIN
                                       MWKSearchResult *searchResult,
                                       UITableView *tableView,
                                       NSIndexPath *indexPath) {
-      @strongify(self);
-      NSURL *articleURL = [self.dataSource.url wmf_URLWithTitle:searchResult.displayTitle];
-      [cell setSaveableURL:articleURL savedPageList:self.dataSource.savedPageList];
-      cell.titleText = searchResult.displayTitle;
-      cell.descriptionText = searchResult.wikidataDescription;
-      cell.snippetText = searchResult.extract;
-      [cell setImageURL:searchResult.thumbnailURL];
-      [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-      cell.saveButtonController.analyticsContext = self;
+        @strongify(self);
+        NSURL *articleURL = [self.dataSource.url wmf_URLWithTitle:searchResult.displayTitle];
+        [cell setSaveableURL:articleURL savedPageList:self.dataSource.savedPageList];
+        cell.titleText = searchResult.displayTitle;
+        cell.descriptionText = searchResult.wikidataDescription;
+        cell.snippetText = searchResult.extract;
+        [cell setImageURL:searchResult.thumbnailURL];
+        [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+        cell.saveButtonController.analyticsContext = self;
     };
 
     [super setDataSource:dataSource];

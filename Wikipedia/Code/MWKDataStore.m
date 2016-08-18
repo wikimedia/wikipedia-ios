@@ -149,7 +149,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     NSArray<NSString *> *updatedItemKeys = [notification wmf_updatedItemKeys];
 
     [updatedItemKeys enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-      [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:obj];
+        [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:obj];
     }];
 
     [self cleanup];
@@ -157,16 +157,16 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 - (void)cleanup {
     [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-      YapDatabaseViewTransaction *view = [transaction ext:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
-      if ([view numberOfItemsInAllGroups] == 0) {
-          return;
-      }
-      NSMutableArray *keysToRemove = [NSMutableArray array];
-      [view enumerateKeysInGroup:[[view allGroups] firstObject]
-                      usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, NSUInteger index, BOOL *_Nonnull stop) {
-                        [keysToRemove addObject:key];
-                      }];
-      [transaction removeObjectsForKeys:keysToRemove inCollection:[MWKHistoryEntry databaseCollectionName]];
+        YapDatabaseViewTransaction *view = [transaction ext:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
+        if ([view numberOfItemsInAllGroups] == 0) {
+            return;
+        }
+        NSMutableArray *keysToRemove = [NSMutableArray array];
+        [view enumerateKeysInGroup:[[view allGroups] firstObject]
+                        usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, NSUInteger index, BOOL *_Nonnull stop) {
+                            [keysToRemove addObject:key];
+                        }];
+        [transaction removeObjectsForKeys:keysToRemove inCollection:[MWKHistoryEntry databaseCollectionName]];
     }];
 }
 
@@ -194,7 +194,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     self.userDataStore = [[MWKUserDataStore alloc] initWithDataStore:self];
     self.cacheRemovalQueue = dispatch_queue_create("org.wikimedia.cache_removal", DISPATCH_QUEUE_SERIAL);
     dispatch_async(self.cacheRemovalQueue, ^{
-      self.cacheRemovalActive = true;
+        self.cacheRemovalActive = true;
     });
 }
 
@@ -365,7 +365,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     [self saveDictionary:export path:path name:@"Article.plist"];
     [self.articleCache setObject:article forKey:article.url];
     dispatchOnMainQueue(^{
-      [[NSNotificationCenter defaultCenter] postNotificationName:MWKArticleSavedNotification object:self userInfo:@{MWKArticleKey : article}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:MWKArticleSavedNotification object:self userInfo:@{MWKArticleKey : article}];
     });
 }
 
@@ -403,7 +403,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 - (void)saveImageInfo:(NSArray *)imageInfo forArticleURL:(NSURL *)url {
     NSArray *export = [imageInfo bk_map:^id(MWKImageInfo *obj) {
-      return [obj dataExport];
+        return [obj dataExport];
     }];
 
     [self saveArray:export
@@ -507,25 +507,25 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     NSString *filePath = [path stringByAppendingPathComponent:@"TitlesToRemove.plist"];
     NSArray *URLStrings = [NSArray arrayWithContentsOfFile:filePath];
     NSArray<NSURL *> *urls = [URLStrings wmf_mapAndRejectNil:^NSURL *(id obj) {
-      if (obj && [obj isKindOfClass:[NSString class]]) {
-          return [NSURL URLWithString:obj];
-      } else {
-          return nil;
-      }
+        if (obj && [obj isKindOfClass:[NSString class]]) {
+            return [NSURL URLWithString:obj];
+        } else {
+            return nil;
+        }
     }];
     return urls;
 }
 
 - (BOOL)saveCacheRemovalListToDisk:(NSArray<NSURL *> *)cacheRemovalList error:(NSError **)error {
     NSArray *URLStrings = [cacheRemovalList bk_map:^id(NSURL *obj) {
-      return [obj absoluteString];
+        return [obj absoluteString];
     }];
     return [self saveArray:URLStrings path:self.basePath name:@"TitlesToRemove.plist" error:error];
 }
 
 - (NSArray *)imageInfoForArticleWithURL:(NSURL *)url {
     return [[NSArray arrayWithContentsOfFile:[self pathForImageInfoForArticleWithURL:url]] wmf_mapAndRejectNil:^MWKImageInfo *(id obj) {
-      return [MWKImageInfo imageInfoWithExportedData:obj];
+        return [MWKImageInfo imageInfoWithExportedData:obj];
     }];
 }
 
@@ -563,14 +563,14 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 - (void)startCacheRemoval {
     dispatch_async(self.cacheRemovalQueue, ^{
-      self.cacheRemovalActive = true;
-      [self removeNextArticleFromCacheRemovalList];
+        self.cacheRemovalActive = true;
+        [self removeNextArticleFromCacheRemovalList];
     });
 }
 
 - (void)stopCacheRemoval {
     dispatch_sync(self.cacheRemovalQueue, ^{
-      self.cacheRemovalActive = false;
+        self.cacheRemovalActive = false;
     });
 }
 
@@ -587,7 +587,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
         NSError *error = nil;
         if ([self saveCacheRemovalListToDisk:urlsOfArticlesToRemove error:&error]) {
             dispatch_async(self.cacheRemovalQueue, ^{
-              [self removeNextArticleFromCacheRemovalList];
+                [self removeNextArticleFromCacheRemovalList];
             });
         } else {
             DDLogError(@"Error saving cache removal list: %@", error);
@@ -597,16 +597,16 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 - (void)removeArticlesWithURLsFromCache:(NSArray<NSURL *> *)urlsToRemove {
     dispatch_async(self.cacheRemovalQueue, ^{
-      NSMutableArray<NSURL *> *allURLsToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
-      if (allURLsToRemove == nil) {
-          allURLsToRemove = [NSMutableArray arrayWithArray:urlsToRemove];
-      } else {
-          [allURLsToRemove addObjectsFromArray:urlsToRemove];
-      }
-      NSError *error = nil;
-      if (![self saveCacheRemovalListToDisk:allURLsToRemove error:&error]) {
-          DDLogError(@"Error saving cache removal list to disk: %@", error);
-      }
+        NSMutableArray<NSURL *> *allURLsToRemove = [[self cacheRemovalListFromDisk] mutableCopy];
+        if (allURLsToRemove == nil) {
+            allURLsToRemove = [NSMutableArray arrayWithArray:urlsToRemove];
+        } else {
+            [allURLsToRemove addObjectsFromArray:urlsToRemove];
+        }
+        NSError *error = nil;
+        if (![self saveCacheRemovalListToDisk:allURLsToRemove error:&error]) {
+            DDLogError(@"Error saving cache removal list to disk: %@", error);
+        }
     });
 }
 
@@ -617,11 +617,11 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
         NSArray *legacyImageURLStrings = [legacyImageDictionary objectForKey:@"entries"];
         if ([legacyImageURLStrings isKindOfClass:[NSArray class]]) {
             NSArray *legacyImageURLs = [legacyImageURLStrings wmf_mapAndRejectNil:^id(id obj) {
-              if ([obj isKindOfClass:[NSString class]]) {
-                  return [NSURL URLWithString:obj];
-              } else {
-                  return nil;
-              }
+                if ([obj isKindOfClass:[NSString class]]) {
+                    return [NSURL URLWithString:obj];
+                } else {
+                    return nil;
+                }
             }];
             return legacyImageURLs;
         }

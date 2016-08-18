@@ -157,44 +157,44 @@ NSString *const WMFCCBySALicenseURL =
 
 - (void)handleClickLinkScriptMessage:(NSDictionary *)messageDict {
     [self hideFindInPageWithCompletion:^{
-      if (self.isPeeking) {
-          self.isPeeking = NO;
-          return;
-      }
+        if (self.isPeeking) {
+            self.isPeeking = NO;
+            return;
+        }
 
-      NSString *href = messageDict[@"href"];
+        NSString *href = messageDict[@"href"];
 
-      if (href.length == 0) {
-          return;
-      }
+        if (href.length == 0) {
+            return;
+        }
 
-      if (!self.referencesHidden) {
-          [self referencesHide];
-      }
+        if (!self.referencesHidden) {
+            [self referencesHide];
+        }
 
-      if ([href wmf_isWikiResource]) {
-          NSURL *url = [NSURL URLWithString:href];
-          if (!url.wmf_domain) {
-              url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
-          }
-          url = [url wmf_urlByPrependingSchemeIfSchemeless];
-          [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
-      } else {
-          // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
-          if ([href hasPrefix:@"#"]) {
-              [self scrollToFragment:[href substringFromIndex:1]];
-          } else {
-              if ([href hasPrefix:@"//"]) {
-                  // Expand protocol-relative link to https -- secure by default!
-                  href = [@"https:" stringByAppendingString:href];
-              }
-              NSURL *url = [NSURL URLWithString:href];
-              NSCAssert(url, @"Failed to from URL from link %@", href);
-              if (url) {
-                  [self wmf_openExternalUrl:url];
-              }
-          }
-      }
+        if ([href wmf_isWikiResource]) {
+            NSURL *url = [NSURL URLWithString:href];
+            if (!url.wmf_domain) {
+                url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
+            }
+            url = [url wmf_urlByPrependingSchemeIfSchemeless];
+            [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
+        } else {
+            // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
+            if ([href hasPrefix:@"#"]) {
+                [self scrollToFragment:[href substringFromIndex:1]];
+            } else {
+                if ([href hasPrefix:@"//"]) {
+                    // Expand protocol-relative link to https -- secure by default!
+                    href = [@"https:" stringByAppendingString:href];
+                }
+                NSURL *url = [NSURL URLWithString:href];
+                NSCAssert(url, @"Failed to from URL from link %@", href);
+                if (url) {
+                    [self wmf_openExternalUrl:url];
+                }
+            }
+        }
     }];
 }
 
@@ -233,22 +233,22 @@ NSString *const WMFCCBySALicenseURL =
 
 - (void)handleClickReferenceScriptMessage:(NSDictionary *)messageDict {
     [self hideFindInPageWithCompletion:^{
-      [self referencesShow:messageDict];
+        [self referencesShow:messageDict];
     }];
 }
 
 - (void)handleClickEditScriptMessage:(NSDictionary *)messageDict {
     [self hideFindInPageWithCompletion:^{
-      NSUInteger sectionIndex = (NSUInteger)[messageDict[@"sectionId"] integerValue];
-      if (sectionIndex < [self.article.sections count]) {
-          [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
-      }
+        NSUInteger sectionIndex = (NSUInteger)[messageDict[@"sectionId"] integerValue];
+        if (sectionIndex < [self.article.sections count]) {
+            [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
+        }
     }];
 }
 
 - (void)handleNonAnchorTouchEndedWithoutDraggingScriptMessage {
     [self hideFindInPageWithCompletion:^{
-      [self referencesHide];
+        [self referencesHide];
     }];
 }
 
@@ -272,8 +272,8 @@ NSString *const WMFCCBySALicenseURL =
                               delay:0.5f
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                           self.headerView.alpha = 1.f;
-                           self.footerContainerView.alpha = 1.f;
+                             self.headerView.alpha = 1.f;
+                             self.footerContainerView.alpha = 1.f;
                          }
                          completion:^(BOOL done){
                          }];
@@ -312,23 +312,23 @@ NSString *const WMFCCBySALicenseURL =
 
 - (void)hideFindInPageWithCompletion:(nullable dispatch_block_t)completion {
     [self resetFindInPageWithCompletion:^{
-      [[self findInPageKeyboardBar] hide];
-      [self resignFirstResponder];
-      if (completion) {
-          completion();
-      }
+        [[self findInPageKeyboardBar] hide];
+        [self resignFirstResponder];
+        if (completion) {
+            completion();
+        }
     }];
 }
 
 - (void)resetFindInPageWithCompletion:(nullable dispatch_block_t)completion {
     [self.webView evaluateJavaScript:@"window.wmf.findInPage.removeSearchTermHighlights()"
                    completionHandler:^(id obj, NSError *_Nullable error) {
-                     self.findInPageMatches = @[];
-                     self.findInPageSelectedMatchIndex = -1;
-                     [[self findInPageKeyboardBar] reset];
-                     if (completion) {
-                         completion();
-                     }
+                       self.findInPageMatches = @[];
+                       self.findInPageSelectedMatchIndex = -1;
+                       [[self findInPageKeyboardBar] reset];
+                       if (completion) {
+                           completion();
+                       }
                    }];
 }
 
@@ -374,7 +374,7 @@ NSString *const WMFCCBySALicenseURL =
     self.disableMinimizeFindInPage = YES;
     [coordinator animateAlongsideTransition:nil
                                  completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-                                   self.disableMinimizeFindInPage = NO;
+                                     self.disableMinimizeFindInPage = NO;
                                  }];
 }
 
@@ -428,21 +428,21 @@ NSString *const WMFCCBySALicenseURL =
     @weakify(self);
     [self.webView getScrollViewRectForHtmlElementWithId:matchSpanId
                                              completion:^(CGRect rect) {
-                                               @strongify(self);
-                                               [UIView animateWithDuration:0.3
-                                                   delay:0.0f
-                                                   options:UIViewAnimationOptionBeginFromCurrentState
-                                                   animations:^{
-                                                     @strongify(self);
-                                                     self.disableMinimizeFindInPage = YES;
+                                                 @strongify(self);
+                                                 [UIView animateWithDuration:0.3
+                                                     delay:0.0f
+                                                     options:UIViewAnimationOptionBeginFromCurrentState
+                                                     animations:^{
+                                                         @strongify(self);
+                                                         self.disableMinimizeFindInPage = YES;
 
-                                                     //TODO: modified to scroll the match to the vertical point between top of keyboard and top of screen
+                                                         //TODO: modified to scroll the match to the vertical point between top of keyboard and top of screen
 
-                                                     [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, fmaxf(rect.origin.y - 80.f, 0.f)) animated:NO];
-                                                   }
-                                                   completion:^(BOOL done) {
-                                                     self.disableMinimizeFindInPage = NO;
-                                                   }];
+                                                         [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, fmaxf(rect.origin.y - 80.f, 0.f)) animated:NO];
+                                                     }
+                                                     completion:^(BOOL done) {
+                                                         self.disableMinimizeFindInPage = NO;
+                                                     }];
                                              }];
 
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.useFocusStyleForHighlightedSearchTermWithId('%@')", matchSpanId] completionHandler:nil];
@@ -458,7 +458,7 @@ NSString *const WMFCCBySALicenseURL =
 - (void)keyboardBar:(WMFFindInPageKeyboardBar *)keyboardBar searchTermChanged:(NSString *)term {
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm('%@')", term]
                    completionHandler:^(id _Nullable obj, NSError *_Nullable error) {
-                     [self scrollToAndFocusOnFirstMatch];
+                       [self scrollToAndFocusOnFirstMatch];
                    }];
 }
 
@@ -557,7 +557,7 @@ NSString *const WMFCCBySALicenseURL =
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.containerView insertSubview:self.webView atIndex:0];
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.leading.trailing.top.and.bottom.equalTo(self.containerView);
+        make.leading.trailing.top.and.bottom.equalTo(self.containerView);
     }];
     self.webView.clipsToBounds = NO;
     self.webView.scrollView.clipsToBounds = NO;
@@ -602,8 +602,8 @@ NSString *const WMFCCBySALicenseURL =
 - (void)saveOpenArticleTitleWithCurrentlyOnscreenFragment {
     if (self.navigationController.topViewController == self.parentViewController) { // Ensure only the topmost article is recorded.
         [self getCurrentVisibleSectionCompletion:^(MWKSection *visibleSection, NSError *error) {
-          NSURL *url = [self.article.url wmf_URLWithFragment:visibleSection.anchor];
-          [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleURL:url];
+            NSURL *url = [self.article.url wmf_URLWithFragment:visibleSection.anchor];
+            [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleURL:url];
         }];
     }
 }
@@ -635,9 +635,9 @@ NSString *const WMFCCBySALicenseURL =
                                     keyPath:WMF_SAFE_KEYPATH(self.footerContainerView, bounds)
                                     options:NSKeyValueObservingOptionInitial
                                       block:^(WebViewController *observer, UIView *view, NSDictionary *change) {
-                                        if (view && observer.webView) {
-                                            [observer.webView wmf_setBottomPadding:(NSInteger)(ceil(view.bounds.size.height))];
-                                        }
+                                          if (view && observer.webView) {
+                                              [observer.webView wmf_setBottomPadding:(NSInteger)(ceil(view.bounds.size.height))];
+                                          }
                                       }];
 }
 
@@ -658,8 +658,8 @@ NSString *const WMFCCBySALicenseURL =
                                     keyPath:WMF_SAFE_KEYPATH(self.webView.scrollView, contentSize)
                                     options:NSKeyValueObservingOptionInitial
                                       block:^(WebViewController *observer, UIScrollView *scrollView, NSDictionary *change) {
-                                        @strongify(self);
-                                        [self setTopOfFooterContainerViewForContentSize:scrollView.contentSize];
+                                          @strongify(self);
+                                          [self setTopOfFooterContainerViewForContentSize:scrollView.contentSize];
                                       }];
 }
 
@@ -707,7 +707,6 @@ NSString *const WMFCCBySALicenseURL =
     return footerViewHeader ?: footerView;
 }
 
-
 - (void)scrollToFooterAtIndex:(NSInteger)index animated:(BOOL)animated {
     UIView *viewToScrollTo = [self footerAtIndex:index];
     CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:viewToScrollTo.frame.origin
@@ -728,13 +727,13 @@ NSString *const WMFCCBySALicenseURL =
     }
 
     return [self.footerViewControllers indexOfObjectPassingTest:^BOOL(UIViewController *_Nonnull vc, NSUInteger idx, BOOL *_Nonnull stop) {
-      CGRect absoluteFooterViewFrame = [self.webView.scrollView convertRect:vc.view.frame
-                                                                   fromView:self.footerContainerView];
-      if (CGRectIntersectsRect(scrollViewContentFrame, absoluteFooterViewFrame)) {
-          *stop = YES;
-          return YES;
-      }
-      return NO;
+        CGRect absoluteFooterViewFrame = [self.webView.scrollView convertRect:vc.view.frame
+                                                                     fromView:self.footerContainerView];
+        if (CGRectIntersectsRect(scrollViewContentFrame, absoluteFooterViewFrame)) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
     }];
 }
 
@@ -745,10 +744,10 @@ NSString *const WMFCCBySALicenseURL =
     self.headerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.webView.scrollView addSubview:self.headerView];
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-      // lead/trail must be constained to webview, the scrollview doesn't define a width
-      make.leading.and.trailing.equalTo(self.webView);
-      make.top.equalTo(self.webView.scrollView);
-      self.headerHeight = make.height.equalTo(@(0));
+        // lead/trail must be constained to webview, the scrollview doesn't define a width
+        make.leading.and.trailing.equalTo(self.webView);
+        make.top.equalTo(self.webView.scrollView);
+        self.headerHeight = make.height.equalTo(@(0));
     }];
 }
 
@@ -765,8 +764,8 @@ NSString *const WMFCCBySALicenseURL =
         _footerLicenseView = [WMFArticleFooterView wmf_viewFromClassNib];
         @weakify(self);
         [_footerLicenseView.showLicenseButton bk_addEventHandler:^(id sender) {
-          @strongify(self);
-          [self wmf_openExternalUrl:[NSURL URLWithString:WMFCCBySALicenseURL]];
+            @strongify(self);
+            [self wmf_openExternalUrl:[NSURL URLWithString:WMFCCBySALicenseURL]];
         }
                                                 forControlEvents:UIControlEventTouchUpInside];
     }
@@ -789,15 +788,15 @@ NSString *const WMFCCBySALicenseURL =
     self.footerContainerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.webView.scrollView addSubview:self.footerContainerView];
     [self.footerContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
-      // lead/trail must be constained to webview, the scrollview doesn't define a width
-      self.footerContainerViewLeftMarginConstraint = make.leading.equalTo(self.webView);
-      self.footerContainerViewRightMarginConstraint = make.trailing.equalTo(self.webView);
-      [self updateFooterMarginForSize:self.view.bounds.size];
-      // Note: Can't constrain bottom to webView's WKContentView bottom
-      // because its bottom constraint doesnt' seem to always track with
-      // the actual bottom of the page. This was causing the footer to
-      // *sometimes* not be at the bottom - was flakey on large pages.
-      self.footerContainerViewTopConstraint = make.top.equalTo(self.webView.scrollView);
+        // lead/trail must be constained to webview, the scrollview doesn't define a width
+        self.footerContainerViewLeftMarginConstraint = make.leading.equalTo(self.webView);
+        self.footerContainerViewRightMarginConstraint = make.trailing.equalTo(self.webView);
+        [self updateFooterMarginForSize:self.view.bounds.size];
+        // Note: Can't constrain bottom to webView's WKContentView bottom
+        // because its bottom constraint doesnt' seem to always track with
+        // the actual bottom of the page. This was causing the footer to
+        // *sometimes* not be at the bottom - was flakey on large pages.
+        self.footerContainerViewTopConstraint = make.top.equalTo(self.webView.scrollView);
     }];
 }
 
@@ -809,29 +808,29 @@ NSString *const WMFCCBySALicenseURL =
     MASViewAttribute *lastAnchor = [self.footerViewControllers bk_reduce:self.footerContainerView.mas_top
                                                                withBlock:^MASViewAttribute *(MASViewAttribute *topAnchor,
                                                                                              UIViewController *childVC) {
-                                                                 NSString *footerTitle = [self.delegate webViewController:self titleForFooterViewController:childVC];
-                                                                 if (footerTitle) {
-                                                                     WMFArticleFooterViewHeader *header = [WMFArticleFooterViewHeader wmf_viewFromClassNib];
-                                                                     self.footerViewHeadersByIndex[@([self.footerViewControllers indexOfObject:childVC])] = header;
-                                                                     header.headerLabel.text = footerTitle;
-                                                                     header.translatesAutoresizingMaskIntoConstraints = NO;
-                                                                     [self.footerContainerView addSubview:header];
-                                                                     [header mas_remakeConstraints:^(MASConstraintMaker *make) {
+                                                                   NSString *footerTitle = [self.delegate webViewController:self titleForFooterViewController:childVC];
+                                                                   if (footerTitle) {
+                                                                       WMFArticleFooterViewHeader *header = [WMFArticleFooterViewHeader wmf_viewFromClassNib];
+                                                                       self.footerViewHeadersByIndex[@([self.footerViewControllers indexOfObject:childVC])] = header;
+                                                                       header.headerLabel.text = footerTitle;
+                                                                       header.translatesAutoresizingMaskIntoConstraints = NO;
+                                                                       [self.footerContainerView addSubview:header];
+                                                                       [header mas_remakeConstraints:^(MASConstraintMaker *make) {
+                                                                           make.leading.and.trailing.equalTo(self.footerContainerView);
+                                                                           make.top.equalTo(topAnchor);
+                                                                       }];
+                                                                       topAnchor = header.mas_bottom;
+                                                                   }
+
+                                                                   childVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+                                                                   [self.footerContainerView addSubview:childVC.view];
+                                                                   [self updateFooterMarginForSize:self.view.bounds.size];
+                                                                   [childVC.view mas_remakeConstraints:^(MASConstraintMaker *make) {
                                                                        make.leading.and.trailing.equalTo(self.footerContainerView);
                                                                        make.top.equalTo(topAnchor);
-                                                                     }];
-                                                                     topAnchor = header.mas_bottom;
-                                                                 }
-
-                                                                 childVC.view.translatesAutoresizingMaskIntoConstraints = NO;
-                                                                 [self.footerContainerView addSubview:childVC.view];
-                                                                 [self updateFooterMarginForSize:self.view.bounds.size];
-                                                                 [childVC.view mas_remakeConstraints:^(MASConstraintMaker *make) {
-                                                                   make.leading.and.trailing.equalTo(self.footerContainerView);
-                                                                   make.top.equalTo(topAnchor);
-                                                                 }];
-                                                                 [childVC didMoveToParentViewController:self];
-                                                                 return childVC.view.mas_bottom;
+                                                                   }];
+                                                                   [childVC didMoveToParentViewController:self];
+                                                                   return childVC.view.mas_bottom;
                                                                }];
 
     if (!lastAnchor) {
@@ -841,9 +840,9 @@ NSString *const WMFCCBySALicenseURL =
     self.footerLicenseView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.footerContainerView addSubview:self.footerLicenseView];
     [self.footerLicenseView mas_remakeConstraints:^(MASConstraintMaker *make) {
-      make.top.equalTo(lastAnchor);
-      make.leading.and.trailing.equalTo(self.footerContainerView);
-      make.bottom.equalTo(self.footerContainerView);
+        make.top.equalTo(lastAnchor);
+        make.leading.and.trailing.equalTo(self.footerContainerView);
+        make.bottom.equalTo(self.footerContainerView);
     }];
 }
 
@@ -852,14 +851,14 @@ NSString *const WMFCCBySALicenseURL =
         return;
     }
     [_footerViewControllers bk_each:^(UIViewController *childVC) {
-      [childVC willMoveToParentViewController:nil];
-      [childVC.view removeFromSuperview];
-      [childVC removeFromParentViewController];
+        [childVC willMoveToParentViewController:nil];
+        [childVC.view removeFromSuperview];
+        [childVC removeFromParentViewController];
     }];
     _footerViewControllers = [footerViewControllers copy];
     [_footerViewControllers bk_each:^(UIViewController *childVC) {
-      [self addChildViewController:childVC];
-      // didMoveToParent is called when they are added to the view
+        [self addChildViewController:childVC];
+        // didMoveToParent is called when they are added to the view
     }];
 
     [self addFooterView];
@@ -900,10 +899,10 @@ NSString *const WMFCCBySALicenseURL =
         }
         [self.webView getScrollViewRectForHtmlElementWithId:fragment
                                                  completion:^(CGRect rect) {
-                                                   if (!CGRectIsNull(rect)) {
-                                                       [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y)
-                                                                                                animated:animated];
-                                                   }
+                                                     if (!CGRectIsNull(rect)) {
+                                                         [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y)
+                                                                                                  animated:animated];
+                                                     }
                                                  }];
     }
 }
@@ -922,12 +921,12 @@ NSString *const WMFCCBySALicenseURL =
     [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
                                                    count:self.article.sections.count
                                               completion:^(id obj, NSError *error) {
-                                                if (error) {
-                                                    completion(nil, error);
-                                                } else {
-                                                    NSInteger indexOfFirstOnscreenSection = ((NSNumber *)obj).integerValue;
-                                                    completion(indexOfFirstOnscreenSection == -1 ? nil : self.article.sections[indexOfFirstOnscreenSection], error);
-                                                }
+                                                  if (error) {
+                                                      completion(nil, error);
+                                                  } else {
+                                                      NSInteger indexOfFirstOnscreenSection = ((NSNumber *)obj).integerValue;
+                                                      completion(indexOfFirstOnscreenSection == -1 ? nil : self.article.sections[indexOfFirstOnscreenSection], error);
+                                                  }
                                               }];
 }
 
@@ -950,7 +949,7 @@ NSString *const WMFCCBySALicenseURL =
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-                       [self.webView.scrollView wmf_safeSetContentOffset:point animated:NO];
+                         [self.webView.scrollView wmf_safeSetContentOffset:point animated:NO];
                      }
                      completion:^(BOOL done){
                      }];
@@ -1118,8 +1117,8 @@ NSString *const WMFCCBySALicenseURL =
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-                       self.referencesHidden = NO;
-                       [self.view layoutIfNeeded];
+                         self.referencesHidden = NO;
+                         [self.view layoutIfNeeded];
                      }
                      completion:nil];
 }
@@ -1132,15 +1131,15 @@ NSString *const WMFCCBySALicenseURL =
         delay:0.0f
         options:UIViewAnimationOptionBeginFromCurrentState
         animations:^{
-          self.referencesHidden = YES;
+            self.referencesHidden = YES;
 
-          [self.view layoutIfNeeded];
+            [self.view layoutIfNeeded];
         }
         completion:^(BOOL done) {
-          [self.referencesVC willMoveToParentViewController:nil];
-          [self.referencesVC.view removeFromSuperview];
-          [self.referencesVC removeFromParentViewController];
-          self.referencesVC = nil;
+            [self.referencesVC willMoveToParentViewController:nil];
+            [self.referencesVC.view removeFromSuperview];
+            [self.referencesVC removeFromParentViewController];
+            self.referencesVC = nil;
         }];
 }
 
@@ -1151,20 +1150,20 @@ NSString *const WMFCCBySALicenseURL =
     // Scroll the tapped reference up if the panel would cover it.
     [self.webView getScreenRectForHtmlElementWithId:linkID
                                          completion:^(CGRect rect) {
-                                           if (!CGRectIsNull(rect)) {
-                                               CGFloat vSpaceAboveRefsPanel = self.view.bounds.size.height - referenceViewController.panelHeight;
-                                               // Only scroll up if the refs link would be below the refs panel.
-                                               if ((rect.origin.y + rect.size.height) > (vSpaceAboveRefsPanel)) {
-                                                   // Calculate the distance needed to scroll the refs link to the vertical center of the
-                                                   // part of the article web view not covered by the refs panel.
-                                                   CGFloat distanceFromVerticalCenter = ((vSpaceAboveRefsPanel) / 2.0) - (rect.size.height / 2.0);
-                                                   [self.webView.scrollView wmf_safeSetContentOffset:
-                                                                                CGPointMake(
-                                                                                    self.webView.scrollView.contentOffset.x,
-                                                                                    self.webView.scrollView.contentOffset.y + (rect.origin.y - distanceFromVerticalCenter))
-                                                                                            animated:YES];
-                                               }
-                                           }
+                                             if (!CGRectIsNull(rect)) {
+                                                 CGFloat vSpaceAboveRefsPanel = self.view.bounds.size.height - referenceViewController.panelHeight;
+                                                 // Only scroll up if the refs link would be below the refs panel.
+                                                 if ((rect.origin.y + rect.size.height) > (vSpaceAboveRefsPanel)) {
+                                                     // Calculate the distance needed to scroll the refs link to the vertical center of the
+                                                     // part of the article web view not covered by the refs panel.
+                                                     CGFloat distanceFromVerticalCenter = ((vSpaceAboveRefsPanel) / 2.0) - (rect.size.height / 2.0);
+                                                     [self.webView.scrollView wmf_safeSetContentOffset:
+                                                                                  CGPointMake(
+                                                                                      self.webView.scrollView.contentOffset.x,
+                                                                                      self.webView.scrollView.contentOffset.y + (rect.origin.y - distanceFromVerticalCenter))
+                                                                                              animated:YES];
+                                                 }
+                                             }
                                          }];
 }
 
@@ -1192,7 +1191,7 @@ NSString *const WMFCCBySALicenseURL =
 
 - (void)shareMenuItemTapped:(id)sender {
     [self.webView wmf_getSelectedText:^(NSString *_Nonnull text) {
-      [self shareSnippet:text];
+        [self shareSnippet:text];
     }];
 }
 
@@ -1205,7 +1204,7 @@ NSString *const WMFCCBySALicenseURL =
 
     if (action == @selector(shareSnippet:)) {
         [self.webView wmf_getSelectedText:^(NSString *_Nonnull text) {
-          [self.delegate webViewController:self didSelectText:text];
+            [self.delegate webViewController:self didSelectText:text];
         }];
         return YES;
     }

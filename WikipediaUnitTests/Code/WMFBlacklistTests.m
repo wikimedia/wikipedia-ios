@@ -36,13 +36,13 @@
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-      WMFRelatedSectionBlackList *bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
+        WMFRelatedSectionBlackList *bl = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self.dataStore];
 
-      MWKHistoryEntry *first = [bl mostRecentEntry];
+        MWKHistoryEntry *first = [bl mostRecentEntry];
 
-      XCTAssertTrue([url isEqual:first.url],
-                    @"Title persisted should be equal to the title loaded from disk");
-      [expectation fulfill];
+        XCTAssertTrue([url isEqual:first.url],
+                      @"Title persisted should be equal to the title loaded from disk");
+        [expectation fulfill];
     });
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];

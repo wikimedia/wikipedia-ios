@@ -55,43 +55,43 @@
         parameters:params
         progress:NULL
         success:^(NSURLSessionDataTask *operation, id responseObject) {
-          //NSLog(@"JSON: %@", responseObject);
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            //NSLog(@"JSON: %@", responseObject);
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          // Fake out an error if non-dictionary response received.
-          if (![responseObject isDict]) {
-              responseObject = @{ @"error" : @{@"info" : @"Edit token not found."} };
-          }
+            // Fake out an error if non-dictionary response received.
+            if (![responseObject isDict]) {
+                responseObject = @{ @"error" : @{@"info" : @"Edit token not found."} };
+            }
 
-          //NSLog(@"EDIT TOKEN DATA RETRIEVED = %@", responseObject);
+            //NSLog(@"EDIT TOKEN DATA RETRIEVED = %@", responseObject);
 
-          // Handle case where response is received, but API reports error.
-          NSError *error = nil;
-          if (responseObject[@"error"]) {
-              NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
-              errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
-              error = [NSError errorWithDomain:@"Edit Token Fetcher"
-                                          code:EDIT_TOKEN_ERROR_API
-                                      userInfo:errorDict];
-          }
+            // Handle case where response is received, but API reports error.
+            NSError *error = nil;
+            if (responseObject[@"error"]) {
+                NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
+                errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
+                error = [NSError errorWithDomain:@"Edit Token Fetcher"
+                                            code:EDIT_TOKEN_ERROR_API
+                                        userInfo:errorDict];
+            }
 
-          NSDictionary *output = @{};
-          if (!error) {
-              output = [self getSanitizedResponse:responseObject];
-          }
+            NSDictionary *output = @{};
+            if (!error) {
+                output = [self getSanitizedResponse:responseObject];
+            }
 
-          self.token = output[@"token"] ? output[@"token"] : @"";
+            self.token = output[@"token"] ? output[@"token"] : @"";
 
-          [self finishWithError:error
-                    fetchedData:output];
+            [self finishWithError:error
+                      fetchedData:output];
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          //NSLog(@"EDIT TOKEN FAIL = %@", error);
+            //NSLog(@"EDIT TOKEN FAIL = %@", error);
 
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          [self finishWithError:error
-                    fetchedData:nil];
+            [self finishWithError:error
+                      fetchedData:nil];
         }];
 }
 

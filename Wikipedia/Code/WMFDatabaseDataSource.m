@@ -31,9 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
         self.mappings = mappings;
 
         [self.readConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
-          //HACK: you mush access the view prior to updating the mappins of the view will be in an inconsistent state: see link
-          [transaction ext:self.viewName];
-          [self.mappings updateWithTransaction:transaction];
+            //HACK: you mush access the view prior to updating the mappins of the view will be in an inconsistent state: see link
+            [transaction ext:self.viewName];
+            [self.mappings updateWithTransaction:transaction];
         }];
     }
     return self;
@@ -65,8 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable id)objectAtIndexPath:(NSIndexPath *)indexPath {
     __block id results = nil;
     [self.readConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
-      YapDatabaseViewTransaction *view = [transaction ext:self.viewName];
-      results = [view objectAtIndexPath:indexPath withMappings:self.mappings];
+        YapDatabaseViewTransaction *view = [transaction ext:self.viewName];
+        results = [view objectAtIndexPath:indexPath withMappings:self.mappings];
     }];
     return results;
 }

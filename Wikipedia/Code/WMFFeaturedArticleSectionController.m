@@ -123,17 +123,17 @@ static NSString *const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 - (AnyPromise *)fetchData {
     @weakify(self);
     return [self.featuredTitlePreviewFetcher fetchFeaturedArticlePreviewForDate:self.date].then(^(MWKSearchResult *data) {
-                                                                                            @strongify(self);
-                                                                                            if (!self) {
-                                                                                                return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
-                                                                                            }
-                                                                                            self.featuredArticlePreview = data;
-                                                                                            return (id) @[ data ];
+                                                                                              @strongify(self);
+                                                                                              if (!self) {
+                                                                                                  return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
+                                                                                              }
+                                                                                              self.featuredArticlePreview = data;
+                                                                                              return (id) @[ data ];
                                                                                           })
         .catch(^(NSError *error) {
-          @strongify(self);
-          self.featuredArticlePreview = nil;
-          return error;
+            @strongify(self);
+            self.featuredArticlePreview = nil;
+            return error;
         });
 }
 

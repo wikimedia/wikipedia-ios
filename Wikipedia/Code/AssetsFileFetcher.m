@@ -42,34 +42,34 @@ NSTimeInterval const kWMFMaxAgeDefault = 60 * 60 * 24;
         parameters:nil
         progress:NULL
         success:^(NSURLSessionDataTask *operation, id responseObject) {
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          if ([operation.response isKindOfClass:[NSHTTPURLResponse class]] && [(NSHTTPURLResponse *)operation.response statusCode] != 200) {
-              return;
-          }
+            if ([operation.response isKindOfClass:[NSHTTPURLResponse class]] && [(NSHTTPURLResponse *)operation.response statusCode] != 200) {
+                return;
+            }
 
-          if (![self isDataResponseValid:responseObject]) {
-              return;
-          }
+            if (![self isDataResponseValid:responseObject]) {
+                return;
+            }
 
-          NSString *responseString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            NSString *responseString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
 
-          if ([responseString hasPrefix:@"/*\nInternal error\n*"]) {
-              return;
-          }
+            if ([responseString hasPrefix:@"/*\nInternal error\n*"]) {
+                return;
+            }
 
-          NSError *error = nil;
+            NSError *error = nil;
 
-          [responseString writeToFile:assetsFile.path
-                           atomically:YES
-                             encoding:NSUTF8StringEncoding
-                                error:&error];
+            [responseString writeToFile:assetsFile.path
+                             atomically:YES
+                               encoding:NSUTF8StringEncoding
+                                  error:&error];
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          NSLog(@"Error: %@", error);
-          //NSLog(@"Error URL: %@", operation.request.URL);
+            NSLog(@"Error: %@", error);
+            //NSLog(@"Error URL: %@", operation.request.URL);
 
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
         }];
 }
 

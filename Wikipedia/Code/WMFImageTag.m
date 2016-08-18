@@ -75,8 +75,8 @@ NS_ASSUME_NONNULL_BEGIN
     static NSRegularExpression *attributeRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      NSString *attributePattern = @"(src|data-file-width|width|data-file-height|height)=[\"']?((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\"']?"; //match on the attributes we need to read: src, data-file-width, width, etc
-      attributeRegex = [NSRegularExpression regularExpressionWithPattern:attributePattern options:NSRegularExpressionCaseInsensitive error:nil];
+        NSString *attributePattern = @"(src|data-file-width|width|data-file-height|height)=[\"']?((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\"']?"; //match on the attributes we need to read: src, data-file-width, width, etc
+        attributeRegex = [NSRegularExpression regularExpressionWithPattern:attributePattern options:NSRegularExpressionCaseInsensitive error:nil];
     });
 
     __block NSString *src = nil;                                    //the image src
@@ -90,21 +90,21 @@ NS_ASSUME_NONNULL_BEGIN
                                      options:0
                                        range:NSMakeRange(0, imageTagContents.length)
                                   usingBlock:^(NSTextCheckingResult *_Nullable attributeResult, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-                                    NSString *attributeName = [[attributeRegex replacementStringForResult:attributeResult inString:imageTagContents offset:attributeOffset template:@"$1"] lowercaseString];
-                                    NSString *attributeValue = [attributeRegex replacementStringForResult:attributeResult inString:imageTagContents offset:attributeOffset template:@"$2"];
-                                    if ([attributeName isEqualToString:@"src"]) {
-                                        src = attributeValue;
-                                        srcAttributeRange = attributeResult.range;
-                                    } else if ([attributeName isEqualToString:@"data-file-width"]) {
-                                        dataFileWidth = attributeValue;
-                                    } else if ([attributeName isEqualToString:@"width"]) {
-                                        width = attributeValue;
-                                    } else if ([attributeName isEqualToString:@"data-file-height"]) {
-                                        dataFileHeight = attributeValue;
-                                    } else if ([attributeName isEqualToString:@"height"]) {
-                                        height = attributeValue;
-                                    }
-                                    *stop = width && height && dataFileWidth && dataFileHeight && src && srcAttributeRange.location != NSNotFound;
+                                      NSString *attributeName = [[attributeRegex replacementStringForResult:attributeResult inString:imageTagContents offset:attributeOffset template:@"$1"] lowercaseString];
+                                      NSString *attributeValue = [attributeRegex replacementStringForResult:attributeResult inString:imageTagContents offset:attributeOffset template:@"$2"];
+                                      if ([attributeName isEqualToString:@"src"]) {
+                                          src = attributeValue;
+                                          srcAttributeRange = attributeResult.range;
+                                      } else if ([attributeName isEqualToString:@"data-file-width"]) {
+                                          dataFileWidth = attributeValue;
+                                      } else if ([attributeName isEqualToString:@"width"]) {
+                                          width = attributeValue;
+                                      } else if ([attributeName isEqualToString:@"data-file-height"]) {
+                                          dataFileHeight = attributeValue;
+                                      } else if ([attributeName isEqualToString:@"height"]) {
+                                          height = attributeValue;
+                                      }
+                                      *stop = width && height && dataFileWidth && dataFileHeight && src && srcAttributeRange.location != NSNotFound;
                                   }];
 
     //Don't continue initialization if we have invalid src

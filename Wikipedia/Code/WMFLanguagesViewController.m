@@ -96,9 +96,9 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     @weakify(self)
         UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
                                                            handler:^(id sender) {
-                                                             @strongify(self)
-                                                                 [self dismissViewControllerAnimated:YES
-                                                                                          completion:nil];
+                                                               @strongify(self)
+                                                                   [self dismissViewControllerAnimated:YES
+                                                                                            completion:nil];
                                                            }];
     self.navigationItem.leftBarButtonItems = @[ xButton ];
 
@@ -410,8 +410,8 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     if (animated) {
         [UIView animateWithDuration:0.30
                          animations:^{
-                           self.tableView.tableFooterView.alpha = editing ? 1.0 : 0.0;
-                           [self updateDeleteButtonsVisibility];
+                             self.tableView.tableFooterView.alpha = editing ? 1.0 : 0.0;
+                             [self updateDeleteButtonsVisibility];
                          }];
     } else {
         self.tableView.tableFooterView.alpha = editing ? 1.0 : 0.0;
@@ -531,11 +531,11 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     @weakify(self);
     [self.titleLanguageController
         fetchLanguagesWithSuccess:^{
-          @strongify(self)
-              [self reloadDataSections];
+            @strongify(self)
+                [self reloadDataSections];
         }
         failure:^(NSError *__nonnull error) {
-          [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
         }];
 }
 

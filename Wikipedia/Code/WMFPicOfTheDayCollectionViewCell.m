@@ -41,11 +41,11 @@
                                       block:^(WMFPicOfTheDayCollectionViewCell *cell,
                                               UIImageView *potdImageView,
                                               NSDictionary *change) {
-                                        BOOL didSetDesiredImage = [potdImageView wmf_imageURLToFetch] != nil;
-                                        // whether or not these properties are animated will be determined based on whether or not
-                                        // there was an animation setup when image was set
-                                        cell.displayTitleLabel.alpha = didSetDesiredImage ? 1.0 : 0.0;
-                                        cell.displayTitleBackgroundView.alpha = cell.displayTitleLabel.alpha;
+                                          BOOL didSetDesiredImage = [potdImageView wmf_imageURLToFetch] != nil;
+                                          // whether or not these properties are animated will be determined based on whether or not
+                                          // there was an animation setup when image was set
+                                          cell.displayTitleLabel.alpha = didSetDesiredImage ? 1.0 : 0.0;
+                                          cell.displayTitleBackgroundView.alpha = cell.displayTitleLabel.alpha;
                                       }];
 }
 

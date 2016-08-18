@@ -131,7 +131,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)fetchUncachedArticlesInSavedPages {
     dispatch_block_t didFinishLegacyMigration = ^{
-      [[NSUserDefaults standardUserDefaults] wmf_setDidFinishLegacySavedArticleImageMigration:YES];
+        [[NSUserDefaults standardUserDefaults] wmf_setDidFinishLegacySavedArticleImageMigration:YES];
     };
     if ([self.savedPageList numberOfItems] == 0) {
         didFinishLegacyMigration();
@@ -140,18 +140,18 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
     WMFTaskGroup *group = [WMFTaskGroup new];
     [self.savedPageList enumerateItemsWithBlock:^(MWKHistoryEntry *_Nonnull entry, BOOL *_Nonnull stop) {
-      [group enter];
-      dispatch_async(self.accessQueue, ^{
-        @autoreleasepool {
-            [self fetchArticleURL:entry.url
-                failure:^(NSError *error) {
-                  [group leave];
-                }
-                success:^{
-                  [group leave];
-                }];
-        }
-      });
+        [group enter];
+        dispatch_async(self.accessQueue, ^{
+            @autoreleasepool {
+                [self fetchArticleURL:entry.url
+                    failure:^(NSError *error) {
+                        [group leave];
+                    }
+                    success:^{
+                        [group leave];
+                    }];
+            }
+        });
     }];
     [group waitInBackgroundWithCompletion:didFinishLegacyMigration];
 }
@@ -162,11 +162,11 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     }
     for (NSURL *url in urls) {
         dispatch_async(self.accessQueue, ^{
-          [self fetchArticleURL:url
-                        failure:^(NSError *error) {
-                        }
-                        success:^{
-                        }];
+            [self fetchArticleURL:url
+                          failure:^(NSError *error) {
+                          }
+                          success:^{
+                          }];
         });
     }
 }
@@ -187,28 +187,28 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             [self.articleFetcher fetchArticleForURL:articleURL
                                            progress:NULL]
                 .thenOn(self.accessQueue, ^(MWKArticle *article) {
-                  @strongify(self);
-                  [self downloadImageDataForArticle:article
-                      failure:^(NSError *error) {
-                        dispatch_async(self.accessQueue, ^{
-                          [self didFetchArticle:article url:articleURL error:error];
-                          failure(error);
-                        });
-                      }
-                      success:^{
-                        dispatch_async(self.accessQueue, ^{
-                          [self didFetchArticle:article url:articleURL error:nil];
-                          success();
-                        });
-                      }];
+                    @strongify(self);
+                    [self downloadImageDataForArticle:article
+                        failure:^(NSError *error) {
+                            dispatch_async(self.accessQueue, ^{
+                                [self didFetchArticle:article url:articleURL error:error];
+                                failure(error);
+                            });
+                        }
+                        success:^{
+                            dispatch_async(self.accessQueue, ^{
+                                [self didFetchArticle:article url:articleURL error:nil];
+                                success();
+                            });
+                        }];
                 })
                 .catch(^(NSError *error) {
-                  if (!self) {
-                      return;
-                  }
-                  dispatch_async(self.accessQueue, ^{
-                    [self didFetchArticle:nil url:articleURL error:error];
-                  });
+                    if (!self) {
+                        return;
+                    }
+                    dispatch_async(self.accessQueue, ^{
+                        [self didFetchArticle:nil url:articleURL error:error];
+                    });
                 });
     }
 }
@@ -220,14 +220,14 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     }
     [self fetchAllImagesInArticle:article
         failure:^(NSError *error) {
-          failure([NSError wmf_savedPageImageDownloadError]);
+            failure([NSError wmf_savedPageImageDownloadError]);
         }
         success:^{
-          //NOTE: turning off gallery image fetching as users are potentially downloading large amounts of data up front when upgrading to a new version of the app.
-          //        [self fetchGalleryDataForArticle:article failure:failure success:success];
-          if (success) {
-              success();
-          }
+            //NOTE: turning off gallery image fetching as users are potentially downloading large amounts of data up front when upgrading to a new version of the app.
+            //        [self fetchGalleryDataForArticle:article failure:failure success:success];
+            if (success) {
+                success();
+            }
         }];
 }
 
@@ -284,22 +284,22 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
     [self fetchImageInfoForImagesInArticle:article
         failure:^(NSError *error) {
-          failure(error);
+            failure(error);
         }
         success:^(NSArray *info) {
-          @strongify(self);
-          if (!self) {
-              failure([NSError cancelledError]);
-              return;
-          }
-          if (info.count == 0) {
-              DDLogVerbose(@"No gallery images to fetch.");
-              success();
-              return;
-          }
+            @strongify(self);
+            if (!self) {
+                failure([NSError cancelledError]);
+                return;
+            }
+            if (info.count == 0) {
+                DDLogVerbose(@"No gallery images to fetch.");
+                success();
+                return;
+            }
 
-          NSArray *URLs = [info valueForKey:@"imageThumbURL"];
-          [self cacheImagesWithURLsInBackground:URLs failure:failure success:success];
+            NSArray *URLs = [info valueForKey:@"imageThumbURL"];
+            [self cacheImagesWithURLsInBackground:URLs failure:failure success:success];
         }];
 }
 
@@ -319,23 +319,23 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     }
 
     PMKJoin([[imageFileTitles bk_map:^AnyPromise *(NSString *canonicalFilename) {
-      return [self.imageInfoFetcher fetchGalleryInfoForImage:canonicalFilename fromSiteURL:article.url];
+        return [self.imageInfoFetcher fetchGalleryInfoForImage:canonicalFilename fromSiteURL:article.url];
     }] bk_reject:^BOOL(id obj) {
-      return [obj isEqual:[NSNull null]];
+        return [obj isEqual:[NSNull null]];
     }]).thenInBackground(^id(NSArray *infoObjects) {
-      @strongify(self);
-      if (!self) {
-          return [NSError cancelledError];
-      }
-      [self.dataStore saveImageInfo:infoObjects forArticleURL:article.url];
-      success(infoObjects);
-      return infoObjects;
+        @strongify(self);
+        if (!self) {
+            return [NSError cancelledError];
+        }
+        [self.dataStore saveImageInfo:infoObjects forArticleURL:article.url];
+        success(infoObjects);
+        return infoObjects;
     });
 }
 
 - (void)cacheImagesWithURLsInBackground:(NSArray<NSURL *> *)imageURLs failure:(void (^_Nonnull)(NSError *_Nonnull error))failure success:(void (^_Nonnull)(void))success {
     imageURLs = [imageURLs bk_select:^BOOL(id obj) {
-      return [obj isKindOfClass:[NSURL class]];
+        return [obj isKindOfClass:[NSURL class]];
     }];
 
     if ([imageURLs count] == 0) {
@@ -351,9 +351,9 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 - (void)cancelFetchForSavedPages {
     BOOL wasFetching = self.fetchOperationsByArticleTitle.count > 0;
     [self.savedPageList enumerateItemsWithBlock:^(MWKHistoryEntry *_Nonnull entry, BOOL *_Nonnull stop) {
-      dispatch_async(self.accessQueue, ^{
-        [self cancelFetchForArticleURL:entry.url];
-      });
+        dispatch_async(self.accessQueue, ^{
+            [self cancelFetchForArticleURL:entry.url];
+        });
     }];
     if (wasFetching) {
         /*
@@ -368,7 +368,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     DDLogVerbose(@"Canceling saved page download for title: %@", URL);
     [self.articleFetcher cancelFetchForArticleURL:URL];
     [[[self.dataStore existingArticleWithURL:URL] allImageURLs] bk_each:^(NSURL *imageURL) {
-      [self.imageController cancelFetchForURL:imageURL];
+        [self.imageController cancelFetchForURL:imageURL];
     }];
     WMF_TECH_DEBT_TODO(cancel image info & high - res image requests)
         [self.fetchOperationsByArticleTitle removeObjectForKey:URL];
@@ -378,11 +378,11 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)getProgress:(WMFProgressHandler)progressBlock {
     dispatch_async(self.accessQueue, ^{
-      CGFloat progress = [self progress];
+        CGFloat progress = [self progress];
 
-      dispatch_async(dispatch_get_main_queue(), ^{
-        progressBlock(progress);
-      });
+        dispatch_async(dispatch_get_main_queue(), ^{
+            progressBlock(progress);
+        });
     });
 }
 
@@ -418,11 +418,11 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
     CGFloat progress = [self progress];
     dispatch_async(dispatch_get_main_queue(), ^{
-      [self.fetchFinishedDelegate savedArticlesFetcher:self
-                                           didFetchURL:url
-                                               article:fetchedArticle
-                                              progress:progress
-                                                 error:error];
+        [self.fetchFinishedDelegate savedArticlesFetcher:self
+                                             didFetchURL:url
+                                                 article:fetchedArticle
+                                                progress:progress
+                                                   error:error];
     });
 
     [self notifyDelegateIfFinished];

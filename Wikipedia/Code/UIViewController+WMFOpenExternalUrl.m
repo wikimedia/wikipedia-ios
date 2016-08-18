@@ -29,14 +29,14 @@
         [zeroAlert bk_setCancelButtonWithTitle:MWLocalizedString(@"zero-interstitial-cancel", nil) handler:nil];
         [zeroAlert bk_addButtonWithTitle:MWLocalizedString(@"zero-interstitial-continue", nil)
                                  handler:^{
-                                   [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
+                                     [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
                                  }];
         if ([self isPartnerInfoConfigValid:zeroMessage]) {
             NSString *partnerInfoText = zeroMessage.partnerInfoText;
             NSURL *partnerInfoUrl = [NSURL URLWithString:zeroMessage.partnerInfoUrl];
             [zeroAlert bk_addButtonWithTitle:partnerInfoText
                                      handler:^{
-                                       [self wmf_openExternalUrlModallyIfNeeded:partnerInfoUrl forceSafari:useSafari];
+                                         [self wmf_openExternalUrlModallyIfNeeded:partnerInfoUrl forceSafari:useSafari];
                                      }];
         }
 
@@ -55,7 +55,7 @@
         if (self.presentedViewController) {
             [self dismissViewControllerAnimated:YES
                                      completion:^{
-                                       [self wmf_presentExternalUrlWithinApp:url];
+                                         [self wmf_presentExternalUrlWithinApp:url];
                                      }];
             return;
         }

@@ -6,12 +6,12 @@ static NSRegularExpression *WMFImageURLParsingRegex() {
     static NSRegularExpression *imageNameFromURLRegex = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      // TODO: try to read serialized regex from disk to prevent needless pattern compilation on next app run
-      NSError *patternCompilationError;
-      imageNameFromURLRegex = [NSRegularExpression regularExpressionWithPattern:@"^(lossy-|lossless-)?(page\\d+-)?\\d+px-(.*)"
-                                                                        options:0
-                                                                          error:&patternCompilationError];
-      NSCParameterAssert(!patternCompilationError);
+        // TODO: try to read serialized regex from disk to prevent needless pattern compilation on next app run
+        NSError *patternCompilationError;
+        imageNameFromURLRegex = [NSRegularExpression regularExpressionWithPattern:@"^(lossy-|lossless-)?(page\\d+-)?\\d+px-(.*)"
+                                                                          options:0
+                                                                            error:&patternCompilationError];
+        NSCParameterAssert(!patternCompilationError);
     });
     return imageNameFromURLRegex;
 }

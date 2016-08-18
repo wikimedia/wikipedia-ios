@@ -35,16 +35,16 @@
                                                MWKSearchResult *searchResult,
                                                UITableView *tableView,
                                                NSIndexPath *indexPath) {
-          @strongify(self);
-          NSURL *url = [self.articleURL wmf_URLWithTitle:searchResult.displayTitle];
-          [cell setSaveableURL:url savedPageList:self.savedPageList];
-          cell.titleText = searchResult.displayTitle;
-          cell.descriptionText = searchResult.wikidataDescription;
-          cell.snippetText = searchResult.extract;
-          [cell setImageURL:searchResult.thumbnailURL];
-          [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-          cell.saveButtonController.analyticsContext = self;
-          cell.saveButtonController.analyticsContentType = self;
+            @strongify(self);
+            NSURL *url = [self.articleURL wmf_URLWithTitle:searchResult.displayTitle];
+            [cell setSaveableURL:url savedPageList:self.savedPageList];
+            cell.titleText = searchResult.displayTitle;
+            cell.descriptionText = searchResult.wikidataDescription;
+            cell.snippetText = searchResult.extract;
+            [cell setImageURL:searchResult.thumbnailURL];
+            [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+            cell.saveButtonController.analyticsContext = self;
+            cell.saveButtonController.analyticsContentType = self;
         };
     }
     return self;

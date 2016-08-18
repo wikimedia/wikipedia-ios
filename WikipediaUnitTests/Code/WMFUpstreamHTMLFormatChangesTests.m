@@ -57,29 +57,29 @@
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:urlString]
                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                              NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                                              NSString *html = json[@"parse"][@"text"][@"*"];
+                                                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                                                NSString *html = json[@"parse"][@"text"][@"*"];
 
-                                              NSString *expectedHTML = @""
-                                                                        "<div class=\"mf-section-0\"><p><a href=\"/wiki/MediaWiki\" title=\"MediaWiki\">"
-                                                                        "<img alt=\"Example.jpg\" src=\"//upload.beta.wmflabs.org/wikipedia/commons/thumb/a/a9/Example.jpg/20px-Example.jpg\" width=\"20\" height=\"21\" srcset=\"//upload.beta.wmflabs.org/wikipedia/commons/thumb/a/a9/Example.jpg/30px-Example.jpg 1.5x, //upload.beta.wmflabs.org/wikipedia/commons/thumb/a/a9/Example.jpg/40px-Example.jpg 2x\" data-file-width=\"172\" data-file-height=\"178\">"
-                                                                        "</a></p>\n\n\n\n\n\n</div>";
+                                                NSString *expectedHTML = @""
+                                                                          "<div class=\"mf-section-0\"><p><a href=\"/wiki/MediaWiki\" title=\"MediaWiki\">"
+                                                                          "<img alt=\"Example.jpg\" src=\"//upload.beta.wmflabs.org/wikipedia/commons/thumb/a/a9/Example.jpg/20px-Example.jpg\" width=\"20\" height=\"21\" srcset=\"//upload.beta.wmflabs.org/wikipedia/commons/thumb/a/a9/Example.jpg/30px-Example.jpg 1.5x, //upload.beta.wmflabs.org/wikipedia/commons/thumb/a/a9/Example.jpg/40px-Example.jpg 2x\" data-file-width=\"172\" data-file-height=\"178\">"
+                                                                          "</a></p>\n\n\n\n\n\n</div>";
 
-                                              // Don't fail on whitespace changes.
-                                              html = [html wmf_trimAndNormalizeWhiteSpaceAndNewlinesToSingleSpace];
-                                              expectedHTML = [expectedHTML wmf_trimAndNormalizeWhiteSpaceAndNewlinesToSingleSpace];
+                                                // Don't fail on whitespace changes.
+                                                html = [html wmf_trimAndNormalizeWhiteSpaceAndNewlinesToSingleSpace];
+                                                expectedHTML = [expectedHTML wmf_trimAndNormalizeWhiteSpaceAndNewlinesToSingleSpace];
 
-                                              XCTAssert([html isEqualToString:expectedHTML]);
-                                              [expectation fulfill];
+                                                XCTAssert([html isEqualToString:expectedHTML]);
+                                                [expectation fulfill];
 
                                             }];
     [dataTask resume];
 
     [self waitForExpectationsWithTimeout:15.0
                                  handler:^(NSError *error) {
-                                   if (error) {
-                                       NSLog(@"Timeout Error: %@", error);
-                                   }
+                                     if (error) {
+                                         NSLog(@"Timeout Error: %@", error);
+                                     }
                                  }];
 }
 

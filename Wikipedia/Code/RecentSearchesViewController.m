@@ -70,15 +70,15 @@ static NSString *const pListFileName = @"Recent.plist";
         self.trashButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.trashButton setImage:[UIImage imageNamed:@"clear-mini"] forState:UIControlStateNormal];
     [self.trashButton bk_addEventHandler:^(UIButton *sender) {
-      @strongify(self)
-          [self showDeleteAllDialog];
+        @strongify(self)
+            [self showDeleteAllDialog];
     }
                         forControlEvents:UIControlEventTouchUpInside];
     self.trashButton.tintColor = [UIColor wmf_lightGrayColor];
     [self.trashButtonContainer addSubview:self.trashButton];
 
     [self.trashButton mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.leading.trailing.top.and.bottom.equalTo(self.trashButtonContainer);
+        make.leading.trailing.top.and.bottom.equalTo(self.trashButtonContainer);
     }];
 
     self.trashButton.accessibilityLabel = MWLocalizedString(@"menu-trash-accessibility-label", nil);

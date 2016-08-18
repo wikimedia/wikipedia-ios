@@ -46,9 +46,9 @@
     dispatch_block_t completion = self.completionBlock;
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                               if (completion) {
-                                   completion();
-                               }
+                                 if (completion) {
+                                     completion();
+                                 }
                              }];
 }
 

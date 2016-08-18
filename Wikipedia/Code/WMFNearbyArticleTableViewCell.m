@@ -86,7 +86,7 @@
                               block:^(WMFNearbyArticleTableViewCell *cell,
                                       WMFSearchResultBearingProvider *provider,
                                       NSDictionary *change) {
-                                [cell setBearing:provider.bearingToLocation];
+                                  [cell setBearing:provider.bearingToLocation];
                               }];
     } else {
         self.compassView.hidden = YES;
@@ -172,7 +172,7 @@
                               block:^(WMFNearbyArticleTableViewCell *cell,
                                       WMFSearchResultDistanceProvider *provider,
                                       NSDictionary *change) {
-                                [cell setDistance:provider.distanceToUser];
+                                  [cell setDistance:provider.distanceToUser];
                               }];
     } else {
         [self setDistance:0];

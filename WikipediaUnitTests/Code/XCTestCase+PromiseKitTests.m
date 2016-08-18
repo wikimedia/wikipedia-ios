@@ -23,9 +23,9 @@
 
     __block PMKResolver resolve;
     expectResolutionWithTimeout(0, ^{
-      return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull aResolve) {
-        resolve = aResolve;
-      }];
+        return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull aResolve) {
+            resolve = aResolve;
+        }];
     });
     // Resolve after wait context, which we should handle internally so it doesn't throw an assertion.
     resolve(nil);
@@ -38,9 +38,9 @@
 
     __block PMKResolver resolve;
     [self expectAnyPromiseToCatch:^AnyPromise * {
-      return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull aResolve) {
-        resolve = aResolve;
-      }];
+        return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull aResolve) {
+            resolve = aResolve;
+        }];
     }
                        withPolicy:PMKCatchPolicyAllErrors
                           timeout:0 WMFExpectFromHere];

@@ -26,7 +26,7 @@ static NSArray *WMFUnsupportedLanguages() {
     static NSArray *unsupportedLanguageCodes;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      unsupportedLanguageCodes = @[ @"am", @"dv", @"lez", @"arc", @"got", @"ti" ];
+        unsupportedLanguageCodes = @[ @"am", @"dv", @"lez", @"arc", @"got", @"ti" ];
     });
     return unsupportedLanguageCodes;
 }
@@ -46,7 +46,7 @@ static id _sharedInstance;
 + (instancetype)sharedInstance {
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-      _sharedInstance = [[[self class] alloc] init];
+        _sharedInstance = [[[self class] alloc] init];
     });
     return _sharedInstance;
 }
@@ -66,20 +66,20 @@ static id _sharedInstance;
     WMFAssetsFile *assetsFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
     NSParameterAssert(assetsFile.array);
     self.allLanguages = [assetsFile.array bk_map:^id(NSDictionary *langAsset) {
-      NSString *code = langAsset[@"code"];
-      NSString *localizedName = langAsset[@"canonical_name"];
-      if (![self isCompoundLanguageCode:code]) {
-          // iOS will return less descriptive name for compound codes - ie "Chinese" for zh-yue which
-          // should be "Cantonese". It looks like iOS ignores anything after the "-".
-          NSString *iOSLocalizedName = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:code];
-          if (iOSLocalizedName) {
-              localizedName = iOSLocalizedName;
-          }
-      }
-      return [[MWKLanguageLink alloc] initWithLanguageCode:code
-                                             pageTitleText:@""
-                                                      name:langAsset[@"name"]
-                                             localizedName:localizedName];
+        NSString *code = langAsset[@"code"];
+        NSString *localizedName = langAsset[@"canonical_name"];
+        if (![self isCompoundLanguageCode:code]) {
+            // iOS will return less descriptive name for compound codes - ie "Chinese" for zh-yue which
+            // should be "Cantonese". It looks like iOS ignores anything after the "-".
+            NSString *iOSLocalizedName = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:code];
+            if (iOSLocalizedName) {
+                localizedName = iOSLocalizedName;
+            }
+        }
+        return [[MWKLanguageLink alloc] initWithLanguageCode:code
+                                               pageTitleText:@""
+                                                        name:langAsset[@"name"]
+                                               localizedName:localizedName];
     }];
     NSParameterAssert(self.allLanguages.count);
 }
@@ -93,7 +93,7 @@ static id _sharedInstance;
 - (void)setAllLanguages:(NSArray *)allLanguages {
     NSArray *unsupportedLanguages = WMFUnsupportedLanguages();
     NSArray *supportedLanguageLinks = [allLanguages bk_reject:^BOOL(MWKLanguageLink *languageLink) {
-      return [unsupportedLanguages containsObject:languageLink.languageCode];
+        return [unsupportedLanguages containsObject:languageLink.languageCode];
     }];
 
     supportedLanguageLinks = [supportedLanguageLinks sortedArrayUsingSelector:@selector(compare:)];
@@ -104,7 +104,7 @@ static id _sharedInstance;
 
 - (nullable MWKLanguageLink *)languageForSiteURL:(NSURL *)siteURL {
     return [self.allLanguages bk_match:^BOOL(MWKLanguageLink *obj) {
-      return [obj.siteURL isEqual:siteURL];
+        return [obj.siteURL isEqual:siteURL];
     }];
 }
 
@@ -118,12 +118,12 @@ static id _sharedInstance;
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     NSArray *preferredLanguageCodes = [self readPreferredLanguageCodes];
     self.preferredLanguages = [preferredLanguageCodes wmf_mapAndRejectNil:^id(NSString *langString) {
-      return [self.allLanguages bk_match:^BOOL(MWKLanguageLink *langLink) {
-        return [langLink.languageCode isEqualToString:langString];
-      }];
+        return [self.allLanguages bk_match:^BOOL(MWKLanguageLink *langLink) {
+            return [langLink.languageCode isEqualToString:langString];
+        }];
     }];
     self.otherLanguages = [self.allLanguages bk_select:^BOOL(MWKLanguageLink *langLink) {
-      return ![self.preferredLanguages containsObject:langLink];
+        return ![self.preferredLanguages containsObject:langLink];
     }];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
 }
@@ -177,9 +177,9 @@ static id _sharedInstance;
 
 - (NSArray<NSString *> *)readOSPreferredLanguageCodes {
     NSArray<NSString *> *osLanguages = [[NSLocale preferredLanguages] wmf_mapAndRejectNil:^NSString *(NSString *languageCode) {
-      NSLocale *locale = [NSLocale localeWithLocaleIdentifier:languageCode];
-      // use language code when determining if a langauge is preferred (e.g. "en_US" is preferred if "en" was selected)
-      return [locale objectForKey:NSLocaleLanguageCode];
+        NSLocale *locale = [NSLocale localeWithLocaleIdentifier:languageCode];
+        // use language code when determining if a langauge is preferred (e.g. "en_US" is preferred if "en" was selected)
+        return [locale objectForKey:NSLocaleLanguageCode];
     }];
     return osLanguages;
 }
@@ -191,13 +191,13 @@ static id _sharedInstance;
     if (preferredLanguages.count == 0) {
         [osLanguages enumerateObjectsWithOptions:NSEnumerationReverse
                                       usingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-                                        if (![preferredLanguages containsObject:obj]) {
-                                            [preferredLanguages insertObject:obj atIndex:0];
-                                        }
+                                          if (![preferredLanguages containsObject:obj]) {
+                                              [preferredLanguages insertObject:obj atIndex:0];
+                                          }
                                       }];
     }
     return [preferredLanguages bk_reject:^BOOL(id obj) {
-      return [obj isEqual:[NSNull null]];
+        return [obj isEqual:[NSNull null]];
     }];
 }
 
@@ -218,8 +218,8 @@ static id _sharedInstance;
 - (BOOL)languageIsOSLanguage:(MWKLanguageLink *)language {
     NSArray *languageCodes = [self readOSPreferredLanguageCodes];
     return [languageCodes bk_match:^BOOL(NSString *obj) {
-             BOOL answer = [obj isEqualToString:language.languageCode];
-             return answer;
+               BOOL answer = [obj isEqualToString:language.languageCode];
+               return answer;
            }] != nil;
 }
 

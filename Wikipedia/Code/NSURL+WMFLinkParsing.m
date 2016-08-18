@@ -64,7 +64,7 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
     static dispatch_once_t onceToken;
     static NSRegularExpression *percentEscapesRegex;
     dispatch_once(&onceToken, ^{
-      percentEscapesRegex = [NSRegularExpression regularExpressionWithPattern:@"%[^0-9A-F]|%[0-9A-F][^0-9A-F]" options:NSRegularExpressionCaseInsensitive error:nil];
+        percentEscapesRegex = [NSRegularExpression regularExpressionWithPattern:@"%[^0-9A-F]|%[0-9A-F][^0-9A-F]" options:NSRegularExpressionCaseInsensitive error:nil];
     });
     return percentEscapesRegex;
 }

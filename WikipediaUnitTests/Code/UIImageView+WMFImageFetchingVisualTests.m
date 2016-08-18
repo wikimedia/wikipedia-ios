@@ -73,12 +73,12 @@
     [self.imageView wmf_setImageWithURL:testURL
         detectFaces:YES
         failure:^(NSError *error) {
-          XCTFail();
-          [expectation fulfill];
+            XCTFail();
+            [expectation fulfill];
         }
         success:^{
-          WMFSnapshotVerifyView(self.imageView);
-          [expectation fulfill];
+            WMFSnapshotVerifyView(self.imageView);
+            [expectation fulfill];
         }];
 
     WaitForExpectationsWithTimeout(10);

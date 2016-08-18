@@ -49,14 +49,14 @@
     WMFRandomArticleFetcher *fetcher = [[WMFRandomArticleFetcher alloc] init];
     [fetcher fetchRandomArticleWithSiteURL:siteURL
         failure:^(NSError *error) {
-          [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
         }
         success:^(MWKSearchResult *result) {
-          NSURL *titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
-          WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore];
-          NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
-          [viewControllers replaceObjectAtIndex:viewControllers.count - 1 withObject:randomArticleVC];
-          [self.navigationController setViewControllers:viewControllers];
+            NSURL *titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
+            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore];
+            NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
+            [viewControllers replaceObjectAtIndex:viewControllers.count - 1 withObject:randomArticleVC];
+            [self.navigationController setViewControllers:viewControllers];
         }];
 }
 

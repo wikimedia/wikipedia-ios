@@ -49,31 +49,31 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
     NSArray<MWKSavedPageEntry *> *entries =
         [[MWKSavedPageList savedEntryDataFromExportedData:[self.dataStore savedPageListData]] wmf_mapAndRejectNil:^id(id obj) {
-          @try {
-              return [[MWKSavedPageEntry alloc] initWithDict:obj];
-          } @catch (NSException *e) {
-              return nil;
-          }
+            @try {
+                return [[MWKSavedPageEntry alloc] initWithDict:obj];
+            } @catch (NSException *e) {
+                return nil;
+            }
         }];
 
     if ([entries count] > 0) {
         [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray<NSString *> *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-          NSMutableArray *urls = [NSMutableArray arrayWithCapacity:[entries count]];
-          [entries enumerateObjectsUsingBlock:^(MWKSavedPageEntry *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            if (obj.url.wmf_title.length == 0) {
-                //HACK: Added check from pre-existing logic. Apparently there was a time when this URL could be bad. Copying here to keep exisitng functionality
-                return;
-            }
-            MWKHistoryEntry *history = [self historyEntryWithSavedPageEntry:obj];
-            MWKHistoryEntry *existing = [transaction objectForKey:[history databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
-            if (existing) {
-                existing.dateSaved = history.dateSaved;
-                history = existing;
-            }
-            [transaction setObject:history forKey:[history databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
-            [urls addObject:[history databaseKey]];
-          }];
-          return urls;
+            NSMutableArray *urls = [NSMutableArray arrayWithCapacity:[entries count]];
+            [entries enumerateObjectsUsingBlock:^(MWKSavedPageEntry *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                if (obj.url.wmf_title.length == 0) {
+                    //HACK: Added check from pre-existing logic. Apparently there was a time when this URL could be bad. Copying here to keep exisitng functionality
+                    return;
+                }
+                MWKHistoryEntry *history = [self historyEntryWithSavedPageEntry:obj];
+                MWKHistoryEntry *existing = [transaction objectForKey:[history databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
+                if (existing) {
+                    existing.dateSaved = history.dateSaved;
+                    history = existing;
+                }
+                [transaction setObject:history forKey:[history databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
+                [urls addObject:[history databaseKey]];
+            }];
+            return urls;
         }];
 
         [[NSUserDefaults standardUserDefaults] wmf_setDidMigrateSavedPageList:YES];
@@ -92,8 +92,8 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 - (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
     return [self.dataSource readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-      MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-      return entry;
+        MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        return entry;
     }];
 }
 
@@ -102,15 +102,15 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
         return;
     }
     [self.dataSource readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-      if ([view numberOfItemsInAllGroups] == 0) {
-          return;
-      }
-      [view enumerateKeysAndObjectsInGroup:[[view allGroups] firstObject]
-                                usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, MWKHistoryEntry *_Nonnull object, NSUInteger index, BOOL *_Nonnull stop) {
-                                  if (object.dateSaved) {
-                                      block(object, stop);
-                                  }
-                                }];
+        if ([view numberOfItemsInAllGroups] == 0) {
+            return;
+        }
+        [view enumerateKeysAndObjectsInGroup:[[view allGroups] firstObject]
+                                  usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, MWKHistoryEntry *_Nonnull object, NSUInteger index, BOOL *_Nonnull stop) {
+                                      if (object.dateSaved) {
+                                          block(object, stop);
+                                      }
+                                  }];
     }];
 }
 
@@ -133,8 +133,8 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     }
 
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-      [transaction setObject:entry forKey:[entry databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
-      return @[ [entry databaseKey] ];
+        [transaction setObject:entry forKey:[entry databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        return @[ [entry databaseKey] ];
     }];
 
     return entry;
@@ -158,17 +158,17 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     __block MWKHistoryEntry *entry = nil;
 
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray<NSString *> *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-      entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-      if (!entry) {
-          entry = [[MWKHistoryEntry alloc] initWithURL:url];
-      }
-      if (!entry.dateSaved) {
-          entry.dateSaved = [NSDate date];
-      }
+        entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        if (!entry) {
+            entry = [[MWKHistoryEntry alloc] initWithURL:url];
+        }
+        if (!entry.dateSaved) {
+            entry.dateSaved = [NSDate date];
+        }
 
-      [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
 
-      return @[ [entry databaseKey] ];
+        return @[ [entry databaseKey] ];
     }];
 
     return entry;
@@ -179,28 +179,28 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
         return;
     }
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray<NSString *> *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-      MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-      entry.dateSaved = nil;
-      [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-      return @[ [MWKHistoryEntry databaseKeyForURL:url] ];
+        MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        entry.dateSaved = nil;
+        [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        return @[ [MWKHistoryEntry databaseKeyForURL:url] ];
     }];
 }
 
 - (void)removeAllEntries {
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray<NSString *> *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
-      NSMutableArray<NSString *> *keys = [NSMutableArray arrayWithCapacity:[self numberOfItems]];
-      [transaction enumerateKeysAndObjectsInCollection:[MWKHistoryEntry databaseCollectionName]
-                                            usingBlock:^(NSString *_Nonnull key, MWKHistoryEntry *_Nonnull object, BOOL *_Nonnull stop) {
-                                              if (object.dateSaved != nil) {
-                                                  [keys addObject:key];
-                                              }
-                                            }];
-      [keys enumerateObjectsUsingBlock:^(NSString *_Nonnull key, NSUInteger idx, BOOL *_Nonnull stop) {
-        MWKHistoryEntry *entry = [[transaction objectForKey:key inCollection:[MWKHistoryEntry databaseCollectionName]] copy];
-        entry.dateSaved = nil;
-        [transaction setObject:entry forKey:key inCollection:[MWKHistoryEntry databaseCollectionName]];
-      }];
-      return keys;
+        NSMutableArray<NSString *> *keys = [NSMutableArray arrayWithCapacity:[self numberOfItems]];
+        [transaction enumerateKeysAndObjectsInCollection:[MWKHistoryEntry databaseCollectionName]
+                                              usingBlock:^(NSString *_Nonnull key, MWKHistoryEntry *_Nonnull object, BOOL *_Nonnull stop) {
+                                                  if (object.dateSaved != nil) {
+                                                      [keys addObject:key];
+                                                  }
+                                              }];
+        [keys enumerateObjectsUsingBlock:^(NSString *_Nonnull key, NSUInteger idx, BOOL *_Nonnull stop) {
+            MWKHistoryEntry *entry = [[transaction objectForKey:key inCollection:[MWKHistoryEntry databaseCollectionName]] copy];
+            entry.dateSaved = nil;
+            [transaction setObject:entry forKey:key inCollection:[MWKHistoryEntry databaseCollectionName]];
+        }];
+        return keys;
     }];
 }
 

@@ -79,7 +79,7 @@ static NSAttributedString *ConcatOwnerAndLicense(NSString *owner, MWKLicense *li
     self.gradientView = gradientView;
 
     [self.gradientView mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.edges.equalTo(self);
+        make.edges.equalTo(self);
     }];
 }
 

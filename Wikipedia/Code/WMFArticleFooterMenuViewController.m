@@ -142,10 +142,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)languagesController:(WMFArticleLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                               WMFArticleViewController *articleContainerVC =
-                                   [[WMFArticleViewController alloc] initWithArticleURL:language.articleURL
-                                                                              dataStore:self.dataStore];
-                               [self.navigationController pushViewController:articleContainerVC animated:YES];
+                                 WMFArticleViewController *articleContainerVC =
+                                     [[WMFArticleViewController alloc] initWithArticleURL:language.articleURL
+                                                                                dataStore:self.dataStore];
+                                 [self.navigationController pushViewController:articleContainerVC animated:YES];
                              }];
 }
 

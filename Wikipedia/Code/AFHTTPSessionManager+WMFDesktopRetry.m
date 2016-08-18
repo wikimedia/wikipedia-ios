@@ -17,33 +17,33 @@
             parameters:parameters
             progress:NULL
             success:^(NSURLSessionDataTask *_Nonnull operation, id _Nonnull responseObject) {
-              if (success) {
-                  success(operation, responseObject);
-              }
+                if (success) {
+                    success(operation, responseObject);
+                }
             }
             failure:^(NSURLSessionDataTask *_Nonnull operation, NSError *_Nonnull error) {
-              if ([error wmf_shouldFallbackToDesktopURLError]) {
-                  NSURLSessionDataTask *operation = [self GET:desktopURLString
-                      parameters:parameters
-                      progress:NULL
-                      success:^(NSURLSessionDataTask *_Nonnull operation, id _Nonnull responseObject) {
-                        if (success) {
-                            success(operation, responseObject);
+                if ([error wmf_shouldFallbackToDesktopURLError]) {
+                    NSURLSessionDataTask *operation = [self GET:desktopURLString
+                        parameters:parameters
+                        progress:NULL
+                        success:^(NSURLSessionDataTask *_Nonnull operation, id _Nonnull responseObject) {
+                            if (success) {
+                                success(operation, responseObject);
+                            }
                         }
-                      }
-                      failure:^(NSURLSessionDataTask *_Nonnull operation, NSError *_Nonnull error) {
-                        if (failure) {
-                            failure(operation, error);
-                        }
-                      }];
-                  if (retry) {
-                      retry(operation, error);
-                  }
-              } else {
-                  if (failure) {
-                      failure(operation, error);
-                  }
-              }
+                        failure:^(NSURLSessionDataTask *_Nonnull operation, NSError *_Nonnull error) {
+                            if (failure) {
+                                failure(operation, error);
+                            }
+                        }];
+                    if (retry) {
+                        retry(operation, error);
+                    }
+                } else {
+                    if (failure) {
+                        failure(operation, error);
+                    }
+                }
             }];
     } else {
         // If not Zero rated use desktop domain only.
@@ -51,14 +51,14 @@
             parameters:parameters
             progress:NULL
             success:^(NSURLSessionDataTask *_Nonnull operation, id _Nonnull responseObject) {
-              if (success) {
-                  success(operation, responseObject);
-              }
+                if (success) {
+                    success(operation, responseObject);
+                }
             }
             failure:^(NSURLSessionDataTask *_Nonnull operation, NSError *_Nonnull error) {
-              if (failure) {
-                  failure(operation, error);
-              }
+                if (failure) {
+                    failure(operation, error);
+                }
             }];
     }
 }
@@ -78,15 +78,15 @@
 
 - (AnyPromise *)wmf_GETAndRetryWithURL:(NSURL *)URL parameters:(id)parameters {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-      [self wmf_GETAndRetryWithURL:URL
-          parameters:parameters
-          retry:nil
-          success:^(NSURLSessionDataTask *operation, id responseObject) {
-            resolve(responseObject);
-          }
-          failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            resolve(error);
-          }];
+        [self wmf_GETAndRetryWithURL:URL
+            parameters:parameters
+            retry:nil
+            success:^(NSURLSessionDataTask *operation, id responseObject) {
+                resolve(responseObject);
+            }
+            failure:^(NSURLSessionDataTask *operation, NSError *error) {
+                resolve(error);
+            }];
     }];
 }
 
@@ -100,33 +100,33 @@
         parameters:parameters
         progress:NULL
         success:^(NSURLSessionDataTask *_Nonnull operation, id _Nonnull responseObject) {
-          if (success) {
-              success(operation, responseObject);
-          }
+            if (success) {
+                success(operation, responseObject);
+            }
         }
         failure:^(NSURLSessionDataTask *_Nonnull operation, NSError *_Nonnull error) {
-          if ([error wmf_shouldFallbackToDesktopURLError]) {
-              NSURLSessionDataTask *operation = [self POST:desktopURLString
-                  parameters:parameters
-                  progress:NULL
-                  success:^(NSURLSessionDataTask *_Nonnull operation, id _Nonnull responseObject) {
-                    if (success) {
-                        success(operation, responseObject);
+            if ([error wmf_shouldFallbackToDesktopURLError]) {
+                NSURLSessionDataTask *operation = [self POST:desktopURLString
+                    parameters:parameters
+                    progress:NULL
+                    success:^(NSURLSessionDataTask *_Nonnull operation, id _Nonnull responseObject) {
+                        if (success) {
+                            success(operation, responseObject);
+                        }
                     }
-                  }
-                  failure:^(NSURLSessionDataTask *_Nonnull operation, NSError *_Nonnull error) {
-                    if (failure) {
-                        failure(operation, error);
-                    }
-                  }];
-              if (retry) {
-                  retry(operation, error);
-              }
-          } else {
-              if (failure) {
-                  failure(operation, error);
-              }
-          }
+                    failure:^(NSURLSessionDataTask *_Nonnull operation, NSError *_Nonnull error) {
+                        if (failure) {
+                            failure(operation, error);
+                        }
+                    }];
+                if (retry) {
+                    retry(operation, error);
+                }
+            } else {
+                if (failure) {
+                    failure(operation, error);
+                }
+            }
         }];
 }
 

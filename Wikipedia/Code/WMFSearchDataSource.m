@@ -24,7 +24,7 @@
 
 - (NSArray<NSURL *> *)urls {
     return [[self.searchResults results] bk_map:^id(MWKSearchResult *obj) {
-      return [self.searchSiteURL wmf_URLWithTitle:obj.displayTitle];
+        return [self.searchSiteURL wmf_URLWithTitle:obj.displayTitle];
     }];
 }
 

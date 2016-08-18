@@ -40,12 +40,12 @@
                                                MWKLocationSearchResult *result,
                                                UITableView *tableView,
                                                NSIndexPath *indexPath) {
-          @strongify(self);
-          nearbyCell.titleText = result.displayTitle;
-          nearbyCell.descriptionText = result.wikidataDescription;
-          [nearbyCell setImageURL:result.thumbnailURL];
-          [nearbyCell setDistanceProvider:[self.compassViewModel distanceProviderForResult:result]];
-          [nearbyCell setBearingProvider:[self.compassViewModel bearingProviderForResult:result]];
+            @strongify(self);
+            nearbyCell.titleText = result.displayTitle;
+            nearbyCell.descriptionText = result.wikidataDescription;
+            [nearbyCell setImageURL:result.thumbnailURL];
+            [nearbyCell setDistanceProvider:[self.compassViewModel distanceProviderForResult:result]];
+            [nearbyCell setBearingProvider:[self.compassViewModel bearingProviderForResult:result]];
         };
     }
     return self;

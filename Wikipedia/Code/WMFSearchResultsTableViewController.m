@@ -30,14 +30,14 @@
                                       MWKSearchResult *result,
                                       UITableView *tableView,
                                       NSIndexPath *indexPath) {
-      @strongify(self);
-      NSURL *articleURL = [self.dataSource urlForIndexPath:indexPath];
-      [cell wmf_setTitleText:articleURL.wmf_title highlightingText:self.searchResults.searchTerm];
-      cell.titleLabel.accessibilityLanguage = self.dataSource.searchSiteURL.wmf_language;
-      cell.descriptionText = [self descriptionForSearchResult:result];
-      // TODO: In "Redirected from: $1", "$1" can be in any language; need to handle that too, currently (continuing) doing nothing for such cases
-      cell.descriptionLabel.accessibilityLanguage = [self redirectMappingForResult:result] == nil ? self.dataSource.searchSiteURL.wmf_language : nil;
-      [cell setImageURL:result.thumbnailURL failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
+        @strongify(self);
+        NSURL *articleURL = [self.dataSource urlForIndexPath:indexPath];
+        [cell wmf_setTitleText:articleURL.wmf_title highlightingText:self.searchResults.searchTerm];
+        cell.titleLabel.accessibilityLanguage = self.dataSource.searchSiteURL.wmf_language;
+        cell.descriptionText = [self descriptionForSearchResult:result];
+        // TODO: In "Redirected from: $1", "$1" can be in any language; need to handle that too, currently (continuing) doing nothing for such cases
+        cell.descriptionLabel.accessibilityLanguage = [self redirectMappingForResult:result] == nil ? self.dataSource.searchSiteURL.wmf_language : nil;
+        [cell setImageURL:result.thumbnailURL failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
     };
 
     [super setDataSource:dataSource];
@@ -45,10 +45,10 @@
 
 - (MWKSearchRedirectMapping *)redirectMappingForResult:(MWKSearchResult *)result {
     return [self.searchResults.redirectMappings bk_match:^BOOL(MWKSearchRedirectMapping *obj) {
-      if ([result.displayTitle isEqualToString:obj.redirectToTitle]) {
-          return YES;
-      }
-      return NO;
+        if ([result.displayTitle isEqualToString:obj.redirectToTitle]) {
+            return YES;
+        }
+        return NO;
     }];
 }
 

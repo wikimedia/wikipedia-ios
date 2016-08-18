@@ -24,8 +24,8 @@
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-      XCTAssertEqual([list numberOfItems], count);
-      [expectation fulfill];
+        XCTAssertEqual([list numberOfItems], count);
+        [expectation fulfill];
     });
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];

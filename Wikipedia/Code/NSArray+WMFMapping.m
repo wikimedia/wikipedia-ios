@@ -10,12 +10,12 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:self.count];
 
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-      id value = block(obj);
-      NSParameterAssert(value != nil);
-      if (!value) {
-          value = [NSNull null];
-      }
-      [result addObject:value];
+        id value = block(obj);
+        NSParameterAssert(value != nil);
+        if (!value) {
+            value = [NSNull null];
+        }
+        [result addObject:value];
     }];
 
     return result;
@@ -27,11 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
     }
     return [self bk_reduce:[[NSMutableArray alloc] initWithCapacity:self.count]
                  withBlock:^id(NSMutableArray *sum, id obj) {
-                   id result = flatMap(obj);
-                   if (result) {
-                       [sum addObject:result];
-                   }
-                   return sum;
+                     id result = flatMap(obj);
+                     if (result) {
+                         [sum addObject:result];
+                     }
+                     return sum;
                  }];
 }
 

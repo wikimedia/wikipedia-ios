@@ -14,7 +14,7 @@ NSError *WMFErrorForApiErrorObject(NSDictionary *apiError) {
     // build the dictionary this way to avoid early nil termination caused by missing keys in the error obj
     NSMutableDictionary *userInfoBuilder = [NSMutableDictionary dictionaryWithCapacity:3];
     void (^maybeMapApiToUserInfo)(NSString *, NSString *) = ^(NSString *userInfoKey, NSString *apiErrorKey) {
-      [userInfoBuilder wmf_maybeSetObject:apiError[apiErrorKey] forKey:userInfoKey];
+        [userInfoBuilder wmf_maybeSetObject:apiError[apiErrorKey] forKey:userInfoKey];
     };
     maybeMapApiToUserInfo(NSLocalizedFailureReasonErrorKey, @"code");
     maybeMapApiToUserInfo(NSLocalizedDescriptionKey, @"info");

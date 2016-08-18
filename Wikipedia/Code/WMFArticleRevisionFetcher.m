@@ -45,7 +45,7 @@
                                                 @"rvprop" : WMFJoinedPropertyParameters(@[ @"ids", @"size", @"flags" ])
                                             }]
         .then(^(NSArray<WMFRevisionQueryResults *> *results) {
-          return results.firstObject;
+            return results.firstObject;
         });
 }
 

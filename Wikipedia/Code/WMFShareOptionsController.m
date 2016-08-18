@@ -83,12 +83,12 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]
         failure:^(NSError *_Nonnull error) {
-          DDLogInfo(@"Ignoring share card image error: %@", error);
-          [self showShareOptionsWithImage:nil];
+            DDLogInfo(@"Ignoring share card image error: %@", error);
+            [self showShareOptionsWithImage:nil];
         }
         success:^(WMFImageDownload *_Nonnull download) {
-          @strongify(self);
-          [self showShareOptionsWithImage:download.image];
+            @strongify(self);
+            [self showShareOptionsWithImage:download.image];
         }];
 }
 
@@ -118,7 +118,7 @@ NS_ASSUME_NONNULL_BEGIN
     [grayOverlay addGestureRecognizer:tapRecognizer];
     grayOverlay.translatesAutoresizingMaskIntoConstraints = NO;
     [grayOverlay mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.edges.equalTo(containingView);
+        make.edges.equalTo(containingView);
     }];
 }
 
@@ -154,13 +154,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setContainerViewControllerActionsEnabled:(BOOL)enabled {
     self.containerViewController.navigationController.navigationBar.userInteractionEnabled = enabled;
     [self.containerViewController.navigationItem.leftBarButtonItems enumerateObjectsUsingBlock:^(UIBarButtonItem *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-      obj.enabled = enabled;
+        obj.enabled = enabled;
     }];
     [self.containerViewController.navigationItem.rightBarButtonItems enumerateObjectsUsingBlock:^(UIBarButtonItem *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-      obj.enabled = enabled;
+        obj.enabled = enabled;
     }];
     [self.containerViewController.toolbarItems enumerateObjectsUsingBlock:^(__kindof UIBarButtonItem *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-      obj.enabled = enabled;
+        obj.enabled = enabled;
     }];
     self.containerViewController.navigationController.navigationBar.accessibilityElementsHidden = !enabled;
     self.containerViewController.navigationController.toolbar.accessibilityElementsHidden = !enabled;
@@ -174,19 +174,19 @@ NS_ASSUME_NONNULL_BEGIN
     UIView *containingView = self.containerViewController.view;
 
     [self.shareOptions mas_remakeConstraints:^(MASConstraintMaker *make) {
-      make.width.equalTo(containingView.mas_width);
-      make.centerX.equalTo(containingView.mas_centerX);
+        make.width.equalTo(containingView.mas_width);
+        make.centerX.equalTo(containingView.mas_centerX);
 
-      make.top.equalTo(containingView.mas_bottom);
+        make.top.equalTo(containingView.mas_bottom);
     }];
 
     [self.shareOptions layoutIfNeeded];
 
     [self.shareOptions mas_remakeConstraints:^(MASConstraintMaker *make) {
-      make.width.equalTo(containingView.mas_width);
-      make.centerX.equalTo(containingView.mas_centerX);
+        make.width.equalTo(containingView.mas_width);
+        make.centerX.equalTo(containingView.mas_centerX);
 
-      make.bottom.equalTo(self.containerViewController.mas_bottomLayoutGuide);
+        make.bottom.equalTo(self.containerViewController.mas_bottomLayoutGuide);
     }];
 
     [UIView animateWithDuration:0.40
@@ -195,30 +195,30 @@ NS_ASSUME_NONNULL_BEGIN
         initialSpringVelocity:0.0
         options:0
         animations:^{
-          [self.shareOptions layoutIfNeeded];
-          self.grayOverlay.alpha = 1.0;
+            [self.shareOptions layoutIfNeeded];
+            self.grayOverlay.alpha = 1.0;
         }
         completion:^(BOOL finished) {
-          UITapGestureRecognizer *tapForCardOnCardImageViewRecognizer = [[UITapGestureRecognizer alloc]
-              initWithTarget:self
-                      action:@selector(respondToTapForCardGesture:)];
-          UITapGestureRecognizer *tapForCardOnButtonRecognizer = [[UITapGestureRecognizer alloc]
-              initWithTarget:self
-                      action:@selector(respondToTapForCardGesture:)];
-          UITapGestureRecognizer *tapForTextRecognizer = [[UITapGestureRecognizer alloc]
-              initWithTarget:self
-                      action:@selector(respondToTapForTextGesture:)];
-          [self.shareOptions.cardImageViewContainer addGestureRecognizer:tapForCardOnCardImageViewRecognizer];
-          [self.shareOptions.shareAsCardLabel addGestureRecognizer:tapForCardOnButtonRecognizer];
-          [self.shareOptions.shareAsTextLabel addGestureRecognizer:tapForTextRecognizer];
-          @weakify(self);
-          [self.shareOptions.cancelLabel bk_whenTapped:^{
-            [self dismissShareOptionsWithCompletion:^{
-              @strongify(self);
-              [self cleanup];
+            UITapGestureRecognizer *tapForCardOnCardImageViewRecognizer = [[UITapGestureRecognizer alloc]
+                initWithTarget:self
+                        action:@selector(respondToTapForCardGesture:)];
+            UITapGestureRecognizer *tapForCardOnButtonRecognizer = [[UITapGestureRecognizer alloc]
+                initWithTarget:self
+                        action:@selector(respondToTapForCardGesture:)];
+            UITapGestureRecognizer *tapForTextRecognizer = [[UITapGestureRecognizer alloc]
+                initWithTarget:self
+                        action:@selector(respondToTapForTextGesture:)];
+            [self.shareOptions.cardImageViewContainer addGestureRecognizer:tapForCardOnCardImageViewRecognizer];
+            [self.shareOptions.shareAsCardLabel addGestureRecognizer:tapForCardOnButtonRecognizer];
+            [self.shareOptions.shareAsTextLabel addGestureRecognizer:tapForTextRecognizer];
+            @weakify(self);
+            [self.shareOptions.cancelLabel bk_whenTapped:^{
+                [self dismissShareOptionsWithCompletion:^{
+                    @strongify(self);
+                    [self cleanup];
+                }];
             }];
-          }];
-          UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.shareOptions);
+            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.shareOptions);
         }];
 }
 
@@ -226,10 +226,10 @@ NS_ASSUME_NONNULL_BEGIN
     UIView *containingView = self.containerViewController.view;
 
     [self.shareOptions mas_remakeConstraints:^(MASConstraintMaker *make) {
-      make.width.equalTo(containingView.mas_width);
-      make.centerX.equalTo(containingView.mas_centerX);
+        make.width.equalTo(containingView.mas_width);
+        make.centerX.equalTo(containingView.mas_centerX);
 
-      make.top.equalTo(containingView.mas_bottom);
+        make.top.equalTo(containingView.mas_bottom);
     }];
 
     [UIView animateWithDuration:0.40
@@ -238,18 +238,18 @@ NS_ASSUME_NONNULL_BEGIN
         initialSpringVelocity:0.0
         options:0
         animations:^{
-          self.grayOverlay.alpha = 0.0;
-          [self.shareOptions layoutIfNeeded];
+            self.grayOverlay.alpha = 0.0;
+            [self.shareOptions layoutIfNeeded];
         }
         completion:^(BOOL finished) {
-          [self.grayOverlay removeFromSuperview];
-          [self.shareOptions removeFromSuperview];
-          self.grayOverlay = nil;
-          self.shareOptions = nil;
-          [self setContainerViewControllerActionsEnabled:YES];
-          if (completion) {
-              completion();
-          }
+            [self.grayOverlay removeFromSuperview];
+            [self.shareOptions removeFromSuperview];
+            self.grayOverlay = nil;
+            self.shareOptions = nil;
+            [self setContainerViewControllerActionsEnabled:YES];
+            if (completion) {
+                completion();
+            }
         }];
 }
 
@@ -258,21 +258,21 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)respondToDimAreaTapGesture:(UITapGestureRecognizer *)recognizer {
     [self.shareFunnel logAbandonedAfterSeeingShareAFact];
     [self dismissShareOptionsWithCompletion:^{
-      [self cleanup];
+        [self cleanup];
     }];
 }
 
 - (void)respondToTapForCardGesture:(UITapGestureRecognizer *)recognizer {
     [self.shareFunnel logShareAsImageTapped];
     [self dismissShareOptionsWithCompletion:^{
-      [self presentActivityViewControllerWithImage:self.shareImage title:[self titleForActivityWithCard]];
+        [self presentActivityViewControllerWithImage:self.shareImage title:[self titleForActivityWithCard]];
     }];
 }
 
 - (void)respondToTapForTextGesture:(UITapGestureRecognizer *)recognizer {
     [self.shareFunnel logShareAsTextTapped];
     [self dismissShareOptionsWithCompletion:^{
-      [self presentActivityViewControllerWithImage:nil title:[self titleForActivityTextOnly]];
+        [self presentActivityViewControllerWithImage:nil title:[self titleForActivityTextOnly]];
     }];
 }
 
@@ -340,11 +340,11 @@ NS_ASSUME_NONNULL_BEGIN
     ;
 
     [shareActivityVC setCompletionWithItemsHandler:^(NSString *__nullable activityType, BOOL completed, NSArray *__nullable returnedItems, NSError *__nullable activityError) {
-      if (completed) {
-          [self.shareFunnel logShareSucceededWithShareMethod:activityType];
-      } else {
-          [self.shareFunnel logShareFailedWithShareMethod:activityType];
-      }
+        if (completed) {
+            [self.shareFunnel logShareSucceededWithShareMethod:activityType];
+        } else {
+            [self.shareFunnel logShareFailedWithShareMethod:activityType];
+        }
     }];
 
     [self.containerViewController presentViewController:shareActivityVC animated:YES completion:nil];

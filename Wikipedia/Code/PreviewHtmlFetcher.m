@@ -34,39 +34,39 @@
         parameters:params
         progress:NULL
         success:^(NSURLSessionDataTask *operation, id responseObject) {
-          //NSLog(@"JSON: %@", responseObject);
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            //NSLog(@"JSON: %@", responseObject);
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          // Fake out an error if non-dictionary response received.
-          if (![responseObject isDict]) {
-              responseObject = @{ @"error" : @{@"info" : @"Preview not found."} };
-          }
+            // Fake out an error if non-dictionary response received.
+            if (![responseObject isDict]) {
+                responseObject = @{ @"error" : @{@"info" : @"Preview not found."} };
+            }
 
-          //NSLog(@"PREVIEW HTML DATA RETRIEVED = %@", responseObject);
+            //NSLog(@"PREVIEW HTML DATA RETRIEVED = %@", responseObject);
 
-          // Handle case where response is received, but API reports error.
-          NSError *error = nil;
-          if (responseObject[@"error"]) {
-              NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
-              errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
-              error = [NSError errorWithDomain:@"Preview HTML Fetcher" code:001 userInfo:errorDict];
-          }
+            // Handle case where response is received, but API reports error.
+            NSError *error = nil;
+            if (responseObject[@"error"]) {
+                NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
+                errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
+                error = [NSError errorWithDomain:@"Preview HTML Fetcher" code:001 userInfo:errorDict];
+            }
 
-          NSString *output = @"";
-          if (!error) {
-              output = [self getSanitizedResponse:responseObject];
-          }
+            NSString *output = @"";
+            if (!error) {
+                output = [self getSanitizedResponse:responseObject];
+            }
 
-          [self finishWithError:error
-                    fetchedData:output];
+            [self finishWithError:error
+                      fetchedData:output];
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          //NSLog(@"PREVIEW HTML FAIL = %@", error);
+            //NSLog(@"PREVIEW HTML FAIL = %@", error);
 
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          [self finishWithError:error
-                    fetchedData:nil];
+            [self finishWithError:error
+                      fetchedData:nil];
         }];
 }
 

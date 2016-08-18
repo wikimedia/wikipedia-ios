@@ -21,7 +21,7 @@
     NSArray *testArray = @[ @"foo", @"bar", @"baz" ];
     for (id element in testArray) {
         NSPredicate *isElement = [NSPredicate predicateWithBlock:^BOOL(id obj, NSDictionary *bindings) {
-          return [obj isEqual:element];
+            return [obj isEqual:element];
         }];
         assertThat([testArray wmf_firstMatchForPredicate:isElement], is(element));
     }
@@ -39,9 +39,9 @@
         [testArray addObject:@(i)];
     }
     [self measureBlock:^{
-      [testArray wmf_firstMatchForPredicate:[NSPredicate predicateWithBlock:^BOOL(NSNumber *x, NSDictionary *bindings) {
-                   return [x isEqualToNumber:worstCase];
-                 }]];
+        [testArray wmf_firstMatchForPredicate:[NSPredicate predicateWithBlock:^BOOL(NSNumber *x, NSDictionary *bindings) {
+                       return [x isEqualToNumber:worstCase];
+                   }]];
     }];
 }
 

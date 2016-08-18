@@ -85,7 +85,7 @@
                         keyPath:WMF_SAFE_KEYPATH(list, entries)
                         options:0
                           block:^(id observer, id object, NSDictionary *change) {
-                            [observations addObject:change];
+                              [observations addObject:change];
                           }];
 
     [list addEntry:self.testObjects[0]];

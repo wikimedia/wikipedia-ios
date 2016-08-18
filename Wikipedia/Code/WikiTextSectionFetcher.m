@@ -39,46 +39,46 @@
         parameters:params
         progress:NULL
         success:^(NSURLSessionDataTask *operation, id responseObject) {
-          //NSLog(@"JSON: %@", responseObject);
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            //NSLog(@"JSON: %@", responseObject);
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          // Fake out an error if non-dictionary response received.
-          if (![responseObject isDict]) {
-              responseObject = @{ @"error" : @{@"info" : @"Wikitext not found."} };
-          }
+            // Fake out an error if non-dictionary response received.
+            if (![responseObject isDict]) {
+                responseObject = @{ @"error" : @{@"info" : @"Wikitext not found."} };
+            }
 
-          //NSLog(@"WIKITEXT RETRIEVED = %@", responseObject);
+            //NSLog(@"WIKITEXT RETRIEVED = %@", responseObject);
 
-          // Handle case where response is received, but API reports error.
-          NSError *error = nil;
-          if (responseObject[@"error"]) {
-              NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
-              errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
-              error = [NSError errorWithDomain:@"Wikitext Fetcher" code:WIKITEXT_FETCHER_ERROR_API userInfo:errorDict];
-          }
+            // Handle case where response is received, but API reports error.
+            NSError *error = nil;
+            if (responseObject[@"error"]) {
+                NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
+                errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
+                error = [NSError errorWithDomain:@"Wikitext Fetcher" code:WIKITEXT_FETCHER_ERROR_API userInfo:errorDict];
+            }
 
-          NSDictionary *output = @{};
-          if (!error) {
-              output = [self getSanitizedResponse:responseObject];
+            NSDictionary *output = @{};
+            if (!error) {
+                output = [self getSanitizedResponse:responseObject];
 
-              // Handle case where revision or userInfo not retrieved.
-              if (![output objectForKey:@"revision"] || ![output objectForKey:@"userInfo"]) {
-                  NSMutableDictionary *errorDict = @{}.mutableCopy;
-                  errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"wikitext-download-failed", nil);
-                  error = [NSError errorWithDomain:@"Wikitext Fetcher" code:WIKITEXT_FETCHER_ERROR_INCOMPLETE userInfo:errorDict];
-              }
-          }
+                // Handle case where revision or userInfo not retrieved.
+                if (![output objectForKey:@"revision"] || ![output objectForKey:@"userInfo"]) {
+                    NSMutableDictionary *errorDict = @{}.mutableCopy;
+                    errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"wikitext-download-failed", nil);
+                    error = [NSError errorWithDomain:@"Wikitext Fetcher" code:WIKITEXT_FETCHER_ERROR_INCOMPLETE userInfo:errorDict];
+                }
+            }
 
-          [self finishWithError:error
-                    fetchedData:output];
+            [self finishWithError:error
+                      fetchedData:output];
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          //NSLog(@"WIKITEXT DOWNLOAD FAIL = %@", error);
+            //NSLog(@"WIKITEXT DOWNLOAD FAIL = %@", error);
 
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          [self finishWithError:error
-                    fetchedData:nil];
+            [self finishWithError:error
+                      fetchedData:nil];
         }];
 }
 

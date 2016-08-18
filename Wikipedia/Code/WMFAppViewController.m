@@ -126,7 +126,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self addChildViewController:tabBar];
     [self.view addSubview:tabBar.view];
     [tabBar.view mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.top.and.bottom.and.leading.and.trailing.equalTo(self.view);
+        make.top.and.bottom.and.leading.and.trailing.equalTo(self.view);
     }];
     [tabBar didMoveToParentViewController:self];
     self.rootTabBarController = tabBar;
@@ -166,7 +166,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)appDidEnterBackgroundWithNotification:(NSNotification *)note {
     [self startBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
-      [self pauseApp];
+        [self pauseApp];
     });
 }
 
@@ -178,8 +178,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     }
 
     self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-      [self.dataStore stopCacheRemoval];
-      [self endBackgroundTask];
+        [self.dataStore stopCacheRemoval];
+        [self endBackgroundTask];
     }];
 }
 
@@ -218,11 +218,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
     }
     [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-      @strongify(self)
-          [self loadMainUI];
-      [self hideSplashViewAnimated:!didShowOnboarding];
-      [self resumeApp];
-      [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
+        @strongify(self)
+            [self loadMainUI];
+        [self hideSplashViewAnimated:!didShowOnboarding];
+        [self resumeApp];
+        [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
     }];
 }
 
@@ -571,10 +571,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     if ([self shouldShowOnboarding]) {
         WMFWelcomeViewController *vc = [WMFWelcomeViewController welcomeViewControllerFromDefaultStoryBoard];
         vc.completionBlock = ^{
-          [self setDidShowOnboarding];
-          if (completion) {
-              completion(YES);
-          }
+            [self setDidShowOnboarding];
+            if (completion) {
+                completion(YES);
+            }
         };
         [self presentViewController:vc animated:NO completion:NULL];
     } else {
@@ -597,12 +597,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
     [UIView animateWithDuration:duration
         animations:^{
-          self.splashView.layer.transform = CATransform3DMakeScale(10.0f, 10.0f, 1.0f);
-          self.splashView.alpha = 0.0;
+            self.splashView.layer.transform = CATransform3DMakeScale(10.0f, 10.0f, 1.0f);
+            self.splashView.alpha = 0.0;
         }
         completion:^(BOOL finished) {
-          self.splashView.hidden = YES;
-          self.splashView.layer.transform = CATransform3DIdentity;
+            self.splashView.hidden = YES;
+            self.splashView.layer.transform = CATransform3DIdentity;
         }];
 }
 
@@ -670,11 +670,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     NSURL *siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
     [self.randomFetcher fetchRandomArticleWithSiteURL:siteURL
         failure:^(NSError *error) {
-          [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
         }
         success:^(MWKSearchResult *result) {
-          NSURL *articleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
-          [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore animated:YES];
+            NSURL *articleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
+            [[self exploreViewController] wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore animated:YES];
         }];
 }
 
@@ -695,9 +695,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)downloadAssetsFilesIfNecessary {
     // Sync config/ios.json at most once per day.
     [[QueuesSingleton sharedInstance].assetsFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-      (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFileOfType:WMFAssetsFileTypeConfig
-                                                        withManager:[QueuesSingleton sharedInstance].assetsFetchManager
-                                                             maxAge:kWMFMaxAgeDefault];
+        (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFileOfType:WMFAssetsFileTypeConfig
+                                                          withManager:[QueuesSingleton sharedInstance].assetsFetchManager
+                                                               maxAge:kWMFMaxAgeDefault];
     }];
 }
 

@@ -7,7 +7,7 @@
     static UIImage *img;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      img = [[UIImage imageNamed:@"image-placeholder"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        img = [[UIImage imageNamed:@"image-placeholder"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     });
     return img;
 }

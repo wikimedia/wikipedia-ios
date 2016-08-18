@@ -35,41 +35,41 @@
         parameters:params
         progress:NULL
         success:^(NSURLSessionDataTask *operation, id responseObject) {
-          //NSLog(@"JSON: %@", responseObject);
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            //NSLog(@"JSON: %@", responseObject);
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          // Fake out an error if non-dictionary response received.
-          if (![responseObject isDict]) {
-              responseObject = @{ @"error" : @{@"info" : @"Captcha Resetter data not found."} };
-          }
+            // Fake out an error if non-dictionary response received.
+            if (![responseObject isDict]) {
+                responseObject = @{ @"error" : @{@"info" : @"Captcha Resetter data not found."} };
+            }
 
-          //NSLog(@"CAPTCHA RESETTER DATA RETRIEVED = %@", responseObject);
+            //NSLog(@"CAPTCHA RESETTER DATA RETRIEVED = %@", responseObject);
 
-          // Handle case where response is received, but API reports error.
-          NSError *error = nil;
-          if (responseObject[@"error"]) {
-              NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
-              errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
-              error = [NSError errorWithDomain:@"Captcha Resetter"
-                                          code:CAPTCHA_RESET_ERROR_API
-                                      userInfo:errorDict];
-          }
+            // Handle case where response is received, but API reports error.
+            NSError *error = nil;
+            if (responseObject[@"error"]) {
+                NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
+                errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
+                error = [NSError errorWithDomain:@"Captcha Resetter"
+                                            code:CAPTCHA_RESET_ERROR_API
+                                        userInfo:errorDict];
+            }
 
-          NSDictionary *output = @{};
-          if (!error) {
-              output = [self getSanitizedResponse:responseObject];
-          }
+            NSDictionary *output = @{};
+            if (!error) {
+                output = [self getSanitizedResponse:responseObject];
+            }
 
-          [self finishWithError:error
-                    fetchedData:output];
+            [self finishWithError:error
+                      fetchedData:output];
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          //NSLog(@"CAPTCHA RESETTER FAIL = %@", error);
+            //NSLog(@"CAPTCHA RESETTER FAIL = %@", error);
 
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          [self finishWithError:error
-                    fetchedData:nil];
+            [self finishWithError:error
+                      fetchedData:nil];
         }];
 }
 

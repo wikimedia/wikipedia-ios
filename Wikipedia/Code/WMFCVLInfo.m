@@ -32,7 +32,7 @@
 - (void)resetColumns {
     self.columns = nil;
     [self enumerateSectionsWithBlock:^(WMFCVLSection *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
-      section.columnIndex = NSNotFound;
+        section.columnIndex = NSNotFound;
     }];
 }
 
@@ -102,10 +102,10 @@
     __block CGSize newSize = metrics.boundsSize;
     newSize.height = 0;
     [self enumerateColumnsWithBlock:^(WMFCVLColumn *_Nonnull column, NSUInteger idx, BOOL *_Nonnull stop) {
-      CGFloat columnHeight = column.frame.size.height;
-      if (columnHeight > newSize.height) {
-          newSize.height = columnHeight;
-      }
+        CGFloat columnHeight = column.frame.size.height;
+        if (columnHeight > newSize.height) {
+            newSize.height = columnHeight;
+        }
     }];
     self.contentSize = newSize;
 }
@@ -278,13 +278,13 @@
         __block CGFloat headerHeight = 0;
         BOOL didCreateOrUpdate = [section addOrUpdateHeaderAtIndex:0
                                                  withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame) {
-                                                   if (wasCreated) {
-                                                       headerHeight = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
-                                                       return CGRectMake(x, y, columnWidth, headerHeight);
-                                                   } else {
-                                                       headerHeight = existingFrame.size.height;
-                                                       return CGRectMake(x, y, columnWidth, headerHeight);
-                                                   }
+                                                     if (wasCreated) {
+                                                         headerHeight = [delegate collectionView:collectionView estimatedHeightForHeaderInSection:sectionIndex forColumnWidth:columnWidth];
+                                                         return CGRectMake(x, y, columnWidth, headerHeight);
+                                                     } else {
+                                                         headerHeight = existingFrame.size.height;
+                                                         return CGRectMake(x, y, columnWidth, headerHeight);
+                                                     }
                                                  }];
         if (didCreateOrUpdate) {
             [invalidatedHeaderIndexPaths addObject:supplementaryViewIndexPath];
@@ -310,13 +310,13 @@
             __block CGFloat itemHeight = 0;
             BOOL didCreateOrUpdate = [section addOrUpdateItemAtIndex:item
                                                    withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame) {
-                                                     if (wasCreated) {
-                                                         itemHeight = [delegate collectionView:collectionView estimatedHeightForItemAtIndexPath:itemIndexPath forColumnWidth:columnWidth];
-                                                         return CGRectMake(itemX, y, itemWidth, itemHeight);
-                                                     } else {
-                                                         itemHeight = existingFrame.size.height;
-                                                         return CGRectMake(itemX, y, itemWidth, itemHeight);
-                                                     }
+                                                       if (wasCreated) {
+                                                           itemHeight = [delegate collectionView:collectionView estimatedHeightForItemAtIndexPath:itemIndexPath forColumnWidth:columnWidth];
+                                                           return CGRectMake(itemX, y, itemWidth, itemHeight);
+                                                       } else {
+                                                           itemHeight = existingFrame.size.height;
+                                                           return CGRectMake(itemX, y, itemWidth, itemHeight);
+                                                       }
                                                    }];
             if (didCreateOrUpdate) {
                 [invalidatedItemIndexPaths addObject:itemIndexPath];
@@ -338,13 +338,13 @@
         __block CGFloat footerHeight = 0;
         didCreateOrUpdate = [section addOrUpdateFooterAtIndex:0
                                             withFrameProvider:^CGRect(BOOL wasCreated, CGRect existingFrame) {
-                                              if (wasCreated) {
-                                                  footerHeight = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
-                                                  return CGRectMake(x, y, columnWidth, footerHeight);
-                                              } else {
-                                                  footerHeight = existingFrame.size.height;
-                                                  return CGRectMake(x, y, columnWidth, footerHeight);
-                                              }
+                                                if (wasCreated) {
+                                                    footerHeight = [delegate collectionView:collectionView estimatedHeightForFooterInSection:sectionIndex forColumnWidth:columnWidth];
+                                                    return CGRectMake(x, y, columnWidth, footerHeight);
+                                                } else {
+                                                    footerHeight = existingFrame.size.height;
+                                                    return CGRectMake(x, y, columnWidth, footerHeight);
+                                                }
                                             }];
         if (didCreateOrUpdate) {
             [invalidatedFooterIndexPaths addObject:supplementaryViewIndexPath];
@@ -370,7 +370,7 @@
     assert(_sections.count == numberOfSections);
 
     [self enumerateColumnsWithBlock:^(WMFCVLColumn *_Nonnull column, NSUInteger idx, BOOL *_Nonnull stop) {
-      [column updateHeightWithDelta:contentInsets.bottom];
+        [column updateHeightWithDelta:contentInsets.bottom];
     }];
 
     [context invalidateSupplementaryElementsOfKind:UICollectionElementKindSectionHeader atIndexPaths:invalidatedHeaderIndexPaths];
@@ -427,7 +427,7 @@
             for (NSIndexSet *otherSet in indexes) {
                 if (set != otherSet) {
                     [set enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *_Nonnull stop) {
-                      assert(![otherSet containsIndex:idx]);
+                        assert(![otherSet containsIndex:idx]);
                     }];
                 }
             }
@@ -436,13 +436,13 @@
         for (WMFCVLColumn *column in self.columns) {
             assert(column.frame.origin.x < self.contentSize.width);
             [column enumerateSectionsWithBlock:^(WMFCVLSection *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
-              assert(section.frame.origin.x == column.frame.origin.x);
-              [section enumerateLayoutAttributesWithBlock:^(WMFCVLAttributes *_Nonnull layoutAttributes, BOOL *_Nonnull stop) {
-                assert(layoutAttributes.frame.origin.x == column.frame.origin.x);
-                assert(layoutAttributes.alpha == 1);
-                assert(layoutAttributes.hidden == NO);
-                assert(layoutAttributes.frame.origin.y < self.contentSize.height);
-              }];
+                assert(section.frame.origin.x == column.frame.origin.x);
+                [section enumerateLayoutAttributesWithBlock:^(WMFCVLAttributes *_Nonnull layoutAttributes, BOOL *_Nonnull stop) {
+                    assert(layoutAttributes.frame.origin.x == column.frame.origin.x);
+                    assert(layoutAttributes.alpha == 1);
+                    assert(layoutAttributes.hidden == NO);
+                    assert(layoutAttributes.frame.origin.y < self.contentSize.height);
+                }];
             }];
         }
 

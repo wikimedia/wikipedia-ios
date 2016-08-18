@@ -41,14 +41,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchLanguagesWithSuccess:(dispatch_block_t)success
                           failure:(void (^__nullable)(NSError *__nonnull))failure {
     [[QueuesSingleton sharedInstance].languageLinksFetcher wmf_cancelAllTasksWithCompletionHandler:^{
-      [self.fetcher fetchLanguageLinksForArticleURL:self.articleURL
-                                            success:^(NSArray *languageLinks) {
-                                              self.availableLanguages = languageLinks;
-                                              if (success) {
-                                                  success();
+        [self.fetcher fetchLanguageLinksForArticleURL:self.articleURL
+                                              success:^(NSArray *languageLinks) {
+                                                  self.availableLanguages = languageLinks;
+                                                  if (success) {
+                                                      success();
+                                                  }
                                               }
-                                            }
-                                            failure:failure];
+                                              failure:failure];
     }];
 }
 
@@ -59,27 +59,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateLanguageArrays {
     self.otherLanguages = [[self.languageController.otherLanguages bk_select:^BOOL(MWKLanguageLink *language) {
-      return [self languageIsAvailable:language];
+        return [self languageIsAvailable:language];
     }] bk_map:^id(MWKLanguageLink *language) {
-      return [self titleLanguageForLanguage:language];
+        return [self titleLanguageForLanguage:language];
     }];
 
     self.preferredLanguages = [[self.languageController.preferredLanguages bk_select:^BOOL(MWKLanguageLink *language) {
-      return [self languageIsAvailable:language];
+        return [self languageIsAvailable:language];
     }] bk_map:^id(MWKLanguageLink *language) {
-      return [self titleLanguageForLanguage:language];
+        return [self titleLanguageForLanguage:language];
     }];
 
     self.allLanguages = [[self.languageController.allLanguages bk_select:^BOOL(MWKLanguageLink *language) {
-      return [self languageIsAvailable:language];
+        return [self languageIsAvailable:language];
     }] bk_map:^id(MWKLanguageLink *language) {
-      return [self titleLanguageForLanguage:language];
+        return [self titleLanguageForLanguage:language];
     }];
 }
 
 - (nullable MWKLanguageLink *)titleLanguageForLanguage:(MWKLanguageLink *)language {
     return [self.availableLanguages bk_match:^BOOL(MWKLanguageLink *availableLanguage) {
-      return [language.languageCode isEqualToString:availableLanguage.languageCode];
+        return [language.languageCode isEqualToString:availableLanguage.languageCode];
     }];
 }
 

@@ -74,7 +74,7 @@
 - (NSString *)wmf_randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
 {
     float (^rnd)() = ^() {
-      return (float)(rand() % (maxTimes - 1) + 1);
+        return (float)(rand() % (maxTimes - 1) + 1);
     };
 
     NSString *randStr = [@"" stringByPaddingToLength:rnd() * [self length] withString:self startingAtIndex:0];

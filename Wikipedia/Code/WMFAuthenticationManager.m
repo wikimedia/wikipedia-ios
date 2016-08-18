@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
     static dispatch_once_t once;
     static id sharedInstance;
     dispatch_once(&once, ^{
-      sharedInstance = [[self alloc] init];
+        sharedInstance = [[self alloc] init];
     });
     return sharedInstance;
 }
@@ -94,32 +94,32 @@ NS_ASSUME_NONNULL_BEGIN
     self.successBlock = nil;
 
     [self fetchCreationAuthManagerInfoWithSuccess:^(WMFAuthManagerInfo *_Nonnull info) {
-      self.accountCreationAuthManagerInfo = info;
-      [self fetchCreationTokensWithInfo:info username:self.authenticatingUsername password:self.authenticatingPassword email:self.email];
+        self.accountCreationAuthManagerInfo = info;
+        [self fetchCreationTokensWithInfo:info username:self.authenticatingUsername password:self.authenticatingPassword email:self.email];
     }
         failure:^(NSError *error) {
-          [self finishAndSendFailureBlockWithError:error];
+            [self finishAndSendFailureBlockWithError:error];
         }];
 }
 
 - (void)fetchCreationAuthManagerInfoWithSuccess:(nullable WMFAuthManagerInfoBlock)success failure:(nullable WMFErrorHandler)failure {
     [self.authManagerInfoFetcher fetchAuthManagerCreationAvailableForSiteURL:[[MWKLanguageLinkController sharedInstance] appLanguage].siteURL
         success:^(WMFAuthManagerInfo *_Nonnull info) {
-          success(info);
+            success(info);
         }
         failure:^(NSError *error) {
-          failure(error);
+            failure(error);
         }];
 }
 
 - (void)fetchCreationTokensWithInfo:(WMFAuthManagerInfo *)info username:(NSString *)username password:(NSString *)password email:(nullable NSString *)email {
     [[QueuesSingleton sharedInstance].accountCreationFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-      (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
-                                                                   userName:username
-                                                                   password:password
-                                                                      email:email
-                                                                withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
-                                                         thenNotifyDelegate:self];
+        (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
+                                                                     userName:username
+                                                                     password:password
+                                                                        email:email
+                                                                  withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
+                                                           thenNotifyDelegate:self];
     }];
 }
 
@@ -170,12 +170,12 @@ NS_ASSUME_NONNULL_BEGIN
                    password:self.keychainCredentials.password
                     success:success
                     failure:^(NSError *error) {
-                      if (error.domain == WMFAccountLoginErrorDomain && error.code != LOGIN_ERROR_UNKNOWN && error.code != LOGIN_ERROR_API) {
-                          [self logout];
-                      }
-                      if (failure) {
-                          failure(error);
-                      }
+                        if (error.domain == WMFAccountLoginErrorDomain && error.code != LOGIN_ERROR_UNKNOWN && error.code != LOGIN_ERROR_API) {
+                            [self logout];
+                        }
+                        if (failure) {
+                            failure(error);
+                        }
                     }];
 }
 
@@ -205,31 +205,31 @@ NS_ASSUME_NONNULL_BEGIN
     self.failBlock = failure;
 
     [self fetchLoginAuthManagerInfoWithSuccess:^(WMFAuthManagerInfo *_Nonnull info) {
-      self.loginAuthManagerInfo = info;
-      [self fetchLoginTokensWithInfo:info username:self.authenticatingUsername password:self.authenticatingPassword];
+        self.loginAuthManagerInfo = info;
+        [self fetchLoginTokensWithInfo:info username:self.authenticatingUsername password:self.authenticatingPassword];
     }
         failure:^(NSError *error) {
-          [self finishAndSendFailureBlockWithError:error];
+            [self finishAndSendFailureBlockWithError:error];
         }];
 }
 
 - (void)fetchLoginAuthManagerInfoWithSuccess:(nullable WMFAuthManagerInfoBlock)success failure:(nullable WMFErrorHandler)failure {
     [self.authManagerInfoFetcher fetchAuthManagerLoginAvailableForSiteURL:[[MWKLanguageLinkController sharedInstance] appLanguage].siteURL
         success:^(WMFAuthManagerInfo *_Nonnull info) {
-          success(info);
+            success(info);
         }
         failure:^(NSError *error) {
-          failure(error);
+            failure(error);
         }];
 }
 
 - (void)fetchLoginTokensWithInfo:(WMFAuthManagerInfo *)info username:(NSString *)username password:(NSString *)password {
     [[QueuesSingleton sharedInstance].loginFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-      (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
-                                                         userName:username
-                                                         password:password
-                                                      withManager:[QueuesSingleton sharedInstance].loginFetchManager
-                                               thenNotifyDelegate:self];
+        (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain:[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode
+                                                           userName:username
+                                                           password:password
+                                                        withManager:[QueuesSingleton sharedInstance].loginFetchManager
+                                                 thenNotifyDelegate:self];
     }];
 }
 

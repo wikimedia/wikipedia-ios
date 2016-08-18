@@ -181,7 +181,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
     // Populate sections
     NSArray *sectionsData = [dict[@"sections"] bk_map:^id(NSDictionary *sectionData) {
-      return [[MWKSection alloc] initWithArticle:self dict:sectionData];
+        return [[MWKSection alloc] initWithArticle:self dict:sectionData];
     }];
 
     /*
@@ -366,7 +366,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 - (NSArray<MWKImage *> *)imagesForGallery {
     return [[self imageURLsForGallery] bk_map:^id(NSURL *url) {
-      return [[MWKImage alloc] initWithArticle:self sourceURL:url];
+        return [[MWKImage alloc] initWithArticle:self sourceURL:url];
     }];
 }
 
@@ -377,17 +377,17 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 - (NSArray<MWKImage *> *)imagesForSaving {
     return [[self imageURLsForSaving] bk_map:^id(NSURL *url) {
-      return [[MWKImage alloc] initWithArticle:self sourceURL:url];
+        return [[MWKImage alloc] initWithArticle:self sourceURL:url];
     }];
 }
 
 - (NSArray<NSURL *> *)schemelessURLsRejectingNilURLs:(NSArray<NSURL *> *)urls {
     return [urls wmf_mapAndRejectNil:^NSURL *(NSURL *url) {
-      if ([url isKindOfClass:[NSURL class]]) {
-          return [url wmf_schemelessURL];
-      } else {
-          return nil;
-      }
+        if ([url isKindOfClass:[NSURL class]]) {
+            return [url wmf_schemelessURL];
+        } else {
+            return nil;
+        }
     }];
 }
 
@@ -401,21 +401,21 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     NSArray<MWKImageInfo *> *infos = [self.dataStore imageInfoForArticleWithURL:self.url];
 
     NSArray<NSURL *> *lazilyFetchedHighResolutionGalleryImageURLs = [infos wmf_mapAndRejectNil:^id _Nullable(MWKImageInfo *_Nonnull obj) {
-      if ([obj isKindOfClass:[MWKImageInfo class]]) {
-          return [obj canonicalFileURL];
-      } else {
-          return nil;
-      }
+        if ([obj isKindOfClass:[MWKImageInfo class]]) {
+            return [obj canonicalFileURL];
+        } else {
+            return nil;
+        }
     }];
 
     [imageURLs addObjectsFromArray:[self schemelessURLsRejectingNilURLs:lazilyFetchedHighResolutionGalleryImageURLs]];
 
     NSArray<NSURL *> *thumbURLs = [infos wmf_mapAndRejectNil:^id _Nullable(MWKImageInfo *_Nonnull obj) {
-      if ([obj isKindOfClass:[MWKImageInfo class]]) {
-          return [obj imageThumbURL];
-      } else {
-          return nil;
-      }
+        if ([obj isKindOfClass:[MWKImageInfo class]]) {
+            return [obj imageThumbURL];
+        } else {
+            return nil;
+        }
     }];
 
     [imageURLs addObjectsFromArray:[self schemelessURLsRejectingNilURLs:thumbURLs]];
@@ -434,7 +434,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
     // remove any null objects inserted during above map/valueForKey operations
     return [imageURLs bk_reject:^BOOL(id obj) {
-      return [obj isEqual:[NSNull null]];
+        return [obj isEqual:[NSNull null]];
     }];
 }
 
@@ -447,20 +447,20 @@ static NSString *const WMFArticleReflistColumnSelector = @"/html/body/*[contains
         __block NSArray *referenceListItems;
         [self.sections.entries enumerateObjectsWithOptions:NSEnumerationReverse
                                                 usingBlock:^(MWKSection *section, NSUInteger idx, BOOL *stop) {
-                                                  referenceListItems = [section elementsInTextMatchingXPath:WMFArticleReflistColumnSelector];
-                                                  if (referenceListItems.count > 0) {
-                                                      *stop = YES;
-                                                  }
+                                                    referenceListItems = [section elementsInTextMatchingXPath:WMFArticleReflistColumnSelector];
+                                                    if (referenceListItems.count > 0) {
+                                                        *stop = YES;
+                                                    }
                                                 }];
         if (!referenceListItems) {
             DDLogWarn(@"Failed to parse reflist for %@ cached article: %@", self.isCached ? @"" : @"not", self);
             return nil;
         }
         _citations = [[referenceListItems bk_map:^MWKCitation *(TFHppleElement *el) {
-          return [[MWKCitation alloc] initWithCitationIdentifier:el.attributes[@"id"]
-                                                         rawHTML:el.raw];
+            return [[MWKCitation alloc] initWithCitationIdentifier:el.attributes[@"id"]
+                                                           rawHTML:el.raw];
         }] bk_reject:^BOOL(id obj) {
-          return WMF_IS_EQUAL(obj, [NSNull null]);
+            return WMF_IS_EQUAL(obj, [NSNull null]);
         }];
     }
     return _citations;

@@ -203,7 +203,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                detectFaces:YES
                                                    failure:WMFIgnoreErrorHandler
                                                    success:^{
-                                                     [self layoutHeaderImageViewForSize:self.view.bounds.size];
+                                                       [self layoutHeaderImageViewForSize:self.view.bounds.size];
                                                    }];
         }
         [self startSignificantlyViewedTimer];
@@ -385,12 +385,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)getShareText:(void (^)(NSString *text))completion {
     [self.webViewController.webView wmf_getSelectedText:^(NSString *_Nonnull text) {
-      if (text.length == 0) {
-          text = [self.article shareSnippet];
-      }
-      if (completion) {
-          completion(text);
-      }
+        if (text.length == 0) {
+            text = [self.article shareSnippet];
+        }
+        if (completion) {
+            completion(text);
+        }
     }];
 }
 
@@ -529,8 +529,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         _fontSizeToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"font-size"]
                                                                    style:UIBarButtonItemStylePlain
                                                                  handler:^(id sender) {
-                                                                   @strongify(self);
-                                                                   [self showFontSizePopup];
+                                                                     @strongify(self);
+                                                                     [self showFontSizePopup];
                                                                  }];
     }
     return _fontSizeToolbarItem;
@@ -541,8 +541,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         @weakify(self);
         _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                             handler:^(id sender) {
-                                                                              @strongify(self);
-                                                                              [self shareArticleWithTextSnippet:nil fromButton:self->_shareToolbarItem];
+                                                                                @strongify(self);
+                                                                                [self shareArticleWithTextSnippet:nil fromButton:self->_shareToolbarItem];
                                                                             }];
     }
     return _shareToolbarItem;
@@ -554,10 +554,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         _findInPageToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"find-in-page"]
                                                                      style:UIBarButtonItemStylePlain
                                                                    handler:^(id sender) {
-                                                                     @strongify(self);
-                                                                     if ([self canFindInPage]) { // Needed so you can't tap find icon when text size adjuster is onscreen.
-                                                                         [self showFindInPage];
-                                                                     }
+                                                                       @strongify(self);
+                                                                       if ([self canFindInPage]) { // Needed so you can't tap find icon when text size adjuster is onscreen.
+                                                                           [self showFindInPage];
+                                                                       }
                                                                    }];
     }
     return _findInPageToolbarItem;
@@ -585,7 +585,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [[PiwikTracker wmf_configuredInstance] wmf_logActionSwitchLanguageInContext:self contentType:nil];
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                               [self pushArticleViewControllerWithURL:language.articleURL contentType:nil animated:YES];
+                                 [self pushArticleViewControllerWithURL:language.articleURL contentType:nil animated:YES];
                              }];
 }
 
@@ -635,10 +635,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     [self.view addSubview:self.progressView];
     [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.top.equalTo(self.progressView.superview.mas_top);
-      make.left.equalTo(self.progressView.superview.mas_left);
-      make.right.equalTo(self.progressView.superview.mas_right);
-      make.height.equalTo(@2.0);
+        make.top.equalTo(self.progressView.superview.mas_top);
+        make.left.equalTo(self.progressView.superview.mas_left);
+        make.right.equalTo(self.progressView.superview.mas_right);
+        make.height.equalTo(@2.0);
     }];
 }
 
@@ -656,7 +656,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [UIView animateWithDuration:0.25
                      animations:^{
-                       [self _showProgressView];
+                         [self _showProgressView];
                      }
                      completion:^(BOOL finished){
                      }];
@@ -674,7 +674,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [UIView animateWithDuration:0.25
                      animations:^{
-                       [self _hideProgressView];
+                         [self _hideProgressView];
                      }
                      completion:nil];
 }
@@ -695,10 +695,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)completeAndHideProgressWithCompletion:(nullable dispatch_block_t)completion {
     [self updateProgress:1.0 animated:YES];
     dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-      [self hideProgressViewAnimated:YES];
-      if (completion) {
-          completion();
-      }
+        [self hideProgressViewAnimated:YES];
+        if (completion) {
+            completion();
+        }
     });
 }
 
@@ -747,8 +747,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [b sizeToFit];
     @weakify(self);
     [b bk_addEventHandler:^(id sender) {
-      @strongify(self);
-      [self.navigationController popToRootViewControllerAnimated:YES];
+        @strongify(self);
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
           forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = b;
@@ -920,7 +920,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
-      [self layoutForSize:size];
+        [self layoutForSize:size];
     }
                                  completion:NULL];
 }
@@ -954,17 +954,17 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         scrollView.backgroundColor = [UIColor whiteColor];
         [UIView animateWithDuration:0.20
             animations:^{
-              [self layoutForSize:self.view.bounds.size];
-              if (self.currentSection) {
-                  [self.webViewController scrollToSection:self.currentSection animated:NO];
-              } else if (self.currentFooterIndex != NSNotFound) {
-                  [self.webViewController scrollToFooterAtIndex:self.currentFooterIndex animated:NO];
-              } else {
-                  scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
-              }
+                [self layoutForSize:self.view.bounds.size];
+                if (self.currentSection) {
+                    [self.webViewController scrollToSection:self.currentSection animated:NO];
+                } else if (self.currentFooterIndex != NSNotFound) {
+                    [self.webViewController scrollToFooterAtIndex:self.currentFooterIndex animated:NO];
+                } else {
+                    scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
+                }
             }
             completion:^(BOOL finished) {
-              scrollView.backgroundColor = previousBackgrondColor;
+                scrollView.backgroundColor = previousBackgrondColor;
             }];
     } else {
         [self layoutForSize:self.view.bounds.size];
@@ -1129,62 +1129,62 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURL:self.articleURL
                                                                            forceDownload:force
                                                                                 progress:^(CGFloat progress) {
-                                                                                  [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
+                                                                                    [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
                                                                                 }]
                                      .then(^(MWKArticle *article) {
-                                       @strongify(self);
-                                       [self.pullToRefresh endRefreshing];
-                                       [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
-                                       self.article = article;
-                                       /*
+                                         @strongify(self);
+                                         [self.pullToRefresh endRefreshing];
+                                         [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
+                                         self.article = article;
+                                         /*
            NOTE(bgerstle): add side effects to setArticle, not here. this ensures they happen even when falling back to
            cached content
          */
                                      })
                                      .catch(^(NSError *error) {
-                                       @strongify(self);
-                                       DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
-                                       [self.pullToRefresh endRefreshing];
-                                       [self hideProgressViewAnimated:YES];
-                                       [self.delegate articleControllerDidLoadArticle:self];
+                                         @strongify(self);
+                                         DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
+                                         [self.pullToRefresh endRefreshing];
+                                         [self hideProgressViewAnimated:YES];
+                                         [self.delegate articleControllerDidLoadArticle:self];
 
-                                       MWKArticle *cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
-                                       if (cachedFallback) {
-                                           self.article = cachedFallback;
-                                           if (![error wmf_isNetworkConnectionError]) {
-                                               // don't show offline banner for cached articles
-                                               [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                                                         sticky:NO
-                                                                          dismissPreviousAlerts:NO
-                                                                                    tapCallBack:NULL];
-                                           }
-                                       } else {
-                                           [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
-                                           [self.view bringSubviewToFront:self.progressView];
-                                           [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                                                     sticky:NO
-                                                                      dismissPreviousAlerts:NO
-                                                                                tapCallBack:NULL];
+                                         MWKArticle *cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
+                                         if (cachedFallback) {
+                                             self.article = cachedFallback;
+                                             if (![error wmf_isNetworkConnectionError]) {
+                                                 // don't show offline banner for cached articles
+                                                 [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                                                           sticky:NO
+                                                                            dismissPreviousAlerts:NO
+                                                                                      tapCallBack:NULL];
+                                             }
+                                         } else {
+                                             [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
+                                             [self.view bringSubviewToFront:self.progressView];
+                                             [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                                                       sticky:NO
+                                                                        dismissPreviousAlerts:NO
+                                                                                  tapCallBack:NULL];
 
-                                           if ([error wmf_isNetworkConnectionError]) {
-                                               @weakify(self);
-                                               [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-                                                 switch (status) {
-                                                     case AFNetworkReachabilityStatusReachableViaWWAN:
-                                                     case AFNetworkReachabilityStatusReachableViaWiFi: {
-                                                         @strongify(self);
-                                                         [self fetchArticleIfNeeded];
-                                                     } break;
-                                                     default:
-                                                         break;
-                                                 }
-                                               }];
-                                           }
-                                       }
+                                             if ([error wmf_isNetworkConnectionError]) {
+                                                 @weakify(self);
+                                                 [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+                                                     switch (status) {
+                                                         case AFNetworkReachabilityStatusReachableViaWWAN:
+                                                         case AFNetworkReachabilityStatusReachableViaWiFi: {
+                                                             @strongify(self);
+                                                             [self fetchArticleIfNeeded];
+                                                         } break;
+                                                         default:
+                                                             break;
+                                                     }
+                                                 }];
+                                             }
+                                         }
                                      })
                                      .finally(^{
-                                       @strongify(self);
-                                       self.articleFetcherPromise = nil;
+                                         @strongify(self);
+                                         self.articleFetcherPromise = nil;
                                      });
 }
 
@@ -1203,16 +1203,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     @weakify(self);
     [self.readMoreListViewController fetchIfNeeded].then(^{
-                                                     @strongify(self);
-                                                     if (!self) {
-                                                         return;
-                                                     }
-                                                     // update footers to include read more if there are results
-                                                     [self updateWebviewFootersIfNeeded];
-                                                     [self updateTableOfContentsForFootersIfNeeded];
+                                                       @strongify(self);
+                                                       if (!self) {
+                                                           return;
+                                                       }
+                                                       // update footers to include read more if there are results
+                                                       [self updateWebviewFootersIfNeeded];
+                                                       [self updateTableOfContentsForFootersIfNeeded];
                                                    })
         .catch(^(NSError *error) {
-          DDLogError(@"Read More Fetch Error: %@", error);
+            DDLogError(@"Read More Fetch Error: %@", error);
         WMF_TECH_DEBT_TODO(show read more w / an error view and allow user to retry ? );
         });
 }
@@ -1326,13 +1326,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (index == NSNotFound) {
         index = [[[self fontSizeMultipliers] bk_reduce:@(NSIntegerMax)
                                              withBlock:^id(NSNumber *current, NSNumber *obj) {
-                                               NSUInteger currentDistance = current.integerValue;
-                                               NSUInteger objDistance = abs((int)(obj.integerValue - fontSize.integerValue));
-                                               if (objDistance < currentDistance) {
-                                                   return obj;
-                                               } else {
-                                                   return current;
-                                               }
+                                                 NSUInteger currentDistance = current.integerValue;
+                                                 NSUInteger objDistance = abs((int)(obj.integerValue - fontSize.integerValue));
+                                                 if (objDistance < currentDistance) {
+                                                     return obj;
+                                                 } else {
+                                                     return current;
+                                                 }
                                              }] integerValue];
     }
 
@@ -1352,10 +1352,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)webViewController:(WebViewController *)controller didLoadArticle:(MWKArticle *)article {
     [self completeAndHideProgressWithCompletion:^{
-      //Without this pause, the motion happens too soon after loading the article
-      dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-        [self peekTableOfContentsIfNeccesary];
-      });
+        //Without this pause, the motion happens too soon after loading the article
+        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+            [self peekTableOfContentsIfNeccesary];
+        });
     }];
 
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
@@ -1397,14 +1397,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.currentFooterIndex = NSNotFound;
     self.currentSection = nil;
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *_Nullable section, NSError *_Nullable error) {
-      if (section) {
-          [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
-      } else {
-          NSInteger visibleFooterIndex = self.webViewController.visibleFooterIndex;
-          if (visibleFooterIndex != NSNotFound) {
-              [self selectAndScrollToTableOfContentsFooterItemAtIndex:visibleFooterIndex animated:YES];
-          }
-      }
+        if (section) {
+            [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
+        } else {
+            NSInteger visibleFooterIndex = self.webViewController.visibleFooterIndex;
+            if (visibleFooterIndex != NSNotFound) {
+                [self selectAndScrollToTableOfContentsFooterItemAtIndex:visibleFooterIndex animated:YES];
+            }
+        }
     }];
 
     self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
@@ -1486,23 +1486,23 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)registerForPreviewingIfAvailable {
     [self wmf_ifForceTouchAvailable:^{
-      NSAssert(!self.webViewController.webView.allowsLinkPreview, @"WKWebView's built-in link preview forces Safari to open as of iOS 9.x. Do not enable.");
-      [self unregisterForPreviewing];
-      UIView *previewView = [self.webViewController.webView wmf_browserView];
-      self.linkPreviewingContext =
-          [self registerForPreviewingWithDelegate:self
-                                       sourceView:previewView];
+        NSAssert(!self.webViewController.webView.allowsLinkPreview, @"WKWebView's built-in link preview forces Safari to open as of iOS 9.x. Do not enable.");
+        [self unregisterForPreviewing];
+        UIView *previewView = [self.webViewController.webView wmf_browserView];
+        self.linkPreviewingContext =
+            [self registerForPreviewingWithDelegate:self
+                                         sourceView:previewView];
 
-      self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.webViewController.headerView];
+        self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.webViewController.headerView];
 
-      for (UIGestureRecognizer *r in previewView.gestureRecognizers) {
-          if ([NSStringFromClass([r class]) isEqualToString:@"_UIPreviewGestureRecognizer"]) {
-              [r requireGestureRecognizerToFail:self.linkPreviewingContext.previewingGestureRecognizerForFailureRelationship];
-          }
-      }
+        for (UIGestureRecognizer *r in previewView.gestureRecognizers) {
+            if ([NSStringFromClass([r class]) isEqualToString:@"_UIPreviewGestureRecognizer"]) {
+                [r requireGestureRecognizerToFail:self.linkPreviewingContext.previewingGestureRecognizerForFailureRelationship];
+            }
+        }
     }
         unavailable:^{
-          [self unregisterForPreviewing];
+            [self unregisterForPreviewing];
         }];
 }
 

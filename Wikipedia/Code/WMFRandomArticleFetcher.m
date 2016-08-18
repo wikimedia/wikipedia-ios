@@ -46,15 +46,15 @@ NS_ASSUME_NONNULL_BEGIN
         parameters:params
         retry:NULL
         success:^(NSURLSessionDataTask *operation, NSArray *responseObject) {
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-          MWKSearchResult *article = [self getBestRandomResultFromResults:responseObject];
+            MWKSearchResult *article = [self getBestRandomResultFromResults:responseObject];
 
-          success(article);
+            success(article);
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {
-          [[MWNetworkActivityIndicatorManager sharedManager] pop];
-          failure(error);
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            failure(error);
         }];
 }
 

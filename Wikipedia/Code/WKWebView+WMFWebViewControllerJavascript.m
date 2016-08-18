@@ -81,13 +81,13 @@ static int const kMinimumTextSelectionLength = 2;
 - (void)wmf_getSelectedText:(void (^)(NSString *text))completion {
     [self evaluateJavaScript:@"window.getSelection().toString()"
            completionHandler:^(id _Nullable obj, NSError *_Nullable error) {
-             if ([obj isKindOfClass:[NSString class]]) {
-                 NSString *selectedText = [(NSString *)obj wmf_shareSnippetFromText];
-                 selectedText = selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
-                 completion(selectedText);
-             } else {
-                 completion(@"");
-             }
+               if ([obj isKindOfClass:[NSString class]]) {
+                   NSString *selectedText = [(NSString *)obj wmf_shareSnippetFromText];
+                   selectedText = selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
+                   completion(selectedText);
+               } else {
+                   completion(@"");
+               }
            }];
 }
 

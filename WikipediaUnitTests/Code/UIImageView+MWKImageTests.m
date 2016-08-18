@@ -57,11 +57,11 @@
     [self.imageView wmf_setImageWithMetadata:testMetadata
         detectFaces:YES
         failure:^(NSError *error) {
-          XCTFail(@"Error callback erroneously called with error %@", error);
-          [promiseExpectation fulfill];
+            XCTFail(@"Error callback erroneously called with error %@", error);
+            [promiseExpectation fulfill];
         }
         success:^{
-          [promiseExpectation fulfill];
+            [promiseExpectation fulfill];
         }];
 
     XCTAssert(self.imageView.wmf_imageController == self.imageController,
@@ -88,11 +88,11 @@
     [self.imageView wmf_setImageWithURL:self.testURL
         detectFaces:YES
         failure:^(NSError *error) {
-          XCTFail(@"Error callback erroneously called with error %@", error);
-          [promiseExpectation fulfill];
+            XCTFail(@"Error callback erroneously called with error %@", error);
+            [promiseExpectation fulfill];
         }
         success:^{
-          [promiseExpectation fulfill];
+            [promiseExpectation fulfill];
         }];
 
     XCTAssert(self.imageView.wmf_imageController == self.imageController,
@@ -118,11 +118,11 @@
     [self.imageView wmf_setImageWithMetadata:testMetadata
         detectFaces:NO
         failure:^(NSError *error) {
-          XCTFail(@"Error callback erroneously called with error %@", error);
-          [promiseExpectation fulfill];
+            XCTFail(@"Error callback erroneously called with error %@", error);
+            [promiseExpectation fulfill];
         }
         success:^{
-          [promiseExpectation fulfill];
+            [promiseExpectation fulfill];
         }];
 
     XCTAssert(self.imageView.wmf_imageController == self.imageController,
@@ -149,11 +149,11 @@
     [self.imageView wmf_setImageWithURL:self.testURL
         detectFaces:NO
         failure:^(NSError *error) {
-          XCTFail(@"Error callback erroneously called with error %@", error);
-          [promiseExpectation fulfill];
+            XCTFail(@"Error callback erroneously called with error %@", error);
+            [promiseExpectation fulfill];
         }
         success:^{
-          [promiseExpectation fulfill];
+            [promiseExpectation fulfill];
         }];
 
     XCTAssert(self.imageView.wmf_imageController == self.imageController,
@@ -175,12 +175,12 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"wait for download"];
     [self.imageController fetchImageWithURL:self.testURL
         failure:^(NSError *_Nonnull error) {
-          XCTAssert(false);
-          [expectation fulfill];
+            XCTAssert(false);
+            [expectation fulfill];
         }
         success:^(WMFImageDownload *_Nonnull download) {
-          self.image = download.image;
-          [expectation fulfill];
+            self.image = download.image;
+            [expectation fulfill];
         }];
 
     WaitForExpectations();
@@ -192,11 +192,11 @@
     [self.imageView wmf_setImageWithMetadata:testMetadata
         detectFaces:NO
         failure:^(NSError *error) {
-          XCTFail(@"Error callback erroneously called with error %@", error);
-          [promiseExpectation fulfill];
+            XCTFail(@"Error callback erroneously called with error %@", error);
+            [promiseExpectation fulfill];
         }
         success:^{
-          [promiseExpectation fulfill];
+            [promiseExpectation fulfill];
         }];
 
     XCTAssert(self.imageView.wmf_imageController == self.imageController,
@@ -219,12 +219,12 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"wait for download"];
     [self.imageController fetchImageWithURL:self.testURL
         failure:^(NSError *_Nonnull error) {
-          XCTAssert(false);
-          [expectation fulfill];
+            XCTAssert(false);
+            [expectation fulfill];
         }
         success:^(WMFImageDownload *_Nonnull download) {
-          self.image = download.image;
-          [expectation fulfill];
+            self.image = download.image;
+            [expectation fulfill];
         }];
 
     WaitForExpectations();
@@ -236,11 +236,11 @@
     [self.imageView wmf_setImageWithURL:self.testURL
         detectFaces:NO
         failure:^(NSError *error) {
-          XCTFail(@"Error callback erroneously called with error %@", error);
-          [promiseExpectation fulfill];
+            XCTFail(@"Error callback erroneously called with error %@", error);
+            [promiseExpectation fulfill];
         }
         success:^{
-          [promiseExpectation fulfill];
+            [promiseExpectation fulfill];
         }];
 
     XCTAssert(self.imageView.wmf_imageController == self.imageController,
@@ -262,12 +262,12 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"wait for download"];
     [self.imageController fetchImageWithURL:self.testURL
         failure:^(NSError *_Nonnull error) {
-          XCTAssert(false);
-          [expectation fulfill];
+            XCTAssert(false);
+            [expectation fulfill];
         }
         success:^(WMFImageDownload *_Nonnull download) {
-          self.image = download.image;
-          [expectation fulfill];
+            self.image = download.image;
+            [expectation fulfill];
         }];
 
     WaitForExpectations();
@@ -279,11 +279,11 @@
     [self.imageView wmf_setImageWithMetadata:testMetadata
         detectFaces:YES
         failure:^(NSError *error) {
-          XCTFail(@"Error callback erroneously called with error %@", error);
-          [promiseExpectation fulfill];
+            XCTFail(@"Error callback erroneously called with error %@", error);
+            [promiseExpectation fulfill];
         }
         success:^{
-          [promiseExpectation fulfill];
+            [promiseExpectation fulfill];
         }];
 
     XCTAssert(self.imageView.wmf_imageController == self.imageController,
@@ -306,12 +306,12 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"wait for download"];
     [self.imageController fetchImageWithURL:self.testURL
         failure:^(NSError *_Nonnull error) {
-          XCTAssert(false);
-          [expectation fulfill];
+            XCTAssert(false);
+            [expectation fulfill];
         }
         success:^(WMFImageDownload *_Nonnull download) {
-          self.image = download.image;
-          [expectation fulfill];
+            self.image = download.image;
+            [expectation fulfill];
         }];
 
     WaitForExpectations();
@@ -323,11 +323,11 @@
     [self.imageView wmf_setImageWithURL:self.testURL
         detectFaces:YES
         failure:^(NSError *error) {
-          XCTFail(@"Error callback erroneously called with error %@", error);
-          [promiseExpectation fulfill];
+            XCTFail(@"Error callback erroneously called with error %@", error);
+            [promiseExpectation fulfill];
         }
         success:^{
-          [promiseExpectation fulfill];
+            [promiseExpectation fulfill];
         }];
 
     XCTAssert(self.imageView.wmf_imageController == self.imageController,
@@ -355,11 +355,11 @@
     [self.imageView wmf_setImageWithMetadata:testMetadata
         detectFaces:YES
         failure:^(NSError *error) {
-          XCTAssert(true);
-          [promiseExpectation fulfill];
+            XCTAssert(true);
+            [promiseExpectation fulfill];
         }
         success:^{
-          XCTFail(@"Promise fullfilled erroneously with url %@", [self.testURL description]);
+            XCTFail(@"Promise fullfilled erroneously with url %@", [self.testURL description]);
         }];
 
     WaitForExpectations();
@@ -376,11 +376,11 @@
     [self.imageView wmf_setImageWithURL:self.testURL
         detectFaces:YES
         failure:^(NSError *error) {
-          XCTAssert(true);
-          [promiseExpectation fulfill];
+            XCTAssert(true);
+            [promiseExpectation fulfill];
         }
         success:^{
-          XCTFail(@"Promise fullfilled erroneously with url %@", [self.testURL description]);
+            XCTFail(@"Promise fullfilled erroneously with url %@", [self.testURL description]);
         }];
 
     WaitForExpectations();
@@ -392,12 +392,12 @@
     [self.faceDetectionCache detectFaceBoundsInImage:[UIImage new]
         URL:self.testURL
         failure:^(NSError *error) {
-          XCTFail();
-          [promiseExpectation fulfill];
+            XCTFail();
+            [promiseExpectation fulfill];
         }
         success:^(NSValue *value) {
-          XCTAssert(CGRectIsEmpty([value CGRectValue]), @"Bounds should be null since the image has no data");
-          [promiseExpectation fulfill];
+            XCTAssert(CGRectIsEmpty([value CGRectValue]), @"Bounds should be null since the image has no data");
+            [promiseExpectation fulfill];
         }];
 
     WaitForExpectations();

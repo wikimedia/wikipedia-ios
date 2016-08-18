@@ -69,9 +69,9 @@
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-      self.saveButtonController.url = self.titleSFEn;
-      assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
-      [expectation fulfill];
+        self.saveButtonController.url = self.titleSFEn;
+        assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
+        [expectation fulfill];
     });
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
@@ -83,11 +83,11 @@
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
-      self.saveButtonController.url = self.titleSFEn;
-      assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
-      self.saveButtonController.url = nil;
-      assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
-      [expectation fulfill];
+        self.saveButtonController.url = self.titleSFEn;
+        assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
+        self.saveButtonController.url = nil;
+        assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
+        [expectation fulfill];
     });
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
@@ -99,14 +99,14 @@
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-      self.saveButtonController.url = self.titleSFEn;
-      assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
-      [self.savedPagesList removeEntryWithURL:self.titleSFEn];
+        self.saveButtonController.url = self.titleSFEn;
+        assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
+        [self.savedPagesList removeEntryWithURL:self.titleSFEn];
 
-      dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-        assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
-        [expectation fulfill];
-      });
+        dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+            assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
+            [expectation fulfill];
+        });
     });
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
@@ -118,13 +118,13 @@
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-      [self.savedPagesList addSavedPageWithURL:self.titleSFEn];
+        [self.savedPagesList addSavedPageWithURL:self.titleSFEn];
 
-      dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-        assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
-        assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
-        [expectation fulfill];
-      });
+        dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+            assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
+            assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
+            [expectation fulfill];
+        });
     });
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
@@ -137,9 +137,9 @@
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-      self.saveButtonController.control = [UIButton new];
-      assertThat(@(self.saveButtonController.control.state), is(equalToInt(UIControlStateSelected)));
-      [expectation fulfill];
+        self.saveButtonController.control = [UIButton new];
+        assertThat(@(self.saveButtonController.control.state), is(equalToInt(UIControlStateSelected)));
+        [expectation fulfill];
     });
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
@@ -152,13 +152,13 @@
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-      assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
-      [self.button sendActionsForControlEvents:UIControlEventTouchUpInside];
+        assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
+        [self.button sendActionsForControlEvents:UIControlEventTouchUpInside];
 
-      dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-        assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(NO)));
-        [expectation fulfill];
-      });
+        dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+            assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(NO)));
+            [expectation fulfill];
+        });
     });
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
@@ -172,8 +172,8 @@
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-      assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
-      [expectation fulfill];
+        assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
+        [expectation fulfill];
     });
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
@@ -187,12 +187,12 @@
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-      [self.button sendActionsForControlEvents:UIControlEventTouchUpInside];
-      dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-        assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(NO)));
-        assertThat(@([self.savedPagesList isSaved:self.titleSFFr]), is(@(YES)));
-        [expectation fulfill];
-      });
+        [self.button sendActionsForControlEvents:UIControlEventTouchUpInside];
+        dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+            assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(NO)));
+            assertThat(@([self.savedPagesList isSaved:self.titleSFFr]), is(@(YES)));
+            [expectation fulfill];
+        });
     });
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];

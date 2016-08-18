@@ -55,10 +55,10 @@
         .withBody([[self wmf_bundle] wmf_stringFromContentsOfFile:@"TitlePreviewQuery" ofType:@"json"]);
 
     expectResolution(^AnyPromise * {
-      return [self.fetcher fetchFeaturedArticlePreviewForDate:[testDateComponents date]]
-          .then(^(MWKSearchResult *result) {
-            XCTAssertEqualObjects(result.displayTitle, @"Mackensen-class battlecruiser");
-          });
+        return [self.fetcher fetchFeaturedArticlePreviewForDate:[testDateComponents date]]
+            .then(^(MWKSearchResult *result) {
+                XCTAssertEqualObjects(result.displayTitle, @"Mackensen-class battlecruiser");
+            });
     });
 }
 
