@@ -1006,7 +1006,7 @@ NSString *const WMFCCBySALicenseURL =
 
 - (void)showProtectedDialog {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"page_protected_can_not_edit_title", nil) message:MWLocalizedString(@"page_protected_can_not_edit", nil) preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:NULL]];
+    [alert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"button-ok", nil) style:UIAlertActionStyleCancel handler:NULL]];
     [self presentViewController:alert animated:YES completion:NULL];
 }
 
