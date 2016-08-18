@@ -6652,6 +6652,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FA7183E731E082609BB4763E /* Pods-Foundation-ContinueReadingWidget.debug test.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -6680,6 +6681,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5620EE71E72E122EDCC11E33 /* Pods-Foundation-ContinueReadingWidget.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -6708,6 +6710,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AD47EEADCD6A7A4F809DE81E /* Pods-Foundation-ContinueReadingWidget.adhoc.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -6732,6 +6735,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 144BA9DC3DB529628CD22DC4 /* Pods-Foundation-ContinueReadingWidget.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -6756,6 +6760,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 675ADD32D8043ED91D0E8242 /* Pods-Foundation-ContinueReadingWidget.test.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -6780,6 +6785,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0829FB278F8E131383D2F75D /* Pods-Foundation-ContinueReadingWidget.beta.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
