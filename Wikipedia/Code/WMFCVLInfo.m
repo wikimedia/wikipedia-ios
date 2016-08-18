@@ -249,7 +249,6 @@
                 [column addSection:section];
             } else {
                 currentColumnIndex = section.columnIndex;
-                column = self.columns[currentColumnIndex];
             }
             column = self.columns[currentColumnIndex];
             if (![column containsSectionWithSectionIndex:sectionIndex]) {
