@@ -104,19 +104,15 @@ static NSString *const pListFileName = @"Recent.plist";
 }
 
 - (void)showDeleteAllDialog {
-    UIAlertView *dialog =
-        [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"search-recent-clear-confirmation-heading", nil)
-                                   message:MWLocalizedString(@"search-recent-clear-confirmation-sub-heading", nil)
-                                  delegate:self
-                         cancelButtonTitle:MWLocalizedString(@"search-recent-clear-cancel", nil)
-                         otherButtonTitles:MWLocalizedString(@"search-recent-clear-delete-all", nil), nil];
-    [dialog show];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.cancelButtonIndex != buttonIndex) {
+    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"search-recent-clear-confirmation-heading", nil) message:MWLocalizedString(@"search-recent-clear-confirmation-sub-heading", nil) preferredStyle:UIAlertControllerStyleAlert];
+    
+    [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"search-recent-clear-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+    
+    [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"search-recent-clear-delete-all", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [self deleteAllRecentSearchItems];
-    }
+    }]];
+    
+    [self presentViewController:dialog animated:YES completion:NULL];
 }
 
 - (void)deleteAllRecentSearchItems {
