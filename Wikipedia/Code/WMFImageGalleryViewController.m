@@ -221,14 +221,8 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
