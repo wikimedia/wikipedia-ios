@@ -33,18 +33,13 @@
 }
 
 - (IBAction)showHowThisWorksAlert:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"welcome-explore-tell-me-more-about-explore", nil) message:[NSString stringWithFormat:@"%@\n\n%@", MWLocalizedString(@"welcome-explore-tell-me-more-related", nil), MWLocalizedString(@"welcome-explore-tell-me-more-privacy", nil)] delegate:nil cancelButtonTitle:MWLocalizedString(@"welcome-explore-tell-me-more-done-button", nil) otherButtonTitles:nil];
-    [alert show];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"welcome-explore-tell-me-more-about-explore", nil) message:[NSString stringWithFormat:@"%@\n\n%@", MWLocalizedString(@"welcome-explore-tell-me-more-related", nil), MWLocalizedString(@"welcome-explore-tell-me-more-privacy", nil)] preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"welcome-explore-tell-me-more-done-button", nil) style:UIAlertActionStyleCancel handler:NULL]];
+    [self presentViewController:alert animated:YES completion:NULL];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
