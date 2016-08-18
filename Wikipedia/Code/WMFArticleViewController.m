@@ -272,7 +272,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         CGFloat height       = 10;
 
         _headerView                 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, height)];
-        _headerView.backgroundColor = [UIColor wmf_lightGrayColor];
+        _headerView.backgroundColor = [UIColor wmf_articleBackgroundColor];
 
 
         UIView* headerBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, height - borderHeight, 1, borderHeight)];
@@ -887,7 +887,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     BOOL isImageNarrow = imageSize.width/imageSize.height < 2;
     CGFloat marginWidth = 0;
     if (isImageNarrow && self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineHidden) {
-        marginWidth = [self.webViewController marginWidthForSize:size] + 16;
+        marginWidth = self.webViewController.marginWidth + 16;
     }
     self.headerImageView.frame = CGRectMake(marginWidth, 0, headerViewBounds.size.width - 2*marginWidth, headerViewBounds.size.height);
 }

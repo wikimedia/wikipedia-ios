@@ -344,6 +344,9 @@ NSString* const WMFCCBySALicenseURL =
     return floor(0.5*size.width*(1 - self.contentWidthPercentage));
 }
 
+- (CGFloat)marginWidth {
+    return [self marginWidthForSize:self.view.bounds.size];
+}
 
 - (void)updateFooterMarginForSize:(CGSize)size {
     CGFloat marginWidth = [self marginWidthForSize:size];
