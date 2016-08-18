@@ -33,8 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, strong, nonatomic) WMFShareOptionsView *shareOptions;
 @property (nullable, strong, nonatomic) UIImage *shareImage;
 
-@property (nullable, strong, nonatomic) UIPopoverController *popover;
-
 @end
 
 @implementation WMFShareOptionsController
