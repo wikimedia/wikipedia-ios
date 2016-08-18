@@ -22,9 +22,7 @@ typedef id<NSCopying, NSObject> MWKListIndex;
  * Can be specialized to contain instances of @c EntryType, which are queryable by index or an associated key of type
  * @c IndexType.
  */
-@interface MWKList
-<EntryType : MWKListEntry, IndexType :  MWKListIndex> : MTLModel<NSFastEnumeration>
-// Note: ObjC generics give uncrustify a headache: https://github.com/bengardner/uncrustify/issues/404
+@interface MWKList <EntryType : MWKListEntry, IndexType :  MWKListIndex> : MTLModel<NSFastEnumeration>
 
  - (instancetype)initWithEntries:(NSArray<EntryType>* __nullable)entries;
 
