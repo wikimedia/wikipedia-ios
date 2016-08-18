@@ -101,6 +101,24 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/YapDatabase/YapDatabase.framework"
   install_framework "$BUILT_PRODUCTS_DIR/libextobjc/libextobjc.framework"
 fi
+if [[ "$CONFIGURATION" == "Debug Test" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit-Core/BlocksKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack/CocoaLumberjack.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/KVOController/KVOController.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Mantle/Mantle.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Masonry/Masonry.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/NSDate-Extensions/NSDate_Extensions.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/OMGHTTPURLRQ/OMGHTTPURLRQ.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/PiwikTracker/PiwikTracker.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/PromiseKit/PromiseKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Reachability/Reachability.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SDWebImage/SDWebImage.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SSDataSources/SSDataSources.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/YapDatabase/YapDatabase.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/libextobjc/libextobjc.framework"
+fi
 if [[ "$CONFIGURATION" == "AdHoc" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.framework"
