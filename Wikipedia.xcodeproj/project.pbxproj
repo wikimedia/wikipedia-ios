@@ -249,7 +249,6 @@
 		B0E804461C0CDF850065EBC0 /* WikiGlyphLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804341C0CDF850065EBC0 /* WikiGlyphLabel.m */; };
 		B0E804471C0CDF850065EBC0 /* WMFBorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804361C0CDF850065EBC0 /* WMFBorderButton.m */; };
 		B0E804491C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8043A1C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m */; };
-		B0E8044A1C0CDF850065EBC0 /* WMFCrashAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8043C1C0CDF850065EBC0 /* WMFCrashAlertView.m */; };
 		B0E8044B1C0CDF850065EBC0 /* WMFGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8043E1C0CDF850065EBC0 /* WMFGradientView.m */; };
 		B0E8044C1C0CDF850065EBC0 /* WMFPageCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804401C0CDF850065EBC0 /* WMFPageCollectionViewController.m */; };
 		B0E8044F1C0CDFDA0065EBC0 /* WMFURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8044E1C0CDFDA0065EBC0 /* WMFURLCache.m */; };
@@ -1181,8 +1180,6 @@
 		B0E804361C0CDF850065EBC0 /* WMFBorderButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBorderButton.m; path = Wikipedia/Code/WMFBorderButton.m; sourceTree = SOURCE_ROOT; };
 		B0E804391C0CDF850065EBC0 /* WMFCollectionViewPageLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCollectionViewPageLayout.h; path = Wikipedia/Code/WMFCollectionViewPageLayout.h; sourceTree = SOURCE_ROOT; };
 		B0E8043A1C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCollectionViewPageLayout.m; path = Wikipedia/Code/WMFCollectionViewPageLayout.m; sourceTree = SOURCE_ROOT; };
-		B0E8043B1C0CDF850065EBC0 /* WMFCrashAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCrashAlertView.h; path = Wikipedia/Code/WMFCrashAlertView.h; sourceTree = SOURCE_ROOT; };
-		B0E8043C1C0CDF850065EBC0 /* WMFCrashAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCrashAlertView.m; path = Wikipedia/Code/WMFCrashAlertView.m; sourceTree = SOURCE_ROOT; };
 		B0E8043D1C0CDF850065EBC0 /* WMFGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFGradientView.h; path = Wikipedia/Code/WMFGradientView.h; sourceTree = SOURCE_ROOT; };
 		B0E8043E1C0CDF850065EBC0 /* WMFGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFGradientView.m; path = Wikipedia/Code/WMFGradientView.m; sourceTree = SOURCE_ROOT; };
 		B0E8043F1C0CDF850065EBC0 /* WMFPageCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFPageCollectionViewController.h; path = Wikipedia/Code/WMFPageCollectionViewController.h; sourceTree = SOURCE_ROOT; };
@@ -3801,8 +3798,6 @@
 		BC45D57E1C32F43D007C72F3 /* Crash Reporting */ = {
 			isa = PBXGroup;
 			children = (
-				B0E8043B1C0CDF850065EBC0 /* WMFCrashAlertView.h */,
-				B0E8043C1C0CDF850065EBC0 /* WMFCrashAlertView.m */,
 				B0E804691C0CE0B40065EBC0 /* BITHockeyManager+WMFExtensions.h */,
 				B0E8046A1C0CE0B40065EBC0 /* BITHockeyManager+WMFExtensions.m */,
 			);
@@ -5903,7 +5898,6 @@
 				B01662AD1D1B668C006F4544 /* NSURL+WMFProxyServer.m in Sources */,
 				B0E8063A1C0CE7B00065EBC0 /* FetcherBase.m in Sources */,
 				B0E8066E1C0CE9030065EBC0 /* PreviewHtmlFetcher.m in Sources */,
-				B0E8044A1C0CDF850065EBC0 /* WMFCrashAlertView.m in Sources */,
 				B0E805401C0CE0DC0065EBC0 /* UICollectionViewLayout+AttributeUtils.m in Sources */,
 				B0E804CC1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.m in Sources */,
 				B0E805CA1C0CE5250065EBC0 /* WMFImageController.swift in Sources */,

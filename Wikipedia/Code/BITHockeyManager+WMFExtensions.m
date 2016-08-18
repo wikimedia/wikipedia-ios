@@ -1,7 +1,6 @@
 #import "BITHockeyManager+WMFExtensions.h"
 #import "WikipediaAppUtils.h"
 #import "NSBundle+WMFInfoUtils.h"
-#import "WMFCrashAlertView.h"
 #import "DDLog+WMFLogger.h"
 
 // See also:
@@ -57,45 +56,57 @@ static NSString *const kHockeyAppDoNotSendStringsKey = @"hockeyapp-alert-do-not-
     DDLogInfo(@"Starting crash manager.");
 }
 
+NSString *const WMFHockeyAppServiceName = @"HockeyApp";
+NSString *const kHockeyAppPrivacyStringsKey = @"hockeyapp-alert-privacy";
+NSString *const kHockeyAppPrivacyUrl = @"http://hockeyapp.net/privacy/";
+
 - (void)wmf_setupCrashNotificationAlert {
     [[BITHockeyManager sharedHockeyManager].crashManager setAlertViewHandler:^() {
-      NSString *title = [MWLocalizedString(kHockeyAppTitleStringsKey, nil)
-          stringByReplacingOccurrencesOfString:@"$1"
-                                    withString:WMFHockeyAppServiceName];
-      WMFCrashAlertView *customAlertView = [[WMFCrashAlertView alloc] initWithTitle:title
-                                                                            message:nil
-                                                                           delegate:self
-                                                                  cancelButtonTitle:nil
-                                                                  otherButtonTitles:
-                                                                      [[self class] crashSendText],
-                                                                      [[self class] crashAlwaysSendText],
-                                                                      [[self class] crashDoNotSendText],
-                                                                      [WMFCrashAlertView wmf_hockeyAppPrivacyButtonText],
-                                                                      nil];
-      NSString *exceptionReason = [[BITHockeyManager sharedHockeyManager].crashManager lastSessionCrashDetails].exceptionReason;
-      if (exceptionReason) {
-          customAlertView.message = [MWLocalizedString(kHockeyAppQuestionWithResponseFieldStringsKey, nil) stringByReplacingOccurrencesOfString:@"$1" withString:WMFHockeyAppServiceName];
-          customAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-      } else {
-          customAlertView.message = [MWLocalizedString(kHockeyAppQuestionStringsKey, nil) stringByReplacingOccurrencesOfString:@"$1" withString:WMFHockeyAppServiceName];
-      }
-      [customAlertView show];
-    }];
-}
+        NSString *title = [MWLocalizedString(kHockeyAppTitleStringsKey, nil)
+            stringByReplacingOccurrencesOfString:@"$1"
+                                      withString:WMFHockeyAppServiceName];
+        UIAlertController *customAlertView = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [customAlertView addAction:[UIAlertAction actionWithTitle:[[self class] crashSendText]
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *_Nonnull action) {
+                                                              BITCrashMetaData *crashMetaData = [BITCrashMetaData new];
+                                                              crashMetaData.userDescription = [[[customAlertView textFields] firstObject] text];
+                                                              [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputSend withUserProvidedMetaData:crashMetaData];
+                                                          }]];
+        [customAlertView addAction:[UIAlertAction actionWithTitle:[[self class] crashAlwaysSendText]
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *_Nonnull action) {
+                                                              BITCrashMetaData *crashMetaData = [BITCrashMetaData new];
+                                                              crashMetaData.userDescription = [[[customAlertView textFields] firstObject] text];
+                                                              [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputAlwaysSend withUserProvidedMetaData:crashMetaData];
+                                                          }]];
+        [customAlertView addAction:[UIAlertAction actionWithTitle:[[self class] crashDoNotSendText]
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *_Nonnull action) {
+                                                              BITCrashMetaData *crashMetaData = [BITCrashMetaData new];
+                                                              crashMetaData.userDescription = [[[customAlertView textFields] firstObject] text];
+                                                              [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputDontSend withUserProvidedMetaData:nil];
+                                                          }]];
+        [customAlertView addAction:[UIAlertAction actionWithTitle:[MWLocalizedString(kHockeyAppPrivacyStringsKey, nil)
+                                                                      stringByReplacingOccurrencesOfString:@"$1"
+                                                                                                withString:WMFHockeyAppServiceName]
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *_Nonnull action) {
+                                                              [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kHockeyAppPrivacyUrl]];
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    BITCrashMetaData *crashMetaData = [BITCrashMetaData new];
-    if (alertView.alertViewStyle != UIAlertViewStyleDefault) {
-        crashMetaData.userDescription = [alertView textFieldAtIndex:0].text;
-    }
-    NSString *buttonText = [alertView buttonTitleAtIndex:buttonIndex];
-    if ([buttonText isEqualToString:[[self class] crashSendText]]) {
-        [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputSend withUserProvidedMetaData:crashMetaData];
-    } else if ([buttonText isEqualToString:[[self class] crashAlwaysSendText]]) {
-        [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputAlwaysSend withUserProvidedMetaData:crashMetaData];
-    } else if ([buttonText isEqualToString:[[self class] crashDoNotSendText]]) {
-        [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputDontSend withUserProvidedMetaData:nil];
-    }
+                                                          }]];
+
+        NSString *exceptionReason = [[BITHockeyManager sharedHockeyManager].crashManager lastSessionCrashDetails].exceptionReason;
+        if (exceptionReason) {
+            customAlertView.message = [MWLocalizedString(kHockeyAppQuestionWithResponseFieldStringsKey, nil) stringByReplacingOccurrencesOfString:@"$1" withString:WMFHockeyAppServiceName];
+            [customAlertView addTextFieldWithConfigurationHandler:^(UITextField *_Nonnull textField){
+
+            }];
+        } else {
+            customAlertView.message = [MWLocalizedString(kHockeyAppQuestionStringsKey, nil) stringByReplacingOccurrencesOfString:@"$1" withString:WMFHockeyAppServiceName];
+        }
+        [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:customAlertView animated:YES completion:NULL];
+    }];
 }
 
 - (NSString *)applicationLogForCrashManager:(BITCrashManager *)crashManager {
