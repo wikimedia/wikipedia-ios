@@ -23,7 +23,7 @@ NSString *const WMFCitationFragmentSubstring = @"cite_note";
 }
 
 - (NSString *)wmf_unescapedNormalizedPageTitle {
-    return [[self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] wmf_normalizedPageTitle];
+    return [[self stringByRemovingPercentEncoding] wmf_normalizedPageTitle];
 }
 
 - (NSString *)wmf_normalizedPageTitle {

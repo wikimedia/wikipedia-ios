@@ -189,7 +189,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     feedbackUrl = [feedbackUrl stringByReplacingOccurrencesOfString:@"$1" withString:[WikipediaAppUtils versionedUserAgent]];
 
     NSString *encodedUrlString =
-        [feedbackUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [feedbackUrl stringByRemovingPercentEncoding];
 
     return encodedUrlString;
 }

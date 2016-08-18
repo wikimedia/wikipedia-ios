@@ -273,7 +273,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (NSString *)stringWithSafeFilename:(NSString *)str {
-    return [str stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return [str stringByRemovingPercentEncoding];
 }
 
 - (NSString *)safeFilenameWithImageURL:(NSString *)str {
@@ -289,7 +289,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     // Image URLs are already percent-encoded, so don't double-encode em.
     // In fact, we want to decode them...
     // If we don't, long Unicode filenames may not fit in the filesystem.
-    NSString *decodedFileName = [fileName stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *decodedFileName = [fileName stringByRemovingPercentEncoding];
 
     return decodedFileName;
 }
