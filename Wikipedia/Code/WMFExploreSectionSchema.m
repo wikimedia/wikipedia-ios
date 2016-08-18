@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSTimeInterval const WMFHomeMinimumAutomaticReloadTime = 600.0;             //10 minutes
 static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 24 * 60 * 60; //24 hours
-static NSTimeInterval const WMFTimeBeforeRefreshingRandom = 60 * 60 * 24 * 7;      //7 days
 
 static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
