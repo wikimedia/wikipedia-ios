@@ -4,8 +4,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKSearchRedirectMapping ()
 
-@property(nonatomic, copy, readwrite) NSString *redirectFromTitle;
-@property(nonatomic, copy, readwrite) NSString *redirectToTitle;
+@property (nonatomic, copy, readwrite) NSString *redirectFromTitle;
+@property (nonatomic, copy, readwrite) NSString *redirectToTitle;
 
 @end
 

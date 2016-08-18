@@ -8,7 +8,7 @@
 
 @interface WMFArticleListTableViewController () <UIViewControllerPreviewingDelegate>
 
-@property(nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
+@property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
 @end
 

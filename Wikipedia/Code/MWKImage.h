@@ -9,17 +9,17 @@
 /**
  * Article the image was parsed from.
  */
-@property(readonly, weak, nonatomic) MWKArticle *article;
+@property (readonly, weak, nonatomic) MWKArticle *article;
 
 /**
  * URL pointing to the receiver's data.
  */
-@property(readonly, copy, nonatomic) NSURL *sourceURL;
+@property (readonly, copy, nonatomic) NSURL *sourceURL;
 
 /**
  * Absolute string of `sourceURL`.
  */
-@property(readonly, copy, nonatomic) NSString *sourceURLString;
+@property (readonly, copy, nonatomic) NSString *sourceURLString;
 
 #pragma mark - Size
 
@@ -28,14 +28,14 @@
  * @warning This might be a guess based on the dimensions specified in the <img> tag the receiver was
  *          parsed from.
  */
-@property(copy, nonatomic) NSNumber *width;
+@property (copy, nonatomic) NSNumber *width;
 
 /**
  * Height of the receiver's image.
  * @warning This might be a guess based on the dimensions specified in the <img> tag the receiver was
  *          parsed from.
  */
-@property(copy, nonatomic) NSNumber *height;
+@property (copy, nonatomic) NSNumber *height;
 
 /**
  * @return CGSize with the receiver's `width` and `height`.
@@ -45,23 +45,23 @@
 /**
  * Width of the original image file. For example, if this image is a thumbnail, this is the width of the original image.
  */
-@property(copy, nonatomic) NSNumber *originalFileWidth;
+@property (copy, nonatomic) NSNumber *originalFileWidth;
 
 /**
  * Height of the original image file. For example, if this image is a thumbnail, this is the height of the original image.
  */
-@property(copy, nonatomic) NSNumber *originalFileHeight;
+@property (copy, nonatomic) NSNumber *originalFileHeight;
 
 /**
  * @return CGSize with the receiver's original file `width` and `height`.
  */
-@property(nonatomic, readonly) CGSize originalFileSize;
-@property(nonatomic, readonly) BOOL hasOriginalFileSize;
+@property (nonatomic, readonly) CGSize originalFileSize;
+@property (nonatomic, readonly) BOOL hasOriginalFileSize;
 
 /**
  * Local storage status
  */
-@property(readonly, assign, nonatomic) BOOL isDownloaded;
+@property (readonly, assign, nonatomic) BOOL isDownloaded;
 
 #pragma mark - Initialization
 
@@ -104,7 +104,7 @@
  *
  * @see CIDetector+WMFFaceDetection
  */
-@property(copy, nonatomic /*, nullable*/) NSArray<NSValue *> *allNormalizedFaceBounds;
+@property (copy, nonatomic /*, nullable*/) NSArray<NSValue *> *allNormalizedFaceBounds;
 
 /**
  * Convenience accessor for the bounds of the first face in `allNormalizedFaceBounds`.
@@ -130,10 +130,10 @@
 
 #pragma mark - File Properties
 
-@property(readonly, copy, nonatomic) NSString *extension;
-@property(readonly, copy, nonatomic) NSString *fileName;
-@property(readonly, copy, nonatomic) NSString *fileNameNoSizePrefix;
-@property(copy, nonatomic) NSString *mimeType;
+@property (readonly, copy, nonatomic) NSString *extension;
+@property (readonly, copy, nonatomic) NSString *fileName;
+@property (readonly, copy, nonatomic) NSString *fileNameNoSizePrefix;
+@property (copy, nonatomic) NSString *mimeType;
 
 /**
  * Return the folder containing the image file from receiver's @c sourceURL.

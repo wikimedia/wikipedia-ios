@@ -21,19 +21,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFShareOptionsController ()
 
-@property(strong, nonatomic, readwrite) MWKArticle *article;
-@property(strong, nonatomic, readwrite) WMFShareFunnel *shareFunnel;
-@property(nonatomic, readwrite) BOOL active;
+@property (strong, nonatomic, readwrite) MWKArticle *article;
+@property (strong, nonatomic, readwrite) WMFShareFunnel *shareFunnel;
+@property (nonatomic, readwrite) BOOL active;
 
-@property(nullable, copy, nonatomic) NSString *snippet;
-@property(weak, nonatomic) UIViewController *containerViewController;
-@property(nullable, strong, nonatomic) UIBarButtonItem *originButtonItem;
+@property (nullable, copy, nonatomic) NSString *snippet;
+@property (weak, nonatomic) UIViewController *containerViewController;
+@property (nullable, strong, nonatomic) UIBarButtonItem *originButtonItem;
 
-@property(nullable, strong, nonatomic) UIView *grayOverlay;
-@property(nullable, strong, nonatomic) WMFShareOptionsView *shareOptions;
-@property(nullable, strong, nonatomic) UIImage *shareImage;
+@property (nullable, strong, nonatomic) UIView *grayOverlay;
+@property (nullable, strong, nonatomic) WMFShareOptionsView *shareOptions;
+@property (nullable, strong, nonatomic) UIImage *shareImage;
 
-@property(nullable, strong, nonatomic) UIPopoverController *popover;
+@property (nullable, strong, nonatomic) UIPopoverController *popover;
 
 @end
 

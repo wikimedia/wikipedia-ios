@@ -12,7 +12,7 @@ extern NSString *const WMFRandomSectionIdentifier;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore items:(NSArray *)items NS_UNAVAILABLE;
 
-@property(nonatomic, strong, readonly) NSURL *searchSiteURL;
+@property (nonatomic, strong, readonly) NSURL *searchSiteURL;
 
 @end
 

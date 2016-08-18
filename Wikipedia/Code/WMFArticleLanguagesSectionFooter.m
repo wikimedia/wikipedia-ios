@@ -4,8 +4,8 @@ static CGFloat const WMFLanguageFooterFontSize = 14.f;
 
 @interface WMFArticleLanguagesSectionFooter ()
 
-@property(strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property(strong, nonatomic) IBOutlet UIButton *addButton;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UIButton *addButton;
 
 @end
 

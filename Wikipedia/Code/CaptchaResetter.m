@@ -6,7 +6,7 @@
 
 @interface CaptchaResetter ()
 
-@property(strong, nonatomic) NSString *domain;
+@property (strong, nonatomic) NSString *domain;
 
 @end
 

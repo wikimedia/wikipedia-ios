@@ -21,17 +21,17 @@
 
 @interface WMFLeadingImageTrailingTextButton ()
 
-@property(nonatomic, assign, readwrite, getter=isInterfaceBuilderPreviewing) BOOL interfaceBuilderPreviewing;
+@property (nonatomic, assign, readwrite, getter=isInterfaceBuilderPreviewing) BOOL interfaceBuilderPreviewing;
 
 /**
  *  The image view shown to the left (in LTR) of the text.
  */
-@property(nonatomic, strong) UIImageView *iconImageView;
+@property (nonatomic, strong) UIImageView *iconImageView;
 
 /**
  *  The text shown to the right of the image.
  */
-@property(nonatomic, strong) UILabel *textLabel;
+@property (nonatomic, strong) UILabel *textLabel;
 
 @end
 

@@ -10,8 +10,8 @@ typedef NS_ENUM(NSUInteger, WMFPeekElementType) {
 
 @interface WMFPeekHTMLElement : NSObject
 
-@property(nonatomic, readonly) WMFPeekElementType type;
-@property(nonatomic, strong, readonly, nullable) NSURL *url;
+@property (nonatomic, readonly) WMFPeekElementType type;
+@property (nonatomic, strong, readonly, nullable) NSURL *url;
 
 - (instancetype)initWithTagName:(NSString *)tagName src:(nullable NSString *)src href:(nullable NSString *)href NS_DESIGNATED_INITIALIZER;
 

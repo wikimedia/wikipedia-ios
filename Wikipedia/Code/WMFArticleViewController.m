@@ -81,62 +81,62 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         UIPopoverPresentationControllerDelegate>
 
 // Data
-@property(nonatomic, strong, readwrite, nullable) MWKArticle *article;
+@property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
 
 // Children
-@property(nonatomic, strong, nullable) WMFTableOfContentsViewController *tableOfContentsViewController;
-@property(nonatomic, strong) WebViewController *webViewController;
+@property (nonatomic, strong, nullable) WMFTableOfContentsViewController *tableOfContentsViewController;
+@property (nonatomic, strong) WebViewController *webViewController;
 
-@property(nonatomic, strong, readwrite) NSURL *articleURL;
-@property(nonatomic, strong, readwrite) MWKDataStore *dataStore;
+@property (nonatomic, strong, readwrite) NSURL *articleURL;
+@property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
-@property(strong, nonatomic, nullable, readwrite) WMFShareFunnel *shareFunnel;
-@property(strong, nonatomic, nullable) WMFShareOptionsController *shareOptionsController;
-@property(nonatomic, strong) WMFSaveButtonController *saveButtonController;
+@property (strong, nonatomic, nullable, readwrite) WMFShareFunnel *shareFunnel;
+@property (strong, nonatomic, nullable) WMFShareOptionsController *shareOptionsController;
+@property (nonatomic, strong) WMFSaveButtonController *saveButtonController;
 
 // Data
-@property(nonatomic, strong, readonly) MWKHistoryEntry *historyEntry;
-@property(nonatomic, strong, readonly) MWKSavedPageList *savedPages;
-@property(nonatomic, strong, readonly) MWKHistoryList *recentPages;
+@property (nonatomic, strong, readonly) MWKHistoryEntry *historyEntry;
+@property (nonatomic, strong, readonly) MWKSavedPageList *savedPages;
+@property (nonatomic, strong, readonly) MWKHistoryList *recentPages;
 
 // Fetchers
-@property(nonatomic, strong) WMFArticleFetcher *articleFetcher;
-@property(nonatomic, strong, nullable) AnyPromise *articleFetcherPromise;
-@property(nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
+@property (nonatomic, strong) WMFArticleFetcher *articleFetcher;
+@property (nonatomic, strong, nullable) AnyPromise *articleFetcherPromise;
+@property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
 
 // Children
-@property(nonatomic, strong) WMFReadMoreViewController *readMoreListViewController;
-@property(nonatomic, strong) WMFArticleFooterMenuViewController *footerMenuViewController;
+@property (nonatomic, strong) WMFReadMoreViewController *readMoreListViewController;
+@property (nonatomic, strong) WMFArticleFooterMenuViewController *footerMenuViewController;
 
 // Views
-@property(nonatomic, strong) UIImageView *headerImageView;
-@property(nonatomic, strong) UIView *headerView;
-@property(nonatomic, strong, readwrite) UIBarButtonItem *saveToolbarItem;
-@property(nonatomic, strong, readwrite) UIBarButtonItem *languagesToolbarItem;
-@property(nonatomic, strong, readwrite) UIBarButtonItem *shareToolbarItem;
-@property(nonatomic, strong, readwrite) UIBarButtonItem *fontSizeToolbarItem;
-@property(nonatomic, strong, readwrite) UIBarButtonItem *showTableOfContentsToolbarItem;
-@property(nonatomic, strong, readwrite) UIBarButtonItem *hideTableOfContentsToolbarItem;
-@property(nonatomic, strong, readwrite) UIBarButtonItem *findInPageToolbarItem;
-@property(strong, nonatomic) UIProgressView *progressView;
-@property(nonatomic, strong) UIRefreshControl *pullToRefresh;
+@property (nonatomic, strong) UIImageView *headerImageView;
+@property (nonatomic, strong) UIView *headerView;
+@property (nonatomic, strong, readwrite) UIBarButtonItem *saveToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem *languagesToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem *shareToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem *fontSizeToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem *showTableOfContentsToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem *hideTableOfContentsToolbarItem;
+@property (nonatomic, strong, readwrite) UIBarButtonItem *findInPageToolbarItem;
+@property (strong, nonatomic) UIProgressView *progressView;
+@property (nonatomic, strong) UIRefreshControl *pullToRefresh;
 
 // Table of Contents
-@property(nonatomic, strong) UISwipeGestureRecognizer *tableOfContentsCloseGestureRecognizer;
-@property(nonatomic, strong) UIView *tableOfContentsSeparatorView;
-@property(nonatomic) CGFloat previousContentOffsetYForTOCUpdate;
+@property (nonatomic, strong) UISwipeGestureRecognizer *tableOfContentsCloseGestureRecognizer;
+@property (nonatomic, strong) UIView *tableOfContentsSeparatorView;
+@property (nonatomic) CGFloat previousContentOffsetYForTOCUpdate;
 
 // Previewing
-@property(nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
-@property(nonatomic, weak) id<UIViewControllerPreviewing> leadImagePreviewingContext;
+@property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
+@property (nonatomic, weak) id<UIViewControllerPreviewing> leadImagePreviewingContext;
 
-@property(strong, nonatomic, nullable) NSTimer *significantlyViewedTimer;
+@property (strong, nonatomic, nullable) NSTimer *significantlyViewedTimer;
 
 /**
  *  We need to do this to prevent auto loading from occuring,
  *  if we do something to the article like edit it and force a reload
  */
-@property(nonatomic, assign) BOOL skipFetchOnViewDidAppear;
+@property (nonatomic, assign) BOOL skipFetchOnViewDidAppear;
 
 @end
 
@@ -950,19 +950,22 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (animated) {
         UIScrollView *scrollView = self.webViewController.webView.scrollView;
         CGFloat previousOffsetPercentage = scrollView.contentOffset.y / scrollView.contentSize.height;
+        UIColor *previousBackgrondColor = scrollView.backgroundColor;
+        scrollView.backgroundColor = [UIColor whiteColor];
         [UIView animateWithDuration:0.20
-                         animations:^{
-                           [self layoutForSize:self.view.bounds.size];
-                           if (self.currentSection) {
-                               [self.webViewController scrollToSection:self.currentSection animated:NO];
-                           } else if (self.currentFooterIndex != NSNotFound) {
-                               [self.webViewController scrollToFooterAtIndex:self.currentFooterIndex];
-                           } else {
-                               scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
-                           }
-                         }
-                         completion:^(BOOL finished){
-                         }];
+            animations:^{
+              [self layoutForSize:self.view.bounds.size];
+              if (self.currentSection) {
+                  [self.webViewController scrollToSection:self.currentSection animated:NO];
+              } else if (self.currentFooterIndex != NSNotFound) {
+                  [self.webViewController scrollToFooterAtIndex:self.currentFooterIndex animated:NO];
+              } else {
+                  scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
+              }
+            }
+            completion:^(BOOL finished) {
+              scrollView.backgroundColor = previousBackgrondColor;
+            }];
     } else {
         [self layoutForSize:self.view.bounds.size];
     }

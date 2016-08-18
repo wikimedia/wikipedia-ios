@@ -7,7 +7,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 @interface MWKSection_WMFSharingTests : XCTestCase
-@property(nonatomic) MWKSection *section;
+@property (nonatomic) MWKSection *section;
 @end
 
 @implementation MWKSection_WMFSharingTests

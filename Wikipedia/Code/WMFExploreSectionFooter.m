@@ -4,7 +4,7 @@
 
 @interface WMFExploreSectionFooter ()
 
-@property(strong, nonatomic) IBOutlet UIImageView *moreChevronImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *moreChevronImageView;
 
 @end
 

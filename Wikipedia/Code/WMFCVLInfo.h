@@ -15,10 +15,10 @@
  */
 @interface WMFCVLInfo : NSObject <NSCopying>
 
-@property(nonatomic, strong, nonnull, readonly) NSArray<WMFCVLColumn *> *columns;
-@property(nonatomic, strong, nonnull, readonly) NSArray<WMFCVLSection *> *sections;
+@property (nonatomic, strong, nonnull, readonly) NSArray<WMFCVLColumn *> *columns;
+@property (nonatomic, strong, nonnull, readonly) NSArray<WMFCVLSection *> *sections;
 
-@property(nonatomic) CGSize contentSize;
+@property (nonatomic) CGSize contentSize;
 
 - (void)enumerateSectionsWithBlock:(nonnull void (^)(WMFCVLSection *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop))block;
 - (void)enumerateColumnsWithBlock:(nonnull void (^)(WMFCVLColumn *_Nonnull column, NSUInteger idx, BOOL *_Nonnull stop))block;

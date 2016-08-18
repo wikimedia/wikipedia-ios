@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, FetchFinalStatus) {
 @interface FetcherBase : NSObject
 
 // Object to receive "fetchFinished:" notifications.
-@property(nonatomic, weak) id<FetchFinishedDelegate> fetchFinishedDelegate;
+@property (nonatomic, weak) id<FetchFinishedDelegate> fetchFinishedDelegate;
 
 // Method for sub-classes of FetcherBase to call to cause the fetchFinishedDelegate
 // to be notified via "fetchFinished:" that the fetch is finished.

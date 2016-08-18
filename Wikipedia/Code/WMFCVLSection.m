@@ -4,10 +4,10 @@
 #import "WMFCVLInvalidationContext.h"
 
 @interface WMFCVLSection ()
-@property(nonatomic) NSInteger index;
-@property(nonatomic, strong) NSMutableArray<WMFCVLAttributes *> *headers;
-@property(nonatomic, strong) NSMutableArray<WMFCVLAttributes *> *footers;
-@property(nonatomic, strong) NSMutableArray<WMFCVLAttributes *> *items;
+@property (nonatomic) NSInteger index;
+@property (nonatomic, strong) NSMutableArray<WMFCVLAttributes *> *headers;
+@property (nonatomic, strong) NSMutableArray<WMFCVLAttributes *> *footers;
+@property (nonatomic, strong) NSMutableArray<WMFCVLAttributes *> *items;
 
 - (void)offsetItemsStartingAtIndex:(NSInteger)itemIndex distance:(CGFloat)deltaY invalidationContext:(nonnull WMFCVLInvalidationContext *)invalidationContext;
 - (void)offsetHeadersStartingAtIndex:(NSInteger)headerIndex distance:(CGFloat)deltaY invalidationContext:(nonnull WMFCVLInvalidationContext *)invalidationContext;

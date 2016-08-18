@@ -12,8 +12,8 @@
 
 @interface AppDelegate ()
 
-@property(nonatomic, strong) WMFAppViewController *appViewController;
-@property(nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
+@property (nonatomic, strong) WMFAppViewController *appViewController;
+@property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
 
 @end
 

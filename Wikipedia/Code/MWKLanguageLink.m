@@ -4,10 +4,10 @@
 
 @interface MWKLanguageLink ()
 
-@property(readwrite, copy, nonatomic) NSString *languageCode;
-@property(readwrite, copy, nonatomic) NSString *pageTitleText;
-@property(readwrite, copy, nonatomic) NSString *localizedName;
-@property(readwrite, copy, nonatomic) NSString *name;
+@property (readwrite, copy, nonatomic) NSString *languageCode;
+@property (readwrite, copy, nonatomic) NSString *pageTitleText;
+@property (readwrite, copy, nonatomic) NSString *localizedName;
+@property (readwrite, copy, nonatomic) NSString *name;
 
 @end
 

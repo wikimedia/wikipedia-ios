@@ -16,9 +16,9 @@ typedef NS_ENUM(NSInteger, ViewType) {
 
 @interface AbuseFilterAlert ()
 
-@property(nonatomic, strong) NSMutableArray *subViews;
+@property (nonatomic, strong) NSMutableArray *subViews;
 
-@property(nonatomic, strong) NSMutableArray *subViewData;
+@property (nonatomic, strong) NSMutableArray *subViewData;
 
 @end
 

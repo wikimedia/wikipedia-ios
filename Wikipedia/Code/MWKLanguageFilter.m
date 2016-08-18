@@ -6,10 +6,10 @@
 
 @interface MWKLanguageFilter ()
 
-@property(nonatomic, strong, readwrite) id<MWKLanguageFilterDataSource> dataSource;
-@property(nonatomic, copy, readwrite) NSArray<MWKLanguageLink *> *filteredLanguages;
-@property(nonatomic, copy, readwrite) NSArray<MWKLanguageLink *> *filteredPreferredLanguages;
-@property(nonatomic, copy, readwrite) NSArray<MWKLanguageLink *> *filteredOtherLanguages;
+@property (nonatomic, strong, readwrite) id<MWKLanguageFilterDataSource> dataSource;
+@property (nonatomic, copy, readwrite) NSArray<MWKLanguageLink *> *filteredLanguages;
+@property (nonatomic, copy, readwrite) NSArray<MWKLanguageLink *> *filteredPreferredLanguages;
+@property (nonatomic, copy, readwrite) NSArray<MWKLanguageLink *> *filteredOtherLanguages;
 
 @end
 

@@ -40,40 +40,40 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                        WMFArticleListTableViewControllerDelegate,
                                        WMFLanguagesViewControllerDelegate>
 
-@property(nonatomic, strong) MWKDataStore *dataStore;
+@property (nonatomic, strong) MWKDataStore *dataStore;
 
-@property(nonatomic, strong, readonly) NSArray<MWKLanguageLink *> *languageBarLanguages;
+@property (nonatomic, strong, readonly) NSArray<MWKLanguageLink *> *languageBarLanguages;
 
-@property(nonatomic, strong) RecentSearchesViewController *recentSearchesViewController;
-@property(nonatomic, strong) WMFSearchResultsTableViewController *resultsListController;
+@property (nonatomic, strong) RecentSearchesViewController *recentSearchesViewController;
+@property (nonatomic, strong) WMFSearchResultsTableViewController *resultsListController;
 
-@property(strong, nonatomic) IBOutlet UIView *searchFieldContainer;
-@property(strong, nonatomic) IBOutlet UITextField *searchField;
-@property(strong, nonatomic) IBOutlet UIView *searchContentContainer;
-@property(strong, nonatomic) IBOutlet UIButton *searchSuggestionButton;
-@property(strong, nonatomic) IBOutlet UIView *resultsListContainerView;
-@property(strong, nonatomic) IBOutlet UIView *recentSearchesContainerView;
-@property(weak, nonatomic) IBOutlet UIView *separatorView;
-@property(weak, nonatomic) IBOutlet UIButton *closeButton;
-@property(strong, nonatomic) IBOutlet UIView *languageBarContainer;
-@property(strong, nonatomic) IBOutlet UIButton *languageOneButton;
-@property(strong, nonatomic) IBOutlet UIButton *languageTwoButton;
-@property(strong, nonatomic) IBOutlet UIButton *languageThreeButton;
-@property(strong, nonatomic) IBOutlet UIButton *otherLanguagesButton;
-@property(strong, nonatomic) IBOutletCollection(UIButton) NSArray *languageButtons;
+@property (strong, nonatomic) IBOutlet UIView *searchFieldContainer;
+@property (strong, nonatomic) IBOutlet UITextField *searchField;
+@property (strong, nonatomic) IBOutlet UIView *searchContentContainer;
+@property (strong, nonatomic) IBOutlet UIButton *searchSuggestionButton;
+@property (strong, nonatomic) IBOutlet UIView *resultsListContainerView;
+@property (strong, nonatomic) IBOutlet UIView *recentSearchesContainerView;
+@property (weak, nonatomic) IBOutlet UIView *separatorView;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
+@property (strong, nonatomic) IBOutlet UIView *languageBarContainer;
+@property (strong, nonatomic) IBOutlet UIButton *languageOneButton;
+@property (strong, nonatomic) IBOutlet UIButton *languageTwoButton;
+@property (strong, nonatomic) IBOutlet UIButton *languageThreeButton;
+@property (strong, nonatomic) IBOutlet UIButton *otherLanguagesButton;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *languageButtons;
 
-@property(nonatomic, strong) WMFSearchFetcher *fetcher;
+@property (nonatomic, strong) WMFSearchFetcher *fetcher;
 
-@property(nonatomic, strong) IBOutlet NSLayoutConstraint *suggestionButtonHeightConstraint;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint *suggestionButtonHeightConstraint;
 
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *searchFieldHeight;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *searchFieldTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchFieldHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchFieldTop;
 
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewTop;
 
-@property(nonatomic, assign, getter=isRecentSearchesHidden) BOOL recentSearchesHidden;
+@property (nonatomic, assign, getter=isRecentSearchesHidden) BOOL recentSearchesHidden;
 
-@property(nonatomic, assign) UIStatusBarStyle previousStatusBarStyle;
+@property (nonatomic, assign) UIStatusBarStyle previousStatusBarStyle;
 
 - (void)setRecentSearchesHidden:(BOOL)hidingRecentSearches animated:(BOOL)animated;
 

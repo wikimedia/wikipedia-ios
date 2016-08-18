@@ -12,9 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKHistoryList ()
 
-@property(nonatomic, strong) id<WMFDataSource> dataSource;
+@property (nonatomic, strong) id<WMFDataSource> dataSource;
 
-@property(readwrite, weak, nonatomic) MWKDataStore *dataStore;
+@property (readwrite, weak, nonatomic) MWKDataStore *dataStore;
 
 @end
 

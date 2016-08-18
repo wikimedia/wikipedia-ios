@@ -6,7 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchRandomArticleWithSiteURL:(NSURL *)siteURL failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSearchResultHandler)success;
 
-@property(nonatomic, assign, readonly) BOOL isFetching;
+@property (nonatomic, assign, readonly) BOOL isFetching;
 
 @end
 

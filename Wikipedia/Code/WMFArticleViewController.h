@@ -45,26 +45,27 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithArticleURL:(NSURL *)url
                          dataStore:(MWKDataStore *)dataStore;
 
-@property(nonatomic, strong, readonly) NSURL *articleURL;
-@property(nonatomic, strong, readonly) MWKDataStore *dataStore;
+@property (nonatomic, strong, readonly) NSURL *articleURL;
+@property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 
-@property(nonatomic, strong, readonly, nullable) MWKArticle *article;
+@property (nonatomic, strong, readonly, nullable) MWKArticle *article;
 
-@property(nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
 
-@property(nonatomic) WMFTableOfContentsDisplayMode tableOfContentsDisplayMode;
-@property(nonatomic) WMFTableOfContentsDisplaySide tableOfContentsDisplaySide;
-@property(nonatomic) WMFTableOfContentsDisplayState tableOfContentsDisplayState;
-@property(nonatomic, getter=isUpdateTableOfContentsSectionOnScrollEnabled) BOOL updateTableOfContentsSectionOnScrollEnabled;
+@property (nonatomic) WMFTableOfContentsDisplayMode tableOfContentsDisplayMode;
+@property (nonatomic) WMFTableOfContentsDisplaySide tableOfContentsDisplaySide;
+@property (nonatomic) WMFTableOfContentsDisplayState tableOfContentsDisplayState;
+@property (nonatomic, getter=isUpdateTableOfContentsSectionOnScrollEnabled) BOOL updateTableOfContentsSectionOnScrollEnabled;
 
-@property(nonatomic, strong, nullable) MWKSection *currentSection; //doesn't actually update the view, only here for access from Swift category
-@property(nonatomic) NSInteger currentFooterIndex;                 //doesn't actually update the view, only here for access from Swift category
+
+@property (nonatomic, strong, nullable) MWKSection *currentSection; //doesn't actually update the view, only here for access from Swift category
+@property (nonatomic) NSInteger currentFooterIndex;                 //doesn't actually update the view, only here for access from Swift category
 
 @end
 
 @interface WMFArticleViewController (WMFBrowserViewControllerInterface)
 
-@property(strong, nonatomic, nullable, readonly) WMFShareFunnel *shareFunnel;
+@property (strong, nonatomic, nullable, readonly) WMFShareFunnel *shareFunnel;
 
 - (BOOL)canRefresh;
 - (BOOL)canShare;
@@ -81,12 +82,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleViewController (WMFSubclasses)
 
-@property(nonatomic, strong, readonly) UIBarButtonItem *saveToolbarItem;
-@property(nonatomic, strong, readonly) UIBarButtonItem *languagesToolbarItem;
-@property(nonatomic, strong, readonly) UIBarButtonItem *shareToolbarItem;
-@property(nonatomic, strong, readonly) UIBarButtonItem *fontSizeToolbarItem;
-@property(nonatomic, strong, readonly) UIBarButtonItem *showTableOfContentsToolbarItem;
-@property(nonatomic, strong, readonly) UIBarButtonItem *hideTableOfContentsToolbarItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem *saveToolbarItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem *languagesToolbarItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem *shareToolbarItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem *fontSizeToolbarItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem *showTableOfContentsToolbarItem;
+@property (nonatomic, strong, readonly) UIBarButtonItem *hideTableOfContentsToolbarItem;
 
 - (NSArray<UIBarButtonItem *> *)articleToolBarItems;
 

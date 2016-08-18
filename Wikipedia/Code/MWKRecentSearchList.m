@@ -4,7 +4,7 @@
 
 @interface MWKRecentSearchList ()
 
-@property(readwrite, weak, nonatomic) MWKDataStore *dataStore;
+@property (readwrite, weak, nonatomic) MWKDataStore *dataStore;
 
 @end
 

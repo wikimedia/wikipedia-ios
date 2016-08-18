@@ -10,24 +10,24 @@
 
 @interface WMFArticlePreviewTableViewCell ()
 
-@property(strong, nonatomic) IBOutlet UILabel *snippetLabel;
-@property(strong, nonatomic) IBOutlet WMFLeadingImageTrailingTextButton *saveButton;
+@property (strong, nonatomic) IBOutlet UILabel *snippetLabel;
+@property (strong, nonatomic) IBOutlet WMFLeadingImageTrailingTextButton *saveButton;
 
-@property(strong, nonatomic, readwrite) WMFSaveButtonController *saveButtonController;
+@property (strong, nonatomic, readwrite) WMFSaveButtonController *saveButtonController;
 
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *paddingConstraintLeading;
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *paddingConstraintTrailing;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *paddingConstraintLeading;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *paddingConstraintTrailing;
 
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *paddingConstraintAboveDescription;
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *paddingConstraintBelowDescription;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *paddingConstraintAboveDescription;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *paddingConstraintBelowDescription;
 
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *imageHeightConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *imageHeightConstraint;
 
-@property(strong, nonatomic) UIVisualEffectView *blurView;
-@property(strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) UIVisualEffectView *blurView;
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
-@property(nonatomic) CGFloat paddingAboveDescriptionFromIB;
-@property(nonatomic) CGFloat paddingBelowDescriptionFromIB;
+@property (nonatomic) CGFloat paddingAboveDescriptionFromIB;
+@property (nonatomic) CGFloat paddingBelowDescriptionFromIB;
 
 @end
 

@@ -26,20 +26,20 @@
 @interface LoginViewController () {
 }
 
-@property(weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property(weak, nonatomic) IBOutlet UITextField *usernameField;
-@property(weak, nonatomic) IBOutlet UITextField *passwordField;
-@property(weak, nonatomic) IBOutlet PaddedLabel *createAccountButton;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *usernameUnderlineHeight;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *passwordUnderlineHeight;
-@property(weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UITextField *usernameField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet PaddedLabel *createAccountButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *usernameUnderlineHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordUnderlineHeight;
+@property (weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
 
-@property(weak, nonatomic) IBOutlet UIView *loginContainerView;
+@property (weak, nonatomic) IBOutlet UIView *loginContainerView;
 
-@property(nonatomic, copy) void (^successBlock)();
-@property(nonatomic, copy) void (^failBlock)();
+@property (nonatomic, copy) void (^successBlock)();
+@property (nonatomic, copy) void (^failBlock)();
 
-@property(strong, nonatomic) UIBarButtonItem *doneButton;
+@property (strong, nonatomic) UIBarButtonItem *doneButton;
 
 @end
 

@@ -7,17 +7,17 @@
 
 @interface WMFSettingsMenuItem ()
 
-@property(nonatomic, assign, readwrite) WMFSettingsMenuItemType type;
+@property (nonatomic, assign, readwrite) WMFSettingsMenuItemType type;
 
-@property(nonatomic, copy, readwrite) NSString *title;
+@property (nonatomic, copy, readwrite) NSString *title;
 
-@property(nonatomic, copy, readwrite) NSString *iconName;
+@property (nonatomic, copy, readwrite) NSString *iconName;
 
-@property(nonatomic, copy, readwrite) UIColor *iconColor;
+@property (nonatomic, copy, readwrite) UIColor *iconColor;
 
-@property(nonatomic, assign, readwrite) WMFSettingsMenuItemDisclosureType disclosureType;
+@property (nonatomic, assign, readwrite) WMFSettingsMenuItemDisclosureType disclosureType;
 
-@property(nonatomic, copy, readwrite) NSString *disclosureText;
+@property (nonatomic, copy, readwrite) NSString *disclosureText;
 
 @end
 

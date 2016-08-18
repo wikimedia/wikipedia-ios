@@ -4,8 +4,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFFeaturedArticleSectionController : WMFBaseExploreSectionController <WMFExploreSectionController, WMFTitleProviding, WMFAnalyticsContentTypeProviding>
 
-@property(nonatomic, strong, readonly) NSURL *siteURL;
-@property(nonatomic, strong, readonly) NSDate *date;
+@property (nonatomic, strong, readonly) NSURL *siteURL;
+@property (nonatomic, strong, readonly) NSDate *date;
 
 - (instancetype)initWithSiteURL:(NSURL *)url
                            date:(NSDate *)date

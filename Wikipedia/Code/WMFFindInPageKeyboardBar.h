@@ -14,7 +14,7 @@
 
 @interface WMFFindInPageKeyboardBar : UIInputView
 
-@property(weak, nonatomic) id<WMFFindInPageKeyboardBarDelegate> delegate;
+@property (weak, nonatomic) id<WMFFindInPageKeyboardBarDelegate> delegate;
 
 - (BOOL)isVisible;
 - (void)show;

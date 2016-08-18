@@ -21,13 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticlePreviewDataSource ()
 
-@property(nonatomic, strong) WMFArticlePreviewFetcher *titlesSearchFetcher;
-@property(nonatomic, strong, readwrite, nullable) NSArray<MWKSearchResult *> *previewResults;
-@property(nonatomic, strong) NSURL *siteURL;
-@property(nonatomic, strong) NSArray<NSURL *> *urls;
-@property(nonatomic, assign) NSUInteger resultLimit;
+@property (nonatomic, strong) WMFArticlePreviewFetcher *titlesSearchFetcher;
+@property (nonatomic, strong, readwrite, nullable) NSArray<MWKSearchResult *> *previewResults;
+@property (nonatomic, strong) NSURL *siteURL;
+@property (nonatomic, strong) NSArray<NSURL *> *urls;
+@property (nonatomic, assign) NSUInteger resultLimit;
 
-@property(nonatomic, strong) MWKDataStore *dataStore;
+@property (nonatomic, strong) MWKDataStore *dataStore;
 
 @end
 

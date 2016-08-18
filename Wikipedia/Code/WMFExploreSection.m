@@ -10,13 +10,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFExploreSection ()
 
-@property(nonatomic, assign, readwrite) WMFExploreSectionType type;
-@property(nonatomic, strong, readwrite) NSURL *siteURL;
-@property(nonatomic, strong, readwrite) NSURL *articleURL;
-@property(nonatomic, strong, readwrite) NSDate *dateCreated;
-@property(nonatomic, strong, readwrite) CLLocation *location;
-@property(nonatomic, strong, readwrite) CLPlacemark *placemark;
-@property(nonatomic, strong, readwrite) NSDate *mostReadFetchDate;
+@property (nonatomic, assign, readwrite) WMFExploreSectionType type;
+@property (nonatomic, strong, readwrite) NSURL *siteURL;
+@property (nonatomic, strong, readwrite) NSURL *articleURL;
+@property (nonatomic, strong, readwrite) NSDate *dateCreated;
+@property (nonatomic, strong, readwrite) CLLocation *location;
+@property (nonatomic, strong, readwrite) CLPlacemark *placemark;
+@property (nonatomic, strong, readwrite) NSDate *mostReadFetchDate;
 
 @end
 
@@ -88,15 +88,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSInteger)dailyOrderingIndex {
     switch (self.type) {
-        case WMFExploreSectionTypeContinueReading:
-            return 0;
-        case WMFExploreSectionTypeFeaturedArticle:
-            return 1;
-        case WMFExploreSectionTypeMostRead:
-            return 2;
-        case WMFExploreSectionTypePictureOfTheDay:
-            return 3;
         case WMFExploreSectionTypeMainPage:
+            return 0;
+        case WMFExploreSectionTypeContinueReading:
+            return 1;
+        case WMFExploreSectionTypeFeaturedArticle:
+            return 2;
+        case WMFExploreSectionTypeMostRead:
+            return 3;
+        case WMFExploreSectionTypePictureOfTheDay:
             return 4;
         case WMFExploreSectionTypeRandom:
             return 5;

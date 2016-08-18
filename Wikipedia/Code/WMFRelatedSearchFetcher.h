@@ -48,7 +48,7 @@ extern NSUInteger const WMFMaxRelatedSearchResultLimit;
 - (AnyPromise *)fetchArticlesRelatedArticleWithURL:(NSURL *)URL
                                        resultLimit:(NSUInteger)resultLimit;
 
-@property(nonatomic, assign, readonly) BOOL isFetching;
+@property (nonatomic, assign, readonly) BOOL isFetching;
 
 @end
 

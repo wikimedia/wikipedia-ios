@@ -10,11 +10,11 @@
 
 @interface MWKUserDataStore : NSObject
 
-@property(readonly, weak, nonatomic) MWKDataStore *dataStore;
-@property(readonly, strong, nonatomic) MWKHistoryList *historyList;
-@property(readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
-@property(readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
-@property(readonly, strong, nonatomic) WMFRelatedSectionBlackList *blackList;
+@property (readonly, weak, nonatomic) MWKDataStore *dataStore;
+@property (readonly, strong, nonatomic) MWKHistoryList *historyList;
+@property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
+@property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
+@property (readonly, strong, nonatomic) WMFRelatedSectionBlackList *blackList;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 

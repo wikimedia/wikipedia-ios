@@ -16,19 +16,19 @@ static NSString *const WMFExploreSectionControllerException = @"WMFExploreSectio
 
 @interface WMFBaseExploreSectionController ()
 
-@property(nonatomic, strong, readwrite) MWKDataStore *dataStore;
+@property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
 /**
  *  The items visible to the WMFExploreViewController
  *  May contain placeholder items
  */
-@property(nonatomic, strong) NSMutableArray *mutableItems;
+@property (nonatomic, strong) NSMutableArray *mutableItems;
 
-@property(nonatomic, strong, nullable) NSArray *fetchedItems;
+@property (nonatomic, strong, nullable) NSArray *fetchedItems;
 
-@property(nonatomic, strong, nullable) AnyPromise *fetcherPromise;
+@property (nonatomic, strong, nullable) AnyPromise *fetcherPromise;
 
-@property(nonatomic, strong, readwrite, nullable) NSError *fetchError;
+@property (nonatomic, strong, readwrite, nullable) NSError *fetchError;
 
 @end
 

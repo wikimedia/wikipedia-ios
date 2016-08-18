@@ -7,7 +7,7 @@
 
 @interface WMFENFeaturedTitleFetcherTests : XCTestCase
 
-@property(nonatomic, strong) WMFEnglishFeaturedTitleFetcher *fetcher;
+@property (nonatomic, strong) WMFEnglishFeaturedTitleFetcher *fetcher;
 
 @end
 

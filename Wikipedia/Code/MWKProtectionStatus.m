@@ -2,7 +2,7 @@
 
 @interface MWKProtectionStatus ()
 
-@property(nonatomic, strong) NSDictionary *protection;
+@property (nonatomic, strong) NSDictionary *protection;
 
 @end
 

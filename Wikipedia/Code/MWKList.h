@@ -28,7 +28,7 @@ typedef id<NSCopying, NSObject> MWKListIndex;
 /**
  *  Observable - observe to get KVO notifications
  */
-@property(nonatomic, strong, readonly) NSArray<EntryType> *entries;
+@property (nonatomic, strong, readonly) NSArray<EntryType> *entries;
 
 #pragma mark - Querying the List
 

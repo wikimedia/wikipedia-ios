@@ -24,8 +24,8 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 #pragma mark - Internal Class Declarations
 
 @interface WMFRelatedSearchRequestParameters : NSObject
-@property(nonatomic, strong) NSURL *articleURL;
-@property(nonatomic, assign) NSUInteger numberOfResults;
+@property (nonatomic, strong) NSURL *articleURL;
+@property (nonatomic, assign) NSUInteger numberOfResults;
 
 @end
 
@@ -36,7 +36,7 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 
 @interface WMFRelatedSearchFetcher ()
 
-@property(nonatomic, strong) AFHTTPSessionManager *operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager *operationManager;
 
 @end
 

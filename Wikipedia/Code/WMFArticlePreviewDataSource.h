@@ -11,8 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticlePreviewDataSource : SSArrayDataSource <WMFTitleListDataSource>
 
-@property(nonatomic, strong, readonly, nullable) NSArray<MWKSearchResult *> *previewResults;
-@property(nonatomic, strong, readonly) MWKDataStore *dataStore;
+@property (nonatomic, strong, readonly, nullable) NSArray<MWKSearchResult *> *previewResults;
+@property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 
 - (instancetype)initWithArticleURLs:(NSArray<NSURL *> *)articleURLs
                             siteURL:(NSURL *)siteURL

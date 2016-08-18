@@ -5,9 +5,9 @@
 
 @interface WMFPicOfTheDayCollectionViewCell ()
 
-@property(weak, nonatomic) IBOutlet WMFGradientView *displayTitleBackgroundView;
+@property (weak, nonatomic) IBOutlet WMFGradientView *displayTitleBackgroundView;
 
-@property(nonatomic, strong) IBOutlet UILabel *displayTitleLabel;
+@property (nonatomic, strong) IBOutlet UILabel *displayTitleLabel;
 
 @end
 

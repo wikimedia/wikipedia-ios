@@ -8,13 +8,13 @@
 
 @interface SessionSingleton ()
 
-@property(strong, nonatomic, readwrite) MWKDataStore *dataStore;
+@property (strong, nonatomic, readwrite) MWKDataStore *dataStore;
 
-@property(strong, nonatomic) WMFAssetsFile *mainPages;
+@property (strong, nonatomic) WMFAssetsFile *mainPages;
 
-@property(strong, nonatomic, readwrite) NSURL *currentArticleSiteURL;
+@property (strong, nonatomic, readwrite) NSURL *currentArticleSiteURL;
 
-@property(strong, nonatomic) NSURL *currentArticleURL;
+@property (strong, nonatomic) NSURL *currentArticleURL;
 
 @end
 

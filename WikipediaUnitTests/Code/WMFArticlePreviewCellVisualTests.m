@@ -12,8 +12,8 @@
 
 @interface WMFArticlePreviewCellVisualTests : FBSnapshotTestCase
 
-@property(nonatomic, strong) WMFArticlePreviewTableViewCell *cell;
-@property(nonatomic, strong) MWKDataStore *dataStore;
+@property (nonatomic, strong) WMFArticlePreviewTableViewCell *cell;
+@property (nonatomic, strong) MWKDataStore *dataStore;
 
 @end
 

@@ -10,7 +10,7 @@
 
 @interface MWKImageInfoFetcher ()
 
-@property(nonatomic, strong, readonly) AFHTTPSessionManager *manager;
+@property (nonatomic, strong, readonly) AFHTTPSessionManager *manager;
 
 // Designated initializer, can be used to inject a mock request manager while testing.
 - (instancetype)initWithDelegate:(id<FetchFinishedDelegate>)delegate

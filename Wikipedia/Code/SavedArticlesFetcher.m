@@ -22,17 +22,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SavedArticlesFetcher () <WMFDataSourceDelegate>
 
-@property(nonatomic, strong, readwrite) dispatch_queue_t accessQueue;
+@property (nonatomic, strong, readwrite) dispatch_queue_t accessQueue;
 
-@property(nonatomic, strong) MWKDataStore *dataStore;
-@property(nonatomic, strong) id<WMFDataSource> dataSource;
-@property(nonatomic, strong) MWKSavedPageList *savedPageList;
-@property(nonatomic, strong) WMFArticleFetcher *articleFetcher;
-@property(nonatomic, strong) WMFImageController *imageController;
-@property(nonatomic, strong) MWKImageInfoFetcher *imageInfoFetcher;
+@property (nonatomic, strong) MWKDataStore *dataStore;
+@property (nonatomic, strong) id<WMFDataSource> dataSource;
+@property (nonatomic, strong) MWKSavedPageList *savedPageList;
+@property (nonatomic, strong) WMFArticleFetcher *articleFetcher;
+@property (nonatomic, strong) WMFImageController *imageController;
+@property (nonatomic, strong) MWKImageInfoFetcher *imageInfoFetcher;
 
-@property(nonatomic, strong) NSMutableDictionary<NSURL *, AnyPromise *> *fetchOperationsByArticleTitle;
-@property(nonatomic, strong) NSMutableDictionary<NSURL *, NSError *> *errorsByArticleTitle;
+@property (nonatomic, strong) NSMutableDictionary<NSURL *, AnyPromise *> *fetchOperationsByArticleTitle;
+@property (nonatomic, strong) NSMutableDictionary<NSURL *, NSError *> *errorsByArticleTitle;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
                     savedPageList:(MWKSavedPageList *)savedPageList

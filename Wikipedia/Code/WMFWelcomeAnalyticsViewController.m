@@ -8,13 +8,13 @@
 @import HockeySDK;
 
 @interface WMFWelcomeAnalyticsViewController ()
-@property(strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property(strong, nonatomic) IBOutlet UILabel *subTitleLabel;
-@property(strong, nonatomic) IBOutlet UILabel *toggleLabel;
-@property(strong, nonatomic) IBOutlet UIView *dividerAboveNextStepButton;
-@property(strong, nonatomic) IBOutlet UIButton *nextStepButton;
-@property(strong, nonatomic) IBOutlet UISwitch *toggle;
-@property(strong, nonatomic) IBOutlet WelcomeAnalyticsAnimationView *animationView;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *subTitleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *toggleLabel;
+@property (strong, nonatomic) IBOutlet UIView *dividerAboveNextStepButton;
+@property (strong, nonatomic) IBOutlet UIButton *nextStepButton;
+@property (strong, nonatomic) IBOutlet UISwitch *toggle;
+@property (strong, nonatomic) IBOutlet WelcomeAnalyticsAnimationView *animationView;
 
 @end
 

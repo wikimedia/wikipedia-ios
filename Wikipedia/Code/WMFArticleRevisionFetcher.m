@@ -8,7 +8,7 @@
 #import "WMFArticleRevision.h"
 
 @interface WMFArticleRevisionFetcher ()
-@property(nonatomic, strong) AFHTTPSessionManager *requestManager;
+@property (nonatomic, strong) AFHTTPSessionManager *requestManager;
 @end
 
 @implementation WMFArticleRevisionFetcher

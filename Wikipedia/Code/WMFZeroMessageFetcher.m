@@ -8,7 +8,7 @@
 
 @interface WMFZeroMessageFetcher ()
 
-@property(nonatomic, strong) AFHTTPSessionManager *operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager *operationManager;
 
 @end
 

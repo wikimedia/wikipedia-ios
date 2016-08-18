@@ -4,8 +4,8 @@
 
 @interface WMFCollectionViewExtensionTests : XCTestCase <UICollectionViewDataSource>
 
-@property(nonatomic, strong) UICollectionView *collectionView;
-@property(nonatomic, strong) NSArray *data;
+@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) NSArray *data;
 
 @end
 

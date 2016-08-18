@@ -15,7 +15,7 @@ static NSString *const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 
 @interface WMFContinueReadingSectionController ()
 
-@property(nonatomic, strong, readwrite) NSURL *articleURL;
+@property (nonatomic, strong, readwrite) NSURL *articleURL;
 
 @end
 

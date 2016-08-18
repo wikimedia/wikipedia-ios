@@ -10,9 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray<MWKSearchResult *> *_mutableResults;
 }
 
-@property(nonatomic, copy, readwrite) NSString *searchTerm;
-@property(nonatomic, copy, nullable, readwrite) NSString *searchSuggestion;
-@property(nonatomic, strong, nullable, readwrite) NSArray<MWKSearchResult *> *results;
+@property (nonatomic, copy, readwrite) NSString *searchTerm;
+@property (nonatomic, copy, nullable, readwrite) NSString *searchSuggestion;
+@property (nonatomic, strong, nullable, readwrite) NSArray<MWKSearchResult *> *results;
 
 @end
 

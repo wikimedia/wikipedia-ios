@@ -11,7 +11,7 @@
  *  @note Setting this value before the view is loaded will defer bounds checking until @c viewDidLoad, which could
  *        result in crashes which are more difficult to debug.
  */
-@property(nonatomic) NSUInteger currentPage;
+@property (nonatomic) NSUInteger currentPage;
 
 - (void)setCurrentPage:(NSUInteger)currentPage animated:(BOOL)animated;
 
@@ -37,7 +37,7 @@
  * `WMFPageCollectionViewController` will set/reset this flag as necessary to ensure `currentPage` is maintained
  * through a transition.
  */
-@property(nonatomic) BOOL didApplyCurrentPage;
+@property (nonatomic) BOOL didApplyCurrentPage;
 
 /**
  *  Method which is invoked to update the collection view to display the current page.

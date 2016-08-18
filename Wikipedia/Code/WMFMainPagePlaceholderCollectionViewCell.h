@@ -2,6 +2,6 @@
 
 @interface WMFMainPagePlaceholderCollectionViewCell : WMFExploreCollectionViewCell
 
-@property(strong, nonatomic) IBOutlet UIImageView *placeholderImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *placeholderImageView;
 
 @end

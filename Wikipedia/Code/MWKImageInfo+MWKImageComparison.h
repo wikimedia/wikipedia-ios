@@ -9,7 +9,7 @@
 
 @interface MWKImage (MWKImageInfoComparison)
 
-@property(nonatomic, readonly) id infoAssociationValue;
+@property (nonatomic, readonly) id infoAssociationValue;
 
 - (BOOL)isAssociatedWithInfo:(MWKImageInfo *)info;
 

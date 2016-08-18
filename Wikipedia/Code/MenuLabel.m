@@ -4,11 +4,11 @@
 
 @interface MenuLabel ()
 
-@property(strong, nonatomic) MenuLabel *label;
+@property (strong, nonatomic) MenuLabel *label;
 
-@property(nonatomic) CGFloat fontSize;
+@property (nonatomic) CGFloat fontSize;
 
-@property(nonatomic) BOOL fontBold;
+@property (nonatomic) BOOL fontBold;
 
 @end
 

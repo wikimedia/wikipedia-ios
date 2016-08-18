@@ -5,6 +5,6 @@
 
 - (IBAction)createAccountButtonPushed:(id)sender;
 
-@property(strong, nonatomic) LoginFunnel *funnel;
+@property (strong, nonatomic) LoginFunnel *funnel;
 
 @end

@@ -13,10 +13,10 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 @interface MWKImageFaceDetectionTests : WMFAsyncTestCase
-@property(nonatomic, strong) MWKImage *image;
-@property(nonatomic, strong) MWKArticle *dummyArticle;
-@property(nonatomic, strong) MWKDataStore *mockDataStore;
-@property(nonatomic, strong) WMFFaceDetectionCache *faceDetectionCache;
+@property (nonatomic, strong) MWKImage *image;
+@property (nonatomic, strong) MWKArticle *dummyArticle;
+@property (nonatomic, strong) MWKDataStore *mockDataStore;
+@property (nonatomic, strong) WMFFaceDetectionCache *faceDetectionCache;
 @end
 
 @implementation MWKImageFaceDetectionTests

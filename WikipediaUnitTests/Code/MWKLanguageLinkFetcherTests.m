@@ -12,9 +12,9 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 @interface MWKLanguageLinkFetcherTests : WMFAsyncTestCase
-@property(nonatomic, strong) AFHTTPSessionManager *mockManager;
-@property(nonatomic, strong) id<FetchFinishedDelegate> mockDelegate;
-@property(nonatomic, strong) MWKLanguageLinkFetcher *fetcher;
+@property (nonatomic, strong) AFHTTPSessionManager *mockManager;
+@property (nonatomic, strong) id<FetchFinishedDelegate> mockDelegate;
+@property (nonatomic, strong) MWKLanguageLinkFetcher *fetcher;
 @end
 
 @implementation MWKLanguageLinkFetcherTests

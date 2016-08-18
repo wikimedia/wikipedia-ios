@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (AnyPromise *)fetchFeaturedArticlePreviewForDate:(NSDate *)date;
 
-@property(nonatomic, assign, readonly) BOOL isFetching;
+@property (nonatomic, assign, readonly) BOOL isFetching;
 
 @end
 

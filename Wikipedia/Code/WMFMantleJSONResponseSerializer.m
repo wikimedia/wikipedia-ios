@@ -9,8 +9,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface WMFMantleJSONResponseSerializer ()
 
-@property(nonatomic, strong, readonly) Class modelClass;
-@property(nonatomic, copy, readonly) NSString *jsonKeypath;
+@property (nonatomic, strong, readonly) Class modelClass;
+@property (nonatomic, copy, readonly) NSString *jsonKeypath;
 
 - (instancetype)initWithModelClass:(Class)modelClass jsonKeypath:(NSString *__nullable)keypath NS_DESIGNATED_INITIALIZER;
 

@@ -13,7 +13,7 @@ typedef NS_ENUM(NSInteger, WikiTextFetcherErrorType) {
 
 @interface WikiTextSectionFetcher : FetcherBase
 
-@property(strong, nonatomic, readonly) MWKSection *section;
+@property (strong, nonatomic, readonly) MWKSection *section;
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
 - (instancetype)initAndFetchWikiTextForSection:(MWKSection *)section

@@ -12,11 +12,11 @@ static NSString *const WMFRelatedSectionBlackListFileExtension = @"plist";
 
 @interface WMFRelatedSectionBlackList ()
 
-@property(nonatomic, strong) id<WMFDataSource> dataSource;
-@property(readwrite, weak, nonatomic) MWKDataStore *dataStore;
+@property (nonatomic, strong) id<WMFDataSource> dataSource;
+@property (readwrite, weak, nonatomic) MWKDataStore *dataStore;
 
 //Legacy property for migration
-@property(nonatomic, strong) NSArray *entries;
+@property (nonatomic, strong) NSArray *entries;
 
 @end
 

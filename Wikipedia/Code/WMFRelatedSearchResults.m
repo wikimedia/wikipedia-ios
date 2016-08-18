@@ -2,8 +2,8 @@
 
 @interface WMFRelatedSearchResults ()
 
-@property(nonatomic, strong, readwrite) NSURL *siteURL;
-@property(nonatomic, strong, readwrite) NSArray *results;
+@property (nonatomic, strong, readwrite) NSURL *siteURL;
+@property (nonatomic, strong, readwrite) NSArray *results;
 
 @end
 

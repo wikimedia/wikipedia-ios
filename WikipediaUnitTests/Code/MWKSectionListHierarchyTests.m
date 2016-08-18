@@ -8,8 +8,8 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 @interface MWKSectionListHierarchyTests : XCTestCase
-@property(nonatomic, strong) MWKArticle *dummyArticle;
-@property(nonatomic) NSUInteger sectionIdCounter;
+@property (nonatomic, strong) MWKArticle *dummyArticle;
+@property (nonatomic) NSUInteger sectionIdCounter;
 @end
 
 @implementation MWKSectionListHierarchyTests

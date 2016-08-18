@@ -4,10 +4,10 @@
 
 @interface WMFSettingsTableViewCell ()
 
-@property(strong, nonatomic) IBOutlet UIImageView *titleIcon;
-@property(strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property(strong, nonatomic) IBOutlet UILabel *disclosureLabel;
-@property(strong, nonatomic) IBOutlet UIImageView *disclosureIcon;
+@property (strong, nonatomic) IBOutlet UIImageView *titleIcon;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *disclosureLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *disclosureIcon;
 
 @end
 

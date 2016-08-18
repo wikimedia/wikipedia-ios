@@ -20,10 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFImageInfoController : NSObject
 
-@property(nonatomic, weak) id<WMFImageInfoControllerDelegate> delegate;
+@property (nonatomic, weak) id<WMFImageInfoControllerDelegate> delegate;
 
 /// Number of image info titles to request at once.
-@property(nonatomic, readonly) NSUInteger infoBatchSize;
+@property (nonatomic, readonly) NSUInteger infoBatchSize;
 
 /**
  *  Set the array of images for which info will be fetched.

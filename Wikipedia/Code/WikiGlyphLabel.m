@@ -4,9 +4,9 @@
 
 @interface WikiGlyphLabel ()
 
-@property(nonatomic, strong) UIColor *color;
-@property(nonatomic) CGFloat size;
-@property(nonatomic) CGFloat baselineOffset;
+@property (nonatomic, strong) UIColor *color;
+@property (nonatomic) CGFloat size;
+@property (nonatomic) CGFloat baselineOffset;
 
 @end
 

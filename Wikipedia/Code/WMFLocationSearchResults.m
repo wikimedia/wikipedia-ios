@@ -3,9 +3,9 @@
 
 @interface WMFLocationSearchResults ()
 
-@property(nonatomic, strong, readwrite) NSURL *searchSiteURL;
-@property(nonatomic, strong, readwrite) CLLocation *location;
-@property(nonatomic, strong, readwrite) NSArray<MWKLocationSearchResult *> *results;
+@property (nonatomic, strong, readwrite) NSURL *searchSiteURL;
+@property (nonatomic, strong, readwrite) CLLocation *location;
+@property (nonatomic, strong, readwrite) NSArray<MWKLocationSearchResult *> *results;
 
 @end
 

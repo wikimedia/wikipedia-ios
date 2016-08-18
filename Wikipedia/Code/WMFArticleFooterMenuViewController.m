@@ -23,11 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleFooterMenuViewController () <UITableViewDelegate, WMFLanguagesViewControllerDelegate, UINavigationControllerDelegate>
 
-@property(nonatomic, strong) WMFArticleFooterMenuDataSource *footerDataSource;
+@property (nonatomic, strong) WMFArticleFooterMenuDataSource *footerDataSource;
 
-@property(nonatomic, strong) IBOutlet WMFIntrinsicSizeTableView *tableView;
+@property (nonatomic, strong) IBOutlet WMFIntrinsicSizeTableView *tableView;
 
-@property(nonatomic, weak, readwrite) id<WMFArticleListTableViewControllerDelegate> similarPagesDelegate;
+@property (nonatomic, weak, readwrite) id<WMFArticleListTableViewControllerDelegate> similarPagesDelegate;
 
 @end
 

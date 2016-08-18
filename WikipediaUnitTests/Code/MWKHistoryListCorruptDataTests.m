@@ -9,7 +9,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 @interface MWKHistoryListCorruptDataTests : XCTestCase
-@property(strong, nonatomic) MWKHistoryList *historyList;
+@property (strong, nonatomic) MWKHistoryList *historyList;
 
 @end
 

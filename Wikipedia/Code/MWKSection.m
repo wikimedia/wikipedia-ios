@@ -12,22 +12,22 @@ NSString *const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 
 @interface MWKSection ()
 
-@property(readwrite, weak, nonatomic) MWKArticle *article;
+@property (readwrite, weak, nonatomic) MWKArticle *article;
 
-@property(readwrite, copy, nonatomic, nullable) NSNumber *toclevel; // optional
-@property(readwrite, copy, nonatomic, nullable) NSNumber *level;    // optional; string in JSON, but seems to be number-safe?
-@property(readwrite, copy, nonatomic, nullable) NSString *line;     // optional; HTML
-@property(readwrite, copy, nonatomic, nullable) NSString *number;   // optional; can be "1.2.3"
-@property(readwrite, copy, nonatomic, nullable) NSString *index;    // optional; can be "T-3" for transcluded sections
-@property(readwrite, strong, nonatomic, nullable) NSURL *fromURL;   // optional
-@property(readwrite, copy, nonatomic, nullable) NSString *anchor;   // optional
-@property(readwrite, assign, nonatomic) int sectionId;              // required; -> id
-@property(readwrite, assign, nonatomic) BOOL references;            // optional; marked by presence of key with empty string in JSON
+@property (readwrite, copy, nonatomic, nullable) NSNumber *toclevel; // optional
+@property (readwrite, copy, nonatomic, nullable) NSNumber *level;    // optional; string in JSON, but seems to be number-safe?
+@property (readwrite, copy, nonatomic, nullable) NSString *line;     // optional; HTML
+@property (readwrite, copy, nonatomic, nullable) NSString *number;   // optional; can be "1.2.3"
+@property (readwrite, copy, nonatomic, nullable) NSString *index;    // optional; can be "T-3" for transcluded sections
+@property (readwrite, strong, nonatomic, nullable) NSURL *fromURL;   // optional
+@property (readwrite, copy, nonatomic, nullable) NSString *anchor;   // optional
+@property (readwrite, assign, nonatomic) int sectionId;              // required; -> id
+@property (readwrite, assign, nonatomic) BOOL references;            // optional; marked by presence of key with empty string in JSON
 
-@property(readwrite, copy, nonatomic, nullable) NSString *text; // may be nil
+@property (readwrite, copy, nonatomic, nullable) NSString *text; // may be nil
 
-@property(readwrite, weak, nonatomic, nullable) MWKSection *parent;
-@property(readwrite, strong, nonatomic, nullable) NSMutableArray *mutableChildren;
+@property (readwrite, weak, nonatomic, nullable) MWKSection *parent;
+@property (readwrite, strong, nonatomic, nullable) NSMutableArray *mutableChildren;
 
 @end
 

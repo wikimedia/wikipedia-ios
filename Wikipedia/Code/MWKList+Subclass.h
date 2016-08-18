@@ -53,7 +53,7 @@ typedef BOOL (^MWKListUpdateBlock)(MWKListEntry entry);
 /*
  * Indicates if the list has been mutated since the last save.
  */
-@property(nonatomic, assign, readonly) BOOL dirty;
+@property (nonatomic, assign, readonly) BOOL dirty;
 
 /**
  *  Subclasses must implement to support saving

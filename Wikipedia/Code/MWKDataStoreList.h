@@ -15,6 +15,6 @@
  */
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
-@property(nonatomic, weak, readonly) MWKDataStore *dataStore;
+@property (nonatomic, weak, readonly) MWKDataStore *dataStore;
 
 @end

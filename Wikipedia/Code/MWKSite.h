@@ -8,14 +8,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// Represents a mediawiki instance dedicated to a specific language.
 @interface MWKSite : MTLModel <NSCopying>
 
-@property(nonatomic, copy, readonly) NSURL *URL;
+@property (nonatomic, copy, readonly) NSURL *URL;
 
 /// The hostname for the site, defaults to @c WMFDefaultSiteDomain.
-@property(nonatomic, copy, readonly) NSString *domain;
+@property (nonatomic, copy, readonly) NSString *domain;
 
 /// The language code for the site. Should be ISO 639-x/IETF BCP 47
 /// @see kCFLocaleLanguageCode
-@property(nonatomic, copy, readonly, nullable) NSString *language;
+@property (nonatomic, copy, readonly, nullable) NSString *language;
 
 ///
 /// @name Initialization

@@ -22,9 +22,9 @@
 
 @interface WMFImageTagParserTests : MWKTestCase
 
-@property(nonatomic, strong) WMFImageTagParser *parser;
-@property(nonatomic, strong) WMFImageTagList *obamaImageTagList;
-@property(nonatomic, strong) NSURL *baseURL;
+@property (nonatomic, strong) WMFImageTagParser *parser;
+@property (nonatomic, strong) WMFImageTagList *obamaImageTagList;
+@property (nonatomic, strong) NSURL *baseURL;
 
 @end
 

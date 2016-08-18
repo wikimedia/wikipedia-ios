@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface WMFImageGalleryViewController : NYTPhotosViewController
 
-@property(nonatomic, weak) id<WMFImageGalleryViewControllerReferenceViewDelegate> referenceViewDelegate;
+@property (nonatomic, weak) id<WMFImageGalleryViewControllerReferenceViewDelegate> referenceViewDelegate;
 
 /**
  *  Do not use the deelgate from NYTPhotosViewController

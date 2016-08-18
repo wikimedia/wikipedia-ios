@@ -11,7 +11,7 @@ typedef NS_ENUM(NSUInteger, MWKSiteNSCodingSchemaVersion) {
 
 @interface MWKSite ()
 
-@property(nonatomic, copy) NSURL *URL;
+@property (nonatomic, copy) NSURL *URL;
 
 @end
 

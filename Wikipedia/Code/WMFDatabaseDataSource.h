@@ -9,10 +9,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFDatabaseDataSource : NSObject <WMFDataSource, WMFDatabaseChangeHandler>
 
-@property(readonly, weak, nonatomic) YapDatabaseConnection *readConnection;
-@property(readonly, weak, nonatomic) YapDatabaseConnection *writeConnection;
+@property (readonly, weak, nonatomic) YapDatabaseConnection *readConnection;
+@property (readonly, weak, nonatomic) YapDatabaseConnection *writeConnection;
 
-@property(readonly, strong, nonatomic) YapDatabaseViewMappings *mappings;
+@property (readonly, strong, nonatomic) YapDatabaseViewMappings *mappings;
 
 - (instancetype)initWithReadConnection:(YapDatabaseConnection *)readConnection writeConnection:(YapDatabaseConnection *)writeConnection mappings:(YapDatabaseViewMappings *)mappings NS_DESIGNATED_INITIALIZER;
 

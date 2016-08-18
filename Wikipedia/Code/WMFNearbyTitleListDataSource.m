@@ -14,12 +14,12 @@ static NSUInteger const WMFNearbyDataSourceFetchCount = 20;
 
 @interface WMFNearbyTitleListDataSource ()
 
-@property(nonatomic, strong, readwrite) NSURL *searchSiteURL;
-@property(nonatomic, strong) WMFLocationSearchFetcher *locationSearchFetcher;
-@property(nonatomic, strong, nullable) WMFLocationSearchResults *searchResults;
-@property(nonatomic, strong) MWKSavedPageList *savedPageList;
+@property (nonatomic, strong, readwrite) NSURL *searchSiteURL;
+@property (nonatomic, strong) WMFLocationSearchFetcher *locationSearchFetcher;
+@property (nonatomic, strong, nullable) WMFLocationSearchResults *searchResults;
+@property (nonatomic, strong) MWKSavedPageList *savedPageList;
 
-@property(nonatomic, weak) id<Cancellable> lastFetch;
+@property (nonatomic, weak) id<Cancellable> lastFetch;
 
 @end
 

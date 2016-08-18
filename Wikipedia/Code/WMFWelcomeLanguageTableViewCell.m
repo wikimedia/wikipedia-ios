@@ -2,7 +2,7 @@
 
 @interface WMFWelcomeLanguageTableViewCell ()
 
-@property(strong, nonatomic) IBOutlet UILabel *languageNameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *languageNameLabel;
 
 @end
 

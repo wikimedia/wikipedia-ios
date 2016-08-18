@@ -6,9 +6,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFShareOptionsController : NSObject
 
-@property(nonatomic, strong, readonly) MWKArticle *article;
-@property(nonatomic, strong, readonly) WMFShareFunnel *funnel;
-@property(nonatomic, getter=isActive, readonly) BOOL active;
+@property (nonatomic, strong, readonly) MWKArticle *article;
+@property (nonatomic, strong, readonly) WMFShareFunnel *funnel;
+@property (nonatomic, getter=isActive, readonly) BOOL active;
 
 /**
  * Initialize a new instance with an article and an optional snippet.

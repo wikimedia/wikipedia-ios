@@ -11,7 +11,7 @@
 
 @interface WMFPicOfTheDayTableViewCellVisualTests : FBSnapshotTestCase
 
-@property(nonatomic, strong) WMFPicOfTheDayCollectionViewCell *cell;
+@property (nonatomic, strong) WMFPicOfTheDayCollectionViewCell *cell;
 
 @end
 

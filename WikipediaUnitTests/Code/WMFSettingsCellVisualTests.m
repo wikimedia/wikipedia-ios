@@ -5,7 +5,7 @@
 #import "UIView+VisualTestSizingUtils.h"
 
 @interface WMFSettingsCellVisualTests : FBSnapshotTestCase
-@property(nonatomic, strong) WMFSettingsTableViewCell *cell;
+@property (nonatomic, strong) WMFSettingsTableViewCell *cell;
 @end
 
 @implementation WMFSettingsCellVisualTests

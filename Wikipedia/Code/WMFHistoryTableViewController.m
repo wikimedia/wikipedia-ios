@@ -20,7 +20,7 @@
 
 @interface WMFHistoryTableViewController () <WMFDataSourceDelegate>
 
-@property(nonatomic, strong) id<WMFDataSource> dataSource;
+@property (nonatomic, strong) id<WMFDataSource> dataSource;
 
 @end
 

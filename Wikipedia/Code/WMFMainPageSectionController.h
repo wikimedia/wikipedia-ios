@@ -4,7 +4,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFMainPageSectionController : WMFBaseExploreSectionController <WMFExploreSectionController, WMFTitleProviding, WMFAnalyticsContentTypeProviding>
 
-@property(nonatomic, strong, readonly) NSURL *siteURL;
+@property (nonatomic, strong, readonly) NSURL *siteURL;
 
 - (instancetype)initWithSiteURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore;
 

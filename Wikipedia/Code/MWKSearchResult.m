@@ -4,25 +4,25 @@
 
 @interface MWKSearchResult ()
 
-@property(nonatomic, assign, readwrite) NSInteger articleID;
+@property (nonatomic, assign, readwrite) NSInteger articleID;
 
-@property(nonatomic, assign, readwrite) NSInteger revID;
+@property (nonatomic, assign, readwrite) NSInteger revID;
 
-@property(nonatomic, copy, readwrite) NSString *displayTitle;
+@property (nonatomic, copy, readwrite) NSString *displayTitle;
 
-@property(nonatomic, copy, readwrite) NSString *wikidataDescription;
+@property (nonatomic, copy, readwrite) NSString *wikidataDescription;
 
-@property(nonatomic, copy, readwrite) NSString *extract;
+@property (nonatomic, copy, readwrite) NSString *extract;
 
-@property(nonatomic, copy, readwrite) NSURL *thumbnailURL;
+@property (nonatomic, copy, readwrite) NSURL *thumbnailURL;
 
-@property(nonatomic, copy, readwrite) NSNumber *index;
+@property (nonatomic, copy, readwrite) NSNumber *index;
 
-@property(nonatomic, copy, readwrite) NSNumber *titleNamespace;
+@property (nonatomic, copy, readwrite) NSNumber *titleNamespace;
 
-@property(nonatomic, assign, readwrite) BOOL isDisambiguation;
+@property (nonatomic, assign, readwrite) BOOL isDisambiguation;
 
-@property(nonatomic, assign, readwrite) BOOL isList;
+@property (nonatomic, assign, readwrite) BOOL isList;
 
 @end
 

@@ -3,9 +3,9 @@
 
 @interface MWKUser ()
 
-@property(readwrite, assign, nonatomic) BOOL anonymous;
-@property(readwrite, copy, nonatomic) NSString *name;
-@property(readwrite, copy, nonatomic) NSString *gender;
+@property (readwrite, assign, nonatomic) BOOL anonymous;
+@property (readwrite, copy, nonatomic) NSString *name;
+@property (readwrite, copy, nonatomic) NSString *gender;
 
 @end
 

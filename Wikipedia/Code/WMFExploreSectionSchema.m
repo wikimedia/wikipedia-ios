@@ -27,25 +27,25 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 @interface WMFExploreSectionSchema () <WMFLocationManagerDelegate, WMFDataSourceDelegate>
 
-@property(readonly, strong, nonatomic) MWKDataStore *dataStore;
+@property (readonly, strong, nonatomic) MWKDataStore *dataStore;
 
-@property(nonatomic, strong, readwrite) id<WMFDataSource> blackListDataSource;
-@property(nonatomic, strong, readwrite) id<WMFDataSource> becauseYouReadDataSource;
+@property (nonatomic, strong, readwrite) id<WMFDataSource> blackListDataSource;
+@property (nonatomic, strong, readwrite) id<WMFDataSource> becauseYouReadDataSource;
 
-@property(nonatomic, strong, readwrite) NSURL *siteURL;
-@property(nonatomic, strong, readwrite) MWKSavedPageList *savedPages;
-@property(nonatomic, strong, readwrite) MWKHistoryList *historyPages;
-@property(nonatomic, strong, readwrite) WMFRelatedSectionBlackList *blackList;
+@property (nonatomic, strong, readwrite) NSURL *siteURL;
+@property (nonatomic, strong, readwrite) MWKSavedPageList *savedPages;
+@property (nonatomic, strong, readwrite) MWKHistoryList *historyPages;
+@property (nonatomic, strong, readwrite) WMFRelatedSectionBlackList *blackList;
 
-@property(nonatomic, strong) WMFLocationManager *locationManager;
+@property (nonatomic, strong) WMFLocationManager *locationManager;
 
-@property(nonatomic, strong, readwrite, nullable) NSDate *lastUpdatedAt;
+@property (nonatomic, strong, readwrite, nullable) NSDate *lastUpdatedAt;
 
-@property(nonatomic, strong, readwrite) NSArray<WMFExploreSection *> *sections;
+@property (nonatomic, strong, readwrite) NSArray<WMFExploreSection *> *sections;
 
-@property(nonatomic, strong, readwrite) NSURL *fileURL;
+@property (nonatomic, strong, readwrite) NSURL *fileURL;
 
-@property(nonatomic, strong) dispatch_queue_t saveQueue;
+@property (nonatomic, strong) dispatch_queue_t saveQueue;
 
 @end
 

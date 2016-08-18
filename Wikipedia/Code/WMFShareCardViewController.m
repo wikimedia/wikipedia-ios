@@ -7,10 +7,10 @@
 
 @interface WMFShareCardViewController ()
 
-@property(weak, nonatomic) IBOutlet WMFShareCardImageContainer *shareCardImageContainer;
-@property(weak, nonatomic) IBOutlet UILabel *shareSelectedText;
-@property(weak, nonatomic) IBOutlet UILabel *shareArticleTitle;
-@property(weak, nonatomic) IBOutlet UILabel *shareArticleDescription;
+@property (weak, nonatomic) IBOutlet WMFShareCardImageContainer *shareCardImageContainer;
+@property (weak, nonatomic) IBOutlet UILabel *shareSelectedText;
+@property (weak, nonatomic) IBOutlet UILabel *shareArticleTitle;
+@property (weak, nonatomic) IBOutlet UILabel *shareArticleDescription;
 @end
 
 @implementation WMFShareCardViewController

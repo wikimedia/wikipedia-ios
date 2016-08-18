@@ -6,8 +6,8 @@
 
 @interface NSArray_WMFExtensionsTests : XCTestCase
 
-@property(strong, nonatomic) NSArray *array;
-@property(strong, nonatomic) NSArray *otherArray;
+@property (strong, nonatomic) NSArray *array;
+@property (strong, nonatomic) NSArray *otherArray;
 
 @end
 

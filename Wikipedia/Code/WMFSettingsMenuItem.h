@@ -27,19 +27,19 @@ typedef NS_ENUM(NSUInteger, WMFSettingsMenuItemType) {
 
 @interface WMFSettingsMenuItem : MTLModel
 
-@property(nonatomic, assign, readonly) WMFSettingsMenuItemType type;
+@property (nonatomic, assign, readonly) WMFSettingsMenuItemType type;
 
-@property(nonatomic, copy, readonly) NSString *title;
+@property (nonatomic, copy, readonly) NSString *title;
 
-@property(nonatomic, copy, readonly) NSString *iconName;
+@property (nonatomic, copy, readonly) NSString *iconName;
 
-@property(nonatomic, copy, readonly) UIColor *iconColor;
+@property (nonatomic, copy, readonly) UIColor *iconColor;
 
-@property(nonatomic, assign, readonly) WMFSettingsMenuItemDisclosureType disclosureType;
+@property (nonatomic, assign, readonly) WMFSettingsMenuItemDisclosureType disclosureType;
 
-@property(nonatomic, copy, readonly) NSString *disclosureText;
+@property (nonatomic, copy, readonly) NSString *disclosureText;
 
-@property(nonatomic, assign, readwrite) BOOL isSwitchOn;
+@property (nonatomic, assign, readwrite) BOOL isSwitchOn;
 
 + (WMFSettingsMenuItem *)itemForType:(WMFSettingsMenuItemType)type;
 

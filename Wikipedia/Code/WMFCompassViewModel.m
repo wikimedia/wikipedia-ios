@@ -8,7 +8,7 @@
 
 @interface WMFCompassViewModel () <WMFLocationManagerDelegate>
 
-@property(nonatomic, strong) WMFLocationManager *locationManager;
+@property (nonatomic, strong) WMFLocationManager *locationManager;
 
 /**
  *  @name Location Manager State
@@ -20,12 +20,12 @@
 /**
  *  The last-known location reported by the @c locationManager.
  */
-@property(nonatomic, strong, readwrite, nullable) CLLocation *lastLocation;
+@property (nonatomic, strong, readwrite, nullable) CLLocation *lastLocation;
 
 /**
  *  The last-known heading reported by the @c locationManager.
  */
-@property(nonatomic, strong, readwrite, nullable) CLHeading *lastHeading;
+@property (nonatomic, strong, readwrite, nullable) CLHeading *lastHeading;
 
 @end
 

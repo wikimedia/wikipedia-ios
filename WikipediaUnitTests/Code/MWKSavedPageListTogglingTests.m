@@ -13,8 +13,8 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 @interface MWKSavedPageListTogglingTests : XCTestCase
-@property(nonatomic, strong) MWKSavedPageList *list;
-@property(nonatomic, strong) MWKDataStore *dataStore;
+@property (nonatomic, strong) MWKSavedPageList *list;
+@property (nonatomic, strong) MWKDataStore *dataStore;
 
 @end
 

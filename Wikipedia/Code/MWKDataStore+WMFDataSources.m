@@ -6,10 +6,10 @@
 
 @interface MWKDataStore (WMFDataSourcesPrivate)
 
-@property(readonly, strong, nonatomic) YapDatabase *database;
-@property(readonly, strong, nonatomic) YapDatabaseConnection *articleReferenceReadConnection;
-@property(readonly, strong, nonatomic) YapDatabaseConnection *writeConnection;
-@property(readonly, nonatomic, strong) NSPointerArray *changeHandlers;
+@property (readonly, strong, nonatomic) YapDatabase *database;
+@property (readonly, strong, nonatomic) YapDatabaseConnection *articleReferenceReadConnection;
+@property (readonly, strong, nonatomic) YapDatabaseConnection *writeConnection;
+@property (readonly, nonatomic, strong) NSPointerArray *changeHandlers;
 
 @end
 

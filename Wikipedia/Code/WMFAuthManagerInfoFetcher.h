@@ -12,7 +12,7 @@ typedef void (^WMFAuthManagerInfoBlock)(WMFAuthManagerInfo *info);
 - (void)fetchAuthManagerCreationAvailableForSiteURL:(NSURL *)siteURL success:(WMFAuthManagerInfoBlock)success failure:(WMFErrorHandler)failure;
 - (void)fetchAuthManagerLoginAvailableForSiteURL:(NSURL *)siteURL success:(WMFAuthManagerInfoBlock)success failure:(WMFErrorHandler)failure;
 
-@property(nonatomic, assign, readonly) BOOL isFetching;
+@property (nonatomic, assign, readonly) BOOL isFetching;
 
 @end
 

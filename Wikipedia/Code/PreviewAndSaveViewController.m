@@ -56,38 +56,38 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 @interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate, PreviewLicenseViewDelegate>
 
-@property(strong, nonatomic) KeychainCredentials *keychainCredentials;
+@property (strong, nonatomic) KeychainCredentials *keychainCredentials;
 
-@property(strong, nonatomic) NSString *captchaId;
-@property(strong, nonatomic) NSString *captchaUrl;
+@property (strong, nonatomic) NSString *captchaId;
+@property (strong, nonatomic) NSString *captchaUrl;
 
-@property(strong, nonatomic) CaptchaViewController *captchaViewController;
-@property(strong, nonatomic) IBOutlet UIView *captchaContainer;
-@property(strong, nonatomic) IBOutlet UIScrollView *captchaScrollView;
-@property(strong, nonatomic) IBOutlet UIView *captchaScrollContainer;
-@property(strong, nonatomic) IBOutlet UIView *editSummaryContainer;
-@property(strong, nonatomic) IBOutlet PreviewWebViewContainer *previewWebViewContainer;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *previewWebViewHeightConstraint;
-@property(strong, nonatomic) UILabel *aboutLabel;
-@property(strong, nonatomic) MenuButton *cannedSummary01;
-@property(strong, nonatomic) MenuButton *cannedSummary02;
-@property(strong, nonatomic) MenuButton *cannedSummary03;
-@property(strong, nonatomic) MenuButton *cannedSummary04;
-@property(nonatomic) CGFloat borderWidth;
-@property(strong, nonatomic) IBOutlet PreviewLicenseView *previewLicenseView;
-@property(strong, nonatomic) UIGestureRecognizer *previewLicenseTapGestureRecognizer;
-@property(strong, nonatomic) IBOutlet PaddedLabel *previewLabel;
-@property(strong, nonatomic) IBOutlet UIScrollView *scrollView;
-@property(strong, nonatomic) IBOutlet UIView *scrollContainer;
-@property(strong, nonatomic) UIBarButtonItem *buttonSave;
-@property(strong, nonatomic) UIBarButtonItem *buttonNext;
-@property(strong, nonatomic) UIBarButtonItem *buttonX;
-@property(strong, nonatomic) UIBarButtonItem *buttonLeftCaret;
-@property(strong, nonatomic) NSString *abuseFilterCode;
+@property (strong, nonatomic) CaptchaViewController *captchaViewController;
+@property (strong, nonatomic) IBOutlet UIView *captchaContainer;
+@property (strong, nonatomic) IBOutlet UIScrollView *captchaScrollView;
+@property (strong, nonatomic) IBOutlet UIView *captchaScrollContainer;
+@property (strong, nonatomic) IBOutlet UIView *editSummaryContainer;
+@property (strong, nonatomic) IBOutlet PreviewWebViewContainer *previewWebViewContainer;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewWebViewHeightConstraint;
+@property (strong, nonatomic) UILabel *aboutLabel;
+@property (strong, nonatomic) MenuButton *cannedSummary01;
+@property (strong, nonatomic) MenuButton *cannedSummary02;
+@property (strong, nonatomic) MenuButton *cannedSummary03;
+@property (strong, nonatomic) MenuButton *cannedSummary04;
+@property (nonatomic) CGFloat borderWidth;
+@property (strong, nonatomic) IBOutlet PreviewLicenseView *previewLicenseView;
+@property (strong, nonatomic) UIGestureRecognizer *previewLicenseTapGestureRecognizer;
+@property (strong, nonatomic) IBOutlet PaddedLabel *previewLabel;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIView *scrollContainer;
+@property (strong, nonatomic) UIBarButtonItem *buttonSave;
+@property (strong, nonatomic) UIBarButtonItem *buttonNext;
+@property (strong, nonatomic) UIBarButtonItem *buttonX;
+@property (strong, nonatomic) UIBarButtonItem *buttonLeftCaret;
+@property (strong, nonatomic) NSString *abuseFilterCode;
 
 //@property (nonatomic) BOOL saveAutomaticallyIfSignedIn;
 
-@property(nonatomic) WMFPreviewAndSaveMode mode;
+@property (nonatomic) WMFPreviewAndSaveMode mode;
 
 @end
 

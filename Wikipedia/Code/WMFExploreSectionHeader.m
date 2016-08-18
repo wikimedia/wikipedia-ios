@@ -3,13 +3,13 @@
 
 @interface WMFExploreSectionHeader ()
 
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *rightButtonWidthConstraint;
-@property(assign, nonatomic) CGFloat rightButtonWidthConstraintConstant;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *rightButtonWidthConstraint;
+@property (assign, nonatomic) CGFloat rightButtonWidthConstraintConstant;
 
-@property(strong, nonatomic) IBOutlet UIImageView *icon;
-@property(strong, nonatomic) IBOutlet UIView *iconContainerView;
-@property(strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property(strong, nonatomic) IBOutlet UILabel *subTitleLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *icon;
+@property (strong, nonatomic) IBOutlet UIView *iconContainerView;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *subTitleLabel;
 
 @end
 

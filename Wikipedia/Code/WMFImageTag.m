@@ -4,17 +4,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFImageTag ()
 
-@property(nonatomic, copy, readwrite, nullable) NSString *srcset;
-@property(nonatomic, copy, readwrite, nullable) NSString *alt;
-@property(nonatomic, strong, readwrite, nullable) NSNumber *width;
-@property(nonatomic, strong, readwrite, nullable) NSNumber *height;
-@property(nonatomic, strong, readwrite, nullable) NSNumber *dataFileWidth;
-@property(nonatomic, strong, readwrite, nullable) NSNumber *dataFileHeight;
+@property (nonatomic, copy, readwrite, nullable) NSString *srcset;
+@property (nonatomic, copy, readwrite, nullable) NSString *alt;
+@property (nonatomic, strong, readwrite, nullable) NSNumber *width;
+@property (nonatomic, strong, readwrite, nullable) NSNumber *height;
+@property (nonatomic, strong, readwrite, nullable) NSNumber *dataFileWidth;
+@property (nonatomic, strong, readwrite, nullable) NSNumber *dataFileHeight;
 
-@property(nonatomic, strong) NSMutableDictionary *additionalAttributes;
+@property (nonatomic, strong) NSMutableDictionary *additionalAttributes;
 
-@property(nonatomic) NSRange originalImageTagContentsSrcAttributeRange;
-@property(nonatomic, copy) NSString *originalImageTagContents;
+@property (nonatomic) NSRange originalImageTagContentsSrcAttributeRange;
+@property (nonatomic, copy) NSString *originalImageTagContents;
 
 @end
 

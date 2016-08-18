@@ -11,8 +11,8 @@
 
 @interface WMFReadMoreViewController () <WMFAnalyticsContentTypeProviding>
 
-@property(nonatomic, strong, readwrite) NSURL *articleURL;
-@property(nonatomic, strong) WMFRelatedTitleListDataSource *dataSource;
+@property (nonatomic, strong, readwrite) NSURL *articleURL;
+@property (nonatomic, strong) WMFRelatedTitleListDataSource *dataSource;
 
 @end
 

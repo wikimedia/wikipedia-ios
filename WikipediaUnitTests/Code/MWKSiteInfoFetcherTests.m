@@ -17,7 +17,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 @interface MWKSiteInfoFetcherTests : WMFAsyncTestCase
-@property(strong, nonatomic) MWKSiteInfoFetcher *fetcher;
+@property (strong, nonatomic) MWKSiteInfoFetcher *fetcher;
 @end
 
 @implementation MWKSiteInfoFetcherTests

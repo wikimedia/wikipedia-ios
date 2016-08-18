@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFMostReadTitleFetcher ()
-@property(nonatomic, strong) AFHTTPSessionManager *operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager *operationManager;
 @end
 
 @implementation WMFMostReadTitleFetcher

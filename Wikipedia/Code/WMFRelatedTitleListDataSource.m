@@ -18,12 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRelatedTitleListDataSource ()
 
-@property(nonatomic, copy, readwrite) NSURL *url;
-@property(nonatomic, strong) MWKDataStore *dataStore;
-@property(nonatomic, strong) WMFRelatedSearchFetcher *relatedSearchFetcher;
-@property(nonatomic, strong, readwrite, nullable) WMFRelatedSearchResults *relatedSearchResults;
+@property (nonatomic, copy, readwrite) NSURL *url;
+@property (nonatomic, strong) MWKDataStore *dataStore;
+@property (nonatomic, strong) WMFRelatedSearchFetcher *relatedSearchFetcher;
+@property (nonatomic, strong, readwrite, nullable) WMFRelatedSearchResults *relatedSearchResults;
 
-@property(nonatomic, assign) NSUInteger resultLimit;
+@property (nonatomic, assign) NSUInteger resultLimit;
 
 @end
 

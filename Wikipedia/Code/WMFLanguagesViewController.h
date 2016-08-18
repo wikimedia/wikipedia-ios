@@ -17,7 +17,7 @@
 
 @interface WMFLanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, WMFAnalyticsContentTypeProviding>
 
-@property(nonatomic, weak) id<WMFLanguagesViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<WMFLanguagesViewControllerDelegate> delegate;
 
 + (instancetype)languagesViewController;
 
@@ -38,7 +38,7 @@
 
 + (instancetype)preferredLanguagesViewController;
 
-@property(nonatomic, weak) id<WMFPreferredLanguagesViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<WMFPreferredLanguagesViewControllerDelegate> delegate;
 
 @end
 
@@ -48,6 +48,6 @@
 
 + (instancetype)articleLanguagesViewControllerWithArticleURL:(NSURL *)url;
 
-@property(nonatomic, strong, readonly) NSURL *articleURL;
+@property (nonatomic, strong, readonly) NSURL *articleURL;
 
 @end

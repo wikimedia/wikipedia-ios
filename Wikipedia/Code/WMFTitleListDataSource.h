@@ -6,7 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFTitleListDataSource
 
-@property(nonatomic, strong, readonly) NSArray<NSURL *> *urls;
+@property (nonatomic, strong, readonly) NSArray<NSURL *> *urls;
 
 - (NSUInteger)titleCount;
 

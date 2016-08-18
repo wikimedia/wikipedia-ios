@@ -7,7 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleListDataSourceTableViewController : WMFArticleListTableViewController
 
-@property(nonatomic, strong, nullable) SSBaseDataSource<WMFTitleListDataSource> *dataSource;
+@property (nonatomic, strong, nullable) SSBaseDataSource<WMFTitleListDataSource> *dataSource;
 
 @end
 

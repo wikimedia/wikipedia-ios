@@ -8,6 +8,6 @@
                        color:(UIColor *)color
                      padding:(UIEdgeInsets)padding;
 
-@property(strong, nonatomic) UIColor *color;
+@property (strong, nonatomic) UIColor *color;
 
 @end

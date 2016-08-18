@@ -12,11 +12,11 @@ static double const WMFImageGalleryLicenseBaselineOffset = -1.5;
 static double const WMFImageGalleryOwnerFontSize = 11.f;
 
 @interface WMFImageGalleryDetailOverlayView ()
-@property(nonatomic, strong) IBOutlet UILabel *imageDescriptionLabel;
-@property(nonatomic, strong) IBOutlet UIButton *ownerButton;
-@property(nonatomic, strong) IBOutlet UIButton *infoButton;
+@property (nonatomic, strong) IBOutlet UILabel *imageDescriptionLabel;
+@property (nonatomic, strong) IBOutlet UIButton *ownerButton;
+@property (nonatomic, strong) IBOutlet UIButton *infoButton;
 
-@property(nonatomic, strong) WMFGradientView *gradientView;
+@property (nonatomic, strong) WMFGradientView *gradientView;
 
 - (IBAction)didTapOwnerButton;
 - (IBAction)didTapInfoButton;

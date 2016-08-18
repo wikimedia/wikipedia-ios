@@ -23,9 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticlePreviewRequestParameters : NSObject
 
-@property(nonatomic, strong) NSArray<NSURL *> *articleURLs;
-@property(nonatomic, assign) NSUInteger extractLength;
-@property(nonatomic, assign) NSUInteger thumbnailWidth;
+@property (nonatomic, strong) NSArray<NSURL *> *articleURLs;
+@property (nonatomic, assign) NSUInteger extractLength;
+@property (nonatomic, assign) NSUInteger thumbnailWidth;
 
 @end
 
@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticlePreviewFetcher ()
 
-@property(nonatomic, strong) AFHTTPSessionManager *operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager *operationManager;
 
 @end
 

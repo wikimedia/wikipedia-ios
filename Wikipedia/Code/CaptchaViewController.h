@@ -11,7 +11,7 @@
 
 @interface CaptchaViewController : UIViewController
 
-@property(weak, nonatomic) IBOutlet UIImageView *captchaImageView;
-@property(weak, nonatomic) IBOutlet UITextField *captchaTextBox;
+@property (weak, nonatomic) IBOutlet UIImageView *captchaImageView;
+@property (weak, nonatomic) IBOutlet UITextField *captchaTextBox;
 
 @end

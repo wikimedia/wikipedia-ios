@@ -8,7 +8,7 @@
 
 @interface WikiTextSectionFetcher ()
 
-@property(strong, nonatomic) MWKSection *section;
+@property (strong, nonatomic) MWKSection *section;
 
 @end
 

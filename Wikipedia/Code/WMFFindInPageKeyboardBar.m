@@ -3,14 +3,14 @@
 
 @interface WMFFindInPageKeyboardBar () <UITextFieldDelegate>
 
-@property(strong, nonatomic) IBOutlet UIButton *closeButton;
-@property(strong, nonatomic) IBOutlet UIButton *clearButton;
-@property(strong, nonatomic) IBOutlet UIButton *previousButton;
-@property(strong, nonatomic) IBOutlet UIButton *nextButton;
-@property(strong, nonatomic) IBOutlet UIImageView *magnifyImageView;
-@property(strong, nonatomic) IBOutlet UILabel *currentMatchLabel;
+@property (strong, nonatomic) IBOutlet UIButton *closeButton;
+@property (strong, nonatomic) IBOutlet UIButton *clearButton;
+@property (strong, nonatomic) IBOutlet UIButton *previousButton;
+@property (strong, nonatomic) IBOutlet UIButton *nextButton;
+@property (strong, nonatomic) IBOutlet UIImageView *magnifyImageView;
+@property (strong, nonatomic) IBOutlet UILabel *currentMatchLabel;
 
-@property(strong, nonatomic) IBOutlet UITextField *textField;
+@property (strong, nonatomic) IBOutlet UITextField *textField;
 
 @end
 

@@ -21,16 +21,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFMostReadSectionController ()
 
-@property(nonatomic, copy, readwrite) NSURL *siteURL;
-@property(nonatomic, strong, readwrite) NSDate *date;
-@property(nonatomic, strong, readonly) NSString *localDateDisplayString;
-@property(nonatomic, strong, readonly) NSString *localDateShortDisplayString;
+@property (nonatomic, copy, readwrite) NSURL *siteURL;
+@property (nonatomic, strong, readwrite) NSDate *date;
+@property (nonatomic, strong, readonly) NSString *localDateDisplayString;
+@property (nonatomic, strong, readonly) NSString *localDateShortDisplayString;
 
-@property(nonatomic, strong, nullable, readwrite) WMFMostReadTitlesResponseItem *mostReadArticlesResponse;
-@property(nonatomic, strong, nullable, readwrite) NSArray<MWKSearchResult *> *previews;
+@property (nonatomic, strong, nullable, readwrite) WMFMostReadTitlesResponseItem *mostReadArticlesResponse;
+@property (nonatomic, strong, nullable, readwrite) NSArray<MWKSearchResult *> *previews;
 
-@property(nonatomic, strong) WMFArticlePreviewFetcher *previewFetcher;
-@property(nonatomic, strong) WMFMostReadTitleFetcher *mostReadTitlesFetcher;
+@property (nonatomic, strong) WMFArticlePreviewFetcher *previewFetcher;
+@property (nonatomic, strong) WMFMostReadTitleFetcher *mostReadTitlesFetcher;
 
 @end
 

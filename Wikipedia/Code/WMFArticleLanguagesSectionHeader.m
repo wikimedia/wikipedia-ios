@@ -4,7 +4,7 @@ static CGFloat const WMFLanguageHeaderFontSize = 12.f;
 
 @interface WMFArticleLanguagesSectionHeader ()
 
-@property(strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
 

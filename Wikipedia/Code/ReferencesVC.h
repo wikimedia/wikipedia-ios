@@ -17,13 +17,13 @@
 
 @interface ReferencesVC : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
-@property(strong, nonatomic) UIPageViewController *pageController;
+@property (strong, nonatomic) UIPageViewController *pageController;
 
-@property(strong, nonatomic) NSDictionary *payload;
+@property (strong, nonatomic) NSDictionary *payload;
 
-@property(weak, nonatomic) id<ReferencesVCDelegate> delegate;
+@property (weak, nonatomic) id<ReferencesVCDelegate> delegate;
 
-@property(assign) CGFloat panelHeight;
+@property (assign) CGFloat panelHeight;
 
 - (void)reset;
 

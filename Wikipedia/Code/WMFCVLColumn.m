@@ -4,7 +4,7 @@
 #import "WMFCVLInfo.h"
 
 @interface WMFCVLColumn ()
-@property(nonatomic, strong, nonnull) NSMutableIndexSet *sectionIndexes;
+@property (nonatomic, strong, nonnull) NSMutableIndexSet *sectionIndexes;
 @end
 
 @implementation WMFCVLColumn

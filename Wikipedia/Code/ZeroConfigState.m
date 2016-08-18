@@ -16,8 +16,8 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 
 @interface ZeroConfigState ()
 
-@property(nonatomic, strong, readonly) WMFZeroMessageFetcher *zeroMessageFetcher;
-@property(nonatomic, strong, nullable, readwrite) WMFZeroMessage *zeroMessage;
+@property (nonatomic, strong, readonly) WMFZeroMessageFetcher *zeroMessageFetcher;
+@property (nonatomic, strong, nullable, readwrite) WMFZeroMessage *zeroMessage;
 
 @end
 

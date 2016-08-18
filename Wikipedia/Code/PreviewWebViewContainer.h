@@ -18,11 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PreviewWebViewContainer : UIView <WKNavigationDelegate>
 
-@property(weak, nonatomic) id<WMFOpenExternalLinkDelegate> externalLinksOpenerDelegate;
-@property(strong, nonatomic) WKWebView *webView;
+@property (weak, nonatomic) id<WMFOpenExternalLinkDelegate> externalLinksOpenerDelegate;
+@property (strong, nonatomic) WKWebView *webView;
 
-@property(weak, nonatomic) IBOutlet id<WMFPreviewSectionLanguageInfoDelegate> previewSectionLanguageInfoDelegate;
-@property(weak, nonatomic) IBOutlet id<WMFPreviewAnchorTapAlertDelegate> previewAnchorTapAlertDelegate;
+@property (weak, nonatomic) IBOutlet id<WMFPreviewSectionLanguageInfoDelegate> previewSectionLanguageInfoDelegate;
+@property (weak, nonatomic) IBOutlet id<WMFPreviewAnchorTapAlertDelegate> previewAnchorTapAlertDelegate;
 
 @end
 

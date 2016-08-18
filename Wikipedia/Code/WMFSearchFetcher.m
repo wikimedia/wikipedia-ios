@@ -19,9 +19,9 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 #pragma mark - Internal Class Declarations
 
 @interface WMFSearchRequestParameters : NSObject
-@property(nonatomic, strong) NSString *searchTerm;
-@property(nonatomic, assign) NSUInteger numberOfResults;
-@property(nonatomic, assign) BOOL fullTextSearch;
+@property (nonatomic, strong) NSString *searchTerm;
+@property (nonatomic, assign) NSUInteger numberOfResults;
+@property (nonatomic, assign) BOOL fullTextSearch;
 
 @end
 

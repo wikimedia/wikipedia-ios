@@ -49,22 +49,22 @@ NSString *const WMFCCBySALicenseURL =
 
 @interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate>
 
-@property(nonatomic, strong) MASConstraint *headerHeight;
-@property(nonatomic, strong) UIView *footerContainerView;
-@property(nonatomic, strong) NSMutableDictionary *footerViewHeadersByIndex;
-@property(nonatomic, strong) WMFArticleFooterView *footerLicenseView;
-@property(nonatomic, strong) IBOutlet UIView *containerView;
+@property (nonatomic, strong) MASConstraint *headerHeight;
+@property (nonatomic, strong) UIView *footerContainerView;
+@property (nonatomic, strong) NSMutableDictionary *footerViewHeadersByIndex;
+@property (nonatomic, strong) WMFArticleFooterView *footerLicenseView;
+@property (nonatomic, strong) IBOutlet UIView *containerView;
 
-@property(strong, nonatomic) MASConstraint *footerContainerViewTopConstraint;
-@property(strong, nonatomic) MASConstraint *footerContainerViewLeftMarginConstraint;
-@property(strong, nonatomic) MASConstraint *footerContainerViewRightMarginConstraint;
+@property (strong, nonatomic) MASConstraint *footerContainerViewTopConstraint;
+@property (strong, nonatomic) MASConstraint *footerContainerViewLeftMarginConstraint;
+@property (strong, nonatomic) MASConstraint *footerContainerViewRightMarginConstraint;
 
-@property(nonatomic) CGFloat marginWidth;
+@property (nonatomic) CGFloat marginWidth;
 
-@property(nonatomic, strong) NSArray *findInPageMatches;
-@property(nonatomic) NSInteger findInPageSelectedMatchIndex;
-@property(nonatomic) BOOL disableMinimizeFindInPage;
-@property(nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
+@property (nonatomic, strong) NSArray *findInPageMatches;
+@property (nonatomic) NSInteger findInPageSelectedMatchIndex;
+@property (nonatomic) BOOL disableMinimizeFindInPage;
+@property (nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
 
 @end
 
@@ -707,12 +707,13 @@ NSString *const WMFCCBySALicenseURL =
     return footerViewHeader ?: footerView;
 }
 
-- (void)scrollToFooterAtIndex:(NSInteger)index {
+
+- (void)scrollToFooterAtIndex:(NSInteger)index animated:(BOOL)animated {
     UIView *viewToScrollTo = [self footerAtIndex:index];
     CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:viewToScrollTo.frame.origin
                                                             fromView:self.footerContainerView];
     footerViewOrigin.y -= self.webView.scrollView.contentInset.top;
-    [self.webView.scrollView setContentOffset:footerViewOrigin animated:YES];
+    [self.webView.scrollView setContentOffset:footerViewOrigin animated:animated];
 }
 
 - (void)accessibilityCursorToFooterAtIndex:(NSInteger)index {

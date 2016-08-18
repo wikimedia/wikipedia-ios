@@ -6,7 +6,7 @@
 
 @interface WMFArticlePreviewTableViewCell : WMFArticleListTableViewCell
 
-@property(nonatomic, strong) NSString *snippetText;
+@property (nonatomic, strong) NSString *snippetText;
 
 + (CGFloat)estimatedRowHeight;
 
@@ -33,6 +33,6 @@
 /**
  *  Exposed so the analytics source can be set.
  */
-@property(strong, nonatomic, readonly) WMFSaveButtonController *saveButtonController;
+@property (strong, nonatomic, readonly) WMFSaveButtonController *saveButtonController;
 
 @end

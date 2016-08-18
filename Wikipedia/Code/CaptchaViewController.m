@@ -5,7 +5,7 @@
 
 @interface CaptchaViewController ()
 
-@property(weak, nonatomic) IBOutlet UIButton *reloadCaptchaButton;
+@property (weak, nonatomic) IBOutlet UIButton *reloadCaptchaButton;
 
 @end
 

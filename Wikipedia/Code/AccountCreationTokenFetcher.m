@@ -6,11 +6,11 @@
 
 @interface AccountCreationTokenFetcher ()
 
-@property(strong, nonatomic) NSString *domain;
-@property(strong, nonatomic) NSString *userName;
-@property(strong, nonatomic) NSString *password;
-@property(strong, nonatomic) NSString *email;
-@property(strong, nonatomic) NSString *token;
+@property (strong, nonatomic) NSString *domain;
+@property (strong, nonatomic) NSString *userName;
+@property (strong, nonatomic) NSString *password;
+@property (strong, nonatomic) NSString *email;
+@property (strong, nonatomic) NSString *token;
 
 @end
 

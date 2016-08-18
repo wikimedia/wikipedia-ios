@@ -34,8 +34,8 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @interface WMFArticleBaseFetcher ()
 
-@property(nonatomic, strong) NSMapTable *operationsKeyedByTitle;
-@property(nonatomic, strong) dispatch_queue_t operationsQueue;
+@property (nonatomic, strong) NSMapTable *operationsKeyedByTitle;
+@property (nonatomic, strong) dispatch_queue_t operationsQueue;
 
 @end
 
@@ -152,8 +152,8 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @interface WMFArticleFetcher ()
 
-@property(nonatomic, strong, readwrite) MWKDataStore *dataStore;
-@property(nonatomic, strong) WMFArticleRevisionFetcher *revisionFetcher;
+@property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
+@property (nonatomic, strong) WMFArticleRevisionFetcher *revisionFetcher;
 
 @end
 

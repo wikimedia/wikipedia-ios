@@ -3,6 +3,6 @@
 @class MWKArticle;
 @interface PageHistoryViewController : UIViewController
 
-@property(nonatomic, strong) MWKArticle *article;
+@property (nonatomic, strong) MWKArticle *article;
 
 @end

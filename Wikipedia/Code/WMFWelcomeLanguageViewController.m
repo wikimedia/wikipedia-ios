@@ -10,13 +10,13 @@
 
 @interface WMFWelcomeLanguageViewController () <WMFLanguagesViewControllerDelegate>
 
-@property(strong, nonatomic) IBOutlet UITableView *languageTableView;
-@property(strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property(strong, nonatomic) IBOutlet UILabel *subTitleLabel;
-@property(strong, nonatomic) IBOutlet UIButton *moreLanguagesButton;
-@property(strong, nonatomic) IBOutlet UIButton *nextStepButton;
-@property(strong, nonatomic) IBOutlet UIView *dividerAboveNextStepButton;
-@property(strong, nonatomic) IBOutlet WelcomeLanguagesAnimationView *animationView;
+@property (strong, nonatomic) IBOutlet UITableView *languageTableView;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *subTitleLabel;
+@property (strong, nonatomic) IBOutlet UIButton *moreLanguagesButton;
+@property (strong, nonatomic) IBOutlet UIButton *nextStepButton;
+@property (strong, nonatomic) IBOutlet UIView *dividerAboveNextStepButton;
+@property (strong, nonatomic) IBOutlet WelcomeLanguagesAnimationView *animationView;
 
 @end
 

@@ -20,7 +20,7 @@
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore items:(NSArray *)items NS_UNAVAILABLE;
 
-@property(nonatomic, strong, readonly) NSURL *url;
-@property(nonatomic, strong, readonly) WMFRelatedSearchFetcher *relatedSearchFetcher;
+@property (nonatomic, strong, readonly) NSURL *url;
+@property (nonatomic, strong, readonly) WMFRelatedSearchFetcher *relatedSearchFetcher;
 
 @end

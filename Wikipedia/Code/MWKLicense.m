@@ -7,9 +7,9 @@ static NSString *const MWKLicenseURLKey = @"URL";
 
 @interface MWKLicense ()
 
-@property(nonatomic, readwrite, copy) NSString *code;
-@property(nonatomic, readwrite, copy) NSString *shortDescription;
-@property(nonatomic, readwrite, copy) NSURL *URL;
+@property (nonatomic, readwrite, copy) NSString *code;
+@property (nonatomic, readwrite, copy) NSString *shortDescription;
+@property (nonatomic, readwrite, copy) NSURL *URL;
 
 @end
 

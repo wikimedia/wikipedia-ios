@@ -6,7 +6,7 @@
 
 @interface ThumbnailFetcher ()
 
-@property(nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *url;
 
 @end
 

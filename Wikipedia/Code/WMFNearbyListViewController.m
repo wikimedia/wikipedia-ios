@@ -4,7 +4,7 @@
 
 @interface WMFNearbyListViewController () <WMFLocationManagerDelegate>
 
-@property(nonatomic, strong) WMFLocationManager *locationManager;
+@property (nonatomic, strong) WMFLocationManager *locationManager;
 
 @end
 

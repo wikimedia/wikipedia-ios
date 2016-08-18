@@ -36,14 +36,14 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
 
 @interface WMFRelatedSectionController ()
 
-@property(nonatomic, strong, readwrite) NSURL *url;
-@property(nonatomic, strong, readwrite) WMFRelatedSectionBlackList *blackList;
+@property (nonatomic, strong, readwrite) NSURL *url;
+@property (nonatomic, strong, readwrite) WMFRelatedSectionBlackList *blackList;
 
-@property(nonatomic, strong, readwrite) WMFRelatedSearchFetcher *relatedSearchFetcher;
+@property (nonatomic, strong, readwrite) WMFRelatedSearchFetcher *relatedSearchFetcher;
 
-@property(nonatomic, strong) WMFRelatedTitleListDataSource *relatedTitleDataSource;
+@property (nonatomic, strong) WMFRelatedTitleListDataSource *relatedTitleDataSource;
 
-@property(nonatomic, strong, nullable) WMFRelatedSearchResults *searchResults;
+@property (nonatomic, strong, nullable) WMFRelatedSearchResults *searchResults;
 
 @end
 

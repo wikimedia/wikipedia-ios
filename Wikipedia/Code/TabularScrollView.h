@@ -9,8 +9,8 @@ typedef NS_ENUM(NSInteger, TabularScrollViewOrientation) {
 
 - (void)setTabularSubviews:(NSArray *)tabularSubviews;
 
-@property(nonatomic) TabularScrollViewOrientation orientation;
+@property (nonatomic) TabularScrollViewOrientation orientation;
 
-@property(nonatomic) CGFloat minSubviewHeight;
+@property (nonatomic) CGFloat minSubviewHeight;
 
 @end

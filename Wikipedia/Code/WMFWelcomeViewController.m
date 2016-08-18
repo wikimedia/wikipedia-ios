@@ -4,7 +4,7 @@
 
 @interface WMFWelcomeViewController () <UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
-@property(nonatomic, strong) UINavigationController *welcomeNavigationController;
+@property (nonatomic, strong) UINavigationController *welcomeNavigationController;
 
 @end
 

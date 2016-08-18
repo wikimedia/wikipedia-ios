@@ -2,13 +2,13 @@
 
 @interface WMFArticleFooterMenuItem ()
 
-@property(nonatomic, copy, readwrite) NSString *title;
+@property (nonatomic, copy, readwrite) NSString *title;
 
-@property(nonatomic, copy, readwrite) NSString *subTitle;
+@property (nonatomic, copy, readwrite) NSString *subTitle;
 
-@property(nonatomic, copy, readwrite) NSString *imageName;
+@property (nonatomic, copy, readwrite) NSString *imageName;
 
-@property(nonatomic, assign, readwrite) WMFArticleFooterMenuItemType type;
+@property (nonatomic, assign, readwrite) WMFArticleFooterMenuItemType type;
 
 @end
 

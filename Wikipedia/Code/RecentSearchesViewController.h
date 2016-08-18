@@ -5,11 +5,11 @@
 
 @interface RecentSearchesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property(nonatomic, strong) MWKRecentSearchList *recentSearches;
+@property (nonatomic, strong) MWKRecentSearchList *recentSearches;
 
 - (void)reloadRecentSearches;
 
-@property(nonatomic, weak) id<WMFRecentSearchesViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<WMFRecentSearchesViewControllerDelegate> delegate;
 
 @end
 

@@ -30,9 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SavedArticlesFetcher : FetcherBase
 
-@property(nonatomic, strong, readonly) MWKSavedPageList *savedPageList;
+@property (nonatomic, strong, readonly) MWKSavedPageList *savedPageList;
 
-@property(nonatomic, weak, nullable) id<SavedArticlesFetcherDelegate> fetchFinishedDelegate;
+@property (nonatomic, weak, nullable) id<SavedArticlesFetcherDelegate> fetchFinishedDelegate;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore savedPageList:(MWKSavedPageList *)savedPageList;
 

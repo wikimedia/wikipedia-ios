@@ -20,14 +20,14 @@ NSString *const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 @interface WMFRandomSectionController ()
 
-@property(nonatomic, strong, readwrite) NSURL *searchSiteURL;
-@property(nonatomic, strong) WMFRandomArticleFetcher *fetcher;
+@property (nonatomic, strong, readwrite) NSURL *searchSiteURL;
+@property (nonatomic, strong) WMFRandomArticleFetcher *fetcher;
 
-@property(nonatomic, strong, nullable) MWKSearchResult *result;
+@property (nonatomic, strong, nullable) MWKSearchResult *result;
 
-@property(nonatomic, weak, nullable) WMFArticlePreviewCollectionViewCell *cell;
+@property (nonatomic, weak, nullable) WMFArticlePreviewCollectionViewCell *cell;
 
-@property(nonatomic, readonly, getter=isNewInterfaceEnabled) BOOL newInterfaceEnabled;
+@property (nonatomic, readonly, getter=isNewInterfaceEnabled) BOOL newInterfaceEnabled;
 
 @end
 

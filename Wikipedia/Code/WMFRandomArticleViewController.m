@@ -10,13 +10,13 @@
 static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 @interface WMFRandomArticleViewController ()
-@property(nonatomic, strong) WMFRandomDiceButton *diceButton;
-@property(nonatomic, strong) UIButton *anotherRandomArticleButton;
-@property(nonatomic, strong) UIBarButtonItem *diceButtonItem;
-@property(nonatomic, strong) UIView *emptyFadeView;
-@property(nonatomic, strong) WMFRandomArticleFetcher *randomArticleFetcher;
-@property(nonatomic, getter=viewHasAppeared) BOOL viewAppeared;
-@property(nonatomic) CGFloat previousContentOffsetY;
+@property (nonatomic, strong) WMFRandomDiceButton *diceButton;
+@property (nonatomic, strong) UIButton *anotherRandomArticleButton;
+@property (nonatomic, strong) UIBarButtonItem *diceButtonItem;
+@property (nonatomic, strong) UIView *emptyFadeView;
+@property (nonatomic, strong) WMFRandomArticleFetcher *randomArticleFetcher;
+@property (nonatomic, getter=viewHasAppeared) BOOL viewAppeared;
+@property (nonatomic) CGFloat previousContentOffsetY;
 @end
 
 @implementation WMFRandomArticleViewController

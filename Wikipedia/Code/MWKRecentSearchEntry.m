@@ -2,7 +2,7 @@
 
 @interface MWKRecentSearchEntry ()
 
-@property(readwrite, copy, nonatomic) NSString *searchTerm;
+@property (readwrite, copy, nonatomic) NSString *searchTerm;
 
 @end
 

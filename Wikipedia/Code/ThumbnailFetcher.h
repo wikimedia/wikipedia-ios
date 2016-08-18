@@ -11,7 +11,7 @@ typedef NS_ENUM(NSInteger, ThumbnailFetchErrorType) {
 
 @interface ThumbnailFetcher : FetcherBase
 
-@property(nonatomic, strong, readonly) NSString *url;
+@property (nonatomic, strong, readonly) NSString *url;
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
 - (instancetype)initAndFetchThumbnailFromURL:(NSString *)url

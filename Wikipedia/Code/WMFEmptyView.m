@@ -4,14 +4,14 @@
 
 @interface WMFEmptyView ()
 
-@property(nonatomic, strong) IBOutlet UIStackView *stackView;
-@property(nonatomic, strong) IBOutlet UIStackView *labelStackView;
-@property(nonatomic, strong) IBOutlet UIImageView *imageView;
-@property(nonatomic, strong) IBOutlet UILabel *titleLabel;
-@property(nonatomic, strong) IBOutlet UILabel *messageLabel;
-@property(strong, nonatomic) IBOutlet UILabel *actionLabel;
-@property(strong, nonatomic) IBOutlet UIView *actionLine;
-@property(strong, nonatomic) CAShapeLayer *actionLineLayer;
+@property (nonatomic, strong) IBOutlet UIStackView *stackView;
+@property (nonatomic, strong) IBOutlet UIStackView *labelStackView;
+@property (nonatomic, strong) IBOutlet UIImageView *imageView;
+@property (nonatomic, strong) IBOutlet UILabel *titleLabel;
+@property (nonatomic, strong) IBOutlet UILabel *messageLabel;
+@property (strong, nonatomic) IBOutlet UILabel *actionLabel;
+@property (strong, nonatomic) IBOutlet UIView *actionLine;
+@property (strong, nonatomic) CAShapeLayer *actionLineLayer;
 
 @end
 

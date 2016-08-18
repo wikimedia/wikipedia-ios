@@ -8,7 +8,7 @@
 
 @interface WMFDisambiguationPagesViewController ()
 
-@property(nonatomic, strong, readwrite) MWKArticle *article;
+@property (nonatomic, strong, readwrite) MWKArticle *article;
 
 @end
 

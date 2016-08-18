@@ -3,9 +3,9 @@
 
 @interface WMFCustomDeleteButtonTableViewCell ()
 
-@property(strong, nonatomic) UIButton *deleteButton;
-@property(strong, nonatomic) CALayer *cellWhiteLayer;
-@property(strong, nonatomic) CALayer *deleteButtonWhiteLayer;
+@property (strong, nonatomic) UIButton *deleteButton;
+@property (strong, nonatomic) CALayer *cellWhiteLayer;
+@property (strong, nonatomic) CALayer *deleteButtonWhiteLayer;
 
 @end
 

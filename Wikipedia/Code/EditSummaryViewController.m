@@ -10,13 +10,13 @@
 
 @interface EditSummaryViewController ()
 
-@property(weak, nonatomic) IBOutlet UITextField *summaryTextField;
+@property (weak, nonatomic) IBOutlet UITextField *summaryTextField;
 
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *bottomLineHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomLineHeightConstraint;
 
-@property(weak, nonatomic) IBOutlet UILabel *placeholderLabel;
+@property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
 
-@property(strong, nonatomic) UIBarButtonItem *buttonDone;
+@property (strong, nonatomic) UIBarButtonItem *buttonDone;
 
 @end
 

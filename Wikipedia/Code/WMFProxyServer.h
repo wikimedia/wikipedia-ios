@@ -2,7 +2,7 @@
 
 @interface WMFProxyServer : NSObject
 
-@property(nonatomic, readonly, getter=isRunning) BOOL running;
+@property (nonatomic, readonly, getter=isRunning) BOOL running;
 
 - (void)start;
 

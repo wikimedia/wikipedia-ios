@@ -10,13 +10,13 @@ typedef NS_ENUM(NSInteger, EditTokenErrorType) {
 
 @interface EditTokenFetcher : FetcherBase
 
-@property(strong, nonatomic, readonly) NSString *wikiText;
-@property(strong, nonatomic, readonly) NSURL *articleURL;
-@property(strong, nonatomic, readonly) NSString *section;
-@property(strong, nonatomic, readonly) NSString *summary;
-@property(strong, nonatomic, readonly) NSString *captchaId;
-@property(strong, nonatomic, readonly) NSString *captchaWord;
-@property(strong, nonatomic, readonly) NSString *token;
+@property (strong, nonatomic, readonly) NSString *wikiText;
+@property (strong, nonatomic, readonly) NSURL *articleURL;
+@property (strong, nonatomic, readonly) NSString *section;
+@property (strong, nonatomic, readonly) NSString *summary;
+@property (strong, nonatomic, readonly) NSString *captchaId;
+@property (strong, nonatomic, readonly) NSString *captchaWord;
+@property (strong, nonatomic, readonly) NSString *token;
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
 

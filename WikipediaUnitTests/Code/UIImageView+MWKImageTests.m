@@ -8,13 +8,13 @@
 
 @interface UIImageView_MWKImageTests : WMFAsyncTestCase
 
-@property(nonatomic, strong) UIImageView *imageView;
-@property(nonatomic, strong) MWKArticle *dummyArticle;
-@property(nonatomic, strong) WMFImageController *imageController;
-@property(nonatomic, strong) WMFFaceDetectionCache *faceDetectionCache;
-@property(nonatomic, strong) NSURL *testURL;
-@property(nonatomic, copy) NSData *stubbedData;
-@property(nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) MWKArticle *dummyArticle;
+@property (nonatomic, strong) WMFImageController *imageController;
+@property (nonatomic, strong) WMFFaceDetectionCache *faceDetectionCache;
+@property (nonatomic, strong) NSURL *testURL;
+@property (nonatomic, copy) NSData *stubbedData;
+@property (nonatomic, strong) UIImage *image;
 
 @end
 

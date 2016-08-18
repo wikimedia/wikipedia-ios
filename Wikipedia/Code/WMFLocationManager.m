@@ -11,8 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationManager () <CLLocationManagerDelegate>
 
-@property(nonatomic, strong, readwrite) CLLocationManager *locationManager;
-@property(nonatomic, strong, nullable) id orientationNotificationToken;
+@property (nonatomic, strong, readwrite) CLLocationManager *locationManager;
+@property (nonatomic, strong, nullable) id orientationNotificationToken;
 
 /**
  *  @name Location Manager State
@@ -24,12 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The last-known location reported by the @c locationManager.
  */
-@property(nonatomic, strong, readwrite, nullable) CLLocation *lastLocation;
+@property (nonatomic, strong, readwrite, nullable) CLLocation *lastLocation;
 
 /**
  *  The last-known heading reported by the @c locationManager.
  */
-@property(nonatomic, strong, readwrite, nullable) CLHeading *lastHeading;
+@property (nonatomic, strong, readwrite, nullable) CLHeading *lastHeading;
 
 /**
  *  Whether or not the receiver is listening for updates to location & heading.
@@ -38,14 +38,14 @@ NS_ASSUME_NONNULL_BEGIN
  *  CLLocationmanager doesn't always immediately listen to the request for stopping location updates
  *  We use this to ignore events after a stop has been requested
  */
-@property(nonatomic, assign, readwrite, getter=isUpdating) BOOL updating;
+@property (nonatomic, assign, readwrite, getter=isUpdating) BOOL updating;
 
 /**
  *  Whether or not the receiver made the request for location authorization in order to begin updating location.
  */
-@property(nonatomic, assign, readwrite, getter=isRequestingAuthorizationAndStart) BOOL requestingAuthorizationAndStart;
+@property (nonatomic, assign, readwrite, getter=isRequestingAuthorizationAndStart) BOOL requestingAuthorizationAndStart;
 
-@property(nonatomic, assign, readwrite) CLAuthorizationStatus currentAuthorizationStatus;
+@property (nonatomic, assign, readwrite) CLAuthorizationStatus currentAuthorizationStatus;
 
 - (instancetype)initWithLocationManager:(CLLocationManager *)locationManager NS_DESIGNATED_INITIALIZER;
 

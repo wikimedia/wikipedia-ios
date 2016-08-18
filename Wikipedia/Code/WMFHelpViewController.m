@@ -16,7 +16,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
 
 @interface WMFHelpViewController () <MFMailComposeViewControllerDelegate>
 
-@property(nonatomic, strong) UIBarButtonItem *sendEmailToolbarItem;
+@property (nonatomic, strong) UIBarButtonItem *sendEmailToolbarItem;
 
 @end
 

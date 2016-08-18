@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The items of the section. Must be KVO-able
  */
-@property(nonatomic, strong, readonly) NSArray *items;
+@property (nonatomic, strong, readonly) NSArray *items;
 
 /**
  *  Called to update data if no items or errors

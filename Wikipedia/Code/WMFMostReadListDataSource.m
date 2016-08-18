@@ -6,8 +6,8 @@
 
 @interface WMFMostReadListDataSource ()
 
-@property(nonatomic, strong) NSURL *siteURL;
-@property(nonatomic, strong, readwrite) NSArray<NSURL *> *urls;
+@property (nonatomic, strong) NSURL *siteURL;
+@property (nonatomic, strong, readwrite) NSArray<NSURL *> *urls;
 
 @end
 

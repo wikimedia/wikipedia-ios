@@ -14,7 +14,7 @@
  *  2. Stubbed networking tests can fail if unexpected network operations are triggered by the application.
  */
 @interface WMFDummyAppDelegate : UIResponder <UIApplicationDelegate>
-@property(nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong) UIWindow *window;
 @end
 
 @implementation WMFDummyAppDelegate

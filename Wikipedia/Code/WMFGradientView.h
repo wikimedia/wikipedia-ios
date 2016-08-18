@@ -4,7 +4,7 @@
 IB_DESIGNABLE
 @interface WMFGradientView : UIView
 
-@property(nonatomic, strong, readonly) CAGradientLayer *gradientLayer;
+@property (nonatomic, strong, readonly) CAGradientLayer *gradientLayer;
 
 ///
 /// @name Configuring the Gradient
@@ -15,14 +15,14 @@ IB_DESIGNABLE
  *
  *  This is only exposed for use in Interface Builder.  To set this programmatically, use <code>-setStartColor:endColor:</code>.
  */
-@property(nonatomic, strong) IBInspectable UIColor *startColor;
+@property (nonatomic, strong) IBInspectable UIColor *startColor;
 
 /**
  *  The end color for the underlying @c gradientLayer.
  *
  *  This is only exposed for use in Interface Builder.  To set this programmatically, use <code>-setStartColor:endColor:</code>.
  */
-@property(nonatomic, strong) IBInspectable UIColor *endColor;
+@property (nonatomic, strong) IBInspectable UIColor *endColor;
 
 /**
  *  Set the start and end color for the underlying gradient.
@@ -47,7 +47,7 @@ IB_DESIGNABLE
  *
  *  @see CAGradientLayer.startPoint
  */
-@property(nonatomic, assign) IBInspectable CGPoint startPoint;
+@property (nonatomic, assign) IBInspectable CGPoint startPoint;
 
 /**
  *  Set the point at which the gradient finishes fading to @c endColor.
@@ -57,6 +57,6 @@ IB_DESIGNABLE
  *
  *  @see CAGradientLayer.endPoint
  */
-@property(nonatomic, assign) IBInspectable CGPoint endPoint;
+@property (nonatomic, assign) IBInspectable CGPoint endPoint;
 
 @end

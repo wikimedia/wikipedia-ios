@@ -15,9 +15,9 @@ static NSString *const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
 
 @interface MWKSavedPageEntry ()
 
-@property(readwrite, strong, nonatomic) NSDate *date;
+@property (readwrite, strong, nonatomic) NSDate *date;
 
-@property(nonatomic, readwrite) BOOL didMigrateImageData;
+@property (nonatomic, readwrite) BOOL didMigrateImageData;
 
 @end
 

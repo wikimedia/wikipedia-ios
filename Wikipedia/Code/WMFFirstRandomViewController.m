@@ -9,8 +9,8 @@
 
 @interface WMFFirstRandomViewController ()
 
-@property(nonatomic, strong, nonnull) NSURL *siteURL;
-@property(nonatomic, strong, nonnull) MWKDataStore *dataStore;
+@property (nonatomic, strong, nonnull) NSURL *siteURL;
+@property (nonatomic, strong, nonnull) MWKDataStore *dataStore;
 
 @end
 

@@ -7,12 +7,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFDatabaseDataSource ()
 
-@property(readwrite, weak, nonatomic) YapDatabaseConnection *readConnection;
-@property(readwrite, weak, nonatomic) YapDatabaseConnection *writeConnection;
+@property (readwrite, weak, nonatomic) YapDatabaseConnection *readConnection;
+@property (readwrite, weak, nonatomic) YapDatabaseConnection *writeConnection;
 
-@property(readonly, strong, nonatomic) NSString *viewName;
+@property (readonly, strong, nonatomic) NSString *viewName;
 
-@property(readwrite, strong, nonatomic) YapDatabaseViewMappings *mappings;
+@property (readwrite, strong, nonatomic) YapDatabaseViewMappings *mappings;
 
 @end
 

@@ -6,9 +6,9 @@
 
 @interface WMFNearbyArticleTableViewCell : SSBaseTableCell
 
-@property(nonatomic, copy) NSString *titleText;
+@property (nonatomic, copy) NSString *titleText;
 
-@property(nonatomic, copy) NSString *descriptionText;
+@property (nonatomic, copy) NSString *descriptionText;
 
 /**
  *  Set the recievers @c image using an MWKImage

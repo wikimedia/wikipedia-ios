@@ -33,9 +33,9 @@ static NSArray *WMFUnsupportedLanguages() {
 
 @interface MWKLanguageLinkController ()
 
-@property(readwrite, copy, nonatomic) NSArray *preferredLanguages;
+@property (readwrite, copy, nonatomic) NSArray *preferredLanguages;
 
-@property(readwrite, copy, nonatomic) NSArray *otherLanguages;
+@property (readwrite, copy, nonatomic) NSArray *otherLanguages;
 
 @end
 

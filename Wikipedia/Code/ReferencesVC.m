@@ -19,18 +19,18 @@
 
 @interface ReferencesVC () <ReferenceVCDelegate>
 
-@property(strong, nonatomic) UIPageControl *topPageControl;
-@property(strong, nonatomic) WikiGlyphButton *xButton;
+@property (strong, nonatomic) UIPageControl *topPageControl;
+@property (strong, nonatomic) WikiGlyphButton *xButton;
 
-@property(strong, nonatomic) WikiGlyphButton *nextButton;
-@property(strong, nonatomic) WikiGlyphButton *prevButton;
+@property (strong, nonatomic) WikiGlyphButton *nextButton;
+@property (strong, nonatomic) WikiGlyphButton *prevButton;
 
-@property(strong, nonatomic) ReferenceGradientView *topContainerView;
+@property (strong, nonatomic) ReferenceGradientView *topContainerView;
 
-@property(strong, nonatomic) NSArray *refs;
-@property(nonatomic) NSUInteger refsIndex;
-@property(strong, nonatomic) NSArray *linkIds;
-@property(strong, nonatomic) NSArray *linkText;
+@property (strong, nonatomic) NSArray *refs;
+@property (nonatomic) NSUInteger refsIndex;
+@property (strong, nonatomic) NSArray *linkIds;
+@property (strong, nonatomic) NSArray *linkText;
 
 @end
 

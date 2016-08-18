@@ -4,9 +4,9 @@
 
 @interface NSString_FormattedAttributedStringTests : XCTestCase
 
-@property(nonatomic, strong) NSDictionary *largeOrangeText;
-@property(nonatomic, strong) NSDictionary *smallGreenText;
-@property(nonatomic, strong) NSDictionary *mediumBlueText;
+@property (nonatomic, strong) NSDictionary *largeOrangeText;
+@property (nonatomic, strong) NSDictionary *smallGreenText;
+@property (nonatomic, strong) NSDictionary *mediumBlueText;
 
 @end
 

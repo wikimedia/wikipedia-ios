@@ -10,10 +10,10 @@ typedef NS_ENUM(NSInteger, LoginTokenErrorType) {
 
 @interface LoginTokenFetcher : FetcherBase
 
-@property(strong, nonatomic, readonly) NSString *domain;
-@property(strong, nonatomic, readonly) NSString *userName;
-@property(strong, nonatomic, readonly) NSString *password;
-@property(strong, nonatomic, readonly) NSString *token;
+@property (strong, nonatomic, readonly) NSString *domain;
+@property (strong, nonatomic, readonly) NSString *userName;
+@property (strong, nonatomic, readonly) NSString *password;
+@property (strong, nonatomic, readonly) NSString *token;
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
 - (instancetype)initAndFetchTokenForDomain:(NSString *)domain

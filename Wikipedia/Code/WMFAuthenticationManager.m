@@ -22,25 +22,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFAuthenticationManager () <FetchFinishedDelegate>
 
-@property(strong, nonatomic) KeychainCredentials *keychainCredentials;
+@property (strong, nonatomic) KeychainCredentials *keychainCredentials;
 
-@property(strong, nonatomic, nullable) WMFAuthManagerInfoFetcher *authManagerInfoFetcher;
-@property(strong, nonatomic, nullable) WMFAuthManagerInfo *loginAuthManagerInfo;
-@property(strong, nonatomic, nullable) WMFAuthManagerInfo *accountCreationAuthManagerInfo;
+@property (strong, nonatomic, nullable) WMFAuthManagerInfoFetcher *authManagerInfoFetcher;
+@property (strong, nonatomic, nullable) WMFAuthManagerInfo *loginAuthManagerInfo;
+@property (strong, nonatomic, nullable) WMFAuthManagerInfo *accountCreationAuthManagerInfo;
 
-@property(strong, nonatomic, readwrite, nullable) NSString *loggedInUsername;
+@property (strong, nonatomic, readwrite, nullable) NSString *loggedInUsername;
 
-@property(strong, nonatomic, nullable) NSString *authenticatingUsername;
-@property(strong, nonatomic, nullable) NSString *authenticatingPassword;
-@property(strong, nonatomic, nullable) NSString *email;
-@property(strong, nonatomic, nullable) NSString *captchaText;
+@property (strong, nonatomic, nullable) NSString *authenticatingUsername;
+@property (strong, nonatomic, nullable) NSString *authenticatingPassword;
+@property (strong, nonatomic, nullable) NSString *email;
+@property (strong, nonatomic, nullable) NSString *captchaText;
 
-@property(strong, nonatomic, nullable) NSString *loginToken;
-@property(strong, nonatomic, nullable) NSString *accountCreationToken;
+@property (strong, nonatomic, nullable) NSString *loginToken;
+@property (strong, nonatomic, nullable) NSString *accountCreationToken;
 
-@property(nonatomic, copy, nullable) dispatch_block_t successBlock;
-@property(nonatomic, copy, nullable) WMFCaptchaHandler captchaBlock;
-@property(nonatomic, copy, nullable) WMFErrorHandler failBlock;
+@property (nonatomic, copy, nullable) dispatch_block_t successBlock;
+@property (nonatomic, copy, nullable) WMFCaptchaHandler captchaBlock;
+@property (nonatomic, copy, nullable) WMFErrorHandler failBlock;
 
 @end
 

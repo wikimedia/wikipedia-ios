@@ -8,14 +8,14 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 @interface WMFSaveButtonControllerTests : XCTestCase
-@property(nonatomic, strong) NSURL *siteEn;
-@property(nonatomic, strong) NSURL *siteFr;
-@property(nonatomic, strong) NSURL *titleSFEn;
-@property(nonatomic, strong) NSURL *titleSFFr;
-@property(nonatomic, strong) MWKDataStore *dataStore;
-@property(nonatomic, strong) MWKSavedPageList *savedPagesList;
-@property(nonatomic, strong) WMFSaveButtonController *saveButtonController;
-@property(nonatomic, strong) UIButton *button;
+@property (nonatomic, strong) NSURL *siteEn;
+@property (nonatomic, strong) NSURL *siteFr;
+@property (nonatomic, strong) NSURL *titleSFEn;
+@property (nonatomic, strong) NSURL *titleSFFr;
+@property (nonatomic, strong) MWKDataStore *dataStore;
+@property (nonatomic, strong) MWKSavedPageList *savedPagesList;
+@property (nonatomic, strong) WMFSaveButtonController *saveButtonController;
+@property (nonatomic, strong) UIButton *button;
 @end
 
 @implementation WMFSaveButtonControllerTests

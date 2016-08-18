@@ -19,7 +19,7 @@ static NSString *const LongSearchResultDescription =
     @"This description describes a search result, and should take approximately three lines to display.";
 
 @interface WMFArticleListCellVisualTests : FBSnapshotTestCase
-@property(nonatomic, strong) WMFArticleListTableViewCell *searchResultCell;
+@property (nonatomic, strong) WMFArticleListTableViewCell *searchResultCell;
 @end
 
 @implementation WMFArticleListCellVisualTests

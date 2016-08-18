@@ -9,6 +9,6 @@ typedef NS_ENUM(NSInteger, AbuseFilterAlertType) {
 
 - (id)initWithType:(AbuseFilterAlertType)alertType;
 
-@property(nonatomic, readonly) AbuseFilterAlertType alertType;
+@property (nonatomic, readonly) AbuseFilterAlertType alertType;
 
 @end

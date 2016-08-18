@@ -27,24 +27,24 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 - (instancetype)initWithDatabase:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath NS_DESIGNATED_INITIALIZER;
 
-@property(readwrite, strong, nonatomic) YapDatabase *database;
+@property (readwrite, strong, nonatomic) YapDatabase *database;
 
 /**
  *  Connection to read article references on.
  *  This connection has cache settings optimized for reading article references in the UI.
  *  It is reccomended to use this connection to make sure these cache settings are enforced app wide
  */
-@property(readwrite, strong, nonatomic) YapDatabaseConnection *articleReferenceReadConnection;
-@property(readwrite, strong, nonatomic) YapDatabaseConnection *writeConnection;
+@property (readwrite, strong, nonatomic) YapDatabaseConnection *articleReferenceReadConnection;
+@property (readwrite, strong, nonatomic) YapDatabaseConnection *writeConnection;
 
-@property(readwrite, nonatomic, strong) NSPointerArray *changeHandlers;
+@property (readwrite, nonatomic, strong) NSPointerArray *changeHandlers;
 
-@property(readwrite, strong, nonatomic) MWKUserDataStore *userDataStore;
-@property(readwrite, copy, nonatomic) NSString *basePath;
-@property(readwrite, strong, nonatomic) NSCache *articleCache;
+@property (readwrite, strong, nonatomic) MWKUserDataStore *userDataStore;
+@property (readwrite, copy, nonatomic) NSString *basePath;
+@property (readwrite, strong, nonatomic) NSCache *articleCache;
 
-@property(readwrite, nonatomic, strong) dispatch_queue_t cacheRemovalQueue;
-@property(readwrite, nonatomic, getter=isCacheRemovalActive) BOOL cacheRemovalActive;
+@property (readwrite, nonatomic, strong) dispatch_queue_t cacheRemovalQueue;
+@property (readwrite, nonatomic, getter=isCacheRemovalActive) BOOL cacheRemovalActive;
 
 @end
 

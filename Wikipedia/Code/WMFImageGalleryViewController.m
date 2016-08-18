@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  In order to guarantee its existence, we assert photos
  *  on init in the VC
  */
-@property(nonatomic, copy, readonly) NSArray *photos;
+@property (nonatomic, copy, readonly) NSArray *photos;
 
 @end
 
@@ -52,13 +52,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFImageGalleryViewController () <NYTPhotosViewControllerDelegate>
 
-@property(nonatomic, strong, readonly) NSArray<id<NYTPhoto>> *photos;
+@property (nonatomic, strong, readonly) NSArray<id<NYTPhoto>> *photos;
 
-@property(nonatomic, readonly) id<WMFExposedDataSource> dataSource;
+@property (nonatomic, readonly) id<WMFExposedDataSource> dataSource;
 
 - (void)updateOverlayInformation;
 
-@property(nonatomic, assign) BOOL overlayViewHidden;
+@property (nonatomic, assign) BOOL overlayViewHidden;
 
 - (NYTPhotoViewController *)currentPhotoViewController;
 
@@ -69,13 +69,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticlePhoto : NSObject <WMFPhoto>
 
 //set to display a thumbnail during download
-@property(nonatomic, strong, nullable) MWKImage *thumbnailImageObject;
+@property (nonatomic, strong, nullable) MWKImage *thumbnailImageObject;
 
 //used to fetch the full size image
-@property(nonatomic, strong, nullable) MWKImage *imageObject;
+@property (nonatomic, strong, nullable) MWKImage *imageObject;
 
 //used for metadaata
-@property(nonatomic, strong, nullable) MWKImageInfo *imageInfo;
+@property (nonatomic, strong, nullable) MWKImageInfo *imageInfo;
 
 @end
 
@@ -385,7 +385,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleImageGalleryViewController ()
 
-@property(nonatomic, strong) WMFImageInfoController *infoController;
+@property (nonatomic, strong) WMFImageInfoController *infoController;
 
 @end
 
@@ -554,13 +554,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFPOTDPhoto : NSObject <WMFPhoto>
 
 //used to fetch imageInfo
-@property(nonatomic, strong, nullable) NSDate *potdDate;
+@property (nonatomic, strong, nullable) NSDate *potdDate;
 
 //set to display a thumbnail during download
-@property(nonatomic, strong, nullable) MWKImageInfo *thumbnailImageInfo;
+@property (nonatomic, strong, nullable) MWKImageInfo *thumbnailImageInfo;
 
 //used for metadaata
-@property(nonatomic, strong, nullable) MWKImageInfo *imageInfo;
+@property (nonatomic, strong, nullable) MWKImageInfo *imageInfo;
 
 @end
 
@@ -649,7 +649,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFPOTDImageGalleryViewController ()
 
-@property(nonatomic, strong) MWKImageInfoFetcher *infoFetcher;
+@property (nonatomic, strong) MWKImageInfoFetcher *infoFetcher;
 
 @end
 

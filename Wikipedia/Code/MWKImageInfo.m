@@ -21,16 +21,16 @@ NSString *const MWKImageInfoThumbSize = @"thumbSize";
 
 @interface MWKImageInfo ()
 
-@property(nonatomic, readwrite, copy) NSString *canonicalPageTitle;
-@property(nonatomic, readwrite, copy) NSURL *canonicalFileURL;
-@property(nonatomic, readwrite, copy) NSString *imageDescription;
-@property(nonatomic, readwrite, strong) MWKLicense *license;
-@property(nonatomic, readwrite, copy) NSURL *filePageURL;
-@property(nonatomic, readwrite, copy) NSURL *imageThumbURL;
-@property(nonatomic, readwrite, assign) CGSize imageSize;
-@property(nonatomic, readwrite, assign) CGSize thumbSize;
-@property(nonatomic, readwrite, copy) NSString *owner;
-@property(nonatomic, readwrite, strong) id imageAssociationValue;
+@property (nonatomic, readwrite, copy) NSString *canonicalPageTitle;
+@property (nonatomic, readwrite, copy) NSURL *canonicalFileURL;
+@property (nonatomic, readwrite, copy) NSString *imageDescription;
+@property (nonatomic, readwrite, strong) MWKLicense *license;
+@property (nonatomic, readwrite, copy) NSURL *filePageURL;
+@property (nonatomic, readwrite, copy) NSURL *imageThumbURL;
+@property (nonatomic, readwrite, assign) CGSize imageSize;
+@property (nonatomic, readwrite, assign) CGSize thumbSize;
+@property (nonatomic, readwrite, copy) NSString *owner;
+@property (nonatomic, readwrite, strong) id imageAssociationValue;
 
 @end
 

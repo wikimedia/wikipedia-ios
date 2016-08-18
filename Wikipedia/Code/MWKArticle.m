@@ -27,29 +27,29 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @interface MWKArticle ()
 
 // Identifiers
-@property(readwrite, weak, nonatomic) MWKDataStore *dataStore;
+@property (readwrite, weak, nonatomic) MWKDataStore *dataStore;
 
 // Metadata
-@property(readwrite, strong, nonatomic) NSURL *redirectedURL;            // optional
-@property(readwrite, strong, nonatomic) NSDate *lastmodified;            // optional
-@property(readwrite, strong, nonatomic) MWKUser *lastmodifiedby;         // required
-@property(readwrite, assign, nonatomic) int articleId;                   // required; -> 'id'
-@property(readwrite, assign, nonatomic) int languagecount;               // required; int
-@property(readwrite, copy, nonatomic) NSString *displaytitle;            // optional
-@property(readwrite, strong, nonatomic) MWKProtectionStatus *protection; // required
-@property(readwrite, assign, nonatomic) BOOL editable;                   // required
-@property(readwrite, assign, nonatomic, getter=isMain) BOOL main;
-@property(readwrite, strong, nonatomic) NSNumber *revisionId;
+@property (readwrite, strong, nonatomic) NSURL *redirectedURL;            // optional
+@property (readwrite, strong, nonatomic) NSDate *lastmodified;            // optional
+@property (readwrite, strong, nonatomic) MWKUser *lastmodifiedby;         // required
+@property (readwrite, assign, nonatomic) int articleId;                   // required; -> 'id'
+@property (readwrite, assign, nonatomic) int languagecount;               // required; int
+@property (readwrite, copy, nonatomic) NSString *displaytitle;            // optional
+@property (readwrite, strong, nonatomic) MWKProtectionStatus *protection; // required
+@property (readwrite, assign, nonatomic) BOOL editable;                   // required
+@property (readwrite, assign, nonatomic, getter=isMain) BOOL main;
+@property (readwrite, strong, nonatomic) NSNumber *revisionId;
 
-@property(readwrite, copy, nonatomic) NSString *entityDescription; // optional; currently pulled separately via wikidata
-@property(readwrite, copy, nonatomic) NSString *snippet;
+@property (readwrite, copy, nonatomic) NSString *entityDescription; // optional; currently pulled separately via wikidata
+@property (readwrite, copy, nonatomic) NSString *snippet;
 
-@property(readwrite, strong, nonatomic) MWKSectionList *sections;
+@property (readwrite, strong, nonatomic) MWKSectionList *sections;
 
-@property(readwrite, strong, nonatomic) MWKImage *thumbnail;
-@property(readwrite, strong, nonatomic) MWKImage *image;
-@property(readwrite, strong, nonatomic /*, nullable*/) NSArray *citations;
-@property(readwrite, strong, nonatomic) NSString *summary;
+@property (readwrite, strong, nonatomic) MWKImage *thumbnail;
+@property (readwrite, strong, nonatomic) MWKImage *image;
+@property (readwrite, strong, nonatomic /*, nullable*/) NSArray *citations;
+@property (readwrite, strong, nonatomic) NSString *summary;
 
 @end
 

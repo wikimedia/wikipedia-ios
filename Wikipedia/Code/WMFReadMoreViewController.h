@@ -2,7 +2,7 @@
 
 @interface WMFReadMoreViewController : WMFSelfSizingArticleListTableViewController
 
-@property(nonatomic, strong, readonly) NSURL *articleURL;
+@property (nonatomic, strong, readonly) NSURL *articleURL;
 
 - (instancetype)initWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore;
 

@@ -5,19 +5,19 @@
 
 @interface MenuButton ()
 
-@property(strong, nonatomic) NSString *text;
+@property (strong, nonatomic) NSString *text;
 
-@property(strong, nonatomic) MenuLabel *label;
+@property (strong, nonatomic) MenuLabel *label;
 
-@property(strong, nonatomic) UIColor *oldColor;
+@property (strong, nonatomic) UIColor *oldColor;
 
-@property(nonatomic) CGFloat fontSize;
+@property (nonatomic) CGFloat fontSize;
 
-@property(nonatomic) BOOL fontBold;
+@property (nonatomic) BOOL fontBold;
 
-@property(nonatomic) UIEdgeInsets padding;
+@property (nonatomic) UIEdgeInsets padding;
 
-@property(nonatomic) UIEdgeInsets margin;
+@property (nonatomic) UIEdgeInsets margin;
 
 @end
 

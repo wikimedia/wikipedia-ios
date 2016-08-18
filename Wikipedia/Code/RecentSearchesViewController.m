@@ -15,11 +15,11 @@ static NSString *const pListFileName = @"Recent.plist";
 
 @interface RecentSearchesViewController ()
 
-@property(strong, nonatomic) IBOutlet UITableView *table;
-@property(strong, nonatomic) IBOutlet UILabel *headingLabel;
-@property(strong, nonatomic) IBOutlet UIView *headerContainer;
-@property(strong, nonatomic) IBOutlet UIView *trashButtonContainer;
-@property(strong, nonatomic) UIButton *trashButton;
+@property (strong, nonatomic) IBOutlet UITableView *table;
+@property (strong, nonatomic) IBOutlet UILabel *headingLabel;
+@property (strong, nonatomic) IBOutlet UIView *headerContainer;
+@property (strong, nonatomic) IBOutlet UIView *trashButtonContainer;
+@property (strong, nonatomic) UIButton *trashButton;
 
 @end
 

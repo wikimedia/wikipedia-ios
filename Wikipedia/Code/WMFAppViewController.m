@@ -73,24 +73,24 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
-@property(nonatomic, strong) IBOutlet UIView *splashView;
-@property(nonatomic, strong) UITabBarController *rootTabBarController;
+@property (nonatomic, strong) IBOutlet UIView *splashView;
+@property (nonatomic, strong) UITabBarController *rootTabBarController;
 
-@property(nonatomic, strong, readonly) WMFExploreViewController *exploreViewController;
-@property(nonatomic, strong, readonly) WMFSavedArticleTableViewController *savedArticlesViewController;
-@property(nonatomic, strong, readonly) WMFHistoryTableViewController *recentArticlesViewController;
+@property (nonatomic, strong, readonly) WMFExploreViewController *exploreViewController;
+@property (nonatomic, strong, readonly) WMFSavedArticleTableViewController *savedArticlesViewController;
+@property (nonatomic, strong, readonly) WMFHistoryTableViewController *recentArticlesViewController;
 
-@property(nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
-@property(nonatomic, strong) WMFRandomArticleFetcher *randomFetcher;
-@property(nonatomic, strong) SessionSingleton *session;
-@property(nonatomic, strong) WMFSavedPageSpotlightManager *spotlightManager;
+@property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
+@property (nonatomic, strong) WMFRandomArticleFetcher *randomFetcher;
+@property (nonatomic, strong) SessionSingleton *session;
+@property (nonatomic, strong) WMFSavedPageSpotlightManager *spotlightManager;
 
-@property(nonatomic) BOOL isPresentingOnboarding;
+@property (nonatomic) BOOL isPresentingOnboarding;
 
-@property(nonatomic, strong) NSUserActivity *unprocessedUserActivity;
-@property(nonatomic, strong) UIApplicationShortcutItem *unprocessedShortcutItem;
+@property (nonatomic, strong) NSUserActivity *unprocessedUserActivity;
+@property (nonatomic, strong) UIApplicationShortcutItem *unprocessedShortcutItem;
 
-@property(nonatomic) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
+@property (nonatomic) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;

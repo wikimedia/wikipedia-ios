@@ -22,12 +22,12 @@ static NSString *const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 
 @interface WMFFeaturedArticleSectionController ()
 
-@property(nonatomic, strong, readwrite) NSURL *siteURL;
-@property(nonatomic, strong, readwrite) NSDate *date;
+@property (nonatomic, strong, readwrite) NSURL *siteURL;
+@property (nonatomic, strong, readwrite) NSDate *date;
 
-@property(nonatomic, strong) WMFEnglishFeaturedTitleFetcher *featuredTitlePreviewFetcher;
+@property (nonatomic, strong) WMFEnglishFeaturedTitleFetcher *featuredTitlePreviewFetcher;
 
-@property(nonatomic, strong, nullable) MWKSearchResult *featuredArticlePreview;
+@property (nonatomic, strong, nullable) MWKSearchResult *featuredArticlePreview;
 
 @end
 

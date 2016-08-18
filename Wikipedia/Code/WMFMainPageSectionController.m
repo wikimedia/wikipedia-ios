@@ -20,15 +20,15 @@ static NSString *const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 @interface WMFMainPageSectionController ()
 
-@property(nonatomic, strong, readwrite) NSURL *siteURL;
+@property (nonatomic, strong, readwrite) NSURL *siteURL;
 
-@property(nonatomic, strong) MWKSiteInfoFetcher *siteInfoFetcher;
+@property (nonatomic, strong) MWKSiteInfoFetcher *siteInfoFetcher;
 
-@property(nonatomic, strong) WMFArticlePreviewFetcher *titleSearchFetcher;
+@property (nonatomic, strong) WMFArticlePreviewFetcher *titleSearchFetcher;
 
-@property(nonatomic, strong, nullable) MWKSiteInfo *siteInfo;
+@property (nonatomic, strong, nullable) MWKSiteInfo *siteInfo;
 
-@property(nonatomic, strong, nullable) MWKSearchResult *mainPageSearchResult;
+@property (nonatomic, strong, nullable) MWKSearchResult *mainPageSearchResult;
 
 @end
 

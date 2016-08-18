@@ -14,20 +14,20 @@ extern NSString *const ZeroWarnWhenLeaving;
 /**
  *  This is currently unused, as apparently Varnish will figure this out from your IP address.
  */
-@property(atomic, copy, nullable) NSString *partnerXcs;
+@property (atomic, copy, nullable) NSString *partnerXcs;
 
-@property(nonatomic, strong, nullable, readonly) WMFZeroMessage *zeroMessage;
+@property (nonatomic, strong, nullable, readonly) WMFZeroMessage *zeroMessage;
 ;
 
 /**
  *  Whether or not the user is on a Wikipedia-Zero-rated network.
  */
-@property(atomic) BOOL disposition;
+@property (atomic) BOOL disposition;
 
 /**
  *  Whether or not the user prefers to see a modal alert before going to a non-zero-rated URL (i.e. off of Wikipedia).
  */
-@property(nonatomic) BOOL warnWhenLeaving;
+@property (nonatomic) BOOL warnWhenLeaving;
 
 @end
 

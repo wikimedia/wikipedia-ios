@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
                                            extractLength:(NSUInteger)extractLength
                                           thumbnailWidth:(NSUInteger)thumbnailWidth;
 
-@property(nonatomic, assign, readonly) BOOL isFetching;
+@property (nonatomic, assign, readonly) BOOL isFetching;
 
 @end
 

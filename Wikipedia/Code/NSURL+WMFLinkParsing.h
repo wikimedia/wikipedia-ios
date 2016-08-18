@@ -183,17 +183,17 @@ WMF_TECH_DEBT_TODO(this method should be folded into the above method and should
  *
  *  @return The site URL
  */
-@property(nonatomic, copy, readonly) NSURL *wmf_siteURL;
+@property (nonatomic, copy, readonly) NSURL *wmf_siteURL;
 
-@property(nonatomic, copy, readonly, nullable) NSString *wmf_domain;
+@property (nonatomic, copy, readonly, nullable) NSString *wmf_domain;
 
-@property(nonatomic, copy, readonly, nullable) NSString *wmf_language;
+@property (nonatomic, copy, readonly, nullable) NSString *wmf_language;
 
-@property(nonatomic, copy, readonly, nullable) NSString *wmf_pathWithoutWikiPrefix;
+@property (nonatomic, copy, readonly, nullable) NSString *wmf_pathWithoutWikiPrefix;
 
-@property(nonatomic, copy, readonly) NSString *wmf_title;
+@property (nonatomic, copy, readonly) NSString *wmf_title;
 
-@property(nonatomic, copy, readonly) NSString *wmf_titleWithUnderScores;
+@property (nonatomic, copy, readonly) NSString *wmf_titleWithUnderScores;
 
 #pragma mark - Introspection
 
@@ -201,31 +201,31 @@ WMF_TECH_DEBT_TODO(this method should be folded into the above method and should
  *  Return YES is a URL is a link to a Wiki resource
  *  Checks for the presence of "/wiki/" in the path
  */
-@property(nonatomic, readonly) BOOL wmf_isWikiResource;
+@property (nonatomic, readonly) BOOL wmf_isWikiResource;
 
 /**
  *  Return YES if the receiver has "cite_note" in the path
  */
-@property(nonatomic, readonly) BOOL wmf_isWikiCitation;
+@property (nonatomic, readonly) BOOL wmf_isWikiCitation;
 
-@property(nonatomic, readonly) BOOL wmf_isMainPage;
+@property (nonatomic, readonly) BOOL wmf_isMainPage;
 
 /**
  *  Return YES if the URL has a .m subdomain
  */
-@property(nonatomic, readonly) BOOL wmf_isMobile;
+@property (nonatomic, readonly) BOOL wmf_isMobile;
 
 /**
  *  Return YES if the URL does not have a language subdomain
  */
-@property(nonatomic, readonly) BOOL wmf_isNonStandardURL;
+@property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
 
 #pragma mark - Layout based on Language
 WMF_TECH_DEBT_TODO(These should be renamed and / or moved to indicate that they are based on the language subdomain of the receiver)
 
-@property(nonatomic, readonly) UIUserInterfaceLayoutDirection wmf_layoutDirection;
+@property (nonatomic, readonly) UIUserInterfaceLayoutDirection wmf_layoutDirection;
 
-@property(nonatomic, readonly) NSTextAlignment wmf_textAlignment;
+@property (nonatomic, readonly) NSTextAlignment wmf_textAlignment;
 
 @end
 

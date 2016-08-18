@@ -12,7 +12,7 @@
 
 @interface MWKLanguageLinkFetcher ()
 
-@property(strong, nonatomic) AFHTTPSessionManager *manager;
+@property (strong, nonatomic) AFHTTPSessionManager *manager;
 
 @end
 

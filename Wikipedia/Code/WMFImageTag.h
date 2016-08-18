@@ -6,15 +6,15 @@ static CGSize const WMFImageTagMinimumSizeForGalleryInclusion = {64, 64};
 
 @interface WMFImageTag : NSObject
 
-@property(nonatomic, copy, readwrite) NSString *src;
-@property(nonatomic, copy, readonly, nullable) NSString *srcset;
-@property(nonatomic, copy, readonly, nullable) NSString *alt;
-@property(nonatomic, strong, readonly, nullable) NSNumber *width;
-@property(nonatomic, strong, readonly, nullable) NSNumber *height;
-@property(nonatomic, strong, readonly, nullable) NSNumber *dataFileWidth;
-@property(nonatomic, strong, readonly, nullable) NSNumber *dataFileHeight;
+@property (nonatomic, copy, readwrite) NSString *src;
+@property (nonatomic, copy, readonly, nullable) NSString *srcset;
+@property (nonatomic, copy, readonly, nullable) NSString *alt;
+@property (nonatomic, strong, readonly, nullable) NSNumber *width;
+@property (nonatomic, strong, readonly, nullable) NSNumber *height;
+@property (nonatomic, strong, readonly, nullable) NSNumber *dataFileWidth;
+@property (nonatomic, strong, readonly, nullable) NSNumber *dataFileHeight;
 
-@property(nonatomic, copy, readonly) NSString *imageTagContents;
+@property (nonatomic, copy, readonly) NSString *imageTagContents;
 
 - (nullable instancetype)initWithSrc:(NSString *)src
                               srcset:(nullable NSString *)srcset

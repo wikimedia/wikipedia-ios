@@ -62,9 +62,9 @@ extern NSString *const MWKItemUpdatedNotification;
 
 #pragma mark - Legacy Datastore methods
 
-@property(readonly, copy, nonatomic) NSString *basePath;
+@property (readonly, copy, nonatomic) NSString *basePath;
 
-@property(readonly, strong, nonatomic) MWKUserDataStore *userDataStore;
+@property (readonly, strong, nonatomic) MWKUserDataStore *userDataStore;
 
 /**
  *  Path for the default main data store.

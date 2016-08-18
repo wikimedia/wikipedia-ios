@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  Used to ensure that images set on the receiver aren't associated with a URL for another metadata entity.
  */
-@property(nonatomic, strong, nullable, setter=wmf_setImageURL:) NSURL *wmf_imageURL;
+@property (nonatomic, strong, nullable, setter=wmf_setImageURL:) NSURL *wmf_imageURL;
 
 /**
  *  The metadata associated with the receiver.
@@ -29,21 +29,21 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see wmf_imageURL
  */
-@property(nonatomic, strong, nullable, setter=wmf_setImageMetadata:) MWKImage *wmf_imageMetadata;
+@property (nonatomic, strong, nullable, setter=wmf_setImageMetadata:) MWKImage *wmf_imageMetadata;
 
 /**
  *  The image controller used to fetch image data.
  *
  *  Used to cancel the previous fetch executed by the receiver. Defaults to @c [WMFImageController sharedInstance].
  */
-@property(nonatomic, weak, nullable, setter=wmf_setImageController:) WMFImageController *wmf_imageController;
+@property (nonatomic, weak, nullable, setter=wmf_setImageController:) WMFImageController *wmf_imageController;
 
 /**
  *  The URL to fetch, depending on the current values of @c wmf_imageMetadata and @c wmf_imageURL.
  *
  *  @return A URL to the image to display in the receiver, or @c nil if none is set.
  */
-@property(nonatomic, strong, nullable, readonly) NSURL *wmf_imageURLToFetch;
+@property (nonatomic, strong, nullable, readonly) NSURL *wmf_imageURLToFetch;
 
 /**
  *  Fetch the receiver's @c wmf_imageURLToFetch

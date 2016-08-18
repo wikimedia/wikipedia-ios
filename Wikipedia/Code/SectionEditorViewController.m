@@ -21,10 +21,10 @@
 
 @interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate>
 
-@property(weak, nonatomic) IBOutlet UITextView *editTextView;
-@property(strong, nonatomic) NSString *unmodifiedWikiText;
-@property(nonatomic) CGRect viewKeyboardRect;
-@property(strong, nonatomic) UIBarButtonItem *rightButton;
+@property (weak, nonatomic) IBOutlet UITextView *editTextView;
+@property (strong, nonatomic) NSString *unmodifiedWikiText;
+@property (nonatomic) CGRect viewKeyboardRect;
+@property (strong, nonatomic) UIBarButtonItem *rightButton;
 
 @end
 

@@ -3,8 +3,8 @@
 
 @interface WMFPeekHTMLElement ()
 
-@property(nonatomic, readwrite) WMFPeekElementType type;
-@property(nonatomic, strong, readwrite, nullable) NSURL *url;
+@property (nonatomic, readwrite) WMFPeekElementType type;
+@property (nonatomic, strong, readwrite, nullable) NSURL *url;
 
 @end
 

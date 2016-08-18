@@ -5,8 +5,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleTextActivitySource ()
 
-@property(nonatomic, strong) MWKArticle *article;
-@property(nonatomic, copy, nullable) NSString *shareText;
+@property (nonatomic, strong) MWKArticle *article;
+@property (nonatomic, copy, nullable) NSString *shareText;
 
 @end
 

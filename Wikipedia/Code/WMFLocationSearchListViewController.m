@@ -5,9 +5,9 @@
 #import "MWKLocationSearchResult.h"
 
 @interface WMFLocationSearchListViewController ()
-@property(nonatomic, strong) WMFNearbyTitleListDataSource *dataSource;
-@property(nonatomic, strong, readwrite) NSURL *searchSiteURL;
-@property(nonatomic, strong) WMFCompassViewModel *compassViewModel;
+@property (nonatomic, strong) WMFNearbyTitleListDataSource *dataSource;
+@property (nonatomic, strong, readwrite) NSURL *searchSiteURL;
+@property (nonatomic, strong) WMFCompassViewModel *compassViewModel;
 @end
 
 @implementation WMFLocationSearchListViewController

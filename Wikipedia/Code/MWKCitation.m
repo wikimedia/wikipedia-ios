@@ -4,9 +4,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKCitation ()
-@property(nonatomic, copy) NSString *citationIdentifier;
-@property(nonatomic, copy) NSArray *backlinkIdentifiers;
-@property(nonatomic, copy) NSString *rawHTML;
+@property (nonatomic, copy) NSString *citationIdentifier;
+@property (nonatomic, copy) NSArray *backlinkIdentifiers;
+@property (nonatomic, copy) NSString *rawHTML;
 @end
 
 @implementation MWKCitation

@@ -34,15 +34,15 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 @interface WMFNearbySectionController ()
 
-@property(nonatomic, strong, readwrite) NSURL *searchSiteURL;
-@property(nonatomic, strong, readwrite) CLLocation *location;
-@property(nonatomic, strong, readwrite) CLPlacemark *placemark;
+@property (nonatomic, strong, readwrite) NSURL *searchSiteURL;
+@property (nonatomic, strong, readwrite) CLLocation *location;
+@property (nonatomic, strong, readwrite) CLPlacemark *placemark;
 
-@property(nonatomic, strong) WMFLocationSearchFetcher *locationSearchFetcher;
+@property (nonatomic, strong) WMFLocationSearchFetcher *locationSearchFetcher;
 
-@property(nonatomic, strong, nullable) WMFLocationSearchResults *searchResults;
+@property (nonatomic, strong, nullable) WMFLocationSearchResults *searchResults;
 
-@property(nonatomic, strong) WMFCompassViewModel *compassViewModel;
+@property (nonatomic, strong) WMFCompassViewModel *compassViewModel;
 
 @end
 

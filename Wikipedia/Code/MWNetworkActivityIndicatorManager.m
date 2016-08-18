@@ -3,7 +3,7 @@
 // Private
 @interface MWNetworkActivityIndicatorManager ()
 
-@property(nonatomic, assign) NSInteger count;
+@property (nonatomic, assign) NSInteger count;
 
 @end
 

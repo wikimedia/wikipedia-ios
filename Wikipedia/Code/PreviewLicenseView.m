@@ -14,11 +14,11 @@
 
 @interface PreviewLicenseView ()
 
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *topDividerHeight;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *bottomDividerHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topDividerHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomDividerHeight;
 
-@property(nonatomic) BOOL hideTopDivider;
-@property(nonatomic) BOOL hideBottomDivider;
+@property (nonatomic) BOOL hideTopDivider;
+@property (nonatomic) BOOL hideBottomDivider;
 
 @end
 

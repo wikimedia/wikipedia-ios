@@ -5,11 +5,11 @@
 @protocol PreviewLicenseViewDelegate;
 @interface PreviewLicenseView : UIView
 
-@property(weak, nonatomic) IBOutlet PaddedLabel *licenseCCLabel;
-@property(weak, nonatomic) IBOutlet PaddedLabel *licenseTitleLabel;
-@property(weak, nonatomic) IBOutlet PaddedLabel *licenseLoginLabel;
+@property (weak, nonatomic) IBOutlet PaddedLabel *licenseCCLabel;
+@property (weak, nonatomic) IBOutlet PaddedLabel *licenseTitleLabel;
+@property (weak, nonatomic) IBOutlet PaddedLabel *licenseLoginLabel;
 
-@property(nonatomic, weak) id<PreviewLicenseViewDelegate> previewLicenseViewDelegate;
+@property (nonatomic, weak) id<PreviewLicenseViewDelegate> previewLicenseViewDelegate;
 
 @end
 

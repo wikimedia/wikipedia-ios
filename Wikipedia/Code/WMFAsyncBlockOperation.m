@@ -4,9 +4,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFAsyncBlockOperation ()
 
-@property(nonatomic, assign) BOOL isExecuting;
-@property(nonatomic, assign) BOOL isFinished;
-@property(nonatomic, strong) WMFAsyncBlock block;
+@property (nonatomic, assign) BOOL isExecuting;
+@property (nonatomic, assign) BOOL isFinished;
+@property (nonatomic, strong) WMFAsyncBlock block;
 
 @end
 

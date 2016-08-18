@@ -12,7 +12,7 @@
 
 @interface UIImageViewWMFImageFetchingVisualTests : FBSnapshotTestCase
 
-@property(nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIImageView *imageView;
 
 @end
 

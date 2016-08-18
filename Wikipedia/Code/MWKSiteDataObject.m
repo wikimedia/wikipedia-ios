@@ -2,7 +2,7 @@
 
 @interface MWKSiteDataObject ()
 
-@property(readwrite, strong, nonatomic) NSURL *url;
+@property (readwrite, strong, nonatomic) NSURL *url;
 
 @end
 

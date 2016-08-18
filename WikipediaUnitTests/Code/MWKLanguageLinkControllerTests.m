@@ -7,8 +7,8 @@
 #import "NSUserDefaults+WMFReset.h"
 
 @interface MWKLanguageLinkControllerTests : XCTestCase
-@property(strong, nonatomic) MWKLanguageLinkController *controller;
-@property(strong, nonatomic) MWKLanguageFilter *filter;
+@property (strong, nonatomic) MWKLanguageLinkController *controller;
+@property (strong, nonatomic) MWKLanguageFilter *filter;
 
 @end
 

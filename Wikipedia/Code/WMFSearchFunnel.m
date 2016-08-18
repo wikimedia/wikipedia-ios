@@ -12,8 +12,8 @@ static NSString *const kSearchResultsCount = @"numberOfResults";
 
 @interface WMFSearchFunnel ()
 
-@property(nonatomic, strong) NSString *appInstallId;
-@property(nonatomic, strong) NSString *searchSessionToken;
+@property (nonatomic, strong) NSString *appInstallId;
+@property (nonatomic, strong) NSString *searchSessionToken;
 
 @end
 

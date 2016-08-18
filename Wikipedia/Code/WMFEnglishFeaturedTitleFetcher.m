@@ -22,8 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface WMFEnglishFeaturedTitleFetcher ()
-@property(nonatomic, strong) AFHTTPSessionManager *featuredTitleOperationManager;
-@property(nonatomic, strong) AFHTTPSessionManager *titlePreviewOperationManager;
+@property (nonatomic, strong) AFHTTPSessionManager *featuredTitleOperationManager;
+@property (nonatomic, strong) AFHTTPSessionManager *titlePreviewOperationManager;
 @end
 
 @implementation WMFEnglishFeaturedTitleFetcher

@@ -23,9 +23,9 @@
  */
 - (instancetype)initWithArticle:(MWKArticle *)article;
 
-@property(readonly, weak, nonatomic) MWKArticle *article;
+@property (readonly, weak, nonatomic) MWKArticle *article;
 
-@property(readonly, strong, nonatomic) NSArray *entries;
+@property (readonly, strong, nonatomic) NSArray *entries;
 
 - (NSUInteger)count;
 - (MWKSection *)objectAtIndexedSubscript:(NSUInteger)idx;

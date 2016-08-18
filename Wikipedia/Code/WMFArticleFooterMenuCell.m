@@ -3,9 +3,9 @@
 
 @interface WMFArticleFooterMenuCell ()
 
-@property(strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property(strong, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property(strong, nonatomic) IBOutlet UIImageView *iconImageView;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
 
 @end
 

@@ -98,7 +98,7 @@
                                subDomain:(nullable NSString *)subDomain
                                 isMobile:(BOOL)isMobile;
 
-@property(nonatomic, copy, nullable) NSString *wmf_title;
-@property(nullable, copy) NSString *wmf_fragment;
+@property (nonatomic, copy, nullable) NSString *wmf_title;
+@property (nullable, copy) NSString *wmf_fragment;
 
 @end

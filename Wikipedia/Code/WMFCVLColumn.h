@@ -11,12 +11,12 @@
  */
 @interface WMFCVLColumn : NSObject <NSCopying>
 
-@property(nonatomic) NSInteger index;
-@property(nonatomic) CGRect frame;
-@property(nonatomic, weak, nullable) WMFCVLInfo *info;
-@property(nonatomic, readonly) NSInteger sectionCount;
+@property (nonatomic) NSInteger index;
+@property (nonatomic) CGRect frame;
+@property (nonatomic, weak, nullable) WMFCVLInfo *info;
+@property (nonatomic, readonly) NSInteger sectionCount;
 
-@property(nonatomic, readonly, nullable) WMFCVLSection *lastSection;
+@property (nonatomic, readonly, nullable) WMFCVLSection *lastSection;
 
 - (void)addSection:(nonnull WMFCVLSection *)section;
 - (void)removeSection:(nonnull WMFCVLSection *)section;

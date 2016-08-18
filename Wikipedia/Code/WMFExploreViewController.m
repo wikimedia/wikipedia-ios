@@ -66,26 +66,26 @@ NS_ASSUME_NONNULL_BEGIN
                                         UINavigationControllerDelegate,
                                         WMFColumnarCollectionViewLayoutDelegate>
 
-@property(nonatomic, strong, readonly) MWKSavedPageList *savedPages;
-@property(nonatomic, strong, readonly) MWKHistoryList *recentPages;
+@property (nonatomic, strong, readonly) MWKSavedPageList *savedPages;
+@property (nonatomic, strong, readonly) MWKHistoryList *recentPages;
 
-@property(nonatomic, strong, nullable) WMFExploreSectionSchema *schemaManager;
+@property (nonatomic, strong, nullable) WMFExploreSectionSchema *schemaManager;
 
-@property(nonatomic, strong) WMFExploreSectionControllerCache *sectionControllerCache;
+@property (nonatomic, strong) WMFExploreSectionControllerCache *sectionControllerCache;
 
-@property(nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
+@property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
-@property(nonatomic, assign) NSUInteger numberOfFailedFetches;
-@property(nonatomic, assign) BOOL isWaitingForNetworkToReconnect;
-@property(nonatomic, assign) CGPoint preNetworkTroubleScrollPosition;
+@property (nonatomic, assign) NSUInteger numberOfFailedFetches;
+@property (nonatomic, assign) BOOL isWaitingForNetworkToReconnect;
+@property (nonatomic, assign) CGPoint preNetworkTroubleScrollPosition;
 
-@property(nonatomic, strong, nullable) id<WMFExploreSectionController> sectionOfPreviewingTitle;
+@property (nonatomic, strong, nullable) id<WMFExploreSectionController> sectionOfPreviewingTitle;
 
-@property(nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
+@property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
 
-@property(nonatomic, readonly) NSArray *invisibleSections;
+@property (nonatomic, readonly) NSArray *invisibleSections;
 
-@property(nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 

@@ -18,13 +18,13 @@
 
 @interface PageHistoryViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property(strong, nonatomic) __block NSMutableArray<PageHistorySection *> *pageHistoryDataArray;
-@property(strong, nonatomic) PageHistoryResultCell *offScreenSizingCell;
-@property(strong, nonatomic) IBOutlet UITableView *tableView;
-@property(strong, nonatomic) PageHistoryFetcher *pageHistoryFetcher;
-@property(assign, nonatomic) BOOL isLoadingData;
-@property(assign, nonatomic) BOOL batchComplete;
-@property(strong, nonatomic) PageHistoryRequestParameters *historyFetcherParams;
+@property (strong, nonatomic) __block NSMutableArray<PageHistorySection *> *pageHistoryDataArray;
+@property (strong, nonatomic) PageHistoryResultCell *offScreenSizingCell;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) PageHistoryFetcher *pageHistoryFetcher;
+@property (assign, nonatomic) BOOL isLoadingData;
+@property (assign, nonatomic) BOOL batchComplete;
+@property (strong, nonatomic) PageHistoryRequestParameters *historyFetcherParams;
 
 @end
 

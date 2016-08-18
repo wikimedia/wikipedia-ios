@@ -18,7 +18,7 @@
 
 @interface MWKSectionListTests : XCTestCase
 /// Need a ref to the data store, since it's not retained by any entities.
-@property(nonatomic, strong) MWKDataStore *dataStore;
+@property (nonatomic, strong) MWKDataStore *dataStore;
 @end
 
 @implementation MWKSectionListTests

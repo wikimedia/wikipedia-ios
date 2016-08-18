@@ -4,7 +4,7 @@
 
 @interface WMFUnderlineButton ()
 
-@property(nonatomic, strong) UIView *underline;
+@property (nonatomic, strong) UIView *underline;
 
 @end
 

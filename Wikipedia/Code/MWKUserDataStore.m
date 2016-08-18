@@ -9,11 +9,11 @@
 
 @interface MWKUserDataStore ()
 
-@property(readwrite, weak, nonatomic) MWKDataStore *dataStore;
-@property(readwrite, strong, nonatomic) MWKHistoryList *historyList;
-@property(readwrite, strong, nonatomic) MWKSavedPageList *savedPageList;
-@property(readwrite, strong, nonatomic) MWKRecentSearchList *recentSearchList;
-@property(readwrite, strong, nonatomic) WMFRelatedSectionBlackList *blackList;
+@property (readwrite, weak, nonatomic) MWKDataStore *dataStore;
+@property (readwrite, strong, nonatomic) MWKHistoryList *historyList;
+@property (readwrite, strong, nonatomic) MWKSavedPageList *savedPageList;
+@property (readwrite, strong, nonatomic) MWKRecentSearchList *recentSearchList;
+@property (readwrite, strong, nonatomic) WMFRelatedSectionBlackList *blackList;
 
 @end
 

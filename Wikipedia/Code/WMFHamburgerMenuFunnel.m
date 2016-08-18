@@ -9,8 +9,8 @@ static NSString *const kMenuTypeKey = @"menuItem";
 
 @interface WMFHamburgerMenuFunnel ()
 
-@property(nonatomic, strong) NSString *sessionToken;
-@property(nonatomic, strong) NSString *appInstallId;
+@property (nonatomic, strong) NSString *sessionToken;
+@property (nonatomic, strong) NSString *appInstallId;
 
 @end
 

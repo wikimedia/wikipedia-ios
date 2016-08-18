@@ -3,8 +3,8 @@
 
 @interface MWKList ()
 
-@property(nonatomic, strong) NSMutableArray<id<MWKListObject>> *mutableEntries;
-@property(nonatomic, readwrite, assign) BOOL dirty;
+@property (nonatomic, strong) NSMutableArray<id<MWKListObject>> *mutableEntries;
+@property (nonatomic, readwrite, assign) BOOL dirty;
 
 @end
 

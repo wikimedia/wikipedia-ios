@@ -15,10 +15,10 @@ extern void WMFMultilineFunctionDeclaration(int arg1,
 
 @interface WMFCodingStyleModel : NSObject <NSCopying>
 
-@property(nonatomic, copy, readonly) NSString *modelIdentifier;
+@property (nonatomic, copy, readonly) NSString *modelIdentifier;
 
-@property(nonatomic, readonly) WMFCodingStyle codingStyle;
-@property(nonatomic, readonly) NSString *codingStyleString;
+@property (nonatomic, readonly) WMFCodingStyle codingStyle;
+@property (nonatomic, readonly) NSString *codingStyleString;
 
 - (instancetype)initWithModelIdentifier:(NSString *)modelIdentifier
                             codingStyle:(WMFCodingStyle)codingStyle;

@@ -25,7 +25,7 @@ extern NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey;
 
 @interface WMFArticleFetcher : WMFArticleBaseFetcher
 
-@property(nonatomic, strong, readonly) MWKDataStore *dataStore;
+@property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
@@ -57,7 +57,7 @@ extern NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey;
                                      forceDownload:(BOOL)forceDownload
                                           progress:(WMFProgressHandler __nullable)progress;
 
-@property(nonatomic, assign, readonly) BOOL isFetching;
+@property (nonatomic, assign, readonly) BOOL isFetching;
 
 @end
 

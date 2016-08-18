@@ -2,8 +2,8 @@
 
 @interface WMFTaskGroup ()
 
-@property(nonatomic) dispatch_group_t group;
-@property(nonatomic) NSInteger count;
+@property (nonatomic) dispatch_group_t group;
+@property (nonatomic) NSInteger count;
 
 @end
 

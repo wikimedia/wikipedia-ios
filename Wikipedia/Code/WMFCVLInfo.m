@@ -7,8 +7,8 @@
 #import "WMFCVLAttributes.h"
 
 @interface WMFCVLInfo ()
-@property(nonatomic, strong, nullable) NSMutableArray<WMFCVLColumn *> *columns;
-@property(nonatomic, strong, nullable) NSMutableArray<WMFCVLSection *> *sections;
+@property (nonatomic, strong, nullable) NSMutableArray<WMFCVLColumn *> *columns;
+@property (nonatomic, strong, nullable) NSMutableArray<WMFCVLSection *> *sections;
 @end
 
 @implementation WMFCVLInfo

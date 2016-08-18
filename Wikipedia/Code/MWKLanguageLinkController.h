@@ -16,22 +16,22 @@ extern NSString *const WMFPreferredLanguagesDidChangeNotification;
  *
  * Observe this property to be notifified of changes to the list of languages.
  */
-@property(readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *allLanguages;
+@property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *allLanguages;
 
 /**
  * Returns the user's 1st preferred language - used as the "App Language".
  */
-@property(readonly, copy, nonatomic) MWKLanguageLink *appLanguage;
+@property (readonly, copy, nonatomic) MWKLanguageLink *appLanguage;
 
 /**
  * Returns the user's preferred languages.
  */
-@property(readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *preferredLanguages;
+@property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *preferredLanguages;
 
 /**
  * All the languages in the receiver minus @c preferredLanguages.
  */
-@property(readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *otherLanguages;
+@property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *otherLanguages;
 
 /**
  *  Uniquely adds a new preferred language. The new language will be the first preferred language.

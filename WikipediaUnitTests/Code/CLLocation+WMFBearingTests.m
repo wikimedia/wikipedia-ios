@@ -4,11 +4,11 @@
 
 @interface CLLocation_WMFBearingTests : XCTestCase
 
-@property(nonatomic, strong) CLLocation *mosconeCenter;
-@property(nonatomic, strong) CLLocation *coitTower;
-@property(nonatomic, strong) CLLocation *goldenGateBridge;
-@property(nonatomic, strong) CLLocation *twinPeaksSummit;
-@property(nonatomic, strong) CLLocation *dogpatchBoulders;
+@property (nonatomic, strong) CLLocation *mosconeCenter;
+@property (nonatomic, strong) CLLocation *coitTower;
+@property (nonatomic, strong) CLLocation *goldenGateBridge;
+@property (nonatomic, strong) CLLocation *twinPeaksSummit;
+@property (nonatomic, strong) CLLocation *dogpatchBoulders;
 
 @end
 

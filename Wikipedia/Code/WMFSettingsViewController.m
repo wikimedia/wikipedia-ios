@@ -43,10 +43,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @interface WMFSettingsViewController () <UITableViewDelegate, WMFPreferredLanguagesViewControllerDelegate, FBTweakViewControllerDelegate>
 
-@property(nonatomic, strong, readwrite) MWKDataStore *dataStore;
+@property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
-@property(nonatomic, strong) SSSectionedDataSource *elementDataSource;
-@property(strong, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) SSSectionedDataSource *elementDataSource;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 

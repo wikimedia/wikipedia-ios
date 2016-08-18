@@ -8,9 +8,9 @@
 
 @interface WMFColumnarCollectionViewLayout ()
 
-@property(nonatomic, readonly) id<WMFColumnarCollectionViewLayoutDelegate> delegate;
-@property(nonatomic, strong) WMFCVLInfo *info;
-@property(nonatomic, strong) WMFCVLMetrics *metrics;
+@property (nonatomic, readonly) id<WMFColumnarCollectionViewLayoutDelegate> delegate;
+@property (nonatomic, strong) WMFCVLInfo *info;
+@property (nonatomic, strong) WMFCVLMetrics *metrics;
 
 @end
 

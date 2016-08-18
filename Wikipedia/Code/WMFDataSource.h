@@ -6,7 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFDataSource <NSObject>
 
-@property(nonatomic, weak) id<WMFDataSourceDelegate> delegate;
+@property (nonatomic, weak) id<WMFDataSourceDelegate> delegate;
 
 - (NSInteger)numberOfItems;
 

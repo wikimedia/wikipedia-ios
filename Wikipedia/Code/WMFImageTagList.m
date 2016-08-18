@@ -5,7 +5,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFImageTagList ()
 
-@property(nonatomic, strong, readwrite, nullable) NSArray<WMFImageTag *> *imageTags;
+@property (nonatomic, strong, readwrite, nullable) NSArray<WMFImageTag *> *imageTags;
 
 @end
 

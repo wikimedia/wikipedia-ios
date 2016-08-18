@@ -15,7 +15,7 @@
                   savedPageList:(MWKSavedPageList *)savedPageList
                             url:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 
-@property(nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;
+@property (nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;
 
 @end
 

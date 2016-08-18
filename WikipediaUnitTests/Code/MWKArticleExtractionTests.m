@@ -10,7 +10,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 @interface MWKArticleExtractionTests : XCTestCase
-@property(nonatomic) MWKArticle *article;
+@property (nonatomic) MWKArticle *article;
 @end
 
 @implementation MWKArticleExtractionTests

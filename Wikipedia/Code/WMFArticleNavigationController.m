@@ -5,10 +5,10 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
 
 @interface WMFArticleNavigationController () <UINavigationControllerDelegate>
 
-@property(nullable, nonatomic, weak) id<UINavigationControllerDelegate> navigationDelegate;
+@property (nullable, nonatomic, weak) id<UINavigationControllerDelegate> navigationDelegate;
 
-@property(nonatomic, strong) UIToolbar *secondToolbar;
-@property(nonatomic, getter=isSecondToolbarHidden) BOOL secondToolbarHidden;
+@property (nonatomic, strong) UIToolbar *secondToolbar;
+@property (nonatomic, getter=isSecondToolbarHidden) BOOL secondToolbarHidden;
 
 @end
 

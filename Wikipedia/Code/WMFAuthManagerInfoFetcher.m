@@ -8,7 +8,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFAuthManagerInfoFetcher ()
-@property(nonatomic, strong) AFHTTPSessionManager *operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager *operationManager;
 @end
 
 @implementation WMFAuthManagerInfoFetcher

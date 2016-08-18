@@ -9,13 +9,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKTitleLanguageController ()
 
-@property(copy, nonatomic, readwrite) NSURL *articleURL;
-@property(strong, nonatomic, readwrite) MWKLanguageLinkController *languageController;
-@property(strong, nonatomic) MWKLanguageLinkFetcher *fetcher;
-@property(copy, nonatomic) NSArray *availableLanguages;
-@property(readwrite, copy, nonatomic) NSArray *allLanguages;
-@property(readwrite, copy, nonatomic) NSArray *preferredLanguages;
-@property(readwrite, copy, nonatomic) NSArray *otherLanguages;
+@property (copy, nonatomic, readwrite) NSURL *articleURL;
+@property (strong, nonatomic, readwrite) MWKLanguageLinkController *languageController;
+@property (strong, nonatomic) MWKLanguageLinkFetcher *fetcher;
+@property (copy, nonatomic) NSArray *availableLanguages;
+@property (readwrite, copy, nonatomic) NSArray *allLanguages;
+@property (readwrite, copy, nonatomic) NSArray *preferredLanguages;
+@property (readwrite, copy, nonatomic) NSArray *otherLanguages;
 
 @end
 

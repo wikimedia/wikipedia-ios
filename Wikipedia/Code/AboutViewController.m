@@ -93,9 +93,9 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
 @interface AboutViewController ()
 
-@property(strong, nonatomic) WKWebView *webView;
-@property(nonatomic, strong) UIBarButtonItem *buttonX;
-@property(nonatomic, strong) UIBarButtonItem *buttonCaretLeft;
+@property (strong, nonatomic) WKWebView *webView;
+@property (nonatomic, strong) UIBarButtonItem *buttonX;
+@property (nonatomic, strong) UIBarButtonItem *buttonCaretLeft;
 
 @end
 

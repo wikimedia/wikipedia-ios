@@ -20,8 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Internal Class Declarations
 
 @interface WMFLocationSearchRequestParameters : NSObject
-@property(nonatomic, strong) CLLocation *location;
-@property(nonatomic, assign) NSUInteger numberOfResults;
+@property (nonatomic, strong) CLLocation *location;
+@property (nonatomic, assign) NSUInteger numberOfResults;
 @end
 
 @interface WMFLocationSearchRequestSerializer : WMFBaseRequestSerializer
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationSearchFetcher ()
 
-@property(nonatomic, strong) AFHTTPSessionManager *operationManager;
+@property (nonatomic, strong) AFHTTPSessionManager *operationManager;
 
 @end
 

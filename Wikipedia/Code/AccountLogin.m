@@ -9,10 +9,10 @@ NSString *const WMFAccountLoginErrorDomain = @"WMFAccountLoginErrorDomain";
 
 @interface AccountLogin ()
 
-@property(strong, nonatomic) NSString *domain;
-@property(strong, nonatomic) NSString *userName;
-@property(strong, nonatomic) NSString *password;
-@property(strong, nonatomic) NSString *token;
+@property (strong, nonatomic) NSString *domain;
+@property (strong, nonatomic) NSString *userName;
+@property (strong, nonatomic) NSString *password;
+@property (strong, nonatomic) NSString *token;
 
 @end
 

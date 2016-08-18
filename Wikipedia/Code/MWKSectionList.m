@@ -30,9 +30,9 @@
 
 @interface MWKSectionList ()
 
-@property(strong, nonatomic) NSArray *sections;
-@property(readwrite, weak, nonatomic) MWKArticle *article;
-@property(assign, nonatomic) unsigned long mutationState;
+@property (strong, nonatomic) NSArray *sections;
+@property (readwrite, weak, nonatomic) MWKArticle *article;
+@property (assign, nonatomic) unsigned long mutationState;
 
 @end
 

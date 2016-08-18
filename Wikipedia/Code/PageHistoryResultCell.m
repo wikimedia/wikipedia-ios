@@ -8,12 +8,12 @@
 
 @interface PageHistoryResultCell ()
 
-@property(weak, nonatomic) IBOutlet PageHistoryLabel *summaryLabel;
-@property(weak, nonatomic) IBOutlet PageHistoryLabel *nameLabel;
-@property(weak, nonatomic) IBOutlet PageHistoryLabel *timeLabel;
-@property(weak, nonatomic) IBOutlet PageHistoryLabel *deltaLabel;
-@property(weak, nonatomic) IBOutlet PageHistoryLabel *iconLabel;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *separatorHeightConstraint;
+@property (weak, nonatomic) IBOutlet PageHistoryLabel *summaryLabel;
+@property (weak, nonatomic) IBOutlet PageHistoryLabel *nameLabel;
+@property (weak, nonatomic) IBOutlet PageHistoryLabel *timeLabel;
+@property (weak, nonatomic) IBOutlet PageHistoryLabel *deltaLabel;
+@property (weak, nonatomic) IBOutlet PageHistoryLabel *iconLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *separatorHeightConstraint;
 
 @end
 

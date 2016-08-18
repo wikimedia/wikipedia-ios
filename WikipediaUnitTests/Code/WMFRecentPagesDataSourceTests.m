@@ -41,13 +41,13 @@
 
 @interface MWKHistoryDataSourceTests : XCTestCase
 
-@property(nonatomic, strong) MWKDataStore *dataStore;
-@property(nonatomic, strong) MWKHistoryList *historyList;
-@property(nonatomic, strong) id<WMFDataSource> recentPagesDataSource;
+@property (nonatomic, strong) MWKDataStore *dataStore;
+@property (nonatomic, strong) MWKHistoryList *historyList;
+@property (nonatomic, strong) id<WMFDataSource> recentPagesDataSource;
 
-@property(nonatomic, strong) NSArray<MWKHistoryEntry *> *todaysTitles;
-@property(nonatomic, strong) NSArray<MWKHistoryEntry *> *yesterdaysTitles;
-@property(nonatomic, strong) NSArray<MWKHistoryEntry *> *lastWeeksTitles;
+@property (nonatomic, strong) NSArray<MWKHistoryEntry *> *todaysTitles;
+@property (nonatomic, strong) NSArray<MWKHistoryEntry *> *yesterdaysTitles;
+@property (nonatomic, strong) NSArray<MWKHistoryEntry *> *lastWeeksTitles;
 
 @end
 

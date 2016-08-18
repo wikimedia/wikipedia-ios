@@ -16,10 +16,10 @@
    If not enabled, color is used for border and text color - with transparent background.
  */
 
-@property(nonatomic) BOOL enabled;
+@property (nonatomic) BOOL enabled;
 
-@property(strong, nonatomic, readonly) NSString *text;
+@property (strong, nonatomic, readonly) NSString *text;
 
-@property(strong, nonatomic) UIColor *color;
+@property (strong, nonatomic) UIColor *color;
 
 @end

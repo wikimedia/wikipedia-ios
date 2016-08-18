@@ -12,18 +12,18 @@ NS_ASSUME_NONNULL_BEGIN
                                                  UIGestureRecognizerDelegate,
                                                  UIAlertViewDelegate>
 
-@property(nonatomic, strong, nullable, readonly) MWKArticle *article;
-@property(nonatomic, strong, nullable, readonly) NSURL *articleURL;
+@property (nonatomic, strong, nullable, readonly) MWKArticle *article;
+@property (nonatomic, strong, nullable, readonly) NSURL *articleURL;
 
-@property(nonatomic, weak, nullable) id<WMFWebViewControllerDelegate> delegate;
+@property (nonatomic, weak, nullable) id<WMFWebViewControllerDelegate> delegate;
 
-@property(nonatomic, strong, nullable, readonly) WKWebView *webView;
+@property (nonatomic, strong, nullable, readonly) WKWebView *webView;
 
-@property(nonatomic) BOOL isPeeking;
-@property(strong, nonatomic, nullable) WMFPeekHTMLElement *peekElement;
+@property (nonatomic) BOOL isPeeking;
+@property (strong, nonatomic, nullable) WMFPeekHTMLElement *peekElement;
 
-@property(nonatomic) CGFloat contentWidthPercentage;
-@property(nonatomic, readonly) CGFloat marginWidth;
+@property (nonatomic) CGFloat contentWidthPercentage;
+@property (nonatomic, readonly) CGFloat marginWidth;
 
 - (void)setArticle:(MWKArticle *_Nullable)article articleURL:(NSURL *)articleURL;
 
@@ -51,17 +51,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Header & Footers
 
-@property(nonatomic, strong, nullable) UIView *headerView;
+@property (nonatomic, strong, nullable) UIView *headerView;
 
 /**
  *  An array of view controllers which will be displayed above the receiver's @c UIWebView content from top to bottom.
  *
  *  Setting this property with an array containing the same view controllers in the same order has no effect.
  */
-@property(nonatomic, strong, nullable) NSArray<UIViewController *> *footerViewControllers;
+@property (nonatomic, strong, nullable) NSArray<UIViewController *> *footerViewControllers;
+
 
 - (UIView *)footerAtIndex:(NSInteger)index;
-- (void)scrollToFooterAtIndex:(NSInteger)index;
+- (void)scrollToFooterAtIndex:(NSInteger)index animated:(BOOL)animated;
 - (void)accessibilityCursorToFooterAtIndex:(NSInteger)index;
 
 - (NSInteger)visibleFooterIndex;

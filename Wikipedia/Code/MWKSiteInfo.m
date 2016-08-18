@@ -11,8 +11,8 @@ static NSString *const MWKSiteInfoNSCodingSchemaVersionKey = @"siteInfoSchemaVer
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKSiteInfo ()
-@property(readwrite, copy, nonatomic) NSURL *siteURL;
-@property(readwrite, copy, nonatomic) NSString *mainPageTitleText;
+@property (readwrite, copy, nonatomic) NSURL *siteURL;
+@property (readwrite, copy, nonatomic) NSString *mainPageTitleText;
 @end
 
 @implementation MWKSiteInfo

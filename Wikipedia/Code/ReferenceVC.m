@@ -13,7 +13,7 @@
 
 @interface ReferenceVC ()
 
-@property(weak, nonatomic) IBOutlet UIWebView *referenceWebView;
+@property (weak, nonatomic) IBOutlet UIWebView *referenceWebView;
 
 @end
 

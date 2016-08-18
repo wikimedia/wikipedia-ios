@@ -24,14 +24,14 @@
 
 @interface WMFNearbyArticleCollectionViewCell ()
 
-@property(strong, nonatomic) IBOutlet UIImageView *articleImageView;
-@property(strong, nonatomic) IBOutlet WMFCompassView *compassView;
-@property(strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property(strong, nonatomic) IBOutlet UIView *distanceLabelBackground;
-@property(strong, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *articleImageView;
+@property (strong, nonatomic) IBOutlet WMFCompassView *compassView;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UIView *distanceLabelBackground;
+@property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 
-@property(strong, nonatomic) WMFSearchResultBearingProvider *bearingProvider;
-@property(strong, nonatomic) WMFSearchResultDistanceProvider *distanceProvider;
+@property (strong, nonatomic) WMFSearchResultBearingProvider *bearingProvider;
+@property (strong, nonatomic) WMFSearchResultDistanceProvider *distanceProvider;
 
 @end
 

@@ -13,7 +13,7 @@
 #import "HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.h"
 
 @interface WMFSearchFetcherTests : XCTestCase
-@property(nonatomic, strong) WMFSearchFetcher *fetcher;
+@property (nonatomic, strong) WMFSearchFetcher *fetcher;
 @end
 
 @implementation WMFSearchFetcherTests

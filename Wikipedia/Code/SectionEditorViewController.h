@@ -13,10 +13,10 @@
 
 @interface SectionEditorViewController : UIViewController <UITextViewDelegate, UIScrollViewDelegate, FetchFinishedDelegate, UITextFieldDelegate>
 
-@property(strong, nonatomic) MWKSection *section;
-@property(strong, nonatomic) EditFunnel *funnel;
-@property(strong, nonatomic) SavedPagesFunnel *savedPagesFunnel;
+@property (strong, nonatomic) MWKSection *section;
+@property (strong, nonatomic) EditFunnel *funnel;
+@property (strong, nonatomic) SavedPagesFunnel *savedPagesFunnel;
 
-@property(weak, nonatomic) id<SectionEditorViewControllerDelegate> delegate;
+@property (weak, nonatomic) id<SectionEditorViewControllerDelegate> delegate;
 
 @end

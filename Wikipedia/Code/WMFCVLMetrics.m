@@ -2,14 +2,14 @@
 #import <Tweaks/FBTweakInline.h>
 
 @interface WMFCVLMetrics ()
-@property(nonatomic) CGSize boundsSize;
-@property(nonatomic) NSInteger numberOfColumns;
-@property(nonatomic) UIEdgeInsets contentInsets;
-@property(nonatomic) UIEdgeInsets sectionInsets;
-@property(nonatomic) CGFloat interColumnSpacing;
-@property(nonatomic) CGFloat interSectionSpacing;
-@property(nonatomic) CGFloat interItemSpacing;
-@property(nonatomic, copy) NSArray *columnWeights;
+@property (nonatomic) CGSize boundsSize;
+@property (nonatomic) NSInteger numberOfColumns;
+@property (nonatomic) UIEdgeInsets contentInsets;
+@property (nonatomic) UIEdgeInsets sectionInsets;
+@property (nonatomic) CGFloat interColumnSpacing;
+@property (nonatomic) CGFloat interSectionSpacing;
+@property (nonatomic) CGFloat interItemSpacing;
+@property (nonatomic, copy) NSArray *columnWeights;
 @end
 @implementation WMFCVLMetrics
 

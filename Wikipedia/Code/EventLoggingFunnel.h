@@ -19,8 +19,8 @@ typedef NS_ENUM(NSUInteger, WMFEventLoggingMaxStringLength) {
  */
 @interface EventLoggingFunnel : NSObject
 
-@property(nonatomic, strong) NSString *schema;
-@property(nonatomic, assign) int revision;
+@property (nonatomic, strong) NSString *schema;
+@property (nonatomic, assign) int revision;
 
 /**
  *  Sampling rate used to calculate sampling ratio.
@@ -31,7 +31,7 @@ typedef NS_ENUM(NSUInteger, WMFEventLoggingMaxStringLength) {
  *      ...
  *      100         1/100       1%
  */
-@property(nonatomic, assign) NSInteger rate;
+@property (nonatomic, assign) NSInteger rate;
 
 /**
  * This constructor should be called internally by derived classes

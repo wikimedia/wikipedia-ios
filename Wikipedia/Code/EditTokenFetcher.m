@@ -7,13 +7,13 @@
 
 @interface EditTokenFetcher ()
 
-@property(strong, nonatomic) NSString *wikiText;
-@property(strong, nonatomic) NSURL *articleURL;
-@property(strong, nonatomic) NSString *section;
-@property(strong, nonatomic) NSString *summary;
-@property(strong, nonatomic) NSString *captchaId;
-@property(strong, nonatomic) NSString *captchaWord;
-@property(strong, nonatomic) NSString *token;
+@property (strong, nonatomic) NSString *wikiText;
+@property (strong, nonatomic) NSURL *articleURL;
+@property (strong, nonatomic) NSString *section;
+@property (strong, nonatomic) NSString *summary;
+@property (strong, nonatomic) NSString *captchaId;
+@property (strong, nonatomic) NSString *captchaWord;
+@property (strong, nonatomic) NSString *token;
 
 @end
 

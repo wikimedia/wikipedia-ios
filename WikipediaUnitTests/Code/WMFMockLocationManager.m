@@ -2,8 +2,8 @@
 
 @interface WMFMockLocationManager ()
 
-@property(nonatomic, strong) CLLocation *mockLocation;
-@property(nonatomic, strong) CLHeading *mockHeading;
+@property (nonatomic, strong) CLLocation *mockLocation;
+@property (nonatomic, strong) CLHeading *mockHeading;
 
 @end
 

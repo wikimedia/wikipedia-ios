@@ -25,19 +25,19 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 @interface WMFLanguagesViewController () <UISearchBarDelegate>
 
-@property(strong, nonatomic) IBOutlet UISearchBar *languageFilterField;
-@property(strong, nonatomic) MWKLanguageFilter *languageFilter;
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *languageFilterTopSpaceConstraint;
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *filterDividerHeightConstraint;
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *filterHeightConstraint;
-@property(strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UISearchBar *languageFilterField;
+@property (strong, nonatomic) MWKLanguageFilter *languageFilter;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *languageFilterTopSpaceConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *filterDividerHeightConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *filterHeightConstraint;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
-@property(nonatomic, assign) BOOL hideLanguageFilter;
-@property(nonatomic) BOOL editing;
-@property(nonatomic) BOOL disableSelection;
+@property (nonatomic, assign) BOOL hideLanguageFilter;
+@property (nonatomic) BOOL editing;
+@property (nonatomic) BOOL disableSelection;
 
-@property(nonatomic, assign) BOOL showPreferredLanguages;
-@property(nonatomic, assign) BOOL showNonPreferredLanguages;
+@property (nonatomic, assign) BOOL showPreferredLanguages;
+@property (nonatomic, assign) BOOL showNonPreferredLanguages;
 
 @end
 
@@ -482,7 +482,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 @interface WMFArticleLanguagesViewController ()
 
-@property(strong, nonatomic) MWKTitleLanguageController *titleLanguageController;
+@property (strong, nonatomic) MWKTitleLanguageController *titleLanguageController;
 
 @end
 

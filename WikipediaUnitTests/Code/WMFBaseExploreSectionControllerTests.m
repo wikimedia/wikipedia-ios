@@ -14,7 +14,7 @@
 // Subclass for testing basic functionality
 @interface WMFDummyExploreSectionController : WMFBaseExploreSectionController
 
-@property(nonatomic, strong) AFHTTPSessionManager *manager;
+@property (nonatomic, strong) AFHTTPSessionManager *manager;
 
 @end
 

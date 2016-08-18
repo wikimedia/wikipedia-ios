@@ -8,7 +8,7 @@
 @interface MWKDataStoreListTests : MWKListTestBase
 
 /// Temporary data store which is setup & torn down between tests.
-@property(nonatomic, strong) MWKDataStore *tempDataStore;
+@property (nonatomic, strong) MWKDataStore *tempDataStore;
 
 /**
  *  Assert equality of two lists.

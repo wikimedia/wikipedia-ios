@@ -14,14 +14,14 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @interface MWKArticle : MWKSiteDataObject
 
 /// Data store used for reading & writing related entities.
-@property(readonly, weak, nonatomic) MWKDataStore *dataStore;
+@property (readonly, weak, nonatomic) MWKDataStore *dataStore;
 
 // Metadata
-@property(readonly, strong, nonatomic) NSURL *redirectedURL;    // optional
-@property(readonly, strong, nonatomic) NSDate *lastmodified;    // required
-@property(readonly, strong, nonatomic) MWKUser *lastmodifiedby; // required
-@property(readonly, assign, nonatomic) int articleId;           // required; -> 'id'
-@property(readonly, strong, nonatomic) NSNumber *revisionId;
+@property (readonly, strong, nonatomic) NSURL *redirectedURL;    // optional
+@property (readonly, strong, nonatomic) NSDate *lastmodified;    // required
+@property (readonly, strong, nonatomic) MWKUser *lastmodifiedby; // required
+@property (readonly, assign, nonatomic) int articleId;           // required; -> 'id'
+@property (readonly, strong, nonatomic) NSNumber *revisionId;
 
 /**
  * Number of links to other wikis on this page.
@@ -30,32 +30,32 @@ static const NSInteger kMWKArticleSectionNone = -1;
  * in LanguageLinksFetcher. Be sure to double check that you add special handling when necessary. For example, main
  * pages can have a misleading non-zero languagecount.
  */
-@property(readonly, assign, nonatomic) int languagecount;
+@property (readonly, assign, nonatomic) int languagecount;
 
-@property(readonly, copy, nonatomic) NSString *displaytitle;            // optional
-@property(readonly, strong, nonatomic) MWKProtectionStatus *protection; // required
-@property(readonly, assign, nonatomic) BOOL editable;                   // required
-@property(readonly, assign, nonatomic) BOOL hasMultipleLanguages;
+@property (readonly, copy, nonatomic) NSString *displaytitle;            // optional
+@property (readonly, strong, nonatomic) MWKProtectionStatus *protection; // required
+@property (readonly, assign, nonatomic) BOOL editable;                   // required
+@property (readonly, assign, nonatomic) BOOL hasMultipleLanguages;
 
 /// Whether or not the receiver is the main page for its @c site.
-@property(readonly, assign, nonatomic, getter=isMain) BOOL main;
+@property (readonly, assign, nonatomic, getter=isMain) BOOL main;
 
-@property(readonly, copy, nonatomic) NSString *thumbnailURL; // optional; generated from imageURL
-@property(readwrite, copy, nonatomic) NSString *imageURL;    // optional; pulled in article request
+@property (readonly, copy, nonatomic) NSString *thumbnailURL; // optional; generated from imageURL
+@property (readwrite, copy, nonatomic) NSString *imageURL;    // optional; pulled in article request
 
 - (NSString *)bestThumbnailImageURL;
 
-@property(readonly, copy, nonatomic) NSString *entityDescription; // optional; currently pulled separately via wikidata
-@property(readonly, copy, nonatomic) NSString *searchSnippet;     //Snippet returned from search results
+@property (readonly, copy, nonatomic) NSString *entityDescription; // optional; currently pulled separately via wikidata
+@property (readonly, copy, nonatomic) NSString *searchSnippet;     //Snippet returned from search results
 
-@property(readonly, strong, nonatomic) MWKSectionList *sections;
+@property (readonly, strong, nonatomic) MWKSectionList *sections;
 
-@property(readonly, strong, nonatomic) MWKImage *thumbnail;
-@property(readonly, strong, nonatomic) MWKImage *image;
+@property (readonly, strong, nonatomic) MWKImage *thumbnail;
+@property (readonly, strong, nonatomic) MWKImage *image;
 
-@property(readonly, strong, nonatomic) MWKImage *leadImage;
+@property (readonly, strong, nonatomic) MWKImage *leadImage;
 
-@property(readonly, strong, nonatomic) NSString *summary;
+@property (readonly, strong, nonatomic) NSString *summary;
 
 - (MWKImage *)bestThumbnailImage;
 
@@ -66,7 +66,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
  *  and fetch the full article contents if necessary.  Might also be `nil` if an error occurred, in which case the
  *  citations should be viewed in the webview.
  */
-@property(readonly, strong, nonatomic /*, nullable*/) NSArray *citations;
+@property (readonly, strong, nonatomic /*, nullable*/) NSArray *citations;
 
 - (instancetype)initWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore;
 - (instancetype)initWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore dict:(NSDictionary *)dict;

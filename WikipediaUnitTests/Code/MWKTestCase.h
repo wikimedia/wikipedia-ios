@@ -6,8 +6,8 @@
 - (id)loadDataFile:(NSString *)name ofType:(NSString *)extension;
 - (id)loadJSON:(NSString *)name;
 
-@property(nonatomic, copy, readonly) NSString *allObamaHTML;
-@property(nonatomic, copy, readonly) NSURL *obamaBaseURL;
-@property(nonatomic, copy, readonly) NSURL *obamaLeadImageURL;
+@property (nonatomic, copy, readonly) NSString *allObamaHTML;
+@property (nonatomic, copy, readonly) NSURL *obamaBaseURL;
+@property (nonatomic, copy, readonly) NSURL *obamaLeadImageURL;
 
 @end

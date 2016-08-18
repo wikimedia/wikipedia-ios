@@ -2,7 +2,7 @@
 @import WebKit;
 
 @interface WMFRandomDiceButton ()
-@property(nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) WKWebView *webView;
 @end
 
 @implementation WMFRandomDiceButton

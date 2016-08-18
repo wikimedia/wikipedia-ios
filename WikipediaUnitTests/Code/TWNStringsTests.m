@@ -7,9 +7,9 @@
 
 @interface TWNStringsTests : XCTestCase
 
-@property(strong, nonatomic) NSArray *lprojFiles;
-@property(strong, nonatomic) NSString *bundleRoot;
-@property(strong, nonatomic) NSArray *infoPlistFilePaths;
+@property (strong, nonatomic) NSArray *lprojFiles;
+@property (strong, nonatomic) NSString *bundleRoot;
+@property (strong, nonatomic) NSArray *infoPlistFilePaths;
 
 @end
 

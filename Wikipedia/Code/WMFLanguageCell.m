@@ -12,13 +12,13 @@ static CGFloat const WMFLocalizedLanguageLabelHeight = 18.f;
 
 @interface WMFLanguageCell ()
 
-@property(strong, nonatomic) IBOutlet UILabel *localizedLanguageLabel;
-@property(strong, nonatomic) IBOutlet UILabel *articleTitleLabel;
-@property(strong, nonatomic) IBOutlet UILabel *languageNameLabel;
-@property(strong, nonatomic) IBOutlet UILabel *primaryLabel;
-@property(strong, nonatomic) IBOutlet UIView *primaryLabelContainerView;
+@property (strong, nonatomic) IBOutlet UILabel *localizedLanguageLabel;
+@property (strong, nonatomic) IBOutlet UILabel *articleTitleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *languageNameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *primaryLabel;
+@property (strong, nonatomic) IBOutlet UIView *primaryLabelContainerView;
 
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *localizedLanguageLabelHeight;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *localizedLanguageLabelHeight;
 
 @end
 

@@ -9,13 +9,13 @@ typedef NS_ENUM(NSUInteger, WMFArticleFooterMenuItemType) {
 
 @interface WMFArticleFooterMenuItem : MTLModel
 
-@property(nonatomic, copy, readonly) NSString *title;
+@property (nonatomic, copy, readonly) NSString *title;
 
-@property(nonatomic, copy, readonly) NSString *subTitle;
+@property (nonatomic, copy, readonly) NSString *subTitle;
 
-@property(nonatomic, copy, readonly) NSString *imageName;
+@property (nonatomic, copy, readonly) NSString *imageName;
 
-@property(nonatomic, assign, readonly) WMFArticleFooterMenuItemType type;
+@property (nonatomic, assign, readonly) WMFArticleFooterMenuItemType type;
 
 - (instancetype)initWithType:(WMFArticleFooterMenuItemType)type
                        title:(NSString *)title

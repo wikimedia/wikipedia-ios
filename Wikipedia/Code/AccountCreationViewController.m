@@ -21,23 +21,23 @@
 
 @interface AccountCreationViewController ()
 
-@property(strong, nonatomic) CaptchaViewController *captchaViewController;
-@property(weak, nonatomic) IBOutlet UIView *captchaContainer;
-@property(weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property(nonatomic) BOOL showCaptchaContainer;
-@property(strong, nonatomic) NSString *captchaId;
-@property(strong, nonatomic) NSURL *captchaUrl;
-@property(weak, nonatomic) IBOutlet PaddedLabel *loginButton;
-@property(weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *usernameUnderlineHeight;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *passwordUnderlineHeight;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *passwordConfirmUnderlineHeight;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *emailUnderlineHeight;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBeneathCaptchaContainer;
+@property (strong, nonatomic) CaptchaViewController *captchaViewController;
+@property (weak, nonatomic) IBOutlet UIView *captchaContainer;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic) BOOL showCaptchaContainer;
+@property (strong, nonatomic) NSString *captchaId;
+@property (strong, nonatomic) NSURL *captchaUrl;
+@property (weak, nonatomic) IBOutlet PaddedLabel *loginButton;
+@property (weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *usernameUnderlineHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordUnderlineHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordConfirmUnderlineHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailUnderlineHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBeneathCaptchaContainer;
 
-@property(weak, nonatomic) IBOutlet UIView *createAccountContainerView;
+@property (weak, nonatomic) IBOutlet UIView *createAccountContainerView;
 
-@property(strong, nonatomic) UIBarButtonItem *rightButton;
+@property (strong, nonatomic) UIBarButtonItem *rightButton;
 
 @end
 

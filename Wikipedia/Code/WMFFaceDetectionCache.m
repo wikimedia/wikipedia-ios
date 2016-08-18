@@ -6,7 +6,7 @@
 
 @interface WMFFaceDetectionCache ()
 
-@property(nonatomic, strong) NSCache *faceDetectionBoundsKeyedByURL;
+@property (nonatomic, strong) NSCache *faceDetectionBoundsKeyedByURL;
 
 @end
 

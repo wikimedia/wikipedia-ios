@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWKListTestBase : XCTestCase
 
 /// An array of test objects created in @c setUp.
-@property(nonatomic, strong, nullable) NSArray *testObjects;
+@property (nonatomic, strong, nullable) NSArray *testObjects;
 
 /**
  *  @return A unique entry object for use with the receiver's @c listClass.
@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface MWKListDummyEntry : NSObject <MWKListObject>
 
-@property(nonatomic, strong) NSString *listIndex;
+@property (nonatomic, strong) NSString *listIndex;
 
 @end
 

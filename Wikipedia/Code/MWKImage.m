@@ -11,17 +11,17 @@
 /// readwrite redeclarations
 ///
 
-@property(readwrite, weak, nonatomic) MWKArticle *article;
-@property(readwrite, copy, nonatomic) NSURL *sourceURL;
-@property(readwrite, assign, nonatomic) BOOL isCached;
+@property (readwrite, weak, nonatomic) MWKArticle *article;
+@property (readwrite, copy, nonatomic) NSURL *sourceURL;
+@property (readwrite, assign, nonatomic) BOOL isCached;
 
 ///
 /// Lazy property storage
 ///
 
-@property(readwrite, copy, nonatomic) NSString *extension;
-@property(readwrite, copy, nonatomic) NSString *fileName;
-@property(readwrite, copy, nonatomic) NSString *fileNameNoSizePrefix;
+@property (readwrite, copy, nonatomic) NSString *extension;
+@property (readwrite, copy, nonatomic) NSString *fileName;
+@property (readwrite, copy, nonatomic) NSString *fileNameNoSizePrefix;
 
 @end
 

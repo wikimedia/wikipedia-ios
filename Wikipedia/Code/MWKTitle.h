@@ -10,17 +10,17 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * The URL of the receiver
  */
-@property(nonatomic, copy, readonly) NSURL *URL;
+@property (nonatomic, copy, readonly) NSURL *URL;
 
 /**
  *  The site associated with the receiver.
  */
-@property(readonly, strong, nonatomic) MWKSite *site;
+@property (readonly, strong, nonatomic) MWKSite *site;
 
 /**
  *  The normalized page title string (decoded, no underscores or percent escapes).
  */
-@property(readonly, copy, nonatomic) NSString *text;
+@property (readonly, copy, nonatomic) NSString *text;
 
 #pragma mark - Initialization
 
@@ -80,16 +80,16 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Computed Properties
 
 /// Text with spaces removed
-@property(readonly, copy, nonatomic) NSString *dataBaseKey;
+@property (readonly, copy, nonatomic) NSString *dataBaseKey;
 
 /// Fragment passed in designated initializer.
-@property(readonly, copy, nonatomic, nullable) NSString *fragment;
+@property (readonly, copy, nonatomic, nullable) NSString *fragment;
 
 /// Absolute URL to mobile view of this article
-@property(readonly, copy, nonatomic) NSURL *mobileURL;
+@property (readonly, copy, nonatomic) NSURL *mobileURL;
 
 /// Absolute URL to desktop view of this article
-@property(readonly, copy, nonatomic) NSURL *desktopURL;
+@property (readonly, copy, nonatomic) NSURL *desktopURL;
 
 /**
  * Non standard titles shoudnt be added to history

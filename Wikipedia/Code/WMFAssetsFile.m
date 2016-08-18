@@ -2,13 +2,13 @@
 
 @interface WMFAssetsFile ()
 
-@property(nonatomic) WMFAssetsFileType fileType;
+@property (nonatomic) WMFAssetsFileType fileType;
 
-@property(nonatomic, strong) NSData *data;
+@property (nonatomic, strong) NSData *data;
 
-@property(nonatomic, strong, readwrite) NSDictionary *dictionary;
+@property (nonatomic, strong, readwrite) NSDictionary *dictionary;
 
-@property(nonatomic, strong, readwrite) NSArray *array;
+@property (nonatomic, strong, readwrite) NSArray *array;
 
 @end
 

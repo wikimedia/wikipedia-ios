@@ -3,7 +3,7 @@
 
 @interface TabularScrollView ()
 
-@property(strong, nonatomic) UIView *containerView;
+@property (strong, nonatomic) UIView *containerView;
 
 @end
 

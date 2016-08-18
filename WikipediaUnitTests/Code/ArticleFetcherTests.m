@@ -16,8 +16,8 @@
 
 @interface ArticleFetcherTests : XCTestCase
 
-@property(strong, nonatomic) MWKDataStore *tempDataStore;
-@property(strong, nonatomic) WMFArticleFetcher *articleFetcher;
+@property (strong, nonatomic) MWKDataStore *tempDataStore;
+@property (strong, nonatomic) WMFArticleFetcher *articleFetcher;
 
 @end
 

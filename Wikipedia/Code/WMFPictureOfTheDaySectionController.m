@@ -19,13 +19,13 @@ static NSString *const WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoT
 
 @interface WMFPictureOfTheDaySectionController () <WMFImageGalleryViewControllerReferenceViewDelegate>
 
-@property(nonatomic, strong) MWKImageInfoFetcher *fetcher;
+@property (nonatomic, strong) MWKImageInfoFetcher *fetcher;
 
-@property(nonatomic, strong, nullable) MWKImageInfo *imageInfo;
+@property (nonatomic, strong, nullable) MWKImageInfo *imageInfo;
 
-@property(nonatomic, strong) NSDate *fetchedDate;
+@property (nonatomic, strong) NSDate *fetchedDate;
 
-@property(nonatomic, weak, nullable) UIImageView *referenceImageView;
+@property (nonatomic, weak, nullable) UIImageView *referenceImageView;
 
 @end
 

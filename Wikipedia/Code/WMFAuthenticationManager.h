@@ -19,12 +19,12 @@ typedef void (^WMFCaptchaHandler)(NSURL *captchaURL);
 /**
  *  The current logged in user. If nil, no user is logged in
  */
-@property(strong, nonatomic, readonly, nullable) NSString *loggedInUsername;
+@property (strong, nonatomic, readonly, nullable) NSString *loggedInUsername;
 
 /**
  *  Returns YES if a user is logged in, NO otherwise
  */
-@property(assign, nonatomic, readonly) BOOL isLoggedIn;
+@property (assign, nonatomic, readonly) BOOL isLoggedIn;
 
 /**
  *  Get the shared instance of this class

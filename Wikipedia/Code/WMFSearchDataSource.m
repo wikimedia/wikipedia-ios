@@ -4,8 +4,8 @@
 
 @interface WMFSearchDataSource ()
 
-@property(nonatomic, strong, readwrite) NSURL *searchSiteURL;
-@property(nonatomic, strong, readwrite) WMFSearchResults *searchResults;
+@property (nonatomic, strong, readwrite) NSURL *searchSiteURL;
+@property (nonatomic, strong, readwrite) WMFSearchResults *searchResults;
 
 @end
 

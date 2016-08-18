@@ -11,9 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRelatedTitleListDataSource : SSArrayDataSource <WMFTitleListDataSource>
 
-@property(nonatomic, strong, readonly, nullable) WMFRelatedSearchResults *relatedSearchResults;
-@property(nonatomic, copy, readonly) NSURL *url;
-@property(nonatomic, strong, readonly) MWKSavedPageList *savedPageList;
+@property (nonatomic, strong, readonly, nullable) WMFRelatedSearchResults *relatedSearchResults;
+@property (nonatomic, copy, readonly) NSURL *url;
+@property (nonatomic, strong, readonly) MWKSavedPageList *savedPageList;
 
 - (instancetype)initWithURL:(NSURL *)url
                   dataStore:(MWKDataStore *)dataStore

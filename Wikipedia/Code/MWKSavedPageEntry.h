@@ -3,7 +3,7 @@
 
 @interface MWKSavedPageEntry : MWKSiteDataObject <MWKListObject>
 
-@property(readonly, strong, nonatomic) NSDate *date;
+@property (readonly, strong, nonatomic) NSDate *date;
 
 - (instancetype)initWithURL:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithDict:(NSDictionary *)dict;
@@ -13,6 +13,6 @@
 ///
 
 /// Whether or not image data was migrated from `MWKDataStore` to `WMFImageController`.
-@property(nonatomic, readonly) BOOL didMigrateImageData;
+@property (nonatomic, readonly) BOOL didMigrateImageData;
 
 @end

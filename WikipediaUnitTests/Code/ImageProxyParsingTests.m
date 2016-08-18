@@ -11,11 +11,11 @@
 @end
 
 @interface ImageProxyParsingTests : MWKTestCase
-@property(nonatomic, copy) NSString *baseURLString;
-@property(nonatomic, copy) NSString *proxyOriginalSrcPrefix;
-@property(nonatomic, copy) NSString *galleryAttribute;
-@property(nonatomic, strong) WMFProxyServer *proxyServer;
-@property(nonatomic) NSUInteger imageSize;
+@property (nonatomic, copy) NSString *baseURLString;
+@property (nonatomic, copy) NSString *proxyOriginalSrcPrefix;
+@property (nonatomic, copy) NSString *galleryAttribute;
+@property (nonatomic, strong) WMFProxyServer *proxyServer;
+@property (nonatomic) NSUInteger imageSize;
 @end
 
 @implementation ImageProxyParsingTests

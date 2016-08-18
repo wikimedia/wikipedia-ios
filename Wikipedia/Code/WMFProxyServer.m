@@ -13,19 +13,19 @@
 #import "NSString+WMFHTMLParsing.h"
 
 @interface WMFProxyServerResponse : NSObject
-@property(nonatomic, copy) NSData *data;
-@property(nonatomic, copy) NSString *contentType;
-@property(nonatomic, readonly) GCDWebServerResponse *GCDWebServerResponse;
+@property (nonatomic, copy) NSData *data;
+@property (nonatomic, copy) NSString *contentType;
+@property (nonatomic, readonly) GCDWebServerResponse *GCDWebServerResponse;
 + (WMFProxyServerResponse *)responseWithData:(NSData *)data contentType:(NSString *)contentType;
 @end
 
 @interface WMFProxyServer () <GCDWebServerDelegate>
-@property(nonatomic, strong) NSMutableDictionary *responsesByPath;
-@property(nonatomic, strong) GCDWebServer *webServer;
-@property(nonatomic, copy, nonnull) NSString *secret;
-@property(nonatomic, copy, nonnull) NSString *hostedFolderPath;
-@property(nonatomic) NSURLComponents *hostURLComponents;
-@property(nonatomic, readonly) GCDWebServerAsyncProcessBlock defaultHandler;
+@property (nonatomic, strong) NSMutableDictionary *responsesByPath;
+@property (nonatomic, strong) GCDWebServer *webServer;
+@property (nonatomic, copy, nonnull) NSString *secret;
+@property (nonatomic, copy, nonnull) NSString *hostedFolderPath;
+@property (nonatomic) NSURLComponents *hostURLComponents;
+@property (nonatomic, readonly) GCDWebServerAsyncProcessBlock defaultHandler;
 @end
 
 @implementation WMFProxyServer

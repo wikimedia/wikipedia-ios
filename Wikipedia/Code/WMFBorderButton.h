@@ -2,9 +2,9 @@
 
 @interface WMFBorderButton : UIButton
 
-@property(nonatomic) CGFloat borderWidth;
-@property(nonatomic) CGFloat cornerRadius;
-@property(nonatomic, strong) UIColor *borderColor;
+@property (nonatomic) CGFloat borderWidth;
+@property (nonatomic) CGFloat cornerRadius;
+@property (nonatomic, strong) UIColor *borderColor;
 
 /**
  *  Create a bordered button

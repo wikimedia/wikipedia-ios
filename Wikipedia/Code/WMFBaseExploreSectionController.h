@@ -21,13 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore items:(NSArray *)items;
 
-@property(nonatomic, strong, readonly) MWKDataStore *dataStore;
+@property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 
-@property(nonatomic, strong, readonly) MWKSavedPageList *savedPageList;
+@property (nonatomic, strong, readonly) MWKSavedPageList *savedPageList;
 
-@property(nonatomic, strong, readonly) MWKHistoryList *historyList;
+@property (nonatomic, strong, readonly) MWKHistoryList *historyList;
 
-@property(nonatomic, strong, readonly) NSArray *items;
+@property (nonatomic, strong, readonly) NSArray *items;
 
 @end
 
@@ -115,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface WMFBaseExploreSectionController (WMFExploreSectionControllerImplementedMethods)
 
-@property(nonatomic, strong, readonly) NSArray *items;
+@property (nonatomic, strong, readonly) NSArray *items;
 
 - (AnyPromise *)fetchDataIfNeeded;
 

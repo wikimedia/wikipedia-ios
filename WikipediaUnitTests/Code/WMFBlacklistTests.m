@@ -10,7 +10,7 @@
 
 @interface WMFBlacklistTests : WMFAsyncTestCase
 
-@property(nonatomic, strong) MWKDataStore *dataStore;
+@property (nonatomic, strong) MWKDataStore *dataStore;
 
 @end
 
