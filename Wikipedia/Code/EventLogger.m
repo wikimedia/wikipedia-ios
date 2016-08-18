@@ -37,8 +37,8 @@ NSString *const WMFLoggingEndpoint =
                ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
                [manager.requestSerializer setValue:funnel.appInstallID forHTTPHeaderField:@"X-WMF-UUID"];
              */
-
-            (void)[[NSURLConnection alloc] initWithRequest:request delegate:nil];
+            
+            [[[NSURLSession sharedSession] dataTaskWithRequest:request] resume];
         }
     }
     return self;
