@@ -73,6 +73,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSeparatorWidth = 1;
 static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 10;
 
 
+
 @interface WMFArticleViewController ()
 <UINavigationControllerDelegate,
  WMFImageGalleryViewControllerReferenceViewDelegate,
@@ -160,6 +161,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self = [super init];
     if (self) {
+        self.currentFooterIndex = NSNotFound;
         self.articleURL               = url;
         self.dataStore                = dataStore;
         self.hidesBottomBarWhenPushed = YES;
@@ -272,7 +274,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         CGFloat height       = 10;
 
         _headerView                 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, height)];
-        _headerView.backgroundColor = [UIColor wmf_lightGrayColor];
+        _headerView.backgroundColor = [UIColor wmf_articleBackgroundColor];
 
 
         UIView* headerBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, height - borderHeight, 1, borderHeight)];
@@ -625,6 +627,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     [self.webViewController setFooterViewControllers:footerVCs];
+    
+    [self updateTableOfContentsDisplayModeWithTraitCollection:self.traitCollection];
 }
 
 #pragma mark - Progress
@@ -885,7 +889,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     BOOL isImageNarrow = imageSize.width/imageSize.height < 2;
     CGFloat marginWidth = 0;
     if (isImageNarrow && self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineHidden) {
-        marginWidth = [self.webViewController marginWidthForSize:size] + 16;
+        marginWidth = self.webViewController.marginWidth + 16;
     }
     self.headerImageView.frame = CGRectMake(marginWidth, 0, headerViewBounds.size.width - 2*marginWidth, headerViewBounds.size.height);
 }
@@ -896,8 +900,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
+    BOOL isCompact = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact;
     self.tableOfContentsDisplaySide =  [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
-    self.tableOfContentsDisplayMode = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
+    self.tableOfContentsDisplayMode = isCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
             self.updateTableOfContentsSectionOnScrollEnabled = YES;
@@ -907,6 +912,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             self.updateTableOfContentsSectionOnScrollEnabled = NO;
             break;
     }
+    
+    self.readMoreListViewController.tableView.separatorStyle = isCompact ? UITableViewCellSeparatorStyleSingleLine : UITableViewCellSeparatorStyleNone;
+    self.footerMenuViewController.tableView.separatorStyle = isCompact ? UITableViewCellSeparatorStyleSingleLine : UITableViewCellSeparatorStyleNone;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -937,6 +945,29 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Table of Contents
 
+- (void)updateTableOfContentsLayoutAnimated:(BOOL)animated {
+    if (animated) {
+        UIScrollView *scrollView = self.webViewController.webView.scrollView;
+        CGFloat previousOffsetPercentage = scrollView.contentOffset.y/scrollView.contentSize.height;
+        [self.webViewController prepareForAnimatedResize];
+        [UIView animateWithDuration:0.20 animations:^{
+            [self layoutForSize:self.view.bounds.size];
+            [self.webViewController performAnimatedResize];
+            if (self.currentSection) {
+                [self.webViewController scrollToSection:self.currentSection animated:NO];
+            } else if (self.currentFooterIndex != NSNotFound) {
+                [self.webViewController scrollToFooterAtIndex:self.currentFooterIndex];
+            } else {
+                scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage*scrollView.contentSize.height);
+            }
+        } completion:^(BOOL finished) {
+            [self.webViewController completeAnimatedResize];
+        }];
+    } else {
+        [self layoutForSize:self.view.bounds.size];
+    }
+}
+
 - (void)showTableOfContents:(id)sender {
     if (self.tableOfContentsViewController == nil) {
         return;
@@ -948,9 +979,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 [[NSUserDefaults standardUserDefaults] wmf_setTableOfContentsIsVisibleInline:YES];
             }
             self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineVisible;
-            [UIView animateWithDuration:0.25 animations:^{
-                [self layoutForSize:self.view.bounds.size];
-            }];
+            [self updateTableOfContentsLayoutAnimated:YES];
         }
             break;
         case WMFTableOfContentsDisplayModeModal:
@@ -972,10 +1001,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 [[NSUserDefaults standardUserDefaults] wmf_setTableOfContentsIsVisibleInline:NO];
             }
             self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
-            [UIView animateWithDuration:0.25 animations:^{
-                [self layoutForSize:self.view.bounds.size];
-            }];
-            
+            [self updateTableOfContentsLayoutAnimated:YES];
         }
             break;
         case WMFTableOfContentsDisplayModeModal:
@@ -1372,6 +1398,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)updateTableOfContentsHighlightWithScrollView:(UIScrollView *)scrollView {
+    self.currentFooterIndex = NSNotFound;
+    self.currentSection = nil;
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection * _Nullable section, NSError * _Nullable error) {
         if (section) {
             [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];

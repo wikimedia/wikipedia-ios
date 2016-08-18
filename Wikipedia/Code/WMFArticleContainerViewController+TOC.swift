@@ -22,6 +22,8 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
         switch tableOfContentsDisplayMode {
         case WMFTableOfContentsDisplayModeInline:
             if let section = item as? MWKSection {
+                self.currentSection = section
+                self.currentFooterIndex = NSNotFound
                 self.webViewController.scrollToSection(section, animated: true)
                 dispatchOnMainQueueAfterDelayInSeconds(1) {
                     self.webViewController.accessibilityCursorToSection(section)
@@ -32,6 +34,8 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                 dispatchOnMainQueueAfterDelayInSeconds(1) {
                     self.webViewController.accessibilityCursorToFooterAtIndex(footerIndex)
                 }
+                self.currentSection = nil
+                self.currentFooterIndex = footerIndex
             }
         case WMFTableOfContentsDisplayModeModal:
             fallthrough
@@ -39,6 +43,8 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
             tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalHidden
             var dismissVCCompletionHandler: (() -> Void)?
             if let section = item as? MWKSection {
+                self.currentSection = section
+                self.currentFooterIndex = NSNotFound
                 // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
                 self.webViewController.scrollToSection(section, animated: true)
                 dismissVCCompletionHandler = {
@@ -53,6 +59,8 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                 dismissVCCompletionHandler = {
                     self.webViewController.accessibilityCursorToFooterAtIndex(footerIndex)
                 }
+                self.currentSection = nil
+                self.currentFooterIndex = footerIndex
             } else {
                 assertionFailure("Unsupported selection of TOC item \(item)")
             }

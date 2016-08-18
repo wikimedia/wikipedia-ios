@@ -324,8 +324,6 @@
 "nearby-distance-label-miles" = "$1 miles";
 "nearby-pull-to-refresh-prompt" = "Pull to refresh";
 "nearby-pull-to-refresh-is-refreshing" = "Refreshing";
-"nearby-loading" = "Loading nearby articles...";
-"nearby-loaded" = "Nearby articles loaded";
 "nearby-none" = "No nearby articles found. Pull to refresh or try again later.";
 "nearby-open-in-maps" = "Open in Maps";
 "nearby-cancel" = "Cancel";

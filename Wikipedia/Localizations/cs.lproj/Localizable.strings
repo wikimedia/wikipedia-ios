@@ -11,6 +11,7 @@
 // Author: Mirek2
 // Author: Mormegil
 // Author: Walter Klosse
+// Author: Zbyso23
 
 "languages-title" = "Změnit jazyk";
 "article-languages-label" = "Vybrat jazyk";
@@ -155,6 +156,8 @@
 "navbar-title-mode-login-and-save" = "Přihlaste se a uložte to";
 "navbar-title-mode-create-account" = "Vytvořit účet";
 "navbar-title-mode-create-account-and-save" = "Vytvořit účet a uložit";
+"navbar-title-mode-edit-wikitext-warning" = "Upravit otázky";
+"navbar-title-mode-edit-wikitext-disallow" = "Upravit otázky";
 "navbar-title-mode-edit-wikitext-preview" = "Náhled";
 "navbar-title-mode-edit-wikitext-summary" = "Popište vaši editaci";
 "navbar-title-mode-edit-wikitext-save" = "Uložit";

@@ -402,3 +402,4 @@
 "no-email-account-alert" = "Legg til en epostkonto på enheten din og prøv igjen.";
 "request-feedback-on-error" = "Appen har støtt på et problem som utviklerne våre gjerne vil vite mer om. Trykk her for å sende oss en epost med informasjon om feilen.";
 "explore-another-random" = "En annen tilfeldig artikkel";
+"find-in-page-no-matches" = "0 treff";
