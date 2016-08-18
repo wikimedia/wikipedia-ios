@@ -272,7 +272,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         CGFloat height       = 10;
 
         _headerView                 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, height)];
-        _headerView.backgroundColor = [UIColor wmf_lightGrayColor];
+        _headerView.backgroundColor = [UIColor wmf_articleBackgroundColor];
 
 
         UIView* headerBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, height - borderHeight, 1, borderHeight)];
@@ -625,6 +625,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     [self.webViewController setFooterViewControllers:footerVCs];
+    
+    [self updateTableOfContentsDisplayModeWithTraitCollection:self.traitCollection];
 }
 
 #pragma mark - Progress
@@ -885,7 +887,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     BOOL isImageNarrow = imageSize.width/imageSize.height < 2;
     CGFloat marginWidth = 0;
     if (isImageNarrow && self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineHidden) {
-        marginWidth = [self.webViewController marginWidthForSize:size] + 16;
+        marginWidth = self.webViewController.marginWidth + 16;
     }
     self.headerImageView.frame = CGRectMake(marginWidth, 0, headerViewBounds.size.width - 2*marginWidth, headerViewBounds.size.height);
 }
@@ -896,8 +898,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)updateTableOfContentsDisplayModeWithTraitCollection:(UITraitCollection *)traitCollection {
+    BOOL isCompact = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact;
     self.tableOfContentsDisplaySide =  [[UIApplication sharedApplication] wmf_tocShouldBeOnLeft] ? WMFTableOfContentsDisplaySideLeft : WMFTableOfContentsDisplaySideRight;
-    self.tableOfContentsDisplayMode = traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
+    self.tableOfContentsDisplayMode = isCompact ? WMFTableOfContentsDisplayModeModal : WMFTableOfContentsDisplayModeInline;
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
             self.updateTableOfContentsSectionOnScrollEnabled = YES;
@@ -907,6 +910,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             self.updateTableOfContentsSectionOnScrollEnabled = NO;
             break;
     }
+    
+    self.readMoreListViewController.tableView.separatorStyle = isCompact ? UITableViewCellSeparatorStyleSingleLine : UITableViewCellSeparatorStyleNone;
+    self.footerMenuViewController.tableView.separatorStyle = isCompact ? UITableViewCellSeparatorStyleSingleLine : UITableViewCellSeparatorStyleNone;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {

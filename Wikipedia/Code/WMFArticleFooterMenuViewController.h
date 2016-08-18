@@ -6,6 +6,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleFooterMenuViewController : UIViewController
 
+@property (nonatomic, strong, readonly) IBOutlet UITableView* tableView;
+
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
 
 @property (nonatomic, strong, readwrite) MWKArticle* article;

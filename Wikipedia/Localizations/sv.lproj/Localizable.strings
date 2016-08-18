@@ -407,3 +407,4 @@
 "no-email-account-alert" = "Lägg in ett e-postkonto på din enhet och försök igen.";
 "request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";
 "explore-another-random" = "En annan slumpmässig artikel";
+"find-in-page-no-matches" = "0 träffar";

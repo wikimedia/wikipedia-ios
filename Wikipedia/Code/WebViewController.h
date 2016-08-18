@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, nullable) WMFPeekHTMLElement* peekElement;
 
 @property (nonatomic) CGFloat contentWidthPercentage;
+@property (nonatomic, readonly) CGFloat marginWidth;
 
 - (void)setArticle:(MWKArticle * _Nullable)article articleURL:(NSURL*)articleURL;
 
@@ -68,8 +69,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)accessibilityCursorToFooterAtIndex:(NSInteger)index;
 
 - (NSInteger)visibleFooterIndex;
-
-- (CGFloat)marginWidthForSize:(CGSize)size;
 
 @end
 

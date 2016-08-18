@@ -102,6 +102,7 @@
 "settings-title" = "Astellungen";
 "settings-language" = "Wikipedia-Sprooch";
 "settings-support" = "Wikipedia ënnerstëtzen";
+"settings-language-bar" = "Sprooche beim Siche weisen";
 "settings-my-languages" = "Meng Sproochen";
 "settings-help-and-feedback" = "Hëllef a Feedback";
 "settings-primary-language" = "Primär";
@@ -193,6 +194,7 @@
 "about-libraries" = "Benotzt Bibliothéiken";
 "about-libraries-license" = "Lizenz";
 "about-libraries-licenses" = "Lizenzen";
+"about-content-license" = "Lizenz vum Inhalt";
 "about-libraries-licenses-title" = "Mir appreciéieren Open Source Software $1";
 "about-libraries-complete-list" = "Komplett Lëscht";
 "about-repositories-app-source-license-mit" = "MIT-Lizenz";
@@ -349,6 +351,7 @@
 "empty-no-saved-pages-title" = "Nach keng gespäichert Säiten";
 "empty-no-saved-pages-message" = "Säite späichere fir se spéider offline ze kucken";
 "empty-no-history-title" = "Keen Historique vu Versioune weisen";
+"empty-no-history-message" = "Versuergt hei dat wat Dir hei geliest hutt";
 "alert-no-internet" = "Dir hutt keng Internetverbindung";
 "icon-shortcut-search-title" = "Op Wikipedia sichen";
 "icon-shortcut-continue-reading-title" = "Virufuere mat Liesen";
@@ -373,3 +376,4 @@
 "explore-most-read-more-list-title-for-date" = "Déi beléifst de(n) $1";
 "request-feedback-on-error" = "Bei der App ass e Feeler geschitt iwwer deen eis Entwéckler méi wësse wëllen. Klickt w.e.g. hei fir eis eng E-Mail mat den Detailer vum Feeler ze schécken.";
 "explore-another-random" = "En aneren zoufällegen Artikel";
+"find-in-page-no-matches" = "Näischt fonnt";

@@ -5,6 +5,7 @@
 // Author: Macofe
 // Author: Mathonius
 // Author: MedShot
+// Author: MrLeopold
 // Author: Robin van der Vliet
 // Author: Robin0van0der0vliet
 // Author: SPQRobin
@@ -404,3 +405,4 @@
 "explore-most-read-footer-for-date" = "Alle meest gelezen pagina's op $1";
 "explore-most-read-more-list-title" = "Meest gelezen pagina's";
 "explore-most-read-more-list-title-for-date" = "Populair op $1";
+"find-in-page-no-matches" = "0 overeenkomsten";
