@@ -3,7 +3,7 @@
 #import "WMFAsyncTestCase.h"
 
 #if DEBUG
-NSTimeInterval const WMFDefaultExpectationTimeout = 60.0;
+NSTimeInterval const WMFDefaultExpectationTimeout = 1000.0;
 #else
 NSTimeInterval const WMFDefaultExpectationTimeout = 10.0;
 #endif

@@ -44,16 +44,17 @@ class WMFImageControllerTests: XCTestCase {
         
         let failure = { (error: ErrorType) in
             XCTFail()
+            expectation.fulfill()
         }
         
         let success = { (imgDownload: WMFImageDownload) in
-            XCTAssertEqual(UIImagePNGRepresentation(imgDownload.image), stubbedData)
+            XCTAssertNotNil(imgDownload.image);
             expectation.fulfill()
         }
         
         self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
-        waitForExpectationsWithTimeout(60) { (error) in
+        waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
         }
     }
 
@@ -84,7 +85,7 @@ class WMFImageControllerTests: XCTestCase {
         
         self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
-        waitForExpectationsWithTimeout(60) { (error) in
+        waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
         }
     }
 
@@ -117,7 +118,7 @@ class WMFImageControllerTests: XCTestCase {
         
         self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
-        waitForExpectationsWithTimeout(60) { (error) in
+        waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
         }
     }
 
@@ -149,7 +150,7 @@ class WMFImageControllerTests: XCTestCase {
 
             imageController.cancelFetchForURL(testURL)
             
-            waitForExpectationsWithTimeout(60) { (error) in
+            waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
             }
 
             NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
@@ -168,13 +169,13 @@ class WMFImageControllerTests: XCTestCase {
             }
             
             let secondsuccess = { (imgDownload: WMFImageDownload) in
-                XCTAssertEqual(UIImagePNGRepresentation(imgDownload.image), stubbedData)
+                XCTAssertNotNil(imgDownload.image);
                 secondExpectation.fulfill()
             }
             
             self.imageController.fetchImageWithURL(testURL, failure:secondFailure, success: secondsuccess)
             
-            waitForExpectationsWithTimeout(60) { (error) in
+            waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
             }
         }
     }
@@ -220,7 +221,7 @@ class WMFImageControllerTests: XCTestCase {
 //        
 //        self.imageController.importImage(fromFile: tempFileURL.path!, withURL: testURL, failure: failure, success: success)
 //        
-//        waitForExpectationsWithTimeout(60) { (error) in
+//        waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
 //        }
 //    }
 //
@@ -249,7 +250,7 @@ class WMFImageControllerTests: XCTestCase {
         
         self.imageController.importImage(fromFile: tempImageCopyURL.path!, withURL: testURL, failure: failure, success: success)
         
-        waitForExpectationsWithTimeout(60) { (error) in
+        waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
         }
 
 
