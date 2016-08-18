@@ -1,4 +1,3 @@
-
 @import UIKit;
 
 @interface WMFExploreSectionFooter : UICollectionReusableView

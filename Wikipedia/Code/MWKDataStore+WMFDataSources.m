@@ -1,4 +1,3 @@
-
 #import "MWKDataStore+WMFDataSources.h"
 #import "YapDatabase+WMFExtensions.h"
 #import "YapDatabase+WMFViews.h"

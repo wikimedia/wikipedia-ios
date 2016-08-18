@@ -1,5 +1,3 @@
-
-
 #import "WMFBoringNavigationTransition.h"
 #import "Wikipedia-Swift.h"
 

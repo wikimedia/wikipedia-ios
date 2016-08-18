@@ -1,5 +1,3 @@
-
-
 #import "MWKImage+AssociationTestUtils.h"
 #import <BlocksKit/BlocksKit.h>
 #import "MWKArticle.h"

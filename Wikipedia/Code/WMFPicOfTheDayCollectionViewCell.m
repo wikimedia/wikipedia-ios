@@ -1,11 +1,3 @@
-//
-//  WMFPicOfTheDayTableViewCell.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 11/23/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFPicOfTheDayCollectionViewCell.h"
 #import "UIImageView+WMFPlaceholder.h"
 #import "UIImageView+WMFImageFetchingInternal.h"

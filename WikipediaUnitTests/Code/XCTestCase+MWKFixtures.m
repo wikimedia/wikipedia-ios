@@ -1,4 +1,3 @@
-
 #import "XCTestCase+MWKFixtures.h"
 #import "XCTestCase+WMFBundleConvenience.h"
 #import "MWKArticle.h"

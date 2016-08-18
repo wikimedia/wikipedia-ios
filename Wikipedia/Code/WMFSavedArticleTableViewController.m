@@ -1,4 +1,3 @@
-
 #import "WMFSavedArticleTableViewController.h"
 #import "PiwikTracker+WMFExtensions.h"
 #import "NSString+WMFExtras.h"

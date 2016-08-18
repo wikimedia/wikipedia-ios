@@ -1,11 +1,3 @@
-//
-//  WMFSearchResultsSerializationTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/28/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <XCTest/XCTest.h>
 #import <AFNetworking/AFURLResponseSerialization.h>
 #import "WMFSearchResults+ResponseSerializer.h"

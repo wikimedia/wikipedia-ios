@@ -1,4 +1,3 @@
-
 #import "WMFEmptyView.h"
 #import "UIColor+WMFStyle.h"
 #import "UIView+WMFDefaultNib.h"

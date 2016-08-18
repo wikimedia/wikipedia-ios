@@ -1,4 +1,3 @@
-
 #import "UIImageView+WMFImageFetching.h"
 
 @class MWKImage;

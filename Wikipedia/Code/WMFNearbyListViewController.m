@@ -1,4 +1,3 @@
-
 #import "WMFNearbyListViewController.h"
 #import "WMFLocationManager.h"
 #import "Wikipedia-Swift.h"

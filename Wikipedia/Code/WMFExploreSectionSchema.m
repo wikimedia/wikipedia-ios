@@ -1,4 +1,3 @@
-
 #import "WMFExploreSectionSchema_Testing.h"
 #import "MWKDataStore+WMFDataSources.h"
 #import "WMFDatabaseDataSource.h"

@@ -1,4 +1,3 @@
-
 #import "MWKSectionMetaData.h"
 #import "MTLValueTransformer+WMFNumericValueTransformer.h"
 

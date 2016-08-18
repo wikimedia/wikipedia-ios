@@ -1,4 +1,3 @@
-
 #import <UIKit/UIKit.h>
 #import "CaptchaViewController.h"
 #import "CreateAccountFunnel.h"

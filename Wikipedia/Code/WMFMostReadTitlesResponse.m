@@ -1,4 +1,3 @@
-
 #import "WMFMostReadTitlesResponse.h"
 #import "NSDictionary+WMFRequiredValueForKey.h"
 #import "Wikipedia-Swift.h"

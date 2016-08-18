@@ -1,4 +1,3 @@
-
 #import "WMFAuthenticationManager.h"
 #import "WMFAuthManagerInfoFetcher.h"
 #import "WMFAuthManagerInfo.h"

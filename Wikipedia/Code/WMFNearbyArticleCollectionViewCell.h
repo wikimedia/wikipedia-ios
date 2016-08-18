@@ -1,4 +1,3 @@
-
 #import "WMFExploreCollectionViewCell.h"
 
 @class WMFSearchResultBearingProvider;

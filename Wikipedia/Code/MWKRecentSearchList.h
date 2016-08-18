@@ -1,4 +1,3 @@
-
 #import "MWKList.h"
 #import "MWKRecentSearchEntry.h"
 #import "MWKDataStoreList.h"

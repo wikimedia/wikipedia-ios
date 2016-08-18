@@ -1,4 +1,3 @@
-
 #import "WMFHistoryTableViewController.h"
 #import "PiwikTracker+WMFExtensions.h"
 #import "NSUserActivity+WMFExtensions.h"

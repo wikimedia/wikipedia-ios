@@ -1,4 +1,3 @@
-
 #import "WMFEnglishFeaturedTitleFetcher.h"
 #import "Wikipedia-Swift.h"
 

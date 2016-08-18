@@ -1,4 +1,3 @@
-
 #import "MWKLocationSearchResult.h"
 
 @implementation MWKLocationSearchResult

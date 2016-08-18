@@ -1,4 +1,3 @@
-
 #import "WMFBaseExploreSectionController.h"
 
 @class WMFRelatedSearchFetcher;

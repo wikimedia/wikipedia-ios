@@ -1,4 +1,3 @@
-
 #import "WMFWelcomeIntroductionViewController.h"
 #import "Wikipedia-Swift.h"
 

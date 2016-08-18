@@ -1,4 +1,3 @@
-
 #import "WMFArticleListTableViewCell.h"
 #import "UIColor+WMFStyle.h"
 #import "UIImage+WMFStyle.h"

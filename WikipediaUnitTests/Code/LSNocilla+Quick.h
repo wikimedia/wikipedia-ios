@@ -1,11 +1,3 @@
-//
-//  LSNocilla+Quick.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 12/21/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 @import Quick;
 #import <Nocilla/LSNocilla.h>
 

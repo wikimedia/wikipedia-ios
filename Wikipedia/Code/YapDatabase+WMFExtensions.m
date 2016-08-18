@@ -1,4 +1,3 @@
-
 #import "YapDatabase+WMFExtensions.h"
 
 @implementation YapDatabase (WMFExtensions)

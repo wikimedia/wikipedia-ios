@@ -1,4 +1,3 @@
-
 #import "SavedArticlesFetcher_Testing.h"
 
 #import "Wikipedia-Swift.h"

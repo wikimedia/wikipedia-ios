@@ -1,4 +1,3 @@
-
 #import "WMFSelfSizingArticleListTableViewController.h"
 #import "WMFIntrinsicSizeTableView.h"
 

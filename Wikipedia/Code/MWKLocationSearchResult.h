@@ -1,4 +1,3 @@
-
 #import "MWKSearchResult.h"
 @import CoreLocation;
 

@@ -1,4 +1,3 @@
-
 #import <SSDataSources/SSDataSources.h>
 
 @class WMFSearchResultBearingProvider;

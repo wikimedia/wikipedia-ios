@@ -1,4 +1,3 @@
-
 @import WebKit;
 
 @class MWKArticle, MWLanguageInfo;

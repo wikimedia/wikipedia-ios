@@ -1,4 +1,3 @@
-
 #import "WMFExploreSection.h"
 #import "MWKHistoryEntry.h"
 #import "NSDate+Utilities.h"

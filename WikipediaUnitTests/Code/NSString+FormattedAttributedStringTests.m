@@ -1,11 +1,3 @@
-//
-//  NSString+FormattedAttributedStringTests.m
-//  Wikipedia
-//
-//  Created by Monte Hurd on 3/31/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "NSString+FormattedAttributedString.h"

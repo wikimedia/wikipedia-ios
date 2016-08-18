@@ -1,4 +1,3 @@
-
 #import "WMFLocalization.h"
 
 NSString* localizedStringForKeyFallingBackOnEnglish(NSString* key){

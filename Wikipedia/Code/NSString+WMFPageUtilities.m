@@ -1,11 +1,3 @@
-//
-//  WMFPageUtilities.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 5/29/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "NSString+WMFPageUtilities.h"
 #import "NSString+WMFExtras.h"
 #import "WMFRangeUtils.h"

@@ -1,11 +1,3 @@
-//
-//  MWKDataStore+TempDataStoreForEach.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 11/13/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MWKDataStore+TempDataStoreForEach.h"
 #import <Quick/Quick.h>
 #import "MWKDataStore+TemporaryDataStore.h"

@@ -1,4 +1,3 @@
-
 #import "WMFBaseExploreSectionController.h"
 @import CoreLocation;
 @class WMFLocationManager, MWKDataStore;

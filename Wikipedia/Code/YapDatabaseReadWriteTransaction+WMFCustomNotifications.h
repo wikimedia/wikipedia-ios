@@ -1,4 +1,3 @@
-
 #import <YapDatabase/YapDatabase.h>
 
 NS_ASSUME_NONNULL_BEGIN

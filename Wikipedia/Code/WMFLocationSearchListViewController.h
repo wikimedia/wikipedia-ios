@@ -1,4 +1,3 @@
-
 #import "WMFArticleListDataSourceTableViewController.h"
 #import "WMFNearbyTitleListDataSource.h"
 @import CoreLocation;

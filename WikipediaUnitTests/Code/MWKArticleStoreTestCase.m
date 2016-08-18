@@ -1,4 +1,3 @@
-
 #import "MWKArticleStoreTestCase.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 

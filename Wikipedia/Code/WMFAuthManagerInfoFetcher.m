@@ -1,4 +1,3 @@
-
 #import "WMFAuthManagerInfoFetcher.h"
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "AFHTTPSessionManager+WMFConfig.h"

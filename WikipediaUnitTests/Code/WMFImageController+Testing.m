@@ -1,11 +1,3 @@
-//
-//  WMFImageController+Testing.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/9/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFImageController+Testing.h"
 #import <SDWebImage/SDWebImageManager.h>
 #import <SDWebImage/SDImageCache.h>

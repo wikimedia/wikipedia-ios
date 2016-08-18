@@ -1,4 +1,3 @@
-
 #import "WMFLocationSearchResults.h"
 #import "MWKLocationSearchResult.h"
 

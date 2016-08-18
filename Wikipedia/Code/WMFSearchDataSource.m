@@ -1,4 +1,3 @@
-
 #import "WMFSearchDataSource.h"
 #import "WMFSearchResults.h"
 #import "MWKSearchResult.h"

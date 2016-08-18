@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 11/19/13.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "PageHistoryResultCell.h"
 #import "NSObject+ConstraintsScale.h"
 #import "PageHistoryLabel.h"

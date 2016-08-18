@@ -1,11 +1,3 @@
-//
-//  WMFDeprecationMacros.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 11/11/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #ifndef WMFDeprecationMacros_h
 #define WMFDeprecationMacros_h
 

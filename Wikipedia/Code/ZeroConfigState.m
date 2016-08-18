@@ -1,4 +1,3 @@
-
 #import "ZeroConfigState.h"
 #import "Wikipedia-Swift.h"
 #import <BlocksKit/UIAlertView+BlocksKit.h>

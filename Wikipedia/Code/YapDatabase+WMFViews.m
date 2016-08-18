@@ -1,4 +1,3 @@
-
 #import "YapDatabase+WMFViews.h"
 #import "YapDatabase+WMFExtensions.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"

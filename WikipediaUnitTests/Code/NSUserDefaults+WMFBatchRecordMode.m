@@ -1,4 +1,3 @@
-
 #import "NSUserDefaults+WMFBatchRecordMode.h"
 
 @implementation NSUserDefaults (WMFBatchRecordMode)

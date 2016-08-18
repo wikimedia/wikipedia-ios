@@ -1,4 +1,3 @@
-
 #import "FBSnapshotTestCase+WMFConvenience.h"
 #import "XCTestCase+WMFVisualTestConvenience.h"
 #import "UIView+VisualTestSizingUtils.h"

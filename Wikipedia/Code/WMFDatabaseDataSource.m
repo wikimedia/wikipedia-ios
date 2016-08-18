@@ -1,5 +1,3 @@
-
-
 #import "WMFDatabaseDataSource.h"
 #import <YapDatabase/YapDatabase.h>
 #import <YapDataBase/YapDatabaseView.h>

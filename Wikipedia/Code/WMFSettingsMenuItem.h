@@ -1,4 +1,3 @@
-
 #import <Mantle/Mantle.h>
 
 typedef NS_ENUM (NSUInteger, WMFSettingsMenuItemDisclosureType){

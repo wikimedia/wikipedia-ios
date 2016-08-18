@@ -1,4 +1,3 @@
-
 #import "WMFArticleListDataSourceTableViewController.h"
 #import "WMFSearchDataSource.h"
 

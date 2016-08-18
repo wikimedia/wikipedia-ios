@@ -1,4 +1,3 @@
-
 #import <Foundation/Foundation.h>
 
 // See docs/localizations.md for high-level documentation

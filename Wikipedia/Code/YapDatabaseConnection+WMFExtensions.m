@@ -1,4 +1,3 @@
-
 #import "YapDatabaseConnection+WMFExtensions.h"
 #import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
 

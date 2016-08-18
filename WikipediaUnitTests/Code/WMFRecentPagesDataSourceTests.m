@@ -1,4 +1,3 @@
-
 @import XCTest;
 #import <Quick/Quick.h>
 @import Nimble;

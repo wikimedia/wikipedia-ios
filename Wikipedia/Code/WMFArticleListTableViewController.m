@@ -1,4 +1,3 @@
-
 #import "WMFArticleListTableViewController.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "Wikipedia-Swift.h"

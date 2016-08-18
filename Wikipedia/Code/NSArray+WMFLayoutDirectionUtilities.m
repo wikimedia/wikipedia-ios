@@ -1,11 +1,3 @@
-//
-//  NSArray+WMFLayoutDirectionUtilities.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 7/20/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "Wikipedia-Swift.h"
 

@@ -1,11 +1,3 @@
-//
-//  WMFSearchFunnel.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 5/8/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFSearchFunnel.h"
 
 static NSString* const kSchemaName            = @"MobileWikiAppSearch";

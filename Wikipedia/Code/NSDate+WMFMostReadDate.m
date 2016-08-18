@@ -1,11 +1,3 @@
-//
-//  NSDate+WMFMostReadDate.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/12/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
-
 #import "NSDate+WMFMostReadDate.h"
 #import "NSCalendar+WMFCommonCalendars.h"
 

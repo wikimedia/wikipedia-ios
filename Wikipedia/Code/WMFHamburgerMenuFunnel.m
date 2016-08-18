@@ -1,4 +1,3 @@
-
 #import "WMFHamburgerMenuFunnel.h"
 
 static NSString* const kSchemaName      = @"MobileWikiAppNavMenu";

@@ -1,11 +1,3 @@
-//
-//  WMFBaseExploreSectionControllerTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/19/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
-
 @import Quick;
 @import Nimble;
 

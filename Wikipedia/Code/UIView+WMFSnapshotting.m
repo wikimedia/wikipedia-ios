@@ -1,4 +1,3 @@
-
 #import "UIView+WMFSnapshotting.h"
 
 @implementation UIView (WMFSnapshotting)

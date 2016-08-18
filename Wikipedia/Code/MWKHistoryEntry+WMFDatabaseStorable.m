@@ -1,4 +1,3 @@
-
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 
 @implementation MWKHistoryEntry (WMFDatabaseStorable)

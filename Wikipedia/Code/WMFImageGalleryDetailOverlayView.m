@@ -1,4 +1,3 @@
-
 #import "WMFImageGalleryDetailOverlayView.h"
 #import "UIFont+WMFStyle.h"
 #import "WikiGlyph_Chars.h"

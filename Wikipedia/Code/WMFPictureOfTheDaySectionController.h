@@ -1,4 +1,3 @@
-
 #import "WMFBaseExploreSectionController.h"
 
 @interface WMFPictureOfTheDaySectionController : WMFBaseExploreSectionController

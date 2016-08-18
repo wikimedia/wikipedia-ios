@@ -1,5 +1,3 @@
-
-
 #import <YapDatabase/YapDatabase.h>
 #import <YapDataBase/YapDatabaseView.h>
 

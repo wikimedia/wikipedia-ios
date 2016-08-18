@@ -1,4 +1,3 @@
-
 #import "WMFArticleListDataSourceTableViewController.h"
 
 #import <BlocksKit/BlocksKit+UIKit.h>

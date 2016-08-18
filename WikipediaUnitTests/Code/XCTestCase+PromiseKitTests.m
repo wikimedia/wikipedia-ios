@@ -1,11 +1,3 @@
-//
-//  XCTestCase+PromiseKitTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 11/20/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "XCTestCase+PromiseKit.h"
 #import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 

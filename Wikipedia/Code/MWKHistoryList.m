@@ -1,4 +1,3 @@
-
 #import "MWKHistoryList.h"
 #import "MWKDataStore+WMFDataSources.h"
 #import <YapDataBase/YapDatabase.h>

@@ -1,11 +1,3 @@
-//
-//  ShareOptionsView.m
-//  Wikipedia
-//
-//  Created by Adam Baso on 1/23/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFShareOptionsView.h"
 #import "PaddedLabel.h"
 #import "UIView+WMFRoundCorners.h"

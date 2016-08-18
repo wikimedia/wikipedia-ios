@@ -1,5 +1,3 @@
-
-
 #import "WMFAsyncTestCase.h"
 
 #if DEBUG

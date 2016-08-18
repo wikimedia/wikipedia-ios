@@ -1,11 +1,3 @@
-//
-//  WMFCompassViewModel.h
-//  Wikipedia
-//
-//  Created by Corey Floyd on 1/22/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
 
 @class WMFSearchResultDistanceProvider;

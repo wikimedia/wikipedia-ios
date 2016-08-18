@@ -1,4 +1,3 @@
-
 #import "WMFRelatedTitleViewController.h"
 #import "MWKSearchResult.h"
 #import "WMFArticlePreviewTableViewCell.h"

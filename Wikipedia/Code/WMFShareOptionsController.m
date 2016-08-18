@@ -1,4 +1,3 @@
-
 #import "WMFShareOptionsController.h"
 
 #import "Wikipedia-Swift.h"

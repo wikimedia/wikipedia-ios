@@ -1,4 +1,3 @@
-
 #import "WMFRelatedSearchResults.h"
 
 @interface WMFRelatedSearchResults ()

@@ -1,11 +1,3 @@
-//
-//  MWKImageStorageTests.m
-//  MediaWikiKit
-//
-//  Created by Brion on 10/28/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 

@@ -1,4 +1,3 @@
-
 #import "WMFExploreSectionHeader.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 

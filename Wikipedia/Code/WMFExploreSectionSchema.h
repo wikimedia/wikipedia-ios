@@ -1,4 +1,3 @@
-
 #import <Mantle/Mantle.h>
 
 @class MWKSavedPageList, MWKHistoryList, WMFExploreSection, WMFRelatedSectionBlackList;

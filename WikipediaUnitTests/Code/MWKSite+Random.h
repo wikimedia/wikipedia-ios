@@ -1,4 +1,3 @@
-
 @interface NSURL (MWKRandom)
 
 + (instancetype)wmf_randomSiteURL;

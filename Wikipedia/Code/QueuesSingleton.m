@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 12/6/13.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "QueuesSingleton.h"
 #import "WikipediaAppUtils.h"
 #import "ReadingActionFunnel.h"

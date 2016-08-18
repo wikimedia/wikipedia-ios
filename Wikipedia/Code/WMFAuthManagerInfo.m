@@ -1,4 +1,3 @@
-
 #import "WMFAuthManagerInfo.h"
 
 @implementation WMFAuthManagerInfo

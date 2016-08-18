@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 2/19/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import <UIKit/UIKit.h>
 
 // Presently it is assumed this view controller will be used only as a

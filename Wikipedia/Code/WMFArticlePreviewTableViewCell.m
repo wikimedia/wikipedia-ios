@@ -1,4 +1,3 @@
-
 #import "WMFArticlePreviewTableViewCell.h"
 #import "UIColor+WMFStyle.h"
 #import "UIButton+WMFButton.h"

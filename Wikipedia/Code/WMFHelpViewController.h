@@ -1,4 +1,3 @@
-
 #import "WMFArticleViewController.h"
 
 @class MWKDataStore;

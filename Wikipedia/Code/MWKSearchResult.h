@@ -1,4 +1,3 @@
-
 #import <Mantle/Mantle.h>
 
 @interface MWKSearchResult : MTLModel<MTLJSONSerializing>

@@ -1,4 +1,3 @@
-
 #import "WMFFeaturedArticleSectionController.h"
 #import "MWKSiteInfoFetcher.h"
 #import "WMFEnglishFeaturedTitleFetcher.h"

@@ -1,11 +1,3 @@
-//
-//  ShareCardViewController.m
-//  Wikipedia
-//
-//  Created by Adam Baso on 1/16/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFShareCardViewController.h"
 #import "NSString+WMFExtras.h"
 #import "WMFShareCardImageContainer.h"

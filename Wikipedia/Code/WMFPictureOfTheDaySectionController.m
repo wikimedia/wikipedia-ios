@@ -1,4 +1,3 @@
-
 #import "WMFPictureOfTheDaySectionController.h"
 #import "MWKImageInfo.h"
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"

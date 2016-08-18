@@ -1,4 +1,3 @@
-
 #import "WMFMainPagePlaceholderCollectionViewCell.h"
 
 @implementation WMFMainPagePlaceholderCollectionViewCell

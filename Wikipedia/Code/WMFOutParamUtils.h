@@ -1,11 +1,3 @@
-//
-//  WMFOutParamUtils.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 7/23/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #ifndef Wikipedia_WMFOutParamUtils_h
 #define Wikipedia_WMFOutParamUtils_h
 

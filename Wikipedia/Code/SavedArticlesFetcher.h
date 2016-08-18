@@ -1,4 +1,3 @@
-
 #import "FetcherBase.h"
 
 @class MWKArticle,

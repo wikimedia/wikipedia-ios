@@ -1,5 +1,3 @@
-
-
 #import "MWKRecentSearchList.h"
 #import "MWKList+Subclass.h"
 #import "MediaWikiKit.h"

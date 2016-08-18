@@ -1,4 +1,3 @@
-
 #import "WMFContinueReadingSectionController.h"
 #import "WMFArticleListCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"

@@ -1,4 +1,3 @@
-
 #import "WMFArticleListTableViewCell.h"
 #import "WMFArticleListCollectionViewCell.h"
 

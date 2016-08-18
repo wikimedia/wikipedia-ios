@@ -1,4 +1,3 @@
-
 #import "WMFLocationSearchListViewController.h"
 
 @interface WMFNearbyListViewController : WMFLocationSearchListViewController

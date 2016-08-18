@@ -1,4 +1,3 @@
-
 #import "MWKTestCase.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFAsyncTestCase.h"

@@ -1,4 +1,3 @@
-
 typedef NS_ENUM (NSUInteger, MWKSavedPageListSchemaVersion) {
     /// Legacy version, pre-5.0
     MWKSavedPageListSchemaVersionUnknown = 0,

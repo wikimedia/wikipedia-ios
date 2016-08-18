@@ -1,4 +1,3 @@
-
 #import "EventLoggingFunnel.h"
 
 @interface SavedPagesFunnel : EventLoggingFunnel

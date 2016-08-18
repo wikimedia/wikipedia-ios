@@ -1,4 +1,3 @@
-
 #import "WMFMostReadListDataSource.h"
 #import "WMFArticleListTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"

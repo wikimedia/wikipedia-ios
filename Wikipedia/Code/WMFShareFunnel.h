@@ -1,11 +1,3 @@
-//
-//  ShareFunnel.h
-//  Wikipedia
-//
-//  Created by Adam Baso on 2/3/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "EventLoggingFunnel.h"
 
 @interface WMFShareFunnel : EventLoggingFunnel

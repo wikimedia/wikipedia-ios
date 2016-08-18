@@ -1,4 +1,3 @@
-
 #import <Mantle/Mantle.h>
 
 @interface WMFMostReadTitlesResponseItemArticle : MTLModel

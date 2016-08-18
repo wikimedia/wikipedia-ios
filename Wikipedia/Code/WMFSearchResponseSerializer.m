@@ -1,4 +1,3 @@
-
 #import "WMFSearchResponseSerializer.h"
 #import "MWKSearchResult.h"
 

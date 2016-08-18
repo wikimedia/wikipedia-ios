@@ -1,5 +1,3 @@
-
-
 #import "AppDelegate.h"
 #import "Wikipedia-Swift.h"
 

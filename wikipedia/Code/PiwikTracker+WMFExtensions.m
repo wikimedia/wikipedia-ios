@@ -1,4 +1,3 @@
-
 #import "PiwikTracker+WMFExtensions.h"
 #import "NSBundle+WMFInfoUtils.h"
 
