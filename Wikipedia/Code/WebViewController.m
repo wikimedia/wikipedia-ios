@@ -59,6 +59,8 @@ NSString *const WMFCCBySALicenseURL =
 @property(strong, nonatomic) MASConstraint *footerContainerViewLeftMarginConstraint;
 @property(strong, nonatomic) MASConstraint *footerContainerViewRightMarginConstraint;
 
+@property(nonatomic) CGFloat marginWidth;
+
 @property(nonatomic, strong) NSArray *findInPageMatches;
 @property(nonatomic) NSInteger findInPageSelectedMatchIndex;
 @property(nonatomic) BOOL disableMinimizeFindInPage;
@@ -1251,19 +1253,6 @@ NSString *const WMFCCBySALicenseURL =
         [self updateWebContentMarginForSize:self.view.bounds.size];
         [self updateFooterMarginForSize:self.view.bounds.size];
     }
-}
-
-#pragma mark - Animation
-
-- (UIEdgeInsets)animatedResizeSnapshotInsets {
-    CGFloat marginWidth = self.marginWidth;
-
-    CGFloat contentOffsetY = self.webView.scrollView.contentOffset.y;
-    CGFloat boundsHeight = self.webView.scrollView.bounds.size.height;
-    CGFloat topInset = MAX(0, self.headerView.frame.size.height - contentOffsetY);
-    CGFloat bottomInset = MAX(0, MIN((contentOffsetY + boundsHeight) - (self.webView.scrollView.contentSize.height - self.footerContainerView.frame.size.height), boundsHeight));
-
-    return UIEdgeInsetsMake(topInset, marginWidth, bottomInset, marginWidth);
 }
 
 @end
