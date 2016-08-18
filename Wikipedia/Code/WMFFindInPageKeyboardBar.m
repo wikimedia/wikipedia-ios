@@ -1,16 +1,16 @@
 #import "WMFFindInPageKeyboardBar.h"
 #import "UIControl+BlocksKit.h"
 
-@interface WMFFindInPageKeyboardBar() <UITextFieldDelegate>
+@interface WMFFindInPageKeyboardBar () <UITextFieldDelegate>
 
-@property (strong, nonatomic) IBOutlet UIButton *closeButton;
-@property (strong, nonatomic) IBOutlet UIButton *clearButton;
-@property (strong, nonatomic) IBOutlet UIButton *previousButton;
-@property (strong, nonatomic) IBOutlet UIButton *nextButton;
-@property (strong, nonatomic) IBOutlet UIImageView *magnifyImageView;
-@property (strong, nonatomic) IBOutlet UILabel *currentMatchLabel;
+@property(strong, nonatomic) IBOutlet UIButton *closeButton;
+@property(strong, nonatomic) IBOutlet UIButton *clearButton;
+@property(strong, nonatomic) IBOutlet UIButton *previousButton;
+@property(strong, nonatomic) IBOutlet UIButton *nextButton;
+@property(strong, nonatomic) IBOutlet UIImageView *magnifyImageView;
+@property(strong, nonatomic) IBOutlet UILabel *currentMatchLabel;
 
-@property (strong, nonatomic) IBOutlet UITextField *textField;
+@property(strong, nonatomic) IBOutlet UITextField *textField;
 
 @end
 
@@ -34,7 +34,7 @@
     return CGSizeMake(UIViewNoIntrinsicMetric, 46);
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder{
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
         self.tintColor = [UIColor colorWithRed:0.3373 green:0.3373 blue:0.3373 alpha:1.0];
@@ -42,11 +42,11 @@
     return self;
 }
 
-- (IBAction)didTouchPrevious{
+- (IBAction)didTouchPrevious {
     [self.delegate keyboardBarPreviousButtonTapped:self];
 }
 
-- (IBAction)didTouchNext{
+- (IBAction)didTouchNext {
     [self.delegate keyboardBarNextButtonTapped:self];
 }
 
@@ -55,11 +55,11 @@
     self.clearButton.hidden = (textField.text.length == 0) ? YES : NO;
 }
 
-- (IBAction)didTouchClose{
+- (IBAction)didTouchClose {
     [self.delegate keyboardBarCloseButtonTapped:self];
 }
 
-- (IBAction)didTouchClear{
+- (IBAction)didTouchClear {
     [self.delegate keyboardBarClearButtonTapped:self];
 }
 
@@ -92,10 +92,10 @@
 }
 
 - (void)updatePreviousNextButtonsEnabledForMatchesCount:(NSUInteger)count {
-    if(count < 2){
+    if (count < 2) {
         self.previousButton.enabled = NO;
         self.nextButton.enabled = NO;
-    }else{
+    } else {
         self.previousButton.enabled = YES;
         self.nextButton.enabled = YES;
     }
@@ -109,7 +109,7 @@
         labelText = [NSString stringWithFormat:@"%lu", (unsigned long)count];
     } else if (count == 0) {
         labelText = MWLocalizedString(@"find-in-page-no-matches", nil);
-    }else{
+    } else {
         labelText = [NSString stringWithFormat:@"%lu / %lu", (unsigned long)(index + 1), (unsigned long)count];
     }
     [self.currentMatchLabel setText:labelText];

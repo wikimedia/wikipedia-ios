@@ -5,19 +5,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation NSArray (BKIndex)
 
-- (NSDictionary*)bk_index:(id<NSCopying>(^)(id))index {
+- (NSDictionary *)bk_index:(id<NSCopying> (^)(id))index {
     return [self bk_reduce:[NSMutableDictionary dictionaryWithCapacity:self.count]
-                 withBlock:^NSMutableDictionary*(NSMutableDictionary* acc, id obj) {
-        id<NSCopying> key = index(obj);
-        acc[key] = obj;
-        return acc;
-    }];
+                 withBlock:^NSMutableDictionary *(NSMutableDictionary *acc, id obj) {
+                   id<NSCopying> key = index(obj);
+                   acc[key] = obj;
+                   return acc;
+                 }];
 }
 
-- (NSDictionary*)bk_indexWithKeypath:(NSString*)keypath {
+- (NSDictionary *)bk_indexWithKeypath:(NSString *)keypath {
     NSParameterAssert(keypath.length);
-    return [self bk_index:^id < NSCopying > (id obj) {
-        return [obj valueForKeyPath:keypath];
+    return [self bk_index:^id<NSCopying>(id obj) {
+      return [obj valueForKeyPath:keypath];
     }];
 }
 

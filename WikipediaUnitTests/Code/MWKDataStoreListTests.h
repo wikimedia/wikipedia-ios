@@ -8,7 +8,7 @@
 @interface MWKDataStoreListTests : MWKListTestBase
 
 /// Temporary data store which is setup & torn down between tests.
-@property (nonatomic, strong) MWKDataStore* tempDataStore;
+@property(nonatomic, strong) MWKDataStore *tempDataStore;
 
 /**
  *  Assert equality of two lists.
@@ -19,6 +19,6 @@
  *  @param list      A list which was exercised by a test.
  *  @param otherList The same list read from disk after the test.
  */
-- (void)verifyList:(MWKList*)list isEqualToList:(MWKList*)otherList;
+- (void)verifyList:(MWKList *)list isEqualToList:(MWKList *)otherList;
 
 @end

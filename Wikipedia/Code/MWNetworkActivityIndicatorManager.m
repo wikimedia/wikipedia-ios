@@ -3,20 +3,18 @@
 // Private
 @interface MWNetworkActivityIndicatorManager ()
 
-@property (nonatomic, assign) NSInteger count;
+@property(nonatomic, assign) NSInteger count;
 
 @end
 
-
-static MWNetworkActivityIndicatorManager* sharedManager;
-
+static MWNetworkActivityIndicatorManager *sharedManager;
 
 @implementation MWNetworkActivityIndicatorManager
 
-+ (MWNetworkActivityIndicatorManager*)sharedManager {
++ (MWNetworkActivityIndicatorManager *)sharedManager {
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        sharedManager = [[MWNetworkActivityIndicatorManager alloc] init];
+      sharedManager = [[MWNetworkActivityIndicatorManager alloc] init];
     });
 
     return sharedManager;
@@ -29,18 +27,18 @@ static MWNetworkActivityIndicatorManager* sharedManager;
 }
 
 - (void)push {
-    dispatch_async(dispatch_get_main_queue(), ^(){
-        @synchronized(self) {
-            self.count += 1;
-        }
+    dispatch_async(dispatch_get_main_queue(), ^() {
+      @synchronized(self) {
+          self.count += 1;
+      }
     });
 }
 
 - (void)pop {
-    dispatch_async(dispatch_get_main_queue(), ^(){
-        @synchronized(self) {
-            self.count -= 1;
-        }
+    dispatch_async(dispatch_get_main_queue(), ^() {
+      @synchronized(self) {
+          self.count -= 1;
+      }
     });
 }
 

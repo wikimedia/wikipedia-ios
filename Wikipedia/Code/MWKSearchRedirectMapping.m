@@ -4,24 +4,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKSearchRedirectMapping ()
 
-@property (nonatomic, copy, readwrite) NSString* redirectFromTitle;
-@property (nonatomic, copy, readwrite) NSString* redirectToTitle;
+@property(nonatomic, copy, readwrite) NSString *redirectFromTitle;
+@property(nonatomic, copy, readwrite) NSString *redirectToTitle;
 
 @end
 
 @implementation MWKSearchRedirectMapping
 
-+ (instancetype)mappingFromTitle:(NSString*)from toTitle:(NSString*)to {
-    MWKSearchRedirectMapping* instance = [self new];
++ (instancetype)mappingFromTitle:(NSString *)from toTitle:(NSString *)to {
+    MWKSearchRedirectMapping *instance = [self new];
     instance.redirectFromTitle = from;
-    instance.redirectToTitle   = to;
+    instance.redirectToTitle = to;
     return instance;
 }
 
-+ (NSDictionary*)JSONKeyPathsByPropertyKey {
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-               WMF_SAFE_KEYPATH(MWKSearchRedirectMapping.new, redirectFromTitle): @"from",
-               WMF_SAFE_KEYPATH(MWKSearchRedirectMapping.new, redirectToTitle): @"to",
+        WMF_SAFE_KEYPATH(MWKSearchRedirectMapping.new, redirectFromTitle) : @"from",
+        WMF_SAFE_KEYPATH(MWKSearchRedirectMapping.new, redirectToTitle) : @"to",
     };
 }
 

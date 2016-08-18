@@ -6,20 +6,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKHistoryList : NSObject
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;
 
-@property (readonly, weak, nonatomic) MWKDataStore* dataStore;
+@property(readonly, weak, nonatomic) MWKDataStore *dataStore;
 
 #pragma mark - Convienence Methods
 
 - (NSInteger)numberOfItems;
 
-- (nullable MWKHistoryEntry*)mostRecentEntry;
+- (nullable MWKHistoryEntry *)mostRecentEntry;
 
-- (nullable MWKHistoryEntry*)entryForURL:(NSURL*)url;
+- (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url;
 
-- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry* _Nonnull entry, BOOL* stop))block;
+- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block;
 
 #pragma mark - Update Methods
 
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param url The url of the page to add
  */
-- (MWKHistoryEntry*)addPageToHistoryWithURL:(NSURL*)url;
+- (MWKHistoryEntry *)addPageToHistoryWithURL:(NSURL *)url;
 
 /**
  *  Save the scroll position of a page.
@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The task. The result is the MWKHistoryEntry.
  */
-- (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithURL:(NSURL*)url;
+- (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithURL:(NSURL *)url;
 
 /**
  *  Sets the history entry to be "significantly viewed"
@@ -48,23 +48,20 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param url The url to set to significantly viewed
  */
-- (void)setSignificantlyViewedOnPageInHistoryWithURL:(NSURL*)url;
+- (void)setSignificantlyViewedOnPageInHistoryWithURL:(NSURL *)url;
 
 /**
  *  Remove a page from the user history
  *
  *  @param url The url of the page to remove
  */
-- (void)removeEntryWithURL:(NSURL*)url;
-
+- (void)removeEntryWithURL:(NSURL *)url;
 
 /**
  *  Remove all history entries
  */
 - (void)removeAllEntries;
 
-
 @end
-
 
 NS_ASSUME_NONNULL_END

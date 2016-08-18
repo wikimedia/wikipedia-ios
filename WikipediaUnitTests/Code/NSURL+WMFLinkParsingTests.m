@@ -48,15 +48,15 @@
 }
 
 - (void)testInternalLinkPath {
-    NSString* testPath = @"foo/bar";
-    NSURL* testURL     = [[NSURL URLWithString:WMFInternalLinkPathPrefix]
-                      URLByAppendingPathComponent:testPath];
+    NSString *testPath = @"foo/bar";
+    NSURL *testURL = [[NSURL URLWithString:WMFInternalLinkPathPrefix]
+        URLByAppendingPathComponent:testPath];
     assertThat([testURL wmf_pathWithoutWikiPrefix], is(testPath));
 }
 
 - (void)testInternalLinkPathForURLExcludesFragmentAndQuery {
-    NSString* testPath                     = @"foo/bar";
-    NSString* testPathWithQueryAndFragment = [WMFInternalLinkPathPrefix stringByAppendingFormat:@"%@?baz#buz", testPath];
+    NSString *testPath = @"foo/bar";
+    NSString *testPathWithQueryAndFragment = [WMFInternalLinkPathPrefix stringByAppendingFormat:@"%@?baz#buz", testPath];
     assertThat([[NSURL URLWithString:testPathWithQueryAndFragment] wmf_pathWithoutWikiPrefix], is(testPath));
 }
 

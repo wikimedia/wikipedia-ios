@@ -11,27 +11,27 @@
 #import "Wikipedia-Swift.h"
 #import "NSDate+WMFRelativeDate.h"
 
-static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadingSectionIdentifier";
+static NSString *const WMFContinueReadingSectionIdentifier = @"WMFContinueReadingSectionIdentifier";
 
 @interface WMFContinueReadingSectionController ()
 
-@property (nonatomic, strong, readwrite) NSURL* articleURL;
+@property(nonatomic, strong, readwrite) NSURL *articleURL;
 
 @end
 
 @implementation WMFContinueReadingSectionController
 
-- (instancetype)initWithArticleURL:(NSURL*)articleURL
-                         dataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithArticleURL:(NSURL *)articleURL
+                         dataStore:(MWKDataStore *)dataStore {
     NSParameterAssert(articleURL.wmf_title);
-    self = [super initWithDataStore:dataStore items:@[articleURL]];
+    self = [super initWithDataStore:dataStore items:@[ articleURL ]];
     if (self) {
         self.articleURL = articleURL;
     }
     return self;
 }
 
-- (MWKArticle*)article {
+- (MWKArticle *)article {
     return [self.dataStore existingArticleWithURL:self.articleURL];
 }
 
@@ -41,33 +41,33 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     return WMFContinueReadingSectionIdentifier;
 }
 
-- (UIImage*)headerIcon {
+- (UIImage *)headerIcon {
     return [UIImage imageNamed:@"home-continue-reading-mini"];
 }
 
-- (UIColor*)headerIconTintColor {
+- (UIColor *)headerIconTintColor {
     return [UIColor wmf_exploreSectionHeaderIconTintColor];
 }
 
-- (UIColor*)headerIconBackgroundColor {
+- (UIColor *)headerIconBackgroundColor {
     return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
 }
 
-- (NSAttributedString*)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-reading-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+- (NSAttributedString *)headerTitle {
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-reading-heading", nil) attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
-- (NSAttributedString*)headerSubTitle {
-    NSDate* resignActiveDate     = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
-    NSString* relativeTimeString = [resignActiveDate wmf_relativeTimestamp];
-    return [[NSAttributedString alloc] initWithString:[relativeTimeString wmf_stringByCapitalizingFirstCharacter] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+- (NSAttributedString *)headerSubTitle {
+    NSDate *resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
+    NSString *relativeTimeString = [resignActiveDate wmf_relativeTimestamp];
+    return [[NSAttributedString alloc] initWithString:[relativeTimeString wmf_stringByCapitalizingFirstCharacter] attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
-- (NSString*)cellIdentifier {
+- (NSString *)cellIdentifier {
     return [WMFArticleListCollectionViewCell wmf_nibName];
 }
 
-- (UINib*)cellNib {
+- (UINib *)cellNib {
     return [WMFArticleListCollectionViewCell wmf_classNib];
 }
 
@@ -75,9 +75,9 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     return 0;
 }
 
-- (void)configureCell:(WMFArticleListCollectionViewCell*)cell withItem:(NSURL*)item atIndexPath:(NSIndexPath*)indexPath {
-    MWKArticle* article = [self article];
-    cell.titleText       = item.wmf_title;
+- (void)configureCell:(WMFArticleListCollectionViewCell *)cell withItem:(NSURL *)item atIndexPath:(NSIndexPath *)indexPath {
+    MWKArticle *article = [self article];
+    cell.titleText = item.wmf_title;
     cell.descriptionText = [[article entityDescription] wmf_stringByCapitalizingFirstCharacter];
     [cell setImage:article.image];
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
@@ -87,13 +87,13 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     return [WMFArticleListCollectionViewCell estimatedRowHeight];
 }
 
-- (NSString*)analyticsContentType {
+- (NSString *)analyticsContentType {
     return @"Continue Reading";
 }
 
-- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
-    NSURL* url                   = [self urlForItemAtIndexPath:indexPath];
-    WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+- (UIViewController *)detailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSURL *url = [self urlForItemAtIndexPath:indexPath];
+    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
     return vc;
 }
 
@@ -103,14 +103,14 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 
 #pragma mark - WMFTitleProviding
 
-- (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath {
+- (nullable NSURL *)urlForItemAtIndexPath:(NSIndexPath *)indexPath {
     return self.articleURL;
 }
 
 #pragma mark - Utility
 
-- (NSString*)summaryForArticle {
-    MWKArticle* cachedArticle = [self.dataStore existingArticleWithURL:self.articleURL];
+- (NSString *)summaryForArticle {
+    MWKArticle *cachedArticle = [self.dataStore existingArticleWithURL:self.articleURL];
     if (cachedArticle.entityDescription.length) {
         return [cachedArticle.entityDescription wmf_stringByCapitalizingFirstCharacter];
     } else {

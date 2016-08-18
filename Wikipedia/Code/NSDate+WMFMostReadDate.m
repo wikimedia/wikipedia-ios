@@ -7,11 +7,11 @@ NSInteger const WMFPageviewDataAvailabilityThreshold = 12;
 
 - (instancetype)wmf_bestMostReadFetchDate {
     NSInteger currentUTCHour = [[NSCalendar wmf_utcGregorianCalendar] component:NSCalendarUnitHour fromDate:self];
-    NSInteger daysPrior      = currentUTCHour < WMFPageviewDataAvailabilityThreshold ? -2 : -1;
-    NSDate* fetchDate        = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay
-                                                                                 value:daysPrior
-                                                                                toDate:self
-                                                                               options:NSCalendarMatchStrictly];
+    NSInteger daysPrior = currentUTCHour < WMFPageviewDataAvailabilityThreshold ? -2 : -1;
+    NSDate *fetchDate = [[NSCalendar wmf_utcGregorianCalendar] dateByAddingUnit:NSCalendarUnitDay
+                                                                          value:daysPrior
+                                                                         toDate:self
+                                                                        options:NSCalendarMatchStrictly];
     NSParameterAssert(fetchDate);
     return fetchDate;
 }

@@ -1,7 +1,7 @@
 #import "SavedPagesFunnel.h"
 
-static NSString* const kEventDataAssertVerbiage = @"Event data not present";
-static NSString* const kAppInstallIdKey         = @"appInstallID";
+static NSString *const kEventDataAssertVerbiage = @"Event data not present";
+static NSString *const kAppInstallIdKey = @"appInstallID";
 
 @implementation SavedPagesFunnel
 
@@ -15,7 +15,7 @@ static NSString* const kAppInstallIdKey         = @"appInstallID";
 }
 
 + (void)logStateChange:(BOOL)didSave {
-    SavedPagesFunnel* funnel = [self new];
+    SavedPagesFunnel *funnel = [self new];
     if (didSave) {
         [funnel logSaveNew];
     } else {
@@ -24,44 +24,44 @@ static NSString* const kAppInstallIdKey         = @"appInstallID";
 }
 
 - (void)logSaveNew {
-    [self log:@{@"action": @"savenew"}];
+    [self log:@{ @"action" : @"savenew" }];
 }
 
 - (void)logUpdate {
-    [self log:@{@"action": @"update"}];
+    [self log:@{ @"action" : @"update" }];
 }
 
-- (void)logImportOnSubdomain:(NSString*)subdomain {
-    [self log:@{@"action": @"import"}
+- (void)logImportOnSubdomain:(NSString *)subdomain {
+    [self log:@{ @"action" : @"import" }
          wiki:[subdomain stringByAppendingString:@"wiki"]];
 }
 
 - (void)logDelete {
-    [self log:@{@"action": @"delete"}];
+    [self log:@{ @"action" : @"delete" }];
 }
 
 - (void)logEditAttempt {
-    [self log:@{@"action": @"editattempt"}];
+    [self log:@{ @"action" : @"editattempt" }];
 }
 
 // Doesn't seem to be relevant to iOS version?
 - (void)logEditRefresh {
-    [self log:@{@"action": @"editrefresh"}];
+    [self log:@{ @"action" : @"editrefresh" }];
 }
 
 // Doesn't seem to be relevant to iOS version?
 - (void)logEditAfterRefresh {
-    [self log:@{@"action": @"editafterrefresh"}];
+    [self log:@{ @"action" : @"editafterrefresh" }];
 }
 
-- (NSDictionary*)preprocessData:(NSDictionary*)eventData {
+- (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     if (!eventData) {
         NSAssert(false, @"%@ : %@",
                  kEventDataAssertVerbiage,
                  eventData);
         return nil;
     }
-    NSMutableDictionary* dict = [eventData mutableCopy];
+    NSMutableDictionary *dict = [eventData mutableCopy];
     dict[kAppInstallIdKey] = self.appInstallId;
     return [dict copy];
 }

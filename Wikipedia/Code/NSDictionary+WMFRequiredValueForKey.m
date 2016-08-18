@@ -2,21 +2,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString* const WMFInvalidValueForKeyErrorDomain = @"WMFInvalidValueForKeyErrorDomain";
-NSString* const WMFFailingDictionaryUserInfoKey  = @"WMFFailingDictionaryUserInfoKey";
+NSString *const WMFInvalidValueForKeyErrorDomain = @"WMFInvalidValueForKeyErrorDomain";
+NSString *const WMFFailingDictionaryUserInfoKey = @"WMFFailingDictionaryUserInfoKey";
 
 @implementation NSDictionary (WMFRequiredValueForKey)
 
 - (nullable id)wmf_instanceOfClass:(Class)aClass
-                            forKey:(NSString*)key
-                             error:(NSError* _Nullable __autoreleasing*)outError {
+                            forKey:(NSString *)key
+                             error:(NSError *_Nullable __autoreleasing *)outError {
     NSParameterAssert(key);
-    NSError*(^ errorWithCode)(WMFInvalidValueForKeyError) = ^(WMFInvalidValueForKeyError code) {
-        return [NSError errorWithDomain:WMFInvalidValueForKeyErrorDomain
-                                   code:code
-                               userInfo:@{
-                    WMFFailingDictionaryUserInfoKey: self
-                }];
+    NSError * (^errorWithCode)(WMFInvalidValueForKeyError) = ^(WMFInvalidValueForKeyError code) {
+      return [NSError errorWithDomain:WMFInvalidValueForKeyErrorDomain
+                                 code:code
+                             userInfo:@{
+                                 WMFFailingDictionaryUserInfoKey : self
+                             }];
     };
     id value = self[key];
     if (!value) {

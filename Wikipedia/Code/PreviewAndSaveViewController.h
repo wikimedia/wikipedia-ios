@@ -4,22 +4,21 @@
 
 @protocol PreviewAndSaveViewControllerDelegate <NSObject>
 
-- (void)previewViewControllerDidSave:(PreviewAndSaveViewController*)previewViewController;
+- (void)previewViewControllerDidSave:(PreviewAndSaveViewController *)previewViewController;
 
 @end
 
 @interface PreviewAndSaveViewController : UIViewController <CaptchaViewControllerRefresh>
 
-@property (strong, nonatomic) MWKSection* section;
-@property (strong, nonatomic) NSString* wikiText;
-@property (strong, nonatomic) EditFunnel* funnel;
-@property (strong, nonatomic) SavedPagesFunnel* savedPagesFunnel;
+@property(strong, nonatomic) MWKSection *section;
+@property(strong, nonatomic) NSString *wikiText;
+@property(strong, nonatomic) EditFunnel *funnel;
+@property(strong, nonatomic) SavedPagesFunnel *savedPagesFunnel;
 
 - (void)reloadCaptchaPushed:(id)sender;
 
-@property (strong, nonatomic) NSString* summaryText;
+@property(strong, nonatomic) NSString *summaryText;
 
-@property (weak, nonatomic) id<PreviewAndSaveViewControllerDelegate> delegate;
-
+@property(weak, nonatomic) id<PreviewAndSaveViewControllerDelegate> delegate;
 
 @end

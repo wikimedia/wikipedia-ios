@@ -9,8 +9,8 @@
     return self;
 }
 
-- (void)logProtectionStatus:(NSString*)protectionStatus {
-    [self log:@{@"protectionStatus": protectionStatus ? protectionStatus : @""}];
+- (void)logProtectionStatus:(NSString *)protectionStatus {
+    [self log:@{ @"protectionStatus" : protectionStatus ? protectionStatus : @"" }];
 }
 
 @end

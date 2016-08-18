@@ -18,9 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A promise with resolves to an @c MWKSearchResult.
  */
-- (AnyPromise*)fetchFeaturedArticlePreviewForDate:(NSDate*)date;
+- (AnyPromise *)fetchFeaturedArticlePreviewForDate:(NSDate *)date;
 
-@property (nonatomic, assign, readonly) BOOL isFetching;
+@property(nonatomic, assign, readonly) BOOL isFetching;
 
 @end
 

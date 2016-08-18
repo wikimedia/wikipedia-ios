@@ -13,28 +13,29 @@
 }
 
 // Storyboard name for the receiver, defaults to NSStringFromClass(self).
-+ (NSString*)wmf_classStoryboardName {
++ (NSString *)wmf_classStoryboardName {
     return NSStringFromClass(self);
 }
 
 // UIStoryboard from the main bundle matching wmf_classStoryboardName.
-+ (UIStoryboard*)wmf_classStoryboard {
++ (UIStoryboard *)wmf_classStoryboard {
     id sb = [UIStoryboard storyboardWithName:[self wmf_classStoryboardName] bundle:[NSBundle bundleForClass:self]];
     NSAssert(sb, @"Instantiating storyboard %@ returned nil!", [self wmf_classStoryboardName]);
     return sb;
 }
 
-+ (instancetype)wmf_viewControllerWithIdentifier:(NSString*)identifier
-                             fromStoryboardNamed:(NSString*)storyboardName {
-    UIStoryboard* storyboard =
-        [UIStoryboard storyboardWithName:storyboardName bundle:[NSBundle bundleForClass:self]];
++ (instancetype)wmf_viewControllerWithIdentifier:(NSString *)identifier
+                             fromStoryboardNamed:(NSString *)storyboardName {
+    UIStoryboard *storyboard =
+        [UIStoryboard storyboardWithName:storyboardName
+                                  bundle:[NSBundle bundleForClass:self]];
     return [self wmf_viewControllerWithIdentifier:identifier
                                    fromStoryboard:storyboard];
 }
 
-+ (instancetype)wmf_viewControllerWithIdentifier:(NSString*)identifier
-                                  fromStoryboard:(UIStoryboard*)storyboard {
-    UIViewController* instance = [storyboard instantiateViewControllerWithIdentifier:identifier];
++ (instancetype)wmf_viewControllerWithIdentifier:(NSString *)identifier
+                                  fromStoryboard:(UIStoryboard *)storyboard {
+    UIViewController *instance = [storyboard instantiateViewControllerWithIdentifier:identifier];
     NSAssert([instance isMemberOfClass:self], @"Unexpected view controller for identifier %@. Expected instance of %@, got %@",
              identifier, self, instance);
     return instance;

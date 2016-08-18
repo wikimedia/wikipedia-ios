@@ -6,7 +6,6 @@
 
 @end
 
-
 @interface UICollectionViewCell (WMFCellSelectedBackground)
 
 - (void)wmf_addSelectedBackgroundView;

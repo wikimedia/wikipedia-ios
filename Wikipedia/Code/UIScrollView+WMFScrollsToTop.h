@@ -20,4 +20,3 @@
 - (void)wmf_recursivelyDisableScrollsToTop;
 
 @end
-

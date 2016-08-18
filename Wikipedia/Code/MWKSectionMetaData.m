@@ -3,27 +3,28 @@
 
 @implementation MWKSectionMetaData
 
-+ (NSValueTransformer*)numberJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^id (NSString* value, BOOL* success, NSError* __autoreleasing* error) {
-        NSArray* indexes = [value componentsSeparatedByString:@"."];
++ (NSValueTransformer *)numberJSONTransformer {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *value, BOOL *success, NSError *__autoreleasing *error) {
+      NSArray *indexes = [value componentsSeparatedByString:@"."];
 
-        NSIndexPath* indexPath = [indexes bk_reduce:[NSIndexPath new] withBlock:^id (NSIndexPath* sum, NSString* obj) {
-            return [sum indexPathByAddingIndex:(NSUInteger)[obj integerValue]];
-        }];
+      NSIndexPath *indexPath = [indexes bk_reduce:[NSIndexPath new]
+                                        withBlock:^id(NSIndexPath *sum, NSString *obj) {
+                                          return [sum indexPathByAddingIndex:(NSUInteger)[obj integerValue]];
+                                        }];
 
-        return indexPath;
+      return indexPath;
     }];
 }
 
-+ (NSValueTransformer*)levelJSONTransformer {
++ (NSValueTransformer *)levelJSONTransformer {
     return [MTLValueTransformer wmf_numericValueTransformer];
 }
 
-+ (NSDictionary*)JSONKeyPathsByPropertyKey {
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-               @"displayTitle": @"line",
-               @"level": @"level",
-               @"number": @"number",
+        @"displayTitle" : @"line",
+        @"level" : @"level",
+        @"number" : @"number",
     };
 }
 
@@ -31,8 +32,8 @@
     self = [super init];
     if (self) {
         //Setting defaults
-        _number       = [NSIndexPath indexPathWithIndex:0];
-        _level        = @2;
+        _number = [NSIndexPath indexPathWithIndex:0];
+        _level = @2;
         _displayTitle = @"Summary";
     }
     return self;

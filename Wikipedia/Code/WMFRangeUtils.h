@@ -9,7 +9,6 @@ static inline NSRange WMFRangeMakeNotFound() {
 }
 
 static inline NSUInteger WMFRangeGetMaxIndex(NSRange const range) {
-    return range.location != NSNotFound ?
-           range.location + range.length
-           : NSNotFound;
+    return range.location != NSNotFound ? range.location + range.length
+                                        : NSNotFound;
 }

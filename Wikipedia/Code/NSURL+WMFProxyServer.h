@@ -17,9 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
  * WMFProxyImageBasePath controls the "imageProxy" string in the example above.
  **/
 
-extern NSString* const WMFProxyImageOriginalSrcKey;
-extern NSString* const WMFProxyImageBasePath;
-extern NSString* const WMFProxyFileBasePath;
+extern NSString *const WMFProxyImageOriginalSrcKey;
+extern NSString *const WMFProxyImageBasePath;
+extern NSString *const WMFProxyFileBasePath;
 
 @interface NSURL (WMFProxyServer)
 
@@ -28,14 +28,14 @@ extern NSString* const WMFProxyFileBasePath;
  *
  * @return  Returns the original non-proxy src url. Returns nil if no WMFProxyImageOriginalSrcKey value is found in the underlying NSURL.
  **/
-- (nullable NSURL*)wmf_imageProxyOriginalSrcURL;
+- (nullable NSURL *)wmf_imageProxyOriginalSrcURL;
 
 /**
  * Adds a WMFProxyImageOriginalSrcKey key to the underlying NSURL set to the value passed to the WMFProxyImageOriginalSrcKey parameter.
  *
  * @return  Returns image proxy url.
  **/
-- (NSURL*)wmf_imageProxyURLWithOriginalSrc:(NSString*)originalSrc;
+- (NSURL *)wmf_imageProxyURLWithOriginalSrc:(NSString *)originalSrc;
 
 @end
 

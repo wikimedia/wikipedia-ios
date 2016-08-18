@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString* const WMFPOTDTitlePrefix;
+extern NSString *const WMFPOTDTitlePrefix;
 
 @interface NSDate (WMFPOTDTitle)
 
@@ -14,7 +14,7 @@ extern NSString* const WMFPOTDTitlePrefix;
  *
  *  @return A string in the format "/YYYY-MM-DD_(en)"
  */
-- (NSString*)wmf_picOfTheDayPageTitle;
+- (NSString *)wmf_picOfTheDayPageTitle;
 
 @end
 

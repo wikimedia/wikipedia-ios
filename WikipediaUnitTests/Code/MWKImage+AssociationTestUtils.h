@@ -3,9 +3,9 @@
 
 @interface MWKImage (AssociationTestUtils)
 
-+ (instancetype)imageAssociatedWithSourceURL:(NSString*)imageURL;
++ (instancetype)imageAssociatedWithSourceURL:(NSString *)imageURL;
 
-- (MWKImageInfo*)createAssociatedInfo;
+- (MWKImageInfo *)createAssociatedInfo;
 
 + (id)mappedFromInfoObjects:(id)infoObjects;
 
@@ -13,9 +13,9 @@
 
 @interface MWKImageInfo (AssociationTestUtils)
 
-+ (instancetype)infoAssociatedWithSourceURL:(NSString*)imageURL;
++ (instancetype)infoAssociatedWithSourceURL:(NSString *)imageURL;
 
-- (MWKImage*)createAssociatedImage;
+- (MWKImage *)createAssociatedImage;
 
 + (id)mappedFromImages:(id)images;
 

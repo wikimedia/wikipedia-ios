@@ -9,10 +9,9 @@
  *  @param text          The text of the title
  *  @param highlightText The part of the title to highlight
  */
-- (void)wmf_setTitleText:(NSString*)text highlightingText:(NSString*)highlightText;
+- (void)wmf_setTitleText:(NSString *)text highlightingText:(NSString *)highlightText;
 
 @end
-
 
 @interface WMFArticleListCollectionViewCell (WMFSearch)
 
@@ -22,6 +21,6 @@
  *  @param text          The text of the title
  *  @param highlightText The part of the title to highlight
  */
-- (void)wmf_setTitleText:(NSString*)text highlightingText:(NSString*)highlightText;
+- (void)wmf_setTitleText:(NSString *)text highlightingText:(NSString *)highlightText;
 
 @end

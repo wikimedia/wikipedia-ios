@@ -13,6 +13,6 @@ extern NSTimeInterval const WMFDefaultExpectationTimeout;
 
 - (void)popExpectationAfter:(dispatch_block_t)block;
 
-- (void)pushExpectation:(const char*)file line:(int)line;
+- (void)pushExpectation:(const char *)file line:(int)line;
 
 @end

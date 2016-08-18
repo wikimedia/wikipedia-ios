@@ -1,6 +1,5 @@
 #import "Global.h"
 
-
 // Model
 #import "WMFDatabaseDataSource.h"
 #import "MediaWikiKit.h"

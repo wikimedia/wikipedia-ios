@@ -6,14 +6,14 @@
 
 @interface WMFMostReadListDataSource ()
 
-@property (nonatomic, strong) NSURL* siteURL;
-@property (nonatomic, strong, readwrite) NSArray<NSURL*>* urls;
+@property(nonatomic, strong) NSURL *siteURL;
+@property(nonatomic, strong, readwrite) NSArray<NSURL *> *urls;
 
 @end
 
 @implementation WMFMostReadListDataSource
 
-- (instancetype)initWithPreviews:(NSArray<MWKSearchResult*>*)previews fromSiteURL:(NSURL*)siteURL {
+- (instancetype)initWithPreviews:(NSArray<MWKSearchResult *> *)previews fromSiteURL:(NSURL *)siteURL {
     self = [super initWithItems:previews];
     if (self) {
         self.siteURL = siteURL;
@@ -21,40 +21,40 @@
         self.cellClass = [WMFArticleListTableViewCell class];
 
         @weakify(self);
-        self.cellConfigureBlock = ^(WMFArticleListTableViewCell* cell,
-                                    MWKSearchResult* preview,
-                                    UITableView* tableView,
-                                    NSIndexPath* indexPath) {
-            @strongify(self);
-            NSURL* articleURL = [self urlForIndexPath:indexPath];
-            NSParameterAssert([articleURL.wmf_siteURL isEqual:self.siteURL]);
+        self.cellConfigureBlock = ^(WMFArticleListTableViewCell *cell,
+                                    MWKSearchResult *preview,
+                                    UITableView *tableView,
+                                    NSIndexPath *indexPath) {
+          @strongify(self);
+          NSURL *articleURL = [self urlForIndexPath:indexPath];
+          NSParameterAssert([articleURL.wmf_siteURL isEqual:self.siteURL]);
 
-            cell.titleText       = articleURL.wmf_title;
-            cell.descriptionText = preview.wikidataDescription;
-            [cell setImageURL:preview.thumbnailURL];
+          cell.titleText = articleURL.wmf_title;
+          cell.descriptionText = preview.wikidataDescription;
+          [cell setImageURL:preview.thumbnailURL];
 
-            [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+          [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
         };
     }
     return self;
 }
 
-- (void)setTableView:(UITableView*)tableView {
+- (void)setTableView:(UITableView *)tableView {
     [tableView registerNib:[WMFArticleListTableViewCell wmf_classNib]
-     forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
+        forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
     tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
     [super setTableView:tableView];
 }
 
 #pragma mark - Utils
 
-- (NSURL*)articleURLForPreview:(MWKSearchResult*)preview {
+- (NSURL *)articleURLForPreview:(MWKSearchResult *)preview {
     return [self.siteURL wmf_URLWithTitle:preview.displayTitle];
 }
 
 #pragma mark - WMFTitleListDataSource
 
-- (NSURL*)urlForIndexPath:(NSIndexPath*)indexPath {
+- (NSURL *)urlForIndexPath:(NSIndexPath *)indexPath {
     return [self articleURLForPreview:[self itemAtIndexPath:indexPath]];
 }
 
@@ -62,14 +62,14 @@
     return self.allItems.count;
 }
 
-- (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {
+- (BOOL)canDeleteItemAtIndexpath:(NSIndexPath *)indexPath {
     return NO;
 }
 
-- (NSArray<NSURL*>*)urls {
+- (NSArray<NSURL *> *)urls {
     if (!_urls) {
-        self.urls = [self.allItems bk_map:^NSURL*(MWKSearchResult* preview) {
-            return [self articleURLForPreview:preview];
+        self.urls = [self.allItems bk_map:^NSURL *(MWKSearchResult *preview) {
+          return [self articleURLForPreview:preview];
         }];
     }
     return _urls;

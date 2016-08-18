@@ -4,15 +4,14 @@
 #import "SessionSingleton.h"
 #import "Wikipedia-Swift.h"
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation UIViewController (WMFSearchButton)
 
-static MWKDataStore * _dataStore = nil;
-static WMFSearchViewController* _sharedSearchViewController = nil;
+static MWKDataStore *_dataStore = nil;
+static WMFSearchViewController *_sharedSearchViewController = nil;
 
-+ (void)wmf_setSearchButtonDataStore:(MWKDataStore*)dataStore {
++ (void)wmf_setSearchButtonDataStore:(MWKDataStore *)dataStore {
     NSParameterAssert(dataStore);
     _dataStore = dataStore;
     [self wmf_clearSearchViewController];
@@ -22,7 +21,7 @@ static WMFSearchViewController* _sharedSearchViewController = nil;
     _sharedSearchViewController = nil;
 }
 
-+ (WMFSearchViewController*)wmf_sharedSearchViewController {
++ (WMFSearchViewController *)wmf_sharedSearchViewController {
     return _sharedSearchViewController;
 }
 
@@ -37,33 +36,33 @@ static WMFSearchViewController* _sharedSearchViewController = nil;
                                                object:nil];
 }
 
-+ (void)wmfSearchButton_applicationDidEnterBackgroundWithNotification:(NSNotification*)note {
++ (void)wmfSearchButton_applicationDidEnterBackgroundWithNotification:(NSNotification *)note {
     [self wmf_clearSearchViewController];
 }
 
-+ (void)wmfSearchButton_applicationDidReceiveMemoryWarningWithNotification:(NSNotification*)note {
++ (void)wmfSearchButton_applicationDidReceiveMemoryWarningWithNotification:(NSNotification *)note {
     [self wmf_clearSearchViewController];
 }
 
-- (UIBarButtonItem*)wmf_searchBarButtonItem {
+- (UIBarButtonItem *)wmf_searchBarButtonItem {
     @weakify(self);
     return [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"search"]
                                                style:UIBarButtonItemStylePlain
                                              handler:^(id sender) {
-        @strongify(self);
-        if (!self) {
-            return;
-        }
+                                               @strongify(self);
+                                               if (!self) {
+                                                   return;
+                                               }
 
-        [self wmf_showSearchAnimated:YES];
-    }];
+                                               [self wmf_showSearchAnimated:YES];
+                                             }];
 }
 
 - (void)wmf_showSearchAnimated:(BOOL)animated {
     NSParameterAssert(_dataStore);
 
     if (!_sharedSearchViewController) {
-        WMFSearchViewController* searchVC =
+        WMFSearchViewController *searchVC =
             [WMFSearchViewController searchViewControllerWithDataStore:_dataStore];
         _sharedSearchViewController = searchVC;
     }

@@ -19,14 +19,15 @@
     WMFTaskGroup *group = [WMFTaskGroup new];
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for group"];
     [group waitInBackgroundWithCompletion:^{
-        XCTAssertTrue(true);
-        [expectation fulfill];
+      XCTAssertTrue(true);
+      [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:5 handler:^(NSError * _Nullable error) {
-        if (error) {
-            XCTFail();
-        }
-    }];
+    [self waitForExpectationsWithTimeout:5
+                                 handler:^(NSError *_Nullable error) {
+                                   if (error) {
+                                       XCTFail();
+                                   }
+                                 }];
 }
 
 - (void)testSimple {
@@ -34,63 +35,66 @@
     [group enter];
     [group enter];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [group leave];
+      [group leave];
     });
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [group leave];
+      [group leave];
     });
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for group"];
     [group waitInBackgroundWithCompletion:^{
-        XCTAssertTrue(true);
-        [expectation fulfill];
+      XCTAssertTrue(true);
+      [expectation fulfill];
     }];
-    [self waitForExpectationsWithTimeout:5 handler:^(NSError * _Nullable error) {
-        if (error) {
-            XCTFail();
-        }
-    }];
+    [self waitForExpectationsWithTimeout:5
+                                 handler:^(NSError *_Nullable error) {
+                                   if (error) {
+                                       XCTFail();
+                                   }
+                                 }];
 }
 
 - (void)testHang {
     WMFTaskGroup *group = [WMFTaskGroup new];
     [group enter];
     [group waitInBackgroundWithCompletion:^{
-        XCTFail();
+      XCTFail();
     }];
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for group"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [expectation fulfill];
+      [expectation fulfill];
     });
-    [self waitForExpectationsWithTimeout:5 handler:^(NSError * _Nullable error) {
-        XCTAssert(true);
-    }];
+    [self waitForExpectationsWithTimeout:5
+                                 handler:^(NSError *_Nullable error) {
+                                   XCTAssert(true);
+                                 }];
 }
 
 - (void)testOverLeave {
     WMFTaskGroup *group = [WMFTaskGroup new];
     [group enter];
-    
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [group leave];
+      [group leave];
     });
-    
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [group leave];
+      [group leave];
     });
-    
+
     XCTestExpectation *expectation = [self expectationWithDescription:@"Wait for group"];
     [group waitInBackgroundWithCompletion:^{
-        XCTAssertTrue(true);
+      XCTAssertTrue(true);
     }];
-    
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [expectation fulfill];
+      [expectation fulfill];
     });
-    [self waitForExpectationsWithTimeout:5 handler:^(NSError * _Nullable error) {
-        if (error) {
-            XCTFail();
-        }
-    }];
+    [self waitForExpectationsWithTimeout:5
+                                 handler:^(NSError *_Nullable error) {
+                                   if (error) {
+                                       XCTFail();
+                                   }
+                                 }];
 }
 
 @end

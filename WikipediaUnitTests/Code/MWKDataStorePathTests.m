@@ -4,17 +4,16 @@
 #import "MWKTestCase.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 
-
 @interface MWKDataStorePathTests : MWKTestCase {
-    NSURL* siteURL;
-    NSURL* articleURL;
-    NSURL* articleURLUnicode;
-    NSURL* articleURLEvil;
-    NSURL* articleURLForbiddenCity;
-    NSDictionary* json;
-    MWKArticle* article;
-    MWKDataStore* dataStore;
-    NSString* basePath;
+    NSURL *siteURL;
+    NSURL *articleURL;
+    NSURL *articleURLUnicode;
+    NSURL *articleURLEvil;
+    NSURL *articleURLForbiddenCity;
+    NSDictionary *json;
+    MWKArticle *article;
+    MWKDataStore *dataStore;
+    NSString *basePath;
 }
 
 @end
@@ -23,17 +22,17 @@
 
 - (void)setUp {
     [super setUp];
-    siteURL         = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
-    articleURL        = [siteURL wmf_URLWithTitle:@"San Francisco"];
+    siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
+    articleURL = [siteURL wmf_URLWithTitle:@"San Francisco"];
     articleURLUnicode = [siteURL wmf_URLWithTitle:@"Éclair"];
-    articleURLEvil    = [siteURL wmf_URLWithTitle:@"AT&T/SBC \"merger\""];
+    articleURLEvil = [siteURL wmf_URLWithTitle:@"AT&T/SBC \"merger\""];
 
     articleURLForbiddenCity = [siteURL wmf_URLWithTitle:@"Forbidden City"];
 
     dataStore = [MWKDataStore temporaryDataStore];
     basePath = dataStore.basePath;
 
-    json    = [self loadJSON:@"section0"];
+    json = [self loadJSON:@"section0"];
     article = [[MWKArticle alloc] initWithURL:articleURL dataStore:dataStore dict:json[@"mobileview"]];
 }
 
@@ -78,8 +77,8 @@
 }
 
 - (void)testSectionPath {
-    MWKSection* section0  = [[MWKSection alloc] initWithArticle:article dict:json[@"mobileview"][@"sections"][0]];
-    MWKSection* section35 = [[MWKSection alloc] initWithArticle:article dict:json[@"mobileview"][@"sections"][35]];
+    MWKSection *section0 = [[MWKSection alloc] initWithArticle:article dict:json[@"mobileview"][@"sections"][0]];
+    MWKSection *section35 = [[MWKSection alloc] initWithArticle:article dict:json[@"mobileview"][@"sections"][35]];
 
     XCTAssertEqualObjects([dataStore pathForSection:section0], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/San_Francisco/sections/0"]);
     XCTAssertEqualObjects([dataStore pathForSection:section35], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/San_Francisco/sections/35"]);
@@ -95,7 +94,7 @@
 }
 
 - (void)testImagePathUnicode {
-    NSString* urlForbiddenCityImage = @"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/%E5%8C%97%E4%BA%AC%E6%95%85%E5%AE%AB12.JPG/440px-%E5%8C%97%E4%BA%AC%E6%95%85%E5%AE%AB12.JPG";
+    NSString *urlForbiddenCityImage = @"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/%E5%8C%97%E4%BA%AC%E6%95%85%E5%AE%AB12.JPG/440px-%E5%8C%97%E4%BA%AC%E6%95%85%E5%AE%AB12.JPG";
 
     XCTAssertEqualObjects([dataStore pathForImageURL:urlForbiddenCityImage forArticleURL:articleURLForbiddenCity], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/Forbidden_City/Images/440px-北京故宫12.JPG"]);
 }

@@ -4,9 +4,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFAsyncBlockOperation ()
 
-@property (nonatomic, assign) BOOL isExecuting;
-@property (nonatomic, assign) BOOL isFinished;
-@property (nonatomic, strong) WMFAsyncBlock block;
+@property(nonatomic, assign) BOOL isExecuting;
+@property(nonatomic, assign) BOOL isFinished;
+@property(nonatomic, strong) WMFAsyncBlock block;
 
 @end
 
@@ -32,18 +32,17 @@ NS_ASSUME_NONNULL_BEGIN
     [self willChangeValueForKey:@"isExecuting"];
     [self willChangeValueForKey:@"isFinished"];
     self.isExecuting = NO;
-    self.isFinished  = YES;
+    self.isFinished = YES;
     [self didChangeValueForKey:@"isExecuting"];
     [self didChangeValueForKey:@"isFinished"];
 }
 
 @end
 
-
 @implementation NSOperationQueue (AsyncBlockOperation)
 
 - (void)wmf_addOperationWithAsyncBlock:(WMFAsyncBlock)block {
-    WMFAsyncBlockOperation* operation = [[WMFAsyncBlockOperation alloc] initWithBlock:block];
+    WMFAsyncBlockOperation *operation = [[WMFAsyncBlockOperation alloc] initWithBlock:block];
     [self addOperation:operation];
 }
 

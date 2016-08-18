@@ -1,8 +1,8 @@
 #import "MWKHistoryEntry.h"
 #import "WMFDatabaseStorable.h"
 
-@interface MWKHistoryEntry (WMFDatabaseStorable)<WMFDatabaseStorable>
+@interface MWKHistoryEntry (WMFDatabaseStorable) <WMFDatabaseStorable>
 
-+ (NSString*)databaseKeyForURL:(NSURL*)url;
++ (NSString *)databaseKeyForURL:(NSURL *)url;
 
 @end

@@ -2,9 +2,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSMutableSet<ObjectType> (WMFMaybeAdd)
+@interface NSMutableSet <ObjectType>
+(WMFMaybeAdd)
 
-- (BOOL)wmf_safeAddObject:(nullable ObjectType)object;
+    - (BOOL)wmf_safeAddObject : (nullable ObjectType)object;
 
 @end
 

@@ -3,14 +3,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString* const WMFIconShortcutTypeSearch          = @"org.wikimedia.wikipedia.icon-shortcut-search";
-NSString* const WMFIconShortcutTypeContinueReading = @"org.wikimedia.wikipedia.icon-shortcut-continue-reading";
-NSString* const WMFIconShortcutTypeRandom          = @"org.wikimedia.wikipedia.icon-shortcut-random";
-NSString* const WMFIconShortcutTypeNearby          = @"org.wikimedia.wikipedia.icon-shortcut-nearby";
+NSString *const WMFIconShortcutTypeSearch = @"org.wikimedia.wikipedia.icon-shortcut-search";
+NSString *const WMFIconShortcutTypeContinueReading = @"org.wikimedia.wikipedia.icon-shortcut-continue-reading";
+NSString *const WMFIconShortcutTypeRandom = @"org.wikimedia.wikipedia.icon-shortcut-random";
+NSString *const WMFIconShortcutTypeNearby = @"org.wikimedia.wikipedia.icon-shortcut-nearby";
 
 @implementation UIApplicationShortcutItem (WMFShortcutItem)
 
-+ (UIApplicationShortcutItem*)wmf_search {
++ (UIApplicationShortcutItem *)wmf_search {
     return [[UIApplicationShortcutItem alloc] initWithType:WMFIconShortcutTypeSearch
                                             localizedTitle:MWLocalizedString(@"icon-shortcut-search-title", nil)
                                          localizedSubtitle:@""
@@ -18,7 +18,7 @@ NSString* const WMFIconShortcutTypeNearby          = @"org.wikimedia.wikipedia.i
                                                   userInfo:nil];
 }
 
-+ (UIApplicationShortcutItem*)wmf_random {
++ (UIApplicationShortcutItem *)wmf_random {
     return [[UIApplicationShortcutItem alloc] initWithType:WMFIconShortcutTypeRandom
                                             localizedTitle:MWLocalizedString(@"icon-shortcut-random-title", nil)
                                          localizedSubtitle:@""
@@ -26,8 +26,8 @@ NSString* const WMFIconShortcutTypeNearby          = @"org.wikimedia.wikipedia.i
                                                   userInfo:nil];
 }
 
-+ (nullable UIApplicationShortcutItem*)wmf_continueReading {
-    NSURL* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleURL];
++ (nullable UIApplicationShortcutItem *)wmf_continueReading {
+    NSURL *lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleURL];
     if (lastRead.wmf_title.length == 0) {
         return nil;
     }
@@ -38,7 +38,7 @@ NSString* const WMFIconShortcutTypeNearby          = @"org.wikimedia.wikipedia.i
                                                   userInfo:nil];
 }
 
-+ (UIApplicationShortcutItem*)wmf_nearby {
++ (UIApplicationShortcutItem *)wmf_nearby {
     return [[UIApplicationShortcutItem alloc] initWithType:WMFIconShortcutTypeNearby
                                             localizedTitle:MWLocalizedString(@"icon-shortcut-nearby-title", nil)
                                          localizedSubtitle:@""

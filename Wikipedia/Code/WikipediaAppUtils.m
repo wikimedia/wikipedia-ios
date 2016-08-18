@@ -7,63 +7,60 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
-
 @implementation WikipediaAppUtils
 
 + (void)load {
     [[NSNotificationCenter defaultCenter] addObserver:[self class] selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
 }
 
-+ (NSString*)appVersion {
++ (NSString *)appVersion {
     return [[NSBundle mainBundle] wmf_versionForCurrentBundleIdentifier];
 }
 
-+ (NSString*)bundleID {
++ (NSString *)bundleID {
     return [[NSBundle mainBundle] wmf_bundleIdentifier];
 }
 
-+ (NSString*)formFactor {
++ (NSString *)formFactor {
     UIUserInterfaceIdiom ff = UI_USER_INTERFACE_IDIOM();
     // We'll break; on each case, just to follow good form.
     switch (ff) {
-        case UIUserInterfaceIdiomPad:
-            return @"Tablet";
-            break;
+    case UIUserInterfaceIdiomPad:
+        return @"Tablet";
+        break;
 
-        case UIUserInterfaceIdiomPhone:
-            return @"Phone";
-            break;
+    case UIUserInterfaceIdiomPhone:
+        return @"Phone";
+        break;
 
-        default:
-            return @"Other";
-            break;
+    default:
+        return @"Other";
+        break;
     }
 }
 
-+ (NSString*)versionedUserAgent {
-    UIDevice* d = [UIDevice currentDevice];
++ (NSString *)versionedUserAgent {
+    UIDevice *d = [UIDevice currentDevice];
     return [NSString stringWithFormat:@"WikipediaApp/%@ (%@ %@; %@)",
-            [[NSBundle mainBundle] wmf_debugVersion],
-            [d systemName],
-            [d systemVersion],
-            [self formFactor]
-    ];
+                                      [[NSBundle mainBundle] wmf_debugVersion],
+                                      [d systemName],
+                                      [d systemVersion],
+                                      [self formFactor]];
 }
 
-static WMFAssetsFile* languageFile = nil;
+static WMFAssetsFile *languageFile = nil;
 
-+ (void)didReceiveMemoryWarningWithNotification:(NSNotification*)note {
++ (void)didReceiveMemoryWarningWithNotification:(NSNotification *)note {
     languageFile = nil;
 }
 
-+ (NSString*)languageNameForCode:(NSString*)code {
++ (NSString *)languageNameForCode:(NSString *)code {
     if (!languageFile) {
         languageFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
     }
 
-    return [languageFile.array bk_match:^BOOL (NSDictionary* obj) {
-        return [obj[@"code"] isEqualToString:code];
+    return [languageFile.array bk_match:^BOOL(NSDictionary *obj) {
+      return [obj[@"code"] isEqualToString:code];
     }][@"name"];
 }
 
@@ -99,17 +96,17 @@ static WMFAssetsFile* languageFile = nil;
        bundled file is always newer.
      */
 
-    NSString* folderName    = @"assets";
-    NSArray* paths          = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString* documentsPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:folderName];
-    NSString* bundledPath   = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:folderName];
+    NSString *folderName = @"assets";
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:folderName];
+    NSString *bundledPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:folderName];
 
-    void (^ copy)(NSString*, NSString*) = ^void (NSString* path1, NSString* path2) {
-        NSError* error = nil;
-        [[NSFileManager defaultManager] copyItemAtPath:path1 toPath:path2 error:&error];
-        if (error) {
-            NSLog(@"Could not copy '%@' to '%@'", path1, path2);
-        }
+    void (^copy)(NSString *, NSString *) = ^void(NSString *path1, NSString *path2) {
+      NSError *error = nil;
+      [[NSFileManager defaultManager] copyItemAtPath:path1 toPath:path2 error:&error];
+      if (error) {
+          NSLog(@"Could not copy '%@' to '%@'", path1, path2);
+      }
     };
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
@@ -118,30 +115,30 @@ static WMFAssetsFile* languageFile = nil;
     } else {
         // "AppData/Documents/assets/" exists, so only copy new or *newer* bundled assets folder files over to "AppData/Documents/assets/"
 
-        NSDirectoryEnumerator* dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:bundledPath];
-        NSString* fileName;
+        NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:bundledPath];
+        NSString *fileName;
         while ((fileName = [dirEnum nextObject])) {
-            NSString* documentsFilePath = [documentsPath stringByAppendingPathComponent:fileName];
-            NSString* bundledFilePath   = [bundledPath stringByAppendingPathComponent:fileName];
+            NSString *documentsFilePath = [documentsPath stringByAppendingPathComponent:fileName];
+            NSString *bundledFilePath = [bundledPath stringByAppendingPathComponent:fileName];
 
             if (![[NSFileManager defaultManager] fileExistsAtPath:documentsFilePath]) {
                 // No file in "AppData/Documents/assets/" so copy from bundle
                 copy(bundledFilePath, documentsFilePath);
             } else {
                 // File exists in "AppData/Documents/assets/" so copy it if bundled file is newer
-                NSError* docFilePathErr           = nil, * bundledFilePathErr = nil;
-                NSDictionary* fileInDocumentsAttr = [[NSFileManager defaultManager] attributesOfItemAtPath:documentsFilePath error:&docFilePathErr];
-                NSDictionary* fileInBundleAttr    = [[NSFileManager defaultManager] attributesOfItemAtPath:bundledFilePath error:&bundledFilePathErr];
+                NSError *docFilePathErr = nil, *bundledFilePathErr = nil;
+                NSDictionary *fileInDocumentsAttr = [[NSFileManager defaultManager] attributesOfItemAtPath:documentsFilePath error:&docFilePathErr];
+                NSDictionary *fileInBundleAttr = [[NSFileManager defaultManager] attributesOfItemAtPath:bundledFilePath error:&bundledFilePathErr];
 
                 if (!docFilePathErr && !bundledFilePathErr) {
-                    NSDate* bundledFileDate   = (NSDate*)fileInBundleAttr[NSFileModificationDate];
-                    NSDate* documentsFileDate = (NSDate*)fileInDocumentsAttr[NSFileModificationDate];
+                    NSDate *bundledFileDate = (NSDate *)fileInBundleAttr[NSFileModificationDate];
+                    NSDate *documentsFileDate = (NSDate *)fileInDocumentsAttr[NSFileModificationDate];
 
                     if ([bundledFileDate timeIntervalSinceDate:documentsFileDate] > 0) {
                         // Bundled file is newer.
 
                         // Remove existing "AppData/Documents/assets/" file - otherwise the copy will fail.
-                        NSError* error = nil;
+                        NSError *error = nil;
                         [[NSFileManager defaultManager] removeItemAtPath:documentsFilePath error:&error];
 
                         // Copy!
@@ -156,4 +153,3 @@ static WMFAssetsFile* languageFile = nil;
 @end
 
 NS_ASSUME_NONNULL_END
-

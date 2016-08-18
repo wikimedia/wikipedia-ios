@@ -12,12 +12,12 @@
 - (void)testWriteReadArticle {
     XCTAssertNotNil([self.dataStore articleWithURL:self.articleURL], @"article stub can be loaded before we save it");
 
-    MWKArticle* article;
+    MWKArticle *article;
     article = [[MWKArticle alloc] initWithURL:self.articleURL dataStore:self.dataStore dict:self.json0[@"mobileview"]];
 
     XCTAssertNoThrow([self.dataStore saveArticle:article]);
 
-    MWKArticle* article2;
+    MWKArticle *article2;
     XCTAssertNoThrow(article2 = [self.dataStore articleWithURL:self.articleURL], @"article can be loaded after saving it");
 
     XCTAssertEqualObjects(article, article2);
@@ -27,10 +27,10 @@
     XCTAssertNoThrow([self.article importMobileViewJSON:self.json0[@"mobileview"]]);
     [self.article save];
 
-    MWKArticle* article;
+    MWKArticle *article;
     XCTAssertNoThrow(article = [self.dataStore articleWithURL:self.articleURL], @"article can be loaded after saving it");
 
-    NSFileManager* fm = [NSFileManager defaultManager];
+    NSFileManager *fm = [NSFileManager defaultManager];
     XCTAssertTrue([fm fileExistsAtPath:[[self.dataStore pathForArticleURL:self.articleURL] stringByAppendingPathComponent:@"Article.plist"]]);
     XCTAssertTrue([fm fileExistsAtPath:[[self.dataStore pathForSectionId:0 inArticleWithURL:self.articleURL] stringByAppendingPathComponent:@"Section.plist"]]);
     XCTAssertTrue([fm fileExistsAtPath:[[self.dataStore pathForSectionId:0 inArticleWithURL:self.articleURL] stringByAppendingPathComponent:@"Section.html"]]);
@@ -42,10 +42,10 @@
     XCTAssertNoThrow([self.article importMobileViewJSON:self.json1[@"mobileview"]]);
     [self.article save];
 
-    MWKArticle* article;
+    MWKArticle *article;
     XCTAssertNoThrow(article = [self.dataStore articleWithURL:self.articleURL], @"article can be loaded after saving it");
 
-    NSFileManager* fm = [NSFileManager defaultManager];
+    NSFileManager *fm = [NSFileManager defaultManager];
     XCTAssertTrue([fm fileExistsAtPath:[[self.dataStore pathForArticleURL:self.articleURL] stringByAppendingPathComponent:@"Article.plist"]]);
     XCTAssertTrue([fm fileExistsAtPath:[[self.dataStore pathForSectionId:1 inArticleWithURL:self.articleURL] stringByAppendingPathComponent:@"Section.plist"]]);
     XCTAssertTrue([fm fileExistsAtPath:[[self.dataStore pathForSectionId:1 inArticleWithURL:self.articleURL] stringByAppendingPathComponent:@"Section.html"]]);
@@ -57,7 +57,7 @@
     XCTAssertNoThrow([self.article importMobileViewJSON:self.json0[@"mobileview"]]);
     [self.article save];
 
-    MWKSectionList* sections = self.article.sections;
+    MWKSectionList *sections = self.article.sections;
     XCTAssertNotNil(sections);
 
     XCTAssertEqual([sections count], 36);

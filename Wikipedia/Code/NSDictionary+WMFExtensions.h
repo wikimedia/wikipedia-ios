@@ -9,7 +9,6 @@
  */
 - (BOOL)wmf_containsNullObjects;
 
-
 /**
  *  Used to find dictionaries that contain Nulls or contain sub-dictionaries or arrays that contain Nulls
  *
@@ -17,14 +16,11 @@
  */
 - (BOOL)wmf_recursivelyContainsNullObjects;
 
-
 /**
  *  Remove Nulls from a dictionary before returning it
  *
  *  @return A dictionary without any [NSNull nulls]
  */
-- (NSDictionary*)wmf_dictionaryByRemovingNullObjects;
-
-
+- (NSDictionary *)wmf_dictionaryByRemovingNullObjects;
 
 @end

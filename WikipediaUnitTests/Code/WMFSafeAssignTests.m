@@ -8,7 +8,7 @@
 
 @implementation WMFSafeAssignTests
 
-- (void)assignValue:(id)value toOutParam:(NSObject**)outObj {
+- (void)assignValue:(id)value toOutParam:(NSObject **)outObj {
     WMFSafeAssign(outObj, value);
 }
 

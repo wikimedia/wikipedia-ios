@@ -13,5 +13,3 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 #endif
-
-

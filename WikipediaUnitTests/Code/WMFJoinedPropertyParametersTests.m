@@ -12,11 +12,11 @@
 @implementation WMFJoinedPropertyParametersTests
 
 - (void)testNonEmptyArray {
-    assertThat(WMFJoinedPropertyParameters(@[@"foo", @"bar", @"baz"]), is(@"foo|bar|baz"));
+    assertThat(WMFJoinedPropertyParameters(@[ @"foo", @"bar", @"baz" ]), is(@"foo|bar|baz"));
 }
 
 - (void)testUnaryArray {
-    assertThat(WMFJoinedPropertyParameters(@[@"foo"]), is(@"foo"));
+    assertThat(WMFJoinedPropertyParameters(@[ @"foo" ]), is(@"foo"));
 }
 
 - (void)testEmptyArray {

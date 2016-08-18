@@ -2,6 +2,6 @@
 
 @interface NSDate (WMFRelativeDate)
 
-- (NSString*)wmf_relativeTimestamp;
+- (NSString *)wmf_relativeTimestamp;
 
 @end

@@ -10,7 +10,7 @@
  *
  * @note Inspired by [EXTKeypathCoding.h](https://github.com/jspahrsummers/libextobjc/blob/master/extobjc/EXTKeyPathCoding.h#L14)
  */
-#define WMF_SAFE_KEYPATH(obj, keyp) ((NO, (void)obj.keyp), @#keyp)
+#define WMF_SAFE_KEYPATH(obj, keyp) ((NO, (void)obj.keyp), @ #keyp)
 
 /**
  * Compare two *objects* using `==` and <code>[a sel b]</code>, where `sel` is an equality selector
@@ -20,7 +20,7 @@
  * @param b   Second object, can be `nil`.
  * @return `YES` if the objects are the same pointer or invoking @c sel returns @c YES, otherwise @c NO.
  */
-#define WMF_EQUAL(a, sel, b) (((a) == (b)) || ([(a) sel (b)]))
+#define WMF_EQUAL(a, sel, b) (((a) == (b)) || ([(a)sel(b)]))
 
 /**
  * Check if two objects have the same value for given property.
@@ -31,11 +31,10 @@
  * @return `YES` if the values are equal or both `nil`, otherwise `NO`.
  * @see WMF_EQUAL
  */
-#define WMF_EQUAL_PROPERTIES(a, prop, sel, b) WMF_EQUAL([(a) prop], sel, [(b) prop])
+#define WMF_EQUAL_PROPERTIES(a, prop, sel, b) WMF_EQUAL([(a)prop], sel, [(b)prop])
 
 /// Convenience for `WMF_EQUAL_PROPERTIES` which passes `isEqual:` for the equality selector.
 #define WMF_IS_EQUAL_PROPERTIES(a, prop, b) WMF_EQUAL_PROPERTIES(a, prop, isEqual:, b)
-
 
 /**
  * Compare two objects using `==` and `isEqual:`.
@@ -55,10 +54,9 @@
  */
 #define WMF_RHS_PROP_EQUAL(prop, sel) WMF_EQUAL_PROPERTIES(self, prop, sel, rhs)
 
-#define WMF_SYNTHESIZE_IS_EQUAL(CLASS_NAME, CLASS_EQ_SEL) \
-    - (BOOL)isEqual : (id)obj { \
-        return [super isEqual:obj] \
-               || [obj isKindOfClass:[CLASS_NAME class]] ? [self CLASS_EQ_SEL obj] : NO; \
+#define WMF_SYNTHESIZE_IS_EQUAL(CLASS_NAME, CLASS_EQ_SEL)                                                    \
+    -(BOOL)isEqual : (id)obj {                                                                               \
+        return [super isEqual:obj] || [obj isKindOfClass:[CLASS_NAME class]] ? [self CLASS_EQ_SEL obj] : NO; \
     }
 
 #endif

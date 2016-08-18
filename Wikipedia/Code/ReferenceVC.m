@@ -13,56 +13,54 @@
 
 @interface ReferenceVC ()
 
-@property (weak, nonatomic) IBOutlet UIWebView* referenceWebView;
+@property(weak, nonatomic) IBOutlet UIWebView *referenceWebView;
 
 @end
 
 @implementation ReferenceVC
 
-- (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
-    NSString* domain             = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
-    MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:domain];
-    NSString* baseUrl            = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSString *domain = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
+    MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
+    NSString *baseUrl = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
 
     //NSLog(@"request = %@ \ntype = %d", request, navigationType);
     switch (navigationType) {
-        case UIWebViewNavigationTypeOther:
-            // YES allows the reference html to actually be loaded/displayed.
-            return YES;
-            break;
-        case UIWebViewNavigationTypeLinkClicked: {
-            NSURL* requestURL = [request URL];
+    case UIWebViewNavigationTypeOther:
+        // YES allows the reference html to actually be loaded/displayed.
+        return YES;
+        break;
+    case UIWebViewNavigationTypeLinkClicked: {
+        NSURL *requestURL = [request URL];
 
-            // Jump to fragment.
-            if ([requestURL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"#"]]) {
-                [self.delegate referenceViewController:self didSelectInternalReferenceWithFragment:requestURL.fragment];
-                return NO;
-            }
-
-            // Open wiki link in the WebViewController's web view.
-            if ([requestURL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"wiki/"]]) {
-#pragma warning Assuming that the url is on the same language wiki - what about other wikis?
-                [self.delegate referenceViewController:self didSelectReferenceWithURL:requestURL];
-
-                return NO;
-            }
-
-            // Open external link in Safari.
-            NSString* scheme = [requestURL scheme];
-            if (
-                [scheme isEqualToString:@"http"]
-                ||
-                [scheme isEqualToString:@"https"]
-                ||
-                [scheme isEqualToString:@"mailto"]
-                ) {
-                [self.delegate referenceViewController:self didSelectExternalReferenceWithURL:requestURL];
-                return NO;
-            }
-        }
-        default:
+        // Jump to fragment.
+        if ([requestURL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"#"]]) {
+            [self.delegate referenceViewController:self didSelectInternalReferenceWithFragment:requestURL.fragment];
             return NO;
-            break;
+        }
+
+        // Open wiki link in the WebViewController's web view.
+        if ([requestURL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"wiki/"]]) {
+#pragma warning Assuming that the url is on the same language wiki - what about other wikis ?
+            [self.delegate referenceViewController:self
+                         didSelectReferenceWithURL:requestURL];
+
+            return NO;
+        }
+
+        // Open external link in Safari.
+        NSString *scheme = [requestURL scheme];
+        if (
+            [scheme isEqualToString:@"http"] ||
+            [scheme isEqualToString:@"https"] ||
+            [scheme isEqualToString:@"mailto"]) {
+            [self.delegate referenceViewController:self didSelectExternalReferenceWithURL:requestURL];
+            return NO;
+        }
+    }
+    default:
+        return NO;
+        break;
     }
     return NO;
 }
@@ -78,14 +76,14 @@
 
     self.referenceWebView.delegate = self;
 
-    NSString* domain             = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
-    MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:domain];
-    NSString* baseUrl            = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
+    NSString *domain = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
+    MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
+    NSString *baseUrl = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
 
     CGFloat fontSize = 14.0 * MENUS_SCALE_MULTIPLIER;
-    CGFloat padding  = 10.0 * MENUS_SCALE_MULTIPLIER;
+    CGFloat padding = 10.0 * MENUS_SCALE_MULTIPLIER;
 
-    NSString* html = [NSString stringWithFormat:@"\
+    NSString *html = [NSString stringWithFormat:@"\
 <html>\
 <head>\
 <base href='%@' target='_self'>\
@@ -115,7 +113,8 @@
 %@ %@\
 </body>\
 </html>\
-", baseUrl, fontSize, padding, padding, REFERENCE_LINK_COLOR, languageInfo.code, languageInfo.dir, self.linkText, self.html];
+",
+                                                baseUrl, fontSize, padding, padding, REFERENCE_LINK_COLOR, languageInfo.code, languageInfo.dir, self.linkText, self.html];
 
     [self.referenceWebView loadHTMLString:html baseURL:[NSURL URLWithString:@""]];
 

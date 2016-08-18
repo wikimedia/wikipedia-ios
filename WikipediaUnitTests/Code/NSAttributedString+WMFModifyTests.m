@@ -12,12 +12,12 @@
 
 - (void)setUp {
     [super setUp];
-    self.recordMode     = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
+    self.recordMode = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
     self.deviceAgnostic = YES;
 }
 
-- (NSAttributedString*)getTestAttrStr {
-    NSMutableAttributedString* attributedText = [[NSMutableAttributedString alloc] initWithString:@"This is a test string which should help confirm that this is working the way we want it to. This is a test link to wikipedia."];
+- (NSAttributedString *)getTestAttrStr {
+    NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:@"This is a test string which should help confirm that this is working the way we want it to. This is a test link to wikipedia."];
 
     [attributedText addAttribute:NSStrikethroughStyleAttributeName value:@1 range:[attributedText.string rangeOfString:@"This"]];
     [attributedText addAttribute:NSStrikethroughStyleAttributeName value:@1 range:[attributedText.string rangeOfString:@"test"]];
@@ -28,12 +28,12 @@
     [attributedText addAttribute:NSBackgroundColorAttributeName value:[UIColor greenColor] range:[attributedText.string rangeOfString:@"working"]];
     [attributedText addAttribute:NSBackgroundColorAttributeName value:[UIColor grayColor] range:[attributedText.string rangeOfString:@"way"]];
 
-    NSMutableParagraphStyle* p = [[NSMutableParagraphStyle alloc] init];
+    NSMutableParagraphStyle *p = [[NSMutableParagraphStyle alloc] init];
     p.lineSpacing = 20;
 
     [attributedText addAttribute:NSParagraphStyleAttributeName value:p range:NSMakeRange(0, attributedText.length)];
 
-    NSURL* url = [NSURL URLWithString:@"http://www.wikipedia.org"];
+    NSURL *url = [NSURL URLWithString:@"http://www.wikipedia.org"];
     [attributedText addAttribute:NSLinkAttributeName value:url range:[attributedText.string rangeOfString:@"link"]];
 
     return attributedText;
@@ -49,45 +49,45 @@
 }
 
 - (void)testRemoveAllStrikeThroughs {
-    NSAttributedString* attrStr =
+    NSAttributedString *attrStr =
         [[self getTestAttrStr] wmf_attributedStringChangingAttribute:NSStrikethroughStyleAttributeName
-                                                           withBlock:^NSNumber*(NSNumber* strike){
-        return nil;
-    }];
+                                                           withBlock:^NSNumber *(NSNumber *strike) {
+                                                             return nil;
+                                                           }];
     [self wmf_verifyMultilineLabelWithText:attrStr width:320.f];
 }
 
 - (void)testChangeGreenBackgroundColorsToBlue {
-    NSAttributedString* attrStr =
+    NSAttributedString *attrStr =
         [[self getTestAttrStr] wmf_attributedStringChangingAttribute:NSBackgroundColorAttributeName
-                                                           withBlock:^UIColor*(UIColor* color){
-        return [color isEqual:[UIColor greenColor]] ? [UIColor blueColor] : color;
-    }];
+                                                           withBlock:^UIColor *(UIColor *color) {
+                                                             return [color isEqual:[UIColor greenColor]] ? [UIColor blueColor] : color;
+                                                           }];
     [self wmf_verifyMultilineLabelWithText:attrStr width:320.f];
 }
 
 - (void)testChangeReduceLineSpacing {
-    NSAttributedString* attrStr =
+    NSAttributedString *attrStr =
         [[self getTestAttrStr] wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
-                                                           withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
-        NSMutableParagraphStyle* mutablePStyle = paragraphStyle.mutableCopy;
-        mutablePStyle.lineSpacing = 2;
-        return mutablePStyle;
-    }];
+                                                           withBlock:^NSParagraphStyle *(NSParagraphStyle *paragraphStyle) {
+                                                             NSMutableParagraphStyle *mutablePStyle = paragraphStyle.mutableCopy;
+                                                             mutablePStyle.lineSpacing = 2;
+                                                             return mutablePStyle;
+                                                           }];
 
     [self wmf_verifyMultilineLabelWithText:attrStr width:320.f];
 }
 
 - (void)testRemovingLink {
-    NSAttributedString* attrStr =
+    NSAttributedString *attrStr =
         [[self getTestAttrStr] wmf_attributedStringChangingAttribute:NSLinkAttributeName
-                                                           withBlock:^id (id link){
-        return nil;
-    }];
+                                                           withBlock:^id(id link) {
+                                                             return nil;
+                                                           }];
     attrStr = [attrStr wmf_attributedStringChangingAttribute:NSForegroundColorAttributeName
-                                                   withBlock:^UIColor*(UIColor* color){
-        return nil;
-    }];
+                                                   withBlock:^UIColor *(UIColor *color) {
+                                                     return nil;
+                                                   }];
     [self wmf_verifyMultilineLabelWithText:attrStr width:320.f];
 }
 

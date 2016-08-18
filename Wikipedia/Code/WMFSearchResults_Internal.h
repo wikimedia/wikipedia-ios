@@ -2,6 +2,6 @@
 
 @interface WMFSearchResults (WMFInternal)
 
-@property (nonatomic, copy, readwrite) NSString* searchTerm;
+@property(nonatomic, copy, readwrite) NSString *searchTerm;
 
 @end

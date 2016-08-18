@@ -19,7 +19,7 @@
     }
 }
 
-- (instancetype)initWithCoder:(NSCoder*)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
         [self setup];
@@ -63,16 +63,16 @@
 
     CGSize contentSize = [super intrinsicContentSize];
     contentSize.height += self.padding.top + self.padding.bottom;
-    contentSize.width  += self.padding.left + self.padding.right;
+    contentSize.width += self.padding.left + self.padding.right;
     return contentSize;
 }
 
-- (void)setText:(NSString*)text {
+- (void)setText:(NSString *)text {
     [super setText:text];
     [self invalidateIntrinsicContentSize];
 }
 
-- (void)setAttributedText:(NSAttributedString*)attributedText {
+- (void)setAttributedText:(NSAttributedString *)attributedText {
     [super setAttributedText:attributedText];
     [self invalidateIntrinsicContentSize];
 }
@@ -83,8 +83,7 @@
         ceil(((CGFloat)padding.top) * MENUS_SCALE_MULTIPLIER),
         ceil(((CGFloat)padding.left) * MENUS_SCALE_MULTIPLIER),
         ceil(((CGFloat)padding.bottom) * MENUS_SCALE_MULTIPLIER),
-        ceil(((CGFloat)padding.right) * MENUS_SCALE_MULTIPLIER)
-        );
+        ceil(((CGFloat)padding.right) * MENUS_SCALE_MULTIPLIER));
 
     // Adjust for RTL langs.
     if ([[UIApplication sharedApplication] wmf_isRTL]) {

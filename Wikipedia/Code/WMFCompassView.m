@@ -4,7 +4,7 @@
 
 static CGFloat const WMFCompassPadding = 18.0;
 
-static CGFloat const WMFCompassLineWidth    = 1.0;
+static CGFloat const WMFCompassLineWidth = 1.0;
 static NSUInteger const WMFCompassLineCount = 40;
 
 static CGFloat const WMFCompassOppositeLineWidth = 2.0;
@@ -33,14 +33,14 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
     // All sizes/lengths defined relatively so everything scales magically if the
     // size of the image rect or self.padding are adjusted.
 
-    CGFloat scale       = [UIScreen mainScreen].scale;
-    CGFloat onePx       = 1.0f / scale;
+    CGFloat scale = [UIScreen mainScreen].scale;
+    CGFloat onePx = 1.0f / scale;
     CGFloat borderWidth = 1.0f / scale;
-    CGContextRef ctx    = UIGraphicsGetCurrentContext();
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(ctx, borderWidth);
 
     double diameter = rect.size.width;
-    double radius   = diameter / 2.0f;
+    double radius = diameter / 2.0f;
 
     CGColorRef tickColor = [UIColor wmf_nearbyTickColor].CGColor;
     CGContextSetFillColorWithColor(ctx, tickColor);
@@ -67,13 +67,12 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
                                size:CGSizeMake(WMFCompassOppositeLineWidth / scale, oppositeTickLength)];
 
     // Draw tick (arrow-like directional indicator).
-    CGFloat tickPercentOfRectWidth  = 0.115;
+    CGFloat tickPercentOfRectWidth = 0.115;
     CGFloat tickPercentOfRectHeight = 0.135;
-    CGSize tickSize                 =
+    CGSize tickSize =
         CGSizeMake(
             (rect.size.width - (WMFCompassPadding * 2.0f)) * tickPercentOfRectWidth,
-            (rect.size.height - (WMFCompassPadding * 2.0f)) * tickPercentOfRectHeight
-            );
+            (rect.size.height - (WMFCompassPadding * 2.0f)) * tickPercentOfRectHeight);
     [self drawTickInContext:ctx
                      center:CGPointMake(radius, radius)
                      radius:compassLineRadius - onePx
@@ -104,8 +103,8 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
     CGContextTranslateCTM(ctx, -(size.width / 2.0f), -(size.height));
 
     // Make tick shape.
-    UIBezierPath* path = [[UIBezierPath alloc] init];
-    CGRect tickRect    = CGRectMake(0, 0, size.width, size.height);
+    UIBezierPath *path = [[UIBezierPath alloc] init];
+    CGRect tickRect = CGRectMake(0, 0, size.width, size.height);
 
     CGPoint tp = CGPointMake(CGRectGetMidX(tickRect), CGRectGetMinY(tickRect));
     CGPoint bp = CGPointMake(CGRectGetMidX(tickRect), CGRectGetMaxY(tickRect));
@@ -144,8 +143,8 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
     CGContextTranslateCTM(ctx, -(size.width / 2.0f), -(size.height));
 
     // Make tick shape.
-    UIBezierPath* path = [[UIBezierPath alloc] init];
-    CGRect tickRect    = CGRectMake(0, 0, size.width, size.height);
+    UIBezierPath *path = [[UIBezierPath alloc] init];
+    CGRect tickRect = CGRectMake(0, 0, size.width, size.height);
 
     // Determines how far down from the vertical center the dots forming the base of the
     // tick triangleRadians are.
@@ -202,8 +201,8 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
         CGContextTranslateCTM(ctx, -(size.width / 2.0f), -(size.height));
 
         // Make tick shape.
-        UIBezierPath* path = [[UIBezierPath alloc] init];
-        CGRect tickRect    = CGRectMake(0, 0, size.width, size.height);
+        UIBezierPath *path = [[UIBezierPath alloc] init];
+        CGRect tickRect = CGRectMake(0, 0, size.width, size.height);
 
         CGPoint tp = CGPointMake(CGRectGetMidX(tickRect), CGRectGetMinY(tickRect));
         CGPoint bp = CGPointMake(CGRectGetMidX(tickRect), CGRectGetMaxY(tickRect));
@@ -227,9 +226,9 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
     return YES;
 }
 
-- (NSString*)accessibilityLabel {
+- (NSString *)accessibilityLabel {
     NSInteger clockDirection = WMFRadiansToClock(self.angleRadians);
-    NSString* label          = MWLocalizedString(@"compass-direction", nil);
+    NSString *label = MWLocalizedString(@"compass-direction", nil);
     label = [label stringByReplacingOccurrencesOfString:@"$1" withString:[NSString localizedStringWithFormat:@"%@", @(clockDirection)]];
     return label;
 }

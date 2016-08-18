@@ -35,7 +35,6 @@
 #import "NSURL+WMFExtras.h"
 #import "NSURL+WMFLinkParsing.h"
 
-
 #define URL_PRIVACY_POLICY @"https://m.wikimediafoundation.org/wiki/Privacy_policy"
 
 #endif

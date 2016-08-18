@@ -7,11 +7,11 @@ FOUNDATION_EXPORT CGPoint WMFCenterOfCGSize(CGSize size) {
 @implementation UIView (WMFFrameUtils)
 
 - (void)wmf_setFrameOrigin:(CGPoint)origin {
-    self.frame = (CGRect){.origin = origin, .size = self.frame.size };
+    self.frame = (CGRect){.origin = origin, .size = self.frame.size};
 }
 
 - (void)wmf_setFrameSize:(CGSize)size {
-    self.frame = (CGRect){.origin = self.frame.origin, .size = size };
+    self.frame = (CGRect){.origin = self.frame.origin, .size = size};
 }
 
 - (void)wmf_insetWidth:(float)width height:(float)height {

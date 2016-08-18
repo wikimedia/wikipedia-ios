@@ -12,9 +12,9 @@
 }
 
 - (void)logSomethingHappened {
-    NSNumber* number = [NSNumber numberWithLong:time(NULL)];
-    [self log:@{@"appInstallReadActionID": self.appInstallID,
-                @"clientSideTS": (number ? number : @"")}];
+    NSNumber *number = [NSNumber numberWithLong:time(NULL)];
+    [self log:@{ @"appInstallReadActionID" : self.appInstallID,
+                 @"clientSideTS" : (number ? number : @"") }];
 }
 
 @end

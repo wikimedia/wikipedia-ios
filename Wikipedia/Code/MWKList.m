@@ -3,11 +3,10 @@
 
 @interface MWKList ()
 
-@property (nonatomic, strong) NSMutableArray<id<MWKListObject> >* mutableEntries;
-@property (nonatomic, readwrite, assign) BOOL dirty;
+@property(nonatomic, strong) NSMutableArray<id<MWKListObject>> *mutableEntries;
+@property(nonatomic, readwrite, assign) BOOL dirty;
 
 @end
-
 
 @implementation MWKList
 
@@ -21,7 +20,7 @@
     return self;
 }
 
-- (instancetype)initWithEntries:(NSArray* __nullable)entries {
+- (instancetype)initWithEntries:(NSArray *__nullable)entries {
     self = [self init];
     if (self) {
         [self importEntries:entries];
@@ -30,34 +29,34 @@
     return self;
 }
 
-+ (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString*)propertyKey {
++ (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString *)propertyKey {
     if ([propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKList new], mutableEntries)]) {
         return MTLPropertyStoragePermanent;
     }
     return MTLPropertyStorageNone;
 }
 
-- (NSString*)description {
+- (NSString *)description {
     return [NSString stringWithFormat:@"%@ %@", [super description], self.entries];
 }
 
 #pragma mark - Import
 
-- (void)importEntries:(NSArray*)entries {
+- (void)importEntries:(NSArray *)entries {
     [self.mutableEntries setArray:entries];
 }
 
 #pragma mark - NSFastEnumeration
 
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState*)state
-                                  objects:(__unsafe_unretained id [])stackbuf
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
+                                  objects:(__unsafe_unretained id[])stackbuf
                                     count:(NSUInteger)len {
     return [self.entries countByEnumeratingWithState:state objects:stackbuf count:len];
 }
 
 #pragma mark - Entry Access
 
-- (NSArray*)entries {
+- (NSArray *)entries {
     return _mutableEntries;
 }
 
@@ -84,11 +83,11 @@
 }
 
 - (id<MWKListObject> __nullable)entryForListIndex:(MWKListIndex)listIndex {
-    return [self.entries bk_match:^BOOL (id < MWKListObject > obj) {
-        if ([[obj listIndex] isEqual:listIndex]) {
-            return YES;
-        }
-        return NO;
+    return [self.entries bk_match:^BOOL(id<MWKListObject> obj) {
+      if ([[obj listIndex] isEqual:listIndex]) {
+          return YES;
+      }
+      return NO;
     }];
 }
 
@@ -125,10 +124,10 @@
     self.dirty = YES;
 }
 
-- (NSArray*)pruneToMaximumCount:(NSUInteger)maximumCount {
+- (NSArray *)pruneToMaximumCount:(NSUInteger)maximumCount {
     if (self.mutableEntries.count > maximumCount) {
-        NSRange range    = NSMakeRange(maximumCount, self.mutableEntries.count - maximumCount);
-        NSArray* removed = [self.mutableEntries subarrayWithRange:range];
+        NSRange range = NSMakeRange(maximumCount, self.mutableEntries.count - maximumCount);
+        NSArray *removed = [self.mutableEntries subarrayWithRange:range];
         [self.mutableEntries removeObjectsInRange:range];
         self.dirty = YES;
         return removed;
@@ -143,27 +142,28 @@
     }
 }
 
-- (nullable NSArray<NSSortDescriptor*>*)sortDescriptors {
+- (nullable NSArray<NSSortDescriptor *> *)sortDescriptors {
     return nil;
 }
 
 #pragma mark - Save
 
-- (AnyPromise*)save {
+- (AnyPromise *)save {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        dispatchOnMainQueue(^{
-            if (self.dirty) {
-                [self performSaveWithCompletion:^{
-                    self.dirty = NO;
-                    resolve(nil);
-                } error:^(NSError* error){
-                    resolve(error);
-                }];
-            } else {
-                self.dirty = NO;
-                resolve(nil);
+      dispatchOnMainQueue(^{
+        if (self.dirty) {
+            [self performSaveWithCompletion:^{
+              self.dirty = NO;
+              resolve(nil);
             }
-        });
+                error:^(NSError *error) {
+                  resolve(error);
+                }];
+        } else {
+            self.dirty = NO;
+            resolve(nil);
+        }
+      });
     }];
 }
 
@@ -175,7 +175,7 @@
 
 #pragma mark - KVO
 
-- (NSMutableArray*)mutableEntries {
+- (NSMutableArray *)mutableEntries {
     return [self mutableArrayValueForKey:WMF_SAFE_KEYPATH(self, entries)];
 }
 
@@ -191,7 +191,7 @@
     [_mutableEntries insertObject:anObject atIndex:idx];
 }
 
-- (void)insertEntries:(NSArray*)entrieArray atIndexes:(NSIndexSet*)indexes {
+- (void)insertEntries:(NSArray *)entrieArray atIndexes:(NSIndexSet *)indexes {
     [_mutableEntries insertObjects:entrieArray atIndexes:indexes];
 }
 
@@ -199,7 +199,7 @@
     [_mutableEntries removeObjectAtIndex:idx];
 }
 
-- (void)removeEntriesAtIndexes:(NSIndexSet*)indexes {
+- (void)removeEntriesAtIndexes:(NSIndexSet *)indexes {
     [_mutableEntries removeObjectsAtIndexes:indexes];
 }
 
@@ -207,7 +207,7 @@
     [_mutableEntries replaceObjectAtIndex:idx withObject:anObject];
 }
 
-- (void)replaceEntriesAtIndexes:(NSIndexSet*)indexes withEntries:(NSArray*)entrieArray {
+- (void)replaceEntriesAtIndexes:(NSIndexSet *)indexes withEntries:(NSArray *)entrieArray {
     [_mutableEntries replaceObjectsAtIndexes:indexes withObjects:entrieArray];
 }
 

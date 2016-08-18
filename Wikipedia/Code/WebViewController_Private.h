@@ -31,39 +31,38 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WebViewController ()
 
-@property (nonatomic, strong, readwrite) WKWebView* webView;
+@property(nonatomic, strong, readwrite) WKWebView *webView;
 
-@property (nonatomic, strong, nullable, readwrite) MWKArticle* article;
-@property (nonatomic, strong, nullable, readwrite) NSURL* articleURL;
+@property(nonatomic, strong, nullable, readwrite) MWKArticle *article;
+@property(nonatomic, strong, nullable, readwrite) NSURL *articleURL;
 
-@property (nonatomic, strong) SessionSingleton* session;
+@property(nonatomic, strong) SessionSingleton *session;
 
-@property (strong, nonatomic) NSDictionary* adjacentHistoryIDs;
-@property (strong, nonatomic) NSString* externalUrl;
+@property(strong, nonatomic) NSDictionary *adjacentHistoryIDs;
+@property(strong, nonatomic) NSString *externalUrl;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* tocViewWidthConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* tocViewLeadingConstraint;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint *tocViewWidthConstraint;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint *tocViewLeadingConstraint;
 
-@property (strong, nonatomic) IBOutlet PaddedLabel* zeroStatusLabel;
+@property(strong, nonatomic) IBOutlet PaddedLabel *zeroStatusLabel;
 
-@property (strong, nonatomic, nullable) ReferencesVC* referencesVC;
-@property (weak, nonatomic) IBOutlet UIView* referencesContainerView;
+@property(strong, nonatomic, nullable) ReferencesVC *referencesVC;
+@property(weak, nonatomic) IBOutlet UIView *referencesContainerView;
 
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint* referencesContainerViewBottomConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint* referencesContainerViewHeightConstraint;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint *referencesContainerViewBottomConstraint;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint *referencesContainerViewHeightConstraint;
 
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint* webViewBottomConstraint;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint *webViewBottomConstraint;
 
-@property (nonatomic) BOOL referencesHidden;
+@property(nonatomic) BOOL referencesHidden;
 
 /**
  * Designated initializer.
  * @param session The current session, defaults to `+[SessionSingleton sharedInstance]`.
  * @return A new `WebViewController` with the given session.
  */
-- (instancetype)initWithSession:(SessionSingleton*)session;
+- (instancetype)initWithSession:(SessionSingleton *)session;
 
 @end
 
 NS_ASSUME_NONNULL_END
-

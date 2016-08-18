@@ -13,8 +13,8 @@
  *
  *  @return A new list.
  */
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
-@property (nonatomic, weak, readonly) MWKDataStore* dataStore;
+@property(nonatomic, weak, readonly) MWKDataStore *dataStore;
 
 @end

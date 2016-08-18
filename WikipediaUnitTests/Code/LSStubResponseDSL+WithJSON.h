@@ -1,9 +1,9 @@
 #import <Nocilla/Nocilla.h>
 
-typedef LSStubResponseDSL*(^ WithJSONMethod)(id json);
+typedef LSStubResponseDSL * (^WithJSONMethod)(id json);
 
 @interface LSStubResponseDSL (WithJSON)
 
-@property (nonatomic, strong, readonly) WithJSONMethod withJSON;
+@property(nonatomic, strong, readonly) WithJSONMethod withJSON;
 
 @end

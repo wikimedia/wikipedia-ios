@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRandomArticleFetcher ()
 
-@property (nonatomic, strong) AFHTTPSessionManager* operationManager;
+@property(nonatomic, strong) AFHTTPSessionManager *operationManager;
 
 @end
 
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init {
     self = [super init];
     if (self) {
-        AFHTTPSessionManager* manager = [AFHTTPSessionManager wmf_createDefaultManager];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
         manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class]
                                                                                                 fromKeypath:@"query.pages"];
         self.operationManager = manager;
@@ -39,64 +39,64 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (void)fetchRandomArticleWithSiteURL:(NSURL*)siteURL failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSearchResultHandler)success {
-    NSDictionary* params = [[self class] params];
-    
+- (void)fetchRandomArticleWithSiteURL:(NSURL *)siteURL failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSearchResultHandler)success {
+    NSDictionary *params = [[self class] params];
+
     [self.operationManager wmf_GETAndRetryWithURL:siteURL
-                                parameters:params
-                                     retry:NULL
-                                   success:^(NSURLSessionDataTask* operation, NSArray* responseObject) {
-                                       [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                                       
-                                       MWKSearchResult* article = [self getBestRandomResultFromResults:responseObject];
-                                       
-                                       success(article);
-                                   } failure:^(NSURLSessionDataTask* operation, NSError* error) {
-                                       [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                                       failure(error);
-                                   }];
+        parameters:params
+        retry:NULL
+        success:^(NSURLSessionDataTask *operation, NSArray *responseObject) {
+          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+
+          MWKSearchResult *article = [self getBestRandomResultFromResults:responseObject];
+
+          success(article);
+        }
+        failure:^(NSURLSessionDataTask *operation, NSError *error) {
+          [[MWNetworkActivityIndicatorManager sharedManager] pop];
+          failure(error);
+        }];
 }
 
-- (MWKSearchResult*)getBestRandomResultFromResults:(NSArray*)results {
+- (MWKSearchResult *)getBestRandomResultFromResults:(NSArray *)results {
     //Sort so random results with good extracts and images come first and disambiguation pages come last.
-    NSSortDescriptor* extractSorter  = [[NSSortDescriptor alloc] initWithKey:@"extract.length" ascending:NO];
-    NSSortDescriptor* descripSorter  = [[NSSortDescriptor alloc] initWithKey:@"wikidataDescription" ascending:NO];
-    NSSortDescriptor* thumbSorter    = [[NSSortDescriptor alloc] initWithKey:@"thumbnailURL.absoluteString" ascending:NO];
-    NSSortDescriptor* disambigSorter = [[NSSortDescriptor alloc] initWithKey:@"isDisambiguation" ascending:YES];
-    NSSortDescriptor* listSorter     = [[NSSortDescriptor alloc] initWithKey:@"isList" ascending:YES];
-    results = [results sortedArrayUsingDescriptors:@[disambigSorter, listSorter, thumbSorter, descripSorter, extractSorter]];
+    NSSortDescriptor *extractSorter = [[NSSortDescriptor alloc] initWithKey:@"extract.length" ascending:NO];
+    NSSortDescriptor *descripSorter = [[NSSortDescriptor alloc] initWithKey:@"wikidataDescription" ascending:NO];
+    NSSortDescriptor *thumbSorter = [[NSSortDescriptor alloc] initWithKey:@"thumbnailURL.absoluteString" ascending:NO];
+    NSSortDescriptor *disambigSorter = [[NSSortDescriptor alloc] initWithKey:@"isDisambiguation" ascending:YES];
+    NSSortDescriptor *listSorter = [[NSSortDescriptor alloc] initWithKey:@"isList" ascending:YES];
+    results = [results sortedArrayUsingDescriptors:@[ disambigSorter, listSorter, thumbSorter, descripSorter, extractSorter ]];
     return [results firstObject];
 }
 
-+ (NSDictionary*)params {
-    NSNumber* numberOfRandomItemsToFetch = @8;
++ (NSDictionary *)params {
+    NSNumber *numberOfRandomItemsToFetch = @8;
     return @{
-             @"action": @"query",
-             @"prop": @"extracts|pageterms|pageimages|pageprops|revisions",
-             //random
-             @"generator": @"random",
-             @"grnnamespace": @0,
-             @"grnfilterredir": @"nonredirects",
-             @"grnlimit": numberOfRandomItemsToFetch,
-             // extracts
-             @"exintro": @YES,
-             @"exlimit": numberOfRandomItemsToFetch,
-             @"explaintext": @"",
-             @"exchars": @(WMFNumberOfExtractCharacters),
-             // pageterms
-             @"wbptterms": @"description",
-             // pageimage
-             @"piprop": @"thumbnail",
-             @"pithumbsize": [[UIScreen mainScreen] wmf_leadImageWidthForScale],
-             @"pilimit": numberOfRandomItemsToFetch,
-             // revision
-             @"rrvlimit": @(1),
-             @"rvprop": @"ids",
-             @"format": @"json",
-             };
+        @"action" : @"query",
+        @"prop" : @"extracts|pageterms|pageimages|pageprops|revisions",
+        //random
+        @"generator" : @"random",
+        @"grnnamespace" : @0,
+        @"grnfilterredir" : @"nonredirects",
+        @"grnlimit" : numberOfRandomItemsToFetch,
+        // extracts
+        @"exintro" : @YES,
+        @"exlimit" : numberOfRandomItemsToFetch,
+        @"explaintext" : @"",
+        @"exchars" : @(WMFNumberOfExtractCharacters),
+        // pageterms
+        @"wbptterms" : @"description",
+        // pageimage
+        @"piprop" : @"thumbnail",
+        @"pithumbsize" : [[UIScreen mainScreen] wmf_leadImageWidthForScale],
+        @"pilimit" : numberOfRandomItemsToFetch,
+        // revision
+        @"rrvlimit" : @(1),
+        @"rvprop" : @"ids",
+        @"format" : @"json",
+    };
 }
 
 @end
-
 
 NS_ASSUME_NONNULL_END

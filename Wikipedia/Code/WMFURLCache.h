@@ -4,8 +4,8 @@
 
 @interface WMFURLCache : NSURLCache
 
-- (void)permanentlyCacheImagesForArticle:(MWKArticle*)article;
+- (void)permanentlyCacheImagesForArticle:(MWKArticle *)article;
 
-- (UIImage*)cachedImageForURL:(NSURL*)url;
+- (UIImage *)cachedImageForURL:(NSURL *)url;
 
 @end

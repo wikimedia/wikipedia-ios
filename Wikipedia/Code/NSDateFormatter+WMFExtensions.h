@@ -9,7 +9,7 @@
  *
  * @return Singleton @c NSDateFormatter for transcoding WMF timestamps.
  */
-+ (NSDateFormatter*)wmf_iso8601Formatter;
++ (NSDateFormatter *)wmf_iso8601Formatter;
 
 /**
  * Formatter which can be used to present a short time string for a given date.
@@ -23,18 +23,18 @@
  *
  * @return Singleton @c NSDateFormatter for displaying times to the user.
  */
-+ (NSDateFormatter*)wmf_shortTimeFormatter;
++ (NSDateFormatter *)wmf_shortTimeFormatter;
 
 /**
  * Create an short-style time formatter with the given locale.
  * @warning This method is exposed for testing only, use @c +wmf_shortTimeFormatter instead.
  */
-+ (NSDateFormatter*)wmf_shortTimeFormatterWithLocale:(NSLocale*)locale;
++ (NSDateFormatter *)wmf_shortTimeFormatterWithLocale:(NSLocale *)locale;
 
 /**
  * Create a long style date formatter. Sample: "April 24, 2015".
  */
-+ (NSDateFormatter*)wmf_longDateFormatter;
++ (NSDateFormatter *)wmf_longDateFormatter;
 
 + (instancetype)wmf_mediumDateFormatterWithoutTime;
 

@@ -2,6 +2,6 @@
 
 @interface QueuesSingleton (AllManagers)
 
-- (NSArray<AFHTTPSessionManager*>*)allManagers;
+- (NSArray<AFHTTPSessionManager *> *)allManagers;
 
 @end

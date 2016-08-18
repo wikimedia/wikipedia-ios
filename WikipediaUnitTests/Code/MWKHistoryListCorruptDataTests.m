@@ -5,12 +5,11 @@
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFAsyncTestCase.h"
 
-
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
 
 @interface MWKHistoryListCorruptDataTests : XCTestCase
-@property (strong, nonatomic) MWKHistoryList* historyList;
+@property(strong, nonatomic) MWKHistoryList *historyList;
 
 @end
 
@@ -20,26 +19,25 @@
 #pragma clang diagnostic ignored "-Wnonnull"
 
 - (void)testPrunesEntriesWithEmptyTitles {
-    MWKDataStore* dataStore = [MWKDataStore temporaryDataStore];
-    MWKHistoryList* list    = [[MWKHistoryList alloc] initWithDataStore:dataStore];
+    MWKDataStore *dataStore = [MWKDataStore temporaryDataStore];
+    MWKHistoryList *list = [[MWKHistoryList alloc] initWithDataStore:dataStore];
     [list addPageToHistoryWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@"Foo"]];
 
-    __block XCTestExpectation* expectation = [self expectationWithDescription:@"Should resolve"];
+    __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 
     dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-        assertThat(@([list numberOfItems]), is(@1));
-        [list addPageToHistoryWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@""]];
+      assertThat(@([list numberOfItems]), is(@1));
+      [list addPageToHistoryWithURL:[[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:@""]];
 
-        dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
-            assertThat(@([list numberOfItems]), is(@1));
-            [expectation fulfill];
-        });
+      dispatchOnMainQueueAfterDelayInSeconds(3.0, ^{
+        assertThat(@([list numberOfItems]), is(@1));
+        [expectation fulfill];
+      });
     });
 
     [self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:NULL];
 }
 
 #pragma clang diagnostic pop
-
 
 @end

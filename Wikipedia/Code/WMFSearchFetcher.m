@@ -19,15 +19,14 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 #pragma mark - Internal Class Declarations
 
 @interface WMFSearchRequestParameters : NSObject
-@property (nonatomic, strong) NSString* searchTerm;
-@property (nonatomic, assign) NSUInteger numberOfResults;
-@property (nonatomic, assign) BOOL fullTextSearch;
+@property(nonatomic, strong) NSString *searchTerm;
+@property(nonatomic, assign) NSUInteger numberOfResults;
+@property(nonatomic, assign) BOOL fullTextSearch;
 
 @end
 
 @interface WMFSearchRequestSerializer : WMFBaseRequestSerializer
 @end
-
 
 #pragma mark - Fetcher Implementation
 
@@ -36,73 +35,73 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        AFHTTPSessionManager* manager = [AFHTTPSessionManager wmf_createDefaultManager];
-        manager.requestSerializer  = [WMFSearchRequestSerializer serializer];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
+        manager.requestSerializer = [WMFSearchRequestSerializer serializer];
         manager.responseSerializer = [WMFSearchResults responseSerializer];
-        self.operationManager      = manager;
+        self.operationManager = manager;
     }
     return self;
 }
 
-- (AnyPromise*)fetchArticlesForSearchTerm:(NSString*)searchTerm
-                                  siteURL:(NSURL*)siteURL
-                              resultLimit:(NSUInteger)resultLimit {
+- (AnyPromise *)fetchArticlesForSearchTerm:(NSString *)searchTerm
+                                   siteURL:(NSURL *)siteURL
+                               resultLimit:(NSUInteger)resultLimit {
     return [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:NO appendToPreviousResults:nil];
 }
 
-- (AnyPromise*)fetchArticlesForSearchTerm:(NSString*)searchTerm
-                                  siteURL:(NSURL*)siteURL
-                              resultLimit:(NSUInteger)resultLimit
-                           fullTextSearch:(BOOL)fullTextSearch
-                  appendToPreviousResults:(nullable WMFSearchResults*)results {
+- (AnyPromise *)fetchArticlesForSearchTerm:(NSString *)searchTerm
+                                   siteURL:(NSURL *)siteURL
+                               resultLimit:(NSUInteger)resultLimit
+                            fullTextSearch:(BOOL)fullTextSearch
+                   appendToPreviousResults:(nullable WMFSearchResults *)results {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:results useDesktopURL:NO resolver:resolve];
+      [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:results useDesktopURL:NO resolver:resolve];
     }];
 }
 
-- (void)fetchArticlesForSearchTerm:(NSString*)searchTerm
-                           siteURL:(NSURL*)siteURL
+- (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
+                           siteURL:(NSURL *)siteURL
                        resultLimit:(NSUInteger)resultLimit
                     fullTextSearch:(BOOL)fullTextSearch
-           appendToPreviousResults:(nullable WMFSearchResults*)previousResults
+           appendToPreviousResults:(nullable WMFSearchResults *)previousResults
                      useDesktopURL:(BOOL)useDeskTopURL
                           resolver:(PMKResolver)resolve {
     NSParameterAssert(siteURL);
-    NSURL* url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:siteURL] : [NSURL wmf_mobileAPIURLForURL:siteURL];
+    NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:siteURL] : [NSURL wmf_mobileAPIURLForURL:siteURL];
 
-    WMFSearchRequestParameters* params = [WMFSearchRequestParameters new];
-    params.searchTerm      = searchTerm;
+    WMFSearchRequestParameters *params = [WMFSearchRequestParameters new];
+    params.searchTerm = searchTerm;
     params.numberOfResults = resultLimit;
-    params.fullTextSearch  = fullTextSearch;
+    params.fullTextSearch = fullTextSearch;
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
     [self.operationManager GET:url.absoluteString
-                    parameters:params
-                      progress:NULL
-                       success:^(NSURLSessionDataTask* operation, id response) {
-        [[MWNetworkActivityIndicatorManager sharedManager] pop];
+        parameters:params
+        progress:NULL
+        success:^(NSURLSessionDataTask *operation, id response) {
+          [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-        WMFSearchResults* searchResults = response;
-        searchResults.searchTerm = searchTerm;
+          WMFSearchResults *searchResults = response;
+          searchResults.searchTerm = searchTerm;
 
-        if (!previousResults) {
-            resolve(searchResults);
-            return;
+          if (!previousResults) {
+              resolve(searchResults);
+              return;
+          }
+
+          [previousResults mergeValuesForKeysFromModel:searchResults];
+
+          resolve(previousResults);
         }
-
-        [previousResults mergeValuesForKeysFromModel:searchResults];
-
-        resolve(previousResults);
-    }
-                       failure:^(NSURLSessionDataTask* operation, NSError* error) {
-        if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:siteURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
-            [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:previousResults useDesktopURL:YES resolver:resolve];
-        } else {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve(error);
-        }
-    }];
+        failure:^(NSURLSessionDataTask *operation, NSError *error) {
+          if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:siteURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
+              [self fetchArticlesForSearchTerm:searchTerm siteURL:siteURL resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:previousResults useDesktopURL:YES resolver:resolve];
+          } else {
+              [[MWNetworkActivityIndicatorManager sharedManager] pop];
+              resolve(error);
+          }
+        }];
 }
 
 @end
@@ -126,70 +125,69 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 
 @implementation WMFSearchRequestSerializer
 
-- (nullable NSURLRequest*)requestBySerializingRequest:(NSURLRequest*)request
-                                       withParameters:(nullable id)parameters
-                                                error:(NSError* __autoreleasing*)error {
-    NSDictionary* serializedParams = [self serializedParams:(WMFSearchRequestParameters*)parameters];
+- (nullable NSURLRequest *)requestBySerializingRequest:(NSURLRequest *)request
+                                        withParameters:(nullable id)parameters
+                                                 error:(NSError *__autoreleasing *)error {
+    NSDictionary *serializedParams = [self serializedParams:(WMFSearchRequestParameters *)parameters];
     return [super requestBySerializingRequest:request withParameters:serializedParams error:error];
 }
 
-- (NSDictionary*)serializedParams:(WMFSearchRequestParameters*)params {
-    NSNumber* numResults = @(params.numberOfResults);
+- (NSDictionary *)serializedParams:(WMFSearchRequestParameters *)params {
+    NSNumber *numResults = @(params.numberOfResults);
 
     if (!params.fullTextSearch) {
         return @{
-                   @"action": @"query",
-                   @"generator": @"prefixsearch",
-                   @"gpssearch": params.searchTerm,
-                   @"gpsnamespace": @0,
-                   @"gpslimit": numResults,
-                   @"prop": @"pageterms|pageimages|revisions",
-                   @"piprop": @"thumbnail",
-                   @"wbptterms": @"description",
-                   @"pithumbsize": [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
-                   @"pilimit": numResults,
-                   @"rrvlimit": @(1),
-                   @"rvprop": @"ids",
-                   // -- Parameters causing prefix search to efficiently return suggestion.
-                   @"list": @"search",
-                   @"srsearch": params.searchTerm,
-                   @"srnamespace": @0,
-                   @"srwhat": @"text",
-                   @"srinfo": @"suggestion",
-                   @"srprop": @"",
-                   @"sroffset": @0,
-                   @"srlimit": @1,
-                   @"redirects": @1,
-                   // --
-                   @"continue": @"",
-                   @"format": @"json"
+            @"action" : @"query",
+            @"generator" : @"prefixsearch",
+            @"gpssearch" : params.searchTerm,
+            @"gpsnamespace" : @0,
+            @"gpslimit" : numResults,
+            @"prop" : @"pageterms|pageimages|revisions",
+            @"piprop" : @"thumbnail",
+            @"wbptterms" : @"description",
+            @"pithumbsize" : [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
+            @"pilimit" : numResults,
+            @"rrvlimit" : @(1),
+            @"rvprop" : @"ids",
+            // -- Parameters causing prefix search to efficiently return suggestion.
+            @"list" : @"search",
+            @"srsearch" : params.searchTerm,
+            @"srnamespace" : @0,
+            @"srwhat" : @"text",
+            @"srinfo" : @"suggestion",
+            @"srprop" : @"",
+            @"sroffset" : @0,
+            @"srlimit" : @1,
+            @"redirects" : @1,
+            // --
+            @"continue" : @"",
+            @"format" : @"json"
         };
     } else {
         return @{
-                   @"action": @"query",
-                   @"prop": @"pageterms|pageimages|revisions",
-                   @"wbptterms": @"description",
-                   @"generator": @"search",
-                   @"gsrsearch": params.searchTerm,
-                   @"gsrnamespace": @0,
-                   @"gsrwhat": @"text",
-                   @"gsrinfo": @"",
-                   @"gsrprop": @"redirecttitle",
-                   @"gsroffset": @0,
-                   @"gsrlimit": numResults,
-                   @"piprop": @"thumbnail",
-                   @"pithumbsize": [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
-                   @"pilimit": numResults,
-                   @"rrvlimit": @(1),
-                   @"rvprop": @"ids",
-                   @"continue": @"",
-                   @"format": @"json",
-                   @"redirects": @1,
+            @"action" : @"query",
+            @"prop" : @"pageterms|pageimages|revisions",
+            @"wbptterms" : @"description",
+            @"generator" : @"search",
+            @"gsrsearch" : params.searchTerm,
+            @"gsrnamespace" : @0,
+            @"gsrwhat" : @"text",
+            @"gsrinfo" : @"",
+            @"gsrprop" : @"redirecttitle",
+            @"gsroffset" : @0,
+            @"gsrlimit" : numResults,
+            @"piprop" : @"thumbnail",
+            @"pithumbsize" : [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
+            @"pilimit" : numResults,
+            @"rrvlimit" : @(1),
+            @"rvprop" : @"ids",
+            @"continue" : @"",
+            @"format" : @"json",
+            @"redirects" : @1,
         };
     }
 }
 
 @end
-
 
 NS_ASSUME_NONNULL_END

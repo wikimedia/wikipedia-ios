@@ -8,10 +8,10 @@ id HC_containsItemsInCollectionInAnyOrder(id itemsOrMatchers) {
 
 @implementation HCIsCollectionContainingInAnyOrder (WMFCollectionMatcherUtils)
 
-+ (instancetype)wmf_isCollectionContainingItemsInAnyOrder:(NSArray*)itemsOrMatchers {
-    return [self isCollectionContainingInAnyOrder:[itemsOrMatchers bk_map:^id (id obj) {
-        return [obj conformsToProtocol:@protocol(HCMatcher)] ? obj : HC_equalTo(obj);
-    }]];
++ (instancetype)wmf_isCollectionContainingItemsInAnyOrder:(NSArray *)itemsOrMatchers {
+    return [self isCollectionContainingInAnyOrder:[itemsOrMatchers bk_map:^id(id obj) {
+                   return [obj conformsToProtocol:@protocol(HCMatcher)] ? obj : HC_equalTo(obj);
+                 }]];
 }
 
 @end

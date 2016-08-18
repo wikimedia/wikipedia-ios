@@ -6,27 +6,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRelatedSectionBlackList : MTLModel
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;
 
-@property (readonly, weak, nonatomic) MWKDataStore* dataStore;
+@property(readonly, weak, nonatomic) MWKDataStore *dataStore;
 
 #pragma mark - Convienence Methods
 
 - (NSInteger)numberOfItems;
 
-- (nullable MWKHistoryEntry*)entryForURL:(NSURL*)url;
+- (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url;
 
-- (nullable MWKHistoryEntry*)mostRecentEntry;
+- (nullable MWKHistoryEntry *)mostRecentEntry;
 
-- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry* _Nonnull entry, BOOL* stop))block;
+- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block;
 
 /**
  *  Check if a url is blacklisted
  *
  *  @param url The url to check
  */
-- (BOOL)articleURLIsBlackListed:(NSURL*)url;
+- (BOOL)articleURLIsBlackListed:(NSURL *)url;
 
 #pragma mark - Update Methods
 
@@ -35,15 +35,14 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param url The url to add
  */
-- (MWKHistoryEntry*)addBlackListArticleURL:(NSURL*)url;
+- (MWKHistoryEntry *)addBlackListArticleURL:(NSURL *)url;
 
 /**
  *  Remove a url to the black list
  *
  *  @param url The url to remove
  */
-- (void)removeBlackListArticleURL:(NSURL*)url;
-
+- (void)removeBlackListArticleURL:(NSURL *)url;
 
 /**
  *  Remove all blacklist items
@@ -53,4 +52,3 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
-

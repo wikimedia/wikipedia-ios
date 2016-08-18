@@ -16,25 +16,25 @@
 - (void)test_code_files_are_not_in_root_folder {
     // There are project and testing "code" folders.
     // This test ensures we keep code files out of the project's root directory.
-    NSArray* extensionsToKeepOutOfRoot =
+    NSArray *extensionsToKeepOutOfRoot =
         @[
-        @"h",
-        @"m",
-        @"c",
-        @"mm",
-        @"cpp",
-        @"swift",
-        @"xib",
-        @"json",
-        @"storyboard",
-        @"plist",
-        @"xcdatamodeld"
-    ];
+           @"h",
+           @"m",
+           @"c",
+           @"mm",
+           @"cpp",
+           @"swift",
+           @"xib",
+           @"json",
+           @"storyboard",
+           @"plist",
+           @"xcdatamodeld"
+        ];
 
-    NSPredicate* extensionsPredicate =
+    NSPredicate *extensionsPredicate =
         [NSPredicate predicateWithFormat:@"pathExtension IN %@", extensionsToKeepOutOfRoot];
 
-    NSArray* filesWhichShouldNotBeInRoot =
+    NSArray *filesWhichShouldNotBeInRoot =
         [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:SOURCE_ROOT_DIR error:nil] filteredArrayUsingPredicate:extensionsPredicate];
 
     assertThat(filesWhichShouldNotBeInRoot, hasCountOf(0));

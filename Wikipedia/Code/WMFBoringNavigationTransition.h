@@ -2,6 +2,6 @@
 
 @interface WMFBoringNavigationTransition : NSObject <UIViewControllerAnimatedTransitioning>
 
-@property (nonatomic, assign) UINavigationControllerOperation operation;
+@property(nonatomic, assign) UINavigationControllerOperation operation;
 
 @end

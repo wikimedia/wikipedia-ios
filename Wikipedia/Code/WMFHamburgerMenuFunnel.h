@@ -1,6 +1,6 @@
 #import "EventLoggingFunnel.h"
 
-typedef NS_ENUM (NSUInteger, WMFHamburgerMenuItemType) {
+typedef NS_ENUM(NSUInteger, WMFHamburgerMenuItemType) {
     WMFHamburgerMenuItemTypeLogin,
     WMFHamburgerMenuItemTypeToday,
     WMFHamburgerMenuItemTypeRandom,

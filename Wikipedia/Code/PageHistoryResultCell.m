@@ -8,22 +8,22 @@
 
 @interface PageHistoryResultCell ()
 
-@property (weak, nonatomic) IBOutlet PageHistoryLabel* summaryLabel;
-@property (weak, nonatomic) IBOutlet PageHistoryLabel* nameLabel;
-@property (weak, nonatomic) IBOutlet PageHistoryLabel* timeLabel;
-@property (weak, nonatomic) IBOutlet PageHistoryLabel* deltaLabel;
-@property (weak, nonatomic) IBOutlet PageHistoryLabel* iconLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* separatorHeightConstraint;
+@property(weak, nonatomic) IBOutlet PageHistoryLabel *summaryLabel;
+@property(weak, nonatomic) IBOutlet PageHistoryLabel *nameLabel;
+@property(weak, nonatomic) IBOutlet PageHistoryLabel *timeLabel;
+@property(weak, nonatomic) IBOutlet PageHistoryLabel *deltaLabel;
+@property(weak, nonatomic) IBOutlet PageHistoryLabel *iconLabel;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint *separatorHeightConstraint;
 
 @end
 
 @implementation PageHistoryResultCell
 
-- (void)setName:(NSString*)name
-           date:(NSDate*)date
-          delta:(NSNumber*)delta
-           icon:(NSString*)icon
-        summary:(NSString*)summary
+- (void)setName:(NSString *)name
+           date:(NSDate *)date
+          delta:(NSNumber *)delta
+           icon:(NSString *)icon
+        summary:(NSString *)summary
       separator:(BOOL)separator {
     self.nameLabel.text = name;
 
@@ -40,12 +40,12 @@
         self.deltaLabel.textColor = WMF_COLOR_RED;
     }
 
-    NSDictionary* iconAttributes =
+    NSDictionary *iconAttributes =
         @{
-        NSFontAttributeName: [UIFont wmf_glyphFontOfSize:23.0 * MENUS_SCALE_MULTIPLIER],
-        NSForegroundColorAttributeName: [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0],
-        NSBaselineOffsetAttributeName: @1
-    };
+            NSFontAttributeName : [UIFont wmf_glyphFontOfSize:23.0 * MENUS_SCALE_MULTIPLIER],
+            NSForegroundColorAttributeName : [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0],
+            NSBaselineOffsetAttributeName : @1
+        };
 
     self.iconLabel.attributedText =
         [[NSAttributedString alloc] initWithString:icon
@@ -57,7 +57,7 @@
         (separator) ? (1.0f / [UIScreen mainScreen].scale) : 0.0f;
 }
 
-- (id)initWithCoder:(NSCoder*)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -72,8 +72,7 @@
     // See: http://stackoverflow.com/a/15591474 for details.
 
     [self adjustConstraintsScaleForViews:
-     @[self.summaryLabel, self.nameLabel, self.timeLabel, self.deltaLabel, self.iconLabel]
-    ];
+              @[ self.summaryLabel, self.nameLabel, self.timeLabel, self.deltaLabel, self.iconLabel ]];
 }
 
 @end

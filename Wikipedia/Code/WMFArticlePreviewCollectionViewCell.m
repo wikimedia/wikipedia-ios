@@ -10,24 +10,24 @@
 
 @interface WMFArticlePreviewCollectionViewCell ()
 
-@property (strong, nonatomic) IBOutlet UILabel* snippetLabel;
-@property (strong, nonatomic) IBOutlet WMFLeadingImageTrailingTextButton* saveButton;
+@property(strong, nonatomic) IBOutlet UILabel *snippetLabel;
+@property(strong, nonatomic) IBOutlet WMFLeadingImageTrailingTextButton *saveButton;
 
-@property (strong, nonatomic, readwrite) WMFSaveButtonController* saveButtonController;
+@property(strong, nonatomic, readwrite) WMFSaveButtonController *saveButtonController;
 
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintLeading;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintTrailing;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint *paddingConstraintLeading;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint *paddingConstraintTrailing;
 
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintAboveDescription;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintBelowDescription;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint *paddingConstraintAboveDescription;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint *paddingConstraintBelowDescription;
 
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint* imageHeightConstraint;
+@property(strong, nonatomic) IBOutlet NSLayoutConstraint *imageHeightConstraint;
 
-@property (strong, nonatomic) UIVisualEffectView* blurView;
-@property (strong, nonatomic) UIActivityIndicatorView* activityIndicator;
+@property(strong, nonatomic) UIVisualEffectView *blurView;
+@property(strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
-@property (nonatomic) CGFloat paddingAboveDescriptionFromIB;
-@property (nonatomic) CGFloat paddingBelowDescriptionFromIB;
+@property(nonatomic) CGFloat paddingAboveDescriptionFromIB;
+@property(nonatomic) CGFloat paddingBelowDescriptionFromIB;
 
 @end
 
@@ -46,10 +46,10 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.snippetLabel.attributedText        = nil;
-    self.saveButtonController.url           = nil;
+    self.snippetLabel.attributedText = nil;
+    self.saveButtonController.url = nil;
     self.saveButtonController.savedPageList = nil;
-    self.loading                            = NO;
+    self.loading = NO;
 }
 
 - (void)awakeFromNib {
@@ -64,19 +64,19 @@
 }
 
 - (void)setupBlurViewAndLoadingIndicator {
-    UIBlurEffect* blurEffect = [[UIBlurEffect alloc] init];
+    UIBlurEffect *blurEffect = [[UIBlurEffect alloc] init];
     self.blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     [self.contentView addSubview:self.blurView];
-    [self.blurView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.edges.equalTo(self.contentView);
+    [self.blurView mas_makeConstraints:^(MASConstraintMaker *make) {
+      make.edges.equalTo(self.contentView);
     }];
 
-    self.activityIndicator       = [[UIActivityIndicatorView alloc] init];
+    self.activityIndicator = [[UIActivityIndicatorView alloc] init];
     self.activityIndicator.color = [UIColor blackColor];
     [self.blurView.contentView addSubview:self.activityIndicator];
-    [self.activityIndicator mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.height.and.width.equalTo(@50);
-        make.center.equalTo(self.activityIndicator.superview);
+    [self.activityIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
+      make.height.and.width.equalTo(@50);
+      make.center.equalTo(self.activityIndicator.superview);
     }];
 }
 
@@ -87,7 +87,7 @@
 
 #pragma mark - Description
 
-- (void)setDescriptionText:(NSString*)descriptionText {
+- (void)setDescriptionText:(NSString *)descriptionText {
     self.descriptionLabel.text = descriptionText;
     if (self.descriptionLabel.text.length == 0) {
         [self removeDescriptionVerticalPadding];
@@ -108,7 +108,7 @@
 
 #pragma mark - Snippet
 
-- (void)setSnippetText:(NSString*)snippetText {
+- (void)setSnippetText:(NSString *)snippetText {
     if (!snippetText.length) {
         self.snippetLabel.attributedText = nil;
         return;
@@ -116,28 +116,28 @@
     self.snippetLabel.attributedText = [[NSAttributedString alloc] initWithString:snippetText attributes:[[self class] snippetAttributes]];
 }
 
-- (NSString*)snippetText {
+- (NSString *)snippetText {
     return self.snippetLabel.attributedText.string;
 }
 
-+ (NSDictionary*)snippetAttributes {
-    static NSDictionary* attributes;
++ (NSDictionary *)snippetAttributes {
+    static NSDictionary *attributes;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSMutableParagraphStyle* pStyle = [[NSMutableParagraphStyle alloc] init];
-        pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
-        pStyle.baseWritingDirection = NSWritingDirectionNatural;
-        pStyle.lineHeightMultiple = 1.35;
-        attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0],
-                       NSForegroundColorAttributeName: [UIColor darkGrayColor],
-                       NSParagraphStyleAttributeName: pStyle};
+      NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
+      pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+      pStyle.baseWritingDirection = NSWritingDirectionNatural;
+      pStyle.lineHeightMultiple = 1.35;
+      attributes = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0],
+                     NSForegroundColorAttributeName : [UIColor darkGrayColor],
+                     NSParagraphStyleAttributeName : pStyle};
     });
     return attributes;
 }
 
 #pragma mark - Image
 
-- (void)setImageURL:(NSURL*)imageURL failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSuccessHandler)success {
+- (void)setImageURL:(NSURL *)imageURL failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSuccessHandler)success {
     [super setImageURL:imageURL failure:failure success:success];
     if (imageURL) {
         [self restoreImageToFullHeight];
@@ -146,7 +146,7 @@
     }
 }
 
-- (void)setImage:(MWKImage*)image failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSuccessHandler)success {
+- (void)setImage:(MWKImage *)image failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFSuccessHandler)success {
     [super setImage:image failure:failure success:success];
     if (image) {
         [self restoreImageToFullHeight];
@@ -165,22 +165,22 @@
 
 - (CGFloat)sixteenByNineImageHeight {
     CGFloat horizontalPadding = self.paddingConstraintLeading.constant + self.paddingConstraintTrailing.constant;
-    CGFloat ratio             = (9.0 / 16.0);
+    CGFloat ratio = (9.0 / 16.0);
     return floor((self.bounds.size.width - horizontalPadding) * ratio);
 }
 
 #pragma mark - Saving
 
-- (WMFSaveButtonController*)saveButtonController {
+- (WMFSaveButtonController *)saveButtonController {
     if (!_saveButtonController) {
         self.saveButtonController = [[WMFSaveButtonController alloc] init];
     }
     return _saveButtonController;
 }
 
-- (void)setSaveableURL:(NSURL*)url savedPageList:(MWKSavedPageList*)savedPageList {
+- (void)setSaveableURL:(NSURL *)url savedPageList:(MWKSavedPageList *)savedPageList {
     self.saveButtonController.savedPageList = savedPageList;
-    self.saveButtonController.url           = url;
+    self.saveButtonController.url = url;
 }
 
 #pragma mark - Height Estimation

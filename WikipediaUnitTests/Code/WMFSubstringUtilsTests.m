@@ -2,7 +2,6 @@
 #import <XCTest/XCTest.h>
 #import "NSString+WMFExtras.h"
 
-
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
 

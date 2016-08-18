@@ -6,8 +6,8 @@
 
 - (void)setTimeoutInterval:(NSTimeInterval)timeoutInterval;
 
-- (AnyPromise*)fetchLatestRevisionsForArticleURL:(NSURL*)articleURL
-                                     resultLimit:(NSUInteger)numberOfResults
-                              endingWithRevision:(NSUInteger)revisionId;
+- (AnyPromise *)fetchLatestRevisionsForArticleURL:(NSURL *)articleURL
+                                      resultLimit:(NSUInteger)numberOfResults
+                               endingWithRevision:(NSUInteger)revisionId;
 
 @end

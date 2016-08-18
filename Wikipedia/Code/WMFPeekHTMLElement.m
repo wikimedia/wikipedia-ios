@@ -3,14 +3,14 @@
 
 @interface WMFPeekHTMLElement ()
 
-@property (nonatomic, readwrite) WMFPeekElementType type;
-@property (nonatomic, strong, readwrite, nullable) NSURL* url;
+@property(nonatomic, readwrite) WMFPeekElementType type;
+@property(nonatomic, strong, readwrite, nullable) NSURL *url;
 
 @end
 
 @implementation WMFPeekHTMLElement
 
-- (instancetype)initWithTagName:(NSString*)tagName src:(NSString*)src href:(NSString*)href {
+- (instancetype)initWithTagName:(NSString *)tagName src:(NSString *)src href:(NSString *)href {
     NSParameterAssert(tagName);
     if (!tagName) {
         return nil;
@@ -29,7 +29,7 @@
             }
         } else {
             self.type = WMFPeekElementTypeUnpeekable;
-            self.url  = nil;
+            self.url = nil;
         }
     }
     return self;

@@ -13,21 +13,21 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  See WMFExploreSectionController.h for further documentation.
  */
-@interface WMFBaseExploreSectionController : NSObject<WMFAnalyticsContextProviding>
+@interface WMFBaseExploreSectionController : NSObject <WMFAnalyticsContextProviding>
 
 - (instancetype)init NS_UNAVAILABLE;
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore items:(NSArray*)items;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore items:(NSArray *)items;
 
-@property (nonatomic, strong, readonly) MWKDataStore* dataStore;
+@property(nonatomic, strong, readonly) MWKDataStore *dataStore;
 
-@property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
+@property(nonatomic, strong, readonly) MWKSavedPageList *savedPageList;
 
-@property (nonatomic, strong, readonly) MWKHistoryList* historyList;
+@property(nonatomic, strong, readonly) MWKHistoryList *historyList;
 
-@property (nonatomic, strong, readonly) NSArray* items;
+@property(nonatomic, strong, readonly) NSArray *items;
 
 @end
 
@@ -36,11 +36,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface WMFBaseExploreSectionController (WMFBaseExploreSubclassRequiredMethods)
 
-- (NSString*)cellIdentifier;
+- (NSString *)cellIdentifier;
 
-- (UINib*)cellNib;
+- (UINib *)cellNib;
 
-- (void)configureCell:(UICollectionViewCell *)cell withItem:(id)item atIndexPath:(NSIndexPath*)indexPath;
+- (void)configureCell:(UICollectionViewCell *)cell withItem:(id)item atIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Default returns a successful promise with the current items
  *  Implementations should resolve promises with an NSArray
  */
-- (AnyPromise*)fetchData;
+- (AnyPromise *)fetchData;
 
 @end
 
@@ -69,9 +69,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSUInteger)numberOfPlaceholderCells;
 
-- (nullable NSString*)placeholderCellIdentifier;
+- (nullable NSString *)placeholderCellIdentifier;
 
-- (nullable UINib*)placeholderCellNib;
+- (nullable UINib *)placeholderCellNib;
 
 - (BOOL)containsPlaceholders;
 
@@ -89,7 +89,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)configureEmptyCell:(WMFEmptySectionCollectionViewCell *)cell;
 
-
 @end
 
 /**
@@ -106,7 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Returns no for placeholders and empty cells. Otehrwise YES
  *  Override if you need to further customize this behavior.
  */
-- (BOOL)shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath;
+- (BOOL)shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -116,22 +115,20 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface WMFBaseExploreSectionController (WMFExploreSectionControllerImplementedMethods)
 
-@property (nonatomic, strong, readonly) NSArray* items;
+@property(nonatomic, strong, readonly) NSArray *items;
 
-- (AnyPromise*)fetchDataIfNeeded;
+- (AnyPromise *)fetchDataIfNeeded;
 
-- (AnyPromise*)fetchDataIfError;
+- (AnyPromise *)fetchDataIfError;
 
-- (AnyPromise*)fetchDataUserInitiated;
+- (AnyPromise *)fetchDataUserInitiated;
 
-- (void)registerCellsInCollectionView:(UICollectionView*)collectionView;
+- (void)registerCellsInCollectionView:(UICollectionView *)collectionView;
 
-- (NSString*)cellIdentifierForItemIndexPath:(NSIndexPath*)indexPath;
+- (NSString *)cellIdentifierForItemIndexPath:(NSIndexPath *)indexPath;
 
-- (void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath*)indexPath;
+- (void)configureCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
 @end
-
-
 
 NS_ASSUME_NONNULL_END

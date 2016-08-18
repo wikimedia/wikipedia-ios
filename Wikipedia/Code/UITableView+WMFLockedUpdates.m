@@ -2,8 +2,8 @@
 
 @implementation UITableView (WMFLockedUpdates)
 
-- (void)      wmf_performUpdates:(dispatch_block_t)updates
-    withoutMovingCellAtIndexPath:(NSIndexPath*)lockedIndexPath {
+- (void)wmf_performUpdates:(dispatch_block_t)updates
+    withoutMovingCellAtIndexPath:(NSIndexPath *)lockedIndexPath {
     NSParameterAssert(lockedIndexPath);
     NSParameterAssert(updates);
     if (self.contentSize.height <= self.frame.size.height) {
@@ -12,7 +12,7 @@
         return;
     }
 
-    UITableViewCell* oldLockedCell = [self cellForRowAtIndexPath:lockedIndexPath];
+    UITableViewCell *oldLockedCell = [self cellForRowAtIndexPath:lockedIndexPath];
     if (!oldLockedCell) {
         DDLogVerbose(@"Cell at %@ not visible, skipping.", lockedIndexPath);
         updates();
@@ -22,30 +22,30 @@
     CGPoint oldOrigin = [self.window convertPoint:oldLockedCell.frame.origin
                                          fromView:oldLockedCell.superview];
     [UIView performWithoutAnimation:^{
-        updates();
+      updates();
 
-        if (self.contentSize.height <= self.frame.size.height) {
-            DDLogVerbose(@"Content size too small after updates, not adjusting content offset.");
-            return;
-        }
+      if (self.contentSize.height <= self.frame.size.height) {
+          DDLogVerbose(@"Content size too small after updates, not adjusting content offset.");
+          return;
+      }
 
-        UITableViewCell* newLockedCell = [self cellForRowAtIndexPath:lockedIndexPath];
-        if (!newLockedCell) {
-            DDLogVerbose(@"Can't find cell to lock for %@ after updates, skipping adjustment.", lockedIndexPath);
-            return;
-        }
+      UITableViewCell *newLockedCell = [self cellForRowAtIndexPath:lockedIndexPath];
+      if (!newLockedCell) {
+          DDLogVerbose(@"Can't find cell to lock for %@ after updates, skipping adjustment.", lockedIndexPath);
+          return;
+      }
 
-        CGPoint currentOrigin = [self.window convertPoint:newLockedCell.frame.origin
-                                                 fromView:newLockedCell.superview];
-        CGPoint newContentOffset = self.contentOffset;
+      CGPoint currentOrigin = [self.window convertPoint:newLockedCell.frame.origin
+                                               fromView:newLockedCell.superview];
+      CGPoint newContentOffset = self.contentOffset;
 
-        newContentOffset.y += currentOrigin.y - oldOrigin.y;
-        // ???: if deleting from above selected/focused row, do we need to limit auto-scrolling to contentInset?
+      newContentOffset.y += currentOrigin.y - oldOrigin.y;
+      // ???: if deleting from above selected/focused row, do we need to limit auto-scrolling to contentInset?
 
-        DDLogVerbose(@"Adjusting content offset to %@ to prevent updates from moving cell at %@.",
-                     NSStringFromCGPoint(newContentOffset),
-                     lockedIndexPath);
-        self.contentOffset = newContentOffset;
+      DDLogVerbose(@"Adjusting content offset to %@ to prevent updates from moving cell at %@.",
+                   NSStringFromCGPoint(newContentOffset),
+                   lockedIndexPath);
+      self.contentOffset = newContentOffset;
     }];
 }
 

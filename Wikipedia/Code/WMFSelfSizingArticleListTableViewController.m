@@ -11,10 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)loadView {
     [super loadView];
-    UITableView* tv = [[WMFIntrinsicSizeTableView alloc] initWithFrame:CGRectZero];
+    UITableView *tv = [[WMFIntrinsicSizeTableView alloc] initWithFrame:CGRectZero];
     tv.translatesAutoresizingMaskIntoConstraints = NO;
-    tv.delegate                                  = self;
-    self.tableView                               = tv;
+    tv.delegate = self;
+    self.tableView = tv;
 }
 
 @end

@@ -2,12 +2,12 @@
 
 @interface MenuLabel : PaddedLabel
 
-- (instancetype)initWithText:(NSString*)text
+- (instancetype)initWithText:(NSString *)text
                     fontSize:(CGFloat)size
                         bold:(BOOL)bold
-                       color:(UIColor*)color
+                       color:(UIColor *)color
                      padding:(UIEdgeInsets)padding;
 
-@property (strong, nonatomic) UIColor* color;
+@property(strong, nonatomic) UIColor *color;
 
 @end

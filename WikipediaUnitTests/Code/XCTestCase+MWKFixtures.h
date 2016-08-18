@@ -7,7 +7,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class MWKDataStore;
 
-
 @interface XCTestCase (MWKFixtures)
 
 /**
@@ -24,10 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
  * @return An article object populated with data from the specified fixture.
  *
  */
-- (MWKArticle*)articleWithMobileViewJSONFixture:(NSString*)fixtureName
-                                      withURL:(NSURL*)url
-                                      dataStore:(MWKDataStore*)dataStore;
-
+- (MWKArticle *)articleWithMobileViewJSONFixture:(NSString *)fixtureName
+                                         withURL:(NSURL *)url
+                                       dataStore:(MWKDataStore *)dataStore;
 
 @end
 

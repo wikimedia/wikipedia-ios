@@ -5,7 +5,7 @@
 
 @interface MWKImageStorageTests : MWKArticleStoreTestCase
 
-@property NSString* goldenGateImageURL;
+@property NSString *goldenGateImageURL;
 
 @end
 
@@ -24,7 +24,7 @@
 }
 
 - (void)testLoadNonexistentImageData {
-    MWKImage* image = [[MWKImage alloc] initWithArticle:self.article sourceURLString:self.goldenGateImageURL];
+    MWKImage *image = [[MWKImage alloc] initWithArticle:self.article sourceURLString:self.goldenGateImageURL];
     XCTAssertNotNil(image);
 }
 

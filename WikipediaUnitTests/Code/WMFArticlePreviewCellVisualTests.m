@@ -12,8 +12,8 @@
 
 @interface WMFArticlePreviewCellVisualTests : FBSnapshotTestCase
 
-@property (nonatomic, strong) WMFArticlePreviewTableViewCell* cell;
-@property (nonatomic, strong) MWKDataStore* dataStore;
+@property(nonatomic, strong) WMFArticlePreviewTableViewCell *cell;
+@property(nonatomic, strong) MWKDataStore *dataStore;
 
 @end
 
@@ -23,12 +23,12 @@
     [super setUp];
 
     self.deviceAgnostic = YES;
-    self.recordMode     = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
+    self.recordMode = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
 
     self.cell = [WMFArticlePreviewTableViewCell wmf_viewFromClassNib];
 
     // Add border around save button to ensure adequate hit area
-    UIControl* saveButton = self.cell.saveButtonController.control;
+    UIControl *saveButton = self.cell.saveButtonController.control;
     saveButton.borderColor = [UIColor redColor];
     saveButton.borderWidth = 2.f;
 
@@ -84,11 +84,11 @@
 
 #pragma mark - Utils
 
-- (void)configureCellWithTitleText:(NSString*)titleText
-                       description:(NSString*)description
-                           extract:(NSString*)extract
-                          imageURL:(NSURL*)imageURL {
-    NSURL* url = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:titleText];
+- (void)configureCellWithTitleText:(NSString *)titleText
+                       description:(NSString *)description
+                           extract:(NSString *)extract
+                          imageURL:(NSURL *)imageURL {
+    NSURL *url = [[NSURL wmf_URLWithDefaultSiteAndCurrentLocale] wmf_URLWithTitle:titleText];
 
     [self.cell setSaveableURL:url savedPageList:self.dataStore.userDataStore.savedPageList];
 
@@ -98,21 +98,23 @@
 
     if (imageURL) {
         stubRequest(@"GET", imageURL.absoluteString)
-        .andReturn(200)
-        .withBody([[self wmf_bundle] wmf_dataFromContentsOfFile:@"golden-gate" ofType:@".jpg"]);
-        
+            .andReturn(200)
+            .withBody([[self wmf_bundle] wmf_dataFromContentsOfFile:@"golden-gate" ofType:@".jpg"]);
+
         XCTestExpectation *expectation = [self expectationWithDescription:@"waiting for image set"];
         @weakify(self)
-        [self.cell setImageURL:imageURL failure:^(NSError *error) {
-            @strongify(self)
-            XCTFail(@"failed to set image: %@", error.description);
-            [expectation fulfill];
-        } success:^{
-            @strongify(self)
-            XCTAssert(true);
-            [expectation fulfill];
-        }];
-        
+            [self.cell setImageURL:imageURL
+                failure:^(NSError *error) {
+                  @strongify(self)
+                      XCTFail(@"failed to set image: %@", error.description);
+                  [expectation fulfill];
+                }
+                success:^{
+                  @strongify(self)
+                      XCTAssert(true);
+                  [expectation fulfill];
+                }];
+
         WaitForExpectationsWithTimeout(10);
     } else {
         [self.cell setImageURL:nil];
@@ -121,20 +123,20 @@
     [self.cell wmf_sizeToFitWindowWidth];
 }
 
-- (NSString*)shortTitleText {
+- (NSString *)shortTitleText {
     return @"Short title";
 }
 
-- (NSString*)shortDescription {
+- (NSString *)shortDescription {
     return @"Short description.";
 }
 
-- (NSString*)shortExtract {
+- (NSString *)shortExtract {
     return @"Short extract.";
 }
 
-- (NSString*)longExtract {
-    NSMutableString* longExtract = [NSMutableString stringWithString:@"This extract is "];
+- (NSString *)longExtract {
+    NSMutableString *longExtract = [NSMutableString stringWithString:@"This extract is "];
     for (int i = 0; i < 20; i++) {
         [longExtract appendString:@"really "];
     }
@@ -142,7 +144,7 @@
     return longExtract;
 }
 
-- (NSURL*)imageURL {
+- (NSURL *)imageURL {
     return [NSURL URLWithString:@"https://upload.wikimedia.org/Foo.jpg"];
 }
 

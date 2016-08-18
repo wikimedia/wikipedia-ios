@@ -1,6 +1,6 @@
 #import "TabularScrollView.h"
 
-typedef NS_ENUM (NSInteger, AbuseFilterAlertType) {
+typedef NS_ENUM(NSInteger, AbuseFilterAlertType) {
     ABUSE_FILTER_WARNING,
     ABUSE_FILTER_DISALLOW
 };
@@ -9,6 +9,6 @@ typedef NS_ENUM (NSInteger, AbuseFilterAlertType) {
 
 - (id)initWithType:(AbuseFilterAlertType)alertType;
 
-@property (nonatomic, readonly) AbuseFilterAlertType alertType;
+@property(nonatomic, readonly) AbuseFilterAlertType alertType;
 
 @end

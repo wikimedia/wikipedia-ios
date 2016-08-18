@@ -1,9 +1,9 @@
 #import <UIKit/UIKit.h>
 
-extern NSString* const WMFHockeyAppServiceName;
+extern NSString *const WMFHockeyAppServiceName;
 
 @interface WMFCrashAlertView : UIAlertView
 
-+ (NSString*)wmf_hockeyAppPrivacyButtonText;
++ (NSString *)wmf_hockeyAppPrivacyButtonText;
 
 @end

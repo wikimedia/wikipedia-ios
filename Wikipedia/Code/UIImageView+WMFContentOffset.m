@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation UIImageView (WMFContentOffset)
 
 - (void)wmf_cropContentsByVerticallyCenteringFrame:(CGRect)rect
-                               insideBoundsOfImage:(UIImage*)image {
+                               insideBoundsOfImage:(UIImage *)image {
     CGRect verticallyCenteredFrame = CGRectMake(0,
                                                 rect.origin.y,
                                                 image.size.width,
@@ -16,8 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_cropContentsToFrame:verticallyCenteredFrame insideBoundsOfImage:image];
 }
 
-- (void)wmf_cropContentsToFrame:(CGRect)rect insideBoundsOfImage:(UIImage*)image {
-    CGPoint rectCenter  = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
+- (void)wmf_cropContentsToFrame:(CGRect)rect insideBoundsOfImage:(UIImage *)image {
+    CGPoint rectCenter = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
     CGPoint imageCenter = CGPointMake(image.size.width / 2.f, image.size.height / 2.f);
 
     CGPoint offset = CGPointZero;
@@ -27,12 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_setContentOffset:offset image:image];
 }
 
-- (void)wmf_setContentOffset:(CGPoint)offset image:(UIImage*)image {
+- (void)wmf_setContentOffset:(CGPoint)offset image:(UIImage *)image {
     self.layer.contentsRect = [image wmf_normalizeRect:
-                               CGRectMake(WMFClamp(0, offset.x, image.size.width),
-                                          WMFClamp(0, offset.y, image.size.height),
-                                          image.size.width - fabs(offset.x * 2.f),
-                                          image.size.height - fabs(offset.y * 2.f))];
+                                         CGRectMake(WMFClamp(0, offset.x, image.size.width),
+                                                    WMFClamp(0, offset.y, image.size.height),
+                                                    image.size.width - fabs(offset.x * 2.f),
+                                                    image.size.height - fabs(offset.y * 2.f))];
 }
 
 - (void)wmf_resetContentsRect {

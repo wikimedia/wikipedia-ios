@@ -4,7 +4,7 @@
 
 - (NSUInteger)wmf_startingIndexForApplicationLayoutDirection {
     return [self wmf_startingIndexForLayoutDirection:
-            [[UIApplication sharedApplication] userInterfaceLayoutDirection]];
+                     [[UIApplication sharedApplication] userInterfaceLayoutDirection]];
 }
 
 - (NSUInteger)wmf_startingIndexForLayoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {

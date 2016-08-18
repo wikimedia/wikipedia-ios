@@ -3,7 +3,7 @@
 
 @implementation MWKLicense (ToGlyph)
 
-- (NSString*)toGlyph {
+- (NSString *)toGlyph {
     if ([self.code isEqualToString:@"pd"]) {
         return WIKIGLYPH_PUBLIC_DOMAIN;
     } else if ([self.code hasPrefix:@"cc"]) {

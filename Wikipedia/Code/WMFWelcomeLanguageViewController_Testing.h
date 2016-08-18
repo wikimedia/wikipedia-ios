@@ -3,6 +3,6 @@
 
 @interface WMFWelcomeLanguageViewController (WMFTesting)
 
-@property (strong, nonatomic) IBOutlet UITableView* languageTableView;
+@property(strong, nonatomic) IBOutlet UITableView *languageTableView;
 
 @end

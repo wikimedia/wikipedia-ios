@@ -35,7 +35,6 @@
  */
 - (CGRect)wmf_normalizeAndConvertCGCoordinateRect:(CGRect)rect;
 
-
 /**
  * Convert the bounds of each given feature into UIKit coordinate space, then normalize it using the receiver's size.
  *
@@ -45,8 +44,6 @@
  *
  * @see wmf_normalizeAndConvertCGCoordinateRect
  */
-- (NSArray<NSValue*>*)wmf_normalizeAndConvertBoundsFromCIFeatures:(NSArray<CIFeature*>*)features;
-
-
+- (NSArray<NSValue *> *)wmf_normalizeAndConvertBoundsFromCIFeatures:(NSArray<CIFeature *> *)features;
 
 @end

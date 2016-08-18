@@ -13,10 +13,10 @@
 @implementation WMFErrorForApiErrorObjectTests
 
 - (void)testExample {
-    NSDictionary* apiErrorObj = @{
-        @"code": @"badcontinue",
-        @"info": @"Invalid continue param. You should pass the original value returned by the previous query",
-        @"*": @"See https://en.wikipedia.org/w/api.php for API usage"
+    NSDictionary *apiErrorObj = @{
+        @"code" : @"badcontinue",
+        @"info" : @"Invalid continue param. You should pass the original value returned by the previous query",
+        @"*" : @"See https://en.wikipedia.org/w/api.php for API usage"
     };
     assertThat(WMFErrorForApiErrorObject(apiErrorObj),
                allOf(hasProperty(@"domain", WMFNetworkingErrorDomain),

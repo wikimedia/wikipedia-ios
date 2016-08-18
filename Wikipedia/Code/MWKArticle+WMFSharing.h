@@ -1,7 +1,6 @@
 #import "MWKArticle.h"
 #import "WMFSharing.h"
 
-@interface MWKArticle (WMFSharing)
-<WMFSharing>
+@interface MWKArticle (WMFSharing) <WMFSharing>
 
 @end

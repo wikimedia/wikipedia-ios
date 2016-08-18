@@ -3,13 +3,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static inline NMBObjCMatcher* postNotificationFromCenter(NSString* named,
+static inline NMBObjCMatcher *postNotificationFromCenter(NSString *named,
                                                          id _Nullable object,
-                                                         NSNotificationCenter* center) {
+                                                         NSNotificationCenter *center) {
     return [NMBObjCMatcher postNotificationMatcherForName:named object:object fromCenter:center];
 }
 
-static inline NMBObjCMatcher* postNotification(NSString* named, id _Nullable object) {
+static inline NMBObjCMatcher *postNotification(NSString *named, id _Nullable object) {
     return postNotificationFromCenter(named, object, [NSNotificationCenter defaultCenter]);
 }
 

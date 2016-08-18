@@ -8,13 +8,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationManager : NSObject
 
-@property (nonatomic, strong, readonly) CLLocationManager* locationManager;
+@property(nonatomic, strong, readonly) CLLocationManager *locationManager;
 
-@property (nonatomic, weak, nullable) id<WMFLocationManagerDelegate> delegate;
+@property(nonatomic, weak, nullable) id<WMFLocationManagerDelegate> delegate;
 
-@property (nonatomic, strong, readonly) CLLocation* location;
+@property(nonatomic, strong, readonly) CLLocation *location;
 
-@property (nonatomic, strong, readonly) CLHeading* heading;
+@property(nonatomic, strong, readonly) CLHeading *heading;
 
 + (instancetype)fineLocationManager;
 
@@ -50,22 +50,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)isDeniedOrDisabled;
 
-- (AnyPromise*)reverseGeocodeLocation:(CLLocation*)location;
+- (AnyPromise *)reverseGeocodeLocation:(CLLocation *)location;
 
 @end
 
-
 @protocol WMFLocationManagerDelegate <NSObject>
 
-- (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location;
+- (void)nearbyController:(WMFLocationManager *)controller didUpdateLocation:(CLLocation *)location;
 
-- (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading;
+- (void)nearbyController:(WMFLocationManager *)controller didUpdateHeading:(CLHeading *)heading;
 
-- (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error;
+- (void)nearbyController:(WMFLocationManager *)controller didReceiveError:(NSError *)error;
 
 @optional
 
-- (void)nearbyController:(WMFLocationManager*)controller didChangeEnabledState:(BOOL)enabled;
+- (void)nearbyController:(WMFLocationManager *)controller didChangeEnabledState:(BOOL)enabled;
 
 @end
 
