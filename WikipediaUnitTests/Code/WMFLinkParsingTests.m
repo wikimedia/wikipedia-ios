@@ -125,8 +125,8 @@
     XCTAssertEqualObjects(two, three);
     XCTAssertEqualObjects(three, @"Teoria della relativit\u00E0");
 
-    one = [@"Teoria_della_relativit\u00E0" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];  //Teoria_della_relativit%C3%A0
-    two = [@"Teoria_della_relativita\u0300" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; //Teoria_della_relativita%CC%80
+    one = [@"Teoria_della_relativit\u00E0" stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];  //Teoria_della_relativit%C3%A0
+    two = [@"Teoria_della_relativita\u0300" stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]]; //Teoria_della_relativita%CC%80
     one = [one wmf_unescapedNormalizedPageTitle];
     two = [two wmf_unescapedNormalizedPageTitle];
     XCTAssertEqualObjects(one, two);

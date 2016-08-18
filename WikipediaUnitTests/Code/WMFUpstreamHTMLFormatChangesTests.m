@@ -51,8 +51,8 @@
                                                       "&prop=%@"
                                                       "&disableeditsection=1"
                                                       "&mobileformat=1",
-                                                     [imgWikitext stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
-                                                     [@"text|images" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                                     [imgWikitext stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]],
+                                                     [@"text|images" stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
 
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:urlString]

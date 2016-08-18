@@ -11,6 +11,13 @@
 
 @implementation WMFImageURLParsingTests
 
+- (NSCharacterSet *)allowedCharacters {
+    NSMutableCharacterSet *characterSet = [[NSCharacterSet URLPathAllowedCharacterSet] mutableCopy];
+    [characterSet formUnionWithCharacterSet:[NSCharacterSet URLHostAllowedCharacterSet]];
+    [characterSet addCharactersInString:@":"];
+    return characterSet;
+}
+
 - (void)testNoPrefixExample {
     NSString *testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg";
     assertThat(WMFParseImageNameFromSourceURL(testURL),
@@ -61,9 +68,10 @@
 }
 
 - (void)testNormalizedEscapedEquality {
-    NSString *one = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Olé.PNG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString *two = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ol\u00E9.PNG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString *three = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ole\u0301.PNG" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    NSString *one = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Olé.PNG" stringByAddingPercentEncodingWithAllowedCharacters:[self allowedCharacters]];
+    NSString *two = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ol\u00E9.PNG" stringByAddingPercentEncodingWithAllowedCharacters:[self allowedCharacters]];
+    NSString *three = [@"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ole.PNG/440px-Ole\u0301.PNG" stringByAddingPercentEncodingWithAllowedCharacters:[self allowedCharacters]];
     NSString *fn1 = WMFParseUnescapedNormalizedImageNameFromSourceURL(one);
     NSString *fn2 = WMFParseUnescapedNormalizedImageNameFromSourceURL(two);
     NSString *fn3 = WMFParseUnescapedNormalizedImageNameFromSourceURL(three);
