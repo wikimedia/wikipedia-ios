@@ -1466,12 +1466,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showProtectedDialog {
-    UIAlertView *alert = [[UIAlertView alloc] init];
-    alert.title = MWLocalizedString(@"page_protected_can_not_edit_title", nil);
-    alert.message = MWLocalizedString(@"page_protected_can_not_edit", nil);
-    [alert addButtonWithTitle:@"OK"];
-    alert.cancelButtonIndex = 0;
-    [alert show];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"page_protected_can_not_edit_title", nil) message:MWLocalizedString(@"page_protected_can_not_edit", nil) preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:NULL]];
+    [self presentViewController:alert animated:YES completion:NULL];
 }
 
 #pragma mark - SectionEditorViewControllerDelegate
