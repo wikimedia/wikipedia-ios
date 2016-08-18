@@ -3,13 +3,13 @@
 // Author: Hindustanilanguage
 // Author: Mhurd
 // Author: Obaid Raza
+// Author: Sohaib
 // Author: امین اکبر
 
 "languages-title" = "زبان تبدیل کریں";
 "article-languages-label" = "زبان منتخب کریں";
 "article-languages-cancel" = "منسوخ";
 "article-languages-downloading" = "مضمون کی زبانیں لوڈ ہورہی ہیں...";
-// Fuzzy
 "article-languages-filter-placeholder" = "زبان کو تلاش کریں";
 "article-read-more-title" = "مزید پڑھیں";
 "article-about-title" = "اس مضمون کے بارے میں";
@@ -49,31 +49,25 @@
 "zero-warn-when-leaving" = "ویکیپیڈیا زیرو چھوڑنے کی صورت میں آگاہ کریں";
 "zero-settings-devmode" = "Zero devmode (ویکپیڈیا زیرو کا ڈیولپمنٹ موڈ)";
 "account-creation-captcha-required" = "کیپچا کی تصدیق ضروری ہے۔";
-// Fuzzy
 "account-creation-captcha-obtaining" = "نئی کیپچا حاصل کی جارہی ہے۔";
 "account-creation-logging-in" = "داخل ہو رہے ہیں...";
 "account-creation-passwords-mismatched" = "کلمہ شناخت نہیں ملتے۔";
 "account-creation-saving" = "محفوظ ہورہا ہے...";
 "account-creation-login" = "پہلے سے کھاتہ موجود ہے؟ داخل ہوجائیں۔";
-// Fuzzy
 "account-creation-username-placeholder-text" = "صارف کا نام";
 "account-creation-password-placeholder-text" = "کلمہ شناخت";
 "account-creation-password-confirm-placeholder-text" = "کلمہ شناخت کی تصدیق";
 "account-creation-email-placeholder-text" = "برقی خط (ختیاری)";
 "account-creation-missing-fields" = "کھاتہ بنانے کے لیے صارف کا نام، کلمہ شناخت اور کلمہ شناخت کی تصدیق فراہم کریں۔";
-// Fuzzy
 "login-name-not-found" = "داخل ہونے کے لیے صارف کے نام کی ضرورت ہے۔";
-// Fuzzy
 "login-name-illegal" = "آپ نے ایک ناقابل قبول صارف کا نام فراہم کیا ہے۔";
-// Fuzzy
 "login-name-does-not-exist" = "آپ کا فراہم کردہ صارف کا نام موجود نہیں ہے۔";
 "login-password-empty" = "داخل ہونے کے لیے کلمہ شناخت ضروری ہے۔";
 "login-password-wrong" = "آپ کا فراہم کردہ کلمہ شناخت غلط ہے۔";
 "login-throttled" = "مختصر وقت میں آپ کئی بار داخل ہوچکے ہیں۔";
 "login-user-blocked" = "صارف پر پابندی ہے";
 "login-account-creation" = "کھاتہ نہیں ہے؟ ویکیپیڈیا میں شامل ہویئے۔";
-// Fuzzy
-"login-username-placeholder-text" = "صارف نام";
+"login-username-placeholder-text" = "صارف کانام";
 "login-password-placeholder-text" = "پاس ورڈ";
 "wikitext-downloading" = "مواد کو لوڈ کیا جارہا ہے...";
 "wikitext-download-failed" = "تازہ ترین نظرثانی حاصل نہیں کی جاسکی ہے۔";
@@ -404,3 +398,6 @@
 "explore-most-read-more-list-title" = "اوپر والے مضامین";
 "explore-most-read-more-list-title-for-date" = "$1 پر اوپر";
 "no-email-account-alert" = "اپنے آلے پر ای میل کھاتہ کھول کر پھر سے کوشش کریں۔";
+"request-feedback-on-error" = "ایپ کو ایک مسئلہ کا سامناہےجس کے بارے میں ہمارے تخلیق کار مزید جاننا پسند کریں گے۔ براہ مہربانی ہمیں مسئلہ کی تفصیلات کے ساتھ ایمیل بھیجنے کے لیے یہاں چھوئیں۔";
+"explore-another-random" = "ایک اور بے ترتیب مضمون";
+"find-in-page-no-matches" = "۰جوڑ";

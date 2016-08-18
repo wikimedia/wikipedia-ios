@@ -63,7 +63,10 @@ NSString* const WMFCCBySALicenseURL =
 @property (strong, nonatomic) MASConstraint* footerContainerViewLeftMarginConstraint;
 @property (strong, nonatomic) MASConstraint* footerContainerViewRightMarginConstraint;
 
+@property (nonatomic) CGFloat marginWidth;
 
+@property (nonatomic, strong) UIView *animatedResizeSnapshotView;
+@property (nonatomic, strong) UIView *animatedResizeBackgroundView;
 
 @property (nonatomic, strong) NSArray* findInPageMatches;
 @property (nonatomic) NSInteger findInPageSelectedMatchIndex;
@@ -344,10 +347,6 @@ NSString* const WMFCCBySALicenseURL =
     return floor(0.5*size.width*(1 - self.contentWidthPercentage));
 }
 
-- (CGFloat)marginWidth {
-    return [self marginWidthForSize:self.view.bounds.size];
-}
-
 - (void)updateFooterMarginForSize:(CGSize)size {
     CGFloat marginWidth = [self marginWidthForSize:size];
     self.footerContainerViewLeftMarginConstraint.offset = marginWidth;
@@ -359,11 +358,15 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)updateWebContentMarginForSize:(CGSize)size {
-    NSString *jsFormat = @"document.body.style.paddingLeft='%ipx';document.body.style.paddingRight='%ipx';";
-    CGFloat marginWidth = [self marginWidthForSize:size];
-    int padding = (int)MAX(0, marginWidth);
-    NSString *js = [NSString stringWithFormat:jsFormat, padding, padding];
-    [self.webView evaluateJavaScript:js completionHandler:NULL];
+    CGFloat newMarginWidth = [self marginWidthForSize:self.view.bounds.size];
+    if (ABS(self.marginWidth - newMarginWidth) >= 0.5) {
+        self.marginWidth = newMarginWidth;
+        NSString *jsFormat = @"document.body.style.paddingLeft='%ipx';document.body.style.paddingRight='%ipx';";
+        CGFloat marginWidth = [self marginWidthForSize:size];
+        int padding = (int)MAX(0, marginWidth);
+        NSString *js = [NSString stringWithFormat:jsFormat, padding, padding];
+        [self.webView evaluateJavaScript:js completionHandler:NULL];
+    }
 }
 
 - (void)viewDidLayoutSubviews {
@@ -897,7 +900,7 @@ NSString* const WMFCCBySALicenseURL =
         [self.webView getScrollViewRectForHtmlElementWithId:fragment completion:^(CGRect rect) {
             if (!CGRectIsNull(rect)) {
                 [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y)
-                                                         animated:YES];
+                                                         animated:animated];
             }
         }];
     }
@@ -1238,12 +1241,67 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 #pragma mark -
+
 - (void)setContentWidthPercentage:(CGFloat)contentWidthPercentage {
     if (_contentWidthPercentage != contentWidthPercentage) {
         _contentWidthPercentage = contentWidthPercentage;
         [self updateWebContentMarginForSize:self.view.bounds.size];
         [self updateFooterMarginForSize:self.view.bounds.size];
     }
+}
+
+#pragma mark - Animation
+
+- (UIEdgeInsets)animatedResizeSnapshotInsets {
+    CGFloat marginWidth = self.marginWidth;
+    
+    CGFloat contentOffsetY = self.webView.scrollView.contentOffset.y;
+    CGFloat boundsHeight = self.webView.scrollView.bounds.size.height;
+    CGFloat topInset = MAX(0, self.headerView.frame.size.height - contentOffsetY);
+    CGFloat bottomInset = MAX(0, MIN((contentOffsetY + boundsHeight) - (self.webView.scrollView.contentSize.height - self.footerContainerView.frame.size.height), boundsHeight));
+    
+    return UIEdgeInsetsMake(topInset, marginWidth, bottomInset, marginWidth);
+}
+
+- (void)prepareForAnimatedResize {
+    if (self.animatedResizeSnapshotView) {
+        return;
+    }
+    
+    UIEdgeInsets insets = self.animatedResizeSnapshotInsets;
+    
+    self.animatedResizeBackgroundView = [UIView new];
+    self.animatedResizeBackgroundView.backgroundColor = [UIColor whiteColor];
+    UIEdgeInsets backgroundViewInsets = UIEdgeInsetsMake(insets.top, 0, insets.bottom, 0);
+    self.animatedResizeBackgroundView.frame = UIEdgeInsetsInsetRect(self.webView.frame, backgroundViewInsets);
+    [self.containerView addSubview:self.animatedResizeBackgroundView];
+    
+    CGRect snapshotRect = UIEdgeInsetsInsetRect(self.webView.bounds, insets);
+    self.animatedResizeSnapshotView = [self.webView resizableSnapshotViewFromRect:snapshotRect afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
+    self.animatedResizeSnapshotView.frame = UIEdgeInsetsInsetRect(self.webView.frame, insets);
+    [self.containerView addSubview: self.animatedResizeSnapshotView];
+}
+
+- (void)performAnimatedResize {
+    UIEdgeInsets insets = self.animatedResizeSnapshotInsets;
+
+    self.animatedResizeSnapshotView.frame = UIEdgeInsetsInsetRect(self.webView.frame, insets);
+
+    UIEdgeInsets backgroundViewInsets = UIEdgeInsetsMake(insets.top, 0, insets.bottom, 0);
+    self.animatedResizeBackgroundView.frame = UIEdgeInsetsInsetRect(self.webView.frame, backgroundViewInsets);
+}
+
+- (void)completeAnimatedResize {
+    [UIView animateWithDuration:0.1 animations:^{
+        self.animatedResizeBackgroundView.alpha = 0;
+        self.animatedResizeSnapshotView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self.animatedResizeBackgroundView removeFromSuperview];
+        self.animatedResizeBackgroundView = nil;
+        
+        [self.animatedResizeSnapshotView removeFromSuperview];
+        self.animatedResizeSnapshotView = nil;
+    }];
 }
 
 @end

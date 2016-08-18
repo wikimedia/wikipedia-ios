@@ -53,6 +53,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showFindInPage;
 - (void)hideFindInPageWithCompletion:(nullable dispatch_block_t)completion;
 
+- (void)prepareForAnimatedResize;
+- (void)performAnimatedResize;
+- (void)completeAnimatedResize;
+
 #pragma mark - Header & Footers
 
 @property (nonatomic, strong, nullable) UIView* headerView;

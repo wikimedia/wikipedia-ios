@@ -411,3 +411,4 @@
 "no-email-account-alert" = "アカウントのメールアドレスを設定してから、もう一度お試しください。";
 "request-feedback-on-error" = "アプリが遭遇した問題について、開発者はもっと詳しく知りたいと考えています。こちらをタップして、エラーの詳細についてメールをご送信ください。";
 "explore-another-random" = "おまかせで別の記事";
+"find-in-page-no-matches" = "該当するものはありません";
