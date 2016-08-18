@@ -46,8 +46,6 @@ public class WMFTableOfContentsViewController: UIViewController,
         }
     }
     
-    var previousStatusbarStyle: UIStatusBarStyle?
-
     //optional because it requires a reference to self to inititialize
     var animator: WMFTableOfContentsAnimator?
 
@@ -196,16 +194,15 @@ public class WMFTableOfContentsViewController: UIViewController,
         super.viewWillAppear(animated)
         self.delegate?.tableOfContentsControllerWillDisplay(self)
         tableOfContentsFunnel.logOpen()
-        previousStatusbarStyle = UIApplication.sharedApplication().statusBarStyle
-        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: animated)
     }
     
     public override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         deselectAllRows()
-        if let previousStatusbarStyle = previousStatusbarStyle {
-            UIApplication.sharedApplication().setStatusBarStyle(previousStatusbarStyle, animated: animated)
-        }
+    }
+    
+    public override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .Default
     }
     
     // MARK: - UITableViewDataSource
