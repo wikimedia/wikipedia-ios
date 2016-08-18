@@ -18,12 +18,19 @@
     return [self substringFromIndex:MIN(index, self.length - 1)];
 }
 
++ (NSCharacterSet *)wmf_UTF8StringAllowedCharacterSet {
+    static NSCharacterSet *wmf_UTF8StringAllowedCharacterSet = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableCharacterSet *URLQueryAllowedCharacterSet = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
+        [URLQueryAllowedCharacterSet removeCharactersInString:@";/?:@&=$+{}<>,"];
+        wmf_UTF8StringAllowedCharacterSet = [URLQueryAllowedCharacterSet copy];
+    });
+    return wmf_UTF8StringAllowedCharacterSet; 
+}
+
 - (NSString *)wmf_UTF8StringWithPercentEscapes {
-    return (__bridge_transfer id)CFURLCreateStringByAddingPercentEscapes(0,
-                                                                         (__bridge CFStringRef)self,
-                                                                         0,
-                                                                         (__bridge CFStringRef) @";/?:@&=$+{}<>,",
-                                                                         kCFStringEncodingUTF8);
+    return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSString wmf_UTF8StringAllowedCharacterSet]];
 }
 
 - (NSString *)wmf_schemelessURL {
