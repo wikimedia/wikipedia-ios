@@ -6,9 +6,10 @@
 @class MWKHistoryList;
 @class MWKSavedPageList;
 @class MWKRecentSearchList;
-@class MWKUserDataStore;
+@class WMFRelatedSectionBlackList;
 @class MWKImageInfo;
 @class MWKImageList;
+
 @class YapDatabase;
 @class YapDatabaseConnection;
 @class YapDatabaseViewRowChange;
@@ -66,7 +67,10 @@ extern NSString *const MWKItemUpdatedNotification;
 
 @property (readonly, copy, nonatomic) NSString *basePath;
 
-@property (readonly, strong, nonatomic) MWKUserDataStore *userDataStore;
+@property (readonly, strong, nonatomic) MWKHistoryList *historyList;
+@property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
+@property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
+@property (readonly, strong, nonatomic) WMFRelatedSectionBlackList *blackList;
 
 /**
  *  Path for the default main data store.

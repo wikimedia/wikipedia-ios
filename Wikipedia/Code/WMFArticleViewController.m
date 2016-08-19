@@ -29,7 +29,6 @@
 #import "MWKDataStore.h"
 #import "MWKCitation.h"
 #import "MWKSavedPageList.h"
-#import "MWKUserDataStore.h"
 #import "MWKArticle+WMFSharing.h"
 #import "MWKHistoryEntry.h"
 #import "MWKHistoryList.h"
@@ -220,11 +219,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (MWKHistoryList *)recentPages {
-    return self.dataStore.userDataStore.historyList;
+    return self.dataStore.historyList;
 }
 
 - (MWKSavedPageList *)savedPages {
-    return self.dataStore.userDataStore.savedPageList;
+    return self.dataStore.savedPageList;
 }
 
 - (MWKHistoryEntry *)historyEntry {
@@ -724,7 +723,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (!self.article) {
         return;
     }
-    MWKHistoryList *historyList = self.dataStore.userDataStore.historyList;
+    MWKHistoryList *historyList = self.dataStore.historyList;
     MWKHistoryEntry *entry = [historyList entryForURL:self.articleURL];
     if (!entry.titleWasSignificantlyViewed) {
         self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 /*FBTweakValue(@"Explore", @"Related items", @"Required viewing time", 30.0)*/ target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
@@ -733,7 +732,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)significantlyViewedTimerFired:(NSTimer *)timer {
     [self stopSignificantlyViewedTimer];
-    MWKHistoryList *historyList = self.dataStore.userDataStore.historyList;
+    MWKHistoryList *historyList = self.dataStore.historyList;
     [historyList setSignificantlyViewedOnPageInHistoryWithURL:self.articleURL];
 }
 

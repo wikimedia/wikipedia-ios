@@ -125,7 +125,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateRecentSearchesVisibility:(BOOL)animated {
     BOOL hideRecentSearches =
-        [self.searchField.text wmf_trim].length > 0 || [self.dataStore.userDataStore.recentSearchList countOfEntries] == 0;
+        [self.searchField.text wmf_trim].length > 0 || [self.dataStore.recentSearchList countOfEntries] == 0;
 
     [self setRecentSearchesHidden:hideRecentSearches animated:animated];
 }
@@ -164,7 +164,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)configureRecentSearchList {
-    self.recentSearchesViewController.recentSearches = self.dataStore.userDataStore.recentSearchList;
+    self.recentSearchesViewController.recentSearches = self.dataStore.recentSearchList;
     self.recentSearchesViewController.delegate = self;
 }
 
@@ -510,8 +510,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     if ([self currentResultsSearchTerm]) {
         MWKRecentSearchEntry *entry = [[MWKRecentSearchEntry alloc] initWithURL:[self currentResultsSearchSiteURL]
                                                                      searchTerm:[self currentResultsSearchTerm]];
-        [self.dataStore.userDataStore.recentSearchList addEntry:entry];
-        [self.dataStore.userDataStore.recentSearchList save];
+        [self.dataStore.recentSearchList addEntry:entry];
+        [self.dataStore.recentSearchList save];
         [self.recentSearchesViewController reloadRecentSearches];
     }
 }

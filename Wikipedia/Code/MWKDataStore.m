@@ -5,6 +5,8 @@
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import <WMFModel/WMFModel-Swift.h>
 
+#import "WMFRelatedSectionBlackList.h"
+
 NSString *const MWKArticleSavedNotification = @"MWKArticleSavedNotification";
 NSString *const MWKArticleKey = @"MWKArticleKey";
 NSString *const MWKItemUpdatedNotification = @"MWKItemUpdatedNotification";
@@ -22,6 +24,11 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 - (instancetype)initWithDatabase:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath NS_DESIGNATED_INITIALIZER;
 
+@property (readwrite, strong, nonatomic) MWKHistoryList *historyList;
+@property (readwrite, strong, nonatomic) MWKSavedPageList *savedPageList;
+@property (readwrite, strong, nonatomic) MWKRecentSearchList *recentSearchList;
+@property (readwrite, strong, nonatomic) WMFRelatedSectionBlackList *blackList;
+
 @property (readwrite, strong, nonatomic) YapDatabase *database;
 
 /**
@@ -34,7 +41,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (readwrite, nonatomic, strong) NSPointerArray *changeHandlers;
 
-@property (readwrite, strong, nonatomic) MWKUserDataStore *userDataStore;
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
 
@@ -105,6 +111,36 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 - (void)didRecievememoryWarningWithNotifcation:(NSNotification *)note {
     [self.articleCache removeAllObjects];
+}
+
+#pragma - Accessors
+
+- (MWKHistoryList *)historyList {
+    if (!_historyList) {
+        _historyList = [[MWKHistoryList alloc] initWithDataStore:self];
+    }
+    return _historyList;
+}
+
+- (MWKSavedPageList *)savedPageList {
+    if (!_savedPageList) {
+        _savedPageList = [[MWKSavedPageList alloc] initWithDataStore:self];
+    }
+    return _savedPageList;
+}
+
+- (MWKRecentSearchList *)recentSearchList {
+    if (!_recentSearchList) {
+        _recentSearchList = [[MWKRecentSearchList alloc] initWithDataStore:self];
+    }
+    return _recentSearchList;
+}
+
+- (WMFRelatedSectionBlackList *)blackList {
+    if (!_blackList) {
+        _blackList = [[WMFRelatedSectionBlackList alloc] initWithDataStore:self];
+    }
+    return _blackList;
 }
 
 #pragma mark - Database
@@ -217,7 +253,6 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     }
     self.articleCache = [[NSCache alloc] init];
     self.articleCache.countLimit = 50;
-    self.userDataStore = [[MWKUserDataStore alloc] initWithDataStore:self];
     self.cacheRemovalQueue = dispatch_queue_create("org.wikimedia.cache_removal", DISPATCH_QUEUE_SERIAL);
     dispatch_async(self.cacheRemovalQueue, ^{
         self.cacheRemovalActive = true;

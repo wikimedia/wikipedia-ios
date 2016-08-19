@@ -1,6 +1,6 @@
 #import "WMFReadMoreViewController.h"
 #import "MWKDataStore.h"
-#import "MWKUserDataStore.h"
+
 #import "WMFRelatedTitleListDataSource.h"
 #import "WMFRelatedSearchResults.h"
 #import "MWKSearchResult.h"
@@ -49,7 +49,7 @@
 }
 
 - (MWKSavedPageList *)savedPageList {
-    return self.dataStore.userDataStore.savedPageList;
+    return self.dataStore.savedPageList;
 }
 
 - (AnyPromise *)fetchIfNeeded {

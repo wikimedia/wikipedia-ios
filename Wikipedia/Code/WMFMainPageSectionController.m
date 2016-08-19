@@ -3,7 +3,7 @@
 #import "WMFArticlePreviewFetcher.h"
 
 #import "MWKDataStore.h"
-#import "MWKUserDataStore.h"
+
 #import "MWKSiteInfo.h"
 #import "MWKSearchResult.h"
 

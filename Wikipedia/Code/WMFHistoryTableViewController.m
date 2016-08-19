@@ -8,7 +8,7 @@
 #import "MWKDataStore+WMFDataSources.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "MWKHistoryList.h"
-#import "MWKUserDataStore.h"
+
 
 #import "MWKArticle.h"
 #import "MWKSavedPageEntry.h"
@@ -34,11 +34,11 @@
 #pragma mark - Accessors
 
 - (MWKHistoryList *)historyList {
-    return self.dataStore.userDataStore.historyList;
+    return self.dataStore.historyList;
 }
 
 - (MWKSavedPageList *)savedPageList {
-    return self.dataStore.userDataStore.savedPageList;
+    return self.dataStore.savedPageList;
 }
 
 #pragma mark - UIViewController

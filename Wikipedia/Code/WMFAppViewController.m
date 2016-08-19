@@ -343,8 +343,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - Logging
 
 - (void)logImportantStatistics {
-    NSUInteger historyCount = [self.session.dataStore.userDataStore.historyList numberOfItems];
-    NSUInteger saveCount = [self.session.dataStore.userDataStore.savedPageList numberOfItems];
+    NSUInteger historyCount = [self.session.dataStore.historyList numberOfItems];
+    NSUInteger saveCount = [self.session.dataStore.savedPageList numberOfItems];
     NSUInteger exploreCount = [self.exploreViewController numberOfSectionsInExploreFeed];
     UINavigationController *navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
     NSUInteger stackCount = [[navVC viewControllers] count];
@@ -553,7 +553,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (!_savedArticlesFetcher) {
         _savedArticlesFetcher =
             [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]
-                                              savedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]];
+                                              savedPageList:[[self dataStore] savedPageList]];
     }
     return _savedArticlesFetcher;
 }
@@ -583,10 +583,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 - (MWKDataStore *)dataStore {
     return self.session.dataStore;
-}
-
-- (MWKUserDataStore *)userDataStore {
-    return self.session.userDataStore;
 }
 
 - (WMFExploreViewController *)exploreViewController {
@@ -793,11 +789,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
             } break;
             case WMFAppTabTypeSaved: {
                 WMFArticleListTableViewController *savedArticlesViewController = (WMFArticleListTableViewController *)[self savedArticlesViewController];
-                [savedArticlesViewController scrollToTop:savedArticlesViewController.dataStore.userDataStore.savedPageList.numberOfItems > 0];
+                [savedArticlesViewController scrollToTop:savedArticlesViewController.dataStore.savedPageList.numberOfItems > 0];
             } break;
             case WMFAppTabTypeRecent: {
                 WMFArticleListDataSourceTableViewController *historyArticlesViewController = (WMFArticleListDataSourceTableViewController *)[self recentArticlesViewController];
-                [historyArticlesViewController scrollToTop:[historyArticlesViewController.dataStore.userDataStore.historyList numberOfItems] > 0];
+                [historyArticlesViewController scrollToTop:[historyArticlesViewController.dataStore.historyList numberOfItems] > 0];
             } break;
         }
     }

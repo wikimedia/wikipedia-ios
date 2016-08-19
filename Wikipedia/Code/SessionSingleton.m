@@ -49,10 +49,6 @@
     return self;
 }
 
-- (MWKUserDataStore *)userDataStore {
-    return self.dataStore.userDataStore;
-}
-
 #pragma mark - Site
 
 - (void)setCurrentArticleSiteURL:(NSURL *)currentArticleSiteURL {

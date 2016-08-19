@@ -130,11 +130,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Accessors
 
 - (MWKSavedPageList *)savedPages {
-    return self.dataStore.userDataStore.savedPageList;
+    return self.dataStore.savedPageList;
 }
 
 - (MWKHistoryList *)recentPages {
-    return self.dataStore.userDataStore.historyList;
+    return self.dataStore.historyList;
 }
 
 - (UIBarButtonItem *)settingsBarButtonItem {
@@ -764,7 +764,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.schemaManager = [WMFExploreSectionSchema schemaWithSiteURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]
                                                          savedPages:self.savedPages
                                                             history:self.recentPages
-                                                          blackList:self.dataStore.userDataStore.blackList];
+                                                          blackList:self.dataStore.blackList];
     self.schemaManager.delegate = self;
     [self loadSectionControllersForCurrentSectionSchema];
     self.collectionView.dataSource = self;

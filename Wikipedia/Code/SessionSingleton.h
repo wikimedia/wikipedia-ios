@@ -3,7 +3,6 @@
 #import "ZeroConfigState.h"
 
 @class MWKDataStore;
-@class MWKUserDataStore;
 @class MWKArticle;
 
 @interface SessionSingleton : NSObject
@@ -18,7 +17,6 @@
 
 // Data access objects
 @property (strong, nonatomic, readonly) MWKDataStore *dataStore;
-@property (strong, nonatomic, readonly) MWKUserDataStore *userDataStore;
 
 /**
  *  The current article's site. This set automatically when setting the current article.

@@ -4,7 +4,7 @@
 #import "NSUserActivity+WMFExtensions.h"
 
 #import "MWKDataStore.h"
-#import "MWKUserDataStore.h"
+
 #import "MWKSavedPageList.h"
 
 #import "MWKDataStore+WMFDataSources.h"
@@ -36,7 +36,7 @@
 #pragma mark - Accessors
 
 - (MWKSavedPageList *)savedPageList {
-    return self.dataStore.userDataStore.savedPageList;
+    return self.dataStore.savedPageList;
 }
 
 #pragma mark - UIViewController

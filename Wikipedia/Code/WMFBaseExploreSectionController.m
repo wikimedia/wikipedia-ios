@@ -3,7 +3,6 @@
 #import "UIView+WMFDefaultNib.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "MWKDataStore.h"
-#import "MWKUserDataStore.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -75,11 +74,11 @@ static NSString *const WMFExploreSectionControllerException = @"WMFExploreSectio
 }
 
 - (MWKSavedPageList *)savedPageList {
-    return self.dataStore.userDataStore.savedPageList;
+    return self.dataStore.savedPageList;
 }
 
 - (MWKHistoryList *)historyList {
-    return self.dataStore.userDataStore.historyList;
+    return self.dataStore.historyList;
 }
 
 - (NSUInteger)numberOfPlaceholderCells {

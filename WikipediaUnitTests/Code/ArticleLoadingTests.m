@@ -46,7 +46,7 @@
 //                        error:nil];
 //
 //    assertThat(self.session.currentArticle, is(dummyArticle));
-//    assertThat(@(self.session.userDataStore.historyList.length), is(@0));
+//    assertThat(@(self.session.historyList.length), is(@0));
 //}
 //
 //- (void)testSuccessfulNavigationStoredInHistory {
@@ -72,10 +72,10 @@
 //                            error:nil];
 //
 //        assertThat(self.session.currentArticle, is(dummyArticle));
-//        MWKHistoryEntry* mostRecentEntry = self.session.userDataStore.historyList.mostRecentEntry;
+//        MWKHistoryEntry* mostRecentEntry = self.session.historyList.mostRecentEntry;
 //        assertThat(mostRecentEntry.title, is(dummyArticle.title));
 //        assertThat(@(mostRecentEntry.discoveryMethod), is(@(currentMethod)));
-//        assertThat(@(self.session.userDataStore.historyList.length), is(@(i + 1)));
+//        assertThat(@(self.session.historyList.length), is(@(i + 1)));
 //    }
 //}
 //
@@ -93,7 +93,7 @@
 //                        error:nil];
 //
 //    assertThat(self.session.currentArticle, is(dummyArticle));
-//    assertThat(@(self.session.userDataStore.historyList.length), is(@0));
+//    assertThat(@(self.session.historyList.length), is(@0));
 //}
 //
 //- (void)testFailedNavigationNotStoredInHistory {
@@ -133,7 +133,7 @@
 //
 //            #warning FIXME: the currentArticle is corrupted after a failed fetch!!!!!
 //            //assertThat(self.session.currentArticle, is(originalArticle));
-//            assertThat(@(self.session.userDataStore.historyList.length), is(equalToUnsignedInt(0)));
+//            assertThat(@(self.session.historyList.length), is(equalToUnsignedInt(0)));
 //        }
 //    }
 //}

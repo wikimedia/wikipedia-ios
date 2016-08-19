@@ -1,6 +1,6 @@
 #import "WMFExploreSectionControllerCache_Testing.h"
 #import "MWKDataStore.h"
-#import "MWKUserDataStore.h"
+
 #import "WMFExploreSection.h"
 
 #import "WMFRelatedSectionBlackList.h"
@@ -156,7 +156,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (WMFRelatedSectionController *)relatedSectionControllerForSectionSchemaItem:(WMFExploreSection *)item {
-    return [[WMFRelatedSectionController alloc] initWithArticleURL:item.articleURL blackList:self.dataStore.userDataStore.blackList dataStore:self.dataStore];
+    return [[WMFRelatedSectionController alloc] initWithArticleURL:item.articleURL blackList:self.dataStore.blackList dataStore:self.dataStore];
 }
 
 - (WMFContinueReadingSectionController *)continueReadingSectionControllerForSchemaItem:(WMFExploreSection *)item {

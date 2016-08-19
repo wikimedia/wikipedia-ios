@@ -2,7 +2,6 @@
 #import "Wikipedia-Swift.h"
 
 #import "MWKDataStore.h"
-#import "MWKUserDataStore.h"
 
 #import "MWKHistoryList.h"
 #import "MWKHistoryEntry.h"
@@ -42,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
     [[PiwikTracker wmf_configuredInstance] wmf_logView:viewController];
 
     dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-        MWKHistoryList *historyList = viewController.dataStore.userDataStore.historyList;
+        MWKHistoryList *historyList = viewController.dataStore.historyList;
         [historyList addPageToHistoryWithURL:viewController.articleURL];
     });
 }
