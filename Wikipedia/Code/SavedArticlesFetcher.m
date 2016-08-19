@@ -4,7 +4,7 @@
 #import "WMFArticleFetcher.h"
 #import "MWKImageInfoFetcher.h"
 
-#import "MWKDataStore+WMFDataSources.h"
+#import "MWKDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
 #import "MWKImage+CanonicalFilenames.h"
@@ -19,12 +19,11 @@ static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SavedArticlesFetcher () <WMFDataSourceDelegate>
+@interface SavedArticlesFetcher ()
 
 @property (nonatomic, strong, readwrite) dispatch_queue_t accessQueue;
 
 @property (nonatomic, strong) MWKDataStore *dataStore;
-@property (nonatomic, strong) id<WMFDataSource> dataSource;
 @property (nonatomic, strong) MWKSavedPageList *savedPageList;
 @property (nonatomic, strong) WMFArticleFetcher *articleFetcher;
 @property (nonatomic, strong) WMFImageController *imageController;
@@ -72,8 +71,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         self.imageController = imageController;
         self.savedPageList = savedPageList;
         self.imageInfoFetcher = imageInfoFetcher;
-        self.dataSource = [self.dataStore savedDataSource];
-        self.dataSource.delegate = self;
     }
     return self;
 }
