@@ -17,7 +17,7 @@ let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
 
-extension NSUserDefaults {
+public extension NSUserDefaults {
     
     public class func wmf_userDefaults() -> NSUserDefaults {
         guard let defaults = NSUserDefaults(suiteName: WMFGroupSuiteName) else {

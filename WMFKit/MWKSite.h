@@ -69,14 +69,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURL *)apiEndpoint:(BOOL)isMobile;
 
 ///
-/// @name User Interface Properties
-///
-
-- (UIUserInterfaceLayoutDirection)layoutDirection;
-
-- (NSTextAlignment)textAlignment;
-
-///
 /// @name Title Factory Convenience Methods
 ///
 

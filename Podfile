@@ -46,7 +46,11 @@ abstract_target 'Foundation' do
   target 'ContinueReadingWidget' do
 
   end
-
+  
+  target 'WMFKit' do
+  	
+  end
+  
   target 'Wikipedia' do
     # Utilities
     pod 'Tweaks'

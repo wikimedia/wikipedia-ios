@@ -1,6 +1,7 @@
 #import "WMFDailyStatsLoggingFunnel.h"
 #import "Wikipedia-Swift.h"
 #import "NSDate+Utilities.h"
+@import WMFKit;
 
 static NSString *const kAppInstallAgeKey = @"appInstallAgeDays";
 static NSString *const kAppInstallIdKey = @"appInstallID";

@@ -4,6 +4,7 @@
 #import "SessionSingleton.h"
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
+@import WMFKit;
 
 @implementation EventLoggingFunnel
 

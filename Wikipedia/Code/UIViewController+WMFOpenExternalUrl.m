@@ -8,7 +8,7 @@
 #import "WMFZeroMessage.h"
 #import <SafariServices/SFSafariViewController.h>
 #import "NSURL+WMFExtras.h"
-#import "Wikipedia-Swift.h"
+@import WMFKit;
 
 @implementation UIViewController (WMFOpenExternalLinkDelegate)
 

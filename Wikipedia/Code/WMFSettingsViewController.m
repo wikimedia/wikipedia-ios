@@ -32,6 +32,8 @@
 #import "NSBundle+WMFInfoUtils.h"
 #import "WMFAuthenticationManager.h"
 
+@import WMFKit;
+
 #pragma mark - Static URLs
 
 NS_ASSUME_NONNULL_BEGIN

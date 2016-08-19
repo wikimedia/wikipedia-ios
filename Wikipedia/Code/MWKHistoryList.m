@@ -5,6 +5,7 @@
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "Wikipedia-Swift.h"
+@import WMFKit;
 
 #define MAX_HISTORY_ENTRIES 100
 

@@ -2,6 +2,7 @@
 #import "UIColor+WMFHexColor.h"
 #import "SessionSingleton.h"
 #import "Wikipedia-Swift.h"
+@import WMFKit;
 #import "MWKLanguageLinkController.h"
 #import "WMFAuthenticationManager.h"
 

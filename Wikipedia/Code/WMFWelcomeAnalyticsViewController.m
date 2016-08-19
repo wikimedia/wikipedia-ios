@@ -4,6 +4,7 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFWelcomeNavigation.h"
 #import "UIButton+WMFWelcomeNextButton.h"
+@import WMFKit;
 
 @import HockeySDK;
 

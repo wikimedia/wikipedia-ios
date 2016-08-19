@@ -1,6 +1,5 @@
 #ifndef Wikipedia_Global_h
 #define Wikipedia_Global_h
-
 /**
    Global header included in every app and test file (see Wikipedia-Prefix.pch).
 

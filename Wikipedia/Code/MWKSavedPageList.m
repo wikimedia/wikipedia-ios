@@ -3,6 +3,7 @@
 #import <YapDataBase/YapDatabase.h>
 #import <YapDataBase/YapDatabaseView.h>
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
+@import WMFKit;
 #import "Wikipedia-Swift.h"
 
 //Legacy

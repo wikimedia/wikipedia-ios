@@ -1,6 +1,5 @@
 #import "AppDelegate.h"
-#import "Wikipedia-Swift.h"
-
+@import WMFKit;
 #import "BITHockeyManager+WMFExtensions.h"
 #import "PiwikTracker+WMFExtensions.h"
 #import "WMFAppViewController.h"

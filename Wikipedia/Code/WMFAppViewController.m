@@ -44,6 +44,9 @@
 #import "WMFRandomArticleFetcher.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WMFAuthenticationManager.h"
+
+@import WMFKit;
+
 /**
  *  Enums for each tab in the main tab bar.
  *

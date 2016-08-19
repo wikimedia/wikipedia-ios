@@ -2,7 +2,6 @@
 #import "NSString+WMFExtras.h"
 #import "NSString+WMFPageUtilities.h"
 #import "NSURLComponents+WMFLinkParsing.h"
-#import "Wikipedia-Swift.h"
 #import "WMFAssetsFile.h"
 
 NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
@@ -77,7 +76,11 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
         return [NSURL wmf_URLWithSiteURL:siteURL unescapedDenormalizedInternalLink:path];
     } else {
         NSArray *bits = [path componentsSeparatedByString:@"#"];
-        NSString *fragment = [[bits wmf_safeObjectAtIndex:1] precomposedStringWithCanonicalMapping];
+        NSString *fragment = nil;
+        if (bits.count > 1) {
+            fragment = bits[1];
+        }
+        fragment = [fragment precomposedStringWithCanonicalMapping];
         return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_normalizedPageTitle] fragment:fragment];
     }
 }
@@ -91,7 +94,11 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
         return [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:path];
     } else {
         NSArray *bits = [path componentsSeparatedByString:@"#"];
-        return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_unescapedNormalizedPageTitle] fragment:[bits wmf_safeObjectAtIndex:1]];
+        NSString *fragment = nil;
+        if (bits.count > 1) {
+            fragment = bits[1];
+        }
+        return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_unescapedNormalizedPageTitle] fragment:fragment];
     }
 }
 
@@ -261,22 +268,5 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
     return self.wmf_language == nil;
 }
 
-- (UIUserInterfaceLayoutDirection)wmf_layoutDirection {
-    switch (CFLocaleGetLanguageCharacterDirection((__bridge CFStringRef)self.wmf_language)) {
-        case kCFLocaleLanguageDirectionRightToLeft:
-            return UIUserInterfaceLayoutDirectionRightToLeft;
-        default:
-            return UIUserInterfaceLayoutDirectionLeftToRight;
-    }
-}
-
-- (NSTextAlignment)wmf_textAlignment {
-    switch (self.wmf_layoutDirection) {
-        case UIUserInterfaceLayoutDirectionRightToLeft:
-            return NSTextAlignmentRight;
-        case UIUserInterfaceLayoutDirectionLeftToRight:
-            return NSTextAlignmentLeft;
-    }
-}
 
 @end

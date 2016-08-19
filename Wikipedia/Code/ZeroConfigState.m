@@ -7,6 +7,8 @@
 #import "WMFZeroMessageFetcher.h"
 #import "MWKLanguageLinkController.h"
 
+@import WMFKit;
+
 NS_ASSUME_NONNULL_BEGIN
 
 NSString *const WMFZeroDispositionDidChange = @"WMFZeroDispositionDidChange";

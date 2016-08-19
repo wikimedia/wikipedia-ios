@@ -32,6 +32,7 @@
 #import "WKScriptMessage+WMFScriptMessage.h"
 #import "WMFFindInPageKeyboardBar.h"
 #import "UIView+WMFDefaultNib.h"
+@import WMFKit;
 
 typedef NS_ENUM(NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,

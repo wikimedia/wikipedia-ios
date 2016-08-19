@@ -80,7 +80,7 @@ extern NSString *const WMFDefaultSiteDomain;
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the `internalLink`.
  **/
-WMF_TECH_DEBT_TODO(this method should be generecized to "path" and handle the presence of / wiki /)
+//WMF_TECH_DEBT_TODO(this method should be generecized to "path" and handle the presence of / wiki /)
 + (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL escapedDenormalizedInternalLink:(NSString *)internalLink;
 
 /**
@@ -91,7 +91,7 @@ WMF_TECH_DEBT_TODO(this method should be generecized to "path" and handle the pr
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  **/
-WMF_TECH_DEBT_TODO(this method should be folded into the above method and should handle the presence of a #)
+//WMF_TECH_DEBT_TODO(this method should be folded into the above method and should handle the presence of a #)
 + (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL escapedDenormalizedTitleAndFragment:(NSString *)escapedDenormalizedTitleAndFragment;
 
 /**
@@ -102,7 +102,7 @@ WMF_TECH_DEBT_TODO(this method should be folded into the above method and should
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  **/
-+ (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL unescapedDenormalizedTitleAndFragment:(NSString *)escapedDenormalizedTitleAndFragment;
++ (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL unescapedDenormalizedTitleAndFragment:(NSString *)unescapedDenormalizedTitleAndFragment;
 
 /**
  *  Return a URL for the mobile API Endpoint for the current URL
@@ -220,12 +220,6 @@ WMF_TECH_DEBT_TODO(this method should be folded into the above method and should
  */
 @property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
 
-#pragma mark - Layout based on Language
-WMF_TECH_DEBT_TODO(These should be renamed and / or moved to indicate that they are based on the language subdomain of the receiver)
-
-@property (nonatomic, readonly) UIUserInterfaceLayoutDirection wmf_layoutDirection;
-
-@property (nonatomic, readonly) NSTextAlignment wmf_textAlignment;
 
 @end
 

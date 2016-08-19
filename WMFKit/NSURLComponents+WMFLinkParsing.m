@@ -67,7 +67,7 @@
 - (void)setWmf_title:(NSString *)wmf_title {
     NSString *path = [wmf_title wmf_denormalizedPageTitle];
     if (path != nil && path.length > 0) {
-        NSArray *pathComponents = @[ WMFInternalLinkPathPrefix, path ];
+        NSArray *pathComponents = @[ @"/wiki/", path ];
         self.path = [NSString pathWithComponents:pathComponents];
     } else {
         self.path = nil;

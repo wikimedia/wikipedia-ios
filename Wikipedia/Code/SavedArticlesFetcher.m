@@ -12,6 +12,7 @@
 #import "WMFImageURLParsing.h"
 #import "UIScreen+WMFImageWidth.h"
 #import "WMFTaskGroup.h"
+@import WMFKit;
 
 static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 

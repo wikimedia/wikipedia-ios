@@ -1,5 +1,6 @@
 import Foundation
 import Tweaks
+import WMFKit
 
 extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
 

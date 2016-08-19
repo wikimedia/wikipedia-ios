@@ -122,14 +122,6 @@ typedef NS_ENUM(NSUInteger, MWKSiteNSCodingSchemaVersion) {
     return [self.URL wmf_URLWithPath:@"/w/api.php" isMobile:isMobile];
 }
 
-- (UIUserInterfaceLayoutDirection)layoutDirection {
-    return self.URL.wmf_layoutDirection;
-}
-
-- (NSTextAlignment)textAlignment {
-    return self.URL.wmf_textAlignment;
-}
-
 - (BOOL)isEqual:(id)object {
     if (self == object) {
         return YES;

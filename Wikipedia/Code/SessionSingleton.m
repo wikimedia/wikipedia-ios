@@ -4,7 +4,7 @@
 #import "WMFURLCache.h"
 #import "WMFAssetsFile.h"
 #import "MediaWikiKit.h"
-#import "Wikipedia-Swift.h"
+@import WMFKit;
 
 @interface SessionSingleton ()
 

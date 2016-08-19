@@ -1,8 +1,8 @@
 #import "MWKTitle.h"
 #import "NSString+WMFPageUtilities.h"
-#import "Wikipedia-Swift.h"
 #import "NSObjectUtilities.h"
 #import "NSString+WMFPageUtilities.h"
+#import "NSURL+WMFLinkParsing.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
