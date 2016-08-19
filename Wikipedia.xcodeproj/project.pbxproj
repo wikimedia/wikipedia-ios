@@ -653,8 +653,6 @@
 		D81FB2691D47B5DC0000C685 /* WMFCVLInvalidationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB2681D47B5DC0000C685 /* WMFCVLInvalidationContext.m */; };
 		D81FB26C1D493E6A0000C685 /* WMFCVLMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB26B1D493E6A0000C685 /* WMFCVLMetrics.m */; };
 		D835BD051D5B7E0A00D75B71 /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804F31C0CE0DC0065EBC0 /* UIColor+WMFStyle.m */; };
-		D84580F51D67572D00B09640 /* WMFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFKit.framework */; };
-		D84580FC1D67572D00B09640 /* WMFKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D84580FB1D67572D00B09640 /* WMFKitTests.m */; };
 		D84580FE1D67572D00B09640 /* WMFKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D84580EE1D67572C00B09640 /* WMFKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D84581011D67572D00B09640 /* WMFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFKit.framework */; };
 		D84581021D67572D00B09640 /* WMFKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -702,20 +700,6 @@
 			remoteInfo = ContinueReadingWidget;
 		};
 		BCBDE0AD1AA76F19006BD29A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D499142D181D51DE00E6073C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D4991434181D51DE00E6073C;
-			remoteInfo = Wikipedia;
-		};
-		D84580F61D67572D00B09640 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D499142D181D51DE00E6073C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D84580EB1D67572C00B09640;
-			remoteInfo = WMFKit;
-		};
-		D84580F81D67572D00B09640 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D499142D181D51DE00E6073C /* Project object */;
 			proxyType = 1;
@@ -2064,9 +2048,6 @@
 		D84580EC1D67572C00B09640 /* WMFKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WMFKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D84580EE1D67572C00B09640 /* WMFKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFKit.h; sourceTree = "<group>"; };
 		D84580EF1D67572C00B09640 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D84580F41D67572D00B09640 /* WMFKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WMFKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D84580FB1D67572D00B09640 /* WMFKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFKitTests.m; sourceTree = "<group>"; };
-		D84580FD1D67572D00B09640 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D84581121D67579200B09640 /* NSUserDefaults+WMFExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+WMFExtensions.swift"; sourceTree = "<group>"; };
 		D84581141D67584600B09640 /* NSURL+WMFLinkParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+WMFLinkParsing.h"; sourceTree = "<group>"; };
 		D84581151D67584600B09640 /* NSURL+WMFLinkParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFLinkParsing.m"; sourceTree = "<group>"; };
@@ -2155,14 +2136,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D029C72125ECA3FB8973EE2 /* Pods_Foundation_WMFKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D84580F11D67572D00B09640 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D84580F51D67572D00B09640 /* WMFKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5150,7 +5123,6 @@
 				BC8309941A7BF935003FC5C7 /* Tests */,
 				0E8380661D64989F0076EDE4 /* ContinueReadingWidget */,
 				D84580ED1D67572C00B09640 /* WMFKit */,
-				D84580FA1D67572D00B09640 /* WMFKitTests */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
 				FB0B6BA2530EBEEDFAA116F2 /* Pods */,
@@ -5164,7 +5136,6 @@
 				BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */,
 				0E8380631D64989F0076EDE4 /* ContinueReadingWidget.appex */,
 				D84580EC1D67572C00B09640 /* WMFKit.framework */,
-				D84580F41D67572D00B09640 /* WMFKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -5239,15 +5210,6 @@
 				D84580EF1D67572C00B09640 /* Info.plist */,
 			);
 			path = WMFKit;
-			sourceTree = "<group>";
-		};
-		D84580FA1D67572D00B09640 /* WMFKitTests */ = {
-			isa = PBXGroup;
-			children = (
-				D84580FB1D67572D00B09640 /* WMFKitTests.m */,
-				D84580FD1D67572D00B09640 /* Info.plist */,
-			);
-			path = WMFKitTests;
 			sourceTree = "<group>";
 		};
 		D84F2BF61D2FEE4B00963D42 /* Random */ = {
@@ -5428,25 +5390,6 @@
 			productReference = D84580EC1D67572C00B09640 /* WMFKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		D84580F31D67572D00B09640 /* WMFKitTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D84581111D67572D00B09640 /* Build configuration list for PBXNativeTarget "WMFKitTests" */;
-			buildPhases = (
-				D84580F01D67572D00B09640 /* Sources */,
-				D84580F11D67572D00B09640 /* Frameworks */,
-				D84580F21D67572D00B09640 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D84580F71D67572D00B09640 /* PBXTargetDependency */,
-				D84580F91D67572D00B09640 /* PBXTargetDependency */,
-			);
-			name = WMFKitTests;
-			productName = WMFKitTests;
-			productReference = D84580F41D67572D00B09640 /* WMFKitTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -5489,12 +5432,6 @@
 						CreatedOnToolsVersion = 8.0;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
-					};
-					D84580F31D67572D00B09640 = {
-						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = AKK7J2GV64;
-						ProvisioningStyle = Automatic;
-						TestTargetID = D4991434181D51DE00E6073C;
 					};
 				};
 			};
@@ -5606,7 +5543,6 @@
 				BC4273511A7C736800068882 /* WikipediaUnitTests */,
 				0E8380621D64989F0076EDE4 /* ContinueReadingWidget */,
 				D84580EB1D67572C00B09640 /* WMFKit */,
-				D84580F31D67572D00B09640 /* WMFKitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -5731,13 +5667,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D84580EA1D67572C00B09640 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D84580F21D67572D00B09640 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -6521,14 +6450,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D84580F01D67572D00B09640 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D84580FC1D67572D00B09640 /* WMFKitTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -6541,16 +6462,6 @@
 			isa = PBXTargetDependency;
 			target = D4991434181D51DE00E6073C /* Wikipedia */;
 			targetProxy = BCBDE0AD1AA76F19006BD29A /* PBXContainerItemProxy */;
-		};
-		D84580F71D67572D00B09640 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D84580EB1D67572C00B09640 /* WMFKit */;
-			targetProxy = D84580F61D67572D00B09640 /* PBXContainerItemProxy */;
-		};
-		D84580F91D67572D00B09640 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D4991434181D51DE00E6073C /* Wikipedia */;
-			targetProxy = D84580F81D67572D00B09640 /* PBXContainerItemProxy */;
 		};
 		D84581001D67572D00B09640 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7965,146 +7876,6 @@
 			};
 			name = Beta;
 		};
-		D84581091D67572D00B09640 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFKitTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia Debug.app/Wikipedia Debug";
-			};
-			name = Debug;
-		};
-		D845810A1D67572D00B09640 /* Debug Test */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFKitTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia Debug.app/Wikipedia Debug";
-			};
-			name = "Debug Test";
-		};
-		D845810B1D67572D00B09640 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFKitTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia Debug.app/Wikipedia Debug";
-			};
-			name = AdHoc;
-		};
-		D845810C1D67572D00B09640 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFKitTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia Debug.app/Wikipedia Debug";
-			};
-			name = Release;
-		};
-		D845810D1D67572D00B09640 /* Test */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFKitTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia Debug.app/Wikipedia Debug";
-			};
-			name = Test;
-		};
-		D845810E1D67572D00B09640 /* Beta */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = AKK7J2GV64;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFKitTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia Debug.app/Wikipedia Debug";
-			};
-			name = Beta;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -8169,19 +7940,6 @@
 				D84581061D67572D00B09640 /* Release */,
 				D84581071D67572D00B09640 /* Test */,
 				D84581081D67572D00B09640 /* Beta */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D84581111D67572D00B09640 /* Build configuration list for PBXNativeTarget "WMFKitTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D84581091D67572D00B09640 /* Debug */,
-				D845810A1D67572D00B09640 /* Debug Test */,
-				D845810B1D67572D00B09640 /* AdHoc */,
-				D845810C1D67572D00B09640 /* Release */,
-				D845810D1D67572D00B09640 /* Test */,
-				D845810E1D67572D00B09640 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

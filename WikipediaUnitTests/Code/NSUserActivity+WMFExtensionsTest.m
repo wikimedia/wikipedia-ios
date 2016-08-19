@@ -1,6 +1,10 @@
 #import <XCTest/XCTest.h>
 #import "NSUserActivity+WMFExtensions.h"
 
+@interface MWKArticle (Testing)
+@property (nonatomic, copy) NSString *displaytitle;
+@end
+
 @interface NSUserActivity_WMFExtensions_wmf_activityForWikipediaScheme_Test : XCTestCase
 @end
 
@@ -60,6 +64,7 @@
 
 - (void)testArticleViewActivityWithArticle {
     MWKArticle *article = [[MWKArticle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikipedia.org/wiki/Foo"]];
+    article.displaytitle = @"Foo";
     NSUserActivity *activity = [NSUserActivity wmf_articleViewActivityWithArticle:article];
     XCTAssertEqual(activity.wmf_type, WMFUserActivityTypeArticle);
     XCTAssertEqualObjects(activity.webpageURL.absoluteString, @"https://en.wikipedia.org/wiki/Foo");
