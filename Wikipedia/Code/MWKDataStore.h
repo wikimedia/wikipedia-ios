@@ -3,6 +3,7 @@
 @class MWKArticle;
 @class MWKSection;
 @class MWKImage;
+@class MWKHistoryEntry;
 @class MWKHistoryList;
 @class MWKSavedPageList;
 @class MWKRecentSearchList;
@@ -68,10 +69,21 @@ extern NSString *const MWKURLKey;
 
 @property (readonly, copy, nonatomic) NSString *basePath;
 
+@property (readonly, strong, nonatomic) YapDatabase *database;
 @property (readonly, strong, nonatomic) MWKHistoryList *historyList;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 @property (readonly, strong, nonatomic) WMFRelatedSectionBlackList *blackList;
+
+
+#pragma mark - Entry Access
+
+- (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url;
+
+
+#pragma mark - Legacy Datastore methods
+
+@property (readonly, copy, nonatomic) NSString *basePath;
 
 /**
  *  Path for the default main data store.

@@ -9,6 +9,7 @@
 
 NSString *const MWKArticleSavedNotification = @"MWKArticleSavedNotification";
 NSString *const MWKArticleKey = @"MWKArticleKey";
+
 NSString *const MWKItemUpdatedNotification = @"MWKItemUpdatedNotification";
 NSString *const MWKURLKey = @"MWKURLKey";
 
@@ -159,30 +160,30 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     return _writeConnection;
 }
 
-//- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
-//    [self.articleReferenceReadConnection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
-//        block(transaction);
-//    }];
-//}
-//
-//- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
-//    return [self.articleReferenceReadConnection wmf_readAndReturnResultsWithBlock:block];
-//}
-//
-//- (void)readViewNamed:(NSString*)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
-//    [self.articleReferenceReadConnection wmf_readInViewWithName:viewName withBlock:block];
-//}
-//
-//- (nullable id)readAndReturnResultsWithViewNamed:(NSString*)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
-//    return [self.articleReferenceReadConnection wmf_readAndReturnResultsInViewWithName:viewName withBlock:block];
-//}
-//
-//
-//- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block{
-//    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction * _Nonnull transaction) {
-//        block(transaction);
-//    }];
-//}
+- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
+    [self.articleReferenceReadConnection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
+        block(transaction);
+    }];
+}
+
+- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
+    return [self.articleReferenceReadConnection wmf_readAndReturnResultsWithBlock:block];
+}
+
+- (void)readViewNamed:(NSString*)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
+    [self.articleReferenceReadConnection wmf_readInViewWithName:viewName withBlock:block];
+}
+
+- (nullable id)readAndReturnResultsWithViewNamed:(NSString*)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
+    return [self.articleReferenceReadConnection wmf_readAndReturnResultsInViewWithName:viewName withBlock:block];
+}
+
+
+- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block{
+    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction * _Nonnull transaction) {
+        block(transaction);
+    }];
+}
 
 - (void)yapDatabaseModified:(NSNotification *)notification {
 
@@ -230,6 +231,16 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
         [transaction removeObjectsForKeys:keysToRemove inCollection:[MWKHistoryEntry databaseCollectionName]];
     }];
 }
+
+#pragma mark - Entry Access 
+
+- (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
+    return [self readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction) {
+        MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
+        return entry;
+    }];
+}
+
 
 #pragma mark - Legacy DataStore
 

@@ -80,7 +80,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url {
     return [self.dataSource readAndReturnResultsWithBlock:^id _Nonnull(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
         MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return entry;
+        if(entry.dateViewed != nil){
+            return entry;
+        }else{
+            return nil;
+        }
     }];
 }
 
