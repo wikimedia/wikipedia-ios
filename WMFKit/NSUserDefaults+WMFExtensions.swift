@@ -109,7 +109,7 @@ public extension NSUserDefaults {
             return;
         }
         
-        self.setURL(url, forKey: WMFOpenArticleTitleKey)
+        self.setURL(url, forKey: WMFOpenArticleURLKey)
         self.synchronize()
     }
 
