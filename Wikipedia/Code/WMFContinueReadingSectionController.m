@@ -58,7 +58,7 @@ static NSString *const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 }
 
 - (NSAttributedString *)headerSubTitle {
-    NSDate *resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
+    NSDate *resignActiveDate = [[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate];
     NSString *relativeTimeString = [resignActiveDate wmf_relativeTimestamp];
     return [[NSAttributedString alloc] initWithString:[relativeTimeString wmf_stringByCapitalizingFirstCharacter] attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }

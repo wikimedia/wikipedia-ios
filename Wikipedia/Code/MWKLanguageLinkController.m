@@ -171,7 +171,7 @@ static id _sharedInstance;
 #pragma mark - Reading/Saving Preferred Language Codes to NSUserDefaults
 
 - (NSArray<NSString *> *)readPreferredLanguageCodesWithoutOSPreferredLanguages {
-    NSArray<NSString *> *preferredLanguages = [[NSUserDefaults standardUserDefaults] arrayForKey:WMFPreviousLanguagesKey] ?: @[];
+    NSArray<NSString *> *preferredLanguages = [[NSUserDefaults wmf_userDefaults] arrayForKey:WMFPreviousLanguagesKey] ?: @[];
     return preferredLanguages;
 }
 
@@ -202,15 +202,15 @@ static id _sharedInstance;
 }
 
 - (void)savePreferredLanguageCodes:(NSArray<NSString *> *)languageCodes {
-    [[NSUserDefaults standardUserDefaults] setObject:languageCodes forKey:WMFPreviousLanguagesKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSUserDefaults wmf_userDefaults] setObject:languageCodes forKey:WMFPreviousLanguagesKey];
+    [[NSUserDefaults wmf_userDefaults] synchronize];
     [self updateLanguageArrays];
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
 }
 
 - (void)resetPreferredLanguages {
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:WMFPreviousLanguagesKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSUserDefaults wmf_userDefaults] removeObjectForKey:WMFPreviousLanguagesKey];
+    [[NSUserDefaults wmf_userDefaults] synchronize];
     [self updateLanguageArrays];
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
 }

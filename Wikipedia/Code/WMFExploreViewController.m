@@ -372,7 +372,7 @@ NS_ASSUME_NONNULL_BEGIN
     for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
         cell.selected = NO;
     }
-    [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleURL:nil];
+    [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:nil];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {

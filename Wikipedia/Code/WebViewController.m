@@ -603,7 +603,7 @@ NSString *const WMFCCBySALicenseURL =
     if (self.navigationController.topViewController == self.parentViewController) { // Ensure only the topmost article is recorded.
         [self getCurrentVisibleSectionCompletion:^(MWKSection *visibleSection, NSError *error) {
             NSURL *url = [self.article.url wmf_URLWithFragment:visibleSection.anchor];
-            [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleURL:url];
+            [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:url];
         }];
     }
 }
@@ -1223,8 +1223,8 @@ NSString *const WMFCCBySALicenseURL =
         fontSize = @(100);
     }
     [self.webView wmf_setTextSize:fontSize.integerValue];
-    [[NSUserDefaults standardUserDefaults] wmf_setReadingFontSize:fontSize];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSUserDefaults wmf_userDefaults] wmf_setReadingFontSize:fontSize];
+    [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 #pragma mark - UIScrollViewDelegate

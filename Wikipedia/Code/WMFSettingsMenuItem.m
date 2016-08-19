@@ -66,7 +66,7 @@
                                                 iconColor:[UIColor wmf_green]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_Switch
                                            disclosureText:nil
-                                               isSwitchOn:[[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]];
+                                               isSwitchOn:[[NSUserDefaults wmf_userDefaults] wmf_showSearchLanguageBar]];
         }
         case WMFSettingsMenuItemType_PrivacyPolicy: {
             return

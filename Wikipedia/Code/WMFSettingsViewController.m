@@ -143,7 +143,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving = isOn;
             break;
         case WMFSettingsMenuItemType_SearchLanguageBarVisibility:
-            [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:isOn];
+            [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:isOn];
         default:
             break;
     }
@@ -258,9 +258,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)languagesController:(WMFPreferredLanguagesViewController *)controller didUpdatePreferredLanguages:(NSArray<MWKLanguageLink *> *)languages {
     if ([languages count] > 1) {
-        [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:YES];
+        [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:YES];
     } else {
-        [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:NO];
+        [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:NO];
     }
 
     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_SearchLanguage];

@@ -68,8 +68,8 @@
         return;
     }
     _currentArticleSiteURL = [currentArticleSiteURL wmf_siteURL];
-    [[NSUserDefaults standardUserDefaults] setObject:currentArticleSiteURL.wmf_language forKey:@"CurrentArticleDomain"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSUserDefaults wmf_userDefaults] setObject:currentArticleSiteURL.wmf_language forKey:@"CurrentArticleDomain"];
+    [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 #pragma mark - Article
@@ -80,8 +80,8 @@
         return;
     }
     _currentArticleURL = currentArticleURL;
-    [[NSUserDefaults standardUserDefaults] setObject:currentArticleURL.wmf_title forKey:@"CurrentArticleTitle"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSUserDefaults wmf_userDefaults] setObject:currentArticleURL.wmf_title forKey:@"CurrentArticleTitle"];
+    [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 - (void)setCurrentArticle:(MWKArticle *)currentArticle {
@@ -103,12 +103,12 @@
 #pragma mark - Last known/loaded
 
 - (NSURL *)lastKnownSite {
-    return [NSURL wmf_URLWithDefaultSiteAndlanguage:[[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleDomain"]];
+    return [NSURL wmf_URLWithDefaultSiteAndlanguage:[[NSUserDefaults wmf_userDefaults] objectForKey:@"CurrentArticleDomain"]];
 }
 
 - (NSURL *)lastLoadedArticleURL {
     NSURL *lastKnownSite = [self lastKnownSite];
-    NSString *titleText = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
+    NSString *titleText = [[NSUserDefaults wmf_userDefaults] objectForKey:@"CurrentArticleTitle"];
     if (!titleText.length) {
         return nil;
     }
@@ -133,14 +133,14 @@
 #pragma mark - Usage Reports
 
 - (BOOL)shouldSendUsageReports {
-    return [[NSUserDefaults standardUserDefaults] wmf_sendUsageReports];
+    return [[NSUserDefaults wmf_userDefaults] wmf_sendUsageReports];
 }
 
 - (void)setShouldSendUsageReports:(BOOL)sendUsageReports {
     if (sendUsageReports == [self shouldSendUsageReports]) {
         return;
     }
-    [[NSUserDefaults standardUserDefaults] wmf_setSendUsageReports:sendUsageReports];
+    [[NSUserDefaults wmf_userDefaults] wmf_setSendUsageReports:sendUsageReports];
     [[QueuesSingleton sharedInstance] reset];
 }
 

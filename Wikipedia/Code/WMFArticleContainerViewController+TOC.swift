@@ -173,7 +173,7 @@ extension WMFArticleViewController {
             }
         #endif
         
-        return (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeModal) && !NSUserDefaults.standardUserDefaults().wmf_didPeekTableOfContents()
+        return (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeModal) && !NSUserDefaults.wmf_userDefaults().wmf_didPeekTableOfContents()
     }
 
     public func peekTableOfContentsIfNeccesary() {
@@ -226,7 +226,7 @@ extension WMFArticleViewController {
                     }, completion: { (completed) in
                         bg.removeFromSuperview()
                         toc.view.removeFromSuperview()
-                        NSUserDefaults.standardUserDefaults().wmf_setDidPeekTableOfContents(true)
+                        NSUserDefaults.wmf_userDefaults().wmf_setDidPeekTableOfContents(true)
                 })
         }
     }

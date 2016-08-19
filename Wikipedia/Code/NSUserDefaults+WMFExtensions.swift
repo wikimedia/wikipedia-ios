@@ -9,6 +9,8 @@ let WMFSearchURLKey = "WMFSearchURLKey"
 let WMFMigrateHistoryListKey = "WMFMigrateHistoryListKey"
 let WMFMigrateSavedPageListKey = "WMFMigrateSavedPageListKey"
 let WMFMigrateBlackListKey = "WMFMigrateBlackListKey"
+let WMFGroupSuiteName = "group.org.wikimedia.wikipedia"
+let WMFDidMigrateToGroupKey = "WMFDidMigrateToGroup"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -16,6 +18,32 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
 
 extension NSUserDefaults {
+    
+    public class func wmf_userDefaults() -> NSUserDefaults {
+        guard let defaults = NSUserDefaults(suiteName: WMFGroupSuiteName) else {
+            assert(false)
+            return NSUserDefaults.standardUserDefaults()
+        }
+        return defaults
+    }
+    
+    public class func wmf_migrateToWMFGroupUserDefaultsIfNecessary() {
+        let newDefaults = self.wmf_userDefaults()
+        let didMigrate = newDefaults.boolForKey(WMFDidMigrateToGroupKey)
+        if (!didMigrate) {
+            let oldDefaults = NSUserDefaults.standardUserDefaults()
+            let oldDefaultsDictionary = oldDefaults.dictionaryRepresentation()
+            for (key, value) in oldDefaultsDictionary {
+                let lowercaseKey = key.lowercaseString
+                if lowercaseKey.hasPrefix("apple") || lowercaseKey.hasPrefix("ns") {
+                    continue
+                }
+                newDefaults.setObject(value, forKey: key)
+            }
+            newDefaults.setBool(true, forKey: WMFDidMigrateToGroupKey)
+            newDefaults.synchronize()
+        }
+    }
 
     public func wmf_dateForKey(key: String) -> NSDate? {
         return self.objectForKey(key) as? NSDate

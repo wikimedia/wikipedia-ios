@@ -31,7 +31,7 @@
     [self updateToggleLabelTitleForUsageReportsIsOn:NO];
 
     //Set state of the toggle. Also make sure crash manager setting is in sync with this setting - likely to happen on first launch or for previous users.
-    if ([[NSUserDefaults standardUserDefaults] wmf_sendUsageReports]) {
+    if ([[NSUserDefaults wmf_userDefaults] wmf_sendUsageReports]) {
         self.toggle.on = YES;
         [[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus = BITCrashManagerStatusAutoSend;
     } else {
@@ -55,10 +55,10 @@
 - (IBAction)toggleAnalytics:(UISwitch *)sender {
     if ([sender isOn]) {
         [[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus = BITCrashManagerStatusAutoSend;
-        [[NSUserDefaults standardUserDefaults] wmf_setSendUsageReports:YES];
+        [[NSUserDefaults wmf_userDefaults] wmf_setSendUsageReports:YES];
     } else {
         [[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus = BITCrashManagerStatusAlwaysAsk;
-        [[NSUserDefaults standardUserDefaults] wmf_setSendUsageReports:NO];
+        [[NSUserDefaults wmf_userDefaults] wmf_setSendUsageReports:NO];
     }
     [self updateToggleLabelTitleForUsageReportsIsOn:[sender isOn]];
 }

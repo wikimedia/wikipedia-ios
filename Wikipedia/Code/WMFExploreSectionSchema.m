@@ -505,14 +505,14 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 }
 
 - (nullable WMFExploreSection *)continueReadingSection {
-    NSDate *resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
+    NSDate *resignActiveDate = [[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate];
     BOOL const shouldShowContinueReading =
         NO /*FBTweakValue(@"Explore", @"Continue Reading", @"Always Show", NO)*/ ||
         fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle;
 
     //Only return if
     if (shouldShowContinueReading) {
-        NSURL *lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleURL];
+        NSURL *lastRead = [[NSUserDefaults wmf_userDefaults] wmf_openArticleURL];
         if (lastRead) {
             return [WMFExploreSection continueReadingSectionWithArticleURL:lastRead];
         }

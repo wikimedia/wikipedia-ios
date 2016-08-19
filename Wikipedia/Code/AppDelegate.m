@@ -26,16 +26,16 @@
      * Register default application preferences.
      * @note This must be loaded before application launch so unit tests can run
      */
-    NSString *defaultLanguage = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{
-        @"CurrentArticleDomain" : defaultLanguage,
-        @"Domain" : defaultLanguage,
-        ZeroWarnWhenLeaving : @YES,
-        ZeroOnDialogShownOnce : @NO,
-        @"LastHousekeepingDate" : [NSDate date],
-        @"SendUsageReports" : @NO,
-        @"AccessSavedPagesMessageShown" : @NO
-    }];
+    NSString* defaultLanguage = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+    [[NSUserDefaults wmf_userDefaults] registerDefaults:@{
+         @"CurrentArticleDomain": defaultLanguage,
+         @"Domain": defaultLanguage,
+         ZeroWarnWhenLeaving: @YES,
+         ZeroOnDialogShownOnce: @NO,
+         @"LastHousekeepingDate": [NSDate date],
+         @"SendUsageReports": @NO,
+         @"AccessSavedPagesMessageShown": @NO
+     }];
 }
 
 #pragma mark - Accessors
@@ -85,12 +85,13 @@
     NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
           [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
 #endif
-
+    
+    [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
     [PiwikTracker wmf_start];
 
-    [[NSUserDefaults standardUserDefaults] wmf_setAppLaunchDate:[NSDate date]];
-    [[NSUserDefaults standardUserDefaults] wmf_setAppInstallDateIfNil:[NSDate date]];
+    [[NSUserDefaults wmf_userDefaults] wmf_setAppLaunchDate:[NSDate date]];
+    [[NSUserDefaults wmf_userDefaults] wmf_setAppInstallDateIfNil:[NSDate date]];
 
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
 
@@ -110,7 +111,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [[NSUserDefaults standardUserDefaults] wmf_setAppBecomeActiveDate:[NSDate date]];
+    [[NSUserDefaults wmf_userDefaults] wmf_setAppBecomeActiveDate:[NSDate date]];
 }
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
@@ -142,7 +143,7 @@
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    [[NSUserDefaults standardUserDefaults] wmf_setAppResignActiveDate:[NSDate date]];
+    [[NSUserDefaults wmf_userDefaults] wmf_setAppResignActiveDate:[NSDate date]];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {

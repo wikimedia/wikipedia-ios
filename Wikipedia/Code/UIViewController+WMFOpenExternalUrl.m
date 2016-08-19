@@ -8,6 +8,7 @@
 #import "WMFZeroMessage.h"
 #import <SafariServices/SFSafariViewController.h>
 #import "NSURL+WMFExtras.h"
+#import "Wikipedia-Swift.h"
 
 @implementation UIViewController (WMFOpenExternalLinkDelegate)
 
@@ -19,7 +20,7 @@
     NSParameterAssert(url);
 
     //If zero rated, don't open any external (non-zero rated!) links until user consents!
-    if ([SessionSingleton sharedInstance].zeroConfigState.disposition && [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
+    if ([SessionSingleton sharedInstance].zeroConfigState.disposition && [[NSUserDefaults wmf_userDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
         WMFZeroMessage *zeroMessage = [SessionSingleton sharedInstance].zeroConfigState.zeroMessage;
         NSString *exitDialogTitle = zeroMessage.exitTitle ?: MWLocalizedString(@"zero-interstitial-title", nil);
         NSString *messageWithHost = [NSString stringWithFormat:@"%@\n\n%@", zeroMessage.exitWarning ?: MWLocalizedString(@"zero-interstitial-leave-app", nil), url.host];

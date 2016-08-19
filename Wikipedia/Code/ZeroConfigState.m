@@ -28,8 +28,8 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 + (void)load {
     [super load];
     FBTweakAction(@"Networking", @"Wikipedia Zero", @"Reset ZeroOnDialogShownOnce", ^{
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:ZeroOnDialogShownOnce];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [[NSUserDefaults wmf_userDefaults] setBool:NO forKey:ZeroOnDialogShownOnce];
+        [[NSUserDefaults wmf_userDefaults] synchronize];
     });
 }
 
@@ -59,22 +59,22 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 }
 
 - (void)setZeroOnDialogShownOnce {
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:ZeroOnDialogShownOnce];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSUserDefaults wmf_userDefaults] setBool:YES forKey:ZeroOnDialogShownOnce];
+    [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 - (BOOL)zeroOnDialogShownOnce {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:ZeroOnDialogShownOnce];
+    return [[NSUserDefaults wmf_userDefaults] boolForKey:ZeroOnDialogShownOnce];
 }
 
 - (void)setWarnWhenLeaving:(BOOL)warnWhenLeaving {
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:warnWhenLeaving]
+    [[NSUserDefaults wmf_userDefaults] setObject:[NSNumber numberWithBool:warnWhenLeaving]
                                               forKey:ZeroWarnWhenLeaving];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 - (BOOL)warnWhenLeaving {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:ZeroWarnWhenLeaving];
+    return [[NSUserDefaults wmf_userDefaults] boolForKey:ZeroWarnWhenLeaving];
 }
 
 #pragma mark - Banner Updates

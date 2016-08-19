@@ -131,7 +131,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)fetchUncachedArticlesInSavedPages {
     dispatch_block_t didFinishLegacyMigration = ^{
-        [[NSUserDefaults standardUserDefaults] wmf_setDidFinishLegacySavedArticleImageMigration:YES];
+        [[NSUserDefaults wmf_userDefaults] wmf_setDidFinishLegacySavedArticleImageMigration:YES];
     };
     if ([self.savedPageList numberOfItems] == 0) {
         didFinishLegacyMigration();
@@ -214,7 +214,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (void)downloadImageDataForArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
-    if (![[NSUserDefaults standardUserDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
+    if (![[NSUserDefaults wmf_userDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
         WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0 .5)
             [self migrateLegacyImagesInArticle:article];
     }
@@ -266,7 +266,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (void)fetchAllImagesInArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
-    if (![[NSUserDefaults standardUserDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
+    if (![[NSUserDefaults wmf_userDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
         WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0 .5)
             [self migrateLegacyImagesInArticle:article];
     }

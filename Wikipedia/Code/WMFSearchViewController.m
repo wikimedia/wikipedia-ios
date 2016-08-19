@@ -177,7 +177,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)configureLanguageButtons {
-    if ([[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]) {
+    if ([[NSUserDefaults wmf_userDefaults] wmf_showSearchLanguageBar]) {
         [self.view addSubview:self.languageBarContainer];
         [self.languageBarContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.searchFieldContainer.mas_bottom);
@@ -521,7 +521,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Languages
 
 - (MWKLanguageLink *)selectedLanguage {
-    NSURL *siteURL = [[NSUserDefaults standardUserDefaults] wmf_currentSearchLanguageDomain];
+    NSURL *siteURL = [[NSUserDefaults wmf_userDefaults] wmf_currentSearchLanguageDomain];
     MWKLanguageLink *lang = nil;
     if (siteURL) {
         lang = [[MWKLanguageLinkController sharedInstance] languageForSiteURL:siteURL];
@@ -532,7 +532,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)setSelectedLanguage:(MWKLanguageLink *)language {
-    [[NSUserDefaults standardUserDefaults] wmf_setCurrentSearchLanguageDomain:language.siteURL];
+    [[NSUserDefaults wmf_userDefaults] wmf_setCurrentSearchLanguageDomain:language.siteURL];
     [self updateLanguageBarLanguages];
     [self selectLanguageForURL:language.siteURL];
 }

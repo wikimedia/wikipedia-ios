@@ -43,7 +43,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 }
 
 - (void)migrateLegacyDataIfNeeded {
-    if ([[NSUserDefaults standardUserDefaults] wmf_didMigrateSavedPageList]) {
+    if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateSavedPageList]) {
         return;
     }
 
@@ -76,7 +76,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
             return urls;
         }];
 
-        [[NSUserDefaults standardUserDefaults] wmf_setDidMigrateSavedPageList:YES];
+        [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateSavedPageList:YES];
     }
 }
 
