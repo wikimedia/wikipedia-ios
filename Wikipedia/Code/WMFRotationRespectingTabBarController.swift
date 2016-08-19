@@ -1,6 +1,6 @@
 import UIKit
 
-public class WMFRotationRespectingTabBarController: UITabBarController {
+public class WMFRotationRespectingTabBarController: WMFTabBarController {
 
     public override func shouldAutorotate() -> Bool {
         if let vc = self.presentedViewController where !vc.isKindOfClass(UIAlertController) {
