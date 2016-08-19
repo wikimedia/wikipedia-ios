@@ -206,7 +206,11 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     NSArray<NSString *> *updatedItemKeys = [notification wmf_updatedItemKeys];
 
     [updatedItemKeys enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:obj];
+        NSURL* url = [NSURL URLWithString:obj];
+        NSAssert(url != nil, @"updated Item with invalid key (should be a URL String)");
+        if(url){
+            [[NSNotificationCenter defaultCenter] postNotificationName:MWKItemUpdatedNotification object:self userInfo:@{MWKURLKey:url}];
+        }
     }];
 
     [self cleanup];

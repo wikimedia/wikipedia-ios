@@ -39,10 +39,11 @@ extern NSString *const MWKArticleKey;
 /**
  * Subscribe to get notifications when an item is
  * added to saved pages, history, blacklist, etc…
- * The object posting the notification will be the 
- * URL of the item
+ * The url of the item updated will be in the
+ * MWKURLKey of the userInfo
  */
 extern NSString *const MWKItemUpdatedNotification;
+extern NSString *const MWKURLKey;
 
 @protocol WMFDatabaseChangeHandler <NSObject>
 

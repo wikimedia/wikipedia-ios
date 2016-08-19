@@ -61,13 +61,11 @@ public class WMFSavedPageSpotlightManager: NSObject {
     }
     
     func didUpdateItem(notification: NSNotification){
-        if let urlString = notification.object as? String {
-            if let url = NSURL.init(string: urlString) {
-                if self.savedPageList.isSaved(url){
-                    addToIndex(url)
-                }else{
-                    removeFromIndex(url)
-                }
+        if let url = notification.userInfo?[MWKURLKey] as? NSURL {
+            if self.savedPageList.isSaved(url){
+                addToIndex(url)
+            }else{
+                removeFromIndex(url)
             }
         }
     }

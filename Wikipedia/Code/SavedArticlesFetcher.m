@@ -102,15 +102,12 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 #pragma mark - Observing
 
 - (void)itemWasUpdated:(NSNotification *)note {
-    NSString *urlString = note.object;
-    if (urlString) {
-        NSURL *url = [NSURL URLWithString:urlString];
-        if (url) {
-            if ([self.savedPageList isSaved:url]) {
-                [self fetchUncachedArticleURLs:@[url]];
-            } else {
-                [self cancelFetchForArticleURL:url];
-            }
+    NSURL *url = note.userInfo[MWKURLKey];
+    if (url) {
+        if ([self.savedPageList isSaved:url]) {
+            [self fetchUncachedArticleURLs:@[url]];
+        } else {
+            [self cancelFetchForArticleURL:url];
         }
     }
 }

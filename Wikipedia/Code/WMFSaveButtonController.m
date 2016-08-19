@@ -125,7 +125,7 @@
 }
 
 - (void)itemWasUpdatedWithNotification:(NSNotification *)note {
-    if ([note.object isEqual:[self.url absoluteString]]) {
+    if ([note.userInfo[MWKURLKey] isEqual:self.url]) {
         [self updateSavedButtonState];
     }
 }
