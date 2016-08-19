@@ -11,6 +11,7 @@
 #import "WikipediaAppUtils.h"
 #import "WMFBlockDefinitions.h"
 #import "WMFGCDHelpers.h"
+#import "WMFTabBarController.h"
 
 #import "NSString+WMFExtras.h"
 #import "NSString+FormattedAttributedString.h"
