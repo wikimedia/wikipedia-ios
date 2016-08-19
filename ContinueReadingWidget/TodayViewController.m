@@ -1,13 +1,7 @@
-//
-//  TodayViewController.m
-//  ContinueReadingWidget
-//
-//  Created by Corey Floyd on 8/17/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
-
 #import "TodayViewController.h"
 #import <NotificationCenter/NotificationCenter.h>
+
+@import WMFKit;
 
 @interface TodayViewController () <NCWidgetProviding>
 
@@ -26,12 +20,15 @@
 }
 
 - (void)widgetPerformUpdateWithCompletionHandler:(void (^)(NCUpdateResult))completionHandler {
-    // Perform any setup necessary in order to update the view.
+    NSURL *lastRead = [[NSUserDefaults wmf_userDefaults] wmf_openArticleURL];
+    if (!lastRead) {
+        completionHandler(NCUpdateResultNoData);
+        return;
+    }
     
-    // If an error is encountered, use NCUpdateResultFailed
-    // If there's no update required, use NCUpdateResultNoData
-    // If there's an update, use NCUpdateResultNewData
+    //NSDate *resignActiveDate = [[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate];
 
+    
     completionHandler(NCUpdateResultNewData);
 }
 
