@@ -169,6 +169,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [[WMFNearbySectionController alloc] initWithLocation:item.location
                                                       placemark:item.placemark
                                                 searchSiteURL:item.siteURL
+                                                           date:item.dateCreated
                                                       dataStore:self.dataStore];
 }
 
