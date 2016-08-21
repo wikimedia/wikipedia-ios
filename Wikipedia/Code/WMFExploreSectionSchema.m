@@ -245,20 +245,13 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
     NSMutableArray<WMFExploreSection*>* existingNearbySections = [[self nearbySections] mutableCopy];
 
-    WMFExploreSection* closeEnough = [existingNearbySections bk_match:^BOOL (WMFExploreSection* oldNearby) {
-
-        //Don't add more than one more in a single day
-        if (oldNearby.location && [oldNearby.dateCreated isToday] && oldNearby.placemark != nil) {
-            return YES;
-        }
-
-        return NO;
+    // The first nearby section should always show articles near the user's current location.
+    // To make this work we need to remove any "Today" nearby section which may have been
+    // added earlier in the day.
+    [existingNearbySections bk_performReject:^BOOL (WMFExploreSection* obj) {
+        return [obj.dateCreated isToday];
     }];
-
-    if (closeEnough != nil) {
-        return;
-    }
-
+    
     @weakify(self);
     [self.locationManager reverseGeocodeLocation:location].then(^(CLPlacemark* _Nullable placemark) {
         @strongify(self);
