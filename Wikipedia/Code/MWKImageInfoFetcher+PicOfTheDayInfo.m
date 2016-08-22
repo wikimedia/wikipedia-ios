@@ -56,7 +56,7 @@ static MWKImageInfoResolve addPictureOfTheDayToDescriptionForDate(NSDate *date) 
 
 - (AnyPromise *)fetchPicOfTheDaySectionInfoForDate:(NSDate *)date
                                   metadataLanguage:(nullable NSString *)metadataLanguage {
-    return [self fetchPartialInfoForImagesOnPages:@[ [date wmf_picOfTheDayPageTitle] ]
+    return [self fetchPartialInfoForImagesOnPages:@[[date wmf_picOfTheDayPageTitle]]
                                       fromSiteURL:[NSURL wmf_wikimediaCommonsURL]
                                  metadataLanguage:metadataLanguage]
         .then(selectFirstImageInfo(date));
@@ -64,7 +64,7 @@ static MWKImageInfoResolve addPictureOfTheDayToDescriptionForDate(NSDate *date) 
 
 - (AnyPromise *)fetchPicOfTheDayGalleryInfoForDate:(NSDate *)date
                                   metadataLanguage:(nullable NSString *)metadataLanguage {
-    return [self fetchGalleryInfoForImagesOnPages:@[ [date wmf_picOfTheDayPageTitle] ]
+    return [self fetchGalleryInfoForImagesOnPages:@[[date wmf_picOfTheDayPageTitle]]
                                       fromSiteURL:[NSURL wmf_wikimediaCommonsURL]
                                  metadataLanguage:metadataLanguage]
         .then(selectFirstImageInfo(date))
@@ -79,7 +79,7 @@ static MWKImageInfoResolve addPictureOfTheDayToDescriptionForDate(NSDate *date) 
     return [[NSError alloc] initWithDomain:MWKPOTDImageInfoErrorDomain
                                       code:MWKPOTDImageInfoErrorCodeEmptyInfo
                                   userInfo:@{
-                                      NSLocalizedDescriptionKey :
+                                      NSLocalizedDescriptionKey:
                                           [MWLocalizedString(@"potd-empty-error-description", nil)
                                               stringByReplacingOccurrencesOfString:@"$1"
                                                                         withString:[[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:date]]

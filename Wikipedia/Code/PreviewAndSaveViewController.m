@@ -296,19 +296,19 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)constrainEditSummaryContainerSubviews {
     NSDictionary *views = @{
-        @"aboutLabel" : self.aboutLabel,
-        @"cannedSummary01" : self.cannedSummary01,
-        @"cannedSummary02" : self.cannedSummary02,
-        @"cannedSummary03" : self.cannedSummary03,
-        @"cannedSummary04" : self.cannedSummary04
+        @"aboutLabel": self.aboutLabel,
+        @"cannedSummary01": self.cannedSummary01,
+        @"cannedSummary02": self.cannedSummary02,
+        @"cannedSummary03": self.cannedSummary03,
+        @"cannedSummary04": self.cannedSummary04
     };
 
     // Tighten up the spacing for 3.5 inch screens.
     CGFloat spaceAboveCC = ([UIScreen mainScreen].bounds.size.height != 480) ? 43 : 4;
 
     NSDictionary *metrics = @{
-        @"buttonHeight" : @(48),
-        @"spaceAboveCC" : @(spaceAboveCC)
+        @"buttonHeight": @(48),
+        @"spaceAboveCC": @(spaceAboveCC)
     };
 
     NSArray *constraints = @[
@@ -339,7 +339,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     ];
     [self.editSummaryContainer addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
 
-    [self adjustConstraintsScaleForViews:@[ self.cannedSummary01, self.cannedSummary02, self.cannedSummary03, self.cannedSummary04, self.editSummaryContainer, self.aboutLabel ]];
+    [self adjustConstraintsScaleForViews:@[self.cannedSummary01, self.cannedSummary02, self.cannedSummary03, self.cannedSummary04, self.editSummaryContainer, self.aboutLabel]];
 }
 
 - (void)setupEditSummaryContainerSubviews {
@@ -713,7 +713,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
     [self.view addSubview:abuseFilterAlert];
 
-    NSDictionary *views = @{ @"abuseFilterAlert" : abuseFilterAlert };
+    NSDictionary *views = @{ @"abuseFilterAlert": abuseFilterAlert };
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[abuseFilterAlert]|"
                                                                       options:0

@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
             NSError *unexpectedResponseError =
                 [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
                                   userInfo:@{
-                                      NSURLErrorFailingURLErrorKey : response.URL
+                                      NSURLErrorFailingURLErrorKey: response.URL
                                   }];
             WMFSafeAssign(error, unexpectedResponseError);
         }
@@ -119,7 +119,7 @@ NS_ASSUME_NONNULL_BEGIN
             NSError *unexpectedResponseError =
                 [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
                                   userInfo:@{
-                                      NSURLErrorFailingURLErrorKey : response.URL
+                                      NSURLErrorFailingURLErrorKey: response.URL
                                   }];
             WMFSafeAssign(error, unexpectedResponseError);
         }
@@ -142,7 +142,7 @@ NS_ASSUME_NONNULL_BEGIN
             NSError *unexpectedResponseError =
                 [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
                                   userInfo:@{
-                                      NSURLErrorFailingURLErrorKey : response.URL
+                                      NSURLErrorFailingURLErrorKey: response.URL
                                   }];
             WMFSafeAssign(error, unexpectedResponseError);
         }

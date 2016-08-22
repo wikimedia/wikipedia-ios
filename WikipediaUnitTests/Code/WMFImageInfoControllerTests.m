@@ -130,7 +130,7 @@ static NSValue *WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
                               failure:anything()]) willReturn:@"dummy request 2"];
 
     NSArray *requests = [self.controller fetchBatchContainingIndex:0 withNthNeighbor:self.controller.infoBatchSize];
-    assertThat(requests, is(@[ @"dummy request", @"dummy request 2" ]));
+    assertThat(requests, is(@[@"dummy request", @"dummy request 2"]));
 }
 
 - (void)testFetchBatchAlongWithNeighborIndexesInTheSameBatchOnlyResultsInOneFetch {

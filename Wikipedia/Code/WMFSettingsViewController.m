@@ -97,7 +97,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                                                                    [self dismissViewControllerAnimated:YES
                                                                                             completion:nil];
                                                            }];
-    self.navigationItem.leftBarButtonItems = @[ xButton ];
+    self.navigationItem.leftBarButtonItems = @[xButton];
 }
 
 - (nullable NSString *)title {

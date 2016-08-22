@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (dateString == nil) {
         DDLogError(@"Failed to format pageviews date URL component for date: %@", date);
         NSError *error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
-                                           userInfo:@{WMFFailingRequestParametersUserInfoKey : date}];
+                                           userInfo:@{WMFFailingRequestParametersUserInfoKey: date}];
         return [AnyPromise promiseWithValue:error];
     }
 

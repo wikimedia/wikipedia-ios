@@ -365,7 +365,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     [self saveDictionary:export path:path name:@"Article.plist"];
     [self.articleCache setObject:article forKey:article.url];
     dispatchOnMainQueue(^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:MWKArticleSavedNotification object:self userInfo:@{MWKArticleKey : article}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:MWKArticleSavedNotification object:self userInfo:@{MWKArticleKey: article}];
     });
 }
 
@@ -397,7 +397,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error {
     NSString *path = self.basePath;
-    NSDictionary *export = @{ @"entries" : [list dataExport] };
+    NSDictionary *export = @{ @"entries": [list dataExport] };
     return [self saveDictionary:export path:path name:@"RecentSearches.plist" error:error];
 }
 

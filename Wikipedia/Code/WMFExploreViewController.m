@@ -649,7 +649,7 @@ NS_ASSUME_NONNULL_BEGIN
         [controller willDisplaySection];
     }
 
-    [self performSelector:@selector(fetchSectionIfShowing:) withObject:controller afterDelay:0.25 inModes:@[ NSRunLoopCommonModes ]];
+    [self performSelector:@selector(fetchSectionIfShowing:) withObject:controller afterDelay:0.25 inModes:@[NSRunLoopCommonModes]];
 
     if ([controller conformsToProtocol:@protocol(WMFTitleProviding)] && (![controller respondsToSelector:@selector(urlForItemAtIndexPath:)] || [controller shouldSelectItemAtIndexPath:indexPath])) {
         NSURL *articleURL = [(id<WMFTitleProviding>)controller urlForItemAtIndexPath:indexPath];

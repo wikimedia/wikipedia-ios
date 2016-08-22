@@ -33,16 +33,16 @@
                                endingWithRevision:(NSUInteger)revisionId {
     return [self.requestManager wmf_GETAndRetryWithURL:articleURL
                                             parameters:@{
-                                                @"format" : @"json",
-                                                @"continue" : @"",
-                                                @"formatversion" : @2,
-                                                @"action" : @"query",
-                                                @"prop" : @"revisions",
-                                                @"redirects" : @1,
-                                                @"titles" : articleURL.wmf_title,
-                                                @"rvlimit" : @(numberOfResults),
-                                                @"rvendid" : @(revisionId),
-                                                @"rvprop" : WMFJoinedPropertyParameters(@[ @"ids", @"size", @"flags" ])
+                                                @"format": @"json",
+                                                @"continue": @"",
+                                                @"formatversion": @2,
+                                                @"action": @"query",
+                                                @"prop": @"revisions",
+                                                @"redirects": @1,
+                                                @"titles": articleURL.wmf_title,
+                                                @"rvlimit": @(numberOfResults),
+                                                @"rvendid": @(revisionId),
+                                                @"rvprop": WMFJoinedPropertyParameters(@[@"ids", @"size", @"flags"])
                                             }]
         .then(^(NSArray<WMFRevisionQueryResults *> *results) {
             return results.firstObject;

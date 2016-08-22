@@ -56,7 +56,7 @@
 }
 
 + (NSArray *)dummyItems {
-    return @[ @"foo", @"bar", @"baz" ];
+    return @[@"foo", @"bar", @"baz"];
 }
 
 @end
@@ -134,7 +134,7 @@ QuickConfigurationBegin(WMFSharedSectionControllerTests)
 
                 expect(initialError).to(beAKindOf([NSError class]));
 
-                expect(itemsPerKVONotification).to(equal(@[ @[ initialError ] ]));
+                expect(itemsPerKVONotification).to(equal(@[@[initialError]]));
 
                 // restart nocilla stubbing to remove failure stub & fail on any unexpected requests
                 [[LSNocilla sharedInstance] stop];

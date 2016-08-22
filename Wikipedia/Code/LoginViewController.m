@@ -55,7 +55,7 @@
                                                                    [self dismissViewControllerAnimated:YES
                                                                                             completion:nil];
                                                            }];
-    self.navigationItem.leftBarButtonItems = @[ xButton ];
+    self.navigationItem.leftBarButtonItems = @[xButton];
 
     self.doneButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"main-menu-account-login", nil)
                                                           style:UIBarButtonItemStylePlain
@@ -126,7 +126,7 @@
 - (NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string {
     return [[NSMutableAttributedString alloc] initWithString:string
                                                   attributes:@{
-                                                      NSForegroundColorAttributeName : [UIColor lightGrayColor]
+                                                      NSForegroundColorAttributeName: [UIColor lightGrayColor]
                                                   }];
 }
 

@@ -53,7 +53,7 @@
 
     stubRequest(@"GET", anyRequestFromTestSite)
         .andReturn(200)
-        .withHeaders(@{ @"Content-Type" : @"application/json" })
+        .withHeaders(@{ @"Content-Type": @"application/json" })
         .withBody(json);
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"response"];
@@ -85,7 +85,7 @@
 
     stubRequest(@"GET", anyRequestFromTestSiteDesktop)
         .andReturn(200)
-        .withHeaders(@{ @"Content-Type" : @"application/json" })
+        .withHeaders(@{ @"Content-Type": @"application/json" })
         .withBody(json);
 
     XCTestExpectation *expectation = [self expectationWithDescription:@"response"];

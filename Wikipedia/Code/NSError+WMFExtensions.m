@@ -11,11 +11,11 @@ NSString *const WMFFailingRequestParametersUserInfoKey = @"WMFFailingRequestPara
 }
 
 + (NSError *)wmf_unableToSaveErrorWithReason:(NSString *)reason {
-    return [self wmf_errorWithType:WMFErrorTypeUnableToSave userInfo:reason ? @{NSLocalizedDescriptionKey : reason} : nil];
+    return [self wmf_errorWithType:WMFErrorTypeUnableToSave userInfo:reason ? @{NSLocalizedDescriptionKey: reason} : nil];
 }
 
 + (NSError *)wmf_serializeArticleErrorWithReason:(NSString *)reason {
-    return [self wmf_errorWithType:WMFErrorTypeArticleResponseSerialization userInfo:reason ? @{NSLocalizedDescriptionKey : reason} : nil];
+    return [self wmf_errorWithType:WMFErrorTypeArticleResponseSerialization userInfo:reason ? @{NSLocalizedDescriptionKey: reason} : nil];
 }
 
 - (BOOL)wmf_isWMFErrorDomain {

@@ -40,7 +40,7 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
     }
 
     NSInteger days = [[NSDate date] distanceInDaysToDate:date];
-    [self log:@{ kAppInstallAgeKey : @(days) }];
+    [self log:@{ kAppInstallAgeKey: @(days) }];
     [[NSUserDefaults wmf_userDefaults] wmf_setDateLastDailyLoggingStatsSent:date];
 }
 

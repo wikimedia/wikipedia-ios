@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSDictionary *value, BOOL *success, NSError *__autoreleasing *error) {
         NSArray *pages = [value allValues];
         NSValueTransformer *transformer = [MTLJSONAdapter arrayTransformerWithModelClass:[MWKSearchResult class]];
-        return [[transformer transformedValue:pages] sortedArrayUsingDescriptors:@[ [self indexSortDescriptor] ]];
+        return [[transformer transformedValue:pages] sortedArrayUsingDescriptors:@[[self indexSortDescriptor]]];
     }];
 }
 
@@ -80,9 +80,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-        WMF_SAFE_KEYPATH(WMFSearchResults.new, results) : @"pages",
-        WMF_SAFE_KEYPATH(WMFSearchResults.new, redirectMappings) : @"redirects",
-        WMF_SAFE_KEYPATH(WMFSearchResults.new, searchSuggestion) : @"searchinfo.suggestion",
+        WMF_SAFE_KEYPATH(WMFSearchResults.new, results): @"pages",
+        WMF_SAFE_KEYPATH(WMFSearchResults.new, redirectMappings): @"redirects",
+        WMF_SAFE_KEYPATH(WMFSearchResults.new, searchSuggestion): @"searchinfo.suggestion",
     };
 }
 

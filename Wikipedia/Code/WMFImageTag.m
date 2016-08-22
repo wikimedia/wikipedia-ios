@@ -168,7 +168,7 @@ NS_ASSUME_NONNULL_BEGIN
     for (NSString *attribute in attributes) {
         NSString *value = attributes[attribute];
         if (value) {
-            NSString *attributeString = [@[ @" ", attribute, @"=", value ] componentsJoinedByString:@""];
+            NSString *attributeString = [@[@" ", attribute, @"=", value] componentsJoinedByString:@""];
             newImageTagContents = [newImageTagContents stringByAppendingString:attributeString];
         }
     }

@@ -48,7 +48,7 @@
 
     self.licenseCCLabel.attributedText = [self getCCIconAttributedString];
 
-    [self adjustConstraintsScaleForViews:@[ self.licenseCCLabel, self.licenseTitleLabel, self.licenseLoginLabel ]];
+    [self adjustConstraintsScaleForViews:@[self.licenseCCLabel, self.licenseTitleLabel, self.licenseLoginLabel]];
 
     self.bottomDividerHeight.constant = self.hideBottomDivider ? 0.0 : 1.0f / [UIScreen mainScreen].scale;
 
@@ -77,21 +77,21 @@
 - (void)styleLinks:(UILabel *)label {
     NSDictionary *baseAttributes =
         @{
-           NSForegroundColorAttributeName : label.textColor,
-           NSFontAttributeName : label.font
+           NSForegroundColorAttributeName: label.textColor,
+           NSFontAttributeName: label.font
         };
 
     NSDictionary *linkAttributes =
         @{
            //NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-           NSForegroundColorAttributeName : PREVIEW_BLUE_COLOR
+           NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR
         };
 
     label.attributedText =
         [label.text attributedStringWithAttributes:baseAttributes
-                               substitutionStrings:@[ MWLocalizedString(@"wikitext-upload-save-terms-name", nil),
-                                                      MWLocalizedString(@"wikitext-upload-save-license-name", nil) ]
-                            substitutionAttributes:@[ linkAttributes, linkAttributes ]];
+                               substitutionStrings:@[MWLocalizedString(@"wikitext-upload-save-terms-name", nil),
+                                                     MWLocalizedString(@"wikitext-upload-save-license-name", nil)]
+                            substitutionAttributes:@[linkAttributes, linkAttributes]];
 }
 
 - (void)termsLicenseLabelTapped:(UITapGestureRecognizer *)recognizer {
@@ -103,28 +103,28 @@
 - (void)underlineSignIn:(UILabel *)label {
     NSDictionary *baseAttributes =
         @{
-           NSForegroundColorAttributeName : label.textColor,
-           NSFontAttributeName : label.font
+           NSForegroundColorAttributeName: label.textColor,
+           NSFontAttributeName: label.font
         };
 
     NSDictionary *substitutionAttributes =
         @{
-            NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle),
-            NSForegroundColorAttributeName : PREVIEW_BLUE_COLOR
+            NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+            NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR
         };
 
     label.attributedText =
         [label.text attributedStringWithAttributes:baseAttributes
-                               substitutionStrings:@[ MWLocalizedString(@"wikitext-upload-save-sign-in", nil) ]
-                            substitutionAttributes:@[ substitutionAttributes ]];
+                               substitutionStrings:@[MWLocalizedString(@"wikitext-upload-save-sign-in", nil)]
+                            substitutionAttributes:@[substitutionAttributes]];
 }
 
 - (NSAttributedString *)getCCIconAttributedString {
     return [[NSAttributedString alloc] initWithString:WIKIGLYPH_CC
                                            attributes:@{
-                                               NSFontAttributeName : [UIFont wmf_glyphFontOfSize:42.0 * MENUS_SCALE_MULTIPLIER],
-                                               NSForegroundColorAttributeName : PREVIEW_BLUE_COLOR,
-                                               NSBaselineOffsetAttributeName : @1.5
+                                               NSFontAttributeName: [UIFont wmf_glyphFontOfSize:42.0 * MENUS_SCALE_MULTIPLIER],
+                                               NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR,
+                                               NSBaselineOffsetAttributeName: @1.5
                                            }];
 }
 

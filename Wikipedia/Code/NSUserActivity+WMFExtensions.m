@@ -27,7 +27,7 @@
         activity.eligibleForHandoff = YES;
         activity.eligibleForSearch = YES;
         activity.eligibleForPublicIndexing = YES;
-        activity.keywords = [NSSet setWithArray:@[ @"Wikipedia", @"Wikimedia", @"Wiki" ]];
+        activity.keywords = [NSSet setWithArray:@[@"Wikipedia", @"Wikimedia", @"Wiki"]];
     }
     return activity;
 }
@@ -35,7 +35,7 @@
 + (instancetype)wmf_pageActivityWithName:(NSString *)pageName {
     NSUserActivity *activity = [self wmf_activityWithType:[pageName lowercaseString]];
     activity.title = pageName;
-    activity.userInfo = @{ @"WMFPage" : pageName };
+    activity.userInfo = @{ @"WMFPage": pageName };
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
         NSMutableSet *set = [activity.keywords mutableCopy];

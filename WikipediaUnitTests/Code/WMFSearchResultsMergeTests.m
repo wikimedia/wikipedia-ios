@@ -33,9 +33,9 @@ QuickSpecBegin(WMFSearchResultMergeTests)
                                                 }];
         };
         it(@"should preserve result ordering, putting original results first", ^{
-            NSArray *originalResults = @[ dummySearchResultWithIndex(0),
-                                          dummySearchResultWithIndex(1),
-                                          dummySearchResultWithIndex(2) ];
+            NSArray *originalResults = @[dummySearchResultWithIndex(0),
+                                         dummySearchResultWithIndex(1),
+                                         dummySearchResultWithIndex(2)];
             WMFSearchResults *r1 =
                 [[WMFSearchResults alloc] initWithSearchTerm:@"foo"
                                                      results:originalResults
@@ -43,9 +43,9 @@ QuickSpecBegin(WMFSearchResultMergeTests)
                                             redirectMappings:@[]];
             WMFSearchResults *r2 =
                 [[WMFSearchResults alloc] initWithSearchTerm:@"baz"
-                                                     results:@[ dummySearchResultWithIndex(0),
-                                                                dummySearchResultWithIndex(1),
-                                                                dummySearchResultWithIndex(2) ]
+                                                     results:@[dummySearchResultWithIndex(0),
+                                                               dummySearchResultWithIndex(1),
+                                                               dummySearchResultWithIndex(2)]
                                             searchSuggestion:@"buz"
                                             redirectMappings:@[]];
 
@@ -61,7 +61,7 @@ QuickSpecBegin(WMFSearchResultMergeTests)
         });
 
         it(@"should not insert results already present in the original", ^{
-            NSArray *originalResults = @[ dummySearchResultWithIndex(0) ];
+            NSArray *originalResults = @[dummySearchResultWithIndex(0)];
             NSArray *newResults = @[
                 dummySearchResultWithIndex(0),
                 dummySearchResultWithIndex(1),
@@ -93,8 +93,8 @@ QuickSpecBegin(WMFSearchResultMergeTests)
 
 describe(@"merging redirect mappings", ^{
     it(@"should omit mappings already present in the original", ^{
-        NSArray *originalMappings = @[ [MWKSearchRedirectMapping mappingFromTitle:@"foo" toTitle:@"bar"] ];
-        NSArray *newMappings = @[ [MWKSearchRedirectMapping mappingFromTitle:@"baz" toTitle:@"buz"] ];
+        NSArray *originalMappings = @[[MWKSearchRedirectMapping mappingFromTitle:@"foo" toTitle:@"bar"]];
+        NSArray *newMappings = @[[MWKSearchRedirectMapping mappingFromTitle:@"baz" toTitle:@"buz"]];
         NSArray *joinedMappings = [originalMappings arrayByAddingObjectsFromArray:newMappings];
 
         WMFSearchResults *r1 =

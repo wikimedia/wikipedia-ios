@@ -72,8 +72,8 @@
         return;
     }
 
-    NSDictionary *options = @{ GCDWebServerOption_BindToLocalhost : @(YES), //only accept requests from localhost
-                               GCDWebServerOption_Port : @(0) };            // allow the OS to pick a random port
+    NSDictionary *options = @{ GCDWebServerOption_BindToLocalhost: @(YES), //only accept requests from localhost
+                               GCDWebServerOption_Port: @(0) };            // allow the OS to pick a random port
 
     NSError *serverStartError = nil;
     NSUInteger attempts = 0;
@@ -238,7 +238,7 @@
     }
 
     NSURLComponents *components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
-    components.path = [NSString pathWithComponents:@[ @"/", secret, WMFProxyFileBasePath, relativeFilePath ]];
+    components.path = [NSString pathWithComponents:@[@"/", secret, WMFProxyFileBasePath, relativeFilePath]];
     components.fragment = fragment;
     return components.URL;
 }
@@ -257,10 +257,10 @@
     }
 
     NSURLComponents *components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
-    components.path = [NSString pathWithComponents:@[ @"/", secret, WMFProxyImageBasePath ]];
+    components.path = [NSString pathWithComponents:@[@"/", secret, WMFProxyImageBasePath]];
     NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:@"originalSrc" value:imageURLString];
     if (queryItem) {
-        components.queryItems = @[ queryItem ];
+        components.queryItems = @[queryItem];
     }
     return components.URL;
 }
@@ -280,7 +280,7 @@
         //update imageTagContents by changing the src, disabling the srcset, and adding other attributes used for scaling
         NSString *newImageTagContents = [self stringByUpdatingImageTagAttributesForProxyAndScalingInImageTagContents:imageTagContents withBaseURL:baseURL targetImageWidth:targetImageWidth];
         //append the updated image tag to the new string
-        [newHTMLString appendString:[@[ @"<img ", newImageTagContents, @">" ] componentsJoinedByString:@""]];
+        [newHTMLString appendString:[@[@"<img ", newImageTagContents, @">"] componentsJoinedByString:@""]];
 
         location = range.location + range.length;
     }];
@@ -312,7 +312,7 @@
         if (src) {
             NSString *srcWithProxy = [self proxyURLForImageURLString:src].absoluteString;
             if (srcWithProxy) {
-                NSString *newSrcAttribute = [@[ @"src=\"", srcWithProxy, @"\"" ] componentsJoinedByString:@""];
+                NSString *newSrcAttribute = [@[@"src=\"", srcWithProxy, @"\""] componentsJoinedByString:@""];
                 imageTag.src = newSrcAttribute;
                 newImageTagContents = [imageTag.imageTagContents mutableCopy];
             }

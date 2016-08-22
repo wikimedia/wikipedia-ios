@@ -49,7 +49,7 @@
     NSDictionary *metrics = @{};
 
     NSDictionary *views = @{
-        @"label" : self.label
+        @"label": self.label
     };
 
     NSArray *constraintArrays = @[

@@ -131,8 +131,8 @@ NS_ASSUME_NONNULL_BEGIN
         [NSMutableDictionary wmf_titlePreviewRequestParametersWithExtractLength:params.extractLength
                                                                      imageWidth:@(params.thumbnailWidth)];
     [baseParams setValuesForKeysWithDictionary:@{
-        @"titles" : [self barSeparatedTitlesStringFromURLs:params.articleURLs],
-        @"pilimit" : @(params.articleURLs.count)
+        @"titles": [self barSeparatedTitlesStringFromURLs:params.articleURLs],
+        @"pilimit": @(params.articleURLs.count)
     }];
     if (params.extractLength > 0) {
         baseParams[@"exlimit"] = @(params.articleURLs.count);

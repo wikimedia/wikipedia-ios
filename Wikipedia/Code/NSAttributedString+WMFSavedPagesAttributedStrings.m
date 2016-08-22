@@ -33,8 +33,8 @@ static NSString *const kFormatString = @"$1$2$3$4$5";
 
     NSDictionary *titleAttribs =
         @{
-           NSFontAttributeName : [UIFont systemFontOfSize:titleSizeMultiplier * kTitleFontSize * MENUS_SCALE_MULTIPLIER],
-           NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:kTitleColor alpha:1.0f]
+           NSFontAttributeName: [UIFont systemFontOfSize:titleSizeMultiplier * kTitleFontSize * MENUS_SCALE_MULTIPLIER],
+           NSForegroundColorAttributeName: [UIColor wmf_colorWithHex:kTitleColor alpha:1.0f]
         };
 
     static NSDictionary *descripAttribs = nil;
@@ -42,9 +42,9 @@ static NSString *const kFormatString = @"$1$2$3$4$5";
         NSMutableParagraphStyle *descParagraphStyle = [[NSMutableParagraphStyle alloc] init];
         descParagraphStyle.paragraphSpacingBefore = kDescriptionSpaceAbove;
         descripAttribs = @{
-            NSFontAttributeName : [UIFont systemFontOfSize:kDescriptionFontSize * MENUS_SCALE_MULTIPLIER],
-            NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:kDescriptionColor alpha:1.0f],
-            NSParagraphStyleAttributeName : descParagraphStyle
+            NSFontAttributeName: [UIFont systemFontOfSize:kDescriptionFontSize * MENUS_SCALE_MULTIPLIER],
+            NSForegroundColorAttributeName: [UIColor wmf_colorWithHex:kDescriptionColor alpha:1.0f],
+            NSParagraphStyleAttributeName: descParagraphStyle
         };
     }
 
@@ -53,9 +53,9 @@ static NSString *const kFormatString = @"$1$2$3$4$5";
         NSMutableParagraphStyle *langParagraphStyle = [[NSMutableParagraphStyle alloc] init];
         langParagraphStyle.paragraphSpacingBefore = kLanguageSpaceAbove;
         langAttribs = @{
-            NSFontAttributeName : [UIFont systemFontOfSize:kLanguageFontSize * MENUS_SCALE_MULTIPLIER],
-            NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:kLanguageColor alpha:1.0f],
-            NSParagraphStyleAttributeName : langParagraphStyle
+            NSFontAttributeName: [UIFont systemFontOfSize:kLanguageFontSize * MENUS_SCALE_MULTIPLIER],
+            NSForegroundColorAttributeName: [UIColor wmf_colorWithHex:kLanguageColor alpha:1.0f],
+            NSParagraphStyleAttributeName: langParagraphStyle
         };
     }
 
@@ -65,8 +65,8 @@ static NSString *const kFormatString = @"$1$2$3$4$5";
 
     return
         [kFormatString attributedStringWithAttributes:@{}
-                                  substitutionStrings:@[ title, kLineBreak, description, descripLineBreak, language ]
-                               substitutionAttributes:@[ titleAttribs, @{}, descripAttribs, @{}, langAttribs ]];
+                                  substitutionStrings:@[title, kLineBreak, description, descripLineBreak, language]
+                               substitutionAttributes:@[titleAttribs, @{}, descripAttribs, @{}, langAttribs]];
 }
 
 @end

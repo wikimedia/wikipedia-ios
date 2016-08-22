@@ -15,8 +15,8 @@
 
 - (void)setUp {
     [super setUp];
-    self.array = @[ @"one", @"two" ];
-    self.otherArray = @[ @1, @2, @3 ];
+    self.array = @[@"one", @"two"];
+    self.otherArray = @[@1, @2, @3];
 }
 
 - (void)tearDown {
@@ -42,12 +42,12 @@
 }
 
 - (void)test_wmf_arrayByTrimmingToLength_ZeroReturnsEmpty {
-    NSArray *array = @[ @"bla" ];
+    NSArray *array = @[@"bla"];
     assertThat([array wmf_arrayByTrimmingToLength:0], is(@[]));
 }
 
 - (void)test_wmf_arrayByTrimmingToLength_NegativeReturnsSelf {
-    NSArray *array = @[ @"bla" ];
+    NSArray *array = @[@"bla"];
     assertThat([array wmf_arrayByTrimmingToLength:-10], is(array));
 }
 
@@ -74,12 +74,12 @@
 }
 
 - (void)test_wmf_arrayByTrimmingToLengthFromEnd_nonEmptyZeroReturnsEmpty {
-    NSArray *array = @[ @"one" ];
+    NSArray *array = @[@"one"];
     assertThat([array wmf_arrayByTrimmingToLengthFromEnd:0], is(@[]));
 }
 
 - (void)test_wmf_arrayByTrimmingToLengthFromEnd_nonEmptyNegativeReturnsSelf {
-    NSArray *array = @[ @"one" ];
+    NSArray *array = @[@"one"];
     assertThat([array wmf_arrayByTrimmingToLengthFromEnd:-10], is(array));
 }
 
@@ -101,24 +101,24 @@
 }
 
 - (void)test_wmf_reverseArray {
-    assertThat([self.array wmf_reverseArray], is(@[ @"two", @"one" ]));
+    assertThat([self.array wmf_reverseArray], is(@[@"two", @"one"]));
 }
 
 - (void)testSafeSubarrayShouldLimitToCount {
-    NSArray *original = @[ @0, @1 ];
+    NSArray *original = @[@0, @1];
     assertThat([original wmf_safeSubarrayWithRange:NSMakeRange(0, 5)], is(original));
 }
 
 - (void)testSafeSubarrayShouldReturnEmptyArrayIfRangeLocationOutOfBounds {
-    assertThat(([@[ @0, @1 ] wmf_safeSubarrayWithRange:NSMakeRange(2, 1)]), isEmpty());
+    assertThat(([@[@0, @1] wmf_safeSubarrayWithRange:NSMakeRange(2, 1)]), isEmpty());
 }
 
 - (void)testSafeSubarrayShouldReturnEmptyIfRangeIsNotFound {
-    assertThat(([@[ @0, @1 ] wmf_safeSubarrayWithRange:NSMakeRange(NSNotFound, 1)]), isEmpty());
+    assertThat(([@[@0, @1] wmf_safeSubarrayWithRange:NSMakeRange(NSNotFound, 1)]), isEmpty());
 }
 
 - (void)testSafeSubarrayShouldReturnEmptyIfRangeIsEmpty {
-    assertThat(([@[ @0, @1 ] wmf_safeSubarrayWithRange:NSMakeRange(0, 0)]), isEmpty());
+    assertThat(([@[@0, @1] wmf_safeSubarrayWithRange:NSMakeRange(0, 0)]), isEmpty());
 }
 
 - (void)testSafeSubarrayShouldReturnEmptyFromEmptyList {
@@ -126,11 +126,11 @@
 }
 
 - (void)testArrayByRemovingFirstElement_shouldReturnAllButTheFirstElement {
-    assertThat(([@[ @0, @1 ] wmf_arrayByRemovingFirstElement]), is(equalTo(@[ @1 ])));
+    assertThat(([@[@0, @1] wmf_arrayByRemovingFirstElement]), is(equalTo(@[@1])));
 }
 
 - (void)testArrayByRemovingFirstElement_shouldReturnEmptyArrayFromSingletonList {
-    assertThat(([@[ @1 ] wmf_arrayByRemovingFirstElement]), isEmpty());
+    assertThat(([@[@1] wmf_arrayByRemovingFirstElement]), isEmpty());
 }
 
 - (void)testArrayByRemovingFirstElement_shouldReturnEmptyArrayFromEmptyList {

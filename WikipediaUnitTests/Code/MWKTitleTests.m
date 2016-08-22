@@ -43,8 +43,8 @@
 }
 
 - (void)testUnderscoresAndSpaces {
-    NSArray *inputs = @[ [siteURL wmf_URLWithTitle:@"Fancy title with spaces"],
-                         [siteURL wmf_URLWithTitle:@"Fancy_title with_spaces"] ];
+    NSArray *inputs = @[[siteURL wmf_URLWithTitle:@"Fancy title with spaces"],
+                        [siteURL wmf_URLWithTitle:@"Fancy_title with_spaces"]];
     for (NSURL *title in inputs) {
         XCTAssertEqualObjects(title.wmf_title, @"Fancy title with spaces", @"Text form has spaces");
         XCTAssertNil(title.fragment, @"Fragment is nil");

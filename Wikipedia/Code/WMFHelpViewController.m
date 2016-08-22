@@ -59,7 +59,7 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *vc = [[MFMailComposeViewController alloc] init];
         [vc setSubject:[WMFSettingsEmailSubject stringByAppendingString:[WikipediaAppUtils versionedUserAgent]]];
-        [vc setToRecipients:@[ WMFSettingsEmailAddress ]];
+        [vc setToRecipients:@[WMFSettingsEmailAddress]];
         [vc setMessageBody:[NSString stringWithFormat:@"\n\n\n\nVersion: %@", [WikipediaAppUtils versionedUserAgent]] isHTML:NO];
         NSData *data = [[DDLog wmf_currentLogFile] dataUsingEncoding:NSUTF8StringEncoding];
         if (data) {

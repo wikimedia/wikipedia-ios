@@ -242,7 +242,7 @@
                       "<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/f/f8/The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg/220px-The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg\" width=\"220\" height=\"212\" class=\"thumbimage\" data-file-width=\"380\" data-file-height=\"366\">";
 
     NSArray *parsedURLS = [self urlsFromHMTL:tags atTargetWidth:1024];
-    NSArray *expectedULRS = @[ [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/f/f8/The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg"] ];
+    NSArray *expectedULRS = @[[NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/f/f8/The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg"]];
 
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
 }
@@ -252,7 +252,7 @@
                       "<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/f/f8/The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg/220px-The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg\" width=\"220\" height=\"212\" class=\"thumbimage\" data-file-width=\"380\" data-file-height=\"366\">";
 
     NSArray *parsedURLS = [self urlsFromHMTL:tags atTargetWidth:380];
-    NSArray *expectedULRS = @[ [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/f/f8/The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg"] ];
+    NSArray *expectedULRS = @[[NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/f/f8/The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg"]];
 
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
 }
@@ -262,7 +262,7 @@
                       "<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/f/f8/The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg/220px-The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg\" width=\"220\" height=\"212\" class=\"thumbimage\" data-file-width=\"380\" data-file-height=\"366\">";
 
     NSArray *parsedURLS = [self urlsFromHMTL:tags atTargetWidth:379];
-    NSArray *expectedULRS = @[ [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/f/f8/The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg/379px-The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg"] ];
+    NSArray *expectedULRS = @[[NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/f/f8/The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg/379px-The_Ant_and_the_Grasshopper_-_Project_Gutenberg_etext_19994.jpg"]];
 
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
 }
@@ -272,7 +272,7 @@
                       "<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/128px-Barack_Obama_signature.svg.png\" width=\"128\" height=\"31\" data-file-width=\"182\" data-file-height=\"44\">";
 
     NSArray *parsedURLS = [self urlsFromHMTL:tags atTargetWidth:1024];
-    NSArray *expectedULRS = @[ [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/1024px-Barack_Obama_signature.svg.png"] ];
+    NSArray *expectedULRS = @[[NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/1024px-Barack_Obama_signature.svg.png"]];
 
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
 }
@@ -282,7 +282,7 @@
                       "<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/128px-Barack_Obama_signature.svg.png\" width=\"128\" height=\"31\" data-file-width=\"182\" data-file-height=\"44\">";
 
     NSArray *parsedURLS = [self urlsFromHMTL:tags atTargetWidth:182];
-    NSArray *expectedULRS = @[ [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/1/11/Barack_Obama_signature.svg"] ];
+    NSArray *expectedULRS = @[[NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/1/11/Barack_Obama_signature.svg"]];
 
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
 }
@@ -292,7 +292,7 @@
                       "<img alt=\"\" src=\"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/128px-Barack_Obama_signature.svg.png\" width=\"128\" height=\"31\" data-file-width=\"182\" data-file-height=\"44\">";
 
     NSArray *parsedURLS = [self urlsFromHMTL:tags atTargetWidth:181];
-    NSArray *expectedULRS = @[ [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/181px-Barack_Obama_signature.svg.png"] ];
+    NSArray *expectedULRS = @[[NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/1/11/Barack_Obama_signature.svg/181px-Barack_Obama_signature.svg.png"]];
 
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
 }
@@ -390,8 +390,8 @@
                       "<img src=\"//upload.wikimedia.org/wikipedia/commons/thumb/0/08/NautilusCutawayLogarithmicSpiral.jpg/220px-NautilusCutawayLogarithmicSpiral.jpg\" width=\"220\" height=\"166\" class=\"thumbimage\" srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/0/08/NautilusCutawayLogarithmicSpiral.jpg/330px-NautilusCutawayLogarithmicSpiral.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/0/08/NautilusCutawayLogarithmicSpiral.jpg/440px-NautilusCutawayLogarithmicSpiral.jpg 2x\" data-file-width=\"2240\" data-file-height=\"1693\">";
 
     NSArray *parsedURLS = [self urlsFromHMTL:tags atTargetWidth:1024];
-    NSArray *expectedULRS = @[ [NSURL URLWithString:@"//wikimedia.org/api/rest_v1/media/math/render/svg/f4f0044fb2bdba6bee5dcc5b57ac9fc62a5edbb9"],
-                               [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/0/08/NautilusCutawayLogarithmicSpiral.jpg/1024px-NautilusCutawayLogarithmicSpiral.jpg"] ];
+    NSArray *expectedULRS = @[[NSURL URLWithString:@"//wikimedia.org/api/rest_v1/media/math/render/svg/f4f0044fb2bdba6bee5dcc5b57ac9fc62a5edbb9"],
+                              [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/0/08/NautilusCutawayLogarithmicSpiral.jpg/1024px-NautilusCutawayLogarithmicSpiral.jpg"]];
     assertThat(parsedURLS, is(equalTo(expectedULRS)));
 }
 
@@ -408,9 +408,9 @@ NSLog(@"\n============\n\n%@\n\n=============\n", a);
                       "<img src=\"w/extensions/wikihiero/img/hiero_V4.png?e648c\">"
                       "<img src=\"//upload.wikimedia.org/wikipedia/commons/thumb/4/42/Barack_Obama_at_Cairo_University_cropped.jpg/640px-Barack_Obama_at_Cairo_University_cropped.jpg\">";
     NSArray *parsedURLs = [self urlsFromHMTL:tags atTargetWidth:1024];
-    NSArray *expectedULRs = @[ [NSURL URLWithString:@"//en.m.wikipedia.org/w/extensions/wikihiero/img/hiero_V4.png?e648c"],
-                               [NSURL URLWithString:@"//en.m.wikipedia.org/wiki/Barack_Obama/w/extensions/wikihiero/img/hiero_V4.png%3Fe648c?e648c"],
-                               [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/4/42/Barack_Obama_at_Cairo_University_cropped.jpg/640px-Barack_Obama_at_Cairo_University_cropped.jpg"] ];
+    NSArray *expectedULRs = @[[NSURL URLWithString:@"//en.m.wikipedia.org/w/extensions/wikihiero/img/hiero_V4.png?e648c"],
+                              [NSURL URLWithString:@"//en.m.wikipedia.org/wiki/Barack_Obama/w/extensions/wikihiero/img/hiero_V4.png%3Fe648c?e648c"],
+                              [NSURL URLWithString:@"//upload.wikimedia.org/wikipedia/commons/thumb/4/42/Barack_Obama_at_Cairo_University_cropped.jpg/640px-Barack_Obama_at_Cairo_University_cropped.jpg"]];
     assertThat(parsedURLs, is(equalTo(expectedULRs)));
 }
 

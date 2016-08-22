@@ -44,7 +44,7 @@
 
             // Fake out an error if non-dictionary response received.
             if (![responseObject isDict]) {
-                responseObject = @{ @"error" : @{@"info" : @"Wikitext not found."} };
+                responseObject = @{ @"error": @{@"info": @"Wikitext not found."} };
             }
 
             //NSLog(@"WIKITEXT RETRIEVED = %@", responseObject);
@@ -84,15 +84,15 @@
 
 - (NSDictionary *)getParams {
     return @{
-        @"action" : @"query",
-        @"prop" : @"revisions",
-        @"rvprop" : @"content",
-        @"rvlimit" : @1,
-        @"rvsection" : self.section.index ? self.section.index : @"0",
-        @"titles" : [self.section sourceURL].wmf_title,
-        @"meta" : @"userinfo", // we need the local user ID for event logging
-        @"continue" : @"",
-        @"format" : @"json"
+        @"action": @"query",
+        @"prop": @"revisions",
+        @"rvprop": @"content",
+        @"rvlimit": @1,
+        @"rvsection": self.section.index ? self.section.index : @"0",
+        @"titles": [self.section sourceURL].wmf_title,
+        @"meta": @"userinfo", // we need the local user ID for event logging
+        @"continue": @"",
+        @"format": @"json"
     };
 }
 

@@ -17,9 +17,9 @@
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
     self.collectionView.dataSource = self;
 
-    self.data = @[ @[ @"0-0", @"0-1", @"0-2" ],
-                   @[ @"1-0", @"1-1" ],
-                   @[ @"2-0" ] ];
+    self.data = @[@[@"0-0", @"0-1", @"0-2"],
+                  @[@"1-0", @"1-1"],
+                  @[@"2-0"]];
 }
 
 - (void)tearDown {

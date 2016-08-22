@@ -10,7 +10,6 @@
 
 @import WMFKit;
 
-
 @interface WMFWelcomeLanguageViewController () <WMFLanguagesViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *languageTableView;
@@ -117,7 +116,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         MWKLanguageLink *langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
         [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
-        [tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self updateDeleteButtonsVisibility];
 
         [self useFirstPreferredLanguageAsSearchLanguage];

@@ -18,7 +18,7 @@
 }
 
 - (void)testFindsCorrectObject {
-    NSArray *testArray = @[ @"foo", @"bar", @"baz" ];
+    NSArray *testArray = @[@"foo", @"bar", @"baz"];
     for (id element in testArray) {
         NSPredicate *isElement = [NSPredicate predicateWithBlock:^BOOL(id obj, NSDictionary *bindings) {
             return [obj isEqual:element];
@@ -28,7 +28,7 @@
 }
 
 - (void)testFalsePredicate {
-    assertThat(([@[ @1, @2, @3 ] wmf_firstMatchForPredicate:[NSPredicate predicateWithValue:NO]]), is(nilValue()));
+    assertThat(([@[@1, @2, @3] wmf_firstMatchForPredicate:[NSPredicate predicateWithValue:NO]]), is(nilValue()));
 }
 
 - (void)testPerformance {

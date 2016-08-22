@@ -15,7 +15,7 @@ NSString *const WMFFailingDictionaryUserInfoKey = @"WMFFailingDictionaryUserInfo
         return [NSError errorWithDomain:WMFInvalidValueForKeyErrorDomain
                                    code:code
                                userInfo:@{
-                                   WMFFailingDictionaryUserInfoKey : self
+                                   WMFFailingDictionaryUserInfoKey: self
                                }];
     };
     id value = self[key];

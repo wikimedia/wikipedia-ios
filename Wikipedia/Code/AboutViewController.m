@@ -49,7 +49,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
 
 - (void)wmf_setInnerHTML:(NSString *)html ofElementId:(NSString *)elementId {
     // Valid JSON object needs to be an array or dictionary.
-    NSArray *arrayForEncoding = @[ html ];
+    NSArray *arrayForEncoding = @[html];
     // Rely on NSJSONSerialization for string escaping: http://stackoverflow.com/a/13569786
     NSString *jsonString = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:arrayForEncoding options:0 error:nil] encoding:NSUTF8StringEncoding];
     NSString *escapedString = [jsonString substringWithRange:NSMakeRange(2, jsonString.length - 4)];
@@ -262,7 +262,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
         VTAcknowledgementsViewController *vc = [VTAcknowledgementsViewController acknowledgementsViewController];
         vc.headerText = [MWLocalizedString(@"about-libraries-licenses-title", nil) stringByReplacingOccurrencesOfString:@"$1" withString:@"💖"];
 
-        vc.acknowledgements = [vc.acknowledgements arrayByAddingObjectsFromArray:@[ [[TharlonFontAcknowledgement alloc] init] ]];
+        vc.acknowledgements = [vc.acknowledgements arrayByAddingObjectsFromArray:@[[[TharlonFontAcknowledgement alloc] init]]];
 
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];

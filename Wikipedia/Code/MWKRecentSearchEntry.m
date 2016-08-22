@@ -61,8 +61,8 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKRecentSearchEntry, isEqualToRecentSearch:)
 
 - (id)dataExport {
     return @{
-        @"url" : [self.url absoluteString],
-        @"searchTerm" : self.searchTerm
+        @"url": [self.url absoluteString],
+        @"searchTerm": self.searchTerm
     };
 }
 

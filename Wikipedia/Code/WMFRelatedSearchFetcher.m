@@ -113,19 +113,19 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
     NSNumber *numResults = @(params.numberOfResults);
     NSMutableDictionary *baseParams = [NSMutableDictionary wmf_titlePreviewRequestParameters];
     [baseParams setValuesForKeysWithDictionary:@{
-        @"generator" : @"search",
+        @"generator": @"search",
         // search
-        @"gsrsearch" : [NSString stringWithFormat:@"morelike:%@", params.articleURL.wmf_title],
-        @"gsrnamespace" : @0,
-        @"gsrwhat" : @"text",
-        @"gsrinfo" : @"",
-        @"gsrprop" : @"redirecttitle",
-        @"gsroffset" : @0,
-        @"gsrlimit" : numResults,
+        @"gsrsearch": [NSString stringWithFormat:@"morelike:%@", params.articleURL.wmf_title],
+        @"gsrnamespace": @0,
+        @"gsrwhat": @"text",
+        @"gsrinfo": @"",
+        @"gsrprop": @"redirecttitle",
+        @"gsroffset": @0,
+        @"gsrlimit": numResults,
         // extracts
-        @"exlimit" : numResults,
+        @"exlimit": numResults,
         // pageimage
-        @"pilimit" : numResults,
+        @"pilimit": numResults,
     }];
     return baseParams;
 }

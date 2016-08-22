@@ -28,9 +28,9 @@
 - (AnyPromise *)fetchZeroMessageForSiteURL:(NSURL *)siteURL {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
-            @"action" : @"zeroconfig",
-            @"type" : @"message",
-            @"agent" : [WikipediaAppUtils versionedUserAgent]
+            @"action": @"zeroconfig",
+            @"type": @"message",
+            @"agent": [WikipediaAppUtils versionedUserAgent]
         }];
         if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
             params[@"X-CS"] = @"TEST";

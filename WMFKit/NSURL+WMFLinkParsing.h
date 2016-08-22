@@ -220,7 +220,6 @@ extern NSString *const WMFDefaultSiteDomain;
  */
 @property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
 
-
 @end
 
 NS_ASSUME_NONNULL_END

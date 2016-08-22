@@ -62,12 +62,12 @@ static NSString *const kInitMustUseSpecificInitializer = @"Wrong initializer. Us
 }
 
 - (void)logShown {
-    [self log:@{kActionKey : kActionShown}];
+    [self log:@{kActionKey: kActionShown}];
 }
 
 - (void)logClickedAtIndex:(NSUInteger)index {
-    [self log:@{ kActionKey : kActionClicked,
-                 kReadMoreIndexKey : @(index) }];
+    [self log:@{ kActionKey: kActionClicked,
+                 kReadMoreIndexKey: @(index) }];
 }
 
 @end

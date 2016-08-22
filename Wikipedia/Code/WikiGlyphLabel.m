@@ -41,9 +41,9 @@
 
     NSDictionary *attributes =
         @{
-            NSFontAttributeName : [UIFont wmf_glyphFontOfSize:size],
-            NSForegroundColorAttributeName : color,
-            NSBaselineOffsetAttributeName : @(baselineOffset)
+            NSFontAttributeName: [UIFont wmf_glyphFontOfSize:size],
+            NSForegroundColorAttributeName: color,
+            NSBaselineOffsetAttributeName: @(baselineOffset)
         };
 
     self.attributedText =

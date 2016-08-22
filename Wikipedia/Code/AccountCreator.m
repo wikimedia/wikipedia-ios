@@ -64,7 +64,7 @@
 
             // Fake out an error if non-dictionary response received.
             if (![responseObject isDict]) {
-                responseObject = @{ @"error" : @{@"info" : @"Account creation data not found."} };
+                responseObject = @{ @"error": @{@"info": @"Account creation data not found."} };
             }
 
             //NSLog(@"ACCT CREATION DATA RETRIEVED = %@", responseObject);
@@ -114,13 +114,13 @@
 - (NSMutableDictionary *)getAuthManagerParams {
     NSMutableDictionary *params =
         @{
-            @"action" : @"createaccount",
-            @"username" : self.userName,
-            @"password" : self.password,
-            @"retype" : self.password,
-            @"createreturnurl" : @"https://www.wikipedia.org",
-            @"email" : self.email,
-            @"format" : @"json"
+            @"action": @"createaccount",
+            @"username": self.userName,
+            @"password": self.password,
+            @"retype": self.password,
+            @"createreturnurl": @"https://www.wikipedia.org",
+            @"email": self.email,
+            @"format": @"json"
         }.mutableCopy;
 
     if (self.token && self.token.length > 0) {

@@ -60,8 +60,8 @@
     self.attributedText =
         [[NSAttributedString alloc] initWithString:text
                                         attributes:@{
-                                            NSFontAttributeName : font,
-                                            NSForegroundColorAttributeName : self.color
+                                            NSFontAttributeName: font,
+                                            NSForegroundColorAttributeName: self.color
                                         }];
 }
 

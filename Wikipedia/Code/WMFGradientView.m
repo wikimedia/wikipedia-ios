@@ -5,7 +5,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self.gradientLayer setLocations:@[ @0, @1 ]];
+        [self.gradientLayer setLocations:@[@0, @1]];
     }
     return self;
 }
@@ -15,8 +15,8 @@
     _endColor = endColor;
     // HAX: need to provide clearColor defaults since IB might pass nil by setting
     // start/end separately
-    [self.gradientLayer setColors:@[ (id)startColor.CGColor ?: [UIColor clearColor],
-                                     (id)endColor.CGColor ?: [UIColor clearColor] ]];
+    [self.gradientLayer setColors:@[(id)startColor.CGColor ?: [UIColor clearColor],
+                                    (id)endColor.CGColor ?: [UIColor clearColor]]];
 }
 
 - (void)setStartColor:(UIColor *)startColor {

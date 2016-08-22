@@ -49,7 +49,7 @@
                                       ascending:YES];
 
     assertThat(searchResults.results,
-               is(equalTo([searchResults.results sortedArrayUsingDescriptors:@[ indexSortDescriptor ]])));
+               is(equalTo([searchResults.results sortedArrayUsingDescriptors:@[indexSortDescriptor]])));
 
     assertThat(searchResults.searchSuggestion, is(nilValue()));
 

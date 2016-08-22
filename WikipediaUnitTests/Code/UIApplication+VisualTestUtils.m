@@ -3,8 +3,8 @@
 @implementation UIApplication (VisualTestUtils)
 
 - (NSString *)wmf_systemVersionAndWritingDirection {
-    return [@[ [[UIDevice currentDevice] systemVersion],
-               [self wmf_userInterfaceLayoutDirectionAsString] ]
+    return [@[[[UIDevice currentDevice] systemVersion],
+              [self wmf_userInterfaceLayoutDirectionAsString]]
         componentsJoinedByString:@"_"];
 }
 

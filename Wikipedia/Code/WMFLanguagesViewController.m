@@ -100,7 +100,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
                                                                    [self dismissViewControllerAnimated:YES
                                                                                             completion:nil];
                                                            }];
-    self.navigationItem.leftBarButtonItems = @[ xButton ];
+    self.navigationItem.leftBarButtonItems = @[xButton];
 
     self.tableView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
 

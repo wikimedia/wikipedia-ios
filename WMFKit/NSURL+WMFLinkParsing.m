@@ -268,5 +268,4 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
     return self.wmf_language == nil;
 }
 
-
 @end

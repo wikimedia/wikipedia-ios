@@ -57,14 +57,14 @@
     }
     NSURL *apiURL = [[SessionSingleton sharedInstance] urlForLanguage:url.wmf_language];
     NSDictionary *params = @{
-        @"action" : @"query",
-        @"prop" : @"langlinks",
-        @"titles" : url.wmf_title,
-        @"lllimit" : @"500",
-        @"llprop" : WMFJoinedPropertyParameters(@[ @"langname", @"autonym" ]),
-        @"llinlanguagecode" : [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode],
-        @"redirects" : @"",
-        @"format" : @"json"
+        @"action": @"query",
+        @"prop": @"langlinks",
+        @"titles": url.wmf_title,
+        @"lllimit": @"500",
+        @"llprop": WMFJoinedPropertyParameters(@[@"langname", @"autonym"]),
+        @"llinlanguagecode": [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode],
+        @"redirects": @"",
+        @"format": @"json"
     };
     [[MWNetworkActivityIndicatorManager sharedManager] push];
     [self.manager GET:apiURL.absoluteString

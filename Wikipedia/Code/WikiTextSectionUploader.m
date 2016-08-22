@@ -62,7 +62,7 @@
 
             // Fake out an error if non-dictionary response received.
             if (![responseObject isDict]) {
-                responseObject = @{ @"error" : @{@"info" : @"WikiText upload data not found."} };
+                responseObject = @{ @"error": @{@"info": @"WikiText upload data not found."} };
             }
 
             //NSLog(@"ACCT CREATION DATA RETRIEVED = %@", responseObject);
@@ -156,13 +156,13 @@
 
     NSMutableDictionary *params =
         @{
-            @"action" : @"edit",
-            @"token" : tokenToUse,
-            @"text" : self.wikiText,
-            @"summary" : self.summary,
-            @"section" : self.section,
-            @"title" : self.articleURL.wmf_title,
-            @"format" : @"json"
+            @"action": @"edit",
+            @"token": tokenToUse,
+            @"text": self.wikiText,
+            @"summary": self.summary,
+            @"section": self.section,
+            @"title": self.articleURL.wmf_title,
+            @"format": @"json"
         }.mutableCopy;
 
     if (self.captchaWord) {

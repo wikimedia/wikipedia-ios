@@ -341,7 +341,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     if (obj == nil) {
         @throw [NSException exceptionWithName:@"MWKDataObjectException"
                                        reason:@"missing required protection status field"
-                                     userInfo:@{ @"key" : key }];
+                                     userInfo:@{ @"key": key }];
     } else {
         return [[MWKProtectionStatus alloc] initWithData:obj];
     }
@@ -357,7 +357,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         if (imageURLString != nil) {
             NSURL *imageURL = [NSURL URLWithString:imageURLString];
             if (imageURL != nil) {
-                imageURLs = @[ imageURL ];
+                imageURLs = @[imageURL];
             }
         }
     }

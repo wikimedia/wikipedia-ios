@@ -35,8 +35,8 @@ NSArray *rtlLanguages;
 
 + (NSArray *)rtlLanguages {
     if (rtlLanguages == nil) {
-        rtlLanguages = @[ @"arc", @"arz", @"ar", @"bcc", @"bqi", @"ckb", @"dv", @"fa", @"glk", @"ha", @"he",
-                          @"khw", @"ks", @"mzn", @"pnb", @"ps", @"sd", @"ug", @"ur", @"yi" ];
+        rtlLanguages = @[@"arc", @"arz", @"ar", @"bcc", @"bqi", @"ckb", @"dv", @"fa", @"glk", @"ha", @"he",
+                         @"khw", @"ks", @"mzn", @"pnb", @"ps", @"sd", @"ug", @"ur", @"yi"];
     }
     return rtlLanguages;
 }

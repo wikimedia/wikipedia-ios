@@ -17,17 +17,17 @@
     // Put setup code here. This method is called before the invocation of each test method in the class.
 
     self.largeOrangeText = @{
-        NSFontAttributeName : [UIFont fontWithName:@"Georgia" size:20],
-        NSForegroundColorAttributeName : [UIColor orangeColor]
+        NSFontAttributeName: [UIFont fontWithName:@"Georgia" size:20],
+        NSForegroundColorAttributeName: [UIColor orangeColor]
     };
     self.smallGreenText = @{
-        NSFontAttributeName : [UIFont boldSystemFontOfSize:8],
-        NSForegroundColorAttributeName : [UIColor greenColor]
+        NSFontAttributeName: [UIFont boldSystemFontOfSize:8],
+        NSForegroundColorAttributeName: [UIColor greenColor]
     };
     self.mediumBlueText = @{
-        NSFontAttributeName : [UIFont systemFontOfSize:14],
-        NSForegroundColorAttributeName : [UIColor blueColor],
-        NSStrikethroughStyleAttributeName : @YES
+        NSFontAttributeName: [UIFont systemFontOfSize:14],
+        NSForegroundColorAttributeName: [UIColor blueColor],
+        NSStrikethroughStyleAttributeName: @YES
     };
 }
 
@@ -42,8 +42,8 @@
     NSAttributedString *complexAttributedString1 =
         [@"Large orange text and some $1 and $2 text. More $1 text."
             attributedStringWithAttributes:self.largeOrangeText
-                       substitutionStrings:@[ @"small green", @"medium blue" ]
-                    substitutionAttributes:@[ self.smallGreenText, self.mediumBlueText ]];
+                       substitutionStrings:@[@"small green", @"medium blue"]
+                    substitutionAttributes:@[self.smallGreenText, self.mediumBlueText]];
 
     // Now create identical complex attributed string (complexAttributedString2) using standard methods:
     NSMutableAttributedString *complexAttributedString2 = [[NSMutableAttributedString alloc] init];
@@ -67,8 +67,8 @@
         for (NSInteger i = 0; i < 10000; i++) {
             [@"Large orange text and some $1 and $2 text. More $1 text."
                 attributedStringWithAttributes:self.largeOrangeText
-                           substitutionStrings:@[ @"small green", @"medium blue" ]
-                        substitutionAttributes:@[ self.smallGreenText, self.mediumBlueText ]];
+                           substitutionStrings:@[@"small green", @"medium blue"]
+                        substitutionAttributes:@[self.smallGreenText, self.mediumBlueText]];
         }
     }];
 }

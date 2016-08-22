@@ -39,10 +39,10 @@
 - (void)reset {
     // Load a fake blank set of data.
     self.payload = @{
-        @"linkId" : @[ @"fake_refs_id" ],
-        @"linkText" : @[ @"" ],
-        @"refs" : @[ @"" ],
-        @"refsIndex" : @(0)
+        @"linkId": @[@"fake_refs_id"],
+        @"linkText": @[@""],
+        @"refs": @[@""],
+        @"refsIndex": @(0)
     };
 }
 
@@ -51,7 +51,7 @@
     // Do any additional setup after loading the view.
 
     self.panelHeight = 0;
-    self.refs = @[ @"" ];
+    self.refs = @[@""];
     self.linkIds = @[];
     self.linkText = @[];
     self.refsIndex = 0;
@@ -90,7 +90,7 @@
     ReferenceVC *initialVC = [self viewControllerAtIndex:0];
 
     if (initialVC) {
-        [self setViewControllers:@[ initialVC ]
+        [self setViewControllers:@[initialVC]
                        direction:UIPageViewControllerNavigationDirectionForward
                         animated:NO
                       completion:nil];
@@ -183,18 +183,18 @@
 
 - (void)setupConstraints {
     NSDictionary *views = @{
-        @"xButton" : self.xButton,
-        @"topPageControl" : self.topPageControl,
-        @"topContainerView" : self.topContainerView,
-        @"nextButton" : self.nextButton,
-        @"prevButton" : self.prevButton
+        @"xButton": self.xButton,
+        @"topPageControl": self.topPageControl,
+        @"topContainerView": self.topContainerView,
+        @"nextButton": self.nextButton,
+        @"prevButton": self.prevButton
     };
 
     NSDictionary *metrics = @{
-        @"topItemsHeight" : @50,
-        @"vPadding" : @7,
-        @"hPadding" : @14,
-        @"xWidth" : @50
+        @"topItemsHeight": @50,
+        @"vPadding": @7,
+        @"hPadding": @14,
+        @"xWidth": @50
     };
 
     [self.topContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[xButton(xWidth)]"
@@ -242,12 +242,12 @@
                                                                       metrics:metrics
                                                                         views:views]];
 
-    [self adjustConstraintsScaleForViews:@[ self.xButton, self.nextButton, self.prevButton, self.topContainerView, self.topPageControl ]];
+    [self adjustConstraintsScaleForViews:@[self.xButton, self.nextButton, self.prevButton, self.topContainerView, self.topPageControl]];
 }
 
 - (NSArray *)refs {
     if (!_refs || (_refs.count == 0)) {
-        return @[ @"" ];
+        return @[@""];
     }
     return self.payload[@"refs"];
 }
@@ -275,10 +275,10 @@
         if (a.count > 0) {
             NSNumber *n = payload[@"refsIndex"];
             payload = @{
-                @"linkId" : [[payload[@"linkId"] reverseObjectEnumerator] allObjects],
-                @"linkText" : [[payload[@"linkText"] reverseObjectEnumerator] allObjects],
-                @"refs" : [[payload[@"refs"] reverseObjectEnumerator] allObjects],
-                @"refsIndex" : @((a.count - 1) - n.integerValue)
+                @"linkId": [[payload[@"linkId"] reverseObjectEnumerator] allObjects],
+                @"linkText": [[payload[@"linkText"] reverseObjectEnumerator] allObjects],
+                @"refs": [[payload[@"refs"] reverseObjectEnumerator] allObjects],
+                @"refsIndex": @((a.count - 1) - n.integerValue)
             };
         }
     }
@@ -329,7 +329,7 @@
         shouldAnimate = NO;
     }
 
-    [self setViewControllers:@[ [self viewControllerAtIndex:self.refsIndex] ]
+    [self setViewControllers:@[[self viewControllerAtIndex:self.refsIndex]]
                    direction:dir
                     animated:shouldAnimate
                   completion:nil];
@@ -447,7 +447,7 @@
                                                       : UIPageViewControllerNavigationDirectionReverse;
 
     if (nextVC) {
-        [self setViewControllers:@[ nextVC ]
+        [self setViewControllers:@[nextVC]
                        direction:dir
                         animated:YES
                       completion:nil];
@@ -466,7 +466,7 @@
                                                           ? UIPageViewControllerNavigationDirectionForward
                                                           : UIPageViewControllerNavigationDirectionReverse;
 
-        [self setViewControllers:@[ [self viewControllerAtIndex:(--self.topPageControl.currentPage)] ]
+        [self setViewControllers:@[[self viewControllerAtIndex:(--self.topPageControl.currentPage)]]
                        direction:dir
                         animated:YES
                       completion:nil];
@@ -485,7 +485,7 @@
                                                           ? UIPageViewControllerNavigationDirectionReverse
                                                           : UIPageViewControllerNavigationDirectionForward;
 
-        [self setViewControllers:@[ [self viewControllerAtIndex:(++self.topPageControl.currentPage)] ]
+        [self setViewControllers:@[[self viewControllerAtIndex:(++self.topPageControl.currentPage)]]
                        direction:dir
                         animated:YES
                       completion:nil];

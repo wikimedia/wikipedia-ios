@@ -59,7 +59,7 @@
     // Convert the raw NSData response to a dictionary.
     if (![self isDataResponseValid:responseObject]) {
         // Fake out an error if bad response received.
-        output = @{ @"error" : @{@"info" : @"Dictionary data not found."} };
+        output = @{ @"error": @{@"info": @"Dictionary data not found."} };
     } else {
         // Should be able to proceed with dictionary conversion.
         NSError *jsonError = nil;

@@ -28,7 +28,7 @@
         // The key didn't exist, so add the key/value pair.
         NSURLQueryItem *newItem = [[NSURLQueryItem alloc] initWithName:key value:value];
         if (newItem) {
-            NSArray *newItemArray = @[ newItem ];
+            NSArray *newItemArray = @[newItem];
             if (components.queryItems) {
                 components.queryItems = [components.queryItems arrayByAddingObjectsFromArray:newItemArray];
             } else {

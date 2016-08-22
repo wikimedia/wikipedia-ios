@@ -120,13 +120,13 @@ NS_ASSUME_NONNULL_BEGIN
         switch (rowChange.type) {
             case YapDatabaseViewChangeDelete: {
                 if ([self.delegate respondsToSelector:@selector(dataSource:didDeleteRowsAtIndexPaths:)]) {
-                    [self.delegate dataSource:self didDeleteRowsAtIndexPaths:@[ rowChange.indexPath ]];
+                    [self.delegate dataSource:self didDeleteRowsAtIndexPaths:@[rowChange.indexPath]];
                 }
                 break;
             }
             case YapDatabaseViewChangeInsert: {
                 if ([self.delegate respondsToSelector:@selector(dataSource:didInsertRowsAtIndexPaths:)]) {
-                    [self.delegate dataSource:self didInsertRowsAtIndexPaths:@[ rowChange.newIndexPath ]];
+                    [self.delegate dataSource:self didInsertRowsAtIndexPaths:@[rowChange.newIndexPath]];
                 }
                 break;
             }
@@ -138,7 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
             case YapDatabaseViewChangeUpdate: {
                 if ([self.delegate respondsToSelector:@selector(dataSource:didUpdateRowsAtIndexPaths:)]) {
-                    [self.delegate dataSource:self didUpdateRowsAtIndexPaths:@[ rowChange.indexPath ]];
+                    [self.delegate dataSource:self didUpdateRowsAtIndexPaths:@[rowChange.indexPath]];
                 }
                 break;
             }

@@ -105,13 +105,15 @@ static NSString *const pListFileName = @"Recent.plist";
 
 - (void)showDeleteAllDialog {
     UIAlertController *dialog = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"search-recent-clear-confirmation-heading", nil) message:MWLocalizedString(@"search-recent-clear-confirmation-sub-heading", nil) preferredStyle:UIAlertControllerStyleAlert];
-    
+
     [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"search-recent-clear-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
-    
-    [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"search-recent-clear-delete-all", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self deleteAllRecentSearchItems];
-    }]];
-    
+
+    [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"search-recent-clear-delete-all", nil)
+                                               style:UIAlertActionStyleDestructive
+                                             handler:^(UIAlertAction *_Nonnull action) {
+                                                 [self deleteAllRecentSearchItems];
+                                             }]];
+
     [self presentViewController:dialog animated:YES completion:NULL];
 }
 
@@ -151,7 +153,7 @@ static NSString *const pListFileName = @"Recent.plist";
         [self removeEntry:[self.recentSearches entryAtIndex:indexPath.row]];
 
         // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [self updateTrashButtonEnabledState];
         [self updateHeaderVisibility];
     }

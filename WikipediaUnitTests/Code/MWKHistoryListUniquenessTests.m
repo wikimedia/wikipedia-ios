@@ -118,7 +118,7 @@
     MWKHistoryEntry *entry1 = [historyList addPageToHistoryWithURL:titleURLSFEn];
     MWKHistoryEntry *entry2 = [historyList addPageToHistoryWithURL:titleURLLAEn];
     XCTAssertTrue([[entry2.dateViewed laterDate:entry1.dateViewed] isEqualToDate:entry2.dateViewed],
-             @"Test assumes new entries are created w/ the current date.");
+                  @"Test assumes new entries are created w/ the current date.");
 
     __block XCTestExpectation *expectation = [self expectationWithDescription:@"Should resolve"];
 

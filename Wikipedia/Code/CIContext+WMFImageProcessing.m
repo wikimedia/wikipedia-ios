@@ -5,7 +5,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSDictionary *options = @{
-            kCIContextPriorityRequestLow : @YES
+            kCIContextPriorityRequestLow: @YES
         };
         sharedContext = [CIContext contextWithOptions:options];
     });

@@ -43,7 +43,7 @@
 
 - (AnyPromise *)fetchGalleryInfoForImage:(NSString *)canonicalPageTitle fromSiteURL:(NSURL *)siteURL {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        [self fetchGalleryInfoForImageFiles:@[ canonicalPageTitle ]
+        [self fetchGalleryInfoForImageFiles:@[canonicalPageTitle]
                                 fromSiteURL:siteURL
                                     success:^(NSArray *infoObjects) {
                                         resolve(infoObjects.firstObject);
@@ -109,15 +109,15 @@
     NSParameterAssert(siteURL);
 
     NSMutableDictionary *params =
-        [@{ @"format" : @"json",
-            @"action" : @"query",
-            @"titles" : WMFJoinedPropertyParameters(titles),
+        [@{ @"format": @"json",
+            @"action": @"query",
+            @"titles": WMFJoinedPropertyParameters(titles),
             // suppress continue warning
-            @"rawcontinue" : @"",
-            @"prop" : @"imageinfo",
-            @"iiprop" : WMFJoinedPropertyParameters(@[ @"url", @"extmetadata", @"dimensions" ]),
-            @"iiextmetadatafilter" : WMFJoinedPropertyParameters(extMetadataKeys),
-            @"iiurlwidth" : thumbnailWidth } mutableCopy];
+            @"rawcontinue": @"",
+            @"prop": @"imageinfo",
+            @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
+            @"iiextmetadatafilter": WMFJoinedPropertyParameters(extMetadataKeys),
+            @"iiurlwidth": thumbnailWidth } mutableCopy];
 
     if (useGenerator) {
         params[@"generator"] = @"images";

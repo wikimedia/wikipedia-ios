@@ -37,10 +37,10 @@
     NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain];
 
     NSDictionary *params = @{
-        @"action" : @"query",
-        @"meta" : @"tokens",
-        @"type" : @"login",
-        @"format" : @"json"
+        @"action": @"query",
+        @"meta": @"tokens",
+        @"type": @"login",
+        @"format": @"json"
     };
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];

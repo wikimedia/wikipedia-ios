@@ -41,8 +41,8 @@ static NSString *const WMFRevisionQueryResultsErrorDomain = @"WMFRevisionQueryRe
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMF_SAFE_KEYPATH([WMFRevisionQueryResults new], titleText) : @"title",
-              WMF_SAFE_KEYPATH([WMFRevisionQueryResults new], revisions) : @"revisions" };
+    return @{ WMF_SAFE_KEYPATH([WMFRevisionQueryResults new], titleText): @"title",
+              WMF_SAFE_KEYPATH([WMFRevisionQueryResults new], revisions): @"revisions" };
 }
 
 @end

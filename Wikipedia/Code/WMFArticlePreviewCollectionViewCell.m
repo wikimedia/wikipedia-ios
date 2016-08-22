@@ -128,9 +128,9 @@
         pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
         pStyle.baseWritingDirection = NSWritingDirectionNatural;
         pStyle.lineHeightMultiple = 1.35;
-        attributes = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0],
-                       NSForegroundColorAttributeName : [UIColor darkGrayColor],
-                       NSParagraphStyleAttributeName : pStyle};
+        attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0],
+                       NSForegroundColorAttributeName: [UIColor darkGrayColor],
+                       NSParagraphStyleAttributeName: pStyle};
     });
     return attributes;
 }

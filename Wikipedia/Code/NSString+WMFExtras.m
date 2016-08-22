@@ -26,7 +26,7 @@
         [URLQueryAllowedCharacterSet removeCharactersInString:@";/?:@&=$+{}<>,"];
         wmf_UTF8StringAllowedCharacterSet = [URLQueryAllowedCharacterSet copy];
     });
-    return wmf_UTF8StringAllowedCharacterSet; 
+    return wmf_UTF8StringAllowedCharacterSet;
 }
 
 - (NSString *)wmf_UTF8StringWithPercentEscapes {

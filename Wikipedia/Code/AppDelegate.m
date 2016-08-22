@@ -25,16 +25,16 @@
      * Register default application preferences.
      * @note This must be loaded before application launch so unit tests can run
      */
-    NSString* defaultLanguage = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+    NSString *defaultLanguage = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
     [[NSUserDefaults wmf_userDefaults] registerDefaults:@{
-         @"CurrentArticleDomain": defaultLanguage,
-         @"Domain": defaultLanguage,
-         ZeroWarnWhenLeaving: @YES,
-         ZeroOnDialogShownOnce: @NO,
-         @"LastHousekeepingDate": [NSDate date],
-         @"SendUsageReports": @NO,
-         @"AccessSavedPagesMessageShown": @NO
-     }];
+        @"CurrentArticleDomain": defaultLanguage,
+        @"Domain": defaultLanguage,
+        ZeroWarnWhenLeaving: @YES,
+        ZeroOnDialogShownOnce: @NO,
+        @"LastHousekeepingDate": [NSDate date],
+        @"SendUsageReports": @NO,
+        @"AccessSavedPagesMessageShown": @NO
+    }];
 }
 
 #pragma mark - Accessors
@@ -84,7 +84,7 @@
     NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
           [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]);
 #endif
-    
+
     [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
     [PiwikTracker wmf_start];

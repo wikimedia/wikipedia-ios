@@ -53,7 +53,7 @@ NSString *const WMFAccountLoginErrorDomain = @"WMFAccountLoginErrorDomain";
 
             // Fake out an error if non-dictionary response received.
             if (![responseObject isDict]) {
-                responseObject = @{ @"error" : @{@"info" : @"Account login info not found."} };
+                responseObject = @{ @"error": @{@"info": @"Account login info not found."} };
             }
 
             NSError *error = nil;
@@ -83,11 +83,11 @@ NSString *const WMFAccountLoginErrorDomain = @"WMFAccountLoginErrorDomain";
 - (NSMutableDictionary *)getAuthManagerParams {
     NSMutableDictionary *params =
         @{
-            @"action" : @"clientlogin",
-            @"username" : self.userName,
-            @"password" : self.password,
-            @"loginreturnurl" : @"https://www.wikipedia.org",
-            @"format" : @"json"
+            @"action": @"clientlogin",
+            @"username": self.userName,
+            @"password": self.password,
+            @"loginreturnurl": @"https://www.wikipedia.org",
+            @"format": @"json"
         }.mutableCopy;
 
     if (self.token) {
@@ -132,7 +132,7 @@ NSString *const WMFAccountLoginErrorDomain = @"WMFAccountLoginErrorDomain";
         errorType = LOGIN_ERROR_BLOCKED;
     }
 
-    return [NSError errorWithDomain:WMFAccountLoginErrorDomain code:errorType userInfo:@{NSLocalizedDescriptionKey : errorMessage}];
+    return [NSError errorWithDomain:WMFAccountLoginErrorDomain code:errorType userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
 }
 
 /*

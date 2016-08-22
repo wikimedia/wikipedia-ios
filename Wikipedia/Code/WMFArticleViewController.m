@@ -62,7 +62,6 @@
 #import "WMFImageInfoController.h"
 @import WMFKit;
 
-
 @import SafariServices;
 
 @import JavaScriptCore;
@@ -410,24 +409,24 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             break;
     }
 
-    NSArray *itemGroups = @[ @[ [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing],
-                                self.languagesToolbarItem,
-                                [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing] ],
+    NSArray *itemGroups = @[@[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing],
+                              self.languagesToolbarItem,
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing]],
 
-                             @[ [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
-                                self.saveToolbarItem,
-                                [UIBarButtonItem wmf_barButtonItemOfFixedWidth:4 + spacing] ],
+                            @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
+                              self.saveToolbarItem,
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:4 + spacing]],
 
-                             @[ [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
-                                self.shareToolbarItem,
-                                [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing] ],
+                            @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
+                              self.shareToolbarItem,
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing]],
 
-                             @[ [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing],
-                                self.fontSizeToolbarItem,
-                                [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing] ],
+                            @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing],
+                              self.fontSizeToolbarItem,
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing]],
 
-                             @[ [UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
-                                self.findInPageToolbarItem ] ];
+                            @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
+                              self.findInPageToolbarItem]];
 
     for (NSArray *itemGroup in itemGroups) {
         switch (self.tableOfContentsDisplayMode) {
@@ -1254,7 +1253,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [items addObject:url];
     }
 
-    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[ [[TUSafariActivity alloc] init] ]];
+    UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
     UIPopoverPresentationController *presenter = [vc popoverPresentationController];
     presenter.barButtonItem = button;
 
@@ -1308,7 +1307,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (NSArray<NSNumber *> *)fontSizeMultipliers {
-    return @[ @70, @85, @100, @115, @130, @145, @160 ];
+    return @[@70, @85, @100, @115, @130, @145, @160];
 
     //    return @[@(FBTweakValue(@"Article", @"Font Size", @"Step 1", 70)),
     //             @(FBTweakValue(@"Article", @"Font Size", @"Step 2", 85)),

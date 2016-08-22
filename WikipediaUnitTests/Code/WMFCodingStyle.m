@@ -55,15 +55,15 @@ extern void WMFMultilineFunctionDeclaration(int arg1,
 }
 
 - (NSArray *)multiLineArrayExample {
-    return @[ @0,
-              @1,
-              @2,
-              @3 ];
+    return @[@0,
+             @1,
+             @2,
+             @3];
 }
 
 - (NSDictionary *)multiLineDictionaryExample {
-    return @{ @"foo" : @0,
-              @"bar" : @1 };
+    return @{ @"foo": @0,
+              @"bar": @1 };
 }
 
 - (void)simpleBlockExample {

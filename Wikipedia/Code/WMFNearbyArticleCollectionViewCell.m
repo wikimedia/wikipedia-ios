@@ -138,8 +138,8 @@
 
     return [[NSAttributedString alloc] initWithString:self.titleText
                                            attributes:@{
-                                               NSFontAttributeName : [UIFont wmf_nearbyTitleFont],
-                                               NSForegroundColorAttributeName : [UIColor wmf_nearbyTitleColor]
+                                               NSFontAttributeName: [UIFont wmf_nearbyTitleFont],
+                                               NSForegroundColorAttributeName: [UIColor wmf_nearbyTitleColor]
                                            }];
 }
 
@@ -153,9 +153,9 @@
 
     return [[NSAttributedString alloc] initWithString:self.descriptionText
                                            attributes:@{
-                                               NSFontAttributeName : [UIFont wmf_subtitle],
-                                               NSForegroundColorAttributeName : [UIColor wmf_customGray],
-                                               NSParagraphStyleAttributeName : paragraphStyle
+                                               NSFontAttributeName: [UIFont wmf_subtitle],
+                                               NSForegroundColorAttributeName: [UIColor wmf_customGray],
+                                               NSParagraphStyleAttributeName: paragraphStyle
                                            }];
 }
 

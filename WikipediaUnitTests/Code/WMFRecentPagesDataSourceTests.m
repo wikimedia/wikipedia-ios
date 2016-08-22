@@ -34,7 +34,7 @@
     [self addEntry:entryFromDate];
     [self addEntry:entryFromLaterThatDay];
 
-    return @[ entryFromLaterThatDay, entryFromDate ];
+    return @[entryFromLaterThatDay, entryFromDate];
 }
 
 @end

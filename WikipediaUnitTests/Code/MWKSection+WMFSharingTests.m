@@ -21,8 +21,8 @@
     MWKArticle *article = [[MWKArticle alloc] initWithURL:url dataStore:nil];
     self.section = [[MWKSection alloc] initWithArticle:article
                                                   dict:@{
-                                                      @"id" : @0,
-                                                      @"text" : @"<p>Dog (woof (w00t)) [horse] adequately long string historically 40 characters.</p>"
+                                                      @"id": @0,
+                                                      @"text": @"<p>Dog (woof (w00t)) [horse] adequately long string historically 40 characters.</p>"
                                                   }];
     assertThat([self.section shareSnippet], is(@"Dog adequately long string historically 40 characters."));
 }
@@ -32,8 +32,8 @@
     MWKArticle *article = [[MWKArticle alloc] initWithURL:url dataStore:nil];
     self.section = [[MWKSection alloc] initWithArticle:article
                                                   dict:@{
-                                                      @"id" : @0,
-                                                      @"text" : @"<table><p>Foo</p></table><p>Dog (woof (w00t)) [horse] adequately long string historically 40 characters.</p>"
+                                                      @"id": @0,
+                                                      @"text": @"<table><p>Foo</p></table><p>Dog (woof (w00t)) [horse] adequately long string historically 40 characters.</p>"
                                                   }];
     assertThat([self.section shareSnippet], is(@"Dog adequately long string historically 40 characters."));
 }

@@ -150,14 +150,14 @@ NS_ASSUME_NONNULL_BEGIN
         heading = MWLocalizedString(@"explore-most-read-generic-heading", nil);
     }
 
-    NSDictionary *attributes = @{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderTitleColor]};
+    NSDictionary *attributes = @{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]};
     return [[NSAttributedString alloc] initWithString:heading attributes:attributes];
 }
 
 - (NSAttributedString *)headerSubTitle {
     return [[NSAttributedString alloc]
         initWithString:self.localDateDisplayString
-            attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderTitleColor]}];
+            attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
 - (UIColor *)headerIconTintColor {

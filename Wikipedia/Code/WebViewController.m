@@ -998,7 +998,7 @@ NSString *const WMFCCBySALicenseURL =
 
     UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
                                                           action:@selector(shareMenuItemTapped:)];
-    [UIMenuController sharedMenuController].menuItems = @[ shareSnippet ];
+    [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 
     [self.footerLicenseView setLicenseTextForURL:self.article.url];
 }
@@ -1097,12 +1097,12 @@ NSString *const WMFCCBySALicenseURL =
                                       [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
                                                                               options:0
                                                                               metrics:nil
-                                                                                views:@{ @"view" : self.referencesVC.view }]];
+                                                                                views:@{ @"view": self.referencesVC.view }]];
     [self.referencesContainerView addConstraints:
                                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
                                                                               options:0
                                                                               metrics:nil
-                                                                                views:@{ @"view" : self.referencesVC.view }]];
+                                                                                views:@{ @"view": self.referencesVC.view }]];
 
     [self.referencesVC didMoveToParentViewController:self];
 

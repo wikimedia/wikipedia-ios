@@ -135,7 +135,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
         [transaction setObject:entry forKey:[entry databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return @[ [entry databaseKey] ];
+        return @[[entry databaseKey]];
     }];
 
     return entry;
@@ -169,7 +169,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
         [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
 
-        return @[ [entry databaseKey] ];
+        return @[[entry databaseKey]];
     }];
 
     return entry;
@@ -183,7 +183,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
         MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
         entry.dateSaved = nil;
         [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return @[ [MWKHistoryEntry databaseKeyForURL:url] ];
+        return @[[MWKHistoryEntry databaseKeyForURL:url]];
     }];
 }
 

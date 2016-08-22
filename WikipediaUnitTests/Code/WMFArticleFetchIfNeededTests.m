@@ -8,19 +8,19 @@
 
 static inline id articleRevisionResponseWithRevId(NSUInteger revID) {
     return @{
-        @"batchcomplete" : @YES,
-        @"query" : @{
-            @"pages" : @[
+        @"batchcomplete": @YES,
+        @"query": @{
+            @"pages": @[
                 @{
-                   @"pageid" : @981989,
-                   @"ns" : @0,
-                   @"title" : @"Harry Glicken",
-                   @"revisions" : @[
+                   @"pageid": @981989,
+                   @"ns": @0,
+                   @"title": @"Harry Glicken",
+                   @"revisions": @[
                        @{
-                          @"revid" : @(revID),
-                          @"parentid" : @695972196,
-                          @"minor" : @YES,
-                          @"size" : @22416
+                          @"revid": @(revID),
+                          @"parentid": @695972196,
+                          @"minor": @YES,
+                          @"size": @22416
                        }
                    ]
                 }

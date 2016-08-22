@@ -6,7 +6,6 @@
 #import "Wikipedia-Swift.h"
 @import WMFKit;
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString *const WMFRelatedSectionBlackListFileName = @"WMFRelatedSectionBlackList";
@@ -162,7 +161,7 @@ static NSString *const WMFRelatedSectionBlackListFileExtension = @"plist";
         entry.blackListed = YES;
 
         [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return @[ [MWKHistoryEntry databaseKeyForURL:url] ];
+        return @[[MWKHistoryEntry databaseKeyForURL:url]];
     }];
 
     return entry;
@@ -176,7 +175,7 @@ static NSString *const WMFRelatedSectionBlackListFileExtension = @"plist";
         MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
         entry.blackListed = NO;
         [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return @[ [MWKHistoryEntry databaseKeyForURL:url] ];
+        return @[[MWKHistoryEntry databaseKeyForURL:url]];
     }];
 }
 

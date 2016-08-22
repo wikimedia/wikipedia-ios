@@ -503,9 +503,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (NSAttributedString *)getAttributedStringForSuggestion:(NSString *)suggestion {
     return [MWLocalizedString(@"search-did-you-mean", nil)
-        attributedStringWithAttributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:18] }
-                   substitutionStrings:@[ suggestion ]
-                substitutionAttributes:@[ @{NSFontAttributeName : [UIFont italicSystemFontOfSize:18]} ]];
+        attributedStringWithAttributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:18] }
+                   substitutionStrings:@[suggestion]
+                substitutionAttributes:@[@{NSFontAttributeName: [UIFont italicSystemFontOfSize:18]}]];
 }
 
 #pragma mark - RecentSearches

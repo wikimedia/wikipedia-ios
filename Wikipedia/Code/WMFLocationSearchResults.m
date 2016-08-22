@@ -16,7 +16,7 @@
     if (self) {
         self.searchSiteURL = url;
         self.location = location;
-        self.results = [results sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH([MWKLocationSearchResult new], distanceFromQueryCoordinates) ascending:YES] ]];
+        self.results = [results sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH([MWKLocationSearchResult new], distanceFromQueryCoordinates) ascending:YES]]];
         ;
     }
     return self;

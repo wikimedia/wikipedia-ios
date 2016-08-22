@@ -60,7 +60,7 @@
 
             // Fake out an error if non-dictionary response received.
             if (![responseObject isDict]) {
-                responseObject = @{ @"error" : @{@"info" : @"Edit token not found."} };
+                responseObject = @{ @"error": @{@"info": @"Edit token not found."} };
             }
 
             //NSLog(@"EDIT TOKEN DATA RETRIEVED = %@", responseObject);
@@ -97,9 +97,9 @@
 
 - (NSMutableDictionary *)getParams {
     return @{
-        @"action" : @"query",
-        @"meta" : @"tokens",
-        @"format" : @"json"
+        @"action": @"query",
+        @"meta": @"tokens",
+        @"format": @"json"
     }.mutableCopy;
 }
 
@@ -111,7 +111,7 @@
             if ([tokens isDict]) {
                 NSString *token = tokens[@"csrftoken"];
                 if (token) {
-                    return @{ @"token" : token };
+                    return @{ @"token": token };
                 }
             }
         }

@@ -120,16 +120,16 @@
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle) : @"title",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID) : @"pageid",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, revID) : @"revisions",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, thumbnailURL) : @"thumbnail.source",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription) : @"terms.description",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, extract) : @"extract",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, index) : @"index",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation) : @[ @"pageprops.disambiguation", @"terms.description" ],
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, isList) : @"terms.description",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, titleNamespace) : @"ns" };
+    return @{ WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @"title",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID): @"pageid",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, revID): @"revisions",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, thumbnailURL): @"thumbnail.source",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"terms.description",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, extract): @"extract",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, index): @"index",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation): @[@"pageprops.disambiguation", @"terms.description"],
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, isList): @"terms.description",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, titleNamespace): @"ns" };
 }
 
 @end

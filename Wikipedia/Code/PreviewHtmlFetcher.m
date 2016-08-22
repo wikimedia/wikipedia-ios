@@ -39,7 +39,7 @@
 
             // Fake out an error if non-dictionary response received.
             if (![responseObject isDict]) {
-                responseObject = @{ @"error" : @{@"info" : @"Preview not found."} };
+                responseObject = @{ @"error": @{@"info": @"Preview not found."} };
             }
 
             //NSLog(@"PREVIEW HTML DATA RETRIEVED = %@", responseObject);
@@ -72,14 +72,14 @@
 
 - (NSDictionary *)getParamsForArticleURL:(NSURL *)articleURL wikiText:(NSString *)wikiText {
     return @{
-        @"action" : @"parse",
-        @"sectionpreview" : @"true",
-        @"pst" : @"true",
-        @"mobileformat" : @"true",
-        @"title" : (articleURL.wmf_title ? articleURL.wmf_title : @""),
-        @"prop" : @"text",
-        @"text" : (wikiText ? wikiText : @""),
-        @"format" : @"json"
+        @"action": @"parse",
+        @"sectionpreview": @"true",
+        @"pst": @"true",
+        @"mobileformat": @"true",
+        @"title": (articleURL.wmf_title ? articleURL.wmf_title : @""),
+        @"prop": @"text",
+        @"text": (wikiText ? wikiText : @""),
+        @"format": @"json"
     }.mutableCopy;
 }
 

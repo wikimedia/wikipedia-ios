@@ -37,10 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchAuthManagerAvailableForSiteURL:(NSURL *)siteURL type:(NSString *)type success:(WMFAuthManagerInfoBlock)success failure:(WMFErrorHandler)failure {
     NSDictionary *params = @{
-        @"action" : @"query",
-        @"meta" : @"authmanagerinfo",
-        @"format" : @"json",
-        @"amirequestsfor" : type
+        @"action": @"query",
+        @"meta": @"authmanagerinfo",
+        @"format": @"json",
+        @"amirequestsfor": type
     };
 
     [self.operationManager wmf_GETAndRetryWithURL:siteURL

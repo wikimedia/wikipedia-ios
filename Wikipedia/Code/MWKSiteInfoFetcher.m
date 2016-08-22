@@ -30,10 +30,10 @@
     NSParameterAssert(siteURL);
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
         NSDictionary *params = @{
-            @"action" : @"query",
-            @"meta" : @"siteinfo",
-            @"format" : @"json",
-            @"siprop" : @"general"
+            @"action": @"query",
+            @"meta": @"siteinfo",
+            @"format": @"json",
+            @"siprop": @"general"
         };
 
         [self.operationManager wmf_GETAndRetryWithURL:siteURL

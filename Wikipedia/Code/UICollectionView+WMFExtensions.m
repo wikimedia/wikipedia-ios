@@ -145,7 +145,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UIView *)wmf_snapshotOfCellAtIndexPath:(NSIndexPath *)indexPath {
-    return [self wmf_snapshotOfCellsAtIndexPaths:@[ indexPath ]];
+    return [self wmf_snapshotOfCellsAtIndexPaths:@[indexPath]];
 }
 
 - (UIView *)wmf_snapshotOfCellsAtIndexPaths:(NSArray *)indexPaths {

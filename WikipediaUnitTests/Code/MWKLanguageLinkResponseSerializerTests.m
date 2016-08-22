@@ -11,9 +11,9 @@
 - (void)testNullHandling {
     MWKLanguageLinkResponseSerializer *serializer = [MWKLanguageLinkResponseSerializer serializer];
     NSDictionary *badResponse = @{
-        @"query" : @{
-            @"pages" : @{
-                @"fakePageId" : @{} //< empty language link object
+        @"query": @{
+            @"pages": @{
+                @"fakePageId": @{} //< empty language link object
             }
         }
     };

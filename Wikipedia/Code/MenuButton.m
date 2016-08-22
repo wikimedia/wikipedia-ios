@@ -83,14 +83,14 @@
     [self.label removeConstraintsOfViewFromView:self];
 
     NSDictionary *metrics = @{
-        @"marginTop" : @(self.margin.top * MENUS_SCALE_MULTIPLIER),
-        @"marginLeft" : @(self.margin.left * MENUS_SCALE_MULTIPLIER),
-        @"marginBottom" : @(self.margin.bottom * MENUS_SCALE_MULTIPLIER),
-        @"marginRight" : @(self.margin.right * MENUS_SCALE_MULTIPLIER)
+        @"marginTop": @(self.margin.top * MENUS_SCALE_MULTIPLIER),
+        @"marginLeft": @(self.margin.left * MENUS_SCALE_MULTIPLIER),
+        @"marginBottom": @(self.margin.bottom * MENUS_SCALE_MULTIPLIER),
+        @"marginRight": @(self.margin.right * MENUS_SCALE_MULTIPLIER)
     };
 
     NSDictionary *views = @{
-        @"label" : self.label
+        @"label": self.label
     };
 
     NSArray *constraintArrays = @[

@@ -25,24 +25,24 @@ static NSURL *dummyURLWithExtension(NSString *extension) {
 
 - (void)testMimeTypeWithPNGExtension {
     NSArray *testURLMimeTypes =
-        [@[ dummyURLWithExtension(@"png"),
-            dummyURLWithExtension(@"PNG") ] valueForKey:WMF_SAFE_KEYPATH(NSURL.new, wmf_mimeTypeForExtension)];
+        [@[dummyURLWithExtension(@"png"),
+           dummyURLWithExtension(@"PNG")] valueForKey:WMF_SAFE_KEYPATH(NSURL.new, wmf_mimeTypeForExtension)];
     assertThat(testURLMimeTypes, everyItem(is(@"image/png")));
 }
 
 - (void)testMimeTypeWithJPEGExtension {
     NSArray *testURLMimeTypes =
-        [@[ dummyURLWithExtension(@"jpg"),
-            dummyURLWithExtension(@"jpeg"),
-            dummyURLWithExtension(@"JPG"),
-            dummyURLWithExtension(@"JPEG") ] valueForKey:WMF_SAFE_KEYPATH(NSURL.new, wmf_mimeTypeForExtension)];
+        [@[dummyURLWithExtension(@"jpg"),
+           dummyURLWithExtension(@"jpeg"),
+           dummyURLWithExtension(@"JPG"),
+           dummyURLWithExtension(@"JPEG")] valueForKey:WMF_SAFE_KEYPATH(NSURL.new, wmf_mimeTypeForExtension)];
     assertThat(testURLMimeTypes, everyItem(is(@"image/jpeg")));
 }
 
 - (void)testMimeTypeWithGIFExtension {
     NSArray *testURLMimeTypes =
-        [@[ dummyURLWithExtension(@"gif"),
-            dummyURLWithExtension(@"GIF") ] valueForKey:WMF_SAFE_KEYPATH(NSURL.new, wmf_mimeTypeForExtension)];
+        [@[dummyURLWithExtension(@"gif"),
+           dummyURLWithExtension(@"GIF")] valueForKey:WMF_SAFE_KEYPATH(NSURL.new, wmf_mimeTypeForExtension)];
     assertThat(testURLMimeTypes, everyItem(is(@"image/gif")));
 }
 

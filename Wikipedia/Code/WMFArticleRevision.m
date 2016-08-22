@@ -21,9 +21,9 @@ static NSString *const WMFArticleRevisionErrorDomain = @"WMFArticleRevisionError
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMFArticleRevisionKey(revisionId) : @"revid",
-              WMFArticleRevisionKey(minorEdit) : @"minor",
-              WMFArticleRevisionKey(sizeInBytes) : @"size" };
+    return @{ WMFArticleRevisionKey(revisionId): @"revid",
+              WMFArticleRevisionKey(minorEdit): @"minor",
+              WMFArticleRevisionKey(sizeInBytes): @"size" };
 }
 
 @end

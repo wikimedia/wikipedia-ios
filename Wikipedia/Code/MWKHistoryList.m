@@ -116,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
         [transaction setObject:entry forKey:[entry databaseKey] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return @[ [entry databaseKey] ];
+        return @[[entry databaseKey]];
     }];
 
     return entry;
@@ -143,7 +143,7 @@ NS_ASSUME_NONNULL_BEGIN
         entry.dateViewed = [NSDate date];
 
         [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return @[ [MWKHistoryEntry databaseKeyForURL:url] ];
+        return @[[MWKHistoryEntry databaseKeyForURL:url]];
     }];
 
     return entry;
@@ -160,7 +160,7 @@ NS_ASSUME_NONNULL_BEGIN
             entry.scrollPosition = scrollposition;
             [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
         }
-        return @[ [MWKHistoryEntry databaseKeyForURL:url] ];
+        return @[[MWKHistoryEntry databaseKeyForURL:url]];
     }];
 }
 
@@ -174,7 +174,7 @@ NS_ASSUME_NONNULL_BEGIN
             entry.titleWasSignificantlyViewed = YES;
             [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
         }
-        return @[ [MWKHistoryEntry databaseKeyForURL:url] ];
+        return @[[MWKHistoryEntry databaseKeyForURL:url]];
     }];
 }
 
@@ -186,7 +186,7 @@ NS_ASSUME_NONNULL_BEGIN
         MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
         entry.dateViewed = nil;
         [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
-        return @[ [MWKHistoryEntry databaseKeyForURL:url] ];
+        return @[[MWKHistoryEntry databaseKeyForURL:url]];
     }];
 }
 

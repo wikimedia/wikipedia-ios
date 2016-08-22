@@ -58,7 +58,7 @@
 
     stubRequest(@"GET", anyRequestFromTestSite)
         .andReturn(200)
-        .withHeaders(@{ @"Content-Type" : @"application/json" })
+        .withHeaders(@{ @"Content-Type": @"application/json" })
         .withBody(json);
 
     __block MWKArticle *firstFetchResult;

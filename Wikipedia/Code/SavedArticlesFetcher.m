@@ -105,7 +105,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         NSURL *url = [NSURL URLWithString:urlString];
         if (url) {
             if ([self.savedPageList isSaved:url]) {
-                [self fetchUncachedArticleURLs:@[ url ]];
+                [self fetchUncachedArticleURLs:@[url]];
             } else {
                 [self cancelFetchForArticleURL:url];
             }
@@ -456,7 +456,7 @@ static NSString *const WMFSavedPageErrorDomain = @"WMFSavedPageErrorDomain";
     return [NSError errorWithDomain:WMFSavedPageErrorDomain
                                code:1
                            userInfo:@{
-                               NSLocalizedDescriptionKey : MWLocalizedString(@"saved-pages-image-download-error", nil)
+                               NSLocalizedDescriptionKey: MWLocalizedString(@"saved-pages-image-download-error", nil)
                            }];
 }
 

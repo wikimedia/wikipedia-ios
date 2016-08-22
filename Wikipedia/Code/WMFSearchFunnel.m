@@ -44,36 +44,36 @@ static NSString *const kSearchResultsCount = @"numberOfResults";
 
 - (void)logSearchStart {
     self.searchSessionToken = nil;
-    [self log:@{ kActionKey : @"start" }];
+    [self log:@{ kActionKey: @"start" }];
 }
 
 - (void)logSearchAutoSwitch {
-    [self log:@{ kActionKey : @"autoswitch" }];
+    [self log:@{ kActionKey: @"autoswitch" }];
 }
 
 - (void)logSearchDidYouMean {
-    [self log:@{ kActionKey : @"didyoumean" }];
+    [self log:@{ kActionKey: @"didyoumean" }];
 }
 
 - (void)logSearchResultTap {
-    [self log:@{ kActionKey : @"click" }];
+    [self log:@{ kActionKey: @"click" }];
 }
 
 - (void)logSearchCancel {
-    [self log:@{ kActionKey : @"cancel" }];
+    [self log:@{ kActionKey: @"cancel" }];
 }
 
 - (void)logSearchResultsWithTypeOfSearch:(WMFSearchType)type resultCount:(NSUInteger)count elapsedTime:(NSTimeInterval)searchTime {
-    [self log:@{ kActionKey : @"results",
-                 kSearchTypeKey : [[self class] stringForSearchType:type],
-                 kSearchResultsCount : @(count),
-                 kSearchTimeKey : @((NSInteger)(searchTime * 1000)) }];
+    [self log:@{ kActionKey: @"results",
+                 kSearchTypeKey: [[self class] stringForSearchType:type],
+                 kSearchResultsCount: @(count),
+                 kSearchTimeKey: @((NSInteger)(searchTime * 1000)) }];
 }
 
 - (void)logShowSearchErrorWithTypeOfSearch:(WMFSearchType)type elapsedTime:(NSTimeInterval)searchTime {
-    [self log:@{ kActionKey : @"error",
-                 kSearchTypeKey : [[self class] stringForSearchType:type],
-                 kSearchTimeKey : @((NSInteger)(searchTime * 1000)) }];
+    [self log:@{ kActionKey: @"error",
+                 kSearchTypeKey: [[self class] stringForSearchType:type],
+                 kSearchTimeKey: @((NSInteger)(searchTime * 1000)) }];
 }
 
 + (NSString *)stringForSearchType:(WMFSearchType)type {

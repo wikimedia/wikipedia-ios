@@ -52,7 +52,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
     topMask.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:topMask];
 
-    NSDictionary *views = @{ @"topMask" : topMask };
+    NSDictionary *views = @{ @"topMask": topMask };
 
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[topMask]|"
                                                                  options:0
@@ -79,11 +79,11 @@ typedef NS_ENUM(NSInteger, ViewType) {
 - (void)setupSubViewData {
     [self.subViewData addObject:
                           @{
-                              @"type" : @(VIEW_TYPE_ICON),
-                              @"string" : ((self.alertType == ABUSE_FILTER_DISALLOW) ? WIKIGLYPH_X : WIKIGLYPH_FLAG),
-                              @"backgroundColor" : ((self.alertType == ABUSE_FILTER_DISALLOW) ? WMF_COLOR_RED : WMF_COLOR_ORANGE),
-                              @"fontColor" : [UIColor whiteColor],
-                              @"baselineOffset" : @((self.alertType == ABUSE_FILTER_DISALLOW) ? 8.4 : 5.5)
+                              @"type": @(VIEW_TYPE_ICON),
+                              @"string": ((self.alertType == ABUSE_FILTER_DISALLOW) ? WIKIGLYPH_X : WIKIGLYPH_FLAG),
+                              @"backgroundColor": ((self.alertType == ABUSE_FILTER_DISALLOW) ? WMF_COLOR_RED : WMF_COLOR_ORANGE),
+                              @"fontColor": [UIColor whiteColor],
+                              @"baselineOffset": @((self.alertType == ABUSE_FILTER_DISALLOW) ? 8.4 : 5.5)
                           }.mutableCopy];
 
     UIColor *grayColor = UIColorFromRGBWithAlpha(0x999999, 1.0);
@@ -94,40 +94,40 @@ typedef NS_ENUM(NSInteger, ViewType) {
             [self.subViewData addObjectsFromArray:
                                   @[
                                      @{
-                                         @"type" : @(VIEW_TYPE_HEADING),
-                                         @"string" : MWLocalizedString(@"abuse-filter-warning-heading", nil),
-                                         @"backgroundColor" : [UIColor whiteColor],
-                                         @"fontColor" : [UIColor darkGrayColor]
+                                         @"type": @(VIEW_TYPE_HEADING),
+                                         @"string": MWLocalizedString(@"abuse-filter-warning-heading", nil),
+                                         @"backgroundColor": [UIColor whiteColor],
+                                         @"fontColor": [UIColor darkGrayColor]
                                      }.mutableCopy,
                                      @{
-                                         @"type" : @(VIEW_TYPE_SUBHEADING),
-                                         @"string" : MWLocalizedString(@"abuse-filter-warning-subheading", nil),
-                                         @"backgroundColor" : [UIColor whiteColor],
-                                         @"fontColor" : grayColor
+                                         @"type": @(VIEW_TYPE_SUBHEADING),
+                                         @"string": MWLocalizedString(@"abuse-filter-warning-subheading", nil),
+                                         @"backgroundColor": [UIColor whiteColor],
+                                         @"fontColor": grayColor
                                      }.mutableCopy,
                                      @{
-                                         @"type" : @(VIEW_TYPE_ITEM),
-                                         @"string" : MWLocalizedString(@"abuse-filter-warning-caps", nil),
-                                         @"backgroundColor" : [UIColor whiteColor],
-                                         @"fontColor" : grayColor
+                                         @"type": @(VIEW_TYPE_ITEM),
+                                         @"string": MWLocalizedString(@"abuse-filter-warning-caps", nil),
+                                         @"backgroundColor": [UIColor whiteColor],
+                                         @"fontColor": grayColor
                                      }.mutableCopy,
                                      @{
-                                         @"type" : @(VIEW_TYPE_ITEM),
-                                         @"string" : MWLocalizedString(@"abuse-filter-warning-blanking", nil),
-                                         @"backgroundColor" : [UIColor whiteColor],
-                                         @"fontColor" : grayColor
+                                         @"type": @(VIEW_TYPE_ITEM),
+                                         @"string": MWLocalizedString(@"abuse-filter-warning-blanking", nil),
+                                         @"backgroundColor": [UIColor whiteColor],
+                                         @"fontColor": grayColor
                                      }.mutableCopy,
                                      @{
-                                         @"type" : @(VIEW_TYPE_ITEM),
-                                         @"string" : MWLocalizedString(@"abuse-filter-warning-irrelevant", nil),
-                                         @"backgroundColor" : [UIColor whiteColor],
-                                         @"fontColor" : grayColor
+                                         @"type": @(VIEW_TYPE_ITEM),
+                                         @"string": MWLocalizedString(@"abuse-filter-warning-irrelevant", nil),
+                                         @"backgroundColor": [UIColor whiteColor],
+                                         @"fontColor": grayColor
                                      }.mutableCopy,
                                      @{
-                                         @"type" : @(VIEW_TYPE_ITEM),
-                                         @"string" : MWLocalizedString(@"abuse-filter-warning-repeat", nil),
-                                         @"backgroundColor" : [UIColor whiteColor],
-                                         @"fontColor" : grayColor
+                                         @"type": @(VIEW_TYPE_ITEM),
+                                         @"string": MWLocalizedString(@"abuse-filter-warning-repeat", nil),
+                                         @"backgroundColor": [UIColor whiteColor],
+                                         @"fontColor": grayColor
                                      }.mutableCopy
                                   ]];
 
@@ -137,22 +137,22 @@ typedef NS_ENUM(NSInteger, ViewType) {
             [self.subViewData addObjectsFromArray:
                                   @[
                                      @{
-                                         @"type" : @(VIEW_TYPE_HEADING),
-                                         @"string" : MWLocalizedString(@"abuse-filter-disallow-heading", nil),
-                                         @"backgroundColor" : [UIColor whiteColor],
-                                         @"fontColor" : [UIColor darkGrayColor]
+                                         @"type": @(VIEW_TYPE_HEADING),
+                                         @"string": MWLocalizedString(@"abuse-filter-disallow-heading", nil),
+                                         @"backgroundColor": [UIColor whiteColor],
+                                         @"fontColor": [UIColor darkGrayColor]
                                      }.mutableCopy,
                                      @{
-                                         @"type" : @(VIEW_TYPE_ITEM),
-                                         @"string" : MWLocalizedString(@"abuse-filter-disallow-unconstructive", nil),
-                                         @"backgroundColor" : [UIColor whiteColor],
-                                         @"fontColor" : grayColor
+                                         @"type": @(VIEW_TYPE_ITEM),
+                                         @"string": MWLocalizedString(@"abuse-filter-disallow-unconstructive", nil),
+                                         @"backgroundColor": [UIColor whiteColor],
+                                         @"fontColor": grayColor
                                      }.mutableCopy,
                                      @{
-                                         @"type" : @(VIEW_TYPE_ITEM),
-                                         @"string" : MWLocalizedString(@"abuse-filter-disallow-notable", nil),
-                                         @"backgroundColor" : [UIColor whiteColor],
-                                         @"fontColor" : grayColor
+                                         @"type": @(VIEW_TYPE_ITEM),
+                                         @"string": MWLocalizedString(@"abuse-filter-disallow-notable", nil),
+                                         @"backgroundColor": [UIColor whiteColor],
+                                         @"fontColor": grayColor
                                      }.mutableCopy
                                   ]];
 
@@ -235,11 +235,11 @@ typedef NS_ENUM(NSInteger, ViewType) {
 
                 [view addSubview:label];
 
-                NSDictionary *views = @{ @"label" : label,
-                                         @"v1" : view };
+                NSDictionary *views = @{ @"label": label,
+                                         @"v1": view };
                 NSDictionary *metrics = @{
-                    @"iconHeight" : @(iconHeight),
-                    @"topBarHeight" : @(topBarHeight)
+                    @"iconHeight": @(iconHeight),
+                    @"topBarHeight": @(topBarHeight)
                 };
 
                 [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[v1(topBarHeight)]"
@@ -322,10 +322,10 @@ typedef NS_ENUM(NSInteger, ViewType) {
 
     NSDictionary *attributes =
         @{
-           NSFontAttributeName : font,
-           NSForegroundColorAttributeName : color,
-           NSKernAttributeName : kearning,
-           NSParagraphStyleAttributeName : paragraphStyle
+           NSFontAttributeName: font,
+           NSForegroundColorAttributeName: color,
+           NSKernAttributeName: kearning,
+           NSParagraphStyleAttributeName: paragraphStyle
         };
 
     label.attributedText =

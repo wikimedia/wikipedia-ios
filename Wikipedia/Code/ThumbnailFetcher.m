@@ -41,7 +41,7 @@
                 NSString *errorUrl = self.url ? self.url : @"No URL specified.";
                 error = [NSError errorWithDomain:@"Thumbnail Fetcher"
                                             code:THUMBNAIL_FETCH_ERROR_NOT_FOUND
-                                        userInfo:@{ NSLocalizedDescriptionKey : [@"Thumbnail not retrieved. URL: " stringByAppendingString:errorUrl] }];
+                                        userInfo:@{ NSLocalizedDescriptionKey: [@"Thumbnail not retrieved. URL: " stringByAppendingString:errorUrl] }];
             }
 
             [self finishWithError:error

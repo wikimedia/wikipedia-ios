@@ -35,10 +35,10 @@ afterSuite(^{
 
 describe(@"send usage reports", ^{
     itBehavesLike(@"a persistent property", ^{
-        return @{ @"session" : testSession,
-                  @"key" : WMF_SAFE_KEYPATH(testSession, shouldSendUsageReports),
+        return @{ @"session": testSession,
+                  @"key": WMF_SAFE_KEYPATH(testSession, shouldSendUsageReports),
                   // set to different value by
-                  @"value" : @(!testSession.shouldSendUsageReports) };
+                  @"value": @(!testSession.shouldSendUsageReports) };
     });
 
     void (^expectAllManagersToHaveExpectedAnalyticsHeaderForCurrentUsageReportsValue)(NSArray *managers) =

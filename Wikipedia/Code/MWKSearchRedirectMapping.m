@@ -20,8 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-        WMF_SAFE_KEYPATH(MWKSearchRedirectMapping.new, redirectFromTitle) : @"from",
-        WMF_SAFE_KEYPATH(MWKSearchRedirectMapping.new, redirectToTitle) : @"to",
+        WMF_SAFE_KEYPATH(MWKSearchRedirectMapping.new, redirectFromTitle): @"from",
+        WMF_SAFE_KEYPATH(MWKSearchRedirectMapping.new, redirectToTitle): @"to",
     };
 }
 

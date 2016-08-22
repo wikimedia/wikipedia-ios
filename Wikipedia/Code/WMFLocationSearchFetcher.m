@@ -128,18 +128,18 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *numberOfResults = [NSString stringWithFormat:@"%lu", (unsigned long)params.numberOfResults];
 
     return @{
-        @"action" : @"query",
-        @"prop" : @"coordinates|pageimages|pageterms",
-        @"colimit" : numberOfResults,
-        @"pithumbsize" : [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
-        @"pilimit" : numberOfResults,
-        @"wbptterms" : @"description",
-        @"generator" : @"geosearch",
-        @"ggscoord" : coords,
-        @"codistancefrompoint" : coords,
-        @"ggsradius" : @"10000",
-        @"ggslimit" : numberOfResults,
-        @"format" : @"json"
+        @"action": @"query",
+        @"prop": @"coordinates|pageimages|pageterms",
+        @"colimit": numberOfResults,
+        @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
+        @"pilimit": numberOfResults,
+        @"wbptterms": @"description",
+        @"generator": @"geosearch",
+        @"ggscoord": coords,
+        @"codistancefrompoint": coords,
+        @"ggsradius": @"10000",
+        @"ggslimit": numberOfResults,
+        @"format": @"json"
     };
 }
 

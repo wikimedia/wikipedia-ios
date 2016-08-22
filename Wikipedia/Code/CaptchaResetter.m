@@ -40,7 +40,7 @@
 
             // Fake out an error if non-dictionary response received.
             if (![responseObject isDict]) {
-                responseObject = @{ @"error" : @{@"info" : @"Captcha Resetter data not found."} };
+                responseObject = @{ @"error": @{@"info": @"Captcha Resetter data not found."} };
             }
 
             //NSLog(@"CAPTCHA RESETTER DATA RETRIEVED = %@", responseObject);
@@ -75,8 +75,8 @@
 
 - (NSDictionary *)getParams {
     return @{
-        @"action" : @"fancycaptchareload",
-        @"format" : @"json"
+        @"action": @"fancycaptchareload",
+        @"format": @"json"
     };
 }
 

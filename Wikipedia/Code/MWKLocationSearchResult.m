@@ -40,8 +40,8 @@
        properties here.
      */
     [mapping addEntriesFromDictionary:@{
-        WMF_SAFE_KEYPATH([MWKLocationSearchResult new], location) : @"coordinates",
-        WMF_SAFE_KEYPATH([MWKLocationSearchResult new], distanceFromQueryCoordinates) : @"coordinates",
+        WMF_SAFE_KEYPATH([MWKLocationSearchResult new], location): @"coordinates",
+        WMF_SAFE_KEYPATH([MWKLocationSearchResult new], distanceFromQueryCoordinates): @"coordinates",
     }];
 
     return mapping;

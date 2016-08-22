@@ -22,9 +22,9 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-        @"displayTitle" : @"line",
-        @"level" : @"level",
-        @"number" : @"number",
+        @"displayTitle": @"line",
+        @"level": @"level",
+        @"number": @"number",
     };
 }
 

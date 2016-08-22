@@ -64,7 +64,7 @@ NSString *const WMFExtendedFileAttributesErrorDomain = @"org.wikimedia.WMFExtend
             case ENOSPC:
                 errorDescription = @"Not enough space left on the file system.";
         }
-        NSDictionary *userInfo = @{NSLocalizedDescriptionKey : errorDescription};
+        NSDictionary *userInfo = @{NSLocalizedDescriptionKey: errorDescription};
         *error = [NSError errorWithDomain:WMFExtendedFileAttributesErrorDomain code:err userInfo:userInfo];
     }
     return result == 0;

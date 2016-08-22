@@ -91,9 +91,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)titleForDate:(NSDate *)date {
     static NSString *tfaTitleTemplatePrefix = @"Template:TFA_title";
-    return [@[ tfaTitleTemplatePrefix,
-               @"/",
-               [[self featuredArticleDateFormatter] stringFromDate:date] ] componentsJoinedByString:@""];
+    return [@[tfaTitleTemplatePrefix,
+              @"/",
+              [[self featuredArticleDateFormatter] stringFromDate:date]] componentsJoinedByString:@""];
 }
 
 - (nullable NSURLRequest *)requestBySerializingRequest:(NSURLRequest *)request
@@ -103,13 +103,13 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(!date || [date isKindOfClass:[NSDate class]]);
     return [super requestBySerializingRequest:request
                                withParameters:@{
-                                   @"action" : @"query",
-                                   @"format" : @"json",
-                                   @"titles" : [WMFEnglishFeaturedTitleRequestSerializer titleForDate:date],
+                                   @"action": @"query",
+                                   @"format": @"json",
+                                   @"titles": [WMFEnglishFeaturedTitleRequestSerializer titleForDate:date],
                                    // extracts
-                                   @"prop" : @"extracts",
-                                   @"exchars" : @100,
-                                   @"explaintext" : @""
+                                   @"prop": @"extracts",
+                                   @"exchars": @100,
+                                   @"explaintext": @""
                                }
                                         error:error];
 }
@@ -144,7 +144,7 @@ NS_ASSUME_NONNULL_BEGIN
         DDLogError(@"Empty extract for feed item request %@", response.URL);
         NSError *error = [NSError wmf_errorWithType:WMFErrorTypeStringLength
                                            userInfo:@{
-                                               NSURLErrorFailingURLErrorKey : response.URL
+                                               NSURLErrorFailingURLErrorKey: response.URL
                                            }];
         WMFSafeAssign(outError, error);
         return nil;

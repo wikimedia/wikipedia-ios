@@ -314,7 +314,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
 
             UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
-            vc.excludedActivityTypes = @[ UIActivityTypeAddToReadingList ];
+            vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
             UIPopoverPresentationController *presenter = [vc popoverPresentationController];
             presenter.barButtonItem = self.rightBarButtonItem;
             [self presentViewController:vc animated:YES completion:NULL];

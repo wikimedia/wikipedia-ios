@@ -83,7 +83,7 @@ static NSString *const kSelectionAssertVerbiage = @"No selection provided";
 }
 
 - (void)logHighlight {
-    [self log:@{kActionKey : kActionHighlight}];
+    [self log:@{kActionKey: kActionHighlight}];
 }
 
 - (void)logShareButtonTappedResultingInSelection:(NSString *)selection {
@@ -92,32 +92,32 @@ static NSString *const kSelectionAssertVerbiage = @"No selection provided";
     } else {
         self.selection = [selection wmf_safeSubstringToIndex:WMFEventLoggingMaxStringLength_Snippet];
     }
-    [self log:@{kActionKey : kActionShareTap}];
+    [self log:@{kActionKey: kActionShareTap}];
 }
 
 - (void)logAbandonedAfterSeeingShareAFact {
-    [self log:@{kActionKey : kActionAbandoned}];
+    [self log:@{kActionKey: kActionAbandoned}];
 }
 
 - (void)logShareAsImageTapped {
     self.shareMode = kShareModeImage;
-    [self log:@{kActionKey : kActionShareIntent}];
+    [self log:@{kActionKey: kActionShareIntent}];
 }
 
 - (void)logShareAsTextTapped {
     self.shareMode = kShareModeText;
-    [self log:@{kActionKey : kActionShareIntent}];
+    [self log:@{kActionKey: kActionShareIntent}];
 }
 
 - (void)logShareFailedWithShareMethod:(NSString *)shareMethod {
-    [self log:@{kActionKey : kActionFailure,
-                kTargetKey : shareMethod ? shareMethod : kActionSystemShareSheet}];
+    [self log:@{kActionKey: kActionFailure,
+                kTargetKey: shareMethod ? shareMethod : kActionSystemShareSheet}];
 }
 
 - (void)logShareSucceededWithShareMethod:(NSString *)shareMethod;
 {
-    [self log:@{kActionKey : kActionShare,
-                kTargetKey : shareMethod ? shareMethod : kActionSystemShareSheet}];
+    [self log:@{kActionKey: kActionShare,
+                kTargetKey: shareMethod ? shareMethod : kActionSystemShareSheet}];
 }
 
 @end

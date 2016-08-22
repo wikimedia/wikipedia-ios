@@ -122,8 +122,8 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
  *  @return An array of sections that can be used to start the "feed" from scratch.
  */
 - (NSArray<WMFExploreSection *> *)startingSchema {
-    return @[ [WMFExploreSection mainPageSectionWithSiteURL:self.siteURL],
-              [WMFExploreSection randomSectionWithSiteURL:self.siteURL] ];
+    return @[[WMFExploreSection mainPageSectionWithSiteURL:self.siteURL],
+             [WMFExploreSection randomSectionWithSiteURL:self.siteURL]];
 }
 
 #pragma mark - Main Article
@@ -225,7 +225,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 - (BOOL)updateContinueReading {
     WMFExploreSection *old = [self existingContinueReadingSection];
-    WMFExploreSection *new = [ self continueReadingSection ];
+    WMFExploreSection *new = [self continueReadingSection];
     if (WMF_EQUAL(old.articleURL, isEqual:, new.articleURL)) {
         return NO;
     }
@@ -690,8 +690,8 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
             } @catch (NSException *exception) {
                 error = [NSError errorWithDomain:NSInvalidArchiveOperationException
                                             code:-1
-                                        userInfo:@{NSLocalizedDescriptionKey : exception.name,
-                                                   NSLocalizedFailureReasonErrorKey : exception.reason}];
+                                        userInfo:@{NSLocalizedDescriptionKey: exception.name,
+                                                   NSLocalizedFailureReasonErrorKey: exception.reason}];
             }
 
             NSAssert(!error, @"Failed to save sections: %@", error);
@@ -732,8 +732,8 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
         } @catch (NSException *exception) {
             error = [NSError errorWithDomain:NSInvalidArchiveOperationException
                                         code:-1
-                                    userInfo:@{NSLocalizedDescriptionKey : exception.name,
-                                               NSLocalizedFailureReasonErrorKey : exception.reason}];
+                                    userInfo:@{NSLocalizedDescriptionKey: exception.name,
+                                               NSLocalizedFailureReasonErrorKey: exception.reason}];
         }
     }
     NSAssert(schema, @"Failed to unarchive schema: %@", error);

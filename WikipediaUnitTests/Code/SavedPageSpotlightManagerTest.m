@@ -27,7 +27,7 @@
     XCTAssertEqualObjects(attributes.title, @"This Is A Test");
     XCTAssertEqualObjects(attributes.displayName, @"This Is A Test");
 
-    NSArray *keywords = @[ @"Wikipedia", @"Wikimedia", @"Wiki", @"This", @"Is", @"A", @"Test" ];
+    NSArray *keywords = @[@"Wikipedia", @"Wikimedia", @"Wiki", @"This", @"Is", @"A", @"Test"];
 
     XCTAssertEqualObjects(attributes.keywords, keywords);
     XCTAssertEqualObjects(attributes.identifier, @"https://en.wikipedia.org/wiki/This_Is_A_Test");

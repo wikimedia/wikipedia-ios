@@ -27,19 +27,23 @@
 
         UIAlertController *zeroAlert = [UIAlertController alertControllerWithTitle:exitDialogTitle message:messageWithHost preferredStyle:UIAlertControllerStyleAlert];
         [zeroAlert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-interstitial-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
-        [zeroAlert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-interstitial-continue", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-             [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
-        }]];
+        [zeroAlert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-interstitial-continue", nil)
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction *_Nonnull action) {
+                                                        [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
+                                                    }]];
 
         if ([self isPartnerInfoConfigValid:zeroMessage]) {
             NSString *partnerInfoText = zeroMessage.partnerInfoText;
             NSURL *partnerInfoUrl = [NSURL URLWithString:zeroMessage.partnerInfoUrl];
-            [zeroAlert addAction:[UIAlertAction actionWithTitle:partnerInfoText style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self wmf_openExternalUrlModallyIfNeeded:partnerInfoUrl forceSafari:useSafari];
-            }]];
+            [zeroAlert addAction:[UIAlertAction actionWithTitle:partnerInfoText
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction *_Nonnull action) {
+                                                            [self wmf_openExternalUrlModallyIfNeeded:partnerInfoUrl forceSafari:useSafari];
+                                                        }]];
         }
 
-         [self presentViewController:zeroAlert animated:YES completion:NULL];
+        [self presentViewController:zeroAlert animated:YES completion:NULL];
     } else {
         [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
     }

@@ -17,9 +17,9 @@ static NSString *const WMFMostReadFailingProjectUserInfoKey = @"WMFMostReadFaili
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 #define WMFMostReadTitlesResponseItemArticleProperty(k) WMF_SAFE_KEYPATH(WMFMostReadTitlesResponseItemArticle.new, k)
-    return @{ WMFMostReadTitlesResponseItemArticleProperty(titleText) : @"article",
-              WMFMostReadTitlesResponseItemArticleProperty(rank) : @"rank",
-              WMFMostReadTitlesResponseItemArticleProperty(views) : @"views" };
+    return @{ WMFMostReadTitlesResponseItemArticleProperty(titleText): @"article",
+              WMFMostReadTitlesResponseItemArticleProperty(rank): @"rank",
+              WMFMostReadTitlesResponseItemArticleProperty(views): @"views" };
 }
 
 @end
@@ -70,9 +70,9 @@ static NSString *const WMFMostReadFailingProjectUserInfoKey = @"WMFMostReadFaili
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 #define WMFMostReadTitlesResponseItemProperty(k) WMF_SAFE_KEYPATH(WMFMostReadTitlesResponseItem.new, k)
-    return @{ WMFMostReadTitlesResponseItemProperty(date) : @[ @"year", @"month", @"day" ],
-              WMFMostReadTitlesResponseItemProperty(articles) : @"articles",
-              WMFMostReadTitlesResponseItemProperty(siteURL) : @"project" };
+    return @{ WMFMostReadTitlesResponseItemProperty(date): @[@"year", @"month", @"day"],
+              WMFMostReadTitlesResponseItemProperty(articles): @"articles",
+              WMFMostReadTitlesResponseItemProperty(siteURL): @"project" };
 }
 
 + (MTLValueTransformer *)articlesJSONTransformer {
@@ -126,7 +126,7 @@ static NSString *const WMFMostReadFailingProjectUserInfoKey = @"WMFMostReadFaili
                 DDLogError(@"Failed to serialize date from components %@", components);
                 NSError *error = [NSError errorWithDomain:NSStringFromClass(self)
                                                      code:WMFMostReadTitlesResponseErrorDateParseFailure
-                                                 userInfo:@{WMFMostReadTitlesFailingURLComponentsUserInfoKey : componentsMap}];
+                                                 userInfo:@{WMFMostReadTitlesFailingURLComponentsUserInfoKey: componentsMap}];
                 WMFSafeAssign(outError, error);
             }
         }
@@ -145,7 +145,7 @@ static NSString *const WMFMostReadFailingProjectUserInfoKey = @"WMFMostReadFaili
             WMFSafeAssign(error,
                           [NSError errorWithDomain:NSStringFromClass(self)
                                               code:0
-                                          userInfo:value ? @{WMFMostReadFailingProjectUserInfoKey : value} : nil]);
+                                          userInfo:value ? @{WMFMostReadFailingProjectUserInfoKey: value} : nil]);
             return nil;
         }
         return [NSURL wmf_URLWithDomain:[components[1] stringByAppendingString:@".org"] language:components[0]];
@@ -168,7 +168,7 @@ static NSString *const WMFMostReadFailingProjectUserInfoKey = @"WMFMostReadFaili
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMF_SAFE_KEYPATH(WMFMostReadTitlesResponse.new, items) : @"items" };
+    return @{ WMF_SAFE_KEYPATH(WMFMostReadTitlesResponse.new, items): @"items" };
 }
 
 + (NSValueTransformer<MTLTransformerErrorHandling> *)itemsJSONTransformer {

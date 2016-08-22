@@ -65,35 +65,35 @@ NS_ASSUME_NONNULL_BEGIN
     NSSortDescriptor *thumbSorter = [[NSSortDescriptor alloc] initWithKey:@"thumbnailURL.absoluteString" ascending:NO];
     NSSortDescriptor *disambigSorter = [[NSSortDescriptor alloc] initWithKey:@"isDisambiguation" ascending:YES];
     NSSortDescriptor *listSorter = [[NSSortDescriptor alloc] initWithKey:@"isList" ascending:YES];
-    results = [results sortedArrayUsingDescriptors:@[ disambigSorter, listSorter, thumbSorter, descripSorter, extractSorter ]];
+    results = [results sortedArrayUsingDescriptors:@[disambigSorter, listSorter, thumbSorter, descripSorter, extractSorter]];
     return [results firstObject];
 }
 
 + (NSDictionary *)params {
     NSNumber *numberOfRandomItemsToFetch = @8;
     return @{
-        @"action" : @"query",
-        @"prop" : @"extracts|pageterms|pageimages|pageprops|revisions",
+        @"action": @"query",
+        @"prop": @"extracts|pageterms|pageimages|pageprops|revisions",
         //random
-        @"generator" : @"random",
-        @"grnnamespace" : @0,
-        @"grnfilterredir" : @"nonredirects",
-        @"grnlimit" : numberOfRandomItemsToFetch,
+        @"generator": @"random",
+        @"grnnamespace": @0,
+        @"grnfilterredir": @"nonredirects",
+        @"grnlimit": numberOfRandomItemsToFetch,
         // extracts
-        @"exintro" : @YES,
-        @"exlimit" : numberOfRandomItemsToFetch,
-        @"explaintext" : @"",
-        @"exchars" : @(WMFNumberOfExtractCharacters),
+        @"exintro": @YES,
+        @"exlimit": numberOfRandomItemsToFetch,
+        @"explaintext": @"",
+        @"exchars": @(WMFNumberOfExtractCharacters),
         // pageterms
-        @"wbptterms" : @"description",
+        @"wbptterms": @"description",
         // pageimage
-        @"piprop" : @"thumbnail",
-        @"pithumbsize" : [[UIScreen mainScreen] wmf_leadImageWidthForScale],
-        @"pilimit" : numberOfRandomItemsToFetch,
+        @"piprop": @"thumbnail",
+        @"pithumbsize": [[UIScreen mainScreen] wmf_leadImageWidthForScale],
+        @"pilimit": numberOfRandomItemsToFetch,
         // revision
-        @"rrvlimit" : @(1),
-        @"rvprop" : @"ids",
-        @"format" : @"json",
+        @"rrvlimit": @(1),
+        @"rvprop": @"ids",
+        @"format": @"json",
     };
 }
 

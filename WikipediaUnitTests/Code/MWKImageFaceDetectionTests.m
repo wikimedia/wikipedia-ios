@@ -50,8 +50,8 @@
 
 - (void)testDeserializedImageWithDetectionButNoFaces {
     NSDictionary *testData = @{
-        @"focalRects" : @[],
-        @"sourceURL" : @"foo"
+        @"focalRects": @[],
+        @"sourceURL": @"foo"
     };
     self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle dict:testData];
     XCTAssertTrue(self.image.didDetectFaces);
@@ -63,13 +63,13 @@
 - (void)testDeserializedImageWithDetectedFaces {
     CGRect testRect = CGRectMake(1, 1, 10, 10);
     NSDictionary *testData = @{
-        @"focalRects" : @[ NSStringFromCGRect(testRect) ],
-        @"sourceURL" : @"foo"
+        @"focalRects": @[NSStringFromCGRect(testRect)],
+        @"sourceURL": @"foo"
     };
     self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle dict:testData];
     XCTAssertTrue(self.image.didDetectFaces);
     XCTAssertTrue(self.image.hasFaces);
-    assertThat(self.image.allNormalizedFaceBounds, is(equalTo(@[ [NSValue valueWithCGRect:testRect] ])));
+    assertThat(self.image.allNormalizedFaceBounds, is(equalTo(@[[NSValue valueWithCGRect:testRect]])));
     XCTAssertTrue(CGRectEqualToRect(self.image.firstFaceBounds, testRect));
     assertThat([self.image dataExport], is(equalTo(testData)));
 }

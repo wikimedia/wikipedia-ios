@@ -33,16 +33,16 @@ static NSString *const kMenuTypeKey = @"menuItem";
 }
 
 - (void)logMenuOpen {
-    [self log:@{ kActionKey : @"open" }];
+    [self log:@{ kActionKey: @"open" }];
 }
 
 - (void)logMenuClose {
-    [self log:@{ kActionKey : @"cancel" }];
+    [self log:@{ kActionKey: @"cancel" }];
 }
 
 - (void)logMenuSelectionWithType:(WMFHamburgerMenuItemType)type {
-    [self log:@{ kActionKey : @"select",
-                 kMenuTypeKey : [self stringForMenuItemType:type] }];
+    [self log:@{ kActionKey: @"select",
+                 kMenuTypeKey: [self stringForMenuItemType:type] }];
 }
 
 - (NSString *)stringForMenuItemType:(WMFHamburgerMenuItemType)type {
@@ -50,14 +50,14 @@ static NSString *const kMenuTypeKey = @"menuItem";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         map = @{
-            @(WMFHamburgerMenuItemTypeLogin) : @"Login",
-            @(WMFHamburgerMenuItemTypeToday) : @"Today",
-            @(WMFHamburgerMenuItemTypeRandom) : @"Random",
-            @(WMFHamburgerMenuItemTypeNearby) : @"Nearby",
-            @(WMFHamburgerMenuItemTypeRecent) : @"Recent",
-            @(WMFHamburgerMenuItemTypeSavedPages) : @"SavedPages",
-            @(WMFHamburgerMenuItemTypeMore) : @"More",
-            @(WMFHamburgerMenuItemTypeUnknown) : @"Unknown"
+            @(WMFHamburgerMenuItemTypeLogin): @"Login",
+            @(WMFHamburgerMenuItemTypeToday): @"Today",
+            @(WMFHamburgerMenuItemTypeRandom): @"Random",
+            @(WMFHamburgerMenuItemTypeNearby): @"Nearby",
+            @(WMFHamburgerMenuItemTypeRecent): @"Recent",
+            @(WMFHamburgerMenuItemTypeSavedPages): @"SavedPages",
+            @(WMFHamburgerMenuItemTypeMore): @"More",
+            @(WMFHamburgerMenuItemTypeUnknown): @"Unknown"
         };
     });
     return map[@(type)] ?: map[@(WMFHamburgerMenuItemTypeUnknown)];

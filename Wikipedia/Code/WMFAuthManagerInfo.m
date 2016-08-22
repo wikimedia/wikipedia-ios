@@ -52,10 +52,10 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-        WMF_SAFE_KEYPATH(WMFAuthManagerInfo.new, captchaID) : @"authmanagerinfo.requests",
-        WMF_SAFE_KEYPATH(WMFAuthManagerInfo.new, captchaURLFragment) : @"authmanagerinfo.requests",
-        WMF_SAFE_KEYPATH(WMFAuthManagerInfo.new, canAuthenticate) : @"authmanagerinfo.canauthenticatenow",
-        WMF_SAFE_KEYPATH(WMFAuthManagerInfo.new, canCreateAccount) : @"authmanagerinfo.cancreateaccounts",
+        WMF_SAFE_KEYPATH(WMFAuthManagerInfo.new, captchaID): @"authmanagerinfo.requests",
+        WMF_SAFE_KEYPATH(WMFAuthManagerInfo.new, captchaURLFragment): @"authmanagerinfo.requests",
+        WMF_SAFE_KEYPATH(WMFAuthManagerInfo.new, canAuthenticate): @"authmanagerinfo.canauthenticatenow",
+        WMF_SAFE_KEYPATH(WMFAuthManagerInfo.new, canCreateAccount): @"authmanagerinfo.cancreateaccounts",
     };
 }
 

@@ -83,7 +83,7 @@
                                                                    [self dismissViewControllerAnimated:YES completion:nil];
                                                                }
                                                            }];
-    self.navigationItem.leftBarButtonItems = @[ xButton ];
+    self.navigationItem.leftBarButtonItems = @[xButton];
 
     self.rightButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-next", nil)
                                                            style:UIBarButtonItemStylePlain
@@ -106,7 +106,7 @@
     self.emailField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
     self.loginButton.font = [UIFont boldSystemFontOfSize:14.0f * MENUS_SCALE_MULTIPLIER];
 
-    [self adjustConstraintsScaleForViews:@[ self.createAccountContainerView, self.captchaContainer, self.titleLabel, self.usernameField, self.passwordField, self.passwordRepeatField, self.emailField, self.loginButton ]];
+    [self adjustConstraintsScaleForViews:@[self.createAccountContainerView, self.captchaContainer, self.titleLabel, self.usernameField, self.passwordField, self.passwordRepeatField, self.emailField, self.loginButton]];
 
     self.captchaId = @"";
     self.captchaUrl = nil;
@@ -173,7 +173,7 @@
 - (NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string {
     return [[NSMutableAttributedString alloc] initWithString:string
                                                   attributes:@{
-                                                      NSForegroundColorAttributeName : [UIColor lightGrayColor]
+                                                      NSForegroundColorAttributeName: [UIColor lightGrayColor]
                                                   }];
 }
 
@@ -344,7 +344,7 @@
 - (NSArray *)requiredInputFields {
     NSAssert([self isViewLoaded],
              @"This method is only intended to be called when view is loaded, since they'll all be nil otherwise");
-    return @[ self.usernameField, self.passwordField, self.passwordRepeatField ];
+    return @[self.usernameField, self.passwordField, self.passwordRepeatField];
 }
 
 - (BOOL)isPasswordConfirmationCorrect {

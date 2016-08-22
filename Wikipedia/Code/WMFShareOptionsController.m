@@ -318,7 +318,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                                           [NSURL wmf_desktopURLForURL:self.article.url].absoluteString,
                                                                           parameter]];
 
-    NSMutableArray *activityItems = @[ title, url ].mutableCopy;
+    NSMutableArray *activityItems = @[title, url].mutableCopy;
     if (image) {
         [activityItems addObject:image];
     }

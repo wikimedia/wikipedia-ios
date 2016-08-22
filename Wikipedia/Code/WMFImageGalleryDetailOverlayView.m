@@ -34,16 +34,16 @@ static NSAttributedString *ConcatOwnerAndLicense(NSString *owner, MWKLicense *li
         [result appendAttributedString:
                     [[NSAttributedString alloc]
                         initWithString:licenseGlyph
-                            attributes:@{ NSFontAttributeName : [UIFont wmf_glyphFontOfSize:WMFImageGalleryLicenseFontSize],
-                                          NSForegroundColorAttributeName : [UIColor whiteColor],
-                                          NSBaselineOffsetAttributeName : @(WMFImageGalleryLicenseBaselineOffset) }]];
+                            attributes:@{ NSFontAttributeName: [UIFont wmf_glyphFontOfSize:WMFImageGalleryLicenseFontSize],
+                                          NSForegroundColorAttributeName: [UIColor whiteColor],
+                                          NSBaselineOffsetAttributeName: @(WMFImageGalleryLicenseBaselineOffset) }]];
     }
 
     NSAttributedString *attributedOwnerAndSeparator =
         [[NSAttributedString alloc]
             initWithString:[@" " stringByAppendingString:owner]
-                attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize],
-                             NSForegroundColorAttributeName : [UIColor whiteColor]}];
+                attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize],
+                             NSForegroundColorAttributeName: [UIColor whiteColor]}];
 
     [result appendAttributedString:attributedOwnerAndSeparator];
 
@@ -67,9 +67,9 @@ static NSAttributedString *ConcatOwnerAndLicense(NSString *owner, MWKLicense *li
     //    }];
 
     WMFGradientView *gradientView = [WMFGradientView new];
-    [gradientView.gradientLayer setLocations:@[ @0, @1 ]];
-    [gradientView.gradientLayer setColors:@[ (id)[UIColor colorWithWhite:0.0 alpha:1.0].CGColor,
-                                             (id)[UIColor clearColor].CGColor ]];
+    [gradientView.gradientLayer setLocations:@[@0, @1]];
+    [gradientView.gradientLayer setColors:@[(id)[UIColor colorWithWhite:0.0 alpha:1.0].CGColor,
+                                            (id)[UIColor clearColor].CGColor]];
     // default start/end points, to be adjusted w/ image size
     [gradientView.gradientLayer setStartPoint:CGPointMake(0.5, 1.0)];
     [gradientView.gradientLayer setEndPoint:CGPointMake(0.5, 0.0)];
@@ -125,7 +125,7 @@ static NSAttributedString *ConcatOwnerAndLicense(NSString *owner, MWKLicense *li
         self.imageDescriptionLabel.attributedText =
             [[NSAttributedString alloc] initWithString:imageDescription
                                             attributes:@{
-                                                NSParagraphStyleAttributeName : [NSParagraphStyle wmf_naturalAlignmentStyle],
+                                                NSParagraphStyleAttributeName: [NSParagraphStyle wmf_naturalAlignmentStyle],
                                             }];
     }
 }

@@ -55,12 +55,12 @@ describe(@"initial state", ^{
                 expect(@([schema.lastUpdatedAt isToday])).to(beTrue());
                 expect([schema.sections valueForKey:WMF_SAFE_KEYPATH([WMFExploreSection new], type)])
                     .withTimeout(5)
-                    .toEventually(equal(@[ @(WMFExploreSectionTypeMainPage),
-                                           @(WMFExploreSectionTypeFeaturedArticle),
-                                           @(WMFExploreSectionTypeMostRead),
-                                           @(WMFExploreSectionTypePictureOfTheDay),
-                                           @(WMFExploreSectionTypeRandom),
-                                           @(WMFExploreSectionTypeNearby) ]));
+                    .toEventually(equal(@[@(WMFExploreSectionTypeMainPage),
+                                          @(WMFExploreSectionTypeFeaturedArticle),
+                                          @(WMFExploreSectionTypeMostRead),
+                                          @(WMFExploreSectionTypePictureOfTheDay),
+                                          @(WMFExploreSectionTypeRandom),
+                                          @(WMFExploreSectionTypeNearby)]));
 
                 WMFExploreSection *featuredArticleSection = schema.sections[1];
                 expect(@(featuredArticleSection.type)).to(equal(@(WMFExploreSectionTypeFeaturedArticle)));
@@ -106,11 +106,11 @@ describe(@"initial state", ^{
                 expect(@([schema.lastUpdatedAt isToday])).to(beTrue());
                 expect([schema.sections valueForKey:WMF_SAFE_KEYPATH([WMFExploreSection new], type)])
                     .withTimeout(5)
-                .toEventually(equal(@[ @(WMFExploreSectionTypeMainPage),
-                                       @(WMFExploreSectionTypeFeaturedArticle),
-                                       @(WMFExploreSectionTypeMostRead),
-                                       @(WMFExploreSectionTypePictureOfTheDay),
-                                       @(WMFExploreSectionTypeRandom)]));
+                    .toEventually(equal(@[@(WMFExploreSectionTypeMainPage),
+                                          @(WMFExploreSectionTypeFeaturedArticle),
+                                          @(WMFExploreSectionTypeMostRead),
+                                          @(WMFExploreSectionTypePictureOfTheDay),
+                                          @(WMFExploreSectionTypeRandom)]));
 
                 WMFExploreSection *featuredArticleSection = schema.sections[1];
                 expect(@(featuredArticleSection.type)).to(equal(@(WMFExploreSectionTypeFeaturedArticle)));
@@ -153,11 +153,11 @@ describe(@"initial state", ^{
                 expect(@([schema.lastUpdatedAt isToday])).to(beTrue());
                 expect([schema.sections valueForKey:WMF_SAFE_KEYPATH([WMFExploreSection new], type)])
                     .withTimeout(5)
-                    .toEventually(equal(@[ @(WMFExploreSectionTypeMainPage),
-                                           @(WMFExploreSectionTypeMostRead),
-                                           @(WMFExploreSectionTypePictureOfTheDay),
-                                           @(WMFExploreSectionTypeRandom),
-                                           @(WMFExploreSectionTypeNearby) ]));
+                    .toEventually(equal(@[@(WMFExploreSectionTypeMainPage),
+                                          @(WMFExploreSectionTypeMostRead),
+                                          @(WMFExploreSectionTypePictureOfTheDay),
+                                          @(WMFExploreSectionTypeRandom),
+                                          @(WMFExploreSectionTypeNearby)]));
 
                 WMFExploreSection *mostReadSection = schema.sections[1];
                 expect(@(mostReadSection.type)).to(equal(@(WMFExploreSectionTypeMostRead)));

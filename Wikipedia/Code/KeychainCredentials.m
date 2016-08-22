@@ -58,12 +58,12 @@
     NSData *encodedName = [entry dataUsingEncoding:NSUTF8StringEncoding];
     NSData *valueData = [value dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *dict = @{
-        (__bridge id)kSecClass : (__bridge id)kSecClassGenericPassword,
-        (__bridge id)kSecAttrService : [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"],
-        (__bridge id)kSecAttrGeneric : encodedName,
-        (__bridge id)kSecAttrAccount : encodedName,
-        (__bridge id)kSecValueData : valueData,
-        (__bridge id)kSecAttrAccessible : (__bridge id)kSecAttrAccessibleWhenUnlocked,
+        (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+        (__bridge id)kSecAttrService: [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"],
+        (__bridge id)kSecAttrGeneric: encodedName,
+        (__bridge id)kSecAttrAccount: encodedName,
+        (__bridge id)kSecValueData: valueData,
+        (__bridge id)kSecAttrAccessible: (__bridge id)kSecAttrAccessibleWhenUnlocked,
     };
 
     // Create the keychain item, if it doesn't yet exist...
@@ -83,13 +83,13 @@
     NSData *encodedName = [entry dataUsingEncoding:NSUTF8StringEncoding];
     NSData *valueData = [value dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *dict = @{
-        (__bridge id)kSecClass : (__bridge id)kSecClassGenericPassword,
-        (__bridge id)kSecAttrService : [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"],
-        (__bridge id)kSecAttrGeneric : encodedName,
-        (__bridge id)kSecAttrAccount : encodedName
+        (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+        (__bridge id)kSecAttrService: [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"],
+        (__bridge id)kSecAttrGeneric: encodedName,
+        (__bridge id)kSecAttrAccount: encodedName
     };
     NSDictionary *dataDict = @{
-        (__bridge id)kSecValueData : valueData
+        (__bridge id)kSecValueData: valueData
     };
 
     OSStatus status = SecItemUpdate((__bridge CFDictionaryRef)dict, (__bridge CFDictionaryRef)dataDict);
@@ -104,12 +104,12 @@
 - (NSString *)getKeychainValueForEntry:(NSString *)entry {
     NSData *encodedName = [entry dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *dict = @{
-        (__bridge id)kSecClass : (__bridge id)kSecClassGenericPassword,
-        (__bridge id)kSecAttrService : [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"],
-        (__bridge id)kSecAttrGeneric : encodedName,
-        (__bridge id)kSecAttrAccount : encodedName,
-        (__bridge id)kSecMatchLimit : (__bridge id)kSecMatchLimitOne,
-        (__bridge id)kSecReturnData : (__bridge id)kCFBooleanTrue
+        (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+        (__bridge id)kSecAttrService: [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"],
+        (__bridge id)kSecAttrGeneric: encodedName,
+        (__bridge id)kSecAttrAccount: encodedName,
+        (__bridge id)kSecMatchLimit: (__bridge id)kSecMatchLimitOne,
+        (__bridge id)kSecReturnData: (__bridge id)kCFBooleanTrue
     };
 
     // Fetch username and password from keychain

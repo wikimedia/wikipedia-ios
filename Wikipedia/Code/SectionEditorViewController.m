@@ -190,8 +190,8 @@
     return
         [[NSAttributedString alloc] initWithString:string
                                         attributes:@{
-                                            NSParagraphStyleAttributeName : paragraphStyle,
-                                            NSFontAttributeName : EDIT_TEXT_VIEW_FONT,
+                                            NSParagraphStyleAttributeName: paragraphStyle,
+                                            NSFontAttributeName: EDIT_TEXT_VIEW_FONT,
                                         }];
 }
 

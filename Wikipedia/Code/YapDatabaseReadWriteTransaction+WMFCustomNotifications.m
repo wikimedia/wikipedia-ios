@@ -7,7 +7,7 @@ NSString *const WMFYapDatabaseUpdatedItemKeys = @"WMFYapDatabaseUpdatedItemKeys"
 @implementation YapDatabaseReadWriteTransaction (WMFCustomNotifications)
 
 - (void)wmf_setUpdatedItemKeys:(nullable NSArray<NSString *> *)keys {
-    NSDictionary *transactionExtendedInfo = @{WMFYapDatabaseUpdatedItemKeys : keys};
+    NSDictionary *transactionExtendedInfo = @{WMFYapDatabaseUpdatedItemKeys: keys};
     self.yapDatabaseModifiedNotificationCustomObject = transactionExtendedInfo;
 }
 

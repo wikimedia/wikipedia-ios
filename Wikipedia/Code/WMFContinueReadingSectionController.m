@@ -24,7 +24,7 @@ static NSString *const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 - (instancetype)initWithArticleURL:(NSURL *)articleURL
                          dataStore:(MWKDataStore *)dataStore {
     NSParameterAssert(articleURL.wmf_title);
-    self = [super initWithDataStore:dataStore items:@[ articleURL ]];
+    self = [super initWithDataStore:dataStore items:@[articleURL]];
     if (self) {
         self.articleURL = articleURL;
     }
@@ -54,13 +54,13 @@ static NSString *const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 }
 
 - (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-reading-heading", nil) attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-reading-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
 - (NSAttributedString *)headerSubTitle {
     NSDate *resignActiveDate = [[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate];
     NSString *relativeTimeString = [resignActiveDate wmf_relativeTimestamp];
-    return [[NSAttributedString alloc] initWithString:[relativeTimeString wmf_stringByCapitalizingFirstCharacter] attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:[relativeTimeString wmf_stringByCapitalizingFirstCharacter] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString *)cellIdentifier {

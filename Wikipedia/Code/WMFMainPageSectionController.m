@@ -78,11 +78,11 @@ static NSString *const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 }
 
 - (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-main-page-heading", nil) attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-main-page-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
 - (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]] attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString *)cellIdentifier {
@@ -129,7 +129,7 @@ static NSString *const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
                                                                               return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
                                                                           }
                                                                           self.siteInfo = data;
-                                                                          return (id)[self.titleSearchFetcher fetchArticlePreviewResultsForArticleURLs:@[ self.siteInfo.mainPageURL ] siteURL:self.siteURL];
+                                                                          return (id)[self.titleSearchFetcher fetchArticlePreviewResultsForArticleURLs:@[self.siteInfo.mainPageURL] siteURL:self.siteURL];
                                                                       })
         .then(^(NSArray<MWKSearchResult *> *searchResults) {
             @strongify(self);
@@ -137,7 +137,7 @@ static NSString *const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
                 return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
             }
             self.mainPageSearchResult = [searchResults firstObject];
-            return (id) @[ [searchResults firstObject] ];
+            return (id) @[[searchResults firstObject]];
         })
         .catch(^(NSError *error) {
             @strongify(self);

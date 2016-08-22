@@ -65,11 +65,11 @@ NSString *const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 }
 
 - (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-random-article-heading", nil) attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-random-article-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
 - (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:MWSiteLocalizedString(self.searchSiteURL, @"onboarding-wikipedia", nil) attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:MWSiteLocalizedString(self.searchSiteURL, @"onboarding-wikipedia", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString *)cellIdentifier {
@@ -131,7 +131,7 @@ NSString *const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
                 }
                 [self.cell setLoading:NO];
                 self.result = result;
-                resolve(@[ result ]);
+                resolve(@[result]);
             }];
     }];
 }

@@ -42,9 +42,9 @@
 
     NSDictionary *iconAttributes =
         @{
-            NSFontAttributeName : [UIFont wmf_glyphFontOfSize:23.0 * MENUS_SCALE_MULTIPLIER],
-            NSForegroundColorAttributeName : [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0],
-            NSBaselineOffsetAttributeName : @1
+            NSFontAttributeName: [UIFont wmf_glyphFontOfSize:23.0 * MENUS_SCALE_MULTIPLIER],
+            NSForegroundColorAttributeName: [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0],
+            NSBaselineOffsetAttributeName: @1
         };
 
     self.iconLabel.attributedText =
@@ -72,7 +72,7 @@
     // See: http://stackoverflow.com/a/15591474 for details.
 
     [self adjustConstraintsScaleForViews:
-              @[ self.summaryLabel, self.nameLabel, self.timeLabel, self.deltaLabel, self.iconLabel ]];
+              @[self.summaryLabel, self.nameLabel, self.timeLabel, self.deltaLabel, self.iconLabel]];
 }
 
 @end

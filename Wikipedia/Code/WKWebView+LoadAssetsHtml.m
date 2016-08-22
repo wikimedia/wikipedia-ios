@@ -3,7 +3,6 @@
 #import "UIScreen+WMFImageWidth.h"
 @import WMFKit;
 
-
 static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is the default NSURLRequest timeout interval
 
 @implementation WKWebView (LoadAssetsHtml)

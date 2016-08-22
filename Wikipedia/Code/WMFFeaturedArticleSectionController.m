@@ -74,11 +74,11 @@ static NSString *const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 }
 
 - (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-featured-article-heading", nil) attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-featured-article-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
 - (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date] attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString *)cellIdentifier {
@@ -128,7 +128,7 @@ static NSString *const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
                                                                                                   return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
                                                                                               }
                                                                                               self.featuredArticlePreview = data;
-                                                                                              return (id) @[ data ];
+                                                                                              return (id) @[data];
                                                                                           })
         .catch(^(NSError *error) {
             @strongify(self);

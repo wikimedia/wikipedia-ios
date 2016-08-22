@@ -291,7 +291,7 @@ static NSString *const WMFExploreSectionControllerException = @"WMFExploreSectio
     _fetchError = fetchError;
     _fetchedItems = nil;
     if (fetchError) {
-        self.items = @[ fetchError ];
+        self.items = @[fetchError];
     }
 }
 

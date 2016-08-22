@@ -19,10 +19,10 @@ NSString *const WMFLoggingEndpoint =
         if (event && schema && wiki) {
             NSDictionary *payload =
                 @{
-                    @"event" : event,
-                    @"revision" : @(revision),
-                    @"schema" : schema,
-                    @"wiki" : wiki
+                    @"event": event,
+                    @"revision": @(revision),
+                    @"schema": schema,
+                    @"wiki": wiki
                 };
 
             NSData *payloadJsonData = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
@@ -37,7 +37,7 @@ NSString *const WMFLoggingEndpoint =
                ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
                [manager.requestSerializer setValue:funnel.appInstallID forHTTPHeaderField:@"X-WMF-UUID"];
              */
-            
+
             [[[NSURLSession sharedSession] dataTaskWithRequest:request] resume];
         }
     }

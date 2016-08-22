@@ -65,11 +65,11 @@ static NSString *const WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoT
 }
 
 - (NSAttributedString *)headerTitle {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-potd-heading", nil) attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-potd-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
 - (NSAttributedString *)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.fetchedDate] attributes:@{NSForegroundColorAttributeName : [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.fetchedDate] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString *)cellIdentifier {
@@ -124,7 +124,7 @@ static NSString *const WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoT
                 return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
             }
             self.imageInfo = info;
-            return (id) @[ info ];
+            return (id) @[info];
         })
         .catch(^(NSError *error) {
             @strongify(self);

@@ -45,7 +45,7 @@
 - (void)constrainContainerView {
     [self.containerView removeConstraintsOfViewFromView:self];
 
-    NSDictionary *views = @{ @"view" : self.containerView };
+    NSDictionary *views = @{ @"view": self.containerView };
 
     NSArray *constraints =
         @[
@@ -59,13 +59,13 @@
                                                    metrics:nil
                                                      views:views],
 
-           @[ [NSLayoutConstraint constraintWithItem:self.containerView
-                                           attribute:NSLayoutAttributeWidth
-                                           relatedBy:NSLayoutRelationEqual
-                                              toItem:self
-                                           attribute:NSLayoutAttributeWidth
-                                          multiplier:1.0
-                                            constant:0] ]
+           @[[NSLayoutConstraint constraintWithItem:self.containerView
+                                          attribute:NSLayoutAttributeWidth
+                                          relatedBy:NSLayoutRelationEqual
+                                             toItem:self
+                                          attribute:NSLayoutAttributeWidth
+                                         multiplier:1.0
+                                           constant:0]]
 
         ];
 
@@ -166,54 +166,54 @@
     id prevView = nil;
     for (UIView *view in self.containerView.subviews) {
         if (prevView) {
-            [constraints addObject:@[ [NSLayoutConstraint constraintWithItem:view
-                                                                   attribute:NSLayoutAttributeLeft
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:prevView
-                                                                   attribute:NSLayoutAttributeRight
-                                                                  multiplier:1.0
-                                                                    constant:0] ]];
+            [constraints addObject:@[[NSLayoutConstraint constraintWithItem:view
+                                                                  attribute:NSLayoutAttributeLeft
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:prevView
+                                                                  attribute:NSLayoutAttributeRight
+                                                                 multiplier:1.0
+                                                                   constant:0]]];
 
-            [constraints addObject:@[ [NSLayoutConstraint constraintWithItem:view
-                                                                   attribute:NSLayoutAttributeWidth
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:prevView
-                                                                   attribute:NSLayoutAttributeWidth
-                                                                  multiplier:1.0
-                                                                    constant:0] ]];
+            [constraints addObject:@[[NSLayoutConstraint constraintWithItem:view
+                                                                  attribute:NSLayoutAttributeWidth
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:prevView
+                                                                  attribute:NSLayoutAttributeWidth
+                                                                 multiplier:1.0
+                                                                   constant:0]]];
         } else {
-            [constraints addObject:@[ [NSLayoutConstraint constraintWithItem:view
-                                                                   attribute:NSLayoutAttributeLeft
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:self.containerView
-                                                                   attribute:NSLayoutAttributeLeft
-                                                                  multiplier:1.0
-                                                                    constant:0] ]];
+            [constraints addObject:@[[NSLayoutConstraint constraintWithItem:view
+                                                                  attribute:NSLayoutAttributeLeft
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.containerView
+                                                                  attribute:NSLayoutAttributeLeft
+                                                                 multiplier:1.0
+                                                                   constant:0]]];
         }
-        [constraints addObject:@[ [NSLayoutConstraint constraintWithItem:view
-                                                               attribute:NSLayoutAttributeTop
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self.containerView
-                                                               attribute:NSLayoutAttributeTop
-                                                              multiplier:1.0
-                                                                constant:0] ]];
+        [constraints addObject:@[[NSLayoutConstraint constraintWithItem:view
+                                                              attribute:NSLayoutAttributeTop
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.containerView
+                                                              attribute:NSLayoutAttributeTop
+                                                             multiplier:1.0
+                                                               constant:0]]];
 
-        [constraints addObject:@[ [NSLayoutConstraint constraintWithItem:view
-                                                               attribute:NSLayoutAttributeBottom
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self.containerView
-                                                               attribute:NSLayoutAttributeBottom
-                                                              multiplier:1.0
-                                                                constant:0] ]];
+        [constraints addObject:@[[NSLayoutConstraint constraintWithItem:view
+                                                              attribute:NSLayoutAttributeBottom
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.containerView
+                                                              attribute:NSLayoutAttributeBottom
+                                                             multiplier:1.0
+                                                               constant:0]]];
 
         if (view == self.containerView.subviews.lastObject) {
-            [constraints addObject:@[ [NSLayoutConstraint constraintWithItem:view
-                                                                   attribute:NSLayoutAttributeRight
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:self.containerView
-                                                                   attribute:NSLayoutAttributeRight
-                                                                  multiplier:1.0
-                                                                    constant:0] ]];
+            [constraints addObject:@[[NSLayoutConstraint constraintWithItem:view
+                                                                  attribute:NSLayoutAttributeRight
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.containerView
+                                                                  attribute:NSLayoutAttributeRight
+                                                                 multiplier:1.0
+                                                                   constant:0]]];
         }
 
         prevView = view;
@@ -228,31 +228,31 @@
     id prevView = nil;
     for (UIView *view in self.containerView.subviews) {
         if (prevView) {
-            [constraints addObject:@[ [NSLayoutConstraint constraintWithItem:view
-                                                                   attribute:NSLayoutAttributeBottom
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:prevView
-                                                                   attribute:NSLayoutAttributeTop
-                                                                  multiplier:1.0
-                                                                    constant:0] ]];
+            [constraints addObject:@[[NSLayoutConstraint constraintWithItem:view
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:prevView
+                                                                  attribute:NSLayoutAttributeTop
+                                                                 multiplier:1.0
+                                                                   constant:0]]];
         } else {
-            [constraints addObject:@[ [NSLayoutConstraint constraintWithItem:view
-                                                                   attribute:NSLayoutAttributeBottom
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:self.containerView
-                                                                   attribute:NSLayoutAttributeBottom
-                                                                  multiplier:1.0
-                                                                    constant:0] ]];
+            [constraints addObject:@[[NSLayoutConstraint constraintWithItem:view
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.containerView
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                 multiplier:1.0
+                                                                   constant:0]]];
         }
 
         if (view == self.containerView.subviews.lastObject) {
-            [constraints addObject:@[ [NSLayoutConstraint constraintWithItem:view
-                                                                   attribute:NSLayoutAttributeTop
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:self.containerView
-                                                                   attribute:NSLayoutAttributeTop
-                                                                  multiplier:1.0
-                                                                    constant:0] ]];
+            [constraints addObject:@[[NSLayoutConstraint constraintWithItem:view
+                                                                  attribute:NSLayoutAttributeTop
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.containerView
+                                                                  attribute:NSLayoutAttributeTop
+                                                                 multiplier:1.0
+                                                                   constant:0]]];
         }
 
         [constraints addObject:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
@@ -262,7 +262,7 @@
 
         [constraints addObject:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[view(>=height)]"
                                                                        options:0
-                                                                       metrics:@{ @"height" : @(self.minSubviewHeight) }
+                                                                       metrics:@{ @"height": @(self.minSubviewHeight) }
                                                                          views:NSDictionaryOfVariableBindings(view)]];
         prevView = view;
     }
