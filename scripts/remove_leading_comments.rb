@@ -27,7 +27,7 @@ def iterate_and_remove(dir)
   end
 end
 
-dirs = ['Wikipedia/Code', 'WikipediaUnitTests/Code']
+dirs = ['Wikipedia/Code', 'WikipediaUnitTests/Code', 'WMFKit']
 
 dirs.each do |dir|
   iterate_and_remove(dir)
