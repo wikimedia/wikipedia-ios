@@ -89,30 +89,54 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Provides the index of the receiver's item, specifying its ordering with other item types within its @c dateCreated.
+ *  Ordering differs on iPad
  *
  *  @return A positive integer which, when compared with other items' indices, will yield the comparison result describing
  *          their ordering.
  */
 - (NSInteger)dailyOrderingIndex {
-    switch (self.type) {
-        case WMFExploreSectionTypeMainPage:
-            return 0;
-        case WMFExploreSectionTypeContinueReading:
-            return 1;
-        case WMFExploreSectionTypeFeaturedArticle:
-            return 2;
-        case WMFExploreSectionTypeMostRead:
-            return 3;
-        case WMFExploreSectionTypePictureOfTheDay:
-            return 4;
-        case WMFExploreSectionTypeRandom:
-            return 5;
-        case WMFExploreSectionTypeNearby:
-            return 6;
-        case WMFExploreSectionTypeSaved:
-        case WMFExploreSectionTypeHistory:
-            // Saved & History have identical same-day sorting behavior
-            return 7;
+    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad){
+        switch (self.type) {
+            case WMFExploreSectionTypeMainPage:
+                return 0;
+            case WMFExploreSectionTypeContinueReading:
+                return 1;
+            case WMFExploreSectionTypeFeaturedArticle:
+                return 2;
+            case WMFExploreSectionTypeMostRead:
+                return 3;
+            case WMFExploreSectionTypePictureOfTheDay:
+                return 4;
+            case WMFExploreSectionTypeRandom:
+                return 5;
+            case WMFExploreSectionTypeNearby:
+                return 6;
+            case WMFExploreSectionTypeSaved:
+            case WMFExploreSectionTypeHistory:
+                // Saved & History have identical same-day sorting behavior
+                return 7;
+        }
+    }else{
+        switch (self.type) {
+            case WMFExploreSectionTypeContinueReading:
+                return 0;
+            case WMFExploreSectionTypeFeaturedArticle:
+                return 1;
+            case WMFExploreSectionTypeMostRead:
+                return 2;
+            case WMFExploreSectionTypePictureOfTheDay:
+                return 3;
+            case WMFExploreSectionTypeMainPage:
+                return 4;
+            case WMFExploreSectionTypeRandom:
+                return 5;
+            case WMFExploreSectionTypeNearby:
+                return 6;
+            case WMFExploreSectionTypeSaved:
+            case WMFExploreSectionTypeHistory:
+                // Saved & History have identical same-day sorting behavior
+                return 7;
+        }
     }
 }
 
