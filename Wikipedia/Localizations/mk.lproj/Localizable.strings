@@ -290,8 +290,6 @@
 "nearby-distance-label-miles" = "$1 милји";
 "nearby-pull-to-refresh-prompt" = "Потегнете за да превчитате";
 "nearby-pull-to-refresh-is-refreshing" = "Превчитувам";
-"nearby-loading" = "Ги вчитувам статиите во близина...";
-"nearby-loaded" = "Статиите во близина се вчитани";
 "nearby-none" = "Не пронајдов статии во близина. Повлечете за да превчитате или да се обидете повторно.";
 "nearby-open-in-maps" = "Отвори во Карти";
 "nearby-cancel" = "Откажи";

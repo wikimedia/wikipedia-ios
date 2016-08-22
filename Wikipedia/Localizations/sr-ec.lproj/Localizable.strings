@@ -287,8 +287,6 @@
 "nearby-distance-label-miles" = "$1 миља";
 "nearby-pull-to-refresh-prompt" = "Повуците да бисте освежили";
 "nearby-pull-to-refresh-is-refreshing" = "Освежавам…";
-"nearby-loading" = "Учитавам чланке о објектима у близини…";
-"nearby-loaded" = "Чланци о објектима у близини су учитани";
 "nearby-none" = "Не могу да пронађем чланке о објектима у близини. Повуците да бисте освежили или покушајте касније.";
 "nearby-open-in-maps" = "Отвори у Мапама";
 "nearby-cancel" = "Откажи";

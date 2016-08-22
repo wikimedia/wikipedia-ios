@@ -183,6 +183,7 @@
 "edit-summary-description" = "Egy pontos összefoglaló segít a többi szerkesztőnek a szerkesztéseid gyorsabb átnézésében. Választhatsz az alábbi címkékből is.";
 "edit-summary-field-placeholder-text" = "Más módok, ahogy javítottad a szócikket";
 "edit-summary-title" = "Hogy javítottad a szócikket?";
+"fetching-random-article" = "Véletlen cikk lekérése";
 "article-pull-to-refresh-prompt" = "Húzd le a frissítéshez";
 "article-pull-to-refresh-is-refreshing" = "Szócikk frissítése…";
 "credits-wikimedia-repos" = "Wikimédia tárolók";
@@ -284,8 +285,6 @@
 "nearby-distance-label-miles" = "$1 mérföld";
 "nearby-pull-to-refresh-prompt" = "Húzd le a frissítéshez";
 "nearby-pull-to-refresh-is-refreshing" = "Frissítés";
-"nearby-loading" = "Közeli cikkek betöltése...";
-"nearby-loaded" = "Közeli cikkek betöltve";
 "nearby-none" = "Nem találhatók közeli szócikkek. Húzd le a frissítéshez vagy próbáld újra később.";
 "nearby-open-in-maps" = "Megnyitás a Térképekben";
 "nearby-cancel" = "Mégse";
