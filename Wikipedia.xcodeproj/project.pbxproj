@@ -305,7 +305,6 @@
 		B0E805D71C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805D61C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.m */; };
 		B0E806331C0CE7680065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062A1C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m */; };
 		B0E806341C0CE7680065EBC0 /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062C1C0CE7670065EBC0 /* MWKImageInfoResponseSerializer.m */; };
-		B0E8063A1C0CE7B00065EBC0 /* FetcherBase.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806391C0CE7B00065EBC0 /* FetcherBase.m */; };
 		B0E806471C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8063C1C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m */; };
 		B0E806481C0CE7F70065EBC0 /* AccountCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8063E1C0CE7F70065EBC0 /* AccountCreator.m */; };
 		B0E806491C0CE7F70065EBC0 /* AccountLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806401C0CE7F70065EBC0 /* AccountLogin.m */; };
@@ -570,6 +569,8 @@
 		D81FB2661D47B5BA0000C685 /* WMFCVLAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB2651D47B5BA0000C685 /* WMFCVLAttributes.m */; };
 		D81FB2691D47B5DC0000C685 /* WMFCVLInvalidationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB2681D47B5DC0000C685 /* WMFCVLInvalidationContext.m */; };
 		D81FB26C1D493E6A0000C685 /* WMFCVLMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = D81FB26B1D493E6A0000C685 /* WMFCVLMetrics.m */; };
+		D82F601C1D6CE10400388574 /* FetcherBase.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806381C0CE7B00065EBC0 /* FetcherBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D82F601D1D6CE10800388574 /* FetcherBase.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806391C0CE7B00065EBC0 /* FetcherBase.m */; };
 		D837D0381D6CC8B3004EFBC6 /* QueuesSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806721C0CE9850065EBC0 /* QueuesSingleton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D837D0391D6CC8B8004EFBC6 /* QueuesSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806731C0CE9850065EBC0 /* QueuesSingleton.m */; };
 		D844D9701D6CB2600042D692 /* WMFModel.h in Headers */ = {isa = PBXBuildFile; fileRef = D844D96E1D6CB2600042D692 /* WMFModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2461,8 +2462,6 @@
 		0487046119F8262600B7D307 /* BaseFetcher */ = {
 			isa = PBXGroup;
 			children = (
-				B0E806381C0CE7B00065EBC0 /* FetcherBase.h */,
-				B0E806391C0CE7B00065EBC0 /* FetcherBase.m */,
 			);
 			name = BaseFetcher;
 			path = Wikipedia/Code/BaseFetcher;
@@ -5146,6 +5145,8 @@
 				D844D96E1D6CB2600042D692 /* WMFModel.h */,
 				D844D9831D6CB3830042D692 /* WMFModel-global.h */,
 				D844D9841D6CB3900042D692 /* WMFModel-prefix.pch */,
+				B0E806381C0CE7B00065EBC0 /* FetcherBase.h */,
+				B0E806391C0CE7B00065EBC0 /* FetcherBase.m */,
 				B0E8062D1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.h */,
 				B0E8062E1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.m */,
 				B05033B21D1FA437002E7D4F /* ImageTags */,
@@ -5475,6 +5476,7 @@
 				D844D9E91D6CBFD10042D692 /* WMFZeroMessageFetcher.h in Headers */,
 				D844D9E61D6CBFAC0042D692 /* MWKArticle+WMFSharing.h in Headers */,
 				D844D9A51D6CB70C0042D692 /* MWKImage.h in Headers */,
+				D82F601C1D6CE10400388574 /* FetcherBase.h in Headers */,
 				D844D9F91D6CC06B0042D692 /* SDImageCache+WMFPersistentCache.h in Headers */,
 				D844D9F01D6CC01C0042D692 /* MWKLicense.h in Headers */,
 				D844D9971D6CB5CA0042D692 /* WikipediaAppUtils.h in Headers */,
@@ -6364,7 +6366,6 @@
 				B0E806471C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m in Sources */,
 				0E4B5FC11C5725C20099B02E /* WMFExploreSectionControllerCache.m in Sources */,
 				BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */,
-				B0E8063A1C0CE7B00065EBC0 /* FetcherBase.m in Sources */,
 				B0E8066E1C0CE9030065EBC0 /* PreviewHtmlFetcher.m in Sources */,
 				B0E805401C0CE0DC0065EBC0 /* UICollectionViewLayout+AttributeUtils.m in Sources */,
 				B0E804CC1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.m in Sources */,
@@ -6704,6 +6705,7 @@
 				D844D9941D6CB5970042D692 /* MWKSectionMetaData.m in Sources */,
 				D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */,
 				D849D6531D6CC7DC00D06FC8 /* WMFImageTag+TargetImageWidthURL.m in Sources */,
+				D82F601D1D6CE10800388574 /* FetcherBase.m in Sources */,
 				D844D9F61D6CC0440042D692 /* Cancellable.swift in Sources */,
 				D844DA071D6CC4D40042D692 /* MWKLanguageLinkController.m in Sources */,
 				D844D9DC1D6CBBFA0042D692 /* NSString+WMFHTMLParsing.m in Sources */,

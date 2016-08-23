@@ -63,6 +63,12 @@
 
 #import <WMFModel/MWKLanguageLinkController.h>
 #import <WMFModel/MWKLanguageFilter.h>
+#import <WMFModel/WMFApiJsonResponseSerializer.h>
+#import <WMFModel/MWKLanguageLinkResponseSerializer.h>
+#import <WMFModel/WMFMantleJSONResponseSerializer.h>
+#import <WMFModel/WMFNetworkUtilities.h>
+#import <WMFModel/WMFRelatedSectionBlackList.h>
+#import <WMFModel/FetcherBase.h>
 
 
 #endif /* WMFModel_global_h */
