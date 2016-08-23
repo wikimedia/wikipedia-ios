@@ -1,9 +1,7 @@
 #import "EventLoggingFunnel.h"
 #import "EventLogger.h"
-#import "QueuesSingleton.h"
 #import "SessionSingleton.h"
 #import "Wikipedia-Swift.h"
-@import WMFKit;
 
 @implementation EventLoggingFunnel
 

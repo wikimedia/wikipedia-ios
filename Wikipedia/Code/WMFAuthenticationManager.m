@@ -4,7 +4,6 @@
 
 #import "KeychainCredentials.h"
 
-#import "QueuesSingleton.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 
 #import "LoginTokenFetcher.h"

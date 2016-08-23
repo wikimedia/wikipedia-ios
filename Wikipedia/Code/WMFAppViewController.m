@@ -13,7 +13,6 @@
 #import "SavedArticlesFetcher.h"
 #import "SessionSingleton.h"
 #import "AssetsFileFetcher.h"
-#import "QueuesSingleton.h"
 
 // Model
 #import "MWKSearchResult.h"

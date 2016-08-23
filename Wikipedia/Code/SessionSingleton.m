@@ -1,6 +1,4 @@
 #import "SessionSingleton.h"
-#import "WikipediaAppUtils.h"
-#import "QueuesSingleton.h"
 
 @interface SessionSingleton ()
 

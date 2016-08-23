@@ -2,7 +2,6 @@
 #import "MWKLanguageLink.h"
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLinkFetcher.h"
-#import "QueuesSingleton.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 
 NS_ASSUME_NONNULL_BEGIN

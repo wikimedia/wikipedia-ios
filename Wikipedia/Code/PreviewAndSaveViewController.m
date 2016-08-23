@@ -1,7 +1,6 @@
 #import "PreviewAndSaveViewController.h"
 #import "WikipediaAppUtils.h"
 #import "PreviewHtmlFetcher.h"
-#import "QueuesSingleton.h"
 #import "WikiTextSectionUploader.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "EditTokenFetcher.h"

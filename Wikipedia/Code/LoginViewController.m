@@ -1,6 +1,5 @@
 #import "WikipediaAppUtils.h"
 #import "LoginViewController.h"
-#import "QueuesSingleton.h"
 #import "LoginTokenFetcher.h"
 #import "AccountLogin.h"
 #import "SessionSingleton.h"

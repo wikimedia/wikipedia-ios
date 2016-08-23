@@ -2,7 +2,6 @@
 
 #import "WikipediaAppUtils.h"
 #import "Defines.h"
-#import "QueuesSingleton.h"
 #import "WikiTextSectionFetcher.h"
 #import "PreviewAndSaveViewController.h"
 #import "WMF_Colors.h"
