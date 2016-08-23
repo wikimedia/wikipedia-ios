@@ -39,6 +39,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 @property (nonatomic, strong, readwrite) NSURL* searchSiteURL;
 @property (nonatomic, strong, readwrite) CLLocation* location;
+@property (nonatomic, strong, readwrite, nullable) CLLocation* currentLocation;
 @property (nonatomic, strong, readwrite) CLPlacemark* placemark;
 
 @property (nonatomic, strong) WMFLocationSearchFetcher* locationSearchFetcher;
@@ -64,13 +65,12 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
     self = [super initWithDataStore:dataStore];
     if (self) {
         self.location              = location;
+        self.currentLocation       = nil;
         self.placemark             = placemark;
-        self.searchSiteURL       = url;
+        self.searchSiteURL         = url;
         self.date                  = date;
         self.locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
         self.compassViewModel      = [[WMFCompassViewModel alloc] init];
-        currentLocationResolver = ^(PMKResolver resolve) {
-        };
     }
     return self;
 }
@@ -167,8 +167,8 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location {
-    self.location = location;
-    currentLocationResolver(self.location);
+    self.currentLocation = location;
+    currentLocationResolver(self.currentLocation);
     [self.currentLocationManager stopMonitoringLocation];
 }
 
@@ -176,6 +176,23 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error {
+}
+
+- (AnyPromise*)fetchDataIfNeeded {
+    if ([self.date isToday]){
+        // The first nearby section should always show articles near the user's current location.
+        return [super fetchDataUserInitiated];
+    }else{
+        return [super fetchDataIfNeeded];
+    }
+}
+
+- (CLLocation *) location {
+    if ([self.date isToday] && self.currentLocation != nil){
+        return _currentLocation;
+    }else{
+        return _location;
+    }
 }
 
 - (AnyPromise*)fetchData {
