@@ -6,23 +6,25 @@
 #import <BlocksKit/BlocksKit.h>
 #import <PromiseKit/PromiseKit.h>
 
-#import "WMFBlockDefinitions.h"
-#import "WMFComparison.h"
-#import "WMFHashing.h"
-#import "WMFDeprecationMacros.h"
-#import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
-#import "NSArray+WMFMapping.h"
-#import "NSMutableArray+WMFSafeAdd.h"
-#import "NSMutableSet+WMFSafeAdd.h"
-#import "NSDictionary+WMFExtensions.h"
-#import "NSURL+WMFExtras.h"
-#import "WMFGCDHelpers.h"
-#import "WMFLogging.h"
-#import "WMFDirectoryPaths.h"
-#import "WMFLocalization.h"
-#import "WMFMath.h"
-#import "NSError+WMFExtensions.h"
-#import "WMFOutParamUtils.h"
-#import "UIColor+WMFStyle.h"
+#import <WMFKit/NSURL+WMFLinkParsing.h>
+#import <WMFKit/NSURLComponents+WMFLinkParsing.h>
+#import <WMFKit/WMFBlockDefinitions.h>
+#import <WMFKit/WMFComparison.h>
+#import <WMFKit/WMFHashing.h>
+#import <WMFKit/WMFDeprecationMacros.h>
+#import <WMFKit/NSProcessInfo+WMFOperatingSystemVersionChecks.h>
+#import <WMFKit/NSArray+WMFMapping.h>
+#import <WMFKit/NSMutableArray+WMFSafeAdd.h>
+#import <WMFKit/NSMutableSet+WMFSafeAdd.h>
+#import <WMFKit/NSDictionary+WMFExtensions.h>
+#import <WMFKit/NSURL+WMFExtras.h>
+#import <WMFKit/WMFGCDHelpers.h>
+#import <WMFKit/WMFLogging.h>
+#import <WMFKit/WMFDirectoryPaths.h>
+#import <WMFKit/WMFLocalization.h>
+#import <WMFKit/WMFMath.h>
+#import <WMFKit/NSError+WMFExtensions.h>
+#import <WMFKit/WMFOutParamUtils.h>
+#import <WMFKit/UIColor+WMFStyle.h>
 
 #endif
