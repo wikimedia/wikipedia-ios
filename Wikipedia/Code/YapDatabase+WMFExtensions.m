@@ -1,6 +1,17 @@
 #import "YapDatabase+WMFExtensions.h"
+#import "YapDatabase+WMFViews.h"
 
 @implementation YapDatabase (WMFExtensions)
+
++ (instancetype)sharedInstance {
+    static dispatch_once_t onceToken;
+    static id sharedInstance;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[[self class] alloc] initWithPath:[[self class] wmf_databasePath]];
+        [sharedInstance wmf_registerViews];
+    });
+    return sharedInstance;
+}
 
 + (NSString *)wmf_databasePath {
     NSString *databaseName = @"WikipediaYap.sqlite";

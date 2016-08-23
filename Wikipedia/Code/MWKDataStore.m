@@ -1,6 +1,5 @@
 #import "YapDatabase+WMFExtensions.h"
 #import "YapDatabase+WMFViews.h"
-#import "YapDatabaseConnection+WMFExtensions.h"
 #import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import <WMFModel/WMFModel-Swift.h>
@@ -23,24 +22,10 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @interface MWKDataStore ()
 
-- (instancetype)initWithDatabase:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath NS_DESIGNATED_INITIALIZER;
-
 @property (readwrite, strong, nonatomic) MWKHistoryList *historyList;
 @property (readwrite, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readwrite, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 @property (readwrite, strong, nonatomic) WMFRelatedSectionBlackList *blackList;
-
-@property (readwrite, strong, nonatomic) YapDatabase *database;
-
-/**
- *  Connection to read article references on.
- *  This connection has cache settings optimized for reading article references in the UI.
- *  It is reccomended to use this connection to make sure these cache settings are enforced app wide
- */
-@property (readwrite, strong, nonatomic) YapDatabaseConnection *articleReferenceReadConnection;
-@property (readwrite, strong, nonatomic) YapDatabaseConnection *writeConnection;
-
-@property (readwrite, nonatomic, strong) NSPointerArray *changeHandlers;
 
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
@@ -59,24 +44,20 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (instancetype)init {
-    self = [self initWithDatabase:[[YapDatabase alloc] initWithPath:[YapDatabase wmf_databasePath]] legacyDataBasePath:[[MWKDataStore class] mainDataStorePath]];
-    if (self) {
-    }
+    self = [self initWithDatabase:[YapDatabase sharedInstance]];
+    return self;
+}
+
+- (instancetype)initWithDatabase:(YapDatabase *)database {
+    self = [self initWithDatabase:database legacyDataBasePath:[[MWKDataStore class] mainDataStorePath]];
     return self;
 }
 
 - (instancetype)initWithDatabase:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath {
-    self = [super init];
+    self = [super initWithDatabase:database];
     if (self) {
-        self.changeHandlers = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsWeakMemory];
-        self.database = database;
-        [self.database wmf_registerViews];
         self.basePath = basePath;
         [self setupLegacyDataStore];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(yapDatabaseModified:)
-                                                     name:YapDatabaseModifiedNotification
-                                                   object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     }
     return self;
@@ -144,66 +125,10 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     return _blackList;
 }
 
-#pragma mark - Database
+#pragma mark - WMFBaseDataStore
 
-- (YapDatabaseConnection *)articleReferenceReadConnection {
-    if (!_articleReferenceReadConnection) {
-        _articleReferenceReadConnection = [self.database wmf_newLongLivedReadConnection];
-    }
-    return _articleReferenceReadConnection;
-}
+- (void)dataStoreWasUpdatedWithNotification:(NSNotification*)notification{
 
-- (YapDatabaseConnection *)writeConnection {
-    if (!_writeConnection) {
-        _writeConnection = [self.database wmf_newWriteConnection];
-    }
-    return _writeConnection;
-}
-
-- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
-    [self.articleReferenceReadConnection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
-        block(transaction);
-    }];
-}
-
-- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
-    return [self.articleReferenceReadConnection wmf_readAndReturnResultsWithBlock:block];
-}
-
-- (void)readViewNamed:(NSString*)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
-    [self.articleReferenceReadConnection wmf_readInViewWithName:viewName withBlock:block];
-}
-
-- (nullable id)readAndReturnResultsWithViewNamed:(NSString*)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
-    return [self.articleReferenceReadConnection wmf_readAndReturnResultsInViewWithName:viewName withBlock:block];
-}
-
-
-- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block{
-    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction * _Nonnull transaction) {
-        block(transaction);
-    }];
-}
-
-- (void)yapDatabaseModified:(NSNotification *)notification {
-
-    // Jump to the most recent commit.
-    // End & Re-Begin the long-lived transaction atomically.
-    // Also grab all the notifications for all the commits that I jump.
-    // If the UI is a bit backed up, I may jump multiple commits.
-    NSArray *notifications = [self.articleReferenceReadConnection beginLongLivedReadTransaction];
-    if ([notifications count] == 0) {
-        return;
-    }
-
-    [self.changeHandlers compact];
-    for (id<WMFDatabaseChangeHandler> obj in self.changeHandlers) {
-        [obj processChanges:notifications onConnection:self.articleReferenceReadConnection];
-    }
-
-    //Order is important.
-    //Be sure to post notifications after all change handlers are updated.
-    //This way if notifications query a datasource/list, they will be up do date
     NSArray<NSString *> *updatedItemKeys = [notification wmf_updatedItemKeys];
 
     [updatedItemKeys enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
@@ -218,7 +143,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (void)cleanup {
-    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+    [self readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
         YapDatabaseViewTransaction *view = [transaction ext:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
         if ([view numberOfItemsInAllGroups] == 0) {
             return;

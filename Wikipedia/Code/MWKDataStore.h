@@ -1,4 +1,4 @@
-#import <Foundation/Foundation.h>
+#import "WMFBaseDataStore.h"
 
 @class MWKArticle;
 @class MWKSection;
@@ -10,13 +10,6 @@
 @class WMFRelatedSectionBlackList;
 @class MWKImageInfo;
 @class MWKImageList;
-
-@class YapDatabase;
-@class YapDatabaseConnection;
-@class YapDatabaseViewRowChange;
-@class YapDatabaseReadTransaction;
-@class YapDatabaseReadWriteTransaction;
-@class YapDatabaseViewTransaction;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -46,16 +39,11 @@ extern NSString *const MWKArticleKey;
 extern NSString *const MWKItemUpdatedNotification;
 extern NSString *const MWKURLKey;
 
-@protocol WMFDatabaseChangeHandler <NSObject>
 
-- (void)processChanges:(NSArray<YapDatabaseViewRowChange *> *)changes onConnection:(YapDatabaseConnection *)connection;
-
-@end
-
-@interface MWKDataStore : NSObject
+@interface MWKDataStore : WMFBaseDataStore
 
 /**
- *  Initialize with default database and legacyDataBasePath
+ *  Initialize with sharedInstance database and legacyDataBasePath
  *
  *  @return A data store
  */
@@ -65,11 +53,6 @@ extern NSString *const MWKURLKey;
 
 + (BOOL)migrateToSharedContainer:(NSError **)error;
 
-#pragma mark - Legacy Datastore methods
-
-@property (readonly, copy, nonatomic) NSString *basePath;
-
-@property (readonly, strong, nonatomic) YapDatabase *database;
 @property (readonly, strong, nonatomic) MWKHistoryList *historyList;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;

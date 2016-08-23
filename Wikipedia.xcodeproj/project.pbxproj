@@ -1004,6 +1004,8 @@
 		0E33F2B51D57E42E00C6CF94 /* YapDatabaseConnection+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "YapDatabaseConnection+WMFExtensions.h"; path = "../Wikipedia/Code/YapDatabaseConnection+WMFExtensions.h"; sourceTree = "<group>"; };
 		0E33F2B61D57E42E00C6CF94 /* YapDatabaseConnection+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "YapDatabaseConnection+WMFExtensions.m"; path = "../Wikipedia/Code/YapDatabaseConnection+WMFExtensions.m"; sourceTree = "<group>"; };
 		0E37F9011CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFRotationRespectingTabBarController.swift; sourceTree = "<group>"; };
+		0E3C5D3F1D6C9C6400C95BA1 /* WMFBaseDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFBaseDataStore.h; sourceTree = "<group>"; };
+		0E3C5D401D6C9C6400C95BA1 /* WMFBaseDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBaseDataStore.m; sourceTree = "<group>"; };
 		0E4A34701CBBFCD400A400F6 /* WMFImageGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryViewController.h; path = Wikipedia/Code/WMFImageGalleryViewController.h; sourceTree = SOURCE_ROOT; };
 		0E4A34711CBBFCD400A400F6 /* WMFImageGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryViewController.m; path = Wikipedia/Code/WMFImageGalleryViewController.m; sourceTree = SOURCE_ROOT; };
 		0E4B5FBC1C56B3E70099B02E /* WMFBaseExploreSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBaseExploreSectionController.h; path = Wikipedia/Code/WMFBaseExploreSectionController.h; sourceTree = SOURCE_ROOT; };
@@ -4440,6 +4442,10 @@
 			isa = PBXGroup;
 			children = (
 				0EE4890D1D4C1C4F0088505C /* Database */,
+				B0E807C11C0CF04A0065EBC0 /* MWKDataStore.h */,
+				B0E807C21C0CF04A0065EBC0 /* MWKDataStore.m */,
+				0E3C5D3F1D6C9C6400C95BA1 /* WMFBaseDataStore.h */,
+				0E3C5D401D6C9C6400C95BA1 /* WMFBaseDataStore.m */,
 			);
 			name = "Data Store";
 			sourceTree = "<group>";
@@ -4850,6 +4856,7 @@
 			isa = PBXGroup;
 			children = (
 				BC45D5B81C330DC3007C72F3 /* Data Store */,
+				0EE4890D1D4C1C4F0088505C /* Database */,
 				0E33F2BB1D59140200C6CF94 /* DataSources */,
 				229C20D91CB08FA500BC17AD /* PageHistory */,
 				BC45D58F1C32FEAF007C72F3 /* MediaWikiKit */,
@@ -6657,6 +6664,7 @@
 				B0E806711C0CE94B0065EBC0 /* WMFEnglishFeaturedTitleFetcher.m in Sources */,
 				0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */,
 				B0E806481C0CE7F70065EBC0 /* AccountCreator.m in Sources */,
+				0E3C5D411D6C9C6400C95BA1 /* WMFBaseDataStore.m in Sources */,
 				B0E802CB1C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.m in Sources */,
 				B0E806581C0CE84B0065EBC0 /* SavedArticlesFetcher.m in Sources */,
 				BCAF230F1C6CE233005F2D8D /* WMFMostReadTitleFetcher.m in Sources */,
