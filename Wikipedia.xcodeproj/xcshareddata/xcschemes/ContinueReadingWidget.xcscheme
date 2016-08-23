@@ -77,16 +77,26 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.springboard">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D4991434181D51DE00E6073C"
-            BuildableName = "Wikipedia.app"
-            BlueprintName = "Wikipedia"
+            BlueprintIdentifier = "0E8380621D64989F0076EDE4"
+            BuildableName = "ContinueReadingWidget.appex"
+            BlueprintName = "ContinueReadingWidget"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "0E8380621D64989F0076EDE4"
+            BuildableName = "ContinueReadingWidget.appex"
+            BlueprintName = "ContinueReadingWidget"
+            ReferencedContainer = "container:Wikipedia.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
