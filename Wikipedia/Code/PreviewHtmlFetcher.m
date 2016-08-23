@@ -3,7 +3,6 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSObject+WMFExtras.h"
-#import "MediaWikiKit.h"
 
 @implementation PreviewHtmlFetcher
 

@@ -1,5 +1,4 @@
 #import "WMFArticleListTableViewCell+WMFSearch.h"
-#import "WMFRangeUtils.h"
 #import "NSParagraphStyle+WMFParagraphStyles.h"
 
 @implementation WMFArticleListTableViewCell (WMFSearch)

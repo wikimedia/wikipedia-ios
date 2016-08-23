@@ -2,7 +2,6 @@ import UIKit
 import MobileCoreServices
 import CoreSpotlight
 
-
 public extension NSURL {
     @available(iOS 9.0, *)
     func searchableItemAttributes() -> CSSearchableItemAttributeSet? {

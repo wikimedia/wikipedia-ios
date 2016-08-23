@@ -26,8 +26,8 @@ import SDWebImage
 }
 
 public class WMFTypedImageData: NSObject {
-    let data:NSData?
-    let MIMEType:String?
+    public let data:NSData?
+    public let MIMEType:String?
     
     public init(data data_: NSData?, MIMEType type_: String?) {
         data = data_

@@ -1,5 +1,4 @@
 #import "MWKSavedPageEntry+ImageMigration.h"
-#import "NSMutableDictionary+WMFMaybeSet.h"
 
 typedef NS_ENUM(NSUInteger, MWKSavedPageEntrySchemaVersion) {
     MWKSavedPageEntrySchemaVersionUnknown = 0,

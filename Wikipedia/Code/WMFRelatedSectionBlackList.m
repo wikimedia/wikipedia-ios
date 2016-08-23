@@ -3,8 +3,6 @@
 #import <YapDataBase/YapDatabase.h>
 #import "YapDatabaseConnection+WMFExtensions.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
-#import "Wikipedia-Swift.h"
-@import WMFKit;
 
 NS_ASSUME_NONNULL_BEGIN
 

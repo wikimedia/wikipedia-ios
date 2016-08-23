@@ -1,12 +1,5 @@
 #import "MWKLanguageLinkController_Private.h"
-#import "MWKLanguageLink.h"
-#import "NSString+WMFExtras.h"
-#import "MediaWikiKit.h"
-#import "Defines.h"
-#import "WikipediaAppUtils.h"
-#import <BlocksKit/BlocksKit.h>
-#import "Wikipedia-Swift.h"
-@import WMFKit;
+#import <WMFModel/WMFModel-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

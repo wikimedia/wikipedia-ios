@@ -3,7 +3,6 @@
 #import "WMFShareCardImageContainer.h"
 #import "MWLanguageInfo.h"
 #import "WikipediaAppUtils.h"
-#import "MediaWikiKit.h"
 
 @interface WMFShareCardViewController ()
 

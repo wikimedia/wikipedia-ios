@@ -23,6 +23,8 @@ abstract_target 'Foundation' do
   pod 'libextobjc/EXTScope', '~> 0.4.1'
   pod 'BlocksKit/Core', '~> 2.2.0'
   pod 'KVOController', '= 1.0.3'
+  
+  pod 'CocoaLumberjack/Swift'
 
   # Dates
   pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'
@@ -43,6 +45,8 @@ abstract_target 'Foundation' do
   pod 'PiwikTracker'
   pod 'HockeySDK', '~> 3.8.2'
 
+   pod 'hpple', '~> 0.2'
+	
   target 'ContinueReadingWidget' do
 
   end
@@ -51,13 +55,16 @@ abstract_target 'Foundation' do
   	
   end
   
+  target 'WMFModel' do
+
+  end
+  
   target 'Wikipedia' do
     # Utilities
     pod 'Tweaks'
     pod 'BlocksKit/UIKit', '~> 2.2.0'
 
     # HTML
-    pod 'hpple', '~> 0.2'
     pod 'GCDWebServer', '~> 3.3'
 
     # Views

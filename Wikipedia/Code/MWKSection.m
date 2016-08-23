@@ -1,4 +1,3 @@
-#import "MediaWikiKit.h"
 #import "WikipediaAppUtils.h"
 #import "NSString+WMFHTMLParsing.h"
 #import <hpple/TFHpple.h>

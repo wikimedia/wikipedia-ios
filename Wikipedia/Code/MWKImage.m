@@ -1,9 +1,8 @@
 #import "UIKit/UIKit.h"
 #import "WikipediaAppUtils.h"
-#import "MediaWikiKit.h"
 #import "WMFImageURLParsing.h"
 #import "WMFGeometry.h"
-#import "Wikipedia-Swift.h"
+#import <WMFModel/WMFModel-Swift.h>
 
 @interface MWKImage ()
 

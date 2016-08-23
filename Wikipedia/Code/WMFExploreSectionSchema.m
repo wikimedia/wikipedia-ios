@@ -14,7 +14,6 @@
 #import "YapDatabaseViewOptions.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import <Tweaks/FBTweakInline.h>
-@import WMFKit;
 
 @import CoreLocation;
 

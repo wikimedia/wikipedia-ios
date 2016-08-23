@@ -15,7 +15,6 @@
 #import "WMFSearchResults.h"
 #import "WMFSearchDataSource.h"
 
-#import "MediaWikiKit.h"
 
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit+UIKit.h>

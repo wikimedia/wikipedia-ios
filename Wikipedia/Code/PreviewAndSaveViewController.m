@@ -26,7 +26,6 @@
 #import "CaptchaResetter.h"
 #import "SavedPagesFunnel.h"
 #import "EditFunnel.h"
-#import "MediaWikiKit.h"
 #import "WMFOpenExternalLinkDelegateProtocol.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFOpenExternalUrl.h"

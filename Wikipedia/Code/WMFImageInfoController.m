@@ -2,13 +2,10 @@
 
 #import <BlocksKit/BlocksKit.h>
 #import "MWKImage+CanonicalFilenames.h"
-#import "WMFRangeUtils.h"
-#import "NSArray+BKIndex.h"
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSArray+WMFLayoutDirectionUtilities.h"
-#import "NSIndexSet+BKReduce.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

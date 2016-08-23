@@ -16,7 +16,6 @@
 #import "QueuesSingleton.h"
 
 // Model
-#import "MediaWikiKit.h"
 #import "MWKSearchResult.h"
 #import "MWKLanguageLinkController.h"
 
@@ -44,8 +43,6 @@
 #import "WMFRandomArticleFetcher.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WMFAuthenticationManager.h"
-
-@import WMFKit;
 
 /**
  *  Enums for each tab in the main tab bar.

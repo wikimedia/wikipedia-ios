@@ -1,4 +1,3 @@
-#import "MediaWikiKit.h"
 @interface MWKSection (DisplayHtml)
 
 /*

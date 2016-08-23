@@ -2,7 +2,6 @@
 
 // Model
 #import "WMFDatabaseDataSource.h"
-#import "MediaWikiKit.h"
 #import "MWKLanguageLink.h"
 
 // Utilities
@@ -11,7 +10,6 @@
 
 #import "NSString+WMFExtras.h"
 #import "NSString+FormattedAttributedString.h"
-#import "WMFRangeUtils.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIColor+WMFStyle.h"
 #import "UIFont+WMFStyle.h"

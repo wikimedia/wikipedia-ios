@@ -3,7 +3,6 @@
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "MWKImageInfoResponseSerializer.h"
 #import "MWKArticle.h"
-#import "MediaWikiKit.h"
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "UIScreen+WMFImageWidth.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"

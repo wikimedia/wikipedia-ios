@@ -4,7 +4,6 @@
 #import "SessionSingleton.h"
 #import "NSObject+WMFExtras.h"
 #import "WikipediaAppUtils.h"
-#import "MediaWikiKit.h"
 
 @interface WikiTextSectionUploader ()
 

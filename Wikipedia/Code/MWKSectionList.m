@@ -1,6 +1,4 @@
 #import "MWKSectionList.h"
-#import "MediaWikiKit.h"
-#import "WikipediaAppUtils.h"
 
 @interface MWKSection (MWKSectionHierarchyBuilder)
 

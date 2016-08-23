@@ -26,5 +26,14 @@
 #import <WMFKit/NSError+WMFExtensions.h>
 #import <WMFKit/WMFOutParamUtils.h>
 #import <WMFKit/UIColor+WMFStyle.h>
+#import <WMFKit/WMFRangeUtils.h>
+#import <WMFKit/NSArray+BKIndex.h>
+#import <WMFKit/NSIndexSet+BKReduce.h>
+#import <WMFKit/NSMutableDictionary+WMFMaybeSet.h>
+#import <WMFKit/WMFGeometry.h>
+#import <WMFKit/NSURL+WMFProxyServer.h>
+#import <WMFKit/NSURL+WMFQueryParameters.h>
+#import <WMFKit/NSFileManager+WMFExtendedFileAttributes.h>
+#import <WMFKit/WMFTaskGroup.h>
 
 #endif

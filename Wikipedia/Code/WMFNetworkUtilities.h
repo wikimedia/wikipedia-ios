@@ -1,5 +1,3 @@
-#import <Foundation/Foundation.h>
-
 /// @name Constants
 
 extern NSString *const WMFNetworkingErrorDomain;

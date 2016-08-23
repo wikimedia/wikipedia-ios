@@ -9,7 +9,6 @@
 #import "UITableView+DynamicCellHeight.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WMFPageHistoryRevision.h"

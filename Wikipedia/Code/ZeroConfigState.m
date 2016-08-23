@@ -1,7 +1,5 @@
 #import "ZeroConfigState.h"
-#import "Wikipedia-Swift.h"
-#import <BlocksKit/UIAlertView+BlocksKit.h>
-#import <Tweaks/FBTweakInline.h>
+//#import <Tweaks/FBTweakInline.h>
 
 #import "WMFZeroMessage.h"
 #import "WMFZeroMessageFetcher.h"
@@ -29,10 +27,10 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 
 + (void)load {
     [super load];
-    FBTweakAction(@"Networking", @"Wikipedia Zero", @"Reset ZeroOnDialogShownOnce", ^{
-        [[NSUserDefaults wmf_userDefaults] setBool:NO forKey:ZeroOnDialogShownOnce];
-        [[NSUserDefaults wmf_userDefaults] synchronize];
-    });
+//    FBTweakAction(@"Networking", @"Wikipedia Zero", @"Reset ZeroOnDialogShownOnce", ^{
+//        [[NSUserDefaults wmf_userDefaults] setBool:NO forKey:ZeroOnDialogShownOnce];
+//        [[NSUserDefaults wmf_userDefaults] synchronize];
+//    });
 }
 
 - (WMFZeroMessageFetcher *)zeroMessageFetcher {

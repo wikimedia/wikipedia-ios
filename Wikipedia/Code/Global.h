@@ -6,7 +6,7 @@
    Done as a separate header so it can be reused in unit tests.
  */
 
-@import WMFKit;
+@import WMFModel;
 
 #define URL_PRIVACY_POLICY @"https://m.wikimediafoundation.org/wiki/Privacy_policy"
 

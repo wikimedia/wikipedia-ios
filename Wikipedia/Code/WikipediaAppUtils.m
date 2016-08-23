@@ -1,9 +1,6 @@
 #import "WikipediaAppUtils.h"
 #import "WMFAssetsFile.h"
-#import "SessionSingleton.h"
 #import "NSBundle+WMFInfoUtils.h"
-#import <BlocksKit/BlocksKit.h>
-#import "MediaWikiKit.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

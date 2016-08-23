@@ -1,7 +1,6 @@
 #import "NSUserActivity+WMFExtensions.h"
 #import "MWKArticle.h"
 #import "Wikipedia-Swift.h"
-#import "NSURL+WMFQueryParameters.h"
 
 @import CoreSpotlight;
 @import MobileCoreServices;

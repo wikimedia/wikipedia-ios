@@ -1,7 +1,6 @@
 #import "WMFArticleResponseSerializer.h"
 #import <Mantle/Mantle.h>
 #import "WMFFixtureRecording.h"
-#import "NSURL+WMFQueryParameters.h"
 
 @implementation WMFArticleResponseSerializer
 

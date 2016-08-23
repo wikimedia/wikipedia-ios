@@ -1,5 +1,3 @@
-#import "MediaWikiKit.h"
-
 @interface MWKSiteDataObject ()
 
 @property (readwrite, strong, nonatomic) NSURL *url;

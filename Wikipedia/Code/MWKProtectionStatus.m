@@ -1,5 +1,3 @@
-#import "MediaWikiKit.h"
-
 @interface MWKProtectionStatus ()
 
 @property (nonatomic, strong) NSDictionary *protection;

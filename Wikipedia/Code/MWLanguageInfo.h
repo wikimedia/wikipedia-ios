@@ -1,5 +1,3 @@
-#import <Foundation/Foundation.h>
-
 WMF_TECH_DEBT_DEPRECATED
 @interface MWLanguageInfo : NSObject
 

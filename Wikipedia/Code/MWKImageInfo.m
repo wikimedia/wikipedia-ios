@@ -1,8 +1,4 @@
-#import "MediaWikiKit.h"
-#import "NSMutableDictionary+WMFMaybeSet.h"
-#import "WikipediaAppUtils.h"
 #import "WMFImageURLParsing.h"
-#import "Wikipedia-Swift.h"
 
 // !!!: don't change key constants w/o writing conversion code to pull values from the old keys
 // Model Version 1.0.0

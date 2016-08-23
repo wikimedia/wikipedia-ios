@@ -7,6 +7,5 @@
 @import UIKit;
 
 #import "WMFKit-Global.h"
-#import "NSURL+WMFLinkParsing.h"
 
 #endif // end __OBJC__

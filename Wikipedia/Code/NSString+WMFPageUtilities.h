@@ -1,5 +1,3 @@
-#import <Foundation/Foundation.h>
-
 /// Expected prefix for links to pages from the wiki that the link's page belongs to.
 extern NSString *const WMFInternalLinkPathPrefix;
 

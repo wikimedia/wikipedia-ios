@@ -1,4 +1,3 @@
-#import "MediaWikiKit.h"
 #import "NSDateFormatter+WMFExtensions.h"
 
 @implementation MWKDataObject

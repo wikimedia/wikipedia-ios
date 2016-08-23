@@ -1,13 +1,8 @@
-#import "MediaWikiKit.h"
-#import <hpple/TFHpple.h>
-#import "WikipediaAppUtils.h"
-#import "NSString+WMFHTMLParsing.h"
 #import "MWKCitation.h"
 #import "MWKSection+DisplayHtml.h"
-#import "NSMutableDictionary+WMFMaybeSet.h"
 #import "WMFImageURLParsing.h"
 #import "UIScreen+WMFImageWidth.h"
-
+#import <hpple/TFHpple.h>
 #import "WMFImageTagParser.h"
 #import "WMFImageTagList.h"
 #import "WMFImageTagList+ImageURLs.h"

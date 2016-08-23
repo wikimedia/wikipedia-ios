@@ -1,11 +1,10 @@
 #import "NSString+WMFExtras.h"
-#import "TFHpple.h"
+#import <hpple/TFHpple.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "SessionSingleton.h"
 #import "MWLanguageInfo.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "MediaWikiKit.h"
 #import "NSString+WMFHTMLParsing.h"
 
 @implementation NSString (WMFExtras)

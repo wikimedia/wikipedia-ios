@@ -1,5 +1,4 @@
 #import "MWKList+Subclass.h"
-#import "Wikipedia-Swift.h"
 
 @interface MWKList ()
 

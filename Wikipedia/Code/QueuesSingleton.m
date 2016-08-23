@@ -1,10 +1,6 @@
 #import "QueuesSingleton.h"
-#import "WikipediaAppUtils.h"
-#import "ReadingActionFunnel.h"
-#import "SessionSingleton.h"
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "MWKLanguageLinkResponseSerializer.h"
-#import <BlocksKit/BlocksKit.h>
 
 @implementation QueuesSingleton
 

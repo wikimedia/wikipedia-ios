@@ -1,7 +1,6 @@
 #import "WMFShareCardImageContainer.h"
 #import "UIImage+WMFFocalImageDrawing.h"
 #import "WMFGeometry.h"
-#import "MediaWikiKit.h"
 
 @implementation WMFShareCardImageContainer
 

@@ -1,12 +1,7 @@
 #import "MWKLanguageLinkFetcher.h"
 #import "MWNetworkActivityIndicatorManager.h"
-#import "SessionSingleton.h"
-#import "NSObject+WMFExtras.h"
-#import "Defines.h"
-#import "WikipediaAppUtils.h"
 #import "WMFNetworkUtilities.h"
 #import "MWKLanguageLinkResponseSerializer.h"
-#import "MediaWikiKit.h"
 
 #import <AFNetworking/AFHTTPSessionManager.h>
 

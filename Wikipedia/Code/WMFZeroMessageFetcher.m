@@ -2,8 +2,6 @@
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFZeroMessage.h"
-#import "WikipediaAppUtils.h"
-#import "FBTweak+WikipediaZero.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 
 @interface WMFZeroMessageFetcher ()
@@ -32,9 +30,9 @@
             @"type": @"message",
             @"agent": [WikipediaAppUtils versionedUserAgent]
         }];
-        if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
-            params[@"X-CS"] = @"TEST";
-        }
+//        if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
+//            params[@"X-CS"] = @"TEST";
+//        }
         [self.operationManager GET:[[NSURL wmf_mobileAPIURLForURL:siteURL] absoluteString]
             parameters:params
             progress:NULL

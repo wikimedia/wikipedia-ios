@@ -28,6 +28,8 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.3.0):
     - CocoaLumberjack/Default
+  - CocoaLumberjack/Swift (2.3.0):
+    - CocoaLumberjack/Extensions
   - FBSnapshotTestCase (2.1.2):
     - FBSnapshotTestCase/SwiftSupport (= 2.1.2)
   - FBSnapshotTestCase/Core (2.1.2)
@@ -155,6 +157,7 @@ DEPENDENCIES:
   - AnimatedGIFImageSerialization (from `https://github.com/wikimedia/AnimatedGIFImageSerialization.git`)
   - BlocksKit/Core (~> 2.2.0)
   - BlocksKit/UIKit (~> 2.2.0)
+  - CocoaLumberjack/Swift
   - FBSnapshotTestCase
   - GCDWebServer (~> 3.3)
   - HockeySDK (~> 3.8.2)
@@ -254,6 +257,6 @@ SPEC CHECKSUMS:
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
 
-PODFILE CHECKSUM: cdfdad16895a0be73610c07868eb24f077ea3b34
+PODFILE CHECKSUM: 74f5a425e17b5c3d59071ef430304d7a75cc9f4a
 
 COCOAPODS: 1.0.1

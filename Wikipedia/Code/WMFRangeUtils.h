@@ -1,5 +1,3 @@
-#import <Foundation/Foundation.h>
-
 static inline BOOL WMFRangeIsNotFoundOrEmpty(NSRange const range) {
     return range.location == NSNotFound || range.length == 0;
 }

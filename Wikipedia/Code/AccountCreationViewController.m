@@ -12,7 +12,6 @@
 #import "UIViewController+WMFChildViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "SectionEditorViewController.h"
-#import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 #import "PaddedLabel.h"
 #import "MWKLanguageLinkController.h"

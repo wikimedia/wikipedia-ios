@@ -1,5 +1,4 @@
 #import "MWLanguageInfo.h"
-#import "MediaWikiKit.h"
 
 @implementation MWLanguageInfo
 

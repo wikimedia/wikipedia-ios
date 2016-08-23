@@ -1,5 +1,3 @@
-#import "MediaWikiKit.h"
-
 @interface MWKRecentSearchEntry ()
 
 @property (readwrite, copy, nonatomic) NSString *searchTerm;

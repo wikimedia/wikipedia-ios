@@ -1,5 +1,4 @@
 #import "MWKSiteInfo.h"
-#import "MediaWikiKit.h"
 
 typedef NS_ENUM(NSUInteger, MWKSiteInfoNSCodingSchemaVersion) {
     MWKSiteInfoNSCodingSchemaVersion_1 = 1

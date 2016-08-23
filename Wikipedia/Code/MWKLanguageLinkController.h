@@ -60,7 +60,7 @@ extern NSString *const WMFPreferredLanguagesDidChangeNotification;
  *
  *  @param language the language to remove
  */
-- (void)removePreferredLanguage:(MWKLanguageLink *)langage;
+- (void)removePreferredLanguage:(MWKLanguageLink *)language;
 
 - (BOOL)languageIsOSLanguage:(MWKLanguageLink *)language;
 

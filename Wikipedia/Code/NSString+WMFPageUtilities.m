@@ -1,6 +1,5 @@
 #import "NSString+WMFPageUtilities.h"
 #import "NSString+WMFExtras.h"
-#import "WMFRangeUtils.h"
 
 NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
 

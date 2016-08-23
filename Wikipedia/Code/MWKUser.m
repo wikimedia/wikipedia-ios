@@ -1,4 +1,3 @@
-#import "MediaWikiKit.h"
 #import "WikipediaAppUtils.h"
 
 @interface MWKUser ()
