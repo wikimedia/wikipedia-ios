@@ -4,7 +4,6 @@
 #import "NSString+WMFExtras.h"
 #import "MediaWikiKit.h"
 #import "Defines.h"
-#import "WMFAssetsFile.h"
 #import "WikipediaAppUtils.h"
 #import <BlocksKit/BlocksKit.h>
 #import "Wikipedia-Swift.h"

@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "FetcherBase.h"
-#import "WMFAssetsFile.h"
+@import WMFKit;
 
 @class AFHTTPSessionManager;
 

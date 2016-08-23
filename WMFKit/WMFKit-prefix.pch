@@ -1,0 +1,12 @@
+
+#import <Availability.h>
+
+#ifdef __OBJC__
+
+@import Foundation;
+@import UIKit;
+
+#import "WMFKit-Global.h"
+#import "NSURL+WMFLinkParsing.h"
+
+#endif // end __OBJC__

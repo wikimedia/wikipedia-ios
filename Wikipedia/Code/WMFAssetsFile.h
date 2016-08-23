@@ -1,4 +1,4 @@
-#import <UIKit/UIKit.h>
+@import Foundation;
 
 typedef NS_ENUM(NSUInteger, WMFAssetsFileType) {
     WMFAssetsFileTypeUndefined = 0,

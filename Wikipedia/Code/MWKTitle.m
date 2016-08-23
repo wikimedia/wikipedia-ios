@@ -2,7 +2,6 @@
 #import "NSString+WMFPageUtilities.h"
 #import "NSObjectUtilities.h"
 #import "NSString+WMFPageUtilities.h"
-#import "NSURL+WMFLinkParsing.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -10,3 +10,4 @@ FOUNDATION_EXPORT const unsigned char WMFKitVersionString[];
 #import "NSURLComponents+WMFLinkParsing.h"
 #import "MWKSite.h"
 #import "MWKTitle.h"
+#import "WMFAssetsFile.h"
