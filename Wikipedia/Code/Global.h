@@ -8,7 +8,6 @@
 
 #import "WMFLogging.h"
 #import "WMFDirectoryPaths.h"
-#import "WMFGCDHelpers.h"
 #import "WMFLocalization.h"
 #import "WMFMath.h"
 #import "NSError+WMFExtensions.h"
