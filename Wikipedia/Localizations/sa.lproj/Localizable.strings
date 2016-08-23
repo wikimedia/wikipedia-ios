@@ -275,8 +275,6 @@
 "nearby-distance-label-miles" = "$1 माइल्स्";
 "nearby-pull-to-refresh-prompt" = "प्रत्याववस्थापनाय कर्ष्यताम्";
 "nearby-pull-to-refresh-is-refreshing" = "प्रत्यवस्थापनम्";
-"nearby-loading" = "समीपवर्तिलेखम् आरोपयति...";
-"nearby-loaded" = "समीपवर्तिलेखः अवारोपितः...";
 "nearby-none" = "समीपवर्तिलेखः न प्राप्तः । नवीक्रियताम् उत पश्चात् पुनः प्रयतताम् ।";
 "nearby-open-in-maps" = "भूपटे उद्घाट्यताम्";
 "nearby-cancel" = "निरस्यताम्";

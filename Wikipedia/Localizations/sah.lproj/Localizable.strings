@@ -288,8 +288,6 @@
 "nearby-distance-label-miles" = "$1 миилэ";
 "nearby-pull-to-refresh-prompt" = "Саҥардарга тарт";
 "nearby-pull-to-refresh-is-refreshing" = "Саҥардыы";
-"nearby-loading" = "Чугастааҕы эбийиэктэр тустарынан ыстатыйалары хачайдааһын...";
-"nearby-loaded" = "Чугастааҕы туһунан ыстатыйалар хачайданнылар";
 "nearby-none" = "Чугастааҕы туһунан туох да көстүбэтэ. Саҥардарга тарт, биитэр хойутуу хатылаан көрөөр.";
 "nearby-open-in-maps" = "Каартаҕа арый";
 "nearby-cancel" = "Салҕаама";

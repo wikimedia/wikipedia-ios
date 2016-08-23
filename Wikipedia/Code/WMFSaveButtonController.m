@@ -28,6 +28,10 @@
     return self;
 }
 
+- (void)dealloc {
+    [self unobserveURL:self.url];
+}
+
 - (instancetype)initWithBarButtonItem:(UIBarButtonItem *)barButtonItem
                         savedPageList:(MWKSavedPageList *)savedPageList
                                   url:(NSURL *)url {
@@ -47,6 +51,7 @@
         self.url = url;
         self.savedPageList = savedPageList;
         [self updateSavedButtonState];
+        [self observeURL:self.url];
     }
     return self;
 }
@@ -65,9 +70,7 @@
     if (WMF_EQUAL(self.url, isEqual:, url)) {
         return;
     }
-    [self unobserveURL:_url];
     _url = url;
-    [self observeURL:_url];
     [self updateSavedButtonState];
 }
 

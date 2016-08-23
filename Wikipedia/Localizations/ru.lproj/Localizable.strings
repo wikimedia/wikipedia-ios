@@ -302,8 +302,6 @@
 "nearby-distance-label-miles" = "$1 мил.";
 "nearby-pull-to-refresh-prompt" = "Потяните, чтобы обновить";
 "nearby-pull-to-refresh-is-refreshing" = "Обновление";
-"nearby-loading" = "Загрузка статьей об объектах поблизости…";
-"nearby-loaded" = "Ближайшие статьи загружены";
 "nearby-none" = "Не удаётся найти статьи об объектах поблизости. Потяните, чтобы обновить или повторите попытку позже.";
 "nearby-open-in-maps" = "Открыть на Картах";
 "nearby-cancel" = "Отмена";

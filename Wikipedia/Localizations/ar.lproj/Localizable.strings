@@ -300,8 +300,6 @@
 "nearby-distance-label-miles" = "$1 ميل";
 "nearby-pull-to-refresh-prompt" = "اسحب للتخديث";
 "nearby-pull-to-refresh-is-refreshing" = "تحديث";
-"nearby-loading" = "جار تحميل المقالات القريبة...";
-"nearby-loaded" = "تم تحميل المقالات القريبة";
 "nearby-none" = "لم نجد أي مقالات قريبة. اسحب كي تحدث أو حاول مرة أخرى لاحقا.";
 "nearby-open-in-maps" = "افتح في الخرائط";
 "nearby-cancel" = "ألغ";

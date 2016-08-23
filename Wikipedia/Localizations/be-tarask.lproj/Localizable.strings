@@ -288,8 +288,6 @@
 "nearby-distance-label-miles" = "$1 міл";
 "nearby-pull-to-refresh-prompt" = "Пацягніце, каб абнавіць";
 "nearby-pull-to-refresh-is-refreshing" = "Абнаўленьне";
-"nearby-loading" = "Загрузка артыкулаў пра аб’екты побач…";
-"nearby-loaded" = "Загружаныя артыкулы пра аб’екты побач";
 "nearby-none" = "Няма атрыкулаў пра месцы паблізу. Пацягніце, каб абнавіць зьвесткі ці паспрабуйце пазьней.";
 "nearby-open-in-maps" = "Адкрыць на мапах";
 "nearby-cancel" = "Скасаваць";

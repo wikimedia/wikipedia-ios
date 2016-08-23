@@ -50,6 +50,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 static SavedArticlesFetcher *_articleFetcher = nil;
 
+- (void)dealloc {
+    [self stop];
+}
+
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
                     savedPageList:(MWKSavedPageList *)savedPageList
                    articleFetcher:(WMFArticleFetcher *)articleFetcher

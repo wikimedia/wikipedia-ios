@@ -296,8 +296,6 @@
 "nearby-distance-label-miles" = "$1 माइल्स";
 "nearby-pull-to-refresh-prompt" = "रिफ्रेश करने के लिए नीचे की ओर खींचें";
 "nearby-pull-to-refresh-is-refreshing" = "रिफ्रेश किया जा रहा है";
-"nearby-loading" = "पास के लेखों को लोड किया जा रहा है...";
-"nearby-loaded" = "पास के लेखों को लोड कर दिया गया";
 "nearby-none" = "कोई पास के लेख नहीं मिले। रिफ्रेश करने के लिए खींचें या बाद में पुनः प्रयास करें।";
 "nearby-open-in-maps" = "नक़्शे में खोलें";
 "nearby-cancel" = "रद्द करें";

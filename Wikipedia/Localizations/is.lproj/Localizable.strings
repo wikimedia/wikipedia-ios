@@ -291,8 +291,6 @@
 "nearby-distance-label-miles" = "$1 mílur";
 "nearby-pull-to-refresh-prompt" = "Toga til að endurhlaða";
 "nearby-pull-to-refresh-is-refreshing" = "Endurhleður";
-"nearby-loading" = "Hleður greinar í nágrenni...";
-"nearby-loaded" = "Búið að hlaða greinar í nágrenni";
 "nearby-none" = "Engar greinar finnast í nágrenni. Togaðu til að endurhlaða eða reyndu síðar.";
 "nearby-open-in-maps" = "Opna í Kortum";
 "nearby-cancel" = "Hætta við";

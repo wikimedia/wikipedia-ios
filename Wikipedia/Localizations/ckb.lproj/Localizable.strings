@@ -214,8 +214,6 @@
 "nearby-distance-label-miles" = "$1 میل";
 "nearby-pull-to-refresh-prompt" = "ڕاکێشە بۆ نوێبوونەوە";
 "nearby-pull-to-refresh-is-refreshing" = "نوێبوونەوە";
-"nearby-loading" = "ھێنانی وتارەکانی ئەم نزیکانە...";
-"nearby-loaded" = "وتارەکان ئەم نزیکانە ھاتن";
 "nearby-cancel" = "ھەڵوەشاندنەوە";
 "nearby-location-updates-settings-menu" = "تایبەتێتی > ڕاژەکانی شوێن > ویکیپیدیا";
 "migration-skip-button-title" = "بی سڕەوە";

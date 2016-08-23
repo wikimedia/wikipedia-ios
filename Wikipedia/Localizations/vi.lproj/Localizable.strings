@@ -295,8 +295,6 @@
 "nearby-distance-label-miles" = "$1 dặm";
 "nearby-pull-to-refresh-prompt" = "Kéo xuống để làm mới";
 "nearby-pull-to-refresh-is-refreshing" = "Đang làm mới";
-"nearby-loading" = "Đang tải bài lân cận…";
-"nearby-loaded" = "Đã tải các bài lân cận";
 "nearby-none" = "Không tìm thấy bài lân cận. Kéo xuống để làm mới hoặc thử lại sau.";
 "nearby-open-in-maps" = "Mở trong Bản đồ";
 "nearby-cancel" = "Hủy bỏ";
