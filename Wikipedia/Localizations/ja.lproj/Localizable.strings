@@ -302,8 +302,6 @@
 "nearby-distance-label-miles" = "$1 マイル";
 "nearby-pull-to-refresh-prompt" = "引っ張って更新";
 "nearby-pull-to-refresh-is-refreshing" = "更新中...";
-"nearby-loading" = "付近の記事を読み込んでいます...";
-"nearby-loaded" = "付近の記事を読み込みました";
 "nearby-none" = "付近の記事が見つかりませんでした。引っ張って更新するか、後ほどもう一度試してみてください。";
 "nearby-open-in-maps" = "地図アプリで開く";
 "nearby-cancel" = "キャンセル";

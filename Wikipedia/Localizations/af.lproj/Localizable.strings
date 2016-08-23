@@ -276,8 +276,6 @@
 "nearby-distance-label-miles" = "$1 myl";
 "nearby-pull-to-refresh-prompt" = "Trek af om te herlaai";
 "nearby-pull-to-refresh-is-refreshing" = "Besig om te herlaai";
-"nearby-loading" = "Laai nabye artikels...";
-"nearby-loaded" = "Nabye artikels gelaai";
 "nearby-none" = "Geen nabye bladsye gevind. Trek af om te herlaai of probeer weer later.";
 "nearby-open-in-maps" = "Maak in Maps oop";
 "nearby-cancel" = "Kanselleer";

@@ -289,8 +289,6 @@
 "nearby-distance-label-miles" = "$1 mile";
 "nearby-pull-to-refresh-prompt" = "Trageți pentru a reîmprospăta";
 "nearby-pull-to-refresh-is-refreshing" = "Se reîmprospătează";
-"nearby-loading" = "Se încarcă articolele din apropiere...";
-"nearby-loaded" = "Articole din apropiere încărcate";
 "nearby-none" = "Nu s-a găsit niciun articol în apropiere. Trageți pentru a reîmprospăta sau reîncercați mai târziu.";
 "nearby-open-in-maps" = "Deschide cu Hărți";
 "nearby-cancel" = "Revocare";

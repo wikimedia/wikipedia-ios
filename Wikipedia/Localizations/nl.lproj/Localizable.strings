@@ -299,8 +299,6 @@
 "nearby-distance-label-miles" = "$1 mijl";
 "nearby-pull-to-refresh-prompt" = "Naar beneden trekken om bij te werken";
 "nearby-pull-to-refresh-is-refreshing" = "Bijwerken";
-"nearby-loading" = "Pagina's in de buurt laden...";
-"nearby-loaded" = "Pagina's in de buurt geladen";
 "nearby-none" = "Geen pagina's in de buurt gevonden. Trek naar beneden om bij te werken of probeer het later opnieuw.";
 "nearby-open-in-maps" = "Openen in Maps";
 "nearby-cancel" = "Annuleren";

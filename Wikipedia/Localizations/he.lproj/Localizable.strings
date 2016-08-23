@@ -293,8 +293,6 @@
 "nearby-distance-label-miles" = "$1 מיל";
 "nearby-pull-to-refresh-prompt" = "למשוך לעדכון";
 "nearby-pull-to-refresh-is-refreshing" = "מתרענן";
-"nearby-loading" = "טעינת ערכים בסביבה";
-"nearby-loaded" = "ערכים בסביבה נטענו";
 "nearby-none" = "לא נעמצאו ערכים בסביבה. נא למשוך לרענון או לנסות מאוחר יותר.";
 "nearby-open-in-maps" = "לפתוח במפות";
 "nearby-cancel" = "ביטול";

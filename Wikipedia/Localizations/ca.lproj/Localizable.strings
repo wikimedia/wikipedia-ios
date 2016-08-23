@@ -301,8 +301,6 @@
 "nearby-distance-label-miles" = "$1 milles";
 "nearby-pull-to-refresh-prompt" = "Refresca";
 "nearby-pull-to-refresh-is-refreshing" = "Refrescant";
-"nearby-loading" = "Carregant articles propers...";
-"nearby-loaded" = "S'han carregat articles propers";
 "nearby-none" = "No s'han trobat articles propers. Arrossegueu per refrescar o torneu-ho a provar més tard.";
 "nearby-open-in-maps" = "Obre-ho al Mapes";
 "nearby-cancel" = "Cancel·la";

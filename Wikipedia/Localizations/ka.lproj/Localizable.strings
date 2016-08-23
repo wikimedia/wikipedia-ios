@@ -280,8 +280,6 @@
 "nearby-distance-label-miles" = "$1 მილი";
 "nearby-pull-to-refresh-prompt" = "აწიეთ, რათა განახლდეს";
 "nearby-pull-to-refresh-is-refreshing" = "გადატვირთვა";
-"nearby-loading" = "ახლომდებარე სტატიები იტვირთება...";
-"nearby-loaded" = "ახლომდებარე სტატიები ჩამოიტვირთა";
 "nearby-none" = "ახლომდებარე სტატია ვერ მოიძებნა. გადასატვირთად აწიეთ ან სცადეთ მოგვიანებით.";
 "nearby-open-in-maps" = "რუკაზე გახსნა";
 "nearby-cancel" = "გაუქმება";
