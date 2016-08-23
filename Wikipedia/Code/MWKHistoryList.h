@@ -38,7 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param scrollposition The scroll position to save
  *  @param url          The url of the page
  *
- *  @return The task. The result is the MWKHistoryEntry.
  */
 - (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithURL:(NSURL *)url;
 

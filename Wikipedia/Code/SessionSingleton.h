@@ -43,7 +43,7 @@
  */
 @property (nonatomic, strong) MWKArticle *currentArticle;
 
-@property (nonatomic) BOOL fallback WMF_TECH_DEBT_DEPRECATED; //< Is this really necessary?
+@property (nonatomic) BOOL fallback WMF_TECH_DEBT_DEPRECATED; ///< Is this really necessary?
 
 - (NSURL *)urlForLanguage:(NSString *)language WMF_TECH_DEBT_DEPRECATED_MSG("Use -[NSURL apiEndpoint] instead.");
 

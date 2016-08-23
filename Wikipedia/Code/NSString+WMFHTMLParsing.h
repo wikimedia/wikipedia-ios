@@ -10,7 +10,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Parse the receiver as HTML and return text node content joined by a space.
  * @discussion
- *
  * For example, given <code>"\<p\>Some string \<b\>with a bold substring\</b\>\</p\>"</code>,
  * this method would return <code>"Some string with a bold substring"</code>.
  *

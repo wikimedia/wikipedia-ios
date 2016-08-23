@@ -5,16 +5,11 @@ import SDWebImage
 /// @name Constants
 ///
 
+
+// Warning: Due to issues with `ErrorType` to `NSError` bridging, you must check domains of bridged errors like so: [MyCustomErrorTypeErrorDomain hasSuffix:nsError.domain] because the generated constant in the Swift header (in this case, `WMFImageControllerErrorDomain` in "Wikipedia-Swift.h") doesn't match the actual domain when `ErrorType` is cast to `NSError`.
 /**
  WMFImageControllerError
- 
- - warning: Due to issues with `ErrorType` to `NSError` bridging, you must check domains of bridged errors like so:
- 
- [MyCustomErrorTypeErrorDomain hasSuffix:nsError.domain]
- 
- because the generated constant in the Swift header (in this case, `WMFImageControllerErrorDomain` in
- "Wikipedia-Swift.h") doesn't match the actual domain when `ErrorType` is cast to `NSError`.
- 
+
  - DataNotFound:      Failed to find cached image data for the provided URL.
  - InvalidOrEmptyURL: The provided URL was empty or `nil`.
  - Deinit:            Fetch was cancelled because the image controller was deallocated.
@@ -406,9 +401,7 @@ extension WMFImageController {
     
     /**
      Objective-C-compatible variant of fetchImageWithURL(url:options:) using default options & using blocks.
-     
-     - returns: `AnyPromise` which resolves to `WMFImageDownload`.
-     */
+    */
     @objc public func fetchImageWithURL(url: NSURL?, failure: (error: NSError) -> Void, success: (download: WMFImageDownload) -> Void) {
         guard let url = url else {
             failure(error: WMFImageControllerError.InvalidOrEmptyURL as NSError)
