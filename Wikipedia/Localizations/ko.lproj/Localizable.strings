@@ -300,8 +300,6 @@
 "nearby-distance-label-miles" = "$1 마일";
 "nearby-pull-to-refresh-prompt" = "새로 고치려면 당기세요";
 "nearby-pull-to-refresh-is-refreshing" = "새로 고치는 중";
-"nearby-loading" = "근처 문서를 불러오는 중...";
-"nearby-loaded" = "근처의 문서를 불러왔습니다";
 "nearby-none" = "근처에 문서를 찾을 수 없습니다. 새로 고치려면 당기거나 나중에 다시 시도하세요.";
 "nearby-open-in-maps" = "지도에서 열기";
 "nearby-cancel" = "취소";

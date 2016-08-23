@@ -292,8 +292,6 @@
 "nearby-distance-label-miles" = "$1 amerikanske mil";
 "nearby-pull-to-refresh-prompt" = "Træk for at opdatere";
 "nearby-pull-to-refresh-is-refreshing" = "Opdaterer";
-"nearby-loading" = "Indlæser artikler i nærheden...";
-"nearby-loaded" = "Indlæst artikler i nærheden";
 "nearby-none" = "Ingen artikler fundet i nærheden. Træk for at opdaterer eller prøv igen senere.";
 "nearby-open-in-maps" = "Åben i Kort";
 "nearby-cancel" = "Afbryd";

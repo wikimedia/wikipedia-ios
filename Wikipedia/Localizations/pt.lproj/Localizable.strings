@@ -294,8 +294,6 @@
 "nearby-distance-label-miles" = "$1 milhas";
 "nearby-pull-to-refresh-prompt" = "Puxe para atualizar";
 "nearby-pull-to-refresh-is-refreshing" = "A atualizar";
-"nearby-loading" = "A carregar artigos nas redondezas...";
-"nearby-loaded" = "Artigos nas redondezas carregados";
 "nearby-none" = "Não foram encontrados artigos nas redondezas. Puxe para atualizar ou tente novamente mais tarde.";
 "nearby-open-in-maps" = "Abrir no Mapas";
 "nearby-cancel" = "Cancelar";

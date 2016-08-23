@@ -140,6 +140,7 @@
 "main-menu-more" = "Méi …";
 "main-menu-heading-debug" = "Feeler analyséieren";
 "main-menu-debug-crash" = "Crash";
+"main-menu-debug-tweaks" = "Astellunge fir Entwéckler";
 "saved-title" = "Gespäichert";
 "saved-pages-title" = "Gespäichert Säiten";
 "saved-pages-clear-confirmation-heading" = "Sidd Dir séchert datt Dir all Är gespäichert Säite läsche wëllt?";
@@ -244,6 +245,7 @@
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Inhalter";
 "table-of-contents-button-label" = "Inhaltsverzeechnes";
+"table-of-contents-close-accessibility-label" = "Inhaltsverzeechnes zoumaachen";
 "table-of-contents-close-accessibility-hint" = "Zoumaachen";
 "abuse-filter-warning-heading" = "Dëst gesäit no enger wéineg konstruktiver Ännerung aus, sidd Dir sécher datt Dir se späichere wëllt?";
 "abuse-filter-warning-subheading" = "An Ärer Ännerung kéinte eng oder méi vun dëse Saachen dra sinn:";
@@ -275,8 +277,6 @@
 "nearby-distance-label-miles" = "$1 Meilen";
 "nearby-pull-to-refresh-prompt" = "Drécke fir z'aktualiséieren";
 "nearby-pull-to-refresh-is-refreshing" = "Aktualiséieren";
-"nearby-loading" = "Artikelen aus der Noperschaft gi gelueden..";
-"nearby-loaded" = "Artikelen aus der Noperschaft gelueden";
 "nearby-none" = "Keng Artikelen aus der Noperschaft fonnt. Zitt fir z'akutaliséieren oder probéiert méi spéit nach eng Kéier.";
 "nearby-open-in-maps" = "Op der Kaart opmaachen";
 "nearby-cancel" = "Ofbriechen";
@@ -329,8 +329,11 @@
 "home-accessibility-label" = "Wikipedia, Entdecken";
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-description-prefix" = "Bild vum Dag vum $1";
+"welcome-explore-title" = "Entdecken";
 "welcome-explore-sub-title" = "En nei Manéier fir all Dag interessant Artikelen z'entdecken";
 "welcome-explore-tell-me-more" = "Ech wëll méi wëssen";
+"welcome-explore-tell-me-more-about-explore" = "Méi iwwert d'Entdecken";
+"welcome-explore-tell-me-more-related" = "De Feed Entdecken weist Iech Artikelen a Relatioun mat Artikelen déi Dir geliest hutt.";
 "welcome-explore-tell-me-more-privacy" = "Lieslëschten a Profiller ginn net op eise Serveure gespäichert.";
 "welcome-explore-tell-me-more-done-button" = "Verstan";
 "welcome-explore-continue-button" = "Fir unzefänken";

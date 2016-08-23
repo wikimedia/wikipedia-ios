@@ -285,8 +285,6 @@
 "nearby-distance-label-miles" = "$1 mile";
 "nearby-pull-to-refresh-prompt" = "Pociągnij, aby odświeżyć";
 "nearby-pull-to-refresh-is-refreshing" = "Odświeżanie";
-"nearby-loading" = "Pobieranie artykułów o obiektach w pobliżu...";
-"nearby-loaded" = "Najbliższe artykuły załadowane";
 "nearby-none" = "Nie można znaleźć artykułów o obiektach znajdujących się w pobliżu. Pociągnij, aby odświeżyć lub spróbuj ponownie później.";
 "nearby-open-in-maps" = "Otworzyć na Mapach";
 "nearby-cancel" = "Anuluj";

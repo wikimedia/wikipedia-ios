@@ -277,8 +277,6 @@
 "nearby-distance-label-miles" = "$1 ميل";
 "nearby-pull-to-refresh-prompt" = "تازو ڪرڻ لاءِ ڇڪيو";
 "nearby-pull-to-refresh-is-refreshing" = "تازو ڪندي";
-"nearby-loading" = "ويجھڙ ۾ مضمون لاهيندي...";
-"nearby-loaded" = "ويجھڙ ۾ مضمون لهي ويا";
 "nearby-none" = "ويجھڙ ۾ ڪي به مضمون نه لڌا. تازو ڪرڻ لاءِ ڇڪيو يا ٻيهر ڪوشش ڪريو.";
 "nearby-open-in-maps" = "نقشن ۾ کوليو";
 "nearby-cancel" = "رد";

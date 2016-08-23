@@ -292,8 +292,6 @@
 "nearby-distance-label-miles" = "$1 ਮੀਲ";
 "nearby-pull-to-refresh-prompt" = "ਤਾਜ਼ਾ ਕਰਨ ਲਈ ਖਿੱਚੋ";
 "nearby-pull-to-refresh-is-refreshing" = "ਤਾਜ਼ਾ ਹੋ ਰਿਹਾ ਹੈ...";
-"nearby-loading" = "ਨੇੜੇ-ਤੇੜੇ ਦੇ ਲੇਖ ਲੱਦ ਰਿਹ ਹੈ...";
-"nearby-loaded" = "ਨੇੜੇ-ਤੇੜੇ ਦੇ ਲੇਖ ਲੱਦੇ ਗਏ";
 "nearby-none" = "ਕੋਈ ਨੇੜੇ-ਤੇੜੇ ਦੇ ਲੇਖ ਨਹੀਂ ਲੱਭੇ। ਮੁੜ-ਤਾਜ਼ਾ ਕਰਨ ਵਾਸਤੇ ਖਿੱਚੋ ਜਾਂ ਬਾਅਦ 'ਚ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
 "nearby-open-in-maps" = "ਨਕਸ਼ੇ 'ਚ ਖੋਲ੍ਹੋ";
 "nearby-cancel" = "ਰੱਦ ਕਰੋ";

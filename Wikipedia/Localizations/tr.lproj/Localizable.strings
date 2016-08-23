@@ -302,8 +302,6 @@
 "nearby-distance-label-miles" = "$1 mil";
 "nearby-pull-to-refresh-prompt" = "Yenilemek için aşağı çekin";
 "nearby-pull-to-refresh-is-refreshing" = "Yenileniyor";
-"nearby-loading" = "Yakınındaki maddeler yükleniyor...";
-"nearby-loaded" = "Yakınındaki maddeler yüklendi";
 "nearby-none" = "Yakınınızda madde bulunamadı. Yenilemek için sayfayı aşağı çekin veya daha sonra yeniden deneyin.";
 "nearby-open-in-maps" = "Haritalarda aç";
 "nearby-cancel" = "İptal";

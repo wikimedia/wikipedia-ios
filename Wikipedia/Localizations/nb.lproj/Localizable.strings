@@ -293,8 +293,6 @@
 "nearby-distance-label-miles" = "$1 amerikanske miles";
 "nearby-pull-to-refresh-prompt" = "Dra for å oppdatere";
 "nearby-pull-to-refresh-is-refreshing" = "Oppdaterer";
-"nearby-loading" = "Henter artikler i nærheten…";
-"nearby-loaded" = "Hentet artikler i nærheten";
 "nearby-none" = "Ingen artikler i nærheten ble funnet. Dra for å gjenoppfriske eller prøv igjen senere.";
 "nearby-open-in-maps" = "Åpne i Kart";
 "nearby-cancel" = "Avbryt";

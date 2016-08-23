@@ -295,8 +295,6 @@
 "nearby-distance-label-miles" = "$1 mailia";
 "nearby-pull-to-refresh-prompt" = "Vedä päivittääksesi";
 "nearby-pull-to-refresh-is-refreshing" = "Päivitetään";
-"nearby-loading" = "Ladataan lähistöllä olevia artikkeleita...";
-"nearby-loaded" = "Lähistöllä olevat artikkelity ladattu";
 "nearby-none" = "Lähistöllä olevia artikkeleita ei löytynyt. Vedä päivittääksesi tai yritä myöhemmin uudelleen";
 "nearby-open-in-maps" = "Avaa Kartat-sovelluksessa";
 "nearby-cancel" = "Peruuta";
