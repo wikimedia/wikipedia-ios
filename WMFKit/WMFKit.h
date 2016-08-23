@@ -11,3 +11,5 @@ FOUNDATION_EXPORT const unsigned char WMFKitVersionString[];
 #import "MWKSite.h"
 #import "MWKTitle.h"
 #import "WMFAssetsFile.h"
+
+#import "WMFKit-global.h"

@@ -1,6 +1,5 @@
 #import "MediaWikiKit.h"
 #import <hpple/TFHpple.h>
-#import <BlocksKit/BlocksKit.h>
 #import "WikipediaAppUtils.h"
 #import "NSString+WMFHTMLParsing.h"
 #import "MWKCitation.h"

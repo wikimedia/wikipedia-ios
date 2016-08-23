@@ -1,6 +1,5 @@
 #import "MWKLanguageLinkController_Private.h"
 #import "MWKLanguageLink.h"
-#import "NSObjectUtilities.h"
 #import "NSString+WMFExtras.h"
 #import "MediaWikiKit.h"
 #import "Defines.h"

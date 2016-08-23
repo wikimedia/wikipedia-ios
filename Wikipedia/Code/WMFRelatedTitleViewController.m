@@ -2,7 +2,6 @@
 #import "MWKSearchResult.h"
 #import "WMFArticlePreviewTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
-#import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -39,7 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
         cell.descriptionText = searchResult.wikidataDescription;
         cell.snippetText = searchResult.extract;
         [cell setImageURL:searchResult.thumbnailURL];
-        [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
         cell.saveButtonController.analyticsContext = self;
     };
 

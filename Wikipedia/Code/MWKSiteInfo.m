@@ -1,5 +1,4 @@
 #import "MWKSiteInfo.h"
-#import "NSObjectUtilities.h"
 #import "MediaWikiKit.h"
 
 typedef NS_ENUM(NSUInteger, MWKSiteInfoNSCodingSchemaVersion) {

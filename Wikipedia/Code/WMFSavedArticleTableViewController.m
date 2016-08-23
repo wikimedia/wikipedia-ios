@@ -17,7 +17,6 @@
 
 #import "WMFArticleListTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
-#import "UITableViewCell+WMFLayout.h"
 
 @interface WMFSavedArticleTableViewController () <WMFDataSourceDelegate>
 

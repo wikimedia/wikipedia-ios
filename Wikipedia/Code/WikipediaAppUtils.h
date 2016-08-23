@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "NSObjectUtilities.h"
 #import "NSString+WMFPageUtilities.h"
 
 NS_ASSUME_NONNULL_BEGIN

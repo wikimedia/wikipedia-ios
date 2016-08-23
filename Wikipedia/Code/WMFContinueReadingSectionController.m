@@ -4,7 +4,6 @@
 #import "MWKDataStore.h"
 #import "MWKArticle.h"
 #import "NSString+WMFExtras.h"
-#import "UITableViewCell+WMFLayout.h"
 #import "MWKSection.h"
 #import "MWKSectionList.h"
 #import "UIViewController+WMFArticlePresentation.h"
@@ -80,7 +79,6 @@ static NSString *const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     cell.titleText = item.wmf_title;
     cell.descriptionText = [[article entityDescription] wmf_stringByCapitalizingFirstCharacter];
     [cell setImage:article.image];
-    [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
 }
 
 - (CGFloat)estimatedRowHeight {

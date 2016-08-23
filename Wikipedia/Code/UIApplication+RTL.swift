@@ -2,7 +2,7 @@ import Foundation
 
 extension UIApplication {
     var wmf_tocShouldBeOnLeft: Bool {
-        get { return  !self.wmf_isRTL || NSProcessInfo.processInfo().wmf_isOperatingSystemVersionLessThan9_0_0() }
+        get { return  !self.wmf_isRTL }
     }
     
     var wmf_tocRTLMultiplier: CGFloat {

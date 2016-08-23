@@ -5,7 +5,6 @@
 #import "WMFRelatedSearchResults.h"
 #import "MWKSearchResult.h"
 #import "WMFArticlePreviewTableViewCell.h"
-#import "UITableViewCell+WMFLayout.h"
 #import "UIView+WMFDefaultNib.h"
 #import "WMFSaveButtonController.h"
 
@@ -42,7 +41,6 @@
             cell.descriptionText = searchResult.wikidataDescription;
             cell.snippetText = searchResult.extract;
             [cell setImageURL:searchResult.thumbnailURL];
-            [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
             cell.saveButtonController.analyticsContext = self;
             cell.saveButtonController.analyticsContentType = self;
         };

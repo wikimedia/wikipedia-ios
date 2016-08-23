@@ -8,8 +8,6 @@
  *  @note This method is preferred to the parameterized ones, since it will automatically mark code as deprecated once
  *        the deployment target is raised.
  */
-- (BOOL)wmf_isOperatingSystemVersionLessThan9_0_0 WMF_DEPRECATED_WHEN_DEPLOY_AT_LEAST_9;
-
 - (BOOL)wmf_isOperatingSystemMajorVersionAtLeast:(NSInteger)version;
 
 - (BOOL)wmf_isOperatingSystemMajorVersionLessThan:(NSInteger)version;

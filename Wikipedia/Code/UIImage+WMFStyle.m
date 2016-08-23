@@ -1,5 +1,4 @@
 #import "UIImage+WMFStyle.h"
-#import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 
 @implementation UIImage (WMFStyle)
 
@@ -23,12 +22,8 @@
     return image;
 }
 
-- (UIImage *)wmf_imageFlippedForRTLLayoutDirectionIfAtLeastiOS9 {
-    return ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) ? self : self.imageFlippedForRightToLeftLayoutDirection;
-}
-
 + (UIImage *)wmf_imageFlippedForRTLLayoutDirectionNamed:(NSString *)name {
-    return [[UIImage imageNamed:name] wmf_imageFlippedForRTLLayoutDirectionIfAtLeastiOS9];
+    return [[UIImage imageNamed:name] imageFlippedForRightToLeftLayoutDirection];
 }
 
 @end

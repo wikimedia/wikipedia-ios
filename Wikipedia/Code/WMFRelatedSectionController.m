@@ -18,7 +18,6 @@
 #import "WMFArticlePreviewCollectionViewCell.h"
 #import "WMFArticlePlaceholderCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
-#import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
 
 #import "WMFRelatedTitleViewController.h"
@@ -122,7 +121,6 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
     cell.snippetText = item.extract;
     [cell setImageURL:item.thumbnailURL];
     [cell setSaveableURL:[self urlForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
-    [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
     cell.saveButtonController.analyticsContext = self;
     cell.saveButtonController.analyticsContentType = self;
 }

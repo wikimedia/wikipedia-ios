@@ -22,7 +22,6 @@
 #import "WMFEmptySectionCollectionViewCell.h"
 #import "WMFNearbyPlaceholderCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
-#import "UITableViewCell+WMFLayout.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
 #import "WMFLocationSearchListViewController.h"
@@ -121,7 +120,6 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
     [cell setImageURL:item.thumbnailURL];
     [cell setDistanceProvider:[self.compassViewModel distanceProviderForResult:item]];
     [cell setBearingProvider:[self.compassViewModel bearingProviderForResult:item]];
-    [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
 }
 
 - (void)configureEmptyCell:(WMFEmptySectionCollectionViewCell *)cell {

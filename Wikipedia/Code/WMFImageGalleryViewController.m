@@ -399,10 +399,6 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
 
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
-        items = [items wmf_reverseArrayIfApplicationIsRTL];
-    }
-
     NSArray<WMFArticlePhoto *> *photos = [WMFArticlePhoto photosWithThumbnailImageObjects:items];
 
     id<NYTPhoto> selected = nil;
@@ -658,10 +654,6 @@ NS_ASSUME_NONNULL_BEGIN
     if (imageInfo) {
         selected = [photos firstObject];
         selected.thumbnailImageInfo = imageInfo;
-    }
-
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
-        photos = [photos wmf_reverseArrayIfApplicationIsRTL];
     }
 
     self = [super initWithPhotos:photos initialPhoto:selected delegate:nil];

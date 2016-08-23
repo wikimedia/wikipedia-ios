@@ -1,7 +1,6 @@
 #import "WMFMostReadListDataSource.h"
 #import "WMFArticleListTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
-#import "UITableViewCell+WMFLayout.h"
 #import "MWKSearchResult.h"
 
 @interface WMFMostReadListDataSource ()
@@ -32,8 +31,6 @@
             cell.titleText = articleURL.wmf_title;
             cell.descriptionText = preview.wikidataDescription;
             [cell setImageURL:preview.thumbnailURL];
-
-            [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
         };
     }
     return self;

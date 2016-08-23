@@ -1,6 +1,5 @@
 #import "MWKTitle.h"
 #import "NSString+WMFPageUtilities.h"
-#import "NSObjectUtilities.h"
 #import "NSString+WMFPageUtilities.h"
 
 NS_ASSUME_NONNULL_BEGIN

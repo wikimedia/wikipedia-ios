@@ -10,7 +10,6 @@
 #import "WMFArticleListCollectionViewCell.h"
 #import "WMFMainPagePlaceholderCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
-#import "UITableViewCell+WMFLayout.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "NSDateFormatter+WMFExtensions.h"
 
@@ -110,7 +109,6 @@ static NSString *const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     cell.titleLabel.accessibilityLanguage = self.siteURL.wmf_language;
     cell.descriptionText = item.wikidataDescription;
     [cell setImageURL:item.thumbnailURL];
-    [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
 }
 
 - (NSString *)analyticsContentType {

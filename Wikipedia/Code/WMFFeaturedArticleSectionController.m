@@ -7,7 +7,6 @@
 #import "WMFArticlePreviewCollectionViewCell.h"
 #import "WMFArticlePlaceholderCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
-#import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "MWKDataStore.h"
@@ -107,7 +106,6 @@ static NSString *const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
     cell.snippetText = item.extract;
     [cell setImageURL:item.thumbnailURL];
     [cell setSaveableURL:[self urlForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
-    [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
     cell.saveButtonController.analyticsContext = self;
     cell.saveButtonController.analyticsContentType = self;
 }

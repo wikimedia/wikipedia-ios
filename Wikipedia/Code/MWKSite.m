@@ -1,6 +1,5 @@
 #import "MWKSite.h"
 #import "MWKTitle.h"
-#import "NSObjectUtilities.h"
 
 static NSString *const MWKSiteSchemaVersionKey = @"siteSchemaVersion";
 
