@@ -288,8 +288,6 @@
 "nearby-distance-label-miles" = "$1 mil saoz";
 "nearby-pull-to-refresh-prompt" = "Sachañ evit freskaat";
 "nearby-pull-to-refresh-is-refreshing" = "O freskaat";
-"nearby-loading" = "Kargañ pennadoù tostik...";
-"nearby-loaded" = "Pennadoù tostik karget";
 "nearby-none" = "Pennad tostik ebet karget. Sachañ evit freskaat pe evit klask diwezhatoc'h";
 "nearby-open-in-maps" = "Digeriñ er gartenn";
 "nearby-cancel" = "Nullañ";

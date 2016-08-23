@@ -185,8 +185,6 @@
 "nearby-distance-label-miles" = "$1 milya";
 "nearby-pull-to-refresh-prompt" = "Yangilash uchun torting";
 "nearby-pull-to-refresh-is-refreshing" = "Yangilanyapti";
-"nearby-loading" = "Yaqin atrofga aloqador maqolalar yuklanyapti";
-"nearby-loaded" = "Yaqin atrofga aloqador maqolalar yuklandi";
 "nearby-none" = "Yaqin atrofga aloqador maqola topilmadi. Yangilash uchun torting yoki keyinroq harakat qilib ko‘ring.";
 "nearby-open-in-maps" = "Xarita dasturida ochish";
 "nearby-cancel" = "Bekor qilish";

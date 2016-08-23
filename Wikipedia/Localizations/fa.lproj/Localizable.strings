@@ -303,8 +303,6 @@
 "nearby-distance-label-miles" = "$1 مایل";
 "nearby-pull-to-refresh-prompt" = "برای تازه‌شدن بکشید";
 "nearby-pull-to-refresh-is-refreshing" = "تازه کردن";
-"nearby-loading" = "در حال بارگذاری مقاله‌های نزدیک...";
-"nearby-loaded" = "مقاله‌های بارگذاری‌شده در این نزدیکی";
 "nearby-none" = "هیچ مقاله نزدیکی یافت نشد. برای تازه کردن بکشید یا بعداً تلاش کنید.";
 "nearby-open-in-maps" = "بازشدن در نقشه";
 "nearby-cancel" = "لغو";

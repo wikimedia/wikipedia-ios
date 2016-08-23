@@ -236,8 +236,6 @@
 "nearby-distance-label-miles" = "$1 amerikonsk miles";
 "nearby-pull-to-refresh-prompt" = "Hála fyri at dagføra";
 "nearby-pull-to-refresh-is-refreshing" = "Dagførir";
-"nearby-loading" = "Innlesur greinar tætt við...";
-"nearby-loaded" = "Greinar tætt við innlisnar";
 "nearby-none" = "Ongar greinar funnar tætt við. Hála fyri at dagføra ella royn aftur seinni.";
 "nearby-open-in-maps" = "Lat upp í Kort";
 "nearby-cancel" = "Avbrót";
