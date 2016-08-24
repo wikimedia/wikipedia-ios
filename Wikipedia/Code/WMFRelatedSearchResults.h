@@ -1,7 +1,7 @@
-#import <Foundation/Foundation.h>
+#import <Mantle/Mantle.h>
 @class MWKSearchResult;
 
-@interface WMFRelatedSearchResults : NSObject
+@interface WMFRelatedSearchResults : MTLModel
 
 @property (nonatomic, strong, readonly) NSURL *siteURL;
 @property (nonatomic, strong, readonly) NSArray<MWKSearchResult *> *results;
