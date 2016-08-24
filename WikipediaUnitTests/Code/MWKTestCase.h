@@ -1,5 +1,4 @@
 #import <XCTest/XCTest.h>
-#import "MediaWikiKit.h"
 
 @interface MWKTestCase : XCTestCase
 

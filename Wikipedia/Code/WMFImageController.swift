@@ -87,7 +87,7 @@ public class WMFImageController : NSObject {
         return _sharedInstance
     }
     
-    let imageManager: SDWebImageManager
+    public let imageManager: SDWebImageManager
     
     let cancellingQueue: dispatch_queue_t
     

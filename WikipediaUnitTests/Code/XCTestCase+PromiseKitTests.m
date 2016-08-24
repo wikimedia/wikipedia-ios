@@ -17,9 +17,6 @@
 }
 
 - (void)testShouldNotFulfillExpectationWhenTimeoutExpiresForResolution {
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
-        return;
-    }
 
     __block PMKResolver resolve;
     expectResolutionWithTimeout(0, ^{
@@ -32,9 +29,6 @@
 }
 
 - (void)testShouldNotFulfillExpectationWhenTimeoutExpiresForError {
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
-        return;
-    }
 
     __block PMKResolver resolve;
     [self expectAnyPromiseToCatch:^AnyPromise * {
