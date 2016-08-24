@@ -75,6 +75,32 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     return self;
 }
 
++ (BOOL)migrateToSharedContainer:(NSError **)error {
+    NSFileManager *fm = [NSFileManager defaultManager];
+    
+    NSError *copyError = nil;
+    if (![fm copyItemAtPath:[YapDatabase wmf_appSpecificDatabasePath] toPath:[YapDatabase wmf_databasePath] error:&copyError]) {
+        if (copyError.code != NSFileNoSuchFileError) {
+            if (error) {
+                *error = copyError;
+            }
+            return NO;
+        }
+    }
+    
+    NSError *moveError = nil;
+    if (![fm moveItemAtPath:[MWKDataStore appSpecificMainDataStorePath] toPath:[MWKDataStore mainDataStorePath] error:&moveError]) {
+        if (moveError.code != NSFileNoSuchFileError) {
+            if (error) {
+                *error = moveError;
+            }
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
 #pragma mark - Memory
 
 - (void)didRecievememoryWarningWithNotifcation:(NSNotification *)note {
@@ -168,8 +194,13 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 #pragma mark - Legacy DataStore
 
 + (NSString *)mainDataStorePath {
+    NSString *documentsFolder = [[NSFileManager defaultManager] wmf_containerPath];
+    return [documentsFolder stringByAppendingPathComponent:@"Data"];
+}
+
++ (NSString *)appSpecificMainDataStorePath { //deprecated, use the group folder from mainDataStorePath
     NSString *documentsFolder =
-        [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     return [documentsFolder stringByAppendingPathComponent:@"Data"];
 }
 

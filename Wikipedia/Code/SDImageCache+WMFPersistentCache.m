@@ -2,12 +2,41 @@
 
 @implementation SDImageCache (WMFPersistentCache)
 
-+ (instancetype)wmf_appSupportCacheWithNamespace:(NSString *)ns {
-    NSString *appSupportDir =
-        [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) firstObject];
-    NSParameterAssert(appSupportDir.length);
++ (NSString *)wmf_cacheDirectory {
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *cacheDirectory = [[fm wmf_containerPath] stringByAppendingPathComponent:@"Cache"];
+    NSError *cacheDirectoryError = nil;
+    if (![fm createDirectoryAtPath:cacheDirectory withIntermediateDirectories:YES attributes:nil error:&cacheDirectoryError]) {
+        DDLogError(@"Error creating cache directory %@", cacheDirectoryError);
+    }
+    return cacheDirectory;
+}
 
-    SDImageCache *cache = [[SDImageCache alloc] initWithNamespace:ns inDirectory:appSupportDir];
++ (NSString *)wmf_newImageCacheDirectory {
+    return [[self wmf_cacheDirectory] stringByAppendingPathComponent:@"com.hackemist.SDWebImageCache.default"];
+}
+
++ (NSString *)wmf_legacyImageCacheDirectory {
+    NSString *appSupportDir = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) firstObject];
+    return [appSupportDir stringByAppendingPathComponent:@"com.hackemist.SDWebImageCache.default"];
+}
+
++ (BOOL)migrateToSharedContainer:(NSError **)error {
+    NSError *moveError = nil;
+    if (![[NSFileManager defaultManager] moveItemAtPath:[self wmf_legacyImageCacheDirectory] toPath:[self wmf_newImageCacheDirectory] error:&moveError]) {
+        if (moveError.code != NSFileNoSuchFileError) {
+            if (error) {
+                *error = moveError;
+            }
+            return NO;
+        }
+    }
+    return YES;
+}
+
++ (instancetype)wmf_cacheWithNamespace:(NSString *)ns {
+    
+    SDImageCache *cache = [[SDImageCache alloc] initWithNamespace:ns inDirectory:[SDImageCache wmf_cacheDirectory]];
 
     NSString *fullPath = [cache defaultCachePathForKey:@"bogus"];
     fullPath = [fullPath stringByDeletingLastPathComponent];

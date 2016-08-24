@@ -7,9 +7,9 @@ let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
 let WMFMigrateHistoryListKey = "WMFMigrateHistoryListKey"
+let WMFMigrateToSharedContainerKey = "WMFMigrateToSharedContainerKey"
 let WMFMigrateSavedPageListKey = "WMFMigrateSavedPageListKey"
 let WMFMigrateBlackListKey = "WMFMigrateBlackListKey"
-let WMFGroupSuiteName = "group.org.wikimedia.wikipedia"
 let WMFDidMigrateToGroupKey = "WMFDidMigrateToGroup"
 
 //Legacy Keys
@@ -20,7 +20,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 public extension NSUserDefaults {
     
     public class func wmf_userDefaults() -> NSUserDefaults {
-        guard let defaults = NSUserDefaults(suiteName: WMFGroupSuiteName) else {
+        guard let defaults = NSUserDefaults(suiteName: WMFApplicationGroupIdentifier) else {
             assert(false)
             return NSUserDefaults.standardUserDefaults()
         }
@@ -273,6 +273,15 @@ public extension NSUserDefaults {
     
     public func wmf_didMigrateBlackList() -> Bool {
         return self.boolForKey(WMFMigrateBlackListKey)
+    }
+    
+    public func wmf_setDidMigrateToSharedContainer(didFinish: Bool) {
+        self.setBool(didFinish, forKey: WMFMigrateToSharedContainerKey)
+        self.synchronize()
+    }
+    
+    public func wmf_didMigrateToSharedContainer() -> Bool {
+        return self.boolForKey(WMFMigrateToSharedContainerKey)
     }
 
 }

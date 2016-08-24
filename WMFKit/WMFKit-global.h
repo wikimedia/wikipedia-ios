@@ -35,5 +35,6 @@
 #import <WMFKit/NSURL+WMFQueryParameters.h>
 #import <WMFKit/NSFileManager+WMFExtendedFileAttributes.h>
 #import <WMFKit/WMFTaskGroup.h>
+#import <WMFKit/NSFileManager+WMFGroup.h>
 
 #endif

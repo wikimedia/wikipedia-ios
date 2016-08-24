@@ -10,6 +10,8 @@
  */
 + (NSString *)wmf_databasePath;
 
++ (NSString *)wmf_appSpecificDatabasePath;
+
 - (YapDatabaseConnection *)wmf_newReadConnection;
 
 - (YapDatabaseConnection *)wmf_newLongLivedReadConnection;

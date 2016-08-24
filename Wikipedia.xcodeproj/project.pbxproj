@@ -786,6 +786,10 @@
 		D8EA02E21D6CC9F8008E8A47 /* WMFRelatedSectionBlackList.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E331BF31C49647600DDE02A /* WMFRelatedSectionBlackList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */; };
 		D8EEA0F11D6DF60600D88143 /* WMFTodayReadMoreWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85219371D6DEFBB00084796 /* WMFTodayReadMoreWidgetViewController.swift */; };
+		D8EEA0F41D6E14E800D88143 /* WMFAppModalProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EEA0F21D6E14E800D88143 /* WMFAppModalProgressViewController.swift */; };
+		D8EEA0F51D6E14E800D88143 /* WMFAppModalProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */; };
+		D8EEA0FA1D6E21A400D88143 /* NSFileManager+WMFGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D8EEA0F81D6E21A400D88143 /* NSFileManager+WMFGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8EEA0FB1D6E21A400D88143 /* NSFileManager+WMFGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */; };
 		F31A197FC75DA6DEDA92C499 /* Pods_Foundation_ContinueReadingWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22B93ECBAEAC2A23EDF8D82 /* Pods_Foundation_ContinueReadingWidget.framework */; };
 /* End PBXBuildFile section */
 
@@ -2229,6 +2233,10 @@
 		D8C0C00A1D144FF30019374D /* WMFProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProxyServer.m; sourceTree = "<group>"; };
 		D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableOfContentsAboutThisArticleItem.swift; path = Wikipedia/Code/TableOfContentsAboutThisArticleItem.swift; sourceTree = SOURCE_ROOT; };
 		D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLinkParsingTests.m; sourceTree = "<group>"; };
+		D8EEA0F21D6E14E800D88143 /* WMFAppModalProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFAppModalProgressViewController.swift; sourceTree = "<group>"; };
+		D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFAppModalProgressViewController.xib; sourceTree = "<group>"; };
+		D8EEA0F81D6E21A400D88143 /* NSFileManager+WMFGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+WMFGroup.h"; path = "Wikipedia/Code/NSFileManager+WMFGroup.h"; sourceTree = SOURCE_ROOT; };
+		D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+WMFGroup.m"; path = "Wikipedia/Code/NSFileManager+WMFGroup.m"; sourceTree = SOURCE_ROOT; };
 		E0C7C81C06391649384FE27F /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		E0CAA3626B2D691E69E163BD /* Pods-Foundation-Wikipedia.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.test.xcconfig"; sourceTree = "<group>"; };
 		F6053A891D3C59340023759C /* UITableViewController+WMFScrollToTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewController+WMFScrollToTop.swift"; sourceTree = SOURCE_ROOT; };
@@ -3545,6 +3553,8 @@
 		BC45D5461C31E0C0007C72F3 /* App View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D8EEA0F21D6E14E800D88143 /* WMFAppModalProgressViewController.swift */,
+				D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */,
 				B0E802BF1C0CD27F0065EBC0 /* WMFAppViewController.h */,
 				B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */,
 				0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */,
@@ -5311,6 +5321,8 @@
 			children = (
 				D805B61B1D450F0500529894 /* WMFTaskGroup.h */,
 				D805B61C1D450F0500529894 /* WMFTaskGroup.m */,
+				D8EEA0F81D6E21A400D88143 /* NSFileManager+WMFGroup.h */,
+				D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */,
 				D81082F61D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.h */,
 				D81082F71D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m */,
 				B01662AB1D1B668C006F4544 /* NSURL+WMFProxyServer.h */,
@@ -5583,6 +5595,7 @@
 				D8494B031D6C8E6A00337433 /* WMFKit-global.h in Headers */,
 				D8494AEB1D6C86F100337433 /* WMFKit-prefix.pch in Headers */,
 				D8494ADF1D6C85C500337433 /* MWKSite.h in Headers */,
+				D8EEA0FA1D6E21A400D88143 /* NSFileManager+WMFGroup.h in Headers */,
 				D8494AED1D6C8BD200337433 /* WMFBlockDefinitions.h in Headers */,
 				D8494AE51D6C85C500337433 /* NSURLComponents+WMFLinkParsing.h in Headers */,
 				D8494B091D6C90E400337433 /* WMFMath.h in Headers */,
@@ -5953,6 +5966,7 @@
 				B0E8040A1C0CDE480065EBC0 /* AboutViewController.storyboard in Resources */,
 				B0E806DA1C0CEB850065EBC0 /* BulletedLabel.xib in Resources */,
 				B0E803191C0CD6560065EBC0 /* WMFNearbyPlaceholderCollectionViewCell.xib in Resources */,
+				D8EEA0F51D6E14E800D88143 /* WMFAppModalProgressViewController.xib in Resources */,
 				B0E804131C0CDE480065EBC0 /* ReferencesVC.storyboard in Resources */,
 				0E06FD611CC2D5E3002F3A72 /* WMFArticleLanguagesViewController.storyboard in Resources */,
 				B016DCEB1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib in Resources */,
@@ -6389,6 +6403,7 @@
 				B09B03F01CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.m in Sources */,
 				B0E8030D1C0CD5E00065EBC0 /* WMFNearbyArticleCollectionViewCell.m in Sources */,
 				B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */,
+				D8EEA0F41D6E14E800D88143 /* WMFAppModalProgressViewController.swift in Sources */,
 				B0E803B11C0CDBCF0065EBC0 /* WMFSearchDataSource.m in Sources */,
 				0E4B5FBE1C56B3E70099B02E /* WMFBaseExploreSectionController.m in Sources */,
 				B0F7CB5A1C8A89EF00996DE0 /* WelcomeLanguagesAnimationView.swift in Sources */,
@@ -6811,6 +6826,7 @@
 				D8494AE01D6C85C500337433 /* MWKSite.m in Sources */,
 				D8494AF41D6C8CB600337433 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m in Sources */,
 				D8494AFD1D6C8D7E00337433 /* NSDictionary+WMFExtensions.m in Sources */,
+				D8EEA0FB1D6E21A400D88143 /* NSFileManager+WMFGroup.m in Sources */,
 				D844D9CC1D6CBA530042D692 /* NSArray+WMFPredicate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

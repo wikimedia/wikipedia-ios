@@ -214,15 +214,35 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 
     [self showSplashView];
-
-    @weakify(self)
-
-        if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-        self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
+    
+#warning fix
+    if (YES) {
+    //if (![[NSUserDefaults wmf_userDefaults] wmf_didMigrateToSharedContainer]) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            NSError *error = nil;
+            if (![MWKDataStore migrateToSharedContainer:&error]) {
+                DDLogError(@"Error migrating data store: %@", error);
+            }
+            error = nil;
+            if (![SDImageCache migrateToSharedContainer:&error]) {
+                DDLogError(@"Error migrating image cache: %@", error);
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:YES];
+                [self finishLaunch];
+            });
+        });
+    } else {
+        [self finishLaunch];
     }
+}
+
+- (void)finishLaunch {
+    @weakify(self)
+    self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
     [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
         @strongify(self)
-            [self loadMainUI];
+        [self loadMainUI];
         [self hideSplashViewAnimated:!didShowOnboarding];
         [self resumeApp];
         [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];

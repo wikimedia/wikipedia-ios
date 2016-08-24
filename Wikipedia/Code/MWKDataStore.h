@@ -60,6 +60,8 @@ extern NSString *const MWKItemUpdatedNotification;
 
 - (instancetype)initWithDatabase:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath NS_DESIGNATED_INITIALIZER;
 
++ (BOOL)migrateToSharedContainer:(NSError **)error;
+
 #pragma mark - Legacy Datastore methods
 
 @property (readonly, copy, nonatomic) NSString *basePath;
@@ -73,6 +75,7 @@ extern NSString *const MWKItemUpdatedNotification;
  *  @return The path
  */
 + (NSString *)mainDataStorePath;
++ (NSString *)appSpecificMainDataStorePath; // deprecated, use mainDataStorePath
 
 // Path methods
 - (NSString *)joinWithBasePath:(NSString *)path;

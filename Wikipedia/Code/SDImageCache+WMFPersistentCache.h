@@ -2,6 +2,8 @@
 
 @interface SDImageCache (WMFPersistentCache)
 
-+ (instancetype)wmf_appSupportCacheWithNamespace:(NSString *)ns;
++ (instancetype)wmf_cacheWithNamespace:(NSString *)ns;
+
++ (BOOL)migrateToSharedContainer:(NSError **)error;
 
 @end
