@@ -7,7 +7,7 @@
 }
 
 - (NSString *)databaseKey {
-    return [self.url absoluteString];
+    return [[self class] databaseKeyForURL:self.url];
 }
 
 + (NSString *)databaseCollectionName {

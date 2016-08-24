@@ -38,6 +38,14 @@
     return self;
 }
 
+- (BOOL)isInHistory{
+    return self.dateViewed != nil;
+}
+
+- (BOOL)isSaved{
+    return self.dateSaved != nil;
+}
+
 - (BOOL)isEqual:(id)object {
     if (self == object) {
         return YES;
