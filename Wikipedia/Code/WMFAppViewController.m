@@ -215,9 +215,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     [self showSplashView];
     
-#warning fix
-    if (YES) {
-    //if (![[NSUserDefaults wmf_userDefaults] wmf_didMigrateToSharedContainer]) {
+
+    if (![[NSUserDefaults wmf_userDefaults] wmf_didMigrateToSharedContainer]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             NSError *error = nil;
             if (![MWKDataStore migrateToSharedContainer:&error]) {
