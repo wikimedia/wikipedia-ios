@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
 
+@class WMFRelatedSearchResults;
+
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSUInteger const WMFMaxRelatedSearchResultLimit;
@@ -47,6 +49,11 @@ extern NSUInteger const WMFMaxRelatedSearchResultLimit;
  */
 - (AnyPromise *)fetchArticlesRelatedArticleWithURL:(NSURL *)URL
                                        resultLimit:(NSUInteger)resultLimit;
+
+- (void)fetchArticlesRelatedArticleWithURL:(NSURL *)URL
+                               resultLimit:(NSUInteger)resultLimit
+                           completionBlock:(void (^)(WMFRelatedSearchResults* results))completion
+                              failureBlock:(void (^)(NSError* error))failure;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
 
