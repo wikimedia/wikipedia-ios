@@ -22,6 +22,11 @@
 
 @implementation WMFSaveButtonController
 
+- (void)dealloc
+{
+    [self unobserve];
+}
+
 - (instancetype)initWithControl:(UIControl*)button
                   savedPageList:(MWKSavedPageList*)savedPageList
                             url:(NSURL*)url {
@@ -48,6 +53,7 @@
         self.url           = url;
         self.savedPageList = savedPageList;
         [self updateSavedButtonState];
+        [self observe];
     }
     return self;
 }
@@ -66,9 +72,7 @@
     if (WMF_EQUAL(self.url, isEqual:, url)) {
         return;
     }
-    [self unobserveURL:_url];
     _url = url;
-    [self observeURL:_url];
     [self updateSavedButtonState];
 }
 
@@ -104,17 +108,11 @@
 
 #pragma mark - Notifications
 
-- (void)observeURL:(NSURL*)url {
-    if (!url) {
-        return;
-    }
+- (void)observe {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemWasUpdatedWithNotification:) name:MWKItemUpdatedNotification object:nil];
 }
 
-- (void)unobserveURL:(NSURL*)url {
-    if (!url) {
-        return;
-    }
+- (void)unobserve {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

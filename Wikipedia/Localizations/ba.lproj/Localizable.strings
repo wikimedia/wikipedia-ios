@@ -297,8 +297,6 @@
 "nearby-distance-label-miles" = "$1 мил.";
 "nearby-pull-to-refresh-prompt" = "Яңыртыу өсөн тартығыҙ";
 "nearby-pull-to-refresh-is-refreshing" = "Яңыртыу";
-"nearby-loading" = "Яҡындағы объекттар тураһындағы мәҡәләләрҙе күсереү";
-"nearby-loaded" = "Тәүге мәҡәләләр күсерелгән";
 "nearby-none" = "Тәүге объекттар тураһындағы мәҡәләләрҙе табып булмай. Яңыртыу өсөн тартығыҙ йәки һуңғараҡ тағы берҙе ҡабатлап ҡарағыҙ";
 "nearby-open-in-maps" = "Карталарҙа асыу";
 "nearby-cancel" = "Кире алырға";

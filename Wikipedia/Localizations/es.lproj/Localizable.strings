@@ -299,8 +299,6 @@
 "nearby-distance-label-miles" = "$1 millas";
 "nearby-pull-to-refresh-prompt" = "Tira para actualizar";
 "nearby-pull-to-refresh-is-refreshing" = "Actualizando";
-"nearby-loading" = "Cargando artículos cercanos...";
-"nearby-loaded" = "Se cargaron los artículos cercanos";
 "nearby-none" = "No se encontraron artículos cercanos. Tira para actualizar o inténtalo más tarde.";
 "nearby-open-in-maps" = "Abrir en Mapas";
 "nearby-cancel" = "Cancelar";

@@ -267,8 +267,6 @@
 "nearby-distance-label-feet" = "$1 stopy (stôp)";
 "nearby-distance-label-miles" = "$1 míľ";
 "nearby-pull-to-refresh-is-refreshing" = "Obnovujem";
-"nearby-loading" = "Načítavam okolité články...";
-"nearby-loaded" = "Okolité články načítané";
 "nearby-open-in-maps" = "Otvoriť v aplikácii Mapy";
 "nearby-cancel" = "Zrušiť";
 "nearby-location-updates-denied" = "Táto aplikácia nemá prístup k údajom o polohe.";

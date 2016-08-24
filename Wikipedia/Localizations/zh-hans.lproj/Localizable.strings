@@ -298,8 +298,6 @@
 "nearby-distance-label-miles" = "$1英里";
 "nearby-pull-to-refresh-prompt" = "下拉以刷新";
 "nearby-pull-to-refresh-is-refreshing" = "刷新";
-"nearby-loading" = "附近条目载入中…";
-"nearby-loaded" = "加载的附近条目";
 "nearby-none" = "没有找到附近的条目。下拉刷新或稍后重试。";
 "nearby-open-in-maps" = "地图中打开";
 "nearby-cancel" = "取消";

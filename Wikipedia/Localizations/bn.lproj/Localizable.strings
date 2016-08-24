@@ -291,8 +291,6 @@
 "nearby-distance-label-miles" = "$1 মাইল";
 "nearby-pull-to-refresh-prompt" = "পুনঃসতেজ করতে টানুন";
 "nearby-pull-to-refresh-is-refreshing" = "পুনঃসতেজ হচ্ছে";
-"nearby-loading" = "কাছাকাছি নিবন্ধ লোড হচ্ছে...";
-"nearby-loaded" = "কাছাকাছি নিবন্ধ লোড হয়েছে";
 "nearby-none" = "কাছাকাছি কোন নিবন্ধ পাওয়া যায়নি। পুনঃসতেজ করতে টানুন বা পরে আবার চেষ্টা করুন।";
 "nearby-open-in-maps" = "মানচিত্রে খুলুন";
 "nearby-cancel" = "বাতিল";

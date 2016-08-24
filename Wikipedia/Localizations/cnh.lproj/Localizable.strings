@@ -274,8 +274,6 @@
 "nearby-distance-label-miles" = "meng $1";
 "nearby-pull-to-refresh-prompt" = "Dok hmanh";
 "nearby-pull-to-refresh-is-refreshing" = "Tuahlio";
-"nearby-loading" = "Pawngkam cabia langh lio";
-"nearby-loaded" = "Pawngkam cabia langh cang";
 "nearby-none" = "Pawngkam cabia a hmu lo. Acung in dok than hmanh.";
 "nearby-open-in-maps" = "Map ah zohpiak";
 "nearby-cancel" = "Let than";
