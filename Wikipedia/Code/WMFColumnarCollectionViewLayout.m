@@ -127,5 +127,23 @@
     [super invalidateLayoutWithContext:context];
 }
 
+#pragma mark - Hit Detection
+
+- (nullable UICollectionViewLayoutAttributes *)layoutAttributesAtPoint:(CGPoint)point {
+    __block UICollectionViewLayoutAttributes *attributesToReturn = nil;
+    [self.info enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (CGRectContainsPoint(section.frame, point)) {
+            [section enumerateLayoutAttributesWithBlock:^(WMFCVLAttributes *attributes, BOOL *stop) {
+                if (CGRectContainsPoint(attributes.frame, point)) {
+                    attributesToReturn = attributes;
+                    *stop = YES;
+                }
+            }];
+        }
+        *stop = attributesToReturn != nil;
+    }];
+    return attributesToReturn;
+}
+
 @end
 
