@@ -63,6 +63,7 @@ extern NSString *const MWKURLKey;
 
 - (nullable MWKHistoryEntry *)entryForURL:(NSURL *)url;
 
+- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block;
 
 #pragma mark - Legacy Datastore methods
 

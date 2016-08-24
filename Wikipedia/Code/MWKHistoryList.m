@@ -3,6 +3,8 @@
 #import <YapDataBase/YapDatabase.h>
 #import <YapDataBase/YapDatabaseView.h>
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
+#import "NSDateFormatter+WMFExtensions.h"
+@import WMFKit;
 #import <WMFModel/WMFModel-Swift.h>
 
 #define MAX_HISTORY_ENTRIES 100
@@ -89,6 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block {
+    NSParameterAssert(block);
     if (!block) {
         return;
     }

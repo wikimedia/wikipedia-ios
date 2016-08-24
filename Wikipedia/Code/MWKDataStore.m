@@ -166,6 +166,19 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     }];
 }
 
+- (void)enumerateItemsWithBlock:(void (^)(MWKHistoryEntry *_Nonnull entry, BOOL *stop))block{
+    NSParameterAssert(block);
+    if (!block) {
+        return;
+    }
+    [self readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
+        [transaction enumerateKeysAndObjectsInCollection:[MWKHistoryEntry databaseCollectionName] usingBlock:^(NSString * _Nonnull key, id  _Nonnull object, BOOL * _Nonnull stop) {
+            block(object, stop);
+        }];
+    }];
+}
+
+
 
 #pragma mark - Legacy DataStore
 
