@@ -392,6 +392,7 @@
 "explore-featured-article-heading" = "Text for 'Featured article' header";
 "explore-continue-reading-heading" = "Text for 'Continue Reading' header";
 "explore-nearby-heading" = "Text for 'Nearby places' header. The next line of the header is the name of the nearest article.";
+"explore-nearby-sub-heading-your-location" = "Subtext beneath the 'Places near' header when showing articles near the user's current location.";
 "explore-continue-related-heading" = "Text for 'Because you read' header";
 "explore-main-page-heading" = "Text for 'Today on Wikipedia' header";
 "explore-random-article-heading" = "Text for 'Random article' header\n{{Identical|Random article}}";

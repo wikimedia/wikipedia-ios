@@ -25,17 +25,22 @@
 #import "UIViewController+WMFArticlePresentation.h"
 
 #import "WMFLocationSearchListViewController.h"
+#import "NSDate+Utilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NSString *const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
 static NSUInteger const WMFNearbySectionFetchCount = 3;
 
-@interface WMFNearbySectionController ()
+@interface WMFNearbySectionController ()<WMFLocationManagerDelegate>{
+    PMKResolver currentLocationResolver;
+}
 
-@property (nonatomic, strong, readwrite) NSURL *searchSiteURL;
-@property (nonatomic, strong, readwrite) CLLocation *location;
-@property (nonatomic, strong, readwrite) CLPlacemark *placemark;
+
+@property (nonatomic, strong, readwrite) NSURL* searchSiteURL;
+@property (nonatomic, strong, readwrite) CLLocation* location;
+@property (nonatomic, strong, readwrite, nullable) CLLocation* currentLocation;
+@property (nonatomic, strong, readwrite) CLPlacemark* placemark;
 
 @property (nonatomic, strong) WMFLocationSearchFetcher *locationSearchFetcher;
 
@@ -43,21 +48,28 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 @property (nonatomic, strong) WMFCompassViewModel *compassViewModel;
 
+@property (nonatomic, strong, readwrite) NSDate* date;
+@property (nonatomic, strong, readwrite) WMFLocationManager* currentLocationManager;
+
 @end
 
 @implementation WMFNearbySectionController
 
-- (instancetype)initWithLocation:(CLLocation *)location
-                       placemark:(nullable CLPlacemark *)placemark
-                   searchSiteURL:(NSURL *)url
-                       dataStore:(MWKDataStore *)dataStore {
+
+- (instancetype)initWithLocation:(CLLocation*)location
+                       placemark:(nullable CLPlacemark*)placemark
+                 searchSiteURL:(NSURL*)url
+                            date:(nullable NSDate*)date
+                       dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(url);
     NSParameterAssert(location);
     self = [super initWithDataStore:dataStore];
     if (self) {
-        self.location = location;
-        self.placemark = placemark;
-        self.searchSiteURL = url;
+        self.location              = location;
+        self.currentLocation       = nil;
+        self.placemark             = placemark;
+        self.searchSiteURL         = url;
+        self.date                  = date;
         self.locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
         self.compassViewModel = [[WMFCompassViewModel alloc] init];
     }
@@ -86,8 +98,10 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
     return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-nearby-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
-- (NSAttributedString *)headerSubTitle {
-    if (self.placemark) {
+- (NSAttributedString*)headerSubTitle {
+    if ([self.date isToday]){
+        return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-nearby-sub-heading-your-location", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+    } else if (self.placemark) {
         return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@, %@", self.placemark.name, self.placemark.locality] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
     } else if (self.searchResults.results.count > 0) {
         return [[NSAttributedString alloc] initWithString:[[self.searchResults.results firstObject] displayTitle] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
@@ -132,6 +146,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 }
 
 - (void)didEndDisplayingSection {
+    [self.currentLocationManager stopMonitoringLocation];
     [self.compassViewModel stopUpdates];
 }
 
@@ -143,14 +158,67 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
     return @"Nearby";
 }
 
-- (AnyPromise *)fetchData {
+- (WMFLocationManager*)currentLocationManager {
+    if (_currentLocationManager == nil) {
+        _currentLocationManager          = [WMFLocationManager fineLocationManager];
+        _currentLocationManager.delegate = self;
+    }
+    return _currentLocationManager;
+}
+
+- (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location {
+    self.currentLocation = location;
+    currentLocationResolver(self.currentLocation);
+    [self.currentLocationManager stopMonitoringLocation];
+}
+
+- (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading {
+}
+
+- (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error {
+}
+
+- (AnyPromise*)fetchDataIfNeeded {
+    if ([self.date isToday]){
+        // The first nearby section should always show articles near the user's current location.
+        return [super fetchDataUserInitiated];
+    }else{
+        return [super fetchDataIfNeeded];
+    }
+}
+
+- (CLLocation *) location {
+    if ([self.date isToday] && self.currentLocation != nil){
+        return _currentLocation;
+    }else{
+        return _location;
+    }
+}
+
+- (AnyPromise*)fetchData {
+    AnyPromise *nearbyTitlesPromise = nil;
     if ([self fetchedResultsAreCloseToLocation:self.location]) {
         DDLogVerbose(@"Not fetching nearby titles for %@ since it is too close to previously fetched location: %@.",
                      self.location, self.searchResults.location);
-        return [AnyPromise promiseWithValue:self.items];
+        nearbyTitlesPromise = [AnyPromise promiseWithValue:self.items];
+    }else{
+        nearbyTitlesPromise = [self fetchTitlesForLocation:self.location];
     }
 
-    return [self fetchTitlesForLocation:self.location];
+    if ([self.date isToday]){
+
+        dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
+            [self.currentLocationManager startMonitoringLocation];
+        });
+        
+        return [[AnyPromise alloc] initWithResolver:&currentLocationResolver].then(^(PMKResolver resolve) {
+            return nearbyTitlesPromise;
+        }).catch(^(NSError* error){
+            return nearbyTitlesPromise;
+        });
+    }else{
+        return nearbyTitlesPromise;
+    }
 }
 
 - (UIViewController *)detailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -166,8 +234,12 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 #pragma mark - WMFMoreFooterProviding
 
-- (NSString *)footerText {
-    return [MWLocalizedString(@"home-nearby-location-footer", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.placemark.name];
+- (NSString*)footerText {
+    if ([self.date isToday]){
+        return MWLocalizedString(@"home-nearby-footer", nil);
+    }else{
+        return [MWLocalizedString(@"home-nearby-location-footer", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.placemark.name];
+    }
 }
 
 - (UIViewController *)moreViewController {

@@ -166,7 +166,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFNearbySectionController *)nearbySectionControllerForSchemaItem:(WMFExploreSection *)item {
     return [[WMFNearbySectionController alloc] initWithLocation:item.location
                                                       placemark:item.placemark
-                                                  searchSiteURL:item.siteURL
+                                                searchSiteURL:item.siteURL
+                                                           date:item.dateCreated
                                                       dataStore:self.dataStore];
 }
 

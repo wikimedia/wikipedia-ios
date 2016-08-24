@@ -19,10 +19,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSTimeInterval const WMFHomeMinimumAutomaticReloadTime = 600.0;             //10 minutes
-static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 24 * 60 * 60; //24 hours
-
-static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
+static NSTimeInterval const WMFHomeMinimumAutomaticReloadTime      = 60 * 10;       //10 minutes
+static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 24;  //24 hours
 
 @interface WMFExploreSectionSchema () <WMFLocationManagerDelegate, WMFDataSourceDelegate>
 
@@ -245,24 +243,22 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
     NSMutableArray<WMFExploreSection *> *existingNearbySections = [[self nearbySections] mutableCopy];
 
-    WMFExploreSection *closeEnough = [existingNearbySections bk_match:^BOOL(WMFExploreSection *oldNearby) {
-        //Don't add a new one if we have one that is minimum distance
-        if (oldNearby.location && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby && oldNearby.placemark != nil) {
-            return YES;
-        }
 
-        //Don't add more than one more in a single day
+    WMFExploreSection* closeEnough = [existingNearbySections bk_match:^BOOL (WMFExploreSection* oldNearby) {
+        
+        // Don't add more than one more in a single day
+
         if (oldNearby.location && [oldNearby.dateCreated isToday] && oldNearby.placemark != nil) {
             return YES;
         }
-
+        
         return NO;
     }];
-
+    
     if (closeEnough != nil) {
         return;
     }
-
+    
     @weakify(self);
     [self.locationManager reverseGeocodeLocation:location].then(^(CLPlacemark *_Nullable placemark) {
                                                               @strongify(self);
