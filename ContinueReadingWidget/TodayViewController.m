@@ -1,7 +1,7 @@
 #import "TodayViewController.h"
 #import <NotificationCenter/NotificationCenter.h>
 
-@import WMFKit;
+@import WMFModel;
 
 @interface TodayViewController () <NCWidgetProviding>
 

@@ -750,6 +750,10 @@
 		D849D6531D6CC7DC00D06FC8 /* WMFImageTag+TargetImageWidthURL.m in Sources */ = {isa = PBXBuildFile; fileRef = B05033B01D1FA2FE002E7D4F /* WMFImageTag+TargetImageWidthURL.m */; };
 		D849D6541D6CC7DC00D06FC8 /* WMFImageTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0CAD81D2345CB009CE8ED /* WMFImageTagList.m */; };
 		D849D6551D6CC7DC00D06FC8 /* WMFImageTagList+ImageURLs.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0CADB1D234927009CE8ED /* WMFImageTagList+ImageURLs.m */; };
+		D84CA44C1D6DED0700837E58 /* WMFModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; };
+		D84CA44E1D6DED2000837E58 /* WMFModel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D84CA4541D6DEE0D00837E58 /* WMFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFKit.framework */; };
+		D84CA4551D6DEE1500837E58 /* WMFKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D84F2BF21D2FE7ED00963D42 /* WMFArticleNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF11D2FE7ED00963D42 /* WMFArticleNavigationController.m */; };
 		D84F2BF51D2FE80A00963D42 /* WMFRotationRespectingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF41D2FE80A00963D42 /* WMFRotationRespectingNavigationController.m */; };
 		D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
@@ -774,7 +778,6 @@
 		D89F510F1D6CC97F008018E1 /* WMFApiJsonResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062F1C0CE7670065EBC0 /* WMFApiJsonResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D89F51101D6CC9BA008018E1 /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8067E1C0CE9C70065EBC0 /* WMFNetworkUtilities.m */; };
 		D89F51111D6CC9BD008018E1 /* WMFNetworkUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8067D1C0CE9C70065EBC0 /* WMFNetworkUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8A9918A1D678CAC00DAB7D1 /* WMFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFKit.framework */; };
 		D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C0C00A1D144FF30019374D /* WMFProxyServer.m */; };
 		D8C9BFE81D6CC92C0084624F /* MWKLanguageLinkResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062D1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062E1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.m */; };
@@ -807,6 +810,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = D844D96B1D6CB2600042D692;
 			remoteInfo = WMFModel;
+		};
+		D84CA4501D6DED4400837E58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D844D96B1D6CB2600042D692;
+			remoteInfo = WMFModel;
+		};
+		D84CA4521D6DEE0900837E58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D84580EB1D67572C00B09640;
+			remoteInfo = WMFKit;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -841,6 +858,17 @@
 				D844D9741D6CB2600042D692 /* WMFModel.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D84CA44D1D6DED1100837E58 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D84CA4551D6DEE1500837E58 /* WMFKit.framework in CopyFiles */,
+				D84CA44E1D6DED2000837E58 /* WMFModel.framework in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -2213,7 +2241,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8A9918A1D678CAC00DAB7D1 /* WMFKit.framework in Frameworks */,
+				D84CA4541D6DEE0D00837E58 /* WMFKit.framework in Frameworks */,
+				D84CA44C1D6DED0700837E58 /* WMFModel.framework in Frameworks */,
 				0E8380651D64989F0076EDE4 /* NotificationCenter.framework in Frameworks */,
 				F31A197FC75DA6DEDA92C499 /* Pods_Foundation_ContinueReadingWidget.framework in Frameworks */,
 			);
@@ -5583,10 +5612,13 @@
 				0E8380611D64989F0076EDE4 /* Resources */,
 				2481645BC89FC09A3FAE919A /* [CP] Embed Pods Frameworks */,
 				B0CEC780D8C9F9D2E4B90317 /* [CP] Copy Pods Resources */,
+				D84CA44D1D6DED1100837E58 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D84CA4531D6DEE0900837E58 /* PBXTargetDependency */,
+				D84CA4511D6DED4400837E58 /* PBXTargetDependency */,
 			);
 			name = ContinueReadingWidget;
 			productName = ContinueReadingWidget;
@@ -6802,6 +6834,16 @@
 			isa = PBXTargetDependency;
 			target = D844D96B1D6CB2600042D692 /* WMFModel */;
 			targetProxy = D844D9711D6CB2600042D692 /* PBXContainerItemProxy */;
+		};
+		D84CA4511D6DED4400837E58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D844D96B1D6CB2600042D692 /* WMFModel */;
+			targetProxy = D84CA4501D6DED4400837E58 /* PBXContainerItemProxy */;
+		};
+		D84CA4531D6DEE0900837E58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D84580EB1D67572C00B09640 /* WMFKit */;
+			targetProxy = D84CA4521D6DEE0900837E58 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
