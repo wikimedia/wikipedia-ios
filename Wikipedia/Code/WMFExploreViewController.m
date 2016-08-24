@@ -922,6 +922,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
     NSIndexPath* previewIndexPath                     = [self.collectionView indexPathForItemAtPoint:location];
+
+    if (previewIndexPath == nil) {
+        return nil;
+    }
+    
     id<WMFExploreSectionController> sectionController = [self sectionControllerForSectionAtIndex:previewIndexPath.section];
 
     if (![sectionController shouldSelectItemAtIndexPath:previewIndexPath]) {
