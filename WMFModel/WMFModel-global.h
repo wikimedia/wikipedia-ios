@@ -39,7 +39,6 @@
 
 #import <WMFModel/MWLanguageInfo.h>
 
-#import <WMFModel/MWKUserDataStore.h>
 #import <WMFModel/MWKImageInfo.h>
 #import <WMFModel/NSString+WMFExtras.h>
 
