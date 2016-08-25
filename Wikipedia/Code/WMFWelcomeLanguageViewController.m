@@ -8,7 +8,6 @@
 #import "UIButton+WMFWelcomeNextButton.h"
 #import "WMFLanguagesViewController.h"
 
-
 @interface WMFWelcomeLanguageViewController () <WMFLanguagesViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *languageTableView;

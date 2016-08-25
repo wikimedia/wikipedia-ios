@@ -38,7 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, weak, nullable, setter=wmf_setImageController:) WMFImageController *wmf_imageController;
 
-
 /**
  *  Fetch the receiver's @c wmf_imageURLToFetch
  *

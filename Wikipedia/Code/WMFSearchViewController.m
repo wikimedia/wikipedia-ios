@@ -30,7 +30,6 @@
 #import "WMFLanguagesViewController.h"
 #import "UIViewController+WMFEmptyView.h"
 
-
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @interface WMFSearchViewController () <UISearchBarDelegate,
