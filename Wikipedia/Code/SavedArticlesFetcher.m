@@ -11,7 +11,6 @@
 #import "WMFURLCache.h"
 #import "WMFImageURLParsing.h"
 #import "WMFTaskGroup.h"
-@import WMFKit;
 
 static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 

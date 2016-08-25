@@ -6,6 +6,6 @@
 @import Foundation;
 @import UIKit;
 
-#import "WMFKit-Global.h"
+#import "WMFUtilities-Global.h"
 
 #endif // end __OBJC__

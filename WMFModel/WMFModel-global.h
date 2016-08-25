@@ -1,7 +1,7 @@
 #ifndef WMFModel_global_h
 #define WMFModel_global_h
 
-#import <WMFKit/WMFKit.h>
+@import WMFUtilities;
 
 #import <WMFModel/MWKDataStore.h>
 #import <WMFModel/SessionSingleton.h>

@@ -32,7 +32,6 @@
 #import "NSBundle+WMFInfoUtils.h"
 #import "WMFAuthenticationManager.h"
 
-@import WMFKit;
 
 #pragma mark - Static URLs
 

@@ -46,7 +46,6 @@
 // Controllers
 #import "WMFRelatedSectionBlackList.h"
 
-@import WMFKit;
 
 #define ENABLE_RANDOM_DEBUGGING 0
 

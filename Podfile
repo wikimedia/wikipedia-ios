@@ -51,12 +51,16 @@ abstract_target 'Foundation' do
 
   end
   
-  target 'WMFKit' do
+  target 'WMFUtilities' do
   	
   end
   
   target 'WMFModel' do
 
+  end
+  
+  target 'WMFUI' do
+  	
   end
   
   target 'Wikipedia' do

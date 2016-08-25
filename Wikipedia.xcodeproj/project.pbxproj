@@ -74,7 +74,7 @@
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
 		19A17B36FFB48307FF04C07F /* SavedPageSpotlightManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */; };
 		548FE57679CD3C8D8ED9F432 /* Pods_Foundation_WMFModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14DC416F1C2EE1E98A611C85 /* Pods_Foundation_WMFModel.framework */; };
-		6D029C72125ECA3FB8973EE2 /* Pods_Foundation_WMFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C83C2B1085C4682E138EB792 /* Pods_Foundation_WMFKit.framework */; };
+		A55D71669F1EC79B2C8D62CA /* Pods_Foundation_WMFUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F99241A52C29DFBB695B6A /* Pods_Foundation_WMFUtilities.framework */; };
 		A696C774CBB262D3A2826754 /* Pods_Foundation_Wikipedia_WikipediaUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE11949C643B16EB8C87195B /* Pods_Foundation_Wikipedia_WikipediaUnitTests.framework */; };
 		A81FAE1E777A3B31B05780D6 /* Pods_Foundation_Wikipedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CB721C3D602C783A80C89B5 /* Pods_Foundation_Wikipedia.framework */; };
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
@@ -552,7 +552,7 @@
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
 		D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
 		D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */; };
-		D80187F51D6CCCE7009EF2EE /* WMFKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D80187F51D6CCCE7009EF2EE /* WMFUtilities.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D80C24B51D673DA000816503 /* WMFNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D80C24B41D673DA000816503 /* WMFNavigationController.m */; };
 		D80C24B81D673DC300816503 /* WMFTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D80C24B71D673DC300816503 /* WMFTabBarController.m */; };
 		D81083071D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m in Sources */ = {isa = PBXBuildFile; fileRef = D81083061D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m */; };
@@ -573,7 +573,7 @@
 		D844D9701D6CB2600042D692 /* WMFModel.h in Headers */ = {isa = PBXBuildFile; fileRef = D844D96E1D6CB2600042D692 /* WMFModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9731D6CB2600042D692 /* WMFModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; };
 		D844D9741D6CB2600042D692 /* WMFModel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D844D97C1D6CB2670042D692 /* WMFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFKit.framework */; };
+		D844D97C1D6CB2670042D692 /* WMFUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; };
 		D844D97D1D6CB29B0042D692 /* MWKDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807831C0CEF660065EBC0 /* MWKDataObject.m */; };
 		D844D97E1D6CB2A10042D692 /* MWKDataObject.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807821C0CEF660065EBC0 /* MWKDataObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D97F1D6CB32D0042D692 /* MWKSiteDataObject.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807881C0CEF660065EBC0 /* MWKSiteDataObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -692,7 +692,6 @@
 		D844DA071D6CC4D40042D692 /* MWKLanguageLinkController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806B51C0CEB160065EBC0 /* MWKLanguageLinkController.m */; };
 		D844DA091D6CC4D40042D692 /* MWKLanguageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7451C162EE9004F1FD9 /* MWKLanguageFilter.m */; };
 		D844DA0A1D6CC5240042D692 /* NSLocale+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E804971C0CE0B40065EBC0 /* NSLocale+WMFExtras.swift */; };
-		D84580FE1D67572D00B09640 /* WMFKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D84580EE1D67572C00B09640 /* WMFKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D84649AD1D4514F7009DB4A0 /* WMFTaskGroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D84649AC1D4514F7009DB4A0 /* WMFTaskGroupTests.m */; };
 		D84692E01D5E1E3F000A7058 /* WMFTableOfContentsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84692DE1D5E1E3F000A7058 /* WMFTableOfContentsHeader.swift */; };
 		D84692E11D5E1E3F000A7058 /* WMFTableOfContentsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84692DF1D5E1E3F000A7058 /* WMFTableOfContentsHeader.xib */; };
@@ -707,7 +706,6 @@
 		D8494AE71D6C85C500337433 /* NSUserDefaults+WMFExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8494ADC1D6C85C500337433 /* NSUserDefaults+WMFExtensions.swift */; };
 		D8494AE81D6C85C500337433 /* WMFAssetsFile.h in Headers */ = {isa = PBXBuildFile; fileRef = D8494ADD1D6C85C500337433 /* WMFAssetsFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8494AE91D6C85C500337433 /* WMFAssetsFile.m in Sources */ = {isa = PBXBuildFile; fileRef = D8494ADE1D6C85C500337433 /* WMFAssetsFile.m */; };
-		D8494AEB1D6C86F100337433 /* WMFKit-prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = D8494AEA1D6C86F100337433 /* WMFKit-prefix.pch */; };
 		D8494AED1D6C8BD200337433 /* WMFBlockDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8494AEE1D6C8BD800337433 /* WMFGCDHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807301C0CED810065EBC0 /* WMFGCDHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8494AF01D6C8C4400337433 /* WMFComparison.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8072F1C0CED810065EBC0 /* WMFComparison.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -725,7 +723,6 @@
 		D8494AFE1D6C8D8100337433 /* NSDictionary+WMFExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EC376311D3002830001D4BF /* NSDictionary+WMFExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8494AFF1D6C8D9B00337433 /* NSURL+WMFExtras.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804AE1C0CE0B40065EBC0 /* NSURL+WMFExtras.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8494B001D6C8D9E00337433 /* NSURL+WMFExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804AF1C0CE0B40065EBC0 /* NSURL+WMFExtras.m */; };
-		D8494B031D6C8E6A00337433 /* WMFKit-global.h in Headers */ = {isa = PBXBuildFile; fileRef = D8494AEC1D6C877700337433 /* WMFKit-global.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8494B041D6C908700337433 /* WMFLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807361C0CED810065EBC0 /* WMFLogging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8494B051D6C90AC00337433 /* WMFDirectoryPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8494B061D6C90C500337433 /* WMFLocalization.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EF5BB681C110BFC00DE75E1 /* WMFLocalization.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -749,8 +746,8 @@
 		D849D6551D6CC7DC00D06FC8 /* WMFImageTagList+ImageURLs.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0CADB1D234927009CE8ED /* WMFImageTagList+ImageURLs.m */; };
 		D84CA44C1D6DED0700837E58 /* WMFModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; };
 		D84CA44E1D6DED2000837E58 /* WMFModel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D84CA4541D6DEE0D00837E58 /* WMFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFKit.framework */; };
-		D84CA4551D6DEE1500837E58 /* WMFKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D84CA4541D6DEE0D00837E58 /* WMFUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; };
+		D84CA4551D6DEE1500837E58 /* WMFUtilities.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D84F2BF21D2FE7ED00963D42 /* WMFArticleNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF11D2FE7ED00963D42 /* WMFArticleNavigationController.m */; };
 		D84F2BF51D2FE80A00963D42 /* WMFRotationRespectingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF41D2FE80A00963D42 /* WMFRotationRespectingNavigationController.m */; };
 		D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
@@ -779,6 +776,11 @@
 		D8AC391C1D6F22AA007E3C14 /* NSDateFormatter+WMFExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8048F1C0CE0B40065EBC0 /* NSDateFormatter+WMFExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AC391D1D6F2324007E3C14 /* UIScreen+WMFImageWidth.h in Headers */ = {isa = PBXBuildFile; fileRef = BCA15B151C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AC391E1D6F2328007E3C14 /* UIScreen+WMFImageWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B161C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.m */; };
+		D8AC39281D6F2480007E3C14 /* WMFUI.h in Headers */ = {isa = PBXBuildFile; fileRef = D8AC39261D6F247F007E3C14 /* WMFUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8AC392B1D6F2480007E3C14 /* WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; };
+		D8AC392C1D6F2480007E3C14 /* WMFUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D8AC39391D6F25A4007E3C14 /* WMFUtilities-global.h in Headers */ = {isa = PBXBuildFile; fileRef = D8AC39351D6F25A3007E3C14 /* WMFUtilities-global.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8AC393B1D6F25A4007E3C14 /* WMFUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = D8AC39371D6F25A4007E3C14 /* WMFUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C0C00A1D144FF30019374D /* WMFProxyServer.m */; };
 		D8C9BFE81D6CC92C0084624F /* MWKLanguageLinkResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062D1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062E1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.m */; };
@@ -792,6 +794,7 @@
 		D8EEA0F51D6E14E800D88143 /* WMFAppModalProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */; };
 		D8EEA0FA1D6E21A400D88143 /* NSFileManager+WMFGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D8EEA0F81D6E21A400D88143 /* NSFileManager+WMFGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8EEA0FB1D6E21A400D88143 /* NSFileManager+WMFGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */; };
+		EF8D9110BCE823C6A7E6D976 /* Pods_Foundation_WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83074D9C9F27BCC22C925AF7 /* Pods_Foundation_WMFUI.framework */; };
 		F31A197FC75DA6DEDA92C499 /* Pods_Foundation_ContinueReadingWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22B93ECBAEAC2A23EDF8D82 /* Pods_Foundation_ContinueReadingWidget.framework */; };
 /* End PBXBuildFile section */
 
@@ -831,6 +834,20 @@
 			remoteGlobalIDString = D84580EB1D67572C00B09640;
 			remoteInfo = WMFKit;
 		};
+		D8A76D6A1D6F266B00E5A798 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D84580EB1D67572C00B09640;
+			remoteInfo = WMFUtilities;
+		};
+		D8AC39291D6F2480007E3C14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D8AC39231D6F247F007E3C14;
+			remoteInfo = WMFUI;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -851,7 +868,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D80187F51D6CCCE7009EF2EE /* WMFKit.framework in CopyFiles */,
+				D80187F51D6CCCE7009EF2EE /* WMFUtilities.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -862,6 +879,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				D844D9741D6CB2600042D692 /* WMFModel.framework in Embed Frameworks */,
+				D8AC392C1D6F2480007E3C14 /* WMFUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -872,7 +890,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D84CA4551D6DEE1500837E58 /* WMFKit.framework in CopyFiles */,
+				D84CA4551D6DEE1500837E58 /* WMFUtilities.framework in CopyFiles */,
 				D84CA44E1D6DED2000837E58 /* WMFModel.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -887,6 +905,7 @@
 		04D34DB11863D39000610A87 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		04E9A78218F73C7200F7ECF7 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		0829FB278F8E131383D2F75D /* Pods-Foundation-ContinueReadingWidget.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.beta.xcconfig"; sourceTree = "<group>"; };
+		08455C5B1AD3F409FD916865 /* Pods-Foundation-WMFUtilities.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUtilities.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUtilities/Pods-Foundation-WMFUtilities.test.xcconfig"; sourceTree = "<group>"; };
 		087BFC561C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PiwikTracker+WMFExtensions.h"; sourceTree = "<group>"; };
 		087BFC571C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "PiwikTracker+WMFExtensions.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		08A3C7B51C5FCC8500682DC0 /* WMFArticlePreviewCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticlePreviewCellVisualTests.m; sourceTree = "<group>"; };
@@ -1023,9 +1042,12 @@
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		1E12A87AEC7D8E4E62F891D6 /* Pods-Foundation-WMFKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFKit/Pods-Foundation-WMFKit.debug.xcconfig"; sourceTree = "<group>"; };
 		1F75EC2E3372E1B5CE72AC62 /* Pods-Foundation-Wikipedia.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.debug test.xcconfig"; sourceTree = "<group>"; };
+		24936F150C00FDFA9441AD7A /* Pods-Foundation-WMFUI.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUI.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI.debug test.xcconfig"; sourceTree = "<group>"; };
 		30840E42855CF2AF7ED755F0 /* Pods-Foundation-WMFModel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFModel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFModel/Pods-Foundation-WMFModel.debug.xcconfig"; sourceTree = "<group>"; };
 		31E7C203CCF88A767224D5D0 /* Pods-WikipediaUnitTests.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.test.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.test.xcconfig"; sourceTree = "<group>"; };
+		3401143CA53BC49B67A0113F /* Pods-Foundation-WMFUtilities.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUtilities.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUtilities/Pods-Foundation-WMFUtilities.beta.xcconfig"; sourceTree = "<group>"; };
 		34ED1F5E012C04D22CF119FE /* Pods-Foundation-WMFKit.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFKit.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFKit/Pods-Foundation-WMFKit.test.xcconfig"; sourceTree = "<group>"; };
+		4332F5289B507479260C466A /* Pods-Foundation-WMFUtilities.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUtilities.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUtilities/Pods-Foundation-WMFUtilities.debug test.xcconfig"; sourceTree = "<group>"; };
 		43A83ABD223BDABF07466108 /* Pods-Foundation-WMFKit.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFKit.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFKit/Pods-Foundation-WMFKit.adhoc.xcconfig"; sourceTree = "<group>"; };
 		45F9AD5FD5AA496781AC6CE2 /* Pods-Foundation-Wikipedia.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.adhoc.xcconfig"; sourceTree = "<group>"; };
 		48550CF8B836B82765C1642B /* Pods-Foundation-Wikipedia-WikipediaUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia-WikipediaUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia-WikipediaUnitTests/Pods-Foundation-Wikipedia-WikipediaUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1034,16 +1056,21 @@
 		4F6AE2064B262D3CE28F7961 /* Pods-Foundation-WMFKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFKit/Pods-Foundation-WMFKit.release.xcconfig"; sourceTree = "<group>"; };
 		5620EE71E72E122EDCC11E33 /* Pods-Foundation-ContinueReadingWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.debug.xcconfig"; sourceTree = "<group>"; };
 		5A20F6A5103B7E041702B30E /* Pods-Foundation-Wikipedia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.debug.xcconfig"; sourceTree = "<group>"; };
+		667E73B3796D2E4087E6156D /* Pods-Foundation-WMFUtilities.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUtilities.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUtilities/Pods-Foundation-WMFUtilities.adhoc.xcconfig"; sourceTree = "<group>"; };
 		675ADD32D8043ED91D0E8242 /* Pods-Foundation-ContinueReadingWidget.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.test.xcconfig"; sourceTree = "<group>"; };
 		6C5AD457C94E8EF5C097264D /* Pods-Foundation-Wikipedia-WikipediaUnitTests.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia-WikipediaUnitTests.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia-WikipediaUnitTests/Pods-Foundation-Wikipedia-WikipediaUnitTests.debug test.xcconfig"; sourceTree = "<group>"; };
 		70F4692D489F1D146AD04640 /* Pods-Foundation-WMFModel.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFModel.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFModel/Pods-Foundation-WMFModel.test.xcconfig"; sourceTree = "<group>"; };
 		74812C9C7E9036489BD86FD0 /* Pods-Foundation-Wikipedia-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia-WikipediaUnitTests/Pods-Foundation-Wikipedia-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
 		805FC844F4FFA25D9E8E82ED /* Pods-Foundation-Wikipedia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.release.xcconfig"; sourceTree = "<group>"; };
+		83074D9C9F27BCC22C925AF7 /* Pods_Foundation_WMFUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_WMFUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		87C27D8355E62798D8AF0577 /* Pods-Foundation-WMFUtilities.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUtilities.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUtilities/Pods-Foundation-WMFUtilities.release.xcconfig"; sourceTree = "<group>"; };
 		8C921FC6F5110CC2F96ED94A /* Pods-WikipediaUnitTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.beta.xcconfig"; sourceTree = "<group>"; };
 		91A54E12AC5EEA1159F6FD89 /* Pods-Foundation-WMFModel.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFModel.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFModel/Pods-Foundation-WMFModel.beta.xcconfig"; sourceTree = "<group>"; };
 		93ED55840A48F07DDC9B25BC /* Pods-Foundation-WMFModel.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFModel.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFModel/Pods-Foundation-WMFModel.adhoc.xcconfig"; sourceTree = "<group>"; };
+		95209706687C329000B77270 /* Pods-Foundation-WMFUtilities.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUtilities.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUtilities/Pods-Foundation-WMFUtilities.debug.xcconfig"; sourceTree = "<group>"; };
 		9CB721C3D602C783A80C89B5 /* Pods_Foundation_Wikipedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_Wikipedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A369FE60DDB821E255C2FE4B /* Pods-Foundation-WMFUI.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUI.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI.adhoc.xcconfig"; sourceTree = "<group>"; };
 		A96F7B8C2502DBCE83901A66 /* Pods-Foundation-Wikipedia-WikipediaUnitTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia-WikipediaUnitTests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia-WikipediaUnitTests/Pods-Foundation-Wikipedia-WikipediaUnitTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		AD47EEADCD6A7A4F809DE81E /* Pods-Foundation-ContinueReadingWidget.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.adhoc.xcconfig"; sourceTree = "<group>"; };
 		B00050131C52D73800515F70 /* UIApplication+RTL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+RTL.swift"; sourceTree = "<group>"; };
@@ -2092,10 +2119,14 @@
 		C3D9FFCBCE6959CB699BABCA /* Pods-Foundation-WMFKit.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFKit.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFKit/Pods-Foundation-WMFKit.beta.xcconfig"; sourceTree = "<group>"; };
 		C46FBA4A1A8530EE00C5730F /* Pods-Foundation-Wikipedia-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-Foundation-Wikipedia-acknowledgements.plist"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia-acknowledgements.plist"; sourceTree = SOURCE_ROOT; };
 		C533DA84362E404EFDEA476E /* Pods-WikipediaUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C5F99241A52C29DFBB695B6A /* Pods_Foundation_WMFUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_WMFUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7B2238670A5B60E93C0911D /* Pods-Foundation-WMFUI.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUI.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI.beta.xcconfig"; sourceTree = "<group>"; };
 		C83C2B1085C4682E138EB792 /* Pods_Foundation_WMFKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_WMFKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C94B16BCF4DB992FA6D86FA3 /* Pods-WikipediaUnitTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.adhoc.xcconfig"; sourceTree = "<group>"; };
+		CE33776B93BFF20DC94C3E27 /* Pods-Foundation-WMFUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUI.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI.release.xcconfig"; sourceTree = "<group>"; };
 		CE42A9EB8C30892466EEBE74 /* Pods-Foundation-Wikipedia.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.beta.xcconfig"; sourceTree = "<group>"; };
 		D05CAFAA7733C9D6315997F7 /* Pods-Foundation-WMFModel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFModel.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFModel/Pods-Foundation-WMFModel.release.xcconfig"; sourceTree = "<group>"; };
+		D066ECBB1BF319A63E4D1B77 /* Pods-Foundation-WMFUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUI.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI.debug.xcconfig"; sourceTree = "<group>"; };
 		D3C92AA18C530258DD5F4D12 /* Pods-Foundation-WMFKit.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFKit.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFKit/Pods-Foundation-WMFKit.debug test.xcconfig"; sourceTree = "<group>"; };
 		D44F630918DA781400EAD1DD /* ast */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ast; path = ast.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D44F631218DA783000EAD1DD /* br */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = br; path = br.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2186,9 +2217,7 @@
 		D844D96F1D6CB2600042D692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D844D9831D6CB3830042D692 /* WMFModel-global.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMFModel-global.h"; sourceTree = "<group>"; };
 		D844D9841D6CB3900042D692 /* WMFModel-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMFModel-prefix.pch"; sourceTree = "<group>"; };
-		D84580EC1D67572C00B09640 /* WMFKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WMFKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D84580EE1D67572C00B09640 /* WMFKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFKit.h; sourceTree = "<group>"; };
-		D84580EF1D67572C00B09640 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D84580EC1D67572C00B09640 /* WMFUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WMFUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D84649AC1D4514F7009DB4A0 /* WMFTaskGroupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFTaskGroupTests.m; sourceTree = "<group>"; };
 		D84692DE1D5E1E3F000A7058 /* WMFTableOfContentsHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFTableOfContentsHeader.swift; path = Wikipedia/Code/WMFTableOfContentsHeader.swift; sourceTree = SOURCE_ROOT; };
 		D84692DF1D5E1E3F000A7058 /* WMFTableOfContentsHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFTableOfContentsHeader.xib; path = Wikipedia/Code/WMFTableOfContentsHeader.xib; sourceTree = SOURCE_ROOT; };
@@ -2203,8 +2232,6 @@
 		D8494ADC1D6C85C500337433 /* NSUserDefaults+WMFExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSUserDefaults+WMFExtensions.swift"; path = "Wikipedia/Code/NSUserDefaults+WMFExtensions.swift"; sourceTree = SOURCE_ROOT; };
 		D8494ADD1D6C85C500337433 /* WMFAssetsFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAssetsFile.h; path = Wikipedia/Code/WMFAssetsFile.h; sourceTree = SOURCE_ROOT; };
 		D8494ADE1D6C85C500337433 /* WMFAssetsFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAssetsFile.m; path = Wikipedia/Code/WMFAssetsFile.m; sourceTree = SOURCE_ROOT; };
-		D8494AEA1D6C86F100337433 /* WMFKit-prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFKit-prefix.pch"; sourceTree = "<group>"; };
-		D8494AEC1D6C877700337433 /* WMFKit-global.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMFKit-global.h"; sourceTree = "<group>"; };
 		D84F2BF01D2FE7ED00963D42 /* WMFArticleNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleNavigationController.h; sourceTree = "<group>"; };
 		D84F2BF11D2FE7ED00963D42 /* WMFArticleNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleNavigationController.m; sourceTree = "<group>"; };
 		D84F2BF31D2FE80A00963D42 /* WMFRotationRespectingNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRotationRespectingNavigationController.h; sourceTree = "<group>"; };
@@ -2231,6 +2258,13 @@
 		D87A55A01D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticlePlaceholderCollectionViewCell.h; path = Wikipedia/Code/WMFArticlePlaceholderCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		D87A55A11D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticlePlaceholderCollectionViewCell.m; path = Wikipedia/Code/WMFArticlePlaceholderCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		D87A55A21D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticlePlaceholderCollectionViewCell.xib; path = Wikipedia/Code/WMFArticlePlaceholderCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
+		D8AC39241D6F247F007E3C14 /* WMFUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WMFUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8AC39261D6F247F007E3C14 /* WMFUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUI.h; sourceTree = "<group>"; };
+		D8AC39271D6F2480007E3C14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8AC39341D6F25A3007E3C14 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = WMFUtilities/Info.plist; sourceTree = SOURCE_ROOT; };
+		D8AC39351D6F25A3007E3C14 /* WMFUtilities-global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFUtilities-global.h"; path = "WMFUtilities/WMFUtilities-global.h"; sourceTree = SOURCE_ROOT; };
+		D8AC39361D6F25A3007E3C14 /* WMFUtilities-prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFUtilities-prefix.pch"; path = "WMFUtilities/WMFUtilities-prefix.pch"; sourceTree = SOURCE_ROOT; };
+		D8AC39371D6F25A4007E3C14 /* WMFUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFUtilities.h; path = WMFUtilities/WMFUtilities.h; sourceTree = SOURCE_ROOT; };
 		D8C0C0091D144FF30019374D /* WMFProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFProxyServer.h; sourceTree = "<group>"; };
 		D8C0C00A1D144FF30019374D /* WMFProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProxyServer.m; sourceTree = "<group>"; };
 		D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableOfContentsAboutThisArticleItem.swift; path = Wikipedia/Code/TableOfContentsAboutThisArticleItem.swift; sourceTree = SOURCE_ROOT; };
@@ -2240,6 +2274,7 @@
 		D8EEA0F81D6E21A400D88143 /* NSFileManager+WMFGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+WMFGroup.h"; path = "Wikipedia/Code/NSFileManager+WMFGroup.h"; sourceTree = SOURCE_ROOT; };
 		D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+WMFGroup.m"; path = "Wikipedia/Code/NSFileManager+WMFGroup.m"; sourceTree = SOURCE_ROOT; };
 		E0C7C81C06391649384FE27F /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
+		E0C9BCFA4B3ECBFBCD839391 /* Pods-Foundation-WMFUI.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUI.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI.test.xcconfig"; sourceTree = "<group>"; };
 		E0CAA3626B2D691E69E163BD /* Pods-Foundation-Wikipedia.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.test.xcconfig"; sourceTree = "<group>"; };
 		F6053A891D3C59340023759C /* UITableViewController+WMFScrollToTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewController+WMFScrollToTop.swift"; sourceTree = SOURCE_ROOT; };
 		FA7183E731E082609BB4763E /* Pods-Foundation-ContinueReadingWidget.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.debug test.xcconfig"; sourceTree = "<group>"; };
@@ -2250,7 +2285,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D84CA4541D6DEE0D00837E58 /* WMFKit.framework in Frameworks */,
+				D84CA4541D6DEE0D00837E58 /* WMFUtilities.framework in Frameworks */,
 				D84CA44C1D6DED0700837E58 /* WMFModel.framework in Frameworks */,
 				0E8380651D64989F0076EDE4 /* NotificationCenter.framework in Frameworks */,
 				F31A197FC75DA6DEDA92C499 /* Pods_Foundation_ContinueReadingWidget.framework in Frameworks */,
@@ -2274,6 +2309,7 @@
 				04D34DB21863D39000610A87 /* libxml2.dylib in Frameworks */,
 				D844D9731D6CB2600042D692 /* WMFModel.framework in Frameworks */,
 				D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */,
+				D8AC392B1D6F2480007E3C14 /* WMFUI.framework in Frameworks */,
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
 				D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */,
 				041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */,
@@ -2285,7 +2321,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D844D97C1D6CB2670042D692 /* WMFKit.framework in Frameworks */,
+				D844D97C1D6CB2670042D692 /* WMFUtilities.framework in Frameworks */,
 				548FE57679CD3C8D8ED9F432 /* Pods_Foundation_WMFModel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2294,7 +2330,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D029C72125ECA3FB8973EE2 /* Pods_Foundation_WMFKit.framework in Frameworks */,
+				A55D71669F1EC79B2C8D62CA /* Pods_Foundation_WMFUtilities.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D8AC39201D6F247F007E3C14 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF8D9110BCE823C6A7E6D976 /* Pods_Foundation_WMFUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5103,8 +5147,9 @@
 				0EE488FE1D4AD5D10088505C /* Vendor */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
 				0E8380661D64989F0076EDE4 /* ContinueReadingWidget */,
-				D84580ED1D67572C00B09640 /* WMFKit */,
+				D84580ED1D67572C00B09640 /* WMFUtilities */,
 				D844D96D1D6CB2600042D692 /* WMFModel */,
+				D8AC39251D6F247F007E3C14 /* WMFUI */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
 				FB0B6BA2530EBEEDFAA116F2 /* Pods */,
@@ -5117,8 +5162,9 @@
 				D4991435181D51DE00E6073C /* Wikipedia Debug.app */,
 				BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */,
 				0E8380631D64989F0076EDE4 /* ContinueReadingWidget.appex */,
-				D84580EC1D67572C00B09640 /* WMFKit.framework */,
+				D84580EC1D67572C00B09640 /* WMFUtilities.framework */,
 				D844D96C1D6CB2600042D692 /* WMFModel.framework */,
+				D8AC39241D6F247F007E3C14 /* WMFUI.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -5141,6 +5187,8 @@
 				BE11949C643B16EB8C87195B /* Pods_Foundation_Wikipedia_WikipediaUnitTests.framework */,
 				C83C2B1085C4682E138EB792 /* Pods_Foundation_WMFKit.framework */,
 				14DC416F1C2EE1E98A611C85 /* Pods_Foundation_WMFModel.framework */,
+				83074D9C9F27BCC22C925AF7 /* Pods_Foundation_WMFUI.framework */,
+				C5F99241A52C29DFBB695B6A /* Pods_Foundation_WMFUtilities.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -5303,16 +5351,17 @@
 			path = WMFModel;
 			sourceTree = "<group>";
 		};
-		D84580ED1D67572C00B09640 /* WMFKit */ = {
+		D84580ED1D67572C00B09640 /* WMFUtilities */ = {
 			isa = PBXGroup;
 			children = (
-				D84580EE1D67572C00B09640 /* WMFKit.h */,
-				D8494AEA1D6C86F100337433 /* WMFKit-prefix.pch */,
-				D8494AEC1D6C877700337433 /* WMFKit-global.h */,
+				D8AC39341D6F25A3007E3C14 /* Info.plist */,
+				D8AC39351D6F25A3007E3C14 /* WMFUtilities-global.h */,
+				D8AC39361D6F25A3007E3C14 /* WMFUtilities-prefix.pch */,
+				D8AC39371D6F25A4007E3C14 /* WMFUtilities.h */,
 				D8494AEF1D6C8BE200337433 /* Utilities */,
 				D8494B021D6C8DD000337433 /* Model */,
-				D84580EF1D67572C00B09640 /* Info.plist */,
 			);
+			name = WMFUtilities;
 			path = WMFKit;
 			sourceTree = "<group>";
 		};
@@ -5451,6 +5500,15 @@
 			path = ../Schema;
 			sourceTree = "<group>";
 		};
+		D8AC39251D6F247F007E3C14 /* WMFUI */ = {
+			isa = PBXGroup;
+			children = (
+				D8AC39261D6F247F007E3C14 /* WMFUI.h */,
+				D8AC39271D6F2480007E3C14 /* Info.plist */,
+			);
+			path = WMFUI;
+			sourceTree = "<group>";
+		};
 		FB0B6BA2530EBEEDFAA116F2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -5489,6 +5547,18 @@
 				D05CAFAA7733C9D6315997F7 /* Pods-Foundation-WMFModel.release.xcconfig */,
 				70F4692D489F1D146AD04640 /* Pods-Foundation-WMFModel.test.xcconfig */,
 				91A54E12AC5EEA1159F6FD89 /* Pods-Foundation-WMFModel.beta.xcconfig */,
+				D066ECBB1BF319A63E4D1B77 /* Pods-Foundation-WMFUI.debug.xcconfig */,
+				24936F150C00FDFA9441AD7A /* Pods-Foundation-WMFUI.debug test.xcconfig */,
+				A369FE60DDB821E255C2FE4B /* Pods-Foundation-WMFUI.adhoc.xcconfig */,
+				CE33776B93BFF20DC94C3E27 /* Pods-Foundation-WMFUI.release.xcconfig */,
+				E0C9BCFA4B3ECBFBCD839391 /* Pods-Foundation-WMFUI.test.xcconfig */,
+				C7B2238670A5B60E93C0911D /* Pods-Foundation-WMFUI.beta.xcconfig */,
+				95209706687C329000B77270 /* Pods-Foundation-WMFUtilities.debug.xcconfig */,
+				4332F5289B507479260C466A /* Pods-Foundation-WMFUtilities.debug test.xcconfig */,
+				667E73B3796D2E4087E6156D /* Pods-Foundation-WMFUtilities.adhoc.xcconfig */,
+				87C27D8355E62798D8AF0577 /* Pods-Foundation-WMFUtilities.release.xcconfig */,
+				08455C5B1AD3F409FD916865 /* Pods-Foundation-WMFUtilities.test.xcconfig */,
+				3401143CA53BC49B67A0113F /* Pods-Foundation-WMFUtilities.beta.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -5577,6 +5647,7 @@
 				D8AC391C1D6F22AA007E3C14 /* NSDateFormatter+WMFExtensions.h in Headers */,
 				D8494AF01D6C8C4400337433 /* WMFComparison.h in Headers */,
 				D8494AF21D6C8C6700337433 /* WMFDeprecationMacros.h in Headers */,
+				D8AC393B1D6F25A4007E3C14 /* WMFUtilities.h in Headers */,
 				D844D9E01D6CBC2C0042D692 /* NSURL+WMFQueryParameters.h in Headers */,
 				D8494B051D6C90AC00337433 /* WMFDirectoryPaths.h in Headers */,
 				D8494AF11D6C8C4400337433 /* WMFHashing.h in Headers */,
@@ -5586,7 +5657,6 @@
 				D844D9FF1D6CC27F0042D692 /* WMFTaskGroup.h in Headers */,
 				D844D9FE1D6CC2320042D692 /* NSFileManager+WMFExtendedFileAttributes.h in Headers */,
 				D8494AF51D6C8D0100337433 /* NSArray+WMFMapping.h in Headers */,
-				D84580FE1D67572D00B09640 /* WMFKit.h in Headers */,
 				D8494B061D6C90C500337433 /* WMFLocalization.h in Headers */,
 				D844D9C81D6CBA140042D692 /* WMFRangeUtils.h in Headers */,
 				D8494AF31D6C8CB000337433 /* NSProcessInfo+WMFOperatingSystemVersionChecks.h in Headers */,
@@ -5596,8 +5666,7 @@
 				D8494AEE1D6C8BD800337433 /* WMFGCDHelpers.h in Headers */,
 				D8494B0B1D6C910100337433 /* NSError+WMFExtensions.h in Headers */,
 				D8494AE11D6C85C500337433 /* MWKTitle.h in Headers */,
-				D8494B031D6C8E6A00337433 /* WMFKit-global.h in Headers */,
-				D8494AEB1D6C86F100337433 /* WMFKit-prefix.pch in Headers */,
+				D8AC39391D6F25A4007E3C14 /* WMFUtilities-global.h in Headers */,
 				D8494ADF1D6C85C500337433 /* MWKSite.h in Headers */,
 				D8EEA0FA1D6E21A400D88143 /* NSFileManager+WMFGroup.h in Headers */,
 				D8494AED1D6C8BD200337433 /* WMFBlockDefinitions.h in Headers */,
@@ -5611,6 +5680,14 @@
 				D8494B0C1D6C911600337433 /* WMFOutParamUtils.h in Headers */,
 				D8494AF81D6C8D3200337433 /* NSMutableArray+WMFSafeAdd.h in Headers */,
 				D844D9CD1D6CBA570042D692 /* NSArray+BKIndex.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D8AC39211D6F247F007E3C14 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8AC39281D6F2480007E3C14 /* WMFUI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5680,6 +5757,7 @@
 			dependencies = (
 				0E83806F1D64989F0076EDE4 /* PBXTargetDependency */,
 				D844D9721D6CB2600042D692 /* PBXTargetDependency */,
+				D8AC392A1D6F2480007E3C14 /* PBXTargetDependency */,
 			);
 			name = Wikipedia;
 			productName = "Wikipedia-iOS";
@@ -5701,15 +5779,16 @@
 			buildRules = (
 			);
 			dependencies = (
+				D8A76D6B1D6F266B00E5A798 /* PBXTargetDependency */,
 			);
 			name = WMFModel;
 			productName = WMFModel;
 			productReference = D844D96C1D6CB2600042D692 /* WMFModel.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		D84580EB1D67572C00B09640 /* WMFKit */ = {
+		D84580EB1D67572C00B09640 /* WMFUtilities */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D845810F1D67572D00B09640 /* Build configuration list for PBXNativeTarget "WMFKit" */;
+			buildConfigurationList = D845810F1D67572D00B09640 /* Build configuration list for PBXNativeTarget "WMFUtilities" */;
 			buildPhases = (
 				D16196791FCFC37CBBC1B641 /* [CP] Check Pods Manifest.lock */,
 				D84580E71D67572C00B09640 /* Sources */,
@@ -5722,9 +5801,29 @@
 			);
 			dependencies = (
 			);
-			name = WMFKit;
+			name = WMFUtilities;
 			productName = WMFKit;
-			productReference = D84580EC1D67572C00B09640 /* WMFKit.framework */;
+			productReference = D84580EC1D67572C00B09640 /* WMFUtilities.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D8AC39231D6F247F007E3C14 /* WMFUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D8AC392D1D6F2480007E3C14 /* Build configuration list for PBXNativeTarget "WMFUI" */;
+			buildPhases = (
+				28821708A8D2B108144E26A3 /* [CP] Check Pods Manifest.lock */,
+				D8AC391F1D6F247F007E3C14 /* Sources */,
+				D8AC39201D6F247F007E3C14 /* Frameworks */,
+				D8AC39211D6F247F007E3C14 /* Headers */,
+				D8AC39221D6F247F007E3C14 /* Resources */,
+				074DB7BD461A6F43354A3D3C /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WMFUI;
+			productName = WMFUI;
+			productReference = D8AC39241D6F247F007E3C14 /* WMFUI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -5772,6 +5871,10 @@
 					D84580EB1D67572C00B09640 = {
 						CreatedOnToolsVersion = 8.0;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
+					};
+					D8AC39231D6F247F007E3C14 = {
+						CreatedOnToolsVersion = 8.0;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -5883,8 +5986,9 @@
 				D4991434181D51DE00E6073C /* Wikipedia */,
 				BC4273511A7C736800068882 /* WikipediaUnitTests */,
 				0E8380621D64989F0076EDE4 /* ContinueReadingWidget */,
-				D84580EB1D67572C00B09640 /* WMFKit */,
+				D84580EB1D67572C00B09640 /* WMFUtilities */,
 				D844D96B1D6CB2600042D692 /* WMFModel */,
+				D8AC39231D6F247F007E3C14 /* WMFUI */,
 			);
 		};
 /* End PBXProject section */
@@ -6023,9 +6127,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D8AC39221D6F247F007E3C14 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		074DB7BD461A6F43354A3D3C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2481645BC89FC09A3FAE919A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -6039,6 +6165,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		28821708A8D2B108144E26A3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		4B7662A4A7802D35804B4084 /* [CP] Check Pods Manifest.lock */ = {
@@ -6083,7 +6224,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-WMFKit/Pods-Foundation-WMFKit-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-WMFUtilities/Pods-Foundation-WMFUtilities-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		65C7DDCCEB87BCA5544C55B7 /* [CP] Check Pods Manifest.lock */ = {
@@ -6835,6 +6976,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D8AC391F1D6F247F007E3C14 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -6860,8 +7008,18 @@
 		};
 		D84CA4531D6DEE0900837E58 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D84580EB1D67572C00B09640 /* WMFKit */;
+			target = D84580EB1D67572C00B09640 /* WMFUtilities */;
 			targetProxy = D84CA4521D6DEE0900837E58 /* PBXContainerItemProxy */;
+		};
+		D8A76D6B1D6F266B00E5A798 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D84580EB1D67572C00B09640 /* WMFUtilities */;
+			targetProxy = D8A76D6A1D6F266B00E5A798 /* PBXContainerItemProxy */;
+		};
+		D8AC392A1D6F2480007E3C14 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D8AC39231D6F247F007E3C14 /* WMFUI */;
+			targetProxy = D8AC39291D6F2480007E3C14 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -8283,7 +8441,7 @@
 		};
 		D84581031D67572D00B09640 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1E12A87AEC7D8E4E62F891D6 /* Pods-Foundation-WMFKit.debug.xcconfig */;
+			baseConfigurationReference = 95209706687C329000B77270 /* Pods-Foundation-WMFUtilities.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -8299,19 +8457,19 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "WMFKit/WMFKit-prefix.pch";
+				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFKit/Info.plist;
+				INFOPLIST_FILE = WMFUtilities/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFKit;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUtilities;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
@@ -8323,7 +8481,7 @@
 		};
 		D84581041D67572D00B09640 /* Debug Test */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D3C92AA18C530258DD5F4D12 /* Pods-Foundation-WMFKit.debug test.xcconfig */;
+			baseConfigurationReference = 4332F5289B507479260C466A /* Pods-Foundation-WMFUtilities.debug test.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -8339,19 +8497,19 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "WMFKit/WMFKit-prefix.pch";
+				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFKit/Info.plist;
+				INFOPLIST_FILE = WMFUtilities/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFKit;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUtilities;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
@@ -8363,7 +8521,7 @@
 		};
 		D84581051D67572D00B09640 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43A83ABD223BDABF07466108 /* Pods-Foundation-WMFKit.adhoc.xcconfig */;
+			baseConfigurationReference = 667E73B3796D2E4087E6156D /* Pods-Foundation-WMFUtilities.adhoc.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -8379,15 +8537,15 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "WMFKit/WMFKit-prefix.pch";
+				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFKit/Info.plist;
+				INFOPLIST_FILE = WMFUtilities/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFKit;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUtilities;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
@@ -8398,7 +8556,7 @@
 		};
 		D84581061D67572D00B09640 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4F6AE2064B262D3CE28F7961 /* Pods-Foundation-WMFKit.release.xcconfig */;
+			baseConfigurationReference = 87C27D8355E62798D8AF0577 /* Pods-Foundation-WMFUtilities.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -8414,15 +8572,15 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "WMFKit/WMFKit-prefix.pch";
+				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFKit/Info.plist;
+				INFOPLIST_FILE = WMFUtilities/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFKit;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUtilities;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
@@ -8433,7 +8591,7 @@
 		};
 		D84581071D67572D00B09640 /* Test */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34ED1F5E012C04D22CF119FE /* Pods-Foundation-WMFKit.test.xcconfig */;
+			baseConfigurationReference = 08455C5B1AD3F409FD916865 /* Pods-Foundation-WMFUtilities.test.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -8449,15 +8607,15 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "WMFKit/WMFKit-prefix.pch";
+				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFKit/Info.plist;
+				INFOPLIST_FILE = WMFUtilities/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFKit;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUtilities;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
@@ -8468,7 +8626,7 @@
 		};
 		D84581081D67572D00B09640 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3D9FFCBCE6959CB699BABCA /* Pods-Foundation-WMFKit.beta.xcconfig */;
+			baseConfigurationReference = 3401143CA53BC49B67A0113F /* Pods-Foundation-WMFUtilities.beta.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -8484,19 +8642,201 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "WMFKit/WMFKit-prefix.pch";
+				GCC_PREFIX_HEADER = "WMFUtilities/WMFUtilities-prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = WMFKit/Info.plist;
+				INFOPLIST_FILE = WMFUtilities/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFKit;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUtilities;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_VERSION = 2.3;
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Beta;
+		};
+		D8AC392E1D6F2480007E3C14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D066ECBB1BF319A63E4D1B77 /* Pods-Foundation-WMFUI.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = WMFUI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D8AC392F1D6F2480007E3C14 /* Debug Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24936F150C00FDFA9441AD7A /* Pods-Foundation-WMFUI.debug test.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = WMFUI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSION_INFO_PREFIX = "";
+			};
+			name = "Debug Test";
+		};
+		D8AC39301D6F2480007E3C14 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A369FE60DDB821E255C2FE4B /* Pods-Foundation-WMFUI.adhoc.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = WMFUI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSION_INFO_PREFIX = "";
+			};
+			name = AdHoc;
+		};
+		D8AC39311D6F2480007E3C14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CE33776B93BFF20DC94C3E27 /* Pods-Foundation-WMFUI.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = WMFUI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D8AC39321D6F2480007E3C14 /* Test */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E0C9BCFA4B3ECBFBCD839391 /* Pods-Foundation-WMFUI.test.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = WMFUI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Test;
+		};
+		D8AC39331D6F2480007E3C14 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7B2238670A5B60E93C0911D /* Pods-Foundation-WMFUI.beta.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = WMFUI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Beta;
@@ -8569,7 +8909,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D845810F1D67572D00B09640 /* Build configuration list for PBXNativeTarget "WMFKit" */ = {
+		D845810F1D67572D00B09640 /* Build configuration list for PBXNativeTarget "WMFUtilities" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D84581031D67572D00B09640 /* Debug */,
@@ -8578,6 +8918,19 @@
 				D84581061D67572D00B09640 /* Release */,
 				D84581071D67572D00B09640 /* Test */,
 				D84581081D67572D00B09640 /* Beta */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D8AC392D1D6F2480007E3C14 /* Build configuration list for PBXNativeTarget "WMFUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D8AC392E1D6F2480007E3C14 /* Debug */,
+				D8AC392F1D6F2480007E3C14 /* Debug Test */,
+				D8AC39301D6F2480007E3C14 /* AdHoc */,
+				D8AC39311D6F2480007E3C14 /* Release */,
+				D8AC39321D6F2480007E3C14 /* Test */,
+				D8AC39331D6F2480007E3C14 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

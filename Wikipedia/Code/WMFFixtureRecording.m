@@ -1,5 +1,4 @@
 #import "WMFFixtureRecording.h"
-@import WMFKit;
 
 NS_ASSUME_NONNULL_BEGIN
 

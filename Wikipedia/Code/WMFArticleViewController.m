@@ -60,7 +60,6 @@
 #import <Tweaks/FBTweakInline.h>
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WMFImageInfoController.h"
-@import WMFKit;
 
 @import SafariServices;
 

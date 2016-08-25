@@ -8,7 +8,6 @@
 #import "WMFZeroMessage.h"
 #import <SafariServices/SFSafariViewController.h>
 #import "NSURL+WMFExtras.h"
-@import WMFKit;
 
 @implementation UIViewController (WMFOpenExternalLinkDelegate)
 

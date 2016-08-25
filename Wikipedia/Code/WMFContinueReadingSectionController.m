@@ -8,7 +8,6 @@
 #import "MWKSectionList.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "NSDate+WMFRelativeDate.h"
-@import WMFKit;
 
 static NSString *const WMFContinueReadingSectionIdentifier = @"WMFContinueReadingSectionIdentifier";
 

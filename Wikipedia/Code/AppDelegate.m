@@ -1,5 +1,4 @@
 #import "AppDelegate.h"
-@import WMFKit;
 #import "BITHockeyManager+WMFExtensions.h"
 #import "PiwikTracker+WMFExtensions.h"
 #import "WMFAppViewController.h"
