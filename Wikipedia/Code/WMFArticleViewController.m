@@ -567,6 +567,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 [self showFindInPage];
             }
         }];
+        _findInPageToolbarItem.accessibilityLabel = MWLocalizedString(@"find-in-page-button-label", nil);
     }
     return _findInPageToolbarItem;
 }
@@ -1672,16 +1673,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     
     dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
         [self wmf_presentDynamicHeightPopoverViewControllerForBarButtonItem:[self tableOfContentsToolbarItem]
-                                                                  withTitle:@"Table of contents"
-                                                                    message:@"Get an overview of articles"];
+                                                                  withTitle:MWLocalizedString(@"table-of-contents-button-label", nil)
+                                                                    message:MWLocalizedString(@"table-of-contents-popover-description", nil)];
     });
     
     dispatchOnMainQueueAfterDelayInSeconds(4.0, ^{
         [self dismissViewControllerAnimated:YES completion:^{
             dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
                 [self wmf_presentDynamicHeightPopoverViewControllerForBarButtonItem:self.findInPageToolbarItem
-                                                                          withTitle:@"Find in page"
-                                                                            message:@"Search text in articles"];
+                                                                          withTitle:MWLocalizedString(@"find-in-page-button-label", nil)
+                                                                            message:MWLocalizedString(@"find-in-page-popover-description", nil)];
             });
         }];
     });
