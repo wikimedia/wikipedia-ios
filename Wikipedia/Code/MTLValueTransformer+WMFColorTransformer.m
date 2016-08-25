@@ -1,6 +1,4 @@
 #import "MTLValueTransformer+WMFColorTransformer.h"
-#import "NSError+WMFExtensions.h"
-#import "UIColor+WMFHexColor.h"
 
 @implementation MTLValueTransformer (WMFColorTransformer)
 

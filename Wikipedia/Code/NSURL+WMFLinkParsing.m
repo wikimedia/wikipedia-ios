@@ -2,31 +2,12 @@
 #import "NSString+WMFExtras.h"
 #import "NSString+WMFPageUtilities.h"
 #import "NSURLComponents+WMFLinkParsing.h"
-#import "WMFAssetsFile.h"
 
 NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
 
 @implementation NSURL (WMFLinkParsing)
 
-#pragma mark - Main Pages
-
-+ (WMFAssetsFile *)mainPages {
-    static WMFAssetsFile *mainPages;
-    if (!mainPages) {
-        mainPages = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeMainPages];
-    }
-    return mainPages;
-}
-
 #pragma mark - Constructors
-
-+ (nullable NSURL *)wmf_mainPageURLForLanguage:(NSString *)language {
-    NSString *titleText = [self mainPages].dictionary[language];
-    if (!titleText) {
-        return nil;
-    }
-    return [NSURL wmf_URLWithDomain:WMFDefaultSiteDomain language:language title:titleText fragment:nil];
-}
 
 + (nullable NSURL *)wmf_wikimediaCommonsURL {
     NSURLComponents *URLComponents = [[NSURLComponents alloc] init];
@@ -204,14 +185,6 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
             return [hostComponents[1] isEqualToString:@"m"];
         }
     }
-}
-
-- (BOOL)wmf_isMainPage {
-    if (self.wmf_isNonStandardURL) {
-        return NO;
-    }
-    NSURL *mainArticleURL = [NSURL wmf_mainPageURLForLanguage:self.wmf_language];
-    return ([self isEqual:mainArticleURL]);
 }
 
 - (NSString *)wmf_pathWithoutWikiPrefix {

@@ -1,4 +1,3 @@
-@import Foundation;
 @import UIKit;
 @import WMFModel;
 
@@ -10,5 +9,5 @@ FOUNDATION_EXPORT const unsigned char WMFUIVersionString[];
 
 
 #import <WMFUI/UIImageView+WMFImageFetching.h>
-#import <WMFUI/UIImage+WMFNormalization.h>
-#import <WMFUI/UIImageView+WMFContentOffset.h>
+#import <WMFUI/UIColor+WMFStyle.h>
+#import <WMFUI/UIColor+WMFHexColor.h>

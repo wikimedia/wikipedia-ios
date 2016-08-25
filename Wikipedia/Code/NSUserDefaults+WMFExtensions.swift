@@ -1,5 +1,3 @@
-import Foundation
-
 let WMFAppLaunchDateKey = "WMFAppLaunchDateKey"
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"

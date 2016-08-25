@@ -10,6 +10,8 @@
 #import <WMFModel/MWKDataObject.h>
 #import <WMFModel/MWKSiteDataObject.h>
 
+#import <WMFModel/MWKSite.h>
+#import <WMFModel/MWKTitle.h>
 #import <WMFModel/MWKArticle.h>
 #import <WMFModel/MWKSection.h>
 #import <WMFModel/MWKSectionList.h>
@@ -71,6 +73,8 @@
 #import <WMFModel/FetcherBase.h>
 
 #import <WMFModel/UIScreen+WMFImageWidth.h>
-#import <WMFModel/WMFFaceDetectionCache.h>
+#import <WMFModel/NSURL+WMFMainPage.h>
+#import <WMFModel/WMFAssetsFile.h>
+
 
 #endif /* WMFModel_global_h */

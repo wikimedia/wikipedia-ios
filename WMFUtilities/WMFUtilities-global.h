@@ -25,7 +25,6 @@
 #import <WMFUtilities/WMFMath.h>
 #import <WMFUtilities/NSError+WMFExtensions.h>
 #import <WMFUtilities/WMFOutParamUtils.h>
-#import <WMFUtilities/UIColor+WMFStyle.h>
 #import <WMFUtilities/WMFRangeUtils.h>
 #import <WMFUtilities/NSArray+BKIndex.h>
 #import <WMFUtilities/NSIndexSet+BKReduce.h>
@@ -37,7 +36,5 @@
 #import <WMFUtilities/WMFTaskGroup.h>
 #import <WMFUtilities/NSFileManager+WMFGroup.h>
 #import <WMFUtilities/NSDateFormatter+WMFExtensions.h>
-#import <WMFUtilities/UIImage+WMFImageProcessing.h>
-#import <WMFUtilities/CIContext+WMFImageProcessing.h>
-#import <WMFUtilities/CIDetector+WMFFaceDetection.h>
+#import <WMFUtilities/NSDate+WMFRelativeDate.h>
 #endif

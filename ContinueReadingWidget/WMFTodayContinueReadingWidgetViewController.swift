@@ -42,10 +42,16 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             self.textLabel.text = nil
         }
         
-        self.daysAgoLabel.text = "3 days ago"
+        if let date = NSUserDefaults.wmf_userDefaults().wmf_appResignActiveDate() {
+            self.daysAgoLabel.hidden = false
+            self.daysAgoLabel.text = date.wmf_relativeTimestamp()
+        } else {
+            self.daysAgoLabel.hidden = true
+        }
+
         
         self.titleLabel.text = article.displaytitle
-
+        
         
         if let imageURL = NSURL(string: article.imageURL) {
             self.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in

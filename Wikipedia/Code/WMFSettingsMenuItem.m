@@ -1,5 +1,4 @@
 #import "WMFSettingsMenuItem.h"
-#import "UIColor+WMFHexColor.h"
 #import "SessionSingleton.h"
 #import "Wikipedia-Swift.h"
 #import "MWKLanguageLinkController.h"

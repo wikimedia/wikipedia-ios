@@ -4,7 +4,6 @@
 #import "WikipediaAppUtils.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "Wikipedia-Swift.h"
-#import "UIColor+WMFHexColor.h"
 #import "MWKRecentSearchList.h"
 #import "MWKRecentSearchEntry.h"
 #import <Masonry/Masonry.h>

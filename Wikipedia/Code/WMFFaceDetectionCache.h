@@ -1,4 +1,5 @@
-#import <Foundation/Foundation.h>
+@import UIKit;
+@import WMFModel;
 
 @class MWKImage;
 

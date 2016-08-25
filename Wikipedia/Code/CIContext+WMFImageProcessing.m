@@ -1,3 +1,5 @@
+@import CoreImage;
+
 @implementation CIContext (WMFImageProcessing)
 
 + (instancetype)wmf_sharedGPUContext {

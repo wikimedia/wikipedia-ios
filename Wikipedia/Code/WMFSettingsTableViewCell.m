@@ -1,5 +1,4 @@
 #import "WMFSettingsTableViewCell.h"
-#import "UIColor+WMFHexColor.h"
 #import "UIImage+WMFStyle.h"
 
 @interface WMFSettingsTableViewCell ()

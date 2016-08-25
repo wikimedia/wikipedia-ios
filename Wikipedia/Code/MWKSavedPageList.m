@@ -3,6 +3,7 @@
 #import <YapDataBase/YapDatabase.h>
 #import <YapDataBase/YapDatabaseView.h>
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
+#import <WMFModel/WMFModel-Swift.h>
 
 //Legacy
 #import "MWKSavedPageListDataExportConstants.h"

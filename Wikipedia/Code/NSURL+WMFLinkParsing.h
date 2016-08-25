@@ -6,17 +6,6 @@ extern NSString *const WMFDefaultSiteDomain;
 
 @interface NSURL (WMFLinkParsing)
 
-#pragma mark - URL Creation
-
-/**
- * Initialize a new URL with the main page URL for a given language anf the default domain - wikipedia.org.
- *
- * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for example: `en`.
- *
- * @return A main page URL for the given language.
- **/
-+ (nullable NSURL *)wmf_mainPageURLForLanguage:(NSString *)language;
-
 /**
  * Initialize a new URL with the commons URL -commons.wikimedia.org.
  *
@@ -207,8 +196,6 @@ extern NSString *const WMFDefaultSiteDomain;
  *  Return YES if the receiver has "cite_note" in the path
  */
 @property (nonatomic, readonly) BOOL wmf_isWikiCitation;
-
-@property (nonatomic, readonly) BOOL wmf_isMainPage;
 
 /**
  *  Return YES if the URL has a .m subdomain

@@ -2,7 +2,6 @@
 #import "NSString+FormattedAttributedString.h"
 #import "Defines.h"
 #import "NSString+WMFExtras.h"
-#import "UIColor+WMFHexColor.h"
 
 static NSInteger const kTitleColor = 0x000000;
 static CGFloat const kTitleFontSize = 21.0f;

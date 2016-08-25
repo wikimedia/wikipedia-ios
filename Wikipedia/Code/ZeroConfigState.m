@@ -4,6 +4,7 @@
 #import "WMFZeroMessage.h"
 #import "WMFZeroMessageFetcher.h"
 #import "MWKLanguageLinkController.h"
+#import <WMFModel/WMFModel-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

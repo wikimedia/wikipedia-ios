@@ -1,4 +1,5 @@
 #import "SessionSingleton.h"
+#import <WMFModel/WMFModel-Swift.h>
 
 @interface SessionSingleton ()
 

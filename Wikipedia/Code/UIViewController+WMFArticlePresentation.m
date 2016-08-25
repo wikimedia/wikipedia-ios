@@ -1,5 +1,4 @@
 #import "UIViewController+WMFArticlePresentation.h"
-#import "UIColor+WMFHexColor.h"
 #import "Wikipedia-Swift.h"
 
 #import "MWKDataStore.h"

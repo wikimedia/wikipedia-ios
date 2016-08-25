@@ -1,6 +1,5 @@
 @import UIKit;
 @import WMFModel;
-
 @class MWKImage;
 
 NS_ASSUME_NONNULL_BEGIN

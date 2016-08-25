@@ -20,8 +20,6 @@
 #import "UIFont+WMFStyle.h"
 
 #import "UIScrollView+WMFScrollsToTop.h"
-#import "UIColor+WMFHexColor.h"
-
 #import "WMFURLCache.h"
 
 #import "MWKHistoryEntry.h"
