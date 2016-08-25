@@ -3,7 +3,6 @@
 #import "NSUserActivity+WMFExtensions.h"
 
 #import "NSString+WMFExtras.h"
-#import "NSDateFormatter+WMFExtensions.h"
 #import "NSDate+Utilities.h"
 
 #import "MWKDataStore+WMFDataSources.h"

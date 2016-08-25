@@ -1,5 +1,4 @@
 #import "NSDate+WMFPOTDTitle.h"
-#import "NSDateFormatter+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

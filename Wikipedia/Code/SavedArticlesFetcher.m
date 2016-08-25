@@ -10,7 +10,6 @@
 #import "MWKImage+CanonicalFilenames.h"
 #import "WMFURLCache.h"
 #import "WMFImageURLParsing.h"
-#import "UIScreen+WMFImageWidth.h"
 #import "WMFTaskGroup.h"
 @import WMFKit;
 

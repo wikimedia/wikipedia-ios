@@ -70,5 +70,7 @@
 #import <WMFModel/WMFRelatedSectionBlackList.h>
 #import <WMFModel/FetcherBase.h>
 
+#import <WMFModel/UIScreen+WMFImageWidth.h>
+
 
 #endif /* WMFModel_global_h */

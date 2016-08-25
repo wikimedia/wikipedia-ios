@@ -1,6 +1,5 @@
 #import "WMFArticleRequestSerializer.h"
 #import "WMFNetworkUtilities.h"
-#import "UIScreen+WMFImageWidth.h"
 
 @implementation WMFArticleRequestSerializer
 

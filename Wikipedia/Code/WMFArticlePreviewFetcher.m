@@ -1,7 +1,6 @@
 #import "WMFArticlePreviewFetcher.h"
 #import "Wikipedia-Swift.h"
 
-#import "UIScreen+WMFImageWidth.h"
 
 // Networking
 #import "MWNetworkActivityIndicatorManager.h"

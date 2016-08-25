@@ -1,7 +1,6 @@
 #import "MWKCitation.h"
 #import "MWKSection+DisplayHtml.h"
 #import "WMFImageURLParsing.h"
-#import "UIScreen+WMFImageWidth.h"
 #import <hpple/TFHpple.h>
 #import "WMFImageTagParser.h"
 #import "WMFImageTagList.h"

@@ -3,10 +3,7 @@
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "WMFPicOfTheDayCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
-#import "NSDateFormatter+WMFExtensions.h"
 #import "WMFImageGalleryViewController.h"
-#import "UIScreen+WMFImageWidth.h"
-#import "NSDateFormatter+WMFExtensions.h"
 #import "Wikipedia-Swift.h"
 #import "NSDate+WMFDateRanges.h"
 @import NSDate_Extensions;

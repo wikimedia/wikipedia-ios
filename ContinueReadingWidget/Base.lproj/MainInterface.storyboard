@@ -6,10 +6,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Today Read More Widget View Controller-->
+        <!--Today Continue Reading Widget View Controller-->
         <scene sceneID="cwh-vc-ff4">
             <objects>
-                <viewController id="M4Y-Lb-cyx" customClass="WMFTodayReadMoreWidgetViewController" customModule="ContinueReadingWidget" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="M4Y-Lb-cyx" customClass="WMFTodayContinueReadingWidgetViewController" customModule="ContinueReadingWidget" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ft6-oW-KC0"/>
                         <viewControllerLayoutGuide type="bottom" id="FKl-LY-JtV"/>

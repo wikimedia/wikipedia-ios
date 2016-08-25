@@ -4,7 +4,6 @@
 #import "Defines.h"
 #import "NSString+WMFExtras.h"
 #import "UIFont+WMFStyle.h"
-#import "NSDateFormatter+WMFExtensions.h"
 
 @interface PageHistoryResultCell ()
 

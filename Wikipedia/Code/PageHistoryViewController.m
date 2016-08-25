@@ -6,7 +6,6 @@
 #import "Defines.h"
 #import "PaddedLabel.h"
 #import "UITableView+DynamicCellHeight.h"
-#import "NSDateFormatter+WMFExtensions.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"

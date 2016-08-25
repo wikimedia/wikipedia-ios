@@ -1,7 +1,6 @@
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "NSDate+WMFPOTDTitle.h"
 #import "MWKImageInfo.h"
-#import "NSDateFormatter+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

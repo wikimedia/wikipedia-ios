@@ -19,7 +19,6 @@
 #import "WMFPageHistoryRevision.h"
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "MWNetworkActivityIndicatorManager.h"
-#import "NSDateFormatter+WMFExtensions.h"
 #import "NSFileManager+WMFExtendedFileAttributes.h"
 #import "WMFTaskGroup.h"
 

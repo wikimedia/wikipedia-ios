@@ -2,7 +2,7 @@ import UIKit
 import NotificationCenter
 import WMFModel
 
-class WMFTodayReadMoreWidgetViewController: UIViewController, NCWidgetProviding {
+class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var imageView: UIImageView!
 
     @IBOutlet weak var label: UILabel!

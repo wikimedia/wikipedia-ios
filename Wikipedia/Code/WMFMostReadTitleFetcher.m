@@ -4,7 +4,6 @@
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFNetworkUtilities.h"
-#import "NSDateFormatter+WMFExtensions.h"
 #import <Mantle/MTLJSONAdapter.h>
 #import "WMFMostReadTitlesResponse.h"
 #import "NSCalendar+WMFCommonCalendars.h"

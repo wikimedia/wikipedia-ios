@@ -1,6 +1,5 @@
 #import "WMFMostReadListTableViewController.h"
 #import "WMFMostReadListDataSource.h"
-#import "NSDateFormatter+WMFExtensions.h"
 
 @implementation WMFMostReadListTableViewController
 

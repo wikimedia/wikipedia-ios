@@ -1,9 +1,7 @@
 #import "WMFMostReadSectionController.h"
 #import "Wikipedia-Swift.h"
 
-#import "UIScreen+WMFImageWidth.h"
 #import "WMFArticlePreviewFetcher.h"
-#import "NSDateFormatter+WMFExtensions.h"
 #import "WMFArticleListCollectionViewCell.h"
 #import "MWKSearchResult.h"
 #import "WMFArticleViewController.h"

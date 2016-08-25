@@ -9,7 +9,6 @@
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFMantleJSONResponseSerializer.h"
 
-#import "UIScreen+WMFImageWidth.h"
 #import "WMFBaseRequestSerializer.h"
 
 NS_ASSUME_NONNULL_BEGIN

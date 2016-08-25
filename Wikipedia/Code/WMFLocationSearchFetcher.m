@@ -5,7 +5,6 @@
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFSearchResponseSerializer.h"
 #import <Mantle/Mantle.h>
-#import "UIScreen+WMFImageWidth.h"
 #import "WMFBaseRequestSerializer.h"
 
 //Promises

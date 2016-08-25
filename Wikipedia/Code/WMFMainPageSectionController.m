@@ -11,7 +11,6 @@
 #import "WMFMainPagePlaceholderCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "NSDateFormatter+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

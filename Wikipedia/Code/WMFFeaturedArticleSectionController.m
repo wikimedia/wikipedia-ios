@@ -12,7 +12,6 @@
 #import "MWKDataStore.h"
 #import "MWKUserDataStore.h"
 
-#import "NSDateFormatter+WMFExtensions.h"
 #import "UIColor+WMFHexColor.h"
 
 NS_ASSUME_NONNULL_BEGIN

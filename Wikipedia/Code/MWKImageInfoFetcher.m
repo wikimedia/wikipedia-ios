@@ -4,7 +4,6 @@
 #import "MWKImageInfoResponseSerializer.h"
 #import "MWKArticle.h"
 #import "AFHTTPSessionManager+WMFDesktopRetry.h"
-#import "UIScreen+WMFImageWidth.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 
 @interface MWKImageInfoFetcher ()

@@ -10,7 +10,6 @@
 
 //Promises
 #import "Wikipedia-Swift.h"
-#import "UIScreen+WMFImageWidth.h"
 
 #import <BlocksKit/BlocksKit.h>
 

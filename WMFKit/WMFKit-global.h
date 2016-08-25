@@ -36,5 +36,5 @@
 #import <WMFKit/NSFileManager+WMFExtendedFileAttributes.h>
 #import <WMFKit/WMFTaskGroup.h>
 #import <WMFKit/NSFileManager+WMFGroup.h>
-
+#import <WMFKit/NSDateFormatter+WMFExtensions.h>
 #endif

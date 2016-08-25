@@ -1,4 +1,3 @@
-#import "NSDateFormatter+WMFExtensions.h"
 
 @implementation MWKDataObject
 
