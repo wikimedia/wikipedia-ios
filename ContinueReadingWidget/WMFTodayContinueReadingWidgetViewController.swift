@@ -5,10 +5,11 @@ import WMFUI
 class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var imageView: UIImageView!
 
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var textLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.imageView.clipsToBounds = true
         widgetPerformUpdate { (result) in
             
         }
@@ -34,9 +35,9 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             return
         }
         
-        print("\(article)")
-        self.label.text = article.displaytitle
-        if let URL = NSURL(string: article.thumbnailURL) {
+        self.titleLabel.text = article.displaytitle
+        self.textLabel.text = article.summary()
+        if let URL = NSURL(string: article.imageURL) {
             self.imageView.wmf_setImageWithURL(URL, detectFaces: true, onGPU: true, failure: { (error) in
                 
             }) {
