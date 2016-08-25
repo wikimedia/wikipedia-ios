@@ -50,7 +50,7 @@
                             <constraint firstItem="af3-Uc-bMS" firstAttribute="leading" secondItem="CwR-CM-SDN" secondAttribute="trailing" constant="10" id="KkM-do-7F3"/>
                             <constraint firstItem="CwR-CM-SDN" firstAttribute="top" secondItem="vq4-5M-Tnk" secondAttribute="bottom" id="YIo-3p-DKd"/>
                             <constraint firstItem="CwR-CM-SDN" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="Yqs-Mz-SgU"/>
-                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="CwR-CM-SDN" secondAttribute="bottom" constant="10" id="aEq-QJ-sIw"/>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="CwR-CM-SDN" secondAttribute="bottom" constant="10" id="aEq-QJ-sIw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="af3-Uc-bMS" secondAttribute="trailing" id="eXn-dd-RUF"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="af3-Uc-bMS" secondAttribute="bottom" constant="10" id="jeM-R7-CaC"/>
                             <constraint firstItem="vq4-5M-Tnk" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="n9q-aN-sgE"/>

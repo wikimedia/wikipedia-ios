@@ -35,10 +35,17 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             return
         }
         
+        if let section = article.sections.sectionWithFragment(openArticleURL.fragment) {
+            self.textLabel.text = section.line?.wmf_stringByRemovingHTML()
+        } else {
+            self.textLabel.text = nil
+        }
+        
         self.titleLabel.text = article.displaytitle
-        self.textLabel.text = article.summary()
-        if let URL = NSURL(string: article.imageURL) {
-            self.imageView.wmf_setImageWithURL(URL, detectFaces: true, onGPU: true, failure: { (error) in
+
+        
+        if let imageURL = NSURL(string: article.imageURL) {
+            self.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
                 
             }) {
                 
