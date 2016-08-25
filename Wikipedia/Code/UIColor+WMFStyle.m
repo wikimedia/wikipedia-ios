@@ -343,4 +343,14 @@
     return c;
 }
 
++ (instancetype)wmf_barButtonItemPopoverMessageBackgroundColor {
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x000000 alpha:0.8];
+    });
+    return c;
+}
+
 @end

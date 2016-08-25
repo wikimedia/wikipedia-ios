@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Twi-Do-8Ec">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Bar Button Item Popover Message View Controller-->
+        <scene sceneID="Iiv-Vg-ZUK">
+            <objects>
+                <viewController id="Twi-Do-8Ec" customClass="WMFBarButtonItemPopoverMessageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Mja-FJ-GMf"/>
+                        <viewControllerLayoutGuide type="bottom" id="zS3-Pl-lAC"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="EFr-M1-WKG">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="80"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bWA-Ds-XEg">
+                                <rect key="frame" x="8" y="10" width="224" height="60"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ad6-aH-itb">
+                                        <rect key="frame" x="0.0" y="0.0" width="224" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="siM-EO-DlG">
+                                        <rect key="frame" x="0.0" y="43" width="224" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="siM-EO-DlG" firstAttribute="top" secondItem="Ad6-aH-itb" secondAttribute="bottom" constant="4" id="3o3-vI-151"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ad6-aH-itb" secondAttribute="trailing" id="5VP-zB-OQ2"/>
+                                    <constraint firstAttribute="width" priority="999" constant="224" id="CEB-jP-dfH"/>
+                                    <constraint firstItem="Ad6-aH-itb" firstAttribute="top" secondItem="bWA-Ds-XEg" secondAttribute="top" id="LTh-FP-fpK"/>
+                                    <constraint firstItem="Ad6-aH-itb" firstAttribute="leading" secondItem="bWA-Ds-XEg" secondAttribute="leading" id="cKa-SM-7Sm"/>
+                                    <constraint firstItem="siM-EO-DlG" firstAttribute="leading" secondItem="bWA-Ds-XEg" secondAttribute="leading" id="ssI-c8-oEd"/>
+                                    <constraint firstAttribute="trailing" secondItem="siM-EO-DlG" secondAttribute="trailing" id="tcI-PM-g5l"/>
+                                    <constraint firstAttribute="bottom" secondItem="siM-EO-DlG" secondAttribute="bottom" id="wbd-EU-vDC"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.69803921570000005" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="bWA-Ds-XEg" firstAttribute="leading" secondItem="EFr-M1-WKG" secondAttribute="leading" constant="8" id="00Y-Jd-R8A"/>
+                            <constraint firstItem="bWA-Ds-XEg" firstAttribute="top" secondItem="Mja-FJ-GMf" secondAttribute="bottom" constant="10" id="Lxz-5K-4YZ"/>
+                            <constraint firstAttribute="trailing" secondItem="bWA-Ds-XEg" secondAttribute="trailing" constant="8" id="Qe8-uE-pRo"/>
+                            <constraint firstItem="zS3-Pl-lAC" firstAttribute="top" secondItem="bWA-Ds-XEg" secondAttribute="bottom" constant="10" id="zvd-wW-gk9"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="240" height="80"/>
+                    <connections>
+                        <outlet property="messageLabel" destination="siM-EO-DlG" id="CYZ-Rl-d9u"/>
+                        <outlet property="titleLabel" destination="Ad6-aH-itb" id="JyB-so-FaM"/>
+                        <outlet property="widthConstraint" destination="CEB-jP-dfH" id="uHM-h6-tQR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cuc-fU-KHY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="445" y="210"/>
+        </scene>
+    </scenes>
+</document>
