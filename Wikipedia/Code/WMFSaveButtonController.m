@@ -10,11 +10,6 @@
 
 @interface WMFSaveButtonController ()<WMFDataSourceDelegate>
 
-- (instancetype)initWithControl:(UIControl*)button
-                  barButtonItem:(UIBarButtonItem*)barButtonItem
-                  savedPageList:(MWKSavedPageList*)savedPageList
-                            url:(NSURL*)url NS_DESIGNATED_INITIALIZER;
-
 @property (nonatomic, strong) SavedPagesFunnel* savedPagesFunnel;
 
 @end
@@ -46,12 +41,21 @@
                   savedPageList:(MWKSavedPageList*)savedPageList
                             url:(NSURL*)url {
     NSParameterAssert(savedPageList);
-    self = [super init];
+    self = [self init];
     if (self) {
         self.control       = button;
         self.barButtonItem = barButtonItem;
         self.url           = url;
         self.savedPageList = savedPageList;
+        [self updateSavedButtonState];
+    }
+    return self;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
         [self updateSavedButtonState];
         [self observe];
     }
