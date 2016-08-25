@@ -1,7 +1,6 @@
 #import "UIImageView+WMFContentOffset.h"
-#import "WMFMath.h"
 #import "UIImage+WMFNormalization.h"
-#import "WMFGeometry.h"
+@import WMFUtilities;
 
 NS_ASSUME_NONNULL_BEGIN
 

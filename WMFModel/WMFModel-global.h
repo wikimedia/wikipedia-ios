@@ -71,6 +71,6 @@
 #import <WMFModel/FetcherBase.h>
 
 #import <WMFModel/UIScreen+WMFImageWidth.h>
-
+#import <WMFModel/WMFFaceDetectionCache.h>
 
 #endif /* WMFModel_global_h */

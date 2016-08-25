@@ -37,4 +37,7 @@
 #import <WMFUtilities/WMFTaskGroup.h>
 #import <WMFUtilities/NSFileManager+WMFGroup.h>
 #import <WMFUtilities/NSDateFormatter+WMFExtensions.h>
+#import <WMFUtilities/UIImage+WMFImageProcessing.h>
+#import <WMFUtilities/CIContext+WMFImageProcessing.h>
+#import <WMFUtilities/CIDetector+WMFFaceDetection.h>
 #endif

@@ -1,4 +1,4 @@
-#import "UIImageView+WMFImageFetching.h"
+#import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 
 @class MWKImage;
 @class WMFImageController;
@@ -38,12 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, weak, nullable, setter=wmf_setImageController:) WMFImageController *wmf_imageController;
 
-/**
- *  The URL to fetch, depending on the current values of @c wmf_imageMetadata and @c wmf_imageURL.
- *
- *  @return A URL to the image to display in the receiver, or @c nil if none is set.
- */
-@property (nonatomic, strong, nullable, readonly) NSURL *wmf_imageURLToFetch;
 
 /**
  *  Fetch the receiver's @c wmf_imageURLToFetch
@@ -52,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A promise which resolves after the image has been successfully set and animated into view.
  */
-- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
+- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
 
 /**
  *  Cancels any ongoing fetch for the receiver's current image, using its internal @c WMFImageController.

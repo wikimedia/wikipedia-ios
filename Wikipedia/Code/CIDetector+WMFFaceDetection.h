@@ -17,10 +17,10 @@ typedef NS_ENUM(NSInteger, WMFFaceDectionError) {
 /**
  * Asynchronously detect faces in `image`, without doing extra processing for smiles or eyes.
  */
-- (void)wmf_detectFeaturelessFacesInImage:(UIImage *)image failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success;
+- (void)wmf_detectFeaturelessFacesInImage:(UIImage *)image onGPU:(BOOL)onGPU withFailure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success;
 
 /// Perform `featuresInImage:options:` on a background queue
-- (void)wmf_detectFeaturesInImage:(UIImage *)image options:(NSDictionary *)options on:(dispatch_queue_t)queue failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success;
+- (void)wmf_detectFeaturesInImage:(UIImage *)image options:(NSDictionary *)options onGPU:(BOOL)onGPU onQueue:(dispatch_queue_t)queue failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success;
 
 @end
 

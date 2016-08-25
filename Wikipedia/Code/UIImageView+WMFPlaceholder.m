@@ -1,5 +1,5 @@
 #import "UIImageView+WMFPlaceholder.h"
-#import "UIImageView+WMFImageFetching.h"
+#import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIImage+WMFStyle.h"
 #import "UIColor+WMFStyle.h"
 

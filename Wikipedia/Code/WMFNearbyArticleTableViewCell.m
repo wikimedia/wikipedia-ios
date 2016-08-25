@@ -3,7 +3,7 @@
 @import CoreLocation;
 #import <Tweaks/FBTweakInline.h>
 
-#import "UIImageView+WMFImageFetching.h"
+#import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 
 // Models
 #import "WMFSearchResultDistanceProvider.h"

@@ -1,6 +1,6 @@
 #import "WMFPicOfTheDayCollectionViewCell.h"
 #import "UIImageView+WMFPlaceholder.h"
-#import "UIImageView+WMFImageFetchingInternal.h"
+#import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "WMFGradientView.h"
 
 @interface WMFPicOfTheDayCollectionViewCell ()

@@ -1,5 +1,4 @@
 #import "WMFFaceDetectionCache.h"
-#import "Wikipedia-Swift.h"
 #import "CIDetector+WMFFaceDetection.h"
 #import "UIImage+WMFNormalization.h"
 #import "MWKImage.h"
@@ -36,12 +35,13 @@
     return [imageMetadata.allNormalizedFaceBounds firstObject];
 }
 
-- (void)detectFaceBoundsInImage:(UIImage *)image URL:(NSURL *)url failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
+- (void)detectFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU  URL:(NSURL *)url failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
     NSArray *savedBounds = [self faceDetectionBoundsForURL:url];
     if (savedBounds) {
         success([savedBounds firstObject]);
     } else {
         [self getFaceBoundsInImage:image
+                            onGPU:onGPU
                            failure:failure
                            success:^(NSArray *faceBounds) {
                                [self cacheFaceDetectionBounds:faceBounds forURL:url];
@@ -50,12 +50,13 @@
     }
 }
 
-- (void)detectFaceBoundsInImage:(UIImage *)image imageMetadata:(MWKImage *)imageMetadata failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
+- (void)detectFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU  imageMetadata:(MWKImage *)imageMetadata failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
     NSArray *savedBounds = imageMetadata.allNormalizedFaceBounds;
     if (savedBounds) {
         success([savedBounds firstObject]);
     } else {
         [self getFaceBoundsInImage:image
+                             onGPU:onGPU
                            failure:failure
                            success:^(NSArray *faceBounds) {
                                imageMetadata.allNormalizedFaceBounds = faceBounds;
@@ -65,9 +66,10 @@
     }
 }
 
-- (void)getFaceBoundsInImage:(UIImage *)image failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
+- (void)getFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
     [[CIDetector wmf_sharedFaceDetector] wmf_detectFeaturelessFacesInImage:image
-                                                                   failure:failure
+                                                                     onGPU:onGPU
+                                                               withFailure:failure
                                                                    success:^(NSArray *features) {
                                                                        NSArray<NSValue *> *faceBounds = [image wmf_normalizeAndConvertBoundsFromCIFeatures:features];
                                                                        success(faceBounds);

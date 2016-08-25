@@ -51,7 +51,7 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import <TUSafariActivity/TUSafariActivity.h>
 #import "WMFArticleTextActivitySource.h"
-#import "UIImageView+WMFImageFetching.h"
+#import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIImageView+WMFPlaceholder.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 

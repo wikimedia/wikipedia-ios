@@ -1,7 +1,4 @@
 #import "CIDetector+WMFFaceDetection.h"
-#import "Wikipedia-Swift.h"
-
-#import <BlocksKit/BlocksKit.h>
 #import "CIContext+WMFImageProcessing.h"
 #import "UIImage+WMFImageProcessing.h"
 
@@ -31,20 +28,22 @@ NSString *const WMFFaceDetectionErrorDomain = @"org.wikimedia.face-detection-err
     return featurelessFaceOptions;
 }
 
-- (void)wmf_detectFeaturelessFacesInImage:(UIImage *)image failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
+- (void)wmf_detectFeaturelessFacesInImage:(UIImage *)image onGPU:(BOOL)onGPU withFailure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
     [self wmf_detectFeaturesInImage:image
                             options:[CIDetector wmf_featurelessFaceOptions]
-                                 on:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+                              onGPU:onGPU
+                            onQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
                             failure:failure
                             success:success];
 }
 
-- (void)wmf_detectFeaturesInImage:(UIImage *)image options:(NSDictionary *)options on:(dispatch_queue_t)queue failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
+- (void)wmf_detectFeaturesInImage:(UIImage *)image options:(NSDictionary *)options onGPU:(BOOL)onGPU onQueue:(dispatch_queue_t)queue failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
     dispatch_async(queue, ^{
-        if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+        if (onGPU) {
             id features = [self featuresInImage:[image wmf_getOrCreateCIImage] options:options];
             success(features);
         } else {
+            //TODO: use software renderer here
             failure([NSError errorWithDomain:WMFFaceDetectionErrorDomain code:WMFFaceDectionErrorAppInBackground userInfo:nil]);
         }
     });

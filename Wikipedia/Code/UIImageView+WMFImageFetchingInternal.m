@@ -1,10 +1,6 @@
 #import "UIImageView+WMFImageFetchingInternal.h"
-#import "Wikipedia-Swift.h"
-
-#import <BlocksKit/BlocksKit.h>
-
-#import "MWKDataStore.h"
-#import "MWKImage.h"
+#import "UIImageView+WMFImageFetching.h"
+@import WMFModel;
 
 #import "UIImageView+WMFContentOffset.h"
 #import "UIImage+WMFNormalization.h"
@@ -56,10 +52,6 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     return cachedImage;
 }
 
-- (NSURL *)wmf_imageURLToFetch {
-    return self.wmf_imageURL ?: self.wmf_imageMetadata.sourceURL;
-}
-
 #pragma mark - Face Detection
 
 + (WMFFaceDetectionCache *)faceDetectionCache {
@@ -87,17 +79,17 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     }
 }
 
-- (void)wmf_getFaceBoundsInImage:(UIImage *)image failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
+- (void)wmf_getFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
     if (self.wmf_imageURL) {
-        [[[self class] faceDetectionCache] detectFaceBoundsInImage:image URL:self.wmf_imageURL failure:failure success:success];
+        [[[self class] faceDetectionCache] detectFaceBoundsInImage:image onGPU:onGPU URL:self.wmf_imageURL failure:failure success:success];
     } else {
-        [[[self class] faceDetectionCache] detectFaceBoundsInImage:image imageMetadata:self.wmf_imageMetadata failure:failure success:success];
+        [[[self class] faceDetectionCache] detectFaceBoundsInImage:image onGPU:onGPU imageMetadata:self.wmf_imageMetadata failure:failure success:success];
     }
 }
 
 #pragma mark - Set Image
 
-- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
 
     NSURL *imageURL = [self wmf_imageURLToFetch];
@@ -109,7 +101,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 
     UIImage *cachedImage = [self wmf_cachedImage];
     if (cachedImage) {
-        [self wmf_setImage:cachedImage detectFaces:detectFaces animated:NO failure:failure success:success];
+        [self wmf_setImage:cachedImage detectFaces:detectFaces onGPU:onGPU animated:NO failure:failure success:success];
         return;
     }
 
@@ -123,7 +115,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
                                                 if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
                                                     failure([NSError cancelledError]);
                                                 } else {
-                                                    [self wmf_setImage:download.image detectFaces:detectFaces animated:YES failure:failure success:success];
+                                                    [self wmf_setImage:download.image detectFaces:detectFaces onGPU:onGPU animated:YES failure:failure success:success];
                                                 }
                                             });
                                         }];
@@ -131,6 +123,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 
 - (void)wmf_setImage:(UIImage *)image
          detectFaces:(BOOL)detectFaces
+               onGPU:(BOOL)onGPU
             animated:(BOOL)animated
              failure:(WMFErrorHandler)failure
              success:(WMFSuccessHandler)success {
@@ -148,6 +141,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 
     NSURL *imageURL = [self wmf_imageURLToFetch];
     [self wmf_getFaceBoundsInImage:image
+                             onGPU:onGPU
                            failure:failure
                            success:^(NSValue *bounds) {
                                dispatch_async(dispatch_get_main_queue(), ^{
