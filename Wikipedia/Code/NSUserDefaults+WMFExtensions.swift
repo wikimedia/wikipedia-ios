@@ -101,6 +101,7 @@ public extension NSUserDefaults {
     
     public func wmf_setOpenArticleURL(url: NSURL?) {
         guard let url = url else{
+            self.removeObjectForKey(WMFOpenArticleURLKey)
             self.removeObjectForKey(WMFOpenArticleTitleKey)
             self.synchronize()
             return
