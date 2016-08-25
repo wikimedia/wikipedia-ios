@@ -287,9 +287,10 @@
 "license-footer-name" = "CC BY-SA 3.0";
 
 "table-of-contents-heading" = "Contents";
-"table-of-contents-button-label" = "Table of Contents";
-"table-of-contents-close-accessibility-label" = "Close Table of Contents";
+"table-of-contents-button-label" = "Table of contents";
+"table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-close-accessibility-hint" = "Close";
+"table-of-contents-popover-description" = "Get an overview of articles";
 
 "abuse-filter-warning-heading" = "This looks like an unconstructive edit, are you sure you want to save it?";
 "abuse-filter-warning-subheading" = "Your edit may contain one or more of the following:";
@@ -458,3 +459,5 @@
 "explore-another-random" = "Another random article";
 
 "find-in-page-no-matches" = "0 matches";
+"find-in-page-button-label" = "Find in page";
+"find-in-page-popover-description" = "Search text in articles";

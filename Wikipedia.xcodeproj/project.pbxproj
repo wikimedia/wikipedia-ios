@@ -105,6 +105,8 @@
 		B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662B11D1B8A40006F4544 /* NSURL+WMFQueryParametersTests.m */; };
 		B01662B51D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662B41D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m */; };
 		B016DCEB1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = B016DCEA1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib */; };
+		B02376B11D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B01D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.m */; };
+		B02376B41D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */; };
 		B0265F291CB8988F00740525 /* WMFBaseRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0265F281CB8988F00740525 /* WMFBaseRequestSerializer.m */; };
 		B0265F2C1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.m in Sources */ = {isa = PBXBuildFile; fileRef = B0265F2B1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.m */; };
 		B02B82751C696ECA00B19309 /* WMFSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B02B82731C696ECA00B19309 /* WMFSettingsTableViewCell.m */; };
@@ -148,6 +150,9 @@
 		B0CA8D401D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B0CA8D3F1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m */; };
 		B0D530EB1CE151C10078BAED /* CodeFileLocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */; };
 		B0D7FC4F1D0A192500CDC2F0 /* ImageProxyParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D7FC4E1D0A192500CDC2F0 /* ImageProxyParsingTests.m */; };
+		B0DE92271D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0DE92261D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
+		B0DE922B1D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DE92291D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m */; };
+		B0DE92331D6E3C3800EC76A7 /* UIBarButtonItem+WMFDynamicHeightPopoverMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DE92321D6E3C3800EC76A7 /* UIBarButtonItem+WMFDynamicHeightPopoverMessage.m */; };
 		B0DF6F811CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */; };
 		B0E5E96F1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E5E96E1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.m */; };
 		B0E5E9721C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E5E9711C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.m */; };
@@ -880,6 +885,10 @@
 		B01662B11D1B8A40006F4544 /* NSURL+WMFQueryParametersTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFQueryParametersTests.m"; sourceTree = "<group>"; };
 		B01662B41D1B8E3B006F4544 /* NSURL+WMFProxyServerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFProxyServerTests.m"; sourceTree = "<group>"; };
 		B016DCEA1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFFindInPageKeyboardBar.xib; path = Wikipedia/Code/WMFFindInPageKeyboardBar.xib; sourceTree = SOURCE_ROOT; };
+		B02376AF1D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFBarButtonItemPopoverBackgroundView.h; sourceTree = "<group>"; };
+		B02376B01D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBarButtonItemPopoverBackgroundView.m; sourceTree = "<group>"; };
+		B02376B21D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMFDynamicHeightPopoverMessage.h"; sourceTree = "<group>"; };
+		B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WMFDynamicHeightPopoverMessage.m"; sourceTree = "<group>"; };
 		B0265F271CB8988F00740525 /* WMFBaseRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBaseRequestSerializer.h; path = Wikipedia/Code/WMFBaseRequestSerializer.h; sourceTree = SOURCE_ROOT; };
 		B0265F281CB8988F00740525 /* WMFBaseRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBaseRequestSerializer.m; path = Wikipedia/Code/WMFBaseRequestSerializer.m; sourceTree = SOURCE_ROOT; };
 		B0265F2A1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPRequestSerializer+WMFRequestHeaders.h"; path = "Wikipedia/Code/AFHTTPRequestSerializer+WMFRequestHeaders.h"; sourceTree = SOURCE_ROOT; };
@@ -985,6 +994,11 @@
 		B0CA8D3F1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKScriptMessage+WMFScriptMessage.m"; path = "Wikipedia/Code/WKScriptMessage+WMFScriptMessage.m"; sourceTree = SOURCE_ROOT; };
 		B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeFileLocationTests.m; sourceTree = "<group>"; };
 		B0D7FC4E1D0A192500CDC2F0 /* ImageProxyParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageProxyParsingTests.m; sourceTree = "<group>"; };
+		B0DE92261D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WMFBarButtonItemPopoverMessageViewController.storyboard; sourceTree = "<group>"; };
+		B0DE92281D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFBarButtonItemPopoverMessageViewController.h; sourceTree = "<group>"; };
+		B0DE92291D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBarButtonItemPopoverMessageViewController.m; sourceTree = "<group>"; };
+		B0DE92311D6E3C3800EC76A7 /* UIBarButtonItem+WMFDynamicHeightPopoverMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WMFDynamicHeightPopoverMessage.h"; sourceTree = "<group>"; };
+		B0DE92321D6E3C3800EC76A7 /* UIBarButtonItem+WMFDynamicHeightPopoverMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WMFDynamicHeightPopoverMessage.m"; sourceTree = "<group>"; };
 		B0DF6F7F1CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKWebView+WMFWebViewControllerJavascript.h"; path = "Wikipedia/Code/WKWebView+WMFWebViewControllerJavascript.h"; sourceTree = SOURCE_ROOT; };
 		B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKWebView+WMFWebViewControllerJavascript.m"; path = "Wikipedia/Code/WKWebView+WMFWebViewControllerJavascript.m"; sourceTree = SOURCE_ROOT; };
 		B0E5E96D1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WMFWelcomeFadeInAndUp.h"; path = "Wikipedia/Code/UIView+WMFWelcomeFadeInAndUp.h"; sourceTree = SOURCE_ROOT; };
@@ -2816,6 +2830,7 @@
 				B0E803681C0CD9300065EBC0 /* WMFArticleViewController_Private.h */,
 				B0E803651C0CD91D0065EBC0 /* WMFArticleViewController.h */,
 				B0E803661C0CD91D0065EBC0 /* WMFArticleViewController.m */,
+				B0DE92301D6E3A2000EC76A7 /* UIBarButtonItem Popover Message */,
 				0E9383A41CB6AAAB00A3DC8D /* Font Popup */,
 			);
 			name = "View Controller";
@@ -3275,6 +3290,22 @@
 				B0AB16361C7E5762002E566A /* UINavigationBar+WMFTransparency.m */,
 			);
 			name = UINavigationBar;
+			sourceTree = "<group>";
+		};
+		B0DE92301D6E3A2000EC76A7 /* UIBarButtonItem Popover Message */ = {
+			isa = PBXGroup;
+			children = (
+				B0DE92311D6E3C3800EC76A7 /* UIBarButtonItem+WMFDynamicHeightPopoverMessage.h */,
+				B0DE92321D6E3C3800EC76A7 /* UIBarButtonItem+WMFDynamicHeightPopoverMessage.m */,
+				B02376B21D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.h */,
+				B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */,
+				B0DE92281D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.h */,
+				B0DE92291D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m */,
+				B0DE92261D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard */,
+				B02376AF1D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.h */,
+				B02376B01D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.m */,
+			);
+			name = "UIBarButtonItem Popover Message";
 			sourceTree = "<group>";
 		};
 		B0F7CB521C8A87B300996DE0 /* Animation */ = {
@@ -5452,6 +5483,7 @@
 				D84692E11D5E1E3F000A7058 /* WMFTableOfContentsHeader.xib in Resources */,
 				B0726DAA1C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib in Resources */,
 				B0E8032D1C0CD6E10065EBC0 /* WMFExploreSectionHeader.xib in Resources */,
+				B0DE92271D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				0EBCA7511C17BD6D004F1FD9 /* AlertDesign.json in Resources */,
 				B0B4CF0C1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				0E69CD5B1C8773410095918B /* Launch Screen.storyboard in Resources */,
@@ -5870,6 +5902,7 @@
 				B0E807DB1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m in Sources */,
 				B0E8058F1C0CE2C60065EBC0 /* EventLogger.m in Sources */,
 				0E01B2BB1D5CCBCB005E3134 /* YapDatabaseReadWriteTransaction+WMFCustomNotifications.m in Sources */,
+				B0DE92331D6E3C3800EC76A7 /* UIBarButtonItem+WMFDynamicHeightPopoverMessage.m in Sources */,
 				0E33F2B41D57E15300C6CF94 /* WMFDatabaseDataSource.m in Sources */,
 				BC070C2F1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.m in Sources */,
 				BC62FFC01C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
@@ -6040,6 +6073,7 @@
 				BCD320021C6EBA4B00317D08 /* NSDate+WMFMostReadDate.m in Sources */,
 				0E09EAC41C4426470058F2D8 /* WMFSavedArticleTableViewController.m in Sources */,
 				B0E803481C0CD7AA0065EBC0 /* WMFSearchResults.m in Sources */,
+				B0DE922B1D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				B0E802D21C0CD35B0065EBC0 /* WMFExploreSection.m in Sources */,
 				B0E806771C0CE9940065EBC0 /* AFHTTPSessionManager+WMFConfig.m in Sources */,
 				B0E803241C0CD6B90065EBC0 /* WMFRelatedSearchFetcher.m in Sources */,
@@ -6064,6 +6098,7 @@
 				B0E806D81C0CEB850065EBC0 /* AbuseFilterAlert.m in Sources */,
 				B0E8058E1C0CE2C60065EBC0 /* EditFunnel.m in Sources */,
 				B0E804C91C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
+				B02376B41D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
 				B0E805481C0CE0DC0065EBC0 /* UIImage+WMFSerialization.m in Sources */,
 				0E331BF51C49647600DDE02A /* WMFRelatedSectionBlackList.m in Sources */,
 				D86706C31D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m in Sources */,
@@ -6164,6 +6199,7 @@
 				B0E8031F1C0CD69B0065EBC0 /* WMFRelatedSectionController.m in Sources */,
 				B09D64E81C2514FF00A29514 /* WMFArticleFooterMenuDataSource.m in Sources */,
 				B0E802D31C0CD35B0065EBC0 /* WMFExploreSectionSchema.m in Sources */,
+				B02376B11D6EA04C007DBA73 /* WMFBarButtonItemPopoverBackgroundView.m in Sources */,
 				0EBCA7481C176389004F1FD9 /* WMFAlertManager.swift in Sources */,
 				B0E803091C0CD5320065EBC0 /* WMFSearchResultBearingProvider.m in Sources */,
 				B0E805911C0CE2C60065EBC0 /* LoginFunnel.m in Sources */,
