@@ -297,8 +297,6 @@
 "nearby-distance-label-miles" = "$1 миль";
 "nearby-pull-to-refresh-prompt" = "Потягніть, щоб оновити";
 "nearby-pull-to-refresh-is-refreshing" = "Оновлюється";
-"nearby-loading" = "Завантаження статей про місця неподалік...";
-"nearby-loaded" = "Завантажені статті про місця неподалік";
 "nearby-none" = "Не знайдено статті про місця неподалік. Потягніть, аби оновити або спробуйте пізніше.";
 "nearby-open-in-maps" = "Відкрити на картах";
 "nearby-cancel" = "Скасувати";

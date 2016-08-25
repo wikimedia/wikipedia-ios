@@ -306,8 +306,6 @@
 "nearby-distance-label-miles" = "$1 miglia";
 "nearby-pull-to-refresh-prompt" = "Trascina in basso per aggiornare";
 "nearby-pull-to-refresh-is-refreshing" = "Aggiornamento in corso...";
-"nearby-loading" = "Caricamento delle voci nelle vicinanze...";
-"nearby-loaded" = "Voci nelle vicinanze caricate";
 "nearby-none" = "Nessuna voce trovata nelle vicinanze. Tira per aggiornare o riprova più tardi.";
 "nearby-open-in-maps" = "Apri in Maps";
 "nearby-cancel" = "Annulla";

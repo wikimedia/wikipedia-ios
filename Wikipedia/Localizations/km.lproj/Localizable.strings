@@ -232,8 +232,6 @@
 "nearby-distance-label-miles" = "$1 ម៉ៃល៍";
 "nearby-pull-to-refresh-prompt" = "ទាញដើម្បីផ្ទុកជាថ្មី";
 "nearby-pull-to-refresh-is-refreshing" = "កំពុងផ្ទុកជាថ្មី...";
-"nearby-loading" = "កំពុងផ្ទុកអត្ថបទជិតខាង...";
-"nearby-loaded" = "អត្ថបទជិតខាងផ្ទុករួច";
 "nearby-none" = "រកមិនឃើញអត្ថបទជិតខាង។ ទាញដើម្បីផ្ទុកជាថ្មីឬក៏ព្យាយាមម្ដងទៀតនៅពេលក្រោយ។";
 "nearby-open-in-maps" = "បើកក្នុងផែនទី";
 "nearby-cancel" = "បោះបង់";

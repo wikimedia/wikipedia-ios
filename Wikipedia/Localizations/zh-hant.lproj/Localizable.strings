@@ -300,8 +300,6 @@
 "nearby-distance-label-miles" = "$1 英里";
 "nearby-pull-to-refresh-prompt" = "拉下以重新整理";
 "nearby-pull-to-refresh-is-refreshing" = "重新整理中";
-"nearby-loading" = "讀取附近的條目中…";
-"nearby-loaded" = "已讀取附近的條目";
 "nearby-none" = "尚未找到附近的條目。下拉重新整理或稍後重試。";
 "nearby-open-in-maps" = "在地圖中開啟";
 "nearby-cancel" = "取消";

@@ -287,9 +287,10 @@
 "license-footer-name" = "CC BY-SA 3.0";
 
 "table-of-contents-heading" = "Contents";
-"table-of-contents-button-label" = "Table of Contents";
-"table-of-contents-close-accessibility-label" = "Close Table of Contents";
+"table-of-contents-button-label" = "Table of contents";
+"table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-close-accessibility-hint" = "Close";
+"table-of-contents-popover-description" = "Get an overview of articles";
 
 "abuse-filter-warning-heading" = "This looks like an unconstructive edit, are you sure you want to save it?";
 "abuse-filter-warning-subheading" = "Your edit may contain one or more of the following:";
@@ -438,6 +439,7 @@
 "explore-featured-article-heading" = "Featured article";
 "explore-continue-reading-heading" = "Continue reading";
 "explore-nearby-heading" = "Places near";
+"explore-nearby-sub-heading-your-location" = "Your location";
 "explore-continue-related-heading" = "Because you read";
 "explore-main-page-heading" = "Today on Wikipedia";
 "explore-random-article-heading" = "Random article";
@@ -457,3 +459,5 @@
 "explore-another-random" = "Another random article";
 
 "find-in-page-no-matches" = "0 matches";
+"find-in-page-button-label" = "Find in page";
+"find-in-page-popover-description" = "Search text in articles";

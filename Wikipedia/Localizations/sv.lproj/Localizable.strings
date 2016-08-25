@@ -298,8 +298,6 @@
 "nearby-distance-label-miles" = "$1 engelska mil";
 "nearby-pull-to-refresh-prompt" = "Dra för att uppdatera";
 "nearby-pull-to-refresh-is-refreshing" = "Uppdaterar";
-"nearby-loading" = "Laddar artiklar i närheten...";
-"nearby-loaded" = "Närliggande artiklar laddade";
 "nearby-none" = "Inga artiklar i närheten återfanns. Dra för att uppdatera eller försök igen senare.";
 "nearby-open-in-maps" = "Öppna i Kartor";
 "nearby-cancel" = "Avbryt";

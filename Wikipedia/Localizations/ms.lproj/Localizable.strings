@@ -276,8 +276,6 @@
 "nearby-distance-label-miles" = "$1 batu";
 "nearby-pull-to-refresh-prompt" = "Tarik untuk kemas kini";
 "nearby-pull-to-refresh-is-refreshing" = "Memuat semula";
-"nearby-loading" = "Memuatkan rencana berdekatan...";
-"nearby-loaded" = "Rencana-rencana berdekatan dimuatkan";
 "nearby-none" = "Tiada rencana berdekatan dijumpai. Sila tarik untuk muat semula atau cuba lagi nanti.";
 "nearby-open-in-maps" = "Buka dalam aplikasi Peta (Maps)";
 "nearby-cancel" = "Batalkan";

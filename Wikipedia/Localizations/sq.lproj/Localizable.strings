@@ -233,8 +233,6 @@
 "nearby-distance-label-miles" = "$1 milje (1 milje = 1.60934 km)";
 "nearby-pull-to-refresh-prompt" = "Tërhiqe për ta përditësuar";
 "nearby-pull-to-refresh-is-refreshing" = "Duke përditësuar";
-"nearby-loading" = "Duke ngarkuar artikujt pranë jush...";
-"nearby-loaded" = "Artikujt pranë jush u ngarkuan";
 "nearby-none" = "Nuk u gjet asnjë artikull pranë jush. Tërhiqni për të përditësuar ose provoni më vonë.";
 "nearby-open-in-maps" = "Hape në harta";
 "nearby-cancel" = "Anulo";

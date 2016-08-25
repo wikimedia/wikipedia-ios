@@ -184,14 +184,14 @@ extension NSUserDefaults {
         }
     }
     
-    public func wmf_setDidPeekTableOfContents(peeked: Bool) {
-        self.setObject(NSNumber(bool: peeked), forKey: "PeekTableOfContents")
+    public func wmf_setDidShowTableOfContentsAndFindInPageIconPopovers(shown: Bool) {
+        self.setObject(NSNumber(bool: shown), forKey: "ShowTableOfContentsAndFindInPageIconPopovers")
         self.synchronize()
         
     }
     
-    public func wmf_didPeekTableOfContents() -> Bool {
-        if let enabled = self.objectForKey("PeekTableOfContents") as? NSNumber {
+    public func wmf_didShowTableOfContentsAndFindInPageIconPopovers() -> Bool {
+        if let enabled = self.objectForKey("ShowTableOfContentsAndFindInPageIconPopovers") as? NSNumber {
             return enabled.boolValue
         }else{
             return false

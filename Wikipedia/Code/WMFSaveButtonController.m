@@ -10,17 +10,17 @@
 
 @interface WMFSaveButtonController ()<WMFDataSourceDelegate>
 
-- (instancetype)initWithControl:(UIControl*)button
-                  barButtonItem:(UIBarButtonItem*)barButtonItem
-                  savedPageList:(MWKSavedPageList*)savedPageList
-                            url:(NSURL*)url NS_DESIGNATED_INITIALIZER;
-
 @property (nonatomic, strong) SavedPagesFunnel* savedPagesFunnel;
 
 @end
 
 
 @implementation WMFSaveButtonController
+
+- (void)dealloc
+{
+    [self unobserve];
+}
 
 - (instancetype)initWithControl:(UIControl*)button
                   savedPageList:(MWKSavedPageList*)savedPageList
@@ -41,13 +41,23 @@
                   savedPageList:(MWKSavedPageList*)savedPageList
                             url:(NSURL*)url {
     NSParameterAssert(savedPageList);
-    self = [super init];
+    self = [self init];
     if (self) {
         self.control       = button;
         self.barButtonItem = barButtonItem;
         self.url           = url;
         self.savedPageList = savedPageList;
         [self updateSavedButtonState];
+    }
+    return self;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self updateSavedButtonState];
+        [self observe];
     }
     return self;
 }
@@ -66,9 +76,7 @@
     if (WMF_EQUAL(self.url, isEqual:, url)) {
         return;
     }
-    [self unobserveURL:_url];
     _url = url;
-    [self observeURL:_url];
     [self updateSavedButtonState];
 }
 
@@ -104,17 +112,11 @@
 
 #pragma mark - Notifications
 
-- (void)observeURL:(NSURL*)url {
-    if (!url) {
-        return;
-    }
+- (void)observe {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemWasUpdatedWithNotification:) name:MWKItemUpdatedNotification object:nil];
 }
 
-- (void)unobserveURL:(NSURL*)url {
-    if (!url) {
-        return;
-    }
+- (void)unobserve {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
