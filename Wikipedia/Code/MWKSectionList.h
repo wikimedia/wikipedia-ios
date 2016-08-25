@@ -33,6 +33,8 @@
 /// @return The first section whose `text` is not empty, or `nil` if all sections (or the receiver) are empty.
 - (MWKSection *)firstNonEmptySection;
 
+- (MWKSection *)sectionWithFragment:(NSString *)fragment;
+
 - (void)save;
 
 - (BOOL)isEqualToSectionList:(MWKSectionList *)sectionList;

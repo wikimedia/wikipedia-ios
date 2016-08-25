@@ -168,6 +168,20 @@
     return nil;
 }
 
+- (MWKSection *)sectionWithFragment:(NSString *)fragment {
+    NSString *lowercaseFragment = [[fragment lowercaseString] precomposedStringWithCanonicalMapping];
+    if (lowercaseFragment == nil) {
+        return nil;
+    }
+    for (MWKSection *section in self.sections) {
+        NSString *lowercaseAnchor = [[section.anchor lowercaseString] precomposedStringWithCanonicalMapping];
+        if ([lowercaseAnchor isEqualToString:lowercaseFragment]) {
+            return section;
+        }
+    }
+    return nil;
+}
+
 - (NSArray *)entries {
     return self.sections;
 }
