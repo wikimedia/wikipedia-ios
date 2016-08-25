@@ -922,18 +922,41 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UIViewControllerPreviewingDelegate
 
-- (nullable UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
-                       viewControllerForLocation:(CGPoint)location {
-    NSIndexPath *previewIndexPath = [self.collectionView indexPathForItemAtPoint:location];
-    id<WMFExploreSectionController> sectionController = [self sectionControllerForSectionAtIndex:previewIndexPath.section];
 
+- (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+                      viewControllerForLocation:(CGPoint)location {
+    UICollectionViewLayoutAttributes* layoutAttributes = nil;
+    
+    if ([self.collectionViewLayout respondsToSelector:@selector(layoutAttributesAtPoint:)]) {
+        layoutAttributes = [(id)self.collectionViewLayout layoutAttributesAtPoint:location];
+    }
+
+    if (layoutAttributes == nil) {
+        return nil;
+    }
+    
+    NSIndexPath *previewIndexPath = layoutAttributes.indexPath;
+    NSInteger section = previewIndexPath.section;
+    NSInteger sectionCount = [self.collectionView numberOfItemsInSection:section];
+    
+    if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] && sectionCount > 0) {
+        //preview the last item in the section when tapping the footer
+        previewIndexPath = [NSIndexPath indexPathForItem:sectionCount - 1 inSection:section];
+    }
+    
+    if (previewIndexPath.row >= sectionCount) {
+        return nil;
+    }
+    
+    id<WMFExploreSectionController> sectionController = [self sectionControllerForSectionAtIndex:previewIndexPath.section];
+    
     if (![sectionController shouldSelectItemAtIndexPath:previewIndexPath]) {
         return nil;
     }
-
+    
     previewingContext.sourceRect = [self.collectionView cellForItemAtIndexPath:previewIndexPath].frame;
-
-    UIViewController *vc = [sectionController detailViewControllerForItemAtIndexPath:previewIndexPath];
+    
+    UIViewController* vc = [sectionController detailViewControllerForItemAtIndexPath:previewIndexPath];
     self.sectionOfPreviewingTitle = sectionController;
     [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:sectionController];
     return vc;
