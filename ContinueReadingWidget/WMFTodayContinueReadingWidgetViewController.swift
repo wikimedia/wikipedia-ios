@@ -5,6 +5,7 @@ import WMFUI
 class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var imageView: UIImageView!
 
+    @IBOutlet weak var daysAgoLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
     override func viewDidLoad() {
@@ -40,6 +41,8 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         } else {
             self.textLabel.text = nil
         }
+        
+        self.daysAgoLabel.text = "3 days ago"
         
         self.titleLabel.text = article.displaytitle
 
