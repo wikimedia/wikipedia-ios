@@ -808,6 +808,11 @@
 		D8FAC7D71D6F740400C2A6BC /* WMFFaceDetectionCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E805CF1C0CE5420065EBC0 /* WMFFaceDetectionCache.h */; };
 		D8FAC7DA1D6F74D200C2A6BC /* UIColor+WMFHexColor.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804F01C0CE0DC0065EBC0 /* UIColor+WMFHexColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FAC7DB1D6F74D600C2A6BC /* UIColor+WMFHexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804F11C0CE0DC0065EBC0 /* UIColor+WMFHexColor.m */; };
+		D8FAC7DC1D6F88A100C2A6BC /* WMFUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; };
+		D8FAC7DD1D6F88AB00C2A6BC /* WMFModel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D8FAC7DE1D6F88B300C2A6BC /* WMFUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D8FAC7DF1D6F88D900C2A6BC /* WMFModel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D8FAC7E01D6F88DF00C2A6BC /* WMFUtilities.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EF8D9110BCE823C6A7E6D976 /* Pods_Foundation_WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83074D9C9F27BCC22C925AF7 /* Pods_Foundation_WMFUI.framework */; };
 		F31A197FC75DA6DEDA92C499 /* Pods_Foundation_ContinueReadingWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22B93ECBAEAC2A23EDF8D82 /* Pods_Foundation_ContinueReadingWidget.framework */; };
 /* End PBXBuildFile section */
@@ -885,6 +890,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D8FAC7DE1D6F88B300C2A6BC /* WMFUtilities.framework in Embed Frameworks */,
+				D8FAC7DD1D6F88AB00C2A6BC /* WMFModel.framework in Embed Frameworks */,
 				D8AC392C1D6F2480007E3C14 /* WMFUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -896,6 +903,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D8FAC7E01D6F88DF00C2A6BC /* WMFUtilities.framework in CopyFiles */,
+				D8FAC7DF1D6F88D900C2A6BC /* WMFModel.framework in CopyFiles */,
 				D896C79A1D6F333F007101DF /* WMFUI.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2332,6 +2341,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8FAC7DC1D6F88A100C2A6BC /* WMFUtilities.framework in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */,
 				04D34DB21863D39000610A87 /* libxml2.dylib in Frameworks */,
