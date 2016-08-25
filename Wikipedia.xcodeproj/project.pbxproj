@@ -733,10 +733,6 @@
 		D849D6531D6CC7DC00D06FC8 /* WMFImageTag+TargetImageWidthURL.m in Sources */ = {isa = PBXBuildFile; fileRef = B05033B01D1FA2FE002E7D4F /* WMFImageTag+TargetImageWidthURL.m */; };
 		D849D6541D6CC7DC00D06FC8 /* WMFImageTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0CAD81D2345CB009CE8ED /* WMFImageTagList.m */; };
 		D849D6551D6CC7DC00D06FC8 /* WMFImageTagList+ImageURLs.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0CADB1D234927009CE8ED /* WMFImageTagList+ImageURLs.m */; };
-		D84CA44C1D6DED0700837E58 /* WMFModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; };
-		D84CA44E1D6DED2000837E58 /* WMFModel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D84CA4541D6DEE0D00837E58 /* WMFUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; };
-		D84CA4551D6DEE1500837E58 /* WMFUtilities.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D84F2BF21D2FE7ED00963D42 /* WMFArticleNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF11D2FE7ED00963D42 /* WMFArticleNavigationController.m */; };
 		D84F2BF51D2FE80A00963D42 /* WMFRotationRespectingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84F2BF41D2FE80A00963D42 /* WMFRotationRespectingNavigationController.m */; };
 		D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
@@ -757,6 +753,8 @@
 		D87E54001D6CC704005134EF /* WMFMantleJSONResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806311C0CE7670065EBC0 /* WMFMantleJSONResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D87E54011D6CC709005134EF /* WMFMantleJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806321C0CE7680065EBC0 /* WMFMantleJSONResponseSerializer.m */; };
 		D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */; };
+		D896C7991D6F3335007101DF /* WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; };
+		D896C79A1D6F333F007101DF /* WMFUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D89DAE1B1D6CC6410089F7E1 /* MWKTitleLanguageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */; };
 		D89F510E1D6CC97D008018E1 /* WMFApiJsonResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806301C0CE7670065EBC0 /* WMFApiJsonResponseSerializer.m */; };
 		D89F510F1D6CC97F008018E1 /* WMFApiJsonResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062F1C0CE7670065EBC0 /* WMFApiJsonResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -823,19 +821,12 @@
 			remoteGlobalIDString = D4991434181D51DE00E6073C;
 			remoteInfo = Wikipedia;
 		};
-		D84CA4501D6DED4400837E58 /* PBXContainerItemProxy */ = {
+		D896C7971D6F332A007101DF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D499142D181D51DE00E6073C /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = D844D96B1D6CB2600042D692;
-			remoteInfo = WMFModel;
-		};
-		D84CA4521D6DEE0900837E58 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D499142D181D51DE00E6073C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D84580EB1D67572C00B09640;
-			remoteInfo = WMFKit;
+			remoteGlobalIDString = D8AC39231D6F247F007E3C14;
+			remoteInfo = WMFUI;
 		};
 		D8A76D6A1D6F266B00E5A798 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -899,8 +890,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D84CA4551D6DEE1500837E58 /* WMFUtilities.framework in CopyFiles */,
-				D84CA44E1D6DED2000837E58 /* WMFModel.framework in CopyFiles */,
+				D896C79A1D6F333F007101DF /* WMFUI.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2306,8 +2296,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D84CA4541D6DEE0D00837E58 /* WMFUtilities.framework in Frameworks */,
-				D84CA44C1D6DED0700837E58 /* WMFModel.framework in Frameworks */,
+				D896C7991D6F3335007101DF /* WMFUI.framework in Frameworks */,
 				0E8380651D64989F0076EDE4 /* NotificationCenter.framework in Frameworks */,
 				F31A197FC75DA6DEDA92C499 /* Pods_Foundation_ContinueReadingWidget.framework in Frameworks */,
 			);
@@ -5741,8 +5730,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				D84CA4531D6DEE0900837E58 /* PBXTargetDependency */,
-				D84CA4511D6DED4400837E58 /* PBXTargetDependency */,
+				D896C7981D6F332A007101DF /* PBXTargetDependency */,
 			);
 			name = ContinueReadingWidget;
 			productName = ContinueReadingWidget;
@@ -7030,15 +7018,10 @@
 			target = D4991434181D51DE00E6073C /* Wikipedia */;
 			targetProxy = BCBDE0AD1AA76F19006BD29A /* PBXContainerItemProxy */;
 		};
-		D84CA4511D6DED4400837E58 /* PBXTargetDependency */ = {
+		D896C7981D6F332A007101DF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D844D96B1D6CB2600042D692 /* WMFModel */;
-			targetProxy = D84CA4501D6DED4400837E58 /* PBXContainerItemProxy */;
-		};
-		D84CA4531D6DEE0900837E58 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D84580EB1D67572C00B09640 /* WMFUtilities */;
-			targetProxy = D84CA4521D6DEE0900837E58 /* PBXContainerItemProxy */;
+			target = D8AC39231D6F247F007E3C14 /* WMFUI */;
+			targetProxy = D896C7971D6F332A007101DF /* PBXContainerItemProxy */;
 		};
 		D8A76D6B1D6F266B00E5A798 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -8699,6 +8682,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -8733,6 +8717,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -8767,6 +8752,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -8797,6 +8783,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -8827,6 +8814,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -8857,6 +8845,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

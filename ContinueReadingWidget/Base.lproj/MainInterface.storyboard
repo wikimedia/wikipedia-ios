@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,15 +24,19 @@
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="af3-Uc-bMS">
-                                <frame key="frameInset" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="af3-Uc-bMS">
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="af3-Uc-bMS" secondAttribute="height" multiplier="1:1" id="7cr-os-XYp"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="GcN-lo-r42" secondAttribute="bottom" constant="8" symbolic="YES" id="0Q0-KW-PJ6"/>
+                            <constraint firstItem="af3-Uc-bMS" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="60z-FL-ImQ"/>
                             <constraint firstItem="GcN-lo-r42" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="20" symbolic="YES" id="6Vq-gs-PHe"/>
                             <constraint firstAttribute="trailing" secondItem="GcN-lo-r42" secondAttribute="trailing" constant="20" symbolic="YES" id="L8K-9R-egU"/>
+                            <constraint firstItem="af3-Uc-bMS" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="YOG-rP-vat"/>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="af3-Uc-bMS" secondAttribute="bottom" id="jeM-R7-CaC"/>
                             <constraint firstItem="GcN-lo-r42" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="8" symbolic="YES" id="mYS-Cv-VNx"/>
                         </constraints>
                     </view>

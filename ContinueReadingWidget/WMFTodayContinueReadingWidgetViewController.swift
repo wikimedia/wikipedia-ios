@@ -1,6 +1,6 @@
 import UIKit
 import NotificationCenter
-import WMFModel
+import WMFUI
 
 class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var imageView: UIImageView!
@@ -36,6 +36,14 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         print("\(article)")
         self.label.text = article.displaytitle
+        if let URL = NSURL(string: article.thumbnailURL) {
+            self.imageView.wmf_setImageWithURL(URL, detectFaces: true, onGPU: true, failure: { (error) in
+                
+            }) {
+                
+            }
+        }
+        
 
         completionHandler(.NewData)
         
