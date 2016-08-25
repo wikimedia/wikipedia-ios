@@ -30,9 +30,9 @@
             @"type": @"message",
             @"agent": [WikipediaAppUtils versionedUserAgent]
         }];
-//        if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
-//            params[@"X-CS"] = @"TEST";
-//        }
+        //        if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
+        //            params[@"X-CS"] = @"TEST";
+        //        }
         [self.operationManager GET:[[NSURL wmf_mobileAPIURLForURL:siteURL] absoluteString]
             parameters:params
             progress:NULL

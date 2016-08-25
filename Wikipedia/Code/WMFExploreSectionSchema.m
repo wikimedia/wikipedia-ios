@@ -19,8 +19,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSTimeInterval const WMFHomeMinimumAutomaticReloadTime      = 60 * 10;       //10 minutes
-static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 24;  //24 hours
+static NSTimeInterval const WMFHomeMinimumAutomaticReloadTime = 60 * 10;           //10 minutes
+static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 24; //24 hours
 
 @interface WMFExploreSectionSchema () <WMFLocationManagerDelegate, WMFDataSourceDelegate>
 
@@ -243,22 +243,21 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
     NSMutableArray<WMFExploreSection *> *existingNearbySections = [[self nearbySections] mutableCopy];
 
+    WMFExploreSection *closeEnough = [existingNearbySections bk_match:^BOOL(WMFExploreSection *oldNearby) {
 
-    WMFExploreSection* closeEnough = [existingNearbySections bk_match:^BOOL (WMFExploreSection* oldNearby) {
-        
         // Don't add more than one more in a single day
 
         if (oldNearby.location && [oldNearby.dateCreated isToday] && oldNearby.placemark != nil) {
             return YES;
         }
-        
+
         return NO;
     }];
-    
+
     if (closeEnough != nil) {
         return;
     }
-    
+
     @weakify(self);
     [self.locationManager reverseGeocodeLocation:location].then(^(CLPlacemark *_Nullable placemark) {
                                                               @strongify(self);

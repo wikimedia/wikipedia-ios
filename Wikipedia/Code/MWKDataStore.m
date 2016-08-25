@@ -77,7 +77,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 + (BOOL)migrateToSharedContainer:(NSError **)error {
     NSFileManager *fm = [NSFileManager defaultManager];
-    
+
     NSError *copyError = nil;
     if (![fm copyItemAtPath:[YapDatabase wmf_appSpecificDatabasePath] toPath:[YapDatabase wmf_databasePath] error:&copyError]) {
         if (copyError.code != NSFileNoSuchFileError) {
@@ -87,7 +87,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
             return NO;
         }
     }
-    
+
     NSError *moveError = nil;
     if (![fm moveItemAtPath:[MWKDataStore appSpecificMainDataStorePath] toPath:[MWKDataStore mainDataStorePath] error:&moveError]) {
         if (moveError.code != NSFileNoSuchFileError) {
@@ -97,7 +97,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
             return NO;
         }
     }
-    
+
     return YES;
 }
 
@@ -200,7 +200,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 + (NSString *)appSpecificMainDataStorePath { //deprecated, use the group folder from mainDataStorePath
     NSString *documentsFolder =
-    [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+        [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     return [documentsFolder stringByAppendingPathComponent:@"Data"];
 }
 

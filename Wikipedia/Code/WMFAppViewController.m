@@ -214,7 +214,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 
     [self showSplashView];
-    
 
     if (![[NSUserDefaults wmf_userDefaults] wmf_didMigrateToSharedContainer]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -238,10 +237,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 - (void)finishLaunch {
     @weakify(self)
-    self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
+        self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
     [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
         @strongify(self)
-        [self loadMainUI];
+            [self loadMainUI];
         [self hideSplashViewAnimated:!didShowOnboarding];
         [self resumeApp];
         [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
@@ -793,30 +792,29 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     if ([self zeroOnDialogShownOnce]) {
         return;
     }
-    
+
     [self setZeroOnDialogShownOnce];
-    
+
     UIAlertController *dialog = [UIAlertController alertControllerWithTitle:zeroMessage.message message:MWLocalizedString(@"zero-learn-more", nil) preferredStyle:UIAlertControllerStyleAlert];
-    
+
     [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil) style:UIAlertActionStyleCancel handler:NULL]];
-    
+
     [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-learn-more-learn-more", nil)
                                                style:UIAlertActionStyleDestructive
                                              handler:^(UIAlertAction *_Nonnull action) {
                                                  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MWLocalizedString(@"zero-webpage-url", nil)]];
                                              }]];
-    
+
     [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:dialog animated:YES completion:NULL];
 }
 
 - (void)showZeroOffAlert {
-    
+
     UIAlertController *dialog = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"zero-charged-verbiage", nil) message:MWLocalizedString(@"zero-charged-verbiage-extended", nil) preferredStyle:UIAlertControllerStyleAlert];
-    
+
     [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil) style:UIAlertActionStyleCancel handler:NULL]];
-    
+
     [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:dialog animated:YES completion:NULL];
 }
-
 
 @end

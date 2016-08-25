@@ -89,11 +89,11 @@ static NSString *const WMFURLCacheXCS = @"X-CS";
     BOOL zeroProviderChanged = zeroRatedHeaderPresent && ![xZeroRatedHeader isEqualToString:xcs];
     BOOL zeroDisposition = [SessionSingleton sharedInstance].zeroConfigState.disposition;
 
-//    // enable this tweak to make the cache pretend it found W0 headers in the response
-//    if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
-//        zeroRatedHeaderPresent = YES;
-//        xZeroRatedHeader = WMFURLCache00000;
-//    }
+    //    // enable this tweak to make the cache pretend it found W0 headers in the response
+    //    if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
+    //        zeroRatedHeaderPresent = YES;
+    //        xZeroRatedHeader = WMFURLCache00000;
+    //    }
 
     if (zeroRatedHeaderPresent && (!zeroDisposition || zeroProviderChanged)) {
         [SessionSingleton sharedInstance].zeroConfigState.disposition = YES;

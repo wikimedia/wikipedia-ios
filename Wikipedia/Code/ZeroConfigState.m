@@ -27,10 +27,10 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 
 + (void)load {
     [super load];
-//    FBTweakAction(@"Networking", @"Wikipedia Zero", @"Reset ZeroOnDialogShownOnce", ^{
-//        [[NSUserDefaults wmf_userDefaults] setBool:NO forKey:ZeroOnDialogShownOnce];
-//        [[NSUserDefaults wmf_userDefaults] synchronize];
-//    });
+    //    FBTweakAction(@"Networking", @"Wikipedia Zero", @"Reset ZeroOnDialogShownOnce", ^{
+    //        [[NSUserDefaults wmf_userDefaults] setBool:NO forKey:ZeroOnDialogShownOnce];
+    //        [[NSUserDefaults wmf_userDefaults] synchronize];
+    //    });
 }
 
 - (WMFZeroMessageFetcher *)zeroMessageFetcher {
@@ -57,8 +57,6 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
     }
     return disposition;
 }
-
-
 
 - (void)setWarnWhenLeaving:(BOOL)warnWhenLeaving {
     [[NSUserDefaults wmf_userDefaults] setObject:[NSNumber numberWithBool:warnWhenLeaving]

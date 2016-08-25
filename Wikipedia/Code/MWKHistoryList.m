@@ -5,7 +5,6 @@
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "NSDateFormatter+WMFExtensions.h"
 
-
 #define MAX_HISTORY_ENTRIES 100
 
 NS_ASSUME_NONNULL_BEGIN

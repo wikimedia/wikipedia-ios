@@ -14,15 +14,15 @@
 
 + (NSString *)wmf_appSpecificDatabasePath {
     NSString *databaseName = @"WikipediaYap.sqlite";
-    
+
     NSURL *baseURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
                                                             inDomain:NSUserDomainMask
                                                    appropriateForURL:nil
                                                               create:YES
                                                                error:NULL];
-    
+
     NSURL *databaseURL = [baseURL URLByAppendingPathComponent:databaseName isDirectory:NO];
-    
+
     return databaseURL.filePathURL.path;
 }
 
