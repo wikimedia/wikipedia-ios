@@ -60,6 +60,7 @@
 #import <Tweaks/FBTweakInline.h>
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WMFImageInfoController.h"
+#import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 
 @import SafariServices;
 
@@ -427,7 +428,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                               [UIBarButtonItem wmf_barButtonItemOfFixedWidth:spacing]],
                             
                             @[[UIBarButtonItem wmf_barButtonItemOfFixedWidth:3 + spacing],
-                              self.findInPageToolbarItem]];
+                              self.findInPageToolbarItem,
+                              [UIBarButtonItem wmf_barButtonItemOfFixedWidth:8]]];
     
     
     for (NSArray *itemGroup in itemGroups) {
@@ -442,16 +444,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [articleToolbarItems addObjectsFromArray:itemGroup];
     }
     
-    
-    UIBarButtonItem *tocItem = nil;
-    switch (self.tableOfContentsDisplayState) {
-        case WMFTableOfContentsDisplayStateInlineVisible:
-            tocItem = self.hideTableOfContentsToolbarItem;
-            break;
-        default:
-            tocItem = self.showTableOfContentsToolbarItem;
-            break;
-    }
+    UIBarButtonItem *tocItem = [self tableOfContentsToolbarItem];
     
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
@@ -466,6 +459,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             break;
     }
     return articleToolbarItems;
+}
+
+- (UIBarButtonItem*)tableOfContentsToolbarItem {
+    switch (self.tableOfContentsDisplayState) {
+        case WMFTableOfContentsDisplayStateInlineVisible:
+            return self.hideTableOfContentsToolbarItem;
+        default:
+            return self.showTableOfContentsToolbarItem;
+    }
 }
 
 - (void)updateToolbar {
@@ -1358,7 +1360,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self completeAndHideProgressWithCompletion:^{
         //Without this pause, the motion happens too soon after loading the article
         dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-            [self peekTableOfContentsIfNeccesary];
+            [self showTableOfContentsAndFindInPageIconPopoversIfNeccesary];
         });
     }];
 
@@ -1650,6 +1652,43 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (NSString*)analyticsName {
     return self.articleURL.host;
+}
+
+#pragma mark - One-time toolbar item popover tips
+
+- (BOOL)shouldShowTableOfContentsAndFindInPageIconPopovers {
+    if (!self.navigationController || [[NSUserDefaults standardUserDefaults] wmf_didShowTableOfContentsAndFindInPageIconPopovers]) {
+        return NO;
+    }else{
+        return YES;
+    }
+}
+
+- (void)showTableOfContentsAndFindInPageIconPopoversIfNeccesary {
+    if (![self shouldShowTableOfContentsAndFindInPageIconPopovers]) {
+        return;
+    }
+    [[NSUserDefaults standardUserDefaults] wmf_setDidShowTableOfContentsAndFindInPageIconPopovers:YES];
+    
+    dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
+        [self wmf_presentDynamicHeightPopoverViewControllerForBarButtonItem:[self tableOfContentsToolbarItem]
+                                                                  withTitle:@"Table of contents"
+                                                                    message:@"Get an overview of articles"];
+    });
+    
+    dispatchOnMainQueueAfterDelayInSeconds(4.0, ^{
+        [self dismissViewControllerAnimated:YES completion:^{
+            dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+                [self wmf_presentDynamicHeightPopoverViewControllerForBarButtonItem:self.findInPageToolbarItem
+                                                                          withTitle:@"Find in page"
+                                                                            message:@"Search text in articles"];
+            });
+        }];
+    });
+    
+    dispatchOnMainQueueAfterDelayInSeconds(7.5, ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    });
 }
 
 @end
