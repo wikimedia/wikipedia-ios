@@ -37,7 +37,6 @@
 #import "MWKSectionList.h"
 #import "MWKHistoryList.h"
 #import "MWKLanguageLink.h"
-#import "WMFPeekHTMLElement.h"
 
 // Networking
 #import "WMFArticleFetcher.h"
@@ -79,7 +78,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFLanguagesViewControllerDelegate,
                                         WMFArticleListTableViewControllerDelegate,
                                         WMFFontSliderViewControllerDelegate,
-                                        UIPopoverPresentationControllerDelegate>
+                                        UIPopoverPresentationControllerDelegate,
+                                        WKUIDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -128,7 +128,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic) CGFloat previousContentOffsetYForTOCUpdate;
 
 // Previewing
-@property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
 @property (nonatomic, weak) id<UIViewControllerPreviewing> leadImagePreviewingContext;
 
 @property (strong, nonatomic, nullable) NSTimer *significantlyViewedTimer;
@@ -1485,53 +1484,32 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self fetchArticle];
 }
 
+#pragma mark - WKUIDelegate
+
+- (BOOL)webView:(WKWebView *)webView shouldPreviewElement:(WKPreviewElementInfo *)elementInfo {
+    return elementInfo.linkURL && [elementInfo.linkURL wmf_isPeekable];
+}
+
+- (nullable UIViewController *)webView:(WKWebView *)webView previewingViewControllerForElement:(WKPreviewElementInfo *)elementInfo defaultActions:(NSArray<id <WKPreviewActionItem>> *)previewActions {
+    UIViewController *peekVC = [self peekViewControllerForURL:elementInfo.linkURL];
+    if (peekVC) {
+        [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
+        [self.webViewController hideFindInPageWithCompletion:nil];
+        
+        return peekVC;
+    }
+    return nil;
+}
+
+- (void)webView:(WKWebView *)webView commitPreviewingViewController:(UIViewController *)previewingViewController {
+    [self commitViewController:previewingViewController];
+}
+
 #pragma mark - UIViewControllerPreviewingDelegate
-
-- (void)registerForPreviewingIfAvailable {
-    [self wmf_ifForceTouchAvailable:^{
-        NSAssert(!self.webViewController.webView.allowsLinkPreview, @"WKWebView's built-in link preview forces Safari to open as of iOS 9.x. Do not enable.");
-        [self unregisterForPreviewing];
-        UIView *previewView = [self.webViewController.webView wmf_browserView];
-        self.linkPreviewingContext =
-            [self registerForPreviewingWithDelegate:self
-                                         sourceView:previewView];
-
-        self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.webViewController.headerView];
-
-        for (UIGestureRecognizer *r in previewView.gestureRecognizers) {
-            if ([NSStringFromClass([r class]) isEqualToString:@"_UIPreviewGestureRecognizer"]) {
-                [r requireGestureRecognizerToFail:self.linkPreviewingContext.previewingGestureRecognizerForFailureRelationship];
-            }
-        }
-    }
-        unavailable:^{
-            [self unregisterForPreviewing];
-        }];
-}
-
-- (void)unregisterForPreviewing {
-    if (self.linkPreviewingContext) {
-        [self unregisterForPreviewingWithContext:self.linkPreviewingContext];
-        self.linkPreviewingContext = nil;
-    }
-    if (self.leadImagePreviewingContext) {
-        [self unregisterForPreviewingWithContext:self.leadImagePreviewingContext];
-        self.leadImagePreviewingContext = nil;
-    }
-}
 
 - (nullable UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                        viewControllerForLocation:(CGPoint)location {
-    if (previewingContext == self.linkPreviewingContext) {
-        UIViewController *peekVC = [self peekViewControllerForPeekElement:self.webViewController.peekElement];
-        if (peekVC) {
-            [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
-            self.webViewController.isPeeking = YES;
-            [self.webViewController hideFindInPageWithCompletion:nil];
-
-            return peekVC;
-        }
-    } else if (previewingContext == self.leadImagePreviewingContext) {
+    if (previewingContext == self.leadImagePreviewingContext) {
         [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
         WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article];
         return fullscreenGallery;
@@ -1539,26 +1517,69 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return nil;
 }
 
-- (nullable UIViewController *)peekViewControllerForPeekElement:(WMFPeekHTMLElement *)peekElement {
-    switch (peekElement.type) {
-        case WMFPeekElementTypeImage:
-            return [self viewControllerForImageURL:peekElement.url];
-            break;
-        case WMFPeekElementTypeAnchor:
-            return [self viewControllerForPreviewURL:peekElement.url];
-            break;
-        case WMFPeekElementTypeUnpeekable:
-            return nil;
-            break;
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+     commitViewController:(UIViewController *)viewControllerToCommit {
+    [self commitViewController:viewControllerToCommit];
+}
+
+#pragma mark - Peeking registration
+
+- (void)registerForPreviewingIfAvailable {
+    [self wmf_ifForceTouchAvailable:^{
+        if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
+            self.webViewController.webView.UIDelegate = self;
+            self.webViewController.webView.allowsLinkPreview = YES;
+        }else{
+            self.webViewController.webView.allowsLinkPreview = NO;
+        }
+        [self unregisterForPreviewing];
+        self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.webViewController.headerView];
+    }
+        unavailable:^{
+            [self unregisterForPreviewing];
+        }];
+}
+
+- (void)unregisterForPreviewing {
+    if (self.leadImagePreviewingContext) {
+        [self unregisterForPreviewingWithContext:self.leadImagePreviewingContext];
+        self.leadImagePreviewingContext = nil;
     }
 }
 
-- (nullable UIViewController *)viewControllerForImageURL:(nullable NSURL *)url {
-    if (!url || ![[self.article imageURLsForGallery] containsObject:url]) {
+#pragma mark - Peeking helpers
+
+- (NSArray<NSString*>*)peekableImageExtensions {
+    return @[@"jpg", @"jpeg", @"gif", @"png", @"svg"];
+}
+
+- (nullable UIViewController *)peekViewControllerForURL:(NSURL *)linkURL {
+    if([self.peekableImageExtensions containsObject:[linkURL pathExtension]]){
+        return [self viewControllerForImageFilePageURL:linkURL];
+    }else{
+        return [self viewControllerForPreviewURL:linkURL];
+    }
+}
+
+- (NSURL*)galleryURLFromImageFilePageURL:(NSURL*)imageFilePageURL {
+    // Find out if the imageFilePageURL's file is in the gallery array, if so return the
+    // actual image url (as opposed to the file page url) from the gallery array.
+    NSString* fileName = [imageFilePageURL lastPathComponent];
+    if([fileName hasPrefix:@"File:"]){
+        fileName = [fileName substringFromIndex:5];
+    }
+    return [[self.article imageURLsForGallery] bk_match:^BOOL(NSURL *galleryURL) {
+        return [WMFParseImageNameFromSourceURL(galleryURL).stringByRemovingPercentEncoding hasSuffix:fileName];
+    }];
+}
+
+- (nullable UIViewController *)viewControllerForImageFilePageURL:(nullable NSURL *)imageFilePageURL {
+    NSURL *galleryURL = [self galleryURLFromImageFilePageURL:imageFilePageURL];
+    
+    if (!galleryURL) {
         return nil;
     }
-
-    MWKImage *selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:url];
+    MWKImage *selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:galleryURL];
     WMFArticleImageGalleryViewController *gallery =
         [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
                                                         selectedImage:selectedImage];
@@ -1566,26 +1587,17 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (UIViewController *)viewControllerForPreviewURL:(NSURL *)url {
-    if (!url || [url.absoluteString isEqualToString:@""]) {
-        return nil;
-    }
-    if (![url wmf_isWikiResource]) {
-        if ([url wmf_isWikiCitation]) {
-            return nil;
-        }
-        if ([url.scheme hasPrefix:@"http"]) {
-            return [[SFSafariViewController alloc] initWithURL:url];
-        }
-    } else {
-        if (![url wmf_isIntraPageFragment]) {
+    if(url && [url wmf_isPeekable]){
+        if ([url wmf_isWikiResource]) {
             return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+        }else{
+            return [[SFSafariViewController alloc] initWithURL:url];
         }
     }
     return nil;
 }
 
-- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
-     commitViewController:(UIViewController *)viewControllerToCommit {
+- (void)commitViewController:(UIViewController *)viewControllerToCommit {
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         [self pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit contentType:nil animated:YES];
     } else {

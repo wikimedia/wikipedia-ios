@@ -9,8 +9,6 @@
         return WMFWKScriptMessageClickLink;
     } else if ([name isEqualToString:@"imageClicked"]) {
         return WMFWKScriptMessageClickImage;
-    } else if ([name isEqualToString:@"peek"]) {
-        return WMFWKScriptMessagePeek;
     } else if ([name isEqualToString:@"referenceClicked"]) {
         return WMFWKScriptMessageClickReference;
     } else if ([name isEqualToString:@"editClicked"]) {
@@ -37,9 +35,6 @@
             return [NSDictionary class];
             break;
         case WMFWKScriptMessageClickImage:
-            return [NSDictionary class];
-            break;
-        case WMFWKScriptMessagePeek:
             return [NSDictionary class];
             break;
         case WMFWKScriptMessageClickReference:

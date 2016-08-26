@@ -198,6 +198,11 @@ extern NSString *const WMFDefaultSiteDomain;
 @property (nonatomic, readonly) BOOL wmf_isWikiCitation;
 
 /**
+ *  Return YES if the receiver should be peekable via 3d touch
+ */
+@property (nonatomic, readonly) BOOL wmf_isPeekable;
+
+/**
  *  Return YES if the URL has a .m subdomain
  */
 @property (nonatomic, readonly) BOOL wmf_isMobile;

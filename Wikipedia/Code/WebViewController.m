@@ -26,7 +26,6 @@
 #import "WKWebView+LoadAssetsHtml.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WKProcessPool+WMFSharedProcessPool.h"
-#import "WMFPeekHTMLElement.h"
 #import "NSURL+WMFProxyServer.h"
 #import "WMFImageTag.h"
 #import "WKScriptMessage+WMFScriptMessage.h"
@@ -105,9 +104,6 @@ NSString *const WMFCCBySALicenseURL =
     id safeMessageBody = [message wmf_safeMessageBodyForType:messageType];
 
     switch (messageType) {
-        case WMFWKScriptMessagePeek:
-            [self handlePeekScriptMessage:safeMessageBody];
-            break;
         case WMFWKScriptMessageConsoleMessage:
             [self handleMessageConsoleScriptMessage:safeMessageBody];
             break;
@@ -141,26 +137,12 @@ NSString *const WMFCCBySALicenseURL =
     }
 }
 
-- (void)handlePeekScriptMessage:(NSDictionary *)messageDict {
-    if (messageDict[@"tagName"]) {
-        self.peekElement = [[WMFPeekHTMLElement alloc] initWithTagName:messageDict[@"tagName"]
-                                                                   src:messageDict[@"src"]
-                                                                  href:messageDict[@"href"]];
-    } else {
-        self.peekElement = nil;
-    }
-}
-
 - (void)handleMessageConsoleScriptMessage:(NSDictionary *)messageDict {
     DDLogDebug(@"\n\nMessage from Javascript console:\n\t%@\n\n", messageDict[@"message"]);
 }
 
 - (void)handleClickLinkScriptMessage:(NSDictionary *)messageDict {
     [self hideFindInPageWithCompletion:^{
-        if (self.isPeeking) {
-            self.isPeeking = NO;
-            return;
-        }
 
         NSString *href = messageDict[@"href"];
 
@@ -543,8 +525,6 @@ NSString *const WMFCCBySALicenseURL =
     [super viewDidLoad];
 
     self.contentWidthPercentage = 1;
-
-    self.isPeeking = NO;
 
     [self addFooterContainerView];
     [self addHeaderView];
