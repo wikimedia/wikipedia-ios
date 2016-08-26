@@ -1675,7 +1675,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
         [self wmf_presentDynamicHeightPopoverViewControllerForBarButtonItem:[self tableOfContentsToolbarItem]
                                                                   withTitle:MWLocalizedString(@"table-of-contents-button-label", nil)
-                                                                    message:MWLocalizedString(@"table-of-contents-popover-description", nil)];
+                                                                    message:MWLocalizedString(@"table-of-contents-popover-description", nil)
+                                                                      width:230.0f];
     });
     
     dispatchOnMainQueueAfterDelayInSeconds(4.0, ^{
@@ -1683,7 +1684,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
                 [self wmf_presentDynamicHeightPopoverViewControllerForBarButtonItem:self.findInPageToolbarItem
                                                                           withTitle:MWLocalizedString(@"find-in-page-button-label", nil)
-                                                                            message:MWLocalizedString(@"find-in-page-popover-description", nil)];
+                                                                            message:MWLocalizedString(@"find-in-page-popover-description", nil)
+                                                                              width:230.0f];
             });
         }];
     });
