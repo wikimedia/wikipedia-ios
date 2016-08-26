@@ -104,8 +104,8 @@
     
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathMoveToPoint(path, NULL, (size.width / 2.0f), 2.0f);
-    CGPathAddLineToPoint(path, NULL, size.width, size.height);
-    CGPathAddLineToPoint(path, NULL, 0.0f, size.height);
+    CGPathAddLineToPoint(path, NULL, size.width, size.height + 1.0f);
+    CGPathAddLineToPoint(path, NULL, 0.0f, size.height + 1.0f);
     CGPathCloseSubpath(path);
     CGContextAddPath(context, path);
     CGPathRelease(path);
