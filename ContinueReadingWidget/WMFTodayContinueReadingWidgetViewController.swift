@@ -8,9 +8,15 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     @IBOutlet weak var daysAgoLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
+    
+    var articleURL: NSURL?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageView.clipsToBounds = true
+        #if DEBUG
+            NSUserDefaults.wmf_userDefaults().wmf_setOpenArticleURL(NSURL(string: "https://en.wikipedia.org/wiki/Barack_Obama#2012_presidential_campaign"))
+        #endif
         widgetPerformUpdate { (result) in
             
         }
@@ -27,9 +33,12 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     
     func widgetPerformUpdate(completionHandler: (NCUpdateResult) -> Void) {
         guard let openArticleURL = NSUserDefaults.wmf_userDefaults().wmf_openArticleURL() else {
+            articleURL = nil
             completionHandler(.NoData)
             return
         }
+        
+        articleURL = openArticleURL
         
         guard let article = SessionSingleton.sharedInstance().dataStore.existingArticleWithURL(openArticleURL) else {
             completionHandler(.NoData)
@@ -65,6 +74,17 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         completionHandler(.NewData)
         
     }
+
+    @IBAction func continueReading(sender: AnyObject) {
+        guard let URLToOpen = articleURL else {
+            return
+        }
+        
+        self.extensionContext?.openURL(URLToOpen, completionHandler: { (success) in
+            
+        })
+    }
+
 
 }
 
