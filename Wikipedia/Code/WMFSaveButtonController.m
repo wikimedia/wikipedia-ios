@@ -73,7 +73,9 @@
     if (WMF_EQUAL(self.url, isEqual:, url)) {
         return;
     }
+    [self unobserveURL:_url];
     _url = url;
+    [self observeURL:_url];
     [self updateSavedButtonState];
 }
 
