@@ -585,6 +585,12 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
         }];
         return array;
     }];
+    
+    //Sort by date
+    [array sortWithOptions:NSSortStable | NSSortConcurrent usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
+        return -[obj1.dateCreated compare:obj2.dateCreated];
+    }];
+
 
     return [array wmf_arrayByTrimmingToLength:maxLength];
 }

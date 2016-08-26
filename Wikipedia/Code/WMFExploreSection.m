@@ -41,7 +41,11 @@ NS_ASSUME_NONNULL_BEGIN
         }
         MWKTitle* title      = [self decodeValueForKey:@"title" withCoder:coder modelVersion:0];
         if(title && !self.articleURL){
-            self.articleURL = title.mobileURL;
+            self.articleURL = title.desktopURL;
+        }
+        
+        if([self.articleURL wmf_isMobile]){
+            self.articleURL = [NSURL wmf_desktopURLForURL:self.articleURL];
         }
         
         //site was added after persistence. We need to provide a default value.
