@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;
 
+
 @end
 
 @implementation WMFSaveButtonController
@@ -24,8 +25,7 @@
 - (instancetype)initWithControl:(UIControl *)button
                   savedPageList:(MWKSavedPageList *)savedPageList
                             url:(NSURL *)url {
-    self = [self initWithControl:button barButtonItem:nil savedPageList:savedPageList url:url];
-    return self;
+    return [self initWithControl:button barButtonItem:nil savedPageList:savedPageList url:url];
 }
 
 - (void)dealloc {
@@ -35,8 +35,7 @@
 - (instancetype)initWithBarButtonItem:(UIBarButtonItem *)barButtonItem
                         savedPageList:(MWKSavedPageList *)savedPageList
                                   url:(NSURL *)url {
-    self = [self initWithControl:nil barButtonItem:barButtonItem savedPageList:savedPageList url:url];
-    return self;
+    return [self initWithControl:nil barButtonItem:barButtonItem savedPageList:savedPageList url:url];
 }
 
 - (instancetype)initWithControl:(UIControl *)button
@@ -54,6 +53,10 @@
         [self observeURL:self.url];
     }
     return self;
+}
+
+- (instancetype)init {
+    return [self initWithControl:nil savedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList] url:nil];
 }
 
 #pragma mark - Accessors

@@ -105,4 +105,6 @@
 
 + (instancetype)wmf_primaryLanguageLabelBackgroundColor;
 
++ (instancetype)wmf_barButtonItemPopoverMessageBackgroundColor;
+
 @end

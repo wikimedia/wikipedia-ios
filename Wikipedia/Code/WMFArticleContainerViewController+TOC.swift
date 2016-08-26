@@ -160,77 +160,7 @@ extension WMFArticleViewController {
             }
         #endif
     }
-    
-    func shouldPeek() -> Bool {
-        
-        #if DEBUG
-            let store = FBTweakStore.sharedInstance()
-            let category = store.tweakCategoryWithName("Article")
-            let collection = category.tweakCollectionWithName("Table of Contents")
-            let tweak = collection.tweakWithIdentifier("Always Peek ToC")
-            if tweak.currentValue as? Bool == true {
-                return true
-            }
-        #endif
-        
-        return (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeModal) && !NSUserDefaults.wmf_userDefaults().wmf_didPeekTableOfContents()
-    }
 
-    public func peekTableOfContentsIfNeccesary() {
-        guard self.navigationController != nil else{
-            return
-        }
-        guard let toc = self.tableOfContentsViewController else{
-            return
-        }
-        guard shouldPeek() == true else{
-            return
-        }
-
-        let bg = backgroundView()
-        
-        let containerBounds = self.navigationController!.view.bounds
-        bg.frame = containerBounds
-        self.navigationController!.view!.addSubview(bg)
-
-        let tocWidth: CGFloat = 300.0
-        let peekWidth = (containerBounds.width * 0.3) < tocWidth ? containerBounds.width * 0.3 : tocWidth
-        
-        var onscreen = containerBounds
-        onscreen.size.width = tocWidth
-        var offscreen = onscreen
-        
-        if UIApplication.sharedApplication().wmf_tocShouldBeOnLeft {
-            offscreen.origin.x -= offscreen.width
-            onscreen.origin.x = offscreen.origin.x + peekWidth
-        }else{
-            onscreen.origin.x = containerBounds.width - peekWidth
-            offscreen.origin.x = containerBounds.width
-        }
-        
-        toc.view.frame = offscreen
-        toc.view.layer.shadowOpacity = 0.25
-        toc.view.layer.shadowRadius = 4.0
-        toc.view.layer.shadowOffset = CGSizeZero
-        
-        self.navigationController!.view!.addSubview(toc.view)
-        
-        UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
-            bg.alpha = 1.0;
-            toc.view.frame = onscreen
-            
-            }) { (completed) in
-                UIView.animateWithDuration(0.2, delay: 0.7, options: .CurveEaseInOut, animations: {
-                    bg.alpha = 0.0;
-                    toc.view.frame = offscreen
-                    }, completion: { (completed) in
-                        bg.removeFromSuperview()
-                        toc.view.removeFromSuperview()
-                        NSUserDefaults.wmf_userDefaults().wmf_setDidPeekTableOfContents(true)
-                })
-        }
-    }
-    
     public func selectAndScrollToTableOfContentsItemForSection(section: MWKSection, animated: Bool) {
         tableOfContentsViewController?.selectAndScrollToItem(section, animated: animated)
     }

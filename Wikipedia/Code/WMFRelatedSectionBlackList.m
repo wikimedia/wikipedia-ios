@@ -80,8 +80,9 @@ static NSString *const WMFRelatedSectionBlackListFileExtension = @"plist";
 
 - (id)decodeValueForKey:(NSString *)key withCoder:(NSCoder *)coder modelVersion:(NSUInteger)modelVersion {
     if ([key isEqualToString:WMF_SAFE_KEYPATH(self, entries)] && modelVersion == 0) {
-        NSArray *titles = [self decodeValueForKey:WMF_SAFE_KEYPATH(self, entries) withCoder:coder modelVersion:0];
+        NSArray *titles = [super decodeValueForKey:WMF_SAFE_KEYPATH(self, entries) withCoder:coder modelVersion:0];
         return [titles wmf_mapAndRejectNil:^id(NSURL *obj) {
+
             if ([obj isKindOfClass:[NSURL class]]) {
                 return obj;
             } else if ([obj isKindOfClass:[MWKTitle class]]) {
