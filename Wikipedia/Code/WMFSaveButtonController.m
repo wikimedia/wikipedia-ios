@@ -50,7 +50,6 @@
         self.url = url;
         self.savedPageList = savedPageList;
         [self updateSavedButtonState];
-        [self observeURL:self.url];
     }
     return self;
 }
