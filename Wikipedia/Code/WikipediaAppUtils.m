@@ -94,8 +94,8 @@ static WMFAssetsFile *languageFile = nil;
      */
 
     NSString *folderName = @"assets";
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:folderName];
+    NSString *containerPath = [[NSFileManager defaultManager] wmf_containerPath];
+    NSString *documentsPath = [containerPath stringByAppendingPathComponent:folderName];
     NSString *bundledPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:folderName];
 
     void (^copy)(NSString *, NSString *) = ^void(NSString *path1, NSString *path2) {

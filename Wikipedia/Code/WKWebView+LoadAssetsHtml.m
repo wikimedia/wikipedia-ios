@@ -51,8 +51,8 @@ static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is
 }
 
 - (NSString *)getAssetsPath {
-    NSArray *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    return [[documentsPath firstObject] stringByAppendingPathComponent:@"assets"];
+    NSString *containerPath = [[NSFileManager defaultManager] wmf_containerPath];
+    return [containerPath stringByAppendingPathComponent:@"assets"];
 }
 
 @end

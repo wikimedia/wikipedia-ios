@@ -2228,6 +2228,7 @@
 		D499145A181D51DF00E6073C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D4C16A6519709CDF00CD91AD /* qqq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = qqq; path = qqq.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		D80198581D70D7FA00EFFFE9 /* org.wikimedia.wikipedia 2016-08-26 14:37.23.772.xcappdata */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "org.wikimedia.wikipedia 2016-08-26 14:37.23.772.xcappdata"; path = "../../Desktop/org.wikimedia.wikipedia 2016-08-26 14:37.23.772.xcappdata"; sourceTree = "<group>"; };
 		D80C24B31D673DA000816503 /* WMFNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNavigationController.h; sourceTree = "<group>"; };
 		D80C24B41D673DA000816503 /* WMFNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNavigationController.m; sourceTree = "<group>"; };
 		D80C24B61D673DC300816503 /* WMFTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFTabBarController.h; sourceTree = "<group>"; };
@@ -5202,6 +5203,7 @@
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
+				D80198581D70D7FA00EFFFE9 /* org.wikimedia.wikipedia 2016-08-26 14:37.23.772.xcappdata */,
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				04E9A78218F73C7200F7ECF7 /* www */,
 				D4991453181D51DE00E6073C /* Images.xcassets */,

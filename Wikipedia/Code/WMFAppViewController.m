@@ -43,6 +43,8 @@
 #import "AFHTTPSessionManager+WMFCancelAll.h"
 #import "WMFAuthenticationManager.h"
 
+#import "WMFDailyStatsLoggingFunnel.h"
+
 /**
  *  Enums for each tab in the main tab bar.
  *
@@ -90,6 +92,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic, strong) UIApplicationShortcutItem *unprocessedShortcutItem;
 
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
+
+@property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
+
 
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
@@ -203,6 +208,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)launchAppInWindow:(UIWindow *)window {
+    [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
+
     WMFStyleManager *manager = [WMFStyleManager new];
     [manager applyStyleToWindow:window];
     [WMFStyleManager setSharedStyleManager:manager];
@@ -217,6 +224,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     if (![[NSUserDefaults wmf_userDefaults] wmf_didMigrateToSharedContainer]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
             NSError *error = nil;
             if (![MWKDataStore migrateToSharedContainer:&error]) {
                 DDLogError(@"Error migrating data store: %@", error);
@@ -226,6 +234,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                 DDLogError(@"Error migrating image cache: %@", error);
             }
             dispatch_async(dispatch_get_main_queue(), ^{
+                CFAbsoluteTime end = CFAbsoluteTimeGetCurrent();
+                NSLog(@"%f", end - start);
                 [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:YES];
                 [self finishLaunch];
             });
@@ -237,10 +247,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 - (void)finishLaunch {
     @weakify(self)
-        self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
+
     [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
         @strongify(self)
-            [self loadMainUI];
+        [self loadMainUI];
+        self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
         [self hideSplashViewAnimated:!didShowOnboarding];
         [self resumeApp];
         [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
@@ -253,6 +264,12 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (self.isPresentingOnboarding) {
         return;
     }
+    
+    if (![self uiIsLoaded]) {
+        return;
+    }
+    
+    [self.statsFunnel logAppNumberOfDaysSinceInstall];
 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
     [self.savedArticlesFetcher start];
@@ -284,6 +301,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)pauseApp {
+    if (![self uiIsLoaded]) {
+        return;
+    }
     [[WMFImageController sharedInstance] clearMemoryCache];
     [self downloadAssetsFilesIfNecessary];
     [self.dataStore startCacheRemoval];
@@ -297,6 +317,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - Memory Warning
 
 - (void)didReceiveMemoryWarning {
+    if (![self uiIsLoaded]) {
+        return;
+    }
     [super didReceiveMemoryWarning];
     [[WMFImageController sharedInstance] clearMemoryCache];
     [[[SessionSingleton sharedInstance] dataStore] clearMemoryCache];
@@ -315,6 +338,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     DDLogWarn(@"Saved Count %lu", (unsigned long)saveCount);
     DDLogWarn(@"Explore Count %lu", (unsigned long)exploreCount);
     DDLogWarn(@"Article Stack Count %lu", (unsigned long)stackCount);
+}
+
+- (WMFDailyStatsLoggingFunnel *)statsFunnel {
+    if (!_statsFunnel) {
+        _statsFunnel = [[WMFDailyStatsLoggingFunnel alloc] init];
+    }
+    return _statsFunnel;
 }
 
 #pragma mark - Shortcut
@@ -502,6 +532,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - Accessors
 
 - (SavedArticlesFetcher *)savedArticlesFetcher {
+    if (![self uiIsLoaded]) {
+        return nil;
+    }
     if (!_savedArticlesFetcher) {
         _savedArticlesFetcher =
             [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]
@@ -511,6 +544,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (WMFRandomArticleFetcher *)randomFetcher {
+    if (![self uiIsLoaded]) {
+        return nil;
+    }
+    
     if (_randomFetcher == nil) {
         _randomFetcher = [[WMFRandomArticleFetcher alloc] init];
     }
@@ -518,6 +555,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (SessionSingleton *)session {
+    if (![self uiIsLoaded]) {
+        return nil;
+    }
+    
     if (!_session) {
         _session = [SessionSingleton sharedInstance];
     }

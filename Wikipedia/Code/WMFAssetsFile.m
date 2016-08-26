@@ -23,8 +23,7 @@
 }
 
 - (NSString *)documentsAssetsPath {
-    NSArray *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    return [[documentsPath firstObject] stringByAppendingPathComponent:@"assets"];
+    return [[[NSFileManager defaultManager] wmf_containerPath] stringByAppendingPathComponent:@"assets"];
 }
 
 - (NSString *)path {

@@ -54,7 +54,7 @@
     NSString *secret = [[NSUUID UUID] UUIDString];
     self.secret = secret;
 
-    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSURL *documentsURL = [[NSFileManager defaultManager] wmf_containerURL];
     NSURL *assetsURL = [documentsURL URLByAppendingPathComponent:@"assets"];
     self.hostedFolderPath = assetsURL.path;
 

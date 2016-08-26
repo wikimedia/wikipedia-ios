@@ -34,8 +34,6 @@
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     self = [super init];
     if (self) {
-        [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
-
         WMFURLCache *urlCache = [[WMFURLCache alloc] initWithMemoryCapacity:MegabytesToBytes(64)
                                                                diskCapacity:MegabytesToBytes(128)
                                                                    diskPath:nil];

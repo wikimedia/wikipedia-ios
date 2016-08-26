@@ -3,7 +3,6 @@
 #import "PiwikTracker+WMFExtensions.h"
 #import "WMFAppViewController.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
-#import "WMFDailyStatsLoggingFunnel.h"
 #import <Tweaks/FBTweakShakeWindow.h>
 #import "ZeroConfigState.h"
 #import "NSUserActivity+WMFExtensions.h"
@@ -11,7 +10,6 @@
 @interface AppDelegate ()
 
 @property (nonatomic, strong) WMFAppViewController *appViewController;
-@property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
 
 @end
 
@@ -49,13 +47,6 @@
     return _window;
 }
 
-- (WMFDailyStatsLoggingFunnel *)statsFunnel {
-    if (!_statsFunnel) {
-        _statsFunnel = [[WMFDailyStatsLoggingFunnel alloc] init];
-    }
-    return _statsFunnel;
-}
-
 #pragma mark - Shortcuts
 
 - (void)updateDynamicIconShortcutItems {
@@ -91,8 +82,6 @@
     [[NSUserDefaults wmf_userDefaults] wmf_setAppLaunchDate:[NSDate date]];
     [[NSUserDefaults wmf_userDefaults] wmf_setAppInstallDateIfNil:[NSDate date]];
 
-    [self.statsFunnel logAppNumberOfDaysSinceInstall];
-
     WMFAppViewController *vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
     [vc launchAppInWindow:self.window];
     self.appViewController = vc;
@@ -104,7 +93,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    [self.statsFunnel logAppNumberOfDaysSinceInstall];
+
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
