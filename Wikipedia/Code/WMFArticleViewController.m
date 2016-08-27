@@ -62,8 +62,6 @@
 
 @import SafariServices;
 
-@import JavaScriptCore;
-
 NS_ASSUME_NONNULL_BEGIN
 
 static const CGFloat WMFArticleViewControllerExpandedTableOfContentsWidthPercentage = 0.33;
