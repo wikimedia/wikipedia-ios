@@ -45,7 +45,6 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
-#import "WKWebView+WMFTrackingView.h"
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import <TUSafariActivity/TUSafariActivity.h>
