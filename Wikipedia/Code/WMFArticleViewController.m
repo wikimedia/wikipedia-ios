@@ -1481,7 +1481,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self fetchArticle];
 }
 
-#pragma mark - WKUIDelegate
+#pragma mark - Article link and image peeking via WKUIDelegate
 
 - (BOOL)webView:(WKWebView *)webView shouldPreviewElement:(WKPreviewElementInfo *)elementInfo {
     return elementInfo.linkURL && [elementInfo.linkURL wmf_isPeekable];
@@ -1502,7 +1502,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self commitViewController:previewingViewController];
 }
 
-#pragma mark - UIViewControllerPreviewingDelegate
+#pragma mark - Article lead image peeking via UIViewControllerPreviewingDelegate
 
 - (nullable UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                        viewControllerForLocation:(CGPoint)location {
