@@ -12,7 +12,7 @@
     return cacheDirectory;
 }
 
-+ (NSString *)wmf_newImageCacheDirectory {
++ (NSString *)wmf_imageCacheDirectory {
     return [[self wmf_cacheDirectory] stringByAppendingPathComponent:@"com.hackemist.SDWebImageCache.default"];
 }
 
@@ -23,7 +23,7 @@
 
 + (BOOL)migrateToSharedContainer:(NSError **)error {
     NSError *moveError = nil;
-    if (![[NSFileManager defaultManager] moveItemAtPath:[self wmf_legacyImageCacheDirectory] toPath:[self wmf_newImageCacheDirectory] error:&moveError]) {
+    if (![[NSFileManager defaultManager] moveItemAtPath:[self wmf_legacyImageCacheDirectory] toPath:[self wmf_imageCacheDirectory] error:&moveError]) {
         if (moveError.code != NSFileNoSuchFileError) {
             if (error) {
                 *error = moveError;

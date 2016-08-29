@@ -45,6 +45,13 @@
 
 #import "WMFDailyStatsLoggingFunnel.h"
 
+#define TEST_SHARED_CONTAINER_MIGRATION DEBUG && 0
+
+#if TEST_SHARED_CONTAINER_MIGRATION
+#import "YapDatabase+WMFExtensions.h"
+#import "SDImageCache+WMFPersistentCache.h"
+#endif
+
 /**
  *  Enums for each tab in the main tab bar.
  *
@@ -221,6 +228,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 
     [self showSplashView];
+    
+#if TEST_SHARED_CONTAINER_MIGRATION
+    NSFileManager *fm = [NSFileManager defaultManager];
+    [fm removeItemAtPath:[YapDatabase wmf_databasePath]  error:nil];
+    [fm removeItemAtPath:[MWKDataStore mainDataStorePath]  error:nil];
+    [fm removeItemAtPath:[SDImageCache wmf_imageCacheDirectory] error:nil];
+    [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:NO];
+#endif
 
     if (![[NSUserDefaults wmf_userDefaults] wmf_didMigrateToSharedContainer]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
