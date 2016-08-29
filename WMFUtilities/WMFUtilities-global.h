@@ -37,4 +37,6 @@
 #import <WMFUtilities/NSFileManager+WMFGroup.h>
 #import <WMFUtilities/NSDateFormatter+WMFExtensions.h>
 #import <WMFUtilities/NSDate+WMFRelativeDate.h>
+#import <WMFUtilities/NSDictionary+WMFRequiredValueForKey.h>
+#import <WMFUtilities/NSCalendar+WMFCommonCalendars.h>
 #endif

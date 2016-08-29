@@ -1,3 +1,5 @@
+@import UIKit;
+
 @interface UITableViewCell (WMFEdgeToEdgeSeparator)
 
 - (void)wmf_makeCellDividerBeEdgeToEdge;

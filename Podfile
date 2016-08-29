@@ -51,6 +51,10 @@ abstract_target 'Foundation' do
 
   end
   
+  target 'TopReadWidget' do
+
+  end
+  
   target 'WMFUtilities' do
   	
   end

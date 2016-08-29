@@ -1,13 +1,5 @@
 #import "WMFMostReadTitleFetcher.h"
-
-#import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPSessionManager+WMFDesktopRetry.h"
-#import "AFHTTPSessionManager+WMFConfig.h"
-#import "WMFNetworkUtilities.h"
 #import <Mantle/MTLJSONAdapter.h>
-#import "WMFMostReadTitlesResponse.h"
-#import "NSCalendar+WMFCommonCalendars.h"
-#import "NSError+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

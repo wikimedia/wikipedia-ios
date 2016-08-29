@@ -1,10 +1,10 @@
 #import "WMFArticleListTableViewCell.h"
 #import "UIColor+WMFStyle.h"
 #import "UIImage+WMFStyle.h"
-#import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UITableViewCell+SelectedBackground.h"
 #import "UIImageView+WMFPlaceholder.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
+#import "UIImageView+WMFImageFetching.h"
 
 @interface WMFArticleListTableViewCell ()
 
@@ -81,11 +81,11 @@
 #pragma mark - Image
 
 - (void)setImageURL:(NSURL *)imageURL failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
-    [self.articleImageView wmf_setImageWithURL:imageURL detectFaces:YES failure:failure success:success];
+    [self.articleImageView wmf_setImageWithURL:imageURL detectFaces:YES onGPU:YES failure:failure success:success];
 }
 
 - (void)setImage:(MWKImage *)image failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
-    [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES failure:failure success:success];
+     [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES onGPU:YES failure:failure success:success];
 }
 
 - (void)setImageURL:(NSURL *)imageURL {
