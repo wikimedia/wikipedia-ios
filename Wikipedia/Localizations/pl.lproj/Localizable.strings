@@ -253,6 +253,7 @@
 "license-footer-text" = "Treść udostępniana na licencji $1, jeśli nie podano inaczej.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Zawartości";
+// Fuzzy
 "table-of-contents-button-label" = "Spis treści";
 "table-of-contents-close-accessibility-hint" = "Zamknij";
 "abuse-filter-warning-heading" = "To wygląda na niekonstruktywną edycję, jesteś pewny, by ją zaspisać?";

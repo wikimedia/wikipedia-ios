@@ -258,7 +258,9 @@
 "license-footer-text" = "تمام مواد $1 کے تحت میسر ہے، جب تک کوئی دوسری وجہ نا ہو۔";
 "license-footer-name" = " کریئیٹیو کامنز انتساب / یکساں-شراکت اجازت نامہ 3.0";
 "table-of-contents-heading" = "مندرجات";
+// Fuzzy
 "table-of-contents-button-label" = "مواد کا جدول";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "مواد کا جدول بند کریں";
 "table-of-contents-close-accessibility-hint" = "بند کریں";
 "abuse-filter-warning-heading" = "یہ ایک غیرتعمیری ترمیم ہوسکتی ہے۔ کیاآپ اسے یقینی طور پر محفوظ کرنا چاہتے ہیں؟";

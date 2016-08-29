@@ -264,7 +264,9 @@
 "license-footer-text" = "$1 лицензияһына ярашлы, эстәлеге менән һәр кем файҙалана ала (башҡаһы күрһәтелмәһә)";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Йөкмәткеһе";
+// Fuzzy
 "table-of-contents-button-label" = "Йөкмәткеһе";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Йөкмәткене ябырға";
 "table-of-contents-close-accessibility-hint" = "Ябырға";
 "abuse-filter-warning-heading" = "Был төҙәтеү хаталы. Һеҙ ысынлап та уны һаҡларға теләйһегеҙме?";

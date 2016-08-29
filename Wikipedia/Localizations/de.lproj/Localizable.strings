@@ -257,7 +257,9 @@
 "license-footer-text" = "Der Inhalt ist verfügbar unter $1, sofern nicht anders angegeben.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Inhalte";
+// Fuzzy
 "table-of-contents-button-label" = "Inhaltsverzeichnis";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeichnis schließen";
 "table-of-contents-close-accessibility-hint" = "Schließen";
 "abuse-filter-warning-heading" = "Dies sieht nach einer unkonstruktiven Bearbeitung aus. Bist du sicher, dass du sie speichern möchtest?";

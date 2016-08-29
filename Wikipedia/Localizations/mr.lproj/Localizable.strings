@@ -244,7 +244,9 @@
 "license-footer-text" = "तसे नोंदविलेले नसेल तर, यातील आशय हा $1 अंतर्गत उपलब्ध आहे";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "आशय";
+// Fuzzy
 "table-of-contents-button-label" = "अनुक्रमणिका";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "अनुक्रमणिका बंद करा";
 "table-of-contents-close-accessibility-hint" = "बंद करा";
 "abuse-filter-warning-heading" = "हे एक अरचनात्मक संपादनासारखे दिसते. हे जतन करण्याबाबत आपण खात्री देता काय?";

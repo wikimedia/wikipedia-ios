@@ -273,7 +273,9 @@
 "license-footer-text" = "Il contenuto è disponibile in base alla licenza $1, se non diversamente specificato.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contenuti";
+// Fuzzy
 "table-of-contents-button-label" = "Sommario";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-close-accessibility-hint" = "Chiudi";
 "abuse-filter-warning-heading" = "Questa potrebbe essere una modifica inutile, sei sicuro di volerla salvare?";

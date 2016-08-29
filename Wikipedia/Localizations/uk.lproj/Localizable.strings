@@ -264,7 +264,9 @@
 "license-footer-text" = "Вміст доступний на умовах $1, якщо не вказано інше.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Вміст";
+// Fuzzy
 "table-of-contents-button-label" = "Зміст";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Закрити зміст";
 "table-of-contents-close-accessibility-hint" = "Закрити";
 "abuse-filter-warning-heading" = "Ця зміна виглядає руйнівною. Ви справді волієте її зберегти?";

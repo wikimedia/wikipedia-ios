@@ -262,7 +262,9 @@
 "license-footer-text" = "Nội dung được phát hành theo $1, trừ khi có ghi chú khác.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Mục lục";
+// Fuzzy
 "table-of-contents-button-label" = "Mục lục";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Đóng Mục lục";
 "table-of-contents-close-accessibility-hint" = "Đóng";
 "abuse-filter-warning-heading" = "Sửa đổi này có vẻ không có tính xây dựng. Bạn có chắc chắn muốn lưu nó?";

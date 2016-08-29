@@ -78,6 +78,7 @@
 "wikitext-upload-captcha-needed" = "Je požadované overenie pomocou CAPTCHA.";
 "wikitext-upload-save" = "Ukladám...";
 "wikitext-upload-save-sign-in" = "Prihlásiť sa";
+"wikitext-upload-save-sign-in-benefits" = "Ďalší redaktori sa tak s vami môžu spojiť a uvidia, aké články ste upravili.";
 "wikitext-upload-save-anonymously" = "Uložiť anonymne";
 "wikitext-upload-save-anonymously-warning" = "Úpravy budú mať pridelenú IP adresu vášho prístroja. Ak $1, budete mať viac súkromia.";
 "wikitext-upload-save-terms-and-license" = "Uložením vyjadríte súhlas s $1 a neodvolateľne tak uvoľníte svoje príspevky v rámci licencie $2.";
@@ -139,6 +140,7 @@
 "main-menu-show-today" = "Dnes";
 "main-menu-nearby" = "V okolí";
 "main-menu-more" = "Zobraziť viac...";
+"main-menu-heading-debug" = "Ladiť";
 "main-menu-debug-tweaks" = "Nastavenia pre vývojárov";
 "saved-title" = "Uložené";
 "saved-pages-title" = "Uložené stránky";
@@ -184,6 +186,7 @@
 "about-wikipedia" = "Wikipédia";
 "about-contributors" = "Prispievatelia";
 "about-testers" = "Testeri";
+"about-testers-details" = "QA test vykonala skupina $1";
 "about-translators" = "Prekladatelia";
 "about-translators-details" = "Preložené dobrovoľníkmi na $1";
 "about-libraries" = "Použité knižnice";
@@ -240,7 +243,9 @@
 "license-footer-text" = "Pokiaľ nie je uvedené inak, je obsah dostupný v rámci licencie $1.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Obsah";
+// Fuzzy
 "table-of-contents-button-label" = "Obsah";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Zavrieť obsah";
 "table-of-contents-close-accessibility-hint" = "Zavrieť";
 "abuse-filter-warning-heading" = "Toto vyzerá ako nekonštruktívna úprava. Naozaj ju chcete uložiť?";
@@ -278,7 +283,7 @@
 "image-gallery-fetch-image-info-error-title" = "Nepodarilo sa stiahnuť obrázky";
 "image-gallery-fetch-image-info-error-message" = "Nepodarilo sa stiahnuť obrázky pre tento článok. Prosím obnovte článok a skúste to znova.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
-"hockeyapp-alert-title" = "Ospravedlňujeme sa, aplikácia naposledy spadla";
+"hockeyapp-alert-title" = "Ospravedlňujeme sa za nedávne zlyhanie aplikácie";
 "hockeyapp-alert-send-report" = "Odoslať správu";
 "hockeyapp-alert-always-send" = "Vždy odoslať";
 "hockeyapp-alert-do-not-send" = "Neodoslať";
@@ -293,6 +298,7 @@
 "home-empty-section" = "Žiadne výsledky";
 "home-empty-section-check-again" = "Skúsiť znova";
 "home-continue-reading-heading" = "Pokračovať v čítaní";
+"home-continue-related-heading" = "Pretože ste čítali $1";
 "home-more-like-footer" = "Viac článkov ako $1";
 "home-nearby-nothing" = "V okolí sa nič nenašlo";
 "home-nearby-check-again" = "Pozrieť sa znova";
@@ -305,6 +311,7 @@
 "home-hide-suggestion-prompt" = "Skryť túto radu";
 "home-hide-suggestion-cancel" = "Zrušiť";
 "home-button-accessibility-label" = "Tlačidlo Domov";
+"potd-empty-error-description" = "Nepodarilo sa načítať obrázok dňa pre $1";
 "potd-description-prefix" = "Obrázok dňa pre $1";
 "welcome-explore-sub-title" = "Nová možnosť, ako objavovať zaujímavé články každý deň";
 "welcome-explore-tell-me-more" = "Zistiť viac";
@@ -347,5 +354,6 @@
 "explore-most-read-more-list-title" = "Najčítanejšie články";
 "explore-most-read-more-list-title-for-date" = "Najčítanejšie články z $1";
 "no-email-account-alert" = "Prosím, nastavte si na vašom zariadení e-mailový účet a skúste to znova.";
+"request-feedback-on-error" = "Aplikácia narazila na problém, o ktorom by naši vývojári chceli vedieť viac. Prosím, odošlite nám e-mail s podrobnosťami o chybe.";
 "explore-another-random" = "Ďalší náhodný článok";
 "find-in-page-no-matches" = "0 zhôd";

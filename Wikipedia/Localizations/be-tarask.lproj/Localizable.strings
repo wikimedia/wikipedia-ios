@@ -257,6 +257,7 @@
 "license-footer-text" = "Зьмест даступны на ўмовах $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Зьмест";
+// Fuzzy
 "table-of-contents-button-label" = "Зьмест";
 "abuse-filter-warning-heading" = "Гэтае рэдагаваньне можа быць неканструктыўным, Вы ўпэўнены, што жадаеце яго захаваць?";
 "abuse-filter-warning-subheading" = "Вашае рэдагаваньне можа ўтрымліваць адно ці болей з наступных дзеяньняў:";

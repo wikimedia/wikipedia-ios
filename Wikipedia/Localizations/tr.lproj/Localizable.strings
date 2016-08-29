@@ -269,7 +269,9 @@
 "license-footer-text" = "İçerik, aksi belirtilmedikçe $1 lisansı altında kullanılabilir";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Konu başlıkları";
+// Fuzzy
 "table-of-contents-button-label" = "İçindekiler";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "İçindekileri kapat";
 "table-of-contents-close-accessibility-hint" = "Kapat";
 "abuse-filter-warning-heading" = "Bu yapıcı olmayan bir düzenleme gibi görünüyor; kaydetmek istediğinize emin misiniz?";
