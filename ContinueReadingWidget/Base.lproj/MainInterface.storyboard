@@ -98,6 +98,7 @@
                     <size key="freeformSize" width="320" height="100"/>
                     <connections>
                         <outlet property="daysAgoLabel" destination="pDO-M3-3su" id="eFO-2c-rzZ"/>
+                        <outlet property="daysAgoView" destination="3Uu-vI-59e" id="7LE-mR-ffp"/>
                         <outlet property="imageView" destination="af3-Uc-bMS" id="91S-oM-RCp"/>
                         <outlet property="textLabel" destination="CwR-CM-SDN" id="wXQ-Lk-zcc"/>
                         <outlet property="titleLabel" destination="vq4-5M-Tnk" id="zJ9-bC-g8G"/>

@@ -5,6 +5,7 @@ import WMFUI
 class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var imageView: UIImageView!
 
+    @IBOutlet weak var daysAgoView: UIView!
     @IBOutlet weak var daysAgoLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
@@ -29,6 +30,12 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     }
     
     func widgetPerformUpdate(completionHandler: (NCUpdateResult) -> Void) {
+        textLabel.text = nil
+        titleLabel.text = nil
+        imageView.image = nil
+        imageView.hidden = true
+        daysAgoView.hidden = true
+
         guard let openArticleURL = NSUserDefaults.wmf_userDefaults().wmf_openArticleURL() else {
             articleURL = nil
             completionHandler(.NoData)
@@ -60,6 +67,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         
         if let imageURL = NSURL(string: article.imageURL) {
+            self.imageView.hidden = false
             self.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
                 
             }) {
@@ -67,7 +75,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             }
         }
         
-
+        daysAgoView.hidden = true
         completionHandler(.NewData)
         
     }
