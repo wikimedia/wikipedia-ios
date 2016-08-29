@@ -14,9 +14,6 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageView.clipsToBounds = true
-        #if DEBUG
-            NSUserDefaults.wmf_userDefaults().wmf_setOpenArticleURL(NSURL(string: "https://en.wikipedia.org/wiki/Barack_Obama#2012_presidential_campaign"))
-        #endif
         widgetPerformUpdate { (result) in
             
         }
