@@ -4,7 +4,6 @@
 #import <YapDataBase/YapDatabaseView.h>
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "NSDateFormatter+WMFExtensions.h"
-@import WMFKit;
 #import <WMFModel/WMFModel-Swift.h>
 
 #define MAX_HISTORY_ENTRIES 100

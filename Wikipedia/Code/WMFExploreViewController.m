@@ -31,7 +31,6 @@
 #import "UIView+WMFDefaultNib.h"
 #import "WMFExploreSectionHeader.h"
 #import "WMFExploreSectionFooter.h"
-#import "UITableView+WMFLockedUpdates.h"
 
 // Child View Controllers
 #import "UIViewController+WMFArticlePresentation.h"
