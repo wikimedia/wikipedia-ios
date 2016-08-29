@@ -39,4 +39,5 @@
 #import <WMFUtilities/NSDate+WMFRelativeDate.h>
 #import <WMFUtilities/NSDictionary+WMFRequiredValueForKey.h>
 #import <WMFUtilities/NSCalendar+WMFCommonCalendars.h>
+#import <WMFUtilities/WMFNumberOfExtractCharacters.h>
 #endif

@@ -87,6 +87,10 @@
 #import <WMFModel/AFHTTPSessionManager+WMFConfig.h>
 #import <WMFModel/AFHTTPRequestSerializer+WMFRequestHeaders.h>
 #import <WMFModel/AFHTTPSessionManager+WMFDesktopRetry.h>
+#import <WMFModel/WMFArticlePreviewFetcher.h>
+#import <WMFModel/WMFBaseRequestSerializer.h>
+#import <WMFModel/MWKSearchResult.h>
+#import <WMFModel/NSDictionary+WMFCommonParams.h>
 
 
 #endif /* WMFModel_global_h */

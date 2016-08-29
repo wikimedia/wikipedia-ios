@@ -1,19 +1,5 @@
 #import "WMFArticlePreviewFetcher.h"
-#import "Wikipedia-Swift.h"
-
-// Networking
-#import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPSessionManager+WMFConfig.h"
-#import "AFHTTPSessionManager+WMFDesktopRetry.h"
-#import "WMFMantleJSONResponseSerializer.h"
 #import <Mantle/Mantle.h>
-#import "WMFNumberOfExtractCharacters.h"
-#import "NSDictionary+WMFCommonParams.h"
-#import "WMFNetworkUtilities.h"
-#import "WMFBaseRequestSerializer.h"
-
-//Models
-#import "MWKSearchResult.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

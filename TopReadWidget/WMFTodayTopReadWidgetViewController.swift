@@ -1,15 +1,7 @@
-//
-//  TodayViewController.swift
-//  TopReadWidget
-//
-//  Created by Joe on 8/29/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
-
 import UIKit
 import NotificationCenter
 
-class TodayViewController: UIViewController, NCWidgetProviding {
+class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         
     override func viewDidLoad() {
         super.viewDidLoad()
