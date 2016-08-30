@@ -156,7 +156,8 @@
         @"tl.lproj",
         @"vec.lproj",
         @"xmf.lproj",
-        @"ba.lproj"
+        @"ba.lproj",
+        @"tcy.lproj"         // Tulu is written in Kannada alphabet, but "kn" wiki is already associated with "kn" localization.
     ];
 }
 
