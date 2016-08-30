@@ -260,7 +260,6 @@
 		B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */; };
 		B0E805561C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051A1C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m */; };
 		B0E805571C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051C1C0CE0DC0065EBC0 /* UIView+TemporaryAnimatedXF.m */; };
-		B0E805581C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051E1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.m */; };
 		B0E805591C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805201C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m */; };
 		B0E8055A1C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805221C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m */; };
 		B0E8055B1C0CE0DC0065EBC0 /* UIView+WMFSearchSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805241C0CE0DC0065EBC0 /* UIView+WMFSearchSubviews.m */; };
@@ -548,8 +547,6 @@
 		D83F8A2E1D74BBBF009E7D40 /* NSDate+WMFMostReadDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320011C6EBA4B00317D08 /* NSDate+WMFMostReadDate.m */; };
 		D83F8A2F1D74BBBF009E7D40 /* WMFMostReadTitlesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAF23121C6CF1B5005F2D8D /* WMFMostReadTitlesResponse.m */; };
 		D83F8A301D74BBBF009E7D40 /* WMFMostReadTitleFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAF230E1C6CE233005F2D8D /* WMFMostReadTitleFetcher.m */; };
-		D83F8A311D74BC1B009E7D40 /* WMFMostReadListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320171C73992F00317D08 /* WMFMostReadListDataSource.m */; };
-		D83F8A321D74BC1F009E7D40 /* WMFMostReadListDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = BCD320161C73992F00317D08 /* WMFMostReadListDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D83F8A331D74BC4E009E7D40 /* MWNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807231C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D83F8A341D74BC55009E7D40 /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807241C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.m */; };
 		D83FA6AF1D74CD46008CAB00 /* AFHTTPSessionManager+WMFDesktopRetry.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804611C0CE0920065EBC0 /* AFHTTPSessionManager+WMFDesktopRetry.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -804,6 +801,12 @@
 		D8CDBA9F1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */; };
 		D8D270301D75BDD800D093A8 /* NSBundle+WMFInfoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8048A1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m */; };
 		D8D270311D75BDDB00D093A8 /* NSBundle+WMFInfoUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804891C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8D270331D75C6DB00D093A8 /* UIView+WMFDefaultNib.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051E1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.m */; };
+		D8D270341D75C6DD00D093A8 /* UIView+WMFDefaultNib.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8051D1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8D270351D75CE2B00D093A8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
+		D8D270361D75D45B00D093A8 /* WMFArticleListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803B91C0CDC360065EBC0 /* WMFArticleListTableViewCell.m */; };
+		D8D270371D75D45B00D093A8 /* WMFArticleListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E803BA1C0CDC360065EBC0 /* WMFArticleListTableViewCell.xib */; };
+		D8D270381D75D46300D093A8 /* WMFMostReadListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320171C73992F00317D08 /* WMFMostReadListDataSource.m */; };
 		D8DC16E81D6F5E3300D6D9FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
 		D8DC16E91D6F6DA300D6D9FB /* UIColor+WMFStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804F21C0CE0DC0065EBC0 /* UIColor+WMFStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8DC16EA1D6F6DA300D6D9FB /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804F31C0CE0DC0065EBC0 /* UIColor+WMFStyle.m */; };
@@ -826,16 +829,12 @@
 		D8E2B0F31D6CC5DE006FFB24 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807331C0CED810065EBC0 /* WMFImageURLParsing.m */; };
 		D8EA02E11D6CC9F5008E8A47 /* WMFRelatedSectionBlackList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E331BF41C49647600DDE02A /* WMFRelatedSectionBlackList.m */; };
 		D8EA02E21D6CC9F8008E8A47 /* WMFRelatedSectionBlackList.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E331BF31C49647600DDE02A /* WMFRelatedSectionBlackList.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8EA37131D74BFBF00443524 /* WMFArticleListTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E803B81C0CDC360065EBC0 /* WMFArticleListTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8EA37141D74BFC200443524 /* WMFArticleListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803B91C0CDC360065EBC0 /* WMFArticleListTableViewCell.m */; };
-		D8EA37151D74BFD400443524 /* WMFArticleListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E803BA1C0CDC360065EBC0 /* WMFArticleListTableViewCell.xib */; };
 		D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EC64021D007B1F00C286EE /* WMFLinkParsingTests.m */; };
 		D8EEA0F11D6DF60600D88143 /* WMFTodayContinueReadingWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85219371D6DEFBB00084796 /* WMFTodayContinueReadingWidgetViewController.swift */; };
 		D8EEA0F41D6E14E800D88143 /* WMFAppModalProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EEA0F21D6E14E800D88143 /* WMFAppModalProgressViewController.swift */; };
 		D8EEA0F51D6E14E800D88143 /* WMFAppModalProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */; };
 		D8EEA0FA1D6E21A400D88143 /* NSFileManager+WMFGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D8EEA0F81D6E21A400D88143 /* NSFileManager+WMFGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8EEA0FB1D6E21A400D88143 /* NSFileManager+WMFGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */; };
-		D8F706931D74C0D3001894C6 /* WMFTitleListDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E803A81C0CDB8D0065EBC0 /* WMFTitleListDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8F706941D74C100001894C6 /* UIImage+WMFStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E805001C0CE0DC0065EBC0 /* UIImage+WMFStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8F706951D74C100001894C6 /* UIImageView+WMFPlaceholder.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E805D21C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8F706961D74C107001894C6 /* UIImage+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805011C0CE0DC0065EBC0 /* UIImage+WMFStyle.m */; };
@@ -4124,8 +4123,6 @@
 				B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */,
 				B0E805191C0CE0DC0065EBC0 /* UIView+RemoveConstraints.h */,
 				B0E8051A1C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m */,
-				B0E8051D1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.h */,
-				B0E8051E1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.m */,
 				B0E8051F1C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.h */,
 				B0E805201C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m */,
 				B0E805231C0CE0DC0065EBC0 /* UIView+WMFSearchSubviews.h */,
@@ -4807,6 +4804,12 @@
 		BCAF23071C6BEB01005F2D8D /* Most Read */ = {
 			isa = PBXGroup;
 			children = (
+				B0E803A81C0CDB8D0065EBC0 /* WMFTitleListDataSource.h */,
+				B0E803B81C0CDC360065EBC0 /* WMFArticleListTableViewCell.h */,
+				B0E803B91C0CDC360065EBC0 /* WMFArticleListTableViewCell.m */,
+				B0E803BA1C0CDC360065EBC0 /* WMFArticleListTableViewCell.xib */,
+				BCD320161C73992F00317D08 /* WMFMostReadListDataSource.h */,
+				BCD320171C73992F00317D08 /* WMFMostReadListDataSource.m */,
 				BCAF23081C6BEB3A005F2D8D /* WMFMostReadSectionController.h */,
 				BCAF23091C6BEB3A005F2D8D /* WMFMostReadSectionController.m */,
 				BCD320151C7396DD00317D08 /* More Most Read */,
@@ -5638,18 +5641,14 @@
 			isa = PBXGroup;
 			children = (
 				D8AC39261D6F247F007E3C14 /* WMFUI.h */,
+				B0E8051D1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.h */,
+				B0E8051E1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.m */,
 				B0E803DA1C0CDD050065EBC0 /* UITableViewCell+WMFEdgeToEdgeSeparator.h */,
 				B0E803DB1C0CDD050065EBC0 /* UITableViewCell+WMFEdgeToEdgeSeparator.m */,
 				B0E805001C0CE0DC0065EBC0 /* UIImage+WMFStyle.h */,
 				B0E805011C0CE0DC0065EBC0 /* UIImage+WMFStyle.m */,
 				B0E805D21C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.h */,
 				B0E805D31C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.m */,
-				B0E803A81C0CDB8D0065EBC0 /* WMFTitleListDataSource.h */,
-				B0E803B81C0CDC360065EBC0 /* WMFArticleListTableViewCell.h */,
-				B0E803B91C0CDC360065EBC0 /* WMFArticleListTableViewCell.m */,
-				B0E803BA1C0CDC360065EBC0 /* WMFArticleListTableViewCell.xib */,
-				BCD320161C73992F00317D08 /* WMFMostReadListDataSource.h */,
-				BCD320171C73992F00317D08 /* WMFMostReadListDataSource.m */,
 				B0E805D51C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.h */,
 				B0E805D61C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.m */,
 				B0E804F21C0CE0DC0065EBC0 /* UIColor+WMFStyle.h */,
@@ -5866,7 +5865,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8A76D781D6F2A4C00E5A798 /* UIImageView+WMFImageFetchingInternal.h in Headers */,
-				D83F8A321D74BC1F009E7D40 /* WMFMostReadListDataSource.h in Headers */,
 				D8A76D6C1D6F26F700E5A798 /* UIImageView+WMFImageFetching.h in Headers */,
 				D8DC16F81D6F701200D6D9FB /* CIContext+WMFImageProcessing.h in Headers */,
 				D8FAC7D71D6F740400C2A6BC /* WMFFaceDetectionCache.h in Headers */,
@@ -5875,13 +5873,12 @@
 				D8A76D701D6F274200E5A798 /* UIImage+WMFNormalization.h in Headers */,
 				D8A76D6E1D6F271500E5A798 /* UIImageView+WMFContentOffset.h in Headers */,
 				D8FAC7DA1D6F74D200C2A6BC /* UIColor+WMFHexColor.h in Headers */,
+				D8D270341D75C6DD00D093A8 /* UIView+WMFDefaultNib.h in Headers */,
 				D8DC16F91D6F701200D6D9FB /* CIDetector+WMFFaceDetection.h in Headers */,
 				D8F706941D74C100001894C6 /* UIImage+WMFStyle.h in Headers */,
-				D8EA37131D74BFBF00443524 /* WMFArticleListTableViewCell.h in Headers */,
 				D8F706981D74C195001894C6 /* UITableViewCell+WMFEdgeToEdgeSeparator.h in Headers */,
 				D8AC39281D6F2480007E3C14 /* WMFUI.h in Headers */,
 				D8DC16E91D6F6DA300D6D9FB /* UIColor+WMFStyle.h in Headers */,
-				D8F706931D74C0D3001894C6 /* WMFTitleListDataSource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6339,6 +6336,7 @@
 				B0DE92271D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				0EBCA7511C17BD6D004F1FD9 /* AlertDesign.json in Resources */,
 				B0B4CF0C1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib in Resources */,
+				D8D270371D75D45B00D093A8 /* WMFArticleListTableViewCell.xib in Resources */,
 				0E69CD5B1C8773410095918B /* Launch Screen.storyboard in Resources */,
 				BCF012331AD2FA38008D3675 /* assets in Resources */,
 				B0E804121C0CDE480065EBC0 /* PreviewAndSaveViewController.storyboard in Resources */,
@@ -6380,7 +6378,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8EA37151D74BFD400443524 /* WMFArticleListTableViewCell.xib in Resources */,
+				D8D270351D75CE2B00D093A8 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7027,7 +7025,6 @@
 				D84F2BF21D2FE7ED00963D42 /* WMFArticleNavigationController.m in Sources */,
 				0EF5BB6D1C110C2100DE75E1 /* AppDelegate.m in Sources */,
 				B0E805501C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m in Sources */,
-				B0E805581C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.m in Sources */,
 				0E09EAC41C4426470058F2D8 /* WMFSavedArticleTableViewController.m in Sources */,
 				B0E803481C0CD7AA0065EBC0 /* WMFSearchResults.m in Sources */,
 				B0DE922B1D6E272B00EC76A7 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
@@ -7038,6 +7035,7 @@
 				B0E806BC1C0CEB260065EBC0 /* LoginViewController.m in Sources */,
 				B0F956A91C481BC000691810 /* WMFArticleFooterMenuCell.m in Sources */,
 				B0E803401C0CD7850065EBC0 /* WMFSearchResults+ResponseSerializer.m in Sources */,
+				D8D270361D75D45B00D093A8 /* WMFArticleListTableViewCell.m in Sources */,
 				B0E804C21C0CE0B40065EBC0 /* MWKSection+DisplayHtml.m in Sources */,
 				B06531691C2340BB003BD7DC /* WMFArticleFooterMenuItem.m in Sources */,
 				B0E803311C0CD6F20065EBC0 /* WMFExploreSectionFooter.m in Sources */,
@@ -7063,6 +7061,7 @@
 				D81FB26C1D493E6A0000C685 /* WMFCVLMetrics.m in Sources */,
 				BCA15AF41C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.m in Sources */,
 				B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */,
+				D8D270381D75D46300D093A8 /* WMFMostReadListDataSource.m in Sources */,
 				0E0361741C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m in Sources */,
 				B0E805961C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m in Sources */,
 				0EF2249A1CC5536200FDF78E /* WMFLanguageCell.m in Sources */,
@@ -7275,10 +7274,8 @@
 			files = (
 				D8A76D6F1D6F272100E5A798 /* UIImageView+WMFContentOffset.m in Sources */,
 				D8F706961D74C107001894C6 /* UIImage+WMFStyle.m in Sources */,
-				D8EA37141D74BFC200443524 /* WMFArticleListTableViewCell.m in Sources */,
 				D8DC16FB1D6F701800D6D9FB /* CIDetector+WMFFaceDetection.m in Sources */,
 				D8DC16EA1D6F6DA300D6D9FB /* UIColor+WMFStyle.m in Sources */,
-				D83F8A311D74BC1B009E7D40 /* WMFMostReadListDataSource.m in Sources */,
 				D8FAC7D61D6F73FD00C2A6BC /* WMFFaceDetectionCache.m in Sources */,
 				D8FAC7DB1D6F74D600C2A6BC /* UIColor+WMFHexColor.m in Sources */,
 				D8A76D6D1D6F26FD00E5A798 /* UIImageView+WMFImageFetching.m in Sources */,
@@ -7286,6 +7283,7 @@
 				D8DC16F51D6F6FDB00D6D9FB /* UIImage+WMFImageProcessing.m in Sources */,
 				D8F706991D74C19A001894C6 /* UITableViewCell+WMFEdgeToEdgeSeparator.m in Sources */,
 				D8A76D771D6F2A4900E5A798 /* UIImageView+WMFImageFetchingInternal.m in Sources */,
+				D8D270331D75C6DB00D093A8 /* UIView+WMFDefaultNib.m in Sources */,
 				D8A76D711D6F274A00E5A798 /* UIImage+WMFNormalization.m in Sources */,
 				D8F706971D74C107001894C6 /* UIImageView+WMFPlaceholder.m in Sources */,
 			);
