@@ -236,7 +236,6 @@
 		B0E804C81C0CE0B40065EBC0 /* NSAttributedString+WMFModify.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804841C0CE0B40065EBC0 /* NSAttributedString+WMFModify.m */; };
 		B0E804C91C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804861C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m */; };
 		B0E804CA1C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804881C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m */; };
-		B0E804CB1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8048A1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m */; };
 		B0E804CC1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8048C1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.m */; };
 		B0E804D01C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804941C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.m */; };
 		B0E804D51C0CE0B40065EBC0 /* NSObject+ConstraintsScale.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8049D1C0CE0B40065EBC0 /* NSObject+ConstraintsScale.m */; };
@@ -803,6 +802,8 @@
 		D8C9BFE81D6CC92C0084624F /* MWKLanguageLinkResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062D1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062E1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.m */; };
 		D8CDBA9F1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */; };
+		D8D270301D75BDD800D093A8 /* NSBundle+WMFInfoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8048A1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m */; };
+		D8D270311D75BDDB00D093A8 /* NSBundle+WMFInfoUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804891C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8DC16E81D6F5E3300D6D9FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
 		D8DC16E91D6F6DA300D6D9FB /* UIColor+WMFStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804F21C0CE0DC0065EBC0 /* UIColor+WMFStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8DC16EA1D6F6DA300D6D9FB /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804F31C0CE0DC0065EBC0 /* UIColor+WMFStyle.m */; };
@@ -2377,6 +2378,7 @@
 		D8C0C0091D144FF30019374D /* WMFProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFProxyServer.h; sourceTree = "<group>"; };
 		D8C0C00A1D144FF30019374D /* WMFProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProxyServer.m; sourceTree = "<group>"; };
 		D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableOfContentsAboutThisArticleItem.swift; path = Wikipedia/Code/TableOfContentsAboutThisArticleItem.swift; sourceTree = SOURCE_ROOT; };
+		D8D270321D75BE8100D093A8 /* TopReadWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TopReadWidget.entitlements; sourceTree = "<group>"; };
 		D8DC16FC1D6F709300D6D9FB /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		D8DC16FE1D6F718300D6D9FB /* NSURL+WMFMainPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+WMFMainPage.h"; path = "Wikipedia/Code/NSURL+WMFMainPage.h"; sourceTree = SOURCE_ROOT; };
 		D8DC16FF1D6F718300D6D9FB /* NSURL+WMFMainPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFMainPage.m"; path = "Wikipedia/Code/NSURL+WMFMainPage.m"; sourceTree = SOURCE_ROOT; };
@@ -4200,8 +4202,6 @@
 			children = (
 				04C43AB7183442FC006C643B /* Categories */,
 				BC45D5551C31ED70007C72F3 /* Operations */,
-				B0E804891C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.h */,
-				B0E8048A1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m */,
 				B0E805BD1C0CE4D40065EBC0 /* WMFBackgroundTaskManager.swift */,
 				7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */,
 				D8C0C0091D144FF30019374D /* WMFProxyServer.h */,
@@ -5498,6 +5498,8 @@
 		D8494AEF1D6C8BE200337433 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B0E804891C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.h */,
+				B0E8048A1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m */,
 				B0E803961C0CDB150065EBC0 /* WMFNumberOfExtractCharacters.h */,
 				BCD31FFC1C6EB3EE00317D08 /* NSCalendar+WMFCommonCalendars.h */,
 				BCD31FFD1C6EB3EE00317D08 /* NSCalendar+WMFCommonCalendars.m */,
@@ -5602,6 +5604,7 @@
 		D85D34C71D74D07500845125 /* TopReadWidget */ = {
 			isa = PBXGroup;
 			children = (
+				D8D270321D75BE8100D093A8 /* TopReadWidget.entitlements */,
 				D85D34C81D74D07500845125 /* WMFTodayTopReadWidgetViewController.swift */,
 				D85D34CA1D74D07500845125 /* MainInterface.storyboard */,
 				D85D34CD1D74D07500845125 /* Info.plist */,
@@ -5821,6 +5824,7 @@
 				D8AC391C1D6F22AA007E3C14 /* NSDateFormatter+WMFExtensions.h in Headers */,
 				D8494AF01D6C8C4400337433 /* WMFComparison.h in Headers */,
 				D8494AF21D6C8C6700337433 /* WMFDeprecationMacros.h in Headers */,
+				D8D270311D75BDDB00D093A8 /* NSBundle+WMFInfoUtils.h in Headers */,
 				D8AC393B1D6F25A4007E3C14 /* WMFUtilities.h in Headers */,
 				D844D9E01D6CBC2C0042D692 /* NSURL+WMFQueryParameters.h in Headers */,
 				D8494B051D6C90AC00337433 /* WMFDirectoryPaths.h in Headers */,
@@ -6089,6 +6093,11 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = AKK7J2GV64;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					D8AC39231D6F247F007E3C14 = {
 						CreatedOnToolsVersion = 8.0;
@@ -7100,7 +7109,6 @@
 				B0E8054E1C0CE0DC0065EBC0 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				B0E8037B1C0CD9D30065EBC0 /* WMFTableOfContentsItem.swift in Sources */,
 				0E9B9E331CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m in Sources */,
-				B0E804CB1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m in Sources */,
 				0E3268BC1C52A91000131F5F /* WMFCompassViewModel.m in Sources */,
 				B0E8033C1C0CD76B0065EBC0 /* WMFSearchViewController.m in Sources */,
 				B0E8044B1C0CDF850065EBC0 /* WMFGradientView.m in Sources */,
@@ -7249,6 +7257,7 @@
 				D8EEA0FB1D6E21A400D88143 /* NSFileManager+WMFGroup.m in Sources */,
 				D8AC391B1D6F22A6007E3C14 /* NSDateFormatter+WMFExtensions.m in Sources */,
 				D844D9CC1D6CBA530042D692 /* NSArray+WMFPredicate.swift in Sources */,
+				D8D270301D75BDD800D093A8 /* NSBundle+WMFInfoUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8948,6 +8957,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -8976,6 +8986,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -9004,6 +9015,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -9027,6 +9039,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -9050,6 +9063,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -9073,6 +9087,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = TopReadWidget/TopReadWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

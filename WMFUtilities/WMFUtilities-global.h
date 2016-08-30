@@ -40,4 +40,5 @@
 #import <WMFUtilities/NSDictionary+WMFRequiredValueForKey.h>
 #import <WMFUtilities/NSCalendar+WMFCommonCalendars.h>
 #import <WMFUtilities/WMFNumberOfExtractCharacters.h>
+#import <WMFUtilities/NSBundle+WMFInfoUtils.h>
 #endif
