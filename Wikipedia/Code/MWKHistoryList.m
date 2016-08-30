@@ -147,7 +147,7 @@ NS_ASSUME_NONNULL_BEGIN
     return entry;
 }
 
-- (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithURL:(NSURL *)url {
+- (void)setFragment:(nullable NSString *)fragment scrollPosition:(CGFloat)scrollposition onPageInHistoryWithURL:(NSURL *)url {
     if ([url.wmf_title length] == 0) {
         return;
     }
@@ -155,6 +155,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.dataSource readWriteAndReturnUpdatedKeysWithBlock:^NSArray *_Nonnull(YapDatabaseReadWriteTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view) {
         MWKHistoryEntry *entry = [transaction objectForKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
         if (entry) {
+            entry.fragment = fragment;
             entry.scrollPosition = scrollposition;
             [transaction setObject:entry forKey:[MWKHistoryEntry databaseKeyForURL:url] inCollection:[MWKHistoryEntry databaseCollectionName]];
         }

@@ -58,7 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, getter=isUpdateTableOfContentsSectionOnScrollEnabled) BOOL updateTableOfContentsSectionOnScrollEnabled;
 
 @property (nonatomic, strong, nullable) MWKSection *currentSection; //doesn't actually update the view, only here for access from Swift category
+@property (nonatomic, strong, nullable) MWKSection *sectionToRestoreScrollOffset; //doesn't actually update the view, only here for access from Swift category
 @property (nonatomic) NSInteger currentFooterIndex;                 //doesn't actually update the view, only here for access from Swift category
+@property (nonatomic) NSInteger footerIndexToRestoreScrollOffset;                 //doesn't actually update the view, only here for access from Swift category
 
 @end
 

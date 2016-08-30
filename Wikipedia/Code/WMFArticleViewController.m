@@ -961,9 +961,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [UIView animateWithDuration:0.20
             animations:^{
                 [self layoutForSize:self.view.bounds.size];
-                if (self.currentSection) {
+                if (self.sectionToRestoreScrollOffset) {
                     [self.webViewController scrollToSection:self.currentSection animated:NO];
-                } else if (self.currentFooterIndex != NSNotFound) {
+                } else if (self.footerIndexToRestoreScrollOffset != NSNotFound) {
                     [self.webViewController scrollToFooterAtIndex:self.currentFooterIndex animated:NO];
                 } else {
                     scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
@@ -1107,9 +1107,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
     CGFloat offset = [self.webViewController currentVerticalOffset];
-    if (offset > 0) {
-        [self.recentPages setPageScrollPosition:offset onPageInHistoryWithURL:self.articleURL];
-    }
+    [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection * _Nullable section, NSError * _Nullable error) {
+        self.currentSection = section;
+        [self.recentPages setFragment:self.currentSection.anchor scrollPosition:offset onPageInHistoryWithURL:self.articleURL];
+    }];
 }
 
 #pragma mark - Article Fetching
@@ -1401,14 +1402,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)updateTableOfContentsHighlightWithScrollView:(UIScrollView *)scrollView {
     self.currentFooterIndex = NSNotFound;
-    self.currentSection = nil;
+    self.sectionToRestoreScrollOffset = nil;
+    self.footerIndexToRestoreScrollOffset = NSNotFound;
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *_Nullable section, NSError *_Nullable error) {
         if (section) {
+            self.currentSection = section;
+            self.currentFooterIndex = NSNotFound;
             [self selectAndScrollToTableOfContentsItemForSection:section animated:YES];
         } else {
             NSInteger visibleFooterIndex = self.webViewController.visibleFooterIndex;
             if (visibleFooterIndex != NSNotFound) {
                 [self selectAndScrollToTableOfContentsFooterItemAtIndex:visibleFooterIndex animated:YES];
+                self.currentFooterIndex = visibleFooterIndex;
+                self.currentSection = nil;
             }
         }
     }];

@@ -76,5 +76,8 @@
 #import <WMFModel/NSURL+WMFMainPage.h>
 #import <WMFModel/WMFAssetsFile.h>
 
+#import <WMFModel/WMFDataSource.h>
+#import <WMFModel/WMFDatabaseDataSource.h>
+#import <WMFModel/MWKDataStore+WMFDataSources.h>
 
 #endif /* WMFModel_global_h */

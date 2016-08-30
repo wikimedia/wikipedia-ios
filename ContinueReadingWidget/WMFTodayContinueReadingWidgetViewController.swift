@@ -36,20 +36,31 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         imageView.hidden = true
         daysAgoView.hidden = true
 
-        guard let openArticleURL = NSUserDefaults.wmf_userDefaults().wmf_openArticleURL() else {
-            articleURL = nil
+        guard let session = SessionSingleton.sharedInstance() else {
             completionHandler(.NoData)
             return
         }
         
-        articleURL = openArticleURL
         
-        guard let article = SessionSingleton.sharedInstance().dataStore.existingArticleWithURL(openArticleURL) else {
+        articleURL = NSUserDefaults.wmf_userDefaults().wmf_openArticleURL()
+            
+        if articleURL == nil {
+            let historyEntry = session.userDataStore.historyList.mostRecentEntry()
+            let fragment: String? = historyEntry?.fragment
+            articleURL = historyEntry?.url.wmf_URLWithFragment(fragment)
+        }
+        
+        guard let lastReadArticleURL = articleURL else {
             completionHandler(.NoData)
             return
         }
         
-        if let section = article.sections.sectionWithFragment(openArticleURL.fragment) {
+        guard let article = session.dataStore.existingArticleWithURL(lastReadArticleURL) else {
+            completionHandler(.NoData)
+            return
+        }
+        
+        if let section = article.sections.sectionWithFragment(lastReadArticleURL.fragment) {
             self.textLabel.text = section.line?.wmf_stringByRemovingHTML()
         } else {
             self.textLabel.text = nil
