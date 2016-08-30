@@ -803,10 +803,11 @@
 		D8D270311D75BDDB00D093A8 /* NSBundle+WMFInfoUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804891C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8D270331D75C6DB00D093A8 /* UIView+WMFDefaultNib.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051E1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.m */; };
 		D8D270341D75C6DD00D093A8 /* UIView+WMFDefaultNib.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8051D1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8D270351D75CE2B00D093A8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		D8D270361D75D45B00D093A8 /* WMFArticleListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803B91C0CDC360065EBC0 /* WMFArticleListTableViewCell.m */; };
 		D8D270371D75D45B00D093A8 /* WMFArticleListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E803BA1C0CDC360065EBC0 /* WMFArticleListTableViewCell.xib */; };
 		D8D270381D75D46300D093A8 /* WMFMostReadListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320171C73992F00317D08 /* WMFMostReadListDataSource.m */; };
+		D8D2703B1D75ED5000D093A8 /* WMFArticlePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D270391D75ED5000D093A8 /* WMFArticlePreviewViewController.swift */; };
+		D8D2703C1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8D2703A1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib */; };
 		D8DC16E81D6F5E3300D6D9FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
 		D8DC16E91D6F6DA300D6D9FB /* UIColor+WMFStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804F21C0CE0DC0065EBC0 /* UIColor+WMFStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8DC16EA1D6F6DA300D6D9FB /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804F31C0CE0DC0065EBC0 /* UIColor+WMFStyle.m */; };
@@ -2378,6 +2379,8 @@
 		D8C0C00A1D144FF30019374D /* WMFProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProxyServer.m; sourceTree = "<group>"; };
 		D8CDBA9E1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableOfContentsAboutThisArticleItem.swift; path = Wikipedia/Code/TableOfContentsAboutThisArticleItem.swift; sourceTree = SOURCE_ROOT; };
 		D8D270321D75BE8100D093A8 /* TopReadWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TopReadWidget.entitlements; sourceTree = "<group>"; };
+		D8D270391D75ED5000D093A8 /* WMFArticlePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFArticlePreviewViewController.swift; path = Wikipedia/Code/WMFArticlePreviewViewController.swift; sourceTree = SOURCE_ROOT; };
+		D8D2703A1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticlePreviewViewController.xib; path = Wikipedia/Code/WMFArticlePreviewViewController.xib; sourceTree = SOURCE_ROOT; };
 		D8DC16FC1D6F709300D6D9FB /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		D8DC16FE1D6F718300D6D9FB /* NSURL+WMFMainPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+WMFMainPage.h"; path = "Wikipedia/Code/NSURL+WMFMainPage.h"; sourceTree = SOURCE_ROOT; };
 		D8DC16FF1D6F718300D6D9FB /* NSURL+WMFMainPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFMainPage.m"; path = "Wikipedia/Code/NSURL+WMFMainPage.m"; sourceTree = SOURCE_ROOT; };
@@ -5642,6 +5645,8 @@
 			children = (
 				D8AC39261D6F247F007E3C14 /* WMFUI.h */,
 				B0E8051D1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.h */,
+				D8D270391D75ED5000D093A8 /* WMFArticlePreviewViewController.swift */,
+				D8D2703A1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib */,
 				B0E8051E1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.m */,
 				B0E803DA1C0CDD050065EBC0 /* UITableViewCell+WMFEdgeToEdgeSeparator.h */,
 				B0E803DB1C0CDD050065EBC0 /* UITableViewCell+WMFEdgeToEdgeSeparator.m */,
@@ -6098,6 +6103,7 @@
 					};
 					D8AC39231D6F247F007E3C14 = {
 						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -6378,7 +6384,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8D270351D75CE2B00D093A8 /* Images.xcassets in Resources */,
+				D8D2703C1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7278,6 +7284,7 @@
 				D8DC16EA1D6F6DA300D6D9FB /* UIColor+WMFStyle.m in Sources */,
 				D8FAC7D61D6F73FD00C2A6BC /* WMFFaceDetectionCache.m in Sources */,
 				D8FAC7DB1D6F74D600C2A6BC /* UIColor+WMFHexColor.m in Sources */,
+				D8D2703B1D75ED5000D093A8 /* WMFArticlePreviewViewController.swift in Sources */,
 				D8A76D6D1D6F26FD00E5A798 /* UIImageView+WMFImageFetching.m in Sources */,
 				D8DC16FA1D6F701800D6D9FB /* CIContext+WMFImageProcessing.m in Sources */,
 				D8DC16F51D6F6FDB00D6D9FB /* UIImage+WMFImageProcessing.m in Sources */,
@@ -9110,6 +9117,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -9132,6 +9140,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
@@ -9144,6 +9154,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -9166,6 +9177,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = "Debug Test";
@@ -9178,6 +9191,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -9196,6 +9210,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = AdHoc;
@@ -9208,6 +9223,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -9226,6 +9242,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
@@ -9238,6 +9255,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -9256,6 +9274,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Test;
@@ -9268,6 +9287,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -9286,6 +9306,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Beta;
