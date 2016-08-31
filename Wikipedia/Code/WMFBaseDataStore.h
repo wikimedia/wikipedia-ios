@@ -51,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, strong, nonatomic) YapDatabaseConnection *readConnection;
 @property (readonly, strong, nonatomic) YapDatabaseConnection *writeConnection;
 
+
 - (void)dataStoreWasUpdatedWithNotification:(NSNotification*)notification;
 
 @end

@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (instancetype)initWithDatabase:(YapDatabase *)database {
+    NSParameterAssert(database);
     self = [super init];
     if (self) {
         self.database = database;

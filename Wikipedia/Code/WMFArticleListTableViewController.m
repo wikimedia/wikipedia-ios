@@ -41,7 +41,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSParameterAssert(self.dataStore);
+    NSParameterAssert(self.userDataStore);
     [self updateEmptyAndDeleteState];
 }
 
@@ -70,7 +70,7 @@
         [self.delegate listViewController:self didSelectArticleURL:url];
         return;
     }
-    [self wmf_pushArticleWithURL:url dataStore:self.dataStore animated:YES];
+    [self wmf_pushArticleWithURL:url dataStore:self.userDataStore animated:YES];
 }
 
 #pragma mark - Previewing
@@ -114,7 +114,7 @@
     if (self.delegate) {
         return [self.delegate listViewController:self viewControllerForPreviewingArticleURL:url];
     } else {
-        return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
+        return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userDataStore];
     }
 }
 
@@ -177,10 +177,6 @@
 }
 
 #pragma mark - Subclasses
-
-- (NSString *)analyticsContext {
-    return @"Generic Article List";
-}
 
 - (WMFEmptyViewType)emptyViewType {
     return WMFEmptyViewTypeNone;

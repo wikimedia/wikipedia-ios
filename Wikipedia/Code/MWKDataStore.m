@@ -2,6 +2,7 @@
 #import "YapDatabase+WMFViews.h"
 #import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
+#import "MWKHistoryEntry+WMFDatabaseViews.h"
 #import <WMFModel/WMFModel-Swift.h>
 
 #import "WMFRelatedSectionBlackList.h"
@@ -56,6 +57,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 - (instancetype)initWithDatabase:(YapDatabase *)database legacyDataBasePath:(NSString *)basePath {
     self = [super initWithDatabase:database];
     if (self) {
+        [MWKHistoryEntry registerViewsInDatabase:database];
         self.basePath = basePath;
         [self setupLegacyDataStore];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];

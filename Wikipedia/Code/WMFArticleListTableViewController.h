@@ -1,6 +1,5 @@
 #import <UIKit/UIKit.h>
 #import "UIViewController+WMFEmptyView.h"
-#import "WMFAnalyticsLogging.h"
 
 @class MWKDataStore;
 @class WMFArticleListTableViewController;
@@ -17,9 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFArticleListTableViewController : UITableViewController <WMFAnalyticsContextProviding>
+@interface WMFArticleListTableViewController : UITableViewController
 
-@property (nonatomic, strong) MWKDataStore *dataStore;
+@property (nonatomic, strong) MWKDataStore *userDataStore;
 
 /**
  *  Optional delegate which will is informed of selection.
@@ -31,8 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface WMFArticleListTableViewController (WMFSubclasses)
-
-- (NSString *)analyticsContext;
 
 - (WMFEmptyViewType)emptyViewType;
 

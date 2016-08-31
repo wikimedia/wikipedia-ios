@@ -5,13 +5,9 @@
 @interface WMFExploreSection (WMFDatabaseStorable)<WMFDatabaseStorable>
 
 /**
- * Database Key for saved and history. Based on article URL.
+ * URL for daily sections. Based on date and the type since there is no canonical URL
  */
-+ (NSString *)databaseKeyForArticleURL:(NSURL *)url;
++ (NSURL *)urlForSiteURL:(NSURL*)url date:(NSDate*)date type:(WMFExploreSectionType)type;
 
-/**
- * Database Key for daily sections. Based on date and the type.
- */
-+ (NSString *)databaseKeyForDate:(NSDate*)date type:(WMFExploreSectionType)type;
 
 @end

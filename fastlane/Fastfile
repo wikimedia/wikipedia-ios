@@ -28,6 +28,7 @@ platform :ios do
 
   desc "Runs tests, version, tag, and push to the beta branch"
   lane :testAndPushBeta do
+    mergeReleaseBetaIntoBeta
     verifyTestPlatforms
     bumpAndTagBeta
     badge(dark: true, shield: get_badge_version_string, shield_no_resize: true)
@@ -36,14 +37,8 @@ platform :ios do
 
   desc "Runs tests, version, tag, and push to the beta branch"
   lane :submitAndPushToMaster do
+    mergeReleaseIntoMaster
     bumpAndTagRelease
-    store
-  end
-
-  desc "Runs tests, version, tag, and push to the beta branch"
-  lane :submitHotfixAndPushToMaster do
-    verifyTestPlatforms
-    tagHotfix
     store
   end
 
@@ -115,14 +110,26 @@ platform :ios do
     get_version_string
   end
 
-  desc "Increment the app's beta build number, add a tag, and push to the beta branch."
-  lane :bumpAndTagBeta do |options|
+  desc "Merge release-beta branch into beta branch. This should be done before verifying test platforms."
+  lane :mergeReleaseBetaIntoBeta do |options|
     sh "git fetch"
     sh "git checkout release-beta"
     sh "git pull"
     sh "git checkout beta"
     sh "git merge release-beta"
+  end
 
+  desc "Merge release branch into beta master."
+  lane :mergeReleaseIntoMaster do |options|
+    sh "git fetch"
+    sh "git checkout release"
+    sh "git pull"
+    sh "git checkout master"
+    sh "git merge release"
+  end
+
+  desc "Increment the app's beta build number, add a tag, and push to the beta branch."
+  lane :bumpAndTagBeta do |options|
     increment_build_number
 
     new_version = get_version_string
@@ -140,37 +147,10 @@ platform :ios do
 
   desc "Increment the app's build number, add a tag, and push to the master branch."
   lane :bumpAndTagRelease do |options|
-    sh "git fetch"
-    sh "git checkout release"
-    sh "git pull"
-    sh "git checkout master"
-    sh "git merge release"
-
     increment_build_number(build_number: get_release_build_number)
 
     new_version = get_version_string
     commit_version_bump
-    push_to_git_remote(
-       local_branch: 'master',  # optional, aliased by 'branch', default: 'master'
-       remote_branch: 'master', # optional, default is set to local_branch
-    )
-
-    tag_name = "releases/#{new_version}"
-    add_git_tag(tag: tag_name)
-    sh "git push origin --tags"
-
-  end
-
-  desc "Add a tag, and push to the master branch."
-  lane :tagHotfix do |options|
-    sh "git fetch"
-    sh "git checkout 5.0.5"
-    sh "git pull"
-    sh "git checkout master"
-    sh "git merge 5.0.5"
-
-    new_version = get_version_string
-
     push_to_git_remote(
        local_branch: 'master',  # optional, aliased by 'branch', default: 'master'
        remote_branch: 'master', # optional, default is set to local_branch

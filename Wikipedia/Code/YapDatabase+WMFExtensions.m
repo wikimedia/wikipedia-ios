@@ -1,5 +1,4 @@
 #import "YapDatabase+WMFExtensions.h"
-#import "YapDatabase+WMFViews.h"
 
 @implementation YapDatabase (WMFExtensions)
 
@@ -8,7 +7,6 @@
     static id sharedInstance;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[[self class] alloc] initWithPath:[[self class] wmf_databasePath]];
-        [sharedInstance wmf_registerViews];
     });
     return sharedInstance;
 }
