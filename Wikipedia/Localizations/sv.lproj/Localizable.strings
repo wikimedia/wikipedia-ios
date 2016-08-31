@@ -265,7 +265,9 @@
 "license-footer-text" = "Innehållet är tillgängligt under $1 om ingenting annat anges.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Innehåll";
+// Fuzzy
 "table-of-contents-button-label" = "Innehållsförteckning";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Stäng innehållsförteckningen";
 "table-of-contents-close-accessibility-hint" = "Stäng";
 "abuse-filter-warning-heading" = "Detta ser ut som en icke-konstruktiv redigering. Är du säker på att du vill spara den?";

@@ -118,7 +118,9 @@
 "onboarding-free-encyclopedia" = "Η ελεύθερη εγκυκλοπαίδεια";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Περιεχόμενα";
+// Fuzzy
 "table-of-contents-button-label" = "Πίνακας Περιεχομένων";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Κλείσιμο του Πίνακα Περιεχομένων";
 "table-of-contents-close-accessibility-hint" = "Κλείσιμο";
 "menu-edit-accessibility-label" = "Επεξεργασία";

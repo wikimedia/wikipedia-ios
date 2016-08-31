@@ -246,7 +246,9 @@
 "license-footer-text" = "مواد $1 جي تحت ميسر آهي نہ تہ ٻي صورت ۾ نوٽ ٿيل آھي.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "فهرست";
+// Fuzzy
 "table-of-contents-button-label" = "فهرست";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "عنوانن جي فھرست بند ڪريو";
 "table-of-contents-close-accessibility-hint" = "بند ڪريو";
 "abuse-filter-warning-heading" = "هي هڪ غير تخليقي ترميم لڳي ٿي، ڇا توهان انکي سانڍڻ چاهيو ٿا؟";

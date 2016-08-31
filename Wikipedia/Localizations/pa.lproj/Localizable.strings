@@ -259,7 +259,9 @@
 "license-footer-text" = "ਇਹ ਸਮੱਗਰੀ $1 ਹੇਠ ਮੌਜੂਦ ਹੈ। ਅਜਿਹਾ ਨਾ ਹੋਣ ਉੱਤੇ ਵਿਸ਼ੇਸ਼ ਤੌਰ ਉੱਤੇ ਦੱਸਿਆ ਜਾਵੇਗਾ।";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "ਸਮੱਗਰੀ";
+// Fuzzy
 "table-of-contents-button-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ ਬੰਦ ਕਰੋ";
 "table-of-contents-close-accessibility-hint" = "ਬੰਦ";
 "abuse-filter-warning-heading" = "ਇਹ ਇੱਕ ਬੇਉਸਾਰੂ ਸੋਧ ਜਾਪਦੀ ਹੈ, ਕੀ ਤੁਸੀਂ ਸੱਚੀਂ ਇਹਨੂੰ ਸਾਂਭਣਾ ਚਾਹੁੰਦੇ ਹੋ?";

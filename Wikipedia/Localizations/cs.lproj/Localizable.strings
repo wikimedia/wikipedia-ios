@@ -223,7 +223,9 @@
 "license-footer-text" = "Obsah je dostupný pod $1, pokud není uvedeno jinak.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Obsah";
+// Fuzzy
 "table-of-contents-button-label" = "Tabulka s obsahem";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Zavřít tabulku s obsahem";
 "table-of-contents-close-accessibility-hint" = "Zavřít";
 "abuse-filter-warning-repeat" = "Opakujíííííící se znaky";
