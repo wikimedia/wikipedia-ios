@@ -8,6 +8,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var stackView: UIStackView!
     
+    var snapshotView: UIView?
+    
     let cellReuseIdentifier = "articleList"
     let articlePreviewFetcher = WMFArticlePreviewFetcher()
     let mostReadFetcher = WMFMostReadTitleFetcher()
@@ -15,8 +17,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     var maximumRowCount = 3
     var results: [MWKSearchResult] = []
     var articlePreviewViewControllers: [WMFArticlePreviewViewController] = []
-    var addedVCs: [WMFArticlePreviewViewController] = []
-    var removedVCs: [WMFArticlePreviewViewController] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,24 +35,17 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
-        for vc in addedVCs {
-            vc.view.alpha = 0
+        guard let viewToFade = snapshotView else {
+            return
         }
-        
-        for vc in removedVCs {
-            vc.view.alpha = 1
-        }
-   
         coordinator.animateAlongsideTransition({ (context) in
-            for vc in self.addedVCs {
-                vc.view.alpha = 1
-            }
-            for vc in self.removedVCs {
-                vc.view.alpha = 0
-            }
+            viewToFade.alpha = 0
+            self.stackView.alpha = 1
+            self.stackView.frame = CGRect(origin: CGPointZero, size: size)
+
             }) { (context) in
-                self.addedVCs = []
-                self.removedVCs = []
+            viewToFade.removeFromSuperview()
+            self.snapshotView = nil
         }
     }
     
@@ -65,6 +58,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     func updateView() {
         var i = 0
         let count = min(results.count, maximumRowCount)
+        var didRemove = false
+        var didAdd = false
+        let newSnapshot = view.snapshotViewAfterScreenUpdates(false)
         while i < count {
             var vc: WMFArticlePreviewViewController
             if (i < articlePreviewViewControllers.count) {
@@ -74,10 +70,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 articlePreviewViewControllers.append(vc)
             }
             if vc.parentViewController == nil {
-                addedVCs.append(vc)
                 addChildViewController(vc)
                 stackView.addArrangedSubview(vc.view)
                 vc.didMoveToParentViewController(self)
+                didAdd = true
             }
             let result = results[i]
             vc.titleLabel.text = result.displayTitle
@@ -92,18 +88,31 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         while i < articlePreviewViewControllers.count {
             let vc = articlePreviewViewControllers[i]
             if vc.parentViewController != nil {
-                removedVCs.append(vc)
                 vc.willMoveToParentViewController(nil)
                 vc.view.removeFromSuperview()
                 stackView.removeArrangedSubview(vc.view)
                 vc.removeFromParentViewController()
+                didRemove = true
             }
             i += 1
+        }
+        
+        
+        if let snapshot = newSnapshot where didRemove || didAdd {
+            snapshot.frame = view.bounds
+            view.addSubview(snapshot)
+            snapshotView = snapshot
+        }
+        
+        if didAdd {
+            stackView.alpha = 0
         }
         
         var size = stackView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityDefaultLow)
         size.width = maximumSize.width
         preferredContentSize = size
+        
+        stackView.frame = CGRect(origin: CGPointZero, size: size)
     }
     
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
