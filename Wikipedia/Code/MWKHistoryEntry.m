@@ -75,7 +75,7 @@
     [dict wmf_maybeSetObject:@(self.scrollPosition) forKey:@"scrollPosition"];
     [dict wmf_maybeSetObject:@(self.titleWasSignificantlyViewed) forKey:@"titleWasSignificantlyViewed"];
     [dict wmf_maybeSetObject:self.fragment forKey:@"fragment"];
-    
+
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 

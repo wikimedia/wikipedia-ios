@@ -17,7 +17,6 @@
 
 @property (nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;
 
-
 @end
 
 @implementation WMFSaveButtonController
