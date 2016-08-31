@@ -85,7 +85,7 @@
 }
 
 - (void)setImage:(MWKImage *)image failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
-     [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES onGPU:YES failure:failure success:success];
+    [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES onGPU:YES failure:failure success:success];
 }
 
 - (void)setImageURL:(NSURL *)imageURL {
