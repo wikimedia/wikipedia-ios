@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11198.2" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFArticlePreviewViewController">
             <connections>
                 <outlet property="imageView" destination="sBV-nz-BRl" id="wNL-uY-r8g"/>
+                <outlet property="separatorView" destination="xnh-wl-RXW" id="7Cd-KF-RX3"/>
                 <outlet property="subtitleLabel" destination="tGB-R2-1JO" id="3cy-Z7-BNS"/>
                 <outlet property="titleLabel" destination="3sD-Qs-JfB" id="cDK-az-uMN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -47,16 +47,25 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xnh-wl-RXW">
+                    <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="gFw-aV-GNQ"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tGB-R2-1JO" secondAttribute="bottom" priority="750" constant="16" id="45X-Fv-vfG"/>
                 <constraint firstItem="3sD-Qs-JfB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="4f9-jk-UAA"/>
                 <constraint firstItem="sBV-nz-BRl" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="Cr9-82-itP"/>
+                <constraint firstAttribute="bottom" secondItem="xnh-wl-RXW" secondAttribute="bottom" id="P8p-Ma-M5h"/>
+                <constraint firstItem="xnh-wl-RXW" firstAttribute="leading" secondItem="3sD-Qs-JfB" secondAttribute="leading" id="QsM-Tt-vKf"/>
                 <constraint firstItem="tGB-R2-1JO" firstAttribute="top" secondItem="3sD-Qs-JfB" secondAttribute="bottom" constant="4" id="TIt-oc-VCe"/>
                 <constraint firstItem="tGB-R2-1JO" firstAttribute="leading" secondItem="3sD-Qs-JfB" secondAttribute="leading" id="VL6-tl-eki"/>
                 <constraint firstAttribute="trailing" secondItem="sBV-nz-BRl" secondAttribute="trailing" constant="16" id="dDa-n0-3wG"/>
                 <constraint firstItem="3sD-Qs-JfB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="eKF-om-e13"/>
+                <constraint firstAttribute="trailing" secondItem="xnh-wl-RXW" secondAttribute="trailing" id="hZ1-Qp-sRR"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="sBV-nz-BRl" secondAttribute="bottom" priority="750" constant="16" id="vIx-aM-iiu"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

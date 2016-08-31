@@ -5,6 +5,7 @@ public class WMFArticlePreviewViewController: UIViewController {
     @IBOutlet weak public var imageView: UIImageView!
     @IBOutlet weak public var subtitleLabel: UILabel!
     @IBOutlet weak public var titleLabel: UILabel!
+    @IBOutlet weak public var separatorView: UIView!
     
     public required init() {
         let bundle = NSBundle(identifier: "org.wikimedia.WMFUI")

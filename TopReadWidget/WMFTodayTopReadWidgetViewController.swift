@@ -83,6 +83,11 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             if let imageURL = result.thumbnailURL {
                 vc.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
             }
+            if i == (count - 1) {
+                vc.separatorView.hidden = true
+            } else {
+                vc.separatorView.hidden = false
+            }
             i += 1
         }
         while i < articlePreviewViewControllers.count {
