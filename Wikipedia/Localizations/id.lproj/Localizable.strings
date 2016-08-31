@@ -265,7 +265,9 @@
 "license-footer-text" = "Konten tersedia di bawah lisensi $1 kecuali dinyatakan lain.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Konten";
+// Fuzzy
 "table-of-contents-button-label" = "Daftar Isi";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Tutup Daftar Isi";
 "table-of-contents-close-accessibility-hint" = "Tutup";
 "abuse-filter-warning-heading" = "Ini tampak seperti suntingan yang tidak konstruktif. Apakah Anda yakin ingin menyimpannya?";

@@ -33,4 +33,6 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
 
 - (NSString *)wmf_searchTerm;
 
++ (NSURL *)wmf_URLForActivityOfType:(WMFUserActivityType)type;
+
 @end

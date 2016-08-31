@@ -263,7 +263,9 @@
 "license-footer-text" = "जब तक बताया न गया हो, सामग्री $1 के अंतर्गत उपलब्ध है";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "सामग्री";
+// Fuzzy
 "table-of-contents-button-label" = "सामग्री सूची";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "सामग्री तालिका को बंद करें";
 "table-of-contents-close-accessibility-hint" = "बंद करें";
 "abuse-filter-warning-heading" = "यह एक अरचनात्मक संपादन लगता है, क्या आप इसे सहेजने को लेकर निश्चित हैं?";

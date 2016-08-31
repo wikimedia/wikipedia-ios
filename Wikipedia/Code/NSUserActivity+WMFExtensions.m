@@ -1,6 +1,5 @@
 #import "NSUserActivity+WMFExtensions.h"
-#import "MWKArticle.h"
-#import "Wikipedia-Swift.h"
+#import <WMFModel/WMFModel-Swift.h>
 
 @import CoreSpotlight;
 @import MobileCoreServices;
@@ -95,6 +94,36 @@
         }
     }
     return nil;
+}
+
++ (NSURL *)wmf_URLForActivityOfType:(WMFUserActivityType)type {
+    NSString *host = nil;
+    switch (type) {
+        case WMFUserActivityTypeExplore:
+            host = @"explore";
+            break;
+        case WMFUserActivityTypeSavedPages:
+            host = @"saved";
+            break;
+        case WMFUserActivityTypeHistory:
+            host = @"history";
+            break;
+        case WMFUserActivityTypeSearch:
+            host = @"search";
+            break;
+        case WMFUserActivityTypeSettings:
+            host = @"settings";
+            break;
+        case WMFUserActivityTypeSearchResults:
+        case WMFUserActivityTypeArticle:
+        default:
+            break;
+    }
+    NSURLComponents *components = [NSURLComponents new];
+    components.host = host;
+    components.scheme = @"wikipedia";
+    components.path = @"/";
+    return components.URL;
 }
 
 + (instancetype)wmf_articleViewActivityWithArticle:(MWKArticle *)article {

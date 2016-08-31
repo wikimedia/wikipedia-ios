@@ -268,7 +268,9 @@
 "license-footer-text" = "El contingut està disponible sota $1 a menys que s'indiqui el contrari.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Continguts";
+// Fuzzy
 "table-of-contents-button-label" = "Taula de continguts";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Tanca la taula de continguts";
 "table-of-contents-close-accessibility-hint" = "Tanca";
 "abuse-filter-warning-heading" = "Això sembla una modificació no constructiva. Esteu segur que voleu desar-la?";

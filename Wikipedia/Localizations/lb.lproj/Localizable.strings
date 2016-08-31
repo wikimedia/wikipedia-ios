@@ -164,6 +164,7 @@
 "navbar-title-mode-edit-wikitext-warning" = "Problemer beim Änneren";
 "navbar-title-mode-edit-wikitext-disallow" = "Problemer beim Änneren";
 "navbar-title-mode-edit-wikitext-preview" = "Kucken ouni ofzespäicheren";
+"navbar-title-mode-edit-wikitext-captcha" = "Séier Iwwerpréifung néideg";
 "navbar-title-mode-edit-wikitext-summary" = "Beschreift Är Ännerung";
 "navbar-title-mode-edit-wikitext-save" = "Späicheren";
 "edit-summary-choice-linked-words" = "Dobäigesat Linken";
@@ -198,6 +199,7 @@
 "about-content-license" = "Lizenz vum Inhalt";
 "about-libraries-licenses-title" = "Mir appreciéieren Open Source Software $1";
 "about-libraries-complete-list" = "Komplett Lëscht";
+"about-repositories-app-source-license" = "Quellcode disponibel ënner enger $1.";
 "about-repositories-app-source-license-mit" = "MIT-Lizenz";
 "about-send-feedback" = "Feedback vun der App schécken";
 "about-product-of" = "E Produkt vun der $1 mat der Hëllef vu Fräiwëllege wéi Iech";
@@ -244,7 +246,9 @@
 "license-footer-text" = "Den Inhalt ass ënner der $1 disponibel wann et net anescht uginn ass.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Inhalter";
+// Fuzzy
 "table-of-contents-button-label" = "Inhaltsverzeechnes";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeechnes zoumaachen";
 "table-of-contents-close-accessibility-hint" = "Zoumaachen";
 "abuse-filter-warning-heading" = "Dëst gesäit no enger wéineg konstruktiver Ännerung aus, sidd Dir sécher datt Dir se späichere wëllt?";

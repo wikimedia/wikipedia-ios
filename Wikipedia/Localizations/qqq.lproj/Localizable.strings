@@ -412,4 +412,5 @@
 "find-in-page-button-label" = "Accessibility label for the Find in Page button";
 "find-in-page-popover-description" = "Description of Find in Page which can appear over its icon in a tip bubble";
 
-"continue-reading-empty-label" = "No Recently Read Articles";
+"continue-reading-empty-title" = "No recently read articles";
+"continue-reading-empty-description" = "Explore Wikipedia for more articles to read";

@@ -10,13 +10,16 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
     
-    @IBOutlet weak var emptyLabel: UILabel!
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyTitleLabel: UILabel!
+    @IBOutlet weak var emptyDescriptionLabel: UILabel!
 
     var articleURL: NSURL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        emptyLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-label")
+        emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-title")
+        emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-description")
         widgetPerformUpdate { (result) in
             
         }
@@ -32,14 +35,14 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     }
     
     
-    var emptyLabelHidden: Bool = true {
+    var emptyViewHidden: Bool = true {
         didSet {
-            emptyLabel.hidden = emptyLabelHidden
+            emptyView.hidden = emptyViewHidden
             
-            titleLabel.hidden = !emptyLabelHidden
-            textLabel.hidden = !emptyLabelHidden
-            imageView.hidden = !emptyLabelHidden
-            daysAgoView.hidden = !emptyLabelHidden
+            titleLabel.hidden = !emptyViewHidden
+            textLabel.hidden = !emptyViewHidden
+            imageView.hidden = !emptyViewHidden
+            daysAgoView.hidden = !emptyViewHidden
         }
     }
     
@@ -52,7 +55,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         daysAgoView.hidden = true
 
         guard let session = SessionSingleton.sharedInstance() else {
-            emptyLabelHidden = false
+            emptyViewHidden = false
             completionHandler(.NoData)
             return
         }
@@ -66,18 +69,18 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
         
         guard let lastReadArticleURL = articleURL else {
-            emptyLabelHidden = false
+            emptyViewHidden = false
             completionHandler(.NoData)
             return
         }
         
         guard let article = session.dataStore.existingArticleWithURL(lastReadArticleURL) else {
-            emptyLabelHidden = false
+            emptyViewHidden = false
             completionHandler(.NoData)
             return
         }
         
-        emptyLabelHidden = true
+        emptyViewHidden = true
         
         if let section = article.sections.sectionWithFragment(lastReadArticleURL.fragment) {
             self.textLabel.text = section.line?.wmf_stringByRemovingHTML()
@@ -110,7 +113,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     }
 
     @IBAction func continueReading(sender: AnyObject) {
-        guard let URLToOpen = articleURL else {
+        guard let URLToOpen = articleURL ?? NSUserActivity.wmf_URLForActivityOfType(.Explore) else {
             return
         }
         

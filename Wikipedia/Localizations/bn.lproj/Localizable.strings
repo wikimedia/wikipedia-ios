@@ -258,7 +258,9 @@
 "license-footer-text" = "বিষয়বস্তু $1-এর আওতায় প্রকাশিত যদি না অন্য কিছু নির্ধারিত থাকে।";
 "license-footer-name" = "সিসি বাই-এসএ ৩.০";
 "table-of-contents-heading" = "পরিচ্ছেদসমূহ";
+// Fuzzy
 "table-of-contents-button-label" = "সূচিপত্র";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "বিষয়বস্তুর সূচিপত্র বন্ধ করুন";
 "table-of-contents-close-accessibility-hint" = "বন্ধ করুন";
 "abuse-filter-warning-heading" = "এটি অ-গঠনমূলক সম্পাদনা বলে মনে হচ্ছে, আপনি কি নিশ্চিতভাবে এটি সংরক্ষণ করতে চান?";

@@ -269,7 +269,9 @@
 "license-footer-text" = "Содержание доступно по лицензии $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содержание";
+// Fuzzy
 "table-of-contents-button-label" = "Содержание";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Закрыть оглавление";
 "table-of-contents-close-accessibility-hint" = "Закрыть";
 "abuse-filter-warning-heading" = "Эта правка выглядит деструктивной. Вы уверены, что хотите сохранить её?";

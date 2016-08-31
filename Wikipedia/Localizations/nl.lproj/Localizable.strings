@@ -13,6 +13,7 @@
 // Author: Sjoerddebruin
 // Author: Southparkfan
 // Author: TrisbaasBaan
+// Author: Wikibelgiaan
 
 "languages-title" = "Taal wijzigen";
 "article-languages-label" = "Taal kiezen";
@@ -266,7 +267,9 @@
 "license-footer-text" = "De inhoud is beschikbaar onder de $1 tenzij anders aangegeven.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Inhoud";
+// Fuzzy
 "table-of-contents-button-label" = "Inhoudsopgave";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-close-accessibility-hint" = "Sluiten";
 "abuse-filter-warning-heading" = "Dit lijkt een niet-constructieve bewerking. Weet u zeker dat u die wilt opslaan?";
@@ -403,4 +406,7 @@
 "explore-most-read-footer-for-date" = "Alle meest gelezen pagina's op $1";
 "explore-most-read-more-list-title" = "Meest gelezen pagina's";
 "explore-most-read-more-list-title-for-date" = "Populair op $1";
+"no-email-account-alert" = "Gelieve een e-mailaccount op je apparaat in te stellen en het opnieuw te proberen.";
+"request-feedback-on-error" = "De app is op een probleem gestoten waarover onze ontwikkelaars graag meer willen weten. Gelieve hier te tikken om ons een e-mail te sturen met de foutgegevens.";
+"explore-another-random" = "Ander willekeurig artikel";
 "find-in-page-no-matches" = "0 overeenkomsten";

@@ -224,7 +224,9 @@
 "license-footer-text" = "Enhavo disponebla je $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Enhavaĵoj";
+// Fuzzy
 "table-of-contents-button-label" = "Enhavtabelo";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Fermi enhavtabelon";
 "table-of-contents-close-accessibility-hint" = "Fermi";
 "abuse-filter-warning-caps" = "Skribi ĈION MAJUSKLE";

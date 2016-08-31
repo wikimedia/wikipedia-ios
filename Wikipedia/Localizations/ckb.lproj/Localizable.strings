@@ -189,6 +189,7 @@
 "license-footer-text" = "ناوەڕۆک بەردەستە لەژێر $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "ناوەڕۆکەکان";
+// Fuzzy
 "table-of-contents-button-label" = "خشتەی ناوەڕۆکەکان";
 "table-of-contents-close-accessibility-hint" = "داخستن";
 "abuse-filter-warning-heading" = "ئەمە بە دەستکارییەکی ڕووخێنەر دەچێت. دڵنیای کە دەتەوێت پاشەکەوتی بکەی؟";

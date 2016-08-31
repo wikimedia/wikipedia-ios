@@ -270,7 +270,9 @@
 "license-footer-text" = "محتوا تحت $1 در دسترس است، مگر اینکه خلافش ذکر شده‌باشد.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "محتویات";
+// Fuzzy
 "table-of-contents-button-label" = "فهرست مندرجات";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "بستن جدول محتویات";
 "table-of-contents-close-accessibility-hint" = "بستن";
 "abuse-filter-warning-heading" = "به نظر می‌آید این ویرایش غیرسازنده باشد، آیا مطمئنید می‌خواهید ذخیره‌اش کنید؟";

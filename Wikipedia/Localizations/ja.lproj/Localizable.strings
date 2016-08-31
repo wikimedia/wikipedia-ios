@@ -269,7 +269,9 @@
 "license-footer-text" = "特に記載がない限り、コンテンツは$1のライセンスで利用できます。";
 "license-footer-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
 "table-of-contents-heading" = "目次";
+// Fuzzy
 "table-of-contents-button-label" = "目次";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "目次を閉じる";
 "table-of-contents-close-accessibility-hint" = "閉じる";
 "abuse-filter-warning-heading" = "これは建設的な編集ではないようです。それでも保存しますか？";
