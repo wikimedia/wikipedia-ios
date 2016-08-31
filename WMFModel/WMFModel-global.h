@@ -80,4 +80,6 @@
 #import <WMFModel/WMFDatabaseDataSource.h>
 #import <WMFModel/MWKDataStore+WMFDataSources.h>
 
+#import <WMFModel/NSUserActivity+WMFExtensions.h>
+
 #endif /* WMFModel_global_h */
