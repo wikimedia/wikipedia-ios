@@ -102,7 +102,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 @property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
 
-
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
 
@@ -228,11 +227,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 
     [self showSplashView];
-    
+
 #if TEST_SHARED_CONTAINER_MIGRATION
     NSFileManager *fm = [NSFileManager defaultManager];
-    [fm removeItemAtPath:[YapDatabase wmf_databasePath]  error:nil];
-    [fm removeItemAtPath:[MWKDataStore mainDataStorePath]  error:nil];
+    [fm removeItemAtPath:[YapDatabase wmf_databasePath] error:nil];
+    [fm removeItemAtPath:[MWKDataStore mainDataStorePath] error:nil];
     [fm removeItemAtPath:[SDImageCache wmf_imageCacheDirectory] error:nil];
     [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:NO];
 #endif
@@ -263,14 +262,14 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 - (void)finishLaunch {
     @weakify(self)
 
-    [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-        @strongify(self)
-        [self loadMainUI];
-        self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
-        [self hideSplashViewAnimated:!didShowOnboarding];
-        [self resumeApp];
-        [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
-    }];
+        [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+            @strongify(self)
+                [self loadMainUI];
+            self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
+            [self hideSplashViewAnimated:!didShowOnboarding];
+            [self resumeApp];
+            [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
+        }];
 }
 
 #pragma mark - Start/Pause/Resume App
@@ -279,11 +278,11 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (self.isPresentingOnboarding) {
         return;
     }
-    
+
     if (![self uiIsLoaded]) {
         return;
     }
-    
+
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
@@ -562,7 +561,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (![self uiIsLoaded]) {
         return nil;
     }
-    
+
     if (_randomFetcher == nil) {
         _randomFetcher = [[WMFRandomArticleFetcher alloc] init];
     }
@@ -573,7 +572,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (![self uiIsLoaded]) {
         return nil;
     }
-    
+
     if (!_session) {
         _session = [SessionSingleton sharedInstance];
     }
@@ -821,7 +820,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return YES;
+    return ![otherGestureRecognizer.view isKindOfClass:[UIScrollView class]];
 }
 
 #pragma mark - WMFZeroDisposition
