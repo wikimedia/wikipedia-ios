@@ -255,7 +255,9 @@
 "license-footer-text" = "Иһинээҕитэ $1 лиссиэнсийэнэн тарҕанар";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Иһинээҕитэ";
+// Fuzzy
 "table-of-contents-button-label" = "Иһинээҕитэ";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Бастар тиһиликтэрин сап";
 "table-of-contents-close-accessibility-hint" = "Сап";
 "abuse-filter-warning-heading" = "Бу көннөрүү бөрүкүтэ суох көннөрүүгэ майгынныыр. Бигэргэтэҕин дуо?";

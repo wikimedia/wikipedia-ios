@@ -256,7 +256,9 @@
 "license-footer-text" = "El conteníu ta disponible baxo llicencia $1 si nun s'indica otra cosa.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Conteníu";
+// Fuzzy
 "table-of-contents-button-label" = "Tabla de conteníu";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Zarrar la tabla de conteníu";
 "table-of-contents-close-accessibility-hint" = "Zarrar";
 "abuse-filter-warning-heading" = "Esto nun paez una edición constructiva. ¿Tas seguro de que quies guardala?";

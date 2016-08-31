@@ -256,7 +256,9 @@
 "license-footer-text" = "Conținutul este disponibil sub $1, exceptând cazurile în care se specifică altfel.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Cuprins";
+// Fuzzy
 "table-of-contents-button-label" = "Cuprins";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Închide cuprinsul";
 "table-of-contents-close-accessibility-hint" = "Închide";
 "abuse-filter-warning-heading" = "Aceasta pare o modificare neconstructivă. Sigur doriți s-o salvați?";

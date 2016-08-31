@@ -267,7 +267,9 @@
 "license-footer-text" = "除非另有註記，內容根據 $1 授權";
 "license-footer-name" = "創用 CC 姓名標示-相同方式分享 3.0";
 "table-of-contents-heading" = "內容";
+// Fuzzy
 "table-of-contents-button-label" = "目錄";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "關閉目錄";
 "table-of-contents-close-accessibility-hint" = "關閉";
 "abuse-filter-warning-heading" = "這可能是沒有建設性的編輯。你確定你想要儲存它？";

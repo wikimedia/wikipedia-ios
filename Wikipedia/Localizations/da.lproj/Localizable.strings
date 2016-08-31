@@ -259,7 +259,9 @@
 "license-footer-text" = "Indholdet er udgivet under $1 medmindre andet er angivet.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Indhold";
+// Fuzzy
 "table-of-contents-button-label" = "Indholdsfortegnelse";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Luk indholdsfortegnelse";
 "table-of-contents-close-accessibility-hint" = "Afslut";
 "abuse-filter-warning-heading" = "Dette er muligvis ikke en konstruktiv redigering. Er du sikker på du ønsker at gemme den?";
@@ -399,3 +401,4 @@
 "no-email-account-alert" = "Opsæt venligst en e-mail-konto på din enhed og forsøg igen.";
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "explore-another-random" = "En anden tilfældig artikel";
+"find-in-page-no-matches" = "0 træf";

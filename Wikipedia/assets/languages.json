@@ -528,9 +528,14 @@
         "canonical_name": "Kannada", 
         "code": "kn", 
         "name": "\u0c95\u0ca8\u0ccd\u0ca8\u0ca1"
-    }, 
+    },
     {
-        "canonical_name": "Interlingua", 
+        "canonical_name": "Tulu",
+        "code": "tcy",
+        "name": "\u0ca4\u0cc1\u0cb3\u0cc1"
+    },
+    {
+        "canonical_name": "Interlingua",
         "code": "ia", 
         "name": "Interlingua"
     }, 

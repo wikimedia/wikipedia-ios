@@ -258,7 +258,9 @@
 "license-footer-text" = "Efnið er gefið út undir $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Efni";
+// Fuzzy
 "table-of-contents-button-label" = "Efnisyfirlit";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Loka efnisyfirliti";
 "table-of-contents-close-accessibility-hint" = "Loka";
 "abuse-filter-warning-heading" = "Þetta lítur ekki út fyrir að vera uppbyggileg breyting, ert þú viss um að þú viljir vista hana?";

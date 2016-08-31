@@ -262,7 +262,9 @@
 "license-footer-text" = "Sisältö on käytettävissä $1 -lisenssin ehtojen mukaisesti ellei toisin mainita.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Sisällys";
+// Fuzzy
 "table-of-contents-button-label" = "Sisällysluettelo";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
 "table-of-contents-close-accessibility-hint" = "Sulje";
 "abuse-filter-warning-heading" = "Tämä saattaa olla haitallinen muokkaus. Haluatko varmasti tallentaa sen?";

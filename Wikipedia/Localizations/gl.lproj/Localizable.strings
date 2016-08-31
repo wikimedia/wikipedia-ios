@@ -260,7 +260,9 @@
 "license-footer-text" = "O contido está dispoñible baixo a $1, salvo que se indique o contrario.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contidos";
+// Fuzzy
 "table-of-contents-button-label" = "Táboa de contidos";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Pechar táboa de contidos";
 "table-of-contents-close-accessibility-hint" = "Pechar";
 "abuse-filter-warning-heading" = "Isto semella unha edición non construtiva, está seguro de querer gardala?";
