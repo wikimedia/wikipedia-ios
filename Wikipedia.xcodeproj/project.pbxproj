@@ -12,7 +12,6 @@
 		04D34DB21863D39000610A87 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D34DB11863D39000610A87 /* libxml2.dylib */; };
 		087BFC581C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 087BFC571C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.m */; };
 		08A3C7B61C5FCC8500682DC0 /* WMFArticlePreviewCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A3C7B51C5FCC8500682DC0 /* WMFArticlePreviewCellVisualTests.m */; };
-		0E01B2B51D5BFF13005E3134 /* MWKDataStore+WMFDataSources.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E01B2B41D5BFF13005E3134 /* MWKDataStore+WMFDataSources.m */; };
 		0E0361741C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361731C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m */; };
 		0E0361771C4488BC00FD9642 /* WMFLocationSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361761C4488BC00FD9642 /* WMFLocationSearchListViewController.m */; };
 		0E03617A1C44905400FD9642 /* WMFRelatedTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361791C44905400FD9642 /* WMFRelatedTitleViewController.m */; };
@@ -36,7 +35,6 @@
 		0E2927941CD1220D00FD8DA8 /* WMFLeadingImageTrailingTextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2927931CD1220D00FD8DA8 /* WMFLeadingImageTrailingTextButton.m */; };
 		0E3268BC1C52A91000131F5F /* WMFCompassViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3268BB1C52A91000131F5F /* WMFCompassViewModel.m */; };
 		0E3268BF1C52C35900131F5F /* WMFNearbyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3268BE1C52C35900131F5F /* WMFNearbyListViewController.m */; };
-		0E33F2B41D57E15300C6CF94 /* WMFDatabaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E33F2B31D57E15300C6CF94 /* WMFDatabaseDataSource.m */; };
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		0E37F9021CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37F9011CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift */; };
 		0E4A34721CBBFCD400A400F6 /* WMFImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4A34711CBBFCD400A400F6 /* WMFImageGalleryViewController.m */; };
@@ -645,7 +643,6 @@
 		D844D9E01D6CBC2C0042D692 /* NSURL+WMFQueryParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = B01662AE1D1B8997006F4544 /* NSURL+WMFQueryParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9E11D6CBC320042D692 /* NSURL+WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662AC1D1B668C006F4544 /* NSURL+WMFProxyServer.m */; };
 		D844D9E21D6CBC320042D692 /* NSURL+WMFQueryParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662AF1D1B8997006F4544 /* NSURL+WMFQueryParameters.m */; };
-		D844D9E31D6CBC770042D692 /* WMFImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805C41C0CE5250065EBC0 /* WMFImageController.swift */; };
 		D844D9E41D6CBF7F0042D692 /* WMFModel-global.h in Headers */ = {isa = PBXBuildFile; fileRef = D844D9831D6CB3830042D692 /* WMFModel-global.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9E51D6CBF9C0042D692 /* WMFSharing.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807061C0CEBDA0065EBC0 /* WMFSharing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9E61D6CBFAC0042D692 /* MWKArticle+WMFSharing.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804751C0CE0B40065EBC0 /* MWKArticle+WMFSharing.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -795,6 +792,12 @@
 		D8AC392C1D6F2480007E3C14 /* WMFUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8AC39391D6F25A4007E3C14 /* WMFUtilities-global.h in Headers */ = {isa = PBXBuildFile; fileRef = D8AC39351D6F25A3007E3C14 /* WMFUtilities-global.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AC393B1D6F25A4007E3C14 /* WMFUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = D8AC39371D6F25A4007E3C14 /* WMFUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8B29B8C1D77251F00161291 /* WMFImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805C41C0CE5250065EBC0 /* WMFImageController.swift */; };
+		D8B9E2C61D7617B800A465FF /* WMFDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E33F2B11D57E0C500C6CF94 /* WMFDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8B9E2C71D7617BC00A465FF /* WMFDatabaseDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E33F2B21D57E15300C6CF94 /* WMFDatabaseDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8B9E2C81D7617C000A465FF /* WMFDatabaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E33F2B31D57E15300C6CF94 /* WMFDatabaseDataSource.m */; };
+		D8B9E2C91D7617C200A465FF /* MWKDataStore+WMFDataSources.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E01B2B31D5BFF13005E3134 /* MWKDataStore+WMFDataSources.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8B9E2CA1D7617C900A465FF /* MWKDataStore+WMFDataSources.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E01B2B41D5BFF13005E3134 /* MWKDataStore+WMFDataSources.m */; };
 		D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C0C00A1D144FF30019374D /* WMFProxyServer.m */; };
 		D8C9BFE81D6CC92C0084624F /* MWKLanguageLinkResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062D1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062E1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.m */; };
@@ -3051,6 +3054,7 @@
 				0E01B2B41D5BFF13005E3134 /* MWKDataStore+WMFDataSources.m */,
 			);
 			name = DataSources;
+			path = ../Wikipedia/Code;
 			sourceTree = "<group>";
 		};
 		0E4500B91B97A26800A33B55 /* Section Schema */ = {
@@ -4891,7 +4895,6 @@
 			isa = PBXGroup;
 			children = (
 				BC45D5B81C330DC3007C72F3 /* Data Store */,
-				0E33F2BB1D59140200C6CF94 /* DataSources */,
 				229C20D91CB08FA500BC17AD /* PageHistory */,
 				BC45D58F1C32FEAF007C72F3 /* MediaWikiKit */,
 				0EAAAFC81B43301500E65A95 /* Legacy Models */,
@@ -5356,6 +5359,7 @@
 				B0E807241C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.m */,
 				BCAF230D1C6CE233005F2D8D /* WMFMostReadTitleFetcher.h */,
 				BCAF230E1C6CE233005F2D8D /* WMFMostReadTitleFetcher.m */,
+				0E33F2BB1D59140200C6CF94 /* DataSources */,
 				D8494ADC1D6C85C500337433 /* NSUserDefaults+WMFExtensions.swift */,
 				D8494AD41D6C85C500337433 /* MWKSite.h */,
 				D8494AD51D6C85C500337433 /* MWKSite.m */,
@@ -5771,6 +5775,7 @@
 				D844D98B1D6CB58E0042D692 /* MWKArticle.h in Headers */,
 				D844D9D61D6CBBA70042D692 /* YapDatabaseReadWriteTransaction+WMFCustomNotifications.h in Headers */,
 				D844D9EA1D6CBFD10042D692 /* WMFZeroMessage.h in Headers */,
+				D8B9E2C61D7617B800A465FF /* WMFDataSource.h in Headers */,
 				D844DA061D6CC4C90042D692 /* MWKLanguageFilter.h in Headers */,
 				D844D9A91D6CB74F0042D692 /* MWKHistoryList.h in Headers */,
 				D844D9D21D6CBBA70042D692 /* YapDatabase+WMFViews.h in Headers */,
@@ -5801,6 +5806,7 @@
 				D8DC16EC1D6F6DD600D6D9FB /* MWKTitle.h in Headers */,
 				D844DA021D6CC3C40042D692 /* MWKLanguageLink.h in Headers */,
 				D83F8A2B1D74BBB4009E7D40 /* WMFMostReadTitlesResponse.h in Headers */,
+				D8B9E2C71D7617BC00A465FF /* WMFDatabaseDataSource.h in Headers */,
 				D844DA031D6CC4C90042D692 /* MWKLanguageLinkController_Private.h in Headers */,
 				D844D9D31D6CBBA70042D692 /* WMFDatabaseStorable.h in Headers */,
 				D83F8A2A1D74BBB4009E7D40 /* NSDate+WMFMostReadDate.h in Headers */,
@@ -5809,6 +5815,7 @@
 				D844D98E1D6CB58E0042D692 /* MWKSectionMetaData.h in Headers */,
 				D837D0381D6CC8B3004EFBC6 /* QueuesSingleton.h in Headers */,
 				D844DA041D6CC4C90042D692 /* MWKLanguageLinkController.h in Headers */,
+				D8B9E2C91D7617C200A465FF /* MWKDataStore+WMFDataSources.h in Headers */,
 				D844D99C1D6CB6170042D692 /* NSString+WMFExtras.h in Headers */,
 				D89D440A1D74D4DB00F7862E /* NSDictionary+WMFCommonParams.h in Headers */,
 				D89F51111D6CC9BD008018E1 /* WMFNetworkUtilities.h in Headers */,
@@ -6910,7 +6917,6 @@
 				B0E805941C0CE2C60065EBC0 /* SavedPagesFunnel.m in Sources */,
 				B0E8064A1C0CE7F70065EBC0 /* AssetsFileFetcher.m in Sources */,
 				B0E807DB1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m in Sources */,
-				0E33F2B41D57E15300C6CF94 /* WMFDatabaseDataSource.m in Sources */,
 				BC62FFC01C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				B0E806341C0CE7680065EBC0 /* MWKImageInfoResponseSerializer.m in Sources */,
 				0E0361771C4488BC00FD9642 /* WMFLocationSearchListViewController.m in Sources */,
@@ -7071,7 +7077,6 @@
 				0E0361741C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m in Sources */,
 				B0E805961C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m in Sources */,
 				0EF2249A1CC5536200FDF78E /* WMFLanguageCell.m in Sources */,
-				0E01B2B51D5BFF13005E3134 /* MWKDataStore+WMFDataSources.m in Sources */,
 				B0E803381C0CD7550065EBC0 /* UIViewController+WMFSearch.m in Sources */,
 				B0E803991C0CDB280065EBC0 /* WMFArticleFetcher.m in Sources */,
 				B0E8071F1C0CEC8A0065EBC0 /* main.m in Sources */,
@@ -7155,7 +7160,6 @@
 				D89F51101D6CC9BA008018E1 /* WMFNetworkUtilities.m in Sources */,
 				D8DC17011D6F718300D6D9FB /* NSURL+WMFMainPage.m in Sources */,
 				D844D9921D6CB5970042D692 /* MWKCitation.m in Sources */,
-				D844D9E31D6CBC770042D692 /* WMFImageController.swift in Sources */,
 				D83F8A2F1D74BBBF009E7D40 /* WMFMostReadTitlesResponse.m in Sources */,
 				D8DC16F01D6F6DEC00D6D9FB /* WMFAssetsFile.m in Sources */,
 				D844D9AA1D6CB7540042D692 /* MWKHistoryEntry.m in Sources */,
@@ -7165,6 +7169,7 @@
 				D844D99F1D6CB63D0042D692 /* SessionSingleton.m in Sources */,
 				D8EA02E11D6CC9F5008E8A47 /* WMFRelatedSectionBlackList.m in Sources */,
 				D844D9931D6CB5970042D692 /* MWKSectionList.m in Sources */,
+				D8B9E2CA1D7617C900A465FF /* MWKDataStore+WMFDataSources.m in Sources */,
 				D844D9941D6CB5970042D692 /* MWKSectionMetaData.m in Sources */,
 				D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */,
 				D849D6531D6CC7DC00D06FC8 /* WMFImageTag+TargetImageWidthURL.m in Sources */,
@@ -7174,6 +7179,7 @@
 				D844DA071D6CC4D40042D692 /* MWKLanguageLinkController.m in Sources */,
 				D844D9DC1D6CBBFA0042D692 /* NSString+WMFHTMLParsing.m in Sources */,
 				D844DA011D6CC3C20042D692 /* MWKLanguageLink.m in Sources */,
+				D8B9E2C81D7617C000A465FF /* WMFDatabaseDataSource.m in Sources */,
 				D844D9F71D6CC05F0042D692 /* WMFImageDownload.swift in Sources */,
 				D8AC391E1D6F2328007E3C14 /* UIScreen+WMFImageWidth.m in Sources */,
 				D89F510E1D6CC97D008018E1 /* WMFApiJsonResponseSerializer.m in Sources */,
@@ -7201,6 +7207,7 @@
 				D844D9B51D6CB77D0042D692 /* MWKSavedPageList.m in Sources */,
 				D849D6541D6CC7DC00D06FC8 /* WMFImageTagList.m in Sources */,
 				D849D6551D6CC7DC00D06FC8 /* WMFImageTagList+ImageURLs.m in Sources */,
+				D8B29B8C1D77251F00161291 /* WMFImageController.swift in Sources */,
 				D844D9DA1D6CBBB30042D692 /* YapDatabaseConnection+WMFExtensions.m in Sources */,
 				D83F8A2E1D74BBBF009E7D40 /* NSDate+WMFMostReadDate.m in Sources */,
 				D849D6521D6CC7DC00D06FC8 /* WMFImageTag.m in Sources */,
@@ -9134,7 +9141,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
@@ -9171,7 +9178,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
@@ -9204,7 +9211,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
@@ -9236,7 +9243,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
@@ -9268,7 +9275,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
@@ -9300,7 +9307,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WMFUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;

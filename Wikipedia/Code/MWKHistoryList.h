@@ -35,11 +35,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Save the scroll position of a page.
  *
- *  @param scrollposition The scroll position to save
+ *  @param fragment     The fragment to save
+ *  @param scrollPosition The scroll position to save
  *  @param url          The url of the page
  *
  */
-- (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithURL:(NSURL *)url;
+- (void)setFragment:(nullable NSString *)fragment scrollPosition:(CGFloat)scrollPosition onPageInHistoryWithURL:(NSURL *)url;
 
 /**
  *  Sets the history entry to be "significantly viewed"

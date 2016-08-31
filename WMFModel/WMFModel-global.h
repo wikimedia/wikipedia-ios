@@ -92,5 +92,8 @@
 #import <WMFModel/MWKSearchResult.h>
 #import <WMFModel/NSDictionary+WMFCommonParams.h>
 
+#import <WMFModel/WMFDataSource.h>
+#import <WMFModel/WMFDatabaseDataSource.h>
+#import <WMFModel/MWKDataStore+WMFDataSources.h>
 
 #endif /* WMFModel_global_h */

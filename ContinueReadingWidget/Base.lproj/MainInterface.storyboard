@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="af3-Uc-bMS">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="af3-Uc-bMS">
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="af3-Uc-bMS" secondAttribute="height" multiplier="1:1" id="7cr-os-XYp"/>
                                 </constraints>
@@ -70,12 +70,22 @@
                                     <action selector="continueReading:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="r0x-p5-uLh"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Read some more articles and they'll show up here." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMd-L0-hne">
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="bOM-vw-pko"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <constraints>
                             <constraint firstItem="vq4-5M-Tnk" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="10" id="2e4-f1-47H"/>
                             <constraint firstItem="3Uu-vI-59e" firstAttribute="top" relation="greaterThanOrEqual" secondItem="CwR-CM-SDN" secondAttribute="bottom" constant="5" id="4Lb-rh-iGP"/>
                             <constraint firstItem="af3-Uc-bMS" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="10" id="60z-FL-ImQ"/>
+                            <constraint firstItem="rMd-L0-hne" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="10" id="9QV-Ba-ys1"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="3Uu-vI-59e" secondAttribute="bottom" constant="10" id="9ub-W2-dPU"/>
+                            <constraint firstItem="rMd-L0-hne" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="BjA-9L-fhd"/>
                             <constraint firstItem="BSk-BH-jRq" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="H7e-h9-nbd"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="3Uu-vI-59e" secondAttribute="bottom" constant="10" id="V4i-bE-94u"/>
                             <constraint firstItem="CwR-CM-SDN" firstAttribute="top" secondItem="vq4-5M-Tnk" secondAttribute="bottom" id="YIo-3p-DKd"/>
@@ -83,7 +93,9 @@
                             <constraint firstItem="3Uu-vI-59e" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="YxV-va-6jY"/>
                             <constraint firstAttribute="trailing" secondItem="BSk-BH-jRq" secondAttribute="trailing" id="ZUD-Y6-aY4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="af3-Uc-bMS" secondAttribute="trailing" id="eXn-dd-RUF"/>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="rMd-L0-hne" secondAttribute="bottom" constant="10" id="iqY-0w-Ujz"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="af3-Uc-bMS" secondAttribute="bottom" constant="10" id="jeM-R7-CaC"/>
+                            <constraint firstItem="rMd-L0-hne" firstAttribute="trailing" secondItem="S3S-Oj-5AN" secondAttribute="trailingMargin" id="mHE-Qk-8fH"/>
                             <constraint firstItem="vq4-5M-Tnk" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="n9q-aN-sgE"/>
                             <constraint firstItem="af3-Uc-bMS" firstAttribute="leading" secondItem="vq4-5M-Tnk" secondAttribute="trailing" constant="10" id="pVG-3w-TAN"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="BSk-BH-jRq" secondAttribute="bottom" id="qB8-lW-aTH"/>
@@ -98,12 +110,18 @@
                     <size key="freeformSize" width="320" height="100"/>
                     <connections>
                         <outlet property="daysAgoLabel" destination="pDO-M3-3su" id="eFO-2c-rzZ"/>
+                        <outlet property="daysAgoView" destination="3Uu-vI-59e" id="7LE-mR-ffp"/>
+                        <outlet property="emptyLabel" destination="rMd-L0-hne" id="cwN-mb-6nC"/>
                         <outlet property="imageView" destination="af3-Uc-bMS" id="91S-oM-RCp"/>
                         <outlet property="textLabel" destination="CwR-CM-SDN" id="wXQ-Lk-zcc"/>
                         <outlet property="titleLabel" destination="vq4-5M-Tnk" id="zJ9-bC-g8G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view hidden="YES" contentMode="scaleToFill" id="5yZ-3S-P5X">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="97.599999999999994" y="36.881559220389811"/>
         </scene>
