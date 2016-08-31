@@ -16,7 +16,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.imageView.clipsToBounds = true
+        emptyLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-label")
         widgetPerformUpdate { (result) in
             
         }
