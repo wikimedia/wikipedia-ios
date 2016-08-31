@@ -10,6 +10,8 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
     
+    @IBOutlet weak var emptyLabel: UILabel!
+
     var articleURL: NSURL?
     
     override func viewDidLoad() {
@@ -29,18 +31,31 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
     }
     
+    
+    var emptyLabelHidden: Bool = true {
+        didSet {
+            emptyLabel.hidden = emptyLabelHidden
+            
+            titleLabel.hidden = !emptyLabelHidden
+            textLabel.hidden = !emptyLabelHidden
+            imageView.hidden = !emptyLabelHidden
+            daysAgoView.hidden = !emptyLabelHidden
+        }
+    }
+    
     func widgetPerformUpdate(completionHandler: (NCUpdateResult) -> Void) {
         textLabel.text = nil
         titleLabel.text = nil
         imageView.image = nil
         imageView.hidden = true
+        daysAgoLabel.text = nil
         daysAgoView.hidden = true
 
         guard let session = SessionSingleton.sharedInstance() else {
+            emptyLabelHidden = false
             completionHandler(.NoData)
             return
         }
-        
         
         articleURL = NSUserDefaults.wmf_userDefaults().wmf_openArticleURL()
             
@@ -51,14 +66,18 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
         
         guard let lastReadArticleURL = articleURL else {
+            emptyLabelHidden = false
             completionHandler(.NoData)
             return
         }
         
         guard let article = session.dataStore.existingArticleWithURL(lastReadArticleURL) else {
+            emptyLabelHidden = false
             completionHandler(.NoData)
             return
         }
+        
+        emptyLabelHidden = true
         
         if let section = article.sections.sectionWithFragment(lastReadArticleURL.fragment) {
             self.textLabel.text = section.line?.wmf_stringByRemovingHTML()
@@ -67,10 +86,10 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
         
         if let date = NSUserDefaults.wmf_userDefaults().wmf_appResignActiveDate() {
-            self.daysAgoLabel.hidden = false
+            self.daysAgoView.hidden = false
             self.daysAgoLabel.text = date.wmf_relativeTimestamp()
         } else {
-            self.daysAgoLabel.hidden = true
+            self.daysAgoView.hidden = true
         }
 
         
@@ -86,7 +105,6 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             }
         }
         
-        daysAgoView.hidden = true
         completionHandler(.NewData)
         
     }
