@@ -752,6 +752,7 @@
 		D87A55A41D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87A55A21D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.xib */; };
 		D87E54001D6CC704005134EF /* WMFMantleJSONResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806311C0CE7670065EBC0 /* WMFMantleJSONResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D87E54011D6CC709005134EF /* WMFMantleJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806321C0CE7680065EBC0 /* WMFMantleJSONResponseSerializer.m */; };
+		D890C84B1D772B02007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C84D1D772B02007132C9 /* InfoPlist.strings */; };
 		D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */; };
 		D896C7991D6F3335007101DF /* WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; };
 		D896C79A1D6F333F007101DF /* WMFUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -2367,6 +2368,8 @@
 		D87A55A01D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticlePlaceholderCollectionViewCell.h; path = Wikipedia/Code/WMFArticlePlaceholderCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		D87A55A11D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticlePlaceholderCollectionViewCell.m; path = Wikipedia/Code/WMFArticlePlaceholderCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		D87A55A21D3CFD3700341B32 /* WMFArticlePlaceholderCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticlePlaceholderCollectionViewCell.xib; path = Wikipedia/Code/WMFArticlePlaceholderCollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
+		D890C8531D772B27007132C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D890C8541D772B4E007132C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D896C7941D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"; sourceTree = "<group>"; };
 		D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m"; sourceTree = "<group>"; };
 		D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFTaskGroup.h; path = Wikipedia/Code/WMFTaskGroup.h; sourceTree = SOURCE_ROOT; };
@@ -5618,6 +5621,7 @@
 				D85D34C81D74D07500845125 /* WMFTodayTopReadWidgetViewController.swift */,
 				D85D34CA1D74D07500845125 /* MainInterface.storyboard */,
 				D85D34CD1D74D07500845125 /* Info.plist */,
+				D890C84D1D772B02007132C9 /* InfoPlist.strings */,
 			);
 			path = TopReadWidget;
 			sourceTree = "<group>";
@@ -6383,6 +6387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D878A6061D74D1340074B3AC /* Localizable.strings in Resources */,
+				D890C84B1D772B02007132C9 /* InfoPlist.strings in Resources */,
 				D85D34CC1D74D07500845125 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -7537,6 +7542,15 @@
 				D85D34CB1D74D07500845125 /* Base */,
 			);
 			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+		D890C84D1D772B02007132C9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D890C8531D772B27007132C9 /* en */,
+				D890C8541D772B4E007132C9 /* Base */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
