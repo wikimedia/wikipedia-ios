@@ -40,9 +40,9 @@ PODS:
     - GCDWebServer/Core (= 3.3.3)
   - GCDWebServer/Core (3.3.3)
   - HexColors (2.3.0)
-  - HockeySDK (3.8.6):
-    - HockeySDK/AllFeaturesLib (= 3.8.6)
-  - HockeySDK/AllFeaturesLib (3.8.6)
+  - HockeySDK (4.1.0):
+    - HockeySDK/AllFeaturesLib (= 4.1.0)
+  - HockeySDK/AllFeaturesLib (4.1.0)
   - hpple (0.2.0)
   - KVOController (1.0.3)
   - libextobjc/EXTScope (0.4.1):
@@ -160,7 +160,7 @@ DEPENDENCIES:
   - CocoaLumberjack/Swift
   - FBSnapshotTestCase
   - GCDWebServer (~> 3.3)
-  - HockeySDK (~> 3.8.2)
+  - HockeySDK (~> 4.1.0)
   - hpple (~> 0.2)
   - KVOController (= 1.0.3)
   - libextobjc/EXTScope (~> 0.4.1)
@@ -230,7 +230,7 @@ SPEC CHECKSUMS:
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   GCDWebServer: 1c39a1f0763e4eb492bee021e4270fce097d3555
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
-  HockeySDK: ab68303eec6680f6b539de65d747742dd276e934
+  HockeySDK: 1249d4f1b3a9ce537a1517805bcf6fe121099d16
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
@@ -257,6 +257,6 @@ SPEC CHECKSUMS:
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
 
-PODFILE CHECKSUM: ae5359571fc4e1c41acb062cd97200fa2e956ac5
+PODFILE CHECKSUM: 2edea4411b83609b94a5fcf59d338457d9df8683
 
 COCOAPODS: 1.0.1

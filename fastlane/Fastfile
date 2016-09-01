@@ -12,6 +12,7 @@ platform :ios do
      # Set project for commit_version_bump, which seems to get confused by projects in other folders
      ENV['FL_BUILD_NUMBER_PROJECT'] = "Wikipedia.xcodeproj"
      ensure_git_status_clean unless ENV['FL_NO_ENSURE_CLEAN']
+     xcversion version: "~> 8.0.0"
   end
 
   desc "Runs linting (and eventually static analysis)"

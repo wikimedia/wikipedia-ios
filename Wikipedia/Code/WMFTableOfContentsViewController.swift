@@ -32,7 +32,18 @@ public class WMFTableOfContentsViewController: UIViewController,
     
     let tableOfContentsFunnel: ToCInteractionFunnel
 
-    var tableView: UITableView!
+    lazy var tableView: UITableView = {
+        
+        let tv = UITableView(frame: CGRectZero, style: .Grouped)
+        
+        assert(tv.style == .Grouped, "Use grouped UITableView layout so our WMFTableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our WMFTableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use WMFTableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
+        
+        tv.separatorStyle = .None
+        tv.delegate = self
+        tv.dataSource = self
+        tv.backgroundView = nil
+        return tv
+    }()
 
     var items: [TableOfContentsItem] {
         didSet{
@@ -94,7 +105,11 @@ public class WMFTableOfContentsViewController: UIViewController,
         }
     }
 
-    public func selectAndScrollToItem(item: TableOfContentsItem, animated: Bool) {
+    public func selectAndScrollToItem(item: TableOfContentsItem?, animated: Bool) {
+        guard let item = item else{
+            assertionFailure("Passing nil TOC item")
+            return
+        }
         guard let indexPath = indexPathForItem(item) else {
             assertionFailure("No indexPath known for TOC item \(item)")
             return
@@ -126,7 +141,6 @@ public class WMFTableOfContentsViewController: UIViewController,
         }
     }
 
-
     public func addHighlightOfItemsRelatedTo(item: TableOfContentsItem, animated: Bool) {
         guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
             return
@@ -153,25 +167,15 @@ public class WMFTableOfContentsViewController: UIViewController,
         return delegate != nil
     }
 
-    public override func loadView() {
-        super.loadView()
-        tableView = UITableView(frame: self.view.bounds, style: .Grouped)
-        
-        assert(tableView.style == .Grouped, "Use grouped UITableView layout so our WMFTableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our WMFTableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use WMFTableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
-        
-        tableView.separatorStyle = .None
-        tableView.delegate = self
-        tableView.dataSource = self
-        view.addSubview(tableView)
-        tableView.mas_makeConstraints { make in
-            make.top.bottom().leading().and().trailing().equalTo()(self.view)
-        }
-        tableView.backgroundView = nil
-    }
-
     // MARK: - UIViewController
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.addSubview(tableView)
+        tableView.mas_makeConstraints { make in
+            make.top.bottom().leading().and().trailing().equalTo()(self.view)
+        }
+
         tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(),
                               forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
         tableView.estimatedRowHeight = 41

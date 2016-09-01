@@ -2,7 +2,6 @@
 
 typedef NS_ENUM(NSInteger, WMFWKScriptMessageType) {
     WMFWKScriptMessageUnknown,
-    WMFWKScriptMessagePeek,
     WMFWKScriptMessageConsoleMessage,
     WMFWKScriptMessageClickLink,
     WMFWKScriptMessageClickImage,
