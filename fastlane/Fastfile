@@ -51,18 +51,18 @@ platform :ios do
   desc "Runs tests on the primary platforms and configurations"
   lane :verifyTestPlatforms do
     verify(
-     sim_os: 9.3,
+     sim: 'iPhone 6s (9.3)',
      scheme: "WikipediaRTL"
     )
     verify(
-     sim_os: 9.3
+     sim: 'iPhone 6s (9.3)'
     )
     verify(
-     sim_os: 10.0,
+     sim: 'iPhone 6s (10.0)',
      scheme: "WikipediaRTL"
     )
     verify(
-     sim_os: 10.0,
+     sim: 'iPhone 6s (10.0)',
      junit: true
     )
   end
@@ -70,12 +70,12 @@ platform :ios do
   desc "Runs unit tests, optionally generating a JUnit report."
   lane :verify do |options|
     scheme = options[:scheme] || 'Wikipedia'
-    sim_os = options[:sim_os] || '10.0'
-    destination = "platform=iOS Simulator,name=iPhone 6,OS=#{sim_os}"
+    sim = options[:sim] || 'iPhone 6s (10.0)'
     opts = {
+      :device => sim,
+      :sdk => "iphonesimulator",
       :scheme =>  scheme,
       :workspace => 'Wikipedia.xcworkspace',
-      :destination => destination,
       :buildlog_path => './build',
       :output_directory => './build/reports',
       :output_style => 'basic',
