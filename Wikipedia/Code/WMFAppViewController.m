@@ -45,6 +45,8 @@
 
 #import "WMFDailyStatsLoggingFunnel.h"
 
+#import "WMFMostReadListTableViewController.h"
+
 #define TEST_SHARED_CONTAINER_MIGRATION DEBUG && 0
 
 #if TEST_SHARED_CONTAINER_MIGRATION
@@ -423,6 +425,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         case WMFUserActivityTypeHistory:
         case WMFUserActivityTypeSearch:
         case WMFUserActivityTypeSettings:
+        case WMFUserActivityTypeTopRead:
             return YES;
         case WMFUserActivityTypeSearchResults:
             if ([activity wmf_searchTerm]) {
@@ -458,6 +461,20 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         case WMFUserActivityTypeExplore:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            break;
+        case WMFUserActivityTypeTopRead:
+        {
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            
+            UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeExplore];
+            [navController popToRootViewControllerAnimated:NO];
+            NSDictionary *userInfo = activity.userInfo;
+            NSDate *date = userInfo[@"date"];
+            NSURL *siteURL = userInfo[@"siteURL"];
+            MWKDataStore *dataStore = [[SessionSingleton sharedInstance] dataStore];
+            WMFMostReadListTableViewController *mostReadListVC = [[WMFMostReadListTableViewController alloc] initWithPreviews:@[] fromSiteURL:siteURL forDate:date dataStore:dataStore];
+            [navController pushViewController:mostReadListVC animated:NO];
+        }
             break;
         case WMFUserActivityTypeSavedPages:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];

@@ -1,5 +1,6 @@
 import UIKit
 import NotificationCenter
+import YapDatabase
 import WMFUI
 import WMFModel
 
@@ -11,7 +12,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     var results: [MWKSearchResult] = []
     let articlePreviewFetcher = WMFArticlePreviewFetcher()
     let mostReadFetcher = WMFMostReadTitleFetcher()
-
+    let dataStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
+    let shortDateFormatter = NSDateFormatter.wmf_englishHyphenatedYearMonthDayFormatter()
 
     // Views & View State
     var snapshotView: UIView?
@@ -35,6 +37,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     var headerHeight: CGFloat = 44
     var headerVisible = true
     
+    var hideStackViewOnNextLayout = false
+    var displayMode: NCWidgetDisplayMode = .Expanded
+    
     // Controllers
     var articlePreviewViewControllers: [WMFArticlePreviewViewController] = []
 
@@ -47,9 +52,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         
         if let context = self.extensionContext {
             context.widgetLargestAvailableDisplayMode = .Expanded
-            let mode = context.widgetActiveDisplayMode
-            let maxSize = context.widgetMaximumSizeForDisplayMode(mode)
-            updateViewPropertiesForActiveDisplayMode(mode, maxSize: maxSize)
+            displayMode = context.widgetActiveDisplayMode
+            maximumSize = context.widgetMaximumSizeForDisplayMode(displayMode)
+            updateViewPropertiesForActiveDisplayMode(displayMode)
             layoutForSize(view.bounds.size)
         }
         
@@ -83,36 +88,43 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        
-        guard let viewToFade = snapshotView else {
-            return
+
+        if hideStackViewOnNextLayout {
+            stackView.alpha = 0
+            hideStackViewOnNextLayout = false
         }
         coordinator.animateAlongsideTransition({ (context) in
-            viewToFade.alpha = 0
+            self.snapshotView?.alpha = 0
             self.stackView.alpha = 1
             self.layoutForSize(size)
             }) { (context) in
-            viewToFade.removeFromSuperview()
+            self.snapshotView?.removeFromSuperview()
             self.snapshotView = nil
         }
     }
     
-    func updateViewPropertiesForActiveDisplayMode(activeDisplayMode: NCWidgetDisplayMode, maxSize: CGSize){
+    func updateViewPropertiesForActiveDisplayMode(activeDisplayMode: NCWidgetDisplayMode){
+        displayMode = activeDisplayMode
         headerVisible = activeDisplayMode != .Compact
         footerVisible = headerVisible
         maximumRowCount = activeDisplayMode == .Compact ? 1 : 3
-        maximumSize = maxSize
     }
     
     func widgetActiveDisplayModeDidChange(activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        updateViewPropertiesForActiveDisplayMode(activeDisplayMode, maxSize: maxSize)
-        updateView()
+        maximumSize = maxSize
+        if (activeDisplayMode != displayMode) {
+            updateViewPropertiesForActiveDisplayMode(activeDisplayMode)
+            updateView()
+        }
     }
     
     func updateView() {
+        let count = min(results.count, maximumRowCount)
+        guard count > 0 else {
+            return
+        }
         headerLabel.text = dateFormatter.stringFromDate(date).uppercaseString
         var i = 0
-        let count = min(results.count, maximumRowCount)
         var didRemove = false
         var didAdd = false
         let newSnapshot = view.snapshotViewAfterScreenUpdates(false)
@@ -165,19 +177,22 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
         
         if didAdd {
-            stackView.alpha = 0
+            hideStackViewOnNextLayout = true
         }
         
         var size = stackView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityDefaultLow)
         size.width = maximumSize.width
+        
         if headerVisible {
             size.height += headerHeight
         }
+        
         if footerVisible {
             size.height += footerHeight
         }
-        preferredContentSize = size
         
+        preferredContentSize = size
+
         var stackViewFrame = stackView.frame
         stackViewFrame.size = size
         stackView.frame = stackViewFrame
@@ -187,16 +202,37 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         footerViewFrame.origin = CGPoint(x:0, y:CGRectGetMaxY(stackView.frame))
         footerView.frame = footerViewFrame
     }
-    
+
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
-        let newDate = NSDate().wmf_bestMostReadFetchDate()
-        
-        if let interval = newDate?.timeIntervalSinceDate(date) where interval < 86400 && results.count > 0 {
+        date = NSDate().wmf_bestMostReadFetchDate()
+        fetchForDate(date, siteURL: siteURL, completionHandler: completionHandler)
+    }
+    
+    func fetchForDate(date: NSDate, siteURL: NSURL, completionHandler: ((NCUpdateResult) -> Void)) {
+        guard let host = siteURL.host else {
             completionHandler(.NoData)
             return
         }
+        let databaseKey = shortDateFormatter.stringFromDate(date)
+        let databaseCollection = "wmftopread:\(host)"
         
-        date = NSDate().wmf_bestMostReadFetchDate()
+        dataStore.readWithBlock { (transaction) in
+            guard let results = transaction.objectForKey(databaseKey, inCollection: databaseCollection) as? [MWKSearchResult] else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.fetchRemotelyAndStoreInDatabaseCollection(databaseCollection, databaseKey: databaseKey, completionHandler: completionHandler)
+                    })
+                return
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.results = results
+                self.updateView()
+                completionHandler(.NewData)
+            })
+        }
+    }
+    
+    func fetchRemotelyAndStoreInDatabaseCollection(databaseCollection: String, databaseKey: String, completionHandler: ((NCUpdateResult) -> Void)) {
         mostReadFetcher.fetchMostReadTitlesForSiteURL(siteURL, date: date).then { (result) -> AnyPromise in
             
             guard let mostReadTitlesResponse = result as? WMFMostReadTitlesResponseItem else {
@@ -215,19 +251,31 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                     return AnyPromise(value: nil)
                 }
                 
-                self.results = articlePreviewResponse.filter({ (result) -> Bool in
+                let results =  articlePreviewResponse.filter({ (result) -> Bool in
                     return result.articleID != 0
                 })
                 
+                self.results = results
+                
                 self.updateView()
                 completionHandler(.NewData)
+                
+                self.dataStore.readWriteWithBlock({ (conn) in
+                    conn.setObject(results, forKey: databaseKey, inCollection: databaseCollection)
+                })
+
                 return AnyPromise(value: articlePreviewResponse)
         }
-        
     }
     
     func handleTapGestureRecognizer(gestureRecognizer: UITapGestureRecognizer) {
         guard let index = self.articlePreviewViewControllers.indexOf({ (vc) -> Bool in return CGRectContainsPoint(vc.view.frame, gestureRecognizer.locationInView(self.view)) }) where index < results.count else {
+            guard let siteURLString = siteURL.absoluteString, let URL = NSUserActivity.wmf_URLForActivityOfType(.TopRead, parameters: ["timestamp": date.timeIntervalSince1970, "siteURL":siteURLString]) else {
+                return
+            }
+            self.extensionContext?.openURL(URL, completionHandler: { (success) in
+                
+            })
             return
         }
         

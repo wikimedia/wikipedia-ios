@@ -123,30 +123,30 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     return _writeConnection;
 }
 
-//- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
-//    [self.articleReferenceReadConnection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
-//        block(transaction);
-//    }];
-//}
-//
-//- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
-//    return [self.articleReferenceReadConnection wmf_readAndReturnResultsWithBlock:block];
-//}
-//
-//- (void)readViewNamed:(NSString*)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
-//    [self.articleReferenceReadConnection wmf_readInViewWithName:viewName withBlock:block];
-//}
-//
-//- (nullable id)readAndReturnResultsWithViewNamed:(NSString*)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
-//    return [self.articleReferenceReadConnection wmf_readAndReturnResultsInViewWithName:viewName withBlock:block];
-//}
-//
-//
-//- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block{
-//    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction * _Nonnull transaction) {
-//        block(transaction);
-//    }];
-//}
+- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
+    [self.articleReferenceReadConnection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
+        block(transaction);
+    }];
+}
+
+- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
+    return [self.articleReferenceReadConnection wmf_readAndReturnResultsWithBlock:block];
+}
+
+- (void)readViewNamed:(NSString*)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
+    [self.articleReferenceReadConnection wmf_readInViewWithName:viewName withBlock:block];
+}
+
+- (nullable id)readAndReturnResultsWithViewNamed:(NSString*)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
+    return [self.articleReferenceReadConnection wmf_readAndReturnResultsInViewWithName:viewName withBlock:block];
+}
+
+
+- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block{
+    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction * _Nonnull transaction) {
+        block(transaction);
+    }];
+}
 
 - (void)yapDatabaseModified:(NSNotification *)notification {
 

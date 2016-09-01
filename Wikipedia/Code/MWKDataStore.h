@@ -217,6 +217,14 @@ extern NSString *const MWKItemUpdatedNotification;
 
 - (NSArray *)legacyImageURLsForArticle:(MWKArticle *)article;
 
+
+
+- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction))block;
+- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction))block;
+- (void)readViewNamed:(NSString*)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block;
+- (nullable id)readAndReturnResultsWithViewNamed:(NSString*)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block;
+- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block;
+
 @end
 
 NS_ASSUME_NONNULL_END
