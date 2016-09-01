@@ -39,7 +39,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGB-R2-1JO">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGB-R2-1JO">
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="Omk-d7-YCD"/>
                     </constraints>
@@ -56,7 +56,7 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tGB-R2-1JO" secondAttribute="bottom" priority="750" constant="16" id="45X-Fv-vfG"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tGB-R2-1JO" secondAttribute="bottom" priority="250" constant="16" id="45X-Fv-vfG"/>
                 <constraint firstItem="3sD-Qs-JfB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="4f9-jk-UAA"/>
                 <constraint firstItem="sBV-nz-BRl" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="Cr9-82-itP"/>
                 <constraint firstAttribute="bottom" secondItem="xnh-wl-RXW" secondAttribute="bottom" id="P8p-Ma-M5h"/>
@@ -64,6 +64,7 @@
                 <constraint firstItem="tGB-R2-1JO" firstAttribute="top" secondItem="3sD-Qs-JfB" secondAttribute="bottom" constant="4" id="TIt-oc-VCe"/>
                 <constraint firstItem="tGB-R2-1JO" firstAttribute="leading" secondItem="3sD-Qs-JfB" secondAttribute="leading" id="VL6-tl-eki"/>
                 <constraint firstAttribute="trailing" secondItem="sBV-nz-BRl" secondAttribute="trailing" constant="16" id="dDa-n0-3wG"/>
+                <constraint firstItem="sBV-nz-BRl" firstAttribute="leading" secondItem="tGB-R2-1JO" secondAttribute="trailing" constant="16" id="dq3-MQ-cPm"/>
                 <constraint firstItem="3sD-Qs-JfB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="eKF-om-e13"/>
                 <constraint firstAttribute="trailing" secondItem="xnh-wl-RXW" secondAttribute="trailing" id="hZ1-Qp-sRR"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="sBV-nz-BRl" secondAttribute="bottom" priority="750" constant="16" id="vIx-aM-iiu"/>

@@ -5,11 +5,15 @@ import WMFModel
 
 class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
+    @IBOutlet weak var headerView: UIView!
     
+    @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var stackView: UIStackView!
     
     var snapshotView: UIView?
     
+    let dateFormatter = NSDateFormatter.wmf_dayNameMonthNameDayOfMonthNumberDateFormatter()
+    var date = NSDate()
     let cellReuseIdentifier = "articleList"
     let articlePreviewFetcher = WMFArticlePreviewFetcher()
     let mostReadFetcher = WMFMostReadTitleFetcher()
@@ -17,6 +21,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     var maximumRowCount = 3
     var results: [MWKSearchResult] = []
     var articlePreviewViewControllers: [WMFArticlePreviewViewController] = []
+    var headerHeight: CGFloat = 44
+    var headerVisible = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +38,20 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
     }
     
+    func layoutForSize(size: CGSize) {
+        let headerOrigin = headerVisible ? CGPointZero : CGPointMake(0, 0 - headerHeight)
+        let stackViewOrigin = headerVisible ? CGPointMake(0, headerHeight) : CGPointZero
+        let stackViewHeight = headerVisible ? size.height : size.height - headerHeight
+        self.headerView.frame = CGRect(origin: headerOrigin, size: CGSize(width: size.width, height: headerHeight))
+        
+        
+        self.stackView.frame = CGRect(origin: stackViewOrigin, size: CGSize(width: size.width, height: stackViewHeight))
+        if var snapshotFrame = self.snapshotView?.frame {
+            snapshotFrame.origin = headerVisible ? stackViewOrigin : headerOrigin
+            self.snapshotView?.frame = snapshotFrame
+        }
+    }
+    
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
@@ -41,8 +61,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         coordinator.animateAlongsideTransition({ (context) in
             viewToFade.alpha = 0
             self.stackView.alpha = 1
-            self.stackView.frame = CGRect(origin: CGPointZero, size: size)
-
+            self.layoutForSize(size)
             }) { (context) in
             viewToFade.removeFromSuperview()
             self.snapshotView = nil
@@ -50,12 +69,14 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetActiveDisplayModeDidChange(activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        headerVisible = activeDisplayMode != .Compact
         maximumRowCount = activeDisplayMode == .Compact ? 1 : 3
         maximumSize = maxSize
         updateView()
     }
     
     func updateView() {
+        headerLabel.text = dateFormatter.stringFromDate(date).uppercaseString
         var i = 0
         let count = min(results.count, maximumRowCount)
         var didRemove = false
@@ -115,16 +136,19 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         
         var size = stackView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityDefaultLow)
         size.width = maximumSize.width
+        size.height += headerHeight
         preferredContentSize = size
         
-        stackView.frame = CGRect(origin: CGPointZero, size: size)
+        var stackViewFrame = stackView.frame
+        stackViewFrame.size = size
+        stackView.frame = stackViewFrame
     }
     
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
         
         let siteURL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
-        
-        mostReadFetcher.fetchMostReadTitlesForSiteURL(siteURL, date: NSDate().wmf_bestMostReadFetchDate()).then { (result) -> AnyPromise in
+        date = NSDate().wmf_bestMostReadFetchDate()
+        mostReadFetcher.fetchMostReadTitlesForSiteURL(siteURL, date: date).then { (result) -> AnyPromise in
             
             guard let mostReadTitlesResponse = result as? WMFMostReadTitlesResponseItem else {
                 completionHandler(.NoData)
