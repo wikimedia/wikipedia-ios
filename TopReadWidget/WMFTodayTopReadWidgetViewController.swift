@@ -29,16 +29,18 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:)))
+        
+        view.addGestureRecognizer(tapGR)
         
         if let context = self.extensionContext {
             context.widgetLargestAvailableDisplayMode = .Expanded
             let mode = context.widgetActiveDisplayMode
-            widgetActiveDisplayModeDidChange(mode, withMaximumSize: context.widgetMaximumSizeForDisplayMode(mode))
+            let maxSize = context.widgetMaximumSizeForDisplayMode(mode)
+            updateViewPropertiesForActiveDisplayMode(mode, maxSize: maxSize)
+            layoutForSize(view.bounds.size)
         }
-        
-        let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:)))
-        
-        view.addGestureRecognizer(tapGR)
         
         widgetPerformUpdate { (result) in
             
@@ -75,10 +77,14 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
     }
     
-    func widgetActiveDisplayModeDidChange(activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+    func updateViewPropertiesForActiveDisplayMode(activeDisplayMode: NCWidgetDisplayMode, maxSize: CGSize){
         headerVisible = activeDisplayMode != .Compact
         maximumRowCount = activeDisplayMode == .Compact ? 1 : 3
         maximumSize = maxSize
+    }
+    
+    func widgetActiveDisplayModeDidChange(activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        updateViewPropertiesForActiveDisplayMode(activeDisplayMode, maxSize: maxSize)
         updateView()
     }
     
@@ -152,6 +158,13 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
+        let newDate = NSDate().wmf_bestMostReadFetchDate()
+        
+        if let interval = newDate?.timeIntervalSinceDate(date) where interval < 86400 && results.count > 0 {
+            completionHandler(.NoData)
+            return
+        }
+        
         date = NSDate().wmf_bestMostReadFetchDate()
         mostReadFetcher.fetchMostReadTitlesForSiteURL(siteURL, date: date).then { (result) -> AnyPromise in
             
