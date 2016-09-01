@@ -4,6 +4,7 @@
 // Frameworks
 #import <Masonry/Masonry.h>
 #import <Tweaks/FBTweakInline.h>
+#import <YapDatabase/YapDatabase.h>
 #import "PiwikTracker+WMFExtensions.h"
 
 // Utility
@@ -471,9 +472,22 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             NSDictionary *userInfo = activity.userInfo;
             NSDate *date = userInfo[@"date"];
             NSURL *siteURL = userInfo[@"siteURL"];
+            NSString *host = siteURL.host;
+            if (date == nil || host == nil) {
+                break;
+            }
             MWKDataStore *dataStore = [[SessionSingleton sharedInstance] dataStore];
-            WMFMostReadListTableViewController *mostReadListVC = [[WMFMostReadListTableViewController alloc] initWithPreviews:@[] fromSiteURL:siteURL forDate:date dataStore:dataStore];
-            [navController pushViewController:mostReadListVC animated:NO];
+            [dataStore readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
+                NSString *collection = [@[@"wmftopread", host] componentsJoinedByString:@":"];
+                NSString *key = [[NSDateFormatter wmf_englishHyphenatedYearMonthDayFormatter] stringFromDate:date];
+                NSArray* previews = [transaction objectForKey:key inCollection:collection];
+                if ([previews count] > 0) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        WMFMostReadListTableViewController *mostReadListVC = [[WMFMostReadListTableViewController alloc] initWithPreviews:previews fromSiteURL:siteURL forDate:date dataStore:dataStore];
+                        [navController pushViewController:mostReadListVC animated:NO];
+                    });
+                }
+            }];
         }
             break;
         case WMFUserActivityTypeSavedPages:
