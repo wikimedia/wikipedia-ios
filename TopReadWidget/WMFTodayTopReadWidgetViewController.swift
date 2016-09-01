@@ -76,6 +76,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             snapshotFrame.origin = headerVisible ? stackViewOrigin : headerOrigin
             snapshotView?.frame = snapshotFrame
         }
+        
+        footerView.alpha = footerVisible ? 1 : 0
+        headerView.alpha = headerVisible ? 1 : 0
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
