@@ -854,12 +854,12 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.KVOControllerNonRetaining observe:controller
                                     keyPath:WMF_SAFE_KEYPATH(controller, items)
-                                    options:0
+                                    options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
                                       block:^(WMFExploreViewController* observer,
                                               id < WMFExploreSectionController > observedController,
                                               NSDictionary* change) {
         NSUInteger sectionIndex = [observer indexForSectionController:observedController];
-        if (sectionIndex != NSNotFound && [observer isDisplayingCellsForSection:sectionIndex]) {
+        if (sectionIndex != NSNotFound) {
             DDLogDebug(@"Reloading table to display results in controller %@", observedController);
             id oldValue = change[NSKeyValueChangeOldKey];
             id newValue = change[NSKeyValueChangeNewKey];
