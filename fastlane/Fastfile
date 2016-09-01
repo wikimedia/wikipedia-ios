@@ -58,9 +58,11 @@ platform :ios do
      sim_os: 9.3
     )
     verify(
+     sim_os: 10.0,
      scheme: "WikipediaRTL"
     )
     verify(
+     sim_os: 10.0,
      junit: true
     )
   end
