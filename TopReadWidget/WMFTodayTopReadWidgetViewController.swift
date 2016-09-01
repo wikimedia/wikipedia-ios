@@ -5,25 +5,28 @@ import WMFModel
 
 class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
-    @IBOutlet weak var headerView: UIView!
-    
-    @IBOutlet weak var headerLabel: UILabel!
-    @IBOutlet weak var stackView: UIStackView!
-    
-    var snapshotView: UIView?
-    
-    let dateFormatter = NSDateFormatter.wmf_dayNameMonthNameDayOfMonthNumberDateFormatter()
+    // Model
+    let siteURL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
     var date = NSDate()
-    let cellReuseIdentifier = "articleList"
+    var results: [MWKSearchResult] = []
     let articlePreviewFetcher = WMFArticlePreviewFetcher()
     let mostReadFetcher = WMFMostReadTitleFetcher()
+
+    // Views & View State
+    var snapshotView: UIView?
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var stackView: UIStackView!
+    let dateFormatter = NSDateFormatter.wmf_dayNameMonthNameDayOfMonthNumberDateFormatter()
+    let cellReuseIdentifier = "articleList"
     var maximumSize = CGSizeZero
     var maximumRowCount = 3
-    var results: [MWKSearchResult] = []
-    var articlePreviewViewControllers: [WMFArticlePreviewViewController] = []
     var headerHeight: CGFloat = 44
     var headerVisible = false
     
+    // Controllers
+    var articlePreviewViewControllers: [WMFArticlePreviewViewController] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +35,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             let mode = context.widgetActiveDisplayMode
             widgetActiveDisplayModeDidChange(mode, withMaximumSize: context.widgetMaximumSizeForDisplayMode(mode))
         }
+        
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:)))
+        
+        view.addGestureRecognizer(tapGR)
         
         widgetPerformUpdate { (result) in
             
@@ -145,8 +152,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
-        
-        let siteURL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
         date = NSDate().wmf_bestMostReadFetchDate()
         mostReadFetcher.fetchMostReadTitlesForSiteURL(siteURL, date: date).then { (result) -> AnyPromise in
             
@@ -156,10 +161,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             }
             
             let articleURLs = mostReadTitlesResponse.articles.map({ (article) -> NSURL in
-                return siteURL.wmf_URLWithTitle(article.titleText)
+                return self.siteURL.wmf_URLWithTitle(article.titleText)
             })
             
-            return self.articlePreviewFetcher.fetchArticlePreviewResultsForArticleURLs(articleURLs, siteURL: siteURL, extractLength: 0, thumbnailWidth: UIScreen.mainScreen().wmf_listThumbnailWidthForScale().unsignedIntegerValue)
+            return self.articlePreviewFetcher.fetchArticlePreviewResultsForArticleURLs(articleURLs, siteURL: self.siteURL, extractLength: 0, thumbnailWidth: UIScreen.mainScreen().wmf_listThumbnailWidthForScale().unsignedIntegerValue)
             }.then { (result) -> AnyPromise in
                 guard let articlePreviewResponse = result as? [MWKSearchResult] else {
                     completionHandler(.NoData)
@@ -177,6 +182,16 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         
     }
     
-    
+    func handleTapGestureRecognizer(gestureRecognizer: UITapGestureRecognizer) {
+        guard let index = self.articlePreviewViewControllers.indexOf({ (vc) -> Bool in return CGRectContainsPoint(vc.view.frame, gestureRecognizer.locationInView(self.view)) }) where index < results.count else {
+            return
+        }
+        
+        let result = results[index]
+        let URL = siteURL.wmf_URLWithTitle(result.displayTitle)
+        self.extensionContext?.openURL(URL, completionHandler: { (success) in
+            
+        })
+    }
     
 }
