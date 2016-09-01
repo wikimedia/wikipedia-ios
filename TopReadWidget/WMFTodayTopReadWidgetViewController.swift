@@ -14,7 +14,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     let mostReadFetcher = WMFMostReadTitleFetcher()
     let dataStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
     let shortDateFormatter = NSDateFormatter.wmf_englishHyphenatedYearMonthDayFormatter()
-
+    let numberFormatter = NSNumberFormatter()
+    
     // Views & View State
     var snapshotView: UIView?
     @IBOutlet weak var headerView: UIView!
@@ -45,7 +46,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        numberFormatter.numberStyle = .DecimalStyle
+        
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:)))
         
         view.addGestureRecognizer(tapGR)
@@ -147,7 +149,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             vc.titleLabel.text = result.displayTitle
             vc.subtitleLabel.text = result.wikidataDescription
             vc.imageView.wmf_reset()
-
+            vc.rankLabel.text = numberFormatter.stringFromNumber(i + 1)
             if let imageURL = result.thumbnailURL {
                 vc.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
             }

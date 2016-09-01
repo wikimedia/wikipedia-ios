@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFArticlePreviewViewController">
             <connections>
                 <outlet property="imageView" destination="sBV-nz-BRl" id="wNL-uY-r8g"/>
+                <outlet property="rankLabel" destination="8p9-Hg-81S" id="EA6-S9-EwZ"/>
                 <outlet property="separatorView" destination="xnh-wl-RXW" id="7Cd-KF-RX3"/>
                 <outlet property="subtitleLabel" destination="tGB-R2-1JO" id="3cy-Z7-BNS"/>
                 <outlet property="titleLabel" destination="3sD-Qs-JfB" id="cDK-az-uMN"/>
@@ -53,15 +54,26 @@
                         <constraint firstAttribute="height" constant="0.5" id="gFw-aV-GNQ"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8p9-Hg-81S">
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="dkH-H2-Iox"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="sBV-nz-BRl" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="0uS-mw-tlE"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tGB-R2-1JO" secondAttribute="bottom" priority="250" constant="16" id="45X-Fv-vfG"/>
-                <constraint firstItem="3sD-Qs-JfB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="4f9-jk-UAA"/>
-                <constraint firstItem="sBV-nz-BRl" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="Cr9-82-itP"/>
+                <constraint firstItem="3sD-Qs-JfB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="35" id="4f9-jk-UAA"/>
+                <constraint firstItem="8p9-Hg-81S" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="9A8-U2-H3W"/>
+                <constraint firstItem="sBV-nz-BRl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" priority="750" constant="16" id="Cr9-82-itP"/>
+                <constraint firstItem="xnh-wl-RXW" firstAttribute="leading" secondItem="8p9-Hg-81S" secondAttribute="leading" id="NZ9-cY-Lgv"/>
                 <constraint firstAttribute="bottom" secondItem="xnh-wl-RXW" secondAttribute="bottom" id="P8p-Ma-M5h"/>
-                <constraint firstItem="xnh-wl-RXW" firstAttribute="leading" secondItem="3sD-Qs-JfB" secondAttribute="leading" id="QsM-Tt-vKf"/>
                 <constraint firstItem="tGB-R2-1JO" firstAttribute="top" secondItem="3sD-Qs-JfB" secondAttribute="bottom" constant="4" id="TIt-oc-VCe"/>
+                <constraint firstItem="8p9-Hg-81S" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="UcO-e5-K5U"/>
                 <constraint firstItem="tGB-R2-1JO" firstAttribute="leading" secondItem="3sD-Qs-JfB" secondAttribute="leading" id="VL6-tl-eki"/>
                 <constraint firstAttribute="trailing" secondItem="sBV-nz-BRl" secondAttribute="trailing" constant="16" id="dDa-n0-3wG"/>
                 <constraint firstItem="sBV-nz-BRl" firstAttribute="leading" secondItem="tGB-R2-1JO" secondAttribute="trailing" constant="16" id="dq3-MQ-cPm"/>
