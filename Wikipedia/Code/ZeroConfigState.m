@@ -41,11 +41,9 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 
 - (void)setDisposition:(BOOL)disposition {
     @synchronized(self) {
-        if (_disposition == disposition) {
-            return;
-        }
+        BOOL previousDisposition = _disposition;
         _disposition = disposition;
-        [self postNotification];
+        [self postNotificationIfDispositionHasChangedFromPreviousDisposition:previousDisposition];
     }
 }
 
@@ -69,7 +67,26 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 
 #pragma mark - Banner Updates
 
-- (void)postNotification {
+- (void)postNotificationIfDispositionHasChangedFromPreviousDisposition:(BOOL)previousDisposition {
+    /*
+     *   This method does a few things:
+     *
+     * - Posts WMFZeroDispositionDidChange notification if the disposition has changed.
+     *
+     * - Fetches and sets self.zeroMessage to a WMFZeroMessage object containing carrier
+     *   specific strings.
+     *
+     * - If the fetched zeroMessage has a nil "message" string, this means even though
+     *   there was a header leading us to believe this network was Zero rated, it is
+     *   not presently enabled. (It would be nice if the query fetching the zeroMessage
+     *   returned an "enabled" key/value, but it doesn't - it nils out the values instead
+     *   apparently.) So if we detect a nil message we need to flip the disposition back
+     *   to "NO".
+     */
+    
+    // Note: don't nil out self.zeroMessage in this method
+    // because if we do we can't show its exit message strings!
+
     BOOL const didEnter = _disposition;
     dispatch_async(dispatch_get_main_queue(), ^{
         @weakify(self);
@@ -77,22 +94,39 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
         if (didEnter) {
             promise = [self fetchZeroMessage].then(^(WMFZeroMessage *zeroMessage) {
                 @strongify(self);
-                self.zeroMessage = zeroMessage;
+                
+                // If the config is not enabled its "message" will be nil, so if we detect a nil message
+                // set the disposition to NO before we post the WMFZeroDispositionDidChange notification.
+                if(zeroMessage.message == nil){
+                    @synchronized(self) {
+                        self->_disposition = NO;
+                    }
+                    // Reminder: don't nil out self.zeroMessage here or the carrier's exit message won't be available.
+                }else{
+                    self.zeroMessage = zeroMessage;
+                }
+                
+            }).catch(^(NSError* error){
+                @strongify(self);
+                @synchronized(self) {
+                    self->_disposition = NO;
+                }
             });
-        } else {
-            self.zeroMessage = nil;
         }
 
         promise.then(^{
             @strongify(self);
-            [[NSNotificationCenter defaultCenter] postNotificationName:WMFZeroDispositionDidChange object:self];
+
+            if(self.disposition != previousDisposition){
+                [[NSNotificationCenter defaultCenter] postNotificationName:WMFZeroDispositionDidChange object:self];
+            }
+            
         });
     });
 }
 
 - (AnyPromise *)fetchZeroMessage {
     [self.zeroMessageFetcher cancelAllFetches];
-    WMF_TECH_DEBT_TODO(fall back to default zero warning on fetch error);
     return [self.zeroMessageFetcher fetchZeroMessageForSiteURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]];
 }
 

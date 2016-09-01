@@ -11,10 +11,8 @@ extern NSString *const ZeroWarnWhenLeaving;
 
 @interface ZeroConfigState : NSObject
 
-/**
- *  This is currently unused, as apparently Varnish will figure this out from your IP address.
- */
-@property (atomic, copy, nullable) NSString *partnerXcs;
+@property (atomic, copy, nullable) NSString* partnerXCarrier;
+@property (atomic, copy, nullable) NSString* partnerXCarrierMeta;
 
 @property (nonatomic, strong, nullable, readonly) WMFZeroMessage *zeroMessage;
 ;

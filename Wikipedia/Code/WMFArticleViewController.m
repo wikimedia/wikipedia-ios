@@ -1357,7 +1357,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self completeAndHideProgressWithCompletion:^{
         //Without this pause, the motion happens too soon after loading the article
         dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-            [self showTableOfContentsAndFindInPageIconPopoversIfNeccesary];
+            [self showTableOfContentsAndFindInPageIconPopoversIfNecessary];
         });
     }];
 
@@ -1675,7 +1675,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
-- (void)showTableOfContentsAndFindInPageIconPopoversIfNeccesary {
+- (void)showTableOfContentsAndFindInPageIconPopoversIfNecessary {
     if (![self shouldShowTableOfContentsAndFindInPageIconPopovers]) {
         return;
     }

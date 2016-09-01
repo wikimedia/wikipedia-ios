@@ -858,7 +858,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (void)zeroDispositionDidChange:(NSNotification *)note {
     ZeroConfigState *state = [note object];
-    if (state.zeroMessage) {
+    if ([SessionSingleton sharedInstance].zeroConfigState.disposition) {
         [self showFirstTimeZeroOnAlertIfNeeded:state.zeroMessage];
     } else {
         [self showZeroOffAlert];
@@ -881,7 +881,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
     [self setZeroOnDialogShownOnce];
 
-    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:zeroMessage.message message:MWLocalizedString(@"zero-learn-more", nil) preferredStyle:UIAlertControllerStyleAlert];
+    NSString* title = zeroMessage.message ? zeroMessage.message : MWLocalizedString(@"zero-free-verbiage", nil);
+    
+    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:title message:MWLocalizedString(@"zero-learn-more", nil) preferredStyle:UIAlertControllerStyleAlert];
 
     [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil) style:UIAlertActionStyleCancel handler:NULL]];
 

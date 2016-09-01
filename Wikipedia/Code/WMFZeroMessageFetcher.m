@@ -3,6 +3,7 @@
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFZeroMessage.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
+#import "WMFURLCacheStrings.h"
 
 @interface WMFZeroMessageFetcher ()
 
@@ -31,7 +32,7 @@
             @"agent": [WikipediaAppUtils versionedUserAgent]
         }];
         //        if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
-        //            params[@"X-CS"] = @"TEST";
+        //            params[WMFURLCacheXCarrier] = @"TEST";
         //        }
         [self.operationManager GET:[[NSURL wmf_mobileAPIURLForURL:siteURL] absoluteString]
             parameters:params
