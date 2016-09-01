@@ -12,17 +12,28 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     let articlePreviewFetcher = WMFArticlePreviewFetcher()
     let mostReadFetcher = WMFMostReadTitleFetcher()
 
+
     // Views & View State
     var snapshotView: UIView?
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var footerView: UIView!
+    @IBOutlet weak var footerLabel: UILabel!
+    
+    
     @IBOutlet weak var stackView: UIStackView!
+    
     let dateFormatter = NSDateFormatter.wmf_dayNameMonthNameDayOfMonthNumberDateFormatter()
     let cellReuseIdentifier = "articleList"
+    
     var maximumSize = CGSizeZero
     var maximumRowCount = 3
+    
+    var footerHeight: CGFloat = 57
+    var footerVisible = true
+    
     var headerHeight: CGFloat = 44
-    var headerVisible = false
+    var headerVisible = true
     
     // Controllers
     var articlePreviewViewControllers: [WMFArticlePreviewViewController] = []
@@ -50,14 +61,20 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     func layoutForSize(size: CGSize) {
         let headerOrigin = headerVisible ? CGPointZero : CGPointMake(0, 0 - headerHeight)
         let stackViewOrigin = headerVisible ? CGPointMake(0, headerHeight) : CGPointZero
-        let stackViewHeight = headerVisible ? size.height : size.height - headerHeight
-        self.headerView.frame = CGRect(origin: headerOrigin, size: CGSize(width: size.width, height: headerHeight))
+        var stackViewHeight = size.height
+        if headerVisible {
+            stackViewHeight -= headerHeight
+        }
+        if footerVisible {
+            stackViewHeight -= footerHeight
+        }
+        headerView.frame = CGRect(origin: headerOrigin, size: CGSize(width: size.width, height: headerHeight))
+        footerView.frame = CGRect(origin: CGPoint(x: 0, y: footerVisible ? size.height - footerHeight : size.height), size: CGSize(width: size.width, height: footerHeight))
         
-        
-        self.stackView.frame = CGRect(origin: stackViewOrigin, size: CGSize(width: size.width, height: stackViewHeight))
-        if var snapshotFrame = self.snapshotView?.frame {
+        stackView.frame = CGRect(origin: stackViewOrigin, size: CGSize(width: size.width, height: stackViewHeight))
+        if var snapshotFrame = snapshotView?.frame {
             snapshotFrame.origin = headerVisible ? stackViewOrigin : headerOrigin
-            self.snapshotView?.frame = snapshotFrame
+            snapshotView?.frame = snapshotFrame
         }
     }
     
@@ -79,6 +96,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     func updateViewPropertiesForActiveDisplayMode(activeDisplayMode: NCWidgetDisplayMode, maxSize: CGSize){
         headerVisible = activeDisplayMode != .Compact
+        footerVisible = headerVisible
         maximumRowCount = activeDisplayMode == .Compact ? 1 : 3
         maximumSize = maxSize
     }
@@ -95,6 +113,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         var didRemove = false
         var didAdd = false
         let newSnapshot = view.snapshotViewAfterScreenUpdates(false)
+        stackView.removeArrangedSubview(footerView)
         while i < count {
             var vc: WMFArticlePreviewViewController
             if (i < articlePreviewViewControllers.count) {
@@ -136,7 +155,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             i += 1
         }
         
-        
         if let snapshot = newSnapshot where didRemove || didAdd {
             snapshot.frame = view.bounds
             view.addSubview(snapshot)
@@ -149,12 +167,22 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         
         var size = stackView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityDefaultLow)
         size.width = maximumSize.width
-        size.height += headerHeight
+        if headerVisible {
+            size.height += headerHeight
+        }
+        if footerVisible {
+            size.height += footerHeight
+        }
         preferredContentSize = size
         
         var stackViewFrame = stackView.frame
         stackViewFrame.size = size
         stackView.frame = stackViewFrame
+        
+        footerView.hidden = !footerVisible
+        var footerViewFrame = footerView.frame
+        footerViewFrame.origin = CGPoint(x:0, y:CGRectGetMaxY(stackView.frame))
+        footerView.frame = footerViewFrame
     }
     
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
