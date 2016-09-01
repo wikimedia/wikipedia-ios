@@ -107,7 +107,11 @@ public class WMFTableOfContentsViewController: UIViewController,
         }
     }
 
-    public func selectAndScrollToItem(item: TableOfContentsItem, animated: Bool) {
+    public func selectAndScrollToItem(item: TableOfContentsItem?, animated: Bool) {
+        guard let item = item else{
+            assertionFailure("Passing nil TOC item")
+            return
+        }
         guard let indexPath = indexPathForItem(item) else {
             assertionFailure("No indexPath known for TOC item \(item)")
             return
