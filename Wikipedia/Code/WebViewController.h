@@ -19,9 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable, readonly) WKWebView *webView;
 
-@property (nonatomic) BOOL isPeeking;
-@property (strong, nonatomic, nullable) WMFPeekHTMLElement *peekElement;
-
 @property (nonatomic) CGFloat contentWidthPercentage;
 @property (nonatomic, readonly) CGFloat marginWidth;
 

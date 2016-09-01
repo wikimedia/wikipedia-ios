@@ -55,6 +55,23 @@ function maybeSendMessageForTarget(event, hrefTarget){
     if (!hrefTarget) {
         return false;
     }
+ 
+    /*
+    "touchstart" is fired when you do a peek in WKWebView, but when the peek view controller
+    is presented, it appears the JS for the then covered webview more or less pauses, and
+    the matching "touchend" does't get called until the view is again shown and touched (the
+    hanging "touchend" seems to fire just before that new touch's "touchstart").
+    This is troublesome because that delayed call to "touchend" ends up causing the image or
+    link click handling to be called when the user touches the article again, even though
+    that image or link is probably not what the user is interacting with now. Thankfully we 
+    can check for this weird condition because when it happens the number of touches hasn't 
+    gone to 0 yet. So we check here and bail if that's the case.
+    */
+    var didDetectHangingTouchend = (event.touches.length > 0);
+    if(didDetectHangingTouchend){
+        return false;
+    }
+ 
     var href = hrefTarget.getAttribute( "href" );
     var hrefClass = hrefTarget.getAttribute('class');
     if (hrefTarget.getAttribute( "data-action" ) === "edit_section") {
@@ -88,25 +105,4 @@ function maybeSendMessageForTarget(event, hrefTarget){
 
 document.addEventListener("touchend", handleTouchEnded, false);
 
- function shouldPeekElement(element){
-    return (element.tagName == "IMG" || (element.tagName == "A" && !refs.isReference(element.href) && !refs.isCitation(element.href) && !refs.isEndnote(element.href)));
- }
- 
- // 3D Touch peeking listeners.
- document.addEventListener("touchstart", function (event) {
-                           // Send message with url (if any) from touch element to native land.
-                           var element = window.wmf.elementLocation.getElementFromPoint(event.changedTouches[0].pageX, event.changedTouches[0].pageY);
-                           if(shouldPeekElement(element)){
-                               window.webkit.messageHandlers.peek.postMessage({
-                                                                              'tagName': element.tagName,
-                                                                              'href': element.href,
-                                                                              'src': element.src
-                                                                              });
-                           }
-                           }, false);
- 
- document.addEventListener("touchend", function () {
-                           // Tell native land to clear the url - important.
-                           window.webkit.messageHandlers.peek.postMessage({});
-                           }, false);
 })();

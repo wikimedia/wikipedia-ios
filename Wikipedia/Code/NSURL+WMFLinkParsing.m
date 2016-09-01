@@ -174,6 +174,29 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
     return [self.fragment wmf_isCitationFragment];
 }
 
+- (BOOL)wmf_isPeekable {
+    if ([self.absoluteString isEqualToString:@""]
+        ||
+        [self.fragment wmf_isReferenceFragment]
+        ||
+        [self.fragment wmf_isCitationFragment]
+        ||
+        [self.fragment wmf_isEndNoteFragment]
+        ) {
+        return NO;
+    }
+    if (![self wmf_isWikiResource]) {
+        if ([self.scheme hasPrefix:@"http"]) {
+            return YES;
+        }
+    } else {
+        if (![self wmf_isIntraPageFragment]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (BOOL)wmf_isMobile {
     NSArray *hostComponents = [self.host componentsSeparatedByString:@"."];
     if (hostComponents.count < 3) {
