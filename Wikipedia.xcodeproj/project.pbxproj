@@ -8978,6 +8978,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 562BCBCF73412D4F738E262C /* Pods-Foundation-TopReadWidget.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -9007,6 +9008,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D455E421B290C872B9C9702E /* Pods-Foundation-TopReadWidget.debug test.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -9036,6 +9038,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 37C0AB6E40022063732EA2E9 /* Pods-Foundation-TopReadWidget.adhoc.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -9060,6 +9063,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 032850BE847B37D264150F91 /* Pods-Foundation-TopReadWidget.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -9084,6 +9088,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8B22D7212BDDE96EA3EC6A56 /* Pods-Foundation-TopReadWidget.test.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
@@ -9108,6 +9113,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 88126D862CE8877DEF37DBFD /* Pods-Foundation-TopReadWidget.beta.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
