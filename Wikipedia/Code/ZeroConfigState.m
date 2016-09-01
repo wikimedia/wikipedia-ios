@@ -67,22 +67,22 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 
 #pragma mark - Banner Updates
 
+/**
+ *   This method does a few things:
+ *
+ * - Posts WMFZeroDispositionDidChange notification if the disposition has changed.
+ *
+ * - Fetches and sets self.zeroMessage to a WMFZeroMessage object containing carrier
+ *   specific strings.
+ *
+ * - If the fetched zeroMessage has a nil "message" string, this means even though
+ *   there was a header leading us to believe this network was Zero rated, it is
+ *   not presently enabled. (It would be nice if the query fetching the zeroMessage
+ *   returned an "enabled" key/value, but it doesn't - it nils out the values instead
+ *   apparently.) So if we detect a nil message we need to flip the disposition back
+ *   to "NO".
+ */
 - (void)postNotificationIfDispositionHasChangedFromPreviousDisposition:(BOOL)previousDisposition {
-    /*
-     *   This method does a few things:
-     *
-     * - Posts WMFZeroDispositionDidChange notification if the disposition has changed.
-     *
-     * - Fetches and sets self.zeroMessage to a WMFZeroMessage object containing carrier
-     *   specific strings.
-     *
-     * - If the fetched zeroMessage has a nil "message" string, this means even though
-     *   there was a header leading us to believe this network was Zero rated, it is
-     *   not presently enabled. (It would be nice if the query fetching the zeroMessage
-     *   returned an "enabled" key/value, but it doesn't - it nils out the values instead
-     *   apparently.) So if we detect a nil message we need to flip the disposition back
-     *   to "NO".
-     */
     
     // Note: don't nil out self.zeroMessage in this method
     // because if we do we can't show its exit message strings!
