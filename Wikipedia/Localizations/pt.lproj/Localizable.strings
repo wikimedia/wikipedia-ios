@@ -261,7 +261,9 @@
 "license-footer-text" = "Conteúdo disponibilizado nos termos da $1, salvo indicação contrária.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Índice";
+// Fuzzy
 "table-of-contents-button-label" = "Índice";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Fechar Índice";
 "table-of-contents-close-accessibility-hint" = "Fechar";
 "abuse-filter-warning-heading" = "Esta edição poderá não ser construtiva. Tem a certeza que pretende gravá-la?";

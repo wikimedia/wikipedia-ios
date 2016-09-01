@@ -248,6 +248,7 @@
 "license-footer-text" = "კონტენტი ხელმისაწვდომია $1-ით";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "შინაარსი";
+// Fuzzy
 "table-of-contents-button-label" = "სარჩევი";
 "table-of-contents-close-accessibility-hint" = "დახურვა";
 "abuse-filter-warning-heading" = "თქვენი რედაქტირება არაკონსტრუქციულს ჰგავს, დარწმუნებული ხართ, რომ მისი შენახვა გსურთ?";

@@ -260,7 +260,9 @@
 "license-footer-text" = "התוכן זמין לפי תנאי $1 אלא אם נאמר אחרת.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "תוכן עניינים";
+// Fuzzy
 "table-of-contents-button-label" = "תוכן עניינים";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "סגירת תוכן העניינים";
 "table-of-contents-close-accessibility-hint" = "סגירה";
 "abuse-filter-warning-heading" = "ייתכן שזאת עריכה בלתי־מועילה, באמת לשמור אותה?";

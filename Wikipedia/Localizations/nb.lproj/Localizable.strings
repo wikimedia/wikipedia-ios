@@ -260,7 +260,9 @@
 "license-footer-text" = "Innholdet er tilgjengelig under $1 med mindre annet er angitt.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Innhold";
+// Fuzzy
 "table-of-contents-button-label" = "Oversikt over Innhold";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Lukk innholdsfortegnelsen";
 "table-of-contents-close-accessibility-hint" = "Lukk";
 "abuse-filter-warning-heading" = "Dette er muligens en lite konstruktiv redigering. Er du sikker på at du vil lagre?";

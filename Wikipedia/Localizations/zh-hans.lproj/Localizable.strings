@@ -265,7 +265,9 @@
 "license-footer-text" = "除非另有说明，内容基于$1授权。";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "内容";
+// Fuzzy
 "table-of-contents-button-label" = "目录";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "关闭目录";
 "table-of-contents-close-accessibility-hint" = "关闭";
 "abuse-filter-warning-heading" = "这看起来是没有建设性的编辑，您确定要保存它？";

@@ -56,7 +56,7 @@ pod 'NYTPhotoViewer'
 
 # Diagnostics
 pod 'PiwikTracker', :head
-pod 'HockeySDK', '~> 3.8.2'
+pod 'HockeySDK', '~> 4.1.0'
 pod 'Tweaks', :head
 
 target 'WikipediaUnitTests', :exclusive => true do

@@ -254,7 +254,9 @@
 "license-footer-text" = "Садржај је доступан под лиценцом $1 осим ако је другачије наведено.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Садржај";
+// Fuzzy
 "table-of-contents-button-label" = "Садржај";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Затвори садржај";
 "table-of-contents-close-accessibility-hint" = "Затвори";
 "abuse-filter-warning-heading" = "Ово личи на неконструктивну измену. Заиста желите да је сачувате?";

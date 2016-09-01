@@ -134,7 +134,7 @@
 "main-menu-send-feedback" = "Írj nekünk";
 "main-menu-show-page-history" = "$1 változásának története";
 "main-menu-about" = "Az appról";
-"main-menu-zero-faq" = "Wikipédia Zérő GYIK";
+"main-menu-zero-faq" = "Wikipédia Zéró GYIK";
 "main-menu-privacy-policy" = "Adatvédelmi irányelvek";
 "main-menu-terms-of-use" = "Felhasználási feltételek";
 "main-menu-rate-app" = "App értékelése";
@@ -155,6 +155,7 @@
 "saved-pages-refresh-cancel-alert-title" = "Frissítése megszakítva";
 "saved-pages-refresh-cancel-alert-message" = "A Wikipédia-szócikkek állandóan frissülnek. Nyomd meg a frissítést az összes szócikk legfrissebb verziójának letöltéséhez.";
 "saved-pages-refresh-cancel-alert-button" = "Értem";
+"saved-pages-description" = "Az elmentett lapok fantasztikusak. Gondolj rájuk könyvjelzőkként, amiket akár kapcsolat nélkül is olvashatsz.";
 "saved-pages-none" = "Még nincsenek mentett lapok.";
 "saved-pages-image-download-error" = "A képek letöltése sikertelen ehhez a mentett laphoz.";
 "history-title" = "Előzmények";
@@ -186,6 +187,7 @@
 "fetching-random-article" = "Véletlen cikk lekérése";
 "article-pull-to-refresh-prompt" = "Húzd le a frissítéshez";
 "article-pull-to-refresh-is-refreshing" = "Szócikk frissítése…";
+"credits-title" = "Nyílt forráskódú tárolók";
 "credits-wikimedia-repos" = "Wikimédia tárolók";
 "credits-gerrit-repo" = "App fő (Gerrit)";
 "credits-github-mirror" = "App tükrözés (GitHub)";
@@ -194,6 +196,7 @@
 "about-wikipedia" = "Wikipédia";
 "about-contributors" = "Közreműködők";
 "about-testers" = "Tesztelők";
+"about-testers-details" = "Minőségbiztosítási teszteket végzett a $1";
 "about-translators" = "Fordítók";
 "about-translators-details" = "A $1 önkéntesi fordították";
 "about-libraries" = "Felhasznált könyvtárak";
@@ -252,7 +255,9 @@
 "license-footer-text" = "A tartalom további jelölés hiányában a(z) $1 feltételei szerint használható fel.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Tartalom";
+// Fuzzy
 "table-of-contents-button-label" = "Tartalomjegyzék";
+// Fuzzy
 "table-of-contents-close-accessibility-label" = "Tartalomjegyzék bezárása";
 "table-of-contents-close-accessibility-hint" = "Bezárás";
 "abuse-filter-warning-heading" = "Ez nem tűnik konstruktív szerkesztésnek, biztosan el akarod menteni?";
@@ -295,14 +300,21 @@
 "nearby-wifi" = "A wifi engedélyezésével eszközöd pontosabb helymeghatározásra képes.";
 "migration-update-progress-label" = "Helyi adatok migrálása";
 "migration-update-progress-count-label" = "$1/$2. szócikk migrálása";
+"migration-prompt-title" = "Úgy tűnik, vannak előzményeink!";
+"migration-prompt-message" = "Arrébb kell raknunk a mentett és nemrég olvasott lapjaidat. Ez eltarthat pár percig…";
+"migration-confirm-button-title" = "Rakjuk arrébb";
+"migration-skip-button-title" = "Törölhetők";
 "image-gallery-unknown-owner" = "Ismeretlen feltöltő.";
 "image-gallery-fetch-image-info-error-title" = "A képek letöltése sikertelen";
 "image-gallery-fetch-image-info-error-message" = "A szócikkben szereplő képek letöltése sikertelen. Frissítsd a cikket és próbáld újra.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
+"hockeyapp-alert-question" = "Szeretnél küldeni egy összeomlási jelentést a(z) $1 harmadik félnek, hogy a Wikimédia megvizsgálhassa?";
+"hockeyapp-alert-question-with-response-field" = "Szeretnél küldeni egy összeomlási jelentést a(z) $1 harmadik félnek, hogy a Wikimédia megvizsgálhassa? Írd le, mi történt az összeomláskor:";
 "hockeyapp-alert-title" = "Sajnáljuk, az alkalmazás összeomlott legutóbb";
 "hockeyapp-alert-send-report" = "Jelentés küldése";
 "hockeyapp-alert-always-send" = "Mindig küld";
 "hockeyapp-alert-do-not-send" = "Nem küld";
+"hockeyapp-alert-privacy" = "$1 adatvédelmi irányelvei";
 "page-issues" = "A lap problémái";
 "page-similar-titles" = "Hasonló lapok";
 "page-read-in-other-languages" = "Elérhető $1 másik nyelven";
@@ -315,6 +327,8 @@
 "home-empty-section" = "Nincs találat";
 "home-empty-section-check-again" = "Próbáld újra";
 "home-continue-reading-heading" = "Olvasás folytatása";
+"home-continue-related-heading" = "Mert ezt olvastad: $1";
+"home-more-like-footer" = "Több ehhez hasonló: $1";
 "home-nearby-footer" = "Több a közeledből";
 "home-nearby-location-footer" = "Több $1 közeléből";
 "home-nearby-nothing" = "Semmi sincs a közelben";
@@ -335,6 +349,8 @@
 "welcome-explore-sub-title" = "Egy új mód, hogy érdekes szócikkeket fedezz fel nap mint nap";
 "welcome-explore-tell-me-more" = "További információk";
 "welcome-explore-tell-me-more-about-explore" = "További információk a Felfedezésről";
+"welcome-explore-tell-me-more-details" = "Amikor elolvasol egy szócikket, néhány kapcsolódó cikk megjelenik a Felfedezés hírfolyamodban. Ez nem változtat azon, hogy hogyan gyűjtjük az adataidat, és az általad olvasott cikkek listája továbbra is privát.";
+"welcome-explore-tell-me-more-related" = "A Felfedezés hírfolyam mutat az általad olvasott szócikkekhez kapcsolódó további cikkeket.";
 "welcome-explore-tell-me-more-privacy" = "Nem tárolunk semmilyen olvasólistát vagy profilt a szervereinken.";
 "welcome-explore-tell-me-more-done-button" = "Értem";
 "welcome-explore-continue-button" = "Kezdés";
@@ -342,6 +358,7 @@
 "welcome-languages-sub-title" = "Válaszd ki a Wikipédia kereséséhez preferált nyelveket";
 "welcome-languages-add-button" = "Másik nyelv hozzáadása";
 "welcome-languages-continue-button" = "Tovább";
+"welcome-volunteer-title" = "Önkénteskedj";
 "welcome-volunteer-sub-title" = "Segíts a Wikipédia alkalmazás fejlesztésében azzal, hogy megosztod, hogyan használod";
 "welcome-volunteer-send-usage-reports" = "Használati jelentés küldése";
 "welcome-volunteer-continue-button" = "Tovább";
@@ -366,12 +383,17 @@
 "explore-featured-article-heading" = "Kiemelt szócikk";
 "explore-continue-reading-heading" = "Olvasás folytatása";
 "explore-nearby-heading" = "Helyek a közelben";
+"explore-continue-related-heading" = "Mert ezt olvastad:";
 "explore-main-page-heading" = "Ma a Wikipédián";
 "explore-random-article-heading" = "Lap találomra";
 "explore-random-article-sub-heading" = "Magyar Wikipédia";
 "explore-potd-heading" = "A nap képe";
 "explore-most-read-heading" = "A legolvasottabb szócikkek a(z) $1 Wikipédián";
 "explore-most-read-generic-heading" = "Legolvasottabb";
+"explore-most-read-footer" = "Az összes legolvasottabb szócikk";
+"explore-most-read-footer-for-date" = "Az összes legolvasottabb szócikk ezen a napon: $1";
+"explore-most-read-more-list-title" = "Legolvasottabb szócikkek";
+"explore-most-read-more-list-title-for-date" = "Legolvasottabb ekkor: $1";
 "no-email-account-alert" = "Állíts be egy e-mail-fiókot az eszközödön és próbáld újra.";
 "request-feedback-on-error" = "Az alkalmazás egy hibát észlelt, amiről a fejlesztőink szeretnének többet tudni. Koppints ide egy e-mail elküldéséhez a hiba részleteivel.";
 "explore-another-random" = "Másik cikk találomra";
