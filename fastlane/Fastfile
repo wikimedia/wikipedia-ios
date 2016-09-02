@@ -208,8 +208,8 @@ platform :ios do
 
     gym(
       configuration: "Beta",
-      scheme: "Wikipedia Beta"
-      sdk: "10.0"
+      scheme: "Wikipedia Beta",
+      sdk: "iphoneos10.0"
     )
 
     # changelog = default_changelog
@@ -240,8 +240,8 @@ platform :ios do
 
     gym(
       configuration: "Release",
-      scheme: "Wikipedia"
-      sdk: "10.0"
+      scheme: "Wikipedia",
+      sdk: "iphoneos10.0"
     )
 
     hockey_prod_id = ENV["HOCKEY_PRODUCTION"]
