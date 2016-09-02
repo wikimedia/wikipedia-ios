@@ -3602,6 +3602,19 @@
 			path = ../Wikipedia/WebView;
 			sourceTree = "<group>";
 		};
+		B05BCF1C1D7A2EC100166C12 /* Wikipedia Zero */ = {
+			isa = PBXGroup;
+			children = (
+				B0E807401C0CED9F0065EBC0 /* WMFZeroConfigurationManager.h */,
+				B0E807411C0CED9F0065EBC0 /* WMFZeroConfigurationManager.m */,
+				BCB00EBC1C84F1EB0070E220 /* WMFZeroConfigurationFetcher.h */,
+				BCB00EBD1C84F1EB0070E220 /* WMFZeroConfigurationFetcher.m */,
+				BCB00EBF1C84F2690070E220 /* WMFZeroConfiguration.h */,
+				BCB00EC01C84F2690070E220 /* WMFZeroConfiguration.m */,
+			);
+			name = "Wikipedia Zero";
+			sourceTree = "<group>";
+		};
 		B063DE5D1C63FEB5002F2EDE /* UIToolbar */ = {
 			isa = PBXGroup;
 			children = (
@@ -5422,14 +5435,9 @@
 				BC070C2E1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.m */,
 				B0E807841C0CEF660065EBC0 /* MWKDataStoreList.h */,
 				B0E807871C0CEF660065EBC0 /* MWKList+Subclass.h */,
-				B0E807401C0CED9F0065EBC0 /* WMFZeroConfigurationManager.h */,
-				B0E807411C0CED9F0065EBC0 /* WMFZeroConfigurationManager.m */,
+				B05BCF1C1D7A2EC100166C12 /* Wikipedia Zero */,
 				B0E8067D1C0CE9C70065EBC0 /* WMFNetworkUtilities.h */,
 				B0E8067E1C0CE9C70065EBC0 /* WMFNetworkUtilities.m */,
-				BCB00EBC1C84F1EB0070E220 /* WMFZeroConfigurationFetcher.h */,
-				BCB00EBD1C84F1EB0070E220 /* WMFZeroConfigurationFetcher.m */,
-				BCB00EBF1C84F2690070E220 /* WMFZeroConfiguration.h */,
-				BCB00EC01C84F2690070E220 /* WMFZeroConfiguration.m */,
 				B0E807061C0CEBDA0065EBC0 /* WMFSharing.h */,
 				B0E804751C0CE0B40065EBC0 /* MWKArticle+WMFSharing.h */,
 				B0E804761C0CE0B40065EBC0 /* MWKArticle+WMFSharing.m */,
