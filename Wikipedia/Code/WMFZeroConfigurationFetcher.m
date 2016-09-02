@@ -3,7 +3,7 @@
 #import "WMFMantleJSONResponseSerializer.h"
 #import "WMFZeroConfiguration.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
-#import "WMFURLCacheStrings.h"
+#import "WMFZeroConfigurationManager.h"
 
 @interface WMFZeroConfigurationFetcher ()
 
@@ -32,7 +32,7 @@
             @"agent": [WikipediaAppUtils versionedUserAgent]
         }];
         //        if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
-        //            params[WMFURLCacheXCarrier] = @"TEST";
+        //            params[WMFZeroXCarrier] = @"TEST";
         //        }
         [self.operationManager GET:[[NSURL wmf_mobileAPIURLForURL:siteURL] absoluteString]
             parameters:params

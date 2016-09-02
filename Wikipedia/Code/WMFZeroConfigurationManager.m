@@ -1,17 +1,17 @@
 #import "WMFZeroConfigurationManager.h"
-//#import <Tweaks/FBTweakInline.h>
-
 #import "WMFZeroConfiguration.h"
 #import "WMFZeroConfigurationFetcher.h"
 #import "MWKLanguageLinkController.h"
 #import <WMFModel/WMFModel-Swift.h>
-#import "WMFURLCacheStrings.h"
+//#import <Tweaks/FBTweakInline.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString *const WMFIsZeroRatedChanged = @"WMFZeroDispositionDidChange";
+NSString *const WMFZeroRatedChanged = @"WMFZeroDispositionDidChange";
 NSString *const WMFZeroOnDialogShownOnce = @"ZeroOnDialogShownOnce";
 NSString *const WMFZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
+NSString *const WMFZeroXCarrier = @"X-Carrier";
+NSString *const WMFZeroXCarrierMeta = @"X-Carrier-Meta";
 
 @interface WMFZeroConfigurationManager ()
 
@@ -47,7 +47,7 @@ NSString *const WMFZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
     @synchronized(self) {
         if(_isZeroRated != isZeroRated){
             _isZeroRated = isZeroRated;
-            [[NSNotificationCenter defaultCenter] postNotificationName:WMFIsZeroRatedChanged object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:WMFZeroRatedChanged object:self];
         }
     }
 }
@@ -96,7 +96,7 @@ NSString *const WMFZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
             @strongify(self);
             
             // If the config is not enabled its "message" will be nil, so if we detect a nil message
-            // set the isZeroRated to NO before we post the WMFIsZeroRatedChanged notification.
+            // set the isZeroRated to NO before we post the WMFZeroRatedChanged notification.
             if(zeroConfiguration.message == nil){
                 self.isZeroRated = NO;
                 // Reminder: don't nil out self.zeroConfiguration here or the carrier's exit message won't be available.
@@ -123,10 +123,10 @@ NSString *const WMFZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
     
     bool zeroEnabled = self.isZeroRated;
     
-    NSString* xCarrierFromHeader = [headers objectForKey:WMFURLCacheXCarrier];
+    NSString* xCarrierFromHeader = [headers objectForKey:WMFZeroXCarrier];
     bool hasZeroHeader = (xCarrierFromHeader != nil);
     if (hasZeroHeader) {
-        NSString* xCarrierMetaFromHeader = [headers objectForKey:WMFURLCacheXCarrierMeta];
+        NSString* xCarrierMetaFromHeader = [headers objectForKey:WMFZeroXCarrierMeta];
         if ([self hasChangeHappenedToCarrier:xCarrierFromHeader orCarrierMeta:xCarrierMetaFromHeader]) {
             self.previousPartnerXCarrier = xCarrierFromHeader;
             self.previousPartnerXCarrierMeta = xCarrierMetaFromHeader;

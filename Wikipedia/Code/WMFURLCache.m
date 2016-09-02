@@ -3,7 +3,9 @@
 #import "MWKArticle.h"
 #import "MWKImage.h"
 #import <WMFModel/WMFModel-Swift.h>
-#import "WMFURLCacheStrings.h"
+
+static NSString* const WMFURLCacheWikipediaHost = @".wikipedia.org";
+static NSString* const WMFURLCacheJsonMIMEType  = @"application/json";
 
 @implementation WMFURLCache
 

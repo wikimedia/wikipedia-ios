@@ -121,7 +121,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(isZeroRatedChanged:)
-                                                 name:WMFIsZeroRatedChanged
+                                                 name:WMFZeroRatedChanged
                                                object:nil];
 }
 
