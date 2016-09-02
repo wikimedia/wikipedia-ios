@@ -567,11 +567,11 @@ NSString *const WMFCCBySALicenseURL =
     self.webView.scrollView.delegate = self;
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateZeroStateWithNotification:)
-                                                 name:WMFZeroDispositionDidChange
+                                             selector:@selector(updateZeroBannerWithNotification:)
+                                                 name:WMFIsZeroRatedDidChange
                                                object:nil];
     // should happen in will appear to prevent bar from being incorrect during transitions
-    [self updateZeroState];
+    [self updateZeroBanner];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(saveOpenArticleTitleWithCurrentlyOnscreenFragment)
@@ -591,7 +591,7 @@ NSString *const WMFCCBySALicenseURL =
 - (void)viewWillDisappear:(BOOL)animated {
     self.webView.scrollView.delegate = nil;
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroDispositionDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFIsZeroRatedDidChange object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
 
@@ -661,12 +661,12 @@ NSString *const WMFCCBySALicenseURL =
 
 #pragma mark - Zero
 
-- (void)updateZeroStateWithNotification:(NSNotification *)notification {
-    [self updateZeroState];
+- (void)updateZeroBannerWithNotification:(NSNotification *)notification {
+    [self updateZeroBanner];
 }
 
-- (void)updateZeroState {
-    if ([[SessionSingleton sharedInstance] zeroConfigurationManager].disposition) {
+- (void)updateZeroBanner {
+    if ([[SessionSingleton sharedInstance] zeroConfigurationManager].isZeroRated) {
         [self showBannerForZeroConfiguration:[[[SessionSingleton sharedInstance] zeroConfigurationManager] zeroConfiguration]];
     } else {
         self.zeroStatusLabel.text = @"";

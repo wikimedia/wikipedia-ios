@@ -120,8 +120,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [super viewDidLoad];
     self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(zeroDispositionDidChange:)
-                                                 name:WMFZeroDispositionDidChange
+                                             selector:@selector(isZeroRatedDidChange:)
+                                                 name:WMFIsZeroRatedDidChange
                                                object:nil];
 }
 
@@ -854,11 +854,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     return ![otherGestureRecognizer.view isKindOfClass:[UIScrollView class]];
 }
 
-#pragma mark - WMFZeroDisposition
+#pragma mark - Wikipedia Zero
 
-- (void)zeroDispositionDidChange:(NSNotification *)note {
+- (void)isZeroRatedDidChange:(NSNotification *)note {
     WMFZeroConfigurationManager *zeroConfigurationManager = [note object];
-    if (zeroConfigurationManager.disposition) {
+    if (zeroConfigurationManager.isZeroRated) {
         [self showFirstTimeZeroOnAlertIfNeeded:zeroConfigurationManager.zeroConfiguration];
     } else {
         [self showZeroOffAlert];

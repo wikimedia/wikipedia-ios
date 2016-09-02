@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString *const WMFZeroDispositionDidChange = @"WMFZeroDispositionDidChange";
+NSString *const WMFIsZeroRatedDidChange = @"WMFIsZeroRatedDidChange";
 
 NSString *const ZeroOnDialogShownOnce = @"ZeroOnDialogShownOnce";
 NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
@@ -21,12 +21,12 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 
 @property (atomic, copy, nullable) NSString* previousPartnerXCarrier;
 @property (atomic, copy, nullable) NSString* previousPartnerXCarrierMeta;
-@property (atomic, readwrite) BOOL disposition;
+@property (atomic, readwrite) BOOL isZeroRated;
 
 @end
 
 @implementation WMFZeroConfigurationManager
-@synthesize disposition = _disposition;
+@synthesize isZeroRated = _isZeroRated;
 @synthesize zeroConfigurationFetcher = _zeroConfigurationFetcher;
 
 + (void)load {
@@ -44,21 +44,21 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
     return _zeroConfigurationFetcher;
 }
 
-- (void)setDisposition:(BOOL)disposition {
+- (void)setIsZeroRated:(BOOL)isZeroRated {
     @synchronized(self) {
-        if(_disposition != disposition){
-            _disposition = disposition;
-            [[NSNotificationCenter defaultCenter] postNotificationName:WMFZeroDispositionDidChange object:self];
+        if(_isZeroRated != isZeroRated){
+            _isZeroRated = isZeroRated;
+            [[NSNotificationCenter defaultCenter] postNotificationName:WMFIsZeroRatedDidChange object:self];
         }
     }
 }
 
-- (BOOL)disposition {
-    BOOL disposition;
+- (BOOL)isZeroRated {
+    BOOL isZeroRated;
     @synchronized(self) {
-        disposition = _disposition;
+        isZeroRated = _isZeroRated;
     }
-    return disposition;
+    return isZeroRated;
 }
 
 - (void)setWarnWhenLeaving:(BOOL)warnWhenLeaving {
@@ -82,9 +82,9 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
  *   there was a header, leading us to believe this network was Zero rated, its Zero
  *   rating is not presently enabled. (It would be nice if the query fetching the
  *   zeroConfiguration returned an "enabled" key/value, but it doesn't - it nils out the
- *   values instead apparently.) So in the nil message case we set disposition "NO".
+ *   values instead apparently.) So in the nil message case we set isZeroRated "NO".
  */
-- (void)fetchZeroConfigurationAndSetDispositionIfNecessary {
+- (void)fetchZeroConfigurationAndSetIsZeroRatedIfNecessary {
     
     // Note: don't nil out self.zeroConfiguration in this method
     // because if we do we can't show its exit message strings!
@@ -97,18 +97,18 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
             @strongify(self);
             
             // If the config is not enabled its "message" will be nil, so if we detect a nil message
-            // set the disposition to NO before we post the WMFZeroDispositionDidChange notification.
+            // set the isZeroRated to NO before we post the WMFIsZeroRatedDidChange notification.
             if(zeroConfiguration.message == nil){
-                self.disposition = NO;
+                self.isZeroRated = NO;
                 // Reminder: don't nil out self.zeroConfiguration here or the carrier's exit message won't be available.
             }else{
                 self.zeroConfiguration = zeroConfiguration;
-                self.disposition = YES;
+                self.isZeroRated = YES;
             }
             
         }).catch(^(NSError* error){
             @strongify(self);
-            self.disposition = NO;
+            self.isZeroRated = NO;
         });
     });
 }
@@ -122,7 +122,7 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
     NSHTTPURLResponse* httpUrlResponse = (NSHTTPURLResponse*)response;
     NSDictionary* headers              = httpUrlResponse.allHeaderFields;
     
-    bool zeroEnabled = self.disposition;
+    bool zeroEnabled = self.isZeroRated;
     
     NSString* xCarrierFromHeader = [headers objectForKey:WMFURLCacheXCarrier];
     bool hasZeroHeader = (xCarrierFromHeader != nil);
@@ -131,12 +131,12 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
         if ([self hasChangeHappenedToCarrier:xCarrierFromHeader orCarrierMeta:xCarrierMetaFromHeader]) {
             self.previousPartnerXCarrier = xCarrierFromHeader;
             self.previousPartnerXCarrierMeta = xCarrierMetaFromHeader;
-            [self fetchZeroConfigurationAndSetDispositionIfNecessary];
+            [self fetchZeroConfigurationAndSetIsZeroRatedIfNecessary];
         }
     }else if(zeroEnabled) {
         self.previousPartnerXCarrier = nil;
         self.previousPartnerXCarrierMeta = nil;
-        self.disposition = NO;
+        self.isZeroRated = NO;
     }
 }
 

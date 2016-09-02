@@ -4,7 +4,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString *const WMFZeroDispositionDidChange;
+extern NSString *const WMFIsZeroRatedDidChange;
 
 extern NSString *const ZeroOnDialogShownOnce;
 extern NSString *const ZeroWarnWhenLeaving;
@@ -16,7 +16,7 @@ extern NSString *const ZeroWarnWhenLeaving;
 /**
  *  Whether or not the user is on a Wikipedia-Zero-rated network.
  */
-@property (atomic, readonly) BOOL disposition;
+@property (atomic, readonly) BOOL isZeroRated;
 
 /**
  *  Whether or not the user prefers to see a modal alert before going to a non-zero-rated URL (i.e. off of Wikipedia).
@@ -24,8 +24,8 @@ extern NSString *const ZeroWarnWhenLeaving;
 @property (nonatomic) BOOL warnWhenLeaving;
 
 /**
- * Inspects response headers to determine if network is Zero rated. Sets "disposition" to YES if so or NO if not.
- * Posts WMFZeroDispositionDidChange notification if change is made to "disposition".
+ * Inspects response headers to determine if network is Zero rated. Sets "isZeroRated" to YES if so or NO if not.
+ * Posts WMFIsZeroRatedDidChange notification if change is made to "isZeroRated".
  */
 - (void)inspectResponseForZeroHeaders:(NSURLResponse*)response;
 
