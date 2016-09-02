@@ -738,9 +738,6 @@
 		D86706BE1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */; };
 		D86706C31D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706C21D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m */; };
 		D878A6061D74D1340074B3AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
-		D878A6081D74D1520074B3AC /* WMFUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D878A6091D74D1570074B3AC /* WMFModel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D878A60A1D74D15C0074B3AC /* WMFUtilities.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D87A55991D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87A55971D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m */; };
 		D87A559A1D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87A55981D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.xib */; };
 		D87A559E1D3CFD2300341B32 /* WMFArticlePreviewCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87A559C1D3CFD2300341B32 /* WMFArticlePreviewCollectionViewCell.m */; };
@@ -753,7 +750,6 @@
 		D890C85D1D772ED3007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C85B1D772ED3007132C9 /* InfoPlist.strings */; };
 		D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */; };
 		D896C7991D6F3335007101DF /* WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; };
-		D896C79A1D6F333F007101DF /* WMFUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D896C79B1D6F5ADD007101DF /* NSDate+WMFRelativeDate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E78419A1C7CF5CE004F9D36 /* NSDate+WMFRelativeDate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D896C79C1D6F5AE1007101DF /* NSDate+WMFRelativeDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E78419B1C7CF5CE004F9D36 /* NSDate+WMFRelativeDate.m */; };
 		D89D43FF1D74D35F00F7862E /* WMFArticlePreviewFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B06531621C221BC4003BD7DC /* WMFArticlePreviewFetcher.m */; };
@@ -865,8 +861,6 @@
 		D8FAC7DC1D6F88A100C2A6BC /* WMFUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; };
 		D8FAC7DD1D6F88AB00C2A6BC /* WMFModel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8FAC7DE1D6F88B300C2A6BC /* WMFUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D8FAC7DF1D6F88D900C2A6BC /* WMFModel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D8FAC7E01D6F88DF00C2A6BC /* WMFUtilities.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EBCDF624997206E230918CCD /* Pods_Foundation_WMFUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840E588EB82825440685B50D /* Pods_Foundation_WMFUtilities.framework */; };
 /* End PBXBuildFile section */
 
@@ -946,30 +940,6 @@
 				D8AC392C1D6F2480007E3C14 /* WMFUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D84CA44D1D6DED1100837E58 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				D8FAC7E01D6F88DF00C2A6BC /* WMFUtilities.framework in CopyFiles */,
-				D8FAC7DF1D6F88D900C2A6BC /* WMFModel.framework in CopyFiles */,
-				D896C79A1D6F333F007101DF /* WMFUI.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D878A6071D74D1460074B3AC /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				D878A60A1D74D15C0074B3AC /* WMFUtilities.framework in CopyFiles */,
-				D878A6091D74D1570074B3AC /* WMFModel.framework in CopyFiles */,
-				D878A6081D74D1520074B3AC /* WMFUI.framework in CopyFiles */,
-			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -5947,7 +5917,6 @@
 				0E83805F1D64989F0076EDE4 /* Sources */,
 				0E8380601D64989F0076EDE4 /* Frameworks */,
 				0E8380611D64989F0076EDE4 /* Resources */,
-				D84CA44D1D6DED1100837E58 /* CopyFiles */,
 				E1BB699403B6FE1C6C95835F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -5989,7 +5958,6 @@
 				D4991431181D51DE00E6073C /* Sources */,
 				D4991432181D51DE00E6073C /* Frameworks */,
 				D4991433181D51DE00E6073C /* Resources */,
-				BC44DB9E1B161839008FCD0C /* Modify App Info.plist */,
 				0E8380771D64989F0076EDE4 /* Embed App Extensions */,
 				D84581101D67572D00B09640 /* Embed Frameworks */,
 				414AAE43509FC7B76217B6DE /* [CP] Embed Pods Frameworks */,
@@ -6060,7 +6028,6 @@
 				D85D34C11D74D07500845125 /* Sources */,
 				D85D34C21D74D07500845125 /* Frameworks */,
 				D85D34C31D74D07500845125 /* Resources */,
-				D878A6071D74D1460074B3AC /* CopyFiles */,
 				B85E79F9DBF588873F41FAB7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -6652,20 +6619,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-TopReadWidget/Pods-Foundation-TopReadWidget-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BC44DB9E1B161839008FCD0C /* Modify App Info.plist */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Modify App Info.plist";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = ./scripts/process_plist.sh;
-		};
 		D8D5DB491D7A25CF00526A69 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -6677,7 +6630,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH/ContinueReadingWidget.appex/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
+			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH/ContinueReadingWidget.appex/Frameworks\"\necho \"RUNNING $EMBEDDED_EXTENSION_PLUGIN_PATH\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\necho \"REMOVED $EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
 		};
 		D8D5DB4A1D7A25EE00526A69 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -6690,7 +6643,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH/TopReadWidget.appex/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
+			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH/TopReadWidget.appex/Frameworks\"\necho \"RUNNING $EMBEDDED_EXTENSION_PLUGIN_PATH\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\necho \"REMOVED $EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
 		};
 		D8D5DB4B1D7A260C00526A69 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -6703,7 +6656,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/Frameworks/WMFUtilities.framework/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
+			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/WMFUtilities.framework/Frameworks\"\necho \"RUNNING $EMBEDDED_EXTENSION_PLUGIN_PATH\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\necho \"REMOVED $EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
 		};
 		D8D5DB4C1D7A263800526A69 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -6716,7 +6669,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/Frameworks/WMFModel.framework/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
+			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/WMFModel.framework/Frameworks\"\necho \"RUNNING $EMBEDDED_EXTENSION_PLUGIN_PATH\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\necho \"REMOVED $EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
 		};
 		D8D5DB4D1D7A264400526A69 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -6729,7 +6682,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/Frameworks/WMFUI.framework/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
+			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/WMFUI.framework/Frameworks\"\necho \"RUNNING $EMBEDDED_EXTENSION_PLUGIN_PATH\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\necho \"REMOVED $EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
 		};
 		E1BB699403B6FE1C6C95835F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
