@@ -208,7 +208,7 @@ platform :ios do
 
     gym(
       configuration: "Beta",
-      scheme: "Wikipedia Beta"
+      scheme: "Wikipedia Beta",
       sdk: "10.0"
     )
 
@@ -240,7 +240,7 @@ platform :ios do
 
     gym(
       configuration: "Release",
-      scheme: "Wikipedia"
+      scheme: "Wikipedia",
       sdk: "10.0"
     )
 
