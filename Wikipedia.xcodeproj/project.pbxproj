@@ -5949,7 +5949,6 @@
 				0E8380611D64989F0076EDE4 /* Resources */,
 				D84CA44D1D6DED1100837E58 /* CopyFiles */,
 				E1BB699403B6FE1C6C95835F /* [CP] Copy Pods Resources */,
-				D834402B1D7A1AD500A5316A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -5995,6 +5994,11 @@
 				D84581101D67572D00B09640 /* Embed Frameworks */,
 				414AAE43509FC7B76217B6DE /* [CP] Embed Pods Frameworks */,
 				AD74094442CF3BBFA5386F88 /* [CP] Copy Pods Resources */,
+				D8D5DB491D7A25CF00526A69 /* ShellScript */,
+				D8D5DB4A1D7A25EE00526A69 /* ShellScript */,
+				D8D5DB4B1D7A260C00526A69 /* ShellScript */,
+				D8D5DB4C1D7A263800526A69 /* ShellScript */,
+				D8D5DB4D1D7A264400526A69 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -6017,7 +6021,6 @@
 				D844D9681D6CB2600042D692 /* Frameworks */,
 				D844D9691D6CB2600042D692 /* Headers */,
 				6C76A39E89C19E71FCF71E81 /* [CP] Copy Pods Resources */,
-				D834402E1D7A1AE800A5316A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -6039,7 +6042,6 @@
 				D84580EA1D67572C00B09640 /* Resources */,
 				D84580E91D67572C00B09640 /* Headers */,
 				91F96FD96A29DBFB4627CA05 /* [CP] Copy Pods Resources */,
-				D834402D1D7A1AE200A5316A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -6060,7 +6062,6 @@
 				D85D34C31D74D07500845125 /* Resources */,
 				D878A6071D74D1460074B3AC /* CopyFiles */,
 				B85E79F9DBF588873F41FAB7 /* [CP] Copy Pods Resources */,
-				D834402C1D7A1ADD00A5316A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -6081,7 +6082,6 @@
 				D8AC39211D6F247F007E3C14 /* Headers */,
 				D8AC39221D6F247F007E3C14 /* Resources */,
 				50E48C52BF3C32825D2AEF03 /* [CP] Copy Pods Resources */,
-				D834402F1D7A1AED00A5316A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -6666,7 +6666,7 @@
 			shellPath = /bin/sh;
 			shellScript = ./scripts/process_plist.sh;
 		};
-		D834402B1D7A1AD500A5316A /* ShellScript */ = {
+		D8D5DB491D7A25CF00526A69 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -6677,9 +6677,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH/<HARD_CODE_EXTENSION.appex_HERE>/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
+			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH?ContinueReadingWidget.appex/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
 		};
-		D834402C1D7A1ADD00A5316A /* ShellScript */ = {
+		D8D5DB4A1D7A25EE00526A69 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -6690,9 +6690,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH/<HARD_CODE_EXTENSION.appex_HERE>/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
+			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH/TopReadWidget.appex/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
 		};
-		D834402D1D7A1AE200A5316A /* ShellScript */ = {
+		D8D5DB4B1D7A260C00526A69 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -6703,9 +6703,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH/<HARD_CODE_EXTENSION.appex_HERE>/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
+			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/Frameworks/WMFUtilities.framework/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
 		};
-		D834402E1D7A1AE800A5316A /* ShellScript */ = {
+		D8D5DB4C1D7A263800526A69 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -6716,9 +6716,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH/<HARD_CODE_EXTENSION.appex_HERE>/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
+			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/Frameworks/WMFModel.framework/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
 		};
-		D834402F1D7A1AED00A5316A /* ShellScript */ = {
+		D8D5DB4D1D7A264400526A69 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -6729,7 +6729,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH/<HARD_CODE_EXTENSION.appex_HERE>/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
+			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/Frameworks/WMFUI.framework/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
 		};
 		E1BB699403B6FE1C6C95835F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
