@@ -1,4 +1,3 @@
-
 #import "WMFEmptySectionCollectionViewCell.h"
 
 @implementation WMFEmptySectionCollectionViewCell

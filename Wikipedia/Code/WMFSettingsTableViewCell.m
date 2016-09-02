@@ -1,51 +1,50 @@
 #import "WMFSettingsTableViewCell.h"
-#import "UIColor+WMFHexColor.h"
 #import "UIImage+WMFStyle.h"
 
 @interface WMFSettingsTableViewCell ()
 
-@property (strong, nonatomic) IBOutlet UIImageView* titleIcon;
-@property (strong, nonatomic) IBOutlet UILabel* titleLabel;
-@property (strong, nonatomic) IBOutlet UILabel* disclosureLabel;
-@property (strong, nonatomic) IBOutlet UIImageView* disclosureIcon;
+@property (strong, nonatomic) IBOutlet UIImageView *titleIcon;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *disclosureLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *disclosureIcon;
 
 @end
 
 @implementation WMFSettingsTableViewCell
 
-- (void)setTitle:(NSString*)title {
-    _title               = title;
+- (void)setTitle:(NSString *)title {
+    _title = title;
     self.titleLabel.text = title;
 }
 
-- (void)setIconName:(NSString*)iconName {
-    _iconName            = iconName;
+- (void)setIconName:(NSString *)iconName {
+    _iconName = iconName;
     self.titleIcon.image = [[UIImage imageNamed:iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
-- (void)setDisclosureText:(NSString*)disclosureText {
-    _disclosureText           = disclosureText;
+- (void)setDisclosureText:(NSString *)disclosureText {
+    _disclosureText = disclosureText;
     self.disclosureLabel.text = disclosureText;
 }
 
-- (void)setIconColor:(UIColor*)iconColor {
-    _iconColor                     = iconColor;
+- (void)setIconColor:(UIColor *)iconColor {
+    _iconColor = iconColor;
     self.titleIcon.backgroundColor = iconColor;
-    self.titleIcon.tintColor       = [UIColor whiteColor];
+    self.titleIcon.tintColor = [UIColor whiteColor];
 }
 
-- (UIImage*)backChevronImage {
+- (UIImage *)backChevronImage {
     static dispatch_once_t once;
-    static UIImage* image;
+    static UIImage *image;
     dispatch_once(&once, ^{
         image = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     });
     return image;
 }
 
-- (UIImage*)externalLinkImage {
+- (UIImage *)externalLinkImage {
     static dispatch_once_t once;
-    static UIImage* image;
+    static UIImage *image;
     dispatch_once(&once, ^{
         image = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"mini-external"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     });
@@ -56,33 +55,33 @@
     _disclosureType = disclosureType;
     switch (disclosureType) {
         case WMFSettingsMenuItemDisclosureType_None:
-            self.disclosureIcon.hidden   = YES;
-            self.disclosureLabel.hidden  = YES;
-            self.disclosureIcon.image    = nil;
+            self.disclosureIcon.hidden = YES;
+            self.disclosureLabel.hidden = YES;
+            self.disclosureIcon.image = nil;
             self.disclosureSwitch.hidden = YES;
             break;
         case WMFSettingsMenuItemDisclosureType_ExternalLink:
-            self.disclosureIcon.hidden   = NO;
-            self.disclosureLabel.hidden  = YES;
-            self.disclosureIcon.image    = [self externalLinkImage];
+            self.disclosureIcon.hidden = NO;
+            self.disclosureLabel.hidden = YES;
+            self.disclosureIcon.image = [self externalLinkImage];
             self.disclosureSwitch.hidden = YES;
             break;
         case WMFSettingsMenuItemDisclosureType_Switch:
-            self.disclosureIcon.hidden   = YES;
-            self.disclosureLabel.hidden  = YES;
-            self.disclosureIcon.image    = nil;
+            self.disclosureIcon.hidden = YES;
+            self.disclosureLabel.hidden = YES;
+            self.disclosureIcon.image = nil;
             self.disclosureSwitch.hidden = NO;
             break;
         case WMFSettingsMenuItemDisclosureType_ViewController:
-            self.disclosureIcon.hidden   = NO;
-            self.disclosureLabel.hidden  = YES;
-            self.disclosureIcon.image    = [self backChevronImage];
+            self.disclosureIcon.hidden = NO;
+            self.disclosureLabel.hidden = YES;
+            self.disclosureIcon.image = [self backChevronImage];
             self.disclosureSwitch.hidden = YES;
             break;
         case WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText:
-            self.disclosureIcon.hidden   = NO;
-            self.disclosureLabel.hidden  = NO;
-            self.disclosureIcon.image    = [self backChevronImage];
+            self.disclosureIcon.hidden = NO;
+            self.disclosureLabel.hidden = NO;
+            self.disclosureIcon.image = [self backChevronImage];
             self.disclosureSwitch.hidden = YES;
             break;
         default:
@@ -91,6 +90,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.disclosureIcon.tintColor = [UIColor wmf_colorWithHex:0xC7C7C7 alpha:1.0];
 }
 

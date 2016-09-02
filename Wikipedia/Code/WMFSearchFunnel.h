@@ -1,14 +1,6 @@
-//
-//  WMFSearchFunnel.h
-//  Wikipedia
-//
-//  Created by Corey Floyd on 5/8/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "EventLoggingFunnel.h"
 
-typedef NS_ENUM (NSUInteger, WMFSearchType) {
+typedef NS_ENUM(NSUInteger, WMFSearchType) {
     WMFSearchTypePrefix = 0,
     WMFSearchTypeFull
 };
@@ -24,7 +16,5 @@ typedef NS_ENUM (NSUInteger, WMFSearchType) {
 - (void)logSearchResultsWithTypeOfSearch:(WMFSearchType)type resultCount:(NSUInteger)count elapsedTime:(NSTimeInterval)searchTime;
 
 - (void)logShowSearchErrorWithTypeOfSearch:(WMFSearchType)type elapsedTime:(NSTimeInterval)searchTime;
-
-
 
 @end

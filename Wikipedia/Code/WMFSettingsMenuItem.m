@@ -1,6 +1,4 @@
-
 #import "WMFSettingsMenuItem.h"
-#import "UIColor+WMFHexColor.h"
 #import "SessionSingleton.h"
 #import "Wikipedia-Swift.h"
 #import "MWKLanguageLinkController.h"
@@ -10,25 +8,25 @@
 
 @property (nonatomic, assign, readwrite) WMFSettingsMenuItemType type;
 
-@property (nonatomic, copy, readwrite) NSString* title;
+@property (nonatomic, copy, readwrite) NSString *title;
 
-@property (nonatomic, copy, readwrite) NSString* iconName;
+@property (nonatomic, copy, readwrite) NSString *iconName;
 
-@property (nonatomic, copy, readwrite) UIColor* iconColor;
+@property (nonatomic, copy, readwrite) UIColor *iconColor;
 
 @property (nonatomic, assign, readwrite) WMFSettingsMenuItemDisclosureType disclosureType;
 
-@property (nonatomic, copy, readwrite) NSString* disclosureText;
+@property (nonatomic, copy, readwrite) NSString *disclosureText;
 
 @end
 
 @implementation WMFSettingsMenuItem
 
-+ (WMFSettingsMenuItem*)itemForType:(WMFSettingsMenuItemType)type {
++ (WMFSettingsMenuItem *)itemForType:(WMFSettingsMenuItemType)type {
     switch (type) {
         case WMFSettingsMenuItemType_Login: {
-            NSString* userName    = [WMFAuthenticationManager sharedInstance].loggedInUsername;
-            NSString* loginString = (userName) ? [MWLocalizedString(@"main-menu-account-title-logged-in", nil) stringByReplacingOccurrencesOfString : @"$1" withString:userName] : MWLocalizedString(@"main-menu-account-login", nil);
+            NSString *userName = [WMFAuthenticationManager sharedInstance].loggedInUsername;
+            NSString *loginString = (userName) ? [MWLocalizedString(@"main-menu-account-title-logged-in", nil) stringByReplacingOccurrencesOfString:@"$1" withString:userName] : MWLocalizedString(@"main-menu-account-login", nil);
 
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
@@ -67,7 +65,7 @@
                                                 iconColor:[UIColor wmf_green]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_Switch
                                            disclosureText:nil
-                                               isSwitchOn:[[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]];
+                                               isSwitchOn:[[NSUserDefaults wmf_userDefaults] wmf_showSearchLanguageBar]];
         }
         case WMFSettingsMenuItemType_PrivacyPolicy: {
             return
@@ -173,21 +171,21 @@
 }
 
 - (instancetype)initWithType:(WMFSettingsMenuItemType)type
-                       title:(NSString*)title
-                    iconName:(NSString*)iconName
-                   iconColor:(UIColor*)iconColor
+                       title:(NSString *)title
+                    iconName:(NSString *)iconName
+                   iconColor:(UIColor *)iconColor
               disclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType
-              disclosureText:(NSString*)disclosureText
+              disclosureText:(NSString *)disclosureText
                   isSwitchOn:(BOOL)isSwitchOn {
     self = [super init];
     if (self) {
-        self.type           = type;
-        self.title          = title;
-        self.iconName       = iconName;
-        self.iconColor      = iconColor;
+        self.type = type;
+        self.title = title;
+        self.iconName = iconName;
+        self.iconColor = iconColor;
         self.disclosureType = disclosureType;
         self.disclosureText = disclosureText;
-        self.isSwitchOn     = isSwitchOn;
+        self.isSwitchOn = isSwitchOn;
     }
     return self;
 }

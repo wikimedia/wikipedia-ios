@@ -1,4 +1,3 @@
-
 #import "UIKit/UIKit.h"
 #import "MWKSiteDataObject.h"
 
@@ -10,17 +9,17 @@
 /**
  * Article the image was parsed from.
  */
-@property (readonly, weak, nonatomic) MWKArticle* article;
+@property (readonly, weak, nonatomic) MWKArticle *article;
 
 /**
  * URL pointing to the receiver's data.
  */
-@property (readonly, copy, nonatomic) NSURL* sourceURL;
+@property (readonly, copy, nonatomic) NSURL *sourceURL;
 
 /**
  * Absolute string of `sourceURL`.
  */
-@property (readonly, copy, nonatomic) NSString* sourceURLString;
+@property (readonly, copy, nonatomic) NSString *sourceURLString;
 
 #pragma mark - Size
 
@@ -29,30 +28,29 @@
  * @warning This might be a guess based on the dimensions specified in the <img> tag the receiver was
  *          parsed from.
  */
-@property (copy, nonatomic) NSNumber* width;
+@property (copy, nonatomic) NSNumber *width;
 
 /**
  * Height of the receiver's image.
  * @warning This might be a guess based on the dimensions specified in the <img> tag the receiver was
  *          parsed from.
  */
-@property (copy, nonatomic) NSNumber* height;
+@property (copy, nonatomic) NSNumber *height;
 
 /**
  * @return CGSize with the receiver's `width` and `height`.
  */
 - (CGSize)size;
 
-
 /**
  * Width of the original image file. For example, if this image is a thumbnail, this is the width of the original image.
  */
-@property (copy, nonatomic) NSNumber* originalFileWidth;
+@property (copy, nonatomic) NSNumber *originalFileWidth;
 
 /**
  * Height of the original image file. For example, if this image is a thumbnail, this is the height of the original image.
  */
-@property (copy, nonatomic) NSNumber* originalFileHeight;
+@property (copy, nonatomic) NSNumber *originalFileHeight;
 
 /**
  * @return CGSize with the receiver's original file `width` and `height`.
@@ -70,15 +68,14 @@
 /**
  * Initializes the image with the given `article` and `sourceURL`.
  */
-- (instancetype)initWithArticle:(MWKArticle*)article sourceURL:(NSURL*)sourceURL NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithArticle:(MWKArticle *)article sourceURL:(NSURL *)sourceURL NS_DESIGNATED_INITIALIZER;
 
 /**
  * Convenience initializer, @see initWithArtile:sourceURL:
  */
-- (instancetype)initWithArticle:(MWKArticle*)article sourceURLString:(NSString*)url;
+- (instancetype)initWithArticle:(MWKArticle *)article sourceURLString:(NSString *)url;
 
-- (instancetype)initWithURL:(NSURL*)url NS_UNAVAILABLE;
-
+- (instancetype)initWithURL:(NSURL *)url NS_UNAVAILABLE;
 
 #pragma mark - Serialization
 
@@ -87,13 +84,12 @@
  * @param article  The article to associate this image with.
  * @param dict     A dictionary which contains data from a previous call to `-[MWKImage dataExport]`.
  */
-- (instancetype)initWithArticle:(MWKArticle*)article dict:(NSDictionary*)dict;
+- (instancetype)initWithArticle:(MWKArticle *)article dict:(NSDictionary *)dict;
 
 /**
  * Save the receiver in the same `MWKDataStore` as its `article`.
  */
 - (void)save;
-
 
 #pragma mark - Managing Face Information
 
@@ -108,7 +104,7 @@
  *
  * @see CIDetector+WMFFaceDetection
  */
-@property (copy, nonatomic /*, nullable*/) NSArray<NSValue*>* allNormalizedFaceBounds;
+@property (copy, nonatomic /*, nullable*/) NSArray<NSValue *> *allNormalizedFaceBounds;
 
 /**
  * Convenience accessor for the bounds of the first face in `allNormalizedFaceBounds`.
@@ -130,30 +126,30 @@
    [img isVariantOfImage:img]; //< returns YES
    @endcode
  */
-- (BOOL)isVariantOfImage:(MWKImage*)otherImage;
+- (BOOL)isVariantOfImage:(MWKImage *)otherImage;
 
 #pragma mark - File Properties
 
-@property (readonly, copy, nonatomic) NSString* extension;
-@property (readonly, copy, nonatomic) NSString* fileName;
-@property (readonly, copy, nonatomic) NSString* fileNameNoSizePrefix;
-@property (copy, nonatomic) NSString* mimeType;
+@property (readonly, copy, nonatomic) NSString *extension;
+@property (readonly, copy, nonatomic) NSString *fileName;
+@property (readonly, copy, nonatomic) NSString *fileNameNoSizePrefix;
+@property (copy, nonatomic) NSString *mimeType;
 
 /**
  * Return the folder containing the image file from receiver's @c sourceURL.
  */
-- (NSString*)basename;
+- (NSString *)basename;
 
 /**
  * The receiver's canonical filename, after normalization.
  * @see -canonicalFilenameFromSourceURL
  * @see WMFNormalizedPageTitle()
  */
-- (NSString*)canonicalFilename;
+- (NSString *)canonicalFilename;
 
 #pragma mark - Comparison
 
-- (BOOL)isEqualToImage:(MWKImage*)image;
+- (BOOL)isEqualToImage:(MWKImage *)image;
 
 - (BOOL)isLeadImage;
 

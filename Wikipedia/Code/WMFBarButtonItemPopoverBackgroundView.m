@@ -1,7 +1,7 @@
 #import "WMFBarButtonItemPopoverBackgroundView.h"
 #import "UIColor+WMFStyle.h"
 
-@interface WMFBarButtonItemPopoverBackgroundView()
+@interface WMFBarButtonItemPopoverBackgroundView ()
 
 @property (nonatomic, readwrite) CGFloat arrowOffset;
 @property (nonatomic, readwrite) UIPopoverArrowDirection arrowDirection;
@@ -11,10 +11,10 @@
 
 @implementation WMFBarButtonItemPopoverBackgroundView
 
-@synthesize arrowDirection  = _arrowDirection;
-@synthesize arrowOffset     = _arrowOffset;
+@synthesize arrowDirection = _arrowDirection;
+@synthesize arrowOffset = _arrowOffset;
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.arrowDirection = UIPopoverArrowDirectionAny;
@@ -24,19 +24,19 @@
     return self;
 }
 
-+ (CGFloat)arrowBase{
++ (CGFloat)arrowBase {
     return 24.0f;
 }
 
-+ (CGFloat)arrowHeight{
++ (CGFloat)arrowHeight {
     return 13.0f;
 }
 
-+ (UIEdgeInsets)contentViewInsets{
++ (UIEdgeInsets)contentViewInsets {
     return UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
-+ (BOOL)wantsDefaultContentAppearance{
++ (BOOL)wantsDefaultContentAppearance {
     return NO;
 }
 
@@ -64,7 +64,7 @@
     if ([[self class] wantsDefaultContentAppearance]) {
         [super layoutSubviews];
     }
-    
+
     [self repositionAndRotateArrow];
 }
 
@@ -73,7 +73,7 @@
     CGRect frame = self.frame;
     CGPoint center = CGPointZero;
     CGFloat angle = 0;
-    
+
     if (self.arrowDirection == UIPopoverArrowDirectionUp) {
         frame.origin.y += height;
         frame.size.height -= height;
@@ -93,7 +93,7 @@
         angle = M_PI_2;
         center = CGPointMake(frame.size.width + height * 0.5, frame.size.height * 0.5 + self.arrowOffset);
     }
-    
+
     self.arrowImageView.center = center;
     self.arrowImageView.transform = CGAffineTransformMakeRotation(angle);
 }
@@ -101,7 +101,7 @@
 - (UIImage *)arrowImageWithSize:(CGSize)size {
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
+
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathMoveToPoint(path, NULL, (size.width / 2.0f), 2.0f);
     CGPathAddLineToPoint(path, NULL, size.width, size.height + 1.0f);
@@ -109,10 +109,10 @@
     CGPathCloseSubpath(path);
     CGContextAddPath(context, path);
     CGPathRelease(path);
-    
+
     CGContextSetFillColorWithColor(context, [UIColor wmf_barButtonItemPopoverMessageBackgroundColor].CGColor);
     CGContextDrawPath(context, kCGPathFill);
-    
+
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;

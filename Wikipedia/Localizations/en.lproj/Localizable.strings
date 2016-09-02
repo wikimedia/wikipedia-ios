@@ -461,3 +461,6 @@
 "find-in-page-no-matches" = "0 matches";
 "find-in-page-button-label" = "Find in page";
 "find-in-page-popover-description" = "Search text in articles";
+
+"continue-reading-empty-title" = "No recently read articles";
+"continue-reading-empty-description" = "Explore Wikipedia for more articles to read";

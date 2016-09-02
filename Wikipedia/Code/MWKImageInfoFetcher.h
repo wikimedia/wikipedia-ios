@@ -1,9 +1,3 @@
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/4/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "FetcherBase.h"
 
 @class MWKArticle;
@@ -26,13 +20,12 @@
  * @param site        A site object for the MW site to target.
  * @return An operation which can be used to set success and failure handling or cancel the originating request.
  */
-- (id<MWKImageInfoRequest>)fetchGalleryInfoForImageFiles:(NSArray*)imageTitles
-                                           fromSiteURL:(NSURL*)siteURL
-                                                 success:(void (^)(NSArray* infoObjects))success
-                                                 failure:(void (^)(NSError* error))failure;
+- (id<MWKImageInfoRequest>)fetchGalleryInfoForImageFiles:(NSArray *)imageTitles
+                                             fromSiteURL:(NSURL *)siteURL
+                                                 success:(void (^)(NSArray *infoObjects))success
+                                                 failure:(void (^)(NSError *error))failure;
 
-- (AnyPromise*)fetchGalleryInfoForImage:(NSString*)canonicalPageTitle fromSiteURL:(NSURL*)siteURL
-;
+- (AnyPromise *)fetchGalleryInfoForImage:(NSString *)canonicalPageTitle fromSiteURL:(NSURL *)siteURL;
 
 /**
  * Fetch @c MWKImageInfo populated with only the data needed for display in the home view.
@@ -46,9 +39,9 @@
  *
  * @return A promise which resolves to the @c MWKImageInfo containing info the images found on the specified pages.
  */
-- (AnyPromise*)fetchPartialInfoForImagesOnPages:(NSArray*)pageTitles
-                                  fromSiteURL:(NSURL*)siteURL
-                               metadataLanguage:(NSString*)metadataLanguage;
+- (AnyPromise *)fetchPartialInfoForImagesOnPages:(NSArray *)pageTitles
+                                     fromSiteURL:(NSURL *)siteURL
+                                metadataLanguage:(NSString *)metadataLanguage;
 
 /**
  * Fetch @c MWKImageInfo populated with enough suitable for display in a modal gallery.
@@ -62,9 +55,9 @@
  *
  * @return A promise which resolves to the @c MWKImageInfo containing info the images found on the specified pages.
  */
-- (AnyPromise*)fetchGalleryInfoForImagesOnPages:(NSArray*)pageTitles
-                                  fromSiteURL:(NSURL*)siteURL
-                               metadataLanguage:(NSString*)metadataLanguage;
+- (AnyPromise *)fetchGalleryInfoForImagesOnPages:(NSArray *)pageTitles
+                                     fromSiteURL:(NSURL *)siteURL
+                                metadataLanguage:(NSString *)metadataLanguage;
 
 - (void)cancelAllFetches;
 

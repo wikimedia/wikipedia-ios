@@ -2,7 +2,11 @@
 
 _Ready to use “Acknowledgements”/“Licenses”/“Credits” view controller for [CocoaPods](http://cocoapods.org/). Now also available in Swift with [AcknowList](https://github.com/vtourraine/AcknowList)._
 
-Tested on Travis CI: [![Build Status](https://travis-ci.org/vtourraine/VTAcknowledgementsViewController.svg?branch=master)](https://travis-ci.org/vtourraine/VTAcknowledgementsViewController)
+![Platform iOS](https://img.shields.io/cocoapods/p/VTAcknowledgementsViewController.svg)
+[![Build Status](https://travis-ci.org/vtourraine/VTAcknowledgementsViewController.svg?branch=master)](https://travis-ci.org/vtourraine/VTAcknowledgementsViewController)
+[![CocoaPods compatible](https://img.shields.io/cocoapods/v/VTAcknowledgementsViewController.svg)](https://cocoapods.org/pods/VTAcknowledgementsViewController)
+[![CocoaPods documentation](https://img.shields.io/cocoapods/metrics/doc-percent/VTAcknowledgementsViewController.svg)](http://cocoadocs.org/docsets/VTAcknowledgementsViewController)
+[![MIT license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/vtourraine/VTAcknowledgementsViewController/raw/master/LICENSE)
 
 ![iPhone screenshot 1](http://vtourraine.github.io/VTAcknowledgementsViewController/screenshots/iPhone-300-01.png)
 ![iPhone screenshot 2](http://vtourraine.github.io/VTAcknowledgementsViewController/screenshots/iPhone-300-02.png)
@@ -31,11 +35,15 @@ viewController.headerText = NSLocalizedString(@"We love open source software.", 
 
 ## Customization
 
-If your `.plist` file is named something other than `Pods-acknowledgements.plist` (_e.g._ if you’re using fancy build targets), you can initialize the view controller with a custom path.
+If your `.plist` file is named something other than `Pods-acknowledgements.plist` (_e.g._ if you’re using fancy build targets), you can initialize the view controller with a custom file name or path.
+
+``` objc
+viewController = [[VTAcknowledgementsViewController alloc] initWithFileNamed:@"Pods-MyTarget-acknowledgements"];
+```
 
 ``` objc
 NSString *path = [[NSBundle mainBundle] pathForResource:@"Pods-MyTarget-acknowledgements" ofType:@"plist"];
-VTAcknowledgementsViewController *viewController = [[VTAcknowledgementsViewController alloc] initWithAcknowledgementsPlistPath:path];
+viewController = [[VTAcknowledgementsViewController alloc] initWithPath:path];
 ```
 
 The controller can also display a header and a footer. By default, they are loaded from the generated `plist` file, but you can also directly change the properties values.
@@ -72,9 +80,9 @@ VTAcknowledgementsViewController requires iOS 5.0 and above, Xcode 7.0 and above
 
 ## Credits
 
-VTAcknowledgementsViewController was created by [Vincent Tourraine](http://www.vtourraine.net), with help from [our contributors](https://github.com/vtourraine/VTAcknowledgementsViewController/contributors).
+VTAcknowledgementsViewController was created by [Vincent Tourraine](http://www.vtourraine.net), and improved by a growing [list of contributors](https://github.com/vtourraine/VTAcknowledgementsViewController/contributors).
 
 
 ## License
 
-VTAcknowledgementsViewController is available under the MIT license. See the LICENSE file for more info.
+VTAcknowledgementsViewController is available under the MIT license. See the [LICENSE.md](./LICENSE.md) file for more info.

@@ -3,10 +3,10 @@
 
 @interface WMFArticleFooterMenuCell : SSBaseTableCell
 
-@property (strong, nonatomic) NSString* title;
+@property (strong, nonatomic) NSString *title;
 
-@property (strong, nonatomic) NSString* subTitle;
+@property (strong, nonatomic) NSString *subTitle;
 
-@property (strong, nonatomic) NSString* imageName;
+@property (strong, nonatomic) NSString *imageName;
 
 @end

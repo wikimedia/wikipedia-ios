@@ -1,4 +1,3 @@
-
 #import <Foundation/Foundation.h>
 #import <SSDataSources/SSArrayDataSource.h>
 #import "WMFTitleListDataSource.h"
@@ -10,24 +9,22 @@ NS_ASSUME_NONNULL_BEGIN
 @class MWKSavedPageList;
 @class MWKDataStore;
 
+@interface WMFRelatedTitleListDataSource : SSArrayDataSource <WMFTitleListDataSource>
 
-@interface WMFRelatedTitleListDataSource : SSArrayDataSource
-    <WMFTitleListDataSource>
+@property (nonatomic, strong, readonly, nullable) WMFRelatedSearchResults *relatedSearchResults;
+@property (nonatomic, copy, readonly) NSURL *url;
+@property (nonatomic, strong, readonly) MWKSavedPageList *savedPageList;
 
-@property (nonatomic, strong, readonly, nullable) WMFRelatedSearchResults* relatedSearchResults;
-@property (nonatomic, copy, readonly) NSURL* url;
-@property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
-
-- (instancetype)initWithURL:(NSURL*)url
-                  dataStore:(MWKDataStore*)dataStore
+- (instancetype)initWithURL:(NSURL *)url
+                  dataStore:(MWKDataStore *)dataStore
                 resultLimit:(NSUInteger)resultLimit;
 
-- (instancetype)initWithURL:(NSURL*)url
-                  dataStore:(MWKDataStore*)dataStore
+- (instancetype)initWithURL:(NSURL *)url
+                  dataStore:(MWKDataStore *)dataStore
                 resultLimit:(NSUInteger)resultLimit
-                    fetcher:(WMFRelatedSearchFetcher*)fetcher NS_DESIGNATED_INITIALIZER;
+                    fetcher:(WMFRelatedSearchFetcher *)fetcher NS_DESIGNATED_INITIALIZER;
 
-- (AnyPromise*)fetch;
+- (AnyPromise *)fetch;
 
 @end
 

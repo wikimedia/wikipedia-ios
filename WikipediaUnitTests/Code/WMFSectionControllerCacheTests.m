@@ -7,14 +7,14 @@
 
 QuickSpecBegin(WMFExploreSectionControllerCacheTests)
 
-__block WMFExploreSectionControllerCache * controllerCache;
+    __block WMFExploreSectionControllerCache *controllerCache;
 
 configureTempDataStoreForEach(tempDataStore, ^{
     controllerCache = [[WMFExploreSectionControllerCache alloc] initWithDataStore:tempDataStore];
 });
 
 describe(@"cache invalidation", ^{
-    __block WMFExploreSection* cachedSection = [WMFExploreSection pictureOfTheDaySectionWithDate:[NSDate date]];
+    __block WMFExploreSection *cachedSection = [WMFExploreSection pictureOfTheDaySectionWithDate:[NSDate date]];
     __block __weak id<WMFExploreSectionController> weakCachedController;
 
     beforeEach(^{
@@ -29,12 +29,11 @@ describe(@"cache invalidation", ^{
         expect([controllerCache controllerForSection:cachedSection]).to(beNil());
 
         expect(weakCachedController)
-        .toEventuallyWithDescription(beNil(), @"Purged controller should have been deallocated!");
+            .toEventuallyWithDescription(beNil(), @"Purged controller should have been deallocated!");
 
         expect([controllerCache.reverseLookup objectForKey:cachedSection])
-        .toEventuallyWithDescription(beNil(), @"Internal reverse map of sections to controllers should also be empty!");
+            .toEventuallyWithDescription(beNil(), @"Internal reverse map of sections to controllers should also be empty!");
     });
 });
-
 
 QuickSpecEnd

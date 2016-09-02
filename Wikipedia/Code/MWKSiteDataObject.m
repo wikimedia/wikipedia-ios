@@ -1,22 +1,12 @@
-//
-//  MWKSiteDataObject.m
-//  MediaWikiKit
-//
-//  Created by Brion on 10/21/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
-
-#import "MediaWikiKit.h"
-
 @interface MWKSiteDataObject ()
 
-@property (readwrite, strong, nonatomic) NSURL* url;
+@property (readwrite, strong, nonatomic) NSURL *url;
 
 @end
 
 @implementation MWKSiteDataObject
 
-- (instancetype)initWithURL:(NSURL*)url{
+- (instancetype)initWithURL:(NSURL *)url {
     NSParameterAssert(url);
     self = [super init];
     if (self) {
@@ -27,12 +17,12 @@
 
 #pragma mark - title methods
 
-- (NSURL*)optionalURL:(NSString*)key dict:(NSDictionary*)dict {
+- (NSURL *)optionalURL:(NSString *)key dict:(NSDictionary *)dict {
     if ([dict[key] isKindOfClass:[NSNumber class]] && ![dict[key] boolValue]) {
         // false sometimes happens. Thanks PHP and weak typing!
         return nil;
     }
-    NSString* str = [self optionalString:key dict:dict];
+    NSString *str = [self optionalString:key dict:dict];
     if (str == nil || str.length == 0) {
         return nil;
     } else {
@@ -40,18 +30,18 @@
     }
 }
 
-- (NSURL*)requiredURL:(NSString*)key dict:(NSDictionary*)dict {
+- (NSURL *)requiredURL:(NSString *)key dict:(NSDictionary *)dict {
     return [self requiredURL:key dict:dict allowEmpty:YES];
 }
 
-- (NSURL*)requiredURL:(NSString*)key dict:(NSDictionary*)dict allowEmpty:(BOOL)allowEmpty {
-    NSString* str = [self requiredString:key dict:dict allowEmpty:allowEmpty];
+- (NSURL *)requiredURL:(NSString *)key dict:(NSDictionary *)dict allowEmpty:(BOOL)allowEmpty {
+    NSString *str = [self requiredString:key dict:dict allowEmpty:allowEmpty];
     return [self.url wmf_URLWithTitle:str];
 }
 
 #pragma mark - user methods
 
-- (MWKUser*)optionalUser:(NSString*)key dict:(NSDictionary*)dict {
+- (MWKUser *)optionalUser:(NSString *)key dict:(NSDictionary *)dict {
     id user = dict[key];
     if (user == nil) {
         return nil;
@@ -60,8 +50,8 @@
     }
 }
 
-- (MWKUser*)requiredUser:(NSString*)key dict:(NSDictionary*)dict {
-    MWKUser* user = [self optionalUser:key dict:dict];
+- (MWKUser *)requiredUser:(NSString *)key dict:(NSDictionary *)dict {
+    MWKUser *user = [self optionalUser:key dict:dict];
     if (user == nil) {
         return [self optionalUser:key dict:@{key: [NSNull null]}];
         /*

@@ -1,0 +1,6 @@
+framework module BlocksKit {
+  umbrella header "BlocksKit-Core-DynamicDelegate-UIKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

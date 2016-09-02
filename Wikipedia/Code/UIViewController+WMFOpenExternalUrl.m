@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 9/24/15.
-//  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "SVModalWebViewController.h"
 
@@ -14,49 +11,54 @@
 
 @implementation UIViewController (WMFOpenExternalLinkDelegate)
 
-- (void)wmf_openExternalUrl:(NSURL*)url {
+- (void)wmf_openExternalUrl:(NSURL *)url {
     [self wmf_openExternalUrl:url useSafari:NO];
 }
 
-- (void)wmf_openExternalUrl:(NSURL*)url useSafari:(BOOL)useSafari {
+- (void)wmf_openExternalUrl:(NSURL *)url useSafari:(BOOL)useSafari {
     NSParameterAssert(url);
-    
+
     //If zero rated, don't open any external (non-zero rated!) links until user consents!
-    if ([SessionSingleton sharedInstance].zeroConfigState.disposition && [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
-        WMFZeroMessage* zeroMessage = [SessionSingleton sharedInstance].zeroConfigState.zeroMessage;
-        NSString* exitDialogTitle   = zeroMessage.exitTitle ? : MWLocalizedString(@"zero-interstitial-title", nil);
-        NSString* messageWithHost   = [NSString stringWithFormat:@"%@\n\n%@", zeroMessage.exitWarning ? : MWLocalizedString(@"zero-interstitial-leave-app", nil), url.host];
-        
-        UIAlertView* zeroAlert = [UIAlertView bk_alertViewWithTitle:exitDialogTitle
-                                                            message:messageWithHost];
-        [zeroAlert bk_setCancelButtonWithTitle:MWLocalizedString(@"zero-interstitial-cancel", nil) handler:nil];
-        [zeroAlert bk_addButtonWithTitle:MWLocalizedString(@"zero-interstitial-continue", nil) handler:^{
-            [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
-        }];
+    if ([SessionSingleton sharedInstance].zeroConfigState.disposition && [[NSUserDefaults wmf_userDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
+        WMFZeroMessage *zeroMessage = [SessionSingleton sharedInstance].zeroConfigState.zeroMessage;
+        NSString *exitDialogTitle = zeroMessage.exitTitle ?: MWLocalizedString(@"zero-interstitial-title", nil);
+        NSString *messageWithHost = [NSString stringWithFormat:@"%@\n\n%@", zeroMessage.exitWarning ?: MWLocalizedString(@"zero-interstitial-leave-app", nil), url.host];
+
+        UIAlertController *zeroAlert = [UIAlertController alertControllerWithTitle:exitDialogTitle message:messageWithHost preferredStyle:UIAlertControllerStyleAlert];
+        [zeroAlert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-interstitial-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
+        [zeroAlert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-interstitial-continue", nil)
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction *_Nonnull action) {
+                                                        [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
+                                                    }]];
+
         if ([self isPartnerInfoConfigValid:zeroMessage]) {
-            NSString* partnerInfoText = zeroMessage.partnerInfoText;
-            NSURL* partnerInfoUrl     = [NSURL URLWithString:zeroMessage.partnerInfoUrl];
-            [zeroAlert bk_addButtonWithTitle:partnerInfoText handler:^{
-                [self wmf_openExternalUrlModallyIfNeeded:partnerInfoUrl forceSafari:useSafari];
-            }];
+            NSString *partnerInfoText = zeroMessage.partnerInfoText;
+            NSURL *partnerInfoUrl = [NSURL URLWithString:zeroMessage.partnerInfoUrl];
+            [zeroAlert addAction:[UIAlertAction actionWithTitle:partnerInfoText
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction *_Nonnull action) {
+                                                            [self wmf_openExternalUrlModallyIfNeeded:partnerInfoUrl forceSafari:useSafari];
+                                                        }]];
         }
-        
-        [zeroAlert show];
+
+        [self presentViewController:zeroAlert animated:YES completion:NULL];
     } else {
         [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
     }
 }
 
-- (void)wmf_openExternalUrlModallyIfNeeded:(NSURL*)url forceSafari:(BOOL)forceSafari {
+- (void)wmf_openExternalUrlModallyIfNeeded:(NSURL *)url forceSafari:(BOOL)forceSafari {
     // iOS 9 and later just use UIApplication's openURL.
     if (forceSafari) {
         [[UIApplication sharedApplication] openURL:url];
     } else {
         // pre iOS 9 use SVModalWebViewController.
         if (self.presentedViewController) {
-            [self dismissViewControllerAnimated:YES completion:^{
-                [self wmf_presentExternalUrlWithinApp:url];
-            }];
+            [self dismissViewControllerAnimated:YES
+                                     completion:^{
+                                         [self wmf_presentExternalUrlWithinApp:url];
+                                     }];
             return;
         }
         [self wmf_presentExternalUrlWithinApp:url];
@@ -70,7 +72,7 @@
         DDLogError(@"Attempted to open invalid external URL: %@", url);
         return;
     }
-    
+
     if ([SFSafariViewController class]) {
         [self wmf_presentExternalUrlAsSFSafari:url];
     } else {
@@ -78,15 +80,15 @@
     }
 }
 
-- (void)wmf_presentExternalUrlAsSVModal:(NSURL*)url {
+- (void)wmf_presentExternalUrlAsSVModal:(NSURL *)url {
     [self presentViewController:[[SVModalWebViewController alloc] initWithURL:url] animated:YES completion:nil];
 }
 
-- (void)wmf_presentExternalUrlAsSFSafari:(NSURL*)url {
+- (void)wmf_presentExternalUrlAsSFSafari:(NSURL *)url {
     [self presentViewController:[[SFSafariViewController alloc] initWithURL:url] animated:YES completion:nil];
 }
 
-- (BOOL)isPartnerInfoConfigValid:(WMFZeroMessage*)msg {
+- (BOOL)isPartnerInfoConfigValid:(WMFZeroMessage *)msg {
     return msg.partnerInfoText != nil && msg.partnerInfoUrl != nil;
 }
 

@@ -1,22 +1,14 @@
-//
-//  NSDate+WMFRangesTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 12/4/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 @import Quick;
 @import Nimble;
-#import <NSDate-Extensions/NSDate+Utilities.h>
+@import NSDate_Extensions;
 #import "NSDate+WMFDateRanges.h"
 
 QuickSpecBegin(NSDate_WMFRangesTests)
 
-static NSDate * today;
-static NSDate* startOfToday;
-static NSDate* yesterday;
-static NSDate* tomorrow;
+    static NSDate *today;
+static NSDate *startOfToday;
+static NSDate *yesterday;
+static NSDate *tomorrow;
 
 beforeSuite(^{
     today = [NSDate date];
@@ -58,7 +50,7 @@ describe(@"earlier dates", ^{
 describe(@"relative times", ^{
     it(@"should return times relative to the later date", ^{
         expect([tomorrow wmf_datesUntilDate:[startOfToday dateBySubtractingDays:1]])
-        .to(equal(@[tomorrow, today, yesterday]));
+            .to(equal(@[tomorrow, today, yesterday]));
     });
 });
 

@@ -1,11 +1,3 @@
-//
-//  WMFBaseImageGalleryViewController_Subclass.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 11/11/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFBaseImageGalleryViewController.h"
 #import "WMFImageGalleryDataSource.h"
 
@@ -25,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @c currentPage as needed for RTL compliance and, if the view is loaded, the data source is connected to the
  *  collection view.
  */
-@property (nonatomic, strong, nullable, readwrite) SSBaseDataSource<WMFImageGalleryDataSource>* dataSource;
+@property (nonatomic, strong, nullable, readwrite) SSBaseDataSource<WMFImageGalleryDataSource> *dataSource;
 
 @end
 

@@ -1,4 +1,3 @@
-
 import UIKit
 
 // MARK: - Delegate
@@ -39,11 +38,11 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     }
     
     // MARK: - UIViewControllerTransitioningDelegate
-    public func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
+    public func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController?, sourceViewController source: UIViewController) -> UIPresentationController? {
         guard presented == self.presentedViewController else {
             return nil
         }
-        return WMFTableOfContentsPresentationController(presentedViewController: presented, presentingViewController: presenting, tapDelegate: self)
+        return WMFTableOfContentsPresentationController(presentedViewController: presented, presentingViewController: self.presentingViewController, tapDelegate: self)
     }
     
     public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -86,7 +85,7 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     public func animateTransition(transitionContext: UIViewControllerContextTransitioning)  {
         if isPresenting {
             removeDismissalGestureRecognizer()
-            addDismissalGestureRecognizer(transitionContext.containerView()!)
+            addDismissalGestureRecognizer(transitionContext.containerView())
             animatePresentationWithTransitionContext(transitionContext)
         }
         else {
@@ -98,7 +97,7 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     func animatePresentationWithTransitionContext(transitionContext: UIViewControllerContextTransitioning) {
         let presentedController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         let presentedControllerView = transitionContext.viewForKey(UITransitionContextToViewKey)!
-        let containerView = transitionContext.containerView()!
+        let containerView = transitionContext.containerView()
         
         // Position the presented view off the top of the container view
         var f = transitionContext.finalFrameForViewController(presentedController)

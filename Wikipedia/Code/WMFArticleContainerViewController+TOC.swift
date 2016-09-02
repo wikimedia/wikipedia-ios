@@ -1,5 +1,5 @@
-
 import Foundation
+import Tweaks
 
 extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
 
@@ -23,7 +23,9 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
         case WMFTableOfContentsDisplayModeInline:
             if let section = item as? MWKSection {
                 self.currentSection = section
+                self.sectionToRestoreScrollOffset = section
                 self.currentFooterIndex = NSNotFound
+                self.footerIndexToRestoreScrollOffset = NSNotFound
                 self.webViewController.scrollToSection(section, animated: true)
                 dispatchOnMainQueueAfterDelayInSeconds(1) {
                     self.webViewController.accessibilityCursorToSection(section)
@@ -35,7 +37,9 @@ extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
                     self.webViewController.accessibilityCursorToFooterAtIndex(footerIndex)
                 }
                 self.currentSection = nil
+                self.sectionToRestoreScrollOffset = nil
                 self.currentFooterIndex = footerIndex
+                self.footerIndexToRestoreScrollOffset = footerIndex
             }
         case WMFTableOfContentsDisplayModeModal:
             fallthrough
@@ -160,7 +164,7 @@ extension WMFArticleViewController {
             }
         #endif
     }
-    
+
     public func selectAndScrollToTableOfContentsItemForSection(section: MWKSection, animated: Bool) {
         tableOfContentsViewController?.selectAndScrollToItem(section, animated: animated)
     }

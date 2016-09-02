@@ -4,19 +4,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFAnalyticsContextProviding <NSObject>
 
-- (NSString*)analyticsContext;
+- (NSString *)analyticsContext;
 
 @end
 
 @protocol WMFAnalyticsContentTypeProviding <NSObject>
 
-- (NSString*)analyticsContentType;
+- (NSString *)analyticsContentType;
 
 @end
 
 @protocol WMFAnalyticsViewNameProviding <NSObject>
 
-- (NSString*)analyticsName;
+- (NSString *)analyticsName;
 
 @end
 

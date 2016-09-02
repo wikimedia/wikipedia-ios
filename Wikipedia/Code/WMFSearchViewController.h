@@ -5,13 +5,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFSearchViewController : UIViewController<WMFAnalyticsContextProviding, WMFAnalyticsViewNameProviding>
+@interface WMFSearchViewController : UIViewController <WMFAnalyticsContextProviding, WMFAnalyticsViewNameProviding>
 
-@property (nonatomic, strong, readonly) MWKDataStore* dataStore;
+@property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 
-+ (instancetype)searchViewControllerWithDataStore:(MWKDataStore*)dataStore;
++ (instancetype)searchViewControllerWithDataStore:(MWKDataStore *)dataStore;
 
-- (void)setSearchTerm:(NSString*)searchTerm;
+- (void)setSearchTerm:(NSString *)searchTerm;
 
 @end
 

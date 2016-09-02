@@ -1,6 +1,3 @@
-
-import Foundation
-
 let WMFAppLaunchDateKey = "WMFAppLaunchDateKey"
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
@@ -8,15 +5,43 @@ let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
 let WMFMigrateHistoryListKey = "WMFMigrateHistoryListKey"
+let WMFMigrateToSharedContainerKey = "WMFMigrateToSharedContainerKey"
 let WMFMigrateSavedPageListKey = "WMFMigrateSavedPageListKey"
 let WMFMigrateBlackListKey = "WMFMigrateBlackListKey"
+let WMFDidMigrateToGroupKey = "WMFDidMigrateToGroup"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
 
-extension NSUserDefaults {
+public extension NSUserDefaults {
+    
+    public class func wmf_userDefaults() -> NSUserDefaults {
+        guard let defaults = NSUserDefaults(suiteName: WMFApplicationGroupIdentifier) else {
+            assert(false)
+            return NSUserDefaults.standardUserDefaults()
+        }
+        return defaults
+    }
+    
+    public class func wmf_migrateToWMFGroupUserDefaultsIfNecessary() {
+        let newDefaults = self.wmf_userDefaults()
+        let didMigrate = newDefaults.boolForKey(WMFDidMigrateToGroupKey)
+        if (!didMigrate) {
+            let oldDefaults = NSUserDefaults.standardUserDefaults()
+            let oldDefaultsDictionary = oldDefaults.dictionaryRepresentation()
+            for (key, value) in oldDefaultsDictionary {
+                let lowercaseKey = key.lowercaseString
+                if lowercaseKey.hasPrefix("apple") || lowercaseKey.hasPrefix("ns") {
+                    continue
+                }
+                newDefaults.setObject(value, forKey: key)
+            }
+            newDefaults.setBool(true, forKey: WMFDidMigrateToGroupKey)
+            newDefaults.synchronize()
+        }
+    }
 
     public func wmf_dateForKey(key: String) -> NSDate? {
         return self.objectForKey(key) as? NSDate
@@ -74,6 +99,7 @@ extension NSUserDefaults {
     
     public func wmf_setOpenArticleURL(url: NSURL?) {
         guard let url = url else{
+            self.removeObjectForKey(WMFOpenArticleURLKey)
             self.removeObjectForKey(WMFOpenArticleTitleKey)
             self.synchronize()
             return
@@ -82,7 +108,7 @@ extension NSUserDefaults {
             return;
         }
         
-        self.setURL(url, forKey: WMFOpenArticleTitleKey)
+        self.setURL(url, forKey: WMFOpenArticleURLKey)
         self.synchronize()
     }
 
@@ -246,6 +272,15 @@ extension NSUserDefaults {
     
     public func wmf_didMigrateBlackList() -> Bool {
         return self.boolForKey(WMFMigrateBlackListKey)
+    }
+    
+    public func wmf_setDidMigrateToSharedContainer(didFinish: Bool) {
+        self.setBool(didFinish, forKey: WMFMigrateToSharedContainerKey)
+        self.synchronize()
+    }
+    
+    public func wmf_didMigrateToSharedContainer() -> Bool {
+        return self.boolForKey(WMFMigrateToSharedContainerKey)
     }
 
 }

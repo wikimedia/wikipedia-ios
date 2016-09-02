@@ -1,12 +1,10 @@
-
 #import "EventLoggingFunnel.h"
 
 @interface SavedPagesFunnel : EventLoggingFunnel
 
-@property NSString* appInstallId;
+@property NSString *appInstallId;
 
 + (void)logStateChange:(BOOL)didSave;
-
 
 /**
  * Log the saving of a new page to the saved set.
@@ -21,7 +19,7 @@
 /**
  * What does this represent? Import of a single page, or of the entire data set?
  */
-- (void)logImportOnSubdomain:(NSString*)subdomain;
+- (void)logImportOnSubdomain:(NSString *)subdomain;
 
 /**
  * Log the removal of a saved page from the saved list

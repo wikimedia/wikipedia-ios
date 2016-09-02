@@ -1,22 +1,14 @@
-//
-//  NSDate+WMFRelativeDate.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 2/23/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
-
 #import "NSDate+WMFRelativeDate.h"
 
 @implementation NSDate (WMFRelativeDate)
 
-- (NSString*)wmf_relativeTimestamp {
+- (NSString *)wmf_relativeTimestamp {
     NSTimeInterval interval = fabs([self timeIntervalSinceNow]);
-    double minutes          = interval / 60.0;
-    double hours            = minutes / 60.0;
-    double days             = hours / 24.0;
-    double months           = days / (365.25 / 12.0);
-    double years            = months / 12.0;
+    double minutes = interval / 60.0;
+    double hours = minutes / 60.0;
+    double days = hours / 24.0;
+    double months = days / (365.25 / 12.0);
+    double years = months / 12.0;
 
     if (minutes < 2.0) {
         return MWLocalizedString(@"timestamp-just-now", nil);
