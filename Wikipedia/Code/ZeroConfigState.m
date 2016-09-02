@@ -5,6 +5,7 @@
 #import "WMFZeroMessageFetcher.h"
 #import "MWKLanguageLinkController.h"
 #import <WMFModel/WMFModel-Swift.h>
+#import "WMFURLCacheStrings.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,10 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 
 @property (nonatomic, strong, readonly) WMFZeroMessageFetcher *zeroMessageFetcher;
 @property (nonatomic, strong, nullable, readwrite) WMFZeroMessage *zeroMessage;
+
+@property (atomic, copy, nullable) NSString* previousPartnerXCarrier;
+@property (atomic, copy, nullable) NSString* previousPartnerXCarrierMeta;
+@property (atomic, readwrite) BOOL disposition;
 
 @end
 
@@ -41,9 +46,10 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 
 - (void)setDisposition:(BOOL)disposition {
     @synchronized(self) {
-        BOOL previousDisposition = _disposition;
-        _disposition = disposition;
-        [self postNotificationIfDispositionHasChangedFromPreviousDisposition:previousDisposition];
+        if(_disposition != disposition){
+            _disposition = disposition;
+            [[NSNotificationCenter defaultCenter] postNotificationName:WMFZeroDispositionDidChange object:self];
+        }
     }
 }
 
@@ -68,59 +74,41 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 #pragma mark - Banner Updates
 
 /**
- *   This method does a few things:
+ *   This method:
  *
- * - Posts WMFZeroDispositionDidChange notification if the disposition has changed.
- *
- * - Fetches and sets self.zeroMessage to a WMFZeroMessage object containing carrier
- *   specific strings.
+ * - Fetches carrier specific strings placing them in self.zeroMessage object.
  *
  * - If the fetched zeroMessage has a nil "message" string, this means even though
- *   there was a header leading us to believe this network was Zero rated, it is
- *   not presently enabled. (It would be nice if the query fetching the zeroMessage
- *   returned an "enabled" key/value, but it doesn't - it nils out the values instead
- *   apparently.) So if we detect a nil message we need to flip the disposition back
- *   to "NO".
+ *   there was a header, leading us to believe this network was Zero rated, its Zero
+ *   rating is not presently enabled. (It would be nice if the query fetching the
+ *   zeroMessage returned an "enabled" key/value, but it doesn't - it nils out the
+ *   values instead apparently.) So in the nil message case we set disposition "NO".
  */
-- (void)postNotificationIfDispositionHasChangedFromPreviousDisposition:(BOOL)previousDisposition {
+- (void)fetchZeroMessageAndSetDispositionIfNecessary {
     
     // Note: don't nil out self.zeroMessage in this method
     // because if we do we can't show its exit message strings!
 
-    BOOL const didEnter = _disposition;
+    //TODO: ensure thread safety so we can do this work off the main thread...
     dispatch_async(dispatch_get_main_queue(), ^{
         @weakify(self);
         AnyPromise *promise = [AnyPromise promiseWithValue:nil];
-        if (didEnter) {
-            promise = [self fetchZeroMessage].then(^(WMFZeroMessage *zeroMessage) {
-                @strongify(self);
-                
-                // If the config is not enabled its "message" will be nil, so if we detect a nil message
-                // set the disposition to NO before we post the WMFZeroDispositionDidChange notification.
-                if(zeroMessage.message == nil){
-                    @synchronized(self) {
-                        self->_disposition = NO;
-                    }
-                    // Reminder: don't nil out self.zeroMessage here or the carrier's exit message won't be available.
-                }else{
-                    self.zeroMessage = zeroMessage;
-                }
-                
-            }).catch(^(NSError* error){
-                @strongify(self);
-                @synchronized(self) {
-                    self->_disposition = NO;
-                }
-            });
-        }
-
-        promise.then(^{
+        promise = [self fetchZeroMessage].then(^(WMFZeroMessage *zeroMessage) {
             @strongify(self);
-
-            if(self.disposition != previousDisposition){
-                [[NSNotificationCenter defaultCenter] postNotificationName:WMFZeroDispositionDidChange object:self];
+            
+            // If the config is not enabled its "message" will be nil, so if we detect a nil message
+            // set the disposition to NO before we post the WMFZeroDispositionDidChange notification.
+            if(zeroMessage.message == nil){
+                self.disposition = NO;
+                // Reminder: don't nil out self.zeroMessage here or the carrier's exit message won't be available.
+            }else{
+                self.zeroMessage = zeroMessage;
+                self.disposition = YES;
             }
             
+        }).catch(^(NSError* error){
+            @strongify(self);
+            self.disposition = NO;
         });
     });
 }
@@ -128,6 +116,48 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 - (AnyPromise *)fetchZeroMessage {
     [self.zeroMessageFetcher cancelAllFetches];
     return [self.zeroMessageFetcher fetchZeroMessageForSiteURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]];
+}
+
+- (void)inspectResponseForZeroHeaders:(NSURLResponse*)response {
+    NSHTTPURLResponse* httpUrlResponse = (NSHTTPURLResponse*)response;
+    NSDictionary* headers              = httpUrlResponse.allHeaderFields;
+    
+    bool zeroEnabled = self.disposition;
+    
+    NSString* xCarrierFromHeader = [headers objectForKey:WMFURLCacheXCarrier];
+    bool hasZeroHeader = (xCarrierFromHeader != nil);
+    if (hasZeroHeader) {
+        NSString* xCarrierMetaFromHeader = [headers objectForKey:WMFURLCacheXCarrierMeta];
+        if ([self hasChangeHappenedToCarrier:xCarrierFromHeader orCarrierMeta:xCarrierMetaFromHeader]) {
+            self.previousPartnerXCarrier = xCarrierFromHeader;
+            self.previousPartnerXCarrierMeta = xCarrierMetaFromHeader;
+            [self fetchZeroMessageAndSetDispositionIfNecessary];
+        }
+    }else if(zeroEnabled) {
+        self.previousPartnerXCarrier = nil;
+        self.previousPartnerXCarrierMeta = nil;
+        self.disposition = NO;
+    }
+}
+
+- (BOOL)hasChangeHappenedToCarrier:(NSString*)xCarrier orCarrierMeta:(NSString*)xCarrierMeta {
+    return !(
+             [self isNullableString:self.previousPartnerXCarrier equalToNullableString:xCarrier]
+             &&
+             [self isNullableString:self.previousPartnerXCarrierMeta equalToNullableString:xCarrierMeta]
+             );
+}
+
+- (BOOL)isNullableString:(NSString*)stringOne equalToNullableString:(NSString*)stringTwo {
+    if(stringOne == nil && stringTwo == nil){
+        return YES;
+    }else if(stringOne != nil && stringTwo == nil){
+        return NO;
+    }else if(stringOne == nil && stringTwo != nil){
+        return NO;
+    }else{
+        return [stringOne isEqualToString:stringTwo];
+    }
 }
 
 @end

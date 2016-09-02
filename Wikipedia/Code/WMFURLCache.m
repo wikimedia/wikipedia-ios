@@ -66,55 +66,12 @@
 
     if ([self isJsonResponse:cachedResponse fromWikipediaAPIRequest:request]) {
         //NSLog(@"Processing zero headers for cached repsonse from %@", request);
-        //TODO: should refactor a lot of this into ZeroConfigState itself and make it thread safe so we can do its work off the main thread.
-        [self processZeroHeaders:cachedResponse.response];
+        [[SessionSingleton sharedInstance].zeroConfigState inspectResponseForZeroHeaders:cachedResponse.response];
     }
 }
 
 - (BOOL)isJsonResponse:(NSCachedURLResponse *)cachedResponse fromWikipediaAPIRequest:(NSURLRequest *)request {
     return ([[request URL].host hasSuffix:WMFURLCacheWikipediaHost] && [cachedResponse.response.MIMEType isEqualToString:WMFURLCacheJsonMIMEType]);
-}
-
-- (void)processZeroHeaders:(NSURLResponse*)response {
-    NSHTTPURLResponse* httpUrlResponse = (NSHTTPURLResponse*)response;
-    NSDictionary* headers              = httpUrlResponse.allHeaderFields;
-    
-    bool zeroEnabled = [SessionSingleton sharedInstance].zeroConfigState.disposition;
-    
-    NSString* xCarrierFromHeader = [headers objectForKey:WMFURLCacheXCarrier];
-    bool hasZeroHeader = (xCarrierFromHeader != nil);
-    if (hasZeroHeader) {
-        NSString* xCarrierMetaFromHeader = [headers objectForKey:WMFURLCacheXCarrierMeta];
-        if ([self hasChangeHappenedToCarrier:xCarrierFromHeader orMeta:xCarrierMetaFromHeader]) {
-            [SessionSingleton sharedInstance].zeroConfigState.partnerXCarrier = xCarrierFromHeader;
-            [SessionSingleton sharedInstance].zeroConfigState.partnerXCarrierMeta = xCarrierMetaFromHeader;
-            [SessionSingleton sharedInstance].zeroConfigState.disposition = YES;
-        }
-    }else if(zeroEnabled) {
-        [SessionSingleton sharedInstance].zeroConfigState.partnerXCarrier = nil;
-        [SessionSingleton sharedInstance].zeroConfigState.partnerXCarrierMeta = nil;
-        [SessionSingleton sharedInstance].zeroConfigState.disposition = NO;
-    }
-}
-
-- (BOOL) hasChangeHappenedToCarrier:(NSString*)xCarrier orMeta:(NSString*)xCarrierMeta {
-    return !(
-             [self isNullableString:[SessionSingleton sharedInstance].zeroConfigState.partnerXCarrier equalToNullableString:xCarrier]
-             &&
-             [self isNullableString:[SessionSingleton sharedInstance].zeroConfigState.partnerXCarrierMeta equalToNullableString:xCarrierMeta]
-             );
-}
-
-- (BOOL)isNullableString:(NSString*)stringOne equalToNullableString:(NSString*)stringTwo {
-    if(stringOne == nil && stringTwo == nil){
-        return YES;
-    }else if(stringOne != nil && stringTwo == nil){
-        return NO;
-    }else if(stringOne == nil && stringTwo != nil){
-        return NO;
-    }else{
-        return [stringOne isEqualToString:stringTwo];
-    }
 }
 
 @end
