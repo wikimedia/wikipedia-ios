@@ -15,8 +15,18 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - AnimatedGIFImageSerialization (0.2.0)
+  - BlocksKit (2.2.5):
+    - BlocksKit/All (= 2.2.5)
+  - BlocksKit/All (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+    - BlocksKit/MessageUI
+    - BlocksKit/UIKit
   - BlocksKit/Core (2.2.5)
   - BlocksKit/DynamicDelegate (2.2.5)
+  - BlocksKit/MessageUI (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
   - BlocksKit/UIKit (2.2.5):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
@@ -155,8 +165,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (from `https://github.com/wikimedia/AFNetworking.git`, branch `release/3.1.1`)
   - AnimatedGIFImageSerialization (from `https://github.com/wikimedia/AnimatedGIFImageSerialization.git`)
-  - BlocksKit/Core (~> 2.2.0)
-  - BlocksKit/UIKit (~> 2.2.0)
+  - BlocksKit (~> 2.2.0)
   - CocoaLumberjack/Swift
   - FBSnapshotTestCase
   - GCDWebServer (~> 3.3)
@@ -257,6 +266,6 @@ SPEC CHECKSUMS:
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
 
-PODFILE CHECKSUM: 2edea4411b83609b94a5fcf59d338457d9df8683
+PODFILE CHECKSUM: 9b0219cb9f4c9468181535b88ff7822fc67a325c
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.beta.1

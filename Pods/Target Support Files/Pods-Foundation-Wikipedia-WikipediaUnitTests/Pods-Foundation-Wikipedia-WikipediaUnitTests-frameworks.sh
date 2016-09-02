@@ -86,7 +86,7 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit-Core-DynamicDelegate-UIKit/BlocksKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit/BlocksKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack/CocoaLumberjack.framework"
   install_framework "$BUILT_PRODUCTS_DIR/KVOController/KVOController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Mantle/Mantle.framework"
@@ -121,7 +121,7 @@ fi
 if [[ "$CONFIGURATION" == "Debug Test" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit-Core-DynamicDelegate-UIKit/BlocksKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit/BlocksKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack/CocoaLumberjack.framework"
   install_framework "$BUILT_PRODUCTS_DIR/KVOController/KVOController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Mantle/Mantle.framework"
@@ -156,7 +156,7 @@ fi
 if [[ "$CONFIGURATION" == "AdHoc" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit-Core-DynamicDelegate-UIKit/BlocksKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit/BlocksKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack/CocoaLumberjack.framework"
   install_framework "$BUILT_PRODUCTS_DIR/KVOController/KVOController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Mantle/Mantle.framework"
@@ -191,7 +191,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit-Core-DynamicDelegate-UIKit/BlocksKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit/BlocksKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack/CocoaLumberjack.framework"
   install_framework "$BUILT_PRODUCTS_DIR/KVOController/KVOController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Mantle/Mantle.framework"
@@ -226,7 +226,7 @@ fi
 if [[ "$CONFIGURATION" == "Test" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit-Core-DynamicDelegate-UIKit/BlocksKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit/BlocksKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack/CocoaLumberjack.framework"
   install_framework "$BUILT_PRODUCTS_DIR/KVOController/KVOController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Mantle/Mantle.framework"
@@ -261,7 +261,7 @@ fi
 if [[ "$CONFIGURATION" == "Beta" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit-Core-DynamicDelegate-UIKit/BlocksKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/BlocksKit/BlocksKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack/CocoaLumberjack.framework"
   install_framework "$BUILT_PRODUCTS_DIR/KVOController/KVOController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Mantle/Mantle.framework"
