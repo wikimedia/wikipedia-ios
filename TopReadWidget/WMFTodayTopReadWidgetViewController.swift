@@ -61,6 +61,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         numberFormatter.numberStyle = .DecimalStyle
         headerLabel.text = nil
         footerLabel.text = nil
+        headerLabel.textColor = UIColor.wmf_darkGray()
+        footerLabel.textColor = UIColor.wmf_darkGray()
         
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:)))
         
