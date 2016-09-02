@@ -5,7 +5,7 @@
 
 // Frameworks
 #import <Masonry/Masonry.h>
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"

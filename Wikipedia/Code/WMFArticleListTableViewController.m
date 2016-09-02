@@ -1,5 +1,5 @@
 #import "WMFArticleListTableViewController.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFSearch.h"
 #import "UIViewController+WMFArticlePresentation.h"

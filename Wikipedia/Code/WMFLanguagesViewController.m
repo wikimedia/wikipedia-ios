@@ -15,7 +15,7 @@
 #import "Wikipedia-Swift.h"
 #import "WMFArticleLanguagesSectionHeader.h"
 #import "WMFArticleLanguagesSectionFooter.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFWelcomeLanguageTableViewCell.h"
 

@@ -70,7 +70,6 @@ abstract_target 'Foundation' do
   target 'Wikipedia' do
     # Utilities
     pod 'Tweaks'
-    pod 'BlocksKit/UIKit', '~> 2.2.0'
 
     # HTML
     pod 'GCDWebServer', '~> 3.3'

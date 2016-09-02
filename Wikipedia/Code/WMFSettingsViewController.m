@@ -17,7 +17,7 @@
 
 // Frameworks
 #import <HockeySDK/HockeySDK.h>
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 #import <Tweaks/FBTweakViewController.h>
 #import <Tweaks/FBTweakStore.h>
 #import <SSDataSources/SSDataSources.h>

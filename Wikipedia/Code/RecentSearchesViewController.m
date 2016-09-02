@@ -8,7 +8,7 @@
 #import "MWKRecentSearchEntry.h"
 #import <Masonry/Masonry.h>
 #import "Defines.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 
 static NSString *const pListFileName = @"Recent.plist";
 

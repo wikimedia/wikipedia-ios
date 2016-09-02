@@ -14,7 +14,7 @@
 #import "Defines.h"
 #import "NSObject+ConstraintsScale.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "Wikipedia-Swift.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"

@@ -18,7 +18,7 @@
 #import "AbuseFilterAlert.h"
 #import "MWLanguageInfo.h"
 #import "NSObject+ConstraintsScale.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFChildViewController.h"
