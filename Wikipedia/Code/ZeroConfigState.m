@@ -148,7 +148,7 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
              );
 }
 
-- (BOOL)isNullableString:(NSString*)stringOne equalToNullableString:(NSString*)stringTwo {
+- (BOOL)isNullableString:(nullable NSString*)stringOne equalToNullableString:(nullable NSString*)stringTwo {
     if(stringOne == nil && stringTwo == nil){
         return YES;
     }else if(stringOne != nil && stringTwo == nil){
