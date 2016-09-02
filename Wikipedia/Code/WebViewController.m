@@ -568,7 +568,7 @@ NSString *const WMFCCBySALicenseURL =
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateZeroBannerWithNotification:)
-                                                 name:WMFIsZeroRatedDidChange
+                                                 name:WMFIsZeroRatedChanged
                                                object:nil];
     // should happen in will appear to prevent bar from being incorrect during transitions
     [self updateZeroBanner];
@@ -591,7 +591,7 @@ NSString *const WMFCCBySALicenseURL =
 - (void)viewWillDisappear:(BOOL)animated {
     self.webView.scrollView.delegate = nil;
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFIsZeroRatedDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFIsZeroRatedChanged object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
 

@@ -120,8 +120,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [super viewDidLoad];
     self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(isZeroRatedDidChange:)
-                                                 name:WMFIsZeroRatedDidChange
+                                             selector:@selector(isZeroRatedChanged:)
+                                                 name:WMFIsZeroRatedChanged
                                                object:nil];
 }
 
@@ -856,7 +856,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 #pragma mark - Wikipedia Zero
 
-- (void)isZeroRatedDidChange:(NSNotification *)note {
+- (void)isZeroRatedChanged:(NSNotification *)note {
     WMFZeroConfigurationManager *zeroConfigurationManager = [note object];
     if (zeroConfigurationManager.isZeroRated) {
         [self showFirstTimeZeroOnAlertIfNeeded:zeroConfigurationManager.zeroConfiguration];
@@ -866,12 +866,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 }
 
 - (void)setZeroOnDialogShownOnce {
-    [[NSUserDefaults wmf_userDefaults] setBool:YES forKey:ZeroOnDialogShownOnce];
+    [[NSUserDefaults wmf_userDefaults] setBool:YES forKey:WMFZeroOnDialogShownOnce];
     [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 - (BOOL)zeroOnDialogShownOnce {
-    return [[NSUserDefaults wmf_userDefaults] boolForKey:ZeroOnDialogShownOnce];
+    return [[NSUserDefaults wmf_userDefaults] boolForKey:WMFZeroOnDialogShownOnce];
 }
 
 - (void)showFirstTimeZeroOnAlertIfNeeded:(WMFZeroConfiguration *)zeroConfiguration {

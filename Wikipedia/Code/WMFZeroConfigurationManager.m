@@ -9,10 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString *const WMFIsZeroRatedDidChange = @"WMFIsZeroRatedDidChange";
-
-NSString *const ZeroOnDialogShownOnce = @"ZeroOnDialogShownOnce";
-NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
+NSString *const WMFIsZeroRatedChanged = @"WMFZeroDispositionDidChange";
+NSString *const WMFZeroOnDialogShownOnce = @"ZeroOnDialogShownOnce";
+NSString *const WMFZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 
 @interface WMFZeroConfigurationManager ()
 
@@ -32,7 +31,7 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 + (void)load {
     [super load];
     //    FBTweakAction(@"Networking", @"Wikipedia Zero", @"Reset ZeroOnDialogShownOnce", ^{
-    //        [[NSUserDefaults wmf_userDefaults] setBool:NO forKey:ZeroOnDialogShownOnce];
+    //        [[NSUserDefaults wmf_userDefaults] setBool:NO forKey:WMFZeroOnDialogShownOnce];
     //        [[NSUserDefaults wmf_userDefaults] synchronize];
     //    });
 }
@@ -48,7 +47,7 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
     @synchronized(self) {
         if(_isZeroRated != isZeroRated){
             _isZeroRated = isZeroRated;
-            [[NSNotificationCenter defaultCenter] postNotificationName:WMFIsZeroRatedDidChange object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:WMFIsZeroRatedChanged object:self];
         }
     }
 }
@@ -63,12 +62,12 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 
 - (void)setWarnWhenLeaving:(BOOL)warnWhenLeaving {
     [[NSUserDefaults wmf_userDefaults] setObject:[NSNumber numberWithBool:warnWhenLeaving]
-                                          forKey:ZeroWarnWhenLeaving];
+                                          forKey:WMFZeroWarnWhenLeaving];
     [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 - (BOOL)warnWhenLeaving {
-    return [[NSUserDefaults wmf_userDefaults] boolForKey:ZeroWarnWhenLeaving];
+    return [[NSUserDefaults wmf_userDefaults] boolForKey:WMFZeroWarnWhenLeaving];
 }
 
 #pragma mark - Banner Updates
@@ -97,7 +96,7 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
             @strongify(self);
             
             // If the config is not enabled its "message" will be nil, so if we detect a nil message
-            // set the isZeroRated to NO before we post the WMFIsZeroRatedDidChange notification.
+            // set the isZeroRated to NO before we post the WMFIsZeroRatedChanged notification.
             if(zeroConfiguration.message == nil){
                 self.isZeroRated = NO;
                 // Reminder: don't nil out self.zeroConfiguration here or the carrier's exit message won't be available.

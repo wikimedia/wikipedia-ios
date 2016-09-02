@@ -25,8 +25,8 @@
     [[NSUserDefaults wmf_userDefaults] registerDefaults:@{
         @"CurrentArticleDomain": defaultLanguage,
         @"Domain": defaultLanguage,
-        ZeroWarnWhenLeaving: @YES,
-        ZeroOnDialogShownOnce: @NO,
+        WMFZeroWarnWhenLeaving: @YES,
+        WMFZeroOnDialogShownOnce: @NO,
         @"LastHousekeepingDate": [NSDate date],
         @"SendUsageReports": @NO,
         @"AccessSavedPagesMessageShown": @NO
