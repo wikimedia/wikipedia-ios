@@ -113,7 +113,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     }
 
     @IBAction func continueReading(sender: AnyObject) {
-        guard let URLToOpen = articleURL ?? NSUserActivity.wmf_URLForActivityOfType(.Explore) else {
+        guard let URLToOpen = articleURL ?? NSUserActivity.wmf_URLForActivityOfType(.Explore, parameters: nil) else {
             return
         }
         

@@ -4,6 +4,7 @@
 // Frameworks
 #import <Masonry/Masonry.h>
 #import <Tweaks/FBTweakInline.h>
+#import <YapDatabase/YapDatabase.h>
 #import "PiwikTracker+WMFExtensions.h"
 
 // Utility
@@ -44,6 +45,8 @@
 #import "WMFAuthenticationManager.h"
 
 #import "WMFDailyStatsLoggingFunnel.h"
+
+#import "WMFMostReadListTableViewController.h"
 
 #define TEST_SHARED_CONTAINER_MIGRATION DEBUG && 0
 
@@ -423,6 +426,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         case WMFUserActivityTypeHistory:
         case WMFUserActivityTypeSearch:
         case WMFUserActivityTypeSettings:
+        case WMFUserActivityTypeTopRead:
             return YES;
         case WMFUserActivityTypeSearchResults:
             if ([activity wmf_searchTerm]) {
@@ -458,6 +462,33 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         case WMFUserActivityTypeExplore:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            break;
+        case WMFUserActivityTypeTopRead:
+        {
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            
+            UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeExplore];
+            [navController popToRootViewControllerAnimated:NO];
+            NSDictionary *userInfo = activity.userInfo;
+            NSDate *date = userInfo[@"date"];
+            NSURL *siteURL = userInfo[@"siteURL"];
+            NSString *host = siteURL.host;
+            if (date == nil || host == nil) {
+                break;
+            }
+            MWKDataStore *dataStore = [[SessionSingleton sharedInstance] dataStore];
+            [dataStore readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
+                NSString *collection = [@[@"wmftopread", host] componentsJoinedByString:@":"];
+                NSString *key = [[NSDateFormatter wmf_englishHyphenatedYearMonthDayFormatter] stringFromDate:date];
+                NSArray* previews = [transaction objectForKey:key inCollection:collection];
+                if ([previews count] > 0) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        WMFMostReadListTableViewController *mostReadListVC = [[WMFMostReadListTableViewController alloc] initWithPreviews:previews fromSiteURL:siteURL forDate:date dataStore:dataStore];
+                        [navController pushViewController:mostReadListVC animated:NO];
+                    });
+                }
+            }];
+        }
             break;
         case WMFUserActivityTypeSavedPages:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];

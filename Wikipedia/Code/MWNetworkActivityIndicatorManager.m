@@ -22,8 +22,10 @@ static MWNetworkActivityIndicatorManager *sharedManager;
 
 - (void)setCount:(NSInteger)count {
     _count = MAX(count, 0);
-
+#if WMF_APP_EXTENSION
+#else
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:_count > 0 ? YES : NO];
+#endif
 }
 
 - (void)push {

@@ -76,6 +76,22 @@
 #import <WMFModel/NSURL+WMFMainPage.h>
 #import <WMFModel/WMFAssetsFile.h>
 
+#import <WMFModel/MWNetworkActivityIndicatorManager.h>
+#import <WMFModel/NSDate+WMFMostReadDate.h>
+#import <WMFModel/WMFMostReadTitleFetcher.h>
+#import <WMFModel/WMFMostReadTitlesResponse.h>
+
+#import <WMFModel/EventLogger.h>
+#import <WMFModel/EventLoggingFunnel.h>
+#import <WMFModel/ReadingActionFunnel.h>
+#import <WMFModel/AFHTTPSessionManager+WMFConfig.h>
+#import <WMFModel/AFHTTPRequestSerializer+WMFRequestHeaders.h>
+#import <WMFModel/AFHTTPSessionManager+WMFDesktopRetry.h>
+#import <WMFModel/WMFArticlePreviewFetcher.h>
+#import <WMFModel/WMFBaseRequestSerializer.h>
+#import <WMFModel/MWKSearchResult.h>
+#import <WMFModel/NSDictionary+WMFCommonParams.h>
+
 #import <WMFModel/WMFDataSource.h>
 #import <WMFModel/WMFDatabaseDataSource.h>
 #import <WMFModel/MWKDataStore+WMFDataSources.h>
