@@ -1,0 +1,123 @@
+// Messages for Scots (Scots)
+// Exported from translatewiki.net
+// Author: AmaryllisGardener
+// Author: Fitoschido
+// Author: John Reid
+
+"article-languages-label" = "Pick yer leid";
+"article-languages-cancel" = "Cancel";
+"article-languages-downloading" = "Laidin the airticle leids...";
+// Fuzzy
+"article-languages-filter-placeholder" = "Filter";
+// Fuzzy
+"history-label" = "Yer Browsing Historie";
+"history-section-today" = "The day";
+"history-section-yesterday" = "Yesterday";
+"history-section-lastweek" = "Last week";
+"history-section-lastmonth" = "Last month";
+"zero-free-verbiage" = "Free Wikipædia access fae yer mobile operater (data chairges drap't)";
+// Fuzzy
+"zero-charged-verbiage" = "Wikipædia Zero AFF (STAUNDART DATA CHAIRGES MICHT APPLIE)";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-title" = "Leain Wikipædia Zero";
+// Fuzzy
+"zero-interstitial-leave-app" = "Continue tae ootby steid? Staundart data chairges micht applie.";
+// Fuzzy
+"zero-interstitial-continue" = "Continue";
+// Fuzzy
+"zero-interstitial-cancel" = "Cancel";
+// Fuzzy
+"zero-learn-more" = "Want tae learn aneat Wikipædia Zero?";
+// Fuzzy
+"zero-learn-more-learn-more" = "Learn mair";
+// Fuzzy
+"zero-learn-more-no-thanks" = "Naw thanks";
+"zero-wikipedia-zero-heading" = "Wikipædia Zero";
+"zero-warn-when-leaving" = "Warnish gif leain Wikipædia Zero";
+"zero-settings-devmode" = "Zero devmode";
+"account-creation-captcha-required" = "CAPTCHA vereefication needit.";
+"account-creation-captcha-obtaining" = "Obtainin ae new CAPTCHA.";
+"account-creation-logging-in" = "Loggin in...";
+"account-creation-passwords-mismatched" = "Passwaird fields dinna match.";
+"account-creation-saving" = "Hainin...";
+"login-name-not-found" = "Uiser name is needit tae log-in.";
+"login-name-illegal" = "Ye dinna gave ae legal uiser name.";
+"login-name-does-not-exist" = "The uiser name that ye gave disna exeest.";
+"login-password-empty" = "Passwaird is needit tae log-in.";
+"login-password-wrong" = "The passwaird that ye gave is oncorrect.";
+"login-throttled" = "Ye'v loggit in ower monie times in ae short while.";
+"login-user-blocked" = "Uiser is blockit";
+// Fuzzy
+"wikitext-downloading" = "Laidin wiki tex...";
+"wikitext-download-failed" = "Onable tae obtain latest reveesion.";
+// Fuzzy
+"wikitext-download-success" = "Wiki tex laided.";
+"wikitext-preview-changes" = "Retreevin luikower o yer chynges...";
+"wikitext-preview-changes-none" = "Naw chynges were makit tae be luikit ower.";
+"wikitext-upload-result-unknown" = "Onable tae determine wikitex uplaid ootcome.";
+"wikitext-upload-captcha-error" = "Captcha vereefeecation mistak.";
+"wikitext-upload-captcha-needed" = "Need captcha vereefication.";
+"wikitext-upload-save" = "Hainin...";
+// Fuzzy
+"wikitext-upload-save-sign-in" = "Sign in n hain";
+"wikitext-upload-save-sign-in-benefits" = "Sae that co-eediters can connect wi ye & ye can see whit airticles that ye eeditit.";
+"wikitext-upload-save-anonymously" = "Hain anonimislie";
+// Fuzzy
+"wikitext-upload-save-anonymously-warning" = "This haes less preevacie. Yer IP address is veesible wi eedits.";
+"search-searching" = "Rakin...";
+"search-no-matches" = "Naw matches foond fer rake term.";
+"search-field-placeholder-text" = "Rake Wikipædia";
+"search-field-placeholder-text-zero" = "Rake Wikipædia Zero";
+"search-loading-section-zero" = "Laidin first section o the airticle...";
+"search-loading-section-remaining" = "Laidin the rest o the airticle...";
+"search-loading-article-loaded" = "Airticle laidit.";
+"main-menu-language-title" = "Rake the $1 leid wiki";
+"main-menu-language-toggle-show" = "Shaw leids";
+"main-menu-language-toggle-hide" = "Skauk leids";
+"main-menu-language-selection-saved" = "Leid selection haes been hained";
+"main-menu-account-title-logged-out" = "Accoont";
+"main-menu-account-title-logged-in" = "Loggit in aes: $1";
+"main-menu-account-login" = "Log in";
+"main-menu-account-logout" = "Log oot";
+"main-menu-show-title" = "Shaw me...";
+// Fuzzy
+"main-menu-show-history" = "Brousin histerie";
+"main-menu-show-saved" = "Hained pages";
+"main-menu-current-article-save" = "Hain $1 fer affline readin";
+// Fuzzy
+"main-menu-random" = "Random airticle";
+"main-menu-feedback-heading" = "Feedback";
+// Fuzzy
+"main-menu-send-feedback" = "Send feedback";
+"saved-pages-title" = "Hained Pages";
+"navbar-title-mode-edit-wikitext" = "Eedit";
+// Fuzzy
+"navbar-title-mode-login" = "Sign in";
+// Fuzzy
+"navbar-title-mode-login-and-save" = "Sign in n hain";
+"navbar-title-mode-create-account" = "Cræft accoont";
+"navbar-title-mode-create-account-and-save" = "Cræft accoont n hain";
+"navbar-title-mode-edit-wikitext-warning" = "Eedit issues";
+"navbar-title-mode-edit-wikitext-disallow" = "Eedit issues";
+"navbar-title-mode-edit-wikitext-preview" = "Luikower";
+"navbar-title-mode-edit-wikitext-captcha" = "Quick Vereefication needit";
+"navbar-title-mode-edit-wikitext-summary" = "Describe yer eedit";
+"edit-summary-choice-linked-words" = "Linkt wairds";
+"edit-summary-choice-fixed-grammar" = "Fixi graimmer";
+"edit-summary-choice-fixed-inaccuracy" = "Fixt onaccuracie";
+"edit-summary-choice-fixed-styling" = "Fixt stylin";
+"edit-summary-choice-fixed-typos" = "Fixt typo";
+"edit-summary-choice-added-category" = "Eikit categerie";
+"edit-summary-choice-added-missing-info" = "Eikit some missin info";
+"edit-summary-choice-added-clarification" = "Eikit clarifeecation";
+"edit-summary-choice-other" = "Ither";
+"edit-summary-description" = "Ae speceefic ootline heelps co-eediters quicklie luikower yer eedits.Ye can chuise fae the tags ablo ava.";
+"edit-summary-field-placeholder-text" = "Hou'd ye impruiv the page?";
+"edit-summary-title" = "Hou'd ye impruiv the airticle?";
+"fetching-random-article" = "Gettin random airticle";
+"article-pull-to-refresh-prompt" = "Pul tae refresh the airticle";
+"article-pull-to-refresh-is-refreshing" = "Refreshin the airticle";
+"button-next" = "Nex";
+"button-done" = "Duin";
+"button-save" = "Hain";
+"onboarding-wikipedia" = "Wikipædia";

@@ -1,0 +1,228 @@
+// Messages for Basque (euskara)
+// Exported from translatewiki.net
+// Author: An13sa
+// Author: Fitoschido
+// Author: Gorkaazk
+// Author: Sator
+// Author: Subi
+
+"languages-title" = "Hizkuntza aldatu";
+"article-languages-label" = "Hizkuntza aukeratu";
+"article-languages-cancel" = "Utzi";
+"article-languages-downloading" = "Artikuluaren hizkuntzak kargatzen...";
+"article-languages-filter-placeholder" = "Aurkitu hizkuntza";
+"article-read-more-title" = "Irakurri gehiago";
+"article-about-title" = "Artikulu honi buruz";
+"article-unable-to-load-article" = "Ezin da artikulua kargatu.";
+"article-related-articles-title" = "Lotutako artikuluak";
+"article-languages-yours" = "Zure hizkuntzak";
+"article-languages-others" = "Beste hizkuntzak";
+"info-box-title" = "Datu azkarrak";
+"info-box-close-text" = "Itxi";
+"table-title-other" = "Informazio gehiago";
+"history-label" = "Berriak";
+"history-section-today" = "Gaur";
+"history-section-yesterday" = "Atzo";
+"history-section-lastweek" = "Azken astea";
+"history-section-lastmonth" = "Azken hilabetea";
+"history-clear-confirmation-heading" = "Ziur al zaude zure azken elementu guztiak ezabatu nahi dituzula?";
+"history-clear-confirmation-sub-heading" = "Ekintza hau ezin da desegin!";
+"history-clear-cancel" = "Utzi";
+"history-clear-delete-all" = "Bai, dena ezabatu";
+"history-none" = "Ez dago azkenaldiko orririk hemen.";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-continue" = "Irten";
+"zero-interstitial-cancel" = "Gelditu hemen";
+"zero-learn-more-learn-more" = "Irakurri gehiago";
+"zero-learn-more-no-thanks" = "Utzi";
+"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"account-creation-logging-in" = "Saioa hasten...";
+"account-creation-passwords-mismatched" = "Pasahitza eremuak ez datoz bat.";
+"account-creation-saving" = "Gordetzen...";
+"account-creation-login" = "Ba al duzu konturen bat? Saioa hasi.";
+"account-creation-username-placeholder-text" = "Erabiltzaile izena";
+"account-creation-password-placeholder-text" = "Pasahitza";
+"account-creation-password-confirm-placeholder-text" = "Berretsi pasahitza";
+"account-creation-email-placeholder-text" = "Helbide elektronikoa (aukerakoa)";
+// Fuzzy
+"login-name-not-found" = "Erabiltzaile izena beharrezkoa da saioa hasteko.";
+// Fuzzy
+"login-name-illegal" = "Eman duzun erabiltzaile izena ez da legezkoa.";
+// Fuzzy
+"login-name-does-not-exist" = "Sartu duzun erabiltzaile izena ez da esistitzen.";
+"login-password-empty" = "Pasahitza beharrezkoa da saioa hasteko.";
+"login-user-blocked" = "Erabiltzaile blokeatua.";
+// Fuzzy
+"login-username-placeholder-text" = "Erabiltzaile izena";
+"login-password-placeholder-text" = "Pasahitza";
+"wikitext-downloading" = "Edukia kargatzen...";
+"wikitext-download-success" = "Edukia kargatu da.";
+"wikitext-preview-changes-none" = "Ez da aurrebistan erakusteko aldaketarik egin.";
+"wikitext-upload-save" = "Gordetzen...";
+"wikitext-upload-save-sign-in" = "Saioa hasi";
+"wikitext-upload-save-terms-name" = "Erabilera Baldintzak";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"open-link-title" = "Ireki lotura";
+"open-link-cancel" = "Utzi";
+"search-title" = "Bilatu";
+"search-searching" = "Bilatzen...";
+"search-field-placeholder-text" = "Bilatu Wikipedian";
+"search-field-placeholder-text-zero" = "Bilatu Wikipedia Zeron";
+"search-loading-article-loaded" = "Artikulua kargatua.";
+"search-cancel" = "Utzi";
+"search-titles" = "Izenburuak";
+"search-within-articles" = "Artikuluen barruan";
+"search-did-you-mean" = "$1 esan nahi zenuen?";
+"search-recent-title" = "Azken bilaketak";
+"search-recent-clear-confirmation-heading" = "Ezabatu azken bilaketa guztiak?";
+"search-recent-clear-cancel" = "Utzi";
+"search-recent-clear-delete-all" = "Denak ezabatu";
+"settings-title" = "Ezarpenak";
+"settings-my-languages" = "Nire hizkuntzak";
+"main-menu-title" = "Gehiago";
+"main-menu-heading-about" = "Honi buruz";
+"main-menu-language-title" = "Bilatu $1 Wikipedia";
+// Fuzzy
+"main-menu-faq" = "Maiz egiten diren galderak";
+"main-menu-language-toggle-show" = "Erakutsi hizkuntzak";
+"main-menu-language-toggle-hide" = "Ezkutatu hizkuntzak";
+"main-menu-language-selection-saved" = "Hizkuntza hautaketa gordea";
+"main-menu-account-title-logged-out" = "Kontua";
+// Fuzzy
+"main-menu-account-title-logged-in" = "Saioa $1 bezala hasia";
+// Fuzzy
+"main-menu-account-login" = "Saioa hasi";
+"main-menu-account-logout" = "Saioa itxi";
+"main-menu-account-logout-cancel" = "Utzi";
+"main-menu-show-title" = "Erakutsi gehiago...";
+"main-menu-show-history" = "Berriak";
+"main-menu-show-saved" = "Gordetako orrialdeak";
+"main-menu-current-article-save" = "Gorde $1 offline irakurtzeko";
+"main-menu-random" = "Ausazkoa";
+"main-menu-feedback-heading" = "Feedback";
+// Fuzzy
+"main-menu-send-feedback" = "Aplikazioari buruzko feedbacka eman";
+"main-menu-credits" = "Kredituak";
+// Fuzzy
+"main-menu-about" = "Wikipediaren aplikazioari buruz";
+"main-menu-zero-faq" = "Wikipedia Zero FAQ";
+"main-menu-privacy-policy" = "Pribatutasun politika";
+// Fuzzy
+"main-menu-terms-of-use" = "Erabilera-baldintzak";
+// Fuzzy
+"main-menu-rate-app" = "Baloratu aplikazioa";
+"main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-show-today" = "Gaur";
+"main-menu-nearby" = "Gertukoak";
+"main-menu-more" = "Gehiago...";
+"saved-pages-title" = "Gordetako orrialdeak";
+// Fuzzy
+"saved-pages-clear-confirmation-heading" = "Ezabatu gordetako elementu guztiak?";
+"saved-pages-clear-confirmation-sub-heading" = "Ekintza hau ezin da desegin!";
+"saved-pages-clear-cancel" = "Utzi";
+"saved-pages-clear-delete-all" = "Bai, dena ezabatu";
+"saved-pages-none" = "Hizkuntzaren izena";
+"page-history-title" = "Artikuluaren historia";
+"page-history-downloading" = "Artikuluaren historia kargatzen...";
+"navbar-title-mode-edit-wikitext" = "Aldatu";
+"navbar-title-mode-login" = "Saioa hasi";
+"navbar-title-mode-login-and-save" = "Saioa hasi eta gorde";
+"navbar-title-mode-create-account" = "Kontua sortu";
+"navbar-title-mode-create-account-and-save" = "Kontua sortu eta gorde";
+"navbar-title-mode-edit-wikitext-warning" = "Edizio arazoak";
+"navbar-title-mode-edit-wikitext-disallow" = "Edizio arazoak";
+"navbar-title-mode-edit-wikitext-preview" = "Aurrebista";
+"navbar-title-mode-edit-wikitext-save" = "Gorde";
+"edit-summary-choice-linked-words" = "Loturak gehitu";
+"edit-summary-choice-fixed-grammar" = "Gramatika konpondu";
+"edit-summary-choice-fixed-inaccuracy" = "Zehaztugabeak konpondu";
+"edit-summary-choice-fixed-styling" = "Estiloa konpondu";
+"edit-summary-choice-fixed-typos" = "Tipografia konpondu";
+"edit-summary-choice-added-category" = "Kategoria gehitu";
+"edit-summary-choice-added-missing-info" = "Falta de infantil gehitu";
+"edit-summary-choice-added-clarification" = "Argipena gehitu";
+"edit-summary-choice-other" = "Beste";
+"about-title" = "Honi buruz";
+"about-wikipedia" = "Wikipedia";
+// Fuzzy
+"about-contributors" = "ekarleak";
+// Fuzzy
+"about-translators" = "itzultzaileak";
+// Fuzzy
+"about-libraries" = "Erabilitako liburutegiak";
+"about-libraries-license" = "Lizentzia";
+"about-wikimedia-foundation" = "Wikimedia Fundazioa";
+"share-menu-save-page" = "Gorde orria";
+"share-custom-menu-item" = "Partekatu";
+"share-as-image" = "Partekatu irudi gisa";
+"share-as-text" = "Partekatu testu gisa";
+"timestamp-just-now" = "oraintxe bertan";
+"timestamp-minutes" = "duela %d minutu";
+"timestamp-hours" = "duela %d ordu";
+"timestamp-days" = "duela %d egun";
+"timestamp-months" = "duela %d hilabete";
+"timestamp-years" = "duela %d urte";
+"lastmodified-by-anon" = "$1 lankide anonimo batek editatua";
+"button-next" = "Hurrengoa";
+"button-done" = "Egina";
+"button-save" = "Gorde";
+"button-save-for-later" = "Gorde gerorako";
+"onboarding-create-account" = "Kontua sortu";
+"onboarding-login" = "Saioa hasi";
+"onboarding-skip" = "Utzi";
+"onboarding-wikipedia" = "Wikipedia";
+"onboarding-free-encyclopedia" = "Entziklopedia askea";
+"preference_title_eventlogging_opt_in" = "Bidali erabilpen iruzkina";
+"page_protected_can_not_edit" = "Ez duzu orrialde hau aldatzeko baimenik";
+"page_protected_can_not_edit_title" = "Orrialde hau babestuta dago";
+"license-footer-name" = "CC-BY-SA 3.0";
+"table-of-contents-heading" = "Edukiak";
+"abuse-filter-disallow-heading" = "Ezin duzu aldaketa hau gorde. Mesedez itzul zaitez eta alda ezazu.";
+"menu-edit-accessibility-label" = "Aldatu";
+"menu-close-accessibility-label" = "Itxi";
+"menu-preview-accessibility-label" = "Aurrebista";
+"menu-back-accessibility-label" = "Atzera";
+"menu-forward-accessibility-label" = "Aurrera";
+"menu-w-accessibility-label" = "Menua";
+"menu-toc-accessibility-label" = "Edukiak";
+"menu-search-accessibility-label" = "Bilatu";
+"menu-reload-accessibility-label" = "Birkargatu";
+"menu-cancel-accessibility-label" = "Utzi";
+"menu-share-accessibility-label" = "Partekatu";
+"menu-more-accessibility-label" = "Ezarpen gehiago";
+"menu-trash-accessibility-label" = "Ezabatu";
+"menu-language-accessibility-label" = "Hizkuntzak";
+"nearby-title" = "Gertukoak";
+"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-feet" = "$1 oin";
+"nearby-distance-label-miles" = "$1 milia";
+"nearby-pull-to-refresh-is-refreshing" = "Freskatzen";
+"nearby-cancel" = "Utzi";
+"migration-skip-button-title" = "Ezabatu";
+"image-gallery-unknown-owner" = "Igotzaile ezezaguna.";
+"image-gallery-fetch-image-info-error-ok" = "OK";
+"hockeyapp-alert-send-report" = "Bidali txostena";
+"hockeyapp-alert-always-send" = "Beti bidali";
+"hockeyapp-alert-do-not-send" = "Ez bidali";
+"hockeyapp-alert-privacy" = "$1 pribatutasuna";
+"page-issues" = "Orriaren arazoak";
+"page-similar-titles" = "Antzeko orriak";
+"page-read-in-other-languages" = "Irakurgarri beste $1 hizkuntzatan";
+"captcha-reload" = "Erakutsi beste captcha bat";
+"home-title" = "Esploratu";
+"home-continue-reading-heading" = "Irakurtzen jarraitu";
+"home-more-like-footer" = "$1 bezalako artikulu gehiago";
+"home-nearby-nothing" = "Ezer ez gertu";
+"home-nearby-check-again" = "Egiaztatu berriro";
+"home-main-page-heading" = "Gaur Wikipedian";
+"home-last-update-label" = "Azken eguneratzea:$1";
+// Fuzzy
+"welcome-languages-title" = "Aukeratu zure hizkuntza";
+"welcome-languages-add-button" = "Gehitu beste hizkuntza bat";
+"empty-no-feed-title" = "Internet Konexiorik Ez";
+"icon-shortcut-nearby-title" = "Inguruko artikuluak";
+"close-button-accessibility-label" = "Itxi";
+// Fuzzy
+"explore-nearby-heading" = "Inguruko tokiak";
+"explore-random-article-heading" = "Ausazko artikulua";

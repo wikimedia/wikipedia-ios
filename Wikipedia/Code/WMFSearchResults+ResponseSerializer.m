@@ -1,0 +1,11 @@
+#import "WMFSearchResults+ResponseSerializer.h"
+#import "WMFMantleJSONResponseSerializer.h"
+#import <AFNetworking/AFURLResponseSerialization.h>
+
+@implementation WMFSearchResults (ResponseSerializer)
+
++ (AFHTTPResponseSerializer *)responseSerializer {
+    return [WMFMantleJSONResponseSerializer serializerForInstancesOf:self fromKeypath:@"query"];
+}
+
+@end

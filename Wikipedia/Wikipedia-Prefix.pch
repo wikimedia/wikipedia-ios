@@ -1,0 +1,11 @@
+
+#import <Availability.h>
+
+#ifdef __OBJC__
+
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+
+    #import "Global.h"
+
+#endif // end __OBJC__

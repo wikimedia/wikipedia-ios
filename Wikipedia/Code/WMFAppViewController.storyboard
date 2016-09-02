@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <scenes>
+        <!--App View Controller-->
+        <scene sceneID="gpL-Ly-PPc">
+            <objects>
+                <viewController id="O8j-Xm-zXE" customClass="WMFAppViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tHL-ym-Gfa"/>
+                        <viewControllerLayoutGuide type="bottom" id="fKi-Ok-D1o"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zy6-Kl-9CO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N6E-ZW-sLh">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wikipedia-wordmark" translatesAutoresizingMaskIntoConstraints="NO" id="5c5-u5-qnE">
+                                        <rect key="frame" x="180.5" y="258.5" width="240" height="59"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="210" id="bR9-Sg-vRZ"/>
+                                            <constraint firstAttribute="height" constant="192" id="nWb-XA-yli"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="bR9-Sg-vRZ"/>
+                                                <exclude reference="nWb-XA-yli"/>
+                                            </mask>
+                                        </variation>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="5c5-u5-qnE" secondAttribute="centerX" id="EWH-nl-kuV"/>
+                                    <constraint firstAttribute="centerY" secondItem="5c5-u5-qnE" secondAttribute="centerY" constant="12" id="oRv-kS-Ud7"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="N6E-ZW-sLh" firstAttribute="top" secondItem="zy6-Kl-9CO" secondAttribute="top" id="Ajx-0d-fdf"/>
+                            <constraint firstItem="N6E-ZW-sLh" firstAttribute="bottom" secondItem="fKi-Ok-D1o" secondAttribute="bottom" id="Z4Z-Fq-OZ6"/>
+                            <constraint firstAttribute="trailing" secondItem="N6E-ZW-sLh" secondAttribute="trailing" id="hmi-rN-wSd"/>
+                            <constraint firstItem="N6E-ZW-sLh" firstAttribute="leading" secondItem="zy6-Kl-9CO" secondAttribute="leading" id="lfR-SP-Ly1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="splashView" destination="N6E-ZW-sLh" id="y7k-7q-Bof"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mmS-4g-7L5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1318" y="541"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="wikipedia-wordmark" width="240" height="59"/>
+    </resources>
+</document>

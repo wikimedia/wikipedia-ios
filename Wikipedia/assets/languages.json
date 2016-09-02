@@ -1,0 +1,1447 @@
+[
+    {
+        "canonical_name": "English", 
+        "code": "en", 
+        "name": "English"
+    },
+    {
+        "canonical_name": "Dutch",
+        "code": "nl", 
+        "name": "Nederlands"
+    }, 
+    {
+        "canonical_name": "German", 
+        "code": "de", 
+        "name": "Deutsch"
+    }, 
+    {
+        "canonical_name": "Swedish", 
+        "code": "sv", 
+        "name": "Svenska"
+    }, 
+    {
+        "canonical_name": "French", 
+        "code": "fr", 
+        "name": "Fran\u00e7ais"
+    }, 
+    {
+        "canonical_name": "Italian", 
+        "code": "it", 
+        "name": "Italiano"
+    }, 
+    {
+        "canonical_name": "Russian", 
+        "code": "ru", 
+        "name": "\u0420\u0443\u0441\u0441\u043a\u0438\u0439"
+    }, 
+    {
+        "canonical_name": "Spanish", 
+        "code": "es", 
+        "name": "Espa\u00f1ol"
+    }, 
+    {
+        "canonical_name": "Polish", 
+        "code": "pl", 
+        "name": "Polski"
+    }, 
+    {
+        "canonical_name": "Waray-Waray", 
+        "code": "war", 
+        "name": "Winaray"
+    }, 
+    {
+        "canonical_name": "Cebuano", 
+        "code": "ceb", 
+        "name": "Sinugboanong Binisaya"
+    }, 
+    {
+        "canonical_name": "Japanese", 
+        "code": "ja", 
+        "name": "\u65e5\u672c\u8a9e"
+    }, 
+    {
+        "canonical_name": "Vietnamese", 
+        "code": "vi", 
+        "name": "Ti\u1ebfng Vi\u1ec7t"
+    }, 
+    {
+        "canonical_name": "Portuguese", 
+        "code": "pt", 
+        "name": "Portugu\u00eas"
+    }, 
+    {
+        "canonical_name": "Chinese", 
+        "code": "zh", 
+        "name": "\u4e2d\u6587"
+    }, 
+    {
+        "canonical_name": "Ukrainian", 
+        "code": "uk", 
+        "name": "\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430"
+    }, 
+    {
+        "canonical_name": "Catalan", 
+        "code": "ca", 
+        "name": "Catal\u00e0"
+    }, 
+    {
+        "canonical_name": "Norwegian (Bokm\u00e5l)", 
+        "code": "no", 
+        "name": "Norsk (Bokm\u00e5l)"
+    }, 
+    {
+        "canonical_name": "Persian", 
+        "code": "fa", 
+        "name": "\u0641\u0627\u0631\u0633\u06cc"
+    }, 
+    {
+        "canonical_name": "Finnish", 
+        "code": "fi", 
+        "name": "Suomi"
+    }, 
+    {
+        "canonical_name": "Indonesian", 
+        "code": "id", 
+        "name": "Bahasa Indonesia"
+    }, 
+    {
+        "canonical_name": "Czech", 
+        "code": "cs", 
+        "name": "\u010ce\u0161tina"
+    }, 
+    {
+        "canonical_name": "Korean", 
+        "code": "ko", 
+        "name": "\ud55c\uad6d\uc5b4"
+    }, 
+    {
+        "canonical_name": "Arabic", 
+        "code": "ar", 
+        "name": "\u0627\u0644\u0639\u0631\u0628\u064a\u0629"
+    }, 
+    {
+        "canonical_name": "Hungarian", 
+        "code": "hu", 
+        "name": "Magyar"
+    }, 
+    {
+        "canonical_name": "Serbian", 
+        "code": "sr", 
+        "name": "\u0421\u0440\u043f\u0441\u043a\u0438 / Srpski"
+    }, 
+    {
+        "canonical_name": "Malay", 
+        "code": "ms", 
+        "name": "Bahasa Melayu"
+    }, 
+    {
+        "canonical_name": "Romanian", 
+        "code": "ro", 
+        "name": "Rom\u00e2n\u0103"
+    }, 
+    {
+        "canonical_name": "Turkish", 
+        "code": "tr", 
+        "name": "T\u00fcrk\u00e7e"
+    }, 
+    {
+        "canonical_name": "Minangkabau", 
+        "code": "min", 
+        "name": "Baso Minangkabau"
+    }, 
+    {
+        "canonical_name": "Kazakh", 
+        "code": "kk", 
+        "name": "\u049a\u0430\u0437\u0430\u049b\u0448\u0430"
+    }, 
+    {
+        "canonical_name": "Esperanto", 
+        "code": "eo", 
+        "name": "Esperanto"
+    }, 
+    {
+        "canonical_name": "Slovak", 
+        "code": "sk", 
+        "name": "Sloven\u010dina"
+    }, 
+    {
+        "canonical_name": "Danish", 
+        "code": "da", 
+        "name": "Dansk"
+    }, 
+    {
+        "canonical_name": "Basque", 
+        "code": "eu", 
+        "name": "Euskara"
+    }, 
+    {
+        "canonical_name": "Lithuanian", 
+        "code": "lt", 
+        "name": "Lietuvi\u0173"
+    }, 
+    {
+        "canonical_name": "Bulgarian", 
+        "code": "bg", 
+        "name": "\u0411\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438"
+    }, 
+    {
+        "canonical_name": "Hebrew", 
+        "code": "he", 
+        "name": "\u05e2\u05d1\u05e8\u05d9\u05ea"
+    }, 
+    {
+        "canonical_name": "Croatian", 
+        "code": "hr", 
+        "name": "Hrvatski"
+    }, 
+    {
+        "canonical_name": "Slovenian", 
+        "code": "sl", 
+        "name": "Sloven\u0161\u010dina"
+    }, 
+    {
+        "canonical_name": "Uzbek", 
+        "code": "uz", 
+        "name": "O\u2018zbek"
+    }, 
+    {
+        "canonical_name": "Estonian", 
+        "code": "et", 
+        "name": "Eesti"
+    }, 
+    {
+        "canonical_name": "Volap\u00fck", 
+        "code": "vo", 
+        "name": "Volap\u00fck"
+    }, 
+    {
+        "canonical_name": "Hindi", 
+        "code": "hi", 
+        "name": "\u0939\u093f\u0928\u094d\u0926\u0940"
+    }, 
+    {
+        "canonical_name": "Galician", 
+        "code": "gl", 
+        "name": "Galego"
+    }, 
+    {
+        "canonical_name": "Norwegian (Nynorsk)", 
+        "code": "nn", 
+        "name": "Nynorsk"
+    }, 
+    {
+        "canonical_name": "Simple English", 
+        "code": "simple", 
+        "name": "Simple English"
+    }, 
+    {
+        "canonical_name": "Armenian", 
+        "code": "hy", 
+        "name": "\u0540\u0561\u0575\u0565\u0580\u0565\u0576"
+    }, 
+    {
+        "canonical_name": "Latin", 
+        "code": "la", 
+        "name": "Latina"
+    }, 
+    {
+        "canonical_name": "Azerbaijani", 
+        "code": "az", 
+        "name": "Az\u0259rbaycanca"
+    }, 
+    {
+        "canonical_name": "Greek", 
+        "code": "el", 
+        "name": "\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac"
+    }, 
+    {
+        "canonical_name": "Serbo-Croatian", 
+        "code": "sh", 
+        "name": "Srpskohrvatski / \u0421\u0440\u043f\u0441\u043a\u043e\u0445\u0440\u0432\u0430\u0442\u0441\u043a\u0438"
+    }, 
+    {
+        "canonical_name": "Occitan", 
+        "code": "oc", 
+        "name": "Occitan"
+    }, 
+    {
+        "canonical_name": "Thai", 
+        "code": "th", 
+        "name": "\u0e44\u0e17\u0e22"
+    }, 
+    {
+        "canonical_name": "Georgian", 
+        "code": "ka", 
+        "name": "\u10e5\u10d0\u10e0\u10d7\u10e3\u10da\u10d8"
+    }, 
+    {
+        "canonical_name": "Macedonian", 
+        "code": "mk", 
+        "name": "\u041c\u0430\u043a\u0435\u0434\u043e\u043d\u0441\u043a\u0438"
+    }, 
+    {
+        "canonical_name": "Newar / Nepal Bhasa", 
+        "code": "new", 
+        "name": "\u0928\u0947\u092a\u093e\u0932 \u092d\u093e\u0937\u093e"
+    }, 
+    {
+        "canonical_name": "Belarusian", 
+        "code": "be", 
+        "name": "\u0411\u0435\u043b\u0430\u0440\u0443\u0441\u043a\u0430\u044f"
+    }, 
+    {
+        "canonical_name": "Piedmontese", 
+        "code": "pms", 
+        "name": "Piemont\u00e8is"
+    }, 
+    {
+        "canonical_name": "Tagalog", 
+        "code": "tl", 
+        "name": "Tagalog"
+    }, 
+    {
+        "canonical_name": "Tamil", 
+        "code": "ta", 
+        "name": "\u0ba4\u0bae\u0bbf\u0bb4\u0bcd"
+    }, 
+    {
+        "canonical_name": "Tatar", 
+        "code": "tt", 
+        "name": "Tatar\u00e7a / \u0422\u0430\u0442\u0430\u0440\u0447\u0430"
+    }, 
+    {
+        "canonical_name": "Telugu", 
+        "code": "te", 
+        "name": "\u0c24\u0c46\u0c32\u0c41\u0c17\u0c41"
+    }, 
+    {
+        "canonical_name": "Haitian", 
+        "code": "ht", 
+        "name": "Kr\u00e8yol ayisyen"
+    }, 
+    {
+        "canonical_name": "Welsh", 
+        "code": "cy", 
+        "name": "Cymraeg"
+    }, 
+    {
+        "canonical_name": "Latvian", 
+        "code": "lv", 
+        "name": "Latvie\u0161u"
+    }, 
+    {
+        "canonical_name": "Belarusian (Tara\u0161kievica)", 
+        "code": "be-x-old", 
+        "name": "\u0411\u0435\u043b\u0430\u0440\u0443\u0441\u043a\u0430\u044f (\u0442\u0430\u0440\u0430\u0448\u043a\u0435\u0432\u0456\u0446\u0430)"
+    }, 
+    {
+        "canonical_name": "Albanian", 
+        "code": "sq", 
+        "name": "Shqip"
+    }, 
+    {
+        "canonical_name": "Bosnian", 
+        "code": "bs", 
+        "name": "Bosanski"
+    }, 
+    {
+        "canonical_name": "Breton", 
+        "code": "br", 
+        "name": "Brezhoneg"
+    }, 
+    {
+        "canonical_name": "Malagasy", 
+        "code": "mg", 
+        "name": "Malagasy"
+    }, 
+    {
+        "canonical_name": "Javanese", 
+        "code": "jv", 
+        "name": "Basa Jawa"
+    }, 
+    {
+        "canonical_name": "Luxembourgish", 
+        "code": "lb", 
+        "name": "L\u00ebtzebuergesch"
+    }, 
+    {
+        "canonical_name": "Marathi", 
+        "code": "mr", 
+        "name": "\u092e\u0930\u093e\u0920\u0940"
+    }, 
+    {
+        "canonical_name": "Icelandic", 
+        "code": "is", 
+        "name": "\u00cdslenska"
+    }, 
+    {
+        "canonical_name": "Malayalam", 
+        "code": "ml", 
+        "name": "\u0d2e\u0d32\u0d2f\u0d3e\u0d33\u0d02"
+    }, 
+    {
+        "canonical_name": "Burmese", 
+        "code": "my", 
+        "name": "\u1019\u103c\u1014\u103a\u1019\u102c\u1018\u102c\u101e\u102c"
+    }, 
+    {
+        "canonical_name": "Bashkir", 
+        "code": "ba", 
+        "name": "\u0411\u0430\u0448\u04a1\u043e\u0440\u0442"
+    }, 
+    {
+        "canonical_name": "Yoruba", 
+        "code": "yo", 
+        "name": "Yor\u00f9b\u00e1"
+    }, 
+    {
+        "canonical_name": "Western Panjabi", 
+        "code": "pnb", 
+        "name": "\u0634\u0627\u06c1 \u0645\u06a9\u06be\u06cc \u067e\u0646\u062c\u0627\u0628\u06cc (Sh\u0101hmukh\u012b Pa\u00f1j\u0101b\u012b)"
+    }, 
+    {
+        "canonical_name": "Afrikaans", 
+        "code": "af", 
+        "name": "Afrikaans"
+    }, 
+    {
+        "canonical_name": "Aragonese", 
+        "code": "an", 
+        "name": "Aragon\u00e9s"
+    }, 
+    {
+        "canonical_name": "Lombard", 
+        "code": "lmo", 
+        "name": "Lumbaart"
+    }, 
+    {
+        "canonical_name": "West Frisian", 
+        "code": "fy", 
+        "name": "Frysk"
+    }, 
+    {
+        "canonical_name": "Irish", 
+        "code": "ga", 
+        "name": "Gaeilge"
+    }, 
+    {
+        "canonical_name": "Bengali", 
+        "code": "bn", 
+        "name": "\u09ac\u09be\u0982\u09b2\u09be"
+    }, 
+    {
+        "canonical_name": "Tajik", 
+        "code": "tg", 
+        "name": "\u0422\u043e\u04b7\u0438\u043a\u04e3"
+    }, 
+    {
+        "canonical_name": "Cantonese", 
+        "code": "zh-yue", 
+        "name": "\u7cb5\u8a9e"
+    }, 
+    {
+        "canonical_name": "Urdu", 
+        "code": "ur", 
+        "name": "\u0627\u0631\u062f\u0648"
+    }, 
+    {
+        "canonical_name": "Swahili", 
+        "code": "sw", 
+        "name": "Kiswahili"
+    }, 
+    {
+        "canonical_name": "Kirghiz", 
+        "code": "ky", 
+        "name": "\u041a\u044b\u0440\u0433\u044b\u0437\u0447\u0430"
+    }, 
+    {
+        "canonical_name": "Ido", 
+        "code": "io", 
+        "name": "Ido"
+    }, 
+    {
+        "canonical_name": "Nepali", 
+        "code": "ne", 
+        "name": "\u0928\u0947\u092a\u093e\u0932\u0940"
+    }, 
+    {
+        "canonical_name": "Gujarati", 
+        "code": "gu", 
+        "name": "\u0a97\u0ac1\u0a9c\u0ab0\u0abe\u0aa4\u0ac0"
+    }, 
+    {
+        "canonical_name": "Bishnupriya Manipuri", 
+        "code": "bpy", 
+        "name": "\u0987\u09ae\u09be\u09b0 \u09a0\u09be\u09b0/\u09ac\u09bf\u09b7\u09cd\u09a3\u09c1\u09aa\u09cd\u09b0\u09bf\u09af\u09bc\u09be \u09ae\u09a3\u09bf\u09aa\u09c1\u09b0\u09c0"
+    }, 
+    {
+        "canonical_name": "Sicilian", 
+        "code": "scn", 
+        "name": "Sicilianu"
+    }, 
+    {
+        "canonical_name": "Chechen", 
+        "code": "ce", 
+        "name": "\u041d\u043e\u0445\u0447\u0438\u0439\u043d"
+    }, 
+    {
+        "canonical_name": "Low Saxon", 
+        "code": "nds", 
+        "name": "Plattd\u00fc\u00fctsch"
+    }, 
+    {
+        "canonical_name": "Chuvash", 
+        "code": "cv", 
+        "name": "\u0427\u0103\u0432\u0430\u0448"
+    }, 
+    {
+        "canonical_name": "Kurdish", 
+        "code": "ku", 
+        "name": "Kurd\u00ee / \u0643\u0648\u0631\u062f\u06cc"
+    }, 
+    {
+        "canonical_name": "Scots", 
+        "code": "sco", 
+        "name": "Scots"
+    }, 
+    {
+        "canonical_name": "Asturian", 
+        "code": "ast", 
+        "name": "Asturianu"
+    }, 
+    {
+        "canonical_name": "Quechua", 
+        "code": "qu", 
+        "name": "Runa Simi"
+    }, 
+    {
+        "canonical_name": "Sundanese", 
+        "code": "su", 
+        "name": "Basa Sunda"
+    }, 
+    {
+        "canonical_name": "Alemannic", 
+        "code": "als", 
+        "name": "Alemannisch"
+    }, 
+    {
+        "canonical_name": "Kannada", 
+        "code": "kn", 
+        "name": "\u0c95\u0ca8\u0ccd\u0ca8\u0ca1"
+    },
+    {
+        "canonical_name": "Tulu",
+        "code": "tcy",
+        "name": "\u0ca4\u0cc1\u0cb3\u0cc1"
+    },
+    {
+        "canonical_name": "Interlingua",
+        "code": "ia", 
+        "name": "Interlingua"
+    }, 
+    {
+        "canonical_name": "Buginese", 
+        "code": "bug", 
+        "name": "Basa Ugi"
+    }, 
+    {
+        "canonical_name": "Neapolitan", 
+        "code": "nap", 
+        "name": "Nnapulitano"
+    }, 
+    {
+        "canonical_name": "Samogitian", 
+        "code": "bat-smg", 
+        "name": "\u017demait\u0117\u0161ka"
+    }, 
+    {
+        "canonical_name": "Amharic", 
+        "code": "am", 
+        "name": "\u12a0\u121b\u122d\u129b"
+    }, 
+    {
+        "canonical_name": "Sorani", 
+        "code": "ckb", 
+        "name": "Soran\u00ee / \u06a9\u0648\u0631\u062f\u06cc"
+    }, 
+    {
+        "canonical_name": "Walloon", 
+        "code": "wa", 
+        "name": "Walon"
+    }, 
+    {
+        "canonical_name": "Banyumasan", 
+        "code": "map-bms", 
+        "name": "Basa Banyumasan"
+    }, 
+    {
+        "canonical_name": "Scottish Gaelic", 
+        "code": "gd", 
+        "name": "G\u00e0idhlig"
+    }, 
+    {
+        "canonical_name": "Mongolian", 
+        "code": "mn", 
+        "name": "\u041c\u043e\u043d\u0433\u043e\u043b"
+    }, 
+    {
+        "canonical_name": "Fiji Hindi", 
+        "code": "hif", 
+        "name": "Fiji Hindi"
+    }, 
+    {
+        "canonical_name": "Egyptian Arabic", 
+        "code": "arz", 
+        "name": "\u0645\u0635\u0631\u0649 (Ma\u1e63r\u012b)"
+    }, 
+    {
+        "canonical_name": "Min Nan", 
+        "code": "zh-min-nan", 
+        "name": "B\u00e2n-l\u00e2m-g\u00fa"
+    }, 
+    {
+        "canonical_name": "Mazandarani", 
+        "code": "mzn", 
+        "name": "\u0645\u064e\u0632\u0650\u0631\u0648\u0646\u064a"
+    }, 
+    {
+        "canonical_name": "Yiddish", 
+        "code": "yi", 
+        "name": "\u05d9\u05d9\u05b4\u05d3\u05d9\u05e9"
+    }, 
+    {
+        "canonical_name": "Venetian", 
+        "code": "vec", 
+        "name": "V\u00e8neto"
+    }, 
+    {
+        "canonical_name": "Sakha", 
+        "code": "sah", 
+        "name": "\u0421\u0430\u0445\u0430 \u0442\u044b\u043b\u0430 (Saxa Tyla)"
+    }, 
+    {
+        "canonical_name": "Nahuatl", 
+        "code": "nah", 
+        "name": "N\u0101huatl"
+    }, 
+    {
+        "canonical_name": "Sanskrit", 
+        "code": "sa", 
+        "name": "\u0938\u0902\u0938\u094d\u0915\u0943\u0924\u092e\u094d"
+    }, 
+    {
+        "canonical_name": "Sinhalese", 
+        "code": "si", 
+        "name": "\u0dc3\u0dd2\u0d82\u0dc4\u0dbd"
+    }, 
+    {
+        "canonical_name": "Tarantino", 
+        "code": "roa-tara", 
+        "name": "Tarand\u00edne"
+    }, 
+    {
+        "canonical_name": "Bavarian", 
+        "code": "bar", 
+        "name": "Boarisch"
+    }, 
+    {
+        "canonical_name": "Ossetian", 
+        "code": "os", 
+        "name": "\u0418\u0440\u043e\u043d\u0430\u0443"
+    }, 
+    {
+        "canonical_name": "Punjabi", 
+        "code": "pa", 
+        "name": "\u0a2a\u0a70\u0a1c\u0a3e\u0a2c\u0a40"
+    }, 
+    {
+        "canonical_name": "Kapampangan", 
+        "code": "pam", 
+        "name": "Kapampangan"
+    }, 
+    {
+        "canonical_name": "Upper Sorbian", 
+        "code": "hsb", 
+        "name": "Hornjoserbsce"
+    }, 
+    {
+        "canonical_name": "Northern Sami", 
+        "code": "se", 
+        "name": "S\u00e1megiella"
+    }, 
+    {
+        "canonical_name": "Limburgish", 
+        "code": "li", 
+        "name": "Limburgs"
+    }, 
+    {
+        "canonical_name": "Faroese", 
+        "code": "fo", 
+        "name": "F\u00f8royskt"
+    }, 
+    {
+        "canonical_name": "Maori", 
+        "code": "mi", 
+        "name": "M\u0101ori"
+    }, 
+    {
+        "canonical_name": "Corsican", 
+        "code": "co", 
+        "name": "Corsu"
+    }, 
+    {
+        "canonical_name": "Ilokano", 
+        "code": "ilo", 
+        "name": "Ilokano"
+    }, 
+    {
+        "canonical_name": "Gan", 
+        "code": "gan", 
+        "name": "\u8d1b\u8a9e"
+    }, 
+    {
+        "canonical_name": "Tibetan", 
+        "code": "bo", 
+        "name": "\u0f56\u0f7c\u0f51\u0f0b\u0f66\u0f90\u0f51"
+    }, 
+    {
+        "canonical_name": "North Frisian", 
+        "code": "frr", 
+        "name": "Nordfriisk"
+    }, 
+    {
+        "canonical_name": "Gilaki", 
+        "code": "glk", 
+        "name": "\u06af\u06cc\u0644\u06a9\u06cc"
+    }, 
+    {
+        "canonical_name": "Rusyn", 
+        "code": "rue", 
+        "name": "\u0440\u0443\u0441\u0438\u043d\u044c\u0441\u043a\u044b\u0439 \u044f\u0437\u044b\u043a"
+    }, 
+    {
+        "canonical_name": "Central Bicolano", 
+        "code": "bcl", 
+        "name": "Bikol"
+    }, 
+    {
+        "canonical_name": "Dutch Low Saxon", 
+        "code": "nds-nl", 
+        "name": "Nedersaksisch"
+    }, 
+    {
+        "canonical_name": "V\u00f5ro", 
+        "code": "fiu-vro", 
+        "name": "V\u00f5ro"
+    }, 
+    {
+        "canonical_name": "Oriya", 
+        "code": "or", 
+        "name": "\u0b13\u0b5c\u0b3f\u0b06"
+    }, 
+    {
+        "canonical_name": "Hill Mari", 
+        "code": "mrj", 
+        "name": "\u041a\u044b\u0440\u044b\u043a \u041c\u0430\u0440\u044b (Kyryk Mary)\u00a0"
+    }, 
+    {
+        "canonical_name": "Turkmen", 
+        "code": "tk", 
+        "name": "\u062a\u0631\u0643\u0645\u0646 / \u0422\u0443\u0440\u043a\u043c\u0435\u043d"
+    }, 
+    {
+        "canonical_name": "Pashto", 
+        "code": "ps", 
+        "name": "\u067e\u069a\u062a\u0648"
+    }, 
+    {
+        "canonical_name": "West Flemish", 
+        "code": "vls", 
+        "name": "West-Vlams"
+    }, 
+    {
+        "canonical_name": "Mingrelian", 
+        "code": "xmf", 
+        "name": "\u10db\u10d0\u10e0\u10d2\u10d0\u10da\u10e3\u10e0\u10d8 (Margaluri)"
+    }, 
+    {
+        "canonical_name": "Manx", 
+        "code": "gv", 
+        "name": "Gaelg"
+    }, 
+    {
+        "canonical_name": "Zazaki", 
+        "code": "diq", 
+        "name": "Zazaki"
+    }, 
+    {
+        "canonical_name": "Zeelandic", 
+        "code": "zea", 
+        "name": "Ze\u00eauws"
+    }, 
+    {
+        "canonical_name": "Komi", 
+        "code": "kv", 
+        "name": "\u041a\u043e\u043c\u0438"
+    }, 
+    {
+        "canonical_name": "Khmer", 
+        "code": "km", 
+        "name": "\u1797\u17b6\u179f\u17b6\u1781\u17d2\u1798\u17c2\u179a"
+    }, 
+    {
+        "canonical_name": "Meadow Mari", 
+        "code": "mhr", 
+        "name": "\u041e\u043b\u044b\u043a \u041c\u0430\u0440\u0438\u0439 (Olyk Marij)"
+    }, 
+    {
+        "canonical_name": "Pangasinan", 
+        "code": "pag", 
+        "name": "Pangasinan"
+    }, 
+    {
+        "canonical_name": "Vepsian", 
+        "code": "vep", 
+        "name": "Veps\u00c3\u00a4n"
+    }, 
+    {
+        "canonical_name": "Kashubian", 
+        "code": "csb", 
+        "name": "Kasz\u00ebbsczi"
+    }, 
+    {
+        "canonical_name": "Divehi", 
+        "code": "dv", 
+        "name": "\u078b\u07a8\u0788\u07ac\u0780\u07a8\u0784\u07a6\u0790\u07b0"
+    }, 
+    {
+        "canonical_name": "Hakka", 
+        "code": "hak", 
+        "name": "Hak-k\u00e2-fa / \u5ba2\u5bb6\u8a71"
+    }, 
+    {
+        "canonical_name": "Norman", 
+        "code": "nrm", 
+        "name": "Nouormand/Normaund"
+    }, 
+    {
+        "canonical_name": "Romansh", 
+        "code": "rm", 
+        "name": "Rumantsch"
+    }, 
+    {
+        "canonical_name": "Komi-Permyak", 
+        "code": "koi", 
+        "name": "\u041f\u0435\u0440\u0435\u043c \u041a\u043e\u043c\u0438 (Perem Komi)"
+    }, 
+    {
+        "canonical_name": "Udmurt", 
+        "code": "udm", 
+        "name": "\u0423\u0434\u043c\u0443\u0440\u0442 \u043a\u044b\u043b"
+    }, 
+    {
+        "canonical_name": "Ladino", 
+        "code": "lad", 
+        "name": "Dzhudezmo"
+    }, 
+    {
+        "canonical_name": "Sardinian", 
+        "code": "sc", 
+        "name": "Sardu"
+    }, 
+    {
+        "canonical_name": "Wu", 
+        "code": "wuu", 
+        "name": "\u5434\u8bed"
+    }, 
+    {
+        "canonical_name": "Classical Chinese", 
+        "code": "zh-classical", 
+        "name": "\u53e4\u6587 / \u6587\u8a00\u6587"
+    }, 
+    {
+        "canonical_name": "Ligurian", 
+        "code": "lij", 
+        "name": "L\u00edguru"
+    }, 
+    {
+        "canonical_name": "Somali", 
+        "code": "so", 
+        "name": "Soomaaliga"
+    }, 
+    {
+        "canonical_name": "Uyghur", 
+        "code": "ug", 
+        "name": "\u0626\u06c7\u064a\u063a\u06c7\u0631 \u062a\u0649\u0644\u0649"
+    }, 
+    {
+        "canonical_name": "Friulian", 
+        "code": "fur", 
+        "name": "Furlan"
+    }, 
+    {
+        "canonical_name": "Saterland Frisian", 
+        "code": "stq", 
+        "name": "Seeltersk"
+    }, 
+    {
+        "canonical_name": "Aymara", 
+        "code": "ay", 
+        "name": "Aymar"
+    }, 
+    {
+        "canonical_name": "Maltese", 
+        "code": "mt", 
+        "name": "Malti"
+    }, 
+    {
+        "canonical_name": "Pali", 
+        "code": "pi", 
+        "name": "\u092a\u093e\u0934\u093f"
+    }, 
+    {
+        "canonical_name": "Novial", 
+        "code": "nov", 
+        "name": "Novial"
+    }, 
+    {
+        "canonical_name": "Bihari", 
+        "code": "bh", 
+        "name": "\u092d\u094b\u091c\u092a\u0941\u0930\u0940"
+    }, 
+    {
+        "canonical_name": "Ripuarian", 
+        "code": "ksh", 
+        "name": "Ripoarisch"
+    }, 
+    {
+        "canonical_name": "Emilian-Romagnol", 
+        "code": "eml", 
+        "name": "Emili\u00e0n e rumagn\u00f2l"
+    }, 
+    {
+        "canonical_name": "Assamese", 
+        "code": "as", 
+        "name": "\u0985\u09b8\u09ae\u09c0\u09df\u09be"
+    }, 
+    {
+        "canonical_name": "Guarani", 
+        "code": "gn", 
+        "name": "Ava\u00f1e'\u1ebd"
+    }, 
+    {
+        "canonical_name": "Cornish", 
+        "code": "kw", 
+        "name": "Kernewek/Karnuack"
+    }, 
+    {
+        "canonical_name": "Picard", 
+        "code": "pcd", 
+        "name": "Picard"
+    }, 
+    {
+        "canonical_name": "Gagauz", 
+        "code": "gag", 
+        "name": "Gagauz"
+    }, 
+    {
+        "canonical_name": "Anglo-Saxon", 
+        "code": "ang", 
+        "name": "Englisc"
+    }, 
+    {
+        "canonical_name": "Acehnese", 
+        "code": "ace", 
+        "name": "Bahsa Ac\u00e8h"
+    }, 
+    {
+        "canonical_name": "Navajo", 
+        "code": "nv", 
+        "name": "Din\u00e9 bizaad"
+    }, 
+    {
+        "canonical_name": "Silesian", 
+        "code": "szl", 
+        "name": "\u015al\u016fnski"
+    }, 
+    {
+        "canonical_name": "Extremaduran", 
+        "code": "ext", 
+        "name": "Estreme\u00f1u"
+    }, 
+    {
+        "canonical_name": "Franco-Proven\u00e7al/Arpitan", 
+        "code": "frp", 
+        "name": "Arpitan"
+    }, 
+    {
+        "canonical_name": "Interlingue", 
+        "code": "ie", 
+        "name": "Interlingue"
+    }, 
+    {
+        "canonical_name": "Mirandese", 
+        "code": "mwl", 
+        "name": "Mirand\u00e9s"
+    }, 
+    {
+        "canonical_name": "Lingala", 
+        "code": "ln", 
+        "name": "Lingala"
+    }, 
+    {
+        "canonical_name": "Shona", 
+        "code": "sn", 
+        "name": "chiShona"
+    }, 
+    {
+        "canonical_name": "Palatinate German", 
+        "code": "pfl", 
+        "name": "Pf\u00e4lzisch"
+    }, 
+    {
+        "canonical_name": "Lezgian", 
+        "code": "lez", 
+        "name": "\u00d0\u009b\u00d0\u00b5\u00d0\u00b7\u00d0\u00b3\u00d0\u00b8 \u00d1\u0087\u00d0\u0086\u00d0\u00b0\u00d0\u00bb"
+    }, 
+    {
+        "canonical_name": "Karachay-Balkar", 
+        "code": "krc", 
+        "name": "\u041a\u044a\u0430\u0440\u0430\u0447\u0430\u0439-\u041c\u0430\u043b\u043a\u044a\u0430\u0440 (Qarachay-Malqar)"
+    }, 
+    {
+        "canonical_name": "Kalmyk", 
+        "code": "xal", 
+        "name": "\u0425\u0430\u043b\u044c\u043c\u0433"
+    }, 
+    {
+        "canonical_name": "Hawaiian", 
+        "code": "haw", 
+        "name": "Hawai`i"
+    }, 
+    {
+        "canonical_name": "Pennsylvania German", 
+        "code": "pdc", 
+        "name": "Deitsch"
+    }, 
+    {
+        "canonical_name": "Kinyarwanda", 
+        "code": "rw", 
+        "name": "Ikinyarwanda"
+    }, 
+    {
+        "canonical_name": "Crimean Tatar", 
+        "code": "crh", 
+        "name": "Q\u0131r\u0131mtatarca"
+    }, 
+    {
+        "canonical_name": "Lower Sorbian", 
+        "code": "dsb", 
+        "name": "Dolnoserbski"
+    }, 
+    {
+        "canonical_name": "Kabyle", 
+        "code": "kab", 
+        "name": "Taqbaylit"
+    }, 
+    {
+        "canonical_name": "Tongan", 
+        "code": "to", 
+        "name": "faka Tonga"
+    }, 
+    {
+        "canonical_name": "Erzya", 
+        "code": "myv", 
+        "name": "\u042d\u0440\u0437\u044f\u043d\u044c (Erzjanj Kelj)"
+    }, 
+    {
+        "canonical_name": "Aramaic", 
+        "code": "arc", 
+        "name": "\u0710\u072a\u0721\u071d\u0710"
+    }, 
+    {
+        "canonical_name": "Greenlandic", 
+        "code": "kl", 
+        "name": "Kalaallisut"
+    }, 
+    {
+        "canonical_name": "Banjar", 
+        "code": "bjn", 
+        "name": "Bahasa Banjar"
+    }, 
+    {
+        "canonical_name": "Papiamentu", 
+        "code": "pap", 
+        "name": "Papiamentu"
+    }, 
+    {
+        "canonical_name": "Kabardian Circassian", 
+        "code": "kbd", 
+        "name": "\u0410\u0434\u044b\u0433\u044d\u0431\u0437\u044d (Adighabze)"
+    }, 
+    {
+        "canonical_name": "Lao", 
+        "code": "lo", 
+        "name": "\u0ea5\u0eb2\u0ea7"
+    }, 
+    {
+        "canonical_name": "Tok Pisin", 
+        "code": "tpi", 
+        "name": "Tok Pisin"
+    }, 
+    {
+        "canonical_name": "Lak", 
+        "code": "lbe", 
+        "name": "\u041b\u0430\u043a\u043a\u0443"
+    }, 
+    {
+        "canonical_name": "Wolof", 
+        "code": "wo", 
+        "name": "Wolof"
+    }, 
+    {
+        "canonical_name": "Lojban", 
+        "code": "jbo", 
+        "name": "Lojban"
+    }, 
+    {
+        "canonical_name": "Moksha", 
+        "code": "mdf", 
+        "name": "\u041c\u043e\u043a\u0448\u0435\u043d\u044c (Mokshanj K\u00e4lj)"
+    }, 
+    {
+        "canonical_name": "Zamboanga Chavacano", 
+        "code": "cbk-zam", 
+        "name": "Chavacano de Zamboanga"
+    }, 
+    {
+        "canonical_name": "Avar", 
+        "code": "av", 
+        "name": "\u0410\u0432\u0430\u0440"
+    }, 
+    {
+        "canonical_name": "Sranan", 
+        "code": "srn", 
+        "name": "Sranantongo"
+    }, 
+    {
+        "canonical_name": "Tahitian", 
+        "code": "ty", 
+        "name": "Reo M\u0101`ohi"
+    }, 
+    {
+        "canonical_name": "Kongo", 
+        "code": "kg", 
+        "name": "KiKongo"
+    }, 
+    {
+        "canonical_name": "Buryat (Russia)", 
+        "code": "bxr", 
+        "name": "\u0411\u0443\u0440\u044f\u0430\u0434"
+    }, 
+    {
+        "canonical_name": "Abkhazian", 
+        "code": "ab", 
+        "name": "\u0410\u04a7\u0441\u0443\u0430"
+    }, 
+    {
+        "canonical_name": "Nauruan", 
+        "code": "na", 
+        "name": "dorerin Naoero"
+    }, 
+    {
+        "canonical_name": "Tetum", 
+        "code": "tet", 
+        "name": "Tetun"
+    }, 
+    {
+        "canonical_name": "Latgalian", 
+        "code": "ltg", 
+        "name": "Latga\u013cu"
+    }, 
+    {
+        "canonical_name": "Igbo", 
+        "code": "ig", 
+        "name": "Igbo"
+    }, 
+    {
+        "canonical_name": "Northern Sotho", 
+        "code": "nso", 
+        "name": "Sesotho sa Leboa"
+    }, 
+    {
+        "canonical_name": "Zhuang", 
+        "code": "za", 
+        "name": "Cuengh"
+    }, 
+    {
+        "canonical_name": "Karakalpak", 
+        "code": "kaa", 
+        "name": "Qaraqalpaqsha"
+    }, 
+    {
+        "canonical_name": "Zulu", 
+        "code": "zu", 
+        "name": "isiZulu"
+    }, 
+    {
+        "canonical_name": "Cheyenne", 
+        "code": "chy", 
+        "name": "Tsets\u00eahest\u00e2hese"
+    }, 
+    {
+        "canonical_name": "Romani", 
+        "code": "rmy", 
+        "name": "romani - \u0930\u094b\u092e\u093e\u0928\u0940"
+    }, 
+    {
+        "canonical_name": "Old Church Slavonic", 
+        "code": "cu", 
+        "name": "\u0421\u043b\u043e\u0432\u0463\u043d\u044c\u0441\u043a\u044a"
+    }, 
+    {
+        "canonical_name": "Min Dong", 
+        "code": "cdo", 
+        "name": "M\u00ecng-d\u0115\u0324ng-ng\u1e73\u0304"
+    }, 
+    {
+        "canonical_name": "Tswana", 
+        "code": "tn", 
+        "name": "Setswana"
+    }, 
+    {
+        "canonical_name": "Cherokee", 
+        "code": "chr", 
+        "name": "\u13e3\u13b3\u13a9"
+    }, 
+    {
+        "canonical_name": "Aromanian", 
+        "code": "roa-rup", 
+        "name": "Arm\u00e3neashce"
+    }, 
+    {
+        "canonical_name": "Bislama", 
+        "code": "bi", 
+        "name": "Bislama"
+    }, 
+    {
+        "canonical_name": "Norfolk", 
+        "code": "pih", 
+        "name": "Norfuk"
+    }, 
+    {
+        "canonical_name": "Gothic", 
+        "code": "got", 
+        "name": "\ud800\udf32\ud800\udf3f\ud800\udf44\ud800\udf39\ud800\udf43\ud800\udf3a"
+    }, 
+    {
+        "canonical_name": "Samoan", 
+        "code": "sm", 
+        "name": "Gagana Samoa"
+    }, 
+    {
+        "canonical_name": "Moldovan", 
+        "code": "mo", 
+        "name": "\u041c\u043e\u043b\u0434\u043e\u0432\u0435\u043d\u044f\u0441\u043a\u044d"
+    }, 
+    {
+        "canonical_name": "Bambara", 
+        "code": "bm", 
+        "name": "Bamanankan"
+    }, 
+    {
+        "canonical_name": "Inuktitut", 
+        "code": "iu", 
+        "name": "\u1403\u14c4\u1483\u144e\u1450\u1466"
+    }, 
+    {
+        "canonical_name": "Swati", 
+        "code": "ss", 
+        "name": "SiSwati"
+    }, 
+    {
+        "canonical_name": "Sindhi", 
+        "code": "sd", 
+        "name": "\u0633\u0646\u068c\u064a\u060c \u0633\u0646\u062f\u06be\u06cc \u060c \u0938\u093f\u0928\u094d\u0927"
+    }, 
+    {
+        "canonical_name": "Pontic", 
+        "code": "pnt", 
+        "name": "\u03a0\u03bf\u03bd\u03c4\u03b9\u03b1\u03ba\u03ac"
+    }, 
+    {
+        "canonical_name": "Kikuyu", 
+        "code": "ki", 
+        "name": "G\u0129k\u0169y\u0169"
+    }, 
+    {
+        "canonical_name": "Tuvan", 
+        "code": "tyv", 
+        "name": "\u0442\u044b\u0432\u0430 \u0434\u044b\u043b"
+    }, 
+    {
+        "canonical_name": "Ewe", 
+        "code": "ee", 
+        "name": "E\u028begbe"
+    }, 
+    {
+        "canonical_name": "Hausa", 
+        "code": "ha", 
+        "name": "\u0647\u064e\u0648\u064f\u0633\u064e"
+    }, 
+    {
+        "canonical_name": "Oromo", 
+        "code": "om", 
+        "name": "Oromoo"
+    }, 
+    {
+        "canonical_name": "Fijian", 
+        "code": "fj", 
+        "name": "Na Vosa Vakaviti"
+    }, 
+    {
+        "canonical_name": "Tigrinya", 
+        "code": "ti", 
+        "name": "\u1275\u130d\u122d\u129b"
+    }, 
+    {
+        "canonical_name": "Tsonga", 
+        "code": "ts", 
+        "name": "Xitsonga"
+    }, 
+    {
+        "canonical_name": "Kashmiri", 
+        "code": "ks", 
+        "name": "\u0915\u0936\u094d\u092e\u0940\u0930\u0940 / \u0643\u0634\u0645\u064a\u0631\u064a"
+    }, 
+    {
+        "canonical_name": "Twi", 
+        "code": "tw", 
+        "name": "Twi"
+    }, 
+    {
+        "canonical_name": "Sango", 
+        "code": "sg", 
+        "name": "S\u00e4ng\u00f6"
+    }, 
+    {
+        "canonical_name": "Venda", 
+        "code": "ve", 
+        "name": "Tshivenda"
+    }, 
+    {
+        "canonical_name": "Fula", 
+        "code": "ff", 
+        "name": "Fulfulde"
+    }, 
+    {
+        "canonical_name": "Sesotho", 
+        "code": "st", 
+        "name": "Sesotho"
+    }, 
+    {
+        "canonical_name": "Cree", 
+        "code": "cr", 
+        "name": "Nehiyaw"
+    }, 
+    {
+        "canonical_name": "Kirundi", 
+        "code": "rn", 
+        "name": "Kirundi"
+    }, 
+    {
+        "canonical_name": "Dzongkha", 
+        "code": "dz", 
+        "name": "\u0f47\u0f7c\u0f44\u0f0b\u0f41"
+    }, 
+    {
+        "canonical_name": "Akan", 
+        "code": "ak", 
+        "name": "Akana"
+    }, 
+    {
+        "canonical_name": "Tumbuka", 
+        "code": "tum", 
+        "name": "chiTumbuka"
+    }, 
+    {
+        "canonical_name": "Inupiak", 
+        "code": "ik", 
+        "name": "I\u00f1upiak"
+    }, 
+    {
+        "canonical_name": "Luganda", 
+        "code": "lg", 
+        "name": "Luganda"
+    }, 
+    {
+        "canonical_name": "Chichewa", 
+        "code": "ny", 
+        "name": "Chi-Chewa"
+    }, 
+    {
+        "canonical_name": "Chamorro", 
+        "code": "ch", 
+        "name": "Chamoru"
+    }, 
+    {
+        "canonical_name": "Xhosa", 
+        "code": "xh", 
+        "name": "isiXhosa"
+    }, 
+    {
+        "canonical_name": "Ndonga", 
+        "code": "ng", 
+        "name": "Oshiwambo"
+    }, 
+    {
+        "canonical_name": "Sichuan Yi", 
+        "code": "ii", 
+        "name": "\ua187\ua259"
+    }, 
+    {
+        "canonical_name": "Choctaw", 
+        "code": "cho", 
+        "name": "Choctaw"
+    }, 
+    {
+        "canonical_name": "Marshallese", 
+        "code": "mh", 
+        "name": "Ebon"
+    }, 
+    {
+        "canonical_name": "Afar", 
+        "code": "aa", 
+        "name": "Afar"
+    }, 
+    {
+        "canonical_name": "Kuanyama", 
+        "code": "kj", 
+        "name": "Kuanyama"
+    }, 
+    {
+        "canonical_name": "Hiri Motu", 
+        "code": "ho", 
+        "name": "Hiri Motu"
+    }, 
+    {
+        "canonical_name": "Muscogee", 
+        "code": "mus", 
+        "name": "Muskogee"
+    }, 
+    {
+        "canonical_name": "Kanuri", 
+        "code": "kr", 
+        "name": "Kanuri"
+    }, 
+    {
+        "canonical_name": "Herero", 
+        "code": "hz", 
+        "name": "Otsiherero"
+    },
+    {
+        "canonical_name": "Test Wiki",
+        "code": "test",
+        "name": "Test Wiki"
+    }
+]

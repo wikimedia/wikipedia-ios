@@ -1,0 +1,167 @@
+// Messages for Telugu (తెలుగు)
+// Exported from translatewiki.net
+// Author: Ashokjayanti
+// Author: Chsasank
+// Author: JVRKPRASAD
+// Author: Praveen Illa
+// Author: Ravichandra
+// Author: Veeven
+
+// Fuzzy
+"languages-title" = "భాషలు";
+"article-languages-label" = "భాషని ఎంచుకోండి";
+"article-languages-cancel" = "రద్దుచేయి";
+"article-languages-downloading" = "వ్యాసపు భాషలు లోడవుతున్నాయి...";
+// Fuzzy
+"article-languages-filter-placeholder" = "భాష వడబోత";
+"article-read-more-title" = "మరింత చదవండి";
+"article-about-title" = "ఈ వ్యాసం గురించి";
+"article-related-articles-title" = "సంబంధిత వ్యాసాలు";
+"info-box-title" = "త్వరిత వాస్తవాలు";
+"info-box-close-text" = "మూసివేయి";
+"table-title-other" = "మరింత సమాచారం";
+"history-label" = "ఇటీవలి";
+"history-section-today" = "నేడు";
+"history-section-yesterday" = "నిన్న";
+"history-section-lastweek" = "గత వారం";
+"history-section-lastmonth" = "గత నెల";
+// Fuzzy
+"history-clear-confirmation-heading" = "ఇటీవలి అంశాలన్నింటినీ తొలగించాలా?";
+"history-clear-confirmation-sub-heading" = "ఈ చర్యను తిరిగి రద్దుచేయలేము!";
+"history-clear-cancel" = "రద్దు";
+// Fuzzy
+"history-clear-delete-all" = "అన్నిటినీ తొలగించు";
+"history-none" = "ఇటీవలి పేజీలు ఏమీ లేవు.";
+"zero-charged-verbiage" = "వికీపీడియా జీరో అచేతనించబడింది";
+"zero-interstitial-continue" = "వదిలివేయండి";
+"zero-interstitial-cancel" = "ఇక్కడ ఉండండి";
+"zero-learn-more-learn-more" = "మరింత చదవండి";
+"zero-learn-more-no-thanks" = "రద్దుచేయి";
+"zero-wikipedia-zero-heading" = "వికీపీడియా సున్న";
+// Fuzzy
+"zero-warn-when-leaving" = "వికీపీడియా జీరో వదిలివెల్తుంటే హెచ్చరించు";
+"account-creation-captcha-required" = "కాప్చా ధృవీకరణ అవసరం.";
+"account-creation-captcha-obtaining" = "కొత్త కాప్చా పొందుతున్నాము.";
+"account-creation-logging-in" = "ప్రవేశిస్తున్నారు...";
+"account-creation-passwords-mismatched" = "సంకేతపదం క్షేత్రాలు సరిపోలలేదు.";
+"account-creation-saving" = "భద్రపరుస్తున్నాము...";
+"account-creation-login" = "ఇదివరకే ఖాతా వుందా? ప్రవేశించండి.";
+"account-creation-username-placeholder-text" = "వాడుకరి పేరు";
+"account-creation-password-placeholder-text" = "భద్రతపదం";
+"account-creation-password-confirm-placeholder-text" = "భద్రతపదము నిర్ధారించండి";
+"account-creation-email-placeholder-text" = "ఈమెయిలు (ఐచ్చికం)";
+"login-name-not-found" = "ప్రవేశించడానికి వాడుకరి పేరు అవసరం.";
+"login-name-illegal" = "మీరు ఒక తప్పుడు వాడుకరి పేరును ఇచ్చారు.";
+"login-name-does-not-exist" = "మీరు ఇచ్చిన వాడుకరి పేరు ఉనికిలో లేదు.";
+"login-password-empty" = "ప్రవేశించడానికి సంకేతపదం అవసరం.";
+"login-user-blocked" = "వాడుకరి నిరోధించబడ్డారు";
+"login-account-creation" = "మీకు ఖాతా లేదా ? వికీపీడియాలో చేరండి";
+"login-username-placeholder-text" = "వాడుకరి పేరు";
+"login-password-placeholder-text" = "భద్రతపదం";
+"wikitext-upload-save-sign-in" = "ప్రవేశించండి";
+"wikitext-upload-save-terms-name" = "వాడుక నియమాలు";
+"open-link-title" = "లంకెను తెరవండి";
+"open-link-cancel" = "రద్దు";
+"search-title" = "వెతుకు";
+"search-searching" = "వెతుకుతున్నారు...";
+"search-cancel" = "రద్దుచేయి";
+"search-titles" = "శీర్షికలు";
+"search-recent-clear-cancel" = "రద్దుచేయి";
+"search-recent-clear-delete-all" = "అన్నిటినీ తొలగించు";
+"settings-title" = "అమరికలు";
+"main-menu-title" = "మరింత";
+"main-menu-heading-about" = "గురించి";
+"main-menu-language-toggle-show" = "భాషలను చూపించు";
+"main-menu-language-toggle-hide" = "భాషలను దాచు";
+"main-menu-account-title-logged-out" = "ఖాతా";
+// Fuzzy
+"main-menu-account-login" = "ప్రవేశించండి";
+"main-menu-account-logout" = "నిష్క్రమించండి";
+"main-menu-show-title" = "నాకు చూపించు...";
+"main-menu-show-history" = "ఇటీవలి";
+"main-menu-show-saved" = "భద్రపరిచిన పేజీలు";
+"main-menu-random" = "యాదృచ్చికం";
+"main-menu-feedback-heading" = "ప్రతిస్పందన";
+"main-menu-credits" = "పరపతులు";
+// Fuzzy
+"main-menu-about" = "వికీపీడియా యాప్ గురించి";
+"main-menu-zero-faq" = "వికీపీడియా సున్నా ఎఫ్ఎక్యూ";
+"main-menu-privacy-policy" = "గోప్యతా విధానం";
+// Fuzzy
+"main-menu-terms-of-use" = "వాడుక నియమాలు";
+"main-menu-show-today" = "నేడు";
+"main-menu-nearby" = "దగ్గరలో";
+"main-menu-more" = "ఇంకా...";
+"saved-title" = "భద్రపరచబడింది";
+"saved-pages-clear-cancel" = "రద్దుచేయి";
+"saved-pages-refresh-cancel-alert-button" = "అర్థమైంది";
+"history-title" = "చరిత్ర";
+"page-history-title" = "వ్యాస చరిత్ర";
+"navbar-title-mode-login" = "ప్రవేశించండి";
+"navbar-title-mode-login-and-save" = "ప్రవేశించి, భద్రపరుచు";
+"navbar-title-mode-create-account" = "ఖాతాను సృష్టించండి";
+"navbar-title-mode-create-account-and-save" = "ఖాతాను సృష్టించి, భద్రపరుచు";
+"navbar-title-mode-edit-wikitext-preview" = "మునుజూపు";
+"navbar-title-mode-edit-wikitext-save" = "భద్రపరచు";
+"about-title" = "గురించి";
+"about-wikipedia" = "వికీపీడియా";
+// Fuzzy
+"about-translators" = "అనువాదకులు";
+"about-libraries-license" = "లైసెన్సు";
+"timestamp-just-now" = "ఇప్పుడే";
+"timestamp-minutes" = "%d నిమిషాల క్రితం";
+"timestamp-hours" = "%d గంటల క్రితం";
+"timestamp-days" = "%d రోజుల క్రితం";
+"timestamp-months" = "%d నెలల క్రితం";
+"timestamp-years" = "%d సంవత్సరాల క్రితం";
+"button-next" = "తదుపరి";
+"button-done" = "పూర్తయ్యింది";
+"button-save" = "భద్రపరచు";
+"onboarding-create-account" = "ఖాతాని సృష్టించు";
+"onboarding-already-have-account" = "ఇప్పటికే ఖాతా ఉందా? $1";
+"onboarding-skip" = "దాటవేయి";
+"onboarding-wikipedia" = "వికీపీడియా";
+"onboarding-free-encyclopedia" = "స్వేచ్ఛా విజ్ఞాన సర్వస్వం";
+"page_protected_autoconfirmed" = "ఈ పేజి సగం-రక్షించబడింది.";
+"page_protected_other" = "ఈ పేజి ఈ స్థాయిలలో రక్షించబడింది: $1";
+"page_protected_can_not_edit_title" = "ఈ పేజీ సంరక్షించబడింది";
+"table-of-contents-heading" = "విషయాలు";
+"menu-edit-accessibility-label" = "సవరించు";
+"menu-close-accessibility-label" = "మూసివేయి";
+"menu-preview-accessibility-label" = "మునుజూపు";
+"menu-back-accessibility-label" = "వెనుకకు";
+"menu-forward-accessibility-label" = "ముందుకు";
+"menu-w-accessibility-label" = "మెనూ";
+"menu-toc-accessibility-label" = "విషయాలు";
+"menu-search-accessibility-label" = "వెతుకు";
+"menu-cancel-accessibility-label" = "రద్దుచేయి";
+"menu-share-accessibility-label" = "పంచుకోండి";
+"menu-more-accessibility-label" = "మరిన్ని అమరికలు";
+"menu-trash-accessibility-label" = "తొలగించు";
+"menu-language-accessibility-label" = "భాషలు";
+"nearby-title" = "దగ్గరలో";
+"nearby-distance-label-meters" = "$1 మీ";
+"nearby-distance-label-km" = "$1 కిమీ";
+"nearby-distance-label-feet" = "$1 అడుగులు";
+"nearby-distance-label-miles" = "$1 మైళ్ళు";
+"nearby-cancel" = "రద్దుచేయి";
+"nearby-location-general-error" = "ప్రదేశాన్ని నిర్ధారించలేకపోతున్నాము. లాగి రిఫ్రెష్ చేయండి లేక తర్వాత ప్రయత్నించండి.";
+"migration-skip-button-title" = "దాన్ని తొలగించు";
+"image-gallery-unknown-owner" = "ఎక్కించినవారెవరో తెలీదు";
+"image-gallery-fetch-image-info-error-title" = "చిత్రాలని డౌన్లోడ్ చేయలేకపోతున్నాము.";
+"image-gallery-fetch-image-info-error-message" = "ఈ వ్యాసనికి సమంధించిన చిత్రాలని డౌన్లోడ్ చేయలేకపోతున్నాము. దయచేసి వ్యాసాన్ని రిఫ్రెష్ చేసి మళ్ళి ప్రయత్నించండి.";
+"image-gallery-fetch-image-info-error-ok" = "సరే";
+"hockeyapp-alert-title" = "క్షమించండి, కిందటిసారి అనువర్తనం క్రాష్ అయ్యింది.";
+"hockeyapp-alert-send-report" = "నివేదిక పంపండి";
+"hockeyapp-alert-always-send" = "ఎప్పుడూ పంపండి";
+"hockeyapp-alert-do-not-send" = "పంపవద్దు";
+"hockeyapp-alert-privacy" = "$1 గోప్యత";
+"page-issues" = "పేజి సమస్యలు";
+"page-similar-titles" = "పోలిన పేజీలు";
+// Fuzzy
+"page-read-in-other-languages" = "$1 భాషల్లో చదవండి";
+"page-last-edited" = "$1 రోజుల క్రితం మార్చబడింది";
+"page-edit-history" = "పూర్తి మార్పుల చరితం";
+// Fuzzy
+"welcome-languages-title" = "వెతకవలసిన భాషలు";
+"empty-no-feed-title" = "అంతర్జాల అనుసంధానం లేదు";

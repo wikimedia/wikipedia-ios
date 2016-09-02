@@ -1,0 +1,101 @@
+// Messages for Thai (ไทย)
+// Exported from translatewiki.net
+// Author: Horus
+
+"article-languages-label" = "เลือกภาษา";
+"article-languages-cancel" = "ยกเลิก";
+"article-languages-downloading" = "กำลังโหลดภาษาบทความ...";
+// Fuzzy
+"article-languages-filter-placeholder" = "ตัวกรอง";
+// Fuzzy
+"history-label" = "กำลังสืบค้นประวัติ";
+"history-section-today" = "วันนี้";
+"history-section-yesterday" = "เมื่อวานนี้";
+"history-section-lastweek" = "สัปดาห์ที่แล้ว";
+"history-section-lastmonth" = "เดือนที่แล้ว";
+// Fuzzy
+"zero-interstitial-continue" = "ดำเนินการต่อ";
+// Fuzzy
+"zero-interstitial-cancel" = "ยกเลิก";
+"zero-warn-when-leaving" = "เตือนหากกำลังออก Wikipedia Zero";
+"account-creation-captcha-required" = "ต้องการการทวนสอบ CAPTCHA";
+"account-creation-captcha-obtaining" = "กำลังดึง CAPTCHA ใหม่";
+"account-creation-logging-in" = "กำลังล็อกอิน...";
+"account-creation-passwords-mismatched" = "เขตข้อมูลรหัสผ่านทั้งสองไม่ตรงกัน";
+"account-creation-saving" = "กำลังบันทึก...";
+"login-name-not-found" = "ต้องมีชื่อผู้ใช้เพื่อล็อกอิน";
+"login-name-illegal" = "คุณกรอกชื่อผู้ใช้ที่ไม่ถูกต้อง";
+"login-name-does-not-exist" = "ไม่มีชื่อผู้ใช้ที่คุณกรอก";
+"login-password-empty" = "ต้องมีรหัสผ่านเพื่อล็อกอิน";
+"login-password-wrong" = "รหัสผ่านที่คุณกรอกไม่ถูกต้อง";
+"login-throttled" = "คุณล็อกอินมากครั้งเกินไปในเวลาอันสั้น";
+"login-user-blocked" = "ผู้ใช้ถูกบล็อก";
+// Fuzzy
+"wikitext-downloading" = "กำลังโหลดข้อความวิกิ...";
+"wikitext-download-failed" = "ไม่สามารถดึงรุ่นล่าสุดได้";
+// Fuzzy
+"wikitext-download-success" = "โหลดข้อความวิกิแล้ว";
+"wikitext-preview-changes" = "กำลังดึงตัวอย่างการเปลี่ยนแปลงของคุณ...";
+"wikitext-preview-changes-none" = "ไม่มีการเปลี่ยนแปลงใดที่ต้องมีตัวอย่าง";
+"wikitext-upload-result-unknown" = "ไม่สามารถกำหนดผลการอัปโหลดข้อความวิกิได้";
+"wikitext-upload-captcha-error" = "เกิดข้อผิดพลาดการทวนสอบ CAPTCHA";
+"wikitext-upload-captcha-needed" = "ต้องการการทวนสอบ CAPTCHA";
+"wikitext-upload-save" = "กำลังบันทึก...";
+// Fuzzy
+"wikitext-upload-save-sign-in" = "ลงชื่อเข้าใช้และบันทึก";
+// Fuzzy
+"wikitext-upload-save-sign-in-benefits" = "เพื่อที่ผู้ร่วมแก้ไขสามารถติดต่อคุณ และคุณสามารถเห็นบทความที่คุณได้แก้ไขไปแล้วได้";
+"wikitext-upload-save-anonymously" = "บันทึกแบบนิรนาม";
+// Fuzzy
+"wikitext-upload-save-anonymously-warning" = "กรณีนี้มีความเป็นส่วนตัวน้อยกว่า เลขที่อยู่ไอพีของคุณจะมองเห็นได้เมื่อแก้ไข";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"search-searching" = "กำลังค้นหา...";
+"search-no-matches" = "ไม่มีผลลัพธ์ตรงกับคำค้นหา";
+"search-field-placeholder-text" = "ค้นหาวิกิพีเดีย";
+"search-field-placeholder-text-zero" = "ค้นหา Wikipedia Zero";
+"search-loading-section-zero" = "กำลังโหลดส่วนแรกของบทความ...";
+"search-loading-section-remaining" = "กำลังโหลดบทความส่วนที่เหลือ...";
+"search-loading-article-loaded" = "โหลดบทความแล้ว";
+"main-menu-language-title" = "ค้นหาวิกิภาษา $1";
+"main-menu-language-toggle-show" = "แสดงภาษา";
+"main-menu-language-toggle-hide" = "ซ่อนภาษา";
+"main-menu-language-selection-saved" = "บันทึกการเลือกภาษาแล้ว";
+"main-menu-account-title-logged-out" = "บัญชี";
+"main-menu-account-title-logged-in" = "ล็อกอินในชื่อ: $1";
+"main-menu-account-login" = "ล็อกอิน";
+"main-menu-account-logout" = "ล็อกเอาต์";
+"main-menu-show-title" = "แสดงให้ฉัน...";
+// Fuzzy
+"main-menu-show-history" = "กำลังสืบค้นประวัติ";
+"main-menu-show-saved" = "หน้าที่บันทึก";
+"main-menu-current-article-save" = "บันทึก $1 สำหรับการอ่านออฟไลน์";
+// Fuzzy
+"main-menu-random" = "สุ่มบทความ";
+"main-menu-feedback-heading" = "ผลป้อนกลับ";
+// Fuzzy
+"main-menu-send-feedback" = "ส่งผลป้อนกลับ";
+"saved-pages-title" = "หน้าที่บันทึก";
+"navbar-title-mode-edit-wikitext" = "แก้ไข";
+// Fuzzy
+"navbar-title-mode-login" = "ลงชื่อเข้าใช้";
+// Fuzzy
+"navbar-title-mode-login-and-save" = "ลงชื่อเข้าใช้และบันทึก";
+"navbar-title-mode-create-account" = "สร้างบัญชี";
+"navbar-title-mode-create-account-and-save" = "สร้างบัญชีและบันทึก";
+"navbar-title-mode-edit-wikitext-warning" = "ปัญหาการแก้ไข";
+"navbar-title-mode-edit-wikitext-disallow" = "ปัญหาการแก้ไข";
+"navbar-title-mode-edit-wikitext-preview" = "แสดงตัวอย่าง";
+"navbar-title-mode-edit-wikitext-captcha" = "ต้องการการทวนสอบอย่างเร็ว";
+"navbar-title-mode-edit-wikitext-summary" = "อธิบายการแก้ไขของคุณ";
+"edit-summary-choice-linked-words" = "คำที่ลิงก์";
+"edit-summary-choice-fixed-grammar" = "แก้ไขไวยากรณ์";
+"edit-summary-choice-fixed-inaccuracy" = "แก้ไขข้อมูลผิดพลาด";
+"edit-summary-choice-fixed-styling" = "แก้ไขการจัดรูปแบบ";
+"edit-summary-choice-fixed-typos" = "แก้ไขความผิดพลาดการพิมพ์";
+"edit-summary-choice-added-category" = "เพิ่มหมวดหมู่";
+"edit-summary-choice-added-missing-info" = "เพิ่มข้อมูลที่ขาด";
+"edit-summary-choice-added-clarification" = "เพิ่มการทำให้ชัดเจน";
+"edit-summary-choice-other" = "อื่น ๆ";
+"edit-summary-description" = "ข้อความย่อจำเพาะช่วยให้ผู้ร่วมแก้ไขทบทวนการแก้ไขของคุณอย่างรวดเร็ว คุณยังสามารถเลือกจากป้ายระบุด้านล่างได้";
+"edit-summary-field-placeholder-text" = "คุณปรับปรุงหน้านี้อย่างไร";
+"fetching-random-article" = "กำลังนำมาซึ่งบทความสุ่ม";

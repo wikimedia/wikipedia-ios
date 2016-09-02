@@ -1,0 +1,58 @@
+// Messages for Kannada (ಕನ್ನಡ)
+// Exported from translatewiki.net
+// Author: Nayvik
+// Author: VASANTH S.N.
+
+"article-languages-label" = "ಭಾಷೆ ಆಯ್ದುಕೊಳ್ಳಿ";
+"article-languages-cancel" = "ರದ್ದು ಮಾಡು";
+// Fuzzy
+"article-languages-filter-placeholder" = "ಶೋಧಕ";
+// Fuzzy
+"history-label" = "ಬ್ರೌಸಿಂಗ್ ಇತಿಹಾಸ";
+"history-section-today" = "ಇಂದು";
+"history-section-yesterday" = "ನಿನ್ನೆ";
+"history-section-lastweek" = "ಕಳೆದ ವಾರ";
+"history-section-lastmonth" = "ಕಳೆದ ತಿಂಗಳು";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-continue" = "ಮುಂದುವರೆಸಿ";
+"zero-interstitial-cancel" = "ರದ್ದು ಮಾಡು";
+"zero-learn-more-learn-more" = "ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ";
+"zero-learn-more-no-thanks" = "ಬೇಡ.ದನ್ಯವಾದಗಳು";
+"zero-wikipedia-zero-heading" = "ವಿಕಿಪೀಡಿಯಾ ಜಿರೋ";
+"account-creation-logging-in" = "ನೀವು ಲಾಗ್-ಇನ್ ಆಗುತ್ತಿದ್ದೀರಿ...";
+"account-creation-saving" = "ಉಳಿಸಲಾಗುತ್ತಿದೆ....";
+"login-password-empty" = "ಲಾಗಿನ್ ಆಗಲು ಪ್ರವೇಶಪದದ ಅಗತ್ಯವಿದೆ.";
+"login-password-wrong" = "ನೀವು ಒದಗಿಸಿದ ಪ್ರವೇಶಪದ ತಪ್ಪಾಗಿದೆ.";
+"login-user-blocked" = "ಈ ಸದಸ್ಯರನ್ನು ತಡೆ ಹಿಡಿಯಲಾಗಿದೆ.";
+"wikitext-upload-save" = "ಉಳಿಸಲಾಗುತ್ತಿದೆ....";
+"wikitext-upload-save-sign-in" = "ಲಾಗಿನ್ ಆಗಿ ಮತ್ತು ಉಳಿಸಿ";
+"wikitext-upload-save-anonymously" = "ಅನಾಮಧೇಯರಾಗಿ ಉಳಿಸಿ";
+"search-searching" = "ಹುಡುಕುತ್ತಿದೆ...";
+"search-field-placeholder-text" = "ವಿಕಿಪೀಡಿಯ ಹುಡುಕು";
+"main-menu-language-toggle-show" = "ಭಾಷೆ ಆಯ್ದುಕೊಳ್ಳಿ";
+"main-menu-language-toggle-hide" = "ಭಾಷೆಗಳನ್ನು ಅಡಗಿಸು";
+"main-menu-account-title-logged-out" = "ಖಾತೆ";
+"main-menu-account-login" = "ಲಾಗ್ ಇನ್";
+"main-menu-account-logout" = "ನಿರ್ಗಮಿಸು";
+// Fuzzy
+"main-menu-show-history" = "ಬ್ರೌಸಿಂಗ್ ಇತಿಹಾಸ";
+"main-menu-show-saved" = "ಸಂರಕ್ಷಿತವಾದ ಪುಟಗಳು";
+// Fuzzy
+"main-menu-random" = "ಯಾವುದಾದರೊಂದು ಲೇಖನ";
+"main-menu-feedback-heading" = "ಮರುಮಾಹಿತಿ";
+"main-menu-send-feedback" = "ಮರುಮಾಹಿತಿ ಕಳುಹಿಸಿ";
+"main-menu-credits" = "ಮನ್ನಣೆಗಳು";
+"saved-pages-title" = "ಸಂರಕ್ಷಿತವಾದ ಪುಟಗಳು";
+"page-history-title" = "ಪುಟದ ಇತಿಹಾಸ";
+"page-history-downloading" = "ಪುಟದ ಚರಿತ್ರೆಯನ್ನು ತುಂಬಿಸಲಾಗುತ್ತಿದೆ....";
+"navbar-title-mode-edit-wikitext" = "ಸಂಪಾದಿಸಿ";
+"navbar-title-mode-login" = "ಒಳ ಬಾ";
+"navbar-title-mode-login-and-save" = "ಲಾಗಿನ್ ಆಗಿ ಮತ್ತು ಉಳಿಸಿ";
+"navbar-title-mode-create-account" = "ಖಾತೆಯನ್ನು ಸೃಷ್ಟಿಸಿ";
+"navbar-title-mode-edit-wikitext-preview" = "ಮುನ್ನೋಟ";
+"navbar-title-mode-edit-wikitext-summary" = "ನಿಮ್ಮ ಸಂಪಾದನೆಯನ್ನು ವಿವರಿಸಿ";
+"navbar-title-mode-edit-wikitext-save" = "ಉಳಿಸಿ";
+"edit-summary-choice-other" = "ಇತರ";
+"credits-title" = "ಮುಕ್ತ ಮೂಲ ಭಂಡಾರಗಳು";
+"credits-wikimedia-repos" = "ವಿಕಿಮೀಡಿಯ";
+"credits-external-libraries" = "ಭಾಹ್ಯ";

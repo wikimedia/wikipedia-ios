@@ -1,0 +1,182 @@
+// Messages for Nepali (नेपाली)
+// Exported from translatewiki.net
+// Author: NehalDaveND
+// Author: Nirjal stha
+// Author: जनक राज भट्ट
+// Author: राम प्रसाद जोशी
+// Author: सरोज कुमार ढकाल
+
+"article-languages-cancel" = "रद्द गर्ने";
+"article-read-more-title" = "थप पढ्ने";
+"info-box-title" = "शीध्रगामी तथ्यहरू";
+"info-box-close-text" = "बन्द गर्ने";
+"table-title-other" = "थप जानकारी";
+"history-section-today" = "आज";
+"history-section-yesterday" = "हिजो";
+"history-section-lastweek" = "पछिल्लो हप्ता";
+"history-clear-cancel" = "रद्द गर्ने";
+// Fuzzy
+"history-clear-delete-all" = "सबै मेट्ने";
+"history-none" = "यहाँ भर्खरैको कुनै पृष्ठ नरहेको !";
+"zero-charged-verbiage" = "विकिपीडिया शुन्य बन्द भयो";
+"zero-interstitial-title" = "विकिपीडिया शून्य छोड्नुहोस्";
+"zero-interstitial-continue" = "छोड्ने";
+"zero-interstitial-cancel" = "यहाँ बस्नुहोस्";
+"zero-learn-more-learn-more" = "थप पढ्ने";
+"zero-learn-more-no-thanks" = "खारेज गर्ने";
+"zero-wikipedia-zero-heading" = "विकिपीडिया शुन्य";
+"account-creation-saving" = "सङ्ग्रह गर्दै...";
+// Fuzzy
+"account-creation-username-placeholder-text" = "प्रयोगकर्ता नाम";
+"account-creation-password-placeholder-text" = "पासवर्ड";
+"account-creation-password-confirm-placeholder-text" = "पासवर्ड निश्चित गर्नुहोस्";
+"account-creation-email-placeholder-text" = "इमेल (वैकल्पिक)";
+"login-user-blocked" = "प्रयोककर्तालाई रोक लगाइएको छ";
+// Fuzzy
+"login-username-placeholder-text" = "प्रयोगकर्ता नाम";
+"login-password-placeholder-text" = "पासवर्ड";
+"wikitext-upload-save" = "सङ्ग्रह गर्दै...";
+"wikitext-upload-save-sign-in" = "प्रवेश (लग ईन)";
+"wikitext-upload-save-terms-name" = "प्रयोगका सर्तहरू";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"open-link-cancel" = "रद्द गर्ने";
+"search-field-placeholder-text" = "विकिपीडिया खोज्नुहोस्";
+"search-field-placeholder-text-zero" = "विकिपीडिया शून्य खोज्नुहोस्";
+"search-loading-section-zero" = "लेखको पहिलो खण्ड लोड गर्दै...";
+"search-loading-section-remaining" = "लेखको बाँकी भाग लोड गर्दै";
+"search-loading-article-loaded" = "लेख लोड भयो।";
+"search-cancel" = "रद्द गर्ने";
+"search-titles" = "शीर्षकहरू :";
+"search-did-you-mean" = "के तपाईंको खोजाई: $1 हो?";
+// Fuzzy
+"search-recent-title" = "भर्खरैका खोजहरूः";
+"search-recent-clear-cancel" = "रद्द गर्ने";
+"search-recent-clear-delete-all" = "सबै मेट्ने";
+"main-menu-title" = "थप";
+"main-menu-language-title" = "$1 भाषा विकि खोज्नुहोस्";
+"main-menu-language-toggle-show" = "भाषाहरू देखाउनुहोस्";
+"main-menu-language-toggle-hide" = "भाषाहरू लुकाउनुहोस्";
+"main-menu-language-selection-saved" = "भाषा चयन बचत भयो";
+"main-menu-account-title-logged-out" = "खाता";
+// Fuzzy
+"main-menu-account-title-logged-in" = "$1: को रूपमा प्रवेश भयो";
+// Fuzzy
+"main-menu-account-login" = "प्रवेश";
+"main-menu-account-logout" = "निर्गमन (लग आउट)";
+"main-menu-show-title" = "मलाई देखाउनुहोस्...";
+"main-menu-show-history" = "ब्राउज गरेको इतिहास";
+"main-menu-show-saved" = "संग्रहित पृष्ठहरू";
+"main-menu-current-article-save" = "अफलाइन पढ्नको लागि $1 बचत गर्नुहोस्";
+"main-menu-random" = "अनियमित";
+"main-menu-feedback-heading" = "प्रतिक्रिया";
+// Fuzzy
+"main-menu-send-feedback" = "पृष्ठपोषण पठाउनुहोस";
+"main-menu-show-page-history" = "$1 मा परिवर्तनको इतिहास";
+"main-menu-credits" = "श्रेयहरू";
+// Fuzzy
+"main-menu-about" = "विकिपीडिया एप्पको बारेमा";
+"main-menu-zero-faq" = "विकिपीडिया शुन्य प्रायः सोधिने प्रश्नहरू";
+"main-menu-privacy-policy" = "गोप्नियता नीति";
+// Fuzzy
+"main-menu-terms-of-use" = "प्रयोगका शर्तहरू";
+"main-menu-heading-zero" = "विकिपीडिया शुन्य";
+"main-menu-show-today" = "आज";
+"main-menu-nearby" = "नजिकै";
+"main-menu-more" = "थप...";
+"saved-title" = "संग्रह गर्ने";
+"saved-pages-title" = "संग्रहित पृष्ठहरू";
+"saved-pages-clear-cancel" = "रद्द गर्ने";
+// Fuzzy
+"saved-pages-clear-delete-all" = "सबै मेट्ने";
+"saved-pages-refresh-cancel-alert-button" = "पाउनु भयो";
+"saved-pages-none" = "संग्रह गरिएका पृष्ठहरू नभएको !";
+"history-title" = "ईतिहास";
+// Fuzzy
+"page-history-title" = "पृष्ठको इतिहास";
+// Fuzzy
+"page-history-downloading" = "पृष्ठ इतिहास लोड गर्दै...";
+"navbar-title-mode-edit-wikitext" = "सम्पादन";
+"navbar-title-mode-login" = "प्रवेश (लग ईन)";
+// Fuzzy
+"navbar-title-mode-login-and-save" = "प्रवेश र बचत गर्नुहोस्";
+"navbar-title-mode-create-account" = "खाता खोल्नुहोस्";
+"navbar-title-mode-create-account-and-save" = "खाता खोल्नुहोस् र बचत गर्नुहोस्";
+"navbar-title-mode-edit-wikitext-warning" = "कुराहरू सम्पादन गर्नुहोस्";
+"navbar-title-mode-edit-wikitext-disallow" = "कुराहरू सम्पादन गर्नुहोस्";
+"navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";
+"navbar-title-mode-edit-wikitext-captcha" = "छिटो पुष्टी आवश्यक छ";
+"navbar-title-mode-edit-wikitext-summary" = "तपाईँको सम्पादनको वर्णन गर्नुहोस्";
+"navbar-title-mode-edit-wikitext-save" = "संग्रह गर्ने";
+// Fuzzy
+"edit-summary-choice-linked-words" = "जोडिएका शब्दहरू";
+"edit-summary-choice-fixed-grammar" = "व्याकरण ठीक बनाइयो";
+"edit-summary-choice-fixed-inaccuracy" = "अशुद्धि ठीक गरियो";
+"edit-summary-choice-fixed-styling" = "स्वरूपण ठीक गरियो";
+"edit-summary-choice-fixed-typos" = "टाइपो ठीक गरियो";
+"edit-summary-choice-added-category" = "वर्ग थपियो";
+"edit-summary-choice-added-missing-info" = "छुटेका जानकारी थपियो";
+"edit-summary-choice-added-clarification" = "स्पष्टिकरण थपियो";
+"edit-summary-choice-other" = "अन्य";
+"edit-summary-description" = "एक विशिष्ट सारांश सह-सम्पादकहरूलाई चाँडै तपाईँका सम्पादनहरू समीक्षा गर्न मद्दत गर्छ। तपाईँले तलका ट्यागहरूबाट पनि छान्न सक्नुहुन्छ।";
+// Fuzzy
+"edit-summary-field-placeholder-text" = "तपाईँले पृष्ठलाई कसरी सुधार गर्नुभयो?";
+"fetching-random-article" = "अनियमित लेख ल्याउँदै";
+"article-pull-to-refresh-prompt" = "लेख ताजा गर्न तान्नुहोस्";
+"article-pull-to-refresh-is-refreshing" = "लेख ताजा गर्दै";
+"credits-title" = "खुल्ला स्रोत रिपोजिटरी";
+"credits-wikimedia-repos" = "विकिमेडिया";
+"credits-gerrit-repo" = "अनुप्रयोग मुख्य (गेरिट)";
+"credits-github-mirror" = "अनुप्रयोग ऐना (गिटहब)";
+"credits-external-libraries" = "बाह्य";
+"about-title" = "बारेमा";
+"about-wikipedia" = "विकिपीडिया";
+// Fuzzy
+"about-contributors" = "योगदानकर्ताहरू";
+// Fuzzy
+"about-translators" = "अनुवादकहरू";
+"about-libraries-license" = "अनुज्ञापत्र";
+"about-wikimedia-foundation" = "विकिमीडिया फाउण्डेशन";
+"share-menu-save-page" = "पृष्ठ संग्रह गर्ने";
+"share-menu-page-saved" = "अफलाइन पढ्नको लागि बचत गर्नुहोस्";
+"share-custom-menu-item" = "बाड्ने";
+"share-article-name-on-wikipedia" = "@Wikipedia पर \"$1\" :";
+"share-article-name-on-wikipedia-with-selected-text" = "@Wikipedia पर \"$1\" : \"$2\"";
+"share-as-image" = "चित्रको रूपमा बाड्नुहोस्";
+"share-as-text" = "अक्षरको रूपमा बाड्नुहोस्";
+"timestamp-just-now" = "भर्खरै";
+"button-next" = "अघि जाने";
+"button-done" = "सम्पन्न";
+"button-save" = "रक्षण गर्ने";
+"onboarding-create-account" = "खाता खोल्नुहोस्";
+"onboarding-login" = "प्रवेश (लग ईन)";
+"onboarding-skip" = "छोड्नुहोस्";
+"onboarding-wikipedia" = "विकिपीडिया";
+"onboarding-free-encyclopedia" = "मुफ्ल ज्ञानकोष";
+"preference_title_eventlogging_opt_in" = "उपयोग प्रतिवेदन पठाउनुहोस् ।";
+"page_protected_autoconfirmed" = "यो पृष्ठ अर्ध सुरक्षित गरिएको छ";
+"page_protected_sysop" = "यो पृष्ठ पूर्ण सुरक्षित गरिएको छ ।";
+"page_protected_can_not_edit_title" = "यो पृष्ठ सुरक्षण गरिएको छ";
+"license-footer-name" = "CC BY-SA 3.0";
+"table-of-contents-heading" = "सामग्रीहरू";
+"menu-edit-accessibility-label" = "सम्पादन";
+"menu-close-accessibility-label" = "बन्द गर्ने";
+"menu-preview-accessibility-label" = "पूर्वावलोकन";
+"menu-back-accessibility-label" = "अघिल्लो";
+"menu-forward-accessibility-label" = "अगाडि";
+"menu-w-accessibility-label" = "विकल्पसूची";
+"menu-toc-accessibility-label" = "सामग्रीहरू";
+"menu-search-accessibility-label" = "खोज";
+"menu-reload-accessibility-label" = "पुन:लोडगर्ने";
+"menu-cancel-accessibility-label" = "रद्द गर्ने";
+"menu-share-accessibility-label" = "बाड्ने";
+"menu-more-accessibility-label" = "मेरो अनुकुलताहरु";
+"menu-trash-accessibility-label" = "हटाउने";
+"nearby-title" = "नजिकै";
+"nearby-distance-label-meters" = "$1 मी";
+"nearby-distance-label-km" = "$1 कि.मी.";
+"nearby-distance-label-feet" = "$1 फिट";
+"nearby-distance-label-miles" = "$1 माइल्स";
+"nearby-cancel" = "रद्द गर्ने";
+"migration-prompt-message" = "हामी तपाईंको रक्षण गरिएका तथा भर्खरका पृष्ठलाई सार्दै छौ । यसमा केही समय लाग्ने छ...";
+"migration-skip-button-title" = " $1 मेट्नुहोस्";
+"image-gallery-fetch-image-info-error-ok" = "ठीक";

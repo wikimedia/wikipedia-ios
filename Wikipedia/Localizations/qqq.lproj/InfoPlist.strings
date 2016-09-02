@@ -1,0 +1,5 @@
+// Messages for Message documentation (Message documentation)
+// Exported from translatewiki.net
+// Author: Shirayuki
+
+"CFBundleDisplayName" = "Name of the app as it will appear on the iOS home screen; should be canonical, locally-trademarked name of Wikipedia.\n{{Identical|Wikipedia}}";

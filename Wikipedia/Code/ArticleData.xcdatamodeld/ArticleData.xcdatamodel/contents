@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13D65" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Article" representedClassName="Article" syncable="YES">
+        <attribute name="articleId" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="dateCreated" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="domain" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="domainName" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="languagecount" attributeType="Integer 16" defaultValueString="1" syncable="YES"/>
+        <attribute name="lastmodified" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="lastmodifiedby" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="lastScrollX" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="lastScrollY" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="needsRefresh" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
+        <attribute name="redirected" attributeType="String" syncable="YES"/>
+        <attribute name="site" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="title" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="galleryImage" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GalleryImage" inverseName="article" inverseEntity="GalleryImage" syncable="YES"/>
+        <relationship name="history" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="History" inverseName="article" inverseEntity="History" syncable="YES"/>
+        <relationship name="saved" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Saved" inverseName="article" inverseEntity="Saved" syncable="YES"/>
+        <relationship name="section" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Section" inverseName="article" inverseEntity="Section" syncable="YES"/>
+        <relationship name="thumbnailImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="article" inverseEntity="Image" syncable="YES"/>
+    </entity>
+    <entity name="DiscoveryContext" representedClassName="DiscoveryContext" syncable="YES">
+        <attribute name="isPrefix" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="history" maxCount="1" deletionRule="Nullify" destinationEntity="History" inverseName="discoveryContext" inverseEntity="History" syncable="YES"/>
+    </entity>
+    <entity name="GalleryImage" representedClassName="GalleryImage" syncable="YES">
+        <attribute name="index" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <relationship name="article" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Article" inverseName="galleryImage" inverseEntity="Article" syncable="YES"/>
+        <relationship name="image" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="galleryImage" inverseEntity="Image" syncable="YES"/>
+    </entity>
+    <entity name="History" representedClassName="History" syncable="YES">
+        <attribute name="dateVisited" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="discoveryMethod" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="article" maxCount="1" deletionRule="Nullify" destinationEntity="Article" inverseName="history" inverseEntity="Article" syncable="YES"/>
+        <relationship name="discoveryContext" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DiscoveryContext" inverseName="history" inverseEntity="DiscoveryContext" syncable="YES"/>
+    </entity>
+    <entity name="Image" representedClassName="Image" syncable="YES">
+        <attribute name="alt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dataSize" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="dateLastAccessed" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateRetrieved" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="extension" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="fileName" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="fileNameNoSizePrefix" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="imageDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mimeType" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="sourceUrl" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="width" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="article" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Article" inverseName="thumbnailImage" inverseEntity="Article" syncable="YES"/>
+        <relationship name="galleryImage" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GalleryImage" inverseName="image" inverseEntity="GalleryImage" syncable="YES"/>
+        <relationship name="imageData" maxCount="1" deletionRule="Cascade" destinationEntity="ImageData" inverseName="imageData" inverseEntity="ImageData" syncable="YES"/>
+        <relationship name="section" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Section" inverseName="thumbnailImage" inverseEntity="Section" syncable="YES"/>
+        <relationship name="sectionImage" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SectionImage" inverseName="image" inverseEntity="SectionImage" syncable="YES"/>
+    </entity>
+    <entity name="ImageData" representedClassName="ImageData" syncable="YES">
+        <attribute name="data" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <relationship name="imageData" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="imageData" inverseEntity="Image" syncable="YES"/>
+    </entity>
+    <entity name="Saved" representedClassName="Saved" syncable="YES">
+        <attribute name="dateSaved" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <relationship name="article" maxCount="1" deletionRule="Nullify" destinationEntity="Article" inverseName="saved" inverseEntity="Article" syncable="YES"/>
+    </entity>
+    <entity name="Section" representedClassName="Section" syncable="YES">
+        <attribute name="anchor" attributeType="String" syncable="YES"/>
+        <attribute name="dateRetrieved" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="fromTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="html" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="level" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="sectionId" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tocLevel" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <relationship name="article" maxCount="1" deletionRule="Nullify" destinationEntity="Article" inverseName="section" inverseEntity="Article" syncable="YES"/>
+        <relationship name="sectionImage" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SectionImage" inverseName="section" inverseEntity="SectionImage" syncable="YES"/>
+        <relationship name="thumbnailImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="section" inverseEntity="Image" syncable="YES"/>
+    </entity>
+    <entity name="SectionImage" representedClassName="SectionImage" syncable="YES">
+        <attribute name="index" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <relationship name="image" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="sectionImage" inverseEntity="Image" syncable="YES"/>
+        <relationship name="section" maxCount="1" deletionRule="Nullify" destinationEntity="Section" inverseName="sectionImage" inverseEntity="Section" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Article" positionX="-72" positionY="-603" width="128" height="313"/>
+        <element name="DiscoveryContext" positionX="313" positionY="-675" width="128" height="90"/>
+        <element name="GalleryImage" positionX="-297" positionY="-144" width="128" height="90"/>
+        <element name="History" positionX="135" positionY="-738" width="128" height="105"/>
+        <element name="Image" positionX="135" positionY="-361" width="128" height="298"/>
+        <element name="ImageData" positionX="324" positionY="-297" width="128" height="73"/>
+        <element name="Saved" positionX="252" positionY="-513" width="128" height="75"/>
+        <element name="Section" positionX="-252" positionY="-27" width="128" height="238"/>
+        <element name="SectionImage" positionX="268" positionY="-88" width="128" height="88"/>
+    </elements>
+</model>
