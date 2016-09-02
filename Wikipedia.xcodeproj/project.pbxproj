@@ -640,7 +640,6 @@
 		D844D9E01D6CBC2C0042D692 /* NSURL+WMFQueryParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = B01662AE1D1B8997006F4544 /* NSURL+WMFQueryParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9E11D6CBC320042D692 /* NSURL+WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662AC1D1B668C006F4544 /* NSURL+WMFProxyServer.m */; };
 		D844D9E21D6CBC320042D692 /* NSURL+WMFQueryParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662AF1D1B8997006F4544 /* NSURL+WMFQueryParameters.m */; };
-		D844D9E41D6CBF7F0042D692 /* WMFModel-global.h in Headers */ = {isa = PBXBuildFile; fileRef = D844D9831D6CB3830042D692 /* WMFModel-global.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9E51D6CBF9C0042D692 /* WMFSharing.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807061C0CEBDA0065EBC0 /* WMFSharing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9E61D6CBFAC0042D692 /* MWKArticle+WMFSharing.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804751C0CE0B40065EBC0 /* MWKArticle+WMFSharing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9E71D6CBFB00042D692 /* MWKArticle+WMFSharing.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804761C0CE0B40065EBC0 /* MWKArticle+WMFSharing.m */; };
@@ -788,7 +787,6 @@
 		D8AC39281D6F2480007E3C14 /* WMFUI.h in Headers */ = {isa = PBXBuildFile; fileRef = D8AC39261D6F247F007E3C14 /* WMFUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AC392B1D6F2480007E3C14 /* WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; };
 		D8AC392C1D6F2480007E3C14 /* WMFUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D8AC39391D6F25A4007E3C14 /* WMFUtilities-global.h in Headers */ = {isa = PBXBuildFile; fileRef = D8AC39351D6F25A3007E3C14 /* WMFUtilities-global.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AC393B1D6F25A4007E3C14 /* WMFUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = D8AC39371D6F25A4007E3C14 /* WMFUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8B29B8C1D77251F00161291 /* WMFImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805C41C0CE5250065EBC0 /* WMFImageController.swift */; };
 		D8B9E2C61D7617B800A465FF /* WMFDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E33F2B11D57E0C500C6CF94 /* WMFDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -5783,7 +5781,6 @@
 				D81EFDE31D775B180035F2EB /* NSUserActivity+WMFExtensions.h in Headers */,
 				D89D440A1D74D4DB00F7862E /* NSDictionary+WMFCommonParams.h in Headers */,
 				D89F51111D6CC9BD008018E1 /* WMFNetworkUtilities.h in Headers */,
-				D844D9E41D6CBF7F0042D692 /* WMFModel-global.h in Headers */,
 				D844D9B71D6CB7940042D692 /* MWKRecentSearchList.h in Headers */,
 				D844D9A01D6CB6600042D692 /* WMFURLCache.h in Headers */,
 				D8DC16ED1D6F6DD600D6D9FB /* WMFAssetsFile.h in Headers */,
@@ -5820,7 +5817,6 @@
 				D8A76D831D6F2B2F00E5A798 /* WMFTaskGroup.h in Headers */,
 				D8494AEE1D6C8BD800337433 /* WMFGCDHelpers.h in Headers */,
 				D8494B0B1D6C910100337433 /* NSError+WMFExtensions.h in Headers */,
-				D8AC39391D6F25A4007E3C14 /* WMFUtilities-global.h in Headers */,
 				D8EEA0FA1D6E21A400D88143 /* NSFileManager+WMFGroup.h in Headers */,
 				D8494AED1D6C8BD200337433 /* WMFBlockDefinitions.h in Headers */,
 				D8494AE51D6C85C500337433 /* NSURLComponents+WMFLinkParsing.h in Headers */,
