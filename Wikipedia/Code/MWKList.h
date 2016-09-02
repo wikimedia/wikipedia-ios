@@ -1,7 +1,5 @@
-
 #import <Mantle/Mantle.h>
 #import "MWKDataObject.h"
-#import "WMFBlockDefinitions.h"
 
 @class AnyPromise;
 
@@ -9,7 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MWKListObject <NSObject>
 
-- (id <NSCopying, NSObject>)listIndex;
+- (id<NSCopying, NSObject>)listIndex;
 
 @end
 
@@ -22,18 +20,16 @@ typedef id<NSCopying, NSObject> MWKListIndex;
  * Can be specialized to contain instances of @c EntryType, which are queryable by index or an associated key of type
  * @c IndexType.
  */
-@interface MWKList
-<EntryType : MWKListEntry, IndexType :  MWKListIndex> : MTLModel<NSFastEnumeration>
-// Note: ObjC generics give uncrustify a headache: https://github.com/bengardner/uncrustify/issues/404
+@interface MWKList <EntryType : MWKListEntry, IndexType : MWKListIndex> : MTLModel<NSFastEnumeration>
 
  - (instancetype)initWithEntries:(NSArray<EntryType>* __nullable)entries;
 
 /**
  *  Observable - observe to get KVO notifications
  */
- @property (nonatomic, strong, readonly) NSArray<EntryType>* entries;
+@property (nonatomic, strong, readonly) NSArray<EntryType> *entries;
 
- #pragma mark - Querying the List
+#pragma mark - Querying the List
 
 - (NSUInteger)countOfEntries;
 
@@ -64,10 +60,8 @@ typedef id<NSCopying, NSObject> MWKListIndex;
  *
  *  @return Promise which resolves to @c nil after saving successfully.
  */
-- (AnyPromise*)save;
+- (AnyPromise *)save;
 
 @end
-
-
 
 NS_ASSUME_NONNULL_END

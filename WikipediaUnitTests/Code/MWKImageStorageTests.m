@@ -1,11 +1,3 @@
-//
-//  MWKImageStorageTests.m
-//  MediaWikiKit
-//
-//  Created by Brion on 10/28/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
@@ -13,7 +5,7 @@
 
 @interface MWKImageStorageTests : MWKArticleStoreTestCase
 
-@property NSString* goldenGateImageURL;
+@property NSString *goldenGateImageURL;
 
 @end
 
@@ -32,7 +24,7 @@
 }
 
 - (void)testLoadNonexistentImageData {
-    MWKImage* image = [[MWKImage alloc] initWithArticle:self.article sourceURLString:self.goldenGateImageURL];
+    MWKImage *image = [[MWKImage alloc] initWithArticle:self.article sourceURLString:self.goldenGateImageURL];
     XCTAssertNotNil(image);
 }
 

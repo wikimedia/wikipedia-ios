@@ -8,63 +8,58 @@
 #import "PiwikTracker+WMFExtensions.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 
-@interface WMFSaveButtonController ()<WMFDataSourceDelegate>
+@interface WMFSaveButtonController () <WMFDataSourceDelegate>
 
-@property (nonatomic, strong) SavedPagesFunnel* savedPagesFunnel;
+- (instancetype)initWithControl:(UIControl *)button
+                  barButtonItem:(UIBarButtonItem *)barButtonItem
+                  savedPageList:(MWKSavedPageList *)savedPageList
+                            url:(NSURL *)url NS_DESIGNATED_INITIALIZER;
+
+@property (nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;
 
 @end
 
-
 @implementation WMFSaveButtonController
 
-- (void)dealloc
-{
-    [self unobserve];
+- (instancetype)initWithControl:(UIControl *)button
+                  savedPageList:(MWKSavedPageList *)savedPageList
+                            url:(NSURL *)url {
+    return [self initWithControl:button barButtonItem:nil savedPageList:savedPageList url:url];
 }
 
-- (instancetype)initWithControl:(UIControl*)button
-                  savedPageList:(MWKSavedPageList*)savedPageList
-                            url:(NSURL*)url {
-    self = [self initWithControl:button barButtonItem:nil savedPageList:savedPageList url:url];
-    return self;
+- (void)dealloc {
+    [self unobserveURL:self.url];
 }
 
-- (instancetype)initWithBarButtonItem:(UIBarButtonItem*)barButtonItem
-                        savedPageList:(MWKSavedPageList*)savedPageList
-                                  url:(NSURL*)url {
-    self = [self initWithControl:nil barButtonItem:barButtonItem savedPageList:savedPageList url:url];
-    return self;
+- (instancetype)initWithBarButtonItem:(UIBarButtonItem *)barButtonItem
+                        savedPageList:(MWKSavedPageList *)savedPageList
+                                  url:(NSURL *)url {
+    return [self initWithControl:nil barButtonItem:barButtonItem savedPageList:savedPageList url:url];
 }
 
-- (instancetype)initWithControl:(UIControl*)button
-                  barButtonItem:(UIBarButtonItem*)barButtonItem
-                  savedPageList:(MWKSavedPageList*)savedPageList
-                            url:(NSURL*)url {
+- (instancetype)initWithControl:(UIControl *)button
+                  barButtonItem:(UIBarButtonItem *)barButtonItem
+                  savedPageList:(MWKSavedPageList *)savedPageList
+                            url:(NSURL *)url {
     NSParameterAssert(savedPageList);
-    self = [self init];
+    self = [super init];
     if (self) {
-        self.control       = button;
+        self.control = button;
         self.barButtonItem = barButtonItem;
-        self.url           = url;
+        self.url = url;
         self.savedPageList = savedPageList;
         [self updateSavedButtonState];
     }
     return self;
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        [self updateSavedButtonState];
-        [self observe];
-    }
-    return self;
+- (instancetype)init {
+    return [self initWithControl:nil savedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList] url:nil];
 }
 
 #pragma mark - Accessors
 
-- (void)setSavedPageList:(MWKSavedPageList*)savedPageList {
+- (void)setSavedPageList:(MWKSavedPageList *)savedPageList {
     if (self.savedPageList == savedPageList) {
         return;
     }
@@ -72,38 +67,40 @@
     [self updateSavedButtonState];
 }
 
-- (void)setUrl:(NSURL*)url {
+- (void)setUrl:(NSURL *)url {
     if (WMF_EQUAL(self.url, isEqual:, url)) {
         return;
     }
+    [self unobserveURL:_url];
     _url = url;
+    [self observeURL:_url];
     [self updateSavedButtonState];
 }
 
-- (void)setControl:(UIButton*)button {
+- (void)setControl:(UIButton *)button {
     [_control removeTarget:self
                     action:@selector(toggleSave:)
           forControlEvents:UIControlEventTouchUpInside];
 
     [button addTarget:self
-               action:@selector(toggleSave:)
-     forControlEvents:UIControlEventTouchUpInside];
+                  action:@selector(toggleSave:)
+        forControlEvents:UIControlEventTouchUpInside];
 
     _control = button;
     [self updateSavedButtonState];
 }
 
-- (void)setBarButtonItem:(UIBarButtonItem*)barButtonItem {
+- (void)setBarButtonItem:(UIBarButtonItem *)barButtonItem {
     [_barButtonItem setTarget:nil];
     [_barButtonItem setAction:nil];
-    _barButtonItem       = barButtonItem;
+    _barButtonItem = barButtonItem;
     _barButtonItem.image = [UIImage imageNamed:@"save"];
     [_barButtonItem setTarget:self];
     [_barButtonItem setAction:@selector(toggleSave:)];
     [self updateSavedButtonState];
 }
 
-- (SavedPagesFunnel*)savedPagesFunnel {
+- (SavedPagesFunnel *)savedPagesFunnel {
     if (!_savedPagesFunnel) {
         _savedPagesFunnel = [[SavedPagesFunnel alloc] init];
     }
@@ -112,16 +109,22 @@
 
 #pragma mark - Notifications
 
-- (void)observe {
+- (void)observeURL:(NSURL *)url {
+    if (!url) {
+        return;
+    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemWasUpdatedWithNotification:) name:MWKItemUpdatedNotification object:nil];
 }
 
-- (void)unobserve {
+- (void)unobserveURL:(NSURL *)url {
+    if (!url) {
+        return;
+    }
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)itemWasUpdatedWithNotification:(NSNotification*)note{
-    if([note.object isEqual:[self.url absoluteString]]){
+- (void)itemWasUpdatedWithNotification:(NSNotification *)note {
+    if ([note.object isEqual:[self.url absoluteString]]) {
         [self updateSavedButtonState];
     }
 }
@@ -136,7 +139,7 @@
         return;
     }
     if (self.url == nil) {
-        self.control.selected    = NO;
+        self.control.selected = NO;
         self.barButtonItem.image = [UIImage imageNamed:@"save"];
         return;
     }

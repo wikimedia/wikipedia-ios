@@ -1,16 +1,14 @@
-
 #import "WMFArticleResponseSerializer.h"
 #import <Mantle/Mantle.h>
 #import "WMFFixtureRecording.h"
-#import "NSURL+WMFQueryParameters.h"
 
 @implementation WMFArticleResponseSerializer
 
-- (id)responseObjectForResponse:(NSURLResponse*)response
-                           data:(NSData*)data
-                          error:(NSError* __autoreleasing*)error {
-    NSDictionary* JSON        = [super responseObjectForResponse:response data:data error:error];
-    NSDictionary* articleJSON = JSON[@"mobileview"];
+- (id)responseObjectForResponse:(NSURLResponse *)response
+                           data:(NSData *)data
+                          error:(NSError *__autoreleasing *)error {
+    NSDictionary *JSON = [super responseObjectForResponse:response data:data error:error];
+    NSDictionary *articleJSON = JSON[@"mobileview"];
 
     WMFRecordDataFixture(data,
                          [@"MobileView" stringByAppendingPathComponent:response.URL.host],

@@ -1,17 +1,16 @@
-
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 
 @implementation MWKHistoryEntry (WMFDatabaseStorable)
 
-+ (NSString*)databaseKeyForURL:(NSURL*)url{
++ (NSString *)databaseKeyForURL:(NSURL *)url {
     return [[NSURL wmf_desktopURLForURL:url] absoluteString];
 }
 
-- (NSString*)databaseKey {
+- (NSString *)databaseKey {
     return [self.url absoluteString];
 }
 
-+ (NSString*)databaseCollectionName {
++ (NSString *)databaseCollectionName {
     return @"MWKHistoryEntry";
 }
 

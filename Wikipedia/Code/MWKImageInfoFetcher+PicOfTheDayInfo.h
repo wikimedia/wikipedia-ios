@@ -1,11 +1,3 @@
-//
-//  MWKImageInfoFetcher+PicOfTheDayInfo.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 12/2/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MWKImageInfoFetcher.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A promise resolving to an array containing a single @c MWKImageInfo object.
  */
-- (AnyPromise*)fetchPicOfTheDaySectionInfoForDate:(NSDate*)date metadataLanguage:(nullable NSString*)metadataLanguage;
+- (AnyPromise *)fetchPicOfTheDaySectionInfoForDate:(NSDate *)date metadataLanguage:(nullable NSString *)metadataLanguage;
 
 /**
  *  Fetch one @c MWKImageInfo object for the given date's Commons Picture of the Day.
@@ -33,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A promise resolving to a single @c MWKImageInfo object.
  */
-- (AnyPromise*)fetchPicOfTheDayGalleryInfoForDate:(NSDate*)date metadataLanguage:(nullable NSString*)metadataLanguage;
+- (AnyPromise *)fetchPicOfTheDayGalleryInfoForDate:(NSDate *)date metadataLanguage:(nullable NSString *)metadataLanguage;
 
 @end
 

@@ -1,11 +1,3 @@
-//
-//  WMFErrorForApiErrorObjectTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/5/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
@@ -21,7 +13,7 @@
 @implementation WMFErrorForApiErrorObjectTests
 
 - (void)testExample {
-    NSDictionary* apiErrorObj = @{
+    NSDictionary *apiErrorObj = @{
         @"code": @"badcontinue",
         @"info": @"Invalid continue param. You should pass the original value returned by the previous query",
         @"*": @"See https://en.wikipedia.org/w/api.php for API usage"

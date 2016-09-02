@@ -1,16 +1,9 @@
-//
-//  WMFImageControllerCancellationTests.swift
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 8/11/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 import UIKit
 import XCTest
 @testable import Wikipedia
 import PromiseKit
 import Nimble
+import Nocilla
 
 class WMFImageControllerTests: XCTestCase {
     private typealias ImageDownloadPromiseErrorCallback = (Promise<WMFImageDownload>) -> ((ErrorType) -> Void) -> Void
@@ -43,16 +36,17 @@ class WMFImageControllerTests: XCTestCase {
         
         let failure = { (error: ErrorType) in
             XCTFail()
+            expectation.fulfill()
         }
         
         let success = { (imgDownload: WMFImageDownload) in
-            XCTAssertEqual(UIImagePNGRepresentation(imgDownload.image), stubbedData)
+            XCTAssertNotNil(imgDownload.image);
             expectation.fulfill()
         }
         
         self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
-        waitForExpectationsWithTimeout(60) { (error) in
+        waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
         }
     }
 
@@ -83,7 +77,7 @@ class WMFImageControllerTests: XCTestCase {
         
         self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
-        waitForExpectationsWithTimeout(60) { (error) in
+        waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
         }
     }
 
@@ -116,7 +110,7 @@ class WMFImageControllerTests: XCTestCase {
         
         self.imageController.fetchImageWithURL(testURL, failure:failure, success: success)
         
-        waitForExpectationsWithTimeout(60) { (error) in
+        waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
         }
     }
 
@@ -148,7 +142,7 @@ class WMFImageControllerTests: XCTestCase {
 
             imageController.cancelFetchForURL(testURL)
             
-            waitForExpectationsWithTimeout(60) { (error) in
+            waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
             }
 
             NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
@@ -167,13 +161,13 @@ class WMFImageControllerTests: XCTestCase {
             }
             
             let secondsuccess = { (imgDownload: WMFImageDownload) in
-                XCTAssertEqual(UIImagePNGRepresentation(imgDownload.image), stubbedData)
+                XCTAssertNotNil(imgDownload.image);
                 secondExpectation.fulfill()
             }
             
             self.imageController.fetchImageWithURL(testURL, failure:secondFailure, success: secondsuccess)
             
-            waitForExpectationsWithTimeout(60) { (error) in
+            waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
             }
         }
     }
@@ -219,7 +213,7 @@ class WMFImageControllerTests: XCTestCase {
 //        
 //        self.imageController.importImage(fromFile: tempFileURL.path!, withURL: testURL, failure: failure, success: success)
 //        
-//        waitForExpectationsWithTimeout(60) { (error) in
+//        waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
 //        }
 //    }
 //
@@ -231,7 +225,7 @@ class WMFImageControllerTests: XCTestCase {
 
         let tempImageCopyURL = NSURL(fileURLWithPath: WMFRandomTemporaryFileOfType("jpg"))
 
-        try! NSFileManager.defaultManager().copyItemAtURL(testFixtureDataPath, toURL: tempImageCopyURL)
+        try! NSFileManager.defaultManager().copyItemAtURL(testFixtureDataPath!, toURL: tempImageCopyURL)
 
         let testURL = NSURL(string: "//foo/bar")!
         
@@ -248,7 +242,7 @@ class WMFImageControllerTests: XCTestCase {
         
         self.imageController.importImage(fromFile: tempImageCopyURL.path!, withURL: testURL, failure: failure, success: success)
         
-        waitForExpectationsWithTimeout(60) { (error) in
+        waitForExpectationsWithTimeout(WMFDefaultExpectationTimeout) { (error) in
         }
 
 
@@ -258,6 +252,6 @@ class WMFImageControllerTests: XCTestCase {
         XCTAssertTrue(self.imageController.hasDataOnDiskForImageWithURL(testURL))
 
         XCTAssertEqual(self.imageController.diskDataForImageWithURL(testURL),
-                       NSFileManager.defaultManager().contentsAtPath(testFixtureDataPath.path!))
+                       NSFileManager.defaultManager().contentsAtPath(testFixtureDataPath!.path!))
     }
 }

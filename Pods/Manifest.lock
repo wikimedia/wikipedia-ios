@@ -28,24 +28,32 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.3.0):
     - CocoaLumberjack/Default
+  - CocoaLumberjack/Swift (2.3.0):
+    - CocoaLumberjack/Extensions
+  - FBSnapshotTestCase (2.1.2):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.2)
+  - FBSnapshotTestCase/Core (2.1.2)
+  - FBSnapshotTestCase/SwiftSupport (2.1.2):
+    - FBSnapshotTestCase/Core
   - FLAnimatedImage (1.0.12)
-  - GCDWebServer (3.3.2):
-    - GCDWebServer/Core (= 3.3.2)
-  - GCDWebServer/Core (3.3.2)
+  - GCDWebServer (3.3.3):
+    - GCDWebServer/Core (= 3.3.3)
+  - GCDWebServer/Core (3.3.3)
   - HexColors (2.3.0)
-  - HockeySDK (3.8.5):
-    - HockeySDK/AllFeaturesLib (= 3.8.5)
-  - HockeySDK/AllFeaturesLib (3.8.5)
+  - HockeySDK (4.1.0):
+    - HockeySDK/AllFeaturesLib (= 4.1.0)
+  - HockeySDK/AllFeaturesLib (4.1.0)
   - hpple (0.2.0)
   - KVOController (1.0.3)
   - libextobjc/EXTScope (0.4.1):
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.4.1)
-  - Mantle (2.0.6):
-    - Mantle/extobjc (= 2.0.6)
-  - Mantle/extobjc (2.0.6)
+  - Mantle (2.0.7):
+    - Mantle/extobjc (= 2.0.7)
+  - Mantle/extobjc (2.0.7)
   - Masonry (0.6.2)
-  - Nocilla (0.10.0)
+  - Nimble (4.0.1)
+  - Nocilla (0.11.0)
   - NSDate-Extensions (0.0.1)
   - NYTPhotoViewer (1.1.0):
     - NYTPhotoViewer/AnimatedGifSupport (= 1.1.0)
@@ -54,26 +62,45 @@ PODS:
     - FLAnimatedImage (~> 1.0.8)
     - NYTPhotoViewer/Core
   - NYTPhotoViewer/Core (1.1.0)
-  - OAStackView (0.2.0):
-    - KVOController (~> 1.0)
   - OCHamcrest (4.2.0)
   - OCMockito (1.4.0):
     - OCHamcrest (~> 4.0)
-  - PiwikTracker (HEAD based on 3.3.0):
-    - PiwikTracker/Core (= HEAD based on 3.3.0)
-  - PiwikTracker/Core (HEAD based on 3.3.0)
+  - OMGHTTPURLRQ (3.2.0):
+    - OMGHTTPURLRQ/RQ (= 3.2.0)
+  - OMGHTTPURLRQ/FormURLEncode (3.2.0)
+  - OMGHTTPURLRQ/RQ (3.2.0):
+    - OMGHTTPURLRQ/FormURLEncode
+    - OMGHTTPURLRQ/UserAgent
+  - OMGHTTPURLRQ/UserAgent (3.2.0)
+  - PiwikTracker (3.3.0):
+    - PiwikTracker/Core (= 3.3.0)
+  - PiwikTracker/Core (3.3.0)
+  - PromiseKit (3.5.0):
+    - PromiseKit/Foundation (= 3.5.0)
+    - PromiseKit/QuartzCore (= 3.5.0)
+    - PromiseKit/UIKit (= 3.5.0)
+  - PromiseKit/CorePromise (3.5.0)
+  - PromiseKit/Foundation (3.5.0):
+    - OMGHTTPURLRQ (~> 3.2.0)
+    - PromiseKit/CorePromise
+  - PromiseKit/QuartzCore (3.5.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (3.5.0):
+    - PromiseKit/CorePromise
+  - Quick (0.9.3)
   - Reachability (3.2)
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
   - SSDataSources (0.8.5)
   - SVWebViewController (1.0)
+  - SWStepSlider (1.0.0)
   - TSMessages (0.9.13):
     - HexColors (~> 2.3.0)
     - Masonry (~> 0.6)
   - TUSafariActivity (1.0.4)
-  - Tweaks (HEAD based on 2.0.0)
-  - VTAcknowledgementsViewController (0.17)
+  - Tweaks (2.0.0)
+  - VTAcknowledgementsViewController (1.1)
   - YapDatabase (2.9.1):
     - YapDatabase/Standard (= 2.9.1)
   - YapDatabase/Standard (2.9.1):
@@ -130,26 +157,31 @@ DEPENDENCIES:
   - AnimatedGIFImageSerialization (from `https://github.com/wikimedia/AnimatedGIFImageSerialization.git`)
   - BlocksKit/Core (~> 2.2.0)
   - BlocksKit/UIKit (~> 2.2.0)
+  - CocoaLumberjack/Swift
+  - FBSnapshotTestCase
   - GCDWebServer (~> 3.3)
-  - HockeySDK (~> 3.8.2)
+  - HockeySDK (~> 4.1.0)
   - hpple (~> 0.2)
-  - KVOController
+  - KVOController (= 1.0.3)
   - libextobjc/EXTScope (~> 0.4.1)
   - Mantle (~> 2.0.0)
   - Masonry (= 0.6.2)
+  - Nimble (~> 4.0.0)
   - Nocilla
   - NSDate-Extensions (from `git@github.com:wikimedia/NSDate-Extensions.git`)
   - NYTPhotoViewer
-  - OAStackView (from `git@github.com:wikimedia/OAStackView.git`)
   - OCHamcrest (~> 4.2.0)
   - OCMockito (~> 1.4.0)
-  - PiwikTracker (HEAD)
+  - PiwikTracker
+  - PromiseKit (~> 3.4)
+  - Quick (~> 0.9.0)
   - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `bb49df83e72f2231a191e9477a85f0effe13430a`)
   - SSDataSources (~> 0.8.0)
   - SVWebViewController (~> 1.0)
+  - SWStepSlider (from `https://github.com/wikimedia/SWStepSlider.git`)
   - TSMessages (from `https://github.com/wikimedia/TSMessages.git`)
   - TUSafariActivity
-  - Tweaks (HEAD)
+  - Tweaks
   - VTAcknowledgementsViewController
   - YapDatabase
 
@@ -161,11 +193,11 @@ EXTERNAL SOURCES:
     :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git
   NSDate-Extensions:
     :git: git@github.com:wikimedia/NSDate-Extensions.git
-  OAStackView:
-    :git: git@github.com:wikimedia/OAStackView.git
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
+  SWStepSlider:
+    :git: https://github.com/wikimedia/SWStepSlider.git
   TSMessages:
     :git: https://github.com/wikimedia/TSMessages.git
 
@@ -179,12 +211,12 @@ CHECKOUT OPTIONS:
   NSDate-Extensions:
     :commit: 388ab1b864b742feadc1cf94063968953fc6a6a1
     :git: git@github.com:wikimedia/NSDate-Extensions.git
-  OAStackView:
-    :commit: f2adee6f7b66bf1192a4bd551fa343abf6d5aa2d
-    :git: git@github.com:wikimedia/OAStackView.git
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
+  SWStepSlider:
+    :commit: 2e857008b8e251a2cd669f7c288944592e02e7c4
+    :git: https://github.com/wikimedia/SWStepSlider.git
   TSMessages:
     :commit: ec0aa9be29ab79083e4957ac500f3af2f622605d
     :git: https://github.com/wikimedia/TSMessages.git
@@ -194,30 +226,37 @@ SPEC CHECKSUMS:
   AnimatedGIFImageSerialization: b0f0cfe71eac1ee45a3d57ae533c23b8e6f29501
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
+  FBSnapshotTestCase: 918c55861356ee83aee7843d759f55a18ff6982b
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
-  GCDWebServer: 2a375ec42839a41d7187d04e5b688d32fa5c4cd5
+  GCDWebServer: 1c39a1f0763e4eb492bee021e4270fce097d3555
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
-  HockeySDK: dd11a2b9da3372fd025643bee5bc10c8c613d169
+  HockeySDK: 1249d4f1b3a9ce537a1517805bcf6fe121099d16
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
-  Mantle: 299966b00759634931699f69cb6a30b9239b944d
+  Mantle: bc40bb061d8c2c6fb48d5083e04d928c3b7f73d9
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
-  Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
+  Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
+  Nocilla: 7af7a386071150cc8aa5da4da97d060f049dd61c
   NSDate-Extensions: 5bd64f8815dc6b3c9d08e1f620229567e2b4771c
   NYTPhotoViewer: e80e8767f3780d2df37c6f72cbab15d6c7232911
-  OAStackView: 323757cd34a1bc5fcc9ed3c903b51dbfe192f355
   OCHamcrest: c14c0b3f4c4e99363e5b87d97bae38c4438b6d5d
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
+  OMGHTTPURLRQ: 1e54807cb7d5dbb506926e53498e1e9ac5720c79
   PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
+  PromiseKit: 3a8a529c0571f8c2c423dba0897ff39bc060bf92
+  Quick: 13a2a2b19a5d8e3ed4fd0c36ee46597fd77ebf71
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
   SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
+  SWStepSlider: a714a255526dbba7c6290d67ea7226ba8724b56c
   TSMessages: 39ca10c7bfdaa42d574af0f7946a04699145051e
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
-  VTAcknowledgementsViewController: 6056f5f5e5ed995bbf0581bed6ddd29355ca9a80
+  VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 2edea4411b83609b94a5fcf59d338457d9df8683
+
+COCOAPODS: 1.0.1

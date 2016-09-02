@@ -1,15 +1,7 @@
-//
-//  WMFLogFormatter.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 8/9/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFLogFormatter.h"
 #import "NSBundle+WMFInfoUtils.h"
 
-static NSString* cachedApplicationName;
+static NSString *cachedApplicationName;
 
 @implementation WMFLogFormatter
 
@@ -19,8 +11,8 @@ static NSString* cachedApplicationName;
     }
 }
 
-- (NSString*)formatLogMessage:(DDLogMessage*)logMessage {
-    NSString* level = @"";
+- (NSString *)formatLogMessage:(DDLogMessage *)logMessage {
+    NSString *level = @"";
     switch (logMessage->_flag) {
         case DDLogFlagVerbose:
             level = @"V";
@@ -41,13 +33,13 @@ static NSString* cachedApplicationName;
             break;
     }
     return [NSString stringWithFormat:@"%@ %@[%@] %@#L%lu %@: %@",
-            [self stringFromDate:logMessage->_timestamp],
-            cachedApplicationName,
-            [self queueThreadLabelForLogMessage:logMessage],
-            logMessage->_function,
-            (unsigned long)logMessage->_line,
-            level,
-            logMessage->_message];
+                                      [self stringFromDate:logMessage->_timestamp],
+                                      cachedApplicationName,
+                                      [self queueThreadLabelForLogMessage:logMessage],
+                                      logMessage->_function,
+                                      (unsigned long)logMessage->_line,
+                                      level,
+                                      logMessage->_message];
 }
 
 @end

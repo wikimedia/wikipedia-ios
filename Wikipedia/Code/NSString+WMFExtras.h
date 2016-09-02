@@ -1,15 +1,14 @@
-
 @interface NSString (WMFExtras)
 
 /// @return A substring of the receiver going up to @c index, or @c length, whichever is shorter.
-- (NSString*)wmf_safeSubstringToIndex:(NSUInteger)index;
+- (NSString *)wmf_safeSubstringToIndex:(NSUInteger)index;
 
 /// @return A substring of the receiver starting at @c index or an empty string if the recevier is too short.
-- (NSString*)wmf_safeSubstringFromIndex:(NSUInteger)index;
+- (NSString *)wmf_safeSubstringFromIndex:(NSUInteger)index;
 
-- (NSString*)wmf_UTF8StringWithPercentEscapes;
+- (NSString *)wmf_UTF8StringWithPercentEscapes;
 
-- (NSString*)wmf_schemelessURL;
+- (NSString *)wmf_schemelessURL;
 
 /**
  * Get the MIME type for a string obtained via another string or URL's `pathExtension` property.
@@ -18,31 +17,31 @@
  *
  * @return The MIME type for the receiver.
  */
-- (NSString*)wmf_asMIMEType;
+- (NSString *)wmf_asMIMEType;
 
-- (NSDate*)wmf_iso8601Date;
+- (NSDate *)wmf_iso8601Date;
 
-- (NSString*)wmf_stringByRemovingHTML;
+- (NSString *)wmf_stringByRemovingHTML;
 
-- (NSString*)wmf_randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
+- (NSString *)wmf_randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
 
-- (NSString*)wmf_stringByReplacingUnderscoresWithSpaces;
+- (NSString *)wmf_stringByReplacingUnderscoresWithSpaces;
 
-- (NSString*)wmf_stringByReplacingSpacesWithUnderscores;
+- (NSString *)wmf_stringByReplacingSpacesWithUnderscores;
 
-- (NSString*)wmf_stringByCapitalizingFirstCharacter;
+- (NSString *)wmf_stringByCapitalizingFirstCharacter;
 
-- (BOOL)wmf_containsString:(NSString*)string;
+- (BOOL)wmf_containsString:(NSString *)string;
 
-- (BOOL)wmf_caseInsensitiveContainsString:(NSString*)string;
+- (BOOL)wmf_caseInsensitiveContainsString:(NSString *)string;
 
-- (BOOL)wmf_containsString:(NSString*)string options:(NSStringCompareOptions)options;
+- (BOOL)wmf_containsString:(NSString *)string options:(NSStringCompareOptions)options;
 
-- (BOOL)wmf_isEqualToStringIgnoringCase:(NSString*)string;
+- (BOOL)wmf_isEqualToStringIgnoringCase:(NSString *)string;
 
-- (NSString*)wmf_trim;
+- (NSString *)wmf_trim;
 
-- (NSString*)wmf_substringBeforeString:(NSString*)string;
-- (NSString*)wmf_substringAfterString:(NSString*)string;
+- (NSString *)wmf_substringBeforeString:(NSString *)string;
+- (NSString *)wmf_substringAfterString:(NSString *)string;
 
 @end

@@ -1,11 +1,3 @@
-//
-//  ArticleLoadingTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 4/27/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "WebViewController_Private.h"
@@ -19,8 +11,8 @@
 #import <OCMockito/OCMockito.h>
 
 @interface ArticleLoadingTests : XCTestCase
-@property WebViewController* webVC;
-@property SessionSingleton* session;
+@property WebViewController *webVC;
+@property SessionSingleton *session;
 @end
 
 @implementation ArticleLoadingTests
@@ -29,7 +21,7 @@
     [super setUp];
 
     self.session = [[SessionSingleton alloc] initWithDataStore:[MWKDataStore temporaryDataStore]];
-    self.webVC   = [[WebViewController alloc] initWithSession:self.session];
+    self.webVC = [[WebViewController alloc] initWithSession:self.session];
 
     // disable TOC stuff since it breaks when the WebVC isn't properly attached to a window/parent-VC
 }
@@ -148,12 +140,16 @@
 //
 #pragma mark - Utils
 
-- (MWKArticle*)storeDummyArticleWithTitle:(NSString*)title {
-    NSURL* dummyTitle =
-        [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"en" title:title fragment:nil];
+- (MWKArticle *)storeDummyArticleWithTitle:(NSString *)title {
+    NSURL *dummyTitle =
+        [NSURL wmf_URLWithDomain:@"wikipedia.org"
+                        language:@"en"
+                           title:title
+                        fragment:nil];
 
-    MWKArticle* dummyArticle =
-        [[MWKArticle alloc] initWithURL:dummyTitle dataStore:self.session.dataStore];
+    MWKArticle *dummyArticle =
+        [[MWKArticle alloc] initWithURL:dummyTitle
+                              dataStore:self.session.dataStore];
 
     // least-tedious way to create a testing article that can be persisted
     [dummyArticle importMobileViewJSON:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];

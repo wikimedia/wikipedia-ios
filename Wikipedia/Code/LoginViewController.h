@@ -1,4 +1,3 @@
-
 #import <UIKit/UIKit.h>
 #import "LoginFunnel.h"
 
@@ -6,6 +5,6 @@
 
 - (IBAction)createAccountButtonPushed:(id)sender;
 
-@property (strong, nonatomic) LoginFunnel* funnel;
+@property (strong, nonatomic) LoginFunnel *funnel;
 
 @end

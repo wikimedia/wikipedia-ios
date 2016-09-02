@@ -1,6 +1,3 @@
-
-// From: https://trello.com/c/IRqbu8p4/15-color-swatches
-
 #define WMF_COLOR_GREEN [UIColor colorWithRed:0.00 green:0.69 blue:0.54 alpha:1.0]
 #define WMF_COLOR_GREEN_DARK [UIColor colorWithRed:0.05 green:0.44 blue:0.31 alpha:1.0]
 #define WMF_COLOR_BLUE [UIColor colorWithRed:0.2039 green:0.4824 blue:1.0 alpha:1.0]
@@ -12,10 +9,10 @@
 #define WMF_COLOR_YELLOW [UIColor colorWithRed:1.00 green:0.71 blue:0.05 alpha:1.0]
 #define WMF_COLOR_YELLOW_DARK [UIColor colorWithRed:0.88 green:0.59 blue:0.00 alpha:1.0]
 
-
 // RGB color macro with alpha. From http://cocoamatic.blogspot.com/2010/07/uicolor-macro-with-hex-values.html
 
-#define UIColorFromRGBWithAlpha(rgbValue, a) [UIColor \
-colorWithRed: ((float)((rgbValue & 0xFF0000) >> 16)) / 255.0 \
-green: ((float)((rgbValue & 0xFF00) >> 8)) / 255.0 \
-blue: ((float)(rgbValue & 0xFF)) / 255.0 alpha : a]
+#define UIColorFromRGBWithAlpha(rgbValue, a) [UIColor           \
+    colorWithRed:((float)((rgbValue & 0xFF0000) >> 16)) / 255.0 \
+           green:((float)((rgbValue & 0xFF00) >> 8)) / 255.0    \
+            blue:((float)(rgbValue & 0xFF)) / 255.0             \
+           alpha:a]

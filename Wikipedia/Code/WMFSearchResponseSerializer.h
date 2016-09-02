@@ -1,4 +1,3 @@
-
 #import "WMFApiJsonResponseSerializer.h"
 
 @interface WMFSearchResponseSerializer : WMFApiJsonResponseSerializer

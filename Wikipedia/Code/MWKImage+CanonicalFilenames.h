@@ -1,11 +1,3 @@
-//
-//  MWKImage+CanonicalFilenames.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 12/14/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MWKImage.h"
 
 @interface MWKImage (CanonicalFilenames)
@@ -21,6 +13,6 @@
  * @return An array of @c NSString objects for successfully constructed "File:..." titles or <code>[NSNull null]</code>
  *         for images whose URLs could not be parsed successfully.
  */
-+ (NSArray*)mapFilenamesFromImages:(NSArray<MWKImage*>*)images;
++ (NSArray *)mapFilenamesFromImages:(NSArray<MWKImage *> *)images;
 
 @end

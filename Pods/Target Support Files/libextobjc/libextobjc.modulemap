@@ -1,0 +1,6 @@
+framework module libextobjc {
+  umbrella header "libextobjc-umbrella.h"
+
+  export *
+  module * { export * }
+}

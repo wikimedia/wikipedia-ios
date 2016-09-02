@@ -1,9 +1,0 @@
-
-# Release Libraries
-github "mxcl/PromiseKit"
-github "wikimedia/SWStepSlider"
-
-#Test Libraries
-github "facebook/ios-snapshot-test-case"
-github "Quick/Nimble"
-github "Quick/Quick"

@@ -1,4 +1,3 @@
-
 #import "WMFWelcomeAnalyticsViewController.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
@@ -9,13 +8,13 @@
 @import HockeySDK;
 
 @interface WMFWelcomeAnalyticsViewController ()
-@property (strong, nonatomic) IBOutlet UILabel* titleLabel;
-@property (strong, nonatomic) IBOutlet UILabel* subTitleLabel;
-@property (strong, nonatomic) IBOutlet UILabel* toggleLabel;
-@property (strong, nonatomic) IBOutlet UIView* dividerAboveNextStepButton;
-@property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
-@property (strong, nonatomic) IBOutlet UISwitch* toggle;
-@property (strong, nonatomic) IBOutlet WelcomeAnalyticsAnimationView* animationView;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *subTitleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *toggleLabel;
+@property (strong, nonatomic) IBOutlet UIView *dividerAboveNextStepButton;
+@property (strong, nonatomic) IBOutlet UIButton *nextStepButton;
+@property (strong, nonatomic) IBOutlet UISwitch *toggle;
+@property (strong, nonatomic) IBOutlet WelcomeAnalyticsAnimationView *animationView;
 
 @end
 
@@ -23,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.titleLabel.text    = [MWLocalizedString(@"welcome-volunteer-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+    self.titleLabel.text = [MWLocalizedString(@"welcome-volunteer-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     self.subTitleLabel.text = MWLocalizedString(@"welcome-volunteer-sub-title", nil);
 
     [self.nextStepButton wmf_configureAsWelcomeNextButton];
@@ -32,11 +31,11 @@
     [self updateToggleLabelTitleForUsageReportsIsOn:NO];
 
     //Set state of the toggle. Also make sure crash manager setting is in sync with this setting - likely to happen on first launch or for previous users.
-    if ([[NSUserDefaults standardUserDefaults] wmf_sendUsageReports]) {
-        self.toggle.on                                                           = YES;
+    if ([[NSUserDefaults wmf_userDefaults] wmf_sendUsageReports]) {
+        self.toggle.on = YES;
         [[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus = BITCrashManagerStatusAutoSend;
     } else {
-        self.toggle.on                                                           = NO;
+        self.toggle.on = NO;
         [[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus = BITCrashManagerStatusAlwaysAsk;
     }
 
@@ -53,13 +52,13 @@
     }
 }
 
-- (IBAction)toggleAnalytics:(UISwitch*)sender {
+- (IBAction)toggleAnalytics:(UISwitch *)sender {
     if ([sender isOn]) {
         [[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus = BITCrashManagerStatusAutoSend;
-        [[NSUserDefaults standardUserDefaults] wmf_setSendUsageReports:YES];
+        [[NSUserDefaults wmf_userDefaults] wmf_setSendUsageReports:YES];
     } else {
         [[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus = BITCrashManagerStatusAlwaysAsk;
-        [[NSUserDefaults standardUserDefaults] wmf_setSendUsageReports:NO];
+        [[NSUserDefaults wmf_userDefaults] wmf_setSendUsageReports:NO];
     }
     [self updateToggleLabelTitleForUsageReportsIsOn:[sender isOn]];
 }
@@ -69,8 +68,8 @@
 }
 
 - (void)updateToggleLabelTitleForUsageReportsIsOn:(BOOL)isOn {
-    NSString* title = isOn ? [MWLocalizedString(@"welcome-volunteer-thanks", nil) stringByReplacingOccurrencesOfString : @"$1" withString:@"😀"] : MWLocalizedString(@"welcome-volunteer-send-usage-reports", nil);
-    self.toggleLabel.text      = title;
+    NSString *title = isOn ? [MWLocalizedString(@"welcome-volunteer-thanks", nil) stringByReplacingOccurrencesOfString:@"$1" withString:@"😀"] : MWLocalizedString(@"welcome-volunteer-send-usage-reports", nil);
+    self.toggleLabel.text = title;
     self.toggleLabel.textColor = isOn ? [UIColor wmf_green] : [UIColor darkGrayColor];
 }
 

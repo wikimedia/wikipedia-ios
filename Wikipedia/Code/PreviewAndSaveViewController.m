@@ -1,10 +1,6 @@
-//  Created by Monte Hurd on 2/27/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "PreviewAndSaveViewController.h"
 #import "WikipediaAppUtils.h"
 #import "PreviewHtmlFetcher.h"
-#import "QueuesSingleton.h"
 #import "WikiTextSectionUploader.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "EditTokenFetcher.h"
@@ -29,7 +25,6 @@
 #import "CaptchaResetter.h"
 #import "SavedPagesFunnel.h"
 #import "EditFunnel.h"
-#import "MediaWikiKit.h"
 #import "WMFOpenExternalLinkDelegateProtocol.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
@@ -42,14 +37,14 @@
 #define TERMS_LINK @"https://wikimediafoundation.org/wiki/Terms_of_Use"
 #define LICENSE_LINK @"https://creativecommons.org/licenses/by-sa/3.0/"
 
-typedef NS_ENUM (NSInteger, WMFCannedSummaryChoices) {
+typedef NS_ENUM(NSInteger, WMFCannedSummaryChoices) {
     CANNED_SUMMARY_TYPOS,
     CANNED_SUMMARY_GRAMMAR,
     CANNED_SUMMARY_LINKS,
     CANNED_SUMMARY_OTHER
 };
 
-typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
+typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     PREVIEW_MODE_EDIT_WIKITEXT,
     PREVIEW_MODE_EDIT_WIKITEXT_WARNING,
     PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW,
@@ -59,35 +54,34 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
 @interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate, PreviewLicenseViewDelegate>
 
-@property (strong, nonatomic) KeychainCredentials* keychainCredentials;
+@property (strong, nonatomic) KeychainCredentials *keychainCredentials;
 
-@property (strong, nonatomic) NSString* captchaId;
-@property (strong, nonatomic) NSString* captchaUrl;
+@property (strong, nonatomic) NSString *captchaId;
+@property (strong, nonatomic) NSString *captchaUrl;
 
-@property (strong, nonatomic) CaptchaViewController* captchaViewController;
-@property (strong, nonatomic) IBOutlet UIView* captchaContainer;
-@property (strong, nonatomic) IBOutlet UIScrollView* captchaScrollView;
-@property (strong, nonatomic) IBOutlet UIView* captchaScrollContainer;
-@property (strong, nonatomic) IBOutlet UIView* editSummaryContainer;
-@property (strong, nonatomic) IBOutlet PreviewWebViewContainer* previewWebViewContainer;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* previewWebViewHeightConstraint;
-@property (strong, nonatomic) UILabel* aboutLabel;
-@property (strong, nonatomic) MenuButton* cannedSummary01;
-@property (strong, nonatomic) MenuButton* cannedSummary02;
-@property (strong, nonatomic) MenuButton* cannedSummary03;
-@property (strong, nonatomic) MenuButton* cannedSummary04;
+@property (strong, nonatomic) CaptchaViewController *captchaViewController;
+@property (strong, nonatomic) IBOutlet UIView *captchaContainer;
+@property (strong, nonatomic) IBOutlet UIScrollView *captchaScrollView;
+@property (strong, nonatomic) IBOutlet UIView *captchaScrollContainer;
+@property (strong, nonatomic) IBOutlet UIView *editSummaryContainer;
+@property (strong, nonatomic) IBOutlet PreviewWebViewContainer *previewWebViewContainer;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewWebViewHeightConstraint;
+@property (strong, nonatomic) UILabel *aboutLabel;
+@property (strong, nonatomic) MenuButton *cannedSummary01;
+@property (strong, nonatomic) MenuButton *cannedSummary02;
+@property (strong, nonatomic) MenuButton *cannedSummary03;
+@property (strong, nonatomic) MenuButton *cannedSummary04;
 @property (nonatomic) CGFloat borderWidth;
-@property (strong, nonatomic) IBOutlet PreviewLicenseView* previewLicenseView;
-@property (strong, nonatomic) UIGestureRecognizer* previewLicenseTapGestureRecognizer;
-@property (strong, nonatomic) IBOutlet PaddedLabel* previewLabel;
-@property (strong, nonatomic) IBOutlet UIScrollView* scrollView;
-@property (strong, nonatomic) IBOutlet UIView* scrollContainer;
-@property (strong, nonatomic) UIBarButtonItem* buttonSave;
-@property (strong, nonatomic) UIBarButtonItem* buttonNext;
-@property (strong, nonatomic) UIBarButtonItem* buttonX;
-@property (strong, nonatomic) UIBarButtonItem* buttonLeftCaret;
-@property (strong, nonatomic) NSString* abuseFilterCode;
-
+@property (strong, nonatomic) IBOutlet PreviewLicenseView *previewLicenseView;
+@property (strong, nonatomic) UIGestureRecognizer *previewLicenseTapGestureRecognizer;
+@property (strong, nonatomic) IBOutlet PaddedLabel *previewLabel;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIView *scrollContainer;
+@property (strong, nonatomic) UIBarButtonItem *buttonSave;
+@property (strong, nonatomic) UIBarButtonItem *buttonNext;
+@property (strong, nonatomic) UIBarButtonItem *buttonX;
+@property (strong, nonatomic) UIBarButtonItem *buttonLeftCaret;
+@property (strong, nonatomic) NSString *abuseFilterCode;
 
 //@property (nonatomic) BOOL saveAutomaticallyIfSignedIn;
 
@@ -101,8 +95,8 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     [self.previewWebViewContainer.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
 }
 
-- (NSString*)getSummary {
-    NSMutableArray* summaryArray = @[].mutableCopy;
+- (NSString *)getSummary {
+    NSMutableArray *summaryArray = @[].mutableCopy;
 
     if (self.cannedSummary01.enabled) {
         [summaryArray addObject:self.cannedSummary01.text];
@@ -127,15 +121,18 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     return YES;
 }
 
-- (void)wmf_showAlertForTappedAnchorHref:(NSString*)href {
-    UIAlertController* alertController =
+- (void)wmf_showAlertForTappedAnchorHref:(NSString *)href {
+    UIAlertController *alertController =
         [UIAlertController alertControllerWithTitle:href
                                             message:nil
                                      preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"button-ok", nil)
                                                         style:UIAlertActionStyleDefault
                                                       handler:nil]];
-    [self presentViewController:alertController animated:YES completion:^{}];
+    [self presentViewController:alertController
+                       animated:YES
+                     completion:^{
+                     }];
 }
 
 - (void)setMode:(WMFPreviewAndSaveMode)mode {
@@ -145,35 +142,35 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (void)updateNavigationForMode:(WMFPreviewAndSaveMode)mode {
-    UIBarButtonItem* backButton    = nil;
-    UIBarButtonItem* forwardButton = nil;
+    UIBarButtonItem *backButton = nil;
+    UIBarButtonItem *forwardButton = nil;
 
     switch (mode) {
         case PREVIEW_MODE_EDIT_WIKITEXT:
-            backButton    = self.buttonLeftCaret;
+            backButton = self.buttonLeftCaret;
             forwardButton = self.buttonNext;
             break;
         case PREVIEW_MODE_EDIT_WIKITEXT_WARNING:
-            backButton    = self.buttonLeftCaret;
+            backButton = self.buttonLeftCaret;
             forwardButton = self.buttonSave;
             break;
         case PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW:
-            backButton    = self.buttonLeftCaret;
+            backButton = self.buttonLeftCaret;
             forwardButton = nil;
             break;
         case PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW:
-            backButton    = self.buttonLeftCaret;
+            backButton = self.buttonLeftCaret;
             forwardButton = self.buttonSave;
             break;
         case PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA:
-            backButton    = self.buttonX;
+            backButton = self.buttonX;
             forwardButton = self.buttonSave;
             break;
         default:
             break;
     }
 
-    self.navigationItem.leftBarButtonItem  = backButton;
+    self.navigationItem.leftBarButtonItem = backButton;
     self.navigationItem.rightBarButtonItem = forwardButton;
 }
 
@@ -202,30 +199,36 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.previewLicenseView.previewLicenseViewDelegate       = self;
-    self.keychainCredentials                                 = [[KeychainCredentials alloc] init];
+    self.previewLicenseView.previewLicenseViewDelegate = self;
+    self.keychainCredentials = [[KeychainCredentials alloc] init];
     self.previewWebViewContainer.externalLinksOpenerDelegate = self;
 
     @weakify(self)
-    self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
-        @strongify(self)
-        [self goBack];
-    }];
+        self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
+                                               handler:^(id sender) {
+                                                   @strongify(self)
+                                                       [self goBack];
+                                               }];
 
-    self.buttonLeftCaret = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft handler:^(id sender){
-        @strongify(self)
-        [self goBack];
-    }];
+    self.buttonLeftCaret = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft
+                                                   handler:^(id sender) {
+                                                       @strongify(self)
+                                                           [self goBack];
+                                                   }];
 
-    self.buttonSave = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-save", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
-        @strongify(self)
-        [self goForward];
-    }];
+    self.buttonSave = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-save", nil)
+                                                          style:UIBarButtonItemStylePlain
+                                                        handler:^(id sender) {
+                                                            @strongify(self)
+                                                                [self goForward];
+                                                        }];
 
-    self.buttonNext = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-next", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
-        @strongify(self)
-        [self goForward];
-    }];
+    self.buttonNext = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-next", nil)
+                                                          style:UIBarButtonItemStylePlain
+                                                        handler:^(id sender) {
+                                                            @strongify(self)
+                                                                [self goForward];
+                                                        }];
 
     self.mode = PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW;
 
@@ -239,7 +242,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
     //self.saveAutomaticallyIfSignedIn = NO;
 
-    self.captchaId  = @"";
+    self.captchaId = @"";
     self.captchaUrl = @"";
 
     [self.funnel logPreview];
@@ -267,21 +270,19 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     [self preview];
 }
 
-- (void)previewLabelTapped:(UITapGestureRecognizer*)recognizer {
+- (void)previewLabelTapped:(UITapGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         [self.scrollView scrollSubViewToTop:self.previewLabel animated:YES];
     }
 }
 
-- (void)observeValueForKeyPath:(NSString*)keyPath
+- (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
-                        change:(NSDictionary*)change
-                       context:(void*)context {
+                        change:(NSDictionary *)change
+                       context:(void *)context {
     if (
-        (object == self.previewWebViewContainer.webView.scrollView)
-        &&
-        [keyPath isEqual:@"contentSize"]
-        ) {
+        (object == self.previewWebViewContainer.webView.scrollView) &&
+        [keyPath isEqual:@"contentSize"]) {
         // Size the web view to the height of the html content it is displaying (gets rid of the web view's scroll bars).
         // Note: the PreviewWebView class has to call "forceScrollViewContentSizeToReflectActualHTMLHeight" in its
         // overridden "layoutSubviews" method for the contentSize to be reported accurately such that it reflects the
@@ -292,7 +293,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (void)constrainEditSummaryContainerSubviews {
-    NSDictionary* views = @{
+    NSDictionary *views = @{
         @"aboutLabel": self.aboutLabel,
         @"cannedSummary01": self.cannedSummary01,
         @"cannedSummary02": self.cannedSummary02,
@@ -303,18 +304,36 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     // Tighten up the spacing for 3.5 inch screens.
     CGFloat spaceAboveCC = ([UIScreen mainScreen].bounds.size.height != 480) ? 43 : 4;
 
-    NSDictionary* metrics = @{
+    NSDictionary *metrics = @{
         @"buttonHeight": @(48),
         @"spaceAboveCC": @(spaceAboveCC)
     };
 
-    NSArray* constraints = @[
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[aboutLabel]|" options:0 metrics:metrics views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary01]" options:0 metrics:metrics views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary02]" options:0 metrics:metrics views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary03]" options:0 metrics:metrics views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary04]" options:0 metrics:metrics views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(40)-[aboutLabel]-(5)-[cannedSummary01(buttonHeight)][cannedSummary02(buttonHeight)][cannedSummary03(buttonHeight)][cannedSummary04(buttonHeight)]-(spaceAboveCC)-|" options:0 metrics:metrics views:views]
+    NSArray *constraints = @[
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[aboutLabel]|"
+                                                options:0
+                                                metrics:metrics
+                                                  views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary01]"
+                                                options:0
+                                                metrics:metrics
+                                                  views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary02]"
+                                                options:0
+                                                metrics:metrics
+                                                  views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary03]"
+                                                options:0
+                                                metrics:metrics
+                                                  views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary04]"
+                                                options:0
+                                                metrics:metrics
+                                                  views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(40)-[aboutLabel]-(5)-[cannedSummary01(buttonHeight)][cannedSummary02(buttonHeight)][cannedSummary03(buttonHeight)][cannedSummary04(buttonHeight)]-(spaceAboveCC)-|"
+                                                options:0
+                                                metrics:metrics
+                                                  views:views]
     ];
     [self.editSummaryContainer addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
 
@@ -323,20 +342,20 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)setupEditSummaryContainerSubviews {
     // Setup the canned edit summary buttons.
-    UIColor* color       = [UIColor colorWithRed:0.03 green:0.48 blue:0.92 alpha:1.0];
+    UIColor *color = [UIColor colorWithRed:0.03 green:0.48 blue:0.92 alpha:1.0];
     UIEdgeInsets padding = UIEdgeInsetsMake(6, 10, 6, 10);
-    UIEdgeInsets margin  = UIEdgeInsetsMake(8, 0, 8, 0);
-    CGFloat fontSize     = 14.0;
+    UIEdgeInsets margin = UIEdgeInsetsMake(8, 0, 8, 0);
+    CGFloat fontSize = 14.0;
 
-    MenuButton* (^ setupButton)(NSString*, NSInteger) = ^MenuButton*(NSString* text, WMFCannedSummaryChoices tag) {
-        MenuButton* button = [[MenuButton alloc] initWithText:text
+    MenuButton * (^setupButton)(NSString *, NSInteger) = ^MenuButton *(NSString *text, WMFCannedSummaryChoices tag) {
+        MenuButton *button = [[MenuButton alloc] initWithText:text
                                                      fontSize:fontSize
                                                          bold:NO
                                                         color:color
                                                       padding:padding
                                                        margin:margin];
         button.enabled = NO;
-        button.tag     = tag;
+        button.tag = tag;
         [button addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonTapped:)]];
         [self.editSummaryContainer addSubview:button];
         return button;
@@ -348,23 +367,23 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     self.cannedSummary04 = setupButton(MWLocalizedString(@"edit-summary-choice-other", nil), CANNED_SUMMARY_OTHER);
 
     // Setup the canned edit summaries label.
-    self.aboutLabel                                           = [[UILabel alloc] init];
-    self.aboutLabel.numberOfLines                             = 0;
-    self.aboutLabel.font                                      = [UIFont boldSystemFontOfSize:24.0 * MENUS_SCALE_MULTIPLIER];
-    self.aboutLabel.textColor                                 = [UIColor darkGrayColor];
-    self.aboutLabel.lineBreakMode                             = NSLineBreakByWordWrapping;
+    self.aboutLabel = [[UILabel alloc] init];
+    self.aboutLabel.numberOfLines = 0;
+    self.aboutLabel.font = [UIFont boldSystemFontOfSize:24.0 * MENUS_SCALE_MULTIPLIER];
+    self.aboutLabel.textColor = [UIColor darkGrayColor];
+    self.aboutLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.aboutLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.aboutLabel.text                                      = MWLocalizedString(@"edit-summary-title", nil);
-    self.aboutLabel.textAlignment                             = NSTextAlignmentNatural;
+    self.aboutLabel.text = MWLocalizedString(@"edit-summary-title", nil);
+    self.aboutLabel.textAlignment = NSTextAlignmentNatural;
 
     [self.editSummaryContainer addSubview:self.aboutLabel];
 }
 
-- (void)buttonTapped:(UIGestureRecognizer*)recognizer {
+- (void)buttonTapped:(UIGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        MenuButton* tappedButton = (MenuButton*)recognizer.view;
+        MenuButton *tappedButton = (MenuButton *)recognizer.view;
 
-        NSString* summaryKey;
+        NSString *summaryKey;
         switch (tappedButton.tag) {
             case CANNED_SUMMARY_TYPOS:
                 summaryKey = @"typo";
@@ -397,11 +416,11 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (void)showSummaryOverlay {
-    EditSummaryViewController* summaryVC = [EditSummaryViewController wmf_initialViewControllerFromClassStoryboard];
+    EditSummaryViewController *summaryVC = [EditSummaryViewController wmf_initialViewControllerFromClassStoryboard];
     // Set the overlay's text field to self.summaryText so it can display
     // any existing value (in case user taps "Other" again)
     summaryVC.summaryText = self.summaryText;
-    summaryVC.previewVC   = self;
+    summaryVC.previewVC = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:summaryVC] animated:YES completion:nil];
 }
 
@@ -420,13 +439,14 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
     if ([[WMFAuthenticationManager sharedInstance] isLoggedIn]) {
         self.previewLicenseView.licenseLoginLabel.userInteractionEnabled = NO;
-        self.previewLicenseView.licenseLoginLabel.attributedText         = nil;
+        self.previewLicenseView.licenseLoginLabel.attributedText = nil;
     } else {
         self.previewLicenseView.licenseLoginLabel.userInteractionEnabled = YES;
     }
 
     self.previewLicenseTapGestureRecognizer =
-        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(licenseLabelTapped:)];
+        [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                action:@selector(licenseLabelTapped:)];
     [self.previewLicenseView.licenseLoginLabel addGestureRecognizer:self.previewLicenseTapGestureRecognizer];
 
     self.previewWebViewContainer.webView.scrollView.delegate = self;
@@ -434,14 +454,14 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     [super viewWillAppear:animated];
 }
 
-- (void)licenseLabelTapped:(UIGestureRecognizer*)recognizer {
+- (void)licenseLabelTapped:(UIGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         // Call if user taps the blue "Log In" text in the CC text.
         //self.saveAutomaticallyIfSignedIn = YES;
-        LoginViewController* loginVC = [LoginViewController wmf_initialViewControllerFromClassStoryboard];
+        LoginViewController *loginVC = [LoginViewController wmf_initialViewControllerFromClassStoryboard];
         loginVC.funnel = [[LoginFunnel alloc] init];
         [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
-        UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:loginVC];
         [self presentViewController:nc animated:YES completion:nil];
     }
 }
@@ -455,7 +475,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
     [[WMFAlertManager sharedInstance] dismissAlert];
 
-
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"TabularScrollViewItemTapped"
                                                   object:nil];
@@ -465,36 +484,33 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     [super viewWillDisappear:animated];
 }
 
-- (MWLanguageInfo*)wmf_editedSectionLanguageInfo {
+- (MWLanguageInfo *)wmf_editedSectionLanguageInfo {
     return [MWLanguageInfo languageInfoForCode:self.section.url.wmf_language];
 }
 
 - (void)fetchFinished:(id)sender
           fetchedData:(id)fetchedData
                status:(FetchFinalStatus)status
-                error:(NSError*)error {
+                error:(NSError *)error {
     if ([sender isKindOfClass:[PreviewHtmlFetcher class]]) {
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [[WMFAlertManager sharedInstance] dismissAlert];
                 [self.previewWebViewContainer.webView loadHTML:fetchedData baseURL:[NSURL URLWithString:@"https://wikipedia.org"] withAssetsFile:@"preview.html" scrolledToFragment:nil padding:UIEdgeInsetsZero];
-            }
-            break;
+            } break;
             case FETCH_FINAL_STATUS_FAILED: {
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-            }
-            break;
+            } break;
             case FETCH_FINAL_STATUS_CANCELLED: {
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-            }
-            break;
+            } break;
         }
     } else if ([sender isKindOfClass:[EditTokenFetcher class]]) {
-        EditTokenFetcher* tokenFetcher = (EditTokenFetcher*)sender;
+        EditTokenFetcher *tokenFetcher = (EditTokenFetcher *)sender;
 
-        void (^ upload)() = ^void () {
-            NSMutableDictionary* editTokens = self.keychainCredentials.editTokens;
-            NSString* editToken             = editTokens[tokenFetcher.articleURL.wmf_language];
+        void (^upload)() = ^void() {
+            NSMutableDictionary *editTokens = self.keychainCredentials.editTokens;
+            NSString *editToken = editTokens[tokenFetcher.articleURL.wmf_language];
             (void)[[WikiTextSectionUploader alloc] initAndUploadWikiText:tokenFetcher.wikiText
                                                            forArticleURL:tokenFetcher.articleURL
                                                                  section:tokenFetcher.section
@@ -508,16 +524,15 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
-                NSMutableDictionary* editTokens =
+                NSMutableDictionary *editTokens =
                     self.keychainCredentials.editTokens;
-                NSString* domain = self.section.url.wmf_language;
+                NSString *domain = self.section.url.wmf_language;
                 if (domain && tokenFetcher.token) {
-                    editTokens[domain]                  = tokenFetcher.token;
+                    editTokens[domain] = tokenFetcher.token;
                     self.keychainCredentials.editTokens = editTokens;
                 }
                 upload();
-            }
-            break;
+            } break;
             case FETCH_FINAL_STATUS_CANCELLED:
                 [[WMFAlertManager sharedInstance] dismissAlert];
                 break;
@@ -539,46 +554,41 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                 dispatchOnMainQueue(^{
                     [self.delegate previewViewControllerDidSave:self];
                 });
-            }
-            break;
+            } break;
 
             case FETCH_FINAL_STATUS_CANCELLED: {
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-            }
-            break;
+            } break;
 
             case FETCH_FINAL_STATUS_FAILED: {
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
                 switch (error.code) {
-                    case WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA:
-                    {
+                    case WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA: {
                         if (self.mode == PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA) {
                             [self.funnel logCaptchaFailure];
                         }
 
                         self.captchaUrl = error.userInfo[@"captchaUrl"];
-                        self.captchaId  = error.userInfo[@"captchaId"];
+                        self.captchaId = error.userInfo[@"captchaId"];
                         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
                         [self showImageForCaptcha];
-                    }
-                    break;
+                    } break;
 
                     case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED:
                     case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING:
-                    case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER:
-                    {
+                    case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER: {
                         //NSString *warningHtml = error.userInfo[@"warning"];
 
                         [self wmf_hideKeyboard];
 
                         if ((error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED)) {
-                            self.mode            = PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW;
+                            self.mode = PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW;
                             self.abuseFilterCode = error.userInfo[@"code"];
                             [self.funnel logAbuseFilterError:self.abuseFilterCode];
                         } else {
-                            self.mode            = PREVIEW_MODE_EDIT_WIKITEXT_WARNING;
+                            self.mode = PREVIEW_MODE_EDIT_WIKITEXT_WARNING;
                             self.abuseFilterCode = error.userInfo[@"code"];
                             [self.funnel logAbuseFilterWarning:self.abuseFilterCode];
                         }
@@ -589,8 +599,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                         AbuseFilterAlertType alertType =
                             (error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? ABUSE_FILTER_DISALLOW : ABUSE_FILTER_WARNING;
                         [self showAbuseFilterAlertOfType:alertType];
-                    }
-                    break;
+                    } break;
 
                     case WIKITEXT_UPLOAD_ERROR_SERVER:
                     case WIKITEXT_UPLOAD_ERROR_UNKNOWN:
@@ -601,20 +610,18 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                     default:
                         break;
                 }
-            }
-            break;
+            } break;
         }
     } else if ([sender isKindOfClass:[CaptchaResetter class]]) {
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 self.captchaId = fetchedData[@"index"];
-                NSString* newCaptchaUrl = [CaptchaResetter newCaptchaImageUrlFromOldUrl:self.captchaUrl andNewId:self.captchaId];
+                NSString *newCaptchaUrl = [CaptchaResetter newCaptchaImageUrlFromOldUrl:self.captchaUrl andNewId:self.captchaId];
                 if (newCaptchaUrl) {
                     self.captchaUrl = newCaptchaUrl;
                     [self showImageForCaptcha];
                 }
-            }
-            break;
+            } break;
             case FETCH_FINAL_STATUS_CANCELLED:
                 [[WMFAlertManager sharedInstance] dismissAlert];
                 break;
@@ -627,31 +634,32 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)showImageForCaptcha {
     // If the server said a captcha was required, present the captcha image.
-    MWKArticle* article = self.section.article;
-    [UIView animateWithDuration:0.2f animations:^{
-        [self revealCaptcha];
+    MWKArticle *article = self.section.article;
+    [UIView animateWithDuration:0.2f
+                     animations:^{
+                         [self revealCaptcha];
 
-        [self.captchaViewController.captchaTextBox performSelector:@selector(becomeFirstResponder)
-                                                        withObject:nil
-                                                        afterDelay:0.4f];
+                         [self.captchaViewController.captchaTextBox performSelector:@selector(becomeFirstResponder)
+                                                                         withObject:nil
+                                                                         afterDelay:0.4f];
 
-        self.captchaViewController.captchaImageView.image = nil;
+                         self.captchaViewController.captchaImageView.image = nil;
 
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-            NSURL* captchaImageUrl = [NSURL URLWithString:
-                                      [NSString stringWithFormat:@"https://%@.m.%@%@", article.url.wmf_language, article.url.wmf_domain, self.captchaUrl]
-                                     ];
+                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+                             NSURL *captchaImageUrl = [NSURL URLWithString:
+                                                                 [NSString stringWithFormat:@"https://%@.m.%@%@", article.url.wmf_language, article.url.wmf_domain, self.captchaUrl]];
 
-            UIImage* captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:captchaImageUrl]];
+                             UIImage *captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:captchaImageUrl]];
 
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                self.captchaViewController.captchaTextBox.text = @"";
-                self.captchaViewController.captchaImageView.image = captchaImage;
-                [self.view layoutIfNeeded];
-            });
-        });
-    } completion:^(BOOL done){
-    }];
+                             dispatch_async(dispatch_get_main_queue(), ^(void) {
+                                 self.captchaViewController.captchaTextBox.text = @"";
+                                 self.captchaViewController.captchaImageView.image = captchaImage;
+                                 [self.view layoutIfNeeded];
+                             });
+                         });
+                     }
+                     completion:^(BOOL done){
+                     }];
 }
 
 - (void)preview {
@@ -666,10 +674,10 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (void)save {
-//TODO: maybe? if we have credentials, yet the edit token retrieved for an edit
-// is an anonymous token (i think this happens if you try to get an edit token
-// and your login session has expired), need to pop up alert asking user if they
-// want to log in before continuing with their edit
+    //TODO: maybe? if we have credentials, yet the edit token retrieved for an edit
+    // is an anonymous token (i think this happens if you try to get an edit token
+    // and your login session has expired), need to pop up alert asking user if they
+    // want to log in before continuing with their edit
 
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-upload-save", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
@@ -681,7 +689,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{
         // If fromTitle was set, the section was transcluded, so use the title of the page
         // it was transcluded from.
-        NSURL* editURL = self.section.fromURL ? self.section.fromURL : self.section.article.url;
+        NSURL *editURL = self.section.fromURL ? self.section.fromURL : self.section.article.url;
 
         // First try to get an edit token for the page's domain before trying to upload the changes.
         // Only the domain is used to actually fetch the token, the other values are
@@ -699,11 +707,11 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (void)showAbuseFilterAlertOfType:(AbuseFilterAlertType)alertType {
-    AbuseFilterAlert* abuseFilterAlert = [[AbuseFilterAlert alloc] initWithType:alertType];
+    AbuseFilterAlert *abuseFilterAlert = [[AbuseFilterAlert alloc] initWithType:alertType];
 
     [self.view addSubview:abuseFilterAlert];
 
-    NSDictionary* views = @{@"abuseFilterAlert": abuseFilterAlert};
+    NSDictionary *views = @{ @"abuseFilterAlert": abuseFilterAlert };
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[abuseFilterAlert]|"
                                                                       options:0
@@ -716,7 +724,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                                                                         views:views]];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField*)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == self.captchaViewController.captchaTextBox) {
         [self save];
     }
@@ -744,11 +752,11 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
     [self.view bringSubviewToFront:self.captchaScrollView];
 
-    self.captchaScrollView.alpha           = 1.0f;
+    self.captchaScrollView.alpha = 1.0f;
     self.captchaScrollView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.98];
 
     self.captchaScrollContainer.backgroundColor = [UIColor clearColor];
-    self.captchaContainer.backgroundColor       = [UIColor clearColor];
+    self.captchaContainer.backgroundColor = [UIColor clearColor];
 
     [UIView commitAnimations];
 
@@ -761,18 +769,22 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                                         forControlEvents:UIControlEventEditingChanged];
 }
 
-- (void)captchaTextFieldDidChange:(UITextField*)textField {
+- (void)captchaTextFieldDidChange:(UITextField *)textField {
     [self highlightCaptchaSubmitButton:(textField.text.length == 0) ? NO : YES];
 }
 
-- (void)previewLicenseViewTermsLicenseLabelWasTapped:(PreviewLicenseView*)previewLicenseview {
-    UIAlertController* sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
-    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"wikitext-upload-save-terms-name", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* _Nonnull action) {
-        [self wmf_openExternalUrl:[NSURL URLWithString:TERMS_LINK]];
-    }]];
-    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"wikitext-upload-save-license-name", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* _Nonnull action) {
-        [self wmf_openExternalUrl:[NSURL URLWithString:LICENSE_LINK]];
-    }]];
+- (void)previewLicenseViewTermsLicenseLabelWasTapped:(PreviewLicenseView *)previewLicenseview {
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"wikitext-upload-save-terms-name", nil)
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction *_Nonnull action) {
+                                                [self wmf_openExternalUrl:[NSURL URLWithString:TERMS_LINK]];
+                                            }]];
+    [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"wikitext-upload-save-license-name", nil)
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction *_Nonnull action) {
+                                                [self wmf_openExternalUrl:[NSURL URLWithString:LICENSE_LINK]];
+                                            }]];
     [sheet addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"open-link-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
     [self presentViewController:sheet animated:YES completion:NULL];
 }

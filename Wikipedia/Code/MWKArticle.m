@@ -1,29 +1,14 @@
-//
-//  MWKArticle.m
-//  MediaWikiKit
-//
-//  Created by Brion on 10/7/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
-
-#import "MediaWikiKit.h"
-#import <hpple/TFHpple.h>
-#import <BlocksKit/BlocksKit.h>
-#import "WikipediaAppUtils.h"
-#import "NSString+WMFHTMLParsing.h"
 #import "MWKCitation.h"
 #import "MWKSection+DisplayHtml.h"
-#import "NSMutableDictionary+WMFMaybeSet.h"
 #import "WMFImageURLParsing.h"
-#import "UIScreen+WMFImageWidth.h"
-
+#import <hpple/TFHpple.h>
 #import "WMFImageTagParser.h"
 #import "WMFImageTagList.h"
 #import "WMFImageTagList+ImageURLs.h"
 
 @import CoreText;
 
-typedef NS_ENUM (NSUInteger, MWKArticleSchemaVersion) {
+typedef NS_ENUM(NSUInteger, MWKArticleSchemaVersion) {
     /**
      * Initial schema verison, added @c main boolean field.
      */
@@ -35,29 +20,29 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @interface MWKArticle ()
 
 // Identifiers
-@property (readwrite, weak, nonatomic) MWKDataStore* dataStore;
+@property (readwrite, weak, nonatomic) MWKDataStore *dataStore;
 
 // Metadata
-@property (readwrite, strong, nonatomic) NSURL* redirectedURL;                // optional
-@property (readwrite, strong, nonatomic) NSDate* lastmodified;                // optional
-@property (readwrite, strong, nonatomic) MWKUser* lastmodifiedby;             // required
-@property (readwrite, assign, nonatomic) int articleId;                       // required; -> 'id'
-@property (readwrite, assign, nonatomic) int languagecount;                   // required; int
-@property (readwrite, copy, nonatomic) NSString* displaytitle;              // optional
-@property (readwrite, strong, nonatomic) MWKProtectionStatus* protection;     // required
-@property (readwrite, assign, nonatomic) BOOL editable;                       // required
-@property (readwrite, assign, nonatomic, getter = isMain) BOOL main;
-@property (readwrite, strong, nonatomic) NSNumber* revisionId;
+@property (readwrite, strong, nonatomic) NSURL *redirectedURL;            // optional
+@property (readwrite, strong, nonatomic) NSDate *lastmodified;            // optional
+@property (readwrite, strong, nonatomic) MWKUser *lastmodifiedby;         // required
+@property (readwrite, assign, nonatomic) int articleId;                   // required; -> 'id'
+@property (readwrite, assign, nonatomic) int languagecount;               // required; int
+@property (readwrite, copy, nonatomic) NSString *displaytitle;            // optional
+@property (readwrite, strong, nonatomic) MWKProtectionStatus *protection; // required
+@property (readwrite, assign, nonatomic) BOOL editable;                   // required
+@property (readwrite, assign, nonatomic, getter=isMain) BOOL main;
+@property (readwrite, strong, nonatomic) NSNumber *revisionId;
 
-@property (readwrite, copy, nonatomic) NSString* entityDescription;            // optional; currently pulled separately via wikidata
-@property (readwrite, copy, nonatomic) NSString* snippet;
+@property (readwrite, copy, nonatomic) NSString *entityDescription; // optional; currently pulled separately via wikidata
+@property (readwrite, copy, nonatomic) NSString *snippet;
 
-@property (readwrite, strong, nonatomic) MWKSectionList* sections;
+@property (readwrite, strong, nonatomic) MWKSectionList *sections;
 
-@property (readwrite, strong, nonatomic) MWKImage* thumbnail;
-@property (readwrite, strong, nonatomic) MWKImage* image;
-@property (readwrite, strong, nonatomic /*, nullable*/) NSArray* citations;
-@property (readwrite, strong, nonatomic) NSString* summary;
+@property (readwrite, strong, nonatomic) MWKImage *thumbnail;
+@property (readwrite, strong, nonatomic) MWKImage *image;
+@property (readwrite, strong, nonatomic /*, nullable*/) NSArray *citations;
+@property (readwrite, strong, nonatomic) NSString *summary;
 
 @end
 
@@ -65,7 +50,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Setup / Tear Down
 
-- (instancetype)initWithURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore {
     NSParameterAssert(url.wmf_title);
     self = [self initWithURL:[url wmf_URLWithFragment:nil]];
     if (self) {
@@ -74,7 +59,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return self;
 }
 
-- (instancetype)initWithURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore dict:(NSDictionary*)dict {
+- (instancetype)initWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore dict:(NSDictionary *)dict {
     self = [self initWithURL:url dataStore:dataStore];
     if (self) {
         [self importMobileViewJSON:dict];
@@ -82,13 +67,13 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return self;
 }
 
-- (instancetype)initWithURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore searchResultsDict:(NSDictionary*)dict {
+- (instancetype)initWithURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore searchResultsDict:(NSDictionary *)dict {
     self = [self initWithURL:url dataStore:dataStore];
     if (self) {
         self.entityDescription = [self optionalString:@"description" dict:dict];
-        self.snippet           = [self optionalString:@"snippet" dict:dict];
-        self.imageURL          = dict[@"thumbnail"][@"source"];
-        self.thumbnailURL      = [self thumbnailURLFromImageURL:self.imageURL];
+        self.snippet = [self optionalString:@"snippet" dict:dict];
+        self.imageURL = dict[@"thumbnail"][@"source"];
+        self.thumbnailURL = [self thumbnailURLFromImageURL:self.imageURL];
     }
     return self;
 }
@@ -105,37 +90,22 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     }
 }
 
-- (BOOL)isEqualToArticle:(MWKArticle*)other {
-    return WMF_EQUAL(self.url, isEqual:, other.url)
-           && WMF_EQUAL(self.redirectedURL, isEqual:, other.redirectedURL)
-           && WMF_EQUAL(self.lastmodified, isEqualToDate:, other.lastmodified)
-           && WMF_IS_EQUAL(self.lastmodifiedby, other.lastmodifiedby)
-           && WMF_EQUAL(self.displaytitle, isEqualToString:, other.displaytitle)
-           && WMF_EQUAL(self.protection, isEqual:, other.protection)
-           && WMF_EQUAL(self.thumbnailURL, isEqualToString:, other.thumbnailURL)
-           && WMF_EQUAL(self.imageURL, isEqualToString:, other.imageURL)
-           && WMF_EQUAL(self.revisionId, isEqualToNumber:, other.revisionId)
-           && self.articleId == other.articleId
-           && self.languagecount == other.languagecount
-           && self.isMain == other.isMain
-           && self.sections.count == other.sections.count;
+- (BOOL)isEqualToArticle:(MWKArticle *)other {
+    return WMF_EQUAL(self.url, isEqual:, other.url) && WMF_EQUAL(self.redirectedURL, isEqual:, other.redirectedURL) && WMF_EQUAL(self.lastmodified, isEqualToDate:, other.lastmodified) && WMF_IS_EQUAL(self.lastmodifiedby, other.lastmodifiedby) && WMF_EQUAL(self.displaytitle, isEqualToString:, other.displaytitle) && WMF_EQUAL(self.protection, isEqual:, other.protection) && WMF_EQUAL(self.thumbnailURL, isEqualToString:, other.thumbnailURL) && WMF_EQUAL(self.imageURL, isEqualToString:, other.imageURL) && WMF_EQUAL(self.revisionId, isEqualToNumber:, other.revisionId) && self.articleId == other.articleId && self.languagecount == other.languagecount && self.isMain == other.isMain && self.sections.count == other.sections.count;
 }
 
-- (BOOL)isDeeplyEqualToArticle:(MWKArticle*)article {
-    return [self isEqual:article]
-           && WMF_IS_EQUAL(self.sections, article.sections);
+- (BOOL)isDeeplyEqualToArticle:(MWKArticle *)article {
+    return [self isEqual:article] && WMF_IS_EQUAL(self.sections, article.sections);
 }
 
 - (NSUInteger)hash {
-    return self.url.hash
-           ^ flipBitsWithAdditionalRotation(self.revisionId.hash, 1)
-           ^ flipBitsWithAdditionalRotation(self.lastmodified.hash, 2);
+    return self.url.hash ^ flipBitsWithAdditionalRotation(self.revisionId.hash, 1) ^ flipBitsWithAdditionalRotation(self.lastmodified.hash, 2);
 }
 
 #pragma mark - Import / Export
 
 - (id)dataExport {
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
 
     dict[@"schemaVersion"] = @(MWKArticleCurrentSchemaVersion);
 
@@ -147,13 +117,13 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         dict[@"lastmodifiedby"] = [self.lastmodifiedby dataExport];
     }
 
-    dict[@"id"]            = @(self.articleId);
+    dict[@"id"] = @(self.articleId);
     dict[@"languagecount"] = @(self.languagecount);
 
     [dict wmf_maybeSetObject:self.displaytitle forKey:@"displaytitle"];
 
     dict[@"protection"] = [self.protection dataExport];
-    dict[@"editable"]   = @(self.editable);
+    dict[@"editable"] = @(self.editable);
 
     [dict wmf_maybeSetObject:self.entityDescription forKey:@"description"];
 
@@ -168,30 +138,29 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return [dict copy];
 }
 
-- (void)importMobileViewJSON:(NSDictionary*)dict {
+- (void)importMobileViewJSON:(NSDictionary *)dict {
     // uncomment when schema is bumped to perform migrations if necessary
-//    MWKArticleSchemaVersion schemaVersion = [dict[@"schemaVersion"] unsignedIntegerValue];
+    //    MWKArticleSchemaVersion schemaVersion = [dict[@"schemaVersion"] unsignedIntegerValue];
 
-    self.lastmodified   = [self optionalDate:@"lastmodified" dict:dict];
+    self.lastmodified = [self optionalDate:@"lastmodified" dict:dict];
     self.lastmodifiedby = [self requiredUser:@"lastmodifiedby" dict:dict];
-    self.articleId      = [[self requiredNumber:@"id" dict:dict] intValue];
-    self.languagecount  = [[self requiredNumber:@"languagecount" dict:dict] intValue];
-
+    self.articleId = [[self requiredNumber:@"id" dict:dict] intValue];
+    self.languagecount = [[self requiredNumber:@"languagecount" dict:dict] intValue];
 
     //We are getting crashes because of the protection status.
     //Set this up
     @try {
         self.protection = [self requiredProtectionStatus:@"protection" dict:dict];
-    } @catch (NSException* exception) {
+    } @catch (NSException *exception) {
         self.protection = nil;
         DDLogWarn(@"Protection Status is not a dictionary, setting to nil: %@", [[dict valueForKey:@"protection"] description]);
     }
 
     self.editable = [[self requiredNumber:@"editable" dict:dict] boolValue];
 
-    self.revisionId        = [self optionalNumber:@"revision" dict:dict];
-    self.redirectedURL     = [self optionalURL:@"redirected" dict:dict];
-    self.displaytitle      = [self optionalString:@"displaytitle" dict:dict];
+    self.revisionId = [self optionalNumber:@"revision" dict:dict];
+    self.redirectedURL = [self optionalURL:@"redirected" dict:dict];
+    self.displaytitle = [self optionalString:@"displaytitle" dict:dict];
     self.entityDescription = [self optionalString:@"description" dict:dict];
     // From mobileview API...
     if (dict[@"thumb"]) {
@@ -204,7 +173,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     self.thumbnailURL = [self thumbnailURLFromImageURL:self.imageURL];
 
     // Populate sections
-    NSArray* sectionsData = [dict[@"sections"] bk_map:^id (NSDictionary* sectionData) {
+    NSArray *sectionsData = [dict[@"sections"] bk_map:^id(NSDictionary *sectionData) {
         return [[MWKSection alloc] initWithArticle:self dict:sectionData];
     }];
 
@@ -232,11 +201,11 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Image Helpers
 
-- (MWKImage*)imageWithURL:(NSString*)url {
+- (MWKImage *)imageWithURL:(NSString *)url {
     return [self.dataStore imageWithURL:url article:self];
 }
 
-- (NSString*)bestThumbnailImageURL {
+- (NSString *)bestThumbnailImageURL {
     if (self.thumbnailURL) {
         return self.thumbnailURL;
     }
@@ -252,8 +221,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
  * Return image object if folder for that image exists
  * else return nil
  */
-- (MWKImage*)existingImageWithURL:(NSString*)url {
-    NSString* imageCacheFolderPath = [self.dataStore pathForImageURL:url forArticleURL:self.url];
+- (MWKImage *)existingImageWithURL:(NSString *)url {
+    NSString *imageCacheFolderPath = [self.dataStore pathForImageURL:url forArticleURL:self.url];
     if (!imageCacheFolderPath) {
         return nil;
     }
@@ -283,7 +252,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Accessors
 
-- (MWKSectionList*)sections {
+- (MWKSectionList *)sections {
     if (_sections == nil) {
         _sections = [[MWKSectionList alloc] initWithArticle:self];
     }
@@ -294,7 +263,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     if ([self.sections count] == 0) {
         return NO;
     }
-    for (MWKSection* section in self.sections) {
+    for (MWKSection *section in self.sections) {
         if (![section hasTextData]) {
             return NO;
         }
@@ -302,33 +271,33 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return YES;
 }
 
-- (MWKImage*)thumbnail {
+- (MWKImage *)thumbnail {
     if (self.thumbnailURL && !_thumbnail) {
         _thumbnail = [self imageWithURL:self.thumbnailURL];
     }
     return _thumbnail;
 }
 
-- (NSString*)thumbnailURLFromImageURL:(NSString*)imageURL {
+- (NSString *)thumbnailURLFromImageURL:(NSString *)imageURL {
     return WMFChangeImageSourceURLSizePrefix(imageURL, [[UIScreen mainScreen] wmf_listThumbnailWidthForScale].unsignedIntegerValue);
 }
 
-- (void)setThumbnailURL:(NSString*)thumbnailURL {
+- (void)setThumbnailURL:(NSString *)thumbnailURL {
     _thumbnailURL = thumbnailURL;
 }
 
-- (void)setImageURL:(NSString*)imageURL {
+- (void)setImageURL:(NSString *)imageURL {
     _imageURL = imageURL;
 }
 
-- (MWKImage*)image {
+- (MWKImage *)image {
     if (self.imageURL && !_image) {
         _image = [self imageWithURL:self.imageURL];
     }
     return _image;
 }
 
-- (MWKImage*)leadImage {
+- (MWKImage *)leadImage {
     if (self.imageURL) {
         return [self image];
     }
@@ -339,7 +308,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return nil;
 }
 
-- (MWKImage*)bestThumbnailImage {
+- (MWKImage *)bestThumbnailImage {
     if (self.thumbnailURL) {
         return [self thumbnail];
     }
@@ -360,22 +329,21 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - protection status methods
 
-- (MWKProtectionStatus*)requiredProtectionStatus:(NSString*)key dict:(NSDictionary*)dict {
-    NSDictionary* obj = [self requiredDictionary:key dict:dict];
+- (MWKProtectionStatus *)requiredProtectionStatus:(NSString *)key dict:(NSDictionary *)dict {
+    NSDictionary *obj = [self requiredDictionary:key dict:dict];
     if (obj == nil) {
         @throw [NSException exceptionWithName:@"MWKDataObjectException"
                                        reason:@"missing required protection status field"
-                                     userInfo:@{@"key": key}];
+                                     userInfo:@{ @"key": key }];
     } else {
         return [[MWKProtectionStatus alloc] initWithData:obj];
     }
 }
 
-
 #pragma mark - Images
 
-- (NSArray<NSURL*>*)imageURLsForGallery {
-    WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withBaseURL:self.url leadImageURL:self.leadImage.sourceURL];
+- (NSArray<NSURL *> *)imageURLsForGallery {
+    WMFImageTagList *tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withBaseURL:self.url leadImageURL:self.leadImage.sourceURL];
     NSArray *imageURLs = [tagList imageURLsForGallery];
     if (imageURLs.count == 0 && self.imageURL) {
         NSString *imageURLString = [self.imageURL copy];
@@ -389,25 +357,25 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return imageURLs;
 }
 
-- (NSArray<MWKImage*>*)imagesForGallery {
-    return [[self imageURLsForGallery] bk_map:^id (NSURL* url){
+- (NSArray<MWKImage *> *)imagesForGallery {
+    return [[self imageURLsForGallery] bk_map:^id(NSURL *url) {
         return [[MWKImage alloc] initWithArticle:self sourceURL:url];
     }];
 }
 
-- (NSArray<NSURL*>*)imageURLsForSaving {
-    WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withBaseURL:self.url];
+- (NSArray<NSURL *> *)imageURLsForSaving {
+    WMFImageTagList *tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withBaseURL:self.url];
     return [tagList imageURLsForSaving];
 }
 
-- (NSArray<MWKImage*>*)imagesForSaving {
-    return [[self imageURLsForSaving] bk_map:^id (NSURL* url){
+- (NSArray<MWKImage *> *)imagesForSaving {
+    return [[self imageURLsForSaving] bk_map:^id(NSURL *url) {
         return [[MWKImage alloc] initWithArticle:self sourceURL:url];
     }];
 }
 
-- (NSArray<NSURL*>*)schemelessURLsRejectingNilURLs:(NSArray<NSURL*>*)urls {
-    return [urls wmf_mapAndRejectNil:^NSURL*(NSURL* url){
+- (NSArray<NSURL *> *)schemelessURLsRejectingNilURLs:(NSArray<NSURL *> *)urls {
+    return [urls wmf_mapAndRejectNil:^NSURL *(NSURL *url) {
         if ([url isKindOfClass:[NSURL class]]) {
             return [url wmf_schemelessURL];
         } else {
@@ -416,16 +384,16 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     }];
 }
 
-- (NSSet<NSURL*>*)allImageURLs {
-    WMFImageTagList* tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withBaseURL:self.url];
-    NSMutableSet<NSURL*>* imageURLs = [[NSMutableSet alloc] init];
+- (NSSet<NSURL *> *)allImageURLs {
+    WMFImageTagList *tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withBaseURL:self.url];
+    NSMutableSet<NSURL *> *imageURLs = [[NSMutableSet alloc] init];
     //Note: use the 'imageURLsForGallery' and 'imageURLsForSaving' methods on WMFImageTagList so we don't have to parse twice.
     [imageURLs addObjectsFromArray:[tagList imageURLsForGallery]];
     [imageURLs addObjectsFromArray:[tagList imageURLsForSaving]];
 
-    NSArray<MWKImageInfo*>* infos = [self.dataStore imageInfoForArticleWithURL:self.url];
+    NSArray<MWKImageInfo *> *infos = [self.dataStore imageInfoForArticleWithURL:self.url];
 
-    NSArray<NSURL*>* lazilyFetchedHighResolutionGalleryImageURLs = [infos wmf_mapAndRejectNil:^id _Nullable (MWKImageInfo* _Nonnull obj) {
+    NSArray<NSURL *> *lazilyFetchedHighResolutionGalleryImageURLs = [infos wmf_mapAndRejectNil:^id _Nullable(MWKImageInfo *_Nonnull obj) {
         if ([obj isKindOfClass:[MWKImageInfo class]]) {
             return [obj canonicalFileURL];
         } else {
@@ -435,7 +403,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
     [imageURLs addObjectsFromArray:[self schemelessURLsRejectingNilURLs:lazilyFetchedHighResolutionGalleryImageURLs]];
 
-    NSArray<NSURL*>* thumbURLs = [infos wmf_mapAndRejectNil:^id _Nullable (MWKImageInfo* _Nonnull obj) {
+    NSArray<NSURL *> *thumbURLs = [infos wmf_mapAndRejectNil:^id _Nullable(MWKImageInfo *_Nonnull obj) {
         if ([obj isKindOfClass:[MWKImageInfo class]]) {
             return [obj imageThumbURL];
         } else {
@@ -445,46 +413,46 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
     [imageURLs addObjectsFromArray:[self schemelessURLsRejectingNilURLs:thumbURLs]];
 
-    NSURL* articleImageURL = [NSURL wmf_optionalURLWithString:self.imageURL];
+    NSURL *articleImageURL = [NSURL wmf_optionalURLWithString:self.imageURL];
     [imageURLs wmf_safeAddObject:articleImageURL];
 
-    NSURL* articleThumbnailURL = [NSURL wmf_optionalURLWithString:self.thumbnailURL];
+    NSURL *articleThumbnailURL = [NSURL wmf_optionalURLWithString:self.thumbnailURL];
     [imageURLs wmf_safeAddObject:articleThumbnailURL];
 
 #if DEBUG
-    for (NSURL* url in imageURLs) {
+    for (NSURL *url in imageURLs) {
         NSAssert(url.scheme == nil, @"Non nil image url scheme detected! These must be nil here or we can get duplicate image urls in the set - ie the same url twice - once with the scheme and once without. This is because WMFImageTagParser returns urls without schemes because the html it parses does not have schemes - but the MWKImageInfo *does* have schemes in its 'canonicalFileURL' and 'imageThumbURL' properties because the api returns schemes.");
     }
 #endif
 
     // remove any null objects inserted during above map/valueForKey operations
-    return [imageURLs bk_reject:^BOOL (id obj) {
+    return [imageURLs bk_reject:^BOOL(id obj) {
         return [obj isEqual:[NSNull null]];
     }];
 }
 
 #pragma mark Citations
 
-static NSString* const WMFArticleReflistColumnSelector = @"/html/body/*[contains(@class,'reflist')]//*[contains(@class, 'references')]/li";
+static NSString *const WMFArticleReflistColumnSelector = @"/html/body/*[contains(@class,'reflist')]//*[contains(@class, 'references')]/li";
 
-- (NSArray*)citations {
+- (NSArray *)citations {
     if (!_citations) {
-        __block NSArray* referenceListItems;
+        __block NSArray *referenceListItems;
         [self.sections.entries enumerateObjectsWithOptions:NSEnumerationReverse
-                                                usingBlock:^(MWKSection* section, NSUInteger idx, BOOL* stop) {
-            referenceListItems = [section elementsInTextMatchingXPath:WMFArticleReflistColumnSelector];
-            if (referenceListItems.count > 0) {
-                *stop = YES;
-            }
-        }];
+                                                usingBlock:^(MWKSection *section, NSUInteger idx, BOOL *stop) {
+                                                    referenceListItems = [section elementsInTextMatchingXPath:WMFArticleReflistColumnSelector];
+                                                    if (referenceListItems.count > 0) {
+                                                        *stop = YES;
+                                                    }
+                                                }];
         if (!referenceListItems) {
             DDLogWarn(@"Failed to parse reflist for %@ cached article: %@", self.isCached ? @"" : @"not", self);
             return nil;
         }
-        _citations = [[referenceListItems bk_map:^MWKCitation*(TFHppleElement* el) {
+        _citations = [[referenceListItems bk_map:^MWKCitation *(TFHppleElement *el) {
             return [[MWKCitation alloc] initWithCitationIdentifier:el.attributes[@"id"]
                                                            rawHTML:el.raw];
-        }] bk_reject:^BOOL (id obj) {
+        }] bk_reject:^BOOL(id obj) {
             return WMF_IS_EQUAL(obj, [NSNull null]);
         }];
     }
@@ -493,13 +461,13 @@ static NSString* const WMFArticleReflistColumnSelector = @"/html/body/*[contains
 
 #pragma mark Section Paragraphs
 
-- (NSString*)summary {
+- (NSString *)summary {
     if (_summary) {
         return _summary;
     }
 
-    for (MWKSection* section in self.sections) {
-        NSString* summary = [section summary];
+    for (MWKSection *section in self.sections) {
+        NSString *summary = [section summary];
         if (summary) {
             _summary = summary;
             return summary;
@@ -508,27 +476,27 @@ static NSString* const WMFArticleReflistColumnSelector = @"/html/body/*[contains
     return nil;
 }
 
-- (NSString*)articleHTML {
-    NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
+- (NSString *)articleHTML {
+    NSMutableArray *sectionTextArray = [[NSMutableArray alloc] init];
 
-    for (MWKSection* section in self.sections) {
+    for (MWKSection *section in self.sections) {
         // Structural html added around section html just before display.
-        NSString* sectionHTMLWithID = [section displayHTML];
+        NSString *sectionHTMLWithID = [section displayHTML];
         [sectionTextArray addObject:sectionHTMLWithID];
     }
 
     // Join article sections text
-    NSString* joint   = @"";     //@"<div style=\"height:20px;\"></div>";
-    NSString* htmlStr = [sectionTextArray componentsJoinedByString:joint];
+    NSString *joint = @""; //@"<div style=\"height:20px;\"></div>";
+    NSString *htmlStr = [sectionTextArray componentsJoinedByString:joint];
 
     return htmlStr;
 }
 
-- (nullable NSArray<NSURL*>*)disambiguationURLs {
+- (nullable NSArray<NSURL *> *)disambiguationURLs {
     return [[self.sections.entries firstObject] disambiguationURLs];
 }
 
-- (nullable NSArray<NSString*>*)pageIssues {
+- (nullable NSArray<NSString *> *)pageIssues {
     return [[self.sections.entries firstObject] pageIssues];
 }
 

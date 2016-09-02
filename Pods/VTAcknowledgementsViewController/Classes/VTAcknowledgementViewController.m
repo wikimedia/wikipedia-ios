@@ -1,7 +1,7 @@
 //
 // VTAcknowledgementViewController.m
 //
-// Copyright (c) 2013-2015 Vincent Tourraine (http://www.vtourraine.net)
+// Copyright (c) 2013-2016 Vincent Tourraine (http://www.vtourraine.net)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -54,10 +54,21 @@
     }
     textView.alwaysBounceVertical = YES;
     textView.text                 = self.text;
+#if !TARGET_OS_TV
     textView.editable             = NO;
     textView.dataDetectorTypes    = UIDataDetectorTypeLink;
+#else
+    // Allow scrolling on tvOS
+    textView.userInteractionEnabled = YES;
+    textView.selectable             = YES;
+    textView.panGestureRecognizer.allowedTouchTypes = @[@(UITouchTypeIndirect)];
+#endif
     if ([textView respondsToSelector:@selector(setTextContainerInset:)]) {
+#if !TARGET_OS_TV
         textView.textContainerInset = UIEdgeInsetsMake(12, 10, 12, 10);
+#else
+        textView.textContainerInset = UIEdgeInsetsMake(0.0, 60.0, 90.0, 60.0); // Margins from tvOS HIG
+#endif
     }
     textView.contentOffset = CGPointZero;
 
@@ -65,5 +76,12 @@
 
     self.textView = textView;
 }
+
+#if TARGET_OS_TV
+- (UIView *)preferredFocusedView
+{
+    return self.textView;
+}
+#endif
 
 @end

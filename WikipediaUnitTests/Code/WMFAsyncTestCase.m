@@ -1,15 +1,13 @@
-
-
 #import "WMFAsyncTestCase.h"
 
 #if DEBUG
-NSTimeInterval const WMFDefaultExpectationTimeout = 60.0;
+NSTimeInterval const WMFDefaultExpectationTimeout = 1000.0;
 #else
 NSTimeInterval const WMFDefaultExpectationTimeout = 10.0;
 #endif
 
 @interface WMFAsyncTestCase ()
-@property NSMutableArray* expectations;
+@property NSMutableArray *expectations;
 @end
 
 @implementation WMFAsyncTestCase
@@ -25,14 +23,14 @@ NSTimeInterval const WMFDefaultExpectationTimeout = 10.0;
     [super tearDown];
 }
 
-- (void)pushExpectation:(const char*)file line:(int)line {
+- (void)pushExpectation:(const char *)file line:(int)line {
     [self.expectations addObject:
-     [self expectationWithDescription:
-      [NSString stringWithFormat:@"%s:L%d", file, line]]];
+                           [self expectationWithDescription:
+                                     [NSString stringWithFormat:@"%s:L%d", file, line]]];
 }
 
 - (void)popExpectationAfter:(dispatch_block_t)block {
-    XCTestExpectation* expectation = [self.expectations lastObject];
+    XCTestExpectation *expectation = [self.expectations lastObject];
     [self.expectations removeLastObject];
     if (block) {
         block();

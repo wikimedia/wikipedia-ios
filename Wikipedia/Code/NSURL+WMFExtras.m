@@ -1,20 +1,17 @@
-//  Created by Monte Hurd on 6/2/15.
-//  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "NSURL+WMFExtras.h"
 #import "NSString+WMFExtras.h"
 
 @implementation NSURL (WMFExtras)
 
-+ (nullable instancetype)wmf_optionalURLWithString:(nullable NSString*)string {
-    return string.length ? [NSURL URLWithString : string] : nil;
++ (nullable instancetype)wmf_optionalURLWithString:(nullable NSString *)string {
+    return string.length ? [NSURL URLWithString:string] : nil;
 }
 
-- (BOOL)wmf_isEqualToIgnoringScheme:(NSURL*)url {
+- (BOOL)wmf_isEqualToIgnoringScheme:(NSURL *)url {
     return [self.wmf_schemelessURLString isEqualToString:url.wmf_schemelessURLString];
 }
 
-- (nullable NSString*)wmf_schemelessURLString {
+- (nullable NSString *)wmf_schemelessURLString {
     if (self.scheme.length) {
         return [self.absoluteString wmf_safeSubstringFromIndex:self.scheme.length + 1];
     } else {
@@ -22,12 +19,12 @@
     }
 }
 
-- (nullable NSURL*)wmf_schemelessURL {
+- (nullable NSURL *)wmf_schemelessURL {
     if (self.scheme.length) {
-        NSString* string = [self wmf_schemelessURLString];
-        if(string.length > 0){
+        NSString *string = [self wmf_schemelessURLString];
+        if (string.length > 0) {
             return [NSURL URLWithString:string];
-        }else{
+        } else {
             return nil;
         }
     } else {
@@ -35,7 +32,7 @@
     }
 }
 
-- (NSString*)wmf_mimeTypeForExtension {
+- (NSString *)wmf_mimeTypeForExtension {
     // HAX: These SVG URLs don't have an extension, so make them a special case
     if ([self.path containsString:@"/render/svg/"]) {
         return @"image/svg+xml";
@@ -47,12 +44,12 @@
     return self.scheme.length == 0;
 }
 
-- (instancetype)wmf_urlByPrependingSchemeIfSchemeless:(NSString*)scheme {
+- (instancetype)wmf_urlByPrependingSchemeIfSchemeless:(NSString *)scheme {
     NSParameterAssert(scheme.length);
     if (![self wmf_isSchemeless]) {
         return self;
     } else {
-        NSURLComponents* components = [[NSURLComponents alloc] initWithURL:self resolvingAgainstBaseURL:YES];
+        NSURLComponents *components = [[NSURLComponents alloc] initWithURL:self resolvingAgainstBaseURL:YES];
         components.scheme = scheme;
         return components.URL;
     }

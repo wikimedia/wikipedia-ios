@@ -1,12 +1,11 @@
 #import <XCTest/XCTest.h>
 #import <CoreSpotlight/CoreSpotlight.h>
 
-
-@interface NSURL(SpotlightExtensions)
-- (CSSearchableItemAttributeSet * _Nullable)searchableItemAttributes;
+@interface NSURL (SpotlightExtensions)
+- (CSSearchableItemAttributeSet *_Nullable)searchableItemAttributes;
 @end
 
-@interface MWKArticle(SpotlightExtensions)
+@interface MWKArticle (SpotlightExtensions)
 - (CSSearchableItemAttributeSet *)searchableItemAttributes;
 @end
 
@@ -16,11 +15,7 @@
 @implementation NSURL_searchableItemAttributes_Test
 
 - (void)testSearchableItemAttributeSetURL {
-    
-    if([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]){
-        return;
-    }
-    
+
     NSURL *url = [NSURL URLWithString:@"https://en.wikipedia.org/wiki/This_Is_A_Test"];
     CSSearchableItemAttributeSet *attributes = url.searchableItemAttributes;
 
@@ -28,7 +23,7 @@
     XCTAssertEqualObjects(attributes.title, @"This Is A Test");
     XCTAssertEqualObjects(attributes.displayName, @"This Is A Test");
 
-    NSArray *keywords = @[ @"Wikipedia", @"Wikimedia", @"Wiki", @"This", @"Is", @"A", @"Test"];
+    NSArray *keywords = @[@"Wikipedia", @"Wikimedia", @"Wiki", @"This", @"Is", @"A", @"Test"];
 
     XCTAssertEqualObjects(attributes.keywords, keywords);
     XCTAssertEqualObjects(attributes.identifier, @"https://en.wikipedia.org/wiki/This_Is_A_Test");
@@ -46,11 +41,7 @@
 
 @implementation MWKArticle_searchableItemAttributes_Test
 - (void)testSearchableItemAttributeSetURL {
-    
-    if([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]){
-        return;
-    }
-    
+
     NSURL *url = [NSURL URLWithString:@"https://en.wikipedia.org/wiki/This_Is_A_Test"];
     MWKArticle *article = [[MWKArticle alloc] initWithURL:url];
     [article setValue:@"entityDescription" forKey:@"entityDescription"];

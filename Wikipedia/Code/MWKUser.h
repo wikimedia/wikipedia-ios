@@ -1,11 +1,3 @@
-//
-//  MWKUser.h
-//  MediaWikiKit
-//
-//  Created by Brion on 10/14/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
-
 #pragma once
 
 #import <Foundation/Foundation.h>
@@ -15,11 +7,11 @@
 @interface MWKUser : MWKSiteDataObject
 
 @property (readonly, assign, nonatomic) BOOL anonymous;
-@property (readonly, copy, nonatomic) NSString* name;
-@property (readonly, copy, nonatomic) NSString* gender;
+@property (readonly, copy, nonatomic) NSString *name;
+@property (readonly, copy, nonatomic) NSString *gender;
 
-- (instancetype)initWithSiteURL:(NSURL*)siteURL data:(id)data;
+- (instancetype)initWithSiteURL:(NSURL *)siteURL data:(id)data;
 
-- (BOOL)isEqualToUser:(MWKUser*)user;
+- (BOOL)isEqualToUser:(MWKUser *)user;
 
 @end

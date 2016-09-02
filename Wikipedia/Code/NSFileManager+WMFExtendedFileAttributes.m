@@ -1,25 +1,23 @@
-//Thanks to https://www.cocoanetics.com/2012/03/reading-and-writing-extended-file-attributes/
-
 #import "NSFileManager+WMFExtendedFileAttributes.h"
 #import <sys/xattr.h>
 
-NSString* const WMFExtendedFileAttributesErrorDomain = @"org.wikimedia.WMFExtendedFileAttributesError";
+NSString *const WMFExtendedFileAttributesErrorDomain = @"org.wikimedia.WMFExtendedFileAttributesError";
 
 @implementation NSFileManager (WMFExtendedFileAttributes)
 
-- (BOOL)wmf_setValue:(NSString*)value forExtendedFileAttributeNamed:(NSString*)attributeName forFileAtPath:(NSString*)path error:(NSError**)error {
-    const char* attributeNamePtr = [attributeName UTF8String];
-    const char* pathPtr          = [path fileSystemRepresentation];
+- (BOOL)wmf_setValue:(NSString *)value forExtendedFileAttributeNamed:(NSString *)attributeName forFileAtPath:(NSString *)path error:(NSError **)error {
+    const char *attributeNamePtr = [attributeName UTF8String];
+    const char *pathPtr = [path fileSystemRepresentation];
 
-    const char* valuePtr = [value UTF8String];
+    const char *valuePtr = [value UTF8String];
 
     int result = setxattr(pathPtr, attributeNamePtr, valuePtr, strlen(valuePtr), 0, 0);
 
     BOOL validResult = result != -1;
 
     if (!validResult && error) {
-        int err                    = errno;
-        NSString* errorDescription = @"An unexpected error has occurred.";
+        int err = errno;
+        NSString *errorDescription = @"An unexpected error has occurred.";
         switch (err) {
             case EEXIST:
                 errorDescription = @"Options contains XATTR_CREATE and the named attribute already exists.";
@@ -66,22 +64,22 @@ NSString* const WMFExtendedFileAttributesErrorDomain = @"org.wikimedia.WMFExtend
             case ENOSPC:
                 errorDescription = @"Not enough space left on the file system.";
         }
-        NSDictionary* userInfo = @{NSLocalizedDescriptionKey: errorDescription};
+        NSDictionary *userInfo = @{NSLocalizedDescriptionKey: errorDescription};
         *error = [NSError errorWithDomain:WMFExtendedFileAttributesErrorDomain code:err userInfo:userInfo];
     }
     return result == 0;
 }
 
-- (NSString*)wmf_valueForExtendedFileAttributeNamed:(NSString*)attributeName forFileAtPath:(NSString*)path {
-    const char* attributeNamePtr = [attributeName UTF8String];
-    const char* pathPtr          = [path fileSystemRepresentation];
+- (NSString *)wmf_valueForExtendedFileAttributeNamed:(NSString *)attributeName forFileAtPath:(NSString *)path {
+    const char *attributeNamePtr = [attributeName UTF8String];
+    const char *pathPtr = [path fileSystemRepresentation];
 
     ssize_t bufferLength = getxattr(pathPtr, attributeNamePtr, NULL, 0, 0, 0);
 
-    NSString* result = nil;
+    NSString *result = nil;
 
     if (bufferLength != -1) { //-1 indicates an error
-        char* buffer = malloc(bufferLength);
+        char *buffer = malloc(bufferLength);
 
         ssize_t readLen = getxattr(pathPtr, attributeNamePtr, buffer, bufferLength, 0, 0);
 

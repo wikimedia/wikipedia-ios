@@ -1,20 +1,18 @@
-
 #import "WMFArticleListCollectionViewCell.h"
 #import "UIColor+WMFStyle.h"
 #import "UIImage+WMFStyle.h"
-#import "UIImageView+WMFImageFetching.h"
+#import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UITableViewCell+SelectedBackground.h"
 #import "UIImageView+WMFPlaceholder.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 
 @interface WMFArticleListCollectionViewCell ()
 
-@property (strong, nonatomic) IBOutlet UILabel* titleLabel;
-@property (strong, nonatomic) IBOutlet UILabel* descriptionLabel;
-@property (strong, nonatomic) IBOutlet UIImageView* articleImageView;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *articleImageView;
 
 @end
-
 
 @implementation WMFArticleListCollectionViewCell
 
@@ -36,19 +34,19 @@
 
 - (void)configureCell {
     [self configureContentView];
-    
+
     [self wmf_addSelectedBackgroundView];
     [self configureImageViewWithPlaceholder];
 }
 
 - (void)configureContentView {
-    self.clipsToBounds               = NO;
+    self.clipsToBounds = NO;
     self.contentView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.titleLabel.text       = nil;
+    self.titleLabel.text = nil;
     self.descriptionLabel.text = nil;
     [self configureImageViewWithPlaceholder];
 }
@@ -57,45 +55,45 @@
     [super awakeFromNib];
     [self configureImageViewWithPlaceholder];
     [self wmf_makeCellDividerBeEdgeToEdge];
-    self.titleLabel.textAlignment       = NSTextAlignmentNatural;
+    self.titleLabel.textAlignment = NSTextAlignmentNatural;
     self.descriptionLabel.textAlignment = NSTextAlignmentNatural;
 }
 
 #pragma mark - Title
 
-- (void)setTitleText:(NSString*)titleText {
+- (void)setTitleText:(NSString *)titleText {
     self.titleLabel.text = titleText;
 }
 
-- (NSString*)titleText {
+- (NSString *)titleText {
     return self.titleLabel.text;
 }
 
 #pragma mark - Description
 
-- (void)setDescriptionText:(NSString*)descriptionText {
+- (void)setDescriptionText:(NSString *)descriptionText {
     self.descriptionLabel.text = descriptionText;
 }
 
-- (NSString*)descriptionText {
+- (NSString *)descriptionText {
     return self.descriptionLabel.text;
 }
 
 #pragma mark - Image
 
-- (void)setImageURL:(NSURL*)imageURL failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+- (void)setImageURL:(NSURL *)imageURL failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     [self.articleImageView wmf_setImageWithURL:imageURL detectFaces:YES failure:failure success:success];
 }
 
-- (void)setImage:(MWKImage*)image failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+- (void)setImage:(MWKImage *)image failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES failure:failure success:success];
 }
 
-- (void)setImageURL:(NSURL*)imageURL {
+- (void)setImageURL:(NSURL *)imageURL {
     [self setImageURL:imageURL failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
 }
 
-- (void)setImage:(MWKImage*)image {
+- (void)setImage:(MWKImage *)image {
     [self setImage:image failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
 }
 

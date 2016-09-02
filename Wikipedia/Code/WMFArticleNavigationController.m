@@ -7,8 +7,8 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
 
 @property (nullable, nonatomic, weak) id<UINavigationControllerDelegate> navigationDelegate;
 
-@property (nonatomic, strong) UIToolbar* secondToolbar;
-@property (nonatomic, getter = isSecondToolbarHidden) BOOL secondToolbarHidden;
+@property (nonatomic, strong) UIToolbar *secondToolbar;
+@property (nonatomic, getter=isSecondToolbarHidden) BOOL secondToolbarHidden;
 
 @end
 
@@ -19,7 +19,7 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
     [super setDelegate:self];
 
     self.secondToolbarHidden = YES;
-    self.secondToolbar       = [[UIToolbar alloc] initWithFrame:CGRectZero];
+    self.secondToolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
     [self.view addSubview:self.secondToolbar];
     [self layoutSecondToolbarForViewBounds:self.view.bounds hidden:self.isSecondToolbarHidden animated:NO];
 }
@@ -68,12 +68,12 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
 
 #pragma mark - UINavigationControllerDelegate
 
-- (void)navigationController:(UINavigationController*)navigationController willShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if ([self.navigationDelegate respondsToSelector:@selector(navigationController:willShowViewController:animated:)]) {
         [self.navigationDelegate navigationController:navigationController willShowViewController:viewController animated:animated];
     }
     //Ideally this observes secondToolbarItems for changes, but this is all we need for our use case at the moment
-    NSArray* newItems = viewController.secondToolbarItems;
+    NSArray *newItems = viewController.secondToolbarItems;
     [self.secondToolbar setItems:newItems animated:animated];
     if (newItems.count > 0) {
         [self setSecondToolbarHidden:NO animated:YES];
@@ -82,13 +82,13 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
     }
 }
 
-- (void)navigationController:(UINavigationController*)navigationController didShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if ([self.navigationDelegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)]) {
         [self.navigationDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
     }
 }
 
-- (UIInterfaceOrientationMask)navigationControllerSupportedInterfaceOrientations:(UINavigationController*)navigationController {
+- (UIInterfaceOrientationMask)navigationControllerSupportedInterfaceOrientations:(UINavigationController *)navigationController {
     if ([self.navigationDelegate respondsToSelector:@selector(navigationControllerSupportedInterfaceOrientations:)]) {
         return [self.navigationDelegate navigationControllerSupportedInterfaceOrientations:navigationController];
     } else {
@@ -96,7 +96,7 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
     }
 }
 
-- (UIInterfaceOrientation)navigationControllerPreferredInterfaceOrientationForPresentation:(UINavigationController*)navigationController {
+- (UIInterfaceOrientation)navigationControllerPreferredInterfaceOrientationForPresentation:(UINavigationController *)navigationController {
     if ([self.navigationDelegate respondsToSelector:@selector(navigationControllerPreferredInterfaceOrientationForPresentation:)]) {
         return [self.navigationDelegate navigationControllerPreferredInterfaceOrientationForPresentation:navigationController];
     } else {
@@ -104,8 +104,8 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
     }
 }
 
-- (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController*)navigationController
-                                   interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>)animationController {
+- (nullable id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
+                                  interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
     if ([self.navigationDelegate respondsToSelector:@selector(navigationController:interactionControllerForAnimationController:)]) {
         return [self.navigationDelegate navigationController:navigationController interactionControllerForAnimationController:animationController];
     } else {
@@ -113,10 +113,10 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
     }
 }
 
-- (nullable id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController*)navigationController
-                                            animationControllerForOperation:(UINavigationControllerOperation)operation
-                                                         fromViewController:(UIViewController*)fromVC
-                                                           toViewController:(UIViewController*)toVC {
+- (nullable id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                           animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                        fromViewController:(UIViewController *)fromVC
+                                                          toViewController:(UIViewController *)toVC {
     if ([self.navigationDelegate respondsToSelector:@selector(navigationController:animationControllerForOperation:fromViewController:toViewController:)]) {
         return [self.navigationDelegate navigationController:navigationController animationControllerForOperation:operation fromViewController:fromVC toViewController:toVC];
     } else {
@@ -128,13 +128,13 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
 
 @implementation UIViewController (UINavigationControllerContextualSecondToolbarItems)
 
-static const void* SecondToolbarItemsKey = &SecondToolbarItemsKey;
+static const void *SecondToolbarItemsKey = &SecondToolbarItemsKey;
 
-- (void)setSecondToolbarItems:(NSArray<__kindof UIBarButtonItem*>*)secondToolbarItems {
+- (void)setSecondToolbarItems:(NSArray<__kindof UIBarButtonItem *> *)secondToolbarItems {
     objc_setAssociatedObject(self, SecondToolbarItemsKey, secondToolbarItems, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (NSArray<__kindof UIBarButtonItem*>*)secondToolbarItems {
+- (NSArray<__kindof UIBarButtonItem *> *)secondToolbarItems {
     return objc_getAssociatedObject(self, SecondToolbarItemsKey);
 }
 
