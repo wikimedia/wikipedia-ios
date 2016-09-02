@@ -9,7 +9,7 @@ extern NSString *const WMFZeroDispositionDidChange;
 extern NSString *const ZeroOnDialogShownOnce;
 extern NSString *const ZeroWarnWhenLeaving;
 
-@interface ZeroConfigState : NSObject
+@interface WMFZeroConfigurationManager : NSObject
 
 @property (nonatomic, strong, nullable, readonly) WMFZeroConfiguration *zeroConfiguration;
 

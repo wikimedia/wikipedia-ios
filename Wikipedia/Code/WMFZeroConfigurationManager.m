@@ -1,4 +1,4 @@
-#import "ZeroConfigState.h"
+#import "WMFZeroConfigurationManager.h"
 //#import <Tweaks/FBTweakInline.h>
 
 #import "WMFZeroConfiguration.h"
@@ -14,7 +14,7 @@ NSString *const WMFZeroDispositionDidChange = @"WMFZeroDispositionDidChange";
 NSString *const ZeroOnDialogShownOnce = @"ZeroOnDialogShownOnce";
 NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 
-@interface ZeroConfigState ()
+@interface WMFZeroConfigurationManager ()
 
 @property (nonatomic, strong, readonly) WMFZeroConfigurationFetcher *zeroConfigurationFetcher;
 @property (nonatomic, strong, nullable, readwrite) WMFZeroConfiguration *zeroConfiguration;
@@ -25,7 +25,7 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 
 @end
 
-@implementation ZeroConfigState
+@implementation WMFZeroConfigurationManager
 @synthesize disposition = _disposition;
 @synthesize zeroConfigurationFetcher = _zeroConfigurationFetcher;
 

@@ -666,8 +666,8 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)updateZeroState {
-    if ([[SessionSingleton sharedInstance] zeroConfigState].disposition) {
-        [self showBannerForZeroConfiguration:[[[SessionSingleton sharedInstance] zeroConfigState] zeroConfiguration]];
+    if ([[SessionSingleton sharedInstance] zeroConfigurationManager].disposition) {
+        [self showBannerForZeroConfiguration:[[[SessionSingleton sharedInstance] zeroConfigurationManager] zeroConfiguration]];
     } else {
         self.zeroStatusLabel.text = @"";
     }

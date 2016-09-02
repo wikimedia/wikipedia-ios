@@ -645,10 +645,10 @@
 		D844D9E51D6CBF9C0042D692 /* WMFSharing.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807061C0CEBDA0065EBC0 /* WMFSharing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9E61D6CBFAC0042D692 /* MWKArticle+WMFSharing.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804751C0CE0B40065EBC0 /* MWKArticle+WMFSharing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9E71D6CBFB00042D692 /* MWKArticle+WMFSharing.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804761C0CE0B40065EBC0 /* MWKArticle+WMFSharing.m */; };
-		D844D9E81D6CBFCC0042D692 /* ZeroConfigState.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807401C0CED9F0065EBC0 /* ZeroConfigState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D844D9E81D6CBFCC0042D692 /* WMFZeroConfigurationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807401C0CED9F0065EBC0 /* WMFZeroConfigurationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9E91D6CBFD10042D692 /* WMFZeroConfigurationFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = BCB00EBC1C84F1EB0070E220 /* WMFZeroConfigurationFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9EA1D6CBFD10042D692 /* WMFZeroConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = BCB00EBF1C84F2690070E220 /* WMFZeroConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D844D9EB1D6CBFE40042D692 /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807411C0CED9F0065EBC0 /* ZeroConfigState.m */; };
+		D844D9EB1D6CBFE40042D692 /* WMFZeroConfigurationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807411C0CED9F0065EBC0 /* WMFZeroConfigurationManager.m */; };
 		D844D9EC1D6CBFE40042D692 /* WMFZeroConfigurationFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB00EBD1C84F1EB0070E220 /* WMFZeroConfigurationFetcher.m */; };
 		D844D9ED1D6CBFE40042D692 /* WMFZeroConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB00EC01C84F2690070E220 /* WMFZeroConfiguration.m */; };
 		D844D9EE1D6CBFFD0042D692 /* MWKDataStoreList.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807841C0CEF660065EBC0 /* MWKDataStoreList.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1751,8 +1751,8 @@
 		B0E807381C0CED810065EBC0 /* WMFMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMath.m; path = Wikipedia/Code/WMFMath.m; sourceTree = SOURCE_ROOT; };
 		B0E807391C0CED810065EBC0 /* WMFOutParamUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFOutParamUtils.h; path = Wikipedia/Code/WMFOutParamUtils.h; sourceTree = SOURCE_ROOT; };
 		B0E8073A1C0CED810065EBC0 /* WMFRangeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFRangeUtils.h; path = Wikipedia/Code/WMFRangeUtils.h; sourceTree = SOURCE_ROOT; };
-		B0E807401C0CED9F0065EBC0 /* ZeroConfigState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZeroConfigState.h; path = Wikipedia/Code/ZeroConfigState.h; sourceTree = SOURCE_ROOT; };
-		B0E807411C0CED9F0065EBC0 /* ZeroConfigState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZeroConfigState.m; path = Wikipedia/Code/ZeroConfigState.m; sourceTree = SOURCE_ROOT; };
+		B0E807401C0CED9F0065EBC0 /* WMFZeroConfigurationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFZeroConfigurationManager.h; path = Wikipedia/Code/WMFZeroConfigurationManager.h; sourceTree = SOURCE_ROOT; };
+		B0E807411C0CED9F0065EBC0 /* WMFZeroConfigurationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFZeroConfigurationManager.m; path = Wikipedia/Code/WMFZeroConfigurationManager.m; sourceTree = SOURCE_ROOT; };
 		B0E807751C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+WMFImageFetchingInternal.h"; path = "Wikipedia/Code/UIImageView+WMFImageFetchingInternal.h"; sourceTree = SOURCE_ROOT; };
 		B0E807761C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+WMFImageFetchingInternal.m"; path = "Wikipedia/Code/UIImageView+WMFImageFetchingInternal.m"; sourceTree = SOURCE_ROOT; };
 		B0E807781C0CEEC00065EBC0 /* MWKImageInfo+MWKImageComparison.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKImageInfo+MWKImageComparison.h"; path = "Wikipedia/Code/MWKImageInfo+MWKImageComparison.h"; sourceTree = SOURCE_ROOT; };
@@ -5424,8 +5424,8 @@
 				BC070C2E1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.m */,
 				B0E807841C0CEF660065EBC0 /* MWKDataStoreList.h */,
 				B0E807871C0CEF660065EBC0 /* MWKList+Subclass.h */,
-				B0E807401C0CED9F0065EBC0 /* ZeroConfigState.h */,
-				B0E807411C0CED9F0065EBC0 /* ZeroConfigState.m */,
+				B0E807401C0CED9F0065EBC0 /* WMFZeroConfigurationManager.h */,
+				B0E807411C0CED9F0065EBC0 /* WMFZeroConfigurationManager.m */,
 				B0E8067D1C0CE9C70065EBC0 /* WMFNetworkUtilities.h */,
 				B0E8067E1C0CE9C70065EBC0 /* WMFNetworkUtilities.m */,
 				BCB00EBC1C84F1EB0070E220 /* WMFZeroConfigurationFetcher.h */,
@@ -5816,7 +5816,7 @@
 				D849D64D1D6CC7D200D06FC8 /* WMFImageTag.h in Headers */,
 				D844D9B21D6CB7770042D692 /* MWKSavedPageList.h in Headers */,
 				D87E54001D6CC704005134EF /* WMFMantleJSONResponseSerializer.h in Headers */,
-				D844D9E81D6CBFCC0042D692 /* ZeroConfigState.h in Headers */,
+				D844D9E81D6CBFCC0042D692 /* WMFZeroConfigurationManager.h in Headers */,
 				D83FA6BA1D74CE48008CAB00 /* EventLogger.h in Headers */,
 				D83FA6B71D74CDEB008CAB00 /* ReadingActionFunnel.h in Headers */,
 				D844D9EF1D6CC0010042D692 /* MWKList+Subclass.h in Headers */,
@@ -7270,7 +7270,7 @@
 				D89D43FF1D74D35F00F7862E /* WMFArticlePreviewFetcher.m in Sources */,
 				D844D9911D6CB5970042D692 /* MWKArticle.m in Sources */,
 				D844D9A11D6CB6660042D692 /* WMFURLCache.m in Sources */,
-				D844D9EB1D6CBFE40042D692 /* ZeroConfigState.m in Sources */,
+				D844D9EB1D6CBFE40042D692 /* WMFZeroConfigurationManager.m in Sources */,
 				D83FA6B01D74CD4A008CAB00 /* AFHTTPSessionManager+WMFDesktopRetry.m in Sources */,
 				D844D99A1D6CB5F00042D692 /* NSString+WMFPageUtilities.m in Sources */,
 				D83FA6B81D74CDEE008CAB00 /* ReadingActionFunnel.m in Sources */,

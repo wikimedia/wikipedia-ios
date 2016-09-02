@@ -857,9 +857,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 #pragma mark - WMFZeroDisposition
 
 - (void)zeroDispositionDidChange:(NSNotification *)note {
-    ZeroConfigState *state = [note object];
-    if ([SessionSingleton sharedInstance].zeroConfigState.disposition) {
-        [self showFirstTimeZeroOnAlertIfNeeded:state.zeroConfiguration];
+    WMFZeroConfigurationManager *zeroConfigurationManager = [note object];
+    if (zeroConfigurationManager.disposition) {
+        [self showFirstTimeZeroOnAlertIfNeeded:zeroConfigurationManager.zeroConfiguration];
     } else {
         [self showZeroOffAlert];
     }

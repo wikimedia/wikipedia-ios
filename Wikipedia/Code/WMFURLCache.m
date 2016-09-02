@@ -66,7 +66,7 @@
 
     if ([self isJsonResponse:cachedResponse fromWikipediaAPIRequest:request]) {
         //NSLog(@"Processing zero headers for cached repsonse from %@", request);
-        [[SessionSingleton sharedInstance].zeroConfigState inspectResponseForZeroHeaders:cachedResponse.response];
+        [[SessionSingleton sharedInstance].zeroConfigurationManager inspectResponseForZeroHeaders:cachedResponse.response];
     }
 }
 

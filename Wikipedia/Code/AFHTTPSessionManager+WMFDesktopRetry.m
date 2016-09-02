@@ -11,7 +11,7 @@
                                              success:(void (^)(NSURLSessionDataTask *operation, id responseObject))success
                                              failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure {
     // If Zero rated try mobile domain first if Zero rated, with desktop fallback.
-    BOOL isZeroRated = [SessionSingleton sharedInstance].zeroConfigState.disposition;
+    BOOL isZeroRated = [SessionSingleton sharedInstance].zeroConfigurationManager.disposition;
     if (isZeroRated) {
         return [self GET:mobileURLString
             parameters:parameters

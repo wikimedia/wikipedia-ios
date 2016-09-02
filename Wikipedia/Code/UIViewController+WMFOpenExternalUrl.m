@@ -2,7 +2,7 @@
 #import "SVModalWebViewController.h"
 
 #import "Global.h"
-#import "ZeroConfigState.h"
+#import "WMFZeroConfigurationManager.h"
 #import "SessionSingleton.h"
 #import "UIAlertView+BlocksKit.h"
 #import "WMFZeroConfiguration.h"
@@ -19,8 +19,8 @@
     NSParameterAssert(url);
 
     //If zero rated, don't open any external (non-zero rated!) links until user consents!
-    if ([SessionSingleton sharedInstance].zeroConfigState.disposition && [[NSUserDefaults wmf_userDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
-        WMFZeroConfiguration *zeroConfiguration = [SessionSingleton sharedInstance].zeroConfigState.zeroConfiguration;
+    if ([SessionSingleton sharedInstance].zeroConfigurationManager.disposition && [[NSUserDefaults wmf_userDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
+        WMFZeroConfiguration *zeroConfiguration = [SessionSingleton sharedInstance].zeroConfigurationManager.zeroConfiguration;
         NSString *exitDialogTitle = zeroConfiguration.exitTitle ?: MWLocalizedString(@"zero-interstitial-title", nil);
         NSString *messageWithHost = [NSString stringWithFormat:@"%@\n\n%@", zeroConfiguration.exitWarning ?: MWLocalizedString(@"zero-interstitial-leave-app", nil), url.host];
 
