@@ -6677,7 +6677,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH?ContinueReadingWidget.appex/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
+			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$PLUGINS_FOLDER_PATH/ContinueReadingWidget.appex/Frameworks\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
 		};
 		D8D5DB4A1D7A25EE00526A69 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
