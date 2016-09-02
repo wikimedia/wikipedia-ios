@@ -7,7 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString *const WMFZeroRatedChanged = @"WMFZeroDispositionDidChange";
+NSString *const WMFZeroRatingChanged = @"WMFZeroDispositionDidChange";
 NSString *const WMFZeroOnDialogShownOnce = @"ZeroOnDialogShownOnce";
 NSString *const WMFZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 NSString *const WMFZeroXCarrier = @"X-Carrier";
@@ -47,7 +47,7 @@ NSString *const WMFZeroXCarrierMeta = @"X-Carrier-Meta";
     @synchronized(self) {
         if(_isZeroRated != isZeroRated){
             _isZeroRated = isZeroRated;
-            [[NSNotificationCenter defaultCenter] postNotificationName:WMFZeroRatedChanged object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:WMFZeroRatingChanged object:self];
         }
     }
 }
@@ -96,7 +96,7 @@ NSString *const WMFZeroXCarrierMeta = @"X-Carrier-Meta";
             @strongify(self);
             
             // If the config is not enabled its "message" will be nil, so if we detect a nil message
-            // set the isZeroRated to NO before we post the WMFZeroRatedChanged notification.
+            // set the isZeroRated to NO before we post the WMFZeroRatingChanged notification.
             if(zeroConfiguration.message == nil){
                 self.isZeroRated = NO;
                 // Reminder: don't nil out self.zeroConfiguration here or the carrier's exit message won't be available.

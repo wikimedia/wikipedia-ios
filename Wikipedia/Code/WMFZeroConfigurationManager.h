@@ -4,7 +4,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString *const WMFZeroRatedChanged;
+extern NSString *const WMFZeroRatingChanged;
 extern NSString *const WMFZeroOnDialogShownOnce;
 extern NSString *const WMFZeroWarnWhenLeaving;
 extern NSString *const WMFZeroXCarrier;
@@ -26,7 +26,7 @@ extern NSString *const WMFZeroXCarrierMeta;
 
 /**
  * Inspects response headers to determine if network is Zero rated. Sets "isZeroRated" to YES if so or NO if not.
- * Posts WMFZeroRatedChanged notification if change is made to "isZeroRated".
+ * Posts WMFZeroRatingChanged notification if change is made to "isZeroRated".
  */
 - (void)inspectResponseForZeroHeaders:(NSURLResponse*)response;
 
