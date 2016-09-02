@@ -16,12 +16,26 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     let shortDateFormatter = NSDateFormatter.wmf_englishHyphenatedYearMonthDayFormatter()
     let numberFormatter = NSNumberFormatter()
     
+
+
+
     // Views & View State
+    @IBOutlet weak var snapshotContainerView: UIView!
     var snapshotView: UIView?
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var footerView: UIView!
     @IBOutlet weak var footerLabel: UILabel!
+    
+    @IBOutlet weak var footerViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var footerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stackViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var stackViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stackViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var snapshotTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var snapshotHeightConstraint: NSLayoutConstraint!
     
     
     @IBOutlet weak var stackView: UIStackView!
@@ -32,10 +46,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     var maximumSize = CGSizeZero
     var maximumRowCount = 3
     
-    var footerHeight: CGFloat = 57
     var footerVisible = true
     
-    var headerHeight: CGFloat = 44
     var headerVisible = true
     
     var hideStackViewOnNextLayout = false
@@ -47,6 +59,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         numberFormatter.numberStyle = .DecimalStyle
+        headerLabel.text = nil
+        footerLabel.text = nil
+        headerLabel.textColor = UIColor.wmf_darkGray()
+        footerLabel.textColor = UIColor.wmf_darkGray()
         
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:)))
         
@@ -66,8 +82,12 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func layoutForSize(size: CGSize) {
-        let headerOrigin = headerVisible ? CGPointZero : CGPointMake(0, 0 - headerHeight)
-        let stackViewOrigin = headerVisible ? CGPointMake(0, headerHeight) : CGPointZero
+        let headerHeight = headerViewHeightConstraint.constant
+        let footerHeight = footerViewHeightConstraint.constant
+        headerViewTopConstraint.constant = headerVisible ? 0 : 0 - headerHeight
+        stackViewTopConstraint.constant = headerVisible ? headerHeight : 0
+        stackViewWidthConstraint.constant = size.width
+        footerViewBottomConstraint.constant = footerVisible ? 0 : 0 - footerHeight
         var stackViewHeight = size.height
         if headerVisible {
             stackViewHeight -= headerHeight
@@ -75,22 +95,19 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         if footerVisible {
             stackViewHeight -= footerHeight
         }
-        headerView.frame = CGRect(origin: headerOrigin, size: CGSize(width: size.width, height: headerHeight))
-        footerView.frame = CGRect(origin: CGPoint(x: 0, y: footerVisible ? size.height - footerHeight : size.height), size: CGSize(width: size.width, height: footerHeight))
-        
-        stackView.frame = CGRect(origin: stackViewOrigin, size: CGSize(width: size.width, height: stackViewHeight))
-        if var snapshotFrame = snapshotView?.frame {
-            snapshotFrame.origin = headerVisible ? stackViewOrigin : headerOrigin
-            snapshotView?.frame = snapshotFrame
-        }
+        stackViewHeightConstraint.constant = stackViewHeight
+
+        snapshotTopConstraint.constant = headerVisible ? stackViewTopConstraint.constant : headerViewTopConstraint.constant
         
         footerView.alpha = footerVisible ? 1 : 0
         headerView.alpha = headerVisible ? 1 : 0
+        
+        view.layoutIfNeeded()
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-
+        
         if hideStackViewOnNextLayout {
             stackView.alpha = 0
             hideStackViewOnNextLayout = false
@@ -100,8 +117,13 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             self.stackView.alpha = 1
             self.layoutForSize(size)
             }) { (context) in
-            self.snapshotView?.removeFromSuperview()
-            self.snapshotView = nil
+                if (!context.isAnimated()) {
+                    self.layoutForSize(size)
+                    self.stackView.alpha = 1
+                }
+                
+                self.snapshotView?.removeFromSuperview()
+                self.snapshotView = nil
         }
     }
     
@@ -126,11 +148,11 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             return
         }
         headerLabel.text = dateFormatter.stringFromDate(date).uppercaseString
+        footerLabel.text = localizedStringForKeyFallingBackOnEnglish("top-read-see-more-trending").uppercaseString
         var i = 0
         var didRemove = false
         var didAdd = false
         let newSnapshot = view.snapshotViewAfterScreenUpdates(false)
-        stackView.removeArrangedSubview(footerView)
         while i < count {
             var vc: WMFArticlePreviewViewController
             if (i < articlePreviewViewControllers.count) {
@@ -172,18 +194,20 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             i += 1
         }
         
-        if let snapshot = newSnapshot where didRemove || didAdd {
-            snapshot.frame = view.bounds
-            view.addSubview(snapshot)
-            snapshotView = snapshot
-        }
-        
         if didAdd {
             hideStackViewOnNextLayout = true
         }
         
-        var size = stackView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityDefaultLow)
+        stackViewHeightConstraint.active = false
+        stackViewWidthConstraint.constant = maximumSize.width
+        var sizeToFit = UILayoutFittingCompressedSize
+        sizeToFit.width = maximumSize.width
+        var size = stackView.systemLayoutSizeFittingSize(sizeToFit, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityDefaultLow)
         size.width = maximumSize.width
+        stackViewHeightConstraint.active = true
+        
+        let headerHeight = headerViewHeightConstraint.constant
+        let footerHeight = footerViewHeightConstraint.constant
         
         if headerVisible {
             size.height += headerHeight
@@ -192,17 +216,24 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         if footerVisible {
             size.height += footerHeight
         }
+
+        stackViewHeightConstraint.constant = size.height
+    
+        footerView.alpha = footerVisible ? 0 : 1
+        footerViewBottomConstraint.constant = footerVisible ? 0 - footerHeight : 0
+        
+        snapshotTopConstraint.constant = 0
+        snapshotHeightConstraint.constant = view.bounds.size.height
         
         preferredContentSize = size
-
-        var stackViewFrame = stackView.frame
-        stackViewFrame.size = size
-        stackView.frame = stackViewFrame
+        view.layoutIfNeeded()
         
-        footerView.hidden = !footerVisible
-        var footerViewFrame = footerView.frame
-        footerViewFrame.origin = CGPoint(x:0, y:CGRectGetMaxY(stackView.frame))
-        footerView.frame = footerViewFrame
+        if let snapshot = newSnapshot where didRemove || didAdd {
+            snapshot.frame = snapshotContainerView.bounds
+            snapshotContainerView.addSubview(snapshot)
+            snapshotView?.autoresizingMask = UIViewAutoresizing.FlexibleWidth.union(.FlexibleHeight)
+            snapshotView = snapshot
+        }
     }
 
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
