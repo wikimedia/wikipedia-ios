@@ -516,6 +516,7 @@
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
 		D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
 		D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */; };
+		D80187F51D6CCCE7009EF2EE /* WMFUtilities.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D80C24B51D673DA000816503 /* WMFNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D80C24B41D673DA000816503 /* WMFNavigationController.m */; };
 		D80C24B81D673DC300816503 /* WMFTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D80C24B71D673DC300816503 /* WMFTabBarController.m */; };
 		D81083071D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m in Sources */ = {isa = PBXBuildFile; fileRef = D81083061D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m */; };
@@ -777,6 +778,7 @@
 		D8A76D701D6F274200E5A798 /* UIImage+WMFNormalization.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804FC1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.h */; };
 		D8A76D711D6F274A00E5A798 /* UIImage+WMFNormalization.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804FD1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.m */; };
 		D8A76D741D6F279F00E5A798 /* WMFModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; };
+		D8A76D761D6F281000E5A798 /* WMFModel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8A76D771D6F2A4900E5A798 /* UIImageView+WMFImageFetchingInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807761C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.m */; };
 		D8A76D781D6F2A4C00E5A798 /* UIImageView+WMFImageFetchingInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807751C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.h */; };
 		D8A76D831D6F2B2F00E5A798 /* WMFTaskGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -921,6 +923,16 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D80187F41D6CCCDC009EF2EE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D80187F51D6CCCE7009EF2EE /* WMFUtilities.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D84581101D67572D00B09640 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -955,6 +967,16 @@
 				D878A60A1D74D15C0074B3AC /* WMFUtilities.framework in CopyFiles */,
 				D878A6091D74D1570074B3AC /* WMFModel.framework in CopyFiles */,
 				D878A6081D74D1520074B3AC /* WMFUI.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D8A76D751D6F280400E5A798 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D8A76D761D6F281000E5A798 /* WMFModel.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5948,6 +5970,7 @@
 				D844D9681D6CB2600042D692 /* Frameworks */,
 				D844D9691D6CB2600042D692 /* Headers */,
 				DD2CF6FA1FF58FF0AA1E59D9 /* [CP] Copy Pods Resources */,
+				D80187F41D6CCCDC009EF2EE /* CopyFiles */,
 				D8DC16E61D6F5CFB00D6D9FB /* CopyFiles */,
 			);
 			buildRules = (
@@ -6011,6 +6034,7 @@
 				D8AC39211D6F247F007E3C14 /* Headers */,
 				D8AC39221D6F247F007E3C14 /* Resources */,
 				074DB7BD461A6F43354A3D3C /* [CP] Copy Pods Resources */,
+				D8A76D751D6F280400E5A798 /* CopyFiles */,
 			);
 			buildRules = (
 			);
