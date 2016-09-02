@@ -4,7 +4,6 @@
 #import "WMFAppViewController.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 #import <Tweaks/FBTweakShakeWindow.h>
-#import "ZeroConfigState.h"
 #import "NSUserActivity+WMFExtensions.h"
 
 @interface AppDelegate ()
