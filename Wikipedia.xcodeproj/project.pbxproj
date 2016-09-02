@@ -516,6 +516,7 @@
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
 		D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
 		D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */; };
+		D80187F51D6CCCE7009EF2EE /* WMFUtilities.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D80C24B51D673DA000816503 /* WMFNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D80C24B41D673DA000816503 /* WMFNavigationController.m */; };
 		D80C24B81D673DC300816503 /* WMFTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D80C24B71D673DC300816503 /* WMFTabBarController.m */; };
 		D81083071D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m in Sources */ = {isa = PBXBuildFile; fileRef = D81083061D09CA210070DAC3 /* WKProcessPool+WMFSharedProcessPool.m */; };
@@ -738,6 +739,9 @@
 		D86706BE1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */; };
 		D86706C31D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706C21D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.m */; };
 		D878A6061D74D1340074B3AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
+		D878A6081D74D1520074B3AC /* WMFUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D878A6091D74D1570074B3AC /* WMFModel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D878A60A1D74D15C0074B3AC /* WMFUtilities.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D87A55991D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87A55971D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.m */; };
 		D87A559A1D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87A55981D3CF7AB00341B32 /* WMFArticleListCollectionViewCell.xib */; };
 		D87A559E1D3CFD2300341B32 /* WMFArticlePreviewCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87A559C1D3CFD2300341B32 /* WMFArticlePreviewCollectionViewCell.m */; };
@@ -750,6 +754,7 @@
 		D890C85D1D772ED3007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C85B1D772ED3007132C9 /* InfoPlist.strings */; };
 		D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */; };
 		D896C7991D6F3335007101DF /* WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; };
+		D896C79A1D6F333F007101DF /* WMFUI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D896C79B1D6F5ADD007101DF /* NSDate+WMFRelativeDate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E78419A1C7CF5CE004F9D36 /* NSDate+WMFRelativeDate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D896C79C1D6F5AE1007101DF /* NSDate+WMFRelativeDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E78419B1C7CF5CE004F9D36 /* NSDate+WMFRelativeDate.m */; };
 		D89D43FF1D74D35F00F7862E /* WMFArticlePreviewFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B06531621C221BC4003BD7DC /* WMFArticlePreviewFetcher.m */; };
@@ -773,6 +778,7 @@
 		D8A76D701D6F274200E5A798 /* UIImage+WMFNormalization.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804FC1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.h */; };
 		D8A76D711D6F274A00E5A798 /* UIImage+WMFNormalization.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804FD1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.m */; };
 		D8A76D741D6F279F00E5A798 /* WMFModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; };
+		D8A76D761D6F281000E5A798 /* WMFModel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8A76D771D6F2A4900E5A798 /* UIImageView+WMFImageFetchingInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807761C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.m */; };
 		D8A76D781D6F2A4C00E5A798 /* UIImageView+WMFImageFetchingInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807751C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.h */; };
 		D8A76D831D6F2B2F00E5A798 /* WMFTaskGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -846,6 +852,8 @@
 		D8FAC7DC1D6F88A100C2A6BC /* WMFUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; };
 		D8FAC7DD1D6F88AB00C2A6BC /* WMFModel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8FAC7DE1D6F88B300C2A6BC /* WMFUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D8FAC7DF1D6F88D900C2A6BC /* WMFModel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMFModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D8FAC7E01D6F88DF00C2A6BC /* WMFUtilities.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D84580EC1D67572C00B09640 /* WMFUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EF8D9110BCE823C6A7E6D976 /* Pods_Foundation_WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83074D9C9F27BCC22C925AF7 /* Pods_Foundation_WMFUI.framework */; };
 		F31A197FC75DA6DEDA92C499 /* Pods_Foundation_ContinueReadingWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22B93ECBAEAC2A23EDF8D82 /* Pods_Foundation_ContinueReadingWidget.framework */; };
 /* End PBXBuildFile section */
@@ -864,13 +872,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = D4991434181D51DE00E6073C;
 			remoteInfo = Wikipedia;
-		};
-		D83440271D79EFF600A5316A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D499142D181D51DE00E6073C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D8AC39231D6F247F007E3C14;
-			remoteInfo = WMFUI;
 		};
 		D85D34CE1D74D07500845125 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -922,6 +923,16 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D80187F41D6CCCDC009EF2EE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D80187F51D6CCCE7009EF2EE /* WMFUtilities.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D84581101D67572D00B09640 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -933,6 +944,49 @@
 				D8AC392C1D6F2480007E3C14 /* WMFUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D84CA44D1D6DED1100837E58 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D8FAC7E01D6F88DF00C2A6BC /* WMFUtilities.framework in CopyFiles */,
+				D8FAC7DF1D6F88D900C2A6BC /* WMFModel.framework in CopyFiles */,
+				D896C79A1D6F333F007101DF /* WMFUI.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D878A6071D74D1460074B3AC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D878A60A1D74D15C0074B3AC /* WMFUtilities.framework in CopyFiles */,
+				D878A6091D74D1570074B3AC /* WMFModel.framework in CopyFiles */,
+				D878A6081D74D1520074B3AC /* WMFUI.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D8A76D751D6F280400E5A798 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D8A76D761D6F281000E5A798 /* WMFModel.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D8DC16E61D6F5CFB00D6D9FB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -5848,6 +5902,7 @@
 				0E8380611D64989F0076EDE4 /* Resources */,
 				2481645BC89FC09A3FAE919A /* [CP] Embed Pods Frameworks */,
 				B0CEC780D8C9F9D2E4B90317 /* [CP] Copy Pods Resources */,
+				D84CA44D1D6DED1100837E58 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -5915,6 +5970,8 @@
 				D844D9681D6CB2600042D692 /* Frameworks */,
 				D844D9691D6CB2600042D692 /* Headers */,
 				DD2CF6FA1FF58FF0AA1E59D9 /* [CP] Copy Pods Resources */,
+				D80187F41D6CCCDC009EF2EE /* CopyFiles */,
+				D8DC16E61D6F5CFB00D6D9FB /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -5956,11 +6013,11 @@
 				D85D34C31D74D07500845125 /* Resources */,
 				C5811A4DDB2E0105C0B500FC /* [CP] Embed Pods Frameworks */,
 				FE4ECE8AD8AA8D0AD01E6101 /* [CP] Copy Pods Resources */,
+				D878A6071D74D1460074B3AC /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D83440281D79EFF600A5316A /* PBXTargetDependency */,
 			);
 			name = TopReadWidget;
 			productName = TopReadWidget;
@@ -5977,6 +6034,7 @@
 				D8AC39211D6F247F007E3C14 /* Headers */,
 				D8AC39221D6F247F007E3C14 /* Resources */,
 				074DB7BD461A6F43354A3D3C /* [CP] Copy Pods Resources */,
+				D8A76D751D6F280400E5A798 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -7251,11 +7309,6 @@
 			isa = PBXTargetDependency;
 			target = D4991434181D51DE00E6073C /* Wikipedia */;
 			targetProxy = BCBDE0AD1AA76F19006BD29A /* PBXContainerItemProxy */;
-		};
-		D83440281D79EFF600A5316A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D8AC39231D6F247F007E3C14 /* WMFUI */;
-			targetProxy = D83440271D79EFF600A5316A /* PBXContainerItemProxy */;
 		};
 		D85D34CF1D74D07500845125 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
