@@ -1,8 +1,8 @@
 #import "ZeroConfigState.h"
 //#import <Tweaks/FBTweakInline.h>
 
-#import "WMFZeroMessage.h"
-#import "WMFZeroMessageFetcher.h"
+#import "WMFZeroConfiguration.h"
+#import "WMFZeroConfigurationFetcher.h"
 #import "MWKLanguageLinkController.h"
 #import <WMFModel/WMFModel-Swift.h>
 #import "WMFURLCacheStrings.h"
@@ -16,8 +16,8 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 
 @interface ZeroConfigState ()
 
-@property (nonatomic, strong, readonly) WMFZeroMessageFetcher *zeroMessageFetcher;
-@property (nonatomic, strong, nullable, readwrite) WMFZeroMessage *zeroMessage;
+@property (nonatomic, strong, readonly) WMFZeroConfigurationFetcher *zeroConfigurationFetcher;
+@property (nonatomic, strong, nullable, readwrite) WMFZeroConfiguration *zeroConfiguration;
 
 @property (atomic, copy, nullable) NSString* previousPartnerXCarrier;
 @property (atomic, copy, nullable) NSString* previousPartnerXCarrierMeta;
@@ -27,7 +27,7 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 
 @implementation ZeroConfigState
 @synthesize disposition = _disposition;
-@synthesize zeroMessageFetcher = _zeroMessageFetcher;
+@synthesize zeroConfigurationFetcher = _zeroConfigurationFetcher;
 
 + (void)load {
     [super load];
@@ -37,11 +37,11 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
     //    });
 }
 
-- (WMFZeroMessageFetcher *)zeroMessageFetcher {
-    if (!_zeroMessageFetcher) {
-        _zeroMessageFetcher = [[WMFZeroMessageFetcher alloc] init];
+- (WMFZeroConfigurationFetcher *)zeroConfigurationFetcher {
+    if (!_zeroConfigurationFetcher) {
+        _zeroConfigurationFetcher = [[WMFZeroConfigurationFetcher alloc] init];
     }
-    return _zeroMessageFetcher;
+    return _zeroConfigurationFetcher;
 }
 
 - (void)setDisposition:(BOOL)disposition {
@@ -76,33 +76,33 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
 /**
  *   This method:
  *
- * - Fetches carrier specific strings placing them in self.zeroMessage object.
+ * - Fetches carrier specific strings placing them in self.zeroConfiguration object.
  *
- * - If the fetched zeroMessage has a nil "message" string, this means even though
+ * - If the fetched zeroConfiguration has a nil "message" string, this means even though
  *   there was a header, leading us to believe this network was Zero rated, its Zero
  *   rating is not presently enabled. (It would be nice if the query fetching the
- *   zeroMessage returned an "enabled" key/value, but it doesn't - it nils out the
+ *   zeroConfiguration returned an "enabled" key/value, but it doesn't - it nils out the
  *   values instead apparently.) So in the nil message case we set disposition "NO".
  */
-- (void)fetchZeroMessageAndSetDispositionIfNecessary {
+- (void)fetchZeroConfigurationAndSetDispositionIfNecessary {
     
-    // Note: don't nil out self.zeroMessage in this method
+    // Note: don't nil out self.zeroConfiguration in this method
     // because if we do we can't show its exit message strings!
 
     //TODO: ensure thread safety so we can do this work off the main thread...
     dispatch_async(dispatch_get_main_queue(), ^{
         @weakify(self);
         AnyPromise *promise = [AnyPromise promiseWithValue:nil];
-        promise = [self fetchZeroMessage].then(^(WMFZeroMessage *zeroMessage) {
+        promise = [self fetchZeroConfiguration].then(^(WMFZeroConfiguration *zeroConfiguration) {
             @strongify(self);
             
             // If the config is not enabled its "message" will be nil, so if we detect a nil message
             // set the disposition to NO before we post the WMFZeroDispositionDidChange notification.
-            if(zeroMessage.message == nil){
+            if(zeroConfiguration.message == nil){
                 self.disposition = NO;
-                // Reminder: don't nil out self.zeroMessage here or the carrier's exit message won't be available.
+                // Reminder: don't nil out self.zeroConfiguration here or the carrier's exit message won't be available.
             }else{
-                self.zeroMessage = zeroMessage;
+                self.zeroConfiguration = zeroConfiguration;
                 self.disposition = YES;
             }
             
@@ -113,9 +113,9 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
     });
 }
 
-- (AnyPromise *)fetchZeroMessage {
-    [self.zeroMessageFetcher cancelAllFetches];
-    return [self.zeroMessageFetcher fetchZeroMessageForSiteURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]];
+- (AnyPromise *)fetchZeroConfiguration {
+    [self.zeroConfigurationFetcher cancelAllFetches];
+    return [self.zeroConfigurationFetcher fetchZeroConfigurationForSiteURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]];
 }
 
 - (void)inspectResponseForZeroHeaders:(NSURLResponse*)response {
@@ -131,7 +131,7 @@ NSString *const ZeroWarnWhenLeaving = @"ZeroWarnWhenLeaving";
         if ([self hasChangeHappenedToCarrier:xCarrierFromHeader orCarrierMeta:xCarrierMetaFromHeader]) {
             self.previousPartnerXCarrier = xCarrierFromHeader;
             self.previousPartnerXCarrierMeta = xCarrierMetaFromHeader;
-            [self fetchZeroMessageAndSetDispositionIfNecessary];
+            [self fetchZeroConfigurationAndSetDispositionIfNecessary];
         }
     }else if(zeroEnabled) {
         self.previousPartnerXCarrier = nil;

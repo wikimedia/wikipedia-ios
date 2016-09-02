@@ -646,11 +646,11 @@
 		D844D9E61D6CBFAC0042D692 /* MWKArticle+WMFSharing.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804751C0CE0B40065EBC0 /* MWKArticle+WMFSharing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9E71D6CBFB00042D692 /* MWKArticle+WMFSharing.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804761C0CE0B40065EBC0 /* MWKArticle+WMFSharing.m */; };
 		D844D9E81D6CBFCC0042D692 /* ZeroConfigState.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807401C0CED9F0065EBC0 /* ZeroConfigState.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D844D9E91D6CBFD10042D692 /* WMFZeroMessageFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = BCB00EBC1C84F1EB0070E220 /* WMFZeroMessageFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D844D9EA1D6CBFD10042D692 /* WMFZeroMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = BCB00EBF1C84F2690070E220 /* WMFZeroMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D844D9E91D6CBFD10042D692 /* WMFZeroConfigurationFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = BCB00EBC1C84F1EB0070E220 /* WMFZeroConfigurationFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D844D9EA1D6CBFD10042D692 /* WMFZeroConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = BCB00EBF1C84F2690070E220 /* WMFZeroConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9EB1D6CBFE40042D692 /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807411C0CED9F0065EBC0 /* ZeroConfigState.m */; };
-		D844D9EC1D6CBFE40042D692 /* WMFZeroMessageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB00EBD1C84F1EB0070E220 /* WMFZeroMessageFetcher.m */; };
-		D844D9ED1D6CBFE40042D692 /* WMFZeroMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB00EC01C84F2690070E220 /* WMFZeroMessage.m */; };
+		D844D9EC1D6CBFE40042D692 /* WMFZeroConfigurationFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB00EBD1C84F1EB0070E220 /* WMFZeroConfigurationFetcher.m */; };
+		D844D9ED1D6CBFE40042D692 /* WMFZeroConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB00EC01C84F2690070E220 /* WMFZeroConfiguration.m */; };
 		D844D9EE1D6CBFFD0042D692 /* MWKDataStoreList.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807841C0CEF660065EBC0 /* MWKDataStoreList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9EF1D6CC0010042D692 /* MWKList+Subclass.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807871C0CEF660065EBC0 /* MWKList+Subclass.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D844D9F01D6CC01C0042D692 /* MWKLicense.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8079B1C0CEFBD0065EBC0 /* MWKLicense.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2086,10 +2086,10 @@
 		BCAF23121C6CF1B5005F2D8D /* WMFMostReadTitlesResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMostReadTitlesResponse.m; path = Wikipedia/Code/WMFMostReadTitlesResponse.m; sourceTree = SOURCE_ROOT; };
 		BCAF23141C6CF74C005F2D8D /* NSDictionary+WMFRequiredValueForKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+WMFRequiredValueForKey.h"; path = "Wikipedia/Code/NSDictionary+WMFRequiredValueForKey.h"; sourceTree = SOURCE_ROOT; };
 		BCAF23151C6CF74C005F2D8D /* NSDictionary+WMFRequiredValueForKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+WMFRequiredValueForKey.m"; path = "Wikipedia/Code/NSDictionary+WMFRequiredValueForKey.m"; sourceTree = SOURCE_ROOT; };
-		BCB00EBC1C84F1EB0070E220 /* WMFZeroMessageFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFZeroMessageFetcher.h; path = ../Wikipedia/Code/WMFZeroMessageFetcher.h; sourceTree = "<group>"; };
-		BCB00EBD1C84F1EB0070E220 /* WMFZeroMessageFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFZeroMessageFetcher.m; path = ../Wikipedia/Code/WMFZeroMessageFetcher.m; sourceTree = "<group>"; };
-		BCB00EBF1C84F2690070E220 /* WMFZeroMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFZeroMessage.h; path = ../Wikipedia/Code/WMFZeroMessage.h; sourceTree = "<group>"; };
-		BCB00EC01C84F2690070E220 /* WMFZeroMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFZeroMessage.m; path = ../Wikipedia/Code/WMFZeroMessage.m; sourceTree = "<group>"; };
+		BCB00EBC1C84F1EB0070E220 /* WMFZeroConfigurationFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFZeroConfigurationFetcher.h; path = ../Wikipedia/Code/WMFZeroConfigurationFetcher.h; sourceTree = "<group>"; };
+		BCB00EBD1C84F1EB0070E220 /* WMFZeroConfigurationFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFZeroConfigurationFetcher.m; path = ../Wikipedia/Code/WMFZeroConfigurationFetcher.m; sourceTree = "<group>"; };
+		BCB00EBF1C84F2690070E220 /* WMFZeroConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFZeroConfiguration.h; path = ../Wikipedia/Code/WMFZeroConfiguration.h; sourceTree = "<group>"; };
+		BCB00EC01C84F2690070E220 /* WMFZeroConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFZeroConfiguration.m; path = ../Wikipedia/Code/WMFZeroConfiguration.m; sourceTree = "<group>"; };
 		BCB00EC21C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MTLValueTransformer+WMFColorTransformer.h"; path = "Wikipedia/Code/MTLValueTransformer+WMFColorTransformer.h"; sourceTree = SOURCE_ROOT; };
 		BCB00EC31C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MTLValueTransformer+WMFColorTransformer.m"; path = "Wikipedia/Code/MTLValueTransformer+WMFColorTransformer.m"; sourceTree = SOURCE_ROOT; };
 		BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Spider-Man_actors.jpg"; sourceTree = "<group>"; };
@@ -5428,10 +5428,10 @@
 				B0E807411C0CED9F0065EBC0 /* ZeroConfigState.m */,
 				B0E8067D1C0CE9C70065EBC0 /* WMFNetworkUtilities.h */,
 				B0E8067E1C0CE9C70065EBC0 /* WMFNetworkUtilities.m */,
-				BCB00EBC1C84F1EB0070E220 /* WMFZeroMessageFetcher.h */,
-				BCB00EBD1C84F1EB0070E220 /* WMFZeroMessageFetcher.m */,
-				BCB00EBF1C84F2690070E220 /* WMFZeroMessage.h */,
-				BCB00EC01C84F2690070E220 /* WMFZeroMessage.m */,
+				BCB00EBC1C84F1EB0070E220 /* WMFZeroConfigurationFetcher.h */,
+				BCB00EBD1C84F1EB0070E220 /* WMFZeroConfigurationFetcher.m */,
+				BCB00EBF1C84F2690070E220 /* WMFZeroConfiguration.h */,
+				BCB00EC01C84F2690070E220 /* WMFZeroConfiguration.m */,
 				B0E807061C0CEBDA0065EBC0 /* WMFSharing.h */,
 				B0E804751C0CE0B40065EBC0 /* MWKArticle+WMFSharing.h */,
 				B0E804761C0CE0B40065EBC0 /* MWKArticle+WMFSharing.m */,
@@ -5773,7 +5773,7 @@
 				D844D9B11D6CB7770042D692 /* MWKSavedPageEntry+ImageMigration.h in Headers */,
 				D844D9D51D6CBBA70042D692 /* YapDatabaseConnection+WMFExtensions.h in Headers */,
 				D844D9B61D6CB7940042D692 /* MWKRecentSearchEntry.h in Headers */,
-				D844D9E91D6CBFD10042D692 /* WMFZeroMessageFetcher.h in Headers */,
+				D844D9E91D6CBFD10042D692 /* WMFZeroConfigurationFetcher.h in Headers */,
 				D844D9E61D6CBFAC0042D692 /* MWKArticle+WMFSharing.h in Headers */,
 				D844D9A51D6CB70C0042D692 /* MWKImage.h in Headers */,
 				D82F601C1D6CE10400388574 /* FetcherBase.h in Headers */,
@@ -5791,7 +5791,7 @@
 				D844D9BE1D6CB7B30042D692 /* MWKDataStore.h in Headers */,
 				D844D98B1D6CB58E0042D692 /* MWKArticle.h in Headers */,
 				D844D9D61D6CBBA70042D692 /* YapDatabaseReadWriteTransaction+WMFCustomNotifications.h in Headers */,
-				D844D9EA1D6CBFD10042D692 /* WMFZeroMessage.h in Headers */,
+				D844D9EA1D6CBFD10042D692 /* WMFZeroConfiguration.h in Headers */,
 				D8B9E2C61D7617B800A465FF /* WMFDataSource.h in Headers */,
 				D844DA061D6CC4C90042D692 /* MWKLanguageFilter.h in Headers */,
 				D844D9A91D6CB74F0042D692 /* MWKHistoryList.h in Headers */,
@@ -7263,7 +7263,7 @@
 				D844D99D1D6CB61B0042D692 /* NSString+WMFExtras.m in Sources */,
 				D844D9D71D6CBBB30042D692 /* YapDatabase+WMFExtensions.m in Sources */,
 				D844DA0A1D6CC5240042D692 /* NSLocale+WMFExtras.swift in Sources */,
-				D844D9ED1D6CBFE40042D692 /* WMFZeroMessage.m in Sources */,
+				D844D9ED1D6CBFE40042D692 /* WMFZeroConfiguration.m in Sources */,
 				D83FA6B41D74CDBC008CAB00 /* AFHTTPRequestSerializer+WMFRequestHeaders.m in Sources */,
 				D844D9961D6CB5970042D692 /* MWKProtectionStatus.m in Sources */,
 				D8DC16F31D6F6F2C00D6D9FB /* NSUserDefaults+WMFExtensions.swift in Sources */,
@@ -7277,7 +7277,7 @@
 				D83FA6B61D74CDE6008CAB00 /* EventLoggingFunnel.m in Sources */,
 				D844D9801D6CB3310042D692 /* MWKSiteDataObject.m in Sources */,
 				D844D9FA1D6CC0710042D692 /* SDWebImageManager+WMFCacheRemoval.m in Sources */,
-				D844D9EC1D6CBFE40042D692 /* WMFZeroMessageFetcher.m in Sources */,
+				D844D9EC1D6CBFE40042D692 /* WMFZeroConfigurationFetcher.m in Sources */,
 				D83F8A301D74BBBF009E7D40 /* WMFMostReadTitleFetcher.m in Sources */,
 				D8E2B0F31D6CC5DE006FFB24 /* WMFImageURLParsing.m in Sources */,
 				D844D9A71D6CB7280042D692 /* MWKList.m in Sources */,

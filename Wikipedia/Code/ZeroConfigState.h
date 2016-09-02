@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@class WMFZeroMessage;
+@class WMFZeroConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -11,7 +11,7 @@ extern NSString *const ZeroWarnWhenLeaving;
 
 @interface ZeroConfigState : NSObject
 
-@property (nonatomic, strong, nullable, readonly) WMFZeroMessage *zeroMessage;
+@property (nonatomic, strong, nullable, readonly) WMFZeroConfiguration *zeroConfiguration;
 
 /**
  *  Whether or not the user is on a Wikipedia-Zero-rated network.

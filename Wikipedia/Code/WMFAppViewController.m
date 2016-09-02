@@ -859,7 +859,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)zeroDispositionDidChange:(NSNotification *)note {
     ZeroConfigState *state = [note object];
     if ([SessionSingleton sharedInstance].zeroConfigState.disposition) {
-        [self showFirstTimeZeroOnAlertIfNeeded:state.zeroMessage];
+        [self showFirstTimeZeroOnAlertIfNeeded:state.zeroConfiguration];
     } else {
         [self showZeroOffAlert];
     }
@@ -874,14 +874,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     return [[NSUserDefaults wmf_userDefaults] boolForKey:ZeroOnDialogShownOnce];
 }
 
-- (void)showFirstTimeZeroOnAlertIfNeeded:(WMFZeroMessage *)zeroMessage {
+- (void)showFirstTimeZeroOnAlertIfNeeded:(WMFZeroConfiguration *)zeroConfiguration {
     if ([self zeroOnDialogShownOnce]) {
         return;
     }
 
     [self setZeroOnDialogShownOnce];
 
-    NSString* title = zeroMessage.message ? zeroMessage.message : MWLocalizedString(@"zero-free-verbiage", nil);
+    NSString* title = zeroConfiguration.message ? zeroConfiguration.message : MWLocalizedString(@"zero-free-verbiage", nil);
     
     UIAlertController *dialog = [UIAlertController alertControllerWithTitle:title message:MWLocalizedString(@"zero-learn-more", nil) preferredStyle:UIAlertControllerStyleAlert];
 

@@ -1,6 +1,6 @@
 #import <Mantle/Mantle.h>
 
-@interface WMFZeroMessage : MTLModel <MTLJSONSerializing>
+@interface WMFZeroConfiguration : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, copy, nonnull, readonly) NSString *message;
 @property (nonatomic, strong, nonnull, readonly) UIColor *foreground;

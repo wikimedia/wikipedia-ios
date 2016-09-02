@@ -22,7 +22,7 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 
-#import "WMFZeroMessage.h"
+#import "WMFZeroConfiguration.h"
 #import "WKWebView+LoadAssetsHtml.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WKProcessPool+WMFSharedProcessPool.h"
@@ -667,16 +667,16 @@ NSString *const WMFCCBySALicenseURL =
 
 - (void)updateZeroState {
     if ([[SessionSingleton sharedInstance] zeroConfigState].disposition) {
-        [self showZeroBannerWithMessage:[[[SessionSingleton sharedInstance] zeroConfigState] zeroMessage]];
+        [self showBannerForZeroConfiguration:[[[SessionSingleton sharedInstance] zeroConfigState] zeroConfiguration]];
     } else {
         self.zeroStatusLabel.text = @"";
     }
 }
 
-- (void)showZeroBannerWithMessage:(WMFZeroMessage *)zeroMessage {
-    self.zeroStatusLabel.text = zeroMessage.message;
-    self.zeroStatusLabel.textColor = zeroMessage.foreground;
-    self.zeroStatusLabel.backgroundColor = zeroMessage.background;
+- (void)showBannerForZeroConfiguration:(WMFZeroConfiguration *)zeroConfiguration {
+    self.zeroStatusLabel.text = zeroConfiguration.message;
+    self.zeroStatusLabel.textColor = zeroConfiguration.foreground;
+    self.zeroStatusLabel.backgroundColor = zeroConfiguration.background;
 }
 
 #pragma mark - Headers & Footers
