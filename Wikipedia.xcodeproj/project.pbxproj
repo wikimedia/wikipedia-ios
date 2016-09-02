@@ -5888,7 +5888,6 @@
 				D4991431181D51DE00E6073C /* Sources */,
 				D4991432181D51DE00E6073C /* Frameworks */,
 				D4991433181D51DE00E6073C /* Resources */,
-				BC44DB9E1B161839008FCD0C /* Modify App Info.plist */,
 				9E3DEB69D6FAF2AA2192C9E2 /* [CP] Embed Pods Frameworks */,
 				E91D1BCAA00FEAD1F9272A7A /* [CP] Copy Pods Resources */,
 				0E8380771D64989F0076EDE4 /* Embed App Extensions */,
@@ -6486,20 +6485,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		BC44DB9E1B161839008FCD0C /* Modify App Info.plist */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Modify App Info.plist";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = ./scripts/process_plist.sh;
 		};
 		C5811A4DDB2E0105C0B500FC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

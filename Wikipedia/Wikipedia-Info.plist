@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>920</string>
+	<string>926</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -89,11 +89,11 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 	<key>WMFHockeyAppIdentifier</key>
-	<string></string>
+	<string>d8299a83115941f585eefe99e59482eb</string>
 	<key>WMFPiwikAppIdentifier</key>
-	<string></string>
+	<string>3</string>
 	<key>WMFPiwikURL</key>
-	<string></string>
+	<string>https://piwik.wikimedia.org/</string>
 	<key>WMFShowDebugMenu</key>
 	<false/>
 </dict>
