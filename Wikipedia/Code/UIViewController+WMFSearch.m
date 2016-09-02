@@ -1,6 +1,6 @@
 #import "UIViewController+WMFSearch.h"
 #import "WMFSearchViewController.h"
-#import <BlocksKit/UIBarButtonItem+BlocksKit.h>
+#import "UIBarButtonItem+BlocksKit.h"
 #import "SessionSingleton.h"
 #import "Wikipedia-Swift.h"
 

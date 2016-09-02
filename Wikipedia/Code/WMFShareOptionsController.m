@@ -15,7 +15,7 @@
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
 #import "MWKArticle.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

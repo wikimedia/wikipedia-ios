@@ -12,7 +12,7 @@
 // Frameworks
 #import "Wikipedia-Swift.h"
 #import "WMFRelatedSectionBlackList.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 
 // View
 #import "WMFArticlePreviewCollectionViewCell.h"

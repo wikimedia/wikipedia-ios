@@ -4,7 +4,7 @@
 
 @import WebKit;
 #import <Masonry/Masonry.h>
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 #import "NSString+WMFHTMLParsing.h"
 
 #import "MWKArticle.h"

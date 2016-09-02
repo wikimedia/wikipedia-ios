@@ -21,7 +21,7 @@ abstract_target 'Foundation' do
 
   # Utilities
   pod 'libextobjc/EXTScope', '~> 0.4.1'
-  pod 'BlocksKit', '~> 2.2.0'
+  pod 'BlocksKit/Core', '~> 2.2.0'
   pod 'KVOController', '= 1.0.3'
   
   pod 'CocoaLumberjack/Swift'
@@ -70,7 +70,6 @@ abstract_target 'Foundation' do
   target 'Wikipedia' do
     # Utilities
     pod 'Tweaks'
-
 
     # HTML
     pod 'GCDWebServer', '~> 3.3'

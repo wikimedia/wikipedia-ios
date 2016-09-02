@@ -2,7 +2,7 @@
 #import "Wikipedia-Swift.h"
 
 // Frameworks
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 #import <Tweaks/FBTweakViewController.h>
 
 #import "PiwikTracker+WMFExtensions.h"

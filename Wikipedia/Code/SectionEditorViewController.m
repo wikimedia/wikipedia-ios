@@ -7,7 +7,7 @@
 #import "WMF_Colors.h"
 #import "MWLanguageInfo.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "Wikipedia-Swift.h"

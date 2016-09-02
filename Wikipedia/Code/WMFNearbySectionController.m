@@ -15,7 +15,7 @@
 
 // Frameworks
 #import "Wikipedia-Swift.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 
 // Views
 #import "WMFNearbyArticleCollectionViewCell.h"

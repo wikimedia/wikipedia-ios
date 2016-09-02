@@ -1,7 +1,7 @@
 #import "WMFBaseExploreSectionController.h"
 #import "WMFEmptySectionCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 #import "MWKDataStore.h"
 #import "MWKUserDataStore.h"
 
