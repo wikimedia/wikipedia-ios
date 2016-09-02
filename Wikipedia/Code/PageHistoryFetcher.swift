@@ -1,5 +1,6 @@
 import Foundation
-
+import AFNetworking
+import Mantle
 
 public class PageHistoryFetcher: NSObject {
     private let operationManager: AFHTTPSessionManager = {
@@ -49,7 +50,7 @@ public class HistoryFetchResults: NSObject {
     }
     
     private func tackOn(lastRevisionFromPreviousCall: WMFPageHistoryRevision?) {
-        guard let previouslyParsedRevision = lastRevisionFromPreviousCall, parentSize = items().first?.items.first?.articleSizeAtRevision else { return }
+        guard let previouslyParsedRevision = lastRevisionFromPreviousCall, let parentSize = items().first?.items.first?.articleSizeAtRevision else { return }
         previouslyParsedRevision.revisionSize = previouslyParsedRevision.articleSizeAtRevision - parentSize
         HistoryFetchResults.update(revisionsByDay: &revisionsByDay, revision: previouslyParsedRevision)
     }

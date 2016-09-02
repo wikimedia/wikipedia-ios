@@ -1,11 +1,3 @@
-//
-//  MWKListBaseTests.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/14/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 @import XCTest;
 
 #import "MWKList+Subclass.h"
@@ -18,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWKListTestBase : XCTestCase
 
 /// An array of test objects created in @c setUp.
-@property (nonatomic, strong, nullable) NSArray* testObjects;
+@property (nonatomic, strong, nullable) NSArray *testObjects;
 
 /**
  *  @return A unique entry object for use with the receiver's @c listClass.
@@ -41,16 +33,16 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A new @c MWKList (or subclass) initialized with the given entries.
  */
-- (MWKList*)listWithEntries:(nullable NSArray*)entries;
+- (MWKList *)listWithEntries:(nullable NSArray *)entries;
 
 @end
 
 /**
  *  Dummy entry class used when testing a generic @c MWKList.
  */
-@interface MWKListDummyEntry : NSObject<MWKListObject>
+@interface MWKListDummyEntry : NSObject <MWKListObject>
 
-@property (nonatomic, strong) NSString* listIndex;
+@property (nonatomic, strong) NSString *listIndex;
 
 @end
 

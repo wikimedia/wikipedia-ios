@@ -1,5 +1,3 @@
-//  Created by Monte Hurd on 4/25/14.
-
 #import <UIKit/UIKit.h>
 #import "WMFOpenExternalLinkDelegateProtocol.h"
 
@@ -7,14 +5,13 @@
 @protocol PreviewLicenseViewDelegate;
 @interface PreviewLicenseView : UIView
 
-@property (weak, nonatomic) IBOutlet PaddedLabel* licenseCCLabel;
-@property (weak, nonatomic) IBOutlet PaddedLabel* licenseTitleLabel;
-@property (weak, nonatomic) IBOutlet PaddedLabel* licenseLoginLabel;
+@property (weak, nonatomic) IBOutlet PaddedLabel *licenseCCLabel;
+@property (weak, nonatomic) IBOutlet PaddedLabel *licenseTitleLabel;
+@property (weak, nonatomic) IBOutlet PaddedLabel *licenseLoginLabel;
 
-@property (nonatomic, weak) id <PreviewLicenseViewDelegate> previewLicenseViewDelegate;
+@property (nonatomic, weak) id<PreviewLicenseViewDelegate> previewLicenseViewDelegate;
 
 @end
-
 
 @protocol PreviewLicenseViewDelegate <NSObject>
 @required

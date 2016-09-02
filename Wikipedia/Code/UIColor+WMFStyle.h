@@ -1,4 +1,3 @@
-
 #import <UIKit/UIKit.h>
 
 @interface UIColor (WMFStyle)
@@ -49,7 +48,6 @@
  *  Color which is used in places like cell separators & various 1px lines in the interface.
  */
 + (instancetype)wmf_lightGrayColor;
-
 
 + (instancetype)wmf_999999Color;
 

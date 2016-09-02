@@ -1,12 +1,9 @@
-//  Created by Monte Hurd on 4/27/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "WikiGlyphButton.h"
 #import "WikiGlyphLabel.h"
 
 @implementation WikiGlyphButton
 
-- (instancetype)initWithCoder:(NSCoder*)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
         [self setup];
@@ -23,23 +20,23 @@
 }
 
 - (void)setup {
-    self.enabled                                         = YES;
-    self.clipsToBounds                                   = YES;
-    self.label                                           = [[WikiGlyphLabel alloc] init];
+    self.enabled = YES;
+    self.clipsToBounds = YES;
+    self.label = [[WikiGlyphLabel alloc] init];
     self.label.translatesAutoresizingMaskIntoConstraints = NO;
-    self.isAccessibilityElement                          = YES;
-    self.accessibilityTraits                             = UIAccessibilityTraitButton;
+    self.isAccessibilityElement = YES;
+    self.accessibilityTraits = UIAccessibilityTraitButton;
     [self addSubview:self.label];
     [self constrainLabel];
 }
 
-- (void)setColor:(UIColor*)color {
+- (void)setColor:(UIColor *)color {
     _color = color;
     [self.label setTextColor:color];
 }
 
 - (void)setEnabled:(BOOL)enabled {
-    _enabled   = enabled;
+    _enabled = enabled;
     self.alpha = (enabled) ? 1.0 : 0.2;
     if (enabled) {
         self.accessibilityTraits = self.accessibilityTraits & (~UIAccessibilityTraitNotEnabled);
@@ -49,15 +46,13 @@
 }
 
 - (void)constrainLabel {
-    NSDictionary* metrics = @{
-    };
+    NSDictionary *metrics = @{};
 
-    NSDictionary* views = @{
+    NSDictionary *views = @{
         @"label": self.label
     };
 
-    NSArray* constraintArrays = @
-    [
+    NSArray *constraintArrays = @[
 
         [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[label]|"
                                                 options:0

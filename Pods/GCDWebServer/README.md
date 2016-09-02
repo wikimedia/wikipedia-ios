@@ -71,9 +71,9 @@ Then run `$ carthage update` and add the generated frameworks to your Xcode proj
 Help & Support
 ==============
 
-For help with using GCDWebServer, it's best to ask your question on Stack Overflow with the [`gcdwebserver`](http://stackoverflow.com/questions/tagged/gcdwebserver) tag. Be sure to read this entire README first though!
+For help with using GCDWebServer, it's best to ask your question on Stack Overflow with the [`gcdwebserver`](http://stackoverflow.com/questions/tagged/gcdwebserver) tag.
 
-For bug reports or enhancement requests, please use [GitHub issues](https://github.com/swisspol/GCDWebServer/issues) instead.
+Be sure to read this entire README first though!
 
 Hello World
 ===========
@@ -153,7 +153,7 @@ int main(int argc, const char* argv[]) {
 ***webServer.swift***
 ```swift
 import Foundation
-import GCDWebServers
+import GCDWebServer
 
 func initWebServer() {
 
@@ -172,8 +172,8 @@ func initWebServer() {
 
 ***WebServer-Bridging-Header.h***
 ```objectivec
-#import <GCDWebServers/GCDWebServer.h>
-#import <GCDWebServers/GCDWebServerDataResponse.h>
+#import <GCDWebServer/GCDWebServer.h>
+#import <GCDWebServer/GCDWebServerDataResponse.h>
 ```
 
 Web Based Uploads in iOS Apps
@@ -276,7 +276,7 @@ GCDWebServer's architecture consists of only 4 core classes:
 Implementing Handlers
 =====================
 
-GCDWebServer relies on "handlers" to process incoming web requests and generating responses. Handlers are implemented with GCD blocks which makes it very easy to provide your owns. However, they are executed on arbitrary threads within GCD so __special attention must be paid to thread-safety and re-entrancy__.
+GCDWebServer relies on "handlers" to process incoming web requests and generating responses. Handlers are implemented with GCD blocks which makes it very easy to provide your own. However, they are executed on arbitrary threads within GCD so __special attention must be paid to thread-safety and re-entrancy__.
 
 Handlers require 2 GCD blocks:
 * The ```GCDWebServerMatchBlock``` is called on every handler added to the ```GCDWebServer``` instance whenever a web request has started (i.e. HTTP headers have been received). It is passed the basic info for the web request (HTTP method, URL, headers...) and must decide if it wants to handle it or not. If yes, it must return a new ```GCDWebServerRequest``` instance (see above) created with this info. Otherwise, it simply returns nil.
@@ -287,7 +287,7 @@ Note that most methods on ```GCDWebServer``` to add handlers only require the ``
 Asynchronous HTTP Responses
 ===========================
 
-New in GCDWebServer 3.0 is the ability to process HTTP requests aysnchronously i.e. add handlers to the server which generate their ```GCDWebServerResponse``` asynchronously. This is achieved by adding handlers that use a ```GCDWebServerAsyncProcessBlock``` instead of a ```GCDWebServerProcessBlock```. Here's an example:
+New in GCDWebServer 3.0 is the ability to process HTTP requests asynchronously i.e. add handlers to the server which generate their ```GCDWebServerResponse``` asynchronously. This is achieved by adding handlers that use a ```GCDWebServerAsyncProcessBlock``` instead of a ```GCDWebServerProcessBlock```. Here's an example:
 
 **(Synchronous version)** The handler blocks while generating the HTTP response:
 ```objectivec

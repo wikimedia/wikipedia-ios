@@ -1,11 +1,10 @@
-
 #import "UIColor+WMFStyle.h"
 #import "UIColor+WMFHexColor.h"
 
 @implementation UIColor (WMFStyle)
 
 + (instancetype)wmf_summaryTextColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -15,7 +14,7 @@
 }
 
 + (instancetype)wmf_licenseTextColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -29,7 +28,7 @@
 }
 
 + (instancetype)wmf_lightGrayColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -39,7 +38,7 @@
 }
 
 + (instancetype)wmf_placeholderLightGrayColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -49,7 +48,7 @@
 }
 
 + (instancetype)wmf_placeholderImageTintColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -59,7 +58,7 @@
 }
 
 + (instancetype)wmf_placeholderImageBackgroundColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -69,7 +68,7 @@
 }
 
 + (instancetype)wmf_articleListBackgroundColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -83,20 +82,19 @@
     return [self wmf_articleListBackgroundColor];
 }
 
-
 + (instancetype)wmf_inlineTableOfContentsBackgroundColor {
-    static UIColor* c = nil;
-    
+    static UIColor *c = nil;
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        c = [UIColor colorWithRed:244.0/255.0 green:245.0/255.0 blue:247.0/255.0 alpha:1];
+        c = [UIColor colorWithRed:244.0 / 255.0 green:245.0 / 255.0 blue:247.0 / 255.0 alpha:1];
     });
     return c;
 }
 
 + (instancetype)wmf_modalTableOfContentsBackgroundColor {
-    static UIColor* c = nil;
-    
+    static UIColor *c = nil;
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor colorWithWhite:1 alpha:1];
@@ -105,8 +103,8 @@
 }
 
 + (instancetype)wmf_modalTableOfContentsSelectionBackgroundColor {
-    static UIColor* c = nil;
-    
+    static UIColor *c = nil;
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor colorWithWhite:1 alpha:1];
@@ -115,7 +113,7 @@
 }
 
 + (instancetype)wmf_inlineTableOfContentsSelectionBackgroundColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -125,17 +123,17 @@
 }
 
 + (instancetype)wmf_tableOfContentsSelectionIndicatorColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        c = [UIColor colorWithRed:51.0/255.0 green:102.0/255.0 blue:204.0/255.0 alpha:1];
+        c = [UIColor colorWithRed:51.0 / 255.0 green:102.0 / 255.0 blue:204.0 / 255.0 alpha:1];
     });
     return c;
 }
 
 + (instancetype)wmf_tableOfContentsSectionTextColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -145,11 +143,11 @@
 }
 
 + (instancetype)wmf_tableOfContentsSubsectionTextColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        c = [UIColor colorWithRed:85.0/255.0 green:90.0/255.0 blue:95.0/255.0 alpha:1];
+        c = [UIColor colorWithRed:85.0 / 255.0 green:90.0 / 255.0 blue:95.0 / 255.0 alpha:1];
     });
     return c;
 }
@@ -179,7 +177,7 @@
 }
 
 + (instancetype)wmf_blueTintColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -193,7 +191,7 @@
 }
 
 + (instancetype)wmf_tapHighlightColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -215,7 +213,7 @@
 }
 
 + (instancetype)wmf_nearbyDescriptionColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -229,7 +227,7 @@
 }
 
 + (instancetype)wmf_999999Color {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -239,7 +237,7 @@
 }
 
 + (instancetype)wmf_777777Color {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -249,7 +247,7 @@
 }
 
 + (instancetype)wmf_customGray {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -259,7 +257,7 @@
 }
 
 + (instancetype)wmf_readerWGray {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -277,7 +275,7 @@
 }
 
 + (instancetype)wmf_settingsBackgroundColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -304,7 +302,7 @@
 }
 
 + (instancetype)wmf_green {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -314,7 +312,7 @@
 }
 
 + (instancetype)wmf_welcomeNextButtonBackgroundColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -324,7 +322,7 @@
 }
 
 + (instancetype)wmf_welcomeNextButtonDividerBackgroundColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -334,7 +332,7 @@
 }
 
 + (instancetype)wmf_primaryLanguageLabelBackgroundColor {
-    static UIColor* c = nil;
+    static UIColor *c = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -344,8 +342,8 @@
 }
 
 + (instancetype)wmf_barButtonItemPopoverMessageBackgroundColor {
-    static UIColor* c = nil;
-    
+    static UIColor *c = nil;
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor wmf_colorWithHex:0x000000 alpha:0.8];

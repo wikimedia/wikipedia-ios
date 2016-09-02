@@ -1,11 +1,3 @@
-//
-//  NSIndexSet+BKReduce.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 4/1/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "NSIndexSet+BKReduce.h"
 
 @implementation NSIndexSet (BKReduce)
@@ -17,7 +9,7 @@
         return nil;
     }
     __block id result = acc;
-    [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL* stop) {
+    [self enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         result = reducer(acc, idx);
     }];
     return result;

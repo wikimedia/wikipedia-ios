@@ -1,11 +1,3 @@
-//
-//  SessionSingletonTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 12/10/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 @import Quick;
 @import Nimble;
 
@@ -20,7 +12,7 @@
 
 QuickSpecBegin(SessionSingletonTests)
 
-__block SessionSingleton * testSession;
+    __block SessionSingleton *testSession;
 
 configureTempDataStoreForEach(tempDataStore, ^{
     [[NSUserDefaults standardUserDefaults] wmf_resetToDefaultValues];
@@ -49,20 +41,20 @@ describe(@"send usage reports", ^{
                   @"value": @(!testSession.shouldSendUsageReports) };
     });
 
-    void (^ expectAllManagersToHaveExpectedAnalyticsHeaderForCurrentUsageReportsValue)(NSArray* managers) =
-        ^(NSArray* managers) {
-        NSString* expectedHeaderValue = [[ReadingActionFunnel new] appInstallID];
-        NSArray* headerValues =
-            [managers valueForKeyPath:@"requestSerializer.HTTPRequestHeaders.X-WMF-UUID"];
-        id<NMBMatcher> allEqualExpectedValueOrNull =
-            allPass(equal(testSession.shouldSendUsageReports ? expectedHeaderValue : [NSNull null]));
+    void (^expectAllManagersToHaveExpectedAnalyticsHeaderForCurrentUsageReportsValue)(NSArray *managers) =
+        ^(NSArray *managers) {
+            NSString *expectedHeaderValue = [[ReadingActionFunnel new] appInstallID];
+            NSArray *headerValues =
+                [managers valueForKeyPath:@"requestSerializer.HTTPRequestHeaders.X-WMF-UUID"];
+            id<NMBMatcher> allEqualExpectedValueOrNull =
+                allPass(equal(testSession.shouldSendUsageReports ? expectedHeaderValue : [NSNull null]));
 
-        expect(headerValues).to(allEqualExpectedValueOrNull);
-    };
+            expect(headerValues).to(allEqualExpectedValueOrNull);
+        };
 
     WMF_TECH_DEBT_TODO(shared example for all non - global fetchers to ensure they honor current & future values of this prop)
     it(@"should reset the global request managers", ^{
-        NSArray* oldManagers = [[QueuesSingleton sharedInstance] allManagers];
+        NSArray *oldManagers = [[QueuesSingleton sharedInstance] allManagers];
         expect(oldManagers).toNot(beEmpty());
         expect(oldManagers).to(allPass(beAKindOf([AFHTTPSessionManager class])));
 
@@ -71,7 +63,7 @@ describe(@"send usage reports", ^{
         // change send usage reports
         [testSession setShouldSendUsageReports:!testSession.shouldSendUsageReports];
 
-        NSArray* newManagers = [[QueuesSingleton sharedInstance] allManagers];
+        NSArray *newManagers = [[QueuesSingleton sharedInstance] allManagers];
         expect(newManagers).to(haveCount(@(oldManagers.count)));
         expect(newManagers).toNot(equal(oldManagers));
         expect(newManagers).to(allPass(beAKindOf([AFHTTPSessionManager class])));
@@ -80,14 +72,14 @@ describe(@"send usage reports", ^{
     });
 
     it(@"should be idempotent", ^{
-        NSArray* oldManagers = [[QueuesSingleton sharedInstance] allManagers];
+        NSArray *oldManagers = [[QueuesSingleton sharedInstance] allManagers];
         expect(oldManagers).toNot(beEmpty());
         expect(oldManagers).to(allPass(beAKindOf([AFHTTPSessionManager class])));
         expectAllManagersToHaveExpectedAnalyticsHeaderForCurrentUsageReportsValue(oldManagers);
 
         [testSession setShouldSendUsageReports:testSession.shouldSendUsageReports];
 
-        NSArray* managersAfterRedundantSet = [[QueuesSingleton sharedInstance] allManagers];
+        NSArray *managersAfterRedundantSet = [[QueuesSingleton sharedInstance] allManagers];
         expect(managersAfterRedundantSet).to(equal(oldManagers));
         expectAllManagersToHaveExpectedAnalyticsHeaderForCurrentUsageReportsValue(managersAfterRedundantSet);
     });
@@ -95,17 +87,17 @@ describe(@"send usage reports", ^{
 
 QuickSpecEnd
 
-QuickConfigurationBegin(SessionSingletonSharedExamples)
+        QuickConfigurationBegin(SessionSingletonSharedExamples)
 
-+ (void)configure : (Configuration*)configuration {
+    + (void)configure : (Configuration *)configuration {
     sharedExamples(@"a persistent property", ^(QCKDSLSharedExampleContext getContext) {
-        __block SessionSingleton* session;
+        __block SessionSingleton *session;
         __block id value;
-        __block NSString* key;
+        __block NSString *key;
 
         beforeEach(^{
             [[NSUserDefaults standardUserDefaults] wmf_resetToDefaultValues];
-            NSDictionary* context = getContext();
+            NSDictionary *context = getContext();
             session = context[@"session"];
             value = context[@"value"];
             key = context[@"key"];
@@ -113,7 +105,7 @@ QuickConfigurationBegin(SessionSingletonSharedExamples)
 
         it(@"a persistent property", ^{
             [session setValue:value forKey:key];
-            SessionSingleton* newSession = [[SessionSingleton alloc] initWithDataStore:[MWKDataStore temporaryDataStore]];
+            SessionSingleton *newSession = [[SessionSingleton alloc] initWithDataStore:[MWKDataStore temporaryDataStore]];
             expect([newSession valueForKey:key]).to(equal(value));
             [newSession.dataStore removeFolderAtBasePath];
         });

@@ -1,19 +1,15 @@
 import Foundation
+import SDWebImage
 
 ///
 /// @name Constants
 ///
 
+
+// Warning: Due to issues with `ErrorType` to `NSError` bridging, you must check domains of bridged errors like so: [MyCustomErrorTypeErrorDomain hasSuffix:nsError.domain] because the generated constant in the Swift header (in this case, `WMFImageControllerErrorDomain` in "Wikipedia-Swift.h") doesn't match the actual domain when `ErrorType` is cast to `NSError`.
 /**
  WMFImageControllerError
- 
- - warning: Due to issues with `ErrorType` to `NSError` bridging, you must check domains of bridged errors like so:
- 
- [MyCustomErrorTypeErrorDomain hasSuffix:nsError.domain]
- 
- because the generated constant in the Swift header (in this case, `WMFImageControllerErrorDomain` in
- "Wikipedia-Swift.h") doesn't match the actual domain when `ErrorType` is cast to `NSError`.
- 
+
  - DataNotFound:      Failed to find cached image data for the provided URL.
  - InvalidOrEmptyURL: The provided URL was empty or `nil`.
  - Deinit:            Fetch was cancelled because the image controller was deallocated.
@@ -25,8 +21,8 @@ import Foundation
 }
 
 public class WMFTypedImageData: NSObject {
-    let data:NSData?
-    let MIMEType:String?
+    public let data:NSData?
+    public let MIMEType:String?
     
     public init(data data_: NSData?, MIMEType type_: String?) {
         data = data_
@@ -70,7 +66,7 @@ public class WMFImageController : NSObject {
     
     private static let _sharedInstance: WMFImageController = {
         let downloader = SDWebImageDownloader.sharedDownloader()
-        let cache = SDImageCache.wmf_appSupportCacheWithNamespace(defaultNamespace)
+        let cache = SDImageCache.wmf_cacheWithNamespace(defaultNamespace)
         let memory = NSProcessInfo.processInfo().physicalMemory
         //Don't enable this, it causes crazy memory consumption
         //https://github.com/rs/SDWebImage/issues/586
@@ -91,7 +87,7 @@ public class WMFImageController : NSObject {
         return _sharedInstance
     }
     
-    let imageManager: SDWebImageManager
+    public let imageManager: SDWebImageManager
     
     let cancellingQueue: dispatch_queue_t
     
@@ -405,9 +401,7 @@ extension WMFImageController {
     
     /**
      Objective-C-compatible variant of fetchImageWithURL(url:options:) using default options & using blocks.
-     
-     - returns: `AnyPromise` which resolves to `WMFImageDownload`.
-     */
+    */
     @objc public func fetchImageWithURL(url: NSURL?, failure: (error: NSError) -> Void, success: (download: WMFImageDownload) -> Void) {
         guard let url = url else {
             failure(error: WMFImageControllerError.InvalidOrEmptyURL as NSError)

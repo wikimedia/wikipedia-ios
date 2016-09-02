@@ -8,7 +8,7 @@
 
 @interface WMFColumnarCollectionViewLayout ()
 
-@property (nonatomic, readonly) id <WMFColumnarCollectionViewLayoutDelegate> delegate;
+@property (nonatomic, readonly) id<WMFColumnarCollectionViewLayoutDelegate> delegate;
 @property (nonatomic, strong) WMFCVLInfo *info;
 @property (nonatomic, strong) WMFCVLMetrics *metrics;
 
@@ -28,9 +28,9 @@
 
 #pragma mark - Properties
 
-- (id <WMFColumnarCollectionViewLayoutDelegate>)delegate {
+- (id<WMFColumnarCollectionViewLayoutDelegate>)delegate {
     assert(self.collectionView.delegate == nil || [self.collectionView.delegate conformsToProtocol:@protocol(WMFColumnarCollectionViewLayoutDelegate)]);
-    return (id <WMFColumnarCollectionViewLayoutDelegate>)self.collectionView.delegate;
+    return (id<WMFColumnarCollectionViewLayoutDelegate>)self.collectionView.delegate;
 }
 
 - (NSInteger)numberOfItemsInSection:(NSInteger)section {
@@ -44,10 +44,10 @@
 #pragma mark - Layout
 
 - (nullable NSArray<__kindof UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
-    
+
     NSMutableArray *attributesArray = [NSMutableArray array];
-    
-    [self.info enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop) {
+
+    [self.info enumerateSectionsWithBlock:^(WMFCVLSection *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
         if (CGRectIntersectsRect(section.frame, rect)) {
             [section enumerateLayoutAttributesWithBlock:^(WMFCVLAttributes *attributes, BOOL *stop) {
                 if (CGRectIntersectsRect(attributes.frame, rect)) {
@@ -56,7 +56,7 @@
             }];
         }
     }];
-    
+
     return attributesArray;
 }
 
@@ -68,7 +68,7 @@
     return [self.info layoutAttributesForSupplementaryViewOfKind:elementKind atIndexPath:indexPath];
 }
 
-- (nullable UICollectionViewLayoutAttributes *)layoutAttributesForDecorationViewOfKind:(NSString*)elementKind atIndexPath:(NSIndexPath *)indexPath {
+- (nullable UICollectionViewLayoutAttributes *)layoutAttributesForDecorationViewOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     return nil;
 }
 
@@ -131,7 +131,7 @@
 
 - (nullable UICollectionViewLayoutAttributes *)layoutAttributesAtPoint:(CGPoint)point {
     __block UICollectionViewLayoutAttributes *attributesToReturn = nil;
-    [self.info enumerateSectionsWithBlock:^(WMFCVLSection * _Nonnull section, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.info enumerateSectionsWithBlock:^(WMFCVLSection *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
         if (CGRectContainsPoint(section.frame, point)) {
             [section enumerateLayoutAttributesWithBlock:^(WMFCVLAttributes *attributes, BOOL *stop) {
                 if (CGRectContainsPoint(attributes.frame, point)) {
@@ -146,4 +146,3 @@
 }
 
 @end
-

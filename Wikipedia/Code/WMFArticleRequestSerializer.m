@@ -1,21 +1,18 @@
-
 #import "WMFArticleRequestSerializer.h"
 #import "WMFNetworkUtilities.h"
-#import "UIScreen+WMFImageWidth.h"
 
 @implementation WMFArticleRequestSerializer
 
-
-- (NSURLRequest*)requestBySerializingRequest:(NSURLRequest*)request
-                              withParameters:(id)parameters
-                                       error:(NSError* __autoreleasing*)error {
-    NSMutableDictionary* serializedParams = [self paramsForURL:(NSURL*)parameters];
+- (NSURLRequest *)requestBySerializingRequest:(NSURLRequest *)request
+                               withParameters:(id)parameters
+                                        error:(NSError *__autoreleasing *)error {
+    NSMutableDictionary *serializedParams = [self paramsForURL:(NSURL *)parameters];
 
     return [super requestBySerializingRequest:request withParameters:serializedParams error:error];
 }
 
-- (NSMutableDictionary*)paramsForURL:(NSURL*)url {
-    NSMutableDictionary* params = @{
+- (NSMutableDictionary *)paramsForURL:(NSURL *)url {
+    NSMutableDictionary *params = @{
         @"format": @"json",
         @"action": @"mobileview",
         @"sectionprop": WMFJoinedPropertyParameters(@[@"toclevel", @"line", @"anchor", @"level", @"number",

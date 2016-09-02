@@ -1,5 +1,4 @@
-
-#import "UIImageView+WMFImageFetching.h"
+#import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 
 @class MWKImage;
 @class WMFImageController;
@@ -13,14 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
  *   The cache used to hold any detected faces
  *
  */
-+ (WMFFaceDetectionCache*)faceDetectionCache;
++ (WMFFaceDetectionCache *)faceDetectionCache;
 
 /**
  *  The image URL associated with the receiver.
  *
  *  Used to ensure that images set on the receiver aren't associated with a URL for another metadata entity.
  */
-@property (nonatomic, strong, nullable, setter = wmf_setImageURL:) NSURL* wmf_imageURL;
+@property (nonatomic, strong, nullable, setter=wmf_setImageURL:) NSURL *wmf_imageURL;
 
 /**
  *  The metadata associated with the receiver.
@@ -30,22 +29,14 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see wmf_imageURL
  */
-@property (nonatomic, strong, nullable, setter = wmf_setImageMetadata:) MWKImage* wmf_imageMetadata;
+@property (nonatomic, strong, nullable, setter=wmf_setImageMetadata:) MWKImage *wmf_imageMetadata;
 
 /**
  *  The image controller used to fetch image data.
  *
  *  Used to cancel the previous fetch executed by the receiver. Defaults to @c [WMFImageController sharedInstance].
  */
-@property (nonatomic, weak, nullable, setter = wmf_setImageController:) WMFImageController* wmf_imageController;
-
-
-/**
- *  The URL to fetch, depending on the current values of @c wmf_imageMetadata and @c wmf_imageURL.
- *
- *  @return A URL to the image to display in the receiver, or @c nil if none is set.
- */
-@property (nonatomic, strong, nullable, readonly) NSURL* wmf_imageURLToFetch;
+@property (nonatomic, weak, nullable, setter=wmf_setImageController:) WMFImageController *wmf_imageController;
 
 /**
  *  Fetch the receiver's @c wmf_imageURLToFetch
@@ -54,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A promise which resolves after the image has been successfully set and animated into view.
  */
-- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
+- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
 
 /**
  *  Cancels any ongoing fetch for the receiver's current image, using its internal @c WMFImageController.

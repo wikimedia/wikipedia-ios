@@ -1,0 +1,10 @@
+
+#import <Availability.h>
+
+#ifdef __OBJC__
+
+@import Foundation;
+
+#import "WMFUtilities-Global.h"
+
+#endif // end __OBJC__

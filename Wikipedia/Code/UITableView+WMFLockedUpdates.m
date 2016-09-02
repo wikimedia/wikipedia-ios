@@ -1,17 +1,9 @@
-//
-//  UITableView+WMFLockedUpdates.m
-//
-//
-//  Created by Brian Gerstle on 12/18/15.
-//
-//
-
 #import "UITableView+WMFLockedUpdates.h"
 
 @implementation UITableView (WMFLockedUpdates)
 
-- (void)      wmf_performUpdates:(dispatch_block_t)updates
-    withoutMovingCellAtIndexPath:(NSIndexPath*)lockedIndexPath {
+- (void)wmf_performUpdates:(dispatch_block_t)updates
+    withoutMovingCellAtIndexPath:(NSIndexPath *)lockedIndexPath {
     NSParameterAssert(lockedIndexPath);
     NSParameterAssert(updates);
     if (self.contentSize.height <= self.frame.size.height) {
@@ -20,7 +12,7 @@
         return;
     }
 
-    UITableViewCell* oldLockedCell = [self cellForRowAtIndexPath:lockedIndexPath];
+    UITableViewCell *oldLockedCell = [self cellForRowAtIndexPath:lockedIndexPath];
     if (!oldLockedCell) {
         DDLogVerbose(@"Cell at %@ not visible, skipping.", lockedIndexPath);
         updates();
@@ -37,7 +29,7 @@
             return;
         }
 
-        UITableViewCell* newLockedCell = [self cellForRowAtIndexPath:lockedIndexPath];
+        UITableViewCell *newLockedCell = [self cellForRowAtIndexPath:lockedIndexPath];
         if (!newLockedCell) {
             DDLogVerbose(@"Can't find cell to lock for %@ after updates, skipping adjustment.", lockedIndexPath);
             return;

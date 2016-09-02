@@ -5,7 +5,7 @@
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)attributesToFit {
     CGSize sizeToFit = attributesToFit.size;
     sizeToFit.height = UIViewNoIntrinsicMetric;
-    
+
     CGSize fitSize = [self systemLayoutSizeFittingSize:sizeToFit withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
 
     if (CGSizeEqualToSize(fitSize, attributesToFit.size)) {
@@ -17,7 +17,7 @@
             fitSize.height = attributesToFit.size.height;
         }
 
-        fitAttributes.frame = (CGRect) {attributesToFit.frame.origin, fitSize};
+        fitAttributes.frame = (CGRect){attributesToFit.frame.origin, fitSize};
         return fitAttributes;
     }
 }

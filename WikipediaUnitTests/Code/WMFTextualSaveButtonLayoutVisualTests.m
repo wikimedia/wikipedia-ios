@@ -4,7 +4,7 @@
 
 @interface WMFTextualSaveButtonLayoutVisualTests : FBSnapshotTestCase
 
-@property (nonatomic, strong) WMFLeadingImageTrailingTextButton* saveButton;
+@property (nonatomic, strong) WMFLeadingImageTrailingTextButton *saveButton;
 
 @end
 

@@ -1,4 +1,3 @@
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
@@ -9,7 +8,7 @@
 @end
 
 @implementation MWKSiteTests {
-    NSURL* siteURL;
+    NSURL *siteURL;
 }
 
 - (void)setUp {
@@ -31,7 +30,7 @@
 }
 
 - (void)testEquals {
-    NSURL* otherSiteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
+    NSURL *otherSiteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"en"];
     XCTAssertEqualObjects(siteURL, otherSiteURL);
 
     otherSiteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:@"fr"];

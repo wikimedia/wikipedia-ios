@@ -1,1 +1,0 @@
-../../../VTAcknowledgementsViewController/Classes/VTAcknowledgementsViewController.h

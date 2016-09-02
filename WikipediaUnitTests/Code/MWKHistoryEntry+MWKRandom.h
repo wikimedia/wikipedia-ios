@@ -1,8 +1,6 @@
-
 #import "MWKHistoryEntry.h"
 #import "MWKRandom.h"
 
-@interface MWKHistoryEntry (MWKRandom)
-<MWKRandom>
+@interface MWKHistoryEntry (MWKRandom) <MWKRandom>
 
 @end

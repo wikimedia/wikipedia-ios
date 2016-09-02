@@ -1,10 +1,9 @@
 #import <XCTest/XCTest.h>
-#import "MediaWikiKit.h"
 
 @interface MWKTestCase : XCTestCase
 
-- (id)loadDataFile:(NSString*)name ofType:(NSString*)extension;
-- (id)loadJSON:(NSString*)name;
+- (id)loadDataFile:(NSString *)name ofType:(NSString *)extension;
+- (id)loadJSON:(NSString *)name;
 
 @property (nonatomic, copy, readonly) NSString *allObamaHTML;
 @property (nonatomic, copy, readonly) NSURL *obamaBaseURL;

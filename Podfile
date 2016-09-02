@@ -3,75 +3,115 @@ source 'https://github.com/CocoaPods/Specs.git'
 # Configurations which are not compiled for release on the App Store
 # NOT_APP_STORE_CONFIGS = ['Debug', 'Alpha', 'Beta', 'AdHoc'].freeze
 
-platform :ios, :deployment_target => '8.0'
+platform :ios, :deployment_target => '9.0'
 
 inhibit_all_warnings!
+use_frameworks!
 
-xcodeproj 'Wikipedia'
+project 'Wikipedia'
 
-# HTML
-pod 'hpple', '~> 0.2'
+abstract_target 'Foundation' do
+  # Networking / Parsing
+  pod 'AFNetworking', :git => 'https://github.com/wikimedia/AFNetworking.git', :branch => 'release/3.1.1'
+  pod 'Mantle', '~> 2.0.0'
 
-# Networking / Parsing
-pod 'AFNetworking', :git => 'https://github.com/wikimedia/AFNetworking.git', :branch => 'release/3.1.1'
-pod 'Mantle', '~> 2.0.0'
-pod 'GCDWebServer', '~> 3.3'
+  # Images
+  pod 'SDWebImage', :git => 'https://github.com/wikimedia/SDWebImage.git', :commit => 'bb49df83e72f2231a191e9477a85f0effe13430a'
+  pod 'AnimatedGIFImageSerialization', :git => 'https://github.com/wikimedia/AnimatedGIFImageSerialization.git'
 
-# Images
-pod 'SDWebImage', :git => 'https://github.com/wikimedia/SDWebImage.git', :commit => 'bb49df83e72f2231a191e9477a85f0effe13430a'
-pod 'AnimatedGIFImageSerialization', :git => 'https://github.com/wikimedia/AnimatedGIFImageSerialization.git'
+  # Utilities
+  pod 'libextobjc/EXTScope', '~> 0.4.1'
+  pod 'BlocksKit/Core', '~> 2.2.0'
+  pod 'KVOController', '= 1.0.3'
+  
+  pod 'CocoaLumberjack/Swift'
 
-# Utilities
-pod 'libextobjc/EXTScope', '~> 0.4.1'
-pod 'BlocksKit/Core', '~> 2.2.0'
-pod 'BlocksKit/UIKit', '~> 2.2.0'
-pod 'KVOController'
+  # Dates
+  pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'
 
-# Dates
-pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'
+  # Database
+  pod 'YapDatabase'
 
-# Database
-pod 'YapDatabase'
+  # Promises
+  pod 'PromiseKit', '~> 3.4'
 
-# Datasources
-pod 'SSDataSources', '~> 0.8.0'
+  # Datasources
+  pod 'SSDataSources', '~> 0.8.0'
 
-# Autolayout
-pod 'Masonry', '0.6.2'
+  # Autolayout
+  pod 'Masonry', '0.6.2'
 
-# Views
-pod 'OAStackView', :git => 'git@github.com:wikimedia/OAStackView.git'
-pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git'
-pod 'SVWebViewController', '~> 1.0'
-# pod "SWStepSlider", :git => 'https://github.com/wikimedia/SWStepSlider.git'
+  # Diagnostics
+  pod 'PiwikTracker'
+  pod 'HockeySDK', '~> 4.1.0'
 
-# Activities
-pod 'TUSafariActivity'
+  pod 'hpple', '~> 0.2'
+	
+  target 'ContinueReadingWidget' do
 
-# Licenses
-pod 'VTAcknowledgementsViewController'
+  end
+  
+  target 'TopReadWidget' do
 
-# Photo Gallery
-pod 'NYTPhotoViewer'
+  end
+  
+  target 'WMFUtilities' do
+  	
+  end
+  
+  target 'WMFModel' do
 
-# Diagnostics
-pod 'PiwikTracker', :head
-pod 'HockeySDK', '~> 4.1.0'
-pod 'Tweaks', :head
+  end
+  
+  target 'WMFUI' do
+  	
+  end
+  
+  target 'Wikipedia' do
+    # Utilities
+    pod 'Tweaks'
+    pod 'BlocksKit/UIKit', '~> 2.2.0'
 
-target 'WikipediaUnitTests', :exclusive => true do
-  pod 'OCMockito', '~> 1.4.0'
-  pod 'OCHamcrest', '~> 4.2.0'
-  pod 'Nocilla'
-  # pod 'FBSnapshotTestCase', :head
-  # pod 'Quick', '~> 0.9.0'
-  # pod 'Nimble', '~> 4.0.0'
+    # HTML
+    pod 'GCDWebServer', '~> 3.3'
+
+    # Views
+    pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git'
+    pod 'SVWebViewController', '~> 1.0'
+    pod "SWStepSlider", :git => 'https://github.com/wikimedia/SWStepSlider.git'
+
+    # Activities
+    pod 'TUSafariActivity'
+
+    # Licenses
+    pod 'VTAcknowledgementsViewController'
+
+    # Photo Gallery
+    pod 'NYTPhotoViewer'
+
+    target 'WikipediaUnitTests' do
+      pod 'OCMockito', '~> 1.4.0'
+      pod 'OCHamcrest', '~> 4.2.0'
+      pod 'Nocilla'
+      pod 'FBSnapshotTestCase'
+      pod 'Quick', '~> 0.9.0'
+      pod 'Nimble', '~> 4.0.0'
+    end
+
+  end
+
 end
 
 
 post_install do |installer|
   plist_buddy = "/usr/libexec/PlistBuddy"
   version = `#{plist_buddy} -c "Print CFBundleShortVersionString" Wikipedia/Wikipedia-Info.plist`.strip
+
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = '2.3'
+    end
+  end
 
   def enable_tweaks(target)
     target.build_configurations.each { |c|

@@ -9,7 +9,6 @@ end
 # :args: Additional arguments to be passed to `make`.
 # Returns The result of the `make` command
 def make(args)
-  # Maybe we should write an "uncrustify" fastlane action?...
   Dir.chdir '..' do
     sh 'make ' + args
   end

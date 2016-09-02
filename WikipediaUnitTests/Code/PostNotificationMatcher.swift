@@ -1,11 +1,3 @@
-//
-//  PostNotificationMatcher.swift
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 12/10/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 import Nimble
 
 public func postNotification<T where T: Equatable, T: AnyObject>(

@@ -1,4 +1,3 @@
-
 #import "WMFRandomSectionController.h"
 #import "WMFRandomArticleFetcher.h"
 
@@ -9,7 +8,6 @@
 #import "WMFArticlePreviewCollectionViewCell.h"
 #import "WMFArticlePlaceholderCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
-#import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
 #import "WMFRandomArticleViewController.h"
 #import "WMFFirstRandomViewController.h"
@@ -17,24 +15,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
+NSString *const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 @interface WMFRandomSectionController ()
 
-@property (nonatomic, strong, readwrite) NSURL* searchSiteURL;
-@property (nonatomic, strong) WMFRandomArticleFetcher* fetcher;
+@property (nonatomic, strong, readwrite) NSURL *searchSiteURL;
+@property (nonatomic, strong) WMFRandomArticleFetcher *fetcher;
 
-@property (nonatomic, strong, nullable) MWKSearchResult* result;
+@property (nonatomic, strong, nullable) MWKSearchResult *result;
 
-@property (nonatomic, weak, nullable) WMFArticlePreviewCollectionViewCell* cell;
+@property (nonatomic, weak, nullable) WMFArticlePreviewCollectionViewCell *cell;
 
-@property (nonatomic, readonly, getter = isNewInterfaceEnabled) BOOL newInterfaceEnabled;
+@property (nonatomic, readonly, getter=isNewInterfaceEnabled) BOOL newInterfaceEnabled;
 
 @end
 
 @implementation WMFRandomSectionController
 
-- (instancetype)initWithSearchSiteURL:(NSURL*)url dataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithSearchSiteURL:(NSURL *)url dataStore:(MWKDataStore *)dataStore {
     self = [super initWithDataStore:dataStore];
     if (self) {
         self.searchSiteURL = url;
@@ -42,7 +40,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     return self;
 }
 
-- (WMFRandomArticleFetcher*)fetcher {
+- (WMFRandomArticleFetcher *)fetcher {
     if (_fetcher == nil) {
         _fetcher = [[WMFRandomArticleFetcher alloc] init];
     }
@@ -53,31 +51,31 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     return WMFRandomSectionIdentifier;
 }
 
-- (UIImage*)headerIcon {
+- (UIImage *)headerIcon {
     return [UIImage imageNamed:@"random-mini"];
 }
 
-- (UIColor*)headerIconTintColor {
+- (UIColor *)headerIconTintColor {
     return [UIColor wmf_exploreSectionHeaderIconTintColor];
 }
 
-- (UIColor*)headerIconBackgroundColor {
+- (UIColor *)headerIconBackgroundColor {
     return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
 }
 
-- (NSAttributedString*)headerTitle {
+- (NSAttributedString *)headerTitle {
     return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-random-article-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
-- (NSAttributedString*)headerSubTitle {
+- (NSAttributedString *)headerSubTitle {
     return [[NSAttributedString alloc] initWithString:MWSiteLocalizedString(self.searchSiteURL, @"onboarding-wikipedia", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
-- (NSString*)cellIdentifier {
+- (NSString *)cellIdentifier {
     return [WMFArticlePreviewCollectionViewCell identifier];
 }
 
-- (UINib*)cellNib {
+- (UINib *)cellNib {
     return [WMFArticlePreviewCollectionViewCell wmf_classNib];
 }
 
@@ -85,58 +83,59 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     return 1;
 }
 
-- (nullable NSString*)placeholderCellIdentifier {
+- (nullable NSString *)placeholderCellIdentifier {
     return [WMFArticlePlaceholderCollectionViewCell identifier];
 }
 
-- (nullable UINib*)placeholderCellNib {
+- (nullable UINib *)placeholderCellNib {
     return [WMFArticlePlaceholderCollectionViewCell wmf_classNib];
 }
 
-- (void)configureCell:(WMFArticlePreviewCollectionViewCell*)cell withItem:(MWKSearchResult*)item atIndexPath:(NSIndexPath*)indexPath {
-    cell.titleText       = item.displayTitle;
+- (void)configureCell:(WMFArticlePreviewCollectionViewCell *)cell withItem:(MWKSearchResult *)item atIndexPath:(NSIndexPath *)indexPath {
+    cell.titleText = item.displayTitle;
     cell.descriptionText = item.wikidataDescription;
-    cell.snippetText     = item.extract;
+    cell.snippetText = item.extract;
     [cell setImageURL:item.thumbnailURL];
     [cell setSaveableURL:[self urlForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
-    [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-    cell.saveButtonController.analyticsContext     = self;
+    cell.saveButtonController.analyticsContext = self;
     cell.saveButtonController.analyticsContentType = self;
-    self.cell                                      = cell;
+    self.cell = cell;
 }
 
 - (CGFloat)estimatedRowHeight {
     return [WMFArticlePreviewCollectionViewCell estimatedRowHeight];
 }
 
-- (NSString*)analyticsContentType {
+- (NSString *)analyticsContentType {
     return @"Random";
 }
 
-- (AnyPromise*)fetchData {
+- (AnyPromise *)fetchData {
     [self.cell setLoading:YES];
     @weakify(self);
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [self.fetcher fetchRandomArticleWithSiteURL:self.searchSiteURL failure:^(NSError* error) {
-            @strongify(self);
-            self.result = nil;
-            [self.cell setLoading:NO];
-            resolve(error);
-        } success:^(MWKSearchResult* result) {
-            @strongify(self);
-            if (!self) {
-                resolve([NSError cancelledError]);
-                return;
+        [self.fetcher fetchRandomArticleWithSiteURL:self.searchSiteURL
+            failure:^(NSError *error) {
+                @strongify(self);
+                self.result = nil;
+                [self.cell setLoading:NO];
+                resolve(error);
             }
-            [self.cell setLoading:NO];
-            self.result = result;
-            resolve(@[result]);
-        }];
+            success:^(MWKSearchResult *result) {
+                @strongify(self);
+                if (!self) {
+                    resolve([NSError cancelledError]);
+                    return;
+                }
+                [self.cell setLoading:NO];
+                self.result = result;
+                resolve(@[result]);
+            }];
     }];
 }
 
-- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
-    NSURL* url = [self urlForItemAtIndexPath:indexPath];
+- (UIViewController *)detailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSURL *url = [self urlForItemAtIndexPath:indexPath];
 
     if (self.isNewInterfaceEnabled) {
         return [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
@@ -161,7 +160,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 #pragma mark - WMFHeaderActionProviding
 
-- (UIImage*)headerButtonIcon {
+- (UIImage *)headerButtonIcon {
     return [UIImage imageNamed:@"refresh-mini"];
 }
 
@@ -175,11 +174,11 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 #pragma mark - WMFMoreFooterProviding
 
-- (NSString*)footerText {
+- (NSString *)footerText {
     return MWLocalizedString(@"explore-another-random", nil);
 }
 
-- (UIViewController*)moreViewController {
+- (UIViewController *)moreViewController {
     return [[WMFFirstRandomViewController alloc] initWithSiteURL:self.searchSiteURL dataStore:self.dataStore];
 }
 
@@ -187,10 +186,9 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     return self.isNewInterfaceEnabled;
 }
 
-
 #pragma mark - WMFTitleProviding
 
-- (nullable NSURL*)urlForItemAtIndexPath:(NSIndexPath*)indexPath {
+- (nullable NSURL *)urlForItemAtIndexPath:(NSIndexPath *)indexPath {
     return [self.searchSiteURL wmf_URLWithTitle:self.result.displayTitle];
 }
 

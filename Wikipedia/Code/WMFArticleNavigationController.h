@@ -2,11 +2,10 @@
 
 @interface WMFArticleNavigationController : WMFRotationRespectingNavigationController
 
-@property (nonatomic, readonly, getter = isSecondToolbarHidden) BOOL secondToolbarHidden;
+@property (nonatomic, readonly, getter=isSecondToolbarHidden) BOOL secondToolbarHidden;
 - (void)setSecondToolbarHidden:(BOOL)secondToolbarHidden animated:(BOOL)animated;
 
 @end
-
 
 @interface UIViewController (UINavigationControllerContextualSecondToolbarItems)
 

@@ -1,11 +1,10 @@
-
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class WMFAsyncBlockOperation;
 
-typedef void (^ WMFAsyncBlock)(WMFAsyncBlockOperation* operation);
+typedef void (^WMFAsyncBlock)(WMFAsyncBlockOperation *operation);
 
 @interface WMFAsyncBlockOperation : NSOperation
 
@@ -18,7 +17,6 @@ typedef void (^ WMFAsyncBlock)(WMFAsyncBlockOperation* operation);
 - (void)finish;
 
 @end
-
 
 @interface NSOperationQueue (AsyncBlockOperation)
 

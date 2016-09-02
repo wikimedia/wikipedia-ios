@@ -1,22 +1,14 @@
-//
-//  UIApplication+VisualTestUtils.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 1/12/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
-
 #import "UIApplication+VisualTestUtils.h"
 
 @implementation UIApplication (VisualTestUtils)
 
-- (NSString*)wmf_systemVersionAndWritingDirection {
+- (NSString *)wmf_systemVersionAndWritingDirection {
     return [@[[[UIDevice currentDevice] systemVersion],
               [self wmf_userInterfaceLayoutDirectionAsString]]
-componentsJoinedByString: @"_"];
+        componentsJoinedByString:@"_"];
 }
 
-- (NSString*)wmf_userInterfaceLayoutDirectionAsString {
+- (NSString *)wmf_userInterfaceLayoutDirectionAsString {
     switch (self.userInterfaceLayoutDirection) {
         case UIUserInterfaceLayoutDirectionLeftToRight:
             return @"LTR";

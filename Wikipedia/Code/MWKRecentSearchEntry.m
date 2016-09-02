@@ -1,15 +1,12 @@
-
-#import "MediaWikiKit.h"
-
 @interface MWKRecentSearchEntry ()
 
-@property (readwrite, copy, nonatomic) NSString* searchTerm;
+@property (readwrite, copy, nonatomic) NSString *searchTerm;
 
 @end
 
 @implementation MWKRecentSearchEntry
 
-- (instancetype)initWithURL:(NSURL*)url searchTerm:(NSString*)searchTerm {
+- (instancetype)initWithURL:(NSURL *)url searchTerm:(NSString *)searchTerm {
     url = [NSURL wmf_desktopURLForURL:url];
     NSParameterAssert(url);
     NSParameterAssert(searchTerm);
@@ -20,35 +17,34 @@
     return self;
 }
 
-- (instancetype)initWithDict:(NSDictionary*)dict {
-    NSString* urlString = dict[@"url"];
-    NSString* domain    = dict[@"domain"];
-    NSString* language  = dict[@"language"];
+- (instancetype)initWithDict:(NSDictionary *)dict {
+    NSString *urlString = dict[@"url"];
+    NSString *domain = dict[@"domain"];
+    NSString *language = dict[@"language"];
 
-    NSURL* url;
+    NSURL *url;
 
     if ([urlString length]) {
         url = [NSURL URLWithString:urlString];
     } else if (domain && language) {
         url = [NSURL wmf_URLWithDomain:domain language:language];
-    }else{
+    } else {
         return nil;
     }
 
-    NSString* searchTerm = dict[@"searchTerm"];
+    NSString *searchTerm = dict[@"searchTerm"];
     self = [self initWithURL:url searchTerm:searchTerm];
     return self;
 }
 
-- (NSString*)description {
+- (NSString *)description {
     return [NSString stringWithFormat:@"%@ %@", [super description], self.searchTerm];
 }
 
 WMF_SYNTHESIZE_IS_EQUAL(MWKRecentSearchEntry, isEqualToRecentSearch:)
 
-- (BOOL)isEqualToRecentSearch:(MWKRecentSearchEntry*)rhs {
-    return WMF_RHS_PROP_EQUAL(url, isEqual:)
-           && WMF_RHS_PROP_EQUAL(searchTerm, isEqualToString:);
+- (BOOL)isEqualToRecentSearch:(MWKRecentSearchEntry *)rhs {
+    return WMF_RHS_PROP_EQUAL(url, isEqual:) && WMF_RHS_PROP_EQUAL(searchTerm, isEqualToString:);
 }
 
 - (NSUInteger)hash {
@@ -57,14 +53,14 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKRecentSearchEntry, isEqualToRecentSearch:)
 
 #pragma mark - MWKListObject
 
-- (id <NSCopying>)listIndex {
+- (id<NSCopying>)listIndex {
     return self.searchTerm;
 }
 
 - (id)dataExport {
     return @{
-               @"url": [self.url absoluteString],
-               @"searchTerm": self.searchTerm
+        @"url": [self.url absoluteString],
+        @"searchTerm": self.searchTerm
     };
 }
 

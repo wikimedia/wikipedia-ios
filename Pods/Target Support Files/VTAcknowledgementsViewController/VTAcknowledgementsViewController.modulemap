@@ -1,0 +1,6 @@
+framework module VTAcknowledgementsViewController {
+  umbrella header "VTAcknowledgementsViewController-umbrella.h"
+
+  export *
+  module * { export * }
+}

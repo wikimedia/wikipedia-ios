@@ -1,4 +1,3 @@
-
 #import "WMFRelatedTitleListDataSource.h"
 
 // Frameworks
@@ -15,15 +14,14 @@
 #import "MWKDataStore.h"
 #import "WMFRelatedSearchResults.h"
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRelatedTitleListDataSource ()
 
-@property (nonatomic, copy, readwrite) NSURL* url;
-@property (nonatomic, strong) MWKDataStore* dataStore;
-@property (nonatomic, strong) WMFRelatedSearchFetcher* relatedSearchFetcher;
-@property (nonatomic, strong, readwrite, nullable) WMFRelatedSearchResults* relatedSearchResults;
+@property (nonatomic, copy, readwrite) NSURL *url;
+@property (nonatomic, strong) MWKDataStore *dataStore;
+@property (nonatomic, strong) WMFRelatedSearchFetcher *relatedSearchFetcher;
+@property (nonatomic, strong, readwrite, nullable) WMFRelatedSearchResults *relatedSearchResults;
 
 @property (nonatomic, assign) NSUInteger resultLimit;
 
@@ -31,8 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFRelatedTitleListDataSource
 
-- (instancetype)initWithURL:(NSURL*)url
-                  dataStore:(MWKDataStore*)dataStore
+- (instancetype)initWithURL:(NSURL *)url
+                  dataStore:(MWKDataStore *)dataStore
                 resultLimit:(NSUInteger)resultLimit {
     return [self initWithURL:url
                    dataStore:dataStore
@@ -40,32 +38,32 @@ NS_ASSUME_NONNULL_BEGIN
                      fetcher:[[WMFRelatedSearchFetcher alloc] init]];
 }
 
-- (instancetype)initWithURL:(NSURL*)url
-                  dataStore:(MWKDataStore*)dataStore
+- (instancetype)initWithURL:(NSURL *)url
+                  dataStore:(MWKDataStore *)dataStore
                 resultLimit:(NSUInteger)resultLimit
-                    fetcher:(WMFRelatedSearchFetcher*)fetcher {
+                    fetcher:(WMFRelatedSearchFetcher *)fetcher {
     NSParameterAssert(url.wmf_title);
     NSParameterAssert(dataStore);
     NSParameterAssert(fetcher);
     self = [super initWithItems:nil];
     if (self) {
-        self.url                  = url;
-        self.dataStore            = dataStore;
+        self.url = url;
+        self.dataStore = dataStore;
         self.relatedSearchFetcher = fetcher;
-        self.resultLimit          = resultLimit;
+        self.resultLimit = resultLimit;
     }
     return self;
 }
 
-- (MWKSavedPageList*)savedPageList {
+- (MWKSavedPageList *)savedPageList {
     return self.dataStore.userDataStore.savedPageList;
 }
 
 #pragma mark - Fetching
 
-- (AnyPromise*)fetch {
+- (AnyPromise *)fetch {
     @weakify(self);
-    return [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:self.url resultLimit:self.resultLimit].then(^(WMFRelatedSearchResults* searchResults) {
+    return [self.relatedSearchFetcher fetchArticlesRelatedArticleWithURL:self.url resultLimit:self.resultLimit].then(^(WMFRelatedSearchResults *searchResults) {
         @strongify(self);
         if (!self) {
             return (id)nil;
@@ -78,18 +76,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFArticleListDataSource
 
-- (MWKSearchResult*)searchResultForIndexPath:(NSIndexPath*)indexPath {
-    MWKSearchResult* result = self.relatedSearchResults.results[indexPath.row];
+- (MWKSearchResult *)searchResultForIndexPath:(NSIndexPath *)indexPath {
+    MWKSearchResult *result = self.relatedSearchResults.results[indexPath.row];
     return result;
 }
 
-- (NSURL*)urlForIndexPath:(NSIndexPath*)indexPath {
-    MWKSearchResult* result = [self searchResultForIndexPath:indexPath];
+- (NSURL *)urlForIndexPath:(NSIndexPath *)indexPath {
+    MWKSearchResult *result = [self searchResultForIndexPath:indexPath];
     return [self.url wmf_URLWithTitle:result.displayTitle];
 }
 
-- (NSArray<NSURL*>*)urls {
-    return [self.relatedSearchResults.results bk_map:^id (MWKSearchResult* obj) {
+- (NSArray<NSURL *> *)urls {
+    return [self.relatedSearchResults.results bk_map:^id(MWKSearchResult *obj) {
         return [self.url wmf_URLWithTitle:obj.displayTitle];
     }];
 }
@@ -98,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.relatedSearchResults.results count];
 }
 
-- (BOOL)canDeleteItemAtIndexpath:(NSIndexPath* __nonnull)indexPath {
+- (BOOL)canDeleteItemAtIndexpath:(NSIndexPath *__nonnull)indexPath {
     return NO;
 }
 

@@ -1,11 +1,3 @@
-//
-//  CLLocation+WMFBearing.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 9/8/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import <CoreLocation/CoreLocation.h>
 
 @interface CLLocation (WMFBearing)
@@ -20,7 +12,7 @@
  *
  *  @see -wmf_bearingToLocation:
  */
-- (CLLocationDegrees)wmf_bearingToLocation:(CLLocation*)destination forCurrentHeading:(CLHeading*)currentHeading;
+- (CLLocationDegrees)wmf_bearingToLocation:(CLLocation *)destination forCurrentHeading:(CLHeading *)currentHeading;
 
 /**
  *  Calculate the bearing from the receiver to a given location.
@@ -32,6 +24,6 @@
  *
  *  @return The relative bearing in degrees, where a positive value goes in the clockwise direction.
  */
-- (CLLocationDegrees)wmf_bearingToLocation:(CLLocation*)destination;
+- (CLLocationDegrees)wmf_bearingToLocation:(CLLocation *)destination;
 
 @end

@@ -1,11 +1,3 @@
-//
-//  WMFGradientView.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 3/6/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFGradientView.h"
 
 @implementation WMFGradientView
@@ -18,21 +10,21 @@
     return self;
 }
 
-- (void)setStartColor:(UIColor*)startColor endColor:(UIColor*)endColor {
+- (void)setStartColor:(UIColor *)startColor endColor:(UIColor *)endColor {
     _startColor = startColor;
-    _endColor   = endColor;
+    _endColor = endColor;
     // HAX: need to provide clearColor defaults since IB might pass nil by setting
     // start/end separately
-    [self.gradientLayer setColors:@[(id)startColor.CGColor ? : [UIColor clearColor],
-                                    (id)endColor.CGColor ? : [UIColor clearColor]]];
+    [self.gradientLayer setColors:@[(id)startColor.CGColor ?: [UIColor clearColor],
+                                    (id)endColor.CGColor ?: [UIColor clearColor]]];
 }
 
-- (void)setStartColor:(UIColor*)startColor {
+- (void)setStartColor:(UIColor *)startColor {
     // need to support this for changes in IB
     [self setStartColor:startColor endColor:self.endColor];
 }
 
-- (void)setEndColor:(UIColor*)endColor {
+- (void)setEndColor:(UIColor *)endColor {
     // need to support this for changes in IB
     [self setStartColor:self.startColor endColor:endColor];
 }
@@ -51,8 +43,8 @@
     return [CAGradientLayer class];
 }
 
-- (CAGradientLayer*)gradientLayer {
-    return (CAGradientLayer*)self.layer;
+- (CAGradientLayer *)gradientLayer {
+    return (CAGradientLayer *)self.layer;
 }
 
 @end

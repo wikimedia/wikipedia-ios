@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 8/19/15.
-//  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import <XCTest/XCTest.h>
 
 @interface XCTestCase (WMFVisualTestConvenience)
@@ -13,8 +10,8 @@
  *
  *  @return UILabel
  */
-- (UILabel*)wmf_getLabelSizedToFitWidth:(CGFloat)width
-                    configuredWithBlock:(void (^)(UILabel*))block;
+- (UILabel *)wmf_getLabelSizedToFitWidth:(CGFloat)width
+                     configuredWithBlock:(void (^)(UILabel *))block;
 
 /**
  *  Get UITableViewCell configured to 320 width and dynamic height based on autolayout properties of its subviews.
@@ -24,9 +21,9 @@
  *
  *  @return UITableViewCell
  */
-- (UITableViewCell*)wmf_getCellWithIdentifier:(NSString*)identifier
-                                fromTableView:(UITableView*)tableView
-                              sizedToFitWidth:(CGFloat)width
-                          configuredWithBlock:(void (^)(UITableViewCell*))block;
+- (UITableViewCell *)wmf_getCellWithIdentifier:(NSString *)identifier
+                                 fromTableView:(UITableView *)tableView
+                               sizedToFitWidth:(CGFloat)width
+                           configuredWithBlock:(void (^)(UITableViewCell *))block;
 
 @end

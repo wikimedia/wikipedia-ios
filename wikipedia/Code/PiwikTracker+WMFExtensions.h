@@ -1,4 +1,3 @@
-
 #import <PiwikTracker/PiwikTracker.h>
 #import "WMFAnalyticsLogging.h"
 
@@ -21,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wmf_logActionSaveInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType;
 - (void)wmf_logActionUnsaveInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType;
 - (void)wmf_logActionSwitchLanguageInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType;
-
 
 @end
 

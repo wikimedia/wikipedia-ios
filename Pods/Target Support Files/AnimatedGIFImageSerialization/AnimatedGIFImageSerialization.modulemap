@@ -1,0 +1,6 @@
+framework module AnimatedGIFImageSerialization {
+  umbrella header "AnimatedGIFImageSerialization-umbrella.h"
+
+  export *
+  module * { export * }
+}

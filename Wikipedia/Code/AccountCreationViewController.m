@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 2/21/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "AccountCreationViewController.h"
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
@@ -15,7 +12,6 @@
 #import "UIViewController+WMFChildViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "SectionEditorViewController.h"
-#import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 #import "PaddedLabel.h"
 #import "MWKLanguageLinkController.h"
@@ -24,29 +20,29 @@
 
 @interface AccountCreationViewController ()
 
-@property (strong, nonatomic) CaptchaViewController* captchaViewController;
-@property (weak, nonatomic) IBOutlet UIView* captchaContainer;
-@property (weak, nonatomic) IBOutlet UIScrollView* scrollView;
+@property (strong, nonatomic) CaptchaViewController *captchaViewController;
+@property (weak, nonatomic) IBOutlet UIView *captchaContainer;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic) BOOL showCaptchaContainer;
-@property (strong, nonatomic) NSString* captchaId;
-@property (strong, nonatomic) NSURL* captchaUrl;
-@property (weak, nonatomic) IBOutlet PaddedLabel* loginButton;
-@property (weak, nonatomic) IBOutlet PaddedLabel* titleLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* usernameUnderlineHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* passwordUnderlineHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* passwordConfirmUnderlineHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* emailUnderlineHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* spaceBeneathCaptchaContainer;
+@property (strong, nonatomic) NSString *captchaId;
+@property (strong, nonatomic) NSURL *captchaUrl;
+@property (weak, nonatomic) IBOutlet PaddedLabel *loginButton;
+@property (weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *usernameUnderlineHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordUnderlineHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordConfirmUnderlineHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailUnderlineHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBeneathCaptchaContainer;
 
-@property (weak, nonatomic) IBOutlet UIView* createAccountContainerView;
+@property (weak, nonatomic) IBOutlet UIView *createAccountContainerView;
 
-@property (strong, nonatomic) UIBarButtonItem* rightButton;
+@property (strong, nonatomic) UIBarButtonItem *rightButton;
 
 @end
 
 @implementation AccountCreationViewController
 
-- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     // Disable horizontal scrolling.
     scrollView.contentOffset = CGPointMake(0.0, scrollView.contentOffset.y);
 }
@@ -62,10 +58,8 @@
     // for the show case we don't have to "convertPoint".
     self.spaceBeneathCaptchaContainer.constant =
         (self.showCaptchaContainer)
-        ?
-        (self.view.frame.size.height - (self.captchaContainer.frame.size.height / 2))
-        :
-        (self.view.frame.size.height - [self.loginButton convertPoint:CGPointZero toView:self.scrollView].y);
+            ? (self.view.frame.size.height - (self.captchaContainer.frame.size.height / 2))
+            : (self.view.frame.size.height - [self.loginButton convertPoint:CGPointZero toView:self.scrollView].y);
     ;
 }
 
@@ -79,36 +73,42 @@
     [super viewDidLoad];
 
     @weakify(self)
-    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
-        @strongify(self)
-        if (self.showCaptchaContainer) {
-            self.showCaptchaContainer = NO;
-        } else {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-    }];
+        UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
+                                                           handler:^(id sender) {
+                                                               @strongify(self) if (self.showCaptchaContainer) {
+                                                                   self.showCaptchaContainer = NO;
+                                                               }
+                                                               else {
+                                                                   [self dismissViewControllerAnimated:YES completion:nil];
+                                                               }
+                                                           }];
     self.navigationItem.leftBarButtonItems = @[xButton];
 
-    self.rightButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-next", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
-        @strongify(self)
+    self.rightButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-next", nil)
+                                                           style:UIBarButtonItemStylePlain
+                                                         handler:^(id sender) {
+                                                             @strongify(self)
 
-        [[WMFAlertManager sharedInstance] showAlert : MWLocalizedString(@"account-creation-saving", nil) sticky : YES dismissPreviousAlerts : YES tapCallBack : NULL];
+                                                                 [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-saving", nil)
+                                                                                                      sticky:YES
+                                                                                       dismissPreviousAlerts:YES
+                                                                                                 tapCallBack:NULL];
 
-        [self save];
-    }];
+                                                             [self save];
+                                                         }];
     self.navigationItem.rightBarButtonItem = self.rightButton;
 
-    self.titleLabel.font          = [UIFont boldSystemFontOfSize:23.0f * MENUS_SCALE_MULTIPLIER];
-    self.usernameField.font       = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
-    self.passwordField.font       = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:23.0f * MENUS_SCALE_MULTIPLIER];
+    self.usernameField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
+    self.passwordField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
     self.passwordRepeatField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
-    self.emailField.font          = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
-    self.loginButton.font         = [UIFont boldSystemFontOfSize:14.0f * MENUS_SCALE_MULTIPLIER];
+    self.emailField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
+    self.loginButton.font = [UIFont boldSystemFontOfSize:14.0f * MENUS_SCALE_MULTIPLIER];
 
     [self adjustConstraintsScaleForViews:@[self.createAccountContainerView, self.captchaContainer, self.titleLabel, self.usernameField, self.passwordField, self.passwordRepeatField, self.emailField, self.loginButton]];
 
-    self.captchaId           = @"";
-    self.captchaUrl          = nil;
+    self.captchaId = @"";
+    self.captchaUrl = nil;
     self.scrollView.delegate = self;
 
     [self.usernameField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -137,42 +137,43 @@
         self.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     }
 
-    self.usernameUnderlineHeight.constant        = 1.0f / [UIScreen mainScreen].scale;
-    self.passwordUnderlineHeight.constant        = self.usernameUnderlineHeight.constant;
+    self.usernameUnderlineHeight.constant = 1.0f / [UIScreen mainScreen].scale;
+    self.passwordUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
     self.passwordConfirmUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
-    self.emailUnderlineHeight.constant           = self.usernameUnderlineHeight.constant;
+    self.emailUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
 
-    self.loginButton.textColor              = WMF_COLOR_BLUE;
-    self.loginButton.padding                = UIEdgeInsetsMake(10, 10, 10, 10);
-    self.loginButton.text                   = MWLocalizedString(@"account-creation-login", nil);
+    self.loginButton.textColor = WMF_COLOR_BLUE;
+    self.loginButton.padding = UIEdgeInsetsMake(10, 10, 10, 10);
+    self.loginButton.text = MWLocalizedString(@"account-creation-login", nil);
     self.loginButton.userInteractionEnabled = YES;
     [self.loginButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginButtonPushed:)]];
 
     self.titleLabel.text = MWLocalizedString(@"navbar-title-mode-create-account", nil);
 
-    self.usernameField.textAlignment       = NSTextAlignmentNatural;
-    self.passwordField.textAlignment       = NSTextAlignmentNatural;
+    self.usernameField.textAlignment = NSTextAlignmentNatural;
+    self.passwordField.textAlignment = NSTextAlignmentNatural;
     self.passwordRepeatField.textAlignment = NSTextAlignmentNatural;
-    self.emailField.textAlignment          = NSTextAlignmentNatural;
+    self.emailField.textAlignment = NSTextAlignmentNatural;
 }
 
-- (void)loginButtonPushed:(UITapGestureRecognizer*)recognizer {
+- (void)loginButtonPushed:(UITapGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        UIViewController* presenter = self.presentingViewController;
+        UIViewController *presenter = self.presentingViewController;
 
-        [self dismissViewControllerAnimated:YES completion:^{
-            UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[LoginViewController wmf_initialViewControllerFromClassStoryboard]];
+        [self dismissViewControllerAnimated:YES
+                                 completion:^{
+                                     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:[LoginViewController wmf_initialViewControllerFromClassStoryboard]];
 
-            [presenter presentViewController:nc animated:YES completion:nil];
-        }];
+                                     [presenter presentViewController:nc animated:YES completion:nil];
+                                 }];
     }
 }
 
-- (NSAttributedString*)getAttributedPlaceholderForString:(NSString*)string {
+- (NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string {
     return [[NSMutableAttributedString alloc] initWithString:string
                                                   attributes:@{
-                NSForegroundColorAttributeName: [UIColor lightGrayColor]
-            }];
+                                                      NSForegroundColorAttributeName: [UIColor lightGrayColor]
+                                                  }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -197,19 +198,19 @@
 }
 
 - (void)textFieldDidChange:(id)sender {
-    BOOL shouldHighlight = (
-        (self.usernameField.text.length > 0) &&
-        (self.passwordField.text.length > 0) &&
-        (self.passwordRepeatField.text.length > 0) &&
-        //(self.emailField.text.length > 0) &&
-        [self.passwordField.text isEqualToString:self.passwordRepeatField.text]
-        ) ? YES : NO;
+    BOOL shouldHighlight = ((self.usernameField.text.length > 0) &&
+                            (self.passwordField.text.length > 0) &&
+                            (self.passwordRepeatField.text.length > 0) &&
+                            //(self.emailField.text.length > 0) &&
+                            [self.passwordField.text isEqualToString:self.passwordRepeatField.text])
+                               ? YES
+                               : NO;
 
     // Override shouldHighlight if the text changed was the captcha field.
     if ([sender isKindOfClass:[NSNotification class]]) {
-        NSNotification* notification = (NSNotification*)sender;
+        NSNotification *notification = (NSNotification *)sender;
         if (notification.object == self.captchaViewController.captchaTextBox) {
-            NSString* trimmedCaptchaText =
+            NSString *trimmedCaptchaText =
                 [self.captchaViewController.captchaTextBox.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             shouldHighlight = (trimmedCaptchaText.length > 0) ? YES : NO;
         }
@@ -218,7 +219,7 @@
     [self enableProgressiveButton:shouldHighlight];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField*)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == self.usernameField) {
         [self.passwordField becomeFirstResponder];
     } else if (textField == self.passwordField) {
@@ -239,10 +240,10 @@
 
 - (void)prepopulateTextFieldsForDebugging {
 #if DEBUG
-    self.usernameField.text       = @"acct_creation_test_010";
-    self.passwordField.text       = @"";
+    self.usernameField.text = @"acct_creation_test_010";
+    self.passwordField.text = @"";
     self.passwordRepeatField.text = @"";
-    self.emailField.text          = @"mhurd@wikimedia.org";
+    self.emailField.text = @"mhurd@wikimedia.org";
 #endif
 }
 
@@ -269,33 +270,38 @@
 
     if (showCaptchaContainer) {
         [self.captchaViewController.captchaTextBox performSelector:@selector(becomeFirstResponder)
-                                                        withObject:nil afterDelay:0.4f];
+                                                        withObject:nil
+                                                        afterDelay:0.4f];
         [self.funnel logCaptchaShown];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            [UIView animateWithDuration:duration animations:^{
-                self.captchaContainer.alpha = 1;
-                [self.scrollView scrollSubViewToTop:self.captchaContainer animated:NO];
-            } completion:^(BOOL done){
-                [self enableProgressiveButton:NO];
-            }];
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            [UIView animateWithDuration:duration
+                animations:^{
+                    self.captchaContainer.alpha = 1;
+                    [self.scrollView scrollSubViewToTop:self.captchaContainer animated:NO];
+                }
+                completion:^(BOOL done) {
+                    [self enableProgressiveButton:NO];
+                }];
         });
     } else {
-        dispatch_async(dispatch_get_main_queue(), ^(void){
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
             [[WMFAlertManager sharedInstance] dismissAlert];
-            [UIView animateWithDuration:duration animations:^{
-                self.captchaContainer.alpha = 0;
-                [self.scrollView setContentOffset:CGPointZero animated:NO];
-            } completion:^(BOOL done){
-                self.captchaViewController.captchaTextBox.text = @"";
-                self.captchaViewController.captchaImageView.image = nil;
-                // Pretent a text field changed so the progressive button state gets updated.
-                [self textFieldDidChange:nil];
-            }];
+            [UIView animateWithDuration:duration
+                animations:^{
+                    self.captchaContainer.alpha = 0;
+                    [self.scrollView setContentOffset:CGPointZero animated:NO];
+                }
+                completion:^(BOOL done) {
+                    self.captchaViewController.captchaTextBox.text = @"";
+                    self.captchaViewController.captchaImageView.image = nil;
+                    // Pretent a text field changed so the progressive button state gets updated.
+                    [self textFieldDidChange:nil];
+                }];
         });
     }
 }
 
-- (void)setCaptchaUrl:(NSURL*)captchaUrl {
+- (void)setCaptchaUrl:(NSURL *)captchaUrl {
     if (![_captchaUrl isEqual:captchaUrl]) {
         _captchaUrl = captchaUrl;
         if (captchaUrl) {
@@ -320,18 +326,21 @@
 
 - (void)login {
     [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-logging-in", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-    [[WMFAuthenticationManager sharedInstance] loginWithUsername:self.usernameField.text password:self.passwordField.text success:^{
-        NSString* loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
-        loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
-                                                                     withString:self.usernameField.text];
-        [[WMFAlertManager sharedInstance] showSuccessAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } failure:^(NSError* error) {
-        [self enableProgressiveButton:YES];
-    }];
+    [[WMFAuthenticationManager sharedInstance] loginWithUsername:self.usernameField.text
+        password:self.passwordField.text
+        success:^{
+            NSString *loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
+            loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
+                                                                         withString:self.usernameField.text];
+            [[WMFAlertManager sharedInstance] showSuccessAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        failure:^(NSError *error) {
+            [self enableProgressiveButton:YES];
+        }];
 }
 
-- (NSArray*)requiredInputFields {
+- (NSArray *)requiredInputFields {
     NSAssert([self isViewLoaded],
              @"This method is only intended to be called when view is loaded, since they'll all be nil otherwise");
     return @[self.usernameField, self.passwordField, self.passwordRepeatField];
@@ -343,14 +352,14 @@
 
 - (BOOL)areRequiredFieldsPopulated {
     return NSNotFound ==
-           [[self requiredInputFields] indexOfObjectPassingTest:^BOOL (UITextField* field, NSUInteger idx, BOOL* stop) {
-        if (field.text.length == 0) {
-            *stop = YES;
-            return YES;
-        } else {
-            return NO;
-        }
-    }];
+           [[self requiredInputFields] indexOfObjectPassingTest:^BOOL(UITextField *field, NSUInteger idx, BOOL *stop) {
+               if (field.text.length == 0) {
+                   *stop = YES;
+                   return YES;
+               } else {
+                   return NO;
+               }
+           }];
 }
 
 - (void)save {
@@ -366,30 +375,37 @@
     }
 
     if ([self.captchaViewController.captchaTextBox.text length] == 0) {
-        [[WMFAuthenticationManager sharedInstance] getAccountCreationCaptchaWithUsername:self.usernameField.text password:self.passwordField.text email:self.emailField.text captcha:^(NSURL* _Nonnull captchaURL) {
-            self.captchaUrl = captchaURL;
+        [[WMFAuthenticationManager sharedInstance] getAccountCreationCaptchaWithUsername:self.usernameField.text
+            password:self.passwordField.text
+            email:self.emailField.text
+            captcha:^(NSURL *_Nonnull captchaURL) {
+                self.captchaUrl = captchaURL;
 
-            [[WMFAlertManager sharedInstance] showWarningAlert:MWLocalizedString(@"account-creation-captcha-required", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-        } failure:^(NSError* error) {
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-            [self.funnel logError:error.localizedDescription];
-        }];
+                [[WMFAlertManager sharedInstance] showWarningAlert:MWLocalizedString(@"account-creation-captcha-required", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+            }
+            failure:^(NSError *error) {
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+                [self.funnel logError:error.localizedDescription];
+            }];
     } else {
-        [[WMFAuthenticationManager sharedInstance] createAccountWithCaptchaText:self.captchaViewController.captchaTextBox.text success:^{
-            NSString* loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
-            loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
-                                                                         withString:self.usernameField.text];
-            [[WMFAlertManager sharedInstance] showSuccessAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } captcha:^(NSURL* _Nonnull captchaURL) {
-            self.captchaUrl = captchaURL;
+        [[WMFAuthenticationManager sharedInstance] createAccountWithCaptchaText:self.captchaViewController.captchaTextBox.text
+            success:^{
+                NSString *loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
+                loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
+                                                                             withString:self.usernameField.text];
+                [[WMFAlertManager sharedInstance] showSuccessAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+            captcha:^(NSURL *_Nonnull captchaURL) {
+                self.captchaUrl = captchaURL;
 
-            [[WMFAlertManager sharedInstance] showWarningAlert:MWLocalizedString(@"account-creation-captcha-required", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-        } failure:^(NSError* error) {
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-            [self.funnel logError:error.localizedDescription];
-            [self enableProgressiveButton:YES];
-        }];
+                [[WMFAlertManager sharedInstance] showWarningAlert:MWLocalizedString(@"account-creation-captcha-required", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+            }
+            failure:^(NSError *error) {
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+                [self.funnel logError:error.localizedDescription];
+                [self enableProgressiveButton:YES];
+            }];
     }
 }
 

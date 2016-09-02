@@ -1,4 +1,3 @@
-
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFRandomFileUtilities.h"
 #import "XCTestCase+WMFBundleConvenience.h"

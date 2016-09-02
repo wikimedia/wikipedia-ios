@@ -1,4 +1,3 @@
-
 #import <YapDatabase/YapDatabase.h>
 #import <YapDataBase/YapDatabaseView.h>
 #import <YapDataBase/YapDatabaseFilteredView.h>
@@ -15,24 +14,22 @@
  *  Once registered, views can be referenced by their view name on a specific connection.
  */
 
+- (YapDatabaseViewGrouping *)wmf_historyGroupingSingleGroup;
+- (YapDatabaseViewGrouping *)wmf_savedGroupingSingleGroup;
+- (YapDatabaseViewGrouping *)wmf_historyOrSavedGroupingSingleGroup;
+- (YapDatabaseViewGrouping *)wmf_historyGroupingByDate;
 
-- (YapDatabaseViewGrouping*)wmf_historyGroupingSingleGroup;
-- (YapDatabaseViewGrouping*)wmf_savedGroupingSingleGroup;
-- (YapDatabaseViewGrouping*)wmf_historyOrSavedGroupingSingleGroup;
-- (YapDatabaseViewGrouping*)wmf_historyGroupingByDate;
+- (YapDatabaseViewGrouping *)wmf_blackListGroupingSingleGroup;
+- (YapDatabaseViewGrouping *)wmf_notInHistorySavedOrBlackListGroupingSingleGroup;
 
-- (YapDatabaseViewGrouping*)wmf_blackListGroupingSingleGroup;
-- (YapDatabaseViewGrouping*)wmf_notInHistorySavedOrBlackListGroupingSingleGroup;
+- (YapDatabaseViewSorting *)wmf_historySortedByDateDescending;
+- (YapDatabaseViewSorting *)wmf_savedSortedByDateDescending;
+- (YapDatabaseViewSorting *)wmf_historyOrSavedSortedByURL;
 
-- (YapDatabaseViewSorting*)wmf_historySortedByDateDescending;
-- (YapDatabaseViewSorting*)wmf_savedSortedByDateDescending;
-- (YapDatabaseViewSorting*)wmf_historyOrSavedSortedByURL;
+- (YapDatabaseViewFiltering *)wmf_historyOrSavedSignificantlyViewedAndNotBlacklistedAndNotMainPageFilter;
+- (YapDatabaseViewFiltering *)wmf_excludedKeysFilter:(NSArray<NSString *> *)keysToExclude;
 
-- (YapDatabaseViewFiltering*)wmf_historyOrSavedSignificantlyViewedAndNotBlacklistedAndNotMainPageFilter;
-- (YapDatabaseViewFiltering*)wmf_excludedKeysFilter:(NSArray<NSString*>*)keysToExclude;
-
-- (YapDatabaseViewFiltering*)wmf_objectWithKeyFilter:(NSString*)databaseKey;
-
+- (YapDatabaseViewFiltering *)wmf_objectWithKeyFilter:(NSString *)databaseKey;
 
 #pragma mark - Registered View Names
 /**
@@ -43,41 +40,40 @@
  *  2. Make sure the names are not duplicated (view names must be unique)
  */
 
-
 /**
  *  historyOrSavedGroupingSingleGroup + historySortedByDateDescending
  */
-extern NSString* const WMFHistorySortedByDateGroupedByDateView;
+extern NSString *const WMFHistorySortedByDateGroupedByDateView;
 
 /**
  *  historyGroupingSingleGroup + historySortedByDateDescending
  */
-extern NSString* const WMFHistorySortedByDateUngroupedView;
+extern NSString *const WMFHistorySortedByDateUngroupedView;
 
 /**
  *  savedGroupingSingleGroup + savedSortedByDateDescending
  */
-extern NSString* const WMFSavedSortedByDateUngroupedView;
+extern NSString *const WMFSavedSortedByDateUngroupedView;
 
 /**
  *  historyOrSavedGroupingSingleGroup + historyOrSavedSortedByURL
  */
-extern NSString* const WMFHistoryOrSavedSortedByURLUngroupedView;
+extern NSString *const WMFHistoryOrSavedSortedByURLUngroupedView;
 
 /**
  *  blackListGroupingSingleGroup + historyOrSavedSortedByURL
  */
-extern NSString* const WMFBlackListSortedByURLUngroupedView;
+extern NSString *const WMFBlackListSortedByURLUngroupedView;
 
 /**
  *  historyOrSavedSignificantlyViewedAndNotBlacklistedAndNotMainPageFilter + WMFHistoryOrSavedSortedByURLUngroupedView
  */
-extern NSString* const WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificnatlyViewedAndNotBlacklistedAndNotMainPageView;
+extern NSString *const WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificnatlyViewedAndNotBlacklistedAndNotMainPageView;
 
 /**
  *  notInHistorySavedOrBlackListGroupingSingleGroup + historyOrSavedSortedByURL
  */
-extern NSString* const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView;
+extern NSString *const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView;
 
 /**
  *  Register the views with the names included above.
@@ -102,7 +98,7 @@ extern NSString* const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView;
  *
  *  @return The mapings
  */
-- (YapDatabaseViewMappings*)wmf_ungroupedMappingsWithView:(NSString*)viewName;
+- (YapDatabaseViewMappings *)wmf_ungroupedMappingsWithView:(NSString *)viewName;
 
 /**
  *  Sort group names alphabetically.
@@ -111,7 +107,7 @@ extern NSString* const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView;
  *
  *  @return The mappings
  */
-- (YapDatabaseViewMappings*)wmf_groupsSortedAlphabeticallyMappingsWithViewName:(NSString*)viewName;
+- (YapDatabaseViewMappings *)wmf_groupsSortedAlphabeticallyMappingsWithViewName:(NSString *)viewName;
 
 /**
  *  Mappings for Views where group names are stringified NSTimeIntervals 
@@ -121,6 +117,6 @@ extern NSString* const WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView;
  *
  *  @return The mappings
  */
-- (YapDatabaseViewMappings*)wmf_groupsAsTimeIntervalsSortedDescendingMappingsWithView:(NSString*)viewName;
+- (YapDatabaseViewMappings *)wmf_groupsAsTimeIntervalsSortedDescendingMappingsWithView:(NSString *)viewName;
 
 @end

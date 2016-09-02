@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 12/6/13.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import <Foundation/Foundation.h>
 #import "MWKHistoryEntry.h"
 #import "ZeroConfigState.h"
@@ -11,17 +8,17 @@
 
 @interface SessionSingleton : NSObject
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
-+ (SessionSingleton*)sharedInstance;
++ (SessionSingleton *)sharedInstance;
 
 // Persistent settings and credentials
-@property (strong, nonatomic) ZeroConfigState* zeroConfigState;
+@property (strong, nonatomic) ZeroConfigState *zeroConfigState;
 @property (nonatomic) BOOL shouldSendUsageReports;
 
 // Data access objects
-@property (strong, nonatomic, readonly) MWKDataStore* dataStore;
-@property (strong, nonatomic, readonly) MWKUserDataStore* userDataStore;
+@property (strong, nonatomic, readonly) MWKDataStore *dataStore;
+@property (strong, nonatomic, readonly) MWKUserDataStore *userDataStore;
 
 /**
  *  The current article's site. This set automatically when setting the current article.
@@ -32,7 +29,7 @@
  *  This will never be nil.
  *
  */
-@property (strong, nonatomic, readonly) NSURL* currentArticleSiteURL;
+@property (strong, nonatomic, readonly) NSURL *currentArticleSiteURL;
 
 /**
  *  The current artcle. Set this when an article is loaded.
@@ -44,11 +41,10 @@
  *  //TODO: This tightly coupled to the webview controller
  *  article display logic. Refactor to a specific article service.
  */
-@property (nonatomic, strong) MWKArticle* currentArticle;
+@property (nonatomic, strong) MWKArticle *currentArticle;
 
-@property (nonatomic) BOOL fallback WMF_TECH_DEBT_DEPRECATED; //< Is this really necessary?
+@property (nonatomic) BOOL fallback WMF_TECH_DEBT_DEPRECATED; ///< Is this really necessary?
 
-- (NSURL*)urlForLanguage:(NSString*)language WMF_TECH_DEBT_DEPRECATED_MSG("Use -[NSURL apiEndpoint] instead.");
-
+- (NSURL *)urlForLanguage:(NSString *)language WMF_TECH_DEBT_DEPRECATED_MSG("Use -[NSURL apiEndpoint] instead.");
 
 @end

@@ -4,6 +4,6 @@
 
 @interface WMFWelcomeLanguageTableViewCell : WMFCustomDeleteButtonTableViewCell
 
-@property (strong, nonatomic) NSString* languageName;
+@property (strong, nonatomic) NSString *languageName;
 
 @end

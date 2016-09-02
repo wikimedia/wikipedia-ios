@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 7/22/14.
-//  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "BulletedLabel.h"
 #import "PaddedLabel.h"
 
@@ -9,19 +6,19 @@
 
 @implementation BulletedLabel
 
-- (instancetype)initWithBulletType:(BulletType)bulletType bulletColor:(UIColor*)bulletColor {
+- (instancetype)initWithBulletType:(BulletType)bulletType bulletColor:(UIColor *)bulletColor {
     self = [super init];
     if (self) {
-        self.bulletType  = bulletType;
+        self.bulletType = bulletType;
         self.bulletColor = bulletColor;
     }
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder*)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        self.bulletType  = BULLET_TYPE_NONE;
+        self.bulletType = BULLET_TYPE_NONE;
         self.bulletColor = [UIColor blackColor];
     }
     return self;
@@ -30,7 +27,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.bulletType  = BULLET_TYPE_NONE;
+        self.bulletType = BULLET_TYPE_NONE;
         self.bulletColor = [UIColor blackColor];
     }
     return self;
@@ -42,13 +39,13 @@
     self.bulletLabel.text = [self getBulletString];
 }
 
-- (void)setBulletColor:(UIColor*)bulletColor {
+- (void)setBulletColor:(UIColor *)bulletColor {
     _bulletColor = bulletColor;
 
     self.bulletLabel.textColor = bulletColor;
 }
 
-- (NSString*)getBulletString {
+- (NSString *)getBulletString {
     switch (self.bulletType) {
         case BULLET_TYPE_ROUND:
             return BULLET_ROUND;
@@ -61,7 +58,7 @@
 
 - (void)didMoveToSuperview {
     // The labels have not been created when init happens, so reset type here.
-    self.bulletType  = self.bulletType;
+    self.bulletType = self.bulletType;
     self.bulletColor = self.bulletColor;
 
     //self.titleLabel.layer.borderWidth = 1;

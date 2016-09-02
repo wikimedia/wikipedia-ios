@@ -1,22 +1,19 @@
-
 #import "MWKSavedPageEntry+ImageMigration.h"
-#import "NSObjectUtilities.h"
-#import "NSMutableDictionary+WMFMaybeSet.h"
 
-typedef NS_ENUM (NSUInteger, MWKSavedPageEntrySchemaVersion) {
+typedef NS_ENUM(NSUInteger, MWKSavedPageEntrySchemaVersion) {
     MWKSavedPageEntrySchemaVersionUnknown = 0,
-    MWKSavedPageEntrySchemaVersion1       = 1,
-    MWKSavedPageEntrySchemaVersion2       = 2,
+    MWKSavedPageEntrySchemaVersion1 = 1,
+    MWKSavedPageEntrySchemaVersion2 = 2,
     MWKSavedPageEntrySchemaVersionCurrent = MWKSavedPageEntrySchemaVersion2
 };
 
-static NSString* const MWKSavedPageEntrySchemaVersionKey = @"schemaVerison";
+static NSString *const MWKSavedPageEntrySchemaVersionKey = @"schemaVerison";
 
-static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateImageData";
+static NSString *const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateImageData";
 
 @interface MWKSavedPageEntry ()
 
-@property (readwrite, strong, nonatomic) NSDate* date;
+@property (readwrite, strong, nonatomic) NSDate *date;
 
 @property (nonatomic, readwrite) BOOL didMigrateImageData;
 
@@ -24,7 +21,7 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
 
 @implementation MWKSavedPageEntry
 
-- (instancetype)initWithURL:(NSURL*)url {
+- (instancetype)initWithURL:(NSURL *)url {
     url = [NSURL wmf_desktopURLForURL:url];
     NSParameterAssert(url.wmf_title);
     self = [super initWithURL:url];
@@ -36,13 +33,13 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
     return self;
 }
 
-- (instancetype)initWithDict:(NSDictionary*)dict {
-    NSString* urlString = dict[@"url"];
-    NSString* domain    = dict[@"domain"];
-    NSString* language  = dict[@"language"];
-    NSString* title     = dict[@"title"];
+- (instancetype)initWithDict:(NSDictionary *)dict {
+    NSString *urlString = dict[@"url"];
+    NSString *domain = dict[@"domain"];
+    NSString *language = dict[@"language"];
+    NSString *title = dict[@"title"];
 
-    NSURL* url;
+    NSURL *url;
 
     if ([urlString length]) {
         url = [NSURL URLWithString:urlString];
@@ -54,7 +51,7 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
 
     self = [self initWithURL:url];
     if (self) {
-        NSNumber* schemaVersion = dict[MWKSavedPageEntrySchemaVersionKey];
+        NSNumber *schemaVersion = dict[MWKSavedPageEntrySchemaVersionKey];
 
         if (schemaVersion.unsignedIntegerValue > MWKSavedPageEntrySchemaVersion1) {
             self.date = [self requiredDate:@"date" dict:dict];
@@ -83,7 +80,7 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
     }
 }
 
-- (BOOL)isEqualToEntry:(MWKSavedPageEntry*)rhs {
+- (BOOL)isEqualToEntry:(MWKSavedPageEntry *)rhs {
     return WMF_RHS_PROP_EQUAL(url, isEqual:);
 }
 
@@ -91,19 +88,19 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
     return self.url.hash;
 }
 
-- (NSString*)description {
+- (NSString *)description {
     return [NSString stringWithFormat:@"%@ %@, didMigrateImageData: %d",
-            [super description], self.url, self.didMigrateImageData];
+                                      [super description], self.url, self.didMigrateImageData];
 }
 
 #pragma mark - MWKListObject
 
-- (id <NSCopying>)listIndex {
+- (id<NSCopying>)listIndex {
     return self.url;
 }
 
 - (id)dataExport {
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
 
     [dict wmf_maybeSetObject:@(MWKSavedPageEntrySchemaVersionCurrent) forKey:MWKSavedPageEntrySchemaVersionKey];
     [dict wmf_maybeSetObject:@(self.didMigrateImageData) forKey:MWKSavedPageEntryDidMigrateImageDataKey];

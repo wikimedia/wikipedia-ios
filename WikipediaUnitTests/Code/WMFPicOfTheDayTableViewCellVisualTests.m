@@ -1,11 +1,3 @@
-//
-//  WMFPicOfTheDayTableViewCellVisualTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 11/25/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "FBSnapshotTestCase+WMFConvenience.h"
 #import <Nocilla/LSNocilla.h>
 
@@ -19,7 +11,7 @@
 
 @interface WMFPicOfTheDayTableViewCellVisualTests : FBSnapshotTestCase
 
-@property (nonatomic, strong) WMFPicOfTheDayCollectionViewCell* cell;
+@property (nonatomic, strong) WMFPicOfTheDayCollectionViewCell *cell;
 
 @end
 
@@ -27,9 +19,9 @@
 
 - (void)setUp {
     [super setUp];
-    self.recordMode     = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
+    self.recordMode = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
     self.deviceAgnostic = YES;
-    self.cell           = [WMFPicOfTheDayCollectionViewCell wmf_viewFromClassNib];
+    self.cell = [WMFPicOfTheDayCollectionViewCell wmf_viewFromClassNib];
     [self.cell setDisplayTitle:@"Hey! I'm a display title!"];
     self.cell.potdImageView.wmf_imageController = [WMFImageController temporaryController];
 }
@@ -51,22 +43,22 @@
 
 - (void)testShowsCaptionWhenImageIsFinallyDownloaded {
     [[LSNocilla sharedInstance] start];
-    NSURL* testURL = [NSURL URLWithString:@"http://dummyimage.com/foo"];
+    NSURL *testURL = [NSURL URLWithString:@"http://dummyimage.com/foo"];
 
     // using a plain-white image to ensure the gradient is visible
-    UIImage* testImage = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
+    UIImage *testImage = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
 
-    NSData* imageData = UIImagePNGRepresentation(testImage);
+    NSData *imageData = UIImagePNGRepresentation(testImage);
 
     stubRequest(@"GET", testURL.absoluteString)
-    .andReturnRawResponse(imageData);
+        .andReturnRawResponse(imageData);
 
     [self.cell setImageURL:testURL];
 
-    [self expectationForPredicate:[NSPredicate predicateWithBlock:^BOOL (UIImageView* _Nonnull potdImageView, NSDictionary < NSString*, id > * _Nullable bindings) {
-        NSData* currentImageData = UIImagePNGRepresentation(potdImageView.image);
-        return [currentImageData isEqualToData:imageData];
-    }]
+    [self expectationForPredicate:[NSPredicate predicateWithBlock:^BOOL(UIImageView *_Nonnull potdImageView, NSDictionary<NSString *, id> *_Nullable bindings) {
+              NSData *currentImageData = UIImagePNGRepresentation(potdImageView.image);
+              return [currentImageData isEqualToData:imageData];
+          }]
               evaluatedWithObject:self.cell.potdImageView
                           handler:nil];
 

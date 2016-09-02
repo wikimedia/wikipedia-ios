@@ -1,11 +1,3 @@
-//
-//  MWKListBaseTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/14/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MWKListTestBase.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -27,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setUp {
     [super setUp];
 
-    NSMutableArray* array = [NSMutableArray array];
+    NSMutableArray *array = [NSMutableArray array];
 
     for (int i = 0; i < 10; i++) {
         [array addObject:[[self class] uniqueListEntry]];
@@ -47,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [MWKList class];
 }
 
-- (MWKList*)listWithEntries:(nullable NSArray*)entries {
+- (MWKList *)listWithEntries:(nullable NSArray *)entries {
     return [[[[self class] listClass] alloc] initWithEntries:entries];
 }
 
