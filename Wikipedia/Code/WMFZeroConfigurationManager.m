@@ -117,10 +117,12 @@ NSString *const WMFZeroXCarrierMeta = @"X-Carrier-Meta";
     return [self.zeroConfigurationFetcher fetchZeroConfigurationForSiteURL:[[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL]];
 }
 
-- (void)inspectResponseForZeroHeaders:(NSURLResponse*)response {
-    NSHTTPURLResponse* httpUrlResponse = (NSHTTPURLResponse*)response;
-    NSDictionary* headers              = httpUrlResponse.allHeaderFields;
-    
+- (void)updateZeroRatingAndZeroConfigurationForResponseHeadersIfNecessary:(NSDictionary *)headers {
+    NSAssert(headers != nil, @"Expecting response headers.");
+    if(!headers){
+        return;
+    }
+
     bool zeroEnabled = self.isZeroRated;
     
     NSString* xCarrierFromHeader = [headers objectForKey:WMFZeroXCarrier];

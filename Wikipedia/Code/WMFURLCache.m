@@ -65,10 +65,8 @@ static NSString* const WMFURLCacheJsonMIMEType  = @"application/json";
 
 - (void)storeCachedResponse:(NSCachedURLResponse *)cachedResponse forRequest:(NSURLRequest *)request {
     [super storeCachedResponse:cachedResponse forRequest:request];
-
     if ([self isJsonResponse:cachedResponse fromWikipediaAPIRequest:request]) {
-        //NSLog(@"Processing zero headers for cached repsonse from %@", request);
-        [[SessionSingleton sharedInstance].zeroConfigurationManager inspectResponseForZeroHeaders:cachedResponse.response];
+        [[SessionSingleton sharedInstance].zeroConfigurationManager updateZeroRatingAndZeroConfigurationForResponseHeadersIfNecessary:((NSHTTPURLResponse*)cachedResponse.response).allHeaderFields];
     }
 }
 
