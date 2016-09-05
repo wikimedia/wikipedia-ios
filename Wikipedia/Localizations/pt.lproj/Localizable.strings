@@ -261,11 +261,10 @@
 "license-footer-text" = "Conteúdo disponibilizado nos termos da $1, salvo indicação contrária.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Índice";
-// Fuzzy
 "table-of-contents-button-label" = "Índice";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Fechar Índice";
 "table-of-contents-close-accessibility-hint" = "Fechar";
+"table-of-contents-popover-description" = "Obter uma vista geral dos artigos";
 "abuse-filter-warning-heading" = "Esta edição poderá não ser construtiva. Tem a certeza que pretende gravá-la?";
 "abuse-filter-warning-subheading" = "A sua edição pode conter um ou mais dos seguintes erros:";
 "abuse-filter-warning-caps" = "Todo o texto em MAIÚSCULAS";
@@ -389,6 +388,7 @@
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-continue-reading-heading" = "Continuar a ler";
 "explore-nearby-heading" = "Lugares próximos";
+"explore-nearby-sub-heading-your-location" = "A sua localização";
 "explore-continue-related-heading" = "Porque leu";
 "explore-main-page-heading" = "Hoje na Wikipédia";
 "explore-random-article-heading" = "Artigo aleatório";
@@ -404,3 +404,5 @@
 "request-feedback-on-error" = "O aplicativo encontrou um problema sobre o qual os nossos programadores gostariam de saber mais. Por favor, toque aqui para nos enviar um e-mail com os detalhes do erro.";
 "explore-another-random" = "Outro artigo aleatório";
 "find-in-page-no-matches" = "Sem correspondências";
+"find-in-page-button-label" = "Localizar na página";
+"find-in-page-popover-description" = "Pesquisa de texto em artigos";

@@ -1,5 +1,6 @@
 // Messages for Turkish (Türkçe)
 // Exported from translatewiki.net
+// Author: Alpkant
 // Author: Ayrıntılı Bilgi
 // Author: HakanIST
 // Author: Incelemeelemani
@@ -269,11 +270,10 @@
 "license-footer-text" = "İçerik, aksi belirtilmedikçe $1 lisansı altında kullanılabilir";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Konu başlıkları";
-// Fuzzy
 "table-of-contents-button-label" = "İçindekiler";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "İçindekileri kapat";
 "table-of-contents-close-accessibility-hint" = "Kapat";
+"table-of-contents-popover-description" = "Makalelere genel bir bakın";
 "abuse-filter-warning-heading" = "Bu yapıcı olmayan bir düzenleme gibi görünüyor; kaydetmek istediğinize emin misiniz?";
 "abuse-filter-warning-subheading" = "Değişikliğiniz şunlardan bir veya daha fazlasını içeriyor olabilir:";
 "abuse-filter-warning-caps" = "TÜMÜ BÜYÜK HARFLE yazım";
@@ -397,6 +397,7 @@
 "explore-featured-article-heading" = "Seçkin madde";
 "explore-continue-reading-heading" = "Okumaya devam et";
 "explore-nearby-heading" = "Yakındaki yerler";
+"explore-nearby-sub-heading-your-location" = "Konumunuz";
 "explore-continue-related-heading" = "Okuduklarına benzer";
 "explore-main-page-heading" = "Vikipedi'de Bugün";
 "explore-random-article-heading" = "Rastgele madde";
@@ -412,3 +413,5 @@
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
 "explore-another-random" = "Rastgele başka bir madde";
 "find-in-page-no-matches" = "Eşleşme yok";
+"find-in-page-button-label" = "Sayfada bul";
+"find-in-page-popover-description" = "Maddelerde metin ara";

@@ -269,9 +269,7 @@
 "license-footer-text" = "特に記載がない限り、コンテンツは$1のライセンスで利用できます。";
 "license-footer-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
 "table-of-contents-heading" = "目次";
-// Fuzzy
 "table-of-contents-button-label" = "目次";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "目次を閉じる";
 "table-of-contents-close-accessibility-hint" = "閉じる";
 "abuse-filter-warning-heading" = "これは建設的な編集ではないようです。それでも保存しますか？";
@@ -412,3 +410,5 @@
 "request-feedback-on-error" = "アプリが遭遇した問題について、開発者はもっと詳しく知りたいと考えています。こちらをタップして、エラーの詳細についてメールをご送信ください。";
 "explore-another-random" = "おまかせで別の記事";
 "find-in-page-no-matches" = "該当するものはありません";
+"find-in-page-button-label" = "ページ内検索";
+"find-in-page-popover-description" = "記事内のテキストを検索します";

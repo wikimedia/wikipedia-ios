@@ -257,11 +257,10 @@
 "license-footer-text" = "Der Inhalt ist verfügbar unter $1, sofern nicht anders angegeben.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Inhalte";
-// Fuzzy
 "table-of-contents-button-label" = "Inhaltsverzeichnis";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeichnis schließen";
 "table-of-contents-close-accessibility-hint" = "Schließen";
+"table-of-contents-popover-description" = "Eine Übersicht der Artikel erhalten";
 "abuse-filter-warning-heading" = "Dies sieht nach einer unkonstruktiven Bearbeitung aus. Bist du sicher, dass du sie speichern möchtest?";
 "abuse-filter-warning-subheading" = "Deine Bearbeitung könnte eine oder mehrere der folgenden Dinge enthalten:";
 "abuse-filter-warning-caps" = "GROßBUCHSTABEN eingegeben";
@@ -385,6 +384,7 @@
 "explore-featured-article-heading" = "Vorgestellter Artikel";
 "explore-continue-reading-heading" = "Mit dem Lesen fortfahren";
 "explore-nearby-heading" = "Orte in der Nähe von";
+"explore-nearby-sub-heading-your-location" = "Dein Standort";
 "explore-continue-related-heading" = "Weil du liest";
 "explore-main-page-heading" = "Heute auf Wikipedia";
 "explore-random-article-heading" = "Zufälliger Artikel";
@@ -400,3 +400,5 @@
 "request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";
 "explore-another-random" = "Ein anderer zufälliger Artikel";
 "find-in-page-no-matches" = "Keine Treffer";
+"find-in-page-button-label" = "In Seite finden";
+"find-in-page-popover-description" = "Text in Artikeln suchen";

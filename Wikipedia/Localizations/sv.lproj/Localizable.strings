@@ -265,11 +265,10 @@
 "license-footer-text" = "Innehållet är tillgängligt under $1 om ingenting annat anges.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Innehåll";
-// Fuzzy
 "table-of-contents-button-label" = "Innehållsförteckning";
-// Fuzzy
-"table-of-contents-close-accessibility-label" = "Stäng innehållsförteckningen";
+"table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
 "table-of-contents-close-accessibility-hint" = "Stäng";
+"table-of-contents-popover-description" = "Få en översikt över artiklar";
 "abuse-filter-warning-heading" = "Detta ser ut som en icke-konstruktiv redigering. Är du säker på att du vill spara den?";
 "abuse-filter-warning-subheading" = "Din redigering kan innehålla ett eller flera av följande:";
 "abuse-filter-warning-caps" = "Text skriven helt med VERSALER";
@@ -393,6 +392,7 @@
 "explore-featured-article-heading" = "Utmärkt artikel";
 "explore-continue-reading-heading" = "Fortsätt läsa";
 "explore-nearby-heading" = "Platser i närheten";
+"explore-nearby-sub-heading-your-location" = "Din position";
 "explore-continue-related-heading" = "Eftersom du läste";
 "explore-main-page-heading" = "Idag på Wikipedia";
 "explore-random-article-heading" = "Slumpartikel";
@@ -408,3 +408,5 @@
 "request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";
 "explore-another-random" = "En annan slumpmässig artikel";
 "find-in-page-no-matches" = "0 träffar";
+"find-in-page-button-label" = "Sök på sidan";
+"find-in-page-popover-description" = "Sök efter text i artiklar";

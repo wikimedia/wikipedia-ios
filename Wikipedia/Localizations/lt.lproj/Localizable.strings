@@ -56,7 +56,7 @@
 "account-creation-email-placeholder-text" = "El. paštas (neprivaloma)";
 "login-name-not-found" = "Prisijungimui būtinas vartotojo vardas.";
 "login-name-illegal" = "Jūs pateikėte negalimą vartotojo vardą.";
-"login-name-does-not-exist" = "Vartotojo vardas, kurį pateikėte neegzistuoja.";
+"login-name-does-not-exist" = "Jūsų pateikto vartotojo vardo nėra.";
 "login-password-empty" = "Prisijungti reikalingas slaptažodis.";
 "login-password-wrong" = "Slaptažodis, kurį pateikėte, yra neteisingas.";
 "login-throttled" = "Per trumpą laiką jūs prisijungėte per daug kartų.";
@@ -319,6 +319,7 @@
 "explore-featured-article-heading" = "Rinktinis straipsnis";
 "explore-continue-reading-heading" = "Skaityti toliau";
 "explore-nearby-heading" = "Artimos vietovės";
+"explore-nearby-sub-heading-your-location" = "Jūsų vieta";
 "explore-continue-related-heading" = "Nes jūs skaitėte";
 "explore-main-page-heading" = "Šiandien Vikipedijoje";
 "explore-random-article-heading" = "Atsitiktinis straipsnis";
@@ -328,3 +329,5 @@
 "explore-most-read-more-list-title" = "Top straipsniai";
 "explore-most-read-more-list-title-for-date" = "Viršuje $1";
 "explore-another-random" = "Kitas atsitiktinis straipsnis";
+"find-in-page-button-label" = "Rasti puslapyje";
+"find-in-page-popover-description" = "Ieškoti teksto straipsniuose";

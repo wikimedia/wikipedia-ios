@@ -6,6 +6,7 @@
 // Author: Mhurd
 // Author: Mikulas1
 // Author: Rudko
+// Author: TomášPolonec
 
 "languages-title" = "Zmeniť jazyk";
 "article-languages-label" = "Zvoliť jazyk";
@@ -64,7 +65,7 @@
 "login-name-does-not-exist" = "Zadané používateľské meno neexistuje.";
 "login-password-empty" = "K prihláseniu je potrebné heslo.";
 "login-password-wrong" = "Zadané heslo je nesprávne.";
-"login-throttled" = "Prihlásili ste sa príliš veľa krát v krátkom čase.";
+"login-throttled" = "Prihlásili ste sa príliš veľakrát v krátkom čase.";
 "login-user-blocked" = "Používateľ je zablokovaný.";
 "login-account-creation" = "Nemáte ešte účet? Pripojte sa k Wikipédii.";
 "login-username-placeholder-text" = "Používateľské meno";
@@ -243,9 +244,7 @@
 "license-footer-text" = "Pokiaľ nie je uvedené inak, je obsah dostupný v rámci licencie $1.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Obsah";
-// Fuzzy
 "table-of-contents-button-label" = "Obsah";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Zavrieť obsah";
 "table-of-contents-close-accessibility-hint" = "Zavrieť";
 "abuse-filter-warning-heading" = "Toto vyzerá ako nekonštruktívna úprava. Naozaj ju chcete uložiť?";
