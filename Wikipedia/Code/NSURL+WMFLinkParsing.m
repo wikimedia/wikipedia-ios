@@ -101,6 +101,19 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
     return components.URL;
 }
 
+- (NSURL *)wmf_wikipediaSchemeURLWithTitle:(NSString *)title {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.wmf_title = title;
+    components.scheme = @"wikipedia";
+    return components.URL;
+}
+
+- (nullable NSURL *)wmf_wikipediaSchemeURL {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.scheme = @"wikipedia";
+    return components.URL;
+}
+
 - (NSURL *)wmf_URLWithTitle:(NSString *)title fragment:(NSString *)fragment {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.wmf_title = title;

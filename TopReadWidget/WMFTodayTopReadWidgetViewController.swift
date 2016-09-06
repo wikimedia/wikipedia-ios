@@ -17,7 +17,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     let numberFormatter = NSNumberFormatter()
     
     #if DEBUG
-    let skipCache = true
+    let skipCache = false
     #else
     let skipCache = false
     #endif
@@ -353,7 +353,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             return
         }
         
-        let URL = siteURL.wmf_URLWithTitle(displayTitle)
+        let URL = siteURL.wmf_wikipediaSchemeURLWithTitle(displayTitle)
         self.extensionContext?.openURL(URL, completionHandler: { (success) in
             
         })
