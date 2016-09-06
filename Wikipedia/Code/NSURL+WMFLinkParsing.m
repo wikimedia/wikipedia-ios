@@ -251,6 +251,15 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
     }
 }
 
+
+- (NSURL *)wmf_desktopURLWithoutFragment {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
+    components.fragment = nil;
+    return components.URL;
+}
+
+
 - (NSString *)wmf_title {
     if (![self wmf_isWikiResource]) {
         return nil;
