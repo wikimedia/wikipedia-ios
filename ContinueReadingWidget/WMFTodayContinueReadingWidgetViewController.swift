@@ -82,7 +82,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         emptyViewHidden = true
         
-        if let section = article.sections.sectionWithFragment(lastReadArticleURL.fragment) {
+        if let section = article.sections?.sectionWithFragment(lastReadArticleURL.fragment) {
             self.textLabel.text = section.line?.wmf_stringByRemovingHTML()
         } else {
             self.textLabel.text = nil
@@ -96,10 +96,10 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
 
         
-        self.titleLabel.text = article.displaytitle
+        self.titleLabel.text = article.displaytitle?.wmf_stringByRemovingHTML()
         
         
-        if let imageURL = NSURL(string: article.imageURL) {
+        if let string = article.imageURL, let imageURL = NSURL(string: string) {
             self.imageView.hidden = false
             self.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
                 
@@ -113,7 +113,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     }
 
     @IBAction func continueReading(sender: AnyObject) {
-        guard let URLToOpen = articleURL ?? NSUserActivity.wmf_URLForActivityOfType(.Explore, parameters: nil) else {
+        guard let URLToOpen = articleURL?.wmf_wikipediaSchemeURL ?? NSUserActivity.wmf_URLForActivityOfType(.Explore, parameters: nil) else {
             return
         }
         

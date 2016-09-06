@@ -26,8 +26,8 @@ public extension MWKArticle {
 
         searchableItem.subject = entityDescription
         searchableItem.contentDescription = summary()
-        if (imageURL != nil) {
-            if let url = NSURL(string: imageURL) {
+        if let string = imageURL {
+            if let url = NSURL(string: string) {
                 searchableItem.thumbnailData = WMFImageController.sharedInstance().diskDataForImageWithURL(url);
             }
         }
