@@ -96,7 +96,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
 
         
-        self.titleLabel.text = article.displaytitle
+        self.titleLabel.text = article.displaytitle?.wmf_stringByRemovingHTML()
         
         
         if let string = article.imageURL, let imageURL = NSURL(string: string) {
