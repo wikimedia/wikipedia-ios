@@ -1,4 +1,53 @@
 import Foundation
+import UIKit
+
+
+extension UIBezierPath {
+    static func CGPointGetMidPointFromPoint(fromPoint: CGPoint, toPoint: CGPoint) -> CGPoint {
+        return CGPoint(x: 0.5*(fromPoint.x + toPoint.x), y: 0.5*(fromPoint.y + toPoint.y))
+    }
+    
+    static func CGPointGetQuadCurveControlPointFromPoint(fromPoint: CGPoint, toPoint: CGPoint) -> CGPoint  {
+        var controlPoint = CGPointGetMidPointFromPoint(fromPoint, toPoint: toPoint)
+        let diffY = abs(toPoint.y - controlPoint.y);
+        
+        if fromPoint.y < toPoint.y {
+            controlPoint.y += diffY
+        } else if fromPoint.y > toPoint.y {
+            controlPoint.y -= diffY
+        }
+        
+        return controlPoint
+    }
+    
+    class func quadCurvePathWithPoints(points: [CGPoint]) -> UIBezierPath {
+        let path = UIBezierPath()
+        
+        guard points.count > 1 else {
+            return path
+        }
+        
+        path.moveToPoint(points[0])
+        
+        guard points.count > 2 else {
+            path.addLineToPoint(points[1])
+            return path
+        }
+        
+        var i = 0
+        for toPoint in points[1...(points.count - 1)] {
+            let fromPoint = points[i]
+            let midPoint = CGPointGetMidPointFromPoint(fromPoint, toPoint: toPoint)
+            let midPointControlPoint = CGPointGetQuadCurveControlPointFromPoint(midPoint, toPoint: fromPoint)
+            path.addQuadCurveToPoint(midPoint, controlPoint: midPointControlPoint)
+            let toPointControlPoint = CGPointGetQuadCurveControlPointFromPoint(midPoint, toPoint: toPoint)
+            path.addQuadCurveToPoint(toPoint, controlPoint: toPointControlPoint)
+            i += 1
+        }
+        
+        return path
+    }
+}
 
 
 public class WMFSparklineView : UIView {
@@ -54,14 +103,13 @@ public class WMFSparklineView : UIView {
         
         let maxX = CGRectGetMaxX(layer.bounds)
         let maxY = CGRectGetMaxY(layer.bounds)
-        let fakeGridLinePercentage: CGFloat = 0.10
         let gridlinePath = UIBezierPath()
         
-        let firstGridlineY = fakeGridLinePercentage*maxY
+        let firstGridlineY: CGFloat = 0
         gridlinePath.moveToPoint(CGPoint(x: 0, y: firstGridlineY))
         gridlinePath.addLineToPoint(CGPoint(x: maxX, y:firstGridlineY))
         
-        let secondGridlineY = maxY*(1 - fakeGridLinePercentage)
+        let secondGridlineY = maxY
         gridlinePath.moveToPoint(CGPoint(x: 0, y: secondGridlineY))
         gridlinePath.addLineToPoint(CGPoint(x: maxX, y: secondGridlineY))
 
@@ -72,18 +120,15 @@ public class WMFSparklineView : UIView {
         let delta = maxDataValue - minDataValue
         var x: CGFloat = 0
         let xInterval = maxX/CGFloat(dataValues.count - 1)
+        var points = [CGPoint]()
         for dataValue in dataValues {
             let floatValue = CGFloat(dataValue.doubleValue)
             let relativeY = (floatValue - minDataValue)/delta
             let y = maxY*(1 - relativeY)
-            if x == 0 {
-                sparklinePath.moveToPoint(CGPointMake(x, y))
-            } else {
-                sparklinePath.addLineToPoint(CGPointMake(x, y))
-            }
+            points.append(CGPoint(x: x, y: y))
             x += xInterval
         }
-        sparklineLayer.path = sparklinePath.CGPath
+        sparklineLayer.path = UIBezierPath.quadCurvePathWithPoints(points).CGPath
     }
 
 }
