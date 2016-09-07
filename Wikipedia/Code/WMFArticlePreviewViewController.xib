@@ -10,9 +10,12 @@
                 <outlet property="imageView" destination="sBV-nz-BRl" id="wNL-uY-r8g"/>
                 <outlet property="rankLabel" destination="8p9-Hg-81S" id="EA6-S9-EwZ"/>
                 <outlet property="separatorView" destination="xnh-wl-RXW" id="7Cd-KF-RX3"/>
+                <outlet property="sparklineView" destination="vap-0K-H1T" id="qNY-da-Zzw"/>
                 <outlet property="subtitleLabel" destination="tGB-R2-1JO" id="3cy-Z7-BNS"/>
                 <outlet property="titleLabel" destination="3sD-Qs-JfB" id="cDK-az-uMN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewCountAndSparklineContainerView" destination="6G4-5v-LNq" id="AH7-gc-8zC"/>
+                <outlet property="viewCountLabel" destination="Hxu-Xo-JQO" id="eFE-M3-Tea"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -32,12 +35,12 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3sD-Qs-JfB">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3sD-Qs-JfB">
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGB-R2-1JO">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGB-R2-1JO">
                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -53,15 +56,48 @@
                     <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6G4-5v-LNq">
+                    <subviews>
+                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vap-0K-H1T" customClass="WMFSparklineView" customModule="WMFUI" customModuleProvider="target">
+                            <constraints>
+                                <constraint firstAttribute="width" constant="35" id="NqH-Ss-HXK"/>
+                                <constraint firstAttribute="height" constant="14" id="py3-F7-hoq"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Readers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hxu-Xo-JQO">
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                            <color key="textColor" red="0.33333333329999998" green="0.35294117650000001" blue="0.37254901959999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="BbT-3S-rpe"/>
+                        <constraint firstItem="vap-0K-H1T" firstAttribute="leading" secondItem="6G4-5v-LNq" secondAttribute="leading" constant="3" id="II4-Zf-I8q"/>
+                        <constraint firstAttribute="trailing" secondItem="Hxu-Xo-JQO" secondAttribute="trailing" constant="6" id="ciA-w4-tDX"/>
+                        <constraint firstItem="Hxu-Xo-JQO" firstAttribute="top" secondItem="6G4-5v-LNq" secondAttribute="top" constant="4" id="fJZ-F9-ctV"/>
+                        <constraint firstItem="Hxu-Xo-JQO" firstAttribute="leading" secondItem="vap-0K-H1T" secondAttribute="trailing" constant="4" id="hXP-cC-nbW"/>
+                        <constraint firstAttribute="bottom" secondItem="vap-0K-H1T" secondAttribute="bottom" constant="3" id="sEG-D6-cX6"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Hxu-Xo-JQO" secondAttribute="bottom" priority="750" constant="4" id="sMd-dM-B2O"/>
+                        <constraint firstItem="vap-0K-H1T" firstAttribute="top" secondItem="6G4-5v-LNq" secondAttribute="top" constant="3" id="uku-DH-GyU"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="sBV-nz-BRl" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="0uS-mw-tlE"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tGB-R2-1JO" secondAttribute="bottom" priority="250" constant="16" id="45X-Fv-vfG"/>
                 <constraint firstItem="3sD-Qs-JfB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="35" id="4f9-jk-UAA" userLabel="ArticleVC Title Label Leading"/>
                 <constraint firstItem="8p9-Hg-81S" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="9A8-U2-H3W" userLabel="ArticleVC Rank Label Leading"/>
                 <constraint firstItem="sBV-nz-BRl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" priority="750" constant="14" id="Cr9-82-itP"/>
                 <constraint firstItem="xnh-wl-RXW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="EWj-3S-e96"/>
+                <constraint firstItem="6G4-5v-LNq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="tGB-R2-1JO" secondAttribute="bottom" constant="6" id="F5c-Pq-5GL"/>
+                <constraint firstItem="xnh-wl-RXW" firstAttribute="top" secondItem="6G4-5v-LNq" secondAttribute="bottom" constant="17" id="J1n-5m-vHU"/>
+                <constraint firstItem="6G4-5v-LNq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="35" id="OXU-mN-YqV"/>
                 <constraint firstAttribute="bottom" secondItem="xnh-wl-RXW" secondAttribute="bottom" id="P8p-Ma-M5h"/>
                 <constraint firstItem="tGB-R2-1JO" firstAttribute="top" secondItem="3sD-Qs-JfB" secondAttribute="bottom" constant="4" id="TIt-oc-VCe" userLabel="ArticleVC Subtitle Label Top"/>
                 <constraint firstItem="8p9-Hg-81S" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14" id="UcO-e5-K5U" userLabel="ArticleVC Rank Label Top"/>

@@ -48,8 +48,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     let dateFormatter = NSDateFormatter.wmf_dayNameMonthNameDayOfMonthNumberDateFormatter()
     let cellReuseIdentifier = "articleList"
     
+    let maximumRowCount = 3
+    
     var maximumSize = CGSizeZero
-    var maximumRowCount = 3
+    var rowCount = 3
     
     var footerVisible = true
     
@@ -64,6 +66,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         numberFormatter.numberStyle = .DecimalStyle
+        numberFormatter.maximumFractionDigits = 1
         headerLabel.text = nil
         footerLabel.text = nil
         headerLabel.textColor = UIColor.wmf_darkGray()
@@ -136,7 +139,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         displayMode = activeDisplayMode
         headerVisible = activeDisplayMode != .Compact
         footerVisible = headerVisible
-        maximumRowCount = activeDisplayMode == .Compact ? 1 : 3
+        rowCount = activeDisplayMode == .Compact ? 1 : maximumRowCount
     }
     
     func widgetActiveDisplayModeDidChange(activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
@@ -148,16 +151,35 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func updateView() {
-        let count = min(results.count, maximumRowCount)
+        let count = min(results.count, rowCount)
         guard count > 0 else {
             return
         }
         headerLabel.text = dateFormatter.stringFromDate(date).uppercaseString
         footerLabel.text = localizedStringForKeyFallingBackOnEnglish("top-read-see-more-trending").uppercaseString
-        var i = 0
         var didRemove = false
         var didAdd = false
         let newSnapshot = view.snapshotViewAfterScreenUpdates(false)
+        
+        
+        var dataValueMin = CGFloat.max
+        var dataValueMax = CGFloat.min
+        for result in results[0...maximumRowCount] {
+            guard let dataValues = result.viewCounts else {
+                continue
+            }
+            for dataValue in dataValues {
+                let floatValue = CGFloat(dataValue.doubleValue)
+                if (floatValue < dataValueMin) {
+                    dataValueMin = floatValue
+                }
+                if (floatValue > dataValueMax) {
+                    dataValueMax = floatValue
+                }
+            }
+        }
+        
+        var i = 0
         while i < count {
             var vc: WMFArticlePreviewViewController
             if (i < articlePreviewViewControllers.count) {
@@ -177,6 +199,22 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             vc.subtitleLabel.text = result.wikidataDescription
             vc.imageView.wmf_reset()
             vc.rankLabel.text = numberFormatter.stringFromNumber(i + 1)
+            if let viewCounts = result.viewCounts where viewCounts.count > 0 {
+                vc.sparklineView.minDataValue = dataValueMin
+                vc.sparklineView.maxDataValue = dataValueMax
+                vc.sparklineView.dataValues = viewCounts
+
+                if let doubleValue = viewCounts.last?.doubleValue, let viewCountsString = numberFormatter.stringFromNumber(NSNumber(double: doubleValue/1000)) {
+                    let format = localizedStringForKeyFallingBackOnEnglish("top-read-reader-count-thousands")
+                    vc.viewCountLabel.text = format.stringByReplacingOccurrencesOfString("$1", withString: viewCountsString)
+                } else {
+                    vc.viewCountLabel.text = nil
+                }
+                
+                vc.viewCountAndSparklineContainerView.hidden = false
+            } else {
+                vc.viewCountAndSparklineContainerView.hidden = true
+            }
             if let imageURL = result.thumbnailURL {
                 vc.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
             }
