@@ -123,10 +123,10 @@ NSString *const WMFZeroXCarrierMeta = @"X-Carrier-Meta";
         return;
     }
 
-    bool zeroEnabled = self.isZeroRated;
+    BOOL zeroEnabled = self.isZeroRated;
     
     NSString* xCarrierFromHeader = [headers objectForKey:WMFZeroXCarrier];
-    bool hasZeroHeader = (xCarrierFromHeader != nil);
+    BOOL hasZeroHeader = (xCarrierFromHeader != nil);
     if (hasZeroHeader) {
         NSString* xCarrierMetaFromHeader = [headers objectForKey:WMFZeroXCarrierMeta];
         if ([self hasChangeHappenedToCarrier:xCarrierFromHeader orCarrierMeta:xCarrierMetaFromHeader]) {
