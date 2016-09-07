@@ -24,8 +24,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     #endif
 
     // Views & View State
-    @IBOutlet weak var snapshotContainerView: UIView!
-    var snapshotView: UIView?
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var footerView: UIView!
@@ -37,10 +35,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var stackViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet var stackViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var stackViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var snapshotTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var snapshotHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var stackViewTopConstraint: NSLayoutConstraint!    
     
     @IBOutlet weak var stackView: UIStackView!
     
@@ -55,7 +50,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     var headerVisible = true
     
-    var hideStackViewOnNextLayout = false
     var displayMode: NCWidgetDisplayMode = .Expanded
     
     // Controllers
@@ -89,21 +83,15 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     func layoutForSize(size: CGSize) {
         let headerHeight = headerViewHeightConstraint.constant
-        let footerHeight = footerViewHeightConstraint.constant
         headerViewTopConstraint.constant = headerVisible ? 0 : 0 - headerHeight
         stackViewTopConstraint.constant = headerVisible ? headerHeight : 0
         stackViewWidthConstraint.constant = size.width
-        footerViewBottomConstraint.constant = footerVisible ? 0 : 0 - footerHeight
-        var stackViewHeight = size.height
-        if headerVisible {
-            stackViewHeight -= headerHeight
+        
+        var i = 0
+        for vc in articlePreviewViewControllers {
+            vc.view.alpha = i < rowCount ? 1 : 0
+            i += 1
         }
-        if footerVisible {
-            stackViewHeight -= footerHeight
-        }
-        stackViewHeightConstraint.constant = stackViewHeight
-
-        snapshotTopConstraint.constant = headerVisible ? stackViewTopConstraint.constant : headerViewTopConstraint.constant
         
         footerView.alpha = footerVisible ? 1 : 0
         headerView.alpha = headerVisible ? 1 : 0
@@ -114,23 +102,13 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
-        if hideStackViewOnNextLayout {
-            stackView.alpha = 0
-            hideStackViewOnNextLayout = false
-        }
         coordinator.animateAlongsideTransition({ (context) in
-            self.snapshotView?.alpha = 0
-            self.stackView.alpha = 1
             self.layoutForSize(size)
             }) { (context) in
                 if (!context.isAnimated()) {
                     self.layoutForSize(size)
-                    self.stackView.alpha = 1
                 }
-                
-                self.snapshotView?.removeFromSuperview()
-                self.snapshotView = nil
-        }
+            }
     }
     
     func updateViewPropertiesForActiveDisplayMode(activeDisplayMode: NCWidgetDisplayMode){
@@ -149,7 +127,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func updateView() {
-        let count = min(results.count, rowCount)
+        let count = min(results.count, maximumRowCount)
         guard count > 0 else {
             return
         }
@@ -170,10 +148,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         
         headerLabel.text = headerText.uppercaseString
         footerLabel.text = localizedStringForKeyFallingBackOnEnglish("top-read-see-more-trending").uppercaseString
-        var didRemove = false
-        var didAdd = false
-        let newSnapshot = view.snapshotViewAfterScreenUpdates(true)
-        
         
         var dataValueMin = CGFloat.max
         var dataValueMax = CGFloat.min
@@ -205,7 +179,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 addChildViewController(vc)
                 stackView.addArrangedSubview(vc.view)
                 vc.didMoveToParentViewController(self)
-                didAdd = true
             }
             let result = results[i]
             vc.titleLabel.text = result.displayTitle
@@ -238,22 +211,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             }
             i += 1
         }
-        while i < articlePreviewViewControllers.count {
-            let vc = articlePreviewViewControllers[i]
-            if vc.parentViewController != nil {
-                vc.willMoveToParentViewController(nil)
-                vc.view.removeFromSuperview()
-                stackView.removeArrangedSubview(vc.view)
-                vc.removeFromParentViewController()
-                didRemove = true
-            }
-            i += 1
-        }
-        
-        if didAdd {
-            hideStackViewOnNextLayout = true
-        }
-        
+
         stackViewHeightConstraint.active = false
         stackViewWidthConstraint.constant = maximumSize.width
         var sizeToFit = UILayoutFittingCompressedSize
@@ -261,6 +219,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         var size = stackView.systemLayoutSizeFittingSize(sizeToFit, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityDefaultLow)
         size.width = maximumSize.width
         stackViewHeightConstraint.active = true
+        
+        stackViewHeightConstraint.constant = size.height
+
+        view.layoutIfNeeded()
         
         let headerHeight = headerViewHeightConstraint.constant
         let footerHeight = footerViewHeightConstraint.constant
@@ -272,24 +234,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         if footerVisible {
             size.height += footerHeight
         }
+        
+        preferredContentSize = rowCount == 1 ? articlePreviewViewControllers[0].view.frame.size : size
 
-        stackViewHeightConstraint.constant = size.height
-    
-        footerView.alpha = footerVisible ? 0 : 1
-        footerViewBottomConstraint.constant = footerVisible ? 0 - footerHeight : 0
-        
-        snapshotTopConstraint.constant = 0
-        snapshotHeightConstraint.constant = view.bounds.size.height
-        
-        preferredContentSize = size
-        view.layoutIfNeeded()
-        
-        if let snapshot = newSnapshot where didRemove || didAdd {
-            snapshot.frame = snapshotContainerView.bounds
-            snapshotContainerView.addSubview(snapshot)
-            snapshotView?.autoresizingMask = UIViewAutoresizing.FlexibleWidth.union(.FlexibleHeight)
-            snapshotView = snapshot
-        }
     }
 
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
