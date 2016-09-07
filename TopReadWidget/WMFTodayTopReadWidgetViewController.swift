@@ -172,7 +172,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         footerLabel.text = localizedStringForKeyFallingBackOnEnglish("top-read-see-more-trending").uppercaseString
         var didRemove = false
         var didAdd = false
-        let newSnapshot = view.snapshotViewAfterScreenUpdates(false)
+        let newSnapshot = view.snapshotViewAfterScreenUpdates(true)
         
         
         var dataValueMin = CGFloat.max

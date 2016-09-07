@@ -26,7 +26,7 @@
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GWN-05-Z5g">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="216" id="91H-TZ-Tt7"/>
+                                    <constraint firstAttribute="height" constant="232" id="91H-TZ-Tt7"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Yp-NW-afG">
@@ -67,7 +67,7 @@
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="chevronRightSmall" translatesAutoresizingMaskIntoConstraints="NO" id="yW4-n9-fo6"/>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="44" id="6p7-6j-XTT"/>
+                                    <constraint firstAttribute="height" constant="44" id="6p7-6j-XTT"/>
                                     <constraint firstItem="y2A-ih-w95" firstAttribute="centerY" secondItem="7sN-uX-NFF" secondAttribute="centerY" id="6qL-9T-R5E"/>
                                     <constraint firstItem="y2A-ih-w95" firstAttribute="leading" secondItem="7sN-uX-NFF" secondAttribute="leading" constant="14" id="DMb-nL-ovQ"/>
                                     <constraint firstItem="yW4-n9-fo6" firstAttribute="centerY" secondItem="7sN-uX-NFF" secondAttribute="centerY" id="Kd4-aH-Lxb"/>
