@@ -143,22 +143,10 @@ NSString *const WMFZeroXCarrierMeta = @"X-Carrier-Meta";
 
 - (BOOL)hasChangeHappenedToCarrier:(NSString*)xCarrier orCarrierMeta:(NSString*)xCarrierMeta {
     return !(
-             [self isNullableString:self.previousPartnerXCarrier equalToNullableString:xCarrier]
+             WMF_IS_EQUAL(self.previousPartnerXCarrier, xCarrier)
              &&
-             [self isNullableString:self.previousPartnerXCarrierMeta equalToNullableString:xCarrierMeta]
+             WMF_IS_EQUAL(self.previousPartnerXCarrierMeta, xCarrierMeta)
              );
-}
-
-- (BOOL)isNullableString:(nullable NSString*)stringOne equalToNullableString:(nullable NSString*)stringTwo {
-    if(stringOne == nil && stringTwo == nil){
-        return YES;
-    }else if(stringOne != nil && stringTwo == nil){
-        return NO;
-    }else if(stringOne == nil && stringTwo != nil){
-        return NO;
-    }else{
-        return [stringOne isEqualToString:stringTwo];
-    }
 }
 
 @end
