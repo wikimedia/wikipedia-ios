@@ -11,4 +11,6 @@
 @property (nonatomic, copy, nullable, readonly) NSString *partnerInfoUrl;
 @property (nonatomic, copy, nullable, readonly) NSString *bannerUrl;
 
+- (BOOL)hasPartnerInfoTextAndURL;
+
 @end

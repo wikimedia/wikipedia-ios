@@ -32,7 +32,7 @@
                                                         [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
                                                     }]];
 
-        if ([self isPartnerInfoConfigValid:zeroConfiguration]) {
+        if ([zeroConfiguration hasPartnerInfoTextAndURL]) {
             NSString *partnerInfoText = zeroConfiguration.partnerInfoText;
             NSURL *partnerInfoUrl = [NSURL URLWithString:zeroConfiguration.partnerInfoUrl];
             [zeroAlert addAction:[UIAlertAction actionWithTitle:partnerInfoText
@@ -86,10 +86,6 @@
 
 - (void)wmf_presentExternalUrlAsSFSafari:(NSURL *)url {
     [self presentViewController:[[SFSafariViewController alloc] initWithURL:url] animated:YES completion:nil];
-}
-
-- (BOOL)isPartnerInfoConfigValid:(WMFZeroConfiguration *)config {
-    return config.partnerInfoText != nil && config.partnerInfoUrl != nil;
 }
 
 @end

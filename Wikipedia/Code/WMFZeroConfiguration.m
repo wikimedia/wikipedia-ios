@@ -23,4 +23,8 @@
     return [MTLValueTransformer wmf_forwardHexColorTransformer];
 }
 
+- (BOOL)hasPartnerInfoTextAndURL {
+    return self.partnerInfoText != nil && self.partnerInfoUrl != nil;
+}
+
 @end
