@@ -846,6 +846,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     DDLogWarn(@"Pushing/Popping article… Logging Important Statistics");
     [self logImportantStatistics];
+    if([[navigationController viewControllers] count] == 1){
+        [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:nil];
+    }
 }
 
 #pragma mark - UIGestureRecognizerDelegate

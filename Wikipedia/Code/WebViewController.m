@@ -572,20 +572,6 @@ NSString *const WMFCCBySALicenseURL =
                                                object:nil];
     // should happen in will appear to prevent bar from being incorrect during transitions
     [self updateZeroState];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(saveOpenArticleTitleWithCurrentlyOnscreenFragment)
-                                                 name:UIApplicationWillResignActiveNotification
-                                               object:nil];
-}
-
-- (void)saveOpenArticleTitleWithCurrentlyOnscreenFragment {
-    if (self.navigationController.topViewController == self.parentViewController) { // Ensure only the topmost article is recorded.
-        [self getCurrentVisibleSectionCompletion:^(MWKSection *visibleSection, NSError *error) {
-            NSURL *url = [self.article.url wmf_URLWithFragment:visibleSection.anchor];
-            [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:url];
-        }];
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
