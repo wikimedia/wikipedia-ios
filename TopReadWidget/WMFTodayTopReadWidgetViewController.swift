@@ -344,10 +344,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                         continue
                     }
                     group.enter()
-                    let threeDaysPrior = self.date.dateByAddingTimeInterval(-3*86400)
-                    let oneDayAfter = self.date.dateByAddingTimeInterval(86400)
+                    let startDate = self.date.dateByAddingTimeInterval(-3*86400)
+                    let endDate = self.date.dateByAddingTimeInterval(86400) // One Day after
                     let URL = siteURL.wmf_URLWithTitle(displayTitle)
-                    self.mostReadFetcher.fetchPageviewsForURL(URL, startDate: threeDaysPrior, endDate: oneDayAfter, failure: { (error) in
+                    self.mostReadFetcher.fetchPageviewsForURL(URL, startDate: startDate, endDate: endDate, failure: { (error) in
                         group.leave()
                         }, success: { (results) in
                             result.viewCounts = results
