@@ -22,8 +22,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     let skipCache = false
     #endif
 
-
-
     // Views & View State
     @IBOutlet weak var snapshotContainerView: UIView!
     var snapshotView: UIView?
@@ -196,7 +194,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             }
             let result = results[i]
             vc.titleLabel.text = result.displayTitle
-            vc.subtitleLabel.text = result.wikidataDescription
+            vc.subtitleLabel.text = result.extract ?? result.wikidataDescription
             vc.imageView.wmf_reset()
             vc.rankLabel.text = numberFormatter.stringFromNumber(i + 1)
             if let viewCounts = result.viewCounts where viewCounts.count > 0 {
@@ -326,7 +324,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 return siteURL.wmf_URLWithTitle(article.titleText)
             })
 
-            return self.articlePreviewFetcher.fetchArticlePreviewResultsForArticleURLs(articleURLs, siteURL: siteURL, extractLength: 0, thumbnailWidth: UIScreen.mainScreen().wmf_listThumbnailWidthForScale().unsignedIntegerValue)
+            return self.articlePreviewFetcher.fetchArticlePreviewResultsForArticleURLs(articleURLs, siteURL: siteURL, extractLength: WMFNumberOfExtractCharacters, thumbnailWidth: UIScreen.mainScreen().wmf_listThumbnailWidthForScale().unsignedIntegerValue)
             }.then { (result) -> AnyPromise in
                 guard let articlePreviewResponse = result as? [MWKSearchResult] else {
                     completionHandler(.NoData)
