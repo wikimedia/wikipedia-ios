@@ -13,7 +13,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     let articlePreviewFetcher = WMFArticlePreviewFetcher()
     let mostReadFetcher = WMFMostReadTitleFetcher()
     let dataStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
-    let shortDateFormatter = NSDateFormatter.wmf_englishUTCNonDelimitedYearMonthDayFormatter()
+    let databaseDateFormatter = NSDateFormatter.wmf_englishUTCNonDelimitedYearMonthDayFormatter()
+    let headerDateFormatter = NSDateFormatter.wmf_shortMonthNameDayOfMonthNumberDateFormatter()
     let numberFormatter = NSNumberFormatter()
     
     #if DEBUG
@@ -43,7 +44,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var stackView: UIStackView!
     
-    let dateFormatter = NSDateFormatter.wmf_dayNameMonthNameDayOfMonthNumberDateFormatter()
     let cellReuseIdentifier = "articleList"
     
     let maximumRowCount = 3
@@ -153,7 +153,22 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         guard count > 0 else {
             return
         }
-        headerLabel.text = dateFormatter.stringFromDate(date).uppercaseString
+        
+        var language: String? = nil
+        if let languageCode = siteURL.wmf_language {
+            language = NSLocale.currentLocale().wmf_localizedLanguageNameForCode(languageCode)
+        }
+        
+        var headerText = ""
+        let dateText = headerDateFormatter.stringFromDate(date) ?? ""
+        
+        if let language = language {
+            headerText = localizedStringForKeyFallingBackOnEnglish("top-read-header-with-language").stringByReplacingOccurrencesOfString("$1", withString: language).stringByReplacingOccurrencesOfString("$2", withString: dateText)
+        } else {
+            headerText = localizedStringForKeyFallingBackOnEnglish("top-read-header-generic").stringByReplacingOccurrencesOfString("$1", withString: dateText)
+        }
+        
+        headerLabel.text = headerText.uppercaseString
         footerLabel.text = localizedStringForKeyFallingBackOnEnglish("top-read-see-more-trending").uppercaseString
         var didRemove = false
         var didAdd = false
@@ -287,7 +302,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             completionHandler(.NoData)
             return
         }
-        let databaseKey = shortDateFormatter.stringFromDate(date)
+        let databaseKey = databaseDateFormatter.stringFromDate(date)
         let databaseCollection = "wmftopread:\(host)"
         
         guard !skipCache else {

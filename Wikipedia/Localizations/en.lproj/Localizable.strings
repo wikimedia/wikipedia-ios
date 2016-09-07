@@ -467,3 +467,5 @@
 
 "top-read-see-more-trending" = "See more trending";
 "top-read-reader-count-thousands" = "$1k readers";
+"top-read-header-with-language" = "$1 Wikipedia on $2";
+"top-read-header-generic" = "Wikipedia on $1";

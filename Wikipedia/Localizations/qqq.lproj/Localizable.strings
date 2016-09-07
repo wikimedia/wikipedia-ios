@@ -416,4 +416,6 @@
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 
 "top-read-see-more-trending" = "See more trending";
-"top-read-reader-count-thousands" = "$1k readers";
+"top-read-reader-count-thousands" = "$1k readers - count of readers - $1 is replaced with a numeric value, so in english 22k is 22,000";
+"top-read-header-with-language" = "$1 Wikipedia on $2 - for example English Wikipedia on Aug 5";
+"top-read-header-generic" = "Wikipedia on $1 - for example Wikipedia on Aug 5";
