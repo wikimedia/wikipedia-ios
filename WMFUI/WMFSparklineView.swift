@@ -9,14 +9,8 @@ extension UIBezierPath {
     
     static func CGPointGetQuadCurveControlPointFromPoint(fromPoint: CGPoint, toPoint: CGPoint) -> CGPoint  {
         var controlPoint = CGPointGetMidPointFromPoint(fromPoint, toPoint: toPoint)
-        let diffY = abs(toPoint.y - controlPoint.y);
-        
-        if fromPoint.y < toPoint.y {
-            controlPoint.y += diffY
-        } else if fromPoint.y > toPoint.y {
-            controlPoint.y -= diffY
-        }
-        
+        let deltaY = toPoint.y - controlPoint.y
+        controlPoint.y += deltaY
         return controlPoint
     }
     
@@ -45,6 +39,9 @@ extension UIBezierPath {
             i += 1
         }
         
+        path.lineJoinStyle = CGLineJoin.Round
+        path.lineCapStyle = CGLineCap.Round
+        
         return path
     }
 }
@@ -53,7 +50,8 @@ extension UIBezierPath {
 public class WMFSparklineView : UIView {
     var sparklineLayer = CAShapeLayer()
     var gridlineLayer = CAShapeLayer()
-
+    var gradientLayer = CAGradientLayer()
+    let useLogScale = true
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -84,15 +82,22 @@ public class WMFSparklineView : UIView {
     }
     
     func setup() {
-        gridlineLayer.fillColor = nil
-        gridlineLayer.strokeColor = UIColor.grayColor().CGColor
+        gridlineLayer.fillColor = UIColor.clearColor().CGColor
+        gridlineLayer.strokeColor = UIColor(white: 0.6, alpha: 0.2).CGColor
         gridlineLayer.lineWidth = 1.0
         layer.addSublayer(gridlineLayer)
         
-        sparklineLayer.fillColor = nil
-        sparklineLayer.lineWidth = 2.0
-        sparklineLayer.strokeColor = self.tintColor.CGColor
-        layer.addSublayer(sparklineLayer)
+        sparklineLayer.fillColor = UIColor.clearColor().CGColor
+        sparklineLayer.lineWidth = 1.5
+        sparklineLayer.strokeColor = UIColor.blackColor().CGColor
+    
+        let startColor = UIColor(red: 51.0/255.0, green:  102.0/255.0, blue: 204.0/255.0, alpha: 1.0).CGColor
+        let endColor = UIColor(red: 0.0/255.0, green:  175.0/255.0, blue: 137.0/255.0, alpha: 1.0).CGColor
+        gradientLayer.colors = [startColor, endColor]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
+        gradientLayer.mask = sparklineLayer
+        layer.addSublayer(gradientLayer)
     }
     
     override public func layoutSubviews() {
@@ -100,31 +105,37 @@ public class WMFSparklineView : UIView {
         
         sparklineLayer.frame = layer.bounds
         gridlineLayer.frame = layer.bounds
+        gradientLayer.frame = layer.bounds
         
-        let maxX = CGRectGetMaxX(layer.bounds)
-        let maxY = CGRectGetMaxY(layer.bounds)
+        let margin: CGFloat = 2
+        let minX = margin
+        let minY = margin
+        let maxX = CGRectGetMaxX(layer.bounds) - margin
+        let maxY = CGRectGetMaxY(layer.bounds) - margin
+        let width = maxX - minX
+        let height = maxY - minY
+        
         let gridlinePath = UIBezierPath()
         
-        let firstGridlineY: CGFloat = 0
-        gridlinePath.moveToPoint(CGPoint(x: 0, y: firstGridlineY))
+        let firstGridlineY: CGFloat = minY
+        gridlinePath.moveToPoint(CGPoint(x: minX, y: firstGridlineY))
         gridlinePath.addLineToPoint(CGPoint(x: maxX, y:firstGridlineY))
         
         let secondGridlineY = maxY
-        gridlinePath.moveToPoint(CGPoint(x: 0, y: secondGridlineY))
+        gridlinePath.moveToPoint(CGPoint(x: minX, y: secondGridlineY))
         gridlinePath.addLineToPoint(CGPoint(x: maxX, y: secondGridlineY))
 
         gridlineLayer.path = gridlinePath.CGPath
         
-        let sparklinePath = UIBezierPath()
-        sparklinePath.lineJoinStyle = CGLineJoin.Round
         let delta = maxDataValue - minDataValue
-        var x: CGFloat = 0
-        let xInterval = maxX/CGFloat(dataValues.count - 1)
+        var x: CGFloat = minX
+        let xInterval = width/CGFloat(dataValues.count - 1)
         var points = [CGPoint]()
         for dataValue in dataValues {
             let floatValue = CGFloat(dataValue.doubleValue)
-            let relativeY = (floatValue - minDataValue)/delta
-            let y = maxY*(1 - relativeY)
+            let relativeY = floatValue - minDataValue
+            let normalizedY = 1 - relativeY/delta
+            let y = minY + height*normalizedY
             points.append(CGPoint(x: x, y: y))
             x += xInterval
         }
