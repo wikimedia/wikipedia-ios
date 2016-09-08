@@ -13,8 +13,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     let articlePreviewFetcher = WMFArticlePreviewFetcher()
     let mostReadFetcher = WMFMostReadTitleFetcher()
     let dataStore: MWKDataStore = SessionSingleton.sharedInstance().dataStore
-    let shortDateFormatter = NSDateFormatter.wmf_englishUTCNonDelimitedYearMonthDayFormatter()
+    let databaseDateFormatter = NSDateFormatter.wmf_englishUTCNonDelimitedYearMonthDayFormatter()
+    let headerDateFormatter = NSDateFormatter.wmf_shortMonthNameDayOfMonthNumberDateFormatter()
     let numberFormatter = NSNumberFormatter()
+    let daysToShowInSparkline: NSTimeInterval = 5
     
     #if DEBUG
     let skipCache = false
@@ -22,11 +24,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     let skipCache = false
     #endif
 
-
-
     // Views & View State
-    @IBOutlet weak var snapshotContainerView: UIView!
-    var snapshotView: UIView?
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var footerView: UIView!
@@ -38,24 +36,21 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var stackViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet var stackViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var stackViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var snapshotTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var snapshotHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var stackViewTopConstraint: NSLayoutConstraint!    
     
     @IBOutlet weak var stackView: UIStackView!
     
-    let dateFormatter = NSDateFormatter.wmf_dayNameMonthNameDayOfMonthNumberDateFormatter()
     let cellReuseIdentifier = "articleList"
     
+    let maximumRowCount = 3
+    
     var maximumSize = CGSizeZero
-    var maximumRowCount = 3
+    var rowCount = 3
     
     var footerVisible = true
     
     var headerVisible = true
     
-    var hideStackViewOnNextLayout = false
     var displayMode: NCWidgetDisplayMode = .Expanded
     
     // Controllers
@@ -64,6 +59,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         numberFormatter.numberStyle = .DecimalStyle
+        numberFormatter.maximumFractionDigits = 1
         headerLabel.text = nil
         footerLabel.text = nil
         headerLabel.textColor = UIColor.wmf_darkGray()
@@ -88,21 +84,15 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     func layoutForSize(size: CGSize) {
         let headerHeight = headerViewHeightConstraint.constant
-        let footerHeight = footerViewHeightConstraint.constant
         headerViewTopConstraint.constant = headerVisible ? 0 : 0 - headerHeight
         stackViewTopConstraint.constant = headerVisible ? headerHeight : 0
         stackViewWidthConstraint.constant = size.width
-        footerViewBottomConstraint.constant = footerVisible ? 0 : 0 - footerHeight
-        var stackViewHeight = size.height
-        if headerVisible {
-            stackViewHeight -= headerHeight
+        
+        var i = 0
+        for vc in articlePreviewViewControllers {
+            vc.view.alpha = i < rowCount ? 1 : 0
+            i += 1
         }
-        if footerVisible {
-            stackViewHeight -= footerHeight
-        }
-        stackViewHeightConstraint.constant = stackViewHeight
-
-        snapshotTopConstraint.constant = headerVisible ? stackViewTopConstraint.constant : headerViewTopConstraint.constant
         
         footerView.alpha = footerVisible ? 1 : 0
         headerView.alpha = headerVisible ? 1 : 0
@@ -113,30 +103,20 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
-        if hideStackViewOnNextLayout {
-            stackView.alpha = 0
-            hideStackViewOnNextLayout = false
-        }
         coordinator.animateAlongsideTransition({ (context) in
-            self.snapshotView?.alpha = 0
-            self.stackView.alpha = 1
             self.layoutForSize(size)
             }) { (context) in
                 if (!context.isAnimated()) {
                     self.layoutForSize(size)
-                    self.stackView.alpha = 1
                 }
-                
-                self.snapshotView?.removeFromSuperview()
-                self.snapshotView = nil
-        }
+            }
     }
     
     func updateViewPropertiesForActiveDisplayMode(activeDisplayMode: NCWidgetDisplayMode){
         displayMode = activeDisplayMode
         headerVisible = activeDisplayMode != .Compact
         footerVisible = headerVisible
-        maximumRowCount = activeDisplayMode == .Compact ? 1 : 3
+        rowCount = activeDisplayMode == .Compact ? 1 : maximumRowCount
     }
     
     func widgetActiveDisplayModeDidChange(activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
@@ -152,12 +132,42 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         guard count > 0 else {
             return
         }
-        headerLabel.text = dateFormatter.stringFromDate(date).uppercaseString
+        
+        var language: String? = nil
+        if let languageCode = siteURL.wmf_language {
+            language = NSLocale.currentLocale().wmf_localizedLanguageNameForCode(languageCode)
+        }
+        
+        var headerText = ""
+        let dateText = headerDateFormatter.stringFromDate(date) ?? ""
+        
+        if let language = language {
+            headerText = localizedStringForKeyFallingBackOnEnglish("top-read-header-with-language").stringByReplacingOccurrencesOfString("$1", withString: language).stringByReplacingOccurrencesOfString("$2", withString: dateText)
+        } else {
+            headerText = localizedStringForKeyFallingBackOnEnglish("top-read-header-generic").stringByReplacingOccurrencesOfString("$1", withString: dateText)
+        }
+        
+        headerLabel.text = headerText.uppercaseString
         footerLabel.text = localizedStringForKeyFallingBackOnEnglish("top-read-see-more-trending").uppercaseString
+        
+        var dataValueMin = CGFloat.max
+        var dataValueMax = CGFloat.min
+        for result in results[0...maximumRowCount] {
+            guard let dataValues = result.viewCounts else {
+                continue
+            }
+            for dataValue in dataValues {
+                let floatValue = CGFloat(dataValue.doubleValue)
+                if (floatValue < dataValueMin) {
+                    dataValueMin = floatValue
+                }
+                if (floatValue > dataValueMax) {
+                    dataValueMax = floatValue
+                }
+            }
+        }
+        
         var i = 0
-        var didRemove = false
-        var didAdd = false
-        let newSnapshot = view.snapshotViewAfterScreenUpdates(false)
         while i < count {
             var vc: WMFArticlePreviewViewController
             if (i < articlePreviewViewControllers.count) {
@@ -170,13 +180,28 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 addChildViewController(vc)
                 stackView.addArrangedSubview(vc.view)
                 vc.didMoveToParentViewController(self)
-                didAdd = true
             }
             let result = results[i]
             vc.titleLabel.text = result.displayTitle
-            vc.subtitleLabel.text = result.wikidataDescription
+            vc.subtitleLabel.text = result.extract ?? result.wikidataDescription
             vc.imageView.wmf_reset()
             vc.rankLabel.text = numberFormatter.stringFromNumber(i + 1)
+            if let viewCounts = result.viewCounts where viewCounts.count > 0 {
+                vc.sparklineView.minDataValue = dataValueMin
+                vc.sparklineView.maxDataValue = dataValueMax
+                vc.sparklineView.dataValues = viewCounts
+
+                if let doubleValue = viewCounts.last?.doubleValue, let viewCountsString = numberFormatter.stringFromNumber(NSNumber(double: doubleValue/1000)) {
+                    let format = localizedStringForKeyFallingBackOnEnglish("top-read-reader-count-thousands")
+                    vc.viewCountLabel.text = format.stringByReplacingOccurrencesOfString("$1", withString: viewCountsString)
+                } else {
+                    vc.viewCountLabel.text = nil
+                }
+                
+                vc.viewCountAndSparklineContainerView.hidden = false
+            } else {
+                vc.viewCountAndSparklineContainerView.hidden = true
+            }
             if let imageURL = result.thumbnailURL {
                 vc.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
             }
@@ -187,22 +212,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             }
             i += 1
         }
-        while i < articlePreviewViewControllers.count {
-            let vc = articlePreviewViewControllers[i]
-            if vc.parentViewController != nil {
-                vc.willMoveToParentViewController(nil)
-                vc.view.removeFromSuperview()
-                stackView.removeArrangedSubview(vc.view)
-                vc.removeFromParentViewController()
-                didRemove = true
-            }
-            i += 1
-        }
-        
-        if didAdd {
-            hideStackViewOnNextLayout = true
-        }
-        
+
         stackViewHeightConstraint.active = false
         stackViewWidthConstraint.constant = maximumSize.width
         var sizeToFit = UILayoutFittingCompressedSize
@@ -210,6 +220,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         var size = stackView.systemLayoutSizeFittingSize(sizeToFit, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityDefaultLow)
         size.width = maximumSize.width
         stackViewHeightConstraint.active = true
+        
+        stackViewHeightConstraint.constant = size.height
+
+        view.layoutIfNeeded()
         
         let headerHeight = headerViewHeightConstraint.constant
         let footerHeight = footerViewHeightConstraint.constant
@@ -221,24 +235,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         if footerVisible {
             size.height += footerHeight
         }
+        
+        preferredContentSize = rowCount == 1 ? articlePreviewViewControllers[0].view.frame.size : size
 
-        stackViewHeightConstraint.constant = size.height
-    
-        footerView.alpha = footerVisible ? 0 : 1
-        footerViewBottomConstraint.constant = footerVisible ? 0 - footerHeight : 0
-        
-        snapshotTopConstraint.constant = 0
-        snapshotHeightConstraint.constant = view.bounds.size.height
-        
-        preferredContentSize = size
-        view.layoutIfNeeded()
-        
-        if let snapshot = newSnapshot where didRemove || didAdd {
-            snapshot.frame = snapshotContainerView.bounds
-            snapshotContainerView.addSubview(snapshot)
-            snapshotView?.autoresizingMask = UIViewAutoresizing.FlexibleWidth.union(.FlexibleHeight)
-            snapshotView = snapshot
-        }
     }
 
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
@@ -251,7 +250,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             completionHandler(.NoData)
             return
         }
-        let databaseKey = shortDateFormatter.stringFromDate(date)
+        let databaseKey = databaseDateFormatter.stringFromDate(date)
         let databaseCollection = "wmftopread:\(host)"
         
         guard !skipCache else {
@@ -288,7 +287,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 return siteURL.wmf_URLWithTitle(article.titleText)
             })
 
-            return self.articlePreviewFetcher.fetchArticlePreviewResultsForArticleURLs(articleURLs, siteURL: siteURL, extractLength: 0, thumbnailWidth: UIScreen.mainScreen().wmf_listThumbnailWidthForScale().unsignedIntegerValue)
+            return self.articlePreviewFetcher.fetchArticlePreviewResultsForArticleURLs(articleURLs, siteURL: siteURL, extractLength: WMFNumberOfExtractCharacters, thumbnailWidth: UIScreen.mainScreen().wmf_listThumbnailWidthForScale().unsignedIntegerValue)
             }.then { (result) -> AnyPromise in
                 guard let articlePreviewResponse = result as? [MWKSearchResult] else {
                     completionHandler(.NoData)
@@ -306,10 +305,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                         continue
                     }
                     group.enter()
-                    let threeDaysPrior = self.date.dateByAddingTimeInterval(-3*86400)
-                    let oneDayAfter = self.date.dateByAddingTimeInterval(86400)
+                    let startDate = self.date.dateByAddingTimeInterval(-86400*self.daysToShowInSparkline)
+                    let endDate = self.date.dateByAddingTimeInterval(86400) // One Day after
                     let URL = siteURL.wmf_URLWithTitle(displayTitle)
-                    self.mostReadFetcher.fetchPageviewsForURL(URL, startDate: threeDaysPrior, endDate: oneDayAfter, failure: { (error) in
+                    self.mostReadFetcher.fetchPageviewsForURL(URL, startDate: startDate, endDate: endDate, failure: { (error) in
                         group.leave()
                         }, success: { (results) in
                             result.viewCounts = results
