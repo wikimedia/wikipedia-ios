@@ -46,7 +46,7 @@ abstract_target 'Foundation' do
   pod 'HockeySDK', '~> 4.1.0'
 
   pod 'hpple', '~> 0.2'
-	
+    
   target 'ContinueReadingWidget' do
 
   end
@@ -64,7 +64,6 @@ abstract_target 'Foundation' do
   end
   
   target 'WMFUI' do
-  	
   end
   
   target 'Wikipedia' do

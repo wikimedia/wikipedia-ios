@@ -479,7 +479,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             MWKDataStore *dataStore = [[SessionSingleton sharedInstance] dataStore];
             [dataStore readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
                 NSString *collection = [@[@"wmftopread", host] componentsJoinedByString:@":"];
-                NSString *key = [[NSDateFormatter wmf_englishHyphenatedYearMonthDayFormatter] stringFromDate:date];
+                NSString *key = [[NSDateFormatter wmf_englishUTCNonDelimitedYearMonthDayFormatter] stringFromDate:date];
                 NSArray* previews = [transaction objectForKey:key inCollection:collection];
                 if ([previews count] > 0) {
                     dispatch_async(dispatch_get_main_queue(), ^{

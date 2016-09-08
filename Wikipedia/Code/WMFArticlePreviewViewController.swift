@@ -7,6 +7,9 @@ public class WMFArticlePreviewViewController: UIViewController {
     @IBOutlet weak public var titleLabel: UILabel!
     @IBOutlet weak public var rankLabel: UILabel!
     @IBOutlet weak public var separatorView: UIView!
+    @IBOutlet weak public var viewCountAndSparklineContainerView: UIView!
+    @IBOutlet weak public var viewCountLabel: UILabel!
+    @IBOutlet weak public var sparklineView: WMFSparklineView!
     
     public required init() {
         let bundle = NSBundle(identifier: "org.wikimedia.WMFUI")
