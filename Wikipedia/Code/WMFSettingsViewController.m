@@ -140,7 +140,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [SessionSingleton sharedInstance].shouldSendUsageReports = isOn;
             break;
         case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
-            [SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving = isOn;
+            [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
             break;
         case WMFSettingsMenuItemType_SearchLanguageBarVisibility:
             [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:isOn];

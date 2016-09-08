@@ -4,7 +4,6 @@
 #import "WMFAppViewController.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 #import <Tweaks/FBTweakShakeWindow.h>
-#import "ZeroConfigState.h"
 #import "NSUserActivity+WMFExtensions.h"
 
 @interface AppDelegate ()
@@ -26,8 +25,8 @@
     [[NSUserDefaults wmf_userDefaults] registerDefaults:@{
         @"CurrentArticleDomain": defaultLanguage,
         @"Domain": defaultLanguage,
-        ZeroWarnWhenLeaving: @YES,
-        ZeroOnDialogShownOnce: @NO,
+        WMFZeroWarnWhenLeaving: @YES,
+        WMFZeroOnDialogShownOnce: @NO,
         @"LastHousekeepingDate": [NSDate date],
         @"SendUsageReports": @NO,
         @"AccessSavedPagesMessageShown": @NO

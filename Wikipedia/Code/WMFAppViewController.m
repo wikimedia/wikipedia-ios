@@ -120,8 +120,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [super viewDidLoad];
     self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(zeroDispositionDidChange:)
-                                                 name:WMFZeroDispositionDidChange
+                                             selector:@selector(isZeroRatedChanged:)
+                                                 name:WMFZeroRatingChanged
                                                object:nil];
 }
 
@@ -854,34 +854,36 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     return ![otherGestureRecognizer.view isKindOfClass:[UIScrollView class]];
 }
 
-#pragma mark - WMFZeroDisposition
+#pragma mark - Wikipedia Zero
 
-- (void)zeroDispositionDidChange:(NSNotification *)note {
-    ZeroConfigState *state = [note object];
-    if (state.zeroMessage) {
-        [self showFirstTimeZeroOnAlertIfNeeded:state.zeroMessage];
+- (void)isZeroRatedChanged:(NSNotification *)note {
+    WMFZeroConfigurationManager *zeroConfigurationManager = [note object];
+    if (zeroConfigurationManager.isZeroRated) {
+        [self showFirstTimeZeroOnAlertIfNeeded:zeroConfigurationManager.zeroConfiguration];
     } else {
         [self showZeroOffAlert];
     }
 }
 
 - (void)setZeroOnDialogShownOnce {
-    [[NSUserDefaults wmf_userDefaults] setBool:YES forKey:ZeroOnDialogShownOnce];
+    [[NSUserDefaults wmf_userDefaults] setBool:YES forKey:WMFZeroOnDialogShownOnce];
     [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 - (BOOL)zeroOnDialogShownOnce {
-    return [[NSUserDefaults wmf_userDefaults] boolForKey:ZeroOnDialogShownOnce];
+    return [[NSUserDefaults wmf_userDefaults] boolForKey:WMFZeroOnDialogShownOnce];
 }
 
-- (void)showFirstTimeZeroOnAlertIfNeeded:(WMFZeroMessage *)zeroMessage {
+- (void)showFirstTimeZeroOnAlertIfNeeded:(WMFZeroConfiguration *)zeroConfiguration {
     if ([self zeroOnDialogShownOnce]) {
         return;
     }
 
     [self setZeroOnDialogShownOnce];
 
-    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:zeroMessage.message message:MWLocalizedString(@"zero-learn-more", nil) preferredStyle:UIAlertControllerStyleAlert];
+    NSString* title = zeroConfiguration.message ? zeroConfiguration.message : MWLocalizedString(@"zero-free-verbiage", nil);
+    
+    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:title message:MWLocalizedString(@"zero-learn-more", nil) preferredStyle:UIAlertControllerStyleAlert];
 
     [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil) style:UIAlertActionStyleCancel handler:NULL]];
 

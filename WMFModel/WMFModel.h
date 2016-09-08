@@ -63,8 +63,8 @@ FOUNDATION_EXPORT const unsigned char WMFModelVersionString[];
 #import <WMFModel/WikipediaAppUtils.h>
 #import <WMFModel/NSString+WMFHTMLParsing.h>
 #import <WMFModel/WMFImageURLParsing.h>
-#import <WMFModel/WMFZeroMessage.h>
-#import <WMFModel/WMFZeroMessageFetcher.h>
+#import <WMFModel/WMFZeroConfiguration.h>
+#import <WMFModel/WMFZeroConfigurationFetcher.h>
 #import <WMFModel/MWKSectionMetaData.h>
 #import <WMFModel/MWKLanguageLink.h>
 
