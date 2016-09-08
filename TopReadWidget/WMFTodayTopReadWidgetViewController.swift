@@ -16,6 +16,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     let databaseDateFormatter = NSDateFormatter.wmf_englishUTCNonDelimitedYearMonthDayFormatter()
     let headerDateFormatter = NSDateFormatter.wmf_shortMonthNameDayOfMonthNumberDateFormatter()
     let numberFormatter = NSNumberFormatter()
+    let daysToShowInSparkline: NSTimeInterval = 5
     
     #if DEBUG
     let skipCache = false
@@ -304,7 +305,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                         continue
                     }
                     group.enter()
-                    let startDate = self.date.dateByAddingTimeInterval(-3*86400)
+                    let startDate = self.date.dateByAddingTimeInterval(-86400*self.daysToShowInSparkline)
                     let endDate = self.date.dateByAddingTimeInterval(86400) // One Day after
                     let URL = siteURL.wmf_URLWithTitle(displayTitle)
                     self.mostReadFetcher.fetchPageviewsForURL(URL, startDate: startDate, endDate: endDate, failure: { (error) in
