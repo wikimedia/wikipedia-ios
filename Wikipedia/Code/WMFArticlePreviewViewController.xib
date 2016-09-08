@@ -62,7 +62,6 @@
                         <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vap-0K-H1T" customClass="WMFSparklineView" customModule="WMFUI" customModuleProvider="target">
                             <constraints>
                                 <constraint firstAttribute="width" constant="35" id="NqH-Ss-HXK"/>
-                                <constraint firstAttribute="height" constant="14" id="py3-F7-hoq"/>
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Readers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hxu-Xo-JQO">
@@ -73,13 +72,12 @@
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="20" id="BbT-3S-rpe"/>
                         <constraint firstItem="vap-0K-H1T" firstAttribute="leading" secondItem="6G4-5v-LNq" secondAttribute="leading" constant="3" id="II4-Zf-I8q"/>
-                        <constraint firstAttribute="trailing" secondItem="Hxu-Xo-JQO" secondAttribute="trailing" constant="6" id="ciA-w4-tDX"/>
-                        <constraint firstItem="Hxu-Xo-JQO" firstAttribute="top" secondItem="6G4-5v-LNq" secondAttribute="top" constant="4" id="fJZ-F9-ctV"/>
-                        <constraint firstItem="Hxu-Xo-JQO" firstAttribute="leading" secondItem="vap-0K-H1T" secondAttribute="trailing" constant="4" id="hXP-cC-nbW"/>
+                        <constraint firstAttribute="trailing" secondItem="Hxu-Xo-JQO" secondAttribute="trailing" constant="7" id="ciA-w4-tDX"/>
+                        <constraint firstItem="Hxu-Xo-JQO" firstAttribute="top" secondItem="6G4-5v-LNq" secondAttribute="top" constant="3" id="fJZ-F9-ctV"/>
+                        <constraint firstItem="Hxu-Xo-JQO" firstAttribute="leading" secondItem="vap-0K-H1T" secondAttribute="trailing" constant="7" id="hXP-cC-nbW"/>
                         <constraint firstAttribute="bottom" secondItem="vap-0K-H1T" secondAttribute="bottom" constant="3" id="sEG-D6-cX6"/>
-                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Hxu-Xo-JQO" secondAttribute="bottom" priority="750" constant="4" id="sMd-dM-B2O"/>
+                        <constraint firstAttribute="bottom" secondItem="Hxu-Xo-JQO" secondAttribute="bottom" constant="3" id="sMd-dM-B2O"/>
                         <constraint firstItem="vap-0K-H1T" firstAttribute="top" secondItem="6G4-5v-LNq" secondAttribute="top" constant="3" id="uku-DH-GyU"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
