@@ -21,12 +21,11 @@
 + (instancetype)wmf_activityWithType:(NSString *)type {
     NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:[NSString stringWithFormat:@"org.wikimedia.wikipedia.%@", [type lowercaseString]]];
 
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-        activity.eligibleForHandoff = YES;
-        activity.eligibleForSearch = YES;
-        activity.eligibleForPublicIndexing = YES;
-        activity.keywords = [NSSet setWithArray:@[@"Wikipedia", @"Wikimedia", @"Wiki"]];
-    }
+    activity.eligibleForHandoff = YES;
+    activity.eligibleForSearch = YES;
+    activity.eligibleForPublicIndexing = YES;
+    activity.keywords = [NSSet setWithArray:@[@"Wikipedia", @"Wikimedia", @"Wiki"]];
+    
     return activity;
 }
 
@@ -205,10 +204,8 @@
     activity.title = [NSString stringWithFormat:@"Search for %@", searchTerm];
     activity.webpageURL = url;
 
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-        activity.eligibleForSearch = NO;
-        activity.eligibleForPublicIndexing = NO;
-    }
+    activity.eligibleForSearch = NO;
+    activity.eligibleForPublicIndexing = NO;
 
     return activity;
 }
@@ -231,7 +228,9 @@
         return WMFUserActivityTypeTopRead;
     } else if ([self.webpageURL.absoluteString containsString:@"/w/index.php?search="]) {
         return WMFUserActivityTypeSearchResults;
-    } else {
+    } else if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10] && [self.activityType isEqualToString:CSQueryContinuationActionType]){
+        return WMFUserActivityTypeSearchResults;
+    }else {
         return WMFUserActivityTypeArticle;
     }
 }
@@ -240,18 +239,21 @@
     if (self.wmf_type != WMFUserActivityTypeSearchResults) {
         return nil;
     }
-
-    NSURLComponents *components = [NSURLComponents componentsWithString:self.webpageURL.absoluteString];
-    NSArray *queryItems = components.queryItems;
-    NSURLQueryItem *item = [queryItems bk_match:^BOOL(NSURLQueryItem *obj) {
-        if ([[obj name] isEqualToString:@"search"]) {
-            return YES;
-        } else {
-            return NO;
-        }
-    }];
-
-    return [item value];
+    
+    if([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10] && [self.activityType isEqualToString:CSQueryContinuationActionType]){
+        return self.userInfo[CSSearchQueryString];
+    }else{
+        NSURLComponents *components = [NSURLComponents componentsWithString:self.webpageURL.absoluteString];
+        NSArray *queryItems = components.queryItems;
+        NSURLQueryItem *item = [queryItems bk_match:^BOOL(NSURLQueryItem *obj) {
+            if ([[obj name] isEqualToString:@"search"]) {
+                return YES;
+            } else {
+                return NO;
+            }
+        }];
+        return [item value];
+    }
 }
 
 @end
