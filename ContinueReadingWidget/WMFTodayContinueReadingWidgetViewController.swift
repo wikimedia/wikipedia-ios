@@ -96,7 +96,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
 
         
-        self.titleLabel.text = article.displaytitle
+        self.titleLabel.text = article.displaytitle?.wmf_stringByRemovingHTML()
         
         
         if let string = article.imageURL, let imageURL = NSURL(string: string) {
@@ -113,7 +113,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     }
 
     @IBAction func continueReading(sender: AnyObject) {
-        guard let URLToOpen = articleURL ?? NSUserActivity.wmf_URLForActivityOfType(.Explore, parameters: nil) else {
+        guard let URLToOpen = articleURL?.wmf_wikipediaSchemeURL ?? NSUserActivity.wmf_URLForActivityOfType(.Explore, parameters: nil) else {
             return
         }
         

@@ -7,7 +7,7 @@
 @property (readwrite, strong, nonatomic) NSDate *dateSaved;
 
 @property (readwrite, assign, nonatomic) CGFloat scrollPosition;
-@property (readwrite, assign, nonatomic) NSString *fragment;
+@property (readwrite, copy, nonatomic) NSString *fragment;
 
 @property (readwrite, assign, nonatomic, getter=isBlackListed) BOOL blackListed;
 @property (readwrite, assign, nonatomic) BOOL titleWasSignificantlyViewed;

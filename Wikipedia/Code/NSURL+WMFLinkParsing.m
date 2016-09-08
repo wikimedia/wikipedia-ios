@@ -101,6 +101,19 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
     return components.URL;
 }
 
+- (NSURL *)wmf_wikipediaSchemeURLWithTitle:(NSString *)title {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.wmf_title = title;
+    components.scheme = @"wikipedia";
+    return components.URL;
+}
+
+- (nullable NSURL *)wmf_wikipediaSchemeURL {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.scheme = @"wikipedia";
+    return components.URL;
+}
+
 - (NSURL *)wmf_URLWithTitle:(NSString *)title fragment:(NSString *)fragment {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.wmf_title = title;
@@ -237,6 +250,15 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
         return [potentialLanguage isEqualToString:@"m"] ? nil : potentialLanguage;
     }
 }
+
+
+- (NSURL *)wmf_desktopURLWithoutFragment {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
+    components.fragment = nil;
+    return components.URL;
+}
+
 
 - (NSString *)wmf_title {
     if (![self wmf_isWikiResource]) {
