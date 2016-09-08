@@ -262,11 +262,10 @@
 "license-footer-text" = "Nội dung được phát hành theo $1, trừ khi có ghi chú khác.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Mục lục";
-// Fuzzy
 "table-of-contents-button-label" = "Mục lục";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Đóng Mục lục";
 "table-of-contents-close-accessibility-hint" = "Đóng";
+"table-of-contents-popover-description" = "Xem cấu trúc bài viết";
 "abuse-filter-warning-heading" = "Sửa đổi này có vẻ không có tính xây dựng. Bạn có chắc chắn muốn lưu nó?";
 "abuse-filter-warning-subheading" = "Sửa đổi của bạn có thể có những vấn đề sau:";
 "abuse-filter-warning-caps" = "Viết TOÀN CHỮ HOA";
@@ -390,6 +389,7 @@
 "explore-featured-article-heading" = "Bài viết chọn lọc";
 "explore-continue-reading-heading" = "Đọc tiếp";
 "explore-nearby-heading" = "Địa điểm gần";
+"explore-nearby-sub-heading-your-location" = "Vị trí của bạn";
 "explore-continue-related-heading" = "Vì bạn đã đọc";
 "explore-main-page-heading" = "Hôm nay tại Wikipedia";
 "explore-random-article-heading" = "Bài viết ngẫu nhiên";
@@ -405,3 +405,5 @@
 "request-feedback-on-error" = "Ứng dụng này đã gặp sự cố mà nhóm phát triển của chúng tôi muốn biết đến. Xin vui lòng chạm tại đây để gửi thư điện tử cho chúng tôi có chi tiết về lỗi này.";
 "explore-another-random" = "Một bài ngẫu nhiên nữa";
 "find-in-page-no-matches" = "0 kết quả";
+"find-in-page-button-label" = "Tìm trong trang";
+"find-in-page-popover-description" = "Tìm văn bản trong bài viết";

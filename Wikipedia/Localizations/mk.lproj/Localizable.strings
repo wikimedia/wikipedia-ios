@@ -257,11 +257,10 @@
 "license-footer-text" = "Содржината е достапна под условите на $1 освен ако не е поинаку наведено.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содржина";
-// Fuzzy
 "table-of-contents-button-label" = "Содржина";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";
 "table-of-contents-close-accessibility-hint" = "Затвори";
+"table-of-contents-popover-description" = "Се појавува краток преглед на статиите";
 "abuse-filter-warning-heading" = "Ова личи на неконструктивно уредување. Дали сигурно сакате да го зачувате?";
 "abuse-filter-warning-subheading" = "Вашето уредување може да содржи едно или повеќе од следниве:";
 "abuse-filter-warning-caps" = "ГОЛЕМИ БУКВИ";
@@ -385,6 +384,7 @@
 "explore-featured-article-heading" = "Избрани статии";
 "explore-continue-reading-heading" = "Продолжете со читање";
 "explore-nearby-heading" = "Околни места";
+"explore-nearby-sub-heading-your-location" = "Ваша местоположба";
 "explore-continue-related-heading" = "Бидејќи читавте";
 "explore-main-page-heading" = "Денес на Википедија";
 "explore-random-article-heading" = "Случајна статија";
@@ -400,3 +400,5 @@
 "request-feedback-on-error" = "Прилогот наиде на проблем за кој нашите програмери сакаат да дознаат повеќе. Допрете тука за да ни испратите е-пошта со поединости за грешката.";
 "explore-another-random" = "Друга случајна статија";
 "find-in-page-no-matches" = "0 совпаѓања";
+"find-in-page-button-label" = "Најди на страницата";
+"find-in-page-popover-description" = "Пребарај текст во статиите";

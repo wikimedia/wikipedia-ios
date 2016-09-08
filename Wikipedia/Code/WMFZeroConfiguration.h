@@ -1,6 +1,6 @@
 #import <Mantle/Mantle.h>
 
-@interface WMFZeroMessage : MTLModel <MTLJSONSerializing>
+@interface WMFZeroConfiguration : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, copy, nonnull, readonly) NSString *message;
 @property (nonatomic, strong, nonnull, readonly) UIColor *foreground;
@@ -10,5 +10,7 @@
 @property (nonatomic, copy, nullable, readonly) NSString *partnerInfoText;
 @property (nonatomic, copy, nullable, readonly) NSString *partnerInfoUrl;
 @property (nonatomic, copy, nullable, readonly) NSString *bannerUrl;
+
+- (BOOL)hasPartnerInfoTextAndURL;
 
 @end

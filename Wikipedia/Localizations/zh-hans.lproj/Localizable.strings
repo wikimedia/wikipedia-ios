@@ -265,11 +265,10 @@
 "license-footer-text" = "除非另有说明，内容基于$1授权。";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "内容";
-// Fuzzy
 "table-of-contents-button-label" = "目录";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "关闭目录";
 "table-of-contents-close-accessibility-hint" = "关闭";
+"table-of-contents-popover-description" = "获取条目概览";
 "abuse-filter-warning-heading" = "这看起来是没有建设性的编辑，您确定要保存它？";
 "abuse-filter-warning-subheading" = "您的编辑可能包含以下情况之一：";
 "abuse-filter-warning-caps" = "输入全部大写字母";
@@ -393,6 +392,7 @@
 "explore-featured-article-heading" = "特色条目";
 "explore-continue-reading-heading" = "继续阅读";
 "explore-nearby-heading" = "地点接近";
+"explore-nearby-sub-heading-your-location" = "您的位置";
 "explore-continue-related-heading" = "因为您阅读";
 "explore-main-page-heading" = "维基百科今日";
 "explore-random-article-heading" = "随机条目";
@@ -408,3 +408,5 @@
 "request-feedback-on-error" = "应用程序遇到问题，需要我们开发人员了解更多关于它的信息。请在此点按以向我们发送带有错误详情的电子邮件。";
 "explore-another-random" = "其他随机条目";
 "find-in-page-no-matches" = "0个匹配";
+"find-in-page-button-label" = "在页面中查找";
+"find-in-page-popover-description" = "搜索条目中的文本";

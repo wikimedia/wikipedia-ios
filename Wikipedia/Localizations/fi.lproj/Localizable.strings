@@ -211,6 +211,7 @@
 "about-libraries-licenses" = "Lisenssit";
 "about-content-license" = "Sisältölisenssi";
 "about-content-license-details" = "Ellei toisin mainita, sisältö on saatavilla $1 -lisenssillä.";
+"about-content-license-details-share-alike-license" = "Creative Commons Nimeä-JaaSamoin -lisenssi";
 "about-libraries-licenses-title" = "Me rakastamme avoimen lähdekoodin ohjelmistoja $1";
 "about-libraries-complete-list" = "Täydellinen luettelo";
 "about-repositories" = "Tietovarastot";
@@ -262,9 +263,7 @@
 "license-footer-text" = "Sisältö on käytettävissä $1 -lisenssin ehtojen mukaisesti ellei toisin mainita.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Sisällys";
-// Fuzzy
 "table-of-contents-button-label" = "Sisällysluettelo";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
 "table-of-contents-close-accessibility-hint" = "Sulje";
 "abuse-filter-warning-heading" = "Tämä saattaa olla haitallinen muokkaus. Haluatko varmasti tallentaa sen?";
@@ -377,6 +376,7 @@
 "explore-featured-article-heading" = "Suositeltu artikkeli";
 "explore-continue-reading-heading" = "Jatka lukemista";
 "explore-nearby-heading" = "Lähistön paikat";
+"explore-nearby-sub-heading-your-location" = "Sijaintisi";
 "explore-continue-related-heading" = "Lukusuosituksen peruste";
 "explore-main-page-heading" = "Tänään Wikipediassa";
 "explore-random-article-heading" = "Satunnainen artikkeli";
@@ -387,3 +387,7 @@
 "explore-most-read-footer-for-date" = "Kaikki luetuimmat artikkelit $1";
 "explore-most-read-more-list-title" = "Huippuartikkelit";
 "explore-most-read-more-list-title-for-date" = "Parhaimmistoa $1";
+"explore-another-random" = "Toinen satunnainen sivu";
+"find-in-page-no-matches" = "0 tulosta";
+"find-in-page-button-label" = "Etsi sivulta";
+"find-in-page-popover-description" = "Etsi artikkelien teksteistä";

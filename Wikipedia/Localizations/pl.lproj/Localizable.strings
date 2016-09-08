@@ -253,8 +253,8 @@
 "license-footer-text" = "Treść udostępniana na licencji $1, jeśli nie podano inaczej.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Zawartości";
-// Fuzzy
 "table-of-contents-button-label" = "Spis treści";
+"table-of-contents-close-accessibility-label" = "Zamknij spis treści";
 "table-of-contents-close-accessibility-hint" = "Zamknij";
 "abuse-filter-warning-heading" = "To wygląda na niekonstruktywną edycję, jesteś pewny, by ją zaspisać?";
 "abuse-filter-warning-subheading" = "Twoja edycja może zawierać jedną lub wiele z następujących czynności:";
@@ -342,8 +342,11 @@
 "icon-shortcut-random-title" = "Losowy artykuł";
 "close-button-accessibility-label" = "Zamknij";
 "explore-nearby-heading" = "Miejsca w pobliżu";
+"explore-nearby-sub-heading-your-location" = "Twoje położenie";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
 "explore-most-read-generic-heading" = "Najczęściej czytane";
 "explore-most-read-more-list-title" = "Najczęściej czytane artykuły";
 "no-email-account-alert" = "Skonfiguruj konto e-mail w tym urządzeniu i spróbuj jeszcze raz.";
 "explore-another-random" = "Inny losowy artykuł";
+"find-in-page-button-label" = "Znajdź na stronie";
+"find-in-page-popover-description" = "Wyszukiwanie tekstu w artykułach";

@@ -1,29 +1,30 @@
-#import "WMFZeroMessageFetcher.h"
+#import "WMFZeroConfigurationFetcher.h"
 #import "AFHTTPSessionManager+WMFConfig.h"
 #import "WMFMantleJSONResponseSerializer.h"
-#import "WMFZeroMessage.h"
+#import "WMFZeroConfiguration.h"
 #import "AFHTTPSessionManager+WMFCancelAll.h"
+#import "WMFZeroConfigurationManager.h"
 
-@interface WMFZeroMessageFetcher ()
+@interface WMFZeroConfigurationFetcher ()
 
 @property (nonatomic, strong) AFHTTPSessionManager *operationManager;
 
 @end
 
-@implementation WMFZeroMessageFetcher
+@implementation WMFZeroConfigurationFetcher
 
 - (instancetype)init {
     self = [super init];
     if (self) {
         self.operationManager = [[AFHTTPSessionManager alloc] init];
         self.operationManager.responseSerializer =
-            [WMFMantleJSONResponseSerializer serializerForInstancesOf:[WMFZeroMessage class]
+            [WMFMantleJSONResponseSerializer serializerForInstancesOf:[WMFZeroConfiguration class]
                                                           fromKeypath:nil];
     }
     return self;
 }
 
-- (AnyPromise *)fetchZeroMessageForSiteURL:(NSURL *)siteURL {
+- (AnyPromise *)fetchZeroConfigurationForSiteURL:(NSURL *)siteURL {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
             @"action": @"zeroconfig",
@@ -31,7 +32,7 @@
             @"agent": [WikipediaAppUtils versionedUserAgent]
         }];
         //        if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
-        //            params[@"X-CS"] = @"TEST";
+        //            params[WMFZeroXCarrier] = @"TEST";
         //        }
         [self.operationManager GET:[[NSURL wmf_mobileAPIURLForURL:siteURL] absoluteString]
             parameters:params

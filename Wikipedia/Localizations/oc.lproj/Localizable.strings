@@ -161,6 +161,7 @@
 "onboarding-wikipedia" = "Wikipèdia";
 "onboarding-free-encyclopedia" = "L'enciclopèdia liura";
 "preference_title_eventlogging_opt_in" = "Mandar los rapòrts d’utilizacion";
+"page_protected_can_not_edit_title" = "Aquesta pagina es protegida";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contenguts";
 "menu-edit-accessibility-label" = "Modificar";

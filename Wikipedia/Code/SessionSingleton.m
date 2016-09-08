@@ -39,8 +39,7 @@
                                                                    diskPath:nil];
         [NSURLCache setSharedURLCache:urlCache];
 
-        self.zeroConfigState = [[ZeroConfigState alloc] init];
-        self.zeroConfigState.disposition = NO;
+        self.zeroConfigurationManager = [[WMFZeroConfigurationManager alloc] init];
 
         self.dataStore = dataStore;
 

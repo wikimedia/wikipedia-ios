@@ -2,10 +2,10 @@
 #import "SVModalWebViewController.h"
 
 #import "Global.h"
-#import "ZeroConfigState.h"
+#import "WMFZeroConfigurationManager.h"
 #import "SessionSingleton.h"
 #import "UIAlertView+BlocksKit.h"
-#import "WMFZeroMessage.h"
+#import "WMFZeroConfiguration.h"
 #import <SafariServices/SFSafariViewController.h>
 #import "NSURL+WMFExtras.h"
 
@@ -19,10 +19,10 @@
     NSParameterAssert(url);
 
     //If zero rated, don't open any external (non-zero rated!) links until user consents!
-    if ([SessionSingleton sharedInstance].zeroConfigState.disposition && [[NSUserDefaults wmf_userDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
-        WMFZeroMessage *zeroMessage = [SessionSingleton sharedInstance].zeroConfigState.zeroMessage;
-        NSString *exitDialogTitle = zeroMessage.exitTitle ?: MWLocalizedString(@"zero-interstitial-title", nil);
-        NSString *messageWithHost = [NSString stringWithFormat:@"%@\n\n%@", zeroMessage.exitWarning ?: MWLocalizedString(@"zero-interstitial-leave-app", nil), url.host];
+    if ([SessionSingleton sharedInstance].zeroConfigurationManager.isZeroRated && [[NSUserDefaults wmf_userDefaults] boolForKey:WMFZeroWarnWhenLeaving]) {
+        WMFZeroConfiguration *zeroConfiguration = [SessionSingleton sharedInstance].zeroConfigurationManager.zeroConfiguration;
+        NSString *exitDialogTitle = zeroConfiguration.exitTitle ?: MWLocalizedString(@"zero-interstitial-title", nil);
+        NSString *messageWithHost = [NSString stringWithFormat:@"%@\n\n%@", zeroConfiguration.exitWarning ?: MWLocalizedString(@"zero-interstitial-leave-app", nil), url.host];
 
         UIAlertController *zeroAlert = [UIAlertController alertControllerWithTitle:exitDialogTitle message:messageWithHost preferredStyle:UIAlertControllerStyleAlert];
         [zeroAlert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-interstitial-cancel", nil) style:UIAlertActionStyleCancel handler:NULL]];
@@ -32,9 +32,9 @@
                                                         [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
                                                     }]];
 
-        if ([self isPartnerInfoConfigValid:zeroMessage]) {
-            NSString *partnerInfoText = zeroMessage.partnerInfoText;
-            NSURL *partnerInfoUrl = [NSURL URLWithString:zeroMessage.partnerInfoUrl];
+        if ([zeroConfiguration hasPartnerInfoTextAndURL]) {
+            NSString *partnerInfoText = zeroConfiguration.partnerInfoText;
+            NSURL *partnerInfoUrl = [NSURL URLWithString:zeroConfiguration.partnerInfoUrl];
             [zeroAlert addAction:[UIAlertAction actionWithTitle:partnerInfoText
                                                           style:UIAlertActionStyleDefault
                                                         handler:^(UIAlertAction *_Nonnull action) {
@@ -86,10 +86,6 @@
 
 - (void)wmf_presentExternalUrlAsSFSafari:(NSURL *)url {
     [self presentViewController:[[SFSafariViewController alloc] initWithURL:url] animated:YES completion:nil];
-}
-
-- (BOOL)isPartnerInfoConfigValid:(WMFZeroMessage *)msg {
-    return msg.partnerInfoText != nil && msg.partnerInfoUrl != nil;
 }
 
 @end
