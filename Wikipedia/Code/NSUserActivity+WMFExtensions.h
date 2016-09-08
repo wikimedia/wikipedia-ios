@@ -33,6 +33,8 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
 
 - (NSString *)wmf_searchTerm;
 
+- (NSURL *)wmf_articleURL;
+
 + (nullable NSURL *)wmf_URLForActivityOfType:(WMFUserActivityType)type parameters:(nullable NSDictionary *)params;
 
 @end
