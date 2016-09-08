@@ -113,6 +113,7 @@
 
 - (void)dataSourceDidFinishUpdates:(id<WMFDataSource>)dataSource {
     [self.tableView endUpdates];
+    [self updateEmptyAndDeleteState];
 }
 
 - (void)dataSource:(id<WMFDataSource>)dataSource didDeleteSectionsAtIndexes:(NSIndexSet *)indexes {

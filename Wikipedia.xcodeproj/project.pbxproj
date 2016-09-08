@@ -4438,8 +4438,8 @@
 		BC45D5B01C330B95007C72F3 /* History */ = {
 			isa = PBXGroup;
 			children = (
-				0E09EAC11C4426470058F2D8 /* WMFHistoryTableViewController.m */,
 				0E09EAC21C4426470058F2D8 /* WMFHistoryTableViewController.h */,
+				0E09EAC11C4426470058F2D8 /* WMFHistoryTableViewController.m */,
 				0EAAAFC91B43301C00E65A95 /* Model */,
 			);
 			name = History;
