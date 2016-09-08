@@ -224,11 +224,11 @@
 "share-as-text" = "Wigger jävve als Täx";
 "share-cancel" = "Ophühre";
 "timestamp-just-now" = "jraad äävens";
-"timestamp-minutes" = "vör $d Menotte";
-"timestamp-hours" = "vör $d Schtonde";
-"timestamp-days" = "vör $d Dähsch";
-"timestamp-months" = "vör $d Mohnde";
-"timestamp-years" = "vör $d Johre";
+"timestamp-minutes" = "vör %d Menotte";
+"timestamp-hours" = "vör %d Schtonde";
+"timestamp-days" = "vör %d Dähsch";
+"timestamp-months" = "vör %d Mohnde";
+"timestamp-years" = "vör %d Johre";
 "lastmodified-by-user" = "Vum „$2“ $1 beärbeidt.";
 "lastmodified-by-anon" = "$1 vun enem nahmelohse Metmaacher verändert.";
 "button-edit" = "Ändere";

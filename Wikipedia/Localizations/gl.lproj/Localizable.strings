@@ -260,11 +260,10 @@
 "license-footer-text" = "O contido está dispoñible baixo a $1, salvo que se indique o contrario.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contidos";
-// Fuzzy
 "table-of-contents-button-label" = "Táboa de contidos";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Pechar táboa de contidos";
 "table-of-contents-close-accessibility-hint" = "Pechar";
+"table-of-contents-popover-description" = "Obter unha vista xeral dos artigos";
 "abuse-filter-warning-heading" = "Isto semella unha edición non construtiva, está seguro de querer gardala?";
 "abuse-filter-warning-subheading" = "A súa edición pode conter un ou máis dos seguintes:";
 "abuse-filter-warning-caps" = "Escribir TODO EN MAIÚSCULAS";
@@ -388,6 +387,7 @@
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-continue-reading-heading" = "Continuar lendo";
 "explore-nearby-heading" = "Lugares próximos";
+"explore-nearby-sub-heading-your-location" = "A súa localización";
 "explore-continue-related-heading" = "Porque leu";
 "explore-main-page-heading" = "Hoxe en Wikipedia";
 "explore-random-article-heading" = "Artigo ao chou";
@@ -403,3 +403,5 @@
 "request-feedback-on-error" = "A aplicación atopou un problema da que os nosos desenvolvedores querrían ter máis información. Por favor presiona aquí para enviarnos un correo electrónico cos detalles do erro.";
 "explore-another-random" = "Outro artigo aleatorio";
 "find-in-page-no-matches" = "Non hai coincidencias";
+"find-in-page-button-label" = "Atopar na páxina";
+"find-in-page-popover-description" = "Buscar o texto non artigos";

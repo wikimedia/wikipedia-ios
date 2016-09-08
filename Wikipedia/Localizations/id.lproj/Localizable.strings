@@ -265,11 +265,10 @@
 "license-footer-text" = "Konten tersedia di bawah lisensi $1 kecuali dinyatakan lain.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Konten";
-// Fuzzy
-"table-of-contents-button-label" = "Daftar Isi";
-// Fuzzy
-"table-of-contents-close-accessibility-label" = "Tutup Daftar Isi";
+"table-of-contents-button-label" = "Daftar isi";
+"table-of-contents-close-accessibility-label" = "Tutup daftar isi";
 "table-of-contents-close-accessibility-hint" = "Tutup";
+"table-of-contents-popover-description" = "Dapatkan ringkasan dari artikel";
 "abuse-filter-warning-heading" = "Ini tampak seperti suntingan yang tidak konstruktif. Apakah Anda yakin ingin menyimpannya?";
 "abuse-filter-warning-subheading" = "Suntingan Anda dapat berisi satu atau lebih hal berikut:";
 "abuse-filter-warning-caps" = "Mengetik dalam SEMUA HURUF BESAR";
@@ -393,6 +392,7 @@
 "explore-featured-article-heading" = "Artikel pilihan";
 "explore-continue-reading-heading" = "Lanjutkan membaca";
 "explore-nearby-heading" = "Tempat dekat";
+"explore-nearby-sub-heading-your-location" = "Lokasi Anda";
 "explore-continue-related-heading" = "Karena Anda membaca";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
 "explore-random-article-heading" = "Artikel acak";
@@ -408,3 +408,5 @@
 "request-feedback-on-error" = "Aplikasi ini mengalami masalah yang pengembang kami ingin tahu lebih lanjut. Silakan ketuk di sini untuk mengirimkan kami surel dengan rincian kesalahan.";
 "explore-another-random" = "Artikel sembarang lainnya";
 "find-in-page-no-matches" = "Tidak ada yang cocok";
+"find-in-page-button-label" = "Cari di halaman";
+"find-in-page-popover-description" = "Cari teks di artikel";

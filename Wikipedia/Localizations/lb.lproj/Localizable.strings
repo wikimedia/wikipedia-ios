@@ -208,6 +208,7 @@
 "share-menu-page-saved" = "Säit gespäichert";
 "share-menu-page-saved-access" = "Tipp: fir op Är gespäichert Säiten ze goen, tippt $1 hei driwwer oder dréckt laang op $2 hei drënner.";
 "share-custom-menu-item" = "Deelen";
+"share-a-fact-share-menu-item" = "E-Fait-deelen";
 "share-on-twitter-sign-off" = "iwwer @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" op @Wikipedia: \"$2\"";
@@ -246,11 +247,10 @@
 "license-footer-text" = "Den Inhalt ass ënner der $1 disponibel wann et net anescht uginn ass.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Inhalter";
-// Fuzzy
 "table-of-contents-button-label" = "Inhaltsverzeechnes";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeechnes zoumaachen";
 "table-of-contents-close-accessibility-hint" = "Zoumaachen";
+"table-of-contents-popover-description" = "Eng Iwwersiicht iwwer d'Artikele kréien";
 "abuse-filter-warning-heading" = "Dëst gesäit no enger wéineg konstruktiver Ännerung aus, sidd Dir sécher datt Dir se späichere wëllt?";
 "abuse-filter-warning-subheading" = "An Ärer Ännerung kéinte eng oder méi vun dëse Saachen dra sinn:";
 "abuse-filter-warning-caps" = "Mat GROUSSE BUSCHTAWEN tippen";
@@ -331,6 +331,7 @@
 "home-hide-suggestion-prompt" = "Dës Propos verstoppen";
 "home-hide-suggestion-cancel" = "Ofbriechen";
 "home-accessibility-label" = "Wikipedia, Entdecken";
+"home-button-accessibility-label" = "Knäppche fir d'Startsäit";
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-description-prefix" = "Bild vum Dag vum $1";
 "welcome-explore-title" = "Entdecken";
@@ -370,6 +371,7 @@
 "explore-featured-article-heading" = "Recommandéierten Artikel";
 "explore-continue-reading-heading" = "Virufuere mat Liesen";
 "explore-nearby-heading" = "Plazen nobäi";
+"explore-nearby-sub-heading-your-location" = "Är Plaz";
 "explore-continue-related-heading" = "Well Dir liest";
 "explore-main-page-heading" = "Haut op Wikipedia";
 "explore-random-article-heading" = "Zoufällegen Artikel";
@@ -384,3 +386,5 @@
 "request-feedback-on-error" = "Bei der App ass e Feeler geschitt iwwer deen eis Entwéckler méi wësse wëllen. Klickt w.e.g. hei fir eis eng E-Mail mat den Detailer vum Feeler ze schécken.";
 "explore-another-random" = "En aneren zoufällegen Artikel";
 "find-in-page-no-matches" = "Näischt fonnt";
+"find-in-page-button-label" = "Op der Säit sichen";
+"find-in-page-popover-description" = "Text an den Artikele sichen";

@@ -269,11 +269,10 @@
 "license-footer-text" = "Содержание доступно по лицензии $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содержание";
-// Fuzzy
 "table-of-contents-button-label" = "Содержание";
-// Fuzzy
-"table-of-contents-close-accessibility-label" = "Закрыть оглавление";
+"table-of-contents-close-accessibility-label" = "Закрыть содержание";
 "table-of-contents-close-accessibility-hint" = "Закрыть";
+"table-of-contents-popover-description" = "Получить обзор статей";
 "abuse-filter-warning-heading" = "Эта правка выглядит деструктивной. Вы уверены, что хотите сохранить её?";
 "abuse-filter-warning-subheading" = "Ваша правка может содержать одно или несколько из следующих действий:";
 "abuse-filter-warning-caps" = "Печать ЗАГЛАВНЫМИ БУКВАМИ";
@@ -397,6 +396,7 @@
 "explore-featured-article-heading" = "Избранная статья";
 "explore-continue-reading-heading" = "Продолжить чтение";
 "explore-nearby-heading" = "Места поблизости";
+"explore-nearby-sub-heading-your-location" = "Ваше местоположение";
 "explore-continue-related-heading" = "Потому что вы читали";
 "explore-main-page-heading" = "Сегодня в Википедии";
 "explore-random-article-heading" = "Случайная статья";
@@ -412,3 +412,5 @@
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
 "explore-another-random" = "Другая случайная статья";
 "find-in-page-no-matches" = "0 совпадений";
+"find-in-page-button-label" = "Найти на странице";
+"find-in-page-popover-description" = "Поиск текста в статьях";

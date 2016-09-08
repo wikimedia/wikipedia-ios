@@ -1,6 +1,7 @@
 // Messages for Nepali (नेपाली)
 // Exported from translatewiki.net
 // Author: NehalDaveND
+// Author: Nirajan pant
 // Author: Nirjal stha
 // Author: जनक राज भट्ट
 // Author: राम प्रसाद जोशी
@@ -158,6 +159,8 @@
 "page_protected_can_not_edit_title" = "यो पृष्ठ सुरक्षण गरिएको छ";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "सामग्रीहरू";
+"table-of-contents-button-label" = "विषयसूची";
+"table-of-contents-close-accessibility-label" = "विषयसूची बन्द गर्नहोस्";
 "menu-edit-accessibility-label" = "सम्पादन";
 "menu-close-accessibility-label" = "बन्द गर्ने";
 "menu-preview-accessibility-label" = "पूर्वावलोकन";
@@ -180,3 +183,6 @@
 "migration-prompt-message" = "हामी तपाईंको रक्षण गरिएका तथा भर्खरका पृष्ठलाई सार्दै छौ । यसमा केही समय लाग्ने छ...";
 "migration-skip-button-title" = " $1 मेट्नुहोस्";
 "image-gallery-fetch-image-info-error-ok" = "ठीक";
+"explore-nearby-sub-heading-your-location" = "तपाईंको स्थान";
+"find-in-page-button-label" = "पानामा खोज्नुहोस्";
+"find-in-page-popover-description" = "लेखमा पाठ खोज्नुहोस्";
