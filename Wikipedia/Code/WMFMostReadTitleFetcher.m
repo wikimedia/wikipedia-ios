@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)fetchPageviewsForURL:(NSURL *)titleURL startDate:(NSDate *)startDate endDate:(NSDate *)endDate failure:(WMFErrorHandler)failure success:(WMFArrayOfNumbersHandler)success {
-    NSString *title = titleURL.wmf_titleWithUnderScores;
+    NSString *title = [titleURL.wmf_titleWithUnderScores wmf_UTF8StringWithPercentEscapes];
     NSString *language = titleURL.wmf_language;
     NSString *domain = titleURL.wmf_domain;
     
@@ -107,10 +107,12 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     
+    
+    
     NSString *path = [NSString stringWithFormat:@"/metrics/pageviews/per-article/%@.%@/all-access/user/%@/daily/%@/%@",
                       language, domain, title, startDateString, endDateString];
     
-    NSString *requestURLString = [WMFWikimediaRestAPIURLStringWithVersion(1) stringByAppendingPathComponent:path];
+    NSString *requestURLString = [WMFWikimediaRestAPIURLStringWithVersion(1) stringByAppendingString:path];
 
     [self.operationManager GET:requestURLString
                     parameters:nil

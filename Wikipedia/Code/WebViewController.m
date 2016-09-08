@@ -22,7 +22,7 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 
-#import "WMFZeroMessage.h"
+#import "WMFZeroConfiguration.h"
 #import "WKWebView+LoadAssetsHtml.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WKProcessPool+WMFSharedProcessPool.h"
@@ -567,31 +567,17 @@ NSString *const WMFCCBySALicenseURL =
     self.webView.scrollView.delegate = self;
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateZeroStateWithNotification:)
-                                                 name:WMFZeroDispositionDidChange
+                                             selector:@selector(updateZeroBannerWithNotification:)
+                                                 name:WMFZeroRatingChanged
                                                object:nil];
     // should happen in will appear to prevent bar from being incorrect during transitions
-    [self updateZeroState];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(saveOpenArticleTitleWithCurrentlyOnscreenFragment)
-                                                 name:UIApplicationWillResignActiveNotification
-                                               object:nil];
-}
-
-- (void)saveOpenArticleTitleWithCurrentlyOnscreenFragment {
-    if (self.navigationController.topViewController == self.parentViewController) { // Ensure only the topmost article is recorded.
-        [self getCurrentVisibleSectionCompletion:^(MWKSection *visibleSection, NSError *error) {
-            NSURL *url = [self.article.url wmf_URLWithFragment:visibleSection.anchor];
-            [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:url];
-        }];
-    }
+    [self updateZeroBanner];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     self.webView.scrollView.delegate = nil;
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroDispositionDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroRatingChanged object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
 
@@ -661,22 +647,22 @@ NSString *const WMFCCBySALicenseURL =
 
 #pragma mark - Zero
 
-- (void)updateZeroStateWithNotification:(NSNotification *)notification {
-    [self updateZeroState];
+- (void)updateZeroBannerWithNotification:(NSNotification *)notification {
+    [self updateZeroBanner];
 }
 
-- (void)updateZeroState {
-    if ([[SessionSingleton sharedInstance] zeroConfigState].disposition) {
-        [self showZeroBannerWithMessage:[[[SessionSingleton sharedInstance] zeroConfigState] zeroMessage]];
+- (void)updateZeroBanner {
+    if ([[SessionSingleton sharedInstance] zeroConfigurationManager].isZeroRated) {
+        [self showBannerForZeroConfiguration:[[[SessionSingleton sharedInstance] zeroConfigurationManager] zeroConfiguration]];
     } else {
         self.zeroStatusLabel.text = @"";
     }
 }
 
-- (void)showZeroBannerWithMessage:(WMFZeroMessage *)zeroMessage {
-    self.zeroStatusLabel.text = zeroMessage.message;
-    self.zeroStatusLabel.textColor = zeroMessage.foreground;
-    self.zeroStatusLabel.backgroundColor = zeroMessage.background;
+- (void)showBannerForZeroConfiguration:(WMFZeroConfiguration *)zeroConfiguration {
+    self.zeroStatusLabel.text = zeroConfiguration.message;
+    self.zeroStatusLabel.textColor = zeroConfiguration.foreground;
+    self.zeroStatusLabel.backgroundColor = zeroConfiguration.background;
 }
 
 #pragma mark - Headers & Footers

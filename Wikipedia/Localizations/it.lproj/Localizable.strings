@@ -273,9 +273,7 @@
 "license-footer-text" = "Il contenuto è disponibile in base alla licenza $1, se non diversamente specificato.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contenuti";
-// Fuzzy
-"table-of-contents-button-label" = "Sommario";
-// Fuzzy
+"table-of-contents-button-label" = "Indice";
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-close-accessibility-hint" = "Chiudi";
 "abuse-filter-warning-heading" = "Questa potrebbe essere una modifica inutile, sei sicuro di volerla salvare?";
@@ -401,6 +399,7 @@
 "explore-featured-article-heading" = "Voce in vetrina";
 "explore-continue-reading-heading" = "Continua a leggere";
 "explore-nearby-heading" = "Luoghi vicino";
+"explore-nearby-sub-heading-your-location" = "Propria posizione";
 "explore-continue-related-heading" = "Perché hai letto";
 "explore-main-page-heading" = "Oggi su Wikipedia";
 "explore-random-article-heading" = "Voce a caso";
@@ -416,3 +415,5 @@
 "request-feedback-on-error" = "L'applicazione ha riscontrato un problema su cui i nostri sviluppatori vorrebbero saperne di più. Si prega di toccare qui per inviarci una email con i dettagli dell'errore.";
 "explore-another-random" = "Un'altra voce a caso";
 "find-in-page-no-matches" = "0 corrispondenze";
+"find-in-page-button-label" = "Trova nella pagina";
+"find-in-page-popover-description" = "Ricerca testo nelle voci";

@@ -324,6 +324,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)applicationWillResignActiveWithNotification:(NSNotification *)note {
     [self saveWebViewScrollOffset];
+    [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
 }
 
 - (void)articleUpdatedWithNotification:(NSNotification *)note {
@@ -1357,7 +1358,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self completeAndHideProgressWithCompletion:^{
         //Without this pause, the motion happens too soon after loading the article
         dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-            [self showTableOfContentsAndFindInPageIconPopoversIfNeccesary];
+            [self showTableOfContentsAndFindInPageIconPopoversIfNecessary];
         });
     }];
 
@@ -1369,6 +1370,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self.delegate articleControllerDidLoadArticle:self];
     [self fetchReadMoreIfNeeded];
+    
+    [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
+}
+
+- (void)saveOpenArticleTitleWithCurrentlyOnscreenFragment {
+    if (self.navigationController.topViewController != self) {
+        return;
+    }
+
+    [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *visibleSection, NSError *error) {
+        NSURL *url = [self.article.url wmf_URLWithFragment:visibleSection.anchor];
+        [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:url];
+    }];
 }
 
 - (void)webViewController:(WebViewController *)controller didTapEditForSection:(MWKSection *)section {
@@ -1675,7 +1689,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
-- (void)showTableOfContentsAndFindInPageIconPopoversIfNeccesary {
+- (void)showTableOfContentsAndFindInPageIconPopoversIfNecessary {
     if (![self shouldShowTableOfContentsAndFindInPageIconPopovers]) {
         return;
     }

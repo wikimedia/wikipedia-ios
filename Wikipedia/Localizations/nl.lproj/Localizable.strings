@@ -267,11 +267,10 @@
 "license-footer-text" = "De inhoud is beschikbaar onder de $1 tenzij anders aangegeven.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Inhoud";
-// Fuzzy
 "table-of-contents-button-label" = "Inhoudsopgave";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-close-accessibility-hint" = "Sluiten";
+"table-of-contents-popover-description" = "Een overzicht van het artikel krijgen";
 "abuse-filter-warning-heading" = "Dit lijkt een niet-constructieve bewerking. Weet u zeker dat u die wilt opslaan?";
 "abuse-filter-warning-subheading" = "Uw bewerking kan een of meer van het volgende bevatten:";
 "abuse-filter-warning-caps" = "Tekst in HOOFDLETTERS";
@@ -395,6 +394,7 @@
 "explore-featured-article-heading" = "Uitgelichte pagina";
 "explore-continue-reading-heading" = "Verder lezen";
 "explore-nearby-heading" = "Plaatsen in de buurt";
+"explore-nearby-sub-heading-your-location" = "Uw locatie";
 "explore-continue-related-heading" = "Omdat u hebt gelezen";
 "explore-main-page-heading" = "Vandaag op Wikipedia";
 "explore-random-article-heading" = "Willekeurige pagina";
@@ -410,3 +410,5 @@
 "request-feedback-on-error" = "De app is op een probleem gestoten waarover onze ontwikkelaars graag meer willen weten. Gelieve hier te tikken om ons een e-mail te sturen met de foutgegevens.";
 "explore-another-random" = "Ander willekeurig artikel";
 "find-in-page-no-matches" = "0 overeenkomsten";
+"find-in-page-button-label" = "Op pagina zoeken";
+"find-in-page-popover-description" = "Tekst zoeken in artikelen";

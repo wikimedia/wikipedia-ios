@@ -265,11 +265,10 @@
 "license-footer-text" = "Le contenu est disponible sous $1 sauf spécification contraire.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Contenus";
-// Fuzzy
 "table-of-contents-button-label" = "Table des matières";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Fermer la Table des matières";
 "table-of-contents-close-accessibility-hint" = "Fermer";
+"table-of-contents-popover-description" = "Obtenir une vue d’ensemble des articles";
 "abuse-filter-warning-heading" = "Cela semble une modification non constructive ; êtes-vous sûr de vouloir l’enregistrer ?";
 "abuse-filter-warning-subheading" = "Votre modification pourrait contenir un des éléments suivants :";
 "abuse-filter-warning-caps" = "Texte en MAJUSCULES";
@@ -393,6 +392,7 @@
 "explore-featured-article-heading" = "Article vedette";
 "explore-continue-reading-heading" = "Continuer à lire";
 "explore-nearby-heading" = "Endroits proches";
+"explore-nearby-sub-heading-your-location" = "Votre emplacement";
 "explore-continue-related-heading" = "Parce que vous avez lu";
 "explore-main-page-heading" = "Aujourd’hui sur Wikipédia";
 "explore-random-article-heading" = "Article au hasard";
@@ -408,3 +408,5 @@
 "request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
 "explore-another-random" = "Un autre article au hasard";
 "find-in-page-no-matches" = "Aucune correspondance";
+"find-in-page-button-label" = "Trouver dans la page";
+"find-in-page-popover-description" = "Rechercher le texte dans les articles";

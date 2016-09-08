@@ -259,11 +259,10 @@
 "license-footer-text" = "Indholdet er udgivet under $1 medmindre andet er angivet.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Indhold";
-// Fuzzy
 "table-of-contents-button-label" = "Indholdsfortegnelse";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Luk indholdsfortegnelse";
 "table-of-contents-close-accessibility-hint" = "Afslut";
+"table-of-contents-popover-description" = "Få et overblik over artikler";
 "abuse-filter-warning-heading" = "Dette er muligvis ikke en konstruktiv redigering. Er du sikker på du ønsker at gemme den?";
 "abuse-filter-warning-subheading" = "Din redigering kan indeholde en eller flere af følgende:";
 "abuse-filter-warning-caps" = "Tekst skrevet med STORE BOGSTAVER";
@@ -387,6 +386,7 @@
 "explore-featured-article-heading" = "Fremhævet artikel";
 "explore-continue-reading-heading" = "Fortsæt læsning";
 "explore-nearby-heading" = "Steder i nærheden";
+"explore-nearby-sub-heading-your-location" = "Din position";
 "explore-continue-related-heading" = "Fordi du læste";
 "explore-main-page-heading" = "I dag på Wikipedia";
 "explore-random-article-heading" = "Tilfældig artikel";
@@ -402,3 +402,5 @@
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "explore-another-random" = "En anden tilfældig artikel";
 "find-in-page-no-matches" = "0 træf";
+"find-in-page-button-label" = "Søg på siden";
+"find-in-page-popover-description" = "Søg efter tekst i artikler";

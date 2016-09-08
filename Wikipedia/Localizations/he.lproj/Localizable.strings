@@ -260,11 +260,10 @@
 "license-footer-text" = "התוכן זמין לפי תנאי $1 אלא אם נאמר אחרת.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "תוכן עניינים";
-// Fuzzy
 "table-of-contents-button-label" = "תוכן עניינים";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "סגירת תוכן העניינים";
 "table-of-contents-close-accessibility-hint" = "סגירה";
+"table-of-contents-popover-description" = "קבלת סקירה של ערכים";
 "abuse-filter-warning-heading" = "ייתכן שזאת עריכה בלתי־מועילה, באמת לשמור אותה?";
 "abuse-filter-warning-subheading" = "העריכה שלך עשויה להכיל אחד מהדברים הבאים:";
 "abuse-filter-warning-caps" = "הקלדה באותיות גדולות";
@@ -388,6 +387,7 @@
 "explore-featured-article-heading" = "ערך מומלץ";
 "explore-continue-reading-heading" = "המשך קריאה";
 "explore-nearby-heading" = "מקומות בסביבה";
+"explore-nearby-sub-heading-your-location" = "המיקום שלך";
 "explore-continue-related-heading" = "כי קראת את";
 "explore-main-page-heading" = "היום בוויקיפדיה";
 "explore-random-article-heading" = "ערך אקראי";
@@ -403,3 +403,5 @@
 "request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "explore-another-random" = "ערך אקראי נוסף";
 "find-in-page-no-matches" = "אין התאמות";
+"find-in-page-button-label" = "למצוא בדף";
+"find-in-page-popover-description" = "חיפוש טקסט בערכים";

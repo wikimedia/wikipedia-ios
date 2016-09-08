@@ -256,11 +256,10 @@
 "license-footer-text" = "El conteníu ta disponible baxo llicencia $1 si nun s'indica otra cosa.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Conteníu";
-// Fuzzy
 "table-of-contents-button-label" = "Tabla de conteníu";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Zarrar la tabla de conteníu";
 "table-of-contents-close-accessibility-hint" = "Zarrar";
+"table-of-contents-popover-description" = "Recibir un resumen de los artículos";
 "abuse-filter-warning-heading" = "Esto nun paez una edición constructiva. ¿Tas seguro de que quies guardala?";
 "abuse-filter-warning-subheading" = "La to edición pue contener unu o más de los siguientes:";
 "abuse-filter-warning-caps" = "Escribir TOO EN MAYÚSCULES";
@@ -384,6 +383,7 @@
 "explore-featured-article-heading" = "Artículu destacáu";
 "explore-continue-reading-heading" = "Siguir lleyendo";
 "explore-nearby-heading" = "Llugares cercanos a";
+"explore-nearby-sub-heading-your-location" = "El to allugamientu";
 "explore-continue-related-heading" = "Porque lleísti $1";
 "explore-main-page-heading" = "Güei en Wikipedia";
 "explore-random-article-heading" = "Artículu al debalu";
@@ -399,3 +399,5 @@
 "request-feedback-on-error" = "L'aplicación detectó un problema del que los nuesos desendolcadores quedríen saber más. Toca equí pa unvianos un corréu electrónicu colos detalles del fallu.";
 "explore-another-random" = "Otru artículu al debalu";
 "find-in-page-no-matches" = "0 coincidencies";
+"find-in-page-button-label" = "Alcontrar na páxina";
+"find-in-page-popover-description" = "Buscar un testu nos artículos";

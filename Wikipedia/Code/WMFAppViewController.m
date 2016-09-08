@@ -120,8 +120,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [super viewDidLoad];
     self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(zeroDispositionDidChange:)
-                                                 name:WMFZeroDispositionDidChange
+                                             selector:@selector(isZeroRatedChanged:)
+                                                 name:WMFZeroRatingChanged
                                                object:nil];
 }
 
@@ -479,7 +479,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             MWKDataStore *dataStore = [[SessionSingleton sharedInstance] dataStore];
             [dataStore readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
                 NSString *collection = [@[@"wmftopread", host] componentsJoinedByString:@":"];
-                NSString *key = [[NSDateFormatter wmf_englishHyphenatedYearMonthDayFormatter] stringFromDate:date];
+                NSString *key = [[NSDateFormatter wmf_englishUTCNonDelimitedYearMonthDayFormatter] stringFromDate:date];
                 NSArray* previews = [transaction objectForKey:key inCollection:collection];
                 if ([previews count] > 0) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -846,6 +846,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     DDLogWarn(@"Pushing/Popping article… Logging Important Statistics");
     [self logImportantStatistics];
+    if([[navigationController viewControllers] count] == 1){
+        [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:nil];
+    }
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -854,34 +857,36 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     return ![otherGestureRecognizer.view isKindOfClass:[UIScrollView class]];
 }
 
-#pragma mark - WMFZeroDisposition
+#pragma mark - Wikipedia Zero
 
-- (void)zeroDispositionDidChange:(NSNotification *)note {
-    ZeroConfigState *state = [note object];
-    if (state.zeroMessage) {
-        [self showFirstTimeZeroOnAlertIfNeeded:state.zeroMessage];
+- (void)isZeroRatedChanged:(NSNotification *)note {
+    WMFZeroConfigurationManager *zeroConfigurationManager = [note object];
+    if (zeroConfigurationManager.isZeroRated) {
+        [self showFirstTimeZeroOnAlertIfNeeded:zeroConfigurationManager.zeroConfiguration];
     } else {
         [self showZeroOffAlert];
     }
 }
 
 - (void)setZeroOnDialogShownOnce {
-    [[NSUserDefaults wmf_userDefaults] setBool:YES forKey:ZeroOnDialogShownOnce];
+    [[NSUserDefaults wmf_userDefaults] setBool:YES forKey:WMFZeroOnDialogShownOnce];
     [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 - (BOOL)zeroOnDialogShownOnce {
-    return [[NSUserDefaults wmf_userDefaults] boolForKey:ZeroOnDialogShownOnce];
+    return [[NSUserDefaults wmf_userDefaults] boolForKey:WMFZeroOnDialogShownOnce];
 }
 
-- (void)showFirstTimeZeroOnAlertIfNeeded:(WMFZeroMessage *)zeroMessage {
+- (void)showFirstTimeZeroOnAlertIfNeeded:(WMFZeroConfiguration *)zeroConfiguration {
     if ([self zeroOnDialogShownOnce]) {
         return;
     }
 
     [self setZeroOnDialogShownOnce];
 
-    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:zeroMessage.message message:MWLocalizedString(@"zero-learn-more", nil) preferredStyle:UIAlertControllerStyleAlert];
+    NSString* title = zeroConfiguration.message ? zeroConfiguration.message : MWLocalizedString(@"zero-free-verbiage", nil);
+    
+    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:title message:MWLocalizedString(@"zero-learn-more", nil) preferredStyle:UIAlertControllerStyleAlert];
 
     [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil) style:UIAlertActionStyleCancel handler:NULL]];
 

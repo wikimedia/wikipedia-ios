@@ -267,11 +267,10 @@
 "license-footer-text" = "특별한 언급이 없으면 내용은 $1에 따라 이용할 수 있습니다.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "목차";
-// Fuzzy
 "table-of-contents-button-label" = "목차";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "목차를 닫기";
 "table-of-contents-close-accessibility-hint" = "닫기";
+"table-of-contents-popover-description" = "문서 개요 가져오기";
 "abuse-filter-warning-heading" = "비생산적인 편집인 것 같습니다, 그것을 저장하겠습니까?";
 "abuse-filter-warning-subheading" = "당신의 편집에 다음 중 하나 이상을 포함할 수 있습니다:";
 "abuse-filter-warning-caps" = "모두 대문자로 입력";
@@ -395,6 +394,7 @@
 "explore-featured-article-heading" = "알찬 글";
 "explore-continue-reading-heading" = "계속 읽기";
 "explore-nearby-heading" = "가까운 장소";
+"explore-nearby-sub-heading-your-location" = "내 위치";
 "explore-continue-related-heading" = "읽었기 때문입니다";
 "explore-main-page-heading" = "오늘의 위키백과";
 "explore-random-article-heading" = "임의 문서";
@@ -410,3 +410,5 @@
 "request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";
 "explore-another-random" = "다른 임의 문서";
 "find-in-page-no-matches" = "0개 일치";
+"find-in-page-button-label" = "문서에서 찾기";
+"find-in-page-popover-description" = "문서에서 텍스트 검색";

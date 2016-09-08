@@ -60,11 +60,10 @@ static DDLogLevel const WMFExploreVCLogLevel = DDLogLevelInfo;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFExploreViewController () <WMFExploreSectionSchemaDelegate,
-                                        UIViewControllerPreviewingDelegate,
-                                        WMFAnalyticsContextProviding,
-                                        WMFAnalyticsViewNameProviding,
-                                        UINavigationControllerDelegate,
-                                        WMFColumnarCollectionViewLayoutDelegate>
+    UIViewControllerPreviewingDelegate,
+    WMFAnalyticsContextProviding,
+    WMFAnalyticsViewNameProviding,
+    WMFColumnarCollectionViewLayoutDelegate>
 
 @property (nonatomic, strong, readonly) MWKSavedPageList *savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList *recentPages;
@@ -372,7 +371,6 @@ NS_ASSUME_NONNULL_BEGIN
     for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
         cell.selected = NO;
     }
-    [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:nil];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
@@ -983,14 +981,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)analyticsName {
     return [self analyticsContext];
-}
-
-#pragma mark - UINavigationControllerDelegate
-
-- (void)navigationController:(UINavigationController *)navigationController
-      willShowViewController:(UIViewController *)viewController
-                    animated:(BOOL)animated {
-    [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
 }
 
 #pragma mark - UIRefreshControl
