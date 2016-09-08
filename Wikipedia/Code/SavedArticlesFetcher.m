@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFArticleFetcher *articleFetcher;
 @property (nonatomic, strong) WMFImageController *imageController;
 @property (nonatomic, strong) MWKImageInfoFetcher *imageInfoFetcher;
+@property (nonatomic, strong) WMFSavedPageSpotlightManager *spotlightManager;
 
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, AnyPromise *> *fetchOperationsByArticleTitle;
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, NSError *> *errorsByArticleTitle;
@@ -74,6 +75,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         self.imageInfoFetcher = imageInfoFetcher;
         self.dataSource = [self.dataStore savedDataSource];
         self.dataSource.delegate = self;
+        self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.dataStore];
     }
     return self;
 }
@@ -110,6 +112,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 [self fetchUncachedArticleURLs:@[url]];
             } else {
                 [self cancelFetchForArticleURL:url];
+                [self.spotlightManager removeFromIndex:url];
             }
         }
     }
@@ -169,6 +172,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                           failure:^(NSError *error) {
                           }
                           success:^{
+                              [self.spotlightManager addToIndex:url];
                           }];
         });
     }

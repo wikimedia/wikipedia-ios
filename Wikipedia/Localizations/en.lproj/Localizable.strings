@@ -79,13 +79,13 @@
 "wikitext-upload-result-unknown" = "Unable to determine wikitext upload result.";
 "wikitext-upload-captcha-error" = "CAPTCHA verification error.";
 "wikitext-upload-captcha-needed" = "Need CAPTCHA verification.";
-"wikitext-upload-save" = "Saving...";
+"wikitext-upload-save" = "Publishing...";
 
 "wikitext-upload-save-sign-in" = "Log in";
 "wikitext-upload-save-sign-in-benefits" = "So co-editors can connect with you & you can see what articles you edited.";
-"wikitext-upload-save-anonymously" = "Save anonymously";
+"wikitext-upload-save-anonymously" = "Publish anonymously";
 "wikitext-upload-save-anonymously-warning" = "Edits will be attributed to the IP address of your device. If you $1 you will have more privacy.";
-"wikitext-upload-save-terms-and-license" = "By saving, you agree to the $1, and to irrevocably release your contributions under the $2 license.";
+"wikitext-upload-save-terms-and-license" = "By publishing, you agree to the $1, and to irrevocably release your contributions under the $2 license.";
 "wikitext-upload-save-terms-name" = "Terms of Use";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 
@@ -177,15 +177,15 @@
 
 "navbar-title-mode-edit-wikitext" = "Edit";
 "navbar-title-mode-login" = "Log in";
-"navbar-title-mode-login-and-save" = "Log in and save";
+"navbar-title-mode-login-and-save" = "Log in and publish";
 "navbar-title-mode-create-account" = "Create account";
-"navbar-title-mode-create-account-and-save" = "Create account and save";
+"navbar-title-mode-create-account-and-save" = "Create account and publish";
 "navbar-title-mode-edit-wikitext-warning" = "Edit issues";
 "navbar-title-mode-edit-wikitext-disallow" = "Edit issues";
 "navbar-title-mode-edit-wikitext-preview" = "Preview";
 "navbar-title-mode-edit-wikitext-captcha" = "Quick verification needed";
 "navbar-title-mode-edit-wikitext-summary" = "Describe your edit";
-"navbar-title-mode-edit-wikitext-save" = "Save";
+"navbar-title-mode-edit-wikitext-save" = "Publish";
 
 "edit-summary-choice-linked-words" = "Added links";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
@@ -261,6 +261,7 @@
 "button-next" = "Next";
 "button-done" = "Done";
 "button-save" = "Save";
+"button-publish" = "Publish";
 "button-ok" = "OK";
 "button-save-for-later" = "Save for later";
 "button-saved-for-later" = "Saved for later";
@@ -292,14 +293,14 @@
 "table-of-contents-close-accessibility-hint" = "Close";
 "table-of-contents-popover-description" = "Get an overview of articles";
 
-"abuse-filter-warning-heading" = "This looks like an unconstructive edit, are you sure you want to save it?";
+"abuse-filter-warning-heading" = "This looks like an unconstructive edit, are you sure you want to publish it?";
 "abuse-filter-warning-subheading" = "Your edit may contain one or more of the following:";
 "abuse-filter-warning-caps" = "Typing in ALL CAPS";
 "abuse-filter-warning-blanking" = "Blanking articles or spamming";
 "abuse-filter-warning-irrelevant" = "Irrelevant external links or images";
 "abuse-filter-warning-repeat" = "Repeeeeating characters";
 
-"abuse-filter-disallow-heading" = "You cannot save this edit. Please go back and change it.";
+"abuse-filter-disallow-heading" = "You cannot publish this edit. Please go back and change it.";
 "abuse-filter-disallow-unconstructive" = "An automated filter has identified this edit as potentially unconstructive or a vandalism attempt.";
 "abuse-filter-disallow-notable" = "Wikipedia is an encyclopedia and only neutral, notable content belongs here.";
 
