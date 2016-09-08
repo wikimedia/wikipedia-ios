@@ -216,7 +216,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                                                            [self goBack];
                                                    }];
 
-    self.buttonSave = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-save", nil)
+    self.buttonSave = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-publish", nil)
                                                           style:UIBarButtonItemStylePlain
                                                         handler:^(id sender) {
                                                             @strongify(self)
