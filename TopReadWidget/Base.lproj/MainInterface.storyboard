@@ -15,7 +15,7 @@
                         <viewControllerLayoutGuide type="bottom" id="FKl-LY-JtV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="336"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nmJ-Vp-nma">
@@ -24,11 +24,6 @@
                                     <constraint firstAttribute="height" constant="232" id="pqe-WW-Dod"/>
                                 </constraints>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GWN-05-Z5g">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="232" id="91H-TZ-Tt7"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Yp-NW-afG">
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FRIDAY AUGUST 5, 2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ISj-AX-b2P">
@@ -67,7 +62,7 @@
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="chevronRightSmall" translatesAutoresizingMaskIntoConstraints="NO" id="yW4-n9-fo6"/>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="6p7-6j-XTT"/>
+                                    <constraint firstAttribute="height" constant="60" id="6p7-6j-XTT"/>
                                     <constraint firstItem="y2A-ih-w95" firstAttribute="centerY" secondItem="7sN-uX-NFF" secondAttribute="centerY" id="6qL-9T-R5E"/>
                                     <constraint firstItem="y2A-ih-w95" firstAttribute="leading" secondItem="7sN-uX-NFF" secondAttribute="leading" constant="14" id="DMb-nL-ovQ"/>
                                     <constraint firstItem="yW4-n9-fo6" firstAttribute="centerY" secondItem="7sN-uX-NFF" secondAttribute="centerY" id="Kd4-aH-Lxb"/>
@@ -78,13 +73,10 @@
                         <constraints>
                             <constraint firstItem="8Yp-NW-afG" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="0MJ-Bj-xFA"/>
                             <constraint firstAttribute="trailing" secondItem="7sN-uX-NFF" secondAttribute="trailing" id="55E-i7-BWA"/>
+                            <constraint firstItem="7sN-uX-NFF" firstAttribute="top" secondItem="nmJ-Vp-nma" secondAttribute="bottom" id="6En-Vu-7JN"/>
                             <constraint firstItem="7sN-uX-NFF" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="9a2-ps-Iso"/>
                             <constraint firstItem="nmJ-Vp-nma" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="Fo2-kz-yvu"/>
-                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="7sN-uX-NFF" secondAttribute="bottom" id="Z8f-8T-poc"/>
-                            <constraint firstItem="GWN-05-Z5g" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="bYC-gu-1rf"/>
-                            <constraint firstItem="GWN-05-Z5g" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="44" id="c7t-pj-cbB"/>
                             <constraint firstAttribute="trailing" secondItem="8Yp-NW-afG" secondAttribute="trailing" id="fzE-xY-mUY"/>
-                            <constraint firstAttribute="trailing" secondItem="GWN-05-Z5g" secondAttribute="trailing" id="kka-av-7Uj"/>
                             <constraint firstItem="8Yp-NW-afG" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="nkL-Tp-71h"/>
                             <constraint firstItem="nmJ-Vp-nma" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="44" id="xQV-tx-4kj"/>
                         </constraints>
@@ -94,19 +86,15 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="320"/>
+                    <size key="freeformSize" width="320" height="336"/>
                     <connections>
                         <outlet property="footerLabel" destination="y2A-ih-w95" id="yi7-i6-1aB"/>
                         <outlet property="footerView" destination="7sN-uX-NFF" id="y1Q-9A-wPH"/>
-                        <outlet property="footerViewBottomConstraint" destination="Z8f-8T-poc" id="NII-8y-zaN"/>
                         <outlet property="footerViewHeightConstraint" destination="6p7-6j-XTT" id="6Tu-Lr-r0u"/>
                         <outlet property="headerLabel" destination="ISj-AX-b2P" id="fb2-px-2wn"/>
                         <outlet property="headerView" destination="8Yp-NW-afG" id="wSQ-4I-mbl"/>
                         <outlet property="headerViewHeightConstraint" destination="r1M-ri-m41" id="mOI-R2-cS6"/>
                         <outlet property="headerViewTopConstraint" destination="nkL-Tp-71h" id="LbW-bN-gya"/>
-                        <outlet property="snapshotContainerView" destination="GWN-05-Z5g" id="9Ai-K0-Uwb"/>
-                        <outlet property="snapshotHeightConstraint" destination="91H-TZ-Tt7" id="KfD-79-hSx"/>
-                        <outlet property="snapshotTopConstraint" destination="c7t-pj-cbB" id="xFo-uB-AZ6"/>
                         <outlet property="stackView" destination="nmJ-Vp-nma" id="PrO-nu-Avw"/>
                         <outlet property="stackViewHeightConstraint" destination="pqe-WW-Dod" id="p4T-dL-wJH"/>
                         <outlet property="stackViewTopConstraint" destination="xQV-tx-4kj" id="tjX-oo-dQ5"/>

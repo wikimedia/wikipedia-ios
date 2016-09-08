@@ -52,6 +52,8 @@
 
 + (instancetype)wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter;
 
++ (instancetype)wmf_shortMonthNameDayOfMonthNumberDateFormatter;
+
 + (instancetype)wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter;
 
 @end
