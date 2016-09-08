@@ -228,7 +228,9 @@
         return WMFUserActivityTypeTopRead;
     } else if ([self.webpageURL.absoluteString containsString:@"/w/index.php?search="]) {
         return WMFUserActivityTypeSearchResults;
-    } else {
+    } else if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10] && [self.activityType isEqualToString:CSQueryContinuationActionType]){
+        return WMFUserActivityTypeSearchResults;
+    }else {
         return WMFUserActivityTypeArticle;
     }
 }
@@ -237,18 +239,21 @@
     if (self.wmf_type != WMFUserActivityTypeSearchResults) {
         return nil;
     }
-
-    NSURLComponents *components = [NSURLComponents componentsWithString:self.webpageURL.absoluteString];
-    NSArray *queryItems = components.queryItems;
-    NSURLQueryItem *item = [queryItems bk_match:^BOOL(NSURLQueryItem *obj) {
-        if ([[obj name] isEqualToString:@"search"]) {
-            return YES;
-        } else {
-            return NO;
-        }
-    }];
-
-    return [item value];
+    
+    if([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10] && [self.activityType isEqualToString:CSQueryContinuationActionType]){
+        return self.userInfo[CSSearchQueryString];
+    }else{
+        NSURLComponents *components = [NSURLComponents componentsWithString:self.webpageURL.absoluteString];
+        NSArray *queryItems = components.queryItems;
+        NSURLQueryItem *item = [queryItems bk_match:^BOOL(NSURLQueryItem *obj) {
+            if ([[obj name] isEqualToString:@"search"]) {
+                return YES;
+            } else {
+                return NO;
+            }
+        }];
+        return [item value];
+    }
 }
 
 @end

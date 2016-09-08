@@ -94,7 +94,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
 @property (nonatomic, strong) WMFRandomArticleFetcher *randomFetcher;
 @property (nonatomic, strong) SessionSingleton *session;
-@property (nonatomic, strong) WMFSavedPageSpotlightManager *spotlightManager;
 
 @property (nonatomic) BOOL isPresentingOnboarding;
 
@@ -264,11 +263,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
 - (void)finishLaunch {
     @weakify(self)
-
         [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
             @strongify(self)
                 [self loadMainUI];
-            self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self resumeApp];
             [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
@@ -429,7 +426,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         case WMFUserActivityTypeTopRead:
             return YES;
         case WMFUserActivityTypeSearchResults:
-            if ([activity wmf_searchTerm]) {
+            if ([activity wmf_searchTerm] != nil) {
                 return YES;
             } else {
                 return NO;
