@@ -854,7 +854,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return ![otherGestureRecognizer.view isKindOfClass:[UIScrollView class]];
+    return ![gestureRecognizer isMemberOfClass:[UIScreenEdgePanGestureRecognizer class]];
 }
 
 #pragma mark - Wikipedia Zero
