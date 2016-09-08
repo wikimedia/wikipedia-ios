@@ -256,4 +256,13 @@
     }
 }
 
+- (NSURL *)wmf_articleURL{
+    if(self.userInfo[CSSearchableItemActivityIdentifier] != nil){
+        return [NSURL URLWithString:self.userInfo[CSSearchableItemActivityIdentifier]];
+    }else {
+        return self.webpageURL;
+    }
+}
+
+
 @end

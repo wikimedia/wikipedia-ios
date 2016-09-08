@@ -433,7 +433,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             }
             break;
         case WMFUserActivityTypeArticle: {
-            if (!activity.webpageURL) {
+            if (![activity wmf_articleURL]) {
                 return NO;
             } else {
                 return YES;
@@ -507,7 +507,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             [[UIViewController wmf_sharedSearchViewController] setSearchTerm:[activity wmf_searchTerm]];
             break;
         case WMFUserActivityTypeArticle: {
-            NSURL *URL = activity.webpageURL;
+            NSURL *URL = [activity wmf_articleURL];
             if (!URL) {
                 return NO;
             }
