@@ -21,12 +21,11 @@
 + (instancetype)wmf_activityWithType:(NSString *)type {
     NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:[NSString stringWithFormat:@"org.wikimedia.wikipedia.%@", [type lowercaseString]]];
 
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-        activity.eligibleForHandoff = YES;
-        activity.eligibleForSearch = YES;
-        activity.eligibleForPublicIndexing = YES;
-        activity.keywords = [NSSet setWithArray:@[@"Wikipedia", @"Wikimedia", @"Wiki"]];
-    }
+    activity.eligibleForHandoff = YES;
+    activity.eligibleForSearch = YES;
+    activity.eligibleForPublicIndexing = YES;
+    activity.keywords = [NSSet setWithArray:@[@"Wikipedia", @"Wikimedia", @"Wiki"]];
+    
     return activity;
 }
 
@@ -205,10 +204,8 @@
     activity.title = [NSString stringWithFormat:@"Search for %@", searchTerm];
     activity.webpageURL = url;
 
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-        activity.eligibleForSearch = NO;
-        activity.eligibleForPublicIndexing = NO;
-    }
+    activity.eligibleForSearch = NO;
+    activity.eligibleForPublicIndexing = NO;
 
     return activity;
 }
