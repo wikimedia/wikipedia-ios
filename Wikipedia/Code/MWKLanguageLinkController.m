@@ -114,7 +114,7 @@ static id _sharedInstance;
 
 - (NSArray<MWKLanguageLink*>*)otherLanguages{
     return [self.allLanguages bk_select:^BOOL(MWKLanguageLink *langLink) {
-        return ![self->_preferredLanguages containsObject:langLink];
+        return ![self.preferredLanguages containsObject:langLink];
     }];
 }
 
