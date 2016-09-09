@@ -1695,28 +1695,24 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     [[NSUserDefaults standardUserDefaults] wmf_setDidShowTableOfContentsAndFindInPageIconPopovers:YES];
 
-    dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
-        [self wmf_presentDynamicHeightPopoverViewControllerForBarButtonItem:[self tableOfContentsToolbarItem]
-                                                                  withTitle:MWLocalizedString(@"table-of-contents-button-label", nil)
-                                                                    message:MWLocalizedString(@"table-of-contents-popover-description", nil)
-                                                                      width:230.0f];
-    });
+    [self performSelector:@selector(showTableOfContentsButtonPopover) withObject:nil afterDelay:1.0];
+    [self performSelector:@selector(showFindInPageButtonPopover) withObject:nil afterDelay:4.5];
+}
 
-    dispatchOnMainQueueAfterDelayInSeconds(4.0, ^{
-        [self dismissViewControllerAnimated:YES
-                                 completion:^{
-                                     dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-                                         [self wmf_presentDynamicHeightPopoverViewControllerForBarButtonItem:self.findInPageToolbarItem
-                                                                                                   withTitle:MWLocalizedString(@"find-in-page-button-label", nil)
-                                                                                                     message:MWLocalizedString(@"find-in-page-popover-description", nil)
-                                                                                                       width:230.0f];
-                                     });
-                                 }];
-    });
+- (void)showTableOfContentsButtonPopover {
+    [self wmf_presentDynamicHeightPopoverViewControllerForBarButtonItem:[self tableOfContentsToolbarItem]
+                                                              withTitle:MWLocalizedString(@"table-of-contents-button-label", nil)
+                                                                message:MWLocalizedString(@"table-of-contents-popover-description", nil)
+                                                                  width:230.0f
+                                                               duration:3.0];
+}
 
-    dispatchOnMainQueueAfterDelayInSeconds(7.5, ^{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    });
+- (void)showFindInPageButtonPopover {
+    [self wmf_presentDynamicHeightPopoverViewControllerForBarButtonItem:self.findInPageToolbarItem
+                                                              withTitle:MWLocalizedString(@"find-in-page-button-label", nil)
+                                                                message:MWLocalizedString(@"find-in-page-popover-description", nil)
+                                                                  width:230.0f
+                                                               duration:3.0];
 }
 
 @end
