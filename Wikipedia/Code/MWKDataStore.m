@@ -182,9 +182,12 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     // Also grab all the notifications for all the commits that I jump.
     // If the UI is a bit backed up, I may jump multiple commits.
     NSArray *notifications = [self.articleReferenceReadConnection beginLongLivedReadTransaction];
-    if ([notifications count] == 0) {
-        return;
-    }
+    
+    //Note: we must send notificatons even if they are 0
+    //This is neccesary because when changes happen in other processes
+    //Yap reports 0 changes and simply flushes its caches.
+    //This updates the connections and the DB, but not mappings
+    //To update any mappings, we must propagate "0" notifications
     
     [self.changeHandlers compact];
     for (id<WMFDatabaseChangeHandler> obj in self.changeHandlers) {

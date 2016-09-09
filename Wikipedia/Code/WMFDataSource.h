@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFDataSourceDelegate <NSObject>
 
+- (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource;
+
 @optional
 - (void)dataSourceWillBeginUpdates:(id<WMFDataSource>)dataSource;
 - (void)dataSourceDidFinishUpdates:(id<WMFDataSource>)dataSource;
