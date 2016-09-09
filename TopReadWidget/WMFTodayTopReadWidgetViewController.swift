@@ -7,7 +7,11 @@ import WMFModel
 class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     // Model
-    let siteURL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+    var siteURL: NSURL {
+        get {
+             return MWKLanguageLinkController.sharedInstance().appLanguage.siteURL()
+        }
+    }
     var date = NSDate()
     var results: [MWKSearchResult] = []
     let articlePreviewFetcher = WMFArticlePreviewFetcher()
