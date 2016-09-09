@@ -75,6 +75,25 @@ NS_ASSUME_NONNULL_BEGIN
     if (![connection isEqual:self.readConnection]) {
         return;
     }
+    
+    //This is neccesary because when changes happen in other processes
+    //Yap reports 0 changes and simply flushes its caches.
+    //This updates the connections and the DB, but not the mappings
+    //To update the mappings, we must explicitly do it here
+    //Although there are legitimate reasons we get 0 changes,
+    //which could be safely ignored, there is no way to differentiate
+    //between those reasons and when modifications happen in extensions
+    if([changes count] == 0){
+    
+        [self.readConnection readWithBlock:^(YapDatabaseReadTransaction *transaction){
+            [self.mappings updateWithTransaction:transaction];
+        }];
+
+        [self.delegate dataSourceDidUpdateAllData:self];
+
+        return;
+    }
+    
 
     NSArray *sectionChanges = nil;
     NSArray *rowChanges = nil;

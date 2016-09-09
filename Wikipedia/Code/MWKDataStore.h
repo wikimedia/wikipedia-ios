@@ -68,6 +68,13 @@ extern NSString *const MWKItemUpdatedNotification;
 
 @property (readonly, strong, nonatomic) MWKUserDataStore *userDataStore;
 
+
+/**
+ *  Call this to manually sync the database.
+ *  Useful for when resuming and the DB may have been modified out of process
+ */
+- (void)syncDataStoreToDatabase;
+
 /**
  *  Path for the default main data store.
  *  Use this to intitialize a data store with the default path

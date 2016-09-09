@@ -20,20 +20,25 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         super.viewDidLoad()
         emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-title")
         emptyDescriptionLabel.text = localizedStringForKeyFallingBackOnEnglish("continue-reading-empty-description")
-        widgetPerformUpdate { (result) in
+        updateView()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        updateView()
+    }
+    
+    func widgetPerformUpdate(completionHandler: (NCUpdateResult) -> Void) {
+        
+        let didUpdate = updateView()
+        
+        if(didUpdate){
+            completionHandler(.NewData)
             
+        }else{
+            completionHandler(.NoData)
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func widgetActiveDisplayModeDidChange(activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        
-    }
-    
     
     var emptyViewHidden: Bool = true {
         didSet {
@@ -46,38 +51,61 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
     }
     
-    func widgetPerformUpdate(completionHandler: (NCUpdateResult) -> Void) {
+    func hasNewData() -> Bool{
+        
+        guard let session = SessionSingleton.sharedInstance() else {
+            return false
+        }
+
+        session.dataStore.syncDataStoreToDatabase()
+        
+        guard let historyEntry = session.userDataStore.historyList.mostRecentEntry() else {
+            return false
+        }
+        let fragment = historyEntry.fragment
+        
+        let newURL = historyEntry.url.wmf_URLWithFragment(fragment)
+
+        print("articleURL \(articleURL)")
+        print("newURL \(newURL)")
+        
+        return newURL.absoluteString != articleURL?.absoluteString
+
+    }
+    
+    func updateView() -> Bool {
+        
+        if hasNewData() == false{
+            return false
+        }
+
         textLabel.text = nil
         titleLabel.text = nil
         imageView.image = nil
         imageView.hidden = true
         daysAgoLabel.text = nil
         daysAgoView.hidden = true
-
+        
         guard let session = SessionSingleton.sharedInstance() else {
             emptyViewHidden = false
-            completionHandler(.NoData)
-            return
+            return false
         }
         
-        articleURL = NSUserDefaults.wmf_userDefaults().wmf_openArticleURL()
-            
-        if articleURL == nil {
-            let historyEntry = session.userDataStore.historyList.mostRecentEntry()
-            let fragment: String? = historyEntry?.fragment
-            articleURL = historyEntry?.url.wmf_URLWithFragment(fragment)
+        guard let historyEntry = session.userDataStore.historyList.mostRecentEntry() else {
+            return false
         }
+        
+        let fragment = historyEntry.fragment
+        articleURL = historyEntry.url.wmf_URLWithFragment(fragment)
         
         guard let lastReadArticleURL = articleURL else {
             emptyViewHidden = false
-            completionHandler(.NoData)
-            return
+            return false
         }
         
         guard let article = session.dataStore.existingArticleWithURL(lastReadArticleURL) else {
             emptyViewHidden = false
-            completionHandler(.NoData)
-            return
+            return false
         }
         
         emptyViewHidden = true
@@ -94,7 +122,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         } else {
             self.daysAgoView.hidden = true
         }
-
+        
         
         self.titleLabel.text = article.displaytitle?.wmf_stringByRemovingHTML()
         
@@ -108,9 +136,9 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             }
         }
         
-        completionHandler(.NewData)
-        
+        return true
     }
+    
 
     @IBAction func continueReading(sender: AnyObject) {
         guard let URLToOpen = articleURL?.wmf_wikipediaSchemeURL ?? NSUserActivity.wmf_URLForActivityOfType(.Explore, parameters: nil) else {

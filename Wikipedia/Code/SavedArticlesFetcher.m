@@ -19,7 +19,7 @@ static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SavedArticlesFetcher () <WMFDataSourceDelegate>
+@interface SavedArticlesFetcher ()
 
 @property (nonatomic, strong, readwrite) dispatch_queue_t accessQueue;
 
@@ -74,7 +74,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         self.savedPageList = savedPageList;
         self.imageInfoFetcher = imageInfoFetcher;
         self.dataSource = [self.dataStore savedDataSource];
-        self.dataSource.delegate = self;
         self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.dataStore];
     }
     return self;
