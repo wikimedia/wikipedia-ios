@@ -3,12 +3,12 @@
 #import "MWKDataStore.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import "MWKArticle.h"
-#import "MWKDataStore+WMFDataSources.h"
+#import "MWKDataStore.h"
 #import "SavedPagesFunnel.h"
 #import "PiwikTracker+WMFExtensions.h"
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 
-@interface WMFSaveButtonController () <WMFDataSourceDelegate>
+@interface WMFSaveButtonController ()
 
 - (instancetype)initWithControl:(UIControl *)button
                   barButtonItem:(UIBarButtonItem *)barButtonItem

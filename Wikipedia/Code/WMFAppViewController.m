@@ -284,6 +284,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     }
 
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
+    
+    [self.session.dataStore syncDataStoreToDatabase];
 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
     [self.savedArticlesFetcher start];
