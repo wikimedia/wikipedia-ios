@@ -1,5 +1,4 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
-#import "SVModalWebViewController.h"
 
 #import "Global.h"
 #import "WMFZeroConfigurationManager.h"
@@ -49,11 +48,9 @@
 }
 
 - (void)wmf_openExternalUrlModallyIfNeeded:(NSURL *)url forceSafari:(BOOL)forceSafari {
-    // iOS 9 and later just use UIApplication's openURL.
-    if (forceSafari) {
+    if (forceSafari || [url.scheme.lowercaseString isEqualToString:@"mailto"]) {
         [[UIApplication sharedApplication] openURL:url];
     } else {
-        // pre iOS 9 use SVModalWebViewController.
         if (self.presentedViewController) {
             [self dismissViewControllerAnimated:YES
                                      completion:^{
@@ -73,15 +70,7 @@
         return;
     }
 
-    if ([SFSafariViewController class]) {
-        [self wmf_presentExternalUrlAsSFSafari:url];
-    } else {
-        [self wmf_presentExternalUrlAsSVModal:url];
-    }
-}
-
-- (void)wmf_presentExternalUrlAsSVModal:(NSURL *)url {
-    [self presentViewController:[[SVModalWebViewController alloc] initWithURL:url] animated:YES completion:nil];
+    [self wmf_presentExternalUrlAsSFSafari:url];
 }
 
 - (void)wmf_presentExternalUrlAsSFSafari:(NSURL *)url {
