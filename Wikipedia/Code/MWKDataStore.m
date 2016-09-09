@@ -2,6 +2,7 @@
 #import "YapDatabase+WMFViews.h"
 #import "YapDatabaseConnection+WMFExtensions.h"
 #import "YapDatabaseReadWriteTransaction+WMFCustomNotifications.h"
+#import <YapDatabase/YapDatabaseCrossProcessNotification.h>
 #import "MWKHistoryEntry+WMFDatabaseStorable.h"
 #import <WMFModel/WMFModel-Swift.h>
 
@@ -52,9 +53,15 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (instancetype)init {
-    self = [self initWithDatabase:[[YapDatabase alloc] initWithPath:[YapDatabase wmf_databasePath]] legacyDataBasePath:[[MWKDataStore class] mainDataStorePath]];
-    if (self) {
-    }
+    YapDatabaseOptions* options = [YapDatabaseOptions new];
+    options.enableMultiProcessSupport = YES;
+    
+    YapDatabase* db = [[YapDatabase alloc] initWithPath:[YapDatabase wmf_databasePath] options:options];
+    
+    YapDatabaseCrossProcessNotification* cp = [[YapDatabaseCrossProcessNotification alloc] initWithIdentifier:@"Wikipedia"];
+    [db registerExtension:cp withName:@"WikipediaCrossProcess"];
+    
+    self = [self initWithDatabase:db legacyDataBasePath:[[MWKDataStore class] mainDataStorePath]];
     return self;
 }
 
@@ -70,6 +77,11 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
                                                  selector:@selector(yapDatabaseModified:)
                                                      name:YapDatabaseModifiedNotification
                                                    object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(yapDatabaseModified:)
+                                                     name:YapDatabaseModifiedExternallyNotification
+                                                   object:nil];
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     }
     return self;
@@ -150,20 +162,8 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 - (void)yapDatabaseModified:(NSNotification *)notification {
 
-    // Jump to the most recent commit.
-    // End & Re-Begin the long-lived transaction atomically.
-    // Also grab all the notifications for all the commits that I jump.
-    // If the UI is a bit backed up, I may jump multiple commits.
-    NSArray *notifications = [self.articleReferenceReadConnection beginLongLivedReadTransaction];
-    if ([notifications count] == 0) {
-        return;
-    }
-
-    [self.changeHandlers compact];
-    for (id<WMFDatabaseChangeHandler> obj in self.changeHandlers) {
-        [obj processChanges:notifications onConnection:self.articleReferenceReadConnection];
-    }
-
+    [self syncDataStoreToDatabase];
+    
     //Order is important.
     //Be sure to post notifications after all change handlers are updated.
     //This way if notifications query a datasource/list, they will be up do date
@@ -175,6 +175,24 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
     [self cleanup];
 }
+
+- (void)syncDataStoreToDatabase{
+    // Jump to the most recent commit.
+    // End & Re-Begin the long-lived transaction atomically.
+    // Also grab all the notifications for all the commits that I jump.
+    // If the UI is a bit backed up, I may jump multiple commits.
+    NSArray *notifications = [self.articleReferenceReadConnection beginLongLivedReadTransaction];
+    if ([notifications count] == 0) {
+        return;
+    }
+    
+    [self.changeHandlers compact];
+    for (id<WMFDatabaseChangeHandler> obj in self.changeHandlers) {
+        [obj processChanges:notifications onConnection:self.articleReferenceReadConnection];
+    }
+
+}
+
 
 - (void)cleanup {
     [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
