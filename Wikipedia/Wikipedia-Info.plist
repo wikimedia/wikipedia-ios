@@ -45,9 +45,9 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Used to show articles nearby your location</string>
+	<string>Get article recommendations based on your location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Used to save photos to your camera roll</string>
+	<string>Save photos from Wikipedia to your photo library</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>org.wikimedia.wikipedia.explore</string>
