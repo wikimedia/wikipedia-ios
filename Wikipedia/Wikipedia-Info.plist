@@ -45,9 +45,9 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Used to show articles nearby your location</string>
+	<string>Get article recommendations based on your location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Used to save photos to your camera roll</string>
+	<string>Save photos from Wikipedia to your photo library</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>org.wikimedia.wikipedia.explore</string>
@@ -93,7 +93,7 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 	<key>WMFHockeyAppIdentifier</key>
-	<string>d8299a83115941f585eefe99e59482eb</string>
+	<string>5d80da08a6761e5c6456736af7ebad88</string>
 	<key>WMFPiwikAppIdentifier</key>
 	<string>3</string>
 	<key>WMFPiwikURL</key>

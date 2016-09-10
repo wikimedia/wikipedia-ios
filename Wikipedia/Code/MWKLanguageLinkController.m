@@ -25,9 +25,9 @@ static NSArray *WMFUnsupportedLanguages() {
 
 @interface MWKLanguageLinkController ()
 
-@property (readwrite, copy, nonatomic) NSArray *preferredLanguages;
+@property (copy, nonatomic) NSArray *preferredLanguages;
 
-@property (readwrite, copy, nonatomic) NSArray *otherLanguages;
+@property (copy, nonatomic) NSArray *otherLanguages;
 
 @end
 
@@ -91,7 +91,6 @@ static id _sharedInstance;
     supportedLanguageLinks = [supportedLanguageLinks sortedArrayUsingSelector:@selector(compare:)];
 
     _allLanguages = supportedLanguageLinks;
-    [self updateLanguageArrays];
 }
 
 - (nullable MWKLanguageLink *)languageForSiteURL:(NSURL *)siteURL {
@@ -104,20 +103,19 @@ static id _sharedInstance;
     return [self.preferredLanguages firstObject];
 }
 
-#pragma mark - Build Language Arrays
-
-- (void)updateLanguageArrays {
-    [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
+- (NSArray<MWKLanguageLink*>*)preferredLanguages{
     NSArray *preferredLanguageCodes = [self readPreferredLanguageCodes];
-    self.preferredLanguages = [preferredLanguageCodes wmf_mapAndRejectNil:^id(NSString *langString) {
+    return [preferredLanguageCodes wmf_mapAndRejectNil:^id(NSString *langString) {
         return [self.allLanguages bk_match:^BOOL(MWKLanguageLink *langLink) {
             return [langLink.languageCode isEqualToString:langString];
         }];
     }];
-    self.otherLanguages = [self.allLanguages bk_select:^BOOL(MWKLanguageLink *langLink) {
+}
+
+- (NSArray<MWKLanguageLink*>*)otherLanguages{
+    return [self.allLanguages bk_select:^BOOL(MWKLanguageLink *langLink) {
         return ![self.preferredLanguages containsObject:langLink];
     }];
-    [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
 }
 
 #pragma mark - Preferred Language Management
@@ -194,16 +192,18 @@ static id _sharedInstance;
 }
 
 - (void)savePreferredLanguageCodes:(NSArray<NSString *> *)languageCodes {
+    [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [[NSUserDefaults wmf_userDefaults] setObject:languageCodes forKey:WMFPreviousLanguagesKey];
     [[NSUserDefaults wmf_userDefaults] synchronize];
-    [self updateLanguageArrays];
+    [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
 }
 
 - (void)resetPreferredLanguages {
+    [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [[NSUserDefaults wmf_userDefaults] removeObjectForKey:WMFPreviousLanguagesKey];
     [[NSUserDefaults wmf_userDefaults] synchronize];
-    [self updateLanguageArrays];
+    [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
 }
 
