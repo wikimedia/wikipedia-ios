@@ -22,7 +22,7 @@ public class WMFArticlePreviewViewController: UIViewController {
     
     
     public override func viewDidLoad() {
-        rankLabel.textColor = UIColor.wmf_foundationGray()
+        rankLabel.textColor = UIColor.wmf_darkGray()
         separatorView.backgroundColor = UIColor.wmf_darkGray()
     }
 
