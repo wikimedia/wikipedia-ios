@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -37,7 +37,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CwR-CM-SDN">
                                 <constraints>
-                                    <constraint firstAttribute="height" priority="750" constant="29" id="HZt-Qf-DQT"/>
+                                    <constraint firstAttribute="height" priority="750" constant="39" id="HZt-Qf-DQT"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
@@ -117,6 +117,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="af3-Uc-bMS" secondAttribute="trailing" id="eXn-dd-RUF"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="af3-Uc-bMS" secondAttribute="bottom" constant="10" id="jeM-R7-CaC"/>
                             <constraint firstItem="vq4-5M-Tnk" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="n9q-aN-sgE"/>
+                            <constraint firstItem="af3-Uc-bMS" firstAttribute="leading" secondItem="CwR-CM-SDN" secondAttribute="trailing" constant="10" id="oxe-BC-EHi"/>
                             <constraint firstItem="ZR6-x7-9Of" firstAttribute="trailing" secondItem="S3S-Oj-5AN" secondAttribute="trailingMargin" id="pFm-6j-Ldv"/>
                             <constraint firstItem="af3-Uc-bMS" firstAttribute="leading" secondItem="vq4-5M-Tnk" secondAttribute="trailing" constant="10" id="pVG-3w-TAN"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="BSk-BH-jRq" secondAttribute="bottom" id="qB8-lW-aTH"/>
