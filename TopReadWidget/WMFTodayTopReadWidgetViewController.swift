@@ -206,7 +206,11 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 vc.viewCountAndSparklineContainerView.hidden = true
             }
             if let imageURL = result.thumbnailURL {
-                vc.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
+                vc.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
+                    vc.collapseImageAndWidenLabels = true
+                }) {
+                    vc.collapseImageAndWidenLabels = false
+                }
             }
             if i == (count - 1) {
                 vc.separatorView.hidden = true

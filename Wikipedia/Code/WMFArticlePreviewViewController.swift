@@ -11,6 +11,9 @@ public class WMFArticlePreviewViewController: UIViewController {
     @IBOutlet weak public var viewCountLabel: UILabel!
     @IBOutlet weak public var sparklineView: WMFSparklineView!
     
+    @IBOutlet var imageWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var subtitleLabelTrailingConstraint: NSLayoutConstraint!
+
     public required init() {
         let bundle = NSBundle(identifier: "org.wikimedia.WMFUI")
         super.init(nibName: "WMFArticlePreviewViewController", bundle: bundle)
@@ -26,4 +29,16 @@ public class WMFArticlePreviewViewController: UIViewController {
         separatorView.backgroundColor = UIColor.wmf_darkGray()
     }
 
+    public override func awakeFromNib() {
+        collapseImageAndWidenLabels = true
+    }
+    
+    public var collapseImageAndWidenLabels: Bool = true {
+        didSet {
+            imageWidthConstraint.constant = collapseImageAndWidenLabels ? 0 : 80
+            subtitleLabelTrailingConstraint.constant = collapseImageAndWidenLabels ? 0 : 8
+            self.imageView.alpha = self.collapseImageAndWidenLabels ? 0 : 1
+            self.view.layoutIfNeeded()
+        }
+    }
 }

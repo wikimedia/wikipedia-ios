@@ -42,6 +42,10 @@ public class WMFTableOfContentsViewController: UIViewController,
         tv.delegate = self
         tv.dataSource = self
         tv.backgroundView = nil
+
+        //add to the view now to ensure view did load is kicked off
+        self.view.addSubview(tv)
+
         return tv
     }()
 
@@ -171,7 +175,6 @@ public class WMFTableOfContentsViewController: UIViewController,
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.addSubview(tableView)
         tableView.mas_makeConstraints { make in
             make.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
