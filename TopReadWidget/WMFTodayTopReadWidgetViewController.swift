@@ -143,16 +143,15 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
         
         var headerText = ""
-        let dateText = headerDateFormatter.stringFromDate(date) ?? ""
         
         if let language = language {
-            headerText = localizedStringForKeyFallingBackOnEnglish("top-read-header-with-language").stringByReplacingOccurrencesOfString("$1", withString: language).stringByReplacingOccurrencesOfString("$2", withString: dateText)
+            headerText = localizedStringForKeyFallingBackOnEnglish("top-read-header-with-language").stringByReplacingOccurrencesOfString("$1", withString: language)
         } else {
-            headerText = localizedStringForKeyFallingBackOnEnglish("top-read-header-generic").stringByReplacingOccurrencesOfString("$1", withString: dateText)
+            headerText = localizedStringForKeyFallingBackOnEnglish("top-read-header-generic")
         }
         
         headerLabel.text = headerText.uppercaseString
-        footerLabel.text = localizedStringForKeyFallingBackOnEnglish("top-read-see-more-trending").uppercaseString
+        footerLabel.text = localizedStringForKeyFallingBackOnEnglish("top-read-see-more").uppercaseString
         
         var dataValueMin = CGFloat.max
         var dataValueMax = CGFloat.min

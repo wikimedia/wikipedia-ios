@@ -466,7 +466,8 @@
 "continue-reading-empty-title" = "No recently read articles";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 
+"top-read-see-more" = "See more top read";
 "top-read-see-more-trending" = "See more trending";
-"top-read-reader-count-thousands" = "$1k readers";
-"top-read-header-with-language" = "$1 Wikipedia on $2";
-"top-read-header-generic" = "Wikipedia on $1";
+"top-read-reader-count-thousands" = "$1k";
+"top-read-header-with-language" = "$1 Wikipedia";
+"top-read-header-generic" = "Wikipedia";
