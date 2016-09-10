@@ -152,43 +152,44 @@ THE SOFTWARE.</string>
 	</array>
 	<key>contributors</key>
 	<array>
+		<string>Abbey Ripstra</string>
 		<string>Adam Baso</string>
 		<string>Amir E. Aharoni</string>
 		<string>Anirudh S</string>
+		<string>Barbara Martina Rodeker</string>
 		<string>Bernd Sitzmann</string>
+		<string>Boris Dušek</string>
 		<string>Brian Gerstle</string>
 		<string>Brion Vibber</string>
 		<string>Corey Floyd</string>
+		<string>Daisy Chen</string>
 		<string>Dan Garry</string>
 		<string>Dmitry Brant</string>
 		<string>Elena Tonkovidova</string>
+		<string>Hua Zhenyu</string>
+		<string>Hynek Hanke</string>
+		<string>Joe Walsh</string>
+		<string>Jonatan Svensson Glad</string>
+		<string>Joshua Minor</string>
+		<string>Kaity Hammerstein</string>
 		<string>Kenan Wang</string>
 		<string>Maryana Pinchuk</string>
 		<string>Max Semenik</string>
+		<string>Michael Holloway</string>
 		<string>Moiz Syed</string>
 		<string>Monte Hurd</string>
 		<string>Mun May Tee</string>
+		<string>Nick DiStefano</string>
 		<string>Nicole Borrelli</string>
 		<string>Niklas Laxström</string>
+		<string>Nirzar Pangarkar</string>
+		<string>Rita Ho</string>
 		<string>Rummana Yasmeen</string>
+		<string>Sherah Smith</string>
 		<string>Thomas PT</string>
 		<string>Tomasz Finc</string>
 		<string>Vibha Bamba</string>
 		<string>Yuvi Panda</string>
-		<string>Sherah Smith</string>
-		<string>Nirzar Pangarkar</string>
-		<string>Kaity Hammerstein</string>
-		<string>Daisy Chen</string>
-		<string>Abbey Ripstra</string>
-		<string>Joshua Minor</string>
-		<string>Hynek Hanke</string>
-		<string>Barbara Martina Rodeker</string>
-		<string>Boris Dušek</string>
-		<string>Jonatan Svensson Glad</string>
-		<string>Nick DiStefano</string>
-		<string>Joe Walsh</string>
-		<string>Michael Holloway</string>
-		<string>Hua Zhenyu</string>
 	</array>
 </dict>
 </plist>
