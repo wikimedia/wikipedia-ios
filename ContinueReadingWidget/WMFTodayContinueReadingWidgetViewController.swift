@@ -110,8 +110,8 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         emptyViewHidden = true
         
-        if let section = article.sections?.sectionWithFragment(lastReadArticleURL.fragment) {
-            self.textLabel.text = section.line?.wmf_stringByRemovingHTML()
+        if let subtitle = article.summary() ?? article.entityDescription?.wmf_stringByCapitalizingFirstCharacter(){
+            self.textLabel.text = subtitle
         } else {
             self.textLabel.text = nil
         }
