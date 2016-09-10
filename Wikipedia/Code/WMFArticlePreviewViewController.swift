@@ -12,7 +12,7 @@ public class WMFArticlePreviewViewController: UIViewController {
     @IBOutlet weak public var sparklineView: WMFSparklineView!
     
     @IBOutlet var imageWidthConstraint: NSLayoutConstraint!
-    @IBOutlet var subtitleLabelTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet var titleLabelTrailingConstraint: NSLayoutConstraint!
 
     public required init() {
         let bundle = NSBundle(identifier: "org.wikimedia.WMFUI")
@@ -33,10 +33,11 @@ public class WMFArticlePreviewViewController: UIViewController {
         collapseImageAndWidenLabels = true
     }
     
+    
     public var collapseImageAndWidenLabels: Bool = true {
         didSet {
-            imageWidthConstraint.constant = collapseImageAndWidenLabels ? 0 : 80
-            subtitleLabelTrailingConstraint.constant = collapseImageAndWidenLabels ? 0 : 8
+            imageWidthConstraint.constant = collapseImageAndWidenLabels ? 0 : 86
+            titleLabelTrailingConstraint.constant = collapseImageAndWidenLabels ? 0 : 8
             self.imageView.alpha = self.collapseImageAndWidenLabels ? 0 : 1
             self.view.layoutIfNeeded()
         }

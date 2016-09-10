@@ -14,8 +14,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     @IBOutlet weak var emptyTitleLabel: UILabel!
     @IBOutlet weak var emptyDescriptionLabel: UILabel!
 
-    @IBOutlet var imageAspectRatioConstraint: NSLayoutConstraint!
-    @IBOutlet var imageZeroWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var imageWidthConstraint: NSLayoutConstraint!
     @IBOutlet var titleLabelTrailingConstraint: NSLayoutConstraint!
     
     var articleURL: NSURL?
@@ -57,8 +56,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
 
     var collapseImageAndWidenLabels: Bool = true {
         didSet {
-            imageAspectRatioConstraint.active = !collapseImageAndWidenLabels
-            imageZeroWidthConstraint.active = collapseImageAndWidenLabels
+            imageWidthConstraint.constant = collapseImageAndWidenLabels ? 0 : 86
             titleLabelTrailingConstraint.constant = collapseImageAndWidenLabels ? 0 : 10
             self.imageView.alpha = self.collapseImageAndWidenLabels ? 0 : 1
             self.view.layoutIfNeeded()
