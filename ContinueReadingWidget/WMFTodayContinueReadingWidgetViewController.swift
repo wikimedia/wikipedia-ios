@@ -14,6 +14,10 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     @IBOutlet weak var emptyTitleLabel: UILabel!
     @IBOutlet weak var emptyDescriptionLabel: UILabel!
 
+    @IBOutlet var imageAspectRatioConstraint: NSLayoutConstraint!
+    @IBOutlet var imageZeroWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var titleLabelTrailingConstraint: NSLayoutConstraint!
+    
     var articleURL: NSURL?
     
     override func viewDidLoad() {
@@ -50,6 +54,16 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             daysAgoView.hidden = !emptyViewHidden
         }
     }
+
+    var collapseImageAndWidenLabels: Bool = true {
+        didSet {
+            imageAspectRatioConstraint.active = !collapseImageAndWidenLabels
+            imageZeroWidthConstraint.active = collapseImageAndWidenLabels
+            titleLabelTrailingConstraint.constant = collapseImageAndWidenLabels ? 0 : 10
+            self.imageView.alpha = self.collapseImageAndWidenLabels ? 0 : 1
+            self.view.layoutIfNeeded()
+        }
+    }
     
     func hasNewData() -> Bool{
         
@@ -82,6 +96,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         textLabel.text = nil
         titleLabel.text = nil
         imageView.image = nil
+        collapseImageAndWidenLabels = true
         imageView.hidden = true
         daysAgoLabel.text = nil
         daysAgoView.hidden = true
@@ -130,9 +145,9 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         if let string = article.imageURL, let imageURL = NSURL(string: string) {
             self.imageView.hidden = false
             self.imageView.wmf_setImageWithURL(imageURL, detectFaces: true, onGPU: true, failure: { (error) in
-                
+                self.collapseImageAndWidenLabels = true
             }) {
-                
+                self.collapseImageAndWidenLabels = false
             }
         }
         

@@ -22,6 +22,7 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="af3-Uc-bMS">
                                 <constraints>
+                                    <constraint firstAttribute="width" priority="999" id="4Nd-ZK-qSB"/>
                                     <constraint firstAttribute="width" secondItem="af3-Uc-bMS" secondAttribute="height" multiplier="1:1" id="7cr-os-XYp"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -114,10 +115,10 @@
                             <constraint firstItem="CwR-CM-SDN" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="Yqs-Mz-SgU"/>
                             <constraint firstItem="3Uu-vI-59e" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="YxV-va-6jY"/>
                             <constraint firstAttribute="trailing" secondItem="BSk-BH-jRq" secondAttribute="trailing" id="ZUD-Y6-aY4"/>
+                            <constraint firstItem="CwR-CM-SDN" firstAttribute="width" secondItem="vq4-5M-Tnk" secondAttribute="width" id="dlu-4c-Js5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="af3-Uc-bMS" secondAttribute="trailing" id="eXn-dd-RUF"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="af3-Uc-bMS" secondAttribute="bottom" constant="10" id="jeM-R7-CaC"/>
                             <constraint firstItem="vq4-5M-Tnk" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="n9q-aN-sgE"/>
-                            <constraint firstItem="af3-Uc-bMS" firstAttribute="leading" secondItem="CwR-CM-SDN" secondAttribute="trailing" constant="10" id="oxe-BC-EHi"/>
                             <constraint firstItem="ZR6-x7-9Of" firstAttribute="trailing" secondItem="S3S-Oj-5AN" secondAttribute="trailingMargin" id="pFm-6j-Ldv"/>
                             <constraint firstItem="af3-Uc-bMS" firstAttribute="leading" secondItem="vq4-5M-Tnk" secondAttribute="trailing" constant="10" id="pVG-3w-TAN"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="BSk-BH-jRq" secondAttribute="bottom" id="qB8-lW-aTH"/>
@@ -136,9 +137,12 @@
                         <outlet property="emptyDescriptionLabel" destination="rMd-L0-hne" id="3kP-dD-tib"/>
                         <outlet property="emptyTitleLabel" destination="Ejf-xt-rvu" id="osb-La-67R"/>
                         <outlet property="emptyView" destination="ZR6-x7-9Of" id="p6Z-LW-3nv"/>
+                        <outlet property="imageAspectRatioConstraint" destination="7cr-os-XYp" id="lRN-bu-5ul"/>
                         <outlet property="imageView" destination="af3-Uc-bMS" id="91S-oM-RCp"/>
+                        <outlet property="imageZeroWidthConstraint" destination="4Nd-ZK-qSB" id="pEv-kP-lYb"/>
                         <outlet property="textLabel" destination="CwR-CM-SDN" id="wXQ-Lk-zcc"/>
                         <outlet property="titleLabel" destination="vq4-5M-Tnk" id="zJ9-bC-g8G"/>
+                        <outlet property="titleLabelTrailingConstraint" destination="pVG-3w-TAN" id="Ap3-Lq-h0z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
