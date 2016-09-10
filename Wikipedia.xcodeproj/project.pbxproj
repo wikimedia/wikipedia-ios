@@ -8610,7 +8610,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"PIWIK_ENABLED=1",
 					"WMF_APP_EXTENSION=0",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
