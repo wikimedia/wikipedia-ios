@@ -167,7 +167,7 @@ DEPENDENCIES:
   - NYTPhotoViewer
   - OCHamcrest (~> 4.2.0)
   - OCMockito (~> 1.4.0)
-  - PiwikTracker
+  - PiwikTracker (from `https://github.com/wikimedia/piwik-sdk-ios.git`)
   - PromiseKit (~> 3.4)
   - Quick (~> 0.9.0)
   - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `bb49df83e72f2231a191e9477a85f0effe13430a`)
@@ -188,6 +188,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/wikimedia/AnimatedGIFImageSerialization.git
   NSDate-Extensions:
     :git: git@github.com:wikimedia/NSDate-Extensions.git
+  PiwikTracker:
+    :git: https://github.com/wikimedia/piwik-sdk-ios.git
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
@@ -206,6 +208,9 @@ CHECKOUT OPTIONS:
   NSDate-Extensions:
     :commit: 388ab1b864b742feadc1cf94063968953fc6a6a1
     :git: git@github.com:wikimedia/NSDate-Extensions.git
+  PiwikTracker:
+    :commit: 87cf4aa60ad29cdb375a3fe789c9717887ee210e
+    :git: https://github.com/wikimedia/piwik-sdk-ios.git
   SDWebImage:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
@@ -252,6 +257,6 @@ SPEC CHECKSUMS:
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
 
-PODFILE CHECKSUM: b98aaeb5e645f1ceec801beeb4a0a644e07f2f9c
+PODFILE CHECKSUM: ebca301c7b75e7f065c804694c54c69c14afb0a6
 
 COCOAPODS: 1.1.0.beta.1
