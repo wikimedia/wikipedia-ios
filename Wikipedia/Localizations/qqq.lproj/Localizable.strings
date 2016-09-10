@@ -415,6 +415,7 @@
 "find-in-page-popover-description" = "Description of Find in Page which can appear over its icon in a tip bubble";
 "continue-reading-empty-title" = "No recently read articles";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
+"top-read-see-more" = "Text for footer button allowing the user to see more top read articles";
 "top-read-see-more-trending" = "See more trending";
 "top-read-reader-count-thousands" = "$1 is replaced with a number specifying how many people read the article. This number is in thousands. In English the letter 'k' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'k' should be changed to a character or short string indicating thousands.";
 "top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia";
