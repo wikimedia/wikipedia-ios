@@ -805,20 +805,16 @@
 		D8D270381D75D46300D093A8 /* WMFMostReadListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320171C73992F00317D08 /* WMFMostReadListDataSource.m */; };
 		D8D2703B1D75ED5000D093A8 /* WMFArticlePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D270391D75ED5000D093A8 /* WMFArticlePreviewViewController.swift */; };
 		D8D2703C1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8D2703A1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib */; };
-		D8D5DB2A1D7A206B00526A69 /* UIActionSheet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB161D7A206B00526A69 /* UIActionSheet+BlocksKit.m */; };
-		D8D5DB2B1D7A206B00526A69 /* UIAlertView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB181D7A206B00526A69 /* UIAlertView+BlocksKit.m */; };
 		D8D5DB2C1D7A206B00526A69 /* UIBarButtonItem+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB1A1D7A206B00526A69 /* UIBarButtonItem+BlocksKit.m */; };
 		D8D5DB2D1D7A206B00526A69 /* UIControl+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB1C1D7A206B00526A69 /* UIControl+BlocksKit.m */; };
 		D8D5DB2E1D7A206B00526A69 /* UIGestureRecognizer+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB1E1D7A206B00526A69 /* UIGestureRecognizer+BlocksKit.m */; };
 		D8D5DB2F1D7A206B00526A69 /* UIImagePickerController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB201D7A206B00526A69 /* UIImagePickerController+BlocksKit.m */; };
-		D8D5DB301D7A206B00526A69 /* UIPopoverController+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB221D7A206B00526A69 /* UIPopoverController+BlocksKit.m */; };
 		D8D5DB311D7A206B00526A69 /* UITextField+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB241D7A206B00526A69 /* UITextField+BlocksKit.m */; };
 		D8D5DB321D7A206B00526A69 /* UIView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB261D7A206B00526A69 /* UIView+BlocksKit.m */; };
 		D8D5DB331D7A206B00526A69 /* UIWebView+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB281D7A206B00526A69 /* UIWebView+BlocksKit.m */; };
 		D8D5DB421D7A214500526A69 /* A2BlockInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB361D7A214500526A69 /* A2BlockInvocation.m */; };
 		D8D5DB431D7A214500526A69 /* A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB381D7A214500526A69 /* A2DynamicDelegate.m */; };
 		D8D5DB441D7A214500526A69 /* NSCache+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB3B1D7A214500526A69 /* NSCache+BlocksKit.m */; };
-		D8D5DB451D7A214500526A69 /* NSURLConnection+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB3D1D7A214500526A69 /* NSURLConnection+BlocksKit.m */; };
 		D8D5DB461D7A214500526A69 /* NSObject+A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB3F1D7A214500526A69 /* NSObject+A2BlockDelegate.m */; };
 		D8D5DB471D7A214500526A69 /* NSObject+A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D5DB411D7A214500526A69 /* NSObject+A2DynamicDelegate.m */; };
 		D8DC16E81D6F5E3300D6D9FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
@@ -2322,10 +2318,6 @@
 		D8D270321D75BE8100D093A8 /* TopReadWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TopReadWidget.entitlements; sourceTree = "<group>"; };
 		D8D270391D75ED5000D093A8 /* WMFArticlePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFArticlePreviewViewController.swift; path = Wikipedia/Code/WMFArticlePreviewViewController.swift; sourceTree = SOURCE_ROOT; };
 		D8D2703A1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticlePreviewViewController.xib; path = Wikipedia/Code/WMFArticlePreviewViewController.xib; sourceTree = SOURCE_ROOT; };
-		D8D5DB151D7A206B00526A69 /* UIActionSheet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+BlocksKit.h"; sourceTree = "<group>"; };
-		D8D5DB161D7A206B00526A69 /* UIActionSheet+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+BlocksKit.m"; sourceTree = "<group>"; };
-		D8D5DB171D7A206B00526A69 /* UIAlertView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+BlocksKit.h"; sourceTree = "<group>"; };
-		D8D5DB181D7A206B00526A69 /* UIAlertView+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+BlocksKit.m"; sourceTree = "<group>"; };
 		D8D5DB191D7A206B00526A69 /* UIBarButtonItem+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+BlocksKit.h"; sourceTree = "<group>"; };
 		D8D5DB1A1D7A206B00526A69 /* UIBarButtonItem+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+BlocksKit.m"; sourceTree = "<group>"; };
 		D8D5DB1B1D7A206B00526A69 /* UIControl+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+BlocksKit.h"; sourceTree = "<group>"; };
@@ -2334,8 +2326,6 @@
 		D8D5DB1E1D7A206B00526A69 /* UIGestureRecognizer+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+BlocksKit.m"; sourceTree = "<group>"; };
 		D8D5DB1F1D7A206B00526A69 /* UIImagePickerController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+BlocksKit.h"; sourceTree = "<group>"; };
 		D8D5DB201D7A206B00526A69 /* UIImagePickerController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+BlocksKit.m"; sourceTree = "<group>"; };
-		D8D5DB211D7A206B00526A69 /* UIPopoverController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPopoverController+BlocksKit.h"; sourceTree = "<group>"; };
-		D8D5DB221D7A206B00526A69 /* UIPopoverController+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPopoverController+BlocksKit.m"; sourceTree = "<group>"; };
 		D8D5DB231D7A206B00526A69 /* UITextField+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+BlocksKit.h"; sourceTree = "<group>"; };
 		D8D5DB241D7A206B00526A69 /* UITextField+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+BlocksKit.m"; sourceTree = "<group>"; };
 		D8D5DB251D7A206B00526A69 /* UIView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BlocksKit.h"; sourceTree = "<group>"; };
@@ -2349,8 +2339,6 @@
 		D8D5DB381D7A214500526A69 /* A2DynamicDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2DynamicDelegate.m; sourceTree = "<group>"; };
 		D8D5DB3A1D7A214500526A69 /* NSCache+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCache+BlocksKit.h"; sourceTree = "<group>"; };
 		D8D5DB3B1D7A214500526A69 /* NSCache+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCache+BlocksKit.m"; sourceTree = "<group>"; };
-		D8D5DB3C1D7A214500526A69 /* NSURLConnection+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLConnection+BlocksKit.h"; sourceTree = "<group>"; };
-		D8D5DB3D1D7A214500526A69 /* NSURLConnection+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLConnection+BlocksKit.m"; sourceTree = "<group>"; };
 		D8D5DB3E1D7A214500526A69 /* NSObject+A2BlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+A2BlockDelegate.h"; sourceTree = "<group>"; };
 		D8D5DB3F1D7A214500526A69 /* NSObject+A2BlockDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+A2BlockDelegate.m"; sourceTree = "<group>"; };
 		D8D5DB401D7A214500526A69 /* NSObject+A2DynamicDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+A2DynamicDelegate.h"; sourceTree = "<group>"; };
@@ -5705,10 +5693,6 @@
 		D8D5DB141D7A206B00526A69 /* BlocksKit+UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				D8D5DB151D7A206B00526A69 /* UIActionSheet+BlocksKit.h */,
-				D8D5DB161D7A206B00526A69 /* UIActionSheet+BlocksKit.m */,
-				D8D5DB171D7A206B00526A69 /* UIAlertView+BlocksKit.h */,
-				D8D5DB181D7A206B00526A69 /* UIAlertView+BlocksKit.m */,
 				D8D5DB191D7A206B00526A69 /* UIBarButtonItem+BlocksKit.h */,
 				D8D5DB1A1D7A206B00526A69 /* UIBarButtonItem+BlocksKit.m */,
 				D8D5DB1B1D7A206B00526A69 /* UIControl+BlocksKit.h */,
@@ -5717,8 +5701,6 @@
 				D8D5DB1E1D7A206B00526A69 /* UIGestureRecognizer+BlocksKit.m */,
 				D8D5DB1F1D7A206B00526A69 /* UIImagePickerController+BlocksKit.h */,
 				D8D5DB201D7A206B00526A69 /* UIImagePickerController+BlocksKit.m */,
-				D8D5DB211D7A206B00526A69 /* UIPopoverController+BlocksKit.h */,
-				D8D5DB221D7A206B00526A69 /* UIPopoverController+BlocksKit.m */,
 				D8D5DB231D7A206B00526A69 /* UITextField+BlocksKit.h */,
 				D8D5DB241D7A206B00526A69 /* UITextField+BlocksKit.m */,
 				D8D5DB251D7A206B00526A69 /* UIView+BlocksKit.h */,
@@ -5751,8 +5733,6 @@
 			children = (
 				D8D5DB3A1D7A214500526A69 /* NSCache+BlocksKit.h */,
 				D8D5DB3B1D7A214500526A69 /* NSCache+BlocksKit.m */,
-				D8D5DB3C1D7A214500526A69 /* NSURLConnection+BlocksKit.h */,
-				D8D5DB3D1D7A214500526A69 /* NSURLConnection+BlocksKit.m */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -6888,7 +6868,6 @@
 				B0E802F81C0CD4D70065EBC0 /* WMFNearbySectionController.m in Sources */,
 				B0E806D91C0CEB850065EBC0 /* BulletedLabel.m in Sources */,
 				BC3944C51C8146210008546D /* CLLocationManager+WMFLocationManagers.m in Sources */,
-				D8D5DB2B1D7A206B00526A69 /* UIAlertView+BlocksKit.m in Sources */,
 				B0E8039F1C0CDB3B0065EBC0 /* WMFArticleResponseSerializer.m in Sources */,
 				B0E806A41C0CEAF40065EBC0 /* EditSummaryViewController.m in Sources */,
 				B0E803181C0CD6560065EBC0 /* WMFNearbyPlaceholderCollectionViewCell.m in Sources */,
@@ -6912,7 +6891,6 @@
 				B0E805401C0CE0DC0065EBC0 /* UICollectionViewLayout+AttributeUtils.m in Sources */,
 				B0E804CC1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.m in Sources */,
 				B0E8044C1C0CDF850065EBC0 /* WMFPageCollectionViewController.m in Sources */,
-				D8D5DB451D7A214500526A69 /* NSURLConnection+BlocksKit.m in Sources */,
 				B0E8070D1C0CEBDA0065EBC0 /* WMFShareOptionsView.m in Sources */,
 				B0E8053F1C0CE0DC0065EBC0 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */,
 				B09B03EB1CE0FB2600009083 /* WMFPageHistoryRevision.m in Sources */,
@@ -7013,7 +6991,6 @@
 				B0E803CF1C0CDCAF0065EBC0 /* WMFSaveButtonController.m in Sources */,
 				B0E802EA1C0CD4350065EBC0 /* WMFMainPageSectionController.m in Sources */,
 				0E8E94161D55111900066FC0 /* WMFArticleListTableViewController.m in Sources */,
-				D8D5DB2A1D7A206B00526A69 /* UIActionSheet+BlocksKit.m in Sources */,
 				B0E804461C0CDF850065EBC0 /* WikiGlyphLabel.m in Sources */,
 				D84F2BF51D2FE80A00963D42 /* WMFRotationRespectingNavigationController.m in Sources */,
 				B0E806951C0CEA7B0065EBC0 /* AboutViewController.m in Sources */,
@@ -7188,7 +7165,6 @@
 				0EBCA7481C176389004F1FD9 /* WMFAlertManager.swift in Sources */,
 				B0E803091C0CD5320065EBC0 /* WMFSearchResultBearingProvider.m in Sources */,
 				B0E805911C0CE2C60065EBC0 /* LoginFunnel.m in Sources */,
-				D8D5DB301D7A206B00526A69 /* UIPopoverController+BlocksKit.m in Sources */,
 				B0E804441C0CDF850065EBC0 /* TabularScrollView.m in Sources */,
 				B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */,
 				B0E8035E1C0CD8580065EBC0 /* WMFImageInfoController.m in Sources */,

@@ -261,7 +261,6 @@ NS_ASSUME_NONNULL_BEGIN
     UINavigationController *settingsContainer =
         [[UINavigationController alloc] initWithRootViewController:
                                             [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore]];
-    settingsContainer.delegate = self;
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];

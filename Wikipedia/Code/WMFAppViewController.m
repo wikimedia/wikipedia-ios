@@ -839,6 +839,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)navigationController:(UINavigationController *)navigationController
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated {
+    navigationController.interactivePopGestureRecognizer.delegate = self;
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
 }
 

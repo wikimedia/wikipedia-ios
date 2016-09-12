@@ -77,12 +77,8 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         let fragment = historyEntry.fragment
         
         let newURL = historyEntry.url.wmf_URLWithFragment(fragment)
-
-        print("articleURL \(articleURL)")
-        print("newURL \(newURL)")
         
         return newURL.absoluteString != articleURL?.absoluteString
-
     }
     
     func updateView() -> Bool {
@@ -123,7 +119,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         emptyViewHidden = true
         
-        if let subtitle = article.summary() ?? article.entityDescription?.wmf_stringByCapitalizingFirstCharacter(){
+        if let subtitle = article.summary ?? article.entityDescription?.wmf_stringByCapitalizingFirstCharacter(){
             self.textLabel.text = subtitle
         } else {
             self.textLabel.text = nil
