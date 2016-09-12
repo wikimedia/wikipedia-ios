@@ -85,11 +85,14 @@
 "wikitext-upload-result-unknown" = "No es posible determinar el resultado de la subida del wikitexto.";
 "wikitext-upload-captcha-error" = "Error de verificación CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Necesita verificación CAPTCHA.";
+// Fuzzy
 "wikitext-upload-save" = "Guardando…";
 "wikitext-upload-save-sign-in" = "Acceder";
 "wikitext-upload-save-sign-in-benefits" = "Así otros editores pueden contactarte y puedes ver qué artículos has editado.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Guardar anónimamente";
 "wikitext-upload-save-anonymously-warning" = "Las ediciones se atribuirán a la dirección IP del dispositivo. Si $1 tendrás más privacidad.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Al guardar, aceptas los $1 y a liberar irrevocablemente tus contribuciones bajo los términos de la licencia $2";
 "wikitext-upload-save-terms-name" = "Términos de uso";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -173,14 +176,17 @@
 "page-history-downloading" = "Cargando el historial de la página...";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Acceder";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Acceder y guardar";
 "navbar-title-mode-create-account" = "Crear cuenta";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Crear cuenta y guardar";
 "navbar-title-mode-edit-wikitext-warning" = "Problemas de edición";
 "navbar-title-mode-edit-wikitext-disallow" = "Problemas de edición";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualización";
 "navbar-title-mode-edit-wikitext-captcha" = "Es necesaria una verificación rápida";
 "navbar-title-mode-edit-wikitext-summary" = "Describe tu modificación";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Guardar";
 "edit-summary-choice-linked-words" = "Enlaces añadidos";
 "edit-summary-choice-fixed-grammar" = "Gramática corregida";
@@ -266,17 +272,18 @@
 "license-footer-text" = "El contenido está disponible bajo la licencia $1, salvo que se indique lo contrario.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Contenido";
-// Fuzzy
 "table-of-contents-button-label" = "Tabla de contenidos";
-// Fuzzy
-"table-of-contents-close-accessibility-label" = "Cerrar tabla de contenidos";
+"table-of-contents-close-accessibility-label" = "Cerrar la tabla de contenidos";
 "table-of-contents-close-accessibility-hint" = "Cerrar";
+"table-of-contents-popover-description" = "Obtener una visión general de los artículos";
+// Fuzzy
 "abuse-filter-warning-heading" = "Esto parece una edición no constructiva. ¿Estás seguro de que quieres guardarla?";
 "abuse-filter-warning-subheading" = "Tu edición puede contener uno o más de los siguientes:";
 "abuse-filter-warning-caps" = "Escribir TODO EN MAYÚSCULAS";
 "abuse-filter-warning-blanking" = "Supresión de los artículos o spam";
 "abuse-filter-warning-irrelevant" = "Enlaces o imágenes externas irrelevantes";
 "abuse-filter-warning-repeat" = "Caracteres repitiééééndose";
+// Fuzzy
 "abuse-filter-disallow-heading" = "No puedes guardar esta edición. Por favor vuelve y cámbiala.";
 "abuse-filter-disallow-unconstructive" = "Un filtro automático ha identificado esta edición como potencialmente no constructiva o un intento de vandalismo.";
 "abuse-filter-disallow-notable" = "Wikipedia es una enciclopedia y solo el contenido neutral y notable pertenece aquí.";
@@ -394,6 +401,7 @@
 "explore-featured-article-heading" = "Artículo destacado";
 "explore-continue-reading-heading" = "Continuar leyendo";
 "explore-nearby-heading" = "Lugares cercanos a";
+"explore-nearby-sub-heading-your-location" = "Tu ubicación";
 "explore-continue-related-heading" = "Porque leíste";
 "explore-main-page-heading" = "Hoy en Wikipedia";
 "explore-random-article-heading" = "Artículo aleatorio";
@@ -409,3 +417,8 @@
 "request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
 "explore-another-random" = "Otro artículo aleatorio";
 "find-in-page-no-matches" = "0 coincidencias";
+"find-in-page-button-label" = "Buscar en la página";
+"find-in-page-popover-description" = "Búsqueda de texto en los artículos";
+"continue-reading-empty-title" = "No hay artículos leídos recientemente";
+"continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
+"top-read-see-more-trending" = "Ver más tendencias";

@@ -77,8 +77,10 @@
 "wikitext-download-success" = "Obsah byl načten.";
 "wikitext-upload-captcha-error" = "Chyba v ověření CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Je potřeba ověření pomocí CAPTCHA.";
+// Fuzzy
 "wikitext-upload-save" = "Ukládá se...";
 "wikitext-upload-save-sign-in" = "Přihlásit se";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Uložit anonymně";
 "wikitext-upload-save-terms-name" = "Podmínky užití";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -157,13 +159,16 @@
 "page-history-downloading" = "Načítání historie článku…";
 "navbar-title-mode-edit-wikitext" = "Upravit";
 "navbar-title-mode-login" = "Přihlásit se";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Přihlaste se a uložte to";
 "navbar-title-mode-create-account" = "Vytvořit účet";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Vytvořit účet a uložit";
 "navbar-title-mode-edit-wikitext-warning" = "Problematická editace";
 "navbar-title-mode-edit-wikitext-disallow" = "Problematická editace";
 "navbar-title-mode-edit-wikitext-preview" = "Náhled";
 "navbar-title-mode-edit-wikitext-summary" = "Popište vaši editaci";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Uložit";
 "edit-summary-choice-linked-words" = "Přidány odkazy";
 "edit-summary-choice-fixed-grammar" = "Oprava gramatiky";
@@ -201,11 +206,11 @@
 "share-as-text" = "Sdílet jako text";
 "share-cancel" = "Zrušit";
 "timestamp-just-now" = "právě teď";
-"timestamp-minutes" = "%d minut";
-"timestamp-hours" = "%d hodin";
-"timestamp-days" = "%d dní";
-"timestamp-months" = "%d měsíců";
-"timestamp-years" = "%d roků";
+"timestamp-minutes" = "{{PLURAL:%d|%d minuta|%d minuty|%d minut}}";
+"timestamp-hours" = "{{PLURAL:%d|%d hodina|%d hodiny|%d hodin}}";
+"timestamp-days" = "{{PLURAL:%d|%d den|%d dny|%d dní}}";
+"timestamp-months" = "{{PLURAL:%d|%d měsíc|%d měsíce|%d měsíců}}";
+"timestamp-years" = "{{PLURAL:%d|%d rok|%d roky|%d roků}}";
 "button-edit" = "Editovat";
 "button-next" = "Další";
 "button-done" = "Hotovo";
@@ -229,6 +234,7 @@
 "table-of-contents-close-accessibility-label" = "Zavřít tabulku s obsahem";
 "table-of-contents-close-accessibility-hint" = "Zavřít";
 "abuse-filter-warning-repeat" = "Opakujíííííící se znaky";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Tuto editaci nemůžete uložit. Prosím, vraťte se zpět a změnte ji.";
 "menu-edit-accessibility-label" = "Editovat";
 "menu-close-accessibility-label" = "Zavřít";

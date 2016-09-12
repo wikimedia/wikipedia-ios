@@ -89,11 +89,14 @@
 "wikitext-upload-result-unknown" = "قادر به تعیین نتیجه بارگذاری متن ویکی نیست.";
 "wikitext-upload-captcha-error" = "کپچا به درستی وارد نشده است.";
 "wikitext-upload-captcha-needed" = "نیاز به تایید بوسیله کپچا";
+// Fuzzy
 "wikitext-upload-save" = "در حال ذخیره‌سازی...";
 "wikitext-upload-save-sign-in" = "ورود";
 "wikitext-upload-save-sign-in-benefits" = "بنابراین ویرایشگران همکار می توانند با شما تماس برقرار کنند و شما می‌توانید ببنید چه مقالاتی ویرایش کرده‌اید.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "ذخیره به صورت ناشناس";
 "wikitext-upload-save-anonymously-warning" = "ویرایش شما با آدرس آی‌پی دستگاه شما نمایش داده می‌شود. اگر شما  $1  باید حریم خصوصی بیشتری خواهید داشت.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "با ذخیره کردن، می‌پذیرید که $1، و به طور جبران‌ناشدنی مشارکت‌هایتان را تحت پروانه $2 منتشر کنید.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -177,14 +180,17 @@
 "page-history-downloading" = "در حال بارگیری مقاله تاریخچه...";
 "navbar-title-mode-edit-wikitext" = "ویرایش";
 "navbar-title-mode-login" = "ورود به سامانه";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "ورود و ذخیره";
 "navbar-title-mode-create-account" = "ایجاد حساب کاربری";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "ایجاد حساب کاربری و ذخیره";
 "navbar-title-mode-edit-wikitext-warning" = "مسائل ویرایش";
 "navbar-title-mode-edit-wikitext-disallow" = "مسائل ویرایش";
 "navbar-title-mode-edit-wikitext-preview" = "پیش‌نمایش";
 "navbar-title-mode-edit-wikitext-captcha" = "تایید سریع مورد نیاز است";
 "navbar-title-mode-edit-wikitext-summary" = "توصیف ویرایش‌تان";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "ذخیره";
 "edit-summary-choice-linked-words" = "پیوندهای اضافه شده";
 "edit-summary-choice-fixed-grammar" = "دستور زبان  اصلاح شد";
@@ -275,12 +281,14 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "بستن جدول محتویات";
 "table-of-contents-close-accessibility-hint" = "بستن";
+// Fuzzy
 "abuse-filter-warning-heading" = "به نظر می‌آید این ویرایش غیرسازنده باشد، آیا مطمئنید می‌خواهید ذخیره‌اش کنید؟";
 "abuse-filter-warning-subheading" = "ویرایش‌تان ممکن است شامل یک یا چند مورد از موارد زیر باشد:";
 "abuse-filter-warning-caps" = "نوشتن همه با حروف بزرگ";
 "abuse-filter-warning-blanking" = "خالی‌کردن مقاله‌ها یا هرز نگاره";
 "abuse-filter-warning-irrelevant" = "پیوندهای بیرونی یا تصاویر نامرتبط";
 "abuse-filter-warning-repeat" = "تکرار نویسه‌ها";
+// Fuzzy
 "abuse-filter-disallow-heading" = "شما نمی‌توانید این ویرایش را ذخیره کنید. لطفاً بازگردید و تغییرش دهید.";
 "abuse-filter-disallow-unconstructive" = "یک پالایهٔ خودکار این ویرایش را به طور بالقوه غیرسازنده یا تلاش برای خرابکاری تشخیص داده است.";
 "abuse-filter-disallow-notable" = "ویکی‌پدیا یک دانشنامه است و فقط محتوای بی طرف و قابل توجه به اینجا تعلق دارند.";

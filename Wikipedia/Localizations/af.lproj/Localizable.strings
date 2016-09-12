@@ -79,11 +79,14 @@
 "wikitext-upload-result-unknown" = "Kon nie wikiteks oplaai resultaat bekom nie.";
 "wikitext-upload-captcha-error" = "CAPTCHA-verifikasiefout.";
 "wikitext-upload-captcha-needed" = "Benodig CAPTCHA verifikasie.";
+// Fuzzy
 "wikitext-upload-save" = "Besig om te stoor…";
 "wikitext-upload-save-sign-in" = "Meld aan";
 "wikitext-upload-save-sign-in-benefits" = "Sodat mede-redakteurs met u kan konnekteer en u kan sien watter artikels u gewysig het.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Stoor as anoniem";
 "wikitext-upload-save-anonymously-warning" = "Wysigings sal toegeskryf word aan die IP-adres van u toestel. Indien u $1 sal u meer privaatheid geniet.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Deur te stoor, stem u in tot die $1, en om onherroeplik u bydraes vry te stel onder sie $2 lisensie.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaardes";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -162,14 +165,17 @@
 "page-history-downloading" = "Laai artikelgeskiedenis...";
 "navbar-title-mode-edit-wikitext" = "Wysig";
 "navbar-title-mode-login" = "Meld aan";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Meld aan en stoor";
 "navbar-title-mode-create-account" = "Skep gebruiker";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Skep gebruiker en stoor";
 "navbar-title-mode-edit-wikitext-warning" = "Wysigingsprobleme";
 "navbar-title-mode-edit-wikitext-disallow" = "Wysigingsprobleme";
 "navbar-title-mode-edit-wikitext-preview" = "Voorskou";
 "navbar-title-mode-edit-wikitext-captcha" = "Vinnige verifikasie benodig";
 "navbar-title-mode-edit-wikitext-summary" = "Beskryf u wysiging";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Stoor";
 "edit-summary-choice-linked-words" = "Skakels bygevoeg";
 "edit-summary-choice-fixed-grammar" = "Grammatika gekorrigeer";
@@ -246,12 +252,14 @@
 "license-footer-text" = "Inhoud is beskikbaar onder $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Inhoud";
+// Fuzzy
 "abuse-filter-warning-heading" = "Hierdie blyk 'n onkonstruktiewe wysiging te wees, is u seker u wil dit stoor?";
 "abuse-filter-warning-subheading" = "U wysiging mag een of meer van die volgende bevat:";
 "abuse-filter-warning-caps" = "Tik in HOOFLETTERS";
 "abuse-filter-warning-blanking" = "Bladsye leeg maak of spam plaas";
 "abuse-filter-warning-irrelevant" = "Irrelevante eksterne skakels of beelde";
 "abuse-filter-warning-repeat" = "Herhaaaalende karakters";
+// Fuzzy
 "abuse-filter-disallow-heading" = "U kan nie hierdie wysiging stoor nie. Gaan asseblief terug en verander dit.";
 "abuse-filter-disallow-unconstructive" = "'n Outomatiese filter het hierdie wysiging as potensiëel onkonstruktief, of 'n poging tot vandalisme geïdentifiseer.";
 "abuse-filter-disallow-notable" = "Wikipedia is 'n ensiklopedie: slegs neutrale en noemenswaardige inhoud behoort hier.";

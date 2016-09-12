@@ -89,11 +89,14 @@
 "wikitext-upload-result-unknown" = "Vikimetin yükleme sonucu belirlenemiyor.";
 "wikitext-upload-captcha-error" = "CAPTCHA doğrulama hatası.";
 "wikitext-upload-captcha-needed" = "CAPTCHA doğrulaması gerekli.";
+// Fuzzy
 "wikitext-upload-save" = "Kaydediliyor...";
 "wikitext-upload-save-sign-in" = "Oturum aç";
 "wikitext-upload-save-sign-in-benefits" = "Böylece diğer kullanıcılar sizinle iletişim kurabilir & hangi maddeleri düzenlediğinizi görebilirsiniz.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Anonim olarak kaydet";
 "wikitext-upload-save-anonymously-warning" = "Değişiklikler cihazınızın IP adresiyle yayınlanır. Eğer $1arsanız, daha fazla gizlilik sağlayabilirsiniz.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Kaydederek, $1nı ve katkılarınızı geri dönülemez şekilde $2 lisansıyla yayımlamayı kabul etmiş olursunuz.";
 "wikitext-upload-save-terms-name" = "Kullanım Şartları";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -177,14 +180,17 @@
 "page-history-downloading" = "Madde geçmişi yükleniyor...";
 "navbar-title-mode-edit-wikitext" = "Değiştir";
 "navbar-title-mode-login" = "Oturum aç";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Oturum aç ve kaydet";
 "navbar-title-mode-create-account" = "Hesap oluştur";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Hesap oluştur ve kaydet";
 "navbar-title-mode-edit-wikitext-warning" = "Değişiklik sorunları";
 "navbar-title-mode-edit-wikitext-disallow" = "Değişiklik sorunları";
 "navbar-title-mode-edit-wikitext-preview" = "Ön izleme";
 "navbar-title-mode-edit-wikitext-captcha" = "Hızlı doğrulama gerekli";
 "navbar-title-mode-edit-wikitext-summary" = "Değişikliğini açıkla";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Kaydet";
 "edit-summary-choice-linked-words" = "Bağlantı eklendi";
 "edit-summary-choice-fixed-grammar" = "Gramer düzeltildi";
@@ -274,12 +280,14 @@
 "table-of-contents-close-accessibility-label" = "İçindekileri kapat";
 "table-of-contents-close-accessibility-hint" = "Kapat";
 "table-of-contents-popover-description" = "Makalelere genel bir bakın";
+// Fuzzy
 "abuse-filter-warning-heading" = "Bu yapıcı olmayan bir düzenleme gibi görünüyor; kaydetmek istediğinize emin misiniz?";
 "abuse-filter-warning-subheading" = "Değişikliğiniz şunlardan bir veya daha fazlasını içeriyor olabilir:";
 "abuse-filter-warning-caps" = "TÜMÜ BÜYÜK HARFLE yazım";
 "abuse-filter-warning-blanking" = "İçerik boşaltma veya spam";
 "abuse-filter-warning-irrelevant" = "Konu dışı dış bağlantılar veya resimler";
 "abuse-filter-warning-repeat" = "Tekraaaarlayan karakterler";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Bu düzenlemeyi kaydedemezsiniz. Lütfen geri dönüp değiştirin.";
 "abuse-filter-disallow-unconstructive" = "Bir otomatik filtre, bu değişikliği, potansiyel olarak yıkıcı ya da vandalizm girişimi olarak belirledi.";
 "abuse-filter-disallow-notable" = "Vikipedi bir ansiklopedidir ve sadece tarafsız, kayda değer içerik burada yer alabilir.";

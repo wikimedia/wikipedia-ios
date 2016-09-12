@@ -47,8 +47,10 @@
 "login-password-placeholder-text" = "ಪ್ರವೇಸೊಪದೊ";
 "wikitext-downloading" = "ಮಾಹಿತಿ ದಿಂಜೋತುಂಡು...";
 "wikitext-download-success" = "ಮಾಹಿತಿ ದಿಂಜಿಂಡ್.";
+// Fuzzy
 "wikitext-upload-save" = "ಓರಿಪವೊಂತುಂಡು...";
 "wikitext-upload-save-sign-in" = "ಲಾಗಿನ್ ಆಲೆ";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "ಗುರ್ಥ ಇಜ್ಜನ್ತಿಲೆಕೊ ಒರಿಪಾಲೇ";
 "wikitext-upload-save-terms-name" = "ಬಳಕೆದ ನಿಬಂದೊಲು";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -110,10 +112,12 @@
 "page-history-downloading" = "ಲೇಕನೋತಾ ಇತಿಹಾಸೊ ದಿಂಜೋತುಂಡು";
 "navbar-title-mode-edit-wikitext" = "ಸೇರ್ಸಲೇ";
 "navbar-title-mode-login" = "ಲಾಗ್ ಇನ್";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "ಲಾಗಿನ್ ಅಲೇ ಬುಕ್ಕ ಒರಿಪಾಲೇ";
 "navbar-title-mode-create-account" = "ಪೊಸ ಕಾತೆ ಸುರು ಮಲ್ಪುಲೆ";
 "navbar-title-mode-edit-wikitext-preview" = "ಮುನ್ನೋಟೊ";
 "navbar-title-mode-edit-wikitext-summary" = "ಇರೇನಾ ಸಂಪಾದನೇತಾ ಬೆಗೆಟ್ ಪನ್ಲೆ";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "ಒರಿಪಾಲೆ";
 "edit-summary-choice-linked-words" = "ಕೊಂಡಿ ಸೇರ್ಸಾನ್ಡ್";
 "edit-summary-choice-fixed-grammar" = "ವ್ಯಾಕರಣ ಸರಿ ಅಂಡ್";

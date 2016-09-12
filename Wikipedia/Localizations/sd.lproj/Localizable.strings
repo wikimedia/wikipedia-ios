@@ -74,10 +74,13 @@
 "wikitext-upload-result-unknown" = "وڪي ٽيڪسٽ چاڙھہ جو نتيجو حاصل ڪرڻ کان قاصر.";
 "wikitext-upload-captcha-error" = "CAPTCHA پڪ ۾ چُڪَ.";
 "wikitext-upload-captcha-needed" = "CAPTCHA پڪ جي ضرورت آھي.";
+// Fuzzy
 "wikitext-upload-save" = "سانڍيندي...";
 "wikitext-upload-save-sign-in" = "لاگ ان";
 "wikitext-upload-save-sign-in-benefits" = "ٻيا ڀاڱيدار توھان سان رابطو ڪري سگھن ٿا ۽ توھان ڏسي سگھو ٿا تہ توھان ڪھڙا مضمون ترميم ڪيا.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "گمنامي سان سانڍيو";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "سانڍڻ سان، توھان $1 سان راضپو ڏيکاريو ٿا، ۽ اھو بہ تہ بغير ڪنھن شرط جي پنھنجون ڀاڱيداريون $2 لائسنس جي تحت ڏيو ٿا.";
 "wikitext-upload-save-terms-name" = "استعمال جا شرط";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -160,14 +163,17 @@
 "page-history-downloading" = "مضمون جي سوانح لاهيندي...";
 "navbar-title-mode-edit-wikitext" = "سنواريو";
 "navbar-title-mode-login" = "لاگ ان";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "لاگ ان ٿيو ۽ سانڍيو";
 "navbar-title-mode-create-account" = "کاتو کوليو";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "کاتو کوليو ۽ سانڍيو";
 "navbar-title-mode-edit-wikitext-warning" = "سنوارڻ جا مسئلا";
 "navbar-title-mode-edit-wikitext-disallow" = "سنوارڻ جا مسئلا";
 "navbar-title-mode-edit-wikitext-preview" = "پيش نگاھ";
 "navbar-title-mode-edit-wikitext-captcha" = "ترت پڪ گھربل آهي";
 "navbar-title-mode-edit-wikitext-summary" = "پنهنجي سنوار بيان ڪريو.";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "سانڍيو";
 "edit-summary-choice-linked-words" = "ڳنڍڻا وڌا";
 "edit-summary-choice-fixed-grammar" = "گرامر ٺيڪ ڪيو";
@@ -251,11 +257,13 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "عنوانن جي فھرست بند ڪريو";
 "table-of-contents-close-accessibility-hint" = "بند ڪريو";
+// Fuzzy
 "abuse-filter-warning-heading" = "هي هڪ غير تخليقي ترميم لڳي ٿي، ڇا توهان انکي سانڍڻ چاهيو ٿا؟";
 "abuse-filter-warning-subheading" = "توهان جي ترميم ۾ هيٺين مان هڪ يا ٻه شيون ٿي سگھن ٿيون:";
 "abuse-filter-warning-caps" = "وڏن اکرن ۾ لکندي";
 "abuse-filter-warning-irrelevant" = "غيرمتعلق خارجي ڳنڍڻا يا عڪس";
 "abuse-filter-warning-repeat" = "دهرائجندڙ لفظ";
+// Fuzzy
 "abuse-filter-disallow-heading" = "توهان هي ترميم سانڍي نٿا سگھو. براءِ مهرباني واپس وڃو ۽ انکي تبديل ڪريو.";
 "abuse-filter-disallow-notable" = "وڪيپيڊيا هڪ ڄاڻ انسائيڪلوپيڊيا آهي ۽ اڻڌريو، مشهور مواد جو هتي تعلق آهي.";
 "menu-edit-accessibility-label" = "سنواريو";

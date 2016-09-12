@@ -76,11 +76,14 @@
 "wikitext-upload-result-unknown" = "A wikiszöveg-feltöltés eredményének meghatározása sikertelen.";
 "wikitext-upload-captcha-error" = "CAPTCHA ellenőrzési hiba.";
 "wikitext-upload-captcha-needed" = "CAPTCHA ellenőrzés szükséges.";
+// Fuzzy
 "wikitext-upload-save" = "Mentés…";
 "wikitext-upload-save-sign-in" = "Bejelentkezés";
 "wikitext-upload-save-sign-in-benefits" = "Így a többi szerkesztő kapcsolatba tud lépni veled és láthatod, hogy milyen szócikkeket szerkesztettél.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Mentés névtelenül";
 "wikitext-upload-save-anonymously-warning" = "A szerkesztéseid az eszközöd IP-címéhez lesznek társítva. A $1 nagyobb adatvédelmet biztosít.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "A mentéssel elfogadod a $1et és visszavonhatatlanul közzéteszed a közreműködésedet a $2 licenc alatt.";
 "wikitext-upload-save-terms-name" = "Felhasználási feltételek";
 "wikitext-upload-save-license-name" = "CC-BY-SA 3.0";
@@ -163,14 +166,17 @@
 "page-history-downloading" = "Cikk történek betöltése";
 "navbar-title-mode-edit-wikitext" = "Szerkesztés";
 "navbar-title-mode-login" = "Bejelentkezés";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Bejelentkezés és mentés";
 "navbar-title-mode-create-account" = "Fiók létrehozása";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Fiók létrehozása és mentés";
 "navbar-title-mode-edit-wikitext-warning" = "Szerkesztési kérdések";
 "navbar-title-mode-edit-wikitext-disallow" = "Szerkesztési kérdések";
 "navbar-title-mode-edit-wikitext-preview" = "Előnézet";
 "navbar-title-mode-edit-wikitext-captcha" = "Gyors ellenőrzés szükséges";
 "navbar-title-mode-edit-wikitext-summary" = "Írd le a szerkesztéses";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Mentés";
 "edit-summary-choice-linked-words" = "Hivatkozások hozzáadása";
 "edit-summary-choice-fixed-grammar" = "Nyelvtani javítás";
@@ -260,12 +266,14 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "Tartalomjegyzék bezárása";
 "table-of-contents-close-accessibility-hint" = "Bezárás";
+// Fuzzy
 "abuse-filter-warning-heading" = "Ez nem tűnik konstruktív szerkesztésnek, biztosan el akarod menteni?";
 "abuse-filter-warning-subheading" = "A szerkesztésed egyet vagy többet tartalmazhat a következőkből:";
 "abuse-filter-warning-caps" = "CSUPA NAGYBETŰS gépelés";
 "abuse-filter-warning-blanking" = "Szócikkek tartalmának törlése vagy spam";
 "abuse-filter-warning-irrelevant" = "Irreleváns külső linkek vagy képek";
 "abuse-filter-warning-repeat" = "Isméééétlődő karakterek";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Nem mentheted el ezt a szerkesztést. Lépj vissza és változtass rajta.";
 "abuse-filter-disallow-unconstructive" = "Egy automatikus szűrő potenciálisan nem konstruktívként vagy vandalizmuskísérletként azonosította ezt a szerkesztést.";
 "abuse-filter-disallow-notable" = "A Wikipédia egy enciklopédia és csak semleges, nevezetes tartalom tartozik ide.";

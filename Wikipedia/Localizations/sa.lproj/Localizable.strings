@@ -78,11 +78,14 @@
 "wikitext-upload-result-unknown" = "विकि-पाठस्य उपारोपणनिर्णयस्य निर्धारणं न शक्यते ।";
 "wikitext-upload-captcha-error" = "संभेपूस्वसाट्यूप (CAPTCHA) सत्यापनदोषः ।";
 "wikitext-upload-captcha-needed" = "संभेपूस्वसाट्यूप (CAPTCHA) सत्यापनम् आवश्यकम् ।";
+// Fuzzy
 "wikitext-upload-save" = "रक्षति...";
 "wikitext-upload-save-sign-in" = "प्रविश्यताम्";
 "wikitext-upload-save-sign-in-benefits" = "तर्हि सहयोजकः भवता सह युक्तो भवितुं शक्नोति, भवान्/भवती च स्वसम्पादितान् लेखान् द्रष्टुं शक्नोति ।";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "अनामकतया रक्ष्यताम्";
 "wikitext-upload-save-anonymously-warning" = "भवतः/भवत्याः यन्त्रस्य सार्वसङ्केतेन भवतः/भवत्याः सम्पादनस्य् गुणनिर्धारणं भवति । यदि भवान्/भवती $1, तर्हि भवान्/भवती अधिकां गोपनीयतां प्राप्स्यति ।";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "अत्र रक्षणेन सह $1 इति भवान्/भवती अङ्गीकरोति, तथा च भवता/भवत्या कृतं प्रकाशनं $2 इत्यस्यान्तरगतं भवति ।";
 "wikitext-upload-save-terms-name" = "प्रयोगस्य नियमाः";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -161,14 +164,17 @@
 "page-history-downloading" = "लेखस्य इतिहासः अवारोहति...";
 "navbar-title-mode-edit-wikitext" = "सम्पाद्यताम्";
 "navbar-title-mode-login" = "प्रविश्यताम्";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "प्रविश्य रक्ष्यताम्";
 "navbar-title-mode-create-account" = "सदस्यता प्राप्यताम्";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "सदस्यता प्राप्य रक्ष्यताम्";
 "navbar-title-mode-edit-wikitext-warning" = "सम्पादनस्य समस्याः";
 "navbar-title-mode-edit-wikitext-disallow" = "सम्पादनस्य समस्याः";
 "navbar-title-mode-edit-wikitext-preview" = "प्राग्दृश्यम्";
 "navbar-title-mode-edit-wikitext-captcha" = "त्वरितपुष्टिकरणम् आवश्यकम्";
 "navbar-title-mode-edit-wikitext-summary" = "भवतः/भवत्याः सम्पादनं वर्ण्यताम्";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "रक्ष्यताम्";
 "edit-summary-choice-linked-words" = "परिसन्धयः योजिताः";
 "edit-summary-choice-fixed-grammar" = "व्याकरणदोषः परिष्कृतः";
@@ -245,12 +251,14 @@
 "license-footer-text" = "$1 अन्तर्गतम् अन्तर्विषयः उपलब्धः अस्ति";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "अन्तर्विषयाः";
+// Fuzzy
 "abuse-filter-warning-heading" = "एतत् सम्पादनम् अरचनात्मकं भाति । भवान्/भवती निश्चयेन एतत् रक्षितुम् इच्छति ?";
 "abuse-filter-warning-subheading" = "भवतः/भवत्याः सम्पादने एकम् उत एकाधिकं निम्नं वर्तते :";
 "abuse-filter-warning-caps" = "बृहदाक्षरैः सर्वं लिखति";
 "abuse-filter-warning-blanking" = "लेखं रिक्तीकरोति उत फल्गूकरोति";
 "abuse-filter-warning-irrelevant" = "बाह्यपरिसन्धयः उत चित्राणि असङ्गतानि सन्ति";
 "abuse-filter-warning-repeat" = "अक्षराणां पौनःपुन्येन लेखनम्";
+// Fuzzy
 "abuse-filter-disallow-heading" = "भवान्/भवती एतत् सम्पादनं रक्षितुं न शक्नोति । कृपया प्रतिनिवर्त्य परिवर्तयतु ।";
 "abuse-filter-disallow-unconstructive" = "स्वचालितशोधन्या भवतः/भवत्याः सम्पादनम् अरचनात्मकम् उत नाशकत्वं परिगण्यते ।";
 "abuse-filter-disallow-notable" = "विकिपीडिया-जालम् एकः विश्वकोशः वर्तते । सः निष्पक्षं, प्रसिद्धं च विषयं धरते ।";
