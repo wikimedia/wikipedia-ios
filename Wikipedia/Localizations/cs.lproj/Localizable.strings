@@ -206,11 +206,11 @@
 "share-as-text" = "Sdílet jako text";
 "share-cancel" = "Zrušit";
 "timestamp-just-now" = "právě teď";
-"timestamp-minutes" = "{{PLURAL:%d|%d minuta|%d minuty|%d minut}}";
-"timestamp-hours" = "{{PLURAL:%d|%d hodina|%d hodiny|%d hodin}}";
-"timestamp-days" = "{{PLURAL:%d|%d den|%d dny|%d dní}}";
-"timestamp-months" = "{{PLURAL:%d|%d měsíc|%d měsíce|%d měsíců}}";
-"timestamp-years" = "{{PLURAL:%d|%d rok|%d roky|%d roků}}";
+"timestamp-minutes" = "%d minut";
+"timestamp-hours" = "%d hodin";
+"timestamp-days" = "%d dní";
+"timestamp-months" = "%d měsíců";
+"timestamp-years" = "%d roků";
 "button-edit" = "Editovat";
 "button-next" = "Další";
 "button-done" = "Hotovo";
