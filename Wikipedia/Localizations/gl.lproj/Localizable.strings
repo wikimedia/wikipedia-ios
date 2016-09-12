@@ -79,11 +79,14 @@
 "wikitext-upload-result-unknown" = "Non é posible determinar o resultado da subida do wikitexto.";
 "wikitext-upload-captcha-error" = "Error de verificación CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Necesita verificación CAPTCHA.";
+// Fuzzy
 "wikitext-upload-save" = "Gardando...";
 "wikitext-upload-save-sign-in" = "Acceda ao sistema";
 "wikitext-upload-save-sign-in-benefits" = "Así os co-editores poden conectar con vostede e vostede pode ver que artigos editou.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Gardar de xeito anónimo";
 "wikitext-upload-save-anonymously-warning" = "As edicións atribuiranse á dirección IP do dispositivo. Se $1 terá máis privacidade.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Ó gardar, acepta os $1 e a liberar irrevocablemente as túas contribucións baixo os termos da licenza $2";
 "wikitext-upload-save-terms-name" = "Termos de uso";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -167,14 +170,17 @@
 "page-history-downloading" = "Cargando o historial do artigo...";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Acceder";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Acceder e gardar";
 "navbar-title-mode-create-account" = "Crear conta";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Crear conta e gardar";
 "navbar-title-mode-edit-wikitext-warning" = "Editar problemas";
 "navbar-title-mode-edit-wikitext-disallow" = "Editar problemas";
 "navbar-title-mode-edit-wikitext-preview" = "Vista previa";
 "navbar-title-mode-edit-wikitext-captcha" = "É necesaria unha verificación rápida";
 "navbar-title-mode-edit-wikitext-summary" = "Describa a súa edición";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Gardar";
 "edit-summary-choice-linked-words" = "Ligazóns engadidas";
 "edit-summary-choice-fixed-grammar" = "Corrección gramatical";
@@ -264,12 +270,14 @@
 "table-of-contents-close-accessibility-label" = "Pechar táboa de contidos";
 "table-of-contents-close-accessibility-hint" = "Pechar";
 "table-of-contents-popover-description" = "Obter unha vista xeral dos artigos";
+// Fuzzy
 "abuse-filter-warning-heading" = "Isto semella unha edición non construtiva, está seguro de querer gardala?";
 "abuse-filter-warning-subheading" = "A súa edición pode conter un ou máis dos seguintes:";
 "abuse-filter-warning-caps" = "Escribir TODO EN MAIÚSCULAS";
 "abuse-filter-warning-blanking" = "Supresión de artigos ou spam";
 "abuse-filter-warning-irrelevant" = "Ligazóns ou imaxes externas irrelevantes";
 "abuse-filter-warning-repeat" = "Repeeeetición de caracteres";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Non pode gardar esta edición. Por favor, vaia á páxina anterior e modifíquea.";
 "abuse-filter-disallow-unconstructive" = "Un filtro automático identificou esta edición como potencialmente non construtiva ou un intento de vandalismo.";
 "abuse-filter-disallow-notable" = "Wikipedia é unha enciclopedia e só o contido neutral e notable pertence aquí.";
@@ -405,3 +413,6 @@
 "find-in-page-no-matches" = "Non hai coincidencias";
 "find-in-page-button-label" = "Atopar na páxina";
 "find-in-page-popover-description" = "Buscar o texto non artigos";
+"continue-reading-empty-title" = "Non hai artigos lidos recentemente";
+"continue-reading-empty-description" = "Explorar Wikipedia para atopar máis artigos para ler";
+"top-read-see-more-trending" = "Ver máis tendencias";

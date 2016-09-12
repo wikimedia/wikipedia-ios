@@ -67,8 +67,10 @@
 "wikitext-preview-changes-none" = "គ្មានបន្លាស់ប្ដូរសម្រាប់មើលជាមុនទេ។";
 "wikitext-upload-captcha-error" = "បញ្ហាក្នុងការផ្ទៀងផ្ទាត់ CAPTCHA។";
 "wikitext-upload-captcha-needed" = "ត្រូវការផ្ទៀងផ្ទាត់ CAPTCHA។";
+// Fuzzy
 "wikitext-upload-save" = "កំពុង​រក្សា​ទុក...";
 "wikitext-upload-save-sign-in" = "កត់ឈ្មោះចូល";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "រក្សាទុកជាអនាមិក";
 "wikitext-upload-save-terms-name" = "លក្ខខណ្ឌប្រើប្រាស់";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -141,14 +143,17 @@
 "page-history-downloading" = "កំពុងផ្ទុកប្រវត្តិអត្ថបទ...";
 "navbar-title-mode-edit-wikitext" = "កែប្រែ";
 "navbar-title-mode-login" = "កត់ឈ្មោះចូល";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "កត់ឈ្មោះចូលរួចរក្សាទុក";
 "navbar-title-mode-create-account" = "បង្កើតគណនី";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "បង្កើតគណនីរួចរក្សាទុក";
 "navbar-title-mode-edit-wikitext-warning" = "បញ្ហាក្នុងការកែប្រែ";
 "navbar-title-mode-edit-wikitext-disallow" = "បញ្ហាក្នុងការកែប្រែ";
 "navbar-title-mode-edit-wikitext-preview" = "មើលជាមុន";
 "navbar-title-mode-edit-wikitext-captcha" = "ត្រូវការការផ្ទៀងផ្ទាត់ត្រួសៗ";
 "navbar-title-mode-edit-wikitext-summary" = "ពណ៌នាអំពីការកែប្រែរបស់អ្នក";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "រក្សាទុក";
 "edit-summary-choice-linked-words" = "បានបន្ថែមតំណភ្ជាប់";
 "edit-summary-choice-fixed-grammar" = "បានកែតម្រូវវេយ្យាករណ៍";
@@ -210,6 +215,7 @@
 "license-footer-text" = "ខ្លឹមសារអត្ថបទនេះផ្ដល់ជូនក្រោមអាជ្ញាបណ្ឌ $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "មាតិកា";
+// Fuzzy
 "abuse-filter-warning-heading" = "នេះប្រហែលជាការកែប្រែដែលគ្មានលក្ខណៈស្ថាបនាទេ។ តើអ្នកពិតជាចង់រក្សាវាទុកទេ?";
 "menu-edit-accessibility-label" = "កែប្រែ";
 "menu-close-accessibility-label" = "បិទ";

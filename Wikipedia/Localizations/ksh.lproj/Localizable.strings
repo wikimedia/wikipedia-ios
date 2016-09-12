@@ -74,11 +74,14 @@
 "wikitext-upload-result-unknown" = "Mer künne nit eruß fenge, wat beim Huhlahde för ene Wikkitägs eruß jekumme es.";
 "wikitext-upload-captcha-error" = "Kaptscha-Fähler.";
 "wikitext-upload-captcha-needed" = "Et Kaptscha moß jepröhv wähde.";
+// Fuzzy
 "wikitext-upload-save" = "Aam Affschpeijschere …";
 "wikitext-upload-save-sign-in" = "Enlogge";
 "wikitext-upload-save-sign-in-benefits" = "Esu künne annder Schriiver met Der en Verbendong trädde, un Do de Atikelle kanns sinn, woh draan metjeschrevve häs.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Faßhallde als Beijdrach vun enem Nahmelosse";
 "wikitext-upload-save-anonymously-warning" = "Ding Änderonge wähde dä IP-Adräß vun Dingem Apparaht zohjeschrevve. Wann De $1, beß De jät prevahter.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Dosch et Faßhalle schemms de dä $1 zoh, un deihjs Dinge Beijdraach onwidderohflessch unger dä $2 Lezänz öffentlesch maache.";
 "wikitext-upload-save-terms-name" = "Bedengonge för der Jebruch";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -163,14 +166,17 @@
 "page-history-downloading" = "Ben dä Sigg iehr ällter Väsjohne aan lahde …";
 "navbar-title-mode-edit-wikitext" = "Ändere";
 "navbar-title-mode-login" = "Enlogge";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Ennlogge un faßhallde";
 "navbar-title-mode-create-account" = "Ene neue Zohjang aanmälde";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Ene neue Zohjang aanmälde un faßhallde";
 "navbar-title-mode-edit-wikitext-warning" = "Problehme beim Änndere";
 "navbar-title-mode-edit-wikitext-disallow" = "Problehme beim Änndere";
 "navbar-title-mode-edit-wikitext-preview" = "Vörschou";
 "navbar-title-mode-edit-wikitext-captcha" = "Flögg_ens Pröhve es nühdesch";
 "navbar-title-mode-edit-wikitext-summary" = "Donn Ding Änderong beschrihve";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Faßhalde";
 "edit-summary-choice-linked-words" = "Lengks derbei jedonn";
 "edit-summary-choice-fixed-grammar" = "Jrammatek reparrehrt";
@@ -260,12 +266,14 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "Ed Enhalldsverzeijschneß zohmaache";
 "table-of-contents-close-accessibility-hint" = "Zohmaache";
+// Fuzzy
 "abuse-filter-warning-heading" = "Dat süht nit wi en johde Ännderong us. Wells De dat verhaftesch esu faßjehallde han?";
 "abuse-filter-warning-subheading" = "En Dinger Änderong kann et ein udder andere derbeij sin vun:";
 "abuse-filter-warning-caps" = "En GRUHẞSCHREFF jeschrevve";
 "abuse-filter-warning-blanking" = "Atikelle läddesch maache, udder SPAM verbreijde.";
 "abuse-filter-warning-irrelevant" = "Bellder üdder Lengks noh ußerhallf ohne ene Wäät";
 "abuse-filter-warning-repeat" = "Zeische wohte reppeteeeeeeeeeehrt.";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Do kanns heh di Änderong nit faßhallde lohße. Jangk retuhr un änder se.";
 "abuse-filter-disallow-unconstructive" = "Enne Automaht hät di Änderonge als Schtuß udder velleisch esujaa Kapottmaacherei ennjeschtohf.";
 "abuse-filter-disallow-notable" = "De Wikkipehdija es e Nohkixel, woh blohß neutrahle un ähnzhaffte Beijdrähsch eren jehühre.";

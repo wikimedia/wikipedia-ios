@@ -77,11 +77,14 @@
 "wikitext-upload-result-unknown" = "ویکی متن اپلوڈ کے نتیجے کا تعین نہیں کیا جا سکا۔";
 "wikitext-upload-captcha-error" = "کیپچا کی تصدیق میں خطا۔";
 "wikitext-upload-captcha-needed" = "کیپچا کی تصدیق ضروری۔";
+// Fuzzy
 "wikitext-upload-save" = "محفوظ ہو رہا ہے...";
 "wikitext-upload-save-sign-in" = "داخل ہوں";
 "wikitext-upload-save-sign-in-benefits" = "اس طرح دیگر ترمیم کنندے آپ سے جڑ سکتے ہیں اور آپ دیکھ سکتے ہیں کہ کونسے مضامین کی ترمیم آپ کرچکے ہیں۔";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "گم نامی سے محفوظ کریں۔";
 "wikitext-upload-save-anonymously-warning" = "ترامیم کا انتساب آپ کے آلے کے دستور شبکی پتے کو جائے گا۔ اگر آپ $1 آپ کے پاس زیادہ نجی حیثیت رہے گی۔";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "محفوظ کرتے ہوئے آپ $1 کو تسلیم کرتے ہیں، اور ناقابل تلافی حد تک آپ کے تعاون کو $2 اجازہ کے تحت جاری کرتے ہیں۔";
 "wikitext-upload-save-terms-name" = "استعمال کے شرائط";
 "wikitext-upload-save-license-name" = " کریئیٹیو کامنز انتساب / یکساں-شراکت اجازت نامہ 3.0";
@@ -165,14 +168,17 @@
 "page-history-downloading" = "مضمون کا تاریخچہ لوڈ کیا جارہا ہے...";
 "navbar-title-mode-edit-wikitext" = "ترمیم";
 "navbar-title-mode-login" = "داخل ہوں";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "داخل ہوں اور محفوظ کریں";
 "navbar-title-mode-create-account" = "کھاتہ بنائیں";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "کھاتا بنائیں اور محفوظ کریں";
 "navbar-title-mode-edit-wikitext-warning" = "مسئلوں کی ترمیم";
 "navbar-title-mode-edit-wikitext-disallow" = "مسئلوں کی ترمیم";
 "navbar-title-mode-edit-wikitext-preview" = "نمائش";
 "navbar-title-mode-edit-wikitext-captcha" = "فوری تصدیق ضروری ہے";
 "navbar-title-mode-edit-wikitext-summary" = "اپنی ترمیم کی وضاحت کریں";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "محفوظ";
 "edit-summary-choice-linked-words" = "روابط شامل کیا";
 "edit-summary-choice-fixed-grammar" = "درستی قواعد";
@@ -263,12 +269,14 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "مواد کا جدول بند کریں";
 "table-of-contents-close-accessibility-hint" = "بند کریں";
+// Fuzzy
 "abuse-filter-warning-heading" = "یہ ایک غیرتعمیری ترمیم ہوسکتی ہے۔ کیاآپ اسے یقینی طور پر محفوظ کرنا چاہتے ہیں؟";
 "abuse-filter-warning-subheading" = "آپ کی ترمیم مندرجہ میں سے ایک یا اس سے زیادہ کی متحمل ہو سکتی ہے:";
 "abuse-filter-warning-caps" = "پوری ٹائپنگ کیاپس میں کی گئی";
 "abuse-filter-warning-blanking" = "مضامین کو خالی کرنا یا ان میں تشہیری مواد بھرنا";
 "abuse-filter-warning-irrelevant" = "غیرمتعلقہ خارجی روابط یا تصاویر";
 "abuse-filter-warning-repeat" = "مکرر حروف یا رموز";
+// Fuzzy
 "abuse-filter-disallow-heading" = "آپ اس ترمیم کو محفوظ نہیں کرسکتے۔ پیچھے جاکر اسے بدلیے۔";
 "abuse-filter-disallow-unconstructive" = "ایک خودکار فلٹر نے اس ترمیم کی امکانی طور پر غیرتعمیری یا تخریب کاری کی کوشش کے طور پر شناخت کی ہے۔";
 "abuse-filter-disallow-notable" = "ویکیپیڈیاایک دائرۃالمعارف ہے اور صرف غیرجانبدار، معروف مواد یہاں سے تعلق رکھتا ہے۔";

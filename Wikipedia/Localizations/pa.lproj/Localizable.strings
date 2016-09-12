@@ -79,9 +79,11 @@
 "wikitext-upload-result-unknown" = "ਵਿਕੀਲਿਖਤ ਦੀ ਚੜ੍ਹਾਈ ਦੇ ਨਤੀਜੇ ਦਾ ਪਤਾ ਨਹੀਂ ਲੱਗ ਰਿਹਾ।";
 "wikitext-upload-captcha-error" = "ਕੈਪਚਾ ਤਸਦੀਕੀ ਵਿੱਚ ਦੋਸ਼।";
 "wikitext-upload-captcha-needed" = "ਕੈਪਚਾ ਤਸਦੀਕੀ ਲੁੜੀਂਦੀ।";
+// Fuzzy
 "wikitext-upload-save" = "ਸਾਂਭਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "wikitext-upload-save-sign-in" = "ਦਾਖ਼ਲ ਹੋਵੋ";
 "wikitext-upload-save-sign-in-benefits" = "ਸੋ ਸਹਿ-ਸੰਪਾਦਕ ਤੁਹਾਡੇ ਨਾਲ਼ ਰਾਬਤਾ ਬਣਾ ਸਕਦੇ ਹਨ ਅਤੇ ਤੁਸੀਂ ਆਪਣੇ ਵੱਲੋਂ ਸੋਧੇ ਹੋਏ ਲੇਖ ਵੇਖ ਸਕਦੇ ਹੋ";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "ਅਣਪਛਾਤੇ ਵਜੋਂ ਸਾਂਭੋ";
 "wikitext-upload-save-anonymously-warning" = "ਸੋਧਾਂ ਦਾ ਸਿਹਰਾ ਤੁਹਾਡੇ ਆਈ.ਪੀ. ਪਤੇ ਸਿਰ ਦਿੱਤਾ ਜਾਵੇਗਾ। ਜੇਕਰ ਤੁਸੀਂ $1 ਹੋ ਤਾਂ ਤੁਹਾਡੇ ਕੋਲ਼ ਵਧੇਰੇ ਪਰਦੇਦਾਰੀ ਹੋਵੇਗੀ।";
 "wikitext-upload-save-terms-name" = "ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ";
@@ -166,14 +168,17 @@
 "page-history-downloading" = "ਲੇਖ ਦਾ ਅਤੀਤ ਲੱਦਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "navbar-title-mode-edit-wikitext" = "ਸੋਧ";
 "navbar-title-mode-login" = "ਦਾਖ਼ਲਾ";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "ਦਾਖ਼ਲ ਹੋਵੋ ਅਤੇ ਸਾਂਭੋ";
 "navbar-title-mode-create-account" = "ਖਾਤਾ ਬਣਾਉ";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "ਖਾਤਾ ਬਣਾਉ ਅਤੇ ਸਾਂਭੋ";
 "navbar-title-mode-edit-wikitext-warning" = "ਸੋਧ ਦੇ ਮੁੱਦੇ";
 "navbar-title-mode-edit-wikitext-disallow" = "ਸੋਧ ਦੇ ਮੁੱਦੇ";
 "navbar-title-mode-edit-wikitext-preview" = "ਝਾਤ";
 "navbar-title-mode-edit-wikitext-captcha" = "ਜਲਦੀ ਤਸਦੀਕੀ ਲੁੜੀਂਦੀ";
 "navbar-title-mode-edit-wikitext-summary" = "ਆਪਣੀ ਸੋਧ ਦਾ ਵੇਰਵਾ ਦਿਉ";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "ਸਾਂਭੋ";
 "edit-summary-choice-linked-words" = "ਕੜੀਆਂ ਜੋੜੀਆਂ";
 "edit-summary-choice-fixed-grammar" = "ਵਿਆਕਰਨ ਸਹੀ ਕੀਤੀ";
@@ -264,12 +269,14 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ ਬੰਦ ਕਰੋ";
 "table-of-contents-close-accessibility-hint" = "ਬੰਦ";
+// Fuzzy
 "abuse-filter-warning-heading" = "ਇਹ ਇੱਕ ਬੇਉਸਾਰੂ ਸੋਧ ਜਾਪਦੀ ਹੈ, ਕੀ ਤੁਸੀਂ ਸੱਚੀਂ ਇਹਨੂੰ ਸਾਂਭਣਾ ਚਾਹੁੰਦੇ ਹੋ?";
 "abuse-filter-warning-subheading" = "ਤੁਹਾਡੀ ਸੋਧ ਵਿੱਚ ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਇੱਕ ਜਾਂ ਇੱਕ ਤੋਂ ਵੱਧ ਹੋ ਸਕਦੇ ਹਨ:";
 "abuse-filter-warning-caps" = "ਸਾਰੇ ਵੱਡੇ ਅੱਖਰਾਂ 'ਚ ਲਿਖ ਰਿਹਾ ਹੈ";
 "abuse-filter-warning-blanking" = "ਖ਼ਾਲੀ ਕੀਤੇ ਲੇਖ ਜਾਂ ਊਲ-ਜਲੂਲ";
 "abuse-filter-warning-irrelevant" = "ਬੇਤੁਕੇ ਬਾਹਰੀ ਜੋੜ ਜਾਂ ਤਸਵੀਰਾਂ";
 "abuse-filter-warning-repeat" = "ਦੁਹਰਾਏਏਏ ਚਿੰਨ";
+// Fuzzy
 "abuse-filter-disallow-heading" = "ਤੁਸੀਂ ਇਹ ਸੋਧ ਸਾਂਭ ਨਹੀਂ ਸਕਦੇ। ਪਿੱਛੇ ਜਾ ਕੇ ਇਹਨੂੰ ਬਦਲੋ ਜੀ।";
 "abuse-filter-disallow-unconstructive" = "ਇੱਕ ਆਪੇ ਚੱਲਦੀ ਛਾਨਣੀ ਨੇ ਇਸ ਸੋਧ ਨੂੰ ਬੇਉਸਾਰੂ ਜਾਂ ਉਜਾੜੇ ਦੀ ਕੋਸ਼ਿਸ਼ ਵਜੋਂ ਪਛਾਣਿਆ ਹੈ।";
 "abuse-filter-disallow-notable" = "ਵਿਕੀਪੀਡੀਆ ਇੱਕ ਗਿਆਨਕੋਸ਼ ਹੈ ਅਤੇ ਸਿਰਫ਼ ਨਿਰਪੱਖ ਅਤੇ ਉੱਘੀ ਸਮੱਗਰੀ ਹੀ ਇਹਦਾ ਹਿੱਸਾ ਹੋ ਸਕਦੀ ਹੈ।";

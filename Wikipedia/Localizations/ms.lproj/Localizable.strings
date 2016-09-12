@@ -81,11 +81,14 @@
 "wikitext-upload-result-unknown" = "Hasil muat naikan teks wiki tidak dapat ditentukan.";
 "wikitext-upload-captcha-error" = "Ralat pengesahan CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Pengesahan CAPTCHA diperlukan.";
+// Fuzzy
 "wikitext-upload-save" = "Menyimpan...";
 "wikitext-upload-save-sign-in" = "Log masuk";
 "wikitext-upload-save-sign-in-benefits" = "Supaya penyunting lain boleh berhubungan dengan anda, dan anda dapat meninjau rencana-rencana suntingan anda.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Simpan secara awanama";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan diatribusikan kepada alamat IP peranti anda. Jika anda $1, anda akan dapat lebih banyak privasi.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Dengan menyimpan, anda akur kepada $1 dan melepaskan sumbangan anda di bawah lesen $2 tanpa boleh menarik baliknya.";
 "wikitext-upload-save-terms-name" = "Syarat-Syarat Penggunaan";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -163,14 +166,17 @@
 "page-history-downloading" = "Memuatkan sejarah rencana...";
 "navbar-title-mode-edit-wikitext" = "Sunting";
 "navbar-title-mode-login" = "Log masuk";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Log masuk dan simpan";
 "navbar-title-mode-create-account" = "Buka akaun";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Cuka akaun dan simpan";
 "navbar-title-mode-edit-wikitext-warning" = "Isu suntingan";
 "navbar-title-mode-edit-wikitext-disallow" = "Isu suntingan";
 "navbar-title-mode-edit-wikitext-preview" = "Pralihat";
 "navbar-title-mode-edit-wikitext-captcha" = "Pengesahan segera diperlukan";
 "navbar-title-mode-edit-wikitext-summary" = "Huraikan suntingan anda";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Simpan";
 "edit-summary-choice-linked-words" = "Menambahkan pautan";
 "edit-summary-choice-fixed-grammar" = "Memperbaiki tatabahasa";
@@ -246,12 +252,14 @@
 "license-footer-text" = "Kandungan disediakan dengan $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Kandungan";
+// Fuzzy
 "abuse-filter-warning-heading" = "Suntingan ini kelihatan tidak membina. Adakah anda betul-betul mahu menyimpannya?";
 "abuse-filter-warning-subheading" = "Suntingan anda mungkin mengandungi antara yang berikut:";
 "abuse-filter-warning-caps" = "Menaip dengan SERBA HURUF BESAR";
 "abuse-filter-warning-blanking" = "Mengosongkan rencana atau melakukan ''spam''";
 "abuse-filter-warning-irrelevant" = "Pautan-pautan luar atau gambar-gambar yang tidak relevan";
 "abuse-filter-warning-repeat" = "Aksara beruuuulang";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Suntingan ini tidak boleh disimpan. Sila kembali dan suntingnya semula.";
 "abuse-filter-disallow-unconstructive" = "Penapis automatik telah mengenal pasti suntingan ini sebagai mungkin tidak membina ataupun cubaan laku musnah.";
 "abuse-filter-disallow-notable" = "Wikipedia adalah sebuah ensiklopedia. Oleh itu hanya kandungan yang berkecuali dan berkelayakan dibenarkan di sini.";

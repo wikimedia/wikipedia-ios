@@ -36,6 +36,7 @@
 // Fuzzy
 "login-username-placeholder-text" = "प्रयोगकर्ता नाम";
 "login-password-placeholder-text" = "पासवर्ड";
+// Fuzzy
 "wikitext-upload-save" = "सङ्ग्रह गर्दै...";
 "wikitext-upload-save-sign-in" = "प्रवेश (लग ईन)";
 "wikitext-upload-save-terms-name" = "प्रयोगका सर्तहरू";
@@ -101,12 +102,14 @@
 // Fuzzy
 "navbar-title-mode-login-and-save" = "प्रवेश र बचत गर्नुहोस्";
 "navbar-title-mode-create-account" = "खाता खोल्नुहोस्";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "खाता खोल्नुहोस् र बचत गर्नुहोस्";
 "navbar-title-mode-edit-wikitext-warning" = "कुराहरू सम्पादन गर्नुहोस्";
 "navbar-title-mode-edit-wikitext-disallow" = "कुराहरू सम्पादन गर्नुहोस्";
 "navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";
 "navbar-title-mode-edit-wikitext-captcha" = "छिटो पुष्टी आवश्यक छ";
 "navbar-title-mode-edit-wikitext-summary" = "तपाईँको सम्पादनको वर्णन गर्नुहोस्";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "संग्रह गर्ने";
 // Fuzzy
 "edit-summary-choice-linked-words" = "जोडिएका शब्दहरू";

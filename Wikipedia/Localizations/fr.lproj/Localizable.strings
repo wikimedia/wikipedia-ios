@@ -84,11 +84,14 @@
 "wikitext-upload-result-unknown" = "Impossible de déterminer le résultat du téléchargement du wikitexte.";
 "wikitext-upload-captcha-error" = "Erreur de vérification du Captcha.";
 "wikitext-upload-captcha-needed" = "Vérification du Captcha nécessaire.";
+// Fuzzy
 "wikitext-upload-save" = "Enregistrement en cours…";
 "wikitext-upload-save-sign-in" = "Se connecter";
 "wikitext-upload-save-sign-in-benefits" = "Les co-éditeurs peuvent ainsi interagir directement avec vous et vous pouvez voir quels articles vous avez modifiés.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Enregistrer anonymement";
 "wikitext-upload-save-anonymously-warning" = "Les modifications seront attribuées à l’adresse IP de votre équipement. Si vous $1, vous aurez davantage de confidentialité.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "En enregistrant, vous acceptez les $1, et placez de façon irrévocable vos contributions sous la licence $2.";
 "wikitext-upload-save-terms-name" = "Conditions d’utilisation";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -172,14 +175,17 @@
 "page-history-downloading" = "Chargement de l’historique de l’article…";
 "navbar-title-mode-edit-wikitext" = "Modifier";
 "navbar-title-mode-login" = "Se connecter";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Se connecter et enregistrer";
 "navbar-title-mode-create-account" = "Créer un compte";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Créer un compte et enregistrer";
 "navbar-title-mode-edit-wikitext-warning" = "Modifier les problèmes";
 "navbar-title-mode-edit-wikitext-disallow" = "Modifier les problèmes";
 "navbar-title-mode-edit-wikitext-preview" = "Aperçu";
 "navbar-title-mode-edit-wikitext-captcha" = "Vérification rapide nécessaire";
 "navbar-title-mode-edit-wikitext-summary" = "Décrire votre modification";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Enregistrer";
 "edit-summary-choice-linked-words" = "Liens ajoutés";
 "edit-summary-choice-fixed-grammar" = "Correction grammaticale";
@@ -269,12 +275,14 @@
 "table-of-contents-close-accessibility-label" = "Fermer la Table des matières";
 "table-of-contents-close-accessibility-hint" = "Fermer";
 "table-of-contents-popover-description" = "Obtenir une vue d’ensemble des articles";
+// Fuzzy
 "abuse-filter-warning-heading" = "Cela semble une modification non constructive ; êtes-vous sûr de vouloir l’enregistrer ?";
 "abuse-filter-warning-subheading" = "Votre modification pourrait contenir un des éléments suivants :";
 "abuse-filter-warning-caps" = "Texte en MAJUSCULES";
 "abuse-filter-warning-blanking" = "Articles vides ou pourriel";
 "abuse-filter-warning-irrelevant" = "Liens ou images externes non pertinents";
 "abuse-filter-warning-repeat" = "Caractères répéééétés";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Vous ne pouvez pas enregistrer cette modification. Veuillez revenir en arrière et la modifier.";
 "abuse-filter-disallow-unconstructive" = "Un filtre automatique a identifié cette modification comme potentiellement non constructive, ou comme une tentative de vandalisme.";
 "abuse-filter-disallow-notable" = "Wikipédia est une encyclopédie et seul du contenu neutre et de valeur y a sa place.";
@@ -410,3 +418,6 @@
 "find-in-page-no-matches" = "Aucune correspondance";
 "find-in-page-button-label" = "Trouver dans la page";
 "find-in-page-popover-description" = "Rechercher le texte dans les articles";
+"continue-reading-empty-title" = "Pas d'articles lus récemment";
+"continue-reading-empty-description" = "Explorer Wikipedia pour plus d'articles à lire";
+"top-read-see-more-trending" = "Voir plus de tendances";

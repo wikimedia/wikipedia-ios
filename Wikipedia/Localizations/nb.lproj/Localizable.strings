@@ -79,11 +79,14 @@
 "wikitext-upload-result-unknown" = "Kunne ikke avgjøre resultatet av oppdateringen.";
 "wikitext-upload-captcha-error" = "CAPTCHA-verifikasjonsfeil";
 "wikitext-upload-captcha-needed" = "Trenger CAPTCHA-verifikasjon.";
+// Fuzzy
 "wikitext-upload-save" = "Lagrer…";
 "wikitext-upload-save-sign-in" = "Logg inn";
 "wikitext-upload-save-sign-in-benefits" = "For at andre bidragsytere skal kunne komme i kontakt med deg, og for at du enkelt skal kunne se hvilke artikler du har redigert.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Lagre anonymt";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil bli tilskrevet IP-adressen til enheten din. Hvis du $1 vil du få bedre personvern.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Ved å lagre samtykker du til $1, og til å ugjenkallelig slippe bidragene dine under $2-lisensen.";
 "wikitext-upload-save-terms-name" = "Bruksvilkår";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -167,14 +170,17 @@
 "page-history-downloading" = "Laster inn artikkelhistorikk…";
 "navbar-title-mode-edit-wikitext" = "Rediger";
 "navbar-title-mode-login" = "Logg inn";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Logg inn og lagre";
 "navbar-title-mode-create-account" = "Opprett konto";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Opprett konto og lagre";
 "navbar-title-mode-edit-wikitext-warning" = "Redigeringsproblemer";
 "navbar-title-mode-edit-wikitext-disallow" = "Redigeringsproblemer";
 "navbar-title-mode-edit-wikitext-preview" = "Forhåndsvis";
 "navbar-title-mode-edit-wikitext-captcha" = "Rask verifikasjon trengs";
 "navbar-title-mode-edit-wikitext-summary" = "Beskriv redigeringen din";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Lagre";
 "edit-summary-choice-linked-words" = "La til lenker";
 "edit-summary-choice-fixed-grammar" = "Korrigerte grammatikk";
@@ -265,12 +271,14 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "Lukk innholdsfortegnelsen";
 "table-of-contents-close-accessibility-hint" = "Lukk";
+// Fuzzy
 "abuse-filter-warning-heading" = "Dette er muligens en lite konstruktiv redigering. Er du sikker på at du vil lagre?";
 "abuse-filter-warning-subheading" = "Den kan inneholde en eller flere av følgende ting:";
 "abuse-filter-warning-caps" = "Tekst skrevet med STORE BOKSTAVER";
 "abuse-filter-warning-blanking" = "Tømming av artikkelen eller spamming";
 "abuse-filter-warning-irrelevant" = "Irrelevante eksterne lenker eller bilder";
 "abuse-filter-warning-repeat" = "Gjentaaaaagende tegn";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Endringen kan ikke lagres. Vennligst gå tilbake og endre den.";
 "abuse-filter-disallow-unconstructive" = "Redigeringen har blitt automatisk identifisert som potensielt destruktiv eller et forsøk på vandalisme.";
 "abuse-filter-disallow-notable" = "Wikipedia er en encyklopedi og kun nøytralt og relevant innhold hører hjemme her.";

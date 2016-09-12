@@ -61,8 +61,10 @@
 "wikitext-downloading" = "Edukia kargatzen...";
 "wikitext-download-success" = "Edukia kargatu da.";
 "wikitext-preview-changes-none" = "Ez da aurrebistan erakusteko aldaketarik egin.";
+// Fuzzy
 "wikitext-upload-save" = "Gordetzen...";
 "wikitext-upload-save-sign-in" = "Saioa hasi";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Gorde anonimo bezala";
 "wikitext-upload-save-terms-name" = "Erabilera Baldintzak";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -136,13 +138,16 @@
 "page-history-downloading" = "Artikuluaren historia kargatzen...";
 "navbar-title-mode-edit-wikitext" = "Aldatu";
 "navbar-title-mode-login" = "Saioa hasi";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Saioa hasi eta gorde";
 "navbar-title-mode-create-account" = "Kontua sortu";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Kontua sortu eta gorde";
 "navbar-title-mode-edit-wikitext-warning" = "Edizio arazoak";
 "navbar-title-mode-edit-wikitext-disallow" = "Edizio arazoak";
 "navbar-title-mode-edit-wikitext-preview" = "Aurrebista";
 "navbar-title-mode-edit-wikitext-summary" = "Zure aldaketa azaldu";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Gorde";
 "edit-summary-choice-linked-words" = "Loturak gehitu";
 "edit-summary-choice-fixed-grammar" = "Gramatika konpondu";
@@ -210,6 +215,7 @@
 "table-of-contents-button-label" = "Eduki-taula";
 "table-of-contents-close-accessibility-label" = "Itxi eduki-taula";
 "table-of-contents-close-accessibility-hint" = "Itxi";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Ezin duzu aldaketa hau gorde. Mesedez itzul zaitez eta alda ezazu.";
 "menu-edit-accessibility-label" = "Aldatu";
 "menu-close-accessibility-label" = "Itxi";

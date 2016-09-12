@@ -6,6 +6,7 @@
 // Author: Arthurteb303
 // Author: Cainamarques
 // Author: Caçador de Palavras
+// Author: Cristofer Alves
 // Author: Dianakc
 // Author: Eduardo Addad de Oliveira
 // Author: Fasouzafreitas
@@ -93,11 +94,14 @@
 "wikitext-upload-result-unknown" = "Não é possível determinar o resultado do envio do wikitexto.";
 "wikitext-upload-captcha-error" = "Erro de verificação do CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verificação de código CAPTCHA necessária.";
+// Fuzzy
 "wikitext-upload-save" = "Salvando...";
 "wikitext-upload-save-sign-in" = "Entrar";
 "wikitext-upload-save-sign-in-benefits" = "Assim, co-editores poderão contactá-lo e verá quais artigos você editou.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Salvar anonimamente";
 "wikitext-upload-save-anonymously-warning" = "Suas edições serão atribuídas ao endereço de IP de seu dispositivo. Se você $1 você terá mais privacidade.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Salvando, você concorda com $1 e irrevogavelmente libera suas contribuições sobre a licensa $2.";
 "wikitext-upload-save-terms-name" = "Termo de uso";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -178,14 +182,17 @@
 "page-history-downloading" = "Carregando o historico de artigos...";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Entrar";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Entrar e salvar";
 "navbar-title-mode-create-account" = "Criar conta";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Criar conta e salvar";
 "navbar-title-mode-edit-wikitext-warning" = "Editar ocorrencias";
 "navbar-title-mode-edit-wikitext-disallow" = "Editar ocorrencias";
 "navbar-title-mode-edit-wikitext-preview" = "Pré-visualizar";
 "navbar-title-mode-edit-wikitext-captcha" = "Verificação rápida necessária";
 "navbar-title-mode-edit-wikitext-summary" = "Descreva sua edição";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Salvar";
 "edit-summary-choice-linked-words" = "Links adicionados";
 "edit-summary-choice-fixed-grammar" = "Corrigiu gramática";
@@ -275,12 +282,14 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "Fechar Tabela de Conteúdos";
 "table-of-contents-close-accessibility-hint" = "Fechar";
+// Fuzzy
 "abuse-filter-warning-heading" = "Esta edição parece não ser construtiva. Você tem certeza de que gostaria de salvá-la?";
 "abuse-filter-warning-subheading" = "A sua edição pode conter um ou mais dos seguintes erros:";
 "abuse-filter-warning-caps" = "Todo o texto em MAIÚSCULAS";
 "abuse-filter-warning-blanking" = "Branqueamento de artigos ou ''spam''";
 "abuse-filter-warning-irrelevant" = "Ligações ou imagens externas irrelevantes";
 "abuse-filter-warning-repeat" = "Repeeeetição de caracteres";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Você não pode salvar esta edição. Por favor, volte e altere-a.";
 "abuse-filter-disallow-unconstructive" = "Um filtro automatizado identificou esta edição como sendo potencialmente não construtiva ou como uma tentativa de vandalismo.";
 "abuse-filter-disallow-notable" = "A Wikipédia é uma enciclopédia e somente conteúdo neutro e notório pertence a este projeto.";
@@ -413,3 +422,6 @@
 "explore-most-read-more-list-title" = "Artigos mais lidos";
 "explore-most-read-more-list-title-for-date" = "Mais lidos em $1";
 "no-email-account-alert" = "Por favor configure uma conta de email em seu dispositivo e tente novamente.";
+"continue-reading-empty-title" = "Nenhum artigo lido recentemente";
+"continue-reading-empty-description" = "Explore a Wikipedia para mais artigos para ler";
+"top-read-see-more-trending" = "veja mais tendencias";

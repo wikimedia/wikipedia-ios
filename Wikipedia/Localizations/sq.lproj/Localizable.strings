@@ -75,8 +75,10 @@
 "wikitext-download-success" = "Përmbajtja u ngarkua.";
 "wikitext-preview-changes" = "Duke marrë një parapamje të ndryshimeve tuaja...";
 "wikitext-preview-changes-none" = "Nuk u bë asnjë ndryshim për parapamje.";
+// Fuzzy
 "wikitext-upload-save" = "Duke ruajtur...";
 "wikitext-upload-save-sign-in" = "Hyni";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Ruaj në mënyrë anonime";
 "open-link-title" = "Hap lidhjen";
 "open-link-cancel" = "Anulo";
@@ -150,6 +152,7 @@
 "navbar-title-mode-create-account" = "Krijo llogari";
 "navbar-title-mode-edit-wikitext-preview" = "Parapamje";
 "navbar-title-mode-edit-wikitext-summary" = "Përshkruani redaktimin tuaj";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Ruaj";
 "edit-summary-choice-linked-words" = "Shtova lidhje";
 "edit-summary-choice-fixed-grammar" = "Rregollova gabimet gramatikore";
@@ -204,12 +207,14 @@
 "page_protected_can_not_edit_title" = "Kjo faqe është e mbrojtur";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Përmbajtja";
+// Fuzzy
 "abuse-filter-warning-heading" = "Ky duket si një redaktim jokonstruktiv, jeni të sigurt që dëshironi ta ruani?";
 "abuse-filter-warning-subheading" = "Redaktimi juaj mund të përmbajë një ose më shumë nga të mëposhtmet:";
 "abuse-filter-warning-caps" = "Shkrim ME SHKRONJA TË MËDHA";
 "abuse-filter-warning-blanking" = "Zbrazje e artikujve ose spam";
 "abuse-filter-warning-irrelevant" = "Imazhe ose lidhje të jashtme të papërshtatshme";
 "abuse-filter-warning-repeat" = "Përsëëëëëëritje karakteresh";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Ju nuk mund ta ruani këtë redaktim. Ju lutemi kthehuni prapa dhe ndryshojeni.";
 "abuse-filter-disallow-unconstructive" = "Një filter i automatizuar e ka indenftikuar këtë redaktim si potencialisht jokonstruktiv ose si një përpjekje për vandalizëm.";
 "menu-edit-accessibility-label" = "Redakto";

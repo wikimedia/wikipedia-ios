@@ -82,11 +82,14 @@
 "wikitext-upload-result-unknown" = "विकिटेक्सट के अपलोड परिणाम बताने में असमर्थ।";
 "wikitext-upload-captcha-error" = "कैप्चा सत्यापन में त्रुटि";
 "wikitext-upload-captcha-needed" = "कैप्चा के प्रमाणिकरण की आवश्यकता है।";
+// Fuzzy
 "wikitext-upload-save" = "सहेज रहा है...";
 "wikitext-upload-save-sign-in" = "प्रवेश";
 "wikitext-upload-save-sign-in-benefits" = "जिससे सह-संपादक आपसे जुड़ सकें और आपके द्वारा सम्पादित लेखों को देख सकें।";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "अनाम रूप से सहेजें";
 "wikitext-upload-save-anonymously-warning" = "आपकी डिवाइस के आईपी एड्रेस को सम्पादनों श्रेय दिया जायेगा। अगर आप $1 चुनते हैं तो अधिक गोपनीयता प्राप्त होगी।";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "इसे सहेजने से आप $1 से सहमत हैं और अपने योगदानों को  $2 लाइसेंस के अंतर्गत अपरिवर्तनीय रूप से प्रदर्शित  करते हैं।";
 "wikitext-upload-save-terms-name" = "उपयोग की शर्तें";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -170,14 +173,17 @@
 "page-history-downloading" = "लेख इतिहास को लोड किया जा रहा है...";
 "navbar-title-mode-edit-wikitext" = "सम्पादन";
 "navbar-title-mode-login" = "प्रवेश";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "लॉगिन करें और सहेजें";
 "navbar-title-mode-create-account" = "खाता बनाएँ";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "खाता बनायें और सहेजें";
 "navbar-title-mode-edit-wikitext-warning" = "संपादन समस्याएं";
 "navbar-title-mode-edit-wikitext-disallow" = "संपादन समस्याएं";
 "navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";
 "navbar-title-mode-edit-wikitext-captcha" = "शीघ्र प्रमाणिकता आवश्यक है";
 "navbar-title-mode-edit-wikitext-summary" = "अपने संपादन का वर्णन करें";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "सहेजें";
 "edit-summary-choice-linked-words" = "कड़ियाँ लगाई";
 "edit-summary-choice-fixed-grammar" = "व्याकरण सुधार";
@@ -268,12 +274,14 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "सामग्री तालिका को बंद करें";
 "table-of-contents-close-accessibility-hint" = "बंद करें";
+// Fuzzy
 "abuse-filter-warning-heading" = "यह एक अरचनात्मक संपादन लगता है, क्या आप इसे सहेजने को लेकर निश्चित हैं?";
 "abuse-filter-warning-subheading" = "आपके संपादन में निम्न में से एक या अधिक हैं:";
 "abuse-filter-warning-caps" = "सब कैप्स में लिखना";
 "abuse-filter-warning-blanking" = "लेख खाली करना या स्पैमिंग";
 "abuse-filter-warning-irrelevant" = "अनुपयुक्त बाहरी लिंक या चित्र";
 "abuse-filter-warning-repeat" = "अक्षरों का दोहराव";
+// Fuzzy
 "abuse-filter-disallow-heading" = "आप इस संपादन को सहेज नहीं सकते। कृपया वापस जाएँ और इसे बदलें।";
 "abuse-filter-disallow-unconstructive" = "एक स्वचलित फ़िल्टर ने इस संपादन को संभावित अरचनात्मक या बर्बरता के प्रयास के रूप में चिह्नित किया है।";
 "abuse-filter-disallow-notable" = "विकिपीडिया एक इनसाइक्लोपीडिया है और केवल तटस्थ और नोट करने योग्य जानकारी का ही यहाँ से सम्बन्ध है।";

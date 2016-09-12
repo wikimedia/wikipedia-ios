@@ -82,11 +82,14 @@
 "wikitext-upload-result-unknown" = "Tókst ekki að greina niðurstöðu upphlöðu wikitexta.";
 "wikitext-upload-captcha-error" = "Villa með CAPTCHA-staðfestingu.";
 "wikitext-upload-captcha-needed" = "CAPTCHA-staðfesting krefst.";
+// Fuzzy
 "wikitext-upload-save" = "Vistar...";
 "wikitext-upload-save-sign-in" = "Innskrá";
 "wikitext-upload-save-sign-in-benefits" = "Þannig að aðrar notendur geti komið í samband við þig og þú geti séð hvaða greinar þú hefur breytt.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Vista í leyni";
 "wikitext-upload-save-anonymously-warning" = "Breytingar verða skráðar undir IP-tölu tækisins þíns. Til að tryggja öryggi þitt er best að $1.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Með því að vista samþykkir þú okkar $1, og að þú gefur út framlög þín undir leyfinu $2.";
 "wikitext-upload-save-terms-name" = "Notkunarskilmálar";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -166,14 +169,17 @@
 "page-history-downloading" = "Hleður inn breytingaskrá greinar...";
 "navbar-title-mode-edit-wikitext" = "Breyta";
 "navbar-title-mode-login" = "Innskrá";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Innskrá og vista";
 "navbar-title-mode-create-account" = "Stofna aðgang";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Stofna aðgang og vista";
 "navbar-title-mode-edit-wikitext-warning" = "Breytingarvillur";
 "navbar-title-mode-edit-wikitext-disallow" = "Breytingarvillur";
 "navbar-title-mode-edit-wikitext-preview" = "Forskoðun";
 "navbar-title-mode-edit-wikitext-captcha" = "Hraðstaðfesting krefst";
 "navbar-title-mode-edit-wikitext-summary" = "Lýstu breytingu þinni";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Vista";
 "edit-summary-choice-linked-words" = "Viðbættir tenglar";
 "edit-summary-choice-fixed-grammar" = "Lagaði málfræði";
@@ -263,12 +269,14 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "Loka efnisyfirliti";
 "table-of-contents-close-accessibility-hint" = "Loka";
+// Fuzzy
 "abuse-filter-warning-heading" = "Þetta lítur ekki út fyrir að vera uppbyggileg breyting, ert þú viss um að þú viljir vista hana?";
 "abuse-filter-warning-subheading" = "Breyting þín gæti innihaldið eitt eða fleira af eftirfarandi:";
 "abuse-filter-warning-caps" = "Textinn er í STÓRUM BÓKSTÖFUM";
 "abuse-filter-warning-blanking" = "Tæming greina eða þvaður";
 "abuse-filter-warning-irrelevant" = "Óviðeigandi ytri tenglar eða myndir";
 "abuse-filter-warning-repeat" = "Enduuuurteknir bókstafir";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Þú getur ekki vistað þessa breytingu. Vinsamlegast breyttu henni.";
 "abuse-filter-disallow-unconstructive" = "Sjálfvirk sía hefur greint þessa breytingu sem eyðileggjandi eða sem tilraun á skemmdarverki.";
 "abuse-filter-disallow-notable" = "Wikipedia er alfræðirit og í því tilheyrir aðeins hlutlaust og markvert efni.";

@@ -74,11 +74,14 @@
 "wikitext-upload-result-unknown" = "Биики-тиэкис хачайдаммыт түмүгүн быһаарар сатаммата.";
 "wikitext-upload-captcha-error" = "Капча алҕастаах.";
 "wikitext-upload-captcha-needed" = "Капча көмөтүнэн тургутуу ирдэнэр.";
+// Fuzzy
 "wikitext-upload-save" = "Бигэргэнэр...";
 "wikitext-upload-save-sign-in" = "Киир";
 "wikitext-upload-save-sign-in-benefits" = "Атын кыттааччылар эйиэхэ тахсыахтарын сөп уонна ханнык ыстатыйаны көннөрбүккүн көрөр кыахтаныаҥ.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Ааты эппэккэ эрэ бигэргэт";
 "wikitext-upload-save-anonymously-warning" = "Көннөрүүҥ IP-аадырыскынан бэлиэтэниэ. Өскөтө $1 буоллаххына, айпигын кистиир кыахтаныаҥ.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Бигэргэттэххинэ $1 усулуобуйатын кытта толору сөбүлэһэҕин, суруйбуккун $2 лиссиэнсийэнэн бэчээттиири көҥүллүүгүн.";
 "wikitext-upload-save-terms-name" = "Туһаныы сиэрэ";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -162,14 +165,17 @@
 "page-history-downloading" = "Сирэй устуоруйата хачайданар...";
 "navbar-title-mode-edit-wikitext" = "Уларыт";
 "navbar-title-mode-login" = "Киир";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Киир уонна бигэргэт";
 "navbar-title-mode-create-account" = "Бэлиэтэнии";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Бэлиэтэнии уонна бигэргэтии";
 "navbar-title-mode-edit-wikitext-warning" = "Уларытыы сатаммата";
 "navbar-title-mode-edit-wikitext-disallow" = "Уларытыы сатаммата";
 "navbar-title-mode-edit-wikitext-preview" = "Эрдэ көрүү";
 "navbar-title-mode-edit-wikitext-captcha" = "Суһал тургутууну ирдиир";
 "navbar-title-mode-edit-wikitext-summary" = "Тугу гыммыккын кэпсээ";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Бигэргэт";
 "edit-summary-choice-linked-words" = "Эбиллибит сигэлэр";
 "edit-summary-choice-fixed-grammar" = "Таба суруйуутун көннөрдүм";
@@ -260,12 +266,14 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "Бастар тиһиликтэрин сап";
 "table-of-contents-close-accessibility-hint" = "Сап";
+// Fuzzy
 "abuse-filter-warning-heading" = "Бу көннөрүү бөрүкүтэ суох көннөрүүгэ майгынныыр. Бигэргэтэҕин дуо?";
 "abuse-filter-warning-subheading" = "Көннөрүүҥ мантан бииригэр эбэтэр хаһыгар да сөп түбэһиэн сөп:";
 "abuse-filter-warning-caps" = "УЛАХАН БУУКУБАНАН суруллубут";
 "abuse-filter-warning-blanking" = "Кураанах ыстатыйа биитэр спаам";
 "abuse-filter-warning-irrelevant" = "Сөп түбэспэт тас сигэлэр биитэр ойуулар бааллар";
 "abuse-filter-warning-repeat" = "Хатыланааааар буукубалар бааллар";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Көннөрүүнү бигэргэтэр кыаҕыҥ суох эбит. Бука диэн төннүн уонна уларыт.";
 "abuse-filter-disallow-unconstructive" = "Сиидэ бу көннөрүүгүн хоромньу аҕалыан сөп эбэтэр бандааллааһыҥҥа маарынныыр курдук билиннэ.";
 "abuse-filter-disallow-notable" = "Бикипиэдьийэ энциклопедия буоларын быһыытынан, манна ким да диэки буолбакка уонна суолталааҕы эрэ суруллар.";
