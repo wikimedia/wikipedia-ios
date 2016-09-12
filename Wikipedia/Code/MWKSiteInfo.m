@@ -1,45 +1,36 @@
-//
-//  MWKSiteInfo.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 5/29/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MWKSiteInfo.h"
-#import "NSObjectUtilities.h"
-#import "MediaWikiKit.h"
 
-typedef NS_ENUM (NSUInteger, MWKSiteInfoNSCodingSchemaVersion) {
+typedef NS_ENUM(NSUInteger, MWKSiteInfoNSCodingSchemaVersion) {
     MWKSiteInfoNSCodingSchemaVersion_1 = 1
 };
 
-static NSString* const MWKSiteInfoNSCodingSchemaVersionKey = @"siteInfoSchemaVersion";
+static NSString *const MWKSiteInfoNSCodingSchemaVersionKey = @"siteInfoSchemaVersion";
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKSiteInfo ()
-@property (readwrite, copy, nonatomic) NSURL* siteURL;
-@property (readwrite, copy, nonatomic) NSString* mainPageTitleText;
+@property (readwrite, copy, nonatomic) NSURL *siteURL;
+@property (readwrite, copy, nonatomic) NSString *mainPageTitleText;
 @end
 
 @implementation MWKSiteInfo
 
-- (instancetype)initWithSiteURL:(NSURL*)siteURL
-                mainPageTitleText:(NSString*)mainPage {
+- (instancetype)initWithSiteURL:(NSURL *)siteURL
+              mainPageTitleText:(NSString *)mainPage {
     self = [super init];
     if (self) {
-        self.siteURL         = [siteURL wmf_siteURL];
+        self.siteURL = [siteURL wmf_siteURL];
         self.mainPageTitleText = mainPage;
     }
     return self;
 }
 
-- (NSString*)description {
+- (NSString *)description {
     return [NSString stringWithFormat:@"%@ {"
-            "\t site: %@,\n"
-            "\t mainPage: %@ \n"
-            "}\n", [super description], self.siteURL, self.mainPageTitleText];
+                                       "\t site: %@,\n"
+                                       "\t mainPage: %@ \n"
+                                       "}\n",
+                                      [super description], self.siteURL, self.mainPageTitleText];
 }
 
 - (BOOL)isEqual:(id)object {
@@ -52,9 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (BOOL)isEqualToSiteInfo:(MWKSiteInfo*)siteInfo {
-    return WMF_EQUAL_PROPERTIES(self, siteURL, isEqual:, siteInfo)
-           && WMF_EQUAL_PROPERTIES(self, mainPageTitleText, isEqualToString:, siteInfo);
+- (BOOL)isEqualToSiteInfo:(MWKSiteInfo *)siteInfo {
+    return WMF_EQUAL_PROPERTIES(self, siteURL, isEqual:, siteInfo) && WMF_EQUAL_PROPERTIES(self, mainPageTitleText, isEqualToString:, siteInfo);
 }
 
 - (NSUInteger)hash {
@@ -63,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Computed Properties
 
-- (NSURL*)mainPageURL {
+- (NSURL *)mainPageURL {
     return [self.siteURL wmf_URLWithTitle:self.mainPageTitleText];
 }
 

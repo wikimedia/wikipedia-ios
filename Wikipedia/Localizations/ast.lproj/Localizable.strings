@@ -75,11 +75,14 @@
 "wikitext-upload-result-unknown" = "Nun pudo determinase'l resultáu del unviu del testu wiki.";
 "wikitext-upload-captcha-error" = "Error na comprobación CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Necesita la comprobación del CAPTCHA.";
+// Fuzzy
 "wikitext-upload-save" = "Guardando...";
 "wikitext-upload-save-sign-in" = "Aniciar sesión";
 "wikitext-upload-save-sign-in-benefits" = "Pa que los co-editores puedan comunicase contigo y tu puedas ver qué artículos editasti.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Guardar como anónimu";
 "wikitext-upload-save-anonymously-warning" = "Les ediciones atribuiránse a la direición IP del preséu. Si $1 tendrás más intimidá.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Al guardar, aceutes los $1 y lliberar les tos collaboraciones baxo la llicencia $2.";
 "wikitext-upload-save-terms-name" = "Condiciones d'usu";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -163,14 +166,17 @@
 "page-history-downloading" = "Cargando l'historial del artículu...";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Aniciar sesión";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Aniciar sesión y guardar";
 "navbar-title-mode-create-account" = "Crear una cuenta";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Crear una cuenta y guardar";
 "navbar-title-mode-edit-wikitext-warning" = "Problemes cola edición";
 "navbar-title-mode-edit-wikitext-disallow" = "Problemes cola edición";
 "navbar-title-mode-edit-wikitext-preview" = "Vista previa";
 "navbar-title-mode-edit-wikitext-captcha" = "Necesítase una comprobación rápida";
 "navbar-title-mode-edit-wikitext-summary" = "Describe la edición";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Guardar";
 "edit-summary-choice-linked-words" = "Enllaces amestaos";
 "edit-summary-choice-fixed-grammar" = "Igua gramatical";
@@ -256,17 +262,18 @@
 "license-footer-text" = "El conteníu ta disponible baxo llicencia $1 si nun s'indica otra cosa.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Conteníu";
-// Fuzzy
 "table-of-contents-button-label" = "Tabla de conteníu";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Zarrar la tabla de conteníu";
 "table-of-contents-close-accessibility-hint" = "Zarrar";
+"table-of-contents-popover-description" = "Recibir un resumen de los artículos";
+// Fuzzy
 "abuse-filter-warning-heading" = "Esto nun paez una edición constructiva. ¿Tas seguro de que quies guardala?";
 "abuse-filter-warning-subheading" = "La to edición pue contener unu o más de los siguientes:";
 "abuse-filter-warning-caps" = "Escribir TOO EN MAYÚSCULES";
 "abuse-filter-warning-blanking" = "Dexar en blanco los artículos o facer spam";
 "abuse-filter-warning-irrelevant" = "Enllaces o imaxes esternos irrelevantes";
 "abuse-filter-warning-repeat" = "Caráuteres repeeeetíos";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Nun pues guardar esta edición. Por favor vuelvi atrás y cámbiala.";
 "abuse-filter-disallow-unconstructive" = "Un filtru automático identificó esta edición como potencialmente non constructiva o como intentu de vandalismu.";
 "abuse-filter-disallow-notable" = "Wikipedia ye una enciclopedia y sólo cabe equí el conteníu neutral y notable.";
@@ -384,6 +391,7 @@
 "explore-featured-article-heading" = "Artículu destacáu";
 "explore-continue-reading-heading" = "Siguir lleyendo";
 "explore-nearby-heading" = "Llugares cercanos a";
+"explore-nearby-sub-heading-your-location" = "El to allugamientu";
 "explore-continue-related-heading" = "Porque lleísti $1";
 "explore-main-page-heading" = "Güei en Wikipedia";
 "explore-random-article-heading" = "Artículu al debalu";
@@ -399,3 +407,8 @@
 "request-feedback-on-error" = "L'aplicación detectó un problema del que los nuesos desendolcadores quedríen saber más. Toca equí pa unvianos un corréu electrónicu colos detalles del fallu.";
 "explore-another-random" = "Otru artículu al debalu";
 "find-in-page-no-matches" = "0 coincidencies";
+"find-in-page-button-label" = "Alcontrar na páxina";
+"find-in-page-popover-description" = "Buscar un testu nos artículos";
+"continue-reading-empty-title" = "Nun hai artículos lleíos apocayá";
+"continue-reading-empty-description" = "Esplora Wikipedia p'atopar más artículos pa lleer";
+"top-read-see-more-trending" = "Ver más tendencies";

@@ -1,10 +1,9 @@
-
 #import <Foundation/Foundation.h>
 
 @protocol WMFDatabaseStorable <NSObject>
 
-+ (NSString*)databaseCollectionName;
++ (NSString *)databaseCollectionName;
 
-- (NSString*)databaseKey;
+- (NSString *)databaseKey;
 
 @end

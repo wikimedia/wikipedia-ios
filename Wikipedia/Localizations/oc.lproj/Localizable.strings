@@ -40,6 +40,7 @@
 "login-password-placeholder-text" = "Senhal";
 "wikitext-downloading" = "Cargament del contengut...";
 "wikitext-download-success" = "Contengut cargat.";
+// Fuzzy
 "wikitext-upload-save" = "Enregistrament en cors…";
 "wikitext-upload-save-sign-in" = "Se connectar";
 "wikitext-upload-save-terms-name" = "Condicions d'utilizacion";
@@ -107,6 +108,7 @@
 "navbar-title-mode-edit-wikitext-disallow" = "Modificar los problèmas";
 "navbar-title-mode-edit-wikitext-preview" = "Apercebut";
 "navbar-title-mode-edit-wikitext-captcha" = "Verificacion rapida necessària";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Enregistrar";
 "edit-summary-choice-linked-words" = "Ligams aponduts";
 "edit-summary-choice-fixed-grammar" = "Correccion gramaticala";
@@ -161,6 +163,7 @@
 "onboarding-wikipedia" = "Wikipèdia";
 "onboarding-free-encyclopedia" = "L'enciclopèdia liura";
 "preference_title_eventlogging_opt_in" = "Mandar los rapòrts d’utilizacion";
+"page_protected_can_not_edit_title" = "Aquesta pagina es protegida";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contenguts";
 "menu-edit-accessibility-label" = "Modificar";

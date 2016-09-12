@@ -76,11 +76,14 @@
 "wikitext-upload-result-unknown" = "Не можам да го определам исходот од измените.";
 "wikitext-upload-captcha-error" = "Грешка при проверката со сликичка.";
 "wikitext-upload-captcha-needed" = "Ќе треба потврда со сликичка.";
+// Fuzzy
 "wikitext-upload-save" = "Зачувувам...";
 "wikitext-upload-save-sign-in" = "Најава";
 "wikitext-upload-save-sign-in-benefits" = "За да можат другите уредници да се поврзат со вас и да  видите кои статии ги имате уредувано.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Зачувај анонимно";
 "wikitext-upload-save-anonymously-warning" = "Уредувањата ќе ѝ бидат припишани на IP-адресата на вашиот уред. Ако направите $1, тогаш ќе имате повеќе приватност.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Зачувувајќи ги промените, се согласувате со $1 и дека неотповикливо ги објавувате на вашите придонеси под лиценцата $2.";
 "wikitext-upload-save-terms-name" = "Услови на употреба";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -164,14 +167,17 @@
 "page-history-downloading" = "Ја вчитувам историјата...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
 "navbar-title-mode-login" = "Најава";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Најави ме и зачувај";
 "navbar-title-mode-create-account" = "Направи сметка";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Направете сметка и зачувајте";
 "navbar-title-mode-edit-wikitext-warning" = "Проблеми со уредувањата";
 "navbar-title-mode-edit-wikitext-disallow" = "Проблеми со уредувањата";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
 "navbar-title-mode-edit-wikitext-captcha" = "Се бара брза проверка";
 "navbar-title-mode-edit-wikitext-summary" = "Опишете го уредувањето";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Зачувај";
 "edit-summary-choice-linked-words" = "Додадени врски";
 "edit-summary-choice-fixed-grammar" = "Исправена граматиката";
@@ -257,17 +263,18 @@
 "license-footer-text" = "Содржината е достапна под условите на $1 освен ако не е поинаку наведено.";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содржина";
-// Fuzzy
 "table-of-contents-button-label" = "Содржина";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";
 "table-of-contents-close-accessibility-hint" = "Затвори";
+"table-of-contents-popover-description" = "Се појавува краток преглед на статиите";
+// Fuzzy
 "abuse-filter-warning-heading" = "Ова личи на неконструктивно уредување. Дали сигурно сакате да го зачувате?";
 "abuse-filter-warning-subheading" = "Вашето уредување може да содржи едно или повеќе од следниве:";
 "abuse-filter-warning-caps" = "ГОЛЕМИ БУКВИ";
 "abuse-filter-warning-blanking" = "Празнење на статии или спамирање";
 "abuse-filter-warning-irrelevant" = "Нерелевантни надворешни врски или слики";
 "abuse-filter-warning-repeat" = "Повтоооорени знаци";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Не можете да го зачувате уредувањево. Вратете се и изменето го.";
 "abuse-filter-disallow-unconstructive" = "Автоматски филтер утврди дека ова урадување е потенцијално неконструктивно или претставува обид за вандализам.";
 "abuse-filter-disallow-notable" = "Википедија е енциклопедија, што значи дека тука припаѓаат само неутрални и значајни содржини.";
@@ -385,6 +392,7 @@
 "explore-featured-article-heading" = "Избрани статии";
 "explore-continue-reading-heading" = "Продолжете со читање";
 "explore-nearby-heading" = "Околни места";
+"explore-nearby-sub-heading-your-location" = "Ваша местоположба";
 "explore-continue-related-heading" = "Бидејќи читавте";
 "explore-main-page-heading" = "Денес на Википедија";
 "explore-random-article-heading" = "Случајна статија";
@@ -400,3 +408,8 @@
 "request-feedback-on-error" = "Прилогот наиде на проблем за кој нашите програмери сакаат да дознаат повеќе. Допрете тука за да ни испратите е-пошта со поединости за грешката.";
 "explore-another-random" = "Друга случајна статија";
 "find-in-page-no-matches" = "0 совпаѓања";
+"find-in-page-button-label" = "Најди на страницата";
+"find-in-page-popover-description" = "Пребарај текст во статиите";
+"continue-reading-empty-title" = "Немате неодамна прочитани статии";
+"continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
+"top-read-see-more-trending" = "Видете повеќе најчитани";

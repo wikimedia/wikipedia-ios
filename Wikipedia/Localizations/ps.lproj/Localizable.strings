@@ -51,8 +51,10 @@
 "login-username-placeholder-text" = "کارن-نوم";
 "login-password-placeholder-text" = "پټنوم";
 "wikitext-downloading" = "مېنځپانگه رابرسېرېږي...";
+// Fuzzy
 "wikitext-upload-save" = "خوندي کېږي...";
 "wikitext-upload-save-sign-in" = "ننوتل";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "په ورکنومي توگه خوندي کول";
 "wikitext-upload-save-terms-name" = "د کارولو شرطونه";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -115,12 +117,15 @@
 "page-history-downloading" = "د ليکنې پېښليک رابرسېرېږي...";
 "navbar-title-mode-edit-wikitext" = "سمول";
 "navbar-title-mode-login" = "ننوتل";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "ننوتل او خوندي کول";
 "navbar-title-mode-create-account" = "گڼون جوړول";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "گڼون جوړول او خوندي کول";
 "navbar-title-mode-edit-wikitext-warning" = "د سمون ستونزې";
 "navbar-title-mode-edit-wikitext-disallow" = "د سمون ستونزې";
 "navbar-title-mode-edit-wikitext-preview" = "مخليدنه";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "خوندي کول";
 "edit-summary-choice-linked-words" = "ورگډې شوې تړنې";
 "edit-summary-choice-added-category" = "وېشنيزه ورگډه شوه";
@@ -174,7 +179,6 @@
 "license-footer-text" = "دا مېنځپانگه د $1 سره سم ستاسې لاسرسي کې ده، خو چې مخالف يې وييل شوی وي.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "منځپانگې";
-// Fuzzy
 "table-of-contents-button-label" = "نيوليک";
 "table-of-contents-close-accessibility-hint" = "تړل";
 "menu-edit-accessibility-label" = "سمول";
@@ -256,6 +260,7 @@
 "compass-direction" = "په $1 بجو";
 "explore-featured-article-heading" = "مخکښه ليکنه";
 "explore-nearby-heading" = "نژدې ځايونه";
+"explore-nearby-sub-heading-your-location" = "ستاسې ځای";
 "explore-continue-related-heading" = "ځکه چې تاسې لولی";
 "explore-main-page-heading" = "نن په ويکيپېډيا کې";
 "explore-random-article-heading" = "ناټاکلې ليکنه";
@@ -267,3 +272,4 @@
 "explore-most-read-footer-for-date" = "په $1 ټولې ډېرې لوستل شوې ليکنې";
 "explore-most-read-more-list-title" = "د سر ليکنې";
 "find-in-page-no-matches" = "0 ورته والی لري";
+"find-in-page-button-label" = "په مخ کې موندل";

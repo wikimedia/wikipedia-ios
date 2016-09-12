@@ -1,8 +1,4 @@
-/**
- * Unsafe, do not use.
- * @see WMFStrictClamp
- * @see WMFClamp
- */
+/* Unsafe, do not use.* @see WMFStrictClamp * @see WMFClamp */
 #define _WMFStrictClamp(min, x, max) MAX(MIN((max), (x)), (min))
 
 /**
@@ -43,7 +39,7 @@
  * @param x         The number to round.
  * @param precision The number of significant digits to round to after the decimal point.
  */
-extern double RoundWithPrecision(double (* rounder)(double), double x, unsigned int precision);
+extern double RoundWithPrecision(double (*rounder)(double), double x, unsigned int precision);
 
 /**
  *  Round @c x to 2 significant digits after the decimal point.
@@ -81,4 +77,3 @@ static inline NSUInteger MegabytesToBytes(NSUInteger m) {
     static NSUInteger const MEGABYTE = 1 << 20;
     return m * MEGABYTE;
 }
-

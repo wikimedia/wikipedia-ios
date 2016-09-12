@@ -1,7 +1,6 @@
-
 #import "WMFArticleListDataSourceTableViewController.h"
 
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 
 #import "MWKDataStore.h"
 #import "MWKArticle.h"
@@ -28,12 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
-- (void)setDataSource:(SSBaseDataSource<WMFTitleListDataSource>* __nullable)dataSource {
+- (void)setDataSource:(SSBaseDataSource<WMFTitleListDataSource> *__nullable)dataSource {
     if (_dataSource == dataSource) {
         return;
     }
 
-    _dataSource.tableView     = nil;
+    _dataSource.tableView = nil;
     self.tableView.dataSource = nil;
 
     [self.KVOControllerNonRetaining unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, urls)];
@@ -54,11 +53,11 @@ NS_ASSUME_NONNULL_BEGIN
     [self.KVOControllerNonRetaining observe:self.dataSource
                                     keyPath:WMF_SAFE_KEYPATH(self.dataSource, urls)
                                     options:NSKeyValueObservingOptionInitial
-                                      block:^(WMFArticleListDataSourceTableViewController* observer,
-                                              SSBaseDataSource < WMFTitleListDataSource > * object,
-                                              NSDictionary* change) {
-        [observer updateEmptyAndDeleteState];
-    }];
+                                      block:^(WMFArticleListDataSourceTableViewController *observer,
+                                              SSBaseDataSource<WMFTitleListDataSource> *object,
+                                              NSDictionary *change) {
+                                          [observer updateEmptyAndDeleteState];
+                                      }];
 }
 
 #pragma mark - Stay Fresh... yo
@@ -72,15 +71,15 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)articleUpdatedWithNotification:(NSNotification*)note {
-    MWKArticle* article = note.userInfo[MWKArticleKey];
+- (void)articleUpdatedWithNotification:(NSNotification *)note {
+    MWKArticle *article = note.userInfo[MWKArticleKey];
     [self updateEmptyAndDeleteState];
     [self refreshAnyVisibleCellsWhichAreShowingArticleURL:article.url];
 }
 
-- (void)refreshAnyVisibleCellsWhichAreShowingArticleURL:(NSURL*)url {
-    NSArray* indexPathsToRefresh = [[self.tableView indexPathsForVisibleRows] bk_select:^BOOL (NSIndexPath* indexPath) {
-        NSURL* otherURL = [self.dataSource urlForIndexPath:indexPath];
+- (void)refreshAnyVisibleCellsWhichAreShowingArticleURL:(NSURL *)url {
+    NSArray *indexPathsToRefresh = [[self.tableView indexPathsForVisibleRows] bk_select:^BOOL(NSIndexPath *indexPath) {
+        NSURL *otherURL = [self.dataSource urlForIndexPath:indexPath];
         return [url isEqual:otherURL];
     }];
 
@@ -100,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewWillAppear:animated];
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.dataSource canDeleteItemAtIndexpath:indexPath]) {
         return UITableViewCellEditingStyleDelete;
     } else {
@@ -122,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.dataSource titleCount];
 }
 
-- (NSURL*)urlAtIndexPath:(NSIndexPath*)indexPath {
+- (NSURL *)urlAtIndexPath:(NSIndexPath *)indexPath {
     return [self.dataSource urlForIndexPath:indexPath];
 }
 

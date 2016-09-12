@@ -1,13 +1,10 @@
-//  Created by Brion on 10/27/13.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "WebViewController_Private.h"
 
 #import "Wikipedia-Swift.h"
 
 @import WebKit;
 #import <Masonry/Masonry.h>
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 #import "NSString+WMFHTMLParsing.h"
 
 #import "MWKArticle.h"
@@ -25,47 +22,45 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 
-#import "WMFZeroMessage.h"
+#import "WMFZeroConfiguration.h"
 #import "WKWebView+LoadAssetsHtml.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WKProcessPool+WMFSharedProcessPool.h"
-#import "WMFPeekHTMLElement.h"
 #import "NSURL+WMFProxyServer.h"
 #import "WMFImageTag.h"
 #import "WKScriptMessage+WMFScriptMessage.h"
 #import "WMFFindInPageKeyboardBar.h"
 #import "UIView+WMFDefaultNib.h"
 
-
-typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
+typedef NS_ENUM(NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
     WMFWebViewAlertZeroCharged,
     WMFWebViewAlertZeroInterstitial
 };
 
-typedef NS_ENUM (NSUInteger, WMFFindInPageScrollDirection) {
+typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WMFFindInPageScrollDirectionNext,
     WMFFindInPageScrollDirectionPrevious
 };
 
-NSString* const WMFCCBySALicenseURL =
+NSString *const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
 @interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate>
 
-@property (nonatomic, strong) MASConstraint* headerHeight;
-@property (nonatomic, strong) UIView* footerContainerView;
-@property (nonatomic, strong) NSMutableDictionary* footerViewHeadersByIndex;
-@property (nonatomic, strong) WMFArticleFooterView* footerLicenseView;
-@property (nonatomic, strong) IBOutlet UIView* containerView;
+@property (nonatomic, strong) MASConstraint *headerHeight;
+@property (nonatomic, strong) UIView *footerContainerView;
+@property (nonatomic, strong) NSMutableDictionary *footerViewHeadersByIndex;
+@property (nonatomic, strong) WMFArticleFooterView *footerLicenseView;
+@property (nonatomic, strong) IBOutlet UIView *containerView;
 
-@property (strong, nonatomic) MASConstraint* footerContainerViewTopConstraint;
-@property (strong, nonatomic) MASConstraint* footerContainerViewLeftMarginConstraint;
-@property (strong, nonatomic) MASConstraint* footerContainerViewRightMarginConstraint;
+@property (strong, nonatomic) MASConstraint *footerContainerViewTopConstraint;
+@property (strong, nonatomic) MASConstraint *footerContainerViewLeftMarginConstraint;
+@property (strong, nonatomic) MASConstraint *footerContainerViewRightMarginConstraint;
 
 @property (nonatomic) CGFloat marginWidth;
 
-@property (nonatomic, strong) NSArray* findInPageMatches;
+@property (nonatomic, strong) NSArray *findInPageMatches;
 @property (nonatomic) NSInteger findInPageSelectedMatchIndex;
 @property (nonatomic) BOOL disableMinimizeFindInPage;
 @property (nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
@@ -80,7 +75,7 @@ NSString* const WMFCCBySALicenseURL =
     [self unobserveScrollViewContentSize];
 }
 
-- (instancetype)initWithCoder:(NSCoder*)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.session = [SessionSingleton sharedInstance];
@@ -92,7 +87,7 @@ NSString* const WMFCCBySALicenseURL =
     return [self initWithSession:[SessionSingleton sharedInstance]];
 }
 
-- (instancetype)initWithSession:(SessionSingleton*)aSession {
+- (instancetype)initWithSession:(SessionSingleton *)aSession {
     NSParameterAssert(aSession);
     self = [super init];
     if (self) {
@@ -103,15 +98,12 @@ NSString* const WMFCCBySALicenseURL =
 
 #pragma mark - WKScriptMessageHandler
 
-- (void)userContentController:(WKUserContentController*)userContentController didReceiveScriptMessage:(WKScriptMessage*)message {
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
 
     WMFWKScriptMessageType messageType = [WKScriptMessage wmf_typeForMessageName:message.name];
     id safeMessageBody = [message wmf_safeMessageBodyForType:messageType];
 
     switch (messageType) {
-        case WMFWKScriptMessagePeek:
-            [self handlePeekScriptMessage:safeMessageBody];
-            break;
         case WMFWKScriptMessageConsoleMessage:
             [self handleMessageConsoleScriptMessage:safeMessageBody];
             break;
@@ -145,40 +137,26 @@ NSString* const WMFCCBySALicenseURL =
     }
 }
 
-- (void)handlePeekScriptMessage:(NSDictionary*)messageDict {
-    if(messageDict[@"tagName"]){
-        self.peekElement = [[WMFPeekHTMLElement alloc] initWithTagName:messageDict[@"tagName"]
-                                                                   src:messageDict[@"src"]
-                                                                  href:messageDict[@"href"]];
-    }else{
-        self.peekElement = nil;
-    }
-}
-
-- (void)handleMessageConsoleScriptMessage:(NSDictionary*)messageDict {
+- (void)handleMessageConsoleScriptMessage:(NSDictionary *)messageDict {
     DDLogDebug(@"\n\nMessage from Javascript console:\n\t%@\n\n", messageDict[@"message"]);
 }
 
-- (void)handleClickLinkScriptMessage:(NSDictionary*)messageDict {
+- (void)handleClickLinkScriptMessage:(NSDictionary *)messageDict {
     [self hideFindInPageWithCompletion:^{
-        if (self.isPeeking) {
-            self.isPeeking = NO;
+
+        NSString *href = messageDict[@"href"];
+
+        if (href.length == 0) {
             return;
         }
-        
-        NSString* href = messageDict[@"href"];
-        
-        if(href.length == 0){
-            return;
-        }
-        
+
         if (!self.referencesHidden) {
             [self referencesHide];
         }
-        
+
         if ([href wmf_isWikiResource]) {
-            NSURL* url = [NSURL URLWithString:href];
-            if(!url.wmf_domain){
+            NSURL *url = [NSURL URLWithString:href];
+            if (!url.wmf_domain) {
                 url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
             }
             url = [url wmf_urlByPrependingSchemeIfSchemeless];
@@ -192,7 +170,7 @@ NSString* const WMFCCBySALicenseURL =
                     // Expand protocol-relative link to https -- secure by default!
                     href = [@"https:" stringByAppendingString:href];
                 }
-                NSURL* url = [NSURL URLWithString:href];
+                NSURL *url = [NSURL URLWithString:href];
                 NSCAssert(url, @"Failed to from URL from link %@", href);
                 if (url) {
                     [self wmf_openExternalUrl:url];
@@ -202,8 +180,8 @@ NSString* const WMFCCBySALicenseURL =
     }];
 }
 
-- (void)handleClickImageScriptMessage:(NSDictionary*)messageDict {
-    WMFImageTag* imageTagClicked = [[WMFImageTag alloc] initWithSrc:messageDict[@"src"]
+- (void)handleClickImageScriptMessage:(NSDictionary *)messageDict {
+    WMFImageTag *imageTagClicked = [[WMFImageTag alloc] initWithSrc:messageDict[@"src"]
                                                              srcset:nil
                                                                 alt:nil
                                                               width:messageDict[@"width"]
@@ -211,37 +189,37 @@ NSString* const WMFCCBySALicenseURL =
                                                       dataFileWidth:messageDict[@"data-file-width"]
                                                      dataFileHeight:messageDict[@"data-file-height"]
                                                             baseURL:nil];
-    
+
     if (imageTagClicked == nil) {
         //yes, this would have caught in the if below, but keeping this here in case that check ever goes away
         return;
     }
-    
+
     if (![imageTagClicked isSizeLargeEnoughForGalleryInclusion]) {
         return;
     }
-    
-    NSString* selectedImageSrcURLString = messageDict[@"src"];
+
+    NSString *selectedImageSrcURLString = messageDict[@"src"];
     NSCParameterAssert(selectedImageSrcURLString.length);
     if (!selectedImageSrcURLString.length) {
         DDLogError(@"Image clicked callback invoked with empty src url: %@", messageDict);
         return;
     }
-    
-    NSURL* selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
-    
+
+    NSURL *selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
+
     selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
-    
+
     [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
 }
 
-- (void)handleClickReferenceScriptMessage:(NSDictionary*)messageDict {
+- (void)handleClickReferenceScriptMessage:(NSDictionary *)messageDict {
     [self hideFindInPageWithCompletion:^{
         [self referencesShow:messageDict];
     }];
 }
 
-- (void)handleClickEditScriptMessage:(NSDictionary*)messageDict {
+- (void)handleClickEditScriptMessage:(NSDictionary *)messageDict {
     [self hideFindInPageWithCompletion:^{
         NSUInteger sectionIndex = (NSUInteger)[messageDict[@"sectionId"] integerValue];
         if (sectionIndex < [self.article.sections count]) {
@@ -256,7 +234,7 @@ NSString* const WMFCCBySALicenseURL =
     }];
 }
 
-- (void)handleLateJavascriptTransformScriptMessage:(NSString*)messageString {
+- (void)handleLateJavascriptTransformScriptMessage:(NSString *)messageString {
     if ([messageString isEqualToString:@"collapseTables"]) {
         [self.webView wmf_collapseTablesForArticle:self.article];
     } else if ([messageString isEqualToString:@"setLanguage"]) {
@@ -266,25 +244,26 @@ NSString* const WMFCCBySALicenseURL =
     }
 }
 
-- (void)handleArticleStateScriptMessage:(NSString*)messageString {
+- (void)handleArticleStateScriptMessage:(NSString *)messageString {
     if ([messageString isEqualToString:@"articleLoaded"]) {
         [self updateWebContentMarginForSize:self.view.bounds.size];
         NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
         [self.delegate webViewController:self didLoadArticle:self.article];
-        
+
         [UIView animateWithDuration:0.3
                               delay:0.5f
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
                              self.headerView.alpha = 1.f;
                              self.footerContainerView.alpha = 1.f;
-                         } completion:^(BOOL done) {
+                         }
+                         completion:^(BOOL done){
                          }];
         [self forceUpdateWebviewPaddingForFooters];
     }
 }
 
-- (void)handleFindInPageMatchesFoundMessage:(NSArray*)messageArray {
+- (void)handleFindInPageMatchesFoundMessage:(NSArray *)messageArray {
     self.findInPageMatches = messageArray;
     self.findInPageSelectedMatchIndex = -1;
 }
@@ -296,7 +275,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (WMFFindInPageKeyboardBar *)inputAccessoryView {
-    if(!_inputAccessoryView) {
+    if (!_inputAccessoryView) {
         _inputAccessoryView = [WMFFindInPageKeyboardBar wmf_viewFromClassNib];
         _inputAccessoryView.delegate = self;
     }
@@ -324,14 +303,15 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)resetFindInPageWithCompletion:(nullable dispatch_block_t)completion {
-    [self.webView evaluateJavaScript:@"window.wmf.findInPage.removeSearchTermHighlights()" completionHandler:^(id obj, NSError* _Nullable error) {
-        self.findInPageMatches = @[];
-        self.findInPageSelectedMatchIndex = -1;
-        [[self findInPageKeyboardBar] reset];
-        if (completion) {
-            completion();
-        }
-    }];
+    [self.webView evaluateJavaScript:@"window.wmf.findInPage.removeSearchTermHighlights()"
+                   completionHandler:^(id obj, NSError *_Nullable error) {
+                       self.findInPageMatches = @[];
+                       self.findInPageSelectedMatchIndex = -1;
+                       [[self findInPageKeyboardBar] reset];
+                       if (completion) {
+                           completion();
+                       }
+                   }];
 }
 
 - (void)minimizeFindInPage {
@@ -341,17 +321,16 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (CGFloat)marginWidthForSize:(CGSize)size {
-    return floor(0.5*size.width*(1 - self.contentWidthPercentage));
+    return floor(0.5 * size.width * (1 - self.contentWidthPercentage));
 }
 
 - (void)updateFooterMarginForSize:(CGSize)size {
     CGFloat marginWidth = [self marginWidthForSize:size];
     self.footerContainerViewLeftMarginConstraint.offset = marginWidth;
     self.footerContainerViewRightMarginConstraint.offset = 0 - marginWidth;
-    
+
     BOOL hasMargins = marginWidth > 0;
     self.footerContainerView.backgroundColor = hasMargins ? [UIColor whiteColor] : [UIColor wmf_articleBackgroundColor];
-    
 }
 
 - (void)updateWebContentMarginForSize:(CGSize)size {
@@ -375,9 +354,10 @@ NSString* const WMFCCBySALicenseURL =
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     self.disableMinimizeFindInPage = YES;
-    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        self.disableMinimizeFindInPage = NO;
-    }];
+    [coordinator animateAlongsideTransition:nil
+                                 completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+                                     self.disableMinimizeFindInPage = NO;
+                                 }];
 }
 
 - (void)setFindInPageMatches:(NSArray *)findInPageMatches {
@@ -385,7 +365,7 @@ NSString* const WMFCCBySALicenseURL =
     [self updateFindInPageKeyboardBar];
 }
 
-#pragma FindInPage label and prev/next button state
+#pragma FindInPage label and prev / next button state
 
 - (void)updateFindInPageKeyboardBar {
     [[self findInPageKeyboardBar] updateForCurrentMatchIndex:self.findInPageSelectedMatchIndex
@@ -400,7 +380,7 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)moveFindInPageSelectedMatchIndexInDirection:(WMFFindInPageScrollDirection)direction {
-    if(self.findInPageMatches.count == 0){
+    if (self.findInPageMatches.count == 0) {
         return;
     }
     switch (direction) {
@@ -420,31 +400,33 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 - (void)scrollToAndFocusOnSelectedMatch {
-    if(self.findInPageMatches.count == 0){
+    if (self.findInPageMatches.count == 0) {
         return;
     }
-    NSString* matchSpanId = [self.findInPageMatches wmf_safeObjectAtIndex:self.findInPageSelectedMatchIndex];
+    NSString *matchSpanId = [self.findInPageMatches wmf_safeObjectAtIndex:self.findInPageSelectedMatchIndex];
     if (matchSpanId == nil) {
         return;
     }
     @weakify(self);
-    [self.webView getScrollViewRectForHtmlElementWithId:matchSpanId completion:^(CGRect rect){
-        @strongify(self);
-        [UIView animateWithDuration:0.3
-                              delay:0.0f
-                            options:UIViewAnimationOptionBeginFromCurrentState
-                         animations:^{
-                             @strongify(self);
-                             self.disableMinimizeFindInPage = YES;
-                             
-//TODO: modified to scroll the match to the vertical point between top of keyboard and top of screen
-                             
-                             [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, fmaxf(rect.origin.y - 80.f, 0.f)) animated:NO];
-                         } completion:^(BOOL done) {
-                             self.disableMinimizeFindInPage = NO;
-                         }];
-    }];
-    
+    [self.webView getScrollViewRectForHtmlElementWithId:matchSpanId
+                                             completion:^(CGRect rect) {
+                                                 @strongify(self);
+                                                 [UIView animateWithDuration:0.3
+                                                     delay:0.0f
+                                                     options:UIViewAnimationOptionBeginFromCurrentState
+                                                     animations:^{
+                                                         @strongify(self);
+                                                         self.disableMinimizeFindInPage = YES;
+
+                                                         //TODO: modified to scroll the match to the vertical point between top of keyboard and top of screen
+
+                                                         [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, fmaxf(rect.origin.y - 80.f, 0.f)) animated:NO];
+                                                     }
+                                                     completion:^(BOOL done) {
+                                                         self.disableMinimizeFindInPage = NO;
+                                                     }];
+                                             }];
+
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.useFocusStyleForHighlightedSearchTermWithId('%@')", matchSpanId] completionHandler:nil];
 }
 
@@ -455,34 +437,35 @@ NSString* const WMFCCBySALicenseURL =
 
 #pragma FindInPageKeyboardBarDelegate
 
-- (void)keyboardBar:(WMFFindInPageKeyboardBar*)keyboardBar searchTermChanged:(NSString *)term {
-    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm('%@')", term] completionHandler:^(id _Nullable obj, NSError* _Nullable error) {
-        [self scrollToAndFocusOnFirstMatch];
-    }];
+- (void)keyboardBar:(WMFFindInPageKeyboardBar *)keyboardBar searchTermChanged:(NSString *)term {
+    [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm('%@')", term]
+                   completionHandler:^(id _Nullable obj, NSError *_Nullable error) {
+                       [self scrollToAndFocusOnFirstMatch];
+                   }];
 }
 
-- (void)keyboardBarCloseButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
+- (void)keyboardBarCloseButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
     [self hideFindInPageWithCompletion:nil];
 }
 
-- (void)keyboardBarClearButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
+- (void)keyboardBarClearButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
     [self resetFindInPageWithCompletion:nil];
 }
 
-- (void)keyboardBarPreviousButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
+- (void)keyboardBarPreviousButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
     [self moveFindInPageSelectedMatchIndexInDirection:WMFFindInPageScrollDirectionPrevious];
     [self scrollToAndFocusOnSelectedMatch];
 }
 
-- (void)keyboardBarNextButtonTapped:(WMFFindInPageKeyboardBar*)keyboardBar {
+- (void)keyboardBarNextButtonTapped:(WMFFindInPageKeyboardBar *)keyboardBar {
     [self moveFindInPageSelectedMatchIndexInDirection:WMFFindInPageScrollDirectionNext];
     [self scrollToAndFocusOnSelectedMatch];
 }
 
 #pragma mark - WebView configuration
 
-- (WKWebViewConfiguration*)configuration {
-    WKUserContentController* userContentController = [[WKUserContentController alloc] init];
+- (WKWebViewConfiguration *)configuration {
+    WKUserContentController *userContentController = [[WKUserContentController alloc] init];
 
     [userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('collapseTables');" injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
 
@@ -502,34 +485,35 @@ NSString* const WMFCCBySALicenseURL =
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"sendJavascriptConsoleLogMessageToXcodeConsole"];
 
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"articleState"];
-    
+
     [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:@"findInPageMatchesFound"];
 
-    NSString* earlyJavascriptTransforms = @""
-                                          "window.wmf.transformer.transform( 'hideRedlinks', document );"
-                                          "window.wmf.transformer.transform( 'disableFilePageEdit', document );"
-                                          "window.wmf.transformer.transform( 'addImageOverflowXContainers', document );"
-                                          // 'addImageOverflowXContainers' needs to happen before 'widenImages'.
-                                          // See "enwiki > Counties of England > Scope and structure > Local government"
-                                          "window.wmf.transformer.transform( 'widenImages', document );"
-                                          "window.wmf.transformer.transform( 'moveFirstGoodParagraphUp', document );"
-                                          "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
-                                          "console.log = function(message){window.webkit.messageHandlers.sendJavascriptConsoleLogMessageToXcodeConsole.postMessage({'message': message});};";
+    NSString *earlyJavascriptTransforms = @""
+                                           "window.wmf.transformer.transform( 'hideRedlinks', document );"
+                                           "window.wmf.transformer.transform( 'disableFilePageEdit', document );"
+                                           "window.wmf.transformer.transform( 'addImageOverflowXContainers', document );"
+                                           // 'addImageOverflowXContainers' needs to happen before 'widenImages'.
+                                           // See "enwiki > Counties of England > Scope and structure > Local government"
+                                           "window.wmf.transformer.transform( 'widenImages', document );"
+                                           "window.wmf.transformer.transform( 'moveFirstGoodParagraphUp', document );"
+                                           "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
+                                           "console.log = function(message){window.webkit.messageHandlers.sendJavascriptConsoleLogMessageToXcodeConsole.postMessage({'message': message});};";
 
     [userContentController addUserScript:
-     [[WKUserScript alloc] initWithSource:earlyJavascriptTransforms
-                            injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
-                         forMainFrameOnly:YES]];
+                               [[WKUserScript alloc] initWithSource:earlyJavascriptTransforms
+                                                      injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
+                                                   forMainFrameOnly:YES]];
 
-    WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.userContentController = userContentController;
-    configuration.processPool           = [WKProcessPool wmf_sharedProcessPool];
+    configuration.processPool = [WKProcessPool wmf_sharedProcessPool];
     return configuration;
 }
 
-- (WKWebView*)webView {
+- (WKWebView *)webView {
     if (!_webView) {
         _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
+        _webView.allowsLinkPreview = NO;
         _webView.scrollView.delegate = self;
     }
     return _webView;
@@ -539,10 +523,8 @@ NSString* const WMFCCBySALicenseURL =
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.contentWidthPercentage = 1;
-    
-    self.isPeeking = NO;
 
     [self addFooterContainerView];
     [self addHeaderView];
@@ -554,14 +536,14 @@ NSString* const WMFCCBySALicenseURL =
 
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.containerView insertSubview:self.webView atIndex:0];
-    [self.webView mas_makeConstraints:^(MASConstraintMaker* make) {
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.top.and.bottom.equalTo(self.containerView);
     }];
-    self.webView.clipsToBounds            = NO;
+    self.webView.clipsToBounds = NO;
     self.webView.scrollView.clipsToBounds = NO;
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-    self.webView.scrollView.backgroundColor  = [UIColor wmf_articleBackgroundColor];
+    self.webView.scrollView.backgroundColor = [UIColor wmf_articleBackgroundColor];
 
     self.zeroStatusLabel.font = [UIFont systemFontOfSize:ALERT_FONT_SIZE];
     self.zeroStatusLabel.text = @"";
@@ -585,31 +567,17 @@ NSString* const WMFCCBySALicenseURL =
     self.webView.scrollView.delegate = self;
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateZeroStateWithNotification:)
-                                                 name:WMFZeroDispositionDidChange
+                                             selector:@selector(updateZeroBannerWithNotification:)
+                                                 name:WMFZeroRatingChanged
                                                object:nil];
     // should happen in will appear to prevent bar from being incorrect during transitions
-    [self updateZeroState];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(saveOpenArticleTitleWithCurrentlyOnscreenFragment)
-                                                 name:UIApplicationWillResignActiveNotification
-                                               object:nil];
-}
-
-- (void)saveOpenArticleTitleWithCurrentlyOnscreenFragment {
-    if (self.navigationController.topViewController == self.parentViewController) { // Ensure only the topmost article is recorded.
-        [self getCurrentVisibleSectionCompletion:^(MWKSection* visibleSection, NSError* error){
-            NSURL* url = [self.article.url wmf_URLWithFragment:visibleSection.anchor];
-            [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleURL:url];
-        }];
-    }
+    [self updateZeroBanner];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     self.webView.scrollView.delegate = nil;
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroDispositionDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroRatingChanged object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
 
@@ -632,11 +600,11 @@ NSString* const WMFCCBySALicenseURL =
     [self.KVOControllerNonRetaining observe:self.footerContainerView
                                     keyPath:WMF_SAFE_KEYPATH(self.footerContainerView, bounds)
                                     options:NSKeyValueObservingOptionInitial
-                                      block:^(WebViewController* observer, UIView* view, NSDictionary* change) {
-        if (view && observer.webView) {
-            [observer.webView wmf_setBottomPadding:(NSInteger)(ceil(view.bounds.size.height))];
-        }
-    }];
+                                      block:^(WebViewController *observer, UIView *view, NSDictionary *change) {
+                                          if (view && observer.webView) {
+                                              [observer.webView wmf_setBottomPadding:(NSInteger)(ceil(view.bounds.size.height))];
+                                          }
+                                      }];
 }
 
 /**
@@ -655,10 +623,10 @@ NSString* const WMFCCBySALicenseURL =
     [self.KVOControllerNonRetaining observe:self.webView.scrollView
                                     keyPath:WMF_SAFE_KEYPATH(self.webView.scrollView, contentSize)
                                     options:NSKeyValueObservingOptionInitial
-                                      block:^(WebViewController* observer, UIScrollView* scrollView, NSDictionary* change) {
-        @strongify(self);
-        [self setTopOfFooterContainerViewForContentSize:scrollView.contentSize];
-    }];
+                                      block:^(WebViewController *observer, UIScrollView *scrollView, NSDictionary *change) {
+                                          @strongify(self);
+                                          [self setTopOfFooterContainerViewForContentSize:scrollView.contentSize];
+                                      }];
 }
 
 - (void)setTopOfFooterContainerViewForContentSize:(CGSize)contentSize {
@@ -672,50 +640,54 @@ NSString* const WMFCCBySALicenseURL =
  *  resets the deceleration rate each time dragging begins
  *  http://stackoverflow.com/questions/31369538/cannot-change-wkwebviews-scroll-rate-on-ios-9-beta
  */
-- (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     [self referencesHide];
 }
 
 #pragma mark - Zero
 
-- (void)updateZeroStateWithNotification:(NSNotification*)notification {
-    [self updateZeroState];
+- (void)updateZeroBannerWithNotification:(NSNotification *)notification {
+    [self updateZeroBanner];
 }
 
-- (void)updateZeroState {
-    if ([[SessionSingleton sharedInstance] zeroConfigState].disposition) {
-        [self showZeroBannerWithMessage:[[[SessionSingleton sharedInstance] zeroConfigState] zeroMessage]];
+- (void)updateZeroBanner {
+    if ([[SessionSingleton sharedInstance] zeroConfigurationManager].isZeroRated) {
+        [self showBannerForZeroConfiguration:[[[SessionSingleton sharedInstance] zeroConfigurationManager] zeroConfiguration]];
     } else {
         self.zeroStatusLabel.text = @"";
     }
 }
 
-- (void)showZeroBannerWithMessage:(WMFZeroMessage*)zeroMessage {
-    self.zeroStatusLabel.text            = zeroMessage.message;
-    self.zeroStatusLabel.textColor       = zeroMessage.foreground;
-    self.zeroStatusLabel.backgroundColor = zeroMessage.background;
+- (void)showBannerForZeroConfiguration:(WMFZeroConfiguration *)zeroConfiguration {
+    self.zeroStatusLabel.text = zeroConfiguration.message;
+    self.zeroStatusLabel.textColor = zeroConfiguration.foreground;
+    self.zeroStatusLabel.backgroundColor = zeroConfiguration.background;
 }
 
 #pragma mark - Headers & Footers
 
-- (UIView*)footerAtIndex:(NSInteger)index {
-    UIView* footerView       = self.footerViewControllers[index].view;
-    UIView* footerViewHeader = self.footerViewHeadersByIndex[@(index)];
-    return footerViewHeader ? : footerView;
+- (nullable UIView *)footerAtIndex:(NSInteger)index {
+    UIView *footerView = [[self.footerViewControllers wmf_safeObjectAtIndex:index] view];
+    UIView *footerViewHeader = self.footerViewHeadersByIndex[@(index)];
+    return footerViewHeader ?: footerView;
 }
 
 - (void)scrollToFooterAtIndex:(NSInteger)index animated:(BOOL)animated {
-    UIView* viewToScrollTo   = [self footerAtIndex:index];
-    CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:viewToScrollTo.frame.origin
-                                                            fromView:self.footerContainerView];
-    footerViewOrigin.y -= self.webView.scrollView.contentInset.top;
-    [self.webView.scrollView setContentOffset:footerViewOrigin animated:animated];
+    UIView *viewToScrollTo = [self footerAtIndex:index];
+    if (viewToScrollTo) {
+        CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:viewToScrollTo.frame.origin
+                                                                fromView:self.footerContainerView];
+        footerViewOrigin.y -= self.webView.scrollView.contentInset.top;
+        [self.webView.scrollView setContentOffset:footerViewOrigin animated:animated];
+    }
 }
 
 - (void)accessibilityCursorToFooterAtIndex:(NSInteger)index {
-    UIView* viewToScrollTo = [self footerAtIndex:index];
-    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, viewToScrollTo);
+    UIView *viewToScrollTo = [self footerAtIndex:index];
+    if (viewToScrollTo) {
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, viewToScrollTo);
+    }
 }
 
 - (NSInteger)visibleFooterIndex {
@@ -723,8 +695,8 @@ NSString* const WMFCCBySALicenseURL =
     if (!CGRectIntersectsRect(scrollViewContentFrame, self.footerContainerView.frame)) {
         return NSNotFound;
     }
-    
-    return [self.footerViewControllers indexOfObjectPassingTest:^BOOL(UIViewController * _Nonnull vc, NSUInteger idx, BOOL * _Nonnull stop) {
+
+    return [self.footerViewControllers indexOfObjectPassingTest:^BOOL(UIViewController *_Nonnull vc, NSUInteger idx, BOOL *_Nonnull stop) {
         CGRect absoluteFooterViewFrame = [self.webView.scrollView convertRect:vc.view.frame
                                                                      fromView:self.footerContainerView];
         if (CGRectIntersectsRect(scrollViewContentFrame, absoluteFooterViewFrame)) {
@@ -741,7 +713,7 @@ NSString* const WMFCCBySALicenseURL =
     }
     self.headerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.webView.scrollView addSubview:self.headerView];
-    [self.headerView mas_makeConstraints:^(MASConstraintMaker* make) {
+    [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         // lead/trail must be constained to webview, the scrollview doesn't define a width
         make.leading.and.trailing.equalTo(self.webView);
         make.top.equalTo(self.webView.scrollView);
@@ -749,22 +721,23 @@ NSString* const WMFCCBySALicenseURL =
     }];
 }
 
-- (UIView*)footerContainerView {
+- (UIView *)footerContainerView {
     if (!_footerContainerView) {
-        _footerContainerView                 = [UIView new];
+        _footerContainerView = [UIView new];
         _footerContainerView.backgroundColor = [UIColor wmf_articleBackgroundColor];
     }
     return _footerContainerView;
 }
 
-- (WMFArticleFooterView*)footerLicenseView {
+- (WMFArticleFooterView *)footerLicenseView {
     if (!_footerLicenseView) {
         _footerLicenseView = [WMFArticleFooterView wmf_viewFromClassNib];
         @weakify(self);
         [_footerLicenseView.showLicenseButton bk_addEventHandler:^(id sender) {
             @strongify(self);
             [self wmf_openExternalUrl:[NSURL URLWithString:WMFCCBySALicenseURL]];
-        } forControlEvents:UIControlEventTouchUpInside];
+        }
+                                                forControlEvents:UIControlEventTouchUpInside];
     }
     return _footerLicenseView;
 }
@@ -784,7 +757,7 @@ NSString* const WMFCCBySALicenseURL =
 - (void)addFooterContainerView {
     self.footerContainerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.webView.scrollView addSubview:self.footerContainerView];
-    [self.footerContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
+    [self.footerContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
         // lead/trail must be constained to webview, the scrollview doesn't define a width
         self.footerContainerViewLeftMarginConstraint = make.leading.equalTo(self.webView);
         self.footerContainerViewRightMarginConstraint = make.trailing.equalTo(self.webView);
@@ -802,33 +775,33 @@ NSString* const WMFCCBySALicenseURL =
         return;
     }
     NSParameterAssert(self.isViewLoaded);
-    MASViewAttribute* lastAnchor = [self.footerViewControllers bk_reduce:self.footerContainerView.mas_top
-                                                               withBlock:^MASViewAttribute*(MASViewAttribute* topAnchor,
-                                                                                            UIViewController* childVC) {
-        NSString* footerTitle = [self.delegate webViewController:self titleForFooterViewController:childVC];
-        if (footerTitle) {
-            WMFArticleFooterViewHeader* header = [WMFArticleFooterViewHeader wmf_viewFromClassNib];
-            self.footerViewHeadersByIndex[@([self.footerViewControllers indexOfObject:childVC])] = header;
-            header.headerLabel.text = footerTitle;
-            header.translatesAutoresizingMaskIntoConstraints = NO;
-            [self.footerContainerView addSubview:header];
-            [header mas_remakeConstraints:^(MASConstraintMaker* make) {
-                make.leading.and.trailing.equalTo(self.footerContainerView);
-                make.top.equalTo(topAnchor);
-            }];
-            topAnchor = header.mas_bottom;
-        }
+    MASViewAttribute *lastAnchor = [self.footerViewControllers bk_reduce:self.footerContainerView.mas_top
+                                                               withBlock:^MASViewAttribute *(MASViewAttribute *topAnchor,
+                                                                                             UIViewController *childVC) {
+                                                                   NSString *footerTitle = [self.delegate webViewController:self titleForFooterViewController:childVC];
+                                                                   if (footerTitle) {
+                                                                       WMFArticleFooterViewHeader *header = [WMFArticleFooterViewHeader wmf_viewFromClassNib];
+                                                                       self.footerViewHeadersByIndex[@([self.footerViewControllers indexOfObject:childVC])] = header;
+                                                                       header.headerLabel.text = footerTitle;
+                                                                       header.translatesAutoresizingMaskIntoConstraints = NO;
+                                                                       [self.footerContainerView addSubview:header];
+                                                                       [header mas_remakeConstraints:^(MASConstraintMaker *make) {
+                                                                           make.leading.and.trailing.equalTo(self.footerContainerView);
+                                                                           make.top.equalTo(topAnchor);
+                                                                       }];
+                                                                       topAnchor = header.mas_bottom;
+                                                                   }
 
-        childVC.view.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.footerContainerView addSubview:childVC.view];
-        [self updateFooterMarginForSize:self.view.bounds.size];
-        [childVC.view mas_remakeConstraints:^(MASConstraintMaker* make) {
-            make.leading.and.trailing.equalTo(self.footerContainerView);
-            make.top.equalTo(topAnchor);
-        }];
-        [childVC didMoveToParentViewController:self];
-        return childVC.view.mas_bottom;
-    }];
+                                                                   childVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+                                                                   [self.footerContainerView addSubview:childVC.view];
+                                                                   [self updateFooterMarginForSize:self.view.bounds.size];
+                                                                   [childVC.view mas_remakeConstraints:^(MASConstraintMaker *make) {
+                                                                       make.leading.and.trailing.equalTo(self.footerContainerView);
+                                                                       make.top.equalTo(topAnchor);
+                                                                   }];
+                                                                   [childVC didMoveToParentViewController:self];
+                                                                   return childVC.view.mas_bottom;
+                                                               }];
 
     if (!lastAnchor) {
         lastAnchor = self.footerContainerView.mas_top;
@@ -836,24 +809,24 @@ NSString* const WMFCCBySALicenseURL =
 
     self.footerLicenseView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.footerContainerView addSubview:self.footerLicenseView];
-    [self.footerLicenseView mas_remakeConstraints:^(MASConstraintMaker* make) {
+    [self.footerLicenseView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lastAnchor);
         make.leading.and.trailing.equalTo(self.footerContainerView);
         make.bottom.equalTo(self.footerContainerView);
     }];
 }
 
-- (void)setFooterViewControllers:(NSArray<UIViewController*>*)footerViewControllers {
+- (void)setFooterViewControllers:(NSArray<UIViewController *> *)footerViewControllers {
     if (WMF_EQUAL(self.footerViewControllers, isEqualToArray:, footerViewControllers)) {
         return;
     }
-    [_footerViewControllers bk_each:^(UIViewController* childVC) {
+    [_footerViewControllers bk_each:^(UIViewController *childVC) {
         [childVC willMoveToParentViewController:nil];
         [childVC.view removeFromSuperview];
         [childVC removeFromParentViewController];
     }];
     _footerViewControllers = [footerViewControllers copy];
-    [_footerViewControllers bk_each:^(UIViewController* childVC) {
+    [_footerViewControllers bk_each:^(UIViewController *childVC) {
         [self addChildViewController:childVC];
         // didMoveToParent is called when they are added to the view
     }];
@@ -861,7 +834,7 @@ NSString* const WMFCCBySALicenseURL =
     [self addFooterView];
 }
 
-- (void)setHeaderView:(UIView*)headerView {
+- (void)setHeaderView:(UIView *)headerView {
     NSAssert(!self.headerView, @"Dynamic/re-configurable header view is not supported.");
     NSAssert(!self.isViewLoaded, @"Expected header to be configured before viewDidLoad.");
     _headerView = headerView;
@@ -881,11 +854,11 @@ NSString* const WMFCCBySALicenseURL =
 
 #pragma mark - Scrolling
 
-- (void)scrollToFragment:(NSString*)fragment {
+- (void)scrollToFragment:(NSString *)fragment {
     [self scrollToFragment:fragment animated:YES];
 }
 
-- (void)scrollToFragment:(NSString*)fragment animated:(BOOL)animated {
+- (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated {
     if (fragment.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
@@ -894,34 +867,37 @@ NSString* const WMFCCBySALicenseURL =
             [self.webView wmf_scrollToFragment:fragment];
             return;
         }
-        [self.webView getScrollViewRectForHtmlElementWithId:fragment completion:^(CGRect rect) {
-            if (!CGRectIsNull(rect)) {
-                [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y)
-                                                         animated:animated];
-            }
-        }];
+        [self.webView getScrollViewRectForHtmlElementWithId:fragment
+                                                 completion:^(CGRect rect) {
+                                                     if (!CGRectIsNull(rect)) {
+                                                         [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y)
+                                                                                                  animated:animated];
+                                                     }
+                                                 }];
     }
 }
 
-- (void)scrollToSection:(MWKSection*)section animated:(BOOL)animated {
+- (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated {
     [self scrollToFragment:section.anchor animated:animated];
 }
 
-- (void)accessibilityCursorToSection:(MWKSection*)section {
+- (void)accessibilityCursorToSection:(MWKSection *)section {
     // This might shift the visual scroll position. To prevent it affecting other users,
     // we will only do it when we detect than an assistive technology which actually needs this is running.
     [self.webView wmf_accessibilityCursorToFragment:section.anchor];
 }
 
-- (void)getCurrentVisibleSectionCompletion:(void (^)(MWKSection* _Nullable, NSError* __nullable error))completion {
-    [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_" count:self.article.sections.count completion:^(id obj, NSError* error){
-        if (error) {
-            completion(nil, error);
-        } else {
-            NSInteger indexOfFirstOnscreenSection = ((NSNumber*)obj).integerValue;
-            completion(indexOfFirstOnscreenSection == -1 ? nil : self.article.sections[indexOfFirstOnscreenSection], error);
-        }
-    }];
+- (void)getCurrentVisibleSectionCompletion:(void (^)(MWKSection *_Nullable, NSError *__nullable error))completion {
+    [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
+                                                   count:self.article.sections.count
+                                              completion:^(id obj, NSError *error) {
+                                                  if (error) {
+                                                      completion(nil, error);
+                                                  } else {
+                                                      NSInteger indexOfFirstOnscreenSection = ((NSNumber *)obj).integerValue;
+                                                      completion(indexOfFirstOnscreenSection == -1 ? nil : self.article.sections[indexOfFirstOnscreenSection], error);
+                                                  }
+                                              }];
 }
 
 - (void)scrollToVerticalOffset:(CGFloat)offset {
@@ -943,9 +919,10 @@ NSString* const WMFCCBySALicenseURL =
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-        [self.webView.scrollView wmf_safeSetContentOffset:point animated:NO];
-    } completion:^(BOOL done) {
-    }];
+                         [self.webView.scrollView wmf_safeSetContentOffset:point animated:NO];
+                     }
+                     completion:^(BOOL done){
+                     }];
 }
 
 #pragma mark UIContainerViewControllerCallbacks
@@ -960,13 +937,12 @@ NSString* const WMFCCBySALicenseURL =
 
 #pragma mark - Display article
 
-- (void)setArticle:(MWKArticle * _Nullable)article articleURL:(NSURL*)articleURL{
+- (void)setArticle:(MWKArticle *_Nullable)article articleURL:(NSURL *)articleURL {
     self.articleURL = articleURL;
     self.article = article;
 }
 
-
-- (void)setArticle:(MWKArticle*)article {
+- (void)setArticle:(MWKArticle *)article {
     _article = article;
 
     WMF_TECH_DEBT_TODO(remove dependency on session current article)
@@ -982,14 +958,14 @@ NSString* const WMFCCBySALicenseURL =
         return;
     }
 
-    self.headerView.alpha          = 0.f;
+    self.headerView.alpha = 0.f;
     self.footerContainerView.alpha = 0.f;
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     [self.headerHeight setOffset:headerHeight];
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
     [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth)];
 
-    UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
+    UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
                                                           action:@selector(shareMenuItemTapped:)];
     [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 
@@ -999,12 +975,9 @@ NSString* const WMFCCBySALicenseURL =
 #pragma mark Bottom menu bar
 
 - (void)showProtectedDialog {
-    UIAlertView* alert = [[UIAlertView alloc] init];
-    alert.title   = MWLocalizedString(@"page_protected_can_not_edit_title", nil);
-    alert.message = MWLocalizedString(@"page_protected_can_not_edit", nil);
-    [alert addButtonWithTitle:@"OK"];
-    alert.cancelButtonIndex = 0;
-    [alert show];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:MWLocalizedString(@"page_protected_can_not_edit_title", nil) message:MWLocalizedString(@"page_protected_can_not_edit", nil) preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"button-ok", nil) style:UIAlertActionStyleCancel handler:NULL]];
+    [self presentViewController:alert animated:YES completion:NULL];
 }
 
 #pragma mark Refs
@@ -1044,7 +1017,7 @@ NSString* const WMFCCBySALicenseURL =
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         percentOfHeight *= 0.5;
     }
-    NSNumber* refsHeight = @((self.view.frame.size.height * MENUS_SCALE_MULTIPLIER) * percentOfHeight);
+    NSNumber *refsHeight = @((self.view.frame.size.height * MENUS_SCALE_MULTIPLIER) * percentOfHeight);
     return (CGFloat)refsHeight.integerValue;
 }
 
@@ -1052,13 +1025,13 @@ NSString* const WMFCCBySALicenseURL =
     [self updateReferencesHeightAndBottomConstraints];
 }
 
-- (BOOL)didFindReferencesInPayload:(NSDictionary*)payload {
-    NSArray* refs = payload[@"refs"];
+- (BOOL)didFindReferencesInPayload:(NSDictionary *)payload {
+    NSArray *refs = payload[@"refs"];
     if (!refs || (refs.count == 0)) {
         return NO;
     }
     if (refs.count == 1) {
-        NSString* firstRef = refs[0];
+        NSString *firstRef = refs[0];
         if ([firstRef isEqualToString:@""]) {
             return NO;
         }
@@ -1066,10 +1039,10 @@ NSString* const WMFCCBySALicenseURL =
     return YES;
 }
 
-- (void)referencesShow:(NSDictionary*)payload {
+- (void)referencesShow:(NSDictionary *)payload {
     if (!self.referencesHidden) {
         self.referencesVC.panelHeight = [self getRefsPanelHeight];
-        self.referencesVC.payload     = payload;
+        self.referencesVC.payload = payload;
         return;
     }
 
@@ -1090,30 +1063,31 @@ NSString* const WMFCCBySALicenseURL =
     [self.referencesContainerView addSubview:self.referencesVC.view];
 
     [self.referencesContainerView addConstraints:
-     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
-                                             options:0
-                                             metrics:nil
-                                               views:@{ @"view": self.referencesVC.view }]];
+                                      [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
+                                                                              options:0
+                                                                              metrics:nil
+                                                                                views:@{ @"view": self.referencesVC.view }]];
     [self.referencesContainerView addConstraints:
-     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
-                                             options:0
-                                             metrics:nil
-                                               views:@{ @"view": self.referencesVC.view }]];
+                                      [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
+                                                                              options:0
+                                                                              metrics:nil
+                                                                                views:@{ @"view": self.referencesVC.view }]];
 
     [self.referencesVC didMoveToParentViewController:self];
 
     [self.referencesContainerView layoutIfNeeded];
 
     self.referencesVC.panelHeight = [self getRefsPanelHeight];
-    self.referencesVC.payload     = payload;
+    self.referencesVC.payload = payload;
 
     [UIView animateWithDuration:0.16
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-        self.referencesHidden = NO;
-        [self.view layoutIfNeeded];
-    } completion:nil];
+                         self.referencesHidden = NO;
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:nil];
 }
 
 - (void)referencesHide {
@@ -1121,68 +1095,69 @@ NSString* const WMFCCBySALicenseURL =
         return;
     }
     [UIView animateWithDuration:0.16
-                          delay:0.0f
-                        options:UIViewAnimationOptionBeginFromCurrentState
-                     animations:^{
-        self.referencesHidden = YES;
+        delay:0.0f
+        options:UIViewAnimationOptionBeginFromCurrentState
+        animations:^{
+            self.referencesHidden = YES;
 
-        [self.view layoutIfNeeded];
-    } completion:^(BOOL done) {
-        [self.referencesVC willMoveToParentViewController:nil];
-        [self.referencesVC.view removeFromSuperview];
-        [self.referencesVC removeFromParentViewController];
-        self.referencesVC = nil;
-    }];
+            [self.view layoutIfNeeded];
+        }
+        completion:^(BOOL done) {
+            [self.referencesVC willMoveToParentViewController:nil];
+            [self.referencesVC.view removeFromSuperview];
+            [self.referencesVC removeFromParentViewController];
+            self.referencesVC = nil;
+        }];
 }
 
-- (void)referenceViewController:(ReferencesVC*)referenceViewController didShowReferenceWithLinkID:(NSString*)linkID {
+- (void)referenceViewController:(ReferencesVC *)referenceViewController didShowReferenceWithLinkID:(NSString *)linkID {
     // Highlight the tapped reference.
     [self.webView wmf_highlightLinkID:linkID];
 
     // Scroll the tapped reference up if the panel would cover it.
-    [self.webView getScreenRectForHtmlElementWithId:linkID completion:^(CGRect rect) {
-        if (!CGRectIsNull(rect)) {
-            CGFloat vSpaceAboveRefsPanel = self.view.bounds.size.height - referenceViewController.panelHeight;
-            // Only scroll up if the refs link would be below the refs panel.
-            if ((rect.origin.y + rect.size.height) > (vSpaceAboveRefsPanel)) {
-                // Calculate the distance needed to scroll the refs link to the vertical center of the
-                // part of the article web view not covered by the refs panel.
-                CGFloat distanceFromVerticalCenter = ((vSpaceAboveRefsPanel) / 2.0) - (rect.size.height / 2.0);
-                [self.webView.scrollView wmf_safeSetContentOffset:
-                 CGPointMake(
-                     self.webView.scrollView.contentOffset.x,
-                     self.webView.scrollView.contentOffset.y + (rect.origin.y - distanceFromVerticalCenter)
-                     )
-                                                         animated:YES];
-            }
-        }
-    }];
+    [self.webView getScreenRectForHtmlElementWithId:linkID
+                                         completion:^(CGRect rect) {
+                                             if (!CGRectIsNull(rect)) {
+                                                 CGFloat vSpaceAboveRefsPanel = self.view.bounds.size.height - referenceViewController.panelHeight;
+                                                 // Only scroll up if the refs link would be below the refs panel.
+                                                 if ((rect.origin.y + rect.size.height) > (vSpaceAboveRefsPanel)) {
+                                                     // Calculate the distance needed to scroll the refs link to the vertical center of the
+                                                     // part of the article web view not covered by the refs panel.
+                                                     CGFloat distanceFromVerticalCenter = ((vSpaceAboveRefsPanel) / 2.0) - (rect.size.height / 2.0);
+                                                     [self.webView.scrollView wmf_safeSetContentOffset:
+                                                                                  CGPointMake(
+                                                                                      self.webView.scrollView.contentOffset.x,
+                                                                                      self.webView.scrollView.contentOffset.y + (rect.origin.y - distanceFromVerticalCenter))
+                                                                                              animated:YES];
+                                                 }
+                                             }
+                                         }];
 }
 
-- (void)referenceViewController:(ReferencesVC*)referenceViewController didFinishShowingReferenceWithLinkID:(NSString*)linkID {
+- (void)referenceViewController:(ReferencesVC *)referenceViewController didFinishShowingReferenceWithLinkID:(NSString *)linkID {
     [self.webView wmf_unHighlightLinkID:linkID];
 }
 
-- (void)referenceViewControllerCloseReferences:(ReferencesVC*)referenceViewController {
+- (void)referenceViewControllerCloseReferences:(ReferencesVC *)referenceViewController {
     [self referencesHide];
 }
 
-- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectInternalReferenceWithFragment:(NSString*)fragment {
+- (void)referenceViewController:(ReferencesVC *)referenceViewController didSelectInternalReferenceWithFragment:(NSString *)fragment {
     [self scrollToFragment:fragment];
 }
 
-- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectReferenceWithURL:(NSURL*)url {
+- (void)referenceViewController:(ReferencesVC *)referenceViewController didSelectReferenceWithURL:(NSURL *)url {
     [self.delegate webViewController:self didTapOnLinkForArticleURL:url];
 }
 
-- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectExternalReferenceWithURL:(NSURL*)url {
+- (void)referenceViewController:(ReferencesVC *)referenceViewController didSelectExternalReferenceWithURL:(NSURL *)url {
     [self wmf_openExternalUrl:url];
 }
 
 #pragma mark - Share Actions
 
 - (void)shareMenuItemTapped:(id)sender {
-    [self.webView wmf_getSelectedText:^(NSString* _Nonnull text) {
+    [self.webView wmf_getSelectedText:^(NSString *_Nonnull text) {
         [self shareSnippet:text];
     }];
 }
@@ -1193,9 +1168,9 @@ NSString* const WMFCCBySALicenseURL =
     if ([[self findInPageKeyboardBar] isVisible]) {
         return NO;
     }
-    
+
     if (action == @selector(shareSnippet:)) {
-        [self.webView wmf_getSelectedText:^(NSString* _Nonnull text) {
+        [self.webView wmf_getSelectedText:^(NSString *_Nonnull text) {
             [self.delegate webViewController:self didSelectText:text];
         }];
         return YES;
@@ -1203,28 +1178,28 @@ NSString* const WMFCCBySALicenseURL =
     return [super canPerformAction:action withSender:sender];
 }
 
-- (void)shareSnippet:(NSString*)snippet {
+- (void)shareSnippet:(NSString *)snippet {
     [self.webView wmf_suppressSelection];
     [self.delegate webViewController:self didTapShareWithSelectedText:snippet];
 }
 
 - (void)editHistoryButtonPushed {
-    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[PageHistoryViewController wmf_initialViewControllerFromClassStoryboard]];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:[PageHistoryViewController wmf_initialViewControllerFromClassStoryboard]];
     [self presentViewController:nc animated:YES completion:nil];
 }
 
-- (void)setFontSizeMultiplier:(NSNumber*)fontSize {
+- (void)setFontSizeMultiplier:(NSNumber *)fontSize {
     if (fontSize == nil) {
         fontSize = @(100);
     }
     [self.webView wmf_setTextSize:fontSize.integerValue];
-    [[NSUserDefaults standardUserDefaults] wmf_setReadingFontSize:fontSize];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSUserDefaults wmf_userDefaults] wmf_setReadingFontSize:fontSize];
+    [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidScroll:)]) {
         [self.delegate webViewController:self scrollViewDidScroll:scrollView];
     }
@@ -1253,7 +1228,6 @@ NSString* const WMFCCBySALicenseURL =
 
 @end
 
-
 @implementation WMFWebView
 
 //Disable OS share menu when selecting text
@@ -1265,4 +1239,3 @@ NSString* const WMFCCBySALicenseURL =
 }
 
 @end
-

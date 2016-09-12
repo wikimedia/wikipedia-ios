@@ -23,7 +23,7 @@ typedef id FBTweakValue;
   @abstract Represents a range of values for a numeric tweak.
   @discussion Use this for the -possibleValues on a tweak.
  */
-@interface FBTweakNumericRange : NSObject <NSCoding>
+@interface FBTweakNumericRange : NSObject
 
 /**
   @abstract Creates a new numeric range.
@@ -156,13 +156,5 @@ typedef id FBTweakValue;
   @param tweak The tweak which changed in value.
  */
 - (void)tweakDidChange:(FBTweak *)tweak;
-
-@optional
-
-/**
- @abstract Called when a tweak's value will change.
- @param tweak The tweak which value will change.
- */
-- (void)tweakWillChange:(FBTweak *)tweak;
 
 @end

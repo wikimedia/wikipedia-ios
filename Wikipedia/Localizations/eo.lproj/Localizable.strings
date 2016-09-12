@@ -68,8 +68,10 @@
 "wikitext-download-failed" = "Ne eblas ricevi lastan revizion.";
 "wikitext-download-success" = "Enhavo ŝarĝita.";
 "wikitext-preview-changes" = "Ricevado de antaŭrigardo de viaj ŝanĝoj...";
+// Fuzzy
 "wikitext-upload-save" = "Konservante...";
 "wikitext-upload-save-sign-in" = "Ensaluti";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Konservi anonime";
 "wikitext-upload-save-terms-name" = "Uzkondiĉoj";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -143,14 +145,17 @@
 "page-history-downloading" = "Ŝutado de artikola historio...";
 "navbar-title-mode-edit-wikitext" = "Redakti";
 "navbar-title-mode-login" = "Ensaluti";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Ensaluti kaj konservi";
 "navbar-title-mode-create-account" = "Krei konton";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Krei konton kaj konservi";
 "navbar-title-mode-edit-wikitext-warning" = "Redakti atentindaĵojn";
 "navbar-title-mode-edit-wikitext-disallow" = "Redakti atentindaĵojn";
 "navbar-title-mode-edit-wikitext-preview" = "Antaŭrigardi";
 "navbar-title-mode-edit-wikitext-captcha" = "Estas bezonata rapida kontrolo";
 "navbar-title-mode-edit-wikitext-summary" = "Priskribu vian redakton";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Konservi";
 "edit-summary-choice-linked-words" = "Aldonis ligilojn";
 "edit-summary-choice-fixed-grammar" = "Ĝustigis gramatikon";
@@ -226,12 +231,12 @@
 "table-of-contents-heading" = "Enhavaĵoj";
 // Fuzzy
 "table-of-contents-button-label" = "Enhavtabelo";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Fermi enhavtabelon";
 "table-of-contents-close-accessibility-hint" = "Fermi";
 "abuse-filter-warning-caps" = "Skribi ĈION MAJUSKLE";
 "abuse-filter-warning-blanking" = "Malplenigi artikolon aŭ spamado";
 "abuse-filter-warning-repeat" = "Ripetaaaado de karakteroj";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Vi ne povas konservi ĉi tiun modifon. Bonvole iru reen kaj ŝanĝu ĝin.";
 "menu-edit-accessibility-label" = "Redakti";
 "menu-close-accessibility-label" = "Fermi";
@@ -281,5 +286,7 @@
 "icon-shortcut-random-title" = "Hazarda artikolo";
 "close-button-accessibility-label" = "Fermi";
 "back-button-accessibility-label" = "Reen";
+"explore-nearby-sub-heading-your-location" = "Via loko";
 "explore-random-article-sub-heading" = "Anglalingva Vikipedio";
 "explore-potd-heading" = "Bildo de la tago";
+"find-in-page-button-label" = "Trovi en la paĝo";

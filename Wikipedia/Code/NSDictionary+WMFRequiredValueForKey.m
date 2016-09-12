@@ -1,30 +1,22 @@
-//
-//  NSDictionary+WMFRequiredValueForKey.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 2/11/16.
-//  Copyright © 2016 Wikimedia Foundation. All rights reserved.
-//
-
 #import "NSDictionary+WMFRequiredValueForKey.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString* const WMFInvalidValueForKeyErrorDomain = @"WMFInvalidValueForKeyErrorDomain";
-NSString* const WMFFailingDictionaryUserInfoKey  = @"WMFFailingDictionaryUserInfoKey";
+NSString *const WMFInvalidValueForKeyErrorDomain = @"WMFInvalidValueForKeyErrorDomain";
+NSString *const WMFFailingDictionaryUserInfoKey = @"WMFFailingDictionaryUserInfoKey";
 
 @implementation NSDictionary (WMFRequiredValueForKey)
 
 - (nullable id)wmf_instanceOfClass:(Class)aClass
-                            forKey:(NSString*)key
-                             error:(NSError* _Nullable __autoreleasing*)outError {
+                            forKey:(NSString *)key
+                             error:(NSError *_Nullable __autoreleasing *)outError {
     NSParameterAssert(key);
-    NSError*(^ errorWithCode)(WMFInvalidValueForKeyError) = ^(WMFInvalidValueForKeyError code) {
+    NSError * (^errorWithCode)(WMFInvalidValueForKeyError) = ^(WMFInvalidValueForKeyError code) {
         return [NSError errorWithDomain:WMFInvalidValueForKeyErrorDomain
                                    code:code
                                userInfo:@{
-                    WMFFailingDictionaryUserInfoKey: self
-                }];
+                                   WMFFailingDictionaryUserInfoKey: self
+                               }];
     };
     id value = self[key];
     if (!value) {

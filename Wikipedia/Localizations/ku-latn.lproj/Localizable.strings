@@ -40,6 +40,7 @@
 "login-password-placeholder-text" = "Şîfre";
 "wikitext-downloading" = "Naverok tê barkirin...";
 "wikitext-download-success" = "Naverok hate barkirin.";
+// Fuzzy
 "wikitext-upload-save" = "Tê tomarkirin...";
 "wikitext-upload-save-sign-in" = "Têkeve";
 "wikitext-upload-save-terms-name" = "Mercên Bikaranînê";
@@ -91,9 +92,11 @@
 "page-history-downloading" = "Dîroka gotarê tê barkirin...";
 "navbar-title-mode-edit-wikitext" = "Biguherîne";
 "navbar-title-mode-login" = "Têkeve";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Têkeve û rûpelê tomar bike";
 "navbar-title-mode-create-account" = "Hesabekî çêke";
 "navbar-title-mode-edit-wikitext-preview" = "Pêşdîtin";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Tomar bike";
 "edit-summary-choice-linked-words" = "Girêdanan lê zêde kir";
 "edit-summary-choice-fixed-grammar" = "Rêziman sererast kir";

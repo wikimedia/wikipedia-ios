@@ -1,4 +1,3 @@
-
 #import "MWKDataStore+WMFDataSources.h"
 #import "YapDatabase+WMFExtensions.h"
 #import "YapDatabase+WMFViews.h"
@@ -7,22 +6,21 @@
 
 @interface MWKDataStore (WMFDataSourcesPrivate)
 
-@property (readonly, strong, nonatomic) YapDatabase* database;
-@property (readonly, strong, nonatomic) YapDatabaseConnection* articleReferenceReadConnection;
-@property (readonly, strong, nonatomic) YapDatabaseConnection* writeConnection;
-@property (readonly, nonatomic, strong) NSPointerArray* changeHandlers;
+@property (readonly, strong, nonatomic) YapDatabase *database;
+@property (readonly, strong, nonatomic) YapDatabaseConnection *articleReferenceReadConnection;
+@property (readonly, strong, nonatomic) YapDatabaseConnection *writeConnection;
+@property (readonly, nonatomic, strong) NSPointerArray *changeHandlers;
 
 @end
-
 
 @implementation MWKDataStore (WMFDataSources)
 
 - (void)registerChangeHandler:(id<WMFDatabaseChangeHandler>)handler {
-    [self.changeHandlers addPointer:(__bridge void* _Nullable)(handler)];
+    [self.changeHandlers addPointer:(__bridge void *_Nullable)(handler)];
 }
 
-- (WMFDatabaseDataSource*)registeredDataSourceWithMappings:(YapDatabaseViewMappings*)mappings {
-    WMFDatabaseDataSource* datasource = [[WMFDatabaseDataSource alloc] initWithReadConnection:self.articleReferenceReadConnection writeConnection:self.writeConnection mappings:mappings];
+- (WMFDatabaseDataSource *)registeredDataSourceWithMappings:(YapDatabaseViewMappings *)mappings {
+    WMFDatabaseDataSource *datasource = [[WMFDatabaseDataSource alloc] initWithReadConnection:self.articleReferenceReadConnection writeConnection:self.writeConnection mappings:mappings];
     [self registerChangeHandler:datasource];
     return datasource;
 }

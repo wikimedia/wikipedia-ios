@@ -1,16 +1,15 @@
-
 #import "WMFExploreSectionHeader.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 
 @interface WMFExploreSectionHeader ()
 
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint* rightButtonWidthConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *rightButtonWidthConstraint;
 @property (assign, nonatomic) CGFloat rightButtonWidthConstraintConstant;
 
-@property (strong, nonatomic) IBOutlet UIImageView* icon;
-@property (strong, nonatomic) IBOutlet UIView* iconContainerView;
-@property (strong, nonatomic) IBOutlet UILabel* titleLabel;
-@property (strong, nonatomic) IBOutlet UILabel* subTitleLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *icon;
+@property (strong, nonatomic) IBOutlet UIView *iconContainerView;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *subTitleLabel;
 
 @end
 
@@ -19,10 +18,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self reset];
-    self.tintColor                          = [UIColor wmf_blueTintColor];
+    self.tintColor = [UIColor wmf_blueTintColor];
     self.rightButtonWidthConstraintConstant = self.rightButtonWidthConstraint.constant;
-    self.rightButton.hidden                 = YES;
-    self.rightButton.tintColor              = [UIColor wmf_blueTintColor];
+    self.rightButton.hidden = YES;
+    self.rightButton.tintColor = [UIColor wmf_blueTintColor];
     @weakify(self);
     [self bk_whenTapped:^{
         @strongify(self);
@@ -32,23 +31,23 @@
     }];
 }
 
-- (void)setImage:(UIImage*)image {
+- (void)setImage:(UIImage *)image {
     self.icon.image = image;
 }
 
-- (void)setImageTintColor:(UIColor*)imageTintColor {
+- (void)setImageTintColor:(UIColor *)imageTintColor {
     self.icon.tintColor = imageTintColor;
 }
 
-- (void)setImageBackgroundColor:(UIColor*)imageBackgroundColor {
+- (void)setImageBackgroundColor:(UIColor *)imageBackgroundColor {
     self.iconContainerView.backgroundColor = imageBackgroundColor;
 }
 
-- (void)setTitle:(NSAttributedString*)title {
+- (void)setTitle:(NSAttributedString *)title {
     self.titleLabel.attributedText = title;
 }
 
-- (void)setSubTitle:(NSAttributedString*)subTitle {
+- (void)setSubTitle:(NSAttributedString *)subTitle {
     self.subTitleLabel.attributedText = subTitle;
 }
 
@@ -58,7 +57,7 @@
 }
 
 - (void)reset {
-    self.titleLabel.text    = @"";
+    self.titleLabel.text = @"";
     self.subTitleLabel.text = @"";
     self.rightButtonEnabled = NO;
 }
@@ -67,7 +66,7 @@
     if (_rightButtonEnabled == rightButtonEnabled) {
         return;
     }
-    _rightButtonEnabled     = rightButtonEnabled;
+    _rightButtonEnabled = rightButtonEnabled;
     self.rightButton.hidden = !self.rightButtonEnabled;
     [self setNeedsUpdateConstraints];
     [self updateConstraintsIfNeeded];

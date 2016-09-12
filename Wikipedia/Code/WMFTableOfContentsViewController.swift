@@ -1,5 +1,5 @@
-
 import UIKit
+import Masonry
 
 public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
 
@@ -42,6 +42,21 @@ public class WMFTableOfContentsViewController: UIViewController,
         tv.delegate = self
         tv.dataSource = self
         tv.backgroundView = nil
+
+        tv.registerNib(WMFTableOfContentsCell.wmf_classNib(),
+                              forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
+        tv.estimatedRowHeight = 41
+        tv.rowHeight = UITableViewAutomaticDimension
+        
+        tv.sectionHeaderHeight = UITableViewAutomaticDimension
+        tv.estimatedSectionHeaderHeight = 32
+        
+        tv.contentInset = UIEdgeInsetsMake(UIApplication.sharedApplication().statusBarFrame.size.height, 0, 0, 0)
+        tv.separatorStyle = .None
+
+        //add to the view now to ensure view did load is kicked off
+        self.view.addSubview(tv)
+
         return tv
     }()
 
@@ -57,8 +72,6 @@ public class WMFTableOfContentsViewController: UIViewController,
         }
     }
     
-    var previousStatusbarStyle: UIStatusBarStyle?
-
     //optional because it requires a reference to self to inititialize
     var animator: WMFTableOfContentsAnimator?
 
@@ -95,6 +108,10 @@ public class WMFTableOfContentsViewController: UIViewController,
     }
 
     public func selectAndScrollToItem(atIndex index: Int, animated: Bool) {
+        guard index < items.count else {
+            assertionFailure("Trying to select/scroll to an item put of range")
+            return
+        }
         selectAndScrollToItem(items[index], animated: animated)
     }
     
@@ -173,43 +190,32 @@ public class WMFTableOfContentsViewController: UIViewController,
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.addSubview(tableView)
         tableView.mas_makeConstraints { make in
             make.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
-
-        tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(),
-                              forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
-        tableView.estimatedRowHeight = 41
-        tableView.rowHeight = UITableViewAutomaticDimension
-        
-        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
-        tableView.estimatedSectionHeaderHeight = 32
         
         if let delegate = delegate where delegate.tableOfContentsDisplayModeIsModal() {
             tableView.backgroundColor = UIColor.wmf_modalTableOfContentsBackgroundColor()
         } else {
             tableView.backgroundColor = UIColor.wmf_inlineTableOfContentsBackgroundColor()
         }
+
         automaticallyAdjustsScrollViewInsets = false
-        tableView.contentInset = UIEdgeInsetsMake(UIApplication.sharedApplication().statusBarFrame.size.height, 0, 0, 0)
-        tableView.separatorStyle = .None
     }
 
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.delegate?.tableOfContentsControllerWillDisplay(self)
         tableOfContentsFunnel.logOpen()
-        previousStatusbarStyle = UIApplication.sharedApplication().statusBarStyle
-        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: animated)
     }
     
     public override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         deselectAllRows()
-        if let previousStatusbarStyle = previousStatusbarStyle {
-            UIApplication.sharedApplication().setStatusBarStyle(previousStatusbarStyle, animated: animated)
-        }
+    }
+    
+    public override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .Default
     }
     
     // MARK: - UITableViewDataSource

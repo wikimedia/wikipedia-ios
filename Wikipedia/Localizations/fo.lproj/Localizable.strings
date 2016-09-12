@@ -78,11 +78,14 @@
 "wikitext-preview-changes-none" = "Ongar broytingar vóru gjørdar sum kunnu undanskoðast.";
 "wikitext-upload-captcha-error" = "CAPTCHA váttanarfeilur.";
 "wikitext-upload-captcha-needed" = "CAPTCHA váttan krevst.";
+// Fuzzy
 "wikitext-upload-save" = "Goymir...";
 "wikitext-upload-save-sign-in" = "Rita inn";
 "wikitext-upload-save-sign-in-benefits" = "So aðrir høvundar kunnu koma í samband við teg og tú kanst síggja hvørjar greinar tú hevur rættað.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Goym dulnevnt";
 "wikitext-upload-save-anonymously-warning" = "Rættingar verða knýttar at tí IP adressuni ið er knýtt at tíni eind. $1 um tú ynskir meira privatlív.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Við at goyma so góðtekur tú $1 og uttan møguleika fyri at kunna angra tað, at tíni íkøst verða útgivin undir $2 lisensinum.";
 "wikitext-upload-save-terms-name" = "Nýtslutreytir";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -159,14 +162,17 @@
 "page-history-downloading" = "Innlesur søguna hjá greinini...";
 "navbar-title-mode-edit-wikitext" = "Rætta";
 "navbar-title-mode-login" = "Rita inn";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Rita inn og goym";
 "navbar-title-mode-create-account" = "Stovna eina kontu";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Stovna konto og goym";
 "navbar-title-mode-edit-wikitext-warning" = "Trupulleikar við at rætta";
 "navbar-title-mode-edit-wikitext-disallow" = "Trupulleikar við at rætta";
 "navbar-title-mode-edit-wikitext-preview" = "Undansýning";
 "navbar-title-mode-edit-wikitext-captcha" = "Skjót váttan krevst";
 "navbar-title-mode-edit-wikitext-summary" = "Skriva stutta frágreiðing um tína rættan";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Goym";
 "edit-summary-choice-linked-words" = "Innsettar leinkjur";
 "edit-summary-choice-fixed-grammar" = "Rættaði mállæru";

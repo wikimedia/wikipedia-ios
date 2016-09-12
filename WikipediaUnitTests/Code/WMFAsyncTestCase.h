@@ -1,5 +1,3 @@
-
-
 #import <XCTest/XCTest.h>
 
 #define PushExpectation() ([self pushExpectation:__FILE__ line:__LINE__])
@@ -15,6 +13,6 @@ extern NSTimeInterval const WMFDefaultExpectationTimeout;
 
 - (void)popExpectationAfter:(dispatch_block_t)block;
 
-- (void)pushExpectation:(const char*)file line:(int)line;
+- (void)pushExpectation:(const char *)file line:(int)line;
 
 @end

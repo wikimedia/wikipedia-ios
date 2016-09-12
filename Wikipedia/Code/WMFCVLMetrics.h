@@ -7,11 +7,10 @@
  */
 @interface WMFCVLMetrics : NSObject <NSCopying>
 
-
 /*!
  The bounds size for the metrics
  */
-@property (nonatomic,readonly) CGSize boundsSize;
+@property (nonatomic, readonly) CGSize boundsSize;
 
 /*!
  The total number of columns
@@ -49,9 +48,7 @@
  */
 @property (nonnull, nonatomic, copy, readonly) NSArray *columnWeights;
 
-
 @property (nonatomic) BOOL shouldMatchColumnHeights;
-
 
 + (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize;
 

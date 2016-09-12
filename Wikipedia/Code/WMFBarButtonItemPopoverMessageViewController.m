@@ -2,9 +2,9 @@
 
 @interface WMFBarButtonItemPopoverMessageViewController ()
 
-@property (strong, nonatomic) IBOutlet UILabel* titleLabel;
-@property (strong, nonatomic) IBOutlet UILabel* messageLabel;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint* widthConstraint;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *messageLabel;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *widthConstraint;
 
 @end
 
@@ -17,7 +17,7 @@
     [self.widthConstraint setConstant:self.width];
 }
 
-- (CGSize) preferredContentSize {
+- (CGSize)preferredContentSize {
     // Make the popover's dimensions result from the storyboard constraints, i.e. respect
     // dynamic height for localized strings which end up being long enough to wrap lines, etc.
     // Works with both iOS 8 and 9.
@@ -26,7 +26,7 @@
                           verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
 }
 
-- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController*)controller {
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
     return UIModalPresentationNone;
 }
 

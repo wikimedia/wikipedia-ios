@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 9/22/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-
 #import "XCTestCase+MWKFixtures.h"
 #import <XCTest/XCTest.h>
 #import "MWKDataStore+TemporaryDataStore.h"
@@ -14,7 +11,7 @@
 #import <OCMockito/OCMockito.h>
 
 @interface MWKSectionHasTextDataTests : XCTestCase
-@property SessionSingleton* session;
+@property SessionSingleton *session;
 @end
 
 @implementation MWKSectionHasTextDataTests
@@ -29,18 +26,18 @@
     [super tearDown];
 }
 
-- (MWKArticle*)getTestingArticle {
-    NSURL* url = [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"en" title:@"Barack Obama" fragment:nil];
-    MWKArticle* article = [self articleWithMobileViewJSONFixture:@"Obama" withURL:url dataStore:self.session.dataStore];
+- (MWKArticle *)getTestingArticle {
+    NSURL *url = [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"en" title:@"Barack Obama" fragment:nil];
+    MWKArticle *article = [self articleWithMobileViewJSONFixture:@"Obama" withURL:url dataStore:self.session.dataStore];
     [article save];
     return article;
 }
 
 - (void)testHasTextDataMethodReturnsYESforZeroLengthSectionHTML {
     // Ensure at least one section of article has zero length section html.
-    MWKArticle* article              = [self getTestingArticle];
+    MWKArticle *article = [self getTestingArticle];
     BOOL atLeastOneZeroLengthSection = NO;
-    for (MWKSection* section in article.sections) {
+    for (MWKSection *section in article.sections) {
         if (section.text.length == 0) {
             atLeastOneZeroLengthSection = YES;
             break;
@@ -49,7 +46,7 @@
     assertThat(@(atLeastOneZeroLengthSection), isTrue());
 
     // Ensure "[MWKSection hasTextData]" returns YES if section html isn't nil - even if it's a zero length string.
-    for (MWKSection* section in article.sections) {
+    for (MWKSection *section in article.sections) {
         /*
            Reminder: zero length strings are *valid* section text data!
            Some sections have zero length strings - such as sections having immediate sub-sections.

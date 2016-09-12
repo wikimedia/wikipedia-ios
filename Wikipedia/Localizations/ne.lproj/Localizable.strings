@@ -1,6 +1,7 @@
 // Messages for Nepali (नेपाली)
 // Exported from translatewiki.net
 // Author: NehalDaveND
+// Author: Nirajan pant
 // Author: Nirjal stha
 // Author: जनक राज भट्ट
 // Author: राम प्रसाद जोशी
@@ -35,6 +36,7 @@
 // Fuzzy
 "login-username-placeholder-text" = "प्रयोगकर्ता नाम";
 "login-password-placeholder-text" = "पासवर्ड";
+// Fuzzy
 "wikitext-upload-save" = "सङ्ग्रह गर्दै...";
 "wikitext-upload-save-sign-in" = "प्रवेश (लग ईन)";
 "wikitext-upload-save-terms-name" = "प्रयोगका सर्तहरू";
@@ -100,12 +102,14 @@
 // Fuzzy
 "navbar-title-mode-login-and-save" = "प्रवेश र बचत गर्नुहोस्";
 "navbar-title-mode-create-account" = "खाता खोल्नुहोस्";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "खाता खोल्नुहोस् र बचत गर्नुहोस्";
 "navbar-title-mode-edit-wikitext-warning" = "कुराहरू सम्पादन गर्नुहोस्";
 "navbar-title-mode-edit-wikitext-disallow" = "कुराहरू सम्पादन गर्नुहोस्";
 "navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";
 "navbar-title-mode-edit-wikitext-captcha" = "छिटो पुष्टी आवश्यक छ";
 "navbar-title-mode-edit-wikitext-summary" = "तपाईँको सम्पादनको वर्णन गर्नुहोस्";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "संग्रह गर्ने";
 // Fuzzy
 "edit-summary-choice-linked-words" = "जोडिएका शब्दहरू";
@@ -158,6 +162,8 @@
 "page_protected_can_not_edit_title" = "यो पृष्ठ सुरक्षण गरिएको छ";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "सामग्रीहरू";
+"table-of-contents-button-label" = "विषयसूची";
+"table-of-contents-close-accessibility-label" = "विषयसूची बन्द गर्नहोस्";
 "menu-edit-accessibility-label" = "सम्पादन";
 "menu-close-accessibility-label" = "बन्द गर्ने";
 "menu-preview-accessibility-label" = "पूर्वावलोकन";
@@ -180,3 +186,6 @@
 "migration-prompt-message" = "हामी तपाईंको रक्षण गरिएका तथा भर्खरका पृष्ठलाई सार्दै छौ । यसमा केही समय लाग्ने छ...";
 "migration-skip-button-title" = " $1 मेट्नुहोस्";
 "image-gallery-fetch-image-info-error-ok" = "ठीक";
+"explore-nearby-sub-heading-your-location" = "तपाईंको स्थान";
+"find-in-page-button-label" = "पानामा खोज्नुहोस्";
+"find-in-page-popover-description" = "लेखमा पाठ खोज्नुहोस्";

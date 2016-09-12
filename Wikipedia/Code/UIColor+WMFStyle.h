@@ -1,4 +1,3 @@
-
 #import <UIKit/UIKit.h>
 
 @interface UIColor (WMFStyle)
@@ -50,12 +49,15 @@
  */
 + (instancetype)wmf_lightGrayColor;
 
-
 + (instancetype)wmf_999999Color;
 
 + (instancetype)wmf_777777Color;
 
 + (instancetype)wmf_customGray;
+
++ (instancetype)wmf_foundationGray;
+
++ (instancetype)wmf_darkGray;
 
 + (instancetype)wmf_readerWGray;
 

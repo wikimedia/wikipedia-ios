@@ -83,11 +83,14 @@
 "wikitext-upload-result-unknown" = "wikitextin lähetystä ei voida varmistaa.";
 "wikitext-upload-captcha-error" = "Virhe CAPTCHA-varmistuksessa.";
 "wikitext-upload-captcha-needed" = "Vaaditaan CAPTCHA-varmistus.";
+// Fuzzy
 "wikitext-upload-save" = "Tallennetaan...";
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
 "wikitext-upload-save-sign-in-benefits" = "Jotta muut muokkaajat voivat ottaa yhteyttä sinuun & jotta näet, mitä artikkeleita olet muokannut.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Tallenna nimettömänä";
 "wikitext-upload-save-anonymously-warning" = "Muokkaukset yhdistetään laitteesi IP-osoitteeseen. Jos $1 tietoturvasi paranee.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Tallentamalla hyväksyt $1 ja peruuttamattomasti julkaiset muokkauksesi $2 -lisenssin ehtojen mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -170,14 +173,17 @@
 "page-history-downloading" = "Ladataan artikkelin historiaa...";
 "navbar-title-mode-edit-wikitext" = "Muokkaa";
 "navbar-title-mode-login" = "Kirjaudu sisään";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Kirjaudu sisään ja tallenna";
 "navbar-title-mode-create-account" = "Luo uusi tunnus";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Luo tunnus ja tallenna";
 "navbar-title-mode-edit-wikitext-warning" = "Muokkausongelmat";
 "navbar-title-mode-edit-wikitext-disallow" = "Muokkausongelmat";
 "navbar-title-mode-edit-wikitext-preview" = "Esikatselu";
 "navbar-title-mode-edit-wikitext-captcha" = "Nopea vahvistus tarvitaan";
 "navbar-title-mode-edit-wikitext-summary" = "Kuvaile muokkaustasi";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Tallenna";
 "edit-summary-choice-linked-words" = "Lisätty linkkejä";
 "edit-summary-choice-fixed-grammar" = "Kielioppia korjattu";
@@ -211,6 +217,7 @@
 "about-libraries-licenses" = "Lisenssit";
 "about-content-license" = "Sisältölisenssi";
 "about-content-license-details" = "Ellei toisin mainita, sisältö on saatavilla $1 -lisenssillä.";
+"about-content-license-details-share-alike-license" = "Creative Commons Nimeä-JaaSamoin -lisenssi";
 "about-libraries-licenses-title" = "Me rakastamme avoimen lähdekoodin ohjelmistoja $1";
 "about-libraries-complete-list" = "Täydellinen luettelo";
 "about-repositories" = "Tietovarastot";
@@ -262,17 +269,17 @@
 "license-footer-text" = "Sisältö on käytettävissä $1 -lisenssin ehtojen mukaisesti ellei toisin mainita.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Sisällys";
-// Fuzzy
 "table-of-contents-button-label" = "Sisällysluettelo";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
 "table-of-contents-close-accessibility-hint" = "Sulje";
+// Fuzzy
 "abuse-filter-warning-heading" = "Tämä saattaa olla haitallinen muokkaus. Haluatko varmasti tallentaa sen?";
 "abuse-filter-warning-subheading" = "Muokkauksesi saattaa sisältää yhden tai useampia seuraavista:";
 "abuse-filter-warning-caps" = "Kirjoittamista ISOILLA KIRJAIMILLA";
 "abuse-filter-warning-blanking" = "Artikkelien tyhjentämistä tai roskaamista";
 "abuse-filter-warning-irrelevant" = "Aiheeseen liittymättömiä ulkoisia linkkejä tai kuvia";
 "abuse-filter-warning-repeat" = "Toiiiiiiiiiiistuvia merkkejä";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Et voi tallentaa tätä muokkausta. Palaa takaisin ja muuta sitä.";
 "abuse-filter-disallow-unconstructive" = "Automaattinen suodatin on tunnistanut tämän muokkauksen mahdollisesti haitalliseksi tai vandalismin yritykseksi.";
 "abuse-filter-disallow-notable" = "Wikipedia on tietosanakirja ja vain neutraali, merkittävä sisältö kuuluu tänne.";
@@ -377,6 +384,7 @@
 "explore-featured-article-heading" = "Suositeltu artikkeli";
 "explore-continue-reading-heading" = "Jatka lukemista";
 "explore-nearby-heading" = "Lähistön paikat";
+"explore-nearby-sub-heading-your-location" = "Sijaintisi";
 "explore-continue-related-heading" = "Lukusuosituksen peruste";
 "explore-main-page-heading" = "Tänään Wikipediassa";
 "explore-random-article-heading" = "Satunnainen artikkeli";
@@ -387,3 +395,7 @@
 "explore-most-read-footer-for-date" = "Kaikki luetuimmat artikkelit $1";
 "explore-most-read-more-list-title" = "Huippuartikkelit";
 "explore-most-read-more-list-title-for-date" = "Parhaimmistoa $1";
+"explore-another-random" = "Toinen satunnainen sivu";
+"find-in-page-no-matches" = "0 tulosta";
+"find-in-page-button-label" = "Etsi sivulta";
+"find-in-page-popover-description" = "Etsi artikkelien teksteistä";

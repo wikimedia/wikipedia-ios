@@ -1,11 +1,10 @@
-
 #import "WMFExploreSectionFooter.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
+#import "BlocksKit+UIKit.h"
 #import "UIImage+WMFStyle.h"
 
 @interface WMFExploreSectionFooter ()
 
-@property (strong, nonatomic) IBOutlet UIImageView* moreChevronImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *moreChevronImageView;
 
 @end
 
@@ -14,7 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-    self.clipsToBounds              = NO;
+    self.clipsToBounds = NO;
     self.moreChevronImageView.image = [UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-right"];
     @weakify(self);
     [self bk_whenTapped:^{

@@ -77,11 +77,14 @@
 "wikitext-upload-result-unknown" = "N'haller ket termenañ disoc'h pellgargañ ar wikitestenn.";
 "wikitext-upload-captcha-error" = "Fazi gwiriañ Captcha";
 "wikitext-upload-captcha-needed" = "Ezhomm gwiriañ captcha";
+// Fuzzy
 "wikitext-upload-save" = "Oc'h enrollañ...";
 "wikitext-upload-save-sign-in" = "Kevreañ";
 "wikitext-upload-save-sign-in-benefits" = "Evel-se e c'hall ar genembannerien labourat war-eeun ganeoc'h ha gallout a reot gwelet peseurt pennadoù ho peus kemmet.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Enrollañ ent dianav";
 "wikitext-upload-save-anonymously-warning" = "Ar c'hemmoù a vo roet da chomlec'h IP hoc'h ardivink. M'ho peus $1 ho po muioc'h a zegasadennoù e kuzhut.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Pa'z enrollit e tegemerit ar $1, ha lakait ho tegasadennoù dindan an aotre-implijout $2 en un doare didorradus.";
 "wikitext-upload-save-terms-name" = "Termenoù implijout";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -164,14 +167,17 @@
 "page-history-downloading" = "O kargañ istor ar pennad...";
 "navbar-title-mode-edit-wikitext" = "Kemmañ";
 "navbar-title-mode-login" = "Kevreañ";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Kevreañ hag enrollañ";
 "navbar-title-mode-create-account" = "Krouiñ ur gont";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Krouiñ ur gont hag enrollañ";
 "navbar-title-mode-edit-wikitext-warning" = "Kemmañ ar c'hudennoù";
 "navbar-title-mode-edit-wikitext-disallow" = "Kemmañ ar c'hudennoù";
 "navbar-title-mode-edit-wikitext-preview" = "Rakwelet";
 "navbar-title-mode-edit-wikitext-captcha" = "Gwiriañ buan zo ezhomm";
 "navbar-title-mode-edit-wikitext-summary" = "Deskrivit ho kemm";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Enrollañ";
 "edit-summary-choice-linked-words" = "Liammoù ouzhpennet";
 "edit-summary-choice-fixed-grammar" = "Fazi yezhadur reizhet";
@@ -262,12 +268,14 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "Serriñ an daolenn";
 "table-of-contents-close-accessibility-hint" = "Serriñ";
+// Fuzzy
 "abuse-filter-warning-heading" = "War a seblant ne vez ket degaset kalz a dra gant an aozadenn-mañ. Ha sur oc'h e fell deoc'h enrollañ anezhi ?";
 "abuse-filter-warning-subheading" = "E-barzh hoc'h aozadenn e c'hall bezañ unan eus an elfennoù-mañ :";
 "abuse-filter-warning-caps" = "Testenn e PENNLIZHERENNOÙ";
 "abuse-filter-warning-blanking" = "Pennadoù goullo pe posteloù strobus";
 "abuse-filter-warning-irrelevant" = "Liammoù pe skeudennoù diavaez diazaz";
 "abuse-filter-warning-repeat" = "Arouezennoù adskriiiiivet";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Ne c'hallit ket enrollañ ar c'hemm-mañ. Distroit ha kemmit anezhañ.";
 "abuse-filter-disallow-unconstructive" = "Ur sil emgefreek en deus anavezet ar c'hemm-mañ evel unan na zegaso ket kalz a dra, pe evel unan a glask degas drast.";
 "abuse-filter-disallow-notable" = "Un holloueziadur eo Wikipedia. N'eus nemet traoù neptu pe traoù a dalvouegezh a c'haller lakaat e-barzh.";

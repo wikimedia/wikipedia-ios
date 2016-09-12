@@ -2,15 +2,13 @@
 
 @implementation WKScriptMessage (WMFScriptMessage)
 
-+ (WMFWKScriptMessageType)wmf_typeForMessageName:( NSString* _Nonnull )name {
++ (WMFWKScriptMessageType)wmf_typeForMessageName:(NSString *_Nonnull)name {
     if ([name isEqualToString:@"nonAnchorTouchEndedWithoutDragging"]) {
         return WMFWKScriptMessageNonAnchorTouchEndedWithoutDragging;
     } else if ([name isEqualToString:@"linkClicked"]) {
         return WMFWKScriptMessageClickLink;
     } else if ([name isEqualToString:@"imageClicked"]) {
         return WMFWKScriptMessageClickImage;
-    } else if ([name isEqualToString:@"peek"]) {
-        return WMFWKScriptMessagePeek;
     } else if ([name isEqualToString:@"referenceClicked"]) {
         return WMFWKScriptMessageClickReference;
     } else if ([name isEqualToString:@"editClicked"]) {
@@ -21,9 +19,9 @@
         return WMFWKScriptMessageArticleState;
     } else if ([name isEqualToString:@"sendJavascriptConsoleLogMessageToXcodeConsole"]) {
         return WMFWKScriptMessageConsoleMessage;
-    }else if ([name isEqualToString:@"findInPageMatchesFound"]) {
+    } else if ([name isEqualToString:@"findInPageMatchesFound"]) {
         return WMFWKScriptMessageFindInPageMatchesFound;
-    } else{
+    } else {
         return WMFWKScriptMessageUnknown;
     }
 }
@@ -37,9 +35,6 @@
             return [NSDictionary class];
             break;
         case WMFWKScriptMessageClickImage:
-            return [NSDictionary class];
-            break;
-        case WMFWKScriptMessagePeek:
             return [NSDictionary class];
             break;
         case WMFWKScriptMessageClickReference:
@@ -66,7 +61,7 @@
     }
 }
 
-- (nullable id) wmf_safeMessageBodyForType:(WMFWKScriptMessageType)messageType {
+- (nullable id)wmf_safeMessageBodyForType:(WMFWKScriptMessageType)messageType {
     Class class = [WKScriptMessage wmf_expectedMessageBodyClassForType:messageType];
     if ([self.body isKindOfClass:class]) {
         if (class == [NSDictionary class]) {
@@ -74,7 +69,7 @@
         } else {
             return self.body;
         }
-    }else{
+    } else {
         NSAssert(NO, @"Unexpected script message body kind of class!");
         return nil;
     }

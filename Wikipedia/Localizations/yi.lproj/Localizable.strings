@@ -56,8 +56,10 @@
 "wikitext-download-success" = "אינהאלט געלאדן.";
 "wikitext-preview-changes" = "רופן פאראויסקוק פון אייערע ענדערונגען…";
 "wikitext-preview-changes-none" = "קיין ענדערונגען נישט געמאכט פאראויסצוזען.";
+// Fuzzy
 "wikitext-upload-save" = "אויפהיטנדיק…";
 "wikitext-upload-save-sign-in" = "אַרײַנלאגירן";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "אויפהיטן אנאנים";
 "wikitext-upload-save-terms-name" = "ניצבאדינגונגען";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -118,12 +120,14 @@
 "page-history-title" = "ארטיקל היסטאריע";
 "navbar-title-mode-edit-wikitext" = "רעדאַקטירן";
 "navbar-title-mode-login" = "אַרײַנלאגירן";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "ארײַנלאגירן און אויפהיטן";
 "navbar-title-mode-create-account" = "שאַפֿן אַ קאנטע";
 "navbar-title-mode-edit-wikitext-warning" = "רעדאקטירן פראגעס";
 "navbar-title-mode-edit-wikitext-disallow" = "רעדאקטירן פראגעס";
 "navbar-title-mode-edit-wikitext-preview" = "פֿאראויסשטעלונג";
 "navbar-title-mode-edit-wikitext-summary" = "באשרײַבט אייער רעדאקטירונג";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "אויפֿהיטן";
 "edit-summary-choice-linked-words" = "צולייגן לינקען";
 "edit-summary-choice-fixed-grammar" = "פארראכטן גראמאטיק";

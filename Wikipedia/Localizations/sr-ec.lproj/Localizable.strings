@@ -75,10 +75,13 @@
 "wikitext-upload-result-unknown" = "Не могу да утврдим исход отпремања вики текста.";
 "wikitext-upload-captcha-error" = "Грешка при верификацији помоћу слике.";
 "wikitext-upload-captcha-needed" = "Потребна је верификација помоћу слике.";
+// Fuzzy
 "wikitext-upload-save" = "Чувам…";
 "wikitext-upload-save-sign-in" = "Пријава";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Сачувај анонимно";
 "wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се пријавите, имаћете више приватности.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Чувањем измена, слажете се са $1 и неопозиво прихватате објављивање вашег доприноса под лиценцом $2.";
 "wikitext-upload-save-terms-name" = "условима коришћења";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -162,14 +165,17 @@
 "page-history-downloading" = "Учитавам историју чланка…";
 "navbar-title-mode-edit-wikitext" = "Уреди";
 "navbar-title-mode-login" = "Пријавите се";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Пријавите се и сачувајте";
 "navbar-title-mode-create-account" = "Отворите налог";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Отворите налог и сачувајте";
 "navbar-title-mode-edit-wikitext-warning" = "Проблеми при уређивању";
 "navbar-title-mode-edit-wikitext-disallow" = "Проблеми при уређивању";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
 "navbar-title-mode-edit-wikitext-captcha" = "Потребна је брза верификација";
 "navbar-title-mode-edit-wikitext-summary" = "Опишите измену";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Сачувај";
 "edit-summary-choice-linked-words" = "Додате везе";
 "edit-summary-choice-fixed-grammar" = "Исправљен правопис";
@@ -254,17 +260,17 @@
 "license-footer-text" = "Садржај је доступан под лиценцом $1 осим ако је другачије наведено.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Садржај";
-// Fuzzy
 "table-of-contents-button-label" = "Садржај";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Затвори садржај";
 "table-of-contents-close-accessibility-hint" = "Затвори";
+// Fuzzy
 "abuse-filter-warning-heading" = "Ово личи на неконструктивну измену. Заиста желите да је сачувате?";
 "abuse-filter-warning-subheading" = "Ваша измена може садржати нешто од следећег:";
 "abuse-filter-warning-caps" = "Писање великим словима";
 "abuse-filter-warning-blanking" = "Пражњење чланака или спамовање";
 "abuse-filter-warning-irrelevant" = "Нерелевантне спољне везе или слике";
 "abuse-filter-warning-repeat" = "Знакови који се понављају";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Не можете да сачувате ову измену. Вратите се назад и промените је.";
 "abuse-filter-disallow-unconstructive" = "Аутоматизовани филтер је означио ову измену као потенцијално неконструктивну или као покушај вандализма.";
 "abuse-filter-disallow-notable" = "Википедија је енциклопедија, што значи да овде припада само неутралан и значајан садржај.";
@@ -380,6 +386,7 @@
 "explore-featured-article-heading" = "Изабрани чланак";
 "explore-continue-reading-heading" = "Настави читање";
 "explore-nearby-heading" = "Места у близини";
+"explore-nearby-sub-heading-your-location" = "Ваша локација";
 "explore-continue-related-heading" = "Будући да сте прочитали";
 "explore-main-page-heading" = "Данас на Википедији";
 "explore-random-article-heading" = "Случајни чланак";

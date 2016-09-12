@@ -5,10 +5,6 @@ XCODE_VERSION = "$(shell xcodebuild -version 2>/dev/null)"
 help: ##Show this help
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
-lint: ##Lint the native code, requires uncrustify
-lint:
-	@scripts/uncrustify_all.sh
-
 submodules: ##Install or update submodules
 	# No-op, uncomment to re-enable submodules git submodule update --init --recursive
 
@@ -32,10 +28,6 @@ travis-get-deps: xcode-cltools-check submodules
 
 # Required so we (and other tools) can use command line tools, e.g. xcodebuild.
 xcode-cltools-check: ##Make sure proper Xcode & command line tools are installed
-	@case $(XCODE_VERSION) in \
-		"Xcode 7"*) echo "Xcode 7 or higher is installed!" ;; \
-		*) echo "Missing Xcode 7 or higher."; exit 1;; \
-	esac; \
 	if ! xcode-select -p > /dev/null ; then \
 		echo "Xcode command line tools are missing! Please run xcode-select --install or download them from Xcode's 'Downloads' tab in preferences."; \
 		exit 1; \
@@ -66,14 +58,14 @@ brew-check: ##Check that Homebrew is installed
 	fi
 
 # Append additional dependencies as quoted strings (i.e. BREW_FORMULAE = "f1" "f2" ...)
-BREW_FORMULAE = "uncrustify" "imagemagick" "gs" "xctool"
+BREW_FORMULAE = "imagemagick" "gs" "xctool"
 
 brew-install: ##Install executable dependencies via Homebrew
 brew-install: brew-check
 	@brew install $(BREW_FORMULAE) || brew upgrade $(BREW_FORMULAE)
 
 # Append additional dependencies as quoted strings (i.e. EXEC_DEPS = "dep1" "dep2" ...)
-EXEC_DEPS = "uncrustify" "convert" "gs" "xctool"
+EXEC_DEPS = "convert" "gs" "xctool"
 
 # Note: checking for specific executables instead of formula, since Homebrew
 # is just one of many ways to install them

@@ -1,7 +1,7 @@
 #import "WMFTaskGroup.h"
 
 @interface WMFTaskGroup ()
-    
+
 @property (nonatomic) dispatch_group_t group;
 @property (nonatomic) NSInteger count;
 
@@ -17,14 +17,14 @@
     return self;
 }
 - (void)enter {
-    @synchronized (self) {
+    @synchronized(self) {
         self.count++;
         dispatch_group_enter(_group);
     }
 }
 
 - (void)leave {
-    @synchronized (self) {
+    @synchronized(self) {
         if (self.count > 0) {
             self.count--;
             dispatch_group_leave(self.group);

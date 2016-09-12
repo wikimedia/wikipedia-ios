@@ -5,26 +5,26 @@
 #import "UIView+VisualTestSizingUtils.h"
 
 @interface WMFSettingsCellVisualTests : FBSnapshotTestCase
-@property (nonatomic, strong) WMFSettingsTableViewCell* cell;
+@property (nonatomic, strong) WMFSettingsTableViewCell *cell;
 @end
 
 @implementation WMFSettingsCellVisualTests
 
 - (void)setUp {
     [super setUp];
-    self.recordMode     = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
+    self.recordMode = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
     self.deviceAgnostic = YES;
-    self.cell           = [WMFSettingsTableViewCell wmf_viewFromClassNib];
+    self.cell = [WMFSettingsTableViewCell wmf_viewFromClassNib];
     [self configureCell:self.cell];
 }
 
-- (void)configureCell:(WMFSettingsTableViewCell*)cell {
-    self.cell.iconName       = @"settings-faq";
-    self.cell.iconColor      = [UIColor grayColor];
+- (void)configureCell:(WMFSettingsTableViewCell *)cell {
+    self.cell.iconName = @"settings-faq";
+    self.cell.iconColor = [UIColor grayColor];
     self.cell.disclosureType = WMFSettingsMenuItemDisclosureType_Switch;
 }
 
-- (void)verifyCell:(WMFSettingsTableViewCell*)cell withTitle:(NSString*)title {
+- (void)verifyCell:(WMFSettingsTableViewCell *)cell withTitle:(NSString *)title {
     self.cell.title = title;
     [self.cell wmf_sizeToFitWidth:320];
     WMFSnapshotVerifyViewForOSAndWritingDirection(self.cell);

@@ -88,11 +88,14 @@
 "wikitext-upload-result-unknown" = "Не удаётся определить результат загрузки вики-текста.";
 "wikitext-upload-captcha-error" = "Ошибка проверки капчи.";
 "wikitext-upload-captcha-needed" = "Нужна проверка капчи.";
+// Fuzzy
 "wikitext-upload-save" = "Сохраняется…";
 "wikitext-upload-save-sign-in" = "Войти";
 "wikitext-upload-save-sign-in-benefits" = "Так другие участники смогут связаться с вами, и вы сможете видеть, какие статьи вы редактировали.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Сохранить анонимно";
 "wikitext-upload-save-anonymously-warning" = "Правки будут отмечены IP-адресом вашего устройства. Если вы $1, то получите более высокий уровень конфиденциальности.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Сохраняя, вы безоговорочно соглашаетесь разместить ваш вклад под лицензией $1.";
 "wikitext-upload-save-terms-name" = "Условия использования";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -176,14 +179,17 @@
 "page-history-downloading" = "Загрузка истории страницы…";
 "navbar-title-mode-edit-wikitext" = "Править";
 "navbar-title-mode-login" = "Войти";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Войти и сохранить";
 "navbar-title-mode-create-account" = "Создать учётную запись";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Создать учётную запись и сохранить";
 "navbar-title-mode-edit-wikitext-warning" = "Проблемы редактирования";
 "navbar-title-mode-edit-wikitext-disallow" = "Проблемы редактирования";
 "navbar-title-mode-edit-wikitext-preview" = "Предпросмотр";
 "navbar-title-mode-edit-wikitext-captcha" = "Необходима быстрая проверка";
 "navbar-title-mode-edit-wikitext-summary" = "Опишите вашу правку";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Сохранить";
 "edit-summary-choice-linked-words" = "Добавленные ссылки";
 "edit-summary-choice-fixed-grammar" = "Исправлено правописание";
@@ -269,17 +275,18 @@
 "license-footer-text" = "Содержание доступно по лицензии $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содержание";
-// Fuzzy
 "table-of-contents-button-label" = "Содержание";
-// Fuzzy
-"table-of-contents-close-accessibility-label" = "Закрыть оглавление";
+"table-of-contents-close-accessibility-label" = "Закрыть содержание";
 "table-of-contents-close-accessibility-hint" = "Закрыть";
+"table-of-contents-popover-description" = "Получить обзор статей";
+// Fuzzy
 "abuse-filter-warning-heading" = "Эта правка выглядит деструктивной. Вы уверены, что хотите сохранить её?";
 "abuse-filter-warning-subheading" = "Ваша правка может содержать одно или несколько из следующих действий:";
 "abuse-filter-warning-caps" = "Печать ЗАГЛАВНЫМИ БУКВАМИ";
 "abuse-filter-warning-blanking" = "Пустая статья или спам";
 "abuse-filter-warning-irrelevant" = "Нерелевантные внешние ссылки или изображения";
 "abuse-filter-warning-repeat" = "Повторяяяяяющиеся символы";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Вы не можете сохранить эту правку. Пожалуйста, вернитесь назад и измените её.";
 "abuse-filter-disallow-unconstructive" = "Автоматизированный фильтр определил эту правку как потенциально деструктивную или как попытку вандализма.";
 "abuse-filter-disallow-notable" = "Википедия — это энциклопедия, и здесь допустимо только нейтральное и значимое содержимое.";
@@ -397,6 +404,7 @@
 "explore-featured-article-heading" = "Избранная статья";
 "explore-continue-reading-heading" = "Продолжить чтение";
 "explore-nearby-heading" = "Места поблизости";
+"explore-nearby-sub-heading-your-location" = "Ваше местоположение";
 "explore-continue-related-heading" = "Потому что вы читали";
 "explore-main-page-heading" = "Сегодня в Википедии";
 "explore-random-article-heading" = "Случайная статья";
@@ -412,3 +420,8 @@
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
 "explore-another-random" = "Другая случайная статья";
 "find-in-page-no-matches" = "0 совпадений";
+"find-in-page-button-label" = "Найти на странице";
+"find-in-page-popover-description" = "Поиск текста в статьях";
+"continue-reading-empty-title" = "Нет недавно прочитанных статей";
+"continue-reading-empty-description" = "Исследуйте Википедию, чтоб найти больше статьей для чтения";
+"top-read-see-more-trending" = "Посмотреть, что ещё в тренде";

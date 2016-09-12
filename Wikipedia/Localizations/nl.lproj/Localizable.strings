@@ -86,11 +86,14 @@
 "wikitext-upload-result-unknown" = "Het was niet mogelijk het resultaat van de geüploade wikitekst te bepalen.";
 "wikitext-upload-captcha-error" = "CAPTCHA-vertificatiefout.";
 "wikitext-upload-captcha-needed" = "Er is een CAPTCHA-controle nodig.";
+// Fuzzy
 "wikitext-upload-save" = "Aan het opslaan...";
 "wikitext-upload-save-sign-in" = "Aanmelden";
 "wikitext-upload-save-sign-in-benefits" = "Zodat mederedacteuren met u kunnen communiceren en zodat u kunt zien welke pagina's u hebt bewerkt.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Als anoniem opslaan";
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan uw IP-adres. Door $1 heeft u meer privacy.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Door op te slaan gaat u akkoord met de $1 en worden uw bijdragen onherroepelijk vrijgegeven onder de $2-licentie.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -174,14 +177,17 @@
 "page-history-downloading" = "Paginageschiedenis laden...";
 "navbar-title-mode-edit-wikitext" = "Bewerken";
 "navbar-title-mode-login" = "Aanmelden";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Aanmelden en opslaan";
 "navbar-title-mode-create-account" = "Account aanmaken";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Account aanmaken en opslaan";
 "navbar-title-mode-edit-wikitext-warning" = "Bewerkingsproblemen";
 "navbar-title-mode-edit-wikitext-disallow" = "Bewerkingsproblemen";
 "navbar-title-mode-edit-wikitext-preview" = "Voorvertoning";
 "navbar-title-mode-edit-wikitext-captcha" = "Snelle controle nodig";
 "navbar-title-mode-edit-wikitext-summary" = "Beschrijf uw bewerking";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Opslaan";
 "edit-summary-choice-linked-words" = "Koppelingen toegevoegd";
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
@@ -267,17 +273,18 @@
 "license-footer-text" = "De inhoud is beschikbaar onder de $1 tenzij anders aangegeven.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Inhoud";
-// Fuzzy
 "table-of-contents-button-label" = "Inhoudsopgave";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-close-accessibility-hint" = "Sluiten";
+"table-of-contents-popover-description" = "Een overzicht van het artikel krijgen";
+// Fuzzy
 "abuse-filter-warning-heading" = "Dit lijkt een niet-constructieve bewerking. Weet u zeker dat u die wilt opslaan?";
 "abuse-filter-warning-subheading" = "Uw bewerking kan een of meer van het volgende bevatten:";
 "abuse-filter-warning-caps" = "Tekst in HOOFDLETTERS";
 "abuse-filter-warning-blanking" = "Pagina's leegmaken of spam plaatsen";
 "abuse-filter-warning-irrelevant" = "Irrelevante externe koppelingen of afbeeldingen";
 "abuse-filter-warning-repeat" = "Herhaaaalende tekens";
+// Fuzzy
 "abuse-filter-disallow-heading" = "U kunt deze bewerking niet opslaan. Ga terug en pas deze aan.";
 "abuse-filter-disallow-unconstructive" = "Een geautomatiseerd filter heeft deze bewerking gemarkeerd als onconstructief of vandalistisch.";
 "abuse-filter-disallow-notable" = "Wikipedia is een encylopedie en alleen neutrale relevante inhoud is hier toegestaan.";
@@ -395,6 +402,7 @@
 "explore-featured-article-heading" = "Uitgelichte pagina";
 "explore-continue-reading-heading" = "Verder lezen";
 "explore-nearby-heading" = "Plaatsen in de buurt";
+"explore-nearby-sub-heading-your-location" = "Uw locatie";
 "explore-continue-related-heading" = "Omdat u hebt gelezen";
 "explore-main-page-heading" = "Vandaag op Wikipedia";
 "explore-random-article-heading" = "Willekeurige pagina";
@@ -410,3 +418,5 @@
 "request-feedback-on-error" = "De app is op een probleem gestoten waarover onze ontwikkelaars graag meer willen weten. Gelieve hier te tikken om ons een e-mail te sturen met de foutgegevens.";
 "explore-another-random" = "Ander willekeurig artikel";
 "find-in-page-no-matches" = "0 overeenkomsten";
+"find-in-page-button-label" = "Op pagina zoeken";
+"find-in-page-popover-description" = "Tekst zoeken in artikelen";

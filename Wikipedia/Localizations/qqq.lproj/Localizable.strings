@@ -7,6 +7,7 @@
 // Author: Jack Phoenix
 // Author: Liuxinyu970226
 // Author: Macofe
+// Author: Minh Nguyen
 // Author: Nemo bis
 // Author: Purodha
 // Author: Robby
@@ -85,10 +86,10 @@
 "wikitext-upload-result-unknown" = "Alert text shown when the result of saving section wikitext changes is unknown";
 "wikitext-upload-captcha-error" = "Alert text shown when section wikitext upload captcha fails";
 "wikitext-upload-captcha-needed" = "Alert text shown when section wikitext upload captcha is required";
-"wikitext-upload-save" = "Alert text shown when changes to section wikitext are being saved.\n{{Identical|Saving}}";
+"wikitext-upload-save" = "Alert text shown when changes to section wikitext are being published";
 "wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
 "wikitext-upload-save-sign-in-benefits" = "Button sub-text informing user of sign in benefits";
-"wikitext-upload-save-anonymously" = "Button text for saving without logging in";
+"wikitext-upload-save-anonymously" = "Button text for publishing without logging in";
 "wikitext-upload-save-anonymously-warning" = "Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - sign in button text";
 "wikitext-upload-save-terms-and-license" = "Button text for information about the Terms of Use and edit license. Parameters:\n* $1 - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* $2 - license name link";
 "wikitext-upload-save-terms-name" = "This message is used as $1 in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].\n{{Identical|Terms of use}}";
@@ -173,15 +174,15 @@
 "page-history-downloading" = "Alert text shown when obtaining revision history of an article";
 "navbar-title-mode-edit-wikitext" = "Header text shown when wikitext is being edited.\n{{Identical|Edit}}";
 "navbar-title-mode-login" = "Header text shown when user is signing in.\n{{Identical|Sign in}}";
-"navbar-title-mode-login-and-save" = "Header text shown when user is editing wikitext then chooses to sign in and save";
+"navbar-title-mode-login-and-save" = "Header text shown when user is editing wikitext then chooses to sign in and publish";
 "navbar-title-mode-create-account" = "Header text shown when user is creating an account.\n{{Identical|Create account}}";
-"navbar-title-mode-create-account-and-save" = "Header text shown when user is editing wikitext then chooses to create an account and save";
+"navbar-title-mode-create-account-and-save" = "Header text shown when user is editing wikitext then chooses to create an account and publish";
 "navbar-title-mode-edit-wikitext-warning" = "Header text shown when an abuse filter warning is displayed";
 "navbar-title-mode-edit-wikitext-disallow" = "Header text shown when an abuse filter disallow message is displayed";
 "navbar-title-mode-edit-wikitext-preview" = "Header text shown when wikitext changes are being previewed.\n{{Identical|Preview}}";
 "navbar-title-mode-edit-wikitext-captcha" = "Header text shown when wikitext captcha is displayed";
 "navbar-title-mode-edit-wikitext-summary" = "Header text shown when wikitext edit summary interface is active";
-"navbar-title-mode-edit-wikitext-save" = "Header text shown when wikitext edit can be saved\n{{Identical|Save}}";
+"navbar-title-mode-edit-wikitext-save" = "Header text shown when wikitext edit can be published";
 "edit-summary-choice-linked-words" = "Button text for quick 'link addition' edit summary selection";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
 "edit-summary-choice-fixed-inaccuracy" = "Button text for quick 'fixed inaccuracy' edit summary selection";
@@ -246,6 +247,7 @@
 "button-next" = "Button text for next button used in various places.\n{{Identical|Next}}";
 "button-done" = "Button text for done button used in various places.\n{{Identical|Done}}";
 "button-save" = "Button text for save button used in various places.\n{{Identical|Save}}";
+"button-publish" = "Button text for publish button used in various places.";
 "button-ok" = "Button text for ok button used in various places\n{{Identical|OK}}";
 "button-save-for-later" = "Longer button text for save button used in various places.";
 "button-saved-for-later" = "Longer button text for already saved button used in various places.";
@@ -266,10 +268,10 @@
 "license-footer-text" = "Brief footer text linking to CC-BY-SA license. '$1' is placeholder for the {{msg-wm|Wikipedia-ios-license-footer-name}} message";
 "license-footer-name" = "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents\n{{Identical|Content}}";
-"table-of-contents-button-label" = "Accessibility label for the Table of Contents button";
+"table-of-contents-button-label" = "Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}";
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
 "table-of-contents-close-accessibility-hint" = "Accessibility hint for closing table of contents\n{{Identical|Close}}";
-"table-of-contents-popover-description" = "Description of Table of Contents which can appear over its icon in a tip bubble";
+"table-of-contents-popover-description" = "Description of Table of Contents which can appear over its icon in a tip bubble. “Overview” refers to a view of the article’s structure, not a summary of the article.";
 "abuse-filter-warning-heading" = "Header text for unconstructive edit warning";
 "abuse-filter-warning-subheading" = "Subheading text for potentially unconstructive edit warning";
 "abuse-filter-warning-caps" = "Label text for typing in all capitals";
@@ -411,3 +413,10 @@
 "find-in-page-no-matches" = "Displayed when zero matches were found for the search term. Space is limited for this message so please try to keep this text small\n{{Identical|Match}}";
 "find-in-page-button-label" = "Accessibility label for the Find in Page button";
 "find-in-page-popover-description" = "Description of Find in Page which can appear over its icon in a tip bubble";
+"continue-reading-empty-title" = "No recently read articles";
+"continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
+"top-read-see-more" = "Text for footer button allowing the user to see more top read articles";
+"top-read-see-more-trending" = "See more trending";
+"top-read-reader-count-thousands" = "$1 is replaced with a number specifying how many people read the article. This number is in thousands. In English the letter 'k' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'k' should be changed to a character or short string indicating thousands.";
+"top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia";
+"top-read-header-generic" = "Wikipedia";

@@ -1,14 +1,12 @@
-
 #import "MWKSiteDataObject.h"
 #import "MWKList.h"
 
-@interface MWKSavedPageEntry : MWKSiteDataObject
-    <MWKListObject>
+@interface MWKSavedPageEntry : MWKSiteDataObject <MWKListObject>
 
-@property (readonly, strong, nonatomic) NSDate* date;
+@property (readonly, strong, nonatomic) NSDate *date;
 
-- (instancetype)initWithURL:(NSURL*)url NS_DESIGNATED_INITIALIZER;
-- (instancetype)initWithDict:(NSDictionary*)dict;
+- (instancetype)initWithURL:(NSURL *)url NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDict:(NSDictionary *)dict;
 
 ///
 /// @name Legacy Data Migration Flags

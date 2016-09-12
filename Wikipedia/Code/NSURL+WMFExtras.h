@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 6/2/15.
-//  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSURL (WMFExtras)
@@ -11,20 +8,20 @@ NS_ASSUME_NONNULL_BEGIN
  * `+[NSURL URLWithString:]` will throw if the input is `nil`, or return `nil`, but this will
  * return `nil`, simplifying code that deals with optional strings & URLs.
  */
-+ (nullable instancetype)wmf_optionalURLWithString:(nullable NSString*)string;
++ (nullable instancetype)wmf_optionalURLWithString:(nullable NSString *)string;
 
-- (BOOL)wmf_isEqualToIgnoringScheme:(NSURL*)url;
+- (BOOL)wmf_isEqualToIgnoringScheme:(NSURL *)url;
 
 - (BOOL)wmf_isSchemeless;
 
-- (nullable NSString*)wmf_schemelessURLString;
+- (nullable NSString *)wmf_schemelessURLString;
 
-- (nullable NSURL*)wmf_schemelessURL;
+- (nullable NSURL *)wmf_schemelessURL;
 
-- (NSString*)wmf_mimeTypeForExtension;
+- (NSString *)wmf_mimeTypeForExtension;
 
 /// Prepend the receiver with the given scheme, unless one was already present in which case the receiver is returned.
-- (instancetype)wmf_urlByPrependingSchemeIfSchemeless:(NSString*)scheme;
+- (instancetype)wmf_urlByPrependingSchemeIfSchemeless:(NSString *)scheme;
 
 /**
  * Prepend the receiver with "https" if it doesn't already have a scheme.

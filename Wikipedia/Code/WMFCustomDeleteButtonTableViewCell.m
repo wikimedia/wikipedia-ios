@@ -3,9 +3,9 @@
 
 @interface WMFCustomDeleteButtonTableViewCell ()
 
-@property (strong, nonatomic) UIButton* deleteButton;
-@property (strong, nonatomic) CALayer* cellWhiteLayer;
-@property (strong, nonatomic) CALayer* deleteButtonWhiteLayer;
+@property (strong, nonatomic) UIButton *deleteButton;
+@property (strong, nonatomic) CALayer *cellWhiteLayer;
+@property (strong, nonatomic) CALayer *deleteButtonWhiteLayer;
 
 @end
 
@@ -18,7 +18,7 @@
         [self.deleteButton.superview bringSubviewToFront:self.deleteButton];
     }
 
-    self.cellWhiteLayer.frame         = self.bounds;
+    self.cellWhiteLayer.frame = self.bounds;
     self.deleteButtonWhiteLayer.frame = self.deleteButton.bounds;
 }
 
@@ -27,7 +27,7 @@
 
     self.deleteButton = [self wmf_deleteButton];
     [self.contentView.superview addSubview:self.deleteButton];
-    [self.deleteButton mas_makeConstraints:^(MASConstraintMaker* make) {
+    [self.deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@(50));
 
         // Attach leading edge to contentView so it tracks horizonally
@@ -44,12 +44,12 @@
     [self.layer insertSublayer:self.cellWhiteLayer atIndex:0];
 }
 
-- (UIButton*)wmf_deleteButton {
-    UIButton* button = [[UIButton alloc] init];
+- (UIButton *)wmf_deleteButton {
+    UIButton *button = [[UIButton alloc] init];
     button.translatesAutoresizingMaskIntoConstraints = NO;
-    button.userInteractionEnabled                    = NO;
-    button.clipsToBounds                             = YES;
-    button.tintColor                                 = [UIColor redColor];
+    button.userInteractionEnabled = NO;
+    button.clipsToBounds = YES;
+    button.tintColor = [UIColor redColor];
     [button setImage:[UIImage imageNamed:@"language-delete"] forState:UIControlStateNormal];
     button.imageView.backgroundColor = [UIColor whiteColor];
 
@@ -63,8 +63,8 @@
 // Used layer because this is immune to cell drag forcing background colors set otherwise to
 // go transparent on drag. Also needed to do same for entire cell otherwise it looks weird on
 // drag if only the minus button part stays white.
-- (CALayer*)whiteLayer {
-    CALayer* layer = [CALayer layer];
+- (CALayer *)whiteLayer {
+    CALayer *layer = [CALayer layer];
     layer.backgroundColor = [UIColor whiteColor].CGColor;
     return layer;
 }

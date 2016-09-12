@@ -1,4 +1,3 @@
-
 #import "WMFArticleFetcher.h"
 
 #import <Tweaks/FBTweakInline.h>
@@ -29,13 +28,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString* const WMFArticleFetcherErrorDomain = @"WMFArticleFetcherErrorDomain";
+NSString *const WMFArticleFetcherErrorDomain = @"WMFArticleFetcherErrorDomain";
 
-NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFetcherErrorCachedFallbackArticleKey";
+NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFetcherErrorCachedFallbackArticleKey";
 
 @interface WMFArticleBaseFetcher ()
 
-@property (nonatomic, strong) NSMapTable* operationsKeyedByTitle;
+@property (nonatomic, strong) NSMapTable *operationsKeyedByTitle;
 @property (nonatomic, strong) dispatch_queue_t operationsQueue;
 
 @end
@@ -46,59 +45,63 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     self = [super init];
     if (self) {
         self.operationsKeyedByTitle = [NSMapTable strongToWeakObjectsMapTable];
-        NSString* queueID = [NSString stringWithFormat:@"org.wikipedia.articlefetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
+        NSString *queueID = [NSString stringWithFormat:@"org.wikipedia.articlefetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
         self.operationsQueue = dispatch_queue_create([queueID cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
-        AFHTTPSessionManager* manager = [AFHTTPSessionManager wmf_createDefaultManager];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
         self.operationManager = manager;
     }
     return self;
 }
 
-- (WMFArticleRequestSerializer*)requestSerializer {
+- (WMFArticleRequestSerializer *)requestSerializer {
     return nil;
 }
 
 #pragma mark - Fetching
 
-- (id)serializedArticleWithURL:(NSURL*)articleURL response:(id)response {
+- (id)serializedArticleWithURL:(NSURL *)articleURL response:(id)response {
     return response;
 }
 
-- (void)fetchArticleForURL:(NSURL*)articleURL
-                    useDesktopURL:(BOOL)useDeskTopURL
-                         progress:(WMFProgressHandler __nullable)progress
-                         resolver:(PMKResolver)resolve {
+- (void)fetchArticleForURL:(NSURL *)articleURL
+             useDesktopURL:(BOOL)useDeskTopURL
+                  progress:(WMFProgressHandler __nullable)progress
+                  resolver:(PMKResolver)resolve {
     if (!articleURL.wmf_title) {
         resolve([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
     }
 
     // Force desktop domain if not Zero rated.
-    if (![SessionSingleton sharedInstance].zeroConfigState.disposition) {
+    if (![SessionSingleton sharedInstance].zeroConfigurationManager.isZeroRated) {
         useDeskTopURL = YES;
     }
-    
-    NSURL* url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:articleURL] : [NSURL wmf_mobileAPIURLForURL:articleURL];
 
-    NSURLSessionDataTask* operation = [self.operationManager GET:url.absoluteString parameters:articleURL progress:^(NSProgress* _Nonnull downloadProgress) {
-        if (progress) {
-            CGFloat currentProgress = downloadProgress.fractionCompleted;
-            dispatchOnMainQueue(^{
-                progress(currentProgress);
+    NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:articleURL] : [NSURL wmf_mobileAPIURLForURL:articleURL];
+
+    NSURLSessionDataTask *operation = [self.operationManager GET:url.absoluteString
+        parameters:articleURL
+        progress:^(NSProgress *_Nonnull downloadProgress) {
+            if (progress) {
+                CGFloat currentProgress = downloadProgress.fractionCompleted;
+                dispatchOnMainQueue(^{
+                    progress(currentProgress);
+                });
+            }
+        }
+        success:^(NSURLSessionDataTask *operation, id response) {
+            dispatchOnBackgroundQueue(^{
+                [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                resolve([self serializedArticleWithURL:articleURL response:response]);
             });
         }
-    } success:^(NSURLSessionDataTask* operation, id response) {
-        dispatchOnBackgroundQueue(^{
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve([self serializedArticleWithURL:articleURL response:response]);
-        });
-    } failure:^(NSURLSessionDataTask* operation, NSError* error) {
-        if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:articleURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
-            [self fetchArticleForURL:articleURL useDesktopURL:YES progress:progress resolver:resolve];
-        } else {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve(error);
-        }
-    }];
+        failure:^(NSURLSessionDataTask *operation, NSError *error) {
+            if ([url isEqual:[NSURL wmf_mobileAPIURLForURL:articleURL]] && [error wmf_shouldFallbackToDesktopURLError]) {
+                [self fetchArticleForURL:articleURL useDesktopURL:YES progress:progress resolver:resolve];
+            } else {
+                [[MWNetworkActivityIndicatorManager sharedManager] pop];
+                resolve(error);
+            }
+        }];
 
     [self trackOperation:operation forArticleURL:articleURL];
 }
@@ -109,12 +112,12 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 #pragma mark - Operation Tracking / Cancelling
 
-- (NSURLSessionDataTask*)trackedOperationForArticleURL:(NSURL*)articleURL {
+- (NSURLSessionDataTask *)trackedOperationForArticleURL:(NSURL *)articleURL {
     if ([articleURL.wmf_title length] == 0) {
         return nil;
     }
 
-    __block NSURLSessionDataTask* op = nil;
+    __block NSURLSessionDataTask *op = nil;
 
     dispatch_sync(self.operationsQueue, ^{
         op = [self.operationsKeyedByTitle objectForKey:articleURL];
@@ -123,7 +126,7 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     return op;
 }
 
-- (void)trackOperation:(NSURLSessionDataTask*)operation forArticleURL:(NSURL*)articleURL {
+- (void)trackOperation:(NSURLSessionDataTask *)operation forArticleURL:(NSURL *)articleURL {
     if ([articleURL.wmf_title length] == 0) {
         return;
     }
@@ -133,11 +136,11 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     });
 }
 
-- (BOOL)isFetchingArticleForURL:(NSURL*)articleURL {
+- (BOOL)isFetchingArticleForURL:(NSURL *)articleURL {
     return [self trackedOperationForArticleURL:articleURL] != nil;
 }
 
-- (void)cancelFetchForArticleURL:(NSURL*)articleURL {
+- (void)cancelFetchForArticleURL:(NSURL *)articleURL {
     [[self trackedOperationForArticleURL:articleURL] cancel];
 }
 
@@ -149,69 +152,69 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @interface WMFArticleFetcher ()
 
-@property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
-@property (nonatomic, strong) WMFArticleRevisionFetcher* revisionFetcher;
+@property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
+@property (nonatomic, strong) WMFArticleRevisionFetcher *revisionFetcher;
 
 @end
 
 @implementation WMFArticleFetcher
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     NSParameterAssert(dataStore);
     self = [super init];
     if (self) {
-        self.operationManager.requestSerializer  = [WMFArticleRequestSerializer serializer];
+        self.operationManager.requestSerializer = [WMFArticleRequestSerializer serializer];
         self.operationManager.responseSerializer = [WMFArticleResponseSerializer serializer];
 
-        self.dataStore       = dataStore;
+        self.dataStore = dataStore;
         self.revisionFetcher = [[WMFArticleRevisionFetcher alloc] init];
 
         /*
            Setting short revision check timeouts, to ensure that poor connections don't drastically impact the case
            when cached article content is up to date.
          */
-        FBTweakBind(self.revisionFetcher,
-                    timeoutInterval,
-                    @"Networking",
-                    @"Article",
-                    @"Revision Check Timeout",
-                    0.8);
+        //        FBTweakBind(self.revisionFetcher,
+        //                    timeoutInterval,
+        //                    @"Networking",
+        //                    @"Article",
+        //                    @"Revision Check Timeout",
+        //                    0.8);
     }
     return self;
 }
 
-- (id)serializedArticleWithURL:(NSURL*)url response:(NSDictionary*)response {
-    MWKArticle* article = [[MWKArticle alloc] initWithURL:url dataStore:self.dataStore];
+- (id)serializedArticleWithURL:(NSURL *)url response:(NSDictionary *)response {
+    MWKArticle *article = [[MWKArticle alloc] initWithURL:url dataStore:self.dataStore];
     @try {
         [article importMobileViewJSON:response];
         [article save];
         return article;
-    } @catch (NSException* e) {
+    } @catch (NSException *e) {
         DDLogError(@"Failed to import article data. Response: %@. Error: %@", response, e);
         return [NSError wmf_serializeArticleErrorWithReason:[e reason]];
     }
 }
 
-- (AnyPromise*)fetchLatestVersionOfArticleWithURL:(NSURL*)url
-                                    forceDownload:(BOOL)forceDownload
-                                         progress:(WMFProgressHandler __nullable)progress{
-    
+- (AnyPromise *)fetchLatestVersionOfArticleWithURL:(NSURL *)url
+                                     forceDownload:(BOOL)forceDownload
+                                          progress:(WMFProgressHandler __nullable)progress {
+
     NSParameterAssert(url.wmf_title);
     if (!url.wmf_title) {
         DDLogError(@"Can't fetch nil title, cancelling implicitly.");
         return [AnyPromise promiseWithValue:[NSError cancelledError]];
     }
- 
-    MWKArticle* cachedArticle;
-    
-    if(!forceDownload){
-       cachedArticle = [self.dataStore existingArticleWithURL:url];
+
+    MWKArticle *cachedArticle;
+
+    if (!forceDownload) {
+        cachedArticle = [self.dataStore existingArticleWithURL:url];
     }
 
     @weakify(self);
-    AnyPromise* promisedArticle;
+    AnyPromise *promisedArticle;
     if (forceDownload || !cachedArticle || !cachedArticle.revisionId || [cachedArticle isMain]) {
-        if(forceDownload){
+        if (forceDownload) {
             DDLogInfo(@"Forcing Download for %@, fetching immediately", url);
         } else if (!cachedArticle) {
             DDLogInfo(@"No cached article found for %@, fetching immediately.", url);
@@ -226,39 +229,37 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         promisedArticle = [self.revisionFetcher fetchLatestRevisionsForArticleURL:url
                                                                       resultLimit:1
                                                                endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue]
-        .then(^(WMFRevisionQueryResults* results) {
-            @strongify(self);
-            if (!self) {
-                return [AnyPromise promiseWithValue:[NSError cancelledError]];
-            } else if ([results.revisions.firstObject.revisionId isEqualToNumber:cachedArticle.revisionId]) {
-                DDLogInfo(@"Returning up-to-date local revision of %@", url);
-                if (progress) {
-                    progress(1.0);
-                }
-                return [AnyPromise promiseWithValue:cachedArticle];
-            } else {
-                return [self fetchArticleForURL:url progress:progress];
-            }
-        });
+                              .then(^(WMFRevisionQueryResults *results) {
+                                  @strongify(self);
+                                  if (!self) {
+                                      return [AnyPromise promiseWithValue:[NSError cancelledError]];
+                                  } else if ([results.revisions.firstObject.revisionId isEqualToNumber:cachedArticle.revisionId]) {
+                                      DDLogInfo(@"Returning up-to-date local revision of %@", url);
+                                      if (progress) {
+                                          progress(1.0);
+                                      }
+                                      return [AnyPromise promiseWithValue:cachedArticle];
+                                  } else {
+                                      return [self fetchArticleForURL:url progress:progress];
+                                  }
+                              });
     }
-    
-    return promisedArticle.catch(^(NSError* error) {
-        NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ? : @{}];
+
+    return promisedArticle.catch(^(NSError *error) {
+        NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ?: @{}];
         userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] = cachedArticle;
         return [NSError errorWithDomain:error.domain
                                    code:error.code
                                userInfo:userInfo];
     });
-
 }
 
-
-- (AnyPromise*)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL*)url
-                                                 progress:(WMFProgressHandler __nullable)progress {
+- (AnyPromise *)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL *)url
+                                                  progress:(WMFProgressHandler __nullable)progress {
     return [self fetchLatestVersionOfArticleWithURL:url forceDownload:NO progress:progress];
-  }
+}
 
-- (AnyPromise*)fetchArticleForURL:(NSURL*)articleURL progress:(WMFProgressHandler __nullable)progress {
+- (AnyPromise *)fetchArticleForURL:(NSURL *)articleURL progress:(WMFProgressHandler __nullable)progress {
     NSAssert(articleURL.wmf_title != nil, @"Title text nil");
     NSAssert(self.dataStore != nil, @"Store nil");
     NSAssert(self.operationManager != nil, @"Manager nil");
@@ -269,6 +270,5 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 }
 
 @end
-
 
 NS_ASSUME_NONNULL_END

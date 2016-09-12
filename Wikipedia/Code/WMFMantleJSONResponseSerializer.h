@@ -1,11 +1,3 @@
-//
-//  WMFMantleJSONResponseSerializer.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 8/27/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFApiJsonResponseSerializer.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -22,8 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A response serializer.
  */
-+ (instancetype)serializerForInstancesOf:(Class)model fromKeypath:(NSString* __nullable)keypath;
-
++ (instancetype)serializerForInstancesOf:(Class)model fromKeypath:(NSString *__nullable)keypath;
 
 /**
  *  Create a serializer for converting a value in a JSON response into an array @c model objects.
@@ -35,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A response serializer.
  */
-+ (instancetype)serializerForArrayOf:(Class)model fromKeypath:(NSString* __nullable)keypath;
++ (instancetype)serializerForArrayOf:(Class)model fromKeypath:(NSString *__nullable)keypath;
 
 /**
  *  Create a serializer for converting a dictionary value in a JSON response into a collection of objects of type @c model.
@@ -50,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A response serializer.
  */
-+ (instancetype)serializerForValuesInDictionaryOfType:(Class)model fromKeypath:(NSString* __nullable)keypath;
++ (instancetype)serializerForValuesInDictionaryOfType:(Class)model fromKeypath:(NSString *__nullable)keypath;
 
 @end
 

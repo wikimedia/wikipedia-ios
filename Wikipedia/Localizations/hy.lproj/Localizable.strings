@@ -65,6 +65,7 @@
 "wikitext-downloading" = "Բովանդակության բեռնում...";
 "wikitext-download-failed" = "Չի հաջողվում ստանալ վերջին տարբերակը:";
 "wikitext-download-success" = "Բովանդակությունը բեռնված է:";
+// Fuzzy
 "wikitext-upload-save" = "Պահպանվում է...";
 "wikitext-upload-save-sign-in" = "Մուտք գործել";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -125,14 +126,17 @@
 "page-history-downloading" = "Էջի պատմության բեռնում...";
 "navbar-title-mode-edit-wikitext" = "Խմբագրել";
 "navbar-title-mode-login" = "Մուտք գործել";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Մուտք գործել և պահպանել";
 "navbar-title-mode-create-account" = "Ստեղծել մասնակցային հաշիվ";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Ստեղծել մասնակցային հաշիվ և պահպանել";
 "navbar-title-mode-edit-wikitext-warning" = "Խնդիրների խմբագրում";
 "navbar-title-mode-edit-wikitext-disallow" = "Խնդիրների խմբագրում";
 "navbar-title-mode-edit-wikitext-preview" = "Նախադիտել";
 "navbar-title-mode-edit-wikitext-captcha" = "Անհրաժեշտ է արագ ստուգում";
 "navbar-title-mode-edit-wikitext-summary" = "Նկարագրեք ձեր խմբագրումը";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Հիշել";
 "edit-summary-choice-linked-words" = "Ավելացված հղումներ";
 "edit-summary-choice-added-category" = "Ավելացվել է կատեգորիա";
@@ -181,12 +185,14 @@
 "license-footer-text" = "Բովանդակությունը հասանելի է";
 "license-footer-name" = "CC BY-SA 3.0 արտոնագրի ներքո";
 "table-of-contents-heading" = "Բովանդակություն";
+// Fuzzy
 "abuse-filter-warning-heading" = "Այս խմբագրոմը ապակառուցողական է երևում։ Ցանկանո՞մ եք շարունակել:";
 "abuse-filter-warning-subheading" = "Ձեր խմբագրումը պարունակում է նշվածներից մեկը կամ մի քանիսը";
 "abuse-filter-warning-caps" = "Մեծատառերով տեքստի հավաքում";
 "abuse-filter-warning-blanking" = "Դատարկ հոդված կամ սպամ";
 "abuse-filter-warning-irrelevant" = "Ոչ տեղին արտաքին հղումներ կամ նկարներ";
 "abuse-filter-warning-repeat" = "Կրկնվող նշաններ";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Դուք չեք կարող պահպանել ձեր խմբագրումը: Խնդրում ենք վերադառնալ և փոխել այն:";
 "menu-edit-accessibility-label" = "Խմբագրել";
 "menu-close-accessibility-label" = "Փակել";

@@ -1,11 +1,3 @@
-//
-//  UIView+VisualTestSizingUtils.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 9/3/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "UIView+VisualTestSizingUtils.h"
 
 @implementation UIView (VisualTestSizingUtils)
@@ -15,13 +7,12 @@
                                    withHorizontalFittingPriority:UILayoutPriorityRequired
                                          verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
     return (CGRect){
-               .origin = CGPointZero,
-               .size   = CGSizeMake(floor(width), floor(sizeThatFitsWidth.height))
-    };
+        .origin = CGPointZero,
+        .size = CGSizeMake(floor(width), floor(sizeThatFitsWidth.height))};
 }
 
 - (void)wmf_sizeToFitWindowWidth {
-    UIWindow* window = self.window ? : [[UIApplication sharedApplication] keyWindow];
+    UIWindow *window = self.window ?: [[UIApplication sharedApplication] keyWindow];
     [self wmf_sizeToFitWidth:window.bounds.size.width];
 }
 

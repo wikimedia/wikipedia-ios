@@ -1,22 +1,14 @@
-//
-//  NSBundle+WMFInfoUtils.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 5/1/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "NSBundle+WMFInfoUtils.h"
 
 @implementation NSBundle (WMFInfoUtils)
 
-- (NSString*)wmf_bundleName {
+- (NSString *)wmf_bundleName {
     return [self objectForInfoDictionaryKey:@"CFBundleName"];
 }
 
 #pragma mark - Version Info
 
-- (NSString*)wmf_bundleIdentifier {
+- (NSString *)wmf_bundleIdentifier {
     return [self objectForInfoDictionaryKey:@"CFBundleIdentifier"];
 }
 
@@ -24,37 +16,37 @@
     return [[self wmf_bundleIdentifier] hasSuffix:@"wikipedia"];
 }
 
-- (NSString*)wmf_bundleVersion {
+- (NSString *)wmf_bundleVersion {
     return [self objectForInfoDictionaryKey:@"CFBundleVersion"];
 }
 
-- (NSString*)wmf_shortVersionString {
+- (NSString *)wmf_shortVersionString {
     return [self objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 }
 
-- (NSString*)wmf_releaseVersion {
+- (NSString *)wmf_releaseVersion {
     return [[self wmf_shortVersionString] stringByAppendingFormat:@" (%@)", [self wmf_bundleVersion]];
 }
 
-- (NSString*)wmf_debugVersion {
+- (NSString *)wmf_debugVersion {
     return [[self wmf_shortVersionString] stringByAppendingFormat:@".%@", [self wmf_bundleVersion]];
 }
 
-- (NSString*)wmf_versionForCurrentBundleIdentifier {
+- (NSString *)wmf_versionForCurrentBundleIdentifier {
     return [self wmf_isAppStoreBundleIdentifier] ? [self wmf_releaseVersion] : [self wmf_debugVersion];
 }
 
 #pragma mark - Config
 
-- (NSString*)wmf_hockeyappIdentifier {
+- (NSString *)wmf_hockeyappIdentifier {
     return [self objectForInfoDictionaryKey:@"WMFHockeyAppIdentifier"];
 }
 
-- (NSString*)wmf_piwikURL {
+- (NSString *)wmf_piwikURL {
     return [self objectForInfoDictionaryKey:@"WMFPiwikURL"];
 }
 
-- (NSString*)wmf_piwikAppID {
+- (NSString *)wmf_piwikAppID {
     return [self objectForInfoDictionaryKey:@"WMFPiwikAppIdentifier"];
 }
 
@@ -63,7 +55,7 @@
 }
 
 - (BOOL)wmf_isPiwikEnabledAndConfigured {
-#ifndef PIWIK_ENABLED
+#ifdef DEBUG
     return NO;
 #else
     return [self wmf_piwikURL].length > 0 && [self wmf_piwikAppID].length > 0;

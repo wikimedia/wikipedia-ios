@@ -1,6 +1,3 @@
-//  Created by Monte Hurd on 3/26/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import <Foundation/Foundation.h>
 
 @interface NSString (FormattedAttributedString)
@@ -39,8 +36,8 @@
      ];
  */
 
-- (NSAttributedString*)attributedStringWithAttributes:(NSDictionary*)attributes
-                                  substitutionStrings:(NSArray*)substitutionStrings
-                               substitutionAttributes:(NSArray*)substitutionAttributes;
+- (NSAttributedString *)attributedStringWithAttributes:(NSDictionary *)attributes
+                                   substitutionStrings:(NSArray *)substitutionStrings
+                                substitutionAttributes:(NSArray *)substitutionAttributes;
 
 @end

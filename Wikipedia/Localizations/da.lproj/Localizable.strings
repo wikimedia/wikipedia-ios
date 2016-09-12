@@ -78,11 +78,14 @@
 "wikitext-upload-result-unknown" = "Ude af stand til at afgøre resultatet af wikitext upload.";
 "wikitext-upload-captcha-error" = "CAPTCHA kontrolfejl.";
 "wikitext-upload-captcha-needed" = "Brug for CAPTCHA bekræftelse.";
+// Fuzzy
 "wikitext-upload-save" = "Gemmer...";
 "wikitext-upload-save-sign-in" = "Log på";
 "wikitext-upload-save-sign-in-benefits" = "Så andre brugere kan komme i forbindelse med dig, og du kan se, hvilke artikler du har redigeret.";
+// Fuzzy
 "wikitext-upload-save-anonymously" = "Gem anonymt";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil blive tilskrevet IP-adressen for din enhed. $1 hvis du vil have mere privatliv.";
+// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Ved at gemme accepterer du vores $1, og du accepterer uigenkaldeligt at udgive dit bidrag under licensen $2.";
 "wikitext-upload-save-terms-name" = "Vilkår for anvendelse";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -166,14 +169,17 @@
 "page-history-downloading" = "Indlæser artikelhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigerer";
 "navbar-title-mode-login" = "Log på";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Log på og gem";
 "navbar-title-mode-create-account" = "Opret konto";
+// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Opret konto og gemme";
 "navbar-title-mode-edit-wikitext-warning" = "Redigeringsproblemer";
 "navbar-title-mode-edit-wikitext-disallow" = "Redigeringsproblemer";
 "navbar-title-mode-edit-wikitext-preview" = "Forhåndsvisning";
 "navbar-title-mode-edit-wikitext-captcha" = "Hurtig verificering kræves";
 "navbar-title-mode-edit-wikitext-summary" = "Beskriv dine ændringer";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Gem";
 "edit-summary-choice-linked-words" = "Tilføjede links";
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
@@ -259,17 +265,18 @@
 "license-footer-text" = "Indholdet er udgivet under $1 medmindre andet er angivet.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Indhold";
-// Fuzzy
 "table-of-contents-button-label" = "Indholdsfortegnelse";
-// Fuzzy
 "table-of-contents-close-accessibility-label" = "Luk indholdsfortegnelse";
 "table-of-contents-close-accessibility-hint" = "Afslut";
+"table-of-contents-popover-description" = "Få et overblik over artikler";
+// Fuzzy
 "abuse-filter-warning-heading" = "Dette er muligvis ikke en konstruktiv redigering. Er du sikker på du ønsker at gemme den?";
 "abuse-filter-warning-subheading" = "Din redigering kan indeholde en eller flere af følgende:";
 "abuse-filter-warning-caps" = "Tekst skrevet med STORE BOGSTAVER";
 "abuse-filter-warning-blanking" = "Tømning af artikler eller spam";
 "abuse-filter-warning-irrelevant" = "Irrelevante eksterne links eller billeder";
 "abuse-filter-warning-repeat" = "Gentaaaaagende tegn";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Du kan ikke gemme denne redigering. Gå venligst tilbage og ændre den.";
 "abuse-filter-disallow-unconstructive" = "Et automatisk filter har identificeret denne redigering som potentielt ukonstruktiv eller forsøg på hærværk.";
 "abuse-filter-disallow-notable" = "Wikipedia er en encyklopædi. Kun neutralt og relevant indhold hører til her.";
@@ -387,6 +394,7 @@
 "explore-featured-article-heading" = "Fremhævet artikel";
 "explore-continue-reading-heading" = "Fortsæt læsning";
 "explore-nearby-heading" = "Steder i nærheden";
+"explore-nearby-sub-heading-your-location" = "Din position";
 "explore-continue-related-heading" = "Fordi du læste";
 "explore-main-page-heading" = "I dag på Wikipedia";
 "explore-random-article-heading" = "Tilfældig artikel";
@@ -402,3 +410,8 @@
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "explore-another-random" = "En anden tilfældig artikel";
 "find-in-page-no-matches" = "0 træf";
+"find-in-page-button-label" = "Søg på siden";
+"find-in-page-popover-description" = "Søg efter tekst i artikler";
+"continue-reading-empty-title" = "Ingen seneste læste artikler";
+"continue-reading-empty-description" = "Udforsk Wikipedia for flere artikler at læse";
+"top-read-see-more-trending" = "Se flere populære";

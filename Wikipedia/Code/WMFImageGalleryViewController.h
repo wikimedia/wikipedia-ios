@@ -1,4 +1,3 @@
-
 #import <UIKit/UIKit.h>
 #import <NYTPhotoViewer/NYTPhotosViewController.h>
 #import "WMFImageInfoController.h"
@@ -17,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The view
  */
-- (UIImageView*)referenceViewForImageController:(WMFImageGalleryViewController*)controller;
+- (UIImageView *)referenceViewForImageController:(WMFImageGalleryViewController *)controller;
 
 @end
 
@@ -37,37 +36,36 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)indexOfCurrentImage;
 
-- (UIImageView*)currentImageView;
+- (UIImageView *)currentImageView;
 
 - (void)showImageAtIndex:(NSUInteger)index animated:(BOOL)animated;
 
 @end
 
-@interface WMFArticleImageGalleryViewController : WMFImageGalleryViewController<WMFImageInfoControllerDelegate>
+@interface WMFArticleImageGalleryViewController : WMFImageGalleryViewController <WMFImageInfoControllerDelegate>
 
-- (nullable instancetype)initWithArticle:(MWKArticle*)article;
+- (nullable instancetype)initWithArticle:(MWKArticle *)article;
 
-- (nullable instancetype)initWithArticle:(MWKArticle*)article selectedImage:(nullable MWKImage*)image NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithArticle:(MWKArticle *)article selectedImage:(nullable MWKImage *)image NS_DESIGNATED_INITIALIZER;
 
-- (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto> >*)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
+- (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
 
-- (MWKImage*)currentImage;
+- (MWKImage *)currentImage;
 
-- (MWKImageInfo*)currentImageInfo;
+- (MWKImageInfo *)currentImageInfo;
 
 @end
 
 @interface WMFPOTDImageGalleryViewController : WMFImageGalleryViewController
 
-- (instancetype)initWithDates:(NSArray<NSDate*>*)imageDates selectedImageInfo:(nullable MWKImageInfo*)imageInfo NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDates:(NSArray<NSDate *> *)imageDates selectedImageInfo:(nullable MWKImageInfo *)imageInfo NS_DESIGNATED_INITIALIZER;
 
-- (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto> >*)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
+- (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
 
-- (MWKImageInfo*)imageInfoForPhoto:(id<NYTPhoto>)photo;
+- (MWKImageInfo *)imageInfoForPhoto:(id<NYTPhoto>)photo;
 
-- (MWKImageInfo*)currentImageInfo;
+- (MWKImageInfo *)currentImageInfo;
 
 @end
-
 
 NS_ASSUME_NONNULL_END

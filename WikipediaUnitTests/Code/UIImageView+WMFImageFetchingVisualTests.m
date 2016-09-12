@@ -1,11 +1,3 @@
-//
-//  UIImageView+WMFImageFetchingVisualTests.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/9/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 @import XCTest;
 #import <FBSnapshotTestCase/FBSnapshotTestCase.h>
 
@@ -20,7 +12,7 @@
 
 @interface UIImageViewWMFImageFetchingVisualTests : FBSnapshotTestCase
 
-@property (nonatomic, strong) UIImageView* imageView;
+@property (nonatomic, strong) UIImageView *imageView;
 
 @end
 
@@ -29,12 +21,12 @@
 - (void)setUp {
     [super setUp];
 
-    self.recordMode     = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
+    self.recordMode = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
     self.deviceAgnostic = YES;
 
     [[LSNocilla sharedInstance] start];
-    self.imageView                     = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
-    self.imageView.contentMode         = UIViewContentModeScaleAspectFill;
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.wmf_imageController = [WMFImageController temporaryController];
 }
 
@@ -59,32 +51,36 @@
 
 #pragma mark - Utils
 
-- (void)verifyCenteringOfFacesInFixtureNamed:(NSString*)imageFixtureName {
+- (void)verifyCenteringOfFacesInFixtureNamed:(NSString *)imageFixtureName {
     // !!!: Need to use different URLs to prevent reusing face detection data for different images
-    NSURL* testURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://test/%@.jpg", imageFixtureName]];
+    NSURL *testURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://test/%@.jpg", imageFixtureName]];
 
-    UIImage* testImage =
-        [UIImage imageNamed:imageFixtureName inBundle:[self wmf_bundle] compatibleWithTraitCollection:nil];
+    UIImage *testImage =
+        [UIImage imageNamed:imageFixtureName
+                                 inBundle:[self wmf_bundle]
+            compatibleWithTraitCollection:nil];
 
     NSAssert(testImage,
              @"Couldn't find image fixture named %@. Make sure it's included in the unit testing target.",
              imageFixtureName);
 
     stubRequest(@"GET", testURL.absoluteString)
-    .andReturn(200)
-    .withBody(UIImageJPEGRepresentation(testImage, 1.f));
-    
-    
+        .andReturn(200)
+        .withBody(UIImageJPEGRepresentation(testImage, 1.f));
+
     XCTestExpectation *expectation = [self expectationWithDescription:@"waiting for image set"];
-    
-    [self.imageView wmf_setImageWithURL:testURL detectFaces:YES failure:^(NSError *error) {
-        XCTFail();
-        [expectation fulfill];
-    } success:^{
-        WMFSnapshotVerifyView(self.imageView);
-        [expectation fulfill];
-    }];
-    
+
+    [self.imageView wmf_setImageWithURL:testURL
+        detectFaces:YES
+        failure:^(NSError *error) {
+            XCTFail();
+            [expectation fulfill];
+        }
+        success:^{
+            WMFSnapshotVerifyView(self.imageView);
+            [expectation fulfill];
+        }];
+
     WaitForExpectationsWithTimeout(10);
 }
 

@@ -1,11 +1,3 @@
-//
-//  WMFOutParamUtils.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 7/23/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #ifndef Wikipedia_WMFOutParamUtils_h
 #define Wikipedia_WMFOutParamUtils_h
 
@@ -27,10 +19,10 @@
  * @note This needs to be a macro due to problems casting between ObjC & C indirect pointers.
  */
 #define WMFSafeAssign(outParam, value) \
-    do { \
-        if (outParam != NULL) { \
-            *(outParam) = (value); \
-        } \
+    do {                               \
+        if (outParam != NULL) {        \
+            *(outParam) = (value);     \
+        }                              \
     } while (0)
 
 #endif

@@ -1,13 +1,12 @@
-
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFEmptyView.h"
 
 @implementation UIViewController (WMFEmptyView)
 
-static NSString * WMFEmptyViewKey = @"WMFEmptyView";
+static NSString *WMFEmptyViewKey = @"WMFEmptyView";
 
-- (UIView*)wmf_emptyView {
-    id valueToReturn = [self bk_associatedValueForKey:(__bridge const void*)(WMFEmptyViewKey)];
+- (UIView *)wmf_emptyView {
+    id valueToReturn = [self bk_associatedValueForKey:(__bridge const void *)(WMFEmptyViewKey)];
 
     return valueToReturn;
 }
@@ -15,7 +14,7 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
 - (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type {
     [self wmf_hideEmptyView];
 
-    UIView* view = nil;
+    UIView *view = nil;
     switch (type) {
         case WMFEmptyViewTypeBlank:
             view = [WMFEmptyView blankEmptyView];
@@ -40,24 +39,24 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
     }
 
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    view.frame            = self.view.bounds;
+    view.frame = self.view.bounds;
 
     if ([self.view isKindOfClass:[UIScrollView class]]) {
-        [(UIScrollView*)self.view setScrollEnabled:NO];
+        [(UIScrollView *)self.view setScrollEnabled:NO];
     }
     [self.view addSubview:view];
 
-    [self bk_associateValue:view withKey:(__bridge const void*)(WMFEmptyViewKey)];
+    [self bk_associateValue:view withKey:(__bridge const void *)(WMFEmptyViewKey)];
 }
 
 - (void)wmf_hideEmptyView {
     if ([self.view isKindOfClass:[UIScrollView class]]) {
-        [(UIScrollView*)self.view setScrollEnabled:YES];
+        [(UIScrollView *)self.view setScrollEnabled:YES];
     }
-    UIView* view = [self wmf_emptyView];
+    UIView *view = [self wmf_emptyView];
     [view removeFromSuperview];
 
-    [self bk_associateValue:nil withKey:(__bridge const void*)(WMFEmptyViewKey)];
+    [self bk_associateValue:nil withKey:(__bridge const void *)(WMFEmptyViewKey)];
 }
 
 - (BOOL)wmf_isShowingEmptyView {
