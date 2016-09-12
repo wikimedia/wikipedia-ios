@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong, nullable) NSArray<UIViewController *> *footerViewControllers;
 
-- (UIView *)footerAtIndex:(NSInteger)index;
+- (nullable UIView *)footerAtIndex:(NSInteger)index;
 - (void)scrollToFooterAtIndex:(NSInteger)index animated:(BOOL)animated;
 - (void)accessibilityCursorToFooterAtIndex:(NSInteger)index;
 
