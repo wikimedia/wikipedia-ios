@@ -28,9 +28,17 @@
 
 #pragma mark - NSObject
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.title = MWLocalizedString(@"saved-title", nil);
+}
+
+- (void)applicationWillEnterForeground:(NSNotification*)note{
+    self.dataSource = [self.dataStore savedDataSource];
 }
 
 #pragma mark - Accessors
@@ -49,6 +57,9 @@
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {

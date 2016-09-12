@@ -23,7 +23,7 @@ abstract_target 'Foundation' do
   pod 'libextobjc/EXTScope', '~> 0.4.1'
   pod 'BlocksKit/Core', '~> 2.2.0'
   pod 'KVOController', '= 1.0.3'
-  
+
   pod 'CocoaLumberjack/Swift'
 
   # Dates
@@ -42,30 +42,30 @@ abstract_target 'Foundation' do
   pod 'Masonry', '0.6.2'
 
   # Diagnostics
-  pod 'PiwikTracker'
+  pod 'PiwikTracker', :git => 'https://github.com/wikimedia/piwik-sdk-ios.git'
   pod 'HockeySDK', '~> 4.1.0'
 
   pod 'hpple', '~> 0.2'
-    
+
   target 'ContinueReadingWidget' do
 
   end
-  
+
   target 'TopReadWidget' do
 
   end
-  
+
   target 'WMFUtilities' do
-  	
+
   end
-  
+
   target 'WMFModel' do
 
   end
-  
+
   target 'WMFUI' do
   end
-  
+
   target 'Wikipedia' do
     # Utilities
     pod 'Tweaks'

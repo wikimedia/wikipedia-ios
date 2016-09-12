@@ -55,7 +55,7 @@
 }
 
 - (BOOL)wmf_isPiwikEnabledAndConfigured {
-#ifndef PIWIK_ENABLED
+#ifdef DEBUG
     return NO;
 #else
     return [self wmf_piwikURL].length > 0 && [self wmf_piwikAppID].length > 0;

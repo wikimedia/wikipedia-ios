@@ -51,6 +51,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)dealloc {
     [self stop];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
@@ -75,9 +76,15 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         self.imageInfoFetcher = imageInfoFetcher;
         self.dataSource = [self.dataStore savedDataSource];
         self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.dataStore];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     }
     return self;
 }
+
+- (void)applicationWillEnterForeground:(NSNotification*)note{
+    self.dataSource = [self.dataStore savedDataSource];
+}
+
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
                     savedPageList:(MWKSavedPageList *)savedPageList {

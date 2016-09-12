@@ -59,8 +59,6 @@
                                     [UIApplicationShortcutItem wmf_nearby],
                                     nil];
 
-    [shortcutItems wmf_safeAddObject:[UIApplicationShortcutItem wmf_continueReading]];
-
     [shortcutItems addObject:[UIApplicationShortcutItem wmf_search]];
 
     [UIApplication sharedApplication].shortcutItems = shortcutItems;
