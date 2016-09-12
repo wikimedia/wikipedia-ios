@@ -77,12 +77,8 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         let fragment = historyEntry.fragment
         
         let newURL = historyEntry.url.wmf_URLWithFragment(fragment)
-
-        print("articleURL \(articleURL)")
-        print("newURL \(newURL)")
         
         return newURL.absoluteString != articleURL?.absoluteString
-
     }
     
     func updateView() -> Bool {
