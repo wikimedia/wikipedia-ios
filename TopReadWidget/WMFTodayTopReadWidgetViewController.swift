@@ -95,6 +95,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         var i = 0
         for vc in articlePreviewViewControllers {
             vc.view.alpha = i < rowCount ? 1 : 0
+            if i == 0 {
+                vc.separatorView.alpha = rowCount == 1 ? 0 : 1
+            }
             i += 1
         }
         
