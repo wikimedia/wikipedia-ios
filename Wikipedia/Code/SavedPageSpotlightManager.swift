@@ -25,7 +25,7 @@ public extension MWKArticle {
                 CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
 
         searchableItem.subject = entityDescription
-        searchableItem.contentDescription = summary()
+        searchableItem.contentDescription = summary
         if let string = imageURL {
             if let url = NSURL(string: string) {
                 searchableItem.thumbnailData = WMFImageController.sharedInstance().diskDataForImageWithURL(url);

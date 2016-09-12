@@ -133,8 +133,6 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 - (NSSet<NSURL *> *)allImageURLs;
 
-- (NSString *)summary;
-
 - (NSArray<NSURL *> *)imageURLsForGallery;
 
 - (NSArray<MWKImage *> *)imagesForGallery;

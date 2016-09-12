@@ -123,7 +123,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         emptyViewHidden = true
         
-        if let subtitle = article.summary() ?? article.entityDescription?.wmf_stringByCapitalizingFirstCharacter(){
+        if let subtitle = article.summary ?? article.entityDescription?.wmf_stringByCapitalizingFirstCharacter(){
             self.textLabel.text = subtitle
         } else {
             self.textLabel.text = nil
