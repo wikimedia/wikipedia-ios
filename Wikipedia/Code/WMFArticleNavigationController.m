@@ -52,6 +52,7 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
         }
     }
     dispatch_block_t animations = ^{
+        self.secondToolbar.alpha = hidden ? 0 : 1;
         self.secondToolbar.frame = (CGRect){origin, size};
     };
     if (animated) {
