@@ -3,7 +3,6 @@
 #import "Global.h"
 #import "WMFZeroConfigurationManager.h"
 #import "SessionSingleton.h"
-#import "UIAlertView+BlocksKit.h"
 #import "WMFZeroConfiguration.h"
 #import <SafariServices/SFSafariViewController.h>
 #import "NSURL+WMFExtras.h"
