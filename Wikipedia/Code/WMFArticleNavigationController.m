@@ -19,7 +19,7 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
     [super setDelegate:self];
 
     self.secondToolbarHidden = YES;
-    self.secondToolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
+//    self.secondToolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
     [self.view addSubview:self.secondToolbar];
     [self layoutSecondToolbarForViewBounds:self.view.bounds hidden:self.isSecondToolbarHidden animated:NO];
 }
@@ -36,6 +36,7 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
 }
 
 - (void)layoutSecondToolbarForViewBounds:(CGRect)bounds hidden:(BOOL)hidden animated:(BOOL)animated {
+return;
     CGSize size = CGSizeMake(bounds.size.width, 60);
     CGPoint origin;
     if (hidden) {
