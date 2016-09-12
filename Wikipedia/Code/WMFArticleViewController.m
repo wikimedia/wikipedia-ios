@@ -468,6 +468,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)updateToolbarItemsIfNeeded {
+    
     if (!self.saveButtonController) {
         self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.savedPages url:self.articleURL];
     }
@@ -476,7 +477,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     if (![self.toolbarItems isEqualToArray:toolbarItems]) {
         // HAX: only update toolbar if # of items has changed, otherwise items will (somehow) get lost
-        [self setToolbarItems:toolbarItems animated:YES];
+        [self setToolbarItems:toolbarItems animated:NO];
     }
 }
 
