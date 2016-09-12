@@ -25,12 +25,9 @@
 //  THE SOFTWARE.
 //
 
-#import "UIActionSheet+BlocksKit.h"
-#import "UIAlertView+BlocksKit.h"
 #import "UIBarButtonItem+BlocksKit.h"
 #import "UIControl+BlocksKit.h"
 #import "UIGestureRecognizer+BlocksKit.h"
-#import "UIPopoverController+BlocksKit.h"
 #import "UITextField+BlocksKit.h"
 #import "UIView+BlocksKit.h"
 #import "UIWebView+BlocksKit.h"

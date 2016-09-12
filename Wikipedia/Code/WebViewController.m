@@ -667,23 +667,27 @@ NSString *const WMFCCBySALicenseURL =
 
 #pragma mark - Headers & Footers
 
-- (UIView *)footerAtIndex:(NSInteger)index {
-    UIView *footerView = self.footerViewControllers[index].view;
+- (nullable UIView *)footerAtIndex:(NSInteger)index {
+    UIView *footerView = [[self.footerViewControllers wmf_safeObjectAtIndex:index] view];
     UIView *footerViewHeader = self.footerViewHeadersByIndex[@(index)];
     return footerViewHeader ?: footerView;
 }
 
 - (void)scrollToFooterAtIndex:(NSInteger)index animated:(BOOL)animated {
     UIView *viewToScrollTo = [self footerAtIndex:index];
-    CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:viewToScrollTo.frame.origin
-                                                            fromView:self.footerContainerView];
-    footerViewOrigin.y -= self.webView.scrollView.contentInset.top;
-    [self.webView.scrollView setContentOffset:footerViewOrigin animated:animated];
+    if (viewToScrollTo) {
+        CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:viewToScrollTo.frame.origin
+                                                                fromView:self.footerContainerView];
+        footerViewOrigin.y -= self.webView.scrollView.contentInset.top;
+        [self.webView.scrollView setContentOffset:footerViewOrigin animated:animated];
+    }
 }
 
 - (void)accessibilityCursorToFooterAtIndex:(NSInteger)index {
     UIView *viewToScrollTo = [self footerAtIndex:index];
-    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, viewToScrollTo);
+    if (viewToScrollTo) {
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, viewToScrollTo);
+    }
 }
 
 - (NSInteger)visibleFooterIndex {
