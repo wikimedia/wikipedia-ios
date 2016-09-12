@@ -13,8 +13,8 @@
                 <outlet property="separatorView" destination="xnh-wl-RXW" id="7Cd-KF-RX3"/>
                 <outlet property="sparklineView" destination="vap-0K-H1T" id="qNY-da-Zzw"/>
                 <outlet property="subtitleLabel" destination="tGB-R2-1JO" id="3cy-Z7-BNS"/>
-                <outlet property="subtitleLabelTrailingConstraint" destination="dq3-MQ-cPm" id="JQ8-mq-XMv"/>
                 <outlet property="titleLabel" destination="3sD-Qs-JfB" id="cDK-az-uMN"/>
+                <outlet property="titleLabelTrailingConstraint" destination="0Dc-eJ-A6M" id="f2o-S0-sU9"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewCountAndSparklineContainerView" destination="6G4-5v-LNq" id="AH7-gc-8zC"/>
                 <outlet property="viewCountLabel" destination="Hxu-Xo-JQO" id="eFE-M3-Tea"/>
@@ -25,7 +25,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="136"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sBV-nz-BRl">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sBV-nz-BRl">
                     <constraints>
                         <constraint firstAttribute="width" constant="86" id="8QF-Lg-cIG"/>
                         <constraint firstAttribute="height" constant="86" id="gwp-Md-Ur5"/>
@@ -91,10 +91,10 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="sBV-nz-BRl" firstAttribute="leading" secondItem="3sD-Qs-JfB" secondAttribute="trailing" constant="8" id="0Dc-eJ-A6M"/>
                 <constraint firstItem="sBV-nz-BRl" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="0uS-mw-tlE"/>
                 <constraint firstItem="3sD-Qs-JfB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="35" id="4f9-jk-UAA" userLabel="ArticleVC Title Label Leading"/>
                 <constraint firstItem="8p9-Hg-81S" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="9A8-U2-H3W" userLabel="ArticleVC Rank Label Leading"/>
-                <constraint firstItem="sBV-nz-BRl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="top" priority="750" constant="14" id="Cr9-82-itP"/>
                 <constraint firstItem="xnh-wl-RXW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="EWj-3S-e96"/>
                 <constraint firstItem="6G4-5v-LNq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="tGB-R2-1JO" secondAttribute="bottom" constant="8" id="F5c-Pq-5GL"/>
                 <constraint firstItem="xnh-wl-RXW" firstAttribute="top" secondItem="6G4-5v-LNq" secondAttribute="bottom" constant="17" id="J1n-5m-vHU"/>
@@ -102,13 +102,11 @@
                 <constraint firstAttribute="bottom" secondItem="xnh-wl-RXW" secondAttribute="bottom" id="P8p-Ma-M5h"/>
                 <constraint firstItem="tGB-R2-1JO" firstAttribute="top" secondItem="3sD-Qs-JfB" secondAttribute="bottom" constant="2" id="TIt-oc-VCe" userLabel="ArticleVC Subtitle Label Top"/>
                 <constraint firstItem="8p9-Hg-81S" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14" id="UcO-e5-K5U" userLabel="ArticleVC Rank Label Top"/>
-                <constraint firstItem="sBV-nz-BRl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3sD-Qs-JfB" secondAttribute="trailing" priority="750" constant="14" id="cEs-2z-GxT"/>
-                <constraint firstAttribute="trailing" secondItem="sBV-nz-BRl" secondAttribute="trailing" constant="14" id="dDa-n0-3wG"/>
-                <constraint firstItem="sBV-nz-BRl" firstAttribute="leading" secondItem="tGB-R2-1JO" secondAttribute="trailing" constant="8" id="dq3-MQ-cPm"/>
+                <constraint firstAttribute="trailing" secondItem="sBV-nz-BRl" secondAttribute="trailing" constant="15" id="dDa-n0-3wG"/>
+                <constraint firstItem="tGB-R2-1JO" firstAttribute="trailing" secondItem="3sD-Qs-JfB" secondAttribute="trailing" id="dnp-xQ-THx"/>
                 <constraint firstItem="3sD-Qs-JfB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14" id="eKF-om-e13" userLabel="ArticleVC Title Label Top"/>
                 <constraint firstAttribute="trailing" secondItem="xnh-wl-RXW" secondAttribute="trailing" id="hZ1-Qp-sRR"/>
                 <constraint firstItem="tGB-R2-1JO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="35" id="pcI-zM-erP"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="sBV-nz-BRl" secondAttribute="bottom" priority="750" constant="14" id="vIx-aM-iiu"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
