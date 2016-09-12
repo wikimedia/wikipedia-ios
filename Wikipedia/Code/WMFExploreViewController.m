@@ -63,8 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
     UIViewControllerPreviewingDelegate,
     WMFAnalyticsContextProviding,
     WMFAnalyticsViewNameProviding,
-    WMFColumnarCollectionViewLayoutDelegate,
-    UINavigationControllerDelegate>
+    WMFColumnarCollectionViewLayoutDelegate>
 
 @property (nonatomic, strong, readonly) MWKSavedPageList *savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList *recentPages;
@@ -262,7 +261,6 @@ NS_ASSUME_NONNULL_BEGIN
     UINavigationController *settingsContainer =
         [[UINavigationController alloc] initWithRootViewController:
                                             [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore]];
-    settingsContainer.delegate = self;
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
