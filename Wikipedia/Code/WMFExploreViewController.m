@@ -63,7 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
     UIViewControllerPreviewingDelegate,
     WMFAnalyticsContextProviding,
     WMFAnalyticsViewNameProviding,
-    WMFColumnarCollectionViewLayoutDelegate>
+    WMFColumnarCollectionViewLayoutDelegate,
+    UINavigationControllerDelegate>
 
 @property (nonatomic, strong, readonly) MWKSavedPageList *savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList *recentPages;
