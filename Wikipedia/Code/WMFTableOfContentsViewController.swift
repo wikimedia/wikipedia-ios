@@ -43,6 +43,17 @@ public class WMFTableOfContentsViewController: UIViewController,
         tv.dataSource = self
         tv.backgroundView = nil
 
+        tv.registerNib(WMFTableOfContentsCell.wmf_classNib(),
+                              forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
+        tv.estimatedRowHeight = 41
+        tv.rowHeight = UITableViewAutomaticDimension
+        
+        tv.sectionHeaderHeight = UITableViewAutomaticDimension
+        tv.estimatedSectionHeaderHeight = 32
+        
+        tv.contentInset = UIEdgeInsetsMake(UIApplication.sharedApplication().statusBarFrame.size.height, 0, 0, 0)
+        tv.separatorStyle = .None
+
         //add to the view now to ensure view did load is kicked off
         self.view.addSubview(tv)
 
@@ -97,6 +108,10 @@ public class WMFTableOfContentsViewController: UIViewController,
     }
 
     public func selectAndScrollToItem(atIndex index: Int, animated: Bool) {
+        guard index < items.count else {
+            assertionFailure("Trying to select/scroll to an item put of range")
+            return
+        }
         selectAndScrollToItem(items[index], animated: animated)
     }
     
@@ -178,23 +193,14 @@ public class WMFTableOfContentsViewController: UIViewController,
         tableView.mas_makeConstraints { make in
             make.top.bottom().leading().and().trailing().equalTo()(self.view)
         }
-
-        tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(),
-                              forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
-        tableView.estimatedRowHeight = 41
-        tableView.rowHeight = UITableViewAutomaticDimension
-        
-        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
-        tableView.estimatedSectionHeaderHeight = 32
         
         if let delegate = delegate where delegate.tableOfContentsDisplayModeIsModal() {
             tableView.backgroundColor = UIColor.wmf_modalTableOfContentsBackgroundColor()
         } else {
             tableView.backgroundColor = UIColor.wmf_inlineTableOfContentsBackgroundColor()
         }
+
         automaticallyAdjustsScrollViewInsets = false
-        tableView.contentInset = UIEdgeInsetsMake(UIApplication.sharedApplication().statusBarFrame.size.height, 0, 0, 0)
-        tableView.separatorStyle = .None
     }
 
     public override func viewWillAppear(animated: Bool) {
