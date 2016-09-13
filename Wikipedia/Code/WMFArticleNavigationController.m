@@ -19,7 +19,7 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
     [super setDelegate:self];
 
     self.secondToolbarHidden = YES;
-    self.secondToolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
+//    self.secondToolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
     [self.view addSubview:self.secondToolbar];
     [self layoutSecondToolbarForViewBounds:self.view.bounds hidden:self.isSecondToolbarHidden animated:NO];
 }
@@ -36,6 +36,7 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
 }
 
 - (void)layoutSecondToolbarForViewBounds:(CGRect)bounds hidden:(BOOL)hidden animated:(BOOL)animated {
+return;
     CGSize size = CGSizeMake(bounds.size.width, 60);
     CGPoint origin;
     if (hidden) {
@@ -75,11 +76,11 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
     }
     //Ideally this observes secondToolbarItems for changes, but this is all we need for our use case at the moment
     NSArray *newItems = viewController.secondToolbarItems;
-    [self.secondToolbar setItems:newItems animated:animated];
+    self.toolbarItems = newItems; 
     if (newItems.count > 0) {
-        [self setSecondToolbarHidden:NO animated:YES];
+        [self setSecondToolbarHidden:NO animated:NO];
     } else {
-        [self setSecondToolbarHidden:YES animated:YES];
+        [self setSecondToolbarHidden:YES animated:NO];
     }
 }
 
