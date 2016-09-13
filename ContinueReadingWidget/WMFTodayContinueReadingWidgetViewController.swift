@@ -143,6 +143,8 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             }) {
                 self.collapseImageAndWidenLabels = false
             }
+        } else {
+            self.collapseImageAndWidenLabels = true
         }
         
         return true
