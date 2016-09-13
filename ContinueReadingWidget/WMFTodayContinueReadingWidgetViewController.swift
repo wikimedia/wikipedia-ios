@@ -43,7 +43,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
     }
     
-    var emptyViewHidden: Bool = true {
+    var emptyViewHidden: Bool = false {
         didSet {
             emptyView.hidden = emptyViewHidden
             
