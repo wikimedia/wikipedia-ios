@@ -61,4 +61,12 @@
     return animation;
 }
 
+- (UIViewController *)childViewControllerForStatusBarStyle {
+    return self.welcomeNavigationController;
+}
+
+- (UIViewController *)childViewControllerForStatusBarHidden {
+    return self.welcomeNavigationController;
+}
+
 @end
