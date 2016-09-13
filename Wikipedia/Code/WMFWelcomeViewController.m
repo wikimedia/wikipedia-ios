@@ -16,7 +16,7 @@
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    return YES;
+    return self.welcomeNavigationController.viewControllers.count > 1;
 }
 
 + (instancetype)welcomeViewControllerFromDefaultStoryBoard {
