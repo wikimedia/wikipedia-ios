@@ -5,8 +5,19 @@ require 'listen'
 wd = Dir.pwd
 
 extensions_to_format = [".m", ".h", ".c"]
- 
-listener = Listen.to(wd + '/Wikipedia/Code', wd + '/WikipediaUnitTests/Code', wd + '/WMFKit') do |modified, added, removed|
+
+paths_for_listening = []
+
+Dir.foreach(wd) { |sd|
+  if File.directory?(sd) 
+    lower = sd.downcase
+    if lower != 'pods' && !lower.start_with?('.')
+      paths_for_listening << sd
+    end
+  end
+}
+
+listener = Listen.to(*paths_for_listening) do |modified, added, removed|
   modified_and_added = modified + added
   modified_and_added.each do |path|
     extension = File.extname(path)
