@@ -43,7 +43,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
     }
     
-    var emptyViewHidden: Bool = true {
+    var emptyViewHidden: Bool = false {
         didSet {
             emptyView.hidden = emptyViewHidden
             
@@ -143,6 +143,8 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             }) {
                 self.collapseImageAndWidenLabels = false
             }
+        } else {
+            self.collapseImageAndWidenLabels = true
         }
         
         return true
