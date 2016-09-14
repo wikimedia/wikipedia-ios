@@ -853,6 +853,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 #pragma mark - UIGestureRecognizerDelegate
 
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    for (WMFAppTabType i = 0; i < WMFAppTabCount; i++) {
+        UINavigationController *navigationController = [self navigationControllerForTab:i];
+        if (navigationController.interactivePopGestureRecognizer == gestureRecognizer) {
+            return navigationController.viewControllers.count > 1;
+        }
+    }
+    return YES;
+}
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return ![gestureRecognizer isMemberOfClass:[UIScreenEdgePanGestureRecognizer class]];
 }
