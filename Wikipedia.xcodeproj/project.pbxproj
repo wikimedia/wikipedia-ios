@@ -87,6 +87,7 @@
 		B02B82751C696ECA00B19309 /* WMFSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B02B82731C696ECA00B19309 /* WMFSettingsTableViewCell.m */; };
 		B02B82761C696ECA00B19309 /* WMFSettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B02B82741C696ECA00B19309 /* WMFSettingsTableViewCell.xib */; };
 		B04393F21D21C04500FD2BD9 /* WMFImageTagParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B04393F11D21C04500FD2BD9 /* WMFImageTagParserTests.m */; };
+		B062ABC81D88BF370062BE21 /* WMFArticlePreviewViewControllerVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B062ABC71D88BF370062BE21 /* WMFArticlePreviewViewControllerVisualTests.m */; };
 		B063DE601C63FEE9002F2EDE /* UIToolbar+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = B063DE5F1C63FEE9002F2EDE /* UIToolbar+WMFStyling.m */; };
 		B06531601C220921003BD7DC /* WMFArticlePreviewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B065315F1C220921003BD7DC /* WMFArticlePreviewDataSource.m */; };
 		B06531691C2340BB003BD7DC /* WMFArticleFooterMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B06531681C2340BB003BD7DC /* WMFArticleFooterMenuItem.m */; };
@@ -1179,6 +1180,7 @@
 		B05033AD1D1F9AC9002E7D4F /* WMFImageTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageTag.m; path = Wikipedia/Code/WMFImageTag.m; sourceTree = SOURCE_ROOT; };
 		B05033AF1D1FA2FE002E7D4F /* WMFImageTag+TargetImageWidthURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFImageTag+TargetImageWidthURL.h"; path = "Wikipedia/Code/WMFImageTag+TargetImageWidthURL.h"; sourceTree = SOURCE_ROOT; };
 		B05033B01D1FA2FE002E7D4F /* WMFImageTag+TargetImageWidthURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WMFImageTag+TargetImageWidthURL.m"; path = "Wikipedia/Code/WMFImageTag+TargetImageWidthURL.m"; sourceTree = SOURCE_ROOT; };
+		B062ABC71D88BF370062BE21 /* WMFArticlePreviewViewControllerVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticlePreviewViewControllerVisualTests.m; sourceTree = "<group>"; };
 		B063DE5E1C63FEE9002F2EDE /* UIToolbar+WMFStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIToolbar+WMFStyling.h"; path = "Wikipedia/Code/UIToolbar+WMFStyling.h"; sourceTree = SOURCE_ROOT; };
 		B063DE5F1C63FEE9002F2EDE /* UIToolbar+WMFStyling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIToolbar+WMFStyling.m"; path = "Wikipedia/Code/UIToolbar+WMFStyling.m"; sourceTree = SOURCE_ROOT; };
 		B065315E1C220921003BD7DC /* WMFArticlePreviewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticlePreviewDataSource.h; path = Wikipedia/Code/WMFArticlePreviewDataSource.h; sourceTree = SOURCE_ROOT; };
@@ -5122,6 +5124,7 @@
 				B0E809521C0D1B430065EBC0 /* WMFSaveButtonControllerTests.m */,
 				B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */,
 				B0E809561C0D1B5F0065EBC0 /* WMFArticleListCellVisualTests.m */,
+				B062ABC71D88BF370062BE21 /* WMFArticlePreviewViewControllerVisualTests.m */,
 				B0E809581C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.h */,
 				B0E809591C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.m */,
 				B0E8095D1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m */,
@@ -6854,6 +6857,7 @@
 				BC318E151C1A39B300DACD9D /* PostNotificationMatcher.swift in Sources */,
 				B0E808E31C0D17C20065EBC0 /* MWKSavedPageListTogglingTests.m in Sources */,
 				B0E809091C0D18BC0065EBC0 /* NSString+WMFHTMLParsingTests.m in Sources */,
+				B062ABC81D88BF370062BE21 /* WMFArticlePreviewViewControllerVisualTests.m in Sources */,
 				19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */,
 				19A17B36FFB48307FF04C07F /* SavedPageSpotlightManagerTest.m in Sources */,
 			);
@@ -9232,6 +9236,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
 				VERSION_INFO_PREFIX = "";
@@ -9270,6 +9275,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
 				VERSION_INFO_PREFIX = "";
@@ -9304,6 +9310,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_VERSION = 2.3;
 				VERSION_INFO_PREFIX = "";
 			};
@@ -9337,6 +9344,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_VERSION = 2.3;
 				VERSION_INFO_PREFIX = "";
 			};
@@ -9370,6 +9378,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_VERSION = 2.3;
 				VERSION_INFO_PREFIX = "";
 			};
@@ -9403,6 +9412,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMFUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_VERSION = 2.3;
 				VERSION_INFO_PREFIX = "";
 			};
