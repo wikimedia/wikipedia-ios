@@ -39,7 +39,7 @@ abstract_target 'Foundation' do
   pod 'SSDataSources', '~> 0.8.0'
 
   # Autolayout
-  pod 'Masonry', '0.6.2'
+  pod 'Masonry', '~> 1.0'
 
   # Diagnostics
   pod 'PiwikTracker', :git => 'https://github.com/wikimedia/piwik-sdk-ios.git'
