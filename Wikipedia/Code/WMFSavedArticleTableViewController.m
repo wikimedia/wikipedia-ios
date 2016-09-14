@@ -37,7 +37,7 @@
     self.title = MWLocalizedString(@"saved-title", nil);
 }
 
-- (void)applicationWillEnterForeground:(NSNotification*)note{
+- (void)applicationWillEnterForeground:(NSNotification *)note {
     self.dataSource = [self.dataStore savedDataSource];
 }
 
@@ -57,9 +57,8 @@
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -100,7 +99,7 @@
 
 #pragma mark - WMFDataSourceDelegate
 
-- (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource{
+- (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource {
     [self.tableView reloadData];
 }
 

@@ -45,26 +45,26 @@ typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentation
                                                       duration:(NSTimeInterval)duration
                                withPresenterConfigurationBlock:(WMFDynamicHeightPopoverPresentationHandler)presenterConfigurationBlock {
 
-    if(self.navigationController.visibleViewController != self){
+    if (self.navigationController.visibleViewController != self) {
         return;
     }
 
-    UIViewController* popoverVC = [self wmf_dynamicHeightPopoverViewControllerWithTitle:title
-                                                                        message:message
-                                                                          width:width
-                                                withPresenterConfigurationBlock:presenterConfigurationBlock];
+    UIViewController *popoverVC = [self wmf_dynamicHeightPopoverViewControllerWithTitle:title
+                                                                                message:message
+                                                                                  width:width
+                                                        withPresenterConfigurationBlock:presenterConfigurationBlock];
     [self presentViewController:popoverVC
                        animated:NO
                      completion:^{
-                         if(duration > 0){
+                         if (duration > 0) {
                              [self performSelector:@selector(dismissPopover:) withObject:popoverVC afterDelay:duration];
                          }
                      }];
 }
 
-- (void)dismissPopover:(UIViewController*)popoverVC {
+- (void)dismissPopover:(UIViewController *)popoverVC {
     // Ensure the popover is still the presented view controller.
-    if(self.presentedViewController == popoverVC){
+    if (self.presentedViewController == popoverVC) {
         [self dismissViewControllerAnimated:YES
                                  completion:nil];
     }

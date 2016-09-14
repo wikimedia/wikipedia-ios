@@ -81,7 +81,6 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     return _dateFormatter;
 }
 
-
 + (instancetype)wmf_englishUTCNonDelimitedYearMonthDayFormatter {
     static NSDateFormatter *_dateFormatter;
     static dispatch_once_t onceToken;

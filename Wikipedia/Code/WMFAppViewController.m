@@ -284,7 +284,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     }
 
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
-    
+
     [self.session.dataStore syncDataStoreToDatabase];
 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:NULL failure:NULL];
@@ -462,10 +462,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
             [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
             break;
-        case WMFUserActivityTypeTopRead:
-        {
+        case WMFUserActivityTypeTopRead: {
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-            
+
             UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeExplore];
             [navController popToRootViewControllerAnimated:NO];
             NSDictionary *userInfo = activity.userInfo;
@@ -476,10 +475,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                 break;
             }
             MWKDataStore *dataStore = [[SessionSingleton sharedInstance] dataStore];
-            [dataStore readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
+            [dataStore readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
                 NSString *collection = [@[@"wmftopread", host] componentsJoinedByString:@":"];
                 NSString *key = [[NSDateFormatter wmf_englishUTCNonDelimitedYearMonthDayFormatter] stringFromDate:date];
-                NSArray* previews = [transaction objectForKey:key inCollection:collection];
+                NSArray *previews = [transaction objectForKey:key inCollection:collection];
                 if ([previews count] > 0) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         WMFMostReadListTableViewController *mostReadListVC = [[WMFMostReadListTableViewController alloc] initWithPreviews:previews fromSiteURL:siteURL forDate:date dataStore:dataStore];
@@ -487,8 +486,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
                     });
                 }
             }];
-        }
-            break;
+        } break;
         case WMFUserActivityTypeSavedPages:
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];
             [[self navigationControllerForTab:WMFAppTabTypeSaved] popToRootViewControllerAnimated:NO];
@@ -846,7 +844,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     DDLogWarn(@"Pushing/Popping article… Logging Important Statistics");
     [self logImportantStatistics];
-    if([[navigationController viewControllers] count] == 1){
+    if ([[navigationController viewControllers] count] == 1) {
         [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:nil];
     }
 }
@@ -894,8 +892,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
     [self setZeroOnDialogShownOnce];
 
-    NSString* title = zeroConfiguration.message ? zeroConfiguration.message : MWLocalizedString(@"zero-free-verbiage", nil);
-    
+    NSString *title = zeroConfiguration.message ? zeroConfiguration.message : MWLocalizedString(@"zero-free-verbiage", nil);
+
     UIAlertController *dialog = [UIAlertController alertControllerWithTitle:title message:MWLocalizedString(@"zero-learn-more", nil) preferredStyle:UIAlertControllerStyleAlert];
 
     [dialog addAction:[UIAlertAction actionWithTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil) style:UIAlertActionStyleCancel handler:NULL]];

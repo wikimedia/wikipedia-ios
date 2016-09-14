@@ -60,10 +60,10 @@ static DDLogLevel const WMFExploreVCLogLevel = DDLogLevelInfo;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFExploreViewController () <WMFExploreSectionSchemaDelegate,
-    UIViewControllerPreviewingDelegate,
-    WMFAnalyticsContextProviding,
-    WMFAnalyticsViewNameProviding,
-    WMFColumnarCollectionViewLayoutDelegate>
+                                        UIViewControllerPreviewingDelegate,
+                                        WMFAnalyticsContextProviding,
+                                        WMFAnalyticsViewNameProviding,
+                                        WMFColumnarCollectionViewLayoutDelegate>
 
 @property (nonatomic, strong, readonly) MWKSavedPageList *savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList *recentPages;
@@ -853,21 +853,21 @@ NS_ASSUME_NONNULL_BEGIN
     [self.KVOControllerNonRetaining observe:controller
                                     keyPath:WMF_SAFE_KEYPATH(controller, items)
                                     options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
-                                      block:^(WMFExploreViewController* observer,
-                                              id < WMFExploreSectionController > observedController,
-                                              NSDictionary* change) {
-        NSUInteger sectionIndex = [observer indexForSectionController:observedController];
-        if (sectionIndex != NSNotFound) {
-            DDLogDebug(@"Reloading table to display results in controller %@", observedController);
-            id oldValue = change[NSKeyValueChangeOldKey];
-            id newValue = change[NSKeyValueChangeNewKey];
-            if ([oldValue respondsToSelector:@selector(count)] && [newValue respondsToSelector:@selector(count)] && [oldValue count] == [newValue count]) {
-                [observer.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-            } else {
-                [observer.collectionView reloadData];
-            }
-        }
-    }];
+                                      block:^(WMFExploreViewController *observer,
+                                              id<WMFExploreSectionController> observedController,
+                                              NSDictionary *change) {
+                                          NSUInteger sectionIndex = [observer indexForSectionController:observedController];
+                                          if (sectionIndex != NSNotFound) {
+                                              DDLogDebug(@"Reloading table to display results in controller %@", observedController);
+                                              id oldValue = change[NSKeyValueChangeOldKey];
+                                              id newValue = change[NSKeyValueChangeNewKey];
+                                              if ([oldValue respondsToSelector:@selector(count)] && [newValue respondsToSelector:@selector(count)] && [oldValue count] == [newValue count]) {
+                                                  [observer.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                                              } else {
+                                                  [observer.collectionView reloadData];
+                                              }
+                                          }
+                                      }];
 }
 
 - (void)didTapFooterInSection:(NSUInteger)section {

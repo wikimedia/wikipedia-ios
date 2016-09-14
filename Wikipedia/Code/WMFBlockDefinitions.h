@@ -12,7 +12,7 @@ typedef void (^WMFArticleHandler)(MWKArticle *article);
 typedef void (^WMFProgressHandler)(CGFloat progress);
 typedef void (^WMFErrorHandler)(NSError *error);
 typedef void (^WMFSearchResultHandler)(MWKSearchResult *result);
-typedef void (^WMFArrayOfNumbersHandler)(NSArray <NSNumber *> * _Nonnull results);
+typedef void (^WMFArrayOfNumbersHandler)(NSArray<NSNumber *> *_Nonnull results);
 
 typedef void (^WMFSuccessHandler)();
 typedef void (^WMFSuccessIdHandler)(id object);

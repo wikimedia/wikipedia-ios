@@ -136,7 +136,6 @@ extern NSString *const WMFDefaultSiteDomain;
  **/
 - (NSURL *)wmf_URLWithTitle:(NSString *)title;
 
-
 /**
  * Return a new URL similar to the URL you call this method on but replace the title with the given title and the scheme with the internal scheme (wikipedia://)
  *
