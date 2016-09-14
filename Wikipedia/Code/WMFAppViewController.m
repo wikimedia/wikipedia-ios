@@ -295,7 +295,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     } else if (self.unprocessedShortcutItem) {
         [self processShortcutItem:self.unprocessedShortcutItem completion:NULL];
     } else if ([self shouldShowLastReadArticleOnLaunch]) {
-        [self showLastReadArticleAnimated:YES];
+        [self showLastReadArticleAnimated:NO];
     } else if ([self shouldShowExploreScreenOnLaunch]) {
         [self showExplore];
     }
@@ -400,13 +400,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     self.unprocessedShortcutItem = nil;
 
     if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
-        [self showSearchAnimated:YES];
+        [self showSearchAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
-        [self showRandomArticleAnimated:YES];
+        [self showRandomArticleAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
-        [self showNearbyListAnimated:YES];
+        [self showNearbyListAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
-        [self showLastReadArticleAnimated:YES];
+        [self showLastReadArticleAnimated:NO];
     }
     if (completion) {
         completion(YES);
