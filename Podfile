@@ -22,7 +22,7 @@ abstract_target 'Foundation' do
   # Utilities
   pod 'libextobjc/EXTScope', '~> 0.4.1'
   pod 'BlocksKit/Core', '~> 2.2.0'
-  pod 'KVOController', '= 1.0.3'
+  pod 'KVOController', '= 1.1.0'
 
   pod 'CocoaLumberjack/Swift'
 
@@ -39,7 +39,7 @@ abstract_target 'Foundation' do
   pod 'SSDataSources', '~> 0.8.0'
 
   # Autolayout
-  pod 'Masonry', '0.6.2'
+  pod 'Masonry', '~> 1.0'
 
   # Diagnostics
   pod 'PiwikTracker', :git => 'https://github.com/wikimedia/piwik-sdk-ios.git'
@@ -75,7 +75,6 @@ abstract_target 'Foundation' do
 
     # Views
     pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git'
-    pod 'SVWebViewController', '~> 1.0'
     pod "SWStepSlider", :git => 'https://github.com/wikimedia/SWStepSlider.git'
 
     # Activities
