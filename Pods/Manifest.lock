@@ -89,7 +89,6 @@ PODS:
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
   - SSDataSources (0.8.5)
-  - SVWebViewController (1.0)
   - SWStepSlider (1.0.0)
   - TSMessages (0.9.13):
     - HexColors (~> 2.3.0)
@@ -172,7 +171,6 @@ DEPENDENCIES:
   - Quick (~> 0.9.0)
   - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `bb49df83e72f2231a191e9477a85f0effe13430a`)
   - SSDataSources (~> 0.8.0)
-  - SVWebViewController (~> 1.0)
   - SWStepSlider (from `https://github.com/wikimedia/SWStepSlider.git`)
   - TSMessages (from `https://github.com/wikimedia/TSMessages.git`)
   - TUSafariActivity
@@ -249,7 +247,6 @@ SPEC CHECKSUMS:
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
-  SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
   SWStepSlider: a714a255526dbba7c6290d67ea7226ba8724b56c
   TSMessages: 39ca10c7bfdaa42d574af0f7946a04699145051e
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
@@ -257,6 +254,6 @@ SPEC CHECKSUMS:
   VTAcknowledgementsViewController: 44da49d57a1dbf414e653688793a130d24af151e
   YapDatabase: 713d4018cfacbd6e77dd430710ca84730e450980
 
-PODFILE CHECKSUM: ebca301c7b75e7f065c804694c54c69c14afb0a6
+PODFILE CHECKSUM: b771cee0c9f4612aa175c2545bc2f66ae62c51ff
 
 COCOAPODS: 1.1.0.beta.1

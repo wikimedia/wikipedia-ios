@@ -75,7 +75,6 @@ abstract_target 'Foundation' do
 
     # Views
     pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git'
-    pod 'SVWebViewController', '~> 1.0'
     pod "SWStepSlider", :git => 'https://github.com/wikimedia/SWStepSlider.git'
 
     # Activities
