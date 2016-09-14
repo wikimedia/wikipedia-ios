@@ -64,7 +64,7 @@
 		<string>Tharlon-Regular.ttf</string>
 	</array>
 	<key>UIApplicationShortcutWidget</key>
-	<string>org.wikimedia.wikipedia.ContinueReadingWidget</string>
+	<string>org.wikimedia.wikipedia.TopReadWidget</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
