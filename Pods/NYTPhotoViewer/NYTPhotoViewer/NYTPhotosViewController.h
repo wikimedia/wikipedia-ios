@@ -85,6 +85,8 @@ extern NSString * const NYTPhotosViewControllerDidDismissNotification;
 
 /**
  *  The object that acts as the delegate of the `NYTPhotosViewController`.
+ *
+ *  @warning It is recommended that you pass a delegate to the designated initializer of this class; otherwise certain delegate methods may not be called for the initial photo displayed by this view controller.
  */
 @property (nonatomic, weak, nullable) id <NYTPhotosViewControllerDelegate> delegate;
 
