@@ -214,6 +214,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 }) {
                     vc.collapseImageAndWidenLabels = false
                 }
+            } else {
+                vc.collapseImageAndWidenLabels = true
             }
             if i == (count - 1) {
                 vc.separatorView.hidden = true
