@@ -8,6 +8,8 @@
 #import "NYTPhotoTransitionAnimator.h"
 #import "NYTPhotoTransitionController.h"
 #import "NYTPhotoViewController.h"
+#import "NYTPhotoViewer.h"
+#import "NYTPhotoViewerCore.h"
 #import "NYTScalingImageView.h"
 #import "NYTPhoto.h"
 #import "NYTPhotoCaptionViewLayoutWidthHinting.h"
