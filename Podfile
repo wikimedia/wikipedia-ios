@@ -22,7 +22,7 @@ abstract_target 'Foundation' do
   # Utilities
   pod 'libextobjc/EXTScope', '~> 0.4.1'
   pod 'BlocksKit/Core', '~> 2.2.0'
-  pod 'KVOController', '= 1.0.3'
+  pod 'KVOController', '= 1.1.0'
 
   pod 'CocoaLumberjack/Swift'
 
