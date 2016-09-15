@@ -200,7 +200,7 @@ extern NSString *const WMFDefaultSiteDomain;
 
 @property (nonatomic, copy, readonly) NSString *wmf_titleWithUnderScores;
 
-@property (nullable, nonatomic, copy, readonly) NSURL *wmf_desktopURLWithoutFragment;
+@property (nullable, nonatomic, copy, readonly) NSString *wmf_databaseKey; // string suitable for using as a unique key for the article
 
 #pragma mark - Introspection
 

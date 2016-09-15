@@ -16,6 +16,7 @@
                             url:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;
+@property (nonatomic, copy) NSString *databaseKey;
 
 @end
 
@@ -72,7 +73,8 @@
         return;
     }
     [self unobserveURL:_url];
-    _url = url;
+    _url = [url copy];
+    self.databaseKey = _url.wmf_databaseKey;
     [self observeURL:_url];
     [self updateSavedButtonState];
 }
@@ -124,7 +126,7 @@
 }
 
 - (void)itemWasUpdatedWithNotification:(NSNotification *)note {
-    if ([note.object isEqual:[self.url absoluteString]]) {
+    if ([note.object isEqual:self.databaseKey]) {
         [self updateSavedButtonState];
     }
 }
