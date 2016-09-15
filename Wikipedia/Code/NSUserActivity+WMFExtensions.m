@@ -25,7 +25,7 @@
     activity.eligibleForSearch = YES;
     activity.eligibleForPublicIndexing = YES;
     activity.keywords = [NSSet setWithArray:@[@"Wikipedia", @"Wikimedia", @"Wiki"]];
-    
+
     return activity;
 }
 
@@ -134,7 +134,7 @@
     components.scheme = @"wikipedia";
     components.path = @"/";
     if (params.count > 0) {
-        NSMutableArray <NSURLQueryItem *>*queryItems = [NSMutableArray arrayWithCapacity:params.count];
+        NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray arrayWithCapacity:params.count];
         for (NSString *name in params.allKeys) {
             id value = params[name];
             if (!value) {
@@ -188,7 +188,8 @@
     activity.eligibleForHandoff = NO;
     activity.eligibleForPublicIndexing = NO;
     if (siteURL && date) {
-        activity.userInfo = @{@"siteURL": siteURL, @"date": date};
+        activity.userInfo = @{ @"siteURL": siteURL,
+                               @"date": date };
     }
     return activity;
 }
@@ -228,9 +229,9 @@
         return WMFUserActivityTypeTopRead;
     } else if ([self.webpageURL.absoluteString containsString:@"/w/index.php?search="]) {
         return WMFUserActivityTypeSearchResults;
-    } else if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10] && [self.activityType isEqualToString:CSQueryContinuationActionType]){
+    } else if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10] && [self.activityType isEqualToString:CSQueryContinuationActionType]) {
         return WMFUserActivityTypeSearchResults;
-    }else {
+    } else {
         return WMFUserActivityTypeArticle;
     }
 }
@@ -239,10 +240,10 @@
     if (self.wmf_type != WMFUserActivityTypeSearchResults) {
         return nil;
     }
-    
-    if([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10] && [self.activityType isEqualToString:CSQueryContinuationActionType]){
+
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10] && [self.activityType isEqualToString:CSQueryContinuationActionType]) {
         return self.userInfo[CSSearchQueryString];
-    }else{
+    } else {
         NSURLComponents *components = [NSURLComponents componentsWithString:self.webpageURL.absoluteString];
         NSArray *queryItems = components.queryItems;
         NSURLQueryItem *item = [queryItems bk_match:^BOOL(NSURLQueryItem *obj) {
@@ -256,13 +257,12 @@
     }
 }
 
-- (NSURL *)wmf_articleURL{
-    if(self.userInfo[CSSearchableItemActivityIdentifier] != nil){
+- (NSURL *)wmf_articleURL {
+    if (self.userInfo[CSSearchableItemActivityIdentifier] != nil) {
         return [NSURL URLWithString:self.userInfo[CSSearchableItemActivityIdentifier]];
-    }else {
+    } else {
         return self.webpageURL;
     }
 }
-
 
 @end

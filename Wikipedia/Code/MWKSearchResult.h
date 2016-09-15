@@ -18,7 +18,7 @@
 
 @property (nullable, nonatomic, copy, readonly) NSNumber *titleNamespace;
 
-@property (nullable, nonatomic, copy) NSArray <NSNumber *> *viewCounts;
+@property (nullable, nonatomic, copy) NSArray<NSNumber *> *viewCounts;
 
 @property (nonatomic, assign, readonly) BOOL isDisambiguation;
 

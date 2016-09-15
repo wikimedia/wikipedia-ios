@@ -188,14 +188,10 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
 }
 
 - (BOOL)wmf_isPeekable {
-    if ([self.absoluteString isEqualToString:@""]
-        ||
-        [self.fragment wmf_isReferenceFragment]
-        ||
-        [self.fragment wmf_isCitationFragment]
-        ||
-        [self.fragment wmf_isEndNoteFragment]
-        ) {
+    if ([self.absoluteString isEqualToString:@""] ||
+        [self.fragment wmf_isReferenceFragment] ||
+        [self.fragment wmf_isCitationFragment] ||
+        [self.fragment wmf_isEndNoteFragment]) {
         return NO;
     }
     if (![self wmf_isWikiResource]) {
@@ -250,7 +246,6 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
         return [potentialLanguage isEqualToString:@"m"] ? nil : potentialLanguage;
     }
 }
-
 
 - (NSURL *)wmf_databaseKeyURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];

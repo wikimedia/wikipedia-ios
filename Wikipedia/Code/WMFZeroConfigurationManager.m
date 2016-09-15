@@ -18,8 +18,8 @@ NSString *const WMFZeroXCarrierMeta = @"X-Carrier-Meta";
 @property (nonatomic, strong, readonly) WMFZeroConfigurationFetcher *zeroConfigurationFetcher;
 @property (nonatomic, strong, nullable, readwrite) WMFZeroConfiguration *zeroConfiguration;
 
-@property (atomic, copy, nullable) NSString* previousPartnerXCarrier;
-@property (atomic, copy, nullable) NSString* previousPartnerXCarrierMeta;
+@property (atomic, copy, nullable) NSString *previousPartnerXCarrier;
+@property (atomic, copy, nullable) NSString *previousPartnerXCarrierMeta;
 @property (atomic, readwrite) BOOL isZeroRated;
 
 @end
@@ -45,7 +45,7 @@ NSString *const WMFZeroXCarrierMeta = @"X-Carrier-Meta";
 
 - (void)setIsZeroRated:(BOOL)isZeroRated {
     @synchronized(self) {
-        if(_isZeroRated != isZeroRated){
+        if (_isZeroRated != isZeroRated) {
             _isZeroRated = isZeroRated;
             [[NSNotificationCenter defaultCenter] postNotificationName:WMFZeroRatingChanged object:self];
         }
@@ -84,7 +84,7 @@ NSString *const WMFZeroXCarrierMeta = @"X-Carrier-Meta";
  *   values instead apparently.) So in the nil message case we set isZeroRated "NO".
  */
 - (void)fetchZeroConfigurationAndSetIsZeroRatedIfNecessary {
-    
+
     // Note: don't nil out self.zeroConfiguration in this method
     // because if we do we can't show its exit message strings!
 
@@ -93,22 +93,23 @@ NSString *const WMFZeroXCarrierMeta = @"X-Carrier-Meta";
         @weakify(self);
         AnyPromise *promise = [AnyPromise promiseWithValue:nil];
         promise = [self fetchZeroConfiguration].then(^(WMFZeroConfiguration *zeroConfiguration) {
-            @strongify(self);
-            
-            // If the config is not enabled its "message" will be nil, so if we detect a nil message
-            // set the isZeroRated to NO before we post the WMFZeroRatingChanged notification.
-            if(zeroConfiguration.message == nil){
-                self.isZeroRated = NO;
-                // Reminder: don't nil out self.zeroConfiguration here or the carrier's exit message won't be available.
-            }else{
-                self.zeroConfiguration = zeroConfiguration;
-                self.isZeroRated = YES;
-            }
-            
-        }).catch(^(NSError* error){
-            @strongify(self);
-            self.isZeroRated = NO;
-        });
+                                                   @strongify(self);
+
+                                                   // If the config is not enabled its "message" will be nil, so if we detect a nil message
+                                                   // set the isZeroRated to NO before we post the WMFZeroRatingChanged notification.
+                                                   if (zeroConfiguration.message == nil) {
+                                                       self.isZeroRated = NO;
+                                                       // Reminder: don't nil out self.zeroConfiguration here or the carrier's exit message won't be available.
+                                                   } else {
+                                                       self.zeroConfiguration = zeroConfiguration;
+                                                       self.isZeroRated = YES;
+                                                   }
+
+                                               })
+                      .catch(^(NSError *error) {
+                          @strongify(self);
+                          self.isZeroRated = NO;
+                      });
     });
 }
 
@@ -119,34 +120,32 @@ NSString *const WMFZeroXCarrierMeta = @"X-Carrier-Meta";
 
 - (void)updateZeroRatingAndZeroConfigurationForResponseHeadersIfNecessary:(NSDictionary *)headers {
     NSAssert(headers != nil, @"Expecting response headers.");
-    if(!headers){
+    if (!headers) {
         return;
     }
 
     BOOL zeroEnabled = self.isZeroRated;
-    
-    NSString* xCarrierFromHeader = [headers objectForKey:WMFZeroXCarrier];
+
+    NSString *xCarrierFromHeader = [headers objectForKey:WMFZeroXCarrier];
     BOOL hasZeroHeader = (xCarrierFromHeader != nil);
     if (hasZeroHeader) {
-        NSString* xCarrierMetaFromHeader = [headers objectForKey:WMFZeroXCarrierMeta];
+        NSString *xCarrierMetaFromHeader = [headers objectForKey:WMFZeroXCarrierMeta];
         if ([self hasChangeHappenedToCarrier:xCarrierFromHeader orCarrierMeta:xCarrierMetaFromHeader]) {
             self.previousPartnerXCarrier = xCarrierFromHeader;
             self.previousPartnerXCarrierMeta = xCarrierMetaFromHeader;
             [self fetchZeroConfigurationAndSetIsZeroRatedIfNecessary];
         }
-    }else if(zeroEnabled) {
+    } else if (zeroEnabled) {
         self.previousPartnerXCarrier = nil;
         self.previousPartnerXCarrierMeta = nil;
         self.isZeroRated = NO;
     }
 }
 
-- (BOOL)hasChangeHappenedToCarrier:(NSString*)xCarrier orCarrierMeta:(NSString*)xCarrierMeta {
+- (BOOL)hasChangeHappenedToCarrier:(NSString *)xCarrier orCarrierMeta:(NSString *)xCarrierMeta {
     return !(
-             WMF_IS_EQUAL(self.previousPartnerXCarrier, xCarrier)
-             &&
-             WMF_IS_EQUAL(self.previousPartnerXCarrierMeta, xCarrierMeta)
-             );
+        WMF_IS_EQUAL(self.previousPartnerXCarrier, xCarrier) &&
+        WMF_IS_EQUAL(self.previousPartnerXCarrierMeta, xCarrierMeta));
 }
 
 @end

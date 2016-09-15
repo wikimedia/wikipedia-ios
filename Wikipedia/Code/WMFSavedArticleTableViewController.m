@@ -45,7 +45,7 @@
     [super viewDidLoad];
     
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
-    
+
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
 }
 
@@ -102,7 +102,7 @@
 
 #pragma mark - WMFDataSourceDelegate
 
-- (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource{
+- (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource {
     [self.tableView reloadData];
 }
 

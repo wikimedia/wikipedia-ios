@@ -68,7 +68,6 @@ extern NSString *const MWKItemUpdatedNotification;
 
 @property (readonly, strong, nonatomic) MWKUserDataStore *userDataStore;
 
-
 /**
  *  Call this to manually sync the database.
  *  Useful for when resuming and the DB may have been modified out of process
@@ -224,13 +223,11 @@ extern NSString *const MWKItemUpdatedNotification;
 
 - (NSArray *)legacyImageURLsForArticle:(MWKArticle *)article;
 
-
-
-- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction))block;
-- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction))block;
-- (void)readViewNamed:(NSString*)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block;
-- (nullable id)readAndReturnResultsWithViewNamed:(NSString*)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block;
-- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block;
+- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction))block;
+- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction))block;
+- (void)readViewNamed:(NSString *)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block;
+- (nullable id)readAndReturnResultsWithViewNamed:(NSString *)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block;
+- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block;
 
 @end
 

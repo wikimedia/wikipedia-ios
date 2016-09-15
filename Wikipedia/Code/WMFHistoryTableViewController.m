@@ -120,7 +120,7 @@
 
 #pragma mark - WMFDataSourceDelegate
 
-- (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource{
+- (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource {
     [self.tableView reloadData];
 }
 
