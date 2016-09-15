@@ -76,7 +76,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFArticleListTableViewControllerDelegate,
                                         WMFFontSliderViewControllerDelegate,
                                         UIPopoverPresentationControllerDelegate,
-                                        WKUIDelegate>
+                                        WKUIDelegate,
+                                        UIGestureRecognizerDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -134,6 +135,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
  *  if we do something to the article like edit it and force a reload
  */
 @property (nonatomic, assign) BOOL skipFetchOnViewDidAppear;
+
+@property (strong, nonatomic) UIPanGestureRecognizer* tableOfContentsPanRecognizer;
 
 @end
 
@@ -778,6 +781,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self setupWebView];
     [self addProgressView];
     [self hideProgressViewAnimated:NO];
+    
+    [self setupTableOfContentsSwipeGestureRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -1714,6 +1719,47 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                 message:MWLocalizedString(@"find-in-page-popover-description", nil)
                                                                   width:230.0f
                                                                duration:3.0];
+}
+
+#pragma mark - Table of contents swipe recognizer
+
+-(void)setupTableOfContentsSwipeGestureRecognizer{
+    // The TOC moved to the left but we use left edge drag for "back" gesture.
+    // So, use a pan recognizer for TOC swipe detection. We can control speed/angle
+    // at which swipe triggers so it won't interfere with vertical article scrolling.
+    @weakify(self);
+    self.tableOfContentsPanRecognizer = [UIPanGestureRecognizer bk_recognizerWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location){
+        @strongify(self);
+        if(((id)self.navigationController.visibleViewController != (id)self)){
+            return;
+        }
+        if (sender.state == UIGestureRecognizerStateBegan){
+            CGPoint velocity = [(UIPanGestureRecognizer*)sender velocityInView:sender.view];
+            if (RADIANS_TO_DEGREES(WMFAbsoluteHorizontalAngleFromVelocityVector(velocity)) < 45.f && fabs(velocity.x) > 600.f){
+                CGFloat rtlMultiplier = [[UIApplication sharedApplication] userInterfaceLayoutDirection] == UIUserInterfaceLayoutDirectionRightToLeft ? -1.0 : 1.0;
+                if ((velocity.x * rtlMultiplier) > 0){
+                    [self showTableOfContents:self];
+                }
+            }
+        }
+    }];
+    self.tableOfContentsPanRecognizer.delegate = self;
+    self.tableOfContentsPanRecognizer.minimumNumberOfTouches = 1;
+    self.tableOfContentsPanRecognizer.maximumNumberOfTouches = 1;
+    [self.view addGestureRecognizer:self.tableOfContentsPanRecognizer];
+    [self.tableOfContentsPanRecognizer requireGestureRecognizerToFail:self.navigationController.interactivePopGestureRecognizer];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return (
+            gestureRecognizer == self.tableOfContentsPanRecognizer
+            &&
+            (
+             otherGestureRecognizer == self.navigationController.interactivePopGestureRecognizer
+             ||
+             otherGestureRecognizer == self.webViewController.webView.scrollView.panGestureRecognizer
+             )
+            );
 }
 
 @end

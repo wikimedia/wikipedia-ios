@@ -113,3 +113,9 @@ extern CGAffineTransform WMFAffineUIKitToCoreGraphicsTransformMake(CGSize size);
  * @note Inverse of `WMFAffineUIKitToCoreGraphicsTransformMake`
  */
 extern CGAffineTransform WMFAffineCoreGraphicsToUIKitTransformMake(CGSize size);
+
+/**
+ * @return Absolute angle from horizontal axis in radians.
+ *
+ */
+extern CGFloat WMFAbsoluteHorizontalAngleFromVelocityVector(CGPoint velocity);
