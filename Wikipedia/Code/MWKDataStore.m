@@ -53,14 +53,14 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (instancetype)init {
-    YapDatabaseOptions* options = [YapDatabaseOptions new];
+    YapDatabaseOptions *options = [YapDatabaseOptions new];
     options.enableMultiProcessSupport = YES;
-    
-    YapDatabase* db = [[YapDatabase alloc] initWithPath:[YapDatabase wmf_databasePath] options:options];
-    
-    YapDatabaseCrossProcessNotification* cp = [[YapDatabaseCrossProcessNotification alloc] initWithIdentifier:@"Wikipedia"];
+
+    YapDatabase *db = [[YapDatabase alloc] initWithPath:[YapDatabase wmf_databasePath] options:options];
+
+    YapDatabaseCrossProcessNotification *cp = [[YapDatabaseCrossProcessNotification alloc] initWithIdentifier:@"Wikipedia"];
     [db registerExtension:cp withName:@"WikipediaCrossProcess"];
-    
+
     self = [self initWithDatabase:db legacyDataBasePath:[[MWKDataStore class] mainDataStorePath]];
     return self;
 }
@@ -135,27 +135,26 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     return _writeConnection;
 }
 
-- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
-    [self.articleReferenceReadConnection readWithBlock:^(YapDatabaseReadTransaction * _Nonnull transaction) {
+- (void)readWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction))block {
+    [self.articleReferenceReadConnection readWithBlock:^(YapDatabaseReadTransaction *_Nonnull transaction) {
         block(transaction);
     }];
 }
 
-- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction))block{
+- (nullable id)readAndReturnResultsWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction))block {
     return [self.articleReferenceReadConnection wmf_readAndReturnResultsWithBlock:block];
 }
 
-- (void)readViewNamed:(NSString*)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
+- (void)readViewNamed:(NSString *)viewName withWithBlock:(void (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block {
     [self.articleReferenceReadConnection wmf_readInViewWithName:viewName withBlock:block];
 }
 
-- (nullable id)readAndReturnResultsWithViewNamed:(NSString*)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction* _Nonnull transaction, YapDatabaseViewTransaction* _Nonnull view))block{
+- (nullable id)readAndReturnResultsWithViewNamed:(NSString *)viewName withWithBlock:(id (^)(YapDatabaseReadTransaction *_Nonnull transaction, YapDatabaseViewTransaction *_Nonnull view))block {
     return [self.articleReferenceReadConnection wmf_readAndReturnResultsInViewWithName:viewName withBlock:block];
 }
 
-
-- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction* _Nonnull transaction))block{
-    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction * _Nonnull transaction) {
+- (void)readWriteWithBlock:(void (^)(YapDatabaseReadWriteTransaction *_Nonnull transaction))block {
+    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
         block(transaction);
     }];
 }
@@ -163,7 +162,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 - (void)yapDatabaseModified:(NSNotification *)notification {
 
     [self syncDataStoreToDatabase];
-    
+
     //Order is important.
     //Be sure to post notifications after all change handlers are updated.
     //This way if notifications query a datasource/list, they will be up do date
@@ -176,26 +175,24 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     [self cleanup];
 }
 
-- (void)syncDataStoreToDatabase{
+- (void)syncDataStoreToDatabase {
     // Jump to the most recent commit.
     // End & Re-Begin the long-lived transaction atomically.
     // Also grab all the notifications for all the commits that I jump.
     // If the UI is a bit backed up, I may jump multiple commits.
     NSArray *notifications = [self.articleReferenceReadConnection beginLongLivedReadTransaction];
-    
+
     //Note: we must send notificatons even if they are 0
     //This is neccesary because when changes happen in other processes
     //Yap reports 0 changes and simply flushes its caches.
     //This updates the connections and the DB, but not mappings
     //To update any mappings, we must propagate "0" notifications
-    
+
     [self.changeHandlers compact];
     for (id<WMFDatabaseChangeHandler> obj in self.changeHandlers) {
         [obj processChanges:notifications onConnection:self.articleReferenceReadConnection];
     }
-
 }
-
 
 - (void)cleanup {
     [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
