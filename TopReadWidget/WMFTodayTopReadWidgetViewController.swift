@@ -353,7 +353,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     func handleTapGestureRecognizer(gestureRecognizer: UITapGestureRecognizer) {
-        guard let index = self.articlePreviewViewControllers.indexOf({ (vc) -> Bool in return CGRectContainsPoint(vc.view.frame, gestureRecognizer.locationInView(self.view)) }) where index < results.count else {
+        guard let index = self.articlePreviewViewControllers.indexOf({ (vc) -> Bool in
+            let convertedRect = self.view.convertRect(vc.view.frame, fromView: vc.view.superview)
+            return CGRectContainsPoint(convertedRect, gestureRecognizer.locationInView(self.view))
+        }) where index < results.count else {
             showAllTopReadInApp()
             return
         }
