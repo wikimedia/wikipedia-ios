@@ -45,6 +45,7 @@
 
 // Controllers
 #import "WMFRelatedSectionBlackList.h"
+#import "WMFRandomSectionController.h"
 
 #define ENABLE_RANDOM_DEBUGGING 0
 
@@ -861,7 +862,7 @@ NS_ASSUME_NONNULL_BEGIN
                                               DDLogDebug(@"Reloading table to display results in controller %@", observedController);
                                               id oldValue = change[NSKeyValueChangeOldKey];
                                               id newValue = change[NSKeyValueChangeNewKey];
-                                              if ([oldValue respondsToSelector:@selector(count)] && [newValue respondsToSelector:@selector(count)] && [oldValue count] == [newValue count]) {
+                                              if ([observedController isKindOfClass:[WMFRandomSectionController class]] && [oldValue respondsToSelector:@selector(count)] && [newValue respondsToSelector:@selector(count)] && [oldValue count] == [newValue count]) {
                                                   [observer.collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
                                               } else {
                                                   [observer.collectionView reloadData];
