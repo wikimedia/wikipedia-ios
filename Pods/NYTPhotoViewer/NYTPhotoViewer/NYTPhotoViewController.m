@@ -140,7 +140,8 @@ NSString * const NYTPhotoViewControllerPhotoImageUpdatedNotification = @"NYTPhot
     
     if (imageData || image) {
         [self.loadingView removeFromSuperview];
-        self.loadingView = nil;
+    } else {
+        [self.view addSubview:self.loadingView];
     }
 }
 

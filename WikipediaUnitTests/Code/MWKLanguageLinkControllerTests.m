@@ -45,8 +45,8 @@
 }
 
 - (void)testSaveSelectedLanguageUpdatesTheControllersFilteredPreferredLanguages {
-//    NSAssert(![[self preferredLanguageCodes] containsObject:@"test"],
-//             @"'test' shouldn't be a default member of preferred languages!");
+    //    NSAssert(![[self preferredLanguageCodes] containsObject:@"test"],
+    //             @"'test' shouldn't be a default member of preferred languages!");
 
     MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"test" pageTitleText:@"test" name:@"test" localizedName:@"test"];
     [self.controller addPreferredLanguage:link];

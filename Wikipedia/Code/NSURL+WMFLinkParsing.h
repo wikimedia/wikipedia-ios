@@ -136,7 +136,6 @@ extern NSString *const WMFDefaultSiteDomain;
  **/
 - (NSURL *)wmf_URLWithTitle:(NSString *)title;
 
-
 /**
  * Return a new URL similar to the URL you call this method on but replace the title with the given title and the scheme with the internal scheme (wikipedia://)
  *
@@ -201,7 +200,7 @@ extern NSString *const WMFDefaultSiteDomain;
 
 @property (nonatomic, copy, readonly) NSString *wmf_titleWithUnderScores;
 
-@property (nullable, nonatomic, copy, readonly) NSURL *wmf_desktopURLWithoutFragment;
+@property (nullable, nonatomic, copy, readonly) NSString *wmf_databaseKey; // string suitable for using as a unique key for the article
 
 #pragma mark - Introspection
 

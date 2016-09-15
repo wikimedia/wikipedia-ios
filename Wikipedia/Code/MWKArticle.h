@@ -20,7 +20,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly, strong, nonatomic, nullable) NSURL *redirectedURL;    // optional
 @property (readonly, strong, nonatomic, nullable) NSDate *lastmodified;    // required
 @property (readonly, strong, nonatomic, nullable) MWKUser *lastmodifiedby; // required
-@property (readonly, assign, nonatomic) int articleId;           // required; -> 'id'
+@property (readonly, assign, nonatomic) int articleId;                     // required; -> 'id'
 @property (readonly, strong, nonatomic, nullable) NSNumber *revisionId;
 
 /**
@@ -34,7 +34,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
 
 @property (readonly, copy, nonatomic, nullable) NSString *displaytitle;            // optional
 @property (readonly, strong, nonatomic, nullable) MWKProtectionStatus *protection; // required
-@property (readonly, assign, nonatomic) BOOL editable;                   // required
+@property (readonly, assign, nonatomic) BOOL editable;                             // required
 @property (readonly, assign, nonatomic) BOOL hasMultipleLanguages;
 
 /// Whether or not the receiver is the main page for its @c site.

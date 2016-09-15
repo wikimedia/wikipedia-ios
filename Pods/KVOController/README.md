@@ -1,7 +1,8 @@
 # [KVOController](https://github.com/facebook/KVOController)
-[![Build Status](https://travis-ci.org/facebook/KVOController.png?branch=master)](https://travis-ci.org/facebook/KVOController)
-[![Version](https://cocoapod-badges.herokuapp.com/v/KVOController/badge.png)](http://cocoadocs.org/docsets/KVOController)
-[![Platform](https://cocoapod-badges.herokuapp.com/p/KVOController/badge.png)](http://cocoadocs.org/docsets/KVOController)
+[![Build Status](https://img.shields.io/travis/facebook/KVOController/master.svg?style=flat)](https://travis-ci.org/facebook/KVOController)
+[![Coverage Status](https://img.shields.io/codecov/c/github/facebook/KVOController/master.svg)](https://codecov.io/github/facebook/KVOController)
+[![Version](https://img.shields.io/cocoapods/v/KVOController.svg?style=flat)](http://cocoadocs.org/docsets/KVOController)
+[![Platform](https://img.shields.io/cocoapods/p/KVOController.svg?style=flat)](http://cocoadocs.org/docsets/KVOController)
 
 Key-value observing is a particularly useful technique for communicating between layers in a Model-View-Controller application. KVOController builds on Cocoa's time-tested key-value observing implementation. It offers a simple, modern API, that is also thread safe. Benefits include:
 
@@ -19,37 +20,26 @@ Example apps for iOS and OS X are included with the project. Here is one simple 
 ```objective-c
 // create KVO controller with observer
 FBKVOController *KVOController = [FBKVOController controllerWithObserver:self];
+self.KVOController = KVOController;
 
 // observe clock date property
-[KVOController observe:clock keyPath:@"date" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(ClockView *clockView, Clock *clock, NSDictionary *change) {
+[self.KVOController observe:clock keyPath:@"date" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(ClockView *clockView, Clock *clock, NSDictionary *change) {
 
   // update clock view with new value
   clockView.date = change[NSKeyValueChangeNewKey];
 }];
 ```
 
-While simple, the above example is complete. A clock view creates a KVO controller to observe the clock date property. A block callback is used to handle initial and change notification. Unobservation happens implicitly on controller deallocation.
+While simple, the above example is complete. A clock view creates a KVO controller to observe the clock date property. A block callback is used to handle initial and change notification. Unobservation happens implicitly on controller deallocation, since a strong reference to the `KVOController` is kept. 
 
-To automatically remove observers on observer dealloc, add a strong reference between observer and KVO controller.
-
-```objective-c
-// Observer with KVO controller instance variable
-@implementation ClockView
-{
-  FBKVOController *_KVOController;
-}
-
-- (id)init
-{
-  ...
-  // create KVO controller with observer
-  FBKVOController *KVOController = [FBKVOController controllerWithObserver:self];
-
-  // add strong reference from observer to KVO controller
-  _KVOController = KVOController;
-
-```
 Note: the observer specified must support weak references. The zeroing weak reference guards against notification of a deallocated observer instance.
+
+#### NSObject Category
+For an even easier usage, just `#import <KVOController/NSObject+FBKVOController.h>` for an automatic `KVOController` property on all objects.
+
+```objc
+[self.KVOController observe:clock keyPath:@"date" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew action:@selector(updateClockWithDateChange:)];
+```
 
 ## Prerequisites
 
@@ -60,17 +50,23 @@ KVOController takes advantage of recent Objective-C runtime advances, including 
 
 ## Installation
 
-To install using CocoaPods, add the following to your project Podfile:
+To install using [CocoaPods](https://github.com/cocoapods/cocoapods), add the following to your project Podfile:
 
 ```ruby
 pod 'KVOController'
 ```
 
+To install using [Carthage](https://github.com/carthage/carthage), add the following to your project Cartfile:
+
+```
+github "facebook/KVOController"
+```
+
 Alternatively, drag and drop FBKVOController.h and FBKVOController.m into your Xcode project, agreeing to copy files if needed. For iOS applications, you can choose to link against the static library target of the KVOController project.
 
-Having installed using CocoaPods, add the following to import in Objective-C:
+Having installed using CocoaPods or Carthage, add the following to import in Objective-C:
 ```objective-c
-#import <KVOController/FBKVOController.h>
+#import <KVOController/KVOController.h>
 ```
 
 ## Testing
@@ -83,6 +79,6 @@ pod install
 
 This will install and add test dependencies on OCHamcrest and OCMockito. Re-open the Xcode KVOController workspace and Test, ⌘U.
 
-## Licence
+## License
 
 KVOController is released under a BSD License. See LICENSE file for details.

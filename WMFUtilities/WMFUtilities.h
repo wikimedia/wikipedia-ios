@@ -7,7 +7,7 @@ FOUNDATION_EXPORT double WMFUtilitiesVersionNumber;
 FOUNDATION_EXPORT const unsigned char WMFUtilitiesVersionString[];
 
 #import <libextobjc/EXTScope.h>
-#import <KVOController/FBKVOController.h>
+#import <KVOController/KVOController.h>
 #import <BlocksKit/BlocksKit.h>
 #import <PromiseKit/PromiseKit.h>
 
