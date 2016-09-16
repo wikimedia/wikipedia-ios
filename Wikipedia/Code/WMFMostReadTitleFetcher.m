@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *title = [titleURL.wmf_titleWithUnderScores wmf_UTF8StringWithPercentEscapes];
     NSString *language = titleURL.wmf_language;
     NSString *domain = titleURL.wmf_domain;
-    
+
     NSParameterAssert(title);
     NSParameterAssert(language);
     NSParameterAssert(domain);
@@ -95,49 +95,46 @@ NS_ASSUME_NONNULL_BEGIN
         failure(error);
         return;
     }
-    
+
     NSString *startDateString = [[NSDateFormatter wmf_englishUTCNonDelimitedYearMonthDayFormatter] stringFromDate:startDate];
     NSString *endDateString = [[NSDateFormatter wmf_englishUTCNonDelimitedYearMonthDayFormatter] stringFromDate:endDate];
 
     if (startDateString == nil || endDateString == nil) {
         DDLogError(@"Failed to format pageviews date URL component for dates: %@ %@", startDate, endDate);
         NSError *error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
-                                           userInfo:@{WMFFailingRequestParametersUserInfoKey: @{@"start": startDate, @"end": endDate}}];
+                                           userInfo:@{ WMFFailingRequestParametersUserInfoKey: @{@"start": startDate, @"end": endDate} }];
         failure(error);
         return;
     }
-    
-    
-    
+
     NSString *path = [NSString stringWithFormat:@"/metrics/pageviews/per-article/%@.%@/all-access/user/%@/daily/%@/%@",
-                      language, domain, title, startDateString, endDateString];
-    
+                                                language, domain, title, startDateString, endDateString];
+
     NSString *requestURLString = [WMFWikimediaRestAPIURLStringWithVersion(1) stringByAppendingString:path];
 
     [self.operationManager GET:requestURLString
-                    parameters:nil
-                      progress:NULL
-                       success:^(NSURLSessionDataTask *operation, NSDictionary *responseObject) {
-                           NSArray *items = responseObject[@"items"];
-                           if (![items isKindOfClass:[NSArray class]]) {
-                               failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
-                                                         userInfo:nil]);
-                               return;
-                           }
-                           
-                           NSMutableArray *results = [NSMutableArray arrayWithCapacity:[items count]];
-                           for (id item in items) {
-                               if ([item isKindOfClass:[NSDictionary class]] && [item[@"views"] isKindOfClass:[NSNumber class]]) {
-                                   [results addObject:item[@"views"]];
-                               }
-                           }
-                           
-                           success([results copy]);
-                       }
-                       failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                           failure(error);
-                       }];
-    
+        parameters:nil
+        progress:NULL
+        success:^(NSURLSessionDataTask *operation, NSDictionary *responseObject) {
+            NSArray *items = responseObject[@"items"];
+            if (![items isKindOfClass:[NSArray class]]) {
+                failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
+                                          userInfo:nil]);
+                return;
+            }
+
+            NSMutableArray *results = [NSMutableArray arrayWithCapacity:[items count]];
+            for (id item in items) {
+                if ([item isKindOfClass:[NSDictionary class]] && [item[@"views"] isKindOfClass:[NSNumber class]]) {
+                    [results addObject:item[@"views"]];
+                }
+            }
+
+            success([results copy]);
+        }
+        failure:^(NSURLSessionDataTask *operation, NSError *error) {
+            failure(error);
+        }];
 }
 
 @end

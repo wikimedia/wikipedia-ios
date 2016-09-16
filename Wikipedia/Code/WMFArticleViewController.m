@@ -468,7 +468,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)updateToolbarItemsIfNeeded {
-    
+
     if (!self.saveButtonController) {
         self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.savedPages url:self.articleURL];
     }
@@ -1371,7 +1371,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self.delegate articleControllerDidLoadArticle:self];
     [self fetchReadMoreIfNeeded];
-    
+
     [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
 }
 
@@ -1508,12 +1508,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return elementInfo.linkURL && [elementInfo.linkURL wmf_isPeekable];
 }
 
-- (nullable UIViewController *)webView:(WKWebView *)webView previewingViewControllerForElement:(WKPreviewElementInfo *)elementInfo defaultActions:(NSArray<id <WKPreviewActionItem>> *)previewActions {
+- (nullable UIViewController *)webView:(WKWebView *)webView previewingViewControllerForElement:(WKPreviewElementInfo *)elementInfo defaultActions:(NSArray<id<WKPreviewActionItem>> *)previewActions {
     UIViewController *peekVC = [self peekViewControllerForURL:elementInfo.linkURL];
     if (peekVC) {
         [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
         [self.webViewController hideFindInPageWithCompletion:nil];
-        
+
         return peekVC;
     }
     return nil;
@@ -1547,7 +1547,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
             self.webViewController.webView.UIDelegate = self;
             self.webViewController.webView.allowsLinkPreview = YES;
-        }else{
+        } else {
             self.webViewController.webView.allowsLinkPreview = NO;
         }
         [self unregisterForPreviewing];
@@ -1567,23 +1567,23 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Peeking helpers
 
-- (NSArray<NSString*>*)peekableImageExtensions {
+- (NSArray<NSString *> *)peekableImageExtensions {
     return @[@"jpg", @"jpeg", @"gif", @"png", @"svg"];
 }
 
 - (nullable UIViewController *)peekViewControllerForURL:(NSURL *)linkURL {
-    if([self.peekableImageExtensions containsObject:[linkURL pathExtension]]){
+    if ([self.peekableImageExtensions containsObject:[linkURL pathExtension]]) {
         return [self viewControllerForImageFilePageURL:linkURL];
-    }else{
+    } else {
         return [self viewControllerForPreviewURL:linkURL];
     }
 }
 
-- (NSURL*)galleryURLFromImageFilePageURL:(NSURL*)imageFilePageURL {
+- (NSURL *)galleryURLFromImageFilePageURL:(NSURL *)imageFilePageURL {
     // Find out if the imageFilePageURL's file is in the gallery array, if so return the
     // actual image url (as opposed to the file page url) from the gallery array.
-    NSString* fileName = [imageFilePageURL lastPathComponent];
-    if([fileName hasPrefix:@"File:"]){
+    NSString *fileName = [imageFilePageURL lastPathComponent];
+    if ([fileName hasPrefix:@"File:"]) {
         fileName = [fileName substringFromIndex:5];
     }
     return [[self.article imageURLsForGallery] bk_match:^BOOL(NSURL *galleryURL) {
@@ -1593,7 +1593,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (nullable UIViewController *)viewControllerForImageFilePageURL:(nullable NSURL *)imageFilePageURL {
     NSURL *galleryURL = [self galleryURLFromImageFilePageURL:imageFilePageURL];
-    
+
     if (!galleryURL) {
         return nil;
     }
@@ -1605,10 +1605,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (UIViewController *)viewControllerForPreviewURL:(NSURL *)url {
-    if(url && [url wmf_isPeekable]){
+    if (url && [url wmf_isPeekable]) {
         if ([url wmf_isWikiResource]) {
             return [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
-        }else{
+        } else {
             return [[SFSafariViewController alloc] initWithURL:url];
         }
     }

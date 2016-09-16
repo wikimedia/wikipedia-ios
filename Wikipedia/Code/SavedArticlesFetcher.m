@@ -81,10 +81,9 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     return self;
 }
 
-- (void)applicationWillEnterForeground:(NSNotification*)note{
+- (void)applicationWillEnterForeground:(NSNotification *)note {
     self.dataSource = [self.dataStore savedDataSource];
 }
-
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
                     savedPageList:(MWKSavedPageList *)savedPageList {
@@ -175,11 +174,11 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     for (NSURL *url in urls) {
         dispatch_async(self.accessQueue, ^{
             [self fetchArticleURL:url
-                          failure:^(NSError *error) {
-                          }
-                          success:^{
-                              [self.spotlightManager addToIndex:url];
-                          }];
+                failure:^(NSError *error) {
+                }
+                success:^{
+                    [self.spotlightManager addToIndex:url];
+                }];
         });
     }
 }

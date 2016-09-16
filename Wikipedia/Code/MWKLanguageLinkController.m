@@ -103,7 +103,7 @@ static id _sharedInstance;
     return [self.preferredLanguages firstObject];
 }
 
-- (NSArray<MWKLanguageLink*>*)preferredLanguages{
+- (NSArray<MWKLanguageLink *> *)preferredLanguages {
     NSArray *preferredLanguageCodes = [self readPreferredLanguageCodes];
     return [preferredLanguageCodes wmf_mapAndRejectNil:^id(NSString *langString) {
         return [self.allLanguages bk_match:^BOOL(MWKLanguageLink *langLink) {
@@ -112,7 +112,7 @@ static id _sharedInstance;
     }];
 }
 
-- (NSArray<MWKLanguageLink*>*)otherLanguages{
+- (NSArray<MWKLanguageLink *> *)otherLanguages {
     return [self.allLanguages bk_select:^BOOL(MWKLanguageLink *langLink) {
         return ![self.preferredLanguages containsObject:langLink];
     }];

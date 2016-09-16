@@ -23,8 +23,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 #pragma mark - Setup
 
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -40,10 +39,9 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     return self;
 }
 
-- (void)applicationWillEnterForeground:(NSNotification*)note{
+- (void)applicationWillEnterForeground:(NSNotification *)note {
     self.dataSource = [self.dataStore savedDataSource];
 }
-
 
 #pragma mark - Legacy Migration
 

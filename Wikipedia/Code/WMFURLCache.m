@@ -4,8 +4,8 @@
 #import "MWKImage.h"
 #import <WMFModel/WMFModel-Swift.h>
 
-static NSString* const WMFURLCacheWikipediaHost = @".wikipedia.org";
-static NSString* const WMFURLCacheJsonMIMEType  = @"application/json";
+static NSString *const WMFURLCacheWikipediaHost = @".wikipedia.org";
+static NSString *const WMFURLCacheJsonMIMEType = @"application/json";
 
 @implementation WMFURLCache
 
@@ -66,7 +66,7 @@ static NSString* const WMFURLCacheJsonMIMEType  = @"application/json";
 - (void)storeCachedResponse:(NSCachedURLResponse *)cachedResponse forRequest:(NSURLRequest *)request {
     [super storeCachedResponse:cachedResponse forRequest:request];
     if ([self isJsonResponse:cachedResponse fromWikipediaAPIRequest:request]) {
-        [[SessionSingleton sharedInstance].zeroConfigurationManager updateZeroRatingAndZeroConfigurationForResponseHeadersIfNecessary:((NSHTTPURLResponse*)cachedResponse.response).allHeaderFields];
+        [[SessionSingleton sharedInstance].zeroConfigurationManager updateZeroRatingAndZeroConfigurationForResponseHeadersIfNecessary:((NSHTTPURLResponse *)cachedResponse.response).allHeaderFields];
     }
 }
 
