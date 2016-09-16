@@ -298,6 +298,10 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
 #pragma mark - WMFDataSourceDelegate
 
+- (BOOL)wantsGranularNotificationsForDataSource:(id<WMFDataSource>)dataSource {
+    return NO;
+}
+
 - (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource {
     if (dataSource == self.blackListDataSource) {
         [self.blackList enumerateItemsWithBlock:^(MWKHistoryEntry *_Nonnull entry, BOOL *stop) {

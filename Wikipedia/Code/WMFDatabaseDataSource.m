@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
     //Although there are legitimate reasons we get 0 changes,
     //which could be safely ignored, there is no way to differentiate
     //between those reasons and when modifications happen in extensions
-    if ([changes count] == 0) {
+    if (![self.delegate wantsGranularNotificationsForDataSource:self] || [changes count] == 0) {
 
         [self.readConnection readWithBlock:^(YapDatabaseReadTransaction *transaction) {
             [self.mappings updateWithTransaction:transaction];
@@ -107,6 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     if (!self.delegate) {
+        
         return;
     }
 

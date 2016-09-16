@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFDataSourceDelegate <NSObject>
 
+- (BOOL)wantsGranularNotificationsForDataSource:(id<WMFDataSource>)dataSource;
 - (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource;
 
 @optional

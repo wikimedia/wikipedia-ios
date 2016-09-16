@@ -107,6 +107,10 @@
 
 #pragma mark - WMFDataSourceDelegate
 
+- (BOOL)wantsGranularNotificationsForDataSource:(id<WMFDataSource>)dataSource {
+    return NO;
+}
+
 - (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource {
     [self.tableView reloadData];
 }
