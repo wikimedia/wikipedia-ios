@@ -38,7 +38,11 @@
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)note {
+    self.dataSource.delegate = nil;
     self.dataSource = [self.dataStore savedDataSource];
+    self.dataSource.delegate = self;
+    [self.tableView reloadData];
+    [self updateEmptyAndDeleteState];
 }
 
 #pragma mark - Accessors
