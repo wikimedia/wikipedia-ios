@@ -282,6 +282,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
 })();
 
 },{"./refs":5,"./transforms/collapseTables":8,"./utilities":13}],5:[function(require,module,exports){
+var elementLocation = require("./elementLocation");
 
 function isCitation( href ) {
     return href.indexOf("#cite_note") > -1;
@@ -373,6 +374,7 @@ function sendNearbyReferences( sourceNode ) {
     var refs = [];
     var linkId = [];
     var linkText = [];
+    var linkRects = [];
     var curNode = sourceNode;
 
     // handle clicked ref:
@@ -399,12 +401,18 @@ function sendNearbyReferences( sourceNode ) {
         linkText.push( curNode.textContent );
     }
 
+    for(var i = 0; i < linkId.length; i++){
+        var rect = elementLocation.getElementRect(document.getElementById(linkId[i]));
+        linkRects.push(rect);
+    }
+    
     // Special handling for references
     window.webkit.messageHandlers.referenceClicked.postMessage({
                                                      "refs": refs,
                                                      "refsIndex": refsIndex,
                                                      "linkId": linkId,
-                                                     "linkText": linkText
+                                                     "linkText": linkText,
+                                                     "linkRects": linkRects
                                                      });
 }
 
@@ -413,7 +421,7 @@ exports.isReference = isReference;
 exports.isCitation = isCitation;
 exports.sendNearbyReferences = sendNearbyReferences;
 
-},{}],6:[function(require,module,exports){
+},{"./elementLocation":2}],6:[function(require,module,exports){
 function Transformer() {
 }
 

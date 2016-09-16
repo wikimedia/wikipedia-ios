@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rh8-A3-vLx">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Reference Popover Message View Controller-->
+        <scene sceneID="JU7-h3-3nZ">
+            <objects>
+                <viewController id="rh8-A3-vLx" customClass="WMFReferencePopoverMessageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zvq-ve-XSq"/>
+                        <viewControllerLayoutGuide type="bottom" id="Nsl-Jj-V3R"/>
+                    </layoutGuides>
+                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="JhK-nO-OQy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="222"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8mV-FS-wKn">
+                                <subviews>
+                                    <textView clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="black" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sYL-Ee-b0e">
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert"/>
+                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="rh8-A3-vLx" id="zMT-9R-tcG"/>
+                                        </connections>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="sYL-Ee-b0e" secondAttribute="bottom" constant="5" id="4vF-TY-Ggh"/>
+                                    <constraint firstAttribute="width" priority="999" constant="320" id="9ju-G6-70T"/>
+                                    <constraint firstItem="sYL-Ee-b0e" firstAttribute="leading" secondItem="8mV-FS-wKn" secondAttribute="leading" constant="10" id="DEU-bf-uxG"/>
+                                    <constraint firstAttribute="trailing" secondItem="sYL-Ee-b0e" secondAttribute="trailing" constant="10" id="Tcl-5q-Q8c"/>
+                                    <constraint firstItem="sYL-Ee-b0e" firstAttribute="top" secondItem="8mV-FS-wKn" secondAttribute="top" constant="3" id="eSG-Af-X4g"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8mV-FS-wKn" firstAttribute="top" secondItem="JhK-nO-OQy" secondAttribute="top" id="kVa-4l-tWW"/>
+                            <constraint firstAttribute="bottom" secondItem="8mV-FS-wKn" secondAttribute="bottom" id="n43-6V-PKi"/>
+                            <constraint firstAttribute="trailing" secondItem="8mV-FS-wKn" secondAttribute="trailing" id="qLo-eI-poZ"/>
+                            <constraint firstItem="8mV-FS-wKn" firstAttribute="leading" secondItem="JhK-nO-OQy" secondAttribute="leading" id="wrU-Jo-gBG"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="222"/>
+                    <connections>
+                        <outlet property="textView" destination="sYL-Ee-b0e" id="Qbr-lW-vMk"/>
+                        <outlet property="widthConstraint" destination="9ju-G6-70T" id="jjE-22-e7u"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="enQ-qq-sm3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-486.39999999999998" y="-422.78860569715147"/>
+        </scene>
+    </scenes>
+</document>

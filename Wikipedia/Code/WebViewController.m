@@ -31,6 +31,7 @@
 #import "WKScriptMessage+WMFScriptMessage.h"
 #import "WMFFindInPageKeyboardBar.h"
 #import "UIView+WMFDefaultNib.h"
+#import "WebViewController+WMFReferencePopover.h"
 
 typedef NS_ENUM(NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -142,95 +143,116 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)handleClickLinkScriptMessage:(NSDictionary *)messageDict {
-    [self hideFindInPageWithCompletion:^{
-
-        NSString *href = messageDict[@"href"];
-
-        if (href.length == 0) {
-            return;
-        }
-
-        if (!self.referencesHidden) {
-            [self referencesHide];
-        }
-
-        if ([href wmf_isWikiResource]) {
-            NSURL *url = [NSURL URLWithString:href];
-            if (!url.wmf_domain) {
-                url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
+    [self wmf_dismissReferencePopoverAnimated:NO completion:^{
+        [self hideFindInPageWithCompletion:^{
+            
+            NSString *href = messageDict[@"href"];
+            
+            if (href.length == 0) {
+                return;
             }
-            url = [url wmf_urlByPrependingSchemeIfSchemeless];
-            [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
-        } else {
-            // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
-            if ([href hasPrefix:@"#"]) {
-                [self scrollToFragment:[href substringFromIndex:1]];
-            } else {
-                if ([href hasPrefix:@"//"]) {
-                    // Expand protocol-relative link to https -- secure by default!
-                    href = [@"https:" stringByAppendingString:href];
-                }
+            
+            if (!self.referencesHidden) {
+                [self referencesHide];
+            }
+            
+            if ([href wmf_isWikiResource]) {
                 NSURL *url = [NSURL URLWithString:href];
-                NSCAssert(url, @"Failed to from URL from link %@", href);
-                if (url) {
-                    [self wmf_openExternalUrl:url];
+                if (!url.wmf_domain) {
+                    url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
+                }
+                url = [url wmf_urlByPrependingSchemeIfSchemeless];
+                [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
+            } else {
+                // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
+                if ([href hasPrefix:@"#"]) {
+                    [self scrollToFragment:[href substringFromIndex:1]];
+                } else {
+                    if ([href hasPrefix:@"//"]) {
+                        // Expand protocol-relative link to https -- secure by default!
+                        href = [@"https:" stringByAppendingString:href];
+                    }
+                    NSURL *url = [NSURL URLWithString:href];
+                    NSCAssert(url, @"Failed to from URL from link %@", href);
+                    if (url) {
+                        [self wmf_openExternalUrl:url];
+                    }
                 }
             }
-        }
+        }];
     }];
 }
 
 - (void)handleClickImageScriptMessage:(NSDictionary *)messageDict {
-    WMFImageTag *imageTagClicked = [[WMFImageTag alloc] initWithSrc:messageDict[@"src"]
-                                                             srcset:nil
-                                                                alt:nil
-                                                              width:messageDict[@"width"]
-                                                             height:messageDict[@"height"]
-                                                      dataFileWidth:messageDict[@"data-file-width"]
-                                                     dataFileHeight:messageDict[@"data-file-height"]
-                                                            baseURL:nil];
-
-    if (imageTagClicked == nil) {
-        //yes, this would have caught in the if below, but keeping this here in case that check ever goes away
-        return;
-    }
-
-    if (![imageTagClicked isSizeLargeEnoughForGalleryInclusion]) {
-        return;
-    }
-
-    NSString *selectedImageSrcURLString = messageDict[@"src"];
-    NSCParameterAssert(selectedImageSrcURLString.length);
-    if (!selectedImageSrcURLString.length) {
-        DDLogError(@"Image clicked callback invoked with empty src url: %@", messageDict);
-        return;
-    }
-
-    NSURL *selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
-
-    selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
-
-    [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
+    [self wmf_dismissReferencePopoverAnimated:NO completion:^{
+        WMFImageTag *imageTagClicked = [[WMFImageTag alloc] initWithSrc:messageDict[@"src"]
+                                                                 srcset:nil
+                                                                    alt:nil
+                                                                  width:messageDict[@"width"]
+                                                                 height:messageDict[@"height"]
+                                                          dataFileWidth:messageDict[@"data-file-width"]
+                                                         dataFileHeight:messageDict[@"data-file-height"]
+                                                                baseURL:nil];
+        
+        if (imageTagClicked == nil) {
+            //yes, this would have caught in the if below, but keeping this here in case that check ever goes away
+            return;
+        }
+        
+        if (![imageTagClicked isSizeLargeEnoughForGalleryInclusion]) {
+            return;
+        }
+        
+        NSString *selectedImageSrcURLString = messageDict[@"src"];
+        NSCParameterAssert(selectedImageSrcURLString.length);
+        if (!selectedImageSrcURLString.length) {
+            DDLogError(@"Image clicked callback invoked with empty src url: %@", messageDict);
+            return;
+        }
+        
+        NSURL *selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
+        
+        selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
+        
+        [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
+    }];
 }
 
 - (void)handleClickReferenceScriptMessage:(NSDictionary *)messageDict {
+    NSNumber *refsIndex = messageDict[@"refsIndex"];
+    NSArray *linkRects = messageDict[@"linkRects"];
+    NSArray *refs = messageDict[@"refs"];
+    NSString *refForIndex = [refs wmf_safeObjectAtIndex:refsIndex.integerValue];
+    NSDictionary *rectDictForIndex = [linkRects wmf_safeObjectAtIndex:refsIndex.integerValue];
+    CGRect rect = CGRectZero;
+    if (CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(rectDictForIndex), &rect)) {
+        [self wmf_presentReferencePopoverViewControllerForSourceRect:CGRectMake(CGRectGetMidX(rect), CGRectGetMidY(rect), 1, 1)
+                                                       referenceHTML:refForIndex
+                                                               width:270.0f];
+    }
+return;
+    
     [self hideFindInPageWithCompletion:^{
         [self referencesShow:messageDict];
     }];
 }
 
 - (void)handleClickEditScriptMessage:(NSDictionary *)messageDict {
-    [self hideFindInPageWithCompletion:^{
-        NSUInteger sectionIndex = (NSUInteger)[messageDict[@"sectionId"] integerValue];
-        if (sectionIndex < [self.article.sections count]) {
-            [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
-        }
+    [self wmf_dismissReferencePopoverAnimated:NO completion:^{
+        [self hideFindInPageWithCompletion:^{
+            NSUInteger sectionIndex = (NSUInteger)[messageDict[@"sectionId"] integerValue];
+            if (sectionIndex < [self.article.sections count]) {
+                [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
+            }
+        }];
     }];
 }
 
 - (void)handleNonAnchorTouchEndedWithoutDraggingScriptMessage {
-    [self hideFindInPageWithCompletion:^{
-        [self referencesHide];
+    [self wmf_dismissReferencePopoverAnimated:NO completion:^{
+        [self hideFindInPageWithCompletion:^{
+            [self referencesHide];
+        }];
     }];
 }
 
@@ -349,6 +371,11 @@ NSString *const WMFCCBySALicenseURL =
     [super viewDidLayoutSubviews];
     [self updateWebContentMarginForSize:self.view.bounds.size];
     [self updateFooterMarginForSize:self.view.bounds.size];
+}
+
+-(void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+    [self wmf_dismissReferencePopoverAnimated:NO completion:nil];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -643,6 +670,8 @@ NSString *const WMFCCBySALicenseURL =
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     [self referencesHide];
+
+    [self wmf_dismissReferencePopoverAnimated:NO completion:nil];
 }
 
 #pragma mark - Zero

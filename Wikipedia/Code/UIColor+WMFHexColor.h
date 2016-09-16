@@ -5,6 +5,6 @@
 + (UIColor *)wmf_colorWithHex:(NSInteger)hex
                         alpha:(CGFloat)alpha;
 
-- (NSString *)wmf_hexString;
+- (NSString *)wmf_hexStringWithAlpha:(BOOL)useAlpha;
 
 @end
