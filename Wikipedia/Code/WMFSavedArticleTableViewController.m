@@ -103,7 +103,7 @@
 #pragma mark - WMFDataSourceDelegate
 
 - (BOOL)wantsGranularNotificationsForDataSource:(id<WMFDataSource>)dataSource {
-    return NO;
+    return YES;
 }
 
 - (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource {
