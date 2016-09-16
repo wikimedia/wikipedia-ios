@@ -45,18 +45,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.dataSource = [self.dataStore historyGroupedByDateDataSource];
-    self.dataSource.delegate = self;
-
+  
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.dataSource = [self.dataStore historyGroupedByDateDataSource];
+    self.dataSource.delegate = self;
+    [self.tableView reloadData];
+    [self updateEmptyAndDeleteState];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_recentViewActivity]];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.dataSource.delegate = nil;
+    self.dataSource = nil;
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource
