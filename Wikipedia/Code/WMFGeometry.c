@@ -1,5 +1,6 @@
 #import "WMFGeometry.h"
-#include <CoreGraphics/CGAffineTransform.h>
+#import <CoreGraphics/CGAffineTransform.h>
+#import <math.h>
 
 #pragma mark - Aggregate Operations
 
@@ -61,4 +62,10 @@ CGAffineTransform WMFAffineCoreGraphicsToUIKitTransformMake(CGSize size) {
 
 CGAffineTransform WMFAffineUIKitToCoreGraphicsTransformMake(CGSize size) {
     return CGAffineTransformInvert(WMFAffineCoreGraphicsToUIKitTransformMake(size));
+}
+
+#pragma mark - Angle from velocity vector
+
+CGFloat WMFAbsoluteHorizontalAngleFromVelocityVector(CGPoint velocity) {
+    return (atan2(fabs(velocity.y), fabs(velocity.x)));
 }
