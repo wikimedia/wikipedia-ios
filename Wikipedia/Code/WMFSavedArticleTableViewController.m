@@ -28,17 +28,9 @@
 
 #pragma mark - NSObject
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.title = MWLocalizedString(@"saved-title", nil);
-}
-
-- (void)applicationWillEnterForeground:(NSNotification *)note {
-    self.dataSource = [self.dataStore savedDataSource];
 }
 
 #pragma mark - Accessors
@@ -51,20 +43,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.dataSource = [self.dataStore savedDataSource];
-    self.dataSource.delegate = self;
 
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
+    
+    self.dataSource = [self.dataStore savedDataSource];
+    self.dataSource.delegate = self;
+    [self.tableView reloadData];
+    [self updateEmptyAndDeleteState];
+}
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.dataSource.granularDelegateCallbacksEnabled = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_savedPagesViewActivity]];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.dataSource.granularDelegateCallbacksEnabled = NO;
 }
 
 #pragma mark - UITableViewDataSource
@@ -79,13 +82,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMFArticleListTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleListTableViewCell identifier] forIndexPath:indexPath];
-
+    
     MWKHistoryEntry *entry = [self.dataSource objectAtIndexPath:indexPath];
     MWKArticle *article = [[self dataStore] articleWithURL:entry.url];
     cell.titleText = article.url.wmf_title;
     cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
     [cell setImage:[article bestThumbnailImage]];
-
+    
     return cell;
 }
 
