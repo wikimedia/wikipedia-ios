@@ -49,14 +49,17 @@
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+    
     self.dataSource = [self.dataStore historyGroupedByDateDataSource];
     self.dataSource.delegate = self;
     [self.tableView reloadData];
     [self updateEmptyAndDeleteState];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.dataSource.granularDelegateCallbacksEnabled = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -67,9 +70,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    self.dataSource.delegate = nil;
-    self.dataSource = nil;
-    [self.tableView reloadData];
+    self.dataSource.granularDelegateCallbacksEnabled = NO;
 }
 
 #pragma mark - UITableViewDataSource
@@ -119,10 +120,6 @@
 }
 
 #pragma mark - WMFDataSourceDelegate
-
-- (BOOL)wantsGranularNotificationsForDataSource:(id<WMFDataSource>)dataSource {
-    return YES;
-}
 
 - (void)dataSourceDidUpdateAllData:(id<WMFDataSource>)dataSource {
     [self.tableView reloadData];
