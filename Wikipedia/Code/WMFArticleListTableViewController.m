@@ -165,6 +165,10 @@
 #pragma mark - Empty State
 
 - (void)updateEmptyState {
+    if (self.view.superview == nil) {
+        return;
+    }
+    
     if ([self numberOfItems] > 0) {
         [self wmf_hideEmptyView];
     } else {
