@@ -47,7 +47,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 NSString *const WMFCCBySALicenseURL =
     @"https://creativecommons.org/licenses/by-sa/3.0/";
 
-@interface WebViewController () <ReferencesVCDelegate, WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate>
+@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate>
 
 @property (nonatomic, strong) MASConstraint *headerHeight;
 @property (nonatomic, strong) UIView *footerContainerView;
@@ -152,10 +152,6 @@ NSString *const WMFCCBySALicenseURL =
                 return;
             }
             
-            if (!self.referencesHidden) {
-                [self referencesHide];
-            }
-            
             if ([href wmf_isWikiResource]) {
                 NSURL *url = [NSURL URLWithString:href];
                 if (!url.wmf_domain) {
@@ -219,6 +215,16 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)handleClickReferenceScriptMessage:(NSDictionary *)messageDict {
+    
+    // Don't show ref popover if reference data has yet to be retrieved. The
+    // reference parsing javascript can't parse until the reference section html has
+    // been retrieved. If user taps a reference link while the non-lead sections are
+    // still being retrieved we need to just not show the panel rather than showing a
+    // useless blank panel.
+    if (![self didFindReferencesInPayload:messageDict]) {
+        return;
+    }
+
     NSNumber *refsIndex = messageDict[@"refsIndex"];
     NSArray *linkRects = messageDict[@"linkRects"];
     NSArray *refs = messageDict[@"refs"];
@@ -230,11 +236,8 @@ NSString *const WMFCCBySALicenseURL =
                                                        referenceHTML:refForIndex
                                                                width:270.0f];
     }
-return;
-    
-    [self hideFindInPageWithCompletion:^{
-        [self referencesShow:messageDict];
-    }];
+    // Highlight the tapped reference.
+    //[self.webView wmf_highlightLinkID:linkID];
 }
 
 - (void)handleClickEditScriptMessage:(NSDictionary *)messageDict {
@@ -250,9 +253,7 @@ return;
 
 - (void)handleNonAnchorTouchEndedWithoutDraggingScriptMessage {
     [self wmf_dismissReferencePopoverAnimated:NO completion:^{
-        [self hideFindInPageWithCompletion:^{
-            [self referencesHide];
-        }];
+        [self hideFindInPageWithCompletion:nil];
     }];
 }
 
@@ -309,7 +310,6 @@ return;
 }
 
 - (void)showFindInPage {
-    [self referencesHide];
     [self becomeFirstResponder];
     [[self findInPageKeyboardBar] show];
 }
@@ -557,8 +557,6 @@ return;
     [self addHeaderView];
     [self addFooterView];
 
-    self.referencesHidden = YES;
-
     self.view.clipsToBounds = NO;
 
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -675,8 +673,6 @@ return;
  */
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-    [self referencesHide];
-
     [self wmf_dismissReferencePopoverAnimated:NO completion:nil];
 }
 
@@ -1043,49 +1039,6 @@ return;
     }];
 }
 
-- (void)setReferencesHidden:(BOOL)referencesHidden {
-    if (self.referencesHidden == referencesHidden) {
-        return;
-    }
-
-    _referencesHidden = referencesHidden;
-
-    [self updateReferencesHeightAndBottomConstraints];
-
-    if (referencesHidden) {
-        // Cause the highlighted ref link in the webView to no longer be highlighted.
-        [self.referencesVC reset];
-    }
-
-    // Fade out refs when hidden.
-    CGFloat alpha = referencesHidden ? 0.0 : 1.0;
-
-    self.referencesContainerView.alpha = alpha;
-}
-
-- (void)updateReferencesHeightAndBottomConstraints {
-    CGFloat refsHeight = [self getRefsPanelHeight];
-    self.referencesContainerViewBottomConstraint.constant = self.referencesHidden ? refsHeight : 0.0;
-    self.referencesContainerViewHeightConstraint.constant = refsHeight;
-}
-
-- (CGFloat)getRefsPanelHeight {
-    WMF_TECH_DEBT_WARN(use size classes instead of interfaceOrientation)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    CGFloat percentOfHeight = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.4 : 0.6;
-#pragma clang diagnostic pop
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        percentOfHeight *= 0.5;
-    }
-    NSNumber *refsHeight = @((self.view.frame.size.height * MENUS_SCALE_MULTIPLIER) * percentOfHeight);
-    return (CGFloat)refsHeight.integerValue;
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [self updateReferencesHeightAndBottomConstraints];
-}
-
 - (BOOL)didFindReferencesInPayload:(NSDictionary *)payload {
     NSArray *refs = payload[@"refs"];
     if (!refs || (refs.count == 0)) {
@@ -1098,121 +1051,6 @@ return;
         }
     }
     return YES;
-}
-
-- (void)referencesShow:(NSDictionary *)payload {
-    if (!self.referencesHidden) {
-        self.referencesVC.panelHeight = [self getRefsPanelHeight];
-        self.referencesVC.payload = payload;
-        return;
-    }
-
-    // Don't show refs panel if reference data has yet to be retrieved. The
-    // reference parsing javascript can't parse until the reference section html has
-    // been retrieved. If user taps a reference link while the non-lead sections are
-    // still being retrieved we need to just not show the panel rather than showing a
-    // useless blank panel.
-    if (![self didFindReferencesInPayload:payload]) {
-        return;
-    }
-
-    self.referencesVC = [ReferencesVC wmf_initialViewControllerFromClassStoryboard];
-
-    self.referencesVC.delegate = self;
-    [self addChildViewController:self.referencesVC];
-    self.referencesVC.view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.referencesContainerView addSubview:self.referencesVC.view];
-
-    [self.referencesContainerView addConstraints:
-                                      [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
-                                                                              options:0
-                                                                              metrics:nil
-                                                                                views:@{ @"view": self.referencesVC.view }]];
-    [self.referencesContainerView addConstraints:
-                                      [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
-                                                                              options:0
-                                                                              metrics:nil
-                                                                                views:@{ @"view": self.referencesVC.view }]];
-
-    [self.referencesVC didMoveToParentViewController:self];
-
-    [self.referencesContainerView layoutIfNeeded];
-
-    self.referencesVC.panelHeight = [self getRefsPanelHeight];
-    self.referencesVC.payload = payload;
-
-    [UIView animateWithDuration:0.16
-                          delay:0.0f
-                        options:UIViewAnimationOptionBeginFromCurrentState
-                     animations:^{
-                         self.referencesHidden = NO;
-                         [self.view layoutIfNeeded];
-                     }
-                     completion:nil];
-}
-
-- (void)referencesHide {
-    if (self.referencesHidden) {
-        return;
-    }
-    [UIView animateWithDuration:0.16
-        delay:0.0f
-        options:UIViewAnimationOptionBeginFromCurrentState
-        animations:^{
-            self.referencesHidden = YES;
-
-            [self.view layoutIfNeeded];
-        }
-        completion:^(BOOL done) {
-            [self.referencesVC willMoveToParentViewController:nil];
-            [self.referencesVC.view removeFromSuperview];
-            [self.referencesVC removeFromParentViewController];
-            self.referencesVC = nil;
-        }];
-}
-
-- (void)referenceViewController:(ReferencesVC *)referenceViewController didShowReferenceWithLinkID:(NSString *)linkID {
-    // Highlight the tapped reference.
-    [self.webView wmf_highlightLinkID:linkID];
-
-    // Scroll the tapped reference up if the panel would cover it.
-    [self.webView getScreenRectForHtmlElementWithId:linkID
-                                         completion:^(CGRect rect) {
-                                             if (!CGRectIsNull(rect)) {
-                                                 CGFloat vSpaceAboveRefsPanel = self.view.bounds.size.height - referenceViewController.panelHeight;
-                                                 // Only scroll up if the refs link would be below the refs panel.
-                                                 if ((rect.origin.y + rect.size.height) > (vSpaceAboveRefsPanel)) {
-                                                     // Calculate the distance needed to scroll the refs link to the vertical center of the
-                                                     // part of the article web view not covered by the refs panel.
-                                                     CGFloat distanceFromVerticalCenter = ((vSpaceAboveRefsPanel) / 2.0) - (rect.size.height / 2.0);
-                                                     [self.webView.scrollView wmf_safeSetContentOffset:
-                                                                                  CGPointMake(
-                                                                                      self.webView.scrollView.contentOffset.x,
-                                                                                      self.webView.scrollView.contentOffset.y + (rect.origin.y - distanceFromVerticalCenter))
-                                                                                              animated:YES];
-                                                 }
-                                             }
-                                         }];
-}
-
-- (void)referenceViewController:(ReferencesVC *)referenceViewController didFinishShowingReferenceWithLinkID:(NSString *)linkID {
-    [self.webView wmf_unHighlightLinkID:linkID];
-}
-
-- (void)referenceViewControllerCloseReferences:(ReferencesVC *)referenceViewController {
-    [self referencesHide];
-}
-
-- (void)referenceViewController:(ReferencesVC *)referenceViewController didSelectInternalReferenceWithFragment:(NSString *)fragment {
-    [self scrollToFragment:fragment];
-}
-
-- (void)referenceViewController:(ReferencesVC *)referenceViewController didSelectReferenceWithURL:(NSURL *)url {
-    [self.delegate webViewController:self didTapOnLinkForArticleURL:url];
-}
-
-- (void)referenceViewController:(ReferencesVC *)referenceViewController didSelectExternalReferenceWithURL:(NSURL *)url {
-    [self wmf_openExternalUrl:url];
 }
 
 #pragma mark - Share Actions
