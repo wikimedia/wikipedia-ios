@@ -599,6 +599,11 @@ return;
                                                object:nil];
     // should happen in will appear to prevent bar from being incorrect during transitions
     [self updateZeroBanner];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refererenceLinkTappedWithNotification:)
+                                                 name:WMFReferenceLinkTappedNotification
+                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -606,6 +611,7 @@ return;
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroRatingChanged object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFReferenceLinkTappedNotification object:nil];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -1010,6 +1016,32 @@ return;
 }
 
 #pragma mark Refs
+
+- (void)refererenceLinkTappedWithNotification:(NSNotification *)notification {
+    [self wmf_dismissReferencePopoverAnimated:NO completion:^{
+
+        NSAssert([notification.object isMemberOfClass:[NSURL class]], @"WMFReferenceLinkTappedNotification did not contain NSURL");
+        NSURL *URL = notification.object;
+        NSAssert(URL != nil, @"WMFReferenceLinkTappedNotification NSURL was unexpectedly nil");
+        
+        if(URL != nil){
+            NSString *domain = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
+            MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
+            NSString *baseUrl = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
+            if ([URL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"#"]]) {
+                [self scrollToFragment:URL.fragment];
+            }else if ([URL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"wiki/"]]) {
+        #pragma warning Assuming that the url is on the same language wiki - what about other wikis ?
+                [self.delegate webViewController:self didTapOnLinkForArticleURL:URL];
+            }else if (
+                [URL.scheme isEqualToString:@"http"] ||
+                [URL.scheme isEqualToString:@"https"] ||
+                [URL.scheme isEqualToString:@"mailto"]) {
+                [self wmf_openExternalUrl:URL];
+            }
+        }
+    }];
+}
 
 - (void)setReferencesHidden:(BOOL)referencesHidden {
     if (self.referencesHidden == referencesHidden) {

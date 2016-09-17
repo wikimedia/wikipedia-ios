@@ -6,6 +6,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNotification";
+
 typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationController *presenter);
 
 @implementation WebViewController (WMFReferencePopover)

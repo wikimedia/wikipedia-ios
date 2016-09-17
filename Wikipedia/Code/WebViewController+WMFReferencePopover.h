@@ -3,6 +3,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString *const WMFReferenceLinkTappedNotification;
+
 @interface WebViewController (WMFReferencePopover)
 
 - (void)wmf_presentReferencePopoverViewControllerForSourceRect:(CGRect)sourceRect

@@ -1,4 +1,5 @@
 #import "WMFReferencePopoverMessageViewController.h"
+#import "WebViewController+WMFReferencePopover.h"
 #import "UIColor+WMFHexColor.h"
 #import "Wikipedia-Swift.h"
 
@@ -34,10 +35,15 @@
 - (NSString*)referenceHTMLWithSurroundingHTML {
     NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_readingFontSize];
     
+    NSString *domain = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
+    MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
+    NSString *baseUrl = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
+
     return
     [NSString stringWithFormat:@""
       "<html>"
       "<head>"
+      "<base href='%@' target='_self'>"
       "<style>"
       " *{"
       "     font-family:'-apple-system';"
@@ -50,7 +56,8 @@
       "</head>"
       "<body>"
       "%@"
-      "</body></html>", (long)fontSize.integerValue, [[UIColor wmf_referencePopoverTextColor] wmf_hexStringWithAlpha:NO], self.referenceHTML];
+      "</body>"
+      "</html>", baseUrl, (long)fontSize.integerValue, [[UIColor wmf_referencePopoverTextColor] wmf_hexStringWithAlpha:NO], self.referenceHTML];
 }
 
 - (NSAttributedString*)attributedStringForHTML:(NSString*)html {
@@ -76,7 +83,7 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
-    NSLog(@"\n\nURL = %@\n\n", URL);
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferenceLinkTappedNotification object:URL];
     return NO;
 }
 
