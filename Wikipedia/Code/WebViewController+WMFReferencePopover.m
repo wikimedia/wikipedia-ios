@@ -40,6 +40,7 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
                         // Reminder: The textView's scrollEnabled needs to remain "NO" until after the popover is
                         // presented. (When scrollEnabled is NO the popover can better determine the textView's
                         // full content height.) See the third reference "[3]" on "enwiki > Pythagoras".
+                        NSAssert(popoverVC.scrollEnabled == NO, @"scrollEnabled must be NO until the popover is presented");
                         popoverVC.scrollEnabled = YES;
                      
                      }];
