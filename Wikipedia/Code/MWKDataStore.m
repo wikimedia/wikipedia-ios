@@ -42,6 +42,8 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, nonatomic, strong) dispatch_queue_t cacheRemovalQueue;
 @property (readwrite, nonatomic, getter=isCacheRemovalActive) BOOL cacheRemovalActive;
 
+@property (readwrite, atomic, strong) id previousCleanup;
+
 @end
 
 @implementation MWKDataStore
@@ -195,18 +197,23 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (void)cleanup {
-    [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
-        YapDatabaseViewTransaction *view = [transaction ext:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
-        if ([view numberOfItemsInAllGroups] == 0) {
-            return;
-        }
-        NSMutableArray *keysToRemove = [NSMutableArray array];
-        [view enumerateKeysInGroup:[[view allGroups] firstObject]
-                        usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, NSUInteger index, BOOL *_Nonnull stop) {
-                            [keysToRemove addObject:key];
-                        }];
-        [transaction removeObjectsForKeys:keysToRemove inCollection:[MWKHistoryEntry databaseCollectionName]];
-    }];
+    if (self.previousCleanup != nil) {
+        [NSObject bk_cancelBlock:self.previousCleanup];
+    }
+    self.previousCleanup = [NSObject bk_performBlockInBackground:^{
+        [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
+            YapDatabaseViewTransaction *view = [transaction ext:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
+            if ([view numberOfItemsInAllGroups] == 0) {
+                return;
+            }
+            NSMutableArray *keysToRemove = [NSMutableArray array];
+            [view enumerateKeysInGroup:[[view allGroups] firstObject]
+                            usingBlock:^(NSString *_Nonnull collection, NSString *_Nonnull key, NSUInteger index, BOOL *_Nonnull stop) {
+                                [keysToRemove addObject:key];
+                            }];
+            [transaction removeObjectsForKeys:keysToRemove inCollection:[MWKHistoryEntry databaseCollectionName]];
+        }];
+    } afterDelay:1];
 }
 
 #pragma mark - Legacy DataStore
