@@ -85,12 +85,10 @@
 "wikitext-upload-result-unknown" = "No es posible determinar el resultado de la subida del wikitexto.";
 "wikitext-upload-captcha-error" = "Error de verificación CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Necesita verificación CAPTCHA.";
-// Fuzzy
-"wikitext-upload-save" = "Guardando…";
+"wikitext-upload-save" = "Publicando…";
 "wikitext-upload-save-sign-in" = "Acceder";
 "wikitext-upload-save-sign-in-benefits" = "Así otros editores pueden contactarte y puedes ver qué artículos has editado.";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "Guardar anónimamente";
+"wikitext-upload-save-anonymously" = "Publicar anónimamente";
 "wikitext-upload-save-anonymously-warning" = "Las ediciones se atribuirán a la dirección IP del dispositivo. Si $1 tendrás más privacidad.";
 // Fuzzy
 "wikitext-upload-save-terms-and-license" = "Al guardar, aceptas los $1 y a liberar irrevocablemente tus contribuciones bajo los términos de la licencia $2";
@@ -176,18 +174,15 @@
 "page-history-downloading" = "Cargando el historial de la página...";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Acceder";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Acceder y guardar";
+"navbar-title-mode-login-and-save" = "Acceder y publicar";
 "navbar-title-mode-create-account" = "Crear cuenta";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "Crear cuenta y guardar";
+"navbar-title-mode-create-account-and-save" = "Crear cuenta y publicar";
 "navbar-title-mode-edit-wikitext-warning" = "Problemas de edición";
 "navbar-title-mode-edit-wikitext-disallow" = "Problemas de edición";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualización";
 "navbar-title-mode-edit-wikitext-captcha" = "Es necesaria una verificación rápida";
 "navbar-title-mode-edit-wikitext-summary" = "Describe tu modificación";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "Guardar";
+"navbar-title-mode-edit-wikitext-save" = "Publicar";
 "edit-summary-choice-linked-words" = "Enlaces añadidos";
 "edit-summary-choice-fixed-grammar" = "Gramática corregida";
 "edit-summary-choice-fixed-inaccuracy" = "Imprecisión corregida";
@@ -252,6 +247,7 @@
 "button-next" = "Siguiente";
 "button-done" = "Hecho";
 "button-save" = "Guardar";
+"button-publish" = "Publicar";
 "button-ok" = "Aceptar";
 "button-save-for-later" = "Guardar para después";
 "button-saved-for-later" = "Guardado para después";
@@ -422,3 +418,5 @@
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
 "top-read-see-more-trending" = "Ver más tendencias";
+"top-read-reader-count-thousands" = "$1k";
+"top-read-header-with-language" = "Wikipedia en $1";

@@ -47,10 +47,8 @@
 "login-password-placeholder-text" = "ಪ್ರವೇಸೊಪದೊ";
 "wikitext-downloading" = "ಮಾಹಿತಿ ದಿಂಜೋತುಂಡು...";
 "wikitext-download-success" = "ಮಾಹಿತಿ ದಿಂಜಿಂಡ್.";
-// Fuzzy
 "wikitext-upload-save" = "ಓರಿಪವೊಂತುಂಡು...";
 "wikitext-upload-save-sign-in" = "ಲಾಗಿನ್ ಆಲೆ";
-// Fuzzy
 "wikitext-upload-save-anonymously" = "ಗುರ್ಥ ಇಜ್ಜನ್ತಿಲೆಕೊ ಒರಿಪಾಲೇ";
 "wikitext-upload-save-terms-name" = "ಬಳಕೆದ ನಿಬಂದೊಲು";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -112,13 +110,11 @@
 "page-history-downloading" = "ಲೇಕನೋತಾ ಇತಿಹಾಸೊ ದಿಂಜೋತುಂಡು";
 "navbar-title-mode-edit-wikitext" = "ಸೇರ್ಸಲೇ";
 "navbar-title-mode-login" = "ಲಾಗ್ ಇನ್";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "ಲಾಗಿನ್ ಅಲೇ ಬುಕ್ಕ ಒರಿಪಾಲೇ";
+"navbar-title-mode-login-and-save" = "ಲಾಗಿನ್ ಅಲೇ ಬುಕ್ಕ ವಿಸಯ ತೋಜಾಲೆ";
 "navbar-title-mode-create-account" = "ಪೊಸ ಕಾತೆ ಸುರು ಮಲ್ಪುಲೆ";
 "navbar-title-mode-edit-wikitext-preview" = "ಮುನ್ನೋಟೊ";
 "navbar-title-mode-edit-wikitext-summary" = "ಇರೇನಾ ಸಂಪಾದನೇತಾ ಬೆಗೆಟ್ ಪನ್ಲೆ";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "ಒರಿಪಾಲೆ";
+"navbar-title-mode-edit-wikitext-save" = "ಪ್ರಕಟವಾಯಿನ";
 "edit-summary-choice-linked-words" = "ಕೊಂಡಿ ಸೇರ್ಸಾನ್ಡ್";
 "edit-summary-choice-fixed-grammar" = "ವ್ಯಾಕರಣ ಸರಿ ಅಂಡ್";
 "edit-summary-choice-added-category" = "ಸೇರ್ಸಾಯೀನಾ ವರ್ಗೋ";
@@ -152,6 +148,7 @@
 "button-next" = "ನನತಾ";
 "button-done" = "ಆಂಡ್";
 "button-save" = "ಒರಿಪಾಲೆ";
+"button-publish" = "ಪ್ರಕಟ ಮಾನ್ಪುಲೆ";
 "button-ok" = "ಸರಿ";
 "button-save-for-later" = "ಬುಕ್ಕ ಒರಿಪಾಲೆ";
 "button-saved-for-later" = "ಬುಕ್ಕ ಒರಿಪಾಪುಂಡು";
@@ -224,7 +221,12 @@
 "close-button-accessibility-label" = "ಮುಚ್ಚಿಲೆ";
 "back-button-accessibility-label" = "ಪಿರ";
 "compass-direction" = "$1 ಗಂಟೆಗ್";
+"explore-nearby-sub-heading-your-location" = "ಇರ್ ಉಪ್ಪುನಾ ಜಾಗೋ";
 "explore-main-page-heading" = "ವಿಕಿಪೀಡಿಯಾಡ್ ಇನಿ";
 "explore-random-article-sub-heading" = "ಇಂಗ್ಲೀಷ್ ವಿಕಿಪೀಡಿಯ";
 "explore-potd-heading" = "ದಿನೊತ್ತಾ ಪೆಟೊ";
 "explore-most-read-generic-heading" = "ಮಸ್ತ್ ಓದುನವೂ";
+"top-read-see-more" = "ಮಸ್ತು ಓದುನೆನ್ ತೂಲೆ";
+"top-read-reader-count-thousands" = "$1k";
+"top-read-header-with-language" = "$1 ವಿಕಿಪೀಡಿಯ";
+"top-read-header-generic" = "ವಿಕಿಪೀಡಿಯ";

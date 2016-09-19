@@ -85,15 +85,12 @@
 "wikitext-upload-result-unknown" = "Kunde inte att avgöra wikitextens uppladdningsresultat.";
 "wikitext-upload-captcha-error" = "Captcha-verifieringsfel.";
 "wikitext-upload-captcha-needed" = "Kräver captcha-verifiering.";
-// Fuzzy
-"wikitext-upload-save" = "Sparar...";
+"wikitext-upload-save" = "Publicerar...";
 "wikitext-upload-save-sign-in" = "Logga in";
 "wikitext-upload-save-sign-in-benefits" = "Så att andra användare kan kontakta dig och du kan se vilka artiklar du har redigerat.";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "Spara anonymt";
+"wikitext-upload-save-anonymously" = "Publicera anonymt";
 "wikitext-upload-save-anonymously-warning" = "Redigeringar signeras med din enhets IP-adress. Om du vill undvika att din IP-adress offentliggörs kan du $1.";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "Genom att spara, samtycker du till $1, och att oåterkalleligen släppa dina bidrag under licensen $1.";
+"wikitext-upload-save-terms-and-license" = "Genom att publicera samtycker du till $1 och att oåterkalleligen släppa dina bidrag under licensen $1.";
 "wikitext-upload-save-terms-name" = "Användarvillkor";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Öppna länk";
@@ -176,18 +173,15 @@
 "page-history-downloading" = "Läser in artikelhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigera";
 "navbar-title-mode-login" = "Logga in";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Logga in och spara";
+"navbar-title-mode-login-and-save" = "Logga in och publicera";
 "navbar-title-mode-create-account" = "Skapa konto";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "Skapa konto och spara";
+"navbar-title-mode-create-account-and-save" = "Skapa konto och publicera";
 "navbar-title-mode-edit-wikitext-warning" = "Redigeringsproblem";
 "navbar-title-mode-edit-wikitext-disallow" = "Redigeringsproblem";
 "navbar-title-mode-edit-wikitext-preview" = "Förhandsgranska";
 "navbar-title-mode-edit-wikitext-captcha" = "Snabbverifiering krävs";
 "navbar-title-mode-edit-wikitext-summary" = "Beskriv din redigering";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "Spara";
+"navbar-title-mode-edit-wikitext-save" = "Publicera";
 "edit-summary-choice-linked-words" = "Lade till länkar";
 "edit-summary-choice-fixed-grammar" = "Korrigerade grammatiken";
 "edit-summary-choice-fixed-inaccuracy" = "Åtgärdade felaktighet";
@@ -252,6 +246,7 @@
 "button-next" = "Nästa";
 "button-done" = "Färdig";
 "button-save" = "Spara";
+"button-publish" = "Publicera";
 "button-ok" = "OK";
 "button-save-for-later" = "Spara till senare";
 "button-saved-for-later" = "Sparades till senare";
@@ -276,15 +271,13 @@
 "table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
 "table-of-contents-close-accessibility-hint" = "Stäng";
 "table-of-contents-popover-description" = "Få en översikt över artiklar";
-// Fuzzy
-"abuse-filter-warning-heading" = "Detta ser ut som en icke-konstruktiv redigering. Är du säker på att du vill spara den?";
+"abuse-filter-warning-heading" = "Detta ser ut som en icke-konstruktiv redigering. Är du säker på att du vill publicera den?";
 "abuse-filter-warning-subheading" = "Din redigering kan innehålla ett eller flera av följande:";
 "abuse-filter-warning-caps" = "Text skriven helt med VERSALER";
 "abuse-filter-warning-blanking" = "Tömmande av artiklar eller spam";
 "abuse-filter-warning-irrelevant" = "Irrelevanta externa länkar eller bilder";
 "abuse-filter-warning-repeat" = "Upprepade tecken";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Du kan inte spara denna redigering. Gå tillbaka och ändra den.";
+"abuse-filter-disallow-heading" = "Du kan inte publicera denna redigering. Gå tillbaka och ändra den.";
 "abuse-filter-disallow-unconstructive" = "Ett automatiskt filter har identifierat denna redigering som potentiellt icke-konstruktivt eller ett försök till vandalism.";
 "abuse-filter-disallow-notable" = "Wikipedia är ett uppslagsverk och bara neutralt anmärkningsvärt innehåll hör hemma här.";
 "menu-edit-accessibility-label" = "Redigera";
@@ -421,4 +414,8 @@
 "find-in-page-popover-description" = "Sök efter text i artiklar";
 "continue-reading-empty-title" = "Inga nyligen lästa artiklar";
 "continue-reading-empty-description" = "Utforska Wikipedia för fler artiklar att läsa";
+"top-read-see-more" = "Se fler populära artiklar";
 "top-read-see-more-trending" = "Se fler populära ämnen";
+"top-read-reader-count-thousands" = "$1k";
+"top-read-header-with-language" = "$1 Wikipedia";
+"top-read-header-generic" = "Wikipedia";
