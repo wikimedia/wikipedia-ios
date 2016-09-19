@@ -262,8 +262,7 @@
 "table-of-contents-button-label" = "Spis treści";
 "table-of-contents-close-accessibility-label" = "Zamknij spis treści";
 "table-of-contents-close-accessibility-hint" = "Zamknij";
-// Fuzzy
-"abuse-filter-warning-heading" = "To wygląda na niekonstruktywną edycję, jesteś pewny, by ją zaspisać?";
+"abuse-filter-warning-heading" = "To wygląda na niekonstruktywną edycję, na pewno chcesz ją opublikować?";
 "abuse-filter-warning-subheading" = "Twoja edycja może zawierać jedną lub wiele z następujących czynności:";
 "abuse-filter-warning-caps" = "Pisanie WIELKIMI LITERAMI";
 "abuse-filter-warning-blanking" = "Blankowanie lub spamowanie artykułów";
@@ -358,3 +357,5 @@
 "explore-another-random" = "Inny losowy artykuł";
 "find-in-page-button-label" = "Znajdź na stronie";
 "find-in-page-popover-description" = "Wyszukiwanie tekstu w artykułach";
+"top-read-reader-count-thousands" = "$1 tys.";
+"top-read-header-generic" = "Wikipedia";

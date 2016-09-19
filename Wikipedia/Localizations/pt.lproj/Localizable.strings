@@ -81,15 +81,12 @@
 "wikitext-upload-result-unknown" = "Não é possível determinar o resultado do envio do wikitexto.";
 "wikitext-upload-captcha-error" = "Erro de verificação do código CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verificação de código CAPTCHA necessária.";
-// Fuzzy
-"wikitext-upload-save" = "A gravar...";
+"wikitext-upload-save" = "A publicar...";
 "wikitext-upload-save-sign-in" = "Entrar";
 "wikitext-upload-save-sign-in-benefits" = "Assim, co-editores poderão contactá-lo e poderá ver quais artigos editou.";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "Gravar anonimamente";
+"wikitext-upload-save-anonymously" = "Publicar anonimamente";
 "wikitext-upload-save-anonymously-warning" = "O seu endereço de IP estará visível nas edições do seu dispositivo. Se $1, terá mais privacidade.";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "Ao gravar, concorda com $1, e em irrevogavelmente publicar a sua contribuição sob a licença $2.";
+"wikitext-upload-save-terms-and-license" = "Ao publicar, concorda com $1, e em irrevogavelmente publicar a sua contribuição sob a licença $2.";
 "wikitext-upload-save-terms-name" = "Condições de uso";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Abrir ligação";
@@ -172,18 +169,15 @@
 "page-history-downloading" = "A carregar o histórico do artigo...";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Entrar";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Iniciar sessão e gravar";
+"navbar-title-mode-login-and-save" = "Iniciar sessão e publicar";
 "navbar-title-mode-create-account" = "Criar conta";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "Criar conta e gravar";
+"navbar-title-mode-create-account-and-save" = "Criar conta e publicar";
 "navbar-title-mode-edit-wikitext-warning" = "Editar problemas";
 "navbar-title-mode-edit-wikitext-disallow" = "Editar problemas";
 "navbar-title-mode-edit-wikitext-preview" = "Antevisão";
 "navbar-title-mode-edit-wikitext-captcha" = "Verificação rápida necessária";
 "navbar-title-mode-edit-wikitext-summary" = "Descreva as suas alterações";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "Gravar";
+"navbar-title-mode-edit-wikitext-save" = "Publicar";
 "edit-summary-choice-linked-words" = "Ligações adicionadas";
 "edit-summary-choice-fixed-grammar" = "Gramática corrigida";
 "edit-summary-choice-fixed-inaccuracy" = "Inexatidão corrigida";
@@ -248,6 +242,7 @@
 "button-next" = "Seguinte";
 "button-done" = "Feito";
 "button-save" = "Gravar";
+"button-publish" = "Publicar";
 "button-ok" = "OK";
 "button-save-for-later" = "Guardar para mais tarde";
 "button-saved-for-later" = "Guardado para depois";
@@ -271,16 +266,14 @@
 "table-of-contents-button-label" = "Índice";
 "table-of-contents-close-accessibility-label" = "Fechar Índice";
 "table-of-contents-close-accessibility-hint" = "Fechar";
-"table-of-contents-popover-description" = "Obter uma vista geral dos artigos";
-// Fuzzy
-"abuse-filter-warning-heading" = "Esta edição poderá não ser construtiva. Tem a certeza que pretende gravá-la?";
+"table-of-contents-popover-description" = "Obter um resumo dos artigos";
+"abuse-filter-warning-heading" = "Esta edição poderá não ser construtiva. Tem a certeza que pretende publicá-la?";
 "abuse-filter-warning-subheading" = "A sua edição pode conter um ou mais dos seguintes erros:";
 "abuse-filter-warning-caps" = "Todo o texto em MAIÚSCULAS";
 "abuse-filter-warning-blanking" = "Branqueamento de artigos ou ''spam''";
 "abuse-filter-warning-irrelevant" = "Ligações ou imagens externas irrelevantes";
 "abuse-filter-warning-repeat" = "Repeeeetição de caracteres";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Não pode gravar esta edição. Por favor, volte atrás e altere-a.";
+"abuse-filter-disallow-heading" = "Não pode publicar esta edição. Por favor, volte atrás e altere-a.";
 "abuse-filter-disallow-unconstructive" = "Um filtro automatizado identificou esta edição como sendo potencialmente inconstrutiva ou uma tentativa de vandalismo.";
 "abuse-filter-disallow-notable" = "A Wikipédia é uma enciclopédia exclusivamente neutra, conteúdo notório pertence aqui.";
 "menu-edit-accessibility-label" = "Editar";
@@ -413,5 +406,12 @@
 "request-feedback-on-error" = "O aplicativo encontrou um problema sobre o qual os nossos programadores gostariam de saber mais. Por favor, toque aqui para nos enviar um e-mail com os detalhes do erro.";
 "explore-another-random" = "Outro artigo aleatório";
 "find-in-page-no-matches" = "Sem correspondências";
-"find-in-page-button-label" = "Encontrar na página";
+"find-in-page-button-label" = "Localizar na página";
 "find-in-page-popover-description" = "Pesquisa de texto em artigos";
+"continue-reading-empty-title" = "Sem artigos lidos recentemente";
+"continue-reading-empty-description" = "Explore a Wikipédia para ler mais artigos";
+"top-read-see-more" = "Ver mais artigos dos mais lidos";
+"top-read-see-more-trending" = "Ver mais tendências";
+"top-read-reader-count-thousands" = "$1k";
+"top-read-header-with-language" = "Wikipédia em $1";
+"top-read-header-generic" = "Wikipédia";

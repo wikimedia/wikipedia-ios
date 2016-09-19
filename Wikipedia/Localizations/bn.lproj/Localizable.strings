@@ -80,15 +80,12 @@
 "wikitext-upload-result-unknown" = "উইকিটেক্সট আপলোডের ফলাফল নির্ণয় করা যায়নি।";
 "wikitext-upload-captcha-error" = "ক্যাপচা যাচাইকরণ ত্রুটি।";
 "wikitext-upload-captcha-needed" = "ক্যাপচা যাচাইকরণ প্রয়োজন।";
-// Fuzzy
-"wikitext-upload-save" = "সংরক্ষণ হচ্ছে ...";
+"wikitext-upload-save" = "প্রকাশ করা হচ্ছে...";
 "wikitext-upload-save-sign-in" = "প্রবেশ";
 "wikitext-upload-save-sign-in-benefits" = "সুতরাং সহ-সম্পাদক আপনার সাথে যোগাযোগ করতে পারেন ও আপনি কোন নিবন্ধ সম্পাদন করেছেন তা আপনি দেখতে পারেন।";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "নামহীন অবস্থায় সংরক্ষণ করুন";
+"wikitext-upload-save-anonymously" = "নামহীনভাবে প্রকাশ করুন";
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনা আপনার ডিভাইসের IP ঠিকানায় আরোপিত করা হবে। আপনি যদি $1 করেন আপনি আরো গোপনীয়তা পাবেন।";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "সংরক্ষণের দ্বারা, আপনি $1-এ সম্মত ও আপনার অবদান $2 লাইসেন্সের অধীনে অপরিবর্তনীয় প্রকাশে সম্মত হচ্ছেন।";
+"wikitext-upload-save-terms-and-license" = "প্রকাশ করার দ্বারা, আপনি $1-এ সম্মত ও আপনার অবদান $2 লাইসেন্সের অধীনে অপরিবর্তনীয় প্রকাশে সম্মত হচ্ছেন।";
 "wikitext-upload-save-terms-name" = "ব্যবহারের শর্তাবলী";
 "wikitext-upload-save-license-name" = "সিসি বাই-এস ৩.০";
 "open-link-title" = "লিঙ্ক খুলুন";
@@ -118,7 +115,7 @@
 "settings-my-languages" = "আমার ভাষাসমূহ";
 "settings-help-and-feedback" = "সাহায্য ও প্রতিক্রিয়া";
 "settings-primary-language" = "প্রাথমিক";
-"settings-primary-language-details" = "এই তালিকার প্রথম ভাষাটি অ্যাপলিকেশনের প্রাথমিক ভাষা হিসেবে ব্যবহর করা হয়েছে। এখন ভাষা পরিবর্তন এক্সপ্লোরে দেখানো দৈনিক বিষয়বস্তু (যেমন, বৈশিষ্ট্যযুক্ত নিবন্ধ) পরিবর্তন করতে পারে।";
+"settings-primary-language-details" = "এই তালিকার প্রথম ভাষাটি অ্যাপলিকেশনের প্রাথমিক ভাষা হিসেবে ব্যবহর করা হয়েছে। এখন ভাষা পরিবর্তন অন্বেষণে দেখানো দৈনিক বিষয়বস্তু (যেমন, বৈশিষ্ট্যযুক্ত নিবন্ধ) পরিবর্তন করতে পারে।";
 "main-menu-title" = "আরও";
 "main-menu-heading-about" = "পরিচিতি";
 "main-menu-language-title" = "$1 ভাষার উইকিতে অনুসন্ধান";
@@ -171,18 +168,15 @@
 "page-history-downloading" = "নিবন্ধের ইতিহাস লোড হচ্ছে...";
 "navbar-title-mode-edit-wikitext" = "সম্পাদনা";
 "navbar-title-mode-login" = "প্রবেশ";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "প্রবেশ করুন ও সংরক্ষণ করুন";
+"navbar-title-mode-login-and-save" = "প্রবেশ করুন ও প্রকাশ করুন";
 "navbar-title-mode-create-account" = "অ্যাকাউন্ট তৈরি করুন";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "অ্যাকাউন্ট তৈরি করুন ও সংরক্ষণ করুন।";
+"navbar-title-mode-create-account-and-save" = "অ্যাকাউন্ট তৈরি করুন ও প্রকাশ করুন";
 "navbar-title-mode-edit-wikitext-warning" = "সমস্যা সম্পাদনা";
 "navbar-title-mode-edit-wikitext-disallow" = "সমস্যা সম্পাদনা";
 "navbar-title-mode-edit-wikitext-preview" = "প্রাকদর্শন";
 "navbar-title-mode-edit-wikitext-captcha" = "দ্রুত যাচাইকরণের প্রয়োজন";
 "navbar-title-mode-edit-wikitext-summary" = "আপনার সম্পাদনা বর্ণনা করুন।";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "সংরক্ষণ";
+"navbar-title-mode-edit-wikitext-save" = "প্রকাশ করুন";
 "edit-summary-choice-linked-words" = "লিংক সংযোজন";
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
 "edit-summary-choice-fixed-inaccuracy" = "অশুদ্ধ ঠিক করা";
@@ -247,6 +241,7 @@
 "button-next" = "পরবর্তী";
 "button-done" = "সম্পন্ন";
 "button-save" = "সংরক্ষণ";
+"button-publish" = "প্রকাশ করুন";
 "button-ok" = "ঠিক আছে";
 "button-save-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "button-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
@@ -270,15 +265,13 @@
 "table-of-contents-button-label" = "সূচিপত্র";
 "table-of-contents-close-accessibility-label" = "বিষয়বস্তুর সূচিপত্র বন্ধ করুন";
 "table-of-contents-close-accessibility-hint" = "বন্ধ করুন";
-// Fuzzy
-"abuse-filter-warning-heading" = "এটি অ-গঠনমূলক সম্পাদনা বলে মনে হচ্ছে, আপনি কি নিশ্চিতভাবে এটি সংরক্ষণ করতে চান?";
+"abuse-filter-warning-heading" = "এটি অ-গঠনমূলক সম্পাদনা বলে মনে হচ্ছে, আপনি কি নিশ্চিতভাবে এটি প্রকাশ করতে চান?";
 "abuse-filter-warning-subheading" = "আপনার সম্পাদনায় নিম্নলিখিতগুলি এক বা একাধিক থাকতে পারে:";
 "abuse-filter-warning-caps" = "সব বড় হাতের অক্ষরে লেখা";
 "abuse-filter-warning-blanking" = "নিবন্ধ খালি করা বা স্প্যামিং করা";
 "abuse-filter-warning-irrelevant" = "অপ্রাসঙ্গিক বাহ্যিক লিঙ্ক বা চিত্র";
 "abuse-filter-warning-repeat" = "অক্ষরেররর পুনরাবৃত্তি";
-// Fuzzy
-"abuse-filter-disallow-heading" = "আপনি এই সম্পাদনা সংরক্ষণ করতে পারবেন না। দয়া করে ফিরে যান ও এটি পরিবর্তন করুন।";
+"abuse-filter-disallow-heading" = "আপনি এই সম্পাদনা প্রকাশ করতে পারবেন না। দয়া করে ফিরে যান ও এটি পরিবর্তন করুন।";
 "abuse-filter-disallow-unconstructive" = "একটি স্বয়ংক্রিয় ফিল্টার এই সম্পাদনা সম্ভাব্য অ-গঠনমূলক বা ধ্বংসপ্রবণতার প্রচেষ্টা হিসাবে চিহ্নিত করেছে।";
 "abuse-filter-disallow-notable" = "উইকিপিডিয়া একটি বিশ্বকোষ এবং শুধুমাত্র নিরপেক্ষ, উল্লেখযোগ্য বিষয়বস্তু এখানে অন্তর্ভুক্ত হবে।";
 "menu-edit-accessibility-label" = "সম্পাদনা";
@@ -357,8 +350,8 @@
 "welcome-explore-sub-title" = "প্রতিদিন আকর্ষণীয় নিবন্ধ আবিষ্কার করার একটি নতুন উপায়";
 "welcome-explore-tell-me-more" = "আমাকে আরও বলুন";
 "welcome-explore-tell-me-more-about-explore" = "অন্বেষণ সম্পর্কে আরো";
-"welcome-explore-tell-me-more-related" = "আপনার পাঠিত নিবন্ধগুলির সাথে সম্পর্কিত নিবন্ধগুলি এক্সপ্লোর ফিডে দেখানো হয়।";
-"welcome-explore-tell-me-more-privacy" = "কোনও পাঠিত তালিকা অথবা প্রোফাইল আমাদের সার্ভারে সংরক্ষণ করা হয়নি।";
+"welcome-explore-tell-me-more-related" = "আপনার পঠিত নিবন্ধগুলির সাথে সম্পর্কিত নিবন্ধগুলি অন্বেষণ ফিডে দেখানো হয়।";
+"welcome-explore-tell-me-more-privacy" = "কোনও পঠিত তালিকা অথবা প্রোফাইল আমাদের সার্ভারে সংরক্ষণ করা হয়নি।";
 "welcome-explore-tell-me-more-done-button" = "বুঝেছি";
 "welcome-explore-continue-button" = "শুরু করুন";
 "welcome-languages-title" = "ভাষাসমূহ";
@@ -396,16 +389,20 @@
 "explore-random-article-sub-heading" = "ইংরেজি উইকিপিডিয়া";
 "explore-potd-heading" = "আজকের নির্বাচিত ছবি";
 "explore-most-read-heading" = "$1 উইকিপিডিয়ায় সর্বাধিক পঠিত";
-"explore-most-read-generic-heading" = "বেশী পাঠিত";
+"explore-most-read-generic-heading" = "শীর্ষ পঠিত";
 "explore-most-read-footer" = "সর্বাধিক পঠিত নিবন্ধগুলি";
 "explore-most-read-footer-for-date" = "$1 তারিখে সকল সর্বাধিক পঠিত নিবন্ধসমূহ";
 "explore-most-read-more-list-title" = "শীর্ষ নিবন্ধ";
 "no-email-account-alert" = "দয়া করে আপনার ডিভাসে একটি ইমেইল অ্যাকাউন্ট নির্ধারণ করুন এবং আবার চেষ্টা করুন।";
-"request-feedback-on-error" = "এই অ্যাপলিকেশনটি একটি সমস্যার সম্মুখীন হয়েছে, যা আমাদের উন্নয়নকারী জানতে চান। এই ত্রুটির বিবরণ সহ ইমেইল পাঠাতে দয়া করে এখানে টোকা দেন।";
+"request-feedback-on-error" = "এই অ্যাপলিকেশনটি একটি সমস্যার সম্মুখীন হয়েছে, যা আমাদের উন্নয়নকারী জানতে চান। এই ত্রুটির বিবরণসহ ইমেইল পাঠাতে দয়া করে এখানে টোকা দিন।";
 "explore-another-random" = "অন্যান্য অজানা যে কোন নিবন্ধ";
 "find-in-page-no-matches" = "০টি মিল";
 "find-in-page-button-label" = "পাতায় খুঁজুন";
 "find-in-page-popover-description" = "নিবন্ধে পাঠ্যাংশ অনুসন্ধান করুন";
 "continue-reading-empty-title" = "সম্প্রতি পড়া কোনও নিবন্ধ নেই";
 "continue-reading-empty-description" = "আরও নিবন্ধ পাঠ করতে উইকিপিডিয়া অন্বেষণ করুন";
+"top-read-see-more" = "আরও শীর্ষ পঠিত দেখুন";
 "top-read-see-more-trending" = "আরো প্রবণতা দেখুন";
+"top-read-reader-count-thousands" = "$1 হাজার";
+"top-read-header-with-language" = "$1 উইকিপিডিয়া";
+"top-read-header-generic" = "উইকিপিডিয়া";
