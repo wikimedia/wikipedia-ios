@@ -86,15 +86,12 @@
 "wikitext-upload-result-unknown" = "無法確定 wikitext 上傳結果。";
 "wikitext-upload-captcha-error" = "驗證碼驗証錯誤。";
 "wikitext-upload-captcha-needed" = "需要使用驗證碼驗証。";
-// Fuzzy
-"wikitext-upload-save" = "儲存中...";
+"wikitext-upload-save" = "發佈中...";
 "wikitext-upload-save-sign-in" = "登入";
 "wikitext-upload-save-sign-in-benefits" = "這讓共同編輯者可與您聯絡，以及您可以看見您編輯了哪些條目。";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "匿名儲存";
+"wikitext-upload-save-anonymously" = "匿名發佈";
 "wikitext-upload-save-anonymously-warning" = "編輯將作為您的裝置的 IP 位址發佈。如果您 $1，您將擁有更多隱私。";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "儲存變更，代表您同意 $1 以 $2 授權條款發佈您的貢獻。";
+"wikitext-upload-save-terms-and-license" = "要進行發佈，代表您同意 $1 以 $2 授權條款發佈您的貢獻。";
 "wikitext-upload-save-terms-name" = "使用條款";
 "wikitext-upload-save-license-name" = "CC 姓名標示-相同方式分享 3.0";
 "open-link-title" = "開啟連結";
@@ -177,18 +174,15 @@
 "page-history-downloading" = "讀取條目歷史中...";
 "navbar-title-mode-edit-wikitext" = "編輯";
 "navbar-title-mode-login" = "登入";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "登入並儲存";
+"navbar-title-mode-login-and-save" = "登入並發佈";
 "navbar-title-mode-create-account" = "建立帳號";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "建立帳號並儲存";
+"navbar-title-mode-create-account-and-save" = "建立帳號並發佈";
 "navbar-title-mode-edit-wikitext-warning" = "編輯問題";
 "navbar-title-mode-edit-wikitext-disallow" = "編輯問題";
 "navbar-title-mode-edit-wikitext-preview" = "預覽";
 "navbar-title-mode-edit-wikitext-captcha" = "需要快速驗證";
 "navbar-title-mode-edit-wikitext-summary" = "描述您的編輯";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "儲存";
+"navbar-title-mode-edit-wikitext-save" = "發佈";
 "edit-summary-choice-linked-words" = "新增連結";
 "edit-summary-choice-fixed-grammar" = "修正語法";
 "edit-summary-choice-fixed-inaccuracy" = "修正用詞";
@@ -253,6 +247,7 @@
 "button-next" = "下一步";
 "button-done" = "已完成";
 "button-save" = "儲存";
+"button-publish" = "發佈";
 "button-ok" = "確定";
 "button-save-for-later" = "儲存以供日後使用";
 "button-saved-for-later" = "儲存以供日後使用";
@@ -277,15 +272,13 @@
 "table-of-contents-close-accessibility-label" = "關閉目錄";
 "table-of-contents-close-accessibility-hint" = "關閉";
 "table-of-contents-popover-description" = "獲得一個條目的概要";
-// Fuzzy
-"abuse-filter-warning-heading" = "這可能是沒有建設性的編輯。你確定你想要儲存它？";
+"abuse-filter-warning-heading" = "這可能是沒有建設性的編輯。你確定你想要發佈它？";
 "abuse-filter-warning-subheading" = "您的編輯可能包含下列情況之一：";
 "abuse-filter-warning-caps" = "全部輸入大寫字母";
 "abuse-filter-warning-blanking" = "空白的條目或含有垃圾訊息";
 "abuse-filter-warning-irrelevant" = "不相關的外部連結或圖片";
 "abuse-filter-warning-repeat" = "重複字元";
-// Fuzzy
-"abuse-filter-disallow-heading" = "您不能儲存此編輯。請返回並修正。";
+"abuse-filter-disallow-heading" = "您不能發佈此編輯。請返回並修正。";
 "abuse-filter-disallow-unconstructive" = "自動過濾器已確定此編輯可能不具建設性或企圖破壞。";
 "abuse-filter-disallow-notable" = "維基百科是一本百科全書，這裡只接受中立的、 知名的內容。";
 "menu-edit-accessibility-label" = "編輯";
@@ -422,4 +415,8 @@
 "find-in-page-popover-description" = "搜尋條目裡的文字內容";
 "continue-reading-empty-title" = "沒有最近讀取的條目";
 "continue-reading-empty-description" = "瀏覽維基百科以讀取更多條目";
+"top-read-see-more" = "查看更多熱門條目";
 "top-read-see-more-trending" = "查看更多動向";
+"top-read-reader-count-thousands" = "$1千";
+"top-read-header-with-language" = "$1維基百科";
+"top-read-header-generic" = "維基百科";
