@@ -197,10 +197,12 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (void)cleanup {
-    if (self.previousCleanup != nil) {
-        [NSObject bk_cancelBlock:self.previousCleanup];
+    id previousCleanup = self.previousCleanup;
+    if (previousCleanup != nil) {
+        [NSObject bk_cancelBlock:previousCleanup];
     }
     self.previousCleanup = [NSObject bk_performBlockInBackground:^{
+        self.previousCleanup = nil;
         [self.writeConnection readWriteWithBlock:^(YapDatabaseReadWriteTransaction *_Nonnull transaction) {
             YapDatabaseViewTransaction *view = [transaction ext:WMFNotInHistorySavedOrBlackListSortedByURLUngroupedView];
             if ([view numberOfItemsInAllGroups] == 0) {
