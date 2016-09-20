@@ -69,11 +69,9 @@
 "wikitext-download-success" = "Turinys įkeltas.";
 "wikitext-upload-captcha-error" = "Saugos kodo tikrinimo klaida.";
 "wikitext-upload-captcha-needed" = "Reikia patikrinimo saugos kodu.";
-// Fuzzy
-"wikitext-upload-save" = "Įrašoma...";
+"wikitext-upload-save" = "Publikuojama...";
 "wikitext-upload-save-sign-in" = "Prisijungti";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "Įrašyti anonimiškai";
+"wikitext-upload-save-anonymously" = "Publikuoti anonimiškai";
 "wikitext-upload-save-terms-name" = "Naudojimo sąlygos";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Atidaryti nuorodą";
@@ -154,17 +152,14 @@
 "page-history-downloading" = "Įkeliama straipsnio istorija...";
 "navbar-title-mode-edit-wikitext" = "Redaguoti";
 "navbar-title-mode-login" = "Prisijungti";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Prisijungti ir įrašyti";
+"navbar-title-mode-login-and-save" = "Prisijungti ir publikuoti";
 "navbar-title-mode-create-account" = "Kurti paskyrą";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "Kurti paskyrą ir įrašyti";
+"navbar-title-mode-create-account-and-save" = "Kurti paskyrą ir publikuoti";
 "navbar-title-mode-edit-wikitext-warning" = "Redaguoti problemas";
 "navbar-title-mode-edit-wikitext-disallow" = "Redaguoti problemas";
 "navbar-title-mode-edit-wikitext-preview" = "Peržiūra";
 "navbar-title-mode-edit-wikitext-summary" = "Aprašykite savo keitimą";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "Įrašyti";
+"navbar-title-mode-edit-wikitext-save" = "Publikuoti";
 "edit-summary-choice-linked-words" = "Pridėtos nuorodos";
 "edit-summary-choice-fixed-grammar" = "Pataisyta gramatika";
 "edit-summary-choice-fixed-typos" = "Pataisyta rašyba";
@@ -218,6 +213,7 @@
 "button-next" = "Kitas";
 "button-done" = "Atlikta";
 "button-save" = "Įrašyti";
+"button-publish" = "Publikuoti";
 "button-ok" = "Gerai";
 "button-save-for-later" = "Išsaugoti ateičiai";
 "button-saved-for-later" = "Išsaugoti ateičiai";
@@ -240,9 +236,9 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "Uždaryti turinį";
 "table-of-contents-close-accessibility-hint" = "Uždaryti";
+"abuse-filter-warning-heading" = "Tai atrodo kaip nekonstruktyvus pakeitimas, ar tikrai norite jį publikuoti?";
 "abuse-filter-warning-caps" = "Rašyti didžiosiomis";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Jūs negalite išsaugoti šio pakeitimo. Prašome grįžti ir pakeisti jį.";
+"abuse-filter-disallow-heading" = "Jūs negalite publikuoti šio pakeitimo. Prašome grįžti ir jį pakeisti.";
 "menu-edit-accessibility-label" = "Redaguoti";
 "menu-close-accessibility-label" = "Uždaryti";
 "menu-preview-accessibility-label" = "Peržiūra";
@@ -337,3 +333,8 @@
 "explore-another-random" = "Kitas atsitiktinis straipsnis";
 "find-in-page-button-label" = "Rasti puslapyje";
 "find-in-page-popover-description" = "Ieškoti teksto straipsniuose";
+"continue-reading-empty-title" = "Nėra neseniai skaitytų straipsnių";
+"top-read-see-more-trending" = "Peržiūrėti daugiau tendencijų";
+"top-read-reader-count-thousands" = "$1 tūkst.";
+"top-read-header-with-language" = "$1 Vikipedija";
+"top-read-header-generic" = "Vikipedija";

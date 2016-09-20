@@ -84,15 +84,12 @@
 "wikitext-upload-result-unknown" = "Tidak dapat menentukan hasil unggah teks wiki.";
 "wikitext-upload-captcha-error" = "Kesalahan verifikasi CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Memerlukan verifikasi CAPTCHA.";
-// Fuzzy
-"wikitext-upload-save" = "Sedang menyimpan...";
+"wikitext-upload-save" = "Menerbitkan...";
 "wikitext-upload-save-sign-in" = "Masuk log";
 "wikitext-upload-save-sign-in-benefits" = "Jadi rekan penyunting dapat terhubung dengan Anda & Anda dapat melihat apa artikel yang Anda sunting.";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "Simpan secara anonim";
+"wikitext-upload-save-anonymously" = "Terbitkan secara anonim";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan dihubungkan ke alamat IP perangkat. Jika Anda $1 Anda akan memiliki privasi lebih.";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "Dengan menyimpan, Anda setuju terhadap $1, dan melepas kontribusi Anda di bawah lisensi $2.";
+"wikitext-upload-save-terms-and-license" = "Dengan menerbitkan, Anda setuju terhadap $1, dan melepas kontribusi Anda di bawah lisensi $2.";
 "wikitext-upload-save-terms-name" = "Ketentuan Penggunaan";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Buka pranala";
@@ -175,18 +172,15 @@
 "page-history-downloading" = "Memuat riwayat artikel...";
 "navbar-title-mode-edit-wikitext" = "Sunting";
 "navbar-title-mode-login" = "Masuk log";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Masuk log dan simpan";
+"navbar-title-mode-login-and-save" = "Masuk log dan terbitkan";
 "navbar-title-mode-create-account" = "Buat akun baru";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "Buat akun dan simpan";
+"navbar-title-mode-create-account-and-save" = "Buat akun dan terbitkan";
 "navbar-title-mode-edit-wikitext-warning" = "Masalah penyuntingan";
 "navbar-title-mode-edit-wikitext-disallow" = "Masalah penyuntingan";
 "navbar-title-mode-edit-wikitext-preview" = "Pratayang";
 "navbar-title-mode-edit-wikitext-captcha" = "Verifikasi cepat diperlukan";
 "navbar-title-mode-edit-wikitext-summary" = "Gambarkan suntingan Anda";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "Simpan";
+"navbar-title-mode-edit-wikitext-save" = "Terbitkan";
 "edit-summary-choice-linked-words" = "Penambahan pranala";
 "edit-summary-choice-fixed-grammar" = "Perbaikan tata bahasa";
 "edit-summary-choice-fixed-inaccuracy" = "Perbaikan ketidaktepatan";
@@ -251,6 +245,7 @@
 "button-next" = "Lanjut";
 "button-done" = "Selesai";
 "button-save" = "Simpan";
+"button-publish" = "Terbitkan";
 "button-ok" = "Oke";
 "button-save-for-later" = "Simpan untuk nanti";
 "button-saved-for-later" = "Disimpan untuk nanti";
@@ -275,15 +270,13 @@
 "table-of-contents-close-accessibility-label" = "Tutup daftar isi";
 "table-of-contents-close-accessibility-hint" = "Tutup";
 "table-of-contents-popover-description" = "Dapatkan ringkasan dari artikel";
-// Fuzzy
-"abuse-filter-warning-heading" = "Ini tampak seperti suntingan yang tidak konstruktif. Apakah Anda yakin ingin menyimpannya?";
+"abuse-filter-warning-heading" = "Ini tampak seperti suntingan yang tidak konstruktif. Apakah Anda yakin ingin menerbitkannya?";
 "abuse-filter-warning-subheading" = "Suntingan Anda dapat berisi satu atau lebih hal berikut:";
 "abuse-filter-warning-caps" = "Mengetik dalam SEMUA HURUF BESAR";
 "abuse-filter-warning-blanking" = "Mengosongkan artikel atau spam";
 "abuse-filter-warning-irrelevant" = "Pranala luar atau gambar yang tidak relevan";
 "abuse-filter-warning-repeat" = "Karakter beruuuulang";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Anda tidak dapat menyimpan suntingan ini. Harap kembali dan mengubahnya.";
+"abuse-filter-disallow-heading" = "Anda tidak dapat menerbitkan suntingan ini. Silakan kembali dan mengubahnya.";
 "abuse-filter-disallow-unconstructive" = "Penyaring otomatis telah mengidentifikasi suntingan ini sebagai berpotensi tidak konstruktif, atau potensi vandalisme.";
 "abuse-filter-disallow-notable" = "Wikipedia adalah sebuah ensiklopedia dan hanya netral, konten penting milik di sini.";
 "menu-edit-accessibility-label" = "Sunting";
@@ -420,4 +413,8 @@
 "find-in-page-popover-description" = "Cari teks di artikel";
 "continue-reading-empty-title" = "Tidak ada artikel yang dibaca baru-baru ini";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk banyak artikel yang ingin dibaca";
+"top-read-see-more" = "Lihat bacaan teratas lainnya";
 "top-read-see-more-trending" = "Lihat sedang tren lainnya";
+"top-read-reader-count-thousands" = "$1 ribu";
+"top-read-header-with-language" = "Wikipedia $1";
+"top-read-header-generic" = "Wikipedia";

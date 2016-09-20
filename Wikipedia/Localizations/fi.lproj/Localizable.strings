@@ -83,15 +83,12 @@
 "wikitext-upload-result-unknown" = "wikitextin lähetystä ei voida varmistaa.";
 "wikitext-upload-captcha-error" = "Virhe CAPTCHA-varmistuksessa.";
 "wikitext-upload-captcha-needed" = "Vaaditaan CAPTCHA-varmistus.";
-// Fuzzy
-"wikitext-upload-save" = "Tallennetaan...";
+"wikitext-upload-save" = "Julkaistaan...";
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
 "wikitext-upload-save-sign-in-benefits" = "Jotta muut muokkaajat voivat ottaa yhteyttä sinuun & jotta näet, mitä artikkeleita olet muokannut.";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "Tallenna nimettömänä";
+"wikitext-upload-save-anonymously" = "Julkaise nimettömänä";
 "wikitext-upload-save-anonymously-warning" = "Muokkaukset yhdistetään laitteesi IP-osoitteeseen. Jos $1 tietoturvasi paranee.";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "Tallentamalla hyväksyt $1 ja peruuttamattomasti julkaiset muokkauksesi $2 -lisenssin ehtojen mukaisesti.";
+"wikitext-upload-save-terms-and-license" = "Julkaisemalla hyväksyt $1 ja peruuttamattomasti julkaiset muokkauksesi $2 -lisenssin ehtojen mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Avaa linkki";
@@ -117,6 +114,7 @@
 "settings-title" = "Asetukset";
 "settings-language" = "Wikipedian kieli";
 "settings-support" = "Tue Wikipediaa";
+"settings-language-bar" = "Näytä kielet haussa";
 "settings-my-languages" = "Omat kielet";
 "settings-help-and-feedback" = "Ohje ja palaute";
 "settings-primary-language" = "Ensisijainen";
@@ -173,18 +171,15 @@
 "page-history-downloading" = "Ladataan artikkelin historiaa...";
 "navbar-title-mode-edit-wikitext" = "Muokkaa";
 "navbar-title-mode-login" = "Kirjaudu sisään";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Kirjaudu sisään ja tallenna";
+"navbar-title-mode-login-and-save" = "Kirjaudu sisään ja julkaise";
 "navbar-title-mode-create-account" = "Luo uusi tunnus";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "Luo tunnus ja tallenna";
+"navbar-title-mode-create-account-and-save" = "Luo tunnus ja julkaise";
 "navbar-title-mode-edit-wikitext-warning" = "Muokkausongelmat";
 "navbar-title-mode-edit-wikitext-disallow" = "Muokkausongelmat";
 "navbar-title-mode-edit-wikitext-preview" = "Esikatselu";
 "navbar-title-mode-edit-wikitext-captcha" = "Nopea vahvistus tarvitaan";
 "navbar-title-mode-edit-wikitext-summary" = "Kuvaile muokkaustasi";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "Tallenna";
+"navbar-title-mode-edit-wikitext-save" = "Julkaise";
 "edit-summary-choice-linked-words" = "Lisätty linkkejä";
 "edit-summary-choice-fixed-grammar" = "Kielioppia korjattu";
 "edit-summary-choice-fixed-inaccuracy" = "Epätarkkuus korjattu";
@@ -249,6 +244,7 @@
 "button-next" = "Seuraava";
 "button-done" = "Valmis";
 "button-save" = "Tallenna";
+"button-publish" = "Julkaise";
 "button-ok" = "OK";
 "button-save-for-later" = "Tallenna myöhemmäksi";
 "button-saved-for-later" = "Tallennettu myöhemmäksi";
@@ -272,15 +268,13 @@
 "table-of-contents-button-label" = "Sisällysluettelo";
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
 "table-of-contents-close-accessibility-hint" = "Sulje";
-// Fuzzy
-"abuse-filter-warning-heading" = "Tämä saattaa olla haitallinen muokkaus. Haluatko varmasti tallentaa sen?";
+"abuse-filter-warning-heading" = "Tämä saattaa olla haitallinen muokkaus. Haluatko varmasti julkaista sen?";
 "abuse-filter-warning-subheading" = "Muokkauksesi saattaa sisältää yhden tai useampia seuraavista:";
 "abuse-filter-warning-caps" = "Kirjoittamista ISOILLA KIRJAIMILLA";
 "abuse-filter-warning-blanking" = "Artikkelien tyhjentämistä tai roskaamista";
 "abuse-filter-warning-irrelevant" = "Aiheeseen liittymättömiä ulkoisia linkkejä tai kuvia";
 "abuse-filter-warning-repeat" = "Toiiiiiiiiiiistuvia merkkejä";
-// Fuzzy
-"abuse-filter-disallow-heading" = "Et voi tallentaa tätä muokkausta. Palaa takaisin ja muuta sitä.";
+"abuse-filter-disallow-heading" = "Et voi julkaista tätä muokkausta. Palaa takaisin ja muuta sitä.";
 "abuse-filter-disallow-unconstructive" = "Automaattinen suodatin on tunnistanut tämän muokkauksen mahdollisesti haitalliseksi tai vandalismin yritykseksi.";
 "abuse-filter-disallow-notable" = "Wikipedia on tietosanakirja ja vain neutraali, merkittävä sisältö kuuluu tänne.";
 "menu-edit-accessibility-label" = "Muokkaa";

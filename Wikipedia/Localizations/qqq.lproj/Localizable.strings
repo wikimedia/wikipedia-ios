@@ -86,7 +86,7 @@
 "wikitext-upload-result-unknown" = "Alert text shown when the result of saving section wikitext changes is unknown";
 "wikitext-upload-captcha-error" = "Alert text shown when section wikitext upload captcha fails";
 "wikitext-upload-captcha-needed" = "Alert text shown when section wikitext upload captcha is required";
-"wikitext-upload-save" = "Alert text shown when changes to section wikitext are being published";
+"wikitext-upload-save" = "Alert text shown when changes to section wikitext are being published\n{{Identical|Publishing}}";
 "wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
 "wikitext-upload-save-sign-in-benefits" = "Button sub-text informing user of sign in benefits";
 "wikitext-upload-save-anonymously" = "Button text for publishing without logging in";
@@ -182,7 +182,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Header text shown when wikitext changes are being previewed.\n{{Identical|Preview}}";
 "navbar-title-mode-edit-wikitext-captcha" = "Header text shown when wikitext captcha is displayed";
 "navbar-title-mode-edit-wikitext-summary" = "Header text shown when wikitext edit summary interface is active";
-"navbar-title-mode-edit-wikitext-save" = "Header text shown when wikitext edit can be published";
+"navbar-title-mode-edit-wikitext-save" = "Header text shown when wikitext edit can be published\n{{Identical|Publish}}";
 "edit-summary-choice-linked-words" = "Button text for quick 'link addition' edit summary selection";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
 "edit-summary-choice-fixed-inaccuracy" = "Button text for quick 'fixed inaccuracy' edit summary selection";
@@ -247,7 +247,7 @@
 "button-next" = "Button text for next button used in various places.\n{{Identical|Next}}";
 "button-done" = "Button text for done button used in various places.\n{{Identical|Done}}";
 "button-save" = "Button text for save button used in various places.\n{{Identical|Save}}";
-"button-publish" = "Button text for publish button used in various places.";
+"button-publish" = "Button text for publish button used in various places.\n{{Identical|Publish}}";
 "button-ok" = "Button text for ok button used in various places\n{{Identical|OK}}";
 "button-save-for-later" = "Longer button text for save button used in various places.";
 "button-saved-for-later" = "Longer button text for already saved button used in various places.";
@@ -418,5 +418,5 @@
 "top-read-see-more" = "Text for footer button allowing the user to see more top read articles";
 "top-read-see-more-trending" = "See more trending";
 "top-read-reader-count-thousands" = "$1 is replaced with a number specifying how many people read the article. This number is in thousands. In English the letter 'k' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'k' should be changed to a character or short string indicating thousands.";
-"top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia";
-"top-read-header-generic" = "Wikipedia";
+"top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}";
+"top-read-header-generic" = "Wikipedia\n{{Identical|Wikipedia}}";

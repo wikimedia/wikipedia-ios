@@ -77,14 +77,11 @@
 "wikitext-preview-changes-none" = "Neboli vykonané žiadne zmeny.";
 "wikitext-upload-captcha-error" = "Problém s overovaním.";
 "wikitext-upload-captcha-needed" = "Je požadované overenie pomocou CAPTCHA.";
-// Fuzzy
 "wikitext-upload-save" = "Ukladám...";
 "wikitext-upload-save-sign-in" = "Prihlásiť sa";
 "wikitext-upload-save-sign-in-benefits" = "Ďalší redaktori sa tak s vami môžu spojiť a uvidia, aké články ste upravili.";
-// Fuzzy
 "wikitext-upload-save-anonymously" = "Uložiť anonymne";
 "wikitext-upload-save-anonymously-warning" = "Úpravy budú mať pridelenú IP adresu vášho prístroja. Ak $1, budete mať viac súkromia.";
-// Fuzzy
 "wikitext-upload-save-terms-and-license" = "Uložením vyjadríte súhlas s $1 a neodvolateľne tak uvoľníte svoje príspevky v rámci licencie $2.";
 "wikitext-upload-save-terms-name" = "Podmienky používania";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -163,17 +160,14 @@
 "page-history-downloading" = "Načítavanie histórie článku...";
 "navbar-title-mode-edit-wikitext" = "Upraviť";
 "navbar-title-mode-login" = "Prihlásiť sa";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "Prihlásiť sa a uložiť";
 "navbar-title-mode-create-account" = "Vytvoriť účet";
-// Fuzzy
 "navbar-title-mode-create-account-and-save" = "Vytvoriť účet a uložiť";
 "navbar-title-mode-edit-wikitext-warning" = "Upraviť problémy";
 "navbar-title-mode-edit-wikitext-disallow" = "Upraviť problémy";
 "navbar-title-mode-edit-wikitext-preview" = "Náhľad";
 "navbar-title-mode-edit-wikitext-captcha" = "Je požadované rýchle overenie";
 "navbar-title-mode-edit-wikitext-summary" = "Zhrnutie úprav";
-// Fuzzy
 "navbar-title-mode-edit-wikitext-save" = "Uložiť";
 "edit-summary-choice-linked-words" = "Pridanie odkazov";
 "edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
@@ -255,10 +249,8 @@
 "table-of-contents-button-label" = "Obsah";
 "table-of-contents-close-accessibility-label" = "Zavrieť obsah";
 "table-of-contents-close-accessibility-hint" = "Zavrieť";
-// Fuzzy
 "abuse-filter-warning-heading" = "Toto vyzerá ako nekonštruktívna úprava. Naozaj ju chcete uložiť?";
 "abuse-filter-warning-caps" = "Píšete veľkými písmenami";
-// Fuzzy
 "abuse-filter-disallow-heading" = "Túto úpravu nie je možné uložiť. Prosím, vráťte sa späť a zmeňte ju.";
 "abuse-filter-disallow-unconstructive" = "Automatický filter označil túto úpravu ako potencionálne nekonštruktívnu alebo ako pokus o vandalizmus.";
 "abuse-filter-disallow-notable" = "Wikipédia je encyklopédia a patrí sem iba neutrálny a hodnotný obsah.";
@@ -371,3 +363,4 @@
 "find-in-page-button-label" = "Nájsť na stránke";
 "find-in-page-popover-description" = "Hľadanie textu v článku";
 "continue-reading-empty-title" = "Žiadne nedávno čítané články";
+"top-read-header-generic" = "Wikipédia";
