@@ -17,11 +17,12 @@ extension UINavigationBar {
         let context = UIGraphicsGetCurrentContext()
         
         let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let locations:[CGFloat] = [0.0, 1.0]
-        let bottom = UIColor.clearColor().CGColor
+        let locations:[CGFloat] = [0.0, 0.78, 1.0]
         let top = UIColor.blackColor().CGColor
+        let middle = UIColor.blackColor().CGColor
+        let bottom = UIColor.clearColor().CGColor
         
-        let gradient = CGGradientCreateWithColors(colorSpace, [top, bottom], locations)
+        let gradient = CGGradientCreateWithColors(colorSpace, [top, middle, bottom], locations)
         
         let start = CGPoint(x: 0, y: 0)
         let end = CGPoint(x: 0, y: CGRectGetHeight(bounds))
