@@ -62,7 +62,8 @@ typedef void (^WMFReferencePopoverPresentationHandler)(UIPopoverPresentationCont
     UIPopoverPresentationController *presenter = [popoverVC popoverPresentationController];
     presenter.passthroughViews = @[self.webView];
     presenter.delegate = popoverVC;
-    
+    presenter.permittedArrowDirections = UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
+
     if (presenterConfigurationBlock) {
         presenterConfigurationBlock(presenter);
     }
