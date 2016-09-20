@@ -22,6 +22,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     let numberFormatter = NSNumberFormatter()
     let daysToShowInSparkline: NSTimeInterval = 5
     
+    @IBOutlet weak var footerLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var headerLabelLeadingConstraint: NSLayoutConstraint!
+
     #if DEBUG
     let skipCache = false
     #else
@@ -40,7 +43,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var stackViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet var stackViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var stackViewTopConstraint: NSLayoutConstraint!    
+    @IBOutlet weak var stackViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var footerSeparatorView: UIView!
+    @IBOutlet weak var headerSeparatorView: UIView!
     
     @IBOutlet weak var stackView: UIStackView!
     
@@ -55,29 +60,44 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     var headerVisible = true
     
-    var displayMode: NCWidgetDisplayMode = .Expanded
+    var isExpanded: Bool = true
     
     // Controllers
     var articlePreviewViewControllers: [WMFArticlePreviewViewController] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOSApplicationExtension 10.0, *) {
+            headerLabel.textColor = UIColor.wmf_darkGray()
+            footerLabel.textColor = UIColor.wmf_darkGray()
+        } else {
+            headerLabel.textColor = UIColor(white: 1, alpha: 0.7)
+            footerLabel.textColor = UIColor(white: 1, alpha: 0.7)
+            headerLabelLeadingConstraint.constant = 0
+            footerLabelLeadingConstraint.constant = 0
+        }
+        
         numberFormatter.numberStyle = .DecimalStyle
         numberFormatter.maximumFractionDigits = 1
         headerLabel.text = nil
         footerLabel.text = nil
-        headerLabel.textColor = UIColor.wmf_darkGray()
-        footerLabel.textColor = UIColor.wmf_darkGray()
+       
         
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:)))
         
         view.addGestureRecognizer(tapGR)
         
         if let context = self.extensionContext {
-            context.widgetLargestAvailableDisplayMode = .Expanded
-            displayMode = context.widgetActiveDisplayMode
-            maximumSize = context.widgetMaximumSizeForDisplayMode(displayMode)
-            updateViewPropertiesForActiveDisplayMode(displayMode)
+            if #available(iOSApplicationExtension 10.0, *) {
+                context.widgetLargestAvailableDisplayMode = .Expanded
+                isExpanded = context.widgetActiveDisplayMode == .Expanded
+                maximumSize = context.widgetMaximumSizeForDisplayMode(context.widgetActiveDisplayMode)
+            } else {
+                isExpanded = true
+                maximumSize = UIScreen.mainScreen().bounds.size
+            }
+            updateViewPropertiesForIsExpanded(isExpanded)
             layoutForSize(view.bounds.size)
         }
         
@@ -110,26 +130,32 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
-        coordinator.animateAlongsideTransition({ (context) in
-            self.layoutForSize(size)
+        if #available(iOSApplicationExtension 10.0, *) {
+            coordinator.animateAlongsideTransition({ (context) in
+                self.layoutForSize(size)
             }) { (context) in
                 if (!context.isAnimated()) {
                     self.layoutForSize(size)
                 }
             }
+        } else {
+            layoutForSize(size)
+        }
     }
     
-    func updateViewPropertiesForActiveDisplayMode(activeDisplayMode: NCWidgetDisplayMode){
-        displayMode = activeDisplayMode
-        headerVisible = activeDisplayMode != .Compact
+    func updateViewPropertiesForIsExpanded(isExpanded: Bool){
+        self.isExpanded = isExpanded
+        headerVisible = isExpanded
         footerVisible = headerVisible
-        rowCount = activeDisplayMode == .Compact ? 1 : maximumRowCount
+        rowCount = isExpanded ? maximumRowCount : 1
     }
     
+    @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         maximumSize = maxSize
-        if (activeDisplayMode != displayMode) {
-            updateViewPropertiesForActiveDisplayMode(activeDisplayMode)
+        let activeIsExpanded = activeDisplayMode == .Expanded
+        if (activeIsExpanded != isExpanded) {
+            updateViewPropertiesForIsExpanded(activeIsExpanded)
             updateView()
         }
     }
@@ -188,6 +214,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 vc.didMoveToParentViewController(self)
             }
             let result = results[i]
+
             vc.titleLabel.text = result.displayTitle
             vc.subtitleLabel.text = result.extract ?? result.wikidataDescription
             vc.imageView.wmf_reset()
@@ -217,11 +244,23 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             } else {
                 vc.collapseImageAndWidenLabels = true
             }
+            
             if i == (count - 1) {
                 vc.separatorView.hidden = true
             } else {
                 vc.separatorView.hidden = false
             }
+            if #available(iOSApplicationExtension 10.0, *) {
+   
+            } else {
+                vc.marginWidthConstraint.constant = 0
+                vc.titleLabel.textColor = UIColor(white: 1, alpha: 1)
+                vc.subtitleLabel.textColor = UIColor(white: 1, alpha: 1)
+                vc.rankLabel.textColor = UIColor(white: 1, alpha: 0.7)
+                vc.viewCountLabel.textColor = UIColor(white: 1, alpha: 0.7)
+                vc.viewCountAndSparklineContainerView.backgroundColor = UIColor(white: 0.3, alpha: 0.3)
+            }
+
             i += 1
         }
 

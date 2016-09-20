@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A319" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -89,9 +89,13 @@
                     <size key="freeformSize" width="320" height="336"/>
                     <connections>
                         <outlet property="footerLabel" destination="y2A-ih-w95" id="yi7-i6-1aB"/>
+                        <outlet property="footerLabelLeadingConstraint" destination="DMb-nL-ovQ" id="R1M-6m-AHJ"/>
+                        <outlet property="footerSeparatorView" destination="l3r-sP-PRE" id="ZFY-FI-3aX"/>
                         <outlet property="footerView" destination="7sN-uX-NFF" id="y1Q-9A-wPH"/>
                         <outlet property="footerViewHeightConstraint" destination="6p7-6j-XTT" id="6Tu-Lr-r0u"/>
                         <outlet property="headerLabel" destination="ISj-AX-b2P" id="fb2-px-2wn"/>
+                        <outlet property="headerLabelLeadingConstraint" destination="0Qb-Lh-xkE" id="L0E-cw-o1J"/>
+                        <outlet property="headerSeparatorView" destination="VKy-IA-k2T" id="uI8-qM-ETb"/>
                         <outlet property="headerView" destination="8Yp-NW-afG" id="wSQ-4I-mbl"/>
                         <outlet property="headerViewHeightConstraint" destination="r1M-ri-m41" id="mOI-R2-cS6"/>
                         <outlet property="headerViewTopConstraint" destination="nkL-Tp-71h" id="LbW-bN-gya"/>
