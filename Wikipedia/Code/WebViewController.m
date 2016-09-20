@@ -231,10 +231,13 @@ NSString *const WMFCCBySALicenseURL =
     NSString *refForIndex = [refs wmf_safeObjectAtIndex:refsIndex.integerValue];
     NSDictionary *rectDictForIndex = [linkRects wmf_safeObjectAtIndex:refsIndex.integerValue];
     CGRect rect = CGRectZero;
+    
+    CGFloat width = MAX(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
+    
     if (CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(rectDictForIndex), &rect)) {
         [self wmf_presentReferencePopoverViewControllerForSourceRect:CGRectMake(CGRectGetMidX(rect), CGRectGetMidY(rect), 1, 1)
                                                        referenceHTML:refForIndex
-                                                               width:270.0f];
+                                                               width:width];
     }
     // Highlight the tapped reference.
     //[self.webView wmf_highlightLinkID:linkID];
