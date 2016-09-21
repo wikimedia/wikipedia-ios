@@ -77,7 +77,9 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         
         op = [NSBlockOperation blockOperationWithBlock:^{
             [article save];
-            [operations removeObjectForKey:key];
+            @synchronized (queue) {
+                [operations removeObjectForKey:key];
+            }
         }];
         
         if (!op) {
