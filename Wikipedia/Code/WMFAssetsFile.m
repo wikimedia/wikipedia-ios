@@ -23,7 +23,7 @@
 }
 
 - (NSString *)documentsAssetsPath {
-    return [WikipediaAppUtils assetsPath];
+    return [[[NSFileManager defaultManager] wmf_containerPath] stringByAppendingPathComponent:@"assets"];
 }
 
 - (NSString *)path {

@@ -6,12 +6,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WikipediaAppUtils
 
-+ (void)initialize {
-    if (self == [WikipediaAppUtils class]) {
-        [self copyAssetsFolderToAppDataDocuments];
-    }
-}
-
 + (void)load {
     [[NSNotificationCenter defaultCenter] addObserver:[self class] selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
 }
@@ -67,14 +61,6 @@ static WMFAssetsFile *languageFile = nil;
     }][@"name"];
 }
 
-+ (NSString *)assetsPath {
-    return [[[NSFileManager defaultManager] wmf_containerPath] stringByAppendingPathComponent:@"assets"];
-}
-
-+ (NSString *)bundledAssetsPath {
-    return [[NSBundle bundleWithIdentifier:@"org.wikimedia.WMFModel"] pathForResource:@"assets" ofType:nil];
-}
-
 #pragma mark Copy bundled assets folder and contents to app "AppData/Documents/assets/"
 
 + (void)copyAssetsFolderToAppDataDocuments {
@@ -107,8 +93,10 @@ static WMFAssetsFile *languageFile = nil;
        bundled file is always newer.
      */
 
-    NSString *documentsPath = [self assetsPath];
-    NSString *bundledPath = [self bundledAssetsPath];
+    NSString *folderName = @"assets";
+    NSString *containerPath = [[NSFileManager defaultManager] wmf_containerPath];
+    NSString *documentsPath = [containerPath stringByAppendingPathComponent:folderName];
+    NSString *bundledPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:folderName];
 
     void (^copy)(NSString *, NSString *) = ^void(NSString *path1, NSString *path2) {
         NSError *error = nil;

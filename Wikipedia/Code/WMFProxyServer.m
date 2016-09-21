@@ -54,7 +54,9 @@
     NSString *secret = [[NSUUID UUID] UUIDString];
     self.secret = secret;
 
-    self.hostedFolderPath = [WikipediaAppUtils assetsPath];
+    NSURL *documentsURL = [[NSFileManager defaultManager] wmf_containerURL];
+    NSURL *assetsURL = [documentsURL URLByAppendingPathComponent:@"assets"];
+    self.hostedFolderPath = assetsURL.path;
 
     self.webServer = [[GCDWebServer alloc] init];
 

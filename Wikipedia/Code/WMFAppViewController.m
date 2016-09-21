@@ -216,6 +216,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 }
 
 - (void)launchAppInWindow:(UIWindow *)window {
+    [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
+
     WMFStyleManager *manager = [WMFStyleManager new];
     [manager applyStyleToWindow:window];
     [WMFStyleManager setSharedStyleManager:manager];
