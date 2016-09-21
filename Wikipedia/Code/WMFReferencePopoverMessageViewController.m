@@ -7,6 +7,7 @@
 
 @property (strong, nonatomic) IBOutlet UITextView *textView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *widthConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *horizontalSeparatorHeightConstraint;
 
 @end
 
@@ -30,6 +31,8 @@
     self.textView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor wmf_referencePopoverLinkColor]};
     
     [self.textView setAttributedText:[self attributedStringForHTML:[self referenceHTMLWithSurroundingHTML]]];
+    
+    self.horizontalSeparatorHeightConstraint.constant = 1.f / [UIScreen mainScreen].scale;
 }
 
 - (NSString*)referenceHTMLWithSurroundingHTML {
