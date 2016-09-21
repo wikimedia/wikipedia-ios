@@ -112,7 +112,6 @@
 		B0AB163A1C7E5A3F002E566A /* UIViewController+WMFWelcomeNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AB16391C7E5A3F002E566A /* UIViewController+WMFWelcomeNavigation.m */; };
 		B0AB163D1C7E742F002E566A /* UIButton+WMFWelcomeNextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AB163C1C7E742F002E566A /* UIButton+WMFWelcomeNextButton.m */; };
 		B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */; };
-		B0B211091D910025009BA7FD /* UINavigationBar+WMFImageGalleryGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B211081D910025009BA7FD /* UINavigationBar+WMFImageGalleryGradient.swift */; };
 		B0B4CF0A1CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */; };
 		B0B4CF0C1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */; };
 		B0C0B07E1C6D989000859AD5 /* WMFSettingsCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */; };
@@ -1245,7 +1244,6 @@
 		B0B0CADA1D234927009CE8ED /* WMFImageTagList+ImageURLs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFImageTagList+ImageURLs.h"; path = "Wikipedia/Code/WMFImageTagList+ImageURLs.h"; sourceTree = SOURCE_ROOT; };
 		B0B0CADB1D234927009CE8ED /* WMFImageTagList+ImageURLs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WMFImageTagList+ImageURLs.m"; path = "Wikipedia/Code/WMFImageTagList+ImageURLs.m"; sourceTree = SOURCE_ROOT; };
 		B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSettingsMenuItem.m; path = Wikipedia/Code/WMFSettingsMenuItem.m; sourceTree = SOURCE_ROOT; };
-		B0B211081D910025009BA7FD /* UINavigationBar+WMFImageGalleryGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UINavigationBar+WMFImageGalleryGradient.swift"; path = "Wikipedia/Code/UINavigationBar+WMFImageGalleryGradient.swift"; sourceTree = SOURCE_ROOT; };
 		B0B4CF081CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionHeader.h; sourceTree = "<group>"; };
 		B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionHeader.m; sourceTree = "<group>"; };
 		B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionHeader.xib; sourceTree = "<group>"; };
@@ -4766,7 +4764,6 @@
 			children = (
 				0E4A34701CBBFCD400A400F6 /* WMFImageGalleryViewController.h */,
 				0E4A34711CBBFCD400A400F6 /* WMFImageGalleryViewController.m */,
-				B0B211081D910025009BA7FD /* UINavigationBar+WMFImageGalleryGradient.swift */,
 				0E9B9E341CBF3262001E4C3C /* Overlay View */,
 			);
 			name = Gallery;
@@ -7043,7 +7040,6 @@
 				D8CDBA9F1D11976D0004DE05 /* TableOfContentsAboutThisArticleItem.swift in Sources */,
 				B0F84EED1C8E444400801560 /* WelcomeAnimationView.swift in Sources */,
 				B0E806F61C0CEBB60065EBC0 /* ReferenceVC.m in Sources */,
-				B0B211091D910025009BA7FD /* UINavigationBar+WMFImageGalleryGradient.swift in Sources */,
 				0EC0447B1C796FEF0033D773 /* WMFImageTextActivitySource.swift in Sources */,
 				B0E806E21C0CEB930065EBC0 /* PreviewAndSaveViewController.m in Sources */,
 				D8D5DB431D7A214500526A69 /* A2DynamicDelegate.m in Sources */,

@@ -221,14 +221,6 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size
-       withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [self.overlayView.navigationBar wmf_applyGalleryTopGradientBackground];
-    } completion:nil];
-}
-
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
@@ -470,7 +462,6 @@ NS_ASSUME_NONNULL_BEGIN
         [self fetchCurrentImageInfo];
         [self fetchCurrentImage];
     }
-    [self.overlayView.navigationBar wmf_applyGalleryTopGradientBackground];
 }
 
 #pragma mark - Fetch
