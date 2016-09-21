@@ -29,7 +29,7 @@ platform :ios do
 
   desc "Runs tests, version, tag, and push to the beta branch"
   lane :testAndPushBeta do
-    verifyTestPlatforms
+    # verifyTestPlatforms
     bumpAndTagBeta
     badge(dark: true, shield: get_badge_version_string, shield_no_resize: true)
     beta
