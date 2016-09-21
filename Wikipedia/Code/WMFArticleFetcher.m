@@ -248,7 +248,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     MWKArticle *article = [[MWKArticle alloc] initWithURL:url dataStore:self.dataStore];
     @try {
         [article importMobileViewJSON:response];
-        [WMFArticleFetcher asynchronouslySaveArticle:article];
+        [WMFArticleBaseFetcher asynchronouslySaveArticle:article];
         return article;
     } @catch (NSException *e) {
         DDLogError(@"Failed to import article data. Response: %@. Error: %@", response, e);

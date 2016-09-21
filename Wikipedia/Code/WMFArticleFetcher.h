@@ -17,6 +17,20 @@ extern NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey;
  */
 @interface WMFArticleBaseFetcher : NSObject
 
+/**
+ *  Save the @c article asynchronously. If an existing save operation exists for this article or an article with the same URL, it will be cancelled and re-added with this copy of the article.
+ *
+ *  @param article    The article to save.
+ **/
++ (void)asynchronouslySaveArticle:(MWKArticle *)article;
+
+/**
+ *  Cancel the asynchronous save for the @c article.
+ *
+ *  @param article    The article to cancel.
+ **/
++ (void)cancelAsynchronousSaveForArticle:(MWKArticle *)article;
+
 - (BOOL)isFetchingArticleForURL:(NSURL *)articleURL;
 - (void)cancelFetchForArticleURL:(NSURL *)articleURL;
 - (void)cancelAllFetches;
@@ -58,21 +72,6 @@ extern NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey;
                                           progress:(WMFProgressHandler __nullable)progress;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
-
-
-/**
- *  Save the @c article asynchronously. If an existing save operation exists for this article or an article with the same URL, it will be cancelled and re-added with this copy of the article.
- *
- *  @param article    The article to save.
-**/
-+ (void)asynchronouslySaveArticle:(MWKArticle *)article;
-
-/**
- *  Cancel the asynchronous save for the @c article.
- *
- *  @param article    The article to cancel.
- **/
-+ (void)cancelAsynchronousSaveForArticle:(MWKArticle *)article;
 
 @end
 
