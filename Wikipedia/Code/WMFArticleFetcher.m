@@ -46,6 +46,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     static NSOperationQueue *articleSaveQueue;
     dispatch_once(&onceToken, ^{
         articleSaveQueue = [NSOperationQueue new];
+        articleSaveQueue.qualityOfService = NSQualityOfServiceBackground;
         articleSaveQueue.maxConcurrentOperationCount = 1;
     });
     return articleSaveQueue;
