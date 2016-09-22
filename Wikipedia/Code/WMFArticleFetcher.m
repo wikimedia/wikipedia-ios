@@ -41,6 +41,70 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @implementation WMFArticleBaseFetcher
 
++ (NSOperationQueue *)articleSaveQueue {
+    static dispatch_once_t onceToken;
+    static NSOperationQueue *articleSaveQueue;
+    dispatch_once(&onceToken, ^{
+        articleSaveQueue = [NSOperationQueue new];
+        articleSaveQueue.qualityOfService = NSQualityOfServiceBackground;
+        articleSaveQueue.maxConcurrentOperationCount = 1;
+    });
+    return articleSaveQueue;
+}
+
++ (NSMutableDictionary<NSString *, NSOperation *> *)articleSaveOperations {
+    static dispatch_once_t onceToken;
+    static NSMutableDictionary<NSString *, NSOperation *> *articleSaveOperations;
+    dispatch_once(&onceToken, ^{
+        articleSaveOperations = [NSMutableDictionary new];
+    });
+    return articleSaveOperations;
+}
+
++ (void)asynchronouslySaveArticle:(MWKArticle *)article {
+    NSOperationQueue *queue = [self articleSaveQueue];
+    NSMutableDictionary *operations = [self articleSaveOperations];
+    @synchronized (queue) {
+        NSString *key = article.url.wmf_databaseKey;
+        if (!key) {
+            return;
+        }
+        
+        NSOperation *op = operations[key];
+        if (op) {
+            [op cancel];
+            [operations removeObjectForKey:key];
+        }
+        
+        op = [NSBlockOperation blockOperationWithBlock:^{
+            [article save];
+            @synchronized (queue) {
+                [operations removeObjectForKey:key];
+            }
+        }];
+        
+        if (!op) {
+            return;
+        }
+        
+        operations[key] = op;
+        
+        [queue addOperation:op];
+    }
+}
+
++ (void)cancelAsynchronousSaveForArticle:(MWKArticle *)article {
+    NSOperationQueue *queue = [self articleSaveQueue];
+    NSMutableDictionary *operations = [self articleSaveOperations];
+    @synchronized (queue) {
+        NSString *key = article.url.wmf_databaseKey;
+        NSOperation *op = operations[key];
+        [op cancel];
+        [operations removeObjectForKey:key];
+    }
+}
+
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -187,7 +251,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     MWKArticle *article = [[MWKArticle alloc] initWithURL:url dataStore:self.dataStore];
     @try {
         [article importMobileViewJSON:response];
-        [article save];
+        [WMFArticleBaseFetcher asynchronouslySaveArticle:article];
         return article;
     } @catch (NSException *e) {
         DDLogError(@"Failed to import article data. Response: %@. Error: %@", response, e);
