@@ -2,6 +2,7 @@
 
 @interface WMFReferencePopoverMessageViewController : UIViewController <UIPopoverPresentationControllerDelegate>
 
+@property (strong, nonatomic) NSString *linkText;
 @property (strong, nonatomic) NSString *referenceHTML;
 @property (nonatomic) CGFloat width;
 @property (nonatomic) BOOL scrollEnabled;

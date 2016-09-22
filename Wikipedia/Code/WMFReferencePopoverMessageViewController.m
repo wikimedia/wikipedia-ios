@@ -9,6 +9,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *widthConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *horizontalSeparatorHeightConstraint;
 @property (strong, nonatomic) IBOutlet UIButton *closeButton;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
 
@@ -36,6 +37,8 @@
     self.horizontalSeparatorHeightConstraint.constant = 1.f / [UIScreen mainScreen].scale;
     
     self.closeButton.tintColor = [UIColor wmf_lightGrayColor];
+    
+    self.titleLabel.text = [[MWLocalizedString(@"reference-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]] stringByReplacingOccurrencesOfString:@"$1" withString:_linkText];
 }
 
 - (NSString*)referenceHTMLWithSurroundingHTML {

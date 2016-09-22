@@ -8,6 +8,7 @@ extern NSString *const WMFReferenceLinkTappedNotification;
 @interface WebViewController (WMFReferencePopover)
 
 - (void)wmf_presentReferencePopoverViewControllerForSourceRect:(CGRect)sourceRect
+                                                      linkText:(nullable NSString *)linkText
                                                  referenceHTML:(nullable NSString *)html
                                                          width:(CGFloat)width;
 

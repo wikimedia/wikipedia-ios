@@ -231,11 +231,14 @@ NSString *const WMFCCBySALicenseURL =
     NSString *refForIndex = [refs wmf_safeObjectAtIndex:refsIndex.integerValue];
     NSDictionary *rectDictForIndex = [linkRects wmf_safeObjectAtIndex:refsIndex.integerValue];
     CGRect rect = CGRectZero;
+    NSArray *linkTextArray = messageDict[@"linkText"];
+    NSString *linkText = [linkTextArray wmf_safeObjectAtIndex:refsIndex.integerValue];
     
     CGFloat width = MAX(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
     
     if (CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(rectDictForIndex), &rect)) {
         [self wmf_presentReferencePopoverViewControllerForSourceRect:CGRectMake(CGRectGetMidX(rect), CGRectGetMidY(rect), 1, 1)
+                                                            linkText:linkText
                                                        referenceHTML:refForIndex
                                                                width:width];
     }
