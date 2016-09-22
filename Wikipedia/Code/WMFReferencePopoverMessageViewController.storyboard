@@ -39,10 +39,11 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bH1-NF-wXC">
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="30" id="knd-oH-hWN"/>
+                                                    <constraint firstAttribute="height" constant="36" id="Ibl-I5-LVI"/>
+                                                    <constraint firstAttribute="width" constant="50" id="knd-oH-hWN"/>
                                                 </constraints>
                                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                <state key="normal" image="clear-mini"/>
+                                                <state key="normal" image="close-inverse"/>
                                                 <connections>
                                                     <action selector="dismiss" destination="rh8-A3-vLx" eventType="touchUpInside" id="Kvk-ey-XCo"/>
                                                 </connections>
@@ -60,7 +61,7 @@
                                             <constraint firstItem="bH1-NF-wXC" firstAttribute="leading" secondItem="xyt-hJ-W2q" secondAttribute="trailing" constant="10" id="JLr-hQ-v4G"/>
                                             <constraint firstAttribute="trailing" secondItem="Hfu-Dd-yiv" secondAttribute="trailing" id="Jk5-2I-Iqz"/>
                                             <constraint firstItem="Hfu-Dd-yiv" firstAttribute="leading" secondItem="uUU-LX-2TD" secondAttribute="leading" id="T5r-WL-M3M"/>
-                                            <constraint firstAttribute="trailing" secondItem="bH1-NF-wXC" secondAttribute="trailing" constant="10" id="dg2-LR-F2c"/>
+                                            <constraint firstAttribute="trailing" secondItem="bH1-NF-wXC" secondAttribute="trailing" id="dg2-LR-F2c"/>
                                             <constraint firstItem="bH1-NF-wXC" firstAttribute="centerY" secondItem="xyt-hJ-W2q" secondAttribute="centerY" id="i8v-k1-Hiv"/>
                                             <constraint firstItem="xyt-hJ-W2q" firstAttribute="leading" secondItem="uUU-LX-2TD" secondAttribute="leading" constant="16" id="mdF-xT-RIv"/>
                                             <constraint firstItem="xyt-hJ-W2q" firstAttribute="top" secondItem="uUU-LX-2TD" secondAttribute="top" constant="18" id="myx-Bk-kp0"/>
@@ -106,6 +107,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="clear-mini" width="14" height="14"/>
+        <image name="close-inverse" width="22" height="22"/>
     </resources>
 </document>
