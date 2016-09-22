@@ -9,7 +9,7 @@ extern NSString *const WMFReferenceLinkTappedNotification;
 
 - (void)wmf_presentReferencePopoverViewControllerForSourceRect:(CGRect)sourceRect
                                                       linkText:(nullable NSString *)linkText
-                                                 referenceHTML:(nullable NSString *)html
+                                                          HTML:(nullable NSString *)html
                                                          width:(CGFloat)width;
 
 - (void)wmf_dismissReferencePopoverAnimated:(BOOL)flag completion:(void (^ __nullable)(void))completion;

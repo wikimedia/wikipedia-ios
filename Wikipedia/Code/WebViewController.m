@@ -239,7 +239,7 @@ NSString *const WMFCCBySALicenseURL =
     if (CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(rectDictForIndex), &rect)) {
         [self wmf_presentReferencePopoverViewControllerForSourceRect:CGRectMake(CGRectGetMidX(rect), CGRectGetMidY(rect), 1, 1)
                                                             linkText:linkText
-                                                       referenceHTML:refForIndex
+                                                                HTML:refForIndex
                                                                width:width];
     }
     // Highlight the tapped reference.
