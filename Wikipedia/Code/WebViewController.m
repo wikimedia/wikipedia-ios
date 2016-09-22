@@ -215,35 +215,22 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)handleClickReferenceScriptMessage:(NSDictionary *)messageDict {
-    
-    // Don't show ref popover if reference data has yet to be retrieved. The
-    // reference parsing javascript can't parse until the reference section html has
-    // been retrieved. If user taps a reference link while the non-lead sections are
-    // still being retrieved we need to just not show the panel rather than showing a
-    // useless blank panel.
-    if (![self didFindReferencesInPayload:messageDict]) {
-        return;
+    NSNumber *selectedIndex = messageDict[@"selectedIndex"];
+    NSArray *referencesGroup = messageDict[@"referencesGroup"];
+    if(selectedIndex && referencesGroup.count > 0){
+        NSDictionary *selectedReference = [referencesGroup wmf_safeObjectAtIndex:selectedIndex.integerValue];
+        if(selectedReference){
+            CGFloat width = MAX(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
+            CGRect rect = CGRectZero;
+            NSDictionary *rectDict = selectedReference[@"rect"];
+            if (CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(rectDict), &rect)) {
+                [self wmf_presentReferencePopoverViewControllerForSourceRect:CGRectMake(CGRectGetMidX(rect), CGRectGetMidY(rect), 1, 1)
+                                                                    linkText:selectedReference[@"text"]
+                                                                        HTML:selectedReference[@"html"]
+                                                                       width:width];
+            }
+        }
     }
-
-    NSNumber *refsIndex = messageDict[@"refsIndex"];
-    NSArray *linkRects = messageDict[@"linkRects"];
-    NSArray *refs = messageDict[@"refs"];
-    NSString *refForIndex = [refs wmf_safeObjectAtIndex:refsIndex.integerValue];
-    NSDictionary *rectDictForIndex = [linkRects wmf_safeObjectAtIndex:refsIndex.integerValue];
-    CGRect rect = CGRectZero;
-    NSArray *linkTextArray = messageDict[@"linkText"];
-    NSString *linkText = [linkTextArray wmf_safeObjectAtIndex:refsIndex.integerValue];
-    
-    CGFloat width = MAX(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
-    
-    if (CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(rectDictForIndex), &rect)) {
-        [self wmf_presentReferencePopoverViewControllerForSourceRect:CGRectMake(CGRectGetMidX(rect), CGRectGetMidY(rect), 1, 1)
-                                                            linkText:linkText
-                                                                HTML:refForIndex
-                                                               width:width];
-    }
-    // Highlight the tapped reference.
-    //[self.webView wmf_highlightLinkID:linkID];
 }
 
 - (void)handleClickEditScriptMessage:(NSDictionary *)messageDict {
@@ -1043,20 +1030,6 @@ NSString *const WMFCCBySALicenseURL =
             }
         }
     }];
-}
-
-- (BOOL)didFindReferencesInPayload:(NSDictionary *)payload {
-    NSArray *refs = payload[@"refs"];
-    if (!refs || (refs.count == 0)) {
-        return NO;
-    }
-    if (refs.count == 1) {
-        NSString *firstRef = refs[0];
-        if ([firstRef isEqualToString:@""]) {
-            return NO;
-        }
-    }
-    return YES;
 }
 
 #pragma mark - Share Actions

@@ -370,7 +370,7 @@ function collectRefLink( sourceNode ) {
 }
 
 function sendNearbyReferences( sourceNode ) {
-    var refsIndex = 0;
+    var selectedIndex = 0;
     var refs = [];
     var linkId = [];
     var linkText = [];
@@ -385,7 +385,7 @@ function sendNearbyReferences( sourceNode ) {
     // go left:
     curNode = sourceNode.parentElement;
     while ( hasCitationLink( goLeft( curNode ) ) ) {
-        refsIndex += 1;
+        selectedIndex += 1;
         curNode = goLeft( curNode );
         refs.unshift( collectRefText( goDown ( curNode ) ) );
         linkId.unshift( collectRefLink( curNode ) );
@@ -406,14 +406,21 @@ function sendNearbyReferences( sourceNode ) {
         linkRects.push(rect);
     }
     
+    var referencesGroup = [];
+    for(var i = 0; i < linkId.length; i++){
+        referencesGroup.push({
+                             "id": linkId[i],
+                             "rect": linkRects[i],
+                             "text": linkText[i],
+                             "html": refs[i]
+        });
+    }
+    
     // Special handling for references
     window.webkit.messageHandlers.referenceClicked.postMessage({
-                                                     "refs": refs,
-                                                     "refsIndex": refsIndex,
-                                                     "linkId": linkId,
-                                                     "linkText": linkText,
-                                                     "linkRects": linkRects
-                                                     });
+                                                               "selectedIndex": selectedIndex,
+                                                               "referencesGroup": referencesGroup
+                                                               });
 }
 
 exports.isEndnote = isEndnote;
