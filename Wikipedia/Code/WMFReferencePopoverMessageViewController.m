@@ -90,4 +90,8 @@
     return NO;
 }
 
+- (IBAction)dismiss {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:NULL];
+}
+
 @end
