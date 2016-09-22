@@ -201,10 +201,8 @@ platform :ios do
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight for internal testing."
   lane :beta do
 
-    sigh(
-      adhoc: false,
-      force: true
-    )
+    cert
+    sigh(force: true)
 
     gym(
       configuration: "Beta",
@@ -233,10 +231,9 @@ platform :ios do
 
   desc "Submit a new App Store release candidate Apple TestFlight for internal testing."
   lane :store do
-    sigh(
-      adhoc: false,
-      force: true
-    )
+
+    cert
+    sigh(force: true)
 
     gym(
       configuration: "Release",
