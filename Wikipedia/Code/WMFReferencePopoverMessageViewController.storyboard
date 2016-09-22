@@ -96,6 +96,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="222"/>
                     <connections>
+                        <outlet property="closeButton" destination="bH1-NF-wXC" id="dT8-jQ-sh4"/>
                         <outlet property="horizontalSeparatorHeightConstraint" destination="iJy-Wr-h8x" id="iNW-dr-JRh"/>
                         <outlet property="textView" destination="sYL-Ee-b0e" id="Qbr-lW-vMk"/>
                         <outlet property="widthConstraint" destination="9ju-G6-70T" id="jjE-22-e7u"/>
