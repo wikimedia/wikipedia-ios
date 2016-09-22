@@ -66,7 +66,7 @@
       "<body>"
       "%@"
       "</body>"
-      "</html>", baseUrl, (long)fontSize.integerValue, [[UIColor wmf_referencePopoverTextColor] wmf_hexStringWithAlpha:NO], self.HTML];
+      "</html>", baseUrl, (long)fontSize.integerValue, [[UIColor wmf_referencePopoverTextColor] wmf_hexStringIncludingAlpha:NO], self.HTML];
 }
 
 - (NSAttributedString*)attributedStringForHTML:(NSString*)html {

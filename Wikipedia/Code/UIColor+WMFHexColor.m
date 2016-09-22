@@ -10,13 +10,13 @@
                            alpha:alpha];
 }
 
-- (NSString *)wmf_hexStringWithAlpha:(BOOL)useAlpha {
+- (NSString *)wmf_hexStringIncludingAlpha:(BOOL)includeAlpha {
     CGFloat red;
     CGFloat green;
     CGFloat blue;
     CGFloat alpha;
     [self getRed:&red green:&green blue:&blue alpha:&alpha];
-    if(useAlpha){
+    if(includeAlpha){
         return [NSString stringWithFormat:@"%02x%02x%02x%02x",
                 (int)(255.0 * red),
                 (int)(255.0 * green),
