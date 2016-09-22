@@ -66,6 +66,9 @@ NSString *const WMFCCBySALicenseURL =
 @property (nonatomic) BOOL disableMinimizeFindInPage;
 @property (nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
 
+@property (nonatomic, strong) NSArray *lastClickedReferencesGroup;
+@property (nonatomic) NSInteger indexOfLastReferenceShownFromLastClickedReferencesGroup;
+
 @end
 
 @implementation WebViewController
@@ -217,20 +220,10 @@ NSString *const WMFCCBySALicenseURL =
 - (void)handleClickReferenceScriptMessage:(NSDictionary *)messageDict {
     NSNumber *selectedIndex = messageDict[@"selectedIndex"];
     NSArray *referencesGroup = messageDict[@"referencesGroup"];
-    if(selectedIndex && referencesGroup.count > 0){
-        NSDictionary *selectedReference = [referencesGroup wmf_safeObjectAtIndex:selectedIndex.integerValue];
-        if(selectedReference){
-            CGFloat width = MAX(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
-            CGRect rect = CGRectZero;
-            NSDictionary *rectDict = selectedReference[@"rect"];
-            if (CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(rectDict), &rect)) {
-                [self wmf_presentReferencePopoverViewControllerForSourceRect:CGRectMake(CGRectGetMidX(rect), CGRectGetMidY(rect), 1, 1)
-                                                                    linkText:selectedReference[@"text"]
-                                                                        HTML:selectedReference[@"html"]
-                                                                       width:width];
-            }
-        }
-    }
+
+    self.lastClickedReferencesGroup = referencesGroup;
+
+    [self showReferenceFromLastClickedReferencesGroupAtIndex:selectedIndex.integerValue];
 }
 
 - (void)handleClickEditScriptMessage:(NSDictionary *)messageDict {
@@ -544,6 +537,9 @@ NSString *const WMFCCBySALicenseURL =
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.lastClickedReferencesGroup = @[];
+    self.indexOfLastReferenceShownFromLastClickedReferencesGroup = 0;
+    
     self.contentWidthPercentage = 1;
 
     [self addFooterContainerView];
@@ -1004,7 +1000,7 @@ NSString *const WMFCCBySALicenseURL =
     [self presentViewController:alert animated:YES completion:NULL];
 }
 
-#pragma mark Refs
+#pragma mark References
 
 - (void)refererenceLinkTappedWithNotification:(NSNotification *)notification {
     [self wmf_dismissReferencePopoverAnimated:NO completion:^{
@@ -1030,6 +1026,40 @@ NSString *const WMFCCBySALicenseURL =
             }
         }
     }];
+}
+
+- (void)showReferenceFromLastClickedReferencesGroupAtIndex:(NSInteger)index {
+    if(index >= 0 && self.lastClickedReferencesGroup.count > 0){
+        NSDictionary *selectedReference = [self.lastClickedReferencesGroup wmf_safeObjectAtIndex:index];
+        if(selectedReference){
+            CGFloat width = MAX(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
+            CGRect rect = CGRectZero;
+            NSDictionary *rectDict = selectedReference[@"rect"];
+            if (CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(rectDict), &rect)) {
+                [self wmf_presentReferencePopoverViewControllerForSourceRect:CGRectMake(CGRectGetMidX(rect), CGRectGetMidY(rect), 1, 1)
+                                                                    linkText:selectedReference[@"text"]
+                                                                        HTML:selectedReference[@"html"]
+                                                                       width:width];
+            }
+        }
+    }
+    self.indexOfLastReferenceShownFromLastClickedReferencesGroup = index;
+}
+
+- (void)showNextReferenceFromLastClickedReferencesGroup {
+    NSInteger nextIndex = self.indexOfLastReferenceShownFromLastClickedReferencesGroup + 1;
+    if(nextIndex > self.lastClickedReferencesGroup.count - 1){
+        nextIndex = 0;
+    }
+    [self showReferenceFromLastClickedReferencesGroupAtIndex:nextIndex];
+}
+
+- (void)showPreviousReferenceFromLastClickedReferencesGroup {
+    NSInteger previousIndex = self.indexOfLastReferenceShownFromLastClickedReferencesGroup - 1;
+    if(previousIndex < 0){
+        previousIndex = self.lastClickedReferencesGroup.count - 1;
+    }
+    [self showReferenceFromLastClickedReferencesGroupAtIndex:previousIndex];
 }
 
 #pragma mark - Share Actions
