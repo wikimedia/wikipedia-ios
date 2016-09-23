@@ -6,29 +6,19 @@ sudo gem install fastlane
 ```
 # Available Actions
 ## iOS
+### ios checkout
+```
+fastlane ios checkout
+```
+Checks out the sha specified in the environment variables or the develop branch
 ### ios analyze
 ```
 fastlane ios analyze
 ```
 Runs linting (and eventually static analysis)
-### ios testAndPushBeta
+### ios verify_test_platforms
 ```
-fastlane ios testAndPushBeta
-```
-Runs tests, version, tag, and push to the beta branch
-### ios submitAndPushToMaster
-```
-fastlane ios submitAndPushToMaster
-```
-Runs tests, version, tag, and push to the beta branch
-### ios submitHotfixAndPushToMaster
-```
-fastlane ios submitHotfixAndPushToMaster
-```
-Runs tests, version, tag, and push to the beta branch
-### ios verifyTestPlatforms
-```
-fastlane ios verifyTestPlatforms
+fastlane ios verify_test_platforms
 ```
 Runs tests on the primary platforms and configurations
 ### ios verify
@@ -36,61 +26,46 @@ Runs tests on the primary platforms and configurations
 fastlane ios verify
 ```
 Runs unit tests, optionally generating a JUnit report.
-### ios bumpPatch
+### ios bump_patch
 ```
-fastlane ios bumpPatch
+fastlane ios bump_patch
 ```
 Increment the app version patch
-### ios bumpMinor
+### ios bump_minor
 ```
-fastlane ios bumpMinor
+fastlane ios bump_minor
 ```
 Increment the app version minor
-### ios bumpMajor
+### ios bump_major
 ```
-fastlane ios bumpMajor
+fastlane ios bump_major
 ```
 Increment the app version major
-### ios bump
+### ios tag_beta
 ```
-fastlane ios bump
+fastlane ios tag_beta
 ```
-Increment the app's build number without committing the changes. Returns a string of the new, bumped version.
-### ios bumpAndTagBeta
+Add a tag for the current build number and push to repo.
+### ios tag_release
 ```
-fastlane ios bumpAndTagBeta
+fastlane ios tag_release
 ```
-Increment the app's beta build number, add a tag, and push to the beta branch.
-### ios bumpAndTagRelease
+Add a tag for the current version number push to repo.
+### ios test_and_push_beta
 ```
-fastlane ios bumpAndTagRelease
+fastlane ios test_and_push_beta
 ```
-Increment the app's build number, add a tag, and push to the master branch.
-### ios tagHotfix
+Runs tests, version, tag, and push to the beta branch
+### ios push_beta
 ```
-fastlane ios tagHotfix
+fastlane ios push_beta
 ```
-Add a tag, and push to the master branch.
-### ios default_changelog
+Runs tests, version, tag, and push to the beta branch
+### ios tag_and_submit_release
 ```
-fastlane ios default_changelog
+fastlane ios tag_and_submit_release
 ```
-Returns a default changelog.
-### ios beta
-```
-fastlane ios beta
-```
-Submit a new **Wikipedia Beta** build to Apple TestFlight for internal testing.
-### ios store
-```
-fastlane ios store
-```
-Submit a new App Store release candidate Apple TestFlight for internal testing.
-### ios dev
-```
-fastlane ios dev
-```
-Upload a developer build to Hockey.
+Runs tests, version, tag, and push to the beta branch
 
 ----
 
