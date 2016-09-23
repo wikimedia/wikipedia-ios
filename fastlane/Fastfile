@@ -2,7 +2,6 @@
 # https://github.com/KrauseFx/fastlane/tree/master/docs
 
 $:.unshift File.dirname(__FILE__)
-require 'lib/utils.rb'
 
 default_platform :ios
 
@@ -117,6 +116,9 @@ platform :ios do
 
   end
 
+  # This lane requires HOCKEY_PRODUCTION environment variable to be set.
+  # 1. HOCKEY_PRODUCTION=THE_API_KEY bundle exec fastlane push_beta
+  # 2.
   desc "Runs tests, version, tag, and push to the beta branch"
   lane :push_beta do
 
@@ -147,7 +149,7 @@ platform :ios do
       app_identifier: "org.wikimedia.wikipedia"
     )
 
-    # badge(dark: true, shield: get_badge_version_string, shield_no_resize: true)
+    # badge(dark: true, shield: "#{get_version_number}-#{get_build_number}-blue", shield_no_resize: true)
 
     gym(
       configuration: "Release",
@@ -181,6 +183,16 @@ platform :ios do
 
     sh "git pull"
     sh "git checkout betas/#{sha}"
+
+    app_review_information(
+      first_name: "Corey",
+      last_name: "Floyd",
+      phone_number: "+43 123123123",
+      email_address: "github@krausefx.com",
+      demo_user: "demoUser",
+      demo_password: "demoPass",
+      notes: "such notes, very text"
+    )
 
     deliver(
       submit_for_review: true,
