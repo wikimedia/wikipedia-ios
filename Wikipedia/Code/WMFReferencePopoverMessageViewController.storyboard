@@ -107,12 +107,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="enQ-qq-sm3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="right" id="zWh-Fp-hCH">
+                <swipeGestureRecognizer enabled="NO" direction="right" id="zWh-Fp-hCH">
                     <connections>
                         <action selector="showNext" destination="rh8-A3-vLx" id="TJs-ag-1cN"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" id="o6j-OA-JYd">
+                <swipeGestureRecognizer enabled="NO" direction="left" id="o6j-OA-JYd">
                     <connections>
                         <action selector="showPrevious" destination="rh8-A3-vLx" id="G0b-ME-9A9"/>
                     </connections>
