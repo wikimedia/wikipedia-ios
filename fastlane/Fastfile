@@ -108,30 +108,8 @@ platform :ios do
     sh "git push origin --tags"
   end
 
-  desc "Runs tests, version, tag, and push to the beta branch"
-  lane :test_and_push_beta do
-
-    verify_test_platforms
-    push_beta
-
-  end
-
-  # This lane requires HOCKEY_PRODUCTION environment variable to be set.
-  # 1. HOCKEY_PRODUCTION=THE_API_KEY bundle exec fastlane push_beta
-  # 2.
-  desc "Runs tests, version, tag, and push to the beta branch"
-  lane :push_beta do
-
-    increment_build_number({
-      build_number: latest_testflight_build_number + 1
-    })
-
-    changelog_from_git_commits(
-      pretty: '- (%ae) %s', # Optional, lets you provide a custom format to apply to each commit when generating the changelog text
-      tag_match_pattern: 'betas/*', # Optional, lets you search for a tag name that matches a glob(7) pattern
-      include_merges: false # Optional, lets you filter out merge commits
-    )
-
+  desc "Build the app for distibution"
+  lane :build do
     cert
 
     sigh(
@@ -157,6 +135,26 @@ platform :ios do
       sdk: "iphoneos10.0"
     )
 
+  end
+
+  # This lane requires HOCKEY_PRODUCTION environment variable to be set.
+  # 1. HOCKEY_PRODUCTION=THE_API_KEY bundle exec fastlane push_beta
+  # 2. Use a .env file
+  desc "Runs tests, version, tag, and push to the beta branch"
+  lane :push_beta do
+
+    increment_build_number({
+      build_number: latest_testflight_build_number + 1
+    })
+
+    changelog_from_git_commits(
+      pretty: '- (%ae) %s', # Optional, lets you provide a custom format to apply to each commit when generating the changelog text
+      tag_match_pattern: 'betas/*', # Optional, lets you search for a tag name that matches a glob(7) pattern
+      include_merges: false # Optional, lets you filter out merge commits
+    )
+
+    build
+
     hockey_prod_id = ENV["HOCKEY_PRODUCTION"]
     raise "Must specifiy HockeyApp public identifier." unless hockey_prod_id.length > 0
 
@@ -173,6 +171,14 @@ platform :ios do
     )
 
     tag_beta
+
+  end
+
+  desc "Runs tests, version, tag, and push to the beta branch"
+  lane :test_and_push_beta do
+
+    verify_test_platforms
+    push_beta
 
   end
 
