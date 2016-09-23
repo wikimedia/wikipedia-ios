@@ -420,3 +420,4 @@
 "top-read-reader-count-thousands" = "$1 is replaced with a number specifying how many people read the article. This number is in thousands. In English the letter 'k' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'k' should be changed to a character or short string indicating thousands.";
 "top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}";
 "top-read-header-generic" = "Wikipedia\n{{Identical|Wikipedia}}";
+"reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'";
