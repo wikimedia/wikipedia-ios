@@ -209,6 +209,7 @@ platform :ios do
     )
 
     pilot(
+      skip_waiting_for_build_processing: true,
       skip_submission: false,
       distribute_external: false
     )
@@ -251,6 +252,7 @@ platform :ios do
     )
 
     pilot(
+      skip_waiting_for_build_processing: true,
       skip_submission: false,
       distribute_external: false
     )
