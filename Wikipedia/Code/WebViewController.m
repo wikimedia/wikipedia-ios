@@ -32,6 +32,7 @@
 #import "WMFFindInPageKeyboardBar.h"
 #import "UIView+WMFDefaultNib.h"
 #import "WebViewController+WMFReferencePopover.h"
+#import "WMFReferencePopoverMessageViewController.h"
 
 typedef NS_ENUM(NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -591,6 +592,16 @@ NSString *const WMFCCBySALicenseURL =
                                              selector:@selector(refererenceLinkTappedWithNotification:)
                                                  name:WMFReferenceLinkTappedNotification
                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showPreviousReferenceFromLastClickedReferencesGroup)
+                                                 name:WMFReferencePopoverShowPreviousNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showNextReferenceFromLastClickedReferencesGroup)
+                                                 name:WMFReferencePopoverShowNextNotification
+                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -599,6 +610,8 @@ NSString *const WMFCCBySALicenseURL =
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroRatingChanged object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFReferenceLinkTappedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFReferencePopoverShowPreviousNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFReferencePopoverShowNextNotification object:nil];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -1047,19 +1060,15 @@ NSString *const WMFCCBySALicenseURL =
 }
 
 - (void)showNextReferenceFromLastClickedReferencesGroup {
-    NSInteger nextIndex = self.indexOfLastReferenceShownFromLastClickedReferencesGroup + 1;
-    if(nextIndex > self.lastClickedReferencesGroup.count - 1){
-        nextIndex = 0;
+    if(self.lastClickedReferencesGroup.count > 1 && self.indexOfLastReferenceShownFromLastClickedReferencesGroup < self.lastClickedReferencesGroup.count - 1){
+        [self showReferenceFromLastClickedReferencesGroupAtIndex:self.indexOfLastReferenceShownFromLastClickedReferencesGroup + 1];
     }
-    [self showReferenceFromLastClickedReferencesGroupAtIndex:nextIndex];
 }
 
 - (void)showPreviousReferenceFromLastClickedReferencesGroup {
-    NSInteger previousIndex = self.indexOfLastReferenceShownFromLastClickedReferencesGroup - 1;
-    if(previousIndex < 0){
-        previousIndex = self.lastClickedReferencesGroup.count - 1;
+    if(self.lastClickedReferencesGroup.count > 1 && self.indexOfLastReferenceShownFromLastClickedReferencesGroup > 0){
+        [self showReferenceFromLastClickedReferencesGroupAtIndex:self.indexOfLastReferenceShownFromLastClickedReferencesGroup - 1];
     }
-    [self showReferenceFromLastClickedReferencesGroupAtIndex:previousIndex];
 }
 
 #pragma mark - Share Actions

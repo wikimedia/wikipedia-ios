@@ -1,5 +1,8 @@
 #import <UIKit/UIKit.h>
 
+extern NSString *const WMFReferencePopoverShowNextNotification;
+extern NSString *const WMFReferencePopoverShowPreviousNotification;
+
 @interface WMFReferencePopoverMessageViewController : UIViewController <UIPopoverPresentationControllerDelegate>
 
 @property (strong, nonatomic) NSString *linkText;
