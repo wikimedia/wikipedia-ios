@@ -51,8 +51,7 @@ static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is
 }
 
 - (NSString *)getAssetsPath {
-    NSString *containerPath = [[NSFileManager defaultManager] wmf_containerPath];
-    return [containerPath stringByAppendingPathComponent:@"assets"];
+    return [WikipediaAppUtils assetsPath];
 }
 
 @end
