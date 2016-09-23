@@ -67,7 +67,7 @@ public class WMFImageController : NSObject {
     private static let _sharedInstance: WMFImageController = {
         let downloader = SDWebImageDownloader.sharedDownloader()
         let cache = SDImageCache.wmf_cacheWithNamespace(defaultNamespace)
-        let memory = NSProcessInfo.processInfo().physicalMemory
+        let memory = NSProcessInfo().physicalMemory
         //Don't enable this, it causes crazy memory consumption
         //https://github.com/rs/SDWebImage/issues/586
         cache.shouldDecompressImages = false
