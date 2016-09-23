@@ -7,14 +7,16 @@
 #import "WMFGradientView.h"
 #import <Masonry/Masonry.h>
 
-static double const WMFImageGalleryLicenseFontSize = 19.0;
-static double const WMFImageGalleryLicenseBaselineOffset = -1.5;
 static double const WMFImageGalleryOwnerFontSize = 11.f;
 
 @interface WMFImageGalleryDetailOverlayView ()
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *ownerStackViewHeightConstraint;
 @property (nonatomic, strong) IBOutlet UILabel *imageDescriptionLabel;
 @property (nonatomic, strong) IBOutlet UIButton *ownerButton;
 @property (nonatomic, strong) IBOutlet UIButton *infoButton;
+@property (nonatomic, strong) IBOutlet UIStackView *ownerStackView;
+@property (nonatomic, strong) IBOutlet UIStackView *ownerLabel;
+
 
 @property (nonatomic, strong) WMFGradientView *gradientView;
 
@@ -22,37 +24,6 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
 - (IBAction)didTapInfoButton;
 
 @end
-
-static NSAttributedString *ConcatOwnerAndLicense(NSString *owner, MWKLicense *license) {
-    if (!owner && !license) {
-        return nil;
-    }
-    NSMutableAttributedString *result = [NSMutableAttributedString new];
-    NSString *licenseGlyph = [license toGlyph] ?: WIKIGLYPH_CITE;
-    if (licenseGlyph) {
-        // hand-tuning glyph size & baseline offset until all glyphs are positioned & padded in a uniform way
-        [result appendAttributedString:
-                    [[NSAttributedString alloc]
-                        initWithString:licenseGlyph
-                            attributes:@{ NSFontAttributeName: [UIFont wmf_glyphFontOfSize:WMFImageGalleryLicenseFontSize],
-                                          NSForegroundColorAttributeName: [UIColor whiteColor],
-                                          NSBaselineOffsetAttributeName: @(WMFImageGalleryLicenseBaselineOffset) }]];
-    }
-
-    NSAttributedString *attributedOwnerAndSeparator =
-        [[NSAttributedString alloc]
-            initWithString:[@" " stringByAppendingString:owner]
-                attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize],
-                             NSForegroundColorAttributeName: [UIColor whiteColor]}];
-
-    [result appendAttributedString:attributedOwnerAndSeparator];
-
-    [result addAttribute:NSParagraphStyleAttributeName
-                   value:[NSParagraphStyle wmf_tailTruncatingNaturalAlignmentStyle]
-                   range:NSMakeRange(0, result.length)];
-
-    return result;
-}
 
 @implementation WMFImageGalleryDetailOverlayView
 
@@ -131,7 +102,36 @@ static NSAttributedString *ConcatOwnerAndLicense(NSString *owner, MWKLicense *li
 }
 
 - (void)setLicense:(MWKLicense *)license owner:(NSString *)owner {
-    [self.ownerButton setAttributedTitle:ConcatOwnerAndLicense(owner, license) forState:UIControlStateNormal];
+    NSArray *subviews = [self.ownerStackView.arrangedSubviews copy];
+    for (UIView *view in subviews) {
+        [self.ownerStackView removeArrangedSubview:view];
+    }
+    
+    CGFloat dimension = self.ownerStackView.frame.size.height;
+    
+    NSString *code = [license.code lowercaseString];
+    NSArray<NSString *> *components = [code componentsSeparatedByString:@"-"];
+    for (NSString *component in components) {
+        NSString *imageName = [@[@"license", component] componentsJoinedByString:@"-"];
+        UIImage *image = [UIImage imageNamed:imageName];
+        if (!image) {
+            continue;
+        }
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+        imageView.frame = CGRectMake(0,0, dimension, dimension);
+        [self.ownerStackView addArrangedSubview:imageView];
+    }
+    
+    UIView *spacer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, dimension, dimension)];
+    [self.ownerStackView addArrangedSubview:spacer];
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.font = [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize];
+    label.textColor = [UIColor whiteColor];
+    label.text = [NSString stringWithFormat:@" %@", owner];
+    [self.ownerStackView addArrangedSubview:label];
 }
 
 @end
