@@ -64,6 +64,24 @@ extern NSString *const MWKItemUpdatedNotification;
 
 #pragma mark - Legacy Datastore methods
 
+/**
+ *  Save the @c article asynchronously. If an existing save operation exists for this article or an article with the same URL, it will be cancelled and re-added with this copy of the article.
+ *
+ *  @param article    The article to save.
+ **/
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article;
+
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article completion:(nullable dispatch_block_t)completion;
+
+
+/**
+ *  Cancel the asynchronous save for the @c article.
+ *
+ *  @param article    The article to cancel.
+ **/
+- (void)cancelAsynchronousCacheForArticle:(MWKArticle *)article;
+
+
 @property (readonly, copy, nonatomic) NSString *basePath;
 
 @property (readonly, strong, nonatomic) MWKUserDataStore *userDataStore;
