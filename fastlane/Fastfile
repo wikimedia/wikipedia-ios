@@ -118,7 +118,7 @@ platform :ios do
   lane :test_and_push_beta do
 
     verify_test_platforms
-    push_beta_to_testflight
+    push_beta
 
   end
 

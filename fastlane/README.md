@@ -61,9 +61,9 @@ Runs tests, version, tag, and push to the beta branch
 fastlane ios push_beta
 ```
 Runs tests, version, tag, and push to the beta branch
-### ios tag_and_submit_release
+### ios submit_release
 ```
-fastlane ios tag_and_submit_release
+fastlane ios submit_release
 ```
 Runs tests, version, tag, and push to the beta branch
 
