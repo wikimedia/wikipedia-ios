@@ -10,5 +10,3 @@ $:.unshift File.dirname(__FILE__)
 automatic_release false
 
 copyright "#{Time.now.year} Wikimedia Foundation"
-
-screenshots_path "./screenshots"

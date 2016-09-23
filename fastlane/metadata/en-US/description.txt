@@ -1,42 +1,38 @@
-Official Wikipedia App for iOS. Wikipedia is the free encyclopedia containing more than 32 million articles in 280 languages, and is the most comprehensive and widely used reference work humans have ever compiled.
+Find a quick fact, or dive down a Wikipedia rabbit hole with the official Wikipedia app for iOS. With more than 39 million articles in nearly 300 languages, your favorite free online encyclopedia is at your fingertips. 
 
+App features: 
 
-App features:
+Explore feed - Discover the depths of Wikipedia through your explore feed, which surfaces handcrafted articles and captivating photos. The feed is constantly updated and includes:  
 
-* Better search results with short descriptions of matching articles
+- recommended articles based on what you’ve already read
+- featured articles hand-picked by the Wikipedia community
+- daily top read articles 
+- picture of the day
+- random articles
+- nearby landmarks 
 
-* Search for and read Wikipedia articles written in any language
+Find and search -  Easily find what you’re looking for by searching within articles or using Spotlight. You can even search with your favorite emojis! 
 
-* Quickly share facts as image cards or text
+Quick access - Add Wikipedia to your device's Today screen to pick up exactly where you stopped reading your last article, or see the top-read articles and trends.
 
-* Saved pages for when you don't have a data connection
+Easy touch navigation, including 3D touch - Multi-touch gestures like swipe, tap, and 3D Touch features complete essential tasks more quickly and simply. 
+ 
+Save articles - Save articles for reading later, even when you’re offline. 
 
-* Prominent image and description at the top of many articles
+Multilingual support - Search for and read Wikipedia articles written in any Wikipedia-supported language — there are nearly 300! 
 
-* High resolution image galleries
+Share - Easily share articles, images, and facts from Wikipedia on social media or by email. Or use Handoff to continue reading articles across your iOS devices.
 
-* Related article suggestions at the bottom of each article
+Want to know more behind the scenes of the Wikipedia mobile app for iOS? Check out these resources:
 
-* Nearby articles for exploring your current location
+To send feedback, from the app tap:
+Settings Gear > Send app feedback
 
-* Swipe left for quick section navigation table of contents
-
-* Wikipedia Zero: data charges waived for participating mobile operators
-
-Apps FAQ:
-https://www.mediawiki.org/wiki/Wikimedia_Apps/FAQ
-
-Contribute to our translations:
+Contribute to our app localizations:
 https://translatewiki.net/wiki/Translating:WikimediaMobile
 
-Open source repository:
+Code at GitHub open source repository:
 https://github.com/wikimedia/apps-ios-wikipedia
 
-Privacy policy:
-https://m.wikimediafoundation.org/wiki/Privacy_policy
-
-Terms of Use:
-https://m.wikimediafoundation.org/wiki/Terms_of_Use
-
-To send feedback in the app tap:
-W > More > About the Wikipedia app > Send app feedback
+About the Wikimedia Foundation 
+The Wikimedia Foundation is a nonprofit organization that supports and operates Wikipedia and the other Wikimedia projects. The Wikimedia Foundation is a charitable organization funded mainly through donations. For more information, please visit our website: https://wikimediafoundation.org/wiki/Home.

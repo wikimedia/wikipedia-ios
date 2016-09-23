@@ -51,14 +51,19 @@ Add a tag for the current build number and push to repo.
 fastlane ios tag_release
 ```
 Add a tag for the current version number push to repo.
-### ios test_and_push_beta
+### ios build
 ```
-fastlane ios test_and_push_beta
+fastlane ios build
 ```
-Runs tests, version, tag, and push to the beta branch
+Build the app for distibution
 ### ios push_beta
 ```
 fastlane ios push_beta
+```
+Runs tests, version, tag, and push to the beta branch
+### ios test_and_push_beta
+```
+fastlane ios test_and_push_beta
 ```
 Runs tests, version, tag, and push to the beta branch
 ### ios submit_release
