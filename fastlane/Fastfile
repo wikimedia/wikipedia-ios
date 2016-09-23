@@ -16,16 +16,11 @@ platform :ios do
 
   desc "Checks out the sha specified in the environment variables or the develop branch"
   lane :checkout do
-    sh "git pull"
     sha = ENV['SHA']
-
     if sha != nil
       puts sha
       commit = last_git_commit
       sh "git checkout #{sha}"
-    else
-      sh "git checkout develop"
-      sh "git pull"
     end
   end
 
@@ -124,7 +119,6 @@ platform :ios do
 
   desc "Runs tests, version, tag, and push to the beta branch"
   lane :push_beta do
-    checkout
 
     increment_build_number({
       build_number: latest_testflight_build_number + 1
