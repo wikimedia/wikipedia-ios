@@ -6,6 +6,7 @@
 
 static NSString *const WMFURLCacheWikipediaHost = @".wikipedia.org";
 static NSString *const WMFURLCacheJsonMIMEType = @"application/json";
+static NSString *const WMFURLCacheZeroConfigQueryNameValue = @"action=zeroconfig";
 
 @implementation WMFURLCache
 
@@ -64,7 +65,11 @@ static NSString *const WMFURLCacheJsonMIMEType = @"application/json";
 }
 
 - (void)storeCachedResponse:(NSCachedURLResponse *)cachedResponse forRequest:(NSURLRequest *)request {
-    [super storeCachedResponse:cachedResponse forRequest:request];
+    // Workaround for action=zeroconfig's legacy 60 second caching
+    // For details, see https://phabricator.wikimedia.org/T139615#2659569
+    if (![[request URL].query containsString:WMFURLCacheZeroConfigQueryNameValue]) {
+        [super storeCachedResponse:cachedResponse forRequest:request];
+    }
     if ([self isJsonResponse:cachedResponse fromWikipediaAPIRequest:request]) {
         [[SessionSingleton sharedInstance].zeroConfigurationManager updateZeroRatingAndZeroConfigurationForResponseHeadersIfNecessary:((NSHTTPURLResponse *)cachedResponse.response).allHeaderFields];
     }
