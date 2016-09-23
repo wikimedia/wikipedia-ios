@@ -104,10 +104,8 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
             dispatchOnBackgroundQueue(^{
                 [[MWNetworkActivityIndicatorManager sharedManager] pop];
                 MWKArticle* article = [self serializedArticleWithURL:articleURL response:response];
-                [self.dataStore asynchronouslyCacheArticle:article completion:^{
-                    resolve(article);
-                }];
-                
+                [self.dataStore asynchronouslyCacheArticle:article];
+                resolve(article);
             });
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {

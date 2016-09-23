@@ -72,10 +72,13 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"Fetching article"];
     
     [fetcher fetchArticleForURL:dummyArticleURL progress:NULL].then(^id(MWKArticle *article) {
-        savedArticleAfterFirstFetch = [self.tempDataStore articleWithURL:dummyArticleURL];
         firstFetchResult = article;
-        
-        assertThat(@([firstFetchResult isDeeplyEqualToArticle:savedArticleAfterFirstFetch]), isTrue());
+
+        [self.tempDataStore asynchronouslyCacheArticle:article completion:^{
+            savedArticleAfterFirstFetch = [self.tempDataStore articleWithURL:dummyArticleURL];
+            
+            assertThat(@([firstFetchResult isDeeplyEqualToArticle:savedArticleAfterFirstFetch]), isTrue());
+        }];
 
         return [fetcher fetchArticleForURL:dummyArticleURL progress:NULL];
         }).then(^(MWKArticle *article) {
@@ -84,11 +87,13 @@
             XCTAssertTrue(secondFetchResult != firstFetchResult,
                           @"Expected object returned from 2nd fetch to not be identical to 1st.");
             assertThat(@([secondFetchResult isDeeplyEqualToArticle:firstFetchResult]), isTrue());
+            
+            [self.tempDataStore asynchronouslyCacheArticle:article completion:^{
+                MWKArticle *savedArticleAfterSecondFetch = [self.tempDataStore articleFromDiskWithURL:dummyArticleURL];
+                assertThat(@([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]), isTrue());
+                [expectation fulfill];
+            }];
 
-            MWKArticle *savedArticleAfterSecondFetch = [self.tempDataStore articleFromDiskWithURL:dummyArticleURL];
-            assertThat(@([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]), isTrue());
-
-            [expectation fulfill];
         }).catch(^(NSError* error){
             XCTFail(@"Recieved error");
             [expectation fulfill];
