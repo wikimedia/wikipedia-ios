@@ -204,21 +204,18 @@ platform :ios do
     cert
 
     sigh(
-    force: true,
-    provisioning_name: "Continue Reading",
-    app_identifier: "org.wikimedia.wikipedia.ContinueReadingWidget"
+      provisioning_name: "Continue Reading",
+      app_identifier: "org.wikimedia.wikipedia.ContinueReadingWidget"
     )
 
     sigh(
-    force: true,
-    provisioning_name: "Top Read",
-    app_identifier: "org.wikimedia.wikipedia.TopReadWidget"
+      provisioning_name: "Top Read",
+      app_identifier: "org.wikimedia.wikipedia.TopReadWidget"
     )
 
     sigh(
-    force: true,
-    provisioning_name: "AppStore",
-    app_identifier: "org.wikimedia.wikipedia"
+      provisioning_name: "AppStore",
+      app_identifier: "org.wikimedia.wikipedia"
     )
 
     gym(
@@ -252,21 +249,18 @@ platform :ios do
     cert
 
     sigh(
-    force: true,
-    provisioning_name: "Continue Reading",
-    app_identifier: "org.wikimedia.wikipedia.ContinueReadingWidget"
+      provisioning_name: "Continue Reading",
+      app_identifier: "org.wikimedia.wikipedia.ContinueReadingWidget"
     )
 
     sigh(
-    force: true,
-    provisioning_name: "Top Read",
-    app_identifier: "org.wikimedia.wikipedia.TopReadWidget"
+      provisioning_name: "Top Read",
+      app_identifier: "org.wikimedia.wikipedia.TopReadWidget"
     )
 
     sigh(
-    force: true,
-    provisioning_name: "AppStore",
-    app_identifier: "org.wikimedia.wikipedia"
+      provisioning_name: "AppStore",
+      app_identifier: "org.wikimedia.wikipedia"
     )
 
     gym(
@@ -298,25 +292,21 @@ platform :ios do
     cert
 
     sigh(
-    adhoc: true,
-    force: true,
-    provisioning_name: "Continue Reading",
-    app_identifier: "org.wikimedia.wikipedia.ContinueReadingWidget"
+      adhoc: true,
+      provisioning_name: "Continue Reading",
+      app_identifier: "org.wikimedia.wikipedia.ContinueReadingWidget"
     )
 
     sigh(
-    adhoc: true,
-    force: true,
-    provisioning_name: "Top Read",
-    app_identifier: "org.wikimedia.wikipedia.TopReadWidget"
+      adhoc: true,
+      provisioning_name: "Top Read",
+      app_identifier: "org.wikimedia.wikipedia.TopReadWidget"
     )
 
     sigh(
-    adhoc: true,
-    # Fastlane has issues forcing AdHoc profiles
-    force: true,
-    provisioning_name: "AppStore",
-    app_identifier: "org.wikimedia.wikipedia"
+      adhoc: true,
+      provisioning_name: "AppStore",
+      app_identifier: "org.wikimedia.wikipedia"
     )
 
     gym(
