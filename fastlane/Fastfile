@@ -202,7 +202,24 @@ platform :ios do
   lane :beta do
 
     cert
-    sigh(force: true)
+
+    sigh(
+    force: true,
+    provisioning_name: "Continue Reading",
+    app_identifier: "org.wikimedia.wikipedia.ContinueReadingWidget"
+    )
+
+    sigh(
+    force: true,
+    provisioning_name: "Top Read",
+    app_identifier: "org.wikimedia.wikipedia.TopReadWidget"
+    )
+
+    sigh(
+    force: true,
+    provisioning_name: "AppStore",
+    app_identifier: "org.wikimedia.wikipedia"
+    )
 
     gym(
       configuration: "Beta",
@@ -233,7 +250,24 @@ platform :ios do
   lane :store do
 
     cert
-    sigh(force: true)
+
+    sigh(
+    force: true,
+    provisioning_name: "Continue Reading",
+    app_identifier: "org.wikimedia.wikipedia.ContinueReadingWidget"
+    )
+
+    sigh(
+    force: true,
+    provisioning_name: "Top Read",
+    app_identifier: "org.wikimedia.wikipedia.TopReadWidget"
+    )
+
+    sigh(
+    force: true,
+    provisioning_name: "AppStore",
+    app_identifier: "org.wikimedia.wikipedia"
+    )
 
     gym(
       configuration: "Release",
@@ -260,10 +294,29 @@ platform :ios do
 
   desc "Upload a developer build to Hockey."
   lane :dev do
+
+    cert
+
     sigh(
-      adhoc: true,
-      # Fastlane has issues forcing AdHoc profiles
-      force: false
+    adhoc: true,
+    force: true,
+    provisioning_name: "Continue Reading",
+    app_identifier: "org.wikimedia.wikipedia.ContinueReadingWidget"
+    )
+
+    sigh(
+    adhoc: true,
+    force: true,
+    provisioning_name: "Top Read",
+    app_identifier: "org.wikimedia.wikipedia.TopReadWidget"
+    )
+
+    sigh(
+    adhoc: true,
+    # Fastlane has issues forcing AdHoc profiles
+    force: true,
+    provisioning_name: "AppStore",
+    app_identifier: "org.wikimedia.wikipedia"
     )
 
     gym(
