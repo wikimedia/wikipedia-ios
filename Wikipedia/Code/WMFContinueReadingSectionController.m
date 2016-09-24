@@ -57,6 +57,12 @@ static NSString *const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 
 - (NSAttributedString *)headerSubTitle {
     MWKHistoryEntry *historyEntry = [self.dataStore.userDataStore.historyList entryForURL:self.articleURL];
+
+    if(!historyEntry.dateViewed){
+        NSAssert(NO, @"Expected non-nil NSDate '[MWKHistoryEntry dateViewed]' was nil");
+        return nil;
+    }
+    
     NSString *relativeTimeString = [historyEntry.dateViewed wmf_relativeTimestamp];
     return [[NSAttributedString alloc] initWithString:[relativeTimeString wmf_stringByCapitalizingFirstCharacter] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
