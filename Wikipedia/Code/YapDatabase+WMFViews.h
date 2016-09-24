@@ -68,7 +68,7 @@ extern NSString *const WMFBlackListSortedByURLUngroupedView;
 /**
  *  historyOrSavedSignificantlyViewedAndNotBlacklistedAndNotMainPageFilter + WMFHistoryOrSavedSortedByURLUngroupedView
  */
-extern NSString *const WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificnatlyViewedAndNotBlacklistedAndNotMainPageView;
+extern NSString *const WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificantlyViewedAndNotBlacklistedAndNotMainPageView;
 
 /**
  *  notInHistorySavedOrBlackListGroupingSingleGroup + historyOrSavedSortedByURL
