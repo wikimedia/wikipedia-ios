@@ -28,7 +28,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 /**
  *  Connection to read article references on.
  *  This connection has cache settings optimized for reading article references in the UI.
- *  It is reccomended to use this connection to make sure these cache settings are enforced app wide
+ *  It is recommended to use this connection to make sure these cache settings are enforced app wide
  */
 @property (readwrite, strong, nonatomic) YapDatabaseConnection *articleReferenceReadConnection;
 @property (readwrite, strong, nonatomic) YapDatabaseConnection *writeConnection;

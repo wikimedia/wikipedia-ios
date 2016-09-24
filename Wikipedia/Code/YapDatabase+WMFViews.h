@@ -34,7 +34,7 @@
 #pragma mark - Registered View Names
 /**
  *  Views are given a name when registered in the DB
- *  It is reccomended that all view names be documented here to:
+ *  It is recommended that all view names be documented here to:
  *
  *  1. Make them public so others can reference them
  *  2. Make sure the names are not duplicated (view names must be unique)
