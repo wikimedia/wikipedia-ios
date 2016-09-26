@@ -418,3 +418,4 @@
 "top-read-reader-count-thousands" = "$1k";
 "top-read-header-with-language" = "Wikipédia en $1";
 "top-read-header-generic" = "Wikipédia";
+"reference-title" = "Référence $1";

@@ -85,8 +85,7 @@
 "wikitext-upload-result-unknown" = "Nie można określić wyniku pobierania wiki tekstu.";
 "wikitext-upload-captcha-error" = "Błąd weryfikacji CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Potrzebna weryfikacja CAPTCHA.";
-// Fuzzy
-"wikitext-upload-save" = "Zapisywanie...";
+"wikitext-upload-save" = "Publikowanie...";
 "wikitext-upload-save-sign-in" = "Zaloguj się";
 // Fuzzy
 "wikitext-upload-save-anonymously" = "Zapisz anonimowo";

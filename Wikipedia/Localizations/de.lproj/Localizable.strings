@@ -410,3 +410,4 @@
 "top-read-reader-count-thousands" = "$1 T";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
+"reference-title" = "Einzelnachweis $1";

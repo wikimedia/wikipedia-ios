@@ -268,6 +268,7 @@
 "table-of-contents-button-label" = "Sisällysluettelo";
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
 "table-of-contents-close-accessibility-hint" = "Sulje";
+"table-of-contents-popover-description" = "Yleiskatsaus artikkeleista";
 "abuse-filter-warning-heading" = "Tämä saattaa olla haitallinen muokkaus. Haluatko varmasti julkaista sen?";
 "abuse-filter-warning-subheading" = "Muokkauksesi saattaa sisältää yhden tai useampia seuraavista:";
 "abuse-filter-warning-caps" = "Kirjoittamista ISOILLA KIRJAIMILLA";
@@ -385,11 +386,16 @@
 "explore-random-article-sub-heading" = "Englanninkielinen Wikipedia";
 "explore-potd-heading" = "Päivän kuva";
 "explore-most-read-heading" = "Luetuimmat artikkelit Wikipedian kieliversiossa $1";
+"explore-most-read-generic-heading" = "Luetuimmat";
 "explore-most-read-footer" = "Kaikki luetuimmat artikkelit";
 "explore-most-read-footer-for-date" = "Kaikki luetuimmat artikkelit $1";
 "explore-most-read-more-list-title" = "Huippuartikkelit";
 "explore-most-read-more-list-title-for-date" = "Parhaimmistoa $1";
+"request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
 "explore-another-random" = "Toinen satunnainen sivu";
 "find-in-page-no-matches" = "0 tulosta";
 "find-in-page-button-label" = "Etsi sivulta";
 "find-in-page-popover-description" = "Etsi artikkelien teksteistä";
+"continue-reading-empty-title" = "Ei äskettäin luettuja artikkeleja";
+"continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
+"top-read-header-generic" = "Wikipedia";
