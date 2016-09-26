@@ -10,7 +10,6 @@
 static double const WMFImageGalleryOwnerFontSize = 11.f;
 
 @interface WMFImageGalleryDetailOverlayView ()
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *ownerStackViewHeightConstraint;
 @property (nonatomic, strong) IBOutlet UILabel *imageDescriptionLabel;
 @property (nonatomic, strong) IBOutlet UIButton *ownerButton;
 @property (nonatomic, strong) IBOutlet UIButton *infoButton;
@@ -102,18 +101,21 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
 }
 
 - (nullable UIImageView *)newImageViewForLicenseWithCode:(nonnull NSString *)code {
-    CGFloat dimension = self.ownerStackView.frame.size.height;
     NSString *imageName = [@[@"license", code] componentsJoinedByString:@"-"];
     
     UIImage *image = [UIImage imageNamed:imageName];
+    CGFloat dimension = image.size.width;
+
     if (!image) {
         return nil;
     }
    
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.frame = CGRectMake(0,0, dimension, dimension);
-    [imageView setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@(1.2*dimension));
+        make.top.and.bottom.equalTo(self.ownerStackView);
+    }];
     return imageView;
 }
 
@@ -144,9 +146,7 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
             licenseDescriptionLabel.font = [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize];
             licenseDescriptionLabel.textColor = [UIColor whiteColor];
             licenseDescriptionLabel.text = [NSString stringWithFormat:@" %@", license.shortDescription];
-            [licenseDescriptionLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
             if (licenseDescriptionLabel) {
-                
                 [self.ownerStackView addArrangedSubview:licenseDescriptionLabel];
             }
         }
@@ -160,7 +160,6 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
     label.font = [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize];
     label.textColor = [UIColor whiteColor];
     label.text = didAddLicenseIcon ? [NSString stringWithFormat:@" %@", owner] : owner;
-    [label setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     [self.ownerStackView addArrangedSubview:label];
 }
 
