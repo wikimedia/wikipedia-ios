@@ -29,7 +29,7 @@
                         <action selector="didTapOwnerButton" destination="iN0-l3-epB" eventType="touchUpInside" id="jaw-0w-iI9"/>
                     </connections>
                 </button>
-                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VQe-aq-b55">
+                <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VQe-aq-b55">
                     <constraints>
                         <constraint firstAttribute="height" constant="26" id="iOY-nL-Fas"/>
                     </constraints>
