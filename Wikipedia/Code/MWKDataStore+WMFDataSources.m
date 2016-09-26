@@ -42,7 +42,7 @@
 }
 
 - (id<WMFDataSource>)becauseYouReadSeedsDataSource {
-    return [self registeredDataSourceWithMappings:[self.database wmf_ungroupedMappingsWithView:WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificnatlyViewedAndNotBlacklistedAndNotMainPageView]];
+    return [self registeredDataSourceWithMappings:[self.database wmf_ungroupedMappingsWithView:WMFHistoryOrSavedSortedByURLUngroupedFilteredBySignificantlyViewedAndNotBlacklistedAndNotMainPageView]];
 }
 
 @end
