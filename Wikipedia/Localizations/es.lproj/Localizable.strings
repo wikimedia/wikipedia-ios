@@ -90,8 +90,7 @@
 "wikitext-upload-save-sign-in-benefits" = "Así otros editores pueden contactarte y puedes ver qué artículos has editado.";
 "wikitext-upload-save-anonymously" = "Publicar anónimamente";
 "wikitext-upload-save-anonymously-warning" = "Las ediciones se atribuirán a la dirección IP del dispositivo. Si $1 tendrás más privacidad.";
-// Fuzzy
-"wikitext-upload-save-terms-and-license" = "Al guardar, aceptas los $1 y a liberar irrevocablemente tus contribuciones bajo los términos de la licencia $2";
+"wikitext-upload-save-terms-and-license" = "Al publicar, aceptas los $1 y a liberar irrevocablemente tus contribuciones bajo los términos de la licencia $2";
 "wikitext-upload-save-terms-name" = "Términos de uso";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Abrir enlace";
@@ -272,15 +271,13 @@
 "table-of-contents-close-accessibility-label" = "Cerrar la tabla de contenidos";
 "table-of-contents-close-accessibility-hint" = "Cerrar";
 "table-of-contents-popover-description" = "Obtener una visión general de los artículos";
-// Fuzzy
-"abuse-filter-warning-heading" = "Esto parece una edición no constructiva. ¿Estás seguro de que quieres guardarla?";
+"abuse-filter-warning-heading" = "Esto parece una edición no constructiva. ¿Estás seguro de que quieres publicarla?";
 "abuse-filter-warning-subheading" = "Tu edición puede contener uno o más de los siguientes:";
 "abuse-filter-warning-caps" = "Escribir TODO EN MAYÚSCULAS";
 "abuse-filter-warning-blanking" = "Supresión de los artículos o spam";
 "abuse-filter-warning-irrelevant" = "Enlaces o imágenes externas irrelevantes";
 "abuse-filter-warning-repeat" = "Caracteres repitiééééndose";
-// Fuzzy
-"abuse-filter-disallow-heading" = "No puedes guardar esta edición. Por favor vuelve y cámbiala.";
+"abuse-filter-disallow-heading" = "No puedes publicar esta edición. Vuelve y cámbiala.";
 "abuse-filter-disallow-unconstructive" = "Un filtro automático ha identificado esta edición como potencialmente no constructiva o un intento de vandalismo.";
 "abuse-filter-disallow-notable" = "Wikipedia es una enciclopedia y solo el contenido neutral y notable pertenece aquí.";
 "menu-edit-accessibility-label" = "Editar";
@@ -417,6 +414,8 @@
 "find-in-page-popover-description" = "Búsqueda de texto en los artículos";
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
+"top-read-see-more" = "Ver otros de los más leídos";
 "top-read-see-more-trending" = "Ver más tendencias";
 "top-read-reader-count-thousands" = "$1k";
 "top-read-header-with-language" = "Wikipedia en $1";
+"top-read-header-generic" = "Wikipedia";
