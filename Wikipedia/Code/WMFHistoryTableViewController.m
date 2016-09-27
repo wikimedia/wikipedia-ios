@@ -45,16 +45,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
+
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
-    
+
     self.dataSource = [self.dataStore historyGroupedByDateDataSource];
     self.dataSource.delegate = self;
     [self.tableView reloadData];
     [self updateEmptyAndDeleteState];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {

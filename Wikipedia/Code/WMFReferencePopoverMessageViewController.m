@@ -6,7 +6,7 @@
 NSString *const WMFReferencePopoverShowNextNotification = @"WMFReferencePopoverShowNextNotification";
 NSString *const WMFReferencePopoverShowPreviousNotification = @"WMFReferencePopoverShowPreviousNotification";
 
-@interface WMFReferencePopoverMessageViewController ()<UITextViewDelegate>
+@interface WMFReferencePopoverMessageViewController () <UITextViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextView *textView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *widthConstraint;
@@ -18,11 +18,11 @@ NSString *const WMFReferencePopoverShowPreviousNotification = @"WMFReferencePopo
 
 @implementation WMFReferencePopoverMessageViewController
 
--(void)setScrollEnabled:(BOOL)scrollEnabled {
+- (void)setScrollEnabled:(BOOL)scrollEnabled {
     self.textView.scrollEnabled = scrollEnabled;
 }
 
--(BOOL)scrollEnabled {
+- (BOOL)scrollEnabled {
     return self.textView.scrollEnabled;
 }
 
@@ -30,57 +30,58 @@ NSString *const WMFReferencePopoverShowPreviousNotification = @"WMFReferencePopo
     [super viewDidLoad];
 
     NSAssert(self.textView.scrollEnabled == NO, @"scrollEnabled must be NO for 'preferredContentSize' calculations to correctly account for textView's contentSize height");
-    
+
     [self.widthConstraint setConstant:self.width];
 
-    self.textView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor wmf_referencePopoverLinkColor]};
-    
+    self.textView.linkTextAttributes = @{NSForegroundColorAttributeName: [UIColor wmf_referencePopoverLinkColor]};
+
     [self.textView setAttributedText:[self attributedStringForHTML:[self referenceHTMLWithSurroundingHTML]]];
-    
+
     self.horizontalSeparatorHeightConstraint.constant = 1.f / [UIScreen mainScreen].scale;
-    
+
     self.closeButton.tintColor = [UIColor wmf_lightGrayColor];
-    
+
     self.titleLabel.text = [[MWLocalizedString(@"reference-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]] stringByReplacingOccurrencesOfString:@"$1" withString:_linkText];
 }
 
-- (NSString*)referenceHTMLWithSurroundingHTML {
+- (NSString *)referenceHTMLWithSurroundingHTML {
     NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_readingFontSize];
-    
+
     NSString *domain = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
     MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
     NSString *baseUrl = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
 
     return
-    [NSString stringWithFormat:@""
-      "<html>"
-      "<head>"
-      "<base href='%@' target='_self'>"
-      "<style>"
-      " *{"
-      "     font-family:'-apple-system';"
-      "     font-size:16px;"
-      "     -webkit-text-size-adjust:%ld%%;"
-      "     color:#%@;"
-      "     text-decoration:none;"
-      " }"
-      "</style>"
-      "</head>"
-      "<body>"
-      "%@"
-      "</body>"
-      "</html>", baseUrl, (long)fontSize.integerValue, [[UIColor wmf_referencePopoverTextColor] wmf_hexStringIncludingAlpha:NO], self.HTML];
+        [NSString stringWithFormat:@""
+                                    "<html>"
+                                    "<head>"
+                                    "<base href='%@' target='_self'>"
+                                    "<style>"
+                                    " *{"
+                                    "     font-family:'-apple-system';"
+                                    "     font-size:16px;"
+                                    "     -webkit-text-size-adjust:%ld%%;"
+                                    "     color:#%@;"
+                                    "     text-decoration:none;"
+                                    " }"
+                                    "</style>"
+                                    "</head>"
+                                    "<body>"
+                                    "%@"
+                                    "</body>"
+                                    "</html>",
+                                   baseUrl, (long)fontSize.integerValue, [[UIColor wmf_referencePopoverTextColor] wmf_hexStringIncludingAlpha:NO], self.HTML];
 }
 
-- (NSAttributedString*)attributedStringForHTML:(NSString*)html {
+- (NSAttributedString *)attributedStringForHTML:(NSString *)html {
     return
-    [[NSAttributedString alloc] initWithData:[html dataUsingEncoding:NSUnicodeStringEncoding]
-                                     options:@{
-                                            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                                            NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)
-                                            }
-                          documentAttributes:nil
-                                       error:nil];
+        [[NSAttributedString alloc] initWithData:[html dataUsingEncoding:NSUnicodeStringEncoding]
+                                         options:@{
+                                             NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                                             NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)
+                                         }
+                              documentAttributes:nil
+                                           error:nil];
 }
 
 - (CGSize)preferredContentSize {
@@ -104,17 +105,17 @@ NSString *const WMFReferencePopoverShowPreviousNotification = @"WMFReferencePopo
 }
 
 - (IBAction)showNext {
-    if (![[UIApplication sharedApplication] wmf_isRTL]){
+    if (![[UIApplication sharedApplication] wmf_isRTL]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferencePopoverShowNextNotification object:nil];
-    }else{
+    } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferencePopoverShowPreviousNotification object:nil];
     }
 }
 
 - (IBAction)showPrevious {
-    if (![[UIApplication sharedApplication] wmf_isRTL]){
+    if (![[UIApplication sharedApplication] wmf_isRTL]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferencePopoverShowPreviousNotification object:nil];
-    }else{
+    } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferencePopoverShowNextNotification object:nil];
     }
 }

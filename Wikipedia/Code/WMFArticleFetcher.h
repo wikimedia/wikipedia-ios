@@ -11,7 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 extern NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey;
 
-
 @interface WMFArticleFetcher : NSObject
 
 - (BOOL)isFetchingArticleForURL:(NSURL *)articleURL;
