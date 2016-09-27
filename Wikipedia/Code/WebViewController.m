@@ -1050,7 +1050,7 @@ NSString *const WMFCCBySALicenseURL =
     if(index >= 0 && self.lastClickedReferencesGroup.count > 0){
         NSDictionary *selectedReference = [self.lastClickedReferencesGroup wmf_safeObjectAtIndex:index];
         if(selectedReference){
-            CGFloat width = MAX(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
+            CGFloat width = MIN(MIN(self.view.frame.size.width, self.view.frame.size.height) - 20, 355);
             CGRect rect = CGRectZero;
             NSDictionary *rectDict = selectedReference[@"rect"];
             if (CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)(rectDict), &rect)) {
