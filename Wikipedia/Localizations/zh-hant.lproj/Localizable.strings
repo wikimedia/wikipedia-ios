@@ -209,7 +209,7 @@
 "about-testers" = "測試人員";
 "about-testers-details" = "已由 $1 完成 QA 測試";
 "about-translators" = "翻譯人員";
-"about-translators-details" = "$1 由志工翻譯";
+"about-translators-details" = "由 $1 的志工翻譯";
 "about-libraries" = "使用的函式庫";
 "about-libraries-license" = "授權條款";
 "about-libraries-licenses" = "授權條款";

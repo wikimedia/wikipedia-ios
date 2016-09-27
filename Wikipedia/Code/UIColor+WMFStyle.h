@@ -111,4 +111,10 @@
 
 + (instancetype)wmf_barButtonItemPopoverMessageBackgroundColor;
 
++ (instancetype)wmf_referencePopoverBackgroundColor;
+
++ (instancetype)wmf_referencePopoverLinkColor;
+
++ (instancetype)wmf_referencePopoverTextColor;
+
 @end

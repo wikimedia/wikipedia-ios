@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
+#import "WMFPopoverBackgroundView.h"
 
-@interface WMFBarButtonItemPopoverBackgroundView : UIPopoverBackgroundView
+@interface WMFBarButtonItemPopoverBackgroundView : WMFPopoverBackgroundView
 
 @end

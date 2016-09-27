@@ -40,7 +40,7 @@
 "account-creation-logging-in" = "प्रवेश करेत ...";
 "account-creation-passwords-mismatched" = "कुटशब्द मेल नै भेल";
 "account-creation-saving" = "आहाँ के सम्पादन सुरक्षित भ्यरहल अछि...";
-"account-creation-login" = "पहिलसे से खाता अछि ? लोग इन करु";
+"account-creation-login" = "पहिने सँ खाता अछि ? सम्प्रवेश करी।";
 // Fuzzy
 "account-creation-username-placeholder-text" = "प्रयोक्ता नाम";
 "account-creation-password-placeholder-text" = "कूटशब्द";
@@ -51,7 +51,7 @@
 "login-name-not-found" = "प्रयोगकर्ता नाम लग इन करबाक लेल आवश्यक अछि।";
 // Fuzzy
 "login-name-illegal" = "आहाँ अवैध प्रयोगकर्ता नाम प्रदान कर्ने छी।";
-"login-password-empty" = "लोग इन करबक लेल कुटशब्द जरुरी";
+"login-password-empty" = "सम्प्रवेश करैक लेल कुटशब्द आवश्यक अछि।";
 "login-password-wrong" = "आहाँ के कुटशब्द गलत अछि ।";
 "login-throttled" = "आहाँ आधिक बेर सम्प्रवेश कैर चुकल चिए";
 "login-user-blocked" = "प्रयोक्ता प्रतिबन्धित अछि।";
@@ -119,7 +119,7 @@
 "main-menu-heading-zero" = "शून्य विकिपिडिया";
 "main-menu-heading-legal" = "गोपनीयता आर नियम";
 "main-menu-show-today" = "आजु";
-"main-menu-nearby" = "लग के";
+"main-menu-nearby" = "लगमे";
 "main-menu-more" = "आर...";
 "main-menu-heading-debug" = "दोषमार्जन";
 "main-menu-debug-crash" = "दुर्घटना";

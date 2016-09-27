@@ -25,7 +25,7 @@
 "article-related-articles-title" = "Artikel terkait";
 "article-languages-yours" = "Bahasa Anda";
 "article-languages-others" = "Bahasa lainnya";
-"info-box-title" = "Fakta cepat";
+"info-box-title" = "Fakta singkat";
 "info-box-close-text" = "Tutup";
 "table-title-other" = "Informasi lebih lanjut";
 "saved-clear-all" = "Kosongkan";
@@ -392,7 +392,7 @@
 "compass-direction" = "pada pukul $1 tepat";
 "explore-featured-article-heading" = "Artikel pilihan";
 "explore-continue-reading-heading" = "Lanjutkan membaca";
-"explore-nearby-heading" = "Tempat dekat";
+"explore-nearby-heading" = "Tempat terdekat";
 "explore-nearby-sub-heading-your-location" = "Lokasi Anda";
 "explore-continue-related-heading" = "Karena Anda membaca";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
