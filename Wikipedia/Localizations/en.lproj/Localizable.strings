@@ -386,7 +386,7 @@
 "home-hide-suggestion-prompt" = "Hide this suggestion";
 "home-hide-suggestion-cancel" = "Cancel";
 "home-accessibility-label" = "Wikipedia, Explore";
-"home-button-accessibility-label" = "Home Button";
+"home-button-accessibility-label" = "Home";
 
 "potd-empty-error-description" = "Failed to retrieve picture of the day for $1";
 "potd-description-prefix" = "Picture of the day for $1";
