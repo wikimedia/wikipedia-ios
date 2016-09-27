@@ -100,23 +100,29 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
     }
 }
 
-- (nullable UIImageView *)newImageViewForLicenseWithCode:(nonnull NSString *)code {
+- (BOOL)addImageViewForLicenseWithCode:(nonnull NSString *)code toStackView:(UIStackView *)stackView {
     NSString *imageName = [@[@"license", code] componentsJoinedByString:@"-"];
 
     UIImage *image = [UIImage imageNamed:imageName];
-    CGFloat dimension = image.size.width;
 
     if (!image) {
-        return nil;
+        return NO;
     }
 
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView.contentMode = UIViewContentModeCenter;
+    [imageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [stackView addArrangedSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@(1.2 * dimension));
         make.top.and.bottom.equalTo(self.ownerStackView);
     }];
-    return imageView;
+
+    UILabel *space = [[UILabel alloc] init];
+    space.text = @" ";
+    [space setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [stackView addArrangedSubview:space];
+
+    return YES;
 }
 
 - (void)setLicense:(MWKLicense *)license owner:(NSString *)owner {
@@ -125,30 +131,21 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
         [self.ownerStackView removeArrangedSubview:view];
     }
 
-    BOOL didAddLicenseIcon = NO;
     NSString *code = [license.code lowercaseString];
     if (code) {
         NSArray<NSString *> *components = [code componentsSeparatedByString:@"-"];
         for (NSString *code in components) {
-            UIImageView *imageView = [self newImageViewForLicenseWithCode:code];
-            if (!imageView) {
-                continue;
-            }
-            didAddLicenseIcon = YES;
-            [self.ownerStackView addArrangedSubview:imageView];
+            [self addImageViewForLicenseWithCode:code toStackView:self.ownerStackView];
         }
     } else {
-        UIImageView *imageView = [self newImageViewForLicenseWithCode:@"generic"];
-        if (imageView && license.shortDescription) {
-            didAddLicenseIcon = YES;
-            [self.ownerStackView addArrangedSubview:imageView];
+        [self addImageViewForLicenseWithCode:@"generic" toStackView:self.ownerStackView];
+        if (license.shortDescription) {
             UILabel *licenseDescriptionLabel = [[UILabel alloc] init];
             licenseDescriptionLabel.font = [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize];
             licenseDescriptionLabel.textColor = [UIColor whiteColor];
-            licenseDescriptionLabel.text = [NSString stringWithFormat:@" %@", license.shortDescription];
-            if (licenseDescriptionLabel) {
-                [self.ownerStackView addArrangedSubview:licenseDescriptionLabel];
-            }
+            NSString *format = owner ? @"%@ - " : @"%@";
+            licenseDescriptionLabel.text = [NSString stringWithFormat:format, license.shortDescription];
+            [self.ownerStackView addArrangedSubview:licenseDescriptionLabel];
         }
     }
 
@@ -156,11 +153,11 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
         return;
     }
 
-    UILabel *label = [[UILabel alloc] init];
-    label.font = [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize];
-    label.textColor = [UIColor whiteColor];
-    label.text = didAddLicenseIcon ? [NSString stringWithFormat:@" %@", owner] : owner;
-    [self.ownerStackView addArrangedSubview:label];
+    UILabel *ownerLabel = [[UILabel alloc] init];
+    ownerLabel.font = [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize];
+    ownerLabel.textColor = [UIColor whiteColor];
+    ownerLabel.text = owner;
+    [self.ownerStackView addArrangedSubview:ownerLabel];
 }
 
 @end
