@@ -7,14 +7,14 @@
 #import "WMFGradientView.h"
 #import <Masonry/Masonry.h>
 
-static double const WMFImageGalleryLicenseFontSize = 19.0;
-static double const WMFImageGalleryLicenseBaselineOffset = -1.5;
 static double const WMFImageGalleryOwnerFontSize = 11.f;
 
 @interface WMFImageGalleryDetailOverlayView ()
 @property (nonatomic, strong) IBOutlet UILabel *imageDescriptionLabel;
 @property (nonatomic, strong) IBOutlet UIButton *ownerButton;
 @property (nonatomic, strong) IBOutlet UIButton *infoButton;
+@property (nonatomic, strong) IBOutlet UIStackView *ownerStackView;
+@property (nonatomic, strong) IBOutlet UIStackView *ownerLabel;
 
 @property (nonatomic, strong) WMFGradientView *gradientView;
 
@@ -23,41 +23,11 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
 
 @end
 
-static NSAttributedString *ConcatOwnerAndLicense(NSString *owner, MWKLicense *license) {
-    if (!owner && !license) {
-        return nil;
-    }
-    NSMutableAttributedString *result = [NSMutableAttributedString new];
-    NSString *licenseGlyph = [license toGlyph] ?: WIKIGLYPH_CITE;
-    if (licenseGlyph) {
-        // hand-tuning glyph size & baseline offset until all glyphs are positioned & padded in a uniform way
-        [result appendAttributedString:
-                    [[NSAttributedString alloc]
-                        initWithString:licenseGlyph
-                            attributes:@{ NSFontAttributeName: [UIFont wmf_glyphFontOfSize:WMFImageGalleryLicenseFontSize],
-                                          NSForegroundColorAttributeName: [UIColor whiteColor],
-                                          NSBaselineOffsetAttributeName: @(WMFImageGalleryLicenseBaselineOffset) }]];
-    }
-
-    NSAttributedString *attributedOwnerAndSeparator =
-        [[NSAttributedString alloc]
-            initWithString:[@" " stringByAppendingString:owner]
-                attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize],
-                             NSForegroundColorAttributeName: [UIColor whiteColor]}];
-
-    [result appendAttributedString:attributedOwnerAndSeparator];
-
-    [result addAttribute:NSParagraphStyleAttributeName
-                   value:[NSParagraphStyle wmf_tailTruncatingNaturalAlignmentStyle]
-                   range:NSMakeRange(0, result.length)];
-
-    return result;
-}
-
 @implementation WMFImageGalleryDetailOverlayView
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.infoButton.imageView.contentMode = UIViewContentModeCenter;
     [self.ownerButton.titleLabel wmf_applyDropShadow];
     [self.imageDescriptionLabel wmf_applyDropShadow];
 
@@ -130,8 +100,64 @@ static NSAttributedString *ConcatOwnerAndLicense(NSString *owner, MWKLicense *li
     }
 }
 
+- (BOOL)addImageViewForLicenseWithCode:(nonnull NSString *)code toStackView:(UIStackView *)stackView {
+    NSString *imageName = [@[@"license", code] componentsJoinedByString:@"-"];
+
+    UIImage *image = [UIImage imageNamed:imageName];
+
+    if (!image) {
+        return NO;
+    }
+
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.contentMode = UIViewContentModeCenter;
+    [imageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [stackView addArrangedSubview:imageView];
+    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.and.bottom.equalTo(self.ownerStackView);
+    }];
+
+    UILabel *space = [[UILabel alloc] init];
+    space.text = @" ";
+    [space setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [stackView addArrangedSubview:space];
+
+    return YES;
+}
+
 - (void)setLicense:(MWKLicense *)license owner:(NSString *)owner {
-    [self.ownerButton setAttributedTitle:ConcatOwnerAndLicense(owner, license) forState:UIControlStateNormal];
+    NSArray *subviews = [self.ownerStackView.arrangedSubviews copy];
+    for (UIView *view in subviews) {
+        [self.ownerStackView removeArrangedSubview:view];
+    }
+
+    NSString *code = [license.code lowercaseString];
+    if (code) {
+        NSArray<NSString *> *components = [code componentsSeparatedByString:@"-"];
+        for (NSString *code in components) {
+            [self addImageViewForLicenseWithCode:code toStackView:self.ownerStackView];
+        }
+    } else {
+        [self addImageViewForLicenseWithCode:@"generic" toStackView:self.ownerStackView];
+        if (license.shortDescription) {
+            UILabel *licenseDescriptionLabel = [[UILabel alloc] init];
+            licenseDescriptionLabel.font = [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize];
+            licenseDescriptionLabel.textColor = [UIColor whiteColor];
+            NSString *format = owner ? @"%@ - " : @"%@";
+            licenseDescriptionLabel.text = [NSString stringWithFormat:format, license.shortDescription];
+            [self.ownerStackView addArrangedSubview:licenseDescriptionLabel];
+        }
+    }
+
+    if (!owner) {
+        return;
+    }
+
+    UILabel *ownerLabel = [[UILabel alloc] init];
+    ownerLabel.font = [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize];
+    ownerLabel.textColor = [UIColor whiteColor];
+    ownerLabel.text = owner;
+    [self.ownerStackView addArrangedSubview:ownerLabel];
 }
 
 @end
