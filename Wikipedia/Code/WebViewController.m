@@ -156,7 +156,12 @@ NSString *const WMFCCBySALicenseURL =
                 return;
             }
             
-            if ([href wmf_isWikiResource]) {
+            NSURL *url = [NSURL URLWithString:href];
+            if (!url) {
+                return;
+            }
+
+            if ([url wmf_isWikiResource]) {
                 NSURL *url = [NSURL URLWithString:href];
                 if (!url.wmf_domain) {
                     url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];

@@ -180,7 +180,13 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
 #pragma mark - Properties
 
 - (BOOL)wmf_isWikiResource {
-    return [self.path wmf_isWikiResource];
+    static NSString *wikiResourceSuffix = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        wikiResourceSuffix = [NSString stringWithFormat:@".%@", WMFDefaultSiteDomain];
+    });
+    NSString *lowercaseHost = self.host.lowercaseString;
+    return ([lowercaseHost isEqualToString:WMFDefaultSiteDomain] || [lowercaseHost hasSuffix:wikiResourceSuffix]) && [self.path wmf_isWikiResource];
 }
 
 - (BOOL)wmf_isWikiCitation {
