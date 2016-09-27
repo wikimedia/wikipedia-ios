@@ -140,7 +140,7 @@ platform :ios do
   # This lane requires HOCKEY_PRODUCTION environment variable to be set.
   # 1. HOCKEY_PRODUCTION=THE_API_KEY bundle exec fastlane push_beta
   # 2. Use a .env file
-  desc "Runs tests, version, tag, and push to the beta branch"
+  desc "updates version, builds, and pushes to Testlfight"
   lane :push_beta do
 
     increment_build_number({

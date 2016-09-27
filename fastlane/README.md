@@ -60,7 +60,7 @@ Build the app for distibution
 ```
 fastlane ios push_beta
 ```
-Runs tests, version, tag, and push to the beta branch
+updates version, builds, and pushes to Testlfight
 ### ios test_and_push_beta
 ```
 fastlane ios test_and_push_beta
