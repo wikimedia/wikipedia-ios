@@ -4,6 +4,21 @@
 #import "NSURLComponents+WMFLinkParsing.h"
 
 NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
+NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
+
+@interface NSString (WMFLinkParsing)
+
+- (BOOL)wmf_isWikiResource;
+
+@end
+
+@implementation NSString (WMFLinkParsing)
+
+- (BOOL)wmf_isWikiResource {
+    return [self containsString:WMFInternalLinkPathPrefix];
+}
+
+@end
 
 @implementation NSURL (WMFLinkParsing)
 
