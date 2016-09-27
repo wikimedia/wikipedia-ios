@@ -16,7 +16,6 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
 @property (nonatomic, strong) IBOutlet UIStackView *ownerStackView;
 @property (nonatomic, strong) IBOutlet UIStackView *ownerLabel;
 
-
 @property (nonatomic, strong) WMFGradientView *gradientView;
 
 - (IBAction)didTapOwnerButton;
@@ -28,6 +27,7 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.infoButton.imageView.contentMode = UIViewContentModeCenter;
     [self.ownerButton.titleLabel wmf_applyDropShadow];
     [self.imageDescriptionLabel wmf_applyDropShadow];
 
@@ -102,18 +102,18 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
 
 - (nullable UIImageView *)newImageViewForLicenseWithCode:(nonnull NSString *)code {
     NSString *imageName = [@[@"license", code] componentsJoinedByString:@"-"];
-    
+
     UIImage *image = [UIImage imageNamed:imageName];
     CGFloat dimension = image.size.width;
 
     if (!image) {
         return nil;
     }
-   
+
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@(1.2*dimension));
+        make.width.equalTo(@(1.2 * dimension));
         make.top.and.bottom.equalTo(self.ownerStackView);
     }];
     return imageView;
@@ -124,7 +124,7 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
     for (UIView *view in subviews) {
         [self.ownerStackView removeArrangedSubview:view];
     }
-    
+
     BOOL didAddLicenseIcon = NO;
     NSString *code = [license.code lowercaseString];
     if (code) {
@@ -151,7 +151,7 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
             }
         }
     }
-    
+
     if (!owner) {
         return;
     }

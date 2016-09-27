@@ -30,8 +30,13 @@
                     </connections>
                 </button>
                 <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VQe-aq-b55"/>
-                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dn-jB-W86">
+                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dn-jB-W86">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="26" id="627-10-9JQ"/>
+                        <constraint firstAttribute="height" constant="26" id="roC-kk-GQT"/>
+                    </constraints>
                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" image="info-white"/>
                     <connections>
                         <action selector="didTapInfoButton" destination="iN0-l3-epB" eventType="touchUpInside" id="YCG-ej-W63"/>
                     </connections>
@@ -56,11 +61,14 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="imageDescriptionLabel" destination="I6f-Vm-XuX" id="fUv-oF-GNJ"/>
-                <outlet property="infoButton" destination="2dn-jB-W86" id="bQd-Un-wet"/>
+                <outlet property="infoButton" destination="2dn-jB-W86" id="85x-w2-2vz"/>
                 <outlet property="ownerButton" destination="l6E-b6-poB" id="y4l-ZK-1vr"/>
                 <outlet property="ownerStackView" destination="VQe-aq-b55" id="Smm-Nr-8em"/>
             </connections>
             <point key="canvasLocation" x="-1703" y="-150"/>
         </view>
     </objects>
+    <resources>
+        <image name="info-white" width="16" height="16"/>
+    </resources>
 </document>
