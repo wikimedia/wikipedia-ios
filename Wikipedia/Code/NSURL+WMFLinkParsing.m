@@ -186,7 +186,7 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
         wikiResourceSuffix = [NSString stringWithFormat:@".%@", WMFDefaultSiteDomain];
     });
     NSString *lowercaseHost = self.host.lowercaseString;
-    return ([lowercaseHost isEqualToString:WMFDefaultSiteDomain] || [lowercaseHost hasSuffix:wikiResourceSuffix]) && [self.path wmf_isWikiResource];
+    return (!lowercaseHost || [lowercaseHost isEqualToString:WMFDefaultSiteDomain] || [lowercaseHost hasSuffix:wikiResourceSuffix]) && [self.path wmf_isWikiResource];
 }
 
 - (BOOL)wmf_isWikiCitation {
