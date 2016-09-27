@@ -10,5 +10,5 @@ file_types = {h: true, m: true, cpp: true, c: true}
   file = components[1]
   extension = file.split('.').last
   next if !file_types[extension.downcase.to_sym]
-  `clang-format -style=file -i #{file}`
+  `/usr/local/bin/clang-format -style=file -i #{file}`
 end
