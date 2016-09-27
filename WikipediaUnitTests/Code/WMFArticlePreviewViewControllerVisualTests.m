@@ -8,11 +8,11 @@
 
 @implementation WMFArticlePreviewViewController (WMFArticlePreviewViewControllerVisualTesting)
 
-- (void)wmf_configureForVisualTestingByOnlyShowingBordersForCertainViews{
-    for (UIView* view in @[self.imageView, self.titleLabel, self.rankLabel, self.subtitleLabel, self.viewCountAndSparklineContainerView]) {
+- (void)wmf_configureForVisualTestingByOnlyShowingBordersForCertainViews {
+    for (UIView *view in @[self.imageView, self.titleLabel, self.rankLabel, self.subtitleLabel, self.viewCountAndSparklineContainerView]) {
         view.layer.borderWidth = 1;
         view.backgroundColor = [UIColor clearColor];
-        if([view respondsToSelector:@selector(setTextColor:)]){
+        if ([view respondsToSelector:@selector(setTextColor:)]) {
             [view performSelector:@selector(setTextColor:) withObject:[UIColor clearColor]];
         }
         for (UIView *subView in view.subviews) {
