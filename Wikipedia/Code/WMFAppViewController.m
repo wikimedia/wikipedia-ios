@@ -48,6 +48,8 @@
 
 #import "WMFMostReadListTableViewController.h"
 
+#import "WMFUserNotificationsController.h"
+
 #define TEST_SHARED_CONTAINER_MIGRATION DEBUG && 0
 
 #if TEST_SHARED_CONTAINER_MIGRATION
@@ -103,6 +105,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 
 @property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
+
+@property (nonatomic, strong) WMFUserNotificationsController *notificationsController;
 
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
@@ -310,6 +314,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     //    if (FBTweakValue(@"Alerts", @"General", @"Show message on launch", NO)) {
     //        [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     //    }
+
+    [self.notificationsController start];
+
     DDLogWarn(@"Resuming… Logging Important Statistics");
     [self logImportantStatistics];
 }
@@ -323,6 +330,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     [self.dataStore startCacheRemoval];
     [[[SessionSingleton sharedInstance] dataStore] clearMemoryCache];
     [self.savedArticlesFetcher stop];
+    [self.notificationsController stop];
 
     DDLogWarn(@"Backgrounding… Logging Important Statistics");
     [self logImportantStatistics];
@@ -592,6 +600,18 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         _randomFetcher = [[WMFRandomArticleFetcher alloc] init];
     }
     return _randomFetcher;
+}
+
+- (WMFUserNotificationsController *)notificationsController {
+    if (![self uiIsLoaded]) {
+        return nil;
+    }
+
+    if (!_notificationsController) {
+        _notificationsController = [[WMFUserNotificationsController alloc] init];
+    }
+
+    return _notificationsController;
 }
 
 - (SessionSingleton *)session {
