@@ -143,7 +143,7 @@ static double const WMFImageGalleryOwnerFontSize = 11.f;
             UILabel *licenseDescriptionLabel = [[UILabel alloc] init];
             licenseDescriptionLabel.font = [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize];
             licenseDescriptionLabel.textColor = [UIColor whiteColor];
-            NSString *format = owner ? @"%@ - " : @"%@";
+            NSString *format = owner ? @"%@ \u2022 " : @"%@";
             licenseDescriptionLabel.text = [NSString stringWithFormat:format, license.shortDescription];
             [self.ownerStackView addArrangedSubview:licenseDescriptionLabel];
         }
