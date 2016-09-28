@@ -749,6 +749,12 @@
 		D87E54011D6CC709005134EF /* WMFMantleJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806321C0CE7680065EBC0 /* WMFMantleJSONResponseSerializer.m */; };
 		D890C84B1D772B02007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C84D1D772B02007132C9 /* InfoPlist.strings */; };
 		D890C85D1D772ED3007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C85B1D772ED3007132C9 /* InfoPlist.strings */; };
+		D895D0851D9C1EB8005418C1 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0841D9C1EB8005418C1 /* UserNotifications.framework */; };
+		D895D0871D9C1EB8005418C1 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0861D9C1EB8005418C1 /* UserNotificationsUI.framework */; };
+		D895D08A1D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D895D0891D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift */; };
+		D895D08D1D9C1EB8005418C1 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D895D08B1D9C1EB8005418C1 /* MainInterface.storyboard */; };
+		D895D0911D9C1EB8005418C1 /* InTheNewsNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D895D0991D9C28D9005418C1 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0841D9C1EB8005418C1 /* UserNotifications.framework */; };
 		D896C7961D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */; };
 		D896C7991D6F3335007101DF /* WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; };
 		D896C79B1D6F5ADD007101DF /* NSDate+WMFRelativeDate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E78419A1C7CF5CE004F9D36 /* NSDate+WMFRelativeDate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -849,6 +855,7 @@
 		D8EEA0F51D6E14E800D88143 /* WMFAppModalProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */; };
 		D8EEA0FA1D6E21A400D88143 /* NSFileManager+WMFGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D8EEA0F81D6E21A400D88143 /* NSFileManager+WMFGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8EEA0FB1D6E21A400D88143 /* NSFileManager+WMFGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */; };
+		D8F1BF261D9C2AFB00036E71 /* WMFUserNotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F1BF251D9C2AFB00036E71 /* WMFUserNotificationsController.m */; };
 		D8F706941D74C100001894C6 /* UIImage+WMFStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E805001C0CE0DC0065EBC0 /* UIImage+WMFStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8F706951D74C100001894C6 /* UIImageView+WMFPlaceholder.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E805D21C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8F706961D74C107001894C6 /* UIImage+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805011C0CE0DC0065EBC0 /* UIImage+WMFStyle.m */; };
@@ -902,6 +909,13 @@
 			remoteGlobalIDString = D84580EB1D67572C00B09640;
 			remoteInfo = WMFUtilities;
 		};
+		D895D08F1D9C1EB8005418C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D895D0821D9C1EB8005418C1;
+			remoteInfo = InTheNewsNotification;
+		};
 		D896C7971D6F332A007101DF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D499142D181D51DE00E6073C /* Project object */;
@@ -939,6 +953,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				D895D0911D9C1EB8005418C1 /* InTheNewsNotification.appex in Embed App Extensions */,
 				D85D34D01D74D07500845125 /* TopReadWidget.appex in Embed App Extensions */,
 				0E8380701D64989F0076EDE4 /* ContinueReadingWidget.appex in Embed App Extensions */,
 			);
@@ -2330,6 +2345,12 @@
 		D890C8541D772B4E007132C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D890C85C1D772ED3007132C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D890C85E1D772EE7007132C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = InTheNewsNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D895D0841D9C1EB8005418C1 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		D895D0861D9C1EB8005418C1 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		D895D0891D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFInTheNewsNotificationViewController.swift; sourceTree = "<group>"; };
+		D895D08C1D9C1EB8005418C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		D895D08E1D9C1EB8005418C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D896C7941D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"; sourceTree = "<group>"; };
 		D896C7951D6F2E4E007101DF /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m"; sourceTree = "<group>"; };
 		D8A6E8731D80A4A0002D6D4D /* TopReadWidgetImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TopReadWidgetImages.xcassets; sourceTree = "<group>"; };
@@ -2382,6 +2403,8 @@
 		D8EEA0F31D6E14E800D88143 /* WMFAppModalProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFAppModalProgressViewController.xib; sourceTree = "<group>"; };
 		D8EEA0F81D6E21A400D88143 /* NSFileManager+WMFGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+WMFGroup.h"; path = "Wikipedia/Code/NSFileManager+WMFGroup.h"; sourceTree = SOURCE_ROOT; };
 		D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+WMFGroup.m"; path = "Wikipedia/Code/NSFileManager+WMFGroup.m"; sourceTree = SOURCE_ROOT; };
+		D8F1BF241D9C2AFB00036E71 /* WMFUserNotificationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFUserNotificationsController.h; sourceTree = "<group>"; };
+		D8F1BF251D9C2AFB00036E71 /* WMFUserNotificationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFUserNotificationsController.m; sourceTree = "<group>"; };
 		D8FA39B71D7F556400D89889 /* WMFSparklineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFSparklineView.swift; sourceTree = "<group>"; };
 		E07BF8E52EA1D0865B77E7D7 /* Pods_Foundation_TopReadWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_TopReadWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3F0C0C789B0E26275755E1E /* Pods-Foundation-WMFUtilities.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUtilities.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUtilities/Pods-Foundation-WMFUtilities.test.xcconfig"; sourceTree = "<group>"; };
@@ -2418,6 +2441,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D895D0991D9C28D9005418C1 /* UserNotifications.framework in Frameworks */,
 				D8FAC7DC1D6F88A100C2A6BC /* WMFUtilities.framework in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */,
@@ -2456,6 +2480,15 @@
 				D85D34D81D74D0B300845125 /* WMFUI.framework in Frameworks */,
 				D85D34C61D74D07500845125 /* NotificationCenter.framework in Frameworks */,
 				6D15A0B1B710BCF22B3407D4 /* Pods_Foundation_TopReadWidget.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D895D0801D9C1EB8005418C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D895D0871D9C1EB8005418C1 /* UserNotificationsUI.framework in Frameworks */,
+				D895D0851D9C1EB8005418C1 /* UserNotifications.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3811,6 +3844,7 @@
 				BC45D5591C31EFF8007C72F3 /* i18n */,
 				BC628C791B389E2B00B3F85C /* Images */,
 				0E03E2961B844D7700C1FBD7 /* Location */,
+				D895D09A1D9C2983005418C1 /* Controllers */,
 				BCB669A31A83F6C300C7B1FE /* Model */,
 				0487041519F824D700B7D307 /* Networking */,
 				BC45D5741C32ED98007C72F3 /* Parsing */,
@@ -5300,6 +5334,7 @@
 				0EE488FE1D4AD5D10088505C /* Vendor */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
 				0E8380661D64989F0076EDE4 /* ContinueReadingWidget */,
+				D895D0881D9C1EB8005418C1 /* InTheNewsNotification */,
 				D85D34C71D74D07500845125 /* TopReadWidget */,
 				D84580ED1D67572C00B09640 /* WMFUtilities */,
 				D844D96D1D6CB2600042D692 /* WMFModel */,
@@ -5320,6 +5355,7 @@
 				D844D96C1D6CB2600042D692 /* WMFModel.framework */,
 				D8AC39241D6F247F007E3C14 /* WMFUI.framework */,
 				D85D34C51D74D07500845125 /* TopReadWidget.appex */,
+				D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -5345,6 +5381,8 @@
 				840E588EB82825440685B50D /* Pods_Foundation_WMFUtilities.framework */,
 				D3A46BEEA3A328F2B60FD0EA /* Pods_Foundation_Wikipedia.framework */,
 				FEB1B9EA1D15047B919A2C88 /* Pods_Foundation_Wikipedia_WikipediaUnitTests.framework */,
+				D895D0841D9C1EB8005418C1 /* UserNotifications.framework */,
+				D895D0861D9C1EB8005418C1 /* UserNotificationsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -5697,6 +5735,25 @@
 			path = ../Schema;
 			sourceTree = "<group>";
 		};
+		D895D0881D9C1EB8005418C1 /* InTheNewsNotification */ = {
+			isa = PBXGroup;
+			children = (
+				D895D0891D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift */,
+				D895D08B1D9C1EB8005418C1 /* MainInterface.storyboard */,
+				D895D08E1D9C1EB8005418C1 /* Info.plist */,
+			);
+			path = InTheNewsNotification;
+			sourceTree = "<group>";
+		};
+		D895D09A1D9C2983005418C1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D8F1BF241D9C2AFB00036E71 /* WMFUserNotificationsController.h */,
+				D8F1BF251D9C2AFB00036E71 /* WMFUserNotificationsController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		D8AC39251D6F247F007E3C14 /* WMFUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -6004,6 +6061,7 @@
 				D8AC392A1D6F2480007E3C14 /* PBXTargetDependency */,
 				0E83806F1D64989F0076EDE4 /* PBXTargetDependency */,
 				D85D34CF1D74D07500845125 /* PBXTargetDependency */,
+				D895D0901D9C1EB8005418C1 /* PBXTargetDependency */,
 			);
 			name = Wikipedia;
 			productName = "Wikipedia-iOS";
@@ -6068,6 +6126,23 @@
 			name = TopReadWidget;
 			productName = TopReadWidget;
 			productReference = D85D34C51D74D07500845125 /* TopReadWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		D895D0821D9C1EB8005418C1 /* InTheNewsNotification */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D895D0981D9C1EB8005418C1 /* Build configuration list for PBXNativeTarget "InTheNewsNotification" */;
+			buildPhases = (
+				D895D07F1D9C1EB8005418C1 /* Sources */,
+				D895D0801D9C1EB8005418C1 /* Frameworks */,
+				D895D0811D9C1EB8005418C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = InTheNewsNotification;
+			productName = InTheNewsNotification;
+			productReference = D895D0831D9C1EB8005418C1 /* InTheNewsNotification.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		D8AC39231D6F247F007E3C14 /* WMFUI */ = {
@@ -6148,6 +6223,11 @@
 								enabled = 1;
 							};
 						};
+					};
+					D895D0821D9C1EB8005418C1 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = AKK7J2GV64;
+						ProvisioningStyle = Automatic;
 					};
 					D8AC39231D6F247F007E3C14 = {
 						CreatedOnToolsVersion = 8.0;
@@ -6283,6 +6363,7 @@
 				BC4273511A7C736800068882 /* WikipediaUnitTests */,
 				0E8380621D64989F0076EDE4 /* ContinueReadingWidget */,
 				D85D34C41D74D07500845125 /* TopReadWidget */,
+				D895D0821D9C1EB8005418C1 /* InTheNewsNotification */,
 				D84580EB1D67572C00B09640 /* WMFUtilities */,
 				D844D96B1D6CB2600042D692 /* WMFModel */,
 				D8AC39231D6F247F007E3C14 /* WMFUI */,
@@ -6427,6 +6508,14 @@
 				D8A6E8741D80A4A0002D6D4D /* TopReadWidgetImages.xcassets in Resources */,
 				D890C84B1D772B02007132C9 /* InfoPlist.strings in Resources */,
 				D85D34CC1D74D07500845125 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D895D0811D9C1EB8005418C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D895D08D1D9C1EB8005418C1 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7168,6 +7257,7 @@
 				D8D5DB421D7A214500526A69 /* A2BlockInvocation.m in Sources */,
 				B0E804BE1C0CE0B40065EBC0 /* CLLocation+WMFBearing.m in Sources */,
 				B0E8030A1C0CD5320065EBC0 /* WMFSearchResultDistanceProvider.m in Sources */,
+				D8F1BF261D9C2AFB00036E71 /* WMFUserNotificationsController.m in Sources */,
 				BCCFC44C1C84BAE0009D3613 /* CLLocation+WMFComparison.m in Sources */,
 				B0E8037D1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift in Sources */,
 				D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */,
@@ -7358,6 +7448,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D895D07F1D9C1EB8005418C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D895D08A1D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D8AC391F1D6F247F007E3C14 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -7408,6 +7506,11 @@
 			isa = PBXTargetDependency;
 			target = D84580EB1D67572C00B09640 /* WMFUtilities */;
 			targetProxy = D88DBBBC1D8B322700134A50 /* PBXContainerItemProxy */;
+		};
+		D895D0901D9C1EB8005418C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D895D0821D9C1EB8005418C1 /* InTheNewsNotification */;
+			targetProxy = D895D08F1D9C1EB8005418C1 /* PBXContainerItemProxy */;
 		};
 		D896C7981D6F332A007101DF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7643,6 +7746,14 @@
 				D890C85E1D772EE7007132C9 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D895D08B1D9C1EB8005418C1 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D895D08C1D9C1EB8005418C1 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -9341,6 +9452,154 @@
 			};
 			name = Beta;
 		};
+		D895D0921D9C1EB8005418C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 2.3;
+			};
+			name = Debug;
+		};
+		D895D0931D9C1EB8005418C1 /* Debug Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 2.3;
+			};
+			name = "Debug Test";
+		};
+		D895D0941D9C1EB8005418C1 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
+			};
+			name = AdHoc;
+		};
+		D895D0951D9C1EB8005418C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
+			};
+			name = Release;
+		};
+		D895D0961D9C1EB8005418C1 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
+			};
+			name = Test;
+		};
+		D895D0971D9C1EB8005418C1 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AKK7J2GV64;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
+			};
+			name = Beta;
+		};
 		D8AC392E1D6F2480007E3C14 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EE101D0AA36D601A273FC5BE /* Pods-Foundation-WMFUI.debug.xcconfig */;
@@ -9651,6 +9910,19 @@
 				D85D34D51D74D07600845125 /* Release */,
 				D85D34D61D74D07600845125 /* Test */,
 				D85D34D71D74D07600845125 /* Beta */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D895D0981D9C1EB8005418C1 /* Build configuration list for PBXNativeTarget "InTheNewsNotification" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D895D0921D9C1EB8005418C1 /* Debug */,
+				D895D0931D9C1EB8005418C1 /* Debug Test */,
+				D895D0941D9C1EB8005418C1 /* AdHoc */,
+				D895D0951D9C1EB8005418C1 /* Release */,
+				D895D0961D9C1EB8005418C1 /* Test */,
+				D895D0971D9C1EB8005418C1 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
