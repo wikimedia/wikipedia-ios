@@ -24,6 +24,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var footerLabelLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var headerLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
 
     #if DEBUG
     let skipCache = false
@@ -288,9 +289,25 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
         
         preferredContentSize = rowCount == 1 ? articlePreviewViewControllers[0].view.frame.size : size
-
+        
+        activityIndicatorHidden = true
     }
 
+    var activityIndicatorHidden: Bool = false {
+        didSet {
+            activityIndicatorView.hidden = activityIndicatorHidden
+            if activityIndicatorHidden {
+                activityIndicatorView.stopAnimating()
+            } else {
+                activityIndicatorView.startAnimating()
+            }
+            
+            headerView.hidden = !activityIndicatorHidden
+            footerView.hidden = !activityIndicatorHidden
+            stackView.hidden = !activityIndicatorHidden
+        }
+    }
+    
     func widgetPerformUpdate(completionHandler: ((NCUpdateResult) -> Void)) {
         date = NSDate().wmf_bestMostReadFetchDate()
         fetchForDate(date, siteURL: siteURL, completionHandler: completionHandler)

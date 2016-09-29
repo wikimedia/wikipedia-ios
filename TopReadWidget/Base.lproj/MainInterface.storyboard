@@ -18,13 +18,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="336"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nmJ-Vp-nma">
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nmJ-Vp-nma">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="fSi-X0-sCo"/>
                                     <constraint firstAttribute="height" constant="232" id="pqe-WW-Dod"/>
                                 </constraints>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Yp-NW-afG">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Yp-NW-afG">
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FRIDAY AUGUST 5, 2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ISj-AX-b2P">
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
@@ -44,7 +44,7 @@
                                     <constraint firstAttribute="height" constant="44" id="r1M-ri-m41"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7sN-uX-NFF">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7sN-uX-NFF">
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l3r-sP-PRE">
                                         <frame key="frameInset" height="0.5"/>
@@ -69,6 +69,7 @@
                                     <constraint firstItem="yW4-n9-fo6" firstAttribute="leading" secondItem="y2A-ih-w95" secondAttribute="trailing" constant="5" id="QO9-HM-twx"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="TLb-bW-unM"/>
                         </subviews>
                         <constraints>
                             <constraint firstItem="8Yp-NW-afG" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="0MJ-Bj-xFA"/>
@@ -76,7 +77,9 @@
                             <constraint firstItem="7sN-uX-NFF" firstAttribute="top" secondItem="nmJ-Vp-nma" secondAttribute="bottom" id="6En-Vu-7JN"/>
                             <constraint firstItem="7sN-uX-NFF" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="9a2-ps-Iso"/>
                             <constraint firstItem="nmJ-Vp-nma" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="Fo2-kz-yvu"/>
+                            <constraint firstItem="TLb-bW-unM" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="TsH-Uq-bgD"/>
                             <constraint firstAttribute="trailing" secondItem="8Yp-NW-afG" secondAttribute="trailing" id="fzE-xY-mUY"/>
+                            <constraint firstItem="TLb-bW-unM" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="kkl-Ql-7UZ"/>
                             <constraint firstItem="8Yp-NW-afG" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="nkL-Tp-71h"/>
                             <constraint firstItem="nmJ-Vp-nma" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="44" id="xQV-tx-4kj"/>
                         </constraints>
@@ -88,6 +91,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="336"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="TLb-bW-unM" id="Arl-00-ffu"/>
                         <outlet property="footerLabel" destination="y2A-ih-w95" id="yi7-i6-1aB"/>
                         <outlet property="footerLabelLeadingConstraint" destination="DMb-nL-ovQ" id="R1M-6m-AHJ"/>
                         <outlet property="footerSeparatorView" destination="l3r-sP-PRE" id="ZFY-FI-3aX"/>
