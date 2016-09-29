@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -41,12 +40,12 @@
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cDN-ER-2od">
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="cDN-ER-2od" secondAttribute="height" multiplier="1:1" id="Xqq-vI-DTv"/>
+                                    <constraint firstAttribute="height" constant="48" id="J3Q-wa-iwu"/>
                                     <constraint firstAttribute="width" constant="48" id="dFz-yu-tiP"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="6"/>
+                                        <integer key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
@@ -102,9 +101,9 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="GrZ-um-Wi1" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="2DO-eQ-D0v"/>
-                            <constraint firstItem="oWq-0k-HLi" firstAttribute="leading" secondItem="cDN-ER-2od" secondAttribute="trailing" constant="10" id="453-es-zVE"/>
                             <constraint firstItem="1tI-ow-vuf" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="15" id="5hp-20-b96"/>
                             <constraint firstItem="GcN-lo-r42" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="20" symbolic="YES" id="6Vq-gs-PHe"/>
+                            <constraint firstItem="oWq-0k-HLi" firstAttribute="leading" secondItem="GOC-yj-VXn" secondAttribute="leading" id="9v2-ap-4Iv"/>
                             <constraint firstItem="h2l-vC-XkM" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="15" id="BBG-Uu-ci9"/>
                             <constraint firstItem="GOC-yj-VXn" firstAttribute="top" secondItem="1tI-ow-vuf" secondAttribute="bottom" constant="10" id="C81-LT-HVK"/>
                             <constraint firstItem="GcN-lo-r42" firstAttribute="height" secondItem="GrZ-um-Wi1" secondAttribute="height" priority="750" id="Dd7-ig-MCb"/>
@@ -112,7 +111,7 @@
                             <constraint firstAttribute="trailing" secondItem="GOC-yj-VXn" secondAttribute="trailing" constant="15" id="GPb-sq-RKj"/>
                             <constraint firstAttribute="trailing" secondItem="h2l-vC-XkM" secondAttribute="trailing" constant="15" id="HRm-eW-8BN"/>
                             <constraint firstAttribute="trailing" secondItem="GcN-lo-r42" secondAttribute="trailing" constant="20" symbolic="YES" id="L8K-9R-egU"/>
-                            <constraint firstItem="GOC-yj-VXn" firstAttribute="leading" secondItem="cDN-ER-2od" secondAttribute="trailing" constant="10" id="OiN-hJ-fDQ"/>
+                            <constraint firstItem="GOC-yj-VXn" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="87" id="Osi-pG-RwR"/>
                             <constraint firstAttribute="trailing" secondItem="GrZ-um-Wi1" secondAttribute="trailing" id="P8V-Xh-L9V"/>
                             <constraint firstItem="cDN-ER-2od" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="25" id="U65-Pl-oZm"/>
                             <constraint firstItem="h2l-vC-XkM" firstAttribute="top" secondItem="cDN-ER-2od" secondAttribute="bottom" constant="10" id="Ul0-QZ-7pY"/>
@@ -133,17 +132,20 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="360" height="250"/>
                     <connections>
+                        <outlet property="articleSubtitleLabel" destination="oWq-0k-HLi" id="xpZ-gr-l0h"/>
+                        <outlet property="articleTitleLabel" destination="GOC-yj-VXn" id="zdK-aK-FcJ"/>
+                        <outlet property="articleTitleLabelLeadingMargin" destination="Osi-pG-RwR" id="Bhb-cH-jzG"/>
                         <outlet property="imageView" destination="cDN-ER-2od" id="4ua-nU-AZ9"/>
-                        <outlet property="imageViewWidth" destination="dFz-yu-tiP" id="vAK-Fm-V2J"/>
-                        <outlet property="label" destination="GcN-lo-r42" id="lpW-cU-7IG"/>
                         <outlet property="readerCountLabel" destination="ks6-vS-QWo" id="l6G-ho-sbB"/>
                         <outlet property="sparklineView" destination="pi7-p1-x0L" id="2Jl-ji-ako"/>
+                        <outlet property="summaryLabel" destination="GcN-lo-r42" id="cBy-7L-VSi"/>
+                        <outlet property="summaryLabelLeadingMargin" destination="6Vq-gs-PHe" id="CcX-mU-bZP"/>
                         <outlet property="timeLabel" destination="dKK-rP-yXi" id="wnY-Rw-CJl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="33.600000000000001" y="95.802098950524751"/>
+            <point key="canvasLocation" x="33.600000000000001" y="95.352323838080963"/>
         </scene>
     </scenes>
 </document>
