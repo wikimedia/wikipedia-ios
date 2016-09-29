@@ -259,7 +259,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     NSURL *requestURL = navigationAction.request.URL;
 
     if ([[self class] isLicenseURL:requestURL]) {
-        VTAcknowledgementsViewController *vc = [VTAcknowledgementsViewController acknowledgementsViewController];
+        VTAcknowledgementsViewController *vc = [[VTAcknowledgementsViewController alloc] initWithFileNamed:@"Pods-Foundation-Wikipedia-acknowledgements"];
         vc.headerText = [MWLocalizedString(@"about-libraries-licenses-title", nil) stringByReplacingOccurrencesOfString:@"$1" withString:@"💖"];
 
         vc.acknowledgements = [vc.acknowledgements arrayByAddingObjectsFromArray:@[[[TharlonFontAcknowledgement alloc] init]]];

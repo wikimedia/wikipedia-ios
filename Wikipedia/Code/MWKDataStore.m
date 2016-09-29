@@ -28,7 +28,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 /**
  *  Connection to read article references on.
  *  This connection has cache settings optimized for reading article references in the UI.
- *  It is reccomended to use this connection to make sure these cache settings are enforced app wide
+ *  It is recommended to use this connection to make sure these cache settings are enforced app wide
  */
 @property (readwrite, strong, nonatomic) YapDatabaseConnection *articleReferenceReadConnection;
 @property (readwrite, strong, nonatomic) YapDatabaseConnection *writeConnection;
@@ -44,9 +44,77 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @property (readwrite, atomic, strong) id previousCleanup;
 
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSOperation *> *articleSaveOperations;
+@property (nonatomic, strong) NSOperationQueue *articleSaveQueue;
+
 @end
 
 @implementation MWKDataStore
+
+- (NSOperationQueue *)articleSaveQueue {
+    if(!_articleSaveQueue){
+        _articleSaveQueue = [NSOperationQueue new];
+        _articleSaveQueue.qualityOfService = NSQualityOfServiceBackground;
+        _articleSaveQueue.maxConcurrentOperationCount = 1;
+    }
+    return _articleSaveQueue;
+}
+
+- (NSMutableDictionary<NSString *, NSOperation *> *)articleSaveOperations {
+    if(!_articleSaveOperations){
+        _articleSaveOperations = [NSMutableDictionary new];
+    }
+    return _articleSaveOperations;
+}
+
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article {
+    [self asynchronouslyCacheArticle:article completion:nil];
+}
+
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article completion:(nullable dispatch_block_t)completion{
+    NSOperationQueue *queue = [self articleSaveQueue];
+    NSMutableDictionary *operations = [self articleSaveOperations];
+    @synchronized (queue) {
+        NSString *key = article.url.wmf_databaseKey;
+        if (!key) {
+            return;
+        }
+        
+        NSOperation *op = operations[key];
+        if (op) {
+            [op cancel];
+            [operations removeObjectForKey:key];
+        }
+        
+        op = [NSBlockOperation blockOperationWithBlock:^{
+            [article save];
+            @synchronized (queue) {
+                [operations removeObjectForKey:key];
+            }
+        }];
+        op.completionBlock = completion;
+        
+        if (!op) {
+            return;
+        }
+        
+        operations[key] = op;
+        
+        [queue addOperation:op];
+    }
+}
+
+
+- (void)cancelAsynchronousCacheForArticle:(MWKArticle *)article {
+    NSOperationQueue *queue = [self articleSaveQueue];
+    NSMutableDictionary *operations = [self articleSaveOperations];
+    @synchronized (queue) {
+        NSString *key = article.url.wmf_databaseKey;
+        NSOperation *op = operations[key];
+        [op cancel];
+        [operations removeObjectForKey:key];
+    }
+}
 
 #pragma mark - NSObject
 

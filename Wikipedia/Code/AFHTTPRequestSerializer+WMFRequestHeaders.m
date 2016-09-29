@@ -1,7 +1,8 @@
 #import "AFHTTPRequestSerializer+WMFRequestHeaders.h"
 #import "SessionSingleton.h"
 #import "ReadingActionFunnel.h"
-#import "WikipediaAppUtils.h"
+#import "WikipediaAppUtils.h" 
+#import <WMFModel/WMFModel-Swift.h>
 
 @implementation AFHTTPRequestSerializer (WMFRequestHeaders)
 
@@ -13,6 +14,8 @@
         ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
         [self setValue:funnel.appInstallID forHTTPHeaderField:@"X-WMF-UUID"];
     }
+    
+    [self setValue:[NSLocale wmf_acceptLanguageHeaderForPreferredLanguages]  forHTTPHeaderField:@"Accept-Language"];
 }
 
 @end

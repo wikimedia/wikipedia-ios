@@ -207,7 +207,7 @@
 "about-testers" = "测试者";
 "about-testers-details" = "问答已由$1测试";
 "about-translators" = "译者";
-"about-translators-details" = "该应用程序是由$1的志愿翻译人员翻译的";
+"about-translators-details" = "由$1的志愿者翻译";
 "about-libraries" = "使用的库";
 "about-libraries-license" = "授权协议";
 "about-libraries-licenses" = "许可协议";

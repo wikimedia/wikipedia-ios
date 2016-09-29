@@ -282,6 +282,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
 })();
 
 },{"./refs":5,"./transforms/collapseTables":8,"./utilities":13}],5:[function(require,module,exports){
+var elementLocation = require("./elementLocation");
 
 function isCitation( href ) {
     return href.indexOf("#cite_note") > -1;
@@ -369,10 +370,11 @@ function collectRefLink( sourceNode ) {
 }
 
 function sendNearbyReferences( sourceNode ) {
-    var refsIndex = 0;
+    var selectedIndex = 0;
     var refs = [];
     var linkId = [];
     var linkText = [];
+    var linkRects = [];
     var curNode = sourceNode;
 
     // handle clicked ref:
@@ -383,7 +385,7 @@ function sendNearbyReferences( sourceNode ) {
     // go left:
     curNode = sourceNode.parentElement;
     while ( hasCitationLink( goLeft( curNode ) ) ) {
-        refsIndex += 1;
+        selectedIndex += 1;
         curNode = goLeft( curNode );
         refs.unshift( collectRefText( goDown ( curNode ) ) );
         linkId.unshift( collectRefLink( curNode ) );
@@ -399,13 +401,26 @@ function sendNearbyReferences( sourceNode ) {
         linkText.push( curNode.textContent );
     }
 
+    for(var i = 0; i < linkId.length; i++){
+        var rect = elementLocation.getElementRect(document.getElementById(linkId[i]));
+        linkRects.push(rect);
+    }
+    
+    var referencesGroup = [];
+    for(var i = 0; i < linkId.length; i++){
+        referencesGroup.push({
+                             "id": linkId[i],
+                             "rect": linkRects[i],
+                             "text": linkText[i],
+                             "html": refs[i]
+        });
+    }
+    
     // Special handling for references
     window.webkit.messageHandlers.referenceClicked.postMessage({
-                                                     "refs": refs,
-                                                     "refsIndex": refsIndex,
-                                                     "linkId": linkId,
-                                                     "linkText": linkText
-                                                     });
+                                                               "selectedIndex": selectedIndex,
+                                                               "referencesGroup": referencesGroup
+                                                               });
 }
 
 exports.isEndnote = isEndnote;
@@ -413,7 +428,7 @@ exports.isReference = isReference;
 exports.isCitation = isCitation;
 exports.sendNearbyReferences = sendNearbyReferences;
 
-},{}],6:[function(require,module,exports){
+},{"./elementLocation":2}],6:[function(require,module,exports){
 function Transformer() {
 }
 

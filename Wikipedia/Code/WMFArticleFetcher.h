@@ -11,19 +11,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 extern NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey;
 
-/* Temporary base class to hold common response serialization logic.
- * This can be removed when response serialization is moved into the
- * AFNetworking Serializers. See WMFArticleSerializer for more info.
- */
-@interface WMFArticleBaseFetcher : NSObject
+
+@interface WMFArticleFetcher : NSObject
 
 - (BOOL)isFetchingArticleForURL:(NSURL *)articleURL;
 - (void)cancelFetchForArticleURL:(NSURL *)articleURL;
 - (void)cancelAllFetches;
-
-@end
-
-@interface WMFArticleFetcher : WMFArticleBaseFetcher
 
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 

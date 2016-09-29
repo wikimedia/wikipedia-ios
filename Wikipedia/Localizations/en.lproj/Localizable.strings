@@ -386,7 +386,7 @@
 "home-hide-suggestion-prompt" = "Hide this suggestion";
 "home-hide-suggestion-cancel" = "Cancel";
 "home-accessibility-label" = "Wikipedia, Explore";
-"home-button-accessibility-label" = "Home Button";
+"home-button-accessibility-label" = "Home";
 
 "potd-empty-error-description" = "Failed to retrieve picture of the day for $1";
 "potd-description-prefix" = "Picture of the day for $1";
@@ -471,3 +471,5 @@
 "top-read-reader-count-thousands" = "$1k";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-header-generic" = "Wikipedia";
+
+"reference-title" = "Reference $1";

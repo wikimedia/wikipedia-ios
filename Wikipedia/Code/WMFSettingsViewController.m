@@ -87,6 +87,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_settingsViewActivity]];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
+}
+
 - (void)configureBackButton {
     @weakify(self)
         UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX
