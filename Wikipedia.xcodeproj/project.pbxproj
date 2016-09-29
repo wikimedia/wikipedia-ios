@@ -71,6 +71,7 @@
 		19A17B36FFB48307FF04C07F /* SavedPageSpotlightManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */; };
 		535B1AFBBE34CAF0886C6DD9 /* Pods_Foundation_Wikipedia_WikipediaUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB1B9EA1D15047B919A2C88 /* Pods_Foundation_Wikipedia_WikipediaUnitTests.framework */; };
 		54C6FD426687294BEEC02A80 /* Pods_Foundation_WMFModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B23AE1F4E86498E2A0FC269 /* Pods_Foundation_WMFModel.framework */; };
+		67E20A706067A461E2E9F7A9 /* Pods_Foundation_InTheNewsNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA3A82D5FAD4B378D67DDB65 /* Pods_Foundation_InTheNewsNotification.framework */; };
 		6D15A0B1B710BCF22B3407D4 /* Pods_Foundation_TopReadWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07BF8E52EA1D0865B77E7D7 /* Pods_Foundation_TopReadWidget.framework */; };
 		7C52DC8EA0E04A9663D8260D /* Pods_Foundation_ContinueReadingWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 408BC2932A4F85D05183DA90 /* Pods_Foundation_ContinueReadingWidget.framework */; };
 		B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00050131C52D73800515F70 /* UIApplication+RTL.swift */; };
@@ -785,6 +786,7 @@
 		D8A76D781D6F2A4C00E5A798 /* UIImageView+WMFImageFetchingInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807751C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.h */; };
 		D8A76D831D6F2B2F00E5A798 /* WMFTaskGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8A76D841D6F2B2F00E5A798 /* WMFTaskGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A76D821D6F2B2E00E5A798 /* WMFTaskGroup.m */; };
+		D8A9E0451D9D5CAC002E2697 /* WMFUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8AC39241D6F247F007E3C14 /* WMFUI.framework */; };
 		D8AC391B1D6F22A6007E3C14 /* NSDateFormatter+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804901C0CE0B40065EBC0 /* NSDateFormatter+WMFExtensions.m */; };
 		D8AC391C1D6F22AA007E3C14 /* NSDateFormatter+WMFExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8048F1C0CE0B40065EBC0 /* NSDateFormatter+WMFExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AC391D1D6F2324007E3C14 /* UIScreen+WMFImageWidth.h in Headers */ = {isa = PBXBuildFile; fileRef = BCA15B151C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -986,6 +988,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		012DCF68B9E7929D33D5A129 /* Pods-Foundation-InTheNewsNotification.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.test.xcconfig"; sourceTree = "<group>"; };
 		02678E15A42DC0071031ED67 /* Pods-Foundation-Wikipedia-WikipediaUnitTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia-WikipediaUnitTests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia-WikipediaUnitTests/Pods-Foundation-Wikipedia-WikipediaUnitTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		02BE7EDE14437EAA9552821B /* Pods-Foundation-ContinueReadingWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.release.xcconfig"; sourceTree = "<group>"; };
 		040E5C4E184566F4007AFE6F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -1129,6 +1132,7 @@
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		1B9E63EACC9F11D64C58AC2D /* Pods-Foundation-WMFUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUI.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI.release.xcconfig"; sourceTree = "<group>"; };
 		206602671CC9C8518B340372 /* Pods-Foundation-WMFModel.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFModel.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFModel/Pods-Foundation-WMFModel.test.xcconfig"; sourceTree = "<group>"; };
+		2D5E2AE483FC967CF32C8909 /* Pods-Foundation-InTheNewsNotification.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.beta.xcconfig"; sourceTree = "<group>"; };
 		309A81D0C833DBB150D776A4 /* Pods-Foundation-WMFUI.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUI.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI.adhoc.xcconfig"; sourceTree = "<group>"; };
 		314D87CC9A494CB883C29613 /* Pods-Foundation-WMFModel.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFModel.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFModel/Pods-Foundation-WMFModel.adhoc.xcconfig"; sourceTree = "<group>"; };
 		32431117ED5E4A8F7A5CC48A /* Pods-Foundation-Wikipedia.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.adhoc.xcconfig"; sourceTree = "<group>"; };
@@ -1139,7 +1143,9 @@
 		408BC2932A4F85D05183DA90 /* Pods_Foundation_ContinueReadingWidget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_ContinueReadingWidget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46F8E51D3907AEFD9D250743 /* Pods-Foundation-TopReadWidget.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-TopReadWidget.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-TopReadWidget/Pods-Foundation-TopReadWidget.debug test.xcconfig"; sourceTree = "<group>"; };
 		4A08C17A1DA9EA24961A2874 /* Pods-Foundation-ContinueReadingWidget.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.debug test.xcconfig"; sourceTree = "<group>"; };
+		54151893418E8B73DED976AC /* Pods-Foundation-InTheNewsNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.release.xcconfig"; sourceTree = "<group>"; };
 		5497A3D1ED13E6D4B016B70A /* Pods-Foundation-ContinueReadingWidget.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-ContinueReadingWidget.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-ContinueReadingWidget/Pods-Foundation-ContinueReadingWidget.beta.xcconfig"; sourceTree = "<group>"; };
+		578B536BAC7AEC1351E68A80 /* Pods-Foundation-InTheNewsNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		58782A8F62026E9624E663AB /* Pods-Foundation-Wikipedia.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.beta.xcconfig"; sourceTree = "<group>"; };
 		5B23AE1F4E86498E2A0FC269 /* Pods_Foundation_WMFModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_WMFModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E0B410CAFEF5B9D799A60DD /* Pods-Foundation-Wikipedia.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.test.xcconfig"; sourceTree = "<group>"; };
@@ -1151,6 +1157,7 @@
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
 		7A9BEAC0DD04CBE5A964C192 /* Pods-Foundation-WMFUI.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUI.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI.debug test.xcconfig"; sourceTree = "<group>"; };
 		806762DA3ECF4B807307B0A1 /* Pods-Foundation-Wikipedia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.debug.xcconfig"; sourceTree = "<group>"; };
+		811D2D92A31EEB8052FB1DF2 /* Pods-Foundation-InTheNewsNotification.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.debug test.xcconfig"; sourceTree = "<group>"; };
 		840E588EB82825440685B50D /* Pods_Foundation_WMFUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_WMFUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC62C1575990EDD5D358882 /* Pods-Foundation-WMFUI.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUI.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI.beta.xcconfig"; sourceTree = "<group>"; };
 		A2C7882B3F58ABBF4AA16465 /* Pods-Foundation-Wikipedia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia/Pods-Foundation-Wikipedia.release.xcconfig"; sourceTree = "<group>"; };
@@ -1284,6 +1291,7 @@
 		B0B4CF081CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionHeader.h; sourceTree = "<group>"; };
 		B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionHeader.m; sourceTree = "<group>"; };
 		B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionHeader.xib; sourceTree = "<group>"; };
+		B0BE5193F2308ED270B525B4 /* Pods-Foundation-InTheNewsNotification.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-InTheNewsNotification.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification.adhoc.xcconfig"; sourceTree = "<group>"; };
 		B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSettingsCellVisualTests.m; sourceTree = "<group>"; };
 		B0CA8D3E1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKScriptMessage+WMFScriptMessage.h"; path = "Wikipedia/Code/WKScriptMessage+WMFScriptMessage.h"; sourceTree = SOURCE_ROOT; };
 		B0CA8D3F1D30BDE8007BB3F7 /* WKScriptMessage+WMFScriptMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WKScriptMessage+WMFScriptMessage.m"; path = "Wikipedia/Code/WKScriptMessage+WMFScriptMessage.m"; sourceTree = SOURCE_ROOT; };
@@ -2006,6 +2014,7 @@
 		B66B13709EB8A393201CA641 /* Pods-Foundation-WMFUtilities.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFUtilities.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFUtilities/Pods-Foundation-WMFUtilities.adhoc.xcconfig"; sourceTree = "<group>"; };
 		B7B297F128B843A7DEACF4DD /* Pods-Foundation-WMFModel.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-WMFModel.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-WMFModel/Pods-Foundation-WMFModel.beta.xcconfig"; sourceTree = "<group>"; };
 		B9B0B3C84DC8A2BC9AF2E41E /* Pods-Foundation-Wikipedia-WikipediaUnitTests.debug test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foundation-Wikipedia-WikipediaUnitTests.debug test.xcconfig"; path = "Pods/Target Support Files/Pods-Foundation-Wikipedia-WikipediaUnitTests/Pods-Foundation-Wikipedia-WikipediaUnitTests.debug test.xcconfig"; sourceTree = "<group>"; };
+		BA3A82D5FAD4B378D67DDB65 /* Pods_Foundation_InTheNewsNotification.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foundation_InTheNewsNotification.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC0069D01C7D4A6600F2C377 /* WMFExploreSectionSchemaTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFExploreSectionSchemaTests.m; sourceTree = "<group>"; };
 		BC0069D21C7D4BBE00F2C377 /* WMFExploreSectionSchema_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreSectionSchema_Testing.h; path = Wikipedia/Code/WMFExploreSectionSchema_Testing.h; sourceTree = SOURCE_ROOT; };
 		BC0069D31C7D556C00F2C377 /* WMFMockLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMockLocationManager.h; path = WikipediaUnitTests/Code/WMFMockLocationManager.h; sourceTree = SOURCE_ROOT; };
@@ -2356,6 +2365,7 @@
 		D8A6E8731D80A4A0002D6D4D /* TopReadWidgetImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TopReadWidgetImages.xcassets; sourceTree = "<group>"; };
 		D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFTaskGroup.h; path = Wikipedia/Code/WMFTaskGroup.h; sourceTree = SOURCE_ROOT; };
 		D8A76D821D6F2B2E00E5A798 /* WMFTaskGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFTaskGroup.m; path = Wikipedia/Code/WMFTaskGroup.m; sourceTree = SOURCE_ROOT; };
+		D8A9E0471D9D5F41002E2697 /* InTheNewsNotification.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InTheNewsNotification.entitlements; sourceTree = "<group>"; };
 		D8AC39241D6F247F007E3C14 /* WMFUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WMFUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8AC39261D6F247F007E3C14 /* WMFUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUI.h; sourceTree = "<group>"; };
 		D8AC39271D6F2480007E3C14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2487,8 +2497,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8A9E0451D9D5CAC002E2697 /* WMFUI.framework in Frameworks */,
 				D895D0871D9C1EB8005418C1 /* UserNotificationsUI.framework in Frameworks */,
 				D895D0851D9C1EB8005418C1 /* UserNotifications.framework in Frameworks */,
+				67E20A706067A461E2E9F7A9 /* Pods_Foundation_InTheNewsNotification.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3616,6 +3628,12 @@
 				3A3058E86C3C5836539E4D8F /* Pods-Foundation-Wikipedia-WikipediaUnitTests.release.xcconfig */,
 				F9C06A3E0AB7282AC49803D1 /* Pods-Foundation-Wikipedia-WikipediaUnitTests.test.xcconfig */,
 				EC760B581D9F8E3567504FB3 /* Pods-Foundation-Wikipedia-WikipediaUnitTests.beta.xcconfig */,
+				578B536BAC7AEC1351E68A80 /* Pods-Foundation-InTheNewsNotification.debug.xcconfig */,
+				811D2D92A31EEB8052FB1DF2 /* Pods-Foundation-InTheNewsNotification.debug test.xcconfig */,
+				B0BE5193F2308ED270B525B4 /* Pods-Foundation-InTheNewsNotification.adhoc.xcconfig */,
+				54151893418E8B73DED976AC /* Pods-Foundation-InTheNewsNotification.release.xcconfig */,
+				012DCF68B9E7929D33D5A129 /* Pods-Foundation-InTheNewsNotification.test.xcconfig */,
+				2D5E2AE483FC967CF32C8909 /* Pods-Foundation-InTheNewsNotification.beta.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -5383,6 +5401,7 @@
 				FEB1B9EA1D15047B919A2C88 /* Pods_Foundation_Wikipedia_WikipediaUnitTests.framework */,
 				D895D0841D9C1EB8005418C1 /* UserNotifications.framework */,
 				D895D0861D9C1EB8005418C1 /* UserNotificationsUI.framework */,
+				BA3A82D5FAD4B378D67DDB65 /* Pods_Foundation_InTheNewsNotification.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -5738,6 +5757,7 @@
 		D895D0881D9C1EB8005418C1 /* InTheNewsNotification */ = {
 			isa = PBXGroup;
 			children = (
+				D8A9E0471D9D5F41002E2697 /* InTheNewsNotification.entitlements */,
 				D895D0891D9C1EB8005418C1 /* WMFInTheNewsNotificationViewController.swift */,
 				D895D08B1D9C1EB8005418C1 /* MainInterface.storyboard */,
 				D895D08E1D9C1EB8005418C1 /* Info.plist */,
@@ -6052,6 +6072,7 @@
 				D8D5DB4B1D7A260C00526A69 /* ShellScript */,
 				D8D5DB4C1D7A263800526A69 /* ShellScript */,
 				D8D5DB4D1D7A264400526A69 /* ShellScript */,
+				D8A9E0461D9D5E90002E2697 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -6132,9 +6153,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D895D0981D9C1EB8005418C1 /* Build configuration list for PBXNativeTarget "InTheNewsNotification" */;
 			buildPhases = (
+				6057D66C695ABA00CDFD3D2D /* [CP] Check Pods Manifest.lock */,
 				D895D07F1D9C1EB8005418C1 /* Sources */,
 				D895D0801D9C1EB8005418C1 /* Frameworks */,
 				D895D0811D9C1EB8005418C1 /* Resources */,
+				AA48AE459589CE23348C1C63 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -6228,6 +6251,11 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = AKK7J2GV64;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					D8AC39231D6F247F007E3C14 = {
 						CreatedOnToolsVersion = 8.0;
@@ -6590,6 +6618,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-WMFUI/Pods-Foundation-WMFUI-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		6057D66C695ABA00CDFD3D2D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		60DCB51E880343418F79B397 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -6695,6 +6738,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-Wikipedia-WikipediaUnitTests/Pods-Foundation-Wikipedia-WikipediaUnitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		AA48AE459589CE23348C1C63 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-InTheNewsNotification/Pods-Foundation-InTheNewsNotification-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		AD74094442CF3BBFA5386F88 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -6739,6 +6797,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Foundation-TopReadWidget/Pods-Foundation-TopReadWidget-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		D8A9E0461D9D5E90002E2697 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "EMBEDDED_EXTENSION_PLUGIN_PATH=\"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/InTheNewsNotification.appex/Frameworks\"\necho \"RUNNING $EMBEDDED_EXTENSION_PLUGIN_PATH\"\nif [[ -d \"$EMBEDDED_EXTENSION_PLUGIN_PATH\" ]]; then\nrm -fr \"$EMBEDDED_EXTENSION_PLUGIN_PATH\"\necho \"REMOVED $EMBEDDED_EXTENSION_PLUGIN_PATH\"\nfi";
 		};
 		D8D5DB491D7A25CF00526A69 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9454,11 +9525,13 @@
 		};
 		D895D0921D9C1EB8005418C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 578B536BAC7AEC1351E68A80 /* Pods-Foundation-InTheNewsNotification.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -9482,11 +9555,13 @@
 		};
 		D895D0931D9C1EB8005418C1 /* Debug Test */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 811D2D92A31EEB8052FB1DF2 /* Pods-Foundation-InTheNewsNotification.debug test.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -9510,11 +9585,13 @@
 		};
 		D895D0941D9C1EB8005418C1 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0BE5193F2308ED270B525B4 /* Pods-Foundation-InTheNewsNotification.adhoc.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -9533,11 +9610,13 @@
 		};
 		D895D0951D9C1EB8005418C1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54151893418E8B73DED976AC /* Pods-Foundation-InTheNewsNotification.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -9556,11 +9635,13 @@
 		};
 		D895D0961D9C1EB8005418C1 /* Test */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 012DCF68B9E7929D33D5A129 /* Pods-Foundation-InTheNewsNotification.test.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -9579,11 +9660,13 @@
 		};
 		D895D0971D9C1EB8005418C1 /* Beta */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2D5E2AE483FC967CF32C8909 /* Pods-Foundation-InTheNewsNotification.beta.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = InTheNewsNotification/InTheNewsNotification.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
